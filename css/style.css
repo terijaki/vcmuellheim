@@ -641,21 +641,21 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 /* Product Advanced Featuress Section
 --------------------------------*/
-#advanced-features {
+#additional-content {
   overflow: hidden;
 }
 
-#advanced-features .features-row {
+#additional-content .features-row {
   padding: 60px 0 30px 0;
 }
 
-#advanced-features h2 {
+#additional-content h2 {
   font-size: 26px;
   font-weight: 700;
   color: #000;
 }
 
-#advanced-features h3 {
+#additional-content h3 {
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
@@ -663,13 +663,13 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #999;
 }
 
-#advanced-features p {
+#additional-content p {
   line-height: 24px;
   color: #777;
   margin-bottom: 30px;
 }
 
-#advanced-features i {
+#additional-content i {
   color: #666666;
   font-size: 64px;
   transition: 0.5s;
@@ -678,7 +678,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   line-height: 1;
 }
 
-#advanced-features i:before {
+#additional-content i:before {
   background: #366273;
   background: linear-gradient(45deg, #366273 0%, #363B40 100%);
   background-clip: border-box;
@@ -686,14 +686,14 @@ body.mobile-nav-active #mobile-nav-toggle {
   -webkit-text-fill-color: transparent;
 }
 
-#advanced-features .advanced-feature-img-right {
+#additional-content .advanced-feature-img-right {
   max-width: 100%;
   max-height:50vh;
   float: right;
   padding: 0 0 30px 30px;
 }
 
-#advanced-features .advanced-feature-img-left {
+#additional-content .advanced-feature-img-left {
   max-width: 100%;
   max-height:50vh;
   float: left;
@@ -701,13 +701,13 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 @media (max-width: 768px) {
-  #advanced-features .advanced-feature-img-right, #advanced-features .advanced-feature-img-left {
+  #additional-content .advanced-feature-img-right, #additional-content .advanced-feature-img-left {
     max-width: 50%;
   }
 }
 
 @media (max-width: 767px) {
-  #advanced-features .advanced-feature-img-right, #advanced-features .advanced-feature-img-left {
+  #additional-content .advanced-feature-img-right, #additional-content .advanced-feature-img-left {
     max-width: 100%;
     float: none;
     padding: 0 0 30px 0;
