@@ -108,22 +108,23 @@ jQuery(document).ready(function($) {
     }
   });
 
-  // Gallery - uses the magnific popup jQuery plugin
-  $('.gallery-popup').magnificPopup({
-    type: 'image',
-    removalDelay: 300,
-    mainClass: 'mfp-fade',
-    gallery: {
-      enabled: true
-    },
-    zoom: {
-      enabled: true,
-      duration: 300,
-      easing: 'ease-in-out',
-      opener: function(openerElement) {
-        return openerElement.is('img') ? openerElement : openerElement.find('img');
-      }
-    }
+  // Iframes - uses the magnific popup jQuery plugin
+  $(document).ready(function() {
+  	$('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
+  		disableOn: 700,
+  		type: 'iframe',
+  		mainClass: 'mfp-fade',
+  		removalDelay: 160,
+  		preloader: false,
+
+  		fixedContentPos: false
+  	});
+  });
+
+  // Popup Links - uses the magnific popup jQuery plugin
+  $('.open-popup-link').magnificPopup({
+    type:'inline',
+    midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
   });
 
   // custom code

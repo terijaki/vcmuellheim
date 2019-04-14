@@ -349,3 +349,15 @@ img.mfp-img {
   .mfp-container {
     padding-left: 6px;
     padding-right: 6px; } }
+
+
+    /* Styles for dialog window */
+    #h1tabelle-popup, #h2tabelle-popup {
+    	background: white;
+    	padding: 20px 30px;
+    	text-align: center;
+    	max-width: 560px;
+    	margin: 40px auto;
+    	position: relative;
+      font-size: 14px;
+    }

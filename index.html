@@ -23,6 +23,9 @@
   <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
   <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
 
+  <!-- Ergebnisdienst CSS Files -->
+  <link href="lib/ergebnisdienst/vly.css" rel="stylesheet">
+
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
 
@@ -103,15 +106,15 @@
                 Dienstags & Donnerstags 20:00-22:00 Uhr<br>
                 <a href="https://goo.gl/maps/g3XhvCS9gpR2" target="_blank">Sporthalle II</a><br><br>
                 <b>Trainer</b>: Thomas Seywald</p>
-              <!-- Ergebnisdienst -->
-
-                <div id="herren1tabelle" class="mfp-hide zoom-anim-dialog">
-                  <h1>Landesliga 18/19</h1>
-                  <div class="vly" data-league-id="sbvv_m_2_2" data-games data-team='VC Müllheim'></div>
-                  <script src="//volleyball-ergebnisdienst.de/widget/vly.min.js"></script>
+              <!-- Ergebnisdienst & Kalendar -->
+                <div id="h1tabelle-popup" class="mfp-hide">
+                  <div class="vly" data-league-id="sbvv_m_2_2" data-no-games data-team='VC Müllheim'></div>
                 </div>
-                <p class="description"><a href="#herren1tabelle" class="popup-with-zoom-anim">Tabelle</a></p>
-              <!-- Ergebnisdienst -->
+                <p class="description">
+                  <br><a href="#h1tabelle-popup" class="open-popup-link">Tabelle</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                  <a href="https://volleyball-ergebnisdienst.de/api/schedules/sbvv_m_2_2/vc_m_llheim/calendar.ics">Kalender</a>
+                </p>
+              <!-- Ergebnisdienst & Kalendar -->
             </div>
           </div>
 
@@ -123,6 +126,15 @@
                 Dienstags 20:00-22:00 Uhr<br>
                 <a href="https://goo.gl/maps/eAeBCM12GVk" target="_blank">Rosenburgschule</a><br><br>
                 <b>Trainer</b>: </p>
+              <!-- Ergebnisdienst & Kalendar -->
+                <div id="h2tabelle-popup" class="mfp-hide">
+                  <div class="vly" data-league-id="sbvv_m_3_2" data-no-games></div>
+                </div>
+                <p class="description">
+                  <br><a href="#h2tabelle-popup" class="open-popup-link">Tabelle</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                  <a href="https://volleyball-ergebnisdienst.de/api/schedules/sbvv_m_3_2/vc_m_llheim_2/calendar.ics">Kalender</a>
+                </p>
+              <!-- Ergebnisdienst & Kalendar -->
             </div>
           </div>
 
@@ -357,6 +369,10 @@
   </footer><!-- #footer -->
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+  <!-- Ergebnisdienst -->
+  <script src="http://volleyball-ergebnisdienst.de/widget/vly.min.js"></script>
+  <!-- Ergebnisdienst -->
 
   <!-- JavaScript Libraries -->
   <script src="lib/jquery/jquery.min.js"></script>
