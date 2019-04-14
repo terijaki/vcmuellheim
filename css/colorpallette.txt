@@ -1,0 +1,20 @@
+/* Color Theme Swatches in Hex */
+.Portraits-07-1-hex { color: #363B40; }
+.Portraits-07-2-hex { color: #366273; }
+.Portraits-07-3-hex { color: #BFA084; }
+.Portraits-07-4-hex { color: #D9D4D2; }
+.Portraits-07-5-hex { color: #F25E5E; }
+
+/* Color Theme Swatches in RGBA */
+.Portraits-07-1-rgba { color: rgba(54, 59, 63, 1); }
+.Portraits-07-2-rgba { color: rgba(53, 97, 114, 1); }
+.Portraits-07-3-rgba { color: rgba(191, 159, 131, 1); }
+.Portraits-07-4-rgba { color: rgba(216, 211, 210, 1); }
+.Portraits-07-5-rgba { color: rgba(242, 94, 94, 1); }
+
+/* Color Theme Swatches in HSLA */
+.Portraits-07-1-hsla { color: hsla(208, 8, 23, 1); }
+.Portraits-07-2-hsla { color: hsla(196, 36, 33, 1); }
+.Portraits-07-3-hsla { color: hsla(28, 31, 63, 1); }
+.Portraits-07-4-hsla { color: hsla(16, 7, 83, 1); }
+.Portraits-07-5-hsla { color: hsla(0, 85, 66, 1); }
