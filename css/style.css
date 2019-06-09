@@ -1145,7 +1145,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #kontakt .info p {
-  padding: 0 0 10px 42px;
+  padding: 0 0 0 42px;
   line-height: 28px;
   font-size: 14px;
 }
