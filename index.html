@@ -306,35 +306,12 @@
             </div>
           </div>
           <!-- Facebook Embedding -->
-          <div class="col-lg-5 col-md-8"><h3>Facebook</h3>
-                <script>
-                  window.fbAsyncInit = function() {
-                    FB.init({
-                      appId      : '95100348886',
-                      xfbml      : true,
-                      version    : 'v2.6'
-                    });
-                  };
-
-                  (function(d, s, id){
-                    var js, fjs = d.getElementsByTagName(s)[0];
-                    if (d.getElementById(id)) {return;}
-                    js = d.createElement(s); js.id = id;
-                    js.src = "//connect.facebook.net/de_DE/sdk.js";
-                    fjs.parentNode.insertBefore(js, fjs);
-                  }(document, 'script', 'facebook-jssdk'));
-                </script>
-
-                <div class="fb-page"
-                     data-href="https://www.facebook.com/VCMuellheim/"
-                     data-tabs="messages"
-                     data-width="400"
-                     data-height="300"
-                     data-small-header="true">
-                  <div class="fb-xfbml-parse-ignore">
-                    <blockquote></blockquote>
-                  </div>
-                </div>
+           <div id="fb-root"></div>
+             <script async defer crossorigin="anonymous" src="https://connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v3.3"></script> 
+           <div class="fb-page" data-href="https://www.facebook.com/pg/VCMuellheim/" data-tabs="messages" data-width="" data-height="" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true">
+             <blockquote cite="https://www.facebook.com/pg/VCMuellheim/" class="fb-xfbml-parse-ignore">
+               <a href="https://www.facebook.com/pg/VCMuellheim/">VC Müllheim</a></blockquote>
+           </div>
           </div><!-- #facebook -->
 
         </div>
