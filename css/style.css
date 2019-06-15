@@ -843,7 +843,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-bottom: 0;
   line-height: 24px;
 }
-#news .post-url {
+#news p.post-url {
   text-align: right;
 }
 
