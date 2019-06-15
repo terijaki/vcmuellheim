@@ -1,25 +1,27 @@
 ---
 layout: default
 ---
+
 <section id="news" class="section-bg">
-  <div class="container">
-    <div class="section-header">
-      <h3 class="section-title">News</h3>
-      <span class="section-divider"></span>
-      <p class="section-description"></p>
+    <div class="container">
+        <div class="section-header">
+            <h3 class="section-title">News</h3>
+            <span class="section-divider"></span>
+            <p class="section-description"></p>
+        </div>
+        <div class="row newsposts">
+
+            {% for post in site.posts %}
+            <div class="col-lg-6">
+                <div class="box wow fadeInLeft">
+                    <div class="icon"><i class="ion-ios-people-outline"></i></div>
+                    <h4 class="title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
+                    <p class="description">{{ post.excerpt }}</p>
+                    <p class="url"><a href="{{ site.baseurl }}{{ post.url }}" class="read-more">weiterlesen</a></p>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
     </div>
-    <div class="row newsposts">
-
-{% for post in site.posts %}
-<div class="col-lg-6">
-  <div class="box wow fadeInLeft">
-    <div class="icon"><i class="ion-ios-people-outline"></i></div>
-    <h4 class="title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
-    <p class="description">{{ post.excerpt }}
-    <br><br><a href="{{ site.baseurl }}{{ post.url }}" class="read-more">weiterlesen</a></p>
-  </div>
-</div>
-{% endfor %}
-
-</div></div>
 </section>
