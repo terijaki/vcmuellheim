@@ -775,18 +775,18 @@ body.mobile-nav-active #mobile-nav-toggle {
   transition: 0.4s;
 }
 
-#mannschaften .icon, #news .icon {
+#mannschaften .icon {
   float: left;
 }
 
-#mannschaften .icon i, #news icon i {
+#mannschaften .icon i {
   color: #666666;
   font-size: 80px;
   transition: 0.5s;
   line-height: 0;
 }
 
-#mannschaften .icon i:before, #news .icon i:before {
+#mannschaften .icon i:before {
   background: #366273;
   background: linear-gradient(45deg, #366273 0%, #363B40 100%);
   background-clip: border-box;
@@ -794,18 +794,18 @@ body.mobile-nav-active #mobile-nav-toggle {
   -webkit-text-fill-color: transparent;
 }
 
-#mannschaften h4, #news h4 {
+#mannschaften h4 {
   margin-left: 100px;
   font-weight: 700;
   margin-bottom: 15px;
   font-size: 18px;
 }
 
-#mannschaften h4 a, #news h4 a {
+#mannschaften h4 a {
   color: #111;
 }
 
-#mannschaften p, #news p {
+#mannschaften p {
   font-size: 14px;
   margin-left: 100px;
   margin-bottom: 0;
@@ -813,19 +813,50 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 @media (max-width: 767px) {
-  #mannschaften .box, #news .box {
+  #mannschaften .box {
     margin-bottom: 20px;
   }
-  #mannschaften .icon, #news .icon {
+  #mannschaften .icon {
     float: none;
     text-align: center;
     padding-bottom: 15px;
   }
-  #mannschaften h4, #mannschaften p, #news h4, #news p {
+  #mannschaften h4, #mannschaften p {
     margin-left: 0;
     text-align: center;
   }
 }
+
+#news h4 {
+  margin-left: 0;
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+#news h4 a {
+  color: #111;
+}
+#news p {
+  font-size: 14px!important;
+  margin-left: 0;
+  margin-bottom: 0;
+  line-height: 24px;
+}
+#news p.url {
+  text-align: right;
+}
+
+@media (max-width: 767px) {
+  #news .box {
+    margin-bottom: 20px;
+  }
+  #news h4, #news p {
+    margin-left: 0;
+    text-align: center;
+  }
+}
+
 
 /* sponsors Section
 --------------------------------*/
