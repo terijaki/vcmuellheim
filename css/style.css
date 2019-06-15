@@ -837,23 +837,19 @@ body.mobile-nav-active #mobile-nav-toggle {
 #news h4 a {
   color: #111;
 }
-#news p {
+#news p, #news .post-excerpt {
   font-size: 14px!important;
   margin-left: 0;
   margin-bottom: 0;
   line-height: 24px;
 }
-#news p.url {
+#news .post-url {
   text-align: right;
 }
 
 @media (max-width: 767px) {
   #news .box {
     margin-bottom: 20px;
-  }
-  #news h4, #news p {
-    margin-left: 0;
-    text-align: center;
   }
 }
 
