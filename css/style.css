@@ -1245,13 +1245,21 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 #footer .footer-links a {
   color: #666;
-  padding-left: 15px;
+  margin-right: 15px;
 }
 
-#footer .footer-links a:first-child {
-  padding-left: 0;
+#footer .footer-links a:last-child {
+  margin-right: 0;
 }
-
+#footer .footer-links a:first-child:before {
+    content: '🗎 PDF: ';
+  }
 #footer .footer-links a:hover {
   color: #366273;
 }
+@media (max-width: 768px) {
+  #footer .footer-links a:first-child:before {
+    content: '';
+  }
+}
+
