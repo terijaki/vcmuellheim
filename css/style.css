@@ -762,12 +762,12 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 /* More Features Section
 --------------------------------*/
-#mannschaften {
+#mannschaften, #news {
   padding: 60px 0 60px 0;
   overflow: hidden;
 }
 
-#mannschaften .box {
+#mannschaften .box, #news .box {
   padding: 40px;
   margin-bottom: 30px;
   box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
@@ -775,18 +775,18 @@ body.mobile-nav-active #mobile-nav-toggle {
   transition: 0.4s;
 }
 
-#mannschaften .icon {
+#mannschaften .icon, #news .icon {
   float: left;
 }
 
-#mannschaften .icon i {
+#mannschaften .icon i, #news icon i {
   color: #666666;
   font-size: 80px;
   transition: 0.5s;
   line-height: 0;
 }
 
-#mannschaften .icon i:before {
+#mannschaften .icon i:before, #news .icon i:before {
   background: #366273;
   background: linear-gradient(45deg, #366273 0%, #363B40 100%);
   background-clip: border-box;
@@ -794,18 +794,18 @@ body.mobile-nav-active #mobile-nav-toggle {
   -webkit-text-fill-color: transparent;
 }
 
-#mannschaften h4 {
+#mannschaften h4, #news h4 {
   margin-left: 100px;
   font-weight: 700;
   margin-bottom: 15px;
   font-size: 18px;
 }
 
-#mannschaften h4 a {
+#mannschaften h4 a, #news h4 a {
   color: #111;
 }
 
-#mannschaften p {
+#mannschaften p, #news p {
   font-size: 14px;
   margin-left: 100px;
   margin-bottom: 0;
@@ -813,15 +813,15 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 @media (max-width: 767px) {
-  #mannschaften .box {
+  #mannschaften .box, #news .box {
     margin-bottom: 20px;
   }
-  #mannschaften .icon {
+  #mannschaften .icon, #news .icon {
     float: none;
     text-align: center;
     padding-bottom: 15px;
   }
-  #mannschaften h4, #mannschaften p {
+  #mannschaften h4, #mannschaften p, #news h4, #news p {
     margin-left: 0;
     text-align: center;
   }
