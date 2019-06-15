@@ -1,53 +1,391 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>{% if page.title %}{{ page.title }}{% endif %}{{ site.name }}</title>
+<html lang="de_DE">
+<head>
+  <meta charset="utf-8">
+  <title>VC Müllheim - Volleyball</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="volleyball, training, freizeit, trainer, mannschaft, volleyballclub, muellheim, müllheim" name="keywords">
+  <meta content="Dies ist die offizielle Webseite des VC Müllheim Volleyball Verein!" name="description">
 
-    {% include meta.html %}
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
-    <!--[if lt IE 9]>
-      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
-    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
-  </head>
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <body>
-    <div class="wrapper-masthead">
+  <!-- Libraries CSS Files -->
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+  <!-- Ergebnisdienst CSS Files -->
+  <link href="lib/ergebnisdienst/vly.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!--==========================
+    Header
+  ============================-->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <h1><a href="#intro" class="scrollto">🏐 VC Müllheim</a></h1>
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li><a href="#mannschaften">Mannschaften</a></li>
+          <li><a href="#verein">Verein</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+  <!--==========================
+    Intro Section
+  ============================-->
+  <section id="intro">
+
+    <div class="intro-text">
+      <h2>Wilkommen</h2>
+      <p>auf der Seite des Volleyballclub Müllheim e.V.</p>
+      <a href="#mannschaften" class="btn-get-started scrollto">Auf geht's!</a>
+    </div>
+
+    <div class="product-screens">
+
+      <div class="product-screen-1 wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.6s">
+        <img src="img/product-screen-1.jpg" alt="">
+      </div>
+
+      <div class="product-screen-2 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.6s">
+        <img src="img/product-screen-2.jpg" alt="">
+      </div>
+
+      <div class="product-screen-3 wow fadeInUp" data-wow-duration="0.6s">
+        <img src="img/product-screen-3.jpg" alt="">
+      </div>
+
+    </div>
+
+  </section><!-- #intro -->
+
+  <main id="main">
+
+    <!--==========================
+      Mannschaften
+    ============================-->
+    <section id="mannschaften" class="section-bg">
       <div class="container">
-        <header class="masthead clearfix">
-          <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" /></a>
 
-          <div class="site-info">
-            <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
-            <p class="site-description">{{ site.description }}</p>
+        <div class="section-header">
+          <h3 class="section-title">Mannschaften</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">Der VC Müllheim besteht zur Zeit aus zwei aktiven Herrenmannschaften und zwei Freizeitgruppen.</p>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-6">
+            <div class="box wow fadeInLeft">
+              <div class="icon"><i class="ion-ios-people-outline"></i></div>
+              <h4 class="title"><a href="#kontakt">1. Herren - Verbandsliga</a></h4>
+              <p class="description"><b>Trainingszeiten:</b><br>
+                Dienstags & Donnerstags 20:00-22:00 Uhr<br>
+                <a href="https://goo.gl/maps/g3XhvCS9gpR2" target="_blank">Sporthalle II</a><br><br>
+                <b>Trainer</b>: Thomas Seywald</p>
+              <!-- Ergebnisdienst & Kalendar -->
+                <div id="h1tabelle-popup" class="mfp-hide">
+                  <div class="vly" data-league-id="sbvv_m_2_2" data-no-games data-team='VC Müllheim'></div>
+                </div>
+                <p class="description">
+                  <br><b>Saison 18/19</b>: <a href="#h1tabelle-popup" class="open-popup-link">Tabelle</a>&nbsp;|&nbsp;
+                  <a href="https://volleyball-ergebnisdienst.de/api/schedules/sbvv_m_2_2/vc_m_llheim/calendar.ics">Kalender</a>
+                </p>
+              <!-- Ergebnisdienst & Kalendar -->
+            </div>
           </div>
 
-          <nav>
-            <a href="{{ site.baseurl }}/">Hauptseite</a>
-            <a href="{{ site.baseurl }}/ueberuns">Über uns</a>
-            <a href="{{ site.baseurl }}/chronik">Chronik</a>
-            <a href="{{ site.baseurl }}/presse">Presse</a>
-            <a href="{{ site.baseurl }}/kontakt">Kontakt</a>
-            <a href="{{ site.baseurl }}/spenden">Spenden</a>
-          </nav>
-        </header>
+          <div class="col-lg-6">
+            <div class="box wow fadeInRight">
+              <div class="icon"><i class="ion-ios-people-outline"></i></div>
+              <h4 class="title"><a href="#kontakt">2. Herren - Bezirksliga</a></h4>
+              <p class="description"><b>Trainingszeiten:</b><br>
+                Dienstags 20:00-22:00 Uhr<br>
+                <a href="https://goo.gl/maps/eAeBCM12GVk" target="_blank">Rosenburgschule</a><br><br>
+                <b>Trainer</b>: </p>
+              <!-- Ergebnisdienst & Kalendar -->
+                <div id="h2tabelle-popup" class="mfp-hide">
+                  <div class="vly" data-league-id="sbvv_m_3_2" data-no-games data-team='VC Müllheim'></div>
+                </div>
+                <p class="description">
+                  <br><b>Saison 18/19</b>: <a href="#h2tabelle-popup" class="open-popup-link">Tabelle</a>&nbsp;|&nbsp;
+                  <a href="https://volleyball-ergebnisdienst.de/api/schedules/sbvv_m_3_2/vc_m_llheim_2/calendar.ics">Kalender</a>
+                </p>
+              <!-- Ergebnisdienst & Kalendar -->
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="box wow fadeInLeft">
+              <div class="icon"><i class="ion-ios-people-outline"></i></div>
+              <h4 class="title"><a href="#kontakt">Freizeit</a></h4>
+              <p class="description"><b>Trainingszeiten:</b><br>
+                Montag & Donnerstags 20:00-22:00 Uhr<br>
+                <a href="https://goo.gl/maps/g3XhvCS9gpR2" target="_blank">Sporthalle II</a><br><br>
+                <!-- <b>Trainer</b>: --></p>
+            </div>
+          </div>
+
+
+        </div>
       </div>
-    </div>
+    </section><!-- #mannschaften -->
 
-    <div id="main" role="main" class="container">
-      {{ content }}
-    </div>
-
-    <div class="wrapper-footer">
+    <!--==========================
+      Call To Action Section
+    ============================-->
+    <section id="call-to-action">
       <div class="container">
-        <footer class="footer">
-          {% include svg-icons.html %}
-        </footer>
+        <div class="row">
+          <div class="col-lg-9 text-center text-lg-left">
+            <h3 class="cta-title">Klingt gut?</h3>
+            <p class="cta-text">
+              Sagen dir unsere Trainingszeiten zu? Dann komm doch einfach mal vorbei! Wir freuen uns auf dich!
+            </p>
+          </div>
+          <div class="col-lg-3 cta-btn-container text-center">
+            <a class="cta-btn align-middle scrollto" href="#kontakt">Jetzt loslegen!</a>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- #call-to-action -->
+
+    <!--==========================
+      Verein
+    ============================-->
+    <section id="verein" class="">
+      <div class="container-fluid">
+        <div class="section-header">
+          <h3 class="section-title">Verein</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">
+            Der VC Müllheim besteht zur Zeit aus zwei aktiven Herrenmannschaften und zwei Freizeitgruppen.
+        </p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 verein-img wow fadeInLeft">
+            <img src="img/verein-img.jpg" alt="">
+          </div>
+
+          <div class="col-lg-6 content wow fadeInRight">
+            <h2>Der Vorstand</h2>
+            <ul>
+              <li><i class="ion-person"></i> <b>1. Vorsitzender:</b> Lothar Voigt</li>
+              <li><i class="ion-person"></i> <b>2. Vorsitzender:</b> Wolfgang Lacher</li>
+              <li><i class="ion-person"></i> <b>Kassier:</b> Peter Müssig</li>
+              <li><i class="ion-person"></i> <b>Mitglieder Verwaltung:</b> Renate Kleinbub</li>
+              <li><i class="ion-person"></i> <b>Schriftführer:</b> Franz-Josef Heimann</li>
+              <li><i class="ion-person"></i> <b>1. Beisitzer:</b> Andreas Albrecht</li>
+              <li><i class="ion-person"></i> <b>2. Beisitzer:</b> Paul Lacher</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- #verein -->
+
+
+    <!--==========================
+      Additional Content Section
+    ============================-->
+    <section id="additional-content">
+
+      <div class="features-row section-bg">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <img class="advanced-feature-img-left" src="img/muellheim-stadtfest.jpg" alt="">
+              <div class="wow fadeInRight">
+                <h2>Müllheimer Stadtfest</h2>
+                <i class="ion-bonfire" class="wow fadeInRight" data-wow-duration="0.5s"></i>
+                <p class="wow fadeInRight" data-wow-duration="0.5s">Das Müllheimer Stadtfest findet jährlich am letzten Juni-Wochenende statt.
+                  Der VC Müllheim beteiligt sich seit vielen Jahren an dem Fest und bietet in seiner Laube traditionsgemäß Pfannengyros und Jägerschnitzel an.
+                  Für den Auf- und Abbau der Laube sowie bei deren Betrieb benötigt der Verein die Unterstützung aller Vereinsmitglieder.
+                  Durch den Erlös des Stadfestes kann der Verein sein sportliches Angebot bei niedrigen Mitgliederbeiträgen aufrecht erhalten.
+                  Zur Belohnung werden die Helfer zu einem Helferfest mit vielen kulinarischen Köstlichkeiten eingeladen!<br><br>
+                  Helft also mit - es lohnt sich!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- #additional-content -->
+
+
+    <!--==========================
+      Sponsors
+    ============================-->
+    <section id="sponsors">
+      <div class="container">
+
+        <div class="row wow fadeInUp">
+
+          <div class="col-md-3">
+            <h2 >Sponsoren</h2>
+            <p>Wir bedanken uns herzlich bei unseren Sponsoren!</p>
+          </div>
+          <div class="col-md-2">
+            <a href="https://bikeshop-heitersheim.de" target="_blank"><img src="img/sponsors/sponsor-1.png" alt=""></a>
+          </div>
+
+          <div class="col-md-2">
+            <a href="http://hausbaeckereikotz.de" target="_blank"><img src="img/sponsors/sponsor-2.jpg" alt=""></a>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- #sponsors -->
+
+
+    <!--==========================
+      News (Blog)
+    ============================-->
+    <section id="News" class="section-bg">
+      <div class="container">
+
+        <div class="section-header">
+          <h3 class="section-title">News</h3>
+          <span class="section-divider"></span>
+          <p class="section-description"></p>
+        </div>
+
+        <div class="row">
+            {{ content }}
+        </div>
+      </div>
+    </section><!-- #news -->
+
+
+    <!--==========================
+      Kontakt
+    ============================-->
+    <section id="kontakt">
+      <div class="container">
+        <div class="row wow fadeInUp">
+
+          <div class="col-lg-4 col-md-4">
+            <div class="kontakt-verein">
+              <h3>Kontakt</h3>
+              <p>Zögere bitte nicht. Solltest du Fragen an uns haben, oder Interesse mit uns zu trainieren, dann melde dich bei uns!</p>
+              <div class="social-links">
+                <a href="https://www.facebook.com/VCMuellheim/" class="facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                <a href="mailto:info@vcmuellheim.de" class="mail"><i class="fa fa-inbox"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4">
+            <div class="info">
+              <div>
+                <i class="ion-ios-email-outline"></i>
+                <p><a href="mailto:info@vcmuellheim.de" class="mail" target="_blank">info@vcmuellheim.de</a></p>
+              </div>
+
+              <div>
+                <i class="ion-ios-telephone-outline"></i>
+                <p><a href="tel:+4976312472">+49 (0) 7631 / 2472</a></p>
+              </div>
+
+              <div>
+                <i class="ion-ios-person-outline"></i>
+                <p>Lothar Voigt<br>
+                  Lettenstr. 48<br>
+                  79424 Auggen<br>
+                  lothar.voigt@t-online.de</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Facebook Embedding -->
+          <div class="col-lg-4 col-md-4">
+           <div id="fb-root"></div>
+             <script async defer crossorigin="anonymous" src="https://connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v3.3"></script>
+           <div class="fb-page" data-href="https://www.facebook.com/pg/VCMuellheim/" data-tabs="messages" data-width="500" data-height="400" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false">
+             <blockquote cite="https://www.facebook.com/pg/VCMuellheim/" class="fb-xfbml-parse-ignore">
+               <a href="https://www.facebook.com/pg/VCMuellheim/">VC Müllheim</a></blockquote>
+           </div>
+          </div><!-- #facebook -->
+
+        </div>
+
+      </div>
+    </section><!-- #kontakt -->
+
+  </main>
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <nav class="footer-links text-lg-left text-center pt-2 pt-lg-0">
+            🗎 PDF:
+            <a href="/docs/satzung.pdf" target="_blank">Satzung</a>
+            <a href="/docs/aufnahmeform.pdf" target="_blank">Aufnahmeform</a>
+            <a href="/docs/datenschutzerklaerung.pdf" target="_blank">Datenschutz</a>
+          </nav>
+        </div>
+        <div class="col-lg-6 text-lg-right text-center">
+          <!-- <div class="copyright">
+            &copy; Copyright <strong>Avilon</strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div> -->
+        </div>
       </div>
     </div>
+  </footer><!-- #footer -->
 
-    {% include analytics.html %}
-  </body>
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+  <!-- Ergebnisdienst -->
+  <script src="//volleyball-ergebnisdienst.de/widget/vly.min.js"></script>
+  <!-- Ergebnisdienst -->
+
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/superfish/hoverIntent.js"></script>
+  <script src="lib/superfish/superfish.min.js"></script>
+  <script src="lib/magnific-popup/magnific-popup.min.js"></script>
+
+  <!-- kontakt Form JavaScript File -->
+  <script src="kontaktform/kontaktform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+
+</body>
 </html>
