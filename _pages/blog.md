@@ -2,7 +2,9 @@
 layout: default
 permalink: /blog/
 ---
-
+<main id="main">
+    
+<!--===== News =====-->
 <section id="news" class="section-bg">
     <div class="container">
         <div class="section-header">
@@ -25,3 +27,6 @@ permalink: /blog/
         </div>
     </div>
 </section>
+<!--===== #news =====-->
+
+</main>
