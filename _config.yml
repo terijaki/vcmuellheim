@@ -11,12 +11,10 @@ permalink: /:title/
 
 # Jekyll GitHub Plugins
 plugins:
-  - jekyll-paginate
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-archives
-  - jekyll-optional-front-matter
 
 # Archives
 jekyll-archives:
@@ -32,6 +30,7 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
   syntax_highlighter_opts:
+    css_class: 'highlight'
     block:
       line_numbers: true
 
@@ -44,9 +43,6 @@ url: http://vcmuellheim.de
 # and NOT your User repository (http://yourusername.github.io)
 # then add in the baseurl here, like this: "/repository-name"
 baseurl: ""
-
-# The release of Jekyll Now that you're using
-version: v1.2.0
 
 # Exclude these files from your production _site
 exclude:
