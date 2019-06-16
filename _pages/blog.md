@@ -28,13 +28,12 @@ permalink: /blog/
             <div class="col-lg-6">
                 <div class="box wow fadeInUp" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
                     {% if post.thumbnail %}
-                    <a href="{{ site.baseurl }}{{ post.url }}"><div style="background-image:url({{ post.thumbnail }});"></a>
+                    <a href="{{ site.baseurl }}{{ post.url }}"><div style="background-image:url({{ post.thumbnail }});"></div></a>
                     {% endif %}
                     <h4 class="post-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
                     <article class="post-excerpt">{{ post.excerpt }}</article>
                     <p class="post-url"><a href="{{ site.baseurl }}{{ post.url }}" class="read-more">weiterlesen</a></p>
                 </div>
-                
             </div>
             {% endfor %}
 
