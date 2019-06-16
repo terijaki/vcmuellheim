@@ -17,10 +17,12 @@ layout: default
                     <h2>{{ page.title }}</h2>
                     <p>{{ page.date | date: "%d.%m.%Y" }}</p>
                     <img class="advanced-feature-img-left" src="{{ page.thumbnail }}" alt="">
-                    <p class="wow fadeInRight" data-wow-duration="0.5s">
+                    <div class="wow fadeInRight" data-wow-duration="0.5s">
                       {{ content }}
-                    </p>
-                      <div class="fb-like text-right" data-href="https://developers.facebook.com/docs/plugins/" data-width="" data-layout="button" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+                    </div>
+                      <div class="text-right">
+                        <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="" data-layout="button" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+                      </div>
                   </div>
                 </article>
             </div>
