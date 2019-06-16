@@ -2,7 +2,7 @@
 layout: contact
 name: Thomas Seywald
 email: noreply@google.com
-facebook: https://www.facebook.com/100000558831832
+facebook: 100000558831832
 whatsapp: 
 avatar: https://graph.facebook.com/100000558831832/picture?type=large
 ---
