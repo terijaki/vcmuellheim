@@ -7,9 +7,7 @@ permalink: /blog/
   <section id="intro">
 
     <div class="intro-text">
-      <h2>Wilkommen</h2>
-      <p>auf der Seite des Volleyballclub Müllheim e.V.</p>
-      <a href="#mannschaften" class="btn-get-started scrollto">Auf geht's!</a>
+      <p>Neuigkeiten des Volleyballclub Müllheim e.V.</p>
     </div>
 
   </section>
