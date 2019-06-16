@@ -1,24 +1,24 @@
 ---
 layout: page
 title: Kontaktinformationen
-permalink: /kontakt/
+permalink: /mitglieder/
 ---
 
 <main id="main">
     
-<!--===== News =====-->
-<section id="news" class="section-bg">
+<!--===== Kontakt Mitglieder =====-->
+<section id="kontakt-mitglieder" class="section-bg">
     <div class="container">
-        <div class="row newsposts">
+        <div class="row mitgliederliste">
 
             {% for club_member in site.club_members %}
             <div class="col-lg-6">
                 <div class="box wow fadeInUp" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
                     {% if club_member.avatar %}
-                    <a class="thumbnail" href="{{ site.baseurl }}{{ post.url }}"><div style="background-image:url({{ club_member.avatar }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
+                    <a class="member-avatar" href="{{ site.baseurl }}{{ post.url }}"><div style="background-image:url({{ club_member.avatar }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
                     {% endif %}
-                    <h4 class="post-title">{{ club_member.name }}</h4>
-                    <p class="post-url"><a href="mailto:{{ club_member.name }}" class="read-more">{{ club_member.email }}</a></p>
+                    <h4 class="member-name">{{ club_member.name }}</h4>
+                    <p class="member-email"><a href="mailto:{{ club_member.name }}">{{ club_member.email }}</a></p>
                 </div>
             </div>
             {% endfor %}
@@ -26,6 +26,6 @@ permalink: /kontakt/
         </div>
     </div>
 </section>
-<!--===== #news =====-->
+<!--===== #kontakt-mitglieder =====-->
 
 </main>
