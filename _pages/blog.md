@@ -26,12 +26,14 @@ permalink: /blog/
 
             {% for post in site.posts %}
             <div class="col-lg-6">
+                <a href="{{ site.baseurl }}{{ post.url }}">
                 <div class="box wow fadeInLeft">
-                    <a href="{{ site.baseurl }}{{ post.url }}"><img src="{{ post.thumbnail }}"></a>
+                    <img src="{{ post.thumbnail }}">
                     <h4 class="post-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
                     <article class="post-excerpt">{{ post.excerpt }}</article>
                     <p class="post-url"><a href="{{ site.baseurl }}{{ post.url }}" class="read-more">weiterlesen</a></p>
                 </div>
+                </a>
             </div>
             {% endfor %}
 
