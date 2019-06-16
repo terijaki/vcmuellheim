@@ -1,9 +1,8 @@
 name: "VC Müllheim e.V."
-title: "VC Müllheim"
+title: "Volleyball Club Müllheim e.V."
 description: "Volleyballverein Baden-Württemberg"
 logo: '/img/logo.png'
 favicon: '/img/logo.png'
-baseurl: /mediumish-theme-jekyll
 google_analytics: ''
 mailchimp-list: ''
 include: ["_pages"]
