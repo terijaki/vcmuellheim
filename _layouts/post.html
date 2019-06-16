@@ -1,16 +1,27 @@
 ---
 layout: default
 ---
+<!--===== Additional Content =====-->
+    <section id="additional-content">
 
-<article class="post">
-  <h1>{{ page.title }}</h1>
+      <div class="features-row section-bg">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <article class="post">
+                  <img class="advanced-feature-img-left" src="{{ page.thumbnail }}" alt="">
+                  <div class="wow fadeInRight">
+                  <h2>{{ page.title }}</h2>
+                    <p class="wow fadeInRight" data-wow-duration="0.5s">
+                      {{ content }}
+                      <br><br>{{ page.date | date: "%d.%m.%Y" }}
+                    </p>
+                  </div>
+                </article>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <div class="entry">
-    {{ content }}
-  </div>
-
-  <div class="date">
-    {{ page.date | date: "%d.%m.%Y" }}
-  </div>
-
-</article>
+    </section>
+<!--===== #additional-content =====-->
