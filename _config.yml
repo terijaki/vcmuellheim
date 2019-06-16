@@ -53,7 +53,7 @@ exclude:
   - CNAME
 
 
-## Add Staff Members to show on a contacts page
+## Add Club Members to show on a contacts page
 collections:
-  staff_members:
+  club_members:
     people: true
