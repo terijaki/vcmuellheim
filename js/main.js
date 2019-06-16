@@ -1,7 +1,15 @@
 jQuery(document).ready(function($) {
 
   // Header fixed and Back to top button
-  // ## Include dynamicscroll.js to transition <intro> into the navbar 
+  $(window).scroll(function() {
+    if ($(this).scrollTop() > 100) {
+      $('.back-to-top').fadeIn('slow');
+      $('#header').addClass('header-fixed');
+    } else {
+      $('.back-to-top').fadeOut('slow');
+      $('#header').removeClass('header-fixed');
+    }
+  });
 
   if ($(this).scrollTop() > 100) {
     $('.back-to-top').fadeIn('slow');
