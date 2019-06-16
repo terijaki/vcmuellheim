@@ -1030,13 +1030,15 @@ body.mobile-nav-active #mobile-nav-toggle {
   -webkit-filter: blur(1px);
   filter: blur(1px);
 }
-#members .box:hover a.avatar {
+#members .box:hover a.avatar div {
   background-blend-mode: unset;
   -webkit-filter: none;
   filter: none;
   transform: scale(1.2)
 }
-
+#members .box p {
+  margin: 0 0 10px 0;
+}
 
 /* sponsors Section
 --------------------------------*/
