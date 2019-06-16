@@ -10,7 +10,6 @@ jQuery(document).ready(function($) {
       $('#header').removeClass('header-fixed');
     }
     if (location.pathname !== "/") {
-      $('.back-to-top').fadeIn('slow');
       $('#header').addClass('header-fixed');
       }
   });
