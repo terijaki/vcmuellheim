@@ -721,6 +721,10 @@ body.mobile-nav-active #mobile-nav-toggle {
   padding: 6px;
 }
 
+#blogpost div.social-sharing {
+  margin-bottom: 24px;
+  text-align: center;
+}
 #blogpost .social-sharing i:before, #blogpost .social-sharing a span {
   font-size: 0.8rem;
   color: #fff;
@@ -765,6 +769,13 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 #blogpost a.whatsapp:hover i:before, #blogpost a.whatsapp:hover span {
   color: #25D366;
+}
+#blogpost a.email {
+  border-color: #666;
+  background: #666;
+}
+#blogpost a.email:hover i:before, #blogpost a.email:hover span {
+  color: #666;
 }
 
 /* Short Intros
