@@ -210,16 +210,30 @@ layout: default
             <p class="section-description"></p>
         </div>
         <div class="row newsposts">
-
-            {% for post in site.posts limit:4 %}
+      <!--===== Most Recent News Post =====-->
+            {% for post in site.posts limit:1 %}
             <div class="col-lg-6">
                 <div class="box wow fadeInLeft" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
-                    <a href="{{ site.baseurl }}{{ post.url }}"><img src="{{ post.thumbnail }}"></a>
+                    {% if post.thumbnail %}
+                    <a href="{{ site.baseurl }}{{ post.url }}"><div style="background-image:url({{ post.thumbnail }});"></a>
+                    {% endif %}
                     <h4 class="post-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
                     <article class="post-excerpt">{{ post.excerpt }}</article>
                     <p class="post-url"><a href="{{ site.baseurl }}{{ post.url }}" class="read-more">weiterlesen</a></p>
                 </div>
-                
+            </div>
+            {% endfor %}
+      <!--===== Second Most Recent News Post =====-->
+            {% for post in site.posts limit:1 offset:1 %}
+            <div class="col-lg-6">
+                <div class="box wow fadeInRight" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
+                    {% if post.thumbnail %}
+                    <a href="{{ site.baseurl }}{{ post.url }}"><div style="background-image:url({{ post.thumbnail }});"></a>
+                    {% endif %}
+                    <h4 class="post-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
+                    <article class="post-excerpt">{{ post.excerpt }}</article>
+                    <p class="post-url"><a href="{{ site.baseurl }}{{ post.url }}" class="read-more">weiterlesen</a></p>
+                </div>
             </div>
             {% endfor %}
 
