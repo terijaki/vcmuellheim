@@ -785,16 +785,19 @@ body.mobile-nav-active #mobile-nav-toggle {
 #news .box {
   cursor: pointer;
 }
-#news .newsposts .box img {
-  max-width: 100%;
-  top: -60px;
+#news .newsposts .box div.thumbnail {
+  width: 100%;
+  width: calc(100% + 20px);
+  height: 160px;
+  margin: -20px;
+  top: -40px;
   position: relative;
-  margin-bottom: -40px;
+  background-size: cover;
   transition: 0.3s;
   -webkit-filter: blur(1px) grayscale(80%);
   filter: blur(1px) grayscale(80%);
 }
-#news .newsposts .box:hover img {
+#news .newsposts .box:hover div.thumbnail {
   -webkit-filter: none;
   filter: none;
 }
