@@ -721,6 +721,25 @@ body.mobile-nav-active #mobile-nav-toggle {
   padding: 6px;
 }
 
+/* Short Intros
+--------------------------------*/
+#shortintro {
+  overflow: hidden;
+  background: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(../img/call-to-action-bg.jpg) fixed center center;
+  background-size: cover;
+  padding: 80px 0;
+}
+
+#shortintro .si-title {
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+#shortintro .si-text {
+  color: #fff;
+}
+
 /* Call To Action Section
 --------------------------------*/
 #call-to-action {
