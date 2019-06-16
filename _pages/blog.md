@@ -10,8 +10,6 @@ permalink: /blog/
       <p>Neuigkeiten des Volleyballclub Müllheim e.V.</p>
     </div>
 
-  </section>
-<!--===== #intro =====-->
 
 <main id="main">
     
@@ -41,3 +39,6 @@ permalink: /blog/
 <!--===== #news =====-->
 
 </main>
+
+  </section>
+<!--===== #intro =====-->
