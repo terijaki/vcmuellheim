@@ -744,6 +744,27 @@ body.mobile-nav-active #mobile-nav-toggle {
 #blogpost .social-sharing a span {
   padding-left:4px;
 }
+#blogpost a.facebook {
+  border-color: #3b5998;
+  background: #3b5998;
+}
+#blogpost a.facebook:hover i:before, #blogpost a.facebook:hover span {
+  color: #3b5998;
+}
+#blogpost a.twitter {
+  border-color: #55acee;
+  background: #55acee;
+}
+#blogpost a.twitter:hover i:before, #blogpost a.twitter:hover span {
+  color: #55acee;
+}
+#blogpost a.whatsapp {
+  border-color: #25D366;
+  background: #25D366;
+}
+#blogpost a.whatsapp:hover i:before, #blogpost a.whatsapp:hover span {
+  color: #25D366;
+}
 
 /* Short Intros
 --------------------------------*/
