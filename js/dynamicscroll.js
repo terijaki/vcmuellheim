@@ -10,17 +10,5 @@ jQuery(document).ready(function($) {
       $('#header').removeClass('header-fixed');
     }
   });
-
-  if ($(this).scrollTop() > 100) {
-    $('.back-to-top').fadeIn('slow');
-    $('#header').addClass('header-fixed');
-  }
-
-  $('.back-to-top').click(function() {
-    $('html, body').animate({
-      scrollTop: 0
-    }, 1500, 'easeInOutExpo');
-    return false;
-  });
   
   }
