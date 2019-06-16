@@ -742,7 +742,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   transition: 0.3s;
 }
 .social-sharing a:hover {
-  background: #fff;
+  background: #fff!important;
 }
 .social-sharing a:hover i:before, .social-sharing a:hover span {
   color: #366273;
