@@ -26,7 +26,7 @@ permalink: /blog/
 
             {% for post in site.posts %}
             <div class="col-lg-6">
-                <div class="box wow fadeInRight" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
+                <div class="box wow fadeInUp" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
                     {% if post.thumbnail %}
                     <a href="{{ site.baseurl }}{{ post.url }}"><div style="background-image:url({{ post.thumbnail }});"></a>
                     {% endif %}
