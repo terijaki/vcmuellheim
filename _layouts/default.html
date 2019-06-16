@@ -43,8 +43,13 @@
         <ul class="nav-menu">
           <li><a href="/#mannschaften">Mannschaften</a></li>
           <li><a href="/#verein">Verein</a></li>
+          {% if page.url == "/" %}
           <li><a href="/#news">News</a></li>
           <li><a href="/#kontakt">Kontakt</a></li>
+          {% elseif %}
+          <li><a href="/blog/">News</a></li>
+          <li><a href="/mitglieder/">Kontakt</a></li>
+          {% endif %}
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
