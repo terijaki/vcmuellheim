@@ -1,10 +1,6 @@
 ---
 layout: default
 ---
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v3.3"></script>
-
-
 <!--===== Additional Content =====-->
     <section id="additional-content">
 
@@ -20,9 +16,14 @@ layout: default
                     <div class="wow fadeInRight" data-wow-duration="0.5s">
                       {{ content }}
                     </div>
-                      <div class="text-right">
-                        <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="" data-layout="button" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+                      
+                      <div class="social-sharing">
+                          <a class="facebook" href="https://facebook.com/sharer/sharer.php?u=" target="_blank"><span>Facebook</span></a>
+                          <a class="twitter" href="https://twitter.com/intent/tweet/?text=&amp;url=" target="_blank"><span>Twitter</span></a>
+                          <a class="whatsapp" href="whatsapp://send?text=%20" target="_blank"><span>WhatsApp</span></a>
+                          <a class="email" href="mailto:?subject=&amp;body="><span>Email</span></a>
                       </div>
+                      
                   </div>
                 </article>
             </div>
