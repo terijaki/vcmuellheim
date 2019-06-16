@@ -716,9 +716,21 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 /* Blog Post
 --------------------------------*/
-#additional-content #blogpost img {
+#blogpost img {
   width: 100%;
   padding: 6px;
+}
+
+#blogpost .social-sharing i:before, #blogpost .social-sharing a span {
+  font-size: 1rem;
+  font-color: #fff;
+}
+#blogpost .social-sharing a {
+  display: inline-block;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 3px;
+  background: #366273;
 }
 
 /* Short Intros
