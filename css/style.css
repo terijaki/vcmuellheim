@@ -779,6 +779,12 @@ body.mobile-nav-active #mobile-nav-toggle {
 .social-sharing a.email:hover i:before, .social-sharing a.email:hover span {
   color: #666;
 }
+.social-sharing.square a {
+    height: 30px;
+    width: 30px;
+    overflow: hidden;
+    text-align: center;
+}
 
 /* Short Intros
 --------------------------------*/
