@@ -734,6 +734,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   background: #366273;
   line-height: 0.8rem;
   transition: 0.3s;
+  font-family: Verdana;
 }
 #blogpost .social-sharing a:hover {
   background: #fff;
