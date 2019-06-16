@@ -1,7 +1,21 @@
 ---
 layout: default
 ---
-<!--===== Additional Content =====-->
+
+<!--===== Short Intro =====-->
+    <section id="shortintro" class="section-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9 text-center text-lg-left">
+            <h3 class="si-title">{{ page.title }}</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+<!--===== #shortintro =====-->
+
+
+<!--===== Post =====-->
     <section id="additional-content">
 
       <div id="blogpost" class="features-row section-bg">
@@ -10,7 +24,6 @@ layout: default
             <div class="col-12">
               <article class="post">
                   <div class="wow fadeInNone">
-                    <h2>{{ page.title }}</h2>
                     <p>{{ page.date | date: "%d.%m.%Y" }}</p>
                     <img class="post-thumbnail" src="{{ page.thumbnail }}" alt="">
                     <div class="wow fadeInBottom" data-wow-duration="0.5s">
@@ -32,4 +45,4 @@ layout: default
       </div>
 
     </section>
-<!--===== #additional-content =====-->
+<!--===== Post =====-->
