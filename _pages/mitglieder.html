@@ -6,7 +6,7 @@ permalink: /mitglieder/
 
 <main id="main">
     
-<!--===== Kontakt Mitglieder =====-->
+<!--===== Members =====-->
 <section id="members" class="section-bg">
     <div class="container">
         <div class="row mitgliederliste">
@@ -19,6 +19,7 @@ permalink: /mitglieder/
                     {% endif %}
                     <h4 class="name">{{ club_member.name }}</h4>
                     <p class="email"><a href="mailto:{{ club_member.name }}">{{ club_member.email }}</a></p>
+                    {{ content }}
                 </div>
             </div>
             {% endfor %}
@@ -26,6 +27,6 @@ permalink: /mitglieder/
         </div>
     </div>
 </section>
-<!--===== #kontakt-mitglieder =====-->
+<!--===== #members =====-->
 
 </main>
