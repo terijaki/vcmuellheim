@@ -2,16 +2,18 @@
 layout: default
 permalink: /blog/
 ---
+<!--===== Short Intro =====-->
     <section id="shortintro">
       <div class="container">
         <div class="row">
           <div class="col-lg-9 text-center text-lg-left">
-            <h3 class="cta-title">Neuigkeiten des Volleyballclub Müllheim e.V.</h3>
+            <h3 class="si-title">Neuigkeiten des Volleyballclub Müllheim e.V.</h3>
           </div>
         </div>
       </div>
     </section>
-    
+<!--===== #shortintro =====-->
+
 <main id="main">
     
 <!--===== News =====-->
