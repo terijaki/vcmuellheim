@@ -13,14 +13,13 @@ permalink: /mitglieder/
 
             {% for club_member in site.club_members %}
             <div class="col-lg-4">
-                <div class="box wow fadeInUp" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
+                <div class="box wow fadeInUp">
                     {% if club_member.avatar %}
                     <a class="avatar" href=""><div style="background-image:url({{ club_member.avatar }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
                     {% endif %}
                     <h4 class="name">{{ club_member.name }}</h4>
-                    <p class="email"><a href="mailto:{{ club_member.email }}">{{ club_member.email }}</a></p>
                     
-                      <div class="social-sharing">
+                      <div class="social-sharing square">
                           {% if club_member.facebook %}
                           <a class="facebook" href="http://m.me/{{ club_member.facebook }}" target="_blank"><i class="fa fa-facebook"></i></a>
                           {% endif %}
