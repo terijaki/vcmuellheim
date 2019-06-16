@@ -794,8 +794,8 @@ body.mobile-nav-active #mobile-nav-toggle {
   position: relative;
   background-size: cover;
   transition: 0.3s;
-  background-blend-mode: screen;
   background-color: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9));
+  background-blend-mode: luminosity;
   -webkit-filter: blur(1px);
   filter: blur(1px);
 }
