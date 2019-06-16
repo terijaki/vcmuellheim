@@ -727,11 +727,11 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-bottom: 24px;
   text-align: center;
 }
-#blogpost .social-sharing i:before, #blogpost .social-sharing a span {
+.social-sharing i:before, .social-sharing a span {
   font-size: 0.8rem;
   color: #fff;
 }
-#blogpost .social-sharing a {
+.social-sharing a {
   display: inline-block;
   padding: 5px;
   margin: 5px;
@@ -741,42 +741,42 @@ body.mobile-nav-active #mobile-nav-toggle {
   line-height: 0.8rem;
   transition: 0.3s;
 }
-#blogpost .social-sharing a:hover {
+.social-sharing a:hover {
   background: #fff;
 }
-#blogpost .social-sharing a:hover i:before, #blogpost .social-sharing a:hover span {
+.social-sharing a:hover i:before, .social-sharing a:hover span {
   color: #366273;
 }
-#blogpost .social-sharing a span {
+.social-sharing a span {
   padding-left:4px;
   font-weight: bold;
 }
-#blogpost a.facebook {
+.social-sharing a.facebook {
   border-color: #3b5998;
   background: #3b5998;
 }
-#blogpost a.facebook:hover i:before, #blogpost a.facebook:hover span {
+.social-sharing a.facebook:hover i:before, .social-sharing a.facebook:hover span {
   color: #3b5998;
 }
-#blogpost a.twitter {
+.social-sharing a.twitter {
   border-color: #55acee;
   background: #55acee;
 }
-#blogpost a.twitter:hover i:before, #blogpost a.twitter:hover span {
+.social-sharing a.twitter:hover i:before, .social-sharing a.twitter:hover span {
   color: #55acee;
 }
-#blogpost a.whatsapp {
+.social-sharing a.whatsapp {
   border-color: #25D366;
   background: #25D366;
 }
-#blogpost a.whatsapp:hover i:before, #blogpost a.whatsapp:hover span {
+.social-sharing a.whatsapp:hover i:before, .social-sharing a.whatsapp:hover span {
   color: #25D366;
 }
-#blogpost a.email {
+.social-sharing a.email {
   border-color: #666;
   background: #666;
 }
-#blogpost a.email:hover i:before, #blogpost a.email:hover span {
+.social-sharing a.email:hover i:before, .social-sharing a.email:hover span {
   color: #666;
 }
 
