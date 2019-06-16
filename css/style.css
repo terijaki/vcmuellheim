@@ -1049,7 +1049,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 #members .social-sharing {
     position: absolute;
     top: 10px;
-    left: 28px;
+    margin-left: -28px;
     width: 32px;
 }
 
