@@ -27,6 +27,7 @@ permalink: /blog/
             {% for post in site.posts %}
             <div class="col-lg-6">
                 <div class="box wow fadeInLeft">
+                    <img src="{{ post.thumbnail }}">
                     <h4 class="post-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
                     <article class="post-excerpt">{{ post.excerpt }}</article>
                     <p class="post-url"><a href="{{ site.baseurl }}{{ post.url }}" class="read-more">weiterlesen</a></p>
