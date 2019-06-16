@@ -29,10 +29,11 @@ layout: default
                     <div class="wow fadeInBottom" data-wow-duration="0.5s">
                       {{ content }}
                     </div>
-                   
-                      <div class="social-sharing">
+                      
+                      
+                      <div class="social-sharing">https://twitter.com/intent/tweet?button_hashtag=VCMüllheim&ref_src=twsrc%5Etfw
                           <a class="facebook" href="https://facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}%20{{ page.title }}%20%0D%0A{{ post.excerpt }}%20#VCMüllheim" target="_blank"><i class="fa fa-facebook"></i><span>Facebook</span></a>
-                          <a class="twitter" href="https://twitter.com/intent/tweet/?text={{ page.title }}%20%0D%0A{{ page.excerpt }}#VCMüllheim&url={{ site.url }}{{ page.url }}" target="_blank"><i class="fa fa-twitter"></i><span>Twitter</span></a>
+                          <a class="twitter" href="https://twitter.com/intent/tweet?button_hashtag=VCMüllheim&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-text="{{ page.title }} " data-url="{{ site.url }}{{ page.url }}" data-lang="de" data-show-count="false"><i class="fa fa-twitter"></i><span>Twitter</span></a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                           <a class="whatsapp" href="https://wa.me/?text={{ site.url }}{{ page.url }}%20{{ page.title }}:{{ page.excerpt }}" target="_blank"><i class="fa fa-whatsapp"></i><span>WhatsApp</span></a>
                           <a class="email" href="mailto:?subject={{ page.title }}&body={{ site.url }}{{ page.url }}%20%0D%0A{{ page.excerpt }}" target="_blank"><i class="fa fa-envelope"></i><span>Email</span></a>
                       </div>
