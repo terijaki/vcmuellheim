@@ -867,7 +867,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   max-height: 170px;
   opacity: 0.5;
   transition: 0.3s;
-  padding: 15px 0;
+  padding: 10px;
 }
 
 #sponsors img:hover {
