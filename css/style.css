@@ -788,12 +788,16 @@ body.mobile-nav-active #mobile-nav-toggle {
   position: relative;
   margin-bottom: -40px;
   transition: 0.3s;
-  -webkit-filter: blur(5px);
-  filter: blur(5px);
+  -webkit-filter: blur(1px);
+  filter: blur(1px);
+  -webkit-filter: greyscale(80%);
+  filter: greyscale(80%);
 }
 #news .newsposts .box:hover img {
   -webkit-filter: blur(0);
   filter: blur(0);
+  -webkit-filter: greyscale(0);
+  filter: greyscale(0);
 }
 
 #mannschaften .icon {
