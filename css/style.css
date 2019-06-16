@@ -811,6 +811,25 @@ body.mobile-nav-active #mobile-nav-toggle {
   filter: none;
   transform: scale(1.2)
 }
+#news .archiv-btn {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 28px;
+  border-radius: 50px;
+  transition: 0.5s;
+  margin: 10px;
+  border: 2px solid #000;
+  color: #000;
+}
+
+#news .archiv-btn:hover {
+  color: #366273;
+  background: #000;
+}
+
 
 #mannschaften .icon {
   float: left;
