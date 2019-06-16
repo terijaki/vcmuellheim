@@ -769,14 +769,14 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 /* More Features Section (Mannschaftern, News)
 --------------------------------*/
-#mannschaften, #news {
+#news {
   padding: 60px 0 60px 0;
   overflow: hidden;
 }
 
-#mannschaften .box, #news .box {
+#news .box {
   padding: 40px;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
   box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
   background: #fff;
   transition: 0.4s;
@@ -832,6 +832,18 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #fff;
 }
 
+#mannschaften {
+  padding: 60px 0 60px 0;
+  overflow: hidden;
+}
+
+#mannschaften .box {
+  padding: 40px;
+  margin-bottom: 30px;
+  box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
+  background: #fff;
+  transition: 0.4s;
+}
 
 #mannschaften .icon {
   float: left;
