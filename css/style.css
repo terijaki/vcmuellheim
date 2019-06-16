@@ -787,17 +787,20 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 #news .newsposts .box div.thumbnail {
   width: 100%;
-  width: calc(100% + 20px);
+  width: calc(100% + 40px);
   height: 160px;
   margin: -20px;
   top: -40px;
   position: relative;
   background-size: cover;
   transition: 0.3s;
-  -webkit-filter: blur(1px) grayscale(80%);
-  filter: blur(1px) grayscale(80%);
+  background-blend-mode: screen;
+  background-color: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9));
+  -webkit-filter: blur(1px);
+  filter: blur(1px;
 }
 #news .newsposts .box:hover div.thumbnail {
+  background-blend-mode: none;
   -webkit-filter: none;
   filter: none;
 }
@@ -878,6 +881,12 @@ body.mobile-nav-active #mobile-nav-toggle {
   #news .box {
     margin-bottom: 20px;
   }
+  #news .newsposts .box div.thumbnail {
+    width: calc(100% + 60px);
+    margin: -30px -30px 10px -30px;
+    position: static;
+    filter: none;
+}
 }
 
 
