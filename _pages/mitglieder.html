@@ -7,7 +7,7 @@ permalink: /mitglieder/
 <main id="main">
     
 <!--===== Kontakt Mitglieder =====-->
-<section id="kontakt-mitglieder" class="section-bg">
+<section id="members" class="section-bg">
     <div class="container">
         <div class="row mitgliederliste">
 
@@ -15,10 +15,10 @@ permalink: /mitglieder/
             <div class="col-lg-6">
                 <div class="box wow fadeInUp" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
                     {% if club_member.avatar %}
-                    <a class="member-avatar" href="{{ site.baseurl }}{{ post.url }}"><div style="background-image:url({{ club_member.avatar }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
+                    <a class="avatar" href="{{ site.baseurl }}{{ post.url }}"><div style="background-image:url({{ club_member.avatar }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
                     {% endif %}
-                    <h4 class="member-name">{{ club_member.name }}</h4>
-                    <p class="member-email"><a href="mailto:{{ club_member.name }}">{{ club_member.email }}</a></p>
+                    <h4 class="name">{{ club_member.name }}</h4>
+                    <p class="email"><a href="mailto:{{ club_member.name }}">{{ club_member.email }}</a></p>
                 </div>
             </div>
             {% endfor %}
