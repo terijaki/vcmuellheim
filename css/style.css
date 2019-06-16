@@ -795,8 +795,8 @@ body.mobile-nav-active #mobile-nav-toggle {
   filter: blur(1px) grayscale(80%);
 }
 #news .newsposts .box:hover img {
-  -webkit-filter: 0;
-  filter: 0;
+  -webkit-filter: none;
+  filter: none;
 }
 
 #mannschaften .icon {
