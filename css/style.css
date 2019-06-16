@@ -722,15 +722,27 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #blogpost .social-sharing i:before, #blogpost .social-sharing a span {
-  font-size: 1rem;
-  font-color: #fff;
+  font-size: 0.8rem;
+  color: #fff;
 }
 #blogpost .social-sharing a {
   display: inline-block;
   padding: 5px;
   margin: 5px;
+  border: 2px solid #366273;
   border-radius: 3px;
   background: #366273;
+  line-height: 0.8rem;
+  transition: 0.3s;
+}
+#blogpost .social-sharing a:hover {
+  background: #fff;
+}
+#blogpost .social-sharing a:hover i:before, #blogpost .social-sharing a:hover span {
+  color: #366273;
+}
+#blogpost .social-sharing a span {
+  padding-left:4px;
 }
 
 /* Short Intros
