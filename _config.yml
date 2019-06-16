@@ -51,3 +51,9 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+
+
+## Add Staff Members to show on a contacts page
+collections:
+  staff_members:
+    people: true
