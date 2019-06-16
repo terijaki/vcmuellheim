@@ -22,16 +22,16 @@ permalink: /mitglieder/
                     
                       <div class="social-sharing">
                           {% if club_member.facebook %}
-                          <a class="facebook" href="http://m.me/{{ club_member.facebook }}" target="_blank"><i class="fa fa-facebook"></i><span>Facebook</span></a>
+                          <a class="facebook" href="http://m.me/{{ club_member.facebook }}" target="_blank"><i class="fa fa-facebook"></i></a>
                           {% endif %}
                           {% if club_member.twitter %}
-                          <a class="twitter" href="https://twitter.com/messages/compose?recipient_id={{ club_member.twitter }}" target="_blank"><i class="fa fa-twitter"></i><span>Twitter</span></a>
+                          <a class="twitter" href="https://twitter.com/messages/compose?recipient_id={{ club_member.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a>
                           {% endif %}
                           {% if club_member.whatsapp %}
-                          <a class="whatsapp" href="https://wa.me/?phone={{ club_member.whatsapp }}" target="_blank"><i class="fa fa-whatsapp"></i><span>WhatsApp</span></a>
+                          <a class="whatsapp" href="https://wa.me/?phone={{ club_member.whatsapp }}" target="_blank"><i class="fa fa-whatsapp"></i></a>
                           {% endif %}
                           {% if club_member.email %}
-                          <a class="email" href="mailto:{{ club_member.email }}?subject=" target="_blank"><i class="fa fa-envelope"></i><span>Email</span></a>
+                          <a class="email" href="mailto:{{ club_member.email }}?subject=" target="_blank"><i class="fa fa-envelope"></i></a>
                           {% endif %}
                       </div>
                     
