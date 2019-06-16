@@ -785,23 +785,30 @@ body.mobile-nav-active #mobile-nav-toggle {
 #news .box {
   cursor: pointer;
 }
-#news .newsposts .box div.thumbnail {
+#news .newsposts .box a.thumbnail {
   width: 100%;
   width: calc(100% + 40px);
   height: 160px;
   margin: -20px;
   top: -40px;
   position: relative;
+  overflow: hidden;
+  display: block;
+}
+#news .newsposts .box a.thumbnail div {
+  width: 100%;
+  height: 100%;
   background-size: cover;
   transition: 0.3s;
   background-blend-mode: luminosity;
   -webkit-filter: blur(1px);
   filter: blur(1px);
 }
-#news .newsposts .box:hover div.thumbnail {
+#news .newsposts .box:hover a.thumbnail div {
   background-blend-mode: unset;
   -webkit-filter: none;
   filter: none;
+  transform: scale(1.2)
 }
 
 #mannschaften .icon {
@@ -880,10 +887,13 @@ body.mobile-nav-active #mobile-nav-toggle {
   #news .box {
     margin-bottom: 20px;
   }
-  #news .newsposts .box div.thumbnail {
+  #news .newsposts .box a.thumbnail {
     width: calc(100% + 60px);
     margin: -30px -30px 10px -30px;
     position: static;
+  }
+  #news .newsposts .box a.thumbnail div {
+    background-blend-mode: unset;
     filter: none;
   }
 }
