@@ -3,7 +3,7 @@ layout: default
 permalink: /blog/
 ---
 <!--===== Short Intro =====-->
-    <section id="shortintro">
+    <section id="shortintro" class="section-bg">
       <div class="container">
         <div class="row">
           <div class="col-lg-9 text-center text-lg-left">
