@@ -720,7 +720,10 @@ body.mobile-nav-active #mobile-nav-toggle {
   width: 100%;
   padding: 6px;
 }
-
+#blogpost img.post-thumbnail {
+  margin: -26px 0 6px 0;
+  box-shadow: inset 0 0 0 6px #366273;
+}
 #blogpost div.social-sharing {
   margin-bottom: 24px;
   text-align: center;
