@@ -213,9 +213,9 @@ layout: default
       <!--===== Most Recent News Post =====-->
             {% for post in site.posts limit:1 %}
             <div class="col-lg-6">
-                <div class="box wow fadeInLeft" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
+                <div class="box wow fadeInUp" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
                     {% if post.thumbnail %}
-                    <a href="{{ site.baseurl }}{{ post.url }}"><div class="thumbnail" style="background-image:url({{ post.thumbnail }});"></div></a>
+                    <a class="thumbnail" href="{{ site.baseurl }}{{ post.url }}"><div style="background-image:url({{ post.thumbnail }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
                     {% endif %}
                     <h4 class="post-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
                     <article class="post-excerpt">{{ post.excerpt }}</article>
@@ -226,9 +226,9 @@ layout: default
       <!--===== Second Most Recent News Post =====-->
             {% for post in site.posts limit:1 offset:1 %}
             <div class="col-lg-6">
-                <div class="box wow fadeInRight" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
+                <div class="box wow fadeInUp" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
                     {% if post.thumbnail %}
-                    <a href="{{ site.baseurl }}{{ post.url }}"><div class="thumbnail" style="background-image:url({{ post.thumbnail }});"></div></a>
+                    <a class="thumbnail" href="{{ site.baseurl }}{{ post.url }}"><div style="background-image:url({{ post.thumbnail }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
                     {% endif %}
                     <h4 class="post-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
                     <article class="post-excerpt">{{ post.excerpt }}</article>
