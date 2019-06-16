@@ -28,7 +28,7 @@ permalink: /blog/
             <div class="col-lg-6">
                 <div class="box wow fadeInUp" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
                     {% if post.thumbnail %}
-                    <a href="{{ site.baseurl }}{{ post.url }}"><div class="thumbnail" style="background:linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url({{ post.thumbnail }});"></div></a>
+                    <a href="{{ site.baseurl }}{{ post.url }}"><div class="thumbnail" style="background:url({{ post.thumbnail }}),linear-gradient(rgba(54,59,64), rgba(54,98,115)),;"></div></a>
                     {% endif %}
                     <h4 class="post-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
                     <article class="post-excerpt">{{ post.excerpt }}</article>
