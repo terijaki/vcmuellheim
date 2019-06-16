@@ -19,6 +19,22 @@ permalink: /mitglieder/
                     {% endif %}
                     <h4 class="name">{{ club_member.name }}</h4>
                     <p class="email"><a href="mailto:{{ club_member.name }}">{{ club_member.email }}</a></p>
+                    
+                      <div class="social-sharing">
+                          {% if club_member.facebook %}
+                          <a class="facebook" href="{{ club_member.facebook }}" target="_blank"><i class="fa fa-facebook"></i><span>Facebook</span></a>
+                          {% endif %}
+                          {% if club_member.twitter %}
+                          <a class="twitter" href="{{ club_member.twitter }}" target="_blank"><i class="fa fa-twitter"></i><span>Twitter</span></a>
+                          {% endif %}
+                          {% if club_member.whatsapp %}
+                          <a class="whatsapp" href="https://wa.me/?phone={{ club_member.whatsapp }}" target="_blank"><i class="fa fa-whatsapp"></i><span>WhatsApp</span></a>
+                          {% if club_member.email %}
+                          <a class="email" href="mailto:{{ club_member.email }}?subject=" target="_blank"><i class="fa fa-envelope"></i><span>Email</span></a>
+                          {% endif %}
+                      </div>
+                    
+                    
                     {{ club_member.content }}
                 </div>
             </div>
