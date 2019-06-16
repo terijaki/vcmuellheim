@@ -10,11 +10,11 @@ layout: default
             <div class="col-12">
               <article class="post">
                   <div class="wow fadeInButtom">
-                  <h2>{{ page.title }}</h2>
-                  <img class="advanced-feature-img-left" src="{{ page.thumbnail }}" alt="">
+                    <h2>{{ page.title }}</h2>
+                    <p>{{ page.date | date: "%d.%m.%Y" }}</p>
+                    <img class="advanced-feature-img-left" src="{{ page.thumbnail }}" alt="">
                     <p class="wow fadeInRight" data-wow-duration="0.5s">
                       {{ content }}
-                      <br><br>{{ page.date | date: "%d.%m.%Y" }}
                     </p>
                   </div>
                 </article>
