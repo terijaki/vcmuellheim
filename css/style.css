@@ -799,7 +799,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   filter: blur(1px);
 }
 #news .newsposts .box:hover div.thumbnail {
-  background-blend-mode: none;
+  background-blend-mode: unset;
   -webkit-filter: none;
   filter: none;
 }
