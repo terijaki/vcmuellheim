@@ -782,22 +782,21 @@ body.mobile-nav-active #mobile-nav-toggle {
   transition: 0.4s;
 }
 
+#news .box {
+  cursor: pointer;
+}
 #news .newsposts .box img {
   max-width: 100%;
   top: -60px;
   position: relative;
   margin-bottom: -40px;
   transition: 0.3s;
-  -webkit-filter: blur(1px);
-  filter: blur(1px);
-  -webkit-filter: greyscale(80%);
-  filter: greyscale(80%);
+  -webkit-filter: blur(1px) grayscale(80%);
+  filter: blur(1px) grayscale(80%);
 }
 #news .newsposts .box:hover img {
-  -webkit-filter: blur(0);
-  filter: blur(0);
-  -webkit-filter: greyscale(0);
-  filter: greyscale(0);
+  -webkit-filter: 0;
+  filter: 0;
 }
 
 #mannschaften .icon {
