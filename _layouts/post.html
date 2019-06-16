@@ -8,7 +8,7 @@ layout: default
         <div class="row">
           <div class="col-lg-9 text-center text-lg-left">
             <h3 class="si-title">{{ page.title }}</h3>
-            <span>{{ page.date | date: "%d.%m.%Y" }}</span>
+            <span class="si-text">{{ page.date | date: "%d.%m.%Y" }}</span>
           </div>
         </div>
       </div>
@@ -31,10 +31,10 @@ layout: default
                     </div>
                    
                       <div class="social-sharing">
-                          <a class="facebook" href="https://facebook.com/sharer/sharer.php?u={{ site.baseurl }}{{ post.url }}%20{{ post.title }}%20%0D%0A{{ post.excerpt }}%20#VCMüllheim" target="_blank"><i class="fa fa-facebook"></i><span>Facebook</span></a>
-                          <a class="twitter" href="https://twitter.com/intent/tweet/?text{{ post.title }}%20%0D%0A{{ post.excerpt }}#VCMüllheim&url={{ site.baseurl }}{{ post.url }}" target="_blank"><i class="fa fa-twitter"></i><span>Twitter</span></a>
-                          <a class="whatsapp" href="whatsapp://send?text={ site.baseurl }}{{ post.url }}%20{{ post.title }}:{{ post.excerpt }}" target="_blank"><i class="fa fa-whatsapp"></i><span>WhatsApp</span></a>
-                          <a class="email" href="mailto:?subject={{ post.title }}&body={{ site.baseurl }}{{ post.url }}%20%0D%0A{{ post.excerpt }}"><i class="fa fa-envelope"></i><span>Email</span></a>
+                          <a class="facebook" href="https://facebook.com/sharer/sharer.php?u={{ site.baseurl }}{{ page.url }}%20{{ page.title }}%20%0D%0A{{ post.excerpt }}%20#VCMüllheim" target="_blank"><i class="fa fa-facebook"></i><span>Facebook</span></a>
+                          <a class="twitter" href="https://twitter.com/intent/tweet/?text={{ page.title }}%20%0D%0A{{ page.excerpt }}#VCMüllheim&url={{ site.baseurl }}{{ page.url }}" target="_blank"><i class="fa fa-twitter"></i><span>Twitter</span></a>
+                          <a class="whatsapp" href="whatsapp://send?text={ site.baseurl }}{{ page.url }}%20{{ page.title }}:{{ page.excerpt }}" target="_blank"><i class="fa fa-whatsapp"></i><span>WhatsApp</span></a>
+                          <a class="email" href="mailto:?subject={{ page.title }}&body={{ site.baseurl }}{{ page.url }}%20%0D%0A{{ page.excerpt }}"><i class="fa fa-envelope"></i><span>Email</span></a>
                       </div>
                       
                   </div>
@@ -46,3 +46,4 @@ layout: default
 
     </section>
 <!--===== Post =====-->
+{{ page.title }}%20%0D%0A{{ page.excerpt }}#VCMüllheim&url={{ site.baseurl }}{{ page.url }}
