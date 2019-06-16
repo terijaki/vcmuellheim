@@ -11,4 +11,4 @@ Nach einem Selbstläufer sah es zu Beginn des Spieltages allerdings nicht aus, d
 Danach feierten die Fans und Spieler noch zusammen an der Halle. Theo sei Dank, gab es genug Bier und Essen für alle. Der VCM dankt den Fans für die Unterstützung, besonders Marco für die Fotos.
 Auf eine erfolgreiche Verbandsligasaison!
 
-!(/upload/2019-04-03-bild1.jpg) !(/upload/2019-04-03-bild2.jpg) !(/upload/2019-04-03-bild3.jpg) !(/upload/2019-04-03-bild4.jpg) !(/upload/2019-04-03-bild5.jpg) !(/upload/2019-04-03-bild6.jpg) !(/upload/2019-04-03-bild7.jpg) !(/upload/2019-04-03-bild8.jpg) !(/upload/2019-04-03-bild9.jpg) !(/upload/2019-04-03-bild10.jpg) !(/upload/2019-04-03-bild11.jpg)
+![](/upload/2019-04-03-bild1.jpg) ![](/upload/2019-04-03-bild2.jpg) ![](/upload/2019-04-03-bild3.jpg) ![](/upload/2019-04-03-bild4.jpg) ![](/upload/2019-04-03-bild5.jpg) ![](/upload/2019-04-03-bild6.jpg) ![](/upload/2019-04-03-bild7.jpg) ![](/upload/2019-04-03-bild8.jpg) ![](/upload/2019-04-03-bild9.jpg) ![](/upload/2019-04-03-bild10.jpg) ![](/upload/2019-04-03-bild11.jpg)
