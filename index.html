@@ -128,11 +128,11 @@ layout: default
         </div>
 
         <div class="row">
-          <div class="col-lg-6 verein-img wow fadeInLeft">
+          <div class="col-lg-6 verein-img wow fadeInNone">
             <img src="/img/verein-img.jpg" alt="">
           </div>
 
-          <div class="col-lg-6 content wow fadeInRight">
+          <div class="col-lg-6 content wow fadeInNone">
             <h2>Der Vorstand</h2>
             <ul>
               <li><i class="ion-person"></i> <b>1. Vorsitzender:</b> Lothar Voigt</li>
@@ -161,7 +161,7 @@ layout: default
               <img class="advanced-feature-img-left" src="/img/muellheim-stadtfest.jpg" alt="">
               <div class="wow fadeInNone">
                 <h2>Müllheimer Stadtfest</h2>
-                <i class="ion-bonfire" class="wow fadeInRight" data-wow-duration="0.5s"></i>
+                <i class="ion-bonfire" class="wow fadeInNone" data-wow-duration="0.5s"></i>
                 <p class="wow fadeInRight" data-wow-duration="0.5s">Das Müllheimer Stadtfest findet jährlich am letzten Juni-Wochenende statt.
                   Der VC Müllheim beteiligt sich seit vielen Jahren an dem Fest und bietet in seiner Laube traditionsgemäß Pfannengyros und Jägerschnitzel an.
                   Für den Auf- und Abbau der Laube sowie bei deren Betrieb benötigt der Verein die Unterstützung aller Vereinsmitglieder.
@@ -204,16 +204,16 @@ layout: default
 <!--===== News (Blog Posts) =====-->
 <section id="news" class="section-bg">
     <div class="container">
-        <div class="section-header">
+        <!--<div class="section-header">
             <h3 class="section-title">News</h3>
             <span class="section-divider"></span>
             <p class="section-description"></p>
-        </div>
+        </div>-->
         <div class="row newsposts">
       <!--===== Most Recent News Post =====-->
             {% for post in site.posts limit:1 %}
             <div class="col-lg-6">
-                <div class="box wow fadeInUp" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
+                <div class="box wow fadeInLeft" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
                     {% if post.thumbnail %}
                     <a class="thumbnail" href="{{ site.baseurl }}{{ post.url }}"><div style="background-image:url({{ post.thumbnail }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
                     {% endif %}
@@ -226,7 +226,7 @@ layout: default
       <!--===== Second Most Recent News Post =====-->
             {% for post in site.posts limit:1 offset:1 %}
             <div class="col-lg-6">
-                <div class="box wow fadeInUp" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
+                <div class="box wow fadeInRight" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
                     {% if post.thumbnail %}
                     <a class="thumbnail" href="{{ site.baseurl }}{{ post.url }}"><div style="background-image:url({{ post.thumbnail }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
                     {% endif %}
