@@ -821,13 +821,15 @@ body.mobile-nav-active #mobile-nav-toggle {
   border-radius: 50px;
   transition: 0.5s;
   margin: 10px;
-  border: 2px solid #000;
-  color: #000;
+  border: 2px solid #366273;
+  color: #366273;
 }
 
 #news .archiv-btn:hover {
   color: #366273;
-  background: #000;
+  background: #366273;
+  border: 2px solid #fff;
+  color: #fff;
 }
 
 
