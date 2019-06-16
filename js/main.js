@@ -2,16 +2,13 @@ jQuery(document).ready(function($) {
 
   // Header fixed and Back to top button (root files only, e.g. landing page)
   $(window).scroll(function() {
-    if (location.pathname == "/" & $(this).scrollTop() > 100) {
+    if ($(this).scrollTop() > 100) {
       $('.back-to-top').fadeIn('slow');
       $('#header').addClass('header-fixed');
     } else {
       $('.back-to-top').fadeOut('slow');
       $('#header').removeClass('header-fixed');
     }
-    if (location.pathname !== "/") {
-      $('#header').addClass('header-fixed');
-      }
   });
 
   if ($(this).scrollTop() > 100) {
