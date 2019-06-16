@@ -19,7 +19,7 @@ permalink: /mitglieder/
                     {% endif %}
                     <h4 class="name">{{ club_member.name }}</h4>
                     <p class="email"><a href="mailto:{{ club_member.name }}">{{ club_member.email }}</a></p>
-                    {{ content }}
+                    {{ club_member.content }}
                 </div>
             </div>
             {% endfor %}
