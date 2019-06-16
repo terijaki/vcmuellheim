@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
 
-  // Header fixed and Back to top button
+  // Header fixed and Back to top button (root files only, e.g. landing page)
   $(window).scroll(function() {
     if (location.pathname == "/" & $(this).scrollTop() > 100) {
       $('.back-to-top').fadeIn('slow');
@@ -9,6 +9,10 @@ jQuery(document).ready(function($) {
       $('.back-to-top').fadeOut('slow');
       $('#header').removeClass('header-fixed');
     }
+    if (location.pathname !== "/") {
+      $('.back-to-top').fadeIn('slow');
+      $('#header').addClass('header-fixed');
+      }
   });
 
   if ($(this).scrollTop() > 100) {
