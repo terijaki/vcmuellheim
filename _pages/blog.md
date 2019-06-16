@@ -2,6 +2,7 @@
 layout: default
 permalink: /blog/
 ---
+
 <!--===== Short Intro =====-->
     <section id="shortintro">
       <div class="container">
@@ -15,7 +16,7 @@ permalink: /blog/
 <!--===== #shortintro =====-->
 
 <main id="main">
-    
+
 <!--===== News =====-->
 <section id="news" class="section-bg">
     <div class="container">
