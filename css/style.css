@@ -783,6 +783,11 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #news .newsposts .box img {
+  max-width: 100%;
+  top: -60px;
+  position: relative;
+  margin-bottom: -40px;
+  transition: 0.3s;
   -webkit-filter: blur(5px);
   filter: blur(5px);
 }
