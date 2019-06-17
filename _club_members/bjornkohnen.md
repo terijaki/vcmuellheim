@@ -8,4 +8,4 @@ twitter: 191985661
 avatar: https://graph.facebook.com/100014077482292/picture?type=large
 ---
 
-Björn ist der Beste! 💕
+Er ist einfach der Beste! 💕
