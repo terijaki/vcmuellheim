@@ -8,4 +8,4 @@ twitter: 191985661
 avatar: https://graph.facebook.com/100014077482292/picture?type=large
 ---
 
-Er ist einfach der Beste! 💕
+Unser Webmaster. Ein Traumtyp. 💕
