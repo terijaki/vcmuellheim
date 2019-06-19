@@ -3,7 +3,7 @@ layout: contact
 name: Björn Kohnen
 email: bjorn@vcmuellheim.de
 facebook: 100014077482292
-whatsapp: 
+whatsapp: 491792578883
 twitter: 191985661
 avatar: https://graph.facebook.com/100014077482292/picture?type=large
 ---
