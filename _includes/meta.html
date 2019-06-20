@@ -9,9 +9,9 @@
 {% if page.title %}
 <meta property="og:title" content="{{ page.title }}"> 
 <meta property="og:description" content="{{ page.excerpt | strip_html }}">
-<meta property="og:image" content="{{ page.thumbnail }}">
+<meta property="og:image" content="{{ site.baseurl }}{{ page.thumbnail }}">
 <meta property="og:url" content="{{ site.baseurl }}{{ post.url }}">
 <meta name="twitter:card" content="summary_large_image">
 {% else %}
-<meta property="og:image" content="/img/intro-bg.jpg">
+<meta property="og:image" content="{{ site.baseurl }}/img/intro-bg.jpg">
 {% endif %}
