@@ -6,10 +6,12 @@
 <meta name="keywords" content="volleyball, training, sport, freizeit, trainer, mannschaft, volleyballclub, muellheim, müllheim, landesliga, verbandsliga, herren, jungs, jugend, freizeit, trainingszeiten, hallensport, markgräflerland, nähe freiburg, staufen, neuenburg, breisgau, baden-würrtemberg,">
 
 <meta property="og:site_name" content="{{ site.title }}">
-{% unless page.title %}
+{% if page.title %}
+<meta property="og:image" content="/img/intro-bg.jpg">
+{% else %}
 <meta property="og:title" content="{{ page.title }}"> 
 <meta property="og:description" content="{{ page.excerpt | strip_html }}">
 <meta property="og:image" content="{{ page.thumbnail }}">
 <meta property="og:url" content="{{ site.baseurl }}{{ post.url }}">
 <meta name="twitter:card" content="summary_large_image">
-{{% end unless %}}
+{% endif %}
