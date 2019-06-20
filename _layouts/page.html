@@ -2,11 +2,16 @@
 layout: default
 ---
 
-<article class="page">
+<!--===== Short Intro =====-->
+    <section id="shortintro" class="section-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9 text-center text-lg-left">
+            <h3 class="si-title">{{ page.title }}</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+<!--===== #shortintro =====-->
 
-  <h1>{{ page.title }}</h1>
-
-  <div class="entry">
-    {{ content }}
-  </div>
-</article>
+{{ content }}

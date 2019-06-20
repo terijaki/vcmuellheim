@@ -124,7 +124,7 @@ h1, h2, h3, h4, h5, h6 {
 #intro {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(45deg, rgba(54,59,64, 0.8), rgba(54,98,115, 0.8)), url("../img/intro-bg.jpg") center top no-repeat;
+  background: linear-gradient(45deg, rgba(54,59,64, 0.8), rgba(54,98,115, 0.8)), url("/img/intro-bg.jpg") center top no-repeat;
   background-size: cover;
   position: relative;
 }
@@ -716,9 +716,74 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 /* Blog Post
 --------------------------------*/
-#additional-content #blogpost img {
+#blogpost img {
   width: 100%;
   padding: 6px;
+}
+#blogpost img.post-thumbnail {
+  margin: -26px 0 6px 0;
+}
+#blogpost div.social-sharing {
+  margin-bottom: 24px;
+  text-align: center;
+}
+.social-sharing i:before, .social-sharing a span {
+  font-size: 0.8rem;
+  color: #fff;
+}
+.social-sharing a {
+  display: inline-block;
+  padding: 5px;
+  margin: 5px;
+  border: 2px solid #366273;
+  border-radius: 3px;
+  background: #366273;
+  line-height: 0.8rem;
+  transition: 0.3s;
+}
+.social-sharing a:hover {
+  background: #fff!important;
+}
+.social-sharing a:hover i:before, .social-sharing a:hover span {
+  color: #366273;
+}
+.social-sharing a span {
+  padding-left:4px;
+  font-weight: bold;
+}
+.social-sharing a.facebook {
+  border-color: #3b5998;
+  background: #3b5998;
+}
+.social-sharing a.facebook:hover i:before, .social-sharing a.facebook:hover span {
+  color: #3b5998;
+}
+.social-sharing a.twitter {
+  border-color: #55acee;
+  background: #55acee;
+}
+.social-sharing a.twitter:hover i:before, .social-sharing a.twitter:hover span {
+  color: #55acee;
+}
+.social-sharing a.whatsapp {
+  border-color: #25D366;
+  background: #25D366;
+}
+.social-sharing a.whatsapp:hover i:before, .social-sharing a.whatsapp:hover span {
+  color: #25D366;
+}
+.social-sharing a.email {
+  border-color: #666;
+  background: #666;
+}
+.social-sharing a.email:hover i:before, .social-sharing a.email:hover span {
+  color: #666;
+}
+.social-sharing.square a {
+    height: 30px;
+    width: 30px;
+    overflow: hidden;
+    text-align: center;
 }
 
 /* Short Intros
@@ -727,7 +792,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   overflow: hidden;
   background: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(../img/call-to-action-bg.jpg) fixed center center;
   background-size: cover;
-  padding: 80px 0;
+  padding: 120px 0 40px 0;
 }
 
 #shortintro .si-title {
@@ -786,19 +851,20 @@ body.mobile-nav-active #mobile-nav-toggle {
   border: 2px solid #fff;
 }
 
-/* More Features Section (Mannschaftern, News)
+/* More Features Section (Mannschaftern, News, Mitglieder)
 --------------------------------*/
-#news {
+#news, #members {
   padding: 60px 0 60px 0;
   overflow: hidden;
 }
 
-#news .box {
+#news .box,  #members .box {
   padding: 40px;
   margin-bottom: 60px;
   box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
   background: #fff;
   transition: 0.4s;
+  cursor: default;
 }
 
 #news .box {
@@ -949,6 +1015,42 @@ body.mobile-nav-active #mobile-nav-toggle {
     background-blend-mode: unset;
     filter: none;
   }
+}
+
+#members a.avatar {
+  width: 11rem;
+  height: 11rem;
+  margin: -20px auto;
+  top: -40px;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  border-radius: 50%;
+  box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.4);
+}
+#members a.avatar div {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  transition: 0.3s;
+  background-blend-mode: luminosity;
+  -webkit-filter: blur(1px);
+  filter: blur(1px);
+}
+#members .box:hover a.avatar div {
+  background-blend-mode: unset;
+  -webkit-filter: none;
+  filter: none;
+  transform: scale(1.2)
+}
+#members .box p {
+  margin: 0 0 10px 0;
+}
+#members .social-sharing {
+    position: absolute;
+    top: 10px;
+    margin-left: -28px;
+    width: 32px;
 }
 
 

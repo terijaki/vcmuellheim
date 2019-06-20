@@ -1,27 +1,41 @@
 ---
 layout: default
 ---
-<!--===== Additional Content =====-->
-    <section id="additional-content">
+
+<!--===== Short Intro =====-->
+    <section id="shortintro" class="section-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9 text-center text-lg-left">
+            <h3 class="si-title">{{ page.title }}</h3>
+            <span class="si-text">{{ page.date | date: "%d.%m.%Y" }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+<!--===== #shortintro =====-->
+
+
+<!--===== Post =====-->
+    <section id="post-content">
 
       <div id="blogpost" class="features-row section-bg">
         <div class="container">
           <div class="row">
             <div class="col-12">
               <article class="post">
-                  <div class="wow fadeInButtom">
-                    <h2>{{ page.title }}</h2>
-                    <p>{{ page.date | date: "%d.%m.%Y" }}</p>
-                    <img class="advanced-feature-img-left" src="{{ page.thumbnail }}" alt="">
-                    <div class="wow fadeInRight" data-wow-duration="0.5s">
+                  <div class="wow fadeInNone">
+                    <img class="post-thumbnail" src="{{ page.thumbnail }}" alt="">
+                    <div class="wow fadeInBottom" data-wow-duration="0.5s">
                       {{ content }}
                     </div>
                       
-                      <div class="social-sharing">
-                          <a class="facebook" href="https://facebook.com/sharer/sharer.php?u=" target="_blank"><span>Facebook</span></a>
-                          <a class="twitter" href="https://twitter.com/intent/tweet/?text=&amp;url=" target="_blank"><span>Twitter</span></a>
-                          <a class="whatsapp" href="whatsapp://send?text=%20" target="_blank"><span>WhatsApp</span></a>
-                          <a class="email" href="mailto:?subject=&amp;body="><span>Email</span></a>
+                      
+                      <div class="social-sharing pb-5">
+                          <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}&quote={{ page.title }}&hashtag=#VCMüllheim" target="_blank"><i class="fa fa-facebook"></i><span>Facebook</span></a>
+                          <a class="twitter" href="https://twitter.com/intent/tweet?text={{ site.url }}{{ page.url }}%20{{ page.title }}&button_hashtag=VCMüllheim" target="_blank"><i class="fa fa-twitter"></i><span>Twitter</span></a>
+                          <a class="whatsapp" href="https://wa.me/?text={{ page.title }}:%20{{ site.url }}{{ page.url }}" target="_blank"><i class="fa fa-whatsapp"></i><span>WhatsApp</span></a>
+                          <a class="email" href="mailto:?subject={{ page.title }}&body={{ site.url }}{{ page.url }}" target="_blank"><i class="fa fa-envelope"></i><span>Email</span></a>
                       </div>
                       
                   </div>
@@ -32,4 +46,4 @@ layout: default
       </div>
 
     </section>
-<!--===== #additional-content =====-->
+<!--===== Post =====-->

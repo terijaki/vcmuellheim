@@ -1,9 +1,8 @@
 name: "VC Müllheim e.V."
-title: "VC Müllheim"
-description: "Volleyballverein Baden-Württemberg"
+title: "Volleyball Club Müllheim e.V."
+description: "In Müllheim geh es in Sachen Volleyball richtig ab! Von Freizeit Team bis zur Verbandsliga. Hier findest du alle Infos und Neuigkeiten des Vereins."
 logo: '/img/logo.png'
 favicon: '/img/logo.png'
-baseurl: /mediumish-theme-jekyll
 google_analytics: ''
 mailchimp-list: ''
 include: ["_pages"]
@@ -36,7 +35,7 @@ kramdown:
 
 # Your website URL (e.g. http://terijaki.github.io or http://www.terijaki.com)
 # Used for Sitemap.xml and your RSS feed
-url: http://vcmuellheim.de
+url: https://vcmuellheim.de
 
 # If you're hosting your site at a Project repository on GitHub pages
 # (http://yourusername.github.io/repository-name)
@@ -51,3 +50,9 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+
+
+## Add Club Members to show on a contacts page
+collections:
+  club_members:
+    people: true

@@ -4,9 +4,7 @@ title: Zwei Auswärtssiege
 thumbnail: /upload/51270111_2095751377176010_6383426922143023104_o.jpg
 ---
 
-... an den letzten beiden Spieltagen für den VCM!!!
-
-Mit zwei verdienten, aber nicht immer überzeugenden Siegen, setzt der VCM sich weiter an der Tabellenspitze der Landesliga West fest.
+... an den letzten beiden Spieltagen für den VCM!!! Mit zwei verdienten, aber nicht immer überzeugenden Siegen, setzt der VCM sich weiter an der Tabellenspitze der Landesliga West fest.
 
 Am 27.01. war man zu Gast in Zähringen, wo die Heimmannschaft mit großem Kader und einigen Fans wartete. Die Müllheimer kamen wie so oft schlecht in das Spiel und der erste Satz wurde klar abgegeben. Die nächsten 3 Sätze waren hart umkämpft, knapp, und gingen allesamt an den VCM. Wie das Spiel gewonnen werden konnte, wusste gegen Ende niemand so wirklich, denn die Zähringer schlugen gut auf und bezwangen immer wieder den Müllheimer Block. Vielleicht war es Glück, vielleicht die mentale stärke, auf jeden Fall konnten 3 Punkte mit nach Hause genommen werden.
 
@@ -17,5 +15,3 @@ Eine Woche später, am 02.02., fuhr man wieder Richtung Freiburg, konnte allerdi
 Ergebnis: VCM vs VfR Merzhausen (25:12 25:23 25:20)
 
 Im Ganzen keine schönen Siege aber wichtige im Kampf um die Meisterschaft!
-
-![](/upload/51270111_2095751377176010_6383426922143023104_o.jpg)
