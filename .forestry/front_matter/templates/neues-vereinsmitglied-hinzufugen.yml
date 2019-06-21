@@ -9,7 +9,7 @@ fields:
   hidden: true
   config:
     required: true
-  default: club-member
+  default: contact
 - type: text
   name: name
   label: name
