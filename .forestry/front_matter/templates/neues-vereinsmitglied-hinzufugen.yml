@@ -5,9 +5,15 @@ fields:
 - type: text
   name: layout
   label: layout
+  hidden: true
+  config:
+    required: true
+  default: club-member
 - type: text
   name: name
   label: name
+  config:
+    required: true
 - type: text
   name: email
   label: email
