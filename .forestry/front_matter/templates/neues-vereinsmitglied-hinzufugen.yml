@@ -1,0 +1,25 @@
+---
+label: Neues Vereinsmitglied hinzufügen
+hide_body: false
+fields:
+- type: text
+  name: layout
+  label: layout
+- type: text
+  name: name
+  label: name
+- type: text
+  name: email
+  label: email
+- type: number
+  name: facebook
+  label: facebook
+- type: text
+  name: whatsapp
+  label: whatsapp
+- type: number
+  name: twitter
+  label: twitter
+- type: text
+  name: avatar
+  label: avatar
