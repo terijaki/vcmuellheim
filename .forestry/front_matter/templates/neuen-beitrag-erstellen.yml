@@ -1,0 +1,13 @@
+---
+label: Neuen Beitrag erstellen
+hide_body: false
+fields:
+- type: text
+  name: layout
+  label: layout
+- type: text
+  name: title
+  label: title
+- type: file
+  name: thumbnail
+  label: thumbnail
