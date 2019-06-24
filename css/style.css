@@ -1017,6 +1017,11 @@ body.mobile-nav-active #mobile-nav-toggle {
   }
 }
 
+@media (max-width: 767px) {
+  #members .row > div {
+      flex: 0 0 50%;
+  }
+}
 #members a.avatar {
   width: 11rem;
   height: 11rem;
@@ -1462,4 +1467,3 @@ body.mobile-nav-active #mobile-nav-toggle {
     content: '';
   }
 }
-
