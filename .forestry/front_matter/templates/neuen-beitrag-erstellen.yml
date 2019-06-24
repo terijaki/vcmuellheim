@@ -1,0 +1,20 @@
+---
+label: Neuen Beitrag erstellen
+hide_body: false
+display_field: title
+fields:
+- type: text
+  name: layout
+  label: layout
+  default: post
+  config:
+    required: true
+  hidden: true
+- type: text
+  name: title
+  label: title
+  config:
+    required: true
+- type: file
+  name: thumbnail
+  label: thumbnail
