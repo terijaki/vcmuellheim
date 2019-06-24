@@ -5,7 +5,7 @@ email:
 facebook:
 whatsapp:
 twitter:
-avatar: 
+avatar: /upload/franzjosefheimann.jpg
 function: Schriftführer
 sortorder: 3
 ---

@@ -5,7 +5,7 @@ email:
 facebook:
 whatsapp:
 twitter:
-avatar: 
+avatar: /upload/renatekleinbub.jpg
 function: Mitglieder Verwaltung
 sortorder: 3
 ---

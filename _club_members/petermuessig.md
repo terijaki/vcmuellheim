@@ -5,7 +5,7 @@ email:
 facebook:
 whatsapp:
 twitter:
-avatar: 
+avatar: /upload/petermuessig.jpg
 function: Kassier
 sortorder: 3
 ---
