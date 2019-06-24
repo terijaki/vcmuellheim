@@ -571,10 +571,21 @@ body.mobile-nav-active #mobile-nav-toggle {
 #verein .content ul li {
   padding-bottom: 10px;
 }
+
 #verein .memberlist .member-function {
   font-weight: bold;
 }
 
+#verein .memberlist .avatar {
+  height: 24px;
+  width: 24px;
+  background: linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));
+  margin-right: 4px;
+}
+#verein .memberlist .avatar div {
+  height: 100%;
+  height: 100%;
+}
 
 /* Product Featuress Section
 --------------------------------*/
