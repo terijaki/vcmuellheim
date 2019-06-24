@@ -140,7 +140,7 @@ layout: default
                 {% assign vorstand = (club_member.sortorder | at_most: 10) %}
                 <% if vorstand %}
                   <li><i class="ion-ios-person"></i> <strong>{{ club_member.function }}</strong>{{ club_member.name }}</li>
-                {% enfif %}
+                {% endif %}
                 {% endfor %}
             </ul>
           </div>
