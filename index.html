@@ -135,9 +135,9 @@ layout: default
           <div class="col-lg-6 content wow fadeInNone">
             <h2>Der Vorstand</h2>
             <ul class="memberlist">
-              {% assign mitglieder = (collection.club_members | sort: 'sortorder') %}
+              {% assign mitglieder = (site.club_members | sort: 'sortorder') %}
                 {% for club_member in mitglieder %}
-                  {% if club_member.sortorder < '10' %}
+                  {% if club_member.sortorder %}
                     <li><span class="member-function">{{ club_member.name }}</span><span class="member-name">{{ club_member.name }}</span></li>
                   {% endif %}
                 {% endfor %}
