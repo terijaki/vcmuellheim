@@ -134,14 +134,13 @@ layout: default
 
           <div class="col-lg-6 content wow fadeInNone">
             <h2>Der Vorstand</h2>
-            <ul>
-              <li><i class="ion-person"></i> <b>1. Vorsitzender:</b> Lothar Voigt</li>
-              <li><i class="ion-person"></i> <b>2. Vorsitzender:</b> Wolfgang Lacher</li>
-              <li><i class="ion-person"></i> <b>Kassier:</b> Peter Müssig</li>
-              <li><i class="ion-person"></i> <b>Mitglieder Verwaltung:</b> Renate Kleinbub</li>
-              <li><i class="ion-person"></i> <b>Schriftführer:</b> Franz-Josef Heimann</li>
-              <li><i class="ion-person"></i> <b>1. Beisitzer:</b> Andreas Albrecht</li>
-              <li><i class="ion-person"></i> <b>2. Beisitzer:</b> Paul Lacher</li>
+            <ul class="memberlist">
+              {% assign mitglieder = (site.club_members | sort: 'sortorder') %}
+              {% for club_member in mitglieder %}
+              {% if club_member.sortorder < '10' %}
+              <li><span class="member-function">{{ club_member.name }}</span><span class="member-name">{{ club_member.name }}</span></li>
+              {% endif %}
+              {% endfor %}
             </ul>
           </div>
         </div>
@@ -233,7 +232,7 @@ layout: default
             {% endfor %}
 
         </div>
-      
+
         <div class="cta-btn-container text-center wow fadeInUp">
           <a class="archiv-btn align-middle scrollto" href="/blog">alle Newsbeiträge</a>
         </div>

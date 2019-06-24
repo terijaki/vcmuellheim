@@ -5,9 +5,9 @@ email: bjorn@vcmuellheim.de
 facebook: 100014077482292
 whatsapp:
 twitter: 191985661
-avatar: 
+avatar:
 function: Webmaster
-sortorder:
+sortorder: 10
 ---
 
 Ein Traumtyp. 💕

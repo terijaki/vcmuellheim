@@ -7,7 +7,7 @@ whatsapp:
 twitter:
 avatar:
 function: Trainer 1. Herren
-sortorder:
+sortorder: 7
 ---
 
 Thomas spielt nicht nur in der 1. Herren;  er trainiert uns auch noch gleichzeitig!
