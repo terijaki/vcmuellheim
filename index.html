@@ -136,7 +136,7 @@ layout: default
             <h2>Der Vorstand</h2>
             <ul class="memberlist">
               {% assign mitglieder = (site.club_members | sort: 'sortorder') %}
-                {% for club_member in site.club_members %}
+                {% for club_member in mitglieder %}
                   {% if club_member.sortorder | at_most: 10 %}
                     <li><a class="avatar">
                       {% if club_member.avatar %}
