@@ -10,4 +10,4 @@ function: Webmaster
 sortorder:
 ---
 
-Unser Webmaster. Ein Traumtyp. 💕
+Ein Traumtyp. 💕
