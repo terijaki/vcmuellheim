@@ -138,8 +138,7 @@ layout: default
               {% assign mitglieder = (site.club_members | sort: 'sortorder') %}
                 {% for club_member in mitglieder %}
                   {% if club_member.sortorder at_most: 10 %}
-                    <li><i class="ion-ios-person"></i><span class="member-function">{{ club_member.function }}</span>: <span class="member-name">{{ club_member.name }}</span>
-                    </li>
+                    <li><i class="ion-ios-person"></i> <strong>{{ club_member.function }}</strong>{{ club_member.name }}</li>
                   {% endif %}
                 {% endfor %}
             </ul>
