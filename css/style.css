@@ -571,6 +571,10 @@ body.mobile-nav-active #mobile-nav-toggle {
 #verein .content ul li {
   padding-bottom: 10px;
 }
+#verein .memberlist .member-function {
+  font-weight: bold;
+}
+
 
 /* Product Featuress Section
 --------------------------------*/
@@ -1016,10 +1020,12 @@ body.mobile-nav-active #mobile-nav-toggle {
     filter: none;
   }
 }
-
+#members .row > div {
+    flex: 0 0 50%;
+}
 @media (max-width: 767px) {
   #members .row > div {
-      flex: 0 0 50%;
+      flex: 0 0 100%;
   }
 }
 #members a.avatar {
