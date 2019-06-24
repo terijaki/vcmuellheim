@@ -5,7 +5,7 @@ email:
 facebook: 100000656022095
 whatsapp:
 twitter:
-avatar: 
+avatar:
 function: 2. Vorsitzender
 sortorder: 2
 ---

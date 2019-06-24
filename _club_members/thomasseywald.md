@@ -4,7 +4,8 @@ name: Thomas Seywald
 email: noreply@google.com
 facebook: 100000558831832
 whatsapp:
-avatar: 
+twitter:
+avatar:
 function: Trainer 1. Herren
 sortorder:
 ---

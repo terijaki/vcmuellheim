@@ -5,7 +5,7 @@ email:
 facebook:
 whatsapp:
 twitter:
-avatar: 
+avatar:
 function: 1. Beisitzer
 sortorder: 4
 ---
