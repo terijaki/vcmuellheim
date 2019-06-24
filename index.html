@@ -137,7 +137,7 @@ layout: default
             <ul class="memberlist">
               {% assign mitglieder = (site.club_members | sort: 'sortorder') %}
                 {% for club_member in mitglieder %}
-                  {% if club_member.sortorder > 10 %}
+                  {% if club_member.sortorder < 10 %}
                     <li><span class="member-function">{{ club_member.function }}</span>: <span class="member-name">{{ club_member.name }}</span></li>
                   {% endif %}
                 {% endfor %}
