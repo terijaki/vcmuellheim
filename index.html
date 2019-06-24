@@ -137,13 +137,14 @@ layout: default
             <ul class="memberlist">
               {% assign mitglieder = (site.club_members | sort: 'sortorder') %}
                 {% for club_member in site.club_members %}
-                  {% if club_member.sortorder %}
+                  {% if club_member.sortorder | at_most: 10 %}
                     <li><a class="avatar">
                       {% if club_member.avatar %}
                       <div style="background-image:url({{ club_member.avatar }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div>
                       {% else %}
                       {% if club_member.facebook %}
                       <div style="background-image:url(https://graph.facebook.com/{{ club_member.facebook }}/picture?type=small), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div>
+                      {% endif %}
                       {% endif %}
                       </a><span class="member-function">{{ club_member.function }}</span>: <span class="member-name">{{ club_member.name }}</span>
                     </li>
