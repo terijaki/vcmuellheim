@@ -572,6 +572,10 @@ body.mobile-nav-active #mobile-nav-toggle {
   padding-bottom: 10px;
 }
 
+#verein .memberlist li strong {
+  padding-right: 3px;
+  padding-left: 3px;
+}
 
 /* Product Featuress Section
 --------------------------------*/
