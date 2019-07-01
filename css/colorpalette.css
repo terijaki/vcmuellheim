@@ -1,6 +1,6 @@
 colorpalette {
-  text1:        #666666; /*  |  */
-  background1:  #000000; /*  |  */
+  text1:        #666666; /* rgba(102,102,102) | Dim Gray  */
+  background1:  #000000; /* rgb(0,0,0) | Black */
   hyperlinks:   #F25E5E; /* rgb(242,94,94) | Bittersweet */
   hover:        #BFA084; /* rgb(191,160,132) | Rodeo Dust */
   gradient1:    #363B40; /* rgb(54,59,64) | Baltic Sea */
