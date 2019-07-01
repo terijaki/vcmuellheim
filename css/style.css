@@ -124,7 +124,7 @@ h1, h2, h3, h4, h5, h6 {
 #intro {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(45deg, #363B40 80%, #366273 80%), url("/img/intro-bg.jpg") center top no-repeat;
+  background: linear-gradient(45deg, rgba(54,59,64, 0.8), rgba(54,98,115, 0.8)), url("/img/intro-bg.jpg") center top no-repeat;
   background-size: cover;
   position: relative;
 }
@@ -210,7 +210,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #intro .product-screens img {
-  box-shadow: 0px -2px 19px 4px #000000 29%;
+  box-shadow: 0px -2px 19px 4px rgba(0, 0, 0, 0.29);
 }
 
 #intro .product-screens .product-screen-1 {
@@ -337,7 +337,7 @@ h1, h2, h3, h4, h5, h6 {
 .nav-menu ul {
   margin: 4px 0 0 0;
   padding: 10px;
-  box-shadow: 0px 0px 30px #7f89a1 25%;
+  box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
   background: #fff;
 }
 
@@ -395,7 +395,7 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 18px;
   bottom: 0;
   z-index: 998;
-  background: #363B40 90%;
+  background: rgba(52, 59, 64, 0.9);
   left: -260px;
   width: 260px;
   overflow-y: auto;
@@ -456,7 +456,7 @@ h1, h2, h3, h4, h5, h6 {
   top: 0;
   left: 0;
   position: fixed;
-  background: #363B40 90%;
+  background: rgba(52, 59, 64, 0.9);
   display: none;
 }
 
@@ -795,7 +795,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 --------------------------------*/
 #shortintro {
   overflow: hidden;
-  background: linear-gradient(#363B40 90%, #366273 90%), url(../img/call-to-action-bg.jpg) fixed center center;
+  background: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(../img/call-to-action-bg.jpg) fixed center center;
   background-size: cover;
   padding: 120px 0 40px 0;
 }
@@ -814,7 +814,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 --------------------------------*/
 #call-to-action {
   overflow: hidden;
-  background: linear-gradient(#363B40 90%, #366273 90%), url(../img/call-to-action-bg.jpg) fixed center center;
+  background: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(../img/call-to-action-bg.jpg) fixed center center;
   background-size: cover;
   padding: 80px 0;
 }
@@ -852,7 +852,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #call-to-action .cta-btn:hover {
-  background: linear-gradient(15deg, #F25E5E 70% 0%, #BFA084 70% 100%);
+  background: linear-gradient(15deg, rgba(242, 94, 94, 0.7) 0%, rgba(191, 160, 132, 0.7) 100%);
   border: 2px solid #fff;
 }
 
@@ -866,7 +866,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 #news .box,  #members .box {
   padding: 40px;
   margin-bottom: 60px;
-  box-shadow: 0px 0px 30px #494E5C 15%;
+  box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
   background: #fff;
   transition: 0.4s;
   cursor: default;
@@ -884,7 +884,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   position: relative;
   overflow: hidden;
   display: block;
-  box-shadow: 0px 0px 30px #494E5C 15%;
+  box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
 }
 #news .newsposts .box a.thumbnail div {
   width: 100%;
@@ -930,7 +930,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 #mannschaften .box {
   padding: 40px;
   margin-bottom: 30px;
-  box-shadow: 0px 0px 30px #494E5C 15%;
+  box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
   background: #fff;
   transition: 0.4s;
 }
@@ -1038,7 +1038,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   overflow: hidden;
   display: block;
   border-radius: 50%;
-  box-shadow: 0px 0px 30px #494E5C 40%;
+  box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.4);
 }
 #members a.avatar div {
   width: 100%;
@@ -1096,7 +1096,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 #pricing .box {
   padding: 40px;
   margin-bottom: 30px;
-  box-shadow: 0px 0px 30px #494E5C 15%;
+  box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
   background: #fff;
   text-align: center;
 }
@@ -1317,13 +1317,13 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 #gallery .gallery-item:hover .gallery-overlay {
   opacity: 1;
-  background: #000000 70%;
+  background: rgba(0, 0, 0, 0.7);
 }
 
 /* kontakt Section
 --------------------------------*/
 #kontakt {
-  box-shadow: 0px 0px 12px 0px #000000 10%;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
   padding: 60px 0;
   overflow: hidden;
 }
@@ -1444,7 +1444,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 --------------------------------------------------------------*/
 #footer {
   background: #fff;
-  box-shadow: 0px 0px 12px 0px #000000 10%;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
   padding: 30px 0;
   color: #333;
   font-size: 14px;
