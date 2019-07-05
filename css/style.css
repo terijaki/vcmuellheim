@@ -800,7 +800,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   padding: 120px 0 40px 0;
 }
 
-#shortintro .si-title, , #blog-post-header .si-title {
+#shortintro .si-title, #blog-post-header .si-title {
   color: #fff;
   font-size: 28px;
   font-weight: 700;
