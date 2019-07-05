@@ -856,14 +856,14 @@ body.mobile-nav-active #mobile-nav-toggle {
   border: 2px solid #fff;
 }
 
-/* More Features Section (Mannschaftern, News, Mitglieder)
+/* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse)
 --------------------------------*/
 #news, #members {
   padding: 60px 0 60px 0;
   overflow: hidden;
 }
 
-#news .box,  #members .box {
+#news .box,  #members .box, #ergebnisse-tabelle .box {
   padding: 40px;
   margin-bottom: 60px;
   box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
