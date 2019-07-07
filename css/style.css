@@ -791,22 +791,22 @@ body.mobile-nav-active #mobile-nav-toggle {
     text-align: center;
 }
 
-/* Short Intros
+/* Short Intros & Blog Post Header
 --------------------------------*/
-#shortintro {
+#shortintro, #blog-post-header {
   overflow: hidden;
   background: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(../img/call-to-action-bg.jpg) fixed center center;
   background-size: cover;
   padding: 120px 0 40px 0;
 }
 
-#shortintro .si-title {
+#shortintro .si-title, #blog-post-header .si-title {
   color: #fff;
   font-size: 28px;
   font-weight: 700;
 }
 
-#shortintro .si-text {
+#shortintro .si-text, #blog-post-header .si-text {
   color: #fff;
 }
 
@@ -856,14 +856,14 @@ body.mobile-nav-active #mobile-nav-toggle {
   border: 2px solid #fff;
 }
 
-/* More Features Section (Mannschaftern, News, Mitglieder)
+/* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse)
 --------------------------------*/
 #news, #members {
   padding: 60px 0 60px 0;
   overflow: hidden;
 }
 
-#news .box,  #members .box {
+#news .box,  #members .box, #ergebnisse-tabelle .box {
   padding: 40px;
   margin-bottom: 60px;
   box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
@@ -872,9 +872,14 @@ body.mobile-nav-active #mobile-nav-toggle {
   cursor: default;
 }
 
+#ergebnisse-tabelle .box {
+  margin-top: 30px;
+}
+
 #news .box {
   cursor: pointer;
 }
+
 #news .newsposts .box a.thumbnail {
   width: 100%;
   width: calc(100% + 40px);
@@ -886,6 +891,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   display: block;
   box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
 }
+
 #news .newsposts .box a.thumbnail div {
   width: 100%;
   height: 100%;
