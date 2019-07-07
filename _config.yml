@@ -5,6 +5,7 @@ logo: '/img/logo.png'
 favicon: '/img/logo.png'
 include: ["_pages"]
 permalink: /:title/
+url: https://vcmuellheim.de
 
 # Jekyll GitHub Plugins
 plugins:
@@ -22,11 +23,6 @@ kramdown:
     block:
       line_numbers: true
 
-# Your website URL
-# Used for Sitemap.xml and your RSS feed
-url: https://vcmuellheim.de
-
-
 # Exclude these files from your production _site
 exclude:
   - Gemfile
@@ -34,7 +30,6 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
-
 
 ## Add Club Members to show on a contacts page
 collections:
