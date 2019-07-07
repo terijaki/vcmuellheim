@@ -3,8 +3,6 @@ title: "Volleyball Club Müllheim e.V."
 description: "In Müllheim geh es in Sachen Volleyball richtig ab! Von Freizeit Team bis zur Verbandsliga. Hier findest du alle Infos und Neuigkeiten des Vereins."
 logo: '/img/logo.png'
 favicon: '/img/logo.png'
-google_analytics: ''
-mailchimp-list: ''
 include: ["_pages"]
 permalink: /:title/
 
@@ -13,15 +11,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-seo-tag
-  - jekyll-archives
-
-# Archives
-jekyll-archives:
-  enabled:
-    - categories
-  layout: archive
-  permalinks:
-    category: '/category/:name/'
 
 # Other
 markdown: kramdown
