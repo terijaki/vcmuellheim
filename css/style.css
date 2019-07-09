@@ -884,8 +884,16 @@ body.mobile-nav-active #mobile-nav-toggle {
 #ergebnisse-tabelle .herren2 .vly h1:before {
     content: '2. Herren - ';
 }
-#ergebnisse-tabelle .vly tr:nth-child(7n) {
+#ergebnisse-tabelle .vly tr :nth-child(7) {
     display: none; /* entfernt Bälle aus der Tabellenübersicht */
+}
+#ergebnisse-tabelle .vly tr > * {
+    padding: 1px;
+    text-align: center;
+}
+#ergebnisse-tabelle .vly-ad {
+    text-align: right;
+    font-variant: unicase;
 }
 #news .box {
   cursor: pointer;
