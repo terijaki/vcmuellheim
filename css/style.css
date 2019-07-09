@@ -894,6 +894,12 @@ body.mobile-nav-active #mobile-nav-toggle {
 #ergebnisse-tabelle .vly-ad {
     text-align: right;
     font-variant: unicase;
+    margin: 0;
+    padding-top: 15px;
+}
+.vly-team {
+  background: linear-gradient(45deg, #366273 0%, #363B40 100%);
+  color: #fff;
 }
 #news .box {
   cursor: pointer;
