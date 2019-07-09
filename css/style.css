@@ -876,26 +876,27 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-top: 30px;
 }
 #ergebnisse-tabelle .vly h1 {
-    font-size: 1.4rem;
+  font-size: 1.4rem;
+  font-weight: bold;
 }
 #ergebnisse-tabelle .herren1 .vly h1:before {
-    content: '1. Herren - ';
+  content: '1. Herren - ';
 }
 #ergebnisse-tabelle .herren2 .vly h1:before {
-    content: '2. Herren - ';
+  content: '2. Herren - ';
 }
 #ergebnisse-tabelle .vly tr :nth-child(7) {
-    display: none; /* entfernt Bälle aus der Tabellenübersicht */
+  display: none; /* entfernt Bälle aus der Tabellenübersicht */
 }
 #ergebnisse-tabelle .vly tr > * {
-    padding: 1px;
-    text-align: center;
+  padding: 1px;
+  text-align: center;
 }
 #ergebnisse-tabelle .vly-ad {
-    text-align: right;
-    font-variant: unicase;
-    margin: 0;
-    padding-top: 15px;
+  text-align: right;
+  font-variant: unicase;
+  margin: 0;
+  padding-top: 15px;
 }
 .vly-team {
   background: linear-gradient(45deg, #366273 0%, #363B40 100%);
