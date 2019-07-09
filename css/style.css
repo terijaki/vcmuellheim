@@ -875,7 +875,18 @@ body.mobile-nav-active #mobile-nav-toggle {
 #ergebnisse-tabelle .box {
   margin-top: 30px;
 }
-
+#ergebnisse-tabelle .vly h1 {
+    font-size: 1.4rem;
+}
+#ergebnisse-tabelle .herren1 .vly h1:before {
+    content: '1. Herren - ';
+}
+#ergebnisse-tabelle .herren2 .vly h1:before {
+    content: '2. Herren - ';
+}
+#ergebnisse-tabelle .vly tr:nth-child(7n) {
+    display: none; /* entfernt Bälle aus der Tabellenübersicht */
+}
 #news .box {
   cursor: pointer;
 }
