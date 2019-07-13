@@ -1290,5 +1290,5 @@ body.mobile-nav-active #mobile-nav-toggle {
 /* ----- Print -----*/
 @media print {
    body *, #main * { display:none; }
-   #shortintro *, #main, #main * { display:block; }
+   #shortintro, #shortintro *, #main, #main * { display:block; }
 }
