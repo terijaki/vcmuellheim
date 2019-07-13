@@ -896,7 +896,10 @@ body.mobile-nav-active #mobile-nav-toggle {
 #ergebnisse-tabelle .herren2 .vly h1:before {
   content: '2. Herren - ';
 }
-.vly tr :nth-child(7) { /* .vly = ergebnisdienst class */
+.vly table { /* .vly = ergebnisdienst class */
+  width: 100%
+}
+.vly tr :nth-child(7) {
   display: none; /* entfernt Bälle aus der Tabellenübersicht */
 }
 .vly tr > * {
