@@ -1292,3 +1292,22 @@ body.mobile-nav-active #mobile-nav-toggle {
    body *, #main * { display:none; }
    #shortintro, #shortintro *, #main, #main * { display:block; }
 }
+.print-btn {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 28px;
+  border-radius: 50px;
+  transition: 0.5s;
+  margin: 10px;
+  border: 2px solid #fff;
+  color: #fff;
+  background: #366273;
+}
+
+.print-btn:hover {
+  color: #366273;
+  background: #fff;
+}
