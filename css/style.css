@@ -1292,17 +1292,12 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #366273;
 }
 
-#footer .footer-links a[href*=".pdf"] {
+#footer .footer-links a[href*=".pdf"]:before {
     content: '🗎 PDF: ';
   }
 @media (max-width: 768px) {
   #footer .footer-links a:first-child:before {
     content: '';
-  }
-}
-@media (max-width: 768px) {
-  #footer .desktop-footer-links {
-    display: none;
   }
 }
 
