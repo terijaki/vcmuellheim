@@ -874,7 +874,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   overflow: hidden;
 }
 
-#news .box,  #members .box, #ergebnisse-tabelle .box {
+#news .box,  #members .box, #page-simple .box, #ergebnisse-tabelle .box {
   padding: 40px;
   margin-bottom: 60px;
   box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
@@ -883,7 +883,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   cursor: default;
 }
 
-#ergebnisse-tabelle .box {
+#page-simple .box, #ergebnisse-tabelle .box {
   margin-top: 30px;
 }
 #ergebnisse-tabelle .vly h1 {
