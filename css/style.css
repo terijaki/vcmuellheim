@@ -315,7 +315,7 @@ h1, h2, h3, h4, h5, h6 {
   content: "\f105";
 }
 
-/* Nav Meu Container */
+/* Nav Menu Container */
 #nav-menu-container {
   float: right;
   margin: 0;
@@ -327,7 +327,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Nav Meu Styling */
+/* Nav Menu Styling */
 .nav-menu a {
   padding: 0 8px 10px 8px;
   text-decoration: none;
@@ -395,8 +395,13 @@ h1, h2, h3, h4, h5, h6 {
   #mobile-nav-toggle {
     display: inline;
   }
+  .more-nav {
+    display: list-item;
+  }
 }
-
+.more-nav {
+  display: none;
+}
 @media (max-width: 768px) {
   #header .container {
     max-width: 100vw;
