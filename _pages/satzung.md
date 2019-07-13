@@ -3,7 +3,7 @@ layout: page-simple
 title: Satzung des Volleyballclubs Müllheim
 permalink: /satzung/
 ---
-
+<img src="/img/vcm-logo.png" style="height:120px;float:right;filter:contrast(0.3);">
 ## **A. Allgemeines**
 ### § 1 Name, Sitz, Geschäftsjahr
 1. Der Verein führt den Namen „Volleyballclub Müllheim“. Er soll in das Vereinsregister beim Amtsgericht Müllheim eingetragen werden. Nach der Eintragung führt er den Namenszusatz „eingetragener Verein“.
