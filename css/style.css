@@ -77,11 +77,14 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 997;
 }
 
-#header #logo {
+#logo {
   float: left;
 }
+#header:not(.header-fixed) #logo {
+  visibility: hidden;
+}
 
-#header #logo h1 {
+#logo h1 {
   font-size: 36px;
   margin: -4px 0 0 0;
   padding: 0;
@@ -93,21 +96,21 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
 }
 
-#header #logo h1 a, #header #logo h1 a:hover {
+#logo h1 a, #logo h1 a:hover {
   color: #fff;
 }
 
-#header #logo img {
+#logo img {
   padding: 0;
   margin: 0;
 }
 
 @media (max-width: 768px) {
-  #header #logo h1 {
+  #logo h1 {
     font-size: 28px;
     margin-top: 0;
   }
-  #header #logo img {
+  #logo img {
     max-height: 40px;
   }
 }
@@ -135,7 +138,9 @@ h1, h2, h3, h4, h5, h6 {
     background-attachment: fixed;
   }
 }
-
+#intro .vcm-banner {
+  max-height: 200px;
+}
 #intro .intro-text {
   position: absolute;
   left: 0;
@@ -162,6 +167,9 @@ h1, h2, h3, h4, h5, h6 {
   #intro h2 {
     font-size: 28px;
     line-height: 36px;
+  }
+  #intro .vcm-banner {
+    max-height: 140px;
   }
 }
 
