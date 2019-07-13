@@ -1286,3 +1286,9 @@ body.mobile-nav-active #mobile-nav-toggle {
     content: '';
   }
 }
+
+/* ----- Print -----*/
+@media print {
+   body *, #main * { display:none; }
+   #shortintro *, #main, #main * { display:block; }
+}
