@@ -1296,7 +1296,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     content: '🗎 PDF: ';
   }
 @media (max-width: 768px) {
-  #footer .footer-links a:first-child:before {
+  #footer .footer-links a[href*=".pdf"]:before {
     content: '';
   }
 }
