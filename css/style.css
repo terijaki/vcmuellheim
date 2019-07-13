@@ -1290,7 +1290,12 @@ body.mobile-nav-active #mobile-nav-toggle {
 /* ----- Print -----*/
 @media print {
    body *, #main * { display:none; }
-   #shortintro, #shortintro *, #main, #main * { display:block; }
+   #shortintro, #shortintro *, #main, #main * {
+     display:block;
+   }
+   h1, h2, h3, h4, h5, p, span {
+     color: #000
+   }
 }
 .print-btn {
   font-family: "Montserrat", sans-serif;
@@ -1310,4 +1315,5 @@ body.mobile-nav-active #mobile-nav-toggle {
 .print-btn:hover {
   color: #366273;
   background: #fff;
+  border-color: #366273;
 }
