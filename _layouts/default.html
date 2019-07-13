@@ -29,7 +29,7 @@
 
 </head>
 
-<body class="{{ page.title | remove: " " }}">
+<body class="{% if page.title}{{ page.title | remove: ' ' }}{% else %}{{ landingpage }}{% endif %}">
 
 <!--===== Header =====-->
   <header id="header">
