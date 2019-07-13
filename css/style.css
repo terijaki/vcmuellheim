@@ -81,7 +81,10 @@ h1, h2, h3, h4, h5, h6 {
   float: left;
 }
 .landingpage #header:not(.header-fixed) #logo {
-  visibility: hidden;
+  display: none;
+}
+.landingpage #header {
+  opacity: 0;
 }
 
 #logo h1 {
@@ -119,6 +122,7 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(45deg, #363B40, #366273);
   padding: 20px 0;
   height: 72px;
+  opacity: 100;
   transition: all 0.5s;
 }
 
