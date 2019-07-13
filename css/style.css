@@ -397,6 +397,13 @@ h1, h2, h3, h4, h5, h6 {
   .more-nav {
     display: list-item;
   }
+  .more-nav.infomail, .more-nav.facebook {
+    display: inline-block;
+  }
+  .more-nav .fa {
+    font-size: 2rem;
+    margin-top: 1.4rem;
+  }
 }
 #header:not(.header-fixed).more-nav {
   display: none;
