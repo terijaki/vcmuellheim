@@ -1305,10 +1305,10 @@ body.mobile-nav-active #mobile-nav-toggle {
 .print-btn {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   letter-spacing: 1px;
   display: inline-block;
-  padding: 6px 18px;
+  padding: 6px 12px;
   border-radius: 6px;
   transition: 0.3s;
   margin: 10px;
@@ -1318,5 +1318,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .print-btn:hover {
-  background: linear-gradient(45deg, #366273, #363B40);
+  background: #fff;
+  color: #366273;
+  border-color: #366273;
 }
