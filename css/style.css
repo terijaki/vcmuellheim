@@ -389,12 +389,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   #header .container {
     max-width: 100vw;
   }
 }
-@media (min-width: 992px) {
+@media (max-width: 992px) {
   #header .container {
     max-width: 100vw;
   }
