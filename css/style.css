@@ -403,7 +403,7 @@ h1, h2, h3, h4, h5, h6 {
     display: list-item;
   }
 }
-.more-nav {
+#header:not(.header-fixed).more-nav {
   display: none;
 }
 @media (max-width: 768px) {
