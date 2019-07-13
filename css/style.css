@@ -1293,8 +1293,8 @@ body.mobile-nav-active #mobile-nav-toggle {
    #shortintro, #shortintro *, #main, #main * {
      display:block;
    }
-   h1, h2, h3, h4, h5, p, span {
-     color: #000
+   h1, h2, h3, h4, h5, p, span, li {
+     color: #000000!important;
    }
 }
 .print-btn {
