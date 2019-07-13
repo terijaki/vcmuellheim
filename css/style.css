@@ -1289,7 +1289,9 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 /* ----- Print -----*/
 @media print {
-   body *, #main * { display:none; }
+   body *, #main *, .print-page {
+     display:none;
+   }
    #shortintro, #shortintro *, #main, #main * {
      display:block;
    }
@@ -1297,23 +1299,24 @@ body.mobile-nav-active #mobile-nav-toggle {
      color: #000000!important;
    }
 }
+.print-page {
+  text-align: right;
+}
 .print-btn {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: 1px;
   display: inline-block;
-  padding: 8px 28px;
-  border-radius: 50px;
-  transition: 0.5s;
+  padding: 6px 18px;
+  border-radius: 6px;
+  transition: 0.3s;
   margin: 10px;
   border: 2px solid #fff;
   color: #fff;
-  background: #366273;
+  background: linear-gradient(45deg, #363B40, #366273);
 }
 
 .print-btn:hover {
-  color: #366273;
-  background: #fff;
-  border-color: #366273;
+  background: linear-gradient(45deg, #366273, #363B40);
 }
