@@ -1283,23 +1283,32 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #888;
 }
 
-#footer .footer-links a {
+#footer a {
   color: #666;
-  margin-right: 15px;
+  margin: auto 7px;
 }
 
-#footer .footer-links a:last-child {
-  margin-right: 0;
-}
-#footer .footer-links a:first-child:before {
-    content: '🗎 PDF: ';
-  }
-#footer .footer-links a:hover {
+#footer a:hover {
   color: #366273;
 }
+
+#footer .footer-links a[href*=".pdf"] {
+    content: '🗎 PDF: ';
+  }
 @media (max-width: 768px) {
   #footer .footer-links a:first-child:before {
     content: '';
+  }
+}
+@media (max-width: 768px) {
+  #footer .desktop-footer-links {
+    display: none;
+  }
+}
+
+@media (max-width: 992px) {
+  #footer .desktop-footer-links span {
+    display: none;
   }
 }
 
