@@ -207,7 +207,7 @@ h1, h2, h3, h4, h5, h6 {
   background: #fff;
 }
 
-#intro .product-screens {
+#intro .welcome-screens {
   position: absolute;
   left: 0;
   right: 0;
@@ -218,11 +218,11 @@ h1, h2, h3, h4, h5, h6 {
   height: 50%;
 }
 
-#intro .product-screens img {
+#intro .welcome-screens img {
   box-shadow: 0px -2px 19px 4px rgba(0, 0, 0, 0.29);
 }
 
-#intro .product-screens .product-screen-1 {
+#intro .welcome-screens .welcome-screen-1 {
   position: absolute;
   z-index: 30;
   left: calc(50% + 54px);
@@ -230,7 +230,7 @@ h1, h2, h3, h4, h5, h6 {
   top: 30px;
 }
 
-#intro .product-screens .product-screen-2 {
+#intro .welcome-screens .welcome-screen-2 {
   position: absolute;
   z-index: 20;
   left: calc(50% - 154px);
@@ -238,7 +238,7 @@ h1, h2, h3, h4, h5, h6 {
   top: 90px;
 }
 
-#intro .product-screens .product-screen-3 {
+#intro .welcome-screens .welcome-screen-3 {
   position: absolute;
   z-index: 10;
   left: calc(50% - 374px);
@@ -247,11 +247,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 767px) {
-  #intro .product-screens .product-screen-1 {
+  #intro .welcome-screens .welcome-screen-1 {
     position: static;
     padding-top: 30px;
   }
-  #intro .product-screens .product-screen-2, #intro .product-screens .product-screen-3 {
+  #intro .welcome-screens .welcome-screen-2, #intro .welcome-screens .welcome-screen-3 {
     display: none;
   }
 }
@@ -596,7 +596,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   padding-left: 3px;
 }
 
-/* Product Featuress Section
+/* welcome Featuress Section
 --------------------------------*/
 #features {
   background: #fff;
