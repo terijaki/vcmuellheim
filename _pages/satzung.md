@@ -176,3 +176,5 @@ Bedeutung, soweit diese nicht der Mitgliederversammlung vorbehalten sind.
 
 ### § 21 Weitere Regelungen
 1. Weitere Regelungen, insbesondere für Jugendliche, ergeben sich aus der Jugendsatzung des Vereins.
+
+<a class="print-btn" onclick="window.print();return false;">Diese Seite drucken</a>
