@@ -15,8 +15,8 @@ sections:
   label: Club members
   create: all
   match: "**/*"
-upload_dir: uploads
-public_path: "/uploads"
+upload_dir: upload
+public_path: "/upload"
 front_matter_path: ''
 use_front_matter_path: false
 file_template: ":year:/:month/:day:/:filename:"
