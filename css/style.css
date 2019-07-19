@@ -1345,3 +1345,9 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #366273;
   border-color: #366273;
 }
+
+/* ----- Sonstiges -----*/
+video {
+  width: 100%;
+  height: auto;
+}
