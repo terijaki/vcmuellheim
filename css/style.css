@@ -748,8 +748,9 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 /* Blog Post
 --------------------------------*/
-#blogpost img {
+#blogpost img, #blogpost video {
   width: 100%;
+  height: auto;
   padding: 6px;
 }
 #blogpost img.post-thumbnail {
@@ -1344,10 +1345,4 @@ body.mobile-nav-active #mobile-nav-toggle {
   background: #fff;
   color: #366273;
   border-color: #366273;
-}
-
-/* ----- Sonstiges -----*/
-video {
-  width: 100%;
-  height: auto;
 }
