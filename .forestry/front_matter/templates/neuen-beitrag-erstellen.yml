@@ -18,5 +18,13 @@ fields:
 - type: file
   name: thumbnail
   label: thumbnail
+- name: excerpt_separator
+  type: text
+  config:
+    required: false
+  label: excerpt_separator
+  description: Breakpoint for Post Previews
+  hidden: true
+  default: "<!--more-->"
 pages:
 - _posts/2019-07-19-qualifikation-zum-pokalspiel.md
