@@ -15,11 +15,11 @@ sections:
   label: Club members
   create: all
   match: "**/*"
-upload_dir: upload
+upload_dir: uploads
 public_path: "/uploads"
 front_matter_path: ''
 use_front_matter_path: false
-file_template: ":filename:"
+file_template: ":year:/:month/:day:/:filename:"
 build:
   preview_command: bundle exec jekyll build --drafts --unpublished --future -d _site
   publish_command: bundle exec jekyll build -d _site
