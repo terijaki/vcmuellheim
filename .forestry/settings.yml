@@ -10,11 +10,15 @@ sections:
 - type: jekyll-posts
   label: Posts
   create: all
+  templates:
+  - neuen-beitrag-erstellen
 - type: directory
   path: _club_members
   label: Club members
   create: all
   match: "**/*"
+  templates:
+  - neues-vereinsmitglied-hinzufugen
 upload_dir: upload
 public_path: "/upload"
 front_matter_path: ''
