@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+  {% include analytics.html %}
+  {% include meta.html %}
+
+  <!-- Favicons -->
+  <link href="/img/favicon.png" rel="icon">
+  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="1/lib/animate/animate.min.css" rel="stylesheet">
+  <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="1/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="1/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+  <!-- Ergebnisdienst CSS Files -->
+  <link href="/lib/ergebnisdienst/vly.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="{% if page.title %}{{ page.title | remove: ' ' }}{% else %}landingpage{% endif %}">
+
+<!--===== Header =====-->
+  <header id="header">
+    <div class="container">
+      <div id="logo">
+        <h1><a href="/#intro" class="scrollto">🏐 VC Müllheim</a></h1>
+      </div>
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li><a href="/#mannschaften">Mannschaften</a></li>
+          <li><a href="/#verein">Verein</a></li>
+          {% if page.url == "/" %}
+          <li><a href="/#news">News</a></li>
+          <li><a href="/#kontakt">Kontakt</a></li>
+          {% else if %}
+          <li><a href="/blog/">News</a></li>
+          <li><a href="/#kontakt">Kontakt</a></li>
+          {% endif %}
+          <li class="more-nav"><a href="/tabelle/">Tabelle</a></li>
+          <li class="more-nav facebook"><a href="https://www.facebook.com/VCMuellheim/" target="_blank"><i class="fa fa-facebook-official"></i> Facebook</a></li>
+          <li class="more-nav infomail"><a href="mailto:info@vcmuellheim.de"><i class="fa fa-envelope"></i> info@vcmuellheim.de</a></li>
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header>
+<!--===== #header =====-->
+
+      {{ content }}
+
+
+<!--===== Footer =====-->
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-sm-9">
+          <nav class="footer-links text-lg-left pt-2 pt-lg-0">
+            <a href="/docs/aufnahmeform.pdf" target="_blank">Aufnahmeform</a>
+            <a href="/satzung/">Satzung</a>
+            <a href="/datenschutz/">Datenschutz</a>
+          </nav>
+        </div>
+        <div class="col-lg-6 col-sm-3 text-lg-right pt-2 pt-lg-0">
+          <nav class="desktop-footer-links">
+          <a href="https://www.facebook.com/VCMuellheim/" target="_blank"><i class="fa fa-facebook-official"></i><span> Facebook</span></a>
+          <a href="mailto:info@vcmuellheim.de"><i class="fa fa-envelope"></i><span> info@vcmuellheim.de</span></a>
+        </nav>
+        </div>
+      </div>
+    </div>
+  </footer>
+<!--===== #footer =====-->
+ <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+<!--===== Scripts =====-->
+  <!-- Ergebnisdienst -->
+  <script src="//volleyball-ergebnisdienst.de/widget/vly.min.js"></script>
+
+  <!-- JavaScript Libraries -->
+  <script src="/lib/jquery/jquery.min.js"></script>
+  <script src="/lib/jquery/jquery-migrate.min.js"></script>
+  <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="1/lib/easing/easing.min.js"></script>
+  <script src="/lib/wow/wow.min.js"></script>
+  <script src="1/lib/magnific-popup/magnific-popup.min.js"></script>
+  <script src="1/lib/superfish/superfish.min.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="/js/main.js"></script>
+
+</body>
+</html>
