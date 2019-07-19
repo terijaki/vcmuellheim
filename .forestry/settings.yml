@@ -15,7 +15,7 @@ sections:
   label: Club members
   create: all
   match: "**/*"
-upload_dir: uploads
+upload_dir: upload
 public_path: "/uploads"
 front_matter_path: ''
 use_front_matter_path: false
@@ -31,3 +31,6 @@ build:
   output_directory: _site
   instant_preview_command: bundle exec jekyll serve --drafts --unpublished --future
     --port 8080 --host 0.0.0.0 -d _site
+  install_dependencies_command: bundle install --path vendor/bundle
+  preview_docker_image: forestryio/ruby:2.6
+  mount_path: "/srv"
