@@ -18,3 +18,5 @@ fields:
 - type: file
   name: thumbnail
   label: thumbnail
+pages:
+- _posts/qualifikation-zum-pokalspiel.md
