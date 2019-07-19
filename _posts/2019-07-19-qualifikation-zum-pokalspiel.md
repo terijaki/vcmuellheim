@@ -7,7 +7,7 @@ thumbnail: "/upload/2019/07/19/00000IMG_00000_BURST20190718211917-ANIMATION.gif"
 Gestern war es soweit. Gefühlt noch mitten in der Saisonpause, hatten wir unser Qualifikationsspiel zum Landespokal.  
 Gespielt wurde in in der [Clara-Grundwald-Schule](https://goo.gl/maps/J8MZoQnpKe169j5R8) gegen den [SvO Reiselfeld](https://www.svo-rieselfeld.de/index.php/abteilungen/volleyball/abteilungsinfos-volleyball).  
 Im ersten Satz lief noch alles prima und die Stimmung war hoch. Danach hat sich ein wenig Unsicherheit auf dem Platz verbreitet, einige Fehler wurden gemacht und wir haben den Satz sogar noch verschenkt. 🙄  
-Jetzt wollen wir aber nicht groß drum herum reden. Wir haben alles Ding noch im Tiebreaker rumgerissen und einen **3:2 Sieg** nach Hause gebracht.  
+Jetzt wollen wir aber nicht groß drum herum reden. Wir haben d Ding noch im Tiebreaker rumgerissen und einen **3:2 Sieg** nach Hause gebracht.  
 Für uns geht es nun erstmal in die Sommerpause, die Urlaubszeit beginnt und natürlich heißt das für uns: ab in den Sand!
 
 Hier noch ein paar Eindrücke von gestern:
