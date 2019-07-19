@@ -14,4 +14,4 @@ Hier noch ein paar Eindrücke von gestern:
 
 <video muted autplay loop controls><source src="/upload/2019/07/19/VID_20190718_213710.mp4" type="video/mp4"></video>
 
-![](/upload/2019/07/19/MVIMG_20190718_212006.jpg)![](/upload/2019/07/19/00000XTR_00000_BURST20190718195403-ANIMATION.gif)![](/upload/2019/07/19/IMG_20190718_194911_exported_stabilized_6135623578844156420.gif)![](/upload/2019/07/19/MVIMG_20190718_212059.jpg)![](/upload/2019/07/19/MVIMG_20190718_194905.jpg)
+![](/upload/2019/07/19/MVIMG_20190718_212006.jpg)![](/upload/2019/07/19/IMG_20190718_194911_exported_stabilized_6135623578844156420.gif)![](/upload/2019/07/19/MVIMG_20190718_212059.jpg)![](/upload/2019/07/19/MVIMG_20190718_194905.jpg)
