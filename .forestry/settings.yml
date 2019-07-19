@@ -19,7 +19,7 @@ upload_dir: upload
 public_path: "/upload"
 front_matter_path: ''
 use_front_matter_path: false
-file_template: ":year:/:month/:day:/:filename:"
+file_template: ":year:/:month:/:day:/:filename:"
 build:
   preview_command: bundle exec jekyll build --drafts --unpublished --future -d _site
   publish_command: bundle exec jekyll build -d _site
