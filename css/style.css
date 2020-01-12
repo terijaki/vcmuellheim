@@ -1,4 +1,4 @@
-/*
+var(--hyperlinks)/*
   Theme Name: Avilon
   Theme URL: https://bootstrapmade.com/avilon-bootstrap-landing-page-template/
   Author: BootstrapMade.com
@@ -12,20 +12,20 @@
 }
 
 body {
-  background: #fff;
-  color: #666666;
+  background: var(--background1);
+  color: var(--text1);
   font-family: "Open Sans", sans-serif;
   overflow-x: hidden;
   cursor: default;
 }
 
 a {
-  color: #F25E5E;
+  color: var(--link1);
   transition: 0.5s;
 }
 
 a:hover, a:active, a:focus {
-  color: #BFA084;
+  color: var(--link_hover1);
   outline: none;
   text-decoration: none;
 }
@@ -46,8 +46,8 @@ h1, h2, h3, h4, h5, h6 {
 .back-to-top {
   position: fixed;
   display: none;
-  background: linear-gradient(45deg, #363B40, #366273);
-  color: #fff;
+  background: linear-gradient(45deg, var(--gradient1), var(--gradient2));
+  color: var(--text2);
   padding: 5px 20px 15px 20px;
   font-size: 16px;
   border-radius: 4px 4px 0 0;
@@ -57,14 +57,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .back-to-top:focus {
-  background: linear-gradient(45deg, #363B40, #366273);
-  color: #fff;
+  background: linear-gradient(45deg, var(--gradient1), var(--gradient2));
+  color: var(--text2);
   outline: none;
 }
 
 .back-to-top:hover {
-  background: #366273;
-  color: #fff;
+  background: var(--gradient2);
+  color: var(--text2);
 }
 
 /*--------------------------------------------------------------
@@ -100,7 +100,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #logo h1 a, #logo h1 a:hover {
-  color: #fff;
+  color: var(--text2);
 }
 
 #logo img {
@@ -119,7 +119,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #header.header-fixed {
-  background: linear-gradient(45deg, #363B40, #366273);
+  background: linear-gradient(45deg, var(--gradient1), var(--gradient2));
   padding: 20px 0;
   height: 72px;
   transition: all 0.5s;
@@ -163,7 +163,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 48px;
   font-weight: 400;
   line-height: 56px;
-  color: #fff;
+  color: var(--text2);
 }
 
 @media (max-width: 768px) {
@@ -177,7 +177,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #intro p {
-  color: #fff;
+  color: var(--text2);
   margin-bottom: 20px;
   padding: 0 15px;
   font-size: 24px;
@@ -202,11 +202,11 @@ h1, h2, h3, h4, h5, h6 {
   transition: 0.5s;
   margin: 10px;
   border: 2px solid #fff;
-  color: #fff;
+  color: var(--text2);
 }
 
 #intro .btn-get-started:hover {
-  color: #366273;
+  color: var(--gradient2);
   background: #fff;
 }
 
@@ -335,7 +335,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 8px 10px 8px;
   text-decoration: none;
   display: inline-block;
-  color: #fff;
+  color: var(--text2);
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   font-size: 14px;
@@ -367,7 +367,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-menu ul li:hover > a {
-  color: #366273;
+  color: var(--gradient2);
 }
 
 .nav-menu ul ul {
@@ -391,7 +391,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #mobile-nav-toggle i {
-  color: #fff;
+  color: var(--text2);
 }
 
 .more-nav {
@@ -444,7 +444,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #mobile-nav ul li a {
-  color: #fff;
+  color: var(--text2);
   font-size: 16px;
   overflow: hidden;
   padding: 10px 22px 10px 15px;
@@ -456,7 +456,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #mobile-nav ul li a:hover {
-  color: #fff;
+  color: var(--text2);
 }
 
 #mobile-nav ul li li {
@@ -469,15 +469,15 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 99;
   padding: 15px;
   cursor: pointer;
-  color: #fff;
+  color: var(--text2);
 }
 
 #mobile-nav ul .menu-has-children i.fa-chevron-up {
-  color: #366273;
+  color: var(--gradient2);
 }
 
 #mobile-nav ul .menu-item-active {
-  color: #366273;
+  color: var(--gradient2);
 }
 
 #mobile-body-overly {
@@ -501,7 +501,7 @@ body.mobile-nav-active #mobile-nav {
 }
 
 body.mobile-nav-active #mobile-nav-toggle {
-  color: #fff;
+  color: var(--text2);
 }
 
 /*--------------------------------------------------------------
@@ -527,8 +527,8 @@ body.mobile-nav-active #mobile-nav-toggle {
   display: block;
   width: 60px;
   height: 3px;
-  background: #366273;
-  background: linear-gradient(0deg, #366273 0%, #363B40 100%);
+  background: var(--gradient2);
+  background: linear-gradient(0deg, var(--gradient2) 0%, var(--gradient1) 100%);
   margin: 0 auto;
   margin-bottom: 20px;
 }
@@ -536,7 +536,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 /* Section with background
 --------------------------------*/
 .section-bg {
-  background: #eff5f5;
+  background: var(--background2);
 }
 
 /* Verein Section
@@ -591,7 +591,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 #verein .content i {
   font-size: 20px;
   padding-right: 4px;
-  color: #366273;
+  color: var(--gradient2);
 }
 
 #verein .content ul {
@@ -642,14 +642,14 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #features .icon i {
-  color: #666666;
+  color: var(--text1);
   font-size: 40px;
   transition: 0.5s;
 }
 
 #features .icon i:before {
-  background: #366273;
-  background: linear-gradient(45deg, #366273 0%, #363B40 100%);
+  background: var(--gradient2);
+  background: linear-gradient(45deg, var(--gradient2) 0%, var(--gradient1) 100%);
   background-clip: border-box;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -706,7 +706,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #additional-content i {
-  color: #666666;
+  color: var(--text1);
   font-size: 64px;
   transition: 0.5s;
   float: left;
@@ -715,8 +715,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #additional-content i:before {
-  background: #366273;
-  background: linear-gradient(45deg, #366273 0%, #363B40 100%);
+  background: var(--gradient2);
+  background: linear-gradient(45deg, var(--gradient2) 0%, var(--gradient1) 100%);
   background-clip: border-box;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -766,23 +766,23 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 .social-sharing i:before, .social-sharing a span {
   font-size: 0.8rem;
-  color: #fff;
+  color: var(--text2);
 }
 .social-sharing a {
   display: inline-block;
   padding: 5px;
   margin: 5px;
-  border: 2px solid #366273;
+  border: 2px solid var(--gradient2);
   border-radius: 3px;
-  background: #366273;
+  background: var(--gradient2);
   line-height: 0.8rem;
   transition: 0.3s;
 }
 .social-sharing a:hover {
-  background: #fff!important;
+  background: var(--text2)!important;
 }
 .social-sharing a:hover i:before, .social-sharing a:hover span {
-  color: #366273;
+  color: var(--gradient2);
 }
 .social-sharing a span {
   padding-left:4px;
@@ -833,13 +833,13 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #shortintro .si-title, #blog-post-header .si-title {
-  color: #fff;
+  color: var(--text2);
   font-size: 28px;
   font-weight: 700;
 }
 
 #shortintro .si-text, #blog-post-header .si-text {
-  color: #fff;
+  color: var(--text2);
 }
 
 /* Call To Action Section
@@ -852,13 +852,13 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #call-to-action .cta-title {
-  color: #fff;
+  color: var(--text2);
   font-size: 28px;
   font-weight: 700;
 }
 
 #call-to-action .cta-text {
-  color: #fff;
+  color: var(--text2);
 }
 
 @media (min-width: 769px) {
@@ -880,7 +880,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   transition: background 0.5s;
   margin: 10px;
   border: 2px solid #fff;
-  color: #fff;
+  color: var(--text2);
 }
 
 #call-to-action .cta-btn:hover {
@@ -934,8 +934,8 @@ body.mobile-nav-active #mobile-nav-toggle {
   padding-top: 15px;
 }
 .vly-team {
-  background: linear-gradient(45deg, #366273 0%, #363B40 100%);
-  color: #fff;
+  background: linear-gradient(45deg, var(--gradient2) 0%, var(--gradient1) 100%);
+  color: var(--text2);
 }
 #news .box {
   cursor: pointer;
@@ -978,15 +978,15 @@ body.mobile-nav-active #mobile-nav-toggle {
   border-radius: 50px;
   transition: 0.5s;
   margin: 10px;
-  border: 2px solid #366273;
-  color: #366273;
+  border: 2px solid var(--gradient2);
+  color: var(--gradient2);
 }
 
 #news .archiv-btn:hover {
-  color: #366273;
-  background: #366273;
+  color: var(--gradient2);
+  background: var(--gradient2);
   border: 2px solid #fff;
-  color: #fff;
+  color: var(--text2);
 }
 
 #mannschaften {
@@ -1007,15 +1007,15 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #mannschaften .icon i {
-  color: #666666;
+  color: var(--text1);
   font-size: 80px;
   transition: 0.5s;
   line-height: 0;
 }
 
 #mannschaften .icon i:before {
-  background: #366273;
-  background: linear-gradient(45deg, #366273 0%, #363B40 100%);
+  background: var(--gradient2);
+  background: linear-gradient(45deg, var(--gradient2) 0%, var(--gradient1) 100%);
   background-clip: border-box;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1170,7 +1170,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   font-weight: 300;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #366273;
+  color: var(--gradient2);
 }
 
 #kontakt .kontakt-verein p {
@@ -1188,7 +1188,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   font-size: 18px;
   display: inline-block;
   background: #fff;
-  color: #366273;
+  color: var(--gradient2);
   line-height: 1;
   padding: 8px 0;
   margin-right: 4px;
@@ -1197,12 +1197,12 @@ body.mobile-nav-active #mobile-nav-toggle {
   width: 36px;
   height: 36px;
   transition: 0.3s;
-  border: 1px solid #366273;
+  border: 1px solid var(--gradient2);
 }
 
 #kontakt .social-links a:hover {
-  background: #366273;
-  color: #fff;
+  background: var(--gradient2);
+  color: var(--text2);
 }
 
 #kontakt .info {
@@ -1211,7 +1211,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 #kontakt .info i {
   font-size: 32px;
-  color: #366273;
+  color: var(--gradient2);
   float: left;
   line-height: 1;
 }
@@ -1223,8 +1223,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #kontakt .form #sendmessage {
-  color: #366273;
-  border: 1px solid #366273;
+  color: var(--gradient2);
+  border: 1px solid var(--gradient2);
   display: none;
   text-align: center;
   padding: 15px;
@@ -1261,11 +1261,11 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #kontakt .form button[type="submit"] {
-  background: linear-gradient(45deg, #363B40, #366273);
+  background: linear-gradient(45deg, var(--gradient1), var(--gradient2));
   border: 0;
   border-radius: 20px;
   padding: 8px 30px;
-  color: #fff;
+  color: var(--text2);
 }
 
 #kontakt .form button[type="submit"]:hover {
@@ -1294,7 +1294,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #footer a:hover {
-  color: #366273;
+  color: var(--gradient2);
 }
 
 #footer .footer-links a[href*=".pdf"]:before {
@@ -1341,12 +1341,12 @@ body.mobile-nav-active #mobile-nav-toggle {
   transition: 0.3s;
   margin: 10px;
   border: 2px solid #fff;
-  color: #fff;
-  background: linear-gradient(45deg, #363B40, #366273);
+  color: var(--text2);
+  background: linear-gradient(45deg, var(--gradient1), var(--gradient2));
 }
 
 .print-btn:hover {
   background: #fff;
-  color: #366273;
-  border-color: #366273;
+  color: var(--gradient2);
+  border-color: var(--gradient2);
 }
