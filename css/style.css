@@ -14,7 +14,7 @@
 body {
   background: var(--background1);
   color: var(--text1);
-  font-family: "Open Sans", sans-serif;
+  font-family: var(--font1);
   overflow-x: hidden;
   cursor: default;
 }
@@ -36,7 +36,7 @@ p {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font2);
   font-weight: 400;
   margin: 0 0 20px 0;
   padding: 0;
@@ -93,7 +93,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
   line-height: 1;
   display: inline-block;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font2);
   font-weight: 300;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -192,7 +192,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #intro .btn-get-started {
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font2);
   font-weight: 400;
   font-size: 16px;
   letter-spacing: 1px;
@@ -336,7 +336,7 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
   display: inline-block;
   color: var(--text2);
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font2);
   font-weight: 500;
   font-size: 14px;
   outline: none;
@@ -870,7 +870,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #call-to-action .cta-btn {
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font2);
   font-weight: 500;
   font-size: 16px;
   letter-spacing: 1px;
@@ -969,7 +969,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   transform: scale(1.2)
 }
 #news .archiv-btn {
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font2);
   font-weight: 400;
   font-size: 16px;
   letter-spacing: 1px;
@@ -1166,7 +1166,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin: 0 0 10px 0;
   padding: 0;
   line-height: 1;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font2);
   font-weight: 300;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -1176,7 +1176,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 #kontakt .kontakt-verein p {
   font-size: 14px;
   line-height: 24px;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font2);
   color: #888;
 }
 
@@ -1331,7 +1331,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   text-align: right;
 }
 .print-btn {
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font2);
   font-weight: 400;
   font-size: 12px;
   letter-spacing: 1px;
