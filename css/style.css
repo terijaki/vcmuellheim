@@ -940,7 +940,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 #news .box {
   cursor: pointer;
 }
-#news .newsposts > div, #members .mitgliederliste > div {
+#news .newsposts > div {
   display: flex;
 }
 
@@ -990,6 +990,26 @@ body.mobile-nav-active #mobile-nav-toggle {
   background: var(--gradient2);
   border: 2px solid #fff;
   color: var(--text2);
+}
+
+a[href*="photos.app.goo.gl"] {
+  font-family: var(--font2);
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 30px;
+  border-radius: 25px;
+  transition: background 0.5s;
+  margin: 10px;
+  border: 2px solid var(--text2);
+  background: linear-gradient(var(--gradient2),var(--gradient1));
+  color: var(--text2);
+}
+a[href*="photos.app.goo.gl"]:hover {
+  border-color: var(--link2);
+  background: transparent;
+  color: var(--link2);
 }
 
 #mannschaften {
