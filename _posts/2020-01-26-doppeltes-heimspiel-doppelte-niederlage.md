@@ -19,4 +19,4 @@ Gleich im Anschluss standen die Jungs aus Mimmenhausen parat. Hier sah die Sache
 
 Zwei gute Spiele, die wir beide hätten gewinnen können. Das zeigt, dass wir in der Verbandsliga gut aufgehoben sind.
 
-<a href="https://photos.app.goo.gl/LVx9rNW515EHeDak6" target="_blank">Fotogalerie</a>
+<a href="https://photos.app.goo.gl/LVx9rNW515EHeDak6" target="_blank"><i class="fa fa-photo"></i> Fotogalerie öffnen</a>
