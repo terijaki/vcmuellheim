@@ -995,8 +995,10 @@ body.mobile-nav-active #mobile-nav-toggle {
   border: 2px solid #fff;
   color: var(--text2);
 }
-
-a[href*="photos.app.goo.gl"] {
+.post-photoalbum  {
+  text-align: center;
+}
+.post-photoalbum a {
   font-family: var(--font2);
   font-weight: 500;
   font-size: 16px;
@@ -1010,7 +1012,7 @@ a[href*="photos.app.goo.gl"] {
   background: linear-gradient(var(--gradient2),var(--gradient1));
   color: var(--text2);
 }
-a[href*="photos.app.goo.gl"]:hover {
+.post-photoalbum a:hover {
   border-color: var(--link2);
   background: transparent;
   color: var(--link2);
