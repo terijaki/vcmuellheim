@@ -940,6 +940,9 @@ body.mobile-nav-active #mobile-nav-toggle {
 #news .box {
   cursor: pointer;
 }
+#news .newsposts > div {
+  display: flex;
+}
 
 #news .newsposts .box a.thumbnail {
   width: 100%;
