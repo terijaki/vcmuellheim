@@ -932,7 +932,10 @@ body.mobile-nav-active #mobile-nav-toggle {
   font-variant: unicase;
   margin: 0;
   padding-top: 15px;
-  color: var(--text2);
+  color: var(--text1);
+}
+.vly-ad a {
+  color: var(--text1);
 }
 .vly-team {
   background: linear-gradient(45deg, var(--gradient2) 0%, var(--gradient1) 100%);
