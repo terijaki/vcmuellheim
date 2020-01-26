@@ -28,16 +28,19 @@ layout: default
                     <img class="post-thumbnail" src="{{ page.thumbnail }}" alt="">
                     <div class="wow fadeInBottom" data-wow-duration="0.5s">
                       {{ content }}
+                      {% if page.photoalbum %}
+                      <p class="post-photoalbum"><a href="{{ page.photoalbum }}" target="_blank"><i class="fa fa-photo"></i> Fotogalerie öffnen</a></p>
+                      {% endif %}
                     </div>
-                      
-                      
+
+
                       <div class="social-sharing pb-5">
                           <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}&quote={{ page.title }}&hashtag=#VCMüllheim" target="_blank"><i class="fa fa-facebook"></i><span>Facebook</span></a>
                           <a class="twitter" href="https://twitter.com/intent/tweet?text={{ site.url }}{{ page.url }}%20{{ page.title }}&button_hashtag=VCMüllheim" target="_blank"><i class="fa fa-twitter"></i><span>Twitter</span></a>
                           <a class="whatsapp" href="https://wa.me/?text={{ page.title }}:%20{{ site.url }}{{ page.url }}" target="_blank"><i class="fa fa-whatsapp"></i><span>WhatsApp</span></a>
                           <a class="email" href="mailto:?subject={{ page.title }}&body={{ site.url }}{{ page.url }}" target="_blank"><i class="fa fa-envelope"></i><span>Email</span></a>
                       </div>
-                      
+
                   </div>
             </div>
           </div>
