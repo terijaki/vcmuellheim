@@ -940,7 +940,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 #news .box {
   cursor: pointer;
 }
-#news .newsposts > div {
+#news .newsposts > div, #members .mitgliederliste > div {
   display: flex;
 }
 
