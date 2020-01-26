@@ -17,6 +17,6 @@ Gleich im Anschluss standen die Jungs aus Mimmenhausen parat. Hier sah die Sache
 
 ![](/upload/2020/01/26/IMG_7731.CR2.jpg)![](/upload/2020/01/26/IMG_7799.CR2.jpg)![](/upload/2020/01/26/IMG_7814.CR2.jpg)![](/upload/2020/01/26/IMG_7905.CR2.jpg)![](/upload/2020/01/26/IMG_7922.CR2.jpg)![](/upload/2020/01/26/IMG_7938.CR2.jpg)![](/upload/2020/01/26/IMG_8031.CR2.jpg)
 
-Zwei gute Spiele die wir beide hätten gewinnen können. Das zeigt, dass wir in der Verbandsliga gut aufgehoben sind.
+Zwei gute Spiele, die wir beide hätten gewinnen können. Das zeigt, dass wir in der Verbandsliga gut aufgehoben sind.
 
 [Photogallery](https://photos.app.goo.gl/LVx9rNW515EHeDak6)
