@@ -5,7 +5,7 @@ title: Die Top 3 in Müllheim
 thumbnail: "/upload/2020/01/26/IMG_7603.CR2.jpg"
 
 ---
-Gestern (25.01.20) durften wir gleich zwei Mannschaften in Müllheim begrüßen - **VC Offenburg 2** und **TSV Mimmenhausen 2**. Zusammen mit uns also die aktuelle Top drei der SBVV Verbandsliga.
+Gestern (25.01.20) durften wir gleich zwei Mannschaften in Müllheim begrüßen - **VC Offenburg 2** und **TSV Mimmenhausen 2**. Zusammen mit uns also die aktuelle Top drei der SBVV Verbandsliga.<!--more-->
 
 Um 14:00 ging es los gegen Offenburg. Wir waren guter Dinge, dass wir den Erstligisten tatkräftig gegenüberstehen können. Und das haben wir auch!
 
