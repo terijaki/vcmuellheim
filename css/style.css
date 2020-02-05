@@ -169,6 +169,9 @@ h1, h2, h3, h4, h5, h6 {
   #intro .vcm-banner {
     max-height: 130px;
   }
+  #logo h1 {
+    font-size: 22px;
+  }
 }
 @media (max-width: 768px) {
   #intro h2 {
