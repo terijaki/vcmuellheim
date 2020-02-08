@@ -404,6 +404,11 @@ h1, h2, h3, h4, h5, h6 {
 .more-nav {
   display: none;
 }
+@media (min-width: 820px) {
+  .more-nav.tabelle {
+    display: inline-block;
+  }
+}
 @media (max-width: 768px) {
   #mobile-nav-toggle {
     display: inline;
