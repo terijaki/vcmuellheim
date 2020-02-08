@@ -9,5 +9,3 @@ avatar:
 function: Pressewart
 sortorder: 20
 ---
-
-Ein Traumtyp. 💕

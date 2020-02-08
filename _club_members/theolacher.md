@@ -9,5 +9,3 @@ avatar:
 function: 2. Vorsitzender
 sortorder: 2
 ---
-
-Zweiter Vorsitzender 💪

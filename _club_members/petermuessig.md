@@ -1,7 +1,7 @@
 ---
 layout: contact
 name: Peter Müssig
-email:
+email: kassier@vcmuellheim.de
 facebook:
 whatsapp:
 twitter:
