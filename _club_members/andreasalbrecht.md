@@ -5,7 +5,7 @@ email:
 facebook:
 whatsapp:
 twitter:
-avatar:
+avatar: /img/noavatar.png
 function: 1. Beisitzer
 sortorder: 4
 ---
