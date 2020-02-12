@@ -1,7 +1,7 @@
 ---
 layout: contact
 name: Thomas Seywald
-email: t.seyw@web.de
+email: thomas@vcmuellheim.de
 facebook: 100000558831832
 whatsapp:
 twitter:
