@@ -1,7 +1,7 @@
 ---
 layout: contact
 name: Andreas Albrecht
-email:
+email: andreas@vcmuellheim.de
 facebook:
 whatsapp:
 twitter:
