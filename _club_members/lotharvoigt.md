@@ -1,7 +1,7 @@
 ---
 layout: contact
 name: Lothar Voigt
-email: lothar.voigt@t-online.de
+email: lothar@vcmuellheim.de
 facebook: 100001588592268
 whatsapp:
 twitter:
