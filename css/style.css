@@ -1043,27 +1043,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   transition: 0.4s;
 }
 
-#mannschaften .icon {
-  float: left;
-}
-
-#mannschaften .icon i {
-  color: var(--text1);
-  font-size: 80px;
-  transition: 0.5s;
-  line-height: 0;
-}
-
-#mannschaften .icon i:before {
-  background: var(--gradient2);
-  background: linear-gradient(45deg, var(--gradient2) 0%, var(--gradient1) 100%);
-  background-clip: border-box;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 #mannschaften h4 {
-  margin-left: 100px;
   font-weight: 700;
   margin-bottom: 15px;
   font-size: 18px;
@@ -1075,7 +1055,6 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 #mannschaften p {
   font-size: 14px;
-  margin-left: 100px;
   margin-bottom: 0;
   line-height: 24px;
 }
