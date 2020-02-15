@@ -31,7 +31,7 @@
 </head>
 
 <body class="{% if page.title %}{{ page.title | remove: ' ' }}{% else %}landingpage{% endif %}">
-
+{% include tagmanager.html %}
 <!--===== Header =====-->
   <header id="header">
     <div class="container">
