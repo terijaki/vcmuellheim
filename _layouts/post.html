@@ -28,7 +28,7 @@ layout: default
                     <img class="post-thumbnail" src="{{ page.thumbnail }}" alt="">
                     <div class="wow fadeInBottom" data-wow-duration="0.5s">
                       {{ content }}
-                      {% if page.photoalbum %}
+                      {% if page.photoalbum != '' %}
                       <p class="post-photoalbum"><a href="{{ page.photoalbum }}" target="_blank"><i class="fa fa-photo"></i> Fotogalerie öffnen</a></p>
                       {% endif %}
                     </div>
