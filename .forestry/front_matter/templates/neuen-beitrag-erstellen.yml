@@ -32,6 +32,5 @@ fields:
     required: false
   label: Link to Photogallery
 pages:
-- _posts/2-platz-beim-ü41-turnier.md
 - _posts/2019-07-19-qualifikation-zum-pokalspiel.md
 - _posts/2020-01-26-doppeltes-heimspiel-doppelte-niederlage.md
