@@ -2,7 +2,7 @@
 layout: post
 excerpt_separator: "<!--more-->"
 title: 'SBVV: Informationen zum Coronavirus'
-thumbnail: ''
+thumbnail: "/upload/2020/03/02/s630_microscopic_view_of_coronavirus.jpg"
 photoalbum: ''
 
 ---
