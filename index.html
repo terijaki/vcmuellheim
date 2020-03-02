@@ -231,7 +231,7 @@ layout: default
                     <a class="thumbnail" href="{{ post.url }}"><div style="background-image:url({{ post.thumbnail }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
                     {% endif %}
                     <h4 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h4>
-                    <p class="post-excerpt">{{ post.excerpt | strip_html }}</p>
+                    <div class="post-content"><div class="post-excerpt">{{ post.excerpt | strip_html }}</div></div>
                     <p class="post-url"><a href="{{ post.url }}" class="read-more">weiterlesen</a></p>
                 </div>
             </div>
