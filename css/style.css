@@ -1007,7 +1007,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   border: 2px solid #fff;
   color: var(--text2);
 }
-#news .newsposts .post-exerpt img {
+#news .newsposts img {
     display:none;
 }
 .post-photoalbum  {
