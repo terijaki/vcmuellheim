@@ -1007,6 +1007,9 @@ body.mobile-nav-active #mobile-nav-toggle {
   border: 2px solid #fff;
   color: var(--text2);
 }
+#news .newsposts img {
+    display:none;
+}
 .post-photoalbum  {
   text-align: center;
 }
@@ -1084,11 +1087,16 @@ body.mobile-nav-active #mobile-nav-toggle {
 #news h4 a {
   color: #111;
 }
-#news p, #news article.post-excerpt * {
+#news p, #news .post-content * {
   font-size: 14px;
   margin-left: 0;
   margin-bottom: 0;
   line-height: 24px;
+}
+#news .post-excerpt {
+    text-overflow: ellipsis;
+    max-height: 98px;
+    overflow: hidden;
 }
 #news p.post-url {
   text-align: right;
