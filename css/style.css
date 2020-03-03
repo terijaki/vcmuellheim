@@ -791,6 +791,11 @@ body.mobile-nav-active #mobile-nav-toggle {
   line-height: 0.8rem;
   transition: 0.3s;
 }
+@media (max-width: 769px) {
+.social-sharing a i, .social-sharing a span {
+    font-size: 0.7rem;
+  }
+}
 .social-sharing a:hover {
   background: var(--text2)!important;
 }
