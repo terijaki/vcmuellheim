@@ -777,10 +777,6 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #000;
   padding: 1rem 2rem;
 }
-#blogpost div.social-sharing {
-  margin-bottom: 24px;
-  text-align: center;
-}
 .social-sharing i:before, .social-sharing a span {
   font-size: 0.8rem;
   color: var(--text2);
