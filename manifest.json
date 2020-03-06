@@ -16,7 +16,7 @@ layout: none
   ],
   "theme_color": "{{ site.theme_color }}",
   "background_color": "{{ site.background_color }}",
-  "start_url": "{{ site.url }}",
+  "start_url": "/",
   "display": "standalone",
   "orientation": "natural"
 }
