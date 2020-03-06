@@ -7,8 +7,8 @@ favicon: '/img/favicon.png'
 apple_touch_icon: '/img/apple-touch-icon.png'
 language: 'de'
 language_direction: 'ltr'
-theme_color: "#366273",
-background_color: "#366273",
+theme_color: "#366273"
+background_color: "#366273"
 include: ["_pages"]
 permalink: /:title/
 url: https://vcmuellheim.de
