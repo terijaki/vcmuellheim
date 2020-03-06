@@ -142,9 +142,9 @@ layout: default
     <div class="container">
         <div class="row newsposts">
       <!--===== Most Recent News Post =====-->
-            {% for post in site.posts limit:1 %}
+            {% for post in site.posts limit:4 offset:1 %}
             <div class="col-lg-6">
-                <div class="box wow fadeInLeft" onclick="location.href='{{ post.url }}';">
+                <div class="box" onclick="location.href='{{ post.url }}';">
                     {% if post.thumbnail %}
                     <a class="thumbnail" href="{{ post.url }}"><div style="background-image:url({{ post.thumbnail }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
                     {% endif %}
@@ -154,20 +154,6 @@ layout: default
                 </div>
             </div>
             {% endfor %}
-      <!--===== Second Most Recent News Post =====-->
-            {% for post in site.posts limit:1 offset:1 %}
-            <div class="col-lg-6">
-                <div class="box wow fadeInRight" onclick="location.href='{{ site.baseurl }}{{ post.url }}';">
-                    {% if post.thumbnail %}
-                    <a class="thumbnail" href="{{ post.url }}"><div style="background-image:url({{ post.thumbnail }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
-                    {% endif %}
-                    <h4 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h4>
-                    <p class="post-excerpt">{{ post.excerpt }}</p>
-                    <p class="post-url"><a href="{{ post.url }}" class="read-more">weiterlesen</a></p>
-                </div>
-            </div>
-            {% endfor %}
-
         </div>
 
         <div class="cta-btn-container text-center wow fadeInUp">
