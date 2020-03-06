@@ -9,6 +9,8 @@ photoalbum: ''
 Am Samstag den 21. März 2020 ab 19 Uhr findet die 7. Sportgala im Bürgerhaus Müllheim statt.
 
 Da unsere 1.Herrenmannschafft  geehrt wird, werden auch einige Mitglieder des VC Müllheims hingehen!
+
+Wenn du mit an einen unserer Tische möchtest, dann melde dich bitte unter [info@vcmuellheim.de](mailto:info@vcmuellheim.de).
 <!--more-->
 Weitere Informationen gibt es hier:
 
