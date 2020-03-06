@@ -1026,6 +1026,9 @@ body.mobile-nav-active #mobile-nav-toggle {
   .landingpage #news .newsposts > div:nth-of-type(1n+3) .post-excerpt {
     max-height: 48px;
   }
+  .landingpage #news .newsposts > div:nth-of-type(1n+3) .post-title {
+    margin-bottom: 10px;
+  }
 }
 
 .post-photoalbum  {
@@ -1118,11 +1121,9 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 #news p.post-url {
   text-align: right;
-  position: absolute;
-  right: 36px;
-  bottom: 36px;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 30%);
-  padding: 8px 0 0 38px;
+  position: relative;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 40%, rgba(255,255,255,1) 80%);
+  margin: -24px 0 0 0;
 }
 
 @media (max-width: 767px) {
