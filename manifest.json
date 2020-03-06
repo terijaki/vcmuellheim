@@ -5,8 +5,8 @@ layout: none
 {
   "lang": "{{ site.language }}",
   "dir": "{{ site.lang_direction }}",
-  "name": {{ site.name | smartify | jsonify }},
-  "short_name": {{ site.short_name | smartify | jsonify }},
+  "name": "{{ site.name | smartify | jsonify }}",
+  "short_name": "{{ site.short_name | smartify | jsonify }}",
   "icons": [
     {
       "src": "\/img\/app_icon_196.png",
