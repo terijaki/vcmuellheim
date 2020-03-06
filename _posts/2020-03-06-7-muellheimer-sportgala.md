@@ -14,4 +14,4 @@ Wenn du mit an einen unserer Tische möchtest, dann melde dich bitte unter [info
 <!--more-->
 Weitere Informationen gibt es hier:
 
-<a href="/upload/2020/03/06/Einladung_zur_7.Müllheimer_Sportgala_21.03.2020.pdf"><img src="/upload/2020/03/06/Einladung_zur_7.Müllheimer_Sportgala_21.03.2020.jpg" style="height:300px;width:auto"></a> <a href="/upload/2020/03//Plakat_Sportgala_2020.pdf" style="height:300px;width:auto"><img src="/upload/2020/03//Plakat_Sportgala_2020.jpg"></a>
+<a href="/upload/2020/03/06/Einladung_zur_7.Müllheimer_Sportgala_21.03.2020.pdf"><img src="/upload/2020/03/06/Einladung_zur_7.Müllheimer_Sportgala_21.03.2020.jpg" style="height:300px;width:auto"></a> <a href="/upload/2020/03/06/Plakat_Sportgala_2020.pdf" style="height:300px;width:auto"><img src="/upload/2020/03/06/Plakat_Sportgala_2020.jpg"></a>
