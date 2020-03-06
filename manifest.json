@@ -24,6 +24,5 @@ layout: none
   "background_color": "{{ site.background_color }}",
   "start_url": "{{ site.url }}/blog",
   "display": "standalone",
-  "orientation": "natural"
-  "prefer_related_applications" : "";
+  "orientation": "natural",
 }
