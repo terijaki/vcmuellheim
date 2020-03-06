@@ -1171,14 +1171,16 @@ body.mobile-nav-active #mobile-nav-toggle {
 --------------------------------*/
 #sponsors {
   padding: 30px 0;
-  background: #fff;
+  color: #fff;
+  background: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(../img/verein-bg.jpg) fixed center center;
+  background-size: cover;
   overflow: hidden;
 }
 
 #sponsors img {
   max-width: 100%;
   max-height: 170px;
-  opacity: 0.5;
+  opacity: 0.8;
   transition: 0.3s;
   padding: 10px;
 }
