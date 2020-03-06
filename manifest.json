@@ -5,6 +5,7 @@ layout: none
 {
   "lang": "{{ site.language }}",
   "dir": "{{ site.lang_direction }}",
+  "description": "{{ site.description }}",
   "name": {{ site.name | smartify | jsonify }},
   "short_name": {{ site.short_name | smartify | jsonify }},
   "icons": [
@@ -13,10 +14,16 @@ layout: none
       "sizes": "196x196",
       "type": "image\/png"
     }
+    {
+      "src": "\/img\/social\/social-avatar.png",
+      "sizes": "600x600",
+      "type": "image\/png"
+    }
   ],
   "theme_color": "{{ site.theme_color }}",
   "background_color": "{{ site.background_color }}",
-  "start_url": "/",
+  "start_url": "{{ site.url }}/blog",
   "display": "standalone",
   "orientation": "natural"
+  "prefer_related_applications" : "";
 }
