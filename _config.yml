@@ -2,7 +2,10 @@ name: "VC Müllheim e.V."
 title: "Volleyball Club Müllheim e.V."
 description: "In Müllheim geh es in Sachen Volleyball richtig ab! Von Freizeit Team bis zur Verbandsliga. Hier findest du alle Infos und Neuigkeiten des Vereins."
 logo: '/img/logo.png'
-favicon: '/img/logo.png'
+favicon: '/img/favicon.png'
+apple_touch_icon: '/img/apple-touch-icon.png'
+language: 'de'
+language_direction: 'ltr'
 include: ["_pages"]
 permalink: /:title/
 url: https://vcmuellheim.de
