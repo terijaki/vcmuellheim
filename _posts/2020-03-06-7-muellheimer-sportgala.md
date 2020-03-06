@@ -2,8 +2,8 @@
 layout: post
 excerpt_separator: "<!--more-->"
 title: Stadt Müllheim läd zur 7. Sportgala ein
-thumbnail: ""
 photoalbum: ''
+excerpt_separator: "<!-- more -->"
 
 ---
 Am Samstag den 21. März 2020 ab 19 Uhr findet die 7. Sportgala im Bürgerhaus Müllheim statt.

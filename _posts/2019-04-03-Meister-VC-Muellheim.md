@@ -2,6 +2,7 @@
 layout: post
 title: Meister VC Müllheim!
 thumbnail: /upload/2019-04-03-bild1.jpg
+excerpt_separator: "<!-- more -->"
 ---
 
 Durch zwei klare Siege am letzten Heimspieltag hatte sich der VCM vorzeitig den ersten Tabellenplatz gesichert. Die Müllheimer Jungs krönten damit eine konstant gute Saison und werden im nächsten Jahr in der Verbandsliga angreifen.
