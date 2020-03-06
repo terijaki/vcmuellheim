@@ -1017,13 +1017,13 @@ body.mobile-nav-active #mobile-nav-toggle {
     display:none;
 }
 @media (max-width: 767px) {
-  .landingpage .newsposts > div:nth-of-type(1n+3) .thumbnail {
+  .landingpage #news .newsposts > div:nth-of-type(1n+3) .thumbnail {
     display: none;
   }
-  .landingpage .newsposts > div:nth-of-type(1n+3) .box {
+  .landingpage #news .newsposts > div:nth-of-type(1n+3) .box {
     padding: 30px;
   }
-  .landingpage .newsposts > div:nth-of-type(1n+3) .post-excerpt {
+  .landingpage #news .newsposts > div:nth-of-type(1n+3) .post-excerpt {
     max-height: 48px;
   }
 }
