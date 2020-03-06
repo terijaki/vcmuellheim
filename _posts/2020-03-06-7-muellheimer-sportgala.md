@@ -2,7 +2,7 @@
 layout: post
 excerpt_separator: "<!--more-->"
 title: Stadt Müllheim läd zur 7. Sportgala ein
-thumbnail: "/upload/2020/03/06/sportgala.jpg"
+thumbnail: ""
 photoalbum: ''
 
 ---
