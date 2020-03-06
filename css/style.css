@@ -1016,6 +1016,18 @@ body.mobile-nav-active #mobile-nav-toggle {
 #news .newsposts img {
     display:none;
 }
+@media (max-width: 767px) {
+  .landingpage .newsposts > div:nth-of-type(1n+3) .thumbnail {
+    display: none;
+  }
+  .landingpage .newsposts > div:nth-of-type(1n+3) .box {
+    padding: 30px;
+  }
+  .landingpage .newsposts > div:nth-of-type(1n+3) .post-excerpt {
+    max-height: 48px;
+  }
+}
+
 .post-photoalbum  {
   text-align: center;
 }
@@ -1122,14 +1134,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     filter: none;
   }
 }
-#members .row > div {
-    flex: 0 0 50%;
-}
-@media (max-width: 767px) {
-  #members .row > div {
-      flex: 0 0 100%;
-  }
-}
+
 #members a.avatar {
   width: 11rem;
   height: 11rem;
@@ -1181,13 +1186,13 @@ body.mobile-nav-active #mobile-nav-toggle {
   max-width: 100%;
   max-height: 170px;
   max-width: 320px;
-  opacity: 0.8;
-  transition: 0.3s;
   padding: 10px;
 }
-
-#sponsors img:hover {
-  opacity: 1;
+@media (max-width: 767px) {
+  #sponsors img {
+      max-width: 90px;
+      max-width: 160px;
+  }
 }
 
 /* kontakt Section

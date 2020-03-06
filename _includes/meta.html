@@ -14,6 +14,17 @@
 <meta property="og:url" content="{{ page.url | absolute_url }}">
 {% endif %}
 
+<!-- Favicons -->
+<link href="{{ site.favicon }}" rel="icon">
+<link href="{{ site.apple_touch_icon }}" rel="apple-touch-icon">
+<link href="{{ site.apple_touch_startup_image }}" rel="apple-touch-startup-image">
+
+<!-- Pinned Sites  -->
+<meta name="application-name" content="{{ site.name }}">
+<meta name="msapplication-tooltip" content="{{ site.description }}">
+<meta name="msapplication-starturl" content="/">
+
+<!-- Social Thumbnails -->
 {% if page.thumbnail %}
 <meta property="og:image" content="{{ page.thumbnail | absolute_url }}">
 <meta name="twitter:image" content="{{ page.thumbnail | absolute_url }}">

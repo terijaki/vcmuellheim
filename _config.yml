@@ -5,6 +5,7 @@ description: "In Müllheim geh es in Sachen Volleyball richtig ab! Von Freizeit 
 logo: '/img/logo.png'
 favicon: '/img/favicon.png'
 apple_touch_icon: '/img/apple-touch-icon.png'
+apple_touch_startup_image: '/img/vcm-banner-white.png'
 language: 'de'
 language_direction: 'ltr'
 theme_color: "#366273"

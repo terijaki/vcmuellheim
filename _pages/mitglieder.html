@@ -15,15 +15,15 @@ permalink: /mitglieder/
             <div class="col-lg-4">
                 <div class="box">
                       {% if club_member.avatar %}
-                      <a class="avatar"><div style="background-image:url({{ club_member.avatar }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
+                      <div class="avatar"><div style="background-image:url({{ club_member.avatar }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></div>
                       {% else %}
                         {% if club_member.facebook %}
-                        <a class="avatar""><div style="background-image:url(https://graph.facebook.com/{{ club_member.facebook }}/picture?type=large), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
+                        <div class="avatar""><div style="background-image:url(https://graph.facebook.com/{{ club_member.facebook }}/picture?type=large), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></div>
                         {% endif %}
                     {% endif %}
                     <h4 class="name">{{ club_member.name }}</h4>
-
-                      <div class="social-sharing square">
+                    <p class="function">{{ club_member.function }}</p>
+                    <div class="social-sharing square">
                           {% if club_member.email %}
                           <a class="email" href="mailto:{{ club_member.email }}?subject=" target="_blank"><i class="fa fa-envelope"></i></a>
                           {% endif %}
@@ -37,8 +37,6 @@ permalink: /mitglieder/
                           <a class="whatsapp" href="https://wa.me/{{ club_member.whatsapp }}" target="_blank"><i class="fa fa-whatsapp"></i></a>
                           {% endif %}
                       </div>
-
-                    <strong>{{ club_member.function }}</strong>
                     {{ club_member.content }}
                 </div>
             </div>
