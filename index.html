@@ -142,7 +142,7 @@ layout: default
     <div class="container">
         <div class="row newsposts">
       <!--===== Most Recent News Post =====-->
-            {% for post in site.posts limit:4 offset:1 %}
+            {% for post in site.posts limit:4 offset:0 %}
             <div class="col-lg-6">
                 <div class="box" onclick="location.href='{{ post.url }}';">
                     {% if post.thumbnail %}
