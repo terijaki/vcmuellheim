@@ -5,7 +5,7 @@ email: andreas@vcmuellheim.de
 facebook:
 whatsapp:
 twitter:
-avatar: /img/noavatar.png
+avatar: 
 function: 1. Beisitzer
 sortorder: 4
 ---

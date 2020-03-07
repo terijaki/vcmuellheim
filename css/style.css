@@ -572,17 +572,16 @@ body.mobile-nav-active #mobile-nav-toggle {
     width: 4rem;
     border-radius: 50%;
     overflow: hidden;
+    float:left;
+    margin-right:10px;
 }
 #verein .mitgliederliste .avatar div {
     height: 100%;
     width: 100%;
     background-size: cover;
-    float:left;
+    background-image: url(/img/noavatar.png), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));
 }
 #verein .mitgliederliste div.avatar, #verein .mitgliederliste h4.name, #verein .mitgliederliste p.function {
-    height: 100%;
-    width: 100%;
-    background-size: cover;
     display: inline-block;
 }
 #verein .mitgliederliste h4.name {
