@@ -199,26 +199,13 @@ layout: default
             {% for club_member in mitglieder %}
             {% if club_member.sortorder < 10 %}
             <div class="col-lg-3">
-                <div class="mitglied">
+                <a class="email" href="mailto:{{ club_member.email }}?subject=" target="_blank">
+                  <div class="mitglied">
                   <div class="avatar"><div style="background-image:url({% if club_member.avatar %}{{ club_member.avatar }}{% else %}{% if club_member.facebook %}https://graph.facebook.com/{{ club_member.facebook }}/picture?type=large{% endif %}{% endif %}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></div>
                     <h4 class="name">{{ club_member.name }}</h4>
                     <p class="function">{{ club_member.function }}</p>
-                    <div class="social-sharing square">
-                          {% if club_member.email %}
-                          <a class="email" href="mailto:{{ club_member.email }}?subject=" target="_blank"><i class="fa fa-envelope"></i></a>
-                          {% endif %}
-                          {% if club_member.facebook %}
-                          <a class="facebook" href="http://m.me/{{ club_member.facebook }}" target="_blank"><i class="fa fa-facebook"></i></a>
-                          {% endif %}
-                          {% if club_member.twitter %}
-                          <a class="twitter" href="https://twitter.com/messages/compose?recipient_id={{ club_member.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a>
-                          {% endif %}
-                          {% if club_member.whatsapp %}
-                          <a class="whatsapp" href="https://wa.me/{{ club_member.whatsapp }}" target="_blank"><i class="fa fa-whatsapp"></i></a>
-                          {% endif %}
-                      </div>
-                    {{ club_member.content }}
-                </div>
+                  </div>
+                </a>
             </div>
             {% endif %}
             {% endfor %}

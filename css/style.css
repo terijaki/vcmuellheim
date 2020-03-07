@@ -580,12 +580,17 @@ body.mobile-nav-active #mobile-nav-toggle {
     width: 100%;
     background-size: cover;
     background-image: url(/img/noavatar.png), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));
+    transition: 0.5s;
+}
+#verein .mitgliederliste .mitglied:hover .avatar div {
+    transform: scale(1.1);
 }
 #verein .mitgliederliste div.avatar, #verein .mitgliederliste h4.name, #verein .mitgliederliste p.function {
 
 }
-#verein .mitgliederliste h4.name, #verein .mitgliederliste p.function {
+#verein .mitgliederliste h4.name {
     margin: auto;
+    font-size: 1rem;
 }
 #verein .mitgliederliste p.function {
     margin: auto;
