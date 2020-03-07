@@ -558,66 +558,10 @@ body.mobile-nav-active #mobile-nav-toggle {
   overflow: hidden;
 }
 
-#verein .verein-img {
-  height: 510px;
-  overflow: hidden;
-}
-
-#verein .verein-img img {
-  margin-left: -15px;
-  max-width: 100%;
-}
-
-@media (max-width: 768px) {
-  #verein .verein-img {
-    height: auto;
-  }
-  #verein .verein-img img {
-    margin-left: 0;
-    padding-bottom: 30px;
-  }
-}
-
 #verein .content .h2 {
   color: #333;
   font-weight: 300;
   font-size: 24px;
-}
-
-#verein .content h3 {
-  color: #777;
-  font-weight: 300;
-  font-size: 18px;
-  line-height: 26px;
-  font-style: italic;
-}
-
-#verein .content p {
-  line-height: 26px;
-}
-
-#verein .content p:last-child {
-  margin-bottom: 0;
-}
-
-#verein .content i {
-  font-size: 20px;
-  padding-right: 4px;
-  color: var(--gradient2);
-}
-
-#verein .content ul {
-  list-style: none;
-  padding: 0;
-}
-
-#verein .content ul li {
-  padding-bottom: 10px;
-}
-
-#verein .memberlist li strong {
-  padding-right: 8px;
-  padding-left: 3px;
 }
 
 /* welcome Featuress Section
