@@ -900,8 +900,8 @@ body.mobile-nav-active #mobile-nav-toggle {
   cursor: default;
 }
 
-#page-simple .box, #ergebnisse-tabelle .box {
-  margin-top: 30px;
+#page-simple, #ergebnisse-tabelle {
+  padding: 30px 0;
 }
 #ergebnisse-tabelle .vly h1 {
   font-size: 1.4rem;
@@ -937,6 +937,14 @@ body.mobile-nav-active #mobile-nav-toggle {
   background: linear-gradient(45deg, var(--gradient2) 0%, var(--gradient1) 100%);
   color: var(--text2);
 }
+@media (max-width: 768px) {
+  #ergebnisse-tabelle .box {
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+}
+
+
 #news .box {
   cursor: pointer;
 }
