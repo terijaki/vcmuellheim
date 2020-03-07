@@ -560,8 +560,11 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 #verein .mitglied {
   margin-bottom: 20px;
+  overflow-x: auto;
 }
-
+#verein .mitgliederliste a {
+    color: var(--text1);
+}
 #verein .mitgliederliste .h2 {
   color: #333;
   font-weight: 300;
@@ -582,7 +585,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     background-image: url(/img/noavatar.png), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));
     transition: 0.5s;
 }
-#verein .mitgliederliste .mitglied:hover .avatar div {
+#verein .mitgliederliste a:hover .avatar div {
     transform: scale(1.1);
 }
 #verein .mitgliederliste div.avatar, #verein .mitgliederliste h4.name, #verein .mitgliederliste p.function {
