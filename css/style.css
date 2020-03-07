@@ -558,6 +558,10 @@ body.mobile-nav-active #mobile-nav-toggle {
   overflow: hidden;
 }
 
+#verein .mitglied {
+  margin-left: 20px;
+}
+
 #verein .mitgliederliste .h2 {
   color: #333;
   font-weight: 300;
@@ -573,6 +577,16 @@ body.mobile-nav-active #mobile-nav-toggle {
     height: 100%;
     width: 100%;
     background-size: cover;
+    float:left;
+}
+#verein .mitgliederliste div.avatar, #verein .mitgliederliste h4.name, #verein .mitgliederliste p.function {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    display: inline-block;
+}
+#verein .mitgliederliste h4.name {
+    margin: 0;
 }
 /* welcome Featuress Section
 --------------------------------*/
