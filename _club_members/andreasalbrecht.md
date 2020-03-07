@@ -5,7 +5,7 @@ email: andreas@vcmuellheim.de
 facebook:
 whatsapp:
 twitter:
-avatar: 
+avatar: /upload/andreasalbrecht.jpg
 function: 1. Beisitzer
 sortorder: 4
 ---
