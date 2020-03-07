@@ -199,7 +199,7 @@ layout: default
             {% for club_member in mitglieder %}
             {% if club_member.sortorder < 10 %}
             <div class="col-lg-4">
-                <div class="box">
+                <div class="mitglied">
                       {% if club_member.avatar %}
                       <div class="avatar"><div style="background-image:url({{ club_member.avatar }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></div>
                       {% else %}
@@ -233,7 +233,7 @@ layout: default
 
       </div>
     </section>
-<!--===== #verin =====-->
+<!--===== #verein =====-->
 
 
 <!--===== Additional Content =====-->

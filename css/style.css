@@ -558,12 +558,22 @@ body.mobile-nav-active #mobile-nav-toggle {
   overflow: hidden;
 }
 
-#verein .content .h2 {
+#verein .mitgliederliste .h2 {
   color: #333;
   font-weight: 300;
   font-size: 24px;
 }
-
+#verein .mitgliederliste .avatar {
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+#verein .mitgliederliste .avatar div {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+}
 /* welcome Featuress Section
 --------------------------------*/
 #features {
@@ -857,7 +867,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   overflow: hidden;
 }
 
-#news .box,  #members .box, #page-simple .box, #ergebnisse-tabelle .box {
+#news .box,  #members .box, #page-simple .box, #ergebnisse-tabelle .box, #verein .box {
   padding: 40px;
   margin-bottom: 60px;
   box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
