@@ -559,7 +559,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #verein .mitglied {
-  margin-left: 20px;
+  margin-bottom: 20px;
 }
 
 #verein .mitgliederliste .h2 {
@@ -582,10 +582,13 @@ body.mobile-nav-active #mobile-nav-toggle {
     background-image: url(/img/noavatar.png), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));
 }
 #verein .mitgliederliste div.avatar, #verein .mitgliederliste h4.name, #verein .mitgliederliste p.function {
-    display: inline-block;
+
 }
-#verein .mitgliederliste h4.name {
-    margin: 0;
+#verein .mitgliederliste h4.name, #verein .mitgliederliste p.function {
+    margin: auto;
+}
+#verein .mitgliederliste p.function {
+    margin: auto;
 }
 /* welcome Featuress Section
 --------------------------------*/

@@ -1,11 +1,11 @@
 ---
 layout: contact
 name: Paul Lacher
-email:
+email: 
 facebook: 100000640796798
 whatsapp:
 twitter:
-avatar: 
+avatar:
 function: 2. Beisitzer
 sortorder: 5
 ---

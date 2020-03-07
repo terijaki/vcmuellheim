@@ -198,7 +198,7 @@ layout: default
             {% assign mitglieder = (site.club_members | sort: 'sortorder') %}
             {% for club_member in mitglieder %}
             {% if club_member.sortorder < 10 %}
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <div class="mitglied">
                   <div class="avatar"><div style="background-image:url({% if club_member.avatar %}{{ club_member.avatar }}{% else %}{% if club_member.facebook %}https://graph.facebook.com/{{ club_member.facebook }}/picture?type=large{% endif %}{% endif %}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></div>
                     <h4 class="name">{{ club_member.name }}</h4>

@@ -1,7 +1,7 @@
 ---
 layout: contact
 name: Theo Lacher
-email:
+email: theo@vcmuellheim.de
 facebook: 100000656022095
 whatsapp:
 twitter:
