@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ABGESAGT: Sportgala
+title: 'ABGESAGT: Sportgala'
 photoalbum: ''
 excerpt_separator: "<!-- more -->"
 
