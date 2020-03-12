@@ -1,17 +1,10 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
-title: Stadt Müllheim läd zur 7. Sportgala ein
+title: ABGESAGT: Sportgala
 photoalbum: ''
 excerpt_separator: "<!-- more -->"
 
 ---
-Am Samstag den 21. März 2020 ab 19 Uhr findet die 7. Sportgala im Bürgerhaus Müllheim statt.
+Die Stadtverwaltung Müllheim hat nach neusten Risikoberwertungen in Bezug auf den Coronavius die Sportgala 2020 abgesagt.
 
-Da unsere 1.Herrenmannschafft  geehrt wird, werden auch einige Mitglieder des VC Müllheims hingehen!
-
-Wenn du mit an einen unserer Tische möchtest, dann melde dich bitte unter [info@vcmuellheim.de](mailto:info@vcmuellheim.de).
-<!--more-->
-Weitere Informationen gibt es hier:
-
-<a href="/upload/2020/03/06/Einladung_zur_7.Müllheimer_Sportgala_21.03.2020.pdf"><img src="/upload/2020/03/06/Einladung_zur_7.Müllheimer_Sportgala_21.03.2020.jpg" style="height:300px;width:auto"></a> <a href="/upload/2020/03/06/Plakat_Sportgala_2020.pdf"><img src="/upload/2020/03/06/Plakat_Sportgala_2020.jpg" style="height:300px;width:auto"></a>
+Weitere Informationen gibt es hier: [](http://www.muellheim.de/index.php?article_id=74)
