@@ -5,7 +5,7 @@ title: 'SBVV: Informationen zum Coronavirus'
 photoalbum: ''
 
 ---
-Der Südbadische Volleyball-Verband veröffentlichte am vergangenen Freitag folgenden Beitrag zum Thema Coronavirus auf: [volleyball-baden.de]()
+Der Südbadische Volleyball-Verband veröffentlichte am vergangenen Freitag folgenden Beitrag zum Thema Coronavirus auf: [volleyball-baden.de](volleyball-baden.de)
 <!--more-->
 
 Zitat:
