@@ -748,7 +748,10 @@ body.mobile-nav-active #mobile-nav-toggle {
   padding: 6px;
 }
 #blogpost img.post-thumbnail {
-  margin: -26px 0 6px 0;
+  margin: -26px auto 6px auto;
+  max-height: 500px;
+  width: auto;
+  display: flex;
 }
 #blogpost blockquote {
   background: rgba(0,0,0,0.05);
