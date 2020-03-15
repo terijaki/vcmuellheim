@@ -24,4 +24,4 @@ Neuigkeiten zur aktuellen Lage vom SBVV:
 > Dirk Röttgen  
 > IT-Beauftragter
 
-Als kleine Aufheiterung fidnet ihr hier nun jetzt auch Fotos vom letzten Spieltag der 1. Herren gegen USC Freiburg 2 & USC Konstanz 3:
+Als kleine Aufheiterung f ihr hier nun jetzt auch Fotos vom letzten Spieltag der 1. Herren gegen USC Freiburg 2 & USC Konstanz 3:
