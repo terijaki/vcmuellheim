@@ -6,6 +6,10 @@ thumbnail: "/upload/2020/03/13/tim-mossholder-v5re1loi264-unsplash.jpg"
 photoalbum: https://photos.app.goo.gl/Z32trsHv7sqhPVXf8
 
 ---
+
+
+16 März 2020: **Die Landesregierung Baden-Württemberg die Schließen von Schulen und Sportstätten ab dem 16 März 2020 beschlossen.** <a href="https://www.baden-wuerttemberg.de/de/service/presse/pressemitteilung/pid/landesregierung-beschliesst-massnahmen-gegen-die-ausbreitung-des-coronavirus/"  rel="nofollow noopener">[Info]</a>
+
 Neuigkeiten zur aktuellen Lage vom SBVV:
 
 > Der SBVV schließt sich der Empfehlung des DVV an und beendet aufgrund der aktuellen Entwicklung des Coronavirus (Covid-19) vorzeitig mit sofortiger Wirkung den Spielbetrieb in allen Bereichen (Erwachsene, Jugend, Senioren, Freizeit/Mixed). Den genauen Wortlaut der DVV-Mitteilung findet ihr hier.
