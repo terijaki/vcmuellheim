@@ -1127,7 +1127,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     -webkit-box-orient: vertical;
   }
   #news .no-post-thumbnail.post-excerpt {
-    -webkit-line-clamp: 6;
+    -webkit-line-clamp: 8;
   }
   #news p.post-url {
     display: none;
