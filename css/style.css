@@ -1104,17 +1104,36 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-bottom: 0;
   line-height: 24px;
 }
+
+/* special CSS depending on line-clamp support*/
 #news .post-excerpt {
-    text-overflow: ellipsis;
-    max-height: 98px;
-    overflow: hidden;
+  overflow: hidden;
+  max-height: 98px;
+  text-overflow: ellipsis;
 }
 #news p.post-url {
-  text-align: right;
-  position: relative;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 20%, rgba(255,255,255,1) 70%);
-  margin: -24px 0 0 0;
+    text-align: right;
+    position: relative;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 20%, rgba(255,255,255,1) 70%);
+    margin: -24px 0 0 0;
 }
+
+@supports (-webkit-line-clamp: 3){
+  #news .post-excerpt {
+    max-height: initial;
+    text-overflow: initial;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+  #news .no-post-thumbnail .post-excerpt {
+    -webkit-line-clamp: 6;
+  }
+  #news p.post-url {
+    display: none;
+  }
+}
+/* special CSS depending on line-clamp support*/
 
 @media (max-width: 767px) {
   #news .box {
