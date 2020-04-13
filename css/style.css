@@ -75,7 +75,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 92px!important;
 }
 .corona-info {
-  background: #4e3b3b;
+  background: #f25e5e;
   color: #fff;
   width: 100vw;
   margin-bottom: 20px;
@@ -83,6 +83,9 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 20px;
   font-size: 14px;
   text-align: center;
+}
+.corona-info a {
+  color: #fff;
 }
 
 /*--------------------------------------------------------------
