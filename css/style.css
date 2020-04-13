@@ -1247,12 +1247,6 @@ body.mobile-nav-active #mobile-nav-toggle {
   }
 }
 
-@media (max-width: 992px) {
-  #footer .desktop-footer-links span {
-    display: none;
-  }
-}
-
 /* ----- Print -----*/
 @media print {
    body *, #main * {
