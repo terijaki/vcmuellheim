@@ -45,18 +45,20 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li><a class="nav-link" href="/#mannschaften">Mannschaften</a></li>
-          {% if page.url == "/" %}
-          <li class="nav-item"><a class="nav-link" href="/#news">News</a></li>
-          {% else if %}
-          <li class="nav-item"><a class="nav-link" class="nav-link" href="/blog/">News</a></li>
-          {% endif %}
-          <li class="nav-item"><a class="nav-link" href="/tabelle/">Tabelle</a></li>
-          <li class="nav-item"><a class="nav-link" href="/#kontakt">Kontakt</a></li>
-          <li class="nav-item"><a class="nav-link more-nav" href="https://www.facebook.com/VCMuellheim/" target="_blank"><i class="fa fa-facebook-official"></i> Facebook</a></li>
-          <li class="nav-item"><a class="nav-link more-nav" href="mailto:info@vcmuellheim.de"><i class="fa fa-envelope"></i> info@vcmuellheim.de</a></li>
-        </ul>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li><a class="nav-link" href="/#mannschaften">Mannschaften</a></li>
+            {% if page.url == "/" %}
+            <li class="nav-item"><a class="nav-link" href="/#news">News</a></li>
+            {% else if %}
+            <li class="nav-item"><a class="nav-link" class="nav-link" href="/blog/">News</a></li>
+            {% endif %}
+            <li class="nav-item"><a class="nav-link" href="/tabelle/">Tabelle</a></li>
+            <li class="nav-item"><a class="nav-link" href="/#kontakt">Kontakt</a></li>
+            <li class="nav-item"><a class="nav-link more-nav" href="https://www.facebook.com/VCMuellheim/" target="_blank"><i class="fa fa-facebook-official"></i> Facebook</a></li>
+            <li class="nav-item"><a class="nav-link more-nav" href="mailto:info@vcmuellheim.de"><i class="fa fa-envelope"></i> info@vcmuellheim.de</a></li>
+          </ul>
+      </div>
       </nav><!-- #nav-menu-container -->
     </div>
   </header>
