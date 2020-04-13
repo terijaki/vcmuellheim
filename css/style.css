@@ -67,6 +67,24 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text2);
 }
 
+
+/*--------------------------------------------------------------
+# Corona Banner
+--------------------------------------------------------------*/
+#header {
+  height: 92px;
+}
+.corona-info {
+  background: #4e3b3b;
+  color: #fff;
+  width: 100vw;
+  margin-bottom: 20px;
+  margin-top: -20px;
+  line-height: 20px;
+  font-size: 14px;
+  text-align: center;
+}
+
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -120,9 +138,6 @@ h1, h2, h3, h4, h5, h6 {
 
 #header.header-fixed {
   background: linear-gradient(45deg, var(--gradient1), var(--gradient2));
-  padding: 20px 0;
-  height: 72px;
-  transition: all 0.5s;
 }
 
 /*--------------------------------------------------------------
