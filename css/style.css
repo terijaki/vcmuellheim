@@ -96,15 +96,9 @@ h1, h2, h3, h4, h5, h6 {
   right: 0;
   transition: all 0.5s;
   z-index: 997;
+  background: var(--gradient1);
 }
-
-#logo {
-  float: left;
-}
-.landingpage #header:not(.header-fixed) #logo {
-  opacity: 0;
-}
-#logo h1 {
+#header h1 {
   font-size: 36px;
   margin: -4px 0 0 0;
   padding: 0;
@@ -116,7 +110,7 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
 }
 
-#logo h1 a, #logo h1 a:hover {
+#header h1 a, #header h1 a:hover {
   color: var(--text2);
 }
 
@@ -133,10 +127,6 @@ h1, h2, h3, h4, h5, h6 {
   #logo img {
     max-height: 40px;
   }
-}
-
-#header.header-fixed {
-  background: linear-gradient(45deg, var(--gradient1), var(--gradient2));
 }
 
 /*--------------------------------------------------------------
@@ -288,7 +278,9 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   font-size: 14px;
 }
-
+.navbar-toggler:focus {
+  outline:none-,
+}
 
 /*################ OLD #################  */
 /* Nav Menu Essentials */
