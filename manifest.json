@@ -6,7 +6,7 @@ layout: none
   "lang": "{{ site.language }}",
   "dir": "{{ site.lang_direction }}",
   "description": "{{ site.description }}",
-  "name": {{ site.name | smartify | jsonify }},
+  "name": {{ site.title | smartify | jsonify }},
   "short_name": {{ site.short_name | smartify | jsonify }},
   "icons": [
     {
