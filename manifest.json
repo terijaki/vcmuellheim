@@ -26,5 +26,5 @@ layout: none
   "background_color": "{{ site.background_color }}",
   "start_url": "{{ site.url }}",
   "display": "standalone",
-  "orientation": "any"
+  "orientation": "natural"
 }
