@@ -935,15 +935,6 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--gradient2);
 }
 
-#footer .footer-links a[href*=".pdf"]:before {
-    content: '🗎 PDF: ';
-  }
-@media (max-width: 768px) {
-  #footer .footer-links a[href*=".pdf"]:before {
-    content: '';
-  }
-}
-
 /* ----- Print -----*/
 @media print {
    body *, #main * {
