@@ -30,6 +30,7 @@
 </head>
 
 <body class="{% if page.title %}{{ page.title | remove: ' ' }}{% else %}landingpage{% endif %}">
+  <div id="page-wrapper">
 {% include tagmanager.html %}
 <!--===== Header =====-->
   <header id="header">
@@ -88,7 +89,7 @@
   </footer>
 <!--===== #footer =====-->
  <!--<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>-->
-
+</div>
 <!--===== Scripts =====-->
   <!-- Ergebnisdienst -->
   <script src="//volleyball-ergebnisdienst.de/widget/vly.min.js"></script>
