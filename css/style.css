@@ -19,7 +19,13 @@ body {
   cursor: default;
   min-height: 100vh;
   min-width: 100vw;
+  display:flex;
+  flex-direction: column;
 }
+#main {
+  flex-grow: 1;
+}
+
 
 a {
   color: var(--link1);
