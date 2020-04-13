@@ -71,13 +71,6 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Corona Banner
 --------------------------------------------------------------*/
-@media (max-width: 768px) {
-  .corona-info {
-    position:fixed;
-    bottom:0;
-    margin:0!important;
-  }
-}
 .corona-info {
   background: #f25e5e;
   color: #fff;
