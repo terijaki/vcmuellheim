@@ -71,11 +71,6 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Corona Banner
 --------------------------------------------------------------*/
-@media (min-width: 768px) {
-  #header {
-    height: 92px!important;
-  }
-}
 @media (max-width: 768px) {
   .corona-info {
     position:fixed;
@@ -102,7 +97,6 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------------------------------------*/
 #header {
   padding: 20px 0;
-  height: 72px;
   position: fixed;
   left: 0;
   top: 0;
