@@ -72,7 +72,7 @@ h1, h2, h3, h4, h5, h6 {
 # Corona Banner
 --------------------------------------------------------------*/
 #header {
-  height: 92px;
+  height: 92px!important;
 }
 .corona-info {
   background: #4e3b3b;
