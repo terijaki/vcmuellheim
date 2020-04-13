@@ -34,25 +34,28 @@
 {% include tagmanager.html %}
 <!--===== Header =====-->
   <header id="header">
-
-<div class="corona-info"><a href="https://www.baden-wuerttemberg.de/de/service/aktuelle-infos-zu-corona/aktuelle-corona-verordnung-des-landes-baden-wuerttemberg/" target="_blank" rel="nofollow">Die Landesregierung hat die Schließung von Schulen und Sportstätten am 17 März 2020 verordnet.</a></div>
+    <div class="corona-info"><a href="https://www.baden-wuerttemberg.de/de/service/aktuelle-infos-zu-corona/aktuelle-corona-verordnung-des-landes-baden-wuerttemberg/" target="_blank" rel="nofollow">Die Landesregierung hat die Schließung von Schulen und Sportstätten am 17 März 2020 verordnet.</a></div>
 
     <div class="container">
-      <div id="logo">
-        <h1><a href="/#intro" class="scrollto">🏐 VC Müllheim</a></h1>
-      </div>
-      <nav id="nav-menu-container">
-        <ul class="nav-menu">
-          <li><a href="/#mannschaften">Mannschaften</a></li>
+
+      <nav id="nav-menu-container" class="navbar navbar-expand-lg">
+        <div id="logo">
+          <h1><a href="/#intro" class="scrollto">VC Müllheim</a></h1>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li><a class="nav-link" href="/#mannschaften">Mannschaften</a></li>
           {% if page.url == "/" %}
-          <li><a href="/#news">News</a></li>
+          <li class="nav-item"><a class="nav-link" href="/#news">News</a></li>
           {% else if %}
-          <li><a href="/blog/">News</a></li>
+          <li class="nav-item"><a class="nav-link" class="nav-link" href="/blog/">News</a></li>
           {% endif %}
-          <li><a href="/tabelle/">Tabelle</a></li>
-          <li><a href="/#kontakt">Kontakt</a></li>
-          <li class="more-nav facebook"><a href="https://www.facebook.com/VCMuellheim/" target="_blank"><i class="fa fa-facebook-official"></i> Facebook</a></li>
-          <li class="more-nav infomail"><a href="mailto:info@vcmuellheim.de"><i class="fa fa-envelope"></i> info@vcmuellheim.de</a></li>
+          <li class="nav-item"><a class="nav-link" href="/tabelle/">Tabelle</a></li>
+          <li class="nav-item"><a class="nav-link" href="/#kontakt">Kontakt</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://www.facebook.com/VCMuellheim/" target="_blank"><i class="fa fa-facebook-official"></i> Facebook</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:info@vcmuellheim.de"><i class="fa fa-envelope"></i> info@vcmuellheim.de</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
@@ -96,7 +99,7 @@
   <script src="/lib/easing/easing.min.js"></script>
   <script src="/lib/wow/wow.min.js"></script>
   <script src="/lib/magnific-popup/magnific-popup.min.js"></script>
-  <script src="/lib/superfish/superfish.min.js"></script>
+  <!--<script src="/lib/superfish/superfish.min.js"></script> -->
 
   <!-- Template Main Javascript File -->
   <script src="/js/main.js"></script>
