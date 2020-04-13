@@ -75,8 +75,6 @@ h1, h2, h3, h4, h5, h6 {
   background: #f25e5e;
   color: #fff;
   width: 100vw;
-  margin-bottom: 20px;
-  margin-top: -20px;
   line-height: 20px;
   font-size: 14px;
   text-align: center;
@@ -89,7 +87,6 @@ h1, h2, h3, h4, h5, h6 {
 # Header
 --------------------------------------------------------------*/
 #header {
-  padding: 20px 0;
   position: fixed;
   left: 0;
   top: 0;
