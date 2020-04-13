@@ -419,6 +419,8 @@ h1, h2, h3, h4, h5, h6 {
 .stadtfest-image {
   height: 100%;
   width: 100%;
+  min-height: 200px;
+  min-width: 1px;
   background-image: url('/img/muellheim-stadtfest.jpg');
   background-size: cover;
   background-position: center;
