@@ -4525,7 +4525,7 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url("./lib/font-awesome/fonts/fa-brands-400.eot");
+  src: url("/lib/font-awesome/fonts/fa-brands-400.eot");
   src: url("/lib/font-awesome/fonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("/lib/font-awesome/fonts/fa-brands-400.woff2") format("woff2"), url("/lib/font-awesome/fonts/fa-brands-400.woff") format("woff"), url("/lib/font-awesome/fonts/fa-brands-400.ttf") format("truetype"), url("/lib/font-awesome/fonts/fa-brands-400.svg#fontawesome") format("svg"); }
 
 .fab {
