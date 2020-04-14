@@ -129,6 +129,51 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Intro Section
 --------------------------------------------------------------*/
+
+@supports ((perspective: 1px) and (not (-webkit-overflow-scrolling: touch))) {
+  /* ... parallax styles ... */
+  body {
+    transform: translateZ(0);
+  }
+  .paralaxtest #intro {
+    scroll-behavior: smooth;
+  }
+  .paralaxtest #intro {
+    background: url(img/paralaxx.jpg)!important;
+  }
+  .parallax {
+    perspective: 1px;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .parallax-layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  .parallax-layer-net {
+    transform: translateZ(0);
+    background-size:cover;
+    background-position:bottom;
+  }
+  .parallax-layer-back {
+    transform: translateZ(-1px);
+    background-image: url(img/paralaxx-back.png);
+  }
+  .parallax-layer-ball {
+    transform: translateZ(-1px);
+    background-image: url(img/paralaxx-back.png);
+  }
+}
+
+
+
+
+
+
 #intro {
   width: 100%;
   height: 100vh;
