@@ -132,9 +132,6 @@ h1, h2, h3, h4, h5, h6 {
 
 @supports ((perspective: 1px) and (not (-webkit-overflow-scrolling: touch))) {
   /* ... parallax styles ... */
-  body {
-    transform: translateZ(0);
-  }
   .paralaxtest #intro {
     scroll-behavior: smooth;
   }
@@ -142,6 +139,7 @@ h1, h2, h3, h4, h5, h6 {
     background: url(/img/parallax.jpg)!important;
   }
   .parallax {
+    transform: translateZ(0);
     perspective: 1px;
     height: 100vh;
     overflow-x: hidden;
