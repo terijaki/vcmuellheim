@@ -127,7 +127,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*--------------------------------------------------------------
-# Intro Section
+# Intro Parallax Scrolling
 --------------------------------------------------------------*/
 
 @supports ((perspective: 1px) and (not (-webkit-overflow-scrolling: touch))) {
@@ -168,12 +168,10 @@ $parallax__layers: 3; /* specify amount of layers */
   }
 }
 
-}
 
-
-
-
-
+/*--------------------------------------------------------------
+# Intro Section
+--------------------------------------------------------------*/
 
 #intro {
   width: 100%;
