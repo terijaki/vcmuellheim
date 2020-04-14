@@ -147,6 +147,7 @@ h1, h2, h3, h4, h5, h6 {
     right: 0;
     bottom: 0;
     left: 0;
+    padding: 100vh 0;
   }
   .parallax-layer-net {
     transform: translateZ(0);
@@ -160,6 +161,12 @@ h1, h2, h3, h4, h5, h6 {
   .parallax-img {
     height: 100vh;
     width: 100vw;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    opacity:.7;
   }
   .parallax-layer-net .parallax-img {
     background-image: url(/img/parallax-net.png);
@@ -171,7 +178,6 @@ h1, h2, h3, h4, h5, h6 {
     background-image: url(/img/parallax-ball.png);
   }
 }
-
 /*--------------------------------------------------------------
 # Intro Section
 --------------------------------------------------------------*/
