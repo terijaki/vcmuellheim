@@ -156,13 +156,13 @@ h1, h2, h3, h4, h5, h6 {
     bottom: 0;
   }
   .parallax-cover {
-    background: #2D112B;
+    background: var(--background2);
     display: block;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
-    height: 2000px;
+    height: 200px;
     z-index: 2;
   }
 
