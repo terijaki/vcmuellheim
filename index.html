@@ -140,6 +140,12 @@ layout: default
 <!--===== News (Blog Posts) =====-->
 <section id="news" class="section-bg">
     <div class="container">
+      <div class="section-header">
+        <h3 class="section-title">News</h3>
+        <span class="section-divider"></span>
+        <p class="section-description d-none"></p>
+      </div>
+
         <div class="row newsposts">
       <!--===== Most Recent News Post =====-->
             {% for post in site.posts limit:4 offset:0 %}
