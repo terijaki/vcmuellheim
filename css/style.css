@@ -139,7 +139,7 @@ h1, h2, h3, h4, h5, h6 {
     scroll-behavior: smooth;
   }
   .paralaxtest #intro {
-    background: url(/img/paralaxx.jpg)!important;
+    background: url(/img/parallax.jpg)!important;
   }
   .parallax {
     perspective: 1px;
@@ -154,19 +154,20 @@ h1, h2, h3, h4, h5, h6 {
     right: 0;
     bottom: 0;
     left: 0;
-  }
-  .parallax-layer-net {
-    transform: translateZ(0);
     background-size:cover;
     background-position:bottom;
   }
   .parallax-layer-back {
     transform: translateZ(-1px);
-    background-image: url(/img/paralaxx-back.png);
+    background-image: url(/img/parallax-back.png);
+  }
+  .parallax-layer-net {
+    transform: translateZ(0);
+    background-image: url(/img/parallax-net.png);
   }
   .parallax-layer-ball {
-    transform: translateZ(-1px);
-    background-image: url(/img/paralaxx-back.png);
+    transform: translateZ(0);
+    background-image: url(/img/parallax-ball.png);
   }
 }
 
