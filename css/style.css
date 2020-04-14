@@ -135,36 +135,27 @@ h1, h2, h3, h4, h5, h6 {
   .paralaxtest #intro {
     scroll-behavior: smooth;
   }
-  .paralaxtest .parallax {
-    perspective: 100px;
+  .parallax {
+    perspective: 1px;
     height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    right: 0;
-    bottom: 0;
-    margin-left: -1225px;
   }
-  .paralaxtest .parallax-layer{
+  .parallax-layer {
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
   }
-  .paralaxtest .parallax-layer .img {
-    display: block;
-    position: absolute;
-    bottom: 0;
+  .parallax-layer-net {
+    transform: translateZ(0);
   }
-}
-$parallax__layers: 3; /* specify amount of layers */
-@for $i from 0 through $parallax__layers {
-  $x: ($parallax__layers - $i) / 2;
-  .parallax-layer-#{$i}{
-     transform: translateZ(-200 * $x#{px}) scale($x + 1);
+  .parallax-layer-bg {
+    transform: translateZ(-1px);
+  }
+  .parallax-layer-ball {
+    transform: translateZ(0);
   }
 }
 
