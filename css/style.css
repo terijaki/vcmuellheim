@@ -136,44 +136,39 @@ h1, h2, h3, h4, h5, h6 {
     scroll-behavior: smooth;
   }
   .parallax {
-    transform: translateZ(0);
-    perspective: 1px;
-    height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
+  perspective: 100px;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  margin-left: -1225px;
+}
+
+.parallax-layer{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+  .parallax-layer .img {
+    display: block;
     position: absolute;
-  }
-  .parallax-layer {
-    position: absolute;
-    top: 0;
-    right: 0;
     bottom: 0;
-    left: 0;
   }
-  .parallax-layer-bg {
-    transform: translateZ(-1px);
+}
+$parallax__layers: 3; /* specify amount of layers */
+@for $i from 0 through $parallax__layers {
+  $x: ($parallax__layers - $i) / 2;
+  .parallax__layer__#{$i}{
+     transform: translateZ(-100 * $x#{px}) scale($x + 1);
   }
-  .parallax-layer-net {
-    transform: translateZ(0);
-  }
-  .parallax-layer-ball {
-    transform: translateZ(0);
-  }
-  .parallax-img {
-    height: 100%;
-    width: 100%;
-    background-size:cover;
-    background-position:bottom;
-  }
-  .parallax-layer-bg .parallax-img {
-    background-image: url(/img/parallax-bg.png);
-  }
-  .parallax-layer-net .parallax-img {
-    background-image: url(/img/parallax-net.png);
-  }
-  .parallax-layer-ball .parallax-img {
-    background-image: url(/img/parallax-ball.png);
-  }
+}
+
 }
 
 
