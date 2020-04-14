@@ -164,7 +164,7 @@ $parallax__layers: 3; /* specify amount of layers */
 @for $i from 0 through $parallax__layers {
   $x: ($parallax__layers - $i) / 2;
   .parallax-layer-#{$i}{
-     transform: translateZ(-100 * $x#{px}) scale($x + 1);
+     transform: translateZ(-200 * $x#{px}) scale($x + 1);
   }
 }
 
