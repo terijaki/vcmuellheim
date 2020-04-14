@@ -176,11 +176,14 @@ h1, h2, h3, h4, h5, h6 {
     }
   }
 
-  #intro .intro-text {
+  .paralaxtest #intro .intro-text {
     text-align: center;
     position: absolute;
     width: 100vw;
-}
+  }
+  .paralaxtest #intro {
+    background: url(/img/parallax.jpg)
+  }
 }
 /*--------------------------------------------------------------
 # Intro Section
