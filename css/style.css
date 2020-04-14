@@ -168,10 +168,10 @@ h1, h2, h3, h4, h5, h6 {
     background-size:cover;
     background-position:bottom;
   }
-  .parallax-layer-ball .parallax-bg {
+  .parallax-layer-bg .parallax-img {
     background-image: url(/img/parallax-bg.png);
   }
-  .parallax-layer-ball .parallax-net {
+  .parallax-layer-net .parallax-img {
     background-image: url(/img/parallax-net.png);
   }
   .parallax-layer-ball .parallax-img {
