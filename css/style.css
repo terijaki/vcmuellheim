@@ -139,13 +139,14 @@ h1, h2, h3, h4, h5, h6 {
     scroll-behavior: smooth;
   }
   .paralaxtest #intro {
-    background: url(img/paralaxx.jpg)!important;
+    background: url(/img/paralaxx.jpg)!important;
   }
   .parallax {
     perspective: 1px;
     height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
+    position: absolute;
   }
   .parallax-layer {
     position: absolute;
@@ -161,11 +162,11 @@ h1, h2, h3, h4, h5, h6 {
   }
   .parallax-layer-back {
     transform: translateZ(-1px);
-    background-image: url(img/paralaxx-back.png);
+    background-image: url(/img/paralaxx-back.png);
   }
   .parallax-layer-ball {
     transform: translateZ(-1px);
-    background-image: url(img/paralaxx-back.png);
+    background-image: url(/img/paralaxx-back.png);
   }
 }
 
