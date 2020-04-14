@@ -140,6 +140,8 @@ h1, h2, h3, h4, h5, h6 {
   }
   .paralaxtest #intro {
     background: url(/img/parallax.jpg)!important;
+    background-size:cover;
+    background-position:bottom;
   }
   .parallax {
     perspective: 1px;
