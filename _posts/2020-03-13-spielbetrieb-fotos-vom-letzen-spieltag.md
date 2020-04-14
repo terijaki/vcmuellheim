@@ -2,12 +2,10 @@
 layout: post
 excerpt_separator: "<!--more-->"
 title: Spielbetrieb & Fotos vom letzen Spieltag
-thumbnail: "/upload/2020/03/13/tim-mossholder-v5re1loi264-unsplash.jpg"
+thumbnail: ''
 photoalbum: https://photos.app.goo.gl/Z32trsHv7sqhPVXf8
 
 ---
-
-
 16 März 2020: **Die Landesregierung Baden-Württemberg hat die Schließung von Schulen und Sportstätten verordnet.** <a href="https://www.baden-wuerttemberg.de/de/service/presse/pressemitteilung/pid/landesregierung-beschliesst-massnahmen-gegen-die-ausbreitung-des-coronavirus/"  rel="nofollow noopener">[Info]</a>
 
 Neuigkeiten zur aktuellen Lage vom SBVV:
