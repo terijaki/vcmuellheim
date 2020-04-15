@@ -6,7 +6,7 @@ thumbnail: ''
 photoalbum: https://photos.app.goo.gl/Z32trsHv7sqhPVXf8
 
 ---
-16 März 2020: **Die Landesregierung Baden-Württemberg hat die Schließung von Schulen und Sportstätten verordnet.** <a href="https://www.baden-wuerttemberg.de/de/service/presse/pressemitteilung/pid/landesregierung-beschliesst-massnahmen-gegen-die-ausbreitung-des-coronavirus/"  rel="nofollow noopener">[Info]</a>
+16 März 2020: **Die Landesregierung Baden-Württemberg hat die Schließung von Schulen und Sportstätten verordnet.** <a href="https://www.baden-wuerttemberg.de/de/service/presse/pressemitteilung/pid/landesregierung-beschliesst-massnahmen-gegen-die-ausbreitung-des-coronavirus/"  rel="nofollow noopener">\[Info\]</a>
 
 Neuigkeiten zur aktuellen Lage vom SBVV:
 
@@ -26,4 +26,4 @@ Neuigkeiten zur aktuellen Lage vom SBVV:
 > Dirk Röttgen  
 > IT-Beauftragter
 
-Als kleine Aufheiterung f ihr hier nun jetzt auch Fotos vom letzten Spieltag der 1. Herren gegen USC Freiburg 2 & USC Konstanz 3:
+Als kleine Aufheiterung findet ihr hier nun jetzt auch Fotos vom letzten Spieltag der 1. Herren gegen USC Freiburg 2 & USC Konstanz 3:
