@@ -198,7 +198,8 @@ h1, h2, h3, h4, h5, h6 {
     width: 100vw;
   }
   #intro {
-    background: transparent!important;
+    background-image: none!important;
+    background: linear-gradient(45deg, rgba(54,59,64, 0.8), rgba(54,98,115, 0.8))!important;
   }
 }
 /*--------------------------------------------------------------
