@@ -60,40 +60,41 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /* Scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--link_hover1);
+    border: none;
+    border-radius: 0px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--link1);
+  }
+  ::-webkit-scrollbar-thumb:active {
+    background: var(--link1);
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--gradient1);
+    border: none;
+    border-radius: 0px;
+  }
+  ::-webkit-scrollbar-track:hover {
+    background: var(--gradient1);
+  }
+  ::-webkit-scrollbar-track:active {
+    background: var(--gradient1);
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
 }
-::-webkit-scrollbar-button {
-  width: 0px;
-  height: 0px;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--link_hover1);
-  border: none;
-  border-radius: 0px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--link1);
-}
-::-webkit-scrollbar-thumb:active {
-  background: var(--link1);
-}
-::-webkit-scrollbar-track {
-  background: var(--gradient1);
-  border: none;
-  border-radius: 0px;
-}
-::-webkit-scrollbar-track:hover {
-  background: var(--gradient1);
-}
-::-webkit-scrollbar-track:active {
-  background: var(--gradient1);
-}
-::-webkit-scrollbar-corner {
-  background: transparent;
-}
-
 
 /* Back to top button */
 .back-to-top {
@@ -639,10 +640,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Short Intros & Blog Post Header
 --------------------------------*/
 #shortintro, #blog-post-header {
-  overflow: hidden;
   background: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(../img/call-to-action-bg.jpg) fixed center center;
   background-size: cover;
-  padding: 120px 0 40px 0;
 }
 
 #shortintro .si-title, #blog-post-header .si-title {
