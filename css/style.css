@@ -152,22 +152,13 @@ h1, h2, h3, h4, h5, h6 {
     right: 0;
     bottom: 0;
     left: 0;
+    z-index: -99;
   }
   .parallax__layer img {
     display: block;
     position: absolute;
     bottom: 0;
     width: 100vw
-  }
-  .parallax__cover {
-    background: var(--background2);
-    display: block;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    height: 200px;
-    z-index: 2;
   }
 
   .parallax__layer__0 {
