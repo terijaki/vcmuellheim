@@ -135,10 +135,9 @@ h1, h2, h3, h4, h5, h6 {
   body.ParalaxxTesting {
     transform: translateY(0);
   }
-  body.ParalaxxTesting #main {
+  body.ParalaxxTesting #page-wrapper {
     perspective: 100px;
     height: 100vh;
-    overflow-x: hidden;
     overflow-y: auto;
     position: absolute;
     top: 0;
