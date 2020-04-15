@@ -168,24 +168,21 @@ h1, h2, h3, h4, h5, h6 {
     bottom: 0;
     width: 100vw
   }
-
-  .parallax__layer__0 {
-  	 transform: translateZ(-150px) scale(2.5);
-  }
    .parallax__layer__1 {
   	 transform: translateZ(-100px) scale(2);
+     background-image: url(/img/parallax-bg.png);
   }
    .parallax__layer__2 {
   	 transform: translateZ(-50px) scale(1.5);
+     background-image: url(/img/parallax-net.png);
   }
    .parallax__layer__3 {
   	 transform: translateZ(0px) scale(1);
+     background-image: url(/img/parallax-ball.png);
   }
    .parallax__layer__cover {
   	 background: var(--background2);
   }
-
-
   .ParalaxxTesting #intro .intro-text {
     text-align: center;
     position: absolute;
