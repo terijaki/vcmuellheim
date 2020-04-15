@@ -132,7 +132,10 @@ h1, h2, h3, h4, h5, h6 {
 
 @supports ((perspective: 1px) and (not (-webkit-overflow-scrolling: touch))) {
   /* ... parallax styles ... */
-  .parallax {
+  body.ParalaxxTesting {
+    transform: translateY(0);
+  }
+  body.ParalaxxTesting #page-wrapper {
     perspective: 100px;
     height: 100vh;
     overflow-x: hidden;
