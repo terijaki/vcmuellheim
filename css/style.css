@@ -1003,12 +1003,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 #sponsors img {
     max-height: 80px;
-    max-width: 260px;
+    max-width: 210px;
 }
 @media (max-width: 767px) {
   #sponsors img {
       max-height: 90px;
-      max-width: 160px;
+      max-width: 190px;
   }
 }
 
