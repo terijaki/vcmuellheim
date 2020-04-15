@@ -655,6 +655,26 @@ h1, h2, h3, h4, h5, h6 {
   border: 2px solid #fff;
 }
 
+
+/* Ergebnisse Popup on Homepage
+--------------------------------*/
+
+.mfp-hide .ergebnisdienst {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.mfp-hide .ergebnisdienst:target {
+  visibility: visible;
+  opacity: 1;
+}
+
 /* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse)
 --------------------------------*/
 #news, #members {
@@ -870,6 +890,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0;
   line-height: 24px;
 }
+
 
 /* special CSS depending on line-clamp support*/
 #news .post-excerpt {
