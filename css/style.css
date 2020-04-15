@@ -170,14 +170,23 @@ h1, h2, h3, h4, h5, h6 {
   }
    .parallax__layer__1 {
   	 transform: translateZ(-100px) scale(2);
-     background-image: url(/img/parallax-bg.png);
   }
    .parallax__layer__2 {
   	 transform: translateZ(-50px) scale(1.5);
-     background-image: url(/img/parallax-net.png);
   }
    .parallax__layer__3 {
   	 transform: translateZ(0px) scale(1);
+  }
+   .parallax__img {
+     background-size: cover;
+  }
+   .parallax__layer__1 .parallax__img {
+     background-image: url(/img/parallax-bg.png);
+  }
+   .parallax__layer__2 .parallax__img {
+     background-image: url(/img/parallax-net.png);
+  }
+   .parallax__layer__3 .parallax__img {
      background-image: url(/img/parallax-ball.png);
   }
    .parallax__layer__cover {
