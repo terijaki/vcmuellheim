@@ -179,7 +179,7 @@ h1, h2, h3, h4, h5, h6 {
    .parallax__layer__3 {
   	 transform: translateZ(0px) scale(1);
   }
-   
+
 
   .paralaxtest #intro .intro-text {
     text-align: center;
@@ -187,7 +187,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 100vw;
   }
   .paralaxtest #intro {
-    background: url(/img/parallax.jpg)
+    background: transparent!important;
   }
 }
 /*--------------------------------------------------------------
