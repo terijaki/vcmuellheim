@@ -172,7 +172,7 @@ h1, h2, h3, h4, h5, h6 {
 # Intro Parallax Scrolling
 --------------------------------------------------------------*/
 
-@supports ((perspective: 1px) and (not (-webkit-overflow-scrolling: touch))) {
+@supports ((perspective: 1px) and (transform: translateZ(-100px);) and (transform: scale(2);) and (not (-webkit-overflow-scrolling: touch))) {
   /* ... parallax styles ... */
   body {
     transform: translateY(0);
