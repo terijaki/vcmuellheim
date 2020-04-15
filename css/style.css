@@ -134,6 +134,7 @@ h1, h2, h3, h4, h5, h6 {
   /* ... parallax styles ... */
   body.ParalaxxTesting {
     transform: translateY(0);
+    scroll-behavior: smooth;
   }
   body.ParalaxxTesting #page-wrapper {
     perspective: 100px;
@@ -144,6 +145,10 @@ h1, h2, h3, h4, h5, h6 {
     left: 0;
     right: 0;
     bottom: 0;
+  }
+  .parallax .section-bg {
+    height: 100vh;
+    width: 100vw;
   }
   .parallax__layer {
     position: absolute;
