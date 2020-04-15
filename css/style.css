@@ -1016,7 +1016,10 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(../img/verein-bg.jpg) fixed center center;
   background-size: cover;
 }
-
+#sponsors img {
+    max-height: 80px;
+    max-width: 260px;
+}
 @media (max-width: 767px) {
   #sponsors img {
       max-height: 90px;
