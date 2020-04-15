@@ -10,7 +10,9 @@
 @font-face {
   font-display: swap;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 body {
   background: var(--background1);
   color: var(--text1);
