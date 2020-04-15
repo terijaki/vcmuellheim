@@ -659,7 +659,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Ergebnisse Popup on Homepage
 --------------------------------*/
 
-.mfp-hide .ergebnisdienst {
+.mfp-hide.ergebnisdienst {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -669,8 +669,9 @@ h1, h2, h3, h4, h5, h6 {
   transition: opacity 500ms;
   visibility: hidden;
   opacity: 0;
+  display: none;
 }
-.mfp-hide .ergebnisdienst:target {
+.mfp-hide.ergebnisdienst:target {
   visibility: visible;
   opacity: 1;
 }
