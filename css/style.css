@@ -233,7 +233,7 @@ h1, h2, h3, h4, h5, h6 {
      bottom: -100%;
      z-index: -1;
   }
-   .parallax-layer-over .parallax-im {
+   .parallax-layer-over .parallax-img {
   	 background: var(--background2);
   }
   #intro .intro-text {
