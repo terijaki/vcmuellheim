@@ -56,10 +56,17 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
 }
 
+/*--------------------------------------------------------------
+# Smooth Scrolling
+--------------------------------------------------------------*/
 
+#header, #page-wrapper, #main {
+  scroll-behavior: smooth;
+}
 
-
-/* Scrollbar */
+/*--------------------------------------------------------------
+# Scrollbar
+--------------------------------------------------------------*/
 @media (min-width: 768px) {
   ::-webkit-scrollbar {
     width: 10px;
@@ -95,32 +102,6 @@ h1, h2, h3, h4, h5, h6 {
     background: transparent;
   }
 }
-
-/* Back to top button */
-.back-to-top {
-  position: fixed;
-  display: none;
-  background: linear-gradient(45deg, var(--gradient1), var(--gradient2));
-  color: var(--text2);
-  padding: 5px 20px 15px 20px;
-  font-size: 16px;
-  border-radius: 4px 4px 0 0;
-  right: 15px;
-  bottom: 0;
-  transition: none;
-}
-
-.back-to-top:focus {
-  background: linear-gradient(45deg, var(--gradient1), var(--gradient2));
-  color: var(--text2);
-  outline: none;
-}
-
-.back-to-top:hover {
-  background: var(--gradient2);
-  color: var(--text2);
-}
-
 
 /*--------------------------------------------------------------
 # Corona Banner
@@ -176,7 +157,6 @@ h1, h2, h3, h4, h5, h6 {
   /* ... parallax styles ... */
   body {
     transform: translateY(0);
-    scroll-behavior: smooth;
   }
   body #page-wrapper {
     perspective: 100px;
