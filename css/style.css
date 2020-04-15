@@ -230,7 +230,11 @@ h1, h2, h3, h4, h5, h6 {
      background-image: url(/img/parallax-ball.png);
   }
    .parallax-layer-over {
-  	 ba1111ckground: var(--background2);
+     bottom: -100%;
+     z-index: -1;
+  }
+   .parallax-layer-over .parallax-im {
+  	 background: var(--background2);
   }
   #intro .intro-text {
     text-align: center;
@@ -240,6 +244,7 @@ h1, h2, h3, h4, h5, h6 {
   #intro {
     background-image: none!important;
     background: linear-gradient(45deg, rgba(54,59,64, 0.8), rgba(54,98,115, 0.8))!important;
+    z-index:-2;
   }
 }
 /*--------------------------------------------------------------
