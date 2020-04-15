@@ -181,13 +181,13 @@ h1, h2, h3, h4, h5, h6 {
   	 transform: translateZ(0px) scale(1);
   }
    .parallax-layer-bg .parallax-img {
-     background: url(/img/parallax-bg.png);
+     background-image: url(/img/parallax-bg.png);
   }
    .parallax-layer-net .parallax-img {
-     background: url(/img/parallax-net.png);
+     background-image: url(/img/parallax-net.png);
   }
    .parallax-layer-ball .parallax-img {
-     background: url(/img/parallax-ball.png);
+     background-image: url(/img/parallax-ball.png);
   }
    .parallax-layer-over {
   	 ba1111ckground: var(--background2);
