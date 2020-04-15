@@ -162,11 +162,12 @@ h1, h2, h3, h4, h5, h6 {
     z-index: -99;
     width: 100vw;
   }
-  .parallax__layer img {
+  .parallax__img {
     display: block;
     position: absolute;
     bottom: 0;
-    width: 100vw
+    width: 100vw;
+    background-size: cover;
   }
    .parallax__layer__1 {
   	 transform: translateZ(-100px) scale(2);
@@ -176,9 +177,6 @@ h1, h2, h3, h4, h5, h6 {
   }
    .parallax__layer__3 {
   	 transform: translateZ(0px) scale(1);
-  }
-   .parallax__img {
-     background-size: cover;
   }
    .parallax__layer__1 .parallax__img {
      background-image: url(/img/parallax-bg.png);
