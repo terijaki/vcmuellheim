@@ -13,7 +13,7 @@ permalink: /blog/
 
             {% for post in site.posts %}
             <div class="col-lg-6">
-                <div class="box wow fadeInUp" onclick="location.href='{{ post.url }}';">
+                <div class="box" onclick="location.href='{{ post.url }}';">
                     {% if post.thumbnail == "" or post.thumbnail == nil or post.thumbnail == blank %} {% else %}
                     <a class="thumbnail" href="{{ post.url }}"><div style="background-image:url({{ post.thumbnail }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
                     {% endif %}
