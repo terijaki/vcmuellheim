@@ -171,6 +171,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 #intro .intro-text {
   text-align: center;
+  min-height: 500px;
+  max-height: 80vh;
 }
 
 #intro h2 {
@@ -193,7 +195,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (max-width: 568px) {
   #intro .vcm-banner {
-    max-height: 130px;
+    max-height: 160px;
   }
   #logo h1 {
     font-size: 22px;
