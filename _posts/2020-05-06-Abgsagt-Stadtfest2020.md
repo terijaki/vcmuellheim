@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Abgesagt: 49. Müllheimer Stadtfest
+title: Abgesagt! 49. Müllheimer Stadtfest
 excerpt_separator: "<!-- more -->"
 ---
 
