@@ -2,6 +2,7 @@
 layout: post
 title: Zwei Auswärtssiege
 thumbnail: /upload/51270111_2095751377176010_6383426922143023104_o.jpg
+excerpt_separator: "<!-- more -->"
 ---
 
 ... an den letzten beiden Spieltagen für den VCM!!! Mit zwei verdienten, aber nicht immer überzeugenden Siegen, setzt der VCM sich weiter an der Tabellenspitze der Landesliga West fest.
