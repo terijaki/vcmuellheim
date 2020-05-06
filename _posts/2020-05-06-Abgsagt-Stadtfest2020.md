@@ -14,7 +14,6 @@ Weitere Informationen zum Coronavirus findet ihr auf
 [bundesgesundheitsministerium.de](https://www.bundesgesundheitsministerium.de/coronavirus.html) und [rki.de](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/nCoV.html).
 
 Die Kurzfassung:
-
 - **Regelmäßig die Hände waschen.** Mindestens 30 Sekunden und vorallem die Fingerzwichenräume reinigen!
 - **Haltet den Sicherheitsabstand ein.** Wenn ich dir im LIDL auf die Füße treten kann, dann stehst du zu nah!
 - **Tragt Schutzmasken in Geschäften.** Über den Mund und die Nase; dein Kinn kommt auch ohne Maske aus!
