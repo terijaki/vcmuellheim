@@ -599,7 +599,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #call-to-action .cta-btn:hover {
-  background: linear-gradient(15deg, rgba(242, 94, 94, 0.7) 0%, rgba(191, 160, 132, 0.7) 100%);
+  background: var(--link1);
   border: 2px solid #fff;
 }
 
@@ -724,15 +724,14 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50px;
   transition: 0.5s;
   margin: 10px;
-  border: 2px solid var(--gradient2);
-  color: var(--gradient2);
+  border: 2px solid #fff;
+  color: var(--text2);
+  background: var(--gradient2);
 }
 
 #news .archiv-btn:hover {
-  color: var(--gradient2);
-  background: var(--gradient2);
-  border: 2px solid #fff;
   color: var(--text2);
+  background: var(--link1);
 }
 #news .newsposts img {
     display:none;
