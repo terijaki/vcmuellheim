@@ -15,9 +15,9 @@ Weitere Informationen zum Coronavirus findet ihr auf
 
 Die Kurzfassung:
 
-  - **Regelmäßig die Hände waschen.** Mindestens 30 Sekunden und vorallem die Fingerzwichenräume reinigen!
- - **Haltet den Sicherheitsabstand ein.** Wenn ich dir im LIDL auf die Füße treten kann, dann stehst du zu nah!
- - **Tragt Schutzmasken in Geschäften.** Über den Mund und die Nase; dein Kinn kommt auch ohne Maske aus!
- - **Vermeidet unnötige Ansammlungen.** Je strengen wir uns alle daran halten, desto höher stehen die Chancen für ein Stadtfest in 2021.
+- **Regelmäßig die Hände waschen.** Mindestens 30 Sekunden und vorallem die Fingerzwichenräume reinigen!
+- **Haltet den Sicherheitsabstand ein.** Wenn ich dir im LIDL auf die Füße treten kann, dann stehst du zu nah!
+- **Tragt Schutzmasken in Geschäften.** Über den Mund und die Nase; dein Kinn kommt auch ohne Maske aus!
+- **Vermeidet unnötige Ansammlungen.** Je strengen wir uns alle daran halten, desto höher stehen die Chancen für ein Stadtfest in 2021.
 
- Bleibt gesund. Gemeinsam schaffen wir das!
+Bleibt gesund. Gemeinsam schaffen wir das!
