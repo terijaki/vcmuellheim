@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Abgesagt! 49. Müllheimer Stadtfest
+title: 'ABGESAGT: 49. Müllheimer Stadtfest'
 excerpt_separator: "<!-- more -->"
 ---
 
@@ -20,4 +20,4 @@ Die Kurzfassung:
 - **Tragt Schutzmasken in Geschäften.** Über den Mund und die Nase; dein Kinn kommt auch ohne Maske aus!
 - **Vermeidet unnötige Ansammlungen.** Je strengen wir uns alle daran halten, desto höher stehen die Chancen für ein Stadtfest in 2021.
 
-Gemeinsam schaffen wir das! Bleibt gesund. 
+Gemeinsam schaffen wir das! Bleibt gesund.
