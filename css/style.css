@@ -920,14 +920,8 @@ h1, h2, h3, h4, h5, h6 {
   background-size: cover;
 }
 #sponsors img {
-    max-height: 80px;
-    max-width: 210px;
-}
-@media (max-width: 767px) {
-  #sponsors img {
-      max-height: 90px;
-      max-width: 190px;
-  }
+    max-height: 7rem;
+    max-width: 100%;
 }
 
 /* Kontakt Section
