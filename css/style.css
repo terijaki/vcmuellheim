@@ -920,8 +920,12 @@ h1, h2, h3, h4, h5, h6 {
   background-size: cover;
 }
 #sponsors img {
-    max-height: 7rem;
+    max-height: 6rem;
     max-width: 100%;
+}
+
+#sponsors .carousel {
+    height: 6rem;
 }
 
 /* Kontakt Section
