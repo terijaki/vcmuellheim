@@ -19,3 +19,8 @@ An dieser Stelle möchten wir uns ganz herzlich bei unserem Sponsor **DORNER Hea
 ![](/upload/2020/07/02/whatsapp-image-2020-07-01-at-08-09-30.jpeg)
 
 Auf dem Bild von Links: Andreas, Wolfgang, Joschua (23), Samuel (24), Leon (19), Malte (17), Jakob (16) und Julian (29). Leider nicht zu sehen sind unsere Spieler: Maxim, Onofrio und Timotheus. Rechts im Bild unser Sponsor DORNER.
+
+**Trainingszeiten:** Dienstags & Mittwochs 18:30-20:00 Uhr in [Sporthalle II](https://goo.gl/maps/g3XhvCS9gpR2)  
+**Kontakt**: [Andreas Albrecht](mailto:andreas@vcmuellheim.de) ([+491771906789](tel:+491771906789)) & [Dominik Ernst](mailto:dominik@vcmuellheim.de)
+
+_Temporär wird derzeit auch am Donnerstag zur gleichen Zeit trainiert._
