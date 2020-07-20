@@ -12,7 +12,7 @@ Seither betreuen Andreas Albrecht und Dominik Ernst eine Gruppe von Jungs und M�
 
 Besonders erfreut uns die Unterstützung von Eltern und Großeltern der Spieler(innen).
 
-Die beiden aktiven Jungendgruppen werden künftig an diversen Turnieren teilnehmen und sich auf den Ligasport vorbereiten. Damit dies gelingt benötigen die Spieler natürlich auch das ensprechende Outfit.
+Die beiden aktiven Jugendgruppen werden künftig an diversen Turnieren teilnehmen und sich auf den Ligasport vorbereiten. Damit dies gelingt benötigen die Spieler natürlich auch das entsprechende Outfit.
 
 An dieser Stelle möchten wir uns ganz herzlich bei unserem Sponsor **DORNER Health IT Solutions** ([dorner.de](https://www.dorner.de/)) bedanken, die es unseren Jungs ermöglicht mit tollen neuen Trikos aufzutreten!
 
