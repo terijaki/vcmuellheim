@@ -49,4 +49,5 @@ Es werden keine Speisen oder Getränke ausgegeben. Die Gastmannschaften und Zusc
   
 
 [Lothar Voigt](mailto:lothar.voigt@t-online.de)
+
 1\. Vorsitzender
