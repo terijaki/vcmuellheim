@@ -8,8 +8,6 @@ photoalbum: ''
 ---
 Voraussetzung für die Wiedereröffnung des Sportbetriebs in den Sportvereinen sind die Vorgaben der Coronaschutzverordnung des Landes Baden-Württemberg. Auch wenn einige Maßnahmen uns beeinträchtigen, appellieren wir an alle, diese einzuhalten, damit es zu einem reibungslosen Verlauf der Saison kommt und weitere Lockerungen erreicht werden können. Wir empfehlen in diesem Zusammenhang auch die Nutzung der [Corona-App](https://www.bundesregierung.de/breg-de/themen/corona-warn-app).
 
-  
-
 **1. Allgemeine Hygienemaßnahmen**
 
 Die **Erste-Hilfe-Ausstattung** ist um Mund-Nasen-Schutzmasken und Einweghandschuhe erweitert worden.
@@ -21,8 +19,6 @@ Sämtliche **Hygienemaßnahmen** und neue Regelungen werden an alle Mitglieder, 
 Bei Heimspielen beauftragt die Heimmannschaft einen **Verantwortlichen** für die Überwachung der Corona-Schutzmaßnahmen. Er/Sie überprüft die Einhaltung der Maßnahmen laufend. Er/Sie ist auch für die laufende Desinfektion von Türgriffen und anderer relevanten Stellen, sowie für Lüftungsmaßnahmen im Rahmen der Möglichkeiten zuständig. Im Trainingsbetrieb geht die Aufgabe an den jeweiligen Trainer über.
 
 **Aushänge**, wie viele Personen sich auf den Flächen gleichzeitig aufhalten dürfen, sind gut sichtbar am jeweiligen Eingang der Hallenteile angebracht.
-
-  
 
 **2. Nutzung der Sportstätten / der Vereinsanlage**
 
@@ -42,12 +38,7 @@ Jeder Gastmannschaft wird eine eigene **Umkleidekabine** zugewiesen. Die dort in
 
 Es werden keine Speisen oder Getränke ausgegeben. Die Gastmannschaften und Zuschauer sind auf **Eigenverpflegung** angewiesen.
 
-  
-
 **_Die Maßnahmen sind nicht abschließend. Wir appellieren an die Vernunft jedes Einzelnen, um eine Eigen- und Fremdgefährdung zu minimieren. Die Maßnahmen werden aktuellen Entwicklungen angepasst._**
 
-  
-
-[Lothar Voigt](mailto:lothar.voigt@t-online.de)
-
+Lothar Voigt  
 1\. Vorsitzender
