@@ -456,7 +456,17 @@ h1, h2, h3, h4, h5, h6 {
   background-size: cover;
   background-position: center;
 }
-
+/* Beachvolleyball
+--------------------------------*/
+.beachvolleyball-image {
+  height: 100%;
+  width: 100%;
+  min-height: 200px;
+  min-width: 1px;
+  background-image: url('/img/bachvolleyball-britzingen.jpg');
+  background-size: cover;
+  background-position: center;
+}
 
 /* Blog Post
 --------------------------------*/
@@ -714,7 +724,7 @@ h1, h2, h3, h4, h5, h6 {
   filter: none;
   transform: scale(1.2)
 }
-#news .archiv-btn {
+#news .archiv-btn, .generic-button {
   font-family: var(--font2);
   font-weight: 400;
   font-size: 16px;
@@ -729,7 +739,7 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--gradient2);
 }
 
-#news .archiv-btn:hover {
+#news .archiv-btn:hover, .generic-button:hover {
   color: var(--text2);
   background: var(--link1);
 }
