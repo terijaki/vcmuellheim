@@ -14,6 +14,4 @@ Hier sind ein paar Bilder aus der Burdahalle in Freiburg.
 
 ![](/upload/2020/10/13/whatsapp-image-2020-10-11-at-12-25-20.jpg)
 
-![](/upload/2020/10/13/whatsapp-image-2020-10-11-at-12-25-20-1.jpg)
-
 ![](/upload/2020/10/13/whatsapp-image-2020-10-11-at-12-25-20-2.jpg)
