@@ -13,5 +13,3 @@ Der SBVV Vorstand wird sich zu weiteren Schritten nächste Woche beraten.
 Quelle: [https://www.volleyball-baden.de/cms/home.xhtml?component_4313368.showArticle=17590426](https://www.volleyball-baden.de/cms/home.xhtml?component_4313368.showArticle=17590426 "https://www.volleyball-baden.de/cms/home.xhtml?component_4313368.showArticle=17590426")
 
 Übersicht zu aktuellen Fallzahlen: [https://www.zdf.de/nachrichten/heute/coronavirus-ausbreitung-infografiken-102.html](https://www.zdf.de/nachrichten/heute/coronavirus-ausbreitung-infografiken-102.html "https://www.zdf.de/nachrichten/heute/coronavirus-ausbreitung-infografiken-102.html")
-
-![](/upload/2020/10/16/2020-05-06-grafik-covid-19-zahlen.png)
