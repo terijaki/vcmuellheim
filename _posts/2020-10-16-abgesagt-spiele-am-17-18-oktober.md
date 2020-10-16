@@ -2,7 +2,7 @@
 layout: post
 excerpt_separator: "<!--more-->"
 title: 'Abgesagt: Spiele am 17 & 18 Oktober'
-thumbnail: "/upload/2020/10/16/screenshot-2020-10-16-at-21-55-31.png"
+thumbnail: ''
 photoalbum: ''
 
 ---
