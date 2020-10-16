@@ -14,4 +14,4 @@ Quelle: [https://www.volleyball-baden.de/cms/home.xhtml?component_4313368.showAr
 
 Übersicht zu aktuellen Fallzahlen: [https://www.zdf.de/nachrichten/heute/coronavirus-ausbreitung-infografiken-102.html](https://www.zdf.de/nachrichten/heute/coronavirus-ausbreitung-infografiken-102.html "https://www.zdf.de/nachrichten/heute/coronavirus-ausbreitung-infografiken-102.html")
 
-![](/upload/2020/10/16/screenshot-2020-10-16-at-21-55-31.png)
+![](/upload/2020/10/16/2020-05-06-grafik-covid-19-zahlen.png)
