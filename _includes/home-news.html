@@ -1,0 +1,29 @@
+<section id="news" class="section-bg py-5">
+    <div class="container">
+      <div class="section-header">
+        <h3 class="section-title">News</h3>
+        <span class="section-divider"></span>
+        <p class="section-description"></p>
+      </div>
+
+        <div class="row newsposts">
+      <!--===== Most Recent News Post =====-->
+            {% for post in site.posts limit:4 offset:0 %}
+            <div class="col-lg-6">
+                <div class="box" onclick="location.href='{{ post.url }}';">
+                    {% if post.thumbnail == "" or post.thumbnail == nil or post.thumbnail == blank %} {% else %}
+                    <a class="thumbnail" href="{{ post.url }}"><div style="background-image:url({{ post.thumbnail }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
+                    {% endif %}
+                    <h4 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h4>
+                    <div class="post-content"><div class="post-excerpt {% if post.thumbnail == '' or post.thumbnail == nil or post.thumbnail == blank %} no-post-thumbnail{% endif %}">{{ post.excerpt | strip_html }}</div></div>
+                    <p class="post-url"><a href="{{ post.url }}" class="read-more">... weiterlesen</a></p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="cta-btn-container text-center">
+          <a class="archiv-btn align-middle" href="/blog">alle Newsbeiträge</a>
+        </div>
+    </div>
+</section>
