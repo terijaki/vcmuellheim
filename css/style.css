@@ -678,6 +678,9 @@ h1, h2, h3, h4, h5, h6 {
 .vly-ad a {
   color: var(--text1);
 }
+.vly-ad {
+  display:none; /* disabled due to seperate callout */
+}
 .vly-team {
   background: linear-gradient(45deg, var(--gradient2) 0%, var(--gradient1) 100%);
   color: var(--text2);
@@ -687,6 +690,12 @@ h1, h2, h3, h4, h5, h6 {
     padding: 20px;
     margin-bottom: 30px;
   }
+}
+#ergebnisse-tabelle .teams > div {
+    display: flex;
+}
+#ergebnisse-tabelle  .teams .box {
+    width: 100%;
 }
 
 
