@@ -1,7 +1,3 @@
----
-layout: none
----
-
 {
   "lang": "{{ site.language }}",
   "dir": "{{ site.lang_direction }}",
