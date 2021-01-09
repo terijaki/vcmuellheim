@@ -26,11 +26,11 @@
   "shortcuts": [
     {
       "name": "News",
-      "url": "/blog/",
+      "url": "/blog/"
     },
     {
       "name": "Tabelle",
-      "url": "/tabelle/",
+      "url": "/tabelle/"
     }
-  ],
+  ]
 }
