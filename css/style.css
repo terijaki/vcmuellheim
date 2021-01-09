@@ -474,12 +474,11 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   height: auto;
   padding: 6px;
-}
-#blogpost video {
   background-image: url(/img/loadingspinner.png);
   background-repeat: no-repeat;
   background-position: center;
 }
+
 #blogpost img.post-thumbnail {
   margin: -4rem auto 1.2rem auto;
   max-height: 500px;
