@@ -2,10 +2,7 @@
 layout: contact
 name: Franz-Josef Heimann
 email:
-facebook:
-whatsapp:
-twitter:
-avatar: /upload/franzjosefheimann.jpg
+avatar: /img/members/franzjosefheimann.jpg
 function: Schriftführer
 sortorder: 3
 ---

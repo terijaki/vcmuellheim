@@ -2,10 +2,7 @@
 layout: contact
 name: Renate Kleinbub
 email: mitgliedrverwaltung@vcmuellheim.de
-facebook:
-whatsapp:
-twitter:
-avatar: /upload/renatekleinbub.jpg
+avatar: /img/members/renatekleinbub.jpg
 function: Mitglieder Verwaltung
 sortorder: 3
 ---

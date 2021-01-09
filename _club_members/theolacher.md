@@ -2,10 +2,7 @@
 layout: contact
 name: Theo Lacher
 email: theo@vcmuellheim.de
-facebook: 100000656022095
-whatsapp:
-twitter:
-avatar:
+avatar: /img/members/theolacher.jpg
 function: 2. Vorsitzender
 sortorder: 2
 ---

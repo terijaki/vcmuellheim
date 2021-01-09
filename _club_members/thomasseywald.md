@@ -2,10 +2,7 @@
 layout: contact
 name: Thomas Seywald
 email: thomas@vcmuellheim.de
-facebook: 100000558831832
-whatsapp:
-twitter:
-avatar:
+avatar: /img/members/thomasseywald.jpg
 function: Trainer 1. Herren
 sortorder: 10
 ---
