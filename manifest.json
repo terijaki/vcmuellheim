@@ -27,4 +27,14 @@ layout: none
   "start_url": "{{ site.url }}",
   "display": "standalone",
   "orientation": "natural"
+  "shortcuts": [
+    {
+      "name": "News",
+      "url": "/blog/",
+    },
+    {
+      "name": "Tabelle",
+      "url": "/tabelle/",
+    }
+  ]
 }
