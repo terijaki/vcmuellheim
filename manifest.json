@@ -4,6 +4,11 @@
   "description": "{{ site.description }}",
   "name": "{{ site.title | smartify | jsonify }}",
   "short_name": "{{ site.short_name | smartify | jsonify }}",
+  "theme_color": "{{ site.theme_color }}",
+  "background_color": "{{ site.theme_color }}",
+  "start_url": "{{ site.url }}",
+  "display": "standalone",
+  "orientation": "natural",
   "icons": [
     {
       "src": "\/img\/icons\/icon-192x192.png",
@@ -18,11 +23,6 @@
       "purpose": "any maskable"
     }
   ],
-  "theme_color": "{{ site.theme_color }}",
-  "background_color": "{{ site.theme_color }}",
-  "start_url": "{{ site.url }}",
-  "display": "standalone",
-  "orientation": "natural",
   "shortcuts": [
     {
       "name": "News",
