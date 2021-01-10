@@ -25,7 +25,7 @@ layout: default
           <div class="row">
             <div class="col-12 post">
                   <div class="wow fadeInNone">
-                    {% if page.thumbnail %}<img class="post-thumbnail" src="{{ page.thumbnail }}" alt="">{% endif %}
+                    {% if page.thumbnail contains "." %}<img class="post-thumbnail" src="{{ page.thumbnail }}" alt="">{% endif %}
                     <div class="wow fadeInBottom" data-wow-duration="0.5s">
                       {{ content }}
                       {% if page.photoalbum contains "http" %}
