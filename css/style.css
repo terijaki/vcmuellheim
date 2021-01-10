@@ -648,9 +648,13 @@ h1, h2, h3, h4, h5, h6 {
   transition: 0.4s;
   cursor: default;
 }
-
 #page-simple, #ergebnisse-tabelle {
   padding: 30px 0;
+}
+
+#page-simple .box {
+  overflow: hidden;
+  overflow-wrap: anywhere;
 }
 #ergebnisse-tabelle .vly h1 {
   font-size: 1.4rem;
