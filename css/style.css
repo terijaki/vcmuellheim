@@ -1029,3 +1029,8 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--gradient2);
   border-color: var(--gradient2);
 }
+/* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse)
+--------------------------------*/
+.Datenschutzerklärung ul, .Datenschutzerklärung ol, .SatzungdesVolleyballclubsMüllheim ul, .SatzungdesVolleyballclubsMüllheim ol {
+    padding-left: 1.5rem;
+}
