@@ -19,12 +19,13 @@ Lothar Voigt
 ### **Kontakt**
 
 Telefon: 07631 2472  
-E-Mail: info@vcmuellheim.de
+E-Mail: [info@vcmuellheim.de](mailto:info@vcmuellheim.de)
+
 
 ### **Redaktionell Verantwortlicher**
 
 Björn Kohnen  
-bjoern@vcmuellheim.de
+E-Mail: [bjoern@vcmuellheim.de](mailto:bjoern@vcmuellheim.de)
 
 ### **Haftung für Inhalte**
 
