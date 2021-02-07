@@ -39,6 +39,7 @@ die Ihnen angezeigt wird)
 Cookies in Anzeigen)
 
 
+<!--
 ## **Nutzung von Social-Media-Plugins von Facebook**
 Aufgrund unseres berechtigten Interesses an der Analyse, Optimierung und dem Betrieb unseres Online-Angebotes (im Sinne des Art. 6 Abs. 1 lit. f. DSGVO), verwendet diese Website das Facebook-Social-Plugin, welches von der Facebook Inc. (1 Hacker Way, Menlo Park, California 94025, USA) betrieben wird. Erkennbar sind die Einbindungen an dem Facebook-Logo bzw. an den Begriffen „Like“, „Gefällt
 mir“, „Teilen“ in den Farben Facebooks (Blau und Weiß). Informationen zu allen Facebook-Plugins finden Sie über den folgenden Link: [https://developers.facebook.com/docs/plugins/](https://developers.facebook.com/docs/plugins/)
@@ -53,7 +54,7 @@ gelangen Sie hier:
 * Cookie-Deaktivierungsseite der US-amerikanischen Website: [http://optout.aboutads.info/?c=2#!/](http://optout.aboutads.info/?c=2#!/)
 * Cookie-Deaktivierungsseite der europäischen Website: [http://optout.networkadvertising.org/?c=1#!/](http://optout.networkadvertising.org/?c=1#!/)
 Welche Daten, zu welchem Zweck und in welchem Umfang Facebook Daten erhebt, nutzt und verarbeitet und welche Rechte sowie Einstellungsmöglichkeiten Sie zum Schutz Ihrer Privatsphäre haben, können Sie in den Datenschutzrichtlinien von Facebook nachlesen. Diese finden Sie hier: [https://www.facebook.com/about/privacy/](https://www.facebook.com/about/privacy/)
-
+-->
 
 ## **YouTube**
 Für Integration und Darstellung von Videoinhalten nutzt unsere Website Plugins von YouTube. Anbieter des Videoportals ist die YouTube, LLC, 901 Cherry Ave., San Bruno, CA 94066, USA. Bei Aufruf einer Seite mit integriertem YouTube-Plugin wird eine Verbindung zu den Servern von YouTube hergestellt. YouTube erfährt hierdurch, welche unserer Seiten Sie aufgerufen haben. YouTube kann Ihr Surfverhalten direkt Ihrem persönlichen Profil zuzuordnen, sollten Sie in Ihrem YouTube Konto eingeloggt sein. Durch vorheriges Ausloggen haben Sie die Möglichkeit, dies zu unterbinden. Die Nutzung von YouTube erfolgt im Interesse einer ansprechenden Darstellung unserer Online-Angebote. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f DSGVO dar. Einzelheiten zum Umgang mit Nutzerdaten finden Sie in der Datenschutzerklärung von YouTube unter: [https://www.google.de/intl/de/policies/privacy](https://www.google.de/intl/de/policies/privacy).
