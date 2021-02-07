@@ -4,7 +4,7 @@ title: Impressum des Volleyballclubs Müllheim
 permalink: /impressum/
 ---
 
-## **Angaben gemäß § 5 TMG**
+### **Angaben gemäß § 5 TMG**
 
 Volleyballclub Müllheim e.V.  
 Lettenstr. 48  
@@ -16,12 +16,12 @@ Registergericht: AG Müllheim
 **Vertreten durch:**  
 Lothar Voigt
 
-## **Kontakt**
+### **Kontakt**
 
 Telefon: 07631 2472
 E-Mail: info@vcmuellheim.de
 
-## **Redaktionell Verantwortlicher**
+### **Redaktionell Verantwortlicher**
 
 Björn Kohnen  
 bjoern@vcmuellheim.de
