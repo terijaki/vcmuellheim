@@ -1,7 +1,7 @@
 ---
 layout: contact
 name: Björn Kohnen
-email: bjorn@vcmuellheim.de
+email: bjoern@vcmuellheim.de
 avatar: /img/members/bjoernkohnen.jpg
 function: Webseite
 sortorder: 9
