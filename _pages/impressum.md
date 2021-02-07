@@ -18,7 +18,7 @@ Lothar Voigt
 
 ### **Kontakt**
 
-Telefon: 07631 2472
+Telefon: 07631 2472  
 E-Mail: info@vcmuellheim.de
 
 ### **Redaktionell Verantwortlicher**
