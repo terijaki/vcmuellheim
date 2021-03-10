@@ -30,10 +30,10 @@ Die Regelungen sind **abhängig von** dem jeweiligen [**7-Tage-Inzidenzwert**](h
 >
 > Nutzung von Außensportanlagen für den Amateur- und Freizeitsport untersagt.
 
-Es gilt daher immer den aktuellen Stand zu beachten. Stand heute (10 März) liegt dieser Wert im LK Breisgau-Hochschwarzwald bei **71,3**.
+Es gilt daher immer den aktuellen Stand zu beachten.  
+Stand heute (10 März) liegt dieser Wert im LK Breisgau-Hochschwarzwald bei **71,3**.
 
-Quellen:
-
-* [https://www.baden-wuerttemberg.de/de/service/aktuelle-infos-zu-corona/faq-corona-verordnung/](https://www.baden-wuerttemberg.de/de/service/aktuelle-infos-zu-corona/faq-corona-verordnung/ "https://www.baden-wuerttemberg.de/de/service/aktuelle-infos-zu-corona/faq-corona-verordnung/")
-* [https://www.bundesregierung.de/breg-de/themen/coronavirus/fuenf-oeffnungsschritte-1872120](https://www.bundesregierung.de/breg-de/themen/coronavirus/fuenf-oeffnungsschritte-1872120 "https://www.bundesregierung.de/breg-de/themen/coronavirus/fuenf-oeffnungsschritte-1872120")
-* [https://www.sbvv-online.de/index.xhtml?component_18107300.showArticle=18372709](https://www.sbvv-online.de/index.xhtml?component_18107300.showArticle=18372709 "https://www.sbvv-online.de/index.xhtml?component_18107300.showArticle=18372709")
+_Quellen:_  
+[https://www.baden-wuerttemberg.de/de/service/aktuelle-infos-zu-corona/faq-corona-verordnung/](https://www.baden-wuerttemberg.de/de/service/aktuelle-infos-zu-corona/faq-corona-verordnung/ "https://www.baden-wuerttemberg.de/de/service/aktuelle-infos-zu-corona/faq-corona-verordnung/")  
+[https://www.bundesregierung.de/breg-de/themen/coronavirus/fuenf-oeffnungsschritte-1872120](https://www.bundesregierung.de/breg-de/themen/coronavirus/fuenf-oeffnungsschritte-1872120 "https://www.bundesregierung.de/breg-de/themen/coronavirus/fuenf-oeffnungsschritte-1872120")  
+[https://www.sbvv-online.de/index.xhtml?component_18107300.showArticle=18372709](https://www.sbvv-online.de/index.xhtml?component_18107300.showArticle=18372709 "https://www.sbvv-online.de/index.xhtml?component_18107300.showArticle=18372709")
