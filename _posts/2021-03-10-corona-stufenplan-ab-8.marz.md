@@ -6,7 +6,7 @@ thumbnail: ''
 photoalbum: ''
 
 ---
-Die Bundesregierung hat eine neue Regelung beschlossen, die seit dem 8 März startet und auch den Sportbetrieb betrifft.
+Die Bundesregierung hat eine neue Regelungen beschlossen, die seit dem 8 März gelten und auch den Sportbetrieb betreffen.
 
 Die Regelungen sind **abhängig von** dem jeweiligen [**7-Tage-Inzidenzwert**](https://www.baden-wuerttemberg.de/de/service/presse/pressemitteilung/pid/infektionen-und-todesfaelle-in-baden-wuerttemberg/) im jeweiligen Land- oder Stadtkreis.
 
@@ -20,14 +20,12 @@ Die Regelungen sind **abhängig von** dem jeweiligen [**7-Tage-Inzidenzwert**](h
 >
 > Sportwettbewerbe und Sportwettkämpfe bleibt weiterhin untersagt.
 >
->   
 > **7-Tage-Inzidenz an 5 Tagen in Folge unter 50 Neuinfektionen je 100.000 Einwohner:**
 >
 > Sportausübung (kontaktarm) im Freien mit bis zu 10 Personen möglich.
 >
 > Steigt die 7-Tage-Inzidenz an 3 Tagen in Folge wieder über 50, gelten die Gruppengrößen wie oben beschrieben (maximal 5 Personen (Kinder bis 14 werden nicht mitgezählt) aus 2 Haushalten).
 >
->   
 > **7-Tage-Inzidenz an 3 Tagen in Folge über 100 Neuinfektionen je 100.000 Einwohner:**
 >
 > Nutzung von Außensportanlagen für den Amateur- und Freizeitsport untersagt.
@@ -37,9 +35,5 @@ Es gilt daher immer den aktuellen Stand zu beachten. Stand heute (10 März) lieg
 Quellen:
 
 * [https://www.baden-wuerttemberg.de/de/service/aktuelle-infos-zu-corona/faq-corona-verordnung/](https://www.baden-wuerttemberg.de/de/service/aktuelle-infos-zu-corona/faq-corona-verordnung/ "https://www.baden-wuerttemberg.de/de/service/aktuelle-infos-zu-corona/faq-corona-verordnung/")
-
-
 * [https://www.bundesregierung.de/breg-de/themen/coronavirus/fuenf-oeffnungsschritte-1872120](https://www.bundesregierung.de/breg-de/themen/coronavirus/fuenf-oeffnungsschritte-1872120 "https://www.bundesregierung.de/breg-de/themen/coronavirus/fuenf-oeffnungsschritte-1872120")
-
-
 * [https://www.sbvv-online.de/index.xhtml?component_18107300.showArticle=18372709](https://www.sbvv-online.de/index.xhtml?component_18107300.showArticle=18372709 "https://www.sbvv-online.de/index.xhtml?component_18107300.showArticle=18372709")
