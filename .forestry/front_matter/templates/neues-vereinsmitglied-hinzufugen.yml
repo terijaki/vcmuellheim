@@ -18,15 +18,22 @@ fields:
 - type: text
   name: email
   label: email
-- type: number
-  name: facebook
-  label: facebook
-- type: text
-  name: whatsapp
-  label: whatsapp
-- type: number
-  name: twitter
-  label: twitter
+- name: function
+  type: text
+  config:
+    required: true
+  label: function
 - type: text
   name: avatar
   label: avatar
+- name: sortorder
+  type: number
+  label: sortorder
+  description: ''
+  default: 99
+  required: true
+  config:
+    min: 
+    max: 
+    step: 
+    required: true
