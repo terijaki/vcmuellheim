@@ -23,6 +23,12 @@
           {% endif %}
         </h4>
 
+<!-- Altersangabe  -->
+              {% if team.team-alter == "" or team.team-alter == nil or team.team-alter == blank %}
+                {% else %}
+                <p class="alter"> <b>Alter:</b> {{ team.team-alter }}</p>
+              {% endif %}
+
 <!-- Trainingszeiten -->
           <p class="trainingszeiten"><b>Trainingszeiten:</b><br>{{ team.trainings-zeit1 }}<br>
             <a href="{{ team.trainings-map1 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ team.trainings-ort1 }}</a>
