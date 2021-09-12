@@ -45,4 +45,3 @@ collections:
     people: true
   teams:
     sort_order: "team-liga"
-    output: false
