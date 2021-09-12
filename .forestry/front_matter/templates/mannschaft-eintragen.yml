@@ -76,11 +76,6 @@ fields:
   name: trainer-email2
   label: 'Trainer 2: Name'
 - type: text
-  name: sort-order
-  label: Reihenfolge
-  description: Bestimmt die Reihenfolge, wie die Teams auf der Webseite angezeigt
-    werden. <em>1, dann 2, dann 3, usw.</em><br>In der Regel wird nach Liga sortiert...
-- type: text
   name: team-kommentar
   label: Kommentar
 - name: sbvv_id
