@@ -4,10 +4,32 @@ hide_body: true
 fields:
 - type: text
   name: team-name
-  label: team-name
-- type: text
-  name: team-liga
-  label: team-liga
+  label: Team Name
+  config:
+    required: true
+- name: team-liga
+  type: select
+  default: []
+  config:
+    required: false
+    options:
+    - Kreisklasse
+    - Kreisliga
+    - Bezirksklasse
+    - Bezirksliga
+    - Landesliga
+    - Verbandsliga
+    - Oberliga
+    - Regionalliga
+    - 3. Liga
+    - 2. Bundesliga
+    - Bundesliga
+    source:
+      type: simple
+      section: 
+      file: 
+      path: 
+  label: Liga
 - type: text
   name: team-alter
   label: team-alter
