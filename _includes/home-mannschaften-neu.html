@@ -29,13 +29,11 @@
 
 <!-- Trainer 1 -->
             {% if team.trainer-name1 %}<b>Trainer</b>:
-              {% if team.trainer-email1 == "" or team.trainer-email1 == nil or team.trainer-email1 == blank %}{{ team.trainer-name1 }}{% else %}<a href="mailto:{{ team.trainer-email1 }}">{{ team.trainer-name1 }}</a>
+              {% if team.trainer-email1 == "" or team.trainer-email1 == nil or team.trainer-email1 == blank %}{{ team.trainer-name1 }}{% else %}<a href="mailto:{{ team.trainer-email1 }}">{{ team.trainer-name1 }}</a>{% endif %}{% endif %}
 <!-- Trainer 2 -->
                 {% if team.trainer-name2 == "" or team.trainer-name2 == nil or team.trainer-name2 == blank %}{% else %} &
                   {% if team.trainer-email2 == "" or team.trainer-email2 == nil or team.trainer-email2 == blank %}{{ team.trainer-name2 }}{% else %}<a href="mailto:{{ team.trainer-email2 }}">{{ team.trainer-name2 }}</a>{% endif %}
                   {% endif %}
-
-             {% endif %}{% endif %}
 </p>
             <p class="description">
               {% if team.sbvv_id > 0 %}<br><a href="https://www.sbvv-online.de/popup/matchSeries/teamDetails.xhtml?hideHistoryBackButton=true&teamId={{ team.sbvv_id }}" target="_blank" rel="noopener">Spielplan</a> | <a href="https://www.sbvv-online.de/iCal/team/matches.ical?teamId={{ team.sbvv_id }}" target="_blank" rel="noopener">iCal-Export</a>{% endif %}
