@@ -9,6 +9,8 @@ sections:
   label: Mannschaften
   create: documents
   match: "**/*"
+  templates:
+  - mannschaft-eintragen
 - type: jekyll-posts
   label: News Beiträge
   create: documents
