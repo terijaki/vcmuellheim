@@ -1,5 +1,5 @@
 ---
-team-name: 1. Herren
+team-name: Herren I
 team-liga: Verbandsliga
 trainings-zeit1: Dienstags & Donnerstags 20:00-22:00 Uhr
 trainings-ort1: Sporthalle II
