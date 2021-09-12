@@ -1,0 +1,35 @@
+
+<section id="mannschaften" class="section-bg py-5">
+  <div class="container">
+
+    <div class="section-header">
+      <h3 class="section-title">Mannschaften</h3>
+      <span class="section-divider"></span>
+      <p class="section-description">Der VC Müllheim besteht zur Zeit aus folgenden Mannschaften:</p>
+    </div>
+
+    <div class="row teams">
+
+
+   
+   {% for team in site.teams %}
+      <div class="col-lg-6">
+        <div class="box p-4">
+          <h4 class="title">{{ team.team-name }} - {{ team.team-liga }}</h4>
+          <p class="description"><b>Trainingszeiten:</b><br>
+            {{ team.trainings-zeit1 }}<br>
+            <a href="{{ team.trainings-map1 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ team.trainings-ort1 }}</a><br><br>
+            <b>Trainer</b>: <a href="mailto:{{ team.trainer-email1 }}">{{ team.trainer-name1 }}</a> & <a href="mailto:{{ team.trainer-email2 }}">{{ team.trainer-name2 }}</a></p>
+            <p class="description">
+              <br><a href="https://www.sbvv-online.de/popup/matchSeries/teamDetails.xhtml?hideHistoryBackButton=true&teamId={{ team.sbvv_id }}" target="_blank" rel="noopener">Spielplan</a> | <a href="https://www.sbvv-online.de/iCal/team/matches.ical?teamId={{ team.sbvv_id }}" target="_blank" rel="noopener">iCal-Export</a>
+              <br>{{ team.team-kommentar }}
+            </p>
+        </div>
+      </div>
+
+  {% endfor %}
+ 
+
+    </div>
+  </div>
+</section>
