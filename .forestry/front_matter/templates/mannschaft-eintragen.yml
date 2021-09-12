@@ -32,10 +32,8 @@ fields:
   label: Liga
 - type: text
   name: team-alter
-  label: team-alter
-- type: text
-  name: team-kommentar
-  label: team-kommentar
+  label: Altersgruppe
+  description: 'Beispiel: 12-16 Jahre, ab 15 Jahre, usw.'
 - type: text
   name: trainings-zeit1
   label: trainings-zeit1
@@ -74,4 +72,9 @@ fields:
   label: termine-ical
 - type: text
   name: sort-order
-  label: sort-order
+  label: Reihenfolge
+  description: Bestimmt die Reihenfolge, wie die Teams auf der Webseite angezeigt
+    werden. 1, dann 2, dann 3, usw.
+- type: text
+  name: team-kommentar
+  label: Kommentar
