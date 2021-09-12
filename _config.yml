@@ -43,5 +43,6 @@ exclude:
 collections:
   club_members:
     people: true
-teams:
-sort_order: team-liga
+  teams:
+    sort_order: "team-liga"
+    output: false
