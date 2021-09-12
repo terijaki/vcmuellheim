@@ -1,3 +1,4 @@
+
 <section id="mannschaften" class="section-bg py-5">
   <div class="container">
 
@@ -9,90 +10,60 @@
 
     <div class="row teams">
 
+
+
+   {% for team in site.teams %}
       <div class="col-lg-6">
         <div class="box p-4">
-          <h4 class="title">1. Herren - Verbandsliga</h4>
-          <p class="description"><b>Trainingszeiten:</b><br>
-            Dienstags & Donnerstags 20:00-22:00 Uhr<br>
-            <a href="https://goo.gl/maps/g3XhvCS9gpR2" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> Sporthalle II</a><br><br>
-            <b>Trainer</b>: <a href="mailto:thomas@vcmuellheim.de">Thomas Seywald</a></p>
-            <p class="description">
-              <br><b>Termine 2021/22</b>: <a href="https://www.sbvv-online.de/popup/matchSeries/teamDetails.xhtml?teamId=18452008&hideHistoryBackButton=true" target="_blank" rel="noopener">anzeigen</a> | <a href="https://www.sbvv-online.de/iCal/team/matches.ical?teamId=18452008" target="_blank" rel="noopener">iCal-Export</a>
-            </p>
+
+<!-- Team Name -->
+        <h4 class="title">{{ team.team-name }}
+          {% if team.team-liga == "" or team.team-liga == nil or team.team-liga == blank %}{% else %}
+            - {{ team.team-liga }}
+          {% endif %}
+        </h4>
+
+<!-- Trainingszeiten -->
+          <p class="trainingszeiten"><b>Trainingszeiten:</b><br>{{ team.trainings-zeit1 }}<br>
+            <a href="{{ team.trainings-map1 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ team.trainings-ort1 }}</a>
+            {% if team.trainings-zeit2 == "" or team.trainings-zeit2 == nil or team.trainings-zeit2 == blank %}{% else %}
+              <br>{{ team.trainings-zeit2 }}<br>
+              <a href="{{ team.trainings-map2 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ team.trainings-ort2 }}</a><br>
+            {% endif %}
+          </p>
+
+<!-- Trainer 1 -->
+            {% if team.trainer-name1 %}
+              <p class="trainer"><b>Trainer</b>:
+              {% if team.trainer-email1 == "" or team.trainer-email1 == nil or team.trainer-email1 == blank %}{{ team.trainer-name1 }}{% else %}<a href="mailto:{{ team.trainer-email1 }}">{{ team.trainer-name1 }}</a>
+              {% endif %}
+
+<!-- Trainer 2 -->
+                {% if team.trainer-name2 == "" or team.trainer-name2 == nil or team.trainer-name2 == blank %}{% else %} &
+                  {% if team.trainer-email2 == "" or team.trainer-email2 == nil or team.trainer-email2 == blank %}{{ team.trainer-name2 }}{% else %}<a href="mailto:{{ team.trainer-email2 }}">{{ team.trainer-name2 }}</a>
+                  {% endif %}
+                {% endif %}
+              </p>
+            {% endif %}
+
+
+<!-- Spielplan & Kalender  -->
+              {% if team.sbvv_id > 0 %}
+                <p class="spielplan"><b>Spielplan</b>: <a href="https://www.sbvv-online.de/popup/matchSeries/teamDetails.xhtml?hideHistoryBackButton=true&teamId={{ team.sbvv_id }}" target="_blank" rel="noopener">Termine</a> | <a href="https://www.sbvv-online.de/iCal/team/matches.ical?teamId={{ team.sbvv_id }}" target="_blank" rel="noopener">iCal-Export</a>
+              {% endif %}
+
+<!-- Kommentar  -->
+              {% if team.team-kommentar == "" or team.team-kommentar == nil or team.team-kommentar == blank %}
+                {% else %}
+                <p class="description">{{ team.team-kommentar }}</p>
+              {% endif %}
+
+
         </div>
       </div>
 
-      <div class="col-lg-6">
-        <div class="box p-4">
-          <h4 class="title">2. Herren - Bezirksklasse</h4>
-          <p class="description"><b>Trainingszeiten:</b><br>
-            Dienstags 20:00-22:00 Uhr<br>
-            <a href="https://goo.gl/maps/eAeBCM12GVk" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> Rosenburgschule</a><br><br>
-            <b>Trainer</b>: <a href="mailto:claudio@vcmuellheim.de">Claudio Lindemann-czak</a> & <a href="mailto:andreas@vcmuellheim.de">Andreas Albrecht</a></p>
-            <p class="description">
-              <br><b>Saison 2021/22</b>: noch keine Daten vorhanden
-            </p>
-        </div>
-      </div>
+  {% endfor %}
 
-      <div class="col-lg-6">
-        <div class="box p-4">
-          <h4 class="title">Damen - Kreisklasse</h4>
-          <p class="description"><b>Trainingszeiten:</b><br>
-            Dienstags & Mittwochs 18:30-20:00 Uhr<br>
-            <a href="https://goo.gl/maps/g3XhvCS9gpR2" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> Sporthalle II</a><br><br>
-            <b>Trainer</b>: <a href="mailto:dominik@vcmuellheim.de">Dominik Ernst</a></p>
-            <p class="description">
-              <br><b>Saison 2021/22</b>: noch keine Daten vorhanden
-            </p>
-        </div>
-      </div>
-
-      <div class="col-lg-6">
-        <div class="box p-4">
-          <h4 class="title">Jugend (Jungs)</h4>
-          <p class="description"><b>Trainingszeiten:</b><br>
-            Dienstags & Donnerstags 18:30-20:00 Uhr<br>
-            <a href="https://goo.gl/maps/g3XhvCS9gpR2" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> Sporthalle II</a><br><br>
-            <b>Alter</b>: ab 12 Jahren<br><br>
-            <b>Trainer</b>: <a href="mailto:andreas@vcmuellheim.de">Andreas Albrecht</a> (<a href="tel:+491771906789">+491771906789</a>) & <a href="mailto:dominik@vcmuellheim.de">Dominik Ernst</a></p>
-          <p class="description"></p>
-        </div>
-      </div>
-
-
-      <div class="col-lg-6">
-        <div class="box p-4">
-          <h4 class="title">Jugend (Mädchen)</h4>
-          <p class="description"><b>Trainingszeiten:</b><br>
-            Dienstags 18:30-20:00 Uhr<br>
-            <a href="https://goo.gl/maps/g3XhvCS9gpR2" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> Sporthalle II</a><br><br>
-            <b>Trainer</b>: <a href="mailto:dominik@vcmuellheim.de">Dominik Ernst</a></p>
-          <p class="description"></p>
-        </div>
-      </div>
-
-      <div class="col-lg-6">
-        <div class="box p-4">
-          <h4 class="title">Freizeit 1</h4>
-          <p class="description"><b>Trainingszeiten:</b><br>
-            Montags 20:00-22:00 Uhr<br>
-            <a href="https://goo.gl/maps/g3XhvCS9gpR2" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> Sporthalle II</a><br><br>
-            <b>Ansprechpartner</b>: <a href="mailto:kerstin@vcmuellheim.de">Kerstin Hackhausen</a> & <a href="mailto:susanne@vcmuellheim.de">Susanne Kainer</a></p>
-          <p class="description"><br>Diese Gruppe besteht aus ehemaligen Spielern und Spielerinnen die auf forgeschrittenem Niveau spielen!</p>
-        </div>
-      </div>
-
-      <div class="col-lg-6">
-        <div class="box p-4">
-          <h4 class="title">Freizeit 2</h4>
-          <p class="description"><b>Trainingszeiten:</b><br>
-            Donnerstags 20:00-22:00 Uhr<br>
-            <a href="https://goo.gl/maps/g3XhvCS9gpR2" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> Sporthalle II</a><br><br>
-            <b>Ansprechpartner</b>: <a href="mailto:wolfgang@vcmuellheim.de">Wolfgang Lacher</a></p>
-          <p class="description"><br>Diese gemische Gruppe begrüßt Anfänger und Fortgeschrittene gleichermaßen!</p>
-        </div>
-      </div>
 
     </div>
   </div>
