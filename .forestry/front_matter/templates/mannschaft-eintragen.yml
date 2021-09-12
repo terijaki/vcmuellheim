@@ -36,10 +36,13 @@ fields:
   description: 'Beispiel: 12-16 Jahre, ab 15 Jahre, usw.'
 - type: text
   name: trainings-zeit1
-  label: trainings-zeit1
+  label: Trainings Zeit 1
+  description: 'Beispiel: Dienstags 18:30-20:00 Uhr'
 - type: text
   name: trainings-ort1
-  label: trainings-ort1
+  label: Trainings Ort 1
+  description: 'Beispiel: <a href="https://goo.gl/maps/g3XhvCS9gpR2" target="_blank">Sporthalle
+    II</a>, <a href="https://goo.gl/maps/eAeBCM12GVk" target="_blank">Rosenburgschule</a>'
 - type: text
   name: trainings-map1
   label: trainings-map1
