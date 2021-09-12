@@ -1,6 +1,7 @@
 ---
 label: Mannschaft eintragen
 hide_body: true
+display_field: team-name
 fields:
 - type: text
   name: team-name
@@ -95,4 +96,5 @@ fields:
     max: 
     step: 
 pages:
+- _teams/freizeit1.md
 - _teams/herren2.md
