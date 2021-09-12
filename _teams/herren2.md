@@ -1,7 +1,7 @@
 ---
 team-liga: Bezirksklasse
 sbvv_id: 18450973
-team-name: 2. Herren
+team-name: Herren II
 team-alter: ''
 trainings-zeit1: Dienstags 20:00-22:00 Uhr
 trainings-ort1: Rosenburgschule

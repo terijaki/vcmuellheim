@@ -1,7 +1,7 @@
 ---
 team-liga: ''
 sbvv_id: 0
-team-name: Freizeit 2
+team-name: Freizeit II
 team-alter: ''
 trainings-zeit1: Donnerstags 20:00-22:00 Uhr
 trainings-ort1: Sporthalle II
