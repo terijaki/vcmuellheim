@@ -15,7 +15,7 @@
    {% for team in site.teams %}
       <div class="col-lg-6">
         <div class="box p-4">
-          <h4 class="title">{{ team.team-name }}{% if team.team-liga == "" or team.team-liga == nil or team.team-liga == blank %}{% else %} %} - {{ team.team-liga }}{% endif %}</h4>
+          <h4 class="title">{{ team.team-name }}{% if team.team-liga == "" or team.team-liga == nil or team.team-liga == blank %}{% else %} - {{ team.team-liga }}{% endif %}</h4>
           <p class="description"><b>Trainingszeiten:</b><br>
             {{ team.trainings-zeit1 }}<br>
             <a href="{{ team.trainings-map1 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ team.trainings-ort1 }}</a><br><br>
