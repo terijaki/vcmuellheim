@@ -15,15 +15,21 @@
    {% for team in site.teams %}
       <div class="col-lg-6">
         <div class="box p-4">
-          <h4 class="title">{{ team.team-name }}{% if team.team-liga == "" or team.team-liga == nil or team.team-liga == blank %}{% else %} - {{ team.team-liga }}{% endif %}</h4>
+
+<!-- Team Name -->
+        <h4 class="title">{{ team.team-name }}
+          {% if team.team-liga == "" or team.team-liga == nil or team.team-liga == blank %}{% else %}
+            - {{ team.team-liga }}
+          {% endif %}
+        </h4>
 
 <!-- Trainingszeiten -->
-            <p class="trainingszeiten"><b>Trainingszeiten:</b><br>{{ team.trainings-zeit1 }}<br>
-              <a href="{{ team.trainings-map1 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ team.trainings-ort1 }}</a>
-              {% if team.trainings-zeit2 == "" or team.trainings-zeit2 == nil or team.trainings-zeit2 == blank %}{% else %}
-                <br>{{ team.trainings-zeit2 }}<br>
-                <a href="{{ team.trainings-map2 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ team.trainings-ort2 }}</a><br>
-              {% endif %}
+          <p class="trainingszeiten"><b>Trainingszeiten:</b><br>{{ team.trainings-zeit1 }}<br>
+            <a href="{{ team.trainings-map1 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ team.trainings-ort1 }}</a>
+            {% if team.trainings-zeit2 == "" or team.trainings-zeit2 == nil or team.trainings-zeit2 == blank %}{% else %}
+              <br>{{ team.trainings-zeit2 }}<br>
+              <a href="{{ team.trainings-map2 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ team.trainings-ort2 }}</a><br>
+            {% endif %}
           </p>
 
 <!-- Trainer 1 -->
