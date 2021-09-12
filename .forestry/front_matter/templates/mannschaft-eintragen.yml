@@ -36,43 +36,44 @@ fields:
   description: 'Beispiel: 12-16 Jahre, ab 15 Jahre, usw.'
 - type: text
   name: trainings-zeit1
-  label: Trainings Zeit 1
+  label: Trainingszeit 1
   description: 'Beispiel: Dienstags 18:30-20:00 Uhr'
 - type: text
   name: trainings-ort1
-  label: Trainings Ort 1
-  description: 'Beispiel: <a href="https://goo.gl/maps/g3XhvCS9gpR2" target="_blank">Sporthalle
-    II</a>, <a href="https://goo.gl/maps/eAeBCM12GVk" target="_blank">Rosenburgschule</a>'
+  label: Trainingsort 1
+  description: 'Beispiel: Sporthalle II, Rosenburgschule'
 - type: text
   name: trainings-map1
-  label: trainings-map1
+  label: Trainingsort 1 (Google Maps)
+  description: 'Sporthalle II: <a href="https://goo.gl/maps/g3XhvCS9gpR2" title="https://goo.gl/maps/g3XhvCS9gpR2"
+    target="_blank">https://goo.gl/maps/g3XhvCS9gpR2</a><br>Rosenburgschule: <a href="https://goo.gl/maps/eAeBCM12GVk"
+    title="https://goo.gl/maps/eAeBCM12GVk" target="_blank">https://goo.gl/maps/eAeBCM12GVk</a>'
 - type: text
   name: trainings-zeit2
-  label: trainings-zeit2
+  label: Trainingszeit 2
+  description: 'Beispiel: Donnerstags 20:00-22:00 Uhr'
 - type: text
   name: trainings-ort2
-  label: trainings-ort2
+  label: Trainingsort 2
+  description: 'Beispiel: Sporthalle II, Rosenburgschule'
 - type: text
   name: trainings-map2
-  label: trainings-map2
+  label: Trainingsort 2 (Google Maps)
+  description: 'Sporthalle II: <a href="https://goo.gl/maps/g3XhvCS9gpR2" title="https://goo.gl/maps/g3XhvCS9gpR2"
+    target="_blank">https://goo.gl/maps/g3XhvCS9gpR2</a><br>Rosenburgschule: <a href="https://goo.gl/maps/eAeBCM12GVk"
+    title="https://goo.gl/maps/eAeBCM12GVk" target="_blank">https://goo.gl/maps/eAeBCM12GVk</a>'
 - type: text
   name: trainer-name1
-  label: trainer-name1
+  label: 'Trainer 1: Name'
 - type: text
   name: trainer-email1
-  label: trainer-email1
+  label: 'Trainer 1: Emal'
 - type: text
   name: trainer-name2
-  label: trainer-name2
+  label: 'Trainer 2: Name'
 - type: text
   name: trainer-email2
-  label: trainer-email2
-- type: text
-  name: termine-link
-  label: termine-link
-- type: text
-  name: termine-ical
-  label: termine-ical
+  label: 'Trainer 2: Name'
 - type: text
   name: sort-order
   label: Reihenfolge
@@ -81,3 +82,15 @@ fields:
 - type: text
   name: team-kommentar
   label: Kommentar
+- name: sbvv_id
+  type: number
+  label: SBVV ID
+  description: 'Die Team ID wird dazu genutzt den Spielplan vom SBVV zu verlinken.
+    Man findet die ID auf der <a href="https://www.sbvv-online.de/cms/startseite/verband/ueber_uns/vereine.xhtml?c4302050.view=teams&amp;c4302050.club=471&amp;c4302050.type=list"
+    title="" target="_blank">SBVV Vereinsseite</a> in der URL der jeweiligen Mannschaft. '
+  default: 0
+  required: true
+  config:
+    min: 
+    max: 
+    step: 
