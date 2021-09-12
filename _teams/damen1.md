@@ -10,11 +10,10 @@ trainings-zeit2: Freitag 18:30-20 Uhr
 trainings-ort2: Sporthalle II Teil A (vorraussichtlich)
 trainings-map2: ''
 trainer-name1: Dominik Ernst
-trainer-email1: ''
+trainer-email1: dominik@vcmuellheim.de
 trainer-name2: ''
 trainer-email2: ''
 sort-order: ''
 team-kommentar: ''
-published: false
 
 ---
