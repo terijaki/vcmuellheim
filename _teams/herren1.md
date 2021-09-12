@@ -16,5 +16,6 @@ trainer-email2:
 termine-link: https://www.sbvv-online.de/popup/matchSeries/teamDetails.xhtml?hideHistoryBackButton=true&teamId=18452008
 termine-ical: https://www.sbvv-online.de/iCal/team/matches.ical?teamId=18452008
 sort-order: "1"
+sbvv_id: 18452008
 
 ---
