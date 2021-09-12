@@ -19,7 +19,7 @@
           <p class="description"><b>Trainingszeiten:</b><br>
             {{ team.trainings-zeit1 }}<br>
             <a href="{{ team.trainings-map1 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ team.trainings-ort1 }}</a><br><br>
-            <b>Trainer</b>: <a href="mailto:{{ team.trainer-email1 }}">{{ team.trainer-name1 }}</a> & <a href="mailto:{{ team.trainer-email2 }}">{{ team.trainer-name2 }}</a></p>
+            {% if team.trainer-name1 %}<b>Trainer</b>: <a href="mailto:{{ team.trainer-email1 }}">{{ team.trainer-name1 }}</a>{% if team.trainer-name2 %} & <a href="mailto:{{ team.trainer-email2 }}">{{ team.trainer-name2 }}</a>{% endif %}</p>{% endif %}
             <p class="description">
               {% if team.sbvv_id %}<br><a href="https://www.sbvv-online.de/popup/matchSeries/teamDetails.xhtml?hideHistoryBackButton=true&teamId={{ team.sbvv_id }}" target="_blank" rel="noopener">Spielplan</a> | <a href="https://www.sbvv-online.de/iCal/team/matches.ical?teamId={{ team.sbvv_id }}" target="_blank" rel="noopener">iCal-Export</a>{% endif %}
               {% if team.team-kommentar %}<br>{{ team.team-kommentar }}{% endif %}
