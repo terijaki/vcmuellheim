@@ -74,7 +74,7 @@ fields:
   label: 'Trainer 2: Name'
 - type: text
   name: trainer-email2
-  label: 'Trainer 2: Name'
+  label: 'Trainer 2: Email'
 - type: text
   name: team-kommentar
   label: Kommentar
