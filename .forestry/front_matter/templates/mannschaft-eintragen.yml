@@ -96,6 +96,7 @@ fields:
     max: 
     step: 
 pages:
+- _teams/damen1.md
 - _teams/freizeit1.md
 - _teams/freizeit2.md
 - _teams/herren2.md
