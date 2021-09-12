@@ -15,4 +15,5 @@ trainer-name2:
 trainer-email2:
 termine-link:
 termine-ical:
+sort-order:
 ---
