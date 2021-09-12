@@ -94,3 +94,5 @@ fields:
     min: 
     max: 
     step: 
+pages:
+- _teams/herren2.md
