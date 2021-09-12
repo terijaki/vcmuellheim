@@ -824,12 +824,11 @@ h1, h2, h3, h4, h5, h6 {
   color: #111;
 }
 
-#mannschaften p {
+#mannschaften .box p {
   font-size: 14px;
-  margin-bottom: 0;
+  margin-bottom: 4px;
   line-height: 24px;
 }
-
 @media (max-width: 767px) {
   #mannschaften .box {
     margin-bottom: 20px;
