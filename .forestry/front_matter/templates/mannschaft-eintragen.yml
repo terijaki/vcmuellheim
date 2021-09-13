@@ -90,10 +90,15 @@ fields:
     min: 
     max: 
     step: 
-- name: testbjorn
-  type: field_group
-  config: {}
-  label: testbjorn
+- name: ligacode
+  type: tag_list
+  default:
+  - '6'
+  hidden: true
+  showOnly:
+    field: liga
+    value: Verbandsliga
+  label: ligacode
 pages:
 - _teams/damen1.md
 - _teams/damen2.md
