@@ -71,10 +71,15 @@ fields:
     config:
       required: false
     label: trainer
+  - name: email
+    type: text
+    config:
+      required: false
+    label: email
   config:
     min: 
     max: 
-    labelField: 
+    labelField: trainer
   label: trainer
 - type: text
   name: trainer-name1
