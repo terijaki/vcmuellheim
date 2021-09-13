@@ -8,6 +8,11 @@ fields:
   label: Team Name
   config:
     required: true
+- name: foto
+  type: file
+  config:
+    maxSize: 64
+  label: Foto
 - name: liga
   type: select
   default: []
