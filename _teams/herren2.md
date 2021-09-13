@@ -13,7 +13,6 @@ trainer-name1: " Claudio Lindemann-czak"
 trainer-email1: claudio@vcmuellheim.de
 trainer-name2: Andreas Albrecht
 trainer-email2: andreas@vcmuellheim.de
-sort-order: "2"
 kommentar: ''
 
 ---

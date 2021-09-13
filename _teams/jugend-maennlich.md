@@ -13,7 +13,6 @@ trainer-name1: Klaus Ernst
 trainer-email1: klaus@vcmuellheim.de
 trainer-name2: 'Andreas Albrecht '
 trainer-email2: andreas@vcmuellheim.de
-sort-order: ''
 kommentar: ''
 
 ---

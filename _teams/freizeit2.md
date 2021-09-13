@@ -13,7 +13,6 @@ trainer-name1: Wolfgang Lacher
 trainer-email1: wolfgang@vcmuellheim.de
 trainer-name2: ''
 trainer-email2: ''
-sort-order: ''
 kommentar: Diese gemischte Gruppe begrüßt Anfänger und Fortgeschrittene gleichermaßen!
 
 ---

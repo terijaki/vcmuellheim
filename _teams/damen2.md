@@ -13,7 +13,6 @@ trainer-name1: Andreas Albrecht
 trainer-email1: andreas@vcmuellheim.de
 trainer-name2: Marina Peters
 trainer-email2: ''
-sort-order: ''
 kommentar: ''
 
 ---

@@ -13,7 +13,6 @@ trainer-name1: Dominik Ernst
 trainer-email1: dominik@vcmuellheim.de
 trainer-name2: ''
 trainer-email2: ''
-sort-order: ''
 kommentar: ''
 
 ---

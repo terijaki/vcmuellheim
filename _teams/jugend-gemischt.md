@@ -13,7 +13,6 @@ trainer-name1: Klaus Ernst
 trainer-email1: klaus@vcmuellheim.de
 trainer-name2: ''
 trainer-email2: ''
-sort-order: ''
 kommentar: ''
 
 ---
