@@ -1,6 +1,6 @@
 ---
-team-name: Herren I
-team-liga: Verbandsliga
+name: Herren I
+liga: Verbandsliga
 trainings-zeit1: Dienstags & Donnerstags 20:00-22:00 Uhr
 trainings-ort1: Sporthalle II
 trainings-map1: https://goo.gl/maps/g3XhvCS9gpR2

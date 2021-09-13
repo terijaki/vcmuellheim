@@ -1,8 +1,8 @@
 ---
-team-liga: Kreisklasse
+liga: Kreisklasse
 sbvv_id: 0
-team-name: Damen I
-team-alter: ab 15 Jahre
+name: Damen I
+alter: ab 15 Jahre
 trainings-zeit1: Dienstags 18:30-20 Uhr
 trainings-ort1: Sporthalle II Teil E
 trainings-map1: ''
@@ -14,6 +14,6 @@ trainer-email1: dominik@vcmuellheim.de
 trainer-name2: ''
 trainer-email2: ''
 sort-order: ''
-team-kommentar: ''
+kommentar: ''
 
 ---

@@ -1,14 +1,14 @@
 ---
 label: Mannschaft eintragen
 hide_body: true
-display_field: team-name
+display_field: name
 fields:
 - type: text
-  name: team-name
+  name: name
   label: Team Name
   config:
     required: true
-- name: team-liga
+- name: liga
   type: select
   default: []
   config:
@@ -32,7 +32,7 @@ fields:
       path:
   label: Liga
 - type: text
-  name: team-alter
+  name: alter
   label: Altersgruppe
   description: 'Beispiel: 12-16 Jahre, ab 15 Jahre, usw.'
 - type: text
@@ -76,7 +76,7 @@ fields:
   name: trainer-email2
   label: 'Trainer 2: Email'
 - type: text
-  name: team-kommentar
+  name: kommentar
   label: Kommentar
 - name: sbvv_id
   type: number

@@ -1,8 +1,8 @@
 ---
-team-liga: ''
+liga: ''
 sbvv_id: 0
-team-name: Freizeit II
-team-alter: ''
+name: Freizeit II
+alter: ''
 trainings-zeit1: Donnerstags 20:00-22:00 Uhr
 trainings-ort1: Sporthalle II
 trainings-map1: https://goo.gl/maps/g3XhvCS9gpR2
@@ -14,6 +14,6 @@ trainer-email1: wolfgang@vcmuellheim.de
 trainer-name2: ''
 trainer-email2: ''
 sort-order: ''
-team-kommentar: Diese gemischte Gruppe begrüßt Anfänger und Fortgeschrittene gleichermaßen!
+kommentar: Diese gemischte Gruppe begrüßt Anfänger und Fortgeschrittene gleichermaßen!
 
 ---

@@ -17,16 +17,16 @@
         <div class="box p-4">
 
 <!-- Team Name -->
-        <h4 class="title">{{ team.team-name }}
-          {% if team.team-liga == "" or team.team-liga == nil or team.team-liga == blank %}{% else %}
-            - {{ team.team-liga }}
+        <h4 class="title">{{ team.name }}
+          {% if team.liga == "" or team.liga == nil or team.liga == blank %}{% else %}
+            - {{ team.liga }}
           {% endif %}
         </h4>
 
 <!-- Altersangabe  -->
-              {% if team.team-alter == "" or team.team-alter == nil or team.team-alter == blank %}
+              {% if team.alter == "" or team.alter == nil or team.alter == blank %}
                 {% else %}
-                <p class="alter"> <b>Alter:</b> {{ team.team-alter }}</p>
+                <p class="alter"> <b>Alter:</b> {{ team.alter }}</p>
               {% endif %}
 
 <!-- Trainingszeiten -->
@@ -59,9 +59,9 @@
               {% endif %}
 
 <!-- Kommentar  -->
-              {% if team.team-kommentar == "" or team.team-kommentar == nil or team.team-kommentar == blank %}
+              {% if team.kommentar == "" or team.kommentar == nil or team.kommentar == blank %}
                 {% else %}
-                <p class="description">{{ team.team-kommentar }}</p>
+                <p class="description">{{ team.kommentar }}</p>
               {% endif %}
 
 
