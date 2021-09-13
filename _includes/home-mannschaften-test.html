@@ -11,7 +11,6 @@
     <div class="row teams">
 
 
-
    {% for team in site.teams %}
       <div class="col-lg-6">
         <div class="box p-4">
@@ -32,6 +31,7 @@
 <!-- Trainingszeiten -->
           <p class="trainingszeiten"><b>Trainingszeiten:</b><br>{{ team.trainings-zeit1 }}<br>
             <a href="{{ team.trainings-map1 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ team.trainings-ort1 }}</a>
+
             {% if team.trainings-zeit2 == "" or team.trainings-zeit2 == nil or team.trainings-zeit2 == blank %}{% else %}
               <br>{{ team.trainings-zeit2 }}<br>
               <a href="{{ team.trainings-map2 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ team.trainings-ort2 }}</a><br>
