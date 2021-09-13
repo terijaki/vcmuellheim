@@ -27,9 +27,9 @@ fields:
     - Bundesliga
     source:
       type: simple
-      section: 
-      file: 
-      path: 
+      section:
+      file:
+      path:
   label: Liga
 - type: text
   name: team-alter
@@ -87,14 +87,15 @@ fields:
   default: 0
   required: true
   config:
-    min: 
-    max: 
-    step: 
+    min:
+    max:
+    step:
 pages:
 - _teams/damen1.md
 - _teams/damen2.md
 - _teams/freizeit1.md
 - _teams/freizeit2.md
+- _teams/herren1.md
 - _teams/herren2.md
 - _teams/jugend-gemischt.md
 - _teams/jugend-maennlich.md
