@@ -27,9 +27,9 @@ fields:
     - Kreisklasse
     source:
       type: simple
-      section:
-      file:
-      path:
+      section: 
+      file: 
+      path: 
   label: Liga
 - type: text
   name: alter
@@ -63,6 +63,19 @@ fields:
   description: 'Sporthalle II: <a href="https://goo.gl/maps/g3XhvCS9gpR2" title="https://goo.gl/maps/g3XhvCS9gpR2"
     target="_blank">https://goo.gl/maps/g3XhvCS9gpR2</a><br>Rosenburgschule: <a href="https://goo.gl/maps/eAeBCM12GVk"
     title="https://goo.gl/maps/eAeBCM12GVk" target="_blank">https://goo.gl/maps/eAeBCM12GVk</a>'
+- name: trainer
+  type: field_group_list
+  fields:
+  - name: trainer
+    type: text
+    config:
+      required: false
+    label: trainer
+  config:
+    min: 
+    max: 
+    labelField: 
+  label: trainer
 - type: text
   name: trainer-name1
   label: 'Trainer 1: Name'
@@ -87,9 +100,13 @@ fields:
   default: 0
   required: true
   config:
-    min:
-    max:
-    step:
+    min: 
+    max: 
+    step: 
+- name: testbjorn
+  type: field_group
+  config: {}
+  label: testbjorn
 pages:
 - _teams/damen1.md
 - _teams/damen2.md
