@@ -14,17 +14,17 @@ fields:
   config:
     required: false
     options:
-    - Kreisklasse
-    - Kreisliga
-    - Bezirksklasse
-    - Bezirksliga
-    - Landesliga
-    - Verbandsliga
-    - Oberliga
-    - Regionalliga
-    - 3. Liga
-    - 2. Bundesliga
     - Bundesliga
+    - 2. Bundesliga
+    - 3. Liga
+    - Regionalliga
+    - Oberliga
+    - Verbandsliga
+    - Landesliga
+    - Bezirksliga
+    - Bezirksklasse
+    - Kreisliga
+    - Kreisklasse
     source:
       type: simple
       section:
