@@ -59,10 +59,9 @@
               {% endif %}
 
 <!-- Kommentar  -->
-              {% if team.team-kommentar == "" or team.team-kommentar == nil or team.team-kommentar == blank %}
-                {% else %}
+              {% unless team.team-kommentar == "" or team.team-kommentar == nil or team.team-kommentar == blank %}
                 <p class="description">{{ team.team-kommentar }}</p>
-              {% endif %}
+              {% endunless %}
 
 
         </div>
