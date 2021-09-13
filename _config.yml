@@ -44,4 +44,4 @@ collections:
   club_members:
     people: true
   teams:
-    sort_order: "liga"
+    sort_by: "liga"
