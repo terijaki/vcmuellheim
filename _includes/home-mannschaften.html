@@ -41,12 +41,12 @@
 <!-- Trainer 1 -->
             {% if team.trainer-name1 %}
               <p class="trainer"><b>Trainer</b>:
-              {% if team.trainer-email1 contains "@" %}<a href="mailto:{{ team.trainer-email1 }}?subject={{ site.title }}-{{ team.name }}">{{ team.trainer-name1 }}</a>{% else %}{{ team.trainer-name1 }}
+              {% if team.trainer-email1 contains "@" %}<a href="mailto:{{ team.trainer-email1 }}?subject={{ site.title }} - {{ team.name }}">{{ team.trainer-name1 }}</a>{% else %}{{ team.trainer-name1 }}
               {% endif %}
 
 <!-- Trainer 2 -->
                 {% if team.trainer-name2 == "" or team.trainer-name2 == nil or team.trainer-name2 == blank %}{% else %} &
-                  {% if team.trainer-email2  contains "@" %}<a href="mailto:{{ team.trainer-email2 }}?subject={{ site.title }}-{{ team.name }}">{{ team.trainer-name2 }}</a>{% else %}{{ team.trainer-name2 }}
+                  {% if team.trainer-email2  contains "@" %}<a href="mailto:{{ team.trainer-email2 }}?subject={{ site.title }} - {{ team.name }}">{{ team.trainer-name2 }}</a>{% else %}{{ team.trainer-name2 }}
                   {% endif %}
                 {% endif %}
               </p>
