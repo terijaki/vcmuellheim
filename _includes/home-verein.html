@@ -9,7 +9,7 @@
         {% assign mitglieder = (site.club_members | sort: 'sortorder') %}
         {% for club_member in mitglieder %}
         <div class="col-md-4">
-            <a class="email" {% if club_member.email %}href="mailto:{{ club_member.email }}?subject={{ site.title | smartify | jsonify }}" target="_blank"{% endif %}>
+            <a class="email" {% if club_member.email %}href="mailto:{{ club_member.email }}?subject={{ site.title }}" target="_blank"{% endif %}>
               <div class="mitglied">
               <div class="avatar"><div style="background-image:url({% if club_member.avatar %}{{ club_member.avatar }}{% endif %}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></div>
                 <h4 class="name">{{ club_member.name }}</h4>
