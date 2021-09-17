@@ -690,8 +690,9 @@ h1, h2, h3, h4, h5, h6 {
   display:none; /* disabled due to seperate callout */
 }
 .vly-team {
-  background: linear-gradient(45deg, var(--gradient2) 0%, var(--gradient1) 100%);
   color: var(--text2);
+  background: var(--gradient1);
+  font-weight: normal!important;
 }
 @media (max-width: 768px) {
   #ergebnisse-tabelle .box {
