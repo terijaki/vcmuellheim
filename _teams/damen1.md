@@ -1,5 +1,5 @@
 ---
-liga: Kreisklasse
+liga: 11 Kreisklasse
 sbvv_id: 
 name: Damen I
 alter: ab 15 Jahre
