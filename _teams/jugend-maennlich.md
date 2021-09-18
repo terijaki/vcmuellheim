@@ -1,6 +1,6 @@
 ---
-liga: ''
-sbvv_id: 0
+liga: "[99] Kein Ligabetrieb"
+sbvv_id: 
 name: Jugend (männlich)
 alter: 12-16 Jahre
 trainings-zeit1: Donnerstags 18:30-20 Uhr
@@ -14,5 +14,6 @@ trainer-email1: klaus@vcmuellheim.de
 trainer-name2: 'Andreas Albrecht '
 trainer-email2: andreas@vcmuellheim.de
 kommentar: ''
+foto: ''
 
 ---
