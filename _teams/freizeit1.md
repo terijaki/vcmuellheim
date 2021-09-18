@@ -1,6 +1,6 @@
 ---
-liga: ''
-sbvv_id:
+liga: "[99] Kein Ligabetrieb"
+sbvv_id: 
 name: Freizeit I
 alter: ''
 trainings-zeit1: Montags 20:00-22:00 Uhr
@@ -13,7 +13,8 @@ trainer-name1: Kerstin Hackhausen
 trainer-email1: kerstin@vcmuellheim.de
 trainer-name2: Susanne Kainer
 trainer-email2: susanne@vcmuellheim.de
-kommentar: Diese Gruppe besteht aus ehemaligen Spielern und Spielerinnen die
-  auf forgeschrittenem Niveau spielen!
+kommentar: Diese Gruppe besteht aus ehemaligen Spielern und Spielerinnen die auf forgeschrittenem
+  Niveau spielen!
+foto: ''
 
 ---

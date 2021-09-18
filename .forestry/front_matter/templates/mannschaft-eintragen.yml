@@ -15,7 +15,7 @@ fields:
   label: Foto
 - name: liga
   type: select
-  default: []
+  default: "[99] Kein Ligabetrieb"
   config:
     required: false
     options:
@@ -30,6 +30,7 @@ fields:
     - "[09] Bezirksklasse"
     - "[10] Kreisliga"
     - "[11] Kreisklasse"
+    - "[99] Kein Ligabetrieb"
     source:
       type: simple
       section: 
