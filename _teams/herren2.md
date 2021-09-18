@@ -1,5 +1,5 @@
 ---
-liga: '09 Bezirksklasse'
+liga: "[09] Bezirksklasse"
 sbvv_id: 18450973
 name: Herren II
 alter: ''
