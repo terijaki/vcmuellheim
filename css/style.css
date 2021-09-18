@@ -813,12 +813,14 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 100%;
   background-size: cover;
   background-position: center;
-  margin: -8px auto 8px auto;
+  margin: -4px auto 8px auto;
 }
 @media (max-width: 768px) {
   #mannschaften .teams .foto {
     height: calc(100vw /4 *2);
-    width: 100%;
+    width: calc(100% + 48px);
+    max-width: 100vw;
+    margin-left: -24px;
   }
 }
 
