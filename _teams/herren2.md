@@ -1,5 +1,5 @@
 ---
-liga: Bezirksklasse
+liga: '09 Bezirksklasse'
 sbvv_id: 18450973
 name: Herren II
 alter: ''
@@ -14,5 +14,6 @@ trainer-email1: claudio@vcmuellheim.de
 trainer-name2: Andreas Albrecht
 trainer-email2: andreas@vcmuellheim.de
 kommentar: ''
+foto: ''
 
 ---
