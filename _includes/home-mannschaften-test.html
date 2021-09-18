@@ -18,7 +18,7 @@
 <!-- Team Name -->
         <h4 class="title">{{ team.name }}
           {% if team.liga == "" or team.liga == nil or team.liga == blank %}{% else %}
-            - {{ team.liga | slice: 2, 99  }}
+            - {{ team.liga | slice: 4, 99  }}
           {% endif %}
         </h4>
 
