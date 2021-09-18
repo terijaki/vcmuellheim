@@ -11,7 +11,7 @@
     <div class="row teams">
 
    {% assign sorted-teams = (site.teams | sort: 'liga') %}
-   {% for team in site.teams %}
+   {% for team in sorted-teams %}
       <div class="col-lg-6">
         <div class="box p-4">
 
@@ -22,6 +22,10 @@
           {% endunless %}
         </h4>
 
+<!-- Foto -->
+        {% if team.foto contains '.' %}
+          <p class="teamfoto" style="background-image:url('{{ team.foto }}')"></p>
+        {% endiff %}
 <!-- Altersangabe  -->
               {% if team.alter == "" or team.alter == nil or team.alter == blank %}
                 {% else %}
