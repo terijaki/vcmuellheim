@@ -10,7 +10,7 @@
 
     <div class="row teams">
 
-
+   {% assign sorted-teams = (site.teams | sort: 'liga') %}
    {% for team in site.teams %}
       <div class="col-lg-6">
         <div class="box p-4">
@@ -18,7 +18,7 @@
 <!-- Team Name -->
         <h4 class="title">{{ team.name }}
           {% if team.liga == "" or team.liga == nil or team.liga == blank %}{% else %}
-            - {{ team.liga }}
+            - {{ team.liga | slice: 5, 99  }}
           {% endif %}
         </h4>
 
@@ -41,12 +41,12 @@
 <!-- Trainer 1 -->
             {% if team.trainer-name1 %}
               <p class="trainer"><b>Trainer</b>:
-              {% if team.trainer-email1 contains "@" %}<a href="mailto:{{ team.trainer-email1 }}">{{ team.trainer-name1 }}</a>{% else %}{{ team.trainer-name1 }}
+              {% if team.trainer-email1 contains "@" %}<a href="mailto:{{ team.trainer-email1 }}?subject={{ site.title }} - {{ team.name }}">{{ team.trainer-name1 }}</a>{% else %}{{ team.trainer-name1 }}
               {% endif %}
 
 <!-- Trainer 2 -->
                 {% if team.trainer-name2 == "" or team.trainer-name2 == nil or team.trainer-name2 == blank %}{% else %} &
-                  {% if team.trainer-email2  contains "@" %}<a href="mailto:{{ team.trainer-email2 }}">{{ team.trainer-name2 }}</a>{% else %}{{ team.trainer-name2 }}
+                  {% if team.trainer-email2  contains "@" %}<a href="mailto:{{ team.trainer-email2 }}?subject={{ site.title }} - {{ team.name }}">{{ team.trainer-name2 }}</a>{% else %}{{ team.trainer-name2 }}
                   {% endif %}
                 {% endif %}
               </p>
