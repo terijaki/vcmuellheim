@@ -10,7 +10,7 @@
 
     <div class="row teams">
 
-   {% assign sorted-teams = (site.teams | sort: 'liga', 'name') %}
+   {% assign sorted-teams = (site.teams | sort: 'liga') %}
    {% for team in sorted-teams %}
       <div class="col-lg-6">
         <div class="box p-4">
