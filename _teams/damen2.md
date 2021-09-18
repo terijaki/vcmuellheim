@@ -1,6 +1,6 @@
 ---
-liga: Kreisklasse
-sbvv_id: 0
+liga: 11 Kreisklasse
+sbvv_id: 
 name: Damen II
 alter: 12-15 Jahre
 trainings-zeit1: Dienstags 18:30-20 Uhr
@@ -14,5 +14,6 @@ trainer-email1: andreas@vcmuellheim.de
 trainer-name2: Marina Peters
 trainer-email2: ''
 kommentar: ''
+foto: ''
 
 ---

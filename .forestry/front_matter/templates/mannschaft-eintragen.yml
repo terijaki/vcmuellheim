@@ -26,15 +26,15 @@ fields:
     - 05 Oberliga
     - 06 Verbandsliga
     - 07 Landesliga
-    - 08 Bezirksliga
-    - 09 Bezirksklasse
+    - '08 Bezirksliga'
+    - '09 Bezirksklasse'
     - 10 Kreisliga
     - 11 Kreisklasse
     source:
       type: simple
-      section:
-      file:
-      path:
+      section: 
+      file: 
+      path: 
   label: Liga
 - type: text
   name: alter
@@ -94,9 +94,9 @@ fields:
   default: 0
   required: true
   config:
-    min:
-    max:
-    step:
+    min: 
+    max: 
+    step: 
 pages:
 - _teams/damen1.md
 - _teams/damen2.md
