@@ -19,17 +19,17 @@ fields:
   config:
     required: false
     options:
-    - [01] Bundesliga
-    - [02] 2. Bundesliga
-    - [03] 3. Liga
-    - [04] Regionalliga
-    - [05] Oberliga
-    - [06] Verbandsliga
-    - [07] Landesliga
-    - [08] Bezirksliga
-    - [09] Bezirksklasse
-    - [10] Kreisliga
-    - [11] Kreisklasse
+    - 01 Bundesliga
+    - 02 2. Bundesliga
+    - 03 3. Liga
+    - 04 Regionalliga
+    - 05 Oberliga
+    - 06 Verbandsliga
+    - 07 Landesliga
+    - 08 Bezirksliga
+    - 09 Bezirksklasse
+    - 10 Kreisliga
+    - 11 Kreisklasse
     source:
       type: simple
       section:
