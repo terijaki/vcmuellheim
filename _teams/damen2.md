@@ -1,5 +1,5 @@
 ---
-liga: 11 Kreisklasse
+liga: "[11] Kreisklasse"
 sbvv_id: 
 name: Damen II
 alter: 12-15 Jahre
