@@ -11,15 +11,15 @@
     <div class="row teams">
 
    {% assign sorted-teams = (site.teams | sort: 'liga') %}
-   {% for team in sorted-teams %}
+   {% for team in site.teams %}
       <div class="col-lg-6">
         <div class="box p-4">
 
 <!-- Team Name -->
         <h4 class="title">{{ team.name }}
-          {% if team.liga == "" or team.liga == nil or team.liga == blank %}{% else %}
-            - {{ team.liga | slice: 4, 99  }}
-          {% endif %}
+          {% unless team.liga contains "99" %}
+            - {{ team.liga | slice: 4, 99   }}
+          {% endunless %}
         </h4>
 
 <!-- Altersangabe  -->
