@@ -808,14 +808,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #mannschaften .teams .foto {
-  height: 200px;
+  height: 240px;
+  width: 440px;
+  max-width: 100%;
   background-size: cover;
   background-position: center;
-  margin: -4px -24px;
+  margin: -8px auto 8px auto;
 }
 @media (max-width: 768px) {
   #mannschaften .teams .foto {
-    margin: 0;
+    height: calc(100vw /4 *2);
+    width: 100%;
   }
 }
 
