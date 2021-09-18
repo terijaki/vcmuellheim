@@ -807,6 +807,19 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
 }
 
+#mannschaften .teams .foto {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  margin: -4px -24px;
+}
+@media (max-width: 768px) {
+  #mannschaften .teams .foto {
+    margin: 0;
+  }
+}
+
+
 #mannschaften .box {
   width: 100%;
   margin-bottom: 30px;
