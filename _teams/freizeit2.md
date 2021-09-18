@@ -1,6 +1,6 @@
 ---
-liga: ''
-sbvv_id: 0
+liga: "[99] Kein Ligabetrieb"
+sbvv_id: 
 name: Freizeit II
 alter: ''
 trainings-zeit1: Donnerstags 20:00-22:00 Uhr
@@ -14,5 +14,6 @@ trainer-email1: wolfgang@vcmuellheim.de
 trainer-name2: ''
 trainer-email2: ''
 kommentar: Diese gemischte Gruppe begrüßt Anfänger und Fortgeschrittene gleichermaßen!
+foto: ''
 
 ---

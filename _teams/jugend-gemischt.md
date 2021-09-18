@@ -1,6 +1,6 @@
 ---
-liga: ''
-sbvv_id: 0
+liga: "[99] Kein Ligabetrieb"
+sbvv_id: 
 name: Jugend (gemischte)
 alter: 9-12 Jahren
 trainings-zeit1: Dienstags 17:00-18:30 Uhr
@@ -14,5 +14,6 @@ trainer-email1: klaus@vcmuellheim.de
 trainer-name2: ''
 trainer-email2: ''
 kommentar: ''
+foto: ''
 
 ---
