@@ -2,8 +2,8 @@
 liga: "[99] Kein Ligabetrieb"
 sbvv_id: 
 name: Jugend (männlich)
-alter: 12-18 Jahre
-trainings-zeit1: Dienstag 20:00-22:00 Uhr
+alter: 13-18 Jahre
+trainings-zeit1: ''
 trainings-ort1: Sporthalle II Teil D (Gymnastikhalle)
 trainings-map1: https://goo.gl/maps/g3XhvCS9gpR2
 trainings-zeit2: ''
