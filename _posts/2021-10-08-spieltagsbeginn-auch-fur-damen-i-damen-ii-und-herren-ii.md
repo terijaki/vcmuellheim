@@ -2,7 +2,7 @@
 layout: post
 excerpt_separator: "<!--more-->"
 title: Spieltagsbeginn auch für Damen I, Damen II und Herren II
-thumbnail: "/upload/2021/10/08/index.jpg"
+thumbnail: ''
 photoalbum: ''
 
 ---
