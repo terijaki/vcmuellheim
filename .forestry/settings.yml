@@ -4,6 +4,11 @@ auto_deploy: false
 admin_path: "/edit"
 webhook_url: 
 sections:
+- type: jekyll-posts
+  label: News Beiträge
+  create: documents
+  templates:
+  - neuen-beitrag-erstellen
 - type: directory
   path: _teams
   label: Mannschaften
@@ -11,11 +16,6 @@ sections:
   match: "**/*"
   templates:
   - mannschaft-eintragen
-- type: jekyll-posts
-  label: News Beiträge
-  create: documents
-  templates:
-  - neuen-beitrag-erstellen
 - type: directory
   path: _club_members
   label: Vorstand & Vereinsämter
