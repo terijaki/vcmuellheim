@@ -239,7 +239,6 @@ h1, h2, h3, h4, h5, h6 {
 /* sponsors before the fold
 --------------------------------*/
 .intro-sponsor {
-    height: 60px;
     width: 100%;
     background: #ffffff;
 }
@@ -247,7 +246,12 @@ h1, h2, h3, h4, h5, h6 {
     max-height: 56px;
     max-width: 50%;
 }
-
+@media (min-height: 600px) {
+  .intro-sponsor img {
+      max-height: 72px;
+      max-width: 50%;
+  }
+}
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
