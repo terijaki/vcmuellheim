@@ -988,7 +988,7 @@ margin-bottom: 0px;
     position: absolute;
     bottom: 0;
     right:0;
-    width: 100vw;
+    width: 100%;
     overflow: hidden;
     background: #ffffff;
     display: flex;
