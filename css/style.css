@@ -293,6 +293,10 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
+.navbar {
+  height: 60px;
+}
+
 .nav-link {
   color: var(--text2);
   font-weight: 500;
@@ -973,6 +977,18 @@ margin-bottom: 0px;
     width: 32px;
 }
 
+
+/* sponsors before the fold
+--------------------------------*/
+.intro-sponsor {
+    text-align: center;
+    height: 60px;
+    max-height: 20vh;
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    background: #ffffff;
+}
 
 /* sponsors Section
 --------------------------------*/
