@@ -246,14 +246,6 @@ h1, h2, h3, h4, h5, h6 {
     background: #ffffff;
 }
 
-.intro-sponsor .logo {
-    flex-shrink: 0;
-}
-.intro-sponsor a, .intro-sponsor img {
-    height: 100%;
-    flex-shrink: 0;
-}
-
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
