@@ -240,7 +240,6 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------*/
 .intro-sponsor {
     height: 60px;
-    max-height: 20vh;
     width: 100%;
     overflow: hidden;
     background: #ffffff;
