@@ -998,14 +998,13 @@ margin-bottom: 0px;
     align-content: center;
     justify-content: center;
 }
+.intro-sponsor > div {
+  display: flex;
+  padding: 6px 3px;
+}
 .intro-sponsor span {
     text-align: right;
-    display: flex;
     align-items: center;
-}
-.intro-sponsor a {
-    padding: 6px;
-    display: flex;
 }
 
 
