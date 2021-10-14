@@ -988,9 +988,6 @@ margin-bottom: 0px;
     overflow: hidden;
     background: #ffffff;
 }
-.intro-sponsor>div {
-    background: lime;
-}
 .intro-sponsor a, .intro-sponsor img {
     height: 100%;
     flex-shrink: 0;
