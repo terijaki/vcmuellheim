@@ -211,7 +211,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (max-width: 768px) {
   #intro p {
-    font-size: 18px;
+    font-size: 20px;
     line-height: 24px;
     margin-bottom: 20px;
   }
