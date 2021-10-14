@@ -995,13 +995,15 @@ margin-bottom: 0px;
     justify-content: center;
 }
 .intro-sponsor span {
-    padding: 8px;
+    text-align: right;
     display: flex;
     align-items: center;
 }
+.intro-sponsor a {
+    padding: 6px;
+}
 .intro-sponsor img {
     height: 100%;
-    padding: 4px;
 }
 
 /* sponsors Section
