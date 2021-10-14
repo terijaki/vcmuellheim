@@ -999,10 +999,11 @@ margin-bottom: 0px;
     justify-content: center;
 }
 .intro-sponsor > div {
-  display: flex;
-  padding: 6px 3px;
+    display: flex;
+    padding: 6px 3px;
 }
 .intro-sponsor span {
+    display: inline-flex;
     text-align: right;
     align-items: center;
 }
