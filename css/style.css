@@ -993,10 +993,6 @@ margin-bottom: 0px;
     width: 100%;
     overflow: hidden;
     background: #ffffff;
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    justify-content: center;
 }
 .intro-sponsor img {
     height: 100%;
