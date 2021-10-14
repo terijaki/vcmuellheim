@@ -996,7 +996,7 @@ margin-bottom: 0px;
 .intro-sponsor>div {
     background: lime;
 }
-.intro-sponsor img {
+.intro-sponsor a, .intro-sponsor img {
     height: 100%;
     width: 100%;
     height: -webkit-fill-available;
