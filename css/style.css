@@ -998,7 +998,6 @@ margin-bottom: 0px;
 }
 .intro-sponsor a, .intro-sponsor img {
     height: 100%;
-    width: 100%;
     flex-shrink: 0;
 }
 
