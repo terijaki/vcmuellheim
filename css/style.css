@@ -197,14 +197,8 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 28px;
     line-height: 36px;
   }
-  #intro .vcm-banner {
-    max-height: 176px;
-  }
 }
 @media (max-width: 568px) {
-  #intro .vcm-banner {
-    max-height: 160px;
-  }
   #logo h1 {
     font-size: 22px;
   }
