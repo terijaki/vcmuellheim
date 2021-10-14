@@ -175,6 +175,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #intro .vcm-banner {
   max-height: 200px;
+  max-width: 90vw;
 }
 #intro .intro-text {
   text-align: center;
