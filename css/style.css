@@ -1003,6 +1003,7 @@ margin-bottom: 0px;
 }
 .intro-sponsor a {
     padding: 6px;
+    display: flex;
 }
 .intro-sponsor img {
     height: 100%;
