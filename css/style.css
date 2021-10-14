@@ -984,7 +984,6 @@ margin-bottom: 0px;
 /* sponsors before the fold
 --------------------------------*/
 .intro-sponsor {
-    text-align: center;
     height: 60px;
     max-height: 20vh;
     position: absolute;
@@ -993,6 +992,9 @@ margin-bottom: 0px;
     width: 100%;
     overflow: hidden;
     background: #ffffff;
+}
+.intro-sponsor>div {
+    background: lime;
 }
 .intro-sponsor img {
     height: 100%;
