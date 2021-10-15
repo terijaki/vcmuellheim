@@ -676,6 +676,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #ergebnisse-tabelle .teams > div {
     display: flex;
+    flex-basis: 50%;
 }
 #ergebnisse-tabelle  .teams .box {
     width: 100%;
