@@ -634,12 +634,6 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.4rem;
   font-weight: bold;
 }
-#ergebnisse-tabelle .herren1 .vly h1:before {
-  content: '1. Herren - ';
-}
-#ergebnisse-tabelle .herren2 .vly h1:before {
-  content: '2. Herren - ';
-}
 .vly table { /* .vly = ergebnisdienst class */
   width: 100%
 }
