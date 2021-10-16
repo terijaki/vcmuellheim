@@ -950,14 +950,16 @@ margin-bottom: 0px;
   background: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(../img/verein-bg.jpg) fixed center center;
   background-size: cover;
 }
-#sponsors img {
-    max-height: 6rem;
-    max-width: 100%;
-}
 
-#sponsors .carousel {
-    height: 6rem;
-    width: 100%;
+#sponsors .sponsor-carousel .slick-initialized .slick-slide {
+  display: flex; /* space and center the sponsor logos evenly */
+  justify-content: space-evenly;
+  align-items: center;
+  height: 6rem;
+}
+#sponsors .sponsor-carousel img {
+  max-height: 6rem;
+  max-width: 100%;
 }
 
 /* Kontakt Section
