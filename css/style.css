@@ -637,8 +637,13 @@ h1, h2, h3, h4, h5, h6 {
 .vly table { /* .vly = ergebnisdienst class */
   width: 100%
 }
-.vly tr :nth-child(7) {
-  display: none; /* entfernt Bälle aus der Tabellenübersicht */
+.vly tr :nth-child(4), .vly tr :nth-child(7) {
+  display: none; /* entfernt Spile und Bälle aus der Tabellenübersicht */
+}
+@media (min-width: 769px) {
+  .vly tr :nth-child(4) {
+    display: inital; /* Zeigt die Spiele bei größeren Bildschirmen wieder an */
+  }
 }
 .vly tr > * {
   padding: 1px;
