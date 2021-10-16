@@ -1032,3 +1032,22 @@ margin-bottom: 0px;
 .Datenschutzerklärung ul, .Datenschutzerklärung ol, .SatzungdesVolleyballclubsMüllheim ul, .SatzungdesVolleyballclubsMüllheim ol {
     padding-left: 1.5rem;
 }
+
+
+
+/*********************************************************************/
+/* Bootstrap 4 Multiple Item Carousel */
+/*********************************************************************/
+/* medium - display 2  */
+@media (min-width: 768px) {
+
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+        transform: translateX(50%);
+    }
+
+    .carousel-inner .carousel-item-left.active,
+    .carousel-inner .carousel-item-prev {
+        transform: translateX(-50%);
+    }
+}
