@@ -957,6 +957,9 @@ margin-bottom: 0px;
   align-items: center;
   height: 6rem;
 }
+#sponsors .sponsor-item {
+    padding: 0 2rem;
+}
 #sponsors .sponsor-carousel img {
   max-height: 6rem;
   max-width: 100%;
