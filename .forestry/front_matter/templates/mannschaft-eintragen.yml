@@ -13,6 +13,16 @@ fields:
   config:
     maxSize: 64
   label: Foto
+- name: kurztext
+  type: textarea
+  default: ''
+  config:
+    required: false
+    wysiwyg: false
+    schema:
+      format: markdown
+  label: Kurztext
+  description: Ein kurzer Text der als Vorstellung der Mannschaft genutzt werden kann.
 - name: liga
   type: select
   default: "[99] Kein Ligabetrieb"
