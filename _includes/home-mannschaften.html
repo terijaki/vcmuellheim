@@ -39,9 +39,9 @@
           </p>
 
 <!-- Trainer 1 -->
-            {% if team.trainer-name1 %}
+            {% if team.trainer-name1 == "" or team.trainer-name1 == nil or team.trainer-name1 == blank %}{% else %}
               <p class="trainer"><b>Trainer</b>:
-              {% if team.trainer-email1 contains "@" %}<a href="mailto:{{ team.trainer-email1 }}?subject={{ site.title }} - {{ team.name }}"><i class="fas fa-envelope" aria-hidden="true"></i> {{ team.trainer-name1 }}</a>{% else %}{{ team.trainer-name1 }}
+              {% if team.trainer-email1 contains "@" %}<a href="mailto:{{ team.trainer-email1 }}?subject={{ site.title }} - {{ team.name }}">{{ team.trainer-name1 }}</a>{% else %}{{ team.trainer-name1 }}
               {% endif %}
 
 <!-- Trainer 2 -->
@@ -52,6 +52,19 @@
               </p>
             {% endif %}
 
+<!-- Ansprechperson 1 -->
+                {% if team.ansprechperson-name1 == "" or team.ansprechperson-name1 == nil or team.ansprechperson-name1 == blank %}{% else %}
+                  <p class="ansprechperson"><b>Trainer</b>:
+                    {% if team.ansprechperson-email1 contains "@" %}<a href="mailto:{{ team.ansprechperson-email1 }}?subject={{ site.title }} - {{ team.name }}">{{ team.ansprechperson-name1 }}</a>{% else %}{{ team.ansprechperson-name1 }}
+                    {% endif %}
+
+<!-- Ansprechperson 2 -->
+                    {% if team.ansprechperson-name2 == "" or team.ansprechperson-name2 == nil or team.trainer-name2 == blank %}{% else %} &
+                      {% if team.ansprechperson-email2  contains "@" %}<a href="mailto:{{ team.ansprechperson-email2 }}?subject={{ site.title }} - {{ team.name }}">{{ team.ansprechperson-name2 }}</a>{% else %}{{ team.ansprechperson-name2 }}
+                      {% endif %}
+                    {% endif %}
+                  </p>
+                {% endif %}
 
 <!-- Spielplan & Kalender  -->
               {% if team.sbvv_id > 0 %}
