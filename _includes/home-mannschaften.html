@@ -54,7 +54,7 @@
 
 <!-- Ansprechperson 1 -->
                 {% if team.ansprechperson-name1 == "" or team.ansprechperson-name1 == nil or team.ansprechperson-name1 == blank %}{% else %}
-                  <p class="ansprechperson"><b>Trainer</b>:
+                  <p class="ansprechperson"><b>Ansprechperson</b>:
                     {% if team.ansprechperson-email1 contains "@" %}<a href="mailto:{{ team.ansprechperson-email1 }}?subject={{ site.title }} - {{ team.name }}">{{ team.ansprechperson-name1 }}</a>{% else %}{{ team.ansprechperson-name1 }}
                     {% endif %}
 
