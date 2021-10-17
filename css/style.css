@@ -36,6 +36,7 @@ body {
 a {
   color: var(--link1);
   transition: 0.5s;
+  text-decoration: none;
 }
 
 a:hover, a:active, a:focus {
