@@ -33,9 +33,9 @@ fields:
     - "[99] Kein Ligabetrieb"
     source:
       type: simple
-      section: 
-      file: 
-      path: 
+      section:
+      file:
+      path:
   label: Liga
 - type: text
   name: alter
@@ -82,6 +82,18 @@ fields:
   name: trainer-email2
   label: 'Trainer 2: Email'
 - type: text
+  name: ansprechperson-name1
+  label: 'Ansprechperson 1: Name'
+- type: text
+  name: ansprechperson-email1
+  label: 'Ansprechperson 1: Emal'
+- type: text
+  name: ansprechperson-name2
+  label: 'Ansprechperson 2: Name'
+- type: text
+  name: ansprechperson-email2
+  label: 'Ansprechperson 2: Email'
+- type: text
   name: kommentar
   label: Kommentar
 - name: sbvv_id
@@ -95,9 +107,9 @@ fields:
   default: 0
   required: true
   config:
-    min: 
-    max: 
-    step: 
+    min:
+    max:
+    step:
 pages:
 - _teams/damen1.md
 - _teams/damen2.md
