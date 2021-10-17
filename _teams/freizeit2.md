@@ -9,11 +9,15 @@ trainings-map1: https://goo.gl/maps/g3XhvCS9gpR2
 trainings-zeit2: ''
 trainings-ort2: ''
 trainings-map2: ''
-trainer-name1: Wolfgang Lacher
-trainer-email1: wolfgang@vcmuellheim.de
+trainer-name1: ''
+trainer-email1: ''
 trainer-name2: ''
 trainer-email2: ''
 kommentar: Diese gemischte Gruppe begrüßt Anfänger und Fortgeschrittene gleichermaßen!
 foto: ''
+ansprechperson-name1: Wolfgang Lacher
+ansprechperson-email1: wolfgang@vcmuellheim.de
+ansprechperson-name2: ''
+ansprechperson-email2: ''
 
 ---
