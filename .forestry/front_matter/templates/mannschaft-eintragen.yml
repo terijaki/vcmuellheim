@@ -84,7 +84,8 @@ fields:
 - type: text
   name: ansprechperson-name1
   label: 'Ansprechperson 1: Name'
-  description: Wenn anstelle eines Trainers, eine Ansprechperson benannt werden soll.
+  description: Wenn anstelle oder zusätzlich zum Trainer, eine Ansprechperson angezeigt
+    werden soll.
 - type: text
   name: ansprechperson-email1
   label: 'Ansprechperson 1: Emal'
