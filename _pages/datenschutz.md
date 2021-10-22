@@ -10,7 +10,6 @@ Vorschriften. Da durch neue Technologien und die ständige Weiterentwicklung die
 
 ## **Berechtigte Interessen des Vereins**
 Zum Zwecke der Außendarstellung werden Fotos der Mitglieder und Fotos von Veranstaltungen auf der Vereinswebseite vcmuellheim.de veröffentlicht. Die Rechtsgrundlage hierfür ist Art. 6 Abs. 1 S. 1 lit. a) DS-GVO.
-
 Die Veröffentlichung personenbezogener Daten im Internet oder in lokalen, regionalen oder überregionalen Printmedien erfolgt zur Wahrung berechtigter Interessen des Vereins (vgl. Artikel 6 Abs. 1 lit. f) DSGVO). Das berechtigte Interesse des Vereins besteht in der Information der Öffentlichkeit durch Berichtserstattung über die Aktivitäten des Vereins. In diesem Rahmen werden personenbezogene Daten einschließlich von Bildern der Teilnehmer zum Beispiel im Rahmen der Berichterstattung über Ereignisse des Vereins veröffentlicht.
 
 
