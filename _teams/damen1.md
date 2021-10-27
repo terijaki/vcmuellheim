@@ -14,7 +14,7 @@ trainer-email1: dominik@vcmuellheim.de
 trainer-name2: ''
 trainer-email2: ''
 kommentar: ''
-foto: ''
+foto: "/upload/2021/10/01/whatsapp-image-2021-10-01-at-10-00-56-1.jpeg"
 kurztext: ''
 ansprechperson-name1: ''
 ansprechperson-email1: ''
