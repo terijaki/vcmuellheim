@@ -2,7 +2,7 @@
 liga: "[99] Kein Ligabetrieb"
 sbvv_id: 
 name: Jugend (männlich)
-alter: 13-18 Jahre
+alter: 14-20 Jahre
 trainings-zeit1: 'Dienstags 20:00-22:00 Uhr '
 trainings-ort1: Sporthalle II Teil D (Gymnastikhalle)
 trainings-map1: https://goo.gl/maps/g3XhvCS9gpR2
@@ -15,5 +15,10 @@ trainer-name2: 'Andreas Albrecht '
 trainer-email2: andreas@vcmuellheim.de
 kommentar: ''
 foto: ''
+kurztext: ''
+ansprechperson-name1: ''
+ansprechperson-email1: ''
+ansprechperson-name2: ''
+ansprechperson-email2: ''
 
 ---
