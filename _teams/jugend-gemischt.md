@@ -11,9 +11,14 @@ trainings-ort2: Sporthalle II Teil E
 trainings-map2: https://goo.gl/maps/g3XhvCS9gpR2
 trainer-name1: Klaus Ernst
 trainer-email1: klaus@vcmuellheim.de
-trainer-name2: ''
-trainer-email2: ''
+trainer-name2: 'Dominik Ernst '
+trainer-email2: dominik@vcmuellheim.de
 kommentar: ''
 foto: ''
+kurztext: ''
+ansprechperson-name1: ''
+ansprechperson-email1: ''
+ansprechperson-name2: ''
+ansprechperson-email2: ''
 
 ---
