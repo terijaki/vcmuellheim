@@ -6,6 +6,8 @@ thumbnail: "/upload/2021/11/15/img_8772.jpg"
 photoalbum: https://photos.google.com/share/AF1QipNOWYR2Z1gD9uXZNtKKHZQ0tFlL6P5N5hpUcPvBiYMCaiGLBsUVfw3GwBw87GtS9g?key=M2xsXzh4b3JEVFA2X1dvTXNxOTdNMGV2TTJXZm9n
 
 ---
+gesponsert von [https://degen-gmbh.com/](https://degen-gmbh.com/ "https://degen-gmbh.com/")
+
 **Am Ende stark dezimierte Müllheimer konnten trotz großem Einsatz keine Punkte aus Tuttlingen mitnehmen und kassierten die erste 3:0 Niederlage dieser Verbandsliga-Saison.**
 
 Vergangenen Samstag machten sich neun Müllheimer Volleyballer auf den Weg zum TG Tuttlingen. Die Anreisezeit wurde etwas unterschätzt und das Aufwärmen geriet für manchen Spieler zu kurz. Davon bemerkte man zunächst nichts und startete recht gut gegen den ehemaligen Oberligisten. Über den ganzen ersten Satz war man knapp in Führung, bis sich Kapitän Paul Lacher, beim Stand von 19:18 für den VCM, verletzte und ausgewechselt werden musste. Die geschockten Müllheimer mussten in der Folge den Satz abgeben.
