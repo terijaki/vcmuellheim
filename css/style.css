@@ -596,18 +596,18 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Corona and Sport Section
 --------------------------------*/
-#corona-and-sport {
+#corona-und-sport {
   overflow: hidden;
   background: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(../img/corona-and-sport.jpg) fixed center center;
   background-size: cover;
 }
-#corona-and-sport .cta-title {
+#corona-und-sport .cta-title {
   color: var(--text2);
   font-size: 28px;
   font-weight: 700;
 }
 
-#corona-and-sport .cta-text {
+#corona-und-sport .cta-text {
   color: var(--text2);
 }
 
