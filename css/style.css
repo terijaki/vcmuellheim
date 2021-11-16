@@ -600,6 +600,7 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
   background: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(../img/corona-and-sport.jpg) fixed center center;
   background-size: cover;
+  color: #fff;
 }
 #corona-und-sport .cta-title {
   color: var(--text2);
@@ -611,6 +612,9 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text2);
 }
 
+#corona-und-sport .sources p {
+  margin: 0;
+}
 
 /* Ergebnisse Popup on Homepage
 --------------------------------*/
