@@ -2,7 +2,7 @@
 layout: post
 excerpt_separator: "<!--more-->"
 title: Damen I lernt weiter dazu im Heimspieltag
-thumbnail: ''
+thumbnail: "/upload/2021/11/17/img-20211114-wa0003.jpg"
 photoalbum: ''
 
 ---
