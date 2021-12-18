@@ -745,6 +745,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   height: 100%;
   background-size: cover;
+  background-position: center;
   transition: 0.3s;
   background-blend-mode: luminosity;
   -webkit-filter: blur(1px);
