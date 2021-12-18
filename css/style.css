@@ -466,7 +466,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #blogpost img.post-thumbnail {
   margin: -4rem auto 1.2rem auto;
-  max-height: 500px;
+  max-height: 800px;
   max-width: 100%;
   width: auto;
   display: flex;
