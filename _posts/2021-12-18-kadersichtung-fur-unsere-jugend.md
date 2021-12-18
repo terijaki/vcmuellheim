@@ -2,7 +2,7 @@
 layout: post
 excerpt_separator: "<!--more-->"
 title: Kadersichtung für unsere Jugend
-thumbnail: ''
+thumbnail: "/upload/2021/12/18/img-20211120-wa0002.jpg"
 photoalbum: ''
 
 ---
