@@ -2,7 +2,7 @@
 layout: post
 excerpt_separator: "<!--more-->"
 title: Hilfsgüter für Ukraine (Gymnasium Neuenburg)
-thumbnail: "/upload/2022/03/08/flag_of_ukraine-svg.png"
+thumbnail: ''
 photoalbum: ''
 
 ---
