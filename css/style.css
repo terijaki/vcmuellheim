@@ -114,18 +114,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*--------------------------------------------------------------
-# Corona Banner
+# Banner
 --------------------------------------------------------------*/
-.corona-info {
-  background: #f25e5e;
-  color: #fff;
+.banner-info {
+  background: #FFDD00;
+  color: #0057B7;
   width: 100vw;
   line-height: 20px;
   font-size: 14px;
   text-align: center;
 }
-.corona-info a {
-  color: #fff;
+.banner-info a {
+  color: #0057B7;
 }
 
 /*--------------------------------------------------------------
