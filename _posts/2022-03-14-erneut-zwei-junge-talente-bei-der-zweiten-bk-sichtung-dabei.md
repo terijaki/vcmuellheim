@@ -13,3 +13,7 @@ Umringt von ausnahmslos aus den großen Jugendreservoirs der Bundesligisten FT F
 Alle vier Teilnehmerinnen waren Jahrgang 2011, also der jüngere Jahrgang, somit besteht auch 2023 noch die Möglichkeit sich erneut zu zeigen.
 
 Wir freuen uns sehr über das Lob und den vier Mädels der beiden Sichtungslehrgänge hat es sehr viel Spaß gemacht.
+
+![](/upload/2022/03/14/whatsapp-image-2022-03-14-at-15-57-08-1.jpeg)
+
+![](/upload/2022/03/14/whatsapp-image-2022-03-14-at-15-57-08.jpeg)
