@@ -1080,10 +1080,10 @@ div.logo-download {
   text-align: center;
 }
 .logo-download img.white {
-  background:linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(/img/teams/damen1.jpg) fixed center center;
-  background-size: cover
+  background:linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(/img/teams/damen1.jpg) center center;
+  background-size: cover;
+  border-radius: 1rem;
 }
-
 
 /*********************************************************************/
 /* Bootstrap 4 Multiple Item Carousel */

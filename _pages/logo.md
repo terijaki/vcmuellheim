@@ -1,10 +1,9 @@
 ---
 layout: page-simple
-title: Logo
+title: Logo Dateien
 permalink: /logo/
 ---
 
-## **Logo Dateien**
 Möchten Sie auf unseren Verein verweisen, oder benötigen Sie eine Vektorgrafik für einen Trikot Druck?
 
 <div class="logo-download">
