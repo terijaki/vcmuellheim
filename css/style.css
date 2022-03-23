@@ -1051,7 +1051,7 @@ margin-bottom: 0px;
 .print-page {
   text-align: right;
 }
-.print-btn {
+.print-btn, .logo-download a {
   font-family: var(--font2);
   font-weight: 400;
   font-size: 12px;
@@ -1066,7 +1066,7 @@ margin-bottom: 0px;
   background: linear-gradient(45deg, var(--gradient1), var(--gradient2));
 }
 
-.print-btn:hover {
+.print-btn:hover, .logo-download a:hover {
   background: #fff;
   color: var(--gradient2);
   border-color: var(--gradient2);
@@ -1076,7 +1076,13 @@ margin-bottom: 0px;
 .Datenschutzerklärung ul, .Datenschutzerklärung ol, .SatzungdesVolleyballclubsMüllheim ul, .SatzungdesVolleyballclubsMüllheim ol {
     padding-left: 1.5rem;
 }
-
+div.logo-download {
+  text-align: center;
+}
+.logo-download img.white {
+  background:linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(/img/teams/damen1.jpg) fixed center center;
+  background-size: cover
+}
 
 
 /*********************************************************************/
