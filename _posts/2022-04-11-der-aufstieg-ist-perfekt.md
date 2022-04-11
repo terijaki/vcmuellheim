@@ -26,4 +26,4 @@ Claudio Czak-Lindemann ( Papita)
 
 Trainer der Herren 2
 
-![](/upload/2022/04/11/25f348f2-408e-4d8a-94ec-97b9c1e6f974.jpeg)![](/upload/2022/04/11/3f34ec67-e7dc-4a13-ac2e-1f8df4b981aa.jpeg)![](/upload/2022/04/11/87a298ca-07fa-463f-bf8d-c05f7d346d31.jpeg)![](/upload/2022/04/11/e24ac325-ce79-44cc-a6b5-129b33dbd106.jpeg)
+![](/upload/2022/04/11/3f34ec67-e7dc-4a13-ac2e-1f8df4b981aa.jpeg)![](/upload/2022/04/11/87a298ca-07fa-463f-bf8d-c05f7d346d31.jpeg)![](/upload/2022/04/11/e24ac325-ce79-44cc-a6b5-129b33dbd106.jpeg)![](/upload/2022/04/11/c89ae222-6cba-4cca-9622-dfc0f1645160.jpeg)
