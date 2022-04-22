@@ -41,6 +41,10 @@ exclude:
   - README.md
   - CNAME
 
+# Exclude these files from your production _site
+include:
+  - manifest.json
+
 ## Add Club Members to show on a contacts page
 collections:
   club_members:
