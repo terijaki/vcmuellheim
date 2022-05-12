@@ -15,19 +15,17 @@ Für das Ganztagesangebot am Markgräfler Gymnasium in Müllheim werden Übungsl
 * Kreatives (Basteln, Holzwerkstatt)
 * Backen und Kochen
 * Gärtnern im kleinen Schulgarten
-* Sonstiges (Andere Ideen, an denen die Kinder Freude haben könnten, sind
+* Sonstiges (Andere Ideen, an denen die Kinder Freude haben könnten, sind willkommen)
 
-  willkommen)
+Die Vergütung liegt bei 15€ pro Stunde.
 
-  Die Vergütung liegt bei 15€ pro Stunde.
-
-  ### Wann?
+### Wann?
 
 
 * Gerne ab sofort (Mai/ Juni 2022) oder auch zu einem späteren Zeitpunkt
 * 1-2 x pro Woche von 13:45 – 15:30 Uhr
 
-  ### Voraussetzungen
+### Voraussetzungen
 
 
 * Pädagogisches Geschick
@@ -35,7 +33,7 @@ Für das Ganztagesangebot am Markgräfler Gymnasium in Müllheim werden Übungsl
 * Erfahrung, Geschick und Freude im jeweiligen Einsatzbereich
 * mindestens 16 Jahre alt; Übungsleiterschein von Vorteil
 
-  ### Bei Interesse oder für nähere Informationen
+### Bei Interesse oder für nähere Informationen
 
-  Ganztagesbetreuung am Markgräfler Gymnasium Müllheim  
-  Alice Grether | [a.grether@forum-jugend-beruf.de](mailto:a.grether@forum-jugend-beruf.de "a.grether@forum-jugend-beruf.de") | 0176 179 109 43
+Ganztagesbetreuung am Markgräfler Gymnasium Müllheim  
+Alice Grether | [a.grether@forum-jugend-beruf.de](mailto:a.grether@forum-jugend-beruf.de "a.grether@forum-jugend-beruf.de") | 0176 179 109 43
