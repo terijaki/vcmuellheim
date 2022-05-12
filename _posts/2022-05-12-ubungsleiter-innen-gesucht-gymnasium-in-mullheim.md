@@ -21,12 +21,11 @@ Die Vergütung liegt bei 15€ pro Stunde.
 
 ### Wann?
 
-
 * Gerne ab sofort (Mai/ Juni 2022) oder auch zu einem späteren Zeitpunkt
 * 1-2 x pro Woche von 13:45 – 15:30 Uhr
+* Arbeitszeiten während der Schulzeit: Montag bis Donnerstag von 8:00 bis 15:30 Uhr
 
 ### Voraussetzungen
-
 
 * Pädagogisches Geschick
 * Spaß an der Arbeit mit Kindern
