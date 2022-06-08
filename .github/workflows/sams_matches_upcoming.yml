@@ -24,16 +24,14 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Fetch from SAMS
-        id: fetch
         run: |
           mkdir -p $GIT_PATH/${{matrix.time}}
           curl -o $GIT_PATH/${{matrix.time}}/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&${{matrix.time}}=true&teamId=${{matrix.teams}}"
 
       - name: XSLT
-        id: xslt
         continue-on-error: true
         run: | 
-          rpm -Uv libxml2-2.6.27-1.i386.rpm
+          sudo alien -i libxml2-2.6.27-1.i386.rpm
           xsltproc -version
           xsltproc 'sams/matches.xslt' '$GIT_PATH/${{matrix.time}}/${{matrix.teams}}.xml' > $GIT_PATH/${{matrix.time}}/${{matrix.teams}}.html
 
