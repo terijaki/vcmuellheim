@@ -17,7 +17,6 @@ jobs:
       matrix:
         teams: [18452008, 18450973, 18450721, 19046138] #herren1 herren2 damen1 damen2
 
-
     runs-on: ubuntu-latest
     steps:
       - name: Fetch from SAMS
@@ -25,6 +24,10 @@ jobs:
         run: |
           mkdir -p sams
           curl -o sams/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&future=true&teamId=${{matrix.teams}}"
+
+  Git:
+    runs-on: ubuntu-latest
+    steps:
 
       - name: Setup Git Config
         run: |
