@@ -1,0 +1,21 @@
+name: SAMS Match Schedule BACKUP
+
+on:
+  schedule:
+  - cron: 33 6 * * 3
+  workflow_dispatch:
+  
+env:
+  SAMS_KEY: ${{ secrets.SAMS_API }}
+  SAMS_URL: https://www.volleyball-baden.de
+  SAMS_TEAMID: 18452008
+
+
+jobs:
+  Whatever-I-Want:
+      uses: terijaki/sams/.github/workflows/action.yml@main
+      with:
+        server-url: https://www.volleyball-baden.de
+        team-id: 18452008
+      secrets:
+          api-key: ${{ secrets.SAMS_API }}
