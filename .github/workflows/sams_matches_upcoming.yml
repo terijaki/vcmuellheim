@@ -20,21 +20,10 @@ jobs:
         time: [past, future]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v3
-
       - name: Fetch from SAMS
         run: |
           mkdir -p $GIT_PATH/${{matrix.time}}
           curl -o $GIT_PATH/${{matrix.time}}/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&${{matrix.time}}=true&teamId=${{matrix.teams}}"
-
-      - name: XSLT
-        continue-on-error: true
-        run: | 
-          sudo apt-get install alien dpkg-dev debhelper build-essential
-          sudo alien -i libxml2-2.6.27-1.i386.rpm
-          xsltproc -version
-          xsltproc 'sams/matches.xslt' '$GIT_PATH/${{matrix.time}}/${{matrix.teams}}.xml' > $GIT_PATH/${{matrix.time}}/${{matrix.teams}}.html
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
