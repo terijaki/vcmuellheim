@@ -25,6 +25,13 @@ jobs:
           mkdir -p sams
           curl -o sams/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&future=true&teamId=${{matrix.teams}}"
 
+    - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{matrix.teams}}
+          path: sams
+
+
   Git:
     needs: Fetch-to-XML
     runs-on: ubuntu-latest
@@ -33,6 +40,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          
+      - name: Download Exports
+        uses: actions/download-artifact@v3
+        with:
+          name: sams
+          path: sams
           
       - name: Setup Git Config
         run: |
