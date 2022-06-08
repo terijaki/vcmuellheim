@@ -32,7 +32,7 @@ jobs:
           git config user.email "<>"
           
       - name: Git Commit
-        continue-on-error: true
+        continue-on-error: true # don't throw an error as there won't always be changes compared to the existing file
         run: |
           git add "sams/club.xml"
           git commit -m "sams scheduled update"
