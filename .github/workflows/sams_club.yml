@@ -32,7 +32,8 @@ jobs:
           git config user.email "<>"
           
       - name: Git Commit
+        continue-on-error: true
         run: |
           git add "sams/club.xml"
           git commit -m "sams scheduled update"
-          git push origin --all
+          git push origin --all --quiet
