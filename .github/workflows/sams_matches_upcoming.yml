@@ -9,6 +9,7 @@ env:
   SAMS_KEY: ${{ secrets.SAMS_API }}
   SAMS_URL: https://www.volleyball-baden.de
   SAMS_TEAMIDS: "[18452008, 18450973, 18450721, 19046138]" #herren1 herren2 damen1 damen2
+  GIT_PATH: sams/matches
 
 
 jobs:
@@ -16,20 +17,21 @@ jobs:
     strategy:
       matrix:
         teams: [18452008, 18450973, 18450721, 19046138] #herren1 herren2 damen1 damen2
+        time: [past, future]
 
     runs-on: ubuntu-latest
     steps:
       - name: Fetch from SAMS
         id: fetch
         run: |
-          mkdir -p sams
-          curl -o sams/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&future=true&teamId=${{matrix.teams}}"
+          mkdir -p $GIT_PATH
+          curl -o $GIT_PATH/${{matrix.time}}/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&${{matrix.time}}=true&teamId=${{matrix.teams}}"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: matches
-          path: sams
+          path: $GIT_PATH/${{matrix.time}}
 
 
   Git:
@@ -45,7 +47,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: matches
-          path: sams
+          path: $GIT_PATH
           
       - name: Setup Git Config
         run: |
@@ -55,6 +57,6 @@ jobs:
       - name: Git Commit
         continue-on-error: true # don't throw an error as there won't always be changes compared to the existing file
         run: |
-          git add "sams/*"
+          git add "$GIT_PATH/*"
           git commit -m "sams scheduled update"
           git push origin --all --quiet
