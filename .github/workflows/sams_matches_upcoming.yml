@@ -18,14 +18,17 @@ jobs:
       matrix:
         teams: [18452008, 18450973, 18450721, 19046138] #herren1 herren2 damen1 damen2
         time: [past, future]
-
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+
       - name: Fetch from SAMS
         id: fetch
         run: |
-          mkdir -p $GIT_PATH
-          curl -o $GIT_PATH/${{matrix.time}}/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&${{matrix.time}}=true&teamId=${{matrix.teams}}"
+          mkdir -p $GIT_PATH/${{matrix.time}}
+       #   curl -o $GIT_PATH/${{matrix.time}}/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&${{matrix.time}}=true&teamId=${{matrix.teams}}"
+          xsltproc 'sams/matches.xslt' '$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&${{matrix.time}}=true&teamId=${{matrix.teams}}' > $GIT_PATH/${{matrix.time}}/${{matrix.teams}}.html
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
