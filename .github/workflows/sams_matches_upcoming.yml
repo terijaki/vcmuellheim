@@ -28,7 +28,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{matrix.teams}}
+          name: matches
           path: sams
 
 
@@ -44,6 +44,7 @@ jobs:
       - name: Download Exports
         uses: actions/download-artifact@v3
         with:
+          name: matches
           path: sams
           
       - name: Setup Git Config
