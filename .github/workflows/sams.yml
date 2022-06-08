@@ -1,0 +1,32 @@
+name: SAMS Data Sync
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/workflows/**'
+      - '.gitignore'
+      - '**.md'
+  workflow_dispatch:
+  
+env:
+  SAMS_KEY: ${{ secrets.SAMS_ API}}
+  SAMS_URL: "https://www.volleyball-baden.de"
+  SAMS_CLUBID: "471"
+
+
+jobs:
+  Build_Exports:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Fetch Club Data
+        run: |
+          curl -s $SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID > /sams/club.xml
+
+      - name: Publish Export Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: sams
+          path: sams
