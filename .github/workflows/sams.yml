@@ -23,6 +23,7 @@ jobs:
 
       - name: Fetch Club Data
         run: |
+          mkdir sams
           curl -s $SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID > /sams/club.xml
 
       - name: Publish Export Artifact
