@@ -1,13 +1,8 @@
-name: SAMS Data Sync
+name: SAMS Club Data Sync
 
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '.github/workflows/**'
-      - '.gitignore'
-      - '**.md'
+  schedule:
+  - cron: "33 6 * * 3"
   workflow_dispatch:
   
 env:
@@ -17,17 +12,28 @@ env:
 
 
 jobs:
-  Build_Exports:
+  SAMS_Club-Sync:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Fetch Club Data
+      - name: fetch club data
         run: |
           mkdir sams
           curl -o sams/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
 
-      - name: Publish Export Artifact
+      - name: publish export artifact
         uses: actions/upload-artifact@v3
         with:
           name: sams
           path: sams
+
+      - name: setup git config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          
+      - name: git commit
+        run: |
+          git add "sams/club.xml"
+          git commit -m "sams scheduled update"
+          git push origin --all
