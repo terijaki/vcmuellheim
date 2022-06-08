@@ -22,8 +22,8 @@ jobs:
     steps:
       - name: Fetch from SAMS
         run: |
-          mkdir -p $GIT_PATH/${{matrix.time}}
-          curl -o $GIT_PATH/${{matrix.time}}/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&${{matrix.time}}=true&teamId=${{matrix.teams}}"
+          mkdir -p $REPO_TARGET/${{matrix.time}}
+          curl -o $REPO_TARGET/${{matrix.time}}/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&${{matrix.time}}=true&teamId=${{matrix.teams}}"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
@@ -55,6 +55,6 @@ jobs:
       - name: Git Commit
         continue-on-error: true # don't throw an error as there won't always be changes compared to the existing file
         run: |
-          git add "$GIT_PATH/*"
+          git add "$REPO_TARGET/*"
           git commit -m "sams scheduled update"
           git push origin --all --quiet
