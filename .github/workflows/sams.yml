@@ -13,32 +13,26 @@ env:
 
 
 jobs:
-  SAMS_Club-Sync:
+  SAMS_Sync_and_Push:
     runs-on: ubuntu-latest
     steps:
 
-      - name: checkout source code
+      - name: Checkout Source Code
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: fetch club data
+      - name: Fetch Club Data
         run: |
           mkdir sams
           curl -o sams/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
 
-      - name: publish export artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: sams
-          path: sams
-
-      - name: setup git config
+      - name: Setup Git Config
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
           
-      - name: git commit
+      - name: Git Commit
         run: |
           git add "sams/club.xml"
           git commit -m "sams scheduled update"
