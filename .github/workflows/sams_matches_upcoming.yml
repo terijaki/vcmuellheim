@@ -15,7 +15,7 @@ jobs:
   SAMS_Sync_and_Push:
     runs-on: ubuntu-latest
     steps:
-      - uses: terijaki/sams/matches.yml@main
+      - uses: terijaki/sams@main
         with:
           server-url: $SAMS_URL
           api-key: $SAMS_KEY
