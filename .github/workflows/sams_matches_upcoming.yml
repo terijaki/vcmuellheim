@@ -27,11 +27,11 @@ jobs:
         run: |
           mkdir -p $GIT_PATH/${{matrix.time}}
           curl -o $GIT_PATH/${{matrix.time}}/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&${{matrix.time}}=true&teamId=${{matrix.teams}}"
-          ls -R
 
       - name: XSLT
         continue-on-error: true
         run: | 
+          sudo apt-get install alien dpkg-dev debhelper build-essential
           sudo alien -i libxml2-2.6.27-1.i386.rpm
           xsltproc -version
           xsltproc 'sams/matches.xslt' '$GIT_PATH/${{matrix.time}}/${{matrix.teams}}.xml' > $GIT_PATH/${{matrix.time}}/${{matrix.teams}}.html
@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: matches
-          path: $GIT_PATH/${{matrix.time}}/${{matrix.teams}}.xml
+          path: $GIT_PATH
 
 
   Git:
