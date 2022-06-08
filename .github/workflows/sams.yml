@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
   
 env:
-  SAMS_KEY: ${{ secrets.SAMS_ API}}
+  SAMS_KEY: ${{ secrets.SAMS_ API }}
   SAMS_URL: "https://www.volleyball-baden.de"
   SAMS_CLUBID: "471"
 
