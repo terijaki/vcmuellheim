@@ -9,7 +9,7 @@ env:
   SAMS_KEY: ${{ secrets.SAMS_API }}
   SAMS_URL: https://www.volleyball-baden.de
   SAMS_TEAMIDS: "[18452008, 18450973, 18450721, 19046138]" #herren1 herren2 damen1 damen2
-  GIT_PATH: sams/matches
+  REPO_TARGET: sams/matches
 
 
 jobs:
@@ -45,7 +45,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: matches
-          path: $GIT_PATH
+          path: $REPO_TARGET
           
       - name: Setup Git Config
         run: |
