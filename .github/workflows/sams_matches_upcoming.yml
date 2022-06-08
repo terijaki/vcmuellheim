@@ -44,7 +44,6 @@ jobs:
       - name: Download Exports
         uses: actions/download-artifact@v3
         with:
-          name: sams
           path: sams
           
       - name: Setup Git Config
