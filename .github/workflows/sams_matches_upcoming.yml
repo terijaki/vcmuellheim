@@ -18,7 +18,7 @@ jobs:
 
       - uses: terijaki/sams/matches.yml
         with:
-          server-url:$SAMS_URL
+          server-url: $SAMS_URL
           api-key: $SAMS_KEY
-          team-id:$SAMS_TEAMID
+          team-id: $SAMS_TEAMID
         
