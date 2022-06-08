@@ -2,20 +2,26 @@ name: SAMS Match Schedule
 
 on:
   schedule:
-  - cron: 33 6 * * 3
+  - cron: 33 6 * * *
   workflow_dispatch:
   
 env:
   SAMS_KEY: ${{ secrets.SAMS_API }}
   SAMS_URL: https://www.volleyball-baden.de
-  SAMS_TEAMID: 18452008
+  SAMS_TEAMIDS: "[18452008, 18450973, 18450721, 19046138]" #herren1 herren2 damen1 damen2
 
 
 jobs:
-  Whatever-I-Want:
-      uses: terijaki/sams/.github/workflows/action.yml@main
-      with:
-        server-url: https://www.volleyball-baden.de
-        team-id: 18452008
-      secrets:
-          api-key: ${{ secrets.SAMS_API }}
+  Fetch-to-XML:
+    strategy:
+      matrix:
+        teams: [18452008, 18450973, 18450721, 19046138] #herren1 herren2 damen1 damen2
+
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch from SAMS
+        id: fetch
+        run: |
+        mkdir -p sams
+        curl -o sams/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&future=true&teamId=${{matrix.teams}}"
