@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: terijaki/sams/matches.yml
+      - uses: terijaki/sams/matches.yml@main
         with:
           server-url: $SAMS_URL
           api-key: $SAMS_KEY
