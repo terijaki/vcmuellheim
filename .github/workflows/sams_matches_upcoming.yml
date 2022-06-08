@@ -7,8 +7,8 @@ on:
   
 env:
   SAMS_KEY: ${{ secrets.SAMS_API }}
-  SAMS_URL: "https://www.volleyball-baden.de"
-  SAMS_TEAMID: "18452008"
+  SAMS_URL: https://www.volleyball-baden.de
+  SAMS_TEAMID: 18452008
 
 
 jobs:
