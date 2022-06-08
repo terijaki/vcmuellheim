@@ -13,11 +13,9 @@ env:
 
 jobs:
   Whatever-I-Want:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Call SAMS
-        uses: terijaki/sams/.github/workflows/action.yml@main
-        with:
-          server-url: $SAMS_URL
+      uses: terijaki/sams/.github/workflows/action.yml@main
+      with:
+        server-url: $SAMS_URL
+        team-id: $SAMS_TEAMID
+      secrets:
           api-key: $SAMS_KEY
-          team-id: $SAMS_TEAMID
