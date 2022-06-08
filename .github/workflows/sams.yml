@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
   
 env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SAMS_KEY: ${{ secrets.SAMS_API }}
   SAMS_URL: "https://www.volleyball-baden.de"
   SAMS_CLUBID: "471"
@@ -15,6 +16,11 @@ jobs:
   SAMS_Club-Sync:
     runs-on: ubuntu-latest
     steps:
+
+      - name: checkout source code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: fetch club data
         run: |
