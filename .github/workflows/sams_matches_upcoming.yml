@@ -15,7 +15,7 @@ jobs:
   Whatever-I-Want:
       uses: terijaki/sams/.github/workflows/action.yml@main
       with:
-        server-url: $SAMS_URL
-        team-id: $SAMS_TEAMID
+        server-url: https://www.volleyball-baden.de
+        team-id: 18452008
       secrets:
-          api-key: $SAMS_KEY
+          api-key: ${{ secrets.SAMS_API }}
