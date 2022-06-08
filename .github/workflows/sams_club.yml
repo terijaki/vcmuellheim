@@ -6,7 +6,6 @@ on:
   workflow_dispatch:
   
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SAMS_KEY: ${{ secrets.SAMS_API }}
   SAMS_URL: "https://www.volleyball-baden.de"
   SAMS_CLUBID: "471"
