@@ -23,5 +23,17 @@ jobs:
       - name: Fetch from SAMS
         id: fetch
         run: |
-        mkdir -p sams
-        curl -o sams/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&future=true&teamId=${{matrix.teams}}"
+          mkdir -p sams
+          curl -o sams/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&future=true&teamId=${{matrix.teams}}"
+
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          
+      - name: Git Commit
+        continue-on-error: true # don't throw an error as there won't always be changes compared to the existing file
+        run: |
+          git add "sams/*"
+          git commit -m "sams scheduled update"
+          git push origin --all --quiet
