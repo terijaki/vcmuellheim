@@ -6,7 +6,6 @@ on:
   workflow_dispatch:
   
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SAMS_KEY: ${{ secrets.SAMS_API }}
   SAMS_URL: "https://www.volleyball-baden.de"
   SAMS_TEAMID: "18452008"
@@ -17,23 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Checkout Source Code
-        uses: actions/checkout@v3
+      - uses: terijaki/sams/matches.yml
         with:
-          fetch-depth: 0
-
-      - name: Fetch Club Data
-        run: |
-          mkdir sams
-          curl -o sams/termine_$SAMS_TEAMID.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&future=true&teamId=$SAMS_CLUBID"
-
-      - name: Setup Git Config
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-          
-      - name: Git Commit
-        run: |
-          git add "sams/termine_$SAMS_TEAMID.xml"
-          git commit -m "sams scheduled update"
-          git push origin --all
+          server-url:$SAMS_URL
+          api-key: $SAMS_KEY
+          team-id:$SAMS_TEAMID
+        
