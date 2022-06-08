@@ -26,9 +26,14 @@ jobs:
           curl -o sams/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&future=true&teamId=${{matrix.teams}}"
 
   Git:
+    needs: Fetch-to-XML
     runs-on: ubuntu-latest
     steps:
-
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
       - name: Setup Git Config
         run: |
           git config user.name "GitHub Actions Bot"
