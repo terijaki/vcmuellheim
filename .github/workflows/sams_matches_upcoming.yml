@@ -25,7 +25,7 @@ jobs:
           mkdir -p sams
           curl -o sams/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&future=true&teamId=${{matrix.teams}}"
 
-    - name: Upload Artifact
+      - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: ${{matrix.teams}}
