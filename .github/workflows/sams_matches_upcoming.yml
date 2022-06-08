@@ -28,7 +28,13 @@ jobs:
         run: |
           mkdir -p $GIT_PATH/${{matrix.time}}
           curl -o $GIT_PATH/${{matrix.time}}/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&${{matrix.time}}=true&teamId=${{matrix.teams}}"
-          xsltproc 'sams/matches.xslt' '$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&${{matrix.time}}=true&teamId=${{matrix.teams}}' > $GIT_PATH/${{matrix.time}}/${{matrix.teams}}.html
+
+      - name: XSLT
+        id: xslt
+        continue-on-error: true
+        run: | 
+          xsltproc -version
+# xsltproc 'sams/matches.xslt' '$GIT_PATH/${{matrix.time}}/${{matrix.teams}}.xml' > $GIT_PATH/${{matrix.time}}/${{matrix.teams}}.html
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
