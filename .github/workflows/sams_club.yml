@@ -23,7 +23,7 @@ jobs:
 
       - name: Fetch Club Data
         run: |
-          mkdir sams
+          mkdir -p sams
           curl -o sams/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
 
       - name: Setup Git Config
