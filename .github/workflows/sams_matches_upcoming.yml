@@ -24,15 +24,16 @@ jobs:
           xml-file: 'sams/club.xml'
           xpath: '/sportsclub/teams/team/seasonTeamId'
         
-      - name: Echo Teams
-        run: echo 'Teams:${{ steps.getxml.outputs.info }}'
+      - name: Log Team IDs
+        id: teamsarray
+        run: echo "::set-output name=teamids::[${{ steps.getxml.outputs.info }}]"
 
 
   Fetch-to-XML:
     needs: Get-Teams
     strategy:
       matrix:
-        teams: '[${{ steps.getxml.outputs.info }}]'
+        teams: '[${{ steps.teamsarray.outputs.teamits }}]'
         time: '[past, future]'
     runs-on: ubuntu-latest
     steps:
