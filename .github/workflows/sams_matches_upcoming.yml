@@ -18,11 +18,16 @@ jobs:
     outputs:
       teamids: ${{steps.teamsarray.outputs.teamids}}
     steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - name: Get XML
         id: getxml
         uses: mavrosxristoforos/get-xml-info@1.0
         with:
-          xml-file: 'https://vcmuellheim.de/sams/club.xml'
+          xml-file: 'sams/club.xml'
           xpath: '/sportsclub/teams/team/seasonTeamId'
         
       - name: Log Team IDs
