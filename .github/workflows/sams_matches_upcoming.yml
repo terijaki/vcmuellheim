@@ -16,6 +16,7 @@ env:
 jobs:
   Get-Teams:
     runs-on: ubuntu-latest
+    steps:
       - name: Get XML
         id: getxml
         uses: mavrosxristoforos/get-xml-info@1.0
