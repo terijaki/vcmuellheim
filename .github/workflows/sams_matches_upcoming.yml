@@ -33,7 +33,7 @@ jobs:
     strategy:
       matrix:
         teams: '[${{ steps.getxml.outputs.info }}]'
-        time: '[past, future]
+        time: '[past, future]'
     runs-on: ubuntu-latest
     steps:
       - name: Fetch from SAMS
