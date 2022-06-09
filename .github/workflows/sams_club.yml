@@ -26,6 +26,17 @@ jobs:
           mkdir -p sams
           curl -o sams/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
 
+      - name: Get XML
+        id: getxml
+        uses: mavrosxristoforos/get-xml-info@1.0
+          with:
+            xml-file: 'sams/club.xml'
+            xpath: '/sportsclub/teams/team/seasonTeamId'
+        
+      - name: Echo Teams
+        run: echo "Teams: ${{ steps.getxml.outputs.info }}"
+
+
       - name: Setup Git Config
         run: |
           git config user.name "GitHub Actions Bot"
