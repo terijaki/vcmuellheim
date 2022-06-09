@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       teamids: ${{steps.teamsarray.outputs.teamids}}
+    steps:
       - name: Get XML
         id: getxml
         uses: mavrosxristoforos/get-xml-info@1.0
