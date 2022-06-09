@@ -2,7 +2,8 @@ name: SAMS Match Schedule
 
 on:
   schedule:
-  - cron: 33 6 * * *
+  - cron: 33 6 * * * # every night
+  - cron: 0 10-22 * * 0,6 # every hour on sa & sun between 10AM - 10PM
   workflow_dispatch:
   
 env:
@@ -13,10 +14,24 @@ env:
 
 
 jobs:
+  Get-Teams:
+    runs-on: ubuntu-latest
+      - name: Get XML
+        id: getxml
+        uses: mavrosxristoforos/get-xml-info@1.0
+        with:
+          xml-file: 'sams/club.xml'
+          xpath: '/sportsclub/teams/team/seasonTeamId'
+        
+      - name: Echo Teams
+        run: echo 'Teams:${{ steps.getxml.outputs.info }}'
+
+
   Fetch-to-XML:
+    needs: Get-Teams
     strategy:
       matrix:
-        teams: [18452008, 18450973, 18450721, 19046138] #herren1 herren2 damen1 damen2
+        teams: [${{ steps.getxml.outputs.info }}]
         time: [past, future]
     runs-on: ubuntu-latest
     steps:
@@ -32,7 +47,7 @@ jobs:
           path: ${{env.REPO_TARGET}}
 
 
-  Git:
+  Git-Update:
     needs: Fetch-to-XML
     runs-on: ubuntu-latest
     steps:
