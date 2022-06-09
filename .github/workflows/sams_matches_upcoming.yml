@@ -40,7 +40,7 @@ jobs:
     needs: Get-Teams
     strategy:
       matrix:
-        teams: ${{needs.Get-Teams.outputs.teamids}}
+        teams: [18452008,22045330,18450973,18450721,19046138,22045303,22045312,22045321,20039647] #${{needs.Get-Teams.outputs.teamids}}
         time: [past, future]
     runs-on: ubuntu-latest
     steps:
