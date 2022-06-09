@@ -33,7 +33,7 @@ jobs:
     needs: Get-Teams
     strategy:
       matrix:
-        teams: ${{ steps.teamsarray.outputs.teamids }}
+        teams: ${{ jobs.Get-Teams.steps.teamsarray.outputs.teamids }}
         time: [past, future]
     runs-on: ubuntu-latest
     steps:
