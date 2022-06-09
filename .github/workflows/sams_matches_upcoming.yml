@@ -19,6 +19,11 @@ jobs:
     outputs:
       teamids: ${{steps.getxml.teamsarray.teamids}}
     steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
       - name: Get XML
         id: getxml
         uses: mavrosxristoforos/get-xml-info@1.0
