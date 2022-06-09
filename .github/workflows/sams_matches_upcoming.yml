@@ -9,7 +9,6 @@ on:
 env:
   SAMS_KEY: ${{ secrets.SAMS_API }}
   SAMS_URL: https://www.volleyball-baden.de
-  SAMS_TEAMIDS: "[18452008, 18450973, 18450721, 19046138]" #herren1 herren2 damen1 damen2
   REPO_TARGET: sams/matches
 
 
