@@ -29,13 +29,13 @@ jobs:
       - name: Get XML
         id: getxml
         uses: mavrosxristoforos/get-xml-info@1.0
-          with:
-            xml-file: 'sams/club.xml'
-            xpath: '/sportsclub/teams/team/seasonTeamId'
+        with:
+          xml-file: 'sams/club.xml'
+          xpath: '/sportsclub/teams/team/seasonTeamId'
         
       - name: Echo Teams
-        run: echo "Teams: ${{ steps.getxml.outputs.info }}"
-
+        run: echo 'Teams:${{ steps.getxml.outputs.info }}'
+      
 
       - name: Setup Git Config
         run: |
