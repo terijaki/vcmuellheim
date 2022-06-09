@@ -16,6 +16,8 @@ env:
 jobs:
   Get-Teams:
     runs-on: ubuntu-latest
+    outputs:
+      teamids: ${{steps.getxml.teamsarray.teamids}}
     steps:
       - name: Get XML
         id: getxml
@@ -26,14 +28,14 @@ jobs:
         
       - name: Log Team IDs
         id: teamsarray
-        run: echo "::set-output name=teamids::[${{ steps.getxml.outputs.info }}]"
+        run: echo "::set-output name=teamids::[${{steps.getxml.outputs.info}}]"
 
 
   Fetch-to-XML:
     needs: Get-Teams
     strategy:
       matrix:
-        teams: ${{ jobs.Get-Teams.steps.teamsarray.outputs.teamids }}
+        teams: ${{needs.Get-Teams.outputs.teamids}}
         time: [past, future]
     runs-on: ubuntu-latest
     steps:
