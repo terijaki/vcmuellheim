@@ -32,8 +32,8 @@ jobs:
     needs: Get-Teams
     strategy:
       matrix:
-        teams: ${{ steps.getxml.outputs.info }}
-        time: [past, future]
+        teams: '[${{ steps.getxml.outputs.info }}]'
+        time: '[past, future]
     runs-on: ubuntu-latest
     steps:
       - name: Fetch from SAMS
