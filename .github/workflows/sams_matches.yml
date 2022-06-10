@@ -29,7 +29,7 @@ jobs:
           xml-file: "sams/club.xml"
           xpath: "/sportsclub/teams/team/seasonTeamId" #extract all team IDs from the XML
 
-      - name: Log Team IDs
+      - name: Transform Team IDs
         id: teamsarray
         run: echo "::set-output name=teamids::[${{steps.getxml.outputs.info}}]" # transform IDs from "123,456,789" to "[123,456,789]"
 
