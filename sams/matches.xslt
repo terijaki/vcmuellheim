@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:template match="/">
-        <table>
-            <tr>
-                <th>Datum</th>
-                <th>Team 1</th>
-                <th>Team 2</th>
-                <th>Austragungsort</th>
-            </tr>
+---
+Team: <xsl:value-of select="teamName"/>
+League: <xsl:value-of select="league"/>
+LeagueRank: <xsl:value-of select="LeagueRank"/>
+---
+        <div class="matches schedule <xsl:value-of select='pastfuture'/>">
+            <<div>>
+                <div>Datum</div>
+                <div>Team 1</div>
+                <div>Team 2</div>
+                <div>Austragungsort</div>
+            </div>
             <xsl:for-each select="matches/match">
-                <tr>
-                    <td>
-                        <xsl:value-of select="date"/>
-                        <br/>
+                <div>
+                    <div>
+                        <xsl:value-of select="date"/><br/>
                         <xsl:value-of select="time"/> Uhr
-                    </td>
+                    </div>
                     <xsl:for-each select="team">
                         <xsl:sort select="number"/>
-                        <td>
+                        <div>
                             <xsl:value-of select="name"/>
-                        </td>
+                        </div>
                     </xsl:for-each>
-                    <td>
+                    <div>
                         <xsl:value-of select="location/city"/> (
                         <xsl:value-of select="location/street"/>)
-                    </td>
-                </tr>
+                    </div>
+                </div>
             </xsl:for-each>
-        </table>
+        </div>
     </xsl:template>
 </xsl:stylesheet>
