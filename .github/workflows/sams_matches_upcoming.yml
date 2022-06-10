@@ -7,18 +7,18 @@ on:
   workflow_dispatch:
   
 env:
-  SAMS_KEY: ${{ secrets.SAMS_API }}
-  SAMS_URL: https://www.volleyball-baden.de
-  REPO_TARGET: sams/matches
+  SAMS_KEY: ${{ secrets.SAMS_API }} # SAMS API key
+  SAMS_URL: https://www.volleyball-baden.de # start of the api http structure
+  REPO_TARGET: sams/matches # the folder I want the output to go to
 
 
 jobs:
   Get-Teams:
     runs-on: ubuntu-latest
     outputs:
-      teamids: ${{steps.teamsarray.outputs.teamids}}
+      teamids: ${{steps.teamsarray.outputs.teamids}} # outputs team IDs in the form of [123,456,789]
     steps:
-      - name: Checkout Source Code
+      - name: Checkout Source Code # so I can use the club.xml which is synced less often
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -28,22 +28,23 @@ jobs:
         uses: mavrosxristoforos/get-xml-info@1.0
         with:
           xml-file: 'sams/club.xml'
-          xpath: '/sportsclub/teams/team/seasonTeamId'
+          xpath: '/sportsclub/teams/team/seasonTeamId' #extract all team IDs from the XML
         
       - name: Log Team IDs
         id: teamsarray
-        run: echo "::set-output name=teamids::[${{steps.getxml.outputs.info}}]"
+        run: echo "::set-output name=teamids::[${{steps.getxml.outputs.info}}]" # transform IDs from "123,456,789" to "[123,456,789]"
 
 
   Fetch-to-XML:
     needs: Get-Teams
     strategy:
+      continue-on-error: true # if one team fails, the flow should continue
       matrix:
-        teams: ${{needs.Get-Teams.outputs.teamids}}
+        teams: ${{needs.Get-Teams.outputs.teamids}} # THIS IS NOT WORKING! BUT WHY?!?!?!?!?
         time: [past, future]
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch from SAMS
+      - name: Fetch from SAMS # make the API call to the SAMS server and save it as XML
         run: |
           mkdir -p ${{env.REPO_TARGET}}/${{matrix.time}}
           curl -o ${{env.REPO_TARGET}}/${{matrix.time}}/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&${{matrix.time}}=true&teamId=${{matrix.teams}}"
@@ -76,7 +77,7 @@ jobs:
           git config user.email "<>"
           
       - name: Git Commit
-        continue-on-error: true # don't throw an error as there won't always be changes compared to the existing file
+        continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git add "${{env.REPO_TARGET}}/*"
           git commit -m "sams scheduled update"
