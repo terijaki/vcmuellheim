@@ -40,7 +40,7 @@ jobs:
     continue-on-error: true # if one team fails, the flow should continue
     strategy:
       matrix:
-        teams: ${{fromJSON(needs.Get-Teams.outputs.teamids)}} # THIS IS NOT WORKING! BUT WHY?!?!?!?!? See https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#example-using-contexts-to-create-matrices
+        teams: ${{fromJSON(needs.Get-Teams.outputs.teamids)}} # this has to use fromJSON, see https://github.blog/changelog/2020-04-15-github-actions-new-workflow-features/
         time: [past, future]
     runs-on: ubuntu-latest
     steps:
