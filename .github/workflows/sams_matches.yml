@@ -40,7 +40,7 @@ jobs:
     strategy:
       continue-on-error: true # if one team fails, the flow should continue
       matrix:
-        teams: ${{needs.Get-Teams.outputs.teamids}} # THIS IS NOT WORKING! BUT WHY?!?!?!?!?
+        teams: ${{needs.Get-Teams.outputs.teamids}} # THIS IS NOT WORKING! BUT WHY?!?!?!?!? See https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#example-using-contexts-to-create-matrices
         time: [past, future]
     runs-on: ubuntu-latest
     steps:
