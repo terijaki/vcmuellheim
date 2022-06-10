@@ -58,13 +58,12 @@ jobs:
     strategy:
       matrix:
         matchseriesid: ${{fromJSON(needs.Get-MatchSeries.outputs)}} # this has to use fromJSON, see https://github.blog/changelog/2020-04-15-github-actions-new-workflow-features/
-        time: [past, future]
     runs-on: ubuntu-latest
     steps:
       - name: Fetch from SAMS # make the API call to the SAMS server and save it as XML
         run: |
-          mkdir -p ${{env.REPO_TARGET}}/${{matrix.time}}
-          curl -o ${{env.REPO_TARGET}}/${{matrix.time}}/${{matrix.matchseriesid}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{matrix.matchseriesid}}"
+          mkdir -p ${{env.REPO_TARGET}}
+          curl -o ${{env.REPO_TARGET}}/${{matrix.matchseriesid}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{matrix.matchseriesid}}"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
