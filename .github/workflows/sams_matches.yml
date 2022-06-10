@@ -2,15 +2,14 @@ name: SAMS Match Schedule
 
 on:
   schedule:
-  - cron: 33 6 * * * # every night
-  - cron: 0 10-22 * * 0,6 # every hour on sa & sun between 10AM - 10PM
+    - cron: 33 6 * * * # every night
+    - cron: 0 10-22 * * 0,6 # every hour on sa & sun between 10AM - 10PM
   workflow_dispatch:
-  
+
 env:
   SAMS_KEY: ${{ secrets.SAMS_API }} # SAMS API key
   SAMS_URL: https://www.volleyball-baden.de # start of the api http structure
   REPO_TARGET: sams/matches # the folder I want the output to go to
-
 
 jobs:
   Get-Teams:
@@ -27,13 +26,12 @@ jobs:
         id: getxml
         uses: mavrosxristoforos/get-xml-info@1.0
         with:
-          xml-file: 'sams/club.xml'
-          xpath: '/sportsclub/teams/team/seasonTeamId' #extract all team IDs from the XML
-        
+          xml-file: "sams/club.xml"
+          xpath: "/sportsclub/teams/team/seasonTeamId" #extract all team IDs from the XML
+
       - name: Log Team IDs
         id: teamsarray
         run: echo "::set-output name=teamids::[${{steps.getxml.outputs.info}}]" # transform IDs from "123,456,789" to "[123,456,789]"
-
 
   Fetch-to-XML:
     needs: Get-Teams
@@ -55,7 +53,6 @@ jobs:
           name: matches
           path: ${{env.REPO_TARGET}}
 
-
   Git-Update:
     needs: Fetch-to-XML
     runs-on: ubuntu-latest
@@ -64,18 +61,18 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          
+
       - name: Download Exports
         uses: actions/download-artifact@v3
         with:
           name: matches
           path: ${{env.REPO_TARGET}}
-          
+
       - name: Setup Git Config
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-          
+
       - name: Git Commit
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
