@@ -1,0 +1,100 @@
+name: SAMS Match Schedule
+
+on:
+  schedule:
+    - cron: 33 6 * * * # every night
+    - cron: 0 10-22 * * 0,6 # every hour on sa & sun between 10AM - 10PM
+  workflow_dispatch:
+
+env:
+  SAMS_KEY: ${{ secrets.SAMS_API }} # SAMS API key
+  SAMS_URL: https://www.volleyball-baden.de # start of the api http structure
+  REPO_TARGET: sams/rankings # the folder I want the output to go to
+
+jobs:
+  Get-Teams:
+    runs-on: ubuntu-latest
+    outputs:
+      teamids: ${{steps.teamid-list.outputs.teamids}} # outputs team IDs in the form of [123,456,789]
+    steps:
+      - name: Checkout Source Code # so I can use the club.xml which is synced less often
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Get Team IDs from club.xml
+        id: teamids-from-club
+        uses: mavrosxristoforos/get-xml-info@1.0
+        with:
+          xml-file: "sams/club.xml"
+          xpath: "/sportsclub/teams/team/seasonTeamId" #extract all team IDs from the XML
+      - name: Transform MatchSeries IDs
+        id: teamid-list
+        run: echo "::set-output name=teamids::[${{steps.teamids-from-club.outputs.info}}]" # transform IDs from "123,456,789" to "[123,456,789]"
+
+  Get-MatchSeries:
+    needs: Get-Teams
+    continue-on-error: true # if one team fails, the flow should continue
+    strategy:
+      matrix:
+        teams: ${{fromJSON(needs.Get-Teams.outputs.teamids)}}
+    runs-on: ubuntu-latest
+    outputs:
+      matchseriesid: ${{steps.matchseriesid-from-club.outputs.info}} # outputs the matchSeries ID for this team
+    steps:
+      - name: Checkout Source Code # so I can use the club.xml which is synced less often
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Get Team IDs from club.xml
+        id: matchseriesid-from-club
+        uses: mavrosxristoforos/get-xml-info@1.0
+        with:
+          xml-file: "sams/club.xml"
+          xpath: "team[team=${{matrix.teams}}]/matchSeries/id" #extract the matchSeries ID for this team from the XML
+
+  Fetch-to-XML:
+    needs: Get-MatchSeries
+    continue-on-error: true # if one team fails, the flow should continue
+    strategy:
+      matrix:
+        matchseriesid: ${{fromJSON(needs.Get-MatchSeries.outputs)}} # this has to use fromJSON, see https://github.blog/changelog/2020-04-15-github-actions-new-workflow-features/
+        time: [past, future]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch from SAMS # make the API call to the SAMS server and save it as XML
+        run: |
+          mkdir -p ${{env.REPO_TARGET}}/${{matrix.time}}
+          curl -o ${{env.REPO_TARGET}}/${{matrix.time}}/${{matrix.matchseriesid}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{matrix.matchseriesid}}"
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: rankings
+          path: ${{env.REPO_TARGET}}
+
+  Git-Update:
+    needs: Fetch-to-XML
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Download Exports
+        uses: actions/download-artifact@v3
+        with:
+          name: rankings
+          path: ${{env.REPO_TARGET}}
+
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: Git Commit
+        continue-on-error: true # don't throw an error as there won't always be changes
+        run: |
+          git add "${{env.REPO_TARGET}}/*"
+          git commit -m "sams scheduled update"
+          git push origin --all --quiet
