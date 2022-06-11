@@ -17,15 +17,13 @@ jobs:
     outputs:
       teamids: ${{steps.teamid-list.outputs.teamids}} # outputs team IDs in the form of [123,456,789]
     steps:
-      - name: Checkout Source Code # so I can use the club.xml which is synced less often
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - name: Get club.xml cache # Get the catched club.xml
+        run: curl -o club.xml "https://vcmuellheim.de/sams/club.xml"
       - name: Get Team IDs from club.xml
         id: teamids-from-club
         uses: mavrosxristoforos/get-xml-info@1.0
         with:
-          xml-file: "sams/club.xml"
+          xml-file: "club.xml"
           xpath: "/sportsclub/teams/team/seasonTeamId" #extract all team IDs from the XML
       - name: Transform MatchSeries IDs
         id: teamid-list
@@ -50,7 +48,7 @@ jobs:
         uses: mavrosxristoforos/get-xml-info@1.0
         with:
           xml-file: "sams/club.xml"
-          xpath: "/sportsclub/teams/team[team()='${{matrix.teams}}']/matchSeries/id" #extract the matchSeries ID for this team from the XML
+          xpath: "/sportsclub/teams/team[team='${{matrix.teams}}']/matchSeries/id" #extract the matchSeries ID for this team from the XML
 
   Fetch-to-XML:
     needs: Get-MatchSeries
