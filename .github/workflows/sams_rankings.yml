@@ -50,10 +50,14 @@ jobs:
           xml-file: "club.xml"
           xpath: "/sportsclub/teams/team[id='${{matrix.teams}}']/matchSeries/id" #extract the matchSeries ID for this team from the XML
 
+      - name: Get rankings.xslt template # Get the xslt template
+        run: curl -o rankings.xslt "https://vcmuellheim.de/sams/rankings.xslt"
+
       - name: Fetch from SAMS # make the API call to the SAMS server and save it as XML
         run: |
           mkdir -p ${{env.REPO_TARGET}}
           curl -o ${{env.REPO_TARGET}}/${{matrix.teams}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{steps.matchseriesid-from-club.outputs.info}}"
+          xsltproc rankings.xsl ${{env.REPO_TARGET}}/${{matrix.teams}}.xml > ${{env.REPO_TARGET}}/${{matrix.teams}}.html
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
