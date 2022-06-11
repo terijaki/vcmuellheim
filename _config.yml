@@ -12,9 +12,6 @@ theme_color: "#363b40"
 background_color: "#366273"
 include:
   - _pages
-  - sams/rankings
-  - sams/matches/past
-  - sams/matches/future
 permalink: /:title/
 url: https://vcmuellheim.de
 author: "VC Müllheim"
