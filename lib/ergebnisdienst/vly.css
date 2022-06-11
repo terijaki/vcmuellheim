@@ -1,8 +1,0 @@
-.vly table {
-  margin: auto;
-}
-@media (max-width: 600px) {
-  div.vly {
-    zoom: 0.8;
-  }
-}

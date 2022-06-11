@@ -697,26 +697,6 @@ h6 {
   margin: 0;
 }
 
-/* Ergebnisse Popup on Homepage
---------------------------------*/
-
-.mfp-hide.ergebnisdienst {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  visibility: hidden;
-  opacity: 0;
-  display: none;
-}
-
-.mfp-hide.ergebnisdienst:target {
-  visibility: visible;
-  opacity: 1;
-}
 
 /* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse)
 --------------------------------*/
@@ -743,20 +723,15 @@ h6 {
   overflow-wrap: anywhere;
 }
 
-#ergebnisse-tabelle .vly h1,
 #ergebnisse-tabelle .sams-rankings h1 {
   font-size: 1.4rem;
   font-weight: bold;
 }
 
-.vly table,
 .sams-rankings table {
-  /* .vly = ergebnisdienst class */
   width: 100%
 }
 
-.vly tr :nth-child(4),
-.vly tr :nth-child(7),
 .sams-rankings tr :nth-child(4) {
   display: none;
   /* entfernt Sätze aus der Tabellenübersicht */
@@ -764,14 +739,12 @@ h6 {
 
 @media (min-width: 769px) {
 
-  .vly tr :nth-child(4),
   .sams-rankings tr :nth-child(4) {
     display: block;
     /* Zeigt die Sätze bei größeren Bildschirmen wieder an */
   }
 }
 
-.vly tr>*,
 .sams-rankings tr>* {
   padding: 1px;
   text-align: center;
@@ -792,25 +765,6 @@ h6 {
   text-align: right;
 }
 
-.vly-ad {
-  text-align: right;
-  font-variant: unicase;
-  margin: 0;
-  padding-top: 15px;
-  color: var(--text1);
-}
-
-.vly-ad a {
-  color: var(--text1);
-}
-
-.vly-ad {
-  display: none;
-  /* disabled due to seperate callout */
-}
-
-.vly-team,
-#ergebnisse-tabelle .vcm-team,
 #ergebnisse-tabelle .sams-rankings tr[team~="Müllheim"] {
   color: var(--text2);
   background: var(--gradient1);
