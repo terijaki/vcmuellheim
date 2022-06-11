@@ -17,16 +17,14 @@ jobs:
     outputs:
       teamids: ${{steps.teamsarray.outputs.teamids}} # outputs team IDs in the form of [123,456,789]
     steps:
-      - name: Checkout Source Code # so I can use the club.xml which is synced less often
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - name: Get club.xml cache # Get the catched club.xml
+        run: curl -o club.xml "https://vcmuellheim.de/sams/club.xml"
 
       - name: Get XML
         id: getxml
         uses: mavrosxristoforos/get-xml-info@1.0
         with:
-          xml-file: "sams/club.xml"
+          xml-file: "club.xml"
           xpath: "/sportsclub/teams/team/seasonTeamId" #extract all team IDs from the XML
 
       - name: Transform Team IDs
