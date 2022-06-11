@@ -42,7 +42,7 @@ permalink: /matches/TEAMIDHERE
                                     </td>
                                 </xsl:for-each>
                                     <td>
-                                        <xsl:value-of select="results/setPoints"/> (<xsl:value-of select="results/sballPointst"/>)
+                                        <xsl:value-of select="results/setPoints"/> (<xsl:for-each select="results/sets/set"><xsl:if test="number > 1">, </xsl:if><xsl:value-of select="points"/></xsl:for-each>)
                                     </td>
                                 </tr>
                             </xsl:if>
