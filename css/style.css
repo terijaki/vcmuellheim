@@ -668,7 +668,7 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
   overflow-wrap: anywhere;
 }
-#ergebnisse-tabelle .vly h1 {
+#ergebnisse-tabelle .vly h1, #ergebnisse-tabelle .sams-rankings h1 {
   font-size: 1.4rem;
   font-weight: bold;
 }
