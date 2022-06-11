@@ -61,9 +61,6 @@ jobs:
       - name: Add timestamp to XML # includes a timestamp in German format
         run: sed -i -e 's!</rankings>!<timestamp>'$(date +%d.%m.%Y)', '$(date +%H:%M)' Uhr</timestamp></rankings>!g' xml_temp/${{matrix.teams}}.xml
 
-      - name: Cleanup XML # removes the XML declaration
-        run: sed -i -e 1d xml_temp/${{matrix.teams}}.xml
-
       - name: Transform XML # Push the XML through the XSLT
         run: |
           mkdir -p ${{env.REPO_TARGET}}
