@@ -45,7 +45,7 @@
                         Saison <xsl:value-of select="rankings/matchSeries/season/name"/>
                     </div>
                     <div class="timestamp">
-                        Stand <xsl:value-of select="rankings/timestamp"/> (UTC)
+                        Stand <xsl:value-of select="rankings/timestamp"/>
                     </div>
                 </div>
             </div>
