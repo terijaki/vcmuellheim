@@ -60,6 +60,7 @@ jobs:
 
       - name: Transform XML # Push the XML through the XSLT
         run: |
+          sudo apt-get install xsltproc
           xsltproc rankings.xsl ${{env.REPO_TARGET}}/${{matrix.teams}}.xml > ${{env.REPO_TARGET}}/${{matrix.teams}}.html
 
       - name: Upload Artifact

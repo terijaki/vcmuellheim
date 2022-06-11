@@ -6,8 +6,8 @@ Update: <xsl:value-of select="matchSeries/updated"/>
 League: <xsl:value-of select="matchSeries/name"/>
 LeagueRank: <xsl:value-of select="matchSeries/type/hiearchy/hierarchyLevel"/>
 ---
-        <div class="rankings <xsl:value-of select='matchSeries/type/hiearchy/hierarchyLevel'/> <xsl:value-of select='matchSeries/id'/>">
-            <<div>>
+        <div class="rankings">
+            <div>
                 <div>Platz</div>
                 <div>Mannschft</div>
                 <div>Siege</div>
@@ -15,23 +15,23 @@ LeagueRank: <xsl:value-of select="matchSeries/type/hiearchy/hierarchyLevel"/>
                 <div>Punkte</div>
             </div>
             <xsl:for-each select="ranking">
+            <div>
                 <div>
-                    <div>
-                        <xsl:value-of select="place"/>
-                    </div>
-                    <div>
-                        <xsl:value-of select="team/name"/>
-                    </div>
-                    <div>
-                        <xsl:value-of select="wins"/>
-                    </div>
-                    <div>
-                        <xsl:value-of select="setPoints"/>
-                    </div>
-                    <div>
-                        <xsl:value-of select="setPointDifference"/>
-                    </div>
+                    <xsl:value-of select="place"/>
                 </div>
+                <div>
+                      <xsl:value-of select="team/name"/>
+                </div>
+                <div>
+                    <xsl:value-of select="wins"/>
+                </div>
+                <div>
+                    <xsl:value-of select="setPoints"/>
+                </div>
+                <div>
+                    <xsl:value-of select="setPointDifference"/>
+                </div>
+            </div>
             </xsl:for-each>
             <div>
                 Stand: <xsl:value-of select="matchSeries/updated"/>
