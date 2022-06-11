@@ -50,7 +50,7 @@ jobs:
         uses: mavrosxristoforos/get-xml-info@1.0
         with:
           xml-file: "sams/club.xml"
-          xpath: "*[team()='${{matrix.teams}}']/matchSeries/id" #extract the matchSeries ID for this team from the XML
+          xpath: "/sportsclub/teams/team[team()='${{matrix.teams}}']/matchSeries/id" #extract the matchSeries ID for this team from the XML
 
   Fetch-to-XML:
     needs: Get-MatchSeries
