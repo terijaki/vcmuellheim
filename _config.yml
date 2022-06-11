@@ -12,6 +12,7 @@ theme_color: "#363b40"
 background_color: "#366273"
 include:
   - _pages
+  - _matches
 permalink: /:title/
 url: https://vcmuellheim.de
 author: "VC Müllheim"
@@ -42,11 +43,11 @@ exclude:
   - README.md
   - CNAME
 
-## Add Club Members to show on a contacts page
 collections:
-  club_members:
+  club_members: # Adds Club Members to show on a contacts page
     people: true
-  teams:
+  teams: # List teams on the landing page and rankings if they have an SBVV-ID
     sort_by: liga
-  matches:
+  matches: # Creates links based on their filenames
+    output: true
     permalink: /matches/:name
