@@ -30,7 +30,7 @@
                                     <xsl:value-of select="setPoints"/>
                                 </td>
                                 <td>
-                                    <xsl:value-of select="setPointDifference"/>
+                                    <xsl:value-of select="points"/>
                                 </td>
                             </tr>
                         </tbody>
