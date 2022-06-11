@@ -63,7 +63,7 @@ jobs:
           xsltproc matches.xslt xml_temp/${{matrix.time}}/${{matrix.teams}}.xml > ${{env.REPO_TARGET}}/${{matrix.time}}/${{matrix.teams}}.html
 
       - name: Cleanup HTML # final clean up for Jekyll
-        run: sed -i -e '2d' ${{env.REPO_TARGET}}/${{matrix.time}}/${{matrix.teams}}.html
+        run: sed -i -e '1,2d' ${{env.REPO_TARGET}}/${{matrix.time}}/${{matrix.teams}}.html
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
