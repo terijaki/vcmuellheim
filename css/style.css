@@ -781,6 +781,11 @@ h6 {
   font-style: italic;
   font-size: small;
   padding-top: 0.5rem;
+  display: flex;
+}
+
+.sams-rankings .footnote>div {
+  flex-basis: 100%;
 }
 
 .sams-rankings .timestamp {
