@@ -60,7 +60,7 @@ jobs:
 
       - name: Add timestamp to XML # includes a timestamp in German format
         run: |
-          timestamp=$(date '+%d.%m.%Y, %H:%M Uhr')
+          timestamp=$(date "+%d.%m.%Y, %H:%M Uhr")
           sed -i -e 's!</rankings>!<timestamp>'$timestamp'</timestamp></rankings>!g' xml_temp/${{matrix.teams}}.xml
 
       - name: Transform XML # Push the XML through the XSLT
