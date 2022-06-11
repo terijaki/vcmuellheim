@@ -672,18 +672,18 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.4rem;
   font-weight: bold;
 }
-.vly table { /* .vly = ergebnisdienst class */
+.vly table, .sams-rankings table { /* .vly = ergebnisdienst class */
   width: 100%
 }
-.vly tr :nth-child(4), .vly tr :nth-child(7) {
-  display: none; /* entfernt Spile und Bälle aus der Tabellenübersicht */
+.vly tr :nth-child(4), .vly tr :nth-child(7), .sams-rankings tr :nth-child(4), .sams-rankings tr :nth-child(7) {
+  display: none; /* entfernt Spiele und Bälle aus der Tabellenübersicht */
 }
 @media (min-width: 769px) {
-  .vly tr :nth-child(4) {
+  .vly tr :nth-child(4), .sams-rankings tr :nth-child(4) {
     display: inital; /* Zeigt die Spiele bei größeren Bildschirmen wieder an */
   }
 }
-.vly tr > * {
+.vly tr > *, .sams-rankings tr > * {
   padding: 1px;
   text-align: center;
 }
@@ -700,7 +700,7 @@ h1, h2, h3, h4, h5, h6 {
 .vly-ad {
   display:none; /* disabled due to seperate callout */
 }
-.vly-team {
+.vly-team {   /* THIS MARKS OUR TEAMS BUT DOES NOT EXIST WITH SAMS RANKINGS */
   color: var(--text2);
   background: var(--gradient1);
   font-weight: normal!important;
