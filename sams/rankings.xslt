@@ -27,7 +27,7 @@
                                     <xsl:value-of select="team/name"/>
                                 </td>
                                 <td>
-                                    <xsl:value-of select="wins"/>
+                                    <xsl:value-of select="wins"/>/<xsl:value-of select="matchesPlayed"/>
                                 </td>
                                 <td>
                                     <xsl:value-of select="setPoints"/>
