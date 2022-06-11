@@ -2,20 +2,18 @@ name: SAMS Club Data Sync
 
 on:
   schedule:
-  - cron: "33 6 * * 3"
+    - cron: "11 2 * * 3" # every wednesday night at 2:11
   workflow_dispatch:
-  
+
 env:
   SAMS_KEY: ${{ secrets.SAMS_API }}
   SAMS_URL: "https://www.volleyball-baden.de"
   SAMS_CLUBID: "471"
 
-
 jobs:
   SAMS_Sync_and_Push:
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout Source Code
         uses: actions/checkout@v3
         with:
@@ -30,18 +28,17 @@ jobs:
         id: getxml
         uses: mavrosxristoforos/get-xml-info@1.0
         with:
-          xml-file: 'sams/club.xml'
-          xpath: '/sportsclub/teams/team/seasonTeamId'
-        
+          xml-file: "sams/club.xml"
+          xpath: "/sportsclub/teams/team/seasonTeamId"
+
       - name: Echo Teams
         run: echo 'Teams:${{ steps.getxml.outputs.info }}'
-      
 
       - name: Setup Git Config
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-          
+
       - name: Git Commit
         continue-on-error: true # don't throw an error as there won't always be changes compared to the existing file
         run: |
