@@ -17,6 +17,9 @@
                     <xsl:for-each select="rankings/ranking">
                         <tbody>
                             <tr>
+                                <xsl:attribute name="team">
+                                    <xsl:value-of select="team/name" />
+                                </xsl:attribute>
                                 <td>
                                     <xsl:value-of select="place"/>
                                 </td>
