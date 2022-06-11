@@ -675,12 +675,12 @@ h1, h2, h3, h4, h5, h6 {
 .vly table, .sams-rankings table { /* .vly = ergebnisdienst class */
   width: 100%
 }
-.vly tr :nth-child(4), .vly tr :nth-child(7), .sams-rankings tr :nth-child(4), .sams-rankings tr :nth-child(7) {
-  display: none; /* entfernt Spiele und Bälle aus der Tabellenübersicht */
+.vly tr :nth-child(4), .vly tr :nth-child(7), .sams-rankings tr :nth-child(4) {
+  display: none; /* entfernt Sätze aus der Tabellenübersicht */
 }
 @media (min-width: 769px) {
   .vly tr :nth-child(4), .sams-rankings tr :nth-child(4) {
-    display: inital; /* Zeigt die Spiele bei größeren Bildschirmen wieder an */
+    display: block; /* Zeigt die Sätze bei größeren Bildschirmen wieder an */
   }
 }
 .vly tr > *, .sams-rankings tr > * {
