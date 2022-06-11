@@ -15,7 +15,7 @@ permalink: /neu/
           {% assign sorted-teams = (site.teams | sort: 'liga') %}
           {% for team in sorted-teams %}
             {% if team.sbvv_id > 0 %}  
-              
+              {% include sams/rankings/{{ team.sbvv_id }}.html %}
             {% endif %}
           {% endfor %}
 
