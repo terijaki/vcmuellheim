@@ -14,8 +14,8 @@
                                 <th>Punkte</th>
                             </tr>
                         </thead>
-                    <xsl:for-each select="rankings/ranking">
                         <tbody>
+                    <xsl:for-each select="rankings/ranking">
                             <tr>
                                 <xsl:attribute name="team">
                                     <xsl:value-of select="team/name" />
@@ -36,8 +36,8 @@
                                     <xsl:value-of select="points"/>
                                 </td>
                             </tr>
-                        </tbody>
                 </xsl:for-each>
+                        </tbody>
                     </table>
                 </div>
                 <div class="footnote">
