@@ -753,8 +753,9 @@ h6 {
 .sams-rankings .footnote {
   font-style: italic;
   font-size: small;
-  padding-top: 0.5rem;
   display: flex;
+  position: relative;
+  top: -0.5rem;
 }
 
 .sams-rankings .footnote>div {

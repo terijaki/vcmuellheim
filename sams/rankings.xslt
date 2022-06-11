@@ -3,6 +3,14 @@
         <div class="col sams-rankings">
             <div class="box">
                 <h1><xsl:value-of select="rankings/matchSeries/name"/></h1>
+                <div class="footnote">
+                    <div class="season">
+                        Saison <xsl:value-of select="rankings/matchSeries/season/name"/>
+                    </div>
+                    <div class="timestamp">
+                        Stand <xsl:value-of select="rankings/timestamp"/>
+                    </div>
+                </div>
                 <div>
                     <table>
                         <thead>
@@ -39,14 +47,6 @@
                 </xsl:for-each>
                         </tbody>
                     </table>
-                </div>
-                <div class="footnote">
-                    <div class="season">
-                        Saison <xsl:value-of select="rankings/matchSeries/season/name"/>
-                    </div>
-                    <div class="timestamp">
-                        Stand <xsl:value-of select="rankings/timestamp"/>
-                    </div>
                 </div>
             </div>
         </div>
