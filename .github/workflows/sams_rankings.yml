@@ -31,7 +31,7 @@ jobs:
         id: teamid-list
         run: echo "::set-output name=teamids::[${{steps.teamids-from-club.outputs.info}}]" # transform IDs from "123,456,789" to "[123,456,789]"
 
-Get-MatchSeries-then-Query-Rankings:
+  Get-MatchSeries-then-Fetch-Rankings:
     needs: Get-Teams
     continue-on-error: true # if one team fails, the flow should continue
     strategy:
@@ -62,7 +62,7 @@ Get-MatchSeries-then-Query-Rankings:
           path: ${{env.REPO_TARGET}}
 
   Git-Update:
-    needs: Get-MatchSeries-then-Query-Rankings
+    needs: Get-MatchSeries-then-Fetch-Rankings
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
