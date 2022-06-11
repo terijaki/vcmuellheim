@@ -48,6 +48,9 @@ jobs:
           mkdir -p xml_temp/${{matrix.time}}
           curl -o xml_temp/${{matrix.time}}/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&${{matrix.time}}=true&teamId=${{matrix.teams}}"
 
+      - name: Cleanup SAMS XML # removes strings that break the XLST
+        run: sed -i -e 's/xmlns="http://sams-server.de/api/xml/ns/matches"//g' xml_temp/${{matrix.time}}/${{matrix.teams}}.xml
+
       - name: Transform XML # Push the XML through the XSLT
         run: |
           mkdir -p ${{env.REPO_TARGET}}/${{matrix.time}}
