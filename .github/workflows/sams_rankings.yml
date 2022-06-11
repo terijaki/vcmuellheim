@@ -9,7 +9,7 @@ on:
 env:
   SAMS_KEY: ${{ secrets.SAMS_API }} # SAMS API key
   SAMS_URL: https://www.volleyball-baden.de # start of the api http structure
-  REPO_TARGET: sams/rankings # the folder I want the output to go to
+  REPO_TARGET: _includes/sams/rankings # the folder I want the output to go to
 
 jobs:
   Get-Teams:
