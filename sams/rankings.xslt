@@ -34,7 +34,7 @@ Season: <xsl:value-of select="rankings/matchSeries/season/name"/>
             </div>
             </xsl:for-each>
             <div>
-                Stand: <xsl:value-of select="rankings/matchSeries/updated"/>
+                Stand <xsl:value-of select="rankings/timestamp"/>
             </div>
         </div>
     </xsl:template>

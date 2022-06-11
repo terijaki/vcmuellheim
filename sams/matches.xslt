@@ -28,6 +28,9 @@ tbd:tbd
                     </div>
                 </div>
             </xsl:for-each>
+            <div>
+                Stand <xsl:value-of select="matches/timestamp"/>
+            </div>
         </div>
     </xsl:template>
 </xsl:stylesheet>
