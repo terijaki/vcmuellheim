@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:template match="/">
 ---
-Team: <xsl:value-of select="teamName"/>
-League: <xsl:value-of select="league"/>
-LeagueRank: <xsl:value-of select="LeagueRank"/>
+tbd:tbd
 ---
         <div class="matches schedule <xsl:value-of select='pastfuture'/>">
-            <<div>>
+            <div>
                 <div>Datum</div>
                 <div>Team 1</div>
                 <div>Team 2</div>
