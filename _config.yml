@@ -2,15 +2,19 @@ name: "VC Müllheim e.V."
 short_name: "VCM"
 title: "Volleyball Club Müllheim"
 description: "In Müllheim geh es in Sachen Volleyball richtig ab! Von Freizeit Team bis zur Verbandsliga. Hier findest du alle Infos und Neuigkeiten des Vereins."
-logo: '/img/logo.png'
-favicon: '/img/favicon.png'
-apple_touch_icon: '/img/apple-touch-icon.png'
-apple_touch_startup_image: '/img/vcm-banner-white.png'
-language: 'de'
-language_direction: 'ltr'
+logo: "/img/logo.png"
+favicon: "/img/favicon.png"
+apple_touch_icon: "/img/apple-touch-icon.png"
+apple_touch_startup_image: "/img/vcm-banner-white.png"
+language: "de"
+language_direction: "ltr"
 theme_color: "#363b40"
 background_color: "#366273"
-include: ["_pages"]
+include:
+  - _pages
+  - sams/rankings
+  - sams/matches/past
+  - sams/matches/future
 permalink: /:title/
 url: https://vcmuellheim.de
 author: "VC Müllheim"
@@ -27,7 +31,7 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
   syntax_highlighter_opts:
-    css_class: 'highlight'
+    css_class: "highlight"
     block:
       line_numbers: true
 
@@ -40,8 +44,6 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
-
-
 
 ## Add Club Members to show on a contacts page
 collections:
