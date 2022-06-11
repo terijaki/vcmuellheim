@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <rankings>
+                <matchSeries>
+    <id>18451306</id>
+    <uuid>ded066e2-29f3-40cc-bb6c-7f35f080f2db</uuid>
+    <allSeasonId>00a9fd70-cef5-5238-85f8-fbffae615a80</allSeasonId>
+    <name>Bezirk West Damen Kreisliga  Rückmeldungen-22/23</name>
+    <shortName>RueckKrLiDamen</shortName>
+    <type>League</type>
+        <updated>2022-06-01 21:23:46.527</updated>
+        <structureUpdated>2022-06-01 21:23:46.527</structureUpdated>
+        <resultsUpdated></resultsUpdated>
+        <season>
+            <id>18449124</id>
+            <uuid>29cec059-0821-411c-a147-c5457dc39516</uuid>
+            <name>2021/22</name>
+        </season>
+        <hierarchy>
+            <id>18451303</id>
+            <uuid>0e28a5d2-ea20-4d79-bea6-74f13c4e123a</uuid>
+            <name>Rueckmeldungen Bezirk West</name>
+            <shortName>RueckmBezWest</shortName>
+            <hierarchyLevel>8</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>18451303</id>
+                    <name>Rueckmeldungen Bezirk West</name>
+                    <shortName>RueckmBezWest</shortName>
+                    <hierarchyLevel>8</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>18450687</id>
+                    <name>Bezirk West</name>
+                    <shortName>bw</shortName>
+                    <hierarchyLevel>7</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>18450686</id>
+                    <name>SBVV Bezirke</name>
+                    <shortName>SBVV Bezirke</shortName>
+                    <hierarchyLevel>6</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>18450659</id>
+                    <name>Spielbetrieb Südbaden</name>
+                    <shortName>sbvv</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>18449289</id>
+                    <name>Oberliga Baden</name>
+                    <shortName>Ol</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>18449288</id>
+                    <name>Regionalliga Süd</name>
+                    <shortName>RL</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>18449287</id>
+                    <name>Dritte Liga Süd</name>
+                    <shortName>DLS</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>18449286</id>
+                    <name>Bundesligen</name>
+                    <shortName>BL</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>18449285</id>
+                    <name>Allgemeiner Spielbetrieb</name>
+                    <shortName>alg</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>Südbadischer Volleyball-Verband</name>
+            <shortName>SBVV</shortName>
+        </association>
+                </matchSeries>
+        </rankings>
