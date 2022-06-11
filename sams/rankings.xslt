@@ -2,19 +2,20 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:template match="/">
 ---
-Update: <xsl:value-of select="matchSeries/updated"/>
-League: <xsl:value-of select="matchSeries/name"/>
-LeagueRank: <xsl:value-of select="matchSeries/type/hiearchy/hierarchyLevel"/>
+Update: <xsl:value-of select="rankings/matchSeries/updated"/>
+League: <xsl:value-of select="rankings/matchSeries/name"/>
+LeagueRank: <xsl:value-of select="rankings/matchSeries/hierarchy/hierarchyLevel"/>
+Season: <xsl:value-of select="rankings/matchSeries/season/name"/>
 ---
         <div class="rankings">
             <div>
                 <div>Platz</div>
-                <div>Mannschft</div>
+                <div>Mannschaft</div>
                 <div>Siege</div>
                 <div>Sätze</div>
                 <div>Punkte</div>
             </div>
-            <xsl:for-each select="ranking">
+            <xsl:for-each select="rankings/ranking">
             <div>
                 <div>
                     <xsl:value-of select="place"/>
@@ -34,7 +35,7 @@ LeagueRank: <xsl:value-of select="matchSeries/type/hiearchy/hierarchyLevel"/>
             </div>
             </xsl:for-each>
             <div>
-                Stand: <xsl:value-of select="matchSeries/updated"/>
+                Stand: <xsl:value-of select="rankings/matchSeries/updated"/>
             </div>
         </div>
     </xsl:template>
