@@ -3,7 +3,7 @@
         <div class="col sams-rankings">
             <div class="box">
                 <h1><xsl:value-of select="rankings/matchSeries/name"/></h1>
-                <div class="sams-tabelle">
+                <div>
                     <table>
                         <thead>
                             <tr>

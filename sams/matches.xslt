@@ -1,33 +1,95 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:template match="/">
-        <div class="matches schedule">
-            <div>
-                <div>Datum</div>
-                <div>Team 1</div>
-                <div>Team 2</div>
-                <div>Austragungsort</div>
-            </div>
-            <xsl:for-each select="matches/match">
-                <div>
+        <div class="col sams-matches">
+            <div class="box matches-past">
+                <h1><xsl:value-of select="matches/match/matchSeries/name"/> Ergebnisse</h1>
+                <div class="past">
+                    <table>
+                        <thead>
+                            <tr>
+                                <tr>Datum</tr>
+                                <tr>Team 1</tr>
+                                <tr>Team 2</tr>
+                                <tr>Austragungsort</tr>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <xsl:for-each select="matches/match">
+                            <xsl:if test="results/winner > 0">
+                                <tr>
+                                <xsl:attribute name="hostid">
+                                    <xsl:value-of select="host/id" />
+                                </xsl:attribute>
+                                    <td>
+                                        <xsl:value-of select="date"/><br/>
+                                        <xsl:value-of select="time"/> Uhr
+                                    </td>    
+                                <xsl:for-each select="team">
+                                    <xsl:sort select="number"/>
+                                    <td>
+                                    <xsl:attribute name="teamid">
+                                       <xsl:value-of select="id" />
+                                    </xsl:attribute>
+                                        <xsl:value-of select="name"/>
+                                    </td>
+                                </xsl:for-each>
+                                    <td>
+                                        <xsl:value-of select="location/city"/> (
+                                        <xsl:value-of select="location/street"/>)
+                                    </td>
+                                </tr>
+                            </xsl:if>
+                            </xsl:for-each>
+                        </tbody>
+                    </table>
                     <div>
-                        <xsl:value-of select="date"/><br/>
-                        <xsl:value-of select="time"/> Uhr
-                    </div>
-                    <xsl:for-each select="team">
-                        <xsl:sort select="number"/>
-                        <div>
-                            <xsl:value-of select="name"/>
-                        </div>
-                    </xsl:for-each>
-                    <div>
-                        <xsl:value-of select="location/city"/> (
-                        <xsl:value-of select="location/street"/>)
+                        Stand <xsl:value-of select="matches/timestamp"/>
                     </div>
                 </div>
-            </xsl:for-each>
-            <div>
-                Stand <xsl:value-of select="matches/timestamp"/>
-            </div>
+
+            <div class="box matches-future">
+                <h1><xsl:value-of select="matches/match/matchSeries/name"/> Ergebnisse</h1>
+                <div class="upcoming">
+                    <table>
+                        <thead>
+                            <tr>
+                                <tr>Datum</tr>
+                                <tr>Team 1</tr>
+                                <tr>Team 2</tr>
+                                <tr>Austragungsort</tr>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <xsl:for-each select="matches/match">
+                            <xsl:if test="not(results/winner)">
+                                <tr>
+                                <xsl:attribute name="hostid">
+                                    <xsl:value-of select="host/id" />
+                                </xsl:attribute>
+                                    <td>
+                                        <xsl:value-of select="date"/><br/>
+                                        <xsl:value-of select="time"/> Uhr
+                                    </td>    
+                                <xsl:for-each select="team">
+                                    <xsl:sort select="number"/>
+                                    <td>
+                                    <xsl:attribute name="teamid">
+                                       <xsl:value-of select="id" />
+                                    </xsl:attribute>
+                                        <xsl:value-of select="name"/>
+                                    </td>
+                                </xsl:for-each>
+                                    <td>
+                                        <xsl:value-of select="location/city"/> (
+                                        <xsl:value-of select="location/street"/>)
+                                    </td>
+                                </tr>
+                            </xsl:if>
+                            </xsl:for-each>
+                        </tbody>
+                    </table>
+                </div>
+
         </div>
     </xsl:template>
 </xsl:stylesheet>
