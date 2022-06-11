@@ -392,14 +392,6 @@ h6 {
   transition: 0.5s;
 }
 
-/* disabled due to bug in Safari
-#verein .mitgliederliste a:hover .avatar div {
-    transform: scale(1.1);
-} */
-#verein .mitgliederliste div.avatar,
-#verein .mitgliederliste h4.name,
-#verein .mitgliederliste p.function {}
-
 #verein .mitgliederliste h4.name {
   margin: auto;
   font-size: 1rem;
