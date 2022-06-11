@@ -51,6 +51,9 @@ jobs:
       - name: Cleanup SAMS XML # removes strings that break the XLST
         run: sed -i -e 's!xmlns="http://sams-server.de/api/xml/ns/matches" !!g' xml_temp/${{matrix.time}}/${{matrix.teams}}.xml
 
+      - name: Add timestamp to XML # includes a timestamp in German format
+        run: sed -i -e 's!</matches>!<timestamp>(date '+%d.%m.%Y, %H:%M Uhr')</timestamp></matches>!g' xml_temp/${{matrix.time}}/${{matrix.teams}}.xml
+
       - name: Transform XML # Push the XML through the XSLT
         run: |
           mkdir -p ${{env.REPO_TARGET}}/${{matrix.time}}
