@@ -55,13 +55,13 @@ jobs:
 
       - name: Fetch from SAMS # make the API call to the SAMS server and save it as XML
         run: |
-          mkdir -p temp
-          curl -o temp/${{matrix.teams}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{steps.matchseriesid-from-club.outputs.info}}"
+          mkdir -p xml_temp
+          curl -o xml_temp/${{matrix.teams}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{steps.matchseriesid-from-club.outputs.info}}"
 
       - name: Transform XML # Push the XML through the XSLT
         run: |
           sudo apt-get install xsltproc
-          xsltproc rankings.xslt temp/${{matrix.teams}}.xml > ${{env.REPO_TARGET}}/${{matrix.teams}}.html
+          xsltproc rankings.xslt xml_temp/${{matrix.teams}}.xml > ${{env.REPO_TARGET}}/${{matrix.teams}}.html
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
