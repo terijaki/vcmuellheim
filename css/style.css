@@ -811,7 +811,7 @@ h6 {
 
 .vly-team,
 #ergebnisse-tabelle .vcm-team,
-#ergebnisse-tabelle .sams-team tr[team~="VC Müllheim"] {
+#ergebnisse-tabelle .sams-rankings tr[team~="VC Müllheim"] {
   /* THIS MARKS OUR TEAMS BUT DOES NOT EXIST WITH SAMS RANKINGS */
   color: var(--text2);
   background: var(--gradient1);
