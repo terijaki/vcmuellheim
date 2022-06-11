@@ -4,7 +4,7 @@
 ---
 tbd:tbd
 ---
-        <div class="matches schedule <xsl:value-of select='pastfuture'/>">
+        <div class="matches schedule">
             <div>
                 <div>Datum</div>
                 <div>Team 1</div>
