@@ -1,0 +1,25 @@
+---
+layout: page
+title: Ergebnisse und Tabelle
+permalink: /neu/
+---
+
+<main id="main" class="section-bg">
+
+<!--===== Ergebnisse & Tabelle =====-->
+<section id="ergebnisse-tabelle">
+
+    <div class="container">
+        <div class="row teams">
+
+          {% assign sorted-teams = (site.teams | sort: 'liga') %}
+          {% for team in sorted-teams %}
+            {% include sams/rankings/{{ team.sbvv_id }}.html %}
+          {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+
+</main>
