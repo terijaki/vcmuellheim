@@ -3,7 +3,7 @@ name: SAMS Rankings
 on:
   schedule:
     - cron: 33 6 * * * # every night
-    - cron: 0 10-22 * * 0,6 # every hour on sa & sun between 10AM - 10PM
+    - cron: 20 10-22 * * 0,6 # every hour on sa & sun between 10AM - 10PM
   workflow_dispatch:
 
 env:
