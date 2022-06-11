@@ -1,8 +1,5 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:template match="/">
----
-tbd:tbd
----
         <div class="matches schedule">
             <div>
                 <div>Datum</div>
