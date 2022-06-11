@@ -19,12 +19,14 @@ jobs:
     steps:
       - name: Get club.xml cache # Get the catched club.xml
         run: curl -o club.xml "https://vcmuellheim.de/sams/club.xml"
+        
       - name: Get Team IDs from club.xml
         id: teamids-from-club
         uses: mavrosxristoforos/get-xml-info@1.0
         with:
           xml-file: "club.xml"
           xpath: "/sportsclub/teams/team/seasonTeamId" #extract all team IDs from the XML
+
       - name: Transform MatchSeries IDs
         id: teamid-list
         run: echo "::set-output name=teamids::[${{steps.teamids-from-club.outputs.info}}]" # transform IDs from "123,456,789" to "[123,456,789]"
@@ -39,16 +41,19 @@ Get-MatchSeries-then-Query-Rankings:
     steps:
       - name: Get club.xml cache # Get the catched club.xml
         run: curl -o club.xml "https://vcmuellheim.de/sams/club.xml"
+
       - name: Get matchSeries IDs from club.xml
         id: matchseriesid-from-club
         uses: mavrosxristoforos/get-xml-info@1.0
         with:
           xml-file: "club.xml"
           xpath: "/sportsclub/teams/team[id='${{matrix.teams}}']/matchSeries/id" #extract the matchSeries ID for this team from the XML
+
       - name: Fetch from SAMS # make the API call to the SAMS server and save it as XML
         run: |
           mkdir -p ${{env.REPO_TARGET}}
           curl -o ${{env.REPO_TARGET}}/${{matrix.teams}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{steps.matchseriesid-from-club.outputs.info}}"
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
