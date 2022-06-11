@@ -40,10 +40,18 @@ jobs:
         time: [past, future]
     runs-on: ubuntu-latest
     steps:
+      - name: Get matches.xslt template # Get the xslt template
+        run: curl -o matches.xslt "https://vcmuellheim.de/sams/matches.xslt"
+
       - name: Fetch from SAMS # make the API call to the SAMS server and save it as XML
         run: |
-          mkdir -p ${{env.REPO_TARGET}}/${{matrix.time}}
-          curl -o ${{env.REPO_TARGET}}/${{matrix.time}}/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&${{matrix.time}}=true&teamId=${{matrix.teams}}"
+          mkdir -p temp/${{matrix.time}}
+          curl -o temp/${{matrix.time}}/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&${{matrix.time}}=true&teamId=${{matrix.teams}}"
+
+      - name: Transform XML # Push the XML through the XSLT
+        run: |
+          sudo apt-get install xsltproc
+          xsltproc matches.xslt temp/${{matrix.time}}/${{matrix.teams}}.xml > ${{env.REPO_TARGET}}/${{matrix.time}}/${{matrix.teams}}.html
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
