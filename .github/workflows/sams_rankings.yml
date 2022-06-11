@@ -60,6 +60,7 @@ jobs:
 
       - name: Transform XML # Push the XML through the XSLT
         run: |
+          mkdir -p ${{env.REPO_TARGET}}
           sudo apt-get install xsltproc
           xsltproc rankings.xslt xml_temp/${{matrix.teams}}.xml > ${{env.REPO_TARGET}}/${{matrix.teams}}.html
 

@@ -50,6 +50,7 @@ jobs:
 
       - name: Transform XML # Push the XML through the XSLT
         run: |
+          mkdir -p ${{env.REPO_TARGET}}/${{matrix.time}}
           sudo apt-get install xsltproc
           xsltproc matches.xslt xml_temp/${{matrix.time}}/${{matrix.teams}}.xml > ${{env.REPO_TARGET}}/${{matrix.time}}/${{matrix.teams}}.html
 
