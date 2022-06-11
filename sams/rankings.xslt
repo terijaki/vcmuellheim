@@ -37,8 +37,13 @@
                 </xsl:for-each>
                     </table>
                 </div>
-                <div class="timestamp">
-                    Stand <xsl:value-of select="rankings/timestamp"/>
+                <div class="footnote">
+                    <div class="season">
+                        Saison <xsl:value-of select="rankings/matchSeries/season/name"/>
+                    </div>
+                    <div class="timestamp">
+                        Stand <xsl:value-of select="rankings/timestamp"/> (UTC)
+                    </div>
                 </div>
             </div>
         </div>

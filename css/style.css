@@ -7,9 +7,9 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
-@font-face {
+/*@font-face {
   font-display: swap;
-}
+}*/
 
 html {
   scroll-behavior: smooth;
@@ -777,11 +777,14 @@ h6 {
   text-align: center;
 }
 
-.sams-rankings .timestamp {
-  text-align: right;
+.sams-rankings .footnote {
   font-style: italic;
   font-size: small;
   padding-top: 0.5rem;
+}
+
+.sams-rankings .timestamp {
+  text-align: right;
 }
 
 .vly-ad {
@@ -801,7 +804,8 @@ h6 {
   /* disabled due to seperate callout */
 }
 
-.vly-team {
+.vly-team,
+#ergebnisse-tabelle .vcm-team {
   /* THIS MARKS OUR TEAMS BUT DOES NOT EXIST WITH SAMS RANKINGS */
   color: var(--text2);
   background: var(--gradient1);
@@ -825,6 +829,7 @@ h6 {
 }
 
 #ergebnisse-tabelle .teams .info {
+  /* this is not needed with the new sams scoreboard! */
   flex-basis: 100%;
 }
 
