@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Get club.xml cache # Get the catched club.xml
         run: curl -o club.xml "https://vcmuellheim.de/sams/club.xml"
-        
+
       - name: Get Team IDs from club.xml
         id: teamids-from-club
         uses: mavrosxristoforos/get-xml-info@1.0
@@ -35,6 +35,7 @@ Get-MatchSeries-then-Query-Rankings:
     needs: Get-Teams
     continue-on-error: true # if one team fails, the flow should continue
     strategy:
+      max-parallel: 1
       matrix:
         teams: ${{fromJSON(needs.Get-Teams.outputs.teamids)}}
     runs-on: ubuntu-latest
