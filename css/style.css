@@ -10,9 +10,11 @@
 @font-face {
   font-display: swap;
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 body {
   background: var(--background1);
   color: var(--text1);
@@ -22,12 +24,14 @@ body {
   min-height: 100vh;
   min-width: 100vw;
 }
-#page-wrapper{
+
+#page-wrapper {
   min-height: 100vh;
   min-width: 100vw;
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
+
 #main {
   flex-grow: 1;
 }
@@ -39,7 +43,9 @@ a {
   text-decoration: none;
 }
 
-a:hover, a:active, a:focus {
+a:hover,
+a:active,
+a:focus {
   color: var(--link_hover1);
   outline: none;
   text-decoration: none;
@@ -50,7 +56,12 @@ p {
   margin: 0 0 30px 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font2);
   font-weight: 400;
   margin: 0 0 20px 0;
@@ -61,7 +72,9 @@ h1, h2, h3, h4, h5, h6 {
 # Smooth Scrolling
 --------------------------------------------------------------*/
 
-#header, #page-wrapper, #main {
+#header,
+#page-wrapper,
+#main {
   scroll-behavior: smooth;
 }
 
@@ -73,32 +86,40 @@ h1, h2, h3, h4, h5, h6 {
     width: 10px;
     height: 10px;
   }
+
   ::-webkit-scrollbar-button {
     width: 0px;
     height: 0px;
   }
+
   ::-webkit-scrollbar-thumb {
     background: var(--link_hover1);
     border: none;
     border-radius: 0px;
   }
+
   ::-webkit-scrollbar-thumb:hover {
     background: var(--link1);
   }
+
   ::-webkit-scrollbar-thumb:active {
     background: var(--link1);
   }
+
   ::-webkit-scrollbar-track {
     background: var(--gradient1);
     border: none;
     border-radius: 0px;
   }
+
   ::-webkit-scrollbar-track:hover {
     background: var(--gradient1);
   }
+
   ::-webkit-scrollbar-track:active {
     background: var(--gradient1);
   }
+
   ::-webkit-scrollbar-corner {
     background: transparent;
   }
@@ -124,6 +145,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 14px;
   text-align: center;
 }
+
 .banner-info a {
   color: #0057B7;
 }
@@ -140,6 +162,7 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 997;
   background: var(--gradient1);
 }
+
 #header h1 {
   font-size: 36px;
   margin: 0;
@@ -148,7 +171,8 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
 }
 
-#header h1 a, #header h1 a:hover {
+#header h1 a,
+#header h1 a:hover {
   color: var(--text2);
 }
 
@@ -165,6 +189,7 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: 2px;
   }
 }
+
 /*--------------------------------------------------------------
 # Intro Section
 --------------------------------------------------------------*/
@@ -173,7 +198,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   height: 90vh;
   height: calc(100vh - 60px);
-  background: linear-gradient(45deg, rgba(54,59,64, 0.8), rgba(54,98,115, 0.8)), url("/img/intro-bg.jpg") center top no-repeat;
+  background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), url("/img/intro-bg.jpg") center top no-repeat;
   background-size: cover;
   position: relative;
 }
@@ -183,10 +208,12 @@ h1, h2, h3, h4, h5, h6 {
     background-attachment: fixed;
   }
 }
+
 #intro .vcm-banner {
   max-height: 200px;
   max-width: 90vw;
 }
+
 #intro .intro-text {
   text-align: center;
   height: 100%;
@@ -207,11 +234,13 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 36px;
   }
 }
+
 @media (max-width: 568px) {
   #logo h1 {
     font-size: 22px;
   }
 }
+
 .intro-text p {
   color: var(--text2);
   margin-bottom: 20px;
@@ -249,38 +278,46 @@ h1, h2, h3, h4, h5, h6 {
 /* sponsors before the fold
 --------------------------------*/
 .intro-sponsor {
-    width: 100%;
-    background: #ffffff;
+  width: 100%;
+  background: #ffffff;
 }
+
 .intro-sponsor img {
-    max-height: 56px;
-    max-width: 50%;
+  max-height: 56px;
+  max-width: 50%;
 }
+
 @media (min-height: 600px) {
   .intro-sponsor img {
-      max-height: 72px;
-      max-width: 50%;
+    max-height: 72px;
+    max-width: 50%;
   }
 }
+
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
 .navbar {
   min-height: 60px;
 }
+
 .nav-link {
   color: var(--text2);
   font-weight: 500;
   font-size: 14px;
 }
+
 .navbar-toggler {
   color: var(--text2);
   line-height: inherit;
 }
+
 .navbar-toggler:focus {
-  outline:none;
+  outline: none;
 }
-.navbar-nav .nav-link:focus, .navbar-nav .nav-link:hover {
+
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link:hover {
   color: #BFA084;
 }
 
@@ -327,43 +364,51 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
 }
+
 #verein .mitgliederliste a {
-    color: var(--text1);
+  color: var(--text1);
 }
+
 #verein .mitgliederliste .h2 {
   color: #333;
   font-weight: 300;
   font-size: 24px;
 }
+
 #verein .mitgliederliste .avatar {
-    height: 4rem;
-    width: 4rem;
-    border-radius: 50%;
-    overflow: hidden;
-    float:left;
-    margin-right:10px;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  overflow: hidden;
+  float: left;
+  margin-right: 10px;
 }
+
 #verein .mitgliederliste .avatar div {
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    background-image: url(/img/noavatar.png), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));
-    transition: 0.5s;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-image: url(/img/noavatar.png), linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9));
+  transition: 0.5s;
 }
+
 /* disabled due to bug in Safari
 #verein .mitgliederliste a:hover .avatar div {
     transform: scale(1.1);
 } */
-#verein .mitgliederliste div.avatar, #verein .mitgliederliste h4.name, #verein .mitgliederliste p.function {
+#verein .mitgliederliste div.avatar,
+#verein .mitgliederliste h4.name,
+#verein .mitgliederliste p.function {}
 
-}
 #verein .mitgliederliste h4.name {
-    margin: auto;
-    font-size: 1rem;
+  margin: auto;
+  font-size: 1rem;
 }
+
 #verein .mitgliederliste p.function {
-    margin: auto;
+  margin: auto;
 }
+
 /* welcome Featuress Section
 --------------------------------*/
 #features {
@@ -442,6 +487,7 @@ h1, h2, h3, h4, h5, h6 {
   background-size: cover;
   background-position: center;
 }
+
 /* Beachvolleyball
 --------------------------------*/
 .beachvolleyball-image {
@@ -456,7 +502,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Blog Post
 --------------------------------*/
-#blogpost img, #blogpost video {
+#blogpost img,
+#blogpost video {
   width: 100%;
   height: auto;
   padding: 6px;
@@ -472,15 +519,19 @@ h1, h2, h3, h4, h5, h6 {
   width: auto;
   display: flex;
 }
+
 #blogpost blockquote {
-  background: rgba(0,0,0,0.05);
+  background: rgba(0, 0, 0, 0.05);
   color: #000;
   padding: 1rem 2rem;
 }
-.social-sharing i:before, .social-sharing a span {
+
+.social-sharing i:before,
+.social-sharing a span {
   font-size: 0.8rem;
   color: var(--text2);
 }
+
 .social-sharing a {
   display: inline-block;
   padding: 5px;
@@ -491,70 +542,93 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 0.8rem;
   transition: 0.3s;
 }
+
 @media (max-width: 769px) {
-.social-sharing a i, .social-sharing a span {
+
+  .social-sharing a i,
+  .social-sharing a span {
     font-size: 0.6rem;
   }
 }
+
 .social-sharing a:hover {
-  background: var(--text2)!important;
+  background: var(--text2) !important;
 }
-.social-sharing a:hover i:before, .social-sharing a:hover span {
+
+.social-sharing a:hover i:before,
+.social-sharing a:hover span {
   color: var(--gradient2);
 }
+
 .social-sharing a span {
-  padding-left:4px;
+  padding-left: 4px;
   font-weight: bold;
 }
+
 .social-sharing a.facebook {
   border-color: #3b5998;
   background: #3b5998;
 }
-.social-sharing a.facebook:hover i:before, .social-sharing a.facebook:hover span {
+
+.social-sharing a.facebook:hover i:before,
+.social-sharing a.facebook:hover span {
   color: #3b5998;
 }
+
 .social-sharing a.twitter {
   border-color: #55acee;
   background: #55acee;
 }
-.social-sharing a.twitter:hover i:before, .social-sharing a.twitter:hover span {
+
+.social-sharing a.twitter:hover i:before,
+.social-sharing a.twitter:hover span {
   color: #55acee;
 }
+
 .social-sharing a.whatsapp {
   border-color: #25D366;
   background: #25D366;
 }
-.social-sharing a.whatsapp:hover i:before, .social-sharing a.whatsapp:hover span {
+
+.social-sharing a.whatsapp:hover i:before,
+.social-sharing a.whatsapp:hover span {
   color: #25D366;
 }
+
 .social-sharing a.email {
   border-color: #666;
   background: #666;
 }
-.social-sharing a.email:hover i:before, .social-sharing a.email:hover span {
+
+.social-sharing a.email:hover i:before,
+.social-sharing a.email:hover span {
   color: #666;
 }
+
 .social-sharing.square a {
-    height: 30px;
-    width: 30px;
-    overflow: hidden;
-    text-align: center;
+  height: 30px;
+  width: 30px;
+  overflow: hidden;
+  text-align: center;
 }
 
 /* Short Intros & Blog Post Header
 --------------------------------*/
-#shortintro, #blog-post-header {
-  background: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(../img/call-to-action-bg.jpg) fixed center center;
+#shortintro,
+#blog-post-header {
+  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(../img/call-to-action-bg.jpg) fixed center center;
   background-size: cover;
 }
 
-#shortintro .si-title, #blog-post-header .si-title {
+#shortintro .si-title,
+#blog-post-header .si-title {
   color: var(--text2);
   font-size: 28px;
   font-weight: 700;
 }
 
-#shortintro .si-text, #blog-post-header .si-text {
+#shortintro .si-text,
+#blog-post-header .si-text {
   color: var(--text2);
 }
 
@@ -562,7 +636,7 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------*/
 #call-to-action {
   overflow: hidden;
-  background: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(../img/call-to-action-bg.jpg) fixed center center;
+  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(../img/call-to-action-bg.jpg) fixed center center;
   background-size: cover;
 }
 
@@ -608,10 +682,11 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------*/
 #corona-und-sport {
   overflow: hidden;
-  background: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(../img/corona-and-sport.jpg) fixed center center;
+  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(../img/corona-and-sport.jpg) fixed center center;
   background-size: cover;
   color: #fff;
 }
+
 #corona-und-sport .cta-title {
   color: var(--text2);
   font-size: 28px;
@@ -645,6 +720,7 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0;
   display: none;
 }
+
 .mfp-hide.ergebnisdienst:target {
   visibility: visible;
   opacity: 1;
@@ -652,7 +728,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse)
 --------------------------------*/
-#news .box,  #members .box, #page-simple .box, #ergebnisse-tabelle .box, #verein .box {
+#news .box,
+#members .box,
+#page-simple .box,
+#ergebnisse-tabelle .box,
+#verein .box {
   padding: 40px;
   margin-bottom: 60px;
   box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
@@ -660,7 +740,9 @@ h1, h2, h3, h4, h5, h6 {
   transition: 0.4s;
   cursor: default;
 }
-#page-simple, #ergebnisse-tabelle {
+
+#page-simple,
+#ergebnisse-tabelle {
   padding: 30px 0;
 }
 
@@ -668,25 +750,48 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
   overflow-wrap: anywhere;
 }
-#ergebnisse-tabelle .vly h1, #ergebnisse-tabelle .sams-rankings h1 {
+
+#ergebnisse-tabelle .vly h1,
+#ergebnisse-tabelle .sams-rankings h1 {
   font-size: 1.4rem;
   font-weight: bold;
 }
-.vly table, .sams-rankings table { /* .vly = ergebnisdienst class */
+
+.vly table,
+.sams-rankings table {
+  /* .vly = ergebnisdienst class */
   width: 100%
 }
-.vly tr :nth-child(4), .vly tr :nth-child(7), .sams-rankings tr :nth-child(4) {
-  display: none; /* entfernt Sätze aus der Tabellenübersicht */
+
+.vly tr :nth-child(4),
+.vly tr :nth-child(7),
+.sams-rankings tr :nth-child(4) {
+  display: none;
+  /* entfernt Sätze aus der Tabellenübersicht */
 }
+
 @media (min-width: 769px) {
-  .vly tr :nth-child(4), .sams-rankings tr :nth-child(4) {
-    display: block; /* Zeigt die Sätze bei größeren Bildschirmen wieder an */
+
+  .vly tr :nth-child(4),
+  .sams-rankings tr :nth-child(4) {
+    display: block;
+    /* Zeigt die Sätze bei größeren Bildschirmen wieder an */
   }
 }
-.vly tr > *, .sams-rankings tr > * {
+
+.vly tr>*,
+.sams-rankings tr>* {
   padding: 1px;
   text-align: center;
 }
+
+.sams-rankings .timestamp {
+  text-align: right;
+  font-style: italic;
+  font-size: small;
+  padding-top: 0.5rem;
+}
+
 .vly-ad {
   text-align: right;
   font-variant: unicase;
@@ -694,39 +799,49 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 15px;
   color: var(--text1);
 }
+
 .vly-ad a {
   color: var(--text1);
 }
+
 .vly-ad {
-  display:none; /* disabled due to seperate callout */
+  display: none;
+  /* disabled due to seperate callout */
 }
-.vly-team {   /* THIS MARKS OUR TEAMS BUT DOES NOT EXIST WITH SAMS RANKINGS */
+
+.vly-team {
+  /* THIS MARKS OUR TEAMS BUT DOES NOT EXIST WITH SAMS RANKINGS */
   color: var(--text2);
   background: var(--gradient1);
-  font-weight: normal!important;
+  font-weight: normal !important;
 }
+
 @media (max-width: 768px) {
   #ergebnisse-tabelle .box {
     padding: 20px;
     margin-bottom: 30px;
   }
 }
-#ergebnisse-tabelle .teams > div {
-    display: flex;
-    flex-basis: 50%;
+
+#ergebnisse-tabelle .teams>div {
+  display: flex;
+  flex-basis: 50%;
 }
-#ergebnisse-tabelle  .teams .box {
-    width: 100%;
+
+#ergebnisse-tabelle .teams .box {
+  width: 100%;
 }
-#ergebnisse-tabelle  .teams .info {
-    flex-basis: 100%;
+
+#ergebnisse-tabelle .teams .info {
+  flex-basis: 100%;
 }
 
 #news .box {
   cursor: pointer;
   /* overflow: hidden; */
 }
-#news .newsposts > div {
+
+#news .newsposts>div {
   display: flex;
 }
 
@@ -752,13 +867,16 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-filter: blur(1px);
   filter: blur(1px);
 }
+
 #news .newsposts .box:hover a.thumbnail div {
   background-blend-mode: unset;
   -webkit-filter: none;
   filter: none;
   transform: scale(1.2)
 }
-#news .archiv-btn, .generic-button {
+
+#news .archiv-btn,
+.generic-button {
   font-family: var(--font2);
   font-weight: 400;
   font-size: 16px;
@@ -773,31 +891,38 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--gradient2);
 }
 
-#news .archiv-btn:hover, .generic-button:hover {
+#news .archiv-btn:hover,
+.generic-button:hover {
   color: var(--text2);
   background: var(--link1);
 }
+
 #news .newsposts img {
-    display:none;
+  display: none;
 }
+
 @media (max-width: 767px) {
-  .landingpage #news .newsposts > div:nth-of-type(1n+3) .thumbnail {
+  .landingpage #news .newsposts>div:nth-of-type(1n+3) .thumbnail {
     display: none;
   }
-  .landingpage #news .newsposts > div:nth-of-type(1n+3) .box {
+
+  .landingpage #news .newsposts>div:nth-of-type(1n+3) .box {
     padding: 24px;
   }
-  .landingpage #news .newsposts > div:nth-of-type(1n+3) .post-excerpt {
+
+  .landingpage #news .newsposts>div:nth-of-type(1n+3) .post-excerpt {
     max-height: 48px;
   }
-  .landingpage #news .newsposts > div:nth-of-type(1n+3) .post-title {
+
+  .landingpage #news .newsposts>div:nth-of-type(1n+3) .post-title {
     margin-bottom: 10px;
   }
 }
 
-.post-photoalbum  {
+.post-photoalbum {
   text-align: center;
 }
+
 .post-photoalbum a {
   font-family: var(--font2);
   font-weight: 500;
@@ -809,16 +934,17 @@ h1, h2, h3, h4, h5, h6 {
   transition: background 0.5s;
   margin: 10px;
   border: 2px solid var(--text2);
-  background: linear-gradient(var(--gradient2),var(--gradient1));
+  background: linear-gradient(var(--gradient2), var(--gradient1));
   color: var(--text2);
 }
+
 .post-photoalbum a:hover {
   border-color: var(--link2);
   background: transparent;
   color: var(--link2);
 }
 
-#mannschaften .teams > div {
+#mannschaften .teams>div {
   display: flex;
 }
 
@@ -830,6 +956,7 @@ h1, h2, h3, h4, h5, h6 {
   background-position: center;
   margin: -4px auto 8px auto;
 }
+
 @media (max-width: 768px) {
   #mannschaften .teams .foto {
     height: calc(100vw /4 *2);
@@ -865,19 +992,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #mannschaften .box p:last-child {
-margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
 @media (max-width: 767px) {
   #mannschaften .box {
     margin-bottom: 20px;
   }
+
   #mannschaften .icon {
     float: none;
     text-align: center;
     padding-bottom: 15px;
   }
-  #mannschaften h4, #mannschaften p {
+
+  #mannschaften h4,
+  #mannschaften p {
     margin-left: 0;
     text-align: center;
   }
@@ -893,7 +1023,9 @@ margin-bottom: 0px;
 #news h4 a {
   color: #111;
 }
-#news p, #news .post-content * {
+
+#news p,
+#news .post-content * {
   font-size: 14px;
   margin-left: 0;
   margin-bottom: 0;
@@ -907,14 +1039,15 @@ margin-bottom: 0px;
   max-height: 98px;
   text-overflow: ellipsis;
 }
+
 #news p.post-url {
-    text-align: right;
-    position: relative;
-    background: linear-gradient(90deg, rgba(255,255,255,0) 20%, rgba(255,255,255,1) 70%);
-    margin: -24px 0 0 0;
+  text-align: right;
+  position: relative;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 1) 70%);
+  margin: -24px 0 0 0;
 }
 
-@supports (-webkit-line-clamp: 3){
+@supports (-webkit-line-clamp: 3) {
   #news .post-excerpt {
     max-height: initial;
     text-overflow: initial;
@@ -922,24 +1055,29 @@ margin-bottom: 0px;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
+
   #news .no-post-thumbnail.post-excerpt {
     -webkit-line-clamp: 8;
   }
+
   #news p.post-url {
     display: none;
   }
 }
+
 /* special CSS depending on line-clamp support*/
 
 @media (max-width: 767px) {
   #news .box {
     margin-bottom: 20px;
   }
+
   #news .newsposts .box a.thumbnail {
     width: calc(100% + 60px);
     margin: -30px -30px 10px -30px;
     position: static;
   }
+
   #news .newsposts .box a.thumbnail div {
     background-blend-mode: unset;
     filter: none;
@@ -957,6 +1095,7 @@ margin-bottom: 0px;
   border-radius: 50%;
   box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.4);
 }
+
 #members a.avatar div {
   width: 100%;
   height: 100%;
@@ -966,39 +1105,45 @@ margin-bottom: 0px;
   -webkit-filter: blur(1px);
   filter: blur(1px);
 }
+
 #members .box:hover a.avatar div {
   background-blend-mode: unset;
   -webkit-filter: none;
   filter: none;
   transform: scale(1.2)
 }
+
 #members .box p {
   margin: 0 0 10px 0;
 }
+
 #members .social-sharing {
-    position: absolute;
-    top: 10px;
-    margin-left: -28px;
-    width: 32px;
+  position: absolute;
+  top: 10px;
+  margin-left: -28px;
+  width: 32px;
 }
 
 /* sponsors Section
 --------------------------------*/
 #sponsors {
   color: #fff;
-  background: linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(../img/verein-bg.jpg) fixed center center;
+  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(../img/verein-bg.jpg) fixed center center;
   background-size: cover;
 }
 
 #sponsors .sponsor-carousel .sponsor-item.slick-active {
-  display: flex; /* space and center the sponsor logos evenly */
+  display: flex;
+  /* space and center the sponsor logos evenly */
   justify-content: space-evenly;
   align-items: center;
   height: 6rem;
 }
+
 #sponsors .sponsor-item {
-    padding: 0 2rem;
+  padding: 0 2rem;
 }
+
 #sponsors .sponsor-carousel img {
   max-height: 6rem;
   max-width: 100%;
@@ -1035,23 +1180,41 @@ margin-bottom: 0px;
 
 /* ----- Print -----*/
 @media print {
-   body *, #main * {
-     display:none;
-   }
-   #shortintro, #shortintro *, #main, #main * {
-     display:block;
-   }
-   h1, h2, h3, h4, h5, p, span, li {
-     color: #000000!important;
-   }
-   #main .print-page {
-     display:none;
-   }
+
+  body *,
+  #main * {
+    display: none;
+  }
+
+  #shortintro,
+  #shortintro *,
+  #main,
+  #main * {
+    display: block;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p,
+  span,
+  li {
+    color: #000000 !important;
+  }
+
+  #main .print-page {
+    display: none;
+  }
 }
+
 .print-page {
   text-align: right;
 }
-.print-btn, .logo-download a {
+
+.print-btn,
+.logo-download a {
   font-family: var(--font2);
   font-weight: 400;
   font-size: 12px;
@@ -1066,21 +1229,28 @@ margin-bottom: 0px;
   background: linear-gradient(45deg, var(--gradient1), var(--gradient2));
 }
 
-.print-btn:hover, .logo-download a:hover {
+.print-btn:hover,
+.logo-download a:hover {
   background: #fff;
   color: var(--gradient2);
   border-color: var(--gradient2);
 }
+
 /* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse)
 --------------------------------*/
-.Datenschutzerklärung ul, .Datenschutzerklärung ol, .SatzungdesVolleyballclubsMüllheim ul, .SatzungdesVolleyballclubsMüllheim ol {
-    padding-left: 1.5rem;
+.Datenschutzerklärung ul,
+.Datenschutzerklärung ol,
+.SatzungdesVolleyballclubsMüllheim ul,
+.SatzungdesVolleyballclubsMüllheim ol {
+  padding-left: 1.5rem;
 }
+
 div.logo-download {
   text-align: center;
 }
+
 .logo-download img.white {
-  background:linear-gradient(rgba(54,59,64, 0.9), rgba(54,98,115, 0.9)), url(/img/teams/damen1.jpg) center center;
+  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/teams/damen1.jpg) center center;
   background-size: cover;
   border-radius: 1rem;
 }
@@ -1091,13 +1261,13 @@ div.logo-download {
 /* medium - display 2  */
 @media (min-width: 768px) {
 
-    .carousel-inner .carousel-item-right.active,
-    .carousel-inner .carousel-item-next {
-        transform: translateX(50%);
-    }
+  .carousel-inner .carousel-item-right.active,
+  .carousel-inner .carousel-item-next {
+    transform: translateX(50%);
+  }
 
-    .carousel-inner .carousel-item-left.active,
-    .carousel-inner .carousel-item-prev {
-        transform: translateX(-50%);
-    }
+  .carousel-inner .carousel-item-left.active,
+  .carousel-inner .carousel-item-prev {
+    transform: translateX(-50%);
+  }
 }
