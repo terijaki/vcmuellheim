@@ -3,7 +3,7 @@
 ---
 layout: page
 title: <xsl:value-of select="matches/match[1]/matchSeries/name"/>
-permalink: /matches/TEAMID
+permalink: /matches/TEAMIDHERE
 ---
         <div class="col sams-matches">
             <div class="box matches-past">
