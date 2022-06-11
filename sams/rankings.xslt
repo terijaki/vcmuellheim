@@ -37,7 +37,7 @@
                 </xsl:for-each>
                     </table>
                 </div>
-                <div>
+                <div class="timestamp">
                     Stand <xsl:value-of select="rankings/timestamp"/>
                 </div>
             </div>
