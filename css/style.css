@@ -725,8 +725,8 @@ h6 {
   overflow-wrap: anywhere;
 }
 
-#matches .sams-rankings h1,
-#ergebnisse-tabelle .sams-rankings h1 {
+#matches h1,
+#ergebnisse-tabelle h1 {
   font-size: 1.4rem;
   font-weight: bold;
 }
