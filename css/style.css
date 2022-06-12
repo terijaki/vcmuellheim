@@ -822,6 +822,7 @@ h6 {
 #matches .timestamp,
 #ergebnisse-tabelle .timestamp {
   text-align: right;
+  color: rgba(0, 0, 0, 0.3)
 }
 
 #ergebnisse-tabelle tr.norankings:not(:first-child),
