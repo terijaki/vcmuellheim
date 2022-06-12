@@ -17,7 +17,7 @@ permalink: /matches/TEAMIDHERE
                                 <tr>
                                     <th>Datum</th>
                                     <th>Teams</th>
-                                    <th>Sätze <span><(Punkte)</span></th>
+                                    <th>Sätze <span>(Punkte)</span></th>
                                 </tr>
                             </thead>
                             <tbody>
