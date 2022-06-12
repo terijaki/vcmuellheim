@@ -2,7 +2,7 @@
     <xsl:template match="/">
 ---
 layout: page
-title: <xsl:value-of select="matches/match[1]/matchSeries/name"/> <xsl:value-of select="matches/match[1]/matchSeries/season/name"/>
+title: <xsl:value-of select="matches/match[1]/matchSeries/name"/> (Saison <xsl:value-of select="matches/match[1]/matchSeries/season/name"/>)
 permalink: /matches/TEAMIDHERE
 ---
 <main id="main" class="section-bg">
@@ -51,7 +51,7 @@ permalink: /matches/TEAMIDHERE
                                 </xsl:for-each>
                             </tbody>
                         </table>
-                        <div class="timestamp">
+                        <div class="footnote timestamp">
                             Stand <xsl:value-of select="matches/timestamp"/>
                         </div>
                     </div>

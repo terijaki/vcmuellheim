@@ -771,12 +771,15 @@ h6 {
 #ergebnisse-tabelle .footnote {
   font-style: italic;
   font-size: small;
+}
+
+#ergebnisse-tabelle .footnote {
   display: flex;
   position: relative;
   top: -0.5rem;
 }
 
-.sams-rankings .footnote>div {
+#ergebnisse-tabelle .footnote>div {
   flex-grow: 1
 }
 
