@@ -749,7 +749,8 @@ h6 {
 }
 
 #matches div.teams>div:first-child:after {
-  content: " : ";
+  content: ":";
+  padding: 0 0.5rem;
 }
 
 #ergebnisse-tabelle table {
@@ -782,6 +783,14 @@ h6 {
   #matches table span {
     display: none;
     /* Entfernt zusätzliche Informationen wie Punkte pro Satz */
+  }
+
+  #matches div.teams {
+    flex-direction: column;
+  }
+
+  #matches div.teams>div:first-child:after {
+    display: none;
   }
 }
 
