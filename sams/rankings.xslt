@@ -45,7 +45,7 @@
                                 </td>
                             </tr>
                 </xsl:for-each>
-                            <tr class="noranking">
+                            <tr class="norankings">
                                 <td colspan="4">Für diese Saison stehen derzeit keine Ergebnisse bereit.</td>
                             </tr>
                         </tbody>
