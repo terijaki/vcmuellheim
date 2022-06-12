@@ -801,9 +801,15 @@ h6 {
 }
 
 @media (max-width: 768px) {
-  #ergebnisse-tabelle .box {
+
+  #ergebnisse-tabelle .box,
+  #matches .box {
     padding: 20px;
     margin-bottom: 30px;
+  }
+
+  #matches table {
+    font-size: smaller;
   }
 }
 
