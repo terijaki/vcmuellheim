@@ -16,9 +16,8 @@ permalink: /matches/TEAMIDHERE
                             <thead>
                                 <tr>
                                     <th>Datum</th>
-                                    <th>Team 1</th>
-                                    <th>Team 2</th>
-                                    <th>Sätze (Punkte)</th>
+                                    <th>Teams</th>
+                                    <th>Sätze <span>(Punkte)</span></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -30,30 +29,34 @@ permalink: /matches/TEAMIDHERE
                                     </xsl:attribute>
                                         <td>
                                             <xsl:value-of select="date"/>
-                                        </td>    
-                                    <xsl:for-each select="team">
-                                        <xsl:sort select="number"/>
-                                        <td>
-                                        <xsl:attribute name="teamnumber">
-                                            <xsl:value-of select="number" />
-                                        </xsl:attribute>
-                                        <xsl:attribute name="teamid">
-                                            <xsl:value-of select="id" />
-                                        </xsl:attribute>
-                                        <xsl:attribute name="team">
-                                            <xsl:value-of select="name" />
-                                        </xsl:attribute>
-                                            <xsl:value-of select="name"/>
                                         </td>
-                                    </xsl:for-each>
                                         <td>
-                                            <xsl:value-of select="results/setPoints"/> (<xsl:for-each select="results/sets/set"><xsl:if test="number > 1">, </xsl:if><xsl:value-of select="points"/></xsl:for-each>)
+                                            <div class="teams">
+                                        <xsl:for-each select="team">
+                                            <xsl:sort select="number"/>
+                                            <div>
+                                            <xsl:attribute name="teamnumber">
+                                                <xsl:value-of select="number" />
+                                            </xsl:attribute>
+                                            <xsl:attribute name="teamid">
+                                                <xsl:value-of select="id" />
+                                            </xsl:attribute>
+                                            <xsl:attribute name="team">
+                                                <xsl:value-of select="name" />
+                                            </xsl:attribute>
+                                                <xsl:value-of select="name"/>
+                                            </div>
+                                        </xsl:for-each>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <xsl:value-of select="results/setPoints"/> <span>(<xsl:for-each select="results/sets/set"><xsl:if test="number > 1">, </xsl:if><xsl:value-of select="points"/></xsl:for-each>)</span>
                                         </td>
                                     </tr>
                                 </xsl:if>
                                 </xsl:for-each>
                                  <tr class="nomatches past">
-                                    <td colspan="4">Es liegen keine Ergebnisse für diese Saison vor.</td>
+                                    <td colspan="3">Es liegen keine Ergebnisse für diese Saison vor.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -70,8 +73,7 @@ permalink: /matches/TEAMIDHERE
                             <thead>
                                 <tr>
                                     <th>Datum</th>
-                                    <th>Team 1</th>
-                                    <th>Team 2</th>
+                                    <th>Teams</th>
                                     <th>Austragungsort</th>
                                 </tr>
                             </thead>
@@ -85,10 +87,12 @@ permalink: /matches/TEAMIDHERE
                                         <td>
                                             <xsl:value-of select="date"/><br/>
                                             <xsl:value-of select="time"/> Uhr
-                                        </td>    
+                                        </td>
+                                        <td>
+                                            <div class="teams">
                                     <xsl:for-each select="team">
                                         <xsl:sort select="number"/>
-                                        <td>
+                                        <div>
                                         <xsl:attribute name="teamid">
                                             <xsl:value-of select="id" />
                                         </xsl:attribute>
@@ -96,8 +100,10 @@ permalink: /matches/TEAMIDHERE
                                             <xsl:value-of select="name" />
                                         </xsl:attribute>
                                             <xsl:value-of select="name"/>
-                                        </td>
+                                        </div>
                                     </xsl:for-each>
+                                            </div>
+                                        </td>
                                         <td>
                                             <xsl:value-of select="location/city"/> (
                                             <xsl:value-of select="location/street"/>)
@@ -106,7 +112,7 @@ permalink: /matches/TEAMIDHERE
                                 </xsl:if>
                                 </xsl:for-each>
                                 <tr class="nomatches future">
-                                    <td colspan="4">Es liegen keine Spiele für diese Saison vor.</td>
+                                    <td colspan="3">Es liegen keine Spiele für diese Saison vor.</td>
                                 </tr>
                             </tbody>
                         </table>
