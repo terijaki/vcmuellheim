@@ -1,7 +1,6 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output omit-xml-declaration="yes"/>
-    <xsl:template match="/">
----
+<xsl:template match="/">---
 layout: page
 title: <xsl:value-of select="matches/match[1]/matchSeries/name"/> (Saison <xsl:value-of select="matches/match[1]/matchSeries/season/name"/>)
 permalink: /matches/TEAMIDHERE
@@ -124,5 +123,5 @@ permalink: /matches/TEAMIDHERE
         </div>
     </section>
 </main>
-    </xsl:template>
+</xsl:template>
 </xsl:stylesheet>
