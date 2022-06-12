@@ -743,6 +743,7 @@ h6 {
 #matches div.teams>div:first-child:after {
   content: ":";
   padding: 0 0.5rem;
+  font-weight: normal;
 }
 
 #ergebnisse-tabelle table {
@@ -772,18 +773,24 @@ h6 {
     font-size: smaller;
   }
 
-  #matches table span {
-    display: none;
-    /* Entfernt zusätzliche Informationen wie Punkte pro Satz */
-  }
+}
 
-  #matches div.teams {
-    flex-direction: column;
-  }
+#matches table th span {
+  display: none;
+}
 
-  #matches div.teams>div:first-child:after {
-    display: none;
-  }
+#matches table td span {
+  display: block;
+  font-size: smaller;
+}
+
+#matches div.teams {
+  flex-direction: column;
+}
+
+#matches div.teams>div:first-child:after {
+  display: none;
+}
 }
 
 .sams-rankings tr>* {
