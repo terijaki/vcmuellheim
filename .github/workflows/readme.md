@@ -9,11 +9,11 @@ This club data doesn't change often. Hence its relaxed schedule.
 Schedule: *every night & every hour over the weekend*
 
 For each team, we are making a call to the SAMS server to retrive past and future matches for each team.
-This data serves as game results and upcoming event schedule on the home page.
+This data serves as game results and upcoming event schedule on the home page. e.g. https://vcmuellheim.de/matches/18452008
  
  
 ## SAMS Ranking
-Not yet started. 🙃
+Schedule: *every night & every hour over the weekend*
 
 For each team's league, we are making a call to the SAMS server to retrive the current rankings for that league.
-This data servers to display rankings on the home page. 
+This data servers to display rankings on the home page. https://vcmuellheim.de/tabelle/
