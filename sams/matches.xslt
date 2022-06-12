@@ -38,6 +38,9 @@ permalink: /matches/TEAMIDHERE
                                     <xsl:for-each select="team">
                                         <xsl:sort select="number"/>
                                         <td>
+                                        <xsl:if test="results/winner=team/number">
+                                            <xsl:attribute name="winner">true</xsl:attribute>
+                                         </xsl:if>
                                         <xsl:attribute name="teamid">
                                         <xsl:value-of select="id" />
                                         </xsl:attribute>
