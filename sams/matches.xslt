@@ -38,7 +38,10 @@ permalink: /matches/TEAMIDHERE
                                             <xsl:value-of select="number" />
                                         </xsl:attribute>
                                         <xsl:attribute name="teamid">
-                                        <xsl:value-of select="id" />
+                                            <xsl:value-of select="id" />
+                                        </xsl:attribute>
+                                        <xsl:attribute name="team">
+                                            <xsl:value-of select="name" />
                                         </xsl:attribute>
                                             <xsl:value-of select="name"/>
                                         </td>
@@ -87,7 +90,10 @@ permalink: /matches/TEAMIDHERE
                                         <xsl:sort select="number"/>
                                         <td>
                                         <xsl:attribute name="teamid">
-                                        <xsl:value-of select="id" />
+                                            <xsl:value-of select="id" />
+                                        </xsl:attribute>
+                                        <xsl:attribute name="team">
+                                            <xsl:value-of select="name" />
                                         </xsl:attribute>
                                             <xsl:value-of select="name"/>
                                         </td>
