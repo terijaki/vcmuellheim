@@ -62,18 +62,6 @@ jobs:
           sudo apt-get install xsltproc
           xsltproc matches.xslt xml_temp/${{matrix.teams}}.xml > ${{env.REPO_TARGET}}/${{matrix.teams}}.html
 
-      - name: Seperate matches # seperate the matches into their own files
-        continue-on-error: true
-        run: |
-          curl -o individual_matches.xslt "https://vcmuellheim.de/sams/individual_matches.xslt"
-          xsltproc individual_matches.xslt xml_temp/${{matrix.teams}}.xml
-
-      - name: Upload Artifact - Individual Matches
-        uses: actions/upload-artifact@v3
-        with:
-          name: _individual_matches
-          path: _individual_matches
-
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
