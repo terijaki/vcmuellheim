@@ -5,6 +5,8 @@ layout: page
 title: <xsl:value-of select="matches/match[1]/matchSeries/name"/>
 permalink: /matches/TEAMIDHERE
 ---
+<main id="main" class="section-bg">
+     <div class="container">
         <div class="col sams-matches">
             <div class="box matches-past">
                 <h1>Ergebnisse</h1>
@@ -100,5 +102,7 @@ permalink: /matches/TEAMIDHERE
             </div>
 
         </div>
+    </div>
+</main>
     </xsl:template>
 </xsl:stylesheet>
