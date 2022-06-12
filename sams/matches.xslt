@@ -49,6 +49,9 @@ permalink: /matches/TEAMIDHERE
                                     </tr>
                                 </xsl:if>
                                 </xsl:for-each>
+                                 <tr class="nomatches past">
+                                    <td colspan="4">Es liegen keine Ergebnisse für diese Saison vor.</td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="footnote timestamp">
@@ -96,6 +99,9 @@ permalink: /matches/TEAMIDHERE
                                     </tr>
                                 </xsl:if>
                                 </xsl:for-each>
+                                <tr class="nomatches future">
+                                    <td colspan="4">Es liegen keine Spiele für diese Saison vor.</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
