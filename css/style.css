@@ -746,6 +746,13 @@ h6 {
   font-weight: normal;
 }
 
+#matches table th span,
+#matches table td span {
+  font-size: small;
+  padding-left: 0.5ch;
+  /* act as space as its removed by the XSLT processor */
+}
+
 #ergebnisse-tabelle table {
   width: 100%
 }
