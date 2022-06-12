@@ -773,24 +773,25 @@ h6 {
     font-size: smaller;
   }
 
+  #matches table th span {
+    display: none;
+  }
+
+  #matches table td span {
+    display: block;
+    font-size: smaller;
+  }
+
+  #matches div.teams {
+    flex-direction: column;
+  }
+
+  #matches div.teams>div:first-child:after {
+    display: none;
+  }
 }
 
-#matches table th span {
-  display: none;
-}
 
-#matches table td span {
-  display: block;
-  font-size: smaller;
-}
-
-#matches div.teams {
-  flex-direction: column;
-}
-
-#matches div.teams>div:first-child:after {
-  display: none;
-}
 
 .sams-rankings tr>* {
   padding: 1px;
