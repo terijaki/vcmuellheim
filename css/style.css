@@ -7,10 +7,6 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
-/*@font-face {
-  font-display: swap;
-}*/
-
 html {
   scroll-behavior: smooth;
 }
@@ -742,10 +738,6 @@ h6 {
 
 #matches div.teams {
   display: flex;
-}
-
-#matches div.teams>div {
-  flex-grow: 1;
 }
 
 #matches div.teams>div:first-child:after {
