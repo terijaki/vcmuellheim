@@ -731,6 +731,20 @@ h6 {
   font-weight: bold;
 }
 
+#matches th,
+#matches td {
+  padding-right: 1.5rem;
+}
+
+#matches tbody tr:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+#matches tr[winner="1"] td[teamnumber="1"],
+#matches tr[winner="2"] td[teamnumber="2"] {
+  font-weight: bold;
+}
+
 .sams-rankings table {
   width: 100%
 }

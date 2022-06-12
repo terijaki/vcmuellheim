@@ -12,7 +12,7 @@ permalink: /matches/TEAMIDHERE
                 <div class="box matches-past">
                     <h1>Ergebnisse</h1>
                     <div class="past">
-                        <table>
+                        <table class="w-100">
                             <thead>
                                 <tr>
                                     <th>Datum</th>
@@ -29,13 +29,12 @@ permalink: /matches/TEAMIDHERE
                                         <xsl:value-of select="results/winner" />
                                     </xsl:attribute>
                                         <td>
-                                            <xsl:value-of select="date"/><br/>
-                                            <xsl:value-of select="time"/> Uhr
+                                            <xsl:value-of select="date"/>
                                         </td>    
                                     <xsl:for-each select="team">
                                         <xsl:sort select="number"/>
                                         <td>
-                                        <xsl:attribute name="teamnumer">
+                                        <xsl:attribute name="teamnumber">
                                             <xsl:value-of select="number" />
                                         </xsl:attribute>
                                         <xsl:attribute name="teamid">
@@ -52,7 +51,7 @@ permalink: /matches/TEAMIDHERE
                                 </xsl:for-each>
                             </tbody>
                         </table>
-                        <div>
+                        <div class="timestamp">
                             Stand <xsl:value-of select="matches/timestamp"/>
                         </div>
                     </div>
@@ -61,7 +60,7 @@ permalink: /matches/TEAMIDHERE
                 <div class="box matches-future">
                     <h1>Spielplan</h1>
                     <div class="upcoming">
-                        <table>
+                        <table class="w-100">
                             <thead>
                                 <tr>
                                     <th>Datum</th>
