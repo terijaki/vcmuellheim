@@ -28,11 +28,14 @@ body {
   flex-direction: column;
 }
 
-#main {
+main {
   display: flex;
   flex-grow: 1;
 }
 
+main>section {
+  flex-grow: 1;
+}
 
 a {
   color: var(--link1);
@@ -71,7 +74,7 @@ h6 {
 
 #header,
 #page-wrapper,
-#main {
+main {
   scroll-behavior: smooth;
 }
 
@@ -1203,14 +1206,14 @@ h6 {
 @media print {
 
   body *,
-  #main * {
+  main * {
     display: none;
   }
 
   #shortintro,
   #shortintro *,
-  #main,
-  #main * {
+  main,
+  main * {
     display: block;
   }
 
@@ -1225,7 +1228,7 @@ h6 {
     color: #000000 !important;
   }
 
-  #main .print-page {
+  main .print-page {
     display: none;
   }
 }
