@@ -740,15 +740,15 @@ h6 {
   font-weight: bold;
 }
 
-#matches td.teams {
+#matches div.teams {
   display: flex;
 }
 
-#matches td.teams>div {
+#matches div.teams>div {
   flex-grow: 1;
 }
 
-#matches td.teams>div:first-child:after {
+#matches div.teams>div:first-child:after {
   content: " : ";
 }
 
