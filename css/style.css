@@ -735,8 +735,8 @@ h6 {
   background: rgba(0, 0, 0, 0.05);
 }
 
-#matches tr[winner="1"] td[teamnumber="1"],
-#matches tr[winner="2"] td[teamnumber="2"] {
+#matches tr[winner="1"] div[teamnumber="1"],
+#matches tr[winner="2"] div[teamnumber="2"] {
   font-weight: bold;
 }
 
@@ -744,16 +744,27 @@ h6 {
   width: 100%
 }
 
-.sams-rankings tr :nth-child(4) {
-  display: none;
-  /* entfernt Sätze aus der Tabellenübersicht */
-}
+@media (max-width: 768px) {
 
-@media (min-width: 769px) {
-
+  /* Verhalten bei kleineren Bildschirmen*/
   .sams-rankings tr :nth-child(4) {
-    display: block;
-    /* Zeigt die Sätze bei größeren Bildschirmen wieder an */
+    display: none;
+    /* Blendet Sätze aus der Tabellenübersicht aus */
+  }
+
+  #ergebnisse-tabelle .box,
+  #matches .box {
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+
+  #matches table {
+    font-size: smaller;
+  }
+
+  #matches table span {
+    display: none;
+    /* Entfernt zusätzliche Informationen wie Punkte pro Satz */
   }
 }
 
@@ -798,19 +809,6 @@ h6 {
   color: var(--text2);
   background: var(--gradient1);
   font-weight: normal !important;
-}
-
-@media (max-width: 768px) {
-
-  #ergebnisse-tabelle .box,
-  #matches .box {
-    padding: 20px;
-    margin-bottom: 30px;
-  }
-
-  #matches table {
-    font-size: smaller;
-  }
 }
 
 #ergebnisse-tabelle .teams>div {
