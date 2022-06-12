@@ -752,6 +752,7 @@ h6 {
   text-align: center;
 }
 
+.matches .footnote,
 .sams-rankings .footnote {
   font-style: italic;
   font-size: small;
@@ -764,6 +765,7 @@ h6 {
   flex-grow: 1
 }
 
+.matches .timestamp,
 .sams-rankings .timestamp {
   text-align: right;
 }
