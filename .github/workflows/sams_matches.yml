@@ -48,19 +48,30 @@ jobs:
           curl -o xml_temp/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&teamId=${{matrix.teams}}"
 
       - name: Cleanup SAMS XML # removes strings that break the XLST
-        run: sed -i -e 's!xmlns="http://sams-server.de/api/xml/ns/matches" !!g' xml_temp/${{matrix.time}}/${{matrix.teams}}.xml
+        run: sed -i -e 's!xmlns="http://sams-server.de/api/xml/ns/matches" !!g' xml_temp/${{matrix.teams}}.xml
 
       - name: Add timestamp to XML # includes a timestamp in German format
-        run: sed -i -e 's!</matches>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></matches>!g' xml_temp/${{matrix.time}}/${{matrix.teams}}.xml
+        run: sed -i -e 's!</matches>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></matches>!g' xml_temp/${{matrix.teams}}.xml
 
       - name: Update permalink to XSLT template # so we can reach it after the Jekyll build
         run: sed -i -e 's!TEAMIDHERE!${{matrix.teams}}!g' matches.xslt
 
       - name: Transform XML # Push the XML through the XSLT
         run: |
-          mkdir -p ${{env.REPO_TARGET}}/${{matrix.time}}
+          mkdir -p ${{env.REPO_TARGET}}
           sudo apt-get install xsltproc
-          xsltproc matches.xslt xml_temp/${{matrix.time}}/${{matrix.teams}}.xml > ${{env.REPO_TARGET}}/${{matrix.time}}/${{matrix.teams}}.html
+          xsltproc matches.xslt xml_temp/${{matrix.teams}}.xml > ${{env.REPO_TARGET}}/${{matrix.teams}}.html
+
+      - name: Seperate matches # seperate the matches into their own files
+        continue-on-error: true
+        run: |
+          xsltproc individual_matches.xslt xml_temp/${{matrix.teams}}.xml
+
+      - name: Upload Artifact - Individual Matches
+        uses: actions/upload-artifact@v3
+        with:
+          name: _individual_matches
+          path: _individual_matches
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
