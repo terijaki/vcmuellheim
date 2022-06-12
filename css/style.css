@@ -731,11 +731,6 @@ h6 {
   font-weight: bold;
 }
 
-#matches th,
-#matches td {
-  padding-right: 1.5rem;
-}
-
 #matches tbody tr:nth-child(odd) {
   background: rgba(0, 0, 0, 0.05);
 }
