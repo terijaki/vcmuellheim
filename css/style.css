@@ -740,13 +740,30 @@ h6 {
   font-weight: bold;
 }
 
-.sams-rankings table {
+#matches td.teams {
+  display: flex;
+}
+
+#matches td.teams>div {
+  flex-grow: 1;
+}
+
+#matches td.teams>div:first-child:after {
+  content: " : ";
+}
+
+#ergebnisse-tabelle table {
   width: 100%
 }
 
 @media (max-width: 768px) {
 
   /* Verhalten bei kleineren Bildschirmen*/
+  #matches .container,
+  #ergebnisse-tabelle .container {
+    padding: 0;
+  }
+
   .sams-rankings tr :nth-child(4) {
     display: none;
     /* Blendet Sätze aus der Tabellenübersicht aus */
