@@ -788,6 +788,12 @@ h6 {
   display: none;
 }
 
+#matches .nomatches td,
+#ergebnisse-tabelle .norankings td {
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
 #ergebnisse-tabelle .sams-rankings tr[team~="Müllheim"] {
   color: var(--text2);
   background: var(--gradient1);
