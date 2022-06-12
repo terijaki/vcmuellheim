@@ -761,7 +761,7 @@ h6 {
 }
 
 .sams-rankings .footnote>div {
-  flex-basis: 100%;
+  flex-grow: 1
 }
 
 .sams-rankings .timestamp {
