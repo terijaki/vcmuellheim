@@ -2,7 +2,7 @@
     <xsl:template match="/">
 ---
 layout: page
-title: <xsl:value-of select="matches/match[1]/matchSeries/name"/>
+title: <xsl:value-of select="matches/match[1]/matchSeries/name"/> <xsl:value-of select="matches/match[1]/matchSeries/season/name"/>
 permalink: /matches/TEAMIDHERE
 ---
 <main id="main" class="section-bg">
