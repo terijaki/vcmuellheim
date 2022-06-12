@@ -51,7 +51,8 @@ collections:
   matches: # Creates links based on their filenames
     output: true
     permalink: /matches/:name
+  - ticker
 
 feed:
   collections:
-    - matches
+    - ticker
