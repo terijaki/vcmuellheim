@@ -7,21 +7,20 @@ permalink: /tabelle/
 <main id="main" class="section-bg">
 
 <!--===== Ergebnisse & Tabelle =====-->
-<section id="ergebnisse-tabelle">
+  <section id="ergebnisse-tabelle">
 
-    <div class="container">
-        <div class="row teams">
+      <div class="container">
+          <div class="row teams">
 
-          {% assign sorted-teams = (site.teams | sort: 'liga') %}
-          {% for team in sorted-teams %}
-            {% if team.sbvv_id > 0 %}  
-              {% include sams/rankings/{{ team.sbvv_id }}.html %}
-            {% endif %}
-          {% endfor %}
+            {% assign sorted-teams = (site.teams | sort: 'liga') %}
+            {% for team in sorted-teams %}
+              {% if team.sbvv_id > 0 %}  
+                {% include sams/rankings/{{ team.sbvv_id }}.html %}
+              {% endif %}
+            {% endfor %}
 
-        </div>
-    </div>
-</section>
-
+          </div>
+      </div>
+  </section>
 
 </main>
