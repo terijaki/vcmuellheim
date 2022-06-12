@@ -67,9 +67,6 @@ jobs:
           sudo apt-get install xsltproc
           xsltproc rankings.xslt xml_temp/${{matrix.teams}}.xml > ${{env.REPO_TARGET}}/${{matrix.teams}}.html
 
-      - name: Cleanup HTML # final clean up for Jekyll
-        run: sed -i -e '1d'  ${{env.REPO_TARGET}}/${{matrix.teams}}.html
-
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
