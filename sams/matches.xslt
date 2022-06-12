@@ -15,10 +15,10 @@ permalink: /matches/TEAMIDHERE
                         <table>
                             <thead>
                                 <tr>
-                                    <tr>Datum</tr>
-                                    <tr>Team 1</tr>
-                                    <tr>Team 2</tr>
-                                    <tr>Sätze (Bälle)</tr>
+                                    <th>Datum</th>
+                                    <th>Team 1</th>
+                                    <th>Team 2</th>
+                                    <th>Sätze (Bälle)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -67,10 +67,10 @@ permalink: /matches/TEAMIDHERE
                         <table>
                             <thead>
                                 <tr>
-                                    <tr>Datum</tr>
-                                    <tr>Team 1</tr>
-                                    <tr>Team 2</tr>
-                                    <tr>Austragungsort</tr>
+                                    <th>Datum</th>
+                                    <th>Team 1</th>
+                                    <th>Team 2</th>
+                                    <th>Austragungsort</th>
                                 </tr>
                             </thead>
                             <tbody>
