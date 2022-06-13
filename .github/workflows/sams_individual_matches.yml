@@ -2,8 +2,7 @@ name: SAMS Individual Match Schedule
 
 on:
   schedule:
-    - cron: 22 3 * * * # every night at 3:22
-    - cron: 15 10-22 * * 0,6 # every hour on sa & sun between 10AM - 10PM
+    - cron: 55 * * * * # every hour
   workflow_dispatch:
 
 env:
