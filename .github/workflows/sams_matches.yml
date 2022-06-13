@@ -10,7 +10,7 @@ env:
   SAMS_KEY: ${{ secrets.SAMS_API }} # SAMS API key
   SAMS_URL: https://www.volleyball-baden.de # start of the api http structure
   REPO_TARGET1: _matches # the output folder for the entire matches
-  REPO_TARGET2: _individual/matches # the output folder for the individual matches
+  REPO_TARGET2: _individual_matches # the output folder for the individual matches
 
 jobs:
   Get-Teams:
@@ -59,7 +59,7 @@ jobs:
       - name: Update permalink in XSLT template # so we can reach the matches page after the Jekyll build
         run: sed -i -e 's!TEAMIDHERE!${{matrix.teams}}!g' matches.xslt
 
-      - name: Run XSLT processor for matches # Push the XML through the XSLT
+      - name: XSLT processing (matches) # Push the XML through the XSLT
         run: |
           mkdir -p ${{env.REPO_TARGET1}}
           sudo apt-get install xsltproc
@@ -71,7 +71,7 @@ jobs:
           name: matches
           path: ${{env.REPO_TARGET1}}
 
-      - name: Install Saxon XSLT # Download and install the XSLT processor
+      - name: XSLT processing (individual matches) # Download and install the XSLT processor (Saxon to use XSLT 2.0 features)
         run: |
           git clone https://github.com/sputnick-dev/saxon-lint.git
           cd saxon-lint*
