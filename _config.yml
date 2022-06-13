@@ -53,9 +53,9 @@ collections:
     permalink: /matches/:name
   individual_matches:
     sort_by: date
-    label: Spielergebnisse"
 
 feed:
   collections:
     individual_matches:
       path: "/liga.xml"
+      label: Spielergebnisse"
