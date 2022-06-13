@@ -60,6 +60,7 @@ jobs:
       - name: Transform XML # Push the XML through the XSLT processor
         run: |
           mkdir -p ${{env.REPO_TARGET}}
+          saxon-lint-pl --help
           ./saxon-lint.pl --xslt individual_matches.xslt xml_temp/${{matrix.teams}}.xml
 
       - name: Upload Artifact
