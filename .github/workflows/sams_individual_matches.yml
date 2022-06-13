@@ -57,9 +57,9 @@ jobs:
           cd saxon-lint*
           chmod +x saxon-lint.pl
           cd ..
-          saxon-lint.pl --help
+          ./saxon-lint/saxon-lint.pl --help
           mkdir -p ${{env.REPO_TARGET}}
-          saxon-lint.pl --xslt individual_matches.xslt xml_temp/${{matrix.teams}}.xml
+          ./saxon-lint/saxon-lint.pl --xslt individual_matches.xslt xml_temp/${{matrix.teams}}.xml
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
