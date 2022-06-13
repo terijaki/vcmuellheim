@@ -57,10 +57,10 @@ jobs:
           chmod +x saxon-lint.pl
           ./saxon-lint.pl --help
 
-      - name: Transform XML # Push the XML through the XSLT
+      - name: Transform XML # Push the XML through the XSLT processor
         run: |
           mkdir -p ${{env.REPO_TARGET}}
-          saxon-lint.pl --xslt individual_matches.xslt xml_temp/${{matrix.teams}}.xml
+          ./saxon-lint.pl --xslt individual_matches.xslt xml_temp/${{matrix.teams}}.xml
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
