@@ -48,12 +48,12 @@ collections:
     people: true
   teams: # List teams on the landing page and rankings if they have an SBVV-ID
     sort_by: liga
-  matches: # Creates links based on their filenames
+  matches: # Creates pages for each SAMS matchSeries based on their filenames
     output: true
     permalink: /matches/:name
-  ticker:
+  individual_matches:
     sort_by: date
 
 feed:
   collections:
-    - ticker
+    - individual_matches
