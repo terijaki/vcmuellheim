@@ -56,4 +56,5 @@ collections:
 
 feed:
   collections:
-    - individual_matches
+    individual_matches:
+      path: "/liga.xml"
