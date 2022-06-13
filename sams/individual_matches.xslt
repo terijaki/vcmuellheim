@@ -25,7 +25,6 @@
                 </xsl:if>
             </xsl:for-each>
             <xsl:text> (</xsl:text><xsl:value-of select="results/setPoints"/><xsl:text>) </xsl:text>
-            
     </xsl:result-document>
     </xsl:if>
 </xsl:for-each>
