@@ -12,8 +12,9 @@
             <xsl:value-of select="matchSeries/name"/><xsl:text>: </xsl:text>
             <xsl:for-each select="team">
                 <xsl:sort select="number"/>
-                <xsl:if test="number = 2">
-                    <xsl:text> - </xsl:text><xsl:value-of select="name"/>
+                <xsl:value-of select="name"/>
+                <xsl:if test="number = 1">
+                    <xsl:text> - </xsl:text>
                 </xsl:if>
             </xsl:for-each>
             <xsl:text> (</xsl:text><xsl:value-of select="results/setPoints"/><xsl:text>) </xsl:text>
