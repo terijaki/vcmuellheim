@@ -9,12 +9,14 @@
     <xsl:if test="results/winner > 0">
     <xsl:variable name="matchid"><xsl:value-of select="id"/></xsl:variable>
     <xsl:result-document method="html" href="_individual_matches/{$matchid}.html">
-        
+            <xsl:value-of select="matchSeries/name"/><xsl:text>: </xsl:text>
             <xsl:for-each select="team">
                 <xsl:sort select="number"/>
-                <xsl:value-of select="name"/>
+                <xsl:if test="number = 2">
+                    <xsl:text> - </xsl:text><xsl:value-of select="name"/>
+                </xsl:if>
             </xsl:for-each>
-            <xsl:value-of select="results/setPoints"/>
+            <xsl:text> (</xsl:text><xsl:value-of select="results/setPoints"/><xsl:text>) </xsl:text>
 
     </xsl:result-document>
     </xsl:if>
