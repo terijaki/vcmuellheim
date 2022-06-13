@@ -33,9 +33,9 @@ jobs:
 
   Fetch-to-XML:
     needs: Get-Teams
-    max-parallel: 1
     continue-on-error: false # if one team fails, the flow should continue
     strategy:
+      max-parallel: 1 # TEMPORARY FOR TESTING
       matrix:
         teams: ${{fromJSON(needs.Get-Teams.outputs.teamids)}} # this has to use fromJSON, see https://github.blog/changelog/2020-04-15-github-actions-new-workflow-features/
     runs-on: ubuntu-latest
