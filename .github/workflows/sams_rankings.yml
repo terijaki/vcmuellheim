@@ -71,7 +71,7 @@ jobs:
       - name: Transform XML with Saxon # Push the XML through the Saxon XSLT
         run: |
           mkdir -p ${{env.REPO_TARGET}}
-          ./saxon-lint/saxon-lint.pl --xslt -xsl "rankings.xslt" -s "xml_temp/${{matrix.teams}}.xml" -o "${{env.REPO_TARGET}}/${{matrix.teams}}.html"
+          ./saxon-lint/saxon-lint.pl --xslt -o "${{env.REPO_TARGET}}/${{matrix.teams}}.html" rankings.xslt xml_temp/${{matrix.teams}}.xml
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
