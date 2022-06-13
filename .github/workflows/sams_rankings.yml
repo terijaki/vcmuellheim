@@ -72,7 +72,7 @@ jobs:
         run: |
           mkdir -p ${{env.REPO_TARGET}}
           sudo apt-get install xsltproc
-          ./saxon-lint/saxon-lint.pl --xslt -xsl:rankings.xslt -s:xml_temp/${{matrix.teams}}.xml -o:${{env.REPO_TARGET}}/${{matrix.teams}}.html
+          ./saxon-lint/saxon-lint.pl --xslt rankings.xslt xml_temp/${{matrix.teams}}.xml ${{env.REPO_TARGET}}/${{matrix.teams}}.html
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
