@@ -58,7 +58,6 @@ feed:
   collections:
     individual_matches:
       path: "/liga.xml"
-      excerpt_only: true
       defaults:
         author: "SBVV-Online"
         title: "Spielergebnis"
