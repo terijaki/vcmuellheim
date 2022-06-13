@@ -1,4 +1,4 @@
-name: SAMS Match Schedule
+name: SAMS Individual Match Schedule
 
 on:
   schedule:
