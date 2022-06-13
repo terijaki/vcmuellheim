@@ -1,8 +1,6 @@
 name: SAMS Individual Match Schedule
 
 on:
-  schedule:
-    - cron: 55 * * * * # every hour
   workflow_dispatch:
 
 env:
