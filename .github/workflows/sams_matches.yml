@@ -114,11 +114,18 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
+      - name: Git Pull # to avoid conflicts with parallel runs
+        run: |
+          git pull
+
+      - name: Git Add
+        continue-on-error: true # don't throw an error as there won't always be changes
+        run: |
+          git add "${{env.REPO_TARGET1}}/*"
+          git add "${{env.REPO_TARGET2}}/*"
+
       - name: Git Commit
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
-          git pull
-          git add "${{env.REPO_TARGET1}}/*"
-          git add "${{env.REPO_TARGET2}}/*"
           git commit -m "sams scheduled update"
           git push origin --all --quiet
