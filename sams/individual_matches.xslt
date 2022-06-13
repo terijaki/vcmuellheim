@@ -16,7 +16,7 @@
             <xsl:text>category: </xsl:text><xsl:value-of select="matchSeries/name"/>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>---</xsl:text>
-            <xsl:copy-of select="matchSeries/name"/><xsl:text>: </xsl:text>
+            <xsl:value-of select="matchSeries/name"/><xsl:text>: </xsl:text>
             <xsl:for-each select="team">
                 <xsl:sort select="number"/>
                 <xsl:value-of select="name"/>
