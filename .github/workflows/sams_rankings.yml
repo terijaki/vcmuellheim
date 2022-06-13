@@ -71,7 +71,6 @@ jobs:
       - name: Transform XML with Saxon # Push the XML through the Saxon XSLT
         run: |
           mkdir -p ${{env.REPO_TARGET}}
-          sudo apt-get install xsltproc
           ./saxon-lint/saxon-lint.pl --xslt rankings.xslt xml_temp/${{matrix.teams}}.xml ${{env.REPO_TARGET}}/${{matrix.teams}}.html
 
       - name: Upload Artifact
