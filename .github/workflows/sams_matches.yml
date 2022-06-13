@@ -10,7 +10,7 @@ env:
   SAMS_KEY: ${{ secrets.SAMS_API }} # SAMS API key
   SAMS_URL: https://www.volleyball-baden.de # start of the api http structure
   REPO_TARGET1: _matches # the output folder for the entire matches
-  REPO_TARGET2: spielergebnisse # the output folder for the individual matches
+  REPO_TARGET2: spielergebnisse # the output folder for the individual matches (to change, also updated inside the XSLT!!)
 
 jobs:
   Get-Teams:
