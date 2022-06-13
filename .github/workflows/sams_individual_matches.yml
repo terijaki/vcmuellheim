@@ -92,6 +92,7 @@ jobs:
       - name: Git Commit
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
+          git pull
           git add "${{env.REPO_TARGET}}/*"
           git commit -m "sams scheduled update"
           git push origin --all --quiet
