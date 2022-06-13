@@ -51,11 +51,12 @@ collections:
   matches: # Creates pages for each SAMS matchSeries based on their filenames
     output: true
     permalink: /matches/:name
-  individual_matches:
+  spielergebnisse:
     sort_by: date
+    relative_directory: "_individual_matches"
 
 feed:
   collections:
-    individual_matches:
+    spielergebnisse:
       path: "/liga.xml"
       label: Spielergebnisse"
