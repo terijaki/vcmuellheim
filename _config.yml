@@ -58,4 +58,4 @@ feed:
   collections:
     individual_matches:
       path: "/liga.xml"
-      title: "Alle Ergebnisse aus dem Ligabetrieb"
+      excerpt_only: true
