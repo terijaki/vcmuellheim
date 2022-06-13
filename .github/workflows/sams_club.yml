@@ -19,19 +19,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Fetch Club Data
+      - name: Query SAMS for Club Data
         run: |
           mkdir -p sams
           curl -o sams/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
 
-      - name: Get XML
+      - name: Get XML # this reads the XML file and extracts the team IDs
         id: getxml
         uses: mavrosxristoforos/get-xml-info@1.0
         with:
           xml-file: "sams/club.xml"
           xpath: "/sportsclub/teams/team/seasonTeamId"
 
-      - name: Echo Teams
+      - name: List Team IDs # displays the team IDs to the console log
         run: echo 'Teams:${{ steps.getxml.outputs.info }}'
 
       - name: Setup Git Config
