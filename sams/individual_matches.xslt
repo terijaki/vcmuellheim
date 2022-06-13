@@ -11,9 +11,9 @@
     <xsl:result-document method="html" href="_individual_matches/{$matchid}.html">
             <xsl:text>---</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
-            <xsl:text>id: {$matchid}</xsl:text>
+            <xsl:text>id: "</xsl:text><xsl:value-of select="uuid"/>"
             <xsl:text>&#xA;</xsl:text><!-- new line-->
-            <xsl:text>category: </xsl:text><xsl:value-of select="matchSeries/name"/>
+            <xsl:text>category: "</xsl:text><xsl:value-of select="matchSeries/name"/>"
             <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>---</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
