@@ -12,9 +12,7 @@
             <xsl:text>---</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>id: "</xsl:text><xsl:value-of select="uuid"/>"
-            <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>category: "</xsl:text><xsl:value-of select="matchSeries/name"/>"
-            <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>---</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:value-of select="matchSeries/name"/><xsl:text>: </xsl:text>
