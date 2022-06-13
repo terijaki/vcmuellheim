@@ -53,7 +53,7 @@ collections:
     permalink: /matches/:name
   spielergebnisse:
     sort_by: date
-    relative_directory: "_individual_matches"
+    relative_directory: "/_individual_matches"
 
 feed:
   collections:
