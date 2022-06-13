@@ -51,9 +51,8 @@ collections:
   matches: # Creates pages for each SAMS matchSeries based on their filenames
     output: true
     permalink: /matches/:name
-  spielergebnisse:
+  spielergebnisse: # individual matches
     sort_by: date
-    directory: /_individual_matches/
 
 feed:
   collections:
