@@ -20,14 +20,14 @@ jobs:
       - name: Get club.xml cache # Get the catched club.xml
         run: curl -o club.xml "https://vcmuellheim.de/sams/club.xml"
 
-      - name: Get Team IDs from club.xml
+      - name: Get Team IDs from club.xml #extract all team IDs from the XML
         id: teamids-from-club
         uses: mavrosxristoforos/get-xml-info@1.0
         with:
           xml-file: "club.xml"
-          xpath: "/sportsclub/teams/team/seasonTeamId" #extract all team IDs from the XML
+          xpath: "/sportsclub/teams/team/seasonTeamId"
 
-      - name: Transform MatchSeries IDs
+      - name: Transform Team IDs
         id: teamid-list
         run: echo "::set-output name=teamids::[${{steps.teamids-from-club.outputs.info}}]" # transform IDs from "123,456,789" to "[123,456,789]"
 
@@ -35,7 +35,6 @@ jobs:
     needs: Get-Teams
     continue-on-error: true # if one team fails, the flow should continue
     strategy:
-      #max-parallel: 1
       matrix:
         teams: ${{fromJSON(needs.Get-Teams.outputs.teamids)}}
     runs-on: ubuntu-latest
@@ -43,17 +42,25 @@ jobs:
       - name: Get club.xml cache # Get the catched club.xml
         run: curl -o club.xml "https://vcmuellheim.de/sams/club.xml"
 
-      - name: Get matchSeries IDs from club.xml
+      - name: Get matchSeries IDs from club.xml #extract the matchSeries ID for this team from the XML
         id: matchseriesid-from-club
         uses: mavrosxristoforos/get-xml-info@1.0
         with:
           xml-file: "club.xml"
-          xpath: "/sportsclub/teams/team[id='${{matrix.teams}}']/matchSeries/id" #extract the matchSeries ID for this team from the XML
+          xpath: "/sportsclub/teams/team[id='${{matrix.teams}}']/matchSeries/id"
 
       - name: Get rankings.xslt template # Get the xslt template
         run: curl -o rankings.xslt "https://vcmuellheim.de/sams/rankings.xslt"
 
-      - name: Fetch from SAMS # make the API call to the SAMS server and save it as XML
+      - name: Install Saxon XSLT # Download and install the XSLT processor
+        run: |
+          git clone https://github.com/sputnick-dev/saxon-lint.git
+          cd saxon-lint*
+          chmod +x saxon-lint.pl
+          ./saxon-lint.pl --help
+          cd ..
+
+      - name: Query SAMS matches # make the API call to the SAMS server and save it as XML
         run: |
           mkdir -p xml_temp
           curl -o xml_temp/${{matrix.teams}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{steps.matchseriesid-from-club.outputs.info}}"
@@ -61,11 +68,11 @@ jobs:
       - name: Add timestamp to XML # includes a timestamp in German format
         run: sed -i -e 's!</rankings>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></rankings>!g' xml_temp/${{matrix.teams}}.xml
 
-      - name: Transform XML # Push the XML through the XSLT
+      - name: Transform XML with Saxon # Push the XML through the Saxon XSLT
         run: |
           mkdir -p ${{env.REPO_TARGET}}
           sudo apt-get install xsltproc
-          xsltproc rankings.xslt xml_temp/${{matrix.teams}}.xml > ${{env.REPO_TARGET}}/${{matrix.teams}}.html
+          ./saxon-lint/saxon-lint.pl --xslt -xsl:rankings.xslt -s:xml_temp/${{matrix.teams}}.xml -o:${{env.REPO_TARGET}}/${{matrix.teams}}.html
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
