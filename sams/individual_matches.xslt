@@ -11,7 +11,7 @@
     <xsl:result-document method="html" href="_individual_matches/{$matchid}.html">
             <xsl:text>---</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
-            <xsl:text>id: </xsl:text>$matchid
+            <xsl:text>id: {$matchid}</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>category: </xsl:text><xsl:value-of select="matchSeries/name"/>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
