@@ -1,4 +1,8 @@
+name: Twitter Match Announcements
 
+on:
+  schedule:
+  workflow_dispatch:
 
 FOR EACH FILE CONTAINING A COMMIT MESSAGE
 for f in $(ls | tr '\n' '\n') ; do if test -n "git log --follow --pretty=oneline $f | grep -q 'twitter'"; then echo "$f" ; else echo " else $f" ; fi ; done
