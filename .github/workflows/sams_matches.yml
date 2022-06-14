@@ -118,14 +118,19 @@ jobs:
         run: |
           git pull
 
-      - name: Git Add
+      - name: Git Commit Matches
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git add "${{env.REPO_TARGET1}}/*"
-          git add "${{env.REPO_TARGET2}}/*"
+          git commit -m "sams matches update"
 
-      - name: Git Commit
+      - name: Git Commit Individual Matches
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
-          git commit -m "sams scheduled update"
+          git add "${{env.REPO_TARGET2}}/*"
+          git commit -m "sams new individual match"
+
+      - name: Git Push
+        continue-on-error: true # don't throw an error as there won't always be changes
+        run: |
           git push origin --all --quiet
