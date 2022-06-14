@@ -1,0 +1,25 @@
+
+
+FOR EACH FILE CONTAINING A COMMIT MESSAGE
+for f in $(ls | tr '\n' '\n') ; do if test -n "git log --follow --pretty=oneline $f | grep -q 'twitter'"; then echo "$f" ; else echo " else $f" ; fi ; done
+
+WORKING:
+for f in $(ls | tr '\n' '\n') ; do git log --follow --pretty=oneline $f | grep -qv 'twitter' && echo "$f DOES NOT CONTAIN STRING"; done
+
+
+
+
+
+for f in $(ls | tr '\n' '\n') ; # for each file in directory
+do if test -z "git log --pretty=oneline --grep 'twitter' --invert-grep $f" ; # if the file contains a commit message that does not contain 'twitter'
+then echo "missing $f" ; # if yes, print "yes"
+else echo "no $f" ; # if no, print "no" and the file name
+fi ; # end of if
+done # end of for
+
+
+
+
+
+for f in $(ls | tr '\n' '\n') ; do git log --follow --pretty=oneline $f | grep -qv 'twitter' && echo "matched $f"; done
+
