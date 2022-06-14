@@ -1,7 +1,6 @@
 name: Twitter Match Announcements
 
 on:
-  schedule:
   workflow_dispatch:
 
 FOR EACH FILE CONTAINING A COMMIT MESSAGE
