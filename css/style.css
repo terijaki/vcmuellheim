@@ -725,6 +725,7 @@ main {
 #page-simple .box h3,
 #page-simple .box h4 {
   margin: 1rem 0 0 0;
+  font-weight: 500;
 }
 
 
