@@ -667,27 +667,36 @@ main {
 
 /* Corona and Sport Section
 --------------------------------*/
+#special,
 #corona-und-sport {
   overflow: hidden;
-  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(../img/corona-and-sport.jpg) fixed center center;
+  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9));
   background-size: cover;
   color: #fff;
 }
 
+#corona-und-sport {
+  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(../img/corona-and-sport.jpg) fixed center center;
+}
+
+#special .cta-title,
 #corona-und-sport .cta-title {
   color: var(--text2);
   font-size: 28px;
   font-weight: 700;
 }
 
+#special .cta-title .cta-text,
 #corona-und-sport .cta-text {
   color: var(--text2);
 }
 
-#corona-und-sport a {
+#special .cta-title a,
+#corona-und-sport .cta-title a {
   color: var(--link_hover1);
 }
 
+#special .cta-title .sources p,
 #corona-und-sport .sources p {
   margin: 0;
 }
