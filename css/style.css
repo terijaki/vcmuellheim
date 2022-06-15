@@ -686,17 +686,17 @@ main {
   font-weight: 700;
 }
 
-#special .cta-title .cta-text,
+#special .cta-text,
 #corona-und-sport .cta-text {
   color: var(--text2);
 }
 
-#special .cta-title a,
-#corona-und-sport .cta-title a {
+#special a,
+#corona-und-sport a {
   color: var(--link_hover1);
 }
 
-#special .cta-title .sources p,
+#special .sources p,
 #corona-und-sport .sources p {
   margin: 0;
 }
