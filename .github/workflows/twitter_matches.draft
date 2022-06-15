@@ -3,6 +3,34 @@ name: Twitter Match Announcements
 on:
   workflow_dispatch:
 
+env:
+  TWITTER_API: ${{ secrets.TWITTER_API }}
+  
+
+jobs:
+  identify-matches-to-post:
+    runs-on: ubuntu-latest
+        outputs:
+      matchids: ${{steps.scanmatches.outputs.matchids}} # outputs team IDs in the form of [123,456,789]
+    steps:
+      - name: Create placeholder variable
+        run: declare matches_to_post=""
+      - name: Scan Matches
+        id: scanmatches
+        run: |
+          for f in $(ls | tr '\n' '\n') ; do git log --follow --pretty=oneline $f | grep -qv 'twitter' && declare "$matches_to_post $f"; done
+
+
+          
+      - name: Output matches to post
+        run: declare matches_to_post=""
+          echo "::set-output name=matchids::[${{steps.scanmatches.outputs.info}}]" # transform IDs from "123,456,789" to "[123,456,789]"
+
+
+declare matches_to_post=""
+echo $matches_t_opost
+
+
 FOR EACH FILE CONTAINING A COMMIT MESSAGE
 for f in $(ls | tr '\n' '\n') ; do if test -n "git log --follow --pretty=oneline $f | grep -q 'twitter'"; then echo "$f" ; else echo " else $f" ; fi ; done
 
@@ -10,19 +38,22 @@ WORKING:
 for f in $(ls | tr '\n' '\n') ; do git log --follow --pretty=oneline $f | grep -qv 'twitter' && echo "$f DOES NOT CONTAIN STRING"; done
 
 
+GIT PULL:
+git pull
+
+GIT DUMMY COMMIT:
+echo "TWITTERTOUCH" >> dummy.html # add string to file
+git commit -m "modify for twitter" -- dummy.html # commit file with string
+
+
+POST ON TWITTER:
+
+
+GIT REVERT DUMMY COMMIT:
+sed -i -e 's/TWITTERTOUCH//' dummy.html # remove string from file again
+git commit -m "posted on twitter" -- dummy.html # re-commit
 
 
 
-for f in $(ls | tr '\n' '\n') ; # for each file in directory
-do if test -z "git log --pretty=oneline --grep 'twitter' --invert-grep $f" ; # if the file contains a commit message that does not contain 'twitter'
-then echo "missing $f" ; # if yes, print "yes"
-else echo "no $f" ; # if no, print "no" and the file name
-fi ; # end of if
-done # end of for
-
-
-
-
-
-for f in $(ls | tr '\n' '\n') ; do git log --follow --pretty=oneline $f | grep -qv 'twitter' && echo "matched $f"; done
-
+POST TO TWITTER:
+curl -X POST "https://api.twitter.com/2/tweets" -H "Authorization: OAuth $OAUTH_SIGNATURE" -H "Content-type: application/json" -d '{"text":"Bereit fürs Stadtfest?"}'
