@@ -720,6 +720,14 @@ main {
   overflow-wrap: anywhere;
 }
 
+#page-simple .box h1,
+#page-simple .box h2,
+#page-simple .box h3,
+#page-simple .box h4 {
+  margin: 1rem 0 0 0;
+}
+
+
 #matches h1,
 #ergebnisse-tabelle h1 {
   font-size: 1.4rem;
