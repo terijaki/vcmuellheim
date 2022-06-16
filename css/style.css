@@ -703,6 +703,7 @@ main {
 #page-simple .box,
 #ergebnisse-tabelle .box,
 #matches .box,
+#post-content .box,
 #verein .box {
   padding: 40px;
   margin-bottom: 60px;
