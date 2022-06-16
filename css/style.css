@@ -665,7 +665,7 @@ main {
 }
 
 
-/* Corona and Sport Section
+/* Specials & Corona and Sport Section
 --------------------------------*/
 #special,
 #corona-und-sport {
@@ -734,13 +734,14 @@ main {
 #page-simple .box h3,
 #page-simple .box h4 {
   font-weight: 500;
+  margin: 0.2rem 0;
 }
 
 #page-simple .box h1:not(:first-child),
 #page-simple .box h2:not(:first-child),
 #page-simple .box h3:not(:first-child),
 #page-simple .box h4:not(:first-child) {
-  margin: 1rem 0 0 0;
+  margin-top: 1rem;
 }
 
 #matches h1,
