@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - _matches
+      - _spielergebnisse/*
 
 env:
   TWITTER_OAUTH_SIGNATURE: ${{ secrets.TWITTER_OAUTH_SIGNATURE }}
