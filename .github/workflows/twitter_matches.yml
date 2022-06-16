@@ -10,7 +10,7 @@ env:
   TWITTER_OAUTH_SIGNATURE: ${{ secrets.TWITTER_OAUTH_SIGNATURE }}
 
 jobs:
-  identify-matches-to-post:
+  New-Matches-to-Twitter:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
@@ -29,8 +29,12 @@ jobs:
             do git log --follow --pretty=oneline $f | grep -qv 'twitter' && declare matches_to_post=($matches_to_post $f)
           done
           echo "The following matches have not been posted: $matches_to_post"
+          echo "::set-output name=matches-to-post::$matches_to_post"
 
       - name: Mark matchfiles with string #adds a string to the end of the file name to indicate that it has been posted
+        id: markfiles
+        needs: scanmatches
+        if: steps.scanmatches.outputs.matches-to-post != ''
         run: |
           git pull
           for matchfile in $matches_to_post
@@ -41,6 +45,9 @@ jobs:
           git commit -m "tagged before posting on twitter"
 
       - name: Post to Twitter # post the lsat line in the match file to Twitter
+        id: posttotwitter
+        needs: markfiles
+        if: steps.scanmatches.outputs.matches-to-post != ''
         run: |
           echo 'Posting the following to Twitter: $matchfile'
           for matchfile in $matches_to_post
@@ -51,6 +58,9 @@ jobs:
           done
 
       - name: Remove matchfiles mark #removes the temporary string
+        id: removemark
+        needs: markfiles
+        if: steps.scanmatches.outputs.matches-to-post != ''
         run: |
           git pull
           for matchfile in $matches_to_post
