@@ -11,7 +11,7 @@ env:
 
 jobs:
   New-Matches-to-Twitter:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v3
@@ -30,7 +30,6 @@ jobs:
           for f in $(ls | tr '\n' '\n')
             do
               git log --follow --pretty=oneline $f | grep -qv 'twitter' && declare matches_to_post=($matches_to_post $f)
-              echo "The following matches have not been posted: $matches_to_post"
           done
           echo "The following matches have not been posted: $matches_to_post"
           echo "::set-output name=matches-to-post::$matches_to_post"
