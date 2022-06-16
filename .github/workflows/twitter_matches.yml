@@ -32,8 +32,13 @@ jobs:
           cd _spielergebnisse 
           for f in $(ls | tr '\n' '\n')
             do
-              git log --follow --pretty=oneline $f | grep -qv 'twitter' && echo $f && matches_to_post=($matches_to_post $f)
-              echo "The following matches have not been posted: $matches_to_post"
+              if test -n "git log --follow --pretty=oneline $f | grep 'twitter'"
+              then
+                echo "$f already posted on Twitter"
+              else
+                echo "Adding $f to list of matches to post"
+                matches_to_post=($matches_to_post $f)
+              fi
           done
           echo "The following matches have not been posted: $matches_to_post"
           echo "::set-output name=matches-to-post::$matches_to_post"
