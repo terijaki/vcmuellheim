@@ -20,10 +20,6 @@ body {
   min-width: 100vw;
 }
 
-main {
-  flex-grow: 1;
-}
-
 a {
   color: var(--link1);
   transition: 0.5s;
@@ -380,12 +376,7 @@ main {
 }
 
 #verein .mitgliederliste h4.name {
-  margin: auto;
   font-size: 1rem;
-}
-
-#verein .mitgliederliste p.function {
-  margin: auto;
 }
 
 /* Stadtfest
