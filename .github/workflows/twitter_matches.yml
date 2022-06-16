@@ -4,21 +4,18 @@ on:
   workflow_dispatch:
   push:
     paths:
-    - _matches
+      - _matches
 
 env:
   TWITTER_OAUTH_SIGNATURE: ${{ secrets.TWITTER_OAUTH_SIGNATURE }}
-  
 
 jobs:
   identify-matches-to-post:
     runs-on: ubuntu-latest
-        outputs:
-      matchids: ${{steps.scanmatches.outputs.matchids}} # outputs team IDs in the form of [123,456,789]
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v3
-        with: 
+        with:
           fetch-depth: 0 # important to ensure proper look at file history!
 
       - name: Create placeholder variable
@@ -41,7 +38,7 @@ jobs:
             echo "TWITTERTOUCH" >> $matchfile
             git commit -m "modify for twitter" -- $matchfile
           done
-          
+
       - name: Post to Twitter # post the lsat line in the match file to Twitter
         run: |
           echo "Posting the following to Twitter: $matchfile"
