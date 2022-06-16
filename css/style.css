@@ -651,7 +651,7 @@ main {
   }
 }
 
-.box a {
+.box :not(h1, h2, h3, h4) a {
   word-break: break-all;
 }
 
