@@ -18,6 +18,11 @@ jobs:
         with:
           fetch-depth: 0 # important to ensure proper look at file history!
 
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
       - name: Create placeholder variable
         run: declare matches_to_post=''
 
