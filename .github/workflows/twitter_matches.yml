@@ -36,13 +36,12 @@ jobs:
               if [ -z "$twitterhistory" ]
                 then
                   echo "$f added to list of matches to post"
-                  declare matches_to_post="$matches_to_post $f"
+                  declare matches_to_post=($matches_to_post $f)
                 else
                   echo "$f already posted on Twitter"
               fi
-            done
+          done
           echo "The following matches have not been posted: $matches_to_post"
-          echo "::set-output name=matches-to-post::$matches_to_post"
 
       - name: Mark matchfiles with string #adds a string to the end of the file name to indicate that it has been posted
         id: markfiles
