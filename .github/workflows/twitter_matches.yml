@@ -46,6 +46,8 @@ jobs:
         if: steps.scanmatches.outputs.matches-to-post != ''
         run: |
           cd _spielergebnisse
+          echo $matchfiles
+          echo ${{fromJSON(steps.scanmatches.outputs.matches-to-post)}}
           for matchfile in ${{steps.scanmatches.outputs.matches-to-post}}
            do
             sed -i -e 's!posted-on-social: false!posted-on-social: true!g' $matchfile
