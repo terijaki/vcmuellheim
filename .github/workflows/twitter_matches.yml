@@ -26,7 +26,7 @@ jobs:
         run: |
           cd _spielergebnisse 
           for f in $(ls | tr '\n' '\n')
-            do git log --follow --pretty=oneline $f | grep -qv 'twitter' && declare matches_to_post='$matches_to_post $f'
+            do git log --follow --pretty=oneline $f | grep -qv 'twitter' && declare matches_to_post=($matches_to_post $f)
           done
           echo "The following matches have not been posted: $matches_to_post"
 
