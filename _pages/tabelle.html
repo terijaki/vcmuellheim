@@ -4,23 +4,15 @@ title: Ergebnisse und Tabelle
 permalink: /tabelle/
 ---
 
-<main id="main" class="section-bg">
-
-<!--===== Ergebnisse & Tabelle =====-->
-  <section id="ergebnisse-tabelle">
-
-      <div class="container">
-          <div class="row teams">
-
-            {% assign sorted-teams = (site.teams | sort: 'liga') %}
-            {% for team in sorted-teams %}
-              {% if team.sbvv_id > 0 %}  
-                {% include sams/rankings/{{ team.sbvv_id }}.html %}
-              {% endif %}
-            {% endfor %}
-
-          </div>
+<main id="main" class="flex-grow-1">
+  <!--===== Ergebnisse & Tabelle =====-->
+  <section id="ergebnisse-tabelle" class="section-bg">
+    <div class="container">
+      <div class="row teams">
+        {% assign sorted-teams = (site.teams | sort: 'liga') %} {% for team in
+        sorted-teams %} {% if team.sbvv_id > 0 %} {% include sams/rankings/{{
+        team.sbvv_id }}.html %} {% endif %} {% endfor %}
       </div>
+    </div>
   </section>
-
 </main>

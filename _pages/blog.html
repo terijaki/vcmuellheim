@@ -4,30 +4,27 @@ title: Neuigkeiten des Volleyballclub Müllheim
 permalink: /blog/
 ---
 
-<main id="main" class="section-bg pt-3 pt-lg-5">
-
-<!--===== News =====-->
-<section id="news">
+<main id="main" class="flex-grow-1 pt-3 pt-lg-5">
+  <!--===== News =====-->
+  <section id="news" class="section-bg">
     <div class="container">
-        <div class="row newsposts">
-
-            {% for post in site.posts %}
-            <div class="col-lg-6">
-                <div class="box" onclick="location.href='{{ post.url }}';">
-                    {% if post.thumbnail == "" or post.thumbnail == nil or post.thumbnail == blank %} {% else %}
-                    <a class="thumbnail" href="{{ post.url }}"><div style="background-image:url({{ post.thumbnail }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
-                    {% endif %}
-                    <h4 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h4>
-                    <div class="post-content"><div class="post-excerpt {% if post.thumbnail == '' or post.thumbnail == nil or post.thumbnail == blank %} no-post-thumbnail{% endif %}">{{ post.excerpt | strip_html }}</div></div>
-                    <p class="post-url"><a href="{{ post.url }}" class="read-more">weiterlesen</a></p>
-                </div>
+      <div class="row newsposts">
+        {% for post in site.posts %}
+        <div class="col-lg-6">
+          <div class="box" onclick="location.href='{{ post.url }}';">
+            {% if post.thumbnail == "" or post.thumbnail == nil or post.thumbnail == blank %} {% else %}
+            <a class="thumbnail" href="{{ post.url }}"><div style="background-image:url({{ post.thumbnail }}), linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9));"></div></a>
+            {% endif %}
+            <h4 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h4>
+            <div class="post-content">
+              <div class="post-excerpt {% if post.thumbnail == '' or post.thumbnail == nil or post.thumbnail == blank %} no-post-thumbnail{% endif %}">{{ post.excerpt | strip_html }}</div>
             </div>
-            {% endfor %}
-
+            <p class="post-url"><a href="{{ post.url }}" class="read-more">weiterlesen</a></p>
+          </div>
         </div>
+        {% endfor %}
+      </div>
     </div>
-</section>
-<!--===== #news =====-->
-
-
+  </section>
+  <!--===== #news =====-->
 </main>
