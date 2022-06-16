@@ -39,7 +39,7 @@ jobs:
               fi
             done
           echo "The following matches have not been posted: ${matches_to_post[*]}"
-          echo "::set-output name=matches-to-post::$matches_to_post"
+          echo "::set-output name=matches-to-post::${matches_to_post[*]}"
 
       - name: Mark matchfiles with string #change frontmatter to indicate that they have been posted on Twitter
         id: markfiles
