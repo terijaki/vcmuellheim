@@ -50,7 +50,7 @@ jobs:
 
       - name: Post to Twitter # post the lsat line in the match file to Twitter
         id: posttotwitter
-        if: steps.scanmatches.outputs.matches-to-post != ''
+        if: steps.markfiles.conclusion == 'success'
         run: |
           echo 'Posting the following to Twitter: $matchfile'
           for matchfile in $matches_to_post
@@ -62,7 +62,7 @@ jobs:
 
       - name: Remove matchfiles mark #removes the temporary string
         id: removemark
-        if: steps.scanmatches.outputs.matches-to-post != ''
+        if: steps.posttotwitter.conclusion == 'success'
         run: |
           git pull
           for matchfile in $matches_to_post
