@@ -24,7 +24,7 @@ jobs:
           git config user.email "<>"
 
       - name: Create placeholder variable
-        run: declare matches_to_post=''
+        run: declare matches_to_post=()
 
       - name: Scan Matches
         id: scanmatches
@@ -35,12 +35,7 @@ jobs:
               if [ -z "$(git log --follow --pretty=oneline $f | grep 'twitter')" ]
                 then
                   echo "$f added to list of matches to post"
-                  if [ -z "$matches_to_post" ]
-                    then
-                      matches_to_post="$f"
-                    else
-                      matches_to_post="$matches_to_post,$f"
-                  fi
+                  matches_to_post+=("$f")
                 else
                   echo "$f already posted on Twitter"
               fi
@@ -53,7 +48,7 @@ jobs:
         if: steps.scanmatches.outputs.matches-to-post != ''
         run: |
           git pull --quiet
-          for matchfile in ${matches_to_post//,/ }
+          for matchfile in $matches_to_post
            do
             sed -i -e 's/posted-on-social: false/posted-on-social: true/' $matchfile
             git add -- $matchfile
@@ -65,7 +60,7 @@ jobs:
         if: steps.markfiles.outcome == 'success'
         run: |
           echo 'Posting the following to Twitter: $matchfile'
-          for matchfile in ${matches_to_post//,/ }
+          for matchfile in $matches_to_post
            do
             message='$(tail -n 1 $matchfile)'
             curl -X POST "https://api.twitter.com/2/tweets" -H "Authorization: OAuth $TWITTER_OAUTH_SIGNATURE" -H "Content-type: application/json" -d '{"text":"$message"}'
