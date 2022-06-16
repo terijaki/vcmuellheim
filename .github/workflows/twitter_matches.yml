@@ -44,7 +44,7 @@ jobs:
           for matchfile in $matches_to_post
            do
             echo "TWITTERTOUCH" >> $matchfile
-            git add $matchfile
+            git add "$matchfile"
           done
           git commit -m "tagged before posting on twitter"
 
@@ -68,7 +68,7 @@ jobs:
           for matchfile in $matches_to_post
            do
             sed -i -e 's/TWITTERTOUCH//' $matchfile
-            git add $matchfile
+            git add "$matchfile"
           done
           git commit -m "posted on twitter"
           git push origin --all --quiet
