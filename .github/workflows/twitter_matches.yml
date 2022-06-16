@@ -11,7 +11,7 @@ env:
 
 jobs:
   New-Matches-to-Twitter:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v3
@@ -23,13 +23,17 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
+      - name: Create placeholder variable
+        run: declare matches_to_post=''
+
       - name: Scan Matches
         id: scanmatches
         run: |
           cd _spielergebnisse 
           for f in $(ls | tr '\n' '\n')
             do
-              git log --follow --pretty=oneline $f | grep -qv 'twitter' && declare matches_to_post=($matches_to_post $f)
+              git log --follow --pretty=oneline $f | grep -qv 'twitter' && echo $f && matches_to_post=($matches_to_post $f)
+              echo "The following matches have not been posted: $matches_to_post"
           done
           echo "The following matches have not been posted: $matches_to_post"
           echo "::set-output name=matches-to-post::$matches_to_post"
