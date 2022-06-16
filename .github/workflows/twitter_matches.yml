@@ -35,7 +35,7 @@ jobs:
               if [ -z "$(git log --follow --pretty=oneline $f | grep 'twitter')" ]
                 then
                   echo "$f added to list of matches to post"
-                  declare matches_to_post=(echo "$matches_to_post $f")
+                  matches_to_post="${matches_to_post} $f"
                 else
                   echo "$f already posted on Twitter"
               fi
