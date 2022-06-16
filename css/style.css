@@ -661,6 +661,8 @@ main {
   }
 }
 
+.box a {
+  word-break: break-all;
 }
 
 #page-simple,
