@@ -32,8 +32,7 @@ jobs:
           cd _spielergebnisse 
           for f in $(ls | tr '\n' '\n')
             do
-              twitterhistory=$(git log --follow --pretty=oneline $f | grep 'twitter')
-              if [ -z "$twitterhistory" ]
+              if [ -z "$(git log --follow --pretty=oneline $f | grep 'twitter')" ]
                 then
                   echo "$f added to list of matches to post"
                   declare matches_to_post=($matches_to_post $f)
@@ -42,6 +41,7 @@ jobs:
               fi
           done
           echo "The following matches have not been posted: $matches_to_post"
+          echo "::set-output name=matches-to-post::$matches_to_post"
 
       - name: Mark matchfiles with string #adds a string to the end of the file name to indicate that it has been posted
         id: markfiles
