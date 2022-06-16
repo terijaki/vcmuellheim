@@ -32,7 +32,7 @@ jobs:
           cd _spielergebnisse 
           for f in $(ls | tr '\n' '\n')
             do
-              if test -n "git log --follow --pretty=oneline $f | grep 'twitter'"
+              if test -z "git log --follow --pretty=oneline $f | grep 'twitter'"
               then
                 echo "$f already posted on Twitter"
               else
