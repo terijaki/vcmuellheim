@@ -39,7 +39,7 @@ jobs:
                 else
                   echo "$f already posted on Twitter"
               fi
-          done
+            done
           echo "The following matches have not been posted: $matches_to_post"
           echo "::set-output name=matches-to-post::$matches_to_post"
 
@@ -48,10 +48,10 @@ jobs:
         if: steps.scanmatches.outputs.matches-to-post != ''
         run: |
           git pull --quiet
-          for matchfile in $matches_to_post
+          for matchfile in "${matches_to_post[@]}"
            do
-            echo "TWITTERTOUCH" >> $matchfile
-            git add "$matchfile"
+            sed -i -e 's/posted-on-social: false/posted-on-social: true/' $matchfile
+            git add -- $matchfile
           done
           git commit -m "tagged before posting on twitter"
 
@@ -60,22 +60,14 @@ jobs:
         if: steps.markfiles.outcome == 'success'
         run: |
           echo 'Posting the following to Twitter: $matchfile'
-          for matchfile in $matches_to_post
+          for matchfile in "${matches_to_post[@]}"
            do
-            filetopost='$matchfile'
-            message='$(tail -n 1 $filetopost)'
+            message='$(tail -n 1 $matchfile)'
             curl -X POST "https://api.twitter.com/2/tweets" -H "Authorization: OAuth $TWITTER_OAUTH_SIGNATURE" -H "Content-type: application/json" -d '{"text":"$message"}'
           done
 
-      - name: Remove matchfiles mark #removes the temporary string
-        id: removemark
+      - name: Git Push
         if: steps.posttotwitter.outcome == 'success'
         run: |
           git pull --quiet
-          for matchfile in $matches_to_post
-           do
-            sed -i -e 's/TWITTERTOUCH//' $matchfile
-            git add "$matchfile"
-          done
-          git commit -m "posted on twitter"
           git push origin --all --quiet
