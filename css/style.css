@@ -815,13 +815,6 @@ main {
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  #news .box {
-    overflow: hidden;
-  }
-}
-
-
 #news .newsposts>div {
   display: flex;
 }
@@ -1051,6 +1044,7 @@ main {
 @media (max-width: 767px) {
   #news .box {
     margin-bottom: 20px;
+    overflow: hidden;
   }
 
   #news .newsposts .box a.thumbnail {
