@@ -1,0 +1,63 @@
+name: Twitter Match Announcements
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+    - _matches
+
+env:
+  TWITTER_OAUTH_SIGNATURE: ${{ secrets.TWITTER_OAUTH_SIGNATURE }}
+  
+
+jobs:
+  identify-matches-to-post:
+    runs-on: ubuntu-latest
+        outputs:
+      matchids: ${{steps.scanmatches.outputs.matchids}} # outputs team IDs in the form of [123,456,789]
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+        with: 
+          fetch-depth: 0 # important to ensure proper look at file history!
+
+      - name: Create placeholder variable
+        run: declare matches_to_post=""
+
+      - name: Scan Matches
+        id: scanmatches
+        run: |
+          cd _spielergebnisse 
+          for f in $(ls | tr '\n' '\n')
+            do git log --follow --pretty=oneline $f | grep -qv 'twitter' && declare matches_to_post='$matches_to_post $f'
+          done
+          echo "The following matches have not been posted: $matches_to_post"
+
+      - name: Mark matchfiles with string #adds a string to the end of the file name to indicate that it has been posted
+        run: |
+          git pull
+          for matchfile in $matches_to_post
+           do
+            echo "TWITTERTOUCH" >> $matchfile
+            git commit -m "modify for twitter" -- $matchfile
+          done
+          
+      - name: Post to Twitter # post the lsat line in the match file to Twitter
+        run: |
+          echo "Posting the following to Twitter: $matchfile"
+          for matchfile in $matches_to_post
+           do
+            declare filetopost='$matchfile'
+            declare message='$(tail -n 1 $filetopost)'
+            curl -X POST "https://api.twitter.com/2/tweets" -H "Authorization: OAuth $TWITTER_OAUTH_SIGNATURE" -H "Content-type: application/json" -d '{"text":"$message"}'
+          done
+
+      - name: Remove matchfiles mark #removes the temporary string
+        run: |
+          git pull
+          for matchfile in $matches_to_post
+           do
+            sed -i -e 's/TWITTERTOUCH//' $matchfile
+            git commit -m "modify for twitter" -- $matchfile
+          done
+          git push origin --all --quiet
