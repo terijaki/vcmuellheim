@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - _spielergebnisse/*
+      - _spielergebnisse
 
 env:
   TWITTER_OAUTH_SIGNATURE: ${{ secrets.TWITTER_OAUTH_SIGNATURE }}
@@ -40,7 +40,7 @@ jobs:
         id: markfiles
         if: steps.scanmatches.outputs.matches-to-post != ''
         run: |
-          git pull
+          git pull --quiet
           for matchfile in $matches_to_post
            do
             echo "TWITTERTOUCH" >> $matchfile
@@ -50,7 +50,7 @@ jobs:
 
       - name: Post to Twitter # post the lsat line in the match file to Twitter
         id: posttotwitter
-        if: steps.markfiles.conclusion == 'success'
+        if: steps.markfiles.outcome == 'success'
         run: |
           echo 'Posting the following to Twitter: $matchfile'
           for matchfile in $matches_to_post
@@ -62,9 +62,9 @@ jobs:
 
       - name: Remove matchfiles mark #removes the temporary string
         id: removemark
-        if: steps.posttotwitter.conclusion == 'success'
+        if: steps.posttotwitter.outcome == 'success'
         run: |
-          git pull
+          git pull --quiet
           for matchfile in $matches_to_post
            do
             sed -i -e 's/TWITTERTOUCH//' $matchfile
