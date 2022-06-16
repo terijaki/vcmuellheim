@@ -718,9 +718,6 @@ main {
   font-size: small;
 }
 
-#ergebnisse-tabelle table {
-  width: 100%
-}
 
 @media (max-width: 768px) {
 

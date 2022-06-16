@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div>
-                    <table>
+                    <table class="w-100">
                         <thead>
                             <tr>
                                 <th>Platz</th>
