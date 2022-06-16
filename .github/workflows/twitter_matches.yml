@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0 # important to ensure proper look at file history!
 
       - name: Create placeholder variable
-        run: declare matches_to_post=""
+        run: declare matches_to_post=''
 
       - name: Scan Matches
         id: scanmatches
@@ -36,16 +36,17 @@ jobs:
           for matchfile in $matches_to_post
            do
             echo "TWITTERTOUCH" >> $matchfile
-            git commit -m "modify for twitter" -- $matchfile
+            git add $matchfile
           done
+          git commit -m "tagged before posting on twitter"
 
       - name: Post to Twitter # post the lsat line in the match file to Twitter
         run: |
-          echo "Posting the following to Twitter: $matchfile"
+          echo 'Posting the following to Twitter: $matchfile'
           for matchfile in $matches_to_post
            do
-            declare filetopost='$matchfile'
-            declare message='$(tail -n 1 $filetopost)'
+            filetopost='$matchfile'
+            message='$(tail -n 1 $filetopost)'
             curl -X POST "https://api.twitter.com/2/tweets" -H "Authorization: OAuth $TWITTER_OAUTH_SIGNATURE" -H "Content-type: application/json" -d '{"text":"$message"}'
           done
 
@@ -55,6 +56,7 @@ jobs:
           for matchfile in $matches_to_post
            do
             sed -i -e 's/TWITTERTOUCH//' $matchfile
-            git commit -m "modify for twitter" -- $matchfile
+            git add $matchfile
           done
+          git commit -m "posted on twitter"
           git push origin --all --quiet
