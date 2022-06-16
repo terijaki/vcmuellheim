@@ -703,21 +703,23 @@ main {
   font-weight: bold;
 }
 
-#matches div.teams {
-  display: flex;
-}
-
 #matches div.teams>div:first-child:after {
   content: ":";
   padding: 0 0.5rem;
   font-weight: normal;
 }
 
+/* redundant after next SAMS run */
 #matches table th span,
 #matches table td span {
   font-size: small;
 }
 
+#matches div.teams {
+  display: flex;
+}
+
+/* redundant after next SAMS run */
 
 @media (max-width: 768px) {
 

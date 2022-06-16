@@ -17,7 +17,7 @@ permalink: /matches/TEAMIDHERE
                                 <tr>
                                     <th>Datum</th>
                                     <th>Teams</th>
-                                    <th>Sätze <span>(Punkte)</span></th>
+                                    <th>Sätze <small>(Punkte)</small></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,7 +50,7 @@ permalink: /matches/TEAMIDHERE
                                             </div>
                                         </td>
                                         <td>
-                                            <xsl:value-of select="results/setPoints"/><span> (<xsl:for-each select="results/sets/set"><xsl:if test="number > 1">, </xsl:if><xsl:value-of select="points"/></xsl:for-each>)</span>
+                                            <xsl:value-of select="results/setPoints"/><small> (<xsl:for-each select="results/sets/set"><xsl:if test="number > 1">, </xsl:if><xsl:value-of select="points"/></xsl:for-each>)</small>
                                         </td>
                                     </tr>
                                 </xsl:if>
@@ -89,7 +89,7 @@ permalink: /matches/TEAMIDHERE
                                             <xsl:value-of select="time"/> Uhr
                                         </td>
                                         <td>
-                                            <div class="teams">
+                                            <div class="teams d-flex">
                                     <xsl:for-each select="team">
                                         <xsl:sort select="number"/>
                                         <div>
