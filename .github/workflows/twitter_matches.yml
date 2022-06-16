@@ -54,7 +54,7 @@ jobs:
             sed -i -e 's!posted-on-social: false!posted-on-social: true!g' $matchfile
             git add $matchfile
           done
-          git commit -m "tagged before posting on twitter"
+          git commit -m "tagged as posted on twitter"
 
       - name: Post to Twitter # post the lsat line in the match file to Twitter
         id: posttotwitter
