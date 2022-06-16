@@ -390,73 +390,6 @@ main {
   margin: auto;
 }
 
-/* welcome Featuress Section
---------------------------------*/
-#features {
-  background: #fff;
-  padding: 60px 0 0 0;
-  overflow: hidden;
-}
-
-#features .features-img {
-  text-align: center;
-  padding-top: 20px;
-}
-
-@media (min-width: 769px) {
-  #features .features-img {
-    padding-top: 120px;
-    margin-top: -200px;
-  }
-}
-
-#features .features-img img {
-  max-width: 100%;
-}
-
-#features .box {
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-#features .icon {
-  margin-bottom: 10px;
-}
-
-#features .icon i {
-  color: var(--text1);
-  font-size: 40px;
-  transition: 0.5s;
-}
-
-#features .icon i:before {
-  background: var(--gradient2);
-  background: linear-gradient(45deg, var(--gradient2) 0%, var(--gradient1) 100%);
-  background-clip: border-box;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-#features .title {
-  font-weight: 300;
-  margin-bottom: 15px;
-  font-size: 22px;
-}
-
-#features .title a {
-  color: #111;
-}
-
-#features .description {
-  font-size: 14px;
-  line-height: 24px;
-  margin-bottom: 10px;
-}
-
-#features .section-description {
-  padding-bottom: 10px;
-}
-
 /* Stadtfest
 --------------------------------*/
 .stadtfest-image {
@@ -711,6 +644,23 @@ main {
   background: #fff;
   transition: 0.4s;
   cursor: default;
+}
+
+@media screen and (max-width: 768px) {
+
+  #news .box,
+  #members .box,
+  #page-simple .box,
+  #ergebnisse-tabelle .box,
+  #matches .box,
+  #post-content .box,
+  #verein .box {
+    padding: 20px;
+    margin-bottom: 30px;
+    wdith: 100%
+  }
+}
+
 }
 
 #page-simple,
