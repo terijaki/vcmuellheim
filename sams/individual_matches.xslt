@@ -17,8 +17,6 @@
             <xsl:text>category: "</xsl:text><xsl:value-of select="matchSeries/name"/>"
             <xsl:text>author: "SBVV-Online"</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
-            <xsl:text>social_sharing: " "</xsl:text>
-            <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>---</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:value-of select="matchSeries/name"/><xsl:text>: </xsl:text>
