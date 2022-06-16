@@ -735,6 +735,8 @@ main {
 #page-simple .box h4 {
   font-weight: 500;
   margin: 0.2rem 0;
+  word-wrap: break-word;
+  /* Avoids headings being cut off mid word. */
 }
 
 #page-simple .box h1:not(:first-child),
