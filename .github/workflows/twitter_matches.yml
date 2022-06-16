@@ -23,9 +23,6 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
-      - name: Create placeholder variable
-        run: declare matches_to_post=''
-
       - name: Scan Matches
         id: scanmatches
         run: |
