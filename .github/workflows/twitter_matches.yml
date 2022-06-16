@@ -48,7 +48,6 @@ jobs:
         id: markfiles
         if: steps.scanmatches.outputs.matches-to-post != ''
         run: |
-          git pull --quiet
           for matchfile in $matches_to_post
            do
             sed -i -e 's!posted-on-social: false!posted-on-social: true!g' $matchfile
