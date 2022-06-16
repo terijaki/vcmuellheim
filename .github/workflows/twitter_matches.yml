@@ -44,7 +44,7 @@ jobs:
           echo "The following matches have not been posted: ${matches_to_post[*]}"
           echo "::set-output name=matches-to-post::$matches_to_post"
 
-      - name: Mark matchfiles with string #adds a string to the end of the file name to indicate that it has been posted
+      - name: Mark matchfiles with string #change frontmatter to indicate that they have been posted on Twitter
         id: markfiles
         if: steps.scanmatches.outputs.matches-to-post != ''
         run: |
