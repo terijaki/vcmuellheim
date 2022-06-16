@@ -813,8 +813,14 @@ main {
 
 #news .box {
   cursor: pointer;
-  /* overflow: hidden; */
 }
+
+@media (max-width: 768px) {
+  #news .box {
+    overflow: hidden;
+  }
+}
+
 
 #news .newsposts>div {
   display: flex;
