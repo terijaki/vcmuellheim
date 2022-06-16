@@ -23,13 +23,14 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
-      - name: Create placeholder variable
-        run: declare matches_to_post=()
+      - name: Prep Environment
+        run: |
+          cd _spielergebnisse
+          declare matches_to_post=()
 
       - name: Scan Matches
         id: scanmatches
         run: |
-          cd _spielergebnisse 
           for f in $(ls | tr '\n' '\n')
             do
               if [ -z "$(git log --follow --pretty=oneline $f | grep 'twitter')" ]
@@ -50,8 +51,8 @@ jobs:
           git pull --quiet
           for matchfile in $matches_to_post
            do
-            sed -i -e 's/posted-on-social: false/posted-on-social: true/' $matchfile
-            git add -- $matchfile
+            sed -i -e 's!posted-on-social: false!posted-on-social: true!g' $matchfile
+            git add $matchfile
           done
           git commit -m "tagged before posting on twitter"
 
