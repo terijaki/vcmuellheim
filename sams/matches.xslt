@@ -10,7 +10,7 @@ permalink: /matches/TEAMIDHERE
         <div class="container">
             <div class="col sams-matches">
                 <div class="box matches-past">
-                    <h1>Ergebnisse</h1>
+                    <h3 class="fw-bold">Ergebnisse</h3>
                     <div class="past">
                         <table class="w-100">
                             <thead>
@@ -67,7 +67,7 @@ permalink: /matches/TEAMIDHERE
                 </div>
 
                 <div class="box matches-future">
-                    <h1>Spielplan</h1>
+                    <h3 class="fw-bold">Spielplan</h3>
                     <div class="upcoming">
                         <table class="w-100">
                             <thead>

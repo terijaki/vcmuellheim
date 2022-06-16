@@ -3,7 +3,7 @@
     <xsl:template match="/">
         <div class="col sams-rankings">
             <div class="box">
-                <h1><xsl:value-of select="rankings/matchSeries/name"/></h1>
+                <h3 class="fw-bold"><xsl:value-of select="rankings/matchSeries/name"/></h3>
                 <div class="footnote">
                     <div class="season">
                         Saison <xsl:value-of select="rankings/matchSeries/season/name"/>

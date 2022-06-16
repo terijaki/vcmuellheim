@@ -691,11 +691,6 @@ main {
   margin-top: 1rem;
 }
 
-#matches h1,
-#ergebnisse-tabelle h1 {
-  font-size: 1.4rem;
-  font-weight: bold;
-}
 
 #matches tbody tr:nth-child(odd) {
   background: rgba(0, 0, 0, 0.05);
