@@ -33,7 +33,6 @@ jobs:
 
       - name: Mark matchfiles with string #adds a string to the end of the file name to indicate that it has been posted
         id: markfiles
-        needs: scanmatches
         if: steps.scanmatches.outputs.matches-to-post != ''
         run: |
           git pull
@@ -46,7 +45,6 @@ jobs:
 
       - name: Post to Twitter # post the lsat line in the match file to Twitter
         id: posttotwitter
-        needs: markfiles
         if: steps.scanmatches.outputs.matches-to-post != ''
         run: |
           echo 'Posting the following to Twitter: $matchfile'
@@ -59,7 +57,6 @@ jobs:
 
       - name: Remove matchfiles mark #removes the temporary string
         id: removemark
-        needs: markfiles
         if: steps.scanmatches.outputs.matches-to-post != ''
         run: |
           git pull
