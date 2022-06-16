@@ -23,14 +23,11 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
-      - name: Prep Environment
-        run: |
-          cd _spielergebnisse
-          declare matches_to_post=()
-
       - name: Scan Matches
         id: scanmatches
         run: |
+          cd _spielergebnisse
+          declare matches_to_post=()
           for f in $(ls | tr '\n' '\n')
             do
               if [ -z "$(git log --follow --pretty=oneline $f | grep 'twitter')" ]
@@ -48,7 +45,8 @@ jobs:
         id: markfiles
         if: steps.scanmatches.outputs.matches-to-post != ''
         run: |
-          for matchfile in $matches_to_post
+          cd _spielergebnisse
+          for matchfile in ${{steps.scanmatches.outputs.matches-to-post}}
            do
             sed -i -e 's!posted-on-social: false!posted-on-social: true!g' $matchfile
             git add $matchfile
@@ -59,6 +57,7 @@ jobs:
         id: posttotwitter
         if: steps.markfiles.outcome == 'success'
         run: |
+          cd _spielergebnisse
           echo 'Posting the following to Twitter: $matchfile'
           for matchfile in $matches_to_post
            do
