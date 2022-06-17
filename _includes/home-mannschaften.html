@@ -68,7 +68,7 @@
 
 <!-- Spielplan & Kalender  -->
               {% if team.sbvv_id > 0 %}
-                <p class="spielplan"><b>Spiele</b>: <a href="matches/{{ team.sbvv_id }}">Termine & Ergebnisse</a> | <a href="{{ site.url }}/_matches/{{ team.sbvv_id }}.ics">Kalender</a>
+                <p class="spielplan"><b>Spiele</b>: <a href="matches/{{ team.sbvv_id }}">Termine & Ergebnisse</a> | <a href="{{ site.url }}/_matches/{{ team.sbvv_id }}.ics" type="text/calendar">Kalender</a>
               {% endif %}
 
 <!-- Kommentar  -->
