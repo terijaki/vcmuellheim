@@ -83,6 +83,7 @@ jobs:
 
   Post-to-Twitter:
     needs: New-Matches-for-Twitter
+    if: ${{needs.New-Matches-for-Twitter.outputs.messages}} != ''
     continue-on-error: true # if one match fails, the flow should continue
     strategy:
       matrix:
@@ -92,7 +93,7 @@ jobs:
     steps:
       - name: Twitter Post
         if: ${{needs.New-Matches-for-Twitter.outputs.messages}} != ''
-        uses: infraway/tweet-action@v1
+        uses: infraWay/tweet-action@v1.0.1
         with:
           status: Tweeted from Github Actions
           api_key: ${{ secrets.TWITTER_API_KEY }}
