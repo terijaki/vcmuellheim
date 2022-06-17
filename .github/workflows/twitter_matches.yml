@@ -23,7 +23,7 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
-      - name: Scan Matches
+      - name: Scan Matches #checks the git history and creates an array of all the matches that do not contain the word "twitter"
         id: scanmatches
         run: |
           cd _spielergebnisse
