@@ -68,13 +68,13 @@ jobs:
           declare messages=()
           echo 'Preparing the following matches for Twitter: ${{steps.scanmatches.outputs.matches}}'
           for matchfile in ${{steps.scanmatches.outputs.matches}}
-           do
-            message+=("$(tail -n 1 $matchfile)")
-          done
+            do
+              messages+=("$(tail -n 1 $matchfile)")
+            done
           echo "::set-output name=messages::${messages[*]}"
-          for message in ${{steps.messagesfortwitter.outputs.messages}}
+          for m in ${{steps.messagesfortwitter.outputs.messages}}
            do
-            echo "Message to share: $message"
+            echo "Message to share: $m"
           done
 
       - name: Git Push
