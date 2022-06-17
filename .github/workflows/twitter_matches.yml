@@ -85,7 +85,7 @@ jobs:
 
   Post-to-Twitter:
     needs: New-Matches-for-Twitter
-    if: contains( ${{needs.New-Matches-for-Twitter.outputs.matches}}, 'daskannnichtsein' )
+    if: ${{needs.New-Matches-for-Twitter.outputs.matches}} == 'daskannnichtsein'
     continue-on-error: true # if one match fails, the flow should continue
     strategy:
       matrix:
