@@ -87,10 +87,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Twitter Post
-        uses: infraWay/tweet-action@v1.0.1
+        uses: devigned/go-twitter-action@v1
         with:
-          status: ${{matrix.messages}}
-          api_key: ${{ secrets.TWITTER_API_KEY }}
-          api_key_secret: ${{ secrets.TWITTER_API_KEY_SECRET }}
-          access_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-          access_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+          message: ${{matrix.messages}}
+          apiKey: ${{ secrets.TWITTER_API_KEY }}
+          apiKeySecret: ${{ secrets.TWITTER_API_KEY_SECRET }}
+          accessToken: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          accessTokenSecret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
