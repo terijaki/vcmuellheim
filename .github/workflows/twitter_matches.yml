@@ -30,7 +30,7 @@ jobs:
           declare matches_to_post=()
           for f in $(ls | tr '\n' '\n')
             do
-              if [ -z "$(git log --follow --pretty=oneline $f | grep -vq 'twitter')" ]
+              if [ -z "$(git log --follow --pretty=oneline --grep='twitter' -q -- $f)" ]
                 then
                   echo "$f added to list of matches to post"
                   matches_to_post+=("$f")
