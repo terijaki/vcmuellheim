@@ -85,7 +85,6 @@ jobs:
     needs: New-Matches-for-Twitter
     continue-on-error: true # if one match fails, the flow should continue
     strategy:
-      #max-parallel: 1
       matrix:
         messages:
           - ${{needs.New-Matches-for-Twitter.outputs.messages}}
