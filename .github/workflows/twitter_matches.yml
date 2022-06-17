@@ -8,9 +8,6 @@ on:
     paths:
       - _spielergebnisse/**
 
-env:
-  TWITTER_OAUTH_SIGNATURE: ${{ secrets.TWITTER_OAUTH_SIGNATURE }}
-
 jobs:
   New-Matches-for-Twitter:
     runs-on: ubuntu-latest
