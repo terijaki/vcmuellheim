@@ -10,8 +10,11 @@ env:
   TWITTER_OAUTH_SIGNATURE: ${{ secrets.TWITTER_OAUTH_SIGNATURE }}
 
 jobs:
-  New-Matches-to-Twitter:
+  New-Matches-for-Twitter:
     runs-on: ubuntu-latest
+    outputs:
+      matches: ${{steps.scanmatches.outputs.matches}} #array of matches not yet posted
+      messages: ${{steps.messagesfortwitter.outputs.messages}} #array of messages to post
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v3
@@ -27,43 +30,49 @@ jobs:
         id: scanmatches
         run: |
           cd _spielergebnisse
-          declare matches_to_post=()
+          declare matches=()
           for f in $(ls | tr '\n' '\n')
             do
               if [ -z "$(git log --follow --pretty=oneline --grep='twitter' -q -- $f)" ]
                 then
                   echo "$f added to list of matches to post"
-                  matches_to_post+=("$f")
+                  matches+=("$f")
                 else
                   echo "$f already posted on Twitter"
               fi
             done
-          echo "The following matches have not been posted: ${matches_to_post[*]}"
-          echo "::set-output name=matches-to-post::${matches_to_post[*]}"
+          echo "The following matches have not been posted: ${matches[*]}"
+          echo "::set-output name=matches::${matches[*]}"
 
       - name: Mark matchfiles with string #change frontmatter to indicate that they have been posted on Twitter
         id: markfiles
-        if: steps.scanmatches.outputs.matches-to-post != ''
+        if: steps.scanmatches.outputs.matches != ''
         run: |
           cd _spielergebnisse
-          echo ${{steps.scanmatches.outputs.matches-to-post}}
-          for matchfile in ${{steps.scanmatches.outputs.matches-to-post}}
+          declare matches=()
+          echo ${{steps.scanmatches.outputs.matches}}
+          for matchfile in ${{steps.scanmatches.outputs.matches}}
            do
             sed -i -e 's!posted-on-social: false!posted-on-social: true!g' $matchfile
             git add $matchfile
           done
           git commit -m "tagged as posted on twitter"
 
-      - name: Post to Twitter # post the lsat line in the match file to Twitter
-        id: posttotwitter
+      - name: Messages for Twitter # set the last line of the match file as message for Twitter
+        id: messagesfortwitter
         if: steps.markfiles.outcome == 'success'
         run: |
           cd _spielergebnisse
-          echo 'Posting the following to Twitter: ${{steps.scanmatches.outputs.matches-to-post}}'
-          for matchfile in ${{steps.scanmatches.outputs.matches-to-post}}
+          declare messages=()
+          echo 'Preparing the following matches for Twitter: ${{steps.scanmatches.outputs.matches}}'
+          for matchfile in ${{steps.scanmatches.outputs.matches}}
            do
-            message='$(tail -n 1 $matchfile)'
-            curl -X POST "https://api.twitter.com/2/tweets" -H "Authorization: OAuth $TWITTER_OAUTH_SIGNATURE" -H "Content-type: application/json" -d '{"text":"$message"}'
+            message+=("$(tail -n 1 $matchfile)")
+          done
+          echo "::set-output name=messages::${messages[*]}"
+          for message in ${{steps.messagesfortwitter.outputs.messages}}
+           do
+            echo "Message to share: $message"
           done
 
       - name: Git Push
@@ -71,3 +80,22 @@ jobs:
         run: |
           git pull --quiet
           git push origin --all --quiet
+
+
+  Post-to-Twitter:
+    needs: New-Matches-for-Twitter
+    continue-on-error: true # if one match fails, the flow should continue
+    strategy:
+      #max-parallel: 1
+      matrix:
+        messages: ${{fromJSON(needs.New-Matches-for-Twitter.outputs.messages)}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Twitter Post
+        uses: infraway/tweet-action@v1
+        with:
+          status: Tweeted from Github Actions
+          api_key: ${{ secrets.TWITTER_API_KEY }}
+          api_key_secret: ${{ secrets.TWITTER_API_KEY_SECRET }}
+          access_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          access_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
