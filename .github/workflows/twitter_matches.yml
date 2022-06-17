@@ -1,5 +1,7 @@
 name: Twitter Match Announcements
 
+concurrency: social
+
 on:
   workflow_dispatch:
   push:
@@ -83,7 +85,7 @@ jobs:
 
   Post-to-Twitter:
     needs: New-Matches-for-Twitter
-    if: contains( ${{needs.New-Matches-for-Twitter.outputs.matches}}, 'html' )
+    if: contains( ${{needs.New-Matches-for-Twitter.outputs.matches}}, 'daskannnichtsein' )
     continue-on-error: true # if one match fails, the flow should continue
     strategy:
       matrix:
@@ -94,7 +96,7 @@ jobs:
       - name: Twitter Post
         uses: infraWay/tweet-action@v1.0.1
         with:
-          status: Tweeted from Github Actions
+          status: ${{matrix.messages}}
           api_key: ${{ secrets.TWITTER_API_KEY }}
           api_key_secret: ${{ secrets.TWITTER_API_KEY_SECRET }}
           access_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
