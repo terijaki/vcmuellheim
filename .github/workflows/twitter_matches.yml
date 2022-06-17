@@ -81,14 +81,13 @@ jobs:
           git pull --quiet
           git push origin --all --quiet
 
-
   Post-to-Twitter:
     needs: New-Matches-for-Twitter
     continue-on-error: true # if one match fails, the flow should continue
     strategy:
       #max-parallel: 1
       matrix:
-        messages: ${{fromJSON(needs.New-Matches-for-Twitter.outputs.messages)}}
+        messages: ${{feeds.New-Matches-for-Twitter.outputs.messages}}
     runs-on: ubuntu-latest
     steps:
       - name: Twitter Post
