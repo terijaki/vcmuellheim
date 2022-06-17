@@ -69,10 +69,6 @@ jobs:
               messages+=("$(tail -n 1 $matchfile)")
             done
           echo "::set-output name=messages::${messages[*]}"
-          for m in ${{steps.messagesfortwitter.outputs.messages}}
-           do
-            echo "Message to share: $m"
-          done
 
       - name: Git Push
         if: steps.messagesfortwitter.outcome == 'success'
