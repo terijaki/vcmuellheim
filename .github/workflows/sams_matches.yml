@@ -65,6 +65,11 @@ jobs:
           sudo apt-get install xsltproc
           xsltproc matches.xslt sams_xml_temp/${{matrix.teams}}.xml > ${{env.REPO_TARGET1}}/${{matrix.teams}}.html
 
+      - name: Import SAMS iCal # Import the iCal file so we can cache it
+        run: |
+          curl -o ${{env.REPO_TARGET1}}/${{matrix.teams}}.ics "https://www.sbvv-online.de/iCal/team/matches.iCal?teamId=${{matrix.teams}}"
+          sed -i -e 's!BEGIN:VCALENDAR!$BEGIN:VCALENDAR$"\n"X-WR-CALNAME:VC Müllheim Spielplan}!g' ${{env.REPO_TARGET1}}/${{matrix.teams}}.ics
+
       - name: Upload Artifact (Matches)
         uses: actions/upload-artifact@v3
         with:
