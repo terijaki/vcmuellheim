@@ -46,7 +46,6 @@ jobs:
         if: steps.scanmatches.outputs.matches-to-post != ''
         run: |
           cd _spielergebnisse
-          echo $matchfiles
           echo ${{steps.scanmatches.outputs.matches-to-post}}
           for matchfile in ${{steps.scanmatches.outputs.matches-to-post}}
            do
@@ -60,8 +59,8 @@ jobs:
         if: steps.markfiles.outcome == 'success'
         run: |
           cd _spielergebnisse
-          echo 'Posting the following to Twitter: $matchfile'
-          for matchfile in $matches_to_post
+          echo 'Posting the following to Twitter: ${{steps.scanmatches.outputs.matches-to-post}}'
+          for matchfile in ${{steps.scanmatches.outputs.matches-to-post}}
            do
             message='$(tail -n 1 $matchfile)'
             curl -X POST "https://api.twitter.com/2/tweets" -H "Authorization: OAuth $TWITTER_OAUTH_SIGNATURE" -H "Content-type: application/json" -d '{"text":"$message"}'
