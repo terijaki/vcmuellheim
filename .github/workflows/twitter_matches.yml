@@ -91,7 +91,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Twitter Post
-        if: New-Matches-for-Twitter.outputs.messages != ''
+        if: ${{needs.New-Matches-for-Twitter.outputs.messages}} != ''
         uses: infraway/tweet-action@v1
         with:
           status: Tweeted from Github Actions
