@@ -85,7 +85,7 @@ jobs:
 
   Post-to-Twitter:
     needs: New-Matches-for-Twitter
-    if: contains(needs.New-Matches-for-Twitter.outputs.messages, 'html')
+    if: needs.New-Matches-for-Twitter.outputs.messages != ''
     continue-on-error: true # if one match fails, the flow should continue
     strategy:
       matrix:
