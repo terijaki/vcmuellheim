@@ -87,7 +87,8 @@ jobs:
     strategy:
       #max-parallel: 1
       matrix:
-        messages: ${{needs.New-Matches-for-Twitter.outputs.messages}}
+        messages:
+          - ${{needs.New-Matches-for-Twitter.outputs.messages}}
     runs-on: ubuntu-latest
     steps:
       - name: Twitter Post
