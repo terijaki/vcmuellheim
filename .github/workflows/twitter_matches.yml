@@ -76,7 +76,7 @@ jobs:
           done
 
       - name: Git Push
-        if: steps.posttotwitter.outcome == 'success'
+        if: steps.messagesfortwitter.outcome == 'success'
         run: |
           git pull --quiet
           git push origin --all --quiet
