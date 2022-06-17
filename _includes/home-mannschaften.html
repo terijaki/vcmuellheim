@@ -68,7 +68,7 @@
 
 <!-- Spielplan & Kalender  -->
               {% if team.sbvv_id > 0 %}
-                <p class="spielplan"><b>Spiele</b>: <a href="matches/{{ team.sbvv_id }}">Termine & Ergebnisse</a> | <a href="https://www.sbvv-online.de/iCal/team/matches.ical?teamId={{ team.sbvv_id }}" target="_blank" rel="noopener">iCal-Export</a>
+                <p class="spielplan"><b>Spiele</b>: <a href="matches/{{ team.sbvv_id }}">Termine & Ergebnisse</a> | <a href="webcal://www.sbvv-online.de/iCal/team/matches.ical?teamId={{ team.sbvv_id }}" target="_blank" rel="noopener">Calender</a>
               {% endif %}
 
 <!-- Kommentar  -->
