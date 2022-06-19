@@ -75,6 +75,7 @@ jobs:
         # the modification is a beautification only and not a required field 
         id: samsical
         if: steps.matchesxslt.outcome == 'success'
+        continue-on-error: true
         run: |
           curl -o ${{env.REPO_TARGET1}}/${{matrix.teams}}.ics "https://www.sbvv-online.de/iCal/team/matches.ical?teamId=${{matrix.teams}}"
           teamname=$(awk "/title: (.*) \(Saison/{print}" ${{env.REPO_TARGET1}}/${{matrix.teams}}.html | sed 's!title: !!' | sed 's! (Saison.*!!')
@@ -86,7 +87,7 @@ jobs:
         run: |
           sed -i -e 's!CALURL1!https://vcmuellheim.de/${{env.REPO_TARGET1}}/${{matrix.teams}}.ics!g' ${{env.REPO_TARGET1}}/${{matrix.teams}}.html
           sed -i -e 's!CALURL2!webcals://vcmuellheim.de/${{env.REPO_TARGET1}}/${{matrix.teams}}.ics!g' ${{env.REPO_TARGET1}}/${{matrix.teams}}.html
-          sed -i -e 's!calendar d-none/calendar!g' ${{env.REPO_TARGET1}}/${{matrix.teams}}.html
+          sed -i -e 's!calendar d-none!calendar!g' ${{env.REPO_TARGET1}}/${{matrix.teams}}.html
 
       - name: Upload Artifact (Matches)
         uses: actions/upload-artifact@v3
