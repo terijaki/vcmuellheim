@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Müllheimer Stadtfest 2021 - Absage wegen Corona-Pandemie
 thumbnail: ''
 photoalbum: ''

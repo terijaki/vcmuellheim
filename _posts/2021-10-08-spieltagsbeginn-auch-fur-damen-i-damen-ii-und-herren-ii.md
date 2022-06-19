@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Spieltagsbeginn auch für Damen I, Damen II und Herren II
 thumbnail: ''
 photoalbum: ''

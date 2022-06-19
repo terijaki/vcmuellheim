@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Radeln für ein gutes Klima
 thumbnail: "/upload/2021/09/04/pexels-pixabay-160949.jpg"
 photoalbum: ''

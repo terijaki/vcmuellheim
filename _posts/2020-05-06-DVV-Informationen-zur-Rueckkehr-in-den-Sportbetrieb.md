@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: 'DVV Informationen zur Rückkehr in den Sportbetrieb'
 excerpt_separator: "<!-- more -->"
 ---

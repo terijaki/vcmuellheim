@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Herren II gewinnen beide Spiele in Merzhausen!
 thumbnail: "/upload/2021/11/01/img-20211030-wa0022.jpg"
 photoalbum: ''

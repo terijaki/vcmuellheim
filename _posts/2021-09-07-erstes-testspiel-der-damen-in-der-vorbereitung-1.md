@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Erstes Testspiel der Damen in der Vorbereitung
 thumbnail: "/upload/2021/09/07/whatsapp-image-2021-09-07-at-16-48-10-5.jpeg"
 photoalbum: ''

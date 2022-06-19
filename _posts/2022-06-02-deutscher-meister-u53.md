@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Deutscher Vizemeister Ü53
 thumbnail: "/upload/2022/05/31/img-20220529-wa0012.jpg"
 photoalbum: ''

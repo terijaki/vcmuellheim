@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: 'Abgesagt: Spiele am 17 & 18 Oktober'
 thumbnail: ''
 photoalbum: ''

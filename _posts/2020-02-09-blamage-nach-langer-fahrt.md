@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Blamage nach langer Fahrt
 thumbnail: "/upload/2020/02/09/IMG_8257.jpg"
 photoalbum: https://photos.app.goo.gl/iZicpnRYZswLVrXt9

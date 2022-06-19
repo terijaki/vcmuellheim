@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Vorbereitung läuft!
 thumbnail: "/upload/2021/09/02/image01.jpeg"
 photoalbum: ''

@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Erster Spieltag 20/21 der 2. Herren
 thumbnail: "/upload/2020/10/13/whatsapp-image-2020-10-11-at-12-25-20-1.jpg"
 photoalbum: ''

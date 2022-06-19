@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Schiedrichterlehrgang und Prüfung zur D-Lizenz
 thumbnail: "/upload/2021/09/27/whatsapp-image-2021-09-27-at-10-34-57.jpeg"
 photoalbum: ''

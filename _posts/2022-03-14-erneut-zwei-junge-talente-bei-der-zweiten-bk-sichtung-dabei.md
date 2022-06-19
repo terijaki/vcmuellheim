@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Erneut zwei junge Talente bei der zweiten BK-Sichtung dabei
 thumbnail: ''
 photoalbum: ''

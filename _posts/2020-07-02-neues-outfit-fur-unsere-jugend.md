@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Neues Outfit für unsere Jugend!
 thumbnail: "/upload/2020/07/02/whatsapp-image-2020-07-02-at-17-36-25.jpeg"
 photoalbum: ''

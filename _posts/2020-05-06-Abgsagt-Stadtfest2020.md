@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: 'ABGESAGT: 49. Müllheimer Stadtfest'
 excerpt_separator: "<!-- more -->"
 

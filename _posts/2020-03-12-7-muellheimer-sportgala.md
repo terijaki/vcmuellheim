@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: 'ABGESAGT: Sportgala'
 photoalbum: ''
 excerpt_separator: "<!-- more -->"
