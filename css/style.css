@@ -1188,7 +1188,7 @@ main {
   text-align: right;
 }
 
-.btn-small-download a,
+.btn-small-download,
 .print-btn,
 .logo-download a {
   font-family: var(--font2);
