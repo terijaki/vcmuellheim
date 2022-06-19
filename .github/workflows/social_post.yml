@@ -58,6 +58,9 @@ jobs:
           git commit -m "tagged as shared on social"
 
       - name: Messages for Social # Select the message for Social
+        #for each post we extract the title using regex, and remove ' and " characters
+        # then we strip out the date and time from the file name
+        # we then patch it together as TITLE + URL + FILENAME
         id: messagesforsocial
         if: steps.markfiles.outcome == 'success'
         run: |
@@ -66,7 +69,7 @@ jobs:
           echo 'Preparing the following posts for Social: ${{steps.scanposts.outputs.posts}}'
           for postfile in ${{steps.scanposts.outputs.posts}}
             do
-              messages+=("$(awk '/title: [^\r\n]*/{print}' $postfile | tr -d \' | tr -d \" | sed -e 's!title: !!') https://vcmuellheim.de/$(echo $postfile | cut -c12- | sed 's!.md!/!')")
+              messages+=("$(awk '/title: (.*)/{print}' $postfile | tr -d \' | tr -d \") https://vcmuellheim.de/$(echo $postfile | cut -c12- | sed 's!.md!/!')")
             done
           echo "The following messages will be shared: ${messages[*]}"
           echo "::set-output name=messages::${messages[*]}"
