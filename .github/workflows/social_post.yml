@@ -66,7 +66,7 @@ jobs:
           echo 'Preparing the following posts for Social: ${{steps.scanposts.outputs.posts}}'
           for postfile in ${{steps.scanposts.outputs.posts}}
             do
-              messages+=("$(awk '/title: [^\r\n]*/{print}' $postfile | tr -d \' | tr -d \" | tr -d \' | tr -d \" | sed -e 's!title: !!') https://vcmuellheim.de/$(echo $postfile | cut -c12- | sed 's!.md!/!')")
+              messages+=("$(awk '/title: [^\r\n]*/{print}' $postfile | tr -d \' | tr -d \" | sed -e 's!title: !!') https://vcmuellheim.de/$(echo $postfile | cut -c12- | sed 's!.md!/!')")
             done
           echo "::set-output name=messages::${messages[*]}"
 
