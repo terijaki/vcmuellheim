@@ -68,7 +68,7 @@ jobs:
       - name: Import SAMS iCal # Import the iCal file so we can cache it
         run: |
           curl -o ${{env.REPO_TARGET1}}/${{matrix.teams}}.ics "https://www.sbvv-online.de/iCal/team/matches.ical?teamId=${{matrix.teams}}"
-          sed -i -e 's!BEGIN:VCALENDAR!BEGIN:VCALENDAR\nX-WR-CALNAME:VC Müllheim Spielplan!g' ${{env.REPO_TARGET1}}/${{matrix.teams}}.ics
+          sed -i -e 's!BEGIN:VCALENDAR!BEGIN:VCALENDAR\nX-WR-CALNAME:$(awk '/title: (.*) \(Saison/{print}' ${{env.REPO_TARGET1}}/${{matrix.teams}}.html) VC Müllheim Spielplan!g' ${{env.REPO_TARGET1}}/${{matrix.teams}}.ics
 
       - name: Upload Artifact (Matches)
         uses: actions/upload-artifact@v3
