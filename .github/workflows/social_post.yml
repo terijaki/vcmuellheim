@@ -32,7 +32,7 @@ jobs:
           declare posts=()
           for f in $(ls | tr '\n' '\n')
             do
-              if [ -z "$(git log --follow --pretty=oneline --grep='socialtrialonly' -q -- $f)" ]
+              if [ -z "$(git log --follow --pretty=oneline --grep='debugsocial' -q -- $f)" ]
                 then
                   echo "$f added to list of posts to post"
                   posts+=("$f")
@@ -68,5 +68,6 @@ jobs:
             do
               messages+=("$(awk '/title: [^\r\n]*/{print}' $postfile | tr -d \' | tr -d \" | sed -e 's!title: !!') https://vcmuellheim.de/$(echo $postfile | cut -c12- | sed 's!.md!/!')")
             done
+          echo "The following messages will be shared: ${messages[*]}"
           echo "::set-output name=messages::${messages[*]}"
 
