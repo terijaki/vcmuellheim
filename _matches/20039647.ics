@@ -1,5 +1,5 @@
 BEGIN:VCALENDAR
-X-WR-CALNAME:$(awk "/title: (.*) (Saison/{print}" _matches/20039647.html) VC Müllheim Spielplan
+X-WR-CALNAME:$teamname VC Müllheim Spielplan
 PRODID:-//SAMS//iCal4j 1.0//EN
 VERSION:2.0
 CALSCALE:GREGORIAN
