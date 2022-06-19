@@ -52,7 +52,7 @@ jobs:
           echo ${{steps.scanmatches.outputs.matches}}
           for matchfile in ${{steps.scanmatches.outputs.matches}}
            do
-            sed -i -e 's!posted-on-social: false!posted-on-social: true!g' $matchfile
+            sed -i -e 's!title:!posted-on-twitter: true\ntitle:!g' $matchfile
             git add $matchfile
           done
           git commit -m "tagged as posted on twitter"
