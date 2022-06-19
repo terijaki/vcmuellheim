@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Kadersichtung für unsere Jugend
 thumbnail: "/upload/2021/12/18/img-20211120-wa0002.jpg"
 photoalbum: ''

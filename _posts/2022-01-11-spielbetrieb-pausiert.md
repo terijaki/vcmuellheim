@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Spielbetrieb pausiert
 thumbnail: ''
 photoalbum: ''

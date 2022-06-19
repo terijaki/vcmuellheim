@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Deutscher Vizemeiser Ü47
 thumbnail: "/upload/2022/06/07/img-20220606-wa0001.jpg"
 photoalbum: ''

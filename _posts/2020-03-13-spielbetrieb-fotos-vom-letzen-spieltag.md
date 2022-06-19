@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Spielbetrieb & Fotos vom letzen Spieltag
 thumbnail: ''
 photoalbum: https://photos.app.goo.gl/Z32trsHv7sqhPVXf8

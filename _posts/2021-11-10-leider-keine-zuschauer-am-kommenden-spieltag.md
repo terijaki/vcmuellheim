@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: "### Leider keine Zuschauer am kommenden Spieltag! ###"
 thumbnail: ''
 photoalbum: ''

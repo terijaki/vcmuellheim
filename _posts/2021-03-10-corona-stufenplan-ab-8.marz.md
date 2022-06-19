@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Corona Stufenplan ab 8. März
 thumbnail: ''
 photoalbum: ''

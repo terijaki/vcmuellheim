@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: Heimspiele um die Meisterschaft!
 excerpt_separator: "<!-- more -->"
 ---

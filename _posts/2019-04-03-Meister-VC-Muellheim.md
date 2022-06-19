@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: Meister VC Müllheim!
 thumbnail: /upload/2019-04-03-bild1.jpg
 excerpt_separator: "<!-- more -->"

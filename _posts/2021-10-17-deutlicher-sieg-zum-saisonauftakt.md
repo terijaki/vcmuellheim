@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Deutlicher Sieg zum Saisonauftakt
 thumbnail: "/upload/2021/10/17/img_7350.jpg"
 photoalbum: https://photos.google.com/direct/AF1QipMfyKwnQuYPR4MSVmooPNR_PGl_Wn7bRnjK6WjazidMdtXATKafIIDb3HSxtB7Bmw/photos

@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: U 14 Mädchen des VC Müllheim belegen Platz 5 an der Bezirksmeisterschaft
 thumbnail: ''
 photoalbum: ''

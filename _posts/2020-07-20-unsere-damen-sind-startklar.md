@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Unsere Damen sind startklar!
 thumbnail: "/upload/2020/07/20/damentrikotsponsor.jpeg"
 photoalbum: ''

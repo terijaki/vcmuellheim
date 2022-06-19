@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Hilfsgüter für Ukraine (Gymnasium Neuenburg)
 thumbnail: ''
 photoalbum: ''

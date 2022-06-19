@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Übungsleiter*innen gesucht (Gymnasium in Müllheim)
 thumbnail: ''
 photoalbum: ''
