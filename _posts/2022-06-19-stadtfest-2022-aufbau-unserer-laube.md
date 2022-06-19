@@ -1,7 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
-title: 'Stadtfest 2022: Aufbau unserer Laube'
+title: 'Stadtfest 2022: Aufbau'
 thumbnail: "/upload/2022/06/19/img_1835.jpeg"
 photoalbum: ''
 
