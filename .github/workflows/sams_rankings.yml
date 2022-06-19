@@ -1,5 +1,7 @@
 name: SAMS Rankings
 
+concurrency: sams
+
 on:
   schedule:
     - cron: 44 4 * * * # every night at 4:44

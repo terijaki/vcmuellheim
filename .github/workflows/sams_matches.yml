@@ -1,5 +1,7 @@
 name: SAMS Match Schedule
 
+concurrency: sams
+
 on:
   schedule:
     - cron: 22 3 * * * # every night at 3:22

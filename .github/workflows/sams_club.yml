@@ -1,5 +1,7 @@
 name: SAMS Club Data Sync
 
+concurrency: sams
+
 on:
   schedule:
     - cron: "11 2 * * 3" # every wednesday night at 2:11
