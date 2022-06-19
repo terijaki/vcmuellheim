@@ -117,6 +117,10 @@ permalink: /matches/TEAMIDHERE
                             </tbody>
                         </table>
                     </div>
+                    <div class="mt-4 text-center calendar d-none">
+                        <a class="btn-small-download" type="text/calendar" href="CALURL1">Spielplan herunterladen</a>
+                        <a class="btn-small-download" type="text/calendar" href="CALURL2">Spielplan abonnieren</a>
+                    </div>
                 </div>
 
             </div>
