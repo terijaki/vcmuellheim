@@ -37,7 +37,7 @@ jobs:
                   echo "$f added to list of posts to post"
                   posts+=("$f")
                 else
-                  echo "$f already posted on Twitter"
+                  echo "$f already posted on Social"
               fi
             done
           echo "The following posts have not been posted: ${posts[*]}"
@@ -66,7 +66,7 @@ jobs:
           echo 'Preparing the following posts for Social: ${{steps.scanposts.outputs.posts}}'
           for postfile in ${{steps.scanposts.outputs.posts}}
             do
-              messages+=("$(awk '/title: [^\r\n]*/{print}' $postfile | tr -d \' | tr -d \" | tr -d \' | tr -d \" | sed -e 's!title: !!') echo https://vcmuellheim.de/$postfile | cut -c12- | sed 's!.md!/!'$(echo https://vcmuellheim.de/$postfile | cut -c12- | sed 's!.md!/!')")
+              messages+=("$(awk '/title: [^\r\n]*/{print}' $postfile | tr -d \' | tr -d \" | tr -d \' | tr -d \" | sed -e 's!title: !!') https://vcmuellheim.de/$(echo $postfile | cut -c12- | sed 's!.md!/!')")
             done
           echo "::set-output name=messages::${messages[*]}"
 
@@ -77,3 +77,21 @@ jobs:
           git push origin --all --quiet
 
 
+  Post-to-Twitter:
+    needs: New-Posts-for-Social
+    if: needs.New-Posts-for-Social.outputs.messages != ''
+    continue-on-error: true # if one match fails, the flow should continue
+    strategy:
+      matrix:
+        messages:
+          - ${{needs.New-Posts-for-Social.outputs.messages}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Twitter Post
+        uses: devigned/go-twitter-action@v1
+        with:
+          message: ${{matrix.messages}}
+          apiKey: ${{ secrets.TWITTER_API_KEY }}
+          apiKeySecret: ${{ secrets.TWITTER_API_KEY_SECRET }}
+          accessToken: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          accessTokenSecret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
