@@ -86,7 +86,7 @@ jobs:
         if: steps.samsical.outcome == 'success'
         run: |
           sed -i -e 's!CALURL1!https://vcmuellheim.de/${{env.REPO_TARGET1}}/${{matrix.teams}}.ics!g' ${{env.REPO_TARGET1}}/${{matrix.teams}}.html
-          sed -i -e 's!CALURL2!webcals://vcmuellheim.de/${{env.REPO_TARGET1}}/${{matrix.teams}}.ics!g' ${{env.REPO_TARGET1}}/${{matrix.teams}}.html
+          sed -i -e 's!CALURL2!webcal://vcmuellheim.de/${{env.REPO_TARGET1}}/${{matrix.teams}}.ics!g' ${{env.REPO_TARGET1}}/${{matrix.teams}}.html
           sed -i -e 's!calendar d-none!calendar!g' ${{env.REPO_TARGET1}}/${{matrix.teams}}.html
 
       - name: Upload Artifact (Matches)
