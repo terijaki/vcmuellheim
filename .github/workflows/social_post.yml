@@ -1,0 +1,79 @@
+name: Share Blog Post on Social
+
+concurrency: social
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - _posts/**
+
+jobs:
+  New-Posts-for-Social:
+    runs-on: ubuntu-latest
+    outputs:
+      posts: ${{steps.scanposts.outputs.posts}} #array of posts not yet posted
+      messages: ${{steps.messagesforsocial.outputs.messages}} #array of messages to post
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+        with: # important to ensure fetch all history!
+          fetch-depth: 0
+
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: Scan Matches #checks the git history and creates an array of all the posts that do not contain the word "social"
+        id: scanposts
+        run: |
+          cd _posts
+          declare posts=()
+          for f in $(ls | tr '\n' '\n')
+            do
+              if [ -z "$(git log --follow --pretty=oneline --grep='social' -q -- $f)" ]
+                then
+                  echo "$f added to list of posts to post"
+                  posts+=("$f")
+                else
+                  echo "$f already posted on Twitter"
+              fi
+            done
+          echo "The following posts have not been posted: ${posts[*]}"
+          echo "::set-output name=posts::${posts[*]}"
+
+      - name: Mark posts with string #change frontmatter to indicate that they have been posted on Twitter
+        id: markfiles
+        if: steps.scanposts.outputs.posts != ''
+        run: |
+          cd _posts
+          declare posts=()
+          echo ${{steps.scanposts.outputs.posts}}
+          for postfile in ${{steps.scanposts.outputs.posts}}
+           do
+            sed -i -e 's!title:!posted-on-social: true\ntitle:!g' $postfile
+            git add $postfile
+          done
+          git commit -m "tagged as shared on social"
+
+      - name: Messages for Social # Select the message for Social
+        id: messagesforsocial
+        if: steps.markfiles.outcome == 'success'
+        run: |
+          cd _posts
+          declare messages=()
+          echo 'Preparing the following posts for Social: ${{steps.scanposts.outputs.posts}}'
+          for postfile in ${{steps.scanposts.outputs.posts}}
+            do
+              messages+=("$(awk '/title: [^\r\n]*/{print}' $postfile | tr -d \' | tr -d \" | tr -d \' | tr -d \" | sed -e 's!title: !!') https://vcmuellheim.de/$($postfile | cut -c12- | sed 's!.md!/!')")
+            done
+          echo "::set-output name=messages::${messages[*]}"
+
+      - name: Git Push
+        if: steps.messagesforsocial.outcome == 'success'
+        run: |
+          git pull --quiet
+          git push origin --all --quiet
+
+
