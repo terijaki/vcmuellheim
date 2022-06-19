@@ -67,7 +67,7 @@ permalink: /matches/TEAMIDHERE
                 </div>
 
                 <div class="box matches-future">
-                    <h3 class="fw-bold">Spielplan</h3>
+                    <h3 class="fw-bold">Termine</h3>
                     <div class="upcoming">
                         <table class="w-100">
                             <thead>
