@@ -71,7 +71,7 @@ jobs:
         run: |
           curl -o ${{env.REPO_TARGET1}}/${{matrix.teams}}.ics "https://www.sbvv-online.de/iCal/team/matches.ical?teamId=${{matrix.teams}}"
           teamname= awk "/title: (.*) \(Saison/{print}" ${{env.REPO_TARGET1}}/${{matrix.teams}}.html | sed 's/title://g' | sed 's/(Saison//g'
-          sed -i -e 's!BEGIN:VCALENDAR!BEGIN:VCALENDAR\nX-WR-CALNAME:$teamname VC Müllheim Spielplan!g' ${{env.REPO_TARGET1}}/${{matrix.teams}}.ics
+          sed -i -e "s!BEGIN:VCALENDAR!BEGIN:VCALENDAR\nX-WR-CALNAME:$teamname VC Müllheim Spielplan!g" ${{env.REPO_TARGET1}}/${{matrix.teams}}.ics
 
 
       - name: Upload Artifact (Matches)
