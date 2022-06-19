@@ -70,7 +70,7 @@ jobs:
       - name: Import SAMS iCal # Import the iCal file so we can cache it
         run: |
           curl -o ${{env.REPO_TARGET1}}/${{matrix.teams}}.ics "https://www.sbvv-online.de/iCal/team/matches.ical?teamId=${{matrix.teams}}"
-          teamname= awk "/title: (.*) \(Saison/{print}" ${{env.REPO_TARGET1}}/${{matrix.teams}}.html | sed -e 's!title:!!g' | sed -e 's!(Saison!!g'
+          teamname=$(awk "/title: (.*) \(Saison/{print}" ${{env.REPO_TARGET1}}/${{matrix.teams}} | sed 's!title: !!' | sed 's! (Saison.*!!')
           echo $teamname
           sed -i -e "s!BEGIN:VCALENDAR!BEGIN:VCALENDAR\nX-WR-CALNAME:$teamname VC Müllheim Spielplan!g" ${{env.REPO_TARGET1}}/${{matrix.teams}}.ics
 
