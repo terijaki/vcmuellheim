@@ -68,11 +68,13 @@ jobs:
           xsltproc matches.xslt sams_xml_temp/${{matrix.teams}}.xml > ${{env.REPO_TARGET1}}/${{matrix.teams}}.html
 
       - name: Import & Modify SAMS iCal # Import the iCal file so we can cache it
+        # this downlodas the ical file from Sams, then adds "team name + VC MüllheimSpielplan" as calender name
+        # the modification is a beautification only and not a required field 
         run: |
           curl -o ${{env.REPO_TARGET1}}/${{matrix.teams}}.ics "https://www.sbvv-online.de/iCal/team/matches.ical?teamId=${{matrix.teams}}"
           teamname=$(awk "/title: (.*) \(Saison/{print}" ${{env.REPO_TARGET1}}/${{matrix.teams}}.html | sed 's!title: !!' | sed 's! (Saison.*!!')
           echo $teamname
-          sed -i -e "s!BEGIN:VCALENDAR!BEGIN:VCALENDAR\nX-WR-CALNAME:$teamname VC Müllheim Spielplan!g" ${{env.REPO_TARGET1}}/${{matrix.teams}}.ics
+          sed -i -e "s!BEGIN:VCALENDAR!BEGIN:VCALENDAR\nX-WR-CALNAME:$teamname (VC Müllheim)!g" ${{env.REPO_TARGET1}}/${{matrix.teams}}.ics
 
 
       - name: Upload Artifact (Matches)
