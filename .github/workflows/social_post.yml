@@ -32,7 +32,7 @@ jobs:
           declare posts=()
           for f in $(ls | tr '\n' '\n')
             do
-              if [ -z "$(git log --follow --pretty=oneline --grep='debugsocial' -q -- $f)" ]
+              if [ -z "$(git log --follow --pretty=oneline --grep='social' -q -- $f)" ]
                 then
                   echo "$f added to list of posts to post"
                   posts+=("$f")
@@ -71,3 +71,28 @@ jobs:
           echo "The following messages will be shared: ${messages[*]}"
           echo "::set-output name=messages::${messages[*]}"
 
+      - name: Git Push
+        if: steps.messagesforsocial.outcome == 'success'
+        run: |
+          git pull --quiet
+          git push origin --all --quiet
+
+
+  Post-to-Twitter:
+    needs: New-Posts-for-Social
+    if: needs.New-Posts-for-Social.outputs.messages != ''
+    continue-on-error: true # if one match fails, the flow should continue
+    strategy:
+      matrix:
+        messages:
+          - ${{needs.New-Posts-for-Social.outputs.messages}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Twitter Post
+        uses: devigned/go-twitter-action@v1
+        with:
+          message: ${{matrix.messages}}
+          apiKey: ${{ secrets.TWITTER_API_KEY }}
+          apiKeySecret: ${{ secrets.TWITTER_API_KEY_SECRET }}
+          accessToken: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          accessTokenSecret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
