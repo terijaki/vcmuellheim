@@ -67,8 +67,6 @@ jobs:
           mkdir -p ${{env.REPO_TARGET1}}
           sudo apt-get install xsltproc
           xsltproc matches.xslt sams_xml_temp/${{matrix.teams}}.xml > ${{env.REPO_TARGET1}}/${{matrix.teams}}.html
-          sed -i -e 's!CALURL1!https://vcmuellheim.de/${{env.REPO_TARGET1}}/${{matrix.teams}}.ics!g' ${{env.REPO_TARGET1}}/${{matrix.teams}}.html
-          sed -i -e 's!CALURL2!webcals://vcmuellheim.de/${{env.REPO_TARGET1}}/${{matrix.teams}}.ics!g' ${{env.REPO_TARGET1}}/${{matrix.teams}}.html
 
       - name: Import & Modify SAMS iCal # Import the iCal file so we can cache it
         # this downlodas the ical file from Sams, then adds "team name + VC MüllheimSpielplan" as calender name
