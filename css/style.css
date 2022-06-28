@@ -651,7 +651,7 @@ main {
   }
 }
 
-.box :not(h1, h2, h3, h4) a {
+.box :not(h1, h2, h3, h4) a:not([href^="mailto:"]) {
   word-break: break-all;
 }
 
