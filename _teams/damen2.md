@@ -12,7 +12,7 @@ trainings-map2: https://goo.gl/maps/g3XhvCS9gpR2
 trainer-name1: Andreas Albrecht
 trainer-email1: andreas@vcmuellheim.de
 trainer-name2: Marina Peters
-trainer-email2: ''
+trainer-email2: marina@vcmuellheim.de
 kommentar: ''
 foto: ''
 kurztext: ''
