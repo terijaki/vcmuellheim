@@ -1,0 +1,35 @@
+---
+layout: post
+excerpt_separator: "<!--more-->"
+title: Stadtfest 2022
+thumbnail: "/upload/2022/06/30/img_1951.jpeg"
+photoalbum: ''
+
+---
+Der VC Müllheim hat wie zuvor seine Laube am Mübiushof aufgebaut und dort Speis und Trank angeboten.
+
+Am Freitag den 24 Juni starteten die drei Festtage noch mit letzten kleinen Schauern, welche sich jedoch schnell verzogen.
+
+Bei Musik, Wein und Bier konnten viele Besucher des Stadtfests auch unsere leckeren Pfannenspezialitäten genießen.
+
+Jägerschnitzel, Gyros und Bratwurst waren, wie immer, sehr beliebt und eine gute Grundlage für langes und ausgiebiges Feiern.
+
+In unserer Sektbar fanden heimische Sekte und der Klassiker Aperol viele Abnehmer.
+
+Am Samstag spielte das Wetter so richtig mit. Neben den atemberaubenden, akrobatischen Vorführungen der Artisten der Falko Traber-Hochseilshow gab es auch jede Menge musikalisches im Angebot.
+
+Wie z.B. die „Wombats unplugged“, die südbadische Rockband „XX Cult“ und die Sängerin Steffi Lais und Band. Die Trommler der „Brasilikum Power Percussion“ aus Freiburg zogen mehrmals am Tag durch die Festmeile und begeisterten mit ihren rhythmischen Klängen Groß und Klein.
+
+Am Samstag Abend sorgte ein DJ mit Party Musik für guten Stimmung bis tief in die Nacht.
+
+Auch am Sonntag wurde unsere Laube sehr gut besucht. Wir waren freudig überrascht und erleichtert, das die Feierlaune und der Wunsch nach geselligen beisammen sein, auch nach der zweijährigen Pause ungebrochen ist.
+
+Wir bedanken uns bei allen Besuchern und Besucherinnen die mit ihrem Einkehren unseren Verein unterstützt haben.
+
+Wir bedanken uns auch bei allen freiwilligen Helfern und Helferinnen, die uns an unserem Stand unterstützt, und einen reibungslosen Ablauf ermöglicht haben. Über 90 Personen sind aktiv geworden und haben unseren Angebot machtbar gemacht. Vom Aufbau der Laube, Zubereitung des Krautsalat, Putzen, Fegen, Dekorieren, Bedienen, Theken- & Küchendienst, Spülen und zu guter Letzt auch der Abbau der Laube, damit diese sicher fürs nächste Jahr verwahrt werden kann. Danke an:
+
+_Alexander, Alexandra, Anastasia, Andre, Andreas, Angela, Anna, Anne, Anne, Anne, Anselm, Anton, Björn, Carina, Carla, Christian, Christian, Claudio, Dominik, Doris, Edgaras, Elvira, Emely, Eveline, Finja, Françoise, Franz-Josef, Georg, Haike, Hanna, Helga, Hendrik, Henrik, Ibrahim, Isabelle, Jarek, Jasmin, Jnan, Johannes, Juliana, Kerstin, Laurent, Lauris, Lena, Lisa, Lorenz, Lothar, Lou, Lucas, Ludwig, Lukas, Maarten, Malou, Marco, Maria, Marina, Markus, Marta, Marten, Martina, Maurice, Max, Melanie, Melisa, Melissa, Michael, Mirela, Miriam, Montse, Natalie, Nina, Oliver, Paul, Paul, Paul, Philipp, Renate, Rufina, Sebastian, Selina, Suanita, Susanne, Thanaton, Theo, Thomas, Thomas, Thomas, Valentina, Wladimir, Wolfgang, Zeynep_
+
+Vielen Dank, bleibt Gesund und hoffentlich sieht man sich wieder auf dem Müllheimer Stadtfest 2023.
+
+![](/upload/2022/06/30/img_1955.jpeg)![](/upload/2022/06/30/img_1954.jpeg)![](/upload/2022/06/30/img_1974.jpeg)![](/upload/2022/06/30/img_1975.jpeg)![](/upload/2022/06/30/img_0081.jpeg)![](/upload/2022/06/30/img_1701.jpeg)![](/upload/2022/06/30/img_1794.jpeg)
