@@ -15,10 +15,6 @@ jobs:
       posts: ${{steps.scanposts.outputs.posts}} #array of posts not yet posted
       messages: ${{steps.messagesforsocial.outputs.messages}} #array of messages to post
     steps:
-      - name: Sleep for 10 minutes
-        uses: kibertoad/wait-action@1.0.1
-        with:
-          time: '10m'
 
       - name: Checkout Source Code
         uses: actions/checkout@v3
@@ -96,6 +92,11 @@ jobs:
           - ${{needs.New-Posts-for-Social.outputs.messages}}
     runs-on: ubuntu-latest
     steps:
+      - name: Sleep for 10 minutes
+        uses: kibertoad/wait-action@1.0.1
+        with:
+          time: '10m'
+
       - name: Twitter Post
         uses: devigned/go-twitter-action@v1
         with:
