@@ -26,7 +26,7 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
-      - name: Scan Matches #checks the git history and creates an array of all the posts that do not contain the word "social"
+      - name: Scan POSTS #checks the git history and creates an array of all the posts that do not contain the word "social"
         id: scanposts
         run: |
           cd _posts
