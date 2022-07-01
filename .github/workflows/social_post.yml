@@ -105,3 +105,24 @@ jobs:
           apiKeySecret: ${{ secrets.TWITTER_API_KEY_SECRET }}
           accessToken: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           accessTokenSecret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+
+  Post-to-Facebook:
+    needs: New-Posts-for-Social
+    if: needs.New-Posts-for-Social.outputs.messages != ''
+    continue-on-error: true # if one match fails, the flow should continue
+    strategy:
+      matrix:
+        messages:
+          - ${{needs.New-Posts-for-Social.outputs.messages}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sleep for 10 minutes
+        uses: kibertoad/wait-action@1.0.1
+        with:
+          time: '10m'
+
+      - name: Facebook Page Post
+        run: |
+          curl -i -X POST "https://graph.facebook.com/365533836864448/feed
+            ?message=${{matrix.messages}}
+            &access_token=${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}"
