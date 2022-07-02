@@ -1,4 +1,5 @@
 ---
+layout: team
 liga: "[10] Kreisliga"
 sbvv_id: 18450721
 name: Damen I

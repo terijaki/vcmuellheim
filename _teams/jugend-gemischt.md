@@ -1,4 +1,5 @@
 ---
+layout: team
 liga: "[99] Kein Ligabetrieb"
 sbvv_id: 
 name: Jugend (gemischte)

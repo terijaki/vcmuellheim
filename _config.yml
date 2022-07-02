@@ -13,6 +13,7 @@ background_color: "#366273"
 include:
   - _pages
   - _matches
+  - _teams
 permalink: /:title/
 url: https://vcmuellheim.de
 author: "VC Müllheim"

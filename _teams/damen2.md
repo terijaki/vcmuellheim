@@ -1,4 +1,5 @@
 ---
+layout: team
 liga: "[10] Kreisliga"
 sbvv_id: 19046138
 name: Damen II
