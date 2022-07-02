@@ -14,7 +14,7 @@ include:
   - _pages
   - _matches
   - _teams
-permalink: /:title/
+permalink: /:title
 url: https://vcmuellheim.de
 author: "VC Müllheim"
 
@@ -48,9 +48,11 @@ collections:
   club_members: # Adds Club Members to show on a contacts page
     sort_by: sortorder
   teams: # List teams on the landing page and rankings if they have an SBVV-ID
+    output: true
     sort_by: liga
     permalink: /:collection/:name
   teaminfo:
+    output: false
     sort_by: priority
   matches: # Creates pages for each SAMS matchSeries based on their filenames
     output: true
