@@ -116,7 +116,7 @@ jobs:
           - ${{needs.New-Posts-for-Social.outputs.messages}}
     runs-on: ubuntu-latest
     steps:
-      - name: Facebook Page Post
+      - name: Facebook Page Post #creates a scheduled Facebook page post 10 minutes in the future
         run: |
           curl -i -X POST "https://graph.facebook.com/365533836864448/feed
             ?message=${{matrix.messages}}
