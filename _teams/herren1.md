@@ -1,6 +1,6 @@
 ---
 layout: team
-name: Herren I
+teamname: Herren I
 liga: "[06] Verbandsliga"
 trainings-zeit1: Dienstags & Donnerstags 20:00-22:00 Uhr
 trainings-ort1: Sporthalle II Teil E
