@@ -22,6 +22,7 @@ sections:
   create: documents
   match: "**/*"
   templates:
+  - spieler-in-hinzufugen
   - mannschaftsdetail
 - type: directory
   path: _club_members
