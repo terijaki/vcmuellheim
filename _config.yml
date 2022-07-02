@@ -50,7 +50,7 @@ collections:
   teams: # List teams on the landing page and additonaly include in rankings if they have an SBVV-ID
     output: true
     sort_by: liga
-    permalink: /:name
+    permalink: /:collection/:name
   teaminfo:
     output: false
     sort_by: priority
