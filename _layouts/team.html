@@ -28,6 +28,9 @@ Dieser Bereich ist noch in Arbeit. Bitte komme später noch einmal vorbei.<br><b
         {% for entry in teaminfo %}
         <div class="col-lg-6 col sams-rankings">
           <div class="box">
+            {% if entry.foto == "" or entry.foto == nil or enty.foto == blank %} {% else %}
+            <div style="background-image:url({{ entry.foto }});"></div>
+            {% endif %}
           <h3 class="fw-bold">{{ entry.titel }}{{ entry.spielername }}</h3>
           {{ entry.freitext }}
           </div>
