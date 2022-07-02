@@ -47,7 +47,7 @@ exclude:
 collections:
   club_members: # Adds Club Members to show on a contacts page
     sort_by: sortorder
-  teams: # List teams on the landing page and rankings if they have an SBVV-ID
+  teams: # List teams on the landing page and additonaly include in rankings if they have an SBVV-ID
     output: true
     sort_by: liga
     permalink: /:collection/:name
