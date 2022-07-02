@@ -16,7 +16,7 @@ layout: default
 
 {{ page.trainings-zeit1 }}
 
-{% for spieler in teaminfo %}
+{% for spieler in (site.collections | where: 'label', 'teaminfo') %}
 
   {{ spieler.name }}
   {{ spieler.beschreibung }}
