@@ -30,8 +30,8 @@ fields:
     schema:
       format: markdown
   label: Freitext
-- name: bild
+- name: foto
   type: file
   config:
     maxSize: 64
-  label: Bild
+  label: Foto
