@@ -116,13 +116,10 @@ jobs:
           - ${{needs.New-Posts-for-Social.outputs.messages}}
     runs-on: ubuntu-latest
     steps:
-      - name: Sleep for 10 minutes
-        uses: kibertoad/wait-action@1.0.1
-        with:
-          time: '10m'
-
       - name: Facebook Page Post
         run: |
           curl -i -X POST "https://graph.facebook.com/365533836864448/feed
             ?message=${{matrix.messages}}
+            &published=false
+            &scheduled_publish_time=$(echo "`date +%s` + 1000" | bc)
             &access_token=${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}"
