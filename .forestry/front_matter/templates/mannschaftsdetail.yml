@@ -1,0 +1,37 @@
+---
+label: Mannschaftsdetail
+hide_body: true
+display_field: titel
+fields:
+- name: mannschaft
+  type: select
+  default: 
+  config:
+    required: true
+    options: []
+    source:
+      type: pages
+      section: mannschaften
+      file: 
+      path: 
+  label: Mannschaft
+  description: Zu welcher Mannschaft gehört dieses Detail?
+- name: titel
+  type: text
+  config:
+    required: false
+  label: Titel
+- name: freitext
+  type: textarea
+  default: ''
+  config:
+    required: false
+    wysiwyg: true
+    schema:
+      format: markdown
+  label: Freitext
+- name: bild
+  type: file
+  config:
+    maxSize: 64
+  label: Bild
