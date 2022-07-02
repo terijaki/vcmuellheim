@@ -18,6 +18,7 @@ fields:
 - type: file
   name: thumbnail
   label: thumbnail
+  description: "<em>(optional)</em>"
 - name: excerpt_separator
   type: text
   config:
