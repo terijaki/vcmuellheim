@@ -7,7 +7,7 @@ layout: default
   <div class="container">
     <div class="row">
       <div class="col text-center text-lg-start">
-        <h3 class="si-title">{{ page.teamname }} - {{ page.liga }}</h3>
+        <h3 class="si-title">{{ page.teamname }} - {{ page.liga | slice: 4, 99 }}</h3>
       </div>
     </div>
   </div>
@@ -17,12 +17,25 @@ layout: default
 Dieser Bereich ist noch in Arbeit. Bitte komme später noch einmal vorbei.<br><br><br>
 {{ page.trainings-zeit1 }}
 
+<main id="main" class="flex-grow-1">
+  <!--===== Mannschaftsdetails =====-->
+  <section id="teamdetails" class="section-bg">
+    <div class="container">
+      <div class="row teams">
 
-{% assign teaminfo = (site.teaminfo | sort: 'titel') %}
 
-{% for entry in teaminfo %}
-<div>
-  {{ entry.titel }}{{ entry.spielername }}<br>
-  {{ entry.freitext }}
-</div>
-{% endfor %}
+        {% assign teaminfo = (site.teaminfo | sort: 'titel') %}
+        {% for entry in teaminfo %}
+        <div class="col sams-rankings">
+          <div class="box">
+          <h3 class="fw-bold">{{ entry.titel }}{{ entry.spielername }}</h3>
+          {{ entry.freitext }}
+          </div>
+        </div>
+        {% endfor %}
+
+
+      </div>
+    </div>
+  </section>
+</main>
