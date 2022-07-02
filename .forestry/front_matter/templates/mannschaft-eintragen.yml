@@ -3,6 +3,13 @@ label: Mannschaft eintragen
 hide_body: true
 display_field: name
 fields:
+- name: layout
+  type: text
+  config:
+    required: false
+  label: layout
+  hidden: true
+  default: team
 - type: text
   name: name
   label: Team Name
