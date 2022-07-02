@@ -121,5 +121,5 @@ jobs:
           curl -i -X POST "https://graph.facebook.com/365533836864448/feed
             ?message=${{matrix.messages}}
             &published=false
-            &scheduled_publish_time=$(echo "`date +%s` + 1000" | bc)
+            &scheduled_publish_time=$(echo "`date +%s` + 600" | bc)
             &access_token=${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}"
