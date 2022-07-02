@@ -17,7 +17,7 @@ sections:
   templates:
   - mannschaft-eintragen
 - type: directory
-  path: _teaminfos
+  path: _teaminfo
   label: Mannschaftsinfo
   create: documents
   match: "**/*"
