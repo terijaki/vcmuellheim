@@ -49,7 +49,7 @@ collections:
     people: true
   teams: # List teams on the landing page and rankings if they have an SBVV-ID
     sort_by: liga
-    permalink: /teams/:name/
+    permalink: /:collection/:name
   teaminfo:
     sort_by: priority
   matches: # Creates pages for each SAMS matchSeries based on their filenames
