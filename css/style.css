@@ -1085,22 +1085,24 @@ main {
   background: var(--gradient2);
 }
 
-#news .archiv-btn {
-  font-size: 16px;
-  padding: 8px 28px;
-}
-
 .generic-button:hover {
   color: var(--text2);
   background: var(--link1);
 }
 
+#news .archiv-btn {
+  font-size: 16px;
+  padding: 8px 28px;
+}
 #mannschaften .box .generic-button {
   font-size: 12px;
   font-weight: bold;
   padding: 3px 8px;
 }
 
+#teaminfo .generic-button {
+  padding: 6px 18px;
+}
 
 /* sponsors Section
 --------------------------------*/
