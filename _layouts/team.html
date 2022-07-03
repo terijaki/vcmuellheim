@@ -23,7 +23,7 @@ layout: default
 
         {% assign teaminfo = (site.teaminfo | sort: 'titel') %}
         {% for entry in teaminfo %}
-        <div class="col col-md-6 sams-rankings">
+        <div class="col-12 col-md-6 sams-rankings">
           <div class="box">
             {% if entry.foto == "" or entry.foto == nil or enty.foto == blank %} {% else %}
             <div style="background-image:url({{ entry.foto }});"></div>
