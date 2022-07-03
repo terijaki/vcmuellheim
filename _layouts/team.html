@@ -88,7 +88,7 @@ layout: default
         
         <!-- Error of no entries for this team exist -->
         {% unless teaminfo.size > 0 %}
-        <div class="col">
+        <div class="col-12">
           <div class="box">
             <p class="m-0 text-center">Derzeit leigen keine weiteren Informationen für dieses Team vor.</p>
           </div>
@@ -137,6 +137,12 @@ layout: default
         </div>   
         {% endif %}
         {% endfor %}
+
+        <div class="col-12">
+          <div class="box">
+            <p class="m-0 text-center"><a href="/" class="generic-button">Zurück zur Startseite</a></p>
+          </div>
+        </div>
 
       </div>
     </div>
