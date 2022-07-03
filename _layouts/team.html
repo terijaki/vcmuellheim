@@ -24,7 +24,6 @@ layout: default
 
         {% assign teaminfo = (site.teaminfo | sort: 'titel') %}
         {% for entry in teaminfo %}
-        {% if entry.spielername != "" %}
         <div class="col-6 col-lg-4">
           <div class="box">
             <div class="picture-container col-3 p-0">
@@ -40,6 +39,7 @@ layout: default
         </div>
         {% endfor %}
 
+        {{ page.url }}
 
       </div>
     </div>
