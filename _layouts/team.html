@@ -29,7 +29,7 @@ layout: default
           <div class="box h-100 mb-0">
               <h4 class="fw-bold">Über uns</h4>
               <p>Hallo! Wir sind die <strong>{{ page.teamname }}</strong> vom VC Müllheim{% unless page.liga contains "99" %}
-                  und wir spielen in der <strong>{{ page.liga | slice: 4, 99 }}</strong>
+                  und wir spielen in der <strong>{{ page.liga | slice: 4, 99 | rstrip }}</strong>
                 {% endunless %}.
               </p>
               <!-- Altersangabe  -->
