@@ -24,19 +24,19 @@ layout: default
     <div class="container">
       <div class="row teams">
 
-        {% assign teaminfo = (site.teaminfo | where: 'mannschaft', page.path | sort: 'titel') %}
+        {% assign teaminfo = (site.teaminfo | sort: 'titel' | where: 'mannschaft', page.path) %}
         {% for entry in teaminfo %}
 
         {% if entry.titel.size > 0 %}
         <div class="mannschaftsdetail col-12">
-          <div class="box d-flex p-3">
+          <div class="box p-3">
             {% if entry.foto.size > 0 %}
-            <div class="picture-container col-3 me-2">
-              <img src="{{ entry.foto }}" class="img-fluid">
+            <div class="picture-container">
+              <img src="{{ entry.foto }}" class="img-fluid w-100">
             </div>
             {% endif %}
-            <div class="col">
-              <h3 class="fw-bold mb-0">{{ entry.titel }}{{ entry.spielername }}</h3>
+            <div class="text">
+              <h3 class="fw-bold mb-0 mt-2 text-center">{{ entry.titel }}{{ entry.spielername }}</h3>
               <p>{{ entry.freitext }}</p>
             </div>
           </div>
@@ -49,7 +49,7 @@ layout: default
               <img src="{{ entry.foto }}" class="img-fluid rounded-circle">
             </div>
             {% endif %}
-            <div class="col">
+            <div class="text">
               <h3 class="fw-bold mb-0">{{ entry.titel }}{{ entry.spielername }}</h3>
               <p>{{ entry.freitext }}</p>
             </div>
