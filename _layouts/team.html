@@ -27,7 +27,7 @@ layout: default
         {% assign teaminfo = (site.teaminfo | where: 'mannschaft', page.path | sort: 'titel') %}
         {% for entry in teaminfo %}
 
-        {% if entry.title.size > 0 %}
+        {% if entry.titel.size > 0 %}
         <div class="col-12">
         {% else %}
         <div class="col-12 col-md-6 col-xl-4">
