@@ -24,9 +24,38 @@ layout: default
     <div class="container">
       <div class="row teams">
 
+      <!-- Key Team Data (same as on home page) -->  
+        <div class="teamcore col-6">
+          <div class="box">
+              <!-- Liga Info  -->
+              {% unless page.liga contains "99" %}
+                <h4 class="liga">{{ page.liga }}</h4>
+              {% endif %}
+              <!-- Altersangabe  -->
+              {% if page.alter.size > 0 %}
+                <p class="alter"> <b>Altersgruppe:</b> {{ team.alter }}</p>
+              {% endif %}
+
+              <!-- Trainingszeiten -->
+              <p class="trainingszeiten"><b>Trainingszeiten:</b><br>{{ page.trainings-zeit1 }}<br>
+                <a href="{{ team.trainings-map1 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ page.trainings-ort1 }}</a>
+
+                {% if page.trainings-zeit2 > 0 %}
+                  <br>{{ page.trainings-zeit2 }}<br>
+                  <a href="{{ team.trainings-map2 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ page.trainings-ort2 }}</a><br>
+                {% endif %}
+          </p>
+          </div>
+        </div>
+
+
+
+
         {% assign teaminfo = (site.teaminfo | sort: 'titel' | sort: 'name' | where: 'mannschaft', page.path) %}
         
+        <!-- Error of no entries for this team exist -->
         {% if teaminfo.size < 1 %}
+        {% else %}
         <div class="col">
           <div class="box">
             <p class="m-0 text-center">Derzeit leigen keine weiteren Informationen für dieses Team vor.</p>
@@ -34,8 +63,10 @@ layout: default
         </div>
         {% endif %}
 
+        <!-- Custom and individual Player Entries -->
         {% for entry in teaminfo %}
         {% if entry.titel.size > 0 %}
+        
         <div class="mannschaftsdetail col-12 mb-3">
           <div class="box p-3">
             {% if entry.foto.size > 0 %}
@@ -54,6 +85,7 @@ layout: default
           </div>
         </div>
         {% else %}
+        <!-- Player Entries -->
         <div class="spieler-in col-12 col-md-6 col-xl-4 mb-3">
           <div class="box d-flex p-3 h-100 mb-0">
             {% if entry.foto.size > 0 %}
