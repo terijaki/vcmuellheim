@@ -55,7 +55,7 @@ layout: default
         </div>
         {% else %}
         <div class="spieler-in col-12 col-md-6 col-xl-4 mb-3">
-          <div class="box d-flex p-3">
+          <div class="box d-flex p-3 h-100">
             {% if entry.foto.size > 0 %}
             <div class="picture-container col-3 me-2">
               <div style="background:url({{ entry.foto }}); background-size: cover;" class="w-100 ratio ratio-1x1 rounded-circle"></div>
@@ -66,7 +66,7 @@ layout: default
               <h4 class="fw-bold mb-0">{{ entry.name }}</h4>
               {% endif %}
               {% if entry.freitext.size > 0 %}
-              <p>{{ entry.freitext }}</p>
+              <p class="mb-0">{{ entry.freitext }}</p>
               {% endif %}
             </div>
           </div>
