@@ -36,8 +36,8 @@ layout: default
 
         {% for entry in teaminfo %}
         {% if entry.titel.size > 0 %}
-        <div class="mannschaftsdetail col-12">
-          <div class="box p-3 mb-3">
+        <div class="mannschaftsdetail col-12 mb-3">
+          <div class="box p-3">
             {% if entry.foto.size > 0 %}
             <div class="picture-container">
               <img src="{{ entry.foto }}" class="img-fluid w-100">
@@ -54,8 +54,8 @@ layout: default
           </div>
         </div>
         {% else %}
-        <div class="spieler-in col-12 col-md-6 col-xl-4">
-          <div class="box d-flex p-3 mb-3">
+        <div class="spieler-in col-12 col-md-6 col-xl-4 mb-3">
+          <div class="box d-flex p-3 h-100">
             {% if entry.foto.size > 0 %}
             <div class="picture-container col-3 me-2">
               <div style="background:url({{ entry.foto }}); background-size: cover;" class="w-100 ratio ratio-1x1 rounded-circle"></div>
