@@ -1129,9 +1129,11 @@ main {
   max-width: 100%;
 }
 
-/* Kontakt Section
+/* Mannschafts Details
 --------------------------------*/
-
+#teaminfo .box p:last-child {
+  margin-bottom: 0;
+  }
 
 /*--------------------------------------------------------------
 # Footer
