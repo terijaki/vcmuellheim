@@ -25,10 +25,10 @@ layout: default
         {% assign teaminfo = (site.teaminfo | sort: 'titel') %}
         {% for entry in teaminfo %}
         <div class="col-6 col-lg-4">
-          <div class="box">
-            <div class="picture-container col-3 p-0">
+          <div class="box d-flex p-3">
+            <div class="picture-container col-3">
             {% if entry.foto contains "." %}
-              <img src="{{ entry.foto }}" class="img-fluid rounded-circle">
+              <img src="{{ entry.foto }}" class="img-fluid rounded-circle p3-2">
             {% endif %}
             </div>
             <div class="col">
@@ -39,7 +39,7 @@ layout: default
         </div>
         {% endfor %}
 
-        {{ page.url }}
+        {{ page.url }} - {{ page.path }} - {{ page.name }}
 
       </div>
     </div>
