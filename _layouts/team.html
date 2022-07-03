@@ -44,10 +44,10 @@ layout: default
             </div>
             {% endif %}
             <div class="text">
-              {% if entry.name.titel > 0 %}
+              {% if entry.titel.size > 0 %}
               <h3 class="fw-bold mb-0 mt-2 text-center">{{ entry.titel }}</h3>
               {% endif %}
-              {% if entry.name.freitext > 0 %}
+              {% if entry.freitext.size > 0 %}
               <p>{{ entry.freitext }}</p>
               {% endif %}
             </div>
