@@ -37,6 +37,7 @@ fields:
   label: Freitext
   description: Hier kann der/die Spieler:in einen beliebigen Text angeben.
 pages:
+- _teaminfo/a test player.md
 - _teaminfo/bjoernkohnen.md
 - _teaminfo/klausernst.md
 - _teaminfo/theolacher.md
