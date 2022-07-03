@@ -11,7 +11,7 @@ layout: default
           {% unless page.liga contains "99" %}
             - {{ page.liga | slice: 4, 99   }}
           {% endunless %}</h3>
-        <p style="color:yellow">🚧 Dieser Bereich ist noch in Arbeit. Bitte komme später noch einmal vorbei. 🚧</p>
+        <p style="color:yellow" class="p-0 m-0">🚧 Dieser Bereich ist noch in Arbeit. Bitte komme später noch einmal vorbei. 🚧</p>
       </div>
     </div>
   </div>
@@ -27,6 +27,10 @@ layout: default
         {% assign teaminfo = (site.teaminfo | sort: 'titel' | sort: 'name' | where: 'mannschaft', page.path) %}
         
         {% for entry in teaminfo %}
+        {% if entry.size < 1 %}
+        <p>Keine Informationen für dieses Team vorhanden.</p>
+        {% endif %}
+
         {% if entry.titel.size > 0 %}
         <div class="mannschaftsdetail col-12">
           <div class="box p-3 mb-3">
