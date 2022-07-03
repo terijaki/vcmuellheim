@@ -619,7 +619,7 @@ main {
 }
 
 
-/* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse, Spielplan)
+/* Box (Card)
 --------------------------------*/
 .box {
   padding: 40px;
@@ -642,6 +642,9 @@ main {
 .box :not(h1, h2, h3, h4) a:not([href^="mailto:"]) {
   word-break: break-all;
 }
+
+/* Simple Page
+--------------------------------*/
 
 #page-simple,
 #matches,
@@ -670,7 +673,8 @@ main {
   margin-top: 1rem;
 }
 
-
+/* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse, Spielplan)
+--------------------------------*/
 #matches tbody tr:nth-child(odd) {
   background: rgba(0, 0, 0, 0.05);
 }
@@ -738,8 +742,6 @@ main {
     display: none;
   }
 }
-
-
 
 .sams-rankings tr>* {
   padding: 1px;
@@ -1086,6 +1088,17 @@ main {
   margin-left: -28px;
   width: 32px;
 }
+
+
+
+/* Team Subpage
+--------------------------------*/
+
+
+
+
+
+
 
 /* sponsors Section
 --------------------------------*/
