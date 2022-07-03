@@ -25,13 +25,13 @@ layout: default
       <div class="row teams">
 
       <!-- Key Team Data (same as on home page) -->  
-        <div class="teamcore col-6 d-flex h-100">
+        <div class="teamcore col-6">
           <div class="box">
-              <p>Hallo! Wir sind die {{ page.teamname }} vom VC Müllheim 
+              <h4>Über uns</h4>
+              <p>Hallo! Wir sind die <strong>{{ page.teamname }}</strong> vom VC Müllheim 
                 {% unless page.liga contains "99" %}
                  und wir spielen in der {{ page.liga | slice: 4, 99 }}
-                {% endunless %}
-                .
+                {% endunless %}.
               </p>
               <!-- Altersangabe  -->
               {% if page.alter.size > 0 %}
@@ -41,7 +41,7 @@ layout: default
           </p>
           </div>
         </div>
-        <div class="teamcore col-6 d-flex h-100">
+        <div class="teamcore col-6">
           <div class="box">
               <!-- Trainingszeiten -->
               <p class="trainingszeiten"><b>Trainingszeiten:</b><br>{{ page.trainings-zeit1 }}<br>
