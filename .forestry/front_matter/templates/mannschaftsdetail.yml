@@ -21,6 +21,11 @@ fields:
   config:
     required: false
   label: Titel
+- name: foto
+  type: file
+  config:
+    maxSize: 64
+  label: Foto
 - name: freitext
   type: textarea
   default: ''
@@ -28,10 +33,5 @@ fields:
     required: false
     wysiwyg: true
     schema:
-      format: markdown
+      format: html
   label: Freitext
-- name: foto
-  type: file
-  config:
-    maxSize: 64
-  label: Foto
