@@ -54,6 +54,7 @@ layout: default
                   <br>{{ page.trainings-zeit2 }}<br>
                   <a href="{{ page.trainings-map2 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ page.trainings-ort2 }}</a><br>
                 {% endif %}
+              </p>
               <!-- Trainer 1 -->
               {% if page.trainer-name1.size > 0 %}
               <p class="trainer"><b>Trainer</b>:
@@ -65,7 +66,7 @@ layout: default
                 {% if page.trainer-email2  contains "@" %}<a href="mailto:{{ page.trainer-email2 }}?subject={{ site.title }} - {{ page.teamname }}">{{ page.trainer-name2 }}</a>{% else %}{{ page.trainer-name2 }}
                 {% endif %}
               {% endif %}
-            </p>
+              </p>
               {% endif %}
 
               <!-- Ansprechperson 1 -->
@@ -81,7 +82,7 @@ layout: default
                   {% endif %}
                 </p>
               {% endif %}
-          </p>
+          
           </div>
         </div>
 
