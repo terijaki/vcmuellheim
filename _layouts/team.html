@@ -24,7 +24,7 @@ layout: default
 
         {% assign teaminfo = (site.teaminfo | sort: 'titel') %}
         {% for entry in teaminfo %}
-        <div class="col-6 col-lg-4">
+        <div class="col-12 col-md-6 col-lg-4">
           <div class="box d-flex p-3">
             <div class="picture-container col-3">
             {% if entry.foto contains "." %}
