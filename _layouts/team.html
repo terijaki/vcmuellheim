@@ -9,7 +9,7 @@ layout: default
       <div class="col text-center text-lg-start">
         <h3 class="si-title">{{ page.teamname }}
           {% unless page.liga contains "99" %}
-            - {{ page.liga | slice: 4, 99   }}
+            <span class="d-none d-lg-inline">- {{ page.liga | slice: 4, 99   }}</span>
           {% endunless %}</h3>
         <p style="color:yellow" class="p-0 m-0">🚧 Dieser Bereich ist noch in Arbeit. Bitte komme später noch einmal vorbei. 🚧</p>
       </div>
@@ -25,24 +25,27 @@ layout: default
       <div class="row teams">
 
       <!-- Key Team Data (same as on home page) -->  
-        <div class="teamcore col-6">
-          <div class="box">
-              <h4>Über uns</h4>
-              <p>Hallo! Wir sind die <strong>{{ page.teamname }}</strong> vom VC Müllheim 
+        <div class="teamcore col col-lg-6">
+          <div class="box h-100 mb-0">
+              <h4 class="fw-bold">Über uns</h4>
+              <p>Hallo! Wir sind die <strong>{{ page.teamname }}</strong> vom VC Müllheim
                 {% unless page.liga contains "99" %}
-                 und wir spielen in der {{ page.liga | slice: 4, 99 }}
+                  und wir spielen in der <strong>{{ page.liga | slice: 4, 99 }}</strong>
                 {% endunless %}.
               </p>
               <!-- Altersangabe  -->
               {% if page.alter.size > 0 %}
                 <p class="alter"> <b>Alter:</b> {{ page.alter }}</p>
               {% endif %}
-
+              <!-- Spielplan & Kalender  -->
+              {% if page.sbvv_id > 0 %}
+                <p class="spielplan"><b>Spielplan</b>: <a href="../matches/{{ team.sbvv_id }}">Termine & Ergebnisse</a>
+              {% endif %}
           </p>
           </div>
         </div>
-        <div class="teamcore col-6">
-          <div class="box">
+        <div class="teamcore col col-lg-6">
+          <div class="box h-100 mb-0">
               <!-- Trainingszeiten -->
               <p class="trainingszeiten"><b>Trainingszeiten:</b><br>{{ page.trainings-zeit1 }}<br>
                 <a href="{{ page.trainings-map1 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ page.trainings-ort1 }}</a>
