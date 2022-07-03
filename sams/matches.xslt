@@ -5,7 +5,7 @@ layout: page
 title: <xsl:value-of select="matches/match[1]/matchSeries/name"/> (Saison <xsl:value-of select="matches/match[1]/matchSeries/season/name"/>)
 permalink: /matches/TEAMIDHERE
 ---
-<main id="main" class="flex-grow-1 d-flex flex-column">
+<main class="flex-grow-1 d-flex flex-column">
     <section id="matches" class="section-bg flex-grow-1">
         <div class="container">
             <div class="col sams-matches">
