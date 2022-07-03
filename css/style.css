@@ -1095,6 +1095,11 @@ main {
   background: var(--link1);
 }
 
+#mannschaften .box .generic-button, {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 8px;
+}
 
 
 /* sponsors Section
