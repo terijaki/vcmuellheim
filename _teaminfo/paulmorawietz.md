@@ -1,7 +1,6 @@
 ---
 mannschaft: _teams/herren1.md
-name: Theo Lacher
-foto: ''
+name: Paul Morawietz
 freitext: "<strong>Position:</strong> Mitte"
 
 ---

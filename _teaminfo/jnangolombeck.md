@@ -1,7 +1,6 @@
 ---
 mannschaft: _teams/herren1.md
-name: Theo Lacher
-foto: ''
+name: Jnan Golombeck
 freitext: "<strong>Position:</strong> Mitte"
 
 ---
