@@ -7,7 +7,10 @@ layout: default
   <div class="container">
     <div class="row">
       <div class="col text-center text-lg-start">
-        <h3 class="si-title">{{ page.teamname }} - {{ page.liga | slice: 4, 99 }}</h3>
+        <h3 class="si-title">{{ page.teamname }}
+          {% unless team.liga contains "99" %}
+            - {{ team.liga | slice: 4, 99   }}
+          {% endunless %}</h3>
         <p style="color:red">Dieser Bereich ist noch in Arbeit. Bitte komme später noch einmal vorbei.</p>
       </div>
     </div>
@@ -22,13 +25,13 @@ layout: default
       <div class="row teams">
 
 
-        {% assign teaminfo = (site.teaminfo | sort: 'titel') %}
+        {% assign teaminfo = (site.teaminfo | where: "mannschaft", "{{ page.path }}" | sort: 'titel') %}
         {% for entry in teaminfo %}
         <div class="col-12 col-md-6 col-lg-4">
           <div class="box d-flex p-3">
-            <div class="picture-container col-3">
+            <div class="picture-container col-3 me-2">
             {% if entry.foto contains "." %}
-              <img src="{{ entry.foto }}" class="img-fluid rounded-circle p3-2">
+              <img src="{{ entry.foto }}" class="img-fluid rounded-circle">
             {% endif %}
             </div>
             <div class="col">
@@ -39,7 +42,7 @@ layout: default
         </div>
         {% endfor %}
 
-        {{ page.url }} - {{ page.path }} - {{ page.name }}
+        {{ page.url }} - {{ page.path }}
 
       </div>
     </div>
