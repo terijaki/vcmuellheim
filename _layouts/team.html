@@ -44,8 +44,12 @@ layout: default
             </div>
             {% endif %}
             <div class="text">
+              {% if entry.name.titel > 0 %}
               <h3 class="fw-bold mb-0 mt-2 text-center">{{ entry.titel }}</h3>
+              {% endif %}
+              {% if entry.name.freitext > 0 %}
               <p>{{ entry.freitext }}</p>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -58,8 +62,12 @@ layout: default
             </div>
             {% endif %}
             <div class="text">
-              <h3 class="fw-bold mb-0">{{ entry.name }}</h3>
+              {% if entry.name.size > 0 %}
+              <h4 class="fw-bold mb-0">{{ entry.name }}</h4>
+              {% endif %}
+              {% if entry.freitext.size > 0 %}
               <p>{{ entry.freitext }}</p>
+              {% endif %}
             </div>
           </div>
         </div>   
