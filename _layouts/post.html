@@ -24,7 +24,7 @@ layout: default
           <div class="row">
             <div class="col-12 post">
               <div class="wow fadeInNone">
-                {% if page.thumbnail contains "." %}<img
+                {% if page.thumbnail.size > 0 %}<img
                   class="post-thumbnail"
                   src="{{ page.thumbnail }}"
                   alt=""
