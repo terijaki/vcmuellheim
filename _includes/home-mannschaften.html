@@ -76,6 +76,10 @@
                 <p class="description">{{ team.kommentar }}</p>
               {% endunless %}
 
+<!-- Detailseite  -->
+              {% assign thisteaminfo = (site.teaminfo | where: 'mannschaft', team.path) %}
+              {% if thisteaminfo.size > 0 %}<!-- INSERT LINK HERE -->{% endif %}
+
 
         </div>
       </div>
