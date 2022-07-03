@@ -24,12 +24,16 @@ layout: default
     <div class="container">
       <div class="row teams">
 
-
         {% assign teaminfo = (site.teaminfo | where: 'mannschaft', page.path | sort: 'titel') %}
         {% for entry in teaminfo %}
+
+        {% if entry.title.size > 0 %}
+        <div class="col-12">
+        {% else %}
         <div class="col-12 col-md-6 col-xl-4">
+        {% endif %}
           <div class="box d-flex p-3">
-            {% if entry.foto contains "." %}
+            {% if entry.foto.size > 0 %}
             <div class="picture-container col-3 me-2">
               <img src="{{ entry.foto }}" class="img-fluid rounded-circle">
             </div>
@@ -41,8 +45,6 @@ layout: default
           </div>
         </div>
         {% endfor %}
-
-        {{ page.url }} - {{ page.path }}
 
       </div>
     </div>
