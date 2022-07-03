@@ -24,7 +24,7 @@ layout: default
     <div class="container">
       <div class="row teams">
 
-        {% assign teaminfo = (site.teaminfo | sort: 'titel' | sort: 'spielername' | where: 'mannschaft', page.path) %}
+        {% assign teaminfo = (site.teaminfo | sort: 'titel' | sort: 'name' | where: 'mannschaft', page.path) %}
         
         {% for entry in teaminfo %}
         {% if entry.titel.size > 0 %}
@@ -50,7 +50,7 @@ layout: default
             </div>
             {% endif %}
             <div class="text">
-              <h3 class="fw-bold mb-0">{{ entry.spielername }}</h3>
+              <h3 class="fw-bold mb-0">{{ entry.name }}</h3>
               <p>{{ entry.freitext }}</p>
             </div>
           </div>
