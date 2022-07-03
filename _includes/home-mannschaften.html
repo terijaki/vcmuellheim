@@ -15,6 +15,12 @@
       <div class="col-lg-6">
         <div class="box p-4">
 
+<!-- Detailseite  -->
+        {% assign thisteaminfo = (site.teaminfo | where: 'mannschaft', team.path) %}
+        {% if thisteaminfo.size > 0 %}
+          <p class="mannschaftsinfo d-none m-0 float-end"><a href="{{ team.path }}" class="generic-button m-0 px-2 py-1">mehr erfahren</a></p>
+        {% endif %}
+
 <!-- Team Name -->
         <h4 class="title">{{ team.teamname }}
           {% unless team.liga contains "99" %}
@@ -74,11 +80,6 @@
               {% if team.kommentar.size > 0 %}
                 <p class="description">{{ team.kommentar }}</p>
               {% endif %}
-
-<!-- Detailseite  -->
-              {% assign thisteaminfo = (site.teaminfo | where: 'mannschaft', team.path) %}
-              {% if thisteaminfo.size > 0 %}<!-- INSERT LINK HERE -->{% endif %}
-
 
         </div>
       </div>

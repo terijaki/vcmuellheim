@@ -839,27 +839,6 @@ main {
   transform: scale(1.2)
 }
 
-#news .archiv-btn,
-.generic-button {
-  font-family: var(--font2);
-  font-weight: 400;
-  font-size: 16px;
-  letter-spacing: 1px;
-  display: inline-block;
-  padding: 8px 28px;
-  border-radius: 50px;
-  transition: 0.5s;
-  margin: 10px;
-  border: 2px solid #fff;
-  color: var(--text2);
-  background: var(--gradient2);
-}
-
-#news .archiv-btn:hover,
-.generic-button:hover {
-  color: var(--text2);
-  background: var(--link1);
-}
 
 #news .newsposts img {
   display: none;
@@ -1090,13 +1069,31 @@ main {
 }
 
 
-
-/* Team Subpage
+/* CTA Buttons 
 --------------------------------*/
+.generic-button {
+  font-family: var(--font2);
+  font-weight: 400;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 50px;
+  transition: 0.5s;
+  margin: 10px;
+  border: 2px solid #fff;
+  color: var(--text2);
+  background: var(--gradient2);
+}
 
+#news .archiv-btn, {
+  font-size: 16px;
+  padding: 8px 28px;
+}
 
-
-
+.generic-button:hover {
+  color: var(--text2);
+  background: var(--link1);
+}
 
 
 
