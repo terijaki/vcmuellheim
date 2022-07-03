@@ -23,8 +23,7 @@
         </h4>
 
 <!-- Altersangabe  -->
-              {% if team.alter == "" or team.alter == nil or team.alter == blank %}
-                {% else %}
+              {% if team.alter.size > 0 %}
                 <p class="alter"> <b>Alter:</b> {{ team.alter }}</p>
               {% endif %}
 
@@ -39,13 +38,13 @@
           </p>
 
 <!-- Trainer 1 -->
-            {% if team.trainer-name1 == "" or team.trainer-name1 == nil or team.trainer-name1 == blank %}{% else %}
+            {% if team.trainer-name1.size > 0 %}
               <p class="trainer"><b>Trainer</b>:
               {% if team.trainer-email1 contains "@" %}<a href="mailto:{{ team.trainer-email1 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.trainer-name1 }}</a>{% else %}{{ team.trainer-name1 }}
               {% endif %}
 
 <!-- Trainer 2 -->
-                {% if team.trainer-name2 == "" or team.trainer-name2 == nil or team.trainer-name2 == blank %}{% else %} &
+                {% if team.trainer-name2.size > 0 %} &
                   {% if team.trainer-email2  contains "@" %}<a href="mailto:{{ team.trainer-email2 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.trainer-name2 }}</a>{% else %}{{ team.trainer-name2 }}
                   {% endif %}
                 {% endif %}
@@ -53,13 +52,13 @@
             {% endif %}
 
 <!-- Ansprechperson 1 -->
-                {% if team.ansprechperson-name1 == "" or team.ansprechperson-name1 == nil or team.ansprechperson-name1 == blank %}{% else %}
+                {% if team.ansprechperson-name1.size > 0 %}
                   <p class="ansprechperson"><b>Ansprechperson</b>:
                     {% if team.ansprechperson-email1 contains "@" %}<a href="mailto:{{ team.ansprechperson-email1 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.ansprechperson-name1 }}</a>{% else %}{{ team.ansprechperson-name1 }}
                     {% endif %}
 
 <!-- Ansprechperson 2 -->
-                    {% if team.ansprechperson-name2 == "" or team.ansprechperson-name2 == nil or team.trainer-name2 == blank %}{% else %} &
+                    {% if team.ansprechperson-name2.size > 0 %} &
                       {% if team.ansprechperson-email2  contains "@" %}<a href="mailto:{{ team.ansprechperson-email2 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.ansprechperson-name2 }}</a>{% else %}{{ team.ansprechperson-name2 }}
                       {% endif %}
                     {% endif %}
@@ -72,9 +71,9 @@
               {% endif %}
 
 <!-- Kommentar  -->
-              {% unless team.kommentar == "" or team.kommentar == nil or team.kommentar == blank %}
+              {% if team.kommentar.size > 0 %}
                 <p class="description">{{ team.kommentar }}</p>
-              {% endunless %}
+              {% endif %}
 
 <!-- Detailseite  -->
               {% assign thisteaminfo = (site.teaminfo | where: 'mannschaft', team.path) %}
