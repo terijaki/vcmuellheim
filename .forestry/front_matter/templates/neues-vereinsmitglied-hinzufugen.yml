@@ -16,7 +16,9 @@ fields:
   config:
     required: true
   label: function
-- type: text
+- type: file
+  config:
+    maxSize: 64
   name: avatar
   label: avatar
 - name: sortorder
