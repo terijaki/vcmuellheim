@@ -8,8 +8,8 @@ layout: default
     <div class="row">
       <div class="col text-center text-lg-start">
         <h3 class="si-title">{{ page.teamname }}
-          {% unless team.liga contains "99" %}
-            - {{ team.liga | slice: 4, 99   }}
+          {% unless page.liga contains "99" %}
+            - {{ page.liga | slice: 4, 99   }}
           {% endunless %}</h3>
         <p style="color:red">Dieser Bereich ist noch in Arbeit. Bitte komme später noch einmal vorbei.</p>
       </div>
