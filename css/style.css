@@ -621,13 +621,7 @@ main {
 
 /* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse, Spielplan)
 --------------------------------*/
-#news .box,
-#members .box,
-#page-simple .box,
-#ergebnisse-tabelle .box,
-#matches .box,
-#post-content .box,
-#verein .box {
+.box {
   padding: 40px;
   margin-bottom: 60px;
   box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
@@ -638,13 +632,7 @@ main {
 
 @media screen and (max-width: 768px) {
 
-  #news .box,
-  #members .box,
-  #page-simple .box,
-  #ergebnisse-tabelle .box,
-  #matches .box,
-  #post-content .box,
-  #verein .box {
+ .box {
     padding: 20px;
     margin-bottom: 30px;
     width: 100%
