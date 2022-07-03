@@ -1085,7 +1085,7 @@ main {
   background: var(--gradient2);
 }
 
-#news .archiv-btn, {
+#news .archiv-btn {
   font-size: 16px;
   padding: 8px 28px;
 }
@@ -1095,7 +1095,7 @@ main {
   background: var(--link1);
 }
 
-#mannschaften .box .generic-button, {
+#mannschaften .box .generic-button {
   font-size: 12px;
   font-weight: bold;
   padding: 3px 8px;
