@@ -36,7 +36,7 @@ layout: default
             </div>
             {% endif %}
             <div class="text">
-              <h3 class="fw-bold mb-0 mt-2 text-center">{{ entry.titel }}{{ entry.spielername }}</h3>
+              <h3 class="fw-bold mb-0 mt-2 text-center">{{ entry.titel }}</h3>
               <p>{{ entry.freitext }}</p>
             </div>
           </div>
@@ -46,11 +46,11 @@ layout: default
           <div class="box d-flex p-3">
             {% if entry.foto.size > 0 %}
             <div class="picture-container col-3 me-2">
-              <img src="{{ entry.foto }}" class="img-fluid rounded-circle">
+              <img src="{{ entry.foto }}" class="rounded-circle ratio ratio-1x1">
             </div>
             {% endif %}
             <div class="text">
-              <h3 class="fw-bold mb-0">{{ entry.titel }}{{ entry.spielername }}</h3>
+              <h3 class="fw-bold mb-0">{{ entry.spielername }}</h3>
               <p>{{ entry.freitext }}</p>
             </div>
           </div>
