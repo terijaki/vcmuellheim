@@ -30,7 +30,7 @@ layout: default
               <!-- Liga Info  -->
               {% unless page.liga contains "99" %}
                 <h4 class="liga">{{ page.liga }}</h4>
-              {% endif %}
+              {% endunless %}
               <!-- Altersangabe  -->
               {% if page.alter.size > 0 %}
                 <p class="alter"> <b>Altersgruppe:</b> {{ team.alter }}</p>
@@ -38,16 +38,47 @@ layout: default
 
               <!-- Trainingszeiten -->
               <p class="trainingszeiten"><b>Trainingszeiten:</b><br>{{ page.trainings-zeit1 }}<br>
-                <a href="{{ team.trainings-map1 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ page.trainings-ort1 }}</a>
+                <a href="{{ page.trainings-map1 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ page.trainings-ort1 }}</a>
 
                 {% if page.trainings-zeit2 > 0 %}
                   <br>{{ page.trainings-zeit2 }}<br>
-                  <a href="{{ team.trainings-map2 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ page.trainings-ort2 }}</a><br>
+                  <a href="{{ page.trainings-map2 }}" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> {{ page.trainings-ort2 }}</a><br>
                 {% endif %}
           </p>
           </div>
         </div>
+        <div class="teamcore col-6">
+          <div class="box">
+              <!-- Trainer 1 -->
+              {% if page.trainer-name1.size > 0 %}
+              <p class="trainer"><b>Trainer</b>:
+              {% if page.trainer-email1 contains "@" %}<a href="mailto:{{ page.trainer-email1 }}?subject={{ site.title }} - {{ page.teamname }}">{{ page.trainer-name1 }}</a>{% else %}{{ page.trainer-name1 }}
+              {% endif %}
 
+              <!-- Trainer 2 -->
+              {% if page.trainer-name2.size > 0 %} &
+                {% if page.trainer-email2  contains "@" %}<a href="mailto:{{ page.trainer-email2 }}?subject={{ site.title }} - {{ page.teamname }}">{{ page.trainer-name2 }}</a>{% else %}{{ page.trainer-name2 }}
+                {% endif %}
+              {% endif %}
+            </p>
+              {% endif %}
+
+              <!-- Ansprechperson 1 -->
+              {% if page.ansprechperson-name1.size > 0 %}
+                <p class="ansprechperson"><b>Ansprechperson</b>:
+                  {% if page.ansprechperson-email1 contains "@" %}<a href="mailto:{{ page.ansprechperson-email1 }}?subject={{ site.title }} - {{ page.teamname }}">{{ page.ansprechperson-name1 }}</a>{% else %}{{ page.ansprechperson-name1 }}
+                  {% endif %}
+
+              <!-- Ansprechperson 2 -->
+                  {% if page.ansprechperson-name2.size > 0 %} &
+                    {% if page.ansprechperson-email2  contains "@" %}<a href="mailto:{{ page.ansprechperson-email2 }}?subject={{ site.title }} - {{ page.teamname }}">{{ page.ansprechperson-name2 }}</a>{% else %}{{ page.ansprechperson-name2 }}
+                    {% endif %}
+                  {% endif %}
+                </p>
+              {% endif %}
+          </p>
+          </div>
+        </div>
 
 
 
