@@ -26,11 +26,15 @@ layout: default
 
         {% assign teaminfo = (site.teaminfo | sort: 'titel' | sort: 'name' | where: 'mannschaft', page.path) %}
         
-        {% for entry in teaminfo %}
-        {% if entry.size < 1 %}
-        <p>Keine Informationen für dieses Team vorhanden.</p>
+        {% if teaminfo.size < 1 %}
+        <div class="col">
+          <div class="box">
+            <p>Keine Informationen für dieses Team vorhanden.</p>
+          </div>
+        </div>
         {% endif %}
 
+        {% for entry in teaminfo %}
         {% if entry.titel.size > 0 %}
         <div class="mannschaftsdetail col-12">
           <div class="box p-3 mb-3">
