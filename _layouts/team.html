@@ -25,15 +25,15 @@ layout: default
       <div class="row teams">
 
 
-        {% assign teaminfo = (site.teaminfo | where: "mannschaft", "{{ page.path }}" | sort: 'titel') %}
+        {% assign teaminfo = (site.teaminfo | where: 'mannschaft', page.path | sort: 'titel') %}
         {% for entry in teaminfo %}
-        <div class="col-12 col-md-6 col-lg-4">
+        <div class="col-12 col-md-6 col-xl-4">
           <div class="box d-flex p-3">
-            <div class="picture-container col-3 me-2">
             {% if entry.foto contains "." %}
+            <div class="picture-container col-3 me-2">
               <img src="{{ entry.foto }}" class="img-fluid rounded-circle">
-            {% endif %}
             </div>
+            {% endif %}
             <div class="col">
               <h3 class="fw-bold mb-0">{{ entry.titel }}{{ entry.spielername }}</h3>
               <p>{{ entry.freitext }}</p>
