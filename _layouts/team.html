@@ -14,10 +14,7 @@ layout: default
 </section>
 <!--===== #shortintro =====-->
 
-Dieser Bereich ist noch in Arbeit. Bitte komme später noch einmal vorbei.<br><br><br>
-{{ page.trainings-zeit1 }}
-
-<main id="main" class="flex-grow-1">
+<main id="main" class="flex-grow-1">Dieser Bereich ist noch in Arbeit. Bitte komme später noch einmal vorbei.<br><br><br>
   <!--===== Mannschaftsdetails =====-->
   <section id="teamdetails" class="section-bg">
     <div class="container">
@@ -26,7 +23,7 @@ Dieser Bereich ist noch in Arbeit. Bitte komme später noch einmal vorbei.<br><b
 
         {% assign teaminfo = (site.teaminfo | sort: 'titel') %}
         {% for entry in teaminfo %}
-        <div class="col col-lg-6 sams-rankings">
+        <div class="col col-md-6 sams-rankings">
           <div class="box">
             {% if entry.foto == "" or entry.foto == nil or enty.foto == blank %} {% else %}
             <div style="background-image:url({{ entry.foto }});"></div>
