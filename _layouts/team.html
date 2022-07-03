@@ -11,7 +11,7 @@ layout: default
           {% unless page.liga contains "99" %}
             - {{ page.liga | slice: 4, 99   }}
           {% endunless %}</h3>
-        <p style="color:red">Dieser Bereich ist noch in Arbeit. Bitte komme später noch einmal vorbei.</p>
+        <p style="color:yellow">🚧 Dieser Bereich ist noch in Arbeit. Bitte komme später noch einmal vorbei. 🚧</p>
       </div>
     </div>
   </div>
@@ -46,7 +46,8 @@ layout: default
           <div class="box d-flex p-3 mb-3">
             {% if entry.foto.size > 0 %}
             <div class="picture-container col-3 me-2">
-              <img src="{{ entry.foto }}" class="rounded-circle ratio ratio-1x1">
+              <!--<img src="{{ entry.foto }}" class="rounded-circle ratio ratio-1x1">-->
+              <div style="background:url({{ entry.foto }}); background-size: cover;" class="w-100 ratio ratio-1x1"></div>
             </div>
             {% endif %}
             <div class="text">
