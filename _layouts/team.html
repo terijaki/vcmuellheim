@@ -50,8 +50,7 @@ layout: default
           <div class="box d-flex p-3 mb-3">
             {% if entry.foto.size > 0 %}
             <div class="picture-container col-3 me-2">
-              <!--<img src="{{ entry.foto }}" class="rounded-circle ratio ratio-1x1">-->
-              <div style="background:url({{ entry.foto }}); background-size: cover;" class="w-100 ratio ratio-1x1"></div>
+              <div style="background:url({{ entry.foto }}); background-size: cover;" class="w-100 ratio ratio-1x1 rounded-circle"></div>
             </div>
             {% endif %}
             <div class="text">
