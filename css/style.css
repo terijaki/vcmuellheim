@@ -1229,10 +1229,6 @@ main {
   padding-left: 1.5rem;
 }
 
-div.logo-download {
-  text-align: center;
-}
-
 .logo-download img.white {
   background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/teams/damen1.jpg) center center;
   background-size: cover;
