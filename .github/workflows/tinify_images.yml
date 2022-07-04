@@ -1,6 +1,8 @@
 name: Tinify Image Compression
+
+# optimizes images after they have been uploaded (typically via Forestry CMS)
+
 on:
-  workflow_dispatch:
   push:
     paths:
       - 'upload/**'
