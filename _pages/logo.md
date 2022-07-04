@@ -15,9 +15,6 @@ Möchten Sie auf unseren Verein verweisen, oder benötigen Sie eine Vektorgrafik
 <p class="text-center"><img src="/img/vcm-banner.png" class="img-fluid"></p>
 <p class="text-center"><a href="/logo/logo-schwarz.png" download>Download PNG (schwarz)</a><a href="/logo/logo-weiss.png" download>Download PNG (weiß)</a></p>
 
-<p class="text-center"><img src="/img/vcm-banner-white.png" class="img-fluid white"></p>
-<p class="text-center"><a href="/logo/logo-weiss.png" download>Download PNG (weiß)</a></p>
-
 <h1>Rastergrafik (mit Hintergrund)</h1>
 <p class="text-center"><img src="/logo/logo-solidx500.png" class="img-fluid"></p>
 <p class="text-center"><a href="/logo/logo-solid.png" download>Download PNG (quadratisch)</a></p>
