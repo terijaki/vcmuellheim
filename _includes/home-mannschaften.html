@@ -18,7 +18,7 @@
 <!-- Detailseite  -->
         {% assign thisteaminfo = (site.teaminfo | where: 'mannschaft', team.path) %}
         {% if thisteaminfo.size > 0 %}
-          <p class="mannschaftsinfo d-none m-0 float-end"><a href="{{ team.url }}" class="generic-button m-0 px-2 py-1"><i class="fa-solid fa-magnifying-glass-plus"></i> mehr</a></p>
+          <p class="mannschaftsinfo d-none m-0 text-end" style="height:0px"><a href="{{ team.url }}" class="generic-button m-0 px-2 py-1"><i class="fa-solid fa-address-card"></i> mehr</a></p>
         {% endif %}
 
 <!-- Team Name -->

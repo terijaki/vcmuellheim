@@ -1084,12 +1084,10 @@ main {
   color: var(--text2);
   background: var(--gradient2);
 }
-
 .generic-button:hover {
   color: var(--text2);
   background: var(--link1);
 }
-
 #news .archiv-btn {
   font-size: 16px;
   padding: 8px 28px;
@@ -1098,11 +1096,14 @@ main {
   font-size: 12px;
   font-weight: bold;
   padding: 3px 8px;
+  position: relative;
+  top: -1rem;
+  right: -1rem;
 }
-
 #teaminfo .generic-button {
   padding: 6px 18px;
 }
+
 
 /* sponsors Section
 --------------------------------*/
