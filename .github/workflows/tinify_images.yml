@@ -1,4 +1,4 @@
-name: image
+name: Tinify Image Compression
 on:
   workflow_dispatch:
   push:
