@@ -206,7 +206,7 @@ main {
 }
 
 @media (min-width: 1024px) {
-  #intro {
+  #intro, #intro.random {
     background-attachment: fixed;
   }
 }
