@@ -193,6 +193,7 @@ main {
 #intro.rnd-4,
 #intro.rnd-5 {
   background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), url("/img/intro-bg.jpg") center top no-repeat;
+  background-size: cover;
 }
 
 #intro.rnd-6,
@@ -201,6 +202,7 @@ main {
 #intro.rnd-9,
 #intro.rnd-10 {
   background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), url("/img/intro-bg2.jpg") center top no-repeat;
+  background-size: cover;
 }
 
 @media (min-width: 1024px) {
