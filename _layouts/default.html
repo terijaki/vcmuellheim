@@ -22,7 +22,9 @@
   <link href="/css/style.css" rel="stylesheet">
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json">
-
+  <!-- Preloading Files -->
+  <link rel="preload" href="/img/intro-bg.jpg" as="image">
+  <link rel="preload" href="/img/intro-bg2.jpg" as="image">
 </head>
 
 <body class="{% if page.title %}{{ page.title | remove: ' ' }}{% else %}landingpage{% endif %}">
