@@ -187,6 +187,14 @@ main {
   position: relative;
 }
 
+#intro .rnd-6,
+#intro .rnd-7,
+#intro .rnd-8,
+#intro .rnd-9,
+#intro .rnd-10 {
+  background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), url("/img/intro-bg2.jpg");
+}
+
 @media (min-width: 1024px) {
   #intro {
     background-attachment: fixed;
