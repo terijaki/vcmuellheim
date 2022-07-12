@@ -183,8 +183,10 @@ main {
   height: 90vh;
   height: calc(100vh - 60px);
   background: var(--gradient1);
+  background-size: cover;
+  background-attachment: fixed;
   position: relative;
-  transition: background 0.5s;
+  transition: background 1s;
 }
 
 #intro.rnd-1,
