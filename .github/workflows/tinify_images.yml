@@ -1,0 +1,25 @@
+name: Tinify Image Compression
+
+# optimizes images after they have been uploaded (typically via Forestry CMS)
+
+on:
+  push:
+    paths:
+      - 'upload/**'
+jobs:
+  compress:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sleep for 30 minutes
+        uses: kibertoad/wait-action@1.0.1
+        with:
+          time: '30m'
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      - uses: namoscato/action-tinify@v1
+        with:
+          api_key: ${{ secrets.TINIFY_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          resize_width: '1920'
+          resize_height: '1920'
