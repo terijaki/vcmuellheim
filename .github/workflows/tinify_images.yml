@@ -8,6 +8,7 @@ on:
       - 'upload/**'
 jobs:
   compress:
+    continue-on-error: true
     runs-on: ubuntu-latest
     steps:
       - name: Sleep for 30 minutes
