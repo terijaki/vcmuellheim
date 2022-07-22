@@ -4,7 +4,8 @@ concurrency: sams
 
 on:
   schedule:
-    - cron: "11 2 * * 3" # every wednesday night at 2:11
+    - cron: "11 2 * 1-5,9-12 3" # every wednesday night at 2:11 between september - mai
+    - cron: "11 2 * 7-8 *" # every night at 2:11 in june and august (more common for changes to occur)
   workflow_dispatch:
 
 env:
