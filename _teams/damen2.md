@@ -1,7 +1,7 @@
 ---
 layout: team
 liga: "[10] Kreisliga"
-sbvv_id: 19046138
+sbvv_id: 22517303
 teamname: Damen II
 alter: 12-15 Jahre
 trainings-zeit1: Dienstags 18:30-20:00 Uhr

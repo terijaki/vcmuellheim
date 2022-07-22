@@ -1,7 +1,7 @@
 ---
 layout: team
 liga: "[10] Kreisliga"
-sbvv_id: 18450721
+sbvv_id: 22517240
 teamname: Damen I
 alter: ab 15 Jahre
 trainings-zeit1: Dienstags 18:30-20:00 Uhr
