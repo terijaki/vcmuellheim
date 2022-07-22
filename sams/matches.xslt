@@ -105,8 +105,7 @@ permalink: /matches/TEAMIDHERE
                                             </div>
                                         </td>
                                         <td>
-                                            <xsl:value-of select="location/city"/> (
-                                            <xsl:value-of select="location/street"/>)
+                                            <xsl:value-of select="location/city"/> (<xsl:value-of select="location/street"/>)
                                         </td>
                                     </tr>
                                 </xsl:if>
