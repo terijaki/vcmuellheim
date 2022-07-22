@@ -1,7 +1,7 @@
 ---
 layout: team
 liga: "[08] Bezirksliga"
-sbvv_id: 18450973
+sbvv_id: 22517434
 teamname: Herren II
 alter: ''
 trainings-zeit1: Dienstags 20:00-22:00 Uhr
