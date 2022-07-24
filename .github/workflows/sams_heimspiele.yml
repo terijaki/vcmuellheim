@@ -1,0 +1,28 @@
+name: Upcoming Home Games
+
+on:
+  workflow_dispatch:
+    - cron: 44 19 * * * # every night at 19:44
+
+env:
+  SAMS_KEY: ${{ secrets.SAMS_API }} # SAMS API key
+  SAMS_URL: https://www.volleyball-baden.de # start of the api http structure
+  REPO_TARGET: _heimspiele # the output folder for the home games
+
+
+jobs:
+  New-Matches-for-Twitter:
+    runs-on: ubuntu-latest
+    outputs:
+      matches: ${{steps.scanmatches.outputs.matches}} #array of matches not yet posted
+      messages: ${{steps.messagesfortwitter.outputs.messages}} #array of messages to post
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+        with: # important to ensure fetch all history!
+          fetch-depth: 0
+
+      - name: Query SAMS for Matches
+        run: |
+          mkdir -p temp
+          curl -o temp/matches14days.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&after=01.10.2022&before=01.11.2022"
