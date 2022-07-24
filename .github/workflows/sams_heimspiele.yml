@@ -37,7 +37,7 @@ jobs:
           chmod +x saxon-lint.pl
           ./saxon-lint.pl --help
           cd ..
-          rm -r ${{env.REPO_TARGET}}
+          rm -rf ${{env.REPO_TARGET}}
           mkdir -p ${{env.REPO_TARGET}}
           ./saxon-lint/saxon-lint.pl --xslt sams/homegames.xslt temp_matches14days.xml
 
