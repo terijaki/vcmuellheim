@@ -18,7 +18,7 @@
               {% assign gmaps_query = append: match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
 
               <div class="col-12">
-                <h4 class="mt-2 mb-0">{{ match.date }} <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank">{{ match.location_name }}</a></h4>
+                <h4 class="mt-2 mb-0">{{ match.date | date: "%DD.%MM.%YYYY" }} <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank">{{ match.location_name }}</a></h4>
               </div>
           {% endunless %}
 
@@ -30,7 +30,7 @@
             <p class="mb-1 pe-2">{{ match.league }} ab {{ match.time }}
             <br>Gast: {{ match.opponent }}
           {% endif %}
-          
+
           {% assign heimspiel_liste2 = heimspiel_liste2 | append: ' ' | append: patchstring2 %}
           </div>
 
