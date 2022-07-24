@@ -15,7 +15,7 @@
 
           {% unless heimspiel_liste contains patchstring %}
               {% assign heimspiel_liste = heimspiel_liste | append: ' ' | append: patchstring %}
-              {% assign gmaps_query = append: match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
+              {% assign gmaps_query = match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
 
               <div class="col-12">
                 <h4 class="mt-2 mb-0">{{ match.date | date: "%DD.%MM.%YYYY" }} <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank">{{ match.location_name }}</a></h4>
