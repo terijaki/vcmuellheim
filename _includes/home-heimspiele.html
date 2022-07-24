@@ -9,7 +9,7 @@
         </p>
       </div>
 
-      {% for match in heimspiele %}
+      {% for match in site.heimspiele %}
         {% assign patchstring = match.date | append: match.location_name %}
         {% unless heimspiel_liste contains patchstring %}
             {% assign heimspiel_liste = heimspiel_liste | append: ' ' | append: patchstring %}
