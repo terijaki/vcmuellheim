@@ -18,8 +18,6 @@ jobs:
 
       - name: Checkout Source Code
         uses: actions/checkout@v3
-        with: # important to ensure fetch all history!
-          fetch-depth: 0
 
       - name: Query SAMS for Matches in 14 days
         run: |
@@ -37,6 +35,7 @@ jobs:
           chmod +x saxon-lint.pl
           ./saxon-lint.pl --help
           cd ..
+          ls
           rm -rf ${{env.REPO_TARGET}}
           mkdir -p ${{env.REPO_TARGET}}
           ./saxon-lint/saxon-lint.pl --xslt sams/homegames.xslt temp_matches14days.xml
