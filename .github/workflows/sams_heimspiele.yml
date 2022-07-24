@@ -51,17 +51,7 @@ jobs:
           ./saxon-lint.pl --help
           cd ..
           cp sams/homegames.xslt homegames.xslt
-          ./saxon-lint/saxon-lint.pl --verbose --xslt homegames.xslt temp_matches14days.xml
-
-      - name: Upload Artifact (Home Matches)
-        uses: actions/upload-artifact@v3
-        with:
-          path: ${{env.REPO_TARGET}}
-
-      - name: Upload Artifact (SAMS Response)
-        uses: actions/upload-artifact@v3
-        with:
-          path: temp_matches14days.xml
+          ./saxon-lint/saxon-lint.pl --xslt homegames.xslt temp_matches14days.xml
 
       - name: Setup Git Config
         run: |
