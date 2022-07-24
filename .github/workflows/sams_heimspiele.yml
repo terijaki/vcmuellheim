@@ -23,6 +23,7 @@ jobs:
 
       - name: Query SAMS for Matches in 14 days
         run: |
+          date --help
           today=$(date +%Y-%m-%d)
           in14days=$(date -v+14d +%Y-%m-%d)
           mkdir -p temp
