@@ -22,10 +22,10 @@
             <xsl:choose>
             <xsl:when test="team[1]/name != ../host/name and team[2]/name != ../host/name">
                 <xsl:if test="contains(team/name, 'VC Müllheim')">
-                    <xsl:value-of select="name"/>
+                    <xsl:value-of select="name"/><xsl:text>###DEBUG1###</xsl:text>
                 </xsl:if>
             </xsl:when>
-            <xsl:otherwise>
+            <xsl:otherwise><xsl:text>###DEBUG2###</xsl:text>
                 <xsl:for-each select="team">
                 <xsl:if test="name != ../host/name">
                 <xsl:value-of select="name"/></xsl:if>
