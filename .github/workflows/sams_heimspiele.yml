@@ -46,8 +46,20 @@ jobs:
         run: |
           today=$(date +%Y-%m-%d)
           in14days=$(date -v+14d +%Y-%m-%d)
+          mkdir -p temp
+          curl -o temp/matches14days.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in14days"
+
+
+      - name: XSLT processing (individual matches) # Download, install and run the XSLT processor (Saxon to use XSLT 2.0 features)
+        run: |
+          git clone https://github.com/sputnick-dev/saxon-lint.git
+          cd saxon-lint*
+          chmod +x saxon-lint.pl
+          ./saxon-lint.pl --help
+          cd ..
           mkdir -p ${{env.REPO_TARGET}}
-          curl -o ${{env.REPO_TARGET}}/matches14days.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in14days"
+          ./saxon-lint/saxon-lint.pl --xslt sams/homegames.xslt temp/matches14days.xml
+
 
       - name: Upload Artifact (Home Matches)
         uses: actions/upload-artifact@v3
