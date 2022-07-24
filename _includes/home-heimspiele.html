@@ -11,20 +11,31 @@
 
       {% for match in site.heimspiele %}
         {% assign patchstring = match.date | append: match.location_name | append: match.location_street %}
+        {% assign patchstring2 = match.league | append: match.time | append: match.location_street %}
 
-        {% unless heimspiel_liste contains patchstring %}
-            {% assign heimspiel_liste = heimspiel_liste | append: ' ' | append: patchstring %}
-            {% assign gmaps_url = 'https://www.google.com/maps/search/?api=1&query=' | append: match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
+          {% unless heimspiel_liste contains patchstring %}
+              {% assign heimspiel_liste = heimspiel_liste | append: ' ' | append: patchstring %}
+              {% assign gmaps_query = append: match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
 
-            <div class="col-12">
-              <h4 class="mt-2 mb-0">{{ match.date }} <a href="{{ gmaps_url | url_encode }}" target="_blank">{{ match.location_name }}</a></h4>
-            </div>
-        {% endunless %}
+              <div class="col-12">
+                <h4 class="mt-2 mb-0">{{ match.date }} <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank">{{ match.location_name }}</a></h4>
+              </div>
+          {% endunless %}
 
-            <div class="col-6">
-              <p class="mb-1 pe-2">{{ match.league }} ab {{ match.time }}<br>
-                Gast: {{ match.opponent }}</p>
-            </div>
+            
+          {% if heimspiel_liste2 contains patchstring2 %}
+            <br>Gast: {{ match.opponent }}
+          {% else %}
+          <div class="col-12 col-md-6">
+            <p class="mb-1 pe-2">{{ match.league }} ab {{ match.time }}
+            <br>Gast: {{ match.opponent }}
+          {% endif %}
+          
+          {% assign heimspiel_liste2 = heimspiel_liste2 | append: ' ' | append: patchstring2 %}
+          </div>
+
+          
+
 
         {% endfor %}
 
