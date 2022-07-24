@@ -24,7 +24,7 @@ jobs:
       - name: Query SAMS for Matches in 14 days
         run: |
           mkdir -p ${{env.REPO_TARGET}}
-          curl -o ${{env.REPO_TARGET}}/matches14days.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&after=01.10.2022&before=01.11.2022"
+          curl -o ${{env.REPO_TARGET}}/matches14days.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&after=14.10.2022&before=01.11.2022"
 
       - name: Upload Artifact (Home Matches)
         uses: actions/upload-artifact@v3
