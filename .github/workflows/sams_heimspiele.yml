@@ -25,6 +25,8 @@ jobs:
         run: |
           today=$(date +%Y-%m-%d)
           in14days=$(date -v+14d +%Y-%m-%d)
+          today=2022-10-01
+          in14days=2022-10-30
           mkdir -p temp
           curl -o temp/matches14days.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in14days"
 
