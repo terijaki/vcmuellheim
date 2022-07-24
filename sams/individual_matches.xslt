@@ -14,19 +14,16 @@
             <xsl:text>id: "</xsl:text><xsl:value-of select="uuid"/>"
             <xsl:text>date: "</xsl:text><xsl:value-of select="matchSeries/resultsUpdated"/>"
             <xsl:text>title: "Spielergebnis: </xsl:text><xsl:value-of select="matchSeries/name"/>"
+            <xsl:text>host: "</xsl:text><xsl:value-of select="host/name"/>"
+            <xsl:text>team1: "</xsl:text><xsl:value-of select="team[1]/name"/>"
+            <xsl:text>team2: "</xsl:text><xsl:value-of select="team[2]/name"/>"
             <xsl:text>category: "</xsl:text><xsl:value-of select="matchSeries/name"/>"
             <xsl:text>author: "SBVV-Online"</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>---</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:value-of select="matchSeries/name"/><xsl:text>: </xsl:text>
-            <xsl:for-each select="team">
-                <xsl:sort select="number"/>
-                <xsl:value-of select="name"/>
-                <xsl:if test="number = 1">
-                    <xsl:text> - </xsl:text>
-                </xsl:if>
-            </xsl:for-each>
+            <xsl:value-of select="team[1]/name"/> - <xsl:value-of select="team[2]/name"/>
             <xsl:text> (</xsl:text><xsl:value-of select="results/setPoints"/><xsl:text>) </xsl:text>
     </xsl:result-document>
     </xsl:if>
