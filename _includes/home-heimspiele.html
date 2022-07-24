@@ -12,16 +12,16 @@
       {% assign heimspiele_sortiert = (site.heimspiele | sort: 'datetime') %}
 
       {% for match in heimspiele_sortiert%}
-        {% assign patchstring = match.date | append: match.location_name | append: match.location_street %}
+        {% assign patchstring1 = match.date | append: match.location_name | append: match.location_street %}
         {% assign patchstring2 = match.league | append: match.time | append: match.location_street %}
         {% assign patchstring3 = match.league | append: match.time | append: match.opponent %}
 
-          {% unless heimspiel_liste contains patchstring %}
-              {% assign heimspiel_liste = heimspiel_liste append: patchstring %}
+          {% unless heimspiel_liste contains patchstring1 %}
+              {% assign heimspiel_liste = heimspiel_liste append: patchstring1 %}
               {% assign gmaps_query = match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
 
               <div class="col-12">
-                <h4 class="mt-2 mb-0">{{ match.date | date: "%d.%m" }}<span class="d-none d-md-inline">{{ match.date | date: ".%Y" }}</span> in <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank">{{ match.location_name }}</a></h4>
+                <h4 class="mt-2 mb-0">{{ match.date | date: "%d.%m" }}<span>{{ match.date | date: ".%Y" }}</span> in <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank" rel="noopener">{{ match.location_name }}</a></h4>
               </div>
           {% endunless %}
 
