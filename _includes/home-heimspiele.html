@@ -9,7 +9,9 @@
         </p>
       </div>
 
-      {% for match in site.heimspiele %}
+      {% assign heimspiele_sortiert = (site.heimspiele | sort: 'date' | sort: 'league') %}
+
+      {% for match in heimspiele_sortiert%}
         {% assign patchstring = match.date | append: match.location_name | append: match.location_street %}
         {% assign patchstring2 = match.league | append: match.time | append: match.location_street %}
 
@@ -23,18 +25,11 @@
           {% endunless %}
 
             
-          {% if heimspiel_liste2 contains patchstring2 %}
-            <br>Gast: {{ match.opponent }}
-          {% else %}
-          <div class="col-12 col-md-6">
-            <p class="mb-1 pe-2">{{ match.league }} ab {{ match.time }}
-            <br>Gast: {{ match.opponent }}
-          {% endif %}
-
+          {% unless heimspiel_liste2 contains patchstring2 %}
+            <p class="mb-1 pe-2">{{ match.league }} ab {{ match.time }}</p>
+          {% endunless %}
           {% assign heimspiel_liste2 = heimspiel_liste2 | append: ' ' | append: patchstring2 %}
-          </div>
-
-          
+            <p>>Gast: {{ match.opponent }}</p>
 
 
         {% endfor %}
