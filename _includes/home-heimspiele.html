@@ -1,3 +1,4 @@
+{% if site.heimspiele.size > 10 %}
 <section id="heimspiele" class="py-5">
   <div class="container">
     <div class="row">
@@ -44,3 +45,7 @@
 
   </div>
 </section>
+
+{% else %} <!-- fallback to always have a visual seperator between sections on the homepage -->
+{% include home-corona-und-sport.html %}
+{% endif %}
