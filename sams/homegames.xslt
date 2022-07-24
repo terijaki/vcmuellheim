@@ -30,7 +30,6 @@
             <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>---</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
-            </xsl:for-each>
     </xsl:result-document>
     </xsl:if>
     </xsl:if>
