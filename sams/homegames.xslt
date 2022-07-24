@@ -19,20 +19,21 @@
             <xsl:text>team1: "</xsl:text><xsl:value-of select="team[1]/name"/>"
             <xsl:text>team2: "</xsl:text><xsl:value-of select="team[2]/name"/>"
             <xsl:text>opponent: "</xsl:text>
-            <xsl:choose>
-            <xsl:when test="team[1]/name != ../host/name and team[2]/name != ../host/name">
-                <xsl:if test="contains(team/name, 'VC Müllheim')">
-                    <xsl:value-of select="name"/><xsl:text>###DEBUG1###</xsl:text>
+            <xsl:choose><!-- condition in case VCM 1 hosts for VCM 2 -->
+            <xsl:when test="team[1]/name != host/name and team[2]/name != host/name">
+                <xsl:for-each select="team">
+                <xsl:if test="not(contains(name, 'VC Müllheim'))">
+                    <xsl:value-of select="name"/>
                 </xsl:if>
+                </xsl:for-each>"
             </xsl:when>
-            <xsl:otherwise><xsl:text>###DEBUG2###</xsl:text>
+            <xsl:otherwise>
                 <xsl:for-each select="team">
                 <xsl:if test="name != ../host/name">
                 <xsl:value-of select="name"/></xsl:if>
             </xsl:for-each>"
             </xsl:otherwise>
             </xsl:choose>
-            <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>location_name: "</xsl:text><xsl:value-of select="location/name"/>"
             <xsl:text>location_street: "</xsl:text><xsl:value-of select="location/street"/>"
             <xsl:text>location_postal: "</xsl:text><xsl:value-of select="location/postalCode"/>"
