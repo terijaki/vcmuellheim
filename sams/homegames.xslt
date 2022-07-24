@@ -12,8 +12,7 @@
             <xsl:text>---</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>id: "</xsl:text><xsl:value-of select="uuid"/>"
-            <xsl:text>date: "</xsl:text><xsl:value-of select="matchSeries/resultsUpdated"/>"
-            <xsl:text>title: "Spielergebnis: </xsl:text><xsl:value-of select="matchSeries/name"/>"
+            <xsl:text>date: "</xsl:text><xsl:value-of select="date"/>"
             <xsl:text>category: "</xsl:text><xsl:value-of select="matchSeries/name"/>"
             <xsl:text>author: "SBVV-Online"</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->

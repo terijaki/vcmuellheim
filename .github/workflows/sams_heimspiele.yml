@@ -35,10 +35,9 @@ jobs:
           chmod +x saxon-lint.pl
           ./saxon-lint.pl --help
           cd ..
-          ls
           rm -rf ${{env.REPO_TARGET}}
           mkdir -p ${{env.REPO_TARGET}}
-          ./saxon-lint/saxon-lint.pl --xslt sams/homegames.xslt temp_matches14days.xml
+          ./saxon-lint/saxon-lint.pl --verbose --xslt sams/homegames.xslt temp_matches14days.xml
 
 
       - name: Upload Artifact (Home Matches)
