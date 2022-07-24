@@ -44,8 +44,10 @@ jobs:
 
       - name: Query SAMS for Matches in 14 days
         run: |
+          today=$(date +%Y-%m-%d)
+          in14days=$(date -v+14d +%Y-%m-%d)
           mkdir -p ${{env.REPO_TARGET}}
-          curl -o ${{env.REPO_TARGET}}/matches14days.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=14.10.2022&before=01.11.2022"
+          curl -o ${{env.REPO_TARGET}}/matches14days.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in14days"
 
       - name: Upload Artifact (Home Matches)
         uses: actions/upload-artifact@v3
