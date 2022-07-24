@@ -2,6 +2,7 @@ name: Upcoming Home Games
 
 on:
   workflow_dispatch:
+  schedule:
     - cron: 44 19 * * * # every night at 19:44
 
 env:
