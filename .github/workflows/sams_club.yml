@@ -27,6 +27,12 @@ jobs:
           mkdir -p sams
           curl -o sams/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
 
+      - name: Upload Artifact (SAMS XML) # not needed, only to keep for troubleshooting
+        uses: actions/upload-artifact@v3
+        with:
+          name: raw_sams_xml
+          path: sams/club.xml
+
       - name: Get XML # this reads the XML file and extracts the team IDs
         id: getxml
         uses: mavrosxristoforos/get-xml-info@1.0

@@ -60,6 +60,12 @@ jobs:
           mkdir -p xml_temp
           curl -o xml_temp/${{matrix.teams}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{steps.matchseriesid-from-club.outputs.info}}"
 
+      - name: Upload Artifact (SAMS XML) # not needed, only to keep for troubleshooting
+        uses: actions/upload-artifact@v3
+        with:
+          name: raw_sams_xml
+          path: xml_temp/${{matrix.teams}}.xml
+
       - name: Add timestamp to XML # includes a timestamp in German format
         run: sed -i -e 's!</rankings>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></rankings>!g' xml_temp/${{matrix.teams}}.xml
 

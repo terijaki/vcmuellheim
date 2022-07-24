@@ -52,6 +52,12 @@ jobs:
           mkdir -p sams_xml_temp
           curl -o sams_xml_temp/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&teamId=${{matrix.teams}}"
 
+      - name: Upload Artifact (SAMS XML) # not needed, only to keep for troubleshooting
+        uses: actions/upload-artifact@v3
+        with:
+          name: raw_sams_xml
+          path: sams_xml_temp/${{matrix.teams}}.xml
+
       - name: Cleanup SAMS XML # removes strings that break the XLST
         run: sed -i -e 's!xmlns="http://sams-server.de/api/xml/ns/matches" !!g' sams_xml_temp/${{matrix.teams}}.xml
 

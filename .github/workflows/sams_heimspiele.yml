@@ -29,6 +29,12 @@ jobs:
           in14days=2022-10-30
           curl -o temp_matches14days.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in14days"
 
+      - name: Upload Artifact (SAMS XML) # not needed, only to keep for troubleshooting
+        uses: actions/upload-artifact@v3
+        with:
+          name: raw_sams_xml
+          path: temp_matches14days.xml
+
       - name: Cleanup SAMS XML # removes strings that break the XLST
         run: sed -i -e 's!xmlns="http://sams-server.de/api/xml/ns/matches" !!g' temp_matches14days.xml
 
