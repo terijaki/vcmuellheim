@@ -58,6 +58,8 @@ collections:
     permalink: /:collection/:name
   spielergebnisse: # individual matches
     sort_by: date
+  heimspiele:
+    sort_by: date
 
 feed:
   collections:
