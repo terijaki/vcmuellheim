@@ -27,11 +27,13 @@ jobs:
           in14days=2022-10-30
           curl -o temp_matches14days.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in14days"
 
+      - name: Cleanup SAMS XML # removes strings that break the XLST
+        run: sed -i -e 's!xmlns="http://sams-server.de/api/xml/ns/matches" !!g' temp_matches14days.xml
+
       - name: Reset existing home matches # Deleting existing matches to remove past games from the repo.
         run: |
           rm -rf ${{env.REPO_TARGET}}
           mkdir -p ${{env.REPO_TARGET}}
-
 
       - name: XSLT processing (individual matches) # Download, install and run the XSLT processor (Saxon to use XSLT 2.0 features)
         run: |
