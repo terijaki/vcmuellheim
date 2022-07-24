@@ -17,11 +17,11 @@
         {% assign patchstring3 = match.league | append: match.time | append: match.opponent %}
 
           {% unless heimspiel_liste contains patchstring1 %}
-              {% assign heimspiel_liste = heimspiel_liste append: patchstring1 %}
+              {% assign heimspiel_liste = heimspiel_liste | append: patchstring1 %}
               {% assign gmaps_query = match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
 
               <div class="col-12">
-                <h4 class="mt-2 mb-0">{{ match.date | date: "%d.%m" }}<span>{{ match.date | date: ".%Y" }}</span> in <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank" rel="noopener">{{ match.location_name }}</a></h4>
+                <h4 class="mt-2 mb-0">{{ match.date | date: "%d.%m" }}<span>{{ match.date | date: ".%Y" }}</span> in <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank" rel="noopener">{{ match.location_name }}, {{ match.location_street }}</a></h4>
               </div>
           {% endunless %}
 
@@ -29,12 +29,12 @@
           {% unless heimspiel_liste2 contains patchstring2 %}
             <p class="mb-1 pe-2"><strong>{{ match.league }} ab {{ match.time }} Uhr</strong></p>
           {% endunless %}
-          {% assign heimspiel_liste2 = heimspiel_liste2 append: patchstring2 %}
+          {% assign heimspiel_liste2 = heimspiel_liste2 | append: patchstring2 %}
 
           {% unless heimspiel_liste3 contains patchstring3 %}
             <p class="ms-2 mb-0">Gast: {{ match.opponent }}</p>
           {% endunless %}
-          {% assign heimspiel_liste3 = heimspiel_liste3 append: patchstring3 %}
+          {% assign heimspiel_liste3 = heimspiel_liste3 | append: patchstring3 %}
 
 
         {% endfor %}
