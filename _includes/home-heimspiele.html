@@ -9,20 +9,22 @@
         </p>
       </div>
 
-      <div class="col-12">
         
       {% for match in heimspiele %}
-      <p>
-      {{ match.date }}
-      {{ match.time }}
-      {{ match.league }}
-      {{ match.opponent }}
-      {{ match.location_name }}
-      {{ match.date }}
-      </p>
+        {% assign patchstring = match.date | append: match.location_name %}
+        {% unless heimspiel_liste contains patchstring %}
+            {% assign heimspiel_liste = heimspiel_liste | append: ' ' | append: patchstring %}
+            <div class="col-12">
+              <h4>{{ match.date }} {{ match.location }}</h4>
+            </div>
+        {% endunless %}
+            <div class="col-12">
+              <p>Ab {{ match.time }} {{ match.league }}<br>
+                Gast: {{ match.opponent }}</p>
+            </div>
+
       % endfor %}
-        </ul>
-      </div>  
+
 
 
     </div>
