@@ -7,7 +7,7 @@
 
 <xsl:for-each select="matches/match">
     <xsl:if test="contains(host/club, 'VC Müllheim')"> <!-- matches with VC Müllheim as HOST -->
-    <xsl:if test="contains(team[1]/name, 'VC Müllheim') or contains(team[2]/name, 'VC Müllheim')"> <!-- matches with VC Müllheim as TEAM -->
+    <xsl:if test="contains(team[1]/name, host/name) or contains(team[2]/name, host/name)"> <!-- matches with VC Müllheim as TEAM -->
     <xsl:variable name="matchid"><xsl:value-of select="uuid"/></xsl:variable>
     <xsl:result-document method="html" href="_heimspiele/{$matchid}.html">
             <xsl:text>---</xsl:text>
@@ -18,9 +18,11 @@
             <xsl:text>host: "</xsl:text><xsl:value-of select="host/name"/>"
             <xsl:text>team1: "</xsl:text><xsl:value-of select="team[1]/name"/>"
             <xsl:text>team2: "</xsl:text><xsl:value-of select="team[2]/name"/>"
+            <xsl:text>opponent: "</xsl:text>
             <xsl:for-each select="team">
-            <xsl:if test="name != ../host/name">opponent: "<xsl:value-of select="name"/>"</xsl:if>
-            </xsl:for-each>
+                <xsl:if test="name != ../host/name">
+                <xsl:value-of select="name"/></xsl:if>
+                </xsl:for-each>"
             <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>location_name: "</xsl:text><xsl:value-of select="location/name"/>"
             <xsl:text>location_street: "</xsl:text><xsl:value-of select="location/street"/>"
