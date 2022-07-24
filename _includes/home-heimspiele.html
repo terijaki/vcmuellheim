@@ -9,7 +9,7 @@
         </p>
       </div>
 
-      {% assign heimspiele_sortiert = (site.heimspiele | sort: 'date' | sort: 'league') %}
+      {% assign heimspiele_sortiert = (site.heimspiele | sort: 'datetime') %}
 
       {% for match in heimspiele_sortiert%}
         {% assign patchstring = match.date | append: match.location_name | append: match.location_street %}
