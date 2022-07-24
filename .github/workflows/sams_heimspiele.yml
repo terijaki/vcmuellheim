@@ -38,6 +38,7 @@ jobs:
           chmod +x saxon-lint.pl
           ./saxon-lint.pl --help
           cd ..
+          rm -r ${{env.REPO_TARGET}}
           mkdir -p ${{env.REPO_TARGET}}
           ./saxon-lint/saxon-lint.pl --xslt sams/homegames.xslt temp/matches14days.xml
 
@@ -47,3 +48,16 @@ jobs:
         with:
           name: matches14days
           path: ${{env.REPO_TARGET}}
+
+
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+      - name: Git Commit
+        continue-on-error: true # don't throw an error as there won't always be changes
+        run: |
+          git pull
+          git add "${{env.REPO_TARGET}}/*"
+          git commit -m "sams scheduled update"
+          git push origin --all --quiet
