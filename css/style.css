@@ -552,6 +552,19 @@ main {
   color: var(--text2);
 }
 
+/* Heimspiele Section
+--------------------------------*/
+#heimspiele {
+  overflow: hidden;
+  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(../img/call-to-action-bg.jpg) fixed center center;
+  background-size: cover;
+  color: var(--text2);
+}
+
+#heimspiele h4 {
+  color: var(--link_hover1);
+}
+
 /* Call To Action Section
 --------------------------------*/
 #call-to-action {
