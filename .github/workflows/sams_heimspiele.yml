@@ -44,9 +44,11 @@ jobs:
       - name: Upload Artifact (Home Matches)
         uses: actions/upload-artifact@v3
         with:
-          name: matches14days
           path: ${{env.REPO_TARGET}}
-
+      - name: Upload Artifact (SAMS Response)
+        uses: actions/upload-artifact@v3
+        with:
+          path: temp_matches14days.xml
 
       - name: Setup Git Config
         run: |
