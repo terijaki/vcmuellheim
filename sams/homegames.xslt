@@ -15,14 +15,21 @@
             <xsl:text>id: "</xsl:text><xsl:value-of select="uuid"/>"
             <xsl:text>date: "</xsl:text><xsl:value-of select="date"/>"
             <xsl:text>category: "</xsl:text><xsl:value-of select="matchSeries/name"/>"
+            <xsl:text>host: "</xsl:text><xsl:value-of select="host/name"/>"
+            <xsl:text>team1: "</xsl:text><xsl:value-of select="team[1]/name"/>"
+            <xsl:text>team2: "</xsl:text><xsl:value-of select="team[2]/name"/>"
+            <xsl:for-each select="team">
+            <xsl:if test="name != ../host/name">opponent: "<xsl:value-of select="name"/>"</xsl:if>
+            </xsl:for-each>
+            <xsl:text>&#xA;</xsl:text><!-- new line-->
+            <xsl:text>location_name: "</xsl:text><xsl:value-of select="location/name"/>"
+            <xsl:text>location_street: "</xsl:text><xsl:value-of select="location/street"/>"
+            <xsl:text>location_postal: "</xsl:text><xsl:value-of select="location/postalCode"/>"
+            <xsl:text>location_city: "</xsl:text><xsl:value-of select="location/city"/>"
             <xsl:text>author: "SBVV-Online"</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>---</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
-            <xsl:for-each select="team">
-                <xsl:if test="name != ./host/name">
-                opponent: <xsl:value-of select="name"/>
-                </xsl:if>
             </xsl:for-each>
     </xsl:result-document>
     </xsl:if>
