@@ -12,6 +12,27 @@ env:
 
 
 jobs:
+  Get-MatchSeriesIDs:
+    runs-on: ubuntu-latest
+    outputs:
+      matchseriesids: ${{steps.idarray.outputs.matchseriesids}} # outputs team IDs in the form of [123,456,789]
+    steps:
+      - name: Get club.xml cache # Get the catched club.xml
+        run: curl -o club.xml "https://vcmuellheim.de/sams/club.xml"
+
+      - name: Get XML
+        id: getxml
+        uses: mavrosxristoforos/get-xml-info@1.0
+        with:
+          xml-file: "club.xml"
+          xpath: "/sportsclub/teams/team/seasonTeamId" #extract all team IDs from the XML
+
+      - name: Transform MatchSeriesIDs
+        id: idarray
+        run: echo "::set-output name=matchseriesids::[${{steps.getxml.outputs.info}}]" # transform IDs from "123,456,789" to "[123,456,789]"
+
+
+
   Get-14day-Match-Schedule:
     runs-on: ubuntu-latest
     steps:
@@ -24,7 +45,7 @@ jobs:
       - name: Query SAMS for Matches in 14 days
         run: |
           mkdir -p ${{env.REPO_TARGET}}
-          curl -o ${{env.REPO_TARGET}}/matches14days.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&after=14.10.2022&before=01.11.2022"
+          curl -o ${{env.REPO_TARGET}}/matches14days.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=14.10.2022&before=01.11.2022"
 
       - name: Upload Artifact (Home Matches)
         uses: actions/upload-artifact@v3
