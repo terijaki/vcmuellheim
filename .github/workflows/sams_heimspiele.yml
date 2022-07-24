@@ -3,7 +3,7 @@ name: Upcoming Home Games
 on:
   workflow_dispatch:
   schedule:
-    - cron: 44 19 * * * # every night at 19:44
+    - cron: 44 22 * * * # every night at 22:44
 
 env:
   SAMS_KEY: ${{ secrets.SAMS_API }} # SAMS API key
@@ -12,7 +12,7 @@ env:
 
 
 jobs:
-  Get-14day-Match-Schedule:
+  Update-Upcoming-Home-Games:
     runs-on: macos-latest
     steps:
 
@@ -27,6 +27,11 @@ jobs:
           in14days=2022-10-30
           curl -o temp_matches14days.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in14days"
 
+      - name: Reset existing home matches # Deleting existing matches to remove past games from the repo.
+        run: |
+          rm -rf ${{env.REPO_TARGET}}
+          mkdir -p ${{env.REPO_TARGET}}
+
 
       - name: XSLT processing (individual matches) # Download, install and run the XSLT processor (Saxon to use XSLT 2.0 features)
         run: |
@@ -37,13 +42,14 @@ jobs:
           cd ..
           rm -rf ${{env.REPO_TARGET}}
           mkdir -p ${{env.REPO_TARGET}}
-          ./saxon-lint/saxon-lint.pl --verbose --xslt sams/homegames.xslt temp_matches14days.xml
-
+          cp sams/homegames.xslt homegames.xslt
+          ./saxon-lint/saxon-lint.pl --verbose --xslt homegames.xslt temp_matches14days.xml
 
       - name: Upload Artifact (Home Matches)
         uses: actions/upload-artifact@v3
         with:
           path: ${{env.REPO_TARGET}}
+
       - name: Upload Artifact (SAMS Response)
         uses: actions/upload-artifact@v3
         with:
@@ -53,6 +59,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
+
       - name: Git Commit
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
