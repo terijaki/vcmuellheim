@@ -6,7 +6,7 @@
 
 
 <xsl:for-each select="matches/match">
-    <xsl:if test="contains(host/club, 'VC Müllheim')"> <!-- matches with Müllheim as host -->
+    <xsl:if test="contains(matches/match/host/club, 'VC Müllheim')"> <!-- matches with Müllheim as host -->
     <xsl:variable name="matchid"><xsl:value-of select="uuid"/></xsl:variable>
     <xsl:result-document method="html" href="_heimspiele/{$matchid}.html">
             <xsl:text>---</xsl:text>
