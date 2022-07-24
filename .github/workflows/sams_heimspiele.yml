@@ -11,18 +11,22 @@ env:
 
 
 jobs:
-  New-Matches-for-Twitter:
+  Get-14day-Match-Schedule:
     runs-on: ubuntu-latest
-    outputs:
-      matches: ${{steps.scanmatches.outputs.matches}} #array of matches not yet posted
-      messages: ${{steps.messagesfortwitter.outputs.messages}} #array of messages to post
     steps:
+
       - name: Checkout Source Code
         uses: actions/checkout@v3
         with: # important to ensure fetch all history!
           fetch-depth: 0
 
-      - name: Query SAMS for Matches
+      - name: Query SAMS for Matches in 14 days
         run: |
           mkdir -p temp
           curl -o temp/matches14days.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&after=01.10.2022&before=01.11.2022"
+
+      - name: Upload Artifact (Home Matches)
+        uses: actions/upload-artifact@v3
+        with:
+          name: matches14days
+          path: ${{env.REPO_TARGET}}
