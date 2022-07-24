@@ -43,6 +43,9 @@ jobs:
           ls
           cd sams
           ls
+          cd ..
+          cd temp
+          ls
 
 
       - name: Upload Artifact (Home Matches)
