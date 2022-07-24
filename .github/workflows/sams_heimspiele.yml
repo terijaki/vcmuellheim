@@ -40,6 +40,9 @@ jobs:
           cd ..
           mkdir -p ${{env.REPO_TARGET}}
           ./saxon-lint/saxon-lint.pl --xslt sams/homegames.xslt temp/matches14days.xml
+          ls
+          cd ..
+          ls
 
 
       - name: Upload Artifact (Home Matches)
