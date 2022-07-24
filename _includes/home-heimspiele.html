@@ -5,7 +5,7 @@
       
       <div class="col-12 text-center text-lg-start">
         <h3 class="cta-title">Wir laden ein zum Heimspiel!</h3>
-        <p class="cta-text">
+        <p class="cta-text mb-1">
           In den kommenden Tagen spielen wir in Müllheim und freuen uns über jeden Zuschauer!
         </p>
       </div>
@@ -22,7 +22,7 @@
               {% assign gmaps_query = match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
 
               <div class="col-12">
-                <h4 class="mt-2 mb-0">{{ match.date | date: "%d.%m" }}<span>{{ match.date | date: ".%Y" }}</span> in <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank" rel="noopener">{{ match.location_name }}<span class="d-none d-md-inline">, {{ match.location_street }}</span></a></h4>
+                <h4 class="mt-4 mb-0">{{ match.date | date: "%d.%m" }}<span>{{ match.date | date: ".%Y" }}</span> in <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank" rel="noopener">{{ match.location_name }}<span class="d-none d-md-inline">, {{ match.location_street }}</span></a></h4>
               </div>
           {% endunless %}
 
