@@ -1,0 +1,31 @@
+<section id="heimspiele" class="py-5">
+  <div class="container">
+    <div class="row">
+      
+      <div class="col-12 text-center text-lg-start">
+        <h3 class="cta-title">Wir laden ein zum Heimspiel!</h3>
+        <p class="cta-text">
+          In den kommenden Tagen spielen wir in Müllheim und freuen uns über jeden Zuschauer!
+        </p>
+      </div>
+
+      <div class="col-12">
+        
+      {% for match in heimspiele %}
+      <p>
+      {{ match.date }}
+      {{ match.time }}
+      {{ match.league }}
+      {{ match.opponent }}
+      {{ match.location_name }}
+      {{ match.date }}
+      </p>
+      % endfor %}
+        </ul>
+      </div>  
+
+
+    </div>
+
+  </div>
+</section>
