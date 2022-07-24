@@ -20,16 +20,16 @@
               {% assign gmaps_query = match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
 
               <div class="col-12">
-                <h4 class="mt-2 mb-0">{{ match.date | date: "%DD.%MM.%YYYY" }} <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank">{{ match.location_name }}</a></h4>
+                <h4 class="mt-2 mb-0">{{ match.date | date: "%d.%m" }}<span class="d-none d-md-inline">{{ match.date | date: ".%Y" }}</span> <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank">{{ match.location_name }}</a></h4>
               </div>
           {% endunless %}
 
             
           {% unless heimspiel_liste2 contains patchstring2 %}
-            <p class="mb-1 pe-2">{{ match.league }} ab {{ match.time }}</p>
+            <p class="mb-1 pe-2"><strong>{{ match.league }} ab {{ match.time }}</strong></p>
           {% endunless %}
           {% assign heimspiel_liste2 = heimspiel_liste2 | append: ' ' | append: patchstring2 %}
-            <p>>Gast: {{ match.opponent }}</p>
+            <p class="mb-0">Gast: {{ match.opponent }}</p>
 
 
         {% endfor %}
