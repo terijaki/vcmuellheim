@@ -27,7 +27,7 @@
 
             
           {% unless heimspiel_liste2 contains patchstring2 %}
-            <p class="mb-1 pe-2"><strong>{{ match.league }}{% unless match.time = "00:00" %} ab {{ match.time }} Uhr{% endunless %}</strong></p>
+            <p class="mb-1 pe-2"><strong>{{ match.league }}{% unless match.time == "00:00" %} ab {{ match.time }} Uhr{% endunless %}</strong></p>
           {% endunless %}
           {% assign heimspiel_liste2 = heimspiel_liste2 | append: patchstring2 %}
 
