@@ -15,7 +15,7 @@
             <xsl:text>id: "</xsl:text><xsl:value-of select="uuid"/>"
             <xsl:text>date: "</xsl:text><xsl:value-of select="date"/>"
             <xsl:text>time: "</xsl:text><xsl:value-of select="time"/>"
-            <xsl:text>category: "</xsl:text><xsl:value-of select="matchSeries/name"/>"
+            <xsl:text>league: "</xsl:text><xsl:value-of select="matchSeries/name"/>"
             <xsl:text>host: "</xsl:text><xsl:value-of select="host/name"/>"
             <xsl:text>team1: "</xsl:text><xsl:value-of select="team[1]/name"/>"
             <xsl:text>team2: "</xsl:text><xsl:value-of select="team[2]/name"/>"
