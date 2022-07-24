@@ -14,9 +14,10 @@
       {% for match in heimspiele_sortiert%}
         {% assign patchstring = match.date | append: match.location_name | append: match.location_street %}
         {% assign patchstring2 = match.league | append: match.time | append: match.location_street %}
+        {% assign patchstring3 = match.league | append: match.time | append: match.opponent %}
 
           {% unless heimspiel_liste contains patchstring %}
-              {% assign heimspiel_liste = heimspiel_liste | append: ' ' | append: patchstring %}
+              {% assign heimspiel_liste = heimspiel_liste append: patchstring %}
               {% assign gmaps_query = match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
 
               <div class="col-12">
@@ -28,8 +29,12 @@
           {% unless heimspiel_liste2 contains patchstring2 %}
             <p class="mb-1 pe-2"><strong>{{ match.league }} ab {{ match.time }} Uhr</strong></p>
           {% endunless %}
-          {% assign heimspiel_liste2 = heimspiel_liste2 | append: ' ' | append: patchstring2 %}
+          {% assign heimspiel_liste2 = heimspiel_liste2 append: patchstring2 %}
+
+          {% unless heimspiel_liste3 contains patchstring3 %}
             <p class="ms-2 mb-0">Gast: {{ match.opponent }}</p>
+          {% endunless %}
+          {% assign heimspiel_liste3 = heimspiel_liste2 append: patchstring3 %}
 
 
         {% endfor %}
