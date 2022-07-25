@@ -62,8 +62,8 @@ permalink: /matches/TEAMIDHERE
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="footnote timestamp d-none">
-                            Stand <!-- disabled. to enable insert value-of "matches/timestamp" and remove d-none class -->
+                        <div class="footnote timestamp">
+                            Stand <xsl:value-of select="matches/timestamp"/>
                         </div>
                     </div>
                 </div>
