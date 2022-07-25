@@ -730,9 +730,6 @@ main {
   font-size: small;
 }
 
-#matches div.teams {
-  display: flex;
-}
 
 /* redundant after next SAMS run */
 

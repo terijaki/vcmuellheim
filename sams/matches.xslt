@@ -34,7 +34,7 @@ permalink: /matches/TEAMIDHERE
                                             <xsl:value-of select="date"/>
                                         </td>
                                         <td>
-                                            <div class="teams">
+                                            <div class="teams d-flex">
                                         <xsl:for-each select="team">
                                             <xsl:sort select="number"/>
                                             <div>
@@ -77,11 +77,11 @@ permalink: /matches/TEAMIDHERE
                                 
                             <xsl:for-each select="matches/match">
                             <xsl:if test="not(results/winner)">
-                            <div class="match col-12 row">
-                                <div class="date-time col-12 col-md-2 align-items-center text-center text-lg-start">
+                            <div class="match col-12 row small">
+                                <div class="date-time col-12 col-md-2 d-flex align-items-center">
                                     <span><xsl:value-of select="date"/></span><span class="ps-2"><xsl:value-of select="time"/> Uhr</span>
                                 </div>
-                                <div class="teams col-12 col-md-5 align-items-center text-center text-lg-start fw-bold">
+                                <div class="teams col-12 col-md-5 d-flex align-items-center fw-bold">
                                 <xsl:attribute name="hostid">
                                         <xsl:value-of select="host/id" />
                                 </xsl:attribute>
@@ -99,7 +99,7 @@ permalink: /matches/TEAMIDHERE
                                         <xsl:value-of select="team[2]/name"/>
                                     </span>
                                 </div>
-                                <div class="location col-12 col-md-5 align-items-center text-center text-lg-start">
+                                <div class="location col-12 col-md-5 d-flex align-items-center">
                                     <xsl:attribute name="city">
                                         <xsl:value-of select="location/city" />
                                     </xsl:attribute>
