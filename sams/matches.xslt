@@ -103,8 +103,8 @@ permalink: /matches/TEAMIDHERE
                                     <xsl:attribute name="city">
                                         <xsl:value-of select="location/city" />
                                     </xsl:attribute>
-                                    <i class="fa-solid fa-map-marker-alt pe-2"></i>
-                                    <xsl:value-of select="location/city"/>
+                                    <span><i class="fa-solid fa-map-marker-alt pe-2"></i>
+                                    <xsl:value-of select="location/city"/></span>
                                     <span class="ps-2">(<xsl:value-of select="location/street"/>)</span>
                                 </div>
                             </div>
