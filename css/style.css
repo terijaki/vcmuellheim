@@ -709,7 +709,7 @@ main {
 
 /* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse, Spielplan)
 --------------------------------*/
-#matches tbody tr:nth-child(odd) {
+#matches tbody tr:nth-child(odd), #matches .upcoming .termine-liste .match:nth-child(odd) {
   background: rgba(0, 0, 0, 0.05);
 }
 
