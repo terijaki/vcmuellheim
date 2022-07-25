@@ -78,27 +78,31 @@ permalink: /matches/TEAMIDHERE
                             <xsl:for-each select="matches/match">
                             <xsl:if test="not(results/winner)">
 
+                                <div class="date-time col-12 col-md-2">
                                 <xsl:attribute name="hostid">
                                         <xsl:value-of select="host/id" />
                                 </xsl:attribute>
-                                <div class="date-time col-12 col-md-2">
                                     <xsl:value-of select="date"/><span class="ps-2"><xsl:value-of select="time"/> Uhr</span>
                                 </div>
                                 <div class="teams col-12 col-md-5 font-weight-bold">
-                                    <xsl:attribute name="teamid">
-                                        <xsl:value-of select="team[1]/id" />
-                                    </xsl:attribute>
-                                    <span><xsl:value-of select="team[1]/name"/></span>
+                                    <span class="team-a">
+                                        <xsl:attribute name="teamid">
+                                            <xsl:value-of select="team[1]/id" />
+                                        </xsl:attribute>
+                                        <xsl:value-of select="team[1]/name"/>
+                                    </span>
                                     <span class="versus px-3">:</span>
-                                    <xsl:attribute name="teamid">
-                                        <xsl:value-of select="team[2]/id" />
-                                    </xsl:attribute>
-                                    <span><xsl:value-of select="team[2]/name"/></span>
+                                    <span class="team-a">
+                                        <xsl:attribute name="teamid">
+                                            <xsl:value-of select="team[2]/id" />
+                                        </xsl:attribute>
+                                        <xsl:value-of select="team[2]/name"/>
+                                    </span>
                                 </div>
-                                <xsl:attribute name="city">
+                                <div class="location col-12 col-md-5">
+                                    <xsl:attribute name="city">
                                         <xsl:value-of select="location/city" />
                                     </xsl:attribute>
-                                <div class="location col-12 col-md-5">
                                     <i class="fa-solid fa-map-marker-alt"></i>
                                     <xsl:value-of select="location/city"/>
                                     <span class="ps-2">(<xsl:value-of select="location/street"/>)</span>
