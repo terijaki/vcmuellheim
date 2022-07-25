@@ -77,11 +77,11 @@ permalink: /matches/TEAMIDHERE
                                 
                             <xsl:for-each select="matches/match">
                             <xsl:if test="not(results/winner)">
-                            <div class="match col-12 row text-nowrap m-0 py-1">
+                            <div class="match col-12 row text-nowrap m-0 py-2">
                                 <div class="date-time col-12 col-lg-2 d-flex align-items-center flex-wrap small">
-                                    <span class="date"><xsl:value-of select="date"/></span>
-                                    <span class="px-1">-</span>
-                                    <span class="time"><xsl:value-of select="time"/> Uhr</span>
+                                    <span class="date d-lg-block"><xsl:value-of select="date"/></span>
+                                    <span class="px-1 d-lg-none">-</span>
+                                    <span class="time d-lg-block"><xsl:value-of select="time"/> Uhr</span>
                                 </div>
                                 <div class="teams col-12 col-lg-5 d-lg-flex align-items-center fw-bold">
                                 <xsl:attribute name="hostid">
