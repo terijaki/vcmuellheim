@@ -74,44 +74,45 @@ permalink: /matches/TEAMIDHERE
                     <div class="upcoming">
 
                         <div class="termine-liste w-100">
+                                
+                            <xsl:for-each select="matches/match">
+                            <xsl:if test="not(results/winner)">
+
+                                <xsl:attribute name="hostid">
+                                        <xsl:value-of select="host/id" />
+                                </xsl:attribute>
+                                <div class="date-time col-12 col-md-2">
+                                    <xsl:value-of select="date"/><span class="ps-2"><xsl:value-of select="time"/> Uhr</span>
+                                </div>
+                                <div class="teams col-12 col-md-5 font-weight-bold">
+                                    <xsl:attribute name="teamid">
+                                        <xsl:value-of select="team[1]/id" />
+                                    </xsl:attribute>
+                                    <span><xsl:value-of select="team[1]/name"/></span>
+                                    <span class="versus px-3">:</span>
+                                    <xsl:attribute name="teamid">
+                                        <xsl:value-of select="team[2]/id" />
+                                    </xsl:attribute>
+                                    <span><xsl:value-of select="team[2]/name"/></span>
+                                </div>
+                                <xsl:attribute name="city">
+                                        <xsl:value-of select="location/city" />
+                                    </xsl:attribute>
+                                <div class="location col-12 col-md-5">
+                                    <i class="fa-solid fa-map-marker-alt"></i>
+                                    <xsl:value-of select="location/city"/>
+                                    <span class="ps-2">(<xsl:value-of select="location/street"/>)</span>
+                                </div>
+
+                            </xsl:if>
+                            </xsl:for-each>
                             
-                        <xsl:for-each select="matches/match">
-                        <xsl:if test="not(results/winner)">
+                            <div class="col-12 p-3 nomatches future">Es liegen keine Spiele für diese Saison vor.</div>
 
-                            <xsl:attribute name="hostid">
-                                    <xsl:value-of select="host/id" />
-                            </xsl:attribute>
-                            <div class="date-time col-12 col-md-2">
-                                <xsl:value-of select="date"/><span class="ps-2"><xsl:value-of select="time"/> Uhr</span>
+                            <div class="mt-4 text-center calendar d-none"><!-- d-none removed and CALURL1/2 replaced by XSLT during successful ICS import -->
+                                <a class="btn-small-download" type="text/calendar" href="CALURL1">Spielplan herunterladen</a>
+                                <a class="btn-small-download" type="text/calendar" href="CALURL2">Spielplan abonnieren</a>
                             </div>
-                            <div class="teams col-12 col-md-5 font-weight-bold">
-                                <xsl:attribute name="teamid">
-                                    <xsl:value-of select="team[1]/id" />
-                                </xsl:attribute>
-                                <span><xsl:value-of select="team[1]/name"/></span>
-                                <span class="versus px-3">:</span>
-                                <xsl:attribute name="teamid">
-                                    <xsl:value-of select="team[2]/id" />
-                                </xsl:attribute>
-                                <span><xsl:value-of select="team[2]/name"/></span>
-                            </div>
-                            <xsl:attribute name="city">
-                                    <xsl:value-of select="location/city" />
-                                </xsl:attribute>
-                            <div class="location col-12 col-md-5">
-                                <i class="fa-solid fa-map-marker-alt"></i>
-                                <xsl:value-of select="location/city"/>
-                                <span class="ps-2">(<xsl:value-of select="location/street"/>)</span>
-                            </div>
-
-                        </xsl:if>
-                        </xsl:for-each>
-                        
-                        <div class="col-12 p-3 nomatches future">Es liegen keine Spiele für diese Saison vor.</div>
-
-                        <div class="mt-4 text-center calendar d-none">
-                            <a class="btn-small-download" type="text/calendar" href="CALURL1">Spielplan herunterladen</a>
-                            <a class="btn-small-download" type="text/calendar" href="CALURL2">Spielplan abonnieren</a>
                         </div>
                     </div>
                 </div>
