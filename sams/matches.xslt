@@ -77,8 +77,8 @@ permalink: /matches/TEAMIDHERE
                                 
                             <xsl:for-each select="matches/match">
                             <xsl:if test="not(results/winner)">
-                            <div class="match col-12 row small">
-                                <div class="date-time col-12 col-md-2 d-flex align-items-center">
+                            <div class="match col-12 row small text-nowrap">
+                                <div class="date-time col-12 col-md-2 d-flex align-items-center flex-wrap">
                                     <span><xsl:value-of select="date"/></span><span class="ps-2"><xsl:value-of select="time"/> Uhr</span>
                                 </div>
                                 <div class="teams col-12 col-md-5 d-flex align-items-center fw-bold">
