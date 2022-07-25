@@ -78,10 +78,12 @@ permalink: /matches/TEAMIDHERE
                             <xsl:for-each select="matches/match">
                             <xsl:if test="not(results/winner)">
                             <div class="match col-12 row small text-nowrap">
-                                <div class="date-time col-12 col-md-2 d-flex align-items-center flex-wrap">
-                                    <span><xsl:value-of select="date"/></span><span class="ps-2"><xsl:value-of select="time"/> Uhr</span>
+                                <div class="date-time col-12 col-lg-2 d-flex align-items-center flex-wrap">
+                                    <span class="date"><xsl:value-of select="date"/></span>
+                                    <span class="px-1">-</span>
+                                    <span class="time"><xsl:value-of select="time"/> Uhr</span>
                                 </div>
-                                <div class="teams col-12 col-md-5 d-flex align-items-center fw-bold">
+                                <div class="teams col-12 col-lg-5 d-lg-flex align-items-center fw-bold">
                                 <xsl:attribute name="hostid">
                                         <xsl:value-of select="host/id" />
                                 </xsl:attribute>
@@ -99,7 +101,7 @@ permalink: /matches/TEAMIDHERE
                                         <xsl:value-of select="team[2]/name"/>
                                     </span>
                                 </div>
-                                <div class="location col-12 col-md-5 d-flex align-items-center">
+                                <div class="location col-12 col-lg-5 d-flex align-items-center">
                                     <xsl:attribute name="city">
                                         <xsl:value-of select="location/city" />
                                     </xsl:attribute>
