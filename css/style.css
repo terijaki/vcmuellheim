@@ -804,13 +804,13 @@ main {
   color: rgba(0, 0, 0, 0.3)
 }
 
-#ergebnisse-tabelle tr.norankings:not(:first-child),
-#matches tr.nomatches:not(:first-child) {
+#ergebnisse-tabelle .norankings:not(:first-child),
+#matches .nomatches:not(:first-child) {
   display: none;
 }
 
-#matches .nomatches td,
-#ergebnisse-tabelle .norankings td {
+#matches .nomatches,
+#ergebnisse-tabelle .norankings {
   text-align: center;
   padding: 0.5rem 0;
 }
