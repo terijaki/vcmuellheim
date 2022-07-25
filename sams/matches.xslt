@@ -73,7 +73,7 @@ permalink: /matches/TEAMIDHERE
                     <h3 class="fw-bold">Termine</h3>
                     <div class="upcoming">
 
-                        <div class="termine-liste w-100 row">
+                        <div class="termine-liste container">
                                 
                             <xsl:for-each select="matches/match">
                             <xsl:if test="not(results/winner)">
