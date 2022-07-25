@@ -73,7 +73,7 @@ permalink: /matches/TEAMIDHERE
                     <h3 class="fw-bold">Termine</h3>
                     <div class="upcoming">
 
-                        <div class="termine-liste w-100">
+                        <div class="termine-liste w-100 row">
                                 
                             <xsl:for-each select="matches/match">
                             <xsl:if test="not(results/winner)">
@@ -91,7 +91,7 @@ permalink: /matches/TEAMIDHERE
                                         </xsl:attribute>
                                         <xsl:value-of select="team[1]/name"/>
                                     </span>
-                                    <span class="versus px-3">:</span>
+                                    <span class="versus px-2">:</span>
                                     <span class="team-a">
                                         <xsl:attribute name="teamid">
                                             <xsl:value-of select="team[2]/id" />
@@ -113,7 +113,7 @@ permalink: /matches/TEAMIDHERE
                             
                             <div class="col-12 p-3 nomatches future">Es liegen keine Spiele für diese Saison vor.</div>
 
-                            <div class="mt-4 text-center calendar d-none"><!-- d-none removed and CALURL1/2 replaced by XSLT during successful ICS import -->
+                            <div class="mt-4 text-center calendar d-none"><!-- display-none-class removed and CALURL1/2 replaced by XSLT during successful ICS import -->
                                 <a class="btn-small-download" type="text/calendar" href="CALURL1">Spielplan herunterladen</a>
                                 <a class="btn-small-download" type="text/calendar" href="CALURL2">Spielplan abonnieren</a>
                             </div>
