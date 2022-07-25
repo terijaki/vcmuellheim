@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Jugendleitertreffen Bezirk West beim VC Müllheim
 thumbnail: ''
 photoalbum: ''
