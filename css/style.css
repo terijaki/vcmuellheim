@@ -830,10 +830,7 @@ main {
   width: 100%;
 }
 
-#ergebnisse-tabelle .teams .info {
-  /* this is not needed with the new sams scoreboard! */
-  flex-basis: 100%;
-}
+
 
 #news .box {
   cursor: pointer;
