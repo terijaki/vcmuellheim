@@ -73,11 +73,11 @@ permalink: /matches/TEAMIDHERE
                     <h3 class="fw-bold">Termine</h3>
                     <div class="upcoming">
 
-                        <div class="termine-liste container">
+                        <div class="termine-liste">
                                 
                             <xsl:for-each select="matches/match">
                             <xsl:if test="not(results/winner)">
-                            <div class="match col-12 row text-nowrap py-1">
+                            <div class="match col-12 row text-nowrap m-0 py-1">
                                 <div class="date-time col-12 col-lg-2 d-flex align-items-center flex-wrap small">
                                     <span class="date"><xsl:value-of select="date"/></span>
                                     <span class="px-1">-</span>
@@ -105,8 +105,8 @@ permalink: /matches/TEAMIDHERE
                                     <xsl:attribute name="city">
                                         <xsl:value-of select="location/city" />
                                     </xsl:attribute>
-                                    <span class="ps-2"><i class="fa-solid fa-location-dot pe-1"><xsl:comment>map location pin</xsl:comment></i><xsl:value-of select="location/city"/></span>
-                                    <span class="ps-2">(<xsl:value-of select="location/street"/>)</span>
+                                    <span><i class="fa-solid fa-location-dot pe-1"><xsl:comment>map location pin</xsl:comment></i><xsl:value-of select="location/city"/></span>
+                                    <span class="ps-1">(<xsl:value-of select="location/street"/>)</span>
                                 </div>
                             </div>
                             </xsl:if>
