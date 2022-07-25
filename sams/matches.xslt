@@ -30,7 +30,7 @@ permalink: /matches/TEAMIDHERE
                                     <xsl:attribute name="winner">
                                         <xsl:value-of select="results/winner" />
                                     </xsl:attribute>
-                                        <td>
+                                        <td class="datum">
                                             <xsl:value-of select="date"/>
                                         </td>
                                         <td>
@@ -52,7 +52,7 @@ permalink: /matches/TEAMIDHERE
                                         </xsl:for-each>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td class="points">
                                             <xsl:value-of select="results/setPoints"/><small> (<xsl:for-each select="results/sets/set"><xsl:if test="number > 1">, </xsl:if><xsl:value-of select="points"/></xsl:for-each>)</small>
                                         </td>
                                     </tr>

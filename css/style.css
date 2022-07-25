@@ -709,24 +709,24 @@ main {
 
 /* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse, Spielplan)
 --------------------------------*/
-#matches tbody tr:nth-child(odd), #matches .upcoming .termine-liste .match:nth-child(odd) {
+#matches .matches-past tbody tr:nth-child(odd), #matches .upcoming .termine-liste .match:nth-child(odd) {
   background: rgba(0, 0, 0, 0.05);
 }
 
-#matches tr[winner="1"] div[teamnumber="1"],
-#matches tr[winner="2"] div[teamnumber="2"] {
+#matches .matches-past tr[winner="1"] div[teamnumber="1"],
+#matches .matches-past tr[winner="2"] div[teamnumber="2"] {
   font-weight: bold;
 }
 
-#matches div.teams>div:first-child:after {
+#matches .matches-past div.teams>div:first-child:after {
   content: ":";
   padding: 0 0.5rem;
   font-weight: normal;
 }
 
 /* redundant after next SAMS run */
-#matches table th span,
-#matches table td span {
+#matches .matches-past table th span,
+#matches .matches-past table td span {
   font-size: small;
 }
 
@@ -752,24 +752,24 @@ main {
     margin-bottom: 30px;
   }
 
-  #matches table {
+  #matches .matches-past table {
     font-size: smaller;
   }
 
-  #matches table th span {
+  #matches .matches-past table th span {
     display: none;
   }
 
-  #matches table td span {
+  #matches .matches-past table td span {
     display: block;
     font-size: smaller;
   }
 
-  #matches div.teams {
+  #matches .matches-past div.teams {
     flex-direction: column;
   }
 
-  #matches div.teams>div:first-child:after {
+  #matches .matches-past div.teams>div:first-child:after {
     display: none;
   }
 }
