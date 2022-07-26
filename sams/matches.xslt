@@ -81,7 +81,7 @@ permalink: /matches/TEAMIDHERE
                                 <div class="date-time col-12 col-lg-2 d-flex flex-lg-column align-items-center flex-wrap small">
                                     <span class="date d-lg-block"><xsl:value-of select="date"/></span>
                                     <xsl:if test="not(time = '00:00')">
-                                    <span class="px-1 d-lg-none">-</span><div class="d-none d-lg-inital"><br></div>
+                                    <span class="px-1 d-lg-none">-</span>
                                     <span class="time d-lg-block"><xsl:value-of select="time"/> Uhr</span>
                                     </xsl:if>
                                 </div>
