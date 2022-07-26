@@ -12,10 +12,16 @@ permalink: /matches/TEAMIDHERE
         <div class="container">
             <div class="col sams-matches">
 
+                <xsl:for-each select="matches/match">
+                <xsl:if test="results/winner > 0">
+                    <xsl:variable name="result-volume">true</xsl:variable>
+                </xsl:if>
+                </xsl:for-each>
                 <div class="box matches-past">
                     <h3 class="fw-bold">Ergebnisse</h3>
                     <div class="past">
                         <table class="w-100">
+                        <xsl:if test="result-volume = 'true'">
                             <thead>
                                 <tr>
                                     <th>Datum</th>
@@ -23,6 +29,7 @@ permalink: /matches/TEAMIDHERE
                                     <th>Sätze <small>(Punkte)</small></th>
                                 </tr>
                             </thead>
+                        </xsl:if>
                             <tbody>
                                 <xsl:for-each select="matches/match">
                                 <xsl:if test="results/winner > 0">
