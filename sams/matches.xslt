@@ -109,7 +109,7 @@ permalink: /matches/TEAMIDHERE
                                     </xsl:attribute>
                                     <a target="_blank" rel="noopener">
                                     <xsl:attribute name="href">
-                                        https://www.google.com/maps/search/?api=1&query=<xsl:value-of select="location/name"/>,<xsl:value-of select="location/street"/>,<xsl:value-of select="location/postalCode"/>+<xsl:value-of select="location/city"/>
+                                    <xsl:text>https://www.google.com/maps/search/?api=1&query=</xsl:text><xsl:value-of select="location/name"/><xsl:text>,</xsl:text><xsl:value-of select="location/street"/><xsl:text>,</xsl:text><xsl:value-of select="location/postalCode"/><xsl:text>+</xsl:text><xsl:value-of select="location/city"/>
                                     </xsl:attribute>
                                     <i class="fa-solid fa-location-dot pe-1"><xsl:comment>map location pin</xsl:comment></i><span><xsl:value-of select="location/city"/></span>
                                     <span class="ps-1">(<xsl:value-of select="location/street"/>)</span></a>
