@@ -105,9 +105,15 @@ permalink: /matches/TEAMIDHERE
                                     <xsl:attribute name="city">
                                         <xsl:value-of select="location/city" />
                                     </xsl:attribute>
-                                    <span><i class="fa-solid fa-location-dot pe-1"><xsl:comment>map location pin</xsl:comment></i><xsl:value-of select="location/city"/></span>
-                                    <span class="ps-1">(<xsl:value-of select="location/street"/>)</span>
+                                    <a href="https://www.google.com/maps/search/?api=1&query=" target="_blank" rel="noopener">
+                                    <xsl:attribute name="href">
+                                        https://www.google.com/maps/search/?api=1&query=<xsl:value-of select="location/name"/>,<xsl:value-of select="location/street"/>,<xsl:value-of select="location/postalCode"/>+<xsl:value-of select="location/city"/>
+                                    </xsl:attribute>
+                                    <i class="fa-solid fa-location-dot pe-1"><xsl:comment>map location pin</xsl:comment></i><span><xsl:value-of select="location/city"/></span>
+                                    <span class="ps-1">(<xsl:value-of select="location/street"/>)</span></a>
                                 </div>
+
+
                             </div>
                             </xsl:if>
                             </xsl:for-each>
