@@ -109,7 +109,7 @@ permalink: /matches/TEAMIDHERE
                                     </xsl:attribute>
                                     <a target="_blank" rel="noopener">
                                     <xsl:attribute name="href">
-                                        <xsl:value-of select="concat('https://www.google.com/maps/search/',location/name,',',location/street,',',location/postalCode,',',location/city)" />
+                                        <xsl:value-of select="concat('https://www.google.com/maps/search/?api=1&amp;query=',location/name,',',location/street,',',location/postalCode,',',location/city)" />
                                     </xsl:attribute>
                                     <i class="fa-solid fa-location-dot pe-1"><xsl:comment>map location pin</xsl:comment></i><span><xsl:value-of select="location/city"/></span>
                                     <span class="ps-1">(<xsl:value-of select="location/street"/>)</span></a>
