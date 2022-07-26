@@ -578,7 +578,7 @@ main {
   background-size: cover;
 }
 
-#call-to-action .cta-title, {
+#call-to-action .cta-title {
   color: var(--text2);
   font-size: 28px;
   font-weight: 700;
