@@ -107,7 +107,7 @@ permalink: /matches/TEAMIDHERE
                                     <xsl:attribute name="city">
                                         <xsl:value-of select="location/city" />
                                     </xsl:attribute>
-                                    <a href="https://www.google.com/maps/search/?api=1&query=" target="_blank" rel="noopener">
+                                    <a target="_blank" rel="noopener">
                                     <xsl:attribute name="href">
                                         https://www.google.com/maps/search/?api=1&query=<xsl:value-of select="location/name"/>,<xsl:value-of select="location/street"/>,<xsl:value-of select="location/postalCode"/>+<xsl:value-of select="location/city"/>
                                     </xsl:attribute>
