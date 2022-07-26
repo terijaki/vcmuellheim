@@ -80,7 +80,7 @@ permalink: /matches/TEAMIDHERE
                             <div class="match col-12 row text-nowrap m-0 py-2">
                                 <div class="date-time col-12 col-lg-2 d-flex flex-lg-column align-items-center flex-wrap small">
                                     <span class="date d-lg-block"><xsl:value-of select="date"/></span>
-                                    <span class="px-1 d-lg-none">-</span><br class="d-none d-lg-inital">
+                                    <span class="px-1 d-lg-none">-</span><div class="d-none d-lg-inital"><br></div>
                                     <span class="time d-lg-block"><xsl:value-of select="time"/> Uhr</span>
                                 </div>
                                 <div class="teams col-12 col-lg-5 d-lg-flex align-items-center fw-bold">
