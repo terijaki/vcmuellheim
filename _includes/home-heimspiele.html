@@ -38,8 +38,8 @@
               {% assign heimspiel_Section = heimspiel_Section | append: patch_SectionID %}
               {% assign gmaps_query = match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
 
-              <div class="box dark col-12">
-                <h4 class="mt-4 mb-0">{{ match.date | date: "%d.%m" }}<span>{{ match.date | date: ".%Y" }}</span> in <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt pe-2"></i>{{ match.location_name }}<span class="d-none d-md-inline">, {{ match.location_street }}</span></a></h4>
+              <div class="box dark col-12 p-4">
+                <h4 class="m-0">{{ match.date | date: "%d.%m" }}<span>{{ match.date | date: ".%Y" }}</span> in <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt pe-2"></i>{{ match.location_name }}<span class="d-none d-md-inline">, {{ match.location_street }}</span></a></h4>
               
           {% endunless %}
 
