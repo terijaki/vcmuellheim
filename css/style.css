@@ -564,9 +564,6 @@ main {
 #heimspiele h4 {
   color: var(--link_hover1);
 }
-#heimspiele .box {
-  background: var(--gradient1);
-}
 #heimspiele .cta-title {
   color: var(--text2);
   font-size: 28px;
@@ -667,6 +664,9 @@ main {
   cursor: default;
 }
 
+.box.dark {
+  background: var(--gradient1);
+}
 @media screen and (max-width: 768px) {
 
  .box {
