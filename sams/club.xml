@@ -154,7 +154,7 @@
     <name>Bezirksliga Herren</name>
     <shortName>bzl n h</shortName>
     <type>League</type>
-        <updated>2022-06-30 06:41:54.584</updated>
+        <updated>2022-07-26 19:44:07.547</updated>
         <structureUpdated>2022-06-30 06:41:54.584</structureUpdated>
         <resultsUpdated>2022-05-10 10:39:34.909</resultsUpdated>
         <season>
@@ -499,8 +499,8 @@
     <name>Landespokal Herren</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2022-06-09 10:50:35.324</updated>
-        <structureUpdated>2022-06-09 10:50:35.324</structureUpdated>
+        <updated>2022-07-26 12:42:19.632</updated>
+        <structureUpdated>2022-07-26 12:42:19.632</structureUpdated>
         <resultsUpdated>2021-09-26 16:48:50.54</resultsUpdated>
         <season>
             <id>22514239</id>
