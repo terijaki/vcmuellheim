@@ -31,18 +31,19 @@
           - section id is different from last section id
           - but not 0
         -->
+          {% unless heimspiel_Section contains patch_SectionID and heimspiel_Section != '0' %}
+            </div>
+          {% endunless %}
           {% unless heimspiel_Section contains patch_SectionID %}
               {% assign heimspiel_Section = heimspiel_Section | append: patch_SectionID %}
               {% assign gmaps_query = match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
 
-              <div class="box col-12">
+              <div class="box dark col-12">
                 <h4 class="mt-4 mb-0">{{ match.date | date: "%d.%m" }}<span>{{ match.date | date: ".%Y" }}</span> in <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt pe-2"></i>{{ match.location_name }}<span class="d-none d-md-inline">, {{ match.location_street }}</span></a></h4>
               
           {% endunless %}
 
-          {% unless heimspiel_Section contains patch_SectionID and heimspiel_Section != '0' %}
-              </div>
-          {% endunless %}
+
             
 
           {% unless heimspiel_LeagueDateLocation contains patch_LeagueDateLocation %}
