@@ -209,14 +209,9 @@ main {
   background-attachment: fixed;
 }
 
-#intro .vcm-banner {
+#intro .vcm-banner img {
   max-height: 200px;
   max-width: 90vw;
-}
-
-#intro .intro-text {
-  text-align: center;
-  height: 100%;
 }
 
 #intro h2 {
@@ -228,35 +223,11 @@ main {
   color: var(--text2);
 }
 
-@media (max-width: 768px) {
-  #intro h2 {
-    font-size: 28px;
-    line-height: 36px;
-  }
-}
-
-@media (max-width: 568px) {
-  #logo h1 {
-    font-size: 22px;
-  }
-}
-
-.intro-text p {
+#intro .welcome {
   color: var(--text2);
-  margin-bottom: 20px;
-  padding: 0 15px;
-  font-size: 24px;
 }
 
-@media (max-height: 768px) {
-  .intro-text p {
-    font-size: 20px;
-    line-height: 24px;
-    margin-bottom: 20px;
-  }
-}
-
-#intro .btn-get-started {
+#intro .btn-quicklinks {
   font-family: var(--font2);
   font-weight: 400;
   font-size: 16px;
@@ -270,7 +241,7 @@ main {
   color: var(--text2);
 }
 
-#intro .btn-get-started:hover {
+#intro .btn-quicklinks:hover {
   color: var(--gradient2);
   background: #fff;
 }
