@@ -2,14 +2,13 @@
 <section id="heimspiele" class="py-5">
   <div class="container">
 
-      
       <div class="col-12 text-center text-lg-start">
         <h3 class="cta-title">Wir laden ein zum Heimspiel!</h3>
         <p class="cta-text mb-1">
           In den kommenden Tagen spielen wir in Müllheim und freuen uns über jeden Zuschauer!
         </p>
       </div>
-
+      <div class="row">
       {% assign heimspiele_sortiert = (site.heimspiele | sort: 'datetime') %}
 
       {% assign heimspiel_Section = '0' %}
@@ -20,31 +19,26 @@
         {% assign patch_SectionID = match.date | append: match.location_name | append: match.location_street %}
         {% assign patch_LeagueDateLocation = match.league | append: match.league | append: match.date | append: match.location_street %}
         {% assign patch_Opponent = match.league | append: match.league | append: match.date | append: match.location_street | append: match.opponent %}
-
-
-        <!--
-          new section if:
-          - section id is different from last section id
-        -->
         <!--
           close section if:
-          - section id is different from last section id
+          - section id is different from whats temporarily stored in heimspiel_Section
           - but not 0
         -->
           {% unless heimspiel_Section contains patch_SectionID or heimspiel_Section == '0' %}
-            </div>
+            </div></div>
           {% endunless %}
+        <!--
+          new section if:
+          - section id is different from whats temporarily stored in heimspiel_Section
+        -->
           {% unless heimspiel_Section contains patch_SectionID %}
               {% assign heimspiel_Section = heimspiel_Section | append: patch_SectionID %}
               {% assign gmaps_query = match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
 
-              <div class="box dark col-12 p-4 my-4">
-                <h4 class="m-0">{{ match.date | date: "%d.%m" }}<span>{{ match.date | date: ".%Y" }}</span> in <a href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt pe-2"></i>{{ match.location_name }}<span class="d-none d-md-inline">, {{ match.location_street }}</span></a></h4>
+              <div class="col-12 col-lg-6"><div class="box dark p-4 my-4">
+                <h4 class="m-0">{{ match.date | date: "%d.%m" }}<span>{{ match.date | date: ".%Y" }}</span><span class="small"> in der </span><a class="small" href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt pe-2"></i>{{ match.location_name }}<span class="d-none d-md-inline">, {{ match.location_street }}</span></a></h4>
               
           {% endunless %}
-
-
-            
 
           {% unless heimspiel_LeagueDateLocation contains patch_LeagueDateLocation %}
             <p class="mt-2 mb-0 pe-2"><strong>{{ match.league }}{% unless match.time == "00:00" %} ab {{ match.time }} Uhr{% endunless %}</strong></p>
@@ -56,12 +50,8 @@
           {% endunless %}
           {% assign heimspiel_Opponent = heimspiel_Opponent | append: patch_Opponent %}
 
-
         {% endfor %}
-
-
-
-
+      </div>
   </div>
 </section>
 
