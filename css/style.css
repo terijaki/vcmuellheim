@@ -581,7 +581,7 @@ main {
   color: var(--text2);
 }
 
-#call-to-action .cta-btn:hover {
+.cta-btn:hover {
   background: var(--link1);
   border: 2px solid #fff;
 }
@@ -608,13 +608,11 @@ main {
   font-weight: 700;
 }
 
-#special .cta-text,
-#corona-und-sport .cta-text {
+#special .cta-text {
   color: var(--text2);
 }
 
-#special a,
-#corona-und-sport a {
+#special a {
   color: var(--link_hover1);
 }
 
