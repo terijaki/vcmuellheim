@@ -36,7 +36,7 @@
               {% assign gmaps_query = match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
 
               <div class="col-12 col-lg-6 my-4"><div class="box dark p-4 m-0 h-100">
-                <h4 class="m-0">{{ match.date | date: "%d.%m" }}<span>{{ match.date | date: ".%Y" }}</span><span class="small"> in der </span><a class="small" href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt pe-2"></i>{{ match.location_name }}<span class="d-none d-xl-inline">, {{ match.location_street }}</span></a></h4>
+                <h4 class="m-0">{{ match.date | date: "%d.%m" }}<span>{{ match.date | date: ".%Y" }}</span><a class="ms-3 small" href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt pe-2"></i>{{ match.location_name }}<span class="d-none d-xl-inline">, {{ match.location_street }}</span></a></h4>
               
           {% endunless %}
 
@@ -46,7 +46,7 @@
           {% assign heimspiel_LeagueDateLocation = heimspiel_LeagueDateLocation | append: patch_LeagueDateLocation %}
 
           {% unless heimspiel_Opponent contains patch_Opponent %}
-            <p class="ms-3 mb-0 opacity-75">Gast: {{ match.opponent }}</p>
+            <p class="ms-5 mb-0 opacity-75">Gast: {{ match.opponent }}</p>
           {% endunless %}
           {% assign heimspiel_Opponent = heimspiel_Opponent | append: patch_Opponent %}
 
