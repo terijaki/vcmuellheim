@@ -14,23 +14,22 @@
       {% assign heimspiel_Section = '0' %}
       {% assign heimspiel_LeagueDateLocation = '0' %}
       {% assign heimspiel_Opponent = '0' %}
-
+        <!--
+          close section if:
+          - section id is different from whats temporarily stored in heimspiel_Section
+          - but not 0
+          new section if:
+          - section id is different from whats temporarily stored in heimspiel_Section
+        -->
       {% for match in heimspiele_sortiert%}
         {% assign patch_SectionID = match.date | append: match.location_name | append: match.location_street %}
         {% assign patch_LeagueDateLocation = match.league | append: match.league | append: match.date | append: match.location_street %}
         {% assign patch_Opponent = match.league | append: match.league | append: match.date | append: match.location_street | append: match.opponent %}
-        {% comment%}<!--
-          close section if:
-          - section id is different from whats temporarily stored in heimspiel_Section
-          - but not 0
-        -->{% endcomment%}
+
           {% unless heimspiel_Section contains patch_SectionID or heimspiel_Section == '0' %}
             </div></div>
           {% endunless %}
-        {% comment%}<!--
-          new section if:
-          - section id is different from whats temporarily stored in heimspiel_Section
-        -->{% endcomment%}
+        
           {% unless heimspiel_Section contains patch_SectionID %}
               {% assign heimspiel_Section = heimspiel_Section | append: patch_SectionID %}
               {% assign gmaps_query = match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
