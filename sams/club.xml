@@ -59,7 +59,7 @@
     <name>Verbandsliga Herren</name>
     <shortName>vl h</shortName>
     <type>League</type>
-        <updated>2022-07-22 08:42:34.068</updated>
+        <updated>2022-07-27 14:29:15.987</updated>
         <structureUpdated>2022-07-01 23:36:36.488</structureUpdated>
         <resultsUpdated>2022-07-07 23:03:34.348</resultsUpdated>
         <season>
@@ -261,7 +261,7 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-07-21 23:58:00.142</updated>
+        <updated>2022-07-27 20:07:08.101</updated>
         <structureUpdated>2022-06-30 13:13:32.202</structureUpdated>
         <resultsUpdated>2022-04-18 14:26:49.705</resultsUpdated>
         <season>
@@ -380,7 +380,7 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-07-21 23:58:00.142</updated>
+        <updated>2022-07-27 20:07:08.101</updated>
         <structureUpdated>2022-06-30 13:13:32.202</structureUpdated>
         <resultsUpdated>2022-04-18 14:26:49.705</resultsUpdated>
         <season>
@@ -473,7 +473,7 @@
     <id>22787670</id>
     <uuid>6b39d012-7126-4412-8635-e6b7428f7945</uuid>
     <seasonTeamId>22787670</seasonTeamId>
-    <placeCipher>0</placeCipher>
+    <placeCipher>2</placeCipher>
     <name>VC Müllheim</name>
     <shortName></shortName>
     <clubCode></clubCode>
@@ -499,8 +499,8 @@
     <name>Landespokal Herren</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2022-07-26 12:42:19.632</updated>
-        <structureUpdated>2022-07-26 12:42:19.632</structureUpdated>
+        <updated>2022-07-27 21:51:17.188</updated>
+        <structureUpdated>2022-07-27 21:51:17.188</structureUpdated>
         <resultsUpdated>2021-09-26 16:48:50.54</resultsUpdated>
         <season>
             <id>22514239</id>
