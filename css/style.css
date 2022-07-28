@@ -583,7 +583,8 @@ main {
 
 .cta-btn:hover {
   background: var(--link1);
-  border: 2px solid #fff;
+  color: var(--text2);
+  border: 2px solid var(--text2);
 }
 
 
