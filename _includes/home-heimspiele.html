@@ -47,7 +47,7 @@
             
 
           {% unless heimspiel_LeagueDateLocation contains patch_LeagueDateLocation %}
-            <p class="mb-1 pe-2"><strong>{{ match.league }}{% unless match.time == "00:00" %} ab {{ match.time }} Uhr{% endunless %}</strong></p>
+            <p class="mt-2 mb-0 pe-2"><strong>{{ match.league }}{% unless match.time == "00:00" %} ab {{ match.time }} Uhr{% endunless %}</strong></p>
           {% endunless %}
           {% assign heimspiel_LeagueDateLocation = heimspiel_LeagueDateLocation | append: patch_LeagueDateLocation %}
 
