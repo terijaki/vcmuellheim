@@ -31,7 +31,7 @@
           - section id is different from last section id
           - but not 0
         -->
-          {% unless heimspiel_Section contains patch_SectionID and heimspiel_Section == '0' %}
+          {% unless heimspiel_Section contains patch_SectionID or heimspiel_Section == '0' %}
             </div>
           {% endunless %}
           {% unless heimspiel_Section contains patch_SectionID %}
