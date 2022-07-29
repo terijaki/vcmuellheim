@@ -22,8 +22,8 @@ jobs:
       - name: Query SAMS for Matches in 30 days
         run: |
           today=$(date +%Y-%m-%d)
-          in14days=$(date -v+30d +%Y-%m-%d)
-          curl -o temp_matches30days.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in14days"
+          in30days=$(date -v+30d +%Y-%m-%d)
+          curl -o temp_matches30days.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in30days"
 
       - name: Upload Artifact (SAMS XML) # not needed, only to keep for troubleshooting
         uses: actions/upload-artifact@v3
