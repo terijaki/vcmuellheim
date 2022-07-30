@@ -11,10 +11,6 @@ jobs:
     continue-on-error: true
     runs-on: ubuntu-latest
     steps:
-      - name: Sleep for 30 minutes
-        uses: kibertoad/wait-action@1.0.1
-        with:
-          time: '30m'
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
