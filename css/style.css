@@ -202,6 +202,9 @@ main {
   position: relative;
   transition: background-image 1s;
 }
+#intro.random {
+  background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), var(--gradient1);
+}
 
 #intro.rnd-1,
 #intro.rnd-2,
