@@ -202,9 +202,6 @@ main {
   position: relative;
   transition: background-image 1s;
 }
-#intro.random {
-  background: url("/img/intro-bg.jpg"), url("/img/intro-bg2.jpg");
-}
 
 #intro.rnd-1,
 #intro.rnd-2,
