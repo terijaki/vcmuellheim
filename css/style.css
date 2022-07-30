@@ -178,7 +178,7 @@ main {
 /*--------------------------------------------------------------
 # Cover-BG (background image with dark gradient)
 --------------------------------------------------------------*/
-.cover-bg {
+.cover-img-bg {
   background-size: cover;
   background-attachment: fixed;
   background-position: center center;
@@ -186,7 +186,7 @@ main {
 
 @media (max-width: 769px) {
 
-  .cover-bg {
+  .cover-img-bg {
     background-attachment: scroll!important;
   }
 }
