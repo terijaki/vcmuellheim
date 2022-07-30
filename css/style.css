@@ -191,7 +191,7 @@ main {
 
 @media (max-width: 769px) {
 
-  #intro {
+  .cover-bg {
     background-attachment: scroll!important;
   }
 }
