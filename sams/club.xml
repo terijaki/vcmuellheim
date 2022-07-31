@@ -59,7 +59,7 @@
     <name>Verbandsliga Herren</name>
     <shortName>vl h</shortName>
     <type>League</type>
-        <updated>2022-07-27 14:29:15.987</updated>
+        <updated>2022-07-30 10:06:32.323</updated>
         <structureUpdated>2022-07-01 23:36:36.488</structureUpdated>
         <resultsUpdated>2022-07-07 23:03:34.348</resultsUpdated>
         <season>
@@ -154,8 +154,8 @@
     <name>Bezirksliga Herren</name>
     <shortName>bzl n h</shortName>
     <type>League</type>
-        <updated>2022-07-26 19:44:07.547</updated>
-        <structureUpdated>2022-06-30 06:41:54.584</structureUpdated>
+        <updated>2022-07-30 09:16:07.513</updated>
+        <structureUpdated>2022-07-30 09:16:07.513</structureUpdated>
         <resultsUpdated>2022-05-10 10:39:34.909</resultsUpdated>
         <season>
             <id>22514239</id>
@@ -261,8 +261,8 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-07-27 20:07:08.101</updated>
-        <structureUpdated>2022-06-30 13:13:32.202</structureUpdated>
+        <updated>2022-07-30 09:23:05.645</updated>
+        <structureUpdated>2022-07-30 09:23:05.645</structureUpdated>
         <resultsUpdated>2022-04-18 14:26:49.705</resultsUpdated>
         <season>
             <id>22514239</id>
@@ -380,8 +380,8 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-07-27 20:07:08.101</updated>
-        <structureUpdated>2022-06-30 13:13:32.202</structureUpdated>
+        <updated>2022-07-30 09:23:05.645</updated>
+        <structureUpdated>2022-07-30 09:23:05.645</structureUpdated>
         <resultsUpdated>2022-04-18 14:26:49.705</resultsUpdated>
         <season>
             <id>22514239</id>
