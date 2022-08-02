@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Regeländerungen ab der Saison 2022/23
 thumbnail: ''
 photoalbum: ''
