@@ -22,7 +22,7 @@ permalink: /fotos/
               {% assign filenameparts = file.path | split: "/" %}
               {% assign filename = filenameparts | last | replace: file.extname,"" %}
 
-              <a href="{{ file.path }}" target="_blank">
+              <a href="{{ file.path }}" target="_blank" class="d-inline m-2">
                 <img src="//images.weserv.nl/?url={{site.url}}/{{ file.path }}&w=300&h=300&we&output=jpg&maxage=31d&q=50&t=square&fit=cover&a=entropy&tint=366273" alt="{{ filename }}" />
               </a>
             {% endif %}
