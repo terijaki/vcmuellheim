@@ -8,7 +8,7 @@ permalink: /fotos/
   <!--===== Foto Gallerie =====-->
   <section id="fotos" class="section-bg flex-grow-1">
     <div class="container">
-      <div class="text-center">
+      <div class="foto-box text-center">
         {% assign galleryfolder = "/upload/" %}
         {% for file in site.static_files %}
           {% if file.path contains galleryfolder %}
@@ -22,8 +22,8 @@ permalink: /fotos/
               {% assign filenameparts = file.path | split: "/" %}
               {% assign filename = filenameparts | last | replace: file.extname,"" %}
 
-              <a href="{{ file.path }}" target="_blank" class="d-inline m-2 rounded-2">
-                <img src="//images.weserv.nl/?url={{site.url}}/{{ file.path }}&w=300&h=300&we&output=jpg&maxage=31d&q=50&t=square&fit=cover&a=entropy&tint=366273" alt="{{ filename }}" />
+              <a href="{{ file.path }}" target="_blank" class="d-inline rounded-2 foto">
+                <img src="//images.weserv.nl/?url={{site.url}}/{{ file.path }}&w=240&h=200&we&output=jpg&maxage=31d&q=50&t=square&fit=cover&a=entropy&tint=366273" class="p-2" alt="{{ filename }}" />
               </a>
             {% endif %}
           {% endif %}
