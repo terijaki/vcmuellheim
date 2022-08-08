@@ -848,14 +848,10 @@ main {
   background-position: center;
   transition: 0.3s;
   background-blend-mode: luminosity;
-  -webkit-filter: blur(1px);
-  filter: blur(1px);
 }
 
 #news .newsposts .box:hover a.thumbnail div {
   background-blend-mode: unset;
-  -webkit-filter: none;
-  filter: none;
   transform: scale(1.2)
 }
 
