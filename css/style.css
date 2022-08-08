@@ -1048,34 +1048,6 @@ main {
   }
 }
 
-#members a.avatar {
-  width: 11rem;
-  height: 11rem;
-  margin: -20px auto;
-  top: -40px;
-  position: relative;
-  overflow: hidden;
-  display: block;
-  border-radius: 50%;
-  box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.4);
-}
-
-#members a.avatar div {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  transition: 0.3s;
-  background-blend-mode: luminosity;
-  -webkit-filter: blur(1px);
-  filter: blur(1px);
-}
-
-#members .box:hover a.avatar div {
-  background-blend-mode: unset;
-  -webkit-filter: none;
-  filter: none;
-  transform: scale(1.2)
-}
 
 #members .box p {
   margin: 0 0 10px 0;
