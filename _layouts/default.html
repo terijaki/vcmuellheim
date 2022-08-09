@@ -6,7 +6,7 @@
   {% assign fonts = "/lib/fonts/" %}
   {% for file in site.static_files %}
           {% if file.path contains fonts %}
-            {% if file.extname == '.ttf' %}
+            {% if file.extname == '.ttf' or file.extname == '.woff' %}
               <link href="{{site.url}}/{{ file.path }}" rel="stylesheet">
             {% endif %}
           {% endif %}
