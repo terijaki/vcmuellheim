@@ -3,7 +3,14 @@
 <head>
   {% include meta.html %}
   <!--  Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+  {% assign fonts = "/lib/fonts/" %}
+  {% for file in site.static_files %}
+          {% if file.path contains fonts %}
+            {% if file.extname == '.ttf' %}
+              <link href="{{site.url}}/{{ file.path }}" rel="stylesheet">
+            {% endif %}
+          {% endif %}
+        {% endfor %}
   <!--  Font Awesome -->
   <link href="/lib/font-awesome/css/fontawesome.min.css" rel="stylesheet">
   <link href="/lib/font-awesome/css/solid.min.css" rel="stylesheet">
