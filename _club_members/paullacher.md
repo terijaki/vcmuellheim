@@ -1,5 +1,4 @@
 ---
-layout: contact
 name: Paul Lacher
 email: paul@vcmuellheim.de
 avatar: /img/members/paullacher.jpg

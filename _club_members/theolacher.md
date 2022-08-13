@@ -1,5 +1,4 @@
 ---
-layout: contact
 name: Theo Lacher
 email: theo@vcmuellheim.de
 avatar: /img/members/theolacher.jpg
