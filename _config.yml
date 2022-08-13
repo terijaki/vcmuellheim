@@ -43,6 +43,8 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+  - .bundle*
+  - vendor*
 
 collections:
   club_members: # Adds Club Members to show on a contacts page
