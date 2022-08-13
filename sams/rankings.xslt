@@ -7,7 +7,7 @@ league_uuid: <xsl:value-of select="rankings/matchSeries/uuid"/>
 league_season: <xsl:value-of select="rankings/matchSeries/season/name"/>
 league_type: <xsl:value-of select="rankings/matchSeries/type"/>
 ---
-    <div class="col-12 col-lg-6 sams-rankings">
+    <div class="col-12 col-lg-6 my-4 sams-rankings">
     <xsl:attribute name="liganame">
         <xsl:value-of select="rankings/matchSeries/name" />
     </xsl:attribute>
