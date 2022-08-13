@@ -62,6 +62,8 @@ collections:
     sort_by: date
   heimspiele:
     sort_by: date
+  rankings:
+    sort_by: date
 
 feed:
   collections:
