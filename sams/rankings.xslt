@@ -1,6 +1,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output omit-xml-declaration="yes" method="html"/>
     <xsl:template match="/">
+        <xsl:text>{% assign league_id = '</xsl:text><xsl:value-of select="rankings/matchSeries/name"/><xsl:text>' %}</xsl:text>
         <div class="col sams-rankings">
         <xsl:attribute name="liganame">
             <xsl:value-of select="rankings/matchSeries/name" />
