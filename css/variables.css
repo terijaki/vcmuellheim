@@ -1,5 +1,6 @@
 :root {
-  --text1:        #666666; /* rgba(102,102,102) | Dim Gray  */
+  --black:        #0E0E10; /* rgb(14, 14, 16) | Jet Black  */
+  --text1:        #666666; /* rgb(102,102,102) | Dim Gray  */
   --text2:        #FFFFFF; /* rgb(255,255,255) | White */
   --background1:  #FFFFFF; /* rgb(255,255,255) | White */
   --background2:  #EFF5F5; /* rgb(239,245,245) | Aqua Haze */
