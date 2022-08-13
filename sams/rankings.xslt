@@ -9,6 +9,9 @@
         <xsl:attribute name="ligaid">
             <xsl:value-of select="rankings/matchSeries/id" />
         </xsl:attribute>
+        <xsl:attribute name="ligauuid">
+            <xsl:value-of select="rankings/matchSeries/uuid" />
+        </xsl:attribute>
             <div class="box">
                 <h3 class="fw-bold"><xsl:value-of select="rankings/matchSeries/name"/></h3>
                 <div class="footnote">
