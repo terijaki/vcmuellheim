@@ -63,7 +63,7 @@ collections:
   heimspiele:
     sort_by: date
   rankings:
-    sort_by: date
+    sort_by: league_id
 
 feed:
   collections:
