@@ -29,7 +29,7 @@ permalink: /fotos/
               {% assign filename = filenameparts | last | replace: file.extname,"" %}
 
               <a href="{{ file.path }}" target="_blank" class="d-inline foto">
-                <img src="//images.weserv.nl/?url={{site.url}}/{{ file.path }}&w=260&h=200&output=jpg&maxage=31d&q=50&t=square&fit=cover&a=entropy&tint=366273" class="rounded-3 m-2" style="width:260px;height:200px" alt="{{ filename }}" />
+                <img src="//images.weserv.nl/?url={{site.url}}/{{ file.path }}&w=260&h=200&output=jpg&maxage=31d&q=50&t=square&fit=cover&a=entropy&tint=366273" class="rounded-3 m-2" style="width:260px;height:200px;background:linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9))" alt="{{ filename }}" />
               </a>
             {% endif %}
           {% endif %}
