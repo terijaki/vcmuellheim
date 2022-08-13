@@ -409,7 +409,14 @@ main {
   background-size: cover;
   background-position: center;
 }
-
+/* Loading Spinners
+--------------------------------*/
+.loadingspinner, #blogpost img,
+#blogpost video {
+  background-image: url(/img/loadingspinner.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+}
 /* Blog Post
 --------------------------------*/
 #blogpost img,
@@ -417,9 +424,6 @@ main {
   width: 100%;
   height: auto;
   padding: 6px;
-  background-image: url(/img/loadingspinner.png);
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 #blogpost img.post-thumbnail {
