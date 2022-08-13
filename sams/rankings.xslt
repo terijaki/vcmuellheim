@@ -2,10 +2,10 @@
 <xsl:output omit-xml-declaration="yes" method="html"/>
 <xsl:template match="/">
 ---
-league_name: <xsl:value-of select="matches/match[1]/matchSeries/name"/>
-league_id: <xsl:value-of select="matches/match[1]/matchSeries/id"/>
-league_uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
-league_season: <xsl:value-of select="matches/match[1]/matchSeries/season/name"/>
+league_name: <xsl:value-of select="rankings/name"/>
+league_id: <xsl:value-of select="rankings/id"/>
+league_uuid: <xsl:value-of select="rankings/uuid"/>
+league_season: <xsl:value-of select="rankings/season/name"/>
 ---
     <div class="col sams-rankings">
     <xsl:attribute name="liganame">
