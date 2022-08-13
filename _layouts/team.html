@@ -88,7 +88,7 @@ layout: default
 
 
 
-        {% assign teaminfo = (site.teaminfo | sort: 'titel' | sort: 'name' | where: 'mannschaft', page.path) %}
+        {% assign teaminfo = site.teaminfo | sort: 'titel' | sort: 'name' | where: 'mannschaft', page.path %}
         
         <!-- Error of no entries for this team exist -->
         {% unless teaminfo.size > 0 %}

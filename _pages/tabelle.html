@@ -9,7 +9,7 @@ permalink: /tabelle/
   <section id="ergebnisse-tabelle" class="section-bg flex-grow-1">
     <div class="container">
       <div class="row teams">
-        {% assign sorted-teams = (site.teams | sort: 'liga') %}
+        {% assign sorted-teams = site.teams | sort: 'liga' %}
         {% for team in sorted-teams %}
           {% if team.sbvv_id > 0 %}
             {% include sams/rankings/{{ team.sbvv_id }}.html %}
