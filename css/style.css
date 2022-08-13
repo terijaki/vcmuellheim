@@ -413,7 +413,7 @@ main {
 --------------------------------*/
 .loadingspinner, #blogpost img,
 #blogpost video {
-  background-image: url(/img/loadingspinner.gif);
+  background-image: url(/img/loadingspinner1.png);
   background-repeat: no-repeat;
   background-position: center;
 }

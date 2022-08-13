@@ -36,7 +36,7 @@ kramdown:
 
 # Exclude these files from your production _site
 exclude:
-  - .github/workflows*
+  - .github*
   - .gitignore
   - Gemfile
   - Gemfile.lock
