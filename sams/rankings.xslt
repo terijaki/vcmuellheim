@@ -1,7 +1,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output omit-xml-declaration="yes" method="html"/>
-<xsl:template match="/">
----
+<xsl:template match="/">---
 league_name: <xsl:value-of select="rankings/matchSeries/name"/>
 league_id: <xsl:value-of select="rankings/matchSeries/id"/>
 league_uuid: <xsl:value-of select="rankings/matchSeries/uuid"/>
