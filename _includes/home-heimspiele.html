@@ -9,7 +9,7 @@
         </p>
       </div>
       <div class="row">
-      {% assign heimspiele_sortiert = (site.heimspiele | sort: 'datetime') %}
+      {% assign heimspiele_sortiert = site.heimspiele | sort: 'datetime' %}
 
       {% assign heimspiel_Section = '0' %}
       {% assign heimspiel_LeagueDateLocation = '0' %}
