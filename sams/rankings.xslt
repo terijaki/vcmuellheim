@@ -5,6 +5,7 @@ league_name: <xsl:value-of select="rankings/matchSeries/name"/>
 league_id: <xsl:value-of select="rankings/matchSeries/id"/>
 league_uuid: <xsl:value-of select="rankings/matchSeries/uuid"/>
 league_season: <xsl:value-of select="rankings/matchSeries/season/name"/>
+league_type: <xsl:value-of select="rankings/matchSeries/type"/>
 ---
     <div class="col sams-rankings">
     <xsl:attribute name="liganame">
@@ -42,6 +43,12 @@ league_season: <xsl:value-of select="rankings/matchSeries/season/name"/>
                         <tr>
                             <xsl:attribute name="team">
                                 <xsl:value-of select="team/name" />
+                            </xsl:attribute>
+                            <xsl:attribute name="teamid">
+                                <xsl:value-of select="team/id" />
+                            </xsl:attribute>
+                            <xsl:attribute name="teamuuid">
+                                <xsl:value-of select="team/uuid" />
                             </xsl:attribute>
                             <td>
                                 <xsl:value-of select="place"/>
