@@ -677,8 +677,7 @@ main {
 --------------------------------*/
 
 #page-simple,
-#matches,
-#ergebnisse-tabelle {
+#matches {
   padding: 30px 0;
 }
 
@@ -742,7 +741,6 @@ main {
     /* Blendet Sätze aus der Tabellenübersicht aus */
   }
 
-  #ergebnisse-tabelle .box,
   #matches .box {
     padding: 20px;
     margin-bottom: 30px;
@@ -813,17 +811,6 @@ main {
   background: var(--gradient1);
   font-weight: normal !important;
 }
-
-#ergebnisse-tabelle .teams>div {
-  display: flex;
-  flex-basis: 50%;
-}
-
-#ergebnisse-tabelle .teams .box {
-  width: 100%;
-}
-
-
 
 #news .box {
   cursor: pointer;
