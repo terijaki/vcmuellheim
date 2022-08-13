@@ -2,6 +2,12 @@
 <xsl:output omit-xml-declaration="yes" method="html"/>
     <xsl:template match="/">
         <div class="col sams-rankings">
+        <xsl:attribute name="liganame">
+            <xsl:value-of select="rankings/matchSeries/name" />
+        </xsl:attribute>
+        <xsl:attribute name="ligaid">
+            <xsl:value-of select="rankings/matchSeries/id" />
+        </xsl:attribute>
             <div class="box">
                 <h3 class="fw-bold"><xsl:value-of select="rankings/matchSeries/name"/></h3>
                 <div class="footnote">
@@ -46,9 +52,11 @@
                                 </td>
                             </tr>
                 </xsl:for-each>
+                        <xsl:if test="not(ranking[0]/matchesPlayed > 0)">
                             <tr class="norankings">
                                 <td colspan="4">Für diese Saison stehen derzeit keine Ergebnisse bereit.</td>
                             </tr>
+                        </xsl:if>
                         </tbody>
                     </table>
                 </div>
