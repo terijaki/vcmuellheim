@@ -17,7 +17,7 @@ league_type: <xsl:value-of select="rankings/matchSeries/type"/>
     <xsl:attribute name="ligauuid">
         <xsl:value-of select="rankings/matchSeries/uuid" />
     </xsl:attribute>
-        <div class="box m-0 p-3 p-md-5">
+        <div class="box m-0 p-3 p-sm-4 p-md-5 p-lg-4 p-xl-5">
             <h3 class="fw-bold"><xsl:value-of select="rankings/matchSeries/name"/></h3>
             <div class="footnote">
                 <div class="season">
