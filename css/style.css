@@ -811,6 +811,10 @@ main {
   background: var(--gradient1);
   font-weight: normal !important;
 }
+#ergebnisse-tabelle .box tbody tr:hover {
+  background-color: var(--gradient2);
+  color: var(--text2);
+  }
 
 #news .box {
   cursor: pointer;
