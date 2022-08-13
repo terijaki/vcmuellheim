@@ -67,7 +67,7 @@ league_type: <xsl:value-of select="rankings/matchSeries/type"/>
                             </td>
                         </tr>
             </xsl:for-each>
-                    <xsl:if test="not(ranking[0]/matchesPlayed > 0)">
+                    <xsl:if test="not(rankings/ranking[0]/matchesPlayed > 0)">
                         <tr class="norankings">
                             <td colspan="4">Für diese Saison stehen derzeit keine Ergebnisse bereit.</td>
                         </tr>
