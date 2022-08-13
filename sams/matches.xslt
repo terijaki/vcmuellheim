@@ -5,7 +5,6 @@ layout: page
 title: <xsl:value-of select="matches/match[1]/matchSeries/name"/> (Saison <xsl:value-of select="matches/match[1]/matchSeries/season/name"/>)
 id: <xsl:value-of select="matches/match[1]/matchSeries/id"/>
 uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
-permalink: /matches/TEAMIDHERE
 ---
 <main class="flex-grow-1 d-flex flex-column">
     <section id="matches" class="section-bg flex-grow-1">

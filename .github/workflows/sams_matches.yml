@@ -64,9 +64,6 @@ jobs:
       - name: Add timestamp to SAMS XML # includes a timestamp in German format
         run: sed -i -e 's!</matches>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></matches>!g' sams_xml_temp/${{matrix.teams}}.xml
 
-      - name: Update permalink in XSLT template # so we can reach the matches page after the Jekyll build
-        run: sed -i -e 's!TEAMIDHERE!${{matrix.teams}}!g' matches.xslt
-
       - name: XSLT processing (matches) # Push the XML through the XSLT
         id: matchesxslt
         run: |
