@@ -21,11 +21,10 @@ fields:
   config:
     required: false
   label: Titel
-- name: foto
-  type: file
-  config:
-    maxSize: 64
-  label: Foto
+- name: fotos
+  type: image_gallery
+  config: {}
+  label: Fotos
 - name: freitext
   type: textarea
   default: ''
