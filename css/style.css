@@ -1216,3 +1216,9 @@ main {
     transform: translateX(-50%);
   }
 }
+
+/* Forestry CMS
+--------------------------------*/
+div[data-tooltip='Previews Server is Stopped'] {
+  display: none;
+}
