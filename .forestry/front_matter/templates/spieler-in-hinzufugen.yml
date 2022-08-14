@@ -20,12 +20,13 @@ fields:
   config:
     required: true
   label: Name
-  description: Name des Spielers<br>Bei minderjährigen bitte nur den Vornamen angeben.
+  description: Bei minderjährigen bitte nur den Vornamen angeben!
 - name: foto
   type: file
   config:
     maxSize: 64
   label: Foto
+  path: spieler/:year::month::day::filename:
 - name: freitext
   type: textarea
   default: ''
