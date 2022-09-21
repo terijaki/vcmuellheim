@@ -59,9 +59,9 @@
     <name>Verbandsliga Herren</name>
     <shortName>vl h</shortName>
     <type>League</type>
-        <updated>2022-09-13 22:02:58.05</updated>
+        <updated>2022-09-20 19:27:19.731</updated>
         <structureUpdated>2022-08-30 22:18:18.964</structureUpdated>
-        <resultsUpdated>2022-07-07 23:03:34.348</resultsUpdated>
+        <resultsUpdated>2022-09-20 19:27:19.731</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -154,9 +154,9 @@
     <name>Bezirksliga Herren</name>
     <shortName>bzl n h</shortName>
     <type>League</type>
-        <updated>2022-09-10 23:36:27.969</updated>
+        <updated>2022-09-19 14:58:14.179</updated>
         <structureUpdated>2022-08-15 10:15:31.793</structureUpdated>
-        <resultsUpdated>2022-05-10 10:39:34.909</resultsUpdated>
+        <resultsUpdated>2022-09-15 10:15:36.637</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -261,7 +261,7 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-09-13 23:44:34.822</updated>
+        <updated>2022-09-19 08:26:50.656</updated>
         <structureUpdated>2022-09-07 23:42:28.898</structureUpdated>
         <resultsUpdated>2022-04-18 14:26:49.705</resultsUpdated>
         <season>
@@ -380,7 +380,7 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-09-13 23:44:34.822</updated>
+        <updated>2022-09-19 08:26:50.656</updated>
         <structureUpdated>2022-09-07 23:42:28.898</structureUpdated>
         <resultsUpdated>2022-04-18 14:26:49.705</resultsUpdated>
         <season>
@@ -499,8 +499,8 @@
     <name>Landespokal Herren</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2022-09-13 09:03:25.363</updated>
-        <structureUpdated>2022-09-12 21:59:06.018</structureUpdated>
+        <updated>2022-09-19 19:55:25.876</updated>
+        <structureUpdated>2022-09-16 11:24:00.307</structureUpdated>
         <resultsUpdated>2021-09-26 16:48:50.54</resultsUpdated>
         <season>
             <id>22514239</id>
