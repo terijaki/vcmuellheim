@@ -89,7 +89,7 @@ jobs:
     strategy:
       matrix:
         messages:
-          - ${{needs.New-Posts-for-Social.outputs.messages}}
+          - ${{fromJSON(needs.New-Posts-for-Social.outputs.messages)}}
     runs-on: ubuntu-latest
     steps:
       - name: Sleep for 10 minutes
@@ -113,7 +113,7 @@ jobs:
 #    strategy:
 #      matrix:
 #        messages:
-#          - ${{needs.New-Posts-for-Social.outputs.messages}}
+#          - ${{fromJSON((needs.New-Posts-for-Social.outputs.messages)}}
 #    runs-on: ubuntu-latest
 #    steps:
 #      - name: Facebook Page Post #creates a scheduled Facebook page post 10 minutes in the future
