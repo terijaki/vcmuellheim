@@ -89,7 +89,7 @@ jobs:
     strategy:
       matrix:
         messages:
-          - ${{fromJSON(needs.New-Posts-for-Social.outputs.messages)}}
+          - ${{needs.New-Posts-for-Social.outputs.messages}}
     runs-on: ubuntu-latest
     steps:
       - name: Sleep for 10 minutes
