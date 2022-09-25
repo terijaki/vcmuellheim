@@ -1,7 +1,7 @@
 ---
 layout: post
 posted-on-social: true
-title: Test Github Automation TWO
+title: Test TWO
 excerpt_separator: "<!-- more -->"
 ---
 
