@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Trikottag in BW am 28. September
 thumbnail: ''
 photoalbum: ''

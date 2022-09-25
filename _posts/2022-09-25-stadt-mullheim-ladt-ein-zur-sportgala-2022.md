@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Stadt Müllheim lädt ein zur Sportgala 2022
 thumbnail: ''
 photoalbum: ''
