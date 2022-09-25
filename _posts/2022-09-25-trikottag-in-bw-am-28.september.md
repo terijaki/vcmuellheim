@@ -7,11 +7,9 @@ thumbnail: ''
 photoalbum: ''
 
 ---
-Auch dieses Jahr rufen Landessportverband BW, Badischer Sportbund Freiburg, Badischer Sportbund Nord und Württembergischer Landessportbund wieder dazu auf am 28 September (das ist schon kommenden Mittwoch!) am Trikottag teilzunehmen!.
+Auch dieses Jahr rufen Landessportverband BW, Badischer Sportbund Freiburg, Badischer Sportbund Nord und Württembergischer Landessportbund wieder dazu auf am 28 September (das ist schon kommenden Mittwoch!) am Trikottag teilzunehmen! Denn jedes Trikot, jeder Trainingsanzug, jedes Shirt mit Vereinsname ist die beste Werbung für unseren Verein und den Sport in Baden-Württemberg!
 
-Denn jedes Trikot, jeder Trainingsanzug, jedes Shirt mit Vereinsname ist die beste Werbung für unseren Verein und den Sport in Baden-Württemberg!
-
-Macht mit und geht im Vereinslook (T-Shirts, Trikot, Trainingsanzug, etc.) zur Arbeit, zur Schule, zum Einkaufen, oder wo ihr euch sonst noch am Mittwoch herum treibt. 🤗
+Macht daher mit und geht im Vereinslook (T-Shirts, Trikot, Trainingsanzug, etc.) zur Arbeit, zur Schule, zum Einkaufen, oder wo ihr euch sonst noch am Mittwoch herum treibt. 🤗
 
 Zusätzlich zur tollen Werbeaktion für den Sport und unseren Verein, gibt es auch noch tolle Gewinne, wenn ihr bis spätestens 5. Oktober 2022 an der Fotoaktion teilnehmt.
 
