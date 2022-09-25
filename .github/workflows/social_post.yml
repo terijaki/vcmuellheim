@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - _posts/**
+      - '_posts/**'
 
 jobs:
   New-Posts-for-Social:
