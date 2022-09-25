@@ -73,7 +73,7 @@ jobs:
               messages+=("$(awk '/title: (.*)/{print}' $postfile | tr -d \' | tr -d \" | sed -e 's!title: !!') https://vcmuellheim.de/$(echo $postfile | cut -c12- | sed 's!.md!!')")
             done
           echo "The following messages will be shared: ${messages[*]}"
-          echo "::set-output name=messages::${messages}"
+          echo "::set-output name=messages::${messages[*]}"
 
       - name: debug
         run:
