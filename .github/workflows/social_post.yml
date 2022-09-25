@@ -42,7 +42,7 @@ jobs:
               fi
             done
           echo "The following posts have not been posted: ${posts[*]}"
-          echo "::set-output name=posts::${fromJSON(posts[*])}"
+          echo "::set-output name=posts::${fromJSON(posts)}"
 
       - name: Mark posts with string #change frontmatter to indicate that they have been posted on Twitter
         id: markfiles
