@@ -75,10 +75,6 @@ jobs:
           echo "The following messages will be shared: ${messages[*]}"
           echo "::set-output name=messages::$(jq --compact-output --null-input '$ARGS.positional' --args -- "${messages[@]}")"
 
-      - name: debug
-        run:
-          echo "${{steps.messagesforsocial.outputs.messages}}"
-
       - name: Git Push
         if: steps.messagesforsocial.outcome == 'success'
         run: |
