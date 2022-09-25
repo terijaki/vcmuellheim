@@ -50,9 +50,10 @@ jobs:
         run: |
           cd _posts
           declare posts=()
-          echo ${{fromJSON(steps.scanposts.outputs.posts)}}
-          for postfile in ${{fromJSON(steps.scanposts.outputs.posts)}}
+          echo ${{steps.scanposts.outputs.posts}}
+          for postfile in ${{steps.scanposts.outputs.posts}}
            do
+            echo 'marking $postfile'
             sed -i -e 's!title:!posted-on-social: true\ntitle:!g' $postfile
             git add $postfile
           done
@@ -67,9 +68,10 @@ jobs:
         run: |
           cd _posts
           declare messages=()
-          echo 'Preparing the following posts for Social: ${{fromJSON(steps.scanposts.outputs.posts)}}'
-          for postfile in ${{fromJSON(steps.scanposts.outputs.posts)}}
+          echo 'Preparing the following posts for Social: ${{steps.scanposts.outputs.posts}}'
+          for postfile in ${{steps.scanposts.outputs.posts}}
             do
+              echo 'processing $postfile'
               messages+=("$(awk '/title: (.*)/{print}' $postfile | tr -d \' | tr -d \" | sed -e 's!title: !!') https://vcmuellheim.de/$(echo $postfile | cut -c12- | sed 's!.md!!')")
             done
           echo "The following messages will be shared: ${messages[*]}"
