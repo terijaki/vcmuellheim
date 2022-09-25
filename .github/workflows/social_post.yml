@@ -8,10 +8,6 @@ on:
     paths:
       - _posts/**
 
-env:
-  TOGGLETWITTER: true
-  TOGGLEFACEBOOK: false
-
 jobs:
   New-Posts-for-Social:
     runs-on: ubuntu-latest
@@ -88,7 +84,7 @@ jobs:
 
   Post-to-Twitter:
     needs: New-Posts-for-Social
-    if: needs.New-Posts-for-Social.outputs.messages != '' && $TOGGLETWITTER == true
+    if: needs.New-Posts-for-Social.outputs.messages != ''
     continue-on-error: true # if one match fails, the flow should continue
     strategy:
       matrix:
@@ -110,18 +106,18 @@ jobs:
           accessToken: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           accessTokenSecret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
 
-  Post-to-Facebook:
-    needs: New-Posts-for-Social
-    if: needs.New-Posts-for-Social.outputs.messages != '' && $TOGGLEFACEBOOK == true
-    continue-on-error: true # if one match fails, the flow should continue
-    strategy:
-      matrix:
-        messages:
-          - ${{needs.New-Posts-for-Social.outputs.messages}}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Facebook Page Post #creates a scheduled Facebook page post 10 minutes in the future
-        run: |
-          post_title=$(echo ${{matrix.messages}} | sed -e 's!https.*!!g')
-          post_link=$(echo ${{matrix.messages}} | sed -e 's!.*https://!https://!')
-          curl -i -X POST "https://graph.facebook.com/365533836864448/feed?message=$post_title&link=$post_link&published=false&scheduled_publish_time=$(echo "`date +%s` + 600" | bc)&access_token=${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}"
+#  Post-to-Facebook:
+#    needs: New-Posts-for-Social
+#    if: needs.New-Posts-for-Social.outputs.messages != ''
+#    continue-on-error: true # if one match fails, the flow should continue
+#    strategy:
+#      matrix:
+#        messages:
+#          - ${{needs.New-Posts-for-Social.outputs.messages}}
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Facebook Page Post #creates a scheduled Facebook page post 10 minutes in the future
+#        run: |
+#          post_title=$(echo ${{matrix.messages}} | sed -e 's!https.*!!g')
+#          post_link=$(echo ${{matrix.messages}} | sed -e 's!.*https://!https://!')
+#          curl -i -X POST "https://graph.facebook.com/365533836864448/feed?message=$post_title&link=$post_link&published=false&scheduled_publish_time=$(echo "`date +%s` + 600" | bc)&access_token=${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}"
