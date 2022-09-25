@@ -1,7 +1,6 @@
 ---
 layout: post
-posted-on-social: true
-title: Test ONE
+title: Test TWO
 excerpt_separator: "<!-- more -->"
 ---
 
