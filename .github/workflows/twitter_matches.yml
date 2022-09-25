@@ -68,7 +68,7 @@ jobs:
             do
               messages+=("$(tail -n 1 $matchfile)")
             done
-          echo "::set-output name=messages::${messages[*]}"
+          echo "::set-output name=messages::$(jq --compact-output --null-input '$ARGS.positional' --args -- "${messages[@]}")"
 
       - name: Git Push
         if: steps.messagesfortwitter.outcome == 'success'
@@ -83,7 +83,7 @@ jobs:
     strategy:
       matrix:
         messages:
-          - ${{needs.New-Matches-for-Twitter.outputs.messages}}
+          - ${{fromJSON(needs.New-Matches-for-Twitter.outputs.messages)}}
     runs-on: ubuntu-latest
     steps:
       - name: Twitter Post
