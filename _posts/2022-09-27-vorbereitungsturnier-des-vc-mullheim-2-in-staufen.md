@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Vorbereitungsturnier des VC Müllheim 2 in Staufen
 thumbnail: "/upload/2022/09/27/photo-2022-09-25-21-04-29.jpg"
 photoalbum: ''
