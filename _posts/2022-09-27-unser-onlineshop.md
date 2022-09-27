@@ -13,3 +13,7 @@ Mit Fan12 aus Oldenburg haben wir einen Partner für unseren Shop gefunden. Fan1
 [![](https://vcmuellheim.de/img/shop/teaser-marketing-v3.jpg)](https://vcmuellheim.fan12.de)
 
 Im Shop warten ab sofort zahlreiche Produkte auf euch. Wählt aus vielen unterschiedlichen Kategorien wie T-Shirts, Pullover, Trikots, Taschen Mützen, und vielen mehr aus!
+
+Zum Start haben wir für die nächsten 14 Tage einen Eröffnungsrabatt von 15% auf den Gesamtbetrag erhalten. Den Gutscheincode erhaltet ihr von euren Trainern.
+
+Bei Fragen und Feedback zum Shop, meldet euch gerne direkt bei mir ([Björn]()). ✌️
