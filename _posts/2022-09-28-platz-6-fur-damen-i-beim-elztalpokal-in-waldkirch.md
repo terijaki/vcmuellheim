@@ -2,7 +2,7 @@
 layout: post
 excerpt_separator: "<!--more-->"
 title: Platz 6 für Damen I beim Elztalpokal in Waldkirch
-thumbnail: ''
+thumbnail: "/upload/2022/09/25/Elztalpokal11b.jpeg"
 photoalbum: ''
 
 ---
@@ -25,3 +25,5 @@ Von neun Teams haben wir somit den sechsten Platz ergattert.
 Das Turnier hat allen sehr viel Spaß gemacht, wir konnten neue Strategien ausprobieren und kamen zu guten und langen Spielzügen.
 
 _Bericht von Carla Feifel & Dominik Ernst_
+
+![](/upload/2022/09/25/Elztalpokal9.jpeg)![](/upload/2022/09/25/Elztalpokal7.jpeg)![](/upload/2022/09/25/Elztalpokal13.jpeg)![](/upload/2022/09/25/Elztalpokal5.jpeg)![](/upload/2022/09/25/Elztalpokal6.jpeg)![](/upload/2022/09/25/Elztalpokal2.jpeg)![](/upload/2022/09/25/Elztalpokal3.jpeg)
