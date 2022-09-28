@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Platz 6 für Damen I beim Elztalpokal in Waldkirch
 thumbnail: "/upload/2022/09/25/Elztalpokal11b.jpeg"
 photoalbum: ''
