@@ -21,7 +21,7 @@ fields:
     required: true
   label: Name
   description: Bei minderjährigen bitte nur den Vornamen angeben!
-- name: foto
+- name: spieler_foto
   type: file
   config:
     maxSize: 64

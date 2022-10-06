@@ -21,7 +21,7 @@ fields:
   config:
     required: false
   label: Titel
-- name: fotos
+- name: gruppen_fotos
   type: image_gallery
   config: {}
   label: Fotos
