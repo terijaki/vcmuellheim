@@ -107,7 +107,7 @@ layout: default
           <div class="box p-3 mb-0">
             {% if entry.foto.size > 0 %}
             <div class="picture-container">
-              <div style="background:url({{ entry.foto }}); background-size: cover;" class="ratio ratio-16x9"></div>
+              <div style="background:url({{ entry.gruppen_foto }}); background-size: cover;" class="ratio ratio-16x9"></div>
             </div>
             {% endif %}
             <div class="text">
@@ -124,9 +124,9 @@ layout: default
         <!-- Player Entries -->
         <div class="spieler-in col-12 col-md-6 col-xl-4 mb-3">
           <div class="box d-flex p-3 h-100 mb-0">
-            {% if entry.foto.size > 0 %}
+            {% if entry.spieler_foto.size > 0 %}
             <div class="picture-container col-3 me-2 d-flex align-items-center">
-              <div style="background:url({{ entry.foto }}); background-size: cover;" class="ratio ratio-1x1 rounded-circle"></div>
+              <div style="background:url({{ entry.spieler_foto }}); background-size: cover;" class="ratio ratio-1x1 rounded-circle"></div>
             </div>
             {% endif %}
             <div class="text col">
