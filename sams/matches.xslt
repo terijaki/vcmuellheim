@@ -20,7 +20,7 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                     <h3 class="fw-bold">Ergebnisse</h3>
                     <div class="past">
 
-                        <div class="match-list">
+                        <div class="ergebnis-liste">
 
                             <xsl:for-each select="matches/match">
                             <xsl:if test="results/winner > 0">
@@ -51,7 +51,7 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                                 </div>
 
                                 <div class="points col-12 col-lg-5 d-flex align-items-center">
-                                    <xsl:value-of select="results/setPoints"/><small> (<xsl:for-each select="results/sets/set"><xsl:if test="number > 1">, </xsl:if><xsl:value-of select="points"/></xsl:for-each>)</small>
+                                    <xsl:value-of select="results/setPoints"/> <small class="ps-2"> (<xsl:for-each select="results/sets/set"><xsl:if test="number > 1">, </xsl:if><xsl:value-of select="points"/></xsl:for-each>)</small>
                                 </div>
 
                             </div>
