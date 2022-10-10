@@ -20,44 +20,48 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                     <h3 class="fw-bold">Ergebnisse</h3>
                     <div class="past">
 
-                        <xsl:for-each select="matches/match">
-                        <xsl:if test="results/winner > 0">
+                        <div class="match-list">
 
-                        <div class="match col-12 row text-nowrap m-0 py-2">
+                            <xsl:for-each select="matches/match">
+                            <xsl:if test="results/winner > 0">
 
-                            <div class="date-time col-12 col-lg-2 d-flex flex-lg-column align-items-center flex-wrap small">
-                                <span class="date d-lg-block"><xsl:value-of select="date"/></span>
+                            <div class="match col-12 row text-nowrap m-0 py-2">
+
+                                <div class="date-time col-12 col-lg-2 d-flex flex-lg-column align-items-center flex-wrap small">
+                                    <span class="date d-lg-block"><xsl:value-of select="date"/></span>
+                                </div>
+
+                                <div class="teams col-12 col-lg-5 d-lg-flex align-items-center fw-bold">
+                                    <xsl:attribute name="winner">
+                                            <xsl:value-of select="results/winner" />
+                                    </xsl:attribute>
+                                    <span class="team-a">
+                                    <xsl:attribute name="teamid">
+                                        <xsl:value-of select="team[1]/id" />
+                                    </xsl:attribute>
+                                    <xsl:value-of select="team[1]/name"/>
+                                    </span>
+                                    <span class="versus px-2">:</span>
+                                    <span class="team-a">
+                                    <xsl:attribute name="teamid">
+                                        <xsl:value-of select="team[2]/id" />
+                                    </xsl:attribute>
+                                    <xsl:value-of select="team[2]/name"/>
+                                    </span>
+                                </div>
+
+                                <div class="points col-12 col-lg-5 d-flex align-items-center">
+                                    <xsl:value-of select="results/setPoints"/><small> (<xsl:for-each select="results/sets/set"><xsl:if test="number > 1">, </xsl:if><xsl:value-of select="points"/></xsl:for-each>)</small>
+                                </div>
+
                             </div>
 
-                            <div class="teams col-12 col-lg-5 d-lg-flex align-items-center fw-bold">
-                                <xsl:attribute name="winner">
-                                        <xsl:value-of select="results/winner" />
-                                </xsl:attribute>
-                                <span class="team-a">
-                                <xsl:attribute name="teamid">
-                                    <xsl:value-of select="team[1]/id" />
-                                </xsl:attribute>
-                                <xsl:value-of select="team[1]/name"/>
-                                </span>
-                                <span class="versus px-2">:</span>
-                                <span class="team-a">
-                                <xsl:attribute name="teamid">
-                                    <xsl:value-of select="team[2]/id" />
-                                </xsl:attribute>
-                                <xsl:value-of select="team[2]/name"/>
-                                </span>
-                            </div>
+                            </xsl:if>
+                            </xsl:for-each>
 
-                            <div class="points col-12 col-lg-5 d-flex align-items-center">
-                                <xsl:value-of select="results/setPoints"/><small> (<xsl:for-each select="results/sets/set"><xsl:if test="number > 1">, </xsl:if><xsl:value-of select="points"/></xsl:for-each>)</small>
-                            </div>
+                            <div class="col-12 p-3 nomatches past">Es liegen keine Ergebnisse für diese Saison vor.</div>   
 
                         </div>
-
-                        </xsl:if>
-                        </xsl:for-each>
-
-                        <div class="col-12 p-3 nomatches past">Es liegen keine Ergebnisse für diese Saison vor.</div>
 
                         <div class="footnote timestamp">
                             Stand <xsl:value-of select="matches/timestamp"/>
