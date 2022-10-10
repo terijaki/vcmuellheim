@@ -51,7 +51,7 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                                 </div>
 
                                 <div class="points col-12 col-lg-5 d-flex align-items-center">
-                                    <xsl:value-of select="results/setPoints"/> <small class="ps-2"> (<xsl:for-each select="results/sets/set"><xsl:if test="number > 1">, </xsl:if><xsl:value-of select="points"/></xsl:for-each>)</small>
+                                    <i class="fa-solid fa-square-poll-vertical pe-1"><xsl:comment>score icon</xsl:comment></i><span><xsl:value-of select="results/setPoints"/> <small class="ps-2"> (<xsl:for-each select="results/sets/set"><xsl:if test="number > 1">, </xsl:if><xsl:value-of select="points"/></xsl:for-each>)</small></span>
                                 </div>
 
                             </div>
