@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Erfolgreicher Start in die neue Saison
 thumbnail: "/upload/2022/10/10/img-20221009-wa0064.jpg"
 photoalbum: ''
