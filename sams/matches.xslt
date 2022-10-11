@@ -16,6 +16,7 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                     <xsl:variable name="result-volume">true</xsl:variable>
                 </xsl:if>
                 </xsl:for-each>
+                
                 <div class="box matches-past">
                     <h3 class="fw-bold">Ergebnisse</h3>
                     <div class="past">
@@ -42,7 +43,7 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                                     <xsl:value-of select="team[1]/name"/>
                                     </span>
                                     <span class="versus px-2">:</span>
-                                    <span class="team-a">
+                                    <span class="team-b">
                                     <xsl:attribute name="teamid">
                                         <xsl:value-of select="team[2]/id" />
                                     </xsl:attribute>
@@ -97,7 +98,7 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                                         <xsl:value-of select="team[1]/name"/>
                                     </span>
                                     <span class="versus px-2">:</span>
-                                    <span class="team-a">
+                                    <span class="team-b">
                                         <xsl:attribute name="teamid">
                                             <xsl:value-of select="team[2]/id" />
                                         </xsl:attribute>

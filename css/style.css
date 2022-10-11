@@ -185,9 +185,10 @@ main {
 @media (max-width: 769px) {
 
   .cover-img-bg {
-    background-attachment: scroll!important;
+    background-attachment: scroll !important;
   }
 }
+
 /*--------------------------------------------------------------
 # Intro Section
 --------------------------------------------------------------*/
@@ -393,14 +394,17 @@ main {
   background-size: cover;
   background-position: center;
 }
+
 /* Loading Spinners
 --------------------------------*/
-.loadingspinner, #blogpost img,
+.loadingspinner,
+#blogpost img,
 #blogpost video {
   background-image: url(/img/loadingspinner1.png);
   background-repeat: no-repeat;
   background-position: center;
 }
+
 /* Blog Post
 --------------------------------*/
 #blogpost img,
@@ -542,6 +546,7 @@ main {
 #heimspiele h4 {
   color: var(--link_hover1);
 }
+
 #heimspiele .cta-title {
   color: var(--text2);
   font-size: 28px;
@@ -643,9 +648,10 @@ main {
 .box.dark {
   background: var(--gradient1);
 }
+
 @media screen and (max-width: 768px) {
 
- .box {
+  .box {
     padding: 20px;
     margin-bottom: 30px;
     width: 100%
@@ -687,29 +693,12 @@ main {
 
 /* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse, Spielplan)
 --------------------------------*/
-#matches .past .ergebnis-liste .match:nth-child(odd), #matches .upcoming .termine-liste .match:nth-child(odd) {
+#matches .past .ergebnis-liste .match:nth-child(odd),
+#matches .upcoming .termine-liste .match:nth-child(odd) {
   background: rgba(0, 0, 0, 0.05);
 }
 
-#matches .matches-past tr[winner="1"] div[teamnumber="1"],
-#matches .matches-past tr[winner="2"] div[teamnumber="2"] {
-  font-weight: bold;
-}
 
-#matches .matches-past div.teams>div:first-child:after {
-  content: ":";
-  padding: 0 0.5rem;
-  font-weight: normal;
-}
-
-/* redundant after next SAMS run */
-#matches .matches-past table th span,
-#matches .matches-past table td span {
-  font-size: small;
-}
-
-
-/* redundant after next SAMS run */
 
 @media (max-width: 768px) {
 
@@ -729,26 +718,6 @@ main {
     margin-bottom: 30px;
   }
 
-  #matches .matches-past table {
-    font-size: smaller;
-  }
-
-  #matches .matches-past table th span {
-    display: none;
-  }
-
-  #matches .matches-past table td span {
-    display: block;
-    font-size: smaller;
-  }
-
-  #matches .matches-past div.teams {
-    flex-direction: column;
-  }
-
-  #matches .matches-past div.teams>div:first-child:after {
-    display: none;
-  }
 }
 
 .sams-rankings tr>* {
@@ -794,10 +763,11 @@ main {
   background: var(--gradient1);
   font-weight: normal !important;
 }
+
 #ergebnisse-tabelle .box tbody tr:hover {
   background-color: var(--gradient2);
   color: var(--text2);
-  }
+}
 
 #news .box {
   cursor: pointer;
@@ -1050,14 +1020,17 @@ main {
   color: var(--text2);
   background: var(--gradient2);
 }
+
 .generic-button:hover {
   color: var(--text2);
   background: var(--link1);
 }
+
 #news .archiv-btn {
   font-size: 16px;
   padding: 8px 28px;
 }
+
 #mannschaften .box .generic-button {
   font-size: 12px;
   font-weight: bold;
@@ -1066,6 +1039,7 @@ main {
   top: -1rem;
   right: -1rem;
 }
+
 #teaminfo .generic-button {
   padding: 6px 18px;
 }
@@ -1100,7 +1074,7 @@ main {
 --------------------------------*/
 #teaminfo .box p:last-child {
   margin-bottom: 0;
-  }
+}
 
 /*--------------------------------------------------------------
 # Footer
