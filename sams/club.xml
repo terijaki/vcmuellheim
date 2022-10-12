@@ -59,9 +59,9 @@
     <name>Verbandsliga Herren</name>
     <shortName>vl h</shortName>
     <type>League</type>
-        <updated>2022-10-04 22:32:14.934</updated>
+        <updated>2022-10-11 09:03:23.774</updated>
         <structureUpdated>2022-08-30 22:18:18.964</structureUpdated>
-        <resultsUpdated>2022-09-20 19:27:19.731</resultsUpdated>
+        <resultsUpdated>2022-10-09 18:49:26.821</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -154,9 +154,9 @@
     <name>Bezirksliga Herren</name>
     <shortName>bzl n h</shortName>
     <type>League</type>
-        <updated>2022-10-03 20:45:09.057</updated>
+        <updated>2022-10-10 18:39:09.978</updated>
         <structureUpdated>2022-09-21 09:43:08.892</structureUpdated>
-        <resultsUpdated>2022-09-22 15:08:02.167</resultsUpdated>
+        <resultsUpdated>2022-10-10 18:39:09.978</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -261,9 +261,9 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-10-04 16:05:28.011</updated>
-        <structureUpdated>2022-09-27 22:41:50.882</structureUpdated>
-        <resultsUpdated>2022-04-18 14:26:49.705</resultsUpdated>
+        <updated>2022-10-11 12:50:04.325</updated>
+        <structureUpdated>2022-10-08 22:57:33.015</structureUpdated>
+        <resultsUpdated>2022-10-09 18:15:54.74</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -380,9 +380,9 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-10-04 16:05:28.011</updated>
-        <structureUpdated>2022-09-27 22:41:50.882</structureUpdated>
-        <resultsUpdated>2022-04-18 14:26:49.705</resultsUpdated>
+        <updated>2022-10-11 12:50:04.325</updated>
+        <structureUpdated>2022-10-08 22:57:33.015</structureUpdated>
+        <resultsUpdated>2022-10-09 18:15:54.74</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -499,7 +499,7 @@
     <name>Landespokal Herren</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2022-09-25 23:24:59.094</updated>
+        <updated>2022-10-06 15:04:22.57</updated>
         <structureUpdated>2022-09-24 11:26:27.856</structureUpdated>
         <resultsUpdated>2022-09-25 23:04:14.381</resultsUpdated>
         <season>
