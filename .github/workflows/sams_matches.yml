@@ -13,6 +13,7 @@ env:
   SAMS_URL: https://www.volleyball-baden.de # start of the api http structure
   REPO_TARGET1: _matches # the output folder for the entire matches
   REPO_TARGET2: _spielergebnisse # the output folder for the individual matches (to change, also updated inside the XSLT!!)
+  GITHUB_TOKEN: ${{ secrets.MY_GH_TOKEN }}
 
 jobs:
   Get-Teams:
