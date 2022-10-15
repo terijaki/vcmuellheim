@@ -6,7 +6,8 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - '_spielergebnisse/**'
+    - '**'
+    - '_spielergebnisse/**'
 
 jobs:
   New-Matches-for-Twitter:
