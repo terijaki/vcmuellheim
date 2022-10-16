@@ -2,7 +2,7 @@
 layout: post
 excerpt_separator: "<!--more-->"
 title: Sasionauftakt und Heimspiel für Damen II
-thumbnail: ''
+thumbnail: "/upload/2022/10/16/damen2_3.jpeg"
 photoalbum: ''
 
 ---
@@ -15,3 +15,5 @@ Im zweiten Spiel stand ihnen der VBG Efringen-Kirchen gegenüber. Nach 2 verlore
 Mit insgesamt 4 Punkten und einem aktuell 4 Platz in der Tabelle, war es für unsere Damen II ein erfolgreicher Spieltag!
 
 Unser Team bedankt sich herzlich bei den zahlreich erschienenen Fans und Zuschauern, bei ihrem Trainer Andy, und natürlich bei den Gegnern VC Weil und VBG Efringen-Kirchen.
+
+![](/upload/2022/10/16/damen2_1.jpg)![](/upload/2022/10/16/damen2_2.jpeg)![](/upload/2022/10/16/damen2_4.jpeg)![](/upload/2022/10/16/damen2_5.jpeg)![](/upload/2022/10/16/damen2_6.jpeg)![](/upload/2022/10/16/damen2_7.jpeg)
