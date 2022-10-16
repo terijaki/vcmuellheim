@@ -135,6 +135,11 @@ jobs:
           name: individual_matches
           path: ${{env.REPO_TARGET2}}
 
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
       - name: Git Pull # to avoid conflicts with parallel runs
         run: |
           git pull
