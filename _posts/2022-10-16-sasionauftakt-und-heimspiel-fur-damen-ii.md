@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Sasionauftakt und Heimspiel für Damen II
 thumbnail: "/upload/2022/10/16/damen2_3.jpeg"
 photoalbum: ''
