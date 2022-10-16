@@ -53,4 +53,5 @@ jobs:
         run: |
           git add "sams/club.xml"
           git commit -m "sams scheduled update"
-          git push origin --all --quiet --rebase
+          git pull --rebase --quiet
+          git push origin --all --quiet

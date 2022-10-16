@@ -142,7 +142,7 @@ jobs:
 
       - name: Git Pull # to avoid conflicts with parallel runs
         run: |
-          git pull --rebase
+          git pull
 
       - name: Git Commit Matches
         continue-on-error: true # don't throw an error as there won't always be changes
@@ -159,4 +159,5 @@ jobs:
       - name: Git Push
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
+          git pull --rebase
           git push origin --all --quiet
