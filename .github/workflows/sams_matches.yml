@@ -135,11 +135,6 @@ jobs:
           name: individual_matches
           path: ${{env.REPO_TARGET2}}
 
-      - name: Setup Git Config
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-
       - name: Git Pull # to avoid conflicts with parallel runs
         run: |
           git pull
@@ -159,4 +154,4 @@ jobs:
       - name: Git Push
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
-          git push https://${{env.GITHUB_TOKEN}}@github.com/terijaki/vcmuellheim.git --quiet
+          git push origin --all --quiet
