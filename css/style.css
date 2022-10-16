@@ -411,6 +411,7 @@ main {
 #blogpost video {
   width: 100%;
   height: auto;
+  margin-bottom: 1rem;
 }
 
 #blogpost blockquote {
