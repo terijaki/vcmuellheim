@@ -109,4 +109,4 @@ jobs:
           git pull
           git add "${{env.REPO_TARGET}}/*"
           git commit -m "sams scheduled update"
-          git push origin --all --quiet
+          git push origin --all --quiet --rebase

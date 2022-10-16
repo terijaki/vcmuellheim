@@ -159,4 +159,4 @@ jobs:
       - name: Git Push
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
-          git push origin --all --quiet
+          git push origin --all --quiet --rebase

@@ -79,7 +79,7 @@ jobs:
         if: steps.messagesforsocial.outcome == 'success'
         run: |
           git pull --quiet
-          git push origin --all --quiet
+          git push origin --all --quiet --rebase
 
 
   Post-to-Twitter:
