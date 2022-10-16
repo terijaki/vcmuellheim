@@ -71,14 +71,14 @@
                   </p>
                 {% endif %}
 
-<!-- Spielplan & Kalender  -->
-              {% if team.sbvv_id > 0 %}
-                <p class="spielplan"><b>Spielplan</b>: <a href="matches/{{ team.sbvv_id }}">Termine & Ergebnisse</a>
-              {% endif %}
-
 <!-- Kommentar  -->
               {% if team.kommentar.size > 0 %}
                 <p class="description">{{ team.kommentar }}</p>
+              {% endif %}
+
+<!-- Spielplan & Kalender  -->
+              {% if team.sbvv_id > 0 %}
+              <p class="spielplan"><span class="d-none d-md-block"><b>Ergebnisse & Termine:</b></span><a href="matches/{{ team.sbvv_id }}" class="generic-button m-0">Spielplan</a></p>
               {% endif %}
 
         </div>
