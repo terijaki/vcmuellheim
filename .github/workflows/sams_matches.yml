@@ -140,10 +140,6 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
-      - name: Git Pull # to avoid conflicts with parallel runs
-        run: |
-          git pull
-
       - name: Git Commit Matches
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
