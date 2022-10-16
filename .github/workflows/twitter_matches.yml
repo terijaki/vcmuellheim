@@ -73,8 +73,8 @@ jobs:
       - name: Git Push
         if: steps.messagesfortwitter.outcome == 'success'
         run: |
-          git pull --quiet
-          git push origin --all --quiet -f --rebase
+          git pull --quiet --rebase
+          git push origin --all --quiet -f
 
   Post-to-Twitter:
     needs: New-Matches-for-Twitter

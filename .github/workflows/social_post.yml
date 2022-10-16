@@ -78,8 +78,8 @@ jobs:
       - name: Git Push
         if: steps.messagesforsocial.outcome == 'success'
         run: |
-          git pull --quiet
-          git push origin --all --quiet --rebase
+          git pull --quiet --rebase
+          git push origin --all --quiet
 
 
   Post-to-Twitter:
