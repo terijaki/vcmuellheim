@@ -35,7 +35,6 @@ fields:
   description: Wenn du eine ganze Photo Gallery (z.B. von iCloud oder Google Photos)
     verlinken möchtest, trage die URL hier ein. Ein Button erscheint am Ende des Beitrags.
 pages:
-- _posts/1.spieltag-vc-mullheim-2.md
 - _posts/2019-07-19-qualifikation-zum-pokalspiel.md
 - _posts/2020-01-26-doppeltes-heimspiel-doppelte-niederlage.md
 - _posts/2020-03-02-sbvv-informationen-zum-coronavirus.md
@@ -74,3 +73,4 @@ pages:
 - _posts/2022-09-27-vorbereitungsturnier-des-vc-mullheim-2-in-staufen.md
 - _posts/2022-09-28-platz-6-fur-damen-i-beim-elztalpokal-in-waldkirch.md
 - _posts/erfolgreicher-start-in-die-neue-saison.md
+- _posts/sasionauftakt-und-heimspiel-fur-damen-ii.md
