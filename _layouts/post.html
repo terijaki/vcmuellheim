@@ -24,12 +24,8 @@ layout: default
           <div class="row">
             <div class="col-12 post">
               <div class="wow fadeInNone">
-                {% if page.thumbnail.size > 0 %}<img
-                  class="post-thumbnail"
-                  src="{{ page.thumbnail }}"
-                  alt=""
-                />{% endif %}
                 <div class="box wow fadeInBottom" data-wow-duration="0.5s">
+                  {% if page.thumbnail.size > 0 %}<img class="post-thumbnail pb-4" src="{{ page.thumbnail }}" alt="" />{% endif %}
                   {{ content }} {% if page.photoalbum contains "http" %}
                   <p class="post-photoalbum">
                     <a href="{{ page.photoalbum }}" target="_blank"

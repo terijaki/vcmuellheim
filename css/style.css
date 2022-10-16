@@ -411,15 +411,6 @@ main {
 #blogpost video {
   width: 100%;
   height: auto;
-  padding: 6px;
-}
-
-#blogpost img.post-thumbnail {
-  margin: -4rem auto 1.2rem auto;
-  max-height: 800px;
-  max-width: 100%;
-  width: auto;
-  display: flex;
 }
 
 #blogpost blockquote {
