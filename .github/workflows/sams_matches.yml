@@ -120,7 +120,7 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          ref: ${{env.GITHUB_TOKEN}}
 
       - name: Download Exports (Matches)
         uses: actions/download-artifact@v3
