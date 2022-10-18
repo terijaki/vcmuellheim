@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Zweiter Spieltag der Saison für Damen 1
 thumbnail: "/upload/2022/10/18/img_0830.JPG"
 photoalbum: ''
