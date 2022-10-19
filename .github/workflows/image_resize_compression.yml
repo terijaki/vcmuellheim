@@ -1,0 +1,39 @@
+name: Resize images
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.jpg'
+      - '**.jpeg'
+      - '**.png'
+      - '**.webp'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Github Action Image Resizing
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@master
+
+      - name: Resize Images
+        id: resize-images
+        uses: gonzalonaveira/gh-image-resizing@v1.0.2
+        with:
+          IMAGES_MAX_WIDTH: "2000"
+          IMAGES_QUALITY: "80"
+          IMAGES_FORMATS: "jpg, jpge, png" 
+          IMAGES_DIRECTORIES: "upload"
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'upload'
+          author_name: "github-actions[bot]"
+          author_email: "github-actions@users.noreply.github.com"
+          message: |
+            Images Reszied by Github action
+            ${{steps.resize-images.outputs.result}}
