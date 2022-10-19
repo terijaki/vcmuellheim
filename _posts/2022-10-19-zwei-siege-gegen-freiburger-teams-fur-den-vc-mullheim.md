@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Zwei Siege gegen Freiburger Teams für den VC Müllheim
 thumbnail: "/upload/2022/10/19/dsc_0090.jpeg"
 photoalbum: ''
