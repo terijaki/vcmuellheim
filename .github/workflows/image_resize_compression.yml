@@ -1,5 +1,7 @@
 name: Resize & Compress images
 
+concurrency: image optimization
+
 on:
   push:
     branches:
