@@ -1,4 +1,4 @@
-name: Resize images
+name: Resize & Compress images
 
 on:
   push:
