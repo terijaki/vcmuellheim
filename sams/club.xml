@@ -261,9 +261,9 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-10-16 15:15:21.588</updated>
+        <updated>2022-10-22 19:07:08.272</updated>
         <structureUpdated>2022-10-08 22:57:33.015</structureUpdated>
-        <resultsUpdated>2022-10-16 15:15:21.588</resultsUpdated>
+        <resultsUpdated>2022-10-22 19:07:08.272</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -380,9 +380,9 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-10-16 15:15:21.588</updated>
+        <updated>2022-10-22 19:07:08.272</updated>
         <structureUpdated>2022-10-08 22:57:33.015</structureUpdated>
-        <resultsUpdated>2022-10-16 15:15:21.588</resultsUpdated>
+        <resultsUpdated>2022-10-22 19:07:08.272</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -754,7 +754,7 @@
     <name>Bez.-Meisterschaft U16w - Endrunde am 06.11.22</name>
     <shortName>U16wEBW</shortName>
     <type>Competition</type>
-        <updated>2022-10-18 06:18:06.745</updated>
+        <updated>2022-10-24 18:37:57.749</updated>
         <structureUpdated>2022-10-18 06:18:06.745</structureUpdated>
         <resultsUpdated>2017-01-16 12:10:51.857962</resultsUpdated>
         <season>
@@ -843,7 +843,7 @@
     <name>Bez.-Meisterschaft U14m - Endrunde am 05.11.2022</name>
     <shortName>U14mEBW</shortName>
     <type>Competition</type>
-        <updated>2022-10-04 22:11:53.392</updated>
+        <updated>2022-10-25 22:40:33.762</updated>
         <structureUpdated>2022-09-11 10:29:45.509</structureUpdated>
         <resultsUpdated>2019-12-08 17:14:48.241</resultsUpdated>
         <season>
