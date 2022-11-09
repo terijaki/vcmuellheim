@@ -2,7 +2,7 @@
 layout: post
 excerpt_separator: "<!--more-->"
 title: U16 Mädchen des VC Müllheim erreichen an der Bezirksmeisterschaft Platz 7
-thumbnail: ''
+thumbnail: "/upload/2022/11/09/20221106_131433.jpg"
 photoalbum: ''
 
 ---
@@ -26,3 +26,5 @@ FT Bodersweier : VC Müllheim 0:2 (19:25, 10:25)
 VC Offenburg II : VC Müllheim 0:2 (18:25, 15:25)
 
 _Bericht von Dominik Ernst_
+
+![](/upload/2022/11/09/20221106_160816.jpg)![](/upload/2022/11/09/20221106_113752.jpg)![](/upload/2022/11/09/20221106_132152.jpg)![](/upload/2022/11/09/20221106_131651.jpg)![](/upload/2022/11/09/20221106_130114.jpg)![](/upload/2022/11/09/20221106_172907.jpg)
