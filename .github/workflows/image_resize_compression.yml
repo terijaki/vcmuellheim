@@ -23,7 +23,7 @@ jobs:
 
       - name: Resize Images
         id: resize-images
-        uses: gonzalonaveira/gh-image-resizing
+        uses: gonzalonaveira/gh-image-resizing@master
         with:
           IMAGES_MAX_WIDTH: "2000"
           IMAGES_QUALITY: "80"
