@@ -7,10 +7,10 @@ on:
     branches:
       - main
     paths:
-      - '**.jpg'
-      - '**.jpeg'
-      - '**.png'
-      - '**.webp'
+      - 'upload/**.jpg'
+      - 'upload/**.jpeg'
+      - 'upload/**.png'
+      - 'upload/**.webp'
   workflow_dispatch:
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
 
       - name: Resize Images
         id: resize-images
-        uses: gonzalonaveira/gh-image-resizing@v1.0.2
+        uses: gonzalonaveira/gh-image-resizing
         with:
           IMAGES_MAX_WIDTH: "2000"
           IMAGES_QUALITY: "80"
