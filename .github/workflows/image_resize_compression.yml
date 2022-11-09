@@ -29,6 +29,7 @@ jobs:
           IMAGES_QUALITY: "80"
           IMAGES_FORMATS: "jpg, jpge, png" 
           IMAGES_DIRECTORIES: "upload"
+          DEBUG: True
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
