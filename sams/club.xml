@@ -59,9 +59,9 @@
     <name>Verbandsliga Herren</name>
     <shortName>vl h</shortName>
     <type>League</type>
-        <updated>2022-10-31 23:31:53.922</updated>
-        <structureUpdated>2022-10-31 23:31:53.922</structureUpdated>
-        <resultsUpdated>2022-10-30 17:06:13.24</resultsUpdated>
+        <updated>2022-11-08 11:18:24.245</updated>
+        <structureUpdated>2022-11-08 11:18:24.245</structureUpdated>
+        <resultsUpdated>2022-11-03 20:05:25.847</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -154,8 +154,8 @@
     <name>Bezirksliga Herren</name>
     <shortName>bzl n h</shortName>
     <type>League</type>
-        <updated>2022-10-18 19:03:27.583</updated>
-        <structureUpdated>2022-09-21 09:43:08.892</structureUpdated>
+        <updated>2022-11-04 14:55:44.825</updated>
+        <structureUpdated>2022-11-04 14:55:44.825</structureUpdated>
         <resultsUpdated>2022-10-18 19:03:27.583</resultsUpdated>
         <season>
             <id>22514239</id>
@@ -576,8 +576,8 @@
     <name>Bez.-Meisterschaft U13w Quali-Runde am 19.11.22</name>
     <shortName>U13wQBW</shortName>
     <type>Competition</type>
-        <updated>2022-10-15 13:54:16.441</updated>
-        <structureUpdated>2022-10-15 13:54:16.441</structureUpdated>
+        <updated>2022-11-03 21:25:14.457</updated>
+        <structureUpdated>2022-11-03 21:25:14.457</structureUpdated>
         <resultsUpdated>2016-12-09 13:46:06.942734</resultsUpdated>
         <season>
             <id>22514239</id>
@@ -665,8 +665,8 @@
     <name>Bez.-Meisterschaft U14w Endrunde am 15.01.23</name>
     <shortName>U14wEBW</shortName>
     <type>Competition</type>
-        <updated>2022-10-15 13:54:30.509</updated>
-        <structureUpdated>2022-10-15 13:54:30.509</structureUpdated>
+        <updated>2022-11-02 12:17:34.402</updated>
+        <structureUpdated>2022-11-02 12:17:34.402</structureUpdated>
         <resultsUpdated>2016-11-08 12:35:51.62613</resultsUpdated>
         <season>
             <id>22514239</id>
@@ -728,9 +728,9 @@
     <id>23548438</id>
     <uuid>3c0e96b8-704e-4469-9e46-24f22e413cf4</uuid>
     <seasonTeamId>23548438</seasonTeamId>
-    <placeCipher>0</placeCipher>
+    <placeCipher>8</placeCipher>
     <name>VC Müllheim</name>
-    <shortName>VCM</shortName>
+    <shortName></shortName>
     <clubCode></clubCode>
     <status>ACTIVE</status>
     <www>http://vcmuellheim.de</www>
@@ -754,9 +754,9 @@
     <name>Bez.-Meisterschaft U16w - Endrunde am 06.11.22</name>
     <shortName>U16wEBW</shortName>
     <type>Competition</type>
-        <updated>2022-11-01 17:11:58.934</updated>
-        <structureUpdated>2022-11-01 17:11:58.934</structureUpdated>
-        <resultsUpdated>2017-01-16 12:10:51.857962</resultsUpdated>
+        <updated>2022-11-08 10:51:36.09</updated>
+        <structureUpdated>2022-11-08 10:51:36.09</structureUpdated>
+        <resultsUpdated>2022-11-06 18:59:44.298</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -817,9 +817,9 @@
     <id>23552195</id>
     <uuid>57d5a4f7-a052-458c-b598-025542f5245c</uuid>
     <seasonTeamId>23552195</seasonTeamId>
-    <placeCipher>0</placeCipher>
+    <placeCipher>6</placeCipher>
     <name>VC Müllheim</name>
-    <shortName>VCM</shortName>
+    <shortName></shortName>
     <clubCode></clubCode>
     <status>ACTIVE</status>
     <www>http://vcmuellheim.de</www>
@@ -843,9 +843,9 @@
     <name>Bez.-Meisterschaft U14m - Endrunde am 05.11.2022</name>
     <shortName>U14mEBW</shortName>
     <type>Competition</type>
-        <updated>2022-10-29 17:14:02.217</updated>
-        <structureUpdated>2022-10-29 17:14:02.217</structureUpdated>
-        <resultsUpdated>2019-12-08 17:14:48.241</resultsUpdated>
+        <updated>2022-11-08 21:00:52.865</updated>
+        <structureUpdated>2022-11-08 21:00:52.865</structureUpdated>
+        <resultsUpdated>2022-11-05 16:07:36.147</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
