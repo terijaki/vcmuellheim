@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Spielbericht Herren 2
 thumbnail: "/upload/2022/11/15/photo-2022-11-13-19-06-23.jpg"
 photoalbum: ''
