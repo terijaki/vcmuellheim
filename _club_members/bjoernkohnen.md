@@ -1,7 +1,7 @@
 ---
 name: Björn Kohnen
 email: bjoern@vcmuellheim.de
-avatar: "/upload/2022/07/03/img_1315.jpeg"
+avatar: "/img/members/bjoernkohnen.jpg"
 function: Webseite
 sortorder: 9
 
