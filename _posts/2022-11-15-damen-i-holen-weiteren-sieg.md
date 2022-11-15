@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Damen I holen weiteren Sieg
 thumbnail: "/upload/2022/11/15/img-20221113-wa0152.jpg"
 photoalbum: ''
