@@ -59,9 +59,9 @@
     <name>Verbandsliga Herren</name>
     <shortName>vl h</shortName>
     <type>League</type>
-        <updated>2022-11-08 11:18:24.245</updated>
-        <structureUpdated>2022-11-08 11:18:24.245</structureUpdated>
-        <resultsUpdated>2022-11-03 20:05:25.847</resultsUpdated>
+        <updated>2022-11-14 12:55:22.745</updated>
+        <structureUpdated>2022-11-11 17:04:46.42</structureUpdated>
+        <resultsUpdated>2022-11-14 12:55:22.745</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -154,9 +154,9 @@
     <name>Bezirksliga Herren</name>
     <shortName>bzl n h</shortName>
     <type>League</type>
-        <updated>2022-11-04 14:55:44.825</updated>
-        <structureUpdated>2022-11-04 14:55:44.825</structureUpdated>
-        <resultsUpdated>2022-10-18 19:03:27.583</resultsUpdated>
+        <updated>2022-11-15 15:56:54.729</updated>
+        <structureUpdated>2022-11-12 21:29:13.547</structureUpdated>
+        <resultsUpdated>2022-11-15 15:56:54.729</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -261,9 +261,9 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-10-29 19:58:56.208</updated>
-        <structureUpdated>2022-10-29 13:45:56.702</structureUpdated>
-        <resultsUpdated>2022-10-29 19:58:56.208</resultsUpdated>
+        <updated>2022-11-15 11:45:47.747</updated>
+        <structureUpdated>2022-11-15 11:45:47.747</structureUpdated>
+        <resultsUpdated>2022-11-13 15:55:37.775</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -380,9 +380,9 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-10-29 19:58:56.208</updated>
-        <structureUpdated>2022-10-29 13:45:56.702</structureUpdated>
-        <resultsUpdated>2022-10-29 19:58:56.208</resultsUpdated>
+        <updated>2022-11-15 11:45:47.747</updated>
+        <structureUpdated>2022-11-15 11:45:47.747</structureUpdated>
+        <resultsUpdated>2022-11-13 15:55:37.775</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -576,8 +576,8 @@
     <name>Bez.-Meisterschaft U13w Quali-Runde am 19.11.22</name>
     <shortName>U13wQBW</shortName>
     <type>Competition</type>
-        <updated>2022-11-03 21:25:14.457</updated>
-        <structureUpdated>2022-11-03 21:25:14.457</structureUpdated>
+        <updated>2022-11-15 20:44:20.411</updated>
+        <structureUpdated>2022-11-15 20:44:20.411</structureUpdated>
         <resultsUpdated>2016-12-09 13:46:06.942734</resultsUpdated>
         <season>
             <id>22514239</id>
@@ -665,8 +665,8 @@
     <name>Bez.-Meisterschaft U14w Endrunde am 15.01.23</name>
     <shortName>U14wEBW</shortName>
     <type>Competition</type>
-        <updated>2022-11-02 12:17:34.402</updated>
-        <structureUpdated>2022-11-02 12:17:34.402</structureUpdated>
+        <updated>2022-11-15 15:44:34.225</updated>
+        <structureUpdated>2022-11-15 15:44:34.225</structureUpdated>
         <resultsUpdated>2016-11-08 12:35:51.62613</resultsUpdated>
         <season>
             <id>22514239</id>
@@ -843,8 +843,8 @@
     <name>Bez.-Meisterschaft U14m - Endrunde am 05.11.2022</name>
     <shortName>U14mEBW</shortName>
     <type>Competition</type>
-        <updated>2022-11-08 21:00:52.865</updated>
-        <structureUpdated>2022-11-08 21:00:52.865</structureUpdated>
+        <updated>2022-11-09 12:32:32.12</updated>
+        <structureUpdated>2022-11-09 12:32:32.12</structureUpdated>
         <resultsUpdated>2022-11-05 16:07:36.147</resultsUpdated>
         <season>
             <id>22514239</id>
