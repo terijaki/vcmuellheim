@@ -34,5 +34,3 @@ fields:
     schema:
       format: html
   label: Freitext
-pages:
-- _teaminfo/herren1.md
