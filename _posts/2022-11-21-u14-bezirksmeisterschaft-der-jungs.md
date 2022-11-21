@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: U14 Bezirksmeisterschaft der Jungs
 thumbnail: "/upload/2022/11/21/img-20220710-wa0079.jpg"
 photoalbum: ''
