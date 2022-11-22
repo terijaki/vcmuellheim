@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Heimserie hält, Comeback-Siege für 5 Punkte!
 thumbnail: "/upload/2022/11/22/img_0991.jpg"
 photoalbum: ''
