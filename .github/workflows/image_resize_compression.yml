@@ -7,10 +7,10 @@ on:
     branches:
       - main
     paths:
-      - 'upload/*.jpg'
-      - 'upload/*.jpeg'
-      - 'upload/*.png'
-      - 'upload/*.webp'
+      - 'upload/**.jpg'
+      - 'upload/**.jpeg'
+      - 'upload/**.png'
+      - 'upload/**.webp'
   workflow_dispatch:
 
 jobs:
