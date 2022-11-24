@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Jugend-Workshop in Mulhouse
 thumbnail: "/upload/2022/11/24/img_20221119_142537.jpg"
 photoalbum: ''
