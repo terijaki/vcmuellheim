@@ -59,9 +59,9 @@
     <name>Verbandsliga Herren</name>
     <shortName>vl h</shortName>
     <type>League</type>
-        <updated>2022-11-14 12:55:22.745</updated>
-        <structureUpdated>2022-11-11 17:04:46.42</structureUpdated>
-        <resultsUpdated>2022-11-14 12:55:22.745</resultsUpdated>
+        <updated>2022-11-27 10:32:40.575</updated>
+        <structureUpdated>2022-11-19 12:59:44.163</structureUpdated>
+        <resultsUpdated>2022-11-27 10:32:40.575</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -154,9 +154,9 @@
     <name>Bezirksliga Herren</name>
     <shortName>bzl n h</shortName>
     <type>League</type>
-        <updated>2022-11-15 15:56:54.729</updated>
+        <updated>2022-11-16 10:23:41.268</updated>
         <structureUpdated>2022-11-12 21:29:13.547</structureUpdated>
-        <resultsUpdated>2022-11-15 15:56:54.729</resultsUpdated>
+        <resultsUpdated>2022-11-16 10:23:41.268</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -261,9 +261,9 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-11-15 11:45:47.747</updated>
-        <structureUpdated>2022-11-15 11:45:47.747</structureUpdated>
-        <resultsUpdated>2022-11-13 15:55:37.775</resultsUpdated>
+        <updated>2022-11-28 18:00:09.613</updated>
+        <structureUpdated>2022-11-27 15:05:57.156</structureUpdated>
+        <resultsUpdated>2022-11-28 18:00:09.613</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -380,9 +380,9 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-11-15 11:45:47.747</updated>
-        <structureUpdated>2022-11-15 11:45:47.747</structureUpdated>
-        <resultsUpdated>2022-11-13 15:55:37.775</resultsUpdated>
+        <updated>2022-11-28 18:00:09.613</updated>
+        <structureUpdated>2022-11-27 15:05:57.156</structureUpdated>
+        <resultsUpdated>2022-11-28 18:00:09.613</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -550,7 +550,7 @@
     <id>23746102</id>
     <uuid>7527df10-42d9-4e96-a4a8-0ecd3a12b609</uuid>
     <seasonTeamId>23746102</seasonTeamId>
-    <placeCipher>0</placeCipher>
+    <placeCipher>8</placeCipher>
     <name>VC Müllheim</name>
     <shortName>VCM</shortName>
     <clubCode></clubCode>
@@ -576,9 +576,9 @@
     <name>Bez.-Meisterschaft U13w Quali-Runde am 19.11.22</name>
     <shortName>U13wQBW</shortName>
     <type>Competition</type>
-        <updated>2022-11-15 20:44:20.411</updated>
-        <structureUpdated>2022-11-15 20:44:20.411</structureUpdated>
-        <resultsUpdated>2016-12-09 13:46:06.942734</resultsUpdated>
+        <updated>2022-11-25 16:49:25.233</updated>
+        <structureUpdated>2022-11-25 16:42:38.452</structureUpdated>
+        <resultsUpdated>2022-11-25 16:49:25.233</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -665,8 +665,8 @@
     <name>Bez.-Meisterschaft U14w Endrunde am 15.01.23</name>
     <shortName>U14wEBW</shortName>
     <type>Competition</type>
-        <updated>2022-11-15 15:44:34.225</updated>
-        <structureUpdated>2022-11-15 15:44:34.225</structureUpdated>
+        <updated>2022-11-22 15:23:01.251</updated>
+        <structureUpdated>2022-11-22 15:23:01.251</structureUpdated>
         <resultsUpdated>2016-11-08 12:35:51.62613</resultsUpdated>
         <season>
             <id>22514239</id>
@@ -843,9 +843,9 @@
     <name>Bez.-Meisterschaft U14m - Endrunde am 05.11.2022</name>
     <shortName>U14mEBW</shortName>
     <type>Competition</type>
-        <updated>2022-11-09 12:32:32.12</updated>
+        <updated>2022-11-25 09:14:57.787</updated>
         <structureUpdated>2022-11-09 12:32:32.12</structureUpdated>
-        <resultsUpdated>2022-11-05 16:07:36.147</resultsUpdated>
+        <resultsUpdated>2022-11-25 09:14:57.787</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
