@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Damen I bestreiten nächsten erfolgreichen Heimspieltag
 thumbnail: "/upload/2022/12/01/img-20221127-wa0008.jpg"
 photoalbum: ''
