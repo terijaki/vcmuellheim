@@ -27,7 +27,7 @@ jobs:
 
       - name: Get Team IDs from club.xml
         id: teamids-from-club
-        uses: mavrosxristoforos/get-xml-info@1.1.0
+        uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
           xml-file: "club.xml"
           xpath: "/sportsclub/teams/team/seasonTeamId" #extract all team IDs from the XML
@@ -50,7 +50,7 @@ jobs:
 
       - name: Get matchSeries IDs from club.xml
         id: matchseriesid-from-club
-        uses: mavrosxristoforos/get-xml-info@1.1.0
+        uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
           xml-file: "club.xml"
           xpath: "/sportsclub/teams/team[id='${{matrix.teams}}']/matchSeries/id" #extract the matchSeries ID for this team from the XML
