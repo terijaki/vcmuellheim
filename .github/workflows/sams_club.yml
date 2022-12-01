@@ -35,7 +35,7 @@ jobs:
 
       - name: Get XML # this reads the XML file and extracts the team IDs
         id: getxml
-        uses: mavrosxristoforos/get-xml-info@1.0
+        uses: mavrosxristoforos/get-xml-info@1.1.0
         with:
           xml-file: "sams/club.xml"
           xpath: "/sportsclub/teams/team/seasonTeamId"
