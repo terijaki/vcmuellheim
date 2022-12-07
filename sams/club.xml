@@ -59,9 +59,9 @@
     <name>Verbandsliga Herren</name>
     <shortName>vl h</shortName>
     <type>League</type>
-        <updated>2022-11-27 10:32:40.575</updated>
-        <structureUpdated>2022-11-19 12:59:44.163</structureUpdated>
-        <resultsUpdated>2022-11-27 10:32:40.575</resultsUpdated>
+        <updated>2022-12-04 08:55:35.339</updated>
+        <structureUpdated>2022-12-03 11:00:26.703</structureUpdated>
+        <resultsUpdated>2022-12-04 08:55:35.339</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -261,8 +261,8 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-11-28 18:00:09.613</updated>
-        <structureUpdated>2022-11-27 15:05:57.156</structureUpdated>
+        <updated>2022-12-06 21:36:53.376</updated>
+        <structureUpdated>2022-12-06 21:36:53.376</structureUpdated>
         <resultsUpdated>2022-11-28 18:00:09.613</resultsUpdated>
         <season>
             <id>22514239</id>
@@ -380,8 +380,8 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-11-28 18:00:09.613</updated>
-        <structureUpdated>2022-11-27 15:05:57.156</structureUpdated>
+        <updated>2022-12-06 21:36:53.376</updated>
+        <structureUpdated>2022-12-06 21:36:53.376</structureUpdated>
         <resultsUpdated>2022-11-28 18:00:09.613</resultsUpdated>
         <season>
             <id>22514239</id>
@@ -665,8 +665,8 @@
     <name>Bez.-Meisterschaft U14w Endrunde am 15.01.23</name>
     <shortName>U14wEBW</shortName>
     <type>Competition</type>
-        <updated>2022-11-22 15:23:01.251</updated>
-        <structureUpdated>2022-11-22 15:23:01.251</structureUpdated>
+        <updated>2022-12-01 14:23:06.868</updated>
+        <structureUpdated>2022-12-01 14:23:06.868</structureUpdated>
         <resultsUpdated>2016-11-08 12:35:51.62613</resultsUpdated>
         <season>
             <id>22514239</id>
