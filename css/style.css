@@ -15,11 +15,6 @@ body {
   min-width: 100vw;
 }
 
-#page-wrapper {
-  min-height: 100vh;
-  min-width: 100vw;
-}
-
 a {
   color: var(--link1);
   transition: 0.5s;
