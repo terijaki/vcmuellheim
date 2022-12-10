@@ -59,9 +59,9 @@
     <name>Verbandsliga Herren</name>
     <shortName>vl h</shortName>
     <type>League</type>
-        <updated>2022-12-04 08:55:35.339</updated>
-        <structureUpdated>2022-12-03 11:00:26.703</structureUpdated>
-        <resultsUpdated>2022-12-04 08:55:35.339</resultsUpdated>
+        <updated>2022-12-10 15:16:48.75</updated>
+        <structureUpdated>2022-12-10 10:56:48.512</structureUpdated>
+        <resultsUpdated>2022-12-10 15:16:48.75</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -154,8 +154,8 @@
     <name>Bezirksliga Herren</name>
     <shortName>bzl n h</shortName>
     <type>League</type>
-        <updated>2022-11-16 10:23:41.268</updated>
-        <structureUpdated>2022-11-12 21:29:13.547</structureUpdated>
+        <updated>2022-12-09 09:05:20.173</updated>
+        <structureUpdated>2022-12-09 09:05:20.173</structureUpdated>
         <resultsUpdated>2022-11-16 10:23:41.268</resultsUpdated>
         <season>
             <id>22514239</id>
@@ -261,9 +261,9 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-12-06 21:36:53.376</updated>
-        <structureUpdated>2022-12-06 21:36:53.376</structureUpdated>
-        <resultsUpdated>2022-11-28 18:00:09.613</resultsUpdated>
+        <updated>2022-12-10 16:40:07.632</updated>
+        <structureUpdated>2022-12-10 07:05:31.82</structureUpdated>
+        <resultsUpdated>2022-12-10 16:40:07.632</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -380,9 +380,9 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2022-12-06 21:36:53.376</updated>
-        <structureUpdated>2022-12-06 21:36:53.376</structureUpdated>
-        <resultsUpdated>2022-11-28 18:00:09.613</resultsUpdated>
+        <updated>2022-12-10 16:40:07.632</updated>
+        <structureUpdated>2022-12-10 07:05:31.82</structureUpdated>
+        <resultsUpdated>2022-12-10 16:40:07.632</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
