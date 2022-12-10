@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Unsere Jugend trainiert für Olympia!
 thumbnail: "/upload/2022/12/10/20221206_101722.jpg"
 photoalbum: ''
