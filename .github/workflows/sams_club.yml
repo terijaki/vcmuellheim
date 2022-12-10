@@ -1,6 +1,8 @@
 name: SAMS Club Data Sync
 
-concurrency: sams
+concurrency:
+  group: sams
+  cancel-in-progress: false
 
 on:
   schedule:

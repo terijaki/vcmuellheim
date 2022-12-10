@@ -1,6 +1,8 @@
 name: Share Blog Post on Social
 
-concurrency: social
+concurrency:
+  group: social
+  cancel-in-progress: false
 
 on:
   workflow_dispatch:

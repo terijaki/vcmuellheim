@@ -1,5 +1,9 @@
 name: Upcoming Home Games
 
+concurrency:
+  group: sams
+  cancel-in-progress: false
+  
 on:
   workflow_dispatch:
   schedule:

@@ -1,6 +1,8 @@
 name: Match Announcements on Twitter
 
-concurrency: social
+concurrency:
+  group: social
+  cancel-in-progress: false
 
 on:
   workflow_dispatch:

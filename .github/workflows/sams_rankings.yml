@@ -1,6 +1,8 @@
 name: SAMS Rankings
 
-concurrency: sams
+concurrency:
+  group: sams
+  cancel-in-progress: false
 
 on:
   workflow_dispatch:
