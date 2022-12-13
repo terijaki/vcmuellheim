@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Damen I halten weiter Platz 3 in der Tabelle
 thumbnail: "/upload/2022/12/13/img-20221210-wa0011.jpg"
 photoalbum: ''
