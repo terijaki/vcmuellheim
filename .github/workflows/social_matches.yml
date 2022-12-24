@@ -1,4 +1,4 @@
-name: Match Announcements on Twitter
+name: Match Announcements on Social
 
 concurrency:
   group: social
@@ -11,11 +11,11 @@ on:
     - '_spielergebnisse/**'
 
 jobs:
-  New-Matches-for-Twitter:
+  New-Matches-for-Social:
     runs-on: ubuntu-latest
     outputs:
       matches: ${{steps.scanmatches.outputs.matches}} #array of matches not yet posted
-      messages: ${{steps.messagesfortwitter.outputs.messages}} #array of messages to post
+      messages: ${{steps.messagesforsocial.outputs.messages}} #array of messages to post
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v3
@@ -27,25 +27,25 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
-      - name: Scan Matches #checks the git history and creates an array of all the matches that do not contain the word "twitter"
+      - name: Scan Matches #checks the git history and creates an array of all the matches that do not contain the word "social"
         id: scanmatches
         run: |
           cd _spielergebnisse
           declare matches=()
           for f in $(ls | tr '\n' '\n')
             do
-              if [ -z "$(git log --follow --pretty=oneline --grep='twitter' -q -- $f)" ]
+              if [ -z "$(git log --follow --pretty=oneline --grep='social' -q -- $f)" ]
                 then
                   echo "$f added to list of matches to post"
                   matches+=("$f")
                 else
-                  echo "$f already posted on Twitter"
+                  echo "$f already posted on social"
               fi
             done
           echo "The following matches have not been posted: ${matches[*]}"
           echo "::set-output name=matches::${matches[*]}"
 
-      - name: Mark matchfiles with string #change frontmatter to indicate that they have been posted on Twitter
+      - name: Mark matchfiles with string #change frontmatter to indicate that they have been posted on Social
         id: markfiles
         if: steps.scanmatches.outputs.matches != ''
         run: |
@@ -54,18 +54,18 @@ jobs:
           echo ${{steps.scanmatches.outputs.matches}}
           for matchfile in ${{steps.scanmatches.outputs.matches}}
            do
-            sed -i -e 's!title:!posted-on-twitter: true\ntitle:!g' $matchfile
+            sed -i -e 's!title:!posted-on-social: true\ntitle:!g' $matchfile
             git add $matchfile
           done
-          git commit -m "tagged as posted on twitter"
+          git commit -m "tagged as posted on social"
 
-      - name: Messages for Twitter # set the last line of the match file as message for Twitter
-        id: messagesfortwitter
+      - name: Messages for Social # set the last line of the match file as message for Social
+        id: messagesforsocial
         if: steps.markfiles.outcome == 'success'
         run: |
           cd _spielergebnisse
           declare messages=()
-          echo 'Preparing the following matches for Twitter: ${{steps.scanmatches.outputs.matches}}'
+          echo 'Preparing the following matches for Social: ${{steps.scanmatches.outputs.matches}}'
           for matchfile in ${{steps.scanmatches.outputs.matches}}
             do
               messages+=("$(tail -n 1 $matchfile)")
@@ -73,22 +73,22 @@ jobs:
           echo "::set-output name=messages::$(jq --compact-output --null-input '$ARGS.positional' --args -- "${messages[@]}")"
 
       - name: Git Push
-        if: steps.messagesfortwitter.outcome == 'success'
+        if: steps.messagesforsocial.outcome == 'success'
         run: |
           git pull --quiet --rebase
           git push origin --all --quiet -f
 
-  Post-to-Twitter:
-    needs: New-Matches-for-Twitter
-    if: needs.New-Matches-for-Twitter.outputs.messages != ''
+  Publish-to-Social:
+    needs: New-Matches-for-Social
+    if: needs.New-Matches-for-Social.outputs.messages != ''
     continue-on-error: true # if one match fails, the flow should continue
     strategy:
       matrix:
         messages:
-          - ${{fromJSON(needs.New-Matches-for-Twitter.outputs.messages)}}
+          - ${{fromJSON(needs.New-Matches-for-Social.outputs.messages)}}
     runs-on: ubuntu-latest
     steps:
-      - name: Twitter Post
+      - name: Send tweet
         uses: devigned/go-twitter-action@v1
         with:
           message: ${{matrix.messages}}
@@ -96,3 +96,13 @@ jobs:
           apiKeySecret: ${{ secrets.TWITTER_API_KEY_SECRET }}
           accessToken: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           accessTokenSecret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+
+      - name: Send Toot
+        id: mastodon
+        uses: cbrgm/mastodon-github-action@v1
+        with:
+          message: ${{matrix.messages}}
+          visibility: "public"
+        env:
+          MASTODON_URL: ${{ secrets.MASTODON_URL }}
+          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}

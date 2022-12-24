@@ -84,7 +84,7 @@ jobs:
           git push origin --all --quiet
 
 
-  Post-to-Twitter:
+  Publish-to-Social:
     needs: New-Posts-for-Social
     if: needs.New-Posts-for-Social.outputs.messages != ''
     continue-on-error: true # if one match fails, the flow should continue
@@ -99,7 +99,7 @@ jobs:
         with:
           time: '10m'
 
-      - name: Twitter Post
+      - name: Send Tweet
         uses: devigned/go-twitter-action@v1
         with:
           message: ${{matrix.messages}}
@@ -108,7 +108,7 @@ jobs:
           accessToken: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           accessTokenSecret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
 
-      - name: Send toot to Mastodon
+      - name: Send Toot
         id: mastodon
         uses: cbrgm/mastodon-github-action@v1
         with:
@@ -117,9 +117,6 @@ jobs:
         env:
           MASTODON_URL: ${{ secrets.MASTODON_URL }}
           MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
-
-
-
 
 
 #  Post-to-Facebook:
