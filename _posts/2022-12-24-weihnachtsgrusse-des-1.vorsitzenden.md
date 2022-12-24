@@ -2,7 +2,7 @@
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
-title: Weihnachtsgrüße des 1. Vorsitzenden
+title: Weihnachtsgrüße
 thumbnail: ''
 photoalbum: ''
 
