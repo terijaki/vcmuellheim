@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Bezirksmeisterschaften U14 weibliche Jugend am 15 Januar
 thumbnail: ''
 photoalbum: ''
