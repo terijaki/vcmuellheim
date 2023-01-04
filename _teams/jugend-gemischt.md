@@ -12,9 +12,9 @@ trainings-ort2: Sporthalle II Teil E
 trainings-map2: https://goo.gl/maps/g3XhvCS9gpR2
 trainer-name1: Klaus Ernst
 trainer-email1: klaus@vcmuellheim.de
-trainer-name2: Steffanie Zimmermann
-trainer-email2: steffanie@vcmuellheim.de
-kommentar: 'Die Mannschaft wird zudem durch Dominik Ernst unterstützt und betreut.'
+trainer-name2: Dominik Ernst
+trainer-email2: dominik@vcmuellheim.de
+kommentar: 'Die Mannschaft wird zudem durch Steffanie Zimmermann unterstützt und betreut.'
 foto: ''
 kurztext: ''
 ansprechperson-name1: ''
