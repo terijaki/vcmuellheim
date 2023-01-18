@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Herren II holen zwei Punkte beim Nachhol-Spieltag
 thumbnail: "/upload/2023/01/18/whatsapp-image-2023-01-14-at-23-48-03.jpg"
 photoalbum: ''
