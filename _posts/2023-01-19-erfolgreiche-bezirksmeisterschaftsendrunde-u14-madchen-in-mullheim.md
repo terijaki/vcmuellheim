@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Erfolgreiche Bezirksmeisterschaftsendrunde U14 Mädchen in Müllheim
 thumbnail: "/upload/2023/01/19/20230115_112736.jpg"
 photoalbum: ''
