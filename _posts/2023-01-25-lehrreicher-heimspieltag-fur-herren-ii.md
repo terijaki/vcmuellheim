@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Lehrreicher Heimspieltag für Herren II
 thumbnail: "/upload/2023/01/25/img-20230121-wa0069.jpg"
 photoalbum: ''
