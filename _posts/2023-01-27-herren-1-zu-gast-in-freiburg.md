@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Herren 1 zu Gast in Freiburg
 thumbnail: "/upload/2023/01/27/img_4110.jpg"
 photoalbum: ''
