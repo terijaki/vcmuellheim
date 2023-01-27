@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Wechsel bei der Mitgliederverwaltung
 thumbnail: "/upload/2023/01/27/renatewechsel.jpg"
 photoalbum: ''
