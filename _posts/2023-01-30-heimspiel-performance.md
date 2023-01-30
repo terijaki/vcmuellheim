@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Heimspiel Performance
 thumbnail: "/upload/2023/01/30/img_4307.jpg"
 photoalbum: ''
