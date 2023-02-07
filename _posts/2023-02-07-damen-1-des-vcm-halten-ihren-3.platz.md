@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Damen 1 des VCM halten ihren 3. Platz
 thumbnail: "/upload/2023/02/07/img-20230204-wa0045.jpg"
 photoalbum: ''
