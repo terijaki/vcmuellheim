@@ -630,6 +630,89 @@
     </matchSeries>
                         </team>
                         <team>
+    <id>24803142</id>
+    <uuid>e98f57bc-9261-4e74-b9d5-7c307fd56bb4</uuid>
+    <seasonTeamId>24803142</seasonTeamId>
+    <placeCipher>0</placeCipher>
+    <name>VC Müllheim II</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>22515360</id>
+    <uuid>d53c0b26-2fed-4663-b599-1886bbef5fdc</uuid>
+    <allSeasonId>996603b0-f80c-8a49-619b-e1734f8cfaa8</allSeasonId>
+    <name>Bezirkspokal West Herren</name>
+    <shortName>BezPokal West He</shortName>
+    <type>Competition</type>
+        <updated>2023-02-15 14:17:06.557</updated>
+        <structureUpdated>2023-02-15 14:17:06.557</structureUpdated>
+        <resultsUpdated></resultsUpdated>
+        <season>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
+        </season>
+        <hierarchy>
+            <id>22515344</id>
+            <uuid>0d8c28d2-b2b1-4495-af4f-7e582608d767</uuid>
+            <name>Bezirkspokal Bezirk West</name>
+            <shortName>w_pokal</shortName>
+            <hierarchyLevel>4</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>22515344</id>
+                    <name>Bezirkspokal Bezirk West</name>
+                    <shortName>w_pokal</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515343</id>
+                    <name>SBVV Landespokal</name>
+                    <shortName>SBVV-Pokal</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515342</id>
+                    <name>Regionalpokal</name>
+                    <shortName>Regionalpokal</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515341</id>
+                    <name>Pokalwettbewerbe</name>
+                    <shortName>P</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515340</id>
+                    <name>Allgemeiner Spielbetrieb</name>
+                    <shortName>alg</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name></name>
+            <shortName></shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
     <id>23746102</id>
     <uuid>7527df10-42d9-4e96-a4a8-0ecd3a12b609</uuid>
     <seasonTeamId>23746102</seasonTeamId>
