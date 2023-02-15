@@ -59,9 +59,9 @@
     <name>Verbandsliga Herren</name>
     <shortName>vl h</shortName>
     <type>League</type>
-        <updated>2023-02-07 11:25:34.531</updated>
-        <structureUpdated>2023-02-07 11:25:34.531</structureUpdated>
-        <resultsUpdated>2023-01-29 08:33:46.061</resultsUpdated>
+        <updated>2023-02-12 09:57:13.139</updated>
+        <structureUpdated>2023-02-11 08:28:38.67</structureUpdated>
+        <resultsUpdated>2023-02-12 09:57:13.139</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -154,9 +154,9 @@
     <name>Bezirksliga Herren</name>
     <shortName>bzl n h</shortName>
     <type>League</type>
-        <updated>2023-02-01 10:18:22.091</updated>
+        <updated>2023-02-12 17:36:01.514</updated>
         <structureUpdated>2023-01-20 19:29:07.537</structureUpdated>
-        <resultsUpdated>2023-02-01 10:18:22.091</resultsUpdated>
+        <resultsUpdated>2023-02-12 17:36:01.514</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -261,9 +261,9 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-02-06 16:42:20.413</updated>
-        <structureUpdated>2023-02-06 16:42:20.413</structureUpdated>
-        <resultsUpdated>2023-02-05 14:50:02.25</resultsUpdated>
+        <updated>2023-02-12 16:15:54.978</updated>
+        <structureUpdated>2023-02-10 21:22:23.581</structureUpdated>
+        <resultsUpdated>2023-02-12 16:15:54.978</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -380,9 +380,9 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-02-06 16:42:20.413</updated>
-        <structureUpdated>2023-02-06 16:42:20.413</structureUpdated>
-        <resultsUpdated>2023-02-05 14:50:02.25</resultsUpdated>
+        <updated>2023-02-12 16:15:54.978</updated>
+        <structureUpdated>2023-02-10 21:22:23.581</structureUpdated>
+        <resultsUpdated>2023-02-12 16:15:54.978</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -576,8 +576,8 @@
     <name>Bezirkspokal West Damen</name>
     <shortName>BezPokal West Da</shortName>
     <type>Competition</type>
-        <updated>2023-02-01 22:45:05.201</updated>
-        <structureUpdated>2023-02-01 22:45:05.201</structureUpdated>
+        <updated>2023-02-14 22:45:54.389</updated>
+        <structureUpdated>2023-02-14 22:45:54.389</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>22514239</id>
