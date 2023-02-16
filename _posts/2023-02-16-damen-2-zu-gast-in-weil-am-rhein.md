@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Damen 2 zu Gast in Weil am Rhein
 thumbnail: "/upload/2023/02/16/weilamrhein0.jpg"
 photoalbum: ''
