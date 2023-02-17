@@ -57,7 +57,7 @@ jobs:
             sed -i -e 's!title:!posted-on-social: true\ntitle:!g' $matchfile
             git add $matchfile
           done
-          git commit -m "tagged as posted on social"
+          git commit -m "tagged as posted on social [actions skip]"
 
       - name: Messages for Social # set the last line of the match file as message for Social
         id: messagesforsocial

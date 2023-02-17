@@ -58,7 +58,7 @@ jobs:
             sed -i -e 's!title:!posted-on-social: true\ntitle:!g' $postfile
             git add $postfile
           done
-          git commit -m "tagged as shared on social"
+          git commit -m "tagged as shared on social [actions skip]"
 
       - name: Messages for Social # Select the message for Social
         #for each post we extract the title using regex, and remove ' and " characters
