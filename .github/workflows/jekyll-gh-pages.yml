@@ -6,6 +6,8 @@ on:
       - "main"
     tags-ignore:
       - "social"
+    paths-ignore:
+      - ".github/workflows/**"
 
   workflow_dispatch:
 
