@@ -18,6 +18,14 @@
   --font2: "Montserrat", sans-serif;
 }
 
+
+/* ------ Libraries ------ */
+@import "bootstrap/bootstrap";
+@import "fontawesome/fontawesome";
+@import "fontawesome/solid";
+@import "fontawesome/brands";
+
+
 html {
   scroll-behavior: smooth;
 }
@@ -1133,9 +1141,3 @@ main {
 div[data-tooltip="Previews Server is Stopped"] {
   display: none;
 }
-
-/* ------ Libraries ------ */
-@import "bootstrap/bootstrap";
-@import "fontawesome/fontawesome";
-@import "fontawesome/solid";
-@import "fontawesome/brands";
