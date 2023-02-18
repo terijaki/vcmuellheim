@@ -669,193 +669,258 @@ html {
     word-break: break-all;
   }
   
-  /* Simple Page
-  --------------------------------*/
-  
-  #page-simple,
-  #matches {
+  /* ------ Simple Page (Satzung, Datenschutz, Impressum) ------ */
+  #page-simple {
     padding: 30px 0;
+
+    .box {
+        overflow: hidden;
+        overflow-wrap: anywhere;
+
+        h1,h2,h3,h4 {
+            font-weight: 500;
+            margin: 0.2rem 0;
+            /* Avoids headings being cut off mid word. */
+
+            &:not(:first-child) {
+                margin-top: 1rem;
+            }
+        }
+    }
   }
+
   
-  #page-simple .box {
-    overflow: hidden;
-    overflow-wrap: anywhere;
-  }
-  
-  #page-simple .box h1,
-  #page-simple .box h2,
-  #page-simple .box h3,
-  #page-simple .box h4 {
-    font-weight: 500;
-    margin: 0.2rem 0;
-    /* Avoids headings being cut off mid word. */
-  }
-  
-  #page-simple .box h1:not(:first-child),
-  #page-simple .box h2:not(:first-child),
-  #page-simple .box h3:not(:first-child),
-  #page-simple .box h4:not(:first-child) {
-    margin-top: 1rem;
-  }
-  
-  /* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse, Spielplan)
+  /* More Features Section (Mannschaftern, Mitglieder, Ergebnisse, Spielplan)
   --------------------------------*/
   #matches .past .ergebnis-liste .match:nth-child(odd),
   #matches .upcoming .termine-liste .match:nth-child(odd) {
     background: rgba(0, 0, 0, 0.05);
   }
-  
-  
-  
-  @media (max-width: 768px) {
-  
-    /* Verhalten bei kleineren Bildschirmen*/
-    #matches .container,
-    #ergebnisse-tabelle .container {
-      padding: 0;
-    }
-  
-    .sams-rankings tr :nth-child(4) {
-      display: none;
-      /* Blendet Sätze aus der Tabellenübersicht aus */
-    }
-  
-    #matches .box {
-      padding: 20px;
-      margin-bottom: 30px;
-    }
-  
+
+  #matches {
+    padding: 30px 0;
   }
+  
+  
+@media (max-width: 768px) {
+	#matches {
+		.container {
+			padding: 0;
+		}
+		.box {
+			padding: 20px;
+			margin-bottom: 30px;
+		}
+	}
+	#ergebnisse-tabelle {
+		.container {
+			padding: 0;
+		}
+	}
+	.sams-rankings {
+		tr {
+			&:nth-child(4) {
+				display: none;
+                /* Blendet Sätze aus der Tabellenübersicht aus */
+			}
+		}
+	}
+}
+ 
   
   .sams-rankings tr>* {
     padding: 1px;
     text-align: center;
   }
   
-  #matches .footnote,
-  #ergebnisse-tabelle .footnote {
+  #matches .footnote {
     font-style: italic;
     font-size: small;
   }
   
-  #ergebnisse-tabelle .footnote {
-    display: flex;
-    position: relative;
-    top: -0.5rem;
-  }
+#ergebnisse-tabelle {
+    .footnote {
+        display: flex;
+        position: relative;
+        top: -0.5rem;
+        font-style: italic;
+        font-size: small;
+
+        &>div {
+            flex-grow: 1
+        }
+    }
+    .timestamp {
+        text-align: right;
+        color: rgba(0, 0, 0, 0.3)
+    }
+    .nomatches:not(:first-child) {
+        display: none;
+    }
+    .norankings {
+        text-align: center;
+        padding: 0.5rem 0;
+    }
+    .sams-rankings tr[team~="Müllheim"] {
+        color: var(--text2);
+        background: var(--gradient1);
+        font-weight: normal !important;
+    }
+    .box tbody tr:hover {
+        background-color: var(--gradient2);
+        color: var(--text2);
+    }
+} 
+
   
-  #ergebnisse-tabelle .footnote>div {
-    flex-grow: 1
-  }
-  
-  #matches .timestamp,
-  #ergebnisse-tabelle .timestamp {
+  #matches .timestamp {
     text-align: right;
     color: rgba(0, 0, 0, 0.3)
   }
   
-  #ergebnisse-tabelle .norankings:not(:first-child),
   #matches .nomatches:not(:first-child) {
     display: none;
   }
   
-  #matches .nomatches,
-  #ergebnisse-tabelle .norankings {
+  #matches .nomatches {
     text-align: center;
     padding: 0.5rem 0;
   }
   
-  #ergebnisse-tabelle .sams-rankings tr[team~="Müllheim"] {
-    color: var(--text2);
-    background: var(--gradient1);
-    font-weight: normal !important;
-  }
-  
-  #ergebnisse-tabelle .box tbody tr:hover {
-    background-color: var(--gradient2);
-    color: var(--text2);
-  }
-  
-  #news .box {
-    cursor: pointer;
-  }
-  
-  #news .newsposts>div {
-    display: flex;
-  }
-  
-  #news .newsposts .box a.thumbnail {
-    width: 100%;
-    width: calc(100% + 40px);
-    height: 160px;
-    margin: -20px;
-    top: -40px;
-    position: relative;
-    overflow: hidden;
-    display: block;
-    box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
-  }
-  
-  #news .newsposts .box a.thumbnail div {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    transition: 0.3s;
-    background-blend-mode: luminosity;
-  }
-  
-  #news .newsposts .box:hover a.thumbnail div {
-    background-blend-mode: unset;
-    transform: scale(1.2)
-  }
-  
-  
-  #news .newsposts img {
-    display: none;
-  }
-  
-  @media (max-width: 767px) {
-    .landingpage #news .newsposts>div:nth-of-type(1n+3) .thumbnail {
-      display: none;
+ 
+
+/* ------ News ------ */
+ #news {
+    .box {
+        cursor: pointer;
+      }
+    .archiv-btn {
+        font-size: 16px;
+        padding: 8px 28px;
+      }
+    .newsposts {
+        .box {
+            a.thumbnail {
+                width: 100%;
+                width: calc(100% + 40px);
+                height: 160px;
+                margin: -20px;
+                top: -40px;
+                position: relative;
+                overflow: hidden;
+                display: block;
+                box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
+
+                div {
+                    width: 100%;
+                    height: 100%;
+                    background-size: cover;
+                    background-position: center;
+                    transition: 0.3s;
+                    background-blend-mode: luminosity;
+                }
+            }
+            &:hover {
+                a.thumbnail div {
+                    background-blend-mode: unset;
+                    transform: scale(1.2)
+                }
+            }
+        }
+        img {
+            display: none;
+        }
     }
-  
-    .landingpage #news .newsposts>div:nth-of-type(1n+3) .box {
-      padding: 24px;
+    h4 {
+        margin-left: 0;
+        font-weight: 700;
+        margin-bottom: 15px;
+        font-size: 18px;
+
+        a {
+            color: #111;
+        }
     }
-  
-    .landingpage #news .newsposts>div:nth-of-type(1n+3) .post-excerpt {
-      max-height: 48px;
+    p, .post-content * {
+    font-size: 14px;
+    margin-left: 0;
+    margin-bottom: 0;
+    line-height: 24px;
     }
-  
-    .landingpage #news .newsposts>div:nth-of-type(1n+3) .post-title {
-      margin-bottom: 10px;
+    p.post-url {
+        text-align: right;
+        position: relative;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 1) 70%);
+        margin: -24px 0 0 0;
     }
-  }
-  
+    .post-excerpt {
+        overflow: hidden;
+        max-height: 98px;
+        text-overflow: ellipsis;
+    }
+ } 
+  /* special CSS depending on line-clamp support*/  
+@supports (-webkit-line-clamp: 3) {
+    #news {
+        .post-excerpt {
+            max-height: initial;
+            text-overflow: initial;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+        .no-post-thumbnail.post-excerpt {
+            -webkit-line-clamp: 8;
+        }
+        p.post-url {
+            display: none;
+        }
+    }
+}
+/* special CSS depending on line-clamp support*/
+/* ------ News ------ */
+
+@media (max-width: 767px) {
+    .landingpage #news .newsposts>div:nth-of-type(1n+3){
+        .thumbnail {
+            display: none;
+        }
+        .box {
+            padding: 24px;
+        }
+        .post-excerpt {
+            max-height: 48px;
+        }
+        .post-title {
+            margin-bottom: 10px;
+        }
+    } 
+}
+
+
   .post-photoalbum {
     text-align: center;
-  }
-  
-  .post-photoalbum a {
-    font-family: var(--font2);
-    font-weight: 500;
-    font-size: 16px;
-    letter-spacing: 1px;
-    display: inline-block;
-    padding: 8px 30px;
-    border-radius: 25px;
-    transition: background 0.5s;
-    margin: 10px;
-    border: 2px solid var(--text2);
-    background: linear-gradient(var(--gradient2), var(--gradient1));
-    color: var(--text2);
-  }
-  
-  .post-photoalbum a:hover {
-    border-color: var(--link2);
-    background: transparent;
-    color: var(--link2);
+
+    a {
+        font-family: var(--font2);
+        font-weight: 500;
+        font-size: 16px;
+        letter-spacing: 1px;
+        display: inline-block;
+        padding: 8px 30px;
+        border-radius: 25px;
+        transition: background 0.5s;
+        margin: 10px;
+        border: 2px solid var(--text2);
+        background: linear-gradient(var(--gradient2), var(--gradient1));
+        color: var(--text2);
+
+        &:hover {
+            border-color: var(--link2);
+            background: transparent;
+            color: var(--link2);
+          }
+      }
   }
   
   #mannschaften .teams>div {
@@ -880,122 +945,80 @@ html {
     }
   }
   
-  
-  #mannschaften .box {
-    width: 100%;
-    margin-bottom: 30px;
-    box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
-    background: #fff;
-    transition: 0.4s;
-  }
-  
-  #mannschaften h4 {
-    font-weight: 700;
-    margin-bottom: 1rem;
-    font-size: 18px;
-  }
-  
-  #mannschaften h4 a {
-    color: #111;
-  }
-  
-  #mannschaften .box p {
-    font-size: 14px;
-    margin-bottom: 1rem;
-    line-height: 24px;
-  }
-  
-  #mannschaften .box p:last-child {
-    margin-bottom: 0px;
-  }
-  
-  @media (max-width: 767px) {
-    #mannschaften .box {
-      margin-bottom: 20px;
+ 
+#mannschaften {
+    .box {
+        width: 100%;
+        margin-bottom: 30px;
+        box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
+        background: #fff;
+        transition: 0.4s;
+
+        p {
+            font-size: 14px;
+            margin-bottom: 1rem;
+            line-height: 24px;
+
+            &:last-child {
+                margin-bottom: 0px;
+            }
+        }
     }
-  
-    #mannschaften .icon {
-      float: none;
-      text-align: center;
-      padding-bottom: 15px;
+    h4 {
+        font-weight: 700;
+        margin-bottom: 1rem;
+        font-size: 18px;
+
+        a {
+            color: #111;
+        }
     }
+}
+
   
-    #mannschaften h4,
-    #mannschaften p {
-      margin-left: 0;
-      text-align: center;
-    }
-  }
+
+@media (max-width: 767px) {
+	#mannschaften {
+		.box {
+			margin-bottom: 20px;
+		}
+		.icon {
+			float: none;
+			text-align: center;
+			padding-bottom: 15px;
+		}
+		h4 {
+			margin-left: 0;
+			text-align: center;
+		}
+		p {
+			margin-left: 0;
+			text-align: center;
+		}
+	}
+}
+
   
-  #news h4 {
-    margin-left: 0;
-    font-weight: 700;
-    margin-bottom: 15px;
-    font-size: 18px;
-  }
-  
-  #news h4 a {
-    color: #111;
-  }
-  
-  #news p,
-  #news .post-content * {
-    font-size: 14px;
-    margin-left: 0;
-    margin-bottom: 0;
-    line-height: 24px;
-  }
+
   
   
-  /* special CSS depending on line-clamp support*/
-  #news .post-excerpt {
-    overflow: hidden;
-    max-height: 98px;
-    text-overflow: ellipsis;
-  }
-  
-  #news p.post-url {
-    text-align: right;
-    position: relative;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 1) 70%);
-    margin: -24px 0 0 0;
-  }
-  
-  @supports (-webkit-line-clamp: 3) {
-    #news .post-excerpt {
-      max-height: initial;
-      text-overflow: initial;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-    }
-  
-    #news .no-post-thumbnail.post-excerpt {
-      -webkit-line-clamp: 8;
-    }
-  
-    #news p.post-url {
-      display: none;
-    }
-  }
-  
-  /* special CSS depending on line-clamp support*/
+
   
   @media (max-width: 767px) {
     #news .box {
       margin-bottom: 20px;
       overflow: hidden;
-    }
-  
-    #news .newsposts .box a.thumbnail {
-      width: calc(100% + 60px);
-      margin: -30px -30px 10px -30px;
-      position: static;
-    }
-  
-    #news .newsposts .box a.thumbnail div {
-      background-blend-mode: unset;
-      filter: none;
+    
+      a.thumbnail {
+        width: calc(100% + 60px);
+        margin: -30px -30px 10px -30px;
+        position: static;
+
+        div {
+            background-blend-mode: unset;
+            filter: none;
+          }
+      }
     }
   }
   
@@ -1013,53 +1036,51 @@ html {
     border: 2px solid #fff;
     color: var(--text2);
     background: var(--gradient2);
+    
+    &:hover {
+        color: var(--text2);
+        background: var(--link1);
+      }
   }
-  
-  .generic-button:hover {
-    color: var(--text2);
-    background: var(--link1);
-  }
-  
-  #news .archiv-btn {
-    font-size: 16px;
-    padding: 8px 28px;
-  }
-  
-  #teaminfo .generic-button {
-    padding: 6px 18px;
-  }
-  
+
   
   /* sponsors Section
   --------------------------------*/
+  
   #sponsors {
     color: #fff;
     background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/verein-bg.jpg) fixed center center;
     background-size: cover;
-  }
-  
-  #sponsors .sponsor-carousel .sponsor-item.slick-active {
-    display: flex;
-    /* space and center the sponsor logos evenly */
-    justify-content: space-evenly;
-    align-items: center;
-    height: 6rem;
-  }
-  
-  #sponsors .sponsor-item {
-    padding: 0 2rem;
-  }
-  
-  #sponsors .sponsor-carousel img {
-    max-height: 6rem;
-    max-width: 100%;
-  }
+
+    .sponsor-carousel {
+        img {
+            max-height: 6rem;
+            max-width: 100%;
+          }
+        .sponsor-item {
+            padding: 0 2rem;
+        }
+        .sponsor-item.slick-active {
+            display: flex;
+            /* space and center the sponsor logos evenly */
+            justify-content: space-evenly;
+            align-items: center;
+            height: 6rem;
+        }
+    }
+}
+
   
   /* Mannschafts Details
   --------------------------------*/
-  #teaminfo .box p:last-child {
-    margin-bottom: 0;
-  }
+  #teaminfo {
+     .box p:last-child {
+        margin-bottom: 0;
+    }
+    .generic-button {
+        padding: 6px 18px;
+    }
+}
   
   /*--------------------------------------------------------------
   # Footer
@@ -1070,21 +1091,17 @@ html {
     padding: 30px 0;
     color: #333;
     font-size: 14px;
+
+    a {
+        color: #666;
+        margin: auto 7px;
+
+        &:hover {
+            color: var(--gradient2);
+          }
+      }
   }
-  
-  #footer .credits {
-    font-size: 13px;
-    color: #888;
-  }
-  
-  #footer a {
-    color: #666;
-    margin: auto 7px;
-  }
-  
-  #footer a:hover {
-    color: var(--gradient2);
-  }
+
   
   /* ----- Print -----*/
   @media print {
