@@ -650,6 +650,10 @@ html {
     background: #fff;
     transition: 0.4s;
     cursor: default;
+
+    &:not(h1, h2, h3, h4) a:not([href^="mailto:"]) {
+        word-break: break-all;
+      }
   }
   
   .box.dark {
@@ -664,12 +668,9 @@ html {
       width: 100%
     }
   }
+
   
-  .box :not(h1, h2, h3, h4) a:not([href^="mailto:"]) {
-    word-break: break-all;
-  }
-  
-  /* ------ Simple Page (Satzung, Datenschutz, Impressum) ------ */
+/* ------ Simple Page (Satzung, Datenschutz, Impressum) ------ */
   #page-simple {
     padding: 30px 0;
 
@@ -688,20 +689,44 @@ html {
         }
     }
   }
-
-  
-  /* More Features Section (Mannschaftern, Mitglieder, Ergebnisse, Spielplan)
-  --------------------------------*/
-  #matches .past .ergebnis-liste .match:nth-child(odd),
-  #matches .upcoming .termine-liste .match:nth-child(odd) {
-    background: rgba(0, 0, 0, 0.05);
-  }
-
-  #matches {
+/* ------ Matches ------ */
+#matches {
     padding: 30px 0;
-  }
-  
-  
+    .past {
+        .ergebnis-liste {
+            .match {
+                &:nth-child(odd) {
+                    background: rgba(0, 0, 0, 0.05);
+                }
+            }
+        }
+    }
+    .upcoming {
+        .termine-liste {
+            .match {
+                &:nth-child(odd) {
+                    background: rgba(0, 0, 0, 0.05);
+                }
+            }
+        }
+    }
+    .footnote {
+        font-style: italic;
+        font-size: small;
+    }
+    .timestamp {
+        text-align: right;
+        color: rgba(0, 0, 0, 0.3)
+    }
+    .nomatches {
+        text-align: center;
+        padding: 0.5rem 0;
+
+        &:not(:first-child) {
+            display: none;
+        }
+    }
+}
 @media (max-width: 768px) {
 	#matches {
 		.container {
@@ -712,6 +737,18 @@ html {
 			margin-bottom: 30px;
 		}
 	}
+}
+
+/* ------ Matches ------ */
+
+
+
+  /* More Features Section (Mannschaftern, Mitglieder, Ergebnisse)
+  --------------------------------*/
+
+  
+  
+@media (max-width: 768px) {
 	#ergebnisse-tabelle {
 		.container {
 			padding: 0;
@@ -733,11 +770,8 @@ html {
     text-align: center;
   }
   
-  #matches .footnote {
-    font-style: italic;
-    font-size: small;
-  }
-  
+
+/* ------ Tabelle ------ */
 #ergebnisse-tabelle {
     .footnote {
         display: flex;
@@ -771,21 +805,9 @@ html {
         color: var(--text2);
     }
 } 
+/* ------ Tabelle ------ */
+  
 
-  
-  #matches .timestamp {
-    text-align: right;
-    color: rgba(0, 0, 0, 0.3)
-  }
-  
-  #matches .nomatches:not(:first-child) {
-    display: none;
-  }
-  
-  #matches .nomatches {
-    text-align: center;
-    padding: 0.5rem 0;
-  }
   
  
 
