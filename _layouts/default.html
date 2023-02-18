@@ -13,8 +13,8 @@
 
 </head>
 
-<body class="{% if page.title %}{{ page.title | remove: ' ' }}{% else %}landingpage{% endif %}">
-  <div id="page-wrapper" class="d-flex flex-column">
+<body class="{% if page.title %}{{ page.title | remove: ' ' }}{% else %}landingpage{% endif %} d-flex flex-column">
+
 
   {% include navigation.html %}
 
@@ -44,7 +44,6 @@
     </div>
   </footer>
 <!--===== #footer =====-->
-</div>
 <!--===== Scripts =====-->
   <!-- JavaScript Libraries -->
   <script src="/assets/js/jquery/jquery.slim.min.js"></script>
