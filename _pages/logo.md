@@ -16,7 +16,7 @@ Möchten Sie auf unseren Verein verweisen, oder benötigen Sie eine Vektorgrafik
 <p class="text-center"><a href="/logo/logo-schwarz.png" download>Download PNG (schwarz)</a><a href="/logo/logo-weiss.png" download>Download PNG (weiß)</a></p>
 
 <h1>Rastergrafik (mit Hintergrund)</h1>
-<div class="row pt-2">
+<div class="row pt-2 mx-5 mx-md-0">
     <div class="col-12 col-md-4">
     <p class="text-center"><img src="/logo/logo-01A29A-500.png" class="img-fluid"></p>
     <p class="text-center"><a class="m-0" href="/logo/logo-01A29A.png" download>Download PNG<br>(#01A29A)</a></p>
