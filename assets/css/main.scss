@@ -19,6 +19,12 @@
 }
 
 
+$primary:     #01a29a; /* rgb(1,162,154) | Persian Green */
+$secondary:   #366273; /* rgb(54,98,115) | Blumine */
+$dark:        #363b40; /* rgb(54,59,64) | Baltic Sea */
+
+
+
 /* ------ Libraries ------ */
 @import "bootstrap/bootstrap";
 @import "fontawesome/fontawesome";
@@ -42,14 +48,11 @@ a {
   color: var(--link1);
   transition: 0.5s;
   text-decoration: none;
-}
-
-a:hover,
-a:active,
-a:focus {
-  color: var(--link_hover1);
-  outline: none;
-  text-decoration: none;
+  &.hover,&:active,&:focus {
+    color: var(--link_hover1);
+    outline: none;
+    text-decoration: none;
+  }
 }
 
 p {
