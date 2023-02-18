@@ -42,6 +42,7 @@ body {
   color: var(--text1);
   font-family: var(--font1);
   overflow-x: hidden;
+  overflow-y: hidden;
   cursor: default;
 }
 
@@ -77,7 +78,7 @@ h6 {
 /*--------------------------------------------------------------
   # Scrollbar
   --------------------------------------------------------------*/
-@media (min-width: 8px) {
+@media (min-width: 768px) {
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
