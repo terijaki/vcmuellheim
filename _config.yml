@@ -23,6 +23,11 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-coffeescript
+
+sass:
+    sass_dir: _scss
+    style: compressed
 
 # Other
 markdown: kramdown

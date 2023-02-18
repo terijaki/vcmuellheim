@@ -1,0 +1,1198 @@
+---
+---
+:root {
+    --black:        #0E0E10; /* rgb(14, 14, 16) | Jet Black  */
+    --text1:        #666666; /* rgb(102,102,102) | Dim Gray  */
+    --text2:        #FFFFFF; /* rgb(255,255,255) | White */
+    --background1:  #FFFFFF; /* rgb(255,255,255) | White */
+    --background2:  #EFF5F5; /* rgb(239,245,245) | Aqua Haze */
+    --link1:        #01A29A; /* rgb(1,162,154) | Persian Green */
+    --link_hover1:  #BFA084; /* rgb(191,160,132) | Rodeo Dust */
+    --link2:        #366273; /* rgb(54,98,115) | Blumine */
+    --gradient1:    #363B40; /* rgb(54,59,64) | Baltic Sea */
+    --gradient2:    #366273; /* rgb(54,98,115) | Blumine */
+    --shadow1:      #7f89a1; /* rgb(127,137,161) | Ship Cove */
+    --shadow2:      #494E5C; /* rgb(73,78,92) | Tuna */
+    --font1:  "Open Sans", sans-serif;
+    --font2:  "Montserrat", sans-serif;
+  }
+  
+
+@import "bootstrap/bootstrap";
+@import "fontawesome/fontawesome";
+@import "fontawesome/solid";
+@import "fontawesome/brands";
+
+
+html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background: var(--background1);
+    color: var(--text1);
+    font-family: var(--font1);
+    overflow-x: hidden;
+    cursor: default;
+  }
+  
+  a {
+    color: var(--link1);
+    transition: 0.5s;
+    text-decoration: none;
+  }
+  
+  a:hover,
+  a:active,
+  a:focus {
+    color: var(--link_hover1);
+    outline: none;
+    text-decoration: none;
+  }
+  
+  p {
+    padding: 0;
+    margin: 0 0 30px 0;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font2);
+    font-weight: 400;
+    margin: 0 0 20px 0;
+    padding: 0;
+    word-wrap: break-word;
+  }
+  
+  /*--------------------------------------------------------------
+  # Smooth Scrolling
+  --------------------------------------------------------------*/
+  
+  #header,
+  #page-wrapper,
+  main {
+    scroll-behavior: smooth;
+  }
+  
+  /*--------------------------------------------------------------
+  # Scrollbar
+  --------------------------------------------------------------*/
+  @media (min-width: 768px) {
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+  
+    ::-webkit-scrollbar-button {
+      width: 0px;
+      height: 0px;
+    }
+  
+    ::-webkit-scrollbar-thumb {
+      background: var(--link_hover1);
+      border: none;
+      border-radius: 0px;
+    }
+  
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--link1);
+    }
+  
+    ::-webkit-scrollbar-thumb:active {
+      background: var(--link1);
+    }
+  
+    ::-webkit-scrollbar-track {
+      background: var(--gradient1);
+      border: none;
+      border-radius: 0px;
+    }
+  
+    ::-webkit-scrollbar-track:hover {
+      background: var(--gradient1);
+    }
+  
+    ::-webkit-scrollbar-track:active {
+      background: var(--gradient1);
+    }
+  
+    ::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+  }
+  
+  /*--------------------------------------------------------------
+  # Text Selection
+  --------------------------------------------------------------*/
+  
+  ::selection {
+    color: var(--text2);
+    background: var(--gradient2);
+  }
+  
+  /*--------------------------------------------------------------
+  # Banner
+  --------------------------------------------------------------*/
+  .banner-info {
+    background: #FFDD00;
+    color: #0057B7;
+    width: 100vw;
+    line-height: 20px;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .banner-info a {
+    color: #0057B7;
+  }
+  
+  /*--------------------------------------------------------------
+  # Header
+  --------------------------------------------------------------*/
+  #header {
+    position: sticky;
+    left: 0;
+    top: 0;
+    right: 0;
+    transition: all 0.5s;
+    z-index: 997;
+    background: var(--gradient1);
+  }
+  
+  #header h1 {
+    font-size: 36px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  
+  #header h1 a,
+  #header h1 a:hover {
+    color: var(--text2);
+  }
+  
+  @media (max-width: 768px) {
+    #header h1 {
+      font-size: 28px;
+      letter-spacing: 2px;
+    }
+  }
+  
+  @media (max-width: 360px) {
+    #header h1 {
+      font-size: 22px;
+      letter-spacing: 2px;
+    }
+  }
+  
+  
+  /*--------------------------------------------------------------
+  # Cover-BG (background image with dark gradient)
+  --------------------------------------------------------------*/
+  .cover-img-bg {
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+  }
+  
+  @media (max-width: 769px) {
+  
+    .cover-img-bg {
+      background-attachment: scroll !important;
+    }
+  }
+  
+  /*--------------------------------------------------------------
+  # Intro Section
+  --------------------------------------------------------------*/
+  
+  #intro {
+    width: 100%;
+    height: 90vh;
+    height: calc(100vh - 60px);
+    background: var(--gradient1);
+    color: var(--text2);
+    position: relative;
+    transition: background-image 1s;
+  }
+  
+  #intro.random {
+    background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), var(--gradient1);
+  }
+  
+  #intro.rnd-1,
+  #intro.rnd-2,
+  #intro.rnd-3,
+  #intro.rnd-4,
+  #intro.rnd-5 {
+    background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), url("/img/intro-bg.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+  }
+  
+  #intro.rnd-6,
+  #intro.rnd-7,
+  #intro.rnd-8,
+  #intro.rnd-9,
+  #intro.rnd-10 {
+    background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), url("/img/intro-bg2.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+  }
+  
+  #intro .vcm-banner img {
+    max-height: 200px;
+    max-width: 90vw;
+  }
+  
+  #intro .btn-quicklinks {
+    font-family: var(--font2);
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 1px;
+    display: inline-block;
+    transition: 0.5s;
+    border: 2px solid #fff;
+    color: var(--text2);
+  }
+  
+  #intro .btn-quicklinks:hover {
+    color: var(--gradient2);
+    background: #fff;
+  }
+  
+  /* Premium Sonsors (before the fold!)
+  --------------------------------*/
+  .intro-sponsor {
+    background: #ffffff;
+    color: var(--text1);
+  }
+  
+  .intro-sponsor img {
+    max-height: 56px;
+    max-width: 50%;
+  }
+  
+  @media (min-height: 600px) {
+    .intro-sponsor img {
+      max-height: 72px;
+      max-width: 50%;
+    }
+  }
+  
+  /*--------------------------------------------------------------
+  # Navigation Menu
+  --------------------------------------------------------------*/
+  .navbar {
+    min-height: 60px;
+  }
+  
+  .nav-link {
+    color: var(--text2);
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  .navbar-toggler {
+    color: var(--text2);
+    line-height: inherit;
+  }
+  
+  .navbar-toggler:focus {
+    outline: none;
+  }
+  
+  .navbar-nav .nav-link:focus,
+  .navbar-nav .nav-link:hover {
+    color: var(--link_hover1);
+  }
+  
+  /*--------------------------------------------------------------
+  # Sections
+  --------------------------------------------------------------*/
+  /* Sections Header
+  --------------------------------*/
+  .section-header .section-title {
+    font-size: 32px;
+    color: var(--black);
+    text-align: center;
+    font-weight: 400;
+  }
+  
+  .section-header .section-description {
+    text-align: center;
+    padding-bottom: 40px;
+    color: var(--text1);
+    font-style: italic;
+  }
+  
+  .section-header .section-divider {
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--gradient2);
+    background: linear-gradient(0deg, var(--gradient2) 0%, var(--gradient1) 100%);
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  
+  /* Section with background
+  --------------------------------*/
+  .section-bg {
+    background: var(--background2);
+  }
+  
+  /* Verein Section
+  --------------------------------*/
+  #verein .mitglied {
+    margin-bottom: 20px;
+    overflow-x: auto;
+    display: flex;
+    align-items: center;
+  }
+  
+  #verein .mitgliederliste a {
+    color: var(--text1);
+  }
+  
+  #verein .mitgliederliste .h2 {
+    color: #333;
+    font-weight: 300;
+    font-size: 24px;
+  }
+  
+  #verein .mitgliederliste .avatar {
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    overflow: hidden;
+    float: left;
+    margin-right: 10px;
+  }
+  
+  #verein .mitgliederliste .avatar div {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-image: url(/img/noavatar.png), linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9));
+    transition: 0.5s;
+  }
+  
+  #verein .mitgliederliste h4.name {
+    font-size: 1rem;
+  }
+  
+  /* Stadtfest
+  --------------------------------*/
+  .stadtfest-image {
+    height: 100%;
+    width: 100%;
+    min-height: 200px;
+    min-width: 1px;
+    background-image: url('/img/muellheim-stadtfest.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  /* Beachvolleyball
+  --------------------------------*/
+  .beachvolleyball-image {
+    height: 100%;
+    width: 100%;
+    min-height: 200px;
+    min-width: 1px;
+    background-image: url('/img/beachvolleyball-britzingen.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  /* Loading Spinners
+  --------------------------------*/
+  .loadingspinner,
+  #blogpost img,
+  #blogpost video {
+    background-image: url(/img/loadingspinner1.png);
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  /* Blog Post
+  --------------------------------*/
+  #blogpost img,
+  #blogpost video {
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  #blogpost blockquote {
+    background: rgba(0, 0, 0, 0.05);
+    color: #000;
+    padding: 1rem 2rem;
+  }
+  
+  .social-sharing i:before,
+  .social-sharing a span {
+    font-size: 0.8rem;
+    color: var(--text2);
+  }
+  
+  .social-sharing a {
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    border: 2px solid var(--gradient2);
+    border-radius: 3px;
+    background: var(--gradient2);
+    line-height: 0.8rem;
+    transition: 0.3s;
+  }
+  
+  @media (max-width: 769px) {
+  
+    .social-sharing a i,
+    .social-sharing a span {
+      font-size: 0.6rem;
+    }
+  }
+  
+  .social-sharing a:hover {
+    background: var(--text2) !important;
+  }
+  
+  .social-sharing a:hover i:before,
+  .social-sharing a:hover span {
+    color: var(--gradient2);
+  }
+  
+  .social-sharing a span {
+    padding-left: 4px;
+    font-weight: bold;
+  }
+  
+  .social-sharing a.facebook {
+    border-color: #3b5998;
+    background: #3b5998;
+  }
+  
+  .social-sharing a.facebook:hover i:before,
+  .social-sharing a.facebook:hover span {
+    color: #3b5998;
+  }
+  
+  .social-sharing a.twitter {
+    border-color: #55acee;
+    background: #55acee;
+  }
+  
+  .social-sharing a.twitter:hover i:before,
+  .social-sharing a.twitter:hover span {
+    color: #55acee;
+  }
+  
+  .social-sharing a.whatsapp {
+    border-color: #25D366;
+    background: #25D366;
+  }
+  
+  .social-sharing a.whatsapp:hover i:before,
+  .social-sharing a.whatsapp:hover span {
+    color: #25D366;
+  }
+  
+  .social-sharing a.email {
+    border-color: #666;
+    background: #666;
+  }
+  
+  .social-sharing a.email:hover i:before,
+  .social-sharing a.email:hover span {
+    color: #666;
+  }
+  
+  .social-sharing.square a {
+    height: 30px;
+    width: 30px;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  /* Short Intros & Blog Post Header
+  --------------------------------*/
+  #shortintro,
+  #blog-post-header {
+    background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/call-to-action-bg.jpg) fixed center center;
+    background-size: cover;
+  }
+  
+  #shortintro .si-title,
+  #blog-post-header .si-title {
+    color: var(--text2);
+    font-size: 28px;
+    font-weight: 700;
+  }
+  
+  #shortintro .si-text,
+  #blog-post-header .si-text {
+    color: var(--text2);
+  }
+  
+  /* Heimspiele Section
+  --------------------------------*/
+  #heimspiele {
+    overflow: hidden;
+    background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/call-to-action-bg.jpg) fixed center center;
+    background-size: cover;
+    color: var(--text2);
+  }
+  
+  #heimspiele h4 {
+    color: var(--link_hover1);
+  }
+  
+  #heimspiele .cta-title {
+    color: var(--text2);
+    font-size: 28px;
+  }
+  
+  /* Call To Action Section
+  --------------------------------*/
+  #call-to-action {
+    overflow: hidden;
+    background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/call-to-action-bg.jpg) fixed center center;
+    background-size: cover;
+  }
+  
+  #call-to-action .cta-title {
+    color: var(--text2);
+    font-size: 28px;
+    font-weight: 700;
+  }
+  
+  #call-to-action .cta-text {
+    color: var(--text2);
+  }
+  
+  @media (min-width: 769px) {
+    #call-to-action .cta-btn-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+  
+  .cta-btn {
+    font-family: var(--font2);
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 8px 30px;
+    border-radius: 25px;
+    transition: background 0.5s;
+    margin: 10px;
+    border: 2px solid #fff;
+    color: var(--text2);
+  }
+  
+  .cta-btn:hover {
+    background: var(--link1);
+    color: var(--text2);
+    border: 2px solid var(--text2);
+  }
+  
+  
+  /* Specials & Corona and Sport Section
+  --------------------------------*/
+  #special,
+  #corona-und-sport {
+    overflow: hidden;
+    background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9));
+    background-size: cover;
+    color: #fff;
+  }
+  
+  #corona-und-sport {
+    background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/corona-and-sport.jpg) fixed center center;
+  }
+  
+  #special .cta-title,
+  #corona-und-sport .cta-title {
+    color: var(--text2);
+    font-size: 28px;
+    font-weight: 700;
+  }
+  
+  #special .cta-text {
+    color: var(--text2);
+  }
+  
+  #special a {
+    color: var(--link_hover1);
+  }
+  
+  #special .sources p,
+  #corona-und-sport .sources p {
+    margin: 0;
+  }
+  
+  
+  /* Box (Card)
+  --------------------------------*/
+  .box {
+    padding: 40px;
+    margin-bottom: 60px;
+    box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
+    background: #fff;
+    transition: 0.4s;
+    cursor: default;
+  }
+  
+  .box.dark {
+    background: var(--gradient1);
+  }
+  
+  @media screen and (max-width: 768px) {
+  
+    .box {
+      padding: 20px;
+      margin-bottom: 30px;
+      width: 100%
+    }
+  }
+  
+  .box :not(h1, h2, h3, h4) a:not([href^="mailto:"]) {
+    word-break: break-all;
+  }
+  
+  /* Simple Page
+  --------------------------------*/
+  
+  #page-simple,
+  #matches {
+    padding: 30px 0;
+  }
+  
+  #page-simple .box {
+    overflow: hidden;
+    overflow-wrap: anywhere;
+  }
+  
+  #page-simple .box h1,
+  #page-simple .box h2,
+  #page-simple .box h3,
+  #page-simple .box h4 {
+    font-weight: 500;
+    margin: 0.2rem 0;
+    /* Avoids headings being cut off mid word. */
+  }
+  
+  #page-simple .box h1:not(:first-child),
+  #page-simple .box h2:not(:first-child),
+  #page-simple .box h3:not(:first-child),
+  #page-simple .box h4:not(:first-child) {
+    margin-top: 1rem;
+  }
+  
+  /* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse, Spielplan)
+  --------------------------------*/
+  #matches .past .ergebnis-liste .match:nth-child(odd),
+  #matches .upcoming .termine-liste .match:nth-child(odd) {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  
+  
+  
+  @media (max-width: 768px) {
+  
+    /* Verhalten bei kleineren Bildschirmen*/
+    #matches .container,
+    #ergebnisse-tabelle .container {
+      padding: 0;
+    }
+  
+    .sams-rankings tr :nth-child(4) {
+      display: none;
+      /* Blendet Sätze aus der Tabellenübersicht aus */
+    }
+  
+    #matches .box {
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+  
+  }
+  
+  .sams-rankings tr>* {
+    padding: 1px;
+    text-align: center;
+  }
+  
+  #matches .footnote,
+  #ergebnisse-tabelle .footnote {
+    font-style: italic;
+    font-size: small;
+  }
+  
+  #ergebnisse-tabelle .footnote {
+    display: flex;
+    position: relative;
+    top: -0.5rem;
+  }
+  
+  #ergebnisse-tabelle .footnote>div {
+    flex-grow: 1
+  }
+  
+  #matches .timestamp,
+  #ergebnisse-tabelle .timestamp {
+    text-align: right;
+    color: rgba(0, 0, 0, 0.3)
+  }
+  
+  #ergebnisse-tabelle .norankings:not(:first-child),
+  #matches .nomatches:not(:first-child) {
+    display: none;
+  }
+  
+  #matches .nomatches,
+  #ergebnisse-tabelle .norankings {
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+  
+  #ergebnisse-tabelle .sams-rankings tr[team~="Müllheim"] {
+    color: var(--text2);
+    background: var(--gradient1);
+    font-weight: normal !important;
+  }
+  
+  #ergebnisse-tabelle .box tbody tr:hover {
+    background-color: var(--gradient2);
+    color: var(--text2);
+  }
+  
+  #news .box {
+    cursor: pointer;
+  }
+  
+  #news .newsposts>div {
+    display: flex;
+  }
+  
+  #news .newsposts .box a.thumbnail {
+    width: 100%;
+    width: calc(100% + 40px);
+    height: 160px;
+    margin: -20px;
+    top: -40px;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
+  }
+  
+  #news .newsposts .box a.thumbnail div {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: 0.3s;
+    background-blend-mode: luminosity;
+  }
+  
+  #news .newsposts .box:hover a.thumbnail div {
+    background-blend-mode: unset;
+    transform: scale(1.2)
+  }
+  
+  
+  #news .newsposts img {
+    display: none;
+  }
+  
+  @media (max-width: 767px) {
+    .landingpage #news .newsposts>div:nth-of-type(1n+3) .thumbnail {
+      display: none;
+    }
+  
+    .landingpage #news .newsposts>div:nth-of-type(1n+3) .box {
+      padding: 24px;
+    }
+  
+    .landingpage #news .newsposts>div:nth-of-type(1n+3) .post-excerpt {
+      max-height: 48px;
+    }
+  
+    .landingpage #news .newsposts>div:nth-of-type(1n+3) .post-title {
+      margin-bottom: 10px;
+    }
+  }
+  
+  .post-photoalbum {
+    text-align: center;
+  }
+  
+  .post-photoalbum a {
+    font-family: var(--font2);
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 8px 30px;
+    border-radius: 25px;
+    transition: background 0.5s;
+    margin: 10px;
+    border: 2px solid var(--text2);
+    background: linear-gradient(var(--gradient2), var(--gradient1));
+    color: var(--text2);
+  }
+  
+  .post-photoalbum a:hover {
+    border-color: var(--link2);
+    background: transparent;
+    color: var(--link2);
+  }
+  
+  #mannschaften .teams>div {
+    display: flex;
+  }
+  
+  #mannschaften .teams .foto {
+    height: 240px;
+    width: 440px;
+    max-width: 100%;
+    background-size: cover;
+    background-position: center;
+    margin: -4px auto 8px auto;
+  }
+  
+  @media (max-width: 768px) {
+    #mannschaften .teams .foto {
+      height: calc(100vw /4 *2);
+      width: calc(100% + 48px);
+      max-width: 100vw;
+      margin-left: -24px;
+    }
+  }
+  
+  
+  #mannschaften .box {
+    width: 100%;
+    margin-bottom: 30px;
+    box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
+    background: #fff;
+    transition: 0.4s;
+  }
+  
+  #mannschaften h4 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-size: 18px;
+  }
+  
+  #mannschaften h4 a {
+    color: #111;
+  }
+  
+  #mannschaften .box p {
+    font-size: 14px;
+    margin-bottom: 1rem;
+    line-height: 24px;
+  }
+  
+  #mannschaften .box p:last-child {
+    margin-bottom: 0px;
+  }
+  
+  @media (max-width: 767px) {
+    #mannschaften .box {
+      margin-bottom: 20px;
+    }
+  
+    #mannschaften .icon {
+      float: none;
+      text-align: center;
+      padding-bottom: 15px;
+    }
+  
+    #mannschaften h4,
+    #mannschaften p {
+      margin-left: 0;
+      text-align: center;
+    }
+  }
+  
+  #news h4 {
+    margin-left: 0;
+    font-weight: 700;
+    margin-bottom: 15px;
+    font-size: 18px;
+  }
+  
+  #news h4 a {
+    color: #111;
+  }
+  
+  #news p,
+  #news .post-content * {
+    font-size: 14px;
+    margin-left: 0;
+    margin-bottom: 0;
+    line-height: 24px;
+  }
+  
+  
+  /* special CSS depending on line-clamp support*/
+  #news .post-excerpt {
+    overflow: hidden;
+    max-height: 98px;
+    text-overflow: ellipsis;
+  }
+  
+  #news p.post-url {
+    text-align: right;
+    position: relative;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 1) 70%);
+    margin: -24px 0 0 0;
+  }
+  
+  @supports (-webkit-line-clamp: 3) {
+    #news .post-excerpt {
+      max-height: initial;
+      text-overflow: initial;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+  
+    #news .no-post-thumbnail.post-excerpt {
+      -webkit-line-clamp: 8;
+    }
+  
+    #news p.post-url {
+      display: none;
+    }
+  }
+  
+  /* special CSS depending on line-clamp support*/
+  
+  @media (max-width: 767px) {
+    #news .box {
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+  
+    #news .newsposts .box a.thumbnail {
+      width: calc(100% + 60px);
+      margin: -30px -30px 10px -30px;
+      position: static;
+    }
+  
+    #news .newsposts .box a.thumbnail div {
+      background-blend-mode: unset;
+      filter: none;
+    }
+  }
+  
+  
+  #members .box p {
+    margin: 0 0 10px 0;
+  }
+  
+  #members .social-sharing {
+    position: absolute;
+    top: 10px;
+    margin-left: -28px;
+    width: 32px;
+  }
+  
+  
+  /* CTA Buttons 
+  --------------------------------*/
+  .generic-button {
+    font-family: var(--font2);
+    font-weight: 400;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 50px;
+    transition: 0.5s;
+    margin: 10px;
+    border: 2px solid #fff;
+    color: var(--text2);
+    background: var(--gradient2);
+  }
+  
+  .generic-button:hover {
+    color: var(--text2);
+    background: var(--link1);
+  }
+  
+  #news .archiv-btn {
+    font-size: 16px;
+    padding: 8px 28px;
+  }
+  
+  #teaminfo .generic-button {
+    padding: 6px 18px;
+  }
+  
+  
+  /* sponsors Section
+  --------------------------------*/
+  #sponsors {
+    color: #fff;
+    background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/verein-bg.jpg) fixed center center;
+    background-size: cover;
+  }
+  
+  #sponsors .sponsor-carousel .sponsor-item.slick-active {
+    display: flex;
+    /* space and center the sponsor logos evenly */
+    justify-content: space-evenly;
+    align-items: center;
+    height: 6rem;
+  }
+  
+  #sponsors .sponsor-item {
+    padding: 0 2rem;
+  }
+  
+  #sponsors .sponsor-carousel img {
+    max-height: 6rem;
+    max-width: 100%;
+  }
+  
+  /* Mannschafts Details
+  --------------------------------*/
+  #teaminfo .box p:last-child {
+    margin-bottom: 0;
+  }
+  
+  /*--------------------------------------------------------------
+  # Footer
+  --------------------------------------------------------------*/
+  #footer {
+    background: #fff;
+    box-shadow: 0px -6px 12px -6px rgba(0, 0, 0, 0.1);
+    padding: 30px 0;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  #footer .credits {
+    font-size: 13px;
+    color: #888;
+  }
+  
+  #footer a {
+    color: #666;
+    margin: auto 7px;
+  }
+  
+  #footer a:hover {
+    color: var(--gradient2);
+  }
+  
+  /* ----- Print -----*/
+  @media print {
+  
+    body *,
+    main * {
+      display: none;
+    }
+  
+    #shortintro,
+    #shortintro *,
+    main,
+    main * {
+      display: block;
+    }
+  
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    p,
+    span,
+    li {
+      color: #000000 !important;
+    }
+  
+    main .print-page {
+      display: none;
+    }
+  }
+  
+  .print-page {
+    text-align: right;
+  }
+  
+  .btn-small-download,
+  .print-btn,
+  .logo-download a {
+    font-family: var(--font2);
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: 0.3s;
+    margin: 10px;
+    border: 2px solid #fff;
+    color: var(--text2);
+    background: linear-gradient(45deg, var(--gradient1), var(--gradient2));
+  }
+  
+  .print-btn:hover,
+  .logo-download a:hover {
+    background: #fff;
+    color: var(--gradient2);
+    border-color: var(--gradient2);
+  }
+  
+  /* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse)
+  --------------------------------*/
+  .Datenschutzerklärung ul,
+  .Datenschutzerklärung ol,
+  .SatzungdesVolleyballclubsMüllheim ul,
+  .SatzungdesVolleyballclubsMüllheim ol {
+    padding-left: 1.5rem;
+  }
+  
+  .logo-download img.white {
+    background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/teams/damen1.jpg) center center;
+    background-size: cover;
+    border-radius: 1rem;
+  }
+  
+  /*********************************************************************/
+  /* Bootstrap 4 Multiple Item Carousel */
+  /*********************************************************************/
+  /* medium - display 2  */
+  @media (min-width: 768px) {
+  
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+      transform: translateX(50%);
+    }
+  
+    .carousel-inner .carousel-item-left.active,
+    .carousel-inner .carousel-item-prev {
+      transform: translateX(-50%);
+    }
+  }
+  
+  /* Forestry CMS
+  --------------------------------*/
+  div[data-tooltip='Previews Server is Stopped'] {
+    display: none;
+  }
