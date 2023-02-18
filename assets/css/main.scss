@@ -155,44 +155,6 @@ main {
 }
 
 /*--------------------------------------------------------------
-  # Header
-  --------------------------------------------------------------*/
-#header {
-  position: sticky;
-  left: 0;
-  top: 0;
-  right: 0;
-  transition: all 0.5s;
-  z-index: 997;
-  background: var(--gradient1);
-
-  h1 {
-    font-size: 36px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-  }
-}
-
-#header h1 a,
-#header h1 a:hover {
-  color: var(--text2);
-}
-
-@media (max-width: 768px) {
-  #header h1 {
-    font-size: 28px;
-    letter-spacing: 2px;
-  }
-}
-
-@media (max-width: 360px) {
-  #header h1 {
-    font-size: 22px;
-    letter-spacing: 2px;
-  }
-}
-
-/*--------------------------------------------------------------
   # Cover-BG (background image with dark gradient)
   --------------------------------------------------------------*/
 .cover-img-bg {
@@ -301,6 +263,11 @@ main {
     &:focus {
       outline: none;
     }
+  }
+  h1 {
+    font-size: 36px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
   }
 }
 
