@@ -16,6 +16,19 @@ Möchten Sie auf unseren Verein verweisen, oder benötigen Sie eine Vektorgrafik
 <p class="text-center"><a href="/logo/logo-schwarz.png" download>Download PNG (schwarz)</a><a href="/logo/logo-weiss.png" download>Download PNG (weiß)</a></p>
 
 <h1>Rastergrafik (mit Hintergrund)</h1>
-<p class="text-center"><img src="/logo/logo-solidx500.png" class="img-fluid"></p>
-<p class="text-center"><a href="/logo/logo-solid.png" download>Download PNG (quadratisch)</a></p>
+<div class="row pt-2">
+    <div class="col-4">
+    <p class="text-center"><img src="/logo/logo-01A29A-500.png" class="img-fluid"></p>
+    <p class="text-center"><a class="m-0" href="/logo/logo-01A29A.png" download>Download PNG<br>(#01A29A)</a></p>
+    </div>
+    <div class="col-4">
+    <p class="text-center"><img src="/logo/logo-363B40-500.png" class="img-fluid"></p>
+    <p class="text-center"><a class="m-0" href="/logo/logo-363B40.png" download>Download PNG<br>(#363B40)</a></p>
+    </div>
+    <div class="col-4">
+    <p class="text-center"><img src="/logo/logo-366273-500.png" class="img-fluid"></p>
+    <p class="text-center"><a class="m-0" href="/logo/logo-366273.png" download>Download PNG<br>(#366273)</a></p>
+    </div>
+</div>
+
 </div>
