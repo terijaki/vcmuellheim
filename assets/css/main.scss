@@ -216,67 +216,53 @@ html {
     color: var(--text2);
     position: relative;
     transition: background-image 1s;
-  }
-  
-  #intro.random {
-    background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), var(--gradient1);
-  }
-  
-  #intro.rnd-1,
-  #intro.rnd-2,
-  #intro.rnd-3,
-  #intro.rnd-4,
-  #intro.rnd-5 {
-    background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), url("/img/intro-bg.jpg");
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center center;
-  }
-  
-  #intro.rnd-6,
-  #intro.rnd-7,
-  #intro.rnd-8,
-  #intro.rnd-9,
-  #intro.rnd-10 {
-    background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), url("/img/intro-bg2.jpg");
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center center;
-  }
-  
-  #intro .vcm-banner img {
-    max-height: 200px;
-    max-width: 90vw;
-  }
-  
-  #intro .btn-quicklinks {
-    font-family: var(--font2);
-    font-weight: 400;
-    font-size: 16px;
-    letter-spacing: 1px;
-    display: inline-block;
-    transition: 0.5s;
-    border: 2px solid #fff;
-    color: var(--text2);
-  }
-  
-  #intro .btn-quicklinks:hover {
-    color: var(--gradient2);
-    background: #fff;
-  }
-  
+
+    &.random {
+        background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), var(--gradient1);
+    }
+    &.rnd-1,&.rnd-2,&.rnd-3,&.rnd-4,&.rnd-5 {
+        background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), url("/img/intro-bg.jpg");
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center center;
+    }
+    &.rnd-6,&.rnd-7,&.rnd-8,&.rnd-9,&.rnd-10 {
+        background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), url("/img/intro-bg2.jpg");
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center center;
+    }
+    .vcm-banner img {
+        max-height: 200px;
+        max-width: 90vw;
+    }
+    .btn-quicklinks {
+        font-family: var(--font2);
+        font-weight: 400;
+        font-size: 16px;
+        letter-spacing: 1px;
+        display: inline-block;
+        transition: 0.5s;
+        border: 2px solid #fff;
+        color: var(--text2);
+
+        &:hover {
+            color: var(--gradient2);
+            background: #fff;
+        }
+    }
+}  
   /* Premium Sonsors (before the fold!)
   --------------------------------*/
-  .intro-sponsor {
+.intro-sponsor {
     background: #ffffff;
     color: var(--text1);
-  }
-  
-  .intro-sponsor img {
-    max-height: 56px;
-    max-width: 50%;
-  }
-  
+    img {
+        max-height: 56px;
+        max-width: 50%;
+    }
+}
+
   @media (min-height: 600px) {
     .intro-sponsor img {
       max-height: 72px;
@@ -287,104 +273,88 @@ html {
   /*--------------------------------------------------------------
   # Navigation Menu
   --------------------------------------------------------------*/
-  .navbar {
+.navbar {
     min-height: 60px;
-  }
+    .nav-link {
+        color: var(--text2);
+        font-weight: 500;
+        font-size: 14px;
+        &:focus,&:hover {
+          color: var(--link_hover1);
+        }
+    }
+    .navbar-toggler {
+        color: var(--text2);
+        line-height: inherit;
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+
   
-  .nav-link {
-    color: var(--text2);
-    font-weight: 500;
-    font-size: 14px;
-  }
-  
-  .navbar-toggler {
-    color: var(--text2);
-    line-height: inherit;
-  }
-  
-  .navbar-toggler:focus {
-    outline: none;
-  }
-  
-  .navbar-nav .nav-link:focus,
-  .navbar-nav .nav-link:hover {
-    color: var(--link_hover1);
-  }
-  
-  /*--------------------------------------------------------------
-  # Sections
-  --------------------------------------------------------------*/
-  /* Sections Header
-  --------------------------------*/
-  .section-header .section-title {
-    font-size: 32px;
-    color: var(--black);
-    text-align: center;
-    font-weight: 400;
-  }
-  
-  .section-header .section-description {
-    text-align: center;
-    padding-bottom: 40px;
-    color: var(--text1);
-    font-style: italic;
-  }
-  
-  .section-header .section-divider {
-    display: block;
-    width: 60px;
-    height: 3px;
-    background: var(--gradient2);
-    background: linear-gradient(0deg, var(--gradient2) 0%, var(--gradient1) 100%);
-    margin: 0 auto;
-    margin-bottom: 20px;
-  }
-  
-  /* Section with background
-  --------------------------------*/
-  .section-bg {
+/* ------ Sections ------ */
+.section-header {
+    .section-title {
+        font-size: 32px;
+        color: var(--black);
+        text-align: center;
+        font-weight: 400;
+    }
+    .section-description {
+        text-align: center;
+        padding-bottom: 40px;
+        color: var(--text1);
+        font-style: italic;
+    }
+    .section-divider {
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: var(--gradient2);
+        background: linear-gradient(0deg, var(--gradient2) 0%, var(--gradient1) 100%);
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+}
+.section-bg {
     background: var(--background2);
-  }
-  
+}
   /* Verein Section
   --------------------------------*/
-  #verein .mitglied {
-    margin-bottom: 20px;
-    overflow-x: auto;
-    display: flex;
-    align-items: center;
-  }
-  
-  #verein .mitgliederliste a {
-    color: var(--text1);
-  }
-  
-  #verein .mitgliederliste .h2 {
-    color: #333;
-    font-weight: 300;
-    font-size: 24px;
-  }
-  
-  #verein .mitgliederliste .avatar {
-    height: 4rem;
-    width: 4rem;
-    border-radius: 50%;
-    overflow: hidden;
-    float: left;
-    margin-right: 10px;
-  }
-  
-  #verein .mitgliederliste .avatar div {
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    background-image: url(/img/noavatar.png), linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9));
-    transition: 0.5s;
-  }
-  
-  #verein .mitgliederliste h4.name {
-    font-size: 1rem;
-  }
+  #verein {
+    .mitglied {
+        margin-bottom: 20px;
+        overflow-x: auto;
+        display: flex;
+        align-items: center;
+    }
+    .mitgliederliste {
+        a {
+            color: var(--text1);
+        }
+        .avatar {
+            height: 4rem;
+            width: 4rem;
+            border-radius: 50%;
+            overflow: hidden;
+            float: left;
+            margin-right: 10px;
+
+            div {
+                height: 100%;
+                width: 100%;
+                background-size: cover;
+                background-image: url(/img/noavatar.png), linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9));
+                transition: 0.5s;
+            }
+        }
+        h4.name {
+            font-size: 1rem;
+        }
+    }
+}
   
   /* Stadtfest
   --------------------------------*/
@@ -422,18 +392,19 @@ html {
   
   /* Blog Post
   --------------------------------*/
-  #blogpost img,
-  #blogpost video {
-    width: 100%;
-    height: auto;
-    margin-bottom: 1rem;
-  }
-  
-  #blogpost blockquote {
-    background: rgba(0, 0, 0, 0.05);
-    color: #000;
-    padding: 1rem 2rem;
-  }
+  #blogpost {
+    img, video {
+        width: 100%;
+        height: auto;
+        margin-bottom: 1rem;
+    }
+    blockquote {
+        background: rgba(0, 0, 0, 0.05);
+        color: #000;
+        padding: 1rem 2rem;
+    }
+}
+
   
   .social-sharing i:before,
   .social-sharing a span {
@@ -521,71 +492,61 @@ html {
     text-align: center;
   }
   
-  /* Short Intros & Blog Post Header
-  --------------------------------*/
-  #shortintro,
-  #blog-post-header {
+/* ------ Short Intros & Blog Post Header ------ */
+#shortintro, #blog-post-header {
     background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/call-to-action-bg.jpg) fixed center center;
     background-size: cover;
-  }
-  
-  #shortintro .si-title,
-  #blog-post-header .si-title {
-    color: var(--text2);
-    font-size: 28px;
-    font-weight: 700;
-  }
-  
-  #shortintro .si-text,
-  #blog-post-header .si-text {
-    color: var(--text2);
-  }
-  
-  /* Heimspiele Section
-  --------------------------------*/
+
+    .si-title {
+        color: var(--text2);
+        font-size: 28px;
+        font-weight: 700;
+    }
+    .si-text {
+        color: var(--text2);
+    }
+}
+
+/* ------ Heimspiele Section ------ */
   #heimspiele {
     overflow: hidden;
     background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/call-to-action-bg.jpg) fixed center center;
     background-size: cover;
     color: var(--text2);
+    h4 {
+        color: var(--link_hover1);
+    }
+    .cta-title {
+        color: var(--text2);
+        font-size: 28px;
+      }
   }
   
-  #heimspiele h4 {
-    color: var(--link_hover1);
-  }
-  
-  #heimspiele .cta-title {
-    color: var(--text2);
-    font-size: 28px;
-  }
-  
-  /* Call To Action Section
-  --------------------------------*/
-  #call-to-action {
+/* ------ Call To Action Section ------ */
+#call-to-action {
     overflow: hidden;
     background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/call-to-action-bg.jpg) fixed center center;
     background-size: cover;
-  }
+
+    .cta-title {
+        color: var(--text2);
+        font-size: 28px;
+        font-weight: 700;
+    }
+    .cta-text {
+        color: var(--text2);
+    }
+}
   
-  #call-to-action .cta-title {
-    color: var(--text2);
-    font-size: 28px;
-    font-weight: 700;
-  }
-  
-  #call-to-action .cta-text {
-    color: var(--text2);
-  }
-  
-  @media (min-width: 769px) {
+@media (min-width: 769px) {
     #call-to-action .cta-btn-container {
       display: flex;
       align-items: center;
       justify-content: flex-end;
     }
-  }
+}
   
-  .cta-btn {
+.cta-btn {
     font-family: var(--font2);
     font-weight: 500;
     font-size: 16px;
@@ -597,53 +558,55 @@ html {
     margin: 10px;
     border: 2px solid #fff;
     color: var(--text2);
-  }
+
+    &:hover {
+        background: var(--link1);
+        color: var(--text2);
+        border: 2px solid var(--text2);
+      }
+}
   
-  .cta-btn:hover {
-    background: var(--link1);
-    color: var(--text2);
-    border: 2px solid var(--text2);
-  }
   
-  
-  /* Specials & Corona and Sport Section
-  --------------------------------*/
-  #special,
-  #corona-und-sport {
+/* ------ Specials & Corona and Sport Section ------ */
+#special {
     overflow: hidden;
     background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9));
     background-size: cover;
     color: #fff;
-  }
-  
-  #corona-und-sport {
+
+    .cta-title {
+        color: var(--text2);
+        font-size: 28px;
+        font-weight: 700;
+    }
+    .cta-text {
+        color: var(--text2);
+    }
+    a {
+        color: var(--link_hover1);
+    }
+    .sources p {
+        margin: 0;
+    }
+}
+
+#corona-und-sport {
+    overflow: hidden;
     background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/corona-and-sport.jpg) fixed center center;
-  }
+    background-size: cover;
+    color: #fff;
+    .cta-title {
+        color: var(--text2);
+        font-size: 28px;
+        font-weight: 700;
+    }
+    .sources p {
+        margin: 0;
+    }
+}  
   
-  #special .cta-title,
-  #corona-und-sport .cta-title {
-    color: var(--text2);
-    font-size: 28px;
-    font-weight: 700;
-  }
-  
-  #special .cta-text {
-    color: var(--text2);
-  }
-  
-  #special a {
-    color: var(--link_hover1);
-  }
-  
-  #special .sources p,
-  #corona-und-sport .sources p {
-    margin: 0;
-  }
-  
-  
-  /* Box (Card)
-  --------------------------------*/
-  .box {
+/* ------ Box (Card) ------ */
+.box {
     padding: 40px;
     margin-bottom: 60px;
     box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
@@ -653,25 +616,23 @@ html {
 
     &:not(h1, h2, h3, h4) a:not([href^="mailto:"]) {
         word-break: break-all;
-      }
-  }
+    }
+    &.dark {
+        background: var(--gradient1);
+    }
+}
   
-  .box.dark {
-    background: var(--gradient1);
-  }
-  
-  @media screen and (max-width: 768px) {
-  
+@media screen and (max-width: 768px) {
     .box {
       padding: 20px;
       margin-bottom: 30px;
       width: 100%
     }
-  }
+}
 
   
 /* ------ Simple Page (Satzung, Datenschutz, Impressum) ------ */
-  #page-simple {
+#page-simple {
     padding: 30px 0;
 
     .box {
@@ -688,7 +649,7 @@ html {
             }
         }
     }
-  }
+}
 /* ------ Matches ------ */
 #matches {
     padding: 30px 0;
@@ -741,36 +702,6 @@ html {
 
 /* ------ Matches ------ */
 
-
-
-  /* More Features Section (Mannschaftern, Mitglieder, Ergebnisse)
-  --------------------------------*/
-
-  
-  
-@media (max-width: 768px) {
-	#ergebnisse-tabelle {
-		.container {
-			padding: 0;
-		}
-	}
-	.sams-rankings {
-		tr {
-			&:nth-child(4) {
-				display: none;
-                /* Blendet Sätze aus der Tabellenübersicht aus */
-			}
-		}
-	}
-}
- 
-  
-  .sams-rankings tr>* {
-    padding: 1px;
-    text-align: center;
-  }
-  
-
 /* ------ Tabelle ------ */
 #ergebnisse-tabelle {
     .footnote {
@@ -788,28 +719,46 @@ html {
         text-align: right;
         color: rgba(0, 0, 0, 0.3)
     }
-    .nomatches:not(:first-child) {
-        display: none;
-    }
     .norankings {
         text-align: center;
         padding: 0.5rem 0;
-    }
-    .sams-rankings tr[team~="Müllheim"] {
-        color: var(--text2);
-        background: var(--gradient1);
-        font-weight: normal !important;
-    }
-    .box tbody tr:hover {
-        background-color: var(--gradient2);
-        color: var(--text2);
-    }
-} 
-/* ------ Tabelle ------ */
-  
 
-  
- 
+        &:not(:first-child) {
+            display: none;
+        }
+    }
+    .sams-rankings {
+        tr[team~="Müllheim"] {
+            color: var(--text2);
+            background: var(--gradient1);
+            font-weight: normal !important;
+        }
+        tr>* {
+            padding: 1px;
+            text-align: center;
+        }
+        tbody tr:hover {
+            background-color: var(--gradient2);
+            color: var(--text2);
+        }
+    }
+}
+@media (max-width: 768px) {
+	#ergebnisse-tabelle {
+		.container {
+			padding: 0;
+		}
+        .sams-rankings {
+            tr {
+                &:nth-child(4) {
+                    display: none;
+                    /* Blendet Sätze aus der Tabellenübersicht aus */
+                }
+            }
+        }
+	}
+}
+/* ------ Tabelle ------ */
 
 /* ------ News ------ */
  #news {
@@ -899,10 +848,22 @@ html {
         }
     }
 }
-/* special CSS depending on line-clamp support*/
-/* ------ News ------ */
-
 @media (max-width: 767px) {
+    #news .box {
+      margin-bottom: 20px;
+      overflow: hidden;
+    
+      a.thumbnail {
+        width: calc(100% + 60px);
+        margin: -30px -30px 10px -30px;
+        position: static;
+
+        div {
+            background-blend-mode: unset;
+            filter: none;
+          }
+      }
+    }
     .landingpage #news .newsposts>div:nth-of-type(1n+3){
         .thumbnail {
             display: none;
@@ -917,12 +878,10 @@ html {
             margin-bottom: 10px;
         }
     } 
-}
-
+  }
 
   .post-photoalbum {
     text-align: center;
-
     a {
         font-family: var(--font2);
         font-weight: 500;
@@ -944,30 +903,9 @@ html {
           }
       }
   }
-  
-  #mannschaften .teams>div {
-    display: flex;
-  }
-  
-  #mannschaften .teams .foto {
-    height: 240px;
-    width: 440px;
-    max-width: 100%;
-    background-size: cover;
-    background-position: center;
-    margin: -4px auto 8px auto;
-  }
-  
-  @media (max-width: 768px) {
-    #mannschaften .teams .foto {
-      height: calc(100vw /4 *2);
-      width: calc(100% + 48px);
-      max-width: 100vw;
-      margin-left: -24px;
-    }
-  }
-  
- 
+/* ------ News ------ */
+
+/* ------ Mannschaften ------ */  
 #mannschaften {
     .box {
         width: 100%;
@@ -995,9 +933,20 @@ html {
             color: #111;
         }
     }
+    .teams>div {
+        display: flex;
+    }
+    .teams {
+        .foto {
+            height: 240px;
+            width: 440px;
+            max-width: 100%;
+            background-size: cover;
+            background-position: center;
+            margin: -4px auto 8px auto;
+        }
+    }
 }
-
-  
 
 @media (max-width: 767px) {
 	#mannschaften {
@@ -1017,35 +966,19 @@ html {
 			margin-left: 0;
 			text-align: center;
 		}
+        .teams {
+            .foto {
+                height: calc(100vw /4 *2);
+                width: calc(100% + 48px);
+                max-width: 100vw;
+                margin-left: -24px;
+            }
+        }
 	}
 }
-
+/* ------ Mannschaften ------ */
   
-
-  
-  
-
-  
-  @media (max-width: 767px) {
-    #news .box {
-      margin-bottom: 20px;
-      overflow: hidden;
-    
-      a.thumbnail {
-        width: calc(100% + 60px);
-        margin: -30px -30px 10px -30px;
-        position: static;
-
-        div {
-            background-blend-mode: unset;
-            filter: none;
-          }
-      }
-    }
-  }
-  
-  /* CTA Buttons 
-  --------------------------------*/
+/* ------ CTA Buttons ------ */
   .generic-button {
     font-family: var(--font2);
     font-weight: 400;
@@ -1064,11 +997,9 @@ html {
         background: var(--link1);
       }
   }
+/* ------ CTA Buttons ------ */
 
-  
-  /* sponsors Section
-  --------------------------------*/
-  
+/* ------ Sponsors ------ */
   #sponsors {
     color: #fff;
     background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/verein-bg.jpg) fixed center center;
@@ -1091,9 +1022,9 @@ html {
         }
     }
 }
-
+/* ------ Sponsors ------ */
   
-  /* Mannschafts Details
+  /* Mannschafts Details DEPRECATED
   --------------------------------*/
   #teaminfo {
      .box p:last-child {
@@ -1104,9 +1035,7 @@ html {
     }
 }
   
-  /*--------------------------------------------------------------
-  # Footer
-  --------------------------------------------------------------*/
+/* ------ Footer ------ */
   #footer {
     background: #fff;
     box-shadow: 0px -6px 12px -6px rgba(0, 0, 0, 0.1);
@@ -1123,7 +1052,7 @@ html {
           }
       }
   }
-
+/* ------ Footer ------ */
   
   /* ----- Print -----*/
   @media print {
@@ -1198,24 +1127,8 @@ html {
     background-size: cover;
     border-radius: 1rem;
   }
-  
-  /*********************************************************************/
-  /* Bootstrap 4 Multiple Item Carousel */
-  /*********************************************************************/
-  /* medium - display 2  */
-  @media (min-width: 768px) {
-  
-    .carousel-inner .carousel-item-right.active,
-    .carousel-inner .carousel-item-next {
-      transform: translateX(50%);
-    }
-  
-    .carousel-inner .carousel-item-left.active,
-    .carousel-inner .carousel-item-prev {
-      transform: translateX(-50%);
-    }
-  }
-  
+
+
   /* Forestry CMS
   --------------------------------*/
   div[data-tooltip='Previews Server is Stopped'] {
