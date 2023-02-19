@@ -41,9 +41,6 @@ jobs:
           xml-file: "_sams/xml/club.xml"
           xpath: "/sportsclub/teams/team/seasonTeamId"
 
-      - name: List Team IDs # displays the team IDs to the console log
-        run: echo 'Teams:${{ steps.teamids-from-club.outputs.info }}'
-
       - name: Transform MatchSeries IDs
         id: teamid-list
         run: echo "teamids=[${{steps.teamids-from-club.outputs.info}}]" >> $GITHUB_OUTPUT # transform IDs from "123,456,789" to "[123,456,789]"
