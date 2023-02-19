@@ -5,9 +5,6 @@ concurrency:
   cancel-in-progress: false
 
 on:
-  schedule:
-    - cron: "0 0/15 11-23 1/1 * 6-7 *" # Every 15 minutes, between 11:00 AM and 11:59 PM, Saturday through Sunday
-    - cron: "0 4 4 * * *" # At 04:04 AM
   workflow_dispatch:
 
 env:
