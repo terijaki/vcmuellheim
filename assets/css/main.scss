@@ -1068,18 +1068,17 @@ h6 {
   display: inline-block;
   padding: 6px 12px;
   border-radius: 6px;
-  transition: 0.3s;
+  transition: 0.5s;
   margin: 10px;
   border: 2px solid #fff;
   color: var(--text2);
   background: linear-gradient(45deg, var(--gradient1), var(--gradient2));
-}
 
-.print-btn:hover,
-.logo-download a:hover {
-  background: #fff;
-  color: var(--gradient2);
-  border-color: var(--gradient2);
+  &:hover {
+    background: linear-gradient(45deg, var(--link1), var(--link1));
+    color: var(--text2);
+    border-color: var(--text2);
+  }
 }
 
 /* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse)
