@@ -6,7 +6,6 @@ concurrency:
 
 on:
   schedule:
-    - cron: 3,18,33,48 11-23 * * 6-7 # Every 15 minutes, between 11 AM and 11 PM, Saturday through Sunday
     - cron: 4 4 * * * # At 04:04 AM
     - cron: 20,40 10-22 * * 6 # once per hour on sa & sun between 10AM - 10PM
   workflow_dispatch:
