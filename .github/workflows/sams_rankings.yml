@@ -111,7 +111,7 @@ jobs:
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git add "${{env.REPO_TARGET}}/*"
-          git commit -m "sams scheduled rankings update"
+          git commit -m "sams rankings update"
 
       - name: Git Push
         continue-on-error: true # don't throw an error as there won't always be changes
