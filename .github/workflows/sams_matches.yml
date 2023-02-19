@@ -35,7 +35,7 @@ jobs:
 
       - name: Transform Team IDs
         id: teamsarray
-        run: echo "::set-output name=teamids::[${{steps.getxml.outputs.info}}]" # transform IDs from "123,456,789" to "[123,456,789]"
+        run: echo "teamids=[${{steps.getxml.outputs.info}}]" >> $GITHUB_OUTPUT # transform IDs from "123,456,789" to "[123,456,789]"
 
   Query-and-Process-XML:
     needs: Get-Teams

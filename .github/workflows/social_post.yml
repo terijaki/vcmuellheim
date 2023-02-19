@@ -44,7 +44,7 @@ jobs:
               fi
             done
           echo "The following posts have not been posted: ${posts[*]}"
-          echo "::set-output name=posts::${posts[*]}"
+          echo "posts=${posts[*]}" >> $GITHUB_OUTPUT
 
       - name: Mark posts with string #change frontmatter to indicate that they have been posted on Twitter
         id: markfiles
@@ -75,7 +75,7 @@ jobs:
               messages+=("$(awk '/title: (.*)/{print}' $postfile | tr -d \' | tr -d \" | sed -e 's!title: !!') https://vcmuellheim.de/$(echo $postfile | cut -c12- | sed 's!.md!!')")
             done
           echo "The following messages will be shared: ${messages[*]}"
-          echo "::set-output name=messages::$(jq --compact-output --null-input '$ARGS.positional' --args -- "${messages[@]}")"
+          echo "messages=$(jq --compact-output --null-input '$ARGS.positional' --args -- "${messages[@]}")" >> $GITHUB_OUTPUT
 
       - name: Git Push
         if: steps.messagesforsocial.outcome == 'success'

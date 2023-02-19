@@ -36,7 +36,7 @@ jobs:
 
       - name: Transform MatchSeries IDs
         id: teamid-list
-        run: echo "::set-output name=teamids::[${{steps.teamids-from-club.outputs.info}}]" # transform IDs from "123,456,789" to "[123,456,789]"
+        run: echo "teamids=[${{steps.teamids-from-club.outputs.info}}]" >> $GITHUB_OUTPUT # transform IDs from "123,456,789" to "[123,456,789]"
 
   Get-MatchSeries-then-Query-SAMS:
     needs: Get-Teams

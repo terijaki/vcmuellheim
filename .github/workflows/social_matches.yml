@@ -43,7 +43,7 @@ jobs:
               fi
             done
           echo "The following matches have not been posted: ${matches[*]}"
-          echo "::set-output name=matches::${matches[*]}"
+          echo "matches=${matches[*]}" >> $GITHUB_OUTPUT
 
       - name: Mark matchfiles with string #change frontmatter to indicate that they have been posted on Social
         id: markfiles
@@ -70,7 +70,7 @@ jobs:
             do
               messages+=("$(tail -n 1 $matchfile)")
             done
-          echo "::set-output name=messages::$(jq --compact-output --null-input '$ARGS.positional' --args -- "${messages[@]}")"
+          echo "messages=$(jq --compact-output --null-input '$ARGS.positional' --args -- "${messages[@]}")" >> $GITHUB_OUTPUT
 
       - name: Git Push
         if: steps.messagesforsocial.outcome == 'success'
