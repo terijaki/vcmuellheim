@@ -34,7 +34,6 @@ $dark:        #363b40; /* rgb(54,59,64) | Baltic Sea */
 
 html {
   scroll-behavior: smooth;
-  overflow-y:scroll;
 }
 
 body {
@@ -42,7 +41,7 @@ body {
   color: var(--text1);
   font-family: var(--font1);
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: scroll;
   cursor: default;
 }
 
@@ -237,7 +236,6 @@ h6 {
   # Navigation Menu
   --------------------------------------------------------------*/
 .navbar {
-  min-height: 60px;
   .nav-link {
     color: var(--text2);
     font-weight: 500;
@@ -247,11 +245,13 @@ h6 {
       color: var(--link_hover1);
     }
   }
-  .navbar-toggler {
-    color: var(--text2);
-    line-height: inherit;
-    &:focus {
-      outline: none;
+  button.navbar-toggler {
+    .navbar-toggler-custom-icon i {
+      transition: 1s;
+    }
+    &:hover .navbar-toggler-custom-icon i {
+      transform: rotateX(180deg);
+      color: var(--link_hover1);
     }
   }
   h1 {
