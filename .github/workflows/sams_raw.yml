@@ -21,6 +21,8 @@ jobs:
   # get the latest club data first 
   Get-Teams:
     runs-on: ubuntu-latest
+    outputs:
+      teamids: ${{steps.teamid-list.outputs.teamids}} # outputs team IDs in the form of [123,456,789]
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v3
