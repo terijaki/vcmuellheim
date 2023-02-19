@@ -17,6 +17,7 @@ env:
   SAMS_KEY: ${{ secrets.SAMS_API }} # SAMS API key
   SAMS_URL: https://www.volleyball-baden.de # start of the api http structure
   REPO_TARGET: _rankings # the folder I want the output to go to
+  GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
 
 jobs:
   Get-Teams:
@@ -105,10 +106,15 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-      - name: Git Commit
+
+      - name: Git Commit Rankings
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git add "${{env.REPO_TARGET}}/*"
           git commit -m "sams scheduled update"
-          git pull --rebase --quiet
+
+      - name: Git Push
+        continue-on-error: true # don't throw an error as there won't always be changes
+        run: |
+          git pull --rebase
           git push origin --all --quiet
