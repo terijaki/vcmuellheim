@@ -18,12 +18,17 @@ permalink: /:title
 url: https://vcmuellheim.de
 author: "VC Müllheim"
 
+
 # Jekyll GitHub Plugins
 plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-coffeescript
+  - jekyll-paginate
+
+paginate: 8
+paginate_path: "/blog/:num/"
 
 sass:
     sass_dir: _scss
