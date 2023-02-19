@@ -33,14 +33,14 @@ jobs:
           curl -o _sams/xml/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
 
       - name: Get XML # this reads the XML file and extracts the team IDs
-        id: getxml
+        id: teamids-from-club
         uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
           xml-file: "_sams/xml/club.xml"
           xpath: "/sportsclub/teams/team/seasonTeamId"
 
       - name: List Team IDs # displays the team IDs to the console log
-        run: echo 'Teams:${{ steps.getxml.outputs.info }}'
+        run: echo 'Teams:${{ steps.teamids-from-club.outputs.info }}'
 
       - name: Transform MatchSeries IDs
         id: teamid-list
