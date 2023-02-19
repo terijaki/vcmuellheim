@@ -125,8 +125,8 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                             <div class="col-12 p-3 nomatches future">Es liegen keine Spiele für diese Saison vor.</div>
 
                             <div class="mt-4 text-center calendar d-none"><!-- display-none-class removed and CALURL1/2 replaced by XSLT during successful ICS import -->
-                                <a class="btn-small-download" type="text/calendar" href="CALURL1"><i class="fa-solid fa-download"></i> Spielplan herunterladen</a>
-                                <a class="btn-small-download" type="text/calendar" href="CALURL2"><i class="fa-solid fa-arrows-rotate"></i> Spielplan abonnieren</a>
+                                <a class="btn-small-download" type="text/calendar" href="CALURL1"><i class="fa-solid fa-download"><xsl:comment>download icon</xsl:comment></i> Spielplan herunterladen</a>
+                                <a class="btn-small-download" type="text/calendar" href="CALURL2"><i class="fa-solid fa-arrows-rotate"><xsl:comment>refresh icon</xsl:comment></i> Spielplan abonnieren</a>
                             </div>
                         </div>
                     </div>
