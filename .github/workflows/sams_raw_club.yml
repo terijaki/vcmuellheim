@@ -27,7 +27,7 @@ jobs:
       - name: Query SAMS for Club Data
         run: |
           mkdir -p _sams/xml
-          curl -o _sams/xmls/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
+          curl -o _sams/xml/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
 
       - name: Upload Artifact (SAMS XML) # not needed, only to keep for troubleshooting
         uses: actions/upload-artifact@v3
