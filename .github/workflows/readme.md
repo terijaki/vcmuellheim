@@ -11,7 +11,7 @@ Schedule: *every night & every hour over the weekend*
 For each team's league, we are making a call to the SAMS server to retrive the current rankings for that league.
 This data servers to display rankings on the home page. https://vcmuellheim.de/tabelle/
 
-## SAMS Match
+## SAMS Matches
 Schedule: *every night & every hour over the weekend*
 
 For each team, we are making a call to the SAMS server to retrive past and future matches for each team.
