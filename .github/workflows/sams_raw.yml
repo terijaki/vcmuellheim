@@ -58,6 +58,7 @@ jobs:
           git pull --rebase --quiet
           git push origin --all --quiet
 
+
   # get rankings for every team
   Get-Rankings:
     needs: Get-Teams
@@ -95,8 +96,35 @@ jobs:
 
 
 
+  Get-Matches:
+    needs: Get-Teams
+    continue-on-error: true # if one team fails, the flow should continue
+    strategy:
+      matrix:
+        teams: ${{fromJSON(needs.Get-Teams.outputs.teamids)}} # this has to use fromJSON, see https://github.blog/changelog/2020-04-15-github-actions-new-workflow-features/
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get XSLT templates # Download the templates from our repo
+        run: |
+          curl -o matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/matches.xslt"
+          curl -o individual_matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/individual_matches.xslt"
+
+      - name: Query SAMS # make the API call to the SAMS server and save it as XML
+        run: |
+          mkdir -p ${{env.SAMS_MATCHES_TARGET}}
+          curl -o ${{env.SAMS_MATCHES_TARGET}}/${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&teamId=${{matrix.teams}}"
+
+      - name: Upload Artifact (SAMS XML) # not needed, only to keep for troubleshooting
+        uses: actions/upload-artifact@v3
+        with:
+          name: raw_sams_matches_xml
+          path: ${{env.SAMS_MATCHES_TARGET}}/${{matrix.teams}}.xml
+
+
   Git-Update-Rankings-and-Matches:
-    needs: Get-Rankings
+    needs:
+      - Get-Rankings
+      - Get-Matches
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
@@ -104,11 +132,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download Exports
+      - name: Download Rankings Exports
         uses: actions/download-artifact@v3
         with:
           name: raw_sams_rankings_xml
           path: ${{env.SAMS_RANKING_TARGET}}
+
+      - name: Download Matches Exports
+        uses: actions/download-artifact@v3
+        with:
+          name: raw_sams_matches_xml
+          path: ${{env.SAMS_MATCHES_TARGET}}
 
       - name: Setup Git Config
         run: |
@@ -120,6 +154,12 @@ jobs:
         run: |
           git add "${{env.SAMS_RANKING_TARGET}}/*"
           git commit -m "sams rankings update"
+
+      - name: Git Commit Matches
+        continue-on-error: true # don't throw an error as there won't always be changes
+        run: |
+          git add "${{env.SAMS_MATCHES_TARGET}}/*"
+          git commit -m "sams matches update"
 
       - name: Git Push
         continue-on-error: true # don't throw an error as there won't always be changes
