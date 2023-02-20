@@ -576,7 +576,7 @@
                                         <count>2</count>
                                     </matchResult>
                                     <matchResult>
-                                        <result>3:1</result>
+                                        <result>3:1</result> 
                                         <count>0</count>
                                     </matchResult>
                                     <matchResult>
@@ -592,7 +592,7 @@
                                         <count>6</count>
                                     </matchResult>
                                     <matchResult>      
-                                        <result>0:3</result>
+                                        <result>0:3</result> 
                                         <count>3</count>
                                     </matchResult>
                             </resultTypes>
