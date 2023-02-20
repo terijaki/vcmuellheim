@@ -27,13 +27,11 @@ jobs:
           # Default: 'space-delimited'
           format: 'space-delimited'
 
-      - name: Prepare Directory and Variables
-        id: mkdir-var
+      - name: Prepare Directory
+        id: mkdir
         run: |
           mkdir -p ${{env.RANKINGS_SOURCE}}
           mkdir -p ${{env.MATCHES_SOURCE}}
-          files-rankings=''
-          files-matches=''
 
       - name: Separate Modified Files
         id: separate
