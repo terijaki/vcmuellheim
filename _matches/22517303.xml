@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <matches xmlns="http://sams-server.de/api/xml/ns/matches" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://sams-server.de/api/xml/ns/matches matches.xsd">
-                <match>   
+                <match>
                     <id>22806982</id>
                     <uuid>6847a5f3-2fcd-4eef-a1eb-b01eae07c33a</uuid>
                     <number>1</number>
@@ -2228,7 +2228,7 @@
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
             <name>2022/23</name>
-        </season>     
+        </season> 
         <hierarchy>
             <id>22517107</id>
             <uuid>c111dd40-85dd-42c2-a8bd-08ceb1b4dc61</uuid>
@@ -3128,4 +3128,4 @@
                     <referees>
                     </referees>
                 </match>
-        <timestamp>20.02.2023, 22:09 Uhr</timestamp></matches>
+        <timestamp>20.02.2023, 22:18 Uhr</timestamp></matches>
