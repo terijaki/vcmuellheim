@@ -51,11 +51,11 @@ jobs:
         id: isolate_id
         run: |
           targetfile=${{matrix.ids}}
-          targetfile=$($targetfile | sed 's!\.xml!!')
-          targetfile=$($targetfile | sed 's!${{env.RANKINGS_SOURCE}}!!')
-          targetfile=$($targetfile | sed 's!${{env.MATCHES_SOURCE}}!!')
-          echo "$targetfile"
-
+          targetfile=$(echo $targetfile | sed -e 's!\.xml!!')
+          targetfile=$(echo $targetfile | sed -e 's!${{env.RANKINGS_SOURCE}}!!')
+          targetfile=$(echo $targetfile | sed -e 's!${{env.MATCHES_SOURCE}}!!')
+          echo $targetfile
+          
       ########################
       ### RANKINGS PROCESS ###
       ########################
