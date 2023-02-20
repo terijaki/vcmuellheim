@@ -17,8 +17,8 @@ jobs:
   Updated-XML:
     runs-on: ubuntu-latest
     outputs:
-      rankings: ${{ steps.separate.outputs.rankings }} # array of files changed by the commit who triggered the workflow
-      matches: ${{ steps.separate.outputs.matches }} # array of files changed by the commit who triggered the workflow
+      rankings: ${{ steps.filter.outputs.rankings }} # rankings to be processed
+      matches: ${{ steps.filter.outputs.matches }} # matches to be processed
     steps:
       - name: Identify Modified Files
         id: files
@@ -35,8 +35,8 @@ jobs:
           mkdir -p ${{env.RANKINGS_SOURCE}}
           mkdir -p ${{env.MATCHES_SOURCE}}
 
-      - name: Separate Modified Files
-        id: separate
+      - name: Filter Modified Files
+        id: filter
         run: |
           for file in ${{steps.files.outputs.added_modified}}
           do
@@ -47,8 +47,8 @@ jobs:
           echo "rankings=[$files_rankings%?]" >> $GITHUB_OUTPUT
           echo "matches=[${files_matches%?}]" >> $GITHUB_OUTPUT
           echo "here are the lists:"
-          echo "$files_rankings"
-          echo "$files_matches"
+          echo "{{steps.filter.outputs.rankings}}"
+          echo "{{steps.filter.outputs.matches}}"
 
   Rankings:
     needs: Updated-XML
