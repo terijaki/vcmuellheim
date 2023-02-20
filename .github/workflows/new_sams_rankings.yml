@@ -46,7 +46,7 @@ jobs:
             echo "$file"
             if [[ $file = *_sams/xml/rankings* ]] ; then files_rankings="$file,$files_rankings" ; fi
           done
-          files_rankings={$files_rankings::-1}
+          files_rankings=${files_rankings::-1}
           echo "ids=[$files_rankings]" >> $GITHUB_OUTPUT
 
       - name: Filter Matches Files
@@ -57,7 +57,7 @@ jobs:
             echo "$file"
             if [[ $file = *_sams/xml/matches* ]] ; then files_matches="$file,$files_matches" ; fi
           done
-          files_matches={$files_matches::-1}
+          files_matches=${files_matches::-1}
           echo "ids=[${files_matches::-1}]" >> $GITHUB_OUTPUT
 
       - name: List files
