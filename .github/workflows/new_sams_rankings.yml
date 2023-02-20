@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "_sams/xml/rankings/**"
+      - "_sams/xml/matches/**"
 
 env:
   GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
@@ -45,8 +46,8 @@ jobs:
           echo "here are the lists:"
           echo "$files_rankings"
           echo "$files_matches"
-          echo "rankings=$files_rankings" >> $GITHUB_OUTPUT 
-          echo "matches=$files_matches" >> $GITHUB_OUTPUT 
+          echo "RANKINGS=${{toJSON($files_rankings)}}" >> $GITHUB_OUTPUT 
+          echo "MATCHES=${{toJSON($files_matches)}}" >> $GITHUB_OUTPUT 
 
   Rankings:
     needs: Updated-XML
@@ -54,7 +55,7 @@ jobs:
     strategy:
       #max-parallel: 1
       matrix:
-        teams: ${{needs.Updated-XML.outputs.rankings}}
+        teams: ${{env.RANKINGS}}
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Ranking File
