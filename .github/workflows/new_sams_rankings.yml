@@ -76,7 +76,7 @@ jobs:
         run: |
           mkdir -p ${{env.RANKINGS_TARGET}}
           sudo apt-get install xsltproc
-          xsltproc rankings.xslt ${{matrix.ids}} > $targetfile
+          xsltproc rankings.xslt ${{matrix.ids}} > ${{env.RANKINGS_TARGET}}$targetfile.html
 
       - name: Upload Artifact (Rankings)
         if: ${{ steps.xslt_rankings.conclusion == 'success' }}
