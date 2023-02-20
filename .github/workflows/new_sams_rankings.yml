@@ -17,8 +17,8 @@ jobs:
   Updated-XML:
     runs-on: ubuntu-latest
     outputs:
-      rankings: ${{ steps.filter_rankings.outputs.rankings_ids }} # rankings to be processed
-      matches: ${{ steps.filter_matches.outputs.matches_ids }} # matches to be processed
+      rankings: ${{ steps.filter.outputs.rankings_ids }} # rankings to be processed
+      matches: ${{ steps.filter.outputs.matches_ids }} # matches to be processed
     steps:
       - name: Identify Modified Files
         id: files
@@ -35,8 +35,8 @@ jobs:
           mkdir -p ${{env.RANKINGS_SOURCE}}
           mkdir -p ${{env.MATCHES_SOURCE}}
 
-      - name: Filter Ranking Files
-        id: filter_rankings
+      - name: Filter Files
+        id: filter
         # loops through the list of modified files and filters out the ranking files
         # for each ranking modified, the file is added to the variable
         # the variable is then stripped of the last "," comma before it is set as output for the step
@@ -45,26 +45,18 @@ jobs:
           do
             echo "$file"
             if [[ $file = *_sams/xml/rankings* ]] ; then files_rankings="$file,$files_rankings" ; fi
+            if [[ $file = *_sams/xml/matches* ]] ; then files_matches="$file,$files_matches" ; fi
           done
           files_rankings=${files_rankings::-1}
           echo "rankings_ids=[$files_rankings]" >> $GITHUB_OUTPUT
-
-      - name: Filter Matches Files
-        id: filter_matches
-        run: |
-          for file in ${{steps.files.outputs.added_modified}}
-          do
-            echo "$file"
-            if [[ $file = *_sams/xml/matches* ]] ; then files_matches="$file,$files_matches" ; fi
-          done
           files_matches=${files_matches::-1}
           echo "matches_ids=[$files_matches]" >> $GITHUB_OUTPUT
 
       - name: List files
         run: |
           echo "here are the lists:"
-          echo "${{steps.filter_rankings.outputs.ids}}"
-          echo "${{steps.filter_matches.outputs.ids}}"
+          echo "${{steps.filter.outputs.rankings_ids}}"
+          echo "${{steps.filter.outputs.matches_ids}}"
 
   Rankings:
     needs: Updated-XML
