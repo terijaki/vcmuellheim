@@ -1,4 +1,4 @@
-name: NEW Rankings Update
+name: NEW Rankings & Matches Update
 
 on:
   push:
