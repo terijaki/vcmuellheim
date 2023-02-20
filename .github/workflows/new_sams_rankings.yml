@@ -17,8 +17,7 @@ jobs:
   Updated-XML:
     runs-on: ubuntu-latest
     outputs:
-      rankings: ${{ steps.filter.outputs.rankings_ids }} # rankings to be processed
-      matches: ${{ steps.filter.outputs.matches_ids }} # matches to be processed
+      files-updated: ${{ steps.files.outputs.added_modified }} # contains each file modified by the commit who triggered this run
     steps:
       - name: Identify Modified Files
         id: files
@@ -27,47 +26,19 @@ jobs:
           # Format of the steps output context.
           # Can be 'space-delimited', 'csv', or 'json'.
           # Default: 'space-delimited'
-          format: 'space-delimited'
-
-      - name: Prepare Directory
-        id: mkdir
-        run: |
-          mkdir -p ${{env.RANKINGS_SOURCE}}
-          mkdir -p ${{env.MATCHES_SOURCE}}
-
-      - name: Filter Files
-        id: filter
-        # loops through the list of modified files and filters out the ranking files
-        # for each ranking modified, the file is added to the variable
-        # the variable is then stripped of the last "," comma before it is set as output for the step
-        run: |
-          for file in ${{steps.files.outputs.added_modified}}
-          do
-            echo "$file"
-            if [[ $file = *_sams/xml/rankings* ]] ; then files_rankings="\'$file\',$files_rankings" ; fi
-            if [[ $file = *_sams/xml/matches* ]] ; then files_matches="\'$file\',$files_matches" ; fi
-          done
-          files_rankings=${files_rankings::-1}
-          echo "rankings_ids=[$files_rankings]" >> $GITHUB_OUTPUT
-          files_matches=${files_matches::-1}
-          echo "matches_ids=[$files_matches]" >> $GITHUB_OUTPUT
-
-      - name: List files
-        run: |
-          echo "here are the lists:"
-          echo "${{steps.filter.outputs.rankings_ids}}"
-          echo "${{steps.filter.outputs.matches_ids}}"
+          format: 'json'
 
   Rankings:
     needs: Updated-XML
-    continue-on-error: true # if one team fails, the flow should continue
+    continue-on-error: true # if one update fails, the flow should continue
     strategy:
-      #max-parallel: 1
       matrix:
-        teams: ${{fromJSON(needs.Updated-XML.outputs.rankings)}}
+        ids: ${{fromJSON(needs.Updated-XML.outputs.files-updated)}}
+    if: contains(matrix.ids, env.RANKINGS_SOURCE) # checks if the file is a ranking file
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Ranking File
         run: |
-          curl -o ${{matrix.teams}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.teams}}"
-          echo "${{matrix.teams}}"
+          mkdir -p ${{ env.RANKINGS_SOURCE }}
+          curl -o ${{matrix.teams}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.ids}}"
+          echo "${{matrix.ids}}"
