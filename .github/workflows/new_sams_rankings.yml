@@ -91,7 +91,7 @@ jobs:
       ### MATCHES PROCESS ###
       #######################
       - name: MATCHES PROCESS
-        if: contains( matrix.ids, env.RANKINGS_SOURCE )
+        if: contains( matrix.ids, env.MATCHES_SOURCE )
         run: echo "Lets process matches!"
       - name: Add timestamp to Matches XML
         # includes a timestamp at the end of the files in the German format to be used in the frontend
@@ -120,6 +120,7 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v3
         with:
+          token: ${{env.GITHUB_TOKEN}}
           fetch-depth: 0
 
       - name: Download Rankings
