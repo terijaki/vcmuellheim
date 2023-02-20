@@ -39,10 +39,12 @@ jobs:
           for file in ${{steps.files.outputs.added_modified}}
           do
             echo "$file"
-            if [[ $file = *_sams/xml/rankings* ]] ; then files-rankings="$files-rankings $file" ; fi
+            if [[ $file = *_sams/xml/rankings* ]] ; then files_rankings="$files_rankings $file" ; fi
+            if [[ $file = *_sams/xml/matches* ]] ; then files_matches="$files_matches $file" ; fi
           done
-          echo "here is the list:"
-          echo "$files-rankings"
+          echo "here are the lists:"
+          echo "$files_rankings"
+          echo "$files_matches"
 
       - name: Fetch Modified Files
         id: fetch
