@@ -17,8 +17,8 @@ jobs:
   Updated-XML:
     runs-on: ubuntu-latest
     outputs:
-      rankings: ${{ steps.filter.outputs.rankings }} # rankings to be processed
-      matches: ${{ steps.filter.outputs.matches }} # matches to be processed
+      rankings: ${{ steps.filter_rankings.outputs.rankings }} # rankings to be processed
+      matches: ${{ steps.filter_matches.outputs.matches }} # matches to be processed
     steps:
       - name: Identify Modified Files
         id: files
@@ -35,17 +35,28 @@ jobs:
           mkdir -p ${{env.RANKINGS_SOURCE}}
           mkdir -p ${{env.MATCHES_SOURCE}}
 
-      - name: Filter Modified Files
-        id: filter
+      - name: Filter Ranking Files
+        id: filter_rankings
         run: |
           for file in ${{steps.files.outputs.added_modified}}
           do
             echo "$file"
             if [[ $file = *_sams/xml/rankings* ]] ; then files_rankings="$file,$files_rankings" ; fi
-            if [[ $file = *_sams/xml/matches* ]] ; then files_matches="$file,$files_matches" ; fi
           done
           echo "rankings=[$files_rankings%?]" >> $GITHUB_OUTPUT
+
+      - name: Filter Matches Files
+        id: filter_matches
+        run: |
+          for file in ${{steps.files.outputs.added_modified}}
+          do
+            echo "$file"
+            if [[ $file = *_sams/xml/matches* ]] ; then files_matches="$file,$files_matches" ; fi
+          done
           echo "matches=[$files_matches%?]" >> $GITHUB_OUTPUT
+
+      - name: List files
+        run: |
           echo "here are the lists:"
           echo "${{steps.filter.outputs.rankings}}"
           echo "${{steps.filter.outputs.matches}}"
