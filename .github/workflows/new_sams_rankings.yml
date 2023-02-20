@@ -23,7 +23,7 @@ jobs:
       - name: Fetch Modified Files
         id: fetch
         run: |
-          for file in arr=(${{steps.files.outputs.added_modified}});
+          for file in arr=(${{steps.files.outputs.added_modified}})
           do
             echo "$file"
             curl -o $file "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/$file"
