@@ -37,7 +37,7 @@ jobs:
         id: separate
         run: |
           filearray=(${{ steps.files.outputs.added_modified }})
-          for file in $filearray
+          for file in ${{steps.files.outputs.added_modified}}
           do
             echo "$file"
           done
