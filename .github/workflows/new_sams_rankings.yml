@@ -36,7 +36,8 @@ jobs:
         ids: ${{fromJSON(needs.Updated-XML.outputs.files-updated)}}
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch Rankings and Matches
+      - name: Filter & Fetch Rankings and Matches
+        id: filtered_fetch
         if: contains( matrix.ids, env.RANKINGS_SOURCE ) || contains( matrix.ids, env.MATCHES_SOURCE )
         # checks if the file is either a ranking or match
         run: |
@@ -46,12 +47,14 @@ jobs:
           echo "${{matrix.ids}}"
       
       - name: Upload Artifact
+        if: filtered_fetch
         uses: actions/upload-artifact@v3
         with:
           name: rankings
           path: ${{ env.RANKINGS_SOURCE }}
 
       - name: Upload Artifact
+        if: filtered_fetch
         uses: actions/upload-artifact@v3
         with:
           name: matches
