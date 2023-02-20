@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
         <rankings>
-                <matchSeries>        
+                <matchSeries>
     <id>22516931</id>
     <uuid>8854cdff-3f6d-4fcd-9780-40ec238adcff</uuid>
     <allSeasonId>578fe07f-b620-daae-2fd8-5a71ca9995e4</allSeasonId>
     <name>Verbandsliga Herren</name>
     <shortName>vl h</shortName>
-    <type>League</type>     
+    <type>League</type>
         <updated>2023-02-12 09:57:13.139</updated>
         <structureUpdated>2023-02-11 08:28:38.67</structureUpdated>
         <resultsUpdated>2023-02-12 09:57:13.139</resultsUpdated>
@@ -585,4 +585,4 @@
                                     </matchResult>
                             </resultTypes>
                     </ranking>
-        <timestamp>20.02.2023, 22:09 Uhr</timestamp></rankings>
+        <timestamp>20.02.2023, 22:18 Uhr</timestamp></rankings>

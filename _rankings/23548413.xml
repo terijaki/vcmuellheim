@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
         <rankings>
-                <matchSeries>         
+                <matchSeries>
     <id>22519467</id>
     <uuid>dd687c6c-f407-427d-a741-2726b64ca0e2</uuid>
     <allSeasonId>375a20ac-b2b9-c22f-e657-05936f7ec524</allSeasonId>
@@ -33,7 +33,7 @@
                 <hierarchy>
                     <id>22519325</id>
                     <name>SBVV Bezirk West Jugend</name>
-                    <shortName>bwj</shortName>    
+                    <shortName>bwj</shortName>
                     <hierarchyLevel>4</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
@@ -165,4 +165,4 @@
                             <club>Sport vor Ort Rieselfeld</club>
                         </team>
                     </ranking>
-        <timestamp>20.02.2023, 22:09 Uhr</timestamp></rankings>
+        <timestamp>20.02.2023, 22:18 Uhr</timestamp></rankings>
