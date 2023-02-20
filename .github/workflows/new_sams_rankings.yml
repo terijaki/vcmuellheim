@@ -58,8 +58,8 @@ jobs:
       - name: List files
         run: |
           echo "here are the lists:"
-          echo "${{steps.filter.outputs.rankings}}"
-          echo "${{steps.filter.outputs.matches}}"
+          echo "${{steps.filter_rankings.outputs.rankings}}"
+          echo "${{steps.filter_matches.outputs.matches}}"
 
   Rankings:
     needs: Updated-XML
