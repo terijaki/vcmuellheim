@@ -46,8 +46,9 @@ jobs:
           echo "here are the lists:"
           echo "$files_rankings"
           echo "$files_matches"
-          echo "RANKINGS=[$files_rankings]" >> $GITHUB_OUTPUT 
-          echo "MATCHES=[$files_matches]" >> $GITHUB_OUTPUT 
+          echo "rankings=[$files_rankings]" >> $GITHUB_OUTPUT
+          echo "matches=[$files_matches]" >> $GITHUB_OUTPUT
+# transform to array
 
   Rankings:
     needs: Updated-XML
@@ -55,7 +56,7 @@ jobs:
     strategy:
       #max-parallel: 1
       matrix:
-        teams: ${{fromJSON(env.RANKINGS)}}
+        teams: ${{fromJSON(needs.Updated-XML.outputs.rankings)}}
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Ranking File
