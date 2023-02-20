@@ -47,14 +47,14 @@ jobs:
           echo "${{matrix.ids}}"
       
       - name: Upload Artifact
-        if: filtered_fetch
+        if: ${{ steps.filtered_fetch.conclusion == 'success' }}
         uses: actions/upload-artifact@v3
         with:
           name: rankings
           path: ${{ env.RANKINGS_SOURCE }}
 
       - name: Upload Artifact
-        if: filtered_fetch
+        if: ${{ steps.filtered_fetch.conclusion == 'success' }}
         uses: actions/upload-artifact@v3
         with:
           name: matches
