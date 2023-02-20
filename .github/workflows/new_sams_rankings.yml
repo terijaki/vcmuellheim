@@ -33,12 +33,26 @@ jobs:
     continue-on-error: true # if one update fails, the flow should continue
     strategy:
       matrix:
-        ranking_ids: ${{fromJSON(needs.Updated-XML.outputs.files-updated)}}
+        ids: ${{fromJSON(needs.Updated-XML.outputs.files-updated)}}
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch Ranking File
-        if: contains( matrix.ranking_ids, env.RANKINGS_SOURCE ) # checks if the file is a ranking file
+      - name: Fetch Rankings and Matches
+        if: contains( matrix.ids, env.RANKINGS_SOURCE ) || contains( matrix.ids, env.MATCHES_SOURCE )
+        # checks if the file is either a ranking or match
         run: |
           mkdir -p ${{ env.RANKINGS_SOURCE }}
-          curl -o ${{matrix.ranking_ids}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.ranking_ids}}"
-          echo "${{matrix.ranking_ids}}"
+          mkdir -p ${{ env.MATCHES_SOURCE }}
+          curl -o ${{matrix.ids}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.ids}}"
+          echo "${{matrix.ids}}"
+      
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: rankings
+          path: ${{ env.RANKINGS_SOURCE }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: matches
+          path: ${{ env.MATCHES_SOURCE }}
