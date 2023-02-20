@@ -1,4 +1,4 @@
-name: SAMS RAW Data Sync
+name: SAMS Data Synchronisation
 
 concurrency:
   group: sams
