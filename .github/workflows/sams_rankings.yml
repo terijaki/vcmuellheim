@@ -1,4 +1,4 @@
-name: SAMS Rankings
+name: SAMS Rankings (DISABLED)
 
 concurrency:
   group: sams
@@ -6,12 +6,12 @@ concurrency:
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: 44 4 * * * # every night at 4:44
-    - cron: 20,40 10-22 * * 0,6 # once per hour on sa & sun between 10AM - 10PM
-  push:
-    paths:
-      - _spielergebnisse/**
+  # schedule:
+  #   - cron: 44 4 * * * # every night at 4:44
+  #   - cron: 20,40 10-22 * * 0,6 # once per hour on sa & sun between 10AM - 10PM
+  # push:
+  #   paths:
+  #     - _spielergebnisse/**
 
 env:
   SAMS_KEY: ${{ secrets.SAMS_API }} # SAMS API key
