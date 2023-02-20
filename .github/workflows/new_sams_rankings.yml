@@ -18,12 +18,12 @@ jobs:
           # Format of the steps output context.
           # Can be 'space-delimited', 'csv', or 'json'.
           # Default: 'space-delimited'
-          format: 'json'
+          format: 'space-delimited'
 
       - name: Fetch Modified Files
         id: fetch
         run: |
-          for file in arr=(${{fromJSON(steps.files.outputs.added_modified)}});
+          for file in arr=(${{steps.files.outputs.added_modified}});
           do
             echo "$file"
             curl -o $file "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/$file"
