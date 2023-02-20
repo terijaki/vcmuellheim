@@ -54,7 +54,7 @@ jobs:
     strategy:
       #max-parallel: 1
       matrix:
-        teams: ${{fromJSON(needs.Updated-XML.outputs.rankings)}}
+        teams: ${{needs.Updated-XML.outputs.rankings}}
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Ranking File
