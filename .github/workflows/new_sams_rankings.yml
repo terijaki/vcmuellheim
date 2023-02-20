@@ -27,20 +27,24 @@ jobs:
           # Default: 'space-delimited'
           format: 'space-delimited'
 
-      - name: Prepare Directory
+      - name: Prepare Directory and Variables
         id: mkdir
         run: |
           mkdir -p ${{env.RANKINGS_SOURCE}}
           mkdir -p ${{env.MATCHES_SOURCE}}
+          files-rankings=''
+          files-matches=''
 
       - name: Separate Modified Files
         id: separate
         run: |
-          filearray=(${{ steps.files.outputs.added_modified }})
           for file in ${{steps.files.outputs.added_modified}}
           do
             echo "$file"
+            if [[ $file = *_sams/xml/rankings* ]] ; then files-rankings = $files-rankings $file ; fi
           done
+          echo "here is the list:"
+          echo "$files-rankings"
 
       - name: Fetch Modified Files
         id: fetch
