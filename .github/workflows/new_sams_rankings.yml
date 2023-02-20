@@ -13,7 +13,7 @@ env:
   MATCHES_TARGET: _matches
 
 jobs:
-  Rankings-Update:
+  Updated-XML:
     runs-on: ubuntu-latest
     outputs:
       filenames: ${{ steps.files.outputs.added_modified }} # array of files changed by the commit who triggered the workflow
@@ -45,24 +45,19 @@ jobs:
           echo "here are the lists:"
           echo "$files_rankings"
           echo "$files_matches"
+          echo "rankings=$files_rankings" >> $GITHUB_OUTPUT 
+          echo "matches=$files_matches" >> $GITHUB_OUTPUT 
 
-      - name: Fetch Modified Files
-        id: fetch
+  Rankings:
+    needs: Updated-XML
+    continue-on-error: true # if one team fails, the flow should continue
+    strategy:
+      #max-parallel: 1
+      matrix:
+        teams: ${{fromJSON(needs.Updated-XML.outputs.rankings)}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Ranking File
         run: |
-          filearray=(${{ steps.files.outputs.added_modified }})
-          for file in $filearray
-          do
-            curl -o $file "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/$file"
-          done
-
-      - name: Upload Artifact (Rankings XML)
-        uses: actions/upload-artifact@v3
-        with:
-          name: xml_rankings
-          path: ${{env.RANKINGS_SOURCE}}
-
-      - name: Upload Artifact (Matches XML)
-        uses: actions/upload-artifact@v3
-        with:
-          name: xml_matches
-          path: ${{env.MATCHES_SOURCE}}
+          curl -o ${{matrix.teams}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.teams}}"
+          echo "${{matrix.teams}}"
