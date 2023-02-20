@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
         <rankings>
-                <matchSeries>       
+                <matchSeries>
     <id>22517590</id>
     <uuid>0836813a-4678-4c05-b6c4-f8800849d8c3</uuid>
     <allSeasonId>36b0148e-d336-9331-f60d-cee054cf67df</allSeasonId>
@@ -576,7 +576,7 @@
                                         <count>2</count>
                                     </matchResult>
                                     <matchResult>
-                                        <result>3:1</result> 
+                                        <result>3:1</result>
                                         <count>0</count>
                                     </matchResult>
                                     <matchResult>
@@ -591,8 +591,8 @@
                                         <result>1:3</result>
                                         <count>6</count>
                                     </matchResult>
-                                    <matchResult>      
-                                        <result>0:3</result> 
+                                    <matchResult>
+                                        <result>0:3</result>
                                         <count>3</count>
                                     </matchResult>
                             </resultTypes>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
         <rankings>
-                <matchSeries>        
+                <matchSeries>
     <id>22516931</id>
     <uuid>8854cdff-3f6d-4fcd-9780-40ec238adcff</uuid>
     <allSeasonId>578fe07f-b620-daae-2fd8-5a71ca9995e4</allSeasonId>
     <name>Verbandsliga Herren</name>
     <shortName>vl h</shortName>
-    <type>League</type>     
+    <type>League</type>
         <updated>2023-02-12 09:57:13.139</updated>
         <structureUpdated>2023-02-11 08:28:38.67</structureUpdated>
         <resultsUpdated>2023-02-12 09:57:13.139</resultsUpdated>
@@ -17,7 +17,7 @@
             <name>2022/23</name>
         </season>
         <hierarchy>
-            <id>22516686</id> 
+            <id>22516686</id>
             <uuid>94317c29-90fa-4a66-9966-fa2968841a84</uuid>
             <name>Verbandsligen</name>
             <shortName>vl</shortName>
