@@ -40,15 +40,14 @@ jobs:
           for file in ${{steps.files.outputs.added_modified}}
           do
             echo "$file"
-            if [[ $file = *_sams/xml/rankings* ]] ; then files_rankings="$files_rankings,$file" ; fi
-            if [[ $file = *_sams/xml/matches* ]] ; then files_matches="$files_matches,$file" ; fi
+            if [[ $file = *_sams/xml/rankings* ]] ; then files_rankings="$file,$files_rankings" ; fi
+            if [[ $file = *_sams/xml/matches* ]] ; then files_matches="$file,$files_matches" ; fi
           done
+          echo "rankings=[$files_rankings%?]" >> $GITHUB_OUTPUT
+          echo "matches=[${files_matches%?}]" >> $GITHUB_OUTPUT
           echo "here are the lists:"
           echo "$files_rankings"
           echo "$files_matches"
-          echo "rankings=[$files_rankings]" >> $GITHUB_OUTPUT
-          echo "matches=[$files_matches]" >> $GITHUB_OUTPUT
-# transform to array
 
   Rankings:
     needs: Updated-XML
