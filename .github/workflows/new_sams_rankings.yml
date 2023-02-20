@@ -54,8 +54,8 @@ jobs:
         # this is later displayed on the homepage as last update date
         id: timestamp_rankings
         if: contains( matrix.ids, env.RANKINGS_SOURCE )
-        run: sed -i -e 's!</rankings>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></rankings>!g' ${{matrix.ids}}sed -i -e 's!</matches>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></matches>!g' ${{matrix.ids}}
-
+        run: sed -i -e 's!</rankings>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></rankings>!g' ${{matrix.ids}}
+        
       - name: Get rankings.xslt template # Get the xslt template
         if: ${{ steps.timestamp_rankings.conclusion == 'success' }}
         id: rankings_xslt_template
