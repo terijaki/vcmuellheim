@@ -45,15 +45,21 @@ jobs:
           mkdir -p ${{ env.MATCHES_SOURCE }}
           curl -o ${{matrix.ids}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.ids}}"
           echo "${{matrix.ids}}"
-      
-      - name: Upload Artifact
+
+      - name: Add timestamp to Rankings XML
+        # includes a timestamp in German format
+        # this is later displayed on the homepage as last update date
+        if: contains( matrix.ids, env.RANKINGS_SOURCE )
+        run: sed -i -e 's!</rankings>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></rankings>!g' ${{matrix.ids}}
+
+
+      - name: Upload Artifact (Rankings)
         if: ${{ steps.filtered_fetch.conclusion == 'success' }}
         uses: actions/upload-artifact@v3
         with:
           name: rankings
           path: ${{ env.RANKINGS_SOURCE }}
-
-      - name: Upload Artifact
+      - name: Upload Artifact (Matches)
         if: ${{ steps.filtered_fetch.conclusion == 'success' }}
         uses: actions/upload-artifact@v3
         with:
