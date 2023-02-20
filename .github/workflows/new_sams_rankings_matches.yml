@@ -67,7 +67,9 @@ jobs:
         # includes a timestamp at the end of the files in the German format to be used in the frontend
         id: timestamp_rankings
         if: contains( matrix.ids, env.RANKINGS_SOURCE )
-        run: sed -i -e 's!</rankings>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></rankings>!g' ${{matrix.ids}}
+        run: |
+          echo $(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)
+          sed -i -e 's!</rankings>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></rankings>!g' ${{matrix.ids}}
         
       - name: Get rankings.xslt template # Get the xslt template
         if: ${{ steps.timestamp_rankings.conclusion == 'success' }}
@@ -99,7 +101,9 @@ jobs:
         # includes a timestamp at the end of the files in the German format to be used in the frontend
         id: timestamp_matches
         if: contains( matrix.ids, env.MATCHES_SOURCE )
-        run: sed -i -e 's!</matches>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></matches>!g' ${{matrix.ids}}
+        run: |
+          echo $(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)
+          sed -i -e 's!</matches>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></matches>!g' ${{matrix.ids}}
 
       - name: Upload Artifact (Matches)
         if: ${{ steps.timestamp_matches.conclusion == 'success' }}
