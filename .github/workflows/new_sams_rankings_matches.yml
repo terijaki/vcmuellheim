@@ -86,6 +86,7 @@ jobs:
 
       - name: Upload Artifact (Rankings)
         if: ${{ steps.xslt_rankings.conclusion == 'success' }}
+        id: upload_rankings
         uses: actions/upload-artifact@v3
         with:
           name: rankings
@@ -107,6 +108,7 @@ jobs:
 
       - name: Upload Artifact (Matches)
         if: ${{ steps.timestamp_matches.conclusion == 'success' }}
+        id: upload_matches
         uses: actions/upload-artifact@v3
         with:
           name: matches
@@ -126,6 +128,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download Rankings
+        if: ${{ Process-Rankings-and-Matches.steps.upload_rankings.conclusion == 'success' }}
         id: download_rankings
         uses: actions/download-artifact@v3
         with:
@@ -133,6 +136,7 @@ jobs:
           path: ${{env.RANKINGS_TARGET}}
 
       - name: Download Matches
+        if: ${{ Process-Rankings-and-Matches.steps.upload_matches.conclusion == 'success' }}
         id: download_matches
         uses: actions/download-artifact@v3
         with:
