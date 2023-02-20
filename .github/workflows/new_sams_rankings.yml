@@ -14,6 +14,7 @@ env:
   MATCHES_TARGET: _matches/
 
 jobs:
+
   Updated-XML:
     runs-on: ubuntu-latest
     outputs:
@@ -23,10 +24,8 @@ jobs:
         id: files
         uses: masesgroup/retrieve-changed-files@v2
         with:
-          # Format of the steps output context.
-          # Can be 'space-delimited', 'csv', or 'json'.
-          # Default: 'space-delimited'
           format: 'json'
+
 
   Process-Rankings-and-Matches:
     needs: Updated-XML
@@ -59,6 +58,8 @@ jobs:
       ########################
       ### RANKINGS PROCESS ###
       ########################
+      - name: RANKING PROCESS
+        if: contains( matrix.ids, env.RANKINGS_SOURCE )
       - name: Add timestamp to Rankings XML
         # includes a timestamp at the end of the files in the German format to be used in the frontend
         id: timestamp_rankings
@@ -88,6 +89,8 @@ jobs:
       #######################
       ### MATCHES PROCESS ###
       #######################
+      - name: MATCHES PROCESS
+        if: contains( matrix.ids, env.RANKINGS_SOURCE )
       - name: Add timestamp to Matches XML
         # includes a timestamp at the end of the files in the German format to be used in the frontend
         id: timestamp_matches
@@ -100,3 +103,58 @@ jobs:
         with:
           name: matches
           path: ${{ env.MATCHES_SOURCE }}
+
+
+
+
+
+  #############################
+  ### GIT UPDATE PROCESS ###
+  #############################
+  Git-Update:
+    needs: Process-Rankings-and-Matches
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Download Rankings
+        id: download_rankings
+        uses: actions/download-artifact@v3
+        with:
+          name: rankings
+          path: ${{env.RANKINGS_TARGET}}
+
+      - name: Download Matches
+        id: download_matches
+        uses: actions/download-artifact@v3
+        with:
+          name: matches
+          path: ${{env.MATCHES_TARGET}}
+
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: Commit Rankings
+        if: ${{ steps.download_rankings.conclusion == 'success' }}
+        continue-on-error: true # don't throw an error as there won't always be changes
+        run: |
+          git add "${{env.RANKINGS_TARGET}}*"
+          git commit -m "rankings update"
+
+      - name: Commit Matching
+        if: ${{ steps.download_matches.conclusion == 'success' }}
+        continue-on-error: true # don't throw an error as there won't always be changes
+        run: |
+          git add "${{env.MATCHESTARGET}}*"
+          git commit -m "matches update"
+
+      - name: Git Push
+        continue-on-error: true # don't throw an error as there won't always be changes
+        run: |
+          git pull --rebase
+          git push origin --all --quiet
