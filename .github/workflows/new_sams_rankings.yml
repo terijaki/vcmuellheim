@@ -60,6 +60,7 @@ jobs:
       ########################
       - name: RANKING PROCESS
         if: contains( matrix.ids, env.RANKINGS_SOURCE )
+        run: echo "Lets process rankings!"
       - name: Add timestamp to Rankings XML
         # includes a timestamp at the end of the files in the German format to be used in the frontend
         id: timestamp_rankings
@@ -91,6 +92,7 @@ jobs:
       #######################
       - name: MATCHES PROCESS
         if: contains( matrix.ids, env.RANKINGS_SOURCE )
+        run: echo "Lets process matches!"
       - name: Add timestamp to Matches XML
         # includes a timestamp at the end of the files in the German format to be used in the frontend
         id: timestamp_matches
