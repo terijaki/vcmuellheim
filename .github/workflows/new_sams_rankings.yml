@@ -33,12 +33,11 @@ jobs:
     continue-on-error: true # if one update fails, the flow should continue
     strategy:
       matrix:
-        ids: ${{fromJSON(needs.Updated-XML.outputs.files-updated)}}
-    if: contains(matrix.ids, env.RANKINGS_SOURCE) # checks if the file is a ranking file
+        ranking_ids: ${{fromJSON(needs.Updated-XML.outputs.files-updated)}}
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Ranking File
         run: |
           mkdir -p ${{ env.RANKINGS_SOURCE }}
-          curl -o ${{matrix.teams}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.ids}}"
-          echo "${{matrix.ids}}"
+          curl -o ${{matrix.teams}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.ranking_ids}}"
+          echo "${{matrix.ranking_ids}}"
