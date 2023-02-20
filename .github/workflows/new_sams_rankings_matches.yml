@@ -128,7 +128,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download Rankings
-        if: ${{ Process-Rankings-and-Matches.steps.upload_rankings.conclusion == 'success' }}
+        if: ${{ jobs.Process-Rankings-and-Matches.steps.upload_rankings.conclusion == 'success' }}
         id: download_rankings
         uses: actions/download-artifact@v3
         with:
@@ -136,7 +136,7 @@ jobs:
           path: ${{env.RANKINGS_TARGET}}
 
       - name: Download Matches
-        if: ${{ Process-Rankings-and-Matches.steps.upload_matches.conclusion == 'success' }}
+        if: ${{ jobs.Process-Rankings-and-Matches.steps.upload_matches.conclusion == 'success' }}
         id: download_matches
         uses: actions/download-artifact@v3
         with:
