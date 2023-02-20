@@ -45,10 +45,10 @@ jobs:
             if [[ $file = *_sams/xml/matches* ]] ; then files_matches="$file,$files_matches" ; fi
           done
           echo "rankings=[$files_rankings%?]" >> $GITHUB_OUTPUT
-          echo "matches=[${files_matches%?}]" >> $GITHUB_OUTPUT
+          echo "matches=[$files_matches%?]" >> $GITHUB_OUTPUT
           echo "here are the lists:"
-          echo "{{steps.filter.outputs.rankings}}"
-          echo "{{steps.filter.outputs.matches}}"
+          echo "${{steps.filter.outputs.rankings}}"
+          echo "${{steps.filter.outputs.matches}}"
 
   Rankings:
     needs: Updated-XML
