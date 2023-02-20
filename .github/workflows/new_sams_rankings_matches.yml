@@ -91,6 +91,8 @@ jobs:
         with:
           name: rankings
           path: ${{env.RANKINGS_SOURCE}}
+        env:
+          UPLOAD_RANKINGS: true
 
       #######################
       ### MATCHES PROCESS ###
@@ -113,6 +115,9 @@ jobs:
         with:
           name: matches
           path: ${{ env.MATCHES_SOURCE }}
+        env:
+          UPLOAD_MATCHES: true
+
 
   #############################
   ### GIT UPDATE PROCESS ###
@@ -128,7 +133,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download Rankings
-        if: ${{ jobs.Process-Rankings-and-Matches.steps.upload_rankings.conclusion == 'success' }}
+        if: ${{ env.UPLOAD_RANKINGS == 'true' }}
         id: download_rankings
         uses: actions/download-artifact@v3
         with:
@@ -136,7 +141,7 @@ jobs:
           path: ${{env.RANKINGS_TARGET}}
 
       - name: Download Matches
-        if: ${{ jobs.Process-Rankings-and-Matches.steps.upload_matches.conclusion == 'success' }}
+        if: ${{ env.UPLOAD_MATCHES == 'true' }}
         id: download_matches
         uses: actions/download-artifact@v3
         with:
