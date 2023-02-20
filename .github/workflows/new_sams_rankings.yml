@@ -8,10 +8,10 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
-  RANKINGS_SOURCE: _sams/xml/rankings
-  MATCHES_SOURCE: _sams/xml/matches
-  RANKINGS_TARGET: _rankings
-  MATCHES_TARGET: _matches
+  RANKINGS_SOURCE: _sams/xml/rankings/
+  MATCHES_SOURCE: _sams/xml/matches/
+  RANKINGS_TARGET: _rankings/
+  MATCHES_TARGET: _matches/
 
 jobs:
   Updated-XML:
@@ -46,7 +46,7 @@ jobs:
           curl -o ${{matrix.ids}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.ids}}"
           echo "${{matrix.ids}}"
 
-      - name: Isolate ID # Isolate just the ID from the file
+      - name: Isolate ID # Isolate just the ID from the file (remove path and file extension)
         if: ${{ steps.filtered_fetch.conclusion == 'success' }}
         id: isolate_id
         run: |
@@ -55,7 +55,7 @@ jobs:
           targetfile=$(echo $targetfile | sed -e 's!${{env.RANKINGS_SOURCE}}!!')
           targetfile=$(echo $targetfile | sed -e 's!${{env.MATCHES_SOURCE}}!!')
           echo $targetfile
-          
+
       ########################
       ### RANKINGS PROCESS ###
       ########################
