@@ -11,6 +11,7 @@ on:
   workflow_dispatch:
 
 env:
+  GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
   SAMS_KEY: ${{ secrets.SAMS_API }}
   SAMS_URL: "https://www.volleyball-baden.de"
   SAMS_RANKING_TARGET: _sams/xml/rankings/ # the folder I want the ranking xml files to go to
@@ -136,6 +137,7 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v3
         with:
+          token: ${{env.GITHUB_TOKEN}}
           fetch-depth: 0
 
       - name: Download Rankings Exports
