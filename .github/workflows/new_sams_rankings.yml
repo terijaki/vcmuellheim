@@ -17,7 +17,8 @@ jobs:
   Updated-XML:
     runs-on: ubuntu-latest
     outputs:
-      filenames: ${{ steps.files.outputs.added_modified }} # array of files changed by the commit who triggered the workflow
+      rankings: ${{ steps.separate.outputs.rankings }} # array of files changed by the commit who triggered the workflow
+      matches: ${{ steps.separate.outputs.matches }} # array of files changed by the commit who triggered the workflow
     steps:
       - name: Identify Modified Files
         id: files
