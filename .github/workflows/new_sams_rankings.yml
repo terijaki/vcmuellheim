@@ -1,0 +1,30 @@
+name: NEW Rankings Update
+
+on:
+  push:
+    paths:
+      - "_sams/xml/rankings/**"
+
+jobs:
+  Rankings-Update:
+    runs-on: ubuntu-latest
+    outputs:
+      filenames: ${{ steps.files.outputs.added_modified }} # array of files changed by the commit who triggered the workflow
+    steps:
+      - name: Identify Modified Files
+        id: files
+        uses: masesgroup/retrieve-changed-files@v2
+        with:
+          # Format of the steps output context.
+          # Can be 'space-delimited', 'csv', or 'json'.
+          # Default: 'space-delimited'
+          format: 'json'
+
+      - name: Fetch Modified Files
+        id: fetch
+        run: |
+          for file in ${{fromJSON(steps.files.outputs.added_modified)}}
+          do
+            echo "$file"
+            curl -o $file "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/$file"
+          done
