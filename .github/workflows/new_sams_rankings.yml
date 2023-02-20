@@ -34,7 +34,7 @@ jobs:
           mkdir -p ${{env.MATCHES_SOURCE}}
 
       - name: Separate Modified Files
-        id: fetch
+        id: separate
         run: |
           filearray=(${{ steps.files.outputs.added_modified }})
           for file in $filearray
