@@ -37,13 +37,17 @@ jobs:
 
       - name: Filter Ranking Files
         id: filter_rankings
+        # loops through the list of modified files and filters out the ranking files
+        # for each ranking modified, the file is added to the variable
+        # the variable is then stripped of the last "," comma before it is set as output for the step
         run: |
           for file in ${{steps.files.outputs.added_modified}}
           do
             echo "$file"
             if [[ $file = *_sams/xml/rankings* ]] ; then files_rankings="$file,$files_rankings" ; fi
           done
-          echo "ids=[{$files_rankings::-1}]" >> $GITHUB_OUTPUT
+          echo "files_rankings={$files_rankings::-1}"
+          echo "ids=[$files_rankings]" >> $GITHUB_OUTPUT
 
       - name: Filter Matches Files
         id: filter_matches
@@ -53,6 +57,7 @@ jobs:
             echo "$file"
             if [[ $file = *_sams/xml/matches* ]] ; then files_matches="$file,$files_matches" ; fi
           done
+          echo "files_matches={$files_matches::-1}"
           echo "ids=[${files_matches::-1}]" >> $GITHUB_OUTPUT
 
       - name: List files
