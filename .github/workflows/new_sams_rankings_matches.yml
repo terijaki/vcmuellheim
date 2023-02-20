@@ -133,7 +133,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download Rankings
-        if: ${{ env.UPLOAD_RANKINGS == 'true' }}
+        if: ${{ env.UPLOAD_RANKINGS }}
         id: download_rankings
         uses: actions/download-artifact@v3
         with:
@@ -141,7 +141,7 @@ jobs:
           path: ${{env.RANKINGS_TARGET}}
 
       - name: Download Matches
-        if: ${{ env.UPLOAD_MATCHES == 'true' }}
+        if: ${{ env.UPLOAD_MATCHES }}
         id: download_matches
         uses: actions/download-artifact@v3
         with:
