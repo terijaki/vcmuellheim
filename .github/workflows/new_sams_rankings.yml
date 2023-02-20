@@ -58,7 +58,7 @@ jobs:
             if [[ $file = *_sams/xml/matches* ]] ; then files_matches="$file,$files_matches" ; fi
           done
           files_matches=${files_matches::-1}
-          echo "ids=[${files_matches::-1}]" >> $GITHUB_OUTPUT
+          echo "ids=[$files_matches]" >> $GITHUB_OUTPUT
 
       - name: List files
         run: |
