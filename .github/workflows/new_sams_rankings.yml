@@ -28,7 +28,7 @@ jobs:
           # Default: 'space-delimited'
           format: 'json'
 
-  Rankings:
+  Process-Rankings-and-Matches:
     needs: Updated-XML
     continue-on-error: true # if one update fails, the flow should continue
     strategy:
@@ -41,26 +41,55 @@ jobs:
         if: contains( matrix.ids, env.RANKINGS_SOURCE ) || contains( matrix.ids, env.MATCHES_SOURCE )
         # checks if the file is either a ranking or match
         run: |
-          mkdir -p ${{ env.RANKINGS_SOURCE }}
-          mkdir -p ${{ env.MATCHES_SOURCE }}
+          mkdir -p ${{env.RANKINGS_SOURCE}}
+          mkdir -p ${{env.MATCHES_SOURCE}}
           curl -o ${{matrix.ids}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.ids}}"
           echo "${{matrix.ids}}"
 
+      ######################
+      ## RANKINGS PROCESS ##
+      ######################
       - name: Add timestamp to Rankings XML
-        # includes a timestamp in German format
+        # includes a timestamp at the end of the files in the German format
         # this is later displayed on the homepage as last update date
+        id: timestamp_rankings
         if: contains( matrix.ids, env.RANKINGS_SOURCE )
-        run: sed -i -e 's!</rankings>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></rankings>!g' ${{matrix.ids}}
+        run: sed -i -e 's!</rankings>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></rankings>!g' ${{matrix.ids}}sed -i -e 's!</matches>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></matches>!g' ${{matrix.ids}}
 
+      - name: Get rankings.xslt template # Get the xslt template
+        if: ${{ steps.timestamp_rankings.conclusion == 'success' }}
+        id: rankings_xslt_template
+        run: curl -o rankings.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/rankings.xslt"
+
+      - name: Transform XML # Push the XML through the XSLT
+        if: ${{ steps.rankings_xslt_template.conclusion == 'success' }}
+        id: xslt_rankings
+        run: |
+          mkdir -p ${{env.RANKINGS_TARGET}}
+          sudo apt-get install xsltproc
+          targetfile=${{matrix.ids}} | sed 's!${{env.RANKINGS_SOURCE}}!!' | sed 's!\.xml!!'
+          echo "$targetfile"
+          xsltproc rankings.xslt ${{matrix.ids}} > $targetfile
 
       - name: Upload Artifact (Rankings)
-        if: ${{ steps.filtered_fetch.conclusion == 'success' }}
+        if: ${{ steps.xslt_rankings.conclusion == 'success' }}
         uses: actions/upload-artifact@v3
         with:
           name: rankings
-          path: ${{ env.RANKINGS_SOURCE }}
+          path: ${{env.RANKINGS_SOURCE}}
+
+      #####################
+      ## MATCHES PROCESS ##
+      #####################
+      - name: Add timestamp to Matches XML
+        # includes a timestamp at the end of the files in the German format
+        # this is later displayed on the homepage as last update date
+        id: timestamp_matches
+        if: contains( matrix.ids, env.MATCHES_SOURCE )
+        run: sed -i -e 's!</matches>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></matches>!g' ${{matrix.ids}}
+
       - name: Upload Artifact (Matches)
-        if: ${{ steps.filtered_fetch.conclusion == 'success' }}
+        if: ${{ steps.timestamp_matches.conclusion == 'success' }}
         uses: actions/upload-artifact@v3
         with:
           name: matches
