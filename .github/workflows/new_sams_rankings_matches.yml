@@ -36,9 +36,6 @@ jobs:
       matrix:
         ids: ${{fromJSON(needs.Updated-XML.outputs.files-updated)}}
     runs-on: ubuntu-latest
-    outputs:
-      rankings: ${{ steps.upload_rankinkgs.outputs }}
-      matches: ${{ steps.upload_matches.outputs }}
     steps:
       - name: Filter & Fetch Rankings and Matches
         id: filtered_fetch
@@ -132,7 +129,6 @@ jobs:
           fetch-depth: 0
 
       - name: Download Rankings
-        if: ${{ needs.Process-Rankings-and-Matches.outputs.rankings != '' }}
         id: download_rankings
         uses: actions/download-artifact@v3
         with:
@@ -140,7 +136,6 @@ jobs:
           path: ${{env.RANKINGS_TARGET}}
 
       - name: Download Matches
-        if: ${{ needs.Process-Rankings-and-Matches.outputs.matches != '' }}
         id: download_matches
         uses: actions/download-artifact@v3
         with:
@@ -148,6 +143,7 @@ jobs:
           path: ${{env.MATCHES_TARGET}}
 
       - name: Setup Git Config
+        if: always() # needed when either rankings or matches have no update
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
