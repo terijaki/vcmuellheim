@@ -17,8 +17,8 @@ jobs:
   Updated-XML:
     runs-on: ubuntu-latest
     outputs:
-      rankings: ${{ steps.filter_rankings.outputs.rankings }} # rankings to be processed
-      matches: ${{ steps.filter_matches.outputs.matches }} # matches to be processed
+      rankings: ${{ steps.filter_rankings.outputs.ids }} # rankings to be processed
+      matches: ${{ steps.filter_matches.outputs.ids }} # matches to be processed
     steps:
       - name: Identify Modified Files
         id: files
@@ -43,7 +43,7 @@ jobs:
             echo "$file"
             if [[ $file = *_sams/xml/rankings* ]] ; then files_rankings="$file,$files_rankings" ; fi
           done
-          echo "rankings=[$files_rankings%?]" >> $GITHUB_OUTPUT
+          echo "ids=[$files_rankings%?]" >> $GITHUB_OUTPUT
 
       - name: Filter Matches Files
         id: filter_matches
@@ -53,13 +53,13 @@ jobs:
             echo "$file"
             if [[ $file = *_sams/xml/matches* ]] ; then files_matches="$file,$files_matches" ; fi
           done
-          echo "matches=[$files_matches%?]" >> $GITHUB_OUTPUT
+          echo "ids=[$files_matches%?]" >> $GITHUB_OUTPUT
 
       - name: List files
         run: |
           echo "here are the lists:"
-          echo "${{steps.filter_rankings.outputs.rankings}}"
-          echo "${{steps.filter_matches.outputs.matches}}"
+          echo "${{steps.filter_rankings.outputs.ids}}"
+          echo "${{steps.filter_matches.outputs.ids}}"
 
   Rankings:
     needs: Updated-XML
