@@ -28,3 +28,9 @@ jobs:
             echo "$file"
             curl -o $file "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/$file"
           done
+
+      - name: Upload Artifact (SAMS XML) # not needed, only to keep for troubleshooting
+        uses: actions/upload-artifact@v3
+        with:
+          name: updated_files
+          path: _sams/xml/rankings/
