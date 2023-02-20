@@ -40,24 +40,17 @@ jobs:
         # loops through the list of modified files and filters out the ranking files
         # for each ranking modified, the file is added to the variable
         # the variable is then stripped of the last "," comma before it is set as output for the step
-        # run: |
-        #   for file in ${{steps.files.outputs.added_modified}}
-        #   do
-        #     echo "$file"
-        #     if [[ $file = *_sams/xml/rankings* ]] ; then files_rankings="$file,$files_rankings" ; fi
-        #     if [[ $file = *_sams/xml/matches* ]] ; then files_matches="$file,$files_matches" ; fi
-        #   done
-        #   files_rankings=${files_rankings::-1}
-        #   echo "rankings_ids=[$files_rankings]" >> $GITHUB_OUTPUT
-        #   files_matches=${files_matches::-1}
-        #   echo "matches_ids=[$files_matches]" >> $GITHUB_OUTPUT
         run: |
           for file in ${{steps.files.outputs.added_modified}}
           do
             echo "$file"
-            if [[ $file = *_sams/xml/rankings* ]] ; then echo "rankings_ids=$file" >> $GITHUB_OUTPUT ; fi
-            if [[ $file = *_sams/xml/rankings* ]] ; then echo "matches_ids=$file" >> $GITHUB_OUTPUT ; fi
+            if [[ $file = *_sams/xml/rankings* ]] ; then files_rankings="\'$file\',$files_rankings" ; fi
+            if [[ $file = *_sams/xml/matches* ]] ; then files_matches="\'$file\',$files_matches" ; fi
           done
+          files_rankings=${files_rankings::-1}
+          echo "rankings_ids=[$files_rankings]" >> $GITHUB_OUTPUT
+          files_matches=${files_matches::-1}
+          echo "matches_ids=[$files_matches]" >> $GITHUB_OUTPUT
 
       - name: List files
         run: |
