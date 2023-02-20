@@ -37,7 +37,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Ranking File
+        if: contains( matrix.ranking_ids, env.RANKINGS_SOURCE ) # checks if the file is a ranking file
         run: |
           mkdir -p ${{ env.RANKINGS_SOURCE }}
-          curl -o ${{matrix.teams}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.ranking_ids}}"
+          curl -o ${{matrix.ranking_ids}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.ranking_ids}}"
           echo "${{matrix.ranking_ids}}"
