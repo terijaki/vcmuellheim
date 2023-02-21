@@ -56,6 +56,7 @@ jobs:
           id_only=$(echo $id_only | sed -e 's!\.xml!!')
           id_only=$(echo $id_only | sed -e 's!${{env.RANKINGS_SOURCE}}!!')
           echo $id_only
+          echo "id=$id_only" >> $GITHUB_OUTPUT
 
       - name: Add timestamp to Rankings XML
         # includes a timestamp at the end of the files in the German format to be used in the frontend
@@ -74,10 +75,10 @@ jobs:
         if: steps.rankings_xslt_template.conclusion == 'success'
         id: xslt_rankings
         run: |
-          echo $id_only
+          echo ${{steps.isolate_id.outputs.id}}
           mkdir -p ${{env.RANKINGS_TARGET}}
           targetfile=${{env.RANKINGS_TARGET}}
-          targetfile+=$id_only
+          targetfile+=${{steps.isolate_id.outputs.id}}
           targetfile+=".html"
           echo $targetfile
           sudo apt-get install xsltproc
