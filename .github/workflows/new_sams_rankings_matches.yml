@@ -75,7 +75,6 @@ jobs:
         if: steps.rankings_xslt_template.conclusion == 'success'
         id: xslt_rankings
         run: |
-          echo ${{steps.isolate_id.outputs.id}}
           mkdir -p ${{env.RANKINGS_TARGET}}
           targetfile=${{env.RANKINGS_TARGET}}
           targetfile+=${{steps.isolate_id.outputs.id}}
@@ -128,6 +127,7 @@ jobs:
           id_only=$(echo $id_only | sed -e 's!\.xml!!')
           id_only=$(echo $id_only | sed -e 's!${{env.MATCHES_SOURCE}}!!')
           echo $id_only
+          echo "id=$id_only" >> $GITHUB_OUTPUT
 
       - name: MATCHES PROCESS
         if: contains( matrix.ids, env.MATCHES_SOURCE )
