@@ -51,11 +51,11 @@ jobs:
         if: ${{ steps.filtered_fetch.conclusion == 'success' }}
         id: isolate_id
         run: |
-          targetfile=${{matrix.ids}}
-          targetfile=$(echo $targetfile | sed -e 's!\.xml!!')
-          targetfile=$(echo $targetfile | sed -e 's!${{env.RANKINGS_SOURCE}}!!')
-          targetfile=$(echo $targetfile | sed -e 's!${{env.MATCHES_SOURCE}}!!')
-          echo $targetfile
+          id_only=${{matrix.ids}}
+          id_only=$(echo $id_only | sed -e 's!\.xml!!')
+          id_only=$(echo $id_only | sed -e 's!${{env.RANKINGS_SOURCE}}!!')
+          id_only=$(echo $id_only | sed -e 's!${{env.MATCHES_SOURCE}}!!')
+          echo $id_only
 
       ########################
       ### RANKINGS PROCESS ###
@@ -81,8 +81,9 @@ jobs:
         id: xslt_rankings
         run: |
           mkdir -p ${{env.RANKINGS_TARGET}}
+          targetfile=${{env.RANKINGS_TARGET}}$id_only".html"
           sudo apt-get install xsltproc
-          xsltproc rankings.xslt ${{matrix.ids}} > ${{env.RANKINGS_TARGET}}$targetfile.html
+          xsltproc rankings.xslt ${{matrix.ids}} > $targetfile
 
       - name: Upload Artifact (Rankings)
         if: ${{ steps.xslt_rankings.conclusion == 'success' }}
