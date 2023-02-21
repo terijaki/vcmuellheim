@@ -177,6 +177,7 @@ jobs:
           ical_target_file+=${{steps.isolate_id.outputs.id}}
           ical_target_file+=".ics"
           echo $processed_match_file" is used to modify "$ical_target_file" (Team and Club name)"
+          mkdir -p ${{env.ICAL_TARGET}}
           curl -o $ical_target_file "https://www.sbvv-online.de/iCal/team/matches.ical?teamId=${{steps.isolate_id.outputs.id}}"
           teamname=$(awk "/title: (.*) \(Saison/{print}" $processed_match_file | sed 's!title: !!' | sed 's! (Saison.*!!')
           echo $teamname
