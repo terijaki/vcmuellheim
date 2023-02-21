@@ -9,7 +9,7 @@
                     <delayPossible>false</delayPossible>
                     <decidingMatch>false</decidingMatch>
                     <indefinitelyRescheduled>false</indefinitelyRescheduled>
-                    <gameReassessed>false</gameReassessed>
+                    <gameReassessed>false</gameReassessed> 
                     <host>
                         <id></id>
                         <uuid></uuid>
