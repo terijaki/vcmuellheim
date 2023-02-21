@@ -76,6 +76,7 @@ jobs:
         run: |
           mkdir -p ${{env.RANKINGS_TARGET}}
           targetfile="${{env.RANKINGS_TARGET}}"$id_only".html"
+          echo $targetfile
           sudo apt-get install xsltproc
           xsltproc rankings.xslt ${{matrix.ids}} > $targetfile
 
