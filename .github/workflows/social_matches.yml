@@ -1,4 +1,4 @@
-name: Share Match Announcements on Social
+name: Share Match Results on Social
 
 concurrency:
   group: social
