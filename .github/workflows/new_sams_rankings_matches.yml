@@ -133,7 +133,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: rankings
-          path: ${{ env.rankings_TARGET }}
+          path: ${{ env.RANKINGS_TARGET }}
 
       - name: Download Matches
         uses: actions/download-artifact@v3
