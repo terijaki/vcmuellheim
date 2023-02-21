@@ -13,7 +13,7 @@ env:
   RANKINGS_TARGET: _rankings/
   MATCHES_TARGET: _matches/
   INDIVIDUAL_MATCHES_TARGET: _spielergebnisse/
-  ICS_TARGET: termine/
+  ICS_TARGET: ics/
 
 jobs:
 
