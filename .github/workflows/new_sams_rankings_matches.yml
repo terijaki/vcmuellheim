@@ -71,7 +71,7 @@ jobs:
         id: rankings_xslt_template
         run: curl -o rankings.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/rankings.xslt"
 
-      - name: Transform XML # Push the XML through the XSLT
+      - name: XSLT processing # Push the XML through the XSLT
         if: steps.rankings_xslt_template.conclusion == 'success'
         id: xslt_rankings
         run: |
