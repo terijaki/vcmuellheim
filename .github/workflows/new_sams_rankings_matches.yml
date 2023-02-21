@@ -73,8 +73,8 @@ jobs:
         run: curl -o rankings.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/rankings.xslt"
 
       - name: XSLT processing # Push the XML through the XSLT
-        if: steps.get_xslt_template.conclusion == 'success'
         id: xslt_rankings
+        if: steps.get_xslt_template.conclusion == 'success'
         run: |
           mkdir -p ${{env.RANKINGS_TARGET}}
           targetfile=${{env.RANKINGS_TARGET}}
@@ -162,16 +162,16 @@ jobs:
           xsltproc matches.xslt ${{matrix.ids}} > $targetfile
 
       - name: Upload Artifact (Matches)
-        if: steps.matches_xslt.conclusion == 'success'
         id: upload
+        if: steps.matches_xslt.conclusion == 'success'
         uses: actions/upload-artifact@v3
         with:
           name: matches
           path: ${{ env.MATCHES_TARGET }}
 
       - name: Upload Status
-        if: steps.upload.conclusion == 'success'
         id: upload_status
+        if: steps.upload.conclusion == 'success'
         run: echo "required=yes" >> $GITHUB_OUTPUT
 
       ### individual matches ###
@@ -189,8 +189,8 @@ jobs:
         # the saxon output file & location is declared in the xslt file, not by this command!
 
       - name: Upload Artifact (Individual Matches)
-        if: steps.individual_matches_xslt.conclusion == 'success'
         id: upload_individual_matches
+        if: steps.individual_matches_xslt.conclusion == 'success'
         uses: actions/upload-artifact@v3
         with:
           name: individual_matches
@@ -211,24 +211,24 @@ jobs:
           fetch-depth: 0
 
       - name: Download Rankings
-        if: contains(needs.Process-Rankings.outputs.upload_required, 'yes')
         id: dowload_rankings
+        if: contains(needs.Process-Rankings.outputs.upload_required, 'yes')
         uses: actions/download-artifact@v3
         with:
           name: rankings
           path: ${{ env.RANKINGS_TARGET }}
 
       - name: Download Matches
-        if: contains(needs.Process-Matches.outputs.upload_required, 'yes')
         id: dowload_matches
+        if: contains(needs.Process-Matches.outputs.upload_required, 'yes')
         uses: actions/download-artifact@v3
         with:
           name: matches
           path: ${{ env.MATCHES_TARGET }}
 
       - name: Download Individual Matches
-        if: contains(needs.Process-Matches.outputs.upload_required, 'yes')
         id: dowload_individual_matches
+        if: contains(needs.Process-Matches.outputs.upload_required, 'yes')
         uses: actions/download-artifact@v3
         with:
           name: individual_matches
