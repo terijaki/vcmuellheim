@@ -129,7 +129,6 @@ jobs:
           fetch-depth: 0
 
       - name: Download Rankings
-        if: ${{ never() }}
         uses: actions/download-artifact@v3
         with:
           name: rankings
