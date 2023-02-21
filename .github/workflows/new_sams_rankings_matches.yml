@@ -239,7 +239,7 @@ jobs:
         if: steps.samsical.conclusion == 'success'
         uses: actions/upload-artifact@v3
         with:
-          name: individual_matches
+          name: ics
           path: ${{env.ICS_TARGET}}
 
   ##########################
@@ -257,55 +257,70 @@ jobs:
           token: ${{env.GITHUB_TOKEN}}
           fetch-depth: 0
 
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
       - name: Download Rankings
-        id: dowload_rankings
+        id: download_rankings
         if: contains(needs.Process-Rankings.outputs.upload_required, 'yes')
         uses: actions/download-artifact@v3
         with:
           name: rankings
           path: ${{ env.RANKINGS_TARGET }}
 
+      - name: Commit Rankings
+        if: steps.download_rankings.conclusion == 'success'
+        continue-on-error: true # don't throw an error as there won't always be changes
+        run: |
+          git add "${{env.RANKINGS_TARGET}}"
+          git commit -m "rankings update"
+
       - name: Download Matches
-        id: dowload_matches
+        id: download_matches
         if: contains(needs.Process-Matches.outputs.upload_required, 'yes')
         uses: actions/download-artifact@v3
         with:
           name: matches
           path: ${{ env.MATCHES_TARGET }}
 
+      - name: Commit Matching
+        if: steps.download_matches.conclusion == 'success'
+        continue-on-error: true # don't throw an error as there won't always be changes
+        run: |
+          git add "${{env.MATCHES_TARGET}}"
+          git commit -m "matches update"
+
       - name: Download Individual Matches
-        id: dowload_individual_matches
+        id: download_individual_matches
         if: contains(needs.Process-Matches.outputs.upload_required, 'yes')
         uses: actions/download-artifact@v3
         with:
           name: individual_matches
           path: ${{env.INDIVIDUAL_MATCHES_TARGET}}
 
-      - name: Setup Git Config
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-
-      - name: Commit Rankings
-        if: steps.dowload_rankings.conclusion == 'success'
-        continue-on-error: true # don't throw an error as there won't always be changes
-        run: |
-          git add "${{env.RANKINGS_TARGET}}"
-          git commit -m "rankings update"
-
-      - name: Commit Matching
-        if: steps.dowload_matches.conclusion == 'success'
-        continue-on-error: true # don't throw an error as there won't always be changes
-        run: |
-          git add "${{env.MATCHES_TARGET}}"
-          git commit -m "matches update"
-
       - name: Commit Individual Matching
-        if: steps.dowload_individual_matches.conclusion == 'success'
+        if: steps.download_individual_matches.conclusion == 'success'
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git add "${{env.INDIVIDUAL_MATCHES_TARGET}}"
           git commit -m "individual matches update"
+
+      - name: Download Calender Files
+        id: download_ics
+        if: contains(needs.Process-Matches.outputs.upload_required, 'yes')
+        uses: actions/download-artifact@v3
+        with:
+          name: ics
+          path: ${{ env.ICS_TARGET }}
+
+      - name: Commit Calender Files
+        if: steps.download_ics.conclusion == 'success'
+        continue-on-error: true # don't throw an error as there won't always be changes
+        run: |
+          git add "${{env.INDIVIDUAL_MATCHES_TARGET}}"
+          git commit -m "ics file update"
 
       - name: Git Push
         continue-on-error: true # don't throw an error as there won't always be changes
