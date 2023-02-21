@@ -201,7 +201,9 @@ jobs:
   ### GIT UPDATE PROCESS ###
   ##########################
   Git-Update:
-    needs: [Process-Rankings, Process-Matches]
+    needs:
+      - Process-Rankings
+      - Process-Matches
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
