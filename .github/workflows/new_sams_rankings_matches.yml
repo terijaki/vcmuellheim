@@ -223,8 +223,16 @@ jobs:
         id: dowload_matches
         uses: actions/download-artifact@v3
         with:
-          matches: matches
+          name: matches
           path: ${{ env.MATCHES_TARGET }}
+
+      - name: Download Individual Matches
+        if: contains(needs.Process-Matches.outputs.upload_required, 'yes')
+        id: dowload_individual_matches
+        uses: actions/download-artifact@v3
+        with:
+          name: individual_matches
+          path: ${{env.INDIVIDUAL_MATCHES_TARGET}}
 
       - name: Setup Git Config
         run: |
@@ -244,6 +252,13 @@ jobs:
         run: |
           git add "${{env.MATCHES_TARGET}}"
           git commit -m "matches update"
+
+      - name: Commit Individual Matching
+        if: steps.dowload_individual_matches.conclusion == 'success'
+        continue-on-error: true # don't throw an error as there won't always be changes
+        run: |
+          git add "${{env.INDIVIDUAL_MATCHES_TARGET}}"
+          git commit -m "individual matches update"
 
       - name: Git Push
         continue-on-error: true # don't throw an error as there won't always be changes
