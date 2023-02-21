@@ -758,12 +758,10 @@ h6 {
           background-size: cover;
           background-position: center;
           transition: 0.3s;
-          background-blend-mode: luminosity;
         }
       }
       &:hover {
         a.thumbnail div {
-          background-blend-mode: unset;
           transform: scale(1.2);
         }
       }
