@@ -4,24 +4,24 @@
                     <id>24433001</id>
                     <uuid>19ea5f26-9dd6-4afc-a1f5-5a80b228e2fc</uuid>
                     <number>13</number>
-                    <date>15.01.2023</date> 
+                    <date>15.01.2023</date>
                     <time>10:00</time>
-                    <delayPossible>false</delayPossible>    
-                    <decidingMatch>false</decidingMatch> 
+                    <delayPossible>false</delayPossible>
+                    <decidingMatch>false</decidingMatch>
                     <indefinitelyRescheduled>false</indefinitelyRescheduled>
-                    <gameReassessed>false</gameReassessed> 
+                    <gameReassessed>false</gameReassessed>
                     <host>
                         <id></id>
-                        <uuid></uuid> 
+                        <uuid></uuid>
                         <name></name>
                         <club></club>
                     </host>
-                    <team> 
-                        <number>1</number> 
+                    <team>
+                        <number>1</number>
                         <id>23746374</id>
                         <uuid>5b700a82-5e6f-4bb3-bded-ac60310a0daf</uuid>
                         <seasonTeamId>23746374</seasonTeamId>
-                        <name>FT 1844 Freiburg 3</name> 
+                        <name>FT 1844 Freiburg 3</name>
                         <shortName></shortName>
                         <clubCode></clubCode>
                         <club>
@@ -40,7 +40,7 @@
                         <club>
                             <name>VC Müllheim</name>
                             <shortName></shortName>
-                        </club> 
+                        </club>
                     </team>
                     <matchSeries>
     <id>22519467</id>
@@ -570,4 +570,4 @@
                         <spectators>-</spectators>
                         <netDuration>-</netDuration>
                 </match>
-        <timestamp>21.02.2023, 07:54 Uhr</timestamp><timestamp>21.02.2023, 07:55 Uhr</timestamp></matches>
+        </matches>
