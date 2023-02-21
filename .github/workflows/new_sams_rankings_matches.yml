@@ -138,7 +138,7 @@ jobs:
       - name: Download Matches
         uses: actions/download-artifact@v3
         with:
-          matches: rankings
+          matches: matches
           path: ${{ env.MATCHES_TARGET }}
 
       - name: Setup Git Config
