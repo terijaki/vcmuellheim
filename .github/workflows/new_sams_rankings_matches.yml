@@ -26,9 +26,9 @@ jobs:
         with:
           format: 'json'
 
-      ########################
-      ### RANKINGS PROCESS ###
-      ########################
+  ########################
+  ### RANKINGS PROCESS ###
+  ########################
   Process-Rankings:
     needs: Identify-Update
     continue-on-error: true # if one update fails, the flow should continue
@@ -48,7 +48,7 @@ jobs:
           curl -o ${{matrix.ids}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.ids}}"
           echo "${{matrix.ids}}"
 
-      - name: Isolate ID # Isolate just the ID from the file (remove path and file extension)
+      - name: Isolate ID # Isolate just the ID from the file (remove path and file extension) and make it available in later steps
         if: steps.filtered_fetch.conclusion == 'success'
         id: isolate_id
         run: |
@@ -96,10 +96,9 @@ jobs:
         id: upload_status
         run: echo "required=yes" >> $GITHUB_OUTPUT
 
-
-      #######################
-      ### MATCHES PROCESS ###
-      #######################
+  #######################
+  ### MATCHES PROCESS ###
+  #######################
   Process-Matches:
     needs: Identify-Update
     continue-on-error: true # if one update fails, the flow should continue
@@ -119,7 +118,7 @@ jobs:
           curl -o ${{matrix.ids}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.ids}}"
           echo "${{matrix.ids}}"
 
-      - name: Isolate ID # Isolate just the ID from the file (remove path and file extension)
+      - name: Isolate ID # Isolate just the ID from the file (remove path and file extension) and make it available in later steps
         if: steps.filtered_fetch.conclusion == 'success'
         id: isolate_id
         run: |
