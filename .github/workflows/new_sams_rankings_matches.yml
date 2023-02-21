@@ -135,7 +135,6 @@ jobs:
           path: ${{ env.rankings_TARGET }}
 
       - name: Download Matches
-        if: ${{ never() }}
         uses: actions/download-artifact@v3
         with:
           matches: rankings
