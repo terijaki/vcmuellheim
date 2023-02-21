@@ -8,7 +8,6 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
-  DIR_SOURCE: _sams/xml/
   RANKINGS_SOURCE: _sams/xml/rankings/
   MATCHES_SOURCE: _sams/xml/matches/
   RANKINGS_TARGET: _rankings/
@@ -91,7 +90,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: rankings
-          path: ${{env.RANKINGS_SOURCE}}
+          path: ${{env.RANKINGS_TARGET}}
 
       #######################
       ### MATCHES PROCESS ###
@@ -108,12 +107,12 @@ jobs:
           sed -i -e 's!</matches>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></matches>!g' ${{matrix.ids}}
 
       - name: Upload Artifact (Matches)
-        if: ${{ steps.timestamp_matches.conclusion == 'success' }}
+        if: ${{ steps.last_step_in_matches_process.conclusion == 'success' }}
         id: upload_matches
         uses: actions/upload-artifact@v3
         with:
           name: matches
-          path: ${{ env.MATCHES_SOURCE }}
+          path: ${{ env.MATCHES_TARGET }}
 
 
   #############################
@@ -129,10 +128,19 @@ jobs:
           token: ${{env.GITHUB_TOKEN}}
           fetch-depth: 0
 
-      - name: Download Artifacts
+      - name: Download Rankings
+        if: ${{ never() }}
         uses: actions/download-artifact@v3
         with:
-          path: ${{ env.DIR_SOURCE }}
+          name: rankings
+          path: ${{ env.rankings_TARGET }}
+
+      - name: Download Matches
+        if: ${{ never() }}
+        uses: actions/download-artifact@v3
+        with:
+          matches: rankings
+          path: ${{ env.MATCHES_TARGET }}
 
       - name: Setup Git Config
         run: |
