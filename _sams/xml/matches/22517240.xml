@@ -5,7 +5,7 @@
                     <uuid>1b1ef6ff-9e50-4ba3-b3d2-ba0e99cf426b</uuid>
                     <number>4</number>
                     <date>09.10.2022</date>
-                    <time>11:00</time>
+                    <time>11:00</time> 
                     <delayPossible>false</delayPossible>
                     <decidingMatch>false</decidingMatch>
                     <indefinitelyRescheduled>false</indefinitelyRescheduled>
