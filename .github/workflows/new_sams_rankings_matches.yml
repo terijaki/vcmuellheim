@@ -8,6 +8,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
+  DIR_SOURCE: _sams/xml/
   RANKINGS_SOURCE: _sams/xml/rankings/
   MATCHES_SOURCE: _sams/xml/matches/
   RANKINGS_TARGET: _rankings/
@@ -89,7 +90,7 @@ jobs:
         id: upload_rankings
         uses: actions/upload-artifact@v3
         with:
-          name: rankings
+          name: ${{env.RANKINGS_SOURCE}}
           path: ${{env.RANKINGS_SOURCE}}
 
       #######################
@@ -111,7 +112,7 @@ jobs:
         id: upload_matches
         uses: actions/upload-artifact@v3
         with:
-          name: matches
+          name: ${{ env.MATCHES_SOURCE }}
           path: ${{ env.MATCHES_SOURCE }}
 
 
@@ -128,19 +129,8 @@ jobs:
           token: ${{env.GITHUB_TOKEN}}
           fetch-depth: 0
 
-      - name: Download Rankings
-        id: download_rankings
+      - name: Download Artifacts
         uses: actions/download-artifact@v3
-        with:
-          name: rankings
-          path: ${{env.RANKINGS_TARGET}}
-
-      - name: Download Matches
-        id: download_matches
-        uses: actions/download-artifact@v3
-        with:
-          name: matches
-          path: ${{env.MATCHES_TARGET}}
 
       - name: Setup Git Config
         if: always() # needed when either rankings or matches have no update
