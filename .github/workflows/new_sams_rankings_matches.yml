@@ -319,7 +319,7 @@ jobs:
         if: steps.download_ics.conclusion == 'success'
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
-          git add "${{env.INDIVIDUAL_MATCHES_TARGET}}"
+          git add "${{env.ICS_TARGET}}"
           git commit -m "ics file update"
 
       - name: Git Push
