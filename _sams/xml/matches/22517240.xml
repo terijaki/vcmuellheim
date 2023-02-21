@@ -4,17 +4,17 @@
                     <id>22806991</id>
                     <uuid>1b1ef6ff-9e50-4ba3-b3d2-ba0e99cf426b</uuid>
                     <number>4</number>
-                    <date>09.10.2022</date>  
-                    <time>11:00</time> 
+                    <date>09.10.2022</date>
+                    <time>11:00</time>
                     <delayPossible>false</delayPossible>
                     <decidingMatch>false</decidingMatch>
                     <indefinitelyRescheduled>false</indefinitelyRescheduled>
-                    <gameReassessed>false</gameReassessed> 
-                    <host> 
+                    <gameReassessed>false</gameReassessed>
+                    <host>
                         <id>22759680</id>
                         <uuid>2b0edc3e-8f85-40e2-85ab-b7d20be477d0</uuid>
                         <name>VC Weil 4</name>
-                        <club>VC Weil</club> 
+                        <club>VC Weil</club>
                     </host>
                     <team>
                         <number>1</number>
