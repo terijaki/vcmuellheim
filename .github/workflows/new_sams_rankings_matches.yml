@@ -12,6 +12,7 @@ env:
   MATCHES_SOURCE: _sams/xml/matches/
   RANKINGS_TARGET: _rankings/
   MATCHES_TARGET: _matches/
+  INDIVIDUAL_MATCHES_TARGET: _spielergebnisse/
 
 jobs:
 
@@ -49,8 +50,8 @@ jobs:
           echo "${{matrix.ids}}"
 
       - name: Isolate ID # Isolate just the ID from the file (remove path and file extension) and make it available in later steps
-        if: steps.filtered_fetch.conclusion == 'success'
         id: isolate_id
+        if: steps.filtered_fetch.conclusion == 'success'
         run: |
           id_only=${{matrix.ids}}
           id_only=$(echo $id_only | sed -e 's!\.xml!!')
@@ -67,12 +68,12 @@ jobs:
           sed -i -e 's!</rankings>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></rankings>!g' ${{matrix.ids}}
         
       - name: Get rankings.xslt template # Get the xslt template
+        id: get_xslt_template
         if: ${{ steps.timestamp_rankings.conclusion == 'success' }}
-        id: rankings_xslt_template
         run: curl -o rankings.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/rankings.xslt"
 
       - name: XSLT processing # Push the XML through the XSLT
-        if: steps.rankings_xslt_template.conclusion == 'success'
+        if: steps.get_xslt_template.conclusion == 'success'
         id: xslt_rankings
         run: |
           mkdir -p ${{env.RANKINGS_TARGET}}
@@ -84,16 +85,16 @@ jobs:
           xsltproc rankings.xslt ${{matrix.ids}} > $targetfile
 
       - name: Upload Artifact
-        if: steps.xslt_rankings.conclusion == 'success'
         id: upload
+        if: steps.xslt_rankings.conclusion == 'success'
         uses: actions/upload-artifact@v3
         with:
           name: rankings
           path: ${{env.RANKINGS_TARGET}}
 
       - name: Upload Status
-        if: steps.upload.conclusion == 'success'
         id: upload_status
+        if: steps.upload.conclusion == 'success'
         run: echo "required=yes" >> $GITHUB_OUTPUT
 
   #######################
@@ -119,18 +120,14 @@ jobs:
           echo "${{matrix.ids}}"
 
       - name: Isolate ID # Isolate just the ID from the file (remove path and file extension) and make it available in later steps
-        if: steps.filtered_fetch.conclusion == 'success'
         id: isolate_id
+        if: steps.filtered_fetch.conclusion == 'success'
         run: |
           id_only=${{matrix.ids}}
           id_only=$(echo $id_only | sed -e 's!\.xml!!')
           id_only=$(echo $id_only | sed -e 's!${{env.MATCHES_SOURCE}}!!')
           echo $id_only
           echo "id=$id_only" >> $GITHUB_OUTPUT
-
-      - name: MATCHES PROCESS
-        if: contains( matrix.ids, env.MATCHES_SOURCE )
-        run: echo "Lets process matches!"
 
       - name: Add timestamp to Matches XML
         # includes a timestamp at the end of the files in the German format to be used in the frontend
@@ -140,8 +137,32 @@ jobs:
           echo $(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)
           sed -i -e 's!</matches>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></matches>!g' ${{matrix.ids}}
 
-      - name: Upload Artifact
-        if: steps.last_step_in_matches_process.conclusion == 'success'
+      - name: Cleanup SAMS XML # removes strings that break the XLST
+        id: cleanup_xml
+        if: steps.timestamp_matches.conclusion == 'success'
+        run: sed -i -e 's!xmlns="http://sams-server.de/api/xml/ns/matches" !!g' ${{matrix.ids}}
+
+      - name: Get XSLT templates # Download the templates from our repo
+        id: get_xslt_template
+        if: steps.cleanup_xml.conclusion == 'success'
+        run: |
+          curl -o matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/matches.xslt"
+          curl -o individual_matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/individual_matches.xslt"
+
+      - name: XSLT processing (matches) # Push the XML through the XSLT
+        id: matches_xslt
+        if: steps.cleanup_xml.conclusion == 'success'
+        run: |
+          mkdir -p ${{env.MATCHES_TARGET}}
+          targetfile=${{env.MATCHES_TARGET}}
+          targetfile+=${{steps.isolate_id.outputs.id}}
+          targetfile+=".html"
+          echo $targetfile
+          sudo apt-get install xsltproc
+          xsltproc matches.xslt ${{matrix.ids}} > $targetfile
+
+      - name: Upload Artifact (Matches)
+        if: steps.matches_xslt.conclusion == 'success'
         id: upload
         uses: actions/upload-artifact@v3
         with:
@@ -153,10 +174,32 @@ jobs:
         id: upload_status
         run: echo "required=yes" >> $GITHUB_OUTPUT
 
+      ### individual matches ###
+      - name: XSLT processing (individual matches) # Download, install and run the XSLT processor (Saxon to use XSLT 2.0 features)
+        id: individual_matches_xslt
+        if: steps.matches_xslt.conclusion == 'success'
+        run: |
+          git clone https://github.com/sputnick-dev/saxon-lint.git
+          cd saxon-lint*
+          chmod +x saxon-lint.pl
+          ./saxon-lint.pl --help
+          cd ..
+          mkdir -p ${{env.INDIVIDUAL_MATCHES_TARGET}}
+          ./saxon-lint/saxon-lint.pl --xslt individual_matches.xslt ${{matrix.ids}}
+        # the saxon output file & location is declared in the xslt file, not by this command!
 
-  #############################
+      - name: Upload Artifact (Individual Matches)
+        if: steps.individual_matches_xslt.conclusion == 'success'
+        id: upload_individual_matches
+        uses: actions/upload-artifact@v3
+        with:
+          name: individual_matches
+          path: ${{env.INDIVIDUAL_MATCHES_TARGET}}
+
+
+  ##########################
   ### GIT UPDATE PROCESS ###
-  #############################
+  ##########################
   Git-Update:
     needs: [Process-Rankings, Process-Matches]
     runs-on: ubuntu-latest
