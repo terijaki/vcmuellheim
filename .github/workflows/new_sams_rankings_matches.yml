@@ -74,6 +74,7 @@ jobs:
         if: steps.rankings_xslt_template.conclusion == 'success'
         id: xslt_rankings
         run: |
+          echo $id_only
           mkdir -p ${{env.RANKINGS_TARGET}}
           targetfile=${{env.RANKINGS_TARGET}}
           targetfile+=$id_only
