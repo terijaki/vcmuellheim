@@ -15,7 +15,7 @@ env:
 
 jobs:
 
-  Updated-XML:
+  Identify-Update:
     runs-on: ubuntu-latest
     outputs:
       files-updated: ${{ steps.files.outputs.added_modified }} # contains each file modified by the commit who triggered this run
@@ -30,11 +30,11 @@ jobs:
       ### RANKINGS PROCESS ###
       ########################
   Process-Rankings:
-    needs: Updated-XML
+    needs: Identify-Update
     continue-on-error: true # if one update fails, the flow should continue
     strategy:
       matrix:
-        ids: ${{fromJSON(needs.Updated-XML.outputs.files-updated)}}
+        ids: ${{fromJSON(needs.Identify-Update.outputs.files-updated)}}
     outputs:
       upload_required: ${{ steps.upload_status.outputs.required }} # controls the artifact download before commit
     runs-on: ubuntu-latest
@@ -90,18 +90,18 @@ jobs:
       - name: Upload Status
         if: steps.upload.conclusion == 'success'
         id: upload_status
-        run: echo "required="yes" >> $GITHUB_OUTPUT
+        run: echo "required=yes" >> $GITHUB_OUTPUT
 
 
       #######################
       ### MATCHES PROCESS ###
       #######################
   Process-Matches:
-    needs: Updated-XML
+    needs: Identify-Update
     continue-on-error: true # if one update fails, the flow should continue
     strategy:
       matrix:
-        ids: ${{fromJSON(needs.Updated-XML.outputs.files-updated)}}
+        ids: ${{fromJSON(needs.Identify-Update.outputs.files-updated)}}
     outputs:
       upload_required: ${{ steps.upload_status.outputs.required }} # controls the artifact download before commit
     runs-on: ubuntu-latest
@@ -147,7 +147,7 @@ jobs:
       - name: Upload Status
         if: steps.upload.conclusion == 'success'
         id: upload_status
-        run: echo "required="yes" >> $GITHUB_OUTPUT
+        run: echo "required=yes" >> $GITHUB_OUTPUT
 
 
   #############################
