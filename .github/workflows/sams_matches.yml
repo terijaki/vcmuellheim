@@ -1,4 +1,4 @@
-name: SAMS Matches
+name: SAMS Matches (DISABLED)
 
 concurrency:
   group: sams
@@ -6,9 +6,9 @@ concurrency:
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: 22 3 * * * # every night at 3:22
-    - cron: 15,45 10-22 * * 0,6 # twice per hour on sa & sun between 10AM - 10PM
+  # schedule:
+  #   - cron: 22 3 * * * # every night at 3:22
+  #   - cron: 15,45 10-22 * * 0,6 # twice per hour on sa & sun between 10AM - 10PM
     
 env:
   SAMS_KEY: ${{ secrets.SAMS_API }} # SAMS API key
