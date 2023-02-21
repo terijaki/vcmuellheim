@@ -7,7 +7,7 @@
                     <date>15.01.2023</date>
                     <time>10:00</time>
                     <delayPossible>false</delayPossible>
-                    <decidingMatch>false</decidingMatch>
+                    <decidingMatch>false</decidingMatch> 
                     <indefinitelyRescheduled>false</indefinitelyRescheduled>
                     <gameReassessed>false</gameReassessed> 
                     <host>
