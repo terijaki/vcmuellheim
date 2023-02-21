@@ -72,6 +72,8 @@ jobs:
       #max-parallel: 1
       matrix:
         teams: ${{fromJSON(needs.Get-Teams.outputs.teamids)}}
+    outputs:
+      upload_required: ${{ steps.upload_status.outputs.required }} # controls the artifact download before commit
     runs-on: ubuntu-latest
     steps:
       - name: Get club.xml cache # Get the catched club.xml
@@ -93,10 +95,16 @@ jobs:
           curl -o ${{env.SAMS_RANKING_TARGET}}${{matrix.teams}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{steps.matchseriesid-from-club.outputs.info}}"
 
       - name: Upload Artifact (SAMS XML)
+        id: upload
         uses: actions/upload-artifact@v3
         with:
           name: raw_sams_rankings_xml
           path: ${{env.SAMS_RANKING_TARGET}}${{matrix.teams}}.xml
+
+      - name: Upload Status
+        id: upload_status
+        if: steps.upload.conclusion == 'success'
+        run: echo "required=yes" >> $GITHUB_OUTPUT
 
   ######################
   ### MATCHES UPDATE ###
@@ -106,7 +114,9 @@ jobs:
     continue-on-error: true # if one team fails, the flow should continue
     strategy:
       matrix:
-        teams: ${{fromJSON(needs.Get-Teams.outputs.teamids)}} # this has to use fromJSON, see https://github.blog/changelog/2020-04-15-github-actions-new-workflow-features/
+        teams: ${{fromJSON(needs.Get-Teams.outputs.teamids)}}
+    outputs:
+      upload_required: ${{ steps.upload_status.outputs.required }} # controls the artifact download before commit
     runs-on: ubuntu-latest
     steps:
       - name: Get XSLT templates # Download the templates from our repo
@@ -120,10 +130,16 @@ jobs:
           curl -o ${{env.SAMS_MATCHES_TARGET}}${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&teamId=${{matrix.teams}}"
 
       - name: Upload Artifact (SAMS XML)
+        id: upload
         uses: actions/upload-artifact@v3
         with:
           name: raw_sams_matches_xml
           path: ${{env.SAMS_MATCHES_TARGET}}${{matrix.teams}}.xml
+
+      - name: Upload Status
+        id: upload_status
+        if: steps.upload.conclusion == 'success'
+        run: echo "required=yes" >> $GITHUB_OUTPUT
 
   ####################
   ### GIT PROCESS ###
@@ -141,12 +157,14 @@ jobs:
           fetch-depth: 0
 
       - name: Download Rankings Exports
+        if: contains(needs.Get-Rankings.outputs.upload_required, 'yes')
         uses: actions/download-artifact@v3
         with:
           name: raw_sams_rankings_xml
           path: ${{env.SAMS_RANKING_TARGET}}
 
       - name: Download Matches Exports
+        if: contains(needs.Get-Matches.outputs.upload_required, 'yes')
         uses: actions/download-artifact@v3
         with:
           name: raw_sams_matches_xml
