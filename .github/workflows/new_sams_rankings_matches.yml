@@ -148,7 +148,7 @@ jobs:
       - name: Commit Matching
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
-          git add "${{env.MATCHESTARGET}}*"
+          git add "${{env.MATCHES_TARGET}}*"
           git commit -m "matches update"
 
       - name: Git Push
