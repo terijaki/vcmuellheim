@@ -13,6 +13,7 @@ env:
   RANKINGS_TARGET: _rankings/
   MATCHES_TARGET: _matches/
   INDIVIDUAL_MATCHES_TARGET: _spielergebnisse/
+  ICAL_TARGET: ical/
 
 jobs:
 
@@ -160,6 +161,42 @@ jobs:
           echo $targetfile
           sudo apt-get install xsltproc
           xsltproc matches.xslt ${{matrix.ids}} > $targetfile
+
+      ### handle calender file caching ###
+      - name: Import & Modify iCal # Import the iCal file so we can cache it
+        # this downlodas the ical file from SAMS, saves it as ics then adds "team name + VC Müllheim Spielplan" as calender name to it
+        # the modification is a beautification of the calendar file only and does not affect functionality
+        id: samsical
+        if: steps.matches_xslt.outcome == 'success'
+        continue-on-error: true
+        run: |
+          processed_match_file=${{env.MATCHES_TARGET}}
+          processed_match_file+=${{steps.isolate_id.outputs.id}}
+          processed_match_file+=".html"
+          ical_target_file=${{env.ICAL_TARGET}}
+          ical_target_file+=${{steps.isolate_id.outputs.id}}
+          ical_target_file+=".ics"
+          echo $processed_match_file" is used to modify "$ical_target_file" (Team and Club name)"
+          curl -o $ical_target_file "https://www.sbvv-online.de/iCal/team/matches.ical?teamId=${{steps.isolate_id.outputs.id}}"
+          teamname=$(awk "/title: (.*) \(Saison/{print}" $processed_match_file | sed 's!title: !!' | sed 's! (Saison.*!!')
+          echo $teamname
+          sed -i -e "s!BEGIN:VCALENDAR!BEGIN:VCALENDAR\nX-WR-CALNAME:$teamname (VC Müllheim)!g" $ical_target_file
+
+      - name: Patch Calender URL in Match file
+      # Replaces the placeholderlinks in the Match file with the actual .ics file
+      # Then removes the display-none class to enable them in the frontend
+        if: steps.samsical.outcome == 'success'
+        run: |
+          processed_match_file=${{env.MATCHES_TARGET}}
+          processed_match_file+=${{steps.isolate_id.outputs.id}}
+          processed_match_file+=".html"
+          ical_target_file=${{env.ICAL_TARGET}}
+          ical_target_file+=${{steps.isolate_id.outputs.id}}
+          ical_target_file+=".ics"
+          echo $processed_match_file" will be updated to link to "$ical_target_file
+          sed -i -e 's!CALURL1!https://vcmuellheim.de/$ical_target_file!g' $processed_match_file
+          sed -i -e 's!CALURL2!webcal://vcmuellheim.de/$ical_target_file!g' $processed_match_file
+          sed -i -e 's!calendar d-none!calendar!g' $processed_match_file
 
       - name: Upload Artifact (Matches)
         id: upload
