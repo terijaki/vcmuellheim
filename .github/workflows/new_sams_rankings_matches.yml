@@ -164,7 +164,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download Rankings
-        if: contains(needs.Process-Rankings.outputs.upload_required, "yes")
+        if: contains(needs.Process-Rankings.outputs.upload_required, 'yes')
         id: dowload_rankings
         uses: actions/download-artifact@v3
         with:
@@ -172,7 +172,7 @@ jobs:
           path: ${{ env.RANKINGS_TARGET }}
 
       - name: Download Matches
-        if: contains(needs.Process-Matches.outputs.upload_required, "yes")
+        if: contains(needs.Process-Matches.outputs.upload_required, 'yes')
         id: dowload_matches
         uses: actions/download-artifact@v3
         with:
