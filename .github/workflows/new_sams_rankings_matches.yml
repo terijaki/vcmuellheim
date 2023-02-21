@@ -135,20 +135,17 @@ jobs:
           path: ${{ env.DIR_SOURCE }}
 
       - name: Setup Git Config
-        if: always() # needed when either rankings or matches have no update
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
       - name: Commit Rankings
-        if: ${{ steps.download_rankings.conclusion == 'success' }}
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git add "${{env.RANKINGS_TARGET}}*"
           git commit -m "rankings update"
 
       - name: Commit Matching
-        if: ${{ steps.download_matches.conclusion == 'success' }}
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git add "${{env.MATCHESTARGET}}*"
