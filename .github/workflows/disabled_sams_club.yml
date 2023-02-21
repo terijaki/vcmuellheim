@@ -1,14 +1,14 @@
-name: SAMS Club Data Sync
+name: SAMS Club Data Sync (DISABLED)
 
 concurrency:
   group: sams
   cancel-in-progress: false
 
 on:
-  schedule:
-    - cron: "11 2 * 1-5,9-12 3" # every wednesday night at 2:11 between september - mai
-    - cron: "11 2 * 7-8 *" # every night at 2:11 in june and august (more common for changes to occur)
   workflow_dispatch:
+  # schedule:
+  #   - cron: "11 2 * 1-5,9-12 3" # every wednesday night at 2:11 between september - mai
+  #   - cron: "11 2 * 7-8 *" # every night at 2:11 in june and august (more common for changes to occur)
 
 env:
   SAMS_KEY: ${{ secrets.SAMS_API }}
