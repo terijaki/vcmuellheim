@@ -164,7 +164,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download Rankings
-        if: contains(Process-Rankings.outputs.upload_required, "yes")
+        if: contains(needs.Process-Rankings.outputs.upload_required, "yes")
         id: dowload_rankings
         uses: actions/download-artifact@v3
         with:
