@@ -719,10 +719,12 @@ h6 {
 @media (max-width: 768px) {
   #ergebnisse-tabelle {
     .sams-rankings {
-      tr {
-        &:nth-child(4) {
-          display: none;
-          /* Blendet Sätze aus der Tabellenübersicht aus */
+      table {
+        th, td {
+          &:nth-child(4) {
+            display: none;
+            /* Blendet Sätze aus der Tabellenübersicht aus */ 
+          }
         }
       }
     }
