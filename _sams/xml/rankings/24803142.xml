@@ -72,6 +72,15 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>24845896</id>
+                            <uuid>a3f42866-0873-4d62-9606-e3afba686a7d</uuid>
+                            <name>Sport vor Ort Rieselfeld</name>
+                            <club>Sport vor Ort Rieselfeld</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>24779656</id>
                             <uuid>eab5c4b9-09c7-4e59-bfa0-599d2c0e0023</uuid>
                             <name>TV Bad Säckingen</name>
