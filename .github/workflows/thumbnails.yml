@@ -26,17 +26,15 @@ jobs:
       - name: Copy "upload" folder to "thumbnails"
         run: cp -r upload thumbnails
 
-      - name: Check if installed
+      - name: Check ImageMagic Installation
         run: convert -version
 
       - run: |
           cd thumbnails
-          for dir in $(find * -type d)
+          for file in $(find * -type f)
             do
-              for file in $dir/*.*
-                do echo "$file"
-                convert "$file" -resize 640x640 "$file"
-              done
+              echo $file
+              convert "$file" -resize 640x640 "$file"
             done
         
 
