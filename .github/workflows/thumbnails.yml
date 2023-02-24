@@ -25,7 +25,8 @@ jobs:
 
       - name: Copy Upload to Thumbnails
         run: cp -r upload thumbnails
-
+      - name: Check if installed
+        run: convert -version
       # Install ImageMagick
       - run: sudo apt-get install -y libfuse2
       - uses: mfinelli/setup-imagemagick@v2
@@ -36,7 +37,6 @@ jobs:
             do
               for file in $dir/*.*
                 do echo "$file"
-                magick "$file" -resize 640x640 "$file"
               done
             done
         
