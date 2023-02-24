@@ -25,7 +25,8 @@ jobs:
       - name: Copy Upload to Thumbnails
         run: |
           ls
-          cp -r ./upload/* ./thumbnails
+          mkdr thumbnails
+          cp -r upload/* thumbnails
           ls
       - name: Resize Images
         id: resize-images
