@@ -30,8 +30,7 @@ jobs:
         run: |
           mkdir thumbnails/news
           mkdir thumbnails/gallery
-          cd upload
-          for file in $(find * -type f)
+          for file in $(find upload/* -type f)
             do
               if [[ $file == *.jpg ]] || [[ $file == *.jpeg ]] || [[ $file == *.png ]]
                 then
@@ -40,7 +39,7 @@ jobs:
                   convert "$file" -resize 640x160 -quality 50 -tint 366273 "thumbnails/gallery/$file"
                 fi
             done
-            
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
