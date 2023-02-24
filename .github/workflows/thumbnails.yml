@@ -39,8 +39,8 @@ jobs:
                   echo $gallery
                   mkdir -p $news
                   mkdir -p $gallery
-                  convert "$file" -resize 640x160 -quality 65 "$news"
-                  convert "$file" -resize 640x160 -quality 50 -tint 366273 "$gallery"
+                  convert "$file" -resize 640x160 -quality 65 "$news/$file"
+                  convert "$file" -resize 640x160 -quality 50 -tint 366273 "$gallery/$file"
                 fi
             done
 
