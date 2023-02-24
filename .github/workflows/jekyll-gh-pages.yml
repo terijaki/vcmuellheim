@@ -26,13 +26,39 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      # Use ImageMagick (bash: convert) to create thumbnail images dynamically
+      - name: Create Thumbnails
+        run: |
+          for file in $(find upload/* -type f)
+            do
+              if [[ $file == *.jpg ]] || [[ $file == *.jpeg ]] || [[ $file == *.png ]]
+                then
+                  echo "Processing: "$file
+                  
+                  news_root=thumbnails/news
+                  gallery_root=thumbnails/gallery
+                  
+                  news_folder=$news_root/${file%/*}
+                  gallery_folder=$gallery_root/${file%/*}
+                  
+                  mkdir -p $news_folder
+                  mkdir -p $gallery_folder
+
+                  convert "$file" -thumbnail '680x160^' -quality 70 -gravity center -extent '680x160' $news_root/$file
+                  convert "$file" -thumbnail '260x200^' -quality 50 -gravity center -extent '260x200' $gallery_root/$file
+                fi
+            done
+
       - name: Setup Pages
         uses: actions/configure-pages@v3
+
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./
           destination: ./_site
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
 
