@@ -35,6 +35,8 @@ jobs:
                   echo $file
                   news=news/${file%/*}
                   gallery=gallery/${file%/*}
+                  echo $news
+                  echo $gallery
                   mkdir -p $news
                   mkdir -p $gallery
                   convert "$file" -resize 640x160 -quality 65 "$news"
