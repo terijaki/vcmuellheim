@@ -25,12 +25,20 @@ permalink: /fotos/
               file.extname == '.png' or 
               file.extname == '.PNG' %}
 
-              {% assign filenameparts = file.path | split: "/" %}
-              {% assign filename = filenameparts | last | replace: file.extname,"" %}
+            {% assign filenameparts = file.path | split: "/" %}
+            {% assign filename = filenameparts | last | replace: file.extname,"" %}
+            {% assign thumbnail = "/thumbnails/gallery" | append: file.path %}
 
-              <a href="{{ file.path }}" target="_blank" class="d-inline foto">
-                <img src="//images.weserv.nl/?url={{site.url}}/{{ file.path }}&w=260&h=200&output=jpg&maxage=31d&q=50&t=square&fit=cover&a=entropy&tint=366273" style="width:260px;height:200px;" class="rounded-3 m-2 loadingspinner" name="{{ filename }}" />
-              </a>
+              {% if site.static_files contains thumbnail  %}
+                <a href="{{ file.path }}" target="_blank" class="d-inline-block foto">
+                  <img src="{{ thumbnail }}" style="width:260px;height:200px;" class="rounded-3 m-2 loadingspinner" name="{{ filename }}" loading="lazy" />
+                </a>
+              {% else %}
+                <a href="{{ file.path }}" target="_blank" class="d-inline-block foto">
+                  <img src="{{ file.path }}" style="width:260px;height:200px;" class="rounded-3 m-2 loadingspinner" name="{{ filename }}" loading="lazy" />
+                </a>
+              {% endif %}
+
             {% endif %}
           {% endif %}
         {% endfor %}
