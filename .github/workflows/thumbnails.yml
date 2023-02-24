@@ -33,10 +33,12 @@ jobs:
           cd thumbnails
           for file in $(find * -type f)
             do
-              echo $file
-              convert "$file" -resize 640x640 "$file"
+              fo [[ "$file" == *".jpg" or  "$file" == *".jpeg" or  "$file" == *".png"]]
+                then
+                  echo $file
+                  convert "$file" -resize 640x640 "$file"
+                fi
             done
-        
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
