@@ -33,14 +33,21 @@ jobs:
               if [[ $file == *.jpg ]] || [[ $file == *.jpeg ]] || [[ $file == *.png ]]
                 then
                   echo $file
-                  news=news/${file%/*}
-                  gallery=gallery/${file%/*}
-                  echo $news
-                  echo $gallery
-                  mkdir -p $news
-                  mkdir -p $gallery
-                  convert "$file" -resize 640x160 -quality 65 "$news/$file"
-                  convert "$file" -resize 640x160 -quality 50 -tint 366273 "$gallery/$file"
+                  
+                  news_folder=thumbnails/news
+                  gallery_folder=thumbnails/gallery
+                  
+                  news_file=$news_folder${file%/*}
+                  gallery_file=$gallery_folder${file%/*}
+                  
+                  echo $news_file
+                  echo $gallery_file
+                  
+                  mkdir -p $news_folder
+                  mkdir -p $gallery_folder
+
+                  convert "$file" -resize 640x160 -quality 65 "$news_folder/$file"
+                  convert "$file" -resize 640x160 -quality 50 -tint 366273 "$gallery_folder/$file"
                 fi
             done
 
