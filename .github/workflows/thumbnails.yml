@@ -28,7 +28,7 @@ jobs:
 
       # Install ImageMagick
       - run: sudo apt-get install -y libfuse2
-      - uses: mfinelli/setup-imagemagick@latest
+      - uses: mfinelli/setup-imagemagick@v2
 
       - run: for thumbnail in thumbnails ; do magick $thumbnail -resize 640x640 $thumbnail ; done
         
