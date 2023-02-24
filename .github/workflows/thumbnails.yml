@@ -34,7 +34,7 @@ jobs:
           cd thumbnails
           for file in $(find * -type f)
             do
-              if [[ "$file" == *".jpg"]] || [[ "$file" == *".jpeg"]] || [[ "$file" == *".png"]]
+              if [[ $file == *.jpg ]] || [[ $file == *.jpeg ]] || [[ $file == *.png ]]
                 then
                   echo $file
                   convert "$file" -thumbnail -resize 640x160 -quality 65 "$file"
