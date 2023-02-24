@@ -23,20 +23,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Copy Upload to Thumbnails
+      - name: Copy "upload" folder to "thumbnails"
         run: cp -r upload thumbnails
+
       - name: Check if installed
         run: convert -version
-      # Install ImageMagick
-      - run: sudo apt-get install -y libfuse2
-      - uses: mfinelli/setup-imagemagick@v2
 
       - run: |
           cd thumbnails
-          for dir in $(find . -type d)
+          for dir in $(find * -type d)
             do
               for file in $dir/*.*
                 do echo "$file"
+                convert "$file" -resize 640x640 "$file"
               done
             done
         
