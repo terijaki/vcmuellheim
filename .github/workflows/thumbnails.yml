@@ -36,7 +36,7 @@ jobs:
             do
               for file in $dir/*.*
                 do echo "$file"
-                magick $file -resize 640x640 $file
+                magick "$file" -resize 640x640 "$file"
               done
             done
         
