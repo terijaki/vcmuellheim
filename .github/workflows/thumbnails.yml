@@ -43,8 +43,8 @@ jobs:
                   mkdir -p $news_folder
                   mkdir -p $gallery_folder
 
-                  convert "$file" -quality 65 -resize 640x160 "$news_root/$file"
-                  convert "$file" -quality 50 -resize 640x160 -tint 366273 "$gallery_root/$file"
+                  convert "$file" -quality 65 -resize '640x160' "$news_root/$file"
+                  convert "$file" -quality 50 -resize '640x160' -tint 366273 "$gallery_root/$file"
                 fi
             done
 
