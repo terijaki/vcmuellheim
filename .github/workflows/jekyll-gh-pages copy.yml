@@ -1,4 +1,4 @@
-name: NEW Deploy Jekyll with GitHub Pages
+name: NEW Thumbnails
 
 on:
   workflow_dispatch:
@@ -19,29 +19,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: check folders
+        run: ls
       - uses: subic/ghaction-thumbnails@master
         with: 
           source: 'upload' # Input images folder, required both as an argument and as an existing directory path in repository which is also the reason for the previous checkout step (default: 'images').
           output: 'thumbnails' # Output thumbnails container folder, can be same as input or base directory, if the directory doesn't exist it will be created recursively (default: 'thumbnails').
           sizes: 640 # Output widths or dimensions separated with an 'x', can be a number or a comma-delimited string. Prefix height only sizes with 'x' when not setting widths; eg. "x360, x1080" (default: 480)).
           enlarge: false
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
