@@ -43,8 +43,8 @@ jobs:
                   mkdir -p $news_folder
                   mkdir -p $gallery_folder
 
-                  convert "$file" -thumbnail '640x160^' $news_root/$file
-                  convert "$file" -thumbnail '260x200^' -fill #366273 -tint 100 $gallery_root/$file
+                  convert "$file" -thumbnail '640x160^' -quality 70 $news_root/$file
+                  convert "$file" -thumbnail '260x200^' -quality 50 -fill #366273 -tint 100 $gallery_root/$file
                 fi
             done
 
