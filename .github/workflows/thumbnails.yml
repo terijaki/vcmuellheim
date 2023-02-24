@@ -34,20 +34,20 @@ jobs:
                 then
                   echo $file
                   
-                  news_folder_base=thumbnails/news
-                  gallery_folder_base=thumbnails/gallery
+                  news_root=thumbnails/news
+                  gallery_root=thumbnails/gallery
                   
-                  news_file=$news_folder_base/${file%/*}
-                  gallery_file=$gallery_folder_base/${file%/*}
+                  news_folder=$news_root/${file%/*}
+                  gallery_folder=$gallery_root/${file%/*}
                   
-                  echo $news_file
-                  echo $gallery_file
+                  echo $news_folder
+                  echo $gallery_folder
                   
                   mkdir -p $news_folder
                   mkdir -p $gallery_folder
 
-                  convert "$file" -resize 640x160 -quality 65 "$news_folder_base/$file"
-                  convert "$file" -resize 640x160 -quality 50 -tint 366273 "$gallery_folder_base/$file"
+                  convert "$file" -resize 640x160 -quality 65 "$news_root/$file"
+                  convert "$file" -resize 640x160 -quality 50 -tint 366273 "$gallery_root/$file"
                 fi
             done
 
