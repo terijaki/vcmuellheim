@@ -23,24 +23,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Copy "upload" folder to "thumbnails"
-        run: cp -r upload thumbnails
-
       - name: Check ImageMagic Installation
         run: convert -version
 
       - name: Resize and Crop
         run: |
-          cd thumbnails
+          mkdir thumbnails/news
+          mkdir thumbnails/gallery
+          cd upload
           for file in $(find * -type f)
             do
               if [[ $file == *.jpg ]] || [[ $file == *.jpeg ]] || [[ $file == *.png ]]
                 then
                   echo $file
-                  convert "$file" -resize 640x160 -quality 65 "$file"
+                  convert "$file" -resize 640x160 -quality 65 "thumbnails/news/$file"
+                  convert "$file" -resize 640x160 -quality 50 -tint 366273 "thumbnails/gallery/$file"
                 fi
             done
-
+            
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
