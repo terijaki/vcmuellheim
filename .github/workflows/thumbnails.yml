@@ -33,7 +33,7 @@ jobs:
           cd thumbnails
           for file in $(find * -type f)
             do
-              for [ $file == *".jpg"] || [$file == *".jpeg"] || [$file == *".png"]
+              for [ "$file" == *".jpg"] || [ "$file" == *".jpeg"] || [ "$file" == *".png"]
                 then
                   echo $file
                   convert "$file" -resize 640x640 "$file"
