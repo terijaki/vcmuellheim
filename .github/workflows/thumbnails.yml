@@ -31,14 +31,14 @@ jobs:
       - uses: mfinelli/setup-imagemagick@v2
 
       - run: |
-        cd thumbnails
-        for dir in $(find . -type d)
-          do
-            for file in $dir/*.*
-              do echo "$file"
-              magick $file -resize 640x640 $file
+          cd thumbnails
+          for dir in $(find . -type d)
+            do
+              for file in $dir/*.*
+                do echo "$file"
+                magick $file -resize 640x640 $file
+              done
             done
-          done
         
 
       - name: Upload artifact
