@@ -22,20 +22,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Copy Upload to Thumbnails
-        run: |
-          ls
-          mkdr thumbnails
-          cp -r upload/* thumbnails
-          ls
-      - name: Resize Images
-        id: resize-images
-        uses: gonzalonaveira/gh-image-resizing@master
-        with:
-          IMAGES_MAX_WIDTH: "620"
-          IMAGES_QUALITY: "65"
-          IMAGES_FORMATS: "jpg, jpge, png" 
-          IMAGES_DIRECTORIES: "thumbnails"
+        run: cp -r upload thumbnails
+
+      # Install ImageMagick
+      - run: sudo apt-get install -y libfuse2
+      - uses: mfinelli/setup-imagemagick@latest
+
+      - run: for thumbnail in thumbnails ; do magick $thumbnail -resize 640x640 $thumbnail ; done
+        
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
