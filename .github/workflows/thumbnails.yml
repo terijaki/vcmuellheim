@@ -2,6 +2,9 @@ name: NEW Thumbnails
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflow/thumbnails.yml"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -20,7 +23,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Copy Upload to Thumbnails
-        run: cp -r ./upload ./thumbnails
+        run: |
+          ls
+          cp -r ./upload/* ./thumbnails
+          ls
       - name: Resize Images
         id: resize-images
         uses: gonzalonaveira/gh-image-resizing@master
@@ -31,3 +37,6 @@ jobs:
           IMAGES_DIRECTORIES: "thumbnails"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
+        with:
+          name: thumbnails
+          path: thumbnails
