@@ -28,15 +28,17 @@ jobs:
 
       - name: Resize and Crop
         run: |
-          mkdir thumbnails/news
-          mkdir thumbnails/gallery
           for file in $(find upload/* -type f)
             do
               if [[ $file == *.jpg ]] || [[ $file == *.jpeg ]] || [[ $file == *.png ]]
                 then
                   echo $file
-                  convert "$file" -resize 640x160 -quality 65 "thumbnails/news/$file"
-                  convert "$file" -resize 640x160 -quality 50 -tint 366273 "thumbnails/gallery/$file"
+                  news=news/${file%/*}
+                  gallery=gallery/${file%/*}
+                  mkdir -p $news
+                  mkdir -p $gallery
+                  convert "$file" -resize 640x160 -quality 65 "$news"
+                  convert "$file" -resize 640x160 -quality 50 -tint 366273 "$gallery"
                 fi
             done
 
