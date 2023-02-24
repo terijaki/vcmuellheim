@@ -29,14 +29,15 @@ jobs:
       - name: Check ImageMagic Installation
         run: convert -version
 
-      - run: |
+      - name: Resize and Crop
+        run: |
           cd thumbnails
           for file in $(find * -type f)
             do
               if [ "$file" == *".jpg"] || [ "$file" == *".jpeg"] || [ "$file" == *".png"]
                 then
                   echo $file
-                  convert "$file" -resize 640x640 "$file"
+                  convert "$file" -thumbnail -resize 640x160 "$file"
                 fi
             done
 
