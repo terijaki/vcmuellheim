@@ -37,7 +37,7 @@ jobs:
               if [[ $file == *.jpg ]] || [[ $file == *.jpeg ]] || [[ $file == *.png ]]
                 then
                   echo $file
-                  convert "$file" -thumbnail -resize 640x160 -quality 65 "$file"
+                  convert "$file" -resize 640x160 -quality 65 "$file"
                 fi
             done
 
