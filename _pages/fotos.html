@@ -24,7 +24,7 @@ permalink: /fotos/
               {% assign thumbnail = file.path | replace: "/upload/", "/thumbnails/gallery/" %}
 
               {% for file in site.static_files %}
-                {% if file == thumbnail %}
+                {% if file.path == thumbnail %}
                   {% assign thumbnail_exist = true %}
                 {% endif %}
               {% endfor %}
