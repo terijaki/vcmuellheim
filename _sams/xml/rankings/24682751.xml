@@ -72,10 +72,28 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>24860804</id>
+                            <uuid>293f35fa-f9da-4af9-a141-8a718c5875e3</uuid>
+                            <name>TV Hartheim II</name>
+                            <club>TV Hartheim</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>24677858</id>
                             <uuid>5d0df483-ca1c-4f09-9083-6dc5851cec97</uuid>
                             <name>TV Staufen</name>
                             <club>TV Staufen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>24860812</id>
+                            <uuid>2ddbb846-c727-469c-b28a-02acb1bdd6cd</uuid>
+                            <name>TV Todtnau</name>
+                            <club>TV Todtnau</club>
                         </team>
                     </ranking>
                     <ranking>

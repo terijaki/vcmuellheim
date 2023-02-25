@@ -99,6 +99,15 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>24860718</id>
+                            <uuid>994c5ed6-e68a-4b23-b236-81dbcf18b049</uuid>
+                            <name>TV Lahr</name>
+                            <club>TV Lahr</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>24679916</id>
                             <uuid>cbc6dfbd-3a2c-4d5d-921a-2e717c6c4e2a</uuid>
                             <name>TV Staufen</name>
