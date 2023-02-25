@@ -11,8 +11,9 @@ title: Neuigkeiten des Volleyballclub Müllheim
         {% for post in paginator.posts %}
         <div class="col-lg-6 d-flex">
           <div class="box" onclick="location.href='{{ post.url }}';">
-            {% if post.thumbnail == "" or post.thumbnail == nil or post.thumbnail == blank %} {% else %}
-            <a class="thumbnail" href="{{ post.url }}"><div style="background-image:url({{ post.thumbnail }});"></div></a>
+            {% if post.thumbnail.size > 3 %}
+            {% assign processed_thumbnail = file.path | replace: "/upload/", "/thumbnails/gallery/" %}
+            <a class="thumbnail" href="{{ post.url }}"><div style="background-image:url({{ processed_thumbnail }});"></div></a>
             {% endif %}
             <h4 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h4>
             <div class="post-content">
