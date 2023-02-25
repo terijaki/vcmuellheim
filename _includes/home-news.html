@@ -13,7 +13,11 @@
                 <div class="box" onclick="location.href='{{ post.url }}';">
                     {% if post.thumbnail.size > 0 %}
                     {% assign processed_thumbnail = post.thumbnail | replace: "/upload/", "/thumbnails/news/" %}
+                    {% if site.static_files contains processed_thumbnail  %}
                     <a class="thumbnail" href="{{ post.url }}"><div style="background-image:url({{ processed_thumbnail }});"></div></a>
+                    {% else %}
+                    <a class="thumbnail" href="{{ post.url }}"><div style="background-image:url({{ post.thumbnail }});"></div></a>
+                    {% endif %}
                     {% endif %}
                     <h4 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h4>
                     <div class="post-content"><div class="post-excerpt {% if post.thumbnail == '' or post.thumbnail == nil or post.thumbnail == blank %} no-post-thumbnail{% endif %}">{{ post.excerpt | strip_html }}</div></div>
