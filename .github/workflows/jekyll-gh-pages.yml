@@ -40,7 +40,7 @@ jobs:
                   gallery_root=thumbnails/gallery/
 
                   news_file=$(echo $file | sed -e "s!upload/!$news_root!")
-                  gallery_file=$(echo $file | sed -e "s!upload/!$thumbnails_news!")
+                  gallery_file=$(echo $file | sed -e "s!upload/!$gallery_root!")
 
                   news_folder=${news_file%/*}
                   gallery_folder=${gallery_file%/*}
