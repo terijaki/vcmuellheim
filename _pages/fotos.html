@@ -21,11 +21,16 @@ permalink: /fotos/
             {% assign low_extname = file.extname | downcase  %}
             {% if low_extname == '.jpg' or low_extname == '.jpeg' or low_extname == '.png' %}
 
+              {% assign thumbnail_exist = false %}
               {% assign filenameparts = file.path | split: "/" %}
               {% assign filename = filenameparts | last | replace: file.extname,"" %}
               {% assign thumbnail = file.path | replace: "/upload/", "/thumbnails/gallery/" %}
 
-              {% if site.static_files contains thumbnail  %}
+              {% for thumbnail in site.static_files %}
+              {% assign thumbnail_exist = true %}
+              {% endfor %}
+
+              {% if thumbnail_exist == true  %}
                 <a href="{{ file.path }}" target="_blank" class="d-inline-block foto">
                   <img src="{{ thumbnail }}" style="width:260px;height:200px;" class="rounded-3 m-2 loadingspinner" name="{{ filename }}" loading="lazy" />
                 </a>
