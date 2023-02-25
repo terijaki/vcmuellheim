@@ -18,16 +18,12 @@ permalink: /fotos/
         {% assign galleryfolder = '/upload/' %}
         {% for file in site.static_files %}
           {% if file.path contains galleryfolder %}
-            {% if file.extname == '.jpg' or 
-              file.extname == '.jpeg' or 
-              file.extname == '.JPG' or 
-              file.extname == '.JPEG' or 
-              file.extname == '.png' or 
-              file.extname == '.PNG' %}
+            {% assign low_extname = file.extname | downcase  %}
+            {% if low_extname == '.jpg' or low_extname == '.jpeg' or low_extname == '.png' %}
 
-            {% assign filenameparts = file.path | split: "/" %}
-            {% assign filename = filenameparts | last | replace: file.extname,"" %}
-            {% assign thumbnail = file.path | replace: "/upload/", "/thumbnails/gallery/" %}
+              {% assign filenameparts = file.path | split: "/" %}
+              {% assign filename = filenameparts | last | replace: file.extname,"" %}
+              {% assign thumbnail = file.path | replace: "/upload/", "/thumbnails/gallery/" %}
 
               {% if site.static_files contains thumbnail  %}
                 <a href="{{ file.path }}" target="_blank" class="d-inline-block foto">
