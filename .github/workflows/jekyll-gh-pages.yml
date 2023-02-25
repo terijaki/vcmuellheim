@@ -39,8 +39,8 @@ jobs:
                   news_root=thumbnails/news
                   gallery_root=thumbnails/gallery
 
-                  news_file=$(echo $file | sed -e 's!upload/!$news_root!')
-                  gallery_file=$(echo $file | sed -e 's!upload/!$thumbnails_news!')
+                  news_file=$(echo $file | sed -e "s!upload/!$news_root!")
+                  gallery_file=$(echo $file | sed -e "s!upload/!$thumbnails_news!")
 
                   news_folder=${news_file%/*}
                   gallery_folder=${gallery_file%/*}
