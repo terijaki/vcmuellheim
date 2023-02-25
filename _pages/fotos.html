@@ -26,11 +26,10 @@ permalink: /fotos/
               {% for file in site.static_files %}
                 {% if file == thumbnail %}
                   {% assign thumbnail_exist = true %}
-                  {% break %}
                 {% endif %}
               {% endfor %}
 
-              {% if thumbnail_exist %}
+              {% if thumbnail_exist == true %}
                 <a href="{{ file.path }}" target="_blank" class="d-inline-block foto">
                   <img src="{{ thumbnail }}" style="width:260px;height:200px;" class="rounded-3 m-2 loadingspinner" name="{{ file.basename }}" loading="lazy" />
                 </a>
