@@ -38,15 +38,18 @@ jobs:
                   
                   news_root=thumbnails/news
                   gallery_root=thumbnails/gallery
-                  
-                  news_folder=$news_root/${file%/*}
-                  gallery_folder=$gallery_root/${file%/*}
+
+                  news_file=$(echo $file | sed -e 's!upload/!$news_root!')
+                  gallery_file=$(echo $file | sed -e 's!upload/!$thumbnails_news!')
+
+                  news_folder=${news_file%/*}
+                  gallery_folder=${gallery_file%/*}
                   
                   mkdir -p $news_folder
                   mkdir -p $gallery_folder
 
-                  convert "$file" -thumbnail '814x192^' -quality 70 -gravity center -extent '814x192' $news_root/$file
-                  convert "$file" -thumbnail '260x200^' -quality 50 -gravity center -extent '260x200' $gallery_root/$file
+                  convert "$file" -thumbnail '814x192^' -quality 70 -gravity center -extent '814x192' $news_file
+                  convert "$file" -thumbnail '260x200^' -quality 50 -gravity center -extent '260x200' $gallery_file
                 fi
             done
 
