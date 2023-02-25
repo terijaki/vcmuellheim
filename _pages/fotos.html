@@ -22,10 +22,12 @@ permalink: /fotos/
             {% if low_extname == '.jpg' or low_extname == '.jpeg' or low_extname == '.png' %}
 
               {% assign thumbnail = file.path | replace: "/upload/", "/thumbnails/gallery/" %}
+              {% assign thumbnail_exist = false %}
 
               {% for file in site.static_files %}
                 {% if file.path == thumbnail %}
                   {% assign thumbnail_exist = true %}
+                  {% break %}
                 {% endif %}
               {% endfor %}
 

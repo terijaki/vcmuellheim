@@ -13,9 +13,11 @@ title: Neuigkeiten des Volleyballclub Müllheim
           <div class="box" onclick="location.href='{{ post.url }}';">
             {% if post.thumbnail.size > 0 %}
             {% assign processed_thumbnail = post.thumbnail | replace: "/upload/", "/thumbnails/news/" %}
+              {% assign thumbnail_exist = false %}
               {% for file in site.static_files %}
                 {% if file.path == processed_thumbnail %}
                   {% assign thumbnail_exist = true %}
+                  {% break %}
                 {% endif %}
               {% endfor %}
             {% if thumbnail_exist %}
