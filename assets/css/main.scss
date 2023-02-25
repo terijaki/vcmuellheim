@@ -165,7 +165,8 @@ h6 {
   --------------------------------------------------------------*/
 #intro {
   min-height: 90vh;
-  min-height: calc(100vh - 60px);
+  min-height: 90svh;
+  min-height: calc(100svh - 60px);
   background: var(--gradient1);
   color: var(--text2);
   position: relative;
