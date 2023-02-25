@@ -17,7 +17,6 @@
                       {% for file in site.static_files %}
                         {% if file.path == processed_thumbnail %}
                           {% assign thumbnail_exist = true %}
-                          {% break %}
                         {% endif %}
                       {% endfor %}
                     {% if thumbnail_exist %}
