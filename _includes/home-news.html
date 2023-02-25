@@ -12,7 +12,8 @@
             <div class="col-lg-6">
                 <div class="box" onclick="location.href='{{ post.url }}';">
                     {% if post.thumbnail.size > 0 %}
-                    <a class="thumbnail" href="{{ post.url }}"><div style="background-image:url({{ post.thumbnail }});"></div></a>
+                    {% assign processed_thumbnail = file.path | replace: "/upload/", "/thumbnails/news/" %}
+                    <a class="thumbnail" href="{{ post.url }}"><div style="background-image:url({{ processed_thumbnail }});"></div></a>
                     {% endif %}
                     <h4 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h4>
                     <div class="post-content"><div class="post-excerpt {% if post.thumbnail == '' or post.thumbnail == nil or post.thumbnail == blank %} no-post-thumbnail{% endif %}">{{ post.excerpt | strip_html }}</div></div>
