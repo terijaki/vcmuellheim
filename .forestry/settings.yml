@@ -17,14 +17,6 @@ sections:
   templates:
   - mannschaft-eintragen
 - type: directory
-  path: _teaminfo
-  label: Mannschaftsinfo
-  create: documents
-  match: "**/*"
-  templates:
-  - spieler-in-hinzufugen
-  - mannschaftsdetail
-- type: directory
   path: _club_members
   label: Vorstand & Vereinsämter
   create: documents
