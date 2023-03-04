@@ -8,8 +8,8 @@
     <name>Bezirkspokal West Damen</name>
     <shortName>BezPokal West Da</shortName>
     <type>Competition</type>
-        <updated>2023-03-02 19:27:18.121</updated>
-        <structureUpdated>2023-03-02 19:27:18.121</structureUpdated>
+        <updated>2023-03-03 13:31:00.742</updated>
+        <structureUpdated>2023-03-03 13:31:00.742</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>22514239</id>
@@ -65,7 +65,7 @@
                         <team>
                             <id>24871838</id>
                             <uuid>245069cc-27bc-41b3-85ee-8a2ed4403652</uuid>
-                            <name>TS Kehl II</name>
+                            <name>TS Kehl 2</name>
                             <club>TS Kehl</club>
                         </team>
                     </ranking>
@@ -74,7 +74,7 @@
                         <team>
                             <id>24867258</id>
                             <uuid>f362d9f3-aa27-496d-9efd-3b518dc90208</uuid>
-                            <name>TSV Alemannia Freiburg-Zähringen</name>
+                            <name>TSV Al. Freiburg-Zähringen</name>
                             <club>TSV Alemannia Freiburg-Zähringen</club>
                         </team>
                     </ranking>
@@ -101,7 +101,7 @@
                         <team>
                             <id>24860804</id>
                             <uuid>293f35fa-f9da-4af9-a141-8a718c5875e3</uuid>
-                            <name>TV Hartheim II</name>
+                            <name>TV Hartheim 2</name>
                             <club>TV Hartheim</club>
                         </team>
                     </ranking>
@@ -137,7 +137,7 @@
                         <team>
                             <id>24779643</id>
                             <uuid>66afeb73-0443-4f88-99d1-99dbb54905de</uuid>
-                            <name>USC Freiburg D3</name>
+                            <name>USC Freiburg 3</name>
                             <club>USC Freiburg</club>
                         </team>
                     </ranking>
@@ -155,7 +155,7 @@
                         <team>
                             <id>24682751</id>
                             <uuid>0b259745-dfed-459d-ac75-d5f2376897c2</uuid>
-                            <name>VC Müllheim I</name>
+                            <name>VC Müllheim</name>
                             <club>VC Müllheim</club>
                         </team>
                     </ranking>
@@ -182,7 +182,7 @@
                         <team>
                             <id>24867363</id>
                             <uuid>f7aebd7c-a072-42fb-a0f2-f38b811ca5f1</uuid>
-                            <name>VSG Mundingen</name>
+                            <name>VSG Mundingen 1</name>
                             <club>VSG Mundingen</club>
                         </team>
                     </ranking>
