@@ -43,6 +43,10 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
   cursor: default;
+  & > * {
+    width: 100%;
+    overflow-x: hidden;
+  }
 }
 
 a {
