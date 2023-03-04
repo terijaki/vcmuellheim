@@ -97,8 +97,14 @@ fields:
 - type: text
   name: ansprechperson-email2
   label: 'Ansprechperson 2: Email'
-- type: text
-  name: kommentar
+- name: kommentar
+  type: textarea
+  default: ''
+  config:
+    required: false
+    wysiwyg: true
+    schema:
+      format: markdown
   label: Kommentar
 - name: sbvv_id
   type: number
