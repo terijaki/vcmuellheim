@@ -154,9 +154,9 @@
     <name>Bezirksliga Herren</name>
     <shortName>bzl n h</shortName>
     <type>League</type>
-        <updated>2023-02-12 17:36:01.514</updated>
-        <structureUpdated>2023-01-20 19:29:07.537</structureUpdated>
-        <resultsUpdated>2023-02-12 17:36:01.514</resultsUpdated>
+        <updated>2023-03-04 10:12:21.539</updated>
+        <structureUpdated>2023-03-04 10:12:21.539</structureUpdated>
+        <resultsUpdated>2023-03-04 08:25:55.455</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -576,8 +576,8 @@
     <name>Bezirkspokal West Damen</name>
     <shortName>BezPokal West Da</shortName>
     <type>Competition</type>
-        <updated>2023-03-03 13:31:00.742</updated>
-        <structureUpdated>2023-03-03 13:31:00.742</structureUpdated>
+        <updated>2023-03-04 09:13:50.113</updated>
+        <structureUpdated>2023-03-04 09:13:50.113</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>22514239</id>
