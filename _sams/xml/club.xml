@@ -59,8 +59,8 @@
     <name>Verbandsliga Herren</name>
     <shortName>vl h</shortName>
     <type>League</type>
-        <updated>2023-02-27 12:51:19.777</updated>
-        <structureUpdated>2023-02-27 12:51:19.777</structureUpdated>
+        <updated>2023-03-03 11:53:04.443</updated>
+        <structureUpdated>2023-03-03 11:53:04.443</structureUpdated>
         <resultsUpdated>2023-02-25 19:06:37.386</resultsUpdated>
         <season>
             <id>22514239</id>
@@ -261,8 +261,8 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-03-02 15:42:18.069</updated>
-        <structureUpdated>2023-03-02 15:42:18.069</structureUpdated>
+        <updated>2023-03-03 18:24:23.881</updated>
+        <structureUpdated>2023-03-03 18:24:23.881</structureUpdated>
         <resultsUpdated>2023-02-12 16:15:54.978</resultsUpdated>
         <season>
             <id>22514239</id>
@@ -380,8 +380,8 @@
     <name>Kreisliga Süd Damen</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-03-02 15:42:18.069</updated>
-        <structureUpdated>2023-03-02 15:42:18.069</structureUpdated>
+        <updated>2023-03-03 18:24:23.881</updated>
+        <structureUpdated>2023-03-03 18:24:23.881</structureUpdated>
         <resultsUpdated>2023-02-12 16:15:54.978</resultsUpdated>
         <season>
             <id>22514239</id>
@@ -550,9 +550,9 @@
     <id>24682751</id>
     <uuid>0b259745-dfed-459d-ac75-d5f2376897c2</uuid>
     <seasonTeamId>24682751</seasonTeamId>
-    <placeCipher>0</placeCipher>
-    <name>VC Müllheim I</name>
-    <shortName>VCM I</shortName>
+    <placeCipher>1</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
     <clubCode></clubCode>
     <status>ACTIVE</status>
     <www>http://vcmuellheim.de</www>
@@ -576,8 +576,8 @@
     <name>Bezirkspokal West Damen</name>
     <shortName>BezPokal West Da</shortName>
     <type>Competition</type>
-        <updated>2023-03-02 19:27:18.121</updated>
-        <structureUpdated>2023-03-02 19:27:18.121</structureUpdated>
+        <updated>2023-03-03 13:31:00.742</updated>
+        <structureUpdated>2023-03-03 13:31:00.742</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>22514239</id>
@@ -633,8 +633,8 @@
     <id>24803142</id>
     <uuid>e98f57bc-9261-4e74-b9d5-7c307fd56bb4</uuid>
     <seasonTeamId>24803142</seasonTeamId>
-    <placeCipher>0</placeCipher>
-    <name>VC Müllheim II</name>
+    <placeCipher>4</placeCipher>
+    <name>VC Müllheim 2</name>
     <shortName></shortName>
     <clubCode></clubCode>
     <status>ACTIVE</status>
@@ -659,8 +659,8 @@
     <name>Bezirkspokal West Herren</name>
     <shortName>BezPokal West He</shortName>
     <type>Competition</type>
-        <updated>2023-03-02 19:53:47.945</updated>
-        <structureUpdated>2023-03-02 19:53:47.945</structureUpdated>
+        <updated>2023-03-03 14:16:59.163</updated>
+        <structureUpdated>2023-03-03 14:16:59.163</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>22514239</id>
