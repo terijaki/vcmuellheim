@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <rankings>
+                <matchSeries>
+    <id>22517590</id>
+    <uuid>0836813a-4678-4c05-b6c4-f8800849d8c3</uuid>
+    <allSeasonId>36b0148e-d336-9331-f60d-cee054cf67df</allSeasonId>
+    <name>Bezirksliga Herren</name>
+    <shortName>bzl n h</shortName>
+    <type>League</type>
+        <updated>2023-03-04 19:44:56.047</updated>
+        <structureUpdated>2023-03-04 10:12:21.539</structureUpdated>
+        <resultsUpdated>2023-03-04 19:44:56.047</resultsUpdated>
+        <season>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
+        </season>
+        <hierarchy>
+            <id>22517105</id>
+            <uuid>a1cb6ab1-3372-46c3-9b18-bc3f1ef3da41</uuid>
+            <name>Bezirksligen</name>
+            <shortName>bzl w</shortName>
+            <hierarchyLevel>8</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>22517105</id>
+                    <name>Bezirksligen</name>
+                    <shortName>bzl w</shortName>
+                    <hierarchyLevel>8</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22517104</id>
+                    <name>Bezirk West</name>
+                    <shortName>bw</shortName>
+                    <hierarchyLevel>7</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22517103</id>
+                    <name>SBVV Bezirke</name>
+                    <shortName>SBVV Bezirke</shortName>
+                    <hierarchyLevel>6</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22516685</id>
+                    <name>Spielbetrieb Südbaden</name>
+                    <shortName>sbvv</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515520</id>
+                    <name>Oberliga Baden</name>
+                    <shortName>Ol</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515519</id>
+                    <name>Regionalliga Süd</name>
+                    <shortName>RL</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515518</id>
+                    <name>Dritte Liga Süd</name>
+                    <shortName>DLS</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515517</id>
+                    <name>Bundesligen</name>
+                    <shortName>BL</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515340</id>
+                    <name>Allgemeiner Spielbetrieb</name>
+                    <shortName>alg</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name></name>
+            <shortName></shortName>
+        </association>
+                </matchSeries>
+                    <ranking>
+                        <team>
+                            <id>22792437</id>
+                            <uuid>d54a0acd-c910-4599-98a8-8f36c3109160</uuid>
+                            <name>TV Staufen</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>TV Staufen</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>1</place>
+                        <matchesPlayed>12</matchesPlayed>
+                        <wins>12</wins>
+                        <losses>0</losses>
+                            <points>35</points>
+
+                        <setPoints>36:5</setPoints>
+                        <setWinScore>36</setWinScore>
+                        <setLoseScore>5</setLoseScore>
+                        <setPointDifference>31</setPointDifference>
+                        <setQuotient>7,200</setQuotient>
+
+                        <ballPoints>1013:765</ballPoints>
+                        <ballWinScore>1013</ballWinScore>
+                        <ballLoseScore>765</ballLoseScore>
+                        <ballPointDifference>248</ballPointDifference>
+                        <ballQuotient>1,324</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>8</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>3</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
+                            <id>22517421</id>
+                            <uuid>6a9b3def-5d78-49ae-b122-e36398a7d19b</uuid>
+                            <name>FT 1844 Freiburg 4</name>
+                            <shortName>FT 1844 Freiburg 4</shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>FT 1844 Freiburg</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>2</place>
+                        <matchesPlayed>12</matchesPlayed>
+                        <wins>10</wins>
+                        <losses>2</losses>
+                            <points>29</points>
+
+                        <setPoints>30:12</setPoints>
+                        <setWinScore>30</setWinScore>
+                        <setLoseScore>12</setLoseScore>
+                        <setPointDifference>18</setPointDifference>
+                        <setQuotient>2,500</setQuotient>
+
+                        <ballPoints>983:824</ballPoints>
+                        <ballWinScore>983</ballWinScore>
+                        <ballLoseScore>824</ballLoseScore>
+                        <ballPointDifference>159</ballPointDifference>
+                        <ballQuotient>1,193</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>5</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>4</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>2</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
+                            <id>22517659</id>
+                            <uuid>969c1e6e-c4a2-4711-b06f-f7b76c33d256</uuid>
+                            <name>TV Zell-Weierbach</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>TV Zell-Weierbach</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>3</place>
+                        <matchesPlayed>12</matchesPlayed>
+                        <wins>9</wins>
+                        <losses>3</losses>
+                            <points>27</points>
+
+                        <setPoints>30:16</setPoints>
+                        <setWinScore>30</setWinScore>
+                        <setLoseScore>16</setLoseScore>
+                        <setPointDifference>14</setPointDifference>
+                        <setQuotient>1,875</setQuotient>
+
+                        <ballPoints>1051:953</ballPoints>
+                        <ballWinScore>1051</ballWinScore>
+                        <ballLoseScore>953</ballLoseScore>
+                        <ballPointDifference>98</ballPointDifference>
+                        <ballQuotient>1,103</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>3</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>5</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>1</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
+                            <id>22517616</id>
+                            <uuid>c23b5f6c-ceb6-4f53-b79d-6c567221ec58</uuid>
+                            <name>VC Weil 2</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>VC Weil</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>4</place>
+                        <matchesPlayed>12</matchesPlayed>
+                        <wins>7</wins>
+                        <losses>5</losses>
+                            <points>21</points>
+
+                        <setPoints>25:21</setPoints>
+                        <setWinScore>25</setWinScore>
+                        <setLoseScore>21</setLoseScore>
+                        <setPointDifference>4</setPointDifference>
+                        <setQuotient>1,190</setQuotient>
+
+                        <ballPoints>1003:992</ballPoints>
+                        <ballWinScore>1003</ballWinScore>
+                        <ballLoseScore>992</ballLoseScore>
+                        <ballPointDifference>11</ballPointDifference>
+                        <ballQuotient>1,011</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>4</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>2</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
+                            <id>22517650</id>
+                            <uuid>627951f2-9a12-4fec-a867-ecbbe3e573e0</uuid>
+                            <name>TSV Al. Freiburg-Zähringen 3</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>TSV Alemannia Freiburg-Zähringen</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>5</place>
+                        <matchesPlayed>14</matchesPlayed>
+                        <wins>5</wins>
+                        <losses>9</losses>
+                            <points>16</points>
+
+                        <setPoints>24:31</setPoints>
+                        <setWinScore>24</setWinScore>
+                        <setLoseScore>31</setLoseScore>
+                        <setPointDifference>-7</setPointDifference>
+                        <setQuotient>0,774</setQuotient>
+
+                        <ballPoints>1184:1209</ballPoints>
+                        <ballWinScore>1184</ballWinScore>
+                        <ballLoseScore>1209</ballLoseScore>
+                        <ballPointDifference>-25</ballPointDifference>
+                        <ballQuotient>0,979</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>5</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>2</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
+                            <id>22517632</id>
+                            <uuid>bf99f942-8d53-45ce-be39-838a2d998980</uuid>
+                            <name>TV Freiburg St.-Georgen</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>TV Freiburg-St.Georgen</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>6</place>
+                        <matchesPlayed>14</matchesPlayed>
+                        <wins>4</wins>
+                        <losses>10</losses>
+                            <points>13</points>
+
+                        <setPoints>20:31</setPoints>
+                        <setWinScore>20</setWinScore>
+                        <setLoseScore>31</setLoseScore>
+                        <setPointDifference>-11</setPointDifference>
+                        <setQuotient>0,645</setQuotient>
+
+                        <ballPoints>1075:1191</ballPoints>
+                        <ballWinScore>1075</ballWinScore>
+                        <ballLoseScore>1191</ballLoseScore>
+                        <ballPointDifference>-116</ballPointDifference>
+                        <ballQuotient>0,903</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>3</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>6</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>3</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
+                            <id>22517622</id>
+                            <uuid>00ce1bd3-8553-4eaa-843c-2f426a134781</uuid>
+                            <name>VBG Efringen-Kirchen</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>VBG Efringen-Kirchen</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>7</place>
+                        <matchesPlayed>12</matchesPlayed>
+                        <wins>3</wins>
+                        <losses>9</losses>
+                            <points>12</points>
+
+                        <setPoints>17:29</setPoints>
+                        <setWinScore>17</setWinScore>
+                        <setLoseScore>29</setLoseScore>
+                        <setPointDifference>-12</setPointDifference>
+                        <setQuotient>0,586</setQuotient>
+
+                        <ballPoints>943:1018</ballPoints>
+                        <ballWinScore>943</ballWinScore>
+                        <ballLoseScore>1018</ballLoseScore>
+                        <ballPointDifference>-75</ballPointDifference>
+                        <ballQuotient>0,926</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>3</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>4</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
+                            <id>22517629</id>
+                            <uuid>3309dfd8-d56d-4ba2-b978-313e9d0a389c</uuid>
+                            <name>Sport vor Ort Rieselfeld</name>
+                            <shortName>SvO Rieselfeld</shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>Sport vor Ort Rieselfeld</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>8</place>
+                        <matchesPlayed>12</matchesPlayed>
+                        <wins>4</wins>
+                        <losses>8</losses>
+                            <points>11</points>
+
+                        <setPoints>18:30</setPoints>
+                        <setWinScore>18</setWinScore>
+                        <setLoseScore>30</setLoseScore>
+                        <setPointDifference>-12</setPointDifference>
+                        <setQuotient>0,600</setQuotient>
+
+                        <ballPoints>987:1087</ballPoints>
+                        <ballWinScore>987</ballWinScore>
+                        <ballLoseScore>1087</ballLoseScore>
+                        <ballPointDifference>-100</ballPointDifference>
+                        <ballQuotient>0,908</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>4</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>3</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
+                            <id>22517434</id>
+                            <uuid>c2db28b1-9f4a-4aea-8ee2-0b742fc8de10</uuid>
+                            <name>VC Müllheim 2</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>VC Müllheim</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>9</place>
+                        <matchesPlayed>14</matchesPlayed>
+                        <wins>3</wins>
+                        <losses>11</losses>
+                            <points>7</points>
+
+                        <setPoints>12:37</setPoints>
+                        <setWinScore>12</setWinScore>
+                        <setLoseScore>37</setLoseScore>
+                        <setPointDifference>-25</setPointDifference>
+                        <setQuotient>0,324</setQuotient>
+
+                        <ballPoints>962:1162</ballPoints>
+                        <ballWinScore>962</ballWinScore>
+                        <ballLoseScore>1162</ballLoseScore>
+                        <ballPointDifference>-200</ballPointDifference>
+                        <ballQuotient>0,828</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>3</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>8</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+        </rankings>
