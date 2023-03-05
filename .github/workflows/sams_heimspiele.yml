@@ -34,7 +34,6 @@ jobs:
           in30days=$(date -v+30d +%Y-%m-%d)
           curl -o $TEMP_FILE "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in30days"
           filesize=$(stat -f%z $TEMP_FILE)
-          echo $filesize
           echo "filesize=$filesize" >> $GITHUB_OUTPUT
 
       - name: Query SAMS for Matches in 30 days (Retry)
@@ -45,7 +44,6 @@ jobs:
           in30days=$(date -v+30d +%Y-%m-%d)
           sleep 60 && curl -o $TEMP_FILE "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in30days"
           filesize=$(stat -f%z $TEMP_FILE)
-          echo $filesize
           echo "filesize=$filesize" >> $GITHUB_OUTPUT
 
       - name: Upload Artifact (SAMS XML) # not needed, only to keep for troubleshooting
