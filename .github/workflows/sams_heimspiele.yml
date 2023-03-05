@@ -31,8 +31,10 @@ jobs:
         run: |
           today=$(date -v-1d +%Y-%m-%d)
           in30days=$(date -v+30d +%Y-%m-%d)
-          curl -o temp_matches30days.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in30days"
-          echo "filesize=$(stat -f%z temp_matches30days.xml)" >> $GITHUB_OUTPUT
+          targetfile=temp_matches30days.xml
+          curl -o $targetfile "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in30days"
+          filesize=$(stat -f%z $targetfile)
+          echo "filesize=$filesize" >> $GITHUB_OUTPUT
 
       - name: Query SAMS for Matches in 30 days (Retry)
         id: sams_query_30days_retry
@@ -44,23 +46,27 @@ jobs:
           echo "filesize=$(stat -f%z temp_matches30days.xml)" >> $GITHUB_OUTPUT
 
       - name: Upload Artifact (SAMS XML) # not needed, only to keep for troubleshooting
+        id: artifact_upload
+        if: steps.sams_query_30days.outputs>='0' || steps.sams_query_30days_retry.outputs>='0'
         uses: actions/upload-artifact@v3
         with:
           name: raw_sams_xml
           path: temp_matches30days.xml
 
       - name: Cleanup SAMS XML # removes strings that break the XLST
-        if: steps.sams_query_30days.outputs >= '0' || steps.sams_query_30days_retry.outputs >= '0'
+        id: xml_cleanup
+        if: steps.artifact_upload.outcome=='success'
         run: sed -i -e 's!xmlns="http://sams-server.de/api/xml/ns/matches" !!g' temp_matches30days.xml
 
       - name: Reset existing home matches # Deleting existing matches to remove past games from the repo.
-        if: steps.sams_query_30days.outputs >= '0' || steps.sams_query_30days_retry.outputs >= '0'
+        if: steps.xml_cleanup.outcome=='success'
         run: |
           rm -rf ${{env.REPO_TARGET}}
           mkdir -p ${{env.REPO_TARGET}}
 
       - name: XSLT processing (individual matches) # Download, install and run the XSLT processor (Saxon to use XSLT 2.0 features)
-        if: steps.sams_query_30days.outputs >= '0' || steps.sams_query_30days_retry.outputs >= '0'
+        id: xslt_processor
+        if: steps.xml_cleanup.outcome=='success'
         run: |
           git clone https://github.com/sputnick-dev/saxon-lint.git
           cd saxon-lint*
@@ -71,13 +77,13 @@ jobs:
           ./saxon-lint/saxon-lint.pl --xslt homegames.xslt temp_matches30days.xml
 
       - name: Setup Git Config
-        if: steps.sams_query_30days.outputs >= '0' || steps.sams_query_30days_retry.outputs >= '0'
+        if: steps.xslt_processor.outcome=='success'
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
       - name: Git Commit
-        if: steps.sams_query_30days.outputs >= '0' || steps.sams_query_30days_retry.outputs >= '0'
+        if: steps.xslt_processor.outcome=='success'
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git add "${{env.REPO_TARGET}}/*"
