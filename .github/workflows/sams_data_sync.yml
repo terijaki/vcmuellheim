@@ -38,17 +38,6 @@ jobs:
           mkdir -p _sams/xml
           curl -o _sams/xml/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
 
-      - name: Get XML # this reads the XML file and extracts the team IDs
-        id: teamids-from-club
-        uses: mavrosxristoforos/get-xml-info@1.1.1
-        with:
-          xml-file: "_sams/xml/club.xml"
-          xpath: "/sportsclub/teams/team/seasonTeamId"
-
-      - name: Transform MatchSeries IDs
-        id: teamid-list
-        run: echo "teamids=[${{steps.teamids-from-club.outputs.info}}]" >> $GITHUB_OUTPUT # transform IDs from "123,456,789" to "[123,456,789]"
-
       - name: Setup Git Config
         run: |
           git config user.name "GitHub Actions Bot"
@@ -61,6 +50,18 @@ jobs:
           git commit -m "sams raw club update"
           git pull --rebase --quiet
           git push origin --all --quiet
+          
+      - name: Isolate Teams from XML # this reads the XML file and extracts the team IDs
+        id: teamids-from-club
+        uses: mavrosxristoforos/get-xml-info@1.1.1
+        with:
+          xml-file: "_sams/xml/club.xml"
+          xpath: "/sportsclub/teams/team/seasonTeamId"
+
+      - name: Transform MatchSeries IDs
+        id: teamid-list
+        run: echo "teamids=[${{steps.teamids-from-club.outputs.info}}]" >> $GITHUB_OUTPUT # transform IDs from "123,456,789" to "[123,456,789]"
+
 
   #######################
   ### RANKINGS UPDATE ###
