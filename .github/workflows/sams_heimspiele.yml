@@ -54,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: raw_sams_xml
-          path: $TEMP_FILE
+          path: ${{ env.TEMP_FILE }}
 
       - name: Cleanup SAMS XML # removes strings that break the XLST
         id: xml_cleanup
