@@ -42,7 +42,7 @@ jobs:
 
       - name: Query SAMS for Club Data (Retry)
         id: sams_query_club_retry
-        if: steps.sams_query_club.outputs <= 0
+        if: steps.sams_query_club.outputs.filesize <= 0
         run: |
           mkdir -p _sams/xml
           sleep 60 && curl -o _sams/xml/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
