@@ -36,7 +36,7 @@ jobs:
 
       - name: Query SAMS for Matches in 30 days (Retry)
         id: sams_query_30days_retry
-        if: steps.sams_query_30days.outputs <= '0'
+        if: steps.sams_query_30days.outputs<='0'
         run: |
           today=$(date -v-1d +%Y-%m-%d)
           in30days=$(date -v+30d +%Y-%m-%d)
