@@ -18,19 +18,15 @@
   --font2: "Montserrat", sans-serif;
 }
 
-
-$primary:     #01a29a; /* rgb(1,162,154) | Persian Green */
-$secondary:   #366273; /* rgb(54,98,115) | Blumine */
-$dark:        #363b40; /* rgb(54,59,64) | Baltic Sea */
-
-
+$primary: #01a29a; /* rgb(1,162,154) | Persian Green */
+$secondary: #366273; /* rgb(54,98,115) | Blumine */
+$dark: #363b40; /* rgb(54,59,64) | Baltic Sea */
 
 /* ------ Libraries ------ */
 @import "bootstrap/bootstrap";
 @import "fontawesome/fontawesome";
 @import "fontawesome/solid";
 @import "fontawesome/brands";
-
 
 html {
   scroll-behavior: smooth;
@@ -53,7 +49,9 @@ a {
   color: var(--link1);
   transition: 0.5s;
   text-decoration: none;
-  &.hover,&:active,&:focus {
+  &.hover,
+  &:active,
+  &:focus {
     color: var(--link_hover1);
     outline: none;
     text-decoration: none;
@@ -78,9 +76,7 @@ h6 {
   word-wrap: break-word;
 }
 
-/*--------------------------------------------------------------
-  # Scrollbar
-  --------------------------------------------------------------*/
+/* ------ Scrollbar ------ */
 @media (min-width: 768px) {
   ::-webkit-scrollbar {
     width: 10px;
@@ -125,18 +121,14 @@ h6 {
   }
 }
 
-/*--------------------------------------------------------------
-  # Text Selection
-  --------------------------------------------------------------*/
+/* ------ Text Selection ------ */
 
 ::selection {
   color: var(--text2);
   background: var(--gradient2);
 }
 
-/*--------------------------------------------------------------
-  # Banner
-  --------------------------------------------------------------*/
+/* ------ Banner ------ */
 .banner-info {
   background: #ffdd00;
   color: #0057b7;
@@ -149,9 +141,7 @@ h6 {
   }
 }
 
-/*--------------------------------------------------------------
-  # Cover-BG (background image with dark gradient)
-  --------------------------------------------------------------*/
+/* ------ Cover-BG (background image with dark gradient) ------ */
 .cover-img-bg {
   background-size: cover;
   background-attachment: fixed;
@@ -164,9 +154,7 @@ h6 {
   }
 }
 
-/*--------------------------------------------------------------
-  # Intro Section
-  --------------------------------------------------------------*/
+/* ------ Intro Section ------ */
 #intro {
   min-height: 90vh;
   min-height: 90svh;
@@ -219,8 +207,7 @@ h6 {
     }
   }
 }
-/* Premium Sonsors (before the fold!)
-  --------------------------------*/
+/* ------ Premium Sonsors (before the fold!) ------ */
 .intro-sponsor {
   background: #ffffff;
   color: var(--text1);
@@ -237,9 +224,7 @@ h6 {
   }
 }
 
-/*--------------------------------------------------------------
-  # Navigation Menu
-  --------------------------------------------------------------*/
+/* ------Navigation Menu ------ */
 .navbar {
   .nav-link {
     color: var(--text2);
@@ -298,8 +283,7 @@ h6 {
 .section-bg {
   background: var(--background2);
 }
-/* Verein Section
-  --------------------------------*/
+/* ------ Verein Section ------ */
 #verein {
   .mitglied {
     margin-bottom: 20px;
@@ -333,8 +317,7 @@ h6 {
   }
 }
 
-/* Stadtfest
-  --------------------------------*/
+/* ------ Stadtfest ------ */
 .stadtfest-image {
   height: 100%;
   width: 100%;
@@ -345,8 +328,7 @@ h6 {
   background-position: center;
 }
 
-/* Beachvolleyball
-  --------------------------------*/
+/* ------ Beachvolleyball ------ */
 .beachvolleyball-image {
   height: 100%;
   width: 100%;
@@ -357,8 +339,7 @@ h6 {
   background-position: center;
 }
 
-/* Loading Spinners
-  --------------------------------*/
+/* ------ Loading Spinners ------ */
 .loadingspinner,
 #blogpost img,
 #blogpost video {
@@ -367,8 +348,7 @@ h6 {
   background-position: center;
 }
 
-/* Blog Post
-  --------------------------------*/
+/* ------ Blog Post ------ */
 #blogpost {
   img,
   video {
@@ -628,6 +608,7 @@ h6 {
     }
   }
 }
+
 /* ------ Matches ------ */
 #matches {
   padding: 30px 0;
@@ -678,8 +659,6 @@ h6 {
   }
 }
 
-/* ------ Matches ------ */
-
 /* ------ Tabelle ------ */
 #ergebnisse-tabelle {
   .footnote {
@@ -725,17 +704,17 @@ h6 {
   #ergebnisse-tabelle {
     .sams-rankings {
       table {
-        th, td {
+        th,
+        td {
           &:nth-child(4) {
             display: none;
-            /* Blendet Sätze aus der Tabellenübersicht aus */ 
+            /* Blendet Sätze aus der Tabellenübersicht aus */
           }
         }
       }
     }
   }
 }
-/* ------ Tabelle ------ */
 
 /* ------ News ------ */
 #news {
@@ -879,7 +858,6 @@ h6 {
     }
   }
 }
-/* ------ News ------ */
 
 /* ------ Mannschaften ------ */
 #mannschaften {
@@ -952,7 +930,6 @@ h6 {
     }
   }
 }
-/* ------ Mannschaften ------ */
 
 /* ------ CTA Buttons ------ */
 .generic-button {
@@ -972,7 +949,6 @@ h6 {
     background: var(--link1);
   }
 }
-/* ------ CTA Buttons ------ */
 
 /* ------ Sponsors ------ */
 #sponsors {
@@ -997,18 +973,6 @@ h6 {
     }
   }
 }
-/* ------ Sponsors ------ */
-
-/* Mannschafts Details DEPRECATED
-  --------------------------------*/
-#teaminfo {
-  .box p:last-child {
-    margin-bottom: 0;
-  }
-  .generic-button {
-    padding: 6px 18px;
-  }
-}
 
 /* ------ Footer ------ */
 #footer {
@@ -1027,9 +991,8 @@ h6 {
     }
   }
 }
-/* ------ Footer ------ */
 
-/* ----- Print -----*/
+/* ------ Print ------ */
 @media print {
   body *,
   main * {
@@ -1086,8 +1049,7 @@ h6 {
   }
 }
 
-/* More Features Section (Mannschaftern, News, Mitglieder, Ergebnisse)
-  --------------------------------*/
+/* ------ Privacy Policy and Satzung ------ */
 .Datenschutzerklärung ul,
 .Datenschutzerklärung ol,
 .SatzungdesVolleyballclubsMüllheim ul,
@@ -1101,8 +1063,7 @@ h6 {
   border-radius: 1rem;
 }
 
-/* Forestry CMS
-  --------------------------------*/
+/* ------ Forestry CMS ------ */
 div[data-tooltip="Previews Server is Stopped"] {
   display: none;
 }
