@@ -28,7 +28,7 @@ jobs:
       - name: Query SAMS for Matches in 30 days
         id: sams_query_30days
         run: |
-          today=$(date +%Y-%m-%d)
+          today=$(date -v-16H +%Y-%m-%d)
           in30days=$(date -v+30d +%Y-%m-%d)
           curl -o temp_matches30days.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in30days"
           echo "filesize=$(stat -f%z temp_matches30days.xml)" >> $GITHUB_OUTPUT
