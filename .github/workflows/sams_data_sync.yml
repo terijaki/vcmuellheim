@@ -34,9 +34,19 @@ jobs:
           fetch-depth: 0
 
       - name: Query SAMS for Club Data
+        id: sams_query_club
         run: |
           mkdir -p _sams/xml
           curl -o _sams/xml/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
+          echo "filesize=$(stat -f%z _sams/xml/club.xml" >> $GITHUB_OUTPUT
+
+      - name: Query SAMS for Club Data (Retry)
+        id: sams_query_club_retry
+        if: steps.sams_query_club.outputs.filesize == 0
+        run: |
+          mkdir -p _sams/xml
+          sleep 60 && curl -o _sams/xml/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
+          echo "filesize=$(stat -f%z _sams/xml/club.xml" >> $GITHUB_OUTPUT
 
       - name: Setup Git Config
         run: |
@@ -50,7 +60,7 @@ jobs:
           git commit -m "sams raw club update"
           git pull --rebase --quiet
           git push origin --all --quiet
-          
+
       - name: Isolate Teams from XML # this reads the XML file and extracts the team IDs
         id: teamids-from-club
         uses: mavrosxristoforos/get-xml-info@1.1.1
