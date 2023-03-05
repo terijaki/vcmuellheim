@@ -2,7 +2,7 @@
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
-title: VC Müllheim beim SBVV-Kader-Sichtungslehrgang 2023 in Radolfzell
+title: SBVV-Kader-Sichtungslehrgang 2023 in Radolfzell
 thumbnail: ''
 photoalbum: ''
 
