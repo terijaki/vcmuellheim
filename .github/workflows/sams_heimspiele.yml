@@ -36,7 +36,7 @@ jobs:
 
       - name: Query SAMS for Matches in 30 days (Retry)
         id: sams_query_30days_retry
-        if: steps.sams_query_30days.outputs >= 0
+        if: steps.sams_query_30days.outputs <= '0'
         run: |
           today=$(date -v-1d +%Y-%m-%d)
           in30days=$(date -v+30d +%Y-%m-%d)
@@ -50,17 +50,17 @@ jobs:
           path: temp_matches30days.xml
 
       - name: Cleanup SAMS XML # removes strings that break the XLST
-        if: steps.sams_query_30days.outputs >= 0 || steps.sams_query_30days_retry.outputs >= 0
+        if: steps.sams_query_30days.outputs >= '0' || steps.sams_query_30days_retry.outputs >= '0'
         run: sed -i -e 's!xmlns="http://sams-server.de/api/xml/ns/matches" !!g' temp_matches30days.xml
 
       - name: Reset existing home matches # Deleting existing matches to remove past games from the repo.
-        if: steps.sams_query_30days.outputs >= 0 || steps.sams_query_30days_retry.outputs >= 0
+        if: steps.sams_query_30days.outputs >= '0' || steps.sams_query_30days_retry.outputs >= '0'
         run: |
           rm -rf ${{env.REPO_TARGET}}
           mkdir -p ${{env.REPO_TARGET}}
 
       - name: XSLT processing (individual matches) # Download, install and run the XSLT processor (Saxon to use XSLT 2.0 features)
-        if: steps.sams_query_30days.outputs >= 0 || steps.sams_query_30days_retry.outputs >= 0
+        if: steps.sams_query_30days.outputs >= '0' || steps.sams_query_30days_retry.outputs >= '0'
         run: |
           git clone https://github.com/sputnick-dev/saxon-lint.git
           cd saxon-lint*
@@ -71,13 +71,13 @@ jobs:
           ./saxon-lint/saxon-lint.pl --xslt homegames.xslt temp_matches30days.xml
 
       - name: Setup Git Config
-        if: steps.sams_query_30days.outputs >= 0 || steps.sams_query_30days_retry.outputs >= 0
+        if: steps.sams_query_30days.outputs >= '0' || steps.sams_query_30days_retry.outputs >= '0'
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
       - name: Git Commit
-        if: steps.sams_query_30days.outputs >= 0 || steps.sams_query_30days_retry.outputs >= 0
+        if: steps.sams_query_30days.outputs >= '0' || steps.sams_query_30days_retry.outputs >= '0'
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git add "${{env.REPO_TARGET}}/*"
