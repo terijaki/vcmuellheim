@@ -23,6 +23,7 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v3
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
       - name: Query SAMS for Matches in 30 days
