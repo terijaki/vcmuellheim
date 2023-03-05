@@ -24,10 +24,12 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Query SAMS for Matches in 30 days
+        id: sams_query_30days
         run: |
           today=$(date +%Y-%m-%d)
           in30days=$(date -v+30d +%Y-%m-%d)
           curl -o temp_matches30days.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in30days"
+          echo "filesize=$(stat -f%z temp_matches30days.xml)" >> $GITHUB_OUTPUT
 
       - name: Upload Artifact (SAMS XML) # not needed, only to keep for troubleshooting
         uses: actions/upload-artifact@v3
@@ -36,6 +38,7 @@ jobs:
           path: temp_matches30days.xml
 
       - name: Cleanup SAMS XML # removes strings that break the XLST
+        if: steps.sams_query_30days.outputs.filesize > 0
         run: sed -i -e 's!xmlns="http://sams-server.de/api/xml/ns/matches" !!g' temp_matches30days.xml
 
       - name: Reset existing home matches # Deleting existing matches to remove past games from the repo.
