@@ -34,6 +34,7 @@ jobs:
           targetfile=temp_matches30days.xml
           curl -o $targetfile "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in30days"
           filesize=$(stat -f%z $targetfile)
+          echo $filesize
           echo "filesize=$filesize" >> $GITHUB_OUTPUT
 
       - name: Query SAMS for Matches in 30 days (Retry)
