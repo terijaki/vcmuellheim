@@ -47,7 +47,7 @@ jobs:
 
       - name: Upload Artifact (SAMS XML) # not needed, only to keep for troubleshooting
         id: artifact_upload
-        if: steps.sams_query_30days.outputs>='0' || steps.sams_query_30days_retry.outputs>='0'
+        if: steps.sams_query_30days.outputs>='0'
         uses: actions/upload-artifact@v3
         with:
           name: raw_sams_xml
