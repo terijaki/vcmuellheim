@@ -13,6 +13,7 @@ env:
   SAMS_KEY: ${{ secrets.SAMS_API }} # SAMS API key
   SAMS_URL: https://www.volleyball-baden.de # start of the api http structure
   REPO_TARGET: _heimspiele # the output folder for the home games
+  TEMP_FILE: temp_matches30days.xml # filename used between steps
 
 
 jobs:
@@ -31,9 +32,8 @@ jobs:
         run: |
           today=$(date -v-1d +%Y-%m-%d)
           in30days=$(date -v+30d +%Y-%m-%d)
-          targetfile=temp_matches30days.xml
-          curl -o $targetfile "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in30days"
-          filesize=$(stat -f%z $targetfile)
+          curl -o $TEMP_FILE "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in30days"
+          filesize=$(stat -f%z $TEMP_FILE)
           echo $filesize
           echo "filesize=$filesize" >> $GITHUB_OUTPUT
 
@@ -43,8 +43,10 @@ jobs:
         run: |
           today=$(date -v-1d +%Y-%m-%d)
           in30days=$(date -v+30d +%Y-%m-%d)
-          sleep 60 && curl -o temp_matches30days.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in30days"
-          echo "filesize=$(stat -f%z temp_matches30days.xml)" >> $GITHUB_OUTPUT
+          sleep 60 && curl -o $TEMP_FILE "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&after=$today&before=$in30days"
+          filesize=$(stat -f%z $TEMP_FILE)
+          echo $filesize
+          echo "filesize=$filesize" >> $GITHUB_OUTPUT
 
       - name: Upload Artifact (SAMS XML) # not needed, only to keep for troubleshooting
         id: artifact_upload
@@ -52,12 +54,12 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: raw_sams_xml
-          path: temp_matches30days.xml
+          path: $TEMP_FILE
 
       - name: Cleanup SAMS XML # removes strings that break the XLST
         id: xml_cleanup
         if: steps.artifact_upload.outcome=='success'
-        run: sed -i -e 's!xmlns="http://sams-server.de/api/xml/ns/matches" !!g' temp_matches30days.xml
+        run: sed -i -e 's!xmlns="http://sams-server.de/api/xml/ns/matches" !!g' $TEMP_FILE
 
       - name: Reset existing home matches # Deleting existing matches to remove past games from the repo.
         if: steps.xml_cleanup.outcome=='success'
@@ -75,7 +77,7 @@ jobs:
           ./saxon-lint.pl --help
           cd ..
           cp sams/homegames.xslt homegames.xslt
-          ./saxon-lint/saxon-lint.pl --xslt homegames.xslt temp_matches30days.xml
+          ./saxon-lint/saxon-lint.pl --xslt homegames.xslt $TEMP_FILE
 
       - name: Setup Git Config
         if: steps.xslt_processor.outcome=='success'
