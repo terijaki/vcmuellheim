@@ -2,18 +2,6 @@
 ---
 
 :root {
-  --black: #0e0e10; /* rgb(14, 14, 16) | Jet Black  */
-  --text1: #666666; /* rgb(102,102,102) | Dim Gray  */
-  --text2: #ffffff; /* rgb(255,255,255) | White */
-  --background1: #ffffff; /* rgb(255,255,255) | White */
-  --background2: #eff5f5; /* rgb(239,245,245) | Aqua Haze */
-  --link1: #01a29a; /* rgb(1,162,154) | Persian Green */
-  --link_hover1: #bfa084; /* rgb(191,160,132) | Rodeo Dust */
-  --link2: #366273; /* rgb(54,98,115) | Blumine */
-  --gradient1: #363b40; /* rgb(54,59,64) | Baltic Sea */
-  --gradient2: #366273; /* rgb(54,98,115) | Blumine */
-  --shadow1: #7f89a1; /* rgb(127,137,161) | Ship Cove */
-  --shadow2: #494e5c; /* rgb(73,78,92) | Tuna */
   --font1: "Open Sans", sans-serif;
   --font2: "Montserrat", sans-serif;
 }
@@ -22,6 +10,8 @@ $primary: #01a29a; /* rgb(1,162,154) | Persian Green */
 $secondary: #366273; /* rgb(54,98,115) | Blumine */
 $dark: #363b40; /* rgb(54,59,64) | Baltic Sea */
 $light: #eff5f5; /* rgb(239,245,245) | Aqua Haze */
+$success: #bfa084; /* rgb(191,160,132) | Rodeo Dust */
+$info: #666666; /* rgb(102,102,102) | Dim Gray  */
 
 /* ------ Libraries ------ */
 @import "bootstrap/bootstrap";
@@ -34,8 +24,8 @@ html {
 }
 
 body {
-  background: var(--background1);
-  color: var(--text1);
+  background: var(--bs-white);
+  color: var(--bs-info);
   font-family: var(--font1);
   overflow-x: hidden;
   overflow-y: scroll;
@@ -47,13 +37,13 @@ body {
 }
 
 a {
-  color: var(--link1);
+  color: var(--bs-primary);
   transition: 0.5s;
   text-decoration: none;
-  &.hover,
+  &:hover,
   &:active,
   &:focus {
-    color: var(--link_hover1);
+    color: var(--bs-success);
     outline: none;
     text-decoration: none;
   }
@@ -90,31 +80,31 @@ h6 {
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--link_hover1);
+    background: var(--bs-success);
     border: none;
     border-radius: 0px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--link1);
+    background: var(--bs-primary);
   }
 
   ::-webkit-scrollbar-thumb:active {
-    background: var(--link1);
+    background: var(--bs-primary);
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--gradient1);
+    background: var(--bs-dark);
     border: none;
     border-radius: 0px;
   }
 
   ::-webkit-scrollbar-track:hover {
-    background: var(--gradient1);
+    background: var(--bs-dark);
   }
 
   ::-webkit-scrollbar-track:active {
-    background: var(--gradient1);
+    background: var(--bs-dark);
   }
 
   ::-webkit-scrollbar-corner {
@@ -125,8 +115,8 @@ h6 {
 /* ------ Text Selection ------ */
 
 ::selection {
-  color: var(--text2);
-  background: var(--gradient2);
+  color: var(--bs-white);
+  background: var(--bs-secondary);
 }
 
 /* ------ Banner ------ */
@@ -160,13 +150,13 @@ h6 {
   min-height: 90vh;
   min-height: 90svh;
   min-height: calc(100svh - 60px);
-  background: var(--gradient1);
-  color: var(--text2);
+  background: var(--bs-dark);
+  color: var(--bs-white);
   position: relative;
   transition: background-image 1s;
 
   &.random {
-    background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), var(--gradient1);
+    background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), var(--bs-dark);
   }
   &.rnd-1,
   &.rnd-2,
@@ -200,10 +190,10 @@ h6 {
     display: inline-block;
     transition: 0.5s;
     border: 2px solid #fff;
-    color: var(--text2);
+    color: var(--bs-white);
 
     &:hover {
-      color: var(--gradient2);
+      color: var(--bs-secondary);
       background: #fff;
     }
   }
@@ -211,7 +201,7 @@ h6 {
 /* ------ Premium Sonsors (before the fold!) ------ */
 .intro-sponsor {
   background: #ffffff;
-  color: var(--text1);
+  color: var(--bs-info);
   img {
     max-height: 56px;
     max-width: 50%;
@@ -228,12 +218,12 @@ h6 {
 /* ------Navigation Menu ------ */
 .navbar {
   .nav-link {
-    color: var(--text2);
+    color: var(--bs-white);
     font-weight: 500;
     font-size: 14px;
     &:focus,
     &:hover {
-      color: var(--link_hover1);
+      color: var(--bs-success);
     }
   }
   button.navbar-toggler {
@@ -242,7 +232,7 @@ h6 {
     }
     &:hover .navbar-toggler-custom-icon i {
       transform: rotateX(180deg);
-      color: var(--link_hover1);
+      color: var(--bs-success);
     }
   }
   h1 {
@@ -261,28 +251,28 @@ h6 {
 .section-header {
   .section-title {
     font-size: 32px;
-    color: var(--black);
+    color: var(--bs-black);
     text-align: center;
     font-weight: 400;
   }
   .section-description {
     text-align: center;
     padding-bottom: 40px;
-    color: var(--text1);
+    color: var(--bs-info);
     font-style: italic;
   }
   .section-divider {
     display: block;
     width: 60px;
     height: 3px;
-    background: var(--gradient2);
-    background: linear-gradient(0deg, var(--gradient2) 0%, var(--gradient1) 100%);
+    background: var(--bs-secondary);
+    background: linear-gradient(0deg, var(--bs-secondary) 0%, var(--bs-dark) 100%);
     margin: 0 auto;
     margin-bottom: 20px;
   }
 }
 .section-bg {
-  background: var(--background2);
+  background: var(--bs-light);
 }
 /* ------ Verein Section ------ */
 #verein {
@@ -294,7 +284,7 @@ h6 {
   }
   .mitgliederliste {
     a {
-      color: var(--text1);
+      color: var(--bs-info);
     }
     .avatar {
       height: 4rem;
@@ -367,16 +357,16 @@ h6 {
 .social-sharing i:before,
 .social-sharing a span {
   font-size: 0.8rem;
-  color: var(--text2);
+  color: var(--bs-white);
 }
 
 .social-sharing a {
   display: inline-block;
   padding: 5px;
   margin: 5px;
-  border: 2px solid var(--gradient2);
+  border: 2px solid var(--bs-secondary);
   border-radius: 3px;
-  background: var(--gradient2);
+  background: var(--bs-secondary);
   line-height: 0.8rem;
   transition: 0.3s;
 }
@@ -389,12 +379,12 @@ h6 {
 }
 
 .social-sharing a:hover {
-  background: var(--text2) !important;
+  background: var(--bs-white) !important;
 }
 
 .social-sharing a:hover i:before,
 .social-sharing a:hover span {
-  color: var(--gradient2);
+  color: var(--bs-secondary);
 }
 
 .social-sharing a span {
@@ -456,12 +446,12 @@ h6 {
   background-size: cover;
 
   .si-title {
-    color: var(--text2);
+    color: var(--bs-white);
     font-size: 28px;
     font-weight: 700;
   }
   .si-text {
-    color: var(--text2);
+    color: var(--bs-white);
   }
 }
 
@@ -470,12 +460,12 @@ h6 {
   overflow: hidden;
   background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/call-to-action-bg.jpg) fixed center center;
   background-size: cover;
-  color: var(--text2);
+  color: var(--bs-white);
   h4 {
-    color: var(--link_hover1);
+    color: var(--bs-success);
   }
   .cta-title {
-    color: var(--text2);
+    color: var(--bs-white);
     font-size: 28px;
   }
 }
@@ -487,12 +477,12 @@ h6 {
   background-size: cover;
 
   .cta-title {
-    color: var(--text2);
+    color: var(--bs-white);
     font-size: 28px;
     font-weight: 700;
   }
   .cta-text {
-    color: var(--text2);
+    color: var(--bs-white);
   }
 }
 
@@ -515,12 +505,12 @@ h6 {
   transition: background 0.5s;
   margin: 10px;
   border: 2px solid #fff;
-  color: var(--text2);
+  color: var(--bs-white);
 
   &:hover {
-    background: var(--link1);
-    color: var(--text2);
-    border: 2px solid var(--text2);
+    background: var(--bs-primary);
+    color: var(--bs-white);
+    border: 2px solid var(--bs-white);
   }
 }
 
@@ -532,15 +522,15 @@ h6 {
   color: #fff;
 
   .cta-title {
-    color: var(--text2);
+    color: var(--bs-white);
     font-size: 28px;
     font-weight: 700;
   }
   .cta-text {
-    color: var(--text2);
+    color: var(--bs-white);
   }
   a {
-    color: var(--link_hover1);
+    color: var(--bs-success);
   }
   .sources p {
     margin: 0;
@@ -553,7 +543,7 @@ h6 {
   background-size: cover;
   color: #fff;
   .cta-title {
-    color: var(--text2);
+    color: var(--bs-white);
     font-size: 28px;
     font-weight: 700;
   }
@@ -575,7 +565,7 @@ h6 {
     word-break: break-all;
   }
   &.dark {
-    background: var(--gradient1);
+    background: var(--bs-dark);
   }
 }
 
@@ -687,8 +677,8 @@ h6 {
   }
   .sams-rankings {
     tr[team~="Müllheim"] {
-      color: var(--text2);
-      background: var(--gradient1);
+      color: var(--bs-white);
+      background: var(--bs-dark);
       font-weight: normal !important;
     }
     tr > * {
@@ -696,8 +686,8 @@ h6 {
       text-align: center;
     }
     tbody tr:hover {
-      background-color: var(--gradient2);
-      color: var(--text2);
+      background-color: var(--bs-secondary);
+      color: var(--bs-white);
     }
   }
 }
@@ -848,14 +838,14 @@ h6 {
     border-radius: 25px;
     transition: background 0.5s;
     margin: 10px;
-    border: 2px solid var(--text2);
-    background: linear-gradient(var(--gradient2), var(--gradient1));
-    color: var(--text2);
+    border: 2px solid var(--bs-white);
+    background: linear-gradient(var(--bs-secondary), var(--bs-dark));
+    color: var(--bs-white);
 
     &:hover {
-      border-color: var(--link2);
+      border-color: var(--bs-secondary);
       background: transparent;
-      color: var(--link2);
+      color: var(--bs-secondary);
     }
   }
 }
@@ -942,12 +932,12 @@ h6 {
   border-radius: 50px;
   transition: 0.5s;
   border: 2px solid #fff;
-  color: var(--text2);
-  background: var(--gradient2);
+  color: var(--bs-white);
+  background: var(--bs-secondary);
 
   &:hover {
-    color: var(--text2);
-    background: var(--link1);
+    color: var(--bs-white);
+    background: var(--bs-primary);
   }
 }
 
@@ -988,7 +978,7 @@ h6 {
     margin: auto 7px;
 
     &:hover {
-      color: var(--gradient2);
+      color: var(--bs-secondary);
     }
   }
 }
@@ -1040,13 +1030,13 @@ h6 {
   transition: 0.5s;
   margin: 10px;
   border: 2px solid #fff;
-  color: var(--text2);
-  background: linear-gradient(45deg, var(--gradient1), var(--gradient2));
+  color: var(--bs-white);
+  background: linear-gradient(45deg, var(--bs-dark), var(--bs-secondary));
 
   &:hover {
-    background: linear-gradient(45deg, var(--link1), var(--link1));
-    color: var(--text2);
-    border-color: var(--text2);
+    background: linear-gradient(45deg, var(--bs-primary), var(--bs-primary));
+    color: var(--bs-white);
+    border-color: var(--bs-white);
   }
 }
 
