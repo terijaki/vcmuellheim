@@ -117,7 +117,7 @@ jobs:
         # checks if the file is a match
         run: |
           mkdir -p ${{env.MATCHES_SOURCE}}
-          curl -o ${{matrix.ids}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.ids}}"
+          curl -o ${{matrix.ids}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.ids}}" -f --retry 3 --retry-delay 30
           echo "${{matrix.ids}}"
 
       - name: Isolate ID # Isolate just the ID from the file (remove path and file extension) and make it available in later steps
@@ -147,8 +147,8 @@ jobs:
         id: get_xslt_template
         if: steps.cleanup_xml.conclusion == 'success'
         run: |
-          curl -o matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/matches.xslt"
-          curl -o individual_matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/individual_matches.xslt"
+          curl -o matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/matches.xslt" -f --retry 3 --retry-delay 30
+          curl -o individual_matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/individual_matches.xslt" -f --retry 3 --retry-delay 30
 
       - name: XSLT processing (matches) # Push the XML through the XSLT
         id: matches_xslt
@@ -178,7 +178,7 @@ jobs:
           ics_target_file+=".ics"
           echo $processed_match_file" is used to modify "$ics_target_file" (Team and Club name)"
           mkdir -p ${{env.ICS_TARGET}}
-          curl -o $ics_target_file "https://www.sbvv-online.de/iCal/team/matches.ical?teamId=${{steps.isolate_id.outputs.id}}"
+          curl -o $ics_target_file "https://www.sbvv-online.de/iCal/team/matches.ical?teamId=${{steps.isolate_id.outputs.id}}" -f --retry 5 --retry-delay 60
           teamname=$(awk "/title: (.*) \(Saison/{print}" $processed_match_file | sed 's!title: !!' | sed 's! (Saison.*!!')
           echo $teamname
           sed -i -e "s!BEGIN:VCALENDAR!BEGIN:VCALENDAR\nX-WR-CALNAME:$teamname (VC Müllheim)!g" $ics_target_file
@@ -276,7 +276,7 @@ jobs:
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git add "${{env.RANKINGS_TARGET}}"
-          git commit -m "rankings update"
+          git commit -m "new or updated rankings"
 
       - name: Download Matches
         id: download_matches
@@ -291,7 +291,7 @@ jobs:
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git add "${{env.MATCHES_TARGET}}"
-          git commit -m "matches update"
+          git commit -m "new or updated matches"
 
       - name: Download Individual Matches
         id: download_individual_matches
@@ -306,7 +306,7 @@ jobs:
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git add "${{env.INDIVIDUAL_MATCHES_TARGET}}"
-          git commit -m "individual matches update"
+          git commit -m "new or updated individual matches"
 
       - name: Download Calender Files
         id: download_ics
@@ -321,7 +321,7 @@ jobs:
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git add "${{env.ICS_TARGET}}"
-          git commit -m "ics file update"
+          git commit -m "new or updated ics file"
 
       - name: Git Push
         continue-on-error: true # don't throw an error as there won't always be changes

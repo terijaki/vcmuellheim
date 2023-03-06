@@ -37,15 +37,7 @@ jobs:
         id: sams_query_club
         run: |
           mkdir -p _sams/xml
-          curl -o _sams/xml/club.xml -v "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
-          echo "filesize=$(stat -f%z _sams/xml/club.xml)" >> $GITHUB_OUTPUT
-
-      - name: Query SAMS for Club Data (Retry)
-        id: sams_query_club_retry
-        if: steps.sams_query_club.outputs.filesize <= 0
-        run: |
-          mkdir -p _sams/xml
-          sleep 60 && curl -o _sams/xml/club.xml -v "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
+          curl -o _sams/xml/club.xml -v "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID" -f --retry 10 --retry-delay 60
           echo "filesize=$(stat -f%z _sams/xml/club.xml)" >> $GITHUB_OUTPUT
 
       - name: Setup Git Config
@@ -88,7 +80,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get club.xml cache # Get the catched club.xml
-        run: curl -o club.xml "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xml/club.xml"
+        run: curl -o club.xml "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xml/club.xml" -f --retry 3 --retry-delay 30
 
       - name: Get matchSeries IDs from club.xml
         id: matchseriesid-from-club
@@ -98,12 +90,12 @@ jobs:
           xpath: "/sportsclub/teams/team[id='${{matrix.teams}}']/matchSeries/id" #extract the matchSeries ID for this team from the XML
 
       - name: Get rankings.xslt template # Get the xslt template
-        run: curl -o rankings.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/rankings.xslt"
+        run: curl -o rankings.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/rankings.xslt" -f --retry 3 --retry-delay 30
 
       - name: Query SAMS # make the API call to the SAMS server and save it as XML
         run: |
           mkdir -p ${{env.SAMS_RANKING_TARGET}}
-          curl -o ${{env.SAMS_RANKING_TARGET}}${{matrix.teams}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{steps.matchseriesid-from-club.outputs.info}}"
+          curl -o ${{env.SAMS_RANKING_TARGET}}${{matrix.teams}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{steps.matchseriesid-from-club.outputs.info}}" -f --retry 5 --retry-delay 60
 
       - name: Upload Artifact (SAMS XML)
         id: upload
@@ -132,13 +124,13 @@ jobs:
     steps:
       - name: Get XSLT templates # Download the templates from our repo
         run: |
-          curl -o matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/matches.xslt"
-          curl -o individual_matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/individual_matches.xslt"
+          curl -o matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/matches.xslt" -f --retry 3 --retry-delay 30
+          curl -o individual_matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/individual_matches.xslt" -f --retry 3 --retry-delay 30
 
       - name: Query SAMS # make the API call to the SAMS server and save it as XML
         run: |
           mkdir -p ${{env.SAMS_MATCHES_TARGET}}
-          curl -o ${{env.SAMS_MATCHES_TARGET}}${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&teamId=${{matrix.teams}}"
+          curl -o ${{env.SAMS_MATCHES_TARGET}}${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&teamId=${{matrix.teams}}" -f --retry 5 --retry-delay 60
 
       - name: Upload Artifact (SAMS XML)
         id: upload
