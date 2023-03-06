@@ -74,7 +74,7 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
-      - name: Git Commit
+      - name: Git Commit & Push
         if: steps.xslt_processor.outcome=='success'
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
