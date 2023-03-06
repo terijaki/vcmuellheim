@@ -37,7 +37,7 @@ jobs:
         id: sams-query-club
         run: |
           mkdir -p _sams/xml
-          curl -o _sams/xml/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID" -f --retry 10 --retry-delay 60
+          curl -o _sams/xml/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID" -f --retry 10 --retry-delay 60 --connect-timeout 30
           echo "filesize=$(stat -f%z _sams/xml/club.xml)" >> $GITHUB_OUTPUT
 
       - name: Isolate Teams from XML # this reads the XML file and extracts the team IDs
