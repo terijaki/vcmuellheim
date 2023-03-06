@@ -67,6 +67,7 @@ jobs:
           cd ..
           cp _sams/xslt/homegames.xslt homegames.xslt
           ./saxon-lint/saxon-lint.pl --xslt homegames.xslt $TEMP_FILE
+          ls
 
       - name: Setup Git Config
         if: steps.xslt_processor.outcome=='success'
