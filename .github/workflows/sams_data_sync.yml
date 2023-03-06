@@ -40,19 +40,6 @@ jobs:
           curl -o _sams/xml/club.xml -v "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID" -f --retry 10 --retry-delay 60
           echo "filesize=$(stat -f%z _sams/xml/club.xml)" >> $GITHUB_OUTPUT
 
-      - name: Setup Git Config
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-
-      - name: Git Commit
-        continue-on-error: true # don't throw an error as there won't always be changes compared to the existing file
-        run: |
-          git add "_sams/xml"
-          git commit -m "sams raw club update"
-          git pull --rebase --quiet
-          git push origin --all --quiet
-
       - name: Isolate Teams from XML # this reads the XML file and extracts the team IDs
         id: teamids-from-club
         uses: mavrosxristoforos/get-xml-info@1.1.1
@@ -63,6 +50,19 @@ jobs:
       - name: Transform MatchSeries IDs
         id: teamid-list
         run: echo "teamids=[${{steps.teamids-from-club.outputs.info}}]" >> $GITHUB_OUTPUT # transform IDs from "123,456,789" to "[123,456,789]"
+
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: Git Commit & Push
+        continue-on-error: true # don't throw an error as there won't always be changes compared to the existing file
+        run: |
+          git add "_sams/xml"
+          git commit -m "sams raw club update"
+          git pull --rebase --quiet
+          git push origin --all --quiet
 
 
   #######################
