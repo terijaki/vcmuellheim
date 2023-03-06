@@ -30,6 +30,9 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                             <xsl:attribute name="matchid">
                                 <xsl:value-of select="id" />
                             </xsl:attribute>
+                            <xsl:attribute name="matchnumber">
+                                <xsl:value-of select="number" />
+                            </xsl:attribute>
 
                                 <div class="date-time col-12 col-lg-2 d-flex flex-lg-column align-items-center flex-wrap small">
                                     <span class="date d-lg-block"><xsl:value-of select="date"/></span>
@@ -85,6 +88,9 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                             <div class="match col-12 row text-nowrap m-0 py-2">
                             <xsl:attribute name="matchid">
                                 <xsl:value-of select="id" />
+                            </xsl:attribute>
+                            <xsl:attribute name="matchnumber">
+                                <xsl:value-of select="number" />
                             </xsl:attribute>
                                 <div class="date-time col-12 col-lg-2 d-flex flex-lg-column align-items-center flex-wrap small">
                                     <span class="date d-lg-block"><xsl:value-of select="date"/></span>
