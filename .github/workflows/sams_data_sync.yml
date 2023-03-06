@@ -7,7 +7,7 @@ concurrency:
 on:
   schedule:
     - cron: 4 4 * * * # At 04:04 AM
-    - cron: 3,18,33,48 11-23 * * 0,1,6 # Every 15 minutes, between 11 AM and 11 PM, Saturday-Monday
+    - cron: 18,48 11-23 * * 0,1,6 # Every 15 minutes, between 11 AM and 11 PM, Saturday-Monday
   workflow_dispatch:
 
 env:
@@ -38,8 +38,6 @@ jobs:
         run: |
           mkdir -p _sams/xml
           curl -o _sams/xml/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID" -f --retry 10 --retry-delay 60 --connect-timeout 30
-          curl "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID" -f --retry 10 --retry-delay 60 --connect-timeout 30 -L
-          echo "filesize=$(stat -f%z _sams/xml/club.xml)" >> $GITHUB_OUTPUT
 
       - name: Isolate Teams from XML # this reads the XML file and extracts the team IDs
         id: teamids-from-club
