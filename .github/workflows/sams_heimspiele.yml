@@ -13,7 +13,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
   SAMS_KEY: ${{ secrets.SAMS_API }} # SAMS API key
   SAMS_URL: https://www.volleyball-baden.de # start of the api http structure
-  REPO_TARGET: _heimspiele # the output folder for the home games
+  REPO_TARGET: _heimspiele/ # the output folder for the home games
   TEMP_FILE: temp_matches30days.xml # filename used between steps
 
 
@@ -78,7 +78,7 @@ jobs:
         if: steps.xslt_processor.outcome=='success'
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
-          git add "${{env.REPO_TARGET}}/*"
+          git add "${{env.REPO_TARGET}}"
           git commit -m "sams home games update"
           git pull --rebase --quiet
           git push origin --all --quiet
