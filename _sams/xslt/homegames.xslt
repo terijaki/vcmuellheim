@@ -13,6 +13,7 @@
             <xsl:text>---</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>id: "</xsl:text><xsl:value-of select="uuid"/>"
+            <xsl:text>number: "</xsl:text><xsl:value-of select="number"/>"
             <xsl:text>date: "</xsl:text><xsl:value-of select="date"/>"
             <xsl:text>time: "</xsl:text><xsl:value-of select="time"/>"
             <xsl:text>datetime: "</xsl:text><xsl:value-of select="date"/><xsl:text> </xsl:text><xsl:value-of select="time"/>"
