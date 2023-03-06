@@ -8,7 +8,7 @@
 <xsl:for-each select="matches/match">
     <xsl:if test="results/winner > 0"> <!-- matches with results have the winner either as team 1 or 2 -->
     <xsl:variable name="matchid"><xsl:value-of select="uuid"/></xsl:variable>
-    <xsl:result-document method="html" href="_spielergebnisse/{$matchid}.html">
+    <xsl:result-document method="html" href="../_spielergebnisse/{$matchid}.html">
             <xsl:text>---</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>id: "</xsl:text><xsl:value-of select="uuid"/>"

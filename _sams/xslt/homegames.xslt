@@ -9,7 +9,7 @@
     <xsl:if test="contains(host/club, 'VC Müllheim')"> <!-- matches with VC Müllheim as HOST -->
     <xsl:if test="contains(team[1]/name, 'VC Müllheim') or contains(team[2]/name, 'VC Müllheim')"> <!-- matches with VC Müllheim as TEAM -->
     <xsl:variable name="matchid"><xsl:value-of select="uuid"/></xsl:variable>
-    <xsl:result-document method="html" href="_heimspiele/{$matchid}.html">
+    <xsl:result-document method="html" href="../_heimspiele/{$matchid}.html">
             <xsl:text>---</xsl:text>
             <xsl:text>&#xA;</xsl:text><!-- new line-->
             <xsl:text>id: "</xsl:text><xsl:value-of select="uuid"/>"
