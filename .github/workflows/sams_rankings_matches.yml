@@ -1,5 +1,8 @@
 name: Rankings & Matches Update
 
+concurrency:
+  group: "sams to pages"
+  cancel-in-progress: false
 on:
   push:
     paths:

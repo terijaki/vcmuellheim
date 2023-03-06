@@ -1,7 +1,7 @@
 name: Upcoming Home Games
 
 concurrency:
-  group: sams
+  group: "sams"
   cancel-in-progress: false
   
 on:

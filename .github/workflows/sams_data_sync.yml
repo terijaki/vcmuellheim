@@ -1,7 +1,7 @@
 name: SAMS Data Synchronisation
 
 concurrency:
-  group: sams
+  group: "sams"
   cancel-in-progress: false
 
 on:
