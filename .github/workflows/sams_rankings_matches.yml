@@ -227,6 +227,9 @@ jobs:
           cd ..
           mkdir -p ${{env.INDIVIDUAL_MATCHES_TARGET}}
           ./saxon-lint/saxon-lint.pl --xslt individual_matches.xslt ${{matrix.ids}}
+          ls
+          cd _spielergebnisse/
+          ls
         # the saxon output file & location is declared in the xslt file, not by this command!
         # this is because we cannot use the season ID, as the target file needs to use the unique match ID
 
