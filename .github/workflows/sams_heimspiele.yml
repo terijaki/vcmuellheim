@@ -10,6 +10,7 @@ on:
     - cron: 44 22 * * * # every night at 22:44
 
 env:
+  GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
   SAMS_KEY: ${{ secrets.SAMS_API }} # SAMS API key
   SAMS_URL: https://www.volleyball-baden.de # start of the api http structure
   REPO_TARGET: _heimspiele # the output folder for the home games
@@ -24,7 +25,7 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{env.GITHUB_TOKEN}}
           fetch-depth: 0
 
       - name: Query SAMS for Matches in 30 days
