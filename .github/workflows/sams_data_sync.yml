@@ -34,7 +34,7 @@ jobs:
           fetch-depth: 0
 
       - name: Query SAMS for Club Data
-        id: sams_query_club
+        id: sams-query-club
         run: |
           mkdir -p _sams/xml
           curl -o _sams/xml/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID" -f --retry 10 --retry-delay 60
@@ -42,6 +42,7 @@ jobs:
 
       - name: Isolate Teams from XML # this reads the XML file and extracts the team IDs
         id: teamids-from-club
+        if: steps.sams-query-club.conclusion == 'success'
         uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
           xml-file: "_sams/xml/club.xml"
@@ -49,14 +50,17 @@ jobs:
 
       - name: Transform MatchSeries IDs
         id: teamid-list
+        if: steps.teamids-from-club.conclusion == 'success'
         run: echo "teamids=[${{steps.teamids-from-club.outputs.info}}]" >> $GITHUB_OUTPUT # transform IDs from "123,456,789" to "[123,456,789]"
 
       - name: Setup Git Config
+        if: steps.sams-query-club.conclusion == 'success'
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
       - name: Git Commit & Push
+        if: steps.sams-query-club.conclusion == 'success'
         continue-on-error: true # don't throw an error as there won't always be changes compared to the existing file
         run: |
           git add "_sams/xml"
