@@ -27,10 +27,13 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                             <xsl:if test="results/winner > 0">
 
                             <div class="match col-12 row text-nowrap m-0 py-2">
+                            <xsl:attribute name="matchid">
+                                <xsl:value-of select="id" />
+                            </xsl:attribute>
 
                                 <div class="date-time col-12 col-lg-2 d-flex flex-lg-column align-items-center flex-wrap small">
                                     <span class="date d-lg-block"><xsl:value-of select="date"/></span>
-                                </div>
+                                </div> 
 
                                 <div class="teams col-12 col-lg-5 d-lg-flex align-items-center fw-bold">
                                     <xsl:attribute name="winner">
@@ -80,6 +83,9 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                             <xsl:for-each select="matches/match">
                             <xsl:if test="not(results/winner)">
                             <div class="match col-12 row text-nowrap m-0 py-2">
+                            <xsl:attribute name="matchid">
+                                <xsl:value-of select="id" />
+                            </xsl:attribute>
                                 <div class="date-time col-12 col-lg-2 d-flex flex-lg-column align-items-center flex-wrap small">
                                     <span class="date d-lg-block"><xsl:value-of select="date"/></span>
                                     <xsl:if test="not(time = '00:00')">
