@@ -79,7 +79,7 @@ jobs:
         if: steps.xslt_processor.outcome=='success'
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
-          git add "${{env.REPO_TARGET}}/*"
+          git add "${{env.REPO_TARGET}}"
           git commit -m "sams home games update"
           git pull --rebase --quiet
           git push origin --all --quiet
