@@ -27,10 +27,10 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                             <xsl:if test="results/winner > 0">
 
                             <div class="match col-12 row text-nowrap m-0 py-2">
-                            <xsl:attribute name="matchid">
+                            <xsl:attribute name="match-id">
                                 <xsl:value-of select="id" />
                             </xsl:attribute>
-                            <xsl:attribute name="matchnumber">
+                            <xsl:attribute name="match-number">
                                 <xsl:value-of select="number" />
                             </xsl:attribute>
 
@@ -86,10 +86,10 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                             <xsl:for-each select="matches/match">
                             <xsl:if test="not(results/winner)">
                             <div class="match col-12 row text-nowrap m-0 py-2">
-                            <xsl:attribute name="matchid">
+                            <xsl:attribute name="match-id">
                                 <xsl:value-of select="id" />
                             </xsl:attribute>
-                            <xsl:attribute name="matchnumber">
+                            <xsl:attribute name="match-number">
                                 <xsl:value-of select="number" />
                             </xsl:attribute>
                                 <div class="date-time col-12 col-lg-2 d-flex flex-lg-column align-items-center flex-wrap small">
