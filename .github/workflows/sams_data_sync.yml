@@ -37,7 +37,7 @@ jobs:
         id: sams_query_club
         run: |
           mkdir -p _sams/xml
-          curl -o _sams/xml/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
+          curl -o _sams/xml/club.xml -v "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
           echo "filesize=$(stat -f%z _sams/xml/club.xml)" >> $GITHUB_OUTPUT
 
       - name: Query SAMS for Club Data (Retry)
@@ -45,7 +45,7 @@ jobs:
         if: steps.sams_query_club.outputs.filesize <= 0
         run: |
           mkdir -p _sams/xml
-          sleep 60 && curl -o _sams/xml/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
+          sleep 60 && curl -o _sams/xml/club.xml -v "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID"
           echo "filesize=$(stat -f%z _sams/xml/club.xml)" >> $GITHUB_OUTPUT
 
       - name: Setup Git Config
