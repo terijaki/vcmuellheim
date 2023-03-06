@@ -65,7 +65,7 @@ jobs:
           chmod +x saxon-lint.pl
           ./saxon-lint.pl --help
           cd ..
-          cp sams/homegames.xslt homegames.xslt
+          cp _sams/xslt/homegames.xslt homegames.xslt
           ./saxon-lint/saxon-lint.pl --xslt homegames.xslt $TEMP_FILE
 
       - name: Setup Git Config
