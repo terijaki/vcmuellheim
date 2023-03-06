@@ -6,12 +6,14 @@
   --font2: "Montserrat", sans-serif;
 }
 /* ------ Custom Colors for Bootstrap ------ */
-$primary: #01a29a; /* rgb(1,162,154) | Persian Green */
-$secondary: #366273; /* rgb(54,98,115) | Blumine */
-$dark: #363b40; /* rgb(54,59,64) | Baltic Sea */
-$light: #eff5f5; /* rgb(239,245,245) | Aqua Haze */
-$success: #bfa084; /* rgb(191,160,132) | Rodeo Dust */
-$info: #666666; /* rgb(102,102,102) | Dim Gray  */
+$primary: {{site.color_primary}}; /* rgb(1,162,154) | Persian Green */
+$secondary: {{site.color_secondary}}; /* rgb(54,98,115) | Blumine */
+$dark: {{site.color_dark}}; /* rgb(54,59,64) | Baltic Sea */
+$light: {{site.color_light}}; /* rgb(239,245,245) | Aqua Haze */
+$success: {{site.color_success}}; /* rgb(191,160,132) | Rodeo Dust */
+$info: {{site.color_info}}; /* rgb(102,102,102) | Dim Gray  */
+$danger: {{site.color_danger}}; /* rgb(163,18,19) | Dark Red  */
+$warning: {{site.color_warning}}; /* rgb(240,158,26) | Vivid Orange  */
 
 /* ------ Libraries ------ */
 @import "bootstrap/bootstrap";

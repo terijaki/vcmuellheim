@@ -8,8 +8,16 @@ apple_touch_icon: "/img/apple-touch-icon.png"
 apple_touch_startup_image: "/img/vcm-banner-white.png"
 language: "de"
 language_direction: "ltr"
-theme_color: "#363b40"
-background_color: "#366273"
+
+color_primary: "#01A29A" # rgb(1,162,154) | Persian Green
+color_secondary: "#366273" # rgb(54,98,115) | Blumine
+color_dark: "#363B40" # rgb(54,59,64) | Baltic Sea
+color_light: "#EFF5F5" # rgb(239,245,245) | Aqua Haze
+color_success: "#BFA084" # rgb(191,160,132) | Rodeo Dust
+color_info: "#666666" # rgb(102,102,102) | Dim Gray
+color_danger: "#A3120A" # rgb(163,18,19) | Dark Red
+color_warning: "#F09E1A" # rgb(240,158,26) | Vivid Orange
+
 include:
   - _pages
   - _matches
