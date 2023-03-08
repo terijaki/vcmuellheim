@@ -27,13 +27,6 @@ fields:
   description: Breakpoint for Post Previews
   hidden: true
   default: "<!--more-->"
-- name: photoalbum
-  type: text
-  config:
-    required: false
-  label: Link to Photogallery
-  description: Wenn du eine ganze Photo Gallery (z.B. von iCloud oder Google Photos)
-    verlinken möchtest, trage die URL hier ein. Ein Button erscheint am Ende des Beitrags.
 pages:
 - _posts/2019-07-19-qualifikation-zum-pokalspiel.md
 - _posts/2020-01-26-doppeltes-heimspiel-doppelte-niederlage.md
