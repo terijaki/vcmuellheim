@@ -6,7 +6,7 @@
 {% endfor %}
 {% if open_announcement == true %}
 <section id="announcements" class="section-bg p-4">
-  <div class="container text-center dark">
+  <div class="container text-center">
     {% assign sorted-announcements = (site.announcements | sort: 'date') %}
     {% for announcement in sorted-announcements %}
       {% unless announcement.end < site.time %}
