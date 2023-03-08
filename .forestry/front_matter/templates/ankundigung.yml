@@ -1,7 +1,15 @@
 ---
 label: Ankündigung
 hide_body: false
+display_field: title
 fields:
+- name: title
+  type: text
+  config:
+    required: false
+  hidden: true
+  label: Title
+  default: ankuendigung
 - name: date
   type: datetime
   description: ''
