@@ -24,7 +24,7 @@ fields:
 - name: end
   type: datetime
   label: Ende
-  description: Bis wann soll die Ankündigung angezeigt werden?
+  description: Bis wann (einschließlich) soll die Ankündigung angezeigt werden?
   config:
     required: false
     date_format: DD.MM.YYYY
@@ -32,5 +32,4 @@ fields:
     display_utc: false
     export_format: ''
 pages:
-- _announcements/ankuendigung-1.md
 - _announcements/ankuendigung.md
