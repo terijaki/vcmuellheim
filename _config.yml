@@ -82,6 +82,8 @@ collections:
     sort_by: date
   rankings:
     sort_by: league_id
+  announcements:
+    sort_by: date
 
 feed:
   collections:
