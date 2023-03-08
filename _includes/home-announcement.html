@@ -1,5 +1,11 @@
-
 {% if site.announcements.size > 0 %}
+{% for announcement in site.announcements %}
+  {% if announcement.end < site.time %}
+    {% assign open_announcement == true %}
+  {% endif %}
+{% endfor %}
+{% endif %}
+{% if open_announcement == true %}
 <section id="announcement" class="section-bg pt-5 pb-3 bg-secondary text-white">
   <div class="container text-center dark">
     {% assign sorted-teams = (site.teams | sort: 'liga') %}
