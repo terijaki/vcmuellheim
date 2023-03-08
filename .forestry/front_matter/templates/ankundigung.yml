@@ -21,7 +21,7 @@ fields:
   label: Datum
   hidden: true
   default: now
-- name: ende
+- name: end
   type: datetime
   label: Ende
   description: Bis wann soll die Ankündigung angezeigt werden?
@@ -32,4 +32,5 @@ fields:
     display_utc: false
     export_format: YYYY-MM-DD
 pages:
-- _announcements/test.md
+- _announcements/ankuendigung-1.md
+- _announcements/ankuendigung.md
