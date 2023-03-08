@@ -4,6 +4,13 @@ auto_deploy: false
 admin_path: "/edit"
 webhook_url: 
 sections:
+- type: directory
+  path: _announcements
+  label: Ankündigungen
+  create: documents
+  match: "**/*"
+  templates:
+  - ankundigung
 - type: jekyll-posts
   label: News Beiträge
   create: documents

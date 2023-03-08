@@ -1,5 +1,5 @@
 ---
-label: Mannschaft eintragen
+label: Mannschaft
 hide_body: true
 display_field: teamname
 fields:
