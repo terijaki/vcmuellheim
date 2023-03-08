@@ -1,8 +1,8 @@
 {% if site.announcements.size > 0 %}
 {% for announcement in site.announcements %}
-  {% if announcement.end >= site.time %}
+  {% unless announcement.end < site.time %}
     {% assign open_announcement = true %}
-  {% endif %}
+  {% endunless %}
 {% endfor %}
 {% if open_announcement == true %}
 <section id="announcements" class="section-bg p-5">
