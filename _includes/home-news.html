@@ -9,7 +9,7 @@
         <div class="row newsposts">
       <!--===== Most Recent News Post =====-->
             {% for post in site.posts limit:4 offset:0 %}
-            <div class="col-lg-6">
+            <div class="col-lg-6 d-flex">
                 <div class="box" onclick="location.href='{{ post.url }}';">
                     {% if post.thumbnail.size > 0 %}
                     {% assign processed_thumbnail = post.thumbnail | replace: "/upload/", "/thumbnails/news/" %}
