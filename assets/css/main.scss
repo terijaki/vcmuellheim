@@ -146,6 +146,22 @@ h6 {
     background-attachment: scroll !important;
   }
 }
+/* ------ Announcements ------ */
+#announcements {
+  color: var(--bs-white);
+  background: var(--bs-secondary);
+  a {
+    color: var(--bs-white);
+    font-weight: 600;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  p:last-child {
+    margin: 0;
+  }
+}
+
 
 /* ------ Intro Section ------ */
 #intro {
