@@ -5,7 +5,7 @@
   {% endif %}
 {% endfor %}
 {% if open_announcement == true %}
-<section id="announcement" class="section-bg pt-5 pb-3 bg-secondary text-white">
+<section id="announcements" class="section-bg p-5">
   <div class="container text-center dark">
     {% assign sorted-announcements = (site.announcements | sort: 'date') %}
     {% for announcement in sorted-announcements %}
