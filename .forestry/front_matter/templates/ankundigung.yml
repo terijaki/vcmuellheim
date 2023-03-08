@@ -24,7 +24,7 @@ fields:
 - name: end
   type: datetime
   label: Ende
-  description: Bis wann (einschließlich) soll die Ankündigung angezeigt werden?
+  description: Ab wann soll die Ankündigung nicht mehr angezeigt werden?
   config:
     required: false
     date_format: DD.MM.YYYY
