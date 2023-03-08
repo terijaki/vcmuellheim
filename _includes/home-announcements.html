@@ -1,6 +1,6 @@
 {% if site.announcements.size > 0 %}
 {% for announcement in site.announcements %}
-  {% if announcement.end <= site.time %}
+  {% if announcement.end >= site.time %}
     {% assign open_announcement = true %}
   {% endif %}
 {% endfor %}
@@ -9,7 +9,9 @@
   <div class="container text-center dark">
     {% assign sorted-announcements = (site.announcements | sort: 'date') %}
     {% for announcement in sorted-announcements %}
-      {{ announcement.content }}
+      {% unless announcement.end < site.time %}
+        {{ announcement.content }}
+      {% endunless %}
     {% endfor %}
   </div>
 </section>
