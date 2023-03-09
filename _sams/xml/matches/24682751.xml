@@ -49,9 +49,9 @@
     <name>Bezirkspokal West Damen</name>
     <shortName>BezPokal West Da</shortName>
     <type>Competition</type>
-        <updated>2023-03-09 02:04:03.697</updated>
-        <structureUpdated>2023-03-09 02:04:03.697</structureUpdated>
-        <resultsUpdated></resultsUpdated>
+        <updated>2023-03-09 19:53:59.339</updated>
+        <structureUpdated>2023-03-09 10:19:16.796</structureUpdated>
+        <resultsUpdated>2023-03-09 19:53:59.339</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -112,5 +112,33 @@
                     </location>
                     <referees>
                     </referees>
+                        <results>
+                            <winner>2</winner>
+                            <setPoints>0:3</setPoints>
+                            <ballPoints>58:75</ballPoints>
+                            <sets>
+                                        <set>
+                                            <number>1</number>
+                                            <points>20:25</points>
+                                            <winner>TEAM2</winner>
+                                            <duration>20</duration>
+                                        </set>
+                                        <set>
+                                            <number>2</number>
+                                            <points>22:25</points>
+                                            <winner>TEAM2</winner>
+                                            <duration>26</duration>
+                                        </set>
+                                        <set>
+                                            <number>3</number>
+                                            <points>16:25</points>
+                                            <winner>TEAM2</winner>
+                                            <duration>25</duration>
+                                        </set>
+                            </sets>
+                            <verified>false</verified>
+                        </results>
+                        <spectators>12</spectators>
+                        <netDuration>71</netDuration>
                 </match>
         </matches>
