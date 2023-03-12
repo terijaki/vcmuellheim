@@ -290,7 +290,7 @@ jobs:
           name: matches
           path: ${{ env.MATCHES_TARGET }}
 
-      - name: Commit Matching
+      - name: Commit Matches
         if: steps.download_matches.conclusion == 'success'
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
