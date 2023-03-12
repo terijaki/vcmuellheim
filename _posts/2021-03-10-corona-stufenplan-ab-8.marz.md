@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Corona Stufenplan ab 8. März
 thumbnail: ''
-photoalbum: ''
-
 ---
 Die Bundesregierung hat eine neue Regelungen beschlossen, die seit dem 8 März gelten und auch den Sportbetrieb betreffen.
 

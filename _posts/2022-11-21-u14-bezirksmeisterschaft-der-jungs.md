@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: U14 Bezirksmeisterschaft der Jungs
 thumbnail: "/upload/2022/11/21/img-20220710-wa0079.jpg"
-photoalbum: ''
-
 ---
 Am 5.11.2022 fanden die U14 Bezirksmeisterschaft im Rotteck-Gymnasium in Freiburg statt. Daran teilgenommen haben die altbekannten Mannschaften "FT1844 Freiburg 1", "FT1844 Freiburg 2", "USC Freiburg", "VC Offenburg 1", welche für ihre ausgezeichnete Jugendarbeit bekannt sind. Der "VC Minseln" sowie der "VC Müllheim" komplementierten das Teilnehmerfeld. Die Jungs des "VC Müllheim" haben dort an Erfahrungen gewonnen und ihre ersten Spiele als Schiedsgericht absolviert.
 

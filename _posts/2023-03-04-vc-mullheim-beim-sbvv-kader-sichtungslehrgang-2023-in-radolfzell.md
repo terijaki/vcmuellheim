@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: SBVV-Kader-Sichtungslehrgang 2023 in Radolfzell
 thumbnail: ''
-photoalbum: ''
-
 ---
 Als wir ankamen haben wir damit begonnen kleine Gruppen zu bilden, die sich selbst aufwärmten, während die Trainer Übungen vorbereiteten. Herr Raabe erklärte uns den Ablauf des Programms und erzählte von den vorherigen Jahren.
 

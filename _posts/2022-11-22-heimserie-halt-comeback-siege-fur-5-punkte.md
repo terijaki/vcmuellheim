@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Heimserie hält, Comeback-Siege für 5 Punkte!
 thumbnail: "/upload/2022/11/22/img_0991.jpg"
-photoalbum: ''
-
 ---
 Vergangenen Samstag, 12.11.2022, trat die 1. Herrenmannschaft des VC Müllheims zum zweiten Heimspiel der Saison an. Begrüßen durften sie den VC Haslach und die SV Bohlingen. Nach der Niederlage gegen überraschend starke Volleyballer aus Radolfzell, wollte man maximal viele Punkte Zuhause holen, bevor es im Dezember dreimal in Folge zu Auswärtsspielen geht.
 

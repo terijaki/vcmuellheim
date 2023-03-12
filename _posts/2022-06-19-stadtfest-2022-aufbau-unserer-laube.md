@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: 'Stadtfest 2022: Aufbau'
 thumbnail: "/upload/2022/06/19/img_1835.jpeg"
-photoalbum: ''
-
 ---
 Das Stadtfest in Müllheim findet wieder statt und feiert in diesem Jahr seinen 50. Geburtstag.
 

@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Wechsel bei der Mitgliederverwaltung
 thumbnail: "/upload/2023/01/27/renatewechsel.jpg"
-photoalbum: ''
-
 ---
 Im März 2006 hatte **Renate Kleinbub** die Mitgliederverwaltung übernommen und nun fast 17 Jahre verlässlich und gewissenhaft betreut, wobei die Arbeit durch steigende Mitgliederzahlen und verschiedene neue Beitragsstrukturen und Anforderungen des Datenschutzes immer aufwändiger wurde.
 

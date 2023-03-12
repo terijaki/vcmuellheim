@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Festliche Grüße
 thumbnail: ''
-photoalbum: ''
-
 ---
 Liebe Vereinsmitglieder und Volleyballfreunde! 
 

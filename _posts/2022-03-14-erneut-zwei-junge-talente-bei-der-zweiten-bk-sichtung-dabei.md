@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Erneut zwei junge Talente bei der zweiten BK-Sichtung dabei
 thumbnail: ''
-photoalbum: ''
-
 ---
 Am Tag vor dem erfolgreichen Bezirksturnier unserer neuen U14 Mädchen, konnten erneut zwei junge Talente der U12 bei der Sichtung des Bezirkskaders teilnehmen und ihr bisher erlerntes Können unter Beweis stellen.
 

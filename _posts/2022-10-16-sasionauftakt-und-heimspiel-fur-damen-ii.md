@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Sasionauftakt und Heimspiel für Damen II
 thumbnail: "/upload/2022/10/16/damen2_3.jpeg"
-photoalbum: ''
-
 ---
 Am vergangenen Sonntag hat für unsere Damen II die neue Saison begonnen mit einem Heimspiel begonnen.
 

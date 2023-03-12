@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Erfolgreiche Bezirksmeisterschaftsendrunde U14 Mädchen in Müllheim
 thumbnail: "/upload/2023/01/19/20230115_112736.jpg"
-photoalbum: ''
-
 ---
 Am Sonntag 15.01.23 um 8:15 Uhr trafen sich die Jugendtrainer Dominik, Stephanie und Klaus zum Abkleben der Felder und spannen der Netze in Halle II nachdem freundlicherweise die Mannschaft unserer Herren II bereits am Vortag, nach ihrem Spieltag, die Netzanlagen schon aufgebaut hatte. Hierfür herzlichen Dank für die Unterstützung! Ab 9:30 Uhr trudelte ein Gast-Team nach dem anderen ein. Zu Gast waren Teams vom Ft Freiburg (4 Teams), VC Offenburg (2 Teams), SV Waldkirch, SvO Rieselfeld und TV Gundelfingen. Der VC Müllheim stellte 2 Teams. Nach einer kurzen Trainerbesprechung, in dem nochmals alle Modalitäten der Meisterschaft besprochen wurden, legte man um 10:30 Uhr, nach dem Spielplan, den dankenswerterweise Andrea Greguric von der Geschäftsstelle des SBVV bereits erstellt hatte, los. In 27 spannenden Spielen setzten sich die Favoriten durch. So belegten die ersten drei Plätze die Jugendmannschaften der Südbadischen Bundesligsten VC Offenburg 1 (Bezirksmeister), Ft Freiburg 1 (Vizemeister) und VC Offenburg 2 (3. Platz), die sich somit für die Südbadische Meisterschaft qualifizierten. 
 

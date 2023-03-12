@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Unsere Damen sind startklar!
 thumbnail: "/upload/2020/07/20/damentrikotsponsor.jpeg"
-photoalbum: ''
-
 ---
 Nachdem wir bereits [berichteten](/neues-outfit-fur-unsere-jugend/), dass unsere Jugend künftig an diversen Turnieren teilnehmen wir als Vorbereitung für den Ligasport, dürfen wir nun auch stolz unsere Damenmannschaft im neuen Outfit vorstellen!
 

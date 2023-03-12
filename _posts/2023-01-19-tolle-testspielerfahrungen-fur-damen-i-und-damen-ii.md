@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Tolle Testspielerfahrungen für Damen I und Damen II
 thumbnail: "/upload/2023/01/19/img-20230118-wa0033.jpg"
-photoalbum: ''
-
 ---
 Am 18.01.2023 hatten Damen I und II einen Trainingsspielabend in Müllheim. Dafür kamen die Gundelfinger Damen II zu uns zu Besuch.
 

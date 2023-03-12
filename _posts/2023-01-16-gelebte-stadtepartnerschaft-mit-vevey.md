@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: 'Gelebte Städtepartnerschaft mit Vevey '
 thumbnail: "/upload/2023/01/16/img_20221015_161755_edit_102979426989490.jpg"
-photoalbum: ''
-
 ---
 ...noch im alten Jahr erhielt unser Verein einen Gegenbesuch von 9 Volleyballer/innen aus der Müllheimer Partnerstadt Vevey am Genfer See. Die letztjährigen Besuche hatten ihnen wohl so gut gefallen, dass sie dieses Mal für insgesamt 3 Tage anreisten.
 

@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Jugend-Workshop in Mulhouse
 thumbnail: "/upload/2022/11/24/img_20221119_142537.jpg"
-photoalbum: ''
-
 ---
 Mit insgesamt 13 Kindern und Jugendlichen und den Betreuern Andreas Albrecht und Alexander Derr folgten wir letzten Samstag einer Einladung des französischen Damen-Erstligaclubs Mulhouse, der uns mit etlichen Jugendtrainern erwartete.
 

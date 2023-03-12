@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Bezirksmeisterschaften U14 weibliche Jugend am 15 Januar
 thumbnail: ''
-photoalbum: ''
-
 ---
 Am Sonntag, den 15. Januar 2023 um 10.30 Uhr (Hallenöffnung 9.30 Uhr) findet die Endrunde der Bezirksmeisterschaften der weiblichen U14 Jugend im Modus 4 gegen 4 in der Sporthalle II hinter dem Markgräfler Gymnasium in Müllheim statt.
 

@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Hygienekonzept Sporthalle II und Rosenburg-Schule Stand 08.09.2020
 thumbnail: ''
-photoalbum: ''
-
 ---
 Voraussetzung für die Wiedereröffnung des Sportbetriebs in den Sportvereinen sind die Vorgaben der Coronaschutzverordnung des Landes Baden-Württemberg. Auch wenn einige Maßnahmen uns beeinträchtigen, appellieren wir an alle, diese einzuhalten, damit es zu einem reibungslosen Verlauf der Saison kommt und weitere Lockerungen erreicht werden können. Wir empfehlen in diesem Zusammenhang auch die Nutzung der [Corona-App](https://www.bundesregierung.de/breg-de/themen/corona-warn-app).
 

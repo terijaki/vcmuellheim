@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Lehrreicher Heimspieltag für Herren II
 thumbnail: "/upload/2023/01/25/img-20230121-wa0069.jpg"
-photoalbum: ''
-
 ---
 Eine Woche nach dem ersten Heimspieltag dieser Saison folgte für die Herren II am 21.01.23 direkt der nächste Heimspieltag. Dieses Mal warteten aber die beiden Erstplatzierten TV Staufen und TV Zell-Weierbach als Gegner. 
 

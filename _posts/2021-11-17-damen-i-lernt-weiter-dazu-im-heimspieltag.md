@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Damen I lernt weiter dazu im Heimspieltag
 thumbnail: "/upload/2021/11/17/img-20211114-wa0003.jpg"
-photoalbum: ''
-
 ---
 Am Samstag, den 13.11 hatten wir, die Damen 1 des VC Müllheim unser zweites Heimspiel in dieser Saison.
 

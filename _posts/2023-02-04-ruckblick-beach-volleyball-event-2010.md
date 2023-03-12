@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: 'Rückblick: Beach-Volleyball Event 2010'
 thumbnail: "/upload/2023/02/04/mhfeiert2010c.jpg"
-photoalbum: ''
-
 ---
 > Als sich der Markgräfler Platz in eine Sandlandschaft verwandelt hatte und sommerlich bekleidete Sportler mit dem Ball spielten, hatte das Beach-Volleyball-Event seine Premiere.
 >

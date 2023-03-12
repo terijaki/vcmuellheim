@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Vorbereitung läuft!
 thumbnail: "/upload/2021/09/02/image01.jpeg"
-photoalbum: ''
-
 ---
 Endlich fliegt der Ball wieder durch die Halle und die erste Woche Training ist überstanden. Unsere Herrenmannschaften feierten das mit einem gemeinsamen Training in der Halle 2 und anschließendem Grillen an den neuen, von uns mit angelegten, Beachplätzen in Britzingen.
 

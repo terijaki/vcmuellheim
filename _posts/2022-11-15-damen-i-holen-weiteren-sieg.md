@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Damen I holen weiteren Sieg
 thumbnail: "/upload/2022/11/15/img-20221113-wa0152.jpg"
-photoalbum: ''
-
 ---
 Am vergangenen Sonntag den 13.11.22 durften wir von der Damen I zu unserem nächsten Spieltag nach Staufen fahren. Dort trafen wir auf den TV Staufen II und die SG Breisach-Gündlingen II. 
 

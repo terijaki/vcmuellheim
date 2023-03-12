@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Herren II gewinnen beide Spiele in Merzhausen!
 thumbnail: "/upload/2021/11/01/img-20211030-wa0022.jpg"
-photoalbum: ''
-
 ---
 Nach einem gelungen Auftakt vor zwei Wochen konnten wir unsere Stärken erneut unter Beweis stellen. Wir fuhren nach Freiburg/Merzhausen und trafen dort auf den VSG Mundingen und VfR Merzhausen 2. Beide Spiele konnten die Jungs für sich mit 3:0 entscheiden.  
  In unserem Team macht sich die sehr gute und seit ein paar Jahren andauernde Jugendarbeit bemerkbar. Es ist eine gute Mischung aus erfahrenen Spielern und sehr jungen Spielern, die eine schöne Dynamik mit sich bringt.  

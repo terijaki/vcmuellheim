@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Damen I halten weiter Platz 3 in der Tabelle
 thumbnail: "/upload/2022/12/13/img-20221210-wa0011.jpg"
-photoalbum: ''
-
 ---
 Am Samstag, den 10.12.2022 hatten wir, die Damen I des VC Müllheim unser drittes Heimspiel in dieser Saison.
 

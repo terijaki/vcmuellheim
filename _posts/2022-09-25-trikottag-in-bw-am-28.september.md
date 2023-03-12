@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Trikottag in BW am 28. September
 thumbnail: ''
-photoalbum: ''
-
 ---
 Auch dieses Jahr rufen Landessportverband BW, Badischer Sportbund Freiburg, Badischer Sportbund Nord und Württembergischer Landessportbund wieder dazu auf am 28 September (das ist schon kommenden Mittwoch!) am Trikottag teilzunehmen! Denn jedes Trikot, jeder Trainingsanzug, jedes Shirt mit Vereinsname ist die beste Werbung für unseren Verein und den Sport in Baden-Württemberg!
 

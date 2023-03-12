@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: U16 Mädchen des VC Müllheim erreichen an der Bezirksmeisterschaft Platz 7
 thumbnail: "/upload/2022/11/09/20221106_131433.jpg"
-photoalbum: ''
-
 ---
 Am vergangenen Sonntag, den 6.11.22 fanden in Freiburg die Bezirksmeisterschaften des Bezirks West des SBVV im Altersbereich der U16 Mädchen statt.
 

@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Weihnachtsgrüße
 thumbnail: ''
-photoalbum: ''
-
 ---
 Das Jahr 2022 neigt sich dem Ende zu. Nach vielen Beschränkungen durch die Pandemie konnten wir dieses Jahr wieder freier leben, das Leben genießen und auch unserem geliebten Volleyballsport nachgehen. Doch das Jahr 2022 war auch geprägt durch Leid und Entbehrungen vieler Menschen. Um so wichtiger ist Zusammenhalt und Hilfsbereitschaft. In unserem Verein geht es weiterhin voran. Die Erwachsenenmannschaften, die Freizeitler und erfreulicherweise auch die Jugendbereiche hatten sehr viel Zulauf und zunehmend sportliche Erfolge.
 

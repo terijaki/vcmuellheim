@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Heimspiel Performance
 thumbnail: "/upload/2023/01/30/img_4307.jpg"
-photoalbum: ''
-
 ---
 Am Wochenende begrüßten wir (1. Herren) den TG Tuttlingen, gefolgt von den Unterseevolleys Radolfzell.
 

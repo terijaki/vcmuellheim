@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Kadersichtung für unsere Jugend
 thumbnail: "/upload/2021/12/18/img-20211120-wa0002.jpg"
-photoalbum: ''
-
 ---
 Am 20.11.2021 hatten Louisa und Mirja aus der VCM Jugend die Möglichkeit, in Freiburg am Sichtungslehrgang für den neuen Bezirkskader weiblich Jahrgang 2010/2011, teilzunehmen.
 

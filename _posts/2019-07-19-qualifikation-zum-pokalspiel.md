@@ -4,8 +4,6 @@ posted-on-social: true
 title: Qualifikation zum Pokalspiel
 thumbnail: "/upload/2019/07/19/MVIMG_20190718_194905.jpg"
 excerpt_separator: "<!-- more -->"
-photoalbum: ''
-
 ---
 Gestern war es soweit. Gefühlt noch mitten in der Saisonpause, hatten wir unser Qualifikationsspiel zum Landespokal. Gespielt wurde in in der [Clara-Grundwald-Schule](https://goo.gl/maps/J8MZoQnpKe169j5R8) gegen den [SvO Reiselfeld](https://www.svo-rieselfeld.de/index.php/abteilungen/volleyball/abteilungsinfos-volleyball).<!-- more -->
 

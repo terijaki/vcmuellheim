@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Spielbericht Herren 2
 thumbnail: "/upload/2022/11/15/photo-2022-11-13-19-06-23.jpg"
-photoalbum: ''
-
 ---
 Am 13.11. spielte die Herrenmannschaft VC Müllheim 2 auswärts gegen den TSV Alemannia Zähringen und gegen FT 1844 Freiburg 4. Beides sind Teams aus der oberen Hälfte der Liga, die Spieler machten sich also auf schwierige Spiele gefasst. 
 

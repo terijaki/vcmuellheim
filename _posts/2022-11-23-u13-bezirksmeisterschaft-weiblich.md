@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: U13 Bezirksmeisterschaft weiblich
 thumbnail: "/upload/2022/11/23/20221119_121344.jpg"
-photoalbum: ''
-
 ---
 Platz 11 von 17 Teams
 

@@ -5,8 +5,6 @@ posted-on-social: true
 title: Auf die Räder, fertig, los! – ab dem 10.09.2021 tritt ganz Müllheim beim STADTRADELN
   an
 thumbnail: ''
-photoalbum: ''
-
 ---
 Auftaktveranstaltung am Sonntag, den 25.07.2021
 

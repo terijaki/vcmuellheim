@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Damen 1 des VCM halten ihren 3. Platz
 thumbnail: "/upload/2023/02/07/img-20230204-wa0045.jpg"
-photoalbum: ''
-
 ---
 Am vergangenen Samstag, den 04.02.23 ging es für unsere Damen 1 Mannschaft über die Berge nach Todtnau. Dort trafen wir auf den TV Todtnau, so wie auch auf unsere Damen 2. 
 

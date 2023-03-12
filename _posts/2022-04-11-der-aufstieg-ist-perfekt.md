@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Der Aufstieg ist perfekt!!!
 thumbnail: "/upload/2022/04/11/25f348f2-408e-4d8a-94ec-97b9c1e6f974.jpeg"
-photoalbum: ''
-
 ---
 Die Saison startete Anfang Oktober mit zwei starken Siegen zum Beginn des Ligabetriebs.
 

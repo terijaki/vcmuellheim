@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Weihnachtsturnier des VC Müllheim
 thumbnail: "/upload/2022/12/06/img-20221204-wa0063.jpg"
-photoalbum: ''
-
 ---
 **Einfach ein toller spaßiger Tag!**
 

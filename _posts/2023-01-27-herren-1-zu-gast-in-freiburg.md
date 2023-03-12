@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Herren 1 zu Gast in Freiburg
 thumbnail: "/upload/2023/01/27/img_4110.jpg"
-photoalbum: ''
-
 ---
 Am Samstag den 21 Januar war die Herren 1 zu Gast in Freiburg für ihr Verbandsligaspiel gegen den USC Freiburg 2.
 

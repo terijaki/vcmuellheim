@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Herren II holen zwei Punkte beim Nachhol-Spieltag
 thumbnail: "/upload/2023/01/18/whatsapp-image-2023-01-14-at-23-48-03.jpg"
-photoalbum: ''
-
 ---
 Am Samstag, 14.01.2023 hatten die Herren II ihren Nachhol-Spieltag zuhause gegen die VBG Efringen-Kirchen und den VC Weil II. Die Motivation war groß, denn es mussten dringend Punkte her gegen die direkten Konkurrenten im Kampf um den sicheren Klassenerhalt.
 

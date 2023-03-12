@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Testspiele der Damen I in Gundelfingen
 thumbnail: "/upload/2022/07/30/5b1932e3-1765-4017-9924-b1a00c6071a0.jpeg"
-photoalbum: ''
-
 ---
 Am 22.07.2022 hatten wir in Gundelfingen ein Testspiel. Am Nachmittag versammelten wir uns alle und sind gemeinsam losgezogen. In der Halle angekommen wurden wir wärmstens von den Trainer/innen der Gundelfinger*innen empfangen.
 

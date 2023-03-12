@@ -4,8 +4,6 @@ excerpt_separator: "<!--more-->"
 posted-on-social: true
 title: Danke Sportatex
 thumbnail: ''
-photoalbum: ''
-
 ---
 ![](/upload/2021/12/05/20211121_122446.jpg)
 
