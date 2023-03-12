@@ -24,6 +24,10 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                         <div class="ergebnis-liste">
 
                             <xsl:for-each select="matches/match">
+                            <xsl:sort select="substring(date, 7, 4)" order="descending" data-type="number"/>
+                            <xsl:sort select="substring(date, 4, 2)" order="descending" data-type="number"/>
+                            <xsl:sort select="substring(date, 1, 2)" order="descending" data-type="number"/>
+                            <xsl:sort select="number" order="descending" data-type="number"/>
                             <xsl:if test="results/winner > 0">
 
                             <div class="match col-12 row text-nowrap m-0 py-2">
@@ -84,6 +88,10 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                         <div class="termine-liste">
                                 
                             <xsl:for-each select="matches/match">
+                            <xsl:sort select="substring(date, 7, 4)" order="ascending" data-type="number"/>
+                            <xsl:sort select="substring(date, 4, 2)" order="ascending" data-type="number"/>
+                            <xsl:sort select="substring(date, 1, 2)" order="ascending" data-type="number"/>
+                            <xsl:sort select="number" order="ascending" data-type="number"/>
                             <xsl:if test="not(results/winner)">
                             <div class="match col-12 row text-nowrap m-0 py-2">
                             <xsl:attribute name="match-id">
