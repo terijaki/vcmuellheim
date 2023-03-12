@@ -14,11 +14,10 @@ Zum Zwecke der Außendarstellung werden Fotos der Mitglieder und Fotos von Veran
 Die Veröffentlichung personenbezogener Daten im Internet oder in lokalen, regionalen oder überregionalen Printmedien erfolgt zur Wahrung berechtigter Interessen des Vereins (vgl. Artikel 6 Abs. 1 lit. f) DSGVO). Das berechtigte Interesse des Vereins besteht in der Information der Öffentlichkeit durch Berichtserstattung über die Aktivitäten des Vereins. In diesem Rahmen werden personenbezogene Daten einschließlich von Bildern der Teilnehmer zum Beispiel im Rahmen der Berichterstattung über Ereignisse des Vereins veröffentlicht.
 
 
-## **Ihre Daten**
+## **Ihr Besuch auf unserer Webseite**
 Wir verwenden <u>keine</u> Cookies.  
-Wir speichern und verarbeiten <u>keine</u> Ihrer Daten.  
+Wir speichern oder verarbeiten <u>keine</u> Daten.  
 Wir sind <u>keine</u> Marketing Agentur.  
 Wir haben <u>kein</u> Interesse an Ihren Daten oder Ihrem Browserverlauf.  
-
 
 <div class="print-page"><a href="#" class="print-btn" onclick="window.print();return false;"><i class="fa fa-print" aria-hidden="true"></i> Seite drucken</a></div>
