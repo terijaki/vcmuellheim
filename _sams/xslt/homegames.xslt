@@ -16,7 +16,7 @@
             <xsl:text>number: "</xsl:text><xsl:value-of select="number"/>"
             <xsl:text>date: "</xsl:text><xsl:value-of select="date"/>"
             <xsl:text>time: "</xsl:text><xsl:value-of select="time"/>"
-            <xsl:text>datetime: "</xsl:text><xsl:value-of select="date"/><xsl:text> </xsl:text><xsl:value-of select="time"/>"
+            <xsl:text>datetime: "</xsl:text><xsl:value-of select="substring(date, 7, 4)"/>-<xsl:value-of select="substring(date, 4, 2)"/>-<xsl:value-of select="substring(date, 1, 2)"/>T<xsl:value-of select="time"/>"
             <xsl:text>league: "</xsl:text><xsl:value-of select="matchSeries/name"/>"
             <xsl:text>host: "</xsl:text><xsl:value-of select="host/name"/>"
             <xsl:text>team1: "</xsl:text><xsl:value-of select="team[1]/name"/>"
