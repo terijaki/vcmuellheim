@@ -21,8 +21,4 @@ Wir sind <u>keine</u> Marketing Agentur.
 Wir haben <u>kein</u> Interesse an Ihren Daten oder Ihrem Browserverlauf.  
 
 
-## **YouTube**
-Für die Darstellung von Videoinhalten nutzt unsere Website in einigen Beiträgen YouTube. Anbieter des Videoportals ist die YouTube, LLC, 901 Cherry Ave., San Bruno, CA 94066, USA. Bei Aufruf einer Seite mit integriertem YouTube-Video wird eine Verbindung zu den Servern von YouTube hergestellt. YouTube erfährt hierdurch, welche unserer Seiten Sie aufgerufen haben. YouTube kann Ihr Surfverhalten direkt Ihrem persönlichen Profil zuzuordnen, sollten Sie in Ihrem YouTube Konto eingeloggt sein. Durch vorheriges Ausloggen haben Sie die Möglichkeit, dies zu unterbinden. Die Nutzung von YouTube erfolgt im Interesse einer ansprechenden Darstellung unserer Online-Angebote. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f DSGVO dar. Einzelheiten zum Umgang mit Nutzerdaten finden Sie in der Datenschutzerklärung von YouTube unter: [https://www.google.de/intl/de/policies/privacy](https://www.google.de/intl/de/policies/privacy).
-
-
 <div class="print-page"><a href="#" class="print-btn" onclick="window.print();return false;"><i class="fa fa-print" aria-hidden="true"></i> Seite drucken</a></div>
