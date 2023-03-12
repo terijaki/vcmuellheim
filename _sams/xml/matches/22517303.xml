@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <matches xmlns="http://sams-server.de/api/xml/ns/matches" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://sams-server.de/api/xml/ns/matches matches.xsd">
                 <match>
-                    <id>22806982</id> 
+                    <id>22806982</id>
                     <uuid>6847a5f3-2fcd-4eef-a1eb-b01eae07c33a</uuid>
                     <number>1</number>
                     <date>09.10.2022</date>
