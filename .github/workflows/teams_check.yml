@@ -30,7 +30,7 @@ jobs:
           for team in $(ls $TEAMS_FOLDER)
             do
               this_team_id=$(grep -e "sbvv_id" $team | sed 's/[^0-9]*//g')
-              check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
+              check_club=$(grep -e "$TEAMS_FOLDER$this_team_id" $SAMS_CLUB_FILE)
               check_existence=${#check_club}
               if [[ -z "$check_club" ]]; then
                 echo "$team cannot be found"
