@@ -29,16 +29,16 @@ jobs:
         run: |
           for team in $(ls $TEAMS_FOLDER)
             do
-              echo $team
               this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER$team" | sed 's/[^0-9]*//g')
+              echo "$team ($this_team_id)""
               if [[ -z "$this_team_id" ]]; then
                 check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
                 check_existence=${#check_club}
               fi
               if [[ -z "$check_club" ]]; then
-                echo "$team no longer present in club.xml!"
+                echo "$team ($this_team_id) no longer present in club.xml!"
               else
-                echo "$team still present in club.xml"
+                echo "$team ($this_team_id) still present in club.xml"
               fi
             done
 
