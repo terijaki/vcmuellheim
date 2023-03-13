@@ -50,4 +50,4 @@ jobs:
 #        with:
 #          title: Team ID removed from club.xml
 #          token: ${{secrets.GITHUB_TOKEN}}
-#          body: Workflow failed for commit ${{github.sha}}
+#          body: TEAM ID of TEAM-NAME was no longer found in club.xml
