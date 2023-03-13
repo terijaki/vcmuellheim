@@ -29,6 +29,7 @@ jobs:
       - name: Check Team still exists
         id: check-teams
         run: |
+          echo "Starting process to check if team ID need attention..."
           outdated=""
           for team in $(ls $TEAMS_FOLDER)
             do
