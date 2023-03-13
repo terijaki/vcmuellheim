@@ -30,7 +30,7 @@ jobs:
         id: check-teams
         run: |
           echo "Starting process to check if team ID need attention..."
-          outdated=""
+          outdated=("")
           for team in $(ls $TEAMS_FOLDER)
             do
               this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER$team" | sed 's/[^0-9]*//g')
