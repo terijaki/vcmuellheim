@@ -42,9 +42,9 @@ jobs:
               fi
             done
 
-      - uses: nashmaniac/create-issue-action@v1.1
-        name: Create Issue Action
-        with:
-          title: Team ID removed from club.xml
-          token: ${{secrets.GITHUB_TOKEN}}
-          body: Workflow failed for commit ${{github.sha}}
+#      - uses: nashmaniac/create-issue-action@v1.1
+#        name: Create Issue Action
+#        with:
+#          title: Team ID removed from club.xml
+#          token: ${{secrets.GITHUB_TOKEN}}
+#          body: Workflow failed for commit ${{github.sha}}
