@@ -30,7 +30,7 @@ jobs:
           for team in $(ls $TEAMS_FOLDER)
             do
               this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER$team" | sed 's/[^0-9]*//g')
-              echo "$team ($this_team_id)""
+              echo "$team ($this_team_id)"
               if [[ -z "$this_team_id" ]]; then
                 check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
                 check_existence=${#check_club}
@@ -42,19 +42,3 @@ jobs:
               fi
             done
 
-      - name: Setup Git Config
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-
-      - name: Git Commit Team Update
-        continue-on-error: true # don't throw an error as there won't always be changes
-        run: |
-          git add "$TEAMS_FOLDER"
-          git commit -m "Team ID no longer in club.xml"
-
-      - name: Git Push
-        continue-on-error: true # don't throw an error as there won't always be changes
-        run: |
-          git pull --rebase
-          git push origin --all --quiet
