@@ -48,6 +48,7 @@ jobs:
           echo ${outdated[@]}
           if [[ -z "$outdated" ]]; then
             outdated=$(echo ${outdated[@]} | sed -e 's! !,!g')
+            echo $outdated
             echo "outdated=[$outdated]" >> $GITHUB_OUTPUT
           else
             echo "outdated=none" >> $GITHUB_OUTPUT
