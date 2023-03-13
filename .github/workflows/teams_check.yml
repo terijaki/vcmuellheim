@@ -1,7 +1,7 @@
 name: Verify Team IDs
 
 concurrency:
-  group: "sams"
+  group: "teams-check"
   cancel-in-progress: false
 
 on:
