@@ -17,6 +17,8 @@ env:
 jobs:
   Verify-Teams:
     runs-on: ubuntu-latest
+    outputs:
+      outdated-teams: ${{ steps.check-teams.outputs.outdated }} # receives the outdated team info
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v3
@@ -45,6 +47,13 @@ jobs:
               fi
             done
 
+#  Notify:
+#    needs: Verify-Teams
+#    continue-on-error: true # if one update fails, the flow should continue
+#    strategy:
+#      matrix:
+#       ids: ${{fromJSON(needs.Verify-Teams.outputs.outdated-teams)}}
+#    steps:
 #      - uses: nashmaniac/create-issue-action@v1.1
 #        name: Create Issue Action
 #        with:
