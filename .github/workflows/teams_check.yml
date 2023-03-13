@@ -49,7 +49,7 @@ jobs:
               fi
             done
             
-            if [[ -z "$outdated" ]]; then
+            if [[ "$outdated" -gt 6 ]]; then
               outdated=$(echo $outdated | sed -e 's! !,!g')
               echo "[$outdated]" >> $GITHUB_OUTPUT
             fi
