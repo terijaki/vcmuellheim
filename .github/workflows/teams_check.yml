@@ -40,20 +40,39 @@ jobs:
 
                 if [[ -z "$check_club" ]]; then
                   echo "$team ($this_team_id) no longer present in club.xml!"
+                  outdated+=("$team::$this_team_id")
                 else
                   echo "$team ($this_team_id) still present in club.xml"
                 fi
 
               fi
             done
+            
+            if [[ -z "$outdated" ]]; then
+              outdated=$(echo $outdated | sed -e 's! !,!g')
+              echo "[$outdated]" >> $GITHUB_OUTPUT
+            fi
+        # loop through files in the teams folder and check for sbvv_id
+        # for every Id found, check if the ID is still present in the SAMS club.xml
+        # when the ID is no longer present, add it to an array
+        # the array is then converted from bash array to JSON array, which serves as a matrix for the follow up job 
 
-#  Notify:
-#    needs: Verify-Teams
-#    continue-on-error: true # if one update fails, the flow should continue
-#    strategy:
-#      matrix:
-#       ids: ${{fromJSON(needs.Verify-Teams.outputs.outdated-teams)}}
-#    steps:
+
+
+  Create-Issue:
+    runs-on: ubuntu-latest
+    needs: Verify-Teams
+    continue-on-error: true # if one update fails, the flow should continue
+    strategy:
+      matrix:
+       team: ${{fromJSON(needs.Verify-Teams.outputs.outdated-teams)}}
+    steps:
+      - name: debug
+        run: |
+          echo ${{matrix.team}}
+# separate filename and team id via regex
+
+
 #      - uses: nashmaniac/create-issue-action@v1.1
 #        name: Create Issue Action
 #        with:
