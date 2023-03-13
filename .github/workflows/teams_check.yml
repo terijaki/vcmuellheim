@@ -1,0 +1,55 @@
+name: Verify Team IDs
+
+concurrency:
+  group: "sams"
+  cancel-in-progress: false
+
+on:
+  push:
+    paths:
+      - "_sams/xml/club.xml"
+  workflow_dispatch:
+
+env:
+  SAMS_CLUB_FILE: _sams/xml/club.xml # the file containing the current team IDs
+  TEAMS_FOLDER: _teams/ # the folder containing the teams on our website
+
+jobs:
+  Verify-Teams:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Check Team still exists
+        id: check-teams
+        run: |
+          for team in $(ls $TEAMS_FOLDER)
+            do
+              this_team_id=$(grep -e "sbvv_id" $team | sed 's/[^0-9]*//g')
+              check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
+              check_existence=${#check_club}
+              if [[ -z "$check_club" ]]; then
+                echo "$team cannot be found"
+              fi
+            done
+
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: Git Commit Team Update
+        continue-on-error: true # don't throw an error as there won't always be changes
+        run: |
+          git add "$TEAMS_FOLDER"
+          git commit -m "Team ID no longer in club.xml"
+
+      - name: Git Push
+        continue-on-error: true # don't throw an error as there won't always be changes
+        run: |
+          git pull --rebase
+          git push origin --all --quiet
