@@ -31,7 +31,7 @@ jobs:
             do
               this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER$team" | sed 's/[^0-9]*//g')
               echo "$team ($this_team_id)"
-              if [[ -z "$this_team_id" ]]; then
+              if [[ "$this_team_id" -gt 3 ]]; then
                 check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
                 check_existence=${#check_club}
               fi
@@ -42,3 +42,9 @@ jobs:
               fi
             done
 
+      - uses: nashmaniac/create-issue-action@v1.1
+        name: Create Issue Action
+        with:
+          title: Team ID removed from club.xml
+          token: ${{secrets.GITHUB_TOKEN}}
+          body: Workflow failed for commit ${{github.sha}}
