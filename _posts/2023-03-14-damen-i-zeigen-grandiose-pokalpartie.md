@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Damen I zeigen grandiose Pokalpartie
 thumbnail: "/upload/2023/03/14/img-20230309-wa0051.jpg"
 gallery:
