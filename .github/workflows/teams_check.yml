@@ -82,4 +82,4 @@ jobs:
         with:
           title: Team ID in ${{steps.log.outputs.team_name}} is outdated
           token: ${{secrets.GITHUB_TOKEN}}
-          body: "The SAMS ID (${{steps.log.outputs.sams_id}}) stored in ${{steps.log.outputs.team_name}} could not be found in club.xml and may need to be updated. (Ref: ${{github.ref}} Sha: ${{github.sha}})""
+          body: "The SAMS ID (${{steps.log.outputs.sams_id}}) stored in ${{steps.log.outputs.team_name}} could not be found in club.xml and may need to be updated. (Ref: ${{github.ref}} Sha: ${{github.sha}})"
