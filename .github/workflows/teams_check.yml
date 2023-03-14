@@ -68,19 +68,18 @@ jobs:
       matrix:
        team: ${{fromJSON(needs.Verify-Teams.outputs.outdated-teams)}}
     steps:
-      - name: debug
+      - name: Log & Separate Data
+        id: log
         run: |
           team_name=$(cut -d '#' -f1 <<< "${{matrix.team}}")
-          team_id=$(cut -d '#' -f2 <<< "${{matrix.team}}")
-          echo "The Team ID ($team_id) stored in $team_name is no longer present in SAMS!"
+          sams_id=$(cut -d '#' -f2 <<< "${{matrix.team}}")
+          echo "The Team ID ($sams_id) stored in $team_name is no longer present in SAMS!"
+          echo "team_name=$team_name" >> $GITHUB_OUTPUT
+          echo "sams_id=$sams_id" >> $GITHUB_OUTPUT
 
-# separate filename and team id via regex
-# ([^=]*)::([^=]*)
-
-
-#      - uses: nashmaniac/create-issue-action@v1.1
-#        name: Create Issue Action
-#        with:
-#          title: Team ID removed from club.xml
-#          token: ${{secrets.GITHUB_TOKEN}}
-#          body: TEAM ID of TEAM-NAME was no longer found in club.xml
+      - uses: nashmaniac/create-issue-action@v1.1
+        name: Create Issue Action
+        with:
+          title: Team ID in ${{steps.log.outputs.team_name}} is outdated
+          token: ${{secrets.GITHUB_TOKEN}}
+          body: "The SAMS ID (${{steps.log.outputs.sams_id}}) stored in ${{steps.log.outputs.team_name}} could not be found in club.xml and may need to be updated. (Ref: ${{github.ref}} Sha: ${{github.sha}})""
