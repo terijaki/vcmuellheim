@@ -77,9 +77,9 @@ jobs:
           echo "team_name=$team_name" >> $GITHUB_OUTPUT
           echo "sams_id=$sams_id" >> $GITHUB_OUTPUT
 
-      - uses: nashmaniac/create-issue-action@v1.1
+      - uses: dacbd/create-issue-action@main
         name: Create Issue Action
         with:
+          token: ${{ github.token }}
           title: Team ID in ${{steps.log.outputs.team_name}} is outdated
-          token: ${{secrets.GITHUB_TOKEN}}
           body: The SAMS ID (${{steps.log.outputs.sams_id}}) stored in ${{steps.log.outputs.team_name}} could not be found in club.xml and may need to be updated. ${{github.sha}}
