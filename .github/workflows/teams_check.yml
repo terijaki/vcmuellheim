@@ -31,7 +31,6 @@ jobs:
         run: |
           echo "Starting process to check if team ID need attention..."
           outdated=("")
-          echo "outdated=" >> $GITHUB_OUTPUT
           for team in $(ls $TEAMS_FOLDER)
             do
               this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER$team" | sed 's/[^0-9]*//g')
