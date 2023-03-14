@@ -25,8 +25,8 @@ fields:
     required: true
 - type: file
   name: thumbnail
-  label: thumbnail
   description: "<em>(optional)</em>"
+  label: Thumbnail
 - name: gallery
   type: image_gallery
   config: {}
