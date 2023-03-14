@@ -56,13 +56,13 @@ jobs:
         # the array is then converted from bash array to JSON array, which serves as a matrix for the follow up job 
 
   Create-Issue:
-    runs-on: ubuntu-latest
     needs: Verify-Teams
     if: needs.Verify-Teams.outputs.outdated-teams != ''
     continue-on-error: true # if issue cretion fails, the others should continue
     strategy:
       matrix:
        team: ${{fromJSON(needs.Verify-Teams.outputs.outdated-teams)}}
+    runs-on: ubuntu-latest
     steps:
       - name: Log & Separate Data
         id: log
