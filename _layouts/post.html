@@ -25,11 +25,8 @@ layout: default
             <div class="col-12 post">
               <div class="wow fadeInNone">
                 <div class="box wow fadeInBottom" data-wow-duration="0.5s">
-                  {% if page.thumbnail.size > 0 %}<img class="post-thumbnail pb-3" src="{{ page.thumbnail }}" alt="" />{% endif %} {{ content }} {% if page.photoalbum contains "http" %}
-                  <p class="post-photoalbum">
-                    <a href="{{ page.photoalbum }}" target="_blank"><i class="fa fa-photo"></i> Fotogalerie öffnen</a>
-                  </p>
-                  {% endif %}
+                  {% if page.thumbnail.size > 0 %}<img class="post-thumbnail pb-3" src="{{ page.thumbnail }}" alt="" />{% endif %} {{ content }}
+                  {% for image in page.gallery %}<img src="{{ image }}">{% endfor %}
                 </div>
 
                 <div class="social-sharing d-flex justify-content-center d-none">
