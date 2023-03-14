@@ -41,7 +41,7 @@ jobs:
                   echo "$team ($this_team_id) no longer present in club.xml!"
                 else
                   echo "$team ($this_team_id) still present in club.xml"
-                  outdated+=("\"$team::$this_team_id\"")
+                  outdated+=("\"$team#$this_team_id\"")
                 fi
               fi
             done
@@ -70,8 +70,12 @@ jobs:
     steps:
       - name: debug
         run: |
-          echo ${{matrix.team}}
+          team_name=$(cut -d '#' -f1 <<< "${{matrix.team}}")
+          team_id=$(cut -d '#' -f2 <<< "${{matrix.team}}")
+          echo "The Team ID ($team_id) stored in $team_name is no longer present in SAMS!"
+
 # separate filename and team id via regex
+# ([^=]*)::([^=]*)
 
 
 #      - uses: nashmaniac/create-issue-action@v1.1
