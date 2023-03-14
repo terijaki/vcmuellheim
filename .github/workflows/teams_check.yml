@@ -31,6 +31,7 @@ jobs:
         run: |
           echo "Starting process to check if team ID need attention..."
           outdated=("")
+          echo "outdated=" >> $GITHUB_OUTPUT
           for team in $(ls $TEAMS_FOLDER)
             do
               this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER$team" | sed 's/[^0-9]*//g')
@@ -49,8 +50,6 @@ jobs:
           if [[ -z "$outdated" ]]; then
             outdated=$(echo ${outdated[@]} | sed -e 's! !,!g')
             echo "outdated=[$outdated]" >> $GITHUB_OUTPUT
-          else
-            echo "outdated=none" >> $GITHUB_OUTPUT
           fi
         # loop through files in the teams folder and check for sbvv_id
         # for every Id found, check if the ID is still present in the SAMS club.xml
@@ -60,7 +59,7 @@ jobs:
   Create-Issue:
     runs-on: ubuntu-latest
     needs: Verify-Teams
-    if: needs.Verify-Teams.outputs.outdated-teams != 'none'
+    if: needs.Verify-Teams.outputs.outdated-teams != ''
     continue-on-error: true # if issue cretion fails, the others should continue
     strategy:
       matrix:
