@@ -4,7 +4,7 @@
                     <id>24913639</id>
                     <uuid>d5672294-36c6-458d-8f74-6fde1ded6513</uuid>
                     <number>2</number>
-                    <date>06.03.2023</date>
+                    <date>27.03.2023</date>
                     <time>19:00</time>
                     <delayPossible>false</delayPossible>
                     <decidingMatch>false</decidingMatch>
@@ -49,8 +49,8 @@
     <name>Bezirkspokal West Herren</name>
     <shortName>BezPokal West He</shortName>
     <type>Competition</type>
-        <updated>2023-03-13 23:06:53.839</updated>
-        <structureUpdated>2023-03-13 23:06:53.839</structureUpdated>
+        <updated>2023-03-14 15:08:53.589</updated>
+        <structureUpdated>2023-03-14 15:08:53.589</structureUpdated>
         <resultsUpdated>2023-03-12 18:50:22.001</resultsUpdated>
         <season>
             <id>22514239</id>
