@@ -31,11 +31,11 @@ permalink: /fotos/
 
               {% if thumbnail_exist == true %}
                 <a href="{{ file.path }}" target="_blank" class="d-inline-block foto">
-                  <img src="{{ thumbnail }}" style="width:260px;height:200px;" class="rounded-3 m-2 loadingspinner" name="{{ file.basename }}" loading="lazy" />
+                  <img src="{{ thumbnail }}" style="width:260px;height:200px;" class="rounded-2 m-2 loadingspinner" name="{{ file.basename }}" loading="lazy" />
                 </a>
               {% else %}
                 <a href="{{ file.path }}" target="_blank" class="d-inline-block foto">
-                  <img src="{{ file.path }}" style="width:260px;height:200px;" class="rounded-3 m-2 loadingspinner" name="{{ file.basename }}" loading="lazy" />
+                  <img src="{{ file.path }}" style="width:260px;height:200px;" class="rounded-2 m-2 loadingspinner" name="{{ file.basename }}" loading="lazy" />
                 </a>
               {% endif %}
 
