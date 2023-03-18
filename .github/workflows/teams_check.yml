@@ -28,6 +28,7 @@ jobs:
 
       - name: Check Team still exists
         id: check-teams
+        continue-on-error: true
         run: |
           echo "Starting process to check if team ID need attention..."
           outdated=("")
