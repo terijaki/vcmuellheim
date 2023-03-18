@@ -1,5 +1,4 @@
 {% assign foto_list = '' %}
-{% assign foto_counter = '0' %}
 {% assign galleryfolder = '/upload/' %}
 {% assign thumbnailfolder = '/thumbnails/gallery/' %}
 
@@ -13,7 +12,7 @@
   {% endif %}
 {% endfor %}
 
-{% unless foto_counter > '100' %}
+{% unless foto_counter %}
   {% for file in site.static_files %}
       {% if file.path contains galleryfolder %}
           {% assign low_extname = file.extname | downcase  %}
