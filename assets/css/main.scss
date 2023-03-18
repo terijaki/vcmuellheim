@@ -337,6 +337,15 @@ h6 {
   background-position: center;
 }
 
+/* ------ Fotos Teaser ------ */
+#fotos-teaser {
+  .foto {
+    background-size: cover;
+    background-position: center center;
+    padding: 0;
+  }
+}
+
 /* ------ Beachvolleyball ------ */
 .beachvolleyball-image {
   height: 100%;
@@ -1067,6 +1076,8 @@ h6 {
   background-size: cover;
   border-radius: 1rem;
 }
+/* ------ Fotos ------ */
+
 
 /* ------ Forestry CMS ------ */
 div[data-tooltip="Previews Server is Stopped"] {
