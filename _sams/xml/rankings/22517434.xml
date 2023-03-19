@@ -8,9 +8,9 @@
     <name>Bezirksliga Herren</name>
     <shortName>bzl n h</shortName>
     <type>League</type>
-        <updated>2023-03-19 13:55:47.456</updated>
+        <updated>2023-03-19 16:11:01.024</updated>
         <structureUpdated>2023-03-18 09:58:37.013</structureUpdated>
-        <resultsUpdated>2023-03-19 13:55:47.456</resultsUpdated>
+        <resultsUpdated>2023-03-19 16:11:01.024</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -155,22 +155,22 @@
                         </team>
 
                         <place>2</place>
-                        <matchesPlayed>15</matchesPlayed>
-                        <wins>12</wins>
+                        <matchesPlayed>16</matchesPlayed>
+                        <wins>13</wins>
                         <losses>3</losses>
-                            <points>36</points>
+                            <points>39</points>
 
-                        <setPoints>38:15</setPoints>
-                        <setWinScore>38</setWinScore>
-                        <setLoseScore>15</setLoseScore>
-                        <setPointDifference>23</setPointDifference>
-                        <setQuotient>2,533</setQuotient>
+                        <setPoints>41:16</setPoints>
+                        <setWinScore>41</setWinScore>
+                        <setLoseScore>16</setLoseScore>
+                        <setPointDifference>25</setPointDifference>
+                        <setQuotient>2,562</setQuotient>
 
-                        <ballPoints>1243:1038</ballPoints>
-                        <ballWinScore>1243</ballWinScore>
-                        <ballLoseScore>1038</ballLoseScore>
-                        <ballPointDifference>205</ballPointDifference>
-                        <ballQuotient>1,197</ballQuotient>
+                        <ballPoints>1343:1113</ballPoints>
+                        <ballWinScore>1343</ballWinScore>
+                        <ballLoseScore>1113</ballLoseScore>
+                        <ballPointDifference>230</ballPointDifference>
+                        <ballQuotient>1,207</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -178,7 +178,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>3:1</result>
-                                        <count>4</count>
+                                        <count>5</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:2</result>
@@ -212,22 +212,22 @@
                         </team>
 
                         <place>3</place>
-                        <matchesPlayed>15</matchesPlayed>
+                        <matchesPlayed>16</matchesPlayed>
                         <wins>12</wins>
-                        <losses>3</losses>
+                        <losses>4</losses>
                             <points>36</points>
 
-                        <setPoints>39:17</setPoints>
-                        <setWinScore>39</setWinScore>
-                        <setLoseScore>17</setLoseScore>
-                        <setPointDifference>22</setPointDifference>
-                        <setQuotient>2,294</setQuotient>
+                        <setPoints>40:20</setPoints>
+                        <setWinScore>40</setWinScore>
+                        <setLoseScore>20</setLoseScore>
+                        <setPointDifference>20</setPointDifference>
+                        <setQuotient>2,000</setQuotient>
 
-                        <ballPoints>1286:1147</ballPoints>
-                        <ballWinScore>1286</ballWinScore>
-                        <ballLoseScore>1147</ballLoseScore>
-                        <ballPointDifference>139</ballPointDifference>
-                        <ballQuotient>1,121</ballQuotient>
+                        <ballPoints>1361:1247</ballPoints>
+                        <ballWinScore>1361</ballWinScore>
+                        <ballLoseScore>1247</ballLoseScore>
+                        <ballPointDifference>114</ballPointDifference>
+                        <ballQuotient>1,091</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -247,7 +247,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>1:3</result>
-                                        <count>1</count>
+                                        <count>2</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
@@ -314,6 +314,63 @@
                     </ranking>
                     <ranking>
                         <team>
+                            <id>22517650</id>
+                            <uuid>627951f2-9a12-4fec-a867-ecbbe3e573e0</uuid>
+                            <name>TSV Al. Freiburg-Zähringen 3</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>TSV Alemannia Freiburg-Zähringen</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>5</place>
+                        <matchesPlayed>16</matchesPlayed>
+                        <wins>6</wins>
+                        <losses>10</losses>
+                            <points>20</points>
+
+                        <setPoints>29:35</setPoints>
+                        <setWinScore>29</setWinScore>
+                        <setLoseScore>35</setLoseScore>
+                        <setPointDifference>-6</setPointDifference>
+                        <setQuotient>0,829</setQuotient>
+
+                        <ballPoints>1376:1403</ballPoints>
+                        <ballWinScore>1376</ballWinScore>
+                        <ballLoseScore>1403</ballLoseScore>
+                        <ballPointDifference>-27</ballPointDifference>
+                        <ballQuotient>0,981</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>3</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>3</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>5</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>2</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
                             <id>22517629</id>
                             <uuid>3309dfd8-d56d-4ba2-b978-313e9d0a389c</uuid>
                             <name>Sport vor Ort Rieselfeld</name>
@@ -325,7 +382,7 @@
                             </club>
                         </team>
 
-                        <place>5</place>
+                        <place>6</place>
                         <matchesPlayed>16</matchesPlayed>
                         <wins>6</wins>
                         <losses>10</losses>
@@ -366,63 +423,6 @@
                                     <matchResult>
                                         <result>0:3</result>
                                         <count>3</count>
-                                    </matchResult>
-                            </resultTypes>
-                    </ranking>
-                    <ranking>
-                        <team>
-                            <id>22517650</id>
-                            <uuid>627951f2-9a12-4fec-a867-ecbbe3e573e0</uuid>
-                            <name>TSV Al. Freiburg-Zähringen 3</name>
-                            <shortName></shortName>
-                            <clubCode></clubCode>
-                            <club>
-                                <name>TSV Alemannia Freiburg-Zähringen</name>
-                                <shortName></shortName>
-                            </club>
-                        </team>
-
-                        <place>6</place>
-                        <matchesPlayed>15</matchesPlayed>
-                        <wins>5</wins>
-                        <losses>10</losses>
-                            <points>17</points>
-
-                        <setPoints>26:34</setPoints>
-                        <setWinScore>26</setWinScore>
-                        <setLoseScore>34</setLoseScore>
-                        <setPointDifference>-8</setPointDifference>
-                        <setQuotient>0,765</setQuotient>
-
-                        <ballPoints>1282:1316</ballPoints>
-                        <ballWinScore>1282</ballWinScore>
-                        <ballLoseScore>1316</ballLoseScore>
-                        <ballPointDifference>-34</ballPointDifference>
-                        <ballQuotient>0,974</ballQuotient>
-                            <resultTypes>
-                                    <matchResult>
-                                        <result>3:0</result>
-                                        <count>2</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:1</result>
-                                        <count>2</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:2</result>
-                                        <count>1</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>2:3</result>
-                                        <count>3</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>1:3</result>
-                                        <count>5</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>0:3</result>
-                                        <count>2</count>
                                     </matchResult>
                             </resultTypes>
                     </ranking>
@@ -497,22 +497,22 @@
                         </team>
 
                         <place>8</place>
-                        <matchesPlayed>14</matchesPlayed>
+                        <matchesPlayed>15</matchesPlayed>
                         <wins>3</wins>
-                        <losses>11</losses>
+                        <losses>12</losses>
                             <points>12</points>
 
-                        <setPoints>17:35</setPoints>
-                        <setWinScore>17</setWinScore>
-                        <setLoseScore>35</setLoseScore>
-                        <setPointDifference>-18</setPointDifference>
-                        <setQuotient>0,486</setQuotient>
+                        <setPoints>18:38</setPoints>
+                        <setWinScore>18</setWinScore>
+                        <setLoseScore>38</setLoseScore>
+                        <setPointDifference>-20</setPointDifference>
+                        <setQuotient>0,474</setQuotient>
 
-                        <ballPoints>1049:1168</ballPoints>
-                        <ballWinScore>1049</ballWinScore>
-                        <ballLoseScore>1168</ballLoseScore>
-                        <ballPointDifference>-119</ballPointDifference>
-                        <ballQuotient>0,898</ballQuotient>
+                        <ballPoints>1136:1262</ballPoints>
+                        <ballWinScore>1136</ballWinScore>
+                        <ballLoseScore>1262</ballLoseScore>
+                        <ballPointDifference>-126</ballPointDifference>
+                        <ballQuotient>0,900</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -532,7 +532,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>1:3</result>
-                                        <count>2</count>
+                                        <count>3</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
