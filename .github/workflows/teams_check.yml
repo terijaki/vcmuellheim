@@ -40,7 +40,7 @@ jobs:
                 check_existence=${#check_club}
                 if [[ -z "$check_club" ]]; then
                   echo "$team ($this_team_id) no longer present in club.xml!"
-                  outdated+=("\"$team#$this_team_id\"")
+                  outdated+=(\"$team#$this_team_id\")
                 else
                   echo "$team ($this_team_id) still present in club.xml"
                 fi
