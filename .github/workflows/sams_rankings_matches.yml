@@ -300,6 +300,7 @@ jobs:
       - name: Download Individual Matches
         id: download_individual_matches
         if: contains(needs.Process-Matches.outputs.upload_required, 'yes')
+        continue-on-error: true # sometimes there are no individual match updates
         uses: actions/download-artifact@v3
         with:
           name: individual_matches
