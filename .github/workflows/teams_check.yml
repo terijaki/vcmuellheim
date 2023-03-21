@@ -35,9 +35,9 @@ jobs:
           for team in $(ls $TEAMS_FOLDER)
             do
               this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER$team" | sed 's/[^0-9]*//g')
-              if [[ "$this_team_id" -gt 5 ]]; then
+              if [[ -n "$this_team_id" ]]; then
                 check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
-                if [[ "$check_club" -gt 5 ]]; then
+                if [[ -n "$check_club" ]]; then
                   echo "$team ($this_team_id) no longer present in club.xml"
                 else
                   echo "$team ($this_team_id) still present in club.xml"
