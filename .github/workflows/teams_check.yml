@@ -60,7 +60,7 @@ jobs:
 
   Create-Issue:
     needs: Verify-Teams
-    if: contains(fromJSON(needs.Verify-Teams.outputs.outdated-teams), none) == false
+    if: contains(fromJSON(needs.Verify-Teams.outputs.outdated-teams), 'none') == false
     continue-on-error: true # if issue cretion fails, the others should continue
     strategy:
       matrix:
