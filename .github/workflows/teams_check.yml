@@ -35,7 +35,7 @@ jobs:
           for team in $(ls $TEAMS_FOLDER)
             do
               this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER$team" | sed 's/[^0-9]*//g')
-              if [[ "$this_team_id" -gt 3 ]]; then
+              if [[ "$this_team_id" -gt 5 ]]; then
                 check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
                 check_existence=${#check_club}
                 if [[ -z "$check_club" ]]; then
@@ -47,7 +47,7 @@ jobs:
               fi
             done
           echo ${outdated[@]}
-          if [[ -z "$outdated" ]]; then
+          if [[ "$outdated" -gt 5 ]]; then
             outdated=$(echo ${outdated[@]} | sed -e 's! !,!g')
             echo "outdated=[$outdated]" >> $GITHUB_OUTPUT
           else
