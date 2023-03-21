@@ -7,7 +7,7 @@ trainings-ort1: Sporthalle II Teil E
 trainings-map1: https://goo.gl/maps/g3XhvCS9gpR2
 trainer-name1: Thomas Seywald
 trainer-email1: thomas@vcmuellheim.de
-sbvv_id: 22521759
+sbvv_id: 22521758
 foto: "/upload/2019-04-03-bild1.jpg"
 alter: ''
 trainings-zeit2: ''
