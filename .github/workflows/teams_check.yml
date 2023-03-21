@@ -38,7 +38,7 @@ jobs:
               if [[ "$this_team_id" -gt 3 ]]; then
                 check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
                 check_existence=${#check_club}
-                if [[ -z "$check_club" ]]; then
+                if [[ $check_existence < 1 ]]; then
                   echo "$team ($this_team_id) no longer present in club.xml!"
                   outdated+=("\"$team#$this_team_id\"")
                 else
