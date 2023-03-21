@@ -37,8 +37,7 @@ jobs:
               this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER$team" | sed 's/[^0-9]*//g')
               if [[ $this_team_id -gt 3 ]]; then
                 check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
-                echo "debugging: $check_club"
-                if [[ -z $check_club ]]; then
+                if [[ $check_club -gt 3 ]]; then
                   echo "$team ($this_team_id) no longer present in club.xml"
                 else
                   echo "$team ($this_team_id) still present in club.xml"
