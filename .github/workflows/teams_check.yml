@@ -32,26 +32,27 @@ jobs:
         run: |
           echo "Starting process to check if team ID need attention..."
           outdated=("")
-          for team in $(ls $TEAMS_FOLDER);
-            echo "debug team: $team"
-            do;
+          for team in $(ls $TEAMS_FOLDER)
+            do
               this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER$team" | sed 's/[^0-9]*//g')
-              echo "debug id: $this_team_id"
-              if [[ $this_team_id -gt 3 ]]; then
+              if [[ "$this_team_id" -gt 3 ]]; then
                 check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
-                if [[ -z $check_club ]]; then
-                  echo "$team ($this_team_id) no longer present in club.xml"
+                check_existence=${#check_club}
+                if [[ -z "$check_club" ]]; then
+                  echo "$team ($this_team_id) no longer present in club.xml!"
+                  outdated+=("\"$team#$this_team_id\"")
                 else
                   echo "$team ($this_team_id) still present in club.xml"
-                fi;
-              fi;
-            done;
+                fi
+              fi
+            done
           echo ${outdated[@]}
-          if [[ $outdated -gt 5 ]]; then
+          if [[ -z "$outdated" ]]; then
             outdated=$(echo ${outdated[@]} | sed -e 's! !,!g')
             echo "outdated=[$outdated]" >> $GITHUB_OUTPUT
           else
-            echo "outdated=[\"none\"]" >> $GITHUB_OUTPUT
+            echo "outdated=[\"none\]" >> $GITHUB_OUTPUT
+            exit 1
           fi
         # loop through files in the teams folder and check for sbvv_id
         # for every Id found, check if the ID is still present in the SAMS club.xml
