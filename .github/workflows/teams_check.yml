@@ -32,20 +32,20 @@ jobs:
         run: |
           echo "Starting process to check if team ID need attention..."
           outdated=("")
-          for team in $(ls $TEAMS_FOLDER)
+          for team in $(ls $TEAMS_FOLDER);
             echo "debug team: $team"
-            do
+            do;
               this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER$team" | sed 's/[^0-9]*//g')
-              echo "debug id: $team"
+              echo "debug id: $this_team_id"
               if [[ $this_team_id -gt 3 ]]; then
                 check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
                 if [[ -z $check_club ]]; then
                   echo "$team ($this_team_id) no longer present in club.xml"
                 else
                   echo "$team ($this_team_id) still present in club.xml"
-                fi
-              fi
-            done
+                fi;
+              fi;
+            done;
           echo ${outdated[@]}
           if [[ $outdated -gt 5 ]]; then
             outdated=$(echo ${outdated[@]} | sed -e 's! !,!g')
