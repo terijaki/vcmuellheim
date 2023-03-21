@@ -35,10 +35,10 @@ jobs:
           for team in $(ls $TEAMS_FOLDER)
             do
               this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER$team" | sed 's/[^0-9]*//g')
-              if [[ -n "$this_team_id" ]]; then
+              if [[ $this_team_id -gt 3 ]]; then
                 check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
                 echo "debugging: $check_club"
-                if [[ "$check_club" -gt 3 ]]; then
+                if [[ -z $check_club ]]; then
                   echo "$team ($this_team_id) no longer present in club.xml"
                 else
                   echo "$team ($this_team_id) still present in club.xml"
@@ -46,7 +46,7 @@ jobs:
               fi
             done
           echo ${outdated[@]}
-          if [[ "$outdated" -gt 5 ]]; then
+          if [[ $outdated -gt 5 ]]; then
             outdated=$(echo ${outdated[@]} | sed -e 's! !,!g')
             echo "outdated=[$outdated]" >> $GITHUB_OUTPUT
           else
