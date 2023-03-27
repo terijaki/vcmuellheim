@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: Der letzte Spieltag dieser Saison
 thumbnail: "/upload/2023/03/27/img-20230318-wa0012.jpg"
 gallery:
