@@ -1,6 +1,7 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
+posted-on-social: true
 title: 'Letzter Spieltag und Saisonabschlussfeier für Damen I #STRIKE!'
 thumbnail: "/upload/2023/03/27/img-20230319-wa0019.jpg"
 gallery:
