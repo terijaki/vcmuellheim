@@ -31,11 +31,11 @@ Vielen Dank an unsere Trainer, die uns diese Saison begleitet haben: Dominik, Kl
 
 _Bericht von Carla Feifel_
 
-------
+***
 
 Danke gibt es auch von mir als Trainer zu sagen, an eine Mannschaft, die eine tolle Saison gespielt hat und die einfach einzigartig ist. Ich bin sehr stolz auf das, was ihr und wir gemeinsam erreicht haben!
 
-Bedanken möchte ich mich auch bei meinen Trainerkollegen Klaus, Nico und Mateo, sowie bei unserem neuen Trainerkollegen Philipp für tolle Unterstützung an Spieltagen, genauso wie im Training.
+Bedanken möchte ich mich auch bei Klaus, Nico und Mateo, sowie bei unserem neusten Mitglied Philipp für tolle Unterstützung an Spieltagen, genauso wie im Training.
 
 Bedanken möchte ich mich auch bei den Eltern, vieler Spielerinnen, die auch immer unterstützend zur Seite stehen!
 
@@ -45,7 +45,7 @@ Danke allen Spielerinnen und ich wünsche allen das Beste für eure Zukunft!
 
 _Euer Dominik_
 
-------
+***
 
 Für die Damen I des VCM spielten in dieser Saison:
 
