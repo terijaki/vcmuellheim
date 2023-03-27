@@ -1,7 +1,6 @@
 ---
 layout: post
 excerpt_separator: "<!--more-->"
-posted-on-social: true
 title: 'Letzter Spieltag und Saisonabschlussfeier für Damen I #STRIKE!'
 thumbnail: "/upload/2023/03/27/img-20230319-wa0019.jpg"
 gallery:
@@ -32,7 +31,7 @@ Vielen Dank an unsere Trainer, die uns diese Saison begleitet haben: Dominik, Kl
 
 _Bericht von Carla Feifel_
 
-\------------
+------
 
 Danke gibt es auch von mir als Trainer zu sagen, an eine Mannschaft, die eine tolle Saison gespielt hat und die einfach einzigartig ist. Ich bin sehr stolz auf das, was ihr und wir gemeinsam erreicht haben!
 
@@ -46,7 +45,7 @@ Danke allen Spielerinnen und ich wünsche allen das Beste für eure Zukunft!
 
 _Euer Dominik_
 
-\------------
+------
 
 Für die Damen I des VCM spielten in dieser Saison:
 
