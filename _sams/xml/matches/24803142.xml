@@ -49,9 +49,9 @@
     <name>Bezirkspokal West Herren</name>
     <shortName>BezPokal West He</shortName>
     <type>Competition</type>
-        <updated>2023-03-30 14:47:09.975</updated>
-        <structureUpdated>2023-03-30 14:47:09.975</structureUpdated>
-        <resultsUpdated>2023-03-27 22:38:39.595</resultsUpdated>
+        <updated>2023-04-01 12:58:46.142</updated>
+        <structureUpdated>2023-04-01 09:39:54.694</structureUpdated>
+        <resultsUpdated>2023-04-01 12:58:46.142</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -183,9 +183,9 @@
     <name>Bezirkspokal West Herren</name>
     <shortName>BezPokal West He</shortName>
     <type>Competition</type>
-        <updated>2023-03-30 14:47:09.975</updated>
-        <structureUpdated>2023-03-30 14:47:09.975</structureUpdated>
-        <resultsUpdated>2023-03-27 22:38:39.595</resultsUpdated>
+        <updated>2023-04-01 12:58:46.142</updated>
+        <structureUpdated>2023-04-01 09:39:54.694</structureUpdated>
+        <resultsUpdated>2023-04-01 12:58:46.142</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -246,6 +246,28 @@
                     </location>
                     <referees>
                     </referees>
+                        <results>
+                            <winner>1</winner>
+                            <setPoints>2:0</setPoints>
+                            <ballPoints>52:33</ballPoints>
+                            <sets>
+                                        <set>
+                                            <number>1</number>
+                                            <points>25:8</points>
+                                            <winner>TEAM1</winner>
+                                            <duration>-</duration>
+                                        </set>
+                                        <set>
+                                            <number>2</number>
+                                            <points>27:25</points>
+                                            <winner>TEAM1</winner>
+                                            <duration>-</duration>
+                                        </set>
+                            </sets>
+                            <verified>false</verified>
+                        </results>
+                        <spectators>-</spectators>
+                        <netDuration>-</netDuration>
                 </match>
                 <match>
                     <id>24913559</id>
@@ -296,9 +318,9 @@
     <name>Bezirkspokal West Herren</name>
     <shortName>BezPokal West He</shortName>
     <type>Competition</type>
-        <updated>2023-03-30 14:47:09.975</updated>
-        <structureUpdated>2023-03-30 14:47:09.975</structureUpdated>
-        <resultsUpdated>2023-03-27 22:38:39.595</resultsUpdated>
+        <updated>2023-04-01 12:58:46.142</updated>
+        <structureUpdated>2023-04-01 09:39:54.694</structureUpdated>
+        <resultsUpdated>2023-04-01 12:58:46.142</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -359,5 +381,27 @@
                     </location>
                     <referees>
                     </referees>
+                        <results>
+                            <winner>2</winner>
+                            <setPoints>0:2</setPoints>
+                            <ballPoints>14:50</ballPoints>
+                            <sets>
+                                        <set>
+                                            <number>1</number>
+                                            <points>6:25</points>
+                                            <winner>TEAM2</winner>
+                                            <duration>-</duration>
+                                        </set>
+                                        <set>
+                                            <number>2</number>
+                                            <points>8:25</points>
+                                            <winner>TEAM2</winner>
+                                            <duration>-</duration>
+                                        </set>
+                            </sets>
+                            <verified>false</verified>
+                        </results>
+                        <spectators>-</spectators>
+                        <netDuration>-</netDuration>
                 </match>
         </matches>
