@@ -8,9 +8,9 @@
     <name>Bezirkspokal West Herren</name>
     <shortName>BezPokal West He</shortName>
     <type>Competition</type>
-        <updated>2023-04-01 15:55:04.24</updated>
+        <updated>2023-04-01 18:03:24.585</updated>
         <structureUpdated>2023-04-01 09:39:54.694</structureUpdated>
-        <resultsUpdated>2023-04-01 15:55:04.24</resultsUpdated>
+        <resultsUpdated>2023-04-01 18:03:24.585</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -60,4 +60,22 @@
             <shortName></shortName>
         </association>
                 </matchSeries>
+                    <ranking>
+                        <place>3</place>
+                        <team>
+                            <id>24677744</id>
+                            <uuid>4810a750-0ac1-43ca-b32d-78b511a26d6d</uuid>
+                            <name>TV Staufen 2</name>
+                            <club>TV Staufen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place>4</place>
+                        <team>
+                            <id>24779656</id>
+                            <uuid>eab5c4b9-09c7-4e59-bfa0-599d2c0e0023</uuid>
+                            <name>Bad Säckinger Wölfe 2</name>
+                            <club>TV Bad Säckingen</club>
+                        </team>
+                    </ranking>
         </rankings>
