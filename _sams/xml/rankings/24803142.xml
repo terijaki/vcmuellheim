@@ -8,9 +8,9 @@
     <name>Bezirkspokal West Herren</name>
     <shortName>BezPokal West He</shortName>
     <type>Competition</type>
-        <updated>2023-04-01 18:03:24.585</updated>
+        <updated>2023-04-02 15:09:11.256</updated>
         <structureUpdated>2023-04-01 09:39:54.694</structureUpdated>
-        <resultsUpdated>2023-04-01 18:03:24.585</resultsUpdated>
+        <resultsUpdated>2023-04-02 15:09:11.256</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -60,6 +60,24 @@
             <shortName></shortName>
         </association>
                 </matchSeries>
+                    <ranking>
+                        <place>1</place>
+                        <team>
+                            <id>24679916</id>
+                            <uuid>cbc6dfbd-3a2c-4d5d-921a-2e717c6c4e2a</uuid>
+                            <name>TV Staufen 1</name>
+                            <club>TV Staufen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place>2</place>
+                        <team>
+                            <id>24845896</id>
+                            <uuid>a3f42866-0873-4d62-9606-e3afba686a7d</uuid>
+                            <name>Sport vor Ort Rieselfeld</name>
+                            <club>Sport vor Ort Rieselfeld</club>
+                        </team>
+                    </ranking>
                     <ranking>
                         <place>3</place>
                         <team>

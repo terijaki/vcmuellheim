@@ -8,9 +8,9 @@
     <name>Bezirkspokal West Damen</name>
     <shortName>BezPokal West Da</shortName>
     <type>Competition</type>
-        <updated>2023-04-01 22:24:36.432</updated>
+        <updated>2023-04-02 15:08:32.969</updated>
         <structureUpdated>2023-04-01 14:32:32.393</structureUpdated>
-        <resultsUpdated>2023-04-01 22:24:36.432</resultsUpdated>
+        <resultsUpdated>2023-04-02 15:08:32.969</resultsUpdated>
         <season>
             <id>22514239</id>
             <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
@@ -60,6 +60,24 @@
             <shortName></shortName>
         </association>
                 </matchSeries>
+                    <ranking>
+                        <place>1</place>
+                        <team>
+                            <id>24867363</id>
+                            <uuid>f7aebd7c-a072-42fb-a0f2-f38b811ca5f1</uuid>
+                            <name>VSG Mundingen 1</name>
+                            <club>VSG Mundingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place>2</place>
+                        <team>
+                            <id>24779643</id>
+                            <uuid>66afeb73-0443-4f88-99d1-99dbb54905de</uuid>
+                            <name>USC Freiburg 3</name>
+                            <club>USC Freiburg</club>
+                        </team>
+                    </ranking>
                     <ranking>
                         <place>3</place>
                         <team>
