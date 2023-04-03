@@ -74,7 +74,7 @@ maps: https://goo.gl/maps/Gxy1dJCWww11WNBK9
               <a href="mailto:klaus@vcmuellheim.de"><i class="fa-solid fa-envelope" aria-hidden="true"></i> klaus@vcmuellheim.de</a>
             </div>
             <div>
-              <img src="../upload/2022/06/15/klaus.jpg" class="rounded-circle img-fluid p-2" style="max-width: 250px" />
+              <img src="/img/members/klausernst.jpg" class="rounded-circle img-fluid p-2" style="max-width: 250px" />
             </div>
           </div>
         </div>
