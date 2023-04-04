@@ -26,7 +26,7 @@ thumbnail: /upload/2022/07/12/img-20220710-wa0020.jpeg
             <h3>Wann geht es los?</h3>
             Am <b>17.06.2023</b> um <b>10:30 Uhr</b> startet das Turnier.<br />Ab 9:45 Uhr ist die Halle geöffnet.
             <h3>Wo ist das Turnier?</h3>
-            Das Turnier findet in der Sporthalle II, Schwarzwaldstraße 12A, 79379 Müllheim statt.<br />Der Eingang befindet sich in einer Gasse der Bismarckstraße gegenüber des Hebel Park.<br />
+            Das Turnier findet in der Sporthalle II, Schwarzwaldstraße 12A, 79379 Müllheim statt.<br />Der Eingang befindet sich in einer Gasse der Bismarckstraße gegenüber des Hebel Parks.<br />
             Die komplette Sporthalle (Abteil A-E) steht für das Volleyballturnier zur Verfügung.
             <h3>Wie wird gespielt?</h3>
             Das Turnier wird für männlich & weiblich wie folgt aufgeteilt:
