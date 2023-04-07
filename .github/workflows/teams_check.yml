@@ -8,10 +8,10 @@ on:
   push:
     paths:
       - "_sams/xml/club.xml"
-      - ".github/workflows/teams_check.yml"
   workflow_dispatch:
 
 env:
+  GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
   SAMS_CLUB_FILE: _sams/xml/club.xml # the file containing the current team IDs
   TEAMS_FOLDER: _teams/ # the folder containing the teams on our website
 
