@@ -8,6 +8,7 @@ on:
   push:
     paths:
       - "_sams/xml/club.xml"
+      - ".github/workflows/teams_check.yml"
   workflow_dispatch:
 
 env:
