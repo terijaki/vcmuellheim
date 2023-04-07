@@ -49,7 +49,7 @@ jobs:
                 fi
               fi
             done
-          if [[ -z "$outdated" ]]; then
+          if [[ -n "$outdated" ]]; then
             outdated=$(echo ${outdated[@]} | sed -e 's! !,!g')
           else
             echo "Everything is good. 😊"
