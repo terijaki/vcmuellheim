@@ -100,6 +100,7 @@ jobs:
         if: steps.remove_id.outcome == 'success'
         run: |
           git add $TEAMS_FOLDER
+          git commit -m "SBVV ID outdated"
           git pull --quiet --rebase
           git push origin --all --quiet -f
 
