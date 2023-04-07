@@ -80,9 +80,16 @@ jobs:
         # splits the Team Name (e.g. herren1.md) and SAMS ID (e.g 123456)
         # stores values separately to be used dynamically in issue creation title and body
 
-#      - uses: dacbd/create-issue-action@main
-#        name: Create Issue Action
-#        with:
-#          token: ${{ github.token }}
-#          title: Team ID in ${{steps.log.outputs.team_name}} is outdated
-#          body: The SAMS ID (${{steps.log.outputs.sams_id}}) stored in ${{steps.log.outputs.team_name}} could not be found in club.xml and may need to be updated. ${{github.sha}}
+      - name: Remove Outdated ID
+        id: remove_id
+        run: |
+          sed -i -e "s!sbvv_id: $sams_id!sbvv_id:!g" $TEAMS_FOLDER$team_name
+        # remove the ID from the file
+
+      - uses: dacbd/create-issue-action@main
+        name: Create Issue Action
+        if: steps.remove_id.outcome == 'success'
+        with:
+          token: ${{ github.token }}
+          title: Team ID in ${{steps.log.outputs.team_name}} is outdated
+          body: The SAMS ID (${{steps.log.outputs.sams_id}}) stored in ${{steps.log.outputs.team_name}} could not be found in club.xml and may need to be updated. ${{github.sha}}
