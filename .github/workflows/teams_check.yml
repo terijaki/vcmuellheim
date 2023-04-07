@@ -78,6 +78,12 @@ jobs:
         # splits the Team Name (e.g. herren1.md) and SAMS ID (e.g 123456)
         # stores values separately to be used dynamically in issue creation title and body
 
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          
       - name: Remove Outdated ID
         id: remove_id
         run: |
