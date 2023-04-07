@@ -83,11 +83,11 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
-          
+
       - name: Remove Outdated ID
         id: remove_id
         run: |
-          sed -i -e "s!sbvv_id: $sams_id!sbvv_id:!g" $TEAMS_FOLDER$team_name
+          sed -i -e 's!sbvv_id: $sams_id!sbvv_id:!g' "$TEAMS_FOLDER$team_name"
         # remove the ID from the file
 
       - uses: dacbd/create-issue-action@main
