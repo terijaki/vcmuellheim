@@ -51,10 +51,11 @@ jobs:
             done
           if [[ -z "$outdated" ]]; then
             outdated=$(echo ${outdated[@]} | sed -e 's! !,!g')
-            echo "outdated=[$outdated]" >> $GITHUB_OUTPUT
           else
-            echo "outdated=[\"none\"]" >> $GITHUB_OUTPUT
+            echo "Everything is good. 😊"
+            outdated+=\"none\"
           fi
+          echo "outdated=[$outdated]" >> $GITHUB_OUTPUT
           echo "These require updates: ${outdated[@]}"
         # loop through files in the teams folder and check for sbvv_id
         # for every Id found, check if the ID is still present in the SAMS club.xml
