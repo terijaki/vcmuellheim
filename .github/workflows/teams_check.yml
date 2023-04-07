@@ -83,16 +83,27 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
 
       - name: Remove Outdated ID
         id: remove_id
         run: |
-          sed -i 's!sbvv_id: ${{steps.log.outputs.sams_id}}!sbvv_id:!g' "$TEAMS_FOLDER${{steps.log.outputs.team_name}}"
+          sed -i -e 's!sbvv_id: ${{steps.log.outputs.sams_id}}!sbvv_id:!g' "$TEAMS_FOLDER${{steps.log.outputs.team_name}}"
         # remove the ID from the file
+
+      - name: Git Push
+        id: git_push
+        if: steps.remove_id.outcome == 'success'
+        run: |
+          git pull --quiet --rebase
+          git push origin --all --quiet -f
 
       - uses: dacbd/create-issue-action@main
         name: Create Issue Action
-        if: steps.remove_id.outcome == 'success'
+        if: steps.git_push.outcome == 'success'
         with:
           token: ${{ github.token }}
           title: Team ID in ${{steps.log.outputs.team_name}} is outdated
