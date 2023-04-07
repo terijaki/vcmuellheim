@@ -110,7 +110,7 @@ fields:
   type: number
   label: SBVV ID
   description: 'Die Team ID wird dazu genutzt den Spielplan und die Tabelle vom SBVV
-    zu verlinken. Man findet die ID auf der <a href="https://www.sbvv-online.de/cms/startseite/verband/ueber_uns/vereine.xhtml?c4302050.view=teams&amp;c4302050.club=471&amp;c4302050.type=list"
+    zu verlinken. Man findet die ID auf der <a href="https://www.sbvv-online.de/cms/startseite/verband/ueber_uns/vereine.xhtml?c4302050.view=teams&c4302050.club=471&c4302050.type=list"
     title="" target="_blank">SBVV Vereinsseite</a> in der URL der jeweiligen Mannschaft.
     (<a href="https://vcmuellheim.de/img/sbvv-teamid-schaubild.png" title="" target="_blank">Schaubild</a>)<br><br><strong>Saisonwechsel:
     </strong>SAMS vergiebt zu jeder Saison neue IDs. Daher müssen wir diese ID zu
