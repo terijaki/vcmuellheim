@@ -39,10 +39,7 @@ jobs:
               if [[ -z "$this_team_id" ]]; then
                 echo "ℹ️ $team contains no SBVV ID"
               else
-                check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
-                check_existence=${#check_club}
-                echo $check_club
-                if [[ -z "$check_club" ]]; then
+                if [[ -z $(grep -e $this_team_id $SAMS_CLUB_FILE) ]]; then
                   echo "⛔️ $team ($this_team_id) no longer present in club.xml"
                 else
                   echo "✅ $team ($this_team_id) still present in club.xml"
