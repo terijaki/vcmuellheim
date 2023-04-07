@@ -87,7 +87,7 @@ jobs:
       - name: Remove Outdated ID
         id: remove_id
         run: |
-          sed -i -e 's!sbvv_id: $sams_id!sbvv_id:!g' "$TEAMS_FOLDER$team_name"
+          sed -i 's!sbvv_id: ${{steps.log.outputs.sams_id}}!sbvv_id:!g' "$TEAMS_FOLDER${{steps.log.outputs.team_name}}"
         # remove the ID from the file
 
       - uses: dacbd/create-issue-action@main
