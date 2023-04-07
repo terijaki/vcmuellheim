@@ -92,6 +92,7 @@ jobs:
         id: remove_id
         run: |
           file_to_update=$TEAMS_FOLDER${{steps.log.outputs.team_name}}
+          echo $file_to_update
           sed -i -e "s!${{steps.log.outputs.sams_id}}!!g" $file_to_update
         # remove the ID from the file
 
