@@ -110,5 +110,5 @@ jobs:
         with:
           token: ${{ github.token }}
           title: Team ID in ${{steps.log.outputs.team_name}} is outdated
-          body: The SAMS ID (${{steps.log.outputs.sams_id}}) stored in ${{steps.log.outputs.team_name}} could not be found in club.xml and may need to be updated. ${{github.sha}}
+          body: The SAMS ID (${{steps.log.outputs.sams_id}}) stored in ${{steps.log.outputs.team_name}} could not be found in club.xml and may need to be updated. ${{github.sha}} See https://www.sbvv-online.de/cms/startseite/verband/ueber_uns/vereine.xhtml?c4302050.view=teams&c4302050.club=471&c4302050.type=list
         # Create an issue referencing the ID removal. This serves as a todo task to get the new SBVV ID manually from their portal.
