@@ -40,9 +40,9 @@ jobs:
                 echo "ℹ️ $team contains no SBVV ID"
               else
                 if grep -q "$this_team_id" "$SAMS_CLUB_FILE"; then
-                  echo "⛔️ $team ($this_team_id) no longer present in club.xml"
-                else
                   echo "✅ $team ($this_team_id) still present in club.xml"
+                else
+                  echo "⛔️ $team ($this_team_id) no longer present in club.xml"
                 fi
               fi
             done
