@@ -35,7 +35,9 @@ jobs:
           for team in $(ls $TEAMS_FOLDER)
             do
               this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER$team" | sed 's/[^0-9]*//g')
-              if [[ "$this_team_id" -gt 3 ]]; then
+              if [[ -z "$this_team_id" ]]; then
+                echo "$team contains no SBVV ID"
+              else
                 check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
                 check_existence=${#check_club}
                 if [[ $check_existence < 1 ]]; then
