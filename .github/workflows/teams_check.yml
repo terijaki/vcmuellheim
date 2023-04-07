@@ -42,7 +42,7 @@ jobs:
                 check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
                 check_existence=${#check_club}
                 if [[ $check_existence < 1 ]]; then
-                  echo "does this work?"
+                  echo "debug message"
                 else
                   echo "✅ $team ($this_team_id) still present in club.xml"
                 fi
