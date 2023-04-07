@@ -37,22 +37,21 @@ jobs:
             do
               this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER$team" | sed 's/[^0-9]*//g')
               if [[ -z "$this_team_id" ]]; then
-                echo "$team contains no SBVV ID"
+                echo "ℹ️ $team contains no SBVV ID"
               else
                 check_club=$(grep -e $this_team_id $SAMS_CLUB_FILE)
                 check_existence=${#check_club}
                 if [[ $check_existence < 1 ]]; then
-                    echo "$team ($this_team_id) no longer present in club.xml"
+                    echo "⛔️ $team ($this_team_id) no longer present in club.xml"
                     outdated+=\"$team#$this_team_id\"
                 else
-                  echo "$team ($this_team_id) still present in club.xml"
+                  echo "✅ $team ($this_team_id) still present in club.xml"
                 fi
               fi
             done
           if [[ -n "$outdated" ]]; then
             outdated=$(echo ${outdated[@]} | sed -e 's! !,!g')
           else
-            echo "Everything is good. 😊"
             outdated+=\"none\"
           fi
           echo "outdated=[$outdated]" >> $GITHUB_OUTPUT
