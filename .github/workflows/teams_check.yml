@@ -31,7 +31,7 @@ jobs:
         id: check-teams
         continue-on-error: true
         run: |
-          echo "Starting process to check if team ID need attention..."
+          echo "Starting process to check if any team's SBVV ID needs attention..."
           outdated=("")
           for team in $(ls $TEAMS_FOLDER)
             do
