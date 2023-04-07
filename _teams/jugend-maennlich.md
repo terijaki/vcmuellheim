@@ -1,7 +1,7 @@
 ---
 layout: team
 liga: "[99] Kein Ligabetrieb"
-sbvv_id: 99521759
+sbvv_id: 
 teamname: 'Jugend U20 (männlich) '
 alter: 15-20 Jahre
 trainings-zeit1: 'Dienstags 20:00-22:00 Uhr '
