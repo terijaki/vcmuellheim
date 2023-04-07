@@ -91,11 +91,8 @@ jobs:
       - name: Remove Outdated ID
         id: remove_id
         run: |
-          file_to_update=$TEAMS_FOLDER${{steps.log.outputs.team_name}}
-          id_to_remove=${{steps.log.outputs.sams_id}}
-          echo $file_to_update
-          echo $id_to_remove
-          sed -i -e "s!${{steps.log.outputs.sams_id}}!!g" $file_to_update
+          cd $TEAMS_FOLDER
+          sed -i -e "s!${{steps.log.outputs.sams_id}}!!g" ${{steps.log.outputs.team_name}}
         # remove the ID from the file
 
       - name: Git Add & Push
