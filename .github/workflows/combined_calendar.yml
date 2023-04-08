@@ -18,7 +18,6 @@ env:
 
 jobs:
   Merge-Calendar:
-    continue-on-error: true # if issue cretion fails, the others should continue
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
