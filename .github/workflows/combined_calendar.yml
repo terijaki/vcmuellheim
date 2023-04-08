@@ -34,7 +34,8 @@ jobs:
       - name: Merge Calendar Files
         id: merge_cal
         run: |
-          cat ${{env.ICS_FOLDER}}*.ics > temp.ics | grep -v CALNAME | grep -v BEGIN:VCALENDAR | grep -v END:VCALENDAR > temp.ics
+          cat ${{env.ICS_FOLDER}}*.ics > temp.ics
+          cat temp.ics | grep -v CALNAME | grep -v BEGIN:VCALENDAR | grep -v END:VCALENDAR > temp.ics
           echo "BEGIN:VCALENDAR" > ${{env.TARGET_ICS}}
           echo "X-WR-CALNAME:Volleyballclub Müllheim" >> ${{env.TARGET_ICS}}
           cat temp.ics >> ${{env.TARGET_ICS}}
