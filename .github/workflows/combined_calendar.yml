@@ -35,17 +35,17 @@ jobs:
       - name: Merge Calendar Files
         id: merge_cal
         run: |
-          cat $ICS_FOLDER*.ics > temp.ics | grep -v CALNAME | grep -v BEGIN:VCALENDAR | grep -v END:VCALENDAR > temp.ics
-          echo "BEGIN:VCALENDAR" > $TARGET_ICS
-          echo "X-WR-CALNAME:Volleyballclub Müllheim" >> $TARGET_ICS
-          cat temp.ics >> $TARGET_ICS
-          echo "END:VCALENDAR" >> $TARGET_ICS
+          cat ${{env.ICS_FOLDER}}*.ics > temp.ics | grep -v CALNAME | grep -v BEGIN:VCALENDAR | grep -v END:VCALENDAR > temp.ics
+          echo "BEGIN:VCALENDAR" > ${{env.TARGET_ICS}}
+          echo "X-WR-CALNAME:Volleyballclub Müllheim" >> ${{env.TARGET_ICS}}
+          cat temp.ics >> ${{env.TARGET_ICS}}
+          echo "END:VCALENDAR" >> ${{env.TARGET_ICS}}
         # overwrites the merged calendar file with data from all other ics (presumably)
 
       - name: Git Add & Push
         id: git_push
         if: steps.merge_cal.outcome == 'success'
         run: |
-          git add $TARGET_ICS
+          git add ${{env.TARGET_ICS}}
           git commit -m "Combined Calender update [skip ci]"
           git push origin --all --quiet -f
