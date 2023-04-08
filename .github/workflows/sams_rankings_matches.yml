@@ -18,7 +18,8 @@ env:
   RANKINGS_TARGET: _rankings/
   MATCHES_TARGET: _matches/
   INDIVIDUAL_MATCHES_TARGET: _spielergebnisse/
-  ICS_TARGET: ics/
+  ICS_TARGET: ics/ # the folder containing all ics files
+  ICS_COMBINED_TARGET: ics/all.ics # the target for the merged calendar
 
 jobs:
 
@@ -348,6 +349,18 @@ jobs:
         with:
           name: ics
           path: ${{ env.ICS_TARGET }}
+
+      - name: Merge Calendar Files
+        if: steps.download_ics.conclusion == 'success'
+        id: merge_cal
+        run: |
+          cat ${{env.ICS_TARGET}}*.ics > temp1.ics
+          cat temp1.ics | grep -v CALNAME | grep -v BEGIN:VCALENDAR | grep -v END:VCALENDAR > temp2.ics
+          echo "BEGIN:VCALENDAR" > ${{env.ICS_COMBINED_TARGET}}
+          echo "X-WR-CALNAME:Volleyballclub Müllheim" >> ${{env.ICS_COMBINED_TARGET}}
+          cat temp2.ics >> ${{env.ICS_COMBINED_TARGET}}
+          echo "END:VCALENDAR" >> ${{env.ICS_COMBINED_TARGET}}
+        # overwrites the merged calendar file with data from all other ics (presumably)
 
       - name: Commit Calender Files
         if: steps.download_ics.conclusion == 'success'
