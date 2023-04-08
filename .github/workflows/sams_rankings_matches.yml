@@ -321,6 +321,7 @@ jobs:
       - name: Commit Combined Matches
         id: git_push
         if: steps.combined_matches_xslt.outcome == 'success'
+        continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git add ${{env.MATCHES_COMBINED_SOURCE}}
           git commit -m "XML update"
