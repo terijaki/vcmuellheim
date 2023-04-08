@@ -34,10 +34,10 @@ jobs:
       - name: Merge Matches Files
         id: merge_matches
         run: |
-          cat ${{env.XML_SOURCES}}*.xml > temp.xml
-          cat temp.xml | grep -v '<?xml' | grep -v '<matches' | grep -v '</matches>' > temp.xml
+          cat ${{env.XML_SOURCES}}*.xml > temp1.xml
+          cat temp1.xml | grep -v '<?xml' | grep -v '<matches' | grep -v '</matches>' > temp2.xml
           echo '<?xml version="1.0" encoding="UTF-8"?><matches>' > ${{env.COMBINED_MATCHES}}
-          cat temp.xml >> ${{env.COMBINED_MATCHES}}
+          cat temp2.xml >> ${{env.COMBINED_MATCHES}}
           echo '</matches>' >> ${{env.COMBINED_MATCHES}}
 
       - name: Git Add & Push
