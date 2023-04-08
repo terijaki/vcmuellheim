@@ -1,0 +1,51 @@
+name: Combined Calender
+
+concurrency:
+  group: "ics-merge"
+  cancel-in-progress: false
+
+on:
+  push:
+    paths:
+      - "ics/*.ics"
+      - "!ics/all.ics"
+  workflow_dispatch:
+
+env:
+  GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
+  ICS_FOLDER: ics/ # the folder containing all ics files
+  TARGET_ICS: ics/all.ics # the target for the merged calendar
+
+jobs:
+  Merge-Calendar:
+    continue-on-error: true # if issue cretion fails, the others should continue
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ env.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: Merge Calendar Files
+        id: merge_cal
+        run: |
+          cat $ICS_FOLDER*.ics > temp.ics | grep -v CALNAME | grep -v BEGIN:VCALENDAR | grep -v END:VCALENDAR > temp.ics
+          echo "BEGIN:VCALENDAR" > $TARGET_ICS
+          echo "X-WR-CALNAME:Volleyballclub Müllheim" >> $TARGET_ICS
+          cat temp.ics >> $TARGET_ICS
+          echo "END:VCALENDAR" >> $TARGET_ICS
+        # overwrites the merged calendar file with data from all other ics (presumably)
+
+      - name: Git Add & Push
+        id: git_push
+        if: steps.merge_cal.outcome == 'success'
+        run: |
+          git add $TARGET_ICS
+          git commit -m "Combined Calender update [skip ci]"
+          git push origin --all --quiet -f
