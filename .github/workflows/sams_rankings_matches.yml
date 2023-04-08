@@ -367,7 +367,7 @@ jobs:
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git add "${{env.ICS_TARGET}}"
-          git commit -m "new or updated ics file [skip ci]"
+          git commit -m "new or updated ics file"
 
       - name: Git Push
         continue-on-error: true # don't throw an error as there won't always be changes
