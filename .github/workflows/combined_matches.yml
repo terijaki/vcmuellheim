@@ -14,7 +14,8 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
   XML_SOURCES: _sams/xml/matches/ # the folder containing all SAMS xml source files
-  COMBINED_MATCHES: _sams/xml/all_matches.xml # the target for the merged xml
+  COMBINED_XML: _sams/xml/combined_matches.xml # the target for the merged xml
+  COMBINED_MATCHES: _pages/termine.md # the output file which will be rendered on the page
 
 jobs:
   Merge-Calendar:
@@ -36,14 +37,23 @@ jobs:
         run: |
           cat ${{env.XML_SOURCES}}*.xml > temp1.xml
           cat temp1.xml | grep -v '<?xml' | grep -v '<matches' | grep -v '</matches>' > temp2.xml
-          echo '<?xml version="1.0" encoding="UTF-8"?><matches>' > ${{env.COMBINED_MATCHES}}
-          cat temp2.xml >> ${{env.COMBINED_MATCHES}}
-          echo '</matches>' >> ${{env.COMBINED_MATCHES}}
+          echo '<?xml version="1.0" encoding="UTF-8"?><matches>' > ${{env.COMBINED_XML}}
+          cat temp2.xml >> ${{env.COMBINED_XML}}
+          echo '</matches>' >> ${{env.COMBINED_XML}}
+
+      - name: XSLT processing (combined matches) # Push the XML through the XSLT
+        id: combined_matches_xslt
+        if: steps.merge_matches.conclusion == 'success'
+        run: |
+          sudo apt-get install xsltproc
+          xsltproc _sams/xslt/combined_matches.xslt ${{env.COMBINED_XML}} > ${{env.COMBINED_MATCHES}}
 
       - name: Git Add & Push
         id: git_push
-        if: steps.merge_matches.outcome == 'success'
+        if: steps.combined_matches_xslt.outcome == 'success'
         run: |
+          git add ${{env.COMBINED_XML}}
+          git commit -m "XML update [skip ci]"
           git add ${{env.COMBINED_MATCHES}}
-          git commit -m "Combined Matches update [skip ci]"
+          git commit -m "Club Events update [skip ci]"
           git push origin --all --quiet -f
