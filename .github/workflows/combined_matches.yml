@@ -8,7 +8,6 @@ on:
   push:
     paths:
       - "_sams/xml/matches/*.xml"
-      - "!_sams/xml/all_matches.xml"
   workflow_dispatch:
 
 env:
@@ -55,5 +54,5 @@ jobs:
           git add ${{env.COMBINED_XML}}
           git commit -m "XML update [skip ci]"
           git add ${{env.COMBINED_MATCHES}}
-          git commit -m "Club Events update [skip ci]"
+          git commit -m "Combined Macthes update [skip ci]"
           git push origin --all --quiet -f
