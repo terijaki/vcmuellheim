@@ -1,4 +1,4 @@
-name: All Club Games
+name: Combined Matches
 
 concurrency:
   group: "all-matches"
