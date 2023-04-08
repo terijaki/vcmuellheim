@@ -1,0 +1,49 @@
+name: All Club Games
+
+concurrency:
+  group: "all-matches"
+  cancel-in-progress: false
+
+on:
+  push:
+    paths:
+      - "sams/xml/matches/*.xml"
+      - "!sams/xml/all_matches.xml"
+  workflow_dispatch:
+
+env:
+  GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
+  XML_SOURCES: sams/xml/matches/ # the folder containing all SAMS xml source files
+  COMBINED_MATCHES: sams/xml/all_matches.xml # the target for the merged xml
+
+jobs:
+  Merge-Calendar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ env.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: Merge Matches Files
+        id: merge_matches
+        run: |
+          cat ${{env.XML_SOURCES}}*.ics > temp.xml
+          cat temp.xml | grep -v '<?xml' | grep -v '<matches' | grep -v '</matches>' > temp.xml
+          echo '<?xml version="1.0" encoding="UTF-8"?><matches>' > ${{env.COMBINED_MATCHES}}
+          cat temp.xml >> ${{env.COMBINED_MATCHES}}
+          echo '</matches>' >> ${{env.COMBINED_MATCHES}}
+
+      - name: Git Add & Push
+        id: git_push
+        if: steps.merge_matches.outcome == 'success'
+        run: |
+          git add ${{env.COMBINED_MATCHES}}
+          git commit -m "Combined Matches update [skip ci]"
+          git push origin --all --quiet -f
