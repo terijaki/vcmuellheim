@@ -1,7 +1,7 @@
 name: Combined Calender
 
 concurrency:
-  group: "ics-merge"
+  group: "combined-ics"
   cancel-in-progress: false
 
 on:
@@ -14,7 +14,7 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
   ICS_FOLDER: ics/ # the folder containing all ics files
-  TARGET_ICS: ics/all.ics # the target for the merged calendar
+  ICS_COMBINED_TARGET: ics/all.ics # the target for the merged calendar
 
 jobs:
   Merge-Calendar:
@@ -36,16 +36,16 @@ jobs:
         run: |
           cat ${{env.ICS_FOLDER}}*.ics > temp1.ics
           cat temp1.ics | grep -v CALNAME | grep -v BEGIN:VCALENDAR | grep -v END:VCALENDAR > temp2.ics
-          echo "BEGIN:VCALENDAR" > ${{env.TARGET_ICS}}
-          echo "X-WR-CALNAME:Volleyballclub Müllheim" >> ${{env.TARGET_ICS}}
-          cat temp2.ics >> ${{env.TARGET_ICS}}
-          echo "END:VCALENDAR" >> ${{env.TARGET_ICS}}
+          echo "BEGIN:VCALENDAR" > ${{env.ICS_COMBINED_TARGET}}
+          echo "X-WR-CALNAME:Volleyballclub Müllheim" >> ${{env.ICS_COMBINED_TARGET}}
+          cat temp2.ics >> ${{env.ICS_COMBINED_TARGET}}
+          echo "END:VCALENDAR" >> ${{env.ICS_COMBINED_TARGET}}
         # overwrites the merged calendar file with data from all other ics (presumably)
 
       - name: Git Add & Push
         id: git_push
         if: steps.merge_cal.outcome == 'success'
         run: |
-          git add ${{env.TARGET_ICS}}
+          git add ${{env.ICS_COMBINED_TARGET}}
           git commit -m "Combined Calender update [skip ci]"
           git push origin --all --quiet -f

@@ -1,7 +1,7 @@
 name: Combined Matches
 
 concurrency:
-  group: "all-matches"
+  group: "combined-matches"
   cancel-in-progress: false
 
 on:
