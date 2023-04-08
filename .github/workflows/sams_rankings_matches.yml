@@ -321,9 +321,9 @@ jobs:
         id: git_push
         if: steps.combined_matches_xslt.outcome == 'success'
         run: |
-          git add ${{env.COMBINED_XML}}
+          git add ${{env.MATCHES_COMBINED_SOURCE}}
           git commit -m "XML update"
-          git add ${{env.COMBINED_MATCHES}}
+          git add ${{env.MATCHES_COMBINED_TARGET}}
           git commit -m "Combined Macthes update"
 
       - name: Download Individual Matches
