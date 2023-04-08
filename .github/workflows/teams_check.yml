@@ -24,7 +24,6 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
       - name: Check Team still exists
@@ -81,7 +80,7 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{env.GITHUB_TOKEN}}
           fetch-depth: 0
       - name: Setup Git Config
         run: |
