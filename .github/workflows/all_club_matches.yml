@@ -7,14 +7,14 @@ concurrency:
 on:
   push:
     paths:
-      - "sams/xml/matches/*.xml"
-      - "!sams/xml/all_matches.xml"
+      - "_sams/xml/matches/*.xml"
+      - "!_sams/xml/all_matches.xml"
   workflow_dispatch:
 
 env:
   GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
-  XML_SOURCES: sams/xml/matches/ # the folder containing all SAMS xml source files
-  COMBINED_MATCHES: sams/xml/all_matches.xml # the target for the merged xml
+  XML_SOURCES: _sams/xml/matches/ # the folder containing all SAMS xml source files
+  COMBINED_MATCHES: _sams/xml/all_matches.xml # the target for the merged xml
 
 jobs:
   Merge-Calendar:
