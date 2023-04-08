@@ -44,7 +44,6 @@
 {% assign rnd_foto17 = "now" | date: "%N" | modulo: foto_counter | plus: 1 %}
 {% assign rnd_foto18 = "now" | date: "%N" | modulo: foto_counter | plus: 1 %}
 
-<!--===== Fotos =====-->
 <section id="fotos-teaser" class="bg-secondary text-white">
     <div class="container-fluid row row-cols-auto row-cols-md-3 p-0 m-0">
       <div class="fotobox d-flex">
@@ -60,7 +59,7 @@
           <div class="foto d-none d-lg-block d-xl-none" style="background-image: url('{{ foto_list[rnd_foto9] }}');"></div>
         </div>
       </div>
-      <div class="px-3 py-5 text-center" style="background: linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9)),url('{{foto_list[rnd_foto0]}}') fixed center center; background-size: cover;">
+      <div class="cover-img-bg px-3 py-5 text-center" style="background: linear-gradient(rgba(54,59,64,0.9), rgba(54,98,115,0.9)),url('{{foto_list[rnd_foto0]}}') fixed center center; background-size: cover;">
         <h2 class="fw-bold">Fotos</h2>
         <p>Eindrücke aus unserem Vereinsleben, von Spieltagen, Turnieren und unseren Mitgliedern findest du in unserer:</p>
         <div class="cta-btn-container text-center">
