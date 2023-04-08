@@ -5,9 +5,6 @@ concurrency:
   cancel-in-progress: false
 
 on:
-  push:
-    paths:
-      - "_sams/xml/matches/*.xml"
   workflow_dispatch:
 
 env:
