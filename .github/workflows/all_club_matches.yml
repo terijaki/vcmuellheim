@@ -34,7 +34,7 @@ jobs:
       - name: Merge Matches Files
         id: merge_matches
         run: |
-          cat ${{env.XML_SOURCES}}*.ics > temp.xml
+          cat ${{env.XML_SOURCES}}*.xml > temp.xml
           cat temp.xml | grep -v '<?xml' | grep -v '<matches' | grep -v '</matches>' > temp.xml
           echo '<?xml version="1.0" encoding="UTF-8"?><matches>' > ${{env.COMBINED_MATCHES}}
           cat temp.xml >> ${{env.COMBINED_MATCHES}}
