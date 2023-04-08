@@ -14,6 +14,7 @@ If the commit contains a ranking xml file, we process the file to produce a html
 
 If the commit contains a matching xml file, we process the file to list upcoming matches and match scores on a team page such as https://vcmuellheim.de/matches/22517240.
 The page may not contain any schedule or results if the season has not started or ended already.
+Matches from all our teams are also combined into one file to show a combined view.
 
 Every new match that has a score attached will be cached as file in this repo. This serves as a history and to trigger other actions, such as announcing the new score on social.
 
