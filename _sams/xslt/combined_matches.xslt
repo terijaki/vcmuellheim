@@ -23,7 +23,7 @@ permalink: /termine/
                             <xsl:sort select="substring(date, 4, 2)" order="ascending" data-type="number"/>
                             <xsl:sort select="substring(date, 1, 2)" order="ascending" data-type="number"/>
                             <xsl:sort select="number" order="ascending" data-type="number"/>
-                            <xsl:if test="not(results/winnerDISABLE)">
+                            <xsl:if test="not(results/winner)">
                             <div class="match col-12 row text-nowrap m-0 py-2">
                             <xsl:attribute name="match-id">
                                 <xsl:value-of select="id" />
