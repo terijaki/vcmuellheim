@@ -309,6 +309,7 @@ jobs:
           echo '<?xml version="1.0" encoding="UTF-8"?><matches>' > ${{env.MATCHES_COMBINED_SOURCE}}
           cat temp2.xml >> ${{env.MATCHES_COMBINED_SOURCE}}
           echo '</matches>' >> ${{env.MATCHES_COMBINED_SOURCE}}
+          rm temp1.xml temp2.xml
 
       - name: XSLT processing (combined matches) # Push the XML through the XSLT
         id: combined_matches_xslt
@@ -360,6 +361,7 @@ jobs:
           echo "X-WR-CALNAME:Volleyballclub Müllheim" >> ${{env.ICS_COMBINED_TARGET}}
           cat temp2.ics >> ${{env.ICS_COMBINED_TARGET}}
           echo "END:VCALENDAR" >> ${{env.ICS_COMBINED_TARGET}}
+          rm temp1.ics temp2.ics
         # overwrites the merged calendar file with data from all other ics (presumably)
 
       - name: Commit Calender Files
