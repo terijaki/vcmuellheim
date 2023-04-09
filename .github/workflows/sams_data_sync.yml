@@ -57,12 +57,19 @@ jobs:
         if: steps.teamids-from-club.conclusion == 'success'
         run: echo "teamids=[${{steps.teamids-from-club.outputs.info}}]" >> $GITHUB_OUTPUT # transform IDs from "123,456,789" to "[123,456,789]"
 
+      - name: Prepare for JSON Converter
+        id: prepare_json_converter
+        if: steps.sams_query_club.conclusion == 'success'
+        run: |
+          echo '<matches>' > temp_to_json.xml
+          cat ${{env.SAMS_CLUB_XML}} | grep -v '<?xml' >> temp_to_json.xml
+
       - name: Convert XML to JSON
         uses: fabasoad/data-format-converter-action@main
         id: xml_to_json
-        if: steps.sams_query_club.conclusion == 'success'
+        if: steps.prepare_json_converter.conclusion == 'success'
         with:
-          input: '${{env.SAMS_CLUB_XML}}'
+          input: 'temp_to_json.xml'
           from: 'xml'
           to: 'json'
     
@@ -123,12 +130,19 @@ jobs:
           mkdir -p ${{env.SAMS_RANKING_XML}}
           curl -o ${{env.SAMS_RANKING_XML}}${{matrix.teams}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{steps.matchseriesid-from-club.outputs.info}}" -f --retry 5 --retry-delay 60
 
+      - name: Prepare for JSON Converter
+        id: prepare_json_converter
+        if: steps.query_sams.conclusion == 'success'
+        run: |
+          echo '<matches>' > temp_to_json.xml
+          cat ${{env.SAMS_RANKING_XML}} | grep -v '<?xml' >> temp_to_json.xml
+
       - name: Convert XML to JSON
         uses: fabasoad/data-format-converter-action@main
         id: xml_to_json
-        if: steps.query_sams.conclusion == 'success'
+        if: steps.prepare_json_converter.conclusion == 'success'
         with:
-          input: '${{env.SAMS_RANKING_XML}}${{matrix.teams}}.xml'
+          input: 'temp_to_json.xml'
           from: 'xml'
           to: 'json'
     
@@ -187,12 +201,19 @@ jobs:
           mkdir -p ${{env.SAMS_MATCHES_XML}}
           curl -o ${{env.SAMS_MATCHES_XML}}${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&teamId=${{matrix.teams}}" -f --retry 5 --retry-delay 60
 
+      - name: Prepare for JSON Converter
+        id: prepare_json_converter
+        if: steps.query_sams.conclusion == 'success'
+        run: |
+          echo '<matches>' > temp_to_json.xml
+          cat ${{env.SAMS_MATCHES_XML}} | grep -v '<?xml' | grep -v '<matches' >> temp_to_json.xml
+
       - name: Convert XML to JSON
         uses: fabasoad/data-format-converter-action@main
         id: xml_to_json
-        if: steps.query_sams.conclusion == 'success'
+        if: steps.prepare_json_converter.conclusion == 'success'
         with:
-          input: '${{env.SAMS_MATCHES_XML}}${{matrix.teams}}.xml'
+          input: 'temp_to_json.xml'
           from: 'xml'
           to: 'json'
     
