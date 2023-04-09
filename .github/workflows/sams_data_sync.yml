@@ -57,27 +57,12 @@ jobs:
         if: steps.teamids-from-club.conclusion == 'success'
         run: echo "teamids=[${{steps.teamids-from-club.outputs.info}}]" >> $GITHUB_OUTPUT # transform IDs from "123,456,789" to "[123,456,789]"
 
-      - name: Prepare for JSON Converter
-        id: prepare_json_converter
+      - name: Convert XML to JSON
+        id: xml_to_json
         if: steps.sams_query_club.conclusion == 'success'
         run: |
-          cat ${{env.SAMS_CLUB_XML}} | grep -v '<?xml' >> temp_to_json.xml
-
-      - name: Convert XML to JSON
-        uses: fabasoad/data-format-converter-action@main
-        id: xml_to_json
-        if: steps.prepare_json_converter.conclusion == 'success'
-        with:
-          input: 'temp_to_json.xml'
-          from: 'xml'
-          to: 'json'
-    
-      - name: Store JSON
-        id: store_json
-        if: steps.xml_to_json.conclusion == 'success'
-        run: |
-            mkdir -p $(dirname ${{env.SAMS_CLUB_JSON}})
-            printf "%s" "${{ steps.xml_to_json.outputs.output }}" > ${{env.SAMS_CLUB_JSON}}
+          mkdir -p $(dirname ${{env.SAMS_CLUB_JSON}})
+          cat ${{env.SAMS_CLUB_XML}} | yq -pxml --xml-skip-proc-inst -ojson > ${{env.SAMS_CLUB_JSON}}
 
       - name: Setup Git Config
         if: steps.sams_query_club.conclusion == 'success'
