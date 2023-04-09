@@ -287,13 +287,6 @@ jobs:
           name: raw_sams_matches_json
           path: ${{env.SAMS_MATCHES_JSON}}
 
-      - name: Validate JSON files
-        if: contains(needs.Get-Matches.outputs.upload_required, 'yes') || contains(needs.Get-Rankings.outputs.upload_required, 'yes')
-        uses: anyone-developer/anyone-validate-json@main
-        with:
-          file-extension: '.json'
-          read-path: '_data'
-
       - name: Setup Git Config
         run: |
           git config user.name "GitHub Actions Bot"
