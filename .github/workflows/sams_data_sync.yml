@@ -81,7 +81,7 @@ jobs:
 
       - name: Git Commit & Push
         if: steps.sams_query_club.conclusion == 'success'
-        continue-on-error: true compared to the existing file
+        continue-on-error: true
         run: |
           git add "${{env.SAMS_CLUB_XML}}"
           git add "${{env.SAMS_CLUB_JSON}}"
