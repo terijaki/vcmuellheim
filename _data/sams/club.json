@@ -1,0 +1,1204 @@
+{
+  +p_xml: version="1.0",
+  sportsclub: {
+    id: 471,
+    name: VCMüllheim,
+    logo: {
+      url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg,
+      filename: index.jpg,
+      createDate: 2021-10-0708:36:37.571
+    },
+    lsbNumber: 480190,
+    internalSportsclubId: 3530,
+    association: {
+      id: 63939,
+      name: SBVVBezirkWest
+    },
+    matchOperationCompany: {
+      id: null,
+      name: null,
+      address: {
+        postbox: null,
+        street: null,
+        extraField: null,
+        postcode: null,
+        city: null,
+        region: null,
+        country: null
+      },
+      homepage: null
+    },
+    teams: {
+      team: [
+        {
+          id: 22521759,
+          uuid: 253264ff-5f8d-46d3-aa9c-e1f4dad12a1d,
+          seasonTeamId: 22521759,
+          placeCipher: 3,
+          name: VCMüllheim,
+          shortName: null,
+          clubCode: null,
+          status: ACTIVE,
+          www: http://vcmuellheim.de,
+          logo: {
+            url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+          },
+          club: {
+            name: VCMüllheim,
+            id: 471,
+            shortName: null,
+            logo: {
+              url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+            },
+            www: http://vcmuellheim.de,
+            wwwDepartment: null
+          },
+          matchSeries: {
+            id: 22516931,
+            uuid: 8854cdff-3f6d-4fcd-9780-40ec238adcff,
+            allSeasonId: 578fe07f-b620-daae-2fd8-5a71ca9995e4,
+            name: VerbandsligaHerren,
+            shortName: vlh,
+            type: League,
+            updated: 2023-04-0408:10:49.674,
+            structureUpdated: 2023-03-1819:00:24.432,
+            resultsUpdated: 2023-04-0408:10:49.674,
+            season: {
+              id: 22514239,
+              uuid: 6a541375-4044-4540-bfc8-d7ed6e0e5691,
+              name: 2022/23
+            },
+            hierarchy: {
+              id: 22516686,
+              uuid: 94317c29-90fa-4a66-9966-fa2968841a84,
+              name: Verbandsligen,
+              shortName: vl,
+              hierarchyLevel: 6
+            },
+            fullHierarchy: {
+              hierarchy: [
+                {
+                  id: 22516686,
+                  name: Verbandsligen,
+                  shortName: vl,
+                  hierarchyLevel: 6
+                },
+                {
+                  id: 22516685,
+                  name: SpielbetriebSüdbaden,
+                  shortName: sbvv,
+                  hierarchyLevel: 5
+                },
+                {
+                  id: 22515520,
+                  name: OberligaBaden,
+                  shortName: Ol,
+                  hierarchyLevel: 4
+                },
+                {
+                  id: 22515519,
+                  name: RegionalligaSüd,
+                  shortName: RL,
+                  hierarchyLevel: 3
+                },
+                {
+                  id: 22515518,
+                  name: DritteLigaSüd,
+                  shortName: DLS,
+                  hierarchyLevel: 2
+                },
+                {
+                  id: 22515517,
+                  name: Bundesligen,
+                  shortName: BL,
+                  hierarchyLevel: 1
+                },
+                {
+                  id: 22515340,
+                  name: AllgemeinerSpielbetrieb,
+                  shortName: alg,
+                  hierarchyLevel: 0
+                }
+              ]
+            },
+            association: {
+              name: null,
+              shortName: null
+            }
+          }
+        },
+        {
+          id: 22517434,
+          uuid: c2db28b1-9f4a-4aea-8ee2-0b742fc8de10,
+          seasonTeamId: 22517434,
+          placeCipher: 5,
+          name: VCMüllheim2,
+          shortName: null,
+          clubCode: null,
+          status: ACTIVE,
+          www: http://vcmuellheim.de,
+          logo: {
+            url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+          },
+          club: {
+            name: VCMüllheim,
+            id: 471,
+            shortName: null,
+            logo: {
+              url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+            },
+            www: http://vcmuellheim.de,
+            wwwDepartment: null
+          },
+          matchSeries: {
+            id: 22517590,
+            uuid: 0836813a-4678-4c05-b6c4-f8800849d8c3,
+            allSeasonId: 36b0148e-d336-9331-f60d-cee054cf67df,
+            name: BezirksligaHerren,
+            shortName: bzlnh,
+            type: League,
+            updated: 2023-03-2108:58:19.397,
+            structureUpdated: 2023-03-1809:58:37.013,
+            resultsUpdated: 2023-03-2108:58:19.397,
+            season: {
+              id: 22514239,
+              uuid: 6a541375-4044-4540-bfc8-d7ed6e0e5691,
+              name: 2022/23
+            },
+            hierarchy: {
+              id: 22517105,
+              uuid: a1cb6ab1-3372-46c3-9b18-bc3f1ef3da41,
+              name: Bezirksligen,
+              shortName: bzlw,
+              hierarchyLevel: 8
+            },
+            fullHierarchy: {
+              hierarchy: [
+                {
+                  id: 22517105,
+                  name: Bezirksligen,
+                  shortName: bzlw,
+                  hierarchyLevel: 8
+                },
+                {
+                  id: 22517104,
+                  name: BezirkWest,
+                  shortName: bw,
+                  hierarchyLevel: 7
+                },
+                {
+                  id: 22517103,
+                  name: SBVVBezirke,
+                  shortName: SBVVBezirke,
+                  hierarchyLevel: 6
+                },
+                {
+                  id: 22516685,
+                  name: SpielbetriebSüdbaden,
+                  shortName: sbvv,
+                  hierarchyLevel: 5
+                },
+                {
+                  id: 22515520,
+                  name: OberligaBaden,
+                  shortName: Ol,
+                  hierarchyLevel: 4
+                },
+                {
+                  id: 22515519,
+                  name: RegionalligaSüd,
+                  shortName: RL,
+                  hierarchyLevel: 3
+                },
+                {
+                  id: 22515518,
+                  name: DritteLigaSüd,
+                  shortName: DLS,
+                  hierarchyLevel: 2
+                },
+                {
+                  id: 22515517,
+                  name: Bundesligen,
+                  shortName: BL,
+                  hierarchyLevel: 1
+                },
+                {
+                  id: 22515340,
+                  name: AllgemeinerSpielbetrieb,
+                  shortName: alg,
+                  hierarchyLevel: 0
+                }
+              ]
+            },
+            association: {
+              name: null,
+              shortName: null
+            }
+          }
+        },
+        {
+          id: 22517240,
+          uuid: 651bc54c-0e37-4661-aa8f-4605a56d1814,
+          seasonTeamId: 22517240,
+          placeCipher: 6,
+          name: VCMüllheim,
+          shortName: null,
+          clubCode: null,
+          status: ACTIVE,
+          www: http://vcmuellheim.de,
+          logo: {
+            url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+          },
+          club: {
+            name: VCMüllheim,
+            id: 471,
+            shortName: null,
+            logo: {
+              url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+            },
+            www: http://vcmuellheim.de,
+            wwwDepartment: null
+          },
+          matchSeries: {
+            id: 22517267,
+            uuid: 5b8706c7-e84b-4418-920a-d726352e2ec1,
+            allSeasonId: 955f1d4d-bc60-8f21-1003-fcc2a85bd10a,
+            name: KreisligaSüdDamen,
+            shortName: klsd,
+            type: League,
+            updated: 2023-03-3014:54:45.588,
+            structureUpdated: 2023-03-1811:44:23.578,
+            resultsUpdated: 2023-03-3014:54:45.588,
+            season: {
+              id: 22514239,
+              uuid: 6a541375-4044-4540-bfc8-d7ed6e0e5691,
+              name: 2022/23
+            },
+            hierarchy: {
+              id: 22517107,
+              uuid: c111dd40-85dd-42c2-a8bd-08ceb1b4dc61,
+              name: Kreisligen,
+              shortName: klw,
+              hierarchyLevel: 10
+            },
+            fullHierarchy: {
+              hierarchy: [
+                {
+                  id: 22517107,
+                  name: Kreisligen,
+                  shortName: klw,
+                  hierarchyLevel: 10
+                },
+                {
+                  id: 22517106,
+                  name: Bezirksklassen,
+                  shortName: bzkw,
+                  hierarchyLevel: 9
+                },
+                {
+                  id: 22517105,
+                  name: Bezirksligen,
+                  shortName: bzlw,
+                  hierarchyLevel: 8
+                },
+                {
+                  id: 22517104,
+                  name: BezirkWest,
+                  shortName: bw,
+                  hierarchyLevel: 7
+                },
+                {
+                  id: 22517103,
+                  name: SBVVBezirke,
+                  shortName: SBVVBezirke,
+                  hierarchyLevel: 6
+                },
+                {
+                  id: 22516685,
+                  name: SpielbetriebSüdbaden,
+                  shortName: sbvv,
+                  hierarchyLevel: 5
+                },
+                {
+                  id: 22515520,
+                  name: OberligaBaden,
+                  shortName: Ol,
+                  hierarchyLevel: 4
+                },
+                {
+                  id: 22515519,
+                  name: RegionalligaSüd,
+                  shortName: RL,
+                  hierarchyLevel: 3
+                },
+                {
+                  id: 22515518,
+                  name: DritteLigaSüd,
+                  shortName: DLS,
+                  hierarchyLevel: 2
+                },
+                {
+                  id: 22515517,
+                  name: Bundesligen,
+                  shortName: BL,
+                  hierarchyLevel: 1
+                },
+                {
+                  id: 22515340,
+                  name: AllgemeinerSpielbetrieb,
+                  shortName: alg,
+                  hierarchyLevel: 0
+                }
+              ]
+            },
+            association: {
+              name: null,
+              shortName: null
+            }
+          }
+        },
+        {
+          id: 22517303,
+          uuid: 03c7881c-a06f-4d73-885e-495f9c73dc2f,
+          seasonTeamId: 22517303,
+          placeCipher: 2,
+          name: VCMüllheim2,
+          shortName: null,
+          clubCode: null,
+          status: ACTIVE,
+          www: http://vcmuellheim.de,
+          logo: {
+            url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+          },
+          club: {
+            name: VCMüllheim,
+            id: 471,
+            shortName: null,
+            logo: {
+              url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+            },
+            www: http://vcmuellheim.de,
+            wwwDepartment: null
+          },
+          matchSeries: {
+            id: 22517267,
+            uuid: 5b8706c7-e84b-4418-920a-d726352e2ec1,
+            allSeasonId: 955f1d4d-bc60-8f21-1003-fcc2a85bd10a,
+            name: KreisligaSüdDamen,
+            shortName: klsd,
+            type: League,
+            updated: 2023-03-3014:54:45.588,
+            structureUpdated: 2023-03-1811:44:23.578,
+            resultsUpdated: 2023-03-3014:54:45.588,
+            season: {
+              id: 22514239,
+              uuid: 6a541375-4044-4540-bfc8-d7ed6e0e5691,
+              name: 2022/23
+            },
+            hierarchy: {
+              id: 22517107,
+              uuid: c111dd40-85dd-42c2-a8bd-08ceb1b4dc61,
+              name: Kreisligen,
+              shortName: klw,
+              hierarchyLevel: 10
+            },
+            fullHierarchy: {
+              hierarchy: [
+                {
+                  id: 22517107,
+                  name: Kreisligen,
+                  shortName: klw,
+                  hierarchyLevel: 10
+                },
+                {
+                  id: 22517106,
+                  name: Bezirksklassen,
+                  shortName: bzkw,
+                  hierarchyLevel: 9
+                },
+                {
+                  id: 22517105,
+                  name: Bezirksligen,
+                  shortName: bzlw,
+                  hierarchyLevel: 8
+                },
+                {
+                  id: 22517104,
+                  name: BezirkWest,
+                  shortName: bw,
+                  hierarchyLevel: 7
+                },
+                {
+                  id: 22517103,
+                  name: SBVVBezirke,
+                  shortName: SBVVBezirke,
+                  hierarchyLevel: 6
+                },
+                {
+                  id: 22516685,
+                  name: SpielbetriebSüdbaden,
+                  shortName: sbvv,
+                  hierarchyLevel: 5
+                },
+                {
+                  id: 22515520,
+                  name: OberligaBaden,
+                  shortName: Ol,
+                  hierarchyLevel: 4
+                },
+                {
+                  id: 22515519,
+                  name: RegionalligaSüd,
+                  shortName: RL,
+                  hierarchyLevel: 3
+                },
+                {
+                  id: 22515518,
+                  name: DritteLigaSüd,
+                  shortName: DLS,
+                  hierarchyLevel: 2
+                },
+                {
+                  id: 22515517,
+                  name: Bundesligen,
+                  shortName: BL,
+                  hierarchyLevel: 1
+                },
+                {
+                  id: 22515340,
+                  name: AllgemeinerSpielbetrieb,
+                  shortName: alg,
+                  hierarchyLevel: 0
+                }
+              ]
+            },
+            association: {
+              name: null,
+              shortName: null
+            }
+          }
+        },
+        {
+          id: 22787670,
+          uuid: 6b39d012-7126-4412-8635-e6b7428f7945,
+          seasonTeamId: 22787670,
+          placeCipher: 2,
+          name: VCMüllheim,
+          shortName: null,
+          clubCode: null,
+          status: ACTIVE,
+          www: http://vcmuellheim.de,
+          logo: {
+            url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+          },
+          club: {
+            name: VCMüllheim,
+            id: 471,
+            shortName: null,
+            logo: {
+              url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+            },
+            www: http://vcmuellheim.de,
+            wwwDepartment: null
+          },
+          matchSeries: {
+            id: 22515392,
+            uuid: 267cfccb-a797-43ae-8698-954c72061880,
+            allSeasonId: 6802ca20-191c-4961-808d-8cb457327af6,
+            name: LandespokalHerren,
+            shortName: PokalHe,
+            type: Competition,
+            updated: 2023-03-0810:11:08.387,
+            structureUpdated: 2023-03-0810:11:08.387,
+            resultsUpdated: 2022-09-2523:04:14.381,
+            season: {
+              id: 22514239,
+              uuid: 6a541375-4044-4540-bfc8-d7ed6e0e5691,
+              name: 2022/23
+            },
+            hierarchy: {
+              id: 22515343,
+              uuid: 2dda9b04-3bc9-4eb1-b1f6-18a9f88ac558,
+              name: SBVVLandespokal,
+              shortName: SBVV-Pokal,
+              hierarchyLevel: 3
+            },
+            fullHierarchy: {
+              hierarchy: [
+                {
+                  id: 22515343,
+                  name: SBVVLandespokal,
+                  shortName: SBVV-Pokal,
+                  hierarchyLevel: 3
+                },
+                {
+                  id: 22515342,
+                  name: Regionalpokal,
+                  shortName: Regionalpokal,
+                  hierarchyLevel: 2
+                },
+                {
+                  id: 22515341,
+                  name: Pokalwettbewerbe,
+                  shortName: P,
+                  hierarchyLevel: 1
+                },
+                {
+                  id: 22515340,
+                  name: AllgemeinerSpielbetrieb,
+                  shortName: alg,
+                  hierarchyLevel: 0
+                }
+              ]
+            },
+            association: {
+              name: SüdbadischerVolleyball-Verband,
+              shortName: SBVV
+            }
+          }
+        },
+        {
+          id: 24682751,
+          uuid: 0b259745-dfed-459d-ac75-d5f2376897c2,
+          seasonTeamId: 24682751,
+          placeCipher: 1,
+          name: VCMüllheim,
+          shortName: null,
+          clubCode: null,
+          status: ACTIVE,
+          www: http://vcmuellheim.de,
+          logo: {
+            url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+          },
+          club: {
+            name: VCMüllheim,
+            id: 471,
+            shortName: null,
+            logo: {
+              url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+            },
+            www: http://vcmuellheim.de,
+            wwwDepartment: null
+          },
+          matchSeries: {
+            id: 22515345,
+            uuid: 06d69391-ef6d-466f-9c9d-d0c3c51295d6,
+            allSeasonId: 822d3dfd-af74-4ddf-af9a-22e82b7d06d1,
+            name: BezirkspokalWestDamen,
+            shortName: BezPokalWestDa,
+            type: Competition,
+            updated: 2023-04-0215:08:32.969,
+            structureUpdated: 2023-04-0114:32:32.393,
+            resultsUpdated: 2023-04-0215:08:32.969,
+            season: {
+              id: 22514239,
+              uuid: 6a541375-4044-4540-bfc8-d7ed6e0e5691,
+              name: 2022/23
+            },
+            hierarchy: {
+              id: 22515344,
+              uuid: 0d8c28d2-b2b1-4495-af4f-7e582608d767,
+              name: BezirkspokalBezirkWest,
+              shortName: w_pokal,
+              hierarchyLevel: 4
+            },
+            fullHierarchy: {
+              hierarchy: [
+                {
+                  id: 22515344,
+                  name: BezirkspokalBezirkWest,
+                  shortName: w_pokal,
+                  hierarchyLevel: 4
+                },
+                {
+                  id: 22515343,
+                  name: SBVVLandespokal,
+                  shortName: SBVV-Pokal,
+                  hierarchyLevel: 3
+                },
+                {
+                  id: 22515342,
+                  name: Regionalpokal,
+                  shortName: Regionalpokal,
+                  hierarchyLevel: 2
+                },
+                {
+                  id: 22515341,
+                  name: Pokalwettbewerbe,
+                  shortName: P,
+                  hierarchyLevel: 1
+                },
+                {
+                  id: 22515340,
+                  name: AllgemeinerSpielbetrieb,
+                  shortName: alg,
+                  hierarchyLevel: 0
+                }
+              ]
+            },
+            association: {
+              name: null,
+              shortName: null
+            }
+          }
+        },
+        {
+          id: 24803142,
+          uuid: e98f57bc-9261-4e74-b9d5-7c307fd56bb4,
+          seasonTeamId: 24803142,
+          placeCipher: 4,
+          name: VCMüllheim2,
+          shortName: null,
+          clubCode: null,
+          status: ACTIVE,
+          www: http://vcmuellheim.de,
+          logo: {
+            url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+          },
+          club: {
+            name: VCMüllheim,
+            id: 471,
+            shortName: null,
+            logo: {
+              url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+            },
+            www: http://vcmuellheim.de,
+            wwwDepartment: null
+          },
+          matchSeries: {
+            id: 22515360,
+            uuid: d53c0b26-2fed-4663-b599-1886bbef5fdc,
+            allSeasonId: 996603b0-f80c-8a49-619b-e1734f8cfaa8,
+            name: BezirkspokalWestHerren,
+            shortName: BezPokalWestHe,
+            type: Competition,
+            updated: 2023-04-0215:09:11.256,
+            structureUpdated: 2023-04-0109:39:54.694,
+            resultsUpdated: 2023-04-0215:09:11.256,
+            season: {
+              id: 22514239,
+              uuid: 6a541375-4044-4540-bfc8-d7ed6e0e5691,
+              name: 2022/23
+            },
+            hierarchy: {
+              id: 22515344,
+              uuid: 0d8c28d2-b2b1-4495-af4f-7e582608d767,
+              name: BezirkspokalBezirkWest,
+              shortName: w_pokal,
+              hierarchyLevel: 4
+            },
+            fullHierarchy: {
+              hierarchy: [
+                {
+                  id: 22515344,
+                  name: BezirkspokalBezirkWest,
+                  shortName: w_pokal,
+                  hierarchyLevel: 4
+                },
+                {
+                  id: 22515343,
+                  name: SBVVLandespokal,
+                  shortName: SBVV-Pokal,
+                  hierarchyLevel: 3
+                },
+                {
+                  id: 22515342,
+                  name: Regionalpokal,
+                  shortName: Regionalpokal,
+                  hierarchyLevel: 2
+                },
+                {
+                  id: 22515341,
+                  name: Pokalwettbewerbe,
+                  shortName: P,
+                  hierarchyLevel: 1
+                },
+                {
+                  id: 22515340,
+                  name: AllgemeinerSpielbetrieb,
+                  shortName: alg,
+                  hierarchyLevel: 0
+                }
+              ]
+            },
+            association: {
+              name: null,
+              shortName: null
+            }
+          }
+        },
+        {
+          id: 23746102,
+          uuid: 7527df10-42d9-4e96-a4a8-0ecd3a12b609,
+          seasonTeamId: 23746102,
+          placeCipher: 8,
+          name: VCMüllheim,
+          shortName: null,
+          clubCode: null,
+          status: ACTIVE,
+          www: http://vcmuellheim.de,
+          logo: {
+            url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+          },
+          club: {
+            name: VCMüllheim,
+            id: 471,
+            shortName: null,
+            logo: {
+              url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+            },
+            www: http://vcmuellheim.de,
+            wwwDepartment: null
+          },
+          matchSeries: {
+            id: 22519474,
+            uuid: 61443a4e-a439-49ee-beda-90c3beeee057,
+            allSeasonId: 8ce5f2cb-b3b0-e6cf-ba43-c4947205881f,
+            name: Bez.-MeisterschaftU13wQuali-Rundeam19.11.22,
+            shortName: U13wQBW,
+            type: Competition,
+            updated: 2023-03-2416:36:56.129,
+            structureUpdated: 2023-03-2416:36:56.129,
+            resultsUpdated: 2022-12-1412:01:49.992,
+            season: {
+              id: 22514239,
+              uuid: 6a541375-4044-4540-bfc8-d7ed6e0e5691,
+              name: 2022/23
+            },
+            hierarchy: {
+              id: 22519413,
+              uuid: 57a74918-5680-45b3-b06c-bac8a960f676,
+              name: BezirkWestJugendweiblich,
+              shortName: bwjw,
+              hierarchyLevel: 5
+            },
+            fullHierarchy: {
+              hierarchy: [
+                {
+                  id: 22519413,
+                  name: BezirkWestJugendweiblich,
+                  shortName: bwjw,
+                  hierarchyLevel: 5
+                },
+                {
+                  id: 22519325,
+                  name: SBVVBezirkWestJugend,
+                  shortName: bwj,
+                  hierarchyLevel: 4
+                },
+                {
+                  id: 22519080,
+                  name: SBVV-Jugendmeisterschaften,
+                  shortName: sbvv_jm,
+                  hierarchyLevel: 3
+                },
+                {
+                  id: 22519079,
+                  name: Regionaljugendmeisterschaften,
+                  shortName: rjm,
+                  hierarchyLevel: 2
+                },
+                {
+                  id: 22519078,
+                  name: DeutscheJugendmeisterschaften,
+                  shortName: djm,
+                  hierarchyLevel: 1
+                },
+                {
+                  id: 22519077,
+                  name: Jugendspielbetrieb,
+                  shortName: jug,
+                  hierarchyLevel: 0
+                }
+              ]
+            },
+            association: {
+              name: SBVVBezirkWest,
+              shortName: SBVV-West
+            }
+          }
+        },
+        {
+          id: 23548413,
+          uuid: 8f52e91c-c3a2-4477-b01e-7266ed961f93,
+          seasonTeamId: 23548413,
+          placeCipher: 6,
+          name: VCMüllheim1,
+          shortName: null,
+          clubCode: null,
+          status: ACTIVE,
+          www: http://vcmuellheim.de,
+          logo: {
+            url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+          },
+          club: {
+            name: VCMüllheim,
+            id: 471,
+            shortName: null,
+            logo: {
+              url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+            },
+            www: http://vcmuellheim.de,
+            wwwDepartment: null
+          },
+          matchSeries: {
+            id: 22519467,
+            uuid: dd687c6c-f407-427d-a741-2726b64ca0e2,
+            allSeasonId: 375a20ac-b2b9-c22f-e657-05936f7ec524,
+            name: Bez.-MeisterschaftU14wEndrundeam15.01.23,
+            shortName: U14wEBW,
+            type: Competition,
+            updated: 2023-03-1016:22:55.441,
+            structureUpdated: 2023-03-1016:22:55.441,
+            resultsUpdated: 2023-01-1516:33:00.278,
+            season: {
+              id: 22514239,
+              uuid: 6a541375-4044-4540-bfc8-d7ed6e0e5691,
+              name: 2022/23
+            },
+            hierarchy: {
+              id: 22519413,
+              uuid: 57a74918-5680-45b3-b06c-bac8a960f676,
+              name: BezirkWestJugendweiblich,
+              shortName: bwjw,
+              hierarchyLevel: 5
+            },
+            fullHierarchy: {
+              hierarchy: [
+                {
+                  id: 22519413,
+                  name: BezirkWestJugendweiblich,
+                  shortName: bwjw,
+                  hierarchyLevel: 5
+                },
+                {
+                  id: 22519325,
+                  name: SBVVBezirkWestJugend,
+                  shortName: bwj,
+                  hierarchyLevel: 4
+                },
+                {
+                  id: 22519080,
+                  name: SBVV-Jugendmeisterschaften,
+                  shortName: sbvv_jm,
+                  hierarchyLevel: 3
+                },
+                {
+                  id: 22519079,
+                  name: Regionaljugendmeisterschaften,
+                  shortName: rjm,
+                  hierarchyLevel: 2
+                },
+                {
+                  id: 22519078,
+                  name: DeutscheJugendmeisterschaften,
+                  shortName: djm,
+                  hierarchyLevel: 1
+                },
+                {
+                  id: 22519077,
+                  name: Jugendspielbetrieb,
+                  shortName: jug,
+                  hierarchyLevel: 0
+                }
+              ]
+            },
+            association: {
+              name: SBVVBezirkWest,
+              shortName: SBVV-West
+            }
+          }
+        },
+        {
+          id: 24411036,
+          uuid: 79832e36-938b-4c7a-a104-eb9a25496cb7,
+          seasonTeamId: 24411036,
+          placeCipher: 10,
+          name: VCMüllheim2,
+          shortName: null,
+          clubCode: null,
+          status: ACTIVE,
+          www: http://vcmuellheim.de,
+          logo: {
+            url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+          },
+          club: {
+            name: VCMüllheim,
+            id: 471,
+            shortName: null,
+            logo: {
+              url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+            },
+            www: http://vcmuellheim.de,
+            wwwDepartment: null
+          },
+          matchSeries: {
+            id: 22519467,
+            uuid: dd687c6c-f407-427d-a741-2726b64ca0e2,
+            allSeasonId: 375a20ac-b2b9-c22f-e657-05936f7ec524,
+            name: Bez.-MeisterschaftU14wEndrundeam15.01.23,
+            shortName: U14wEBW,
+            type: Competition,
+            updated: 2023-03-1016:22:55.441,
+            structureUpdated: 2023-03-1016:22:55.441,
+            resultsUpdated: 2023-01-1516:33:00.278,
+            season: {
+              id: 22514239,
+              uuid: 6a541375-4044-4540-bfc8-d7ed6e0e5691,
+              name: 2022/23
+            },
+            hierarchy: {
+              id: 22519413,
+              uuid: 57a74918-5680-45b3-b06c-bac8a960f676,
+              name: BezirkWestJugendweiblich,
+              shortName: bwjw,
+              hierarchyLevel: 5
+            },
+            fullHierarchy: {
+              hierarchy: [
+                {
+                  id: 22519413,
+                  name: BezirkWestJugendweiblich,
+                  shortName: bwjw,
+                  hierarchyLevel: 5
+                },
+                {
+                  id: 22519325,
+                  name: SBVVBezirkWestJugend,
+                  shortName: bwj,
+                  hierarchyLevel: 4
+                },
+                {
+                  id: 22519080,
+                  name: SBVV-Jugendmeisterschaften,
+                  shortName: sbvv_jm,
+                  hierarchyLevel: 3
+                },
+                {
+                  id: 22519079,
+                  name: Regionaljugendmeisterschaften,
+                  shortName: rjm,
+                  hierarchyLevel: 2
+                },
+                {
+                  id: 22519078,
+                  name: DeutscheJugendmeisterschaften,
+                  shortName: djm,
+                  hierarchyLevel: 1
+                },
+                {
+                  id: 22519077,
+                  name: Jugendspielbetrieb,
+                  shortName: jug,
+                  hierarchyLevel: 0
+                }
+              ]
+            },
+            association: {
+              name: SBVVBezirkWest,
+              shortName: SBVV-West
+            }
+          }
+        },
+        {
+          id: 23548438,
+          uuid: 3c0e96b8-704e-4469-9e46-24f22e413cf4,
+          seasonTeamId: 23548438,
+          placeCipher: 8,
+          name: VCMüllheim,
+          shortName: null,
+          clubCode: null,
+          status: ACTIVE,
+          www: http://vcmuellheim.de,
+          logo: {
+            url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+          },
+          club: {
+            name: VCMüllheim,
+            id: 471,
+            shortName: null,
+            logo: {
+              url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+            },
+            www: http://vcmuellheim.de,
+            wwwDepartment: null
+          },
+          matchSeries: {
+            id: 22519505,
+            uuid: 763b89d2-2e98-433b-a075-51d5d943462c,
+            allSeasonId: 70a1e2de-8722-c393-25bf-bd45336f8f2e,
+            name: Bez.-MeisterschaftU16w-Endrundeam06.11.22,
+            shortName: U16wEBW,
+            type: Competition,
+            updated: 2023-03-2812:10:27.694,
+            structureUpdated: 2023-03-2812:10:27.694,
+            resultsUpdated: 2022-11-0618:59:44.298,
+            season: {
+              id: 22514239,
+              uuid: 6a541375-4044-4540-bfc8-d7ed6e0e5691,
+              name: 2022/23
+            },
+            hierarchy: {
+              id: 22519413,
+              uuid: 57a74918-5680-45b3-b06c-bac8a960f676,
+              name: BezirkWestJugendweiblich,
+              shortName: bwjw,
+              hierarchyLevel: 5
+            },
+            fullHierarchy: {
+              hierarchy: [
+                {
+                  id: 22519413,
+                  name: BezirkWestJugendweiblich,
+                  shortName: bwjw,
+                  hierarchyLevel: 5
+                },
+                {
+                  id: 22519325,
+                  name: SBVVBezirkWestJugend,
+                  shortName: bwj,
+                  hierarchyLevel: 4
+                },
+                {
+                  id: 22519080,
+                  name: SBVV-Jugendmeisterschaften,
+                  shortName: sbvv_jm,
+                  hierarchyLevel: 3
+                },
+                {
+                  id: 22519079,
+                  name: Regionaljugendmeisterschaften,
+                  shortName: rjm,
+                  hierarchyLevel: 2
+                },
+                {
+                  id: 22519078,
+                  name: DeutscheJugendmeisterschaften,
+                  shortName: djm,
+                  hierarchyLevel: 1
+                },
+                {
+                  id: 22519077,
+                  name: Jugendspielbetrieb,
+                  shortName: jug,
+                  hierarchyLevel: 0
+                }
+              ]
+            },
+            association: {
+              name: SBVVBezirkWest,
+              shortName: SBVV-West
+            }
+          }
+        },
+        {
+          id: 23552195,
+          uuid: 57d5a4f7-a052-458c-b598-025542f5245c,
+          seasonTeamId: 23552195,
+          placeCipher: 6,
+          name: VCMüllheim,
+          shortName: null,
+          clubCode: null,
+          status: ACTIVE,
+          www: http://vcmuellheim.de,
+          logo: {
+            url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+          },
+          club: {
+            name: VCMüllheim,
+            id: 471,
+            shortName: null,
+            logo: {
+              url: https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg
+            },
+            www: http://vcmuellheim.de,
+            wwwDepartment: null
+          },
+          matchSeries: {
+            id: 22519385,
+            uuid: 0cd90ea7-1dea-4d0f-90e3-866c187d5769,
+            allSeasonId: aec2f8d3-04bd-4e4c-807c-5fde05434700,
+            name: Bez.-MeisterschaftU14m-Endrundeam05.11.2022,
+            shortName: U14mEBW,
+            type: Competition,
+            updated: 2023-03-1100:00:28.105,
+            structureUpdated: 2023-03-1100:00:28.105,
+            resultsUpdated: 2022-11-2509:14:57.787,
+            season: {
+              id: 22514239,
+              uuid: 6a541375-4044-4540-bfc8-d7ed6e0e5691,
+              name: 2022/23
+            },
+            hierarchy: {
+              id: 22519326,
+              uuid: 2a2d562d-38bf-480a-89fb-41fd254b9957,
+              name: BezirkWestJugendmännlich,
+              shortName: bwjm,
+              hierarchyLevel: 5
+            },
+            fullHierarchy: {
+              hierarchy: [
+                {
+                  id: 22519326,
+                  name: BezirkWestJugendmännlich,
+                  shortName: bwjm,
+                  hierarchyLevel: 5
+                },
+                {
+                  id: 22519325,
+                  name: SBVVBezirkWestJugend,
+                  shortName: bwj,
+                  hierarchyLevel: 4
+                },
+                {
+                  id: 22519080,
+                  name: SBVV-Jugendmeisterschaften,
+                  shortName: sbvv_jm,
+                  hierarchyLevel: 3
+                },
+                {
+                  id: 22519079,
+                  name: Regionaljugendmeisterschaften,
+                  shortName: rjm,
+                  hierarchyLevel: 2
+                },
+                {
+                  id: 22519078,
+                  name: DeutscheJugendmeisterschaften,
+                  shortName: djm,
+                  hierarchyLevel: 1
+                },
+                {
+                  id: 22519077,
+                  name: Jugendspielbetrieb,
+                  shortName: jug,
+                  hierarchyLevel: 0
+                }
+              ]
+            },
+            association: {
+              name: SBVVBezirkWest,
+              shortName: SBVV-West
+            }
+          }
+        }
+      ]
+    },
+    locations: {
+      main: {
+        id: 874,
+        name: HalleII,
+        address: {
+          postbox: null,
+          street: Schwarzwaldstraße12A,
+          extraField: null,
+          postcode: 79379,
+          city: Müllheim,
+          region: Baden-Württenberg,
+          country: Deutschland
+        },
+        homepage: null
+      }
+    }
+  }
+}
