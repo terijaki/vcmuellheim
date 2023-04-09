@@ -181,9 +181,28 @@ jobs:
           curl -o individual_matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/individual_matches.xslt" -f --retry 3 --retry-delay 30
 
       - name: Query SAMS # make the API call to the SAMS server and save it as XML
+        id: query_sams
         run: |
           mkdir -p ${{env.SAMS_MATCHES_XML}}
           curl -o ${{env.SAMS_MATCHES_XML}}${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&teamId=${{matrix.teams}}" -f --retry 5 --retry-delay 60
+
+      - name: Convert XML to JSON
+        uses: fabasoad/data-format-converter-action@main
+        id: xml_to_json
+        if: steps.query_sams.conclusion == 'success'
+        with:
+          input: '${{env.SAMS_MATCHES_XML}}${{matrix.teams}}.xml'
+          from: 'xml'
+          to: 'json'
+    
+      - name: Store JSON
+        id: store_json
+        if: steps.xml_to_json.conclusion == 'success'
+        continue-on-error: true
+        run: |
+            filename=${{env.SAMS_MATCHES_XML}}${{matrix.teams}}.json
+            mkdir -p $(dirname $filename)
+            printf "%s" "${{ steps.xml_to_json.outputs.output }}" > $filename
 
       - name: Upload Artifact (SAMS XML)
         id: upload
@@ -191,6 +210,14 @@ jobs:
         with:
           name: raw_sams_matches_xml
           path: ${{env.SAMS_MATCHES_XML}}${{matrix.teams}}.xml
+
+      - name: Upload Artifact (SAMS JSON)
+        id: upload_json
+        if: steps.store_json.conclusion == 'success'
+        uses: actions/upload-artifact@v3
+        with:
+          name: raw_sams_matches_json
+          path: ${{env.SAMS_MATCHES_JSON}}${{matrix.teams}}.json
 
       - name: Upload Status
         id: upload_status
@@ -232,6 +259,13 @@ jobs:
         with:
           name: raw_sams_matches_xml
           path: ${{env.SAMS_MATCHES_XML}}
+
+      - name: Download Matches Exports (JSON)
+        if: contains(needs.Get-Matches.outputs.upload_required, 'yes')
+        uses: actions/download-artifact@v3
+        with:
+          name: raw_sams_matches_json
+          path: ${{env.SAMS_MATCHES_JSON}}
 
       - name: Setup Git Config
         run: |
