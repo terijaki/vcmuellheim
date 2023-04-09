@@ -14,9 +14,14 @@ env:
   GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
   SAMS_KEY: ${{ secrets.SAMS_API }}
   SAMS_URL: "https://www.volleyball-baden.de"
-  SAMS_RANKING_TARGET: _sams/xml/rankings/ # the folder I want the ranking xml files to go to
-  SAMS_MATCHES_TARGET: _sams/xml/matches/ # the folder I want the match xml files to go to
   SAMS_CLUBID: "471"
+  # paths and files reused throughout the workflow
+  SAMS_CLUB_XML: _sams/xml/club.xml
+  SAMS_RANKING_XML: _sams/xml/rankings/
+  SAMS_MATCHES_XML: _sams/xml/matches/
+  SAMS_CLUB_JSON: _data/sams/club.json
+  SAMS_RANKING_JSON: _data/sams/rankings/
+  SAMS_MATCHES_JSON: _data/sams/matches/
 
 jobs:
   ########################
@@ -36,8 +41,8 @@ jobs:
       - name: Query SAMS for Club Data
         id: sams-query-club
         run: |
-          mkdir -p _sams/xml
-          curl -o _sams/xml/club.xml "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID" -f --retry 10 --retry-delay 60 --connect-timeout 30
+          mkdir -p $(dirname ${{env.SAMS_CLUB_XML}})
+          curl -o ${{env.SAMS_CLUB_XML}} "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID" -f --retry 10 --retry-delay 60 --connect-timeout 30
 
       - name: Isolate Teams from XML # this reads the XML file and extracts the team IDs
         id: teamids-from-club
@@ -52,6 +57,22 @@ jobs:
         if: steps.teamids-from-club.conclusion == 'success'
         run: echo "teamids=[${{steps.teamids-from-club.outputs.info}}]" >> $GITHUB_OUTPUT # transform IDs from "123,456,789" to "[123,456,789]"
 
+        - name: Convert XML to JSON
+        uses: fabasoad/data-format-converter-action@main
+        id: xml_to_json
+        if: steps.load_file.conclusion == 'success'
+        with:
+          input: '${{env.SAMS_CLUB_XML}}'
+          from: 'xml'
+          to: 'json'
+    
+      - name: Store JSON
+        id: store_json
+        if: steps.xml_to_json.conclusion == 'success'
+        run: |
+            mkdir -p $(dirname ${{env.SAMS_CLUB_JSON}})
+            printf "%s" "${{ steps.xml_to_json.outputs.output }}" > ${{env.SAMS_CLUB_JSON}}
+
       - name: Setup Git Config
         if: steps.sams-query-club.conclusion == 'success'
         run: |
@@ -62,7 +83,8 @@ jobs:
         if: steps.sams-query-club.conclusion == 'success'
         continue-on-error: true # don't throw an error as there won't always be changes compared to the existing file
         run: |
-          git add "_sams/xml"
+          git add "${{env.SAMS_CLUB_XML}}"
+          git add "${{env.SAMS_CLUB_JSON}}"
           git commit -m "sams raw club update"
           git pull --rebase --quiet
           git push origin --all --quiet
@@ -97,15 +119,15 @@ jobs:
 
       - name: Query SAMS # make the API call to the SAMS server and save it as XML
         run: |
-          mkdir -p ${{env.SAMS_RANKING_TARGET}}
-          curl -o ${{env.SAMS_RANKING_TARGET}}${{matrix.teams}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{steps.matchseriesid-from-club.outputs.info}}" -f --retry 5 --retry-delay 60
+          mkdir -p ${{env.SAMS_RANKING_XML}}
+          curl -o ${{env.SAMS_RANKING_XML}}${{matrix.teams}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{steps.matchseriesid-from-club.outputs.info}}" -f --retry 5 --retry-delay 60
 
       - name: Upload Artifact (SAMS XML)
         id: upload
         uses: actions/upload-artifact@v3
         with:
           name: raw_sams_rankings_xml
-          path: ${{env.SAMS_RANKING_TARGET}}${{matrix.teams}}.xml
+          path: ${{env.SAMS_RANKING_XML}}${{matrix.teams}}.xml
 
       - name: Upload Status
         id: upload_status
@@ -132,15 +154,15 @@ jobs:
 
       - name: Query SAMS # make the API call to the SAMS server and save it as XML
         run: |
-          mkdir -p ${{env.SAMS_MATCHES_TARGET}}
-          curl -o ${{env.SAMS_MATCHES_TARGET}}${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&teamId=${{matrix.teams}}" -f --retry 5 --retry-delay 60
+          mkdir -p ${{env.SAMS_MATCHES_XML}}
+          curl -o ${{env.SAMS_MATCHES_XML}}${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&teamId=${{matrix.teams}}" -f --retry 5 --retry-delay 60
 
       - name: Upload Artifact (SAMS XML)
         id: upload
         uses: actions/upload-artifact@v3
         with:
           name: raw_sams_matches_xml
-          path: ${{env.SAMS_MATCHES_TARGET}}${{matrix.teams}}.xml
+          path: ${{env.SAMS_MATCHES_XML}}${{matrix.teams}}.xml
 
       - name: Upload Status
         id: upload_status
@@ -167,14 +189,14 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: raw_sams_rankings_xml
-          path: ${{env.SAMS_RANKING_TARGET}}
+          path: ${{env.SAMS_RANKING_XML}}
 
       - name: Download Matches Exports
         if: contains(needs.Get-Matches.outputs.upload_required, 'yes')
         uses: actions/download-artifact@v3
         with:
           name: raw_sams_matches_xml
-          path: ${{env.SAMS_MATCHES_TARGET}}
+          path: ${{env.SAMS_MATCHES_XML}}
 
       - name: Setup Git Config
         run: |
@@ -184,13 +206,13 @@ jobs:
       - name: Git Commit Rankings
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
-          git add "${{env.SAMS_RANKING_TARGET}}*"
+          git add "${{env.SAMS_RANKING_XML}}*"
           git commit -m "sams rankings update"
 
       - name: Git Commit Matches
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
-          git add "${{env.SAMS_MATCHES_TARGET}}*"
+          git add "${{env.SAMS_MATCHES_XML}}*"
           git commit -m "sams matches update"
 
       - name: Git Push
