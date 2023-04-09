@@ -269,6 +269,7 @@ jobs:
           path: ${{env.SAMS_MATCHES_JSON}}
 
       - name: Validate JSON files
+        if: contains(needs.Get-Matches.outputs.upload_required, 'yes') || contains(needs.Get-Rankings.outputs.upload_required, 'yes')
         uses: anyone-developer/anyone-validate-json@main
         with:
           file-extension: '.json'
