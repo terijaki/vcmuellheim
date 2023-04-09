@@ -83,8 +83,8 @@ jobs:
         if: steps.sams_query_club.conclusion == 'success'
         continue-on-error: true
         run: |
-          git add "${{env.SAMS_CLUB_XML}}"
-          git add "${{env.SAMS_CLUB_JSON}}"
+          git add "${{env.SAMS_CLUB_XML}} [skip ci]"
+          git add "${{env.SAMS_CLUB_JSON}} [skip ci]"
           git commit -m "sams raw club update"
           git pull --rebase --quiet
           git push origin --all --quiet
