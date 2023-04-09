@@ -97,7 +97,7 @@ jobs:
     needs: Get-Teams
     continue-on-error: true # if one team fails, the flow should continue
     strategy:
-      #max-parallel: 1
+      max-parallel: 3
       matrix:
         teams: ${{fromJSON(needs.Get-Teams.outputs.teamids)}}
     outputs:
@@ -169,6 +169,7 @@ jobs:
     needs: Get-Teams
     continue-on-error: true # if one team fails, the flow should continue
     strategy:
+      max-parallel: 3
       matrix:
         teams: ${{fromJSON(needs.Get-Teams.outputs.teamids)}}
     outputs:
