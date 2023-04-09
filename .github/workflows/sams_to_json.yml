@@ -58,7 +58,7 @@ jobs:
             filename=$(echo $filename | sed -e 's!\.xml!!')
             filename=$(echo $filename | sed -e 's!\_sams\/xml/!${{env.TARGET_FOLDER}}!')
             mkdir -p $(dirname $filename)
-            ${{ steps.xml_to_json.outputs.output }} > $filename
+            printf "%s" "${{ steps.xml_to_json.outputs.output }}" > $filename
     
       - name: Upload Artifact (JSON)
         id: upload_json
