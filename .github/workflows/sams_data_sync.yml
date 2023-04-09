@@ -200,7 +200,7 @@ jobs:
         if: steps.xml_to_json.conclusion == 'success'
         continue-on-error: true
         run: |
-            filename=${{env.SAMS_MATCHES_XML}}${{matrix.teams}}.json
+            filename=${{env.SAMS_MATCHES_JSON}}${{matrix.teams}}.json
             mkdir -p $(dirname $filename)
             printf "%s" "${{ steps.xml_to_json.outputs.output }}" > $filename
 
