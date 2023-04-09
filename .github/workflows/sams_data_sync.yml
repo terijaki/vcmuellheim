@@ -39,14 +39,14 @@ jobs:
           fetch-depth: 0
 
       - name: Query SAMS for Club Data
-        id: sams-query-club
+        id: sams_query_club
         run: |
           mkdir -p $(dirname ${{env.SAMS_CLUB_XML}})
           curl -o ${{env.SAMS_CLUB_XML}} "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID" -f --retry 10 --retry-delay 60 --connect-timeout 30
 
       - name: Isolate Teams from XML # this reads the XML file and extracts the team IDs
         id: teamids-from-club
-        if: steps.sams-query-club.conclusion == 'success'
+        if: steps.sams_query_club.conclusion == 'success'
         uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
           xml-file: "_sams/xml/club.xml"
@@ -57,10 +57,10 @@ jobs:
         if: steps.teamids-from-club.conclusion == 'success'
         run: echo "teamids=[${{steps.teamids-from-club.outputs.info}}]" >> $GITHUB_OUTPUT # transform IDs from "123,456,789" to "[123,456,789]"
 
-        - name: Convert XML to JSON
+      - name: Convert XML to JSON
         uses: fabasoad/data-format-converter-action@main
         id: xml_to_json
-        if: steps.load_file.conclusion == 'success'
+        if: steps.sams_query_club.conclusion == 'success'
         with:
           input: '${{env.SAMS_CLUB_XML}}'
           from: 'xml'
@@ -74,13 +74,13 @@ jobs:
             printf "%s" "${{ steps.xml_to_json.outputs.output }}" > ${{env.SAMS_CLUB_JSON}}
 
       - name: Setup Git Config
-        if: steps.sams-query-club.conclusion == 'success'
+        if: steps.sams_query_club.conclusion == 'success'
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
       - name: Git Commit & Push
-        if: steps.sams-query-club.conclusion == 'success'
+        if: steps.sams_query_club.conclusion == 'success'
         continue-on-error: true # don't throw an error as there won't always be changes compared to the existing file
         run: |
           git add "${{env.SAMS_CLUB_XML}}"
