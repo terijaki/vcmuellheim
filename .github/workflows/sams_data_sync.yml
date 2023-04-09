@@ -118,20 +118,45 @@ jobs:
         run: curl -o rankings.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/rankings.xslt" -f --retry 3 --retry-delay 30
 
       - name: Query SAMS # make the API call to the SAMS server and save it as XML
+        id: query_sams
         run: |
           mkdir -p ${{env.SAMS_RANKING_XML}}
           curl -o ${{env.SAMS_RANKING_XML}}${{matrix.teams}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{steps.matchseriesid-from-club.outputs.info}}" -f --retry 5 --retry-delay 60
 
+      - name: Convert XML to JSON
+        uses: fabasoad/data-format-converter-action@main
+        id: xml_to_json
+        if: steps.query_sams.conclusion == 'success'
+        with:
+          input: '${{env.SAMS_RANKING_XML}}${{matrix.teams}}.xml'
+          from: 'xml'
+          to: 'json'
+    
+      - name: Store JSON
+        id: store_json
+        if: steps.xml_to_json.conclusion == 'success'
+        run: |
+            filename=${{env.SAMS_RANKING_JSON}}${{matrix.teams}}.json
+            mkdir -p $(dirname $filename)
+            printf "%s" "${{ steps.xml_to_json.outputs.output }}" > $filename
+
       - name: Upload Artifact (SAMS XML)
-        id: upload
+        id: upload_xml
         uses: actions/upload-artifact@v3
         with:
           name: raw_sams_rankings_xml
           path: ${{env.SAMS_RANKING_XML}}${{matrix.teams}}.xml
 
+      - name: Upload Artifact (SAMS JSON)
+        id: upload_json
+        uses: actions/upload-artifact@v3
+        with:
+          name: raw_sams_rankings_json
+          path: ${{env.SAMS_RANKING_JSON}}${{matrix.teams}}.json
+
       - name: Upload Status
         id: upload_status
-        if: steps.upload.conclusion == 'success'
+        if: steps.upload_xml.conclusion == 'success' || steps.upload_json.conclusion == 'success'
         run: echo "required=yes" >> $GITHUB_OUTPUT
 
   ######################
@@ -184,14 +209,21 @@ jobs:
           token: ${{env.GITHUB_TOKEN}}
           fetch-depth: 0
 
-      - name: Download Rankings Exports
+      - name: Download Rankings Exports (XML)
         if: contains(needs.Get-Rankings.outputs.upload_required, 'yes')
         uses: actions/download-artifact@v3
         with:
           name: raw_sams_rankings_xml
           path: ${{env.SAMS_RANKING_XML}}
 
-      - name: Download Matches Exports
+      - name: Download Rankings Exports (JSON)
+        if: contains(needs.Get-Rankings.outputs.upload_required, 'yes')
+        uses: actions/download-artifact@v3
+        with:
+          name: raw_sams_rankings_json
+          path: ${{env.SAMS_RANKING_JSON}}
+
+      - name: Download Matches Exports (XML)
         if: contains(needs.Get-Matches.outputs.upload_required, 'yes')
         uses: actions/download-artifact@v3
         with:
