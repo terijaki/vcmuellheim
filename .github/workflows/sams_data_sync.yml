@@ -273,7 +273,7 @@ jobs:
         uses: anyone-developer/anyone-validate-json@main
         with:
           file-extension: '.json'
-          read-path: '_data/'
+          read-path: '_data'
 
       - name: Setup Git Config
         run: |
