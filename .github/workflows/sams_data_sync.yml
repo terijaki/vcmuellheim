@@ -61,9 +61,7 @@ jobs:
         id: prepare_json_converter
         if: steps.sams_query_club.conclusion == 'success'
         run: |
-          echo '<matches>' > temp_to_json.xml
           cat ${{env.SAMS_CLUB_XML}} | grep -v '<?xml' >> temp_to_json.xml
-          cat temp_to_json.xml
 
       - name: Convert XML to JSON
         uses: fabasoad/data-format-converter-action@main
@@ -135,7 +133,6 @@ jobs:
         id: prepare_json_converter
         if: steps.query_sams.conclusion == 'success'
         run: |
-          echo '<matches>' > temp_to_json.xml
           cat ${{env.SAMS_RANKING_XML}}${{matrix.teams}}.xml | grep -v '<?xml' >> temp_to_json.xml
 
       - name: Convert XML to JSON
