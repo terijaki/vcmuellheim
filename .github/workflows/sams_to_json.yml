@@ -59,10 +59,10 @@ jobs:
             filename=$(echo $filename | sed -e 's!\_sams\/xml!${{env.TARGET_FOLDER}}!')
             ${{ steps.xml_to_json.outputs.output }} > $filename
     
-      - name: Upload Artifact
-        id: upload
+      - name: Upload Artifact (JSON)
+        id: upload_json
         if: steps.store_json.conclusion == 'success'
         uses: actions/upload-artifact@v3
         with:
-          name: rankings
+          name: _data
           path: ${{env.TARGET_FOLDER}}
