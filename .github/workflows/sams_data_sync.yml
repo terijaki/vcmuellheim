@@ -135,6 +135,7 @@ jobs:
       - name: Store JSON
         id: store_json
         if: steps.xml_to_json.conclusion == 'success'
+        continue-on-error: true
         run: |
             filename=${{env.SAMS_RANKING_JSON}}${{matrix.teams}}.json
             mkdir -p $(dirname $filename)
@@ -142,6 +143,7 @@ jobs:
 
       - name: Upload Artifact (SAMS XML)
         id: upload_xml
+        if: steps.query_sams.conclusion == 'success'
         uses: actions/upload-artifact@v3
         with:
           name: raw_sams_rankings_xml
@@ -149,6 +151,7 @@ jobs:
 
       - name: Upload Artifact (SAMS JSON)
         id: upload_json
+        if: steps.store_json.conclusion == 'success'
         uses: actions/upload-artifact@v3
         with:
           name: raw_sams_rankings_json
