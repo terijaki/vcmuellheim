@@ -8,4 +8,4 @@ Gemfile
 Gemfile.lock
 /vendor/
 .vscode
-test.html
+test*.html
