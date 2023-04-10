@@ -120,7 +120,12 @@ h6 {
   color: var(--bs-white);
   background: var(--bs-secondary);
 }
-
+/* ------ Text Selection ------ */
+.zebra-list {
+  & > :nth-child(odd) {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
 /* ------ Banner ------ */
 .banner-info {
   background: #ffdd00;
@@ -632,15 +637,6 @@ h6 {
   padding: 30px 0;
   .past {
     .ergebnis-liste {
-      .match {
-        &:nth-child(odd) {
-          background: rgba(0, 0, 0, 0.05);
-        }
-      }
-    }
-  }
-  .upcoming {
-    .termine-liste {
       .match {
         &:nth-child(odd) {
           background: rgba(0, 0, 0, 0.05);

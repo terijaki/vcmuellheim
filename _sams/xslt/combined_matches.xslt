@@ -16,7 +16,7 @@ permalink: /termine/
                     </div>
                     <div class="upcoming">
 
-                        <div class="termine-liste">
+                        <div class="zebra-list">
                                 
                             <xsl:for-each select="matches/match">
                             <xsl:sort select="substring(date, 7, 4)" order="ascending" data-type="number"/>

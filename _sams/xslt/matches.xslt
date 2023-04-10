@@ -85,7 +85,7 @@ uuid: <xsl:value-of select="matches/match[1]/matchSeries/uuid"/>
                     <h3 class="fw-bold">Termine</h3>
                     <div class="upcoming">
 
-                        <div class="termine-liste">
+                        <div class="zebra-list">
                                 
                             <xsl:for-each select="matches/match">
                             <xsl:sort select="substring(date, 7, 4)" order="ascending" data-type="number"/>
