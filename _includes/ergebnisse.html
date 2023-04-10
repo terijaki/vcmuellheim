@@ -64,6 +64,11 @@
                             </div>
                             {% endfor %}
                             
+                            {% unless include.showmore == false | default: true %}
+                            <div class="text-center pt-4 bg-white">
+                                <a class="generic-button align-middle py-2 px-3 small" href="/ergebnisse/">mehr anzeigen</a>
+                              </div>
+                            {% endunless %}
                         </div>
                     </div>
                 </div>
