@@ -24,7 +24,7 @@
             <div class="col sams-matches">
                 <div class="box matches-future">
                     <h3 class="fw-bold">Unsere letzten {{ include.matches_limit | default: 9 }} Spiele</h3>
-                    <div class="fst-italic small text-black-50 text-end mb-2">{{ matches_lastupdated[0] | date: "Stand %d.%m.%Y %H:%M Uhr" }}</div>
+                    <div class="fst-italic small text-black text-opacity-25 text-end mb-2">{{ matches_lastupdated[0] | date: "Stand %d.%m.%Y %H:%M Uhr" }}</div>
                     <div class="d-none text-center calendar"><a class="btn-small-download mt-0 mb-4" type="text/calendar" href="webcal://vcmuellheim.de/ics/all.ics"><i class="fa-solid fa-arrows-rotate"><!--refresh icon--></i> Kalender abonnieren</a></div>
                     <div class="upcoming">
                         <div class="zebra-list">
