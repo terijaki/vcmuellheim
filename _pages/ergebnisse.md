@@ -6,10 +6,7 @@ permalink: /ergebnisse/
 
 {% for json in site.data.sams.matches %}
     {% for match in json[1].matches.match %}
-        {% assign comparable_date = match.matchSeries.updated | date: "%Y%m%d%H%M" | integer %}
-        {% unless comparable_date < lastupdated %}
-            {% assign lastupdated = match.matchSeries.updated %}
-        {% endunless %}
+        {% assign lastupdated = lastupdated | append: match.matchSeries.updated | append: "#" %}
         {% if match.matchSeries.type and match.results.winner %}
 
             {%- capture content -%}
@@ -25,6 +22,7 @@ permalink: /ergebnisse/
         {% endif%}
     {% endfor %}
 {% endfor %}
+{% assign lastupdated = lastupdated | split: "#" | sort | reverse %}
 
 <main class="flex-grow-1 d-flex flex-column">
     <section id="matches" class="section-bg flex-grow-1">
@@ -32,7 +30,7 @@ permalink: /ergebnisse/
             <div class="col sams-matches">
                 <div class="box matches-future">
                     <h3 class="fw-bold">Unsere letzten 30 Spiele</h3>
-                    <div class="fst-italic small text-black-50 text-end mb-2">{{ lastupdated | date: "Stand %d.%m.%Y %H:%M Uhr" }}</div>
+                    <div class="fst-italic small text-black-50 text-end mb-2">{{ lastupdated[0] | date: "Stand %d.%m.%Y %H:%M Uhr" }}</div>
                     <div class="d-none text-center calendar"><a class="btn-small-download mt-0 mb-4" type="text/calendar" href="webcal://vcmuellheim.de/ics/all.ics"><i class="fa-solid fa-arrows-rotate"><!--refresh icon--></i> Kalender abonnieren</a></div>
                     <div class="upcoming">
                         <div class="termine-liste">
