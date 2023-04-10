@@ -6,78 +6,8 @@ permalink: /ergebnisse/
 
 <main class="flex-grow-1 d-flex flex-column">
     <section id="matches" class="section-bg flex-grow-1">
-        <div class="container">
 
-{% for json in site.data.sams.matches %}
-    {% for match in json[1].matches.match %}
-        {% assign matches_lastupdated = matches_lastupdated | append: match.matchSeries.updated | append: "#" %}
-        {% if match.matchSeries.type and match.results.winner %}
+{% include ergebnisse.html matches_limit="30" %}
 
-            {%- capture content -%}
-                {{ match.date | date: "%Y-%m-%d" }} {{ match.time | date: "%H:%M" }}$#€{{ match.matchSeries.uuid }}$#€{{ match.matchSeries.name }}$#€{{ match.matchSeries.type }}$#€{{ match.matchSeries.season.name }}$#€{{ match.uuid }}$#€{{ match.host.id }}$#€{{ match.host.club }}$#€{{ match.team[0].name }}$#€{{ match.team[1].name }}$#€{{ match.team[0].id }}$#€{{ match.team[1].id }}$#€{{ match.location.street }}$#€{{ match.location.postalCode }}$#€{{ match.location.city }}$#€{{ match.location.name }}$#€{{ match.results.setPoints }}$#€{{ match.results.ballPoints }}$#€{{ match.results.sets.set[0].points }}, {{ match.results.sets.set[1].points }}{% if match.results.sets.set[2].points %}, {{ match.results.sets.set[2].points }}{% endif %}{% if match.results.sets.set[3].points %}, {{ match.results.sets.set[3].points }}{% endif %}{% if match.results.sets.set[4].points %}, {{ match.results.sets.set[4].points }}{% endif %}
-            {%- endcapture -%}
-
-            {% if all_matches %}
-                {% assign all_matches = all_matches | append: 'öäü' | append: content %}
-            {% else %}
-                {% assign all_matches = content %}
-            {% endif%}
-
-        {% endif%}
-    {% endfor %}
-{% endfor %}
-{% assign matches_lastupdated = matches_lastupdated | split: "#" | sort | reverse %}
-
-
-            <div class="col sams-matches">
-                <div class="box matches-future">
-                    <h3 class="fw-bold">Unsere letzten 30 Spiele</h3>
-                    <div class="fst-italic small text-black-50 text-end mb-2">{{ matches_lastupdated[0] | date: "Stand %d.%m.%Y %H:%M Uhr" }}</div>
-                    <div class="d-none text-center calendar"><a class="btn-small-download mt-0 mb-4" type="text/calendar" href="webcal://vcmuellheim.de/ics/all.ics"><i class="fa-solid fa-arrows-rotate"><!--refresh icon--></i> Kalender abonnieren</a></div>
-                    <div class="upcoming">
-                        <div class="termine-liste">
-
-                            {% assign all_matches = all_matches | split: 'öäü' | sort | reverse %}
-                            {% for match in all_matches limit: 30 %}
-                            {% assign m = match | split: '$#€' %}
-                            <div class="match col-12 row text-nowrap m-0 py-2" match-id="23082859" match-number="1">
-                                <div class="date-time col-12 col-lg-2 d-flex flex-lg-column align-items-center flex-wrap small">
-                                    <span class="date d-lg-block me-2">{{ m[0] | date: "%d.%m.%Y" }}</span>
-                                    {% if m[14].size > 0 %}
-                                    <span class="date d-lg-block small">
-                                        <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query={{ m[12]  }},{{ m[13]  }}+{{ m[14]  }},{{ m[15]  }}"><i class="fa-solid fa-location-dot pe-1"></i> {{ m[14] }}</a>
-                                    </span>
-                                    {% endif %}
-                                </div>
-                                <div class="teams col-12 col-lg-5" hostid="{{ m[6]  }}" hostname="{{ m[8]  }}">
-                                    <div class="fw-bold">
-                                        <span class="team-a" teamid="{{ m[10]  }}">{{ m[8]  }}</span>
-                                        <span class="versus px-2">:</span><span class="team-b" teamid="{{ m[11]  }}">{{ m[9]  }}</span>
-                                    </div>
-                                    <div>
-                                        <span class="league-name d-lg-block small text-success">{{ m[2] }}</span>
-                                    </div>
-                                </div>
-                                <div class="points col-12 col-lg-5 d-flex align-items-center">
-                                    <i class="fa-solid fa-square-poll-vertical pe-2"></i><span>{{ m[16]  }}<small class="ps-2"> ({{ m[18]  }})</small></span>
-                                </div>
-                                <!--
-                                <div class="location col-12 col-lg-5 d-flex align-items-center small" city="{{ m[14] }}">
-                                    <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query={{ m[12]  }},{{ m[13]  }}+{{ m[14]  }},{{ m[15]  }}">
-                                        <i class="fa-solid fa-location-dot pe-1"></i><span>{{ m[14]  }}</span>
-                                        <span class="ps-1">({{ m[12]  }})</span>
-                                    </a>
-                                </div>
-                            -->
-                            </div>
-                            {% endfor %}
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            
-        </div>
     </section>
 </main>
