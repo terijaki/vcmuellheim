@@ -4,6 +4,10 @@ title: Ergebnisse
 permalink: /ergebnisse/
 ---
 
+<main class="flex-grow-1 d-flex flex-column">
+    <section id="matches" class="section-bg flex-grow-1">
+        <div class="container">
+
 {% for json in site.data.sams.matches %}
     {% for match in json[1].matches.match %}
         {% assign matches_lastupdated = matches_lastupdated | append: match.matchSeries.updated | append: "#" %}
@@ -24,9 +28,7 @@ permalink: /ergebnisse/
 {% endfor %}
 {% assign matches_lastupdated = matches_lastupdated | split: "#" | sort | reverse %}
 
-<main class="flex-grow-1 d-flex flex-column">
-    <section id="matches" class="section-bg flex-grow-1">
-        <div class="container">
+
             <div class="col sams-matches">
                 <div class="box matches-future">
                     <h3 class="fw-bold">Unsere letzten 30 Spiele</h3>
@@ -74,3 +76,8 @@ permalink: /ergebnisse/
                     </div>
                 </div>
             </div>
+
+            
+        </div>
+    </section>
+</main>
