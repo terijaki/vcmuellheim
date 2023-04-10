@@ -28,7 +28,7 @@ permalink: /tabelle/
           {% endif %}
         {% endfor %}
 
-
+{% include ergebnisse.html matches_limit="9" showmore="true" %}
 
       </div>
     </div>
