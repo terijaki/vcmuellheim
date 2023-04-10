@@ -6,11 +6,11 @@ permalink: /ergebnisse/
 
 {% for json in site.data.sams.matches %}
     {% for match in json[1].matches.match %}
-        {% unless match.matchSeries.updated < lastupdated %}
+        {% assign comparable_date = match.matchSeries.updated | date: "%Y%m%d%H%M" | integer %}
+        {% unless comparable_date < lastupdated %}
             {% assign lastupdated = match.matchSeries.updated %}
         {% endunless %}
-        {% if match.matchSeries.type %}
-        {% if match.results.winner %}
+        {% if match.matchSeries.type and match.results.winner %}
 
             {%- capture content -%}
                 {{ match.date | date: "%Y-%m-%d" }} {{ match.time | date: "%H:%M" }}$#€{{ match.matchSeries.uuid }}$#€{{ match.matchSeries.name }}$#€{{ match.matchSeries.type }}$#€{{ match.matchSeries.season.name }}$#€{{ match.uuid }}$#€{{ match.host.id }}$#€{{ match.host.club }}$#€{{ match.team[0].name }}$#€{{ match.team[1].name }}$#€{{ match.team[0].id }}$#€{{ match.team[1].id }}$#€{{ match.location.street }}$#€{{ match.location.postalCode }}$#€{{ match.location.city }}$#€{{ match.location.name }}$#€{{ match.results.setPoints }}$#€{{ match.results.ballPoints }}$#€{{ match.results.sets.set[0].points }}, {{ match.results.sets.set[1].points }}{% if match.results.sets.set[2].points %}, {{ match.results.sets.set[2].points }}{% endif %}{% if match.results.sets.set[3].points %}, {{ match.results.sets.set[3].points }}{% endif %}{% if match.results.sets.set[4].points %}, {{ match.results.sets.set[4].points }}{% endif %}
@@ -22,7 +22,6 @@ permalink: /ergebnisse/
                 {% assign all_matches = content %}
             {% endif%}
 
-        {% endif%}
         {% endif%}
     {% endfor %}
 {% endfor %}
