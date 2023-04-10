@@ -8,6 +8,7 @@ apple_touch_icon: "/img/apple-touch-icon.png"
 apple_touch_startup_image: "/img/vcm-banner-white.png"
 language: "de"
 language_direction: "ltr"
+timezone: "Europe/Berlin"
 
 color_primary: "#01A29A" # rgb(1,162,154) | Persian Green
 color_secondary: "#366273" # rgb(54,98,115) | Blumine
