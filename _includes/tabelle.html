@@ -1,16 +1,17 @@
-{% for json in site.data.sams.rankings %}
-{% assign liga = json[1].rankings %}
-  {% assign season_cal = liga.matchSeries.season.name | remove: "/" | integer %}
+{% for season_json in site.data.sams.rankings %}
+{% assign season_liga = season_json[1].rankings %}
+  {% assign season_cal = season_liga.matchSeries.season.name | remove: "/" | integer %}
   {% unless season_cal < season_mostrecent %}
     {% assign season_mostrecent = season_cal %}
-    {% assign current_season = liga.matchSeries.season.name %}
+    {% assign current_season = season_liga.matchSeries.season.name %}
   {% endunless %}
 {% endfor %}
 <!--Die Aktuelle Season ist: {{ current_season }}-->
 {% assign clubdata = site.data.sams.club.sportsclub.teams | strip %}
 {% for json in site.data.sams.rankings %}
 {% assign liga = json[1].rankings %}
-{% if liga.matchSeries.type == "League" and liga.matchSeries.season.name == current_season and clubdata contains liga.matchSeries.uuid %}
+{% assign liga_string = liga.ranking | strip %}{% comment %}This string is needed to check if it contains the include team ID{% endcomment%}
+{% if liga_string contains include.team or include.team == nil and liga.matchSeries.type == "League" and liga.matchSeries.season.name == current_season and clubdata contains liga.matchSeries.uuid %}
   {% unless leagues contains liga.matchSeries.uuid %}
     {%- capture this_league -%}
       {% if liga.matchSeries.hierarchy.hierarchyLevel.size == 1 %}0{% endif %}{{ liga.matchSeries.hierarchy.hierarchyLevel }}ü#ä{{ liga.matchSeries.id }}ü#ä{{ liga.matchSeries.uuid }}ü#ä{{ liga.matchSeries.name }}ü#ä{{ liga.matchSeries.season.name }}ü#ä{{ liga.matchSeries.updated }}ü#ä
