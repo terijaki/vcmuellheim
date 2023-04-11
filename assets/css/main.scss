@@ -674,31 +674,12 @@ h6 {
 }
 
 /* ------ Tabelle ------ */
-#ergebnisse-tabelle {
-  .footnote {
-    display: flex;
-    position: relative;
-    top: -0.5rem;
-    font-style: italic;
-    font-size: small;
-
-    & > div {
-      flex-grow: 1;
-    }
-  }
+.sams-rankings {
   .timestamp {
     text-align: right;
     color: rgba(0, 0, 0, 0.3);
   }
-  .norankings {
-    text-align: center;
-    padding: 0.5rem 0;
-
-    &:not(:first-child) {
-      display: none;
-    }
-  }
-  .sams-rankings {
+  table {
     tr[team~="Müllheim"] {
       color: var(--bs-white);
       background: var(--bs-dark);
@@ -715,15 +696,13 @@ h6 {
   }
 }
 @media (max-width: 768px) {
-  #ergebnisse-tabelle {
-    .sams-rankings {
-      table {
-        th,
-        td {
-          &:nth-child(4) {
-            display: none;
-            /* Blendet Sätze aus der Tabellenübersicht aus */
-          }
+  .sams-rankings {
+    table {
+      th,
+      td {
+        &:nth-child(4) {
+          display: none;
+          /* Blendet Sätze aus der Tabellenübersicht aus */
         }
       }
     }

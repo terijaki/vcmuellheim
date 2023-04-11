@@ -9,85 +9,8 @@ permalink: /tabelle/
   <section id="ergebnisse-tabelle" class="section-bg flex-grow-1">
     <div class="container px-0 px-sm-3">
       <div class="row teams my-4">
-        {% for json in site.data.sams.rankings %}
-        {% assign liga = json[1].rankings %}
-          {% assign season_cal = liga.matchSeries.season.name | remove: "/" | integer %}
-          {% unless season_cal < season_mostrecent %}
-            {% assign season_mostrecent = season_cal %}
-            {% assign current_season = liga.matchSeries.season.name %}
-          {% endunless %}
-        {% endfor %}
-        <!--Die Aktuelle Season ist: {{ current_season }}-->
-        {% assign clubdata = site.data.sams.club.sportsclub.teams | strip %}
-        {% for json in site.data.sams.rankings %}
-        {% assign liga = json[1].rankings %}
-        {% if liga.matchSeries.type == "League" and liga.matchSeries.season.name == current_season and clubdata contains liga.matchSeries.uuid %}
-          {% unless leagues contains liga.matchSeries.uuid %}
-            {%- capture this_league -%}
-              {% if liga.matchSeries.hierarchy.hierarchyLevel.size == 1 %}0{% endif %}{{ liga.matchSeries.hierarchy.hierarchyLevel }}ü#ä{{ liga.matchSeries.id }}ü#ä{{ liga.matchSeries.uuid }}ü#ä{{ liga.matchSeries.name }}ü#ä{{ liga.matchSeries.season.name }}ü#ä{{ liga.matchSeries.updated }}ü#ä
-              {% for ranking in liga.ranking %}
-                {% if ranking.place.size == 1 %}0{% endif %}{{ ranking.place }}§t€{{ ranking.team.id }}§t€{{ ranking.team.uuid }}§t€{{ ranking.team.name }}§t€{{ ranking.team.club.name }}§t€{{ ranking.points }}§t€{{ ranking.wins }}§t€{{ ranking.matchesPlayed }}§t€{{ ranking.setPoints }}§R€
-              {% endfor %}
-            {%- endcapture -%}
-            {% assign leagues = leagues | append: this_league | append: ",+." %}
-          {% endunless %}
-        {% endif %}
-        {% endfor %}
-        {% assign leagues = leagues | split: ",+." | sort %}
-
-        {% for league in leagues %}
-          {% assign l = league | split: "ü#ä" %}
-          <div class="col-12 col-lg-6 mb-4 sams-rankings" liganame="{{ l[3] }}" ligaid="{{ l[1] }}" ligauuid="{{ l[2] }}">
-            <div class="box m-0 p-3 p-sm-4 p-md-5 p-lg-4 p-xl-5">
-              <h3 class="fw-bold">{{ l[3] }}</h3>
-              <div class="footnote">
-                <div class="season text-success">Saison {{ l[4] }}</div>
-                <div class="timestamp">{{ l[5] | date: "Stand %d.%m.%Y %H:%M Uhr" }}</div>
-              </div>
-              <div>
-                <table class="w-100">
-                  <thead>
-                    <tr>
-                      <th>Platz</th>
-                      <th>Mannschaft</th>
-                      <th>Siege</th>
-                      <th>Sätze</th>
-                      <th>Punkte</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {% assign teams = l[6] | split: "§R€" | sort %}
-                  {% for team in teams %}
-                  {% assign t = team | split: "§t€" %}
-                    {% if t.size > 1 %}
-                      <tr team="{{ t[3] }}" teamid="{{ t[1] }}" teamuuid="{{ t[2] }}" teamclub="{{ t[4] }}">
-                        <td>{{ t[0] | abs }}</td>
-                        <td>{{ t[3] }}</td>
-                        <td>{{ t[6] }}/{{ t[7] }}</td>
-                        <td>{{ t[8] }}</td>
-                        <td>{{ t[5] }}</td>
-                      </tr>
-                    {% endif %}
-                  {% endfor %}
-                  {% if teams.size < 2 %}
-                    <tr class="norankings">
-                      <td colspan="4">Für diese Saison stehen derzeit keine Ergebnisse bereit.</td>
-                    </tr>
-                  {% endif %}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-
-        {% if leagues.size == 0 %}
-          <div class="container sams-norankings">
-            <div class="box col text-center">
-              <p class="p-3 m-0"><i class="fa-regular fa-face-surprise fa-bo1unce fa-2xl text-warning me-3"></i>Für diese Saison stehen derzeit keine Ergebnisse bereit.</p>
-            </div>
-          </div>
-        {% endif %}
+        
+      {% include tabelle.html %}
 
       {% include ergebnisse.html matches_limit="9" showmore="true" %}
 
