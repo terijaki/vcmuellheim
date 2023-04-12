@@ -3,11 +3,11 @@ name: Rankings & Matches Update
 concurrency:
   group: "sams to pages"
   cancel-in-progress: false
-on:
-  push:
-    paths:
-      - "_sams/xml/rankings/**"
-      - "_sams/xml/matches/**"
+#on:
+#  push:
+#    paths:
+#      - "_sams/xml/rankings/**"
+#      - "_sams/xml/matches/**"
 
 env:
   GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
