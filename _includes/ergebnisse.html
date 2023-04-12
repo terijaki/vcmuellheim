@@ -35,7 +35,7 @@
                                 <div class="date-time col-12 col-lg-2 d-flex flex-lg-column align-items-center flex-wrap small">
                                     <span class="date d-lg-block me-2">{{ m[0] | date: "%d.%m.%Y" }}</span>
                                     {% if m[14].size > 0 %}
-                                    <span class="date d-lg-block small">
+                                    <span class="location d-lg-block small">
                                         <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query={{ m[12] }},{{ m[13] }}+{{ m[14] }},{{ m[15] }}"><i class="fa-solid fa-location-dot pe-1"></i> {{ m[14] }}</a>
                                     </span>
                                     {% endif %}
