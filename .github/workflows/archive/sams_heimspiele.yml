@@ -6,8 +6,8 @@ concurrency:
   
 on:
   workflow_dispatch:
-  schedule:
-    - cron: 44 22 * * * # every night at 22:44
+#  schedule:
+#    - cron: 44 22 * * * # every night at 22:44
 
 env:
   GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}

@@ -1,59 +1,78 @@
-{% if site.heimspiele.size > 0 %}
+{% for json in site.data.sams.matches %}
+    {% for match in json[1].matches.match %}
+        {% assign matches_lastupdated = matches_lastupdated | append: match.matchSeries.updated | append: "#" %}
+        {% if match.results.winner == nil and match.matchSeries != nil %}
+
+            {%- capture content -%}
+                {{ match.date | date: "%Y-%m-%d" }} {{ match.time | date: "%H:%M" }}$#€{{ match.matchSeries.uuid }}$#€{{ match.matchSeries.name }}$#€{{ match.matchSeries.type }}$#€{{ match.matchSeries.season.name }}$#€{{ match.uuid }}$#€{{ match.host.id }}$#€{{ match.host.club }}$#€{{ match.team[0].id }}$#€{{ match.team[1].id }}$#€{{ match.team[0].name }}$#€{{ match.team[1].name }}$#€{{ match.location.street }}$#€{{ match.location.postalCode }}$#€{{ match.location.city }}$#€{{ match.location.name }}
+            {%- endcapture -%}
+
+            {% if all_matches == nil %}
+              {% assign all_matches = content %}
+            {% else %}
+              {% assign all_matches = all_matches | append: 'öäü' | append: content %}
+            {% endif %}
+
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+{% assign matches_lastupdated = matches_lastupdated | split: "#" | sort | reverse %}
+
 <section id="heimspiele" class="cover-img-bg py-5">
   <div class="container">
-
-      <div class="col-12 text-center text-lg-start">
-        <h3 class="cta-title fw-bold">Wir laden ein zum Heimspiel!</h3>
-        <p class="cta-text mb-1">
-          In den kommenden Tagen spielen wir in Müllheim und freuen uns über jeden Zuschauer!
-        </p>
-      </div>
       <div class="row">
-      {% assign heimspiele_sortiert = site.heimspiele | sort: 'datetime' %}
-
-      {% assign heimspiel_Section = '0' %}
-      {% assign heimspiel_LeagueDateLocation = '0' %}
-      {% assign heimspiel_Opponent = '0' %}
-        <!--
-          close section if:
-          - section id is different from whats temporarily stored in heimspiel_Section
-          - but not 0
-          new section if:
-          - section id is different from whats temporarily stored in heimspiel_Section
-        -->
-      {% for match in heimspiele_sortiert%}
-        {% assign patch_SectionID = match.date | append: match.location_name | append: match.location_street %}
-        {% assign patch_LeagueDateLocation = match.league | append: match.league | append: match.date | append: match.location_street %}
-        {% assign patch_Opponent = match.league | append: match.league | append: match.date | append: match.location_street | append: match.opponent %}
-
-          {% unless heimspiel_Section contains patch_SectionID or heimspiel_Section == '0' %}
-            </div></div>
+        {% assign all_matches = all_matches | split: 'öäü' | sort %}
+        {% for match in all_matches %}
+          {% unless dayplace_counter >= 4 %}
+            {% assign m = match | split: '$#€' %}
+            {% assign this_dayplace = m[0] | date: "%Y%m%d" | append: m[12] | append: m[13] %}
+            {% if m[7] contains "Müllheim" %}
+              {% unless dayplace_list contains this_dayplace %}
+                {% assign dayplace_list = dayplace_list | append: this_dayplace %}
+                {% assign dayplace_counter = dayplace_counter | plus: 1 %}
+                {% if dayplace_counter == 1 %}
+                <div class="col-12 text-center text-lg-start">
+                  <h3 class="cta-title fw-bold">Wir laden ein zum Heimspiel!</h3>
+                  <p class="cta-text mb-1">
+                    In den kommenden Tagen spielen wir in Müllheim und freuen uns über jeden Zuschauer!
+                  </p>
+                </div>
+                {% endif %}
+                <div class="col-12 col-lg-6 my-4">
+                  <div class="box dark p-4 m-0 h-100" hostid="{{ m[6] }}" hostname="{{ m[7] }}">
+                    <h4 class="m-0">{{ m[0] | date: "%d.%m" }}<span>{{ m[0] | date: ".%Y" }}</span><a class="ms-3 small" href="https://www.google.com/maps/search/?api=1&query={{ m[12] }},{{ m[13] }}+{{ m[14] }},{{ m[15] }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt pe-2"></i>{{ m[15] }}<span class="d-none d-xl-inline">, {{ m[12] }}</span></a></h4>
+                    {% for match in all_matches %}
+                      {% assign ma = match | split: '$#€' %}
+                      {% assign entry_dayplace = ma[0] | date: "%Y%m%d" | append: ma[12] | append: ma[13] %}
+                      {% if entry_dayplace contains this_dayplace %}
+                        {% assign unique_match_location = append: ma[2] | append: ma[0] | date: "%s" %}
+                        {% unless this_place contains unique_match_location %}
+                        <p class="mt-2 mb-0 pe-2"><strong>{{ ma[2] }}{% assign thistime = ma[0] | date: "%H%M" | abs %}{% unless thistime == 0 %}{{ ma[0] | date: " ab %H:%M Uhr" }}{% endunless %}</strong></p>
+                        <!--<p class="ms-5 mb-0 opacity-75" hostid="{{ ma[6] }}" hostname="{{ ma[7] }}">Host: {{ ma[7] }}</p>-->
+                        {% endunless %}
+                        {% unless ma[6] == ma[8] %}<p class="ms-5 mb-0 opacity-75" guestid="{{ ma[8] }}" guestname="{{ ma[10] }}">Gast: {{ ma[10] }}</p>{% endunless%}
+                        {% unless ma[6] == ma[9] %}<p class="ms-5 mb-0 opacity-75" guestid="{{ ma[9] }}" guestname="{{ ma[11] }}">Gast: {{ ma[11] }}</p>{% endunless%}
+                        {% assign this_place = thisplace | append: unique_match_location %}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endunless %}
+            {% endif %}
           {% endunless %}
-        
-          {% unless heimspiel_Section contains patch_SectionID %}
-              {% assign heimspiel_Section = heimspiel_Section | append: patch_SectionID %}
-              {% assign gmaps_query = match.location_name | append: ',' | append: match.location_street | append: ',' | append: match.location_postal | append: ' ' | append: match.location_city %}
-
-              <div class="col-12 col-lg-6 my-4"><div class="box dark p-4 m-0 h-100">
-                <h4 class="m-0">{{ match.date | date: "%d.%m" }}<span>{{ match.date | date: ".%Y" }}</span><a class="ms-3 small" href="https://www.google.com/maps/search/?api=1&query={{ gmaps_query | url_encode }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt pe-2"></i>{{ match.location_name }}<span class="d-none d-xl-inline">, {{ match.location_street }}</span></a></h4>
-              
-          {% endunless %}
-
-          {% unless heimspiel_LeagueDateLocation contains patch_LeagueDateLocation %}
-            <p class="mt-2 mb-0 pe-2"><strong>{{ match.league }}{% unless match.time == "00:00" %} ab {{ match.time }} Uhr{% endunless %}</strong></p>
-          {% endunless %}
-          {% assign heimspiel_LeagueDateLocation = heimspiel_LeagueDateLocation | append: patch_LeagueDateLocation %}
-
-          {% unless heimspiel_Opponent contains patch_Opponent %}
-            <p class="ms-5 mb-0 opacity-75">Gast: {{ match.opponent }}</p>
-          {% endunless %}
-          {% assign heimspiel_Opponent = heimspiel_Opponent | append: patch_Opponent %}
-
         {% endfor %}
+        {% unless dayplace_counter %}
+          <div class="col-12 text-center text-lg-start">
+            <h3 class="cta-title fw-bold">Keine Heimspiele</h3>
+            <p class="cta-text mb-1">
+              Es stehen derzeit keine Heimspiele in Müllheim bevor.
+              <span class="d-none d-lg-inline"><br></span>
+              Schaue gerne später noch einmal vorbei und <a class="text-white fw-bold" type="text/calendar" href="webcal://vcmuellheim.de/ics/all.ics">abboniere unseren Kalender</a>.
+              <span class="d-none d-lg-inline"><br></span>
+              Auswärtsspiele findest du im Spielplan der jeweiligen Mannschaft.
+            </p>
+          </div>
+        {% endunless %}
       </div>
   </div>
 </section>
-
-{% else %} <!-- fallback to always have a visual seperator between sections on the homepage -->
-{% include home-heimspiele-keine.html %}
-{% endif %}

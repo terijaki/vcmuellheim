@@ -79,8 +79,6 @@ collections:
     permalink: /:collection/:name
   spielergebnisse: # individual matches
     sort_by: date
-  heimspiele:
-    sort_by: date
   rankings:
     sort_by: league_id
   announcements:
