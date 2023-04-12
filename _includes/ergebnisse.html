@@ -5,7 +5,7 @@
         {% if match.matchSeries.type and match.results.winner %}
 
             {%- capture content -%}
-                {{ match.date | date: "%Y-%m-%d" }} {{ match.time | date: "%H:%M" }}$#€{{ match.matchSeries.uuid }}$#€{{ match.matchSeries.name }}$#€{{ match.matchSeries.type }}$#€{{ match.matchSeries.season.name }}$#€{{ match.uuid }}$#€{{ match.host.id }}$#€{{ match.host.club }}$#€{{ match.team[0].name }}$#€{{ match.team[1].name }}$#€{{ match.team[0].id }}$#€{{ match.team[1].id }}$#€{{ match.location.street }}$#€{{ match.location.postalCode }}$#€{{ match.location.city }}$#€{{ match.location.name }}$#€{{ match.results.setPoints }}$#€{{ match.results.ballPoints }}$#€{{ match.results.sets.set[0].points }}, {{ match.results.sets.set[1].points }}{% if match.results.sets.set[2].points %}, {{ match.results.sets.set[2].points }}{% endif %}{% if match.results.sets.set[3].points %}, {{ match.results.sets.set[3].points }}{% endif %}{% if match.results.sets.set[4].points %}, {{ match.results.sets.set[4].points }}{% endif %}
+                {{ match.date | date: "%Y-%m-%d" }} {{ match.time | date: "%H:%M" }}$#€{{ match.matchSeries.uuid }}$#€{{ match.matchSeries.name }}$#€{{ match.matchSeries.type }}$#€{{ match.matchSeries.season.name }}$#€{{ match.uuid }}$#€{{ match.host.id }}$#€{{ match.host.club }}$#€{{ match.team[0].id }}$#€{{ match.team[1].id }}$#€{{ match.team[0].name }}$#€{{ match.team[1].name }}$#€{{ match.location.street }}$#€{{ match.location.postalCode }}$#€{{ match.location.city }}$#€{{ match.location.name }}$#€{{ match.results.setPoints }}$#€{{ match.results.ballPoints }}$#€{{ match.results.sets.set[0].points }}, {{ match.results.sets.set[1].points }}{% if match.results.sets.set[2].points %}, {{ match.results.sets.set[2].points }}{% endif %}{% if match.results.sets.set[3].points %}, {{ match.results.sets.set[3].points }}{% endif %}{% if match.results.sets.set[4].points %}, {{ match.results.sets.set[4].points }}{% endif %}
             {%- endcapture -%}
 
             {% if forloop.first %}
@@ -41,11 +41,11 @@
                                     </span>
                                     {% endif %}
                                 </div>
-                                <div class="teams col-12 col-lg-5" hostid="{{ m[6] }}" hostname="{{ m[8] }}">
+                                <div class="teams col-12 col-lg-5" hostid="{{ m[6] }}" hostname="{{ m[7] }}">
                                     <div class="fw-bold overflow-hidden text-truncate">
-                                        <span class="team-a" teamid="{{ m[10] }}" team="{{ m[8] }}">{{ m[8] }}</span>
+                                        <span class="team-a" teamid="{{ m[8] }}" team="{{ m[10] }}">{{ m[10] }}</span>
                                         <span class="versus px-sm-1">:</span>
-                                        <span class="team-b" teamid="{{ m[11] }}" team="{{ m[9] }}">{{ m[9] }}</span>
+                                        <span class="team-b" teamid="{{ m[9] }}" team="{{ m[11] }}">{{ m[11] }}</span>
                                     </div>
                                     <div>
                                         <span class="league-name d-lg-block small text-success text-truncate">{{ m[2] }}</span>
