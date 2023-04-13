@@ -25,11 +25,11 @@
             <h3 class="fw-bold">{{ include.heading }}</h3>
             {% endif %}
             {% unless all_matches.size > 0 %}
-                <div class="container sams-nomatches row mb-3">
+                <div class="container sams-nomatches row mb-3 align-items-center">
                     <div class="col-auto">
-                        <i class="fa-regular fa-face-surprise fa-bo1unce fs-1 text-warning"></i>
+                        <i class="fa-regular fa-calendar-xmark fa-bo1unce fs-1 text-warning"></i>
                     </div>
-                    <div class="col">Für diese Saison stehen derzeit keine Ergebnisse bereit.</div>
+                    <div class="col">Derzeit stehen keine weiteren Spieltermine an.</div>
                 </div>
             {% endunless %}
             <div class="container mb-4">
