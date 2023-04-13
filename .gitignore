@@ -9,5 +9,6 @@ Gemfile.lock
 /vendor/
 .vscode
 test*.html
-_data/sams/matches/debug*.json
-_data/sams/rankings/debug*.json
+_data/sams/matches/*debug*.json
+_data/sams/rankings/*debug*.json
+_data/sams/*debug*.json
