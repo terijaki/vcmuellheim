@@ -67,11 +67,19 @@
             <p class="cta-text mb-1">
               Es stehen derzeit keine Heimspiele in Müllheim bevor.
               <span class="d-none d-lg-inline"><br></span>
-              Schaue gerne später noch einmal vorbei und <a class="text-white fw-bold" type="text/calendar" href="webcal://vcmuellheim.de/ics/all.ics">abboniere unseren Kalender</a>.
-              <span class="d-none d-lg-inline"><br></span>
               Auswärtsspiele findest du im Spielplan der jeweiligen Mannschaft.
+              <span class="d-none d-lg-inline"><br></span>
+              <i class="fa-solid fa-angle-right fa-fade fa-2xs" style="--fa-animation-duration: 3s;"></i><i class="fa-solid fa-angle-right fa-fade fa-xs" style="--fa-animation-duration: 4s;"></i><a class="text-white fw-bold" href="/termine/"> Hier </a><i class="fa-solid fa-angle-left fa-fade fa-xs" style="--fa-animation-duration: 4s;"></i><i class="fa-solid fa-angle-left fa-fade fa-2xs" style="--fa-animation-duration: 3s;"></i> findest du alle offiziellen Termine unserer Mannschaften.
             </p>
           </div>
+        {% else %}
+        <div class="col-12 text-center text-lg-start">
+          <p class="cta-text mb-1">
+            Auswärtsspiele findest du im Spielplan der jeweiligen Mannschaft.
+            <span class="d-none d-lg-inline"><br></span>
+            Alle offiziellen Termine unserer Mannschaften findest du <i class="fa-solid fa-angle-right fa-fade fa-2xs" style="--fa-animation-duration: 3s;"></i><i class="fa-solid fa-angle-right fa-fade fa-xs" style="--fa-animation-duration: 4s;"></i><a class="text-white fw-bold" href="/termine/"> hier </a><i class="fa-solid fa-angle-left fa-fade fa-xs" style="--fa-animation-duration: 4s;"></i><i class="fa-solid fa-angle-left fa-fade fa-2xs" style="--fa-animation-duration: 3s;"></i>
+          </p>
+        </div>
         {% endunless %}
       </div>
   </div>
