@@ -1,5 +1,6 @@
-name: "VC Müllheim e.V."
+name: "VC Müllheim"
 short_name: "VCM"
+official_name: "Volleyballclub Müllheim e.V."
 title: "Volleyball Club Müllheim"
 description: "In Müllheim geh es in Sachen Volleyball richtig ab! Von Freizeit Team bis zur Verbandsliga. Hier findest du alle Infos und Neuigkeiten des Vereins."
 logo: "/img/logo.png"
@@ -9,6 +10,8 @@ apple_touch_startup_image: "/img/vcm-banner-white.png"
 language: "de"
 language_direction: "ltr"
 timezone: "Europe/Berlin"
+city: "Müllheim"
+postal: "79379"
 
 color_primary: "#01A29A" # rgb(1,162,154) | Persian Green
 color_secondary: "#366273" # rgb(54,98,115) | Blumine
