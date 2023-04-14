@@ -2,7 +2,7 @@
 layout: team
 liga: "[99] Kein Ligabetrieb"
 sbvv_id: 
-teamname: Jugend (gemischte)
+title: Jugend (gemischte)
 alter: 9-14 Jahren
 trainings-zeit1: Dienstags 17:00-18:30 Uhr ⛔️
 trainings-ort1: Sporthalle II Teil E

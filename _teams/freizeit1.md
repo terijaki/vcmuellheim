@@ -2,7 +2,7 @@
 layout: team
 liga: "[99] Kein Ligabetrieb"
 sbvv_id: 
-teamname: Freizeit I
+title: Freizeit I
 alter: ''
 trainings-zeit1: Montags 20:00-22:00 Uhr
 trainings-ort1: Sporthalle II

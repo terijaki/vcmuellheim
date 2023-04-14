@@ -1,7 +1,7 @@
 ---
 label: Mannschaft
 hide_body: true
-display_field: teamname
+display_field: title
 fields:
 - name: layout
   type: text
@@ -11,7 +11,7 @@ fields:
   hidden: true
   default: team
 - type: text
-  name: teamname
+  name: title
   label: Team Name
   config:
     required: true

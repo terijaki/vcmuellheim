@@ -2,7 +2,7 @@
 layout: team
 liga: "[99] Kein Ligabetrieb"
 sbvv_id: 
-teamname: 'Jugend U20 (männlich) '
+title: 'Jugend U20 (männlich)'
 alter: 15-20 Jahre
 trainings-zeit1: 'Dienstags 20:00-22:00 Uhr '
 trainings-ort1: Sporthalle II Teil D (Gymnastikhalle)

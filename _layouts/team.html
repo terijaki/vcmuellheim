@@ -1,5 +1,6 @@
 ---
 layout: default
+title: "nope"
 ---
 
 
@@ -7,7 +8,7 @@ layout: default
   <div class="container">
     <div class="row">
       <div class="col text-center text-lg-start">
-        <h3 class="si-title">{{ page.teamname }}</h3>
+        <h3 class="si-title">{{ page.title }}</h3>
       </div>
     </div>
   </div>
@@ -27,7 +28,7 @@ layout: default
       {% if team.path == page.path %}
        <div class="container teaminfo">
          <div class="box">
-         <h3 class="title fw-bold">{{ team.teamname }}</h3>
+         <h3 class="title fw-bold">{{ team.title }}</h3>
               {% if team.alter.size > 0 %}
                 <p class="alter"> <b>Alter:</b> {{ team.alter }}</p>
               {% endif %}
@@ -40,20 +41,20 @@ layout: default
           </p>
             {% if team.trainer-name1.size > 0 %}
               <p class="trainer"><b>Trainer</b>:
-              {% if team.trainer-email1 contains "@" %}<a href="mailto:{{ team.trainer-email1 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.trainer-name1 }}</a>{% else %}{{ team.trainer-name1 }}
+              {% if team.trainer-email1 contains "@" %}<a href="mailto:{{ team.trainer-email1 }}?subject={{ site.title }} - {{ team.title }}">{{ team.trainer-name1 }}</a>{% else %}{{ team.trainer-name1 }}
               {% endif %}
                 {% if team.trainer-name2.size > 0 %} &
-                  {% if team.trainer-email2  contains "@" %}<a href="mailto:{{ team.trainer-email2 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.trainer-name2 }}</a>{% else %}{{ team.trainer-name2 }}
+                  {% if team.trainer-email2  contains "@" %}<a href="mailto:{{ team.trainer-email2 }}?subject={{ site.title }} - {{ team.title }}">{{ team.trainer-name2 }}</a>{% else %}{{ team.trainer-name2 }}
                   {% endif %}
                 {% endif %}
               </p>
             {% endif %}
                 {% if team.ansprechperson-name1.size > 0 %}
                   <p class="ansprechperson"><b>Ansprechperson</b>:
-                    {% if team.ansprechperson-email1 contains "@" %}<a href="mailto:{{ team.ansprechperson-email1 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.ansprechperson-name1 }}</a>{% else %}{{ team.ansprechperson-name1 }}
+                    {% if team.ansprechperson-email1 contains "@" %}<a href="mailto:{{ team.ansprechperson-email1 }}?subject={{ site.title }} - {{ team.title }}">{{ team.ansprechperson-name1 }}</a>{% else %}{{ team.ansprechperson-name1 }}
                     {% endif %}
                     {% if team.ansprechperson-name2.size > 0 %} &
-                      {% if team.ansprechperson-email2  contains "@" %}<a href="mailto:{{ team.ansprechperson-email2 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.ansprechperson-name2 }}</a>{% else %}{{ team.ansprechperson-name2 }}
+                      {% if team.ansprechperson-email2  contains "@" %}<a href="mailto:{{ team.ansprechperson-email2 }}?subject={{ site.title }} - {{ team.title }}">{{ team.ansprechperson-name2 }}</a>{% else %}{{ team.ansprechperson-name2 }}
                       {% endif %}
                     {% endif %}
                   </p>
@@ -75,9 +76,9 @@ layout: default
             {% assign sorted_teams_liga = site.teams | sort: 'liga' %}
             {% for team_nav in sorted_teams_liga %}
               {% if team_nav.sbvv_id != nil and team_nav.path == page.path %}
-                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-dark active">{{ team_nav.liga | slice: 4, 99 }}: {{ team_nav.teamname }}</a>
+                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-dark active">{{ team_nav.liga | slice: 4, 99 }}: {{ team_nav.title }}</a>
               {% elsif team_nav.sbvv_id != nil %}
-                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-secondary">{{ team_nav.liga | slice: 4, 99 }}: {{ team_nav.teamname }}</a>
+                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-secondary">{{ team_nav.liga | slice: 4, 99 }}: {{ team_nav.title }}</a>
               {% endif %}
             {% endfor %}
           </div>
@@ -85,12 +86,12 @@ layout: default
         <div class="col-12 col-md mb-2 text-center">
           <p class="fw-bold mb-1">Hobby:</p>
           <div class="btn-group-vertical">
-            {% assign sorted_teams_name = site.teams | sort: 'teamname' %}
+            {% assign sorted_teams_name = site.teams | sort: 'title' %}
             {% for team_nav in sorted_teams_name %}
               {% if team_nav.sbvv_id == nil and team_nav.path == page.path %}
-                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-dark active">{{ team_nav.teamname }}</a>
+                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-dark active">{{ team_nav.title }}</a>
               {% elsif team_nav.sbvv_id == nil %}
-                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-secondary">{{ team_nav.teamname }}</a>
+                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-secondary">{{ team_nav.title }}</a>
               {% endif %}
             {% endfor %}
           </div>

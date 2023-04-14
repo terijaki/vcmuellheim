@@ -22,7 +22,7 @@
         {% endif %}
 
 <!-- Team Name -->
-        <h3 class="title fw-bold fs-5">{{ team.teamname }}
+        <h3 class="title fw-bold fs-5">{{ team.title }}
           {% unless team.liga contains "99" %}
             - {{ team.liga | slice: 4, 99 }}
           {% endunless %}
@@ -46,12 +46,12 @@
 <!-- Trainer 1 -->
             {% if team.trainer-name1.size > 0 %}
               <p class="trainer"><b>Trainer</b>:
-              {% if team.trainer-email1 contains "@" %}<a href="mailto:{{ team.trainer-email1 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.trainer-name1 }}</a>{% else %}{{ team.trainer-name1 }}
+              {% if team.trainer-email1 contains "@" %}<a href="mailto:{{ team.trainer-email1 }}?subject={{ site.title }} - {{ team.title }}">{{ team.trainer-name1 }}</a>{% else %}{{ team.trainer-name1 }}
               {% endif %}
 
 <!-- Trainer 2 -->
                 {% if team.trainer-name2.size > 0 %} &
-                  {% if team.trainer-email2  contains "@" %}<a href="mailto:{{ team.trainer-email2 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.trainer-name2 }}</a>{% else %}{{ team.trainer-name2 }}
+                  {% if team.trainer-email2  contains "@" %}<a href="mailto:{{ team.trainer-email2 }}?subject={{ site.title }} - {{ team.title }}">{{ team.trainer-name2 }}</a>{% else %}{{ team.trainer-name2 }}
                   {% endif %}
                 {% endif %}
               </p>
@@ -60,12 +60,12 @@
 <!-- Ansprechperson 1 -->
                 {% if team.ansprechperson-name1.size > 0 %}
                   <p class="ansprechperson"><b>Ansprechperson</b>:
-                    {% if team.ansprechperson-email1 contains "@" %}<a href="mailto:{{ team.ansprechperson-email1 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.ansprechperson-name1 }}</a>{% else %}{{ team.ansprechperson-name1 }}
+                    {% if team.ansprechperson-email1 contains "@" %}<a href="mailto:{{ team.ansprechperson-email1 }}?subject={{ site.title }} - {{ team.title }}">{{ team.ansprechperson-name1 }}</a>{% else %}{{ team.ansprechperson-name1 }}
                     {% endif %}
 
 <!-- Ansprechperson 2 -->
                     {% if team.ansprechperson-name2.size > 0 %} &
-                      {% if team.ansprechperson-email2  contains "@" %}<a href="mailto:{{ team.ansprechperson-email2 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.ansprechperson-name2 }}</a>{% else %}{{ team.ansprechperson-name2 }}
+                      {% if team.ansprechperson-email2  contains "@" %}<a href="mailto:{{ team.ansprechperson-email2 }}?subject={{ site.title }} - {{ team.title }}">{{ team.ansprechperson-name2 }}</a>{% else %}{{ team.ansprechperson-name2 }}
                       {% endif %}
                     {% endif %}
                   </p>
