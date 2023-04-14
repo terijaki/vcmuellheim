@@ -28,7 +28,7 @@ TZID:{{ site.timezone }}
 END:VEVENT
 BEGIN:VTIMEZONE
 TZID:Europe/Berlin
-LAST-MODIFIED:{{ site.time | date: "%Y%m%dT%H%M%SZ" }}
+LAST-MODIFIED:{{ match.matchSeries.updated | date: "%Y%m%dT%H%M%SZ" }}
 TZURL:https://www.tzurl.org/zoneinfo/Europe/Berlin
 X-LIC-LOCATION:Europe/Berlin
 X-PROLEPTIC-TZNAME:LMT
