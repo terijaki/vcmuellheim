@@ -1,7 +1,7 @@
 ---
-layout: blank
 permalink: /ics/test.ics
 sbvv_id: template
+layout: blank
 ---
 
 BEGIN:VCALENDAR
@@ -23,6 +23,7 @@ DTSTART;TZID={{ site.timezone }}:{{ match.date | date: "%Y%m%d" }}T{{ match.time
 DTEND;TZID={{ site.timezone }}:{{ match.date | date: "%Y%m%d" }}T{{ match.time | date: "%H%M00" | integer | plus: 20000 }}
 SUMMARY:{{ match.team[0].name }} vs. {{ match.team[1].name }} ({{ match.matchSeries.name }})
 LOCATION:{{ match.location.name }}\, {{ match.location.street }}\, {{ match.location.postalCode }} {{ match.location.city }}
+DESCRIPTION:Liga:{{ match.matchSeries.name }}\nTeam 1: {{ match.team[0].name }}\nTeam 2: {{ match.team[1].name }}\nGastgeber: {{ match.host.name }}\n{{ site.url | append: "/termine/" }}
 UID:{{ match.uuid }}
 TZID:{{ site.timezone }}
 END:VEVENT
