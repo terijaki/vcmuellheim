@@ -22,11 +22,11 @@
         {% endif %}
 
 <!-- Team Name -->
-        <h4 class="title">{{ team.teamname }}
+        <h3 class="title fw-bold fs-5">{{ team.teamname }}
           {% unless team.liga contains "99" %}
             - {{ team.liga | slice: 4, 99   }}
           {% endunless %}
-        </h4>
+        </h3>
 
 <!-- Altersangabe  -->
               {% if team.alter.size > 0 %}
@@ -78,8 +78,9 @@
 
 <!-- Spielplan & Kalender  -->
               {% if team.sbvv_id > 0 %}
-              <p class="spielplan"><span class="d-none d-md-block"><b>Ergebnisse & Termine:</b></span><a href="matches/{{ team.sbvv_id }}" class="generic-button mt-md-2"><i class="fa-solid fa-calendar-days"></i> Spielplan</a></p>
+              <p class="spielplan"><span class="d-none d-md-block"><b>Ergebnisse & Termine:</b></span><a href="{{ team.url }}" class="generic-button mt-md-2"><i class="fa-solid fa-calendar-days"></i> Spielplan</a></p>
               {% endif %}
+              
 
         </div>
       </div>

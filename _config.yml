@@ -72,8 +72,6 @@ collections:
     output: true
     sort_by: liga
     permalink: /:collection/:name
-  teaminfo:
-    sort_by: priority
   matches: # Creates pages for each SAMS matchSeries based on their filenames
     output: true
     permalink: /:collection/:name

@@ -1,179 +1,67 @@
 ---
 layout: default
 ---
-
 <!--===== Short Intro =====-->
 <section id="shortintro" class="py-3 py-md-5">
   <div class="container">
     <div class="row">
       <div class="col text-center text-lg-start">
-        <h3 class="si-title">{{ page.teamname }}
-          {% unless page.liga contains "99" %}
-            <span class="d-none d-lg-inline">- {{ page.liga | slice: 4, 99   }}</span>
-          {% endunless %}</h3>
+        <h3 class="si-title">{{ page.teamname }}</h3>
       </div>
     </div>
   </div>
 </section>
 <!--===== #shortintro =====-->
-
-<main class="flex-grow-1 d-flex flex-column">
-  <!--===== Mannschaftsdetails =====-->
-  <section id="teaminfo" class="section-bg flex-grow-1 pt-4 pb-4">
+<main class="flex-grow-1">
+  <section class="bg-light py-5">
+    {% include ergebnisse.html team=page.sbvv_id heading="Ergebnisse" %}
+    {% include spieltermine.html team=page.sbvv_id heading="Spielplan" %}
     <div class="container">
-      <div class="row teams">
-
-      <!-- Key Team Data (same as on home page) -->  
-        <div class="teamcore col-12 col-md-6 mb-3">
-          <div class="box p-4 h-100 mb-0">
-              <h4 class="fw-bold">Über uns</h4>
-              <p>Hallo! Wir sind die <strong>{{ page.teamname }}</strong> vom VC Müllheim{% unless page.liga contains "99" %} und wir spielen in der <strong>{{ page.liga | slice: 4, 99 | rstrip }}</strong>{% endunless %}.</p>
-              <!-- Kommentar  -->
-              {% if page.kommentar.size > 0 %}
-                <p class="description">{{ page.kommentar }}</p>
-              {% endif %}
-              <!-- Altersangabe  -->
-              {% if page.alter.size > 0 %}
-                <p class="alter"> <b>Alter:</b> {{ page.alter }}</p>
-              {% endif %}
-              <!-- Spielplan & Kalender  -->
-              {% if page.sbvv_id > 0 %}
-                <p class="spielplan"><b>Spielplan</b>: <a href="../matches/{{ page.sbvv_id }}">Termine & Ergebnisse</a>
-              {% endif %}
-          </p>
-          </div>
-        </div>
-        <div class="teamcore col-12 col-md-6 mb-3">
-          <div class="box p-4 h-100 mb-0">
-            <h4 class="fw-bold">Training</h4>
-              <!-- Trainingszeiten -->
-              <p class="trainingszeiten"><b>Zeiten & Ort:</b><br>{{ page.trainings-zeit1 }}<br>
-                <a href="{{ page.trainings-map1 }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt"></i> {{ page.trainings-ort1 }}</a>
-
-                {% if page.trainings-zeit2.size > 0 %}
-                  <br>{{ page.trainings-zeit2 }}<br>
-                  <a href="{{ page.trainings-map2 }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt"></i> {{ page.trainings-ort2 }}</a><br>
-                {% endif %}
-              </p>
-              <!-- Trainer 1 -->
-              {% if page.trainer-name1.size > 0 %}
-              <p class="trainer"><b>Trainer</b>:
-              {% if page.trainer-email1 contains "@" %}<a href="mailto:{{ page.trainer-email1 }}?subject={{ site.title }} - {{ page.teamname }}">{{ page.trainer-name1 }}</a>{% else %}{{ page.trainer-name1 }}
-              {% endif %}
-
-              <!-- Trainer 2 -->
-              {% if page.trainer-name2.size > 0 %} &
-                {% if page.trainer-email2  contains "@" %}<a href="mailto:{{ page.trainer-email2 }}?subject={{ site.title }} - {{ page.teamname }}">{{ page.trainer-name2 }}</a>{% else %}{{ page.trainer-name2 }}
-                {% endif %}
-              {% endif %}
-              </p>
-              {% endif %}
-
-              <!-- Ansprechperson 1 -->
-              {% if page.ansprechperson-name1.size > 0 %}
-                <p class="ansprechperson"><b>Ansprechperson</b>:
-                  {% if page.ansprechperson-email1 contains "@" %}<a href="mailto:{{ page.ansprechperson-email1 }}?subject={{ site.title }} - {{ page.teamname }}">{{ page.ansprechperson-name1 }}</a>{% else %}{{ page.ansprechperson-name1 }}
-                  {% endif %}
-
-              <!-- Ansprechperson 2 -->
-                  {% if page.ansprechperson-name2.size > 0 %} &
-                    {% if page.ansprechperson-email2  contains "@" %}<a href="mailto:{{ page.ansprechperson-email2 }}?subject={{ site.title }} - {{ page.teamname }}">{{ page.ansprechperson-name2 }}</a>{% else %}{{ page.ansprechperson-name2 }}
-                    {% endif %}
-                  {% endif %}
-                </p>
-              {% endif %}
-          
-          </div>
-        </div>
-
-
-
-        {% assign teaminfo = site.teaminfo | sort: 'titel' | sort: 'name' | where: 'mannschaft', page.path %}
-        
-        <!-- Error of no entries for this team exist -->
-        {% unless teaminfo.size > 0 %}
-        <div class="col-12">
-          <div class="box">
-            <p class="m-0 text-center">Derzeit leigen keine weiteren Informationen für dieses Team vor.</p>
-          </div>
-        </div>
-        {% endunless %}
-
-        <!-- Custom and individual Player Entries -->
-        {% for entry in teaminfo %}
-        {% if entry.titel.size > 0 %}
-        
-        <div class="mannschaftsdetail col-12 mb-3">
-          <div class="box p-3 mb-0">
-            <div class="text pb-1">
-              {% if entry.titel.size > 0 %}
-              <h3 class="fw-bold mb-0 mt-2 text-center">{{ entry.titel }}</h3>
-              {% endif %}
-              {% if entry.freitext.size > 0 %}
-              <p>{{ entry.freitext }}</p>
-              {% endif %}
-            </div>
-            {% if entry.gruppen_fotos.size > 2 %}
-            <div class="picture-container mt-2 row">
-              {% for picture in entry.gruppen_fotos %}
-                <div class="col-12 col-md-6 col-xl-4">
-                  <div style="background:url({{ picture }}); background-size: cover;" class="ratio ratio-16x9 mt-3"></div>
-                </div>
-              {% endfor %}
-            </div>
-            {% elsif entry.gruppen_fotos.size > 1 %}
-            <div class="picture-container mt-2 row">
-              {% for picture in entry.gruppen_fotos %}
-                <div class="col-12 col-md-6 col-xl-6">
-                  <div style="background:url({{ picture }}); background-size: cover;" class="ratio ratio-16x9 mt-3"></div>
-                </div>
-              {% endfor %}
-            </div>
-            {% elsif entry.gruppen_fotos.size > 0 %}
-            <div class="picture-container mt-2 row">
-              {% for picture in entry.gruppen_fotos %}
-                <div class="col-12 col-md-12 col-xl-12">
-                  <div style="background:url({{ picture }}); background-size: cover;" class="ratio ratio-16x9 mt-3"></div>
-                </div>
-              {% endfor %}
-            </div>
-            {% endif %}
-          </div>
-        </div>
-        {% else %}
-        <!-- Player Entries -->
-        <div class="spieler-in col-12 col-md-6 col-xl-4 mb-3">
-          <div class="box d-flex p-3 h-100 mb-0">
-            {% if entry.spieler_foto.size > 0 %}
-            <div class="picture-container col-3 me-2 d-flex align-items-center">
-              <div style="background:url({{ entry.spieler_foto }}); background-size: cover;" class="ratio ratio-1x1 rounded-circle"></div>
-            </div>
-            {% endif %}
-            <div class="text col">
-              {% if entry.name.size > 0 %}
-              <h4 class="fw-bold mb-2">{{ entry.name }}</h4>
-              {% endif %}
-              {% if entry.freitext.size > 0 %}
-              <p class="mb-0">{{ entry.freitext }}</p>
-              {% endif %}
-            </div>
-          </div>
-        </div>   
-        {% endif %}
-        {% endfor %}
-
-        <p class="mt-5 m-0 text-center"><a href="/" class="generic-button">zurück zur Startseite</a></p>
-
-      </div>
+      {% include tabelle.html team=page.sbvv_id %}
     </div>
+  
+    {% for team in site.teams %}
+      {% if page.sbvv_id == nil or team.sbvv_id == page.sbvv_id %}
+       <div class="container teaminfo">
+         <div class="box p-4">
+         <h3 class="title fw-bold">{{ team.teamname }}</h3>
+              {% if team.alter.size > 0 %}
+                <p class="alter"> <b>Alter:</b> {{ team.alter }}</p>
+              {% endif %}
+          <p class="trainingszeiten"><b>Trainingszeiten:</b><br>{{ team.trainings-zeit1 }}<br>
+            <a href="{{ team.trainings-map1 }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt"></i> {{ team.trainings-ort1 }}</a>
+            {% if team.trainings-zeit2.size > 0 %}
+              <br>{{ team.trainings-zeit2 }}<br>
+              <a href="{{ team.trainings-map2 }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt"></i> {{ team.trainings-ort2 }}</a><br>
+            {% endif %}
+          </p>
+            {% if team.trainer-name1.size > 0 %}
+              <p class="trainer"><b>Trainer</b>:
+              {% if team.trainer-email1 contains "@" %}<a href="mailto:{{ team.trainer-email1 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.trainer-name1 }}</a>{% else %}{{ team.trainer-name1 }}
+              {% endif %}
+                {% if team.trainer-name2.size > 0 %} &
+                  {% if team.trainer-email2  contains "@" %}<a href="mailto:{{ team.trainer-email2 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.trainer-name2 }}</a>{% else %}{{ team.trainer-name2 }}
+                  {% endif %}
+                {% endif %}
+              </p>
+            {% endif %}
+                {% if team.ansprechperson-name1.size > 0 %}
+                  <p class="ansprechperson"><b>Ansprechperson</b>:
+                    {% if team.ansprechperson-email1 contains "@" %}<a href="mailto:{{ team.ansprechperson-email1 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.ansprechperson-name1 }}</a>{% else %}{{ team.ansprechperson-name1 }}
+                    {% endif %}
+                    {% if team.ansprechperson-name2.size > 0 %} &
+                      {% if team.ansprechperson-email2  contains "@" %}<a href="mailto:{{ team.ansprechperson-email2 }}?subject={{ site.title }} - {{ team.teamname }}">{{ team.ansprechperson-name2 }}</a>{% else %}{{ team.ansprechperson-name2 }}
+                      {% endif %}
+                    {% endif %}
+                  </p>
+                {% endif %}
+              {% if team.kommentar.size > 0 %}
+                <p class="description">{{ team.kommentar }}</p>
+              {% endif %}
+         </div>
+       </div>
+       {% endif %}
+   {% endfor %}
+
   </section>
 </main>
-
-<script> // randomize player order
-  var cards = $(".spieler-in");
-  for(var i = 0; i < cards.length; i++){
-    var target = Math.floor(Math.random() * cards.length -1) + 1;
-    var target2 = Math.floor(Math.random() * cards.length -1) +1;
-    cards.eq(target).before(cards.eq(target2));
-  }
-</script>
