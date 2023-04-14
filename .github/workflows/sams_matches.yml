@@ -11,8 +11,6 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
   MATCHES_SOURCE: _sams/xml/matches/
-  MATCHES_COMBINED_SOURCE: _sams/xml/combined_matches.xml # the target for the merged xml
-  MATCHES_COMBINED_TARGET: _pages/termine.md # the output file which will be rendered on the page
   MATCHES_TARGET: _matches/
   INDIVIDUAL_MATCHES_TARGET: _spielergebnisse/
   ICS_TARGET: ics/ # the folder containing all ics files
@@ -210,34 +208,6 @@ jobs:
         run: |
           git add "${{env.MATCHES_TARGET}}"
           git commit -m "new or updated matches"
-
-      - name: Combine Matches Files
-        if: steps.download_matches.conclusion == 'success'
-        id: combine_matches
-        run: |
-          cat ${{env.MATCHES_SOURCE}}*.xml > temp1.xml
-          cat temp1.xml | grep -v '<?xml' | grep -v '<matches' | grep -v '</matches>' > temp2.xml
-          echo '<?xml version="1.0" encoding="UTF-8"?><matches>' > ${{env.MATCHES_COMBINED_SOURCE}}
-          cat temp2.xml >> ${{env.MATCHES_COMBINED_SOURCE}}
-          echo '</matches>' >> ${{env.MATCHES_COMBINED_SOURCE}}
-          rm temp1.xml temp2.xml
-
-      - name: XSLT processing (combined matches) # Push the XML through the XSLT
-        id: combined_matches_xslt
-        if: steps.combine_matches.conclusion == 'success'
-        run: |
-          sudo apt-get install xsltproc
-          xsltproc _sams/xslt/combined_matches.xslt ${{env.MATCHES_COMBINED_SOURCE}} > ${{env.MATCHES_COMBINED_TARGET}}
-
-      - name: Commit Combined Matches
-        id: git_push
-        if: steps.combined_matches_xslt.outcome == 'success'
-        continue-on-error: true # don't throw an error as there won't always be changes
-        run: |
-          git add ${{env.MATCHES_COMBINED_SOURCE}}
-          git commit -m "XML update"
-          git add ${{env.MATCHES_COMBINED_TARGET}}
-          git commit -m "Combined Macthes update"
 
       - name: Download Individual Matches
         id: download_individual_matches
