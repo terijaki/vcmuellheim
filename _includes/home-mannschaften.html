@@ -24,7 +24,7 @@
 <!-- Team Name -->
         <h3 class="title fw-bold fs-5">{{ team.teamname }}
           {% unless team.liga contains "99" %}
-            - {{ team.liga | slice: 4, 99   }}
+            - {{ team.liga | slice: 4, 99 }}
           {% endunless %}
         </h3>
 
