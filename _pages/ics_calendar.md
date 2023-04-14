@@ -8,14 +8,14 @@ X-WR-CALNAME:{{ site.name }}
 PRODID:-//{{ site.official_name }}//Website//DE
 VERSION:2.0
 CALSCALE:GREGORIAN
-{%- for schedule_json in site.data.sams.matches -%}
-    {%- assign stripped_results = results_json[1] | strip -%}
-    {%- if include.team == nil or stripped_results contains include.team -%}
-        {%- for match in schedule_json[1].matches.match -%}
-            {%- assign timecheck = match.time | date: "%H" | abs -%}
-            {% unless match.matchSeries.type or timecheck == 0 or match_uuids contains match.uuid %}
-            {% if match.results == nil %}
-            {%- assign match_uuids = match_uuids | append: match.uuid %}
+{% for schedule_json in site.data.sams.matches -%}
+{% assign stripped_results = results_json[1] | strip -%}
+{% if include.team == nil or stripped_results contains include.team -%}
+{% for match in schedule_json[1].matches.match -%}
+{% assign timecheck = match.time | date: "%H" | abs -%}
+{% unless timecheck == 0 or match_uuids contains match.uuid -%}
+{% if match.matchSeries.type and match.results == nil -%}
+{% assign match_uuids = match_uuids | append: match.uuid -%}
 BEGIN:VEVENT
 DTSTAMP:{{ match.matchSeries.updated | date: "%Y%m%dT%H%M%SZ" }}
 DTSTART;TZID={{ site.timezone }}:{{ match.date | date: "%Y%m%d" }}T{{ match.time | date: "%H%M00" }}
@@ -26,14 +26,14 @@ DESCRIPTION:Liga:{{ match.matchSeries.name }}\nTeam 1: {{ match.team[0].name }}\
 UID:{{ match.uuid }}
 TZID:{{ site.timezone }}
 END:VEVENT
-            {%- endif -%}
-            {%- endunless -%}
-        {%- endfor -%}
-    {% endif %}
-{%- endfor %}
+{% endif -%}
+{% endunless -%}
+{% endfor -%}
+{% endif -%}
+{% endfor -%}
 {% unless match_uuids -%}
 BEGIN:VEVENT
-DTSTAMP;TZID={{ site.timezone }}:{{ site.time | date: "%Y%m%dT%H%M%S" }}
+DTSTAMP:{{ site.time | date: "%Y%m%dT%H%M%SZ" }}
 DTSTART;TZID={{ site.timezone }}:{{ site.time | date: "%Y%m%dT%H%M%S" }}
 DTEND;TZID={{ site.timezone }}:{{ site.time | date: "%Y%m%d" }}T{{ site.time | date: "%H%M%S" | integer | plus: 1500 }}
 SUMMARY:{{ site.title }} Derzeit keine neuen Termine verfügbar
@@ -43,7 +43,7 @@ END:VEVENT
 {% endunless -%}
 BEGIN:VTIMEZONE
 TZID:Europe/Berlin
-LAST-MODIFIED:20230324T084302Z
+LAST-MODIFIED:{{ site.time | date: "%Y%m%dT%H%M%SZ" }}
 TZURL:https://www.tzurl.org/zoneinfo/Europe/Berlin
 X-LIC-LOCATION:Europe/Berlin
 X-PROLEPTIC-TZNAME:LMT
