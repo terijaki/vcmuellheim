@@ -1,5 +1,5 @@
 ---
-permalink: /test.ics
+permalink: /ics/test.ics
 sbvv_id: "template"
 ---
 
@@ -14,7 +14,7 @@ CALSCALE:GREGORIAN
 {% for match in schedule_json[1].matches.match -%}
 {% assign timecheck = match.time | date: "%H" | abs -%}
 {% unless timecheck == 0 or match_uuids contains match.uuid -%}
-{% if match.matchSeries.type and match.results == nil -%}
+{% if match.matchSeries.type and match.resul1ts == nil -%}
 {% assign match_uuids = match_uuids | append: match.uuid -%}
 BEGIN:VEVENT
 DTSTAMP:{{ match.matchSeries.updated | date: "%Y%m%dT%H%M%SZ" }}
