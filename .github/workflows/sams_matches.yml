@@ -61,17 +61,8 @@ jobs:
           echo $id_only
           echo "id=$id_only" >> $GITHUB_OUTPUT
 
-      - name: Add timestamp to Matches XML
-        # includes a timestamp at the end of the files in the German format to be used in the frontend
-        id: timestamp_matches
-        if: contains( matrix.ids, env.MATCHES_SOURCE )
-        run: |
-          echo $(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)
-          sed -i -e 's!</matches>!<timestamp>'$(TZ=Europe/Berlin date +%d.%m.%Y)', '$(TZ=Europe/Berlin date +%H:%M)' Uhr</timestamp></matches>!g' ${{matrix.ids}}
-
       - name: Cleanup SAMS XML # removes strings that break the XLST
         id: cleanup_xml
-        if: steps.timestamp_matches.conclusion == 'success'
         run: sed -i -e 's!xmlns="http://sams-server.de/api/xml/ns/matches" !!g' ${{matrix.ids}}
 
       - name: Get XSLT templates # Download the templates from our repo
@@ -113,35 +104,7 @@ jobs:
           teamname=$(awk "/title: (.*) \(Saison/{print}" $processed_match_file | sed 's!title: !!' | sed 's! (Saison.*!!')
           echo $teamname
           sed -i -e "s!BEGIN:VCALENDAR!BEGIN:VCALENDAR\nX-WR-CALNAME:$teamname (VC Müllheim)!g" $ics_target_file
-
-      - name: Patch Calender URL in Match file
-      # Replaces the placeholderlinks in the Match file with the actual .ics file
-      # Then removes the display-none class to enable them in the frontend
-        if: steps.samsical.outcome == 'success'
-        run: |
-          processed_match_file=${{env.MATCHES_TARGET}}
-          processed_match_file+=${{steps.isolate_id.outputs.id}}
-          processed_match_file+=".html"
-          ics_target_file=${{env.ICS_TARGET}}
-          ics_target_file+=${{steps.isolate_id.outputs.id}}
-          ics_target_file+=".ics"
-          echo $processed_match_file" will be updated to link to "$ics_target_file
-          sed -i -e "s!CALURL1!https://vcmuellheim.de/$ics_target_file!g" $processed_match_file
-          sed -i -e "s!CALURL2!webcal://vcmuellheim.de/$ics_target_file!g" $processed_match_file
-          sed -i -e "s!calendar d-none!calendar!g" $processed_match_file
-
-      - name: Upload Artifact (Matches)
-        id: upload
-        if: steps.matches_xslt.conclusion == 'success'
-        uses: actions/upload-artifact@v3
-        with:
-          name: matches
-          path: ${{ env.MATCHES_TARGET }}
-
-      - name: Upload Status
-        id: upload_status
-        if: steps.upload.conclusion == 'success'
-        run: echo "required=yes" >> $GITHUB_OUTPUT
+        ## this job relies on the proccessed .html files inside _matches/ as it extraxts the name of the league from there. e.g. "title: Verbandsliga Herren (Saison 2022/23)""
 
       ### individual matches ###
       - name: XSLT processing (individual matches) # Download, install and run the XSLT processor (Saxon to use XSLT 2.0 features)
@@ -175,6 +138,10 @@ jobs:
           name: ics
           path: ${{env.ICS_TARGET}}
 
+      - name: Upload Status
+        id: upload_status
+        if: steps.samsical.conclusion == 'success'
+        run: echo "required=yes" >> $GITHUB_OUTPUT
   ##########################
   ### GIT UPDATE PROCESS ###
   ##########################
@@ -193,21 +160,6 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-
-      - name: Download Matches
-        id: download_matches
-        if: contains(needs.Process-Matches.outputs.upload_required, 'yes')
-        uses: actions/download-artifact@v3
-        with:
-          name: matches
-          path: ${{ env.MATCHES_TARGET }}
-
-      - name: Commit Matches
-        if: steps.download_matches.conclusion == 'success'
-        continue-on-error: true # don't throw an error as there won't always be changes
-        run: |
-          git add "${{env.MATCHES_TARGET}}"
-          git commit -m "new or updated matches"
 
       - name: Download Individual Matches
         id: download_individual_matches
