@@ -8,38 +8,144 @@ X-WR-CALNAME:{{ site.name }}
 PRODID:-//{{ site.official_name }}//Website//DE
 VERSION:2.0
 CALSCALE:GREGORIAN
-BEGIN:VEVENT
-UID:5b8706c7-e84b-4418-920a-d726352e2ec1
-SUMMARY:VC Weil 4 vs. VC Müllheim\, Kreisliga Süd Damen
-TZID:Europe/Berlin
-CREATED:20230318T114423+0100🌈{{ today }}🌈
-LAST-MODIFIED:20230330T145445+0200
-DTSTAMP:20230330T145445+0200
-DTSTART;TZID=Europe/Berlin:20221009110000
-DTEND;TZID=Europe/Berlin:20221009110200
-LOCATION:Egersporthalle\, Egerstrasse 3\, 79576 Weil
-DESCRIPTION:Liga:Kreisliga Süd Damen\nTeam 1: VC Weil 4\nTeam 2: VC Müllheim\nGastgeber: VC Weil 4\nhttp://localhost:4000/termine/
-END:VEVENT
 {%- for schedule_json in site.data.sams.matches -%}
     {%- assign stripped_results = results_json[1] | strip -%}
     {%- if include.team == nil or stripped_results contains include.team -%}
-        {% for match in schedule_json[1].matches.match -%}
-            {%- assign schedule_matches_lastupdated = schedule_matches_lastupdated | append: match.matchSeries.updated | append: "#" -%}
-            {% if match.matchSeries.type %}
+        {%- for match in schedule_json[1].matches.match -%}
+            {%- assign timecheck = match.time | date: "%H" | abs -%}
+            {% unless match.matchSeries.type or timecheck == 0 or match_uuids contains match.uuid %}
+            {% if match.results == nil %}
+            {%- assign match_uuids = match_uuids | append: match.uuid %}
 BEGIN:VEVENT
-UID:{{ match.matchSeries.uuid }}
+DTSTAMP:{{ match.matchSeries.updated | date: "%Y%m%dT%H%M%SZ" }}
+DTSTART;TZID={{ site.timezone }}:{{ match.date | date: "%Y%m%d" }}T{{ match.time | date: "%H%M00" }}
+DTEND;TZID={{ site.timezone }}:{{ match.date | date: "%Y%m%d" }}T{{ match.time | date: "%H%M00" | integer | plus: 20000 }}
 SUMMARY:{{ match.team[0].name }} vs. {{ match.team[1].name }}\, {{ match.matchSeries.name }}
-TZID:{{ site.timezone }}
-CREATED:{{ match.matchSeries.structureUpdated | date: "%Y%m%dT%H%M%S%z" }}
-LAST-MODIFIED:{{ match.matchSeries.updated | date: "%Y%m%dT%H%M%S%z" }}
-DTSTAMP:{{ match.matchSeries.updated | date: "%Y%m%dT%H%M%S%z" }}
-DTSTART;TZID={{ site.timezone }}:{{ match.date | date: "%Y%m%d" }}{{ match.time | date: "%H%M00" }}
-DTEND;TZID={{ site.timezone }}:{{ match.date | date: "%Y%m%d" }}{{ match.time | date: "%H%M00" | abs | plus: 200 }}
 LOCATION:{{ match.location.name }}\, {{ match.location.street }}\, {{ match.location.postalCode }} {{ match.location.city }}
 DESCRIPTION:Liga:{{ match.matchSeries.name }}\nTeam 1: {{ match.team[0].name }}\nTeam 2: {{ match.team[1].name }}\nGastgeber: {{ match.host.name }}\n{{ site.url | append: "/termine/" }}
+UID:{{ match.uuid }}
+TZID:{{ site.timezone }}
 END:VEVENT
             {%- endif -%}
+            {%- endunless -%}
         {%- endfor -%}
-    {%- endif -%}
-{%- endfor -%}
+    {% endif %}
+{%- endfor %}
+{% unless match_uuids -%}
+BEGIN:VEVENT
+DTSTAMP;TZID={{ site.timezone }}:{{ site.time | date: "%Y%m%dT%H%M%S" }}
+DTSTART;TZID={{ site.timezone }}:{{ site.time | date: "%Y%m%dT%H%M%S" }}
+DTEND;TZID={{ site.timezone }}:{{ site.time | date: "%Y%m%d" }}T{{ site.time | date: "%H%M%S" | integer | plus: 1500 }}
+SUMMARY:{{ site.title }} Derzeit keine neuen Termine verfügbar
+UID:{{ site.title | upcase | remove: ' ' }}{{ site.time | date: "%s" | times: 1980 | slice: 2, 10 }}
+TZID:{{ site.timezone }}
+END:VEVENT
+{% endunless -%}
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+LAST-MODIFIED:20230324T084302Z
+TZURL:https://www.tzurl.org/zoneinfo/Europe/Berlin
+X-LIC-LOCATION:Europe/Berlin
+X-PROLEPTIC-TZNAME:LMT
+BEGIN:STANDARD
+TZNAME:CET
+TZOFFSETFROM:+005328
+TZOFFSETTO:+0100
+DTSTART:18930401T000000
+END:STANDARD
+BEGIN:DAYLIGHT
+TZNAME:CEST
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+DTSTART:19160430T230000
+RDATE:19400401T020000
+RDATE:19430329T020000
+RDATE:19460414T020000
+RDATE:19470406T030000
+RDATE:19480418T020000
+RDATE:19490410T020000
+RDATE:19800406T020000
+END:DAYLIGHT
+BEGIN:STANDARD
+TZNAME:CET
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+DTSTART:19161001T010000
+RDATE:19421102T030000
+RDATE:19431004T030000
+RDATE:19441002T030000
+RDATE:19451118T030000
+RDATE:19461007T030000
+END:STANDARD
+BEGIN:DAYLIGHT
+TZNAME:CEST
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+DTSTART:19170416T020000
+RRULE:FREQ=YEARLY;UNTIL=19180415T010000Z;BYMONTH=4;BYDAY=3MO
+END:DAYLIGHT
+BEGIN:STANDARD
+TZNAME:CET
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+DTSTART:19170917T030000
+RRULE:FREQ=YEARLY;UNTIL=19180916T010000Z;BYMONTH=9;BYDAY=3MO
+END:STANDARD
+BEGIN:DAYLIGHT
+TZNAME:CEST
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+DTSTART:19440403T020000
+RRULE:FREQ=YEARLY;UNTIL=19450402T010000Z;BYMONTH=4;BYDAY=1MO
+END:DAYLIGHT
+BEGIN:DAYLIGHT
+TZNAME:CEMT
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0300
+DTSTART:19450524T020000
+RDATE:19470511T030000
+END:DAYLIGHT
+BEGIN:DAYLIGHT
+TZNAME:CEST
+TZOFFSETFROM:+0300
+TZOFFSETTO:+0200
+DTSTART:19450924T030000
+RDATE:19470629T030000
+END:DAYLIGHT
+BEGIN:STANDARD
+TZNAME:CET
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0100
+DTSTART:19460101T000000
+RDATE:19800101T000000
+END:STANDARD
+BEGIN:STANDARD
+TZNAME:CET
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+DTSTART:19471005T030000
+RRULE:FREQ=YEARLY;UNTIL=19491002T010000Z;BYMONTH=10;BYDAY=1SU
+END:STANDARD
+BEGIN:STANDARD
+TZNAME:CET
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+DTSTART:19800928T030000
+RRULE:FREQ=YEARLY;UNTIL=19950924T010000Z;BYMONTH=9;BYDAY=-1SU
+END:STANDARD
+BEGIN:DAYLIGHT
+TZNAME:CEST
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+DTSTART:19810329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZNAME:CET
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+DTSTART:19961027T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
 END:VCALENDAR
