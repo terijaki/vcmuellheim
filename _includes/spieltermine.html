@@ -36,7 +36,11 @@
                 </div>
             {% endunless %}
             <div class="container mb-4">
+                {% if include.team == nil %}
                 <a type="text/calendar" href="webcal://vcmuellheim.de/ics/all.ics"><i class="fa-solid fa-arrows-rotate"></i> Abboniere unseren Kalender</a>, um neue Termine automatisch in deiner Kalender-App zu sehen.
+                {% else %}
+                <a type="text/calendar" href="webcal://vcmuellheim.de/ics/{{ include.team }}.ics"><i class="fa-solid fa-arrows-rotate"></i> Abboniere den <b>Saisonkalender</b></a>, um neue Termine automatisch in deiner Kalender-App zu sehen.
+                {% endif %}
             </div>
             <div class="upcoming">
                 <div class="zebra-list">
