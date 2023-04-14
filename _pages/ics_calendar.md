@@ -1,7 +1,7 @@
 ---
 permalink: /ics/test.ics
 sbvv_id: template
-layout: blank
+layout: null
 ---
 
 BEGIN:VCALENDAR
