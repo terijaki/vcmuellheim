@@ -27,8 +27,8 @@
 
 {% for league in leagues %}
   {% assign l = league | split: "ü#ä" %}
-  <div class="{% if include.team == nil %}col-12 col-lg-6 {% endif %}mb-4 sams-rankings" liganame="{{ l[3] }}" ligaid="{{ l[1] }}" ligauuid="{{ l[2] }}">
-    <div class="box m-0 p-3 p-sm-4 p-md-5 p-lg-4 p-xl-5">
+  <div class="sams-rankings col-12 {% if include.team == nil %}col-lg-6{% endif %} mb-4" liganame="{{ l[3] }}" ligaid="{{ l[1] }}" ligauuid="{{ l[2] }}">
+    <div class="box {% if include.team == nil %}m-0{% endif %} p-3 p-sm-4 p-md-5 p-lg-4 p-xl-5">
       <h3 class="fw-bold mb-1">{{ l[3] }}</h3>
       <div class="footnote my-1 row small fst-italic">
         <div class="season col-auto text-success">Saison {{ l[4] }}</div>

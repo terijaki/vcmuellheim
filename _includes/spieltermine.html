@@ -1,22 +1,25 @@
-{% for json in site.data.sams.matches %}
-    {% for match in json[1].matches.match %}
-        {% assign matches_lastupdated = matches_lastupdated | append: match.matchSeries.updated | append: "#" %}
-        {% if match.matchSeries.type and match.results.winner == nil %}
+{% for schedule_json in site.data.sams.matches %}
+    {% assign stripped_results = results_json[1] | strip %}
+    {% if include.team == nil or stripped_results contains include.team %}
+        {% for match in schedule_json[1].matches.match %}
+            {% assign schedule_matches_lastupdated = schedule_matches_lastupdated | append: match.matchSeries.updated | append: "#" %}
+            {% if match.matchSeries.type and match.results.winner == nil %}
 
-            {%- capture content -%}
-                {{ match.date | date: "%Y-%m-%d" }} {{ match.time | date: "%H:%M" }}$#€{{ match.matchSeries.uuid }}$#€{{ match.matchSeries.name }}$#€{{ match.matchSeries.type }}$#€{{ match.matchSeries.season.name }}$#€{{ match.uuid }}$#€{{ match.host.id }}$#€{{ match.host.club }}$#€{{ match.team[0].id }}$#€{{ match.team[1].id }}$#€{{ match.team[0].name }}$#€{{ match.team[1].name }}$#€{{ match.location.street }}$#€{{ match.location.postalCode }}$#€{{ match.location.city }}$#€{{ match.location.name }}$#€{{ match.results.setPoints }}$#€{{ match.results.ballPoints }}$#€{{ match.results.sets.set[0].points }}, {{ match.results.sets.set[1].points }}{% if match.results.sets.set[2].points %}, {{ match.results.sets.set[2].points }}{% endif %}{% if match.results.sets.set[3].points %}, {{ match.results.sets.set[3].points }}{% endif %}{% if match.results.sets.set[4].points %}, {{ match.results.sets.set[4].points }}{% endif %}
-            {%- endcapture -%}
+                {%- capture content -%}
+                    {{ match.date | date: "%Y-%m-%d" }} {{ match.time | date: "%H:%M" }}$#€{{ match.matchSeries.uuid }}$#€{{ match.matchSeries.name }}$#€{{ match.matchSeries.type }}$#€{{ match.matchSeries.season.name }}$#€{{ match.uuid }}$#€{{ match.host.id }}$#€{{ match.host.club }}$#€{{ match.team[0].id }}$#€{{ match.team[1].id }}$#€{{ match.team[0].name }}$#€{{ match.team[1].name }}$#€{{ match.location.street }}$#€{{ match.location.postalCode }}$#€{{ match.location.city }}$#€{{ match.location.name }}$#€{{ match.results.setPoints }}$#€{{ match.results.ballPoints }}$#€{{ match.results.sets.set[0].points }}, {{ match.results.sets.set[1].points }}{% if match.results.sets.set[2].points %}, {{ match.results.sets.set[2].points }}{% endif %}{% if match.results.sets.set[3].points %}, {{ match.results.sets.set[3].points }}{% endif %}{% if match.results.sets.set[4].points %}, {{ match.results.sets.set[4].points }}{% endif %}
+                {%- endcapture -%}
 
-            {% if all_matches == nil %}
-                {% assign all_matches = content %}
-            {% else %}
-                {% assign all_matches = all_matches | append: 'öäü' | append: content %}
+                {% if schedule_all_matches == nil %}
+                    {% assign schedule_all_matches = content %}
+                {% else %}
+                    {% assign schedule_all_matches = schedule_all_matches | append: 'öäü' | append: content %}
+                {% endif %}
+
             {% endif %}
-
-        {% endif %}
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
 {% endfor %}
-{% assign matches_lastupdated = matches_lastupdated | split: "#" | sort | reverse %}
+{% assign schedule_matches_lastupdated = schedule_matches_lastupdated | split: "#" | sort | reverse %}
 
 <div class="container">
     <div class="col sams-matches">
@@ -24,7 +27,7 @@
             {% if include.heading %}
             <h3 class="fw-bold">{{ include.heading }}</h3>
             {% endif %}
-            {% unless all_matches.size > 0 %}
+            {% unless schedule_all_matches.size > 0 %}
                 <div class="container sams-nomatches row mt-2 mb-3 align-items-center">
                     <div class="col-auto">
                         <i class="fa-regular fa-calendar-xmark fa-bo1unce fs-1 text-warning"></i>
@@ -37,8 +40,8 @@
             </div>
             <div class="upcoming">
                 <div class="zebra-list">
-                    {% assign all_matches = all_matches | split: 'öäü' | sort | reverse %}
-                    {% for match in all_matches limit: include.matches_limit | default: 9 %}
+                    {% assign schedule_all_matches = schedule_all_matches | split: 'öäü' | sort | reverse %}
+                    {% for match in schedule_all_matches limit: include.matches_limit | default: 9 %}
                     {% assign m = match | split: '$#€' %}
                     <div class="match col-12 row text-nowrap m-0 py-2" match-id="23082859" match-number="1">
                         <div class="date-time col-12 col-lg-2 d-flex flex-lg-column align-items-center flex-wrap small">
@@ -71,7 +74,7 @@
                     {% endfor %}                    
                 </div>
             </div>
-            <div class="lastupdate fst-italic small text-black text-opacity-25 text-end mt-1 mb-2">{{ matches_lastupdated[0] | date: "Stand %d.%m.%Y %H:%M Uhr" }}</div>
+            <div class="lastupdate fst-italic small text-black text-opacity-25 text-end mt-1 mb-2">{{ schedule_matches_lastupdated[0] | date: "Stand %d.%m.%Y %H:%M Uhr" }}</div>
         </div>
     </div>
 </div>
