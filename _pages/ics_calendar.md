@@ -8,6 +8,18 @@ X-WR-CALNAME:{{ site.name }}
 PRODID:-//{{ site.official_name }}//Website//DE
 VERSION:2.0
 CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:5b8706c7-e84b-4418-920a-d726352e2ec1
+SUMMARY:VC Weil 4 vs. VC Müllheim\, Kreisliga Süd Damen
+TZID:Europe/Berlin
+CREATED:20230318T114423+0100🌈{{ today }}🌈
+LAST-MODIFIED:20230330T145445+0200
+DTSTAMP:20230330T145445+0200
+DTSTART;TZID=Europe/Berlin:20221009110000
+DTEND;TZID=Europe/Berlin:20221009110200
+LOCATION:Egersporthalle\, Egerstrasse 3\, 79576 Weil
+DESCRIPTION:Liga:Kreisliga Süd Damen\nTeam 1: VC Weil 4\nTeam 2: VC Müllheim\nGastgeber: VC Weil 4\nhttp://localhost:4000/termine/
+END:VEVENT
 {%- for schedule_json in site.data.sams.matches -%}
     {%- assign stripped_results = results_json[1] | strip -%}
     {%- if include.team == nil or stripped_results contains include.team -%}
