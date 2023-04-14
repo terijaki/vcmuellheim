@@ -1,7 +1,8 @@
 ---
 layout: default
 ---
-<!--===== Short Intro =====-->
+
+
 <section id="shortintro" class="py-3 py-md-5">
   <div class="container">
     <div class="row">
@@ -11,19 +12,21 @@ layout: default
     </div>
   </div>
 </section>
-<!--===== #shortintro =====-->
+
 <main class="flex-grow-1">
   <section class="bg-light py-5">
-    {% include ergebnisse.html team=page.sbvv_id heading="Ergebnisse" %}
-    {% include spieltermine.html team=page.sbvv_id heading="Spielplan" %}
-    <div class="container">
-      {% include tabelle.html team=page.sbvv_id %}
-    </div>
+    {% unless page.sbvv_id == nil %}
+      {% include ergebnisse.html team=page.sbvv_id heading="Ergebnisse" %}
+      {% include spieltermine.html team=page.sbvv_id heading="Spielplan" %}
+      <div class="container">
+        {% include tabelle.html team=page.sbvv_id %}
+      </div>
+    {% endunless %}
   
     {% for team in site.teams %}
-      {% if page.sbvv_id == nil or team.sbvv_id == page.sbvv_id %}
+      {% if team.path == page.path %}
        <div class="container teaminfo">
-         <div class="box p-4">
+         <div class="box">
          <h3 class="title fw-bold">{{ team.teamname }}</h3>
               {% if team.alter.size > 0 %}
                 <p class="alter"> <b>Alter:</b> {{ team.alter }}</p>
@@ -62,6 +65,38 @@ layout: default
        </div>
        {% endif %}
    {% endfor %}
+
+   <div class="container px-3">
+     <div class="box row m-0">
+        <h3 class="col-12 fw-bold">Unsere Mannschaften</h3>
+        <div class="col-12 col-md mb-2 text-center">
+          <p class="fw-bold mb-1">Ligabetrieb:</p>
+          <div class="btn-group-vertical">
+            {% assign sorted_teams_liga = site.teams | sort: 'liga' %}
+            {% for team_nav in sorted_teams_liga %}
+              {% if team_nav.sbvv_id != nil and team_nav.path == page.path %}
+                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-dark active">{{ team_nav.liga | slice: 4, 99 }}: {{ team_nav.teamname }}</a>
+              {% elsif team_nav.sbvv_id != nil %}
+                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-secondary">{{ team_nav.liga | slice: 4, 99 }}: {{ team_nav.teamname }}</a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-12 col-md mb-2 text-center">
+          <p class="fw-bold mb-1">Hobby:</p>
+          <div class="btn-group-vertical">
+            {% assign sorted_teams_name = site.teams | sort: 'teamname' %}
+            {% for team_nav in sorted_teams_name %}
+              {% if team_nav.sbvv_id == nil and team_nav.path == page.path %}
+                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-dark active">{{ team_nav.teamname }}</a>
+              {% elsif team_nav.sbvv_id == nil %}
+                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-secondary">{{ team_nav.teamname }}</a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+  </div>
 
   </section>
 </main>
