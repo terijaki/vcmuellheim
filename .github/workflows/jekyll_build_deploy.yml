@@ -64,7 +64,7 @@ jobs:
                 outputfile=$(_pages/ics_calendar_$(basename $team .md).html)
                 cp $outputfile _pages/ics_calendar.html
                 sed -i -e 's!permalink: /ics/all.ics!permalink: /ics/$(basename $team .md).ics!g' $outputfile
-                sed -i -e 's!sbvv_id: template!sbvv_id: $this_sbvv_id!g' $outputfile
+                sed -i -e 's!sbvv_id: none!sbvv_id: $this_sbvv_id!g' $outputfile
               fi
           done
           ls _pages
