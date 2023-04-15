@@ -30,18 +30,20 @@ jobs:
       # Use the club .ics file and stored SBVV IDs to generate individual .ics files
       - name: Create Team Calendars
         run: |
-            ls _pages
             for team in _teams/*
-              do
-                  this_sbvv_id=$(cat $team | grep sbvv_id: | sed 's!sbvv_id: !!')
-                  if [[ -n $this_sbvv_id ]]; then
-                    echo "$(basename $team) contains sbvv_id: $this_sbvv_id"
-                    outputfile=_pages/ics_calendar_$(basename $team .md).html
-                    cat _pages/ics_calendar.html > $outputfile
-                    sed -i 's!permalink: /ics/all.ics!permalink: /ics/$(basename $team .md).ics!g' $outputfile
-                    sed -i 's!sbvv_id: template!sbvv_id: $this_sbvv_id!g' $outputfile
-                  fi
-              done
+            do
+                this_sbvv_id=$(cat $team | grep sbvv_id: | sed 's!sbvv_id: !!')
+                if [[ -n $this_sbvv_id ]]; then
+                  file=$(basename $team)
+                  filename=$(basename $team .md)
+                  echo "$filename contains sbvv_id: $this_sbvv_id"
+                  echo $filename or $file
+                  outputfile=$(echo "_pages/ics_calendar_$filename.html")
+                  cat "_pages/ics_calendar.html" > $outputfile
+                  sed -i '' -e "s#permalink: /ics/all.ics#permalink: /ics/$filename.ics#g" $outputfile
+                  sed -i '' -e "s#sbvv_id: none#sbvv_id: $this_sbvv_id#g" $outputfile
+                fi
+            done
 
       # Use ImageMagick (bash: convert) to create thumbnail images dynamically
       - name: Create Thumbnails
