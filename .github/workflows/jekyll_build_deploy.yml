@@ -39,7 +39,7 @@ jobs:
                 outputfile=$(echo "_pages/ics_calendar_$filename.html")
                 cat "_pages/ics_calendar.html" > $outputfile
                 sed -i -e "s#permalink: /ics/all.ics#permalink: /ics/$filename.ics#g" $outputfile
-                sed -i -e "s#X-WR-CALNAME:{{ site.name }}#X-WR-CALNAME:{{ site.shortname }}: $this_team_name#g" $outputfile
+                sed -i -e "s#X-WR-CALNAME:{{ site.name }}#X-WR-CALNAME:{{ site.short_name }}: $this_team_name#g" $outputfile
                 if [[ -n $this_sbvv_id ]]; then
                   sed -i -e "s#sbvv_id: none#sbvv_id: $this_sbvv_id#g" $outputfile
                 fi
