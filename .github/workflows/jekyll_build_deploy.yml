@@ -63,7 +63,7 @@ jobs:
               echo "$(basename $team) has the sbvv_id: $this_sbvv_id"
               outputfile=$(_pages/ics_calendar_$(basename $team .md).html)
               cp _pages/ics_calendar.html $outputfile
-              sed -i -e "s!parmalink: /ics/all.ics!parmalink: /ics/$(basename $team .md).ics!g" $outputfile
+              sed -i -e "s!permalink: /ics/all.ics!permalink: /ics/$(basename $team .md).ics!g" $outputfile
               sed -i -e "s!sbvv_id: template!sbvv_id: $this_sbvv_id!g" $outputfile
               fi
           done
