@@ -40,8 +40,8 @@ jobs:
                   echo $filename or $file
                   outputfile=$(echo "_pages/ics_calendar_$filename.html")
                   cat "_pages/ics_calendar.html" > $outputfile
-                  sed -i '' -e "s#permalink: /ics/all.ics#permalink: /ics/$filename.ics#g" $outputfile
-                  sed -i '' -e "s#sbvv_id: none#sbvv_id: $this_sbvv_id#g" $outputfile
+                  sed -i -e "s#permalink: /ics/all.ics#permalink: /ics/$filename.ics#g" $outputfile
+                  sed -i -e "s#sbvv_id: none#sbvv_id: $this_sbvv_id#g" $outputfile
                 fi
             done
 
