@@ -32,17 +32,16 @@ jobs:
         run: |
             for team in _teams/*
             do
+                this_team_name=$(cat $team | grep title: | sed 's!title: !!')
                 this_sbvv_id=$(cat $team | grep sbvv_id: | sed 's!sbvv_id: !!')
+                file=$(basename $team)
+                filename=$(basename $team .md)
+                outputfile=$(echo "_pages/ics_calendar_$filename.html")
+                cat "_pages/ics_calendar.html" > $outputfile
+                sed -i -e "s#permalink: /ics/all.ics#permalink: /ics/$filename.ics#g" $outputfile
+                sed -i -e "s#X-WR-CALNAME:{{ site.name }}#X-WR-CALNAME:{{ site.shortname }}: $this_team_name#g" $outputfile
                 if [[ -n $this_sbvv_id ]]; then
-                  this_team_name=$(cat $team | grep title: | sed 's!title: !!')
-                  file=$(basename $team)
-                  filename=$(basename $team .md)
-                  echo "$filename contains sbvv_id: $this_sbvv_id"
-                  outputfile=$(echo "_pages/ics_calendar_$filename.html")
-                  cat "_pages/ics_calendar.html" > $outputfile
-                  sed -i -e "s#permalink: /ics/all.ics#permalink: /ics/$filename.ics#g" $outputfile
                   sed -i -e "s#sbvv_id: none#sbvv_id: $this_sbvv_id#g" $outputfile
-                  sed -i -e "s#X-WR-CALNAME:{{ site.name }}#X-WR-CALNAME:{{ site.shortname }}: $this_team_name#g" $outputfile
                 fi
             done
 
