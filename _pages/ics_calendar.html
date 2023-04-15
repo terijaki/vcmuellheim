@@ -9,7 +9,7 @@ PRODID:-//{{ site.official_name }}//Website//DE
 VERSION:2.0
 CALSCALE:GREGORIAN
 {% for schedule_json in site.data.sams.matches -%}
-{% assign stripped_results = results_json[1] | strip -%}
+{% assign stripped_results = schedule_json[1] | strip -%}
 {% if page.sbvv_id == "none" or stripped_results contains page.sbvv_id -%}
 {% for match in schedule_json[1].matches.match -%}
 {% assign simpledate = match.date | date: "%Y%m%d" | abs -%}
