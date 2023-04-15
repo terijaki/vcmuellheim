@@ -1,4 +1,4 @@
-name: Matches Update
+name: Individual Matche Update
 
 concurrency:
   group: "sams to pages"
@@ -11,9 +11,7 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
   MATCHES_SOURCE: _sams/xml/matches/
-  MATCHES_TARGET: _matches/
   INDIVIDUAL_MATCHES_TARGET: _spielergebnisse/
-  ICS_TARGET: ics/ # the folder containing all ics files
 
 jobs:
 
@@ -50,16 +48,6 @@ jobs:
           curl -o ${{matrix.ids}} "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/${{matrix.ids}}" -f --retry 3 --retry-delay 30
           echo "${{matrix.ids}}"
 
-      - name: Isolate ID # Isolate just the ID from the file (remove path and file extension) and make it available in later steps
-        id: isolate_id
-        if: steps.filtered_fetch.conclusion == 'success'
-        run: |
-          id_only=${{matrix.ids}}
-          id_only=$(echo $id_only | sed -e 's!\.xml!!')
-          id_only=$(echo $id_only | sed -e 's!${{env.MATCHES_SOURCE}}!!')
-          echo $id_only
-          echo "id=$id_only" >> $GITHUB_OUTPUT
-
       - name: Cleanup SAMS XML # removes strings that break the XLST
         id: cleanup_xml
         run: sed -i -e 's!xmlns="http://sams-server.de/api/xml/ns/matches" !!g' ${{matrix.ids}}
@@ -68,47 +56,12 @@ jobs:
         id: get_xslt_template
         if: steps.cleanup_xml.conclusion == 'success'
         run: |
-          curl -o matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/matches.xslt" -f --retry 3 --retry-delay 30
           curl -o individual_matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/individual_matches.xslt" -f --retry 3 --retry-delay 30
-
-      - name: XSLT processing (matches) # Push the XML through the XSLT
-        id: matches_xslt
-        if: steps.cleanup_xml.conclusion == 'success'
-        run: |
-          mkdir -p ${{env.MATCHES_TARGET}}
-          targetfile=${{env.MATCHES_TARGET}}
-          targetfile+=${{steps.isolate_id.outputs.id}}
-          targetfile+=".html"
-          echo $targetfile
-          sudo apt-get install xsltproc
-          xsltproc matches.xslt ${{matrix.ids}} > $targetfile
-
-      ### handle calender file caching ###
-      - name: Import & Modify iCal # Import the iCal file so we can cache it
-        # this downlodas the ical file from SAMS, saves it as ics then adds "team name + VC Müllheim Spielplan" as calender name to it
-        # the modification is a beautification of the calendar file only and does not affect functionality
-        id: samsical
-        if: steps.matches_xslt.outcome == 'success'
-        continue-on-error: true
-        run: |
-          processed_match_file=${{env.MATCHES_TARGET}}
-          processed_match_file+=${{steps.isolate_id.outputs.id}}
-          processed_match_file+=".html"
-          ics_target_file=${{env.ICS_TARGET}}
-          ics_target_file+=${{steps.isolate_id.outputs.id}}
-          ics_target_file+=".ics"
-          echo $processed_match_file" is used to modify "$ics_target_file" (Team and Club name)"
-          mkdir -p ${{env.ICS_TARGET}}
-          curl -o $ics_target_file "https://www.sbvv-online.de/iCal/team/matches.ical?teamId=${{steps.isolate_id.outputs.id}}" -f --retry 5 --retry-delay 60
-          teamname=$(awk "/title: (.*) \(Saison/{print}" $processed_match_file | sed 's!title: !!' | sed 's! (Saison.*!!')
-          echo $teamname
-          sed -i -e "s!BEGIN:VCALENDAR!BEGIN:VCALENDAR\nX-WR-CALNAME:$teamname (VC Müllheim)!g" $ics_target_file
-        ## this job relies on the proccessed .html files inside _matches/ as it extraxts the name of the league from there. e.g. "title: Verbandsliga Herren (Saison 2022/23)""
 
       ### individual matches ###
       - name: XSLT processing (individual matches) # Download, install and run the XSLT processor (Saxon to use XSLT 2.0 features)
         id: individual_matches_xslt
-        if: steps.matches_xslt.conclusion == 'success'
+        if: steps.cleanup_xml.conclusion == 'success'
         run: |
           git clone https://github.com/sputnick-dev/saxon-lint.git
           cd saxon-lint*
@@ -129,17 +82,9 @@ jobs:
           name: individual_matches
           path: ${{env.INDIVIDUAL_MATCHES_TARGET}}
 
-      - name: Upload Artifact (Calender Files)
-        id: upload_ics_files
-        if: steps.samsical.conclusion == 'success'
-        uses: actions/upload-artifact@v3
-        with:
-          name: ics
-          path: ${{env.ICS_TARGET}}
-
       - name: Upload Status
         id: upload_status
-        if: steps.samsical.conclusion == 'success'
+        if: steps.upload_individual_matches.conclusion == 'success'
         run: echo "required=yes" >> $GITHUB_OUTPUT
   ##########################
   ### GIT UPDATE PROCESS ###
@@ -175,21 +120,6 @@ jobs:
         run: |
           git add "${{env.INDIVIDUAL_MATCHES_TARGET}}"
           git commit -m "new or updated individual matches"
-
-      - name: Download Calender Files
-        id: download_ics
-        if: contains(needs.Process-Matches.outputs.upload_required, 'yes')
-        uses: actions/download-artifact@v3
-        with:
-          name: ics
-          path: ${{ env.ICS_TARGET }}
-
-      - name: Commit Calender Files
-        if: steps.download_ics.conclusion == 'success'
-        continue-on-error: true # don't throw an error as there won't always be changes
-        run: |
-          git add "${{env.ICS_TARGET}}"
-          git commit -m "new or updated ics file"
 
       - name: Git Push
         continue-on-error: true # don't throw an error as there won't always be changes
