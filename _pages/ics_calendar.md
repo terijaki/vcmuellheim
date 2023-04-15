@@ -1,9 +1,8 @@
 ---
 permalink: /ics/test.ics
 sbvv_id: template
-layout: blank
+layout: null
 ---
-
 BEGIN:VCALENDAR
 X-WR-CALNAME:{{ site.name }}
 PRODID:-//{{ site.official_name }}//Website//DE
