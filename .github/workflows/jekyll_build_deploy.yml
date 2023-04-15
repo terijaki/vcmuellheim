@@ -37,7 +37,6 @@ jobs:
                   file=$(basename $team)
                   filename=$(basename $team .md)
                   echo "$filename contains sbvv_id: $this_sbvv_id"
-                  echo $filename or $file
                   outputfile=$(echo "_pages/ics_calendar_$filename.html")
                   cat "_pages/ics_calendar.html" > $outputfile
                   sed -i -e "s#permalink: /ics/all.ics#permalink: /ics/$filename.ics#g" $outputfile
