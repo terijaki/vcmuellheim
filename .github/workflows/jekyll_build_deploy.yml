@@ -67,6 +67,7 @@ jobs:
               sed -i -e "s!sbvv_id: template!sbvv_id: $this_sbvv_id!g" $outputfile
               fi
           done
+          ls ics
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
