@@ -37,9 +37,9 @@ jobs:
                   if [[ -n $this_sbvv_id ]]; then
                     echo "$(basename $team) contains sbvv_id: $this_sbvv_id"
                     outputfile=_pages/ics_calendar_$(basename $team .md).html
-                    cat _pages/ics_calendar.html > $outputfile
-                    sed -i -e 's!permalink: /ics/all.ics!permalink: /ics/$(basename $team .md).ics!g' $outputfile
-                    sed -i -e 's!sbvv_id: template!sbvv_id: $this_sbvv_id!g' $outputfile
+                    cat _pages/ics_calendar.html > "$outputfile"
+                    sed -i -e 's!permalink: /ics/all.ics!permalink: /ics/$(basename $team .md).ics!g' "$outputfile"
+                    sed -i -e 's!sbvv_id: template!sbvv_id: $this_sbvv_id!g' "$outputfile"
                   fi
               done
 
