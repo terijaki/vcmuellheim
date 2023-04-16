@@ -1,93 +1,12 @@
-
 <section id="mannschaften" class="section-bg py-5">
   <div class="container">
-
     <div class="section-header">
       <h3 class="section-title">Mannschaften</h3>
       <span class="section-divider"></span>
-      <p class="section-description">Der VC Müllheim besteht zur Zeit aus folgenden Mannschaften:</p>
+      <p class="section-description pb-0">Der VC Müllheim besteht zur Zeit aus folgenden Mannschaften:</p>
     </div>
-
-    <div class="row teams">
-
-   {% assign sorted-teams = (site.teams | sort: 'liga') %}
-   {% for team in sorted-teams %}
-      <div class="col-lg-6">
-        <div class="box p-4">
-
-<!-- Detailseite  -->
-        {% assign thisteaminfo = (site.teaminfo | where: 'mannschaft', team.path) %}
-        {% if thisteaminfo.size > 0 %}
-          <p class="mannschaftsinfo d-none m-0 text-end" style="height:0px"><a href="{{ team.url }}" class="generic-button m-0 px-2 py-1"><i class="fa-solid fa-address-card"></i> mehr</a></p>
-        {% endif %}
-
-<!-- Team Name -->
-        <h3 class="title fw-bold fs-5">{{ team.title }}
-          {% unless team.liga contains "99" %}
-            - {{ team.liga | slice: 4, 99 }}
-          {% endunless %}
-        </h3>
-
-<!-- Altersangabe  -->
-              {% if team.alter.size > 0 %}
-                <p class="alter"> <b>Alter:</b> {{ team.alter }}</p>
-              {% endif %}
-
-<!-- Trainingszeiten -->
-          <p class="trainingszeiten"><b>Trainingszeiten:</b><br>{{ team.trainings-zeit1 }}<br>
-            <a href="{{ team.trainings-map1 }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt"></i> {{ team.trainings-ort1 }}</a>
-
-            {% if team.trainings-zeit2.size > 0 %}
-              <br>{{ team.trainings-zeit2 }}<br>
-              <a href="{{ team.trainings-map2 }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt"></i> {{ team.trainings-ort2 }}</a><br>
-            {% endif %}
-          </p>
-
-<!-- Trainer 1 -->
-            {% if team.trainer-name1.size > 0 %}
-              <p class="trainer"><b>Trainer</b>:
-              {% if team.trainer-email1 contains "@" %}<a href="mailto:{{ team.trainer-email1 }}?subject={{ site.title }} - {{ team.title }}">{{ team.trainer-name1 }}</a>{% else %}{{ team.trainer-name1 }}
-              {% endif %}
-
-<!-- Trainer 2 -->
-                {% if team.trainer-name2.size > 0 %} &
-                  {% if team.trainer-email2  contains "@" %}<a href="mailto:{{ team.trainer-email2 }}?subject={{ site.title }} - {{ team.title }}">{{ team.trainer-name2 }}</a>{% else %}{{ team.trainer-name2 }}
-                  {% endif %}
-                {% endif %}
-              </p>
-            {% endif %}
-
-<!-- Ansprechperson 1 -->
-                {% if team.ansprechperson-name1.size > 0 %}
-                  <p class="ansprechperson"><b>Ansprechperson</b>:
-                    {% if team.ansprechperson-email1 contains "@" %}<a href="mailto:{{ team.ansprechperson-email1 }}?subject={{ site.title }} - {{ team.title }}">{{ team.ansprechperson-name1 }}</a>{% else %}{{ team.ansprechperson-name1 }}
-                    {% endif %}
-
-<!-- Ansprechperson 2 -->
-                    {% if team.ansprechperson-name2.size > 0 %} &
-                      {% if team.ansprechperson-email2  contains "@" %}<a href="mailto:{{ team.ansprechperson-email2 }}?subject={{ site.title }} - {{ team.title }}">{{ team.ansprechperson-name2 }}</a>{% else %}{{ team.ansprechperson-name2 }}
-                      {% endif %}
-                    {% endif %}
-                  </p>
-                {% endif %}
-
-<!-- Kommentar  -->
-              {% if team.kommentar.size > 0 %}
-                <p class="description">{{ team.kommentar }}</p>
-              {% endif %}
-
-<!-- Spielplan & Kalender  -->
-              {% if team.sbvv_id > 0 %}
-              <p class="spielplan"><span class="d-none d-md-block"><b>Ergebnisse & Termine:</b></span><a href="{{ team.url }}" class="generic-button mt-md-2"><i class="fa-solid fa-calendar-days"></i> Spielplan</a></p>
-              {% endif %}
-              
-
-        </div>
-      </div>
-
-  {% endfor %}
-
-
+    <div class="row mb-0 teams">
+      {% include teaminfo.html %}
     </div>
   </div>
 </section>

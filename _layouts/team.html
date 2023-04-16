@@ -29,49 +29,12 @@ layout: default
   
     {% for team in site.teams %}
       {% if team.path == page.path %}
-       <div class="container teaminfo">
-         <div class="box">
-         <h3 class="title fw-bold">{{ team.title }}</h3>
-              {% if team.alter.size > 0 %}
-                <p class="alter"> <b>Alter:</b> {{ team.alter }}</p>
-              {% endif %}
-          <p class="trainingszeiten"><b>Trainingszeiten:</b><br>{{ team.trainings-zeit1 }}<br>
-            <a href="{{ team.trainings-map1 }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt"></i> {{ team.trainings-ort1 }}</a>
-            {% if team.trainings-zeit2.size > 0 %}
-              <br>{{ team.trainings-zeit2 }}<br>
-              <a href="{{ team.trainings-map2 }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt"></i> {{ team.trainings-ort2 }}</a><br>
-            {% endif %}
-          </p>
-            {% if team.trainer-name1.size > 0 %}
-              <p class="trainer"><b>Trainer</b>:
-              {% if team.trainer-email1 contains "@" %}<a href="mailto:{{ team.trainer-email1 }}?subject={{ site.title }} - {{ team.title }}">{{ team.trainer-name1 }}</a>{% else %}{{ team.trainer-name1 }}
-              {% endif %}
-                {% if team.trainer-name2.size > 0 %} &
-                  {% if team.trainer-email2  contains "@" %}<a href="mailto:{{ team.trainer-email2 }}?subject={{ site.title }} - {{ team.title }}">{{ team.trainer-name2 }}</a>{% else %}{{ team.trainer-name2 }}
-                  {% endif %}
-                {% endif %}
-              </p>
-            {% endif %}
-                {% if team.ansprechperson-name1.size > 0 %}
-                  <p class="ansprechperson"><b>Ansprechperson</b>:
-                    {% if team.ansprechperson-email1 contains "@" %}<a href="mailto:{{ team.ansprechperson-email1 }}?subject={{ site.title }} - {{ team.title }}">{{ team.ansprechperson-name1 }}</a>{% else %}{{ team.ansprechperson-name1 }}
-                    {% endif %}
-                    {% if team.ansprechperson-name2.size > 0 %} &
-                      {% if team.ansprechperson-email2  contains "@" %}<a href="mailto:{{ team.ansprechperson-email2 }}?subject={{ site.title }} - {{ team.title }}">{{ team.ansprechperson-name2 }}</a>{% else %}{{ team.ansprechperson-name2 }}
-                      {% endif %}
-                    {% endif %}
-                  </p>
-                {% endif %}
-              {% if team.kommentar.size > 0 %}
-                <p class="description">{{ team.kommentar }}</p>
-              {% endif %}
-         </div>
-       </div>
-       {% endif %}
+        {% include teaminfo.html team=team.path %}
+      {% endif %}
    {% endfor %}
 
-   <div class="container px-3">
-     <div class="box row m-0">
+   <div class="container mt-2">
+     <div class="box row mx-0">
         <h3 class="col-12 fw-bold">Unsere Mannschaften</h3>
         <div class="col-12 col-md mb-2 text-center">
           <p class="fw-bold mb-1">Ligabetrieb:</p>
