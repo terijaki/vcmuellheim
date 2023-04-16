@@ -99,8 +99,18 @@ prose:
     - /_layouts
     - /_includes
     - /_sams
+    - /*
   metadata:
     _posts:
-      - name: "Titel"
+      - name: "layout"
+        field:
+          element: "hidden"
+          value: "post"
+      - name: "title"
         field:
           element: "text"
+          label: "title"
+      - name: "thumbnail"
+        field:
+          element: "select"
+          label: "Vorschaubild"
