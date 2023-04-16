@@ -11,8 +11,13 @@ sections:
   match: "**/*"
   templates:
   - ankundigung
+- type: directory
+  path: _termine
+  label: Termine
+  create: documents
+  match: "**/*"
 - type: jekyll-posts
-  label: News Beiträge
+  label: News
   create: documents
   templates:
   - neuen-beitrag-erstellen
