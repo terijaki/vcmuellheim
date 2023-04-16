@@ -31,5 +31,3 @@ fields:
     time_format: 
     display_utc: false
     export_format: ''
-pages:
-- _announcements/ankuendigung.md
