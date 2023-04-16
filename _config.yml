@@ -131,3 +131,7 @@ prose:
         field:
           element: "select"
           label: "Vorschaubild"
+      - name: "gallery"
+        field:
+          element: "multiselect"
+          label: "Fotogallery"
