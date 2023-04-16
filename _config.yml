@@ -92,14 +92,31 @@ feed:
       path: "/liga.xml"
 
 prose:
+  siteurl: 'https://vcmuellheim.de'
   media: 'upload'
   ignore:
-    - index.md
-    - CNAME
-    - /_layouts
+    - /data
     - /_includes
+    - /_layouts
+    - /_matches
+    - /_pages
     - /_sams
-    - /*
+    - /_scss
+    - /_spielergebnisse
+    - /_teams
+    - /.github
+    - /assets
+    - /blog
+    - /docs
+    - /edit
+    - /img
+    - /logo
+    - _config.yml
+    - .gitignore
+    - 404.md
+    - CNAME
+    - Gemfile
+    - index.md
   metadata:
     _posts:
       - name: "layout"
