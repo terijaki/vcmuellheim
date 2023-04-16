@@ -10,4 +10,5 @@ Gemfile.lock
 .vscode
 test*.html
 *debug*.md
+*debug*.html
 *debug*.json
