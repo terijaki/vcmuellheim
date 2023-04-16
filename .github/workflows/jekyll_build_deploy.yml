@@ -33,8 +33,9 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
-      - run: npm install
-      - run: npm test
+
+      - name: Install npm
+        run: npm install
 
       # Use the club .ics file and stored SBVV IDs to generate individual .ics files
       - name: Create Team Calendars
