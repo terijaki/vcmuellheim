@@ -18,9 +18,7 @@ layout: default
       {% capture pageslug %}{{ page.slug }}{% endcapture %}
       {% include ergebnisse.html team=page.sbvv_id heading="Ergebnisse" %}
       {% include spieltermine.html team=page.sbvv_id name=pageslug heading="Spielplan" %}
-      <div class="container">
-        {% include tabelle.html team=page.sbvv_id %}
-      </div>
+      {% include tabelle.html team=page.sbvv_id %}
       {% else %}
       {% unless page.liga contains 99 %}
         {% include spieltermine.html team=0000000000 name=pageslug heading="Spielplan" %}
