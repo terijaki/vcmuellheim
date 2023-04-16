@@ -90,3 +90,17 @@ feed:
   collections:
     spielergebnisse:
       path: "/liga.xml"
+
+prose:
+  rooturl: '_posts'
+  media: 'upload'
+  ignore:
+    - index.md
+    - CNAME
+    - /_layouts
+    - /_includes
+  metadata:
+    _posts:
+      - name: "Titel"
+        field:
+          element: "text"
