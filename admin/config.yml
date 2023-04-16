@@ -2,12 +2,14 @@ backend:
   name: github
   repo: terijaki/vcmuellheim
   branch: main
+  base_url: "https://api.netlify.com"
+  auth_endpoint: auth
 publish_mode: editorial_workflow
 media_folder: "upload"
 locale: "de"
 site_url: "https://vcmuellheim.de"
 display_url: "https://vcmuellheim.de"
-logo_url: "https://vcmuellheim.de/img/vcm-banner-schwarz.png"
+logo_url: "https://vcmuellheim.de/logo/logo-schwarz.png"
 collections:
   - name: "blog" # Used in routes, e.g., /admin/collections/blog
     label: "Blog" # Used in the UI
