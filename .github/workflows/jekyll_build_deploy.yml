@@ -27,6 +27,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm ci
+      - run: npm test
+
       # Use the club .ics file and stored SBVV IDs to generate individual .ics files
       - name: Create Team Calendars
         run: |
@@ -73,6 +81,12 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
+
+      - name: Build TinaCMS
+        env:
+          TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
+          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+        run: npx tinacms build
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
