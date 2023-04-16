@@ -13,17 +13,23 @@
 
   {% include footer.html %}
 
-  <!-- JavaScript Libraries -->
   <script src="/assets/js/jquery/jquery.slim.min.js"></script>
   <script src="/assets/js/bootstrap/bootstrap.min.js"></script>
-  <!-- Random Class Number  -->
   <script src="/assets/js/custom/randomclass.js"></script>
-  <!-- slick Carousel  -->
   <script src="/assets/js/slick/randomize.js"></script>
   <script src="/assets/js/slick/slick.min.js"></script>
   <script src="/assets/js/slick/initialize.js"></script>
-  <!-- Handle all External Links  -->
   <script src="/assets/js/custom/external-links.js"></script>
-
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
 </body>
 </html>
