@@ -92,13 +92,13 @@ feed:
       path: "/liga.xml"
 
 prose:
-  rooturl: '_posts'
   media: 'upload'
   ignore:
     - index.md
     - CNAME
     - /_layouts
     - /_includes
+    - /_sams
   metadata:
     _posts:
       - name: "Titel"
