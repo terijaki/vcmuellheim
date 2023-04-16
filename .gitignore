@@ -12,4 +12,3 @@ test*.html
 *debug*.md
 *debug*.html
 *debug*.json
-node_modules
