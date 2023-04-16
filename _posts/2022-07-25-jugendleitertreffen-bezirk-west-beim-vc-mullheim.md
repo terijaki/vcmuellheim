@@ -1,10 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Jugendleitertreffen Bezirk West beim VC Müllheim
 thumbnail: ''
+_template: neuen_beitrag_erstellen
 ---
+
 Am 16.07.2022 fand in der Halle II das Jugendleitertreffen des Bezirks West unter der Leitung von Celine Kindle (Jugendwartin weibliche Jugend) und Henry Koritter (Jugendwart männlich) statt.
 
 Beide Dozenten wollten sich ein Bild von den Wünschen und Anregungen der Basis machen. Deshalb wurden Anregungen und konstruktive Vorschläge in den 4 Bereichen: Fortbildungen, Spiel- und Trainingsbetrieb, Netzwerk und Sonstiges gesammelt, erörtert und diskutiert.

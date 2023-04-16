@@ -1,10 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Vorbereitungsturnier des VC Müllheim 2 in Staufen
-thumbnail: "/upload/2022/09/27/photo-2022-09-25-21-04-29.jpg"
+thumbnail: /upload/2022/09/27/photo-2022-09-25-21-04-29.jpg
+_template: neuen_beitrag_erstellen
 ---
+
 Am Samstag, den 24. September 2022, fand in Staufen ein Turnier, das als Vorbereitung auf die kommende Saison dienen sollte, statt. Teilnehmer waren neben unseren Herren 2 die beiden Herrenmannschaften des TV Staufen, der TV Freiburg St.-Georgen und das Team aus Collnau-Gutach.
 
 Gegen 12 Uhr trafen wir und die anderen Mannschaften langsam ein und die Trainerin des TV Staufen 2, die das Turnier organisierte, begrüßte uns und stellte den Modus vor: Jeder gegen jeden, je zwei Sätze pro Partie. Auf zwei Feldern spielen je zwei Mannschaften, die fünfte stellt das Schiedsgericht.

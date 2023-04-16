@@ -1,11 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Deutlicher Sieg zum Saisonauftakt
-thumbnail: "/upload/2021/10/17/img_7350.jpg"
-
+thumbnail: /upload/2021/10/17/img_7350.jpg
+_template: neuen_beitrag_erstellen
 ---
+
 (gesponsert von [https://degen-gmbh.com/](https://degen-gmbh.com/ "https://degen-gmbh.com/"))
 
 Am vergangenen Sonntag, 10.10.21, konnte die Verbandsliga Mannschaft des VC Müllheim die ersten Punkte holen. Nach langer Fahrt an den Bodensee zum TV Überlingen fuhren sie einen verdienten 3:0 Sieg (25:19, 25:12, 25:21) ein.

@@ -1,10 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Damen I startete Saison am 09.10.21 in Merdingen
-thumbnail: "/upload/2021/10/11/img-20211009-wa0004.jpg"
+thumbnail: /upload/2021/10/11/img-20211009-wa0004.jpg
+_template: neuen_beitrag_erstellen
 ---
+
 Vergangenen Samstag, 09.10.2021, hatte der VCM Damen 1 in Merdingen ihren Saison Auftakt.
 
 Für viele unserer Spielerinnen war es ihr erstes Spiel im Ligabetrieb und alle gemeinsam waren sehr aufgeregt

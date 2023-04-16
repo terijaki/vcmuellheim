@@ -1,10 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Platz 6 für Damen I beim Elztalpokal in Waldkirch
-thumbnail: "/upload/2022/09/25/Elztalpokal11b.jpeg"
+thumbnail: /upload/2022/09/25/Elztalpokal11b.jpeg
+_template: neuen_beitrag_erstellen
 ---
+
 Am Sonntag, 25.09.22 waren wir (Damen 1) vom VC Müllheim am Eltztalpokalturnier in Waldkirch.
 
 Der TV Waldkirch hat sich sehr viel Mühe in der Organisation und Aufbau gegeben, wofür wir sehr dankbar sind!

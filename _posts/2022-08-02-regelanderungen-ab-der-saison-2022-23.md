@@ -1,10 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Regeländerungen ab der Saison 2022/23
 thumbnail: ''
+_template: neuen_beitrag_erstellen
 ---
+
 Unser Volleyball Verband hat Änderungen ab dieser Saison angekündigt.
 
 Die Änderungen beziehen sich auf Mannschaftsmitglieder, Mannschaftsführung, Positionen, Spielen des Balles, Fehler beim Blocken und Sichtblock, Spielunterbrechungen, Libero Kleidung, sowie Hinausstellung und Disqualifikationen.

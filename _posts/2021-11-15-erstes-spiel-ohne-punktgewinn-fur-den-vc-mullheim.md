@@ -1,11 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Erstes Spiel ohne Punktgewinn für den VC Müllheim
-thumbnail: "/upload/2021/11/15/img_8772.jpg"
-
+thumbnail: /upload/2021/11/15/img_8772.jpg
+_template: neuen_beitrag_erstellen
 ---
+
 gesponsert von [https://degen-gmbh.com/](https://degen-gmbh.com/ "https://degen-gmbh.com/")
 
 **Am Ende stark dezimierte Müllheimer konnten trotz großem Einsatz keine Punkte aus Tuttlingen mitnehmen und kassierten die erste 3:0 Niederlage dieser Verbandsliga-Saison.**

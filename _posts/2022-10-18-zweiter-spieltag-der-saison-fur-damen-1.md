@@ -1,10 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Zweiter Spieltag der Saison für Damen 1
-thumbnail: "/upload/2022/10/18/img_0830.JPG"
+thumbnail: /upload/2022/10/18/img_0830.JPG
+_template: neuen_beitrag_erstellen
 ---
+
 Vorgestern spielten Damen 1 erstmals in einem offiziellen Spiel gegen unsere Damen 2. Den ersten Satz konnten Damen 2 mit 25:14 für sich entscheiden.  
 Im zweiten Satz jedoch wachten Damen 1 auf und holten sich die nächsten drei Sätze mit 25:15, 25:8 & 25:9 und somit den Sieg.
 

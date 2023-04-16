@@ -1,11 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: VC Müllheim holt vier wichtige Punkte vor Geisterkulisse
-thumbnail: "/upload/2021/11/15/img_8888.jpg"
-
+thumbnail: /upload/2021/11/15/img_8888.jpg
+_template: neuen_beitrag_erstellen
 ---
+
 gesponsert von [https://degen-gmbh.com/](https://degen-gmbh.com/ "https://degen-gmbh.com/")
 
 **Ohne Fans in der eigenen Halle heizte sich die Verbandsliga Mannschaft des VCM selbst ein und zeigte starke Spiele gegen ebenbürtige Gegner. Der 3:0 Sieg über weit gereiste Bohlinger war hart erkämpft, und die knappe 2:3 Niederlage gegen die Kobras aus Kippenheim ein spielerisches Highlight der Saison.**

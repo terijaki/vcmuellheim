@@ -67,6 +67,7 @@ exclude:
   - CNAME
   - .bundle*
   - /vendor/
+  - node_modules
 
 collections:
   club_members: # Adds Club Members to show on a contacts page

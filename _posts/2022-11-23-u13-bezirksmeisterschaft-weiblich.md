@@ -1,10 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: U13 Bezirksmeisterschaft weiblich
-thumbnail: "/upload/2022/11/23/20221119_121344.jpg"
+thumbnail: /upload/2022/11/23/20221119_121344.jpg
+_template: neuen_beitrag_erstellen
 ---
+
 Platz 11 von 17 Teams
 
 Am Samstag, den 19.11. um 8.15 Uhr fuhren wir zu sechst mit unseren drei Trainern in die Burdahalle nach Freiburg zur Qualifikation der U13 Bezirksmeisterschaft weiblich.

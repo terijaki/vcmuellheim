@@ -1,10 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Herren II gewinnen beide Spiele in Merzhausen!
-thumbnail: "/upload/2021/11/01/img-20211030-wa0022.jpg"
+thumbnail: /upload/2021/11/01/img-20211030-wa0022.jpg
+_template: neuen_beitrag_erstellen
 ---
+
 Nach einem gelungen Auftakt vor zwei Wochen konnten wir unsere Stärken erneut unter Beweis stellen. Wir fuhren nach Freiburg/Merzhausen und trafen dort auf den VSG Mundingen und VfR Merzhausen 2. Beide Spiele konnten die Jungs für sich mit 3:0 entscheiden.  
  In unserem Team macht sich die sehr gute und seit ein paar Jahren andauernde Jugendarbeit bemerkbar. Es ist eine gute Mischung aus erfahrenen Spielern und sehr jungen Spielern, die eine schöne Dynamik mit sich bringt.  
  Im ersten Spiel gegen den VSG Mundingen, waren nur ein paar Minuten Gewöhnungszeit notwendig, um in den eigenen Spielrhythmus zu finden. Unsere Gegner versuchte das Spiel zu verlangsamen, um uns müde zu machen. Die Jungs haben sich nicht einlullen lassen und zogen ihre starke Feldabwehr und den daraus resultierenden Angriff voll durch. Nach ein paar sehr gelungenen Blockaktionen versuchten sie es mit geschicktem Lobs, um uns aus der Reserve zu locken. Unser Libero Maurice Delaure war aber sehr schnell auf den Beinen und entzog auch diese Mittel dem Gegner.  

@@ -1,10 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Unsere Damen sind startklar!
-thumbnail: "/upload/2020/07/20/damentrikotsponsor.jpeg"
+thumbnail: /upload/2020/07/20/damentrikotsponsor.jpeg
+_template: neuen_beitrag_erstellen
 ---
+
 Nachdem wir bereits [berichteten](/neues-outfit-fur-unsere-jugend/), dass unsere Jugend künftig an diversen Turnieren teilnehmen wir als Vorbereitung für den Ligasport, dürfen wir nun auch stolz unsere Damenmannschaft im neuen Outfit vorstellen!
 
 Wir bedanken uns herzlich an dieser Stelle bei unserem Sponsor [Werkgruppe Freiburg](https://www.werkgruppe-freiburg.de/) (zweiter Herr links auf dem Bild, neben unserem 1. Vorsitzenden Lothar). Die Trainer [Andreas](mailto:andreas@vcmuellheim.de) und [Dominik](mailto:dominik@vcmuellheim.de) sind rechts zu sehen.

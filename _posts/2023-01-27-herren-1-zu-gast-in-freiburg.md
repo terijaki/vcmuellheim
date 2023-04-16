@@ -1,10 +1,13 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Herren 1 zu Gast in Freiburg
-thumbnail: "/upload/2023/01/27/img_4110.jpg"
+thumbnail: /upload/2023/01/27/img_4110.jpg
+_template: neuen_beitrag_erstellen
 ---
+
+
 Am Samstag den 21 Januar war die Herren 1 zu Gast in Freiburg für ihr Verbandsligaspiel gegen den USC Freiburg 2.
 
 Leider war das Glück nicht mit ihnen, denn bereits vor Spielbeginn gab es zwei Verletzungen. Alex konnte zwar mit Sporttape spielen, die Schmerzen machten sich jedoch in in den letzen Sätzen bemerkbar. Hinzu kommt, dass unser Jnan nach einer Blockaktion unglücklich gelandet ist und sich das Kreuzband im Kniegelenk gerissen hat.

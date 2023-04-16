@@ -1,10 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: 'Stadtfest 2022: Aufbau'
-thumbnail: "/upload/2022/06/19/img_1835.jpeg"
+thumbnail: /upload/2022/06/19/img_1835.jpeg
+_template: neuen_beitrag_erstellen
 ---
+
 Das Stadtfest in Müllheim findet wieder statt und feiert in diesem Jahr seinen 50. Geburtstag.
 
 Der VC Müllheim ist auch diesmal, mit großer Freude, wieder mit dabei.

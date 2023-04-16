@@ -1,10 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: U 14 Mädchen des VC Müllheim belegen Platz 5 an der Bezirksmeisterschaft
 thumbnail: ''
+_template: neuen_beitrag_erstellen
 ---
+
 Am Sonntag, 06.03.2022 durften unsere neuen Mädchen der U14 an der Bezirksmeisterschaft des Bezirks West des SBVV teilnehmen. Für manche war es die erste spielerische Erfahrung für andere etwas komplett anderes als der Ligaalltag.
 
 Unsere Mädels waren eines von ursprünglich 10 Teams (der FT Bodersweier trat am Turnier kurzfristig nicht an). Teams stellten der FT Freiburg (4 Teams), VC Offenburg (2 Teams) und SVO Rieselfeld (2 Teams). So wurde ein 9er Turnier gespielt.

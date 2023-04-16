@@ -1,10 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Unser Onlineshop
 thumbnail: ''
+_template: neuen_beitrag_erstellen
 ---
+
 Wäre es nicht total super, wenn unser Verein einen [Onlineshop](https://vcmuellheim.fan12.de) hätte, in dem Mitglieder, Freunde, Familienangehörige und Fans sich Artikel mit unserem Vereinslogo aussuchen und eigenständig bestellen könnten? Ohne Aufwand, bequem geliefert nach Hause? **Ja, das wäre super und ist ab heute Wirklichkeit!**
 
 Mit Fan12 aus Oldenburg haben wir einen Partner für unseren Shop gefunden. Fan12 übernimmt die komplette Abwicklung, von der Bestellung, Veredelung (Druck/Flock), Lieferung, sowie der Zahlung.

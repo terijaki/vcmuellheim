@@ -1,11 +1,14 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
-title: Auf die Räder, fertig, los! – ab dem 10.09.2021 tritt ganz Müllheim beim STADTRADELN
-  an
+title: >-
+  Auf die Räder, fertig, los! – ab dem 10.09.2021 tritt ganz Müllheim beim
+  STADTRADELN an
 thumbnail: ''
+_template: neuen_beitrag_erstellen
 ---
+
 Auftaktveranstaltung am Sonntag, den 25.07.2021
 
 Liebe Mitbürgerinnen und Mitbürger,

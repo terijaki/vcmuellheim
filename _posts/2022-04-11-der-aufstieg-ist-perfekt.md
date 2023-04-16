@@ -1,10 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Der Aufstieg ist perfekt!!!
-thumbnail: "/upload/2022/04/11/25f348f2-408e-4d8a-94ec-97b9c1e6f974.jpeg"
+thumbnail: /upload/2022/04/11/25f348f2-408e-4d8a-94ec-97b9c1e6f974.jpeg
+_template: neuen_beitrag_erstellen
 ---
+
 Die Saison startete Anfang Oktober mit zwei starken Siegen zum Beginn des Ligabetriebs.
 
 Wir konnten uns im Training stark verbessern und fanden als Mannschaft immer mehr in ein rundes Zusammenspiel. Vor allem die jungen Spieler wurden von Woche zu Woche stärker in ihrer Athletik und sicherer auf dem Feld. Es ist ein große Freude für mich als Trainer diese Entwicklungsschritte begleiten zu dürfen.

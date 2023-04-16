@@ -1,11 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Vier Punkte und viel Muskelkater
-thumbnail: "/upload/2021/10/17/img_7603.jpg"
-
+thumbnail: /upload/2021/10/17/img_7603.jpg
+_template: neuen_beitrag_erstellen
 ---
+
 (gesponsert von [https://degen-gmbh.com/](https://degen-gmbh.com/ "https://degen-gmbh.com/") )
 
 **Der Heimvorteil konnte von den Verbandsliga-Spielern des Volleyballclubs Müllheim (fast) optimal genutzt werden. Gegen die starke 2. Mannschaft des USC Freiburg reichte es zu einem 2:3 und einem Punkt. Die volle Ausbeute holten sich die Jungs von Spielertrainer Thomas Seywald beim 3:0 gegen den VC Weil.**

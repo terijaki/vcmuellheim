@@ -1,10 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Damen I mit den ersten Heimspielen in der neuen Saison 2021/2022
-thumbnail: "/upload/2021/10/22/img-20211017-wa0015.jpg"
+thumbnail: /upload/2021/10/22/img-20211017-wa0015.jpg
+_template: neuen_beitrag_erstellen
 ---
+
 Am Sonntag, den 17.10.2021 hatten die Damen 1 des VCM ihr erstes Heimspiel der Saison.
 
 Wir spielten zunächst gegen VfR Umkirch 3 und dann gegen Freiburg St. Georgen 2.

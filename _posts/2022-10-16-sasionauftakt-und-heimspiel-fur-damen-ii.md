@@ -1,10 +1,12 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
 title: Sasionauftakt und Heimspiel für Damen II
-thumbnail: "/upload/2022/10/16/damen2_3.jpeg"
+thumbnail: /upload/2022/10/16/damen2_3.jpeg
+_template: neuen_beitrag_erstellen
 ---
+
 Am vergangenen Sonntag hat für unsere Damen II die neue Saison begonnen mit einem Heimspiel begonnen.
 
 In einem harten Spiel gelang ihnen der erste Sieg der Saison mit 3:0 (25:18, 26:24, 25:19) gegen den VC Weil 3.
