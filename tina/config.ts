@@ -28,7 +28,7 @@ export default defineConfig({
       {
         format: "md",
         label: "Ankündigungen",
-        name: "ank_ndigungen",
+        name: "ankuendigungen",
         path: "_announcements",
         match: {
           include: "**/*",
@@ -84,7 +84,7 @@ export default defineConfig({
       {
         format: "md",
         label: "Vorstand & Vereinsämter",
-        name: "vorstand___vereins_mter",
+        name: "vorstand_vereins_mitglieder",
         path: "_club_members",
         match: {
           include: "**/*",
