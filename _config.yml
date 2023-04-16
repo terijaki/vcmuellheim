@@ -95,7 +95,7 @@ prose:
   siteurl: 'https://vcmuellheim.de'
   media: 'upload'
   ignore:
-    - /data
+    - /_data
     - /_includes
     - /_layouts
     - /_matches
@@ -116,7 +116,7 @@ prose:
     - 404.md
     - CNAME
     - Gemfile
-    - index.md
+    - index.html
   metadata:
     _posts:
       - name: "layout"
