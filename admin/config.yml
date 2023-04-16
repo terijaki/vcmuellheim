@@ -4,6 +4,10 @@ backend:
   branch: main
 publish_mode: editorial_workflow
 media_folder: "upload"
+locale: "de"
+site_url: "https://vcmuellheim.de"
+display_url: "https://vcmuellheim.de"
+logo_url: "https://vcmuellheim.de/img/vcm-banner-schwarz.png"
 collections:
   - name: "blog" # Used in routes, e.g., /admin/collections/blog
     label: "Blog" # Used in the UI
