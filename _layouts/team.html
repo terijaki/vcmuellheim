@@ -2,7 +2,6 @@
 layout: default
 ---
 
-
 <section id="shortintro" class="py-3 py-md-5">
   <div class="container">
     <div class="row">
@@ -22,6 +21,10 @@ layout: default
       <div class="container">
         {% include tabelle.html team=page.sbvv_id %}
       </div>
+      {% else %}
+      {% unless page.liga contains 99 %}
+        {% include spieltermine.html team=0000000000 name=pageslug heading="Spielplan" %}
+      {% endunless %}
     {% endunless %}
   
     {% for team in site.teams %}
@@ -75,11 +78,13 @@ layout: default
           <div class="btn-group-vertical">
             {% assign sorted_teams_liga = site.teams | sort: 'liga' %}
             {% for team_nav in sorted_teams_liga %}
-              {% if team_nav.sbvv_id != nil and team_nav.path == page.path %}
-                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-dark active">{{ team_nav.liga | slice: 4, 99 }}: {{ team_nav.title }}</a>
-              {% elsif team_nav.sbvv_id != nil %}
-                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-secondary">{{ team_nav.liga | slice: 4, 99 }}: {{ team_nav.title }}</a>
-              {% endif %}
+              {% unless team_nav.liga contains 99 %}
+                {% if team_nav.path == page.path %}
+                  <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-dark active">{{ team_nav.liga | slice: 4, 99 }}: {{ team_nav.title }}</a>
+                {% else %}
+                  <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-secondary">{{ team_nav.liga | slice: 4, 99 }}: {{ team_nav.title }}</a>
+                {% endif %}
+              {% endunless %}
             {% endfor %}
           </div>
         </div>
@@ -88,10 +93,12 @@ layout: default
           <div class="btn-group-vertical">
             {% assign sorted_teams_name = site.teams | sort: 'title' %}
             {% for team_nav in sorted_teams_name %}
-              {% if team_nav.sbvv_id == nil and team_nav.path == page.path %}
+              {% if team_nav.liga contains 99 %}
+                {% if team_nav.path == page.path %}
                 <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-dark active">{{ team_nav.title }}</a>
-              {% elsif team_nav.sbvv_id == nil %}
+                {% else %}
                 <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-secondary">{{ team_nav.title }}</a>
+                {% endif %}
               {% endif %}
             {% endfor %}
           </div>
