@@ -1,5 +1,5 @@
 import type { TinaField } from "tinacms";
-export function ank_ndigungFields() {
+export function ankuendigungFields() {
   return [
     {
       type: "string",
