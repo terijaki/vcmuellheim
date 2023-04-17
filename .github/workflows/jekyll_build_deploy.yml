@@ -80,6 +80,6 @@ jobs:
             done
 
       - name: Build Jekyll & Deploy
-        uses: helaili/jekyll-action
+        uses: helaili/jekyll-action@2.5.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
