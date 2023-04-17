@@ -22,11 +22,18 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-deploy:
+    name: Build & Deploy Site
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
 
       # Use the club .ics file and stored SBVV IDs to generate individual .ics files
       - name: Create Team Calendars
@@ -71,9 +78,6 @@ jobs:
                   convert "$file" -thumbnail '260x200^' -quality 65 -gravity center -extent '260x200' $gallery_file
                 fi
             done
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
 
       - name: Build & Deploy
         uses: helaili/jekyll-action@v2
