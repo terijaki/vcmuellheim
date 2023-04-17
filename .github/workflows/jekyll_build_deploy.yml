@@ -26,7 +26,7 @@ jobs:
     name: Prepare, Build & Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: 🗃️ Checkout
         uses: actions/checkout@v3
 
       # Use the club .ics file and stored SBVV IDs to generate individual .ics files
@@ -48,7 +48,7 @@ jobs:
             done
 
       # Use ImageMagick (bash: convert) to create thumbnail images dynamically
-      - name: 🖼️ Create Thumbnails
+      - name: 🖼️ Generate Thumbnails
         run: |
           for file in $(find upload/* -type f)
             do
@@ -81,7 +81,6 @@ jobs:
       - name: 🏗️ Install Dependencies & Build Site
         uses: limjh16/jekyll-action-ts@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           enable_cache: true
 
       - name: 🚀 Deploy
