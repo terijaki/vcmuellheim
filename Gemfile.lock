@@ -94,5 +94,8 @@ DEPENDENCIES
   kramdown-parser-gfm
   webrick
 
+RUBY VERSION
+   ruby 3.0.6p216
+
 BUNDLED WITH
    2.3.20
