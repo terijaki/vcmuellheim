@@ -29,7 +29,6 @@ permalink: /:title
 url: https://vcmuellheim.de
 author: "VC Müllheim"
 
-
 # Jekyll GitHub Plugins
 plugins:
   - jekyll-sitemap
@@ -65,7 +64,8 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
-  - .sass-cache/
+  - .sass-cache
+  - .vscode
   - .bundle*
   - /vendor/
   - node_modules
