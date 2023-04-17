@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   build-and-deploy:
-    name: Prepare, Build & Deploy Site
+    name: Prepare, Build & Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
