@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   build-and-deploy:
-    name: Build & Deploy Site
+    name: Prepare, Build & Deploy Site
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -79,7 +79,7 @@ jobs:
                 fi
             done
 
-      - name: Build & Deploy
+      - name: Build Jekyll & Deploy
         uses: helaili/jekyll-action@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
