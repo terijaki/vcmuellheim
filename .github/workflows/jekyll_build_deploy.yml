@@ -28,15 +28,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - uses: actions/cache@v3
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
 
       # Use the club .ics file and stored SBVV IDs to generate individual .ics files
-      - name: Create Team Calendars
+      - name: 🗓️ Create Team Calendars
         run: |
             for team in _teams/*
             do
@@ -54,7 +48,7 @@ jobs:
             done
 
       # Use ImageMagick (bash: convert) to create thumbnail images dynamically
-      - name: Create Thumbnails
+      - name: 🖼️ Create Thumbnails
         run: |
           for file in $(find upload/* -type f)
             do
@@ -79,7 +73,19 @@ jobs:
                 fi
             done
 
-      - name: Build Jekyll & Deploy
-        uses: helaili/jekyll-action@2.5.0
+      - name: 💎 Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 'head'
+
+      - name: 🏗️ Install Dependencies & Build Site
+        uses: limjh16/jekyll-action-ts@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          enable_cache: true
+
+      - name: 🚀 Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
