@@ -24,8 +24,7 @@ color_warning: "#F09E1A" # rgb(240,158,26) | Vivid Orange
 
 include:
   - _pages
-  - _matches
-  - _teams
+  
 permalink: /:title
 url: https://vcmuellheim.de
 author: "VC Müllheim"
@@ -45,8 +44,8 @@ paginate_path: "/blog/:num/"
 sass:
     style: compressed
     load_paths:
-        - _sass
-
+        - _scss
+        - node_modules
 # Other
 markdown: kramdown
 kramdown:
@@ -78,13 +77,8 @@ collections:
     output: true
     sort_by: liga
     permalink: /:collection/:name
-  matches: # Creates pages for each SAMS matchSeries based on their filenames
-    output: true
-    permalink: /:collection/:name
   spielergebnisse: # individual matches
     sort_by: date
-  rankings:
-    sort_by: league_id
   announcements:
     sort_by: date
 
