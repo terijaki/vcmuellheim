@@ -76,7 +76,7 @@ thumbnail: /upload/2022/07/12/img-20220710-wa0020.jpeg
                 <p><span class="fw-bold">Klaus-Dieter Ernst</span><br />
                 <a href="mailto:klaus@vcmuellheim.de"><i class="fa-solid fa-envelope" aria-hidden="true"></i> klaus@vcmuellheim.de</a><br />
                 <span class="fst-italic">Organisatior & Trainer</span><br />
-                <img src="/img/members/klausernst.jpg" class="rounded-circle img-fluid w-100 mt-2 pe-5 pb-2"></p>
+                <img src="/img/members/klausernst2.jpg" class="rounded-circle img-fluid w-100 mt-2 pe-5 pb-2"></p>
               </div>
               <div class="col-12 col-sm-6 col-lg-4 col-xl-6">
                 <p><span class="fw-bold">Dominik Ernst</span><br />
