@@ -478,6 +478,115 @@
           }
         },
         {
+          "id": "25364887",
+          "uuid": "6bc504b3-cd95-4747-9d52-99f3e25be19a",
+          "seasonTeamId": "25364887",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "22517916",
+            "uuid": "c9e2f4f0-9538-47d4-bed2-da71ebb1dc9d",
+            "allSeasonId": "00a9fd70-cef5-5238-85f8-fbffae615a80",
+            "name": "Bezirk West Damen Kreisliga Rückmeldungen-23/24",
+            "shortName": "RueckKrLiDamen",
+            "type": "League",
+            "updated": "2023-03-27 11:21:28.232",
+            "structureUpdated": "2023-03-27 11:21:28.232",
+            "resultsUpdated": null,
+            "season": {
+              "id": "22514239",
+              "uuid": "6a541375-4044-4540-bfc8-d7ed6e0e5691",
+              "name": "2022/23"
+            },
+            "hierarchy": {
+              "id": "22517733",
+              "uuid": "4a461347-964c-46a8-9a0b-962294ecdd17",
+              "name": "Rueckmeldungen Bezirk West",
+              "shortName": "RueckmBezWest",
+              "hierarchyLevel": "8"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "22517733",
+                  "name": "Rueckmeldungen Bezirk West",
+                  "shortName": "RueckmBezWest",
+                  "hierarchyLevel": "8"
+                },
+                {
+                  "id": "22517104",
+                  "name": "Bezirk West",
+                  "shortName": "bw",
+                  "hierarchyLevel": "7"
+                },
+                {
+                  "id": "22517103",
+                  "name": "SBVV Bezirke",
+                  "shortName": "SBVV Bezirke",
+                  "hierarchyLevel": "6"
+                },
+                {
+                  "id": "22516685",
+                  "name": "Spielbetrieb Südbaden",
+                  "shortName": "sbvv",
+                  "hierarchyLevel": "5"
+                },
+                {
+                  "id": "22515520",
+                  "name": "Oberliga Baden",
+                  "shortName": "Ol",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "22515519",
+                  "name": "Regionalliga Süd",
+                  "shortName": "RL",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "22515518",
+                  "name": "Dritte Liga Süd",
+                  "shortName": "DLS",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "22515517",
+                  "name": "Bundesligen",
+                  "shortName": "BL",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "22515340",
+                  "name": "Allgemeiner Spielbetrieb",
+                  "shortName": "alg",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
+            }
+          }
+        },
+        {
           "id": "22787670",
           "uuid": "6b39d012-7126-4412-8635-e6b7428f7945",
           "seasonTeamId": "22787670",
