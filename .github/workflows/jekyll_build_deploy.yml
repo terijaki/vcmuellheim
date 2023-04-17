@@ -22,15 +22,14 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
-    name: Prepare, Build & Deploy
-    runs-on: macos-latest
+  build:
+    runs-on: ubuntu-latest
     steps:
-      - name: 🗃️ Checkout
+      - name: Checkout
         uses: actions/checkout@v3
 
       # Use the club .ics file and stored SBVV IDs to generate individual .ics files
-      - name: 🗓️ Create Team Calendars
+      - name: Create Team Calendars
         run: |
             for team in _teams/*
             do
@@ -48,7 +47,7 @@ jobs:
             done
 
       # Use ImageMagick (bash: convert) to create thumbnail images dynamically
-      - name: 🖼️ Generate Thumbnails
+      - name: Create Thumbnails
         run: |
           for file in $(find upload/* -type f)
             do
@@ -73,17 +72,16 @@ jobs:
                 fi
             done
 
-      - name: 💎 Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.0.6'
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
 
-      - name: 🏗️ Install Dependencies & Build Site
-        uses: limjh16/jekyll-action-ts@v2
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
         with:
-          enable_cache: true
-
-      - name: 🚀 Deploy
+          source: ./
+          destination: ./_site
+      
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
