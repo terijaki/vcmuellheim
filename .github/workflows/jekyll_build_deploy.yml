@@ -73,6 +73,11 @@ jobs:
                 fi
             done
 
+      - name: 💎 Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0.6'
+
       - name: 🏗️ Install Dependencies & Build Site
         uses: limjh16/jekyll-action-ts@v2
         with:
