@@ -28,6 +28,7 @@ jobs:
   ### CLUB DATA UPDATE ###
   ########################
   Get-Teams:
+    name: Get Teams
     runs-on: ubuntu-latest
     outputs:
       teamids: ${{steps.teamid-list.outputs.teamids}} # outputs team IDs in the form of [123,456,789]
@@ -85,6 +86,7 @@ jobs:
   ### RANKINGS UPDATE ###
   #######################
   Get-Rankings:
+    name: Get Rankings
     needs: Get-Teams
     continue-on-error: true # if one team fails, the flow should continue
     strategy:
@@ -147,6 +149,7 @@ jobs:
   ### MATCHES UPDATE ###
   ######################
   Get-Matches:
+    name: Get Matches
     needs: Get-Teams
     continue-on-error: true # if one team fails, the flow should continue
     strategy:
@@ -200,6 +203,7 @@ jobs:
   ### GIT PROCESS ###
   ###################
   Git-Update-Rankings-and-Matches:
+    name: Git Update
     needs:
       - Get-Rankings
       - Get-Matches
