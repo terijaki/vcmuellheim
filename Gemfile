@@ -7,6 +7,7 @@ group :jekyll_plugins do
   gem 'jekyll-feed'
   gem 'jekyll-seo-tag'
   gem 'jekyll-paginate'
+  gem 'jekyll-sass-converter'
   gem 'jekyll-coffeescript'
   gem 'jekyll-admin'
   gem 'kramdown-parser-gfm'
