@@ -20,16 +20,6 @@
   <script src="/assets/js/slick/slick.min.js"></script>
   <script src="/assets/js/slick/initialize.js"></script>
   <script src="/assets/js/custom/external-links.js"></script>
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
+  <script src="/assets/js/custom/navbar-collapse.js"></script>
 </body>
 </html>
