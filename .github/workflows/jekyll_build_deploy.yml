@@ -24,7 +24,7 @@ concurrency:
 jobs:
   build-and-deploy:
     name: Prepare, Build & Deploy
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: 🗃️ Checkout
         uses: actions/checkout@v3
