@@ -165,6 +165,13 @@ h6 {
   p:last-child {
     margin: 0;
   }
+  :not(a) {
+    i, em, u {
+      text-decoration: underline;
+      text-decoration-style: wavy;
+      text-decoration-color: var(--bs-primary);
+    }
+  }
 }
 
 
