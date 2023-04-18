@@ -11,7 +11,7 @@
 {% for json in site.data.sams.rankings %}
 {% assign liga = json[1].rankings %}
 {% assign liga_string = liga.ranking | strip %}{% comment %}This string is needed to check if it contains the include team ID{% endcomment%}
-{% if liga_string contains include.team or include.team == nil and liga.matchSeries.type == "League" and liga.matchSeries.season.name == current_season and clubdata contains liga.matchSeries.uuid %}
+{% if liga_string contains include.team or include.team == nil and liga.matchSeries.type == "League" and liga.ranking and liga.matchSeries.season.name == current_season and clubdata contains liga.matchSeries.uuid %}
   {% unless leagues contains liga.matchSeries.uuid %}
     {%- capture this_league -%}
       {% if liga.matchSeries.hierarchy.hierarchyLevel.size == 1 %}0{% endif %}{{ liga.matchSeries.hierarchy.hierarchyLevel }}ü#ä{{ liga.matchSeries.id }}ü#ä{{ liga.matchSeries.uuid }}ü#ä{{ liga.matchSeries.name }}ü#ä{{ liga.matchSeries.season.name }}ü#ä{{ liga.matchSeries.updated }}ü#ä
