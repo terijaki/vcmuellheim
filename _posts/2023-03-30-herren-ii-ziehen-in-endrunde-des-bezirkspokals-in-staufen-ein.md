@@ -10,6 +10,12 @@ gallery:
 - "/upload/2023/03/30/img-20230327-wa0037.jpg"
 - "/upload/2023/03/30/img-20230327-wa0035.jpg"
 - "/upload/2023/03/30/img-20230327-wa0032.jpg"
+- "/upload/2023/04/19/bezirkspokalstaufen1.jpg"
+- "/upload/2023/04/19/bezirkspokalstaufen2.jpg"
+- "/upload/2023/04/19/bezirkspokalstaufen3.jpg"
+- "/upload/2023/04/19/bezirkspokalstaufen4.jpg"
+- "/upload/2023/04/19/bezirkspokalstaufen5.jpg"
+- "/upload/2023/04/19/bezirkspokalstaufen6.jpg"
 
 ---
 Am Montag, 27.03.23 spielten unsere Herren II ihr Vorrundenspiel im Bezirkspokal auswärts beim TV Freiburg St. Georgen. Erstmals dabei waren 5 hoffnungsvolle Talente der U20.
