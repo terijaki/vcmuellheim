@@ -84,7 +84,7 @@ jobs:
           source: ./
           destination: ./_site
 
-      - name: Build with Jekyll
+      - name: Build with Jekyll (Retry)
         id: build_jekyll_retry
         if: steps.build_jekyll.conclusion == 'failed'
         uses: actions/jekyll-build-pages@v1
