@@ -77,6 +77,16 @@ jobs:
         uses: actions/configure-pages@v3
 
       - name: Build with Jekyll
+        id: build_jekyll
+        continue-on-error: true
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Build with Jekyll
+        id: build_jekyll_retry
+        if: steps.build_jekyll.conclusion == 'failed'
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./
