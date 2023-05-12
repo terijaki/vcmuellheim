@@ -249,8 +249,8 @@
     <name>Bezirksliga Herren</name>
     <shortName>bzl n h</shortName>
     <type>League</type>
-        <updated>2023-03-21 08:58:19.397</updated>
-        <structureUpdated>2023-03-18 09:58:37.013</structureUpdated>
+        <updated>2023-05-11 11:31:37.559</updated>
+        <structureUpdated>2023-05-11 11:31:37.559</structureUpdated>
         <resultsUpdated>2023-03-21 08:58:19.397</resultsUpdated>
         <season>
             <id>22514239</id>
@@ -802,14 +802,14 @@
         <wwwDepartment></wwwDepartment>
     </club>
     <matchSeries>
-    <id>22517785</id>
-    <uuid>56e621ce-3b4b-46d2-9b04-7371155643e5</uuid>
-    <allSeasonId>ac221587-5fc7-62eb-a950-cd6cd5dcb82f</allSeasonId>
-    <name>Bezirk West Herren Bezirksklasse Rückmeldungen-23/24</name>
-    <shortName>RueckBezKlHerren</shortName>
+    <id>22517974</id>
+    <uuid>101e4c50-fef6-48ef-9ffc-0a4f7a446788</uuid>
+    <allSeasonId>9bee4086-8b11-cfd8-fdcd-9a0939d3a0f5</allSeasonId>
+    <name>Bezirk West Herren Bezirksliga Rückmeldungen-23/24</name>
+    <shortName>RueckBezliHerren</shortName>
     <type>League</type>
-        <updated>2023-05-04 09:38:48.133</updated>
-        <structureUpdated>2023-05-04 09:38:48.133</structureUpdated>
+        <updated>2023-05-11 16:59:41.423</updated>
+        <structureUpdated>2023-05-11 16:59:41.423</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>22514239</id>

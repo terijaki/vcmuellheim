@@ -253,8 +253,8 @@
             "name": "Bezirksliga Herren",
             "shortName": "bzl n h",
             "type": "League",
-            "updated": "2023-03-21 08:58:19.397",
-            "structureUpdated": "2023-03-18 09:58:37.013",
+            "updated": "2023-05-11 11:31:37.559",
+            "structureUpdated": "2023-05-11 11:31:37.559",
             "resultsUpdated": "2023-03-21 08:58:19.397",
             "season": {
               "id": "22514239",
@@ -816,14 +816,14 @@
             "wwwDepartment": null
           },
           "matchSeries": {
-            "id": "22517785",
-            "uuid": "56e621ce-3b4b-46d2-9b04-7371155643e5",
-            "allSeasonId": "ac221587-5fc7-62eb-a950-cd6cd5dcb82f",
-            "name": "Bezirk West Herren Bezirksklasse Rückmeldungen-23/24",
-            "shortName": "RueckBezKlHerren",
+            "id": "22517974",
+            "uuid": "101e4c50-fef6-48ef-9ffc-0a4f7a446788",
+            "allSeasonId": "9bee4086-8b11-cfd8-fdcd-9a0939d3a0f5",
+            "name": "Bezirk West Herren Bezirksliga Rückmeldungen-23/24",
+            "shortName": "RueckBezliHerren",
             "type": "League",
-            "updated": "2023-05-04 09:38:48.133",
-            "structureUpdated": "2023-05-04 09:38:48.133",
+            "updated": "2023-05-11 16:59:41.423",
+            "structureUpdated": "2023-05-11 16:59:41.423",
             "resultsUpdated": null,
             "season": {
               "id": "22514239",
