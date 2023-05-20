@@ -128,7 +128,7 @@
     <id>25463540</id>
     <uuid>090c1cbd-5d58-430e-990c-fc11b13e2045</uuid>
     <seasonTeamId>25463540</seasonTeamId>
-    <placeCipher>0</placeCipher>
+    <placeCipher>6</placeCipher>
     <name>VC Müllheim</name>
     <shortName>VCM</shortName>
     <clubCode></clubCode>
@@ -154,8 +154,8 @@
     <name>SBVV Rueckm. LaLi West Herren-23/24</name>
     <shortName>RueckHerrenLaliWest</shortName>
     <type>League</type>
-        <updated>2023-05-10 13:11:37.368</updated>
-        <structureUpdated>2023-05-10 13:11:37.367</structureUpdated>
+        <updated>2023-05-19 11:46:46.246</updated>
+        <structureUpdated>2023-05-19 11:46:46.246</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>22514239</id>
