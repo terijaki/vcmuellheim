@@ -7,13 +7,13 @@ alter: ''
 trainings-zeit1: 'Dienstags 20:00-22:00 Uhr'
 trainings-ort1: Rosenburgschule
 trainings-map1: 'https://goo.gl/maps/eAeBCM12GVk'
-trainings-zeit2: ''
-trainings-ort2: ''
-trainings-map2: ''
-trainer-name1: ' Claudio Lindemann-czak'
-trainer-email1: claudio@vcmuellheim.de
-trainer-name2: Andreas Albrecht
-trainer-email2: andreas@vcmuellheim.de
+trainings-zeit2: 'Freitags 20:00-22:00 Uhr'
+trainings-ort2: 'Sporthalle II'
+trainings-map2: 'https://goo.gl/maps/g3XhvCS9gpR2'
+trainer-name1: 'Philipp Ngo'
+trainer-email1: philipp_ngo@vcmuellheim.de
+trainer-name2: ''
+trainer-email2: ''
 kommentar: ''
 foto: ''
 kurztext: ''
