@@ -2,6 +2,7 @@
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
+posted-on-social: true
 title: AOK-Schulaktionstag Volleyball an der Mathias-von-Neuenburg Schule mit dem VC Müllheim
 thumbnail: "/upload/2023/05/31/IMG-20230525-WA0006.jpg"
 gallery:
