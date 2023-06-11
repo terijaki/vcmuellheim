@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: Neue D-Trainer!
 thumbnail: "/upload/2023/06/11/img1.jpg"
 gallery:
