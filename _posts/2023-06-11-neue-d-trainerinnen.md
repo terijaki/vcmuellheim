@@ -1,7 +1,7 @@
 ---
 layout: post
 posted-on-social: true
-title: Neue D-Trainer!
+title: Neue D-Trainer:innen!
 thumbnail: "/upload/2023/06/11/img1.jpg"
 gallery:
 - "/upload/2023/06/11/img2.jpg"
