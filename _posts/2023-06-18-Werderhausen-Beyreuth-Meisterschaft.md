@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: Werdehausen ist deutscher Ü53 Meister
 thumbnail: "/upload/2023/06/18/Bayreuth1.jpeg"
 gallery:
