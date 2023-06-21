@@ -45,7 +45,7 @@
               <th>Mannschaft</th>
               <th>Siege</th>
               <th>Sätze</th>
-              <th>Punkte</th>
+              <th><span class="d-none d-lg-inline">Punkte</span><span class="d-lg-none">Pkt.</span></th>
             </tr>
           </thead>
           <tbody>
@@ -57,7 +57,7 @@
                 <td>{{ t[0] | abs }}</td>
                 <td>{{ t[3] }}</td>
                 <td>{{ t[6] }}/{{ t[7] }}</td>
-                <td>{{ t[8] }}</td>
+                <td class="small">{{ t[8] }}</td>
                 <td>{{ t[5] }}</td>
               </tr>
             {% endif %}
