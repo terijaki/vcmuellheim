@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: 2. Internationales Jugendturnier erneut ein Riesenerfolg
 thumbnail: "/upload/2023/06/21/jugendturnier00011.jpg"
 gallery:
