@@ -1,8 +1,8 @@
 {% assign sorted-teams = (site.teams | sort: 'liga') %}
 {% for team in sorted-teams %}
     {% unless include.team and team.path != include.team %}
-    <div class="teaminfo container {% unless include.team %}d-flex col-lg-6{% else %}pb-4{% endunless %}">
-        <div class="box w-100 row mx-0 mt-0 mb-4 p-3 p-sm-4">
+    <div class="teaminfo {% unless include.team %}d-flex col-lg-6{% else %}pb-4{% endunless %}">
+        <div class="box w-100 row align-content-start mx-0 mt-0 mb-4 p-3 p-sm-4">
             <!-- Name -->
             <div class="col-12">
                 {% unless include.team %}
@@ -58,7 +58,7 @@
             {% endif %}
             </div>
             <!-- Link zur Mannschaftsdetails (Ergebnisse, Spielplan Tabelle)  -->
-            {% if team.sbvv_id > 0 and page.sbvv_id == nil %}
+            {% if team.sbvv_id.size > 0 and page.sbvv_id == nil %}
                 <div class="col">
                     <p class="link-to-more mb-0"><b>Ergebnisse, Tabelle & Kalender:</b><br>
                     <a href="{{ team.url }}" class="generic-button mt-1 mt-lg-2">

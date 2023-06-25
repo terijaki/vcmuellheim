@@ -20,6 +20,5 @@ ansprechperson-name1: Wolfgang Lacher
 ansprechperson-email1: wolfgang@vcmuellheim.de
 ansprechperson-name2: ''
 ansprechperson-email2: ''
-_template: mannschaft_eintragen
 ---
 

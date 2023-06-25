@@ -22,6 +22,5 @@ ansprechperson-name1: Kerstin Hackhausen
 ansprechperson-email1: kerstin@vcmuellheim.de
 ansprechperson-name2: Susanne Kainer
 ansprechperson-email2: susanne@vcmuellheim.de
-_template: mannschaft_eintragen
 ---
 

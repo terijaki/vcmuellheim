@@ -3,7 +3,7 @@ layout: team
 liga: '[10] Kreisliga'
 sbvv_id: 22517303
 title: Damen II
-alter: 12-15 Jahre
+alter: ''
 trainings-zeit1: 'Dienstags 18:30-20:00 Uhr'
 trainings-ort1: Sporthalle II Teil D (Gymnastikhalle)
 trainings-map1: 'https://goo.gl/maps/g3XhvCS9gpR2'
@@ -21,6 +21,5 @@ ansprechperson-name1: ''
 ansprechperson-email1: ''
 ansprechperson-name2: ''
 ansprechperson-email2: ''
-_template: mannschaft_eintragen
 ---
 

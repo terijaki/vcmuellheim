@@ -25,6 +25,5 @@ ansprechperson-name1: ''
 ansprechperson-email1: ''
 ansprechperson-name2: ''
 ansprechperson-email2: ''
-_template: mannschaft_eintragen
 ---
 

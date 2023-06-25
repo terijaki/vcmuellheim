@@ -12,8 +12,8 @@ layout: default
   </div>
 </section>
 
-<main class="flex-grow-1">
-  <section class="bg-light py-5">
+<main class="flex-grow-1 bg-light">
+  <section class="container py-5 row m-auto">
     {% unless page.sbvv_id == nil %}
       {% capture pageslug %}{{ page.slug }}{% endcapture %}
       {% include ergebnisse.html team=page.sbvv_id heading="Ergebnisse" %}
