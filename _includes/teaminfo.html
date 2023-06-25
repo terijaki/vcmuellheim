@@ -7,7 +7,7 @@
             <div class="col-12">
                 {% unless include.team %}
                     <h3 class="teamname title fw-bold fs-5">
-                        {{ team.title }}{% unless team.liga contains '99' %} - {{ team.liga | slice: 4, 200 }}{% endunless %}
+                        {{ team.title }}{% unless team.liga contains '89' or team.liga contains '99' %} - {{ team.liga | slice: 4, 200 }}{% endunless %}
                     </h3>
                 {% else %}
                     <h3 class="teamname fw-bold">{{ team.title }}</h3>
