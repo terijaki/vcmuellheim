@@ -1,6 +1,6 @@
 ---
 layout: team
-liga: '[99] Kein Ligabetrieb'
+liga: '[98] Kein Ligabetrieb'
 sbvv_id: null
 title: Jugend (gemischte)
 alter: 9-14 Jahren

@@ -1,6 +1,6 @@
 ---
 layout: team
-liga: '[99] Kein Ligabetrieb'
+liga: '[98] Kein Ligabetrieb'
 sbvv_id: null
 title: Jugend U20 (männlich)
 alter: 15-20 Jahre

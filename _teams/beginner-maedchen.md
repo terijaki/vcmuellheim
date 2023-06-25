@@ -1,6 +1,6 @@
 ---
 layout: 'team'
-liga: '[99] Kein Ligabetrieb'
+liga: '[98] Kein Ligabetrieb'
 sbvv_id: ''
 title: 'Anfänger Mädchen'
 alter: '14-18 Jahre'
