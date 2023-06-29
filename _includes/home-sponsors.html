@@ -1,3 +1,12 @@
+{% if site.sponsors.size > 0 %}
+  {% assign site-today = site.time | date: "%Y%m%d" | plus: 0 %}
+  {% for sponsorcount in site.sponsors %}
+    {% assign sponsorcount-deadline = sponsorcount.date | date: "%Y%m%d" | plus: 10000 %}
+    {% if sponsorcount-deadline > site-today or sponsorcount.date == nil %}
+      {% assign sponsorcount-count = sponsorcount-count | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+  {% if sponsorcount-count > 0 %}
 <section id="sponsors" class="cover-img-bg newsponsors p-3 p-lg-5">
   <div class="container">
 
@@ -12,30 +21,14 @@
 
         <div class="sponsor-carousel filtering">
 
-          <div class="sponsor-item">
-            <a href="https://degen-gmbh.com" target="_blank" rel="sponsored nofollow noopener"><img src="/img/sponsors/degen_gmbh_white.png"></a>
-          </div>
-          <div class="sponsor-item">
-            <a href="https://messerundgradel.de" target="_blank" rel="sponsored nofollow noopener"><img src="/img/sponsors/messerundgradel.png"></a>
-          </div>
-          <div class="sponsor-item">
-            <a href="http://autohaus-leiner.de" target="_blank" rel="sponsored nofollow noopener"><img src="/img/sponsors/autohaus_leiner_white.png"></a>
-          </div>
-          <div class="sponsor-item">
-            <a href="https://barkowski-planung.de" target="_blank" rel="sponsored nofollow noopener"><img src="/img/sponsors/barkowski_white.png"></a>
-          </div>
-          <div class="sponsor-item">
-            <a href="https://www.werkgruppe-freiburg.de" target="_blank" rel="sponsored nofollow noopener"><img src="/img/sponsors/werkgruppe_freiburg_white.png"></a>
-          </div>
-          <div class="sponsor-item">
-            <a href="https://www.dorner.de" target="_blank" rel="sponsored nofollow noopener"><img src="/img/sponsors/dorner_health_it_solutions_white.png"></a>
-          </div>
-          <div class="sponsor-item">
-            <a href="https://www.sportatex.de" target="_blank" rel="sponsored nofollow noopener"><img src="/img/sponsors/sportatex_white.png"></a>
-          </div>
-          <div class="sponsor-item">
-            <a href="https://industrie-montage-gross.de" target="_blank" rel="sponsored nofollow noopener"><img src="/img/sponsors/industrie_montage_gross_white.png"></a>
-          </div>
+          {% for sponsor in site.sponsors %}
+            {% assign sponsor-deadline = sponsor.date | date: "%Y%m%d" | plus: 10000 %}
+            {% unless site-today > sponsor-deadline %}
+              <div class="sponsor-item">
+                <a href="{{ sponsor.website }}" sponsor-name="{{ sponsor.name }}" target="_blank" rel="external nofollow noopener"><img src="{{ sponsor.logo }}"></a>
+              </div>
+            {% endunless %}
+          {% endfor %}
 
         </div>
       </div>
@@ -43,3 +36,5 @@
     </div>
   </div>
 </section>
+{% endif %}
+{% endif %}

@@ -74,6 +74,7 @@ exclude:
 collections:
   club_members: # Adds Club Members to show on a contacts page
     sort_by: sortorder
+    output: false
   teams: # List teams on the landing page and additonaly include in rankings if they have an SBVV-ID
     output: true
     sort_by: liga
@@ -82,6 +83,8 @@ collections:
     sort_by: date
   announcements:
     sort_by: date
+  sponsors:
+    output: false
 
 feed:
   collections:
