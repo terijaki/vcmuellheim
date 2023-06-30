@@ -35,9 +35,9 @@ END:VEVENT
 {% endfor -%}
 {% unless match_uuids -%}
 BEGIN:VEVENT
-DTSTAMP:{{ site.time | date: "%Y%m%dT%H%M%SZ" }}
-DTSTART;TZID={{ site.timezone }}:{{ site.time | date: "%Y%m%dT%H%M%S" }}
-DTEND;TZID={{ site.timezone }}:{{ site.time | date: "%Y%m%d" }}T{{ site.time | date: "%H%M%S" | integer | plus: 1500 }}
+DTSTAMP:{{ site.time | date: "%Y%m%d" | plus: 90000 }}T{{ site.time | date: "%H%M%SZ" }}
+DTSTART;TZID={{ site.timezone }}:{{ site.time | date: "%Y%m%d" | plus: 90000 }}T{{ site.time | date: "%H%M%S" }}
+DTEND;TZID={{ site.timezone }}:{{ site.time | date: "%Y%m%d" | plus: 90000 }}T{{ site.time | date: "%H%M%S" | plus: 1500 }}
 SUMMARY:{{ site.title }} Derzeit keine neuen Termine verfügbar
 UID:{{ site.title | upcase | remove: ' ' }}{{ site.time | date: "%s" | times: 1980 | slice: 2, 10 }}
 TZID:{{ site.timezone }}
