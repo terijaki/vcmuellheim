@@ -57,6 +57,24 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>26217160</id>
+                            <uuid>27c1ad4b-1a58-4113-b016-69087acad215</uuid>
+                            <name>FT 1844 Freiburg 2</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>26217201</id>
+                            <uuid>b16cfa14-2614-4567-aac4-09f8a170584f</uuid>
+                            <name>Sport vor Ort Rieselfeld Herren 1</name>
+                            <club>Sport vor Ort Rieselfeld</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>25921425</id>
                             <uuid>1197ab3d-b58d-4dc7-8fd2-c00a5df2c722</uuid>
                             <name>TG Schwenningen</name>
