@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <rankings>
+                <matchSeries>
+    <id>25752620</id>
+    <uuid>6947daa9-7529-4b17-9739-e02e9d2de47e</uuid>
+    <allSeasonId>955f1d4d-bc60-8f21-1003-fcc2a85bd10a</allSeasonId>
+    <name>Kreisliga Damen Süd</name>
+    <shortName>kl s d</shortName>
+    <type>League</type>
+        <updated>2023-06-06 12:52:21.126</updated>
+        <structureUpdated>2023-06-06 12:52:21.126</structureUpdated>
+        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>25752575</id>
+            <uuid>42992b46-281a-49b2-8507-bd93e8e701a3</uuid>
+            <name>Kreisligen</name>
+            <shortName>kl w</shortName>
+            <hierarchyLevel>10</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>25752575</id>
+                    <name>Kreisligen</name>
+                    <shortName>kl w</shortName>
+                    <hierarchyLevel>10</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25752574</id>
+                    <name>Bezirksklassen</name>
+                    <shortName>bzk w</shortName>
+                    <hierarchyLevel>9</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25752573</id>
+                    <name>Bezirksligen</name>
+                    <shortName>bzl w</shortName>
+                    <hierarchyLevel>8</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25752270</id>
+                    <name>Bezirk West</name>
+                    <shortName>bw</shortName>
+                    <hierarchyLevel>7</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25752269</id>
+                    <name>SBVV Bezirke</name>
+                    <shortName>SBVV Bezirke</shortName>
+                    <hierarchyLevel>6</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25752268</id>
+                    <name>Spielbetrieb Südbaden</name>
+                    <shortName>sbvv</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25751076</id>
+                    <name>Oberliga Baden</name>
+                    <shortName>Ol</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25751075</id>
+                    <name>Regionalliga Süd</name>
+                    <shortName>RL</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25751074</id>
+                    <name>Dritte Liga Süd</name>
+                    <shortName>DLS</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25751073</id>
+                    <name>Bundesligen</name>
+                    <shortName>BL</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25751072</id>
+                    <name>Allgemeiner Spielbetrieb</name>
+                    <shortName>alg</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name></name>
+            <shortName></shortName>
+        </association>
+                </matchSeries>
+        </rankings>

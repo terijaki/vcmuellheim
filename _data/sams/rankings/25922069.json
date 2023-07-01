@@ -1,0 +1,101 @@
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "25752620",
+      "uuid": "6947daa9-7529-4b17-9739-e02e9d2de47e",
+      "allSeasonId": "955f1d4d-bc60-8f21-1003-fcc2a85bd10a",
+      "name": "Kreisliga Damen Süd",
+      "shortName": "kl s d",
+      "type": "League",
+      "updated": "2023-06-06 12:52:21.126",
+      "structureUpdated": "2023-06-06 12:52:21.126",
+      "resultsUpdated": "2023-03-30 14:54:45.588",
+      "season": {
+        "id": "25640073",
+        "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+        "name": "2023/24"
+      },
+      "hierarchy": {
+        "id": "25752575",
+        "uuid": "42992b46-281a-49b2-8507-bd93e8e701a3",
+        "name": "Kreisligen",
+        "shortName": "kl w",
+        "hierarchyLevel": "10"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "25752575",
+            "name": "Kreisligen",
+            "shortName": "kl w",
+            "hierarchyLevel": "10"
+          },
+          {
+            "id": "25752574",
+            "name": "Bezirksklassen",
+            "shortName": "bzk w",
+            "hierarchyLevel": "9"
+          },
+          {
+            "id": "25752573",
+            "name": "Bezirksligen",
+            "shortName": "bzl w",
+            "hierarchyLevel": "8"
+          },
+          {
+            "id": "25752270",
+            "name": "Bezirk West",
+            "shortName": "bw",
+            "hierarchyLevel": "7"
+          },
+          {
+            "id": "25752269",
+            "name": "SBVV Bezirke",
+            "shortName": "SBVV Bezirke",
+            "hierarchyLevel": "6"
+          },
+          {
+            "id": "25752268",
+            "name": "Spielbetrieb Südbaden",
+            "shortName": "sbvv",
+            "hierarchyLevel": "5"
+          },
+          {
+            "id": "25751076",
+            "name": "Oberliga Baden",
+            "shortName": "Ol",
+            "hierarchyLevel": "4"
+          },
+          {
+            "id": "25751075",
+            "name": "Regionalliga Süd",
+            "shortName": "RL",
+            "hierarchyLevel": "3"
+          },
+          {
+            "id": "25751074",
+            "name": "Dritte Liga Süd",
+            "shortName": "DLS",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "25751073",
+            "name": "Bundesligen",
+            "shortName": "BL",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "25751072",
+            "name": "Allgemeiner Spielbetrieb",
+            "shortName": "alg",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": null,
+        "shortName": null
+      }
+    }
+  }
+}

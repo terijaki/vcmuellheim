@@ -1,0 +1,89 @@
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "25920998",
+      "uuid": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
+      "allSeasonId": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
+      "name": "Bezirksliga Herren Süd",
+      "shortName": "bzl s h",
+      "type": "League",
+      "updated": "2023-06-06 12:54:50.333",
+      "structureUpdated": "2023-06-06 12:54:50.333",
+      "resultsUpdated": "2023-03-21 08:58:19.397",
+      "season": {
+        "id": "25640073",
+        "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+        "name": "2023/24"
+      },
+      "hierarchy": {
+        "id": "25752573",
+        "uuid": "d32509b9-cd2f-4960-848b-b13626415284",
+        "name": "Bezirksligen",
+        "shortName": "bzl w",
+        "hierarchyLevel": "8"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "25752573",
+            "name": "Bezirksligen",
+            "shortName": "bzl w",
+            "hierarchyLevel": "8"
+          },
+          {
+            "id": "25752270",
+            "name": "Bezirk West",
+            "shortName": "bw",
+            "hierarchyLevel": "7"
+          },
+          {
+            "id": "25752269",
+            "name": "SBVV Bezirke",
+            "shortName": "SBVV Bezirke",
+            "hierarchyLevel": "6"
+          },
+          {
+            "id": "25752268",
+            "name": "Spielbetrieb Südbaden",
+            "shortName": "sbvv",
+            "hierarchyLevel": "5"
+          },
+          {
+            "id": "25751076",
+            "name": "Oberliga Baden",
+            "shortName": "Ol",
+            "hierarchyLevel": "4"
+          },
+          {
+            "id": "25751075",
+            "name": "Regionalliga Süd",
+            "shortName": "RL",
+            "hierarchyLevel": "3"
+          },
+          {
+            "id": "25751074",
+            "name": "Dritte Liga Süd",
+            "shortName": "DLS",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "25751073",
+            "name": "Bundesligen",
+            "shortName": "BL",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "25751072",
+            "name": "Allgemeiner Spielbetrieb",
+            "shortName": "alg",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": null,
+        "shortName": null
+      }
+    }
+  }
+}
