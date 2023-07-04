@@ -6,7 +6,7 @@
             {% if match.matchSeries.type and match.results.winner %}
 
                 {%- capture content -%}
-                    {{ match.date | date: "%Y-%m-%d" }} {{ match.time | date: "%H:%M" }}$#€{{ match.matchSeries.uuid }}$#€{{ match.matchSeries.name }}$#€{{ match.matchSeries.type }}$#€{{ match.matchSeries.season.name }}$#€{{ match.uuid }}$#€{{ match.host.id }}$#€{{ match.host.club }}$#€{{ match.team[0].id }}$#€{{ match.team[1].id }}$#€{{ match.team[0].name }}$#€{{ match.team[1].name }}$#€{{ match.location.street }}$#€{{ match.location.postalCode }}$#€{{ match.location.city }}$#€{{ match.location.name }}$#€{{ match.results.setPoints }}$#€{{ match.results.ballPoints }}$#€{{ match.results.sets.set[0].points }}, {{ match.results.sets.set[1].points }}{% if match.results.sets.set[2].points %}, {{ match.results.sets.set[2].points }}{% endif %}{% if match.results.sets.set[3].points %}, {{ match.results.sets.set[3].points }}{% endif %}{% if match.results.sets.set[4].points %}, {{ match.results.sets.set[4].points }}{% endif %}
+                    {{ match.date | date: "%Y-%m-%d" }} {{ match.time | date: "%H:%M" }}$#€{{ match.uuid }}$#€{{ match.number }}$#€{{ match.matchSeries.name }}$#€{{ match.matchSeries.type }}$#€{{ match.matchSeries.season.name }}$#€{{ match.uuid }}$#€{{ match.host.id }}$#€{{ match.host.club }}$#€{{ match.team[0].id }}$#€{{ match.team[1].id }}$#€{{ match.team[0].name }}$#€{{ match.team[1].name }}$#€{{ match.location.street }}$#€{{ match.location.postalCode }}$#€{{ match.location.city }}$#€{{ match.location.name }}$#€{{ match.results.setPoints }}$#€{{ match.results.ballPoints }}$#€{{ match.results.sets.set[0].points }}, {{ match.results.sets.set[1].points }}{% if match.results.sets.set[2].points %}, {{ match.results.sets.set[2].points }}{% endif %}{% if match.results.sets.set[3].points %}, {{ match.results.sets.set[3].points }}{% endif %}{% if match.results.sets.set[4].points %}, {{ match.results.sets.set[4].points }}{% endif %}
                 {%- endcapture -%}
 
                 {% if results_all_matches == nil %}
@@ -23,6 +23,7 @@
 
 
 
+{% if results_all_matches.size > 1 %}
 <div class="container">
     <div class="col sams-matches">
         <div class="box matches-future">
@@ -30,6 +31,9 @@
             <h3 class="fw-bold">Unsere letzten {{ include.matches_limit | default: 9 }} Spiele</h3>
             {% else %}
             <h3 class="fw-bold">{{ include.heading }}</h3>
+            {% endunless %}
+            {% unless results_all_matches.size > 0 %}
+            <span class="noresults">Es liegen derzeit noch keine Spielergebnisse vor.</span>
             {% endunless %}
             <div class="fst-italic small text-black text-opacity-25 text-end mb-2">{{ results_matches_lastupdated[0] | date: "Stand %d.%m.%Y %H:%M Uhr" }}</div>
             <div class="d-none text-center calendar"><a class="btn-small-download mt-0 mb-4" type="text/calendar" href="webcal://vcmuellheim.de/ics/all.ics"><i class="fa-solid fa-arrows-rotate"><!--refresh icon--></i> Kalender abonnieren</a></div>
@@ -39,31 +43,31 @@
                     {% assign results_all_matches = results_all_matches | split: 'öäü' | sort | reverse %}
                     {% for match in results_all_matches limit: include.matches_limit | default: 9 %}
                     {% assign m = match | split: '$#€' %}
-                    <div class="match col-12 row text-nowrap m-0 py-2" match-id="23082859" match-number="1">
+                    <div class="match col-12 row text-nowrap m-0 py-2" match-id="{{ m[1] }}" match-number="{{ m[2] }}">
                         <div class="date-time col-12 col-lg-2 d-flex flex-lg-column align-items-center flex-wrap small">
                             <span class="date d-lg-block me-2">{{ m[0] | date: "%d.%m.%Y" }}</span>
-                            {% if m[14].size > 0 %}
+                            {% if m[15].size > 0 %}
                             <span class="location d-lg-block small">
-                                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query={{ m[12] }},{{ m[13] }}+{{ m[14] }},{{ m[15] }}"><i class="fa-solid fa-location-dot pe-1"></i> {{ m[14] }}</a>
+                                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query={{ m[13] }},{{ m[14] }}+{{ m[15] }},{{ m[16] }}"><i class="fa-solid fa-location-dot pe-1"></i> {{ m[15] }}</a>
                             </span>
                             {% endif %}
                         </div>
-                        <div class="teams col-12 col-lg-5" hostid="{{ m[6] }}" hostname="{{ m[7] }}">
+                        <div class="teams col-12 col-lg-5" hostid="{{ m[7] }}" hostname="{{ m[8] }}">
                             <div class="fw-bold overflow-hidden text-truncate">
-                                <span class="team-a" teamid="{{ m[8] }}" team="{{ m[10] }}">{{ m[10] }}</span>
+                                <span class="team-a" teamid="{{ m[9] }}" team="{{ m[11] }}">{{ m[11] }}</span>
                                 <span class="versus px-sm-1">:</span>
-                                <span class="team-b" teamid="{{ m[9] }}" team="{{ m[11] }}">{{ m[11] }}</span>
+                                <span class="team-b" teamid="{{ m[10] }}" team="{{ m[12] }}">{{ m[12] }}</span>
                             </div>
                             <div>
-                                <span class="league-name d-lg-block small text-success text-truncate">{{ m[2] }}</span>
+                                <span class="league-name d-lg-block small text-success text-truncate">{{ m[3] }}</span>
                             </div>
                         </div>
                         <div class="points col-12 col-lg-5 d-flex align-items-center">
-                            <i class="fa-solid fa-square-poll-vertical pe-2"></i><span>{{ m[16] }}<small class="ps-2"> ({{ m[18] }})</small></span>
+                            <i class="fa-solid fa-square-poll-vertical pe-2"></i><span>{{ m[17] }}<small class="ps-2"> ({{ m[19] }})</small></span>
                         </div>
                     </div>
                     {% endfor %}
-                    
+
                     {% unless include.showmore == nil | default: true %}
                     <div class="text-center pt-4 bg-white">
                         <a class="generic-button align-middle py-2 px-3 small" href="/ergebnisse/">mehr anzeigen</a>
@@ -74,3 +78,4 @@
         </div>
     </div>
 </div>
+{% endif %}
