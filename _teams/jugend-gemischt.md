@@ -1,8 +1,8 @@
 ---
 layout: team
-liga: '[98] Kein Ligabetrieb'
-sbvv_id: null
 title: Jugend (gemischte)
+liga: false
+sbvv_id: null
 alter: 9-14 Jahren
 trainings-zeit1: 'Dienstags 17:00-18:30 Uhr ⛔️'
 trainings-ort1: Sporthalle II Teil E

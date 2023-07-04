@@ -6,7 +6,18 @@ layout: default
   <div class="container">
     <div class="row">
       <div class="col text-center text-lg-start">
-        <h3 class="fw-bold text-white">{{ page.title }}</h3>
+        <h3 class="fw-bold text-white">{{ page.title }}
+          {% for club_data in site.data.sams.club %}
+          {% assign teams = club_data[1]['teams']['team'] %}
+          {% for team in teams %}
+            {% assign team_id = team.id | plus: 0 %}
+            {% assign page_sbvv_id = page.sbvv_id | plus: 0 %}
+            {% if team_id == page_sbvv_id %}
+              {{ team.matchSeries.name | prepend: ' - ' | remove: 'Herren' | remove: 'Damen' }}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+        </h3>
       </div>
     </div>
   </div>
@@ -20,7 +31,7 @@ layout: default
       {% include spieltermine.html team=page.sbvv_id name=pageslug heading="Spielplan" %}
       {% include tabelle.html team=page.sbvv_id %}
       {% else %}
-      {% unless page.liga contains 99 %}
+      {% unless page.liga %}
         {% include spieltermine.html team=0000000000 name=pageslug heading="Spielplan" %}
       {% endunless %}
     {% endunless %}
@@ -37,29 +48,25 @@ layout: default
         <div class="col-12 col-md mb-2 text-center">
           <p class="fw-bold mb-1">Ligabetrieb:</p>
           <div class="btn-group-vertical">
-            {% assign sorted_teams_liga = site.teams | sort: 'liga' %}
+            {% assign sorted_teams_liga = site.teams | where: 'liga', 'true' | sort: 'title' %}
             {% for team_nav in sorted_teams_liga %}
-              {% unless team_nav.liga contains 99 %}
-                {% if team_nav.path == page.path %}
-                  <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-dark active">{{ team_nav.liga | slice: 4, 99 }}: {{ team_nav.title }}</a>
-                {% else %}
-                  <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-secondary">{{ team_nav.liga | slice: 4, 99 }}: {{ team_nav.title }}</a>
-                {% endif %}
-              {% endunless %}
+              {% if team_nav.path == page.path %}
+                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-dark active">{{ team_nav.title }}</a>
+              {% else %}
+                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-secondary">{{ team_nav.title }}</a>
+              {% endif %}
             {% endfor %}
           </div>
         </div>
         <div class="col-12 col-md mb-2 text-center">
           <p class="fw-bold mb-1">Hobby:</p>
           <div class="btn-group-vertical">
-            {% assign sorted_teams_name = site.teams | sort: 'title' %}
+            {% assign sorted_teams_name = site.teams | where: 'liga', 'false' | sort: 'title' %}
             {% for team_nav in sorted_teams_name %}
-              {% if team_nav.liga contains 99 %}
-                {% if team_nav.path == page.path %}
-                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-dark active">{{ team_nav.title }}</a>
-                {% else %}
-                <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-secondary">{{ team_nav.title }}</a>
-                {% endif %}
+              {% if team_nav.path == page.path %}
+              <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-dark active">{{ team_nav.title }}</a>
+              {% else %}
+              <a href="{{ team_nav.url }}" type="button" class="btn btn-outline-secondary">{{ team_nav.title }}</a>
               {% endif %}
             {% endfor %}
           </div>

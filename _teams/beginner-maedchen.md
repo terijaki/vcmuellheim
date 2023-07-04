@@ -1,8 +1,8 @@
 ---
-layout: 'team'
-liga: '[98] Kein Ligabetrieb'
-sbvv_id: ''
-title: 'Anfänger Mädchen'
+layout: team
+title: Anfänger Mädchen
+liga: false
+sbvv_id: null
 alter: '14-18 Jahre'
 trainings-zeit1: 'Freitags 18:30-20:00 Uhr'
 trainings-ort1: 'Sporthalle II Teil C'

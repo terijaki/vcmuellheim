@@ -1,8 +1,8 @@
 ---
 layout: team
-liga: '[10] Kreisliga'
-sbvv_id: 22517303
 title: Damen II
+liga: true
+sbvv_id: 22517303
 alter: ''
 trainings-zeit1: 'Dienstags 18:30-20:00 Uhr'
 trainings-ort1: Sporthalle II Teil D (Gymnastikhalle)

@@ -1,8 +1,8 @@
 ---
 layout: team
-liga: '[99] Kein Ligabetrieb'
-sbvv_id: null
 title: Freizeit I
+liga: false
+sbvv_id: null
 alter: ''
 trainings-zeit1: 'Montags 20:00-22:00 Uhr'
 trainings-ort1: Sporthalle II

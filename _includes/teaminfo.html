@@ -1,19 +1,30 @@
-{% assign sorted-teams = (site.teams | sort: 'liga') %}
-{% for team in sorted-teams %}
+{% assign sorted_teams = (site.teams | sort: 'sbvv_id' | reverse ) %}
+{% for team in sorted_teams %}
     {% unless include.team and team.path != include.team %}
     <div class="teaminfo {% unless include.team %}d-flex col-lg-6{% else %}pb-4{% endunless %}">
         <div class="box w-100 row align-content-start mx-0 mt-0 mb-4 p-3 p-sm-4">
             <!-- Name -->
             <div class="col-12">
                 {% unless include.team %}
-                    <h3 class="teamname title fw-bold fs-5">
-                        {{ team.title }}{% unless team.liga contains '98' or team.liga contains '99' %} - {{ team.liga | slice: 4, 200 }}{% endunless %}
-                    </h3>
+                    <h4 class="teamname title fw-bold">{{ team.title }}
+                    <span class="league">
+                        {% for club_data in site.data.sams.club %}
+                            {% assign all_teams = club_data[1]['teams']['team'] %}
+                            {% for all_team in all_teams %}
+                                {% assign all_team_id = all_team.id | plus: 0 %}
+                                {% assign team_sbvv_id = team.sbvv_id | plus: 0 %}
+                                {% if all_team_id == team_sbvv_id %}
+                                    {{ all_team.matchSeries.name | prepend: ' - ' | remove: 'Herren' | remove: 'Damen' }}
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </span>
+                    </h4>
                 {% else %}
                     <h3 class="teamname fw-bold">{{ team.title }}</h3>
                 {% endunless %}
             </div>
-            <div class="col-12 {% unless team.liga contains '98' or team.liga contains '99' %}col-md-7 col-xxl-7{% endunless %} col-lg-12 mb1-2">
+            <div class="col-12 {% unless team.liga %}col-md-7 col-xxl-7{% endunless %} col-lg-12 mb1-2">
             <!-- Age -->
             {% if team.alter.size > 0 %}
                 <p class="alter"> <b>Alter:</b> {{ team.alter }}</p>

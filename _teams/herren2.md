@@ -1,8 +1,8 @@
 ---
 layout: team
-liga: '[08] Bezirksliga'
-sbvv_id: 22517434
 title: Herren II
+liga: true
+sbvv_id: 22517434
 alter: ''
 trainings-zeit1: 'Dienstags 20:00-22:00 Uhr'
 trainings-ort1: Rosenburgschule
