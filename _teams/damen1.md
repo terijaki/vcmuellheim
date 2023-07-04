@@ -1,6 +1,7 @@
 ---
 layout: team
 title: Damen I
+sorting: 3
 liga: true
 sbvv_id: 22517240
 alter: ''

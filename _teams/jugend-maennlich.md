@@ -1,6 +1,7 @@
 ---
 layout: team
 title: Jugend U20 (männlich)
+sorting: 6
 liga: false
 sbvv_id: null
 alter: 15-20 Jahre

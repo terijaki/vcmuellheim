@@ -1,6 +1,7 @@
 ---
 layout: team
 title: Anfänger Mädchen
+sorting: 5
 liga: false
 sbvv_id: null
 alter: '14-18 Jahre'

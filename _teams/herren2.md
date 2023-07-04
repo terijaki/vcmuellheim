@@ -1,6 +1,7 @@
 ---
 layout: team
 title: Herren II
+sorting: 2
 liga: true
 sbvv_id: 22517434
 alter: ''

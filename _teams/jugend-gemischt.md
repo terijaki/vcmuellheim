@@ -1,6 +1,7 @@
 ---
 layout: team
 title: Jugend (gemischte)
+sorting: 7
 liga: false
 sbvv_id: null
 alter: 9-14 Jahren

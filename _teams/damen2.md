@@ -1,6 +1,7 @@
 ---
 layout: team
 title: Damen II
+sorting: 4
 liga: true
 sbvv_id: 22517303
 alter: ''

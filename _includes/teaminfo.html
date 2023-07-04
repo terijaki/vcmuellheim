@@ -1,4 +1,4 @@
-{% assign sorted_teams = (site.teams | sort: 'sbvv_id' | reverse ) %}
+{% assign sorted_teams = (site.teams | sort: 'sorting' ) %}
 {% for team in sorted_teams %}
     {% unless include.team and team.path != include.team %}
     <div class="teaminfo {% unless include.team %}d-flex col-lg-6{% else %}pb-4{% endunless %}">

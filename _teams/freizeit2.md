@@ -1,6 +1,7 @@
 ---
 layout: team
 title: Freizeit II
+sorting: 9
 liga: false
 sbvv_id: null
 alter: ''
