@@ -30,9 +30,306 @@
                 </matchOperationCompany>
                 <teams>
                         <team>
-    <id>25932650</id>
-    <uuid>c5072d37-5feb-4f08-8431-c5f2ccdb88b5</uuid>
-    <seasonTeamId>25932650</seasonTeamId>
+    <id>22521759</id>
+    <uuid>253264ff-5f8d-46d3-aa9c-e1f4dad12a1d</uuid>
+    <seasonTeamId>22521759</seasonTeamId>
+    <placeCipher>3</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>22516931</id>
+    <uuid>8854cdff-3f6d-4fcd-9780-40ec238adcff</uuid>
+    <allSeasonId>578fe07f-b620-daae-2fd8-5a71ca9995e4</allSeasonId>
+    <name>Verbandsliga Herren</name>
+    <shortName>vl h</shortName>
+    <type>League</type>
+        <updated>2023-05-22 16:41:20.887</updated>
+        <structureUpdated>2023-05-22 16:41:20.887</structureUpdated>
+        <resultsUpdated>2023-05-07 03:11:45.436</resultsUpdated>
+        <season>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
+        </season>
+        <hierarchy>
+            <id>22516686</id>
+            <uuid>94317c29-90fa-4a66-9966-fa2968841a84</uuid>
+            <name>Verbandsligen</name>
+            <shortName>vl</shortName>
+            <hierarchyLevel>6</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>22516686</id>
+                    <name>Verbandsligen</name>
+                    <shortName>vl</shortName>
+                    <hierarchyLevel>6</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22516685</id>
+                    <name>Spielbetrieb Südbaden</name>
+                    <shortName>sbvv</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515520</id>
+                    <name>Oberliga Baden</name>
+                    <shortName>Ol</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515519</id>
+                    <name>Regionalliga Süd</name>
+                    <shortName>RL</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515518</id>
+                    <name>Dritte Liga Süd</name>
+                    <shortName>DLS</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515517</id>
+                    <name>Bundesligen</name>
+                    <shortName>BL</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515340</id>
+                    <name>Allgemeiner Spielbetrieb</name>
+                    <shortName>alg</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name></name>
+            <shortName></shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>25463540</id>
+    <uuid>090c1cbd-5d58-430e-990c-fc11b13e2045</uuid>
+    <seasonTeamId>25463540</seasonTeamId>
+    <placeCipher>6</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName>VCM</shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>22518554</id>
+    <uuid>a56d67ed-9f82-4656-9477-6d9d68ff455e</uuid>
+    <allSeasonId>351af7ba-be5d-13d2-0663-7cbe7b716326</allSeasonId>
+    <name>SBVV Rueckm. LaLi West Herren-23/24</name>
+    <shortName>RueckHerrenLaliWest</shortName>
+    <type>League</type>
+        <updated>2023-05-19 11:46:46.246</updated>
+        <structureUpdated>2023-05-19 11:46:46.246</structureUpdated>
+        <resultsUpdated></resultsUpdated>
+        <season>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
+        </season>
+        <hierarchy>
+            <id>22518532</id>
+            <uuid>fbc5073a-7847-454e-ab18-b786d108c057</uuid>
+            <name>Rueckmeldungen SBVV</name>
+            <shortName>RueckSBVV</shortName>
+            <hierarchyLevel>6</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>22518532</id>
+                    <name>Rueckmeldungen SBVV</name>
+                    <shortName>RueckSBVV</shortName>
+                    <hierarchyLevel>6</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22516685</id>
+                    <name>Spielbetrieb Südbaden</name>
+                    <shortName>sbvv</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515520</id>
+                    <name>Oberliga Baden</name>
+                    <shortName>Ol</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515519</id>
+                    <name>Regionalliga Süd</name>
+                    <shortName>RL</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515518</id>
+                    <name>Dritte Liga Süd</name>
+                    <shortName>DLS</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515517</id>
+                    <name>Bundesligen</name>
+                    <shortName>BL</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515340</id>
+                    <name>Allgemeiner Spielbetrieb</name>
+                    <shortName>alg</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>Südbadischer Volleyball-Verband</name>
+            <shortName>SBVV</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>22517434</id>
+    <uuid>c2db28b1-9f4a-4aea-8ee2-0b742fc8de10</uuid>
+    <seasonTeamId>22517434</seasonTeamId>
+    <placeCipher>5</placeCipher>
+    <name>VC Müllheim 2</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>22517590</id>
+    <uuid>0836813a-4678-4c05-b6c4-f8800849d8c3</uuid>
+    <allSeasonId>36b0148e-d336-9331-f60d-cee054cf67df</allSeasonId>
+    <name>Bezirksliga Herren</name>
+    <shortName>bzl n h</shortName>
+    <type>League</type>
+        <updated>2023-05-11 11:31:37.559</updated>
+        <structureUpdated>2023-05-11 11:31:37.559</structureUpdated>
+        <resultsUpdated>2023-03-21 08:58:19.397</resultsUpdated>
+        <season>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
+        </season>
+        <hierarchy>
+            <id>22517105</id>
+            <uuid>a1cb6ab1-3372-46c3-9b18-bc3f1ef3da41</uuid>
+            <name>Bezirksligen</name>
+            <shortName>bzl w</shortName>
+            <hierarchyLevel>8</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>22517105</id>
+                    <name>Bezirksligen</name>
+                    <shortName>bzl w</shortName>
+                    <hierarchyLevel>8</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22517104</id>
+                    <name>Bezirk West</name>
+                    <shortName>bw</shortName>
+                    <hierarchyLevel>7</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22517103</id>
+                    <name>SBVV Bezirke</name>
+                    <shortName>SBVV Bezirke</shortName>
+                    <hierarchyLevel>6</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22516685</id>
+                    <name>Spielbetrieb Südbaden</name>
+                    <shortName>sbvv</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515520</id>
+                    <name>Oberliga Baden</name>
+                    <shortName>Ol</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515519</id>
+                    <name>Regionalliga Süd</name>
+                    <shortName>RL</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515518</id>
+                    <name>Dritte Liga Süd</name>
+                    <shortName>DLS</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515517</id>
+                    <name>Bundesligen</name>
+                    <shortName>BL</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515340</id>
+                    <name>Allgemeiner Spielbetrieb</name>
+                    <shortName>alg</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name></name>
+            <shortName></shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>22517240</id>
+    <uuid>651bc54c-0e37-4661-aa8f-4605a56d1814</uuid>
+    <seasonTeamId>22517240</seasonTeamId>
     <placeCipher>6</placeCipher>
     <name>VC Müllheim</name>
     <shortName></shortName>
@@ -53,72 +350,90 @@
         <wwwDepartment></wwwDepartment>
     </club>
     <matchSeries>
-    <id>25754009</id>
-    <uuid>85555565-6f15-4f45-a3af-f3344ce8a506</uuid>
-    <allSeasonId>799a634e-d2b1-6639-32fb-e36ccbf44f87</allSeasonId>
-    <name>Landesliga West Herren</name>
-    <shortName>LL w h</shortName>
+    <id>22517267</id>
+    <uuid>5b8706c7-e84b-4418-920a-d726352e2ec1</uuid>
+    <allSeasonId>955f1d4d-bc60-8f21-1003-fcc2a85bd10a</allSeasonId>
+    <name>Kreisliga Süd Damen</name>
+    <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-06-23 14:27:48.047</updated>
-        <structureUpdated>2023-06-20 00:09:59.67</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-03-30 14:54:45.588</updated>
+        <structureUpdated>2023-03-18 11:44:23.578</structureUpdated>
+        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
         <season>
-            <id>25640073</id>
-            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
-            <name>2023/24</name>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
         </season>
         <hierarchy>
-            <id>25753838</id>
-            <uuid>ade10ab0-84b9-4c9c-b8ae-0a4ad838c816</uuid>
-            <name>Landesligen</name>
-            <shortName>ll</shortName>
-            <hierarchyLevel>7</hierarchyLevel>
+            <id>22517107</id>
+            <uuid>c111dd40-85dd-42c2-a8bd-08ceb1b4dc61</uuid>
+            <name>Kreisligen</name>
+            <shortName>kl w</shortName>
+            <hierarchyLevel>10</hierarchyLevel>
         </hierarchy>
         <fullHierarchy>
                 <hierarchy>
-                    <id>25753838</id>
-                    <name>Landesligen</name>
-                    <shortName>ll</shortName>
+                    <id>22517107</id>
+                    <name>Kreisligen</name>
+                    <shortName>kl w</shortName>
+                    <hierarchyLevel>10</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22517106</id>
+                    <name>Bezirksklassen</name>
+                    <shortName>bzk w</shortName>
+                    <hierarchyLevel>9</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22517105</id>
+                    <name>Bezirksligen</name>
+                    <shortName>bzl w</shortName>
+                    <hierarchyLevel>8</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22517104</id>
+                    <name>Bezirk West</name>
+                    <shortName>bw</shortName>
                     <hierarchyLevel>7</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25753837</id>
-                    <name>Verbandsligen</name>
-                    <shortName>vl</shortName>
+                    <id>22517103</id>
+                    <name>SBVV Bezirke</name>
+                    <shortName>SBVV Bezirke</shortName>
                     <hierarchyLevel>6</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25752268</id>
+                    <id>22516685</id>
                     <name>Spielbetrieb Südbaden</name>
                     <shortName>sbvv</shortName>
                     <hierarchyLevel>5</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751076</id>
+                    <id>22515520</id>
                     <name>Oberliga Baden</name>
                     <shortName>Ol</shortName>
                     <hierarchyLevel>4</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751075</id>
+                    <id>22515519</id>
                     <name>Regionalliga Süd</name>
                     <shortName>RL</shortName>
                     <hierarchyLevel>3</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751074</id>
+                    <id>22515518</id>
                     <name>Dritte Liga Süd</name>
                     <shortName>DLS</shortName>
                     <hierarchyLevel>2</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751073</id>
+                    <id>22515517</id>
                     <name>Bundesligen</name>
                     <shortName>BL</shortName>
                     <hierarchyLevel>1</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751072</id>
+                    <id>22515340</id>
                     <name>Allgemeiner Spielbetrieb</name>
                     <shortName>alg</shortName>
                     <hierarchyLevel>0</hierarchyLevel>
@@ -131,10 +446,10 @@
     </matchSeries>
                         </team>
                         <team>
-    <id>25921031</id>
-    <uuid>ee1c9cf0-7df1-458f-9f2c-763526496fd9</uuid>
-    <seasonTeamId>25921031</seasonTeamId>
-    <placeCipher>0</placeCipher>
+    <id>22517303</id>
+    <uuid>03c7881c-a06f-4d73-885e-495f9c73dc2f</uuid>
+    <seasonTeamId>22517303</seasonTeamId>
+    <placeCipher>2</placeCipher>
     <name>VC Müllheim 2</name>
     <shortName></shortName>
     <clubCode></clubCode>
@@ -154,78 +469,90 @@
         <wwwDepartment></wwwDepartment>
     </club>
     <matchSeries>
-    <id>25920998</id>
-    <uuid>408a4e24-d730-4b5d-8ade-5b08a2958e0c</uuid>
-    <allSeasonId>408a4e24-d730-4b5d-8ade-5b08a2958e0c</allSeasonId>
-    <name>Bezirksliga Herren Süd</name>
-    <shortName>bzl s h</shortName>
+    <id>22517267</id>
+    <uuid>5b8706c7-e84b-4418-920a-d726352e2ec1</uuid>
+    <allSeasonId>955f1d4d-bc60-8f21-1003-fcc2a85bd10a</allSeasonId>
+    <name>Kreisliga Süd Damen</name>
+    <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-06-06 12:54:50.333</updated>
-        <structureUpdated>2023-06-06 12:54:50.333</structureUpdated>
-        <resultsUpdated>2023-03-21 08:58:19.397</resultsUpdated>
+        <updated>2023-03-30 14:54:45.588</updated>
+        <structureUpdated>2023-03-18 11:44:23.578</structureUpdated>
+        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
         <season>
-            <id>25640073</id>
-            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
-            <name>2023/24</name>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
         </season>
         <hierarchy>
-            <id>25752573</id>
-            <uuid>d32509b9-cd2f-4960-848b-b13626415284</uuid>
-            <name>Bezirksligen</name>
-            <shortName>bzl w</shortName>
-            <hierarchyLevel>8</hierarchyLevel>
+            <id>22517107</id>
+            <uuid>c111dd40-85dd-42c2-a8bd-08ceb1b4dc61</uuid>
+            <name>Kreisligen</name>
+            <shortName>kl w</shortName>
+            <hierarchyLevel>10</hierarchyLevel>
         </hierarchy>
         <fullHierarchy>
                 <hierarchy>
-                    <id>25752573</id>
+                    <id>22517107</id>
+                    <name>Kreisligen</name>
+                    <shortName>kl w</shortName>
+                    <hierarchyLevel>10</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22517106</id>
+                    <name>Bezirksklassen</name>
+                    <shortName>bzk w</shortName>
+                    <hierarchyLevel>9</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22517105</id>
                     <name>Bezirksligen</name>
                     <shortName>bzl w</shortName>
                     <hierarchyLevel>8</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25752270</id>
+                    <id>22517104</id>
                     <name>Bezirk West</name>
                     <shortName>bw</shortName>
                     <hierarchyLevel>7</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25752269</id>
+                    <id>22517103</id>
                     <name>SBVV Bezirke</name>
                     <shortName>SBVV Bezirke</shortName>
                     <hierarchyLevel>6</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25752268</id>
+                    <id>22516685</id>
                     <name>Spielbetrieb Südbaden</name>
                     <shortName>sbvv</shortName>
                     <hierarchyLevel>5</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751076</id>
+                    <id>22515520</id>
                     <name>Oberliga Baden</name>
                     <shortName>Ol</shortName>
                     <hierarchyLevel>4</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751075</id>
+                    <id>22515519</id>
                     <name>Regionalliga Süd</name>
                     <shortName>RL</shortName>
                     <hierarchyLevel>3</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751074</id>
+                    <id>22515518</id>
                     <name>Dritte Liga Süd</name>
                     <shortName>DLS</shortName>
                     <hierarchyLevel>2</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751073</id>
+                    <id>22515517</id>
                     <name>Bundesligen</name>
                     <shortName>BL</shortName>
                     <hierarchyLevel>1</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751072</id>
+                    <id>22515340</id>
                     <name>Allgemeiner Spielbetrieb</name>
                     <shortName>alg</shortName>
                     <hierarchyLevel>0</hierarchyLevel>
@@ -238,11 +565,11 @@
     </matchSeries>
                         </team>
                         <team>
-    <id>25922069</id>
-    <uuid>b9d813a5-c994-4dba-8b8c-7796e8f1ff9d</uuid>
-    <seasonTeamId>25922069</seasonTeamId>
+    <id>25364887</id>
+    <uuid>6bc504b3-cd95-4747-9d52-99f3e25be19a</uuid>
+    <seasonTeamId>25364887</seasonTeamId>
     <placeCipher>0</placeCipher>
-    <name>VC Müllheim 1</name>
+    <name>VC Müllheim</name>
     <shortName></shortName>
     <clubCode></clubCode>
     <status>ACTIVE</status>
@@ -261,105 +588,93 @@
         <wwwDepartment></wwwDepartment>
     </club>
     <matchSeries>
-    <id>25752620</id>
-    <uuid>6947daa9-7529-4b17-9739-e02e9d2de47e</uuid>
-    <allSeasonId>955f1d4d-bc60-8f21-1003-fcc2a85bd10a</allSeasonId>
-    <name>Kreisliga Damen Süd</name>
-    <shortName>kl s d</shortName>
+    <id>22517916</id>
+    <uuid>c9e2f4f0-9538-47d4-bed2-da71ebb1dc9d</uuid>
+    <allSeasonId>00a9fd70-cef5-5238-85f8-fbffae615a80</allSeasonId>
+    <name>Bezirk West Damen Kreisliga Rückmeldungen-23/24</name>
+    <shortName>RueckKrLiDamen</shortName>
     <type>League</type>
-        <updated>2023-06-06 12:52:21.126</updated>
-        <structureUpdated>2023-06-06 12:52:21.126</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-03-27 11:21:28.232</updated>
+        <structureUpdated>2023-03-27 11:21:28.232</structureUpdated>
+        <resultsUpdated></resultsUpdated>
         <season>
-            <id>25640073</id>
-            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
-            <name>2023/24</name>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
         </season>
         <hierarchy>
-            <id>25752575</id>
-            <uuid>42992b46-281a-49b2-8507-bd93e8e701a3</uuid>
-            <name>Kreisligen</name>
-            <shortName>kl w</shortName>
-            <hierarchyLevel>10</hierarchyLevel>
+            <id>22517733</id>
+            <uuid>4a461347-964c-46a8-9a0b-962294ecdd17</uuid>
+            <name>Rueckmeldungen Bezirk West</name>
+            <shortName>RueckmBezWest</shortName>
+            <hierarchyLevel>8</hierarchyLevel>
         </hierarchy>
         <fullHierarchy>
                 <hierarchy>
-                    <id>25752575</id>
-                    <name>Kreisligen</name>
-                    <shortName>kl w</shortName>
-                    <hierarchyLevel>10</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25752574</id>
-                    <name>Bezirksklassen</name>
-                    <shortName>bzk w</shortName>
-                    <hierarchyLevel>9</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25752573</id>
-                    <name>Bezirksligen</name>
-                    <shortName>bzl w</shortName>
+                    <id>22517733</id>
+                    <name>Rueckmeldungen Bezirk West</name>
+                    <shortName>RueckmBezWest</shortName>
                     <hierarchyLevel>8</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25752270</id>
+                    <id>22517104</id>
                     <name>Bezirk West</name>
                     <shortName>bw</shortName>
                     <hierarchyLevel>7</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25752269</id>
+                    <id>22517103</id>
                     <name>SBVV Bezirke</name>
                     <shortName>SBVV Bezirke</shortName>
                     <hierarchyLevel>6</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25752268</id>
+                    <id>22516685</id>
                     <name>Spielbetrieb Südbaden</name>
                     <shortName>sbvv</shortName>
                     <hierarchyLevel>5</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751076</id>
+                    <id>22515520</id>
                     <name>Oberliga Baden</name>
                     <shortName>Ol</shortName>
                     <hierarchyLevel>4</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751075</id>
+                    <id>22515519</id>
                     <name>Regionalliga Süd</name>
                     <shortName>RL</shortName>
                     <hierarchyLevel>3</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751074</id>
+                    <id>22515518</id>
                     <name>Dritte Liga Süd</name>
                     <shortName>DLS</shortName>
                     <hierarchyLevel>2</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751073</id>
+                    <id>22515517</id>
                     <name>Bundesligen</name>
                     <shortName>BL</shortName>
                     <hierarchyLevel>1</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751072</id>
+                    <id>22515340</id>
                     <name>Allgemeiner Spielbetrieb</name>
                     <shortName>alg</shortName>
                     <hierarchyLevel>0</hierarchyLevel>
                 </hierarchy>
         </fullHierarchy>
         <association>
-            <name></name>
-            <shortName></shortName>
+            <name>Südbadischer Volleyball-Verband</name>
+            <shortName>SBVV</shortName>
         </association>
     </matchSeries>
                         </team>
                         <team>
-    <id>25922075</id>
-    <uuid>dc4e03f3-3b67-4262-94bc-30247b621ec0</uuid>
-    <seasonTeamId>25922075</seasonTeamId>
+    <id>25407353</id>
+    <uuid>0ba93619-8a92-4376-b2da-7b8fe03687b5</uuid>
+    <seasonTeamId>25407353</seasonTeamId>
     <placeCipher>0</placeCipher>
     <name>VC Müllheim2</name>
     <shortName></shortName>
@@ -380,108 +695,96 @@
         <wwwDepartment></wwwDepartment>
     </club>
     <matchSeries>
-    <id>25752620</id>
-    <uuid>6947daa9-7529-4b17-9739-e02e9d2de47e</uuid>
-    <allSeasonId>955f1d4d-bc60-8f21-1003-fcc2a85bd10a</allSeasonId>
-    <name>Kreisliga Damen Süd</name>
-    <shortName>kl s d</shortName>
+    <id>22517916</id>
+    <uuid>c9e2f4f0-9538-47d4-bed2-da71ebb1dc9d</uuid>
+    <allSeasonId>00a9fd70-cef5-5238-85f8-fbffae615a80</allSeasonId>
+    <name>Bezirk West Damen Kreisliga Rückmeldungen-23/24</name>
+    <shortName>RueckKrLiDamen</shortName>
     <type>League</type>
-        <updated>2023-06-06 12:52:21.126</updated>
-        <structureUpdated>2023-06-06 12:52:21.126</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-03-27 11:21:28.232</updated>
+        <structureUpdated>2023-03-27 11:21:28.232</structureUpdated>
+        <resultsUpdated></resultsUpdated>
         <season>
-            <id>25640073</id>
-            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
-            <name>2023/24</name>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
         </season>
         <hierarchy>
-            <id>25752575</id>
-            <uuid>42992b46-281a-49b2-8507-bd93e8e701a3</uuid>
-            <name>Kreisligen</name>
-            <shortName>kl w</shortName>
-            <hierarchyLevel>10</hierarchyLevel>
+            <id>22517733</id>
+            <uuid>4a461347-964c-46a8-9a0b-962294ecdd17</uuid>
+            <name>Rueckmeldungen Bezirk West</name>
+            <shortName>RueckmBezWest</shortName>
+            <hierarchyLevel>8</hierarchyLevel>
         </hierarchy>
         <fullHierarchy>
                 <hierarchy>
-                    <id>25752575</id>
-                    <name>Kreisligen</name>
-                    <shortName>kl w</shortName>
-                    <hierarchyLevel>10</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25752574</id>
-                    <name>Bezirksklassen</name>
-                    <shortName>bzk w</shortName>
-                    <hierarchyLevel>9</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25752573</id>
-                    <name>Bezirksligen</name>
-                    <shortName>bzl w</shortName>
+                    <id>22517733</id>
+                    <name>Rueckmeldungen Bezirk West</name>
+                    <shortName>RueckmBezWest</shortName>
                     <hierarchyLevel>8</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25752270</id>
+                    <id>22517104</id>
                     <name>Bezirk West</name>
                     <shortName>bw</shortName>
                     <hierarchyLevel>7</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25752269</id>
+                    <id>22517103</id>
                     <name>SBVV Bezirke</name>
                     <shortName>SBVV Bezirke</shortName>
                     <hierarchyLevel>6</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25752268</id>
+                    <id>22516685</id>
                     <name>Spielbetrieb Südbaden</name>
                     <shortName>sbvv</shortName>
                     <hierarchyLevel>5</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751076</id>
+                    <id>22515520</id>
                     <name>Oberliga Baden</name>
                     <shortName>Ol</shortName>
                     <hierarchyLevel>4</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751075</id>
+                    <id>22515519</id>
                     <name>Regionalliga Süd</name>
                     <shortName>RL</shortName>
                     <hierarchyLevel>3</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751074</id>
+                    <id>22515518</id>
                     <name>Dritte Liga Süd</name>
                     <shortName>DLS</shortName>
                     <hierarchyLevel>2</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751073</id>
+                    <id>22515517</id>
                     <name>Bundesligen</name>
                     <shortName>BL</shortName>
                     <hierarchyLevel>1</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751072</id>
+                    <id>22515340</id>
                     <name>Allgemeiner Spielbetrieb</name>
                     <shortName>alg</shortName>
                     <hierarchyLevel>0</hierarchyLevel>
                 </hierarchy>
         </fullHierarchy>
         <association>
-            <name></name>
-            <shortName></shortName>
+            <name>Südbadischer Volleyball-Verband</name>
+            <shortName>SBVV</shortName>
         </association>
     </matchSeries>
                         </team>
                         <team>
-    <id>25921412</id>
-    <uuid>5a65e070-8dc9-4d23-bab8-2307b6921601</uuid>
-    <seasonTeamId>25921412</seasonTeamId>
+    <id>25463827</id>
+    <uuid>bd086a88-8169-4280-a979-0e5aa0930333</uuid>
+    <seasonTeamId>25463827</seasonTeamId>
     <placeCipher>0</placeCipher>
-    <name>VC Müllheim</name>
-    <shortName>VCM</shortName>
+    <name>VC Müllheim 2</name>
+    <shortName></shortName>
     <clubCode></clubCode>
     <status>ACTIVE</status>
     <www>http://vcmuellheim.de</www>
@@ -499,48 +802,78 @@
         <wwwDepartment></wwwDepartment>
     </club>
     <matchSeries>
-    <id>25754861</id>
-    <uuid>988e0d13-5699-40f3-a0be-0f20050344fe</uuid>
-    <allSeasonId>6802ca20-191c-4961-808d-8cb457327af6</allSeasonId>
-    <name>Landespokal Herren 2023</name>
-    <shortName>PokalHe</shortName>
-    <type>Competition</type>
-        <updated>2023-06-01 22:47:20.412</updated>
-        <structureUpdated>2023-06-01 22:47:20.412</structureUpdated>
-        <resultsUpdated>2022-09-25 23:04:14.381</resultsUpdated>
+    <id>22517974</id>
+    <uuid>101e4c50-fef6-48ef-9ffc-0a4f7a446788</uuid>
+    <allSeasonId>9bee4086-8b11-cfd8-fdcd-9a0939d3a0f5</allSeasonId>
+    <name>Bezirk West Herren Bezirksliga Rückmeldungen-23/24</name>
+    <shortName>RueckBezliHerren</shortName>
+    <type>League</type>
+        <updated>2023-05-11 16:59:41.423</updated>
+        <structureUpdated>2023-05-11 16:59:41.423</structureUpdated>
+        <resultsUpdated></resultsUpdated>
         <season>
-            <id>25640073</id>
-            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
-            <name>2023/24</name>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
         </season>
         <hierarchy>
-            <id>25754803</id>
-            <uuid>a046e032-06f3-4a61-9481-f32d3336c746</uuid>
-            <name>SBVV Landespokal</name>
-            <shortName>SBVV-Pokal</shortName>
-            <hierarchyLevel>3</hierarchyLevel>
+            <id>22517733</id>
+            <uuid>4a461347-964c-46a8-9a0b-962294ecdd17</uuid>
+            <name>Rueckmeldungen Bezirk West</name>
+            <shortName>RueckmBezWest</shortName>
+            <hierarchyLevel>8</hierarchyLevel>
         </hierarchy>
         <fullHierarchy>
                 <hierarchy>
-                    <id>25754803</id>
-                    <name>SBVV Landespokal</name>
-                    <shortName>SBVV-Pokal</shortName>
+                    <id>22517733</id>
+                    <name>Rueckmeldungen Bezirk West</name>
+                    <shortName>RueckmBezWest</shortName>
+                    <hierarchyLevel>8</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22517104</id>
+                    <name>Bezirk West</name>
+                    <shortName>bw</shortName>
+                    <hierarchyLevel>7</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22517103</id>
+                    <name>SBVV Bezirke</name>
+                    <shortName>SBVV Bezirke</shortName>
+                    <hierarchyLevel>6</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22516685</id>
+                    <name>Spielbetrieb Südbaden</name>
+                    <shortName>sbvv</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515520</id>
+                    <name>Oberliga Baden</name>
+                    <shortName>Ol</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515519</id>
+                    <name>Regionalliga Süd</name>
+                    <shortName>RL</shortName>
                     <hierarchyLevel>3</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25754713</id>
-                    <name>Regionalpokal</name>
-                    <shortName>Regionalpokal</shortName>
+                    <id>22515518</id>
+                    <name>Dritte Liga Süd</name>
+                    <shortName>DLS</shortName>
                     <hierarchyLevel>2</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25754712</id>
-                    <name>Pokalwettbewerbe</name>
-                    <shortName>P</shortName>
+                    <id>22515517</id>
+                    <name>Bundesligen</name>
+                    <shortName>BL</shortName>
                     <hierarchyLevel>1</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
-                    <id>25751072</id>
+                    <id>22515340</id>
                     <name>Allgemeiner Spielbetrieb</name>
                     <shortName>alg</shortName>
                     <hierarchyLevel>0</hierarchyLevel>
@@ -549,6 +882,694 @@
         <association>
             <name>Südbadischer Volleyball-Verband</name>
             <shortName>SBVV</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>22787670</id>
+    <uuid>6b39d012-7126-4412-8635-e6b7428f7945</uuid>
+    <seasonTeamId>22787670</seasonTeamId>
+    <placeCipher>2</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>22515392</id>
+    <uuid>267cfccb-a797-43ae-8698-954c72061880</uuid>
+    <allSeasonId>6802ca20-191c-4961-808d-8cb457327af6</allSeasonId>
+    <name>Landespokal Herren</name>
+    <shortName>PokalHe</shortName>
+    <type>Competition</type>
+        <updated>2023-03-08 10:11:08.387</updated>
+        <structureUpdated>2023-03-08 10:11:08.387</structureUpdated>
+        <resultsUpdated>2022-09-25 23:04:14.381</resultsUpdated>
+        <season>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
+        </season>
+        <hierarchy>
+            <id>22515343</id>
+            <uuid>2dda9b04-3bc9-4eb1-b1f6-18a9f88ac558</uuid>
+            <name>SBVV Landespokal</name>
+            <shortName>SBVV-Pokal</shortName>
+            <hierarchyLevel>3</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>22515343</id>
+                    <name>SBVV Landespokal</name>
+                    <shortName>SBVV-Pokal</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515342</id>
+                    <name>Regionalpokal</name>
+                    <shortName>Regionalpokal</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515341</id>
+                    <name>Pokalwettbewerbe</name>
+                    <shortName>P</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515340</id>
+                    <name>Allgemeiner Spielbetrieb</name>
+                    <shortName>alg</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>Südbadischer Volleyball-Verband</name>
+            <shortName>SBVV</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>24682751</id>
+    <uuid>0b259745-dfed-459d-ac75-d5f2376897c2</uuid>
+    <seasonTeamId>24682751</seasonTeamId>
+    <placeCipher>1</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>22515345</id>
+    <uuid>06d69391-ef6d-466f-9c9d-d0c3c51295d6</uuid>
+    <allSeasonId>822d3dfd-af74-4ddf-af9a-22e82b7d06d1</allSeasonId>
+    <name>Bezirkspokal West Damen</name>
+    <shortName>BezPokal West Da</shortName>
+    <type>Competition</type>
+        <updated>2023-04-02 15:08:32.969</updated>
+        <structureUpdated>2023-04-01 14:32:32.393</structureUpdated>
+        <resultsUpdated>2023-04-02 15:08:32.969</resultsUpdated>
+        <season>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
+        </season>
+        <hierarchy>
+            <id>22515344</id>
+            <uuid>0d8c28d2-b2b1-4495-af4f-7e582608d767</uuid>
+            <name>Bezirkspokal Bezirk West</name>
+            <shortName>w_pokal</shortName>
+            <hierarchyLevel>4</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>22515344</id>
+                    <name>Bezirkspokal Bezirk West</name>
+                    <shortName>w_pokal</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515343</id>
+                    <name>SBVV Landespokal</name>
+                    <shortName>SBVV-Pokal</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515342</id>
+                    <name>Regionalpokal</name>
+                    <shortName>Regionalpokal</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515341</id>
+                    <name>Pokalwettbewerbe</name>
+                    <shortName>P</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515340</id>
+                    <name>Allgemeiner Spielbetrieb</name>
+                    <shortName>alg</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name></name>
+            <shortName></shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>24803142</id>
+    <uuid>e98f57bc-9261-4e74-b9d5-7c307fd56bb4</uuid>
+    <seasonTeamId>24803142</seasonTeamId>
+    <placeCipher>4</placeCipher>
+    <name>VC Müllheim 2</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>22515360</id>
+    <uuid>d53c0b26-2fed-4663-b599-1886bbef5fdc</uuid>
+    <allSeasonId>996603b0-f80c-8a49-619b-e1734f8cfaa8</allSeasonId>
+    <name>Bezirkspokal West Herren</name>
+    <shortName>BezPokal West He</shortName>
+    <type>Competition</type>
+        <updated>2023-04-02 15:09:11.256</updated>
+        <structureUpdated>2023-04-01 09:39:54.694</structureUpdated>
+        <resultsUpdated>2023-04-02 15:09:11.256</resultsUpdated>
+        <season>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
+        </season>
+        <hierarchy>
+            <id>22515344</id>
+            <uuid>0d8c28d2-b2b1-4495-af4f-7e582608d767</uuid>
+            <name>Bezirkspokal Bezirk West</name>
+            <shortName>w_pokal</shortName>
+            <hierarchyLevel>4</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>22515344</id>
+                    <name>Bezirkspokal Bezirk West</name>
+                    <shortName>w_pokal</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515343</id>
+                    <name>SBVV Landespokal</name>
+                    <shortName>SBVV-Pokal</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515342</id>
+                    <name>Regionalpokal</name>
+                    <shortName>Regionalpokal</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515341</id>
+                    <name>Pokalwettbewerbe</name>
+                    <shortName>P</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22515340</id>
+                    <name>Allgemeiner Spielbetrieb</name>
+                    <shortName>alg</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name></name>
+            <shortName></shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>23746102</id>
+    <uuid>7527df10-42d9-4e96-a4a8-0ecd3a12b609</uuid>
+    <seasonTeamId>23746102</seasonTeamId>
+    <placeCipher>8</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>22519474</id>
+    <uuid>61443a4e-a439-49ee-beda-90c3beeee057</uuid>
+    <allSeasonId>8ce5f2cb-b3b0-e6cf-ba43-c4947205881f</allSeasonId>
+    <name>Bez.-Meisterschaft U13w Quali-Runde am 19.11.22</name>
+    <shortName>U13wQBW</shortName>
+    <type>Competition</type>
+        <updated>2023-04-27 09:03:08.516</updated>
+        <structureUpdated>2023-04-27 09:03:08.516</structureUpdated>
+        <resultsUpdated>2022-12-14 12:01:49.992</resultsUpdated>
+        <season>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
+        </season>
+        <hierarchy>
+            <id>22519413</id>
+            <uuid>57a74918-5680-45b3-b06c-bac8a960f676</uuid>
+            <name>Bezirk West Jugend weiblich</name>
+            <shortName>bwjw</shortName>
+            <hierarchyLevel>5</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>22519413</id>
+                    <name>Bezirk West Jugend weiblich</name>
+                    <shortName>bwjw</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519325</id>
+                    <name>SBVV Bezirk West Jugend</name>
+                    <shortName>bwj</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519080</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519079</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519078</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519077</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>SBVV Bezirk West</name>
+            <shortName>SBVV-West</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>23548413</id>
+    <uuid>8f52e91c-c3a2-4477-b01e-7266ed961f93</uuid>
+    <seasonTeamId>23548413</seasonTeamId>
+    <placeCipher>6</placeCipher>
+    <name>VC Müllheim 1</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>22519467</id>
+    <uuid>dd687c6c-f407-427d-a741-2726b64ca0e2</uuid>
+    <allSeasonId>375a20ac-b2b9-c22f-e657-05936f7ec524</allSeasonId>
+    <name>Bez.-Meisterschaft U14w Endrunde am 15.01.23</name>
+    <shortName>U14wEBW</shortName>
+    <type>Competition</type>
+        <updated>2023-03-10 16:22:55.441</updated>
+        <structureUpdated>2023-03-10 16:22:55.441</structureUpdated>
+        <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
+        <season>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
+        </season>
+        <hierarchy>
+            <id>22519413</id>
+            <uuid>57a74918-5680-45b3-b06c-bac8a960f676</uuid>
+            <name>Bezirk West Jugend weiblich</name>
+            <shortName>bwjw</shortName>
+            <hierarchyLevel>5</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>22519413</id>
+                    <name>Bezirk West Jugend weiblich</name>
+                    <shortName>bwjw</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519325</id>
+                    <name>SBVV Bezirk West Jugend</name>
+                    <shortName>bwj</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519080</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519079</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519078</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519077</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>SBVV Bezirk West</name>
+            <shortName>SBVV-West</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>24411036</id>
+    <uuid>79832e36-938b-4c7a-a104-eb9a25496cb7</uuid>
+    <seasonTeamId>24411036</seasonTeamId>
+    <placeCipher>10</placeCipher>
+    <name>VC Müllheim 2</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>22519467</id>
+    <uuid>dd687c6c-f407-427d-a741-2726b64ca0e2</uuid>
+    <allSeasonId>375a20ac-b2b9-c22f-e657-05936f7ec524</allSeasonId>
+    <name>Bez.-Meisterschaft U14w Endrunde am 15.01.23</name>
+    <shortName>U14wEBW</shortName>
+    <type>Competition</type>
+        <updated>2023-03-10 16:22:55.441</updated>
+        <structureUpdated>2023-03-10 16:22:55.441</structureUpdated>
+        <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
+        <season>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
+        </season>
+        <hierarchy>
+            <id>22519413</id>
+            <uuid>57a74918-5680-45b3-b06c-bac8a960f676</uuid>
+            <name>Bezirk West Jugend weiblich</name>
+            <shortName>bwjw</shortName>
+            <hierarchyLevel>5</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>22519413</id>
+                    <name>Bezirk West Jugend weiblich</name>
+                    <shortName>bwjw</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519325</id>
+                    <name>SBVV Bezirk West Jugend</name>
+                    <shortName>bwj</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519080</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519079</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519078</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519077</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>SBVV Bezirk West</name>
+            <shortName>SBVV-West</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>23548438</id>
+    <uuid>3c0e96b8-704e-4469-9e46-24f22e413cf4</uuid>
+    <seasonTeamId>23548438</seasonTeamId>
+    <placeCipher>8</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>22519505</id>
+    <uuid>763b89d2-2e98-433b-a075-51d5d943462c</uuid>
+    <allSeasonId>70a1e2de-8722-c393-25bf-bd45336f8f2e</allSeasonId>
+    <name>Bez.-Meisterschaft U16w - Endrunde am 06.11.22</name>
+    <shortName>U16wEBW</shortName>
+    <type>Competition</type>
+        <updated>2023-05-23 12:03:18.007</updated>
+        <structureUpdated>2023-05-23 12:03:18.007</structureUpdated>
+        <resultsUpdated>2022-11-06 18:59:44.298</resultsUpdated>
+        <season>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
+        </season>
+        <hierarchy>
+            <id>22519413</id>
+            <uuid>57a74918-5680-45b3-b06c-bac8a960f676</uuid>
+            <name>Bezirk West Jugend weiblich</name>
+            <shortName>bwjw</shortName>
+            <hierarchyLevel>5</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>22519413</id>
+                    <name>Bezirk West Jugend weiblich</name>
+                    <shortName>bwjw</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519325</id>
+                    <name>SBVV Bezirk West Jugend</name>
+                    <shortName>bwj</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519080</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519079</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519078</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519077</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>SBVV Bezirk West</name>
+            <shortName>SBVV-West</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>23552195</id>
+    <uuid>57d5a4f7-a052-458c-b598-025542f5245c</uuid>
+    <seasonTeamId>23552195</seasonTeamId>
+    <placeCipher>6</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>22519385</id>
+    <uuid>0cd90ea7-1dea-4d0f-90e3-866c187d5769</uuid>
+    <allSeasonId>aec2f8d3-04bd-4e4c-807c-5fde05434700</allSeasonId>
+    <name>Bez.-Meisterschaft U14m - Endrunde am 05.11.2022</name>
+    <shortName>U14mEBW</shortName>
+    <type>Competition</type>
+        <updated>2023-04-22 11:33:19.054</updated>
+        <structureUpdated>2023-04-22 11:33:19.054</structureUpdated>
+        <resultsUpdated>2022-11-25 09:14:57.787</resultsUpdated>
+        <season>
+            <id>22514239</id>
+            <uuid>6a541375-4044-4540-bfc8-d7ed6e0e5691</uuid>
+            <name>2022/23</name>
+        </season>
+        <hierarchy>
+            <id>22519326</id>
+            <uuid>2a2d562d-38bf-480a-89fb-41fd254b9957</uuid>
+            <name>Bezirk West Jugend männlich</name>
+            <shortName>bwjm</shortName>
+            <hierarchyLevel>5</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>22519326</id>
+                    <name>Bezirk West Jugend männlich</name>
+                    <shortName>bwjm</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519325</id>
+                    <name>SBVV Bezirk West Jugend</name>
+                    <shortName>bwj</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519080</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519079</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519078</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>22519077</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>SBVV Bezirk West</name>
+            <shortName>SBVV-West</shortName>
         </association>
     </matchSeries>
                         </team>
