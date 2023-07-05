@@ -100,6 +100,7 @@ jobs:
           time: '10m'
 
       - name: Send Tweet
+        continue-on-error: true
         uses: devigned/go-twitter-action@v1
         with:
           message: ${{matrix.messages}}
