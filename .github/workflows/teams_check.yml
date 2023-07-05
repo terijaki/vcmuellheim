@@ -63,7 +63,8 @@ jobs:
     continue-on-error: true # if issue cretion fails, the others should continue
     strategy:
       matrix:
-       team: ${{fromJSON(needs.Verify-Teams.outputs.outdated-teams)}}
+       team:
+        - ${{fromJSON(needs.Verify-Teams.outputs.outdated-teams)}}
     runs-on: ubuntu-latest
     steps:
       - name: Log & Separate Data
