@@ -49,9 +49,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -180,9 +180,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -311,9 +311,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -391,7 +391,7 @@
                     <uuid>430d10a2-1391-4017-813a-3bf7c9d958c8</uuid>
                     <number>21</number>
                     <date>11.11.2023</date>
-                    <time>00:00</time>
+                    <time>14:00</time>
                     <delayPossible>false</delayPossible>
                     <decidingMatch>false</decidingMatch>
                     <indefinitelyRescheduled>false</indefinitelyRescheduled>
@@ -435,9 +435,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -506,13 +506,13 @@
         </association>
                     </matchSeries>
                     <location>
-                            <id>874</id>
-                            <name>Halle II</name>
-                            <street>Schwarzwaldstraße 12A</street>
+                            <id>880</id>
+                            <name>Rosenburgschule</name>
+                            <street>Schlößlehohle</street>
                             <extraField>-</extraField>
                             <postalCode>79379</postalCode>
                             <city>Müllheim</city>
-                            <note>Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme</note>
+                            <note>Anzahl Spielfelder 1 - Zulassung bis VL - Zulassung am 37489 - Ausnahme</note>
                     </location>
                     <referees>
                     </referees>
@@ -522,7 +522,7 @@
                     <uuid>4899540e-c70b-4bc8-a682-4986a901be6e</uuid>
                     <number>22</number>
                     <date>11.11.2023</date>
-                    <time>00:00</time>
+                    <time>14:00</time>
                     <delayPossible>false</delayPossible>
                     <decidingMatch>false</decidingMatch>
                     <indefinitelyRescheduled>false</indefinitelyRescheduled>
@@ -566,9 +566,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -637,13 +637,13 @@
         </association>
                     </matchSeries>
                     <location>
-                            <id>874</id>
-                            <name>Halle II</name>
-                            <street>Schwarzwaldstraße 12A</street>
+                            <id>880</id>
+                            <name>Rosenburgschule</name>
+                            <street>Schlößlehohle</street>
                             <extraField>-</extraField>
                             <postalCode>79379</postalCode>
                             <city>Müllheim</city>
-                            <note>Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme</note>
+                            <note>Anzahl Spielfelder 1 - Zulassung bis VL - Zulassung am 37489 - Ausnahme</note>
                     </location>
                     <referees>
                     </referees>
@@ -697,9 +697,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -828,9 +828,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -915,7 +915,7 @@
                     <uuid>be0a847b-df20-442e-b533-9edc9b9c5f59</uuid>
                     <number>41</number>
                     <date>16.12.2023</date>
-                    <time>00:00</time>
+                    <time>14:00</time>
                     <delayPossible>false</delayPossible>
                     <decidingMatch>false</decidingMatch>
                     <indefinitelyRescheduled>false</indefinitelyRescheduled>
@@ -959,9 +959,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1046,7 +1046,7 @@
                     <uuid>ccad155c-ad14-4274-9931-363762edfe0b</uuid>
                     <number>42</number>
                     <date>16.12.2023</date>
-                    <time>00:00</time>
+                    <time>14:00</time>
                     <delayPossible>false</delayPossible>
                     <decidingMatch>false</decidingMatch>
                     <indefinitelyRescheduled>false</indefinitelyRescheduled>
@@ -1090,9 +1090,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1221,9 +1221,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1308,7 +1308,7 @@
                     <uuid>4b0560ce-785c-4571-af83-1ad27d530cd9</uuid>
                     <number>51</number>
                     <date>27.01.2024</date>
-                    <time>00:00</time>
+                    <time>14:00</time>
                     <delayPossible>false</delayPossible>
                     <decidingMatch>false</decidingMatch>
                     <indefinitelyRescheduled>false</indefinitelyRescheduled>
@@ -1352,9 +1352,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1439,7 +1439,7 @@
                     <uuid>c889942b-a292-417c-8f7a-4da35034146d</uuid>
                     <number>52</number>
                     <date>27.01.2024</date>
-                    <time>00:00</time>
+                    <time>14:00</time>
                     <delayPossible>false</delayPossible>
                     <decidingMatch>false</decidingMatch>
                     <indefinitelyRescheduled>false</indefinitelyRescheduled>
@@ -1483,9 +1483,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1614,9 +1614,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1745,9 +1745,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1876,9 +1876,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -2007,9 +2007,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -2094,7 +2094,7 @@
                     <uuid>d8668b9c-080a-48f9-af82-292b51617b5b</uuid>
                     <number>75</number>
                     <date>09.03.2024</date>
-                    <time>00:00</time>
+                    <time>14:00</time>
                     <delayPossible>false</delayPossible>
                     <decidingMatch>false</decidingMatch>
                     <indefinitelyRescheduled>false</indefinitelyRescheduled>
@@ -2138,9 +2138,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -2225,7 +2225,7 @@
                     <uuid>8fda799f-db9d-4f8b-a7c0-0b07e5cca207</uuid>
                     <number>76</number>
                     <date>09.03.2024</date>
-                    <time>00:00</time>
+                    <time>14:00</time>
                     <delayPossible>false</delayPossible>
                     <decidingMatch>false</decidingMatch>
                     <indefinitelyRescheduled>false</indefinitelyRescheduled>
@@ -2269,9 +2269,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-07-04 17:12:30.228</updated>
-        <structureUpdated>2023-07-04 17:12:30.228</structureUpdated>
-        <resultsUpdated>2023-06-23 14:27:48.047</resultsUpdated>
+        <updated>2023-07-05 22:38:50.742</updated>
+        <structureUpdated>2023-07-05 22:05:48.239</structureUpdated>
+        <resultsUpdated>2023-07-05 22:38:50.742</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
