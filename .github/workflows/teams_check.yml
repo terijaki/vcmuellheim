@@ -48,11 +48,11 @@ jobs:
             done
           if [[ -n "$outdated" ]]; then
             outdated=$(jq --compact-output --null-input '$ARGS.positional' --args -- "${outdated[@]}")
-            else
+          else
             outdated+=\"none\"
-            fi
-            echo "outdated=[$outdated]" >> $GITHUB_OUTPUT
-            echo $outdated
+          fi
+          echo "outdated=[$outdated]" >> $GITHUB_OUTPUT
+          echo $outdated
         # outdated=$(echo ${outdated[@]} | sed -e 's! !,!g')
         # loop through files in the teams folder and check for sbvv_id
         # for every Id found, check if the ID is still present in the SAMS club.xml
