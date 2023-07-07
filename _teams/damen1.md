@@ -3,7 +3,7 @@ layout: team
 title: Damen I
 sorting: 3
 liga: true
-sbvv_id: 22517240
+sbvv_id: 
 alter: ''
 trainings-zeit1: 'Dienstags 18:30-20:00 Uhr'
 trainings-ort1: Sporthalle II Teil E
