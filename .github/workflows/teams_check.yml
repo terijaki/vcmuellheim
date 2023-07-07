@@ -53,17 +53,17 @@ jobs:
           fi
           echo "outdated=$outdated" >> $GITHUB_OUTPUT
           echo $outdated
-        # outdated=$(echo ${outdated[@]} | sed -e 's! !,!g')
         # loop through files in the teams folder and check for sbvv_id
         # for every Id found, check if the ID is still present in the SAMS club.xml
         # when the ID is no longer present, add it to an array
-        # the array is then converted from bash array to JSON array, which serves as a matrix for the follow up job 
+        # the array is then converted from bash array to JSON array, which serves as a matrix for the follow up job
 
   Create-Issue:
     needs: Verify-Teams
     if: contains(fromJSON(needs.Verify-Teams.outputs.outdated-teams), 'none') == false
     continue-on-error: true # if issue cretion fails, the others should continue
     strategy:
+      max-parallel: 1
       matrix:
        team:
         - ${{fromJSON(needs.Verify-Teams.outputs.outdated-teams)}}
