@@ -52,6 +52,7 @@ jobs:
             outdated+=\"none\"
           fi
           echo "outdated=[$outdated]" >> $GITHUB_OUTPUT
+          echo $outdated
         # loop through files in the teams folder and check for sbvv_id
         # for every Id found, check if the ID is still present in the SAMS club.xml
         # when the ID is no longer present, add it to an array
