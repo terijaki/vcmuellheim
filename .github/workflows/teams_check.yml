@@ -95,7 +95,7 @@ jobs:
         id: remove_id
         run: |
           cd $TEAMS_FOLDER
-          sed -i -e "s!${{steps.log.outputs.sams_id}}!!g" ${{steps.log.outputs.team_name}}
+          sed -i -e "s!${{steps.log.outputs.sams_id}}!null!g" ${{steps.log.outputs.team_name}}
         # remove the ID from the file
 
       - name: Git Add & Push
