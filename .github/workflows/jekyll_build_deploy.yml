@@ -85,12 +85,14 @@ jobs:
           destination: ./_site
 
       - name: Debug Build
+        id: verify_build
+        continue-on-error: true
         run: |
           ls _site
 
       - name: Build with Jekyll (Retry)
         id: build_jekyll_retry
-        if: steps.build_jekyll.conclusion == 'failed'
+        if: steps.verify_build.outcome == 'failure'
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./
