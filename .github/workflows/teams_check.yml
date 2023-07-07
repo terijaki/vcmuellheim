@@ -8,6 +8,7 @@ on:
   push:
     paths:
       - "_sams/xml/club.xml"
+      - ".github/workflows/teams_check.yml"
   workflow_dispatch:
 
 env:
@@ -41,7 +42,7 @@ jobs:
                   echo "✅ $team ($this_team_id) still present in club.xml"
                 else
                   echo "⛔️ $team ($this_team_id) no longer present in club.xml"
-                  outdated+="$team#$this_team_id"
+                  outdated+=("$team#$this_team_id")
                 fi
               fi
             done
