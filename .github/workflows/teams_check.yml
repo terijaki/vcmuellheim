@@ -51,7 +51,7 @@ jobs:
           else
             outdated+=\"none\"
           fi
-          echo "outdated=[$outdated]" >> $GITHUB_OUTPUT
+          echo "outdated=$outdated" >> $GITHUB_OUTPUT
           echo $outdated
         # outdated=$(echo ${outdated[@]} | sed -e 's! !,!g')
         # loop through files in the teams folder and check for sbvv_id
