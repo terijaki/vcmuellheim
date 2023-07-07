@@ -46,7 +46,6 @@ jobs:
                 fi
               fi
             done
-          echo $outdated
           if [[ -n "$outdated" ]]; then
             outdated=$(jq --compact-output --null-input '$ARGS.positional' --args -- "${outdated[@]}")
           else
