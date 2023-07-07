@@ -42,17 +42,18 @@ jobs:
                   echo "✅ $team ($this_team_id) still present in club.xml"
                 else
                   echo "⛔️ $team ($this_team_id) no longer present in club.xml"
-                  outdated+=\"$team#$this_team_id\"
+                  outdated+=\"$team#$this_team_id\",
                 fi
               fi
             done
           if [[ -n "$outdated" ]]; then
-            outdated=$(echo ${outdated[@]} | sed -e 's! !,!g')
-          else
+            outdated=$(jq --compact-output --null-input '$ARGS.positional' --args -- "${outdated[@]}")
+            else
             outdated+=\"none\"
-          fi
-          echo "outdated=[$outdated]" >> $GITHUB_OUTPUT
-          echo $outdated
+            fi
+            echo "outdated=[$outdated]" >> $GITHUB_OUTPUT
+            echo $outdated
+        # outdated=$(echo ${outdated[@]} | sed -e 's! !,!g')
         # loop through files in the teams folder and check for sbvv_id
         # for every Id found, check if the ID is still present in the SAMS club.xml
         # when the ID is no longer present, add it to an array
