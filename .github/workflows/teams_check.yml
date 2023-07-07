@@ -24,7 +24,7 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Check Team still exists
         id: check-teams
@@ -83,6 +83,7 @@ jobs:
         with:
           token: ${{env.GITHUB_TOKEN}}
           fetch-depth: 0
+
       - name: Setup Git Config
         run: |
           git config user.name "GitHub Actions Bot"
