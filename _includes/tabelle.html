@@ -25,6 +25,10 @@
 {% endfor %}
 {% assign leagues = leagues | split: ",+." | sort %}
 
+{% for club_data in site.data.sams.club %}
+    {% assign our_teams = club_data[1]['teams']['team'] | strip %}
+{% endfor %}
+
 {% for league in leagues %}
 {% if include.team %}
   <div class="container">
@@ -53,7 +57,7 @@
           {% for team in teams %}
           {% assign t = team | split: "§t€" %}
             {% if t.size > 1 %}
-              <tr team="{{ t[3] }}" teamid="{{ t[1] }}" teamuuid="{{ t[2] }}" teamclub="{{ t[4] }}">
+              <tr team="{{ t[3] }}" teamid="{{ t[1] }}" teamuuid="{{ t[2] }}" teamclub="{{ t[4] }}" {% if our_teams contains t[1] %}class="bg-dark text-white"{% endif %}>
                 <td>{{ t[0] | abs }}</td>
                 <td>{{ t[3] }}</td>
                 <td>{{ t[6] }}/{{ t[7] }}</td>

@@ -668,18 +668,13 @@ h6 {
     color: rgba(0, 0, 0, 0.3);
   }
   table {
-    tr[team~="Müllheim"] {
-      color: var(--bs-white);
-      background: var(--bs-dark);
-      font-weight: normal !important;
-    }
     tr > * {
       padding: 1px;
       text-align: center;
     }
     tbody tr:hover {
-      background-color: var(--bs-secondary);
-      color: var(--bs-white);
+      background-color: var(--bs-secondary)!important;
+      color: var(--bs-white)!important;
     }
   }
 }
