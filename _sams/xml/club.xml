@@ -134,7 +134,7 @@
     <id>25921031</id>
     <uuid>ee1c9cf0-7df1-458f-9f2c-763526496fd9</uuid>
     <seasonTeamId>25921031</seasonTeamId>
-    <placeCipher>0</placeCipher>
+    <placeCipher>3</placeCipher>
     <name>VC Müllheim 2</name>
     <shortName></shortName>
     <clubCode></clubCode>
@@ -160,8 +160,8 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-06-06 12:54:50.333</updated>
-        <structureUpdated>2023-06-06 12:54:50.333</structureUpdated>
+        <updated>2023-07-08 10:33:34.282</updated>
+        <structureUpdated>2023-07-08 10:33:34.282</structureUpdated>
         <resultsUpdated>2023-03-21 08:58:19.397</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -241,7 +241,7 @@
     <id>25922069</id>
     <uuid>b9d813a5-c994-4dba-8b8c-7796e8f1ff9d</uuid>
     <seasonTeamId>25922069</seasonTeamId>
-    <placeCipher>0</placeCipher>
+    <placeCipher>4</placeCipher>
     <name>VC Müllheim 1</name>
     <shortName></shortName>
     <clubCode></clubCode>
@@ -267,8 +267,8 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-07-06 14:05:58.082</updated>
-        <structureUpdated>2023-07-06 14:05:58.082</structureUpdated>
+        <updated>2023-07-08 10:31:17.78</updated>
+        <structureUpdated>2023-07-08 10:31:17.78</structureUpdated>
         <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -360,7 +360,7 @@
     <id>25922075</id>
     <uuid>dc4e03f3-3b67-4262-94bc-30247b621ec0</uuid>
     <seasonTeamId>25922075</seasonTeamId>
-    <placeCipher>0</placeCipher>
+    <placeCipher>5</placeCipher>
     <name>VC Müllheim2</name>
     <shortName></shortName>
     <clubCode></clubCode>
@@ -386,8 +386,8 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-07-06 14:05:58.082</updated>
-        <structureUpdated>2023-07-06 14:05:58.082</structureUpdated>
+        <updated>2023-07-08 10:31:17.78</updated>
+        <structureUpdated>2023-07-08 10:31:17.78</structureUpdated>
         <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
         <season>
             <id>25640073</id>
