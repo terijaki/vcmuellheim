@@ -48,10 +48,11 @@
                         {% assign unique_match_location = m[0] | append: ma[0] | append: ma[2] %}
                         {% unless this_place contains unique_match_location %}
                         <p class="mt-2 mb-0 pe-2"><strong>{{ ma[2] }}{% assign thistime = ma[0] | date: "%H%M" | abs %}{% unless thistime == 0 %}{{ ma[0] | date: " ab %H:%M Uhr" }}{% endunless %}</strong></p>
-                        <!--<p class="ms-5 mb-0 opacity-75" hostid="{{ ma[6] }}" hostname="{{ ma[7] }}">Host: {{ ma[7] }}</p>-->
+                        {% assign guest_list = '' %}
                         {% endunless %}
-                        {% unless ma[6] == ma[8] %}<p class="ms-5 mb-0 opacity-75" guestid="{{ ma[8] }}" guestname="{{ ma[10] }}">Gast: {{ ma[10] }}</p>{% endunless%}
-                        {% unless ma[6] == ma[9] %}<p class="ms-5 mb-0 opacity-75" guestid="{{ ma[9] }}" guestname="{{ ma[11] }}">Gast: {{ ma[11] }}</p>{% endunless%}
+                        {% unless ma[6] == ma[8] or guest_list contains ma[8] %}<p class="ms-5 mb-0 opacity-75" guestid="{{ ma[8] }}" guestname="{{ ma[10] }}">Gast: {{ ma[10] }}</p>{% endunless%}
+                        {% unless ma[6] == ma[9] or guest_list contains ma[9] %}<p class="ms-5 mb-0 opacity-75" guestid="{{ ma[9] }}" guestname="{{ ma[11] }}">Gast: {{ ma[11] }}</p>{% endunless%}
+                        {% assign guest_list = guest_list | append: ma[8] | append: ma[9] %}
                         {% assign this_place = thisplace | append: unique_match_location %}
                       {% endif %}
                     {% endfor %}
