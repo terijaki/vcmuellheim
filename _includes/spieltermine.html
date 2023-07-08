@@ -1,5 +1,5 @@
 {% for schedule_json in site.data.sams.matches %}
-    {% assign stripped_results = results_json[1] | strip %}
+    {% assign stripped_results = schedule_json[1] | strip %}
     {% if include.team == nil or stripped_results contains include.team %}
         {% for match in schedule_json[1].matches.match %}
             {% assign schedule_matches_lastupdated = schedule_matches_lastupdated | append: match.matchSeries.updated | append: "#" %}
