@@ -39,7 +39,7 @@
                 </div>
                 {% endif %}
                 <div class="col-12 col-lg-6 my-4">
-                  <div class="box dark p-4 m-0 h-100" hostid="{{ m[6] }}" hostname="{{ m[7] }}">
+                  <div class="card bg-dark p-4 m-0 h-100 border-0 rounded-0" hostid="{{ m[6] }}" hostname="{{ m[7] }}">
                     <h4 class="m-0">{{ m[0] | date: "%d.%m" }}<span>{{ m[0] | date: ".%Y" }}</span><a class="ms-3 small" href="https://www.google.com/maps/search/?api=1&query={{ m[12] }},{{ m[13] }}+{{ m[14] }},{{ m[15] }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-marker-alt pe-2"></i>{{ m[15] }}<span class="d-none d-xl-inline">, {{ m[12] }}</span></a></h4>
                     {% for match in all_matches %}
                       {% assign ma = match | split: '$#€' %}
