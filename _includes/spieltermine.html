@@ -44,7 +44,7 @@
             </div>
             <div class="upcoming">
                 <div class="zebra-list">
-                    {% assign schedule_all_matches = schedule_all_matches | split: 'öäü' | sort | reverse %}
+                    {% assign schedule_all_matches = schedule_all_matches | split: 'öäü' | sort %}
                     {% for match in schedule_all_matches limit: include.matches_limit | default: 9 %}
                     {% assign m = match | split: '$#€' %}
                     <div class="match col-12 row text-nowrap m-0 py-2" match-id="23082859" match-number="1">
