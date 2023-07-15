@@ -7,8 +7,8 @@
       "name": "Landespokal Herren 2023",
       "shortName": "PokalHe",
       "type": "Competition",
-      "updated": "2023-07-06 12:19:05.709",
-      "structureUpdated": "2023-07-06 12:19:05.709",
+      "updated": "2023-07-15 17:47:09.177",
+      "structureUpdated": "2023-07-15 17:47:09.177",
       "resultsUpdated": "2022-09-25 23:04:14.381",
       "season": {
         "id": "25640073",
@@ -79,7 +79,7 @@
         "team": {
           "id": "25921425",
           "uuid": "1197ab3d-b58d-4dc7-8fd2-c00a5df2c722",
-          "name": "TG Schwenningen",
+          "name": "TG Schwenningen 1 DL",
           "club": "TG Schwenningen"
         }
       },
@@ -97,7 +97,7 @@
         "team": {
           "id": "26178314",
           "uuid": "581211cc-07ae-4fee-a1bb-adbf98da6563",
-          "name": "TV Neustadt",
+          "name": "TV Neustadt LLOH",
           "club": "TV Neustadt"
         }
       },
@@ -124,7 +124,7 @@
         "team": {
           "id": "25786125",
           "uuid": "923f18ef-d5c6-4c0e-acd0-deffb70e22ba",
-          "name": "VC Haslach",
+          "name": "VC Haslach LL",
           "club": "VC Haslach"
         }
       },
@@ -142,7 +142,7 @@
         "team": {
           "id": "26100266",
           "uuid": "b1092c6f-983d-405e-b8f1-3ea427f06871",
-          "name": "VC Offenburg",
+          "name": "VC Offenburg  VL",
           "club": "VC Offenburg"
         }
       }

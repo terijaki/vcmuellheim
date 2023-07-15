@@ -8,8 +8,8 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-07-06 12:19:05.709</updated>
-        <structureUpdated>2023-07-06 12:19:05.709</structureUpdated>
+        <updated>2023-07-15 17:47:09.177</updated>
+        <structureUpdated>2023-07-15 17:47:09.177</structureUpdated>
         <resultsUpdated>2022-09-25 23:04:14.381</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -77,7 +77,7 @@
                         <team>
                             <id>25921425</id>
                             <uuid>1197ab3d-b58d-4dc7-8fd2-c00a5df2c722</uuid>
-                            <name>TG Schwenningen</name>
+                            <name>TG Schwenningen 1 DL</name>
                             <club>TG Schwenningen</club>
                         </team>
                     </ranking>
@@ -95,7 +95,7 @@
                         <team>
                             <id>26178314</id>
                             <uuid>581211cc-07ae-4fee-a1bb-adbf98da6563</uuid>
-                            <name>TV Neustadt</name>
+                            <name>TV Neustadt LLOH</name>
                             <club>TV Neustadt</club>
                         </team>
                     </ranking>
@@ -122,7 +122,7 @@
                         <team>
                             <id>25786125</id>
                             <uuid>923f18ef-d5c6-4c0e-acd0-deffb70e22ba</uuid>
-                            <name>VC Haslach</name>
+                            <name>VC Haslach LL</name>
                             <club>VC Haslach</club>
                         </team>
                     </ranking>
@@ -140,7 +140,7 @@
                         <team>
                             <id>26100266</id>
                             <uuid>b1092c6f-983d-405e-b8f1-3ea427f06871</uuid>
-                            <name>VC Offenburg</name>
+                            <name>VC Offenburg  VL</name>
                             <club>VC Offenburg</club>
                         </team>
                     </ranking>
