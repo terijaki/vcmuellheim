@@ -79,7 +79,7 @@ jobs:
       - name: Build with Jekyll
         id: build_jekyll
         continue-on-error: true
-        uses: actions/jekyll-build-pages@v1
+        uses: actions/jekyll-build-pages@v1.0.8
         with:
           source: ./
           destination: ./_site
@@ -99,7 +99,7 @@ jobs:
           destination: ./_site
       
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
   
   deploy:
       name: Deploy Site
@@ -111,4 +111,4 @@ jobs:
       steps:
         - name: Deploy to GitHub Pages
           id: deployment
-          uses: actions/deploy-pages@v1
+          uses: actions/deploy-pages@v2
