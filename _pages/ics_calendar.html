@@ -15,14 +15,14 @@ CALSCALE:GREGORIAN
 {% assign simpledate = match.date | date: "%Y%m%d" | abs -%}
 {% assign relevantdate = site.time | date: "%Y%m%d" | abs | minus: 60 -%}
 {% assign timecheck = match.time | date: "%H" | abs -%}
-{% unless timecheck == 0 or match_uuids contains match.uuid or simpledate < relevantdate -%}
+{% unless match_uuids contains match.uuid or simpledate < relevantdate -%}
 {% if match.matchSeries.type -%}
 {% assign match_uuids = match_uuids | append: match.uuid -%}
 BEGIN:VEVENT
 DTSTAMP:{{ match.matchSeries.updated | date: "%Y%m%dT%H%M%SZ" }}
 DTSTART;TZID={{ site.timezone }}:{{ match.date | date: "%Y%m%d" }}T{{ match.time | date: "%H%M00" }}
 DTEND;TZID={{ site.timezone }}:{{ match.date | date: "%Y%m%d" }}T{{ match.time | date: "%H%M00" | integer | plus: 20000 }}
-SUMMARY:{{ match.team[0].name }} vs. {{ match.team[1].name }} ({{ match.matchSeries.name }})
+SUMMARY:{{ match.team[0].name }} vs. {{ match.team[1].name }}{% if timecheck == 0 %} (Startzeit unbekannt){% endif %}
 LOCATION:{{ match.location.name }}\, {{ match.location.street }}\, {{ match.location.postalCode }} {{ match.location.city }}
 DESCRIPTION:{{ match.matchSeries.name }}{% if match.results %}\nErgebnis: {{ match.results.setPoints }}{% endif %}\nGastgeber: {{ match.host.name }}\n{% if match.results.setPoints %}{{ site.url | append: "/ergebnisse/" }}{% else %}{{ site.url | append: "/termine/" }}{% endif %}
 UID:{{ match.uuid }}
