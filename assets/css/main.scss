@@ -179,7 +179,7 @@ h6 {
 #intro {
   min-height: 90vh;
   min-height: 90svh;
-  min-height: calc(100svh - 60px);
+  min-height: calc(100svh - 59px);
   background: var(--bs-dark);
   color: var(--bs-white);
   position: relative;
@@ -247,7 +247,6 @@ h6 {
 
 /* ------Navigation Menu ------ */
 .navbar {
-  height: 60px;
   .nav-link {
     color: var(--bs-white);
     font-weight: 500;
@@ -263,17 +262,16 @@ h6 {
     }
     &:hover .navbar-toggler-custom-icon i {
       transform: rotateX(180deg);
-      color: var(--bs-success);
+      color: var(--bs-primary);
     }
   }
   h1 {
     font-size: 36px;
     letter-spacing: 3px;
-    text-transform: uppercase;
   }
 }
 @media (max-width: 768px) {
-  .navbar h1 {
+  .navb1ar h1 {
     font-size: 28px;
     letter-spacing: 2px;
   }
