@@ -8,8 +8,8 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-07-15 17:47:09.177</updated>
-        <structureUpdated>2023-07-15 17:47:09.177</structureUpdated>
+        <updated>2023-07-15 18:04:21.066</updated>
+        <structureUpdated>2023-07-15 18:04:21.066</structureUpdated>
         <resultsUpdated>2022-09-25 23:04:14.381</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -59,7 +59,7 @@
                         <team>
                             <id>26217160</id>
                             <uuid>27c1ad4b-1a58-4113-b016-69087acad215</uuid>
-                            <name>FT 1844 Freiburg 2</name>
+                            <name>FT 1844 Freiburg 2 RL</name>
                             <club>FT 1844 Freiburg</club>
                         </team>
                     </ranking>
@@ -68,7 +68,7 @@
                         <team>
                             <id>26217201</id>
                             <uuid>b16cfa14-2614-4567-aac4-09f8a170584f</uuid>
-                            <name>Sport vor Ort Rieselfeld Herren 1</name>
+                            <name>Sport vor Ort Rieselfeld Herren 1 BL</name>
                             <club>Sport vor Ort Rieselfeld</club>
                         </team>
                     </ranking>
@@ -86,7 +86,7 @@
                         <team>
                             <id>25773050</id>
                             <uuid>16111236-8c50-4480-9df5-1a163f9fdaf7</uuid>
-                            <name>TV Bad Säckingen</name>
+                            <name>TV Bad Säckingen 1 VL</name>
                             <club>TV Bad Säckingen</club>
                         </team>
                     </ranking>
@@ -104,7 +104,7 @@
                         <team>
                             <id>26178350</id>
                             <uuid>86123d72-13fd-4f6e-84a6-27b75486523b</uuid>
-                            <name>TV Staufen</name>
+                            <name>TV Staufen 1 LL</name>
                             <club>TV Staufen</club>
                         </team>
                     </ranking>
@@ -113,7 +113,7 @@
                         <team>
                             <id>25841012</id>
                             <uuid>597db717-9596-45ec-a6a5-3dfb19e46cfd</uuid>
-                            <name>TV Staufen 2</name>
+                            <name>TV Staufen 2 BL</name>
                             <club>TV Staufen</club>
                         </team>
                     </ranking>
@@ -131,7 +131,7 @@
                         <team>
                             <id>25921412</id>
                             <uuid>5a65e070-8dc9-4d23-bab8-2307b6921601</uuid>
-                            <name>VC Müllheim</name>
+                            <name>VC Müllheim 1 LL</name>
                             <club>VC Müllheim</club>
                         </team>
                     </ranking>
