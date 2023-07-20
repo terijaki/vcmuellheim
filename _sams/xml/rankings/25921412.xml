@@ -8,8 +8,8 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-07-15 18:04:21.066</updated>
-        <structureUpdated>2023-07-15 18:04:21.066</structureUpdated>
+        <updated>2023-07-19 09:55:30.16</updated>
+        <structureUpdated>2023-07-19 09:55:30.16</structureUpdated>
         <resultsUpdated>2022-09-25 23:04:14.381</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -68,7 +68,7 @@
                         <team>
                             <id>26217201</id>
                             <uuid>b16cfa14-2614-4567-aac4-09f8a170584f</uuid>
-                            <name>Sport vor Ort Rieselfeld Herren 1 BL</name>
+                            <name>SvO Rieselfeld  1 BL</name>
                             <club>Sport vor Ort Rieselfeld</club>
                         </team>
                     </ranking>
