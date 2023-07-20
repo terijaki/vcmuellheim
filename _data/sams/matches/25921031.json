@@ -5,9 +5,9 @@
     "+@xsi:schemaLocation": "http://sams-server.de/api/xml/ns/matches matches.xsd",
     "match": [
       {
-        "id": "25923590",
-        "uuid": "11e47931-027a-4d60-a1f3-94121e21b9d9",
-        "number": "1",
+        "id": "25923593",
+        "uuid": "0c6d7f1a-0fbb-411f-bf35-715620fe7a56",
+        "number": "2",
         "date": "07.10.2023",
         "time": "00:00",
         "delayPossible": "false",
@@ -36,14 +36,14 @@
           },
           {
             "number": "2",
-            "id": "25921023",
-            "uuid": "a44875d3-92a8-4958-8440-39dceef0a1b6",
-            "seasonTeamId": "25921023",
-            "name": "VC Minseln",
+            "id": "25921292",
+            "uuid": "29553912-56f5-46a8-b494-5dd2d6232101",
+            "seasonTeamId": "25921292",
+            "name": "Bad Säckinger Wölfe 2",
             "shortName": null,
             "clubCode": null,
             "club": {
-              "name": "VC Minseln",
+              "name": "TV Bad Säckingen",
               "shortName": null
             }
           }
@@ -55,8 +55,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-07-14 08:51:23.526",
-          "structureUpdated": "2023-07-14 08:51:23.526",
+          "updated": "2023-07-19 10:37:15.463",
+          "structureUpdated": "2023-07-19 10:37:15.463",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -145,9 +145,9 @@
         "referees": null
       },
       {
-        "id": "25923593",
-        "uuid": "0c6d7f1a-0fbb-411f-bf35-715620fe7a56",
-        "number": "2",
+        "id": "25923590",
+        "uuid": "11e47931-027a-4d60-a1f3-94121e21b9d9",
+        "number": "1",
         "date": "07.10.2023",
         "time": "00:00",
         "delayPossible": "false",
@@ -176,14 +176,14 @@
           },
           {
             "number": "2",
-            "id": "25921292",
-            "uuid": "29553912-56f5-46a8-b494-5dd2d6232101",
-            "seasonTeamId": "25921292",
-            "name": "Bad Säckinger Wölfe 2",
+            "id": "25921023",
+            "uuid": "a44875d3-92a8-4958-8440-39dceef0a1b6",
+            "seasonTeamId": "25921023",
+            "name": "VC Minseln",
             "shortName": null,
             "clubCode": null,
             "club": {
-              "name": "TV Bad Säckingen",
+              "name": "VC Minseln",
               "shortName": null
             }
           }
@@ -195,8 +195,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-07-14 08:51:23.526",
-          "structureUpdated": "2023-07-14 08:51:23.526",
+          "updated": "2023-07-19 10:37:15.463",
+          "structureUpdated": "2023-07-19 10:37:15.463",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -335,8 +335,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-07-14 08:51:23.526",
-          "structureUpdated": "2023-07-14 08:51:23.526",
+          "updated": "2023-07-19 10:37:15.463",
+          "structureUpdated": "2023-07-19 10:37:15.463",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -475,8 +475,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-07-14 08:51:23.526",
-          "structureUpdated": "2023-07-14 08:51:23.526",
+          "updated": "2023-07-19 10:37:15.463",
+          "structureUpdated": "2023-07-19 10:37:15.463",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -615,8 +615,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-07-14 08:51:23.526",
-          "structureUpdated": "2023-07-14 08:51:23.526",
+          "updated": "2023-07-19 10:37:15.463",
+          "structureUpdated": "2023-07-19 10:37:15.463",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -755,8 +755,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-07-14 08:51:23.526",
-          "structureUpdated": "2023-07-14 08:51:23.526",
+          "updated": "2023-07-19 10:37:15.463",
+          "structureUpdated": "2023-07-19 10:37:15.463",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -895,8 +895,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-07-14 08:51:23.526",
-          "structureUpdated": "2023-07-14 08:51:23.526",
+          "updated": "2023-07-19 10:37:15.463",
+          "structureUpdated": "2023-07-19 10:37:15.463",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -1035,8 +1035,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-07-14 08:51:23.526",
-          "structureUpdated": "2023-07-14 08:51:23.526",
+          "updated": "2023-07-19 10:37:15.463",
+          "structureUpdated": "2023-07-19 10:37:15.463",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -1175,8 +1175,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-07-14 08:51:23.526",
-          "structureUpdated": "2023-07-14 08:51:23.526",
+          "updated": "2023-07-19 10:37:15.463",
+          "structureUpdated": "2023-07-19 10:37:15.463",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -1315,8 +1315,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-07-14 08:51:23.526",
-          "structureUpdated": "2023-07-14 08:51:23.526",
+          "updated": "2023-07-19 10:37:15.463",
+          "structureUpdated": "2023-07-19 10:37:15.463",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -1455,8 +1455,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-07-14 08:51:23.526",
-          "structureUpdated": "2023-07-14 08:51:23.526",
+          "updated": "2023-07-19 10:37:15.463",
+          "structureUpdated": "2023-07-19 10:37:15.463",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -1533,7 +1533,15 @@
             "shortName": null
           }
         },
-        "location": null,
+        "location": {
+          "id": "521434",
+          "name": "Wentzinger-Sporthalle (große Halle)",
+          "street": "Falkenbergerstr. 21",
+          "extraField": "gegenüber Hausnr. 36",
+          "postalCode": "79110",
+          "city": "Freiburg",
+          "note": "-"
+        },
         "referees": null
       },
       {
@@ -1587,8 +1595,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-07-14 08:51:23.526",
-          "structureUpdated": "2023-07-14 08:51:23.526",
+          "updated": "2023-07-19 10:37:15.463",
+          "structureUpdated": "2023-07-19 10:37:15.463",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -1665,7 +1673,15 @@
             "shortName": null
           }
         },
-        "location": null,
+        "location": {
+          "id": "521434",
+          "name": "Wentzinger-Sporthalle (große Halle)",
+          "street": "Falkenbergerstr. 21",
+          "extraField": "gegenüber Hausnr. 36",
+          "postalCode": "79110",
+          "city": "Freiburg",
+          "note": "-"
+        },
         "referees": null
       },
       {
@@ -1719,8 +1735,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-07-14 08:51:23.526",
-          "structureUpdated": "2023-07-14 08:51:23.526",
+          "updated": "2023-07-19 10:37:15.463",
+          "structureUpdated": "2023-07-19 10:37:15.463",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -1859,8 +1875,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-07-14 08:51:23.526",
-          "structureUpdated": "2023-07-14 08:51:23.526",
+          "updated": "2023-07-19 10:37:15.463",
+          "structureUpdated": "2023-07-19 10:37:15.463",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",

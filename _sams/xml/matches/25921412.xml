@@ -1,3 +1,217 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <matches xmlns="http://sams-server.de/api/xml/ns/matches" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://sams-server.de/api/xml/ns/matches matches.xsd">
+                <match>
+                    <id>26445625</id>
+                    <uuid>42efa23e-2ecc-4d36-810a-a1d829d98601</uuid>
+                    <number>4</number>
+                    <date>24.09.2023</date>
+                    <time>11:00</time>
+                    <delayPossible>false</delayPossible>
+                    <decidingMatch>false</decidingMatch>
+                    <indefinitelyRescheduled>true</indefinitelyRescheduled>
+                    <gameReassessed>false</gameReassessed>
+                    <host>
+                        <id>26178350</id>
+                        <uuid>86123d72-13fd-4f6e-84a6-27b75486523b</uuid>
+                        <name>TV Staufen 1 LL</name>
+                        <club>TV Staufen</club>
+                    </host>
+                    <team>
+                        <number>1</number>
+                        <id>26178350</id>
+                        <uuid>86123d72-13fd-4f6e-84a6-27b75486523b</uuid>
+                        <seasonTeamId>26178350</seasonTeamId>
+                        <name>TV Staufen 1 LL</name>
+                        <shortName></shortName>
+                        <clubCode></clubCode>
+                        <club>
+                            <name>TV Staufen</name>
+                            <shortName></shortName>
+                        </club>
+                    </team>
+                    <team>
+                        <number>2</number>
+                        <id>25921412</id>
+                        <uuid>5a65e070-8dc9-4d23-bab8-2307b6921601</uuid>
+                        <seasonTeamId>25921412</seasonTeamId>
+                        <name>VC Müllheim 1 LL</name>
+                        <shortName></shortName>
+                        <clubCode></clubCode>
+                        <club>
+                            <name>VC Müllheim</name>
+                            <shortName></shortName>
+                        </club>
+                    </team>
+                    <matchSeries>
+    <id>25754861</id>
+    <uuid>988e0d13-5699-40f3-a0be-0f20050344fe</uuid>
+    <allSeasonId>6802ca20-191c-4961-808d-8cb457327af6</allSeasonId>
+    <name>Landespokal Herren 2023</name>
+    <shortName>PokalHe</shortName>
+    <type>Competition</type>
+        <updated>2023-07-19 09:55:30.16</updated>
+        <structureUpdated>2023-07-19 09:55:30.16</structureUpdated>
+        <resultsUpdated>2022-09-25 23:04:14.381</resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>25754803</id>
+            <uuid>a046e032-06f3-4a61-9481-f32d3336c746</uuid>
+            <name>SBVV Landespokal</name>
+            <shortName>SBVV-Pokal</shortName>
+            <hierarchyLevel>3</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>25754803</id>
+                    <name>SBVV Landespokal</name>
+                    <shortName>SBVV-Pokal</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25754713</id>
+                    <name>Regionalpokal</name>
+                    <shortName>Regionalpokal</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25754712</id>
+                    <name>Pokalwettbewerbe</name>
+                    <shortName>P</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25751072</id>
+                    <name>Allgemeiner Spielbetrieb</name>
+                    <shortName>alg</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>Südbadischer Volleyball-Verband</name>
+            <shortName>SBVV</shortName>
+        </association>
+                    </matchSeries>
+                    <location>
+                            <id>928</id>
+                            <name>Kreissporthalle</name>
+                            <street>Krichelnweg 1</street>
+                            <extraField>-</extraField>
+                            <postalCode>79219</postalCode>
+                            <city>Staufen</city>
+                            <note>Anzahl Spielfelder 3 - Zulassung bis VL - Zulassung am 37435 - Ausnahme</note>
+                    </location>
+                    <referees>
+                    </referees>
+                </match>
+                <match>
+                    <id>26445631</id>
+                    <uuid>96a6ea26-592a-4e19-a899-de5e20eede33</uuid>
+                    <number>5</number>
+                    <date>24.09.2023</date>
+                    <time>11:00</time>
+                    <delayPossible>false</delayPossible>
+                    <decidingMatch>false</decidingMatch>
+                    <indefinitelyRescheduled>true</indefinitelyRescheduled>
+                    <gameReassessed>false</gameReassessed>
+                    <host>
+                        <id>26178350</id>
+                        <uuid>86123d72-13fd-4f6e-84a6-27b75486523b</uuid>
+                        <name>TV Staufen 1 LL</name>
+                        <club>TV Staufen</club>
+                    </host>
+                    <team>
+                        <number>1</number>
+                        <id>26178314</id>
+                        <uuid>581211cc-07ae-4fee-a1bb-adbf98da6563</uuid>
+                        <seasonTeamId>26178314</seasonTeamId>
+                        <name>TV Neustadt LLOH</name>
+                        <shortName></shortName>
+                        <clubCode></clubCode>
+                        <club>
+                            <name>TV Neustadt</name>
+                            <shortName></shortName>
+                        </club>
+                    </team>
+                    <team>
+                        <number>2</number>
+                        <id>25921412</id>
+                        <uuid>5a65e070-8dc9-4d23-bab8-2307b6921601</uuid>
+                        <seasonTeamId>25921412</seasonTeamId>
+                        <name>VC Müllheim 1 LL</name>
+                        <shortName></shortName>
+                        <clubCode></clubCode>
+                        <club>
+                            <name>VC Müllheim</name>
+                            <shortName></shortName>
+                        </club>
+                    </team>
+                    <matchSeries>
+    <id>25754861</id>
+    <uuid>988e0d13-5699-40f3-a0be-0f20050344fe</uuid>
+    <allSeasonId>6802ca20-191c-4961-808d-8cb457327af6</allSeasonId>
+    <name>Landespokal Herren 2023</name>
+    <shortName>PokalHe</shortName>
+    <type>Competition</type>
+        <updated>2023-07-19 09:55:30.16</updated>
+        <structureUpdated>2023-07-19 09:55:30.16</structureUpdated>
+        <resultsUpdated>2022-09-25 23:04:14.381</resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>25754803</id>
+            <uuid>a046e032-06f3-4a61-9481-f32d3336c746</uuid>
+            <name>SBVV Landespokal</name>
+            <shortName>SBVV-Pokal</shortName>
+            <hierarchyLevel>3</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>25754803</id>
+                    <name>SBVV Landespokal</name>
+                    <shortName>SBVV-Pokal</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25754713</id>
+                    <name>Regionalpokal</name>
+                    <shortName>Regionalpokal</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25754712</id>
+                    <name>Pokalwettbewerbe</name>
+                    <shortName>P</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25751072</id>
+                    <name>Allgemeiner Spielbetrieb</name>
+                    <shortName>alg</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>Südbadischer Volleyball-Verband</name>
+            <shortName>SBVV</shortName>
+        </association>
+                    </matchSeries>
+                    <location>
+                            <id>928</id>
+                            <name>Kreissporthalle</name>
+                            <street>Krichelnweg 1</street>
+                            <extraField>-</extraField>
+                            <postalCode>79219</postalCode>
+                            <city>Staufen</city>
+                            <note>Anzahl Spielfelder 3 - Zulassung bis VL - Zulassung am 37435 - Ausnahme</note>
+                    </location>
+                    <referees>
+                    </referees>
+                </match>
         </matches>

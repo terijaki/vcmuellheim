@@ -2,6 +2,228 @@
   "matches": {
     "+@xmlns": "http://sams-server.de/api/xml/ns/matches",
     "+@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-    "+@xsi:schemaLocation": "http://sams-server.de/api/xml/ns/matches matches.xsd"
+    "+@xsi:schemaLocation": "http://sams-server.de/api/xml/ns/matches matches.xsd",
+    "match": [
+      {
+        "id": "26445625",
+        "uuid": "42efa23e-2ecc-4d36-810a-a1d829d98601",
+        "number": "4",
+        "date": "24.09.2023",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "true",
+        "gameReassessed": "false",
+        "host": {
+          "id": "26178350",
+          "uuid": "86123d72-13fd-4f6e-84a6-27b75486523b",
+          "name": "TV Staufen 1 LL",
+          "club": "TV Staufen"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "26178350",
+            "uuid": "86123d72-13fd-4f6e-84a6-27b75486523b",
+            "seasonTeamId": "26178350",
+            "name": "TV Staufen 1 LL",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TV Staufen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "25921412",
+            "uuid": "5a65e070-8dc9-4d23-bab8-2307b6921601",
+            "seasonTeamId": "25921412",
+            "name": "VC Müllheim 1 LL",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "25754861",
+          "uuid": "988e0d13-5699-40f3-a0be-0f20050344fe",
+          "allSeasonId": "6802ca20-191c-4961-808d-8cb457327af6",
+          "name": "Landespokal Herren 2023",
+          "shortName": "PokalHe",
+          "type": "Competition",
+          "updated": "2023-07-19 09:55:30.16",
+          "structureUpdated": "2023-07-19 09:55:30.16",
+          "resultsUpdated": "2022-09-25 23:04:14.381",
+          "season": {
+            "id": "25640073",
+            "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "25754803",
+            "uuid": "a046e032-06f3-4a61-9481-f32d3336c746",
+            "name": "SBVV Landespokal",
+            "shortName": "SBVV-Pokal",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "25754803",
+                "name": "SBVV Landespokal",
+                "shortName": "SBVV-Pokal",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "25754713",
+                "name": "Regionalpokal",
+                "shortName": "Regionalpokal",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "25754712",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "25751072",
+                "name": "Allgemeiner Spielbetrieb",
+                "shortName": "alg",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "928",
+          "name": "Kreissporthalle",
+          "street": "Krichelnweg 1",
+          "extraField": "-",
+          "postalCode": "79219",
+          "city": "Staufen",
+          "note": "Anzahl Spielfelder 3 - Zulassung bis VL - Zulassung am 37435 - Ausnahme"
+        },
+        "referees": null
+      },
+      {
+        "id": "26445631",
+        "uuid": "96a6ea26-592a-4e19-a899-de5e20eede33",
+        "number": "5",
+        "date": "24.09.2023",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "true",
+        "gameReassessed": "false",
+        "host": {
+          "id": "26178350",
+          "uuid": "86123d72-13fd-4f6e-84a6-27b75486523b",
+          "name": "TV Staufen 1 LL",
+          "club": "TV Staufen"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "26178314",
+            "uuid": "581211cc-07ae-4fee-a1bb-adbf98da6563",
+            "seasonTeamId": "26178314",
+            "name": "TV Neustadt LLOH",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TV Neustadt",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "25921412",
+            "uuid": "5a65e070-8dc9-4d23-bab8-2307b6921601",
+            "seasonTeamId": "25921412",
+            "name": "VC Müllheim 1 LL",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "25754861",
+          "uuid": "988e0d13-5699-40f3-a0be-0f20050344fe",
+          "allSeasonId": "6802ca20-191c-4961-808d-8cb457327af6",
+          "name": "Landespokal Herren 2023",
+          "shortName": "PokalHe",
+          "type": "Competition",
+          "updated": "2023-07-19 09:55:30.16",
+          "structureUpdated": "2023-07-19 09:55:30.16",
+          "resultsUpdated": "2022-09-25 23:04:14.381",
+          "season": {
+            "id": "25640073",
+            "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "25754803",
+            "uuid": "a046e032-06f3-4a61-9481-f32d3336c746",
+            "name": "SBVV Landespokal",
+            "shortName": "SBVV-Pokal",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "25754803",
+                "name": "SBVV Landespokal",
+                "shortName": "SBVV-Pokal",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "25754713",
+                "name": "Regionalpokal",
+                "shortName": "Regionalpokal",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "25754712",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "25751072",
+                "name": "Allgemeiner Spielbetrieb",
+                "shortName": "alg",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "928",
+          "name": "Kreissporthalle",
+          "street": "Krichelnweg 1",
+          "extraField": "-",
+          "postalCode": "79219",
+          "city": "Staufen",
+          "note": "Anzahl Spielfelder 3 - Zulassung bis VL - Zulassung am 37435 - Ausnahme"
+        },
+        "referees": null
+      }
+    ]
   }
 }
