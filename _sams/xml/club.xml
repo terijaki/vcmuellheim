@@ -160,8 +160,8 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-07-14 08:51:23.526</updated>
-        <structureUpdated>2023-07-14 08:51:23.526</structureUpdated>
+        <updated>2023-07-19 10:37:15.463</updated>
+        <structureUpdated>2023-07-19 10:37:15.463</structureUpdated>
         <resultsUpdated>2023-03-21 08:58:19.397</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -479,9 +479,9 @@
     <id>25921412</id>
     <uuid>5a65e070-8dc9-4d23-bab8-2307b6921601</uuid>
     <seasonTeamId>25921412</seasonTeamId>
-    <placeCipher>0</placeCipher>
+    <placeCipher>8</placeCipher>
     <name>VC Müllheim 1 LL</name>
-    <shortName>VCM</shortName>
+    <shortName></shortName>
     <clubCode></clubCode>
     <status>ACTIVE</status>
     <www>http://vcmuellheim.de</www>
@@ -505,8 +505,8 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-07-15 18:04:21.066</updated>
-        <structureUpdated>2023-07-15 18:04:21.066</structureUpdated>
+        <updated>2023-07-19 09:55:30.16</updated>
+        <structureUpdated>2023-07-19 09:55:30.16</structureUpdated>
         <resultsUpdated>2022-09-25 23:04:14.381</resultsUpdated>
         <season>
             <id>25640073</id>
