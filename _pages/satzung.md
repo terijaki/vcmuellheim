@@ -112,9 +112,7 @@ Gegen die Entscheidung des Spielerrates ist der Einspruch innerhalb von 2 Wochen
 ### § 13 Zuständigkeit und Beschlussfassung des Spielerrates
 1. Der Spielerrat berät und beschließt:
 * über alle ihm durch diese Satzung zugewiesenen Angelegenheiten.
-* über alle anderen den Verein betreffenden Angelegenheiten von grundlegender
-
-Bedeutung, soweit diese nicht der Mitgliederversammlung vorbehalten sind.
+* über alle anderen den Verein betreffenden Angelegenheiten von grundlegender Bedeutung, soweit diese nicht der Mitgliederversammlung vorbehalten sind.
 2. Die Sitzungen werden vom 1. Vorsitzenden oder bei Verhinderung durch einen Beauftragten einberufen und geleitet. Die Einberufung hat spätestens 1 Woche vor der Sitzung zu erfolgen.
 3. Der Spielerrat ist ohne Rücksicht auf die Zahl der erschienenen Mitglieder beschlussfähig. Er entscheidet durch Stimmenmehrheit. Bei Stimmengleichheit gilt der Antrag als abgelehnt; eine weitere Abstimmung ist in der nächsten Spielerratsitzung jedoch möglich.
 4. Scheidet ein Mitglied des Spielerrates mit Ausnahme des Vorstands, des Jugendleiters, der Spielführer oder deren Stellvertreter, während der Amtszeit aus, so ist der Spielerrat berechtigt, selbst eine Ergänzungswahl vorzunehmen. Die Ergänzungswahl der Spielführer oder ihrer Stellvertreter obliegt den betreffenden Mannschaften.
