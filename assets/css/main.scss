@@ -962,7 +962,27 @@ h6 {
 /* ------ Fotos ------ */
 
 
-/* ------ Forestry CMS ------ */
-div[data-tooltip="Previews Server is Stopped"] {
-  display: none;
+
+/* ------ Print Settings ------ */
+@media print {
+  .nav {
+    display: none;
+  }
+  #shortintro {
+    background: transparent!important;
+    padding-top: 5px!important;
+    padding-bottom: 5px!important;
+    h3 {
+      color: #000000!important;
+    }
+  }
+  #page-simple {
+    background: transparent;
+    .box, .card {
+      box-shadow: none!important;
+    }
+  }
+  .main {
+    display: block;
+  }
 }
