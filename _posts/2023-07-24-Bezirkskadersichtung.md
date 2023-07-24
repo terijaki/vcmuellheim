@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: Bezirkskadersichtung 2023 in Freiburg
 thumbnail: "/upload/2023/07/24/bezirkskadersichtung0.jpg"
 gallery:
