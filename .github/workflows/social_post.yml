@@ -6,13 +6,16 @@ concurrency:
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '_posts/**'
+  workflow_run:
+    workflows:
+      - Deploy Jekyll with GitHub Pages
+    types:
+      - completed
 
 jobs:
   New-Posts-for-Social:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     outputs:
       posts: ${{steps.scanposts.outputs.posts}} #array of posts not yet posted
       messages: ${{steps.messagesforsocial.outputs.messages}} #array of messages to post
