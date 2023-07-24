@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: Neues von der Herren 2
 thumbnail: "/upload/2023/07/24/herren2_1.jpg"
 gallery:
