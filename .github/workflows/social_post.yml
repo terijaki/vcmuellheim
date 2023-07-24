@@ -97,11 +97,6 @@ jobs:
           - ${{fromJSON(needs.New-Posts-for-Social.outputs.messages)}}
     runs-on: ubuntu-latest
     steps:
-      - name: Sleep for 10 minutes
-        uses: kibertoad/wait-action@1.0.1
-        with:
-          time: '10m'
-
       - name: Send Tweet
         continue-on-error: true
         uses: devigned/go-twitter-action@v1
