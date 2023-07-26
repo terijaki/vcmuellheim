@@ -3,12 +3,12 @@
                 <match>
                     <id>26445625</id>
                     <uuid>42efa23e-2ecc-4d36-810a-a1d829d98601</uuid>
-                    <number>4</number>
-                    <date>24.09.2023</date>
-                    <time>11:00</time>
+                    <number>3</number>
+                    <date>16.09.2023</date>
+                    <time>10:30</time>
                     <delayPossible>false</delayPossible>
                     <decidingMatch>false</decidingMatch>
-                    <indefinitelyRescheduled>true</indefinitelyRescheduled>
+                    <indefinitelyRescheduled>false</indefinitelyRescheduled>
                     <gameReassessed>false</gameReassessed>
                     <host>
                         <id>26178350</id>
@@ -49,8 +49,8 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-07-20 10:31:40.198</updated>
-        <structureUpdated>2023-07-20 10:31:40.198</structureUpdated>
+        <updated>2023-07-25 10:27:38.508</updated>
+        <structureUpdated>2023-07-25 10:27:38.508</structureUpdated>
         <resultsUpdated>2022-09-25 23:04:14.381</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -110,12 +110,12 @@
                 <match>
                     <id>26445631</id>
                     <uuid>96a6ea26-592a-4e19-a899-de5e20eede33</uuid>
-                    <number>5</number>
-                    <date>24.09.2023</date>
-                    <time>11:00</time>
+                    <number>4</number>
+                    <date>16.09.2023</date>
+                    <time>10:30</time>
                     <delayPossible>false</delayPossible>
                     <decidingMatch>false</decidingMatch>
-                    <indefinitelyRescheduled>true</indefinitelyRescheduled>
+                    <indefinitelyRescheduled>false</indefinitelyRescheduled>
                     <gameReassessed>false</gameReassessed>
                     <host>
                         <id>26178350</id>
@@ -156,8 +156,8 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-07-20 10:31:40.198</updated>
-        <structureUpdated>2023-07-20 10:31:40.198</structureUpdated>
+        <updated>2023-07-25 10:27:38.508</updated>
+        <structureUpdated>2023-07-25 10:27:38.508</structureUpdated>
         <resultsUpdated>2022-09-25 23:04:14.381</resultsUpdated>
         <season>
             <id>25640073</id>
