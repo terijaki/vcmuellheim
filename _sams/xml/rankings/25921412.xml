@@ -8,8 +8,8 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-08-07 11:31:16.268</updated>
-        <structureUpdated>2023-08-07 11:31:16.267</structureUpdated>
+        <updated>2023-08-15 09:25:05.349</updated>
+        <structureUpdated>2023-08-15 09:25:05.349</structureUpdated>
         <resultsUpdated>2022-09-25 23:04:14.381</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -54,94 +54,4 @@
             <shortName>SBVV</shortName>
         </association>
                 </matchSeries>
-                    <ranking>
-                        <place></place>
-                        <team>
-                            <id>26217160</id>
-                            <uuid>27c1ad4b-1a58-4113-b016-69087acad215</uuid>
-                            <name>FT 1844 Freiburg 2 RL</name>
-                            <club>FT 1844 Freiburg</club>
-                        </team>
-                    </ranking>
-                    <ranking>
-                        <place></place>
-                        <team>
-                            <id>26217201</id>
-                            <uuid>b16cfa14-2614-4567-aac4-09f8a170584f</uuid>
-                            <name>SvO Rieselfeld  1 BL</name>
-                            <club>Sport vor Ort Rieselfeld</club>
-                        </team>
-                    </ranking>
-                    <ranking>
-                        <place></place>
-                        <team>
-                            <id>25921425</id>
-                            <uuid>1197ab3d-b58d-4dc7-8fd2-c00a5df2c722</uuid>
-                            <name>TG Schwenningen 1 DL</name>
-                            <club>TG Schwenningen</club>
-                        </team>
-                    </ranking>
-                    <ranking>
-                        <place></place>
-                        <team>
-                            <id>25773050</id>
-                            <uuid>16111236-8c50-4480-9df5-1a163f9fdaf7</uuid>
-                            <name>TV Bad Säckingen 1 VL</name>
-                            <club>TV Bad Säckingen</club>
-                        </team>
-                    </ranking>
-                    <ranking>
-                        <place></place>
-                        <team>
-                            <id>26178314</id>
-                            <uuid>581211cc-07ae-4fee-a1bb-adbf98da6563</uuid>
-                            <name>TV Neustadt LLOH</name>
-                            <club>TV Neustadt</club>
-                        </team>
-                    </ranking>
-                    <ranking>
-                        <place></place>
-                        <team>
-                            <id>26178350</id>
-                            <uuid>86123d72-13fd-4f6e-84a6-27b75486523b</uuid>
-                            <name>TV Staufen 1 LL</name>
-                            <club>TV Staufen</club>
-                        </team>
-                    </ranking>
-                    <ranking>
-                        <place></place>
-                        <team>
-                            <id>25841012</id>
-                            <uuid>597db717-9596-45ec-a6a5-3dfb19e46cfd</uuid>
-                            <name>TV Staufen 2 BL</name>
-                            <club>TV Staufen</club>
-                        </team>
-                    </ranking>
-                    <ranking>
-                        <place></place>
-                        <team>
-                            <id>25786125</id>
-                            <uuid>923f18ef-d5c6-4c0e-acd0-deffb70e22ba</uuid>
-                            <name>VC Haslach LL</name>
-                            <club>VC Haslach</club>
-                        </team>
-                    </ranking>
-                    <ranking>
-                        <place></place>
-                        <team>
-                            <id>25921412</id>
-                            <uuid>5a65e070-8dc9-4d23-bab8-2307b6921601</uuid>
-                            <name>VC Müllheim 1 LL</name>
-                            <club>VC Müllheim</club>
-                        </team>
-                    </ranking>
-                    <ranking>
-                        <place></place>
-                        <team>
-                            <id>26100266</id>
-                            <uuid>b1092c6f-983d-405e-b8f1-3ea427f06871</uuid>
-                            <name>VC Offenburg  VL</name>
-                            <club>VC Offenburg</club>
-                        </team>
-                    </ranking>
         </rankings>

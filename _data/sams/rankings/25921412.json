@@ -7,8 +7,8 @@
       "name": "Landespokal Herren 2023",
       "shortName": "PokalHe",
       "type": "Competition",
-      "updated": "2023-08-07 11:31:16.268",
-      "structureUpdated": "2023-08-07 11:31:16.267",
+      "updated": "2023-08-15 09:25:05.349",
+      "structureUpdated": "2023-08-15 09:25:05.349",
       "resultsUpdated": "2022-09-25 23:04:14.381",
       "season": {
         "id": "25640073",
@@ -54,98 +54,6 @@
         "name": "Südbadischer Volleyball-Verband",
         "shortName": "SBVV"
       }
-    },
-    "ranking": [
-      {
-        "place": null,
-        "team": {
-          "id": "26217160",
-          "uuid": "27c1ad4b-1a58-4113-b016-69087acad215",
-          "name": "FT 1844 Freiburg 2 RL",
-          "club": "FT 1844 Freiburg"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "26217201",
-          "uuid": "b16cfa14-2614-4567-aac4-09f8a170584f",
-          "name": "SvO Rieselfeld  1 BL",
-          "club": "Sport vor Ort Rieselfeld"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "25921425",
-          "uuid": "1197ab3d-b58d-4dc7-8fd2-c00a5df2c722",
-          "name": "TG Schwenningen 1 DL",
-          "club": "TG Schwenningen"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "25773050",
-          "uuid": "16111236-8c50-4480-9df5-1a163f9fdaf7",
-          "name": "TV Bad Säckingen 1 VL",
-          "club": "TV Bad Säckingen"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "26178314",
-          "uuid": "581211cc-07ae-4fee-a1bb-adbf98da6563",
-          "name": "TV Neustadt LLOH",
-          "club": "TV Neustadt"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "26178350",
-          "uuid": "86123d72-13fd-4f6e-84a6-27b75486523b",
-          "name": "TV Staufen 1 LL",
-          "club": "TV Staufen"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "25841012",
-          "uuid": "597db717-9596-45ec-a6a5-3dfb19e46cfd",
-          "name": "TV Staufen 2 BL",
-          "club": "TV Staufen"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "25786125",
-          "uuid": "923f18ef-d5c6-4c0e-acd0-deffb70e22ba",
-          "name": "VC Haslach LL",
-          "club": "VC Haslach"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "25921412",
-          "uuid": "5a65e070-8dc9-4d23-bab8-2307b6921601",
-          "name": "VC Müllheim 1 LL",
-          "club": "VC Müllheim"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "26100266",
-          "uuid": "b1092c6f-983d-405e-b8f1-3ea427f06871",
-          "name": "VC Offenburg  VL",
-          "club": "VC Offenburg"
-        }
-      }
-    ]
+    }
   }
 }
