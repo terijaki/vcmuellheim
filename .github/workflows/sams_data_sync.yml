@@ -50,8 +50,17 @@ jobs:
           mkdir -p $(dirname ${{env.SAMS_CLUB_XML}})
           curl -o ${{env.SAMS_CLUB_XML}} "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID" -f --retry 10 --retry-delay 60 --connect-timeout 30
 
-      - name: Git Commit & Push
+      - name: Check for maintenance mode
+        id: sams_maintenance_check
         if: steps.sams_query_club.conclusion == 'success'
+        run: |
+          if grep -q "Wartung" ${{env.SAMS_CLUB_XML}}; then
+          echo "🛑 HALT! SAMS seems to be in maintenance mode. 🛑"
+          exit 1
+          fi
+          
+      - name: Git Commit & Push
+        if: steps.sams_maintenance_check.conclusion == 'success'
         continue-on-error: true
         run: |
           git add "${{env.SAMS_CLUB_XML}}"
@@ -61,7 +70,7 @@ jobs:
 
       - name: Isolate Teams from XML # this reads the XML file and extracts the team IDs
         id: teamids-from-club
-        if: steps.sams_query_club.conclusion == 'success'
+        if: steps.sams_maintenance_check.conclusion == 'success'
         uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
           xml-file: "_sams/xml/club.xml"
@@ -74,13 +83,13 @@ jobs:
 
       - name: Convert XML to JSON
         id: xml_to_json
-        if: steps.sams_query_club.conclusion == 'success'
+        if: steps.sams_maintenance_check.conclusion == 'success'
         run: |
           mkdir -p $(dirname ${{env.SAMS_CLUB_JSON}})
           cat ${{env.SAMS_CLUB_XML}} | yq -pxml --xml-skip-proc-inst -ojson > ${{env.SAMS_CLUB_JSON}}
 
       - name: Git Commit & Push
-        if: steps.sams_query_club.conclusion == 'success'
+        if: steps.sams_maintenance_check.conclusion == 'success'
         continue-on-error: true
         run: |
           git add "${{env.SAMS_CLUB_JSON}}"
