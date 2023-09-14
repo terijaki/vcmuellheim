@@ -764,18 +764,29 @@ h6 {
   }
 }
 @media (max-width: 767px) {
-  #news .box {
-    margin-bottom: 20px;
-    overflow: hidden;
+  #news {
+    .newsposts {
+      .box {
+        margin-bottom: 20px;
+        overflow: hidden;
 
-    a.thumbnail {
-      width: calc(100% + 60px);
-      margin: -30px -30px 10px -30px;
-      position: static;
+        a.thumbnail {
+          width: calc(100% + 60px);
+          margin: -30px -30px 10px -30px;
+          position: static;
 
-      div {
-        background-blend-mode: unset;
-        filter: none;
+          div {
+            background-blend-mode: unset;
+            filter: none;
+            transform: scale(1);
+          }
+        }
+
+        &:hover {
+          a.thumbnail div {
+            transform: scale(1);
+          }
+        }
       }
     }
   }
