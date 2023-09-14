@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: '"Hallo Müllheim" Interview mit Dominik'
 ---
 
