@@ -59,8 +59,8 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-09-14 00:09:01.407</updated>
-        <structureUpdated>2023-09-14 00:09:01.407</structureUpdated>
+        <updated>2023-09-14 20:16:01.958</updated>
+        <structureUpdated>2023-09-14 20:16:01.958</structureUpdated>
         <resultsUpdated>2023-07-15 09:01:35.74</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -160,8 +160,8 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-09-13 12:31:34.222</updated>
-        <structureUpdated>2023-09-13 12:31:34.222</structureUpdated>
+        <updated>2023-09-14 09:39:14.11</updated>
+        <structureUpdated>2023-09-14 09:39:14.11</structureUpdated>
         <resultsUpdated>2023-03-21 08:58:19.397</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -267,8 +267,8 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-09-13 18:57:34.206</updated>
-        <structureUpdated>2023-09-13 18:57:34.206</structureUpdated>
+        <updated>2023-09-14 13:47:14.738</updated>
+        <structureUpdated>2023-09-14 13:47:14.738</structureUpdated>
         <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -386,8 +386,8 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-09-13 18:57:34.206</updated>
-        <structureUpdated>2023-09-13 18:57:34.206</structureUpdated>
+        <updated>2023-09-14 13:47:14.738</updated>
+        <structureUpdated>2023-09-14 13:47:14.738</structureUpdated>
         <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -505,8 +505,8 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-09-13 20:53:31.018</updated>
-        <structureUpdated>2023-09-13 13:42:46.402</structureUpdated>
+        <updated>2023-09-14 16:11:16.251</updated>
+        <structureUpdated>2023-09-14 16:11:16.251</structureUpdated>
         <resultsUpdated>2023-09-13 20:53:31.018</resultsUpdated>
         <season>
             <id>25640073</id>
