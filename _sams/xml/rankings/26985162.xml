@@ -8,8 +8,8 @@
     <name>West Quali - U16m am 3.12.2023</name>
     <shortName>WQ_U16m</shortName>
     <type>Competition</type>
-        <updated>2023-08-14 12:50:19.149</updated>
-        <structureUpdated>2023-08-14 12:50:19.149</structureUpdated>
+        <updated>2023-09-19 17:07:46.921</updated>
+        <structureUpdated>2023-09-19 17:07:46.921</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -73,6 +73,15 @@
                             <uuid>b4da3001-b54c-4411-83de-368062b22328</uuid>
                             <name>USC Freiburg</name>
                             <club>USC Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27036335</id>
+                            <uuid>a06d4659-01fb-4dd4-9b5f-2cbfd67fc391</uuid>
+                            <name>VC Minseln</name>
+                            <club>VC Minseln</club>
                         </team>
                     </ranking>
                     <ranking>
