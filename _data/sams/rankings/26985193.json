@@ -67,14 +67,25 @@
         "shortName": "SBVV-West"
       }
     },
-    "ranking": {
-      "place": null,
-      "team": {
-        "id": "26985193",
-        "uuid": "a43c4527-cf19-43c6-87e1-b0190bfe49b1",
-        "name": "VC Müllheim",
-        "club": "VC Müllheim"
+    "ranking": [
+      {
+        "place": null,
+        "team": {
+          "id": "26985193",
+          "uuid": "a43c4527-cf19-43c6-87e1-b0190bfe49b1",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27048436",
+          "uuid": "af00be56-c960-48c5-ac38-3070f7cecbde",
+          "name": "VC Offenburg",
+          "club": "VC Offenburg"
+        }
       }
-    }
+    ]
   }
 }

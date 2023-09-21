@@ -67,14 +67,25 @@
         "shortName": "SBVV-West"
       }
     },
-    "ranking": {
-      "place": null,
-      "team": {
-        "id": "26985151",
-        "uuid": "3100da60-f7ae-46e0-a233-2ef81af2e46a",
-        "name": "VC Müllheim",
-        "club": "VC Müllheim"
+    "ranking": [
+      {
+        "place": null,
+        "team": {
+          "id": "27048388",
+          "uuid": "3dbea4de-7073-4da7-a67a-686f85765f35",
+          "name": "VC Minseln",
+          "club": "VC Minseln"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "26985151",
+          "uuid": "3100da60-f7ae-46e0-a233-2ef81af2e46a",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        }
       }
-    }
+    ]
   }
 }
