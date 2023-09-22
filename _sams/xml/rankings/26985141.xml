@@ -69,6 +69,42 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>27057512</id>
+                            <uuid>2acef049-6c76-4596-91de-17d9e03f00ca</uuid>
+                            <name>FT 1844 Freiburg 1</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27057526</id>
+                            <uuid>9725572b-4308-439a-9586-b79fe1a6c816</uuid>
+                            <name>FT 1844 Freiburg 2</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27057541</id>
+                            <uuid>9374df18-f49b-4419-9aa7-40109bf1c971</uuid>
+                            <name>FT 1844 Freiburg 3</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27057556</id>
+                            <uuid>045a7acc-7ffe-4fd6-8fcc-49f791190861</uuid>
+                            <name>FT 1844 Freiburg 4</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>26985141</id>
                             <uuid>086def7d-9d7a-48d1-aa76-fa45f59d317b</uuid>
                             <name>VC Müllheim I</name>

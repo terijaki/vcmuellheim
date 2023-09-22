@@ -71,6 +71,42 @@
       {
         "place": null,
         "team": {
+          "id": "27057512",
+          "uuid": "2acef049-6c76-4596-91de-17d9e03f00ca",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27057526",
+          "uuid": "9725572b-4308-439a-9586-b79fe1a6c816",
+          "name": "FT 1844 Freiburg 2",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27057541",
+          "uuid": "9374df18-f49b-4419-9aa7-40109bf1c971",
+          "name": "FT 1844 Freiburg 3",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27057556",
+          "uuid": "045a7acc-7ffe-4fd6-8fcc-49f791190861",
+          "name": "FT 1844 Freiburg 4",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "26985141",
           "uuid": "086def7d-9d7a-48d1-aa76-fa45f59d317b",
           "name": "VC Müllheim I",

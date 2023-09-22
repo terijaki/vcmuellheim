@@ -71,6 +71,24 @@
       {
         "place": null,
         "team": {
+          "id": "27057484",
+          "uuid": "1213d75e-12c1-4ccf-aafc-81a82cfdb2b1",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27057498",
+          "uuid": "185cc864-b704-4c98-97cc-0ee81b4b9897",
+          "name": "FT 1844 Freiburg 2",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "26984912",
           "uuid": "b4da3001-b54c-4411-83de-368062b22328",
           "name": "USC Freiburg",

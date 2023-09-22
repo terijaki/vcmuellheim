@@ -69,6 +69,24 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>27057484</id>
+                            <uuid>1213d75e-12c1-4ccf-aafc-81a82cfdb2b1</uuid>
+                            <name>FT 1844 Freiburg 1</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27057498</id>
+                            <uuid>185cc864-b704-4c98-97cc-0ee81b4b9897</uuid>
+                            <name>FT 1844 Freiburg 2</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>26984912</id>
                             <uuid>b4da3001-b54c-4411-83de-368062b22328</uuid>
                             <name>USC Freiburg</name>
