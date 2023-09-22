@@ -55,8 +55,8 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-19 10:51:08.382",
-          "structureUpdated": "2023-09-19 10:51:08.382",
+          "updated": "2023-09-21 20:34:19.396",
+          "structureUpdated": "2023-09-21 20:34:19.396",
           "resultsUpdated": "2023-09-17 23:08:30.122",
           "season": {
             "id": "25640073",
@@ -201,8 +201,8 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-19 10:51:08.382",
-          "structureUpdated": "2023-09-19 10:51:08.382",
+          "updated": "2023-09-21 20:34:19.396",
+          "structureUpdated": "2023-09-21 20:34:19.396",
           "resultsUpdated": "2023-09-17 23:08:30.122",
           "season": {
             "id": "25640073",
@@ -295,6 +295,226 @@
         },
         "spectators": "20",
         "netDuration": "82"
+      },
+      {
+        "id": "27053989",
+        "uuid": "66e9ef21-4245-4bdb-9fe0-282dda499b7d",
+        "number": "5",
+        "date": "24.09.2023",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "25786125",
+          "uuid": "923f18ef-d5c6-4c0e-acd0-deffb70e22ba",
+          "name": "VC Haslach LL",
+          "club": "VC Haslach"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "25841012",
+            "uuid": "597db717-9596-45ec-a6a5-3dfb19e46cfd",
+            "seasonTeamId": "25841012",
+            "name": "TV Staufen 2 BL",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TV Staufen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "25921412",
+            "uuid": "5a65e070-8dc9-4d23-bab8-2307b6921601",
+            "seasonTeamId": "25921412",
+            "name": "VC Müllheim 1 LL",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "25754861",
+          "uuid": "988e0d13-5699-40f3-a0be-0f20050344fe",
+          "allSeasonId": "6802ca20-191c-4961-808d-8cb457327af6",
+          "name": "Landespokal Herren 2023",
+          "shortName": "PokalHe",
+          "type": "Competition",
+          "updated": "2023-09-21 20:34:19.396",
+          "structureUpdated": "2023-09-21 20:34:19.396",
+          "resultsUpdated": "2023-09-17 23:08:30.122",
+          "season": {
+            "id": "25640073",
+            "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "25754803",
+            "uuid": "a046e032-06f3-4a61-9481-f32d3336c746",
+            "name": "SBVV Landespokal",
+            "shortName": "SBVV-Pokal",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "25754803",
+                "name": "SBVV Landespokal",
+                "shortName": "SBVV-Pokal",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "25754713",
+                "name": "Regionalpokal",
+                "shortName": "Regionalpokal",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "25754712",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "25751072",
+                "name": "Allgemeiner Spielbetrieb",
+                "shortName": "alg",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "32781",
+          "name": "Eichenbach-Sporthalle",
+          "street": "Strickerweg 6",
+          "extraField": "-",
+          "postalCode": "77716",
+          "city": "Haslach",
+          "note": "-"
+        },
+        "referees": null
+      },
+      {
+        "id": "27053995",
+        "uuid": "759bce52-99ad-4ea1-83e5-4db9c0b302da",
+        "number": "6",
+        "date": "24.09.2023",
+        "time": "12:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "25786125",
+          "uuid": "923f18ef-d5c6-4c0e-acd0-deffb70e22ba",
+          "name": "VC Haslach LL",
+          "club": "VC Haslach"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "25921425",
+            "uuid": "1197ab3d-b58d-4dc7-8fd2-c00a5df2c722",
+            "seasonTeamId": "25921425",
+            "name": "TG Schwenningen 1 DL",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TG Schwenningen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "25921412",
+            "uuid": "5a65e070-8dc9-4d23-bab8-2307b6921601",
+            "seasonTeamId": "25921412",
+            "name": "VC Müllheim 1 LL",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "25754861",
+          "uuid": "988e0d13-5699-40f3-a0be-0f20050344fe",
+          "allSeasonId": "6802ca20-191c-4961-808d-8cb457327af6",
+          "name": "Landespokal Herren 2023",
+          "shortName": "PokalHe",
+          "type": "Competition",
+          "updated": "2023-09-21 20:34:19.396",
+          "structureUpdated": "2023-09-21 20:34:19.396",
+          "resultsUpdated": "2023-09-17 23:08:30.122",
+          "season": {
+            "id": "25640073",
+            "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "25754803",
+            "uuid": "a046e032-06f3-4a61-9481-f32d3336c746",
+            "name": "SBVV Landespokal",
+            "shortName": "SBVV-Pokal",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "25754803",
+                "name": "SBVV Landespokal",
+                "shortName": "SBVV-Pokal",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "25754713",
+                "name": "Regionalpokal",
+                "shortName": "Regionalpokal",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "25754712",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "25751072",
+                "name": "Allgemeiner Spielbetrieb",
+                "shortName": "alg",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "32781",
+          "name": "Eichenbach-Sporthalle",
+          "street": "Strickerweg 6",
+          "extraField": "-",
+          "postalCode": "77716",
+          "city": "Haslach",
+          "note": "-"
+        },
+        "referees": null
       }
     ]
   }
