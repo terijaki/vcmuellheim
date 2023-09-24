@@ -49,9 +49,9 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-09-24 15:36:35.968</updated>
+        <updated>2023-09-24 17:09:49.639</updated>
         <structureUpdated>2023-09-24 11:02:04.673</structureUpdated>
-        <resultsUpdated>2023-09-24 15:36:35.968</resultsUpdated>
+        <resultsUpdated>2023-09-24 17:09:49.639</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -190,9 +190,9 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-09-24 15:36:35.968</updated>
+        <updated>2023-09-24 17:09:49.639</updated>
         <structureUpdated>2023-09-24 11:02:04.673</structureUpdated>
-        <resultsUpdated>2023-09-24 15:36:35.968</resultsUpdated>
+        <resultsUpdated>2023-09-24 17:09:49.639</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -331,9 +331,9 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-09-24 15:36:35.968</updated>
+        <updated>2023-09-24 17:09:49.639</updated>
         <structureUpdated>2023-09-24 11:02:04.673</structureUpdated>
-        <resultsUpdated>2023-09-24 15:36:35.968</resultsUpdated>
+        <resultsUpdated>2023-09-24 17:09:49.639</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -460,9 +460,9 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-09-24 15:36:35.968</updated>
+        <updated>2023-09-24 17:09:49.639</updated>
         <structureUpdated>2023-09-24 11:02:04.673</structureUpdated>
-        <resultsUpdated>2023-09-24 15:36:35.968</resultsUpdated>
+        <resultsUpdated>2023-09-24 17:09:49.639</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -589,9 +589,9 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-09-24 15:36:35.968</updated>
+        <updated>2023-09-24 17:09:49.639</updated>
         <structureUpdated>2023-09-24 11:02:04.673</structureUpdated>
-        <resultsUpdated>2023-09-24 15:36:35.968</resultsUpdated>
+        <resultsUpdated>2023-09-24 17:09:49.639</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -724,9 +724,9 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-09-24 15:36:35.968</updated>
+        <updated>2023-09-24 17:09:49.639</updated>
         <structureUpdated>2023-09-24 11:02:04.673</structureUpdated>
-        <resultsUpdated>2023-09-24 15:36:35.968</resultsUpdated>
+        <resultsUpdated>2023-09-24 17:09:49.639</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -781,5 +781,33 @@
                     </location>
                     <referees>
                     </referees>
+                        <results>
+                            <winner>1</winner>
+                            <setPoints>2:1</setPoints>
+                            <ballPoints>68:65</ballPoints>
+                            <sets>
+                                        <set>
+                                            <number>1</number>
+                                            <points>22:25</points>
+                                            <winner>TEAM2</winner>
+                                            <duration>50</duration>
+                                        </set>
+                                        <set>
+                                            <number>2</number>
+                                            <points>25:21</points>
+                                            <winner>TEAM1</winner>
+                                            <duration>21</duration>
+                                        </set>
+                                        <set>
+                                            <number>3</number>
+                                            <points>21:19</points>
+                                            <winner>TEAM1</winner>
+                                            <duration>19</duration>
+                                        </set>
+                            </sets>
+                            <verified>false</verified>
+                        </results>
+                        <spectators>-</spectators>
+                        <netDuration>90</netDuration>
                 </match>
         </matches>
