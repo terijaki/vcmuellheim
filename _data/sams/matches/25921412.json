@@ -55,9 +55,9 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 13:14:02.095",
+          "updated": "2023-09-24 13:42:36.392",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 13:14:02.095",
+          "resultsUpdated": "2023-09-24 13:42:36.392",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -201,9 +201,9 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 13:14:02.095",
+          "updated": "2023-09-24 13:42:36.392",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 13:14:02.095",
+          "resultsUpdated": "2023-09-24 13:42:36.392",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -347,9 +347,9 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 13:14:02.095",
+          "updated": "2023-09-24 13:42:36.392",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 13:14:02.095",
+          "resultsUpdated": "2023-09-24 13:42:36.392",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -481,9 +481,9 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 13:14:02.095",
+          "updated": "2023-09-24 13:42:36.392",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 13:14:02.095",
+          "resultsUpdated": "2023-09-24 13:42:36.392",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -583,14 +583,14 @@
         "team": [
           {
             "number": "1",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
+            "id": "26217160",
+            "uuid": "27c1ad4b-1a58-4113-b016-69087acad215",
+            "seasonTeamId": "26217160",
+            "name": "FT 1844 Freiburg 2 RL",
+            "shortName": "FT 1844 Freiburg 2",
             "clubCode": null,
             "club": {
-              "name": null,
+              "name": "FT 1844 Freiburg",
               "shortName": null
             }
           },
@@ -615,9 +615,9 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 13:14:02.095",
+          "updated": "2023-09-24 13:42:36.392",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 13:14:02.095",
+          "resultsUpdated": "2023-09-24 13:42:36.392",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
