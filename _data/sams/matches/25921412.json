@@ -55,9 +55,9 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 13:42:36.392",
+          "updated": "2023-09-24 15:36:35.968",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 13:42:36.392",
+          "resultsUpdated": "2023-09-24 15:36:35.968",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -201,9 +201,9 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 13:42:36.392",
+          "updated": "2023-09-24 15:36:35.968",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 13:42:36.392",
+          "resultsUpdated": "2023-09-24 15:36:35.968",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -347,9 +347,9 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 13:42:36.392",
+          "updated": "2023-09-24 15:36:35.968",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 13:42:36.392",
+          "resultsUpdated": "2023-09-24 15:36:35.968",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -481,9 +481,9 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 13:42:36.392",
+          "updated": "2023-09-24 15:36:35.968",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 13:42:36.392",
+          "resultsUpdated": "2023-09-24 15:36:35.968",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -615,9 +615,149 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 13:42:36.392",
+          "updated": "2023-09-24 15:36:35.968",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 13:42:36.392",
+          "resultsUpdated": "2023-09-24 15:36:35.968",
+          "season": {
+            "id": "25640073",
+            "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "25754803",
+            "uuid": "a046e032-06f3-4a61-9481-f32d3336c746",
+            "name": "SBVV Landespokal",
+            "shortName": "SBVV-Pokal",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "25754803",
+                "name": "SBVV Landespokal",
+                "shortName": "SBVV-Pokal",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "25754713",
+                "name": "Regionalpokal",
+                "shortName": "Regionalpokal",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "25754712",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "25751072",
+                "name": "Allgemeiner Spielbetrieb",
+                "shortName": "alg",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "32781",
+          "name": "Eichenbach-Sporthalle",
+          "street": "Strickerweg 6",
+          "extraField": "-",
+          "postalCode": "77716",
+          "city": "Haslach",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:1",
+          "ballPoints": "63:54",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "23:25",
+                "winner": "TEAM2",
+                "duration": "27"
+              },
+              {
+                "number": "2",
+                "points": "25:20",
+                "winner": "TEAM1",
+                "duration": "25"
+              },
+              {
+                "number": "3",
+                "points": "15:9",
+                "winner": "TEAM1",
+                "duration": "14"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "20",
+        "netDuration": "66"
+      },
+      {
+        "id": "27054055",
+        "uuid": "25061d8e-1c0a-4a94-bde4-077a4cec8a4b",
+        "number": "9",
+        "date": "24.09.2023",
+        "time": "15:30",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "25786125",
+          "uuid": "923f18ef-d5c6-4c0e-acd0-deffb70e22ba",
+          "name": "VC Haslach LL",
+          "club": "VC Haslach"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "25921412",
+            "uuid": "5a65e070-8dc9-4d23-bab8-2307b6921601",
+            "seasonTeamId": "25921412",
+            "name": "VC Müllheim 1 LL",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "26100266",
+            "uuid": "b1092c6f-983d-405e-b8f1-3ea427f06871",
+            "seasonTeamId": "26100266",
+            "name": "VC Offenburg  VL",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Offenburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "25754861",
+          "uuid": "988e0d13-5699-40f3-a0be-0f20050344fe",
+          "allSeasonId": "6802ca20-191c-4961-808d-8cb457327af6",
+          "name": "Landespokal Herren 2023",
+          "shortName": "PokalHe",
+          "type": "Competition",
+          "updated": "2023-09-24 15:36:35.968",
+          "structureUpdated": "2023-09-24 11:02:04.673",
+          "resultsUpdated": "2023-09-24 15:36:35.968",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
