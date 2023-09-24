@@ -8,9 +8,9 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-09-24 17:09:49.639</updated>
+        <updated>2023-09-24 17:41:13.971</updated>
         <structureUpdated>2023-09-24 11:02:04.673</structureUpdated>
-        <resultsUpdated>2023-09-24 17:09:49.639</resultsUpdated>
+        <resultsUpdated>2023-09-24 17:41:13.971</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -54,6 +54,24 @@
             <shortName>SBVV</shortName>
         </association>
                 </matchSeries>
+                    <ranking>
+                        <place>1</place>
+                        <team>
+                            <id>26217160</id>
+                            <uuid>27c1ad4b-1a58-4113-b016-69087acad215</uuid>
+                            <name>FT 1844 Freiburg 2 RL</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place>2</place>
+                        <team>
+                            <id>25921425</id>
+                            <uuid>1197ab3d-b58d-4dc7-8fd2-c00a5df2c722</uuid>
+                            <name>TG Schwenningen 1 DL</name>
+                            <club>TG Schwenningen</club>
+                        </team>
+                    </ranking>
                     <ranking>
                         <place>3</place>
                         <team>

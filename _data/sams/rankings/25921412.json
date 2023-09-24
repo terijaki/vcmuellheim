@@ -7,9 +7,9 @@
       "name": "Landespokal Herren 2023",
       "shortName": "PokalHe",
       "type": "Competition",
-      "updated": "2023-09-24 17:09:49.639",
+      "updated": "2023-09-24 17:41:13.971",
       "structureUpdated": "2023-09-24 11:02:04.673",
-      "resultsUpdated": "2023-09-24 17:09:49.639",
+      "resultsUpdated": "2023-09-24 17:41:13.971",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -56,6 +56,24 @@
       }
     },
     "ranking": [
+      {
+        "place": "1",
+        "team": {
+          "id": "26217160",
+          "uuid": "27c1ad4b-1a58-4113-b016-69087acad215",
+          "name": "FT 1844 Freiburg 2 RL",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": "2",
+        "team": {
+          "id": "25921425",
+          "uuid": "1197ab3d-b58d-4dc7-8fd2-c00a5df2c722",
+          "name": "TG Schwenningen 1 DL",
+          "club": "TG Schwenningen"
+        }
+      },
       {
         "place": "3",
         "team": {
