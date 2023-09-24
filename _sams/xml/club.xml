@@ -59,8 +59,8 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-09-22 13:37:57.476</updated>
-        <structureUpdated>2023-09-22 13:37:57.476</structureUpdated>
+        <updated>2023-09-24 10:49:04.084</updated>
+        <structureUpdated>2023-09-24 10:49:04.084</structureUpdated>
         <resultsUpdated>2023-07-15 09:01:35.74</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -505,9 +505,9 @@
     <name>Landespokal Herren 2023</name>
     <shortName>PokalHe</shortName>
     <type>Competition</type>
-        <updated>2023-09-23 21:25:22.736</updated>
-        <structureUpdated>2023-09-23 21:25:22.736</structureUpdated>
-        <resultsUpdated>2023-09-17 23:08:30.122</resultsUpdated>
+        <updated>2023-09-24 13:14:02.095</updated>
+        <structureUpdated>2023-09-24 11:02:04.673</structureUpdated>
+        <resultsUpdated>2023-09-24 13:14:02.095</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
