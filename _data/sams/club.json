@@ -59,8 +59,8 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2023-09-24 10:49:04.084",
-            "structureUpdated": "2023-09-24 10:49:04.084",
+            "updated": "2023-09-25 12:23:57.002",
+            "structureUpdated": "2023-09-25 12:23:57.002",
             "resultsUpdated": "2023-07-15 09:01:35.74",
             "season": {
               "id": "25640073",
@@ -162,8 +162,8 @@
             "name": "Bezirksliga Herren Süd",
             "shortName": "bzl s h",
             "type": "League",
-            "updated": "2023-09-22 14:07:08.333",
-            "structureUpdated": "2023-09-22 14:07:08.333",
+            "updated": "2023-09-25 10:37:56.637",
+            "structureUpdated": "2023-09-25 10:37:56.637",
             "resultsUpdated": "2023-03-21 08:58:19.397",
             "season": {
               "id": "25640073",
@@ -513,9 +513,9 @@
             "name": "Landespokal Herren 2023",
             "shortName": "PokalHe",
             "type": "Competition",
-            "updated": "2023-09-24 17:41:13.971",
+            "updated": "2023-09-25 08:04:01.862",
             "structureUpdated": "2023-09-24 11:02:04.673",
-            "resultsUpdated": "2023-09-24 17:41:13.971",
+            "resultsUpdated": "2023-09-25 08:04:01.862",
             "season": {
               "id": "25640073",
               "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
