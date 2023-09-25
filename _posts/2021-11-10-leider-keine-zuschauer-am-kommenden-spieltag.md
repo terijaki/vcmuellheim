@@ -1,8 +1,9 @@
 ---
+title: "### Leider keine Zuschauer am kommenden Spieltag! ###"
+date: 2021-11-10 00:00:00 +01:00
 layout: post
-excerpt_separator: <!--more-->
+excerpt_separator: "<!--more-->"
 posted-on-social: true
-title: '### Leider keine Zuschauer am kommenden Spieltag! ###'
 thumbnail: ''
 _template: neuen_beitrag_erstellen
 ---

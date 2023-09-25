@@ -1,7 +1,8 @@
 ---
+title: DVV Informationen zur Rückkehr in den Sportbetrieb
+date: 2020-05-06 00:00:00 +02:00
 layout: post
 posted-on-social: true
-title: 'DVV Informationen zur Rückkehr in den Sportbetrieb'
 excerpt_separator: "<!-- more -->"
 ---
 

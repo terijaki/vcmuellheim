@@ -1,7 +1,7 @@
 ---
-layout: page
 title: Termine
-permalink: /termine/
+permalink: "/termine/"
+layout: page
 ---
 
 <main class="flex-grow-1 d-flex flex-column">

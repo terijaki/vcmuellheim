@@ -1,9 +1,10 @@
 ---
-layout: post
-excerpt_separator: <!--more-->
-posted-on-social: true
 title: Vorbereitung läuft!
-thumbnail: /upload/2021/09/02/image01.jpeg
+date: 2021-09-02 00:00:00 +02:00
+layout: post
+excerpt_separator: "<!--more-->"
+posted-on-social: true
+thumbnail: "/upload/2021/09/02/image01.jpeg"
 _template: neuen_beitrag_erstellen
 ---
 

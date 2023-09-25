@@ -1,7 +1,7 @@
 ---
-layout: page-simple
 title: Impressum des Volleyballclubs Müllheim
-permalink: /impressum/
+permalink: "/impressum/"
+layout: page-simple
 ---
 
 ### **Angaben gemäß § 5 TMG**

@@ -1,10 +1,11 @@
 ---
-layout: post
-excerpt_separator: <!--more-->
-posted-on-social: true
 title: Klasse Vorbereitungsturnier in Achern!
-thumbnail: /upload/2021/09/29/img_2490.jpg
-photoalbum: 'https://photos.app.goo.gl/Nehc96fumcYaYZua9'
+date: 2021-09-29 00:00:00 +02:00
+layout: post
+excerpt_separator: "<!--more-->"
+posted-on-social: true
+thumbnail: "/upload/2021/09/29/img_2490.jpg"
+photoalbum: https://photos.app.goo.gl/Nehc96fumcYaYZua9
 _template: neuen_beitrag_erstellen
 ---
 

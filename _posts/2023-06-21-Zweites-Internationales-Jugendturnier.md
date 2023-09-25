@@ -1,7 +1,8 @@
 ---
+title: 2. Internationales Jugendturnier erneut ein Riesenerfolg
+date: 2023-06-21 00:00:00 +02:00
 layout: post
 posted-on-social: true
-title: 2. Internationales Jugendturnier erneut ein Riesenerfolg
 thumbnail: "/upload/2023/06/21/jugendturnier00011.jpg"
 gallery:
 - "/upload/2023/06/21/jugendturnier00001.jpg"
@@ -57,6 +58,7 @@ gallery:
 - "/upload/2023/06/21/jugendturnier00053.jpg"
 - "/upload/2023/06/21/jugendturnier00054.jpg"
 ---
+
 Am letzten Samstag, den 17.06.2023 durften wir 18 Teams in zwei Altersklassen jeweils weiblich und männlich von folgenden Vereinen bei uns in der Halle begrüßen:
 
 Volley Mulhouse Alsace, TV Furtwangen, USC Freiburg, TUS Hüfingen, TV Freiburg-St.Georgen, VC Minseln, VC Bötzingen sowie von der VSG Mundingen.

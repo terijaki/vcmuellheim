@@ -1,7 +1,7 @@
 ---
-layout: page-simple
 title: Logo Dateien
-permalink: /logo/
+permalink: "/logo/"
+layout: page-simple
 ---
 
 Möchten Sie auf unseren Verein verweisen, oder benötigen Sie eine Vektorgrafik für einen Trikot Druck?

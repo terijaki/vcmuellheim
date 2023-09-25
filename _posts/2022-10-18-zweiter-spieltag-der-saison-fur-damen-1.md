@@ -1,9 +1,10 @@
 ---
-layout: post
-excerpt_separator: <!--more-->
-posted-on-social: true
 title: Zweiter Spieltag der Saison für Damen 1
-thumbnail: /upload/2022/10/18/img_0830.JPG
+date: 2022-10-18 00:00:00 +02:00
+layout: post
+excerpt_separator: "<!--more-->"
+posted-on-social: true
+thumbnail: "/upload/2022/10/18/img_0830.JPG"
 _template: neuen_beitrag_erstellen
 ---
 

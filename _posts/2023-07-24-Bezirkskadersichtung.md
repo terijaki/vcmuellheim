@@ -1,7 +1,8 @@
 ---
+title: Bezirkskadersichtung 2023 in Freiburg
+date: 2023-07-24 00:00:00 +02:00
 layout: post
 posted-on-social: true
-title: Bezirkskadersichtung 2023 in Freiburg
 thumbnail: "/upload/2023/07/24/bezirkskadersichtung0.jpg"
 gallery:
 - "/upload/2023/07/24/bezirkskadersichtung1.jpg"

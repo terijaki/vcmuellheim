@@ -1,10 +1,12 @@
 ---
+title: Damen I holen weiteren Sieg
+date: 2022-11-15 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
-title: Damen I holen weiteren Sieg
 thumbnail: "/upload/2022/11/15/img-20221113-wa0152.jpg"
 ---
+
 Am vergangenen Sonntag den 13.11.22 durften wir von der Damen I zu unserem nächsten Spieltag nach Staufen fahren. Dort trafen wir auf den TV Staufen II und die SG Breisach-Gündlingen II. 
 
 Im ersten Spiel gegen Staufen kamen wir diesmal nicht so in den Tritt, wie im Hinspiel. Ein toller und starker Gegner aus Staufen war uns hier einfach überlegen. Während die ersten beiden Sätze auch deutlich an die Staufnerinnen gingen, zeigten wir uns im 3ten Satz verbessert und es wurde gekämpft. Aber Staufen lies sich den Sieg nicht mehr nehmen und verdiente sich hier den Satz mit 22:25 und somit auch den 3:0 Sieg. 

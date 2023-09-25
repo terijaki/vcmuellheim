@@ -1,8 +1,9 @@
 ---
+title: Herren II ziehen in Endrunde des Bezirkspokals in Staufen ein
+date: 2023-03-30 00:00:00 +02:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
-title: Herren II ziehen in Endrunde des Bezirkspokals in Staufen ein
 thumbnail: "/upload/2023/03/30/img-20230327-wa0016.jpg"
 gallery:
 - "/upload/2023/03/30/img-20230327-wa0057.jpg"
@@ -16,8 +17,8 @@ gallery:
 - "/upload/2023/04/19/bezirkspokalstaufen4.jpg"
 - "/upload/2023/04/19/bezirkspokalstaufen5.jpg"
 - "/upload/2023/04/19/bezirkspokalstaufen6.jpg"
-
 ---
+
 Am Montag, 27.03.23 spielten unsere Herren II ihr Vorrundenspiel im Bezirkspokal auswärts beim TV Freiburg St. Georgen. Erstmals dabei waren 5 hoffnungsvolle Talente der U20.
 
 Beim TV St. Georgen stand deren kommende zweite Mannschaft auf dem Feld, die aber als U20 diese Saison schon einige erfolge bei den Jugendmeisterschaften sammelten.

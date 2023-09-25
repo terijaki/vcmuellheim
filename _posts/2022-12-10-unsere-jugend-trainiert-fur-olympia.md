@@ -1,10 +1,12 @@
 ---
+title: Unsere Jugend trainiert für Olympia!
+date: 2022-12-10 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
-title: Unsere Jugend trainiert für Olympia!
 thumbnail: "/upload/2022/12/10/20221206_101722.jpg"
 ---
+
 Am Dienstag den 6.12.22 Nikolaustag fand am Kreisgymnasium Neuenburg die erste Runde für Jugend trainiert für Olympia in den Wettkampfklassen II und III statt. Auch Spielerinnen und Spieler des VC Müllheim nahmen für das Markgräfler Gymnasium Müllheim teil. So bei den Jungs Jakob Stromberger und bei den Mädchen Selina Oßwald, Ida Ettner und Mirela Mujevic. Sie durften gemeinsam in Teams mit weiteren Spieler*innen wie z.B. Levin Rieber (FT Freiburg), Amelie Moerel (VBG Efringen-Kirchen) und anderen Schüler*innen des MGM spielen. Auch ein Team unserer weiteren Kooperationspartners Kreisgymnasium Neuenburg nahm bei den jüngsten Jungs teil. 
 
 Während die Jungs des MGM Platz 3 erreichen konnten und noch um das Weiterkommen zittern, konnten sich die Mädchen nicht weiter qualifizieren. 

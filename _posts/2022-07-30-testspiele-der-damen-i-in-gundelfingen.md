@@ -1,9 +1,10 @@
 ---
-layout: post
-excerpt_separator: <!--more-->
-posted-on-social: true
 title: Testspiele der Damen I in Gundelfingen
-thumbnail: /upload/2022/07/30/5b1932e3-1765-4017-9924-b1a00c6071a0.jpeg
+date: 2022-07-30 00:00:00 +02:00
+layout: post
+excerpt_separator: "<!--more-->"
+posted-on-social: true
+thumbnail: "/upload/2022/07/30/5b1932e3-1765-4017-9924-b1a00c6071a0.jpeg"
 _template: neuen_beitrag_erstellen
 ---
 

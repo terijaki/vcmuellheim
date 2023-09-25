@@ -1,9 +1,11 @@
 ---
+title: Damen 2 zu Gast in Weil am Rhein
+date: 2023-02-16 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
-title: Damen 2 zu Gast in Weil am Rhein
 thumbnail: "/upload/2023/02/16/weilamrhein0.jpg"
 ---
+
 Am 12.02.2023 spielten wir (Damen ll) zu Gast in Weil am Rhein.
 
 Nachdem wir beim ersten Spiel ein Schiedsgericht für SG Breisach-Gündlingen ll gegen Weil ll stellten, traten wir gegen den Tabellenführer Weil ll an. Dort mussten wir leider eine 3:0 Niederlage einstecken.

@@ -1,9 +1,10 @@
 ---
-layout: post
-excerpt_separator: <!--more-->
-posted-on-social: true
 title: VC Müllheim holt vier wichtige Punkte vor Geisterkulisse
-thumbnail: /upload/2021/11/15/img_8888.jpg
+date: 2021-11-15 00:00:00 +01:00
+layout: post
+excerpt_separator: "<!--more-->"
+posted-on-social: true
+thumbnail: "/upload/2021/11/15/img_8888.jpg"
 _template: neuen_beitrag_erstellen
 ---
 

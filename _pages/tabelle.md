@@ -1,7 +1,7 @@
 ---
-layout: page
 title: Tabelle
-permalink: /tabelle/
+permalink: "/tabelle/"
+layout: page
 ---
 
 <main class="flex-grow-1 d-flex flex-column">

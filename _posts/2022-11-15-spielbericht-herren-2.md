@@ -1,10 +1,12 @@
 ---
+title: Spielbericht Herren 2
+date: 2022-11-15 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
-title: Spielbericht Herren 2
 thumbnail: "/upload/2022/11/15/photo-2022-11-13-19-06-23.jpg"
 ---
+
 Am 13.11. spielte die Herrenmannschaft VC Müllheim 2 auswärts gegen den TSV Alemannia Zähringen und gegen FT 1844 Freiburg 4. Beides sind Teams aus der oberen Hälfte der Liga, die Spieler machten sich also auf schwierige Spiele gefasst. 
 
 Das erste Spiel gegen Zähringen war zunächst recht ausgeglichen und spannend (erster Satz 25:23 für Zähringen). Zähringen hatte den Vorteil als Heimmannschaft von lautstarkem Publikum unterstützt zu werden. Dadurch fiel es für Müllheim 2 schwer, wenn Zähringen einmal mehrere Punkte in Folge gemacht hatte, nicht die Aufmerksamkeit zu verlieren und zurück in Schwung zu kommen. Den zweiten Satz verlor Müllheim 15:25. Daraufhin stellte Trainer Claudio Czak-Lindemann die Mannschaft ein wenig um, was direkt durch einen spannenden und erfolgreichen dritten Satz belohnt wurde (27:25). Mit neuer Motivation starteten die Jungs in den vierten Satz, jedoch reichte es nicht mehr für den Tiebreak; Zähringen gewann 25:18. 

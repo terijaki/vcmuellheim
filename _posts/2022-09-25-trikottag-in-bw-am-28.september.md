@@ -1,8 +1,9 @@
 ---
-layout: post
-excerpt_separator: <!--more-->
-posted-on-social: true
 title: Trikottag in BW am 28. September
+date: 2022-09-25 00:00:00 +02:00
+layout: post
+excerpt_separator: "<!--more-->"
+posted-on-social: true
 thumbnail: ''
 _template: neuen_beitrag_erstellen
 ---

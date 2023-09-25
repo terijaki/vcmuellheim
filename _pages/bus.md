@@ -1,7 +1,7 @@
 ---
-layout: page
 title: Vereinsbus
-permalink: /bus/
+permalink: "/bus/"
+layout: page
 ---
 
 <main class="flex-grow-1 d-flex flex-column">

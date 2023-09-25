@@ -1,8 +1,9 @@
 ---
-layout: post
-excerpt_separator: <!--more-->
-posted-on-social: true
 title: Damen I zu Hause und Damen II auf Reisen am Sonntag 17.10.21
+date: 2021-10-15 00:00:00 +02:00
+layout: post
+excerpt_separator: "<!--more-->"
+posted-on-social: true
 thumbnail: ''
 _template: neuen_beitrag_erstellen
 ---

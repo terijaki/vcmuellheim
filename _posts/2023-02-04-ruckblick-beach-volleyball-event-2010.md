@@ -1,10 +1,12 @@
 ---
+title: 'Rückblick: Beach-Volleyball Event 2010'
+date: 2023-02-04 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
-title: 'Rückblick: Beach-Volleyball Event 2010'
 thumbnail: "/upload/2023/02/04/mhfeiert2010c.jpg"
 ---
+
 > Als sich der Markgräfler Platz in eine Sandlandschaft verwandelt hatte und sommerlich bekleidete Sportler mit dem Ball spielten, hatte das Beach-Volleyball-Event seine Premiere.
 >
 > Der Lions Club Müllheim-Neuenburg und der Volleyballclub richteten gemeinsam dieses Sportereignis vom 9. bis 11. Juli in Müllheim aus.

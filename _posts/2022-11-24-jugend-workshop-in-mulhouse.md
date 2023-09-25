@@ -1,10 +1,12 @@
 ---
+title: Jugend-Workshop in Mulhouse
+date: 2022-11-24 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
-title: Jugend-Workshop in Mulhouse
 thumbnail: "/upload/2022/11/24/img_20221119_142537.jpg"
 ---
+
 Mit insgesamt 13 Kindern und Jugendlichen und den Betreuern Andreas Albrecht und Alexander Derr folgten wir letzten Samstag einer Einladung des französischen Damen-Erstligaclubs Mulhouse, der uns mit etlichen Jugendtrainern erwartete.
 
 Der Einladung waren auch Mannschaften des FT Freiburg, des TV Staufen, aus Dornbirn und Feldkirch/Vorarlberg, Mulhouse und Umgebung gefolgt. Fast 80 Jugendliche absolvierten in der riesigen Halle auf 5 Spielfelder in abwechselnder Reihenfolge technische Übungen zu Aufschlag, Angriff, Feldabwehr, Annahme und Kraft-/Koordinationübungen unter Aufsicht der französischen und der mitgereisten eigenen Trainern.

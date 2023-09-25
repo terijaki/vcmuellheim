@@ -1,7 +1,7 @@
 ---
-layout: page
 title: Internationales Jugendturnier 2022
-permalink: /jugend2022/
+permalink: "/jugend2022/"
+layout: page
 thumbnail: "/upload/2022/06/15/turnier2022_players.jpg"
 datum: 10.07.2022
 beginn: 12 Uhr

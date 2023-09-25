@@ -1,8 +1,10 @@
 ---
+title: 'NEU: Einsteigerkurs für Mädchen'
+date: 2023-06-24 00:00:00 +02:00
 layout: post
 posted-on-social: true
-title: 'NEU: Einsteigerkurs für Mädchen'
 ---
+
 Ab Freitag, den 30.06.2023 von 18.30 - 20.00 Uhr findet wöchentlich der Volleyball-Einsteigerkurs für Mädchen im Alter von 14-18 Jahren im Teil C der Sporthalle II in Müllheim hinter dem Markgräfler Gymnasium statt.
 
 Hier lernt ihr spielerisch leicht die richtigen Spieltechniken pritschen, baggern und den Aufschlag von unten und oben.

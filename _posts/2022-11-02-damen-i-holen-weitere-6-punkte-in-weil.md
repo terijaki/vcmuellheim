@@ -1,10 +1,12 @@
 ---
+title: Damen I holen weitere 6 Punkte in Weil
+date: 2022-11-02 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
-title: Damen I holen weitere 6 Punkte in Weil
 thumbnail: "/upload/2022/11/02/img-20221029-wa0084.jpg"
 ---
+
 Am Samstag spielten Damen 1 in Weil am Rhein gegen Bad Säckingen 3 und Weil am Rhein 3.
 
 Nachdem das erste Spiel von uns gepfiffen wurde, hatten wir anschließend die Spiele zwei und drei.

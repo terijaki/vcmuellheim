@@ -1,10 +1,12 @@
 ---
+title: Stadt Müllheim lädt ein zur Sportgala 2022
+date: 2022-09-25 00:00:00 +02:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
-title: Stadt Müllheim lädt ein zur Sportgala 2022
 thumbnail: ''
 ---
+
 Am **29. Oktober** 2022 findet die diesjährige Sportgala im Bürgerhaus statt.
 
 [Einladung zur Müllheimer Sportgala (PDF)](/upload/2022/09/25/einladung-zur-mullheimer-sportgala-am-29-10-2022.pdf "einladung-zur-mullheimer-sportgala-am-29-10-2022.pdf")

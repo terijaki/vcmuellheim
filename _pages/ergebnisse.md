@@ -1,7 +1,7 @@
 ---
-layout: page
 title: Ergebnisse
-permalink: /ergebnisse/
+permalink: "/ergebnisse/"
+layout: page
 ---
 
 <main class="flex-grow-1 d-flex flex-column">

@@ -1,10 +1,12 @@
 ---
+title: Lehrreicher Heimspieltag für Herren II
+date: 2023-01-25 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
-title: Lehrreicher Heimspieltag für Herren II
 thumbnail: "/upload/2023/01/25/img-20230121-wa0069.jpg"
 ---
+
 Eine Woche nach dem ersten Heimspieltag dieser Saison folgte für die Herren II am 21.01.23 direkt der nächste Heimspieltag. Dieses Mal warteten aber die beiden Erstplatzierten TV Staufen und TV Zell-Weierbach als Gegner. 
 
 Im ersten Spiel gegen den TV Zell-Weierbach rechnete man sich Chancen aus, aber bereits früh lief einiges gegen die Müllheimer. Diagonalangreifer Edgaras Rastenis musste früh ausgewechselt werden. Achillessehnenprobleme machten einen weiteren Einsatz für ihn undenkbar. Wir wünschen alle gute Besserung!

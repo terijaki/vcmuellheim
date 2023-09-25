@@ -1,10 +1,12 @@
 ---
+title: Hilfsgüter für Ukraine (Gymnasium Neuenburg)
+date: 2022-03-08 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
-title: Hilfsgüter für Ukraine (Gymnasium Neuenburg)
 thumbnail: ''
 ---
+
 Liebe Schülerinnen und Schüler, liebe Eltern,   
   
 an der ukrainisch-rumänischen Grenze wird nun Hilfe gebraucht, um die flüchtenden Menschen wenigstens erstzuversorgen. Die Lage im Grenzgebiet, so schreiben es unsere Kolleginnen, sei dramatisch, da immer mehr Menschen die Ukraine verlassen wollen. Zudem erschwere das kalte Wetter – zeitweise schneit es noch - die Situation. Zugleich erleben sie "große Betroffenheit, aber auch eine große Solidarität, Hilfsbereitschaft und konkrete Hilfsaktionen."   

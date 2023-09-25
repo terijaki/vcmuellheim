@@ -1,7 +1,7 @@
 ---
-layout: page-simple
 title: Datenschutzerklärung
-permalink: /datenschutz/
+permalink: "/datenschutz/"
+layout: page-simple
 ---
 
 ## **Grundlegendes**

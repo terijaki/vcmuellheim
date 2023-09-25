@@ -1,9 +1,10 @@
 ---
+title: Qualifikation zum Pokalspiel
+date: 2019-07-19 00:00:00 +02:00
 layout: post
 posted-on-social: true
-title: Qualifikation zum Pokalspiel
-thumbnail: /upload/2019/07/19/MVIMG_20190718_194905.jpg
-excerpt_separator: <!-- more -->
+thumbnail: "/upload/2019/07/19/MVIMG_20190718_194905.jpg"
+excerpt_separator: "<!-- more -->"
 _template: neuen_beitrag_erstellen
 ---
 

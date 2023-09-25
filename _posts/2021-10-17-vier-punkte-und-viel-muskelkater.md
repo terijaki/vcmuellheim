@@ -1,9 +1,10 @@
 ---
-layout: post
-excerpt_separator: <!--more-->
-posted-on-social: true
 title: Vier Punkte und viel Muskelkater
-thumbnail: /upload/2021/10/17/img_7603.jpg
+date: 2021-10-17 00:00:00 +02:00
+layout: post
+excerpt_separator: "<!--more-->"
+posted-on-social: true
+thumbnail: "/upload/2021/10/17/img_7603.jpg"
 _template: neuen_beitrag_erstellen
 ---
 
