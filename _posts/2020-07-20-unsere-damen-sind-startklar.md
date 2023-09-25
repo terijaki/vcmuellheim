@@ -1,10 +1,9 @@
 ---
-title: Unsere Damen sind startklar!
-date: 2020-07-20 00:00:00 +02:00
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
-thumbnail: "/upload/2020/07/20/damentrikotsponsor.jpeg"
+title: Unsere Damen sind startklar!
+thumbnail: /upload/2020/07/20/damentrikotsponsor.jpeg
 _template: neuen_beitrag_erstellen
 ---
 

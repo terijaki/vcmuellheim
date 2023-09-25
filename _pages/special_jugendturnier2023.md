@@ -1,8 +1,8 @@
 ---
-title: Internationales Jugendturnier 2023
-permalink: "/jugend2023/"
 layout: page
-thumbnail: "/upload/2022/07/12/img-20220710-wa0020.jpeg"
+title: Internationales Jugendturnier 2023
+permalink: /jugend2023/
+thumbnail: /upload/2022/07/12/img-20220710-wa0020.jpeg
 ---
 
 <main class="flex-grow-1">

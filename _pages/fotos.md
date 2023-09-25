@@ -1,7 +1,7 @@
 ---
-title: Fotogalerie
-permalink: "/fotos/"
 layout: page
+title: Fotogalerie
+permalink: /fotos/
 ---
 
 <main class="flex-grow-1 d-flex flex-column">

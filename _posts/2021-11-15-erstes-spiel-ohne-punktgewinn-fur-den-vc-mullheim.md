@@ -1,10 +1,9 @@
 ---
-title: Erstes Spiel ohne Punktgewinn für den VC Müllheim
-date: 2021-11-15 00:00:00 +01:00
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
-thumbnail: "/upload/2021/11/15/img_8772.jpg"
+title: Erstes Spiel ohne Punktgewinn für den VC Müllheim
+thumbnail: /upload/2021/11/15/img_8772.jpg
 _template: neuen_beitrag_erstellen
 ---
 

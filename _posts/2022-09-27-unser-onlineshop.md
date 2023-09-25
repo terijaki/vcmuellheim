@@ -1,9 +1,8 @@
 ---
-title: Unser Onlineshop
-date: 2022-09-27 00:00:00 +02:00
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
+title: Unser Onlineshop
 thumbnail: ''
 _template: neuen_beitrag_erstellen
 ---

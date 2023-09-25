@@ -1,10 +1,9 @@
 ---
-title: Damen I gewinnt letztes Testspiel vor der Saison
-date: 2021-10-01 00:00:00 +02:00
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
-thumbnail: "/upload/2021/10/01/whatsapp-image-2021-10-01-at-10-00-56-1.jpeg"
+title: Damen I gewinnt letztes Testspiel vor der Saison
+thumbnail: /upload/2021/10/01/whatsapp-image-2021-10-01-at-10-00-56-1.jpeg
 _template: neuen_beitrag_erstellen
 ---
 

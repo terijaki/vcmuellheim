@@ -1,12 +1,10 @@
 ---
-title: Heimspiel Performance
-date: 2023-01-30 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
+title: Heimspiel Performance
 thumbnail: "/upload/2023/01/30/img_4307.jpg"
 ---
-
 Am Wochenende begrüßten wir (1. Herren) den TG Tuttlingen, gefolgt von den Unterseevolleys Radolfzell.
 
 Wir bereiteten uns zunächst auf eine Herausforderung gegen die Erstplatzierten aus Tuttlingen vor. Wir waren jedoch keineswegs eingeschüchtert, sondern hochmotiviert! Zwar konnten wir keinen Sieg erspielen, dafür aber ein starkes 2:3 (25:19, 20:25, 21:25, 25:21, 12:15) das unsere Zuschauer nicht enttäuschte!

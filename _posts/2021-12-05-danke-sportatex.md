@@ -1,12 +1,10 @@
 ---
-title: Danke Sportatex
-date: 2021-12-05 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
+title: Danke Sportatex
 thumbnail: ''
 ---
-
 ![](/upload/2021/12/05/20211121_122446.jpg)
 
 Wir möchten uns herzlich bei [**Sportatex**]() bedanken für das Sponsoring unserer Trikots!

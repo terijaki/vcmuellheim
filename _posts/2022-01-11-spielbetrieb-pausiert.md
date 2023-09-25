@@ -1,12 +1,10 @@
 ---
-title: Spielbetrieb pausiert
-date: 2022-01-11 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
+title: Spielbetrieb pausiert
 thumbnail: ''
 ---
-
 Der Südbadischer Volleyball-Verband (SBVV) hat mit sofortiger Wirkung den Spielbetrieb für alle Ligen bis einschließlich Verbandsliga bis Mitte März eingestellt. Die ausgefallenen und/oder verschobenen Spiele aus der Hinrunde werden nachgeholt. Vorgesehen sind dafür nach jetzigem Sachstand die Wochenenden im Zeitraum 12.-27. März 2022.
 
 Der Trainingsbetrieb kann unter Beachtung von 2G+ mit den Ausnahmen (Schüler bis 18 Jahre generell, keine Testpflicht bei geboostert oder genesen bis maximal 6 Monaten oder zweite Impfung erst in den letzten 3 Monaten).

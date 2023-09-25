@@ -1,12 +1,10 @@
 ---
-title: Damen I halten weiter Platz 3 in der Tabelle
-date: 2022-12-13 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
+title: Damen I halten weiter Platz 3 in der Tabelle
 thumbnail: "/upload/2022/12/13/img-20221210-wa0011.jpg"
 ---
-
 Am Samstag, den 10.12.2022 hatten wir, die Damen I des VC Müllheim unser drittes Heimspiel in dieser Saison.
 
 Wir spielten gegen den TV Todtnau. Eigentlich hätten wir auch gegen den TV Bad Säckingen 3 gespielt, jedoch konnten sie aufgrund von zu hohem Spielerinnenausfall nicht erscheinen, stellten aber ein Schiedsgericht.

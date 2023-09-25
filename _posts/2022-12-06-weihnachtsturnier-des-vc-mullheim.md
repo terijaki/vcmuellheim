@@ -1,12 +1,10 @@
 ---
-title: Weihnachtsturnier des VC Müllheim
-date: 2022-12-06 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
+title: Weihnachtsturnier des VC Müllheim
 thumbnail: "/upload/2022/12/06/img-20221204-wa0063.jpg"
 ---
-
 **Einfach ein toller spaßiger Tag!**
 
 Am vergangenen Sonntag, den 4.12.22 lud der VC Müllheim seine Erwachsenen Mitglieder zu einem Weihnachtsturnier. Hier wollte man sich mal wieder „neu kennenlernen“ nach der langen Coronazeit, nach der nun auch viele neue großartige Mitglieder in den Verein kamen. Über den Tag zeigte sich bei wohl mindestens 70 Personen, die gekommen waren, wie sehr der VC Müllheim wächst.

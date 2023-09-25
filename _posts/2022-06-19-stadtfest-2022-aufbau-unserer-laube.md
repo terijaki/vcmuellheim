@@ -1,10 +1,9 @@
 ---
-title: 'Stadtfest 2022: Aufbau'
-date: 2022-06-19 00:00:00 +02:00
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
-thumbnail: "/upload/2022/06/19/img_1835.jpeg"
+title: 'Stadtfest 2022: Aufbau'
+thumbnail: /upload/2022/06/19/img_1835.jpeg
 _template: neuen_beitrag_erstellen
 ---
 

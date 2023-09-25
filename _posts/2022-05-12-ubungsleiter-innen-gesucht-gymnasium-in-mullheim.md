@@ -1,12 +1,10 @@
 ---
-title: Übungsleiter*innen gesucht (Gymnasium in Müllheim)
-date: 2022-05-12 00:00:00 +02:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
+title: Übungsleiter*innen gesucht (Gymnasium in Müllheim)
 thumbnail: ''
 ---
-
 Für das Ganztagesangebot am Markgräfler Gymnasium in Müllheim werden Übungsleiter*innen gesucht.
 
 ### Was?

@@ -1,8 +1,7 @@
 ---
-title: Neues von der Herren 2
-date: 2023-07-24 00:00:00 +02:00
 layout: post
 posted-on-social: true
+title: Neues von der Herren 2
 thumbnail: "/upload/2023/07/24/herren2_1.jpg"
 gallery:
 - "/upload/2023/07/24/herren2_2.jpg"

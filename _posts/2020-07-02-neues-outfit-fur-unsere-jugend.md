@@ -1,10 +1,9 @@
 ---
-title: Neues Outfit für unsere Jugend!
-date: 2020-07-02 00:00:00 +02:00
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
-thumbnail: "/upload/2020/07/02/whatsapp-image-2020-07-02-at-17-36-25.jpeg"
+title: Neues Outfit für unsere Jugend!
+thumbnail: /upload/2020/07/02/whatsapp-image-2020-07-02-at-17-36-25.jpeg
 _template: neuen_beitrag_erstellen
 ---
 

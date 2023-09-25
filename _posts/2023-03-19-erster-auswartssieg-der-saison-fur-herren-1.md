@@ -1,9 +1,8 @@
 ---
-title: 'Erster Auswärtssieg der Saison für Herren 1 '
-date: 2023-03-19 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
+title: 'Erster Auswärtssieg der Saison für Herren 1 '
 thumbnail: "/upload/2023/03/19/img_5298.jpg"
 gallery:
 - "/upload/2023/03/19/img_5457.jpg"
@@ -13,8 +12,8 @@ gallery:
 - "/upload/2023/03/19/img_5121.jpg"
 - "/upload/2023/03/19/img_5089.jpg"
 - "/upload/2023/03/19/img_5069.jpg"
----
 
+---
 Gestern konnten wir uns über unseren ersten Auswärtssieg in Haslach freuen!
 
 Nachdem sich die Gastgebermannschaft - die Herren des VC Haslach - zunächst gegen den FT 1844 Freiburg 3 mit einem knappen 3:2 Sieg durchsetzen konnte, standen sie dem VC Müllheim gegenüber. 

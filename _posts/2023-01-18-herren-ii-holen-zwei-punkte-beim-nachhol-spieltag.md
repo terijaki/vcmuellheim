@@ -1,12 +1,10 @@
 ---
-title: Herren II holen zwei Punkte beim Nachhol-Spieltag
-date: 2023-01-18 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
+title: Herren II holen zwei Punkte beim Nachhol-Spieltag
 thumbnail: "/upload/2023/01/18/whatsapp-image-2023-01-14-at-23-48-03.jpg"
 ---
-
 Am Samstag, 14.01.2023 hatten die Herren II ihren Nachhol-Spieltag zuhause gegen die VBG Efringen-Kirchen und den VC Weil II. Die Motivation war groß, denn es mussten dringend Punkte her gegen die direkten Konkurrenten im Kampf um den sicheren Klassenerhalt.
 
 Im Spiel gegen Efringen-Kirchen konnte die Mannschaft nach anfänglichem Rückstand das Spiel übernehmen und den ersten Satz mit anschaulichem Volleyball 25:22 für sich gewinnen. Der zweite Satz ging dann an die Gegner aus Efringen-Kirchen. Nachdem auch der dritte und somit letzte Satz verloren zu gehen drohte, gelang dem Trainer „Papita“ Czak-Lindemann des VCM ein genialer Coup, in dem er den erfahrenen Zuspieler Dominik Ernst einwechselte, der sofort Ruhe ins Spiel brachte. Durch diesen Rhythmuswechsel konnte der 20:24 Rückstand zu einem 26:24 Sieg gedreht werden. Leider verletzte sich Mittelangreifer Christian von Efringen- Kirchen am Ende des Satzes. Wir wünschen ihm an dieser Stelle alles Gute und schnelle Genesung!

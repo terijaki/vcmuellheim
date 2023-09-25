@@ -1,9 +1,8 @@
 ---
-title: Meister VC Müllheim!
-date: 2019-04-03 00:00:00 +02:00
 layout: post
 posted-on-social: true
-thumbnail: "/upload/2019/2019-04-03-bild1.jpg"
+title: Meister VC Müllheim!
+thumbnail: /upload/2019/2019-04-03-bild1.jpg
 excerpt_separator: "<!-- more -->"
 ---
 

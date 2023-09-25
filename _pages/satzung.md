@@ -1,7 +1,7 @@
 ---
-title: Satzung des Volleyballclubs Müllheim
-permalink: "/satzung/"
 layout: page-simple
+title: Satzung des Volleyballclubs Müllheim
+permalink: /satzung/
 ---
 
 <img src="/img/vcm-banner.png" style="height:120px;filter:contrast(0.3);display: block;" class="float-lg-right mx-auto">

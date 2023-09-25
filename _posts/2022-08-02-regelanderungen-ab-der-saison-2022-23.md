@@ -1,9 +1,8 @@
 ---
-title: Regeländerungen ab der Saison 2022/23
-date: 2022-08-02 00:00:00 +02:00
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
+title: Regeländerungen ab der Saison 2022/23
 thumbnail: ''
 _template: neuen_beitrag_erstellen
 ---

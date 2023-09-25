@@ -1,10 +1,9 @@
 ---
-title: Damen I lernt weiter dazu im Heimspieltag
-date: 2021-11-17 00:00:00 +01:00
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
-thumbnail: "/upload/2021/11/17/img-20211114-wa0003.jpg"
+title: Damen I lernt weiter dazu im Heimspieltag
+thumbnail: /upload/2021/11/17/img-20211114-wa0003.jpg
 _template: neuen_beitrag_erstellen
 ---
 

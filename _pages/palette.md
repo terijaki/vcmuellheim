@@ -1,7 +1,7 @@
 ---
-title: Color Palette
-permalink: "/palette/"
 layout: page
+title: Color Palette
+permalink: /palette/
 ---
 
 <main class="flex-grow-1 d-flex flex-column bg-light">

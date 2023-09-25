@@ -1,8 +1,7 @@
 ---
-title: '"Hallo Müllheim" Interview mit Dominik'
-date: 2023-09-14 00:00:00 +02:00
 layout: post
 posted-on-social: true
+title: '"Hallo Müllheim" Interview mit Dominik'
 ---
 
 Unser Trainer Dominik Ernst wurde vom [Hallo Müllheim Mittelungsblatt](https://www.muellheim.de/buerger/mitteilungsblatt/) interviewed.  

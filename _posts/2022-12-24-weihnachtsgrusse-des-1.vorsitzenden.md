@@ -1,9 +1,8 @@
 ---
-title: Weihnachtsgrüße
-date: 2022-12-24 00:00:00 +01:00
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
+title: Weihnachtsgrüße
 thumbnail: ''
 _template: neuen_beitrag_erstellen
 ---

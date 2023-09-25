@@ -1,10 +1,9 @@
 ---
-title: Deutlicher Sieg zum Saisonauftakt
-date: 2021-10-17 00:00:00 +02:00
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
-thumbnail: "/upload/2021/10/17/img_7350.jpg"
+title: Deutlicher Sieg zum Saisonauftakt
+thumbnail: /upload/2021/10/17/img_7350.jpg
 _template: neuen_beitrag_erstellen
 ---
 

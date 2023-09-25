@@ -1,9 +1,8 @@
 ---
-title: 'SBVV: Informationen zum Coronavirus'
-date: 2020-03-02 00:00:00 +01:00
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
+title: 'SBVV: Informationen zum Coronavirus'
 _template: neuen_beitrag_erstellen
 ---
 

@@ -1,10 +1,9 @@
 ---
-title: U16 Mädchen des VC Müllheim erreichen an der Bezirksmeisterschaft Platz 7
-date: 2022-11-09 00:00:00 +01:00
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
-thumbnail: "/upload/2022/11/09/20221106_131433.jpg"
+title: U16 Mädchen des VC Müllheim erreichen an der Bezirksmeisterschaft Platz 7
+thumbnail: /upload/2022/11/09/20221106_131433.jpg
 _template: neuen_beitrag_erstellen
 ---
 

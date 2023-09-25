@@ -1,12 +1,10 @@
 ---
-title: Corona Stufenplan ab 8. März
-date: 2021-03-10 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
+title: Corona Stufenplan ab 8. März
 thumbnail: ''
 ---
-
 Die Bundesregierung hat eine neue Regelungen beschlossen, die seit dem 8 März gelten und auch den Sportbetrieb betreffen.
 
 Die Regelungen sind **abhängig von** dem jeweiligen [**7-Tage-Inzidenzwert**](https://www.baden-wuerttemberg.de/de/service/presse/pressemitteilung/pid/infektionen-und-todesfaelle-in-baden-wuerttemberg/) im jeweiligen Land- oder Stadtkreis.

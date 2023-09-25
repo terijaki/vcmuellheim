@@ -1,9 +1,8 @@
 ---
-title: Zwei Auswärtssiege
-date: 2019-02-06 00:00:00 +01:00
 layout: post
 posted-on-social: true
-thumbnail: "/upload/2019/51270111_2095751377176010_6383426922143023104_o.jpg"
+title: Zwei Auswärtssiege
+thumbnail: /upload/2019/51270111_2095751377176010_6383426922143023104_o.jpg
 excerpt_separator: "<!-- more -->"
 ---
 

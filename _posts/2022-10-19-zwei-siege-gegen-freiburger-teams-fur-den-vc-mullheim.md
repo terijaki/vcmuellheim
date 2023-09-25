@@ -1,12 +1,10 @@
 ---
-title: Zwei Siege gegen Freiburger Teams für den VC Müllheim
-date: 2022-10-19 00:00:00 +02:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
+title: Zwei Siege gegen Freiburger Teams für den VC Müllheim
 thumbnail: "/upload/2022/10/19/dsc_0090.jpeg"
 ---
-
 Zum ersten Spieltag der Saison durfte der VC Müllheim letzten Samstag die Volleyballer des USC Freiburgs 2 und der FT Freiburg 3 Zuhause begrüßen. Mit Spannung wurde erwartet, wie die 1. Herrenmannschaft sich in diese Verbandsliga Saison einfinden würden.
 
 An den ersten Gegner USC Freiburg hatte man schlechte Erinnerungen aus letzter Saison, in der man ein sehr knappes Spiel nicht gewinnen konnte, obwohl man zum Teil deutlich führte. Von dieser mentalen Blockade war dieses Mal so gut wie nichts zu erkennen und die ersten beiden Sätze konnten überzeugend gewonnen werden. Erst im letzten Satz zeigte die Heimmannschaft erstmals Nerven und verspielte einen vier Punkte Vorsprung und ließ sogar einen Satzpunkt für die Gegner zu, nur um doch noch zurückzuschlagen. Der verdiente 3:0 (25:20 25:21 28:26) Sieg war vor allem durch starke Angaben und eine stabile Annahme gekennzeichnet. Auch sah man wie clever die Heimmannschaft spielen kann, bestes Beispiel war Kapitän Paul Lacher der eine schwache Angabe der Gegner nutzte und den Ball direkt in eine gegnerische Lücke spielte anstatt zum eigenen Steller.

@@ -1,10 +1,9 @@
 ---
-title: Der Aufstieg ist perfekt!!!
-date: 2022-04-11 00:00:00 +02:00
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
-thumbnail: "/upload/2022/04/11/25f348f2-408e-4d8a-94ec-97b9c1e6f974.jpeg"
+title: Der Aufstieg ist perfekt!!!
+thumbnail: /upload/2022/04/11/25f348f2-408e-4d8a-94ec-97b9c1e6f974.jpeg
 _template: neuen_beitrag_erstellen
 ---
 

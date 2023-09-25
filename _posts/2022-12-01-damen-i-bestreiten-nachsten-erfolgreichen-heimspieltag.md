@@ -1,12 +1,10 @@
 ---
-title: Damen I bestreiten nächsten erfolgreichen Heimspieltag
-date: 2022-12-01 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
+title: Damen I bestreiten nächsten erfolgreichen Heimspieltag
 thumbnail: "/upload/2022/12/01/img-20221127-wa0008.jpg"
 ---
-
 Vergangenen Sonntag war es wieder so weit, Damen I spielten nach mehreren Auswärtsspielen wieder ein Heimspiel. 
 
 Gäste bei diesem waren VC Weil III & VC Weil IV.

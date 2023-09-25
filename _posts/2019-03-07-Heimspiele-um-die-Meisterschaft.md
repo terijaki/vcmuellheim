@@ -1,8 +1,7 @@
 ---
-title: Heimspiele um die Meisterschaft!
-date: 2019-03-07 00:00:00 +01:00
 layout: post
 posted-on-social: true
+title: Heimspiele um die Meisterschaft!
 excerpt_separator: "<!-- more -->"
 ---
 

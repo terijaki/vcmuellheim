@@ -1,13 +1,13 @@
 ---
-title: Freizeit II
 layout: team
+title: Freizeit II
 sorting: 9
 liga: false
-sbvv_id: 
+sbvv_id: null
 alter: ''
-trainings-zeit1: Donnerstags 20:00-22:00 Uhr
+trainings-zeit1: 'Donnerstags 20:00-22:00 Uhr'
 trainings-ort1: Sporthalle II
-trainings-map1: https://goo.gl/maps/g3XhvCS9gpR2
+trainings-map1: 'https://goo.gl/maps/g3XhvCS9gpR2'
 trainings-zeit2: ''
 trainings-ort2: ''
 trainings-map2: ''

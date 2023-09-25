@@ -1,8 +1,7 @@
 ---
-title: Testspieltag für Damen I in Heuweiler zum Start in die neue Saison 2023/2024
-date: 2023-09-13 00:00:00 +02:00
 layout: post
 posted-on-social: true
+title: Testspieltag für Damen I in Heuweiler zum Start in die neue Saison 2023/2024
 thumbnail: "/upload/2023/09/13/heuweiler5.jpg"
 gallery:
 - "/upload/2023/09/13/heuweiler1.jpg"

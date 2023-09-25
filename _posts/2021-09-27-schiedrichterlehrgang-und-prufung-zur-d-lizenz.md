@@ -1,12 +1,12 @@
 ---
-title: Schiedrichterlehrgang und Prüfung zur D-Lizenz
-date: 2021-09-27 00:00:00 +02:00
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: <!--more-->
 posted-on-social: true
-thumbnail: "/upload/2021/09/27/whatsapp-image-2021-09-27-at-10-34-57.jpeg"
+title: Schiedrichterlehrgang und Prüfung zur D-Lizenz
+thumbnail: /upload/2021/09/27/whatsapp-image-2021-09-27-at-10-34-57.jpeg
 _template: neuen_beitrag_erstellen
 ---
+
 
 An diesem Wochenende fand bei uns in Müllheim ein Lehrgang zum erlangen der Schiedsrichter D-Lizenz. Alle Teilnehmer*innen haben bestanden!!!  
 Herzlichen Glückwunsch an unsere Spielerinnen der Damen I und unsere Spieler der Herren II, sowie den Teilnehmerinnen aus Freiburg St. Georgen und Freiburg Zähringen.   

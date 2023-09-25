@@ -1,8 +1,7 @@
 ---
-title: 'Letzter Spieltag und Saisonabschlussfeier für Damen I #STRIKE!'
-date: 2023-03-27 00:00:00 +02:00
 layout: post
 excerpt_separator: "<!--more-->"
+title: 'Letzter Spieltag und Saisonabschlussfeier für Damen I #STRIKE!'
 thumbnail: "/upload/2023/03/27/img-20230319-wa0019.jpg"
 gallery:
 - "/upload/2023/03/27/img-20230319-wa0070.jpg"
@@ -12,8 +11,8 @@ gallery:
 - "/upload/2023/03/27/img-20230319-wa0027.jpg"
 - "/upload/2023/03/27/img-20230319-wa0021.jpg"
 - "/upload/2023/03/27/img-20230319-wa0018.jpg"
----
 
+---
 Am 19.03 waren wir von der Damen I an unserem letzten Spieltag der Saison in Breisach zu Gast.
 
 Dort zeigten wir zum Abschluss zwei gute Spiele.

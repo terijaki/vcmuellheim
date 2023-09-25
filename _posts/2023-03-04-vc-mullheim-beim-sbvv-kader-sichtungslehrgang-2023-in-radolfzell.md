@@ -1,12 +1,10 @@
 ---
-title: SBVV-Kader-Sichtungslehrgang 2023 in Radolfzell
-date: 2023-03-04 00:00:00 +01:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
+title: SBVV-Kader-Sichtungslehrgang 2023 in Radolfzell
 thumbnail: ''
 ---
-
 Als wir ankamen haben wir damit begonnen kleine Gruppen zu bilden, die sich selbst aufwärmten, während die Trainer Übungen vorbereiteten. Herr Raabe erklärte uns den Ablauf des Programms und erzählte von den vorherigen Jahren.
 
 Wir starteten dann mit einem gemeinsame Aufwärmen. Dehnen, gefolgt von unterschiedlichen Pepper Variationen. Nach der Pause kamen wir wieder zusammen und trainierten Annahmen, sodass wir unsere Technik beobachten konnten. Wir sollten uns selbst einschätzen, ob wir uns eher auf Block- oder Annahmepositionen sehen bzw. bereits spielen.

@@ -1,16 +1,15 @@
 ---
-title: Neue D-Trainer:innen!
-date: 2023-06-11 00:00:00 +02:00
 layout: post
 posted-on-social: true
+title: Neue D-Trainer:innen!
 thumbnail: "/upload/2023/06/11/img1.jpg"
 gallery:
 - "/upload/2023/06/11/img2.jpg"
 - "/upload/2023/06/11/img3.jpg"
 - "/upload/2023/06/11/img4.jpg"
 - "/upload/2023/06/11/img5.jpg"
----
 
+---
 Am Montag morgen ging es für Anastasia, Ida, Nico, Mateo, Björn & Philipp mit dem Vereinsbus nach Steinbach (Baden-Baden). Dort besuchten unsere sechs Mitglieder:innen die [Sportschule](https://www.sportschule-steinbach.de), um an der D-Trainerausbildung teilzunehmen.
 
 Nachdem die Zimmer verteilt und Taschen ausgepackt wurden, startete der Lehrgang mit einer Begrüßungsrunde, gefolgt von einer Theorieeinheit ([Intro](https://www.volleyball-baden.de/uploads/00a87f67-1556-4f1e-963b-9de6d3bcf819/2023+D-Trainer.pdf) & [Standard-Übungsformen](https://www.volleyball-baden.de/uploads/629d7e22-3292-4ac3-95c2-77fecdc56b91/2023+Standard-%25C3%259Cbungsformen.pdf)) durch Ausbilder __*Klaus Mutschler*__. Nach der Mittagspause ging es in der Halle weiter mit praktischen Übungen. Anschließend wurden die Teilnehmer:innen in Gruppen eingeteilt, um eigene Trainingseinheiten für den nächsten Tag vorzubereiten.

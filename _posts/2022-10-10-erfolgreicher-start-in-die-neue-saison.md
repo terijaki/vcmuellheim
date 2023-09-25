@@ -1,12 +1,10 @@
 ---
-title: Erfolgreicher Start in die neue Saison
-date: 2022-10-10 00:00:00 +02:00
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
+title: Erfolgreicher Start in die neue Saison
 thumbnail: "/upload/2022/10/10/img-20221009-wa0064.jpg"
 ---
-
 Gestern startete die neue Saison der Kreisliga Süd Damen. Damen I gewann gestern mit großer Freude beide Spiele mit 3:0.
 
 Nach einigen technischen Komplikationen konnte der erste Satz gegen VC Weil 4 beginnen. Mit 25:7 wurde dieser direkt gewonnen. Der zweite & dritte Satz, jeweils beide mit 25:10, konnten auch sehr erfolgreich erkämpft werden.
