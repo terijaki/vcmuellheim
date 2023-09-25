@@ -55,9 +55,9 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 17:41:13.971",
+          "updated": "2023-09-25 08:04:01.862",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 17:41:13.971",
+          "resultsUpdated": "2023-09-25 08:04:01.862",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -201,9 +201,9 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 17:41:13.971",
+          "updated": "2023-09-25 08:04:01.862",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 17:41:13.971",
+          "resultsUpdated": "2023-09-25 08:04:01.862",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -347,9 +347,9 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 17:41:13.971",
+          "updated": "2023-09-25 08:04:01.862",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 17:41:13.971",
+          "resultsUpdated": "2023-09-25 08:04:01.862",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -425,7 +425,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "4",
         "netDuration": "59"
@@ -481,9 +481,9 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 17:41:13.971",
+          "updated": "2023-09-25 08:04:01.862",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 17:41:13.971",
+          "resultsUpdated": "2023-09-25 08:04:01.862",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -559,7 +559,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "20",
         "netDuration": "67"
@@ -615,9 +615,9 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 17:41:13.971",
+          "updated": "2023-09-25 08:04:01.862",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 17:41:13.971",
+          "resultsUpdated": "2023-09-25 08:04:01.862",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -699,7 +699,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "20",
         "netDuration": "66"
@@ -755,9 +755,9 @@
           "name": "Landespokal Herren 2023",
           "shortName": "PokalHe",
           "type": "Competition",
-          "updated": "2023-09-24 17:41:13.971",
+          "updated": "2023-09-25 08:04:01.862",
           "structureUpdated": "2023-09-24 11:02:04.673",
-          "resultsUpdated": "2023-09-24 17:41:13.971",
+          "resultsUpdated": "2023-09-25 08:04:01.862",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -839,7 +839,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "-",
         "netDuration": "90"
