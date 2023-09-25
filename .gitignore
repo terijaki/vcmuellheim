@@ -11,3 +11,4 @@ test*.html
 *debug*.html
 *debug*.json
 Gemfile.lock
+node_modules
