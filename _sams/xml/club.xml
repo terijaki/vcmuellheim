@@ -59,8 +59,8 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-09-25 23:38:51.65</updated>
-        <structureUpdated>2023-09-25 16:50:59.499</structureUpdated>
+        <updated>2023-09-26 07:39:03.177</updated>
+        <structureUpdated>2023-09-26 07:39:03.177</structureUpdated>
         <resultsUpdated>2023-09-25 23:38:51.65</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -160,8 +160,8 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-09-25 21:14:41.894</updated>
-        <structureUpdated>2023-09-25 21:14:41.894</structureUpdated>
+        <updated>2023-09-26 12:04:37.709</updated>
+        <structureUpdated>2023-09-26 12:04:37.709</structureUpdated>
         <resultsUpdated>2023-03-21 08:58:19.397</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -267,8 +267,8 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-09-25 19:50:38.435</updated>
-        <structureUpdated>2023-09-25 19:50:38.435</structureUpdated>
+        <updated>2023-09-26 15:59:33.128</updated>
+        <structureUpdated>2023-09-26 15:59:33.128</structureUpdated>
         <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -386,8 +386,8 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-09-25 19:50:38.435</updated>
-        <structureUpdated>2023-09-25 19:50:38.435</structureUpdated>
+        <updated>2023-09-26 15:59:33.128</updated>
+        <structureUpdated>2023-09-26 15:59:33.128</structureUpdated>
         <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -760,8 +760,8 @@
     <name>West Quali - U14w am 25.11.2023</name>
     <shortName>WQ_U14w</shortName>
     <type>Competition</type>
-        <updated>2023-08-14 12:48:26.755</updated>
-        <structureUpdated>2023-08-14 12:48:26.755</structureUpdated>
+        <updated>2023-09-26 21:57:31.493</updated>
+        <structureUpdated>2023-09-26 21:57:31.493</structureUpdated>
         <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -849,8 +849,8 @@
     <name>West Quali - U16w am 3.12.2023</name>
     <shortName>WQ_U16w</shortName>
     <type>Competition</type>
-        <updated>2023-08-14 12:48:44.598</updated>
-        <structureUpdated>2023-08-14 12:48:44.598</structureUpdated>
+        <updated>2023-09-26 21:56:55.84</updated>
+        <structureUpdated>2023-09-26 21:56:55.84</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
