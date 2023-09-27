@@ -8,8 +8,8 @@
     <name>West Quali - U14w am 25.11.2023</name>
     <shortName>WQ_U14w</shortName>
     <type>Competition</type>
-        <updated>2023-08-14 12:48:26.755</updated>
-        <structureUpdated>2023-08-14 12:48:26.755</structureUpdated>
+        <updated>2023-09-26 21:57:31.493</updated>
+        <structureUpdated>2023-09-26 21:57:31.493</structureUpdated>
         <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -66,6 +66,15 @@
             <shortName>SBVV-West</shortName>
         </association>
                 </matchSeries>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27127478</id>
+                            <uuid>98f00616-1d34-4748-a699-d2bd1a5895fd</uuid>
+                            <name>SV Waldkirch</name>
+                            <club>SV Waldkirch</club>
+                        </team>
+                    </ranking>
                     <ranking>
                         <place></place>
                         <team>

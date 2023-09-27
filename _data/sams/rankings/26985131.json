@@ -7,8 +7,8 @@
       "name": "West Quali - U14w am 25.11.2023",
       "shortName": "WQ_U14w",
       "type": "Competition",
-      "updated": "2023-08-14 12:48:26.755",
-      "structureUpdated": "2023-08-14 12:48:26.755",
+      "updated": "2023-09-26 21:57:31.493",
+      "structureUpdated": "2023-09-26 21:57:31.493",
       "resultsUpdated": "2023-01-15 16:33:00.278",
       "season": {
         "id": "25640073",
@@ -67,14 +67,25 @@
         "shortName": "SBVV-West"
       }
     },
-    "ranking": {
-      "place": null,
-      "team": {
-        "id": "26985131",
-        "uuid": "df3f96df-e87d-4a80-b24c-546010794921",
-        "name": "VC Müllheim",
-        "club": "VC Müllheim"
+    "ranking": [
+      {
+        "place": null,
+        "team": {
+          "id": "27127478",
+          "uuid": "98f00616-1d34-4748-a699-d2bd1a5895fd",
+          "name": "SV Waldkirch",
+          "club": "SV Waldkirch"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "26985131",
+          "uuid": "df3f96df-e87d-4a80-b24c-546010794921",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        }
       }
-    }
+    ]
   }
 }
