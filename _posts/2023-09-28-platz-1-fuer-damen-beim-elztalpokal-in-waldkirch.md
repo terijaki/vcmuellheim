@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: "Platz 1 für Damen beim Elztalpokal in Waldkirch!!! \U0001F3C6\U0001F947"
 thumbnail: "/upload/2023/09/28/elztalpokal1.jpg"
 gallery:
