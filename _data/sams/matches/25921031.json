@@ -5,286 +5,6 @@
     "+@xsi:schemaLocation": "http://sams-server.de/api/xml/ns/matches matches.xsd",
     "match": [
       {
-        "id": "25923590",
-        "uuid": "11e47931-027a-4d60-a1f3-94121e21b9d9",
-        "number": "1",
-        "date": "07.10.2023",
-        "time": "14:00",
-        "delayPossible": "false",
-        "decidingMatch": "false",
-        "indefinitelyRescheduled": "true",
-        "gameReassessed": "false",
-        "host": {
-          "id": "25921031",
-          "uuid": "ee1c9cf0-7df1-458f-9f2c-763526496fd9",
-          "name": "VC Müllheim 2",
-          "club": "VC Müllheim"
-        },
-        "team": [
-          {
-            "number": "1",
-            "id": "25921031",
-            "uuid": "ee1c9cf0-7df1-458f-9f2c-763526496fd9",
-            "seasonTeamId": "25921031",
-            "name": "VC Müllheim 2",
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": "VC Müllheim",
-              "shortName": null
-            }
-          },
-          {
-            "number": "2",
-            "id": "25921023",
-            "uuid": "a44875d3-92a8-4958-8440-39dceef0a1b6",
-            "seasonTeamId": "25921023",
-            "name": "VC Minseln",
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": "VC Minseln",
-              "shortName": null
-            }
-          }
-        ],
-        "matchSeries": {
-          "id": "25920998",
-          "uuid": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
-          "allSeasonId": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
-          "name": "Bezirksliga Herren Süd",
-          "shortName": "bzl s h",
-          "type": "League",
-          "updated": "2023-09-26 12:04:37.709",
-          "structureUpdated": "2023-09-26 12:04:37.709",
-          "resultsUpdated": "2023-03-21 08:58:19.397",
-          "season": {
-            "id": "25640073",
-            "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-            "name": "2023/24"
-          },
-          "hierarchy": {
-            "id": "25752573",
-            "uuid": "d32509b9-cd2f-4960-848b-b13626415284",
-            "name": "Bezirksligen",
-            "shortName": "bzl w",
-            "hierarchyLevel": "8"
-          },
-          "fullHierarchy": {
-            "hierarchy": [
-              {
-                "id": "25752573",
-                "name": "Bezirksligen",
-                "shortName": "bzl w",
-                "hierarchyLevel": "8"
-              },
-              {
-                "id": "25752270",
-                "name": "Bezirk West",
-                "shortName": "bw",
-                "hierarchyLevel": "7"
-              },
-              {
-                "id": "25752269",
-                "name": "SBVV Bezirke",
-                "shortName": "SBVV Bezirke",
-                "hierarchyLevel": "6"
-              },
-              {
-                "id": "25752268",
-                "name": "Spielbetrieb Südbaden",
-                "shortName": "sbvv",
-                "hierarchyLevel": "5"
-              },
-              {
-                "id": "25751076",
-                "name": "Oberliga Baden",
-                "shortName": "Ol",
-                "hierarchyLevel": "4"
-              },
-              {
-                "id": "25751075",
-                "name": "Regionalliga Süd",
-                "shortName": "RL",
-                "hierarchyLevel": "3"
-              },
-              {
-                "id": "25751074",
-                "name": "Dritte Liga Süd",
-                "shortName": "DLS",
-                "hierarchyLevel": "2"
-              },
-              {
-                "id": "25751073",
-                "name": "Bundesligen",
-                "shortName": "BL",
-                "hierarchyLevel": "1"
-              },
-              {
-                "id": "25751072",
-                "name": "Allgemeiner Spielbetrieb",
-                "shortName": "alg",
-                "hierarchyLevel": "0"
-              }
-            ]
-          },
-          "association": {
-            "name": null,
-            "shortName": null
-          }
-        },
-        "location": {
-          "id": "874",
-          "name": "Halle II",
-          "street": "Schwarzwaldstraße 12A",
-          "extraField": "-",
-          "postalCode": "79379",
-          "city": "Müllheim",
-          "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
-        },
-        "referees": null
-      },
-      {
-        "id": "25923593",
-        "uuid": "0c6d7f1a-0fbb-411f-bf35-715620fe7a56",
-        "number": "2",
-        "date": "07.10.2023",
-        "time": "14:00",
-        "delayPossible": "false",
-        "decidingMatch": "false",
-        "indefinitelyRescheduled": "true",
-        "gameReassessed": "false",
-        "host": {
-          "id": "25921031",
-          "uuid": "ee1c9cf0-7df1-458f-9f2c-763526496fd9",
-          "name": "VC Müllheim 2",
-          "club": "VC Müllheim"
-        },
-        "team": [
-          {
-            "number": "1",
-            "id": "25921031",
-            "uuid": "ee1c9cf0-7df1-458f-9f2c-763526496fd9",
-            "seasonTeamId": "25921031",
-            "name": "VC Müllheim 2",
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": "VC Müllheim",
-              "shortName": null
-            }
-          },
-          {
-            "number": "2",
-            "id": "25921292",
-            "uuid": "29553912-56f5-46a8-b494-5dd2d6232101",
-            "seasonTeamId": "25921292",
-            "name": "Bad Säckinger Wölfe 2",
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": "TV Bad Säckingen",
-              "shortName": null
-            }
-          }
-        ],
-        "matchSeries": {
-          "id": "25920998",
-          "uuid": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
-          "allSeasonId": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
-          "name": "Bezirksliga Herren Süd",
-          "shortName": "bzl s h",
-          "type": "League",
-          "updated": "2023-09-26 12:04:37.709",
-          "structureUpdated": "2023-09-26 12:04:37.709",
-          "resultsUpdated": "2023-03-21 08:58:19.397",
-          "season": {
-            "id": "25640073",
-            "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-            "name": "2023/24"
-          },
-          "hierarchy": {
-            "id": "25752573",
-            "uuid": "d32509b9-cd2f-4960-848b-b13626415284",
-            "name": "Bezirksligen",
-            "shortName": "bzl w",
-            "hierarchyLevel": "8"
-          },
-          "fullHierarchy": {
-            "hierarchy": [
-              {
-                "id": "25752573",
-                "name": "Bezirksligen",
-                "shortName": "bzl w",
-                "hierarchyLevel": "8"
-              },
-              {
-                "id": "25752270",
-                "name": "Bezirk West",
-                "shortName": "bw",
-                "hierarchyLevel": "7"
-              },
-              {
-                "id": "25752269",
-                "name": "SBVV Bezirke",
-                "shortName": "SBVV Bezirke",
-                "hierarchyLevel": "6"
-              },
-              {
-                "id": "25752268",
-                "name": "Spielbetrieb Südbaden",
-                "shortName": "sbvv",
-                "hierarchyLevel": "5"
-              },
-              {
-                "id": "25751076",
-                "name": "Oberliga Baden",
-                "shortName": "Ol",
-                "hierarchyLevel": "4"
-              },
-              {
-                "id": "25751075",
-                "name": "Regionalliga Süd",
-                "shortName": "RL",
-                "hierarchyLevel": "3"
-              },
-              {
-                "id": "25751074",
-                "name": "Dritte Liga Süd",
-                "shortName": "DLS",
-                "hierarchyLevel": "2"
-              },
-              {
-                "id": "25751073",
-                "name": "Bundesligen",
-                "shortName": "BL",
-                "hierarchyLevel": "1"
-              },
-              {
-                "id": "25751072",
-                "name": "Allgemeiner Spielbetrieb",
-                "shortName": "alg",
-                "hierarchyLevel": "0"
-              }
-            ]
-          },
-          "association": {
-            "name": null,
-            "shortName": null
-          }
-        },
-        "location": {
-          "id": "874",
-          "name": "Halle II",
-          "street": "Schwarzwaldstraße 12A",
-          "extraField": "-",
-          "postalCode": "79379",
-          "city": "Müllheim",
-          "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
-        },
-        "referees": null
-      },
-      {
         "id": "25923618",
         "uuid": "ba9fbe42-c2e4-46f4-b5df-74430d9b392f",
         "number": "10",
@@ -335,8 +55,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-09-26 12:04:37.709",
-          "structureUpdated": "2023-09-26 12:04:37.709",
+          "updated": "2023-09-27 10:08:08.259",
+          "structureUpdated": "2023-09-27 10:08:08.259",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -475,8 +195,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-09-26 12:04:37.709",
-          "structureUpdated": "2023-09-26 12:04:37.709",
+          "updated": "2023-09-27 10:08:08.259",
+          "structureUpdated": "2023-09-27 10:08:08.259",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -615,8 +335,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-09-26 12:04:37.709",
-          "structureUpdated": "2023-09-26 12:04:37.709",
+          "updated": "2023-09-27 10:08:08.259",
+          "structureUpdated": "2023-09-27 10:08:08.259",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -755,8 +475,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-09-26 12:04:37.709",
-          "structureUpdated": "2023-09-26 12:04:37.709",
+          "updated": "2023-09-27 10:08:08.259",
+          "structureUpdated": "2023-09-27 10:08:08.259",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -895,8 +615,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-09-26 12:04:37.709",
-          "structureUpdated": "2023-09-26 12:04:37.709",
+          "updated": "2023-09-27 10:08:08.259",
+          "structureUpdated": "2023-09-27 10:08:08.259",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -1035,8 +755,288 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-09-26 12:04:37.709",
-          "structureUpdated": "2023-09-26 12:04:37.709",
+          "updated": "2023-09-27 10:08:08.259",
+          "structureUpdated": "2023-09-27 10:08:08.259",
+          "resultsUpdated": "2023-03-21 08:58:19.397",
+          "season": {
+            "id": "25640073",
+            "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "25752573",
+            "uuid": "d32509b9-cd2f-4960-848b-b13626415284",
+            "name": "Bezirksligen",
+            "shortName": "bzl w",
+            "hierarchyLevel": "8"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "25752573",
+                "name": "Bezirksligen",
+                "shortName": "bzl w",
+                "hierarchyLevel": "8"
+              },
+              {
+                "id": "25752270",
+                "name": "Bezirk West",
+                "shortName": "bw",
+                "hierarchyLevel": "7"
+              },
+              {
+                "id": "25752269",
+                "name": "SBVV Bezirke",
+                "shortName": "SBVV Bezirke",
+                "hierarchyLevel": "6"
+              },
+              {
+                "id": "25752268",
+                "name": "Spielbetrieb Südbaden",
+                "shortName": "sbvv",
+                "hierarchyLevel": "5"
+              },
+              {
+                "id": "25751076",
+                "name": "Oberliga Baden",
+                "shortName": "Ol",
+                "hierarchyLevel": "4"
+              },
+              {
+                "id": "25751075",
+                "name": "Regionalliga Süd",
+                "shortName": "RL",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "25751074",
+                "name": "Dritte Liga Süd",
+                "shortName": "DLS",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "25751073",
+                "name": "Bundesligen",
+                "shortName": "BL",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "25751072",
+                "name": "Allgemeiner Spielbetrieb",
+                "shortName": "alg",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": null,
+            "shortName": null
+          }
+        },
+        "location": {
+          "id": "874",
+          "name": "Halle II",
+          "street": "Schwarzwaldstraße 12A",
+          "extraField": "-",
+          "postalCode": "79379",
+          "city": "Müllheim",
+          "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
+        },
+        "referees": null
+      },
+      {
+        "id": "25923590",
+        "uuid": "11e47931-027a-4d60-a1f3-94121e21b9d9",
+        "number": "1",
+        "date": "17.12.2023",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "25921031",
+          "uuid": "ee1c9cf0-7df1-458f-9f2c-763526496fd9",
+          "name": "VC Müllheim 2",
+          "club": "VC Müllheim"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "25921031",
+            "uuid": "ee1c9cf0-7df1-458f-9f2c-763526496fd9",
+            "seasonTeamId": "25921031",
+            "name": "VC Müllheim 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "25921023",
+            "uuid": "a44875d3-92a8-4958-8440-39dceef0a1b6",
+            "seasonTeamId": "25921023",
+            "name": "VC Minseln",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Minseln",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "25920998",
+          "uuid": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
+          "allSeasonId": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
+          "name": "Bezirksliga Herren Süd",
+          "shortName": "bzl s h",
+          "type": "League",
+          "updated": "2023-09-27 10:08:08.259",
+          "structureUpdated": "2023-09-27 10:08:08.259",
+          "resultsUpdated": "2023-03-21 08:58:19.397",
+          "season": {
+            "id": "25640073",
+            "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "25752573",
+            "uuid": "d32509b9-cd2f-4960-848b-b13626415284",
+            "name": "Bezirksligen",
+            "shortName": "bzl w",
+            "hierarchyLevel": "8"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "25752573",
+                "name": "Bezirksligen",
+                "shortName": "bzl w",
+                "hierarchyLevel": "8"
+              },
+              {
+                "id": "25752270",
+                "name": "Bezirk West",
+                "shortName": "bw",
+                "hierarchyLevel": "7"
+              },
+              {
+                "id": "25752269",
+                "name": "SBVV Bezirke",
+                "shortName": "SBVV Bezirke",
+                "hierarchyLevel": "6"
+              },
+              {
+                "id": "25752268",
+                "name": "Spielbetrieb Südbaden",
+                "shortName": "sbvv",
+                "hierarchyLevel": "5"
+              },
+              {
+                "id": "25751076",
+                "name": "Oberliga Baden",
+                "shortName": "Ol",
+                "hierarchyLevel": "4"
+              },
+              {
+                "id": "25751075",
+                "name": "Regionalliga Süd",
+                "shortName": "RL",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "25751074",
+                "name": "Dritte Liga Süd",
+                "shortName": "DLS",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "25751073",
+                "name": "Bundesligen",
+                "shortName": "BL",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "25751072",
+                "name": "Allgemeiner Spielbetrieb",
+                "shortName": "alg",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": null,
+            "shortName": null
+          }
+        },
+        "location": {
+          "id": "874",
+          "name": "Halle II",
+          "street": "Schwarzwaldstraße 12A",
+          "extraField": "-",
+          "postalCode": "79379",
+          "city": "Müllheim",
+          "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
+        },
+        "referees": null
+      },
+      {
+        "id": "25923593",
+        "uuid": "0c6d7f1a-0fbb-411f-bf35-715620fe7a56",
+        "number": "2",
+        "date": "17.12.2023",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "25921031",
+          "uuid": "ee1c9cf0-7df1-458f-9f2c-763526496fd9",
+          "name": "VC Müllheim 2",
+          "club": "VC Müllheim"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "25921031",
+            "uuid": "ee1c9cf0-7df1-458f-9f2c-763526496fd9",
+            "seasonTeamId": "25921031",
+            "name": "VC Müllheim 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "25921292",
+            "uuid": "29553912-56f5-46a8-b494-5dd2d6232101",
+            "seasonTeamId": "25921292",
+            "name": "Bad Säckinger Wölfe 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TV Bad Säckingen",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "25920998",
+          "uuid": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
+          "allSeasonId": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
+          "name": "Bezirksliga Herren Süd",
+          "shortName": "bzl s h",
+          "type": "League",
+          "updated": "2023-09-27 10:08:08.259",
+          "structureUpdated": "2023-09-27 10:08:08.259",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -1175,8 +1175,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-09-26 12:04:37.709",
-          "structureUpdated": "2023-09-26 12:04:37.709",
+          "updated": "2023-09-27 10:08:08.259",
+          "structureUpdated": "2023-09-27 10:08:08.259",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -1315,8 +1315,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-09-26 12:04:37.709",
-          "structureUpdated": "2023-09-26 12:04:37.709",
+          "updated": "2023-09-27 10:08:08.259",
+          "structureUpdated": "2023-09-27 10:08:08.259",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -1455,8 +1455,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-09-26 12:04:37.709",
-          "structureUpdated": "2023-09-26 12:04:37.709",
+          "updated": "2023-09-27 10:08:08.259",
+          "structureUpdated": "2023-09-27 10:08:08.259",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -1595,8 +1595,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-09-26 12:04:37.709",
-          "structureUpdated": "2023-09-26 12:04:37.709",
+          "updated": "2023-09-27 10:08:08.259",
+          "structureUpdated": "2023-09-27 10:08:08.259",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -1735,8 +1735,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-09-26 12:04:37.709",
-          "structureUpdated": "2023-09-26 12:04:37.709",
+          "updated": "2023-09-27 10:08:08.259",
+          "structureUpdated": "2023-09-27 10:08:08.259",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
@@ -1875,8 +1875,8 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-09-26 12:04:37.709",
-          "structureUpdated": "2023-09-26 12:04:37.709",
+          "updated": "2023-09-27 10:08:08.259",
+          "structureUpdated": "2023-09-27 10:08:08.259",
           "resultsUpdated": "2023-03-21 08:58:19.397",
           "season": {
             "id": "25640073",
