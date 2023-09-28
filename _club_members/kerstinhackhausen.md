@@ -1,7 +1,7 @@
 ---
-name: Kerstin Hackhausen
-email: mitgliedschaft@vcmuellheim.de
+name: "Kerstin Hackhausen"
+email: "mitgliedschaft@vcmuellheim.de"
 avatar: "/img/members/kerstinhackhausen.jpg"
-function: Mitgliederverwaltung
+function: "Mitgliederverwaltung"
 sortorder: 3
 ---

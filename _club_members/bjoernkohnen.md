@@ -1,7 +1,7 @@
 ---
-name: Björn Kohnen
-email: bjoern@vcmuellheim.de
+name: "Björn Kohnen"
+email: "bjoern@vcmuellheim.de"
 avatar: "/img/members/bjoernkohnen.jpg"
-function: Pressewart
+function: "Pressewart"
 sortorder: 9
 ---

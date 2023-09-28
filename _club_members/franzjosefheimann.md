@@ -1,7 +1,7 @@
 ---
-name: Franz-Josef Heimann
-email: 
+name: "Franz-Josef Heimann"
+email: ""
 avatar: "/img/members/franzjosefheimann.jpg"
-function: Schriftführer
+function: "Schriftführer"
 sortorder: 3
 ---
