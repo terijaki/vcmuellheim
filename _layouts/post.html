@@ -26,7 +26,7 @@ layout: default
               <div class="wow fadeInNone">
                 <div class="box wow fadeInBottom" data-wow-duration="0.5s">
                   {% if page.thumbnail.size > 0 %}<img class="post-thumbnail pb-3" src="{{ page.thumbnail }}" alt="" />{% endif %} {{ content }}
-                  {% for image in page.gallery %}<img src="{{ image }}">{% endfor %}
+                  {% for image in page.gallery %}<div style="aspect-ratio: 16/9 auto; width: 100%; background-image: url({{ image }}); background-size: cover; background-position: center;" class="mb-3"></div>{% endfor %}
                 </div>
 
                 <div class="social-sharing d-flex justify-content-center d-none">
