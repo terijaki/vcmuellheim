@@ -2,7 +2,7 @@
 layout: post
 excerpt_separator: "<!--more-->"
 posted-on-social: true
-title: Herren II ziehen in Endrunde des Bezirkspokals in Staufen ein
+title: "Herren II ziehen in Endrunde des Bezirkspokals in Staufen ein"
 thumbnail: "/upload/2023/03/30/img-20230327-wa0016.jpg"
 gallery:
 - "/upload/2023/03/30/img-20230327-wa0057.jpg"
