@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: "3. Platz beim Landespokal für Herren I"
 thumbnail: "/upload/2023/09/28/hasslachpokal11.jpg"
 gallery:
