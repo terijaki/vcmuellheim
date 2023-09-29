@@ -120,4 +120,13 @@
                             <club>VC Offenburg</club>
                         </team>
                     </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27147897</id>
+                            <uuid>22878397-bb16-46f0-a421-5e1fcf61328a</uuid>
+                            <name>VSG KiLa</name>
+                            <club>VSG KiLa</club>
+                        </team>
+                    </ranking>
         </rankings>

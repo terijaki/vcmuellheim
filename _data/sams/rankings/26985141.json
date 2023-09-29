@@ -121,6 +121,15 @@
           "name": "VC Offenburg",
           "club": "VC Offenburg"
         }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27147897",
+          "uuid": "22878397-bb16-46f0-a421-5e1fcf61328a",
+          "name": "VSG KiLa",
+          "club": "VSG KiLa"
+        }
       }
     ]
   }
