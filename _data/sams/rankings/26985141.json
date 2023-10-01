@@ -107,6 +107,15 @@
       {
         "place": null,
         "team": {
+          "id": "27172826",
+          "uuid": "81ef5fb6-3bae-4c42-9f2f-2cad395184b3",
+          "name": "VC Minseln",
+          "club": "VC Minseln"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "26985141",
           "uuid": "086def7d-9d7a-48d1-aa76-fa45f59d317b",
           "name": "VC Müllheim I",

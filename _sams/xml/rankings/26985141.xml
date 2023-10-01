@@ -105,6 +105,15 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>27172826</id>
+                            <uuid>81ef5fb6-3bae-4c42-9f2f-2cad395184b3</uuid>
+                            <name>VC Minseln</name>
+                            <club>VC Minseln</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>26985141</id>
                             <uuid>086def7d-9d7a-48d1-aa76-fa45f59d317b</uuid>
                             <name>VC Müllheim I</name>
