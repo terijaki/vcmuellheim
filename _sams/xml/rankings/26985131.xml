@@ -84,4 +84,13 @@
                             <club>VC Müllheim</club>
                         </team>
                     </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27219864</id>
+                            <uuid>e26674e9-8b5d-4f90-aa22-10df1cced39c</uuid>
+                            <name>VSG Mundingen</name>
+                            <club>VSG Mundingen</club>
+                        </team>
+                    </ranking>
         </rankings>

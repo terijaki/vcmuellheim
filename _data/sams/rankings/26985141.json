@@ -107,6 +107,15 @@
       {
         "place": null,
         "team": {
+          "id": "27216307",
+          "uuid": "75c8a576-0c0d-41b0-8ddd-c92a05c858a2",
+          "name": "VC Haslach",
+          "club": "VC Haslach"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "27172826",
           "uuid": "81ef5fb6-3bae-4c42-9f2f-2cad395184b3",
           "name": "VC Minseln",

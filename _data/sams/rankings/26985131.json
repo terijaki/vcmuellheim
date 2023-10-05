@@ -85,6 +85,15 @@
           "name": "VC Müllheim",
           "club": "VC Müllheim"
         }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27219864",
+          "uuid": "e26674e9-8b5d-4f90-aa22-10df1cced39c",
+          "name": "VSG Mundingen",
+          "club": "VSG Mundingen"
+        }
       }
     ]
   }
