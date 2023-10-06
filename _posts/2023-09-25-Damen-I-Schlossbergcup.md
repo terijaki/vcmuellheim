@@ -1,6 +1,5 @@
 ---
 posted-on-social: true
-title: Damen I beim Schlossbergcup in Staufen
 layout: post
 title: 'Damen I beim Schlossbergcup in Staufen'
 thumbnail: "/upload/2023/09/25/schlossbergcup1.jpg"
