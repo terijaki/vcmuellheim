@@ -78,6 +78,11 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm ci
+      - run: npm test
 
       - name: Build TinaCMS
         env:
