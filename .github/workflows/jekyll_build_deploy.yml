@@ -81,6 +81,8 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
+      - name: NPM
+        run: npm ci
 
       - name: Build TinaCMS
         env:
