@@ -5,9 +5,7 @@ import { DateField, defineConfig } from "tinacms";
 const branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || "main";
 
 export default defineConfig({
-  branch,
-  clientId: "f7f73962-b2fd-4ec6-b60e-072df3c602c9",
-  token: "9bae1d031ce22f4e0e42db78fd84f2bb7f374b8e",
+  branch: "main",
 
   build: {
     outputFolder: "edit",
