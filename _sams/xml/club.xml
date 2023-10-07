@@ -4,9 +4,9 @@
                 <id>471</id>
                 <name>VC Müllheim</name>
                 <logo>
-                    <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
-                    <filename>index.jpg</filename>
-                    <createDate>2021-10-07 08:36:37.571</createDate>
+                    <url>https://www.volleyball-baden.de/uploads/a59d92cf-e701-49dd-b3eb-e36318905ae6/logo-366273.png</url>
+                    <filename>logo-366273.png</filename>
+                    <createDate>2023-10-07 19:10:07.326</createDate>
                 </logo>
                 <lsbNumber>480190</lsbNumber>
                 <internalSportsclubId>3530</internalSportsclubId>
@@ -59,9 +59,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-10-07 16:59:31.588</updated>
-        <structureUpdated>2023-10-07 10:56:17.392</structureUpdated>
-        <resultsUpdated>2023-10-07 16:59:31.588</resultsUpdated>
+        <updated>2023-10-07 19:20:17.086</updated>
+        <structureUpdated>2023-10-07 19:20:17.086</structureUpdated>
+        <resultsUpdated>2023-10-07 18:56:21.959</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
