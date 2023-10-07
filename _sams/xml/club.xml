@@ -248,14 +248,14 @@
     <status>ACTIVE</status>
     <www>http://vcmuellheim.de</www>
     <logo>
-        <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
     </logo>
     <club>
         <name>VC Müllheim</name>
         <id>471</id>
         <shortName></shortName>
         <logo>
-            <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
         </logo>
         <www>http://vcmuellheim.de</www>
         <wwwDepartment></wwwDepartment>
@@ -267,8 +267,8 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 18:38:56.421</updated>
-        <structureUpdated>2023-10-07 18:38:56.421</structureUpdated>
+        <updated>2023-10-07 23:19:37.866</updated>
+        <structureUpdated>2023-10-07 23:19:37.866</structureUpdated>
         <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -367,14 +367,14 @@
     <status>ACTIVE</status>
     <www>http://vcmuellheim.de</www>
     <logo>
-        <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
     </logo>
     <club>
         <name>VC Müllheim</name>
         <id>471</id>
         <shortName></shortName>
         <logo>
-            <url>https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg</url>
+            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
         </logo>
         <www>http://vcmuellheim.de</www>
         <wwwDepartment></wwwDepartment>
@@ -386,8 +386,8 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 18:38:56.421</updated>
-        <structureUpdated>2023-10-07 18:38:56.421</structureUpdated>
+        <updated>2023-10-07 23:19:37.866</updated>
+        <structureUpdated>2023-10-07 23:19:37.866</structureUpdated>
         <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
         <season>
             <id>25640073</id>
