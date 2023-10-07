@@ -40,14 +40,14 @@
           "status": "ACTIVE",
           "www": "http://vcmuellheim.de",
           "logo": {
-            "url": "https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg"
+            "url": "https://www.volleyball-baden.de/uploads/a59d92cf-e701-49dd-b3eb-e36318905ae6/logo-366273.png"
           },
           "club": {
             "name": "VC Müllheim",
             "id": "471",
             "shortName": null,
             "logo": {
-              "url": "https://www.volleyball-baden.de/uploads/afedcdd0-6d8a-4a26-ba0e-411cd1d4d92e/index.jpg"
+              "url": "https://www.volleyball-baden.de/uploads/a59d92cf-e701-49dd-b3eb-e36318905ae6/logo-366273.png"
             },
             "www": "http://vcmuellheim.de",
             "wwwDepartment": null
@@ -59,8 +59,8 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2023-10-07 19:20:17.086",
-            "structureUpdated": "2023-10-07 19:20:17.086",
+            "updated": "2023-10-07 19:49:46.765",
+            "structureUpdated": "2023-10-07 19:49:46.765",
             "resultsUpdated": "2023-10-07 18:56:21.959",
             "season": {
               "id": "25640073",
