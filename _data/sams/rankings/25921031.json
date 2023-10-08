@@ -7,9 +7,9 @@
       "name": "Bezirksliga Herren Süd",
       "shortName": "bzl s h",
       "type": "League",
-      "updated": "2023-10-08 12:36:09.458",
+      "updated": "2023-10-08 14:33:55.662",
       "structureUpdated": "2023-10-08 10:38:48.062",
-      "resultsUpdated": "2023-10-08 12:36:09.458",
+      "resultsUpdated": "2023-10-08 14:33:55.662",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -144,6 +144,62 @@
       },
       {
         "team": {
+          "id": "25921018",
+          "uuid": "c9d02dda-a926-4112-b938-e2f163867094",
+          "name": "Sport vor Ort Rieselfeld",
+          "shortName": "SvO",
+          "clubCode": null,
+          "club": {
+            "name": "Sport vor Ort Rieselfeld",
+            "shortName": null
+          }
+        },
+        "place": "2",
+        "matchesPlayed": "1",
+        "wins": "1",
+        "losses": "0",
+        "points": "3",
+        "setPoints": "3:0",
+        "setWinScore": "3",
+        "setLoseScore": "0",
+        "setPointDifference": "3",
+        "setQuotient": "∞",
+        "ballPoints": "76:64",
+        "ballWinScore": "76",
+        "ballLoseScore": "64",
+        "ballPointDifference": "12",
+        "ballQuotient": "1,188",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "1"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "25921031",
           "uuid": "ee1c9cf0-7df1-458f-9f2c-763526496fd9",
           "name": "VC Müllheim 2",
@@ -154,7 +210,7 @@
             "shortName": null
           }
         },
-        "place": "2",
+        "place": "3",
         "matchesPlayed": "0",
         "wins": "0",
         "losses": "0",
@@ -210,7 +266,7 @@
             "shortName": null
           }
         },
-        "place": "3",
+        "place": "4",
         "matchesPlayed": "0",
         "wins": "0",
         "losses": "0",
@@ -266,7 +322,7 @@
             "shortName": null
           }
         },
-        "place": "4",
+        "place": "5",
         "matchesPlayed": "0",
         "wins": "0",
         "losses": "0",
@@ -319,62 +375,6 @@
           "clubCode": null,
           "club": {
             "name": "TV Freiburg-St.Georgen",
-            "shortName": null
-          }
-        },
-        "place": "5",
-        "matchesPlayed": "0",
-        "wins": "0",
-        "losses": "0",
-        "points": "0",
-        "setPoints": "0:0",
-        "setWinScore": "0",
-        "setLoseScore": "0",
-        "setPointDifference": "0",
-        "setQuotient": "∞",
-        "ballPoints": "0:0",
-        "ballWinScore": "0",
-        "ballLoseScore": "0",
-        "ballPointDifference": "0",
-        "ballQuotient": "∞",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "25921018",
-          "uuid": "c9d02dda-a926-4112-b938-e2f163867094",
-          "name": "Sport vor Ort Rieselfeld",
-          "shortName": "SvO",
-          "clubCode": null,
-          "club": {
-            "name": "Sport vor Ort Rieselfeld",
             "shortName": null
           }
         },
@@ -491,20 +491,20 @@
           }
         },
         "place": "8",
-        "matchesPlayed": "1",
+        "matchesPlayed": "2",
         "wins": "0",
-        "losses": "1",
+        "losses": "2",
         "points": "0",
-        "setPoints": "0:3",
+        "setPoints": "0:6",
         "setWinScore": "0",
-        "setLoseScore": "3",
-        "setPointDifference": "-3",
+        "setLoseScore": "6",
+        "setPointDifference": "-6",
         "setQuotient": "0,000",
-        "ballPoints": "62:80",
-        "ballWinScore": "62",
-        "ballLoseScore": "80",
-        "ballPointDifference": "-18",
-        "ballQuotient": "0,775",
+        "ballPoints": "126:156",
+        "ballWinScore": "126",
+        "ballLoseScore": "156",
+        "ballPointDifference": "-30",
+        "ballQuotient": "0,808",
         "resultTypes": {
           "matchResult": [
             {
@@ -529,7 +529,7 @@
             },
             {
               "result": "0:3",
-              "count": "1"
+              "count": "2"
             }
           ]
         }
