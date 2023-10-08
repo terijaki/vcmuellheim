@@ -7,6 +7,7 @@ gallery:
   - /upload/2023/09/06/testspiel_beg4.jpg
   - /upload/2023/09/06/testspiel_beg3.jpg
   - /upload/2023/09/06/testspiel_beg2.jpg
+date: 2023-10-05T22:00:00.000Z
 ---
 
 Am 26.09.23 trafen die Spieler der Herren II pünktlich um 20:00 Uhr an der Rosenburghalle an. Heute stand ein Testspiel gegen Breisach 5 an.

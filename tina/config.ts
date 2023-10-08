@@ -29,6 +29,7 @@ export default defineConfig({
         defaultItem: () => {
           return {
             layout: 'post',
+            date: new Date().toISOString(),
           }
         },
         ui: {
@@ -81,6 +82,12 @@ export default defineConfig({
             name: "gallery",
             list: true,
           },
+          {
+            type: "datetime",
+            label: "Datum",
+            name: "date",
+            required: false,
+          },
         ],
       },
       {
@@ -88,6 +95,22 @@ export default defineConfig({
         label: "Vorstand & Vereinsämter",
         path: "_club_members",
         format: 'md',
+        ui: {
+          filename: {
+            readonly: true,
+            slugify: (values) => {
+              return `${values?.name
+                ?.toLowerCase()
+                .replace(/\u00e4/g, "ae")
+                .replace(/\u00fc/g, "ue")
+                .replace(/\u00f6/g, "oe")
+                .replace(/([^a-z0-9 ]+)/gi, '')
+                .trim()
+                .replace(/ /g, '')
+              }`
+            },
+          },
+        },
         fields: [
           {
             name: "name",
