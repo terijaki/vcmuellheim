@@ -49,9 +49,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -148,6 +148,34 @@
                     </location>
                     <referees>
                     </referees>
+                        <results>
+                            <winner>1</winner>
+                            <setPoints>3:0</setPoints>
+                            <ballPoints>75:41</ballPoints>
+                            <sets>
+                                        <set>
+                                            <number>1</number>
+                                            <points>25:15</points>
+                                            <winner>TEAM1</winner>
+                                            <duration>28</duration>
+                                        </set>
+                                        <set>
+                                            <number>2</number>
+                                            <points>25:14</points>
+                                            <winner>TEAM1</winner>
+                                            <duration>22</duration>
+                                        </set>
+                                        <set>
+                                            <number>3</number>
+                                            <points>25:12</points>
+                                            <winner>TEAM1</winner>
+                                            <duration>23</duration>
+                                        </set>
+                            </sets>
+                            <verified>false</verified>
+                        </results>
+                        <spectators>-</spectators>
+                        <netDuration>73</netDuration>
                 </match>
                 <match>
                     <id>25922495</id>
@@ -198,9 +226,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -347,9 +375,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -496,9 +524,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -645,9 +673,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -794,9 +822,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -943,9 +971,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1092,9 +1120,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1241,9 +1269,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1390,9 +1418,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1539,9 +1567,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1688,9 +1716,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1837,9 +1865,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1986,9 +2014,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -2135,9 +2163,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -2284,9 +2312,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-07 23:34:39.523</updated>
-        <structureUpdated>2023-10-07 23:34:39.523</structureUpdated>
-        <resultsUpdated>2023-03-30 14:54:45.588</resultsUpdated>
+        <updated>2023-10-08 12:52:43.141</updated>
+        <structureUpdated>2023-10-08 12:13:19.185</structureUpdated>
+        <resultsUpdated>2023-10-08 12:52:43.141</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
