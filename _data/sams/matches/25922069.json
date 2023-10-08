@@ -55,9 +55,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -237,9 +237,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -336,7 +336,43 @@
           "city": "Müllheim",
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "3:1",
+          "ballPoints": "93:83",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:16",
+                "winner": "TEAM1",
+                "duration": "24"
+              },
+              {
+                "number": "2",
+                "points": "18:25",
+                "winner": "TEAM2",
+                "duration": "25"
+              },
+              {
+                "number": "3",
+                "points": "25:23",
+                "winner": "TEAM1",
+                "duration": "26"
+              },
+              {
+                "number": "4",
+                "points": "25:19",
+                "winner": "TEAM1",
+                "duration": "24"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "1",
+        "netDuration": "99"
       },
       {
         "id": "25922520",
@@ -389,9 +425,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -541,9 +577,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -693,9 +729,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -845,9 +881,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -997,9 +1033,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1149,9 +1185,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1301,9 +1337,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1453,9 +1489,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1605,9 +1641,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1757,9 +1793,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1909,9 +1945,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -2061,9 +2097,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -2213,9 +2249,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -2365,9 +2401,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2023-10-08 14:28:45.531",
+          "updated": "2023-10-08 15:05:57.304",
           "structureUpdated": "2023-10-08 12:13:19.185",
-          "resultsUpdated": "2023-10-08 14:28:45.531",
+          "resultsUpdated": "2023-10-08 15:05:57.304",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
