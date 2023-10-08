@@ -7,9 +7,9 @@
       "name": "Kreisliga Damen Süd",
       "shortName": "kl s d",
       "type": "League",
-      "updated": "2023-10-08 12:52:43.141",
+      "updated": "2023-10-08 14:03:46.537",
       "structureUpdated": "2023-10-08 12:13:19.185",
-      "resultsUpdated": "2023-10-08 12:52:43.141",
+      "resultsUpdated": "2023-10-08 14:03:46.537",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -156,13 +156,13 @@
       },
       {
         "team": {
-          "id": "25922078",
-          "uuid": "6efeaae2-7ec5-4277-b150-c964eeaa0fb1",
-          "name": "TV Freiburg-St.Georgen 3",
+          "id": "25922066",
+          "uuid": "7e5e51a4-3689-4b64-91a9-88362b0f2d76",
+          "name": "VBG Efringen-Kirchen 2",
           "shortName": null,
           "clubCode": null,
           "club": {
-            "name": "TV Freiburg-St.Georgen",
+            "name": "VBG Efringen-Kirchen",
             "shortName": null
           }
         },
@@ -176,11 +176,11 @@
         "setLoseScore": "0",
         "setPointDifference": "3",
         "setQuotient": "∞",
-        "ballPoints": "75:48",
+        "ballPoints": "75:58",
         "ballWinScore": "75",
-        "ballLoseScore": "48",
-        "ballPointDifference": "27",
-        "ballQuotient": "1,562",
+        "ballLoseScore": "58",
+        "ballPointDifference": "17",
+        "ballQuotient": "1,293",
         "resultTypes": {
           "matchResult": [
             {
@@ -268,36 +268,36 @@
       },
       {
         "team": {
-          "id": "25922075",
-          "uuid": "dc4e03f3-3b67-4262-94bc-30247b621ec0",
-          "name": "VC Müllheim2",
+          "id": "25922078",
+          "uuid": "6efeaae2-7ec5-4277-b150-c964eeaa0fb1",
+          "name": "TV Freiburg-St.Georgen 3",
           "shortName": null,
           "clubCode": null,
           "club": {
-            "name": "VC Müllheim",
+            "name": "TV Freiburg-St.Georgen",
             "shortName": null
           }
         },
         "place": "4",
-        "matchesPlayed": "0",
-        "wins": "0",
-        "losses": "0",
-        "points": "0",
-        "setPoints": "0:0",
-        "setWinScore": "0",
-        "setLoseScore": "0",
+        "matchesPlayed": "2",
+        "wins": "1",
+        "losses": "1",
+        "points": "3",
+        "setPoints": "3:3",
+        "setWinScore": "3",
+        "setLoseScore": "3",
         "setPointDifference": "0",
-        "setQuotient": "∞",
-        "ballPoints": "0:0",
-        "ballWinScore": "0",
-        "ballLoseScore": "0",
-        "ballPointDifference": "0",
-        "ballQuotient": "∞",
+        "setQuotient": "1,000",
+        "ballPoints": "133:123",
+        "ballWinScore": "133",
+        "ballLoseScore": "123",
+        "ballPointDifference": "10",
+        "ballQuotient": "1,081",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "3:1",
@@ -317,20 +317,20 @@
             },
             {
               "result": "0:3",
-              "count": "0"
+              "count": "1"
             }
           ]
         }
       },
       {
         "team": {
-          "id": "25922066",
-          "uuid": "7e5e51a4-3689-4b64-91a9-88362b0f2d76",
-          "name": "VBG Efringen-Kirchen 2",
+          "id": "25922075",
+          "uuid": "dc4e03f3-3b67-4262-94bc-30247b621ec0",
+          "name": "VC Müllheim2",
           "shortName": null,
           "clubCode": null,
           "club": {
-            "name": "VBG Efringen-Kirchen",
+            "name": "VC Müllheim",
             "shortName": null
           }
         },
