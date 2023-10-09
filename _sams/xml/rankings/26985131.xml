@@ -8,8 +8,8 @@
     <name>West Quali - U14w am 25.11.2023</name>
     <shortName>WQ_U14w</shortName>
     <type>Competition</type>
-        <updated>2023-09-29 23:53:08.189</updated>
-        <structureUpdated>2023-09-29 23:53:08.189</structureUpdated>
+        <updated>2023-10-09 14:08:01.236</updated>
+        <structureUpdated>2023-10-09 14:08:01.236</structureUpdated>
         <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -78,6 +78,15 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>27271820</id>
+                            <uuid>4c946205-0751-4819-9379-9d61b8e2714a</uuid>
+                            <name>VC Bötzingen e.V.</name>
+                            <club>VC Bötzingen e.V.</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>26985131</id>
                             <uuid>df3f96df-e87d-4a80-b24c-546010794921</uuid>
                             <name>VC Müllheim</name>
@@ -87,10 +96,28 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>27271790</id>
+                            <uuid>7170fbe5-4422-4220-949b-0a8834bb3ae1</uuid>
+                            <name>VSG KiLa</name>
+                            <club>VSG KiLa</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>27219864</id>
                             <uuid>e26674e9-8b5d-4f90-aa22-10df1cced39c</uuid>
                             <name>VSG Mundingen</name>
                             <club>VSG Mundingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27271840</id>
+                            <uuid>9e5bd06b-c3e7-40b8-84fe-ddc84b4e3003</uuid>
+                            <name>VfR Umkirch</name>
+                            <club>VfR Umkirch</club>
                         </team>
                     </ranking>
         </rankings>

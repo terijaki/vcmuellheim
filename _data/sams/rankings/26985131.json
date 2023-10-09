@@ -7,8 +7,8 @@
       "name": "West Quali - U14w am 25.11.2023",
       "shortName": "WQ_U14w",
       "type": "Competition",
-      "updated": "2023-09-29 23:53:08.189",
-      "structureUpdated": "2023-09-29 23:53:08.189",
+      "updated": "2023-10-09 14:08:01.236",
+      "structureUpdated": "2023-10-09 14:08:01.236",
       "resultsUpdated": "2023-01-15 16:33:00.278",
       "season": {
         "id": "25640073",
@@ -80,6 +80,15 @@
       {
         "place": null,
         "team": {
+          "id": "27271820",
+          "uuid": "4c946205-0751-4819-9379-9d61b8e2714a",
+          "name": "VC Bötzingen e.V.",
+          "club": "VC Bötzingen e.V."
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "26985131",
           "uuid": "df3f96df-e87d-4a80-b24c-546010794921",
           "name": "VC Müllheim",
@@ -89,10 +98,28 @@
       {
         "place": null,
         "team": {
+          "id": "27271790",
+          "uuid": "7170fbe5-4422-4220-949b-0a8834bb3ae1",
+          "name": "VSG KiLa",
+          "club": "VSG KiLa"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "27219864",
           "uuid": "e26674e9-8b5d-4f90-aa22-10df1cced39c",
           "name": "VSG Mundingen",
           "club": "VSG Mundingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27271840",
+          "uuid": "9e5bd06b-c3e7-40b8-84fe-ddc84b4e3003",
+          "name": "VfR Umkirch",
+          "club": "VfR Umkirch"
         }
       }
     ]
