@@ -71,6 +71,15 @@
       {
         "place": null,
         "team": {
+          "id": "27273627",
+          "uuid": "ba6f2868-693a-4b83-b7a9-31bd8d928eed",
+          "name": "TV Kappelrodeck",
+          "club": "TV Kappelrodeck"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "26985193",
           "uuid": "a43c4527-cf19-43c6-87e1-b0190bfe49b1",
           "name": "VC Müllheim",

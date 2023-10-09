@@ -69,6 +69,15 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>27273627</id>
+                            <uuid>ba6f2868-693a-4b83-b7a9-31bd8d928eed</uuid>
+                            <name>TV Kappelrodeck</name>
+                            <club>TV Kappelrodeck</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>26985193</id>
                             <uuid>a43c4527-cf19-43c6-87e1-b0190bfe49b1</uuid>
                             <name>VC Müllheim</name>
