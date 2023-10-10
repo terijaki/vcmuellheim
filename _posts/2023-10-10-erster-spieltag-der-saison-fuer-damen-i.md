@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: Erster Spieltag der Saison für Damen I
 thumbnail: /upload/2023/10/10/img-20231009-wa0005.jpg
 gallery:
