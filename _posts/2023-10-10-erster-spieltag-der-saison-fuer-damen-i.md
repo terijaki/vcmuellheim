@@ -3,12 +3,12 @@ layout: post
 title: Erster Spieltag der Saison für Damen I
 thumbnail: /upload/2023/10/10/img-20231009-wa0005.jpg
 gallery:
-  - /upload/2023/10/10/img-20231008-wa0018.jpg
   - /upload/2023/10/10/img-20231009-wa0028.jpg
-  - /upload/2023/10/10/img-20231009-wa0016.jpg
-  - /upload/2023/10/10/img-20231009-wa0009.jpg
-  - /upload/2023/10/10/img-20231009-wa0002.jpg
   - /upload/2023/10/10/img-20231009-wa0000.jpg
+  - /upload/2023/10/10/img-20231009-wa0016.jpg
+  - /upload/2023/10/10/img-20231009-wa0002.jpg
+  - /upload/2023/10/10/img-20231009-wa0009.jpg
+  - /upload/2023/10/10/img-20231008-wa0018.jpg
 date: 2023-10-10T15:23:39.007Z
 ---
 
