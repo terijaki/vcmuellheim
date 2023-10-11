@@ -85,6 +85,15 @@
           "name": "VC Müllheim II",
           "club": "VC Müllheim"
         }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27296024",
+          "uuid": "c3076326-307f-4f9c-b46a-f8af77d208d5",
+          "name": "VC Weil",
+          "club": "VC Weil"
+        }
       }
     ]
   }

@@ -98,6 +98,15 @@
       {
         "place": null,
         "team": {
+          "id": "27295959",
+          "uuid": "0be14033-2926-4f9b-a9e4-bfe9b6be5ba7",
+          "name": "VC Weil",
+          "club": "VC Weil"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "27271790",
           "uuid": "7170fbe5-4422-4220-949b-0a8834bb3ae1",
           "name": "VSG KiLa",

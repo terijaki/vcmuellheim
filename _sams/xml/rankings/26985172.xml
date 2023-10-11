@@ -84,4 +84,13 @@
                             <club>VC Müllheim</club>
                         </team>
                     </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27296024</id>
+                            <uuid>c3076326-307f-4f9c-b46a-f8af77d208d5</uuid>
+                            <name>VC Weil</name>
+                            <club>VC Weil</club>
+                        </team>
+                    </ranking>
         </rankings>
