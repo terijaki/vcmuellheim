@@ -111,4 +111,13 @@
                             <club>VC Müllheim</club>
                         </team>
                     </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27303247</id>
+                            <uuid>26ad33c9-e6e6-4963-b717-b1610c141905</uuid>
+                            <name>VfR Merzhausen</name>
+                            <club>VfR Merzhausen</club>
+                        </team>
+                    </ranking>
         </rankings>

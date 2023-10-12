@@ -78,6 +78,24 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>27303279</id>
+                            <uuid>9e041e3e-8739-424f-93a5-fd2c944867db</uuid>
+                            <name>TV Gundelfingen 1</name>
+                            <club>TV Gundelfingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27303288</id>
+                            <uuid>7e477c12-226c-4167-9d73-c82415a9b6d4</uuid>
+                            <name>TV Gundelfingen 2</name>
+                            <club>TV Gundelfingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>27271820</id>
                             <uuid>4c946205-0751-4819-9379-9d61b8e2714a</uuid>
                             <name>VC Bötzingen e.V.</name>
@@ -118,6 +136,15 @@
                             <uuid>e26674e9-8b5d-4f90-aa22-10df1cced39c</uuid>
                             <name>VSG Mundingen</name>
                             <club>VSG Mundingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27303228</id>
+                            <uuid>7d996dfd-8a55-44c8-a2a4-5a2ae1d48696</uuid>
+                            <name>VfR Merzhausen</name>
+                            <club>VfR Merzhausen</club>
                         </team>
                     </ranking>
                     <ranking>

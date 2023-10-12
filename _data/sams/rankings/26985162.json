@@ -121,6 +121,15 @@
           "name": "VC Offenburg",
           "club": "VC Offenburg"
         }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27303238",
+          "uuid": "c26341e6-5d1c-44f6-a410-06d1a93a65b4",
+          "name": "VfR Merzhausen",
+          "club": "VfR Merzhausen"
+        }
       }
     ]
   }

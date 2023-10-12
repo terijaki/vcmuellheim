@@ -112,6 +112,15 @@
           "name": "VC Müllheim",
           "club": "VC Müllheim"
         }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27303247",
+          "uuid": "26ad33c9-e6e6-4963-b717-b1610c141905",
+          "name": "VfR Merzhausen",
+          "club": "VfR Merzhausen"
+        }
       }
     ]
   }

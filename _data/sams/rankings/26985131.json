@@ -80,6 +80,24 @@
       {
         "place": null,
         "team": {
+          "id": "27303279",
+          "uuid": "9e041e3e-8739-424f-93a5-fd2c944867db",
+          "name": "TV Gundelfingen 1",
+          "club": "TV Gundelfingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27303288",
+          "uuid": "7e477c12-226c-4167-9d73-c82415a9b6d4",
+          "name": "TV Gundelfingen 2",
+          "club": "TV Gundelfingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "27271820",
           "uuid": "4c946205-0751-4819-9379-9d61b8e2714a",
           "name": "VC Bötzingen e.V.",
@@ -120,6 +138,15 @@
           "uuid": "e26674e9-8b5d-4f90-aa22-10df1cced39c",
           "name": "VSG Mundingen",
           "club": "VSG Mundingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27303228",
+          "uuid": "7d996dfd-8a55-44c8-a2a4-5a2ae1d48696",
+          "name": "VfR Merzhausen",
+          "club": "VfR Merzhausen"
         }
       },
       {

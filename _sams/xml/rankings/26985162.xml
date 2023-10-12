@@ -120,4 +120,13 @@
                             <club>VC Offenburg</club>
                         </team>
                     </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27303238</id>
+                            <uuid>c26341e6-5d1c-44f6-a410-06d1a93a65b4</uuid>
+                            <name>VfR Merzhausen</name>
+                            <club>VfR Merzhausen</club>
+                        </team>
+                    </ranking>
         </rankings>
