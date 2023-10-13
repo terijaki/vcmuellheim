@@ -1,7 +1,7 @@
 ---
 layout: team
 title: Jugend U20 (männlich)
-sorting: 6
+sorting: 3
 liga: false
 sbvv_id: null
 alter: 15-20 Jahre
@@ -15,7 +15,8 @@ trainer-name1: Klaus Ernst
 trainer-email1: klaus@vcmuellheim.de
 trainer-name2: ''
 trainer-email2: ''
-kommentar: ''
+kommentar: >-
+  <span class="fw-bold text-danger">Aufnahmestop</span>: Unsere Kapazitätsgrenzen sind erreicht. Melde dich aber gerne, damit wir dich auf die Warteliste aufnehmen.
 foto: ''
 kurztext: ''
 ansprechperson-name1: ''
