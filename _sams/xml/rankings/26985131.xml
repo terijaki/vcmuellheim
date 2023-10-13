@@ -8,8 +8,8 @@
     <name>West Quali - U14w am 25.11.2023</name>
     <shortName>WQ_U14w</shortName>
     <type>Competition</type>
-        <updated>2023-10-09 14:08:01.236</updated>
-        <structureUpdated>2023-10-09 14:08:01.236</structureUpdated>
+        <updated>2023-10-12 09:21:52.932</updated>
+        <structureUpdated>2023-10-12 09:21:52.932</structureUpdated>
         <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -69,6 +69,42 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>27311644</id>
+                            <uuid>bfeeaf75-9ee2-402f-bf8f-be2e359ec912</uuid>
+                            <name>FT 1844 Freiburg 1</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27311657</id>
+                            <uuid>8c50373a-0baa-4ab2-838e-1545efdbbb52</uuid>
+                            <name>FT 1844 Freiburg 2</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27311673</id>
+                            <uuid>c53d647e-961a-4a4b-a20c-3cb7ba2f08c7</uuid>
+                            <name>FT 1844 Freiburg 3</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27311686</id>
+                            <uuid>661e254d-76d2-45ea-81fa-bc8e695af4d1</uuid>
+                            <name>FT 1844 Freiburg 4</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>27127478</id>
                             <uuid>98f00616-1d34-4748-a699-d2bd1a5895fd</uuid>
                             <name>SV Waldkirch</name>
@@ -109,6 +145,24 @@
                             <uuid>df3f96df-e87d-4a80-b24c-546010794921</uuid>
                             <name>VC Müllheim</name>
                             <club>VC Müllheim</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27309551</id>
+                            <uuid>190521ee-fdd1-436f-88c0-59836daac017</uuid>
+                            <name>VC Offenburg 1</name>
+                            <club>VC Offenburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27309558</id>
+                            <uuid>8330ac43-9634-4b1b-8105-448f5901ee00</uuid>
+                            <name>VC Offenburg 2</name>
+                            <club>VC Offenburg</club>
                         </team>
                     </ranking>
                     <ranking>

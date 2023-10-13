@@ -7,8 +7,8 @@
       "name": "West Quali - U14w am 25.11.2023",
       "shortName": "WQ_U14w",
       "type": "Competition",
-      "updated": "2023-10-09 14:08:01.236",
-      "structureUpdated": "2023-10-09 14:08:01.236",
+      "updated": "2023-10-12 09:21:52.932",
+      "structureUpdated": "2023-10-12 09:21:52.932",
       "resultsUpdated": "2023-01-15 16:33:00.278",
       "season": {
         "id": "25640073",
@@ -71,6 +71,42 @@
       {
         "place": null,
         "team": {
+          "id": "27311644",
+          "uuid": "bfeeaf75-9ee2-402f-bf8f-be2e359ec912",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27311657",
+          "uuid": "8c50373a-0baa-4ab2-838e-1545efdbbb52",
+          "name": "FT 1844 Freiburg 2",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27311673",
+          "uuid": "c53d647e-961a-4a4b-a20c-3cb7ba2f08c7",
+          "name": "FT 1844 Freiburg 3",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27311686",
+          "uuid": "661e254d-76d2-45ea-81fa-bc8e695af4d1",
+          "name": "FT 1844 Freiburg 4",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "27127478",
           "uuid": "98f00616-1d34-4748-a699-d2bd1a5895fd",
           "name": "SV Waldkirch",
@@ -111,6 +147,24 @@
           "uuid": "df3f96df-e87d-4a80-b24c-546010794921",
           "name": "VC Müllheim",
           "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27309551",
+          "uuid": "190521ee-fdd1-436f-88c0-59836daac017",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27309558",
+          "uuid": "8330ac43-9634-4b1b-8105-448f5901ee00",
+          "name": "VC Offenburg 2",
+          "club": "VC Offenburg"
         }
       },
       {

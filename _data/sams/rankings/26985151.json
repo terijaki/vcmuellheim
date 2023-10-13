@@ -7,8 +7,8 @@
       "name": "West Quali - U16w am 3.12.2023",
       "shortName": "WQ_U16w",
       "type": "Competition",
-      "updated": "2023-09-29 23:52:54.851",
-      "structureUpdated": "2023-09-29 23:52:54.851",
+      "updated": "2023-10-12 09:22:08.171",
+      "structureUpdated": "2023-10-12 09:22:08.17",
       "resultsUpdated": null,
       "season": {
         "id": "25640073",
@@ -71,6 +71,33 @@
       {
         "place": null,
         "team": {
+          "id": "27311699",
+          "uuid": "77bfe640-8c5a-4671-8363-8bac2ae5b33b",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27311715",
+          "uuid": "0388997d-d5d8-4235-9f40-e387e835a006",
+          "name": "FT 1844 Freiburg 2",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27311728",
+          "uuid": "1904885b-83a7-439a-b10f-5eda0ef3d7f0",
+          "name": "FT 1844 Freiburg 3",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "27127469",
           "uuid": "9d53b68e-9f8e-4b16-9b90-06107ed4ecea",
           "name": "SV Waldkirch",
@@ -111,6 +138,24 @@
           "uuid": "3100da60-f7ae-46e0-a233-2ef81af2e46a",
           "name": "VC Müllheim",
           "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27309563",
+          "uuid": "1b1527b0-d836-49cd-babf-c00623a06715",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27309568",
+          "uuid": "92ba569b-46ab-4613-8488-6d78e3a9622c",
+          "name": "VC Offenburg 2",
+          "club": "VC Offenburg"
         }
       },
       {
