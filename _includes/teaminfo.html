@@ -24,7 +24,7 @@
                     <h3 class="teamname fw-bold">{{ team.title }}</h3>
                 {% endunless %}
             </div>
-            <div class="col-12 {% unless team.liga %}col-md-7 col-xxl-7{% endunless %} col-lg-12 mb1-2">
+            <div class="col-12 {% if team.liga %}col-md-7 col-xxl-7{% endif %} col-lg-12 mb1-2">
             <!-- Age -->
             {% if team.alter.size > 0 %}
                 <p class="alter"> <b>Alter:</b> {{ team.alter }}</p>
