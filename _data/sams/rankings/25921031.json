@@ -7,9 +7,9 @@
       "name": "Bezirksliga Herren Süd",
       "shortName": "bzl s h",
       "type": "League",
-      "updated": "2023-10-14 15:41:05.083",
+      "updated": "2023-10-14 16:00:39.875",
       "structureUpdated": "2023-10-14 00:43:51.352",
-      "resultsUpdated": "2023-10-14 15:41:05.083",
+      "resultsUpdated": "2023-10-14 16:00:39.875",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -155,25 +155,81 @@
           }
         },
         "place": "2",
-        "matchesPlayed": "2",
-        "wins": "1",
+        "matchesPlayed": "3",
+        "wins": "2",
         "losses": "1",
-        "points": "4",
-        "setPoints": "5:3",
-        "setWinScore": "5",
-        "setLoseScore": "3",
-        "setPointDifference": "2",
-        "setQuotient": "1,667",
-        "ballPoints": "180:168",
-        "ballWinScore": "180",
-        "ballLoseScore": "168",
-        "ballPointDifference": "12",
-        "ballQuotient": "1,071",
+        "points": "6",
+        "setPoints": "8:5",
+        "setWinScore": "8",
+        "setLoseScore": "5",
+        "setPointDifference": "3",
+        "setQuotient": "1,600",
+        "ballPoints": "284:266",
+        "ballWinScore": "284",
+        "ballLoseScore": "266",
+        "ballPointDifference": "18",
+        "ballQuotient": "1,068",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
               "count": "1"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "25921292",
+          "uuid": "29553912-56f5-46a8-b494-5dd2d6232101",
+          "name": "Bad Säckinger Wölfe 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Bad Säckingen",
+            "shortName": null
+          }
+        },
+        "place": "3",
+        "matchesPlayed": "1",
+        "wins": "0",
+        "losses": "1",
+        "points": "1",
+        "setPoints": "2:3",
+        "setWinScore": "2",
+        "setLoseScore": "3",
+        "setPointDifference": "-1",
+        "setQuotient": "0,667",
+        "ballPoints": "98:104",
+        "ballWinScore": "98",
+        "ballLoseScore": "104",
+        "ballPointDifference": "-6",
+        "ballQuotient": "0,942",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "0"
             },
             {
               "result": "3:1",
@@ -210,7 +266,7 @@
             "shortName": null
           }
         },
-        "place": "3",
+        "place": "4",
         "matchesPlayed": "0",
         "wins": "0",
         "losses": "0",
@@ -266,7 +322,7 @@
             "shortName": null
           }
         },
-        "place": "4",
+        "place": "5",
         "matchesPlayed": "0",
         "wins": "0",
         "losses": "0",
@@ -319,62 +375,6 @@
           "clubCode": null,
           "club": {
             "name": "TV Freiburg-St.Georgen",
-            "shortName": null
-          }
-        },
-        "place": "5",
-        "matchesPlayed": "0",
-        "wins": "0",
-        "losses": "0",
-        "points": "0",
-        "setPoints": "0:0",
-        "setWinScore": "0",
-        "setLoseScore": "0",
-        "setPointDifference": "0",
-        "setQuotient": "∞",
-        "ballPoints": "0:0",
-        "ballWinScore": "0",
-        "ballLoseScore": "0",
-        "ballPointDifference": "0",
-        "ballQuotient": "∞",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "25921292",
-          "uuid": "29553912-56f5-46a8-b494-5dd2d6232101",
-          "name": "Bad Säckinger Wölfe 2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Bad Säckingen",
             "shortName": null
           }
         },
