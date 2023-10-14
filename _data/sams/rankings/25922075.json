@@ -7,9 +7,9 @@
       "name": "Kreisliga Damen Süd",
       "shortName": "kl s d",
       "type": "League",
-      "updated": "2023-10-14 15:49:33.451",
+      "updated": "2023-10-14 18:30:24.603",
       "structureUpdated": "2023-10-13 16:52:50.475",
-      "resultsUpdated": "2023-10-14 15:49:33.451",
+      "resultsUpdated": "2023-10-14 18:30:24.603",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -268,6 +268,62 @@
       },
       {
         "team": {
+          "id": "25922081",
+          "uuid": "561bef7f-6fdb-4e0a-b977-231e7e7d4116",
+          "name": "VC Weil 3",
+          "shortName": "VC Weil 3",
+          "clubCode": null,
+          "club": {
+            "name": "VC Weil",
+            "shortName": null
+          }
+        },
+        "place": "4",
+        "matchesPlayed": "4",
+        "wins": "2",
+        "losses": "2",
+        "points": "6",
+        "setPoints": "6:8",
+        "setWinScore": "6",
+        "setLoseScore": "8",
+        "setPointDifference": "-2",
+        "setQuotient": "0,750",
+        "ballPoints": "259:326",
+        "ballWinScore": "259",
+        "ballLoseScore": "326",
+        "ballPointDifference": "-67",
+        "ballQuotient": "0,794",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "0"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "2"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "25922075",
           "uuid": "dc4e03f3-3b67-4262-94bc-30247b621ec0",
           "name": "VC Müllheim2",
@@ -278,7 +334,7 @@
             "shortName": null
           }
         },
-        "place": "4",
+        "place": "5",
         "matchesPlayed": "2",
         "wins": "1",
         "losses": "1",
@@ -293,62 +349,6 @@
         "ballLoseScore": "135",
         "ballPointDifference": "23",
         "ballQuotient": "1,170",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "1"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "1"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "25922059",
-          "uuid": "ca013309-2aa0-4864-98a7-fec75d08db29",
-          "name": "TV Bad Säckingen 3",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Bad Säckingen",
-            "shortName": null
-          }
-        },
-        "place": "5",
-        "matchesPlayed": "2",
-        "wins": "1",
-        "losses": "1",
-        "points": "3",
-        "setPoints": "4:3",
-        "setWinScore": "4",
-        "setLoseScore": "3",
-        "setPointDifference": "1",
-        "setQuotient": "1,333",
-        "ballPoints": "140:144",
-        "ballWinScore": "140",
-        "ballLoseScore": "144",
-        "ballPointDifference": "-4",
-        "ballQuotient": "0,972",
         "resultTypes": {
           "matchResult": [
             {
@@ -436,13 +436,13 @@
       },
       {
         "team": {
-          "id": "25922081",
-          "uuid": "561bef7f-6fdb-4e0a-b977-231e7e7d4116",
-          "name": "VC Weil 3",
-          "shortName": "VC Weil 3",
+          "id": "25922059",
+          "uuid": "ca013309-2aa0-4864-98a7-fec75d08db29",
+          "name": "TV Bad Säckingen 3",
+          "shortName": null,
           "clubCode": null,
           "club": {
-            "name": "VC Weil",
+            "name": "TV Bad Säckingen",
             "shortName": null
           }
         },
@@ -451,25 +451,25 @@
         "wins": "1",
         "losses": "2",
         "points": "3",
-        "setPoints": "3:7",
-        "setWinScore": "3",
-        "setLoseScore": "7",
-        "setPointDifference": "-4",
-        "setQuotient": "0,429",
-        "ballPoints": "174:237",
-        "ballWinScore": "174",
-        "ballLoseScore": "237",
-        "ballPointDifference": "-63",
-        "ballQuotient": "0,734",
+        "setPoints": "5:6",
+        "setWinScore": "5",
+        "setLoseScore": "6",
+        "setPointDifference": "-1",
+        "setQuotient": "0,833",
+        "ballPoints": "229:229",
+        "ballWinScore": "229",
+        "ballLoseScore": "229",
+        "ballPointDifference": "0",
+        "ballQuotient": "1,000",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "3:1",
-              "count": "1"
+              "count": "0"
             },
             {
               "result": "3:2",
@@ -481,11 +481,11 @@
             },
             {
               "result": "1:3",
-              "count": "0"
+              "count": "2"
             },
             {
               "result": "0:3",
-              "count": "2"
+              "count": "0"
             }
           ]
         }
