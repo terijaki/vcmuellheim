@@ -161,6 +161,24 @@
       {
         "place": null,
         "team": {
+          "id": "27335870",
+          "uuid": "28b3c242-116c-4ab6-8249-1b5082dca69e",
+          "name": "VSG Rebland 1",
+          "club": "TV Zell-Weierbach"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27335877",
+          "uuid": "137b962a-7db9-4ceb-99c2-ea3edca9bf9b",
+          "name": "VSG Rebland 2",
+          "club": "TV Zell-Weierbach"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "27303247",
           "uuid": "26ad33c9-e6e6-4963-b717-b1610c141905",
           "name": "VfR Merzhausen",
