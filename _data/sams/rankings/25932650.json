@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2023-10-14 17:37:57.235",
+      "updated": "2023-10-14 17:59:44.786",
       "structureUpdated": "2023-10-13 20:25:34.261",
-      "resultsUpdated": "2023-10-14 17:37:57.235",
+      "resultsUpdated": "2023-10-14 17:59:44.786",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -250,6 +250,62 @@
       },
       {
         "team": {
+          "id": "25932653",
+          "uuid": "7c4d59d2-6f61-432f-9086-c47020cf63e2",
+          "name": "VC Haslach",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VC Haslach",
+            "shortName": null
+          }
+        },
+        "place": "4",
+        "matchesPlayed": "1",
+        "wins": "1",
+        "losses": "0",
+        "points": "3",
+        "setPoints": "3:0",
+        "setWinScore": "3",
+        "setLoseScore": "0",
+        "setPointDifference": "3",
+        "setQuotient": "∞",
+        "ballPoints": "75:59",
+        "ballWinScore": "75",
+        "ballLoseScore": "59",
+        "ballPointDifference": "16",
+        "ballQuotient": "1,271",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "1"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "25932650",
           "uuid": "c5072d37-5feb-4f08-8431-c5f2ccdb88b5",
           "name": "VC Müllheim",
@@ -260,7 +316,7 @@
             "shortName": null
           }
         },
-        "place": "4",
+        "place": "5",
         "matchesPlayed": "2",
         "wins": "1",
         "losses": "1",
@@ -306,6 +362,118 @@
       },
       {
         "team": {
+          "id": "25932644",
+          "uuid": "7e94a7f4-2254-42e6-bd3e-23071d627d89",
+          "name": "TV Staufen",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Staufen",
+            "shortName": null
+          }
+        },
+        "place": "6",
+        "matchesPlayed": "3",
+        "wins": "1",
+        "losses": "2",
+        "points": "3",
+        "setPoints": "5:8",
+        "setWinScore": "5",
+        "setLoseScore": "8",
+        "setPointDifference": "-3",
+        "setQuotient": "0,625",
+        "ballPoints": "278:289",
+        "ballWinScore": "278",
+        "ballLoseScore": "289",
+        "ballPointDifference": "-11",
+        "ballQuotient": "0,962",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "0"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "1"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "25932635",
+          "uuid": "e6b9b5e2-ab9a-4b89-8441-bd7a1b1d6f35",
+          "name": "FT 1844 Freiburg 4",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "FT 1844 Freiburg",
+            "shortName": null
+          }
+        },
+        "place": "7",
+        "matchesPlayed": "3",
+        "wins": "0",
+        "losses": "3",
+        "points": "3",
+        "setPoints": "6:9",
+        "setWinScore": "6",
+        "setLoseScore": "9",
+        "setPointDifference": "-3",
+        "setQuotient": "0,667",
+        "ballPoints": "304:326",
+        "ballWinScore": "304",
+        "ballLoseScore": "326",
+        "ballPointDifference": "-22",
+        "ballQuotient": "0,933",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "0"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "3"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "25932638",
           "uuid": "a74ec2d8-92f1-4e17-b833-d8abebff83d7",
           "name": "TSV Al. Freiburg-Zähringen 1",
@@ -316,7 +484,7 @@
             "shortName": null
           }
         },
-        "place": "5",
+        "place": "8",
         "matchesPlayed": "2",
         "wins": "1",
         "losses": "1",
@@ -362,118 +530,6 @@
       },
       {
         "team": {
-          "id": "25932635",
-          "uuid": "e6b9b5e2-ab9a-4b89-8441-bd7a1b1d6f35",
-          "name": "FT 1844 Freiburg 4",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "FT 1844 Freiburg",
-            "shortName": null
-          }
-        },
-        "place": "6",
-        "matchesPlayed": "2",
-        "wins": "0",
-        "losses": "2",
-        "points": "2",
-        "setPoints": "4:6",
-        "setWinScore": "4",
-        "setLoseScore": "6",
-        "setPointDifference": "-2",
-        "setQuotient": "0,667",
-        "ballPoints": "208:215",
-        "ballWinScore": "208",
-        "ballLoseScore": "215",
-        "ballPointDifference": "-7",
-        "ballQuotient": "0,967",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "2"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "25932644",
-          "uuid": "7e94a7f4-2254-42e6-bd3e-23071d627d89",
-          "name": "TV Staufen",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Staufen",
-            "shortName": null
-          }
-        },
-        "place": "7",
-        "matchesPlayed": "1",
-        "wins": "0",
-        "losses": "1",
-        "points": "1",
-        "setPoints": "2:3",
-        "setWinScore": "2",
-        "setLoseScore": "3",
-        "setPointDifference": "-1",
-        "setQuotient": "0,667",
-        "ballPoints": "108:118",
-        "ballWinScore": "108",
-        "ballLoseScore": "118",
-        "ballPointDifference": "-10",
-        "ballQuotient": "0,915",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "1"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "25932647",
           "uuid": "d73c02cc-e82d-4c3c-b902-cfe4909f3cb5",
           "name": "USC Freiburg 3",
@@ -484,7 +540,7 @@
             "shortName": null
           }
         },
-        "place": "8",
+        "place": "9",
         "matchesPlayed": "2",
         "wins": "0",
         "losses": "2",
@@ -524,62 +580,6 @@
             {
               "result": "0:3",
               "count": "1"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "25932653",
-          "uuid": "7c4d59d2-6f61-432f-9086-c47020cf63e2",
-          "name": "VC Haslach",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "VC Haslach",
-            "shortName": null
-          }
-        },
-        "place": "9",
-        "matchesPlayed": "0",
-        "wins": "0",
-        "losses": "0",
-        "points": "0",
-        "setPoints": "0:0",
-        "setWinScore": "0",
-        "setLoseScore": "0",
-        "setPointDifference": "0",
-        "setQuotient": "∞",
-        "ballPoints": "0:0",
-        "ballWinScore": "0",
-        "ballLoseScore": "0",
-        "ballPointDifference": "0",
-        "ballQuotient": "∞",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
             }
           ]
         }
