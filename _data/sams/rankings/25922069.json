@@ -7,9 +7,9 @@
       "name": "Kreisliga Damen Süd",
       "shortName": "kl s d",
       "type": "League",
-      "updated": "2023-10-15 15:42:36.205",
+      "updated": "2023-10-15 15:51:48.933",
       "structureUpdated": "2023-10-13 16:52:50.475",
-      "resultsUpdated": "2023-10-15 15:42:36.205",
+      "resultsUpdated": "2023-10-15 15:51:48.933",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -111,25 +111,25 @@
           }
         },
         "place": "1",
-        "matchesPlayed": "3",
-        "wins": "3",
+        "matchesPlayed": "4",
+        "wins": "4",
         "losses": "0",
-        "points": "9",
-        "setPoints": "9:1",
-        "setWinScore": "9",
+        "points": "12",
+        "setPoints": "12:1",
+        "setWinScore": "12",
         "setLoseScore": "1",
-        "setPointDifference": "8",
-        "setQuotient": "9,000",
-        "ballPoints": "243:174",
-        "ballWinScore": "243",
-        "ballLoseScore": "174",
-        "ballPointDifference": "69",
-        "ballQuotient": "1,397",
+        "setPointDifference": "11",
+        "setQuotient": "12,000",
+        "ballPoints": "318:215",
+        "ballWinScore": "318",
+        "ballLoseScore": "215",
+        "ballPointDifference": "103",
+        "ballQuotient": "1,479",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "3:1",
@@ -268,62 +268,6 @@
       },
       {
         "team": {
-          "id": "25922066",
-          "uuid": "7e5e51a4-3689-4b64-91a9-88362b0f2d76",
-          "name": "VBG Efringen-Kirchen 2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "VBG Efringen-Kirchen",
-            "shortName": null
-          }
-        },
-        "place": "4",
-        "matchesPlayed": "3",
-        "wins": "2",
-        "losses": "1",
-        "points": "6",
-        "setPoints": "6:3",
-        "setWinScore": "6",
-        "setLoseScore": "3",
-        "setPointDifference": "3",
-        "setQuotient": "2,000",
-        "ballPoints": "195:176",
-        "ballWinScore": "195",
-        "ballLoseScore": "176",
-        "ballPointDifference": "19",
-        "ballQuotient": "1,108",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "2"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "1"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "25922059",
           "uuid": "ca013309-2aa0-4864-98a7-fec75d08db29",
           "name": "TV Bad Säckingen 3",
@@ -334,7 +278,7 @@
             "shortName": null
           }
         },
-        "place": "5",
+        "place": "4",
         "matchesPlayed": "4",
         "wins": "2",
         "losses": "2",
@@ -374,6 +318,62 @@
             {
               "result": "0:3",
               "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "25922066",
+          "uuid": "7e5e51a4-3689-4b64-91a9-88362b0f2d76",
+          "name": "VBG Efringen-Kirchen 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VBG Efringen-Kirchen",
+            "shortName": null
+          }
+        },
+        "place": "5",
+        "matchesPlayed": "4",
+        "wins": "2",
+        "losses": "2",
+        "points": "6",
+        "setPoints": "6:6",
+        "setWinScore": "6",
+        "setLoseScore": "6",
+        "setPointDifference": "0",
+        "setQuotient": "1,000",
+        "ballPoints": "236:251",
+        "ballWinScore": "236",
+        "ballLoseScore": "251",
+        "ballPointDifference": "-15",
+        "ballQuotient": "0,940",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "2"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "2"
             }
           ]
         }
