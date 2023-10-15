@@ -8,9 +8,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-15 13:35:23.257</updated>
+        <updated>2023-10-15 14:03:39.049</updated>
         <structureUpdated>2023-10-13 16:52:50.475</structureUpdated>
-        <resultsUpdated>2023-10-15 13:35:23.257</resultsUpdated>
+        <resultsUpdated>2023-10-15 14:03:39.049</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -212,42 +212,42 @@
                     </ranking>
                     <ranking>
                         <team>
-                            <id>25922066</id>
-                            <uuid>7e5e51a4-3689-4b64-91a9-88362b0f2d76</uuid>
-                            <name>VBG Efringen-Kirchen 2</name>
+                            <id>25922062</id>
+                            <uuid>fdc8c7be-36f2-4b7a-958b-0a1f4a2b9c16</uuid>
+                            <name>TV Merdingen 2</name>
                             <shortName></shortName>
                             <clubCode></clubCode>
                             <club>
-                                <name>VBG Efringen-Kirchen</name>
+                                <name>TV Merdingen</name>
                                 <shortName></shortName>
                             </club>
                         </team>
 
                         <place>3</place>
-                        <matchesPlayed>2</matchesPlayed>
-                        <wins>2</wins>
-                        <losses>0</losses>
-                            <points>6</points>
+                        <matchesPlayed>4</matchesPlayed>
+                        <wins>3</wins>
+                        <losses>1</losses>
+                            <points>9</points>
 
-                        <setPoints>6:0</setPoints>
-                        <setWinScore>6</setWinScore>
-                        <setLoseScore>0</setLoseScore>
-                        <setPointDifference>6</setPointDifference>
-                        <setQuotient>∞</setQuotient>
+                        <setPoints>9:5</setPoints>
+                        <setWinScore>9</setWinScore>
+                        <setLoseScore>5</setLoseScore>
+                        <setPointDifference>4</setPointDifference>
+                        <setQuotient>1,800</setQuotient>
 
-                        <ballPoints>150:99</ballPoints>
-                        <ballWinScore>150</ballWinScore>
-                        <ballLoseScore>99</ballLoseScore>
-                        <ballPointDifference>51</ballPointDifference>
-                        <ballQuotient>1,515</ballQuotient>
+                        <ballPoints>320:259</ballPoints>
+                        <ballWinScore>320</ballWinScore>
+                        <ballLoseScore>259</ballLoseScore>
+                        <ballPointDifference>61</ballPointDifference>
+                        <ballQuotient>1,236</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
-                                        <count>2</count>
+                                        <count>1</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:1</result>
-                                        <count>0</count>
+                                        <count>2</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:2</result>
@@ -263,19 +263,19 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
-                                        <count>0</count>
+                                        <count>1</count>
                                     </matchResult>
                             </resultTypes>
                     </ranking>
                     <ranking>
                         <team>
-                            <id>25922062</id>
-                            <uuid>fdc8c7be-36f2-4b7a-958b-0a1f4a2b9c16</uuid>
-                            <name>TV Merdingen 2</name>
+                            <id>25922066</id>
+                            <uuid>7e5e51a4-3689-4b64-91a9-88362b0f2d76</uuid>
+                            <name>VBG Efringen-Kirchen 2</name>
                             <shortName></shortName>
                             <clubCode></clubCode>
                             <club>
-                                <name>TV Merdingen</name>
+                                <name>VBG Efringen-Kirchen</name>
                                 <shortName></shortName>
                             </club>
                         </team>
@@ -286,25 +286,25 @@
                         <losses>1</losses>
                             <points>6</points>
 
-                        <setPoints>6:5</setPoints>
+                        <setPoints>6:3</setPoints>
                         <setWinScore>6</setWinScore>
-                        <setLoseScore>5</setLoseScore>
-                        <setPointDifference>1</setPointDifference>
-                        <setQuotient>1,200</setQuotient>
+                        <setLoseScore>3</setLoseScore>
+                        <setPointDifference>3</setPointDifference>
+                        <setQuotient>2,000</setQuotient>
 
-                        <ballPoints>243:214</ballPoints>
-                        <ballWinScore>243</ballWinScore>
-                        <ballLoseScore>214</ballLoseScore>
-                        <ballPointDifference>29</ballPointDifference>
-                        <ballQuotient>1,136</ballQuotient>
+                        <ballPoints>195:176</ballPoints>
+                        <ballWinScore>195</ballWinScore>
+                        <ballLoseScore>176</ballLoseScore>
+                        <ballPointDifference>19</ballPointDifference>
+                        <ballQuotient>1,108</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
-                                        <count>0</count>
+                                        <count>2</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:1</result>
-                                        <count>2</count>
+                                        <count>0</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:2</result>
