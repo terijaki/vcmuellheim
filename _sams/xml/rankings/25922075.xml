@@ -8,9 +8,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-10-15 14:03:39.049</updated>
+        <updated>2023-10-15 15:42:36.205</updated>
         <structureUpdated>2023-10-13 16:52:50.475</structureUpdated>
-        <resultsUpdated>2023-10-15 14:03:39.049</resultsUpdated>
+        <resultsUpdated>2023-10-15 15:42:36.205</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -452,22 +452,22 @@
                         </team>
 
                         <place>7</place>
-                        <matchesPlayed>3</matchesPlayed>
+                        <matchesPlayed>4</matchesPlayed>
                         <wins>1</wins>
-                        <losses>2</losses>
+                        <losses>3</losses>
                             <points>3</points>
 
-                        <setPoints>3:6</setPoints>
-                        <setWinScore>3</setWinScore>
-                        <setLoseScore>6</setLoseScore>
-                        <setPointDifference>-3</setPointDifference>
-                        <setQuotient>0,500</setQuotient>
+                        <setPoints>4:9</setPoints>
+                        <setWinScore>4</setWinScore>
+                        <setLoseScore>9</setLoseScore>
+                        <setPointDifference>-5</setPointDifference>
+                        <setQuotient>0,444</setQuotient>
 
-                        <ballPoints>167:198</ballPoints>
-                        <ballWinScore>167</ballWinScore>
-                        <ballLoseScore>198</ballLoseScore>
-                        <ballPointDifference>-31</ballPointDifference>
-                        <ballQuotient>0,843</ballQuotient>
+                        <ballPoints>244:294</ballPoints>
+                        <ballWinScore>244</ballWinScore>
+                        <ballLoseScore>294</ballLoseScore>
+                        <ballPointDifference>-50</ballPointDifference>
+                        <ballQuotient>0,830</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -487,7 +487,64 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>1:3</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>2</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
+                            <id>25922064</id>
+                            <uuid>48afaf5b-a3db-4320-aba3-e31b74c3d28d</uuid>
+                            <name>SG Breisach - Gündlingen 2</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>SG Breisach - Gündlingen</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>8</place>
+                        <matchesPlayed>4</matchesPlayed>
+                        <wins>1</wins>
+                        <losses>3</losses>
+                            <points>3</points>
+
+                        <setPoints>4:10</setPoints>
+                        <setWinScore>4</setWinScore>
+                        <setLoseScore>10</setLoseScore>
+                        <setPointDifference>-6</setPointDifference>
+                        <setQuotient>0,400</setQuotient>
+
+                        <ballPoints>258:323</ballPoints>
+                        <ballWinScore>258</ballWinScore>
+                        <ballLoseScore>323</ballLoseScore>
+                        <ballPointDifference>-65</ballPointDifference>
+                        <ballQuotient>0,799</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
                                         <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>1</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
@@ -508,7 +565,7 @@
                             </club>
                         </team>
 
-                        <place>8</place>
+                        <place>9</place>
                         <matchesPlayed>4</matchesPlayed>
                         <wins>0</wins>
                         <losses>4</losses>
@@ -545,63 +602,6 @@
                                     <matchResult>
                                         <result>1:3</result>
                                         <count>2</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>0:3</result>
-                                        <count>2</count>
-                                    </matchResult>
-                            </resultTypes>
-                    </ranking>
-                    <ranking>
-                        <team>
-                            <id>25922064</id>
-                            <uuid>48afaf5b-a3db-4320-aba3-e31b74c3d28d</uuid>
-                            <name>SG Breisach - Gündlingen 2</name>
-                            <shortName></shortName>
-                            <clubCode></clubCode>
-                            <club>
-                                <name>SG Breisach - Gündlingen</name>
-                                <shortName></shortName>
-                            </club>
-                        </team>
-
-                        <place>9</place>
-                        <matchesPlayed>3</matchesPlayed>
-                        <wins>0</wins>
-                        <losses>3</losses>
-                            <points>0</points>
-
-                        <setPoints>1:9</setPoints>
-                        <setWinScore>1</setWinScore>
-                        <setLoseScore>9</setLoseScore>
-                        <setPointDifference>-8</setPointDifference>
-                        <setQuotient>0,111</setQuotient>
-
-                        <ballPoints>162:246</ballPoints>
-                        <ballWinScore>162</ballWinScore>
-                        <ballLoseScore>246</ballLoseScore>
-                        <ballPointDifference>-84</ballPointDifference>
-                        <ballQuotient>0,659</ballQuotient>
-                            <resultTypes>
-                                    <matchResult>
-                                        <result>3:0</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:1</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:2</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>2:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>1:3</result>
-                                        <count>1</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
