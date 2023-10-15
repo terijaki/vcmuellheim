@@ -6,7 +6,7 @@
             {% if match.matchSeries.type and match.results.winner == nil %}
 
                 {%- capture content -%}
-                    {{ match.date | date: "%Y-%m-%d" }} {{ match.time | date: "%H:%M" }}$#€{{ match.matchSeries.uuid }}$#€{{ match.matchSeries.name }}$#€{{ match.matchSeries.type }}$#€{{ match.matchSeries.season.name }}$#€{{ match.uuid }}$#€{{ match.host.id }}$#€{{ match.host.club }}$#€{{ match.team[0].id }}$#€{{ match.team[1].id }}$#€{{ match.team[0].name }}$#€{{ match.team[1].name }}$#€{{ match.location.street }}$#€{{ match.location.postalCode }}$#€{{ match.location.city }}$#€{{ match.location.name }}$#€{{ match.results.setPoints }}$#€{{ match.results.ballPoints }}$#€{{ match.results.sets.set[0].points }}, {{ match.results.sets.set[1].points }}{% if match.results.sets.set[2].points %}, {{ match.results.sets.set[2].points }}{% endif %}{% if match.results.sets.set[3].points %}, {{ match.results.sets.set[3].points }}{% endif %}{% if match.results.sets.set[4].points %}, {{ match.results.sets.set[4].points }}{% endif %}
+                    {{ match.date | date: "%Y-%m-%d" }} {{ match.time | date: "%H:%M" }}$#€{{ match.uuid }}$#€{{ match.matchSeries.name }}$#€{{ match.matchSeries.type }}$#€{{ match.matchSeries.season.name }}$#€{{ match.uuid }}$#€{{ match.host.id }}$#€{{ match.host.club }}$#€{{ match.team[0].id }}$#€{{ match.team[1].id }}$#€{{ match.team[0].name }}$#€{{ match.team[1].name }}$#€{{ match.location.street }}$#€{{ match.location.postalCode }}$#€{{ match.location.city }}$#€{{ match.location.name }}$#€{{ match.results.setPoints }}$#€{{ match.results.ballPoints }}$#€{{ match.results.sets.set[0].points }}, {{ match.results.sets.set[1].points }}{% if match.results.sets.set[2].points %}, {{ match.results.sets.set[2].points }}{% endif %}{% if match.results.sets.set[3].points %}, {{ match.results.sets.set[3].points }}{% endif %}{% if match.results.sets.set[4].points %}, {{ match.results.sets.set[4].points }}{% endif %}
                 {%- endcapture -%}
 
                 {% if schedule_all_matches == nil %}
@@ -47,7 +47,9 @@
                     {% assign schedule_all_matches = schedule_all_matches | split: 'öäü' | sort %}
                     {% for match in schedule_all_matches limit: include.matches_limit | default: 9 %}
                     {% assign m = match | split: '$#€' %}
-                    <div class="match col-12 row text-nowrap m-0 py-2" match-id="23082859" match-number="1">
+                    {% unless matches_shown contains m[1] %}
+                    {% if include.team == nil or m[8] contains include.team or m[9] contains include.team %}
+                    <div class="match col-12 row text-nowrap m-0 py-2" match-id="{{ m[5] }}" match-number="1">
                         <div class="date-time col-12 col-lg-2 d-flex flex-lg-column align-items-center flex-wrap small">
                             <span class="date d-lg-block me-2">{{ m[0] | date: "%d.%m.%Y" }}</span>
                             <span class="date d-lg-block me-2">
@@ -75,6 +77,9 @@
                             {% endif %}
                         </div>
                     </div>
+                    {% assign matches_shown = matches_shown | append: m[1] %}
+                    {% endif %}
+                    {% endunless %}
                     {% endfor %}                    
                 </div>
             </div>
