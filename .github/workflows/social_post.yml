@@ -97,15 +97,6 @@ jobs:
           - ${{fromJSON(needs.New-Posts-for-Social.outputs.messages)}}
     runs-on: ubuntu-latest
     steps:
-      - name: Send Tweet
-        continue-on-error: true
-        uses: devigned/go-twitter-action@v1
-        with:
-          message: ${{matrix.messages}}
-          apiKey: ${{ secrets.TWITTER_API_KEY }}
-          apiKeySecret: ${{ secrets.TWITTER_API_KEY_SECRET }}
-          accessToken: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-          accessTokenSecret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
 
       - name: Send Toot
         id: mastodon
