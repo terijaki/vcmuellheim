@@ -8,8 +8,8 @@
     <name>West Quali - U14m am 25.11.2023</name>
     <shortName>WQ_U14m</shortName>
     <type>Competition</type>
-        <updated>2023-08-14 12:46:50.204</updated>
-        <structureUpdated>2023-08-14 12:46:50.204</structureUpdated>
+        <updated>2023-10-20 16:06:49.163</updated>
+        <structureUpdated>2023-10-20 16:06:49.163</structureUpdated>
         <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -125,7 +125,7 @@
                         <team>
                             <id>26985141</id>
                             <uuid>086def7d-9d7a-48d1-aa76-fa45f59d317b</uuid>
-                            <name>VC Müllheim I</name>
+                            <name>VC Müllheim</name>
                             <club>VC Müllheim</club>
                         </team>
                     </ranking>

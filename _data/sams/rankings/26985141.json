@@ -7,8 +7,8 @@
       "name": "West Quali - U14m am 25.11.2023",
       "shortName": "WQ_U14m",
       "type": "Competition",
-      "updated": "2023-08-14 12:46:50.204",
-      "structureUpdated": "2023-08-14 12:46:50.204",
+      "updated": "2023-10-20 16:06:49.163",
+      "structureUpdated": "2023-10-20 16:06:49.163",
       "resultsUpdated": "2023-01-15 16:33:00.278",
       "season": {
         "id": "25640073",
@@ -127,7 +127,7 @@
         "team": {
           "id": "26985141",
           "uuid": "086def7d-9d7a-48d1-aa76-fa45f59d317b",
-          "name": "VC Müllheim I",
+          "name": "VC Müllheim",
           "club": "VC Müllheim"
         }
       },
