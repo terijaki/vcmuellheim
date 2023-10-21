@@ -59,8 +59,8 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-10-14 22:36:16.266</updated>
-        <structureUpdated>2023-10-13 20:25:34.261</structureUpdated>
+        <updated>2023-10-20 13:11:37.048</updated>
+        <structureUpdated>2023-10-20 13:11:37.048</structureUpdated>
         <resultsUpdated>2023-10-14 22:36:16.266</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -160,8 +160,8 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-18 11:38:19.023</updated>
-        <structureUpdated>2023-10-18 11:38:19.023</structureUpdated>
+        <updated>2023-10-20 17:57:34.712</updated>
+        <structureUpdated>2023-10-20 17:57:34.712</structureUpdated>
         <resultsUpdated>2023-10-14 20:52:07.623</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -760,8 +760,8 @@
     <name>West Quali - U14w am 25.11.2023</name>
     <shortName>WQ_U14w</shortName>
     <type>Competition</type>
-        <updated>2023-10-15 18:54:13.921</updated>
-        <structureUpdated>2023-10-15 18:54:13.921</structureUpdated>
+        <updated>2023-10-20 16:30:03.513</updated>
+        <structureUpdated>2023-10-20 16:30:03.513</structureUpdated>
         <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1002,7 +1002,7 @@
     <uuid>086def7d-9d7a-48d1-aa76-fa45f59d317b</uuid>
     <seasonTeamId>26985141</seasonTeamId>
     <placeCipher>0</placeCipher>
-    <name>VC Müllheim I</name>
+    <name>VC Müllheim</name>
     <shortName></shortName>
     <clubCode></clubCode>
     <status>ACTIVE</status>
@@ -1027,8 +1027,8 @@
     <name>West Quali - U14m am 25.11.2023</name>
     <shortName>WQ_U14m</shortName>
     <type>Competition</type>
-        <updated>2023-08-14 12:46:50.204</updated>
-        <structureUpdated>2023-08-14 12:46:50.204</structureUpdated>
+        <updated>2023-10-20 16:06:49.163</updated>
+        <structureUpdated>2023-10-20 16:06:49.163</structureUpdated>
         <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1116,8 +1116,8 @@
     <name>West Quali - U16m am 3.12.2023</name>
     <shortName>WQ_U16m</shortName>
     <type>Competition</type>
-        <updated>2023-09-19 17:07:46.921</updated>
-        <structureUpdated>2023-09-19 17:07:46.921</structureUpdated>
+        <updated>2023-10-20 16:07:08.432</updated>
+        <structureUpdated>2023-10-20 16:07:08.432</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
