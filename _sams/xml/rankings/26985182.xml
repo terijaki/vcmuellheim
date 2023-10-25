@@ -19,14 +19,14 @@
         <hierarchy>
             <id>25749445</id>
             <uuid>2b4ac3de-a3cc-4fb2-843e-d3a99c115c28</uuid>
-            <name>Bezirk West Jugend weiblich</name>
+            <name>Meldungen Bezirk West Jugend weiblich</name>
             <shortName>bwjw</shortName>
             <hierarchyLevel>5</hierarchyLevel>
         </hierarchy>
         <fullHierarchy>
                 <hierarchy>
                     <id>25749445</id>
-                    <name>Bezirk West Jugend weiblich</name>
+                    <name>Meldungen Bezirk West Jugend weiblich</name>
                     <shortName>bwjw</shortName>
                     <hierarchyLevel>5</hierarchyLevel>
                 </hierarchy>

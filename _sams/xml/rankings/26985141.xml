@@ -19,14 +19,14 @@
         <hierarchy>
             <id>25749346</id>
             <uuid>8a98d50a-82a5-4d57-b6f8-6cd07be978a3</uuid>
-            <name>Bezirk West Jugend männlich</name>
+            <name>Meldungen Bezirk West Jugend männlich</name>
             <shortName>bwjm</shortName>
             <hierarchyLevel>5</hierarchyLevel>
         </hierarchy>
         <fullHierarchy>
                 <hierarchy>
                     <id>25749346</id>
-                    <name>Bezirk West Jugend männlich</name>
+                    <name>Meldungen Bezirk West Jugend männlich</name>
                     <shortName>bwjm</shortName>
                     <hierarchyLevel>5</hierarchyLevel>
                 </hierarchy>

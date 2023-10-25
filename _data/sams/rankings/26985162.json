@@ -18,7 +18,7 @@
       "hierarchy": {
         "id": "25749346",
         "uuid": "8a98d50a-82a5-4d57-b6f8-6cd07be978a3",
-        "name": "Bezirk West Jugend männlich",
+        "name": "Meldungen Bezirk West Jugend männlich",
         "shortName": "bwjm",
         "hierarchyLevel": "5"
       },
@@ -26,7 +26,7 @@
         "hierarchy": [
           {
             "id": "25749346",
-            "name": "Bezirk West Jugend männlich",
+            "name": "Meldungen Bezirk West Jugend männlich",
             "shortName": "bwjm",
             "hierarchyLevel": "5"
           },
