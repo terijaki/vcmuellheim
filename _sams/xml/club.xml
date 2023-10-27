@@ -160,8 +160,8 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-20 17:57:34.712</updated>
-        <structureUpdated>2023-10-20 17:57:34.712</structureUpdated>
+        <updated>2023-10-26 20:08:38.694</updated>
+        <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
         <resultsUpdated>2023-10-14 20:52:07.623</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -553,338 +553,6 @@
     </matchSeries>
                         </team>
                         <team>
-    <id>27469178</id>
-    <uuid>d601ce27-b6be-4783-82a3-fbb0fdac8432</uuid>
-    <seasonTeamId>26985141</seasonTeamId>
-    <placeCipher>0</placeCipher>
-    <name>VC Müllheim</name>
-    <shortName></shortName>
-    <clubCode></clubCode>
-    <status>ACTIVE</status>
-    <www>http://vcmuellheim.de</www>
-    <logo>
-        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
-    </logo>
-    <club>
-        <name>VC Müllheim</name>
-        <id>471</id>
-        <shortName></shortName>
-        <logo>
-            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
-        </logo>
-        <www>http://vcmuellheim.de</www>
-        <wwwDepartment></wwwDepartment>
-    </club>
-    <matchSeries>
-    <id>27463201</id>
-    <uuid>1bd0c85a-0d78-4cb1-9330-66bb312b2a2b</uuid>
-    <allSeasonId>1bd0c85a-0d78-4cb1-9330-66bb312b2a2b</allSeasonId>
-    <name>U14 männlich - Quali 2 am 25.11.2023</name>
-    <shortName>Q2_U14_m</shortName>
-    <type>Competition</type>
-        <updated>2023-10-25 19:00:32.121</updated>
-        <structureUpdated>2023-10-25 19:00:32.121</structureUpdated>
-        <resultsUpdated></resultsUpdated>
-        <season>
-            <id>25640073</id>
-            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
-            <name>2023/24</name>
-        </season>
-        <hierarchy>
-            <id>27462717</id>
-            <uuid>e981a1d1-beb1-4db0-abf3-932f5afd200e</uuid>
-            <name>Quali-Turniere Jugendmeisterschaften</name>
-            <shortName>Quali</shortName>
-            <hierarchyLevel>4</hierarchyLevel>
-        </hierarchy>
-        <fullHierarchy>
-                <hierarchy>
-                    <id>27462717</id>
-                    <name>Quali-Turniere Jugendmeisterschaften</name>
-                    <shortName>Quali</shortName>
-                    <hierarchyLevel>4</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749344</id>
-                    <name>SBVV-Jugendmeisterschaften</name>
-                    <shortName>sbvv_jm</shortName>
-                    <hierarchyLevel>3</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749343</id>
-                    <name>Regionaljugendmeisterschaften</name>
-                    <shortName>rjm</shortName>
-                    <hierarchyLevel>2</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749342</id>
-                    <name>Deutsche Jugendmeisterschaften</name>
-                    <shortName>djm</shortName>
-                    <hierarchyLevel>1</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749341</id>
-                    <name>Jugendspielbetrieb</name>
-                    <shortName>jug</shortName>
-                    <hierarchyLevel>0</hierarchyLevel>
-                </hierarchy>
-        </fullHierarchy>
-        <association>
-            <name>Südbadischer Volleyball-Verband</name>
-            <shortName>SBVV</shortName>
-        </association>
-    </matchSeries>
-                        </team>
-                        <team>
-    <id>27469048</id>
-    <uuid>bb8a265c-b0a7-4623-8e21-55fb3f26f80a</uuid>
-    <seasonTeamId>26985162</seasonTeamId>
-    <placeCipher>0</placeCipher>
-    <name>VC Müllheim</name>
-    <shortName></shortName>
-    <clubCode></clubCode>
-    <status>ACTIVE</status>
-    <www>http://vcmuellheim.de</www>
-    <logo>
-        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
-    </logo>
-    <club>
-        <name>VC Müllheim</name>
-        <id>471</id>
-        <shortName></shortName>
-        <logo>
-            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
-        </logo>
-        <www>http://vcmuellheim.de</www>
-        <wwwDepartment></wwwDepartment>
-    </club>
-    <matchSeries>
-    <id>27463146</id>
-    <uuid>29a1fe5c-1974-4833-9e87-79a6494c8803</uuid>
-    <allSeasonId>29a1fe5c-1974-4833-9e87-79a6494c8803</allSeasonId>
-    <name>U16 männlich - Quali 2 am 3.12.2023</name>
-    <shortName>Q2_U16_m</shortName>
-    <type>Competition</type>
-        <updated>2023-10-24 13:38:11.782</updated>
-        <structureUpdated>2023-10-24 13:38:11.782</structureUpdated>
-        <resultsUpdated></resultsUpdated>
-        <season>
-            <id>25640073</id>
-            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
-            <name>2023/24</name>
-        </season>
-        <hierarchy>
-            <id>27462717</id>
-            <uuid>e981a1d1-beb1-4db0-abf3-932f5afd200e</uuid>
-            <name>Quali-Turniere Jugendmeisterschaften</name>
-            <shortName>Quali</shortName>
-            <hierarchyLevel>4</hierarchyLevel>
-        </hierarchy>
-        <fullHierarchy>
-                <hierarchy>
-                    <id>27462717</id>
-                    <name>Quali-Turniere Jugendmeisterschaften</name>
-                    <shortName>Quali</shortName>
-                    <hierarchyLevel>4</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749344</id>
-                    <name>SBVV-Jugendmeisterschaften</name>
-                    <shortName>sbvv_jm</shortName>
-                    <hierarchyLevel>3</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749343</id>
-                    <name>Regionaljugendmeisterschaften</name>
-                    <shortName>rjm</shortName>
-                    <hierarchyLevel>2</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749342</id>
-                    <name>Deutsche Jugendmeisterschaften</name>
-                    <shortName>djm</shortName>
-                    <hierarchyLevel>1</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749341</id>
-                    <name>Jugendspielbetrieb</name>
-                    <shortName>jug</shortName>
-                    <hierarchyLevel>0</hierarchyLevel>
-                </hierarchy>
-        </fullHierarchy>
-        <association>
-            <name>Südbadischer Volleyball-Verband</name>
-            <shortName>SBVV</shortName>
-        </association>
-    </matchSeries>
-                        </team>
-                        <team>
-    <id>27469066</id>
-    <uuid>77b4202f-9400-4f01-806e-5dcfcc5fd7df</uuid>
-    <seasonTeamId>26985151</seasonTeamId>
-    <placeCipher>0</placeCipher>
-    <name>VC Müllheim</name>
-    <shortName></shortName>
-    <clubCode></clubCode>
-    <status>ACTIVE</status>
-    <www>http://vcmuellheim.de</www>
-    <logo>
-        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
-    </logo>
-    <club>
-        <name>VC Müllheim</name>
-        <id>471</id>
-        <shortName></shortName>
-        <logo>
-            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
-        </logo>
-        <www>http://vcmuellheim.de</www>
-        <wwwDepartment></wwwDepartment>
-    </club>
-    <matchSeries>
-    <id>27463081</id>
-    <uuid>380c214c-2f0d-46bc-91cc-0306b763f91d</uuid>
-    <allSeasonId>380c214c-2f0d-46bc-91cc-0306b763f91d</allSeasonId>
-    <name>U16 weiblich - Quali 2 am 3.12.23</name>
-    <shortName>Q2_U16_w</shortName>
-    <type>Competition</type>
-        <updated>2023-10-24 13:39:18.418</updated>
-        <structureUpdated>2023-10-24 13:39:18.418</structureUpdated>
-        <resultsUpdated></resultsUpdated>
-        <season>
-            <id>25640073</id>
-            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
-            <name>2023/24</name>
-        </season>
-        <hierarchy>
-            <id>27462717</id>
-            <uuid>e981a1d1-beb1-4db0-abf3-932f5afd200e</uuid>
-            <name>Quali-Turniere Jugendmeisterschaften</name>
-            <shortName>Quali</shortName>
-            <hierarchyLevel>4</hierarchyLevel>
-        </hierarchy>
-        <fullHierarchy>
-                <hierarchy>
-                    <id>27462717</id>
-                    <name>Quali-Turniere Jugendmeisterschaften</name>
-                    <shortName>Quali</shortName>
-                    <hierarchyLevel>4</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749344</id>
-                    <name>SBVV-Jugendmeisterschaften</name>
-                    <shortName>sbvv_jm</shortName>
-                    <hierarchyLevel>3</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749343</id>
-                    <name>Regionaljugendmeisterschaften</name>
-                    <shortName>rjm</shortName>
-                    <hierarchyLevel>2</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749342</id>
-                    <name>Deutsche Jugendmeisterschaften</name>
-                    <shortName>djm</shortName>
-                    <hierarchyLevel>1</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749341</id>
-                    <name>Jugendspielbetrieb</name>
-                    <shortName>jug</shortName>
-                    <hierarchyLevel>0</hierarchyLevel>
-                </hierarchy>
-        </fullHierarchy>
-        <association>
-            <name>Südbadischer Volleyball-Verband</name>
-            <shortName>SBVV</shortName>
-        </association>
-    </matchSeries>
-                        </team>
-                        <team>
-    <id>27469350</id>
-    <uuid>f52c591f-b175-428e-83f4-e3692e0b55f4</uuid>
-    <seasonTeamId>26985131</seasonTeamId>
-    <placeCipher>0</placeCipher>
-    <name>VC Müllheim</name>
-    <shortName></shortName>
-    <clubCode></clubCode>
-    <status>ACTIVE</status>
-    <www>http://vcmuellheim.de</www>
-    <logo>
-        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
-    </logo>
-    <club>
-        <name>VC Müllheim</name>
-        <id>471</id>
-        <shortName></shortName>
-        <logo>
-            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
-        </logo>
-        <www>http://vcmuellheim.de</www>
-        <wwwDepartment></wwwDepartment>
-    </club>
-    <matchSeries>
-    <id>27462690</id>
-    <uuid>565d5b51-d6f5-46d8-9046-02cca1c1a136</uuid>
-    <allSeasonId>565d5b51-d6f5-46d8-9046-02cca1c1a136</allSeasonId>
-    <name>Vor-Quali 4 - U14 weiblich am 25.11.23</name>
-    <shortName>VQ4_U14_w</shortName>
-    <type>Competition</type>
-        <updated>2023-10-25 19:10:15.602</updated>
-        <structureUpdated>2023-10-25 19:10:15.602</structureUpdated>
-        <resultsUpdated></resultsUpdated>
-        <season>
-            <id>25640073</id>
-            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
-            <name>2023/24</name>
-        </season>
-        <hierarchy>
-            <id>27463054</id>
-            <uuid>a2a1de6e-f4b3-47ef-82db-3f151a043c99</uuid>
-            <name>Vor-Qualifikation Jugendmeisterschaft</name>
-            <shortName>VQ</shortName>
-            <hierarchyLevel>4</hierarchyLevel>
-        </hierarchy>
-        <fullHierarchy>
-                <hierarchy>
-                    <id>27463054</id>
-                    <name>Vor-Qualifikation Jugendmeisterschaft</name>
-                    <shortName>VQ</shortName>
-                    <hierarchyLevel>4</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749344</id>
-                    <name>SBVV-Jugendmeisterschaften</name>
-                    <shortName>sbvv_jm</shortName>
-                    <hierarchyLevel>3</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749343</id>
-                    <name>Regionaljugendmeisterschaften</name>
-                    <shortName>rjm</shortName>
-                    <hierarchyLevel>2</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749342</id>
-                    <name>Deutsche Jugendmeisterschaften</name>
-                    <shortName>djm</shortName>
-                    <hierarchyLevel>1</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749341</id>
-                    <name>Jugendspielbetrieb</name>
-                    <shortName>jug</shortName>
-                    <hierarchyLevel>0</hierarchyLevel>
-                </hierarchy>
-        </fullHierarchy>
-        <association>
-            <name>Südbadischer Volleyball-Verband</name>
-            <shortName>SBVV</shortName>
-        </association>
-    </matchSeries>
-                        </team>
-                        <team>
     <id>26985172</id>
     <uuid>ee4b79fa-6502-44b9-a771-310b09af431d</uuid>
     <seasonTeamId>26985172</seasonTeamId>
@@ -914,8 +582,8 @@
     <name>West Jugendrunde (4:4) weiblich</name>
     <shortName>W_JRw</shortName>
     <type>Competition</type>
-        <updated>2023-09-21 11:05:23.41</updated>
-        <structureUpdated>2023-09-21 11:05:23.41</structureUpdated>
+        <updated>2023-10-26 08:45:13.562</updated>
+        <structureUpdated>2023-10-26 08:45:13.561</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1003,8 +671,8 @@
     <name>West Jugendrunde (4:4) weiblich</name>
     <shortName>W_JRw</shortName>
     <type>Competition</type>
-        <updated>2023-09-21 11:05:23.41</updated>
-        <structureUpdated>2023-09-21 11:05:23.41</structureUpdated>
+        <updated>2023-10-26 08:45:13.562</updated>
+        <structureUpdated>2023-10-26 08:45:13.561</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1059,6 +727,350 @@
         <association>
             <name>SBVV Bezirk West</name>
             <shortName>SBVV-West</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>26985131</id>
+    <uuid>df3f96df-e87d-4a80-b24c-546010794921</uuid>
+    <seasonTeamId>26985131</seasonTeamId>
+    <placeCipher>0</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>25749452</id>
+    <uuid>a0b3b7d6-9975-4b0c-b7bb-a8228f3460dd</uuid>
+    <allSeasonId>375a20ac-b2b9-c22f-e657-05936f7ec524</allSeasonId>
+    <name>West Quali - U14w am 25.11.2023</name>
+    <shortName>WQ_U14w</shortName>
+    <type>Competition</type>
+        <updated>2023-10-26 10:02:28.745</updated>
+        <structureUpdated>2023-10-26 10:02:28.745</structureUpdated>
+        <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>25749445</id>
+            <uuid>2b4ac3de-a3cc-4fb2-843e-d3a99c115c28</uuid>
+            <name>Meldungen Bezirk West Jugend weiblich</name>
+            <shortName>bwjw</shortName>
+            <hierarchyLevel>5</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>25749445</id>
+                    <name>Meldungen Bezirk West Jugend weiblich</name>
+                    <shortName>bwjw</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749345</id>
+                    <name>SBVV Bezirk West Jugend</name>
+                    <shortName>bwj</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749344</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749343</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749342</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749341</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>SBVV Bezirk West</name>
+            <shortName>SBVV-West</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>27469350</id>
+    <uuid>f52c591f-b175-428e-83f4-e3692e0b55f4</uuid>
+    <seasonTeamId>26985131</seasonTeamId>
+    <placeCipher>0</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>27462690</id>
+    <uuid>565d5b51-d6f5-46d8-9046-02cca1c1a136</uuid>
+    <allSeasonId>565d5b51-d6f5-46d8-9046-02cca1c1a136</allSeasonId>
+    <name>Vor-Quali 4 - U14 weiblich am 25.11.23</name>
+    <shortName>VQ4_U14_w</shortName>
+    <type>Competition</type>
+        <updated>2023-10-26 10:10:13.455</updated>
+        <structureUpdated>2023-10-26 10:10:13.455</structureUpdated>
+        <resultsUpdated></resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>27463054</id>
+            <uuid>a2a1de6e-f4b3-47ef-82db-3f151a043c99</uuid>
+            <name>Vor-Qualifikation Jugendmeisterschaft</name>
+            <shortName>VQ</shortName>
+            <hierarchyLevel>4</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>27463054</id>
+                    <name>Vor-Qualifikation Jugendmeisterschaft</name>
+                    <shortName>VQ</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749344</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749343</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749342</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749341</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>Südbadischer Volleyball-Verband</name>
+            <shortName>SBVV</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>26985151</id>
+    <uuid>3100da60-f7ae-46e0-a233-2ef81af2e46a</uuid>
+    <seasonTeamId>26985151</seasonTeamId>
+    <placeCipher>0</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>25749446</id>
+    <uuid>d9a236a4-64d7-428a-9b3a-167396c68d21</uuid>
+    <allSeasonId>df4ecc81-677f-4914-9eea-e457a230de1e</allSeasonId>
+    <name>West Quali - U16w am 3.12.2023</name>
+    <shortName>WQ_U16w</shortName>
+    <type>Competition</type>
+        <updated>2023-10-26 09:45:00.616</updated>
+        <structureUpdated>2023-10-26 09:45:00.616</structureUpdated>
+        <resultsUpdated></resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>25749445</id>
+            <uuid>2b4ac3de-a3cc-4fb2-843e-d3a99c115c28</uuid>
+            <name>Meldungen Bezirk West Jugend weiblich</name>
+            <shortName>bwjw</shortName>
+            <hierarchyLevel>5</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>25749445</id>
+                    <name>Meldungen Bezirk West Jugend weiblich</name>
+                    <shortName>bwjw</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749345</id>
+                    <name>SBVV Bezirk West Jugend</name>
+                    <shortName>bwj</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749344</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749343</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749342</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749341</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>SBVV Bezirk West</name>
+            <shortName>SBVV-West</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>27469066</id>
+    <uuid>77b4202f-9400-4f01-806e-5dcfcc5fd7df</uuid>
+    <seasonTeamId>26985151</seasonTeamId>
+    <placeCipher>0</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>27463081</id>
+    <uuid>380c214c-2f0d-46bc-91cc-0306b763f91d</uuid>
+    <allSeasonId>380c214c-2f0d-46bc-91cc-0306b763f91d</allSeasonId>
+    <name>U16 weiblich - Quali 2 am 3.12.23</name>
+    <shortName>Q2_U16_w</shortName>
+    <type>Competition</type>
+        <updated>2023-10-26 09:49:01.566</updated>
+        <structureUpdated>2023-10-26 09:49:01.566</structureUpdated>
+        <resultsUpdated></resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>27462717</id>
+            <uuid>e981a1d1-beb1-4db0-abf3-932f5afd200e</uuid>
+            <name>Quali-Turniere Jugendmeisterschaften</name>
+            <shortName>Quali</shortName>
+            <hierarchyLevel>4</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>27462717</id>
+                    <name>Quali-Turniere Jugendmeisterschaften</name>
+                    <shortName>Quali</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749344</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749343</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749342</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749341</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>Südbadischer Volleyball-Verband</name>
+            <shortName>SBVV</shortName>
         </association>
     </matchSeries>
                         </team>
@@ -1148,6 +1160,350 @@
         <association>
             <name>SBVV Bezirk West</name>
             <shortName>SBVV-West</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>26985141</id>
+    <uuid>086def7d-9d7a-48d1-aa76-fa45f59d317b</uuid>
+    <seasonTeamId>26985141</seasonTeamId>
+    <placeCipher>0</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>26693728</id>
+    <uuid>3125addc-fa15-4d72-8bde-bd733495cfe1</uuid>
+    <allSeasonId>3125addc-fa15-4d72-8bde-bd733495cfe1</allSeasonId>
+    <name>West Quali - U14m am 25.11.2023</name>
+    <shortName>WQ_U14m</shortName>
+    <type>Competition</type>
+        <updated>2023-10-26 09:58:15.612</updated>
+        <structureUpdated>2023-10-26 09:55:29.978</structureUpdated>
+        <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>25749346</id>
+            <uuid>8a98d50a-82a5-4d57-b6f8-6cd07be978a3</uuid>
+            <name>Meldungen Bezirk West Jugend männlich</name>
+            <shortName>bwjm</shortName>
+            <hierarchyLevel>5</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>25749346</id>
+                    <name>Meldungen Bezirk West Jugend männlich</name>
+                    <shortName>bwjm</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749345</id>
+                    <name>SBVV Bezirk West Jugend</name>
+                    <shortName>bwj</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749344</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749343</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749342</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749341</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>SBVV Bezirk West</name>
+            <shortName>SBVV-West</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>27469178</id>
+    <uuid>d601ce27-b6be-4783-82a3-fbb0fdac8432</uuid>
+    <seasonTeamId>26985141</seasonTeamId>
+    <placeCipher>0</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>27463201</id>
+    <uuid>1bd0c85a-0d78-4cb1-9330-66bb312b2a2b</uuid>
+    <allSeasonId>1bd0c85a-0d78-4cb1-9330-66bb312b2a2b</allSeasonId>
+    <name>U14 männlich - Quali 2 am 25.11.2023</name>
+    <shortName>Q2_U14_m</shortName>
+    <type>Competition</type>
+        <updated>2023-10-26 10:00:31.494</updated>
+        <structureUpdated>2023-10-26 10:00:31.494</structureUpdated>
+        <resultsUpdated></resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>27462717</id>
+            <uuid>e981a1d1-beb1-4db0-abf3-932f5afd200e</uuid>
+            <name>Quali-Turniere Jugendmeisterschaften</name>
+            <shortName>Quali</shortName>
+            <hierarchyLevel>4</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>27462717</id>
+                    <name>Quali-Turniere Jugendmeisterschaften</name>
+                    <shortName>Quali</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749344</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749343</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749342</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749341</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>Südbadischer Volleyball-Verband</name>
+            <shortName>SBVV</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>26985162</id>
+    <uuid>d2b75d92-6f7c-4851-ac2b-f0974fd49772</uuid>
+    <seasonTeamId>26985162</seasonTeamId>
+    <placeCipher>0</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>26693721</id>
+    <uuid>b53b11b6-9cd8-4f9e-a7da-f61b20738b58</uuid>
+    <allSeasonId>b53b11b6-9cd8-4f9e-a7da-f61b20738b58</allSeasonId>
+    <name>West Quali - U16m am 3.12.2023</name>
+    <shortName>WQ_U16m</shortName>
+    <type>Competition</type>
+        <updated>2023-10-26 09:44:45.455</updated>
+        <structureUpdated>2023-10-26 09:44:45.455</structureUpdated>
+        <resultsUpdated></resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>25749346</id>
+            <uuid>8a98d50a-82a5-4d57-b6f8-6cd07be978a3</uuid>
+            <name>Meldungen Bezirk West Jugend männlich</name>
+            <shortName>bwjm</shortName>
+            <hierarchyLevel>5</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>25749346</id>
+                    <name>Meldungen Bezirk West Jugend männlich</name>
+                    <shortName>bwjm</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749345</id>
+                    <name>SBVV Bezirk West Jugend</name>
+                    <shortName>bwj</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749344</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749343</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749342</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749341</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>SBVV Bezirk West</name>
+            <shortName>SBVV-West</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
+    <id>27469048</id>
+    <uuid>bb8a265c-b0a7-4623-8e21-55fb3f26f80a</uuid>
+    <seasonTeamId>26985162</seasonTeamId>
+    <placeCipher>0</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>27463146</id>
+    <uuid>29a1fe5c-1974-4833-9e87-79a6494c8803</uuid>
+    <allSeasonId>29a1fe5c-1974-4833-9e87-79a6494c8803</allSeasonId>
+    <name>U16 männlich - Quali 2 am 3.12.2023</name>
+    <shortName>Q2_U16_m</shortName>
+    <type>Competition</type>
+        <updated>2023-10-26 09:53:03.223</updated>
+        <structureUpdated>2023-10-26 09:53:03.223</structureUpdated>
+        <resultsUpdated></resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>27462717</id>
+            <uuid>e981a1d1-beb1-4db0-abf3-932f5afd200e</uuid>
+            <name>Quali-Turniere Jugendmeisterschaften</name>
+            <shortName>Quali</shortName>
+            <hierarchyLevel>4</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>27462717</id>
+                    <name>Quali-Turniere Jugendmeisterschaften</name>
+                    <shortName>Quali</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749344</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749343</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749342</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749341</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>Südbadischer Volleyball-Verband</name>
+            <shortName>SBVV</shortName>
         </association>
     </matchSeries>
                         </team>
