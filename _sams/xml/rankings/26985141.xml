@@ -8,8 +8,8 @@
     <name>West Quali - U14m am 25.11.2023</name>
     <shortName>WQ_U14m</shortName>
     <type>Competition</type>
-        <updated>2023-10-20 16:06:49.163</updated>
-        <structureUpdated>2023-10-20 16:06:49.163</structureUpdated>
+        <updated>2023-10-26 09:58:15.612</updated>
+        <structureUpdated>2023-10-26 09:55:29.978</structureUpdated>
         <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -141,8 +141,8 @@
                     <ranking>
                         <place></place>
                         <team>
-                            <id>27295972</id>
-                            <uuid>32c1da19-ddd1-4c47-a873-f4fc75942ee2</uuid>
+                            <id>27475323</id>
+                            <uuid>c4999234-ce57-42bd-a7d9-0c7298355a77</uuid>
                             <name>VC Weil</name>
                             <club>VC Weil</club>
                         </team>

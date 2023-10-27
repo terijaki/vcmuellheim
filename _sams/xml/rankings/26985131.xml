@@ -8,8 +8,8 @@
     <name>West Quali - U14w am 25.11.2023</name>
     <shortName>WQ_U14w</shortName>
     <type>Competition</type>
-        <updated>2023-10-23 12:06:22.028</updated>
-        <structureUpdated>2023-10-23 12:06:22.028</structureUpdated>
+        <updated>2023-10-26 10:02:28.745</updated>
+        <structureUpdated>2023-10-26 10:02:28.745</structureUpdated>
         <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -117,15 +117,6 @@
                             <id>27303279</id>
                             <uuid>9e041e3e-8739-424f-93a5-fd2c944867db</uuid>
                             <name>TV Gundelfingen 1</name>
-                            <club>TV Gundelfingen</club>
-                        </team>
-                    </ranking>
-                    <ranking>
-                        <place></place>
-                        <team>
-                            <id>27303288</id>
-                            <uuid>7e477c12-226c-4167-9d73-c82415a9b6d4</uuid>
-                            <name>TV Gundelfingen 2</name>
                             <club>TV Gundelfingen</club>
                         </team>
                     </ranking>
