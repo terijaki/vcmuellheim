@@ -49,9 +49,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-28 15:44:28.333</updated>
+        <updated>2023-10-28 17:46:10.391</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-28 15:44:28.333</resultsUpdated>
+        <resultsUpdated>2023-10-28 17:46:10.391</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -214,9 +214,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-28 15:44:28.333</updated>
+        <updated>2023-10-28 17:46:10.391</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-28 15:44:28.333</resultsUpdated>
+        <resultsUpdated>2023-10-28 17:46:10.391</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -379,9 +379,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-28 15:44:28.333</updated>
+        <updated>2023-10-28 17:46:10.391</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-28 15:44:28.333</resultsUpdated>
+        <resultsUpdated>2023-10-28 17:46:10.391</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -466,6 +466,34 @@
                     </location>
                     <referees>
                     </referees>
+                        <results>
+                            <winner>1</winner>
+                            <setPoints>3:0</setPoints>
+                            <ballPoints>75:50</ballPoints>
+                            <sets>
+                                        <set>
+                                            <number>1</number>
+                                            <points>25:19</points>
+                                            <winner>TEAM1</winner>
+                                            <duration>25</duration>
+                                        </set>
+                                        <set>
+                                            <number>2</number>
+                                            <points>25:11</points>
+                                            <winner>TEAM1</winner>
+                                            <duration>19</duration>
+                                        </set>
+                                        <set>
+                                            <number>3</number>
+                                            <points>25:20</points>
+                                            <winner>TEAM1</winner>
+                                            <duration>22</duration>
+                                        </set>
+                            </sets>
+                            <verified>false</verified>
+                        </results>
+                        <spectators>1</spectators>
+                        <netDuration>66</netDuration>
                 </match>
                 <match>
                     <id>25923634</id>
@@ -516,9 +544,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-28 15:44:28.333</updated>
+        <updated>2023-10-28 17:46:10.391</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-28 15:44:28.333</resultsUpdated>
+        <resultsUpdated>2023-10-28 17:46:10.391</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -653,9 +681,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-28 15:44:28.333</updated>
+        <updated>2023-10-28 17:46:10.391</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-28 15:44:28.333</resultsUpdated>
+        <resultsUpdated>2023-10-28 17:46:10.391</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -790,9 +818,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-28 15:44:28.333</updated>
+        <updated>2023-10-28 17:46:10.391</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-28 15:44:28.333</resultsUpdated>
+        <resultsUpdated>2023-10-28 17:46:10.391</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -927,9 +955,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-28 15:44:28.333</updated>
+        <updated>2023-10-28 17:46:10.391</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-28 15:44:28.333</resultsUpdated>
+        <resultsUpdated>2023-10-28 17:46:10.391</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1064,9 +1092,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-28 15:44:28.333</updated>
+        <updated>2023-10-28 17:46:10.391</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-28 15:44:28.333</resultsUpdated>
+        <resultsUpdated>2023-10-28 17:46:10.391</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1201,9 +1229,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-28 15:44:28.333</updated>
+        <updated>2023-10-28 17:46:10.391</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-28 15:44:28.333</resultsUpdated>
+        <resultsUpdated>2023-10-28 17:46:10.391</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1338,9 +1366,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-28 15:44:28.333</updated>
+        <updated>2023-10-28 17:46:10.391</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-28 15:44:28.333</resultsUpdated>
+        <resultsUpdated>2023-10-28 17:46:10.391</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1475,9 +1503,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-28 15:44:28.333</updated>
+        <updated>2023-10-28 17:46:10.391</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-28 15:44:28.333</resultsUpdated>
+        <resultsUpdated>2023-10-28 17:46:10.391</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1612,9 +1640,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-28 15:44:28.333</updated>
+        <updated>2023-10-28 17:46:10.391</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-28 15:44:28.333</resultsUpdated>
+        <resultsUpdated>2023-10-28 17:46:10.391</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1749,9 +1777,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-28 15:44:28.333</updated>
+        <updated>2023-10-28 17:46:10.391</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-28 15:44:28.333</resultsUpdated>
+        <resultsUpdated>2023-10-28 17:46:10.391</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1886,9 +1914,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-28 15:44:28.333</updated>
+        <updated>2023-10-28 17:46:10.391</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-28 15:44:28.333</resultsUpdated>
+        <resultsUpdated>2023-10-28 17:46:10.391</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
