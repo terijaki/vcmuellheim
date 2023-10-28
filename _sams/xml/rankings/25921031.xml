@@ -8,9 +8,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-28 17:46:10.391</updated>
+        <updated>2023-10-28 19:46:58.226</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-28 17:46:10.391</resultsUpdated>
+        <resultsUpdated>2023-10-28 19:46:58.226</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -371,6 +371,63 @@
                     </ranking>
                     <ranking>
                         <team>
+                            <id>25921012</id>
+                            <uuid>02fedd2b-b788-495f-a13f-c0c9b5dbb4d1</uuid>
+                            <name>TV Staufen 2</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>TV Staufen</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>6</place>
+                        <matchesPlayed>4</matchesPlayed>
+                        <wins>1</wins>
+                        <losses>3</losses>
+                            <points>3</points>
+
+                        <setPoints>4:9</setPoints>
+                        <setWinScore>4</setWinScore>
+                        <setLoseScore>9</setLoseScore>
+                        <setPointDifference>-5</setPointDifference>
+                        <setQuotient>0,444</setQuotient>
+
+                        <ballPoints>285:316</ballPoints>
+                        <ballWinScore>285</ballWinScore>
+                        <ballLoseScore>316</ballLoseScore>
+                        <ballPointDifference>-31</ballPointDifference>
+                        <ballQuotient>0,902</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>2</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
                             <id>25921023</id>
                             <uuid>a44875d3-92a8-4958-8440-39dceef0a1b6</uuid>
                             <name>VC Minseln</name>
@@ -382,7 +439,7 @@
                             </club>
                         </team>
 
-                        <place>6</place>
+                        <place>7</place>
                         <matchesPlayed>0</matchesPlayed>
                         <wins>0</wins>
                         <losses>0</losses>
@@ -428,63 +485,6 @@
                     </ranking>
                     <ranking>
                         <team>
-                            <id>25921012</id>
-                            <uuid>02fedd2b-b788-495f-a13f-c0c9b5dbb4d1</uuid>
-                            <name>TV Staufen 2</name>
-                            <shortName></shortName>
-                            <clubCode></clubCode>
-                            <club>
-                                <name>TV Staufen</name>
-                                <shortName></shortName>
-                            </club>
-                        </team>
-
-                        <place>7</place>
-                        <matchesPlayed>3</matchesPlayed>
-                        <wins>0</wins>
-                        <losses>3</losses>
-                            <points>0</points>
-
-                        <setPoints>1:9</setPoints>
-                        <setWinScore>1</setWinScore>
-                        <setLoseScore>9</setLoseScore>
-                        <setPointDifference>-8</setPointDifference>
-                        <setQuotient>0,111</setQuotient>
-
-                        <ballPoints>210:255</ballPoints>
-                        <ballWinScore>210</ballWinScore>
-                        <ballLoseScore>255</ballLoseScore>
-                        <ballPointDifference>-45</ballPointDifference>
-                        <ballQuotient>0,824</ballQuotient>
-                            <resultTypes>
-                                    <matchResult>
-                                        <result>3:0</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:1</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:2</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>2:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>1:3</result>
-                                        <count>1</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>0:3</result>
-                                        <count>2</count>
-                                    </matchResult>
-                            </resultTypes>
-                    </ranking>
-                    <ranking>
-                        <team>
                             <id>25921031</id>
                             <uuid>ee1c9cf0-7df1-458f-9f2c-763526496fd9</uuid>
                             <name>VC Müllheim 2</name>
@@ -497,22 +497,22 @@
                         </team>
 
                         <place>8</place>
-                        <matchesPlayed>3</matchesPlayed>
+                        <matchesPlayed>4</matchesPlayed>
                         <wins>0</wins>
-                        <losses>3</losses>
+                        <losses>4</losses>
                             <points>0</points>
 
-                        <setPoints>0:9</setPoints>
+                        <setPoints>0:12</setPoints>
                         <setWinScore>0</setWinScore>
-                        <setLoseScore>9</setLoseScore>
-                        <setPointDifference>-9</setPointDifference>
+                        <setLoseScore>12</setLoseScore>
+                        <setPointDifference>-12</setPointDifference>
                         <setQuotient>0,000</setQuotient>
 
-                        <ballPoints>137:225</ballPoints>
-                        <ballWinScore>137</ballWinScore>
-                        <ballLoseScore>225</ballLoseScore>
-                        <ballPointDifference>-88</ballPointDifference>
-                        <ballQuotient>0,609</ballQuotient>
+                        <ballPoints>198:300</ballPoints>
+                        <ballWinScore>198</ballWinScore>
+                        <ballLoseScore>300</ballLoseScore>
+                        <ballPointDifference>-102</ballPointDifference>
+                        <ballQuotient>0,660</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -536,7 +536,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
-                                        <count>3</count>
+                                        <count>4</count>
                                     </matchResult>
                             </resultTypes>
                     </ranking>
