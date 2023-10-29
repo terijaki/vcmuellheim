@@ -8,9 +8,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-10-29 14:47:06.564</updated>
+        <updated>2023-10-29 15:29:05.944</updated>
         <structureUpdated>2023-10-29 11:30:48.732</structureUpdated>
-        <resultsUpdated>2023-10-29 14:47:06.564</resultsUpdated>
+        <resultsUpdated>2023-10-29 15:29:05.944</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -137,13 +137,13 @@
                     </ranking>
                     <ranking>
                         <team>
-                            <id>25932661</id>
-                            <uuid>1a5c08ea-5b97-4449-9ec7-689d57b26f78</uuid>
-                            <name>VfR Merzhausen 1</name>
+                            <id>25932653</id>
+                            <uuid>7c4d59d2-6f61-432f-9086-c47020cf63e2</uuid>
+                            <name>VC Haslach</name>
                             <shortName></shortName>
                             <clubCode></clubCode>
                             <club>
-                                <name>VfR Merzhausen</name>
+                                <name>VC Haslach</name>
                                 <shortName></shortName>
                             </club>
                         </team>
@@ -154,25 +154,25 @@
                         <losses>0</losses>
                             <points>9</points>
 
-                        <setPoints>9:1</setPoints>
+                        <setPoints>9:2</setPoints>
                         <setWinScore>9</setWinScore>
-                        <setLoseScore>1</setLoseScore>
-                        <setPointDifference>8</setPointDifference>
-                        <setQuotient>9,000</setQuotient>
+                        <setLoseScore>2</setLoseScore>
+                        <setPointDifference>7</setPointDifference>
+                        <setQuotient>4,500</setQuotient>
 
-                        <ballPoints>247:184</ballPoints>
-                        <ballWinScore>247</ballWinScore>
-                        <ballLoseScore>184</ballLoseScore>
-                        <ballPointDifference>63</ballPointDifference>
-                        <ballQuotient>1,342</ballQuotient>
+                        <ballPoints>278:239</ballPoints>
+                        <ballWinScore>278</ballWinScore>
+                        <ballLoseScore>239</ballLoseScore>
+                        <ballPointDifference>39</ballPointDifference>
+                        <ballQuotient>1,163</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
-                                        <count>2</count>
+                                        <count>1</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:1</result>
-                                        <count>1</count>
+                                        <count>2</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:2</result>
@@ -194,38 +194,38 @@
                     </ranking>
                     <ranking>
                         <team>
-                            <id>25932653</id>
-                            <uuid>7c4d59d2-6f61-432f-9086-c47020cf63e2</uuid>
-                            <name>VC Haslach</name>
+                            <id>25932661</id>
+                            <uuid>1a5c08ea-5b97-4449-9ec7-689d57b26f78</uuid>
+                            <name>VfR Merzhausen 1</name>
                             <shortName></shortName>
                             <clubCode></clubCode>
                             <club>
-                                <name>VC Haslach</name>
+                                <name>VfR Merzhausen</name>
                                 <shortName></shortName>
                             </club>
                         </team>
 
                         <place>3</place>
-                        <matchesPlayed>2</matchesPlayed>
-                        <wins>2</wins>
-                        <losses>0</losses>
-                            <points>6</points>
+                        <matchesPlayed>4</matchesPlayed>
+                        <wins>3</wins>
+                        <losses>1</losses>
+                            <points>9</points>
 
-                        <setPoints>6:1</setPoints>
-                        <setWinScore>6</setWinScore>
-                        <setLoseScore>1</setLoseScore>
-                        <setPointDifference>5</setPointDifference>
-                        <setQuotient>6,000</setQuotient>
+                        <setPoints>10:4</setPoints>
+                        <setWinScore>10</setWinScore>
+                        <setLoseScore>4</setLoseScore>
+                        <setPointDifference>6</setPointDifference>
+                        <setQuotient>2,500</setQuotient>
 
-                        <ballPoints>172:143</ballPoints>
-                        <ballWinScore>172</ballWinScore>
-                        <ballLoseScore>143</ballLoseScore>
-                        <ballPointDifference>29</ballPointDifference>
-                        <ballQuotient>1,203</ballQuotient>
+                        <ballPoints>343:290</ballPoints>
+                        <ballWinScore>343</ballWinScore>
+                        <ballLoseScore>290</ballLoseScore>
+                        <ballPointDifference>53</ballPointDifference>
+                        <ballQuotient>1,183</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
-                                        <count>1</count>
+                                        <count>2</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:1</result>
@@ -241,7 +241,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>1:3</result>
-                                        <count>0</count>
+                                        <count>1</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>

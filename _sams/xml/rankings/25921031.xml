@@ -8,9 +8,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-29 13:16:10.109</updated>
+        <updated>2023-10-29 15:27:00.378</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-29 13:16:10.109</resultsUpdated>
+        <resultsUpdated>2023-10-29 15:27:00.378</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -86,6 +86,63 @@
                 </matchSeries>
                     <ranking>
                         <team>
+                            <id>25921018</id>
+                            <uuid>c9d02dda-a926-4112-b938-e2f163867094</uuid>
+                            <name>Sport vor Ort Rieselfeld</name>
+                            <shortName>SvO</shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>Sport vor Ort Rieselfeld</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>1</place>
+                        <matchesPlayed>6</matchesPlayed>
+                        <wins>4</wins>
+                        <losses>2</losses>
+                            <points>12</points>
+
+                        <setPoints>16:10</setPoints>
+                        <setWinScore>16</setWinScore>
+                        <setLoseScore>10</setLoseScore>
+                        <setPointDifference>6</setPointDifference>
+                        <setQuotient>1,600</setQuotient>
+
+                        <ballPoints>576:525</ballPoints>
+                        <ballWinScore>576</ballWinScore>
+                        <ballLoseScore>525</ballLoseScore>
+                        <ballPointDifference>51</ballPointDifference>
+                        <ballQuotient>1,097</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
                             <id>25921015</id>
                             <uuid>a32a1d51-d5aa-46a6-9c23-e01afec1a645</uuid>
                             <name>VC Weil 2</name>
@@ -97,7 +154,7 @@
                             </club>
                         </team>
 
-                        <place>1</place>
+                        <place>2</place>
                         <matchesPlayed>4</matchesPlayed>
                         <wins>4</wins>
                         <losses>0</losses>
@@ -130,63 +187,6 @@
                                     <matchResult>
                                         <result>2:3</result>
                                         <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>1:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>0:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                            </resultTypes>
-                    </ranking>
-                    <ranking>
-                        <team>
-                            <id>25921018</id>
-                            <uuid>c9d02dda-a926-4112-b938-e2f163867094</uuid>
-                            <name>Sport vor Ort Rieselfeld</name>
-                            <shortName>SvO</shortName>
-                            <clubCode></clubCode>
-                            <club>
-                                <name>Sport vor Ort Rieselfeld</name>
-                                <shortName></shortName>
-                            </club>
-                        </team>
-
-                        <place>2</place>
-                        <matchesPlayed>5</matchesPlayed>
-                        <wins>3</wins>
-                        <losses>2</losses>
-                            <points>9</points>
-
-                        <setPoints>13:10</setPoints>
-                        <setWinScore>13</setWinScore>
-                        <setLoseScore>10</setLoseScore>
-                        <setPointDifference>3</setPointDifference>
-                        <setQuotient>1,300</setQuotient>
-
-                        <ballPoints>501:472</ballPoints>
-                        <ballWinScore>501</ballWinScore>
-                        <ballLoseScore>472</ballLoseScore>
-                        <ballPointDifference>29</ballPointDifference>
-                        <ballQuotient>1,061</ballQuotient>
-                            <resultTypes>
-                                    <matchResult>
-                                        <result>3:0</result>
-                                        <count>1</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:1</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:2</result>
-                                        <count>2</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>2:3</result>
-                                        <count>2</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>1:3</result>
@@ -440,22 +440,22 @@
                         </team>
 
                         <place>7</place>
-                        <matchesPlayed>0</matchesPlayed>
+                        <matchesPlayed>1</matchesPlayed>
                         <wins>0</wins>
-                        <losses>0</losses>
+                        <losses>1</losses>
                             <points>0</points>
 
-                        <setPoints>0:0</setPoints>
+                        <setPoints>0:3</setPoints>
                         <setWinScore>0</setWinScore>
-                        <setLoseScore>0</setLoseScore>
-                        <setPointDifference>0</setPointDifference>
-                        <setQuotient>∞</setQuotient>
+                        <setLoseScore>3</setLoseScore>
+                        <setPointDifference>-3</setPointDifference>
+                        <setQuotient>0,000</setQuotient>
 
-                        <ballPoints>0:0</ballPoints>
-                        <ballWinScore>0</ballWinScore>
-                        <ballLoseScore>0</ballLoseScore>
-                        <ballPointDifference>0</ballPointDifference>
-                        <ballQuotient>∞</ballQuotient>
+                        <ballPoints>53:75</ballPoints>
+                        <ballWinScore>53</ballWinScore>
+                        <ballLoseScore>75</ballLoseScore>
+                        <ballPointDifference>-22</ballPointDifference>
+                        <ballQuotient>0,707</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -479,7 +479,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
-                                        <count>0</count>
+                                        <count>1</count>
                                     </matchResult>
                             </resultTypes>
                     </ranking>

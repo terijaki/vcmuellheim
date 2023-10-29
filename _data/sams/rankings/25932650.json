@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2023-10-29 14:47:06.564",
+      "updated": "2023-10-29 15:29:05.944",
       "structureUpdated": "2023-10-29 11:30:48.732",
-      "resultsUpdated": "2023-10-29 14:47:06.564",
+      "resultsUpdated": "2023-10-29 15:29:05.944",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -138,13 +138,13 @@
       },
       {
         "team": {
-          "id": "25932661",
-          "uuid": "1a5c08ea-5b97-4449-9ec7-689d57b26f78",
-          "name": "VfR Merzhausen 1",
+          "id": "25932653",
+          "uuid": "7c4d59d2-6f61-432f-9086-c47020cf63e2",
+          "name": "VC Haslach",
           "shortName": null,
           "clubCode": null,
           "club": {
-            "name": "VfR Merzhausen",
+            "name": "VC Haslach",
             "shortName": null
           }
         },
@@ -153,25 +153,25 @@
         "wins": "3",
         "losses": "0",
         "points": "9",
-        "setPoints": "9:1",
+        "setPoints": "9:2",
         "setWinScore": "9",
-        "setLoseScore": "1",
-        "setPointDifference": "8",
-        "setQuotient": "9,000",
-        "ballPoints": "247:184",
-        "ballWinScore": "247",
-        "ballLoseScore": "184",
-        "ballPointDifference": "63",
-        "ballQuotient": "1,342",
+        "setLoseScore": "2",
+        "setPointDifference": "7",
+        "setQuotient": "4,500",
+        "ballPoints": "278:239",
+        "ballWinScore": "278",
+        "ballLoseScore": "239",
+        "ballPointDifference": "39",
+        "ballQuotient": "1,163",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "2"
+              "count": "1"
             },
             {
               "result": "3:1",
-              "count": "1"
+              "count": "2"
             },
             {
               "result": "3:2",
@@ -194,36 +194,36 @@
       },
       {
         "team": {
-          "id": "25932653",
-          "uuid": "7c4d59d2-6f61-432f-9086-c47020cf63e2",
-          "name": "VC Haslach",
+          "id": "25932661",
+          "uuid": "1a5c08ea-5b97-4449-9ec7-689d57b26f78",
+          "name": "VfR Merzhausen 1",
           "shortName": null,
           "clubCode": null,
           "club": {
-            "name": "VC Haslach",
+            "name": "VfR Merzhausen",
             "shortName": null
           }
         },
         "place": "3",
-        "matchesPlayed": "2",
-        "wins": "2",
-        "losses": "0",
-        "points": "6",
-        "setPoints": "6:1",
-        "setWinScore": "6",
-        "setLoseScore": "1",
-        "setPointDifference": "5",
-        "setQuotient": "6,000",
-        "ballPoints": "172:143",
-        "ballWinScore": "172",
-        "ballLoseScore": "143",
-        "ballPointDifference": "29",
-        "ballQuotient": "1,203",
+        "matchesPlayed": "4",
+        "wins": "3",
+        "losses": "1",
+        "points": "9",
+        "setPoints": "10:4",
+        "setWinScore": "10",
+        "setLoseScore": "4",
+        "setPointDifference": "6",
+        "setQuotient": "2,500",
+        "ballPoints": "343:290",
+        "ballWinScore": "343",
+        "ballLoseScore": "290",
+        "ballPointDifference": "53",
+        "ballQuotient": "1,183",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "1"
+              "count": "2"
             },
             {
               "result": "3:1",
@@ -239,7 +239,7 @@
             },
             {
               "result": "1:3",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "0:3",
