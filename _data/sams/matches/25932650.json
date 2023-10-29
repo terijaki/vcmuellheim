@@ -55,9 +55,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -219,9 +219,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -389,9 +389,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -470,7 +470,37 @@
           "city": "Freiburg",
           "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
         },
-        "referees": null
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:3",
+          "ballPoints": "41:75",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "14:25",
+                "winner": "TEAM2",
+                "duration": "16"
+              },
+              {
+                "number": "2",
+                "points": "13:25",
+                "winner": "TEAM2",
+                "duration": "17"
+              },
+              {
+                "number": "3",
+                "points": "14:25",
+                "winner": "TEAM2",
+                "duration": "15"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "10",
+        "netDuration": "48"
       },
       {
         "id": "26024199",
@@ -523,9 +553,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -657,9 +687,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -791,9 +821,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -925,9 +955,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1059,9 +1089,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1193,9 +1223,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1327,9 +1357,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1461,9 +1491,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1595,9 +1625,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1729,9 +1759,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1863,9 +1893,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1997,9 +2027,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -2131,9 +2161,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -2265,9 +2295,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -2399,9 +2429,9 @@
           "name": "Landesliga West Herren",
           "shortName": "LL w h",
           "type": "League",
-          "updated": "2023-10-29 11:30:48.732",
+          "updated": "2023-10-29 13:04:12.548",
           "structureUpdated": "2023-10-29 11:30:48.732",
-          "resultsUpdated": "2023-10-14 22:36:16.266",
+          "resultsUpdated": "2023-10-29 13:04:12.548",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
