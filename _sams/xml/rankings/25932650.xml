@@ -8,9 +8,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-10-29 13:52:19.422</updated>
+        <updated>2023-10-29 14:47:06.564</updated>
         <structureUpdated>2023-10-29 11:30:48.732</structureUpdated>
-        <resultsUpdated>2023-10-29 13:52:19.422</resultsUpdated>
+        <resultsUpdated>2023-10-29 14:47:06.564</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -80,6 +80,63 @@
                 </matchSeries>
                     <ranking>
                         <team>
+                            <id>25932665</id>
+                            <uuid>b56f925f-383c-4cdd-8658-8707585d593b</uuid>
+                            <name>SG BEG United 2</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>TB Emmendingen</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>1</place>
+                        <matchesPlayed>4</matchesPlayed>
+                        <wins>4</wins>
+                        <losses>0</losses>
+                            <points>11</points>
+
+                        <setPoints>12:3</setPoints>
+                        <setWinScore>12</setWinScore>
+                        <setLoseScore>3</setLoseScore>
+                        <setPointDifference>9</setPointDifference>
+                        <setQuotient>4,000</setQuotient>
+
+                        <ballPoints>356:270</ballPoints>
+                        <ballWinScore>356</ballWinScore>
+                        <ballLoseScore>270</ballLoseScore>
+                        <ballPointDifference>86</ballPointDifference>
+                        <ballQuotient>1,319</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
                             <id>25932661</id>
                             <uuid>1a5c08ea-5b97-4449-9ec7-689d57b26f78</uuid>
                             <name>VfR Merzhausen 1</name>
@@ -91,7 +148,7 @@
                             </club>
                         </team>
 
-                        <place>1</place>
+                        <place>2</place>
                         <matchesPlayed>3</matchesPlayed>
                         <wins>3</wins>
                         <losses>0</losses>
@@ -120,63 +177,6 @@
                                     <matchResult>
                                         <result>3:2</result>
                                         <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>2:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>1:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>0:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                            </resultTypes>
-                    </ranking>
-                    <ranking>
-                        <team>
-                            <id>25932665</id>
-                            <uuid>b56f925f-383c-4cdd-8658-8707585d593b</uuid>
-                            <name>SG BEG United 2</name>
-                            <shortName></shortName>
-                            <clubCode></clubCode>
-                            <club>
-                                <name>TB Emmendingen</name>
-                                <shortName></shortName>
-                            </club>
-                        </team>
-
-                        <place>2</place>
-                        <matchesPlayed>3</matchesPlayed>
-                        <wins>3</wins>
-                        <losses>0</losses>
-                            <points>8</points>
-
-                        <setPoints>9:3</setPoints>
-                        <setWinScore>9</setWinScore>
-                        <setLoseScore>3</setLoseScore>
-                        <setPointDifference>6</setPointDifference>
-                        <setQuotient>3,000</setQuotient>
-
-                        <ballPoints>281:230</ballPoints>
-                        <ballWinScore>281</ballWinScore>
-                        <ballLoseScore>230</ballLoseScore>
-                        <ballPointDifference>51</ballPointDifference>
-                        <ballQuotient>1,222</ballQuotient>
-                            <resultTypes>
-                                    <matchResult>
-                                        <result>3:0</result>
-                                        <count>1</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:1</result>
-                                        <count>1</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:2</result>
-                                        <count>1</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>2:3</result>
@@ -320,22 +320,22 @@
                         </team>
 
                         <place>5</place>
-                        <matchesPlayed>4</matchesPlayed>
+                        <matchesPlayed>5</matchesPlayed>
                         <wins>2</wins>
-                        <losses>2</losses>
+                        <losses>3</losses>
                             <points>4</points>
 
-                        <setPoints>6:10</setPoints>
+                        <setPoints>6:13</setPoints>
                         <setWinScore>6</setWinScore>
-                        <setLoseScore>10</setLoseScore>
-                        <setPointDifference>-4</setPointDifference>
-                        <setQuotient>0,600</setQuotient>
+                        <setLoseScore>13</setLoseScore>
+                        <setPointDifference>-7</setPointDifference>
+                        <setQuotient>0,462</setQuotient>
 
-                        <ballPoints>314:354</ballPoints>
-                        <ballWinScore>314</ballWinScore>
-                        <ballLoseScore>354</ballLoseScore>
-                        <ballPointDifference>-40</ballPointDifference>
-                        <ballQuotient>0,887</ballQuotient>
+                        <ballPoints>354:429</ballPoints>
+                        <ballWinScore>354</ballWinScore>
+                        <ballLoseScore>429</ballLoseScore>
+                        <ballPointDifference>-75</ballPointDifference>
+                        <ballQuotient>0,825</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -359,7 +359,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
-                                        <count>2</count>
+                                        <count>3</count>
                                     </matchResult>
                             </resultTypes>
                     </ranking>
