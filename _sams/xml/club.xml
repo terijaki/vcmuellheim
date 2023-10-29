@@ -59,9 +59,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-10-29 14:47:06.564</updated>
+        <updated>2023-10-29 15:29:05.944</updated>
         <structureUpdated>2023-10-29 11:30:48.732</structureUpdated>
-        <resultsUpdated>2023-10-29 14:47:06.564</resultsUpdated>
+        <resultsUpdated>2023-10-29 15:29:05.944</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -160,9 +160,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-10-29 13:16:10.109</updated>
+        <updated>2023-10-29 15:27:00.378</updated>
         <structureUpdated>2023-10-26 20:08:38.694</structureUpdated>
-        <resultsUpdated>2023-10-29 13:16:10.109</resultsUpdated>
+        <resultsUpdated>2023-10-29 15:27:00.378</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
