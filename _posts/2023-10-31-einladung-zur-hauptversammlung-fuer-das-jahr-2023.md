@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: Einladung zur Hauptversammlung für das Jahr 2023
 date: 2023-10-31T06:53:45.953Z
 ---
