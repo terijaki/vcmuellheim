@@ -10,7 +10,7 @@ Liebe Mitglieder,
 zu unserer Hauptversammlung für das Jahr 2023 darf ich Euch herzlich einladen. 
 Die Versammlung findet am
 
-### Mittwoch, den 15.11.23 um 18.30 Uhr&#xA;Sportgaststätte Eichwaldstadion Müllheim
+### Mittwoch, den 15.11.23 um 18.30 Uhr<br>Sportgaststätte Eichwaldstadion Müllheim
 
 statt. Als Tagesordnungspunkte werden vorgeschlagen:
 
