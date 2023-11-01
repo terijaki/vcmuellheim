@@ -162,9 +162,9 @@
             "name": "Bezirksliga Herren Süd",
             "shortName": "bzl s h",
             "type": "League",
-            "updated": "2023-10-30 12:37:14.15",
-            "structureUpdated": "2023-10-26 20:08:38.694",
-            "resultsUpdated": "2023-10-30 12:37:14.15",
+            "updated": "2023-10-31 11:33:52.081",
+            "structureUpdated": "2023-10-31 11:08:54.029",
+            "resultsUpdated": "2023-10-31 11:33:52.081",
             "season": {
               "id": "25640073",
               "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -774,8 +774,8 @@
             "name": "West Quali - U14w am 25.11.2023",
             "shortName": "WQ_U14w",
             "type": "Competition",
-            "updated": "2023-10-26 10:02:28.745",
-            "structureUpdated": "2023-10-26 10:02:28.745",
+            "updated": "2023-10-31 09:50:28.007",
+            "structureUpdated": "2023-10-31 09:50:28.007",
             "resultsUpdated": "2023-01-15 16:33:00.278",
             "season": {
               "id": "25640073",
@@ -865,7 +865,7 @@
             "name": "Vor-Quali 4 - U14 weiblich am 25.11.23",
             "shortName": "VQ4_U14_w",
             "type": "Competition",
-            "updated": "2023-10-26 10:10:13.455",
+            "updated": "2023-10-31 09:50:28.007",
             "structureUpdated": "2023-10-26 10:10:13.455",
             "resultsUpdated": null,
             "season": {
