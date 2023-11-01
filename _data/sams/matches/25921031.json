@@ -55,9 +55,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-10-30 12:37:14.15",
-          "structureUpdated": "2023-10-26 20:08:38.694",
-          "resultsUpdated": "2023-10-30 12:37:14.15",
+          "updated": "2023-10-31 11:33:52.081",
+          "structureUpdated": "2023-10-31 11:08:54.029",
+          "resultsUpdated": "2023-10-31 11:33:52.081",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -225,9 +225,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-10-30 12:37:14.15",
-          "structureUpdated": "2023-10-26 20:08:38.694",
-          "resultsUpdated": "2023-10-30 12:37:14.15",
+          "updated": "2023-10-31 11:33:52.081",
+          "structureUpdated": "2023-10-31 11:08:54.029",
+          "resultsUpdated": "2023-10-31 11:33:52.081",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -395,9 +395,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-10-30 12:37:14.15",
-          "structureUpdated": "2023-10-26 20:08:38.694",
-          "resultsUpdated": "2023-10-30 12:37:14.15",
+          "updated": "2023-10-31 11:33:52.081",
+          "structureUpdated": "2023-10-31 11:08:54.029",
+          "resultsUpdated": "2023-10-31 11:33:52.081",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -509,7 +509,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "1",
         "netDuration": "66"
@@ -565,9 +565,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-10-30 12:37:14.15",
-          "structureUpdated": "2023-10-26 20:08:38.694",
-          "resultsUpdated": "2023-10-30 12:37:14.15",
+          "updated": "2023-10-31 11:33:52.081",
+          "structureUpdated": "2023-10-31 11:08:54.029",
+          "resultsUpdated": "2023-10-31 11:33:52.081",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -679,7 +679,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "20",
         "netDuration": "65"
@@ -735,9 +735,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-10-30 12:37:14.15",
-          "structureUpdated": "2023-10-26 20:08:38.694",
-          "resultsUpdated": "2023-10-30 12:37:14.15",
+          "updated": "2023-10-31 11:33:52.081",
+          "structureUpdated": "2023-10-31 11:08:54.029",
+          "resultsUpdated": "2023-10-31 11:33:52.081",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -863,7 +863,7 @@
             "shortName": "SvO",
             "clubCode": null,
             "club": {
-              "name": "Sport vor Ort Rieselfeld",
+              "name": "Sport vor Ort Rieselfeld e.V.",
               "shortName": null
             }
           }
@@ -875,9 +875,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-10-30 12:37:14.15",
-          "structureUpdated": "2023-10-26 20:08:38.694",
-          "resultsUpdated": "2023-10-30 12:37:14.15",
+          "updated": "2023-10-31 11:33:52.081",
+          "structureUpdated": "2023-10-31 11:08:54.029",
+          "resultsUpdated": "2023-10-31 11:33:52.081",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1015,9 +1015,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-10-30 12:37:14.15",
-          "structureUpdated": "2023-10-26 20:08:38.694",
-          "resultsUpdated": "2023-10-30 12:37:14.15",
+          "updated": "2023-10-31 11:33:52.081",
+          "structureUpdated": "2023-10-31 11:08:54.029",
+          "resultsUpdated": "2023-10-31 11:33:52.081",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1155,9 +1155,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-10-30 12:37:14.15",
-          "structureUpdated": "2023-10-26 20:08:38.694",
-          "resultsUpdated": "2023-10-30 12:37:14.15",
+          "updated": "2023-10-31 11:33:52.081",
+          "structureUpdated": "2023-10-31 11:08:54.029",
+          "resultsUpdated": "2023-10-31 11:33:52.081",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1295,9 +1295,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-10-30 12:37:14.15",
-          "structureUpdated": "2023-10-26 20:08:38.694",
-          "resultsUpdated": "2023-10-30 12:37:14.15",
+          "updated": "2023-10-31 11:33:52.081",
+          "structureUpdated": "2023-10-31 11:08:54.029",
+          "resultsUpdated": "2023-10-31 11:33:52.081",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1435,9 +1435,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-10-30 12:37:14.15",
-          "structureUpdated": "2023-10-26 20:08:38.694",
-          "resultsUpdated": "2023-10-30 12:37:14.15",
+          "updated": "2023-10-31 11:33:52.081",
+          "structureUpdated": "2023-10-31 11:08:54.029",
+          "resultsUpdated": "2023-10-31 11:33:52.081",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1575,9 +1575,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-10-30 12:37:14.15",
-          "structureUpdated": "2023-10-26 20:08:38.694",
-          "resultsUpdated": "2023-10-30 12:37:14.15",
+          "updated": "2023-10-31 11:33:52.081",
+          "structureUpdated": "2023-10-31 11:08:54.029",
+          "resultsUpdated": "2023-10-31 11:33:52.081",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1715,9 +1715,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-10-30 12:37:14.15",
-          "structureUpdated": "2023-10-26 20:08:38.694",
-          "resultsUpdated": "2023-10-30 12:37:14.15",
+          "updated": "2023-10-31 11:33:52.081",
+          "structureUpdated": "2023-10-31 11:08:54.029",
+          "resultsUpdated": "2023-10-31 11:33:52.081",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1855,9 +1855,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-10-30 12:37:14.15",
-          "structureUpdated": "2023-10-26 20:08:38.694",
-          "resultsUpdated": "2023-10-30 12:37:14.15",
+          "updated": "2023-10-31 11:33:52.081",
+          "structureUpdated": "2023-10-31 11:08:54.029",
+          "resultsUpdated": "2023-10-31 11:33:52.081",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1983,7 +1983,7 @@
             "shortName": "SvO",
             "clubCode": null,
             "club": {
-              "name": "Sport vor Ort Rieselfeld",
+              "name": "Sport vor Ort Rieselfeld e.V.",
               "shortName": null
             }
           }
@@ -1995,9 +1995,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-10-30 12:37:14.15",
-          "structureUpdated": "2023-10-26 20:08:38.694",
-          "resultsUpdated": "2023-10-30 12:37:14.15",
+          "updated": "2023-10-31 11:33:52.081",
+          "structureUpdated": "2023-10-31 11:08:54.029",
+          "resultsUpdated": "2023-10-31 11:33:52.081",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
