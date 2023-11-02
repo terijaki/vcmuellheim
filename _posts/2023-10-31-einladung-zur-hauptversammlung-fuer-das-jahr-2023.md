@@ -30,3 +30,6 @@ Mit freundlichen Grüßen
 
 *[Lothar Voigt](mailto:lothar@vcmuellheim.de)*\
 *1. Vorsitzender*
+
+
+**Update vom 2. November**: Der Vorstand wird einen Antrag stellen, um die antiquierte Satzung aus 1987 abzulösen.
