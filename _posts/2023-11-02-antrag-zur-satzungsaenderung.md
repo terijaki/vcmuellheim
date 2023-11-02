@@ -1,6 +1,7 @@
 ---
 layout: post
 posted-on-social: true
+posted-on-social: true
 title: Antrag zur Satzungsänderung
 ---
 
