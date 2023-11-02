@@ -1,10 +1,10 @@
 ---
 layout: page-simple
-title: Neue Satzung des Volleyballclubs Müllheim (noch nicht verabschlieded!)
+title: Neue Satzung (noch nicht verabschlieded!)
 permalink: /satzungsvorschlag2023/
 ---
 
-Die folgende Satzung wurde noch nicht verabschieded und wird zunächst bei der kommenden <a href="/einladung-zur-hauptversammlung-fuer-das-jahr-2023">Mitgliederversammlung am 15.11.2023</a> vorgeschlagen:
+🚨 Die folgende Satzung wurde noch nicht verabschieded! 🚨 Sie wird zunächst bei der kommenden <a href="/einladung-zur-hauptversammlung-fuer-das-jahr-2023">Mitgliederversammlung am 15.11.2023</a> vorgeschlagen:
 
 <img src="/img/vcm-banner.png" style="height:120px;filter:contrast(0.3);display: block;" class="float-lg-right mx-auto print-only">
 # § 1 Name, Sitz, Geschäftsjahr
