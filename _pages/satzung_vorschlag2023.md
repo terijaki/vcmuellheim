@@ -6,7 +6,7 @@ permalink: /satzungsvorschlag2023/
 
 Die folgende Satzung wurde noch nicht verabschieded und wird zunächst bei der kommenden <a href="/einladung-zur-hauptversammlung-fuer-das-jahr-2023">Mitgliederversammlung am 15.11.2023</a> vorgeschlagen:
 
-<img src="/img/vcm-banner.png" style="height:120px;filter:contrast(0.3);display: block;" class="float-lg-right mx-auto logo">
+<img src="/img/vcm-banner.png" style="height:120px;filter:contrast(0.3);display: block;" class="float-lg-right mx-auto print-only">
 # § 1 Name, Sitz, Geschäftsjahr
 1. Der Verein trägt den Namen „Volleyballclub Müllheim e.V".
 2. Der Verein hat seinen Sitz in Müllheim im Markgräflerland und ist im Vereinsregister des Amtsgerichts Müllheim eingetragen unter der Nummer VR 158/Mü
@@ -130,7 +130,7 @@ Die Mitgliederversammlung hat folgende Aufgaben:
 2. Der Beschluss über die Auflösung des Vereins bedarf der Mehrheit von drei Vierteln der abgegebenen Stimmen. Ungültige Stimmen und Stimmenthaltungen bleiben unberücksichtigt.
 3. Bei Auflösung des Vereins oder bei Wegfall steuerbegünstigter Zwecke fällt das Vereinsvermögen an eine juristische Person des öffentlichen Rechts oder eine andere steuerbegünstigte Körperschaft zwecks Verwendung für die Förderung des Sports. Den notwendigen Beschluss fasst die Mitgliederversammlung.
 
-# § 16 In-Kraft-Treten
+# § 16 Inkrafttreten
 1. Diese Satzung wurde in der ordentlichen Mitgliederversammlung vom 15.11.2023 mit der erforderlichen Mehrheit beschlossen. Sie tritt mit Eintragung im Vereinsregister in Kraft. Die Satzung vom 03.04.1987 tritt am selben Tage außer Kraft.
 2. Die Wahlen bei der Mitgliederversammlung vom 15.11.2023 können bereits nach Maßgabe von §§ 8-10 dieser Satzung durchgeführt werden.
 3. Im Falle von Beanstandungen durch das Registergericht bzw. Finanzamt wird der Vorstand ermächtigt, durch geeignete Änderungen bzw. Ergänzungen der Satzung das Eintragungshindernis bzw. die Beanstandung zu beseitigen. In der auf den Beschluss folgenden Mitgliederversammlung ist diese von der Satzungsänderung in Kenntnis zu setzen.
