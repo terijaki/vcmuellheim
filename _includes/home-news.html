@@ -27,8 +27,8 @@
                     {% assign thumbnail_exist = false %}
                     {% endif %}
                     <h4 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h4>
-                    <div class="post-content"><div class="post-excerpt {% if post.thumbnail == '' or post.thumbnail == nil or post.thumbnail == blank %} no-post-thumbnail{% endif %}">{{ post.excerpt | strip_html }}</div></div>
-                    <p class="post-url"><a href="{{ post.url }}" class="read-more">... weiterlesen</a></p>
+                    <div class="post-content"><div class="post-excerpt {% if post.thumbnail == '' or post.thumbnail == nil or post.thumbnail == blank %} no-post-thumbnail{% endif %}">{{ post.content | strip_html }}</div></div>
+                    <p class="post-url"><a href="{{ post.url }}" class="read-more missing-webkit-line-clamp">... weiterlesen</a></p>
                 </div>
             </div>
             {% endfor %}
