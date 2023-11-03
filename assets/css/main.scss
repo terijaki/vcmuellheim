@@ -32,6 +32,7 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
   cursor: default;
+  min-height: 100dvh;
   & > * {
     width: 100%;
     overflow-x: hidden;
