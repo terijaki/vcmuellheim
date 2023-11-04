@@ -1,0 +1,109 @@
+name: Inbox to Blog Post
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "_inbox/**"
+  workflow_dispatch:
+
+env:
+  GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
+
+jobs:
+  build:
+    name: Document & Image Processing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: Scan Inbox
+        id: scan_inbox
+        run: |
+          for file in _inbox/*
+          do
+              if [[ $file == *.doc ]] || [[ $file == *.docx ]] || [[ $file == *.rft ]] || [[ $file == *.txt ]] || [[ $file == *.odt ]]; then
+                  title=$(basename "${file%.*}")
+                  slug=$(echo "$title" | iconv -c -t ascii//TRANSLIT | sed -E 's/[~^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z)
+                  target=_posts/$(TZ=Europe/Berlin date +%F)-$slug.md
+                  uploadFolder=upload/$(TZ=Europe/Berlin date +%Y)/$(TZ=Europe/Berlin date +%m)/$(TZ=Europe/Berlin date +%d)
+                  echo "DOC_FILE=$file" >> "$GITHUB_OUTPUT"
+                  echo "DOC_TITLE=$title" >> "$GITHUB_OUTPUT"
+                  echo "DOC_SLUG=$slug" >> "$GITHUB_OUTPUT"
+                  echo "MD_TARGET=$target" >> "$GITHUB_OUTPUT"
+                  echo "UPLOAD_FOLDER=$uploadFolder" >> "$GITHUB_OUTPUT"
+                  echo "FILE: $file"
+                  echo "TITLE: $title"
+                  echo "SLUG: $slug"
+                  echo "TARGET: $target"
+              fi
+          done
+
+      - name: Convert to Markdown
+        id: pandoc
+        uses: docker://pandoc/core:3.1.1
+        with:
+          args: --to gfm --output="${{steps.scan_inbox.outputs.MD_TARGET}}" "${{steps.scan_inbox.outputs.DOC_FILE}}"
+
+      - name: Debug File
+        run: |
+          cat ${{steps.scan_inbox.outputs.MD_TARGET}}
+
+      - name: Add Front Matter
+        run: |
+          sed -i "1s|.*|---\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
+          sed -i "2s|.*|title: ${{steps.scan_inbox.outputs.DOC_TITLE}}\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
+          sed -i "3s|.*|date: $(TZ=Europe/Berlin date +%Y-%m-%dT%H:%M:%S)\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
+          sed -i "4s|.*|---\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
+
+      - name: Process Images
+        run: |
+          uploadFolder=upload/$(TZ=Europe/Berlin date +%Y)/$(TZ=Europe/Berlin date +%m)/$(TZ=Europe/Berlin date +%d)
+          unset imageCount
+          for image in _inbox/*.jp*g
+          do
+              if [[ -z $imageCount ]]; then
+                mkdir -p $uploadFolder
+                sed -i "4s|.*|gallery:\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
+              fi
+              imageCount=$((imageCount+1))
+              imageTarget=$uploadFolder/$(basename $image)
+              imageTarget=$(echo $imageTarget | tr '[:upper:]' '[:lower:]' | sed 's/.jpeg/.jpg/g' | sed 's/img-//g')
+              convert $image -resize '1920x1920>' $imageTarget
+              sed -i "$((imageCount+4))s|.*|- $imageTarget\n&|" '${{steps.scan_inbox.outputs.MD_TARGET}}'
+          done
+
+      - name: Turn Author Reference Italic
+        run: |
+          authorLine=$(grep -n "Bericht von" '${{steps.scan_inbox.outputs.MD_TARGET}}' | cut -d : -f 1)
+          if [[ $authorLine -ge 5 ]]; then
+              sed -i "${authorLine}s|.*|<i>&</i>|" '${{steps.scan_inbox.outputs.MD_TARGET}}'
+          fi
+
+      - name: Clean Inbox
+        run: |
+          for all in _inbox/*
+          do
+              mkdir -p "_processed"
+              mv "$all" "_processed"
+          done
+          echo "The following files have been removed from the inbox:"
+          ls _processed
+
+      - name: Git Push
+        run: |
+          git add _inbox
+          git add ${{steps.scan_inbox.outputs.MD_TARGET}}
+          git add ${{steps.scan_inbox.outputs.UPLOAD_FOLDER}}
+          git commit -m "new post from inbox"
+          git pull --quiet --rebase
+          git push origin --all --quiet -f
