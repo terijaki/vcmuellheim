@@ -30,12 +30,18 @@
 
 <!-- Social Thumbnails -->
 {% if page.thumbnail %}
-<meta property="og:image" content="{{ page.thumbnail | absolute_url }}">
-<meta name="twitter:image" content="{{ page.thumbnail | absolute_url }}">
-{% else %}
-<meta property="og:image" content="{{ site.url }}/img/intro-bg.jpg">
-<meta name="twitter:image" content="{{ site.url }}/img/intro-bg.jpg">
+    {% assign thisThumbnail = page.thumbnail %}
+{% elsif page.gallery[0].size > 0%}
+    {% assign randomGalleryItem = site.time | date: "%N" | modulo: page.gallery.size | plus: 0 %}
+    {% assign thisThumbnail = page.gallery[randomGalleryItem] %}
+{% else%}
+    {% assign thisThumbnail = "/img/intro-bg.jpg" %}
+    {% assign timeSeconds = site.time | date: "%S" | plus: 0 %}
+    {% if timeSeconds >= 30 %}
+        {% assign thisThumbnail = "/img/intro-bg2.jpg" %}
+    {% endif %}
 {% endif %}
+<meta property="og:image" content="{{ thisThumbnail | absolute_url }}">
 
 <!--  Fonts -->
 <link href="/assets/css/fonts.css" rel="stylesheet">
