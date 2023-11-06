@@ -71,6 +71,24 @@
       {
         "place": null,
         "team": {
+          "id": "27590017",
+          "uuid": "3a890382-541d-450e-9a1f-0b290b7606fd",
+          "name": "TV Zell-Weierbach",
+          "club": "TV Zell-Weierbach"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27590025",
+          "uuid": "7dfa751c-fd7a-420b-b8b3-fd4d70de4cf3",
+          "name": "TV Zell-Weierbach",
+          "club": "TV Zell-Weierbach"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "26985172",
           "uuid": "ee4b79fa-6502-44b9-a771-310b09af431d",
           "name": "VC Müllheim I",
