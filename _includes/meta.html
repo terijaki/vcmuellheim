@@ -15,20 +15,7 @@
 <meta property="og:url" content="{{ page.url | absolute_url }}">
 {% endif %}
 
-<!-- RSS Feed -->
-<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Neuigkeiten des Volleyballclub Müllheim">
-
-<!-- Favicons -->
-<link href="{{ site.favicon }}" rel="icon">
-<link href="{{ site.apple_touch_icon }}" rel="apple-touch-icon">
-<link href="{{ site.apple_touch_startup_image }}" rel="apple-touch-startup-image">
-
-<!-- Pinned Sites  -->
-<meta name="application-name" content="{{ site.name }}">
-<meta name="msapplication-tooltip" content="{{ site.description }}">
-<meta name="msapplication-starturl" content="/">
-
-<!-- Social Thumbnails -->
+<!-- Preview Thumbnails -->
 {% if page.thumbnail %}
     {% assign thisThumbnail = page.thumbnail %}
 {% elsif page.gallery[0].size > 0%}
@@ -42,6 +29,19 @@
     {% endif %}
 {% endif %}
 <meta property="og:image" content="{{ thisThumbnail | absolute_url }}">
+
+<!-- RSS Feed -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Neuigkeiten des Volleyballclub Müllheim">
+
+<!-- Favicons -->
+<link href="{{ site.favicon }}" rel="icon">
+<link href="{{ site.apple_touch_icon }}" rel="apple-touch-icon">
+<link href="{{ site.apple_touch_startup_image }}" rel="apple-touch-startup-image">
+
+<!-- Pinned Sites  -->
+<meta name="application-name" content="{{ site.name }}">
+<meta name="msapplication-tooltip" content="{{ site.description }}">
+<meta name="msapplication-starturl" content="/">
 
 <!--  Fonts -->
 <link href="/assets/css/fonts.css" rel="stylesheet">
