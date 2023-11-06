@@ -12,7 +12,7 @@
             <div class="col-lg-6 d-flex">
                 <div class="box w-100" onclick="location.href='{{ post.url }}';">
                     {% if post.thumbnail.size > 0 %}
-                      {% assign thisThumbnail = post.thumbnail%}
+                      {% assign thisThumbnail = post.thumbnail %}
                     {% elsif post.gallery[0].size > 0%}
                       {% assign randomGalleryItem = site.time | date: "%N" | modulo: post.gallery.size | plus: 0 %}
                       {% assign thisThumbnail = post.gallery[randomGalleryItem] %}
