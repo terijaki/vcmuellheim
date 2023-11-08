@@ -7,8 +7,8 @@
       "name": "West Jugendrunde (4:4) weiblich",
       "shortName": "W_JRw",
       "type": "Competition",
-      "updated": "2023-10-26 08:45:13.562",
-      "structureUpdated": "2023-10-26 08:45:13.561",
+      "updated": "2023-11-07 12:03:47.24",
+      "structureUpdated": "2023-11-07 12:03:47.24",
       "resultsUpdated": null,
       "season": {
         "id": "25640073",
@@ -71,24 +71,6 @@
       {
         "place": null,
         "team": {
-          "id": "27590017",
-          "uuid": "3a890382-541d-450e-9a1f-0b290b7606fd",
-          "name": "TV Zell-Weierbach",
-          "club": "TV Zell-Weierbach"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "27590025",
-          "uuid": "7dfa751c-fd7a-420b-b8b3-fd4d70de4cf3",
-          "name": "TV Zell-Weierbach",
-          "club": "TV Zell-Weierbach"
-        }
-      },
-      {
-        "place": null,
-        "team": {
           "id": "26985172",
           "uuid": "ee4b79fa-6502-44b9-a771-310b09af431d",
           "name": "VC Müllheim I",
@@ -111,6 +93,24 @@
           "uuid": "c3076326-307f-4f9c-b46a-f8af77d208d5",
           "name": "VC Weil",
           "club": "VC Weil"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27590017",
+          "uuid": "3a890382-541d-450e-9a1f-0b290b7606fd",
+          "name": "VSG Rebland 1",
+          "club": "TV Zell-Weierbach"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27590025",
+          "uuid": "7dfa751c-fd7a-420b-b8b3-fd4d70de4cf3",
+          "name": "VSG Rebland 2",
+          "club": "TV Zell-Weierbach"
         }
       }
     ]
