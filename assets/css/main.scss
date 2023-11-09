@@ -902,13 +902,12 @@ h6 {
 }
 
 /* ------ Print ------ */
-.print-only {
-  display: none!important;
+@media screen {
+  .print-only {
+    display: none;
+  }
 }
 @media print {
-  .print-only {
-    display: initial!important;
-  }
   body *,
   main * {
     display: none;
