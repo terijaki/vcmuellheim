@@ -69,6 +69,15 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>27626932</id>
+                            <uuid>5c1261c6-1510-4fa8-8429-3802d715f09e</uuid>
+                            <name>TB Emmendingen 4:4 weiblich</name>
+                            <club>TB Emmendingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>27616777</id>
                             <uuid>68039629-803c-44ff-a4a1-ee1962d7ea08</uuid>
                             <name>VC Minseln</name>

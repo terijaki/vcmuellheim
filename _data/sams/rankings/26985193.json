@@ -71,6 +71,15 @@
       {
         "place": null,
         "team": {
+          "id": "27626921",
+          "uuid": "ef1719fd-d548-4798-9357-b430e298a031",
+          "name": "TB Emmendingen 4:4 männlich",
+          "club": "TB Emmendingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "27273627",
           "uuid": "ba6f2868-693a-4b83-b7a9-31bd8d928eed",
           "name": "TV Kappelrodeck",

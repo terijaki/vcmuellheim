@@ -69,6 +69,15 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>27626921</id>
+                            <uuid>ef1719fd-d548-4798-9357-b430e298a031</uuid>
+                            <name>TB Emmendingen 4:4 männlich</name>
+                            <club>TB Emmendingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>27273627</id>
                             <uuid>ba6f2868-693a-4b83-b7a9-31bd8d928eed</uuid>
                             <name>TV Kappelrodeck</name>
