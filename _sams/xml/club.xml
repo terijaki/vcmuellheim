@@ -59,8 +59,8 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-09 00:05:12.434</updated>
-        <structureUpdated>2023-10-29 11:30:48.732</structureUpdated>
+        <updated>2023-11-10 12:50:34.59</updated>
+        <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
         <resultsUpdated>2023-11-09 00:05:12.434</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -760,8 +760,8 @@
     <name>West Quali - U14w am 25.11.2023</name>
     <shortName>WQ_U14w</shortName>
     <type>Competition</type>
-        <updated>2023-11-09 16:52:06.931</updated>
-        <structureUpdated>2023-11-09 16:52:06.931</structureUpdated>
+        <updated>2023-11-10 19:04:50.691</updated>
+        <structureUpdated>2023-11-10 19:04:50.691</structureUpdated>
         <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -849,7 +849,7 @@
     <name>Vor-Quali 4 - U14 weiblich am 25.11.23</name>
     <shortName>VQ4_U14_w</shortName>
     <type>Competition</type>
-        <updated>2023-10-31 09:50:28.007</updated>
+        <updated>2023-11-10 19:04:50.691</updated>
         <structureUpdated>2023-10-26 10:10:13.455</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
@@ -1021,8 +1021,8 @@
     <name>U16 weiblich - Quali 2 am 3.12.23</name>
     <shortName>Q2_U16_w</shortName>
     <type>Competition</type>
-        <updated>2023-10-26 09:49:01.566</updated>
-        <structureUpdated>2023-10-26 09:49:01.566</structureUpdated>
+        <updated>2023-11-10 11:52:10.401</updated>
+        <structureUpdated>2023-11-10 11:52:10.401</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1193,8 +1193,8 @@
     <name>West Quali - U14m am 25.11.2023</name>
     <shortName>WQ_U14m</shortName>
     <type>Competition</type>
-        <updated>2023-11-01 20:16:53.376</updated>
-        <structureUpdated>2023-11-01 20:16:53.376</structureUpdated>
+        <updated>2023-11-10 19:03:16.912</updated>
+        <structureUpdated>2023-11-10 19:03:16.912</structureUpdated>
         <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1282,8 +1282,8 @@
     <name>U14 männlich - Quali 2 am 25.11.2023</name>
     <shortName>Q2_U14_m</shortName>
     <type>Competition</type>
-        <updated>2023-11-06 20:48:19.819</updated>
-        <structureUpdated>2023-11-06 20:48:19.818</structureUpdated>
+        <updated>2023-11-10 19:03:16.912</updated>
+        <structureUpdated>2023-11-10 11:49:53.054</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1454,8 +1454,8 @@
     <name>U16 männlich - Quali 2 am 3.12.2023</name>
     <shortName>Q2_U16_m</shortName>
     <type>Competition</type>
-        <updated>2023-11-06 20:50:06.941</updated>
-        <structureUpdated>2023-11-06 20:50:06.94</structureUpdated>
+        <updated>2023-11-10 11:51:33.83</updated>
+        <structureUpdated>2023-11-10 11:51:33.83</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
