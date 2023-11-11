@@ -49,9 +49,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -208,9 +208,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -373,9 +373,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -532,9 +532,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -703,9 +703,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -784,6 +784,40 @@
                     </location>
                     <referees>
                     </referees>
+                        <results>
+                            <winner>1</winner>
+                            <setPoints>3:1</setPoints>
+                            <ballPoints>83:85</ballPoints>
+                            <sets>
+                                        <set>
+                                            <number>1</number>
+                                            <points>25:21</points>
+                                            <winner>TEAM1</winner>
+                                            <duration>22</duration>
+                                        </set>
+                                        <set>
+                                            <number>2</number>
+                                            <points>25:22</points>
+                                            <winner>TEAM1</winner>
+                                            <duration>20</duration>
+                                        </set>
+                                        <set>
+                                            <number>3</number>
+                                            <points>8:25</points>
+                                            <winner>TEAM2</winner>
+                                            <duration>15</duration>
+                                        </set>
+                                        <set>
+                                            <number>4</number>
+                                            <points>25:17</points>
+                                            <winner>TEAM1</winner>
+                                            <duration>17</duration>
+                                        </set>
+                            </sets>
+                            <verified>false</verified>
+                        </results>
+                        <spectators>20</spectators>
+                        <netDuration>74</netDuration>
                 </match>
                 <match>
                     <id>26024221</id>
@@ -834,9 +868,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -965,9 +999,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1096,9 +1130,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1227,9 +1261,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1358,9 +1392,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1489,9 +1523,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1620,9 +1654,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1751,9 +1785,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1882,9 +1916,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -2013,9 +2047,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -2144,9 +2178,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -2275,9 +2309,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -2406,9 +2440,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:04:36.364</updated>
+        <updated>2023-11-11 18:25:26.925</updated>
         <structureUpdated>2023-11-10 12:50:34.59</structureUpdated>
-        <resultsUpdated>2023-11-11 18:04:36.364</resultsUpdated>
+        <resultsUpdated>2023-11-11 18:25:26.925</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
