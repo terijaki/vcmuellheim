@@ -8,9 +8,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-11-11 20:51:08.508</updated>
+        <updated>2023-11-12 12:47:10.336</updated>
         <structureUpdated>2023-11-06 09:49:04.452</structureUpdated>
-        <resultsUpdated>2023-11-11 20:51:08.508</resultsUpdated>
+        <resultsUpdated>2023-11-12 12:47:10.336</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -314,63 +314,6 @@
                     </ranking>
                     <ranking>
                         <team>
-                            <id>25921292</id>
-                            <uuid>29553912-56f5-46a8-b494-5dd2d6232101</uuid>
-                            <name>Bad Säckinger Wölfe 2</name>
-                            <shortName></shortName>
-                            <clubCode></clubCode>
-                            <club>
-                                <name>TV Bad Säckingen</name>
-                                <shortName></shortName>
-                            </club>
-                        </team>
-
-                        <place>5</place>
-                        <matchesPlayed>2</matchesPlayed>
-                        <wins>1</wins>
-                        <losses>1</losses>
-                            <points>4</points>
-
-                        <setPoints>5:3</setPoints>
-                        <setWinScore>5</setWinScore>
-                        <setLoseScore>3</setLoseScore>
-                        <setPointDifference>2</setPointDifference>
-                        <setQuotient>1,667</setQuotient>
-
-                        <ballPoints>173:148</ballPoints>
-                        <ballWinScore>173</ballWinScore>
-                        <ballLoseScore>148</ballLoseScore>
-                        <ballPointDifference>25</ballPointDifference>
-                        <ballQuotient>1,169</ballQuotient>
-                            <resultTypes>
-                                    <matchResult>
-                                        <result>3:0</result>
-                                        <count>1</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:1</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:2</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>2:3</result>
-                                        <count>1</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>1:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>0:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                            </resultTypes>
-                    </ranking>
-                    <ranking>
-                        <team>
                             <id>25921012</id>
                             <uuid>02fedd2b-b788-495f-a13f-c0c9b5dbb4d1</uuid>
                             <name>TV Staufen 2</name>
@@ -382,23 +325,23 @@
                             </club>
                         </team>
 
-                        <place>6</place>
-                        <matchesPlayed>4</matchesPlayed>
-                        <wins>1</wins>
+                        <place>5</place>
+                        <matchesPlayed>5</matchesPlayed>
+                        <wins>2</wins>
                         <losses>3</losses>
-                            <points>3</points>
+                            <points>6</points>
 
-                        <setPoints>4:9</setPoints>
-                        <setWinScore>4</setWinScore>
-                        <setLoseScore>9</setLoseScore>
-                        <setPointDifference>-5</setPointDifference>
-                        <setQuotient>0,444</setQuotient>
+                        <setPoints>7:10</setPoints>
+                        <setWinScore>7</setWinScore>
+                        <setLoseScore>10</setLoseScore>
+                        <setPointDifference>-3</setPointDifference>
+                        <setQuotient>0,700</setQuotient>
 
-                        <ballPoints>285:316</ballPoints>
-                        <ballWinScore>285</ballWinScore>
-                        <ballLoseScore>316</ballLoseScore>
-                        <ballPointDifference>-31</ballPointDifference>
-                        <ballQuotient>0,902</ballQuotient>
+                        <ballPoints>383:405</ballPoints>
+                        <ballWinScore>383</ballWinScore>
+                        <ballLoseScore>405</ballLoseScore>
+                        <ballPointDifference>-22</ballPointDifference>
+                        <ballQuotient>0,946</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -406,7 +349,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>3:1</result>
-                                        <count>0</count>
+                                        <count>1</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:2</result>
@@ -423,6 +366,63 @@
                                     <matchResult>
                                         <result>0:3</result>
                                         <count>2</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
+                            <id>25921292</id>
+                            <uuid>29553912-56f5-46a8-b494-5dd2d6232101</uuid>
+                            <name>Bad Säckinger Wölfe 2</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>TV Bad Säckingen</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>6</place>
+                        <matchesPlayed>3</matchesPlayed>
+                        <wins>1</wins>
+                        <losses>2</losses>
+                            <points>4</points>
+
+                        <setPoints>6:6</setPoints>
+                        <setWinScore>6</setWinScore>
+                        <setLoseScore>6</setLoseScore>
+                        <setPointDifference>0</setPointDifference>
+                        <setQuotient>1,000</setQuotient>
+
+                        <ballPoints>262:246</ballPoints>
+                        <ballWinScore>262</ballWinScore>
+                        <ballLoseScore>246</ballLoseScore>
+                        <ballPointDifference>16</ballPointDifference>
+                        <ballQuotient>1,065</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>0</count>
                                     </matchResult>
                             </resultTypes>
                     </ranking>
