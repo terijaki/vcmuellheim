@@ -8,9 +8,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-11-12 12:58:43.548</updated>
+        <updated>2023-11-12 13:44:14.585</updated>
         <structureUpdated>2023-10-19 11:44:42.271</structureUpdated>
-        <resultsUpdated>2023-11-12 12:58:43.548</resultsUpdated>
+        <resultsUpdated>2023-11-12 13:44:14.585</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -98,6 +98,63 @@
                 </matchSeries>
                     <ranking>
                         <team>
+                            <id>25922069</id>
+                            <uuid>b9d813a5-c994-4dba-8b8c-7796e8f1ff9d</uuid>
+                            <name>VC Müllheim 1</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>VC Müllheim</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>1</place>
+                        <matchesPlayed>5</matchesPlayed>
+                        <wins>5</wins>
+                        <losses>0</losses>
+                            <points>15</points>
+
+                        <setPoints>15:1</setPoints>
+                        <setWinScore>15</setWinScore>
+                        <setLoseScore>1</setLoseScore>
+                        <setPointDifference>14</setPointDifference>
+                        <setQuotient>15,000</setQuotient>
+
+                        <ballPoints>393:238</ballPoints>
+                        <ballWinScore>393</ballWinScore>
+                        <ballLoseScore>238</ballLoseScore>
+                        <ballPointDifference>155</ballPointDifference>
+                        <ballQuotient>1,651</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>4</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
                             <id>25922075</id>
                             <uuid>dc4e03f3-3b67-4262-94bc-30247b621ec0</uuid>
                             <name>VC Müllheim2</name>
@@ -109,7 +166,7 @@
                             </club>
                         </team>
 
-                        <place>1</place>
+                        <place>2</place>
                         <matchesPlayed>6</matchesPlayed>
                         <wins>5</wins>
                         <losses>1</losses>
@@ -146,63 +203,6 @@
                                     <matchResult>
                                         <result>1:3</result>
                                         <count>1</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>0:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                            </resultTypes>
-                    </ranking>
-                    <ranking>
-                        <team>
-                            <id>25922069</id>
-                            <uuid>b9d813a5-c994-4dba-8b8c-7796e8f1ff9d</uuid>
-                            <name>VC Müllheim 1</name>
-                            <shortName></shortName>
-                            <clubCode></clubCode>
-                            <club>
-                                <name>VC Müllheim</name>
-                                <shortName></shortName>
-                            </club>
-                        </team>
-
-                        <place>2</place>
-                        <matchesPlayed>4</matchesPlayed>
-                        <wins>4</wins>
-                        <losses>0</losses>
-                            <points>12</points>
-
-                        <setPoints>12:1</setPoints>
-                        <setWinScore>12</setWinScore>
-                        <setLoseScore>1</setLoseScore>
-                        <setPointDifference>11</setPointDifference>
-                        <setQuotient>12,000</setQuotient>
-
-                        <ballPoints>318:215</ballPoints>
-                        <ballWinScore>318</ballWinScore>
-                        <ballLoseScore>215</ballLoseScore>
-                        <ballPointDifference>103</ballPointDifference>
-                        <ballQuotient>1,479</ballQuotient>
-                            <resultTypes>
-                                    <matchResult>
-                                        <result>3:0</result>
-                                        <count>3</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:1</result>
-                                        <count>1</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:2</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>2:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>1:3</result>
-                                        <count>0</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
@@ -509,22 +509,22 @@
                         </team>
 
                         <place>8</place>
-                        <matchesPlayed>5</matchesPlayed>
+                        <matchesPlayed>6</matchesPlayed>
                         <wins>1</wins>
-                        <losses>4</losses>
+                        <losses>5</losses>
                             <points>3</points>
 
-                        <setPoints>4:12</setPoints>
+                        <setPoints>4:15</setPoints>
                         <setWinScore>4</setWinScore>
-                        <setLoseScore>12</setLoseScore>
-                        <setPointDifference>-8</setPointDifference>
-                        <setQuotient>0,333</setQuotient>
+                        <setLoseScore>15</setLoseScore>
+                        <setPointDifference>-11</setPointDifference>
+                        <setQuotient>0,267</setQuotient>
 
-                        <ballPoints>270:369</ballPoints>
-                        <ballWinScore>270</ballWinScore>
-                        <ballLoseScore>369</ballLoseScore>
-                        <ballPointDifference>-99</ballPointDifference>
-                        <ballQuotient>0,732</ballQuotient>
+                        <ballPoints>293:444</ballPoints>
+                        <ballWinScore>293</ballWinScore>
+                        <ballLoseScore>444</ballLoseScore>
+                        <ballPointDifference>-151</ballPointDifference>
+                        <ballQuotient>0,660</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -548,7 +548,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
-                                        <count>3</count>
+                                        <count>4</count>
                                     </matchResult>
                             </resultTypes>
                     </ranking>

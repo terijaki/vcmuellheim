@@ -7,9 +7,9 @@
       "name": "Kreisliga Damen Süd",
       "shortName": "kl s d",
       "type": "League",
-      "updated": "2023-11-12 12:58:43.548",
+      "updated": "2023-11-12 13:44:14.585",
       "structureUpdated": "2023-10-19 11:44:42.271",
-      "resultsUpdated": "2023-11-12 12:58:43.548",
+      "resultsUpdated": "2023-11-12 13:44:14.585",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -100,6 +100,62 @@
     "ranking": [
       {
         "team": {
+          "id": "25922069",
+          "uuid": "b9d813a5-c994-4dba-8b8c-7796e8f1ff9d",
+          "name": "VC Müllheim 1",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VC Müllheim",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "5",
+        "wins": "5",
+        "losses": "0",
+        "points": "15",
+        "setPoints": "15:1",
+        "setWinScore": "15",
+        "setLoseScore": "1",
+        "setPointDifference": "14",
+        "setQuotient": "15,000",
+        "ballPoints": "393:238",
+        "ballWinScore": "393",
+        "ballLoseScore": "238",
+        "ballPointDifference": "155",
+        "ballQuotient": "1,651",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "4"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "25922075",
           "uuid": "dc4e03f3-3b67-4262-94bc-30247b621ec0",
           "name": "VC Müllheim2",
@@ -110,7 +166,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "2",
         "matchesPlayed": "6",
         "wins": "5",
         "losses": "1",
@@ -146,62 +202,6 @@
             {
               "result": "1:3",
               "count": "1"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "25922069",
-          "uuid": "b9d813a5-c994-4dba-8b8c-7796e8f1ff9d",
-          "name": "VC Müllheim 1",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "VC Müllheim",
-            "shortName": null
-          }
-        },
-        "place": "2",
-        "matchesPlayed": "4",
-        "wins": "4",
-        "losses": "0",
-        "points": "12",
-        "setPoints": "12:1",
-        "setWinScore": "12",
-        "setLoseScore": "1",
-        "setPointDifference": "11",
-        "setQuotient": "12,000",
-        "ballPoints": "318:215",
-        "ballWinScore": "318",
-        "ballLoseScore": "215",
-        "ballPointDifference": "103",
-        "ballQuotient": "1,479",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "3"
-            },
-            {
-              "result": "3:1",
-              "count": "1"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
             },
             {
               "result": "0:3",
@@ -503,20 +503,20 @@
           }
         },
         "place": "8",
-        "matchesPlayed": "5",
+        "matchesPlayed": "6",
         "wins": "1",
-        "losses": "4",
+        "losses": "5",
         "points": "3",
-        "setPoints": "4:12",
+        "setPoints": "4:15",
         "setWinScore": "4",
-        "setLoseScore": "12",
-        "setPointDifference": "-8",
-        "setQuotient": "0,333",
-        "ballPoints": "270:369",
-        "ballWinScore": "270",
-        "ballLoseScore": "369",
-        "ballPointDifference": "-99",
-        "ballQuotient": "0,732",
+        "setLoseScore": "15",
+        "setPointDifference": "-11",
+        "setQuotient": "0,267",
+        "ballPoints": "293:444",
+        "ballWinScore": "293",
+        "ballLoseScore": "444",
+        "ballPointDifference": "-151",
+        "ballQuotient": "0,660",
         "resultTypes": {
           "matchResult": [
             {
@@ -541,7 +541,7 @@
             },
             {
               "result": "0:3",
-              "count": "3"
+              "count": "4"
             }
           ]
         }
