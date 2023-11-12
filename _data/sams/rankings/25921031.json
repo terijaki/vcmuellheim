@@ -7,9 +7,9 @@
       "name": "Bezirksliga Herren Süd",
       "shortName": "bzl s h",
       "type": "League",
-      "updated": "2023-11-12 12:47:10.336",
+      "updated": "2023-11-12 15:46:17.202",
       "structureUpdated": "2023-11-06 09:49:04.452",
-      "resultsUpdated": "2023-11-12 12:47:10.336",
+      "resultsUpdated": "2023-11-12 15:46:17.202",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -200,6 +200,62 @@
       },
       {
         "team": {
+          "id": "25921020",
+          "uuid": "6f00de7d-ad16-4ebd-9e3e-2bbaa017ae5a",
+          "name": "TV Freiburg-St.Georgen",
+          "shortName": "TV Freiburg-StG 1",
+          "clubCode": null,
+          "club": {
+            "name": "TV Freiburg-St.Georgen",
+            "shortName": null
+          }
+        },
+        "place": "3",
+        "matchesPlayed": "5",
+        "wins": "4",
+        "losses": "1",
+        "points": "10",
+        "setPoints": "12:7",
+        "setWinScore": "12",
+        "setLoseScore": "7",
+        "setPointDifference": "5",
+        "setQuotient": "1,714",
+        "ballPoints": "423:388",
+        "ballWinScore": "423",
+        "ballLoseScore": "388",
+        "ballPointDifference": "35",
+        "ballQuotient": "1,090",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "2"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "1"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "25921027",
           "uuid": "942d49a1-3092-47ed-afce-dc8421e83204",
           "name": "VBG Efringen-Kirchen 1",
@@ -210,7 +266,7 @@
             "shortName": null
           }
         },
-        "place": "3",
+        "place": "4",
         "matchesPlayed": "6",
         "wins": "3",
         "losses": "3",
@@ -256,62 +312,6 @@
       },
       {
         "team": {
-          "id": "25921020",
-          "uuid": "6f00de7d-ad16-4ebd-9e3e-2bbaa017ae5a",
-          "name": "TV Freiburg-St.Georgen",
-          "shortName": "TV Freiburg-StG 1",
-          "clubCode": null,
-          "club": {
-            "name": "TV Freiburg-St.Georgen",
-            "shortName": null
-          }
-        },
-        "place": "4",
-        "matchesPlayed": "4",
-        "wins": "3",
-        "losses": "1",
-        "points": "8",
-        "setPoints": "9:5",
-        "setWinScore": "9",
-        "setLoseScore": "5",
-        "setPointDifference": "4",
-        "setQuotient": "1,800",
-        "ballPoints": "309:276",
-        "ballWinScore": "309",
-        "ballLoseScore": "276",
-        "ballPointDifference": "33",
-        "ballQuotient": "1,120",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "2"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "1"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "1"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "25921012",
           "uuid": "02fedd2b-b788-495f-a13f-c0c9b5dbb4d1",
           "name": "TV Staufen 2",
@@ -323,20 +323,20 @@
           }
         },
         "place": "5",
-        "matchesPlayed": "5",
+        "matchesPlayed": "6",
         "wins": "2",
-        "losses": "3",
-        "points": "6",
-        "setPoints": "7:10",
-        "setWinScore": "7",
-        "setLoseScore": "10",
-        "setPointDifference": "-3",
-        "setQuotient": "0,700",
-        "ballPoints": "383:405",
-        "ballWinScore": "383",
-        "ballLoseScore": "405",
-        "ballPointDifference": "-22",
-        "ballQuotient": "0,946",
+        "losses": "4",
+        "points": "7",
+        "setPoints": "9:13",
+        "setWinScore": "9",
+        "setLoseScore": "13",
+        "setPointDifference": "-4",
+        "setQuotient": "0,692",
+        "ballPoints": "495:519",
+        "ballWinScore": "495",
+        "ballLoseScore": "519",
+        "ballPointDifference": "-24",
+        "ballQuotient": "0,954",
         "resultTypes": {
           "matchResult": [
             {
@@ -353,7 +353,7 @@
             },
             {
               "result": "2:3",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "1:3",

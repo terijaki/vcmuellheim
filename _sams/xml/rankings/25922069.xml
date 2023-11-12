@@ -8,9 +8,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-11-12 13:44:14.585</updated>
+        <updated>2023-11-12 15:31:40.816</updated>
         <structureUpdated>2023-10-19 11:44:42.271</structureUpdated>
-        <resultsUpdated>2023-11-12 13:44:14.585</resultsUpdated>
+        <resultsUpdated>2023-11-12 15:31:40.816</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -110,26 +110,26 @@
                         </team>
 
                         <place>1</place>
-                        <matchesPlayed>5</matchesPlayed>
-                        <wins>5</wins>
+                        <matchesPlayed>6</matchesPlayed>
+                        <wins>6</wins>
                         <losses>0</losses>
-                            <points>15</points>
+                            <points>18</points>
 
-                        <setPoints>15:1</setPoints>
-                        <setWinScore>15</setWinScore>
+                        <setPoints>18:1</setPoints>
+                        <setWinScore>18</setWinScore>
                         <setLoseScore>1</setLoseScore>
-                        <setPointDifference>14</setPointDifference>
-                        <setQuotient>15,000</setQuotient>
+                        <setPointDifference>17</setPointDifference>
+                        <setQuotient>18,000</setQuotient>
 
-                        <ballPoints>393:238</ballPoints>
-                        <ballWinScore>393</ballWinScore>
-                        <ballLoseScore>238</ballLoseScore>
-                        <ballPointDifference>155</ballPointDifference>
-                        <ballQuotient>1,651</ballQuotient>
+                        <ballPoints>468:278</ballPoints>
+                        <ballWinScore>468</ballWinScore>
+                        <ballLoseScore>278</ballLoseScore>
+                        <ballPointDifference>190</ballPointDifference>
+                        <ballQuotient>1,683</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
-                                        <count>4</count>
+                                        <count>5</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:1</result>
@@ -281,22 +281,22 @@
                         </team>
 
                         <place>4</place>
-                        <matchesPlayed>5</matchesPlayed>
+                        <matchesPlayed>6</matchesPlayed>
                         <wins>3</wins>
-                        <losses>2</losses>
+                        <losses>3</losses>
                             <points>9</points>
 
-                        <setPoints>11:7</setPoints>
+                        <setPoints>11:10</setPoints>
                         <setWinScore>11</setWinScore>
-                        <setLoseScore>7</setLoseScore>
-                        <setPointDifference>4</setPointDifference>
-                        <setQuotient>1,571</setQuotient>
+                        <setLoseScore>10</setLoseScore>
+                        <setPointDifference>1</setPointDifference>
+                        <setQuotient>1,100</setQuotient>
 
-                        <ballPoints>402:337</ballPoints>
-                        <ballWinScore>402</ballWinScore>
-                        <ballLoseScore>337</ballLoseScore>
-                        <ballPointDifference>65</ballPointDifference>
-                        <ballQuotient>1,193</ballQuotient>
+                        <ballPoints>442:412</ballPoints>
+                        <ballWinScore>442</ballWinScore>
+                        <ballLoseScore>412</ballLoseScore>
+                        <ballPointDifference>30</ballPointDifference>
+                        <ballQuotient>1,073</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -320,7 +320,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
-                                        <count>0</count>
+                                        <count>1</count>
                                     </matchResult>
                             </resultTypes>
                     </ranking>
@@ -395,22 +395,22 @@
                         </team>
 
                         <place>6</place>
-                        <matchesPlayed>5</matchesPlayed>
+                        <matchesPlayed>6</matchesPlayed>
                         <wins>2</wins>
-                        <losses>3</losses>
+                        <losses>4</losses>
                             <points>6</points>
 
-                        <setPoints>7:9</setPoints>
-                        <setWinScore>7</setWinScore>
-                        <setLoseScore>9</setLoseScore>
-                        <setPointDifference>-2</setPointDifference>
-                        <setQuotient>0,778</setQuotient>
+                        <setPoints>8:12</setPoints>
+                        <setWinScore>8</setWinScore>
+                        <setLoseScore>12</setLoseScore>
+                        <setPointDifference>-4</setPointDifference>
+                        <setQuotient>0,667</setQuotient>
 
-                        <ballPoints>324:349</ballPoints>
-                        <ballWinScore>324</ballWinScore>
-                        <ballLoseScore>349</ballLoseScore>
-                        <ballPointDifference>-25</ballPointDifference>
-                        <ballQuotient>0,928</ballQuotient>
+                        <ballPoints>399:445</ballPoints>
+                        <ballWinScore>399</ballWinScore>
+                        <ballLoseScore>445</ballLoseScore>
+                        <ballPointDifference>-46</ballPointDifference>
+                        <ballQuotient>0,897</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -430,7 +430,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>1:3</result>
-                                        <count>1</count>
+                                        <count>2</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
@@ -452,22 +452,22 @@
                         </team>
 
                         <place>7</place>
-                        <matchesPlayed>4</matchesPlayed>
-                        <wins>1</wins>
+                        <matchesPlayed>5</matchesPlayed>
+                        <wins>2</wins>
                         <losses>3</losses>
-                            <points>3</points>
+                            <points>6</points>
 
-                        <setPoints>4:10</setPoints>
-                        <setWinScore>4</setWinScore>
-                        <setLoseScore>10</setLoseScore>
-                        <setPointDifference>-6</setPointDifference>
-                        <setQuotient>0,400</setQuotient>
+                        <setPoints>7:11</setPoints>
+                        <setWinScore>7</setWinScore>
+                        <setLoseScore>11</setLoseScore>
+                        <setPointDifference>-4</setPointDifference>
+                        <setQuotient>0,636</setQuotient>
 
-                        <ballPoints>258:323</ballPoints>
-                        <ballWinScore>258</ballWinScore>
-                        <ballLoseScore>323</ballLoseScore>
-                        <ballPointDifference>-65</ballPointDifference>
-                        <ballQuotient>0,799</ballQuotient>
+                        <ballPoints>354:398</ballPoints>
+                        <ballWinScore>354</ballWinScore>
+                        <ballLoseScore>398</ballLoseScore>
+                        <ballPointDifference>-44</ballPointDifference>
+                        <ballQuotient>0,889</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -475,7 +475,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>3:1</result>
-                                        <count>1</count>
+                                        <count>2</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:2</result>

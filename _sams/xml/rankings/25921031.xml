@@ -8,9 +8,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-11-12 12:47:10.336</updated>
+        <updated>2023-11-12 15:46:17.202</updated>
         <structureUpdated>2023-11-06 09:49:04.452</structureUpdated>
-        <resultsUpdated>2023-11-12 12:47:10.336</resultsUpdated>
+        <resultsUpdated>2023-11-12 15:46:17.202</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -200,6 +200,63 @@
                     </ranking>
                     <ranking>
                         <team>
+                            <id>25921020</id>
+                            <uuid>6f00de7d-ad16-4ebd-9e3e-2bbaa017ae5a</uuid>
+                            <name>TV Freiburg-St.Georgen</name>
+                            <shortName>TV Freiburg-StG 1</shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>TV Freiburg-St.Georgen</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>3</place>
+                        <matchesPlayed>5</matchesPlayed>
+                        <wins>4</wins>
+                        <losses>1</losses>
+                            <points>10</points>
+
+                        <setPoints>12:7</setPoints>
+                        <setWinScore>12</setWinScore>
+                        <setLoseScore>7</setLoseScore>
+                        <setPointDifference>5</setPointDifference>
+                        <setQuotient>1,714</setQuotient>
+
+                        <ballPoints>423:388</ballPoints>
+                        <ballWinScore>423</ballWinScore>
+                        <ballLoseScore>388</ballLoseScore>
+                        <ballPointDifference>35</ballPointDifference>
+                        <ballQuotient>1,090</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>1</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
                             <id>25921027</id>
                             <uuid>942d49a1-3092-47ed-afce-dc8421e83204</uuid>
                             <name>VBG Efringen-Kirchen 1</name>
@@ -211,7 +268,7 @@
                             </club>
                         </team>
 
-                        <place>3</place>
+                        <place>4</place>
                         <matchesPlayed>6</matchesPlayed>
                         <wins>3</wins>
                         <losses>3</losses>
@@ -257,63 +314,6 @@
                     </ranking>
                     <ranking>
                         <team>
-                            <id>25921020</id>
-                            <uuid>6f00de7d-ad16-4ebd-9e3e-2bbaa017ae5a</uuid>
-                            <name>TV Freiburg-St.Georgen</name>
-                            <shortName>TV Freiburg-StG 1</shortName>
-                            <clubCode></clubCode>
-                            <club>
-                                <name>TV Freiburg-St.Georgen</name>
-                                <shortName></shortName>
-                            </club>
-                        </team>
-
-                        <place>4</place>
-                        <matchesPlayed>4</matchesPlayed>
-                        <wins>3</wins>
-                        <losses>1</losses>
-                            <points>8</points>
-
-                        <setPoints>9:5</setPoints>
-                        <setWinScore>9</setWinScore>
-                        <setLoseScore>5</setLoseScore>
-                        <setPointDifference>4</setPointDifference>
-                        <setQuotient>1,800</setQuotient>
-
-                        <ballPoints>309:276</ballPoints>
-                        <ballWinScore>309</ballWinScore>
-                        <ballLoseScore>276</ballLoseScore>
-                        <ballPointDifference>33</ballPointDifference>
-                        <ballQuotient>1,120</ballQuotient>
-                            <resultTypes>
-                                    <matchResult>
-                                        <result>3:0</result>
-                                        <count>2</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:1</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:2</result>
-                                        <count>1</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>2:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>1:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>0:3</result>
-                                        <count>1</count>
-                                    </matchResult>
-                            </resultTypes>
-                    </ranking>
-                    <ranking>
-                        <team>
                             <id>25921012</id>
                             <uuid>02fedd2b-b788-495f-a13f-c0c9b5dbb4d1</uuid>
                             <name>TV Staufen 2</name>
@@ -326,22 +326,22 @@
                         </team>
 
                         <place>5</place>
-                        <matchesPlayed>5</matchesPlayed>
+                        <matchesPlayed>6</matchesPlayed>
                         <wins>2</wins>
-                        <losses>3</losses>
-                            <points>6</points>
+                        <losses>4</losses>
+                            <points>7</points>
 
-                        <setPoints>7:10</setPoints>
-                        <setWinScore>7</setWinScore>
-                        <setLoseScore>10</setLoseScore>
-                        <setPointDifference>-3</setPointDifference>
-                        <setQuotient>0,700</setQuotient>
+                        <setPoints>9:13</setPoints>
+                        <setWinScore>9</setWinScore>
+                        <setLoseScore>13</setLoseScore>
+                        <setPointDifference>-4</setPointDifference>
+                        <setQuotient>0,692</setQuotient>
 
-                        <ballPoints>383:405</ballPoints>
-                        <ballWinScore>383</ballWinScore>
-                        <ballLoseScore>405</ballLoseScore>
-                        <ballPointDifference>-22</ballPointDifference>
-                        <ballQuotient>0,946</ballQuotient>
+                        <ballPoints>495:519</ballPoints>
+                        <ballWinScore>495</ballWinScore>
+                        <ballLoseScore>519</ballLoseScore>
+                        <ballPointDifference>-24</ballPointDifference>
+                        <ballQuotient>0,954</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -357,7 +357,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>2:3</result>
-                                        <count>0</count>
+                                        <count>1</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>1:3</result>
