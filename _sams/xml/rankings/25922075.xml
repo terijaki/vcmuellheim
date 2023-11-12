@@ -8,9 +8,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-11-11 18:53:56.611</updated>
+        <updated>2023-11-12 11:57:21.696</updated>
         <structureUpdated>2023-10-19 11:44:42.271</structureUpdated>
-        <resultsUpdated>2023-11-11 18:53:56.611</resultsUpdated>
+        <resultsUpdated>2023-11-12 11:57:21.696</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -281,26 +281,26 @@
                         </team>
 
                         <place>4</place>
-                        <matchesPlayed>4</matchesPlayed>
-                        <wins>2</wins>
+                        <matchesPlayed>5</matchesPlayed>
+                        <wins>3</wins>
                         <losses>2</losses>
-                            <points>6</points>
+                            <points>9</points>
 
-                        <setPoints>8:7</setPoints>
-                        <setWinScore>8</setWinScore>
+                        <setPoints>11:7</setPoints>
+                        <setWinScore>11</setWinScore>
                         <setLoseScore>7</setLoseScore>
-                        <setPointDifference>1</setPointDifference>
-                        <setQuotient>1,143</setQuotient>
+                        <setPointDifference>4</setPointDifference>
+                        <setQuotient>1,571</setQuotient>
 
-                        <ballPoints>327:311</ballPoints>
-                        <ballWinScore>327</ballWinScore>
-                        <ballLoseScore>311</ballLoseScore>
-                        <ballPointDifference>16</ballPointDifference>
-                        <ballQuotient>1,051</ballQuotient>
+                        <ballPoints>402:337</ballPoints>
+                        <ballWinScore>402</ballWinScore>
+                        <ballLoseScore>337</ballLoseScore>
+                        <ballPointDifference>65</ballPointDifference>
+                        <ballQuotient>1,193</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
-                                        <count>1</count>
+                                        <count>2</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:1</result>
@@ -440,63 +440,6 @@
                     </ranking>
                     <ranking>
                         <team>
-                            <id>25922078</id>
-                            <uuid>6efeaae2-7ec5-4277-b150-c964eeaa0fb1</uuid>
-                            <name>TV Freiburg-St.Georgen 3</name>
-                            <shortName></shortName>
-                            <clubCode></clubCode>
-                            <club>
-                                <name>TV Freiburg-St.Georgen</name>
-                                <shortName></shortName>
-                            </club>
-                        </team>
-
-                        <place>7</place>
-                        <matchesPlayed>4</matchesPlayed>
-                        <wins>1</wins>
-                        <losses>3</losses>
-                            <points>3</points>
-
-                        <setPoints>4:9</setPoints>
-                        <setWinScore>4</setWinScore>
-                        <setLoseScore>9</setLoseScore>
-                        <setPointDifference>-5</setPointDifference>
-                        <setQuotient>0,444</setQuotient>
-
-                        <ballPoints>244:294</ballPoints>
-                        <ballWinScore>244</ballWinScore>
-                        <ballLoseScore>294</ballLoseScore>
-                        <ballPointDifference>-50</ballPointDifference>
-                        <ballQuotient>0,830</ballQuotient>
-                            <resultTypes>
-                                    <matchResult>
-                                        <result>3:0</result>
-                                        <count>1</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:1</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:2</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>2:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>1:3</result>
-                                        <count>1</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>0:3</result>
-                                        <count>2</count>
-                                    </matchResult>
-                            </resultTypes>
-                    </ranking>
-                    <ranking>
-                        <team>
                             <id>25922064</id>
                             <uuid>48afaf5b-a3db-4320-aba3-e31b74c3d28d</uuid>
                             <name>SG Breisach - Gündlingen 2</name>
@@ -508,7 +451,7 @@
                             </club>
                         </team>
 
-                        <place>8</place>
+                        <place>7</place>
                         <matchesPlayed>4</matchesPlayed>
                         <wins>1</wins>
                         <losses>3</losses>
@@ -549,6 +492,63 @@
                                     <matchResult>
                                         <result>0:3</result>
                                         <count>2</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
+                            <id>25922078</id>
+                            <uuid>6efeaae2-7ec5-4277-b150-c964eeaa0fb1</uuid>
+                            <name>TV Freiburg-St.Georgen 3</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>TV Freiburg-St.Georgen</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>8</place>
+                        <matchesPlayed>5</matchesPlayed>
+                        <wins>1</wins>
+                        <losses>4</losses>
+                            <points>3</points>
+
+                        <setPoints>4:12</setPoints>
+                        <setWinScore>4</setWinScore>
+                        <setLoseScore>12</setLoseScore>
+                        <setPointDifference>-8</setPointDifference>
+                        <setQuotient>0,333</setQuotient>
+
+                        <ballPoints>270:369</ballPoints>
+                        <ballWinScore>270</ballWinScore>
+                        <ballLoseScore>369</ballLoseScore>
+                        <ballPointDifference>-99</ballPointDifference>
+                        <ballQuotient>0,732</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>3</count>
                                     </matchResult>
                             </resultTypes>
                     </ranking>
