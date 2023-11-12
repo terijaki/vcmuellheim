@@ -8,9 +8,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-11-12 11:57:21.696</updated>
+        <updated>2023-11-12 12:58:43.548</updated>
         <structureUpdated>2023-10-19 11:44:42.271</structureUpdated>
-        <resultsUpdated>2023-11-12 11:57:21.696</resultsUpdated>
+        <resultsUpdated>2023-11-12 12:58:43.548</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -326,42 +326,42 @@
                     </ranking>
                     <ranking>
                         <team>
-                            <id>25922066</id>
-                            <uuid>7e5e51a4-3689-4b64-91a9-88362b0f2d76</uuid>
-                            <name>VBG Efringen-Kirchen 2</name>
-                            <shortName></shortName>
+                            <id>25922081</id>
+                            <uuid>561bef7f-6fdb-4e0a-b977-231e7e7d4116</uuid>
+                            <name>VC Weil 3</name>
+                            <shortName>VC Weil 3</shortName>
                             <clubCode></clubCode>
                             <club>
-                                <name>VBG Efringen-Kirchen</name>
+                                <name>VC Weil</name>
                                 <shortName></shortName>
                             </club>
                         </team>
 
                         <place>5</place>
-                        <matchesPlayed>4</matchesPlayed>
-                        <wins>2</wins>
+                        <matchesPlayed>5</matchesPlayed>
+                        <wins>3</wins>
                         <losses>2</losses>
-                            <points>6</points>
+                            <points>9</points>
 
-                        <setPoints>6:6</setPoints>
-                        <setWinScore>6</setWinScore>
-                        <setLoseScore>6</setLoseScore>
+                        <setPoints>9:9</setPoints>
+                        <setWinScore>9</setWinScore>
+                        <setLoseScore>9</setLoseScore>
                         <setPointDifference>0</setPointDifference>
                         <setQuotient>1,000</setQuotient>
 
-                        <ballPoints>236:251</ballPoints>
-                        <ballWinScore>236</ballWinScore>
-                        <ballLoseScore>251</ballLoseScore>
-                        <ballPointDifference>-15</ballPointDifference>
-                        <ballQuotient>0,940</ballQuotient>
+                        <ballPoints>357:414</ballPoints>
+                        <ballWinScore>357</ballWinScore>
+                        <ballLoseScore>414</ballLoseScore>
+                        <ballPointDifference>-57</ballPointDifference>
+                        <ballQuotient>0,862</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
-                                        <count>2</count>
+                                        <count>0</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:1</result>
-                                        <count>0</count>
+                                        <count>3</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:2</result>
@@ -383,42 +383,42 @@
                     </ranking>
                     <ranking>
                         <team>
-                            <id>25922081</id>
-                            <uuid>561bef7f-6fdb-4e0a-b977-231e7e7d4116</uuid>
-                            <name>VC Weil 3</name>
-                            <shortName>VC Weil 3</shortName>
+                            <id>25922066</id>
+                            <uuid>7e5e51a4-3689-4b64-91a9-88362b0f2d76</uuid>
+                            <name>VBG Efringen-Kirchen 2</name>
+                            <shortName></shortName>
                             <clubCode></clubCode>
                             <club>
-                                <name>VC Weil</name>
+                                <name>VBG Efringen-Kirchen</name>
                                 <shortName></shortName>
                             </club>
                         </team>
 
                         <place>6</place>
-                        <matchesPlayed>4</matchesPlayed>
+                        <matchesPlayed>5</matchesPlayed>
                         <wins>2</wins>
-                        <losses>2</losses>
+                        <losses>3</losses>
                             <points>6</points>
 
-                        <setPoints>6:8</setPoints>
-                        <setWinScore>6</setWinScore>
-                        <setLoseScore>8</setLoseScore>
+                        <setPoints>7:9</setPoints>
+                        <setWinScore>7</setWinScore>
+                        <setLoseScore>9</setLoseScore>
                         <setPointDifference>-2</setPointDifference>
-                        <setQuotient>0,750</setQuotient>
+                        <setQuotient>0,778</setQuotient>
 
-                        <ballPoints>259:326</ballPoints>
-                        <ballWinScore>259</ballWinScore>
-                        <ballLoseScore>326</ballLoseScore>
-                        <ballPointDifference>-67</ballPointDifference>
-                        <ballQuotient>0,794</ballQuotient>
+                        <ballPoints>324:349</ballPoints>
+                        <ballWinScore>324</ballWinScore>
+                        <ballLoseScore>349</ballLoseScore>
+                        <ballPointDifference>-25</ballPointDifference>
+                        <ballQuotient>0,928</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
-                                        <count>0</count>
+                                        <count>2</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:1</result>
-                                        <count>2</count>
+                                        <count>0</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:2</result>
@@ -430,7 +430,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>1:3</result>
-                                        <count>0</count>
+                                        <count>1</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
