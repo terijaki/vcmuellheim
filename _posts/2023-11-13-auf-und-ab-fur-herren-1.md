@@ -32,4 +32,4 @@ zu sichern.
 Wir bedanken uns bei allen Gästen, Zuschauern und Vereinsakteuren!  
   
   
-- Björn
+*- Björn*
