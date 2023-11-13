@@ -31,7 +31,7 @@ jobs:
         run: |
           for file in _inbox/*
           do
-              if [[ $file == *.doc ]] || [[ $file == *.docx ]] || [[ $file == *.rft ]] || [[ $file == *.txt ]] || [[ $file == *.odt ]]; then
+              if [[ $file == *.doc ]] || [[ $file == *.docx ]] || [[ $file == *.rtf ]] || [[ $file == *.txt ]] || [[ $file == *.odt ]]; then
                   title=$(basename "${file%.*}")
                   slug=$(echo "$title" | iconv -c -t ascii//TRANSLIT | sed -E 's/[~^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z)
                   target=_posts/$(TZ=Europe/Berlin date +%F)-$slug.md
