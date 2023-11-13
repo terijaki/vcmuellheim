@@ -71,6 +71,24 @@
       {
         "place": null,
         "team": {
+          "id": "27677361",
+          "uuid": "7f667695-cd08-4e55-aab5-f9682dcf89d1",
+          "name": "SG Breisach - Gündlingen 1",
+          "club": "SG Breisach - Gündlingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27677370",
+          "uuid": "848a2832-a3a2-4a56-b7c6-c9e8542dab4d",
+          "name": "SG Breisach - Gündlingen 2",
+          "club": "SG Breisach - Gündlingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "27626932",
           "uuid": "5c1261c6-1510-4fa8-8429-3802d715f09e",
           "name": "TB Emmendingen 4:4 weiblich",
