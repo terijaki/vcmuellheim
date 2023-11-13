@@ -4,14 +4,14 @@ posted-on-social: true
 title: Auf und Ab für Herren 1
 date: 2023-11-13T18:56:48Z
 gallery:
-- upload/2023/11/13/img_7052.jpg
-- upload/2023/11/13/img_7066.jpg
-- upload/2023/11/13/img_7073.jpg
-- upload/2023/11/13/img_7082.jpg
-- upload/2023/11/13/img_7095.jpg
-- upload/2023/11/13/img_7109.jpg
-- upload/2023/11/13/img_7132.jpg
-- upload/2023/11/13/img_7153.jpg
+- /upload/2023/11/13/img_7052.jpg
+- /upload/2023/11/13/img_7066.jpg
+- /upload/2023/11/13/img_7073.jpg
+- /upload/2023/11/13/img_7082.jpg
+- /upload/2023/11/13/img_7095.jpg
+- /upload/2023/11/13/img_7109.jpg
+- /upload/2023/11/13/img_7132.jpg
+- /upload/2023/11/13/img_7153.jpg
 ---
 Samstag 11.11 und besonders närrisch sollte es sein!  
   
