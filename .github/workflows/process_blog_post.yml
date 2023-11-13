@@ -69,7 +69,7 @@ jobs:
         run: |
           uploadFolder=upload/$(TZ=Europe/Berlin date +%Y)/$(TZ=Europe/Berlin date +%m)/$(TZ=Europe/Berlin date +%d)
           unset imageCount
-          for image in _inbox/*.jp*g
+          for image in _inbox/*.[Jj]*[Pp][Gg]
           do
               if [[ -z $imageCount ]]; then
                 mkdir -p $uploadFolder
