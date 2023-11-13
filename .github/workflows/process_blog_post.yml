@@ -62,9 +62,10 @@ jobs:
       - name: Add Front Matter
         run: |
           sed -i "1s|.*|---\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
-          sed -i "2s|.*|title: ${{steps.scan_inbox.outputs.DOC_TITLE}}\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
-          sed -i "3s|.*|date: $(TZ=Europe/Berlin date +%Y-%m-%dT%H:%M:%S)\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
-          sed -i "4s|.*|---\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
+          sed -i "2s|.*|layout: post\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
+          sed -i "3s|.*|title: ${{steps.scan_inbox.outputs.DOC_TITLE}}\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
+          sed -i "4s|.*|date: $(TZ=Europe/Berlin date +%Y-%m-%dT%H:%M:%S)\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
+          sed -i "5s|.*|---\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
 
       - name: Process Images
         run: |
@@ -74,13 +75,13 @@ jobs:
           do
               if [[ -z $imageCount ]]; then
                 mkdir -p $uploadFolder
-                sed -i "4s|.*|gallery:\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
+                sed -i "5s|.*|gallery:\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
               fi
               imageCount=$((imageCount+1))
               imageTarget=$uploadFolder/$(basename $image)
               imageTarget=$(echo $imageTarget | tr '[:upper:]' '[:lower:]' | sed 's/.jpeg/.jpg/g' | sed 's/img-//g')
               convert $image -resize '1920x1920>' $imageTarget
-              sed -i "$((imageCount+4))s|.*|- $imageTarget\n&|" '${{steps.scan_inbox.outputs.MD_TARGET}}'
+              sed -i "$((imageCount+5))s|.*|- $imageTarget\n&|" '${{steps.scan_inbox.outputs.MD_TARGET}}'
           done
 
       - name: Turn Author Reference Italic
