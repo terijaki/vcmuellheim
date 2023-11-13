@@ -25,8 +25,8 @@ layout: default
             <div class="col-12 post">
               <div class="wow fadeInNone">
                 <div class="box wow fadeInBottom" data-wow-duration="0.5s">
-                  {% if page.thumbnail.size > 0 %}<a href="{{ page.thumbnail }}" target="_blank"><div style="aspect-ratio: 16/9 auto; width: 100%; background-image: url({{ page.thumbnail }}); background-size: cover; background-position: center;" class="mb-3"></div></a>{% endif %} {{ content }}
-                  {% for image in page.gallery %}<a href="{{ image }}" target="_blank"><div style="aspect-ratio: 3/2 auto; width: 100%; background-image: url({{ image }}); background-size: cover; background-position: center;" class="mb-3"></div></a>{% endfor %}
+                  {% if page.thumbnail.size > 0 %}<a href="{{ page.thumbnail }}" target="_blank" rel="noopener noreferrer"><div style="aspect-ratio: 16/9 auto; width: 100%; background-image: url({{ page.thumbnail }}); background-size: cover; background-position: center;" class="mb-3"></div></a>{% endif %} {{ content }}
+                  {% for image in page.gallery %}<a href="{{ image }}" target="_blank" rel="noopener noreferrer"><div style="aspect-ratio: 3/2 auto; width: 100%; background-image: url({{ image }}); background-size: cover; background-position: center;" class="mb-3"></div></a>{% endfor %}
                 </div>
 
                 <div class="social-sharing d-flex justify-content-center d-none">
