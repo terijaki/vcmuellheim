@@ -267,8 +267,8 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-11-12 17:57:23.148</updated>
-        <structureUpdated>2023-10-19 11:44:42.271</structureUpdated>
+        <updated>2023-11-15 19:39:38.641</updated>
+        <structureUpdated>2023-11-15 19:39:38.641</structureUpdated>
         <resultsUpdated>2023-11-12 17:57:23.148</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -386,8 +386,8 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-11-12 17:57:23.148</updated>
-        <structureUpdated>2023-10-19 11:44:42.271</structureUpdated>
+        <updated>2023-11-15 19:39:38.641</updated>
+        <structureUpdated>2023-11-15 19:39:38.641</structureUpdated>
         <resultsUpdated>2023-11-12 17:57:23.148</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -582,8 +582,8 @@
     <name>West Jugendrunde (4:4) weiblich</name>
     <shortName>W_JRw</shortName>
     <type>Competition</type>
-        <updated>2023-11-07 12:03:47.24</updated>
-        <structureUpdated>2023-11-07 12:03:47.24</structureUpdated>
+        <updated>2023-11-15 15:04:58.981</updated>
+        <structureUpdated>2023-11-15 15:04:58.981</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -671,8 +671,8 @@
     <name>West Jugendrunde (4:4) weiblich</name>
     <shortName>W_JRw</shortName>
     <type>Competition</type>
-        <updated>2023-11-07 12:03:47.24</updated>
-        <structureUpdated>2023-11-07 12:03:47.24</structureUpdated>
+        <updated>2023-11-15 15:04:58.981</updated>
+        <structureUpdated>2023-11-15 15:04:58.981</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -843,14 +843,14 @@
         <wwwDepartment></wwwDepartment>
     </club>
     <matchSeries>
-    <id>27462690</id>
-    <uuid>565d5b51-d6f5-46d8-9046-02cca1c1a136</uuid>
-    <allSeasonId>565d5b51-d6f5-46d8-9046-02cca1c1a136</allSeasonId>
-    <name>Vor-Quali 4 - U14 weiblich am 25.11.23</name>
-    <shortName>VQ4_U14_w</shortName>
+    <id>27462682</id>
+    <uuid>c42d6266-76de-4aba-85b8-af18eb0e01a0</uuid>
+    <allSeasonId>c42d6266-76de-4aba-85b8-af18eb0e01a0</allSeasonId>
+    <name>Vor-Quali 3 - U14 weiblich am 25.11.23</name>
+    <shortName>VQ3_U14_w</shortName>
     <type>Competition</type>
-        <updated>2023-11-10 19:04:50.691</updated>
-        <structureUpdated>2023-10-26 10:10:13.455</structureUpdated>
+        <updated>2023-11-15 13:02:23.014</updated>
+        <structureUpdated>2023-11-15 13:02:23.014</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1193,8 +1193,8 @@
     <name>West Quali - U14m am 25.11.2023</name>
     <shortName>WQ_U14m</shortName>
     <type>Competition</type>
-        <updated>2023-11-10 19:03:16.912</updated>
-        <structureUpdated>2023-11-10 19:03:16.912</structureUpdated>
+        <updated>2023-11-15 13:34:07.479</updated>
+        <structureUpdated>2023-11-15 13:34:07.479</structureUpdated>
         <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1282,8 +1282,8 @@
     <name>U14 männlich - Quali 2 am 25.11.2023</name>
     <shortName>Q2_U14_m</shortName>
     <type>Competition</type>
-        <updated>2023-11-14 20:37:40.396</updated>
-        <structureUpdated>2023-11-14 20:37:40.395</structureUpdated>
+        <updated>2023-11-15 13:34:07.479</updated>
+        <structureUpdated>2023-11-15 13:21:44.84</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1454,8 +1454,8 @@
     <name>U16 männlich - Quali 2 am 3.12.2023</name>
     <shortName>Q2_U16_m</shortName>
     <type>Competition</type>
-        <updated>2023-11-10 11:51:33.83</updated>
-        <structureUpdated>2023-11-10 11:51:33.83</structureUpdated>
+        <updated>2023-11-15 12:47:30.044</updated>
+        <structureUpdated>2023-11-15 12:47:30.044</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
