@@ -774,8 +774,8 @@
             "name": "West Quali - U14w am 25.11.2023",
             "shortName": "WQ_U14w",
             "type": "Competition",
-            "updated": "2023-11-10 19:04:50.691",
-            "structureUpdated": "2023-11-10 19:04:50.691",
+            "updated": "2023-11-16 18:32:34.688",
+            "structureUpdated": "2023-11-16 18:32:34.688",
             "resultsUpdated": "2023-01-15 16:33:00.278",
             "season": {
               "id": "25640073",
@@ -865,7 +865,7 @@
             "name": "Vor-Quali 3 - U14 weiblich am 25.11.23",
             "shortName": "VQ3_U14_w",
             "type": "Competition",
-            "updated": "2023-11-15 13:02:23.014",
+            "updated": "2023-11-16 15:10:42.406",
             "structureUpdated": "2023-11-15 13:02:23.014",
             "resultsUpdated": null,
             "season": {
@@ -950,8 +950,8 @@
             "name": "West Quali - U16w am 3.12.2023",
             "shortName": "WQ_U16w",
             "type": "Competition",
-            "updated": "2023-10-26 09:45:00.616",
-            "structureUpdated": "2023-10-26 09:45:00.616",
+            "updated": "2023-11-16 16:16:02.993",
+            "structureUpdated": "2023-11-16 16:16:02.993",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
@@ -1041,7 +1041,7 @@
             "name": "U16 weiblich - Quali 2 am 3.12.23",
             "shortName": "Q2_U16_w",
             "type": "Competition",
-            "updated": "2023-11-10 11:52:10.401",
+            "updated": "2023-11-16 16:16:02.993",
             "structureUpdated": "2023-11-10 11:52:10.401",
             "resultsUpdated": null,
             "season": {
@@ -1217,8 +1217,8 @@
             "name": "West Quali - U14m am 25.11.2023",
             "shortName": "WQ_U14m",
             "type": "Competition",
-            "updated": "2023-11-15 13:34:07.479",
-            "structureUpdated": "2023-11-15 13:34:07.479",
+            "updated": "2023-11-16 15:48:57.589",
+            "structureUpdated": "2023-11-16 15:48:57.589",
             "resultsUpdated": "2023-01-15 16:33:00.278",
             "season": {
               "id": "25640073",
@@ -1308,7 +1308,7 @@
             "name": "U14 männlich - Quali 2 am 25.11.2023",
             "shortName": "Q2_U14_m",
             "type": "Competition",
-            "updated": "2023-11-15 13:34:07.479",
+            "updated": "2023-11-16 15:48:57.589",
             "structureUpdated": "2023-11-15 13:21:44.84",
             "resultsUpdated": null,
             "season": {
@@ -1393,8 +1393,8 @@
             "name": "West Quali - U16m am 3.12.2023",
             "shortName": "WQ_U16m",
             "type": "Competition",
-            "updated": "2023-10-27 15:40:17.026",
-            "structureUpdated": "2023-10-27 15:40:17.026",
+            "updated": "2023-11-16 15:50:55.516",
+            "structureUpdated": "2023-11-16 15:50:55.516",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
@@ -1484,7 +1484,7 @@
             "name": "U16 männlich - Quali 2 am 3.12.2023",
             "shortName": "Q2_U16_m",
             "type": "Competition",
-            "updated": "2023-11-15 12:47:30.044",
+            "updated": "2023-11-16 15:50:55.516",
             "structureUpdated": "2023-11-15 12:47:30.044",
             "resultsUpdated": null,
             "season": {
