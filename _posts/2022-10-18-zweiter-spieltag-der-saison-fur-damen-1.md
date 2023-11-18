@@ -3,8 +3,14 @@ layout: post
 excerpt_separator: <!--more-->
 posted-on-social: true
 title: Zweiter Spieltag der Saison für Damen 1
-thumbnail: /upload/2022/10/18/img_0830.JPG
-_template: neuen_beitrag_erstellen
+gallery:
+- "/upload/2022/10/18/img_0821.jpg"
+- "/upload/2022/10/18/img_0830.jpg"
+- "/upload/2022/10/18/img_0835.jpg"
+- "/upload/2022/10/18/img_0838.jpg"
+- "/upload/2022/10/18/img_0853.jpg"
+- "/upload/2022/10/18/img_0872.jpg"
+- "/upload/2022/10/18/img_0888.jpg"
 ---
 
 Vorgestern spielten Damen 1 erstmals in einem offiziellen Spiel gegen unsere Damen 2. Den ersten Satz konnten Damen 2 mit 25:14 für sich entscheiden.  
@@ -15,5 +21,3 @@ Weiter ging es mit einem knappen Spiel gegen VC Weil 2. Es kam beiderseits zu se
 Schlussendlich war es dennoch ein erfolgreicher und belehrender zweiter Spieltag. Es wird weiterhin hart trainiert und das Beste gegeben.
 
 _Spielbericht von Melisa Trtovac_
-
-![](/upload/2022/10/18/img_0821.JPG)![](/upload/2022/10/18/img_0825.JPG)![](/upload/2022/10/18/img_0835.JPG)![](/upload/2022/10/18/img_0838.JPG)![](/upload/2022/10/18/img_0853.JPG)![](/upload/2022/10/18/img_0872.JPG)![](/upload/2022/10/18/img_0888.JPG)
