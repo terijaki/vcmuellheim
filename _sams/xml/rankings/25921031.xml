@@ -8,9 +8,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-11-18 15:29:32.046</updated>
+        <updated>2023-11-18 17:15:58.885</updated>
         <structureUpdated>2023-11-14 11:32:44.262</structureUpdated>
-        <resultsUpdated>2023-11-18 15:29:32.046</resultsUpdated>
+        <resultsUpdated>2023-11-18 17:15:58.885</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -98,26 +98,26 @@
                         </team>
 
                         <place>1</place>
-                        <matchesPlayed>6</matchesPlayed>
-                        <wins>6</wins>
+                        <matchesPlayed>7</matchesPlayed>
+                        <wins>7</wins>
                         <losses>0</losses>
-                            <points>17</points>
+                            <points>20</points>
 
-                        <setPoints>18:2</setPoints>
-                        <setWinScore>18</setWinScore>
+                        <setPoints>21:2</setPoints>
+                        <setWinScore>21</setWinScore>
                         <setLoseScore>2</setLoseScore>
-                        <setPointDifference>16</setPointDifference>
-                        <setQuotient>9,000</setQuotient>
+                        <setPointDifference>19</setPointDifference>
+                        <setQuotient>10,500</setQuotient>
 
-                        <ballPoints>484:351</ballPoints>
-                        <ballWinScore>484</ballWinScore>
-                        <ballLoseScore>351</ballLoseScore>
-                        <ballPointDifference>133</ballPointDifference>
-                        <ballQuotient>1,379</ballQuotient>
+                        <ballPoints>559:386</ballPoints>
+                        <ballWinScore>559</ballWinScore>
+                        <ballLoseScore>386</ballLoseScore>
+                        <ballPointDifference>173</ballPointDifference>
+                        <ballQuotient>1,448</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
-                                        <count>5</count>
+                                        <count>6</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:1</result>
@@ -440,22 +440,22 @@
                         </team>
 
                         <place>7</place>
-                        <matchesPlayed>5</matchesPlayed>
+                        <matchesPlayed>6</matchesPlayed>
                         <wins>0</wins>
-                        <losses>5</losses>
+                        <losses>6</losses>
                             <points>0</points>
 
-                        <setPoints>1:15</setPoints>
+                        <setPoints>1:18</setPoints>
                         <setWinScore>1</setWinScore>
-                        <setLoseScore>15</setLoseScore>
-                        <setPointDifference>-14</setPointDifference>
-                        <setQuotient>0,067</setQuotient>
+                        <setLoseScore>18</setLoseScore>
+                        <setPointDifference>-17</setPointDifference>
+                        <setQuotient>0,056</setQuotient>
 
-                        <ballPoints>267:400</ballPoints>
-                        <ballWinScore>267</ballWinScore>
-                        <ballLoseScore>400</ballLoseScore>
-                        <ballPointDifference>-133</ballPointDifference>
-                        <ballQuotient>0,668</ballQuotient>
+                        <ballPoints>302:475</ballPoints>
+                        <ballWinScore>302</ballWinScore>
+                        <ballLoseScore>475</ballLoseScore>
+                        <ballPointDifference>-173</ballPointDifference>
+                        <ballQuotient>0,636</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -479,7 +479,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
-                                        <count>4</count>
+                                        <count>5</count>
                                     </matchResult>
                             </resultTypes>
                     </ranking>
