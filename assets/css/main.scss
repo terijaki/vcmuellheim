@@ -32,7 +32,8 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
   cursor: default;
-  min-height: 100dvh;
+  min-height: 100vh;
+  min-height: 100svh;
   & > * {
     width: 100%;
     overflow-x: hidden;
@@ -143,7 +144,6 @@ h6 {
 /* ------ Cover-BG (background image with dark gradient) ------ */
 .cover-img-bg {
   background-size: cover;
-  background-attachment: fixed;
   background-position: center center;
 }
 
@@ -184,29 +184,30 @@ h6 {
   background: var(--bs-dark);
   color: var(--bs-white);
   position: relative;
-  transition: background-image 1s;
+  transition: background-image 10s;
 
   &.random {
-    background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), var(--bs-dark);
+    background-image: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), var(--bs-dark);
+    background-size: cover;
+    background-position: center top;
   }
   &.rnd-1,
   &.rnd-2,
   &.rnd-3,
-  &.rnd-4,
-  &.rnd-5 {
-    background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), url("/img/intro-bg.jpg");
-    background-size: cover;
-    background-attachment: fixed;
+  &.rnd-4 {
+    background-image: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), url("/img/intro-bg.jpg");
+    background-position: center top;
+  }
+  &.rnd-5,
+  &.rnd-6,
+  &.rnd-7 {
+    background-image: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), url("/img/intro-bg2.jpg");
     background-position: center center;
   }
-  &.rnd-6,
-  &.rnd-7,
   &.rnd-8,
   &.rnd-9,
   &.rnd-10 {
-    background: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), url("/img/intro-bg2.jpg");
-    background-size: cover;
-    background-attachment: fixed;
+    background-image: linear-gradient(45deg, rgba(54, 59, 64, 0.8), rgba(54, 98, 115, 0.8)), url("/img/intro-bg3.jpg");
     background-position: center center;
   }
   .vcm-banner img {
@@ -471,14 +472,14 @@ h6 {
 /* ------ Short Intros & Blog Post Header ------ */
 #shortintro,
 #blog-post-header {
-  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/call-to-action-bg.jpg) fixed center center;
+  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/call-to-action-bg.jpg) center center;
   background-size: cover;
 }
 
 /* ------ Heimspiele Section ------ */
 #heimspiele {
   overflow: hidden;
-  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/call-to-action-bg.jpg) fixed center center;
+  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/call-to-action-bg.jpg) center center;
   background-size: cover;
   color: var(--bs-white);
   h4 {
@@ -493,7 +494,7 @@ h6 {
 /* ------ Call To Action Section ------ */
 #call-to-action {
   overflow: hidden;
-  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/call-to-action-bg.jpg) fixed center center;
+  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/call-to-action-bg.jpg) center center;
   background-size: cover;
 
   .cta-title {
@@ -559,7 +560,7 @@ h6 {
 
 #corona-und-sport {
   overflow: hidden;
-  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/corona-and-sport.jpg) fixed center center;
+  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/corona-and-sport.jpg) center center;
   background-size: cover;
   color: #fff;
   .cta-title {
@@ -862,7 +863,7 @@ h6 {
 /* ------ Sponsors ------ */
 #sponsors {
   color: #fff;
-  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/verein-bg.jpg) fixed center center;
+  background: linear-gradient(rgba(54, 59, 64, 0.9), rgba(54, 98, 115, 0.9)), url(/img/verein-bg.jpg) center center;
   background-size: cover;
 
   .sponsor-carousel {
