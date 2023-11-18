@@ -6,6 +6,8 @@ on:
       - "main"
     paths:
       - "_inbox/**"
+      - "!_posts/**"
+      - "!upload/**"
   workflow_dispatch:
 
 env:
