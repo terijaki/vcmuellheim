@@ -3,7 +3,7 @@ layout: post
 posted-on-social: true
 title: Klaus-Dieter Ernst auf Platz 7 bei der Wahl zum „Volleyballtrainer des Jahres“
 gallery:
-- "/upload/2023/08/02/img-20230417-wa0005.jpg"
+- "/img/members/klausernst2.jpg"
 ---
 
 Zum ersten Mal wurde über das Portal _volleyballfreak.de_ eine deutschlandweite Wahl zum „<a href="https://www.volleyballfreak.de/trainerin-der-saison-2022-23-die-abstimmung" target="_blank">Volleyballtrainer/in des Jahres</a>“ durchgeführt. Hierzu gingen unzählige Vorschläge von Vereinen, Spielern oder Trainern aus dem ganzen Bundesgebiet ein, sodass eine Vorauswahl von 15 Trainerfinalisten zur Endausscheidung erforderlich war. Die Kandidaten mussten gewisse Kriterien für die Zulassung erfüllen, die von einer qualifizierten Jury geprüft wurden.
