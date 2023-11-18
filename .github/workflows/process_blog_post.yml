@@ -36,7 +36,7 @@ jobs:
                   title=$(basename "${file%.*}")
                   slug=$(echo "$title" | iconv -c -t ascii//TRANSLIT | sed -E 's/[~^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z)
                   target=_posts/$(date -u +%F)-$slug.md
-                  uploadFolder=/upload/$(date -u +%Y/%m/%d)
+                  uploadFolder=upload/$(date -u +%Y/%m/%d)
                   echo "DOC_FILE=$file" >> "$GITHUB_OUTPUT"
                   echo "DOC_TITLE=$title" >> "$GITHUB_OUTPUT"
                   echo "DOC_SLUG=$slug" >> "$GITHUB_OUTPUT"
@@ -46,6 +46,7 @@ jobs:
                   echo "TITLE: $title"
                   echo "SLUG: $slug"
                   echo "TARGET: $target"
+                  echo "UPLOAD: $uploadFolder"
               fi
           done
 
@@ -77,7 +78,7 @@ jobs:
                 sed -i "5s|.*|gallery:\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
               fi
               imageCount=$((imageCount+1))
-              imageTarget=${{steps.scan_inbox.outputs.DOC_FILE}}/$(basename $image)
+              imageTarget=${{steps.scan_inbox.outputs.UPLOAD_FOLDER}}/$(basename $image)
               imageTarget=$(echo $imageTarget | tr '[:upper:]' '[:lower:]' | sed 's/.jpeg/.jpg/g' | sed 's/img-//g')
               convert $image -resize '1920x1920>' $imageTarget
               sed -i "$((imageCount+5))s|.*|- /$imageTarget\n&|" '${{steps.scan_inbox.outputs.MD_TARGET}}'
