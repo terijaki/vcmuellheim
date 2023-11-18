@@ -59,9 +59,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-14 14:16:03.642</updated>
+        <updated>2023-11-18 17:11:53.463</updated>
         <structureUpdated>2023-11-14 14:16:03.642</structureUpdated>
-        <resultsUpdated>2023-11-12 17:26:00.989</resultsUpdated>
+        <resultsUpdated>2023-11-18 17:11:53.463</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -160,9 +160,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-11-18 15:29:32.046</updated>
+        <updated>2023-11-18 17:15:58.885</updated>
         <structureUpdated>2023-11-14 11:32:44.262</structureUpdated>
-        <resultsUpdated>2023-11-18 15:29:32.046</resultsUpdated>
+        <resultsUpdated>2023-11-18 17:15:58.885</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -1365,8 +1365,8 @@
     <name>West Quali - U16m am 3.12.2023</name>
     <shortName>WQ_U16m</shortName>
     <type>Competition</type>
-        <updated>2023-11-17 19:46:02.378</updated>
-        <structureUpdated>2023-11-17 19:46:02.378</structureUpdated>
+        <updated>2023-11-18 17:21:16.216</updated>
+        <structureUpdated>2023-11-18 17:21:16.216</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1454,7 +1454,7 @@
     <name>U16 männlich - Quali 2 am 3.12.2023</name>
     <shortName>Q2_U16_m</shortName>
     <type>Competition</type>
-        <updated>2023-11-17 19:46:02.378</updated>
+        <updated>2023-11-18 17:21:16.216</updated>
         <structureUpdated>2023-11-15 12:47:30.044</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
