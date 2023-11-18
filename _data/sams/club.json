@@ -59,9 +59,9 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2023-11-14 14:16:03.642",
+            "updated": "2023-11-18 17:11:53.463",
             "structureUpdated": "2023-11-14 14:16:03.642",
-            "resultsUpdated": "2023-11-12 17:26:00.989",
+            "resultsUpdated": "2023-11-18 17:11:53.463",
             "season": {
               "id": "25640073",
               "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -162,9 +162,9 @@
             "name": "Bezirksliga Herren Süd",
             "shortName": "bzl s h",
             "type": "League",
-            "updated": "2023-11-18 15:29:32.046",
+            "updated": "2023-11-18 17:15:58.885",
             "structureUpdated": "2023-11-14 11:32:44.262",
-            "resultsUpdated": "2023-11-18 15:29:32.046",
+            "resultsUpdated": "2023-11-18 17:15:58.885",
             "season": {
               "id": "25640073",
               "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1393,8 +1393,8 @@
             "name": "West Quali - U16m am 3.12.2023",
             "shortName": "WQ_U16m",
             "type": "Competition",
-            "updated": "2023-11-17 19:46:02.378",
-            "structureUpdated": "2023-11-17 19:46:02.378",
+            "updated": "2023-11-18 17:21:16.216",
+            "structureUpdated": "2023-11-18 17:21:16.216",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
@@ -1484,7 +1484,7 @@
             "name": "U16 männlich - Quali 2 am 3.12.2023",
             "shortName": "Q2_U16_m",
             "type": "Competition",
-            "updated": "2023-11-17 19:46:02.378",
+            "updated": "2023-11-18 17:21:16.216",
             "structureUpdated": "2023-11-15 12:47:30.044",
             "resultsUpdated": null,
             "season": {
