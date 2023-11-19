@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2023-11-18 17:11:53.463",
+      "updated": "2023-11-19 15:20:53.652",
       "structureUpdated": "2023-11-14 14:16:03.642",
-      "resultsUpdated": "2023-11-18 17:11:53.463",
+      "resultsUpdated": "2023-11-19 15:20:53.652",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -149,20 +149,20 @@
           }
         },
         "place": "2",
-        "matchesPlayed": "5",
+        "matchesPlayed": "6",
         "wins": "5",
-        "losses": "0",
+        "losses": "1",
         "points": "13",
-        "setPoints": "15:5",
+        "setPoints": "15:8",
         "setWinScore": "15",
-        "setLoseScore": "5",
-        "setPointDifference": "10",
-        "setQuotient": "3,000",
-        "ballPoints": "459:375",
-        "ballWinScore": "459",
-        "ballLoseScore": "375",
-        "ballPointDifference": "84",
-        "ballQuotient": "1,224",
+        "setLoseScore": "8",
+        "setPointDifference": "7",
+        "setQuotient": "1,875",
+        "ballPoints": "524:456",
+        "ballWinScore": "524",
+        "ballLoseScore": "456",
+        "ballPointDifference": "68",
+        "ballQuotient": "1,149",
         "resultTypes": {
           "matchResult": [
             {
@@ -187,7 +187,7 @@
             },
             {
               "result": "0:3",
-              "count": "0"
+              "count": "1"
             }
           ]
         }
@@ -205,20 +205,20 @@
           }
         },
         "place": "3",
-        "matchesPlayed": "5",
-        "wins": "3",
+        "matchesPlayed": "6",
+        "wins": "4",
         "losses": "2",
-        "points": "10",
-        "setPoints": "12:7",
-        "setWinScore": "12",
-        "setLoseScore": "7",
-        "setPointDifference": "5",
-        "setQuotient": "1,714",
-        "ballPoints": "420:377",
-        "ballWinScore": "420",
-        "ballLoseScore": "377",
-        "ballPointDifference": "43",
-        "ballQuotient": "1,114",
+        "points": "13",
+        "setPoints": "15:8",
+        "setWinScore": "15",
+        "setLoseScore": "8",
+        "setPointDifference": "7",
+        "setQuotient": "1,875",
+        "ballPoints": "515:449",
+        "ballWinScore": "515",
+        "ballLoseScore": "449",
+        "ballPointDifference": "66",
+        "ballQuotient": "1,147",
         "resultTypes": {
           "matchResult": [
             {
@@ -227,7 +227,7 @@
             },
             {
               "result": "3:1",
-              "count": "1"
+              "count": "2"
             },
             {
               "result": "3:2",
@@ -261,25 +261,25 @@
           }
         },
         "place": "4",
-        "matchesPlayed": "3",
-        "wins": "3",
-        "losses": "0",
-        "points": "9",
-        "setPoints": "9:2",
-        "setWinScore": "9",
-        "setLoseScore": "2",
-        "setPointDifference": "7",
-        "setQuotient": "4,500",
-        "ballPoints": "278:239",
-        "ballWinScore": "278",
-        "ballLoseScore": "239",
-        "ballPointDifference": "39",
-        "ballQuotient": "1,163",
+        "matchesPlayed": "5",
+        "wins": "4",
+        "losses": "1",
+        "points": "12",
+        "setPoints": "13:5",
+        "setWinScore": "13",
+        "setLoseScore": "5",
+        "setPointDifference": "8",
+        "setQuotient": "2,600",
+        "ballPoints": "431:399",
+        "ballWinScore": "431",
+        "ballLoseScore": "399",
+        "ballPointDifference": "32",
+        "ballQuotient": "1,080",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "1"
+              "count": "2"
             },
             {
               "result": "3:1",
@@ -295,11 +295,67 @@
             },
             {
               "result": "1:3",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "0:3",
               "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "25932644",
+          "uuid": "7e94a7f4-2254-42e6-bd3e-23071d627d89",
+          "name": "TV Staufen",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Staufen",
+            "shortName": null
+          }
+        },
+        "place": "5",
+        "matchesPlayed": "5",
+        "wins": "3",
+        "losses": "2",
+        "points": "8",
+        "setPoints": "11:10",
+        "setWinScore": "11",
+        "setLoseScore": "10",
+        "setPointDifference": "1",
+        "setQuotient": "1,100",
+        "ballPoints": "454:462",
+        "ballWinScore": "454",
+        "ballLoseScore": "462",
+        "ballPointDifference": "-8",
+        "ballQuotient": "0,983",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "1"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "1"
             }
           ]
         }
@@ -316,7 +372,7 @@
             "shortName": null
           }
         },
-        "place": "5",
+        "place": "6",
         "matchesPlayed": "6",
         "wins": "1",
         "losses": "5",
@@ -372,7 +428,7 @@
             "shortName": null
           }
         },
-        "place": "6",
+        "place": "7",
         "matchesPlayed": "6",
         "wins": "2",
         "losses": "4",
@@ -428,7 +484,7 @@
             "shortName": null
           }
         },
-        "place": "7",
+        "place": "8",
         "matchesPlayed": "6",
         "wins": "2",
         "losses": "4",
@@ -474,62 +530,6 @@
       },
       {
         "team": {
-          "id": "25932644",
-          "uuid": "7e94a7f4-2254-42e6-bd3e-23071d627d89",
-          "name": "TV Staufen",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Staufen",
-            "shortName": null
-          }
-        },
-        "place": "8",
-        "matchesPlayed": "4",
-        "wins": "2",
-        "losses": "2",
-        "points": "5",
-        "setPoints": "8:10",
-        "setWinScore": "8",
-        "setLoseScore": "10",
-        "setPointDifference": "-2",
-        "setQuotient": "0,800",
-        "ballPoints": "379:397",
-        "ballWinScore": "379",
-        "ballLoseScore": "397",
-        "ballPointDifference": "-18",
-        "ballQuotient": "0,955",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "2"
-            },
-            {
-              "result": "2:3",
-              "count": "1"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "1"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "25932641",
           "uuid": "33cc39d8-055c-4c01-9723-566b11e23feb",
           "name": "Südbaden-Auswahl",
@@ -541,20 +541,20 @@
           }
         },
         "place": "9",
-        "matchesPlayed": "6",
+        "matchesPlayed": "7",
         "wins": "2",
-        "losses": "4",
+        "losses": "5",
         "points": "4",
-        "setPoints": "6:16",
+        "setPoints": "6:19",
         "setWinScore": "6",
-        "setLoseScore": "16",
-        "setPointDifference": "-10",
-        "setQuotient": "0,375",
-        "ballPoints": "395:504",
-        "ballWinScore": "395",
-        "ballLoseScore": "504",
-        "ballPointDifference": "-109",
-        "ballQuotient": "0,784",
+        "setLoseScore": "19",
+        "setPointDifference": "-13",
+        "setQuotient": "0,316",
+        "ballPoints": "442:579",
+        "ballWinScore": "442",
+        "ballLoseScore": "579",
+        "ballPointDifference": "-137",
+        "ballQuotient": "0,763",
         "resultTypes": {
           "matchResult": [
             {
@@ -579,7 +579,7 @@
             },
             {
               "result": "0:3",
-              "count": "4"
+              "count": "5"
             }
           ]
         }
@@ -597,25 +597,25 @@
           }
         },
         "place": "10",
-        "matchesPlayed": "4",
-        "wins": "0",
-        "losses": "4",
-        "points": "1",
-        "setPoints": "2:12",
-        "setWinScore": "2",
-        "setLoseScore": "12",
+        "matchesPlayed": "6",
+        "wins": "1",
+        "losses": "5",
+        "points": "4",
+        "setPoints": "5:15",
+        "setWinScore": "5",
+        "setLoseScore": "15",
         "setPointDifference": "-10",
-        "setQuotient": "0,167",
-        "ballPoints": "276:341",
-        "ballWinScore": "276",
-        "ballLoseScore": "341",
-        "ballPointDifference": "-65",
-        "ballQuotient": "0,809",
+        "setQuotient": "0,333",
+        "ballPoints": "416:463",
+        "ballWinScore": "416",
+        "ballLoseScore": "463",
+        "ballPointDifference": "-47",
+        "ballQuotient": "0,898",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "3:1",
@@ -635,7 +635,7 @@
             },
             {
               "result": "0:3",
-              "count": "3"
+              "count": "4"
             }
           ]
         }
