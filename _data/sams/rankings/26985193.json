@@ -80,6 +80,15 @@
       {
         "place": null,
         "team": {
+          "id": "27761467",
+          "uuid": "011e607b-b90a-4adf-b0cc-3f5d70bf5b29",
+          "name": "TB Emmendingen Herren 4:4 Team Wolfgang",
+          "club": "TB Emmendingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "27273627",
           "uuid": "ba6f2868-693a-4b83-b7a9-31bd8d928eed",
           "name": "TV Kappelrodeck",
@@ -102,6 +111,15 @@
           "uuid": "af00be56-c960-48c5-ac38-3070f7cecbde",
           "name": "VC Offenburg",
           "club": "VC Offenburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27751648",
+          "uuid": "d8b115fa-5a52-442c-9550-d66f50d7e10d",
+          "name": "VSG Rebland",
+          "club": "TV Zell-Weierbach"
         }
       }
     ]
