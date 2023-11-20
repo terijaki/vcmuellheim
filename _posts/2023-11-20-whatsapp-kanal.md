@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: "Experiment: WhatsApp-Kanal"
 date: 2023-11-20T17:25:41Z
 ---
