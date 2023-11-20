@@ -8,8 +8,8 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-11-19 18:59:28.024</updated>
-        <structureUpdated>2023-11-14 14:16:03.642</structureUpdated>
+        <updated>2023-11-20 19:14:51.337</updated>
+        <structureUpdated>2023-11-20 19:14:51.337</structureUpdated>
         <resultsUpdated>2023-11-19 18:59:28.024</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -257,7 +257,7 @@
                             <shortName></shortName>
                             <clubCode></clubCode>
                             <club>
-                                <name>VC Haslach</name>
+                                <name>VC 94 Haslach</name>
                                 <shortName></shortName>
                             </club>
                         </team>
