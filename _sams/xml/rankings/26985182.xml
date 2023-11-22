@@ -96,6 +96,33 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>27784417</id>
+                            <uuid>c9953daa-43c5-417a-9991-ff7b38d8dcab</uuid>
+                            <name>TV Gundelfingen 1</name>
+                            <club>TV Gundelfingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27784425</id>
+                            <uuid>e977a7c0-97ab-4d26-9c63-bda869ec4b15</uuid>
+                            <name>TV Gundelfingen 2</name>
+                            <club>TV Gundelfingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27784433</id>
+                            <uuid>fdca4e62-1cdf-4cf9-be84-d8cc6413b2ba</uuid>
+                            <name>TV Gundelfingen 3</name>
+                            <club>TV Gundelfingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>27616777</id>
                             <uuid>68039629-803c-44ff-a4a1-ee1962d7ea08</uuid>
                             <name>VC Minseln</name>

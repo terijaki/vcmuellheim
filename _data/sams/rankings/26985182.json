@@ -98,6 +98,33 @@
       {
         "place": null,
         "team": {
+          "id": "27784417",
+          "uuid": "c9953daa-43c5-417a-9991-ff7b38d8dcab",
+          "name": "TV Gundelfingen 1",
+          "club": "TV Gundelfingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27784425",
+          "uuid": "e977a7c0-97ab-4d26-9c63-bda869ec4b15",
+          "name": "TV Gundelfingen 2",
+          "club": "TV Gundelfingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27784433",
+          "uuid": "fdca4e62-1cdf-4cf9-be84-d8cc6413b2ba",
+          "name": "TV Gundelfingen 3",
+          "club": "TV Gundelfingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "27616777",
           "uuid": "68039629-803c-44ff-a4a1-ee1962d7ea08",
           "name": "VC Minseln",
