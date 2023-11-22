@@ -760,8 +760,8 @@
     <name>West Quali - U14w am 25.11.2023</name>
     <shortName>WQ_U14w</shortName>
     <type>Competition</type>
-        <updated>2023-11-20 19:29:55.449</updated>
-        <structureUpdated>2023-11-20 19:29:55.449</structureUpdated>
+        <updated>2023-11-22 01:15:23.442</updated>
+        <structureUpdated>2023-11-22 01:15:23.442</structureUpdated>
         <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -823,7 +823,7 @@
     <id>27469350</id>
     <uuid>f52c591f-b175-428e-83f4-e3692e0b55f4</uuid>
     <seasonTeamId>26985131</seasonTeamId>
-    <placeCipher>0</placeCipher>
+    <placeCipher>1</placeCipher>
     <name>VC Müllheim</name>
     <shortName></shortName>
     <clubCode></clubCode>
@@ -849,8 +849,8 @@
     <name>Vor-Quali 3 - U14 weiblich am 25.11.23</name>
     <shortName>VQ3_U14_w</shortName>
     <type>Competition</type>
-        <updated>2023-11-20 18:15:44.926</updated>
-        <structureUpdated>2023-11-15 13:02:23.014</structureUpdated>
+        <updated>2023-11-21 14:34:22.206</updated>
+        <structureUpdated>2023-11-21 10:16:22.814</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1104,8 +1104,8 @@
     <name>West Jugendrunde (4:4) männlich</name>
     <shortName>W_JRm</shortName>
     <type>Competition</type>
-        <updated>2023-09-21 11:05:34.866</updated>
-        <structureUpdated>2023-09-21 11:05:34.866</structureUpdated>
+        <updated>2023-11-21 16:31:15.995</updated>
+        <structureUpdated>2023-11-21 16:31:15.995</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1256,7 +1256,7 @@
     <id>27469178</id>
     <uuid>d601ce27-b6be-4783-82a3-fbb0fdac8432</uuid>
     <seasonTeamId>26985141</seasonTeamId>
-    <placeCipher>0</placeCipher>
+    <placeCipher>2</placeCipher>
     <name>VC Müllheim</name>
     <shortName></shortName>
     <clubCode></clubCode>
@@ -1282,8 +1282,8 @@
     <name>U14 männlich - Quali 2 am 25.11.2023</name>
     <shortName>Q2_U14_m</shortName>
     <type>Competition</type>
-        <updated>2023-11-20 00:11:48.966</updated>
-        <structureUpdated>2023-11-15 13:21:44.84</structureUpdated>
+        <updated>2023-11-21 09:58:55.059</updated>
+        <structureUpdated>2023-11-21 09:58:55.059</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1365,8 +1365,8 @@
     <name>West Quali - U16m am 3.12.2023</name>
     <shortName>WQ_U16m</shortName>
     <type>Competition</type>
-        <updated>2023-11-20 16:39:27.781</updated>
-        <structureUpdated>2023-11-20 16:39:27.781</structureUpdated>
+        <updated>2023-11-21 11:33:12.029</updated>
+        <structureUpdated>2023-11-21 11:33:12.029</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1454,7 +1454,7 @@
     <name>U16 männlich - Quali 2 am 3.12.2023</name>
     <shortName>Q2_U16_m</shortName>
     <type>Competition</type>
-        <updated>2023-11-20 16:39:27.781</updated>
+        <updated>2023-11-21 11:33:12.029</updated>
         <structureUpdated>2023-11-15 12:47:30.044</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
