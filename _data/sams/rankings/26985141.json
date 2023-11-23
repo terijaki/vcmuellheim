@@ -7,8 +7,8 @@
       "name": "West Quali - U14m am 25.11.2023",
       "shortName": "WQ_U14m",
       "type": "Competition",
-      "updated": "2023-11-20 18:04:59.929",
-      "structureUpdated": "2023-11-20 18:04:59.929",
+      "updated": "2023-11-22 23:35:42.57",
+      "structureUpdated": "2023-11-22 23:35:42.57",
       "resultsUpdated": "2023-01-15 16:33:00.278",
       "season": {
         "id": "25640073",
@@ -138,15 +138,6 @@
           "uuid": "c4999234-ce57-42bd-a7d9-0c7298355a77",
           "name": "VC Weil",
           "club": "VC Weil"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "27147897",
-          "uuid": "22878397-bb16-46f0-a421-5e1fcf61328a",
-          "name": "VSG KiLa",
-          "club": "VSG KiLa"
         }
       }
     ]
