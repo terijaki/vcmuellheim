@@ -161,6 +161,33 @@
       {
         "place": null,
         "team": {
+          "id": "27800899",
+          "uuid": "2a39a92c-41fc-4d6c-b306-088f22462c00",
+          "name": "VSG Mundingen 1",
+          "club": "VSG Mundingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27800909",
+          "uuid": "e3fddabb-6632-4a25-a379-e495c1fd5ffa",
+          "name": "VSG Mundingen 2",
+          "club": "VSG Mundingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27800919",
+          "uuid": "5ff1fb60-205c-4316-81e7-62a29a01c9ed",
+          "name": "VSG Mundingen 3",
+          "club": "VSG Mundingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "27590017",
           "uuid": "3a890382-541d-450e-9a1f-0b290b7606fd",
           "name": "VSG Rebland 1",

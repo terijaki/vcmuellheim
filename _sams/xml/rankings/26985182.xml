@@ -159,6 +159,33 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>27800899</id>
+                            <uuid>2a39a92c-41fc-4d6c-b306-088f22462c00</uuid>
+                            <name>VSG Mundingen 1</name>
+                            <club>VSG Mundingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27800909</id>
+                            <uuid>e3fddabb-6632-4a25-a379-e495c1fd5ffa</uuid>
+                            <name>VSG Mundingen 2</name>
+                            <club>VSG Mundingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27800919</id>
+                            <uuid>5ff1fb60-205c-4316-81e7-62a29a01c9ed</uuid>
+                            <name>VSG Mundingen 3</name>
+                            <club>VSG Mundingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>27590017</id>
                             <uuid>3a890382-541d-450e-9a1f-0b290b7606fd</uuid>
                             <name>VSG Rebland 1</name>
