@@ -1,7 +1,7 @@
 ---
-name: "Kerstin Hackhausen"
+name: "Paul Morawietz"
 email: "mitgliedschaft@vcmuellheim.de"
-avatar: "/img/members/kerstinhackhausen.jpg"
+avatar: "/img/members/paulmorawietz.jpg"
 function: "Mitgliederverwaltung"
 sortorder: 3
 ---
