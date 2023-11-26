@@ -2,6 +2,6 @@
 name: "Andreas Albrecht"
 email: "andreas@vcmuellheim.de"
 avatar: "/img/members/andreasalbrecht.jpg"
-function: "1. Beisitzer"
+function: "Beisitzer"
 sortorder: 4
 ---
