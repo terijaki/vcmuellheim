@@ -4,176 +4,173 @@ title: Satzung des Volleyballclubs Müllheim
 permalink: /satzung/
 ---
 
-<img src="/img/vcm-banner.png" style="height:120px;filter:contrast(0.3);display: block;" class="float-lg-right mx-auto">
-## **A. Allgemeines**
-### § 1 Name, Sitz, Geschäftsjahr
-1. Der Verein führt den Namen „Volleyballclub Müllheim“. Er soll in das Vereinsregister beim Amtsgericht Müllheim eingetragen werden. Nach der Eintragung führt er den Namenszusatz „eingetragener Verein“.
-2. Er hat seinen Sitz in Müllheim/Baden und verfolgt ausschließlich und unmittelbar gemeinnützige Zwecke im Sinne des Abschnitts „Steuerbegünstigte Zwecke“ der Abgabenordnung.
-3. Der Verein kann kooperatives Mitglied von Organisationen werden, die seinen Zielen entsprechen.
-4. Das Geschäftsjahr dauert vom 1. Januar bis 31. Dezember.
+<img src="/img/vcm-banner.png" style="height:120px;filter:contrast(0.3);" class="float-lg-right mx-auto print-only">
 
-### § 2 Zweck des Vereins
-1. Der Verein setzt sich zur Aufgabe, nach den Grundsätzen der Freiwilligkeit und unter Ausschluss von parteipolitischen, konfessionellen, beruflichen, rassischen und militärischen Gesichtspunkten das Volleyballspiel zu pflegen und zu fördern und durch Pflege der Freundschaft und Geselligkeit zur Lebensfreude und Gesundheit seiner Mitglieder beizutragen.
-2. Das Betreiben anderer Sportarten ist nicht ausgeschlossen.
-3. Zur Erreichung dieses Zweckes dienen regelmäßige Trainingsstunden, Ausbildung von Lehrkräften, Teilnahme an Wettkämpfen, Veranstaltungen aller Art, Ausfahrten und Wanderungen, Abhaltung von Versammlungen und geselligen Zusammenkünften, sowie die Werbung in Wort und Schrift.
-4. Der Verein ist selbstlos tätig, er verfolgt nicht in erster Linie eigenwirtschaftliche Zwecke. Mittel des Vereins dürfen nur für die satzungsmäßigen Zwecke verwendet werden. Die Mitglieder erhalten keine Zuwendungen aus Mitteln des Vereins. Es darf keine Person durch Ausgaben, die dem Zwecke der Körperschaft fremd sind oder durch unverhältnismäßig hohe Vergütungen begünstigt werden.
+<h2>§ 1 Name, Sitz, Geschäftsjahr</h2>
+<ol>
+<li>Der Verein trägt den Namen „Volleyballclub Müllheim e.V“.</li>
+<li>Der Verein hat seinen Sitz in Müllheim im Markgräflerland und ist im Vereinsregister des Amtsgerichts Müllheim eingetragen unter der Nummer VR 158/Mü</li>
+<li>Das Geschäftsjahr des Vereins ist das Kalenderjahr.</li>
+<li>Der Verein ist Mitglied des Badischen Sportbundes Süd e.V. und des Südbadischen Volleyball Verband.Der Verein und seine Mitglieder anerkennen als für sich rechtsverbindlich die Satzungsbestimmungen und Ordnungen dieser Sportverbände in ihrer jeweils gültigen Fassung. Der Verein und seine Einzelmitglieder unterwerfen sich der Rechtsprechung dieser Verbände und ermächtigen diese, die ihnen überlassenen Befugnisse bei der Verfolgung von Verstößen gegen die Satzungen und Ordnungen an übergeordnete Verbände zu übertragen. Dies gilt ebenso bei Verstößen gegen die Satzungen und Ordnungen der übergeordneten Verbände.</li>
+<li>Der Verein kann in weiteren Fachverbänden Mitglied werden, deren Sportarten auf wettkampf-, breiten- oder freizeitsportlicher Basis betrieben werden. § 1 Abs. 4 gilt dann entsprechend. Die Mitgliedschaft in anderen Verbänden und Organisationen, die der Erfüllung des Vereinszweckes dienen, ist möglich.</li>
+</ol>
 
-## **B. Mitgliedschaft**
-### § 3 Arten der Mitgliedschaft
-1. Die Mitglieder des Vereins gliedern sich in.
- * Kinder und Jugendliche
- * Aktive Mitglieder
- * Passive Mitglieder
- * Ehrenmitglieder
-2. Aktive Mitglieder sowie Kinder und jugendliche nehmen regelmäßig an den Trainingsstunden teil und beteiligen sich aktiv an der Vereinsführung.
-3. Passive Mitglieder fördern die Aufgabe des Vereins durch Zahlung eines ermäßigten Mitgliedsbeitrages, ohne selbst an den Trainingsstunden teilzunehmen.
-4. Ehrenmitglieder sind Personen, die hierzu wegen besonderer Verdienste um den Verein vom Spielerrat ernannt wurden. Sie können von der Beitragspflicht befreit werden.
+<h2>§ 2 Zweck und Gemeinnützigkeit des Vereins</h2>
+<ol>
+<li>Vereinszweck ist die Pflege und Förderung des Sports, besonders des Sports für Kinder und Jugendliche. Der Vereinszweck wird insbesondere durch das Abhalten von Übungsstunden, die Durchführung von Sportveranstaltungen und die Teilnahme an Sportveranstaltungen verwirklicht.</li>
+<li>Der Verein verfolgt ausschließlich und unmittelbar gemeinnützige Zwecke im Sinne des Abschnitts "steuerbegünstigte Zwecke" der Abgabenordnung. Der Verein ist selbstlos tätig und verfolgt nicht in erster Linie eigenwirtschaftliche Zwecke.</li>
+<li>Mittel des Vereins dürfen nur für die satzungsgemäßen Zwecke verwendet werden. Die Mitglieder erhalten in ihrer Eigenschaft als Mitglieder des Vereins keine Zuwendungen aus Mitteln des Vereins. Es darf keine Person durch Ausgaben, die den Zwecken des Vereins fremd sind oder durch unverhältnismäßig hohe Vergütungen begünstigt werden.</li>
+<li>Die Aufgaben des Vereins werden unter Wahrung der parteipolitischen und konfessionellen Neutralität ausgeübt.</li>
+</ol>
 
-### § 4 Erwerb der Mitgliedschaft
-1. Mitglieder des Vereins können männliche und weibliche Personen jeden Alters werden.
-2. Der Antrag auf Erwerb der Mitgliedschaft muss schriftlich dem Vorstand gegenüber erklärt werden. Bei Kindern und Jugendlichen ist die schriftliche Zustimmung des Erziehungsberechtigten erforderlich.
-3. Über die Aufnahme entscheidet der Vorstand. Er kann ein Aufnahmegesuch ohne Angabe von Gründen ablehnen. Gegen die Ablehnung steht dem Betroffenen der Einspruch innerhalb von 4 Wochen zu, über den der Spielerrat innerhalb weiterer 4 Wochen endgültig entscheidet.
-4. Dem Mitglied wird auf Verlangen ein Exemplar der Satzung ausgehändigt.
+<h2>§ 3 Mitgliedschaft</h2>
+<ol>
+<li>Mitglied des Vereins kann jede natürliche Person (ordentliche Mitglieder) oder juristische Person (außerordentliche Mitglieder) werden.</li>
+<li>Der Erwerb der Mitgliedschaft setzt einen schriftlichen Aufnahmeantrag auf einem dafür vorgesehenen Vordruck voraus, der an ein Mitglied des Vorstands oder die Vereinsgeschäftsstelle zu richten ist. Der AufnahmeantragMinderjähriger ist von dem/der/den gesetzlichen Vertreter(n)/Vertreterin zu stellen.</li>
+<li>Über den Aufnahmeantrag entscheidet der Vorstand nach freiem Ermessen. Die Aufnahme kann ohne Begründung abgelehnt werden, bedarf jedoch eine Mehrheitsentscheidung des Vorstands.</li>
+<li>Die Mitgliedschaft beginnt mit der Bestätigung der Aufnahme in Textform.</li>
+<li>Personen, die sich um die Förderung des Sports und der Jugend besonders verdient gemacht haben, können auf Beschluss des Vorstandes zu Ehrenmitgliedern ernannt werden.</li>
+</ol>
 
-### § 5 Beendigung der Mitgliedschaft
-1. Die Mitgliedschaft erlischt:
-* durch den Tod
-* durch freiwilligen Austritt
-* durch Ausschluss
+<h2>§ 4 Rechte und Pflichten der Mitglieder</h2>
+<ol>
+<li>Mit der Aufnahme in den Verein anerkennt das Mitglied die Satzung. Es verpflichtet sich, die Satzungsregelungen und die Ordnungen des Vereins sowie die Beschlüsse der Vereinsorgane zu befolgen. Die Mitglieder sind verpflichtet, die Vereinsinteressen zu fördern und alles zu unterlassen, was dem Ansehen und dem Zweck des Vereins entgegensteht.</li>
+<li>Die Mitglieder sind berechtigt, die Einrichtungen und Anlagen des Vereins entsprechend den geltenden Benutzungsordnungen zu benutzen und an allen Veranstaltungen des Vereins teilzunehmen.</li>
+<li>Stimmberechtigt bei der Mitgliederversammlung sind Mitglieder ab dem vollendeten 16. Lebensjahr. Sie üben dieses Recht persönlich aus. Außerordentliche Mitglieder haben ebenfalls nur eine Stimme, die von einem Vertreter wahrgenommen wird. Wird der fällige Mitgliedsbeitrag nicht bezahlt, ruht das Stimmrecht des Mitglieds.</li>
+<li>Die Mitglieder sind verpflichtet, den Verein über Änderungen in ihren persönlichen Verhältnissen schriftlich zu informieren. Dazu gehört insbesondere:</li>
+<li>die Mitteilung von Anschriftenänderungen</li>
+<li>Änderung der Bankverbindung bei der Teilnahme am Einzugsverfahren</li>
+<li>Mitteilung von persönlichen Veränderungen, die für das Beitragswesen relevant sind (z.B. Beendigung der Schulausbildung, etc.).</li>
+<li>Nachteile, die dem Mitglied dadurch entstehen, dass es dem Verein die erforderlichen Änderungen nach Abs. 4 nicht mitgeteilt hat, gehen nicht zu Lasten des Vereins und können diesem nicht entgegengehalten werden. Entsteht dem Verein dadurch ein Schaden, ist das Mitglied zum Ausgleich verpflichtet.</li>
+</ol>
 
-2. Der Austritt aus dem Verein ist nur zum Ende des Geschäftsjahres zulässig. Die Austrittserklärung muss dem Vorstand gegenüber schriftlich spätestens einen Monat vor Ablauf des Geschäftsjahres erklärt werden.
-3. Der Ausschluss eines Mitglieds kann vom Spielerrat mit 2/3-Mehrheit beschlossen
-werden:
-* wenn das Mitglied seinen Beitrag, Gebühren oder Umlagen trotz zweimaliger Mahnung nicht entrichtet.
-* bei schweren vorsätzlichen Verstössen gegen die Satzung oder die Interessen des Vereins, sowie gegen die Beschlüsse und Anordnungen der Vereinsorgane.
-* bei unehrenhaftem Verhalten, soweit es mit dem Vereinsleben in unmittelbarem Zusammenhang steht und bei Aberkennung der bürgerlichen Ehrenrechte.
+<h2>§ 5 Mitgliedsbeiträge</h2>
+<ol>
+<li>Die Mitglieder sind zur Entrichtung der durch die Mitgliederversammlung festgesetzten Beiträge, Umlagen und Gebühren verpflichtet. Einzelheiten werden in der Beitragsordnung geregelt.</li>
+<li>Der Vorstand kann in begründeten Einzelfällen Beiträge ganz oder teilweise stunden oder erlassen.</li>
+<li>Der Verein ist bei besonderen Vorhaben mit außergewöhnlich hohen Kosten oder zur Beseitigung finanzieller Schwierigkeiten des Vereins zur Erhebung einmaliger Umlagen berechtigt, sofern diese zur Finanzierung notwendig sind. Über die Festsetzung der Höhe der Umlage entscheidet die Mitgliederversammlung, wobei eine Höchstgrenze besteht von dem zweifachen eines Jahresbeitrages.</li>
+</ol>
 
-Gegen die Entscheidung des Spielerrates ist der Einspruch innerhalb von 2 Wochen an die Mitgliederversammlung zulässig. Der Einspruch hat aufschiebende Wirkung.
+<h2>§ 6 Beendigung der Mitgliedschaft</h2>
+<ol>
+<li>Die Mitgliedschaft erlischt durch Tod (bei jurist. Personen durch Erlöschen der Rechtsfähigkeit) – eine Vererbung findet nicht statt –, durch freiwilligen Austritt, durch Streichung von der Mitgliederliste oder durch Ausschluss aus dem Verein. Verpflichtungen dem Verein gegenüber sind bis zum Ablauf des laufenden Geschäftsjahres zu erfüllen.</li>
+<li>Der freiwillige Austritt hat in Textform gegenüber einem Mitglied des Vorstands oder der Vereinsgeschäftsstelle erfolgen. Er ist frühestens zum Ende des dem Eintritt folgenden Kalenderjahres unter Einhaltung einer Kündigungsfrist von einem Monat zulässig.</li>
+<li>Ein Mitglied kann durch Beschluss des Vorstandes von der Mitgliederliste gestrichen werden, wenn es trotz zweimaliger Mahnung mit der Zahlung des Beitrags im Rückstand ist. Die Streichung darf erst beschlossen werden, nachdem seit der Absendung des zweiten Mahnschreibens drei Monate verstrichen und die Beitragsschulden nicht beglichen sind. Eine Streichung ist auch möglich, wenn das Mitglied dem Verein länger als sechs Monate keinerlei aktuelle Kontaktdaten zur Verfügung stellt.</li>
+<li>Ein Mitglied kann aus dem Verein ausgeschlossen werden, wenn ein wichtiger Grund vorliegt. Der Ausschluss erfolgt durch Beschluss des Vorstandes in einer Sitzung, bei der mindestens die Hälfte der Mitglieder des Vorstandes anwesend sein muss. Ausschließungsgründe sind insbesondere</li>
+<ul>
+    <li>Grober oder wiederholter Verstoß des Mitglieds gegen die Satzung, gegen Ordnungen oder gegen Beschlüsse des Vereins</li>
+    <li>Schwere Schädigung des Ansehens des Vereins.</li>
+    <li>Unehrenhaftes Verhalten und bei Aberkennung der Bürgerrechte</li>
+</ul>
+<p>Vor der Beschlussfassung über den Ausschluss ist dem Mitglied unter Setzung einer angemessenen Frist Gelegenheit zu geben, sich persönlich vor dem Vorstand oder schriftlich zu rechtfertigen. Das Verfahren legt der Vorstand fest. Die Entscheidung über den Ausschluss ist schriftlich zu begründen und dem Mitglied bekannt zu machen. Gegen die Entscheidung des Vorstandes kann das Mitglied Berufung an die Mitgliederversammlung einlegen. Die Berufung muss innerhalb einer Frist von einem Monat ab Zugang des Ausschließungsbeschlusses beim Vorstand schriftlich eingelegt werden. Ist die Berufung rechtzeitig eingelegt, so entscheidet die nächste ordentliche Mitgliederversammlung.</p>
+</ol>
 
-### § 6 Beiträge
-1. Die Mitglieder sind zur Zahlung der durch die Mitgliederversammlung festgesetzten Mitgliedsbeiträge, Gebühren und Umlagen verpflichtet.
-2. Der Mitgliedsbeitrag wird im ersten Quartal des Geschäftsjahres fällig. Bei einem späteren Eintritt wird der Beitrag sofort fällig.
+<h2>§ 7 Organe des Vereins</h2>
+<ol>
+<li>Organe des Vereins sind:</li>
+<ul>
+    <li>die Mitgliederversammlung</li>
+    <li>der Vorstand</li>
+    <li>der Vorstand im Sinne von § 26 BGB.</li>
+</ul>
+<li>Die Vereins- und Organämter werden grundsätzlich ehrenamtlich ausgeübt. Bei Bedarf können Vereins- und Organämter im Rahmen der haushaltsrechtlichen Möglichkeiten gegen Zahlung einer Aufwandsentschädigung nach § 3 Nr. 26 a EStG ausgeübt werden. Die Entscheidung über eine solche entgeltliche Tätigkeit trifft die Mitgliederversammlung auf Vorschlag des Vorstandes.</li>
+<li>Die Mitglieder und Mitarbeiter des Vereins haben einen Ersatzanspruch nach § 670 BGB für solche Aufwendungen, die ihnen durch die Tätigkeit für den Verein entstanden sind (z. B. Reisekosten, Porto, Telefon). Der Anspruch auf Aufwendungsersatz kann nur innerhalb einer Frist von sechs Monaten nach Entstehung geltend gemacht werden.</li>
+</ol>
 
-### § 7 Wahl und Stimmfähigkeit
-1. Jedes Mitglied des Vereins ist nach Vollendung des 16. Lebensjahres berechtigt, an der Willensbildung im Verein durch Ausübung des Antrags-, Diskussions- und Stimmrechts an Mitgliederversammlungen teilzunehmen.
-2. Jedes Mitglied hat eine Stimme. Die Übertragung des Stimmrechts ist unzulässig.
-3. Die Wahl in den Vorstand setzt die volle Geschäftsfähigkeit voraus, mit Ausnahme des durch die Jugendversammlung gewählten Jugendleiter.
+<h2>§ 8 Mitgliederversammlung</h2>
+<ol>
+<li>In jedem Kalenderjahr ist eine Mitgliederversammlung durchzuführen. Sie wird vom Vorstand unter Einhaltung einer Frist von drei Wochen unter Angabe der Tagesordnung einberufen. Die Einladung gilt dem Mitglied als zugegangen, wenn es an die letzte vom Mitglied dem Verein bekannt gegebene Adresse gerichtet ist. Die textliche Einladungsform ist auch gewahrt, wenn die Einladung per E-Mail erfolgt. § 8 Abs. 1 Satz 3 gilt entsprechend. Die endgültige Tagesordnung und die Beschlussvorlagen werden spätestens eine Woche vor der Mitgliederversammlung auf der Internetseite des Vereins oder mittels Vereinssoftware veröffentlicht.</li>
+<li>Anträge zur ordentlichen Mitgliederversammlung müssen spätestens 7 Tage vor der Versammlung in Textform mit Begründung bei einem der Vorstandsmitglieder eingereicht werden.</li>
+<li>Die Mitgliederversammlung wird von einem der Vorstände geleitet.</li>
+<li>Die Mitgliederversammlung ist ohne Rücksicht auf die Zahl der erschienenen Mitglieder beschlussfähig. Die Beschlussfassung erfolgt durch Mehrheit der abgegebenen gültigen Stimmen. Ungültige Stimmen und Stimmenhaltungen werden protokolliert, bleiben aber unberücksichtigt. Eine geheime Beschlussfassung erfolgt, wenn dies von 10% der anwesenden Stimmberechtigten beantragt wird. Bei finanziellen Beschlussfassungen, benötigt es den Antrag zur geheimen Abstimmung von nur einer Person.</li>
+<li>Beschlüsse über Satzungsänderungen bedürfen einer Mehrheit von zwei Dritteln der abgegebenen gültigen Stimmen. Ungültige Stimmen und Stimmenhaltungen werden protokolliert, bleiben aber unberücksichtigt. Abweichend davon bedürfen Beschlüsse über eine Änderung des Zweckes des Vereins einer Mehrheit von drei Vierteln der abgegebenen Stimmen.</li>
+<li>Über die Beschlüsse der Mitgliederversammlung ist ein Protokoll aufzunehmen, das vom jeweiligen Versammlungsleiter und dem Protokollführer zu unterzeichnen ist.</li>
+<li>Eine außerordentliche Mitgliederversammlung muss einberufen werden, wenn 20 % der Mitglieder des Vereins es schriftlich unter Angabe der Gründe beim Vorstand beantragen. Ferner kann der Vorstand jederzeit eine außerordentliche Mitgliederversammlung einberufen, er muss dies, wenn das Interesse des Vereins es erfordert. Für die Einladung und Durchführung einer außerordentlichen Mitgliederversammlung gelten die Vorschriften der Abs. 1 bis 6 entsprechend.</li>
+<li>Der Vorstand kann zu einer virtuellen oder hybriden Mitgliederversammlung einladen. Wird eine hybride oder virtuelle Versammlung einberufen, so muss bei der Berufung auch angegeben werden, wie die Mitglieder ihre Rechte im Wege der elektronischen Kommunikation ausüben können.</li>
+</ol>
 
-### § 8 Rechte und Pflichten der Mitglieder
-1. Die Mitglieder sind berechtigt, an allen Veranstaltungen des Vereins teilzunehmen. Passive Mitglieder sind jedoch vom Training ausgeschlossen.
-2. Kein Mitglied kann zur Übernahme eines Vereinsamtes gezwungen werden.
-3. Von den Mitgliedern wird erwartet, dass sie am Vereinsleben Anteil nehmen, die Arbeit des Vereins fördern und Schädigungen seines Rufes, seiner Bestrebung und seines Vermögens verhindern.
+<h2>§ 9 Zuständigkeit der Mitgliederversammlung</h2>
+<p>Die Mitgliederversammlung hat folgende Aufgaben:</p>
+<ol>
+<li>Entgegennahme der Jahresberichte des Vorstands</li>
+<li>Entgegennahme der Berichte der Kassenprüfer/innen</li>
+<li>Entlastung des Vorstands</li>
+<li>Bekanntgabe des vom Vorstand aufgestellten Haushaltsplans</li>
+<li>Wahl des Vorstands</li>
+<li>Wahl der Kassenprüfer/innen</li>
+<li>Beratung und Beschlussfassung über vorliegende Anträge</li>
+<li>Beschlussfassung über die Gewährung einer Aufwandsentschädigung nach § 3 Nr. 26 a EstG</li>
+<li>Beschlussfassung über Satzungsänderungen, Änderungen des Vereinszweckes und Auflösung des Vereins.</li>
+<li>Beschlussfassung über Berufungen gegen einen Vereinsausschluss</li>
+<li>Verabschiedung der Beitragsordnung mit Festsetzung der Beiträge und Fälligkeitszeitpunkte gem. § 5 Abs. 1</li>
+<li>Bestätigung der von der Jugendversammlung beschlossenen Jugendordnung</li>
+</ol>
 
-## **C. Die Vertretung und Verwaltung des Vereins**
-### § 9 Die Vereinsorgane
-1. Organe des Vereins sind.
-* Die Mitgliederversammlung
-* Der Spielerrat
-* Der Vorstand
-* Die Jugendversammlung
-* Der Jugendvorstand
+<h2>§ 10 Vorstand</h2>
+<ol>
+<li>Der Vorstand des Vereins besteht aus:
+    <ol>
+    <li>Vorsitzenden</li>
+    <li>stellvertretenden Vorsitzenden</li>
+    <li>Kassenwart</li>
+    <li>Schriftführer</li>
+    <li>Beisitzer</li>
+    <li>Beisitzer</li>
+    </ol>
+</li>
+<li>Gesetzliche Vertreter gem. § 26 BGB sind der 1. Vorsitzende und der stellvertretende Vorsitzende. Beide sind für sich alleine vertretungsberechtigt.</li>
+<li>Die Mitglieder des Vorstandes werden von der Mitgliederversammlung für die Dauer von zwei Jahren, vom Tage der Wahl angerechnet, gewählt. Sie bleiben jedoch bis zur Durchführung einer Mitgliederversammlung nach Ablauf der Wahlperiode oder bis zur Wiederwahl im Amt. Eine geheime Wahl erfolgt, wenn dies von einer der anwesenden Stimmberechtigten beantragt wird. Die beiden Vorstände gem.§ 26 BGB sind einzeln zu wählen.</li>
+<li>Wählbar in den Vorstand sind Mitglieder ab dem vollendeten 16. Lebensjahr. Wählbar als Vorstand nach § 26 BGB sind Mitglieder ab dem vollendeten 18. Lebensjahr.</li>
+<li>Der Vorstand leitet und führt den Verein nach Maßgabe dieser Satzung und der Ordnungen. Es ist für sämtliche Vereinsangelegenheiten zuständig, soweit die Satzung diese nicht ausdrücklich einem anderen Organ zugewiesen hat. Zur Erledigung der Geschäftsführung und zur Führung einer Geschäftsstelle ist der Vorstand ermächtigt, im Rahmen der haushaltsrechtlichen Möglichkeiten hauptamtlich Beschäftigte anzustellen.</li>
+<li>Die Sitzungen des Vorstandes finden entweder real oder virtuell (online) bzw. hybrid in einem nur für die Vorstandsmitglieder zugänglichen Verfahren statt.Ein Vorstandsmitglied lädt unter Angabe der Tagesordnung mit angemessener Frist zu diesen ein. Der Vorstand ist beschlussfähig, wenn mindestens die Hälfte seiner Mitglieder, darunter ein nach § 26 BGB vertretungsberechtigtes Mitglied, anwesend sind. Der Vorstand fasst seine Beschlüsse mit der Mehrheit der abgegebenen gültigen Stimmen. Ungültige Stimmen und Stimmenthaltungen werden protokolliert, bleiben aber unberücksichtigt. Der Vorstand kann Beschlüsse auch im Umlaufverfahren per Textform (§126 b BGB) fassen, es sei denn, dass drei Mitglieder des Vorstandes einer Beschlussfassung durch Umlaufbeschluss widersprechen. Die Beschlüsse des Vorstandes (auch solche, die im Wege eines Umlauf-Beschlusses gefasst sind) sind zu protokollieren.</li>
+<li>Bei vorzeitigem Ausscheiden eines Mitglieds des Vorstands kann der Vorstand bis zum Ablauf der regulären Wahlperiode ein Ersatzmitglied wählen; dies muss in einer Sitzung erfolgen.</li>
+<li>Durch Beschluss des Vorstands können für definierte Aufgaben Ausschüsse gebildet werden, die von einem Mitglied des Vorstandes geleitet werden. Der Vorstand beruft die Mitglieder der Ausschüsse.</li>
+<li>Die Verteilung der Zuständigkeitsbereiche regeln die Mitglieder des Vorstandes untereinander. Die Zuständigkeiten werden ineinem Geschäftsverteilungsplan festgehalten und den Mitgliedern spätestens sechs Wochen nach der Wahl durch Veröffentlichung auf der Homepage des Vereins oder mittels Vereinssoftware kenntlich gemacht. Zuständigkeitsänderungen sind jederzeit möglich und unverzüglich zu veröffentlichen.</li>
+<li>Die Vorstandsmitglieder sind alleine vertretungsberechtigt. Bei Grundstücksgeschäften im Wert von über 5.000 € wird der Verein durch zwei Vorstandsmitglieder gem. § 26 BGB gemeinsam vertreten.</li>
+<li>Der Vorstand gem. § 26 BGB kann bei Bedarf, aufgabenbezogen oder für einzelne Projekte, besondere Vertreter nach § 30 BGB bestellen.</li>
+</ol>
 
-### § 10 Die Mitgliederversammlung
-1. Der Mitgliederversammlung sind folgende Aufgaben vorbehalten:
-* Entgegennahme von Genehmigungen der Jahresberichte des Vorstandes, des Kassenwartes und der Kassenprüfer.
-* Entlastung des Vorstandes und des Kassenwartes.
-* Wahl und Amtsenthebung des Vorstandes, des Kassenwartes, des Schriftführers, der Beisitzer, der Kassenprüfer und der Trainer.
-* Festsetzung sämtlicher Beiträge, Gebühren und Umlagen.
-* Beschlussfassung über Anträge zur Änderung der Satzung.
-* Beschlussfassung über die zur Mitgliedversammlung gestellten Anträge.
-* Aufstellung von Vereinsorganen.
-* Beschlussfassung über alle anderen ihr durch diese Satzung zugewiesenen Aufgaben.
-2. Die ordentliche Mitgliederversammlung (Hauptversammlung) ist alljährlich im ersten Quartal des Geschäftsjahres einzuberufen.
-3. Außerordentliche Mitgliederversammlungen kann der Vorstand jederzeit einberufen, wenn es das Interesse des Vereins erfordert. Er ist dazu verpflichtet, wenn der Spielerrat dies Beschließt oder wenn die Einberufung von 1/10 aller stimmberechtigten Mitglieder schriftlich unter Angabe des Grundes und des Zwecks verlangt wird. Die Einberufung hat innerhalb von 4 Wochen nach Beschlussfassung des Spielerrates oder nach Eingang des Antrages zu erfolgen.
-4. Der Vorstand gibt Tagungsort und Zeit der Mitgliederversammlung sowie die Tagesordnung mindestens 2 Wochen vorher schriftlich bekannt.
-5. Anträge sind dem Vorstand mindestens 1 Woche vor der Versammlung einzureichen. Andernfalls können sie nur behandelt werden, wenn die Dringlichkeit von der Versammlung anerkannt wird. Anträge auf Satzungsänderung können nicht als Dringlichkeitsanträge behandelt werden.
-6. Die Mitgliederversammlung wird vom 1. Vorsitzenden oder einem Beauftragten geleitet.
-7. Über die Beschlüsse und Wahlen in der Mitgliederversammlung ist eine Niederschrift aufzunehmen, die von dem Versammlungsleiter und dem Schriftführer zu unterzeichnen ist.
-8. Die gefassten Beschlüsse und Wahlen sind den nicht anwesenden Mitgliedern in geeigneter Weise bekannt zu machen.
+<h2>§ 11 Vereinsjugend</h2>
+<ol>
+<li>Die Vereinsjugend ist die Jugendorganisation des Vereins. Ihr gehören alle jugendlichen Mitglieder bis zum vollendeten 18. Lebensjahr, sowie die gewählten Mitglieder des Jugendausschusses an.</li>
+<li>Die Vereinsjugend führt und verwaltet sich selbständig und entscheidet über die ihr zufließenden Mittel unter Berücksichtigung der Gemeinnützigkeit des Vereins.</li>
+<li>Die Vereinsjugend gibt sich eine Jugendordnung. Stimmberechtigt ist, wer das zehnte Lebensjahr vollendet hat. Die Jugendordnung bedarf der Bestätigung durch die Mitgliederversammlung.</li>
+</ol>
 
-### § 11 Beschlussfassung in der Mitgliederversammlung
-1. Die Mitgliederversammlung ist ohne Rücksicht auf die Zahl der erschienenen Mitglieder beschlussfähig.
-2. Beschlüsse werden, soweit diese Satzung nichts Gegenteiliges vorsieht, mit einfacher Mehrheit der stimmberechtigten Mitglieder gefasst. Bei Stimmengleichheit gilt der Antrag als abgelehnt. Ungültige Stimmen oder Stimmenthaltungen werden nicht mitgezählt.
-3. Die Abänderung der Satzung kann nur mit einer Mehrheit von ¾ der anwesenden stimmberechtigten Mitgliedern erfolgen.
-4. In der Mitgliederversammlung wird grundsätzlich offen durch Handaufheben abgestimmt, wenn die Versammlung keine andere Abstimmungsart beschließt.
-5. Bei Wahlen wird, wenn sich mindestens 2 Kandidaten für ein Vereinsamt bewerben, schriftlich abgestimmt. Gewählt ist, wer mehr als die Hälfte der abgegebenen gültigen Stimmen auf sich vereinigen kann. Erhält keiner dieser Kandidaten diese Mehrheit, so findet unter den beiden Kandidaten, die die meisten Stimmen erhalten haben, eine Stichwahl statt.
+<h2>§ 12 Kassenprüfer</h2>
+<ol>
+<li>Die Mitgliederversammlung wählt aus dem Kreis der stimmberechtigten Mitglieder zwei Kassenprüfer, die nicht dem Vorstand angehören dürfen. Die Amtsdauer der Kassenprüfer beträgt zwei Jahre. Sie bleiben jedoch bis zur gültigen Wahl der Nachfolger im Amt.</li>
+<li>Die Kassenprüfer prüfen mindestens einmal jährlich vor der Mitgliederversammlung die sachliche und rechnerische Richtigkeit der gesamten Vereinskasse mit allen Konten, Buchungsunterlagen und Belegen und erstatten dem Vorstand und der Mitgliederversammlung darüber einen Bericht. Der Vorstand kann jederzeit eine außerordentliche Kassenprüfung anordnen.</li>
+<li>Bei ordnungsgemäßer Führung der Kassengeschäfte beantragen die Kassenprüfer die Entlastung des Vorstands im Rahmen der Mitgliederversammlung.</li>
+<li>Bei vorzeitigem Ausscheiden eines Kassenprüfers kann der Vorstand bis zur nächsten Mitgliederversammlung einen Ersatzkassenprüfer kommissarisch berufen.</li>
+</ol>
 
-### § 12 Der Spielerrat
-1. Der Spielerrat besteht aus:
-* den Mitgliedern des Vorstands
-* dem Jugendleiter
-* den Trainern
-* den Spielführern oder bei Verhinderung ihren Stellvertretern
-* weiteren Inhabern von Vereinsämtern.
-2. Die Spielführer und ihre Stellvertreter werden von ihrer Mannschaft zu Beginn der Wettkampfrunde gewählt. Trainingsgruppen, die nicht an der Wettkampfrunde teilnehmen, wählen aus ihrer Mitte zu Beginn des Geschäftsjahres einen Vertreter und Stellvertreter für den Spielerrat.
-3. Der Jugendleiter wird durch die Jugendversammlung gewählt. Die übrigen Mitglieder des Spielerrates werden von der ordentlichen Mitgliederversammlung auf 1 Jahr gewählt.
-4. Die Mitgliederversammlung ist berechtigt, weitere Vereinsämter zu schaffen und zu besetzten. Die Inhaber dieser Vereinsämter sind ebenfalls Mitglieder des Spielerrates.
+<h2>§ 13 Haftung</h2>
+<ol>
+<li>Alle für den Verein tätige Personen, deren Vergütung den Ehrenamtsfreibetrag gem. § 3 Nr. 26 a EstG im Jahr nicht übersteigt, haften für Schäden gegenüber den Mitgliedern und gegenüber dem Verein, die sie in Erfüllung ihrer ehrenamtlichen Tätigkeit verursachen, nur für Vorsatz und grobe Fahrlässigkeit.Werden diese Personen von Dritten im Außenverhältnis zur Haftung herangezogen, ohne dass Vorsatz oder grobe Fahrlässigkeit vorliegt, so haben diese gegen den Verein einen Anspruch auf Ersatz ihrer Aufwendungen zur Abwehr der Ansprüche sowie auf Freistellung von Ansprüchen Dritter.</li>
 
-### § 13 Zuständigkeit und Beschlussfassung des Spielerrates
-1. Der Spielerrat berät und beschließt:
-* über alle ihm durch diese Satzung zugewiesenen Angelegenheiten.
-* über alle anderen den Verein betreffenden Angelegenheiten von grundlegender Bedeutung, soweit diese nicht der Mitgliederversammlung vorbehalten sind.
-2. Die Sitzungen werden vom 1. Vorsitzenden oder bei Verhinderung durch einen Beauftragten einberufen und geleitet. Die Einberufung hat spätestens 1 Woche vor der Sitzung zu erfolgen.
-3. Der Spielerrat ist ohne Rücksicht auf die Zahl der erschienenen Mitglieder beschlussfähig. Er entscheidet durch Stimmenmehrheit. Bei Stimmengleichheit gilt der Antrag als abgelehnt; eine weitere Abstimmung ist in der nächsten Spielerratsitzung jedoch möglich.
-4. Scheidet ein Mitglied des Spielerrates mit Ausnahme des Vorstands, des Jugendleiters, der Spielführer oder deren Stellvertreter, während der Amtszeit aus, so ist der Spielerrat berechtigt, selbst eine Ergänzungswahl vorzunehmen. Die Ergänzungswahl der Spielführer oder ihrer Stellvertreter obliegt den betreffenden Mannschaften.
-5. Der Spielerrat ist der Mitgliederversammlung verantwortlich.
-6. Über sämtliche Sitzungen des Spielerrates sind Niederschriften aufzunehmen, die vom Sitzungsleiter und dem Schriftführer zu unterzeichnen sind.
-7. Die Sitzungen des Spielerrates sind nicht öffentlich.
+<li>Der Verein haftet gegenüber den Mitgliedern im Innenverhältnis nicht für fahrlässig verursachte Schäden, die Mitglieder bei der Ausübung des Sports, bei Benutzung von Anlagen oder Einrichtungen des Vereins oder bei Vereinsveranstaltungen erleiden, soweit solche Schäden nicht durch Versicherungen des Vereins abgedeckt sind.</li>
+</ol>
 
-### § 14 Der Vorstand
-1. Der Vorstand besteht aus:
-* dem 1. Vorsitzenden
-* dem stellvertretenden Vorsitzenden
-* dem Kassenwart
-* dem Schriftführer
-* dem 1. Beisitzer
-* dem 2. Beisitzer
-* dem Jugendleiter
+<h2>§ 14 Datenschutz im Verein</h2>
+<ol>
+<li>Zur Erfüllung der Zwecke und Aufgaben des Vereins werden unter Beachtung der gesetzlichen Vorgaben der Datenschutz-Grundverordnung (DSGVO) der EU und des Bundesdatenschutzgesetzes (BDSG) personenbezogene Daten über persönliche und sachliche Verhältnisse der Mitglieder im Verein gespeichert und verarbeitet. Einzelheiten regelt der Vorstand erforderlichenfalls in einer Datenschutzrichtlinie.</li>
+<li>Die Rechte der Mitglieder hinsichtlich ihrer personenbezogenen Daten richten sich nach der Datenschutzgrundverordnung und dem Bundesdatenschutzgesetz in der jeweils gültigen Fassung.</li>
+<li>Allen für den Verein tätigen Personen ist es untersagt, personenbezogene Daten unbefugt zu anderen als dem zur jeweiligen Aufgabenerfüllung gehörenden Zweck zu verarbeiten, bekannt zu geben, Dritten zugänglich zu machen oder sonst zu nutzen. Diese Pflicht besteht auch über das Ausscheiden der oben genannten Personen aus dem Verein hinaus.</li>
+</ol>
 
-2. Die Mitglieder des Vorstandes werden durch die Mitgliederversammlung, der Jugendleiter durch die Jugendversammlung auf 1 Jahr gewählt. Scheidet ein Vorstandsmitglied vorzeitig aus, so ist eine außerordentliche Mitgliederversammlung, beim Ausscheiden des Jugendleiters eine außerordentliche Jugendversammlung unverzüglich zu einer Ersatzwahl einzuberufen.
-3. Außer durch Tod oder Ablauf der Wahlperiode erlischt das Amt eines Vorstandsmitglieds mit dem Austritt oder Ausschluss aus dem Verein, durch Amtsenthebung oder Rücktritt.
-4. Die Mitgliederversammlung kann jederzeit durch Wahl eines neuen Vorstandes den gesamten Vorstand oder ein einzelnes Vorstandsmitglied des Amtes entheben.
-5. Die Vorstandsmitglieder können jeder Zeit schriftlich ihren Rücktritt erklären. Die Rücktrittserklärung ist an die verbleibenden Vorstandsmitglieder, im Falle des Rücktritts des gesamten Vorstandes, an den Schriftführer zu richten. Die Rücktrittserklärung wird jedoch erst 4 Wochen nach Eingang wirksam.
+<h2>§ 15 Auflösung</h2>
+<ol>
+<li>Die Auflösung des Vereines kann nur in einer Mitgliederversammlung beschlossen werden, bei deren Einberufung die Beschlussfassung über die Vereinsauflösung den Mitgliedern angekündigt ist.</li>
+<li>Der Beschluss über die Auflösung des Vereins bedarf der Mehrheit von drei Vierteln der abgegebenen Stimmen. Ungültige Stimmen und Stimmenthaltungen bleiben unberücksichtigt.</li>
+<li>Bei Auflösung des Vereins oder bei Wegfall steuerbegünstigter Zwecke fällt das Vereinsvermögen an eine juristische Person des öffentlichen Rechts oder eine andere steuerbegünstigte Körperschaft zwecks Verwendung für die Förderung des Sports. Den notwendigen Beschluss fasst die Mitgliederversammlung.</li>
+</ol>
 
-### § 15 Aufgabenbereich des Vorstands
-1. Gesetzliche Vertreter des Vereins sind der 1. Vorsitzenden und der stellvertretende Vorsitzende (im Sinne des §25 BGB). Beide sind für sich allein vertretungsberechtigt.
-2. Der Vorstand erledigt die Vereinsgeschäfte, soweit dafür nach der Satzung nicht die Mitgliederversammlung oder der Spielerrat zuständig sind.
-3. Der Vorstand ist beschlussfähig, wenn mindestens 4Mitglieder anwesend sind. Es wird mündlich abgestimmt. Bei Stimmengleichheit entscheidet die Stimme des 1. Vorsitzenden.
-4. Der Vorstand und die Rechnungsprüfer werden für die Dauer von 1 Jahr gewählt. Wiederwahl ist zulässig. Sie führen ihr Amt bis zur Neu- oder Wiederwahl.
-5. Sitzungen des Vorstandes werden nach Bedarf vom 1. Vorsitzenden einberufen. Im Verhinderungsfall wird er vom stellvertretenden Vorsitzenden vertreten.
-6. Der Kassenwart ist für die ordnungsgemäße Führung der Vereinskasse und die Verwaltung des Vereinsvermögens verantwortlich.
-7. Der Schriftführer erledigt den Schriftwechsel und fertigt die Sitzungsniederschriften an.
-8. Der Vorstand ist der Mitgliederversammlung verantwortlich. Er hat der ordentlichen Mitgliederversammlung einen ausführlichen Bericht über seine Arbeit und über die Arbeit des Spielerrates vorzulegen.
-
-### § 16 Die Kassenprüfung
-1. Die Kassenführung wird einmal jährlich durch zwei Kassenprüfer überprüft und der ordentlichen Mitgliederversammlung darüber berichtet.
-2. Der Vorstand ist berechtigt, jederzeit außerordentliche Kassenprüfungen vorzunehmen.
-3. Die Kassenprüfer werden von der ordentlichen Mitgliederversammlung auf 1 Jahr gewählt und dürfen nicht dem Vorstand angehören.
-
-### § 17 Weitere Hilfspersonen
-1. Zur Erleichterung der Verwaltungstätigkeit oder zur Vorbereitung und Durchführung von Vereinsveranstaltungen kann der Vorstand mit Zustimmung des Spielerrates weitere Hilfspersonen bestellen.
-
-## **D. Sonstige Bestimmungen**
-### § 18 Haftung
-1. Der Verein haftet nicht für zum Training und zu den Vereinsveranstaltungen mitgebrachte Kleidungsstücke, Wertgegenstände und Bargeldbeträge.
-2. Für Schadensersatz und Haftpflichtansprüche, die durch den Sportbetrieb entstehen, haftet der Verein nur in der Höhe der Versicherungsleistungen der Kollektivunfall- und Kollektivhaftpflichtversicherung, bei der Mitglieder des Vereins versichert sind. Dies gilt auch bei zweckwidriger Verwendung der Übungsgeräte.
-3. Mit dem Erwerb der Mitgliedschaft werden die sportüblichen Verhältnisse anerkannt.
-
-### § 19 Strafen
-1. Wer gegen die Satzung verstößt, das Ansehen oder das Vermögen des Vereins schädigt oder zu schädigen versucht, Anordnungen und Beschlüsse der Mitgliederversammlung, des Spielerrates, des Vorstandes oder der Trainer in den Trainingsstunden zuwiderhandelt, kann, nachdem er Gelegenheit zur Rechtfertigung erhalten hat, bestraft werden mit:
-* Verwarnung
-* Ausschluss für eine Trainingsstunde durch den Trainer
-* Sportverbot bis zu 3 Monaten
-* Ausschluss aus dem Verein (§5)
-
-2. Die Strafen Nr. 1 und 3 werden vom Vorstand ausgesprochen und sind dem betroffenen schriftlich mitzuteilen.
-3. Gegen die Strafe steht dem Betroffenen im Falle des Abs.2 der Einspruch zum Spielerrat offen. Der Einspruch hat aufschiebende Wirkung.
-
-### § 20 Auflösung und Aufhebung des Vereins
-1. Die Auflösung des Vereins kann nur erfolgen, wenn dies eine Mehrheit von 4/5 aller stimmberechtigten Mitglieder beschließt. Die Zustimmung ist nötigenfalls schriftlich einzuholen.
-2. Das nach Erfüllung aller Verbindlichkeiten verbleibende Vermögen wird der Stadt Müllheim übergeben, die es bis zu 5 Jahre treuhänderisch für einen am Ort neu zu gründenden gemeinnützigen Volleyballclub zu verwalten hat. Nach Ablauf dieser Frist ist die Stadt Müllheim berechtigt, das Vermögen ausschließlich und unmittelbar für gemeinnützige, sportliche Zwecke zu verwenden.
-
-### § 21 Weitere Regelungen
-1. Weitere Regelungen, insbesondere für Jugendliche, ergeben sich aus der Jugendsatzung des Vereins.
+<h2>§ 16 In-Kraft-Treten</h2>
+<ol>
+<li>Diese Satzung wurde in der ordentlichen Mitgliederversammlung vom 15.11.23 mit der erforderlichen Mehrheit beschlossen. Sie tritt mit Eintragung im Vereinsregister in Kraft. Die Satzung vom 03.04.1987 tritt am selben Tage außer Kraft.</li>
+<li>Die Wahlen bei der Mitgliederversammlung vom 15.11.23 können bereits nach Maßgabe von §§ 8-10 dieser Satzung durchgeführt werden.</li>
+<li>Im Falle von Beanstandungen durch das Registergericht bzw. Finanzamt wird der Vorstand ermächtigt, durch geeignete Änderungen bzw. Ergänzungen der Satzung das Eintragungshindernis bzw. die Beanstandung zu beseitigen. In der auf den Beschluss folgenden Mitgliederversammlung ist diese von der Satzungsänderung in Kenntnis zu setzen.</li>
+</ol>
 
 <div class="print-page"><a href="#" class="print-btn" onclick="window.print();return false;"><i class="fa fa-print" aria-hidden="true"></i> Seite drucken</a></div>
