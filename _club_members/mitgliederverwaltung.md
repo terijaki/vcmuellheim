@@ -1,6 +1,6 @@
 ---
 name: "Paul Morawietz"
-email: "mitgliedschaft@vcmuellheim.de"
+email: "paulmorawietz@vcmuellheim.de"
 avatar: "/img/members/paulmorawietz.jpg"
 function: "Mitgliederverwaltung"
 sortorder: 3
