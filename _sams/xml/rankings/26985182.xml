@@ -87,6 +87,15 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>27837637</id>
+                            <uuid>3f480238-634d-4512-a284-d38242d679a7</uuid>
+                            <name>Sport vor Ort Rieselfeld e.V.</name>
+                            <club>Sport vor Ort Rieselfeld e.V.</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>27626932</id>
                             <uuid>5c1261c6-1510-4fa8-8429-3802d715f09e</uuid>
                             <name>TB Emmendingen 4:4 weiblich</name>
@@ -118,6 +127,15 @@
                             <uuid>fdca4e62-1cdf-4cf9-be84-d8cc6413b2ba</uuid>
                             <name>TV Gundelfingen 3</name>
                             <club>TV Gundelfingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27837628</id>
+                            <uuid>1b5f02fd-b0fc-4829-8753-0dfa7eddae7c</uuid>
+                            <name>VC 94 Haslach</name>
+                            <club>VC 94 Haslach</club>
                         </team>
                     </ranking>
                     <ranking>
