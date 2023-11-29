@@ -903,6 +903,89 @@
     </matchSeries>
                         </team>
                         <team>
+    <id>27860239</id>
+    <uuid>51e76296-bf8a-47d5-8161-2df425f9aaa3</uuid>
+    <seasonTeamId>27860239</seasonTeamId>
+    <placeCipher>0</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>27463169</id>
+    <uuid>27a326bf-f46a-4e4c-92a4-4f6c43b99ca8</uuid>
+    <allSeasonId>27a326bf-f46a-4e4c-92a4-4f6c43b99ca8</allSeasonId>
+    <name>U14 weiblich - Quali 2 am 27.1.24</name>
+    <shortName>Q2_U14_w</shortName>
+    <type>Competition</type>
+        <updated>2023-11-28 13:41:01.879</updated>
+        <structureUpdated>2023-11-28 13:41:01.879</structureUpdated>
+        <resultsUpdated></resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>27462717</id>
+            <uuid>e981a1d1-beb1-4db0-abf3-932f5afd200e</uuid>
+            <name>Quali-Turniere Jugendmeisterschaften</name>
+            <shortName>Quali</shortName>
+            <hierarchyLevel>4</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>27462717</id>
+                    <name>Quali-Turniere Jugendmeisterschaften</name>
+                    <shortName>Quali</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749344</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749343</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749342</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749341</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>Südbadischer Volleyball-Verband</name>
+            <shortName>SBVV</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
     <id>26985151</id>
     <uuid>3100da60-f7ae-46e0-a233-2ef81af2e46a</uuid>
     <seasonTeamId>26985151</seasonTeamId>
@@ -1365,8 +1448,8 @@
     <name>West Quali - U16m am 3.12.2023</name>
     <shortName>WQ_U16m</shortName>
     <type>Competition</type>
-        <updated>2023-11-27 23:53:55.101</updated>
-        <structureUpdated>2023-11-27 23:53:55.101</structureUpdated>
+        <updated>2023-11-28 23:02:19.497</updated>
+        <structureUpdated>2023-11-28 23:02:19.497</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1454,7 +1537,7 @@
     <name>U16 männlich - Quali 2 am 3.12.2023</name>
     <shortName>Q2_U16_m</shortName>
     <type>Competition</type>
-        <updated>2023-11-27 23:53:55.101</updated>
+        <updated>2023-11-28 23:02:19.497</updated>
         <structureUpdated>2023-11-15 12:47:30.044</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
