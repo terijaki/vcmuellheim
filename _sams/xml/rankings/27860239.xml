@@ -2,14 +2,14 @@
 
         <rankings>
                 <matchSeries>
-    <id>26693721</id>
-    <uuid>b53b11b6-9cd8-4f9e-a7da-f61b20738b58</uuid>
-    <allSeasonId>b53b11b6-9cd8-4f9e-a7da-f61b20738b58</allSeasonId>
-    <name>West Quali - U16m am 3.12.2023</name>
-    <shortName>WQ_U16m</shortName>
+    <id>27463169</id>
+    <uuid>27a326bf-f46a-4e4c-92a4-4f6c43b99ca8</uuid>
+    <allSeasonId>27a326bf-f46a-4e4c-92a4-4f6c43b99ca8</allSeasonId>
+    <name>U14 weiblich - Quali 2 am 27.1.24</name>
+    <shortName>Q2_U14_w</shortName>
     <type>Competition</type>
-        <updated>2023-11-28 23:02:19.497</updated>
-        <structureUpdated>2023-11-28 23:02:19.497</structureUpdated>
+        <updated>2023-11-28 13:41:01.879</updated>
+        <structureUpdated>2023-11-28 13:41:01.879</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -17,23 +17,17 @@
             <name>2023/24</name>
         </season>
         <hierarchy>
-            <id>25749346</id>
-            <uuid>8a98d50a-82a5-4d57-b6f8-6cd07be978a3</uuid>
-            <name>Meldungen Bezirk West Jugend männlich</name>
-            <shortName>bwjm</shortName>
-            <hierarchyLevel>5</hierarchyLevel>
+            <id>27462717</id>
+            <uuid>e981a1d1-beb1-4db0-abf3-932f5afd200e</uuid>
+            <name>Quali-Turniere Jugendmeisterschaften</name>
+            <shortName>Quali</shortName>
+            <hierarchyLevel>4</hierarchyLevel>
         </hierarchy>
         <fullHierarchy>
                 <hierarchy>
-                    <id>25749346</id>
-                    <name>Meldungen Bezirk West Jugend männlich</name>
-                    <shortName>bwjm</shortName>
-                    <hierarchyLevel>5</hierarchyLevel>
-                </hierarchy>
-                <hierarchy>
-                    <id>25749345</id>
-                    <name>SBVV Bezirk West Jugend</name>
-                    <shortName>bwj</shortName>
+                    <id>27462717</id>
+                    <name>Quali-Turniere Jugendmeisterschaften</name>
+                    <shortName>Quali</shortName>
                     <hierarchyLevel>4</hierarchyLevel>
                 </hierarchy>
                 <hierarchy>
@@ -62,15 +56,15 @@
                 </hierarchy>
         </fullHierarchy>
         <association>
-            <name>SBVV Bezirk West</name>
-            <shortName>SBVV-West</shortName>
+            <name>Südbadischer Volleyball-Verband</name>
+            <shortName>SBVV</shortName>
         </association>
                 </matchSeries>
                     <ranking>
                         <place></place>
                         <team>
-                            <id>27057484</id>
-                            <uuid>1213d75e-12c1-4ccf-aafc-81a82cfdb2b1</uuid>
+                            <id>27860241</id>
+                            <uuid>a35bc592-6a02-4e2f-8dcd-63b09ef1852e</uuid>
                             <name>FT 1844 Freiburg 1</name>
                             <club>FT 1844 Freiburg</club>
                         </team>
@@ -78,8 +72,8 @@
                     <ranking>
                         <place></place>
                         <team>
-                            <id>27057498</id>
-                            <uuid>185cc864-b704-4c98-97cc-0ee81b4b9897</uuid>
+                            <id>27860249</id>
+                            <uuid>83daaeb3-80ac-40d6-b610-1bd6026e0982</uuid>
                             <name>FT 1844 Freiburg 2</name>
                             <club>FT 1844 Freiburg</club>
                         </team>
@@ -87,26 +81,17 @@
                     <ranking>
                         <place></place>
                         <team>
-                            <id>26984912</id>
-                            <uuid>b4da3001-b54c-4411-83de-368062b22328</uuid>
-                            <name>USC Freiburg</name>
-                            <club>USC Freiburg</club>
+                            <id>27860233</id>
+                            <uuid>5b4ca89c-54b5-4fae-9daf-ef18b5654194</uuid>
+                            <name>TV Gundelfingen 1</name>
+                            <club>TV Gundelfingen</club>
                         </team>
                     </ranking>
                     <ranking>
                         <place></place>
                         <team>
-                            <id>27036335</id>
-                            <uuid>a06d4659-01fb-4dd4-9b5f-2cbfd67fc391</uuid>
-                            <name>VC Minseln</name>
-                            <club>VC Minseln</club>
-                        </team>
-                    </ranking>
-                    <ranking>
-                        <place></place>
-                        <team>
-                            <id>26985162</id>
-                            <uuid>d2b75d92-6f7c-4851-ac2b-f0974fd49772</uuid>
+                            <id>27860239</id>
+                            <uuid>51e76296-bf8a-47d5-8161-2df425f9aaa3</uuid>
                             <name>VC Müllheim</name>
                             <club>VC Müllheim</club>
                         </team>
@@ -114,19 +99,37 @@
                     <ranking>
                         <place></place>
                         <team>
-                            <id>26985068</id>
-                            <uuid>aa21fa7e-d204-4fec-9196-7efe0d84e7c1</uuid>
-                            <name>VC Offenburg</name>
+                            <id>27860243</id>
+                            <uuid>142eefe0-bd35-4669-b34e-a06ead7ae678</uuid>
+                            <name>VC Offenburg 1</name>
                             <club>VC Offenburg</club>
                         </team>
                     </ranking>
                     <ranking>
                         <place></place>
                         <team>
-                            <id>27303238</id>
-                            <uuid>c26341e6-5d1c-44f6-a410-06d1a93a65b4</uuid>
-                            <name>VfR Merzhausen</name>
-                            <club>VfR Merzhausen</club>
+                            <id>27860245</id>
+                            <uuid>2700a4b7-4faa-407a-b649-5d88f84b7da2</uuid>
+                            <name>VC Offenburg 2</name>
+                            <club>VC Offenburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27860236</id>
+                            <uuid>34528587-138f-4801-b47a-cfb254168281</uuid>
+                            <name>VC Weil</name>
+                            <club>VC Weil</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27860247</id>
+                            <uuid>e2608035-7f21-414f-9611-8190d76c0b33</uuid>
+                            <name>VfR Umkirch</name>
+                            <club>VfR Umkirch</club>
                         </team>
                     </ranking>
         </rankings>
