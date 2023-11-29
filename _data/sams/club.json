@@ -921,6 +921,91 @@
           }
         },
         {
+          "id": "27860239",
+          "uuid": "51e76296-bf8a-47d5-8161-2df425f9aaa3",
+          "seasonTeamId": "27860239",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "27463169",
+            "uuid": "27a326bf-f46a-4e4c-92a4-4f6c43b99ca8",
+            "allSeasonId": "27a326bf-f46a-4e4c-92a4-4f6c43b99ca8",
+            "name": "U14 weiblich - Quali 2 am 27.1.24",
+            "shortName": "Q2_U14_w",
+            "type": "Competition",
+            "updated": "2023-11-28 13:41:01.879",
+            "structureUpdated": "2023-11-28 13:41:01.879",
+            "resultsUpdated": null,
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "27462717",
+              "uuid": "e981a1d1-beb1-4db0-abf3-932f5afd200e",
+              "name": "Quali-Turniere Jugendmeisterschaften",
+              "shortName": "Quali",
+              "hierarchyLevel": "4"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "27462717",
+                  "name": "Quali-Turniere Jugendmeisterschaften",
+                  "shortName": "Quali",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
+            }
+          }
+        },
+        {
           "id": "26985151",
           "uuid": "3100da60-f7ae-46e0-a233-2ef81af2e46a",
           "seasonTeamId": "26985151",
@@ -1393,8 +1478,8 @@
             "name": "West Quali - U16m am 3.12.2023",
             "shortName": "WQ_U16m",
             "type": "Competition",
-            "updated": "2023-11-27 23:53:55.101",
-            "structureUpdated": "2023-11-27 23:53:55.101",
+            "updated": "2023-11-28 23:02:19.497",
+            "structureUpdated": "2023-11-28 23:02:19.497",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
@@ -1484,7 +1569,7 @@
             "name": "U16 männlich - Quali 2 am 3.12.2023",
             "shortName": "Q2_U16_m",
             "type": "Competition",
-            "updated": "2023-11-27 23:53:55.101",
+            "updated": "2023-11-28 23:02:19.497",
             "structureUpdated": "2023-11-15 12:47:30.044",
             "resultsUpdated": null,
             "season": {
