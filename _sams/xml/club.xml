@@ -1015,8 +1015,8 @@
     <name>West Quali - U16w am 3.12.2023</name>
     <shortName>WQ_U16w</shortName>
     <type>Competition</type>
-        <updated>2023-11-27 23:08:34.186</updated>
-        <structureUpdated>2023-11-27 23:08:34.186</structureUpdated>
+        <updated>2023-11-29 20:21:01.704</updated>
+        <structureUpdated>2023-11-29 20:21:01.704</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1078,7 +1078,7 @@
     <id>27469066</id>
     <uuid>77b4202f-9400-4f01-806e-5dcfcc5fd7df</uuid>
     <seasonTeamId>26985151</seasonTeamId>
-    <placeCipher>0</placeCipher>
+    <placeCipher>1</placeCipher>
     <name>VC Müllheim</name>
     <shortName></shortName>
     <clubCode></clubCode>
@@ -1104,8 +1104,8 @@
     <name>U16 weiblich - Quali 2 am 3.12.23</name>
     <shortName>Q2_U16_w</shortName>
     <type>Competition</type>
-        <updated>2023-11-27 23:08:34.186</updated>
-        <structureUpdated>2023-11-10 11:52:10.401</structureUpdated>
+        <updated>2023-11-29 12:59:46.056</updated>
+        <structureUpdated>2023-11-29 12:59:46.055</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1511,7 +1511,7 @@
     <id>27469048</id>
     <uuid>bb8a265c-b0a7-4623-8e21-55fb3f26f80a</uuid>
     <seasonTeamId>26985162</seasonTeamId>
-    <placeCipher>0</placeCipher>
+    <placeCipher>4</placeCipher>
     <name>VC Müllheim</name>
     <shortName></shortName>
     <clubCode></clubCode>
@@ -1537,8 +1537,8 @@
     <name>U16 männlich - Quali 2 am 3.12.2023</name>
     <shortName>Q2_U16_m</shortName>
     <type>Competition</type>
-        <updated>2023-11-28 23:02:19.497</updated>
-        <structureUpdated>2023-11-15 12:47:30.044</structureUpdated>
+        <updated>2023-11-29 12:44:52.113</updated>
+        <structureUpdated>2023-11-29 12:44:52.112</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
