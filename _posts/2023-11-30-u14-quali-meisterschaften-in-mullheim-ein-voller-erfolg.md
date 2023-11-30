@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: U14 Quali-Meisterschaften in Müllheim ein voller Erfolg
 date: 2023-11-30T15:44:35Z
 gallery:
