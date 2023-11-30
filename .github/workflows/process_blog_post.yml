@@ -54,15 +54,18 @@ jobs:
 
       - name: Convert to Markdown
         id: pandoc
+        if: ${{ steps.scan_inbox.outputs.MD_TARGET != 0 }}
         uses: docker://pandoc/core:3.1.1
         with:
           args: --to gfm --output="${{steps.scan_inbox.outputs.MD_TARGET}}" "${{steps.scan_inbox.outputs.DOC_FILE}}"
 
       - name: Debug File
+        if: steps.pandoc.conclusion == 'success'
         run: |
           cat ${{steps.scan_inbox.outputs.MD_TARGET}}
 
       - name: Add Front Matter
+        if: steps.pandoc.conclusion == 'success'
         run: |
           sed -i "1s|.*|---\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
           sed -i "2s|.*|layout: post\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
@@ -71,6 +74,7 @@ jobs:
           sed -i "5s|.*|---\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
 
       - name: Process Images
+        if: steps.pandoc.conclusion == 'success'
         run: |
           unset imageCount
           for image in _inbox/*.[Jj]*[Pp][Gg]
@@ -87,6 +91,7 @@ jobs:
           done
 
       - name: Turn Author Reference Italic
+        if: steps.pandoc.conclusion == 'success'
         run: |
           authorLine=$(grep -n "Bericht von" '${{steps.scan_inbox.outputs.MD_TARGET}}' | cut -d : -f 1)
           if [[ $authorLine -ge 5 ]]; then
@@ -94,6 +99,8 @@ jobs:
           fi
 
       - name: Clean Inbox
+        if: steps.pandoc.conclusion == 'success'
+        id: cleanInbox
         run: |
           for all in _inbox/*
           do
@@ -104,6 +111,7 @@ jobs:
           ls _processed
 
       - name: Git Push
+        if: steps.pandoc.conclusion == 'cleanInbox'
         run: |
           git add _inbox
           git add ${{steps.scan_inbox.outputs.MD_TARGET}}
