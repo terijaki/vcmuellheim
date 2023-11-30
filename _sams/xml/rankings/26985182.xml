@@ -219,4 +219,13 @@
                             <club>TV Zell-Weierbach</club>
                         </team>
                     </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27867605</id>
+                            <uuid>49689a87-72a8-49fb-ab5d-a0b51d4e3fc7</uuid>
+                            <name>VfR Umkirch</name>
+                            <club>VfR Umkirch</club>
+                        </team>
+                    </ranking>
         </rankings>

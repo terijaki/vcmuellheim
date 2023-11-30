@@ -220,6 +220,15 @@
           "name": "VSG Rebland 2",
           "club": "TV Zell-Weierbach"
         }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27867605",
+          "uuid": "49689a87-72a8-49fb-ab5d-a0b51d4e3fc7",
+          "name": "VfR Umkirch",
+          "club": "VfR Umkirch"
+        }
       }
     ]
   }

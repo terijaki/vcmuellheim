@@ -7,8 +7,8 @@
       "name": "West Quali - U16w am 3.12.2023",
       "shortName": "WQ_U16w",
       "type": "Competition",
-      "updated": "2023-11-27 23:08:34.186",
-      "structureUpdated": "2023-11-27 23:08:34.186",
+      "updated": "2023-11-29 20:21:01.704",
+      "structureUpdated": "2023-11-29 20:21:01.704",
       "resultsUpdated": null,
       "season": {
         "id": "25640073",
@@ -83,15 +83,6 @@
           "id": "27311715",
           "uuid": "0388997d-d5d8-4235-9f40-e387e835a006",
           "name": "FT 1844 Freiburg 2",
-          "club": "FT 1844 Freiburg"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "27311728",
-          "uuid": "1904885b-83a7-439a-b10f-5eda0ef3d7f0",
-          "name": "FT 1844 Freiburg 3",
           "club": "FT 1844 Freiburg"
         }
       },
