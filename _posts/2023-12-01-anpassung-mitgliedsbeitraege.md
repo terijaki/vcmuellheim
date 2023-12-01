@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: Anpassung der Mitgliedsbeiträge
 date: 2023-12-01T16:00:00Z
 ---
