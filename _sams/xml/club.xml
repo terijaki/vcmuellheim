@@ -267,8 +267,8 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-11-15 19:39:38.641</updated>
-        <structureUpdated>2023-11-15 19:39:38.641</structureUpdated>
+        <updated>2023-11-30 12:52:48.513</updated>
+        <structureUpdated>2023-11-30 12:52:48.513</structureUpdated>
         <resultsUpdated>2023-11-12 17:57:23.148</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -386,8 +386,8 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-11-15 19:39:38.641</updated>
-        <structureUpdated>2023-11-15 19:39:38.641</structureUpdated>
+        <updated>2023-11-30 12:52:48.513</updated>
+        <structureUpdated>2023-11-30 12:52:48.513</structureUpdated>
         <resultsUpdated>2023-11-12 17:57:23.148</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -582,8 +582,8 @@
     <name>West Jugendrunde (4:4) weiblich</name>
     <shortName>W_JRw</shortName>
     <type>Competition</type>
-        <updated>2023-11-20 10:09:17.313</updated>
-        <structureUpdated>2023-11-20 10:09:17.313</structureUpdated>
+        <updated>2023-11-30 12:14:49.436</updated>
+        <structureUpdated>2023-11-30 12:14:49.436</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -671,8 +671,8 @@
     <name>West Jugendrunde (4:4) weiblich</name>
     <shortName>W_JRw</shortName>
     <type>Competition</type>
-        <updated>2023-11-20 10:09:17.313</updated>
-        <structureUpdated>2023-11-20 10:09:17.313</structureUpdated>
+        <updated>2023-11-30 12:14:49.436</updated>
+        <structureUpdated>2023-11-30 12:14:49.436</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -760,8 +760,8 @@
     <name>West Quali - U14w am 25.11.2023</name>
     <shortName>WQ_U14w</shortName>
     <type>Competition</type>
-        <updated>2023-11-25 09:05:54.276</updated>
-        <structureUpdated>2023-11-25 09:05:54.276</structureUpdated>
+        <updated>2023-11-30 14:06:17.863</updated>
+        <structureUpdated>2023-11-30 14:06:17.863</structureUpdated>
         <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
         <season>
             <id>25640073</id>
@@ -849,7 +849,7 @@
     <name>Vor-Quali 3 - U14 weiblich am 25.11.23</name>
     <shortName>VQ3_U14_w</shortName>
     <type>Competition</type>
-        <updated>2023-11-25 17:15:49.449</updated>
+        <updated>2023-11-30 14:06:17.863</updated>
         <structureUpdated>2023-11-22 11:17:21.276</structureUpdated>
         <resultsUpdated>2023-11-25 17:15:49.449</resultsUpdated>
         <season>
@@ -932,7 +932,7 @@
     <name>U14 weiblich - Quali 2 am 27.1.24</name>
     <shortName>Q2_U14_w</shortName>
     <type>Competition</type>
-        <updated>2023-11-28 13:41:01.879</updated>
+        <updated>2023-11-30 14:06:17.863</updated>
         <structureUpdated>2023-11-28 13:41:01.879</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
@@ -1015,8 +1015,8 @@
     <name>West Quali - U16w am 3.12.2023</name>
     <shortName>WQ_U16w</shortName>
     <type>Competition</type>
-        <updated>2023-11-29 20:21:01.704</updated>
-        <structureUpdated>2023-11-29 20:21:01.704</structureUpdated>
+        <updated>2023-11-30 20:13:52.736</updated>
+        <structureUpdated>2023-11-30 20:13:52.736</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1104,7 +1104,7 @@
     <name>U16 weiblich - Quali 2 am 3.12.23</name>
     <shortName>Q2_U16_w</shortName>
     <type>Competition</type>
-        <updated>2023-11-29 12:59:46.056</updated>
+        <updated>2023-11-30 20:13:52.736</updated>
         <structureUpdated>2023-11-29 12:59:46.055</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
@@ -1448,8 +1448,8 @@
     <name>West Quali - U16m am 3.12.2023</name>
     <shortName>WQ_U16m</shortName>
     <type>Competition</type>
-        <updated>2023-11-28 23:02:19.497</updated>
-        <structureUpdated>2023-11-28 23:02:19.497</structureUpdated>
+        <updated>2023-11-30 21:41:58.258</updated>
+        <structureUpdated>2023-11-30 21:41:58.258</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -1537,7 +1537,7 @@
     <name>U16 männlich - Quali 2 am 3.12.2023</name>
     <shortName>Q2_U16_m</shortName>
     <type>Competition</type>
-        <updated>2023-11-29 12:44:52.113</updated>
+        <updated>2023-11-30 21:41:58.258</updated>
         <structureUpdated>2023-11-29 12:44:52.112</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
