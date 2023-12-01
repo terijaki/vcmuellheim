@@ -8,8 +8,8 @@
     <name>West Jugendrunde (4:4) weiblich</name>
     <shortName>W_JRw</shortName>
     <type>Competition</type>
-        <updated>2023-11-20 10:09:17.313</updated>
-        <structureUpdated>2023-11-20 10:09:17.313</structureUpdated>
+        <updated>2023-11-30 12:14:49.436</updated>
+        <structureUpdated>2023-11-30 12:14:49.436</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -87,6 +87,24 @@
                     <ranking>
                         <place></place>
                         <team>
+                            <id>27875237</id>
+                            <uuid>1ad0bfaa-4b35-4a2b-9bd4-db745abc8d7d</uuid>
+                            <name>SG Breisach - Gündlingen 3</name>
+                            <club>SG Breisach - Gündlingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27875246</id>
+                            <uuid>180b7bd6-657c-42b5-b351-9ce958318ae9</uuid>
+                            <name>SG Breisach - Gündlingen 4</name>
+                            <club>SG Breisach - Gündlingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
                             <id>27837637</id>
                             <uuid>3f480238-634d-4512-a284-d38242d679a7</uuid>
                             <name>Sport vor Ort Rieselfeld e.V.</name>
@@ -98,7 +116,7 @@
                         <team>
                             <id>27626932</id>
                             <uuid>5c1261c6-1510-4fa8-8429-3802d715f09e</uuid>
-                            <name>TB Emmendingen 4:4 weiblich</name>
+                            <name>TB Emmendingen</name>
                             <club>TB Emmendingen</club>
                         </team>
                     </ranking>
@@ -217,6 +235,15 @@
                             <uuid>7dfa751c-fd7a-420b-b8b3-fd4d70de4cf3</uuid>
                             <name>VSG Rebland 2</name>
                             <club>TV Zell-Weierbach</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27875228</id>
+                            <uuid>f890adb8-fd2b-4357-b00e-2f82ac9c5be1</uuid>
+                            <name>VfR Merzhausen</name>
+                            <club>VfR Merzhausen</club>
                         </team>
                     </ranking>
                     <ranking>

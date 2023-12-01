@@ -120,4 +120,13 @@
                             <club>TV Zell-Weierbach</club>
                         </team>
                     </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27875219</id>
+                            <uuid>8494f8e9-af37-49c6-a2e4-c53fadf98546</uuid>
+                            <name>VfR Merzhausen</name>
+                            <club>VfR Merzhausen</club>
+                        </team>
+                    </ranking>
         </rankings>

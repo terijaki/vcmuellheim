@@ -7,8 +7,8 @@
       "name": "West Jugendrunde (4:4) weiblich",
       "shortName": "W_JRw",
       "type": "Competition",
-      "updated": "2023-11-20 10:09:17.313",
-      "structureUpdated": "2023-11-20 10:09:17.313",
+      "updated": "2023-11-30 12:14:49.436",
+      "structureUpdated": "2023-11-30 12:14:49.436",
       "resultsUpdated": null,
       "season": {
         "id": "25640073",
@@ -89,6 +89,24 @@
       {
         "place": null,
         "team": {
+          "id": "27875237",
+          "uuid": "1ad0bfaa-4b35-4a2b-9bd4-db745abc8d7d",
+          "name": "SG Breisach - Gündlingen 3",
+          "club": "SG Breisach - Gündlingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27875246",
+          "uuid": "180b7bd6-657c-42b5-b351-9ce958318ae9",
+          "name": "SG Breisach - Gündlingen 4",
+          "club": "SG Breisach - Gündlingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "27837637",
           "uuid": "3f480238-634d-4512-a284-d38242d679a7",
           "name": "Sport vor Ort Rieselfeld e.V.",
@@ -100,7 +118,7 @@
         "team": {
           "id": "27626932",
           "uuid": "5c1261c6-1510-4fa8-8429-3802d715f09e",
-          "name": "TB Emmendingen 4:4 weiblich",
+          "name": "TB Emmendingen",
           "club": "TB Emmendingen"
         }
       },
@@ -219,6 +237,15 @@
           "uuid": "7dfa751c-fd7a-420b-b8b3-fd4d70de4cf3",
           "name": "VSG Rebland 2",
           "club": "TV Zell-Weierbach"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27875228",
+          "uuid": "f890adb8-fd2b-4357-b00e-2f82ac9c5be1",
+          "name": "VfR Merzhausen",
+          "club": "VfR Merzhausen"
         }
       },
       {

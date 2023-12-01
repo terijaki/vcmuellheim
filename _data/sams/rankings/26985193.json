@@ -121,6 +121,15 @@
           "name": "VSG Rebland",
           "club": "TV Zell-Weierbach"
         }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27875219",
+          "uuid": "8494f8e9-af37-49c6-a2e4-c53fadf98546",
+          "name": "VfR Merzhausen",
+          "club": "VfR Merzhausen"
+        }
       }
     ]
   }
