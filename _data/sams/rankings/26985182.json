@@ -107,6 +107,15 @@
       {
         "place": null,
         "team": {
+          "id": "27896063",
+          "uuid": "1d5cef01-33cc-4ef3-b279-2415e9cfdb14",
+          "name": "SV Kirchzarten",
+          "club": "SV Kirchzarten"
+        }
+      },
+      {
+        "place": null,
+        "team": {
           "id": "27837637",
           "uuid": "3f480238-634d-4512-a284-d38242d679a7",
           "name": "Sport vor Ort Rieselfeld e.V.",
