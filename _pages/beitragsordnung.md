@@ -18,7 +18,7 @@ permalink: /beitragsordnung/
 
 ## §3 Reduzierungen
 1. Der Beitrag für Jugendliche ab 16 Jahren, und Erwachsene wird bei Vorlage einer entsprechenden Bescheinigung auf 60,00 Euro reduziert, wenn das Mitglied sich noch in der Schule, in einer Berufsausbildung oder einem Studium befindet. Die Bescheinigung ist dem Kassenwart bis zum 31.12. eines Jahres für das folgende Kalenderjahr vorzulegen.
-2. Der Vorstand kann in begründeten Einzelfällen Beiträge ganz oder teilweise stunden oder erlassen (siehe ## §5 (2) der <a href="/satzung/" class="text-nowrap">Vereinssatzung</a>). 
+2. Der Vorstand kann in begründeten Einzelfällen Beiträge ganz oder teilweise stunden oder erlassen (siehe §5 (2) der <a href="/satzung/" class="text-nowrap">Vereinssatzung</a>). 
 
 ## § 4 Rechte und Pflichten der Mitglieder
 1. Wird der fällige Mitgliedsbeitrag nicht bezahlt, ruht das Stimmrecht des Mitglieds.
