@@ -111,7 +111,7 @@ jobs:
           ls _processed
 
       - name: Git Push
-        if: steps.pandoc.conclusion == 'cleanInbox'
+        if: steps.pandoc.conclusion == 'success'
         run: |
           git add _inbox
           git add ${{steps.scan_inbox.outputs.MD_TARGET}}
