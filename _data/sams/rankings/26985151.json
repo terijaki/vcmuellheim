@@ -7,8 +7,8 @@
       "name": "West Quali - U16w am 3.12.2023",
       "shortName": "WQ_U16w",
       "type": "Competition",
-      "updated": "2023-12-03 09:25:47.043",
-      "structureUpdated": "2023-12-03 09:25:47.043",
+      "updated": "2023-12-04 09:22:49.199",
+      "structureUpdated": "2023-12-04 09:22:49.199",
       "resultsUpdated": null,
       "season": {
         "id": "25640073",
@@ -155,15 +155,6 @@
           "id": "27335870",
           "uuid": "28b3c242-116c-4ab6-8249-1b5082dca69e",
           "name": "VSG Rebland 1",
-          "club": "TV Zell-Weierbach"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "27335877",
-          "uuid": "137b962a-7db9-4ceb-99c2-ea3edca9bf9b",
-          "name": "VSG Rebland 2",
           "club": "TV Zell-Weierbach"
         }
       },
