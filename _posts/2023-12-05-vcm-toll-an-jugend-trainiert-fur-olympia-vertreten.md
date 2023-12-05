@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: VCM toll an Jugend trainiert für Olympia vertreten
 date: 2023-12-05T08:54:46Z
 gallery:
