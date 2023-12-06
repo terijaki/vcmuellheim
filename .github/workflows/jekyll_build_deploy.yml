@@ -70,8 +70,8 @@ jobs:
                   mkdir -p $news_folder
                   mkdir -p $gallery_folder
 
-                  convert "$file" -thumbnail '814x192^' -quality 70 -auto-orient -gravity center -extent '814x192' $news_file
-                  convert "$file" -thumbnail '260x200^' -quality 65 -auto-orient -gravity center -extent '260x200' $gallery_file
+                  convert "$file" -auto-orient -thumbnail '814x192^' -quality 70 -gravity center -extent '814x192' $news_file
+                  convert "$file" -auto-orient -thumbnail '260x200^' -quality 65 -gravity center -extent '260x200' $gallery_file
                 fi
             done
 
