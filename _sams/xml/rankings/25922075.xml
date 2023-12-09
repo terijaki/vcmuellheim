@@ -8,9 +8,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-12-09 19:14:25.527</updated>
+        <updated>2023-12-09 19:38:08.049</updated>
         <structureUpdated>2023-12-08 14:41:20.147</structureUpdated>
-        <resultsUpdated>2023-12-09 19:14:25.527</resultsUpdated>
+        <resultsUpdated>2023-12-09 19:38:08.049</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -224,22 +224,22 @@
                         </team>
 
                         <place>3</place>
-                        <matchesPlayed>7</matchesPlayed>
+                        <matchesPlayed>8</matchesPlayed>
                         <wins>5</wins>
-                        <losses>2</losses>
+                        <losses>3</losses>
                             <points>15</points>
 
-                        <setPoints>16:6</setPoints>
-                        <setWinScore>16</setWinScore>
-                        <setLoseScore>6</setLoseScore>
-                        <setPointDifference>10</setPointDifference>
-                        <setQuotient>2,667</setQuotient>
+                        <setPoints>17:9</setPoints>
+                        <setWinScore>17</setWinScore>
+                        <setLoseScore>9</setLoseScore>
+                        <setPointDifference>8</setPointDifference>
+                        <setQuotient>1,889</setQuotient>
 
-                        <ballPoints>515:395</ballPoints>
-                        <ballWinScore>515</ballWinScore>
-                        <ballLoseScore>395</ballLoseScore>
-                        <ballPointDifference>120</ballPointDifference>
-                        <ballQuotient>1,304</ballQuotient>
+                        <ballPoints>599:493</ballPoints>
+                        <ballWinScore>599</ballWinScore>
+                        <ballLoseScore>493</ballLoseScore>
+                        <ballPointDifference>106</ballPointDifference>
+                        <ballQuotient>1,215</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -259,7 +259,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>1:3</result>
-                                        <count>1</count>
+                                        <count>2</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
@@ -383,6 +383,63 @@
                     </ranking>
                     <ranking>
                         <team>
+                            <id>25922066</id>
+                            <uuid>7e5e51a4-3689-4b64-91a9-88362b0f2d76</uuid>
+                            <name>VBG Efringen-Kirchen 2</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>VBG Efringen-Kirchen</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>6</place>
+                        <matchesPlayed>8</matchesPlayed>
+                        <wins>3</wins>
+                        <losses>5</losses>
+                            <points>9</points>
+
+                        <setPoints>11:16</setPoints>
+                        <setWinScore>11</setWinScore>
+                        <setLoseScore>16</setLoseScore>
+                        <setPointDifference>-5</setPointDifference>
+                        <setQuotient>0,688</setQuotient>
+
+                        <ballPoints>543:604</ballPoints>
+                        <ballWinScore>543</ballWinScore>
+                        <ballLoseScore>604</ballLoseScore>
+                        <ballPointDifference>-61</ballPointDifference>
+                        <ballQuotient>0,899</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>3</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
                             <id>25922064</id>
                             <uuid>48afaf5b-a3db-4320-aba3-e31b74c3d28d</uuid>
                             <name>SG Breisach - Gündlingen 2</name>
@@ -394,7 +451,7 @@
                             </club>
                         </team>
 
-                        <place>6</place>
+                        <place>7</place>
                         <matchesPlayed>8</matchesPlayed>
                         <wins>3</wins>
                         <losses>5</losses>
@@ -419,63 +476,6 @@
                                     <matchResult>
                                         <result>3:1</result>
                                         <count>2</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:2</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>2:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>1:3</result>
-                                        <count>2</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>0:3</result>
-                                        <count>3</count>
-                                    </matchResult>
-                            </resultTypes>
-                    </ranking>
-                    <ranking>
-                        <team>
-                            <id>25922066</id>
-                            <uuid>7e5e51a4-3689-4b64-91a9-88362b0f2d76</uuid>
-                            <name>VBG Efringen-Kirchen 2</name>
-                            <shortName></shortName>
-                            <clubCode></clubCode>
-                            <club>
-                                <name>VBG Efringen-Kirchen</name>
-                                <shortName></shortName>
-                            </club>
-                        </team>
-
-                        <place>7</place>
-                        <matchesPlayed>7</matchesPlayed>
-                        <wins>2</wins>
-                        <losses>5</losses>
-                            <points>6</points>
-
-                        <setPoints>8:15</setPoints>
-                        <setWinScore>8</setWinScore>
-                        <setLoseScore>15</setLoseScore>
-                        <setPointDifference>-7</setPointDifference>
-                        <setQuotient>0,533</setQuotient>
-
-                        <ballPoints>445:520</ballPoints>
-                        <ballWinScore>445</ballWinScore>
-                        <ballLoseScore>520</ballLoseScore>
-                        <ballPointDifference>-75</ballPointDifference>
-                        <ballQuotient>0,856</ballQuotient>
-                            <resultTypes>
-                                    <matchResult>
-                                        <result>3:0</result>
-                                        <count>2</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:1</result>
-                                        <count>0</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:2</result>
