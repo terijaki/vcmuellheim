@@ -7,9 +7,9 @@
       "name": "Kreisliga Damen Süd",
       "shortName": "kl s d",
       "type": "League",
-      "updated": "2023-12-08 14:41:20.147",
+      "updated": "2023-12-09 15:16:13.611",
       "structureUpdated": "2023-12-08 14:41:20.147",
-      "resultsUpdated": "2023-12-06 09:58:01.413",
+      "resultsUpdated": "2023-12-09 15:16:13.611",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -111,25 +111,25 @@
           }
         },
         "place": "1",
-        "matchesPlayed": "6",
-        "wins": "6",
+        "matchesPlayed": "7",
+        "wins": "7",
         "losses": "0",
-        "points": "18",
-        "setPoints": "18:1",
-        "setWinScore": "18",
+        "points": "21",
+        "setPoints": "21:1",
+        "setWinScore": "21",
         "setLoseScore": "1",
-        "setPointDifference": "17",
-        "setQuotient": "18,000",
-        "ballPoints": "468:278",
-        "ballWinScore": "468",
-        "ballLoseScore": "278",
-        "ballPointDifference": "190",
-        "ballQuotient": "1,683",
+        "setPointDifference": "20",
+        "setQuotient": "21,000",
+        "ballPoints": "543:317",
+        "ballWinScore": "543",
+        "ballLoseScore": "317",
+        "ballPointDifference": "226",
+        "ballQuotient": "1,713",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "5"
+              "count": "6"
             },
             {
               "result": "3:1",
@@ -212,6 +212,62 @@
       },
       {
         "team": {
+          "id": "25922081",
+          "uuid": "561bef7f-6fdb-4e0a-b977-231e7e7d4116",
+          "name": "VC Weil 3",
+          "shortName": "VC Weil 3",
+          "clubCode": null,
+          "club": {
+            "name": "VC Weil",
+            "shortName": null
+          }
+        },
+        "place": "3",
+        "matchesPlayed": "7",
+        "wins": "5",
+        "losses": "2",
+        "points": "15",
+        "setPoints": "15:10",
+        "setWinScore": "15",
+        "setLoseScore": "10",
+        "setPointDifference": "5",
+        "setQuotient": "1,500",
+        "ballPoints": "524:542",
+        "ballWinScore": "524",
+        "ballLoseScore": "542",
+        "ballPointDifference": "-18",
+        "ballQuotient": "0,967",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "1"
+            },
+            {
+              "result": "3:1",
+              "count": "4"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "2"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "25922062",
           "uuid": "fdc8c7be-36f2-4b7a-958b-0a1f4a2b9c16",
           "name": "TV Merdingen 2",
@@ -222,7 +278,7 @@
             "shortName": null
           }
         },
-        "place": "3",
+        "place": "4",
         "matchesPlayed": "6",
         "wins": "4",
         "losses": "2",
@@ -268,62 +324,6 @@
       },
       {
         "team": {
-          "id": "25922081",
-          "uuid": "561bef7f-6fdb-4e0a-b977-231e7e7d4116",
-          "name": "VC Weil 3",
-          "shortName": "VC Weil 3",
-          "clubCode": null,
-          "club": {
-            "name": "VC Weil",
-            "shortName": null
-          }
-        },
-        "place": "4",
-        "matchesPlayed": "6",
-        "wins": "4",
-        "losses": "2",
-        "points": "12",
-        "setPoints": "12:10",
-        "setWinScore": "12",
-        "setLoseScore": "10",
-        "setPointDifference": "2",
-        "setQuotient": "1,200",
-        "ballPoints": "449:502",
-        "ballWinScore": "449",
-        "ballLoseScore": "502",
-        "ballPointDifference": "-53",
-        "ballQuotient": "0,894",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "4"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "2"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "25922059",
           "uuid": "ca013309-2aa0-4864-98a7-fec75d08db29",
           "name": "TV Bad Säckingen 3",
@@ -335,25 +335,25 @@
           }
         },
         "place": "5",
-        "matchesPlayed": "6",
-        "wins": "3",
+        "matchesPlayed": "7",
+        "wins": "4",
         "losses": "3",
-        "points": "9",
-        "setPoints": "11:10",
-        "setWinScore": "11",
+        "points": "12",
+        "setPoints": "14:10",
+        "setWinScore": "14",
         "setLoseScore": "10",
-        "setPointDifference": "1",
-        "setQuotient": "1,100",
-        "ballPoints": "442:412",
-        "ballWinScore": "442",
-        "ballLoseScore": "412",
-        "ballPointDifference": "30",
-        "ballQuotient": "1,073",
+        "setPointDifference": "4",
+        "setQuotient": "1,400",
+        "ballPoints": "517:458",
+        "ballWinScore": "517",
+        "ballLoseScore": "458",
+        "ballPointDifference": "59",
+        "ballQuotient": "1,129",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "3:1",
@@ -391,20 +391,20 @@
           }
         },
         "place": "6",
-        "matchesPlayed": "6",
+        "matchesPlayed": "7",
         "wins": "2",
-        "losses": "4",
+        "losses": "5",
         "points": "6",
-        "setPoints": "8:12",
+        "setPoints": "8:15",
         "setWinScore": "8",
-        "setLoseScore": "12",
-        "setPointDifference": "-4",
-        "setQuotient": "0,667",
-        "ballPoints": "399:445",
-        "ballWinScore": "399",
-        "ballLoseScore": "445",
-        "ballPointDifference": "-46",
-        "ballQuotient": "0,897",
+        "setLoseScore": "15",
+        "setPointDifference": "-7",
+        "setQuotient": "0,533",
+        "ballPoints": "445:520",
+        "ballWinScore": "445",
+        "ballLoseScore": "520",
+        "ballPointDifference": "-75",
+        "ballQuotient": "0,856",
         "resultTypes": {
           "matchResult": [
             {
@@ -429,7 +429,7 @@
             },
             {
               "result": "0:3",
-              "count": "2"
+              "count": "3"
             }
           ]
         }
@@ -447,20 +447,20 @@
           }
         },
         "place": "7",
-        "matchesPlayed": "6",
+        "matchesPlayed": "7",
         "wins": "2",
-        "losses": "4",
+        "losses": "5",
         "points": "6",
-        "setPoints": "8:14",
+        "setPoints": "8:17",
         "setWinScore": "8",
-        "setLoseScore": "14",
-        "setPointDifference": "-6",
-        "setQuotient": "0,571",
-        "ballPoints": "442:490",
-        "ballWinScore": "442",
-        "ballLoseScore": "490",
-        "ballPointDifference": "-48",
-        "ballQuotient": "0,902",
+        "setLoseScore": "17",
+        "setPointDifference": "-9",
+        "setQuotient": "0,471",
+        "ballPoints": "481:565",
+        "ballWinScore": "481",
+        "ballLoseScore": "565",
+        "ballPointDifference": "-84",
+        "ballQuotient": "0,851",
         "resultTypes": {
           "matchResult": [
             {
@@ -485,7 +485,7 @@
             },
             {
               "result": "0:3",
-              "count": "2"
+              "count": "3"
             }
           ]
         }
@@ -503,20 +503,20 @@
           }
         },
         "place": "8",
-        "matchesPlayed": "6",
+        "matchesPlayed": "7",
         "wins": "1",
-        "losses": "5",
+        "losses": "6",
         "points": "3",
-        "setPoints": "4:15",
+        "setPoints": "4:18",
         "setWinScore": "4",
-        "setLoseScore": "15",
-        "setPointDifference": "-11",
-        "setQuotient": "0,267",
-        "ballPoints": "293:444",
-        "ballWinScore": "293",
-        "ballLoseScore": "444",
-        "ballPointDifference": "-151",
-        "ballQuotient": "0,660",
+        "setLoseScore": "18",
+        "setPointDifference": "-14",
+        "setQuotient": "0,222",
+        "ballPoints": "333:519",
+        "ballWinScore": "333",
+        "ballLoseScore": "519",
+        "ballPointDifference": "-186",
+        "ballQuotient": "0,642",
         "resultTypes": {
           "matchResult": [
             {
@@ -541,7 +541,7 @@
             },
             {
               "result": "0:3",
-              "count": "4"
+              "count": "5"
             }
           ]
         }
