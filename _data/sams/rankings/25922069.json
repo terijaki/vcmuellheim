@@ -7,9 +7,9 @@
       "name": "Kreisliga Damen Süd",
       "shortName": "kl s d",
       "type": "League",
-      "updated": "2023-12-09 16:43:57.925",
+      "updated": "2023-12-09 17:15:47.999",
       "structureUpdated": "2023-12-08 14:41:20.147",
-      "resultsUpdated": "2023-12-09 16:43:57.925",
+      "resultsUpdated": "2023-12-09 17:15:47.999",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -167,20 +167,20 @@
           }
         },
         "place": "2",
-        "matchesPlayed": "6",
+        "matchesPlayed": "7",
         "wins": "5",
-        "losses": "1",
+        "losses": "2",
         "points": "15",
-        "setPoints": "16:3",
+        "setPoints": "16:6",
         "setWinScore": "16",
-        "setLoseScore": "3",
-        "setPointDifference": "13",
-        "setQuotient": "5,333",
-        "ballPoints": "458:319",
-        "ballWinScore": "458",
-        "ballLoseScore": "319",
-        "ballPointDifference": "139",
-        "ballQuotient": "1,436",
+        "setLoseScore": "6",
+        "setPointDifference": "10",
+        "setQuotient": "2,667",
+        "ballPoints": "515:395",
+        "ballWinScore": "515",
+        "ballLoseScore": "395",
+        "ballPointDifference": "120",
+        "ballQuotient": "1,304",
         "resultTypes": {
           "matchResult": [
             {
@@ -205,63 +205,7 @@
             },
             {
               "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "25922081",
-          "uuid": "561bef7f-6fdb-4e0a-b977-231e7e7d4116",
-          "name": "VC Weil 3",
-          "shortName": "VC Weil 3",
-          "clubCode": null,
-          "club": {
-            "name": "VC Weil",
-            "shortName": null
-          }
-        },
-        "place": "3",
-        "matchesPlayed": "7",
-        "wins": "5",
-        "losses": "2",
-        "points": "15",
-        "setPoints": "15:10",
-        "setWinScore": "15",
-        "setLoseScore": "10",
-        "setPointDifference": "5",
-        "setQuotient": "1,500",
-        "ballPoints": "524:542",
-        "ballWinScore": "524",
-        "ballLoseScore": "542",
-        "ballPointDifference": "-18",
-        "ballQuotient": "0,967",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
               "count": "1"
-            },
-            {
-              "result": "3:1",
-              "count": "4"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "2"
             }
           ]
         }
@@ -278,26 +222,26 @@
             "shortName": null
           }
         },
-        "place": "4",
-        "matchesPlayed": "6",
-        "wins": "4",
+        "place": "3",
+        "matchesPlayed": "7",
+        "wins": "5",
         "losses": "2",
-        "points": "12",
-        "setPoints": "12:8",
-        "setWinScore": "12",
+        "points": "15",
+        "setPoints": "15:8",
+        "setWinScore": "15",
         "setLoseScore": "8",
-        "setPointDifference": "4",
-        "setQuotient": "1,500",
-        "ballPoints": "457:384",
-        "ballWinScore": "457",
-        "ballLoseScore": "384",
-        "ballPointDifference": "73",
-        "ballQuotient": "1,190",
+        "setPointDifference": "7",
+        "setQuotient": "1,875",
+        "ballPoints": "532:433",
+        "ballWinScore": "532",
+        "ballLoseScore": "433",
+        "ballPointDifference": "99",
+        "ballQuotient": "1,229",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "3:1",
@@ -334,26 +278,26 @@
             "shortName": null
           }
         },
-        "place": "5",
-        "matchesPlayed": "7",
-        "wins": "4",
+        "place": "4",
+        "matchesPlayed": "8",
+        "wins": "5",
         "losses": "3",
-        "points": "12",
-        "setPoints": "14:10",
-        "setWinScore": "14",
+        "points": "15",
+        "setPoints": "17:10",
+        "setWinScore": "17",
         "setLoseScore": "10",
-        "setPointDifference": "4",
-        "setQuotient": "1,400",
-        "ballPoints": "517:458",
-        "ballWinScore": "517",
-        "ballLoseScore": "458",
-        "ballPointDifference": "59",
-        "ballQuotient": "1,129",
+        "setPointDifference": "7",
+        "setQuotient": "1,700",
+        "ballPoints": "593:515",
+        "ballWinScore": "593",
+        "ballLoseScore": "515",
+        "ballPointDifference": "78",
+        "ballQuotient": "1,151",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "3"
+              "count": "4"
             },
             {
               "result": "3:1",
@@ -374,6 +318,62 @@
             {
               "result": "0:3",
               "count": "1"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "25922081",
+          "uuid": "561bef7f-6fdb-4e0a-b977-231e7e7d4116",
+          "name": "VC Weil 3",
+          "shortName": "VC Weil 3",
+          "clubCode": null,
+          "club": {
+            "name": "VC Weil",
+            "shortName": null
+          }
+        },
+        "place": "5",
+        "matchesPlayed": "8",
+        "wins": "5",
+        "losses": "3",
+        "points": "15",
+        "setPoints": "15:13",
+        "setWinScore": "15",
+        "setLoseScore": "13",
+        "setPointDifference": "2",
+        "setQuotient": "1,154",
+        "ballPoints": "573:617",
+        "ballWinScore": "573",
+        "ballLoseScore": "617",
+        "ballPointDifference": "-44",
+        "ballQuotient": "0,929",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "1"
+            },
+            {
+              "result": "3:1",
+              "count": "4"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "3"
             }
           ]
         }

@@ -8,9 +8,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-12-09 16:43:57.925</updated>
+        <updated>2023-12-09 17:15:47.999</updated>
         <structureUpdated>2023-12-08 14:41:20.147</structureUpdated>
-        <resultsUpdated>2023-12-09 16:43:57.925</resultsUpdated>
+        <resultsUpdated>2023-12-09 17:15:47.999</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -167,22 +167,22 @@
                         </team>
 
                         <place>2</place>
-                        <matchesPlayed>6</matchesPlayed>
+                        <matchesPlayed>7</matchesPlayed>
                         <wins>5</wins>
-                        <losses>1</losses>
+                        <losses>2</losses>
                             <points>15</points>
 
-                        <setPoints>16:3</setPoints>
+                        <setPoints>16:6</setPoints>
                         <setWinScore>16</setWinScore>
-                        <setLoseScore>3</setLoseScore>
-                        <setPointDifference>13</setPointDifference>
-                        <setQuotient>5,333</setQuotient>
+                        <setLoseScore>6</setLoseScore>
+                        <setPointDifference>10</setPointDifference>
+                        <setQuotient>2,667</setQuotient>
 
-                        <ballPoints>458:319</ballPoints>
-                        <ballWinScore>458</ballWinScore>
-                        <ballLoseScore>319</ballLoseScore>
-                        <ballPointDifference>139</ballPointDifference>
-                        <ballQuotient>1,436</ballQuotient>
+                        <ballPoints>515:395</ballPoints>
+                        <ballWinScore>515</ballWinScore>
+                        <ballLoseScore>395</ballLoseScore>
+                        <ballPointDifference>120</ballPointDifference>
+                        <ballQuotient>1,304</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -206,64 +206,7 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>0:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                            </resultTypes>
-                    </ranking>
-                    <ranking>
-                        <team>
-                            <id>25922081</id>
-                            <uuid>561bef7f-6fdb-4e0a-b977-231e7e7d4116</uuid>
-                            <name>VC Weil 3</name>
-                            <shortName>VC Weil 3</shortName>
-                            <clubCode></clubCode>
-                            <club>
-                                <name>VC Weil</name>
-                                <shortName></shortName>
-                            </club>
-                        </team>
-
-                        <place>3</place>
-                        <matchesPlayed>7</matchesPlayed>
-                        <wins>5</wins>
-                        <losses>2</losses>
-                            <points>15</points>
-
-                        <setPoints>15:10</setPoints>
-                        <setWinScore>15</setWinScore>
-                        <setLoseScore>10</setLoseScore>
-                        <setPointDifference>5</setPointDifference>
-                        <setQuotient>1,500</setQuotient>
-
-                        <ballPoints>524:542</ballPoints>
-                        <ballWinScore>524</ballWinScore>
-                        <ballLoseScore>542</ballLoseScore>
-                        <ballPointDifference>-18</ballPointDifference>
-                        <ballQuotient>0,967</ballQuotient>
-                            <resultTypes>
-                                    <matchResult>
-                                        <result>3:0</result>
                                         <count>1</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:1</result>
-                                        <count>4</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:2</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>2:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>1:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>0:3</result>
-                                        <count>2</count>
                                     </matchResult>
                             </resultTypes>
                     </ranking>
@@ -280,27 +223,27 @@
                             </club>
                         </team>
 
-                        <place>4</place>
-                        <matchesPlayed>6</matchesPlayed>
-                        <wins>4</wins>
+                        <place>3</place>
+                        <matchesPlayed>7</matchesPlayed>
+                        <wins>5</wins>
                         <losses>2</losses>
-                            <points>12</points>
+                            <points>15</points>
 
-                        <setPoints>12:8</setPoints>
-                        <setWinScore>12</setWinScore>
+                        <setPoints>15:8</setPoints>
+                        <setWinScore>15</setWinScore>
                         <setLoseScore>8</setLoseScore>
-                        <setPointDifference>4</setPointDifference>
-                        <setQuotient>1,500</setQuotient>
+                        <setPointDifference>7</setPointDifference>
+                        <setQuotient>1,875</setQuotient>
 
-                        <ballPoints>457:384</ballPoints>
-                        <ballWinScore>457</ballWinScore>
-                        <ballLoseScore>384</ballLoseScore>
-                        <ballPointDifference>73</ballPointDifference>
-                        <ballQuotient>1,190</ballQuotient>
+                        <ballPoints>532:433</ballPoints>
+                        <ballWinScore>532</ballWinScore>
+                        <ballLoseScore>433</ballLoseScore>
+                        <ballPointDifference>99</ballPointDifference>
+                        <ballQuotient>1,229</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
-                                        <count>2</count>
+                                        <count>3</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:1</result>
@@ -337,27 +280,27 @@
                             </club>
                         </team>
 
-                        <place>5</place>
-                        <matchesPlayed>7</matchesPlayed>
-                        <wins>4</wins>
+                        <place>4</place>
+                        <matchesPlayed>8</matchesPlayed>
+                        <wins>5</wins>
                         <losses>3</losses>
-                            <points>12</points>
+                            <points>15</points>
 
-                        <setPoints>14:10</setPoints>
-                        <setWinScore>14</setWinScore>
+                        <setPoints>17:10</setPoints>
+                        <setWinScore>17</setWinScore>
                         <setLoseScore>10</setLoseScore>
-                        <setPointDifference>4</setPointDifference>
-                        <setQuotient>1,400</setQuotient>
+                        <setPointDifference>7</setPointDifference>
+                        <setQuotient>1,700</setQuotient>
 
-                        <ballPoints>517:458</ballPoints>
-                        <ballWinScore>517</ballWinScore>
-                        <ballLoseScore>458</ballLoseScore>
-                        <ballPointDifference>59</ballPointDifference>
-                        <ballQuotient>1,129</ballQuotient>
+                        <ballPoints>593:515</ballPoints>
+                        <ballWinScore>593</ballWinScore>
+                        <ballLoseScore>515</ballLoseScore>
+                        <ballPointDifference>78</ballPointDifference>
+                        <ballQuotient>1,151</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
-                                        <count>3</count>
+                                        <count>4</count>
                                     </matchResult>
                                     <matchResult>
                                         <result>3:1</result>
@@ -378,6 +321,63 @@
                                     <matchResult>
                                         <result>0:3</result>
                                         <count>1</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
+                            <id>25922081</id>
+                            <uuid>561bef7f-6fdb-4e0a-b977-231e7e7d4116</uuid>
+                            <name>VC Weil 3</name>
+                            <shortName>VC Weil 3</shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>VC Weil</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>5</place>
+                        <matchesPlayed>8</matchesPlayed>
+                        <wins>5</wins>
+                        <losses>3</losses>
+                            <points>15</points>
+
+                        <setPoints>15:13</setPoints>
+                        <setWinScore>15</setWinScore>
+                        <setLoseScore>13</setLoseScore>
+                        <setPointDifference>2</setPointDifference>
+                        <setQuotient>1,154</setQuotient>
+
+                        <ballPoints>573:617</ballPoints>
+                        <ballWinScore>573</ballWinScore>
+                        <ballLoseScore>617</ballLoseScore>
+                        <ballPointDifference>-44</ballPointDifference>
+                        <ballQuotient>0,929</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>4</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>3</count>
                                     </matchResult>
                             </resultTypes>
                     </ranking>
