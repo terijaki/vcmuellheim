@@ -59,9 +59,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-12-09 02:15:46.204</updated>
+        <updated>2023-12-09 15:04:32.774</updated>
         <structureUpdated>2023-12-09 02:15:46.204</structureUpdated>
-        <resultsUpdated>2023-11-19 18:59:28.024</resultsUpdated>
+        <resultsUpdated>2023-12-09 15:04:32.774</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -160,9 +160,9 @@
     <name>Bezirksliga Herren Süd</name>
     <shortName>bzl s h</shortName>
     <type>League</type>
-        <updated>2023-12-08 20:37:57.015</updated>
+        <updated>2023-12-09 15:12:51.412</updated>
         <structureUpdated>2023-12-08 20:37:57.015</structureUpdated>
-        <resultsUpdated>2023-11-20 13:05:31.855</resultsUpdated>
+        <resultsUpdated>2023-12-09 15:12:51.412</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -267,9 +267,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-12-08 14:41:20.147</updated>
+        <updated>2023-12-09 15:16:13.611</updated>
         <structureUpdated>2023-12-08 14:41:20.147</structureUpdated>
-        <resultsUpdated>2023-12-06 09:58:01.413</resultsUpdated>
+        <resultsUpdated>2023-12-09 15:16:13.611</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -386,9 +386,9 @@
     <name>Kreisliga Damen Süd</name>
     <shortName>kl s d</shortName>
     <type>League</type>
-        <updated>2023-12-08 14:41:20.147</updated>
+        <updated>2023-12-09 15:16:13.611</updated>
         <structureUpdated>2023-12-08 14:41:20.147</structureUpdated>
-        <resultsUpdated>2023-12-06 09:58:01.413</resultsUpdated>
+        <resultsUpdated>2023-12-09 15:16:13.611</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
