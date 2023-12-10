@@ -7,9 +7,9 @@
       "name": "Bezirksliga Herren Süd",
       "shortName": "bzl s h",
       "type": "League",
-      "updated": "2023-12-10 12:32:12.492",
+      "updated": "2023-12-10 14:14:24.749",
       "structureUpdated": "2023-12-08 20:37:57.015",
-      "resultsUpdated": "2023-12-10 12:32:12.492",
+      "resultsUpdated": "2023-12-10 14:14:24.749",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -200,6 +200,62 @@
       },
       {
         "team": {
+          "id": "25921018",
+          "uuid": "c9d02dda-a926-4112-b938-e2f163867094",
+          "name": "Sport vor Ort Rieselfeld",
+          "shortName": "SvO",
+          "clubCode": null,
+          "club": {
+            "name": "Sport vor Ort Rieselfeld e.V.",
+            "shortName": null
+          }
+        },
+        "place": "3",
+        "matchesPlayed": "8",
+        "wins": "5",
+        "losses": "3",
+        "points": "15",
+        "setPoints": "19:13",
+        "setWinScore": "19",
+        "setLoseScore": "13",
+        "setPointDifference": "6",
+        "setQuotient": "1,462",
+        "ballPoints": "721:639",
+        "ballWinScore": "721",
+        "ballLoseScore": "639",
+        "ballPointDifference": "82",
+        "ballQuotient": "1,128",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "3"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "2"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "1"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "25921027",
           "uuid": "942d49a1-3092-47ed-afce-dc8421e83204",
           "name": "VBG Efringen-Kirchen 1",
@@ -210,7 +266,7 @@
             "shortName": null
           }
         },
-        "place": "3",
+        "place": "4",
         "matchesPlayed": "8",
         "wins": "4",
         "losses": "4",
@@ -250,62 +306,6 @@
             {
               "result": "0:3",
               "count": "3"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "25921018",
-          "uuid": "c9d02dda-a926-4112-b938-e2f163867094",
-          "name": "Sport vor Ort Rieselfeld",
-          "shortName": "SvO",
-          "clubCode": null,
-          "club": {
-            "name": "Sport vor Ort Rieselfeld e.V.",
-            "shortName": null
-          }
-        },
-        "place": "4",
-        "matchesPlayed": "7",
-        "wins": "4",
-        "losses": "3",
-        "points": "12",
-        "setPoints": "16:13",
-        "setWinScore": "16",
-        "setLoseScore": "13",
-        "setPointDifference": "3",
-        "setQuotient": "1,231",
-        "ballPoints": "646:603",
-        "ballWinScore": "646",
-        "ballLoseScore": "603",
-        "ballPointDifference": "43",
-        "ballQuotient": "1,071",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "2"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "2"
-            },
-            {
-              "result": "2:3",
-              "count": "2"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "1"
             }
           ]
         }
@@ -491,20 +491,20 @@
           }
         },
         "place": "8",
-        "matchesPlayed": "5",
+        "matchesPlayed": "6",
         "wins": "0",
-        "losses": "5",
+        "losses": "6",
         "points": "0",
-        "setPoints": "0:15",
+        "setPoints": "0:18",
         "setWinScore": "0",
-        "setLoseScore": "15",
-        "setPointDifference": "-15",
+        "setLoseScore": "18",
+        "setPointDifference": "-18",
         "setQuotient": "0,000",
-        "ballPoints": "262:376",
-        "ballWinScore": "262",
-        "ballLoseScore": "376",
-        "ballPointDifference": "-114",
-        "ballQuotient": "0,697",
+        "ballPoints": "298:451",
+        "ballWinScore": "298",
+        "ballLoseScore": "451",
+        "ballPointDifference": "-153",
+        "ballQuotient": "0,661",
         "resultTypes": {
           "matchResult": [
             {
@@ -529,7 +529,7 @@
             },
             {
               "result": "0:3",
-              "count": "5"
+              "count": "6"
             }
           ]
         }
