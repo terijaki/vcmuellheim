@@ -8,9 +8,9 @@
     <name>Landesliga West Herren</name>
     <shortName>LL w h</shortName>
     <type>League</type>
-        <updated>2023-12-10 13:48:00.96</updated>
+        <updated>2023-12-10 16:16:43.618</updated>
         <structureUpdated>2023-12-09 02:15:46.204</structureUpdated>
-        <resultsUpdated>2023-12-10 13:48:00.96</resultsUpdated>
+        <resultsUpdated>2023-12-10 16:16:43.618</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
@@ -422,6 +422,63 @@
                     </ranking>
                     <ranking>
                         <team>
+                            <id>25932635</id>
+                            <uuid>e6b9b5e2-ab9a-4b89-8441-bd7a1b1d6f35</uuid>
+                            <name>FT 1844 Freiburg 4</name>
+                            <shortName></shortName>
+                            <clubCode></clubCode>
+                            <club>
+                                <name>FT 1844 Freiburg</name>
+                                <shortName></shortName>
+                            </club>
+                        </team>
+
+                        <place>7</place>
+                        <matchesPlayed>8</matchesPlayed>
+                        <wins>2</wins>
+                        <losses>6</losses>
+                            <points>9</points>
+
+                        <setPoints>16:20</setPoints>
+                        <setWinScore>16</setWinScore>
+                        <setLoseScore>20</setLoseScore>
+                        <setPointDifference>-4</setPointDifference>
+                        <setQuotient>0,800</setQuotient>
+
+                        <ballPoints>744:759</ballPoints>
+                        <ballWinScore>744</ballWinScore>
+                        <ballLoseScore>759</ballLoseScore>
+                        <ballPointDifference>-15</ballPointDifference>
+                        <ballQuotient>0,980</ballQuotient>
+                            <resultTypes>
+                                    <matchResult>
+                                        <result>3:0</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:1</result>
+                                        <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>3:2</result>
+                                        <count>1</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>2:3</result>
+                                        <count>4</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>1:3</result>
+                                        <count>2</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>0</count>
+                                    </matchResult>
+                            </resultTypes>
+                    </ranking>
+                    <ranking>
+                        <team>
                             <id>25932647</id>
                             <uuid>d73c02cc-e82d-4c3c-b902-cfe4909f3cb5</uuid>
                             <name>USC Freiburg 3</name>
@@ -433,7 +490,7 @@
                             </club>
                         </team>
 
-                        <place>7</place>
+                        <place>8</place>
                         <matchesPlayed>7</matchesPlayed>
                         <wins>3</wins>
                         <losses>4</losses>
@@ -479,34 +536,34 @@
                     </ranking>
                     <ranking>
                         <team>
-                            <id>25932635</id>
-                            <uuid>e6b9b5e2-ab9a-4b89-8441-bd7a1b1d6f35</uuid>
-                            <name>FT 1844 Freiburg 4</name>
+                            <id>25932657</id>
+                            <uuid>55047b28-6105-43ab-b632-6d85ab93b768</uuid>
+                            <name>TSV Al. Freiburg-Zähringen 2</name>
                             <shortName></shortName>
                             <clubCode></clubCode>
                             <club>
-                                <name>FT 1844 Freiburg</name>
+                                <name>TSV Alemannia Freiburg-Zähringen</name>
                                 <shortName></shortName>
                             </club>
                         </team>
 
-                        <place>8</place>
+                        <place>9</place>
                         <matchesPlayed>7</matchesPlayed>
                         <wins>1</wins>
                         <losses>6</losses>
-                            <points>7</points>
+                            <points>5</points>
 
-                        <setPoints>13:18</setPoints>
-                        <setWinScore>13</setWinScore>
+                        <setPoints>7:18</setPoints>
+                        <setWinScore>7</setWinScore>
                         <setLoseScore>18</setLoseScore>
-                        <setPointDifference>-5</setPointDifference>
-                        <setQuotient>0,722</setQuotient>
+                        <setPointDifference>-11</setPointDifference>
+                        <setQuotient>0,389</setQuotient>
 
-                        <ballPoints>633:665</ballPoints>
-                        <ballWinScore>633</ballWinScore>
-                        <ballLoseScore>665</ballLoseScore>
-                        <ballPointDifference>-32</ballPointDifference>
-                        <ballQuotient>0,952</ballQuotient>
+                        <ballPoints>510:574</ballPoints>
+                        <ballWinScore>510</ballWinScore>
+                        <ballLoseScore>574</ballLoseScore>
+                        <ballPointDifference>-64</ballPointDifference>
+                        <ballQuotient>0,889</ballQuotient>
                             <resultTypes>
                                     <matchResult>
                                         <result>3:0</result>
@@ -522,15 +579,15 @@
                                     </matchResult>
                                     <matchResult>
                                         <result>2:3</result>
-                                        <count>4</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>1:3</result>
                                         <count>2</count>
                                     </matchResult>
                                     <matchResult>
-                                        <result>0:3</result>
+                                        <result>1:3</result>
                                         <count>0</count>
+                                    </matchResult>
+                                    <matchResult>
+                                        <result>0:3</result>
+                                        <count>4</count>
                                     </matchResult>
                             </resultTypes>
                     </ranking>
@@ -547,7 +604,7 @@
                             </club>
                         </team>
 
-                        <place>9</place>
+                        <place>10</place>
                         <matchesPlayed>8</matchesPlayed>
                         <wins>2</wins>
                         <losses>6</losses>
@@ -588,63 +645,6 @@
                                     <matchResult>
                                         <result>0:3</result>
                                         <count>6</count>
-                                    </matchResult>
-                            </resultTypes>
-                    </ranking>
-                    <ranking>
-                        <team>
-                            <id>25932657</id>
-                            <uuid>55047b28-6105-43ab-b632-6d85ab93b768</uuid>
-                            <name>TSV Al. Freiburg-Zähringen 2</name>
-                            <shortName></shortName>
-                            <clubCode></clubCode>
-                            <club>
-                                <name>TSV Alemannia Freiburg-Zähringen</name>
-                                <shortName></shortName>
-                            </club>
-                        </team>
-
-                        <place>10</place>
-                        <matchesPlayed>6</matchesPlayed>
-                        <wins>1</wins>
-                        <losses>5</losses>
-                            <points>4</points>
-
-                        <setPoints>5:15</setPoints>
-                        <setWinScore>5</setWinScore>
-                        <setLoseScore>15</setLoseScore>
-                        <setPointDifference>-10</setPointDifference>
-                        <setQuotient>0,333</setQuotient>
-
-                        <ballPoints>416:463</ballPoints>
-                        <ballWinScore>416</ballWinScore>
-                        <ballLoseScore>463</ballLoseScore>
-                        <ballPointDifference>-47</ballPointDifference>
-                        <ballQuotient>0,898</ballQuotient>
-                            <resultTypes>
-                                    <matchResult>
-                                        <result>3:0</result>
-                                        <count>1</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:1</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>3:2</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>2:3</result>
-                                        <count>1</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>1:3</result>
-                                        <count>0</count>
-                                    </matchResult>
-                                    <matchResult>
-                                        <result>0:3</result>
-                                        <count>4</count>
                                     </matchResult>
                             </resultTypes>
                     </ranking>
