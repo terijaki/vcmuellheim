@@ -8,8 +8,8 @@
     <name>West Jugendrunde (4:4) männlich</name>
     <shortName>W_JRm</shortName>
     <type>Competition</type>
-        <updated>2023-12-07 09:45:43.514</updated>
-        <structureUpdated>2023-12-07 09:45:43.514</structureUpdated>
+        <updated>2023-12-11 20:16:03.003</updated>
+        <structureUpdated>2023-12-11 20:16:03.003</structureUpdated>
         <resultsUpdated></resultsUpdated>
         <season>
             <id>25640073</id>
@@ -71,7 +71,7 @@
                         <team>
                             <id>27626921</id>
                             <uuid>ef1719fd-d548-4798-9357-b430e298a031</uuid>
-                            <name>TB Emmendingen 4:4 männlich</name>
+                            <name>TB Emmendingen 1</name>
                             <club>TB Emmendingen</club>
                         </team>
                     </ranking>
@@ -80,7 +80,7 @@
                         <team>
                             <id>27761467</id>
                             <uuid>011e607b-b90a-4adf-b0cc-3f5d70bf5b29</uuid>
-                            <name>TB Emmendingen Herren 4:4 Team Wolfgang</name>
+                            <name>TB Emmendingen 2</name>
                             <club>TB Emmendingen</club>
                         </team>
                     </ranking>

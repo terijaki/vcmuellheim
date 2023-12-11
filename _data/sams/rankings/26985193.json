@@ -7,8 +7,8 @@
       "name": "West Jugendrunde (4:4) männlich",
       "shortName": "W_JRm",
       "type": "Competition",
-      "updated": "2023-12-07 09:45:43.514",
-      "structureUpdated": "2023-12-07 09:45:43.514",
+      "updated": "2023-12-11 20:16:03.003",
+      "structureUpdated": "2023-12-11 20:16:03.003",
       "resultsUpdated": null,
       "season": {
         "id": "25640073",
@@ -73,7 +73,7 @@
         "team": {
           "id": "27626921",
           "uuid": "ef1719fd-d548-4798-9357-b430e298a031",
-          "name": "TB Emmendingen 4:4 männlich",
+          "name": "TB Emmendingen 1",
           "club": "TB Emmendingen"
         }
       },
@@ -82,7 +82,7 @@
         "team": {
           "id": "27761467",
           "uuid": "011e607b-b90a-4adf-b0cc-3f5d70bf5b29",
-          "name": "TB Emmendingen Herren 4:4 Team Wolfgang",
+          "name": "TB Emmendingen 2",
           "club": "TB Emmendingen"
         }
       },
