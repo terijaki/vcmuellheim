@@ -2,34 +2,28 @@
 
         <rankings>
                 <matchSeries>
-    <id>27463169</id>
-    <uuid>27a326bf-f46a-4e4c-92a4-4f6c43b99ca8</uuid>
-    <allSeasonId>27a326bf-f46a-4e4c-92a4-4f6c43b99ca8</allSeasonId>
-    <name>U14 weiblich - Quali 2 am 27.1.24</name>
-    <shortName>Q2_U14_w</shortName>
+    <id>25749932</id>
+    <uuid>3fe5caed-5b0d-42b7-ba4f-34d3fecf1c36</uuid>
+    <allSeasonId>0448a253-0668-40e5-a856-eaefed292e32</allSeasonId>
+    <name>SBVV - U14 männlich am 3.2.24</name>
+    <shortName>sbvv-u14m</shortName>
     <type>Competition</type>
-        <updated>2023-12-12 11:38:35.821</updated>
-        <structureUpdated>2023-12-12 11:38:35.821</structureUpdated>
-        <resultsUpdated></resultsUpdated>
+        <updated>2023-12-12 10:46:53.804</updated>
+        <structureUpdated>2023-12-12 10:46:53.803</structureUpdated>
+        <resultsUpdated>2023-03-13 09:40:18.268</resultsUpdated>
         <season>
             <id>25640073</id>
             <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
             <name>2023/24</name>
         </season>
         <hierarchy>
-            <id>27462717</id>
-            <uuid>e981a1d1-beb1-4db0-abf3-932f5afd200e</uuid>
-            <name>Quali-Turniere Jugendmeisterschaften</name>
-            <shortName>Quali</shortName>
-            <hierarchyLevel>4</hierarchyLevel>
+            <id>25749344</id>
+            <uuid>334935bb-d44e-4005-aca6-15e06f91781b</uuid>
+            <name>SBVV-Jugendmeisterschaften</name>
+            <shortName>sbvv_jm</shortName>
+            <hierarchyLevel>3</hierarchyLevel>
         </hierarchy>
         <fullHierarchy>
-                <hierarchy>
-                    <id>27462717</id>
-                    <name>Quali-Turniere Jugendmeisterschaften</name>
-                    <shortName>Quali</shortName>
-                    <hierarchyLevel>4</hierarchyLevel>
-                </hierarchy>
                 <hierarchy>
                     <id>25749344</id>
                     <name>SBVV-Jugendmeisterschaften</name>
@@ -56,15 +50,15 @@
                 </hierarchy>
         </fullHierarchy>
         <association>
-            <name>Südbadischer Volleyball-Verband</name>
-            <shortName>SBVV</shortName>
+            <name></name>
+            <shortName></shortName>
         </association>
                 </matchSeries>
                     <ranking>
                         <place></place>
                         <team>
-                            <id>27860241</id>
-                            <uuid>a35bc592-6a02-4e2f-8dcd-63b09ef1852e</uuid>
+                            <id>28010513</id>
+                            <uuid>a7dcb12f-19dd-4ca7-88a7-bb6c760db435</uuid>
                             <name>FT 1844 Freiburg 1</name>
                             <club>FT 1844 Freiburg</club>
                         </team>
@@ -72,8 +66,8 @@
                     <ranking>
                         <place></place>
                         <team>
-                            <id>27860249</id>
-                            <uuid>83daaeb3-80ac-40d6-b610-1bd6026e0982</uuid>
+                            <id>28010511</id>
+                            <uuid>082fa461-73c7-469b-a344-3173ce1719a7</uuid>
                             <name>FT 1844 Freiburg 2</name>
                             <club>FT 1844 Freiburg</club>
                         </team>
@@ -81,17 +75,17 @@
                     <ranking>
                         <place></place>
                         <team>
-                            <id>27860233</id>
-                            <uuid>5b4ca89c-54b5-4fae-9daf-ef18b5654194</uuid>
-                            <name>TV Gundelfingen 1</name>
-                            <club>TV Gundelfingen</club>
+                            <id>28010517</id>
+                            <uuid>37dcbd72-3bb8-4e74-8cb9-281f8854b037</uuid>
+                            <name>VC Minseln</name>
+                            <club>VC Minseln</club>
                         </team>
                     </ranking>
                     <ranking>
                         <place></place>
                         <team>
-                            <id>27860239</id>
-                            <uuid>51e76296-bf8a-47d5-8161-2df425f9aaa3</uuid>
+                            <id>28010515</id>
+                            <uuid>00bd91a2-5f7c-4c38-b5e0-2ca6e80a0a4c</uuid>
                             <name>VC Müllheim</name>
                             <club>VC Müllheim</club>
                         </team>
@@ -99,37 +93,37 @@
                     <ranking>
                         <place></place>
                         <team>
-                            <id>27860243</id>
-                            <uuid>142eefe0-bd35-4669-b34e-a06ead7ae678</uuid>
-                            <name>VC Offenburg 1</name>
+                            <id>28010508</id>
+                            <uuid>4e14738c-b7f8-41b8-bc31-d07ebb5956d9</uuid>
+                            <name>VC Offenburg</name>
                             <club>VC Offenburg</club>
                         </team>
                     </ranking>
                     <ranking>
                         <place></place>
                         <team>
-                            <id>27860245</id>
-                            <uuid>2700a4b7-4faa-407a-b649-5d88f84b7da2</uuid>
-                            <name>VC Offenburg 2</name>
-                            <club>VC Offenburg</club>
+                            <id>28010522</id>
+                            <uuid>308cdbb8-b56b-4e6e-b229-de55d2d6f38a</uuid>
+                            <name>TSV Mimmenhausen</name>
+                            <club>TSV Mimmenhausen</club>
                         </team>
                     </ranking>
                     <ranking>
                         <place></place>
                         <team>
-                            <id>27860236</id>
-                            <uuid>34528587-138f-4801-b47a-cfb254168281</uuid>
-                            <name>VC Weil</name>
-                            <club>VC Weil</club>
+                            <id>28010519</id>
+                            <uuid>22d9ae5c-5f68-4486-9477-2d6defd5047e</uuid>
+                            <name>USC Konstanz</name>
+                            <club>USC Konstanz</club>
                         </team>
                     </ranking>
                     <ranking>
                         <place></place>
                         <team>
-                            <id>27860247</id>
-                            <uuid>e2608035-7f21-414f-9611-8190d76c0b33</uuid>
-                            <name>VfR Umkirch</name>
-                            <club>VfR Umkirch</club>
+                            <id>28010524</id>
+                            <uuid>76bd54f1-452e-4e1d-82c4-67c742a853d5</uuid>
+                            <name>Untersee Volleys Radolfzell 1</name>
+                            <club>Untersee Volleys Radolfzell</club>
                         </team>
                     </ranking>
         </rankings>
