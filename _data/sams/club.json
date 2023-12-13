@@ -162,9 +162,9 @@
             "name": "Bezirksliga Herren Süd",
             "shortName": "bzl s h",
             "type": "League",
-            "updated": "2023-12-10 14:14:24.749",
-            "structureUpdated": "2023-12-08 20:37:57.015",
-            "resultsUpdated": "2023-12-10 14:14:24.749",
+            "updated": "2023-12-12 13:26:38.536",
+            "structureUpdated": "2023-12-12 13:26:38.536",
+            "resultsUpdated": "2023-12-12 10:05:45.425",
             "season": {
               "id": "25640073",
               "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -271,8 +271,8 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2023-12-09 19:38:08.049",
-            "structureUpdated": "2023-12-08 14:41:20.147",
+            "updated": "2023-12-12 10:52:36.064",
+            "structureUpdated": "2023-12-12 10:52:36.064",
             "resultsUpdated": "2023-12-09 19:38:08.049",
             "season": {
               "id": "25640073",
@@ -392,8 +392,8 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2023-12-09 19:38:08.049",
-            "structureUpdated": "2023-12-08 14:41:20.147",
+            "updated": "2023-12-12 10:52:36.064",
+            "structureUpdated": "2023-12-12 10:52:36.064",
             "resultsUpdated": "2023-12-09 19:38:08.049",
             "season": {
               "id": "25640073",
@@ -950,8 +950,8 @@
             "name": "U14 weiblich - Quali 2 am 27.1.24",
             "shortName": "Q2_U14_w",
             "type": "Competition",
-            "updated": "2023-12-05 11:19:20.597",
-            "structureUpdated": "2023-12-05 11:19:20.597",
+            "updated": "2023-12-12 11:38:35.821",
+            "structureUpdated": "2023-12-12 11:38:35.821",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
@@ -1445,6 +1445,85 @@
             "association": {
               "name": "Südbadischer Volleyball-Verband",
               "shortName": "SBVV"
+            }
+          }
+        },
+        {
+          "id": "28010515",
+          "uuid": "00bd91a2-5f7c-4c38-b5e0-2ca6e80a0a4c",
+          "seasonTeamId": "28010515",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "25749932",
+            "uuid": "3fe5caed-5b0d-42b7-ba4f-34d3fecf1c36",
+            "allSeasonId": "0448a253-0668-40e5-a856-eaefed292e32",
+            "name": "SBVV - U14 männlich am 3.2.24",
+            "shortName": "sbvv-u14m",
+            "type": "Competition",
+            "updated": "2023-12-12 10:46:53.804",
+            "structureUpdated": "2023-12-12 10:46:53.803",
+            "resultsUpdated": "2023-03-13 09:40:18.268",
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25749344",
+              "uuid": "334935bb-d44e-4005-aca6-15e06f91781b",
+              "name": "SBVV-Jugendmeisterschaften",
+              "shortName": "sbvv_jm",
+              "hierarchyLevel": "3"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": null,
+              "shortName": null
             }
           }
         },
