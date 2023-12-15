@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: Herren II mit starkem Spieltag nur leider ohne Punkte
 date: 2023-12-15T21:43:00Z
 gallery:
