@@ -55,9 +55,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-12-17 12:22:18.695",
+          "updated": "2023-12-17 14:20:53.438",
           "structureUpdated": "2023-12-14 00:10:06.55",
-          "resultsUpdated": "2023-12-17 12:22:18.695",
+          "resultsUpdated": "2023-12-17 14:20:53.438",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -225,9 +225,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-12-17 12:22:18.695",
+          "updated": "2023-12-17 14:20:53.438",
           "structureUpdated": "2023-12-14 00:10:06.55",
-          "resultsUpdated": "2023-12-17 12:22:18.695",
+          "resultsUpdated": "2023-12-17 14:20:53.438",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -395,9 +395,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-12-17 12:22:18.695",
+          "updated": "2023-12-17 14:20:53.438",
           "structureUpdated": "2023-12-14 00:10:06.55",
-          "resultsUpdated": "2023-12-17 12:22:18.695",
+          "resultsUpdated": "2023-12-17 14:20:53.438",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -565,9 +565,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-12-17 12:22:18.695",
+          "updated": "2023-12-17 14:20:53.438",
           "structureUpdated": "2023-12-14 00:10:06.55",
-          "resultsUpdated": "2023-12-17 12:22:18.695",
+          "resultsUpdated": "2023-12-17 14:20:53.438",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -735,9 +735,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-12-17 12:22:18.695",
+          "updated": "2023-12-17 14:20:53.438",
           "structureUpdated": "2023-12-14 00:10:06.55",
-          "resultsUpdated": "2023-12-17 12:22:18.695",
+          "resultsUpdated": "2023-12-17 14:20:53.438",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -905,9 +905,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-12-17 12:22:18.695",
+          "updated": "2023-12-17 14:20:53.438",
           "structureUpdated": "2023-12-14 00:10:06.55",
-          "resultsUpdated": "2023-12-17 12:22:18.695",
+          "resultsUpdated": "2023-12-17 14:20:53.438",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1075,9 +1075,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-12-17 12:22:18.695",
+          "updated": "2023-12-17 14:20:53.438",
           "structureUpdated": "2023-12-14 00:10:06.55",
-          "resultsUpdated": "2023-12-17 12:22:18.695",
+          "resultsUpdated": "2023-12-17 14:20:53.438",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1245,9 +1245,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-12-17 12:22:18.695",
+          "updated": "2023-12-17 14:20:53.438",
           "structureUpdated": "2023-12-14 00:10:06.55",
-          "resultsUpdated": "2023-12-17 12:22:18.695",
+          "resultsUpdated": "2023-12-17 14:20:53.438",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1332,7 +1332,37 @@
           "city": "Müllheim",
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:3",
+          "ballPoints": "58:75",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "16:25",
+                "winner": "TEAM2",
+                "duration": "11"
+              },
+              {
+                "number": "2",
+                "points": "23:25",
+                "winner": "TEAM2",
+                "duration": "22"
+              },
+              {
+                "number": "3",
+                "points": "19:25",
+                "winner": "TEAM2",
+                "duration": "21"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "25",
+        "netDuration": "54"
       },
       {
         "id": "25923714",
@@ -1385,9 +1415,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-12-17 12:22:18.695",
+          "updated": "2023-12-17 14:20:53.438",
           "structureUpdated": "2023-12-14 00:10:06.55",
-          "resultsUpdated": "2023-12-17 12:22:18.695",
+          "resultsUpdated": "2023-12-17 14:20:53.438",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1525,9 +1555,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-12-17 12:22:18.695",
+          "updated": "2023-12-17 14:20:53.438",
           "structureUpdated": "2023-12-14 00:10:06.55",
-          "resultsUpdated": "2023-12-17 12:22:18.695",
+          "resultsUpdated": "2023-12-17 14:20:53.438",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1665,9 +1695,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-12-17 12:22:18.695",
+          "updated": "2023-12-17 14:20:53.438",
           "structureUpdated": "2023-12-14 00:10:06.55",
-          "resultsUpdated": "2023-12-17 12:22:18.695",
+          "resultsUpdated": "2023-12-17 14:20:53.438",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1805,9 +1835,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-12-17 12:22:18.695",
+          "updated": "2023-12-17 14:20:53.438",
           "structureUpdated": "2023-12-14 00:10:06.55",
-          "resultsUpdated": "2023-12-17 12:22:18.695",
+          "resultsUpdated": "2023-12-17 14:20:53.438",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1945,9 +1975,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-12-17 12:22:18.695",
+          "updated": "2023-12-17 14:20:53.438",
           "structureUpdated": "2023-12-14 00:10:06.55",
-          "resultsUpdated": "2023-12-17 12:22:18.695",
+          "resultsUpdated": "2023-12-17 14:20:53.438",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -2085,9 +2115,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2023-12-17 12:22:18.695",
+          "updated": "2023-12-17 14:20:53.438",
           "structureUpdated": "2023-12-14 00:10:06.55",
-          "resultsUpdated": "2023-12-17 12:22:18.695",
+          "resultsUpdated": "2023-12-17 14:20:53.438",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
