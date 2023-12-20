@@ -7,8 +7,8 @@
       "name": "West Jugendrunde (4:4) männlich",
       "shortName": "W_JRm",
       "type": "Competition",
-      "updated": "2023-12-11 20:16:03.003",
-      "structureUpdated": "2023-12-11 20:16:03.003",
+      "updated": "2023-12-19 10:01:47.573",
+      "structureUpdated": "2023-12-19 10:01:47.572",
       "resultsUpdated": null,
       "season": {
         "id": "25640073",
@@ -93,6 +93,15 @@
           "uuid": "ba6f2868-693a-4b83-b7a9-31bd8d928eed",
           "name": "TV Kappelrodeck",
           "club": "TV Kappelrodeck"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "28081727",
+          "uuid": "25d2dad8-ba5c-489a-9ac9-7f71678c907c",
+          "name": "VC Minseln",
+          "club": "VC Minseln"
         }
       },
       {
