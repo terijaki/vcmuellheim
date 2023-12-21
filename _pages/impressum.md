@@ -10,8 +10,8 @@ Volleyballclub Müllheim e.V.
 Lettenstr. 48  
 79424 Auggen
 
-Vereinsregister: VR158Mü  
-Registergericht: AG Müllheim
+Vereinsregister: VR 300 158
+Registergericht: Amtsgericht Freiburg
 
 **Vertreten durch:**  
 Lothar Voigt
@@ -21,12 +21,10 @@ Lothar Voigt
 Telefon: 07631 2472  
 E-Mail: [info@vcmuellheim.de](mailto:info@vcmuellheim.de)
 
-
 ### **Redaktionell Verantwortlicher**
 
 Björn Kohnen  
 E-Mail: [bjoern@vcmuellheim.de](mailto:bjoern@vcmuellheim.de)
-
 
 ### **Haftung für Inhalte**
 
@@ -41,6 +39,7 @@ Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir
 Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.
 
 ### **Urheberrecht**
+
 <!--
 Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.-->
 
