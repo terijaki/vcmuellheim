@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: Lezter Spieltag 2023 fur Damen I  mit Herbstmeisterinnentitel
 date: 2023-12-23T18:19:25Z
 gallery:
