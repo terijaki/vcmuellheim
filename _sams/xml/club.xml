@@ -476,6 +476,83 @@
     </matchSeries>
                         </team>
                         <team>
+    <id>28107458</id>
+    <uuid>5a85bd2d-c396-4285-8950-53bf076f64de</uuid>
+    <seasonTeamId>28107458</seasonTeamId>
+    <placeCipher>0</placeCipher>
+    <name>VC Müllheim</name>
+    <shortName></shortName>
+    <clubCode></clubCode>
+    <status>ACTIVE</status>
+    <www>http://vcmuellheim.de</www>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+    </logo>
+    <club>
+        <name>VC Müllheim</name>
+        <id>471</id>
+        <shortName></shortName>
+        <logo>
+            <url>https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png</url>
+        </logo>
+        <www>http://vcmuellheim.de</www>
+        <wwwDepartment></wwwDepartment>
+    </club>
+    <matchSeries>
+    <id>26660048</id>
+    <uuid>e6486280-1d3d-4a78-b845-8ea287f1419b</uuid>
+    <allSeasonId>e6486280-1d3d-4a78-b845-8ea287f1419b</allSeasonId>
+    <name>Herren Pokal Landes- und Verbandsliga</name>
+    <shortName>hp_ll_vl</shortName>
+    <type>Competition</type>
+        <updated>2023-08-15 09:33:57.82</updated>
+        <structureUpdated>2023-08-15 09:33:57.82</structureUpdated>
+        <resultsUpdated></resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>26660033</id>
+            <uuid>e684bf7f-c9c7-43e8-86b4-218afc9b597a</uuid>
+            <name>Verbandspokal 2023/2024</name>
+            <shortName>vp</shortName>
+            <hierarchyLevel>3</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>26660033</id>
+                    <name>Verbandspokal 2023/2024</name>
+                    <shortName>vp</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25754713</id>
+                    <name>Regionalpokal</name>
+                    <shortName>Regionalpokal</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25754712</id>
+                    <name>Pokalwettbewerbe</name>
+                    <shortName>P</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25751072</id>
+                    <name>Allgemeiner Spielbetrieb</name>
+                    <shortName>alg</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>Südbadischer Volleyball-Verband</name>
+            <shortName>SBVV</shortName>
+        </association>
+    </matchSeries>
+                        </team>
+                        <team>
     <id>25921412</id>
     <uuid>5a65e070-8dc9-4d23-bab8-2307b6921601</uuid>
     <seasonTeamId>25921412</seasonTeamId>
