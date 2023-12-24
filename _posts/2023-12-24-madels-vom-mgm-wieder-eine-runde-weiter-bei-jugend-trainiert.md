@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: Madels vom MGM wieder eine Runde  weiter bei Jugend trainiert!
 date: 2023-12-24T08:35:06Z
 gallery:
