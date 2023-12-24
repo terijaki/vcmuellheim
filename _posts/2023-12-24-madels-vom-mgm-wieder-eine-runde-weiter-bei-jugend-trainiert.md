@@ -1,16 +1,15 @@
 ---
 layout: post
 posted-on-social: true
-title: Madels vom MGM wieder eine Runde  weiter bei Jugend trainiert!
+title: Mädels vom MGM wieder eine Runde weiter bei Jugend trainiert!
 date: 2023-12-24T08:35:06Z
 gallery:
-- /upload/2023/12/24/20231219_100342.jpg
-- /upload/2023/12/24/20231219_100346.jpg
-- /upload/2023/12/24/20231219_100420.jpg
-- /upload/2023/12/24/20231219_114349.jpg
-- /upload/2023/12/24/20231219_122438.jpg
+  - /upload/2023/12/24/20231219_100342.jpg
+  - /upload/2023/12/24/20231219_100346.jpg
+  - /upload/2023/12/24/20231219_100420.jpg
+  - /upload/2023/12/24/20231219_114349.jpg
+  - /upload/2023/12/24/20231219_122438.jpg
 ---
-**<u>Mädels vom MGM wieder eine Runde weiter bei Jugend trainiert!</u>**
 
 Am 19.12.23 durften die Mädels vom Markgräfler Gymnasium zur zweiten
 Runde des Jugend trainiert für Olympia Wettbewerbes nochmals nach
