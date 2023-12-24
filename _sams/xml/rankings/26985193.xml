@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <rankings>
+                <matchSeries>
+    <id>26693780</id>
+    <uuid>53b0a143-a1b3-4c77-8734-b8b11164e9ef</uuid>
+    <allSeasonId>53b0a143-a1b3-4c77-8734-b8b11164e9ef</allSeasonId>
+    <name>West Jugendrunde (4:4) männlich</name>
+    <shortName>W_JRm</shortName>
+    <type>Competition</type>
+        <updated>2023-12-19 10:01:47.573</updated>
+        <structureUpdated>2023-12-19 10:01:47.572</structureUpdated>
+        <resultsUpdated></resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>25749346</id>
+            <uuid>8a98d50a-82a5-4d57-b6f8-6cd07be978a3</uuid>
+            <name>Meldungen Bezirk West Jugend männlich</name>
+            <shortName>bwjm</shortName>
+            <hierarchyLevel>5</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>25749346</id>
+                    <name>Meldungen Bezirk West Jugend männlich</name>
+                    <shortName>bwjm</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749345</id>
+                    <name>SBVV Bezirk West Jugend</name>
+                    <shortName>bwj</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749344</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749343</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749342</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749341</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>SBVV Bezirk West</name>
+            <shortName>SBVV-West</shortName>
+        </association>
+                </matchSeries>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27626921</id>
+                            <uuid>ef1719fd-d548-4798-9357-b430e298a031</uuid>
+                            <name>TB Emmendingen 1</name>
+                            <club>TB Emmendingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27761467</id>
+                            <uuid>011e607b-b90a-4adf-b0cc-3f5d70bf5b29</uuid>
+                            <name>TB Emmendingen 2</name>
+                            <club>TB Emmendingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27273627</id>
+                            <uuid>ba6f2868-693a-4b83-b7a9-31bd8d928eed</uuid>
+                            <name>TV Kappelrodeck</name>
+                            <club>TV Kappelrodeck</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>28081727</id>
+                            <uuid>25d2dad8-ba5c-489a-9ac9-7f71678c907c</uuid>
+                            <name>VC Minseln</name>
+                            <club>VC Minseln</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>26985193</id>
+                            <uuid>a43c4527-cf19-43c6-87e1-b0190bfe49b1</uuid>
+                            <name>VC Müllheim</name>
+                            <club>VC Müllheim</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27048436</id>
+                            <uuid>af00be56-c960-48c5-ac38-3070f7cecbde</uuid>
+                            <name>VC Offenburg</name>
+                            <club>VC Offenburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27751648</id>
+                            <uuid>d8b115fa-5a52-442c-9550-d66f50d7e10d</uuid>
+                            <name>VSG Rebland</name>
+                            <club>TV Zell-Weierbach</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27875219</id>
+                            <uuid>8494f8e9-af37-49c6-a2e4-c53fadf98546</uuid>
+                            <name>VfR Merzhausen</name>
+                            <club>VfR Merzhausen</club>
+                        </team>
+                    </ranking>
+        </rankings>
