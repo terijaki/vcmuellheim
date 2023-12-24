@@ -3,7 +3,7 @@ layout: team
 title: Herren I
 sorting: 1
 liga: true
-sbvv_id: 25932650
+sbvv_id: null
 trainings-zeit1: 'Dienstags & Donnerstags 20:00-22:00 Uhr'
 trainings-ort1: 'Sporthalle II Teil E'
 trainings-map1: 'https://goo.gl/maps/g3XhvCS9gpR2'
