@@ -64,15 +64,10 @@ jobs:
           echo "🛑 HALT! SAMS seems to be in maintenance mode. 🛑"
           exit 1
           fi
-          
-      - name: Git Commit & Push
-        if: steps.sams_maintenance_check.conclusion == 'success'
-        continue-on-error: true
-        run: |
-          git add "${{env.SAMS_CLUB_XML}}"
-          git commit -m "sams raw club update"
-          git pull --rebase --quiet
-          git push origin --all --quiet
+          if [! -s "${{env.SAMS_CLUB_XML}}"]; then
+          echo "🛑 HALT! SAMS seems to be in maintenance mode. 🛑"
+          exit 1
+          fi
 
       - name: Isolate Teams from XML # this reads the XML file and extracts the team IDs
         id: teamids-from-club
@@ -98,6 +93,10 @@ jobs:
         if: steps.sams_maintenance_check.conclusion == 'success'
         continue-on-error: true
         run: |
+          git add "${{env.SAMS_CLUB_XML}}"
+          git commit -m "sams raw club update"
+          git pull --rebase --quiet
+          git push origin --all --quiet
           git add "${{env.SAMS_CLUB_JSON}}"
           git commit -m "sams raw club update [skip ci]"
           git pull --rebase --quiet
