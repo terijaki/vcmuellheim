@@ -3,7 +3,7 @@ layout: team
 title: Herren II
 sorting: 1
 liga: true
-sbvv_id: null
+sbvv_id: 25921031
 alter: ''
 trainings-zeit1: 'Dienstags 20:00-22:00 Uhr'
 trainings-ort1: Rosenburgschule

@@ -3,7 +3,7 @@ layout: team
 title: Damen II
 sorting: 2
 liga: true
-sbvv_id: null
+sbvv_id: 25922075
 alter: ''
 trainings-zeit1: 'Dienstags 18:30-20:00 Uhr'
 trainings-ort1: Sporthalle II Teil D (Gymnastikhalle)
