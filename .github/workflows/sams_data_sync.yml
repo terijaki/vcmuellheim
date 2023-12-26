@@ -64,7 +64,9 @@ jobs:
           echo "🛑 HALT! SAMS seems to be in maintenance mode. 🛑"
           exit 1
           fi
-          if [! -s "${{env.SAMS_CLUB_XML}}"]; then
+          if grep -q . ${{env.SAMS_CLUB_XML}}; then
+          echo "✅ file seems fine"
+          else
           echo "🛑 HALT! SAMS seems to be in maintenance mode. 🛑"
           exit 1
           fi
@@ -101,7 +103,6 @@ jobs:
           git commit -m "sams raw club update [skip ci]"
           git pull --rebase --quiet
           git push origin --all --quiet
-
 
   #######################
   ### RANKINGS UPDATE ###
