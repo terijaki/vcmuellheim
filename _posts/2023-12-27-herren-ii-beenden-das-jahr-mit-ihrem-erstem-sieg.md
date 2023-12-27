@@ -1,5 +1,6 @@
 ---
 layout: post
+posted-on-social: true
 title: Herren II beenden das Jahr mit ihrem erstem Sieg!
 date: 2023-12-27T17:12:29Z
 gallery:
