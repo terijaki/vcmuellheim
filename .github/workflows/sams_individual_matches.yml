@@ -14,7 +14,6 @@ env:
   INDIVIDUAL_MATCHES_TARGET: _spielergebnisse/
 
 jobs:
-
   Identify-Update:
     runs-on: ubuntu-latest
     outputs:
@@ -24,7 +23,7 @@ jobs:
         id: files
         uses: masesgroup/retrieve-changed-files@v2
         with:
-          format: 'json'
+          format: "json"
 
   #######################
   ### MATCHES PROCESS ###
@@ -122,6 +121,7 @@ jobs:
           git commit -m "new or updated individual matches"
 
       - name: Git Push
+        if: steps.download_individual_matches.conclusion == 'success'
         continue-on-error: true # don't throw an error as there won't always be changes
         run: |
           git pull --rebase
