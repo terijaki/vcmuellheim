@@ -11,7 +11,7 @@ export default function HomeSponsors() {
 				className="col-full-content text-white bg-gradient-overlay"
 			>
 				<ExportedImage
-					src="images/backgrounds/sponsor.jpg"
+					src="images/backgrounds/sponsors.jpg"
 					loading="lazy"
 					fill
 					alt=""
