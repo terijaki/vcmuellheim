@@ -23,7 +23,7 @@ export default function FotosDisplay() {
 			/>
 			<div className="col-center-content md:col-full-content my-5 md:mx-6 grid gap-3 auto-cols-auto grid-cols-2 md:grid-cols-[repeat(auto-fit,minmax(250px,1fr))] ">
 				{fotos.map((image, index) => {
-					if (index < 4) {
+					if (index < 12) {
 						return (
 							<Link
 								key={image}
