@@ -1,1 +1,145 @@
-null
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "26693728",
+      "uuid": "3125addc-fa15-4d72-8bde-bd733495cfe1",
+      "allSeasonId": "3125addc-fa15-4d72-8bde-bd733495cfe1",
+      "name": "West Quali - U14m am 25.11.2023",
+      "shortName": "WQ_U14m",
+      "type": "Competition",
+      "updated": "2023-11-25 16:56:57.299",
+      "structureUpdated": "2023-11-25 16:56:57.299",
+      "resultsUpdated": "2023-01-15 16:33:00.278",
+      "season": {
+        "id": "25640073",
+        "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+        "name": "2023/24"
+      },
+      "hierarchy": {
+        "id": "25749346",
+        "uuid": "8a98d50a-82a5-4d57-b6f8-6cd07be978a3",
+        "name": "Meldungen Bezirk West Jugend männlich",
+        "shortName": "bwjm",
+        "hierarchyLevel": "5"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "25749346",
+            "name": "Meldungen Bezirk West Jugend männlich",
+            "shortName": "bwjm",
+            "hierarchyLevel": "5"
+          },
+          {
+            "id": "25749345",
+            "name": "SBVV Bezirk West Jugend",
+            "shortName": "bwj",
+            "hierarchyLevel": "4"
+          },
+          {
+            "id": "25749344",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "3"
+          },
+          {
+            "id": "25749343",
+            "name": "Regionaljugendmeisterschaften",
+            "shortName": "rjm",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "25749342",
+            "name": "Deutsche Jugendmeisterschaften",
+            "shortName": "djm",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "25749341",
+            "name": "Jugendspielbetrieb",
+            "shortName": "jug",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": "SBVV Bezirk West",
+        "shortName": "SBVV-West"
+      }
+    },
+    "ranking": [
+      {
+        "place": null,
+        "team": {
+          "id": "27057512",
+          "uuid": "2acef049-6c76-4596-91de-17d9e03f00ca",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27057526",
+          "uuid": "9725572b-4308-439a-9586-b79fe1a6c816",
+          "name": "FT 1844 Freiburg 2",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27057541",
+          "uuid": "9374df18-f49b-4419-9aa7-40109bf1c971",
+          "name": "FT 1844 Freiburg 3",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27216307",
+          "uuid": "75c8a576-0c0d-41b0-8ddd-c92a05c858a2",
+          "name": "VC Haslach",
+          "club": "VC 94 Haslach"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27172826",
+          "uuid": "81ef5fb6-3bae-4c42-9f2f-2cad395184b3",
+          "name": "VC Minseln",
+          "club": "VC Minseln"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "26985141",
+          "uuid": "086def7d-9d7a-48d1-aa76-fa45f59d317b",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "26985110",
+          "uuid": "625ccdc9-fe2e-4130-af1b-90437fa12df6",
+          "name": "VC Offenburg",
+          "club": "VC Offenburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27475323",
+          "uuid": "c4999234-ce57-42bd-a7d9-0c7298355a77",
+          "name": "VC Weil",
+          "club": "VC Weil"
+        }
+      }
+    ]
+  }
+}
