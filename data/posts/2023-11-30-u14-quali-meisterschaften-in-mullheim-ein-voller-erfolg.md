@@ -1,21 +1,20 @@
 ---
-posted-on-social: true
-posted-on-social: true
 title: U14 Quali-Meisterschaften in Müllheim ein voller Erfolg
 date: 2023-11-30T15:44:35Z
 gallery:
-- /images/blog/2023/11/30/20231125-wa0017.jpg
-- /images/blog/2023/11/30/20231125-wa0032.jpg
-- /images/blog/2023/11/30/20231125-wa0072.jpg
-- /images/blog/2023/11/30/20231125-wa0101.jpg
-- /images/blog/2023/11/30/20231125-wa0109.jpg
-- /images/blog/2023/11/30/20231125-wa0125.jpg
-- /images/blog/2023/11/30/20231125-wa0134.jpg
-- /images/blog/2023/11/30/20231125-wa0145.jpg
-- /images/blog/2023/11/30/20231125-wa0157.jpg
-- /images/blog/2023/11/30/20231126-wa0011.jpg
-- /images/blog/2023/11/30/20231126-wa0030.jpg
+  - /images/blog/2023/11/30/20231125-wa0017.jpg
+  - /images/blog/2023/11/30/20231125-wa0032.jpg
+  - /images/blog/2023/11/30/20231125-wa0072.jpg
+  - /images/blog/2023/11/30/20231125-wa0101.jpg
+  - /images/blog/2023/11/30/20231125-wa0109.jpg
+  - /images/blog/2023/11/30/20231125-wa0125.jpg
+  - /images/blog/2023/11/30/20231125-wa0134.jpg
+  - /images/blog/2023/11/30/20231125-wa0145.jpg
+  - /images/blog/2023/11/30/20231125-wa0157.jpg
+  - /images/blog/2023/11/30/20231126-wa0011.jpg
+  - /images/blog/2023/11/30/20231126-wa0030.jpg
 ---
+
 Am vergangenen Samstag 25.11.23 fanden in Müllheim die
 Quali-Meisterschaft der Jungs U14 und die Vor-Quali zur Meisterschaft
 der U14 Mädchen statt.
@@ -64,4 +63,4 @@ Helfer, sei es Auf- und Abbau oder Kuchenverkauf etc..
 Wir schauen damit aufs nächste Wochenende am 03.12.23 sind dann die U16
 Meisterschaften zu Gast!
 
-*Euer Dominik*
+_Euer Dominik_

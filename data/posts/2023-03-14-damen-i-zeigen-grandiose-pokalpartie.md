@@ -1,7 +1,5 @@
 ---
 date: 2023-03-14
-posted-on-social: true
-posted-on-social: true
 title: Damen I zeigen grandiose Pokalpartie
 thumbnail: /images/blog/2023/03/14/img-20230309-wa0051.jpg
 gallery:
@@ -12,7 +10,6 @@ gallery:
   - /images/blog/2023/03/14/img-20230309-wa0089.jpg
   - /images/blog/2023/03/14/img-20230309-wa0095.jpg
   - /images/blog/2023/03/14/img-20230309-wa0108.jpg
-_template: neuen_beitrag_erstellen
 ---
 
 Vergangenen Donnerstag, dem 9.03.2023, gab es für unsere Damen I ein Pokalspiel gegen die starke Mannschaft von TV Hartheim II aus der Bezirksklasse, also eine Liga über unseren Mädels.

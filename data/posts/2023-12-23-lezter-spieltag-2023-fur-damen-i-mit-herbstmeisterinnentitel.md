@@ -1,17 +1,16 @@
 ---
-posted-on-social: true
-posted-on-social: true
 title: Lezter Spieltag 2023 fur Damen I  mit Herbstmeisterinnentitel
 date: 2023-12-23T18:19:25Z
 gallery:
-- /images/blog/2023/12/23/20231209-wa0045.jpg
-- /images/blog/2023/12/23/20231209-wa0052.jpg
-- /images/blog/2023/12/23/20231209-wa0068.jpg
-- /images/blog/2023/12/23/20231209-wa0093.jpg
-- /images/blog/2023/12/23/20231209-wa0096.jpg
-- /images/blog/2023/12/23/20231209-wa0110.jpg
-- /images/blog/2023/12/23/20231209-wa0117.jpg
+  - /images/blog/2023/12/23/20231209-wa0045.jpg
+  - /images/blog/2023/12/23/20231209-wa0052.jpg
+  - /images/blog/2023/12/23/20231209-wa0068.jpg
+  - /images/blog/2023/12/23/20231209-wa0093.jpg
+  - /images/blog/2023/12/23/20231209-wa0096.jpg
+  - /images/blog/2023/12/23/20231209-wa0110.jpg
+  - /images/blog/2023/12/23/20231209-wa0117.jpg
 ---
+
 **<u>Letzter Spieltag 2023 für Damen I mit Herbstmeisterinnentitel</u>**
 
 Damen I hat ein sehr erfolgreiches und vor allem lehrreiches Jahr hinter

@@ -1,12 +1,10 @@
 ---
 date: 2020-03-02
-posted-on-social: true
-posted-on-social: true
-title: 'SBVV: Informationen zum Coronavirus'
-_template: neuen_beitrag_erstellen
+title: "SBVV: Informationen zum Coronavirus"
 ---
 
 Der Südbadische Volleyball-Verband veröffentlichte am vergangenen Freitag folgenden Beitrag zum Thema Coronavirus auf: [volleyball-baden.de](volleyball-baden.de)
+
 <!--more-->
 
 Zitat:

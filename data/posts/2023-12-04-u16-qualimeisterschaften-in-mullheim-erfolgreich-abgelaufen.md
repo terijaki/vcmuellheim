@@ -1,18 +1,17 @@
 ---
-posted-on-social: true
-posted-on-social: true
 title: U16 Qualimeisterschaften in Müllheim erfolgreich abgelaufen
 date: 2023-12-04T07:07:23Z
 gallery:
-- /images/blog/2023/12/04/20231203-wa0015.jpg
-- /images/blog/2023/12/04/20231203-wa0027.jpg
-- /images/blog/2023/12/04/20231203-wa0029.jpg
-- /images/blog/2023/12/04/20231203-wa0046.jpg
-- /images/blog/2023/12/04/20231203-wa0053.jpg
-- /images/blog/2023/12/04/20231203-wa0085.jpg
-- /images/blog/2023/12/04/20231203-wa0101.jpg
-- /images/blog/2023/12/04/20231203-wa0102.jpg
+  - /images/blog/2023/12/04/20231203-wa0015.jpg
+  - /images/blog/2023/12/04/20231203-wa0027.jpg
+  - /images/blog/2023/12/04/20231203-wa0029.jpg
+  - /images/blog/2023/12/04/20231203-wa0046.jpg
+  - /images/blog/2023/12/04/20231203-wa0053.jpg
+  - /images/blog/2023/12/04/20231203-wa0085.jpg
+  - /images/blog/2023/12/04/20231203-wa0101.jpg
+  - /images/blog/2023/12/04/20231203-wa0102.jpg
 ---
+
 Am Sonntag, 03.12.23 fanden in Müllheim die Qualimeisterschaften der U16
 statt, nachdem bereits eine Woche zuvor die U14 Meisterschaften in
 Müllheim zu Gast waren.
@@ -48,4 +47,4 @@ für ein Erfolg! Wir sind stolz auf euch!
 Ein großer Dank wieder allen Helferinnen und Helfern, vor allem an
 Familie Vogel für das tolle schmeißen des Kuchenverkaufs!
 
-*Euer Dominik*
+_Euer Dominik_

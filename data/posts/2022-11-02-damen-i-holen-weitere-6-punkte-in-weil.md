@@ -1,14 +1,13 @@
 ---
 date: 2022-11-02
-posted-on-social: true
-posted-on-social: true
 title: Damen I holen weitere 6 Punkte in Weil
 thumbnail: "/images/blog/2022/11/02/img-20221029-wa0084.jpg"
 gallery:
-- /images/blog/2022/11/02/img-20221029-wa0042.jpg
-- /images/blog/2022/11/02/img-20221029-wa0089.jpg
-- /images/blog/2022/11/02/img-20221029-wa0032.jpg
+  - /images/blog/2022/11/02/img-20221029-wa0042.jpg
+  - /images/blog/2022/11/02/img-20221029-wa0089.jpg
+  - /images/blog/2022/11/02/img-20221029-wa0032.jpg
 ---
+
 Am Samstag spielten Damen 1 in Weil am Rhein gegen Bad Säckingen 3 und Weil am Rhein 3.
 
 Nachdem das erste Spiel von uns gepfiffen wurde, hatten wir anschließend die Spiele zwei und drei.
@@ -24,4 +23,3 @@ Im vierten Satz kämpften wir dann und holten wir schlussendlich unseren verdien
 Ein weiterer tollen Spieltag, an dem wir viel lernen konnten und dabei kam jede Spielerin zum Einsatz. Einen großartigen 3. Tabellenplatz nach dem 6 Spieltag haben wir uns somit erkämpfen können.
 
 _Bericht von Carla Feifel & Dominik Ernst_
-

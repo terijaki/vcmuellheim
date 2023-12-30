@@ -1,16 +1,14 @@
 ---
 date: 2022-10-18
-posted-on-social: true
-posted-on-social: true
 title: Zweiter Spieltag der Saison für Damen 1
 gallery:
-- "/images/blog/2022/10/18/img_0821.jpg"
-- "/images/blog/2022/10/18/img_0830.jpg"
-- "/images/blog/2022/10/18/img_0835.jpg"
-- "/images/blog/2022/10/18/img_0838.jpg"
-- "/images/blog/2022/10/18/img_0853.jpg"
-- "/images/blog/2022/10/18/img_0872.jpg"
-- "/images/blog/2022/10/18/img_0888.jpg"
+  - "/images/blog/2022/10/18/img_0821.jpg"
+  - "/images/blog/2022/10/18/img_0830.jpg"
+  - "/images/blog/2022/10/18/img_0835.jpg"
+  - "/images/blog/2022/10/18/img_0838.jpg"
+  - "/images/blog/2022/10/18/img_0853.jpg"
+  - "/images/blog/2022/10/18/img_0872.jpg"
+  - "/images/blog/2022/10/18/img_0888.jpg"
 ---
 
 Vorgestern spielten Damen 1 erstmals in einem offiziellen Spiel gegen unsere Damen 2. Den ersten Satz konnten Damen 2 mit 25:14 für sich entscheiden.  

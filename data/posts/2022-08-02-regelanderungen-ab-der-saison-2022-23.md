@@ -1,10 +1,7 @@
 ---
 date: 2022-08-02
-posted-on-social: true
-posted-on-social: true
 title: Regeländerungen ab der Saison 2022/23
-thumbnail: ''
-_template: neuen_beitrag_erstellen
+thumbnail: ""
 ---
 
 Unser Volleyball Verband hat Änderungen ab dieser Saison angekündigt.

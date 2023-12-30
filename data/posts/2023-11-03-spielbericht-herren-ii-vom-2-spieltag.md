@@ -1,6 +1,4 @@
 ---
-posted-on-social: true
-posted-on-social: true
 title: Spielbericht Herren II vom 2. Spieltag
 gallery:
   - /images/blog/2023/11/03/img-20231029-wa0057.jpg
@@ -13,7 +11,7 @@ gallery:
 date: 2023-11-03T12:20:44.096Z
 ---
 
-Keine Punkte für Herren II an Spieltag 2. 
+Keine Punkte für Herren II an Spieltag 2.
 
 Am Samstag, dem 28. Oktober, stellte sich die Herrenmannschaft 2 vom VC Müllheim, dem TV Staufen 2 und dem VBG Efringen-Kirchen 1, in der Sporthalle in Efringen-Kirchen.
 
@@ -27,6 +25,6 @@ Der 1. Satz ging noch mit höherem Punkte-Abstand an Staufen, während der 2. do
 
 Und obwohl wir beide Spiele verloren haben, konnten wir weitaus besser mithalten als bei dem Spieltag davor. Das Niveau hat sich eindeutig gesteigert. Wir können trotz allem zufrieden mit unserer Leistung sein und blicken der Zukunft eifrig entgegen.
 
-Wir wünschen unseren verletzten Spielern gute Besserung und vor allem unserem Coach Philipp, der uns leider nicht begleiten konnte. Dafür sprang unser verletzter Zuspieler Dominik ein. 
+Wir wünschen unseren verletzten Spielern gute Besserung und vor allem unserem Coach Philipp, der uns leider nicht begleiten konnte. Dafür sprang unser verletzter Zuspieler Dominik ein.
 
 Bericht von Ruven Solovey

@@ -1,22 +1,21 @@
 ---
 date: 2023-03-30
-posted-on-social: true
-posted-on-social: true
 title: "Herren II ziehen in Endrunde des Bezirkspokals in Staufen ein"
 thumbnail: "/images/blog/2023/03/30/img-20230327-wa0016.jpg"
 gallery:
-- "/images/blog/2023/03/30/img-20230327-wa0057.jpg"
-- "/images/blog/2023/03/30/img-20230327-wa0056.jpg"
-- "/images/blog/2023/03/30/img-20230327-wa0037.jpg"
-- "/images/blog/2023/03/30/img-20230327-wa0035.jpg"
-- "/images/blog/2023/03/30/img-20230327-wa0032.jpg"
-- "/images/blog/2023/04/19/bezirkspokalstaufen1.jpg"
-- "/images/blog/2023/04/19/bezirkspokalstaufen2.jpg"
-- "/images/blog/2023/04/19/bezirkspokalstaufen3.jpg"
-- "/images/blog/2023/04/19/bezirkspokalstaufen4.jpg"
-- "/images/blog/2023/04/19/bezirkspokalstaufen5.jpg"
-- "/images/blog/2023/04/19/bezirkspokalstaufen6.jpg"
+  - "/images/blog/2023/03/30/img-20230327-wa0057.jpg"
+  - "/images/blog/2023/03/30/img-20230327-wa0056.jpg"
+  - "/images/blog/2023/03/30/img-20230327-wa0037.jpg"
+  - "/images/blog/2023/03/30/img-20230327-wa0035.jpg"
+  - "/images/blog/2023/03/30/img-20230327-wa0032.jpg"
+  - "/images/blog/2023/04/19/bezirkspokalstaufen1.jpg"
+  - "/images/blog/2023/04/19/bezirkspokalstaufen2.jpg"
+  - "/images/blog/2023/04/19/bezirkspokalstaufen3.jpg"
+  - "/images/blog/2023/04/19/bezirkspokalstaufen4.jpg"
+  - "/images/blog/2023/04/19/bezirkspokalstaufen5.jpg"
+  - "/images/blog/2023/04/19/bezirkspokalstaufen6.jpg"
 ---
+
 Am Montag, 27.03.23 spielten unsere Herren II ihr Vorrundenspiel im Bezirkspokal auswärts beim TV Freiburg St. Georgen. Erstmals dabei waren 5 hoffnungsvolle Talente der U20.
 
 Beim TV St. Georgen stand deren kommende zweite Mannschaft auf dem Feld, die aber als U20 diese Saison schon einige erfolge bei den Jugendmeisterschaften sammelten.

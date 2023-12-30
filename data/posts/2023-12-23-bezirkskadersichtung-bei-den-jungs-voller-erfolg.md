@@ -1,14 +1,13 @@
 ---
-posted-on-social: true
-posted-on-social: true
 title: Bezirkskadersichtung bei den Jungs voller Erfolg
 date: 2023-12-23T18:30:21Z
 gallery:
-- /images/blog/2023/12/23/20231218-wa0003.jpg
-- /images/blog/2023/12/23/20231220-wa0031.jpg
-- /images/blog/2023/12/23/20231220-wa0032.jpg
-- /images/blog/2023/12/23/20231220-wa0036.jpg
+  - /images/blog/2023/12/23/20231218-wa0003.jpg
+  - /images/blog/2023/12/23/20231220-wa0031.jpg
+  - /images/blog/2023/12/23/20231220-wa0032.jpg
+  - /images/blog/2023/12/23/20231220-wa0036.jpg
 ---
+
 **<u>Bezirkskadersichtung bei den Jungs voller Erfolg</u>**
 
 Für unsere U14-Jungs geht das Jahr ebenfalls, wie bei der gesamten

@@ -1,8 +1,6 @@
 ---
 date: 2020-05-06
-posted-on-social: true
-posted-on-social: true
-title: 'DVV Informationen zur Rückkehr in den Sportbetrieb'
+title: "DVV Informationen zur Rückkehr in den Sportbetrieb"
 ---
 
 Der Deutsche Volleyball-Verband hat sich wie folgt zu diesem Thema geäußert:
@@ -50,7 +48,7 @@ Der Deutsche Volleyball-Verband hat sich wie folgt zu diesem Thema geäußert:
 >
 > Wir freuen uns über erste Lockerungen in mehreren Bundesländern, doch
 > gemeinsam mit dem DOSB verfolgen wir weiterhin das Ziel der
-> bundesweiten Rückkehr zum Sporttreiben.   Die wichtigste Voraussetzung
+> bundesweiten Rückkehr zum Sporttreiben. Die wichtigste Voraussetzung
 > in der Zeit der Corona-Pandemie ist trotz aller Empfehlungen die
 > offizielle Freigabe des Sportbetriebs durch die Kommunen und
 > entsprechenden behördlichen Regeln vor Ort.
@@ -58,8 +56,6 @@ Der Deutsche Volleyball-Verband hat sich wie folgt zu diesem Thema geäußert:
 > Ich wünsche Euch weiterhin eine erfolgreiche Woche und bleibt gesund,
 >
 > Nicole Fetting, DVV Generalsekretärin
-
-
 
 Handlungsemfehlungen, Übergangsregelungen, und Leitplanken findet ihr als Anhang im Beitrag auf [volleyball-baden.de](https://www.volleyball-baden.de/cms/home.xhtml?component_4313368.showArticle=16639414&component_4313368.page=0#a_4313368_16639414)
 

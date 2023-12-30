@@ -1,16 +1,15 @@
 ---
 date: 2022-12-01
-posted-on-social: true
-posted-on-social: true
 title: Damen I bestreiten nächsten erfolgreichen Heimspieltag
 thumbnail: "/images/blog/2022/12/01/img-20221127-wa0008.jpg"
 gallery:
-- /images/blog/2022/12/01/img-20221127-wa0038.jpg
-- /images/blog/2022/12/01/img-20221127-wa0064.jpg
-- /images/blog/2022/12/01/img-20221127-wa0088.jpg
-- /images/blog/2022/12/01/img-20221127-wa0108.jpg
+  - /images/blog/2022/12/01/img-20221127-wa0038.jpg
+  - /images/blog/2022/12/01/img-20221127-wa0064.jpg
+  - /images/blog/2022/12/01/img-20221127-wa0088.jpg
+  - /images/blog/2022/12/01/img-20221127-wa0108.jpg
 ---
-Vergangenen Sonntag war es wieder so weit, Damen I spielten nach mehreren Auswärtsspielen wieder ein Heimspiel. 
+
+Vergangenen Sonntag war es wieder so weit, Damen I spielten nach mehreren Auswärtsspielen wieder ein Heimspiel.
 
 Gäste bei diesem waren VC Weil III & VC Weil IV.
 
@@ -25,4 +24,3 @@ Schlussendlich waren es aber erneut belehrende 6 Sätze, die gespielt wurden, f�
 Außerdem freuen wir uns einen neuen und weiteren Co-Trainer für unser Team begrüßen zu dürfen nämlich Matteo Mucci und wir freuen uns auf zukünftige Spiele als ein Team.
 
 _Spielbericht von Melisa Trtovac_
-

@@ -1,16 +1,15 @@
 ---
 date: 2022-12-13
-posted-on-social: true
-posted-on-social: true
 title: Herren II holen hart erkämpften Sieg gegen Rieselfeld in Zell-Weierbach
 thumbnail: "/images/blog/2022/12/13/20221211_151902.jpg"
 gallery:
-- /images/blog/2022/12/13/20221211_132234.jpg
-- /images/blog/2022/12/13/20221211_132329.jpg
-- /images/blog/2022/12/13/20221211_150520.jpg
-- /images/blog/2022/12/13/20221211_162124.jpg
-- /images/blog/2022/12/13/20221211_162140.jpg
+  - /images/blog/2022/12/13/20221211_132234.jpg
+  - /images/blog/2022/12/13/20221211_132329.jpg
+  - /images/blog/2022/12/13/20221211_150520.jpg
+  - /images/blog/2022/12/13/20221211_162124.jpg
+  - /images/blog/2022/12/13/20221211_162140.jpg
 ---
+
 Der VC Müllheim II ist am Sonntag nach Zell-Weierbach gereist, um gegen den Gastgeber und gegen SvO Rieselfeld zu spielen.
 
 Das erste Spiel gegen Zell-Weierbach haben wir leider direkt 0:3 verloren.
@@ -28,4 +27,3 @@ Jedoch lagen wir im entscheidenden Satz schnell 1:5 zurück, haben dann 9 Punkte
 Dieser 5. Satz hat unsere Spielweise an diesem Spieltag in Zell widergespiegelt, wie eine Achterbahn, aber wir haben in diesen 3 letzten Sätzen als Mannschaft gekämpft und uns dafür selbst belohnt.
 
 _Spielbericht von Laurent Joly_
-

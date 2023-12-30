@@ -1,13 +1,10 @@
 ---
 date: 2021-09-07
-posted-on-social: true
-posted-on-social: true
 title: Erstes Testspiel der Damen in der Vorbereitung
 thumbnail: /images/blog/2021/09/07/whatsapp-image-2021-09-07-at-16-48-10-5.jpeg
-_template: neuen_beitrag_erstellen
 ---
 
-Unsere Damen sind gestern zu einem kleinen Testspiel nach Heuweiler gegen den TV Gundelfingen II gefahren. Unsere Mädels waren nochmals gemischt aus Spielerinnen der Damen I+II. Unsere Spielerinnen Abigail und Finja durften ihr erstes Spiel machen. Das Spiel ging 3:1 für Gundelfingen aus aber hat viel Spaß gemacht und war ein weiterer Erfolg an Erfahrung. 
+Unsere Damen sind gestern zu einem kleinen Testspiel nach Heuweiler gegen den TV Gundelfingen II gefahren. Unsere Mädels waren nochmals gemischt aus Spielerinnen der Damen I+II. Unsere Spielerinnen Abigail und Finja durften ihr erstes Spiel machen. Das Spiel ging 3:1 für Gundelfingen aus aber hat viel Spaß gemacht und war ein weiterer Erfolg an Erfahrung.
 
 Die Sätze:
 

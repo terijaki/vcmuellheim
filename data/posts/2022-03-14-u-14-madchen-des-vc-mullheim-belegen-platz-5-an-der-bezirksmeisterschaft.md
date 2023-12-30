@@ -1,12 +1,9 @@
 ---
 date: 2022-03-14
-posted-on-social: true
-posted-on-social: true
 title: U 14 Mädchen des VC Müllheim belegen Platz 5 an der Bezirksmeisterschaft
-thumbnail: ''
-_template: neuen_beitrag_erstellen
+thumbnail: ""
 gallery:
-- /images/blog/2022/03/14/20220306_104752.jpg
+  - /images/blog/2022/03/14/20220306_104752.jpg
 ---
 
 Am Sonntag, 06.03.2022 durften unsere neuen Mädchen der U14 an der Bezirksmeisterschaft des Bezirks West des SBVV teilnehmen. Für manche war es die erste spielerische Erfahrung für andere etwas komplett anderes als der Ligaalltag.
@@ -18,5 +15,3 @@ Unsere Mädels belegten abschließend das Turnier auf dem 5. Platz. Man verlor n
 Trainer wie Spielerinnen sind überaus zufrieden und glücklich endlich auch bei einem Jugendturnier an den Start gegangen sein zu können.
 
 Unsere Jugend wird sich auch in der kommenden Saison stetig weiter entwickeln.
-
-

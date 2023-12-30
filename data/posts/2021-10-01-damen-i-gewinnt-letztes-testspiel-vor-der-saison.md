@@ -1,10 +1,7 @@
 ---
 date: 2021-10-01
-posted-on-social: true
-posted-on-social: true
 title: Damen I gewinnt letztes Testspiel vor der Saison
 thumbnail: /images/blog/2021/10/01/whatsapp-image-2021-10-01-at-10-00-56-1.jpeg
-_template: neuen_beitrag_erstellen
 ---
 
 Unsere Damen I konnte am Mittwoch Abend nochmals ein Testspiel durchführen. Gegner war die zweite Mannschaft der Vbg Efringen-Kirchen aus der Kreisliga Süd.

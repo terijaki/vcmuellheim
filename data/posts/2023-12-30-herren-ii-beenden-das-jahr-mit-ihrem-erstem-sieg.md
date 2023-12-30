@@ -1,19 +1,19 @@
 ---
 layout: post
-posted-on-social: true
 title: Herren II beenden das Jahr mit ihrem erstem Sieg!
 date: 2023-12-30T15:55:34Z
 gallery:
-- /images/blog/2023/12/30/20231217-wa0012.jpg
-- /images/blog/2023/12/30/20231217-wa0031.jpg
-- /images/blog/2023/12/30/20231217-wa0085.jpg
-- /images/blog/2023/12/30/20231217-wa0096.jpg
-- /images/blog/2023/12/30/20231217-wa0137.jpg
-- /images/blog/2023/12/30/20231217-wa0144.jpg
-- /images/blog/2023/12/30/20231217-wa0148.jpg
-- /images/blog/2023/12/30/20231217-wa0161.jpg
-- /images/blog/2023/12/30/20231217-wa0174.jpg
+  - /images/blog/2023/12/30/20231217-wa0012.jpg
+  - /images/blog/2023/12/30/20231217-wa0031.jpg
+  - /images/blog/2023/12/30/20231217-wa0085.jpg
+  - /images/blog/2023/12/30/20231217-wa0096.jpg
+  - /images/blog/2023/12/30/20231217-wa0137.jpg
+  - /images/blog/2023/12/30/20231217-wa0144.jpg
+  - /images/blog/2023/12/30/20231217-wa0148.jpg
+  - /images/blog/2023/12/30/20231217-wa0161.jpg
+  - /images/blog/2023/12/30/20231217-wa0174.jpg
 ---
+
 Am 17.12.23 kamen in der Halle II die Herren II des VCM, TV Bad
 Säckingen II und der VC Minseln zusammen, um einen Nachholspieltag zu
 spielen, dieser wäre sonst bereits im Oktober gewesen.

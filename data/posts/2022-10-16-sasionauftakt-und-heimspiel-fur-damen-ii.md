@@ -1,17 +1,14 @@
 ---
 date: 2022-10-16
-posted-on-social: true
-posted-on-social: true
 title: Sasionauftakt und Heimspiel für Damen II
 thumbnail: /images/blog/2022/10/16/damen2_3.jpeg
-_template: neuen_beitrag_erstellen
 gallery:
-- /images/blog/2022/10/16/damen2_1.jpg
-- /images/blog/2022/10/16/damen2_2.jpeg
-- /images/blog/2022/10/16/damen2_4.jpeg
-- /images/blog/2022/10/16/damen2_5.jpeg
-- /images/blog/2022/10/16/damen2_6.jpeg
-- /images/blog/2022/10/16/damen2_7.jpeg
+  - /images/blog/2022/10/16/damen2_1.jpg
+  - /images/blog/2022/10/16/damen2_2.jpeg
+  - /images/blog/2022/10/16/damen2_4.jpeg
+  - /images/blog/2022/10/16/damen2_5.jpeg
+  - /images/blog/2022/10/16/damen2_6.jpeg
+  - /images/blog/2022/10/16/damen2_7.jpeg
 ---
 
 Am vergangenen Sonntag hat für unsere Damen II die neue Saison begonnen mit einem Heimspiel begonnen.
@@ -23,5 +20,3 @@ Im zweiten Spiel stand ihnen der VBG Efringen-Kirchen gegenüber. Nach 2 verlore
 Mit insgesamt 4 Punkten und einem aktuell 4 Platz in der Tabelle, war es für unsere Damen II ein erfolgreicher Spieltag!
 
 Unser Team bedankt sich herzlich bei den zahlreich erschienenen Fans und Zuschauern, bei ihrem Trainer Andy, und natürlich bei den Gegnern VC Weil und VBG Efringen-Kirchen.
-
-

@@ -1,18 +1,15 @@
 ---
 date: 2022-09-28
-posted-on-social: true
-posted-on-social: true
 title: Platz 6 für Damen I beim Elztalpokal in Waldkirch
 thumbnail: /images/blog/2022/09/25/Elztalpokal11b.jpeg
-_template: neuen_beitrag_erstellen
 gallery:
-- /images/blog/2022/09/25/Elztalpokal9.jpeg
-- /images/blog/2022/09/25/Elztalpokal7.jpeg
-- /images/blog/2022/09/25/Elztalpokal13.jpeg
-- /images/blog/2022/09/25/Elztalpokal5.jpeg
-- /images/blog/2022/09/25/Elztalpokal6.jpeg
-- /images/blog/2022/09/25/Elztalpokal2.jpeg
-- /images/blog/2022/09/25/Elztalpokal3.jpeg
+  - /images/blog/2022/09/25/Elztalpokal9.jpeg
+  - /images/blog/2022/09/25/Elztalpokal7.jpeg
+  - /images/blog/2022/09/25/Elztalpokal13.jpeg
+  - /images/blog/2022/09/25/Elztalpokal5.jpeg
+  - /images/blog/2022/09/25/Elztalpokal6.jpeg
+  - /images/blog/2022/09/25/Elztalpokal2.jpeg
+  - /images/blog/2022/09/25/Elztalpokal3.jpeg
 ---
 
 Am Sonntag, 25.09.22 waren wir (Damen 1) vom VC Müllheim am Eltztalpokalturnier in Waldkirch.
@@ -34,5 +31,3 @@ Von neun Teams haben wir somit den sechsten Platz ergattert.
 Das Turnier hat allen sehr viel Spaß gemacht, wir konnten neue Strategien ausprobieren und kamen zu guten und langen Spielzügen.
 
 _Bericht von Carla Feifel & Dominik Ernst_
-
-

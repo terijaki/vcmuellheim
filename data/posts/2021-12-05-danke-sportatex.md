@@ -1,13 +1,10 @@
 ---
 date: 2021-12-05
-posted-on-social: true
-posted-on-social: true
 title: Danke Sportatex
-thumbnail: ''
+thumbnail: ""
 gallery:
-- /images/blog/2021/12/05/20211121_122446.jpg
+  - /images/blog/2021/12/05/20211121_122446.jpg
 ---
-
 
 Wir möchten uns herzlich bei [**Sportatex**]() bedanken für das Sponsoring unserer Trikots!
 

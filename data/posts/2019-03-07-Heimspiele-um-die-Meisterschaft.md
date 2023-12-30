@@ -1,7 +1,5 @@
 ---
 date: 2019-03-07
-posted-on-social: true
-posted-on-social: true
 title: Heimspiele um die Meisterschaft!
 ---
 

@@ -1,14 +1,12 @@
 ---
 date: 2023-07-24
-posted-on-social: true
-posted-on-social: true
 title: Neues von der Herren 2
 thumbnail: "/images/blog/2023/07/24/herren2_1.jpg"
 gallery:
-- "/images/blog/2023/07/24/herren2_2.jpg"
-- "/images/blog/2023/07/24/herren2_4.jpg"
-- "/images/blog/2023/07/24/herren2_5.jpg"
-- "/images/blog/2023/07/24/herren2_3.jpg"
+  - "/images/blog/2023/07/24/herren2_2.jpg"
+  - "/images/blog/2023/07/24/herren2_4.jpg"
+  - "/images/blog/2023/07/24/herren2_5.jpg"
+  - "/images/blog/2023/07/24/herren2_3.jpg"
 ---
 
 > Am 21.07.23 spielten unser komplett neu zusammengestelltes Herren 2 Team ihr erstes richtiges Spiel. Zu Gast war ein nicht zu unterschätzender TV Staufen 2, welche die vorherige Saison in der Bezirksklasse dominierten. Staufen gewann alle Liga Spiele und musste nur einen einzigen Punkt gegen den TV Bad Säckingen 2 abgeben.
@@ -23,6 +21,6 @@ gallery:
 > Wir verloren zwar unser 1. Testspiel gegen eine starke Mannschaft 1:2, haben alle aber sehr viel Erfahrungen sammeln dürfen.
 > Im Training heißt es nun an unseren Schwächen zu arbeiten. Diese sind unter anderem die Annahme, die Absicherung nach Angriffsschlägen und Block, sowie der Abstand zum Netz bei Block und Angriffsaktionen.
 > Auf dem Programm stehen noch eventuell Testspiele gegen Breisach 5, Endingen und TSV Frick 2.
-> Wir verabschieden und bedanken uns beim gegnerischen Team TV Staufen 2 fürs Kommen mit einem Hot-Shot! Sowie wünschen wir allen einen tollen Sommer, Schöne Sommerferien und viel Spaß beim Beachen. 
-> 
-> *Euer Philipp*
+> Wir verabschieden und bedanken uns beim gegnerischen Team TV Staufen 2 fürs Kommen mit einem Hot-Shot! Sowie wünschen wir allen einen tollen Sommer, Schöne Sommerferien und viel Spaß beim Beachen.
+>
+> _Euer Philipp_

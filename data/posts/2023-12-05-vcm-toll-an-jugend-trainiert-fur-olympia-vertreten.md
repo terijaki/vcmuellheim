@@ -1,18 +1,17 @@
 ---
-posted-on-social: true
-posted-on-social: true
 title: VCM toll an Jugend trainiert für Olympia vertreten
 date: 2023-12-05T08:54:46Z
 gallery:
-- /images/blog/2023/12/05/20231204_102157.jpg
-- /images/blog/2023/12/05/20231204_102200.jpg
-- /images/blog/2023/12/05/20231204_105509.jpg
-- /images/blog/2023/12/05/20231204_105511.jpg
-- /images/blog/2023/12/05/20231204_110012.jpg
-- /images/blog/2023/12/05/20231204_115437.jpg
-- /images/blog/2023/12/05/20231204_115438.jpg
-- /images/blog/2023/12/05/20231204_132114.jpg
+  - /images/blog/2023/12/05/20231204_102157.jpg
+  - /images/blog/2023/12/05/20231204_102200.jpg
+  - /images/blog/2023/12/05/20231204_105509.jpg
+  - /images/blog/2023/12/05/20231204_105511.jpg
+  - /images/blog/2023/12/05/20231204_110012.jpg
+  - /images/blog/2023/12/05/20231204_115437.jpg
+  - /images/blog/2023/12/05/20231204_115438.jpg
+  - /images/blog/2023/12/05/20231204_132114.jpg
 ---
+
 Am 04.12.23 fanden in Gundelfingen am Albert-Schweizer-Gymnasium die
 Wettkämpfe der Wettkampfklassen II (nur bei Mädchen) und III statt.
 

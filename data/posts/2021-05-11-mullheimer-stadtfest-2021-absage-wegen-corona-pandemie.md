@@ -1,12 +1,13 @@
 ---
 date: 2021-05-11
-posted-on-social: true
-posted-on-social: true
 title: Müllheimer Stadtfest 2021 - Absage wegen Corona-Pandemie
-thumbnail: ''
+thumbnail: ""
 ---
+
 Wie im letzten Jahr, müssen wir auch in 2021 pandemiebedingt auf unser Stadtfest verzichten.
+
 <!--more-->
+
 > Sehr geehrte Damen und Herren,
 >
 > liebe Müllheimer Vereine,

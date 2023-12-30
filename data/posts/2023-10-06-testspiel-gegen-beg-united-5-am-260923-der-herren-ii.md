@@ -1,5 +1,4 @@
 ---
-posted-on-social: true
 title: Testspiel gegen BEG United 5 der Herren II
 thumbnail: /images/blog/2023/09/06/testspiel_beg1.jpg
 gallery:
@@ -12,9 +11,9 @@ date: 2023-10-05T22:00:00.000Z
 
 Am 26.09.23 trafen die Spieler der Herren II pünktlich um 20:00 Uhr an der Rosenburghalle an. Heute stand ein Testspiel gegen Breisach 5 an.
 
-Nach Aufbau des Feldes, Aufwärmen und Einschlagen konnte um 20.30 Uhr das Spiel beginnen. 
+Nach Aufbau des Feldes, Aufwärmen und Einschlagen konnte um 20.30 Uhr das Spiel beginnen.
 
-Insgesamt wurden vier volle Sätze bis 25 Punkte gespielt. 
+Insgesamt wurden vier volle Sätze bis 25 Punkte gespielt.
 
 Wir starten im Satz 1 hauptsächlich mit unseren erfahrenen Spielern. Wir zogen unser Ding durch und gewannen Durchgang 1 mit einem Vorsprung von 7 Punkten 25:18. \
 Satz 2 beginnt mit der gleichen Aufstellung. Mitte des Satzes durften aber auch unser Nachwuchs ran. Auch Satz 2 spielten wir souverän durch und beendeten den Satz mit 25:20 Punkten. \

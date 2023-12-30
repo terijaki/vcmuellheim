@@ -1,10 +1,9 @@
 ---
 date: 2020-10-16
-posted-on-social: true
-posted-on-social: true
-title: 'Abgesagt: Spiele am 17 & 18 Oktober'
-thumbnail: ''
+title: "Abgesagt: Spiele am 17 & 18 Oktober"
+thumbnail: ""
 ---
+
 Aufgrund der weiter steigenden COVID19 Infektionszahlen hat der SBVV heute kurzfristig alle Spiele für dieses Wochenende abgesagt.
 
 Der SBVV Vorstand wird sich zu weiteren Schritten nächste Woche beraten.

@@ -1,10 +1,7 @@
 ---
 date: 2021-11-15
-posted-on-social: true
-posted-on-social: true
 title: VC Müllheim holt vier wichtige Punkte vor Geisterkulisse
 thumbnail: /images/blog/2021/11/15/img_8888.jpg
-_template: neuen_beitrag_erstellen
 ---
 
 gesponsert von [https://degen-gmbh.com/](https://degen-gmbh.com/ "https://degen-gmbh.com/")

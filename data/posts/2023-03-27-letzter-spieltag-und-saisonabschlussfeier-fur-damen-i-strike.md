@@ -1,19 +1,17 @@
 ---
 date: 2023-03-27
-posted-on-social: true
-posted-on-social: true
-title: 'Letzter Spieltag und Saisonabschlussfeier für Damen I #STRIKE!'
+title: "Letzter Spieltag und Saisonabschlussfeier für Damen I #STRIKE!"
 thumbnail: "/images/blog/2023/03/27/img-20230319-wa0019.jpg"
 gallery:
-- "/images/blog/2023/03/27/img-20230319-wa0070.jpg"
-- "/images/blog/2023/03/27/img-20230319-wa0041.jpg"
-- "/images/blog/2023/03/27/img-20230319-wa0038.jpg"
-- "/images/blog/2023/03/27/img-20230319-wa0037.jpg"
-- "/images/blog/2023/03/27/img-20230319-wa0027.jpg"
-- "/images/blog/2023/03/27/img-20230319-wa0021.jpg"
-- "/images/blog/2023/03/27/img-20230319-wa0018.jpg"
-
+  - "/images/blog/2023/03/27/img-20230319-wa0070.jpg"
+  - "/images/blog/2023/03/27/img-20230319-wa0041.jpg"
+  - "/images/blog/2023/03/27/img-20230319-wa0038.jpg"
+  - "/images/blog/2023/03/27/img-20230319-wa0037.jpg"
+  - "/images/blog/2023/03/27/img-20230319-wa0027.jpg"
+  - "/images/blog/2023/03/27/img-20230319-wa0021.jpg"
+  - "/images/blog/2023/03/27/img-20230319-wa0018.jpg"
 ---
+
 Am 19.03 waren wir von der Damen I an unserem letzten Spieltag der Saison in Breisach zu Gast.
 
 Dort zeigten wir zum Abschluss zwei gute Spiele.
@@ -32,7 +30,7 @@ Vielen Dank an unsere Trainer, die uns diese Saison begleitet haben: Dominik, Kl
 
 _Bericht von Carla Feifel_
 
-***
+---
 
 Danke gibt es auch von mir als Trainer zu sagen, an eine Mannschaft, die eine tolle Saison gespielt hat und die einfach einzigartig ist. Ich bin sehr stolz auf das, was ihr und wir gemeinsam erreicht haben!
 
@@ -46,7 +44,7 @@ Danke allen Spielerinnen und ich wünsche allen das Beste für eure Zukunft!
 
 _Euer Dominik_
 
-***
+---
 
 Für die Damen I des VCM spielten in dieser Saison:
 

@@ -1,18 +1,15 @@
 ---
 date: 2022-06-19
-posted-on-social: true
-posted-on-social: true
-title: 'Stadtfest 2022: Aufbau'
+title: "Stadtfest 2022: Aufbau"
 thumbnail: /images/blog/2022/06/19/img_1835.jpeg
-_template: neuen_beitrag_erstellen
 gallery:
-- /images/blog/2022/06/19/img_1797.jpeg
-- /images/blog/2022/06/19/img_1792.jpeg
-- /images/blog/2022/06/19/img_1810.jpeg
-- /images/blog/2022/06/19/img_1819.jpeg
-- /images/blog/2022/06/19/img_1844.jpeg
-- /images/blog/2022/06/19/img_1859.jpeg
-- /images/blog/2022/06/19/img_1596.jpeg
+  - /images/blog/2022/06/19/img_1797.jpeg
+  - /images/blog/2022/06/19/img_1792.jpeg
+  - /images/blog/2022/06/19/img_1810.jpeg
+  - /images/blog/2022/06/19/img_1819.jpeg
+  - /images/blog/2022/06/19/img_1844.jpeg
+  - /images/blog/2022/06/19/img_1859.jpeg
+  - /images/blog/2022/06/19/img_1596.jpeg
 ---
 
 Das Stadtfest in Müllheim findet wieder statt und feiert in diesem Jahr seinen 50. Geburtstag.
@@ -28,11 +25,3 @@ Unser Team besteht ausschließlich aus Vereinsmitgliedern und freiwilligen Helfe
 Die Einnahmen aus dem Stadtfest helfen dabei Jahresbeiträge für alle Spieler und Spielerinnen niedrig zu halten, neue Mitglieder aufzunehmen und an Turnieren teilnehmen zu können.
 
 Wir freuen uns daher auf reichlich Zulauf und wünschen uns allen ein schönes Stadtfest 2022!
-
-
-
-
-
-
-
-

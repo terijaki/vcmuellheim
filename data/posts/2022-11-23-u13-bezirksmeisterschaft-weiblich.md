@@ -1,17 +1,14 @@
 ---
 date: 2022-11-23
-posted-on-social: true
-posted-on-social: true
 title: U13 Bezirksmeisterschaft weiblich
 thumbnail: /images/blog/2022/11/23/20221119_121344.jpg
-_template: neuen_beitrag_erstellen
 gallery:
-- /images/blog/2022/11/23/20221119_111913.jpg
-- /images/blog/2022/11/23/20221119_111940.jpg
-- /images/blog/2022/11/23/img-20221120-wa0058.jpg
-- /images/blog/2022/11/23/img-20221120-wa0059.jpg
-- /images/blog/2022/11/23/img-20221120-wa0060.jpg
-- /images/blog/2022/11/23/img-20221120-wa0062.jpg
+  - /images/blog/2022/11/23/20221119_111913.jpg
+  - /images/blog/2022/11/23/20221119_111940.jpg
+  - /images/blog/2022/11/23/img-20221120-wa0058.jpg
+  - /images/blog/2022/11/23/img-20221120-wa0059.jpg
+  - /images/blog/2022/11/23/img-20221120-wa0060.jpg
+  - /images/blog/2022/11/23/img-20221120-wa0062.jpg
 ---
 
 Platz 11 von 17 Teams
@@ -25,5 +22,3 @@ In der Zwischenrunde trafen wir auf den TV Freiburg St.Georgen, den VfR Umkirch 
 Dies gewannen wir sicher mit 2:0 und sind somit unter den 12 Teams, die sich für die Endrunde qualifiziert haben.
 
 Das Team hat sich während der Meisterschaft extrem gesteigert und wird die Zeit bis zur Endrunde im März kräftig trainieren, um sich noch ein paar Plätze in der Rangliste nach vorne zu schieben.
-
-

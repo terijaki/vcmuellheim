@@ -1,9 +1,8 @@
 ---
-posted-on-social: true
-posted-on-social: true
 title: "Experiment: WhatsApp-Kanal"
 date: 2023-11-20T17:25:41Z
 ---
+
 Vor einigen Wochen ist die Kanal-Funktion in WhatsApp erschienen. Da viele unserer Mitglieder und Mannschaften bereits WhatsApp nutzen, möchten wir ein **Experiment** starten!
 
 Da es sich um eine neue Funktion handelt, gibt es noch zu wenig Erfahrungsberichte. Wir wissen nicht, ob die Funktion intuitiv ist, oder in wie weit Nutzer:innen einen Mehrwert darin sehen.

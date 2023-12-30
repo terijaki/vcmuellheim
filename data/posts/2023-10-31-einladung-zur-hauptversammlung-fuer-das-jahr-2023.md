@@ -1,6 +1,4 @@
 ---
-posted-on-social: true
-posted-on-social: true
 title: Einladung zur Hauptversammlung für das Jahr 2023
 date: 2023-10-31T06:53:45.953Z
 ---
@@ -28,8 +26,7 @@ Anträge zur Hauptversammlung sind bis zum 08.11.23 schriftlich oder per E-Mail 
 
 Mit freundlichen Grüßen
 
-*[Lothar Voigt](mailto:lothar@vcmuellheim.de)*\
-*1. Vorsitzender*
-
+_[Lothar Voigt](mailto:lothar@vcmuellheim.de)_\
+_1. Vorsitzender_
 
 **Update vom 2. November**: Der Vorstand wird einen Antrag stellen, um die antiquierte Satzung aus 1987 abzulösen.

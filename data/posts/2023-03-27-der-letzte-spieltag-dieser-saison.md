@@ -1,15 +1,13 @@
 ---
 date: 2023-03-27
-posted-on-social: true
-posted-on-social: true
 title: Der letzte Spieltag dieser Saison
 thumbnail: "/images/blog/2023/03/27/img-20230318-wa0012.jpg"
 gallery:
-- "/images/blog/2023/03/27/img-20230318-wa0025.jpg"
-- "/images/blog/2023/03/27/img-20230318-wa0016.jpg"
-- "/images/blog/2023/03/27/img-20230318-wa0014.jpg"
-
+  - "/images/blog/2023/03/27/img-20230318-wa0025.jpg"
+  - "/images/blog/2023/03/27/img-20230318-wa0016.jpg"
+  - "/images/blog/2023/03/27/img-20230318-wa0014.jpg"
 ---
+
 Wir mussten uns auf den Weg nach Weil am Rhein machen um unsere letzten beiden Spiele dieser Saison zu absolvieren. Es war nicht sehr leicht sich zu motivieren, denn wir konnten den Abstieg nicht mehr verhindern.
 
 Das erste Spiele gegen Weil 2 ging mit 3 zu 1 verloren. Es war in jedem Satz zu spüren, die Jungs wollen und können, aber das bisschen Glück fehlte uns immer gegen Ende der Sätze. Wichtig war, dass alle mitgereisten Spieler zum Einsatz kamen und nochmals ihr gewachsenes Können zu zeigen.

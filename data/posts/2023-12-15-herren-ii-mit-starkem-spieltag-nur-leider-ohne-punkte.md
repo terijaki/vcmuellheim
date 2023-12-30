@@ -1,18 +1,17 @@
 ---
-posted-on-social: true
-posted-on-social: true
 title: Herren II mit starkem Spieltag nur leider ohne Punkte
 date: 2023-12-15T21:43:00Z
 gallery:
-- /images/blog/2023/12/15/20231210-wa0011.jpg
-- /images/blog/2023/12/15/20231210-wa0031.jpg
-- /images/blog/2023/12/15/20231210-wa0035.jpg
-- /images/blog/2023/12/15/20231210-wa0040.jpg
-- /images/blog/2023/12/15/20231210-wa0061.jpg
-- /images/blog/2023/12/15/20231210-wa0070.jpg
-- /images/blog/2023/12/15/20231210-wa0077.jpg
-- /images/blog/2023/12/15/20231210-wa0172.jpg
+  - /images/blog/2023/12/15/20231210-wa0011.jpg
+  - /images/blog/2023/12/15/20231210-wa0031.jpg
+  - /images/blog/2023/12/15/20231210-wa0035.jpg
+  - /images/blog/2023/12/15/20231210-wa0040.jpg
+  - /images/blog/2023/12/15/20231210-wa0061.jpg
+  - /images/blog/2023/12/15/20231210-wa0070.jpg
+  - /images/blog/2023/12/15/20231210-wa0077.jpg
+  - /images/blog/2023/12/15/20231210-wa0172.jpg
 ---
+
 **<u>Herren II mit starkem Spieltag nur leider ohne Punkte</u>**
 
 Am Sonntag 10.12.23 spielte die Herren II vom VC Müllheim gegen die

@@ -1,10 +1,7 @@
 ---
 date: 2021-10-17
-posted-on-social: true
-posted-on-social: true
 title: Deutlicher Sieg zum Saisonauftakt
 thumbnail: /images/blog/2021/10/17/img_7350.jpg
-_template: neuen_beitrag_erstellen
 ---
 
 (gesponsert von [https://degen-gmbh.com/](https://degen-gmbh.com/ "https://degen-gmbh.com/"))
@@ -15,4 +12,4 @@ Im ersten Liga-Spiel nach zwölf Monaten war den Müllheimer Spielern noch eine 
 
 Ein Start der Sicherheit bringen kann, wenn es kommenden Samstag (16.10.21, 14 Uhr, Halle 2) gegen den USC Freiburg 2 und VC Weil, zum ersten Heimspieltag kommt.
 
-Autor: Thomas Seywald 
+Autor: Thomas Seywald

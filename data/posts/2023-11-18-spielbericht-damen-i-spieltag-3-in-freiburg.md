@@ -1,18 +1,17 @@
 ---
-posted-on-social: true
-posted-on-social: true
 title: Spielbericht Damen I, Spieltag 3 in Freiburg
 date: 2023-11-18T08:25:41Z
 gallery:
-- /images/blog/2023/11/18/20231112-wa0037.jpg
-- /images/blog/2023/11/18/20231112-wa0054.jpg
-- /images/blog/2023/11/18/20231112-wa0061.jpg
-- /images/blog/2023/11/18/20231112-wa0063.jpg
-- /images/blog/2023/11/18/20231112-wa0072.jpg
-- /images/blog/2023/11/18/20231112-wa0088.jpg
-- /images/blog/2023/11/18/20231112-wa0097.jpg
-- /images/blog/2023/11/18/20231112-wa0099.jpg
+  - /images/blog/2023/11/18/20231112-wa0037.jpg
+  - /images/blog/2023/11/18/20231112-wa0054.jpg
+  - /images/blog/2023/11/18/20231112-wa0061.jpg
+  - /images/blog/2023/11/18/20231112-wa0063.jpg
+  - /images/blog/2023/11/18/20231112-wa0072.jpg
+  - /images/blog/2023/11/18/20231112-wa0088.jpg
+  - /images/blog/2023/11/18/20231112-wa0097.jpg
+  - /images/blog/2023/11/18/20231112-wa0099.jpg
 ---
+
 Damen I beißen sich an Tabellenspitze fest!
 
 Am 12. November 2023 waren Damen I bei der 3. Damenmannschaft des

@@ -1,16 +1,15 @@
 ---
 date: 2022-10-19
-posted-on-social: true
-posted-on-social: true
 title: Zwei Siege gegen Freiburger Teams für den VC Müllheim
 thumbnail: "/images/blog/2022/10/19/dsc_0090.jpeg"
 gallery:
-- /images/blog/2022/10/19/dsc_0096.jpeg
-- /images/blog/2022/10/19/dsc_0112.jpeg
-- /images/blog/2022/10/19/img_2441.jpeg
-- /images/blog/2022/10/19/img_2449.jpeg
-- /images/blog/2022/10/19/img_2459.jpeg
+  - /images/blog/2022/10/19/dsc_0096.jpeg
+  - /images/blog/2022/10/19/dsc_0112.jpeg
+  - /images/blog/2022/10/19/img_2441.jpeg
+  - /images/blog/2022/10/19/img_2449.jpeg
+  - /images/blog/2022/10/19/img_2459.jpeg
 ---
+
 Zum ersten Spieltag der Saison durfte der VC Müllheim letzten Samstag die Volleyballer des USC Freiburgs 2 und der FT Freiburg 3 Zuhause begrüßen. Mit Spannung wurde erwartet, wie die 1. Herrenmannschaft sich in diese Verbandsliga Saison einfinden würden.
 
 An den ersten Gegner USC Freiburg hatte man schlechte Erinnerungen aus letzter Saison, in der man ein sehr knappes Spiel nicht gewinnen konnte, obwohl man zum Teil deutlich führte. Von dieser mentalen Blockade war dieses Mal so gut wie nichts zu erkennen und die ersten beiden Sätze konnten überzeugend gewonnen werden. Erst im letzten Satz zeigte die Heimmannschaft erstmals Nerven und verspielte einen vier Punkte Vorsprung und ließ sogar einen Satzpunkt für die Gegner zu, nur um doch noch zurückzuschlagen. Der verdiente 3:0 (25:20 25:21 28:26) Sieg war vor allem durch starke Angaben und eine stabile Annahme gekennzeichnet. Auch sah man wie clever die Heimmannschaft spielen kann, bestes Beispiel war Kapitän Paul Lacher der eine schwache Angabe der Gegner nutzte und den Ball direkt in eine gegnerische Lücke spielte anstatt zum eigenen Steller.
@@ -20,4 +19,3 @@ Eine Unbekannte war dagegen das Team der Freiburger Turnerschaft. Als Absteiger 
 Eine insgesamt überzeugende und nervenstarke Vorstellung des VCM der sich vorerst auf Platz 3 in der Tabelle einreiht.
 
 _Autor: Thomas Seywald_
-

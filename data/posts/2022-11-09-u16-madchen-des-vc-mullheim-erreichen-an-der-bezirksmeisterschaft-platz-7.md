@@ -1,17 +1,14 @@
 ---
 date: 2022-11-09
-posted-on-social: true
-posted-on-social: true
 title: U16 Mädchen des VC Müllheim erreichen an der Bezirksmeisterschaft Platz 7
 thumbnail: /images/blog/2022/11/09/20221106_131433.jpg
-_template: neuen_beitrag_erstellen
 gallery:
-- /images/blog/2022/11/09/20221106_160816.jpg
-- /images/blog/2022/11/09/20221106_113752.jpg
-- /images/blog/2022/11/09/20221106_132152.jpg
-- /images/blog/2022/11/09/20221106_131651.jpg
-- /images/blog/2022/11/09/20221106_130114.jpg
-- /images/blog/2022/11/09/20221106_172907.jpg
+  - /images/blog/2022/11/09/20221106_160816.jpg
+  - /images/blog/2022/11/09/20221106_113752.jpg
+  - /images/blog/2022/11/09/20221106_132152.jpg
+  - /images/blog/2022/11/09/20221106_131651.jpg
+  - /images/blog/2022/11/09/20221106_130114.jpg
+  - /images/blog/2022/11/09/20221106_172907.jpg
 ---
 
 Am vergangenen Sonntag, den 6.11.22 fanden in Freiburg die Bezirksmeisterschaften des Bezirks West des SBVV im Altersbereich der U16 Mädchen statt.
@@ -34,5 +31,3 @@ FT Bodersweier : VC Müllheim 0:2 (19:25, 10:25)
 VC Offenburg II : VC Müllheim 0:2 (18:25, 15:25)
 
 _Bericht von Dominik Ernst_
-
-

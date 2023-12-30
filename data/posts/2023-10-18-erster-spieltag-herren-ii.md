@@ -1,5 +1,4 @@
 ---
-posted-on-social: true
 title: Erster Spieltag Herren II
 thumbnail: /images/blog/2023/10/18/herren2_1.jpg
 gallery:
@@ -17,4 +16,4 @@ Dieser Spieltag war der erste in dieser Saison, den wir als neue Herren 2 zusamm
 
 Aller Anfang ist einfach schwer.
 
-*Spielbericht Paul Haase & Philipp Ngo*
+_Spielbericht Paul Haase & Philipp Ngo_
