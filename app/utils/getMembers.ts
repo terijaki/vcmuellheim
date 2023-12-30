@@ -1,6 +1,7 @@
 import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
+import { shuffleArray } from "./shuffleArray";
 
 const MEMBERS_FOLDER = "data/members";
 
@@ -31,7 +32,7 @@ export function getMembers(memberType: "board" | "trainers", random?: false | tr
 			return a.sortorder - b.sortorder;
 		});
 	} else {
-		membersSorted = membersMatter.sort(() => 0.5 - Math.random());
+		membersSorted = shuffleArray(membersSorted);
 	}
 	return membersSorted;
 }

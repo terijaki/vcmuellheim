@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { shuffleArray } from "./shuffleArray";
 
 export function fetchFotos(limit?: number) {
 	const folderBase = process.cwd();
@@ -12,7 +13,7 @@ export function fetchFotos(limit?: number) {
 		path.resolve();
 		return path.extname(file.name) == ".jpg";
 	});
-	const filesShuffled = filesFiltered.sort(() => 0.5 - Math.random());
+	const filesShuffled = shuffleArray(filesFiltered);
 	let imageArray = new Array();
 	filesShuffled.map((image) => {
 		imageArray.push(path.join(image.path.replace(folderPrefix, ""), image.name));
