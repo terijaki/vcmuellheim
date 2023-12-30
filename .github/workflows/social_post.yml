@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
   workflow_run:
     workflows:
-      - Deploy Jekyll with GitHub Pages
+      - Deploy Next.js site to Pages
     types:
       - completed
 
@@ -20,7 +20,6 @@ jobs:
       posts: ${{steps.scanposts.outputs.posts}} #array of posts not yet posted
       messages: ${{steps.messagesforsocial.outputs.messages}} #array of messages to post
     steps:
-
       - name: Checkout Source Code
         uses: actions/checkout@v3
         with: # important to ensure fetch all history!
@@ -86,7 +85,6 @@ jobs:
           git pull --quiet --rebase
           git push origin --all --quiet
 
-
   Publish-to-Social:
     needs: New-Posts-for-Social
     if: needs.New-Posts-for-Social.outputs.messages != ''
@@ -97,7 +95,6 @@ jobs:
           - ${{fromJSON(needs.New-Posts-for-Social.outputs.messages)}}
     runs-on: ubuntu-latest
     steps:
-
       - name: Send Toot
         id: mastodon
         uses: cbrgm/mastodon-github-action@v1
@@ -107,8 +104,6 @@ jobs:
         env:
           MASTODON_URL: ${{ secrets.MASTODON_URL }}
           MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
-
-
 #  Post-to-Facebook:
 #    needs: New-Posts-for-Social
 #    if: needs.New-Posts-for-Social.outputs.messages != ''

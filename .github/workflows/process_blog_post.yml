@@ -7,11 +7,16 @@ on:
     paths:
       - "_inbox/**"
       - "!_posts/**"
-      - "!upload/**"
+      - "!data/posts/**"
+      - "!images/**"
   workflow_dispatch:
 
 env:
   GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
+  INPUT_FOLDER: _inbox ## the folder to drop into github
+  TARGET_FOLDER: data/posts ## the target path for nextJS
+  IMAGES_FOLDER: public/images/blog ## the target path for nextJS
+  IMAGES_META_FOLDER: images/blog ## the target path for nextJS
 
 jobs:
   build:
@@ -21,8 +26,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          fetch-depth: 1
           token: ${{env.GITHUB_TOKEN}}
+          fetch-depth: 1
 
       - name: Setup Git Config
         run: |
@@ -32,23 +37,25 @@ jobs:
       - name: Scan Inbox
         id: scan_inbox
         run: |
-          for file in _inbox/*
+          for file in ${{ env.INPUT_FOLDER }}/*
           do
               if [[ $file == *.doc ]] || [[ $file == *.docx ]] || [[ $file == *.rtf ]] || [[ $file == *.txt ]] || [[ $file == *.odt ]]; then
                   title=$(basename "${file%.*}")
                   slug=$(echo "$title" | iconv -c -t ascii//TRANSLIT | sed -E 's/[~^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z)
-                  target=_posts/$(date -u +%F)-$slug.md
-                  uploadFolder=upload/$(date -u +%Y/%m/%d)
+                  target=${{ env.TARGET_FOLDER }}/$(date -u +%F)-$slug.md
+                  imagesFolder=${{ env.IMAGES_FOLDER }}/$(date -u +%Y/%m/%d)
+                  imagesMetaFolder=${{ env.IMAGES_META_FOLDER }}/$(date -u +%Y/%m/%d)
                   echo "DOC_FILE=$file" >> "$GITHUB_OUTPUT"
                   echo "DOC_TITLE=$title" >> "$GITHUB_OUTPUT"
                   echo "DOC_SLUG=$slug" >> "$GITHUB_OUTPUT"
                   echo "MD_TARGET=$target" >> "$GITHUB_OUTPUT"
-                  echo "UPLOAD_FOLDER=$uploadFolder" >> "$GITHUB_OUTPUT"
+                  echo "IMAGES_FOLDER=$imagesFolder" >> "$GITHUB_OUTPUT"
+                  echo "IMAGES_META_FOLDER=$imagesMetaFolder" >> "$GITHUB_OUTPUT"
                   echo "FILE: $file"
                   echo "TITLE: $title"
                   echo "SLUG: $slug"
                   echo "TARGET: $target"
-                  echo "UPLOAD: $uploadFolder"
+                  echo "IMAGES: $imagesFolder"
               fi
           done
 
@@ -77,32 +84,26 @@ jobs:
         if: steps.pandoc.conclusion == 'success'
         run: |
           unset imageCount
-          for image in _inbox/*.[Jj]*[Pp][Gg]
+          for image in ${{ env.INPUT_FOLDER }}/*.[Jj]*[Pp][Gg]
           do
               if [[ -z $imageCount ]]; then
-                mkdir -p ${{steps.scan_inbox.outputs.UPLOAD_FOLDER}}
+                mkdir -p ${{steps.scan_inbox.outputs.IMAGES_FOLDER}}
                 sed -i "5s|.*|gallery:\n&|" "${{steps.scan_inbox.outputs.MD_TARGET}}"
               fi
               imageCount=$((imageCount+1))
-              imageTarget=${{steps.scan_inbox.outputs.UPLOAD_FOLDER}}/$(basename $image)
+              imageTarget=${{steps.scan_inbox.outputs.IMAGES_FOLDER}}/$(basename $image)
+              imageMetaTarget=${{steps.scan_inbox.outputs.IMAGES_META_FOLDER}}/$(basename $image)
               imageTarget=$(echo $imageTarget | tr '[:upper:]' '[:lower:]' | sed 's/.jpeg/.jpg/g' | sed 's/img-//g')
+              imageMetaTarget=$(echo $imageMetaTarget | tr '[:upper:]' '[:lower:]' | sed 's/.jpeg/.jpg/g' | sed 's/img-//g')
               convert $image -resize '1920x1920>' $imageTarget
-              sed -i "$((imageCount+5))s|.*|- /$imageTarget\n&|" '${{steps.scan_inbox.outputs.MD_TARGET}}'
+              sed -i "$((imageCount+5))s|.*|- /$imageMetaTarget\n&|" '${{steps.scan_inbox.outputs.MD_TARGET}}'
           done
-
-      - name: Turn Author Reference Italic
-        if: steps.pandoc.conclusion == 'success'
-        run: |
-          authorLine=$(grep -n "Bericht von" '${{steps.scan_inbox.outputs.MD_TARGET}}' | cut -d : -f 1)
-          if [[ $authorLine -ge 5 ]]; then
-              sed -i "${authorLine}s|.*|<i>&</i>|" '${{steps.scan_inbox.outputs.MD_TARGET}}'
-          fi
 
       - name: Clean Inbox
         if: steps.pandoc.conclusion == 'success'
         id: cleanInbox
         run: |
-          for all in _inbox/*
+          for all in ${{ env.INPUT_FOLDER }}/*
           do
               mkdir -p "_processed"
               mv "$all" "_processed"
@@ -113,12 +114,12 @@ jobs:
       - name: Git Push
         if: steps.pandoc.conclusion == 'success'
         run: |
-          git add _inbox
+          git add ${{ env.INPUT_FOLDER }}
           git commit -m "purge inbox [skip ci]"
           git pull --quiet --rebase
           git push origin --all --quiet -f
           git add ${{steps.scan_inbox.outputs.MD_TARGET}}
-          git add ${{steps.scan_inbox.outputs.UPLOAD_FOLDER}}
+          git add ${{steps.scan_inbox.outputs.IMAGES_FOLDER}}
           git commit -m "new post from inbox"
           git pull --quiet --rebase
           git push origin --all --quiet -f

@@ -1,14 +1,41 @@
-*.DS_Store
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
-.bundle/
-/vendor/
-.vscode
-test*.html
-*debug*.md
-*debug*.html
-*debug*.json
-Gemfile.lock
-node_modules
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# calendar files
+/public/ics/*.ics
+!/public/ics/template.ics
+
+# misc
+.DS_Store
+*.pem
+dev-notes.md
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts

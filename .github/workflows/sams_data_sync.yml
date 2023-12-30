@@ -6,7 +6,7 @@ concurrency:
 
 on:
   schedule:
-    - cron: 4 4 * * * # At 04:04 AM
+    - cron: 6 6 * * * # At 06:06 AM
     - cron: 18,48 11-23 * * 0,1,6 # Every 30 minutes, between 11 AM and 11 PM, Saturday-Monday
   workflow_dispatch:
 
@@ -19,9 +19,9 @@ env:
   SAMS_CLUB_XML: _sams/xml/club.xml
   SAMS_RANKING_XML: _sams/xml/rankings/
   SAMS_MATCHES_XML: _sams/xml/matches/
-  SAMS_CLUB_JSON: _data/sams/club.json
-  SAMS_RANKING_JSON: _data/sams/rankings/
-  SAMS_MATCHES_JSON: _data/sams/matches/
+  SAMS_CLUB_JSON: data/sams/club.json
+  SAMS_RANKING_JSON: data/sams/rankings/
+  SAMS_MATCHES_JSON: data/sams/matches/
 
 jobs:
   ########################

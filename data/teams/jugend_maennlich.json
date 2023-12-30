@@ -1,0 +1,19 @@
+{
+	"title": "Jugend U20 (männlich)",
+	"sorting": 3,
+	"alter": "15-20 Jahre",
+	"training": [
+		{
+			"zeit": "Dienstags 20:00-22:00 Uhr ",
+			"ort": "Sporthalle II Teil D (Gymnastikhalle)",
+			"map": "https://goo.gl/maps/g3XhvCS9gpR2"
+		}
+	],
+	"trainer": [
+		{
+			"name": "Klaus Ernst",
+			"email": "klaus@vcmuellheim.de"
+		}
+	],
+	"kommentar": "**Aufnahmestop**: Unsere Kapazitätsgrenzen sind leider erreicht. Melde dich aber gerne bei [Klaus Ernst](mailto:klaus@vcmuellheim.de), damit wir dich auf die Warteliste aufnehmen."
+}

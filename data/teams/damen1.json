@@ -1,0 +1,20 @@
+{
+	"title": "Damen I",
+	"sorting": 2,
+	"liga": true,
+	"sbvvId": 25922069,
+	"training": [
+		{
+			"zeit": "Dienstags & Donnerstags 18:30-20:00 Uhr",
+			"ort": "Sporthalle II Teil E",
+			"map": "https://goo.gl/maps/g3XhvCS9gpR2"
+		}
+	],
+	"trainer": [
+		{
+			"name": "Dominik Ernst",
+			"email": "dominik@vcmuellheim.de"
+		}
+	],
+	"foto": "/images/blog/2021/10/01/whatsapp-image-2021-10-01-at-10-00-56-1.jpeg"
+}

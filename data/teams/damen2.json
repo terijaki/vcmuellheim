@@ -1,0 +1,28 @@
+{
+  "title": "Damen II",
+  "sorting": 2,
+  "liga": true,
+  "sbvvId": 25922075,
+  "training": [
+    {
+      "zeit": "Dienstags 18:30-20:00 Uhr",
+      "ort": "Sporthalle II Teil D (Gymnastikhalle)",
+      "map": "https://goo.gl/maps/g3XhvCS9gpR2"
+    },
+    {
+      "zeit": "Mittwochs 18:30-20:00 Uhr",
+      "ort": "Sporthalle II Teil E",
+      "map": "https://goo.gl/maps/g3XhvCS9gpR2"
+    }
+  ],
+  "trainer": [
+    {
+      "name": "Andreas Albrecht",
+      "email": "andreas@vcmuellheim.de"
+    },
+    {
+      "name": "Marina Peters",
+      "email": "marina@vcmuellheim.de"
+    }
+  ]
+}
