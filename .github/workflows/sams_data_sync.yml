@@ -179,11 +179,6 @@ jobs:
       upload_required: ${{ steps.upload_status.outputs.required }} # controls the artifact download before commit
     runs-on: ubuntu-latest
     steps:
-      - name: Get XSLT templates # Download the templates from our repo
-        run: |
-          curl -o matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/matches.xslt" -f --retry 3 --retry-delay 30
-          curl -o individual_matches.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/individual_matches.xslt" -f --retry 3 --retry-delay 30
-
       - name: Query SAMS # make the API call to the SAMS server and save it as XML
         id: query_sams
         run: |
