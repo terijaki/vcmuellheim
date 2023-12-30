@@ -1,6 +1,7 @@
 ---
 date: 2023-01-09
 posted-on-social: true
+posted-on-social: true
 title: Trauer zum Tod unseres Sponsors Oliver Stoll
 thumbnail: ''
 ---

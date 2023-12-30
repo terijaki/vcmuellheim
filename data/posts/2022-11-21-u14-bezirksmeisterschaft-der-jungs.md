@@ -1,6 +1,7 @@
 ---
 date: 2022-11-21
 posted-on-social: true
+posted-on-social: true
 title: U14 Bezirksmeisterschaft der Jungs
 thumbnail: "/images/blog/2022/11/21/img-20220710-wa0079.jpg"
 ---

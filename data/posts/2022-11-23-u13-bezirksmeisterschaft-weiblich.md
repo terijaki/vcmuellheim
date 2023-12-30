@@ -1,6 +1,7 @@
 ---
 date: 2022-11-23
 posted-on-social: true
+posted-on-social: true
 title: U13 Bezirksmeisterschaft weiblich
 thumbnail: /images/blog/2022/11/23/20221119_121344.jpg
 _template: neuen_beitrag_erstellen

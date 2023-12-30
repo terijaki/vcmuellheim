@@ -1,6 +1,7 @@
 ---
 date: 2020-02-09
 posted-on-social: true
+posted-on-social: true
 title: Blamage nach langer Fahrt
 thumbnail: "/images/blog/2020/02/09/IMG_8257.jpg"
 photoalbum: https://photos.app.goo.gl/iZicpnRYZswLVrXt9

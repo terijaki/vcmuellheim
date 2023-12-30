@@ -1,6 +1,7 @@
 ---
 date: 2023-01-04
 posted-on-social: true
+posted-on-social: true
 title: Bezirksmeisterschaften U14 weibliche Jugend am 15 Januar
 thumbnail: ''
 ---

@@ -1,6 +1,7 @@
 ---
 date: 2021-10-08
 posted-on-social: true
+posted-on-social: true
 title: 'Spieltagsbeginn auch für Damen I, Damen II und Herren II'
 thumbnail: ''
 _template: neuen_beitrag_erstellen

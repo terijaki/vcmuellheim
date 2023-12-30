@@ -1,6 +1,7 @@
 ---
 date: 2023-02-04
 posted-on-social: true
+posted-on-social: true
 title: 'Rückblick: Beach-Volleyball Event 2010'
 thumbnail: "/images/blog/2023/02/04/mhfeiert2010c.jpg"
 gallery:

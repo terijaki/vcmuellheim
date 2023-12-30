@@ -1,5 +1,6 @@
 ---
 posted-on-social: true
+posted-on-social: true
 title: Tabellen Führung für VCM Damen I
 thumbnail: /images/blog/2023/10/18/damen1_6.jpg
 gallery:

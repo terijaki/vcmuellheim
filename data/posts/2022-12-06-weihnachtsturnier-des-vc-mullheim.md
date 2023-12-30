@@ -1,6 +1,7 @@
 ---
 date: 2022-12-06
 posted-on-social: true
+posted-on-social: true
 title: Weihnachtsturnier des VC Müllheim
 thumbnail: "/images/blog/2022/12/06/img-20221204-wa0063.jpg"
 gallery:

@@ -1,6 +1,7 @@
 ---
 date: 2020-05-06
 posted-on-social: true
+posted-on-social: true
 title: 'DVV Informationen zur Rückkehr in den Sportbetrieb'
 ---
 

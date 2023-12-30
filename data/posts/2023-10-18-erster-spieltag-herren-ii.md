@@ -1,4 +1,5 @@
 ---
+posted-on-social: true
 title: Erster Spieltag Herren II
 thumbnail: /images/blog/2023/10/18/herren2_1.jpg
 gallery:

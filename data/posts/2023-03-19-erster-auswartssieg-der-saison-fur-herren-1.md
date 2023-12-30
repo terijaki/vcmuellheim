@@ -1,6 +1,7 @@
 ---
 date: 2023-03-19
 posted-on-social: true
+posted-on-social: true
 title: 'Erster Auswärtssieg der Saison für Herren 1 '
 thumbnail: "/images/blog/2023/03/19/img_5298.jpg"
 gallery:

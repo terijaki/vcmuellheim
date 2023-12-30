@@ -1,6 +1,7 @@
 ---
 date: 2022-06-07
 posted-on-social: true
+posted-on-social: true
 title: Deutscher Vizemeiser Ü47
 thumbnail: "/images/blog/2022/06/07/img-20220606-wa0001.jpg"
 ---

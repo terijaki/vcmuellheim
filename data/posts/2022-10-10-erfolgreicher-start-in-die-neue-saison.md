@@ -1,6 +1,7 @@
 ---
 date: 2022-10-10
 posted-on-social: true
+posted-on-social: true
 title: Erfolgreicher Start in die neue Saison
 thumbnail: "/images/blog/2022/10/10/img-20221009-wa0064.jpg"
 gallery:

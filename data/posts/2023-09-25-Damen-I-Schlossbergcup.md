@@ -1,6 +1,7 @@
 ---
 date: 2023-09-25
 posted-on-social: true
+posted-on-social: true
 title: 'Damen I beim Schlossbergcup in Staufen'
 thumbnail: "/images/blog/2023/09/25/schlossbergcup1.jpg"
 gallery:

@@ -1,5 +1,6 @@
 ---
 date: 2023-11-02
+posted-on-social: true
 title: Antrag zur Satzungsänderung
 ---
 

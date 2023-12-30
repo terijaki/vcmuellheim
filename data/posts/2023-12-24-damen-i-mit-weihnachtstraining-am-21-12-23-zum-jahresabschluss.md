@@ -1,5 +1,6 @@
 ---
 posted-on-social: true
+posted-on-social: true
 title: Damen I mit Weihnachtstraining am 21.12.23 zum Jahresabschluss!
 date: 2023-12-24T10:21:52Z
 gallery:

@@ -1,6 +1,7 @@
 ---
 date: 2023-07-24
 posted-on-social: true
+posted-on-social: true
 title: Neues von der Herren 2
 thumbnail: "/images/blog/2023/07/24/herren2_1.jpg"
 gallery:

@@ -1,6 +1,7 @@
 ---
 date: 2022-09-27
 posted-on-social: true
+posted-on-social: true
 title: Unser Onlineshop
 thumbnail: ''
 _template: neuen_beitrag_erstellen

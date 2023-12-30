@@ -1,6 +1,7 @@
 ---
 date: 2023-01-16
 posted-on-social: true
+posted-on-social: true
 title: 'Gelebte Städtepartnerschaft mit Vevey'
 thumbnail: "/images/blog/2023/01/16/img_20221015_161755_edit_102979426989490.jpg"
 gallery:

@@ -1,6 +1,7 @@
 ---
 date: 2020-12-24
 posted-on-social: true
+posted-on-social: true
 title: Festliche Grüße
 thumbnail: ''
 ---

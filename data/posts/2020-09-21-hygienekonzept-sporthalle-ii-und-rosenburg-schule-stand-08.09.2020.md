@@ -1,6 +1,7 @@
 ---
 date: 2020-09-21
 posted-on-social: true
+posted-on-social: true
 title: Hygienekonzept Sporthalle II und Rosenburg-Schule Stand 08.09.2020
 thumbnail: ''
 ---

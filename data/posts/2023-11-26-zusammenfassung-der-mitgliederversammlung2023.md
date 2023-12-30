@@ -1,5 +1,6 @@
 ---
 posted-on-social: true
+posted-on-social: true
 title: Zusammenfassung der Mitgliederversammlung 2023
 date: 2023-11-26T13:00:00Z
 ---

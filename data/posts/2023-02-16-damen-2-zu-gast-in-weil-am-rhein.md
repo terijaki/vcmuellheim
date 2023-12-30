@@ -1,5 +1,6 @@
 ---
 date: 2023-02-16
+posted-on-social: true
 title: Damen 2 zu Gast in Weil am Rhein
 thumbnail: "/images/blog/2023/02/16/weilamrhein0.jpg"
 gallery:

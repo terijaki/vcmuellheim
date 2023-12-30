@@ -1,6 +1,7 @@
 ---
 date: 2020-10-16
 posted-on-social: true
+posted-on-social: true
 title: 'Abgesagt: Spiele am 17 & 18 Oktober'
 thumbnail: ''
 ---

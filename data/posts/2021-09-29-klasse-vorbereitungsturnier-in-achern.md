@@ -1,6 +1,7 @@
 ---
 date: 2021-09-29
 posted-on-social: true
+posted-on-social: true
 title: Klasse Vorbereitungsturnier in Achern!
 thumbnail: /images/blog/2021/09/29/img_2490.jpg
 photoalbum: 'https://photos.app.goo.gl/Nehc96fumcYaYZua9'

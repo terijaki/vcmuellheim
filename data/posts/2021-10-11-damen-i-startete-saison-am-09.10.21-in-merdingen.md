@@ -1,6 +1,7 @@
 ---
 date: 2021-10-11
 posted-on-social: true
+posted-on-social: true
 title: Damen I startete Saison am 09.10.21 in Merdingen
 thumbnail: /images/blog/2021/10/11/img-20211009-wa0004.jpg
 _template: neuen_beitrag_erstellen

@@ -1,6 +1,7 @@
 ---
 date: 2023-01-27
 posted-on-social: true
+posted-on-social: true
 title: Wechsel bei der Mitgliederverwaltung
 thumbnail: "/images/blog/2023/01/27/renatewechsel.jpg"
 ---

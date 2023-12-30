@@ -1,6 +1,7 @@
 ---
 date: 2023-09-28
 posted-on-social: true
+posted-on-social: true
 title: "Platz 1 für Damen beim Elztalpokal in Waldkirch!!! \U0001F3C6\U0001F947"
 thumbnail: "/images/blog/2023/09/28/elztalpokal1.jpg"
 gallery:

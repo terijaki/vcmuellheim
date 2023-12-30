@@ -1,6 +1,7 @@
 ---
 date: 2022-06-02
 posted-on-social: true
+posted-on-social: true
 title: Deutscher Vizemeister Ü53
 thumbnail: "/images/blog/2022/05/31/img-20220529-wa0012.jpg"
 ---

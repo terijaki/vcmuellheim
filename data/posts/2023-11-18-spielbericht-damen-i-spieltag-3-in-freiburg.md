@@ -1,5 +1,6 @@
 ---
 posted-on-social: true
+posted-on-social: true
 title: Spielbericht Damen I, Spieltag 3 in Freiburg
 date: 2023-11-18T08:25:41Z
 gallery:

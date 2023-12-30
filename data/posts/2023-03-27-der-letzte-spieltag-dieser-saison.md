@@ -1,6 +1,7 @@
 ---
 date: 2023-03-27
 posted-on-social: true
+posted-on-social: true
 title: Der letzte Spieltag dieser Saison
 thumbnail: "/images/blog/2023/03/27/img-20230318-wa0012.jpg"
 gallery:

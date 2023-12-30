@@ -1,6 +1,7 @@
 ---
 date: 2022-06-19
 posted-on-social: true
+posted-on-social: true
 title: 'Stadtfest 2022: Aufbau'
 thumbnail: /images/blog/2022/06/19/img_1835.jpeg
 _template: neuen_beitrag_erstellen

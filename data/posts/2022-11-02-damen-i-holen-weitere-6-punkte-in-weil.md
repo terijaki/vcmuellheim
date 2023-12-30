@@ -1,6 +1,7 @@
 ---
 date: 2022-11-02
 posted-on-social: true
+posted-on-social: true
 title: Damen I holen weitere 6 Punkte in Weil
 thumbnail: "/images/blog/2022/11/02/img-20221029-wa0084.jpg"
 gallery:

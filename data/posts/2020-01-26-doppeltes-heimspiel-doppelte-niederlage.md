@@ -1,6 +1,7 @@
 ---
 date: 2020-01-26
 posted-on-social: true
+posted-on-social: true
 title: Die Top 3 in Müllheim
 thumbnail: /images/blog/2020/01/26/IMG_7603.CR2.jpg
 photoalbum: 'https://photos.app.goo.gl/LVx9rNW515EHeDak6'

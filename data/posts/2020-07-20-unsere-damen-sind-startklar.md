@@ -1,6 +1,7 @@
 ---
 date: 2020-07-20
 posted-on-social: true
+posted-on-social: true
 title: Unsere Damen sind startklar!
 thumbnail: /images/blog/2020/07/20/damentrikotsponsor.jpeg
 _template: neuen_beitrag_erstellen

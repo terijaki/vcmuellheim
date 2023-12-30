@@ -1,6 +1,7 @@
 ---
 date: 2019-02-06
 posted-on-social: true
+posted-on-social: true
 title: Zwei Auswärtssiege
 thumbnail: /images/blog/2019/51270111_2095751377176010_6383426922143023104_o.jpg
 ---

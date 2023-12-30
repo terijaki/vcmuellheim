@@ -1,6 +1,7 @@
 ---
 date: 2023-03-27
 posted-on-social: true
+posted-on-social: true
 title: 'Letzter Spieltag und Saisonabschlussfeier für Damen I #STRIKE!'
 thumbnail: "/images/blog/2023/03/27/img-20230319-wa0019.jpg"
 gallery:

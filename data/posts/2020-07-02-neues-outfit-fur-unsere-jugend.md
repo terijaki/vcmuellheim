@@ -1,6 +1,7 @@
 ---
 date: 2020-07-02
 posted-on-social: true
+posted-on-social: true
 title: Neues Outfit für unsere Jugend!
 thumbnail: /images/blog/2020/07/02/whatsapp-image-2020-07-02-at-17-36-25.jpeg
 _template: neuen_beitrag_erstellen

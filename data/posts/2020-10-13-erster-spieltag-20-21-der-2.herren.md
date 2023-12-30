@@ -1,6 +1,7 @@
 ---
 date: 2020-10-13
 posted-on-social: true
+posted-on-social: true
 title: Erster Spieltag 20/21 der 2. Herren
 thumbnail: /images/blog/2020/10/13/whatsapp-image-2020-10-11-at-12-25-20-1.jpg
 _template: neuen_beitrag_erstellen

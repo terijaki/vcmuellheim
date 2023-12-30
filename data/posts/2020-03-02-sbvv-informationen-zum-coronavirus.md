@@ -1,6 +1,7 @@
 ---
 date: 2020-03-02
 posted-on-social: true
+posted-on-social: true
 title: 'SBVV: Informationen zum Coronavirus'
 _template: neuen_beitrag_erstellen
 ---

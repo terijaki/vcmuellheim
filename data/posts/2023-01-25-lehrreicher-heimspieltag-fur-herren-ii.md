@@ -1,6 +1,7 @@
 ---
 date: 2023-01-25
 posted-on-social: true
+posted-on-social: true
 title: Lehrreicher Heimspieltag für Herren II
 thumbnail: "/images/blog/2023/01/25/img-20230121-wa0069.jpg"
 gallery:

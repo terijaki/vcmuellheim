@@ -1,6 +1,7 @@
 ---
 date: 2022-09-25
 posted-on-social: true
+posted-on-social: true
 title: Stadt Müllheim lädt ein zur Sportgala 2022
 thumbnail: ''
 ---

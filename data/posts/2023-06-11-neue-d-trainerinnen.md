@@ -1,6 +1,7 @@
 ---
 date: 2023-06-11
 posted-on-social: true
+posted-on-social: true
 title: Neue D-Trainer:innen!
 thumbnail: "/images/blog/2023/06/11/img1.jpg"
 gallery:

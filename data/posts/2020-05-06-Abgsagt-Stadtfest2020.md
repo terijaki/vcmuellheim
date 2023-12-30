@@ -1,6 +1,7 @@
 ---
 date: 2020-05-06
 posted-on-social: true
+posted-on-social: true
 title: 'ABGESAGT: 49. Müllheimer Stadtfest'
 ---
 Wir alle verfolgen die aktuelle Situation rund um die Coronakrise, denn alle sind davon betroffen.

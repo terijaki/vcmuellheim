@@ -1,4 +1,5 @@
 ---
+posted-on-social: true
 title: Testspiel gegen BEG United 5 der Herren II
 thumbnail: /images/blog/2023/09/06/testspiel_beg1.jpg
 gallery:

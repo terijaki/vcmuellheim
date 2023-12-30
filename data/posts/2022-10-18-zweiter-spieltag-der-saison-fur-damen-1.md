@@ -1,6 +1,7 @@
 ---
 date: 2022-10-18
 posted-on-social: true
+posted-on-social: true
 title: Zweiter Spieltag der Saison für Damen 1
 gallery:
 - "/images/blog/2022/10/18/img_0821.jpg"

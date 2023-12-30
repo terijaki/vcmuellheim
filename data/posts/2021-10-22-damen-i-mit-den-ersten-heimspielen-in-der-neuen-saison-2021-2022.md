@@ -1,6 +1,7 @@
 ---
 date: 2021-10-22
 posted-on-social: true
+posted-on-social: true
 title: Damen I mit den ersten Heimspielen in der neuen Saison 2021/2022
 thumbnail: /images/blog/2021/10/22/img-20211017-wa0015.jpg
 _template: neuen_beitrag_erstellen

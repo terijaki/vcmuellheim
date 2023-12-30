@@ -1,6 +1,7 @@
 ---
 date: 2022-03-08
 posted-on-social: true
+posted-on-social: true
 title: Hilfsgüter für Ukraine (Gymnasium Neuenburg)
 thumbnail: ''
 ---

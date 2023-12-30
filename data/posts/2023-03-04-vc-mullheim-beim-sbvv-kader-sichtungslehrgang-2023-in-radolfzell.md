@@ -1,6 +1,7 @@
 ---
 date: 2023-03-04
 posted-on-social: true
+posted-on-social: true
 title: SBVV-Kader-Sichtungslehrgang 2023 in Radolfzell
 thumbnail: ''
 gallery:

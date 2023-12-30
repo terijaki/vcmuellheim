@@ -1,6 +1,7 @@
 ---
 date: 2021-09-07
 posted-on-social: true
+posted-on-social: true
 title: Erstes Testspiel der Damen in der Vorbereitung
 thumbnail: /images/blog/2021/09/07/whatsapp-image-2021-09-07-at-16-48-10-5.jpeg
 _template: neuen_beitrag_erstellen

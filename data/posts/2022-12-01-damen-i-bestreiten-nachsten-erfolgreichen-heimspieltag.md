@@ -1,6 +1,7 @@
 ---
 date: 2022-12-01
 posted-on-social: true
+posted-on-social: true
 title: Damen I bestreiten nächsten erfolgreichen Heimspieltag
 thumbnail: "/images/blog/2022/12/01/img-20221127-wa0008.jpg"
 gallery:

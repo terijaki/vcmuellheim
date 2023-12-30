@@ -1,6 +1,7 @@
 ---
 date: 2019-07-19
 posted-on-social: true
+posted-on-social: true
 title: Qualifikation zum Pokalspiel
 thumbnail: /images/blog/2019/07/19/MVIMG_20190718_194905.jpg
 _template: neuen_beitrag_erstellen

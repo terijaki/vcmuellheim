@@ -1,6 +1,7 @@
 ---
 date: 2022-12-13
 posted-on-social: true
+posted-on-social: true
 title: Herren II holen hart erkämpften Sieg gegen Rieselfeld in Zell-Weierbach
 thumbnail: "/images/blog/2022/12/13/20221211_151902.jpg"
 gallery:

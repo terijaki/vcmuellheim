@@ -1,6 +1,7 @@
 ---
 date: 2022-03-14
 posted-on-social: true
+posted-on-social: true
 title: Erneut zwei junge Talente bei der zweiten BK-Sichtung dabei
 thumbnail: ''
 _template: neuen_beitrag_erstellen

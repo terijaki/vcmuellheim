@@ -1,6 +1,7 @@
 ---
 date: 2022-11-24
 posted-on-social: true
+posted-on-social: true
 title: Jugend-Workshop in Mulhouse
 thumbnail: "/images/blog/2022/11/24/img_20221119_142537.jpg"
 gallery:

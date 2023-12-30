@@ -1,6 +1,7 @@
 ---
 date: 2022-07-25
 posted-on-social: true
+posted-on-social: true
 title: Jugendleitertreffen Bezirk West beim VC Müllheim
 thumbnail: ''
 _template: neuen_beitrag_erstellen

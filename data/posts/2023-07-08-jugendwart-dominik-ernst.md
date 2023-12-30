@@ -1,6 +1,7 @@
 ---
 date: 2023-07-08
 posted-on-social: true
+posted-on-social: true
 title: Dominik Ernst ist neuer Jugendwart
 thumbnail: "/images/blog/2023/07/08/img_20230708_134547.jpg"
 ---

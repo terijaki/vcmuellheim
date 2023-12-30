@@ -1,6 +1,7 @@
 ---
 date: 2021-12-18
 posted-on-social: true
+posted-on-social: true
 title: Kadersichtung für unsere Jugend
 thumbnail: /images/blog/2021/12/18/img-20211120-wa0002.jpg
 _template: neuen_beitrag_erstellen

@@ -1,6 +1,7 @@
 ---
 date: 2023-06-21
 posted-on-social: true
+posted-on-social: true
 title: 2. Internationales Jugendturnier erneut ein Riesenerfolg
 thumbnail: "/images/blog/2023/06/21/jugendturnier00011.jpg"
 gallery:

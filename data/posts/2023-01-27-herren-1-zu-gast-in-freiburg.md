@@ -1,6 +1,7 @@
 ---
 date: 2023-01-27
 posted-on-social: true
+posted-on-social: true
 title: Herren 1 zu Gast in Freiburg
 thumbnail: /images/blog/2023/01/27/img_4110.jpg
 _template: neuen_beitrag_erstellen

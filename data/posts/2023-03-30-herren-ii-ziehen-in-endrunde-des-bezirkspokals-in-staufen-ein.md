@@ -1,6 +1,7 @@
 ---
 date: 2023-03-30
 posted-on-social: true
+posted-on-social: true
 title: "Herren II ziehen in Endrunde des Bezirkspokals in Staufen ein"
 thumbnail: "/images/blog/2023/03/30/img-20230327-wa0016.jpg"
 gallery:

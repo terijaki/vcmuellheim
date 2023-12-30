@@ -1,6 +1,7 @@
 ---
 date: 2019-04-03
 posted-on-social: true
+posted-on-social: true
 title: Meister VC Müllheim!
 thumbnail: /images/blog/2019/2019-04-03-bild1.jpg
 gallery:

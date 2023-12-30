@@ -1,6 +1,7 @@
 ---
 date: 2022-11-22
 posted-on-social: true
+posted-on-social: true
 title: Heimserie hält, Comeback-Siege für 5 Punkte!
 thumbnail: "/images/blog/2022/11/22/img_0991.jpg"
 gallery:

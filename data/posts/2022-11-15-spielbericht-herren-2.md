@@ -1,6 +1,7 @@
 ---
 date: 2022-11-15
 posted-on-social: true
+posted-on-social: true
 title: Spielbericht Herren 2
 thumbnail: "/images/blog/2022/11/15/photo-2022-11-13-19-06-23.jpg"
 gallery:

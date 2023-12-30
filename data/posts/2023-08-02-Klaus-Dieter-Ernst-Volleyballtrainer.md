@@ -1,6 +1,7 @@
 ---
 date: 2023-08-02
 posted-on-social: true
+posted-on-social: true
 title: Klaus-Dieter Ernst auf Platz 7 bei der Wahl zum „Volleyballtrainer des Jahres“
 gallery:
 - "/images/members/klausernst.jpg"

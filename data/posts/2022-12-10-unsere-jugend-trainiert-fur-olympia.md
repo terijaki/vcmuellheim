@@ -1,6 +1,7 @@
 ---
 date: 2022-12-10
 posted-on-social: true
+posted-on-social: true
 title: Unsere Jugend trainiert für Olympia!
 thumbnail: "/images/blog/2022/12/10/20221206_101722.jpg"
 gallery:

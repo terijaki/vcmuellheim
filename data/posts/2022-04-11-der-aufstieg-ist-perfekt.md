@@ -1,6 +1,7 @@
 ---
 date: 2022-04-11
 posted-on-social: true
+posted-on-social: true
 title: Der Aufstieg ist perfekt!!!
 thumbnail: /images/blog/2022/04/11/25f348f2-408e-4d8a-94ec-97b9c1e6f974.jpeg
 _template: neuen_beitrag_erstellen

@@ -1,6 +1,7 @@
 ---
 date: 2023-09-28
 posted-on-social: true
+posted-on-social: true
 title: "3. Platz beim Landespokal für Herren I"
 thumbnail: "/images/blog/2023/09/28/hasslachpokal11.jpg"
 gallery:

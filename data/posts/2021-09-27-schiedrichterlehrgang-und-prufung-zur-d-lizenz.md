@@ -1,6 +1,7 @@
 ---
 date: 2021-09-27
 posted-on-social: true
+posted-on-social: true
 title: Schiedrichterlehrgang und Prüfung zur D-Lizenz
 thumbnail: /images/blog/2021/09/27/whatsapp-image-2021-09-27-at-10-34-57.jpeg
 _template: neuen_beitrag_erstellen

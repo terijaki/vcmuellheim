@@ -1,6 +1,7 @@
 ---
 date: 2021-09-02
 posted-on-social: true
+posted-on-social: true
 title: Vorbereitung läuft!
 thumbnail: /images/blog/2021/09/02/image01.jpeg
 _template: neuen_beitrag_erstellen

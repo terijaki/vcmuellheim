@@ -1,6 +1,7 @@
 ---
 date: 2022-01-11
 posted-on-social: true
+posted-on-social: true
 title: Spielbetrieb pausiert
 thumbnail: ''
 ---

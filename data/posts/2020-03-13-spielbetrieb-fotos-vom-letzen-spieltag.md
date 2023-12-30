@@ -1,6 +1,7 @@
 ---
 date: 2020-03-13
 posted-on-social: true
+posted-on-social: true
 title: Spielbetrieb & Fotos vom letzen Spieltag
 thumbnail: ''
 photoalbum: https://photos.app.goo.gl/Z32trsHv7sqhPVXf8

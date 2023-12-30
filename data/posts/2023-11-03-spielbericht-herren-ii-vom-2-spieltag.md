@@ -1,5 +1,6 @@
 ---
 posted-on-social: true
+posted-on-social: true
 title: Spielbericht Herren II vom 2. Spieltag
 gallery:
   - /images/blog/2023/11/03/img-20231029-wa0057.jpg

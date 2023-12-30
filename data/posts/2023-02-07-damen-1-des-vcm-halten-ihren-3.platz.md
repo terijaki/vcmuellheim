@@ -1,6 +1,7 @@
 ---
 date: 2023-02-07
 posted-on-social: true
+posted-on-social: true
 title: Damen 1 des VCM halten ihren 3. Platz
 thumbnail: "/images/blog/2023/02/07/img-20230204-wa0045.jpg"
 gallery:
