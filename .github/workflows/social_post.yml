@@ -12,6 +12,9 @@ on:
     types:
       - completed
 
+env:
+  POST_PATH: "data/posts"
+
 jobs:
   New-Posts-for-Social:
     runs-on: ubuntu-latest
@@ -33,7 +36,7 @@ jobs:
       - name: Scan POSTS #checks the git history and creates an array of all the posts that do not contain the word "social"
         id: scanposts
         run: |
-          cd _posts
+          cd ${{ env.POST_PATH }}
           declare posts=()
           for f in $(ls | tr '\n' '\n')
             do
@@ -52,7 +55,7 @@ jobs:
         id: markfiles
         if: steps.scanposts.outputs.posts != ''
         run: |
-          cd _posts
+          cd ${{ env.POST_PATH }}
           declare posts=()
           echo ${{steps.scanposts.outputs.posts}}
           for postfile in ${{steps.scanposts.outputs.posts}}
@@ -69,7 +72,7 @@ jobs:
         id: messagesforsocial
         if: steps.markfiles.outcome == 'success'
         run: |
-          cd _posts
+          cd ${{ env.POST_PATH }}
           declare messages=()
           echo 'Preparing the following posts for Social: ${{steps.scanposts.outputs.posts}}'
           for postfile in ${{steps.scanposts.outputs.posts}}
