@@ -129,9 +129,6 @@ jobs:
           xml-file: "club.xml"
           xpath: "/sportsclub/teams/team[id='${{matrix.teams}}']/matchSeries/id" #extract the matchSeries ID for this team from the XML
 
-      - name: Get rankings.xslt template # Get the xslt template
-        run: curl -o rankings.xslt "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xslt/rankings.xslt" -f --retry 3 --retry-delay 30
-
       - name: Query SAMS # make the API call to the SAMS server and save it as XML
         id: query_sams
         run: |
