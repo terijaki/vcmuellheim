@@ -5,13 +5,13 @@ export default function HomeKontakt() {
 	return (
 		<section
 			id="verein"
-			className="col-center-content mb-6"
+			className="col-center-content pb-12"
 		>
 			<SectionHeading text="Vorstand" />
 			<Members memberType="board" />
 			<SectionHeading
 				text="Trainer & Betreuer"
-				classes="mt-4"
+				classes="mt-8"
 			/>
 			<Members
 				memberType="trainers"
