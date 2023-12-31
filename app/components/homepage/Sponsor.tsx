@@ -34,14 +34,20 @@ export default function DisplaySponsors() {
 	} else {
 		return (
 			<div className="grid grid-cols-main-grid">
-				<p className="row-start-1 col-center-content -mt-2 mb-2 text-center">Wir bedanken uns herzlich bei unseren Sponsoren!</p>
+				<p className="row-start-1 col-center-content -mt-2 mb-2 text-center">Wir bedanken uns herzlich bei {getActiveSponsors().length == 1 ? " unserem Sponsor" : "unseren Sponsoren"}!</p>
 				<div className="row-start-2 col-center-content mb-6 grid grid-flow-col auto-cols-fr gap-4 justify-center">
 					{activeSponsors.map((sponsor) => {
 						if (sponsor) {
+							// return (
+							// 	<SponsorCard
+							// 		key={sponsor.name}
+							// 		{...sponsor}
+							// 	/>
+							// );
 							return (
 								<div
 									key={sponsor.name}
-									className="h-20 w-36 flex justify-center"
+									className="flex justify-center"
 								>
 									<SponsorCard {...sponsor} />
 								</div>

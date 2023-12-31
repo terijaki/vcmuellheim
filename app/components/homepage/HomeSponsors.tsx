@@ -19,7 +19,7 @@ export default function HomeSponsors() {
 					className="absolute w-full h-full z-[-10] object-cover"
 				/>
 				<SectionHeading
-					text={getActiveSponsors().length == 2 ? "Sponsor" : "Sponsoren"}
+					text={getActiveSponsors().length == 1 ? "Sponsor" : "Sponsoren"}
 					classes="text-white border-white"
 				/>
 				<Sponsors />
