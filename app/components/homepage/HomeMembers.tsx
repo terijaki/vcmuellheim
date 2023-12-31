@@ -3,10 +3,11 @@ import Members from "@/app/components/homepage/MemberList";
 
 export default function HomeKontakt() {
 	return (
-		<section
-			id="verein"
-			className="col-center-content pb-12"
-		>
+		<section className="col-center-content pb-12">
+			<a
+				id="verein"
+				className="scroll-anchor"
+			></a>
 			<SectionHeading text="Vorstand" />
 			<Members memberType="board" />
 			<SectionHeading

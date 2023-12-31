@@ -11,10 +11,11 @@ export default function HomeHeimspiele() {
 	let matchBuffer: string[] = [];
 	let matchCountBuffer: number = 0;
 	return (
-		<section
-			id="heimspiele"
-			className="col-full-content grid grid-cols-main-grid section-bg-gradient after:opacity-95"
-		>
+		<section className="col-full-content grid grid-cols-main-grid section-bg-gradient after:opacity-95">
+			<a
+				id="heimspiele"
+				className="scroll-anchor"
+			></a>
 			<ExportedImage
 				width={948}
 				height={639}

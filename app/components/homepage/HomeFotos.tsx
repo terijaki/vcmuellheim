@@ -5,10 +5,11 @@ import Link from "next/link";
 
 export default function HomeFotos() {
 	return (
-		<section
-			id="fotos"
-			className="col-full-content grid-cols-main-grid bg-gradient-overlay overflow-hidden"
-		>
+		<section className="col-full-content grid-cols-main-grid bg-gradient-overlay overflow-hidden">
+			<a
+				id="fotos"
+				className="scroll-anchor"
+			></a>
 			<div className="col-center-content text-white text-center px-4">
 				<SectionHeading
 					text="Fotos"

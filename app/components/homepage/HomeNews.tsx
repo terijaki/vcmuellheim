@@ -5,6 +5,10 @@ import Link from "next/link";
 export default function HomeNews() {
 	return (
 		<section className="col-center-content">
+			<a
+				id="news"
+				className="scroll-anchor"
+			></a>
 			<SectionHeading text="News" />
 			<div className="col-center-content grid grid-cols-1 md:grid-cols-2 gap-5 flex-wrap">
 				<NewsList

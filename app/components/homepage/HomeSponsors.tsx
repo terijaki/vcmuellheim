@@ -6,10 +6,11 @@ import ExportedImage from "next-image-export-optimizer";
 export default function HomeSponsors() {
 	if (getActiveSponsors().length >= 1) {
 		return (
-			<section
-				id="sponsors"
-				className="col-full-content text-white bg-gradient-overlay"
-			>
+			<section className="col-full-content text-white bg-gradient-overlay">
+				<a
+					id="sponsors"
+					className="scroll-anchor"
+				></a>
 				<ExportedImage
 					src="images/backgrounds/sponsors.jpg"
 					loading="lazy"

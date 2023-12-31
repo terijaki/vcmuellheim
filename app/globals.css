@@ -48,6 +48,9 @@
 	.hyperlink {
 		@apply text-turquoise hover:text-lion hover:cursor-pointer;
 	}
+	.scroll-anchor {
+		@apply absolute -top-12;
+	}
 }
 
 /* ------ Selection ------ */

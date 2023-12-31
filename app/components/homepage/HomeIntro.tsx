@@ -10,11 +10,14 @@ export default function HomeIntro() {
 
 	return (
 		<section
-			id="intro"
 			className={
 				"col-full-content relative group min-h-[calc(100svh-3rem)] text-white justify-items-center grid grid-cols-main-grid bg-cover bg-no-repeat bg-center before:content-[''] before:absolute before:inset-0 before:block before:z-[-5] before:bg-gradient-to-bl before:to-onyx before:from-blumine before:opacity-80"
 			}
 		>
+			<a
+				id="intro"
+				className="scroll-anchor"
+			></a>
 			<ExportedImage
 				fill
 				priority

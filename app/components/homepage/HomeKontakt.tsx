@@ -4,10 +4,11 @@ import { FaEnvelope as IconEmail, FaFilePdf as IconPDF, FaFileExcel as IconExcel
 
 export default function HomeKontakt() {
 	return (
-		<section
-			id="kontakt"
-			className="col-center-content mb-8"
-		>
+		<section className="col-center-content mb-8">
+			<a
+				id="kontakt"
+				className="scroll-anchor"
+			></a>
 			<SectionHeading text="Kontakt" />
 			<p className="mb-4 text-center text-balance">Zögere bitte nicht. Solltest du Fragen an uns haben, oder Interesse mit uns zu trainieren, dann melde dich bei uns!</p>
 

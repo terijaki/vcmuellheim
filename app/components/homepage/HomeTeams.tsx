@@ -10,10 +10,11 @@ export default function HomeTeams() {
 	const teamNumber = numToWordsDe.numToWord(numberOfTeams, { uppercase: false, indefinite_eine: true });
 	if (numberOfTeams > 0) {
 		return (
-			<section
-				id="mannschaften"
-				className="col-center-content mb-6"
-			>
+			<section className="col-center-content mb-6">
+				<a
+					id="mannschaften"
+					className="scroll-anchor"
+				></a>
 				<SectionHeading text="Mannschaften" />
 				<p className="text-center opacity-60 -mt-2 mb-3">
 					Zurzeit umfasst unser Verein {teamNumber} {numberOfTeams > 1 ? "Mannschaften" : "Mannschaft"}:
