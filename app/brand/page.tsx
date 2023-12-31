@@ -16,23 +16,23 @@ export default function StyleGuidePage() {
 		<>
 			<PageHeading title="Vereinsfarben & Logo Dateien" />
 			{/* colors */}
-			<div className="col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-6 *:overflow-hidden">
+			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-6 *:overflow-hidden">
 				<p>Unsere Vereinsfarben werden hier auf der Webseite verwendet und sollten wenn möglich auch in anderem Kontext verwendet werden.</p>
 
-				<div className="text-white grid sm:grid-cols-3 sm:gap-2 rounded sm:*:rounded *:p-2">
-					<span className="bg-blumine">Blumine</span>
+				<div className="text-white grid grid-cols-2 sm:grid-cols-3 sm:gap-2 rounded sm:*:rounded *:p-2  text-center sm:text-left">
+					<span className="bg-blumine col-span-2 sm:col-span-1 text-bold">Blumine</span>
 					<span className="bg-blumine">#366273</span>
 					<span className="bg-blumine">rgb(54,98,115)</span>
-					<span className="bg-onyx">onyx</span>
+					<span className="bg-onyx col-span-2 sm:col-span-1 text-bold">Onyx</span>
 					<span className="bg-onyx">#363B40</span>
 					<span className="bg-onyx">rgb(54,59,64)</span>
-					<span className="bg-turquoise">Türkis</span>
+					<span className="bg-turquoise col-span-2 sm:col-span-1 text-bold">Türkis</span>
 					<span className="bg-turquoise">#01A29A</span>
 					<span className="bg-turquoise">rgb(54,59,64)</span>
 				</div>
 			</div>
 			{/* logos */}
-			<div className="col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-6 *:overflow-hidden">
+			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-6 *:overflow-hidden">
 				<div key="vektor">
 					<h2>Vektorgrafik</h2>
 					<p>Vektorgrafiken skalieren dynamisch und eigenen sich daher perfekt für den Druck oder die Beflockung von Trikots.</p>
@@ -84,7 +84,8 @@ export default function StyleGuidePage() {
 								className="button-slim rounded-md"
 								download
 							>
-								Download (Schwarz)
+								Download <br className="sm:hidden" />
+								(Schwarz)
 							</Link>
 						</div>
 						<div key="white">
@@ -101,7 +102,8 @@ export default function StyleGuidePage() {
 								className="button-slim rounded-md"
 								download
 							>
-								Download (Weiß)
+								Download <br className="sm:hidden" />
+								(Weiß)
 							</Link>
 						</div>
 						<div key="onyx turquoise">
@@ -118,7 +120,8 @@ export default function StyleGuidePage() {
 								className="button-slim rounded-md"
 								download
 							>
-								Download (Türkis)
+								Download <br className="sm:hidden" />
+								(Türkis)
 							</Link>
 						</div>
 						<div key="onyx blumine">
@@ -135,7 +138,8 @@ export default function StyleGuidePage() {
 								className="button-slim rounded-md"
 								download
 							>
-								Download (Blumine)
+								Download <br className="sm:hidden" />
+								(Blumine)
 							</Link>
 						</div>
 					</div>
@@ -199,7 +203,7 @@ export default function StyleGuidePage() {
 				</div>
 			</div>
 			{/* jerseys */}
-			<div className="col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl *:overflow-hidden prose-p:text-pretty">
+			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl *:overflow-hidden prose-p:text-pretty">
 				<h2>Trikots</h2>
 				<p className="mb-3">
 					<span className="font-bold">Farbe:</span> Damit wir Mannschafts- und Jahrgangsübergreifend geschlossen als Verein auftreten können, sollten Trikots in einer Farbe bestellt werden, die der
