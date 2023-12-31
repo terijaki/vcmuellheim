@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { FaLocationDot as IconLocation, FaAngleRight as IconRight, FaAngleLeft as IconLeft } from "react-icons/fa6";
 
+const TIME_RANGE = 7 * 4; // controls the display matches taking place # days in the future
+
 export default function HomeHeimspiele() {
 	let matchBuffer: string[] = [];
 	let matchCountBuffer: number = 0;
@@ -24,85 +26,92 @@ export default function HomeHeimspiele() {
 			<div className="col-center-content py-8 sm:py-12">
 				<h2 className="text-center md:text-left text-white font-bold text-3xl">Wir laden ein zum Heimspiel!</h2>
 				<p className="text-center md:text-left text-white py-2">In den kommenden Tagen spielen wir in Müllheim und freuen uns über jeden Zuschauer!</p>
-				<div className="col-center-content columns-1 sm:columns-2 lg:columns-3 gap-4 mt-3">
+				<div className="col-center-content columns-1 sm:has-[>:nth-of-type(2)]:columns-2 md:columns-2 lg:has-[>:nth-of-type(5)]:columns-3 gap-4 mt-3">
 					{getMatches(getTeamIds("id"), "future").map((match) => {
-						const dateLocationCombi: string = "dlc" + match.date + match.location?.id; // this is used to group games together
-						const filterLevel1 = !matchBuffer.includes(match.uuid) && match.host?.club?.includes("VC Müllheim");
-						const filterLevel2 = filterLevel1 && !matchBuffer.includes(dateLocationCombi) && matchCountBuffer < 555;
+						// transform the date to something useful in JS
+						const thisMatchDate = new Date(match.date.slice(-4) + "-" + match.date.slice(3, 5) + "-" + match.date.slice(0, 2) + "T" + match.time); // turns 17.02.2024 into 2024-02-17 and then into a Date
+						const todayPlusRange = new Date();
+						todayPlusRange.setDate(todayPlusRange.getDate() + TIME_RANGE);
+						// consider this match if its taking place in the future and is within the specified TIME_RANGE
+						if (thisMatchDate > new Date() && thisMatchDate < todayPlusRange) {
+							const dateLocationCombi: string = "dlc" + match.date + match.location?.id; // this is used to group games together
+							const filterLevel1 = !matchBuffer.includes(match.uuid) && match.host?.club?.includes("VC Müllheim");
+							const filterLevel2 = filterLevel1 && !matchBuffer.includes(dateLocationCombi) && matchCountBuffer < 555;
 
-						if (filterLevel2) {
-							matchBuffer.push(match.uuid); // makes sure the specific match is already rendered, this avoids duplicates if two of our teams play against each other
-							matchBuffer.push(dateLocationCombi); // this groups games together if date and location match
-							matchCountBuffer = matchCountBuffer + 1;
-							return (
-								<div
-									className="card bg-onyx text-white inline-block w-full break-inside-avoid mb-3"
-									key={match.uuid}
-								>
-									<div>
-										<span className="text-lion mr-1">{match.date}</span>
-										<Link
-											href={"https://www.google.com/maps/search/?api=1&query=" + match.location?.street + "," + match.location?.postalCode + "," + match.location?.city + "," + match.location?.name}
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-turquoise"
-										>
-											<IconLocation className="inline align-baseline" />
-											{match.location?.name}
-											<span className="hidden xl:inline">, {match.location?.street}</span>
-										</Link>
+							if (filterLevel2) {
+								matchBuffer.push(match.uuid); // makes sure the specific match is already rendered, this avoids duplicates if two of our teams play against each other
+								matchBuffer.push(dateLocationCombi); // this groups games together if date and location match
+								matchCountBuffer = matchCountBuffer + 1;
+								return (
+									<div
+										className="card bg-onyx text-white inline-block w-full break-inside-avoid mb-3"
+										key={match.uuid}
+									>
+										<div>
+											<span className="text-lion mr-1">{match.date}</span>
+											<Link
+												href={"https://www.google.com/maps/search/?api=1&query=" + match.location?.street + "," + match.location?.postalCode + "," + match.location?.city + "," + match.location?.name}
+												target="_blank"
+												rel="noopener noreferrer"
+												className="text-turquoise"
+											>
+												<IconLocation className="inline align-baseline" />
+												{match.location?.name}
+												<span className="hidden xl:inline">, {match.location?.street}</span>
+											</Link>
 
-										{/* dateTimeLeagueLocationCombi */}
-										{getMatches(getTeamIds("id"), "future").map((matchLeagueTime) => {
-											const dateTimeLeagueLocationCombi: string = "dtllc" + match.date + matchLeagueTime.time + matchLeagueTime.matchSeries?.name + match.location?.name; // this is used to group games
-											const filterLevel3 = filterLevel2 && !matchBuffer.includes(dateTimeLeagueLocationCombi);
-											if (filterLevel3 && match.date == matchLeagueTime.date && match.location?.id == matchLeagueTime.location?.id) {
-												matchBuffer.push(dateTimeLeagueLocationCombi); // this groups games together if date and location match
-												return (
-													<Fragment key="League Name and Time">
-														{/* League Name and Time */}
-														<p className="font-bold flex gap-1">
-															<span>{matchLeagueTime.matchSeries?.name?.replace("Nord", "").replace("Ost", "").replace("Süd", "").replace("West", "")}</span>
-															<span>ab {matchLeagueTime.time} Uhr</span>
-														</p>
-														{/* fetch the guest for this date, time, league and location combination */}
-														<ul>
-															{getMatches(getTeamIds("id"), "future").map((matchGuest) => {
-																if (matchLeagueTime.location?.id == matchGuest.location?.id && match.date == matchGuest.date && matchLeagueTime.matchSeries?.uuid == matchGuest.matchSeries?.uuid) {
-																	return (
-																		<Fragment key="Guests">
-																			{matchGuest.team?.map((teamGuest) => {
-																				if (teamGuest.id != matchGuest.host?.id && !matchBuffer.includes(teamGuest.id + dateLocationCombi)) {
-																					matchBuffer.push(teamGuest.id + dateLocationCombi);
-																					return (
-																						<li
-																							key={teamGuest.id}
-																							className="pl-4 opacity-75"
-																						>
-																							{teamGuest.name}
-																							{matchGuest.team?.map((teamCheckTwo, index, array) => {
-																								if (array[0].club?.name == matchGuest.host?.club && array[1].club?.name == matchGuest.host?.club && teamCheckTwo.name != matchGuest.host?.club) {
-																									if (teamCheckTwo.name == matchGuest.host?.name) {
-																										return <Fragment key="club internal match">{" : " + teamCheckTwo.name}</Fragment>;
+											{/* dateTimeLeagueLocationCombi */}
+											{getMatches(getTeamIds("id"), "future").map((matchLeagueTime) => {
+												const dateTimeLeagueLocationCombi: string = "dtllc" + match.date + matchLeagueTime.time + matchLeagueTime.matchSeries?.name + match.location?.name; // this is used to group games
+												const filterLevel3 = filterLevel2 && !matchBuffer.includes(dateTimeLeagueLocationCombi);
+												if (filterLevel3 && match.date == matchLeagueTime.date && match.location?.id == matchLeagueTime.location?.id) {
+													matchBuffer.push(dateTimeLeagueLocationCombi); // this groups games together if date and location match
+													return (
+														<Fragment key="League Name and Time">
+															{/* League Name and Time */}
+															<p className="font-bold flex gap-1">
+																<span>{matchLeagueTime.matchSeries?.name?.replace("Nord", "").replace("Ost", "").replace("Süd", "").replace("West", "")}</span>
+																<span>ab {matchLeagueTime.time} Uhr</span>
+															</p>
+															{/* fetch the guest for this date, time, league and location combination */}
+															<ul>
+																{getMatches(getTeamIds("id"), "future").map((matchGuest) => {
+																	if (matchLeagueTime.location?.id == matchGuest.location?.id && match.date == matchGuest.date && matchLeagueTime.matchSeries?.uuid == matchGuest.matchSeries?.uuid) {
+																		return (
+																			<Fragment key="Guests">
+																				{matchGuest.team?.map((teamGuest) => {
+																					if (teamGuest.id != matchGuest.host?.id && !matchBuffer.includes(teamGuest.id + dateLocationCombi)) {
+																						matchBuffer.push(teamGuest.id + dateLocationCombi);
+																						return (
+																							<li
+																								key={teamGuest.id}
+																								className="pl-4 opacity-75"
+																							>
+																								{teamGuest.name}
+																								{matchGuest.team?.map((teamCheckTwo, index, array) => {
+																									if (array[0].club?.name == matchGuest.host?.club && array[1].club?.name == matchGuest.host?.club && teamCheckTwo.name != matchGuest.host?.club) {
+																										if (teamCheckTwo.name == matchGuest.host?.name) {
+																											return <Fragment key="club internal match">{" : " + teamCheckTwo.name}</Fragment>;
+																										}
 																									}
-																								}
-																							})}
-																						</li>
-																					);
-																				}
-																			})}
-																		</Fragment>
-																	);
-																}
-															})}
-														</ul>
-													</Fragment>
-												);
-											}
-										})}
+																								})}
+																							</li>
+																						);
+																					}
+																				})}
+																			</Fragment>
+																		);
+																	}
+																})}
+															</ul>
+														</Fragment>
+													);
+												}
+											})}
+										</div>
 									</div>
-								</div>
-							);
+								);
+							}
 						}
 					})}
 				</div>
