@@ -32,7 +32,7 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 						<div
 							className={
 								"grid grid-flow-row sm:grid-cols-[max-content,minmax(auto,1fr),max-content] md:grid-cols-[1fr,4fr,2fr] gap-x-4 items-center px-4 py-2 text-onyx" +
-								(matches.length % 2 ? " even:bg-black/5" : " odd:bg-black/5")
+								(matches.length % 2 ? " odd:bg-black/5" : " even:bg-black/5")
 							}
 							key={match.uuid}
 						>
