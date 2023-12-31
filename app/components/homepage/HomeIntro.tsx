@@ -25,7 +25,7 @@ export default function HomeIntro() {
 			/>
 			<div className="col-center-content w-full mt-6 flex flex-col items-center justify-center">
 				<p className="font-black text-2xl">Willkommen beim</p>
-				<div className="inline-block relative -mt-4 mx-6 w-10/12 max-w-xl aspect-video">
+				<div className="inline-block relative -mt-4 mb-4 mx-6 w-10/12 max-w-xl aspect-video">
 					<ExportedImage
 						priority
 						placeholder="empty"
