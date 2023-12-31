@@ -18,9 +18,9 @@ export default function RankingTable(props: rankingsArray) {
 	}
 
 	return (
-		<div className="bg-white rounded text-onyx p-3">
-			<h2 className="text-xl text-gray-600 font-bold">{props.matchSeries.name}</h2>
-			<ul className="grid grid-cols-2 text-xs text-lion italic w-full my-2">
+		<div className="card-narrow pt-4">
+			<h2 className="card-heading px-6">{props.matchSeries.name}</h2>
+			<ul className="grid grid-cols-2 text-xs text-lion italic w-full my-2 px-6">
 				<li>Saison {props.matchSeries.season.name}</li>
 				<li className="text-xs text-gray-400 text-end">
 					Stand {dateDisplay} {dateTimeDisplay} Uhr

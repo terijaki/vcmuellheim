@@ -22,7 +22,7 @@ export default function Tabelle() {
 	return (
 		<>
 			<PageHeading title="Tabelle" />
-			<div className="col-full-content sm:col-center-content grid gap-4 my-4 md:grid-cols-2 prose-h2:text-2xl">
+			<div className="col-full-content sm:col-center-content grid gap-y-8 md:gap-4 my-4 md:grid-cols-2 prose-h2:text-2xl">
 				{getRankings(getTeamIds()).map((ranking) => {
 					if (!matchSeriesDisplayed.includes(ranking.matchSeries.uuid)) {
 						matchSeriesDisplayed.push(ranking.matchSeries.uuid);
@@ -36,7 +36,7 @@ export default function Tabelle() {
 				})}
 			</div>
 			{lastResultCap > 0 && (
-				<div className="col-full-content sm:col-center-content card-narrow my-4">
+				<div className="col-full-content sm:col-center-content card-narrow my-4 mb-8">
 					<h2 className="font-bold text-2xl text-gray-600 px-3 pt-3">Unsere letzten {lastResultCap} Spiele</h2>
 					<Matches
 						teamId={getTeamIds("id")}

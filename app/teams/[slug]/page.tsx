@@ -47,7 +47,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 				/>
 			)}
 
-			<div className="col-full-content md:col-center-content *:mb-6 mt-6">
+			<div className="col-full-content md:col-center-content *:mb-10 mt-6">
 				{/* matches */}
 				{team.sbvvId && (
 					<>

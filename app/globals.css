@@ -28,13 +28,13 @@
 		after:bg-gradient-to-b after:from-onyx after:to-blumine after:opacity-100;
 	}
 	.card {
-		@apply bg-white rounded-lg text-onyx px-6 py-4;
+		@apply bg-white rounded-lg text-onyx px-6 py-4 shadow;
 	}
 	.card-narrow {
-		@apply bg-white rounded text-onyx p-0;
+		@apply bg-white rounded text-onyx p-0 shadow;
 	}
 	.card-heading {
-		@apply font-bold text-xl text-blumine font-humanist;
+		@apply font-bold text-2xl text-blumine font-humanist;
 	}
 	.button {
 		@apply font-humanist bg-blumine hover:bg-turquoise text-white hover:text-white px-4 py-2 rounded-full border-2 border-white hover:border-white duration-200 tracking-wider select-none break-inside-avoid whitespace-nowrap inline-flex justify-center items-center text-center;
