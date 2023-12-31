@@ -6,7 +6,7 @@ import ExportedImage from "next-image-export-optimizer";
 export default function HomeSponsors() {
 	if (getActiveSponsors().length >= 1) {
 		return (
-			<section className="col-full-content text-white bg-gradient-overlay">
+			<section className="col-full-content text-white bg-gradient-overlay pb-3">
 				<a
 					id="sponsors"
 					className="scroll-anchor"

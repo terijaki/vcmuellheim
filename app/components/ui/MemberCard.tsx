@@ -25,7 +25,6 @@ export default function MembersCard(props: { name?: string; email?: string; avat
 				<ExportedImage
 					width={96}
 					height={96}
-					// blurDataURL=""
 					src={props.avatar}
 					alt={props.name}
 					className="object-cover h-full w-full group-hover:scale-105 duration-300"

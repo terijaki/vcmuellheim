@@ -25,6 +25,15 @@ export default function DisplaySponsors() {
 										<SponsorCard {...sponsor} />
 									</div>
 								);
+							} else if (sponsor.name) {
+								return (
+									<div
+										key={sponsor.name}
+										className="flex justify-center items-center text-center font-bold text-2xl md:text-4xl lg:text-5xl text-pretty font-industrial"
+									>
+										{sponsor.name}
+									</div>
+								);
 							}
 						})}
 					</Marquee>
@@ -35,21 +44,24 @@ export default function DisplaySponsors() {
 		return (
 			<div className="grid grid-cols-main-grid">
 				<p className="row-start-1 col-center-content -mt-2 mb-2 text-center">Wir bedanken uns herzlich bei {getActiveSponsors().length == 1 ? " unserem Sponsor" : "unseren Sponsoren"}!</p>
-				<div className="row-start-2 col-center-content mb-6 grid grid-flow-col auto-cols-fr gap-4 justify-center">
+				<div className="row-start-2 col-center-content mb-6 grid grid-flow-col auto-cols-fr gap-8 justify-center">
 					{activeSponsors.map((sponsor) => {
-						if (sponsor) {
-							// return (
-							// 	<SponsorCard
-							// 		key={sponsor.name}
-							// 		{...sponsor}
-							// 	/>
-							// );
+						if (sponsor.name && sponsor.logo) {
 							return (
 								<div
 									key={sponsor.name}
 									className="flex justify-center"
 								>
 									<SponsorCard {...sponsor} />
+								</div>
+							);
+						} else if (sponsor.name) {
+							return (
+								<div
+									key={sponsor.name}
+									className="flex justify-center items-center text-center font-bold text-2xl md:text-4xl lg:text-5xl text-pretty font-industrial"
+								>
+									{sponsor.name}
 								</div>
 							);
 						}
