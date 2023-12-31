@@ -8,7 +8,7 @@ import { getTeams } from "@/app/utils/getTeams";
 import { getLeagueName } from "@/app/utils/samsClubData";
 import { FaUser as IconPerson, FaUserGroup as IconPersons, FaClock as IconClock, FaArrowsRotate as IconSubscribe } from "react-icons/fa6";
 import { getRankings } from "@/app/utils/samsRanking";
-import RankingTable from "@/app/components/ui/RankingTable";
+import RankingTable from "@/app/components/sams/RankingTable";
 import { icsTeamGeneration } from "@/app/utils/icsGeneration";
 import path from "path";
 

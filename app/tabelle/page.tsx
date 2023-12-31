@@ -1,7 +1,7 @@
 import React from "react";
 import { getTeamIds } from "@/app/utils/samsClubData";
 import { getRankings } from "@/app/utils/samsRanking";
-import RankingTable from "@/app/components/ui/RankingTable";
+import RankingTable from "@/app/components/sams/RankingTable";
 import PageHeading from "@/app/components/layout/PageHeading";
 import Matches from "@/app/components/sams/Matches";
 
