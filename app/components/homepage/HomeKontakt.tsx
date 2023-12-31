@@ -34,6 +34,7 @@ export default function HomeKontakt() {
 							className="inline-block"
 							href="https://vcmuellheim.de/docs/anmeldeformular.pdf"
 							download={true}
+							prefetch={false}
 						>
 							<IconPDF className="inline-block" /> Anmeldeformular
 						</Link>
@@ -76,6 +77,7 @@ export default function HomeKontakt() {
 							className="inline-block"
 							href="https://vcmuellheim.de/docs/spesenabrechnung.xlsx"
 							download={true}
+							prefetch={false}
 						>
 							<IconExcel className="inline-block" /> Spesenabrechnung
 						</Link>{" "}
@@ -84,6 +86,7 @@ export default function HomeKontakt() {
 							className="inline-block"
 							href="https://vcmuellheim.de/docs/trainerverguetung.xlsx"
 							download={true}
+							prefetch={false}
 						>
 							<IconExcel className="inline-block" /> Trainervergütung
 						</Link>
