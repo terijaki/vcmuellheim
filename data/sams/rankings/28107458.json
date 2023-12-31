@@ -91,6 +91,15 @@
           "name": "VC Müllheim",
           "club": "VC Müllheim"
         }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "28161931",
+          "uuid": "fdf42980-bb36-48b8-8187-19930ca7d0fe",
+          "name": "VC Offenburg",
+          "club": "VC Offenburg"
+        }
       }
     ]
   }

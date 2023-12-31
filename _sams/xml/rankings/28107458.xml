@@ -90,4 +90,13 @@
                             <club>VC Müllheim</club>
                         </team>
                     </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>28161931</id>
+                            <uuid>fdf42980-bb36-48b8-8187-19930ca7d0fe</uuid>
+                            <name>VC Offenburg</name>
+                            <club>VC Offenburg</club>
+                        </team>
+                    </ranking>
         </rankings>
