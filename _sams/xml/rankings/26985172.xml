@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <rankings>
+                <matchSeries>
+    <id>25749513</id>
+    <uuid>ef96737c-6196-4ecb-b4e1-3c407eaa338c</uuid>
+    <allSeasonId>a6d2aafa-f16b-8491-9191-0e77342513c9</allSeasonId>
+    <name>West Jugendrunde (4:4) weiblich</name>
+    <shortName>W_JRw</shortName>
+    <type>Competition</type>
+        <updated>2023-12-05 08:55:58.254</updated>
+        <structureUpdated>2023-12-05 08:55:58.254</structureUpdated>
+        <resultsUpdated></resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>25749445</id>
+            <uuid>2b4ac3de-a3cc-4fb2-843e-d3a99c115c28</uuid>
+            <name>Meldungen Bezirk West Jugend weiblich</name>
+            <shortName>bwjw</shortName>
+            <hierarchyLevel>5</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>25749445</id>
+                    <name>Meldungen Bezirk West Jugend weiblich</name>
+                    <shortName>bwjw</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749345</id>
+                    <name>SBVV Bezirk West Jugend</name>
+                    <shortName>bwj</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749344</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749343</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749342</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749341</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>SBVV Bezirk West</name>
+            <shortName>SBVV-West</shortName>
+        </association>
+                </matchSeries>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27677361</id>
+                            <uuid>7f667695-cd08-4e55-aab5-f9682dcf89d1</uuid>
+                            <name>SG Breisach - Gündlingen 1</name>
+                            <club>SG Breisach - Gündlingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27677370</id>
+                            <uuid>848a2832-a3a2-4a56-b7c6-c9e8542dab4d</uuid>
+                            <name>SG Breisach - Gündlingen 2</name>
+                            <club>SG Breisach - Gündlingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27875237</id>
+                            <uuid>1ad0bfaa-4b35-4a2b-9bd4-db745abc8d7d</uuid>
+                            <name>SG Breisach - Gündlingen 3</name>
+                            <club>SG Breisach - Gündlingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27875246</id>
+                            <uuid>180b7bd6-657c-42b5-b351-9ce958318ae9</uuid>
+                            <name>SG Breisach - Gündlingen 4</name>
+                            <club>SG Breisach - Gündlingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27896063</id>
+                            <uuid>1d5cef01-33cc-4ef3-b279-2415e9cfdb14</uuid>
+                            <name>SV Kirchzarten</name>
+                            <club>SV Kirchzarten</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27837637</id>
+                            <uuid>3f480238-634d-4512-a284-d38242d679a7</uuid>
+                            <name>Sport vor Ort Rieselfeld e.V.</name>
+                            <club>Sport vor Ort Rieselfeld e.V.</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27626932</id>
+                            <uuid>5c1261c6-1510-4fa8-8429-3802d715f09e</uuid>
+                            <name>TB Emmendingen</name>
+                            <club>TB Emmendingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27784417</id>
+                            <uuid>c9953daa-43c5-417a-9991-ff7b38d8dcab</uuid>
+                            <name>TV Gundelfingen 1</name>
+                            <club>TV Gundelfingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27784425</id>
+                            <uuid>e977a7c0-97ab-4d26-9c63-bda869ec4b15</uuid>
+                            <name>TV Gundelfingen 2</name>
+                            <club>TV Gundelfingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27784433</id>
+                            <uuid>fdca4e62-1cdf-4cf9-be84-d8cc6413b2ba</uuid>
+                            <name>TV Gundelfingen 3</name>
+                            <club>TV Gundelfingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27837628</id>
+                            <uuid>1b5f02fd-b0fc-4829-8753-0dfa7eddae7c</uuid>
+                            <name>VC 94 Haslach</name>
+                            <club>VC 94 Haslach</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27616777</id>
+                            <uuid>68039629-803c-44ff-a4a1-ee1962d7ea08</uuid>
+                            <name>VC Minseln</name>
+                            <club>VC Minseln</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>26985172</id>
+                            <uuid>ee4b79fa-6502-44b9-a771-310b09af431d</uuid>
+                            <name>VC Müllheim I</name>
+                            <club>VC Müllheim</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>26985182</id>
+                            <uuid>410f1c79-51d5-40de-ab4c-edd1dec29261</uuid>
+                            <name>VC Müllheim II</name>
+                            <club>VC Müllheim</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27296024</id>
+                            <uuid>c3076326-307f-4f9c-b46a-f8af77d208d5</uuid>
+                            <name>VC Weil</name>
+                            <club>VC Weil</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27800899</id>
+                            <uuid>2a39a92c-41fc-4d6c-b306-088f22462c00</uuid>
+                            <name>VSG Mundingen 1</name>
+                            <club>VSG Mundingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27800909</id>
+                            <uuid>e3fddabb-6632-4a25-a379-e495c1fd5ffa</uuid>
+                            <name>VSG Mundingen 2</name>
+                            <club>VSG Mundingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27800919</id>
+                            <uuid>5ff1fb60-205c-4316-81e7-62a29a01c9ed</uuid>
+                            <name>VSG Mundingen 3</name>
+                            <club>VSG Mundingen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27590017</id>
+                            <uuid>3a890382-541d-450e-9a1f-0b290b7606fd</uuid>
+                            <name>VSG Rebland 1</name>
+                            <club>TV Zell-Weierbach</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27590025</id>
+                            <uuid>7dfa751c-fd7a-420b-b8b3-fd4d70de4cf3</uuid>
+                            <name>VSG Rebland 2</name>
+                            <club>TV Zell-Weierbach</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27875228</id>
+                            <uuid>f890adb8-fd2b-4357-b00e-2f82ac9c5be1</uuid>
+                            <name>VfR Merzhausen</name>
+                            <club>VfR Merzhausen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27867605</id>
+                            <uuid>49689a87-72a8-49fb-ab5d-a0b51d4e3fc7</uuid>
+                            <name>VfR Umkirch</name>
+                            <club>VfR Umkirch</club>
+                        </team>
+                    </ranking>
+        </rankings>

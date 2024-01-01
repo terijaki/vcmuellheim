@@ -1,1 +1,271 @@
-null
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "25749513",
+      "uuid": "ef96737c-6196-4ecb-b4e1-3c407eaa338c",
+      "allSeasonId": "a6d2aafa-f16b-8491-9191-0e77342513c9",
+      "name": "West Jugendrunde (4:4) weiblich",
+      "shortName": "W_JRw",
+      "type": "Competition",
+      "updated": "2023-12-05 08:55:58.254",
+      "structureUpdated": "2023-12-05 08:55:58.254",
+      "resultsUpdated": null,
+      "season": {
+        "id": "25640073",
+        "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+        "name": "2023/24"
+      },
+      "hierarchy": {
+        "id": "25749445",
+        "uuid": "2b4ac3de-a3cc-4fb2-843e-d3a99c115c28",
+        "name": "Meldungen Bezirk West Jugend weiblich",
+        "shortName": "bwjw",
+        "hierarchyLevel": "5"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "25749445",
+            "name": "Meldungen Bezirk West Jugend weiblich",
+            "shortName": "bwjw",
+            "hierarchyLevel": "5"
+          },
+          {
+            "id": "25749345",
+            "name": "SBVV Bezirk West Jugend",
+            "shortName": "bwj",
+            "hierarchyLevel": "4"
+          },
+          {
+            "id": "25749344",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "3"
+          },
+          {
+            "id": "25749343",
+            "name": "Regionaljugendmeisterschaften",
+            "shortName": "rjm",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "25749342",
+            "name": "Deutsche Jugendmeisterschaften",
+            "shortName": "djm",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "25749341",
+            "name": "Jugendspielbetrieb",
+            "shortName": "jug",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": "SBVV Bezirk West",
+        "shortName": "SBVV-West"
+      }
+    },
+    "ranking": [
+      {
+        "place": null,
+        "team": {
+          "id": "27677361",
+          "uuid": "7f667695-cd08-4e55-aab5-f9682dcf89d1",
+          "name": "SG Breisach - Gündlingen 1",
+          "club": "SG Breisach - Gündlingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27677370",
+          "uuid": "848a2832-a3a2-4a56-b7c6-c9e8542dab4d",
+          "name": "SG Breisach - Gündlingen 2",
+          "club": "SG Breisach - Gündlingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27875237",
+          "uuid": "1ad0bfaa-4b35-4a2b-9bd4-db745abc8d7d",
+          "name": "SG Breisach - Gündlingen 3",
+          "club": "SG Breisach - Gündlingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27875246",
+          "uuid": "180b7bd6-657c-42b5-b351-9ce958318ae9",
+          "name": "SG Breisach - Gündlingen 4",
+          "club": "SG Breisach - Gündlingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27896063",
+          "uuid": "1d5cef01-33cc-4ef3-b279-2415e9cfdb14",
+          "name": "SV Kirchzarten",
+          "club": "SV Kirchzarten"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27837637",
+          "uuid": "3f480238-634d-4512-a284-d38242d679a7",
+          "name": "Sport vor Ort Rieselfeld e.V.",
+          "club": "Sport vor Ort Rieselfeld e.V."
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27626932",
+          "uuid": "5c1261c6-1510-4fa8-8429-3802d715f09e",
+          "name": "TB Emmendingen",
+          "club": "TB Emmendingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27784417",
+          "uuid": "c9953daa-43c5-417a-9991-ff7b38d8dcab",
+          "name": "TV Gundelfingen 1",
+          "club": "TV Gundelfingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27784425",
+          "uuid": "e977a7c0-97ab-4d26-9c63-bda869ec4b15",
+          "name": "TV Gundelfingen 2",
+          "club": "TV Gundelfingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27784433",
+          "uuid": "fdca4e62-1cdf-4cf9-be84-d8cc6413b2ba",
+          "name": "TV Gundelfingen 3",
+          "club": "TV Gundelfingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27837628",
+          "uuid": "1b5f02fd-b0fc-4829-8753-0dfa7eddae7c",
+          "name": "VC 94 Haslach",
+          "club": "VC 94 Haslach"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27616777",
+          "uuid": "68039629-803c-44ff-a4a1-ee1962d7ea08",
+          "name": "VC Minseln",
+          "club": "VC Minseln"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "26985172",
+          "uuid": "ee4b79fa-6502-44b9-a771-310b09af431d",
+          "name": "VC Müllheim I",
+          "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "26985182",
+          "uuid": "410f1c79-51d5-40de-ab4c-edd1dec29261",
+          "name": "VC Müllheim II",
+          "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27296024",
+          "uuid": "c3076326-307f-4f9c-b46a-f8af77d208d5",
+          "name": "VC Weil",
+          "club": "VC Weil"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27800899",
+          "uuid": "2a39a92c-41fc-4d6c-b306-088f22462c00",
+          "name": "VSG Mundingen 1",
+          "club": "VSG Mundingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27800909",
+          "uuid": "e3fddabb-6632-4a25-a379-e495c1fd5ffa",
+          "name": "VSG Mundingen 2",
+          "club": "VSG Mundingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27800919",
+          "uuid": "5ff1fb60-205c-4316-81e7-62a29a01c9ed",
+          "name": "VSG Mundingen 3",
+          "club": "VSG Mundingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27590017",
+          "uuid": "3a890382-541d-450e-9a1f-0b290b7606fd",
+          "name": "VSG Rebland 1",
+          "club": "TV Zell-Weierbach"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27590025",
+          "uuid": "7dfa751c-fd7a-420b-b8b3-fd4d70de4cf3",
+          "name": "VSG Rebland 2",
+          "club": "TV Zell-Weierbach"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27875228",
+          "uuid": "f890adb8-fd2b-4357-b00e-2f82ac9c5be1",
+          "name": "VfR Merzhausen",
+          "club": "VfR Merzhausen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27867605",
+          "uuid": "49689a87-72a8-49fb-ab5d-a0b51d4e3fc7",
+          "name": "VfR Umkirch",
+          "club": "VfR Umkirch"
+        }
+      }
+    ]
+  }
+}

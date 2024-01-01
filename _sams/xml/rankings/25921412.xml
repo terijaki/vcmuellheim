@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <rankings>
+                <matchSeries>
+    <id>25754861</id>
+    <uuid>988e0d13-5699-40f3-a0be-0f20050344fe</uuid>
+    <allSeasonId>6802ca20-191c-4961-808d-8cb457327af6</allSeasonId>
+    <name>Landespokal Herren 2023</name>
+    <shortName>PokalHe</shortName>
+    <type>Competition</type>
+        <updated>2023-10-19 12:43:32.592</updated>
+        <structureUpdated>2023-10-19 12:43:32.592</structureUpdated>
+        <resultsUpdated>2023-09-25 08:04:01.862</resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>25754803</id>
+            <uuid>a046e032-06f3-4a61-9481-f32d3336c746</uuid>
+            <name>SBVV Landespokal</name>
+            <shortName>SBVV-Pokal</shortName>
+            <hierarchyLevel>3</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>25754803</id>
+                    <name>SBVV Landespokal</name>
+                    <shortName>SBVV-Pokal</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25754713</id>
+                    <name>Regionalpokal</name>
+                    <shortName>Regionalpokal</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25754712</id>
+                    <name>Pokalwettbewerbe</name>
+                    <shortName>P</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25751072</id>
+                    <name>Allgemeiner Spielbetrieb</name>
+                    <shortName>alg</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>Südbadischer Volleyball-Verband</name>
+            <shortName>SBVV</shortName>
+        </association>
+                </matchSeries>
+                    <ranking>
+                        <place>1</place>
+                        <team>
+                            <id>26217160</id>
+                            <uuid>27c1ad4b-1a58-4113-b016-69087acad215</uuid>
+                            <name>FT 1844 Freiburg 2 RL</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place>2</place>
+                        <team>
+                            <id>25921425</id>
+                            <uuid>1197ab3d-b58d-4dc7-8fd2-c00a5df2c722</uuid>
+                            <name>TG Schwenningen 1 DL</name>
+                            <club>TG Schwenningen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place>3</place>
+                        <team>
+                            <id>25921412</id>
+                            <uuid>5a65e070-8dc9-4d23-bab8-2307b6921601</uuid>
+                            <name>VC Müllheim 1 LL</name>
+                            <club>VC Müllheim</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place>4</place>
+                        <team>
+                            <id>26100266</id>
+                            <uuid>b1092c6f-983d-405e-b8f1-3ea427f06871</uuid>
+                            <name>VC Offenburg  VL</name>
+                            <club>VC Offenburg</club>
+                        </team>
+                    </ranking>
+        </rankings>

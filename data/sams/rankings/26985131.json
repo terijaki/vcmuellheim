@@ -1,1 +1,208 @@
-null
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "25749452",
+      "uuid": "a0b3b7d6-9975-4b0c-b7bb-a8228f3460dd",
+      "allSeasonId": "375a20ac-b2b9-c22f-e657-05936f7ec524",
+      "name": "West Quali - U14w am 25.11.2023",
+      "shortName": "WQ_U14w",
+      "type": "Competition",
+      "updated": "2023-11-30 14:06:17.863",
+      "structureUpdated": "2023-11-30 14:06:17.863",
+      "resultsUpdated": "2023-01-15 16:33:00.278",
+      "season": {
+        "id": "25640073",
+        "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+        "name": "2023/24"
+      },
+      "hierarchy": {
+        "id": "25749445",
+        "uuid": "2b4ac3de-a3cc-4fb2-843e-d3a99c115c28",
+        "name": "Meldungen Bezirk West Jugend weiblich",
+        "shortName": "bwjw",
+        "hierarchyLevel": "5"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "25749445",
+            "name": "Meldungen Bezirk West Jugend weiblich",
+            "shortName": "bwjw",
+            "hierarchyLevel": "5"
+          },
+          {
+            "id": "25749345",
+            "name": "SBVV Bezirk West Jugend",
+            "shortName": "bwj",
+            "hierarchyLevel": "4"
+          },
+          {
+            "id": "25749344",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "3"
+          },
+          {
+            "id": "25749343",
+            "name": "Regionaljugendmeisterschaften",
+            "shortName": "rjm",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "25749342",
+            "name": "Deutsche Jugendmeisterschaften",
+            "shortName": "djm",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "25749341",
+            "name": "Jugendspielbetrieb",
+            "shortName": "jug",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": "SBVV Bezirk West",
+        "shortName": "SBVV-West"
+      }
+    },
+    "ranking": [
+      {
+        "place": null,
+        "team": {
+          "id": "27311644",
+          "uuid": "bfeeaf75-9ee2-402f-bf8f-be2e359ec912",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27311657",
+          "uuid": "8c50373a-0baa-4ab2-838e-1545efdbbb52",
+          "name": "FT 1844 Freiburg 2",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27311673",
+          "uuid": "c53d647e-961a-4a4b-a20c-3cb7ba2f08c7",
+          "name": "FT 1844 Freiburg 3",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27311686",
+          "uuid": "661e254d-76d2-45ea-81fa-bc8e695af4d1",
+          "name": "FT 1844 Freiburg 4",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27127478",
+          "uuid": "98f00616-1d34-4748-a699-d2bd1a5895fd",
+          "name": "SV Waldkirch",
+          "club": "SV Waldkirch"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27303279",
+          "uuid": "9e041e3e-8739-424f-93a5-fd2c944867db",
+          "name": "TV Gundelfingen 1",
+          "club": "TV Gundelfingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27271820",
+          "uuid": "4c946205-0751-4819-9379-9d61b8e2714a",
+          "name": "VC Bötzingen e.V.",
+          "club": "VC Bötzingen e.V."
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "26985131",
+          "uuid": "df3f96df-e87d-4a80-b24c-546010794921",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27309551",
+          "uuid": "190521ee-fdd1-436f-88c0-59836daac017",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27309558",
+          "uuid": "8330ac43-9634-4b1b-8105-448f5901ee00",
+          "name": "VC Offenburg 2",
+          "club": "VC Offenburg"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27295959",
+          "uuid": "0be14033-2926-4f9b-a9e4-bfe9b6be5ba7",
+          "name": "VC Weil",
+          "club": "VC Weil"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27271790",
+          "uuid": "7170fbe5-4422-4220-949b-0a8834bb3ae1",
+          "name": "VSG KiLa",
+          "club": "VSG KiLa"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27219864",
+          "uuid": "e26674e9-8b5d-4f90-aa22-10df1cced39c",
+          "name": "VSG Mundingen",
+          "club": "VSG Mundingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27303228",
+          "uuid": "7d996dfd-8a55-44c8-a2a4-5a2ae1d48696",
+          "name": "VfR Merzhausen",
+          "club": "VfR Merzhausen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "27271840",
+          "uuid": "9e5bd06b-c3e7-40b8-84fe-ddc84b4e3003",
+          "name": "VfR Umkirch",
+          "club": "VfR Umkirch"
+        }
+      }
+    ]
+  }
+}

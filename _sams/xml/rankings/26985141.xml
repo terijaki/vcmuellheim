@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <rankings>
+                <matchSeries>
+    <id>26693728</id>
+    <uuid>3125addc-fa15-4d72-8bde-bd733495cfe1</uuid>
+    <allSeasonId>3125addc-fa15-4d72-8bde-bd733495cfe1</allSeasonId>
+    <name>West Quali - U14m am 25.11.2023</name>
+    <shortName>WQ_U14m</shortName>
+    <type>Competition</type>
+        <updated>2023-11-25 16:56:57.299</updated>
+        <structureUpdated>2023-11-25 16:56:57.299</structureUpdated>
+        <resultsUpdated>2023-01-15 16:33:00.278</resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>25749346</id>
+            <uuid>8a98d50a-82a5-4d57-b6f8-6cd07be978a3</uuid>
+            <name>Meldungen Bezirk West Jugend männlich</name>
+            <shortName>bwjm</shortName>
+            <hierarchyLevel>5</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>25749346</id>
+                    <name>Meldungen Bezirk West Jugend männlich</name>
+                    <shortName>bwjm</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749345</id>
+                    <name>SBVV Bezirk West Jugend</name>
+                    <shortName>bwj</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749344</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749343</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749342</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749341</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>SBVV Bezirk West</name>
+            <shortName>SBVV-West</shortName>
+        </association>
+                </matchSeries>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27057512</id>
+                            <uuid>2acef049-6c76-4596-91de-17d9e03f00ca</uuid>
+                            <name>FT 1844 Freiburg 1</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27057526</id>
+                            <uuid>9725572b-4308-439a-9586-b79fe1a6c816</uuid>
+                            <name>FT 1844 Freiburg 2</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27057541</id>
+                            <uuid>9374df18-f49b-4419-9aa7-40109bf1c971</uuid>
+                            <name>FT 1844 Freiburg 3</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27216307</id>
+                            <uuid>75c8a576-0c0d-41b0-8ddd-c92a05c858a2</uuid>
+                            <name>VC Haslach</name>
+                            <club>VC 94 Haslach</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27172826</id>
+                            <uuid>81ef5fb6-3bae-4c42-9f2f-2cad395184b3</uuid>
+                            <name>VC Minseln</name>
+                            <club>VC Minseln</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>26985141</id>
+                            <uuid>086def7d-9d7a-48d1-aa76-fa45f59d317b</uuid>
+                            <name>VC Müllheim</name>
+                            <club>VC Müllheim</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>26985110</id>
+                            <uuid>625ccdc9-fe2e-4130-af1b-90437fa12df6</uuid>
+                            <name>VC Offenburg</name>
+                            <club>VC Offenburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27475323</id>
+                            <uuid>c4999234-ce57-42bd-a7d9-0c7298355a77</uuid>
+                            <name>VC Weil</name>
+                            <club>VC Weil</club>
+                        </team>
+                    </ranking>
+        </rankings>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <rankings>
+                <matchSeries>
+    <id>25749446</id>
+    <uuid>d9a236a4-64d7-428a-9b3a-167396c68d21</uuid>
+    <allSeasonId>df4ecc81-677f-4914-9eea-e457a230de1e</allSeasonId>
+    <name>West Quali - U16w am 3.12.2023</name>
+    <shortName>WQ_U16w</shortName>
+    <type>Competition</type>
+        <updated>2023-12-04 09:22:49.199</updated>
+        <structureUpdated>2023-12-04 09:22:49.199</structureUpdated>
+        <resultsUpdated></resultsUpdated>
+        <season>
+            <id>25640073</id>
+            <uuid>5e7edab4-2596-49ae-9d2b-a626bfad3b14</uuid>
+            <name>2023/24</name>
+        </season>
+        <hierarchy>
+            <id>25749445</id>
+            <uuid>2b4ac3de-a3cc-4fb2-843e-d3a99c115c28</uuid>
+            <name>Meldungen Bezirk West Jugend weiblich</name>
+            <shortName>bwjw</shortName>
+            <hierarchyLevel>5</hierarchyLevel>
+        </hierarchy>
+        <fullHierarchy>
+                <hierarchy>
+                    <id>25749445</id>
+                    <name>Meldungen Bezirk West Jugend weiblich</name>
+                    <shortName>bwjw</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749345</id>
+                    <name>SBVV Bezirk West Jugend</name>
+                    <shortName>bwj</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749344</id>
+                    <name>SBVV-Jugendmeisterschaften</name>
+                    <shortName>sbvv_jm</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749343</id>
+                    <name>Regionaljugendmeisterschaften</name>
+                    <shortName>rjm</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749342</id>
+                    <name>Deutsche Jugendmeisterschaften</name>
+                    <shortName>djm</shortName>
+                    <hierarchyLevel>1</hierarchyLevel>
+                </hierarchy>
+                <hierarchy>
+                    <id>25749341</id>
+                    <name>Jugendspielbetrieb</name>
+                    <shortName>jug</shortName>
+                    <hierarchyLevel>0</hierarchyLevel>
+                </hierarchy>
+        </fullHierarchy>
+        <association>
+            <name>SBVV Bezirk West</name>
+            <shortName>SBVV-West</shortName>
+        </association>
+                </matchSeries>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27311699</id>
+                            <uuid>77bfe640-8c5a-4671-8363-8bac2ae5b33b</uuid>
+                            <name>FT 1844 Freiburg 1</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27311715</id>
+                            <uuid>0388997d-d5d8-4235-9f40-e387e835a006</uuid>
+                            <name>FT 1844 Freiburg 2</name>
+                            <club>FT 1844 Freiburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27127469</id>
+                            <uuid>9d53b68e-9f8e-4b16-9b90-06107ed4ecea</uuid>
+                            <name>SV Waldkirch</name>
+                            <club>SV Waldkirch</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27271885</id>
+                            <uuid>bf987e24-5c3b-417f-98fa-9e64b1365f28</uuid>
+                            <name>Sport vor Ort Rieselfeld</name>
+                            <club>Sport vor Ort Rieselfeld e.V.</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27271856</id>
+                            <uuid>5d4195f3-68b1-4767-89c9-7fa9eec9d15f</uuid>
+                            <name>TV Freiburg-St.Georgen</name>
+                            <club>TV Freiburg-St.Georgen</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27048388</id>
+                            <uuid>3dbea4de-7073-4da7-a67a-686f85765f35</uuid>
+                            <name>VC Minseln</name>
+                            <club>VC Minseln</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>26985151</id>
+                            <uuid>3100da60-f7ae-46e0-a233-2ef81af2e46a</uuid>
+                            <name>VC Müllheim</name>
+                            <club>VC Müllheim</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27309563</id>
+                            <uuid>1b1527b0-d836-49cd-babf-c00623a06715</uuid>
+                            <name>VC Offenburg 1</name>
+                            <club>VC Offenburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27309568</id>
+                            <uuid>92ba569b-46ab-4613-8488-6d78e3a9622c</uuid>
+                            <name>VC Offenburg 2</name>
+                            <club>VC Offenburg</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27335870</id>
+                            <uuid>28b3c242-116c-4ab6-8249-1b5082dca69e</uuid>
+                            <name>VSG Rebland 1</name>
+                            <club>TV Zell-Weierbach</club>
+                        </team>
+                    </ranking>
+                    <ranking>
+                        <place></place>
+                        <team>
+                            <id>27303247</id>
+                            <uuid>26ad33c9-e6e6-4963-b717-b1610c141905</uuid>
+                            <name>VfR Merzhausen</name>
+                            <club>VfR Merzhausen</club>
+                        </team>
+                    </ranking>
+        </rankings>
