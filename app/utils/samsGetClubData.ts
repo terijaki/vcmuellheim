@@ -1,5 +1,6 @@
-// npx tsx --env-file=.env.local --env-file=.env app/utils/samsGetClubData.ts
 // http://wiki.sams-server.de/wiki/XML-Schnittstelle
+// Verein (detailliert)
+// Gibt detaillierte Informationen zu einem bestimmten Verein aus.
 import { env } from "process";
 import fs from "fs";
 
@@ -40,6 +41,7 @@ export function getClubData() {
 					}
 				} else {
 					console.log("🚨 RECEIVED ERROR MESSAGE! 🚨");
+					console.log(xmlData);
 					return false;
 				}
 			} else {
