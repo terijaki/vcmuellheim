@@ -10,7 +10,7 @@ import { FaUser as IconPerson, FaUserGroup as IconPersons, FaClock as IconClock,
 import { getRankings } from "@/app/utils/samsRanking";
 import RankingTable from "@/app/components/sams/RankingTable";
 import { icsTeamGeneration } from "@/app/utils/icsGeneration";
-import path from "path";
+import { env } from "process";
 
 // generate static routes for each team slug
 // example: http://localhost:3000/teams/herren1
@@ -63,7 +63,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 							<h2 className="card-heading px-6">Spielplan</h2>
 							<p className="p-4 pb-0 text-pretty">
 								<Link
-									href={"webcal://vcmuellheim.de/ics/" + params.slug + ".ics"}
+									href={"webcal://" + env.BASE_URL + "/ics/" + params.slug + ".ics"}
 									className="gap-1 hyperlink group"
 								>
 									<IconSubscribe className="inline align-baseline group-hover:animate-spin" /> Abboniere unseren Kalender

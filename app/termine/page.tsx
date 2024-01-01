@@ -5,6 +5,7 @@ import { getMatches } from "@/app/utils/samsMatches";
 import Matches from "@/app/components/sams/Matches";
 import { FaArrowsRotate as IconSubscribe } from "react-icons/fa6";
 import Link from "next/link";
+import { env } from "process";
 
 // generate a custom title
 import { Metadata, ResolvingMetadata } from "next";
@@ -25,7 +26,7 @@ export default function Termine() {
 					<p className="mb-3">Derzeit stehen keine weiteren Spieltermine an.</p>
 					<p className="text-pretty">
 						<Link
-							href={"webcal://vcmuellheim.de/ics/all.ics"}
+							href={"webcal://" + env.BASE_URL + "/ics/all.ics"}
 							className="gap-1 hyperlink group"
 						>
 							<IconSubscribe className="inline align-baseline group-hover:animate-spin" /> Abboniere unseren Kalender

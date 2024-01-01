@@ -3,6 +3,7 @@ import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import type { Metadata } from "next";
 import type { Viewport } from "next";
+import { env } from "process";
 
 export const viewport: Viewport = {
 	themeColor: "#363b40", // onyx
@@ -12,7 +13,7 @@ export const viewport: Viewport = {
 	maximumScale: 1,
 };
 export const metadata: Metadata = {
-	metadataBase: new URL("https://vcmuellheim.de"),
+	metadataBase: new URL("https://" + env.BASE_URL),
 	title: {
 		template: "VCM: %s",
 		default: "Volleyballclub Müllheim",
