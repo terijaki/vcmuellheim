@@ -40,7 +40,7 @@ export default function Termine() {
 	return (
 		<>
 			<PageHeading title="Spielermine unserer Mannschaften" />
-			<div className="col-center-content card-narrow my-6">
+			<div className="col-full-content sm:col-center-content card-narrow my-6">
 				<p className="p-4 pb-0 text-pretty">
 					<Link
 						href={""}
