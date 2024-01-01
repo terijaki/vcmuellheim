@@ -17,7 +17,7 @@ fetch(apiPath)
 		if (status == 200) {
 			if (xmlData.includes("<id>" + SAMS_CLUB_ID + "</id>")) {
 				const parseString = require("xml2js").parseString;
-				parseString(xmlData, function (err: any, result: any) {
+				parseString(xmlData, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
 					if (!err) {
 						console.log("✅ All good. Writing response to JSON file.");
 						fs.writeFileSync(JSON_FILE_TARGET, JSON.stringify(result, null, 2));
