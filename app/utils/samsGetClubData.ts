@@ -17,24 +17,29 @@ export function getClubData() {
 			console.log("STATUS RESPONSE CODE:" + status);
 			// verify the status code
 			if (status == 200) {
-				// verify the response includes our club ID
 				// unfortunately some errors such as rate limits, maintenance mode etc, come in as status 200 and then the error message is in the body
-				if (xmlData.includes("<id>" + SAMS_CLUB_ID + "</id>")) {
-					const parseString = require("xml2js").parseString;
-					parseString(xmlData, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
-						if (!err) {
-							console.log("✅ All good. Writing response to JSON file.");
-							fs.writeFileSync(JSON_FILE_TARGET, JSON.stringify(result, null, 2));
-							return true;
-						} else {
-							console.log("🚨 COULD NOT CONVERT XML TO JSON! 🚨");
-							console.log(err);
-							return false;
-						}
-					});
+				if (!xmlData.includes("<error>")) {
+					// verify the response includes our club ID
+					if (xmlData.includes("<id>" + SAMS_CLUB_ID + "</id>")) {
+						const parseString = require("xml2js").parseString;
+						parseString(xmlData, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
+							if (!err) {
+								console.log("✅ All good. Writing response to JSON file.");
+								fs.writeFileSync(JSON_FILE_TARGET, JSON.stringify(result, null, 2));
+								return true;
+							} else {
+								console.log("🚨 COULD NOT CONVERT XML TO JSON! 🚨");
+								console.log(err);
+								return false;
+							}
+						});
+					} else {
+						console.log("🚨 RESPONSE BODY DID NOT INCLUDE OUR CLUB ID.🚨\nTHIS COULD INDICATE A MAINTENANCE OR SERVER ISSUE.");
+						console.log(xmlData);
+						return false;
+					}
 				} else {
-					console.log("🚨 RESPONSE BODY DID NOT INCLUDE OUR CLUB ID.🚨\nTHIS COULD INDICATE A MAINTENANCE OR SERVER ISSUE.");
-					console.log(xmlData);
+					console.log("🚨 RECEIVED ERROR MESSAGE! 🚨");
 					return false;
 				}
 			} else {
