@@ -49,7 +49,11 @@
 		@apply text-turquoise hover:text-lion hover:cursor-pointer;
 	}
 	.scroll-anchor {
+		/* offset to account for the navigation bar */
 		@apply absolute -top-12;
+	}
+	:has(> .scroll-anchor) {
+		@apply relative;
 	}
 }
 
