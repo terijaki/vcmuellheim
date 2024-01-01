@@ -20,7 +20,7 @@ fetch(apiPath)
 				parseString(xmlData, function (err: any, result: any) {
 					if (!err) {
 						console.log("✅ All good. Writing response to JSON file.");
-						fs.writeFileSync(JSON_FILE_TARGET, JSON.stringify(result));
+						fs.writeFileSync(JSON_FILE_TARGET, JSON.stringify(result, null, 2));
 					} else {
 						console.log("🚨 COULD NOT CONVERT XML TO JSON! 🚨");
 						console.log(err);
