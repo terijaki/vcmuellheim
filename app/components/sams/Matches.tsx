@@ -1,4 +1,4 @@
-import { getMatches } from "@/app/utils/samsMatches";
+import { getMatches } from "@/app/utils/samsJsonMatches";
 import { FaLocationDot as IconLocation, FaSquarePollVertical as IconResult } from "react-icons/fa6";
 import Link from "next/link";
 

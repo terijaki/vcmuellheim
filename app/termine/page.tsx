@@ -1,7 +1,7 @@
 import PageHeading from "@/app/components/layout/PageHeading";
-import { getTeamIds } from "../utils/samsClubData";
+import { getTeamIds } from "../utils/samsJsonClubData";
 import { icsAllGeneration } from "../utils/icsGeneration";
-import { getMatches } from "@/app/utils/samsMatches";
+import { getMatches } from "@/app/utils/samsJsonMatches";
 import Matches from "@/app/components/sams/Matches";
 import { FaArrowsRotate as IconSubscribe } from "react-icons/fa6";
 import Link from "next/link";

@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
-import { rankingsArray } from "@/app/utils/samsRanking";
-import { getTeamIds } from "@/app/utils/samsClubData";
+import { rankingsArray } from "@/app/utils/samsJsonRanking";
+import { getTeamIds } from "@/app/utils/samsJsonClubData";
 
 export default function RankingTable(props: rankingsArray) {
 	// prepare date formatting
