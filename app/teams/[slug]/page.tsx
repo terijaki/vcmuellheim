@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { getMembers } from "@/app/utils/getMembers";
 import { getTeams } from "@/app/utils/getTeams";
-import { getLeagueName } from "@/app/utils/samsJsonClubData";
+import { getLeagueName, getUniqueMatchSeriesIds } from "@/app/utils/samsJsonClubData";
 import { FaUser as IconPerson, FaUserGroup as IconPersons, FaClock as IconClock, FaArrowsRotate as IconSubscribe } from "react-icons/fa6";
 import { getRankings } from "@/app/utils/samsJsonRanking";
 import RankingTable from "@/app/components/sams/RankingTable";
@@ -80,7 +80,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 				)}
 				{/* ranking */}
 				{team.sbvvId &&
-					getRankings([team.sbvvId.toString()]).map((ranking) => {
+					getRankings(getUniqueMatchSeriesIds([team.sbvvId.toString()])).map((ranking) => {
 						return (
 							<div key="tabelle">
 								<RankingTable
