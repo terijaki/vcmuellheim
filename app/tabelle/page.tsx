@@ -1,6 +1,7 @@
 import React from "react";
 import { getTeamIds } from "@/app/utils/samsJsonClubData";
 import { getRankings } from "@/app/utils/samsJsonRanking";
+import { getUniqueMatchSeriesIds } from "@/app/utils/samsJsonGetUniqueMatchSeriesIds";
 import RankingTable from "@/app/components/sams/RankingTable";
 import PageHeading from "@/app/components/layout/PageHeading";
 import Matches from "@/app/components/sams/Matches";
@@ -16,14 +17,14 @@ export async function generateMetadata({}, parent: ResolvingMetadata): Promise<M
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
 
 export default function Tabelle() {
-	const lastResultCap = Number((getRankings(getTeamIds()).length * GAMES_PER_TEAM).toFixed(0)); // calculate the total number of games
+	const lastResultCap = Number((getUniqueMatchSeriesIds(getTeamIds("id")).length * GAMES_PER_TEAM).toFixed(0)); // calculate the total number of games
 
 	let matchSeriesDisplayed: string[] = []; //placeholder to avoid duplicate league displays
 	return (
 		<>
 			<PageHeading title="Tabelle" />
 			<div className="col-full-content sm:col-center-content grid gap-y-8 md:gap-4 my-4 md:grid-cols-2 prose-h2:text-2xl">
-				{getRankings(getTeamIds()).map((ranking) => {
+				{getRankings(getUniqueMatchSeriesIds(getTeamIds("id"))).map((ranking) => {
 					if (!matchSeriesDisplayed.includes(ranking.matchSeries.uuid)) {
 						matchSeriesDisplayed.push(ranking.matchSeries.uuid);
 						return (

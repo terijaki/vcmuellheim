@@ -1,12 +1,13 @@
 import fs from "fs";
 import path from "path";
 
-const SAMS_RANKING_FOLDER = "data/sams/rankings";
+const SAMS_FOLDER = "data/sams/";
 
 export function getRankings(matchSeriesArray: string[]): rankingsArray[] {
 	let resultArray = new Array();
-	matchSeriesArray.map((matchSeries) => {
-		const file = path.join(SAMS_RANKING_FOLDER, matchSeries) + ".json";
+	matchSeriesArray.map((matchSeriesId) => {
+		const file = path.join(SAMS_FOLDER, "matchSeriesId", matchSeriesId) + "/rankings.json";
+		console.log(file);
 		if (fs.existsSync(file)) {
 			const rankings = fs.readFileSync(file);
 			const rankingsObject = JSON.parse(rankings.toString());

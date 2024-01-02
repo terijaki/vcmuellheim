@@ -17,10 +17,8 @@ env:
   SAMS_CLUBID: "471"
   # paths and files reused throughout the workflow
   SAMS_CLUB_XML: _sams/xml/club.xml
-  SAMS_RANKING_XML: _sams/xml/rankings/
   SAMS_MATCHES_XML: _sams/xml/matches/
   SAMS_CLUB_JSON: data/sams/club.json
-  SAMS_RANKING_JSON: data/sams/rankings/
   SAMS_MATCHES_JSON: data/sams/matches/
 
 jobs:
@@ -104,66 +102,6 @@ jobs:
           git pull --rebase --quiet
           git push origin --all --quiet
 
-  #######################
-  ### RANKINGS UPDATE ###
-  #######################
-  Get-Rankings:
-    name: Get Rankings
-    needs: Get-Teams
-    continue-on-error: true # if one team fails, the flow should continue
-    strategy:
-      max-parallel: 3
-      matrix:
-        teams: ${{fromJSON(needs.Get-Teams.outputs.teamids)}}
-    outputs:
-      upload_required: ${{ steps.upload_status.outputs.required }} # controls the artifact download before commit
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get club.xml cache # Get the catched club.xml
-        run: curl -o club.xml "https://raw.githubusercontent.com/terijaki/vcmuellheim/main/_sams/xml/club.xml" -f --retry 3 --retry-delay 30
-
-      - name: Get matchSeries IDs from club.xml
-        id: matchseriesid-from-club
-        uses: mavrosxristoforos/get-xml-info@1.1.1
-        with:
-          xml-file: "club.xml"
-          xpath: "/sportsclub/teams/team[id='${{matrix.teams}}']/matchSeries/id" #extract the matchSeries ID for this team from the XML
-
-      - name: Query SAMS # make the API call to the SAMS server and save it as XML
-        id: query_sams
-        run: |
-          mkdir -p ${{env.SAMS_RANKING_XML}}
-          curl -o ${{env.SAMS_RANKING_XML}}${{matrix.teams}}.xml "$SAMS_URL/xml/rankings.xhtml?apiKey=$SAMS_KEY&matchSeriesId=${{steps.matchseriesid-from-club.outputs.info}}" -f --retry 5 --retry-delay 60
-
-      - name: Convert XML to JSON
-        id: xml_to_json
-        if: steps.query_sams.conclusion == 'success'
-        run: |
-          filename=${{env.SAMS_RANKING_JSON}}${{matrix.teams}}.json
-          mkdir -p $(dirname $filename)
-          cat ${{env.SAMS_RANKING_XML}}${{matrix.teams}}.xml | yq -pxml --xml-skip-proc-inst -ojson > $filename
-
-      - name: Upload Artifact (SAMS XML)
-        id: upload_xml
-        if: steps.query_sams.conclusion == 'success'
-        uses: actions/upload-artifact@v3
-        with:
-          name: raw_sams_rankings_xml
-          path: ${{env.SAMS_RANKING_XML}}${{matrix.teams}}.xml
-
-      - name: Upload Artifact (SAMS JSON)
-        id: upload_json
-        if: steps.xml_to_json.conclusion == 'success'
-        uses: actions/upload-artifact@v3
-        with:
-          name: raw_sams_rankings_json
-          path: ${{env.SAMS_RANKING_JSON}}${{matrix.teams}}.json
-
-      - name: Upload Status
-        id: upload_status
-        if: steps.upload_xml.conclusion == 'success' || steps.upload_json.conclusion == 'success'
-        run: echo "required=yes" >> $GITHUB_OUTPUT
-
   ######################
   ### MATCHES UPDATE ###
   ######################
@@ -216,10 +154,9 @@ jobs:
   ####################
   ### GIT PROCESS ###
   ###################
-  Git-Update-Rankings-and-Matches:
+  Git-Update-Matches:
     name: Git Update
     needs:
-      - Get-Rankings
       - Get-Matches
     runs-on: ubuntu-latest
     steps:
@@ -228,20 +165,6 @@ jobs:
         with:
           token: ${{env.GITHUB_TOKEN}}
           fetch-depth: 0
-
-      - name: Download Rankings Exports (XML)
-        if: contains(needs.Get-Rankings.outputs.upload_required, 'yes')
-        uses: actions/download-artifact@v3
-        with:
-          name: raw_sams_rankings_xml
-          path: ${{env.SAMS_RANKING_XML}}
-
-      - name: Download Rankings Exports (JSON)
-        if: contains(needs.Get-Rankings.outputs.upload_required, 'yes')
-        uses: actions/download-artifact@v3
-        with:
-          name: raw_sams_rankings_json
-          path: ${{env.SAMS_RANKING_JSON}}
 
       - name: Download Matches Exports (XML)
         if: contains(needs.Get-Matches.outputs.upload_required, 'yes')
@@ -261,13 +184,6 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-
-      - name: Git Commit Rankings
-        continue-on-error: true
-        run: |
-          git add "${{env.SAMS_RANKING_XML}}*"
-          git add "${{env.SAMS_RANKING_JSON}}*"
-          git commit -m "sams rankings update"
 
       - name: Git Commit Matches
         continue-on-error: true
