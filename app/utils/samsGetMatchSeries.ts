@@ -11,9 +11,9 @@ const SAMS_URL = env.SAMS_URL;
 const JSON_FILE_TARGET = "data/sams/matchSeries.json";
 
 // fetch Club Data
-export default function getMatchSeries(): Object | false {
+export default async function getMatchSeries(): Promise<Object | boolean> {
 	const apiPath = SAMS_URL + "/xml/matchSeries.xhtml?apiKey=" + SAMS_API;
-	fetch(apiPath)
+	await fetch(apiPath)
 		.then((response) => Promise.all([response.status, response.text()]))
 		.then(([status, xmlData]) => {
 			console.log("STATUS RESPONSE CODE:" + status);
@@ -42,5 +42,5 @@ export default function getMatchSeries(): Object | false {
 				return false;
 			}
 		});
-	return false;
+	return true;
 }
