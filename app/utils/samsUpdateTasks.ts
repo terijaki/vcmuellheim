@@ -1,4 +1,5 @@
 // this a sequence of code to be executed in order to keep our data in sync with SAMS while not hammering their API unnecessarily
+// run during deployment via: npx tsx --env-file=.env.local --env-file=.env app/utils/samsUpdateTasks.ts
 import fs from "fs";
 import { getTeamIds, getUniqueMatchSeriesIds } from "@/app/utils/samsJsonClubData";
 import getRankings from "@/app/utils/samsGetRankings";
