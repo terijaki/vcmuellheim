@@ -25,13 +25,13 @@ getMatchSeries().then(() => {
 				const rankingsJsonFileContent = fs.readFileSync(rankingsJsonFile);
 				const rankingsJson = JSON.parse(rankingsJsonFileContent.toString());
 				if (rankingsJson.rankings.matchSeries.resultsUpdated != series.resultsUpdated || rankingsJson.rankings.matchSeries.structureUpdated != series.structureUpdated) {
-					console.log("📋 Rankings for " + series.name + "(" + series.id + ") are outdated. Fetching new rankings...");
+					console.log("📋 Rankings for " + series.name + " (" + series.id + ") are outdated. Fetching new rankings...");
 					getRankings(series.id);
 				} else {
-					console.log("✅ Rankings for " + series.name + "(" + series.id + ") are up to date.");
+					console.log("✅ Rankings for " + series.name + " (" + series.id + ") are up to date.");
 				}
 			} else {
-				console.log("📋 Rankings for " + series.name + "(" + series.id + ") do not exist. Fetching new rankings...");
+				console.log("📋 Rankings for " + series.name + " (" + series.id + ") do not exist. Fetching new rankings...");
 				getRankings(series.id);
 			}
 			// MATCHES
@@ -41,13 +41,13 @@ getMatchSeries().then(() => {
 				const matchesJsonFileContent = fs.readFileSync(matchesJsonFile);
 				const matchesJson = JSON.parse(matchesJsonFileContent.toString());
 				if (matchesJson.matches.match[0].matchSeries.resultsUpdated != series.resultsUpdated || matchesJson.matches.match[0].matchSeries.structureUpdated != series.structureUpdated) {
-					console.log("📋 Matches for " + series.name + "(" + series.id + ") are outdated. Fetching new matches...");
+					console.log("📋 Matches for " + series.name + " (" + series.id + ") are outdated. Fetching new matches...");
 					getMatches(undefined, series.id);
 				} else {
-					console.log("✅ Matches for " + series.name + "(" + series.id + ") are up to date.");
+					console.log("✅ Matches for " + series.name + " (" + series.id + ") are up to date.");
 				}
 			} else {
-				console.log("📋 Matches for " + series.name + "(" + series.id + ") do not exist. Fetching new matches...");
+				console.log("📋 Matches for " + series.name + " (" + series.id + ") do not exist. Fetching new matches...");
 				getMatches(undefined, series.id);
 			}
 		});
