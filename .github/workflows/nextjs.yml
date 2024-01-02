@@ -20,6 +20,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+env:
+  SAMS_FOLDER: "data/sams"
+
 jobs:
   # Build jobs
   build:
@@ -74,9 +77,19 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
 
       - name: SAMS Update
+        id: sams_update
         run: npx tsx --env-file=.env.local --env-file=.env app/utils/samsUpdateTasks.ts
         env:
           SAMS_API: ${{ secrets.SAMS_API }}
+
+      - name: Git Push
+        if: steps.sams_update.conclusion == 'success'
+        continue-on-error: true
+        run: |
+          git add ${{ env.SAMS_FOLDER }}
+          git commit -m "deployment update [skip ci]"
+          git pull --quiet --rebase
+          git push origin --all --quiet -f
 
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} build
