@@ -5,10 +5,10 @@ concurrency:
   cancel-in-progress: false
 
 on:
-  push:
-    paths:
-      - "_sams/xml/club.xml"
-      - ".github/workflows/teams_check.yml"
+  # push:
+  #   paths:
+  #     - "_sams/xml/club.xml"
+  #     - ".github/workflows/teams_check.yml"
   workflow_dispatch:
 
 env:
@@ -65,8 +65,8 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-       team:
-        - ${{fromJSON(needs.Verify-Teams.outputs.outdated-teams)}}
+        team:
+          - ${{fromJSON(needs.Verify-Teams.outputs.outdated-teams)}}
     runs-on: ubuntu-latest
     steps:
       - name: Log & Separate Data
