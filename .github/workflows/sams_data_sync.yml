@@ -94,11 +94,11 @@ jobs:
         continue-on-error: true
         run: |
           git add "${{env.SAMS_CLUB_XML}}"
-          git commit -m "sams raw club update"
+          git commit -m "sams raw club update" || true
           git pull --rebase --quiet
           git push origin --all --quiet
           git add "${{env.SAMS_CLUB_JSON}}"
-          git commit -m "sams raw club update [skip ci]"
+          git commit -m "sams raw club update [skip ci]" || true
           git pull --rebase --quiet
           git push origin --all --quiet
 
@@ -190,7 +190,7 @@ jobs:
         run: |
           git add "${{env.SAMS_MATCHES_XML}}*"
           git add "${{env.SAMS_MATCHES_JSON}}*"
-          git commit -m "sams matches update"
+          git commit -m "sams matches update" || true
 
       - name: Git Push
         continue-on-error: true

@@ -115,11 +115,11 @@ jobs:
         if: steps.pandoc.conclusion == 'success'
         run: |
           git add ${{ env.INPUT_FOLDER }}
-          git commit -m "purge inbox [skip ci]"
+          git commit -m "purge inbox [skip ci]" || true
           git pull --quiet --rebase
           git push origin --all --quiet -f
           git add ${{steps.scan_inbox.outputs.MD_TARGET}}
           git add ${{steps.scan_inbox.outputs.IMAGES_FOLDER}}
-          git commit -m "new post from inbox"
+          git commit -m "new post from inbox" || true
           git pull --quiet --rebase
           git push origin --all --quiet -f
