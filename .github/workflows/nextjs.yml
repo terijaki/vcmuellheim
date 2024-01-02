@@ -91,7 +91,11 @@ jobs:
           git config user.email "<>"
           git add ${{ env.SAMS_FOLDER }}
           git commit -m "automated deployment update"
-          git push origin --all --quiet -f
+          if [[ `git push --dry-run --porcelain` ]]; then
+          git push origin --all --quiet
+          else
+          echo "ℹ️ No changes were detected."
+          fi
 
       - name: Build with Next.js
         id: next_build
@@ -105,7 +109,11 @@ jobs:
           git config user.email "<>"
           git add ${{ env.IMAGES_FOLDER }}
           git commit -m "automated deployment update"
-          git push origin --all --quiet -f
+          if [[ `git push --dry-run --porcelain` ]]; then
+          git push origin --all --quiet
+          else
+          echo "ℹ️ No changes were detected."
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
