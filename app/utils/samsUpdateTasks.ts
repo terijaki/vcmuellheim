@@ -26,14 +26,18 @@ matchSeriesJsonFiltered.map((series: { id: string | number; type: string; struct
 	const rankingsJsonFile = fs.readFileSync("data/sams/matchSeriesId/" + series.id + "/rankings.json");
 	const rankingsJson = JSON.parse(rankingsJsonFile.toString());
 	if (rankingsJson.rankings.matchSeries.resultsUpdated != series.resultsUpdated || rankingsJson.rankings.matchSeries.structureUpdated != series.structureUpdated) {
-		console.log("Rankings for " + series.name + " are outdated. Fetching new rankings...");
+		console.log("📋 Rankings for " + series.name + " are outdated. Fetching new rankings...");
 		getRankings(series.id);
+	} else {
+		console.log("✅ Rankings for " + series.name + " are up to date.");
 	}
 	// MATCHES
 	const matchesJsonFile = fs.readFileSync("data/sams/matchSeriesId/" + series.id + "/matches.json");
 	const matchesJson = JSON.parse(matchesJsonFile.toString());
 	if (matchesJson.matches.match[0].matchSeries.resultsUpdated != series.resultsUpdated || matchesJson.matches.match[0].matchSeries.structureUpdated != series.structureUpdated) {
-		console.log("Matches for " + series.name + " are outdated. Fetching new matches...");
+		console.log("📋 Matches for " + series.name + " are outdated. Fetching new matches...");
 		getRankings(series.id);
+	} else {
+		console.log("✅ Matches for " + series.name + " are up to date.");
 	}
 });
