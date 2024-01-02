@@ -17,7 +17,7 @@ getMatchSeries().then(() => {
 	// get our Match Series IDs so that we can use them to filter requests
 	const ourMatchSeries = getUniqueMatchSeriesIds(getTeamIds("id"));
 	// read the big Match Series file
-	const matchSeriesJsonFile = fs.readFileSync("data/sams/MatchSeries.json");
+	const matchSeriesJsonFile = fs.readFileSync("data/sams/matchSeries.json");
 	const matchSeriesJson = JSON.parse(matchSeriesJsonFile.toString());
 	// filter down to our ids only
 	const matchSeriesJsonFiltered = matchSeriesJson.matchSeriesList.matchSeries.filter((series: { id: string | number }) => ourMatchSeries.includes(series.id));
