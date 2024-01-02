@@ -5,7 +5,7 @@ on:
   push:
     branches: ["main"]
     paths-ignore:
-      # - ".github/**"
+      - ".github/**"
       - "_sams/**"
       - "inbox/**"
       - "_inbox/**"
@@ -22,6 +22,7 @@ concurrency:
 
 env:
   SAMS_FOLDER: "data/sams"
+  IMAGES_FOLDER: "public/images"
 
 jobs:
   # Build jobs
@@ -82,7 +83,7 @@ jobs:
         env:
           SAMS_API: ${{ secrets.SAMS_API }}
 
-      - name: Git Push
+      - name: Commit SAMS Files
         if: steps.sams_update.conclusion == 'success'
         continue-on-error: true
         run: |
@@ -93,7 +94,18 @@ jobs:
           git push origin --all --quiet -f
 
       - name: Build with Next.js
+        id: next_build
         run: ${{ steps.detect-package-manager.outputs.runner }} build
+
+      - name: Commit Optimized Images
+        if: steps.next_build.conclusion == 'success'
+        continue-on-error: true
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git add ${{ env.IMAGES_FOLDER }}
+          git commit -m "deployment update [skip ci]"
+          git push origin --all --quiet -f
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
