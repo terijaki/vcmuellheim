@@ -1,8 +1,10 @@
-import { getUniqueMatchSeriesIds } from "@/app/utils/samsJsonClubData";
-import getMatches from "@/app/utils/samsGetMatches";
+// DEPRECATED
 
-export default function getOurMatches() {
-	getUniqueMatchSeriesIds().map((matchSeriesId) => {
-		getMatches(undefined, matchSeriesId);
-	});
-}
+// import { getUniqueMatchSeriesIds } from "@/app/utils/samsJsonClubData";
+// import getMatches from "@/app/utils/samsGetMatches";
+
+// export default function getOurMatches() {
+// 	getUniqueMatchSeriesIds().map((matchSeriesId) => {
+// 		getMatches(undefined, matchSeriesId);
+// 	});
+// }

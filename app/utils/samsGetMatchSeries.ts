@@ -16,7 +16,7 @@ export default async function getMatchSeries(): Promise<Object | boolean> {
 	await fetch(apiPath)
 		.then((response) => Promise.all([response.status, response.text()]))
 		.then(([status, xmlData]) => {
-			console.log("MATCH SERIES STATUS RESPONSE CODE:" + status);
+			// console.log("MATCH SERIES STATUS RESPONSE CODE:" + status);
 			if (status == 200) {
 				if (!xmlData.includes("<error>")) {
 					const parseString = require("xml2js").parseString;
