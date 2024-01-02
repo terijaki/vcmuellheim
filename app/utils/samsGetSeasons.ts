@@ -21,8 +21,9 @@ export function getSeasons() {
 					parseString(xmlData, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
 						if (!err) {
 							console.log("✅ All good. Writing response to: " + JSON_FILE_TARGET);
-							fs.writeFileSync(JSON_FILE_TARGET, JSON.stringify(result, null, 2));
-							return true;
+							const output = JSON.stringify(result, null, 2);
+							fs.writeFileSync(JSON_FILE_TARGET, output);
+							return output;
 						} else {
 							console.log("🚨 COULD NOT CONVERT XML TO JSON! 🚨");
 							console.log(err);

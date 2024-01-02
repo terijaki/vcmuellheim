@@ -11,7 +11,7 @@ const SAMS_URL = env.SAMS_URL;
 const JSON_FILE_TARGET = "data/sams/matchSeries.json";
 
 // fetch Club Data
-export function getSeasons() {
+export function getMatchSeries() {
 	const apiPath = SAMS_URL + "/xml/matchSeries.xhtml?apiKey=" + SAMS_API;
 	fetch(apiPath)
 		.then((response) => Promise.all([response.status, response.text()]))
@@ -23,8 +23,9 @@ export function getSeasons() {
 					parseString(xmlData, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
 						if (!err) {
 							console.log("✅ All good. Writing response to: " + JSON_FILE_TARGET);
-							fs.writeFileSync(JSON_FILE_TARGET, JSON.stringify(result, null, 2));
-							return true;
+							const output = JSON.stringify(result, null, 2);
+							fs.writeFileSync(JSON_FILE_TARGET, output);
+							return output;
 						} else {
 							console.log("🚨 COULD NOT CONVERT XML TO JSON! 🚨");
 							console.log(err);
@@ -43,4 +44,4 @@ export function getSeasons() {
 		});
 }
 
-getSeasons();
+getMatchSeries();

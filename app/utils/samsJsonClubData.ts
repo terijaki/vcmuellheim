@@ -15,14 +15,14 @@ export function getTeamIds(idType: "id" | "uuid" | "seasonTeamId" = "id") {
 	return teamIds;
 }
 
-export function getMatchSeriesId(teamId: string): string {
+export function getMatchSeriesId(teamId: string | number): string {
 	const clubdata = fs.readFileSync(CLUB_SAMS_FILE);
 	const clubDataObject = JSON.parse(clubdata.toString());
 	const teams = clubDataObject.sportsclub.teams.team;
 	let result = "";
-	teams.forEach((team: { matchSeries: any; id: string }) => {
-		if (team.id == teamId) {
-			result = team.matchSeries.id;
+	teams.forEach((team: { matchSeries: any; id: string | number }) => {
+		if (team.id.toString() == teamId.toString()) {
+			result = team.matchSeries.id.toString();
 		}
 	});
 	return result;
