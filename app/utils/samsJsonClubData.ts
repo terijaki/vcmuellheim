@@ -32,7 +32,7 @@ export function getMatchSeriesId(teamId: string | number): string {
 	return result;
 }
 
-export function getUniqueMatchSeriesIds(teamIds?: string[]) {
+export function getUniqueMatchSeriesIds(teamIds?: (string | number)[]): string[] {
 	// returns the match Series Ids without duplicates
 	// if no teamId parameter is provided, the function fetches ids of league teams from the club file itself
 	let UniqueMatchSeriesIds = new Array();
@@ -42,7 +42,7 @@ export function getUniqueMatchSeriesIds(teamIds?: string[]) {
 	teamIds.map((team) => {
 		const matchSeriesId = getMatchSeriesId(team);
 		if (!UniqueMatchSeriesIds.includes(matchSeriesId)) {
-			UniqueMatchSeriesIds.push(matchSeriesId);
+			UniqueMatchSeriesIds.push(matchSeriesId.toString());
 		}
 	});
 	return UniqueMatchSeriesIds;

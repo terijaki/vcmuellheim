@@ -1,4 +1,4 @@
-import { getUniqueMatchSeriesIds } from "@/app/utils/samsJsonGetUniqueMatchSeriesIds";
+import { getUniqueMatchSeriesIds } from "@/app/utils/samsJsonClubData";
 import getRankings from "@/app/utils/samsGetRankings";
 
 export default function getOurRankings() {

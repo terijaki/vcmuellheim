@@ -20,7 +20,7 @@ getMatchSeries().then(() => {
 	const matchSeriesJsonFile = fs.readFileSync("data/sams/matchSeries.json");
 	const matchSeriesJson = JSON.parse(matchSeriesJsonFile.toString());
 	// filter down to our ids only
-	const matchSeriesJsonFiltered = matchSeriesJson.matchSeriesList.matchSeries.filter((series: { id: string | number }) => ourMatchSeries.includes(series.id));
+	const matchSeriesJsonFiltered = matchSeriesJson.matchSeriesList.matchSeries.filter((series: { id: string | number }) => ourMatchSeries.includes(series.id.toString()));
 	// identify which of our Match Series need to be updated
 	matchSeriesJsonFiltered.map((series: { id: string | number; type: string; structureUpdated: string; resultsUpdated: string; name: string }) => {
 		// RANKINGS
