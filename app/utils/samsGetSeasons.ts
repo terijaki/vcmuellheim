@@ -20,7 +20,7 @@ export function getSeasons() {
 					const parseString = require("xml2js").parseString;
 					parseString(xmlData, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
 						if (!err) {
-							console.log("✅ All good. Writing response to JSON file.");
+							console.log("✅ All good. Writing response to: " + JSON_FILE_TARGET);
 							fs.writeFileSync(JSON_FILE_TARGET, JSON.stringify(result, null, 2));
 							return true;
 						} else {
