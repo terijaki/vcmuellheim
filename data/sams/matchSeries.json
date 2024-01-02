@@ -7654,8 +7654,8 @@
         "name": "U18 männlich",
         "shortName": "U18m",
         "type": "SuperCompetition",
-        "updated": "2023-12-16 17:28:11.529",
-        "structureUpdated": "2023-12-16 17:28:11.529",
+        "updated": "2024-01-02 11:36:54.931",
+        "structureUpdated": "2024-01-02 11:36:54.931",
         "resultsUpdated": "2023-12-12 18:35:12.849",
         "season": {
           "id": "25640073",
@@ -7837,7 +7837,7 @@
         "name": "U18 männlich 1. Spieltag Bezirksliga",
         "shortName": "U18m_bl1",
         "type": "Competition",
-        "updated": "2023-12-13 18:03:51.156",
+        "updated": "2024-01-02 11:36:54.931",
         "structureUpdated": "2023-09-29 19:23:20.571",
         "resultsUpdated": "2023-10-12 08:29:40.914",
         "season": {
@@ -8020,7 +8020,7 @@
         "name": "U18 männlich 2. Spieltag Bezirksliga",
         "shortName": "U18m_bl2",
         "type": "Competition",
-        "updated": "2023-12-12 08:51:56.679",
+        "updated": "2024-01-02 11:36:54.931",
         "structureUpdated": "2023-11-01 22:47:57.914",
         "resultsUpdated": "2023-11-11 10:03:50.672",
         "season": {
@@ -8142,7 +8142,7 @@
         "name": "U18 männlich 3. Spieltag Landesliga",
         "shortName": "U18m_ll3",
         "type": "Competition",
-        "updated": "2023-12-13 18:03:51.156",
+        "updated": "2024-01-02 11:36:54.931",
         "structureUpdated": "2023-12-12 18:42:11.736",
         "resultsUpdated": "2023-12-04 18:59:04.655",
         "season": {
@@ -9423,8 +9423,8 @@
         "name": "U20 männlich",
         "shortName": "U20m",
         "type": "SuperCompetition",
-        "updated": "2023-12-13 18:01:27.404",
-        "structureUpdated": "2023-12-13 18:01:27.404",
+        "updated": "2024-01-02 11:37:22.609",
+        "structureUpdated": "2024-01-02 11:37:22.609",
         "resultsUpdated": "2023-11-24 20:05:03.721",
         "season": {
           "id": "25640073",
@@ -9545,7 +9545,7 @@
         "name": "U20 männlich 1. Spieltag Landesliga",
         "shortName": "U20m_ll1",
         "type": "Competition",
-        "updated": "2023-12-13 18:01:27.404",
+        "updated": "2024-01-02 11:37:22.609",
         "structureUpdated": "2023-09-26 16:40:49.505",
         "resultsUpdated": "2023-09-27 19:05:00.238",
         "season": {
@@ -9667,7 +9667,7 @@
         "name": "U20 männlich 2. Spieltag Landesliga",
         "shortName": "U20m_ll2",
         "type": "Competition",
-        "updated": "2023-12-13 18:01:27.404",
+        "updated": "2024-01-02 11:37:22.609",
         "structureUpdated": "2023-11-13 22:19:24.672",
         "resultsUpdated": "2023-11-24 20:05:03.721",
         "season": {
