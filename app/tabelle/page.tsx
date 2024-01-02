@@ -37,7 +37,7 @@ export default function Tabelle() {
 			</div>
 			{lastResultCap > 0 && (
 				<div className="col-full-content sm:col-center-content card-narrow my-4 mb-8">
-					<h2 className="font-bold text-2xl text-gray-600 px-3 pt-3">Unsere letzten {lastResultCap} Spiele</h2>
+					<h2 className="card-heading px-6 mt-4">Unsere letzten {lastResultCap} Spiele</h2>
 					<Matches
 						teamId={getTeamIds("id")}
 						filter="past"
