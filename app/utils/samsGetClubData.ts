@@ -9,7 +9,7 @@ const SAMS_URL = env.SAMS_URL;
 const SAMS_CLUB_ID = env.SAMS_CLUBID;
 const JSON_FILE_TARGET = "data/sams/club.json";
 
-export function getClubData() {
+export default function getClubData() {
 	const apiPath = SAMS_URL + "/xml/sportsclub.xhtml?apiKey=" + SAMS_API + "&sportsclubId=" + SAMS_CLUB_ID;
 	// fetch Club Data
 	fetch(apiPath)
@@ -51,5 +51,3 @@ export function getClubData() {
 			}
 		});
 }
-
-getClubData();

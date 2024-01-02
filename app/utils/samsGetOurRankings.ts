@@ -1,8 +1,8 @@
 import { getUniqueMatchSeriesIds } from "@/app/utils/samsJsonGetUniqueMatchSeriesIds";
-import getMatches from "@/app/utils/samsGetMatches";
+import getRankings from "@/app/utils/samsGetRankings";
 
-export default function getOurMatches() {
+export default function getOurRankings() {
 	getUniqueMatchSeriesIds().map((matchSeriesId) => {
-		getMatches(undefined, matchSeriesId);
+		getRankings(matchSeriesId);
 	});
 }

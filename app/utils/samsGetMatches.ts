@@ -21,7 +21,7 @@ const SAMS_URL = env.SAMS_URL;
 const JSON_FILE_TARGET = "data/sams";
 
 // fetch Club Data
-export function getMatches(teamId?: string | number, matchSeriesId?: string | number, allSeasonMatchSeriesId?: string, pastOffset = 20, futureOffset = 10): Object | void {
+export default function getMatches(teamId?: string | number, matchSeriesId?: string | number, allSeasonMatchSeriesId?: string, pastOffset = 20, futureOffset = 10): Object | void {
 	const dateAfter = new Date();
 	const dateBefore = new Date();
 	dateAfter.setDate(dateAfter.getDate() - pastOffset); // 20 days in the past
@@ -43,8 +43,6 @@ export function getMatches(teamId?: string | number, matchSeriesId?: string | nu
 		folderTarget = path.join(JSON_FILE_TARGET, "allSeasonMatchSeriesId", allSeasonMatchSeriesId.toString());
 		fileTarget = folderTarget + "/matches.json";
 	}
-
-	console.log(apiPath);
 	fetch(apiPath)
 		.then((response) => Promise.all([response.status, response.text()]))
 		.then(([status, xmlData]) => {
@@ -76,5 +74,3 @@ export function getMatches(teamId?: string | number, matchSeriesId?: string | nu
 			}
 		});
 }
-
-// getMatches();
