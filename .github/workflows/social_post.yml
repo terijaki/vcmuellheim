@@ -6,11 +6,12 @@ concurrency:
 
 on:
   workflow_dispatch:
-  # workflow_run:
-  #   workflows:
-  #     - Deploy Next.js site to Pages
-  #   types:
-  #     - completed
+  workflow_run:
+    workflows:
+      # - Deploy Next.js site to Pages
+      - DISABLED THIS ONE
+    types:
+      - completed
 
 env:
   POST_PATH: "data/posts"
