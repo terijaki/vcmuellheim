@@ -91,10 +91,10 @@ jobs:
           git config user.email "<>"
           git add ${{ env.SAMS_FOLDER }}
           git commit -m "automated deployment update"
-          if [[ `git push --dry-run --porcelain` ]]; then
+          if [[ `git diff --stat origin/main..` ]]; then
           git push origin --all --quiet
           else
-          echo "ℹ️ No changes were detected."
+          echo "ℹ️ No changes were detected. "
           fi
 
       - name: Build with Next.js
@@ -109,7 +109,7 @@ jobs:
           git config user.email "<>"
           git add ${{ env.IMAGES_FOLDER }}
           git commit -m "automated deployment update"
-          if [[ `git push --dry-run --porcelain` ]]; then
+          if [[ `git diff --stat origin/main..` ]]; then
           git push origin --all --quiet
           else
           echo "ℹ️ No changes were detected."
