@@ -12,7 +12,7 @@ export type teamObject = {
 	sbvvId?: number;
 	alter?: number;
 	training?: [{ zeit?: string; ort?: string; map?: string }];
-	trainer?: [{ name?: string; email?: string }];
+	trainer?: [{ name?: string; email?: string; avatar?: string }];
 	ansprechperson?: [{ name?: string; email?: string }];
 	kommentar?: string;
 	kurztext?: string;
