@@ -18,7 +18,8 @@ export default function MembersCard(props: { name?: string; email?: string; avat
 	return (
 		<Link
 			className={
-				"grid grid-cols-[4rem,1fr] sm:grid-cols-[5rem,1fr] justify-items-start place-items-center bg-white rounded-2xl shadow overflow-hidden group text-sm sm:text-base select-none" + emailClass
+				"member-card grid grid-cols-[4rem,1fr] sm:grid-cols-[5rem,1fr] justify-items-start place-items-center bg-white rounded-2xl shadow overflow-hidden group text-sm sm:text-base select-none" +
+				emailClass
 			}
 			href={email}
 			scroll={false}

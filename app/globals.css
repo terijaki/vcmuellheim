@@ -111,6 +111,22 @@ summary::marker {
 	content: none;
 }
 
+/* ------ Member Arrangement ------ */
+/* this is causing the columns to distribute more evenly and avoids akward placements
+without => row one: 5 childen & row two: 1 child
+with => row one: 3 childen & row two: 3 childen
+*/
+.member-list:has(:nth-child(5)):not(:has(:nth-child(6))) .member-card:nth-child(3n + 1) {
+	@apply md:col-start-1;
+}
+.member-list:has(:nth-child(6)):not(:has(:nth-child(8))) .member-card:nth-child(3n + 1) {
+	@apply md:col-start-1;
+}
+.member-list:has(:nth-child(8)):not(:has(:nth-child(9))) .member-card:nth-child(4n + 1) {
+	@apply lg:col-start-1;
+}
+/* group-has-[:nth-of-type(6),:not(div)]:md:[&:nth-child(4)]:col-start-1 */
+
 /* ------ Intro Scoll Animation ------ */
 /* section#intro img {
 	animation: intro-zoom linear;
