@@ -4,4 +4,8 @@
     },
     "indentRainbow.indicatorStyle": "light",
     "indentRainbow.lightIndicatorStyleLineWidth": 8,
+    "github-actions.workflows.pinned.workflows": [
+        ".github/workflows/nextjs.yml",
+        ".github/workflows/sams_data_sync.yml"
+    ],
 }
