@@ -4,7 +4,7 @@ import { getMembers } from "@/app/utils/getMembers";
 
 export default function ListMembers(props: { memberType: "board" | "trainers"; random?: false | true }) {
 	return (
-		<div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(160px,max-content))] md:grid-cols-[repeat(auto-fit,minmax(250px,max-content))] justify-center">
+		<div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(200px,max-content))] justify-center">
 			{getMembers(props.memberType, props.random).map((member) => {
 				return (
 					<MemberCard

@@ -125,7 +125,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 							{team.trainer?.length == 1 ? <IconPerson className="text-xs" /> : <IconPersons className="text-xs" />}
 							Trainer:
 						</h3>
-						<div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(160px,max-content))] md:grid-cols-[repeat(auto-fit,minmax(250px,max-content))]">
+						<div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(180px,max-content))] md:grid-cols-[repeat(auto-fit,minmax(250px,max-content))]">
 							{team.trainer?.map((trainer) => {
 								// check if this trainer is in the member list and has an avatar
 								const trainerList = getMembers();
