@@ -1,5 +1,7 @@
 {
     "files.associations": {
         "*.css": "tailwindcss"
-    }
+    },
+    "indentRainbow.indicatorStyle": "light",
+    "indentRainbow.lightIndicatorStyleLineWidth": 8,
 }
