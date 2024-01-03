@@ -8,8 +8,8 @@
         "name": "Oberliga Baden Damen",
         "shortName": "ol bd d",
         "type": "League",
-        "updated": "2023-12-17 11:38:51.413",
-        "structureUpdated": "2023-12-14 00:15:13.874",
+        "updated": "2024-01-03 00:15:15.964",
+        "structureUpdated": "2024-01-03 00:15:15.963",
         "resultsUpdated": "2023-12-17 11:38:51.413",
         "season": {
           "id": "25640073",
@@ -69,8 +69,8 @@
         "name": "Oberliga Baden Herren",
         "shortName": "ol bd h",
         "type": "League",
-        "updated": "2023-12-29 07:54:10.807",
-        "structureUpdated": "2023-12-29 07:54:10.807",
+        "updated": "2024-01-03 00:15:11.491",
+        "structureUpdated": "2024-01-03 00:15:11.474",
         "resultsUpdated": "2023-12-20 10:25:40.7",
         "season": {
           "id": "25640073",
@@ -6312,8 +6312,8 @@
         "name": "U15 weiblich",
         "shortName": "U15w",
         "type": "SuperCompetition",
-        "updated": "2023-12-04 19:12:40.184",
-        "structureUpdated": "2023-11-18 14:00:12.137",
+        "updated": "2024-01-03 11:49:41.363",
+        "structureUpdated": "2024-01-03 11:49:41.363",
         "resultsUpdated": "2023-12-04 19:12:40.184",
         "season": {
           "id": "25640073",
@@ -6373,7 +6373,7 @@
         "name": "U15 weiblich 1. Spieltag Landesliga",
         "shortName": "U15w_ll1",
         "type": "Competition",
-        "updated": "2023-11-18 14:00:12.137",
+        "updated": "2024-01-03 11:49:41.363",
         "structureUpdated": "2023-10-05 10:59:50.661",
         "resultsUpdated": "2023-09-27 19:13:38.386",
         "season": {
@@ -6434,7 +6434,7 @@
         "name": "U15 weiblich 2. Spieltag Verbandsliga",
         "shortName": "U15w_vl2",
         "type": "Competition",
-        "updated": "2023-11-18 14:00:12.137",
+        "updated": "2024-01-03 11:49:41.363",
         "structureUpdated": "2023-10-05 11:02:41.278",
         "resultsUpdated": "2023-10-13 08:05:37.953",
         "season": {
@@ -6556,7 +6556,7 @@
         "name": "U15 weiblich 3. Spieltag Verbandsliga",
         "shortName": "U15w_vl3",
         "type": "Competition",
-        "updated": "2023-11-24 19:56:56.572",
+        "updated": "2024-01-03 11:49:41.363",
         "structureUpdated": "2023-11-13 22:18:16.681",
         "resultsUpdated": "2023-11-24 19:56:56.572",
         "season": {
@@ -7288,8 +7288,8 @@
         "name": "U16 weiblich Quattro",
         "shortName": "U16wq",
         "type": "SuperCompetition",
-        "updated": "2023-12-12 18:48:33.77",
-        "structureUpdated": "2023-12-12 18:48:33.77",
+        "updated": "2024-01-03 11:56:34.942",
+        "structureUpdated": "2024-01-03 11:56:34.942",
         "resultsUpdated": "2023-11-24 21:01:51.871",
         "season": {
           "id": "25640073",
@@ -7349,7 +7349,7 @@
         "name": "U16 weiblich Quattro 1. Spieltag Verbandsliga",
         "shortName": "U16wq_vl1",
         "type": "Competition",
-        "updated": "2023-11-24 20:25:17.152",
+        "updated": "2024-01-03 11:56:34.942",
         "structureUpdated": "2023-11-24 20:25:17.152",
         "resultsUpdated": "2023-09-24 11:59:41.602",
         "season": {
@@ -7471,7 +7471,7 @@
         "name": "U16 weiblich Quattro 2. Spieltag Verbandsliga",
         "shortName": "U16wq_vl2",
         "type": "Competition",
-        "updated": "2023-11-24 20:38:59.081",
+        "updated": "2024-01-03 11:56:34.942",
         "structureUpdated": "2023-11-24 20:25:58.597",
         "resultsUpdated": "2023-11-24 20:38:59.081",
         "season": {
@@ -11857,8 +11857,8 @@
         "name": "Landesliga Mixed Süd",
         "shortName": "LLMS",
         "type": "League",
-        "updated": "2023-12-13 20:47:16.954",
-        "structureUpdated": "2023-12-12 09:28:36.736",
+        "updated": "2024-01-03 10:40:54.775",
+        "structureUpdated": "2024-01-03 10:40:54.775",
         "resultsUpdated": "2023-12-13 20:47:16.954",
         "season": {
           "id": "25640073",
