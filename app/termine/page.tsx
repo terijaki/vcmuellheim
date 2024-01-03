@@ -45,7 +45,7 @@ export default function Termine() {
 				<h2 className="card-heading">Vereinskalender</h2>
 				<p className="my-3 text-pretty">
 					<Link
-						href={""}
+						href={"webcal://" + env.BASE_URL + "/ics/all.ics"}
 						className="gap-1 hyperlink group"
 					>
 						<IconSubscribe className="inline align-baseline" /> Abboniere unseren Vereinskalender
