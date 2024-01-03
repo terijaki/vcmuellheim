@@ -53,7 +53,7 @@ export default function HomeIntro() {
 					})}
 				</div>
 			</div>
-			<IconDown className="scroll-indicator landscape:hidden absolute right-5 bottom-5 animate-ping1 rounded-full text-2xl animate-pulse opacity-0 group-hover:opacity-20" />
+			<IconDown className="scroll-indicator absolute right-5 bottom-5 text-2xl animate-pulse opacity-0" />
 		</section>
 	);
 }
