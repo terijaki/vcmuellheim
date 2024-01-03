@@ -7,7 +7,6 @@ export function getRankings(matchSeriesArray: string[]): rankingsArray[] {
 	let resultArray = new Array();
 	matchSeriesArray.map((matchSeriesId) => {
 		const file = path.join(SAMS_FOLDER, "matchSeriesId", matchSeriesId) + "/rankings.json";
-		console.log(file);
 		if (fs.existsSync(file)) {
 			const rankings = fs.readFileSync(file);
 			const rankingsObject = JSON.parse(rankings.toString());
