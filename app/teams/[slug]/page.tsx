@@ -6,7 +6,7 @@ import { Fragment } from "react";
 import { getMembers } from "@/app/utils/getMembers";
 import { getTeams } from "@/app/utils/getTeams";
 import { getLeagueName, getUniqueMatchSeriesIds } from "@/app/utils/samsJsonClubData";
-import { FaUser as IconPerson, FaUserGroup as IconPersons, FaClock as IconClock, FaArrowsRotate as IconSubscribe } from "react-icons/fa6";
+import { FaUser as IconPerson, FaUserGroup as IconPersons, FaClock as IconClock, FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import { getRankings } from "@/app/utils/samsJsonRanking";
 import RankingTable from "@/app/components/sams/RankingTable";
 import { icsTeamGeneration } from "@/app/utils/icsGeneration";
@@ -51,6 +51,18 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 				{/* matches */}
 				{team.sbvvId && (
 					<>
+						<div className="card lg:card">
+							<h2 className="card-heading">Mannschaftskalender</h2>
+							<p className="my-3 text-pretty">
+								<Link
+									href={"webcal://" + env.BASE_URL + "/ics/" + params.slug + ".ics"}
+									className="gap-1 hyperlink group"
+								>
+									<IconSubscribe className="inline align-baseline" /> Abboniere unseren Kalender
+								</Link>
+								, um neue Termine saisonübergreifend automatisch in deiner Kalender-App zu empfangen.
+							</p>
+						</div>
 						<div className="card-narrow lg:card">
 							<h2 className="card-heading">Ergebnisse</h2>
 							{/* TODO deal with the fact that there might not be any past matches, e.g season start */}
@@ -61,15 +73,6 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 						</div>
 						<div className="card-narrow lg:card">
 							<h2 className="card-heading">Spielplan</h2>
-							<p className="p-4 pb-0 text-pretty">
-								<Link
-									href={"webcal://" + env.BASE_URL + "/ics/" + params.slug + ".ics"}
-									className="gap-1 hyperlink group"
-								>
-									<IconSubscribe className="inline align-baseline group-hover:animate-spin" /> Abboniere unseren Kalender
-								</Link>
-								, um neue Termine saisonübergreifend automatisch in deiner Kalender-App zu empfangen.
-							</p>
 							{/* TODO deal with the fact that there might not be any future matches, e.g season end */}
 							<Matches
 								filter="future"

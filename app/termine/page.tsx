@@ -3,7 +3,7 @@ import { getTeamIds } from "../utils/samsJsonClubData";
 import { icsAllGeneration } from "../utils/icsGeneration";
 import { getMatches } from "@/app/utils/samsJsonMatches";
 import Matches from "@/app/components/sams/Matches";
-import { FaArrowsRotate as IconSubscribe } from "react-icons/fa6";
+import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import Link from "next/link";
 import { env } from "process";
 
@@ -29,7 +29,7 @@ export default function Termine() {
 							href={"webcal://" + env.BASE_URL + "/ics/all.ics"}
 							className="gap-1 hyperlink group"
 						>
-							<IconSubscribe className="inline align-baseline group-hover:animate-spin" /> Abboniere unseren Kalender
+							<IconSubscribe className="inline align-baseline" /> Abboniere unseren Kalender
 						</Link>
 						, um neue Termine saisonübergreifend automatisch in deiner <span className="font-bold">Kalender-App</span> zu empfangen.
 					</p>
@@ -41,20 +41,20 @@ export default function Termine() {
 	return (
 		<>
 			<PageHeading title="Spielermine unserer Mannschaften" />
-			<div className="col-full-content sm:col-center-content card-narrow my-6">
-				<h2 className="card-heading mx-6 mt-3">Vereinskalender</h2>
-				<p className="p-4 text-pretty">
+			<div className="col-full-content sm:col-center-content card my-6">
+				<h2 className="card-heading">Vereinskalender</h2>
+				<p className="my-3 text-pretty">
 					<Link
 						href={""}
 						className="gap-1 hyperlink group"
 					>
-						<IconSubscribe className="inline align-baseline group-hover:animate-spin" /> Abboniere unseren Vereinskalender
+						<IconSubscribe className="inline align-baseline" /> Abboniere unseren Vereinskalender
 					</Link>
 					, um neue Termine saisonübergreifend automatisch in deiner <span className="font-bold">Kalender-App</span> zu empfangen.
 				</p>
 			</div>
 			<div className="col-full-content sm:col-center-content card-narrow mb-6">
-				<h2 className="card-heading mx-6 mt-4">Termine</h2>
+				<h2 className="card-heading">Termine</h2>
 				<Matches
 					teamId={getTeamIds("id")}
 					filter="future"
