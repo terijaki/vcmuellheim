@@ -128,18 +128,17 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 						<div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(160px,max-content))] md:grid-cols-[repeat(auto-fit,minmax(250px,max-content))]">
 							{team.trainer?.map((trainer) => {
 								// check if this trainer is in the member list and has an avatar
-								const trainerList = getMembers("trainers");
+								const trainerList = getMembers();
 								const filteredTrainers = trainerList.filter((thisTrainer) => thisTrainer.name == trainer.name);
 								return (
 									<div key="trainercard">
 										{filteredTrainers[0] && filteredTrainers[0].avatar ? (
 											<MembersCard
-												name={trainer.name}
+												{...trainer}
 												avatar={filteredTrainers[0].avatar}
-												email={trainer.email}
 											/>
 										) : (
-											trainer.name
+											<MembersCard {...trainer} />
 										)}
 									</div>
 								);

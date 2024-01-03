@@ -1,11 +1,13 @@
 import Link from "next/link";
 import React from "react";
 import ExportedImage from "next-image-export-optimizer";
+import { FaUser as IconAvatar } from "react-icons/fa6";
 
 export default function MembersCard(props: { name?: string; email?: string; avatar?: string; function?: string }) {
-	if (!props.name || !props.avatar) {
+	if (!props.name) {
 		return null;
 	}
+
 	let email = "";
 	let emailClass = "";
 	if (props.email) {
@@ -21,14 +23,18 @@ export default function MembersCard(props: { name?: string; email?: string; avat
 			href={email}
 			scroll={false}
 		>
-			<div className="overflow-hidden w-full h-full aspect-square group">
-				<ExportedImage
-					width={96}
-					height={96}
-					src={props.avatar}
-					alt={props.name}
-					className="object-cover h-full w-full group-hover:scale-105 duration-300"
-				/>
+			<div className="overflow-hidden w-full h-full aspect-square group bg-lion *:h-full *:w-full *:group-hover:scale-105 *:duration-300">
+				{props.avatar ? (
+					<ExportedImage
+						width={96}
+						height={96}
+						src={props.avatar}
+						alt={props.name}
+						className="object-cover"
+					/>
+				) : (
+					<IconAvatar className="text-white mt-3" />
+				)}
 			</div>
 			<div className="grid grid-cols-1 overflow-hidden w-full px-2">
 				<div className="text-sm sm:text-base">{props.name}</div>
