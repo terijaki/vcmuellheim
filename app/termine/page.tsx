@@ -22,7 +22,7 @@ export default function Termine() {
 		return (
 			<>
 				<PageHeading title="Spielermine unserer Mannschaften" />
-				<div className="col-center-content card my-6">
+				<div className="col-full-content sm:col-center-content card my-6">
 					<p className="mb-3">Derzeit stehen keine weiteren Spieltermine an.</p>
 					<p className="text-pretty">
 						<Link
@@ -31,7 +31,7 @@ export default function Termine() {
 						>
 							<IconSubscribe className="inline align-baseline group-hover:animate-spin" /> Abboniere unseren Kalender
 						</Link>
-						, um neue Termine saisonübergreifend automatisch in deiner Kalender-App zu empfangen.
+						, um neue Termine saisonübergreifend automatisch in deiner <span className="font-bold">Kalender-App</span> zu empfangen.
 					</p>
 				</div>
 			</>
@@ -42,15 +42,19 @@ export default function Termine() {
 		<>
 			<PageHeading title="Spielermine unserer Mannschaften" />
 			<div className="col-full-content sm:col-center-content card-narrow my-6">
-				<p className="p-4 pb-0 text-pretty">
+				<h2 className="card-heading mx-6 mt-3">Vereinskalender</h2>
+				<p className="p-4 text-pretty">
 					<Link
 						href={""}
 						className="gap-1 hyperlink group"
 					>
-						<IconSubscribe className="inline align-baseline group-hover:animate-spin" /> Abboniere unseren Kalender
+						<IconSubscribe className="inline align-baseline group-hover:animate-spin" /> Abboniere unseren Vereinskalender
 					</Link>
-					, um neue Termine saisonübergreifend automatisch in deiner Kalender-App zu empfangen.
+					, um neue Termine saisonübergreifend automatisch in deiner <span className="font-bold">Kalender-App</span> zu empfangen.
 				</p>
+			</div>
+			<div className="col-full-content sm:col-center-content card-narrow mb-6">
+				<h2 className="card-heading mx-6 mt-4">Termine</h2>
 				<Matches
 					teamId={getTeamIds("id")}
 					filter="future"

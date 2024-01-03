@@ -17,6 +17,8 @@ const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown
 
 export default function Tabelle() {
 	const lastResultCap = Number((getUniqueMatchSeriesIds(getTeamIds("id")).length * GAMES_PER_TEAM).toFixed(0)); // calculate the total number of games
+	const numToWordsDe = require("num-words-de");
+	const lastResultWord = numToWordsDe.numToWord(lastResultCap, { uppercase: false });
 
 	let matchSeriesDisplayed: string[] = []; //placeholder to avoid duplicate league displays
 	return (
@@ -37,7 +39,7 @@ export default function Tabelle() {
 			</div>
 			{lastResultCap > 0 && (
 				<div className="col-full-content sm:col-center-content card-narrow my-4 mb-8">
-					<h2 className="card-heading px-6 mt-4">Unsere letzten {lastResultCap} Spiele</h2>
+					<h2 className="card-heading">Unsere letzten {lastResultWord} Spiele</h2>
 					<Matches
 						teamId={getTeamIds("id")}
 						filter="past"

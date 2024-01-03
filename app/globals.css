@@ -36,6 +36,9 @@
 	.card-heading {
 		@apply font-bold text-2xl text-blumine font-humanist;
 	}
+	.card-narrow .card-heading {
+		@apply px-6 pt-4;
+	}
 	.col-full-content.card,
 	.col-full-content.card-narrow,
 	.col-full-content > .card,

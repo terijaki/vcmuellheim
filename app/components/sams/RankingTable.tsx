@@ -18,15 +18,15 @@ export default function RankingTable(props: rankingsArray) {
 	}
 
 	return (
-		<div className="card-narrow pt-4">
-			<h2 className="card-heading px-6">{props.matchSeries.name}</h2>
+		<div className="card-narrow">
+			<h2 className="card-heading">{props.matchSeries.name}</h2>
 			<ul className="grid grid-cols-2 text-xs text-lion italic w-full my-2 px-6">
 				<li>Saison {props.matchSeries.season.name}</li>
 				<li className="text-xs text-gray-400 text-end">
 					Stand {dateDisplay} {dateTimeDisplay} Uhr
 				</li>
 			</ul>
-			<div className="tabelle-test">
+			<div className="tabelle pb-3">
 				<div className="grid grid-cols-[repeat(4,auto)] sm:grid-cols-[repeat(5,auto)] md:grid-cols-[repeat(4,auto)] lg:grid-cols-[repeat(5,auto)] relative overflow-hidden">
 					<div className="font-bold text-slate-600 text-center mr-1 sm:hidden">Nr</div>
 					<div className="font-bold text-slate-600 text-center mr-1 hidden sm:block">Platz</div>
