@@ -46,7 +46,7 @@ export function icsTeamGeneration(sbvvId: (string | number)[], slug: string) {
 			matchConstruct = matchConstruct.replaceAll(
 				"REPLACE_MATCH_DESCRIPTION",
 				match.matchSeries.name +
-					(match.results?.setPoints && "\\nErgebnis: " + match.results.setPoints) +
+					(match.results?.setPoints != undefined && "\\nErgebnis: " + match.results.setPoints) +
 					(match.host?.name && "\\nGastgeber: " + match.host.name) +
 					(slug == "all" ? "\\nhttps://vcmuellheim.de/termine" : "\\nhttps://vcmuellheim.de/teams/" + slug)
 			);
