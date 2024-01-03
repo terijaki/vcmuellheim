@@ -39,7 +39,7 @@ export default function HomeIntro() {
 						className="object-contain border-0"
 					/>
 				</div>
-				<div className="links text-center inline-grid md:hidden gap-1 w-full grid-cols-[repeat(auto-fit,90px)] bg-red-300">
+				<div className="links text-center inline-flex md:hidden gap-x-2 gap-y-2 w-10/12 flex-wrap place-content-center">
 					{navbarLinks.map((link) => {
 						return (
 							<Link
