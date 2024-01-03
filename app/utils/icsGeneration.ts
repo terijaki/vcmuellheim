@@ -15,6 +15,7 @@ export function icsTeamGeneration(sbvvId: (string | number)[], slug: string) {
 
 	let matchArray: string[] = [];
 	// loop through all matches for the team
+	// TODO exclude matches that are already added. this is to avoid damen 1 vs damen 2 being added twice. maybe dont add here but inside getMatches() instead
 	getMatches(sbvvId).map((match) => {
 		if (match.uuid && match.team?.length == 2 && match.location && match.matchSeries?.name && match.matchSeries.updated) {
 			// use the match update date as the date this entry is updated
@@ -40,7 +41,7 @@ export function icsTeamGeneration(sbvvId: (string | number)[], slug: string) {
 			matchConstruct = matchConstruct.replaceAll("REPLACE_MATCH_SUMMARY", match.team[0].name + (match.results ? " (" + match.results.setPoints + ") " : " vs. ") + match.team[1].name);
 			matchConstruct = matchConstruct.replaceAll(
 				"REPLACE_MATCH_LOCATION",
-				match.location.street + ", " + match.location.postalCode + " " + match.location.city + (match.location.name && ", " + match.location.name)
+				match.location.street + "\\, " + match.location.postalCode + " " + match.location.city + (match.location.name && "\\, " + match.location.name)
 			);
 			matchConstruct = matchConstruct.replaceAll(
 				"REPLACE_MATCH_DESCRIPTION",
