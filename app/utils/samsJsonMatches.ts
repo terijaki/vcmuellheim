@@ -24,12 +24,20 @@ export function getMatches(teamIds: (string | number)[], filter?: "past" | "futu
 		const bDate = b.date?.slice(6, 10) + "-" + b.date?.slice(3, 5) + "-" + b.date?.slice(0, 2);
 		return new Date(aDate).getTime() - new Date(bDate).getTime();
 	});
-	let filteredMatches = sortedMatches;
+	let matchesUuids = new Set();
+	let filtereduniqueMatches = sortedMatches.filter((match) => {
+		if (matchesUuids.has(match.uuid)) {
+			return false;
+		}
+		matchesUuids.add(match.uuid);
+		return true;
+	});
+	let filteredMatches = filtereduniqueMatches;
 	if (filter == "past") {
-		filteredMatches = matches.filter((match) => match.results).reverse();
+		filteredMatches = filtereduniqueMatches.filter((match) => match.results).reverse();
 		// reverse sort order
 	} else if (filter == "future") {
-		filteredMatches = matches.filter((match) => !match.results);
+		filteredMatches = filtereduniqueMatches.filter((match) => !match.results);
 	}
 
 	return filteredMatches;
