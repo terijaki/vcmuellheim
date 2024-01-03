@@ -51,16 +51,16 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 				{/* matches */}
 				{team.sbvvId && (
 					<>
-						<div className="card-narrow lg:card pt-4">
-							<h2 className="card-heading px-6">Ergebnisse</h2>
+						<div className="card-narrow lg:card">
+							<h2 className="card-heading">Ergebnisse</h2>
 							{/* TODO deal with the fact that there might not be any past matches, e.g season start */}
 							<Matches
 								filter="past"
 								teamId={[team.sbvvId]}
 							/>
 						</div>
-						<div className="card-narrow lg:card pt-4">
-							<h2 className="card-heading px-6">Spielplan</h2>
+						<div className="card-narrow lg:card">
+							<h2 className="card-heading">Spielplan</h2>
 							<p className="p-4 pb-0 text-pretty">
 								<Link
 									href={"webcal://" + env.BASE_URL + "/ics/" + params.slug + ".ics"}
