@@ -39,13 +39,13 @@ export default function HomeIntro() {
 						className="object-contain border-0"
 					/>
 				</div>
-				<div className="links text-center inline-block colums-auto w-md *:m-1">
+				<div className="links text-center inline-grid md:hidden gap-1 w-full grid-cols-[repeat(auto-fit,90px)] bg-red-300">
 					{navbarLinks.map((link) => {
 						return (
 							<Link
 								key={link.name}
 								{...link}
-								className="button-transparent bg-onyx"
+								className="button-transparent bg-onyx inline"
 							>
 								{link.name}
 							</Link>
