@@ -18,8 +18,6 @@ env:
   # paths and files reused throughout the workflow
   SAMS_CLUB_XML: _sams/xml/club.xml
   SAMS_MATCHES_XML: _sams/xml/matches/
-  SAMS_CLUB_JSON: data/sams/club.json
-  SAMS_MATCHES_JSON: data/sams/matches/
 
 jobs:
   ########################
@@ -47,12 +45,6 @@ jobs:
         run: |
           mkdir -p $(dirname ${{env.SAMS_CLUB_XML}})
           curl -o ${{env.SAMS_CLUB_XML}} "$SAMS_URL/xml/sportsclub.xhtml?apiKey=$SAMS_KEY&sportsclubId=$SAMS_CLUBID" -f --retry 10 --retry-delay 60 --connect-timeout 30
-
-      - name: SAMS API Response Log
-        id: sams_response_log
-        if: steps.sams_query_club.conclusion == 'success'
-        run: |
-          cat ${{env.SAMS_CLUB_XML}}
 
       - name: Check for maintenance mode
         id: sams_maintenance_check
@@ -82,23 +74,12 @@ jobs:
         if: steps.teamids-from-club.conclusion == 'success'
         run: echo "teamids=[${{steps.teamids-from-club.outputs.info}}]" >> $GITHUB_OUTPUT # transform IDs from "123,456,789" to "[123,456,789]"
 
-      - name: Convert XML to JSON
-        id: xml_to_json
-        if: steps.sams_maintenance_check.conclusion == 'success'
-        run: |
-          mkdir -p $(dirname ${{env.SAMS_CLUB_JSON}})
-          cat ${{env.SAMS_CLUB_XML}} | yq -pxml --xml-skip-proc-inst -ojson > ${{env.SAMS_CLUB_JSON}}
-
       - name: Git Commit & Push
         if: steps.sams_maintenance_check.conclusion == 'success'
         continue-on-error: true
         run: |
           git add "${{env.SAMS_CLUB_XML}}"
           git commit -m "sams raw club update" || true
-          git pull --rebase --quiet
-          git push origin --all --quiet
-          git add "${{env.SAMS_CLUB_JSON}}"
-          git commit -m "sams raw club update [skip ci]" || true
           git pull --rebase --quiet
           git push origin --all --quiet
 
@@ -123,28 +104,12 @@ jobs:
           mkdir -p ${{env.SAMS_MATCHES_XML}}
           curl -o ${{env.SAMS_MATCHES_XML}}${{matrix.teams}}.xml "$SAMS_URL/xml/matches.xhtml?apiKey=$SAMS_KEY&teamId=${{matrix.teams}}" -f --retry 5 --retry-delay 60
 
-      - name: Convert XML to JSON
-        id: xml_to_json
-        if: steps.query_sams.conclusion == 'success'
-        run: |
-          filename=${{env.SAMS_MATCHES_JSON}}${{matrix.teams}}.json
-          mkdir -p $(dirname $filename)
-          cat ${{env.SAMS_MATCHES_XML}}${{matrix.teams}}.xml | yq -pxml --xml-skip-proc-inst -ojson > $filename
-
       - name: Upload Artifact (SAMS XML)
         id: upload
         uses: actions/upload-artifact@v3
         with:
           name: raw_sams_matches_xml
           path: ${{env.SAMS_MATCHES_XML}}${{matrix.teams}}.xml
-
-      - name: Upload Artifact (SAMS JSON)
-        id: upload_json
-        if: steps.xml_to_json.conclusion == 'success'
-        uses: actions/upload-artifact@v3
-        with:
-          name: raw_sams_matches_json
-          path: ${{env.SAMS_MATCHES_JSON}}${{matrix.teams}}.json
 
       - name: Upload Status
         id: upload_status
@@ -173,13 +138,6 @@ jobs:
           name: raw_sams_matches_xml
           path: ${{env.SAMS_MATCHES_XML}}
 
-      - name: Download Matches Exports (JSON)
-        if: contains(needs.Get-Matches.outputs.upload_required, 'yes')
-        uses: actions/download-artifact@v3
-        with:
-          name: raw_sams_matches_json
-          path: ${{env.SAMS_MATCHES_JSON}}
-
       - name: Setup Git Config
         run: |
           git config user.name "GitHub Actions Bot"
@@ -189,7 +147,6 @@ jobs:
         continue-on-error: true
         run: |
           git add "${{env.SAMS_MATCHES_XML}}*"
-          git add "${{env.SAMS_MATCHES_JSON}}*"
           git commit -m "sams matches update" || true
 
       - name: Git Push
