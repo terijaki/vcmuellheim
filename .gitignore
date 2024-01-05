@@ -43,3 +43,6 @@ next-env.d.ts
 
 # image optimisation
 /public/images/**/optimized
+
+# sams
+/data/sams/matchSeries.json
