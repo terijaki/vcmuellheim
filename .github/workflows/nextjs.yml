@@ -85,6 +85,7 @@ jobs:
 
       - name: SAMS Update
         id: sams_update
+        if: ${{ github.event != 'push' }}
         run: npm run sams-update
         env:
           SAMS_API: ${{ secrets.SAMS_API }}
