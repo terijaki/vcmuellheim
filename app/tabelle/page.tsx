@@ -1,6 +1,6 @@
 import React from "react";
-import { getTeamIds, getUniqueMatchSeriesIds } from "@/app/utils/samsJsonClubData";
-import { getRankings } from "@/app/utils/samsJsonRanking";
+import { getTeamIds, getUniqueMatchSeriesIds } from "@/app/utils/sams/jsonClubData";
+import { getRankings } from "@/app/utils/sams/jsonRanking";
 import RankingTable from "@/app/components/sams/RankingTable";
 import PageHeading from "@/app/components/layout/PageHeading";
 import Matches from "@/app/components/sams/Matches";

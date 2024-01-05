@@ -1,7 +1,7 @@
 import PageHeading from "@/app/components/layout/PageHeading";
-import { getTeamIds } from "../utils/samsJsonClubData";
-import { icsAllGeneration } from "../utils/icsGeneration";
-import { getMatches } from "@/app/utils/samsJsonMatches";
+import { getTeamIds } from "@/app/utils/sams/jsonClubData";
+import { icsAllGeneration } from "@/app/utils/icsGeneration";
+import { getMatches } from "@/app/utils/sams/jsonMatches";
 import Matches from "@/app/components/sams/Matches";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import Link from "next/link";

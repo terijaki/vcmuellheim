@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
-import { getMatches } from "@/app/utils/samsJsonMatches";
-import { getTeamIds } from "@/app/utils/samsJsonClubData";
+import { getMatches } from "@/app/utils/sams/jsonMatches";
+import { getTeamIds } from "@/app/utils/sams/jsonClubData";
 
 const ICS_FOLDER_LOCATION = "public/ics";
 const TEMPLATE_START = "BEGIN:VEVENT";

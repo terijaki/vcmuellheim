@@ -1,5 +1,5 @@
-import { getTeamIds } from "@/app/utils/samsJsonClubData";
-import { getMatches } from "@/app/utils/samsJsonMatches";
+import { getTeamIds } from "@/app/utils/sams/jsonClubData";
+import { getMatches } from "@/app/utils/sams/jsonMatches";
 import ExportedImage from "next-image-export-optimizer";
 import Link from "next/link";
 import { Fragment } from "react";

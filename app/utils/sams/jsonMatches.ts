@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { getUniqueMatchSeriesIds } from "./samsJsonClubData";
+import { getUniqueMatchSeriesIds } from "./jsonClubData";
 
 const SAMS_MATCHES_FOLDER = "data/sams/matches";
 const SAMS_FOLDER = "data/sams";
