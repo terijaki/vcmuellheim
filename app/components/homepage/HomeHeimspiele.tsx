@@ -48,7 +48,12 @@ export default function HomeHeimspiele() {
 										key={match.uuid}
 									>
 										<div>
-											<span className="text-lion mr-1">{match.date}</span>
+											<time
+												dateTime={match.dateIso}
+												className="text-lion mr-1"
+											>
+												{match.date}
+											</time>
 											<Link
 												href={"https://www.google.com/maps/search/?api=1&query=" + match.location?.street + "," + match.location?.postalCode + "," + match.location?.city + "," + match.location?.name}
 												target="_blank"
