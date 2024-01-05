@@ -3,7 +3,7 @@ import Members from "@/app/components/homepage/MemberList";
 
 export default function HomeKontakt() {
 	return (
-		<section className="col-center-content pb-12">
+		<section className="col-full-content sm:col-center-content pb-12">
 			<a
 				id="verein"
 				className="scroll-anchor"
