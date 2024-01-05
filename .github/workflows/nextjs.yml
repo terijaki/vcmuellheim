@@ -143,7 +143,7 @@ jobs:
 
           if [ -z "$(git stage ${{ env.IMAGES_FOLDER }} --dry-run)" ]
           then
-            echo "🌈 No new image optimizations up to date.."
+            echo "🌈 Image optimizations are up to date.."
           else
             echo "🕵️ New image optimizations! Pushing to repository."
             git add ${{ env.IMAGES_FOLDER }}
