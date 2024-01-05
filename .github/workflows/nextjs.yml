@@ -33,7 +33,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      build_status: ${{ steps.build_status.outputs.status }}
+      build_status: ${{ steps.next_build.outputs.status }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -120,11 +120,9 @@ jobs:
       - name: Build with Next.js
         id: next_build
         if: ${{ github.event.schedule != '15,45 09-20 * JAN-APR,OCT-DEC 0,6,5' || (github.event.schedule == '15,45 09-20 * JAN-APR,OCT-DEC 0,6,5' && steps.sams_git.outputs.status == 'updated') }}
-        run: ${{ steps.detect-package-manager.outputs.runner }} build
-
-      - name: Build Status
-        id: build_status
-        run: echo "status=ok" >> $GITHUB_OUTPUT
+        run: |
+          echo "status=started" >> $GITHUB_OUTPUT  
+          ${{ steps.detect-package-manager.outputs.runner }} build
 
       - name: Commit Optimized Images
         if: steps.next_build.conclusion == 'success'
@@ -149,7 +147,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
-    if: ${{ needs.build.outputs.build_status }} == 'ok'
+    if: ${{ needs.build.outputs.build_status }} == 'started'
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
