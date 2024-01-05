@@ -2,9 +2,9 @@
 // run during deployment via: npx tsx --env-file=.env.local --env-file=.env app/utils/samsUpdateTasks.ts
 import fs from "fs";
 import { getTeamIds, getUniqueMatchSeriesIds } from "./jsonClubData";
-import getRankings from "./getRankings";
 import getMatchSeries from "./getMatchSeries";
 import getClubData from "./getClubData";
+import getRankings from "./getRankings";
 import getMatches from "./getMatches";
 
 // there is no rate limit in this request type! ✌️
