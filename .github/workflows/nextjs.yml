@@ -83,7 +83,7 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
 
-      - name: SAMS Update
+      - name: Perform SAMS Update
         id: sams_update
         if: ${{ github.event_name != 'push' }}
         run: npm run sams-update
@@ -120,6 +120,7 @@ jobs:
 
       - name: Build with Next.js
         id: next_build
+        ## skip the build process if there was no SAMS update for our club
         if: ${{ github.event.schedule != '15,45 09-20 * JAN-APR,OCT-DEC 0,6,5' || steps.sams_git.outputs.status == 'updated' }}
         run: |
           echo "status=started" >> $GITHUB_OUTPUT  
