@@ -1,4 +1,4 @@
-name: Deploy Next.js site to Pages
+name: "Update, Build & Deployment"
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ on:
       - "_inbox/**"
   schedule: # times in in UTC
     - cron: 30 2 * * TUE # At 02:30 on Tuesday
-    - cron: 15,45 09-21 * JAN-APR,OCT-DEC 0,6,5 # At minute 15 & 45 past every hour, from 9 AM to 9 PM on Sunday & Saturday, from October through April
+    - cron: 15,45 09-21 * JAN-APR,OCT-DEC 0,6 # At minute 15 & 45 past every hour, from 9 AM to 9 PM on Sunday & Saturday, from October through April
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -27,6 +27,8 @@ env:
   SAMS_FOLDER: "data/sams"
   SAMS_MATCHSERIES_JSON: "data/sams/matchSeries.json"
   IMAGES_FOLDER: "public/images"
+  BLOG_FOLDER: "data/posts"
+  INBOX_FOLDER: "inbox"
 
 jobs:
   # Build jobs
@@ -36,6 +38,7 @@ jobs:
     outputs:
       sams_status: ${{ steps.sams_git.outputs.status }}
       build_status: ${{ steps.next_build.outputs.status }}
+      blog_check: ${{ steps.next_build.outputs.status }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -63,14 +66,6 @@ jobs:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-        with:
-          # Automatically inject basePath in your Next.js configuration file and disable
-          # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
-          # You may remove this line if you want to manage the configuration yourself.
-          static_site_generator: next
-
       - name: Restore cache
         uses: actions/cache@v3
         with:
@@ -88,6 +83,7 @@ jobs:
       - name: Perform SAMS Update
         id: sams_update
         if: ${{ github.event_name != 'push' }}
+        continue-on-error: true
         run: npm run sams-update
         env:
           SAMS_API: ${{ secrets.SAMS_API }}
@@ -120,10 +116,20 @@ jobs:
             echo "status=updated" >> $GITHUB_OUTPUT
           fi
 
+      - name: Setup Pages
+        id: setup_pages
+        ## skip the github pages and build process if there was no SAMS update for our club
+        if: ${{ github.event.schedule != '15,45 09-21 * JAN-APR,OCT-DEC 0,6' || steps.sams_git.outputs.status == 'updated' }}
+        uses: actions/configure-pages@v4
+        with:
+          # Automatically inject basePath in your Next.js configuration file and disable
+          # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
+          # You may remove this line if you want to manage the configuration yourself.
+          static_site_generator: next
+
       - name: Build with Next.js
         id: next_build
-        ## skip the build process if there was no SAMS update for our club
-        if: ${{ github.event.schedule != '15,45 09-21 * JAN-APR,OCT-DEC 0,6,5' || steps.sams_git.outputs.status == 'updated' }}
+        if: steps.setup_pages.conclusion == 'success'
         run: |
           echo "status=started" >> $GITHUB_OUTPUT  
           ${{ steps.detect-package-manager.outputs.runner }} build
@@ -137,6 +143,26 @@ jobs:
           git add ${{ env.IMAGES_FOLDER }} --force
           git commit -m "automated deployment update" || true
           git push origin --all --quiet --force || true
+
+      - name: New Blog Post Check
+        id: blog_check
+        if: steps.next_build.conclusion == 'success'
+        continue-on-error: true
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+          if [ -z "$(git stage ${{ env.BLOG_FOLDER }} --dry-run)" ]
+          then
+            echo "🌈 No new blog post found.."
+          else
+            echo "🕵️ New Blog post detected! Pushing to repository and cleaning the inbox folder."
+            git add ${{ env.BLOG_FOLDER }}
+            git add ${{ env.INBOX_FOLDER }}
+            git commit -m "automated deployment update"
+            git push origin --all --quiet --force
+            echo "status=new" >> $GITHUB_OUTPUT
+          fi
 
       - name: Upload artifact
         if: steps.next_build.conclusion == 'success'
@@ -170,5 +196,5 @@ jobs:
         run: echo "To be implemented"
 
       - name: Blog Posts
-        if: ${{ needs.build.outputs.build_status == 'started' }}
+        if: ${{ needs.build.outputs.blog_check == 'new' }}
         run: echo "To be implemented."
