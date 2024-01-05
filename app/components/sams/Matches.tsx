@@ -27,7 +27,6 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 					Stand: <time dateTime={matches[0].matchSeries?.updated}>{dateDisplay}</time>
 				</p>
 				{matches.map((match) => {
-					const machineDateTime = match.date?.substring(6, 10) + "-" + match.date?.substring(3, 5) + "-" + match.date?.substring(0, 2) + "T" + match.time;
 					return (
 						<div
 							className={
@@ -40,7 +39,7 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 								{match.date ? (
 									<time
 										className="mr-1 sm:block"
-										dateTime={machineDateTime}
+										dateTime={match.dateIso}
 									>
 										{match.date}
 									</time>
@@ -135,8 +134,6 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 					Stand: {dateDisplay}
 				</p>
 				{matches.map((match) => {
-					// create a machine readable date
-					const machineDateTime = match.date?.substring(6, 10) + "-" + match.date?.substring(3, 5) + "-" + match.date?.substring(0, 2) + "T" + match.time;
 					return (
 						<div
 							className={"grid grid-flow-row sm:grid-cols-[auto,minmax(auto,1fr),auto] gap-x-4 items-center px-4 text-onyx " + (matches.length % 2 ? " odd:bg-black/5" : " even:bg-black/5")}
@@ -146,7 +143,7 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 								{match.date ? (
 									<time
 										className="mr-1 sm:block"
-										dateTime={machineDateTime}
+										dateTime={match.dateIso}
 									>
 										{match.date}
 									</time>

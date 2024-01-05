@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
 import { getUniqueMatchSeriesIds } from "./jsonClubData";
+import convertDate from "./convertDate";
 
-const SAMS_MATCHES_FOLDER = "data/sams/matches";
 const SAMS_FOLDER = "data/sams";
 
 export function getMatches(teamIds: (string | number)[], filter?: "past" | "future"): matchesArray[] {
@@ -41,7 +41,7 @@ export function getMatches(teamIds: (string | number)[], filter?: "past" | "futu
 
 	// filter our duplicate matches
 	let matchesUuids = new Set();
-	let filtereduniqueMatches = sortedMatches.filter((match) => {
+	let filteredUniqueMatches = sortedMatches.filter((match) => {
 		if (matchesUuids.has(match.uuid)) {
 			return false;
 		}
@@ -49,13 +49,19 @@ export function getMatches(teamIds: (string | number)[], filter?: "past" | "futu
 		return true;
 	});
 
+	// add date Object and ISO so other areas of the app can use this more conviniently
+	filteredUniqueMatches.map((match) => {
+		match.dateObject = convertDate(match.date, match.time);
+		match.dateIso = match.dateObject.toISOString();
+	});
+
 	// filter matches based on a provided filter
-	let filteredMatches = filtereduniqueMatches;
+	let filteredMatches = filteredUniqueMatches;
 	if (filter == "past") {
-		filteredMatches = filtereduniqueMatches.filter((match) => match.results).reverse();
+		filteredMatches = filteredUniqueMatches.filter((match) => match.results).reverse();
 		// reverse sort order
 	} else if (filter == "future") {
-		filteredMatches = filtereduniqueMatches.filter((match) => !match.results);
+		filteredMatches = filteredUniqueMatches.filter((match) => !match.results);
 	}
 
 	return filteredMatches;
@@ -83,4 +89,6 @@ export type matchesArray = {
 	};
 	location?: { id?: string; name?: string; street: string; postalCode: string; city: string };
 	results?: { winner?: string; setPoints?: string; ballPoints?: string; sets?: { set?: [{ number?: string; points?: string; winner?: string }] } };
+	dateObject: Date; // custom property, generated when served
+	dateIso: string; // custom property, generated when served
 };

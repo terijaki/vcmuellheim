@@ -30,11 +30,10 @@ export default function HomeHeimspiele() {
 				<div className="col-center-content columns-1 sm:has-[>:nth-of-type(2)]:columns-2 md:columns-2 lg:has-[>:nth-of-type(5)]:columns-3 gap-4 mt-3">
 					{getMatches(getTeamIds("id"), "future").map((match) => {
 						// transform the date to something useful in JS
-						const thisMatchDate = new Date(match.date.slice(-4) + "-" + match.date.slice(3, 5) + "-" + match.date.slice(0, 2) + "T" + match.time); // turns 17.02.2024 into 2024-02-17 and then into a Date
 						const todayPlusRange = new Date();
 						todayPlusRange.setDate(todayPlusRange.getDate() + TIME_RANGE);
 						// consider this match if its taking place in the future and is within the specified TIME_RANGE
-						if (thisMatchDate > new Date() && thisMatchDate < todayPlusRange) {
+						if (match.dateObject > new Date() && match.dateObject < todayPlusRange) {
 							const dateLocationCombi: string = "dlc" + match.date + match.location?.id; // this is used to group games together
 							const filterLevel1 = !matchBuffer.includes(match.uuid) && match.host?.club?.includes("VC Müllheim");
 							const filterLevel2 = filterLevel1 && !matchBuffer.includes(dateLocationCombi) && matchCountBuffer < 555;

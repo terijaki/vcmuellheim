@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { getMatches } from "@/app/utils/sams/jsonMatches";
 import { getTeamIds } from "@/app/utils/sams/jsonClubData";
+import convertDate from "@/app/utils/sams/convertDate";
 
 const ICS_FOLDER_LOCATION = "public/ics";
 const TEMPLATE_START = "BEGIN:VEVENT";
@@ -19,23 +20,15 @@ export function icsTeamGeneration(sbvvId: (string | number)[], slug: string) {
 		if (match.uuid && match.team?.length == 2 && match.location && match.matchSeries?.name && match.matchSeries.updated) {
 			// use the match update date as the date this entry is updated
 			const dateLastUpdated = new Date(match.matchSeries.updated);
-			// construct a start date off the match.date and match.time
-			const dateTimeStart: Date = new Date();
-			dateTimeStart.setFullYear(Number(match.date.slice(-4)));
-			dateTimeStart.setMonth(Number(match.date.slice(3, 5)) - 1); // -1 because January is 0
-			dateTimeStart.setDate(Number(match.date.slice(0, 2)));
-			dateTimeStart.setHours(Number(match.time?.slice(0, 2)));
-			dateTimeStart.setMinutes(Number(match.time?.slice(-2)));
-			dateTimeStart.setSeconds(0);
 			// construct an end date, assuming the match lasts 3 hours
-			const dateTimeEnd = new Date(dateTimeStart);
+			const dateTimeEnd = new Date(match.dateObject);
 			dateTimeEnd.setHours(dateTimeEnd.getHours() + 3);
 			// begin replacing the template
 			let matchConstruct: string = templateBody;
 			matchConstruct = matchConstruct.replaceAll("REPLACE_MATCH_UUID", match.uuid);
 			matchConstruct = matchConstruct.replaceAll("REPLACE_MATCH_UPDATED", toICSFormat(dateLastUpdated));
 			matchConstruct = matchConstruct.replaceAll("REPLACE_MATCH_TIMEZONE", "Europe/Berlin");
-			matchConstruct = matchConstruct.replaceAll("REPLACE_MATCH_DATETIME_START", toICSFormat(dateTimeStart));
+			matchConstruct = matchConstruct.replaceAll("REPLACE_MATCH_DATETIME_START", toICSFormat(match.dateObject));
 			matchConstruct = matchConstruct.replaceAll("REPLACE_MATCH_DATETIME_END", toICSFormat(dateTimeEnd));
 			matchConstruct = matchConstruct.replaceAll("REPLACE_MATCH_SUMMARY", match.team[0].name + (match.results ? " (" + match.results.setPoints + ") " : " vs. ") + match.team[1].name);
 			matchConstruct = matchConstruct.replaceAll(
