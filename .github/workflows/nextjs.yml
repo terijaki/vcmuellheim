@@ -140,9 +140,16 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-          git add ${{ env.IMAGES_FOLDER }} --force
-          git commit -m "automated deployment update" || true
-          git push origin --all --quiet --force || true
+
+          if [ -z "$(git stage ${{ env.IMAGES_FOLDER }} --dry-run)" ]
+          then
+            echo "🌈 No new image optimizations up to date.."
+          else
+            echo "🕵️ New image optimizations! Pushing to repository."
+            git add ${{ env.IMAGES_FOLDER }}
+            git commit -m "automated deployment update"
+            git push origin --all --quiet --force
+          fi
 
       - name: New Blog Post Check
         id: blog_check
