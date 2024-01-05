@@ -1,6 +1,6 @@
 import SectionHeading from "@/app/components/layout/SectionHeading";
-import TeamsList from "@/app/components/homepage/TeamList";
 import { getTeams } from "@/app/utils/getTeams";
+import TeamCard from "@/app/components/ui/TeamCard";
 
 export default function HomeTeams() {
 	// get number of teams
@@ -19,7 +19,21 @@ export default function HomeTeams() {
 				<p className="text-center opacity-60 -mt-2 mb-3">
 					Zurzeit umfasst unser Verein {teamNumber} {numberOfTeams > 1 ? "Mannschaften" : "Mannschaft"}:
 				</p>
-				<TeamsList />
+				{/* <TeamsList /> */}
+				<div className="columns-[360px_3] gap-4">
+					{getTeams().map((team, index) => {
+						if (team.title) {
+							return (
+								<div key={index}>
+									<TeamCard
+										{...team}
+										index={index}
+									/>
+								</div>
+							);
+						}
+					})}
+				</div>
 			</section>
 		);
 	}
