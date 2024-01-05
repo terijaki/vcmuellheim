@@ -108,12 +108,12 @@ jobs:
             git commit -m "automated deployment update" || true
           fi
 
-          git add ${{ env.SAMS_FOLDER }} || true
           if [ -z "$(git stage ${{ env.SAMS_FOLDER }} --dry-run)" ]
           then
             echo "🌈 Club data up to date.."
           else
             echo "🕵️ Club changes detected! Pushing to repository."
+            git add ${{ env.SAMS_FOLDER }}
             git commit -m "automated deployment update"
             git push origin --all --quiet --force
             echo "status=updated" >> $GITHUB_OUTPUT
