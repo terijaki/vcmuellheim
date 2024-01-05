@@ -25,7 +25,7 @@ concurrency:
 
 env:
   SAMS_FOLDER: "data/sams"
-  SAMS_MATCHSERIES_JSON: "data/sams/matchSeries.josn"
+  SAMS_MATCHSERIES_JSON: "data/sams/matchSeries.json"
   IMAGES_FOLDER: "public/images"
 
 jobs:
