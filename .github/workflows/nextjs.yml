@@ -92,6 +92,7 @@ jobs:
 
       - name: Commit SAMS Files
         id: sams_git
+        if: steps.sams_update.conclusion == 'success'
         continue-on-error: true
         run: |
           git config user.name "GitHub Actions Bot"
@@ -147,7 +148,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
-    if: ${{ needs.build.outputs.build_status }} == 'started'
+    if: ${{ needs.build.outputs.build_status == 'started' }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
