@@ -120,7 +120,7 @@ jobs:
 
       - name: Build with Next.js
         id: next_build
-        if: ${{ github.event.schedule != '15,45 09-20 * JAN-APR,OCT-DEC 0,6,5' || (github.event.schedule == '15,45 09-20 * JAN-APR,OCT-DEC 0,6,5' && steps.sams_git.outputs.status == 'updated') }}
+        if: ${{ github.event.schedule != '15,45 09-20 * JAN-APR,OCT-DEC 0,6,5' || steps.sams_git.outputs.status == 'updated' }}
         run: |
           echo "status=started" >> $GITHUB_OUTPUT  
           ${{ steps.detect-package-manager.outputs.runner }} build
