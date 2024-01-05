@@ -85,7 +85,7 @@ jobs:
 
       - name: SAMS Update
         id: sams_update
-        run: npx tsx --env-file=.env.local --env-file=.env app/utils/samsUpdateTasks.ts
+        run: npm run sams-update
         env:
           SAMS_API: ${{ secrets.SAMS_API }}
 

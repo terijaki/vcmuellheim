@@ -14,7 +14,8 @@
 		"dev": "next dev",
 		"build": "next build && next-image-export-optimizer",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"sams-update": "tsx --env-file=.env.local --env-file=.env app/utils/samsUpdateTasks.ts"
 	},
 	"dependencies": {
 		"gray-matter": "^4.0.3",
