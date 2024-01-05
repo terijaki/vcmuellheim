@@ -191,7 +191,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v3
 
-  # Deployment job
+  # Social sharing job
   mastodon:
     name: "📡 Share to Mastodon (WIP)"
     runs-on: ubuntu-latest
