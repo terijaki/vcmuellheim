@@ -95,9 +95,9 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
           git add ${{ env.SAMS_FOLDER }} --force
-          if [ -z "$(git commit package.json --dry-run --porcelain)" ]
+          if [ -z "$(git commit -m "test" --dry-run --porcelain)" ]
           then
-            echo "Nothing to commit. 🌈"
+            echo "🌈 Nothing to commit."
           else
             echo "🕵️ Changes detected. Pushing to repository."
             git commit -m "automated deployment update"
