@@ -2,7 +2,7 @@ import fs from "fs";
 
 const CLUB_SAMS_FILE = "data/sams/club.json";
 
-export function getTeamIds(idType: "id" | "uuid" | "seasonTeamId" = "id", leagueOnly: boolean = true) {
+export function getTeamIds(idType: "id" | "uuid" | "seasonTeamId" = "id", leagueOnly: boolean = true): string[] {
 	const clubdata = fs.readFileSync(CLUB_SAMS_FILE);
 	const clubDataObject = JSON.parse(clubdata.toString());
 	const teams = clubDataObject.sportsclub.teams.team;

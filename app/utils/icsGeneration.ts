@@ -2,21 +2,21 @@ import fs from "fs";
 import path from "path";
 import { getMatches } from "@/app/utils/sams/jsonMatches";
 import { getTeamIds } from "@/app/utils/sams/jsonClubData";
-import convertDate from "@/app/utils/sams/convertDate";
 
 const ICS_FOLDER_LOCATION = "public/ics";
 const TEMPLATE_START = "BEGIN:VEVENT";
 const TEMPLATE_END = "END:VEVENT";
 
-export function icsTeamGeneration(sbvvId: (string | number)[], slug: string) {
+export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string) {
 	const template: string = fs.readFileSync(path.join(ICS_FOLDER_LOCATION, "template.ics")).toString();
 	const templateStart = template.slice(0, template.indexOf(TEMPLATE_START));
 	const templateEnd = template.slice(template.indexOf(TEMPLATE_END) + TEMPLATE_END.length);
 	const templateBody = template.slice(template.indexOf(TEMPLATE_START), template.indexOf(TEMPLATE_END) + TEMPLATE_END.length);
-
 	let matchArray: string[] = [];
 	// loop through all matches for the team
-	getMatches(sbvvId).map((match) => {
+	// console.log(sbvvTeamId + " test " + slug);
+	// console.log(getMatches(sbvvTeamId.map(String)));
+	getMatches(sbvvTeamId).map((match) => {
 		if (match.uuid && match.team?.length == 2 && match.location && match.matchSeries?.name && match.matchSeries.updated) {
 			// use the match update date as the date this entry is updated
 			const dateLastUpdated = new Date(match.matchSeries.updated);
@@ -58,9 +58,9 @@ export function icsTeamGeneration(sbvvId: (string | number)[], slug: string) {
 		matchConstruct = matchConstruct.replaceAll("REPLACE_MATCH_TIMEZONE", "Europe/Berlin");
 		matchConstruct = matchConstruct.replaceAll("REPLACE_MATCH_DATETIME_START", toICSFormat(yesterdayStart));
 		matchConstruct = matchConstruct.replaceAll("REPLACE_MATCH_DATETIME_END", toICSFormat(yesterdayEnd));
-		matchConstruct = matchConstruct.replaceAll("REPLACE_MATCH_SUMMARY", "Derzeit keine neuen Termine verfügbar");
+		matchConstruct = matchConstruct.replaceAll("REPLACE_MATCH_SUMMARY", "Derzeit sind keine Termine verfügbar.");
 		matchConstruct = matchConstruct.replaceAll("LOCATION:REPLACE_MATCH_LOCATION\n", "");
-		matchConstruct = matchConstruct.replaceAll("DESCRIPTION:REPLACE_MATCH_DESCRIPTION\n", "");
+		matchConstruct = matchConstruct.replaceAll("DESCRIPTION:REPLACE_MATCH_DESCRIPTION\n", slug == "all" ? "\\nhttps://vcmuellheim.de/termine" : "\\nhttps://vcmuellheim.de/teams/" + slug);
 		matchArray.push(matchConstruct);
 	}
 

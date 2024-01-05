@@ -6,9 +6,10 @@ import convertDate from "./convertDate";
 const SAMS_FOLDER = "data/sams";
 
 export function getMatches(teamIds: (string | number)[], filter?: "past" | "future"): matchesArray[] {
+	// allow string or number input regardless
+	teamIds = teamIds.map(String);
 	// setup the empty array
 	let matches: matchesArray[] = [];
-
 	// use the teamIds to fetch the relevant matchSeriesIds, then go through each series
 	getUniqueMatchSeriesIds(teamIds).forEach((matchSeriesId) => {
 		const file = path.join(SAMS_FOLDER, "matchSeriesId", matchSeriesId.toString()) + "/matches.json";

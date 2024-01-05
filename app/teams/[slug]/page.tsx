@@ -32,11 +32,13 @@ export async function generateStaticParams() {
 export default function TeamPage({ params }: { params: { slug: string } }) {
 	// pre-render setup
 	const teams = getTeams(undefined, params.slug);
+
 	const team = teams[0]; // removes the array and just returns the team object
 	// get the name of the league from the club data
 	let ligaName = getLeagueName(team.sbvvId);
 	// ICS file generation
 	team.sbvvId && icsTeamGeneration([team.sbvvId], params.slug);
+
 	// render the page
 	return (
 		<>
