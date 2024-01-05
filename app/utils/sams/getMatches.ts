@@ -46,13 +46,13 @@ export default function getMatches(teamId?: string | number, matchSeriesId?: str
 	fetch(apiPath)
 		.then((response) => Promise.all([response.status, response.text()]))
 		.then(([status, xmlData]) => {
-			console.log("STATUS RESPONSE CODE:" + status);
+			// console.log("STATUS RESPONSE CODE:" + status);
 			if (status == 200) {
 				if (!xmlData.includes("<error>")) {
 					const parseString = require("xml2js").parseString;
 					parseString(xmlData, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
 						if (!err) {
-							console.log("✅ All good. Writing response to: " + fileTarget);
+							console.log("✅ Matches data looks good. Writing response to: " + fileTarget);
 							const output = JSON.stringify(result, null, 2);
 							fs.mkdirSync(folderTarget, { recursive: true });
 							fs.writeFileSync(fileTarget, output);
