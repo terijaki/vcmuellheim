@@ -1,1804 +1,1804 @@
 {
-	"sportsclub": {
-		"id": "471",
-		"name": "VC Müllheim",
-		"logo": {
-			"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png",
-			"filename": "muellheim_logo.png ",
-			"createDate": "2023-10-07 19:55:39.69"
-		},
-		"lsbNumber": "480190",
-		"internalSportsclubId": "3530",
-		"association": {
-			"id": "63939",
-			"name": "SBVV Bezirk West"
-		},
-		"matchOperationCompany": {
-			"id": null,
-			"name": null,
-			"address": {
-				"postbox": null,
-				"street": null,
-				"extraField": null,
-				"postcode": null,
-				"city": null,
-				"region": null,
-				"country": null
-			},
-			"homepage": null
-		},
-		"teams": {
-			"team": [
-				{
-					"id": "25932650",
-					"uuid": "c5072d37-5feb-4f08-8431-c5f2ccdb88b5",
-					"seasonTeamId": "25932650",
-					"placeCipher": "6",
-					"name": "VC Müllheim",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "25754009",
-						"uuid": "85555565-6f15-4f45-a3af-f3344ce8a506",
-						"allSeasonId": "799a634e-d2b1-6639-32fb-e36ccbf44f87",
-						"name": "Landesliga West Herren",
-						"shortName": "LL w h",
-						"type": "League",
-						"updated": "2023-12-16 22:24:34.458",
-						"structureUpdated": "2023-12-16 16:58:33.677",
-						"resultsUpdated": "2023-12-16 22:24:34.458",
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "25753838",
-							"uuid": "ade10ab0-84b9-4c9c-b8ae-0a4ad838c816",
-							"name": "Landesligen",
-							"shortName": "ll",
-							"hierarchyLevel": "7"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "25753838",
-									"name": "Landesligen",
-									"shortName": "ll",
-									"hierarchyLevel": "7"
-								},
-								{
-									"id": "25753837",
-									"name": "Verbandsligen",
-									"shortName": "vl",
-									"hierarchyLevel": "6"
-								},
-								{
-									"id": "25752268",
-									"name": "Spielbetrieb Südbaden",
-									"shortName": "sbvv",
-									"hierarchyLevel": "5"
-								},
-								{
-									"id": "25751076",
-									"name": "Oberliga Baden",
-									"shortName": "Ol",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25751075",
-									"name": "Regionalliga Süd",
-									"shortName": "RL",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25751074",
-									"name": "Dritte Liga Süd",
-									"shortName": "DLS",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25751073",
-									"name": "Bundesligen",
-									"shortName": "BL",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25751072",
-									"name": "Allgemeiner Spielbetrieb",
-									"shortName": "alg",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": null,
-							"shortName": null
-						}
-					}
-				},
-				{
-					"id": "25921031",
-					"uuid": "ee1c9cf0-7df1-458f-9f2c-763526496fd9",
-					"seasonTeamId": "25921031",
-					"placeCipher": "3",
-					"name": "VC Müllheim 2",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "25920998",
-						"uuid": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
-						"allSeasonId": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
-						"name": "Bezirksliga Herren Süd",
-						"shortName": "bzl s h",
-						"type": "League",
-						"updated": "2023-12-18 12:00:35.474",
-						"structureUpdated": "2023-12-14 00:10:06.55",
-						"resultsUpdated": "2023-12-18 12:00:35.474",
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "25752573",
-							"uuid": "d32509b9-cd2f-4960-848b-b13626415284",
-							"name": "Bezirksligen",
-							"shortName": "bzl w",
-							"hierarchyLevel": "8"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "25752573",
-									"name": "Bezirksligen",
-									"shortName": "bzl w",
-									"hierarchyLevel": "8"
-								},
-								{
-									"id": "25752270",
-									"name": "Bezirk West",
-									"shortName": "bw",
-									"hierarchyLevel": "7"
-								},
-								{
-									"id": "25752269",
-									"name": "SBVV Bezirke",
-									"shortName": "SBVV Bezirke",
-									"hierarchyLevel": "6"
-								},
-								{
-									"id": "25752268",
-									"name": "Spielbetrieb Südbaden",
-									"shortName": "sbvv",
-									"hierarchyLevel": "5"
-								},
-								{
-									"id": "25751076",
-									"name": "Oberliga Baden",
-									"shortName": "Ol",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25751075",
-									"name": "Regionalliga Süd",
-									"shortName": "RL",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25751074",
-									"name": "Dritte Liga Süd",
-									"shortName": "DLS",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25751073",
-									"name": "Bundesligen",
-									"shortName": "BL",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25751072",
-									"name": "Allgemeiner Spielbetrieb",
-									"shortName": "alg",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": null,
-							"shortName": null
-						}
-					}
-				},
-				{
-					"id": "25922069",
-					"uuid": "b9d813a5-c994-4dba-8b8c-7796e8f1ff9d",
-					"seasonTeamId": "25922069",
-					"placeCipher": "4",
-					"name": "VC Müllheim 1",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "25752620",
-						"uuid": "6947daa9-7529-4b17-9739-e02e9d2de47e",
-						"allSeasonId": "955f1d4d-bc60-8f21-1003-fcc2a85bd10a",
-						"name": "Kreisliga Damen Süd",
-						"shortName": "kl s d",
-						"type": "League",
-						"updated": "2023-12-13 10:55:41.223",
-						"structureUpdated": "2023-12-13 10:55:41.223",
-						"resultsUpdated": "2023-12-09 19:38:08.049",
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "25752575",
-							"uuid": "42992b46-281a-49b2-8507-bd93e8e701a3",
-							"name": "Kreisligen",
-							"shortName": "kl w",
-							"hierarchyLevel": "10"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "25752575",
-									"name": "Kreisligen",
-									"shortName": "kl w",
-									"hierarchyLevel": "10"
-								},
-								{
-									"id": "25752574",
-									"name": "Bezirksklassen",
-									"shortName": "bzk w",
-									"hierarchyLevel": "9"
-								},
-								{
-									"id": "25752573",
-									"name": "Bezirksligen",
-									"shortName": "bzl w",
-									"hierarchyLevel": "8"
-								},
-								{
-									"id": "25752270",
-									"name": "Bezirk West",
-									"shortName": "bw",
-									"hierarchyLevel": "7"
-								},
-								{
-									"id": "25752269",
-									"name": "SBVV Bezirke",
-									"shortName": "SBVV Bezirke",
-									"hierarchyLevel": "6"
-								},
-								{
-									"id": "25752268",
-									"name": "Spielbetrieb Südbaden",
-									"shortName": "sbvv",
-									"hierarchyLevel": "5"
-								},
-								{
-									"id": "25751076",
-									"name": "Oberliga Baden",
-									"shortName": "Ol",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25751075",
-									"name": "Regionalliga Süd",
-									"shortName": "RL",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25751074",
-									"name": "Dritte Liga Süd",
-									"shortName": "DLS",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25751073",
-									"name": "Bundesligen",
-									"shortName": "BL",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25751072",
-									"name": "Allgemeiner Spielbetrieb",
-									"shortName": "alg",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": null,
-							"shortName": null
-						}
-					}
-				},
-				{
-					"id": "25922075",
-					"uuid": "dc4e03f3-3b67-4262-94bc-30247b621ec0",
-					"seasonTeamId": "25922075",
-					"placeCipher": "5",
-					"name": "VC Müllheim2",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "25752620",
-						"uuid": "6947daa9-7529-4b17-9739-e02e9d2de47e",
-						"allSeasonId": "955f1d4d-bc60-8f21-1003-fcc2a85bd10a",
-						"name": "Kreisliga Damen Süd",
-						"shortName": "kl s d",
-						"type": "League",
-						"updated": "2023-12-13 10:55:41.223",
-						"structureUpdated": "2023-12-13 10:55:41.223",
-						"resultsUpdated": "2023-12-09 19:38:08.049",
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "25752575",
-							"uuid": "42992b46-281a-49b2-8507-bd93e8e701a3",
-							"name": "Kreisligen",
-							"shortName": "kl w",
-							"hierarchyLevel": "10"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "25752575",
-									"name": "Kreisligen",
-									"shortName": "kl w",
-									"hierarchyLevel": "10"
-								},
-								{
-									"id": "25752574",
-									"name": "Bezirksklassen",
-									"shortName": "bzk w",
-									"hierarchyLevel": "9"
-								},
-								{
-									"id": "25752573",
-									"name": "Bezirksligen",
-									"shortName": "bzl w",
-									"hierarchyLevel": "8"
-								},
-								{
-									"id": "25752270",
-									"name": "Bezirk West",
-									"shortName": "bw",
-									"hierarchyLevel": "7"
-								},
-								{
-									"id": "25752269",
-									"name": "SBVV Bezirke",
-									"shortName": "SBVV Bezirke",
-									"hierarchyLevel": "6"
-								},
-								{
-									"id": "25752268",
-									"name": "Spielbetrieb Südbaden",
-									"shortName": "sbvv",
-									"hierarchyLevel": "5"
-								},
-								{
-									"id": "25751076",
-									"name": "Oberliga Baden",
-									"shortName": "Ol",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25751075",
-									"name": "Regionalliga Süd",
-									"shortName": "RL",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25751074",
-									"name": "Dritte Liga Süd",
-									"shortName": "DLS",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25751073",
-									"name": "Bundesligen",
-									"shortName": "BL",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25751072",
-									"name": "Allgemeiner Spielbetrieb",
-									"shortName": "alg",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": null,
-							"shortName": null
-						}
-					}
-				},
-				{
-					"id": "28107458",
-					"uuid": "5a85bd2d-c396-4285-8950-53bf076f64de",
-					"seasonTeamId": "28107458",
-					"placeCipher": "0",
-					"name": "VC Müllheim",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "26660048",
-						"uuid": "e6486280-1d3d-4a78-b845-8ea287f1419b",
-						"allSeasonId": "e6486280-1d3d-4a78-b845-8ea287f1419b",
-						"name": "Herren Pokal Landes- und Verbandsliga",
-						"shortName": "hp_ll_vl",
-						"type": "Competition",
-						"updated": "2023-08-15 09:33:57.82",
-						"structureUpdated": "2023-08-15 09:33:57.82",
-						"resultsUpdated": null,
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "26660033",
-							"uuid": "e684bf7f-c9c7-43e8-86b4-218afc9b597a",
-							"name": "Verbandspokal 2023/2024",
-							"shortName": "vp",
-							"hierarchyLevel": "3"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "26660033",
-									"name": "Verbandspokal 2023/2024",
-									"shortName": "vp",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25754713",
-									"name": "Regionalpokal",
-									"shortName": "Regionalpokal",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25754712",
-									"name": "Pokalwettbewerbe",
-									"shortName": "P",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25751072",
-									"name": "Allgemeiner Spielbetrieb",
-									"shortName": "alg",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": "Südbadischer Volleyball-Verband",
-							"shortName": "SBVV"
-						}
-					}
-				},
-				{
-					"id": "25921412",
-					"uuid": "5a65e070-8dc9-4d23-bab8-2307b6921601",
-					"seasonTeamId": "25921412",
-					"placeCipher": "8",
-					"name": "VC Müllheim 1 LL",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "25754861",
-						"uuid": "988e0d13-5699-40f3-a0be-0f20050344fe",
-						"allSeasonId": "6802ca20-191c-4961-808d-8cb457327af6",
-						"name": "Landespokal Herren 2023",
-						"shortName": "PokalHe",
-						"type": "Competition",
-						"updated": "2023-10-19 12:43:32.592",
-						"structureUpdated": "2023-10-19 12:43:32.592",
-						"resultsUpdated": "2023-09-25 08:04:01.862",
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "25754803",
-							"uuid": "a046e032-06f3-4a61-9481-f32d3336c746",
-							"name": "SBVV Landespokal",
-							"shortName": "SBVV-Pokal",
-							"hierarchyLevel": "3"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "25754803",
-									"name": "SBVV Landespokal",
-									"shortName": "SBVV-Pokal",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25754713",
-									"name": "Regionalpokal",
-									"shortName": "Regionalpokal",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25754712",
-									"name": "Pokalwettbewerbe",
-									"shortName": "P",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25751072",
-									"name": "Allgemeiner Spielbetrieb",
-									"shortName": "alg",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": "Südbadischer Volleyball-Verband",
-							"shortName": "SBVV"
-						}
-					}
-				},
-				{
-					"id": "26985172",
-					"uuid": "ee4b79fa-6502-44b9-a771-310b09af431d",
-					"seasonTeamId": "26985172",
-					"placeCipher": "0",
-					"name": "VC Müllheim I",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "25749513",
-						"uuid": "ef96737c-6196-4ecb-b4e1-3c407eaa338c",
-						"allSeasonId": "a6d2aafa-f16b-8491-9191-0e77342513c9",
-						"name": "West Jugendrunde (4:4) weiblich",
-						"shortName": "W_JRw",
-						"type": "Competition",
-						"updated": "2023-12-05 08:55:58.254",
-						"structureUpdated": "2023-12-05 08:55:58.254",
-						"resultsUpdated": null,
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "25749445",
-							"uuid": "2b4ac3de-a3cc-4fb2-843e-d3a99c115c28",
-							"name": "Meldungen Bezirk West Jugend weiblich",
-							"shortName": "bwjw",
-							"hierarchyLevel": "5"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "25749445",
-									"name": "Meldungen Bezirk West Jugend weiblich",
-									"shortName": "bwjw",
-									"hierarchyLevel": "5"
-								},
-								{
-									"id": "25749345",
-									"name": "SBVV Bezirk West Jugend",
-									"shortName": "bwj",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25749344",
-									"name": "SBVV-Jugendmeisterschaften",
-									"shortName": "sbvv_jm",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25749343",
-									"name": "Regionaljugendmeisterschaften",
-									"shortName": "rjm",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25749342",
-									"name": "Deutsche Jugendmeisterschaften",
-									"shortName": "djm",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25749341",
-									"name": "Jugendspielbetrieb",
-									"shortName": "jug",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": "SBVV Bezirk West",
-							"shortName": "SBVV-West"
-						}
-					}
-				},
-				{
-					"id": "26985182",
-					"uuid": "410f1c79-51d5-40de-ab4c-edd1dec29261",
-					"seasonTeamId": "26985182",
-					"placeCipher": "0",
-					"name": "VC Müllheim II",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "25749513",
-						"uuid": "ef96737c-6196-4ecb-b4e1-3c407eaa338c",
-						"allSeasonId": "a6d2aafa-f16b-8491-9191-0e77342513c9",
-						"name": "West Jugendrunde (4:4) weiblich",
-						"shortName": "W_JRw",
-						"type": "Competition",
-						"updated": "2023-12-05 08:55:58.254",
-						"structureUpdated": "2023-12-05 08:55:58.254",
-						"resultsUpdated": null,
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "25749445",
-							"uuid": "2b4ac3de-a3cc-4fb2-843e-d3a99c115c28",
-							"name": "Meldungen Bezirk West Jugend weiblich",
-							"shortName": "bwjw",
-							"hierarchyLevel": "5"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "25749445",
-									"name": "Meldungen Bezirk West Jugend weiblich",
-									"shortName": "bwjw",
-									"hierarchyLevel": "5"
-								},
-								{
-									"id": "25749345",
-									"name": "SBVV Bezirk West Jugend",
-									"shortName": "bwj",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25749344",
-									"name": "SBVV-Jugendmeisterschaften",
-									"shortName": "sbvv_jm",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25749343",
-									"name": "Regionaljugendmeisterschaften",
-									"shortName": "rjm",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25749342",
-									"name": "Deutsche Jugendmeisterschaften",
-									"shortName": "djm",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25749341",
-									"name": "Jugendspielbetrieb",
-									"shortName": "jug",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": "SBVV Bezirk West",
-							"shortName": "SBVV-West"
-						}
-					}
-				},
-				{
-					"id": "26985131",
-					"uuid": "df3f96df-e87d-4a80-b24c-546010794921",
-					"seasonTeamId": "26985131",
-					"placeCipher": "0",
-					"name": "VC Müllheim",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "25749452",
-						"uuid": "a0b3b7d6-9975-4b0c-b7bb-a8228f3460dd",
-						"allSeasonId": "375a20ac-b2b9-c22f-e657-05936f7ec524",
-						"name": "West Quali - U14w am 25.11.2023",
-						"shortName": "WQ_U14w",
-						"type": "Competition",
-						"updated": "2023-11-30 14:06:17.863",
-						"structureUpdated": "2023-11-30 14:06:17.863",
-						"resultsUpdated": "2023-01-15 16:33:00.278",
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "25749445",
-							"uuid": "2b4ac3de-a3cc-4fb2-843e-d3a99c115c28",
-							"name": "Meldungen Bezirk West Jugend weiblich",
-							"shortName": "bwjw",
-							"hierarchyLevel": "5"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "25749445",
-									"name": "Meldungen Bezirk West Jugend weiblich",
-									"shortName": "bwjw",
-									"hierarchyLevel": "5"
-								},
-								{
-									"id": "25749345",
-									"name": "SBVV Bezirk West Jugend",
-									"shortName": "bwj",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25749344",
-									"name": "SBVV-Jugendmeisterschaften",
-									"shortName": "sbvv_jm",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25749343",
-									"name": "Regionaljugendmeisterschaften",
-									"shortName": "rjm",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25749342",
-									"name": "Deutsche Jugendmeisterschaften",
-									"shortName": "djm",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25749341",
-									"name": "Jugendspielbetrieb",
-									"shortName": "jug",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": "SBVV Bezirk West",
-							"shortName": "SBVV-West"
-						}
-					}
-				},
-				{
-					"id": "27469350",
-					"uuid": "f52c591f-b175-428e-83f4-e3692e0b55f4",
-					"seasonTeamId": "26985131",
-					"placeCipher": "1",
-					"name": "VC Müllheim",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "27462682",
-						"uuid": "c42d6266-76de-4aba-85b8-af18eb0e01a0",
-						"allSeasonId": "c42d6266-76de-4aba-85b8-af18eb0e01a0",
-						"name": "Vor-Quali 3 - U14 weiblich am 25.11.23",
-						"shortName": "VQ3_U14_w",
-						"type": "Competition",
-						"updated": "2023-12-05 11:31:58.113",
-						"structureUpdated": "2023-12-05 11:31:58.113",
-						"resultsUpdated": "2023-11-25 17:15:49.449",
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "27463054",
-							"uuid": "a2a1de6e-f4b3-47ef-82db-3f151a043c99",
-							"name": "Vor-Qualifikation Jugendmeisterschaft",
-							"shortName": "VQ",
-							"hierarchyLevel": "4"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "27463054",
-									"name": "Vor-Qualifikation Jugendmeisterschaft",
-									"shortName": "VQ",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25749344",
-									"name": "SBVV-Jugendmeisterschaften",
-									"shortName": "sbvv_jm",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25749343",
-									"name": "Regionaljugendmeisterschaften",
-									"shortName": "rjm",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25749342",
-									"name": "Deutsche Jugendmeisterschaften",
-									"shortName": "djm",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25749341",
-									"name": "Jugendspielbetrieb",
-									"shortName": "jug",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": "Südbadischer Volleyball-Verband",
-							"shortName": "SBVV"
-						}
-					}
-				},
-				{
-					"id": "27860239",
-					"uuid": "51e76296-bf8a-47d5-8161-2df425f9aaa3",
-					"seasonTeamId": "27860239",
-					"placeCipher": "0",
-					"name": "VC Müllheim",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "27463169",
-						"uuid": "27a326bf-f46a-4e4c-92a4-4f6c43b99ca8",
-						"allSeasonId": "27a326bf-f46a-4e4c-92a4-4f6c43b99ca8",
-						"name": "U14 weiblich - Quali 2 am 27.1.24",
-						"shortName": "Q2_U14_w",
-						"type": "Competition",
-						"updated": "2023-12-12 11:38:35.821",
-						"structureUpdated": "2023-12-12 11:38:35.821",
-						"resultsUpdated": null,
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "27462717",
-							"uuid": "e981a1d1-beb1-4db0-abf3-932f5afd200e",
-							"name": "Quali-Turniere Jugendmeisterschaften",
-							"shortName": "Quali",
-							"hierarchyLevel": "4"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "27462717",
-									"name": "Quali-Turniere Jugendmeisterschaften",
-									"shortName": "Quali",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25749344",
-									"name": "SBVV-Jugendmeisterschaften",
-									"shortName": "sbvv_jm",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25749343",
-									"name": "Regionaljugendmeisterschaften",
-									"shortName": "rjm",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25749342",
-									"name": "Deutsche Jugendmeisterschaften",
-									"shortName": "djm",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25749341",
-									"name": "Jugendspielbetrieb",
-									"shortName": "jug",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": "Südbadischer Volleyball-Verband",
-							"shortName": "SBVV"
-						}
-					}
-				},
-				{
-					"id": "26985151",
-					"uuid": "3100da60-f7ae-46e0-a233-2ef81af2e46a",
-					"seasonTeamId": "26985151",
-					"placeCipher": "0",
-					"name": "VC Müllheim",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "25749446",
-						"uuid": "d9a236a4-64d7-428a-9b3a-167396c68d21",
-						"allSeasonId": "df4ecc81-677f-4914-9eea-e457a230de1e",
-						"name": "West Quali - U16w am 3.12.2023",
-						"shortName": "WQ_U16w",
-						"type": "Competition",
-						"updated": "2023-12-04 09:22:49.199",
-						"structureUpdated": "2023-12-04 09:22:49.199",
-						"resultsUpdated": null,
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "25749445",
-							"uuid": "2b4ac3de-a3cc-4fb2-843e-d3a99c115c28",
-							"name": "Meldungen Bezirk West Jugend weiblich",
-							"shortName": "bwjw",
-							"hierarchyLevel": "5"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "25749445",
-									"name": "Meldungen Bezirk West Jugend weiblich",
-									"shortName": "bwjw",
-									"hierarchyLevel": "5"
-								},
-								{
-									"id": "25749345",
-									"name": "SBVV Bezirk West Jugend",
-									"shortName": "bwj",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25749344",
-									"name": "SBVV-Jugendmeisterschaften",
-									"shortName": "sbvv_jm",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25749343",
-									"name": "Regionaljugendmeisterschaften",
-									"shortName": "rjm",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25749342",
-									"name": "Deutsche Jugendmeisterschaften",
-									"shortName": "djm",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25749341",
-									"name": "Jugendspielbetrieb",
-									"shortName": "jug",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": "SBVV Bezirk West",
-							"shortName": "SBVV-West"
-						}
-					}
-				},
-				{
-					"id": "27469066",
-					"uuid": "77b4202f-9400-4f01-806e-5dcfcc5fd7df",
-					"seasonTeamId": "26985151",
-					"placeCipher": "1",
-					"name": "VC Müllheim",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "27463081",
-						"uuid": "380c214c-2f0d-46bc-91cc-0306b763f91d",
-						"allSeasonId": "380c214c-2f0d-46bc-91cc-0306b763f91d",
-						"name": "U16 weiblich - Quali 2 am 3.12.23",
-						"shortName": "Q2_U16_w",
-						"type": "Competition",
-						"updated": "2023-12-03 16:28:36.962",
-						"structureUpdated": "2023-11-29 12:59:46.055",
-						"resultsUpdated": "2023-12-03 16:28:36.962",
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "27462717",
-							"uuid": "e981a1d1-beb1-4db0-abf3-932f5afd200e",
-							"name": "Quali-Turniere Jugendmeisterschaften",
-							"shortName": "Quali",
-							"hierarchyLevel": "4"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "27462717",
-									"name": "Quali-Turniere Jugendmeisterschaften",
-									"shortName": "Quali",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25749344",
-									"name": "SBVV-Jugendmeisterschaften",
-									"shortName": "sbvv_jm",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25749343",
-									"name": "Regionaljugendmeisterschaften",
-									"shortName": "rjm",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25749342",
-									"name": "Deutsche Jugendmeisterschaften",
-									"shortName": "djm",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25749341",
-									"name": "Jugendspielbetrieb",
-									"shortName": "jug",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": "Südbadischer Volleyball-Verband",
-							"shortName": "SBVV"
-						}
-					}
-				},
-				{
-					"id": "26985193",
-					"uuid": "a43c4527-cf19-43c6-87e1-b0190bfe49b1",
-					"seasonTeamId": "26985193",
-					"placeCipher": "0",
-					"name": "VC Müllheim",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "26693780",
-						"uuid": "53b0a143-a1b3-4c77-8734-b8b11164e9ef",
-						"allSeasonId": "53b0a143-a1b3-4c77-8734-b8b11164e9ef",
-						"name": "West Jugendrunde (4:4) männlich",
-						"shortName": "W_JRm",
-						"type": "Competition",
-						"updated": "2023-12-19 10:01:47.573",
-						"structureUpdated": "2023-12-19 10:01:47.572",
-						"resultsUpdated": null,
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "25749346",
-							"uuid": "8a98d50a-82a5-4d57-b6f8-6cd07be978a3",
-							"name": "Meldungen Bezirk West Jugend männlich",
-							"shortName": "bwjm",
-							"hierarchyLevel": "5"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "25749346",
-									"name": "Meldungen Bezirk West Jugend männlich",
-									"shortName": "bwjm",
-									"hierarchyLevel": "5"
-								},
-								{
-									"id": "25749345",
-									"name": "SBVV Bezirk West Jugend",
-									"shortName": "bwj",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25749344",
-									"name": "SBVV-Jugendmeisterschaften",
-									"shortName": "sbvv_jm",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25749343",
-									"name": "Regionaljugendmeisterschaften",
-									"shortName": "rjm",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25749342",
-									"name": "Deutsche Jugendmeisterschaften",
-									"shortName": "djm",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25749341",
-									"name": "Jugendspielbetrieb",
-									"shortName": "jug",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": "SBVV Bezirk West",
-							"shortName": "SBVV-West"
-						}
-					}
-				},
-				{
-					"id": "26985141",
-					"uuid": "086def7d-9d7a-48d1-aa76-fa45f59d317b",
-					"seasonTeamId": "26985141",
-					"placeCipher": "0",
-					"name": "VC Müllheim",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "26693728",
-						"uuid": "3125addc-fa15-4d72-8bde-bd733495cfe1",
-						"allSeasonId": "3125addc-fa15-4d72-8bde-bd733495cfe1",
-						"name": "West Quali - U14m am 25.11.2023",
-						"shortName": "WQ_U14m",
-						"type": "Competition",
-						"updated": "2023-11-25 16:56:57.299",
-						"structureUpdated": "2023-11-25 16:56:57.299",
-						"resultsUpdated": "2023-01-15 16:33:00.278",
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "25749346",
-							"uuid": "8a98d50a-82a5-4d57-b6f8-6cd07be978a3",
-							"name": "Meldungen Bezirk West Jugend männlich",
-							"shortName": "bwjm",
-							"hierarchyLevel": "5"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "25749346",
-									"name": "Meldungen Bezirk West Jugend männlich",
-									"shortName": "bwjm",
-									"hierarchyLevel": "5"
-								},
-								{
-									"id": "25749345",
-									"name": "SBVV Bezirk West Jugend",
-									"shortName": "bwj",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25749344",
-									"name": "SBVV-Jugendmeisterschaften",
-									"shortName": "sbvv_jm",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25749343",
-									"name": "Regionaljugendmeisterschaften",
-									"shortName": "rjm",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25749342",
-									"name": "Deutsche Jugendmeisterschaften",
-									"shortName": "djm",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25749341",
-									"name": "Jugendspielbetrieb",
-									"shortName": "jug",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": "SBVV Bezirk West",
-							"shortName": "SBVV-West"
-						}
-					}
-				},
-				{
-					"id": "27469178",
-					"uuid": "d601ce27-b6be-4783-82a3-fbb0fdac8432",
-					"seasonTeamId": "26985141",
-					"placeCipher": "2",
-					"name": "VC Müllheim",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "27463201",
-						"uuid": "1bd0c85a-0d78-4cb1-9330-66bb312b2a2b",
-						"allSeasonId": "1bd0c85a-0d78-4cb1-9330-66bb312b2a2b",
-						"name": "U14 männlich - Quali 2 am 25.11.2023",
-						"shortName": "Q2_U14_m",
-						"type": "Competition",
-						"updated": "2023-12-11 21:42:40.288",
-						"structureUpdated": "2023-12-11 21:42:40.288",
-						"resultsUpdated": "2023-11-25 17:14:27.33",
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "27462717",
-							"uuid": "e981a1d1-beb1-4db0-abf3-932f5afd200e",
-							"name": "Quali-Turniere Jugendmeisterschaften",
-							"shortName": "Quali",
-							"hierarchyLevel": "4"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "27462717",
-									"name": "Quali-Turniere Jugendmeisterschaften",
-									"shortName": "Quali",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25749344",
-									"name": "SBVV-Jugendmeisterschaften",
-									"shortName": "sbvv_jm",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25749343",
-									"name": "Regionaljugendmeisterschaften",
-									"shortName": "rjm",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25749342",
-									"name": "Deutsche Jugendmeisterschaften",
-									"shortName": "djm",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25749341",
-									"name": "Jugendspielbetrieb",
-									"shortName": "jug",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": "Südbadischer Volleyball-Verband",
-							"shortName": "SBVV"
-						}
-					}
-				},
-				{
-					"id": "28010515",
-					"uuid": "00bd91a2-5f7c-4c38-b5e0-2ca6e80a0a4c",
-					"seasonTeamId": "28010515",
-					"placeCipher": "0",
-					"name": "VC Müllheim",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "25749932",
-						"uuid": "3fe5caed-5b0d-42b7-ba4f-34d3fecf1c36",
-						"allSeasonId": "0448a253-0668-40e5-a856-eaefed292e32",
-						"name": "SBVV - U14 männlich am 3.2.24",
-						"shortName": "sbvv-u14m",
-						"type": "Competition",
-						"updated": "2023-12-12 10:46:53.804",
-						"structureUpdated": "2023-12-12 10:46:53.803",
-						"resultsUpdated": "2023-03-13 09:40:18.268",
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "25749344",
-							"uuid": "334935bb-d44e-4005-aca6-15e06f91781b",
-							"name": "SBVV-Jugendmeisterschaften",
-							"shortName": "sbvv_jm",
-							"hierarchyLevel": "3"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "25749344",
-									"name": "SBVV-Jugendmeisterschaften",
-									"shortName": "sbvv_jm",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25749343",
-									"name": "Regionaljugendmeisterschaften",
-									"shortName": "rjm",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25749342",
-									"name": "Deutsche Jugendmeisterschaften",
-									"shortName": "djm",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25749341",
-									"name": "Jugendspielbetrieb",
-									"shortName": "jug",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": null,
-							"shortName": null
-						}
-					}
-				},
-				{
-					"id": "26985162",
-					"uuid": "d2b75d92-6f7c-4851-ac2b-f0974fd49772",
-					"seasonTeamId": "26985162",
-					"placeCipher": "0",
-					"name": "VC Müllheim",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "26693721",
-						"uuid": "b53b11b6-9cd8-4f9e-a7da-f61b20738b58",
-						"allSeasonId": "b53b11b6-9cd8-4f9e-a7da-f61b20738b58",
-						"name": "West Quali - U16m am 3.12.2023",
-						"shortName": "WQ_U16m",
-						"type": "Competition",
-						"updated": "2023-12-03 09:27:24.578",
-						"structureUpdated": "2023-12-03 09:27:24.578",
-						"resultsUpdated": null,
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "25749346",
-							"uuid": "8a98d50a-82a5-4d57-b6f8-6cd07be978a3",
-							"name": "Meldungen Bezirk West Jugend männlich",
-							"shortName": "bwjm",
-							"hierarchyLevel": "5"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "25749346",
-									"name": "Meldungen Bezirk West Jugend männlich",
-									"shortName": "bwjm",
-									"hierarchyLevel": "5"
-								},
-								{
-									"id": "25749345",
-									"name": "SBVV Bezirk West Jugend",
-									"shortName": "bwj",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25749344",
-									"name": "SBVV-Jugendmeisterschaften",
-									"shortName": "sbvv_jm",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25749343",
-									"name": "Regionaljugendmeisterschaften",
-									"shortName": "rjm",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25749342",
-									"name": "Deutsche Jugendmeisterschaften",
-									"shortName": "djm",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25749341",
-									"name": "Jugendspielbetrieb",
-									"shortName": "jug",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": "SBVV Bezirk West",
-							"shortName": "SBVV-West"
-						}
-					}
-				},
-				{
-					"id": "27469048",
-					"uuid": "bb8a265c-b0a7-4623-8e21-55fb3f26f80a",
-					"seasonTeamId": "26985162",
-					"placeCipher": "4",
-					"name": "VC Müllheim",
-					"shortName": null,
-					"clubCode": null,
-					"status": "ACTIVE",
-					"www": "http://vcmuellheim.de",
-					"logo": {
-						"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-					},
-					"club": {
-						"name": "VC Müllheim",
-						"id": "471",
-						"shortName": null,
-						"logo": {
-							"url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
-						},
-						"www": "http://vcmuellheim.de",
-						"wwwDepartment": null
-					},
-					"matchSeries": {
-						"id": "27463146",
-						"uuid": "29a1fe5c-1974-4833-9e87-79a6494c8803",
-						"allSeasonId": "29a1fe5c-1974-4833-9e87-79a6494c8803",
-						"name": "U16 männlich - Quali 2 am 3.12.2023",
-						"shortName": "Q2_U16_m",
-						"type": "Competition",
-						"updated": "2023-12-05 19:59:20.263",
-						"structureUpdated": "2023-12-05 19:59:20.263",
-						"resultsUpdated": "2023-12-03 17:21:00.688",
-						"season": {
-							"id": "25640073",
-							"uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
-							"name": "2023/24"
-						},
-						"hierarchy": {
-							"id": "27462717",
-							"uuid": "e981a1d1-beb1-4db0-abf3-932f5afd200e",
-							"name": "Quali-Turniere Jugendmeisterschaften",
-							"shortName": "Quali",
-							"hierarchyLevel": "4"
-						},
-						"fullHierarchy": {
-							"hierarchy": [
-								{
-									"id": "27462717",
-									"name": "Quali-Turniere Jugendmeisterschaften",
-									"shortName": "Quali",
-									"hierarchyLevel": "4"
-								},
-								{
-									"id": "25749344",
-									"name": "SBVV-Jugendmeisterschaften",
-									"shortName": "sbvv_jm",
-									"hierarchyLevel": "3"
-								},
-								{
-									"id": "25749343",
-									"name": "Regionaljugendmeisterschaften",
-									"shortName": "rjm",
-									"hierarchyLevel": "2"
-								},
-								{
-									"id": "25749342",
-									"name": "Deutsche Jugendmeisterschaften",
-									"shortName": "djm",
-									"hierarchyLevel": "1"
-								},
-								{
-									"id": "25749341",
-									"name": "Jugendspielbetrieb",
-									"shortName": "jug",
-									"hierarchyLevel": "0"
-								}
-							]
-						},
-						"association": {
-							"name": "Südbadischer Volleyball-Verband",
-							"shortName": "SBVV"
-						}
-					}
-				}
-			]
-		},
-		"locations": {
-			"main": {
-				"id": "874",
-				"name": "Halle II",
-				"address": {
-					"postbox": null,
-					"street": "Schwarzwaldstraße 12A",
-					"extraField": null,
-					"postcode": "79379",
-					"city": "Müllheim",
-					"region": "Baden-Württenberg",
-					"country": "Deutschland"
-				},
-				"homepage": null
-			}
-		}
-	}
+  "sportsclub": {
+    "id": "471",
+    "name": "VC Müllheim",
+    "logo": {
+      "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png",
+      "filename": "muellheim_logo.png",
+      "createDate": "2023-10-07 19:55:39.69"
+    },
+    "lsbNumber": "480190",
+    "internalSportsclubId": "3530",
+    "association": {
+      "id": "63939",
+      "name": "SBVV Bezirk West"
+    },
+    "matchOperationCompany": {
+      "id": null,
+      "name": null,
+      "address": {
+        "postbox": null,
+        "street": null,
+        "extraField": null,
+        "postcode": null,
+        "city": null,
+        "region": null,
+        "country": null
+      },
+      "homepage": null
+    },
+    "teams": {
+      "team": [
+        {
+          "id": "25932650",
+          "uuid": "c5072d37-5feb-4f08-8431-c5f2ccdb88b5",
+          "seasonTeamId": "25932650",
+          "placeCipher": "6",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "25754009",
+            "uuid": "85555565-6f15-4f45-a3af-f3344ce8a506",
+            "allSeasonId": "799a634e-d2b1-6639-32fb-e36ccbf44f87",
+            "name": "Landesliga West Herren",
+            "shortName": "LL w h",
+            "type": "League",
+            "updated": "2023-12-16 22:24:34.458",
+            "structureUpdated": "2023-12-16 16:58:33.677",
+            "resultsUpdated": "2023-12-16 22:24:34.458",
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25753838",
+              "uuid": "ade10ab0-84b9-4c9c-b8ae-0a4ad838c816",
+              "name": "Landesligen",
+              "shortName": "ll",
+              "hierarchyLevel": "7"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25753838",
+                  "name": "Landesligen",
+                  "shortName": "ll",
+                  "hierarchyLevel": "7"
+                },
+                {
+                  "id": "25753837",
+                  "name": "Verbandsligen",
+                  "shortName": "vl",
+                  "hierarchyLevel": "6"
+                },
+                {
+                  "id": "25752268",
+                  "name": "Spielbetrieb Südbaden",
+                  "shortName": "sbvv",
+                  "hierarchyLevel": "5"
+                },
+                {
+                  "id": "25751076",
+                  "name": "Oberliga Baden",
+                  "shortName": "Ol",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25751075",
+                  "name": "Regionalliga Süd",
+                  "shortName": "RL",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25751074",
+                  "name": "Dritte Liga Süd",
+                  "shortName": "DLS",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25751073",
+                  "name": "Bundesligen",
+                  "shortName": "BL",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25751072",
+                  "name": "Allgemeiner Spielbetrieb",
+                  "shortName": "alg",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        },
+        {
+          "id": "25921031",
+          "uuid": "ee1c9cf0-7df1-458f-9f2c-763526496fd9",
+          "seasonTeamId": "25921031",
+          "placeCipher": "3",
+          "name": "VC Müllheim 2",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "25920998",
+            "uuid": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
+            "allSeasonId": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
+            "name": "Bezirksliga Herren Süd",
+            "shortName": "bzl s h",
+            "type": "League",
+            "updated": "2023-12-18 12:00:35.474",
+            "structureUpdated": "2023-12-14 00:10:06.55",
+            "resultsUpdated": "2023-12-18 12:00:35.474",
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25752573",
+              "uuid": "d32509b9-cd2f-4960-848b-b13626415284",
+              "name": "Bezirksligen",
+              "shortName": "bzl w",
+              "hierarchyLevel": "8"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25752573",
+                  "name": "Bezirksligen",
+                  "shortName": "bzl w",
+                  "hierarchyLevel": "8"
+                },
+                {
+                  "id": "25752270",
+                  "name": "Bezirk West",
+                  "shortName": "bw",
+                  "hierarchyLevel": "7"
+                },
+                {
+                  "id": "25752269",
+                  "name": "SBVV Bezirke",
+                  "shortName": "SBVV Bezirke",
+                  "hierarchyLevel": "6"
+                },
+                {
+                  "id": "25752268",
+                  "name": "Spielbetrieb Südbaden",
+                  "shortName": "sbvv",
+                  "hierarchyLevel": "5"
+                },
+                {
+                  "id": "25751076",
+                  "name": "Oberliga Baden",
+                  "shortName": "Ol",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25751075",
+                  "name": "Regionalliga Süd",
+                  "shortName": "RL",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25751074",
+                  "name": "Dritte Liga Süd",
+                  "shortName": "DLS",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25751073",
+                  "name": "Bundesligen",
+                  "shortName": "BL",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25751072",
+                  "name": "Allgemeiner Spielbetrieb",
+                  "shortName": "alg",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        },
+        {
+          "id": "25922069",
+          "uuid": "b9d813a5-c994-4dba-8b8c-7796e8f1ff9d",
+          "seasonTeamId": "25922069",
+          "placeCipher": "4",
+          "name": "VC Müllheim 1",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "25752620",
+            "uuid": "6947daa9-7529-4b17-9739-e02e9d2de47e",
+            "allSeasonId": "955f1d4d-bc60-8f21-1003-fcc2a85bd10a",
+            "name": "Kreisliga Damen Süd",
+            "shortName": "kl s d",
+            "type": "League",
+            "updated": "2023-12-13 10:55:41.223",
+            "structureUpdated": "2023-12-13 10:55:41.223",
+            "resultsUpdated": "2023-12-09 19:38:08.049",
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25752575",
+              "uuid": "42992b46-281a-49b2-8507-bd93e8e701a3",
+              "name": "Kreisligen",
+              "shortName": "kl w",
+              "hierarchyLevel": "10"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25752575",
+                  "name": "Kreisligen",
+                  "shortName": "kl w",
+                  "hierarchyLevel": "10"
+                },
+                {
+                  "id": "25752574",
+                  "name": "Bezirksklassen",
+                  "shortName": "bzk w",
+                  "hierarchyLevel": "9"
+                },
+                {
+                  "id": "25752573",
+                  "name": "Bezirksligen",
+                  "shortName": "bzl w",
+                  "hierarchyLevel": "8"
+                },
+                {
+                  "id": "25752270",
+                  "name": "Bezirk West",
+                  "shortName": "bw",
+                  "hierarchyLevel": "7"
+                },
+                {
+                  "id": "25752269",
+                  "name": "SBVV Bezirke",
+                  "shortName": "SBVV Bezirke",
+                  "hierarchyLevel": "6"
+                },
+                {
+                  "id": "25752268",
+                  "name": "Spielbetrieb Südbaden",
+                  "shortName": "sbvv",
+                  "hierarchyLevel": "5"
+                },
+                {
+                  "id": "25751076",
+                  "name": "Oberliga Baden",
+                  "shortName": "Ol",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25751075",
+                  "name": "Regionalliga Süd",
+                  "shortName": "RL",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25751074",
+                  "name": "Dritte Liga Süd",
+                  "shortName": "DLS",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25751073",
+                  "name": "Bundesligen",
+                  "shortName": "BL",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25751072",
+                  "name": "Allgemeiner Spielbetrieb",
+                  "shortName": "alg",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        },
+        {
+          "id": "25922075",
+          "uuid": "dc4e03f3-3b67-4262-94bc-30247b621ec0",
+          "seasonTeamId": "25922075",
+          "placeCipher": "5",
+          "name": "VC Müllheim2",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "25752620",
+            "uuid": "6947daa9-7529-4b17-9739-e02e9d2de47e",
+            "allSeasonId": "955f1d4d-bc60-8f21-1003-fcc2a85bd10a",
+            "name": "Kreisliga Damen Süd",
+            "shortName": "kl s d",
+            "type": "League",
+            "updated": "2023-12-13 10:55:41.223",
+            "structureUpdated": "2023-12-13 10:55:41.223",
+            "resultsUpdated": "2023-12-09 19:38:08.049",
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25752575",
+              "uuid": "42992b46-281a-49b2-8507-bd93e8e701a3",
+              "name": "Kreisligen",
+              "shortName": "kl w",
+              "hierarchyLevel": "10"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25752575",
+                  "name": "Kreisligen",
+                  "shortName": "kl w",
+                  "hierarchyLevel": "10"
+                },
+                {
+                  "id": "25752574",
+                  "name": "Bezirksklassen",
+                  "shortName": "bzk w",
+                  "hierarchyLevel": "9"
+                },
+                {
+                  "id": "25752573",
+                  "name": "Bezirksligen",
+                  "shortName": "bzl w",
+                  "hierarchyLevel": "8"
+                },
+                {
+                  "id": "25752270",
+                  "name": "Bezirk West",
+                  "shortName": "bw",
+                  "hierarchyLevel": "7"
+                },
+                {
+                  "id": "25752269",
+                  "name": "SBVV Bezirke",
+                  "shortName": "SBVV Bezirke",
+                  "hierarchyLevel": "6"
+                },
+                {
+                  "id": "25752268",
+                  "name": "Spielbetrieb Südbaden",
+                  "shortName": "sbvv",
+                  "hierarchyLevel": "5"
+                },
+                {
+                  "id": "25751076",
+                  "name": "Oberliga Baden",
+                  "shortName": "Ol",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25751075",
+                  "name": "Regionalliga Süd",
+                  "shortName": "RL",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25751074",
+                  "name": "Dritte Liga Süd",
+                  "shortName": "DLS",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25751073",
+                  "name": "Bundesligen",
+                  "shortName": "BL",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25751072",
+                  "name": "Allgemeiner Spielbetrieb",
+                  "shortName": "alg",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        },
+        {
+          "id": "28107458",
+          "uuid": "5a85bd2d-c396-4285-8950-53bf076f64de",
+          "seasonTeamId": "28107458",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "26660048",
+            "uuid": "e6486280-1d3d-4a78-b845-8ea287f1419b",
+            "allSeasonId": "e6486280-1d3d-4a78-b845-8ea287f1419b",
+            "name": "Herren Pokal Landes- und Verbandsliga",
+            "shortName": "hp_ll_vl",
+            "type": "Competition",
+            "updated": "2023-08-15 09:33:57.82",
+            "structureUpdated": "2023-08-15 09:33:57.82",
+            "resultsUpdated": null,
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "26660033",
+              "uuid": "e684bf7f-c9c7-43e8-86b4-218afc9b597a",
+              "name": "Verbandspokal 2023/2024",
+              "shortName": "vp",
+              "hierarchyLevel": "3"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "26660033",
+                  "name": "Verbandspokal 2023/2024",
+                  "shortName": "vp",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25754713",
+                  "name": "Regionalpokal",
+                  "shortName": "Regionalpokal",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25754712",
+                  "name": "Pokalwettbewerbe",
+                  "shortName": "P",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25751072",
+                  "name": "Allgemeiner Spielbetrieb",
+                  "shortName": "alg",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
+            }
+          }
+        },
+        {
+          "id": "25921412",
+          "uuid": "5a65e070-8dc9-4d23-bab8-2307b6921601",
+          "seasonTeamId": "25921412",
+          "placeCipher": "8",
+          "name": "VC Müllheim 1 LL",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "25754861",
+            "uuid": "988e0d13-5699-40f3-a0be-0f20050344fe",
+            "allSeasonId": "6802ca20-191c-4961-808d-8cb457327af6",
+            "name": "Landespokal Herren 2023",
+            "shortName": "PokalHe",
+            "type": "Competition",
+            "updated": "2023-10-19 12:43:32.592",
+            "structureUpdated": "2023-10-19 12:43:32.592",
+            "resultsUpdated": "2023-09-25 08:04:01.862",
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25754803",
+              "uuid": "a046e032-06f3-4a61-9481-f32d3336c746",
+              "name": "SBVV Landespokal",
+              "shortName": "SBVV-Pokal",
+              "hierarchyLevel": "3"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25754803",
+                  "name": "SBVV Landespokal",
+                  "shortName": "SBVV-Pokal",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25754713",
+                  "name": "Regionalpokal",
+                  "shortName": "Regionalpokal",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25754712",
+                  "name": "Pokalwettbewerbe",
+                  "shortName": "P",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25751072",
+                  "name": "Allgemeiner Spielbetrieb",
+                  "shortName": "alg",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
+            }
+          }
+        },
+        {
+          "id": "26985172",
+          "uuid": "ee4b79fa-6502-44b9-a771-310b09af431d",
+          "seasonTeamId": "26985172",
+          "placeCipher": "0",
+          "name": "VC Müllheim I",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "25749513",
+            "uuid": "ef96737c-6196-4ecb-b4e1-3c407eaa338c",
+            "allSeasonId": "a6d2aafa-f16b-8491-9191-0e77342513c9",
+            "name": "West Jugendrunde (4:4) weiblich",
+            "shortName": "W_JRw",
+            "type": "Competition",
+            "updated": "2023-12-05 08:55:58.254",
+            "structureUpdated": "2023-12-05 08:55:58.254",
+            "resultsUpdated": null,
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25749445",
+              "uuid": "2b4ac3de-a3cc-4fb2-843e-d3a99c115c28",
+              "name": "Meldungen Bezirk West Jugend weiblich",
+              "shortName": "bwjw",
+              "hierarchyLevel": "5"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25749445",
+                  "name": "Meldungen Bezirk West Jugend weiblich",
+                  "shortName": "bwjw",
+                  "hierarchyLevel": "5"
+                },
+                {
+                  "id": "25749345",
+                  "name": "SBVV Bezirk West Jugend",
+                  "shortName": "bwj",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "SBVV Bezirk West",
+              "shortName": "SBVV-West"
+            }
+          }
+        },
+        {
+          "id": "26985182",
+          "uuid": "410f1c79-51d5-40de-ab4c-edd1dec29261",
+          "seasonTeamId": "26985182",
+          "placeCipher": "0",
+          "name": "VC Müllheim II",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "25749513",
+            "uuid": "ef96737c-6196-4ecb-b4e1-3c407eaa338c",
+            "allSeasonId": "a6d2aafa-f16b-8491-9191-0e77342513c9",
+            "name": "West Jugendrunde (4:4) weiblich",
+            "shortName": "W_JRw",
+            "type": "Competition",
+            "updated": "2023-12-05 08:55:58.254",
+            "structureUpdated": "2023-12-05 08:55:58.254",
+            "resultsUpdated": null,
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25749445",
+              "uuid": "2b4ac3de-a3cc-4fb2-843e-d3a99c115c28",
+              "name": "Meldungen Bezirk West Jugend weiblich",
+              "shortName": "bwjw",
+              "hierarchyLevel": "5"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25749445",
+                  "name": "Meldungen Bezirk West Jugend weiblich",
+                  "shortName": "bwjw",
+                  "hierarchyLevel": "5"
+                },
+                {
+                  "id": "25749345",
+                  "name": "SBVV Bezirk West Jugend",
+                  "shortName": "bwj",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "SBVV Bezirk West",
+              "shortName": "SBVV-West"
+            }
+          }
+        },
+        {
+          "id": "26985131",
+          "uuid": "df3f96df-e87d-4a80-b24c-546010794921",
+          "seasonTeamId": "26985131",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "25749452",
+            "uuid": "a0b3b7d6-9975-4b0c-b7bb-a8228f3460dd",
+            "allSeasonId": "375a20ac-b2b9-c22f-e657-05936f7ec524",
+            "name": "West Quali - U14w am 25.11.2023",
+            "shortName": "WQ_U14w",
+            "type": "Competition",
+            "updated": "2023-11-30 14:06:17.863",
+            "structureUpdated": "2023-11-30 14:06:17.863",
+            "resultsUpdated": "2023-01-15 16:33:00.278",
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25749445",
+              "uuid": "2b4ac3de-a3cc-4fb2-843e-d3a99c115c28",
+              "name": "Meldungen Bezirk West Jugend weiblich",
+              "shortName": "bwjw",
+              "hierarchyLevel": "5"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25749445",
+                  "name": "Meldungen Bezirk West Jugend weiblich",
+                  "shortName": "bwjw",
+                  "hierarchyLevel": "5"
+                },
+                {
+                  "id": "25749345",
+                  "name": "SBVV Bezirk West Jugend",
+                  "shortName": "bwj",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "SBVV Bezirk West",
+              "shortName": "SBVV-West"
+            }
+          }
+        },
+        {
+          "id": "27469350",
+          "uuid": "f52c591f-b175-428e-83f4-e3692e0b55f4",
+          "seasonTeamId": "26985131",
+          "placeCipher": "1",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "27462682",
+            "uuid": "c42d6266-76de-4aba-85b8-af18eb0e01a0",
+            "allSeasonId": "c42d6266-76de-4aba-85b8-af18eb0e01a0",
+            "name": "Vor-Quali 3 - U14 weiblich am 25.11.23",
+            "shortName": "VQ3_U14_w",
+            "type": "Competition",
+            "updated": "2023-12-05 11:31:58.113",
+            "structureUpdated": "2023-12-05 11:31:58.113",
+            "resultsUpdated": "2023-11-25 17:15:49.449",
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "27463054",
+              "uuid": "a2a1de6e-f4b3-47ef-82db-3f151a043c99",
+              "name": "Vor-Qualifikation Jugendmeisterschaft",
+              "shortName": "VQ",
+              "hierarchyLevel": "4"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "27463054",
+                  "name": "Vor-Qualifikation Jugendmeisterschaft",
+                  "shortName": "VQ",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
+            }
+          }
+        },
+        {
+          "id": "27860239",
+          "uuid": "51e76296-bf8a-47d5-8161-2df425f9aaa3",
+          "seasonTeamId": "27860239",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "27463169",
+            "uuid": "27a326bf-f46a-4e4c-92a4-4f6c43b99ca8",
+            "allSeasonId": "27a326bf-f46a-4e4c-92a4-4f6c43b99ca8",
+            "name": "U14 weiblich - Quali 2 am 27.1.24",
+            "shortName": "Q2_U14_w",
+            "type": "Competition",
+            "updated": "2023-12-12 11:38:35.821",
+            "structureUpdated": "2023-12-12 11:38:35.821",
+            "resultsUpdated": null,
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "27462717",
+              "uuid": "e981a1d1-beb1-4db0-abf3-932f5afd200e",
+              "name": "Quali-Turniere Jugendmeisterschaften",
+              "shortName": "Quali",
+              "hierarchyLevel": "4"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "27462717",
+                  "name": "Quali-Turniere Jugendmeisterschaften",
+                  "shortName": "Quali",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
+            }
+          }
+        },
+        {
+          "id": "26985151",
+          "uuid": "3100da60-f7ae-46e0-a233-2ef81af2e46a",
+          "seasonTeamId": "26985151",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "25749446",
+            "uuid": "d9a236a4-64d7-428a-9b3a-167396c68d21",
+            "allSeasonId": "df4ecc81-677f-4914-9eea-e457a230de1e",
+            "name": "West Quali - U16w am 3.12.2023",
+            "shortName": "WQ_U16w",
+            "type": "Competition",
+            "updated": "2023-12-04 09:22:49.199",
+            "structureUpdated": "2023-12-04 09:22:49.199",
+            "resultsUpdated": null,
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25749445",
+              "uuid": "2b4ac3de-a3cc-4fb2-843e-d3a99c115c28",
+              "name": "Meldungen Bezirk West Jugend weiblich",
+              "shortName": "bwjw",
+              "hierarchyLevel": "5"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25749445",
+                  "name": "Meldungen Bezirk West Jugend weiblich",
+                  "shortName": "bwjw",
+                  "hierarchyLevel": "5"
+                },
+                {
+                  "id": "25749345",
+                  "name": "SBVV Bezirk West Jugend",
+                  "shortName": "bwj",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "SBVV Bezirk West",
+              "shortName": "SBVV-West"
+            }
+          }
+        },
+        {
+          "id": "27469066",
+          "uuid": "77b4202f-9400-4f01-806e-5dcfcc5fd7df",
+          "seasonTeamId": "26985151",
+          "placeCipher": "1",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "27463081",
+            "uuid": "380c214c-2f0d-46bc-91cc-0306b763f91d",
+            "allSeasonId": "380c214c-2f0d-46bc-91cc-0306b763f91d",
+            "name": "U16 weiblich - Quali 2 am 3.12.23",
+            "shortName": "Q2_U16_w",
+            "type": "Competition",
+            "updated": "2023-12-03 16:28:36.962",
+            "structureUpdated": "2023-11-29 12:59:46.055",
+            "resultsUpdated": "2023-12-03 16:28:36.962",
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "27462717",
+              "uuid": "e981a1d1-beb1-4db0-abf3-932f5afd200e",
+              "name": "Quali-Turniere Jugendmeisterschaften",
+              "shortName": "Quali",
+              "hierarchyLevel": "4"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "27462717",
+                  "name": "Quali-Turniere Jugendmeisterschaften",
+                  "shortName": "Quali",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
+            }
+          }
+        },
+        {
+          "id": "26985193",
+          "uuid": "a43c4527-cf19-43c6-87e1-b0190bfe49b1",
+          "seasonTeamId": "26985193",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "26693780",
+            "uuid": "53b0a143-a1b3-4c77-8734-b8b11164e9ef",
+            "allSeasonId": "53b0a143-a1b3-4c77-8734-b8b11164e9ef",
+            "name": "West Jugendrunde (4:4) männlich",
+            "shortName": "W_JRm",
+            "type": "Competition",
+            "updated": "2023-12-19 10:01:47.573",
+            "structureUpdated": "2023-12-19 10:01:47.572",
+            "resultsUpdated": null,
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25749346",
+              "uuid": "8a98d50a-82a5-4d57-b6f8-6cd07be978a3",
+              "name": "Meldungen Bezirk West Jugend männlich",
+              "shortName": "bwjm",
+              "hierarchyLevel": "5"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25749346",
+                  "name": "Meldungen Bezirk West Jugend männlich",
+                  "shortName": "bwjm",
+                  "hierarchyLevel": "5"
+                },
+                {
+                  "id": "25749345",
+                  "name": "SBVV Bezirk West Jugend",
+                  "shortName": "bwj",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "SBVV Bezirk West",
+              "shortName": "SBVV-West"
+            }
+          }
+        },
+        {
+          "id": "26985141",
+          "uuid": "086def7d-9d7a-48d1-aa76-fa45f59d317b",
+          "seasonTeamId": "26985141",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "26693728",
+            "uuid": "3125addc-fa15-4d72-8bde-bd733495cfe1",
+            "allSeasonId": "3125addc-fa15-4d72-8bde-bd733495cfe1",
+            "name": "West Quali - U14m am 25.11.2023",
+            "shortName": "WQ_U14m",
+            "type": "Competition",
+            "updated": "2023-11-25 16:56:57.299",
+            "structureUpdated": "2023-11-25 16:56:57.299",
+            "resultsUpdated": "2023-01-15 16:33:00.278",
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25749346",
+              "uuid": "8a98d50a-82a5-4d57-b6f8-6cd07be978a3",
+              "name": "Meldungen Bezirk West Jugend männlich",
+              "shortName": "bwjm",
+              "hierarchyLevel": "5"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25749346",
+                  "name": "Meldungen Bezirk West Jugend männlich",
+                  "shortName": "bwjm",
+                  "hierarchyLevel": "5"
+                },
+                {
+                  "id": "25749345",
+                  "name": "SBVV Bezirk West Jugend",
+                  "shortName": "bwj",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "SBVV Bezirk West",
+              "shortName": "SBVV-West"
+            }
+          }
+        },
+        {
+          "id": "27469178",
+          "uuid": "d601ce27-b6be-4783-82a3-fbb0fdac8432",
+          "seasonTeamId": "26985141",
+          "placeCipher": "2",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "27463201",
+            "uuid": "1bd0c85a-0d78-4cb1-9330-66bb312b2a2b",
+            "allSeasonId": "1bd0c85a-0d78-4cb1-9330-66bb312b2a2b",
+            "name": "U14 männlich - Quali 2 am 25.11.2023",
+            "shortName": "Q2_U14_m",
+            "type": "Competition",
+            "updated": "2023-12-11 21:42:40.288",
+            "structureUpdated": "2023-12-11 21:42:40.288",
+            "resultsUpdated": "2023-11-25 17:14:27.33",
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "27462717",
+              "uuid": "e981a1d1-beb1-4db0-abf3-932f5afd200e",
+              "name": "Quali-Turniere Jugendmeisterschaften",
+              "shortName": "Quali",
+              "hierarchyLevel": "4"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "27462717",
+                  "name": "Quali-Turniere Jugendmeisterschaften",
+                  "shortName": "Quali",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
+            }
+          }
+        },
+        {
+          "id": "28010515",
+          "uuid": "00bd91a2-5f7c-4c38-b5e0-2ca6e80a0a4c",
+          "seasonTeamId": "28010515",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "25749932",
+            "uuid": "3fe5caed-5b0d-42b7-ba4f-34d3fecf1c36",
+            "allSeasonId": "0448a253-0668-40e5-a856-eaefed292e32",
+            "name": "SBVV - U14 männlich am 3.2.24",
+            "shortName": "sbvv-u14m",
+            "type": "Competition",
+            "updated": "2023-12-12 10:46:53.804",
+            "structureUpdated": "2023-12-12 10:46:53.803",
+            "resultsUpdated": "2023-03-13 09:40:18.268",
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25749344",
+              "uuid": "334935bb-d44e-4005-aca6-15e06f91781b",
+              "name": "SBVV-Jugendmeisterschaften",
+              "shortName": "sbvv_jm",
+              "hierarchyLevel": "3"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        },
+        {
+          "id": "26985162",
+          "uuid": "d2b75d92-6f7c-4851-ac2b-f0974fd49772",
+          "seasonTeamId": "26985162",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "26693721",
+            "uuid": "b53b11b6-9cd8-4f9e-a7da-f61b20738b58",
+            "allSeasonId": "b53b11b6-9cd8-4f9e-a7da-f61b20738b58",
+            "name": "West Quali - U16m am 3.12.2023",
+            "shortName": "WQ_U16m",
+            "type": "Competition",
+            "updated": "2023-12-03 09:27:24.578",
+            "structureUpdated": "2023-12-03 09:27:24.578",
+            "resultsUpdated": null,
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25749346",
+              "uuid": "8a98d50a-82a5-4d57-b6f8-6cd07be978a3",
+              "name": "Meldungen Bezirk West Jugend männlich",
+              "shortName": "bwjm",
+              "hierarchyLevel": "5"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25749346",
+                  "name": "Meldungen Bezirk West Jugend männlich",
+                  "shortName": "bwjm",
+                  "hierarchyLevel": "5"
+                },
+                {
+                  "id": "25749345",
+                  "name": "SBVV Bezirk West Jugend",
+                  "shortName": "bwj",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "SBVV Bezirk West",
+              "shortName": "SBVV-West"
+            }
+          }
+        },
+        {
+          "id": "27469048",
+          "uuid": "bb8a265c-b0a7-4623-8e21-55fb3f26f80a",
+          "seasonTeamId": "26985162",
+          "placeCipher": "4",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "27463146",
+            "uuid": "29a1fe5c-1974-4833-9e87-79a6494c8803",
+            "allSeasonId": "29a1fe5c-1974-4833-9e87-79a6494c8803",
+            "name": "U16 männlich - Quali 2 am 3.12.2023",
+            "shortName": "Q2_U16_m",
+            "type": "Competition",
+            "updated": "2023-12-05 19:59:20.263",
+            "structureUpdated": "2023-12-05 19:59:20.263",
+            "resultsUpdated": "2023-12-03 17:21:00.688",
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "27462717",
+              "uuid": "e981a1d1-beb1-4db0-abf3-932f5afd200e",
+              "name": "Quali-Turniere Jugendmeisterschaften",
+              "shortName": "Quali",
+              "hierarchyLevel": "4"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "27462717",
+                  "name": "Quali-Turniere Jugendmeisterschaften",
+                  "shortName": "Quali",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
+            }
+          }
+        }
+      ]
+    },
+    "locations": {
+      "main": {
+        "id": "874",
+        "name": "Halle II",
+        "address": {
+          "postbox": null,
+          "street": "Schwarzwaldstraße 12A",
+          "extraField": null,
+          "postcode": "79379",
+          "city": "Müllheim",
+          "region": "Baden-Württenberg",
+          "country": "Deutschland"
+        },
+        "homepage": null
+      }
+    }
+  }
 }
