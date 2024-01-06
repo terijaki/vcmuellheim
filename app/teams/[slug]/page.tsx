@@ -61,7 +61,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 					{/* matches */}
 					{matchesFuture.length + matchesPast.length > 0 ? (
 						<>
-							<div className="card lg:card">
+							<div className="card">
 								<h2 className="card-heading">Mannschaftskalender</h2>
 								<p className="my-3 text-pretty">
 									<Link
@@ -118,7 +118,10 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 					{ranking.length > 0 &&
 						ranking.map((ranking) => {
 							return (
-								<div key="tabelle">
+								<div
+									key="tabelle"
+									className="*:card-narrow *:lg:card"
+								>
 									<RankingTable
 										{...ranking}
 										key={ranking.matchSeries.id}

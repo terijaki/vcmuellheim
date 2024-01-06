@@ -34,7 +34,7 @@ export default function Termine() {
 						, um neue Termine saisonübergreifend automatisch in deiner <span className="font-bold">Kalender-App</span> zu empfangen.
 					</p>
 				</div>
-				<div className="col-full-content sm:col-center-content card-narrow mb-6">
+				<div className="col-full-content sm:col-center-content card-narrow lg:card mb-6">
 					<h2 className="card-heading">Termine</h2>
 					<Matches
 						teamId={cachedGetTeamIds("id")}
