@@ -34,7 +34,7 @@ env:
 jobs:
   # Build jobs
   build:
-    name: "🏗️ SAMS Update & Build"
+    name: "🏗️ SAMS & Build"
     runs-on: ubuntu-latest
     outputs:
       sams_status: ${{ steps.sams_git.outputs.status }}
@@ -85,9 +85,7 @@ jobs:
         id: sams_update
         if: ${{ github.event_name != 'push' }}
         continue-on-error: true
-        run: |
-          npm run sams-update
-          cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
+        run: npm run sams-update
         env:
           SAMS_API: ${{ secrets.SAMS_API }}
 
@@ -123,6 +121,8 @@ jobs:
             echo "status=updated" >> $GITHUB_OUTPUT
             echo '🕵️ Club changes detected and pushed to repository.' >> $GITHUB_STEP_SUMMARY
           fi
+
+          cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
 
       - name: Setup Pages
         id: setup_pages
