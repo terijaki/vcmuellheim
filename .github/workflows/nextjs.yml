@@ -108,12 +108,15 @@ jobs:
           if [ -z "$(git stage ${{ env.SAMS_FOLDER }} --dry-run)" ]
           then
             echo "🌈 Club data up to date.."
+            echo '🌈 Club data up to date..' >> $GITHUB_STEP_SUMMARY
+
           else
             echo "🕵️ Club changes detected! Pushing to repository."
             git add ${{ env.SAMS_FOLDER }}
             git commit -m "automated deployment update"
             git push origin --all --quiet --force
             echo "status=updated" >> $GITHUB_OUTPUT
+            echo '🕵️ Club changes detected and pushed to repository.' >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Setup Pages
