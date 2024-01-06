@@ -46,3 +46,6 @@ next-env.d.ts
 
 # sams
 /data/sams/matchSeries.json
+
+# github actions
+github_summary.md

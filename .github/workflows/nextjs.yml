@@ -24,6 +24,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
+  GITHUB_SUMMARY_FILE: "github_summary.md"
   SAMS_FOLDER: "data/sams"
   SAMS_MATCHSERIES_JSON: "data/sams/matchSeries.json"
   IMAGES_FOLDER: "public/images"
@@ -84,7 +85,9 @@ jobs:
         id: sams_update
         if: ${{ github.event_name != 'push' }}
         continue-on-error: true
-        run: npm run sams-update
+        run: |
+          npm run sams-update
+          cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
         env:
           SAMS_API: ${{ secrets.SAMS_API }}
 
@@ -98,17 +101,19 @@ jobs:
 
           if [ -z "$(git stage ${{ env.SAMS_MATCHSERIES_JSON }} --dry-run)" ]
           then
-            echo "🌈 Match Series up to date.."
+            echo "🌈 Match Series up to date."
+            echo "🌈 Match Series up to date." >> $GITHUB_STEP_SUMMARY
           else
-            echo "🕵️ Match Series changed."
+            echo "🕵️ Match Series changes detected! Pushing to repository."
             git add ${{ env.SAMS_MATCHSERIES_JSON }} --force || true
             git commit -m "automated deployment update" || true
+            echo "🕵️ Match Series changes detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
           fi
 
           if [ -z "$(git stage ${{ env.SAMS_FOLDER }} --dry-run)" ]
           then
-            echo "🌈 Club data up to date.."
-            echo '🌈 Club data up to date..' >> $GITHUB_STEP_SUMMARY
+            echo "🌈 Club data up to date."
+            echo "🌈 Club data up to date." >> $GITHUB_STEP_SUMMARY
 
           else
             echo "🕵️ Club changes detected! Pushing to repository."
@@ -146,12 +151,14 @@ jobs:
 
           if [ -z "$(git stage ${{ env.IMAGES_FOLDER }} --dry-run)" ]
           then
-            echo "🌈 Image optimizations are up to date.."
+            echo "🌈 Image optimizations are up to date."
+            echo '🌈 Image optimizations are up to date.' >> $GITHUB_STEP_SUMMARY
           else
             echo "🕵️ New image optimizations! Pushing to repository."
             git add ${{ env.IMAGES_FOLDER }}
             git commit -m "automated deployment update"
             git push origin --all --quiet --force
+            echo '🕵️ New image optimizations changes detected and pushed to repository.' >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: New Blog Post Check
@@ -164,7 +171,8 @@ jobs:
 
           if [ -z "$(git stage ${{ env.BLOG_FOLDER }} --dry-run)" ]
           then
-            echo "🌈 No new blog post found.."
+            echo "🌈 No new blog post found."
+            echo '🌈 No new blog post found.' >> $GITHUB_STEP_SUMMARY
           else
             echo "🕵️ New Blog post detected! Pushing to repository and cleaning the inbox folder."
             git add ${{ env.BLOG_FOLDER }}
@@ -172,6 +180,7 @@ jobs:
             git commit -m "automated deployment update"
             git push origin --all --quiet --force
             echo "status=new" >> $GITHUB_OUTPUT
+            echo '🕵️ New Blog post detected. Sharing on social initiated.' >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Upload artifact

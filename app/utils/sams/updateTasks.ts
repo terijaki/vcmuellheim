@@ -7,6 +7,8 @@ import getClubData from "./getClubData";
 import getRankings from "./getRankings";
 import getMatches from "./getMatches";
 
+const GITHUB_SUMMARY_FILE = "github_summary.md";
+
 // there is no rate limit in this request type! ✌️
 getMatchSeries()
 	.then(() => {
@@ -26,13 +28,19 @@ getMatchSeries()
 					const rankingsJsonFileContent = fs.readFileSync(rankingsJsonFile);
 					const rankingsJson = JSON.parse(rankingsJsonFileContent.toString());
 					if (rankingsJson.rankings.matchSeries.resultsUpdated != series.resultsUpdated || rankingsJson.rankings.matchSeries.structureUpdated != series.structureUpdated) {
-						console.log("📋 Rankings for " + series.name + " (" + series.id + ") are outdated. Fetching new rankings...");
+						let message = "📋 Rankings for " + series.name + " (" + series.id + ") are outdated. Fetching new rankings...";
+						console.log(message);
+						writetoSummary(message);
 						getRankings(series.id);
 					} else {
-						console.log("✅ Rankings for " + series.name + " (" + series.id + ") are up to date.");
+						let message = "✅ Rankings for " + series.name + " (" + series.id + ") are up to date.";
+						console.log(message);
+						writetoSummary(message);
 					}
 				} else {
-					console.log("📋 Rankings for " + series.name + " (" + series.id + ") do not exist. Fetching new rankings...");
+					let message = "📋 Rankings for " + series.name + " (" + series.id + ") do not exist. Fetching new rankings...";
+					console.log(message);
+					writetoSummary(message);
 					getRankings(series.id);
 				}
 				// MATCHES
@@ -42,13 +50,19 @@ getMatchSeries()
 					const matchesJsonFileContent = fs.readFileSync(matchesJsonFile);
 					const matchesJson = JSON.parse(matchesJsonFileContent.toString());
 					if (matchesJson.matches.match[0].matchSeries.resultsUpdated != series.resultsUpdated || matchesJson.matches.match[0].matchSeries.structureUpdated != series.structureUpdated) {
-						console.log("📋 Matches for " + series.name + " (" + series.id + ") are outdated. Fetching new matches...");
+						let message = "📋 Matches for " + series.name + " (" + series.id + ") are outdated. Fetching new matches...";
+						console.log(message);
+						writetoSummary(message);
 						getMatches(undefined, series.id);
 					} else {
-						console.log("✅ Matches for " + series.name + " (" + series.id + ") are up to date.");
+						let message = "✅ Matches for " + series.name + " (" + series.id + ") are up to date.";
+						console.log(message);
+						writetoSummary(message);
 					}
 				} else {
-					console.log("📋 Matches for " + series.name + " (" + series.id + ") do not exist. Fetching new matches...");
+					let message = "📋 Matches for " + series.name + " (" + series.id + ") do not exist. Fetching new matches...";
+					console.log(message);
+					writetoSummary(message);
 					getMatches(undefined, series.id);
 				}
 			});
@@ -60,3 +74,11 @@ getMatchSeries()
 	.finally(() => {
 		return;
 	});
+
+function writetoSummary(text: string) {
+	if (!fs.existsSync(GITHUB_SUMMARY_FILE)) {
+		console.log("not there");
+		fs.writeFileSync(GITHUB_SUMMARY_FILE, "");
+	}
+	fs.appendFileSync(GITHUB_SUMMARY_FILE, text + "\n");
+}
