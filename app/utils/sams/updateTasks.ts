@@ -77,7 +77,6 @@ getMatchSeries()
 
 function writetoSummary(text: string) {
 	if (!fs.existsSync(GITHUB_SUMMARY_FILE)) {
-		console.log("not there");
 		fs.writeFileSync(GITHUB_SUMMARY_FILE, "");
 	}
 	fs.appendFileSync(GITHUB_SUMMARY_FILE, text + "\n");
