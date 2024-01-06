@@ -139,8 +139,10 @@ jobs:
         id: next_build
         if: steps.setup_pages.conclusion == 'success'
         run: |
-          echo "status=started" >> $GITHUB_OUTPUT  
+          echo "status=started" >> $GITHUB_OUTPUT
           ${{ steps.detect-package-manager.outputs.runner }} build
+          echo '👷 Build complete:' >> $GITHUB_STEP_SUMMARY
+          du -hsc out >> >> $GITHUB_STEP_SUMMARY
 
       - name: Commit Optimized Images
         if: steps.next_build.conclusion == 'success'
