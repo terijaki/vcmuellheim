@@ -44,13 +44,14 @@ export default function Termine() {
 			</>
 		);
 	} else {
-		let currentMonth = new Date().getMonth() + 1;
+		const currentMonth = new Date().getMonth() + 1;
+		const seasonMonth = currentMonth >= 5 && currentMonth <= 9 ? true : false;
 		return (
 			<>
 				<PageHeading title="Spielermine unserer Mannschaften" />
 				<div className="col-full-content sm:col-center-content card my-6">
 					<p className="mb-3">Derzeit stehen keine weiteren Spieltermine an.</p>
-					{currentMonth >= 1 && currentMonth <= 9 ? <p className="mb-6">Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.</p> : ""}
+					{seasonMonth && <p className="mb-6">Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.</p>}
 					<p className="text-pretty">
 						<Link
 							href={"webcal://" + env.BASE_URL + "/ics/all.ics"}
