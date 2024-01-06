@@ -5,10 +5,10 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { getMembers } from "@/app/utils/getMembers";
 import { getTeams } from "@/app/utils/getTeams";
-import { getLeagueName, getUniqueMatchSeriesIds } from "@/app/utils/sams/jsonClubData";
+import { getLeagueName, cachedGetUniqueMatchSeriesIds } from "@/app/utils/sams/cachedGetClubData";
 import { FaUser as IconPerson, FaUserGroup as IconPersons, FaClock as IconClock, FaBullhorn as IconSubscribe } from "react-icons/fa6";
-import { getRankings } from "@/app/utils/sams/jsonRanking";
-import { getMatches } from "@/app/utils/sams/jsonMatches";
+import { cachedGetRankings } from "@/app/utils/sams/cachedGetRanking";
+import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import RankingTable from "@/app/components/sams/RankingTable";
 import { icsTeamGeneration } from "@/app/utils/icsGeneration";
 import { env } from "process";
@@ -40,10 +40,10 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 		// initiate ICS file generation
 		team.sbvvId && icsTeamGeneration([team.sbvvId], params.slug);
 		// fetch the rankings
-		const ranking = getRankings(getUniqueMatchSeriesIds([team.sbvvId]));
+		const ranking = cachedGetRankings(cachedGetUniqueMatchSeriesIds([team.sbvvId]));
 		// fetch the matches
-		const matchesFuture = getMatches([team.sbvvId], "future");
-		const matchesPast = getMatches([team.sbvvId], "past");
+		const matchesFuture = cachedGetMatches([team.sbvvId], "future");
+		const matchesPast = cachedGetMatches([team.sbvvId], "past");
 		// check if its currently a month outside of the season
 		const currentMonth = new Date().getMonth() + 1;
 		const seasonMonth = currentMonth >= 5 && currentMonth <= 9 ? true : false;

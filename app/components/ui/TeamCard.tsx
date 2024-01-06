@@ -10,7 +10,7 @@ import {
 	FaUserGroup as IconPersons,
 	FaClock as IconClock,
 } from "react-icons/fa6";
-import { getLeagueName } from "@/app/utils/sams/jsonClubData";
+import { getLeagueName } from "@/app/utils/sams/cachedGetClubData";
 import Markdown from "react-markdown";
 
 export default function TeamCard(props: teamObject) {

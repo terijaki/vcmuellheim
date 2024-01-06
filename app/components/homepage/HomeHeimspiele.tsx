@@ -1,5 +1,5 @@
-import { getTeamIds } from "@/app/utils/sams/jsonClubData";
-import { getMatches } from "@/app/utils/sams/jsonMatches";
+import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
+import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import ExportedImage from "next-image-export-optimizer";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -13,7 +13,7 @@ export default function HomeHeimspiele() {
 	const todayPlusRange = new Date();
 	todayPlusRange.setDate(todayPlusRange.getDate() + TIME_RANGE);
 	// get the matches
-	const homeGames = getMatches(getTeamIds("id"), "future");
+	const homeGames = cachedGetMatches(cachedGetTeamIds("id"), "future");
 	// filter out the matches that do not qualify based on their date
 	const homeGamesFiltered = homeGames.filter((match) => match.dateObject > new Date() && match.dateObject < todayPlusRange);
 	// if there is at least one home game
@@ -151,7 +151,7 @@ export default function HomeHeimspiele() {
 		);
 	} else {
 		// check how many matches we have in total
-		const allMatchesCount = getMatches(getTeamIds("id"), "future").length;
+		const allMatchesCount = cachedGetMatches(cachedGetTeamIds("id"), "future").length;
 		// prepare to display them as words
 		const numToWordsDe = require("num-words-de");
 		let allMatchesCountWord = numToWordsDe.numToWord(allMatchesCount, { uppercase: true });

@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
-import { getMatches } from "@/app/utils/sams/jsonMatches";
-import { getTeamIds } from "@/app/utils/sams/jsonClubData";
+import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
+import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
 
 const ICS_FOLDER_LOCATION = "public/ics";
 const TEMPLATE_START = "BEGIN:VEVENT";
@@ -16,7 +16,7 @@ export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string)
 	// loop through all matches for the team
 	// console.log(sbvvTeamId + " test " + slug);
 	// console.log(getMatches(sbvvTeamId.map(String)));
-	getMatches(sbvvTeamId).map((match, index) => {
+	cachedGetMatches(sbvvTeamId).map((match, index) => {
 		if (match.uuid && match.team?.length == 2 && match.location && match.matchSeries?.name && match.matchSeries.updated) {
 			// use the match update date as the date this entry is updated
 			const dateLastUpdated = new Date(match.matchSeries.updated);
@@ -83,7 +83,7 @@ export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string)
 }
 
 export function icsAllGeneration() {
-	icsTeamGeneration(getTeamIds("id"), "all");
+	icsTeamGeneration(cachedGetTeamIds("id"), "all");
 }
 
 export function toICSFormat(date: Date) {

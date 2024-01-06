@@ -1,10 +1,10 @@
-import { getMatches } from "@/app/utils/sams/jsonMatches";
+import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import { FaLocationDot as IconLocation, FaSquarePollVertical as IconResult } from "react-icons/fa6";
 import Link from "next/link";
 
 export default function Matches(props: { teamId: (number | string)[]; filter?: "future" | "past"; limit?: number }) {
 	const teamIdString = props.teamId.map(String); // allows the teamId input to be string or number regardlessly
-	const matches = getMatches(teamIdString, props.filter);
+	const matches = cachedGetMatches(teamIdString, props.filter);
 	// optional limiting the results
 	if (props.limit) {
 		matches.splice(props.limit);

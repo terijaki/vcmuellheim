@@ -3,7 +3,7 @@ import path from "path";
 
 const SAMS_FOLDER = "data/sams/";
 
-export function getRankings(matchSeriesArray: string[]): rankingsArray[] {
+export function cachedGetRankings(matchSeriesArray: string[]): rankingsArray[] {
 	let resultArray = new Array();
 	matchSeriesArray.map((matchSeriesId) => {
 		const file = path.join(SAMS_FOLDER, "matchSeriesId", matchSeriesId) + "/rankings.json";

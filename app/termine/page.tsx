@@ -1,7 +1,7 @@
 import PageHeading from "@/app/components/layout/PageHeading";
-import { getTeamIds } from "@/app/utils/sams/jsonClubData";
+import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
 import { icsAllGeneration } from "@/app/utils/icsGeneration";
-import { getMatches } from "@/app/utils/sams/jsonMatches";
+import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import Matches from "@/app/components/sams/Matches";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import Link from "next/link";
@@ -18,7 +18,7 @@ export async function generateMetadata({}, parent: ResolvingMetadata): Promise<M
 export default function Termine() {
 	icsAllGeneration(); // triggers the generation of the all.ics file
 
-	if (getMatches(getTeamIds("id"), "future").length > 0) {
+	if (cachedGetMatches(cachedGetTeamIds("id"), "future").length > 0) {
 		return (
 			<>
 				<PageHeading title="Spielermine unserer Mannschaften" />
@@ -37,7 +37,7 @@ export default function Termine() {
 				<div className="col-full-content sm:col-center-content card-narrow mb-6">
 					<h2 className="card-heading">Termine</h2>
 					<Matches
-						teamId={getTeamIds("id")}
+						teamId={cachedGetTeamIds("id")}
 						filter="future"
 					/>
 				</div>

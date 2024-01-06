@@ -1,17 +1,17 @@
 import fs from "fs";
 import path from "path";
-import { getUniqueMatchSeriesIds } from "./jsonClubData";
+import { cachedGetUniqueMatchSeriesIds } from "./cachedGetClubData";
 import convertDate from "./convertDate";
 
 const SAMS_FOLDER = "data/sams";
 
-export function getMatches(teamIds: (string | number)[], filter?: "past" | "future"): matchesArray[] {
+export function cachedGetMatches(teamIds: (string | number)[], filter?: "past" | "future"): matchesArray[] {
 	// allow string or number input regardless
 	teamIds = teamIds.map(String);
 	// setup the empty array
 	let matches: matchesArray[] = [];
 	// use the teamIds to fetch the relevant matchSeriesIds, then go through each series
-	getUniqueMatchSeriesIds(teamIds).forEach((matchSeriesId) => {
+	cachedGetUniqueMatchSeriesIds(teamIds).forEach((matchSeriesId) => {
 		const file = path.join(SAMS_FOLDER, "matchSeriesId", matchSeriesId.toString()) + "/matches.json";
 		if (fs.existsSync(file)) {
 			const matchesContent = fs.readFileSync(file);

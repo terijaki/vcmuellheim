@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
-import { rankingsArray } from "@/app/utils/sams/jsonRanking";
-import { getTeamIds } from "@/app/utils/sams/jsonClubData";
+import { rankingsArray } from "@/app/utils/sams/cachedGetRanking";
+import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
 
 export default function RankingTable(props: rankingsArray) {
 	// prepare date formatting
@@ -14,7 +14,7 @@ export default function RankingTable(props: rankingsArray) {
 	if (props.exclusive) {
 		clubTeamIds.push(props.exclusive);
 	} else {
-		clubTeamIds = getTeamIds("id");
+		clubTeamIds = cachedGetTeamIds("id");
 	}
 
 	return (

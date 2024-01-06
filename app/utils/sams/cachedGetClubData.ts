@@ -2,7 +2,7 @@ import fs from "fs";
 
 const CLUB_SAMS_FILE = "data/sams/club.json";
 
-export function getTeamIds(idType: "id" | "uuid" | "seasonTeamId" = "id", leagueOnly: boolean = true): string[] {
+export function cachedGetTeamIds(idType: "id" | "uuid" | "seasonTeamId" = "id", leagueOnly: boolean = true): string[] {
 	const clubdata = fs.readFileSync(CLUB_SAMS_FILE);
 	const clubDataObject = JSON.parse(clubdata.toString());
 	const teams = clubDataObject.sportsclub.teams.team;
@@ -19,7 +19,7 @@ export function getTeamIds(idType: "id" | "uuid" | "seasonTeamId" = "id", league
 	return teamIds;
 }
 
-export function getMatchSeriesId(teamId: string | number): string {
+export function cachedGetMatchSeriesId(teamId: string | number): string {
 	const clubdata = fs.readFileSync(CLUB_SAMS_FILE);
 	const clubDataObject = JSON.parse(clubdata.toString());
 	const teams = clubDataObject.sportsclub.teams.team;
@@ -32,15 +32,15 @@ export function getMatchSeriesId(teamId: string | number): string {
 	return result;
 }
 
-export function getUniqueMatchSeriesIds(teamIds?: (string | number)[]): string[] {
+export function cachedGetUniqueMatchSeriesIds(teamIds?: (string | number)[]): string[] {
 	// returns the match Series Ids without duplicates
 	// if no teamId parameter is provided, the function fetches ids of league teams from the club file itself
 	let UniqueMatchSeriesIds = new Array();
 	if (!teamIds) {
-		teamIds = getTeamIds("id");
+		teamIds = cachedGetTeamIds("id");
 	}
 	teamIds.map((team) => {
-		const matchSeriesId = getMatchSeriesId(team);
+		const matchSeriesId = cachedGetMatchSeriesId(team);
 		if (!UniqueMatchSeriesIds.includes(matchSeriesId)) {
 			UniqueMatchSeriesIds.push(matchSeriesId.toString());
 		}
