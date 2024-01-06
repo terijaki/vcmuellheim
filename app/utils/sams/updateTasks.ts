@@ -28,17 +28,17 @@ getMatchSeries()
 					const rankingsJsonFileContent = fs.readFileSync(rankingsJsonFile);
 					const rankingsJson = JSON.parse(rankingsJsonFileContent.toString());
 					if (rankingsJson.rankings.matchSeries.resultsUpdated != series.resultsUpdated || rankingsJson.rankings.matchSeries.structureUpdated != series.structureUpdated) {
-						let message = "📋 Rankings for " + series.name + " (" + series.id + ") are outdated. Fetching new rankings...";
+						let message = "🕵️ Rankings for " + series.name + " (" + series.id + ") are outdated. Fetching new rankings...";
 						console.log(message);
 						writetoSummary(message);
 						getRankings(series.id);
 					} else {
-						let message = "🌈 Rankings for " + series.name + " (" + series.id + ") are up to date.";
+						let message = "✅ Rankings for " + series.name + " (" + series.id + ") are up to date.";
 						console.log(message);
 						writetoSummary(message);
 					}
 				} else {
-					let message = "📋 Rankings for " + series.name + " (" + series.id + ") do not exist. Fetching new rankings...";
+					let message = "🕵️ Rankings for " + series.name + " (" + series.id + ") do not exist. Fetching new rankings...";
 					console.log(message);
 					writetoSummary(message);
 					getRankings(series.id);
@@ -50,17 +50,17 @@ getMatchSeries()
 					const matchesJsonFileContent = fs.readFileSync(matchesJsonFile);
 					const matchesJson = JSON.parse(matchesJsonFileContent.toString());
 					if (matchesJson.matches.match[0].matchSeries.resultsUpdated != series.resultsUpdated || matchesJson.matches.match[0].matchSeries.structureUpdated != series.structureUpdated) {
-						let message = "📋 Matches for " + series.name + " (" + series.id + ") are outdated. Fetching new matches...";
+						let message = "🕵️ Matches for " + series.name + " (" + series.id + ") are outdated. Fetching new matches...";
 						console.log(message);
 						writetoSummary(message);
 						getMatches(undefined, series.id);
 					} else {
-						let message = "🌈 Matches for " + series.name + " (" + series.id + ") are up to date.";
+						let message = "✅ Matches for " + series.name + " (" + series.id + ") are up to date.";
 						console.log(message);
 						writetoSummary(message);
 					}
 				} else {
-					let message = "📋 Matches for " + series.name + " (" + series.id + ") do not exist. Fetching new matches...";
+					let message = "🕵️ Matches for " + series.name + " (" + series.id + ") do not exist. Fetching new matches...";
 					console.log(message);
 					writetoSummary(message);
 					getMatches(undefined, series.id);

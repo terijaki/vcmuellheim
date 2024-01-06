@@ -99,27 +99,27 @@ jobs:
 
           if [ -z "$(git stage ${{ env.SAMS_MATCHSERIES_JSON }} --dry-run)" ]
           then
-            echo "🌈 Match Series up to date."
-            echo "🌈 Match Series up to date." >> $GITHUB_STEP_SUMMARY
+            echo "✅ Match Series up to date."
+            echo "✅ Match Series up to date." >> $GITHUB_STEP_SUMMARY
           else
-            echo "🕵️ Match Series changes detected! Pushing to repository."
+            echo "🏐 Match Series changes detected! Pushing to repository."
             git add ${{ env.SAMS_MATCHSERIES_JSON }} --force || true
             git commit -m "automated deployment update" || true
-            echo "🕵️ Match Series changes detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
+            echo "🏐 Match Series changes detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
           fi
 
           if [ -z "$(git stage ${{ env.SAMS_FOLDER }} --dry-run)" ]
           then
-            echo "🌈 Club data up to date."
-            echo "🌈 Club data up to date." >> $GITHUB_STEP_SUMMARY
+            echo "✅ Club data up to date."
+            echo "✅ Club data up to date." >> $GITHUB_STEP_SUMMARY
 
           else
-            echo "🕵️ Club changes detected! Pushing to repository."
+            echo "🏐 Club changes detected! Pushing to repository."
             git add ${{ env.SAMS_FOLDER }}
             git commit -m "automated deployment update"
             git push origin --all --quiet --force
             echo "status=updated" >> $GITHUB_OUTPUT
-            echo "🕵️ Club changes detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
+            echo "🏐 Club changes detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
           fi
 
           cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
@@ -142,7 +142,7 @@ jobs:
           echo "status=started" >> $GITHUB_OUTPUT
           ${{ steps.detect-package-manager.outputs.runner }} build
           echo "👷 Build complete:" >> $GITHUB_STEP_SUMMARY
-          du -hsc out >> $GITHUB_STEP_SUMMARY
+          du -hsc out | grep -e "total" >> $GITHUB_STEP_SUMMARY
 
       - name: Commit Optimized Images
         if: steps.next_build.conclusion == 'success'
@@ -153,14 +153,14 @@ jobs:
 
           if [ -z "$(git stage ${{ env.IMAGES_FOLDER }} --dry-run)" ]
           then
-            echo "🌈 Image optimizations are up to date."
-            echo "🌈 Image optimizations are up to date." >> $GITHUB_STEP_SUMMARY
+            echo "✅ Image optimizations are up to date."
+            echo "✅ Image optimizations are up to date." >> $GITHUB_STEP_SUMMARY
           else
-            echo "🕵️ New image optimizations! Pushing to repository."
+            echo "🖼️ New image optimizations! Pushing to repository."
             git add ${{ env.IMAGES_FOLDER }}
             git commit -m "automated deployment update"
             git push origin --all --quiet --force
-            echo "🕵️ New image optimizations changes detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
+            echo "🖼️ New image optimizations changes detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: New Blog Post Check
@@ -173,8 +173,8 @@ jobs:
 
           if [ -z "$(git stage ${{ env.BLOG_FOLDER }} --dry-run)" ]
           then
-            echo "🌈 No new blog post found."
-            echo "🌈 No new blog post found." >> $GITHUB_STEP_SUMMARY
+            echo "📑 No new blog post found."
+            echo "📑 No new blog post found." >> $GITHUB_STEP_SUMMARY
           else
             echo "🕵️ New Blog post detected! Pushing to repository and cleaning the inbox folder."
             git add ${{ env.BLOG_FOLDER }}
