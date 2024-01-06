@@ -119,7 +119,7 @@ jobs:
             git commit -m "automated deployment update"
             git push origin --all --quiet --force
             echo "status=updated" >> $GITHUB_OUTPUT
-            echo '🕵️ Club changes detected and pushed to repository.' >> $GITHUB_STEP_SUMMARY
+            echo "🕵️ Club changes detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
           fi
 
           cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
@@ -141,8 +141,8 @@ jobs:
         run: |
           echo "status=started" >> $GITHUB_OUTPUT
           ${{ steps.detect-package-manager.outputs.runner }} build
-          echo '👷 Build complete:' >> $GITHUB_STEP_SUMMARY
-          du -hsc out >> >> $GITHUB_STEP_SUMMARY
+          echo "👷 Build complete:" >> $GITHUB_STEP_SUMMARY
+          du -hsc out >> $GITHUB_STEP_SUMMARY
 
       - name: Commit Optimized Images
         if: steps.next_build.conclusion == 'success'
@@ -154,13 +154,13 @@ jobs:
           if [ -z "$(git stage ${{ env.IMAGES_FOLDER }} --dry-run)" ]
           then
             echo "🌈 Image optimizations are up to date."
-            echo '🌈 Image optimizations are up to date.' >> $GITHUB_STEP_SUMMARY
+            echo "🌈 Image optimizations are up to date." >> $GITHUB_STEP_SUMMARY
           else
             echo "🕵️ New image optimizations! Pushing to repository."
             git add ${{ env.IMAGES_FOLDER }}
             git commit -m "automated deployment update"
             git push origin --all --quiet --force
-            echo '🕵️ New image optimizations changes detected and pushed to repository.' >> $GITHUB_STEP_SUMMARY
+            echo "🕵️ New image optimizations changes detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: New Blog Post Check
@@ -174,7 +174,7 @@ jobs:
           if [ -z "$(git stage ${{ env.BLOG_FOLDER }} --dry-run)" ]
           then
             echo "🌈 No new blog post found."
-            echo '🌈 No new blog post found.' >> $GITHUB_STEP_SUMMARY
+            echo "🌈 No new blog post found." >> $GITHUB_STEP_SUMMARY
           else
             echo "🕵️ New Blog post detected! Pushing to repository and cleaning the inbox folder."
             git add ${{ env.BLOG_FOLDER }}
@@ -182,7 +182,7 @@ jobs:
             git commit -m "automated deployment update"
             git push origin --all --quiet --force
             echo "status=new" >> $GITHUB_OUTPUT
-            echo '🕵️ New Blog post detected. Sharing on social initiated.' >> $GITHUB_STEP_SUMMARY
+            echo "🕵️ New Blog post detected. Sharing on social initiated." >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Upload artifact
