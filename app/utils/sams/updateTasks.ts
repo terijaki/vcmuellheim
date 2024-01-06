@@ -33,7 +33,7 @@ getMatchSeries()
 						writetoSummary(message);
 						getRankings(series.id);
 					} else {
-						let message = "✅ Rankings for " + series.name + " (" + series.id + ") are up to date.";
+						let message = "🌈 Rankings for " + series.name + " (" + series.id + ") are up to date.";
 						console.log(message);
 						writetoSummary(message);
 					}
@@ -55,7 +55,7 @@ getMatchSeries()
 						writetoSummary(message);
 						getMatches(undefined, series.id);
 					} else {
-						let message = "✅ Matches for " + series.name + " (" + series.id + ") are up to date.";
+						let message = "🌈 Matches for " + series.name + " (" + series.id + ") are up to date.";
 						console.log(message);
 						writetoSummary(message);
 					}
