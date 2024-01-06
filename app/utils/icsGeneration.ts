@@ -9,14 +9,14 @@ const TEMPLATE_END = "END:VEVENT";
 
 export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string) {
 	const template: string = fs.readFileSync(path.join(ICS_FOLDER_LOCATION, "template.ics")).toString();
-	const templateStart = template.slice(0, template.indexOf(TEMPLATE_START));
+	let templateStart = template.slice(0, template.indexOf(TEMPLATE_START));
 	const templateEnd = template.slice(template.indexOf(TEMPLATE_END) + TEMPLATE_END.length);
 	const templateBody = template.slice(template.indexOf(TEMPLATE_START), template.indexOf(TEMPLATE_END) + TEMPLATE_END.length);
 	let matchArray: string[] = [];
 	// loop through all matches for the team
 	// console.log(sbvvTeamId + " test " + slug);
 	// console.log(getMatches(sbvvTeamId.map(String)));
-	getMatches(sbvvTeamId).map((match) => {
+	getMatches(sbvvTeamId).map((match, index) => {
 		if (match.uuid && match.team?.length == 2 && match.location && match.matchSeries?.name && match.matchSeries.updated) {
 			// use the match update date as the date this entry is updated
 			const dateLastUpdated = new Date(match.matchSeries.updated);
@@ -43,6 +43,15 @@ export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string)
 					(slug == "all" ? "\\nhttps://vcmuellheim.de/termine" : "\\nhttps://vcmuellheim.de/teams/" + slug)
 			);
 			matchArray.push(matchConstruct);
+		}
+
+		// enhance the default calender name with the teams & league name
+		if (sbvvTeamId.length == 1 && index == 0) {
+			match.team?.forEach((team) => {
+				if (team.id == sbvvTeamId[0] && match.matchSeries?.name) {
+					templateStart = templateStart.replace("X-WR-CALNAME:VC Müllheim", "X-WR-CALNAME:" + team.name + " - " + match.matchSeries.name);
+				}
+			});
 		}
 	});
 
