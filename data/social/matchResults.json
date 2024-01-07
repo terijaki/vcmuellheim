@@ -1,0 +1,40 @@
+{
+	"entries": [
+		{
+			"uuid": "68160f46-edf6-42c1-b4e5-9c2ccf203a5b",
+			"date": "2023-12-09T13:00:00.000Z",
+			"league": "Kreisliga Damen Süd",
+			"team": ["SG Breisach - Gündlingen 2", "VC Müllheim 1"],
+			"winner": 2,
+			"score": "0:3",
+			"mastodon": "new"
+		},
+		{
+			"uuid": "6f36f6b3-9535-4c1a-a447-339808118e0f",
+			"date": "2023-12-09T13:00:00.000Z",
+			"league": "Kreisliga Damen Süd",
+			"team": ["VC Müllheim 1", "VC Minseln 2"],
+			"winner": 1,
+			"score": "3:0",
+			"mastodon": "new"
+		},
+		{
+			"uuid": "cc18db7e-5db3-4b02-8239-4f1ff3f2aad7",
+			"date": "2023-12-09T13:00:00.000Z",
+			"league": "Kreisliga Damen Süd",
+			"team": ["TV Bad Säckingen 3", "VC Müllheim2"],
+			"winner": 1,
+			"score": "3:0",
+			"mastodon": "new"
+		},
+		{
+			"uuid": "c26977da-a554-4a4c-a723-055a7f453ab3",
+			"date": "2023-12-09T13:00:00.000Z",
+			"league": "Kreisliga Damen Süd",
+			"team": ["VBG Efringen-Kirchen 2", "VC Müllheim2"],
+			"winner": 1,
+			"score": "3:1",
+			"mastodon": "new"
+		}
+	]
+}
