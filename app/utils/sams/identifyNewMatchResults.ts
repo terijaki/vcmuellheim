@@ -10,9 +10,6 @@ export const SOCIAL_TIME_RANGE = 3, // time in days to look into the past for ne
 	SOCIAL_CACHE_FOLDER = "data/social";
 
 export function identifyNewMatchResults(matchData: string) {
-	// - populate a list of matches somewhere "data/social/matchStatus.json" ??
-	// - give that list an Object type. (matchUuid, date and status should be enough. the social sharing function should fetch the team names and craft a message itself)
-	// - the status could be "new", "queued", "shared" maybe
 	const matchDataJson: matchesType = JSON.parse(matchData);
 	const matches = matchDataJson.matches.match;
 

@@ -230,7 +230,7 @@ jobs:
     steps:
       - name: Match Results
         if: ${{ needs.build.outputs.sams_social == 'new' }}
-        run: cat data/social/matchResults.json
+        run: npm run sams-new-results
 
       - name: Blog Posts
         if: ${{ needs.build.outputs.blog_check == 'new' }}
