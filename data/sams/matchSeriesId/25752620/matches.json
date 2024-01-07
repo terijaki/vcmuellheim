@@ -187,7 +187,9 @@
           "verified": "true"
         },
         "spectators": "10",
-        "netDuration": "93"
+        "netDuration": "93",
+        "dateObject": "2023-10-08T09:00:00.000Z",
+        "dateIso": "2023-10-08T09:00:00.000Z"
       },
       {
         "id": "25922477",
@@ -369,7 +371,9 @@
           "verified": "true"
         },
         "spectators": "15",
-        "netDuration": "60"
+        "netDuration": "60",
+        "dateObject": "2023-10-08T09:00:00.000Z",
+        "dateIso": "2023-10-08T09:00:00.000Z"
       },
       {
         "id": "25922480",
@@ -557,7 +561,9 @@
           "verified": "true"
         },
         "spectators": "20",
-        "netDuration": "83"
+        "netDuration": "83",
+        "dateObject": "2023-10-08T09:00:00.000Z",
+        "dateIso": "2023-10-08T09:00:00.000Z"
       },
       {
         "id": "25922483",
@@ -739,7 +745,9 @@
           "verified": "true"
         },
         "spectators": "-",
-        "netDuration": "53"
+        "netDuration": "53",
+        "dateObject": "2023-10-08T09:00:00.000Z",
+        "dateIso": "2023-10-08T09:00:00.000Z"
       },
       {
         "id": "25922486",
@@ -921,7 +929,9 @@
           "verified": "true"
         },
         "spectators": "2",
-        "netDuration": "64"
+        "netDuration": "64",
+        "dateObject": "2023-10-08T09:00:00.000Z",
+        "dateIso": "2023-10-08T09:00:00.000Z"
       },
       {
         "id": "25922489",
@@ -1103,7 +1113,9 @@
           "verified": "true"
         },
         "spectators": "10",
-        "netDuration": "55"
+        "netDuration": "55",
+        "dateObject": "2023-10-08T09:00:00.000Z",
+        "dateIso": "2023-10-08T09:00:00.000Z"
       },
       {
         "id": "25922492",
@@ -1285,7 +1297,9 @@
           "verified": "true"
         },
         "spectators": "-",
-        "netDuration": "73"
+        "netDuration": "73",
+        "dateObject": "2023-10-08T09:00:00.000Z",
+        "dateIso": "2023-10-08T09:00:00.000Z"
       },
       {
         "id": "25922495",
@@ -1473,7 +1487,9 @@
           "verified": "true"
         },
         "spectators": "1",
-        "netDuration": "99"
+        "netDuration": "99",
+        "dateObject": "2023-10-08T09:00:00.000Z",
+        "dateIso": "2023-10-08T09:00:00.000Z"
       },
       {
         "id": "25922498",
@@ -1655,7 +1671,9 @@
           "verified": "true"
         },
         "spectators": "15",
-        "netDuration": "62"
+        "netDuration": "62",
+        "dateObject": "2023-10-08T09:00:00.000Z",
+        "dateIso": "2023-10-08T09:00:00.000Z"
       },
       {
         "id": "25922511",
@@ -1843,7 +1861,9 @@
           "verified": "true"
         },
         "spectators": "-",
-        "netDuration": "94"
+        "netDuration": "94",
+        "dateObject": "2023-10-14T12:00:00.000Z",
+        "dateIso": "2023-10-14T12:00:00.000Z"
       },
       {
         "id": "25922514",
@@ -2031,7 +2051,9 @@
           "verified": "true"
         },
         "spectators": "5",
-        "netDuration": "155"
+        "netDuration": "155",
+        "dateObject": "2023-10-14T12:00:00.000Z",
+        "dateIso": "2023-10-14T12:00:00.000Z"
       },
       {
         "id": "25922517",
@@ -2219,7 +2241,9 @@
           "verified": "true"
         },
         "spectators": "7",
-        "netDuration": "88"
+        "netDuration": "88",
+        "dateObject": "2023-10-14T12:00:00.000Z",
+        "dateIso": "2023-10-14T12:00:00.000Z"
       },
       {
         "id": "25922502",
@@ -2401,7 +2425,9 @@
           "verified": "true"
         },
         "spectators": "2",
-        "netDuration": "53"
+        "netDuration": "53",
+        "dateObject": "2023-10-15T09:00:00.000Z",
+        "dateIso": "2023-10-15T09:00:00.000Z"
       },
       {
         "id": "25922505",
@@ -2583,7 +2609,9 @@
           "verified": "true"
         },
         "spectators": "10",
-        "netDuration": "50"
+        "netDuration": "50",
+        "dateObject": "2023-10-15T09:00:00.000Z",
+        "dateIso": "2023-10-15T09:00:00.000Z"
       },
       {
         "id": "25922508",
@@ -2771,7 +2799,9 @@
           "verified": "true"
         },
         "spectators": "10",
-        "netDuration": "73"
+        "netDuration": "73",
+        "dateObject": "2023-10-15T09:00:00.000Z",
+        "dateIso": "2023-10-15T09:00:00.000Z"
       },
       {
         "id": "25922520",
@@ -2953,7 +2983,9 @@
           "verified": "true"
         },
         "spectators": "-",
-        "netDuration": "62"
+        "netDuration": "62",
+        "dateObject": "2023-10-15T09:00:00.000Z",
+        "dateIso": "2023-10-15T09:00:00.000Z"
       },
       {
         "id": "25922523",
@@ -3135,7 +3167,9 @@
           "verified": "true"
         },
         "spectators": "25",
-        "netDuration": "57"
+        "netDuration": "57",
+        "dateObject": "2023-10-15T09:00:00.000Z",
+        "dateIso": "2023-10-15T09:00:00.000Z"
       },
       {
         "id": "25922526",
@@ -3317,7 +3351,9 @@
           "verified": "true"
         },
         "spectators": "14",
-        "netDuration": "57"
+        "netDuration": "57",
+        "dateObject": "2023-10-15T09:00:00.000Z",
+        "dateIso": "2023-10-15T09:00:00.000Z"
       },
       {
         "id": "25922548",
@@ -3499,7 +3535,9 @@
           "verified": "true"
         },
         "spectators": "10",
-        "netDuration": "61"
+        "netDuration": "61",
+        "dateObject": "2023-11-11T13:00:00.000Z",
+        "dateIso": "2023-11-11T13:00:00.000Z"
       },
       {
         "id": "25922551",
@@ -3681,7 +3719,9 @@
           "verified": "true"
         },
         "spectators": "24",
-        "netDuration": "63"
+        "netDuration": "63",
+        "dateObject": "2023-11-11T13:00:00.000Z",
+        "dateIso": "2023-11-11T13:00:00.000Z"
       },
       {
         "id": "25922554",
@@ -3863,7 +3903,9 @@
           "verified": "true"
         },
         "spectators": "6",
-        "netDuration": "78"
+        "netDuration": "78",
+        "dateObject": "2023-11-11T13:00:00.000Z",
+        "dateIso": "2023-11-11T13:00:00.000Z"
       },
       {
         "id": "25922530",
@@ -4051,7 +4093,9 @@
           "verified": "true"
         },
         "spectators": "5",
-        "netDuration": "104"
+        "netDuration": "104",
+        "dateObject": "2023-11-12T10:00:00.000Z",
+        "dateIso": "2023-11-12T10:00:00.000Z"
       },
       {
         "id": "25922533",
@@ -4239,7 +4283,9 @@
           "verified": "true"
         },
         "spectators": "10",
-        "netDuration": "87"
+        "netDuration": "87",
+        "dateObject": "2023-11-12T10:00:00.000Z",
+        "dateIso": "2023-11-12T10:00:00.000Z"
       },
       {
         "id": "25922536",
@@ -4427,7 +4473,9 @@
           "verified": "true"
         },
         "spectators": "-",
-        "netDuration": "94"
+        "netDuration": "94",
+        "dateObject": "2023-11-12T10:00:00.000Z",
+        "dateIso": "2023-11-12T10:00:00.000Z"
       },
       {
         "id": "25922539",
@@ -4609,7 +4657,9 @@
           "verified": "true"
         },
         "spectators": "5",
-        "netDuration": "44"
+        "netDuration": "44",
+        "dateObject": "2023-11-12T10:00:00.000Z",
+        "dateIso": "2023-11-12T10:00:00.000Z"
       },
       {
         "id": "25922542",
@@ -4791,7 +4841,9 @@
           "verified": "true"
         },
         "spectators": "6",
-        "netDuration": "144"
+        "netDuration": "144",
+        "dateObject": "2023-11-12T10:00:00.000Z",
+        "dateIso": "2023-11-12T10:00:00.000Z"
       },
       {
         "id": "25922545",
@@ -4973,7 +5025,9 @@
           "verified": "true"
         },
         "spectators": "5",
-        "netDuration": "61"
+        "netDuration": "61",
+        "dateObject": "2023-11-12T10:00:00.000Z",
+        "dateIso": "2023-11-12T10:00:00.000Z"
       },
       {
         "id": "25922558",
@@ -5155,7 +5209,9 @@
           "verified": "false"
         },
         "spectators": "-",
-        "netDuration": "52"
+        "netDuration": "52",
+        "dateObject": "2023-12-09T13:00:00.000Z",
+        "dateIso": "2023-12-09T13:00:00.000Z"
       },
       {
         "id": "25922561",
@@ -5337,7 +5393,9 @@
           "verified": "false"
         },
         "spectators": "-",
-        "netDuration": "53"
+        "netDuration": "53",
+        "dateObject": "2023-12-09T13:00:00.000Z",
+        "dateIso": "2023-12-09T13:00:00.000Z"
       },
       {
         "id": "25922564",
@@ -5519,7 +5577,9 @@
           "verified": "false"
         },
         "spectators": "3",
-        "netDuration": "53"
+        "netDuration": "53",
+        "dateObject": "2023-12-09T13:00:00.000Z",
+        "dateIso": "2023-12-09T13:00:00.000Z"
       },
       {
         "id": "25922567",
@@ -5701,7 +5761,9 @@
           "verified": "false"
         },
         "spectators": "12",
-        "netDuration": "61"
+        "netDuration": "61",
+        "dateObject": "2023-12-09T13:00:00.000Z",
+        "dateIso": "2023-12-09T13:00:00.000Z"
       },
       {
         "id": "25922570",
@@ -5883,7 +5945,9 @@
           "verified": "false"
         },
         "spectators": "-",
-        "netDuration": "71"
+        "netDuration": "71",
+        "dateObject": "2023-12-09T13:00:00.000Z",
+        "dateIso": "2023-12-09T13:00:00.000Z"
       },
       {
         "id": "25922573",
@@ -6065,7 +6129,9 @@
           "verified": "false"
         },
         "spectators": "10",
-        "netDuration": "61"
+        "netDuration": "61",
+        "dateObject": "2023-12-09T13:00:00.000Z",
+        "dateIso": "2023-12-09T13:00:00.000Z"
       },
       {
         "id": "25922576",
@@ -6247,7 +6313,9 @@
           "verified": "false"
         },
         "spectators": "-",
-        "netDuration": "57"
+        "netDuration": "57",
+        "dateObject": "2023-12-09T13:00:00.000Z",
+        "dateIso": "2023-12-09T13:00:00.000Z"
       },
       {
         "id": "25922579",
@@ -6429,7 +6497,9 @@
           "verified": "false"
         },
         "spectators": "-",
-        "netDuration": "64"
+        "netDuration": "64",
+        "dateObject": "2023-12-09T13:00:00.000Z",
+        "dateIso": "2023-12-09T13:00:00.000Z"
       },
       {
         "id": "25922582",
@@ -6617,7 +6687,9 @@
           "verified": "false"
         },
         "spectators": "-",
-        "netDuration": "325"
+        "netDuration": "325",
+        "dateObject": "2023-12-09T13:00:00.000Z",
+        "dateIso": "2023-12-09T13:00:00.000Z"
       },
       {
         "id": "25922586",
@@ -6769,7 +6841,9 @@
           "city": "Efringen - Kirchen",
           "note": "Anzahl Spielfelder 1 - Zulassung bis   - Zulassung am  - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-01-13T13:00:00.000Z",
+        "dateIso": "2024-01-13T13:00:00.000Z"
       },
       {
         "id": "25922589",
@@ -6921,7 +6995,9 @@
           "city": "Efringen - Kirchen",
           "note": "Anzahl Spielfelder 1 - Zulassung bis   - Zulassung am  - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-01-13T13:00:00.000Z",
+        "dateIso": "2024-01-13T13:00:00.000Z"
       },
       {
         "id": "25922592",
@@ -7073,7 +7149,9 @@
           "city": "Efringen - Kirchen",
           "note": "Anzahl Spielfelder 1 - Zulassung bis   - Zulassung am  - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-01-13T13:00:00.000Z",
+        "dateIso": "2024-01-13T13:00:00.000Z"
       },
       {
         "id": "25922595",
@@ -7225,7 +7303,9 @@
           "city": "Müllheim",
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-01-14T10:00:00.000Z",
+        "dateIso": "2024-01-14T10:00:00.000Z"
       },
       {
         "id": "25922598",
@@ -7377,7 +7457,9 @@
           "city": "Müllheim",
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-01-14T10:00:00.000Z",
+        "dateIso": "2024-01-14T10:00:00.000Z"
       },
       {
         "id": "25922601",
@@ -7529,7 +7611,9 @@
           "city": "Müllheim",
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-01-14T10:00:00.000Z",
+        "dateIso": "2024-01-14T10:00:00.000Z"
       },
       {
         "id": "25922604",
@@ -7681,7 +7765,9 @@
           "city": "Müllheim",
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-01-14T10:00:00.000Z",
+        "dateIso": "2024-01-14T10:00:00.000Z"
       },
       {
         "id": "25922607",
@@ -7833,7 +7919,9 @@
           "city": "Müllheim",
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-01-14T10:00:00.000Z",
+        "dateIso": "2024-01-14T10:00:00.000Z"
       },
       {
         "id": "25922610",
@@ -7985,7 +8073,9 @@
           "city": "Müllheim",
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-01-14T10:00:00.000Z",
+        "dateIso": "2024-01-14T10:00:00.000Z"
       },
       {
         "id": "25922614",
@@ -8137,7 +8227,9 @@
           "city": "Freiburg",
           "note": "-"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-18T10:00:00.000Z",
+        "dateIso": "2024-02-18T10:00:00.000Z"
       },
       {
         "id": "25922617",
@@ -8289,7 +8381,9 @@
           "city": "Freiburg",
           "note": "-"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-18T10:00:00.000Z",
+        "dateIso": "2024-02-18T10:00:00.000Z"
       },
       {
         "id": "25922620",
@@ -8441,7 +8535,9 @@
           "city": "Freiburg",
           "note": "-"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-18T10:00:00.000Z",
+        "dateIso": "2024-02-18T10:00:00.000Z"
       },
       {
         "id": "25922623",
@@ -8593,7 +8689,9 @@
           "city": "Weil am Rhein",
           "note": "-"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-18T10:00:00.000Z",
+        "dateIso": "2024-02-18T10:00:00.000Z"
       },
       {
         "id": "25922626",
@@ -8745,7 +8843,9 @@
           "city": "Weil am Rhein",
           "note": "-"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-18T10:00:00.000Z",
+        "dateIso": "2024-02-18T10:00:00.000Z"
       },
       {
         "id": "25922629",
@@ -8897,7 +8997,9 @@
           "city": "Weil am Rhein",
           "note": "-"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-18T10:00:00.000Z",
+        "dateIso": "2024-02-18T10:00:00.000Z"
       },
       {
         "id": "25922632",
@@ -9049,7 +9151,9 @@
           "city": "Bad Säckingen",
           "note": "Anzahl Spielfelder 3 - Zulassung bis VL - Zulassung am 37436 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-18T10:00:00.000Z",
+        "dateIso": "2024-02-18T10:00:00.000Z"
       },
       {
         "id": "25922635",
@@ -9201,7 +9305,9 @@
           "city": "Bad Säckingen",
           "note": "Anzahl Spielfelder 3 - Zulassung bis VL - Zulassung am 37436 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-18T10:00:00.000Z",
+        "dateIso": "2024-02-18T10:00:00.000Z"
       },
       {
         "id": "25922638",
@@ -9353,7 +9459,9 @@
           "city": "Bad Säckingen",
           "note": "Anzahl Spielfelder 3 - Zulassung bis VL - Zulassung am 37436 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-18T10:00:00.000Z",
+        "dateIso": "2024-02-18T10:00:00.000Z"
       },
       {
         "id": "25922642",
@@ -9505,7 +9613,9 @@
           "city": "Efringen - Kirchen",
           "note": "Anzahl Spielfelder 1 - Zulassung bis   - Zulassung am  - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-24T13:00:00.000Z",
+        "dateIso": "2024-02-24T13:00:00.000Z"
       },
       {
         "id": "25922645",
@@ -9657,7 +9767,9 @@
           "city": "Efringen - Kirchen",
           "note": "Anzahl Spielfelder 1 - Zulassung bis   - Zulassung am  - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-24T13:00:00.000Z",
+        "dateIso": "2024-02-24T13:00:00.000Z"
       },
       {
         "id": "25922648",
@@ -9809,7 +9921,9 @@
           "city": "Efringen - Kirchen",
           "note": "Anzahl Spielfelder 1 - Zulassung bis   - Zulassung am  - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-24T13:00:00.000Z",
+        "dateIso": "2024-02-24T13:00:00.000Z"
       },
       {
         "id": "25922660",
@@ -9961,7 +10075,9 @@
           "city": "Merdingen",
           "note": "Anzahl Spielfelder 1 - Zulassung bis BL - Zulassung am 37444 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-24T13:00:00.000Z",
+        "dateIso": "2024-02-24T13:00:00.000Z"
       },
       {
         "id": "25922663",
@@ -10113,7 +10229,9 @@
           "city": "Merdingen",
           "note": "Anzahl Spielfelder 1 - Zulassung bis BL - Zulassung am 37444 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-24T13:00:00.000Z",
+        "dateIso": "2024-02-24T13:00:00.000Z"
       },
       {
         "id": "25922666",
@@ -10265,7 +10383,9 @@
           "city": "Merdingen",
           "note": "Anzahl Spielfelder 1 - Zulassung bis BL - Zulassung am 37444 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-24T13:00:00.000Z",
+        "dateIso": "2024-02-24T13:00:00.000Z"
       },
       {
         "id": "25922651",
@@ -10417,7 +10537,9 @@
           "city": "Müllheim",
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-25T10:00:00.000Z",
+        "dateIso": "2024-02-25T10:00:00.000Z"
       },
       {
         "id": "25922654",
@@ -10569,7 +10691,9 @@
           "city": "Müllheim",
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-25T10:00:00.000Z",
+        "dateIso": "2024-02-25T10:00:00.000Z"
       },
       {
         "id": "25922657",
@@ -10721,7 +10845,9 @@
           "city": "Müllheim",
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-02-25T10:00:00.000Z",
+        "dateIso": "2024-02-25T10:00:00.000Z"
       },
       {
         "id": "25922670",
@@ -10873,7 +10999,9 @@
           "city": "Breisach",
           "note": "-"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-03-16T13:00:00.000Z",
+        "dateIso": "2024-03-16T13:00:00.000Z"
       },
       {
         "id": "25922673",
@@ -11025,7 +11153,9 @@
           "city": "Breisach",
           "note": "-"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-03-16T13:00:00.000Z",
+        "dateIso": "2024-03-16T13:00:00.000Z"
       },
       {
         "id": "25922676",
@@ -11177,7 +11307,9 @@
           "city": "Breisach",
           "note": "-"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-03-16T13:00:00.000Z",
+        "dateIso": "2024-03-16T13:00:00.000Z"
       },
       {
         "id": "25922679",
@@ -11329,7 +11461,9 @@
           "city": "Müllheim",
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-03-16T13:00:00.000Z",
+        "dateIso": "2024-03-16T13:00:00.000Z"
       },
       {
         "id": "25922682",
@@ -11481,7 +11615,9 @@
           "city": "Müllheim",
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-03-16T13:00:00.000Z",
+        "dateIso": "2024-03-16T13:00:00.000Z"
       },
       {
         "id": "25922685",
@@ -11633,7 +11769,9 @@
           "city": "Müllheim",
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-03-16T13:00:00.000Z",
+        "dateIso": "2024-03-16T13:00:00.000Z"
       },
       {
         "id": "25922688",
@@ -11785,7 +11923,9 @@
           "city": "Rheinfelden",
           "note": "-"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-03-16T13:00:00.000Z",
+        "dateIso": "2024-03-16T13:00:00.000Z"
       },
       {
         "id": "25922691",
@@ -11937,7 +12077,9 @@
           "city": "Rheinfelden",
           "note": "-"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-03-16T13:00:00.000Z",
+        "dateIso": "2024-03-16T13:00:00.000Z"
       },
       {
         "id": "25922694",
@@ -12089,7 +12231,9 @@
           "city": "Rheinfelden",
           "note": "-"
         },
-        "referees": null
+        "referees": null,
+        "dateObject": "2024-03-16T13:00:00.000Z",
+        "dateIso": "2024-03-16T13:00:00.000Z"
       }
     ]
   }
