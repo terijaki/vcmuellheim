@@ -6,9 +6,9 @@
 import { env } from "process";
 import fs from "fs";
 
-const SAMS_API = env.SAMS_API;
-const SAMS_URL = env.SAMS_URL;
-const JSON_FILE_TARGET = "data/sams/matchSeries.json";
+const SAMS_API = env.SAMS_API,
+	SAMS_URL = env.SAMS_URL,
+	JSON_FILE_TARGET = "data/sams/matchSeries.json";
 
 // fetch Club Data
 export default async function getMatchSeries(): Promise<Object | boolean> {

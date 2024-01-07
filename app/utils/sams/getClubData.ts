@@ -4,10 +4,10 @@
 import { env } from "process";
 import fs from "fs";
 
-const SAMS_API = env.SAMS_API;
-const SAMS_URL = env.SAMS_URL;
-const SAMS_CLUB_ID = env.SAMS_CLUBID;
-const JSON_FILE_TARGET = "data/sams/club.json";
+const SAMS_API = env.SAMS_API,
+	SAMS_URL = env.SAMS_URL,
+	SAMS_CLUB_ID = env.SAMS_CLUBID,
+	JSON_FILE_TARGET = "data/sams/club.json";
 
 export default async function getClubData(): Promise<Object | boolean> {
 	const apiPath = SAMS_URL + "/xml/sportsclub.xhtml?apiKey=" + SAMS_API + "&sportsclubId=" + SAMS_CLUB_ID;

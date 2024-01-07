@@ -15,13 +15,17 @@
 import { env } from "process";
 import fs from "fs";
 import path from "path";
+import { writeToSummary } from "./updateTasks";
+import convertDate from "./convertDate";
+import { matchType, matchesType } from "./typeMatches";
+import { identifyNewMatchResults } from "./identifyNewMatchResults";
 
 const SAMS_API = env.SAMS_API;
 const SAMS_URL = env.SAMS_URL;
 const JSON_FILE_TARGET = "data/sams";
 
 // fetch Club Data
-export default function getMatches(teamId?: string | number, matchSeriesId?: string | number, allSeasonMatchSeriesId?: string, pastOffset = 20, futureOffset = 10): Object | void {
+export default function getMatches(teamId?: string | number, matchSeriesId?: string | number, allSeasonMatchSeriesId?: string, pastOffset = 20, futureOffset = 10): matchType | void {
 	const dateAfter = new Date();
 	const dateBefore = new Date();
 	dateAfter.setDate(dateAfter.getDate() - pastOffset); // 20 days in the past
@@ -29,19 +33,23 @@ export default function getMatches(teamId?: string | number, matchSeriesId?: str
 	let apiPath = SAMS_URL + "/xml/matches.xhtml?apiKey=" + SAMS_API + "&after=" + dateAfter.toISOString().slice(0, 10) + "&before=" + dateBefore.toISOString().slice(0, 10);
 	let folderTarget = JSON_FILE_TARGET;
 	let fileTarget = folderTarget + "/matches.json";
+	let queryContext: string;
 
 	if (teamId) {
 		apiPath = SAMS_URL + "/xml/matches.xhtml?apiKey=" + SAMS_API + "&teamId=" + teamId;
 		folderTarget = path.join(JSON_FILE_TARGET, "teamId", teamId.toString());
 		fileTarget = folderTarget + "/matches.json";
+		queryContext = "Team (" + teamId + ")";
 	} else if (matchSeriesId) {
 		apiPath = SAMS_URL + "/xml/matches.xhtml?apiKey=" + SAMS_API + "&matchSeriesId=" + matchSeriesId;
 		folderTarget = path.join(JSON_FILE_TARGET, "matchSeriesId", matchSeriesId.toString());
 		fileTarget = folderTarget + "/matches.json";
+		queryContext = "MatchSeries (" + matchSeriesId + ")";
 	} else if (allSeasonMatchSeriesId) {
 		apiPath = SAMS_URL + "/xml/matches.xhtml?apiKey=" + SAMS_API + "&matchSeriesId=" + allSeasonMatchSeriesId;
 		folderTarget = path.join(JSON_FILE_TARGET, "allSeasonMatchSeriesId", allSeasonMatchSeriesId.toString());
 		fileTarget = folderTarget + "/matches.json";
+		queryContext = "All-Season-MatchSeries (" + allSeasonMatchSeriesId + ")";
 	}
 	fetch(apiPath)
 		.then((response) => Promise.all([response.status, response.text()]))
@@ -50,12 +58,22 @@ export default function getMatches(teamId?: string | number, matchSeriesId?: str
 			if (status == 200) {
 				if (!xmlData.includes("<error>")) {
 					const parseString = require("xml2js").parseString;
-					parseString(xmlData, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
+					parseString(xmlData, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: matchesType) {
 						if (!err) {
-							console.log("✅ Matches data looks good. Writing response to: " + fileTarget);
+							let message = "✅ Match data for " + queryContext + " received. Writing response to: " + fileTarget;
+							console.log(message);
+							writeToSummary(message);
+							// add date Object and ISO so other areas of the app can use this more conviniently
+							result.matches.match.map((match) => {
+								match.dateObject = convertDate(match.date, match.time);
+								match.dateIso = match.dateObject.toISOString();
+							});
+							// cache the data
 							const output = JSON.stringify(result, null, 2);
 							fs.mkdirSync(folderTarget, { recursive: true });
 							fs.writeFileSync(fileTarget, output);
+							// check for new match results
+							identifyNewMatchResults(output);
 							return output;
 						} else {
 							console.log("🚨 COULD NOT CONVERT XML TO JSON! 🚨");

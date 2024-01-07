@@ -2,14 +2,15 @@ import fs from "fs";
 import path from "path";
 import { cachedGetUniqueMatchSeriesIds } from "./cachedGetClubData";
 import convertDate from "./convertDate";
+import { matchType } from "./typeMatches";
 
 const SAMS_FOLDER = "data/sams";
 
-export function cachedGetMatches(teamIds: (string | number)[], filter?: "past" | "future"): matchesArray[] {
+export function cachedGetMatches(teamIds: (string | number)[], filter?: "past" | "future"): matchType[] {
 	// allow string or number input regardless
 	teamIds = teamIds.map(String);
 	// setup the empty array
-	let matches: matchesArray[] = [];
+	let matches: matchType[] = [];
 	// use the teamIds to fetch the relevant matchSeriesIds, then go through each series
 	cachedGetUniqueMatchSeriesIds(teamIds).forEach((matchSeriesId) => {
 		const file = path.join(SAMS_FOLDER, "matchSeriesId", matchSeriesId.toString()) + "/matches.json";
@@ -50,11 +51,13 @@ export function cachedGetMatches(teamIds: (string | number)[], filter?: "past" |
 		return true;
 	});
 
+	// 🚨🚨🚨🚨🚨🚨🚨v THIS IS NO LONGER NEEDED ONCE THE OLD CACHE IS DELETED! 🚨🚨🚨🚨🚨🚨🚨
 	// add date Object and ISO so other areas of the app can use this more conviniently
 	filteredUniqueMatches.map((match) => {
 		match.dateObject = convertDate(match.date, match.time);
 		match.dateIso = match.dateObject.toISOString();
 	});
+	// 🚨🚨🚨🚨🚨🚨🚨v THIS IS NO LONGER NEEDED ONCE THE OLD CACHE IS DELETED! 🚨🚨🚨🚨🚨🚨🚨
 
 	// filter matches based on a provided filter
 	let filteredMatches = filteredUniqueMatches;
@@ -68,28 +71,3 @@ export function cachedGetMatches(teamIds: (string | number)[], filter?: "past" |
 	return filteredMatches;
 	// see type below for how the matches are structured
 }
-
-export type matchesArray = {
-	id: string;
-	uuid: string;
-	number?: string;
-	name: string;
-	club?: { name?: string };
-	date: string;
-	time?: string;
-	host?: { id?: string; uuid?: string; name?: string; club?: string };
-	team?: [{ number?: string; id?: string; uuid?: string; name?: string; club?: { name?: string } }, { number?: string; id?: string; uuid?: string; name?: string; club?: { name?: string } }];
-	matchSeries?: {
-		id: string;
-		uuid: string;
-		name?: string;
-		type?: string;
-		updated?: string;
-		resultsUpdated?: string;
-		season?: { id: string; uuid?: string; name?: string };
-	};
-	location?: { id?: string; name?: string; street: string; postalCode: string; city: string };
-	results?: { winner?: string; setPoints?: string; ballPoints?: string; sets?: { set?: [{ number?: string; points?: string; winner?: string }] } };
-	dateObject: Date; // custom property, generated when served
-	dateIso: string; // custom property, generated when served
-};

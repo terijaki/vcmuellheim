@@ -10,9 +10,9 @@ import { env } from "process";
 import fs from "fs";
 import path from "path";
 
-const SAMS_API = env.SAMS_API;
-const SAMS_URL = env.SAMS_URL;
-const JSON_FILE_TARGET = "data/sams";
+const SAMS_API = env.SAMS_API,
+	SAMS_URL = env.SAMS_URL,
+	JSON_FILE_TARGET = "data/sams";
 
 // fetch Club Data
 export default function getRankings(matchSeriesId?: string | number, allSeasonMatchSeriesId?: string): Object | void {

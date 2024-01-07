@@ -10,7 +10,7 @@ import getMatches from "./getMatches";
 
 const GITHUB_SUMMARY_FILE = "github_summary.md";
 
-// there is no rate limit in this request type! ✌️
+// there is no rate limit on the getMatchSeries request ✌️
 getMatchSeries()
 	.then(() => {
 		getClubData().then(() => {
@@ -31,17 +31,17 @@ getMatchSeries()
 					if (rankingsJson.rankings.matchSeries.resultsUpdated != series.resultsUpdated || rankingsJson.rankings.matchSeries.structureUpdated != series.structureUpdated) {
 						let message = "🕵️ Rankings for " + series.name + " (" + series.id + ") are outdated. Fetching new rankings...";
 						console.log(message);
-						writetoSummary(message);
+						writeToSummary(message);
 						getRankings(series.id);
 					} else {
 						let message = "✅ Rankings for " + series.name + " (" + series.id + ") are up to date.";
 						console.log(message);
-						writetoSummary(message);
+						writeToSummary(message);
 					}
 				} else {
 					let message = "🕵️ Rankings for " + series.name + " (" + series.id + ") do not exist. Fetching new rankings...";
 					console.log(message);
-					writetoSummary(message);
+					writeToSummary(message);
 					getRankings(series.id);
 				}
 				// MATCHES
@@ -53,17 +53,17 @@ getMatchSeries()
 					if (matchesJson.matches.match[0].matchSeries.resultsUpdated != series.resultsUpdated || matchesJson.matches.match[0].matchSeries.structureUpdated != series.structureUpdated) {
 						let message = "🕵️ Matches for " + series.name + " (" + series.id + ") are outdated. Fetching new matches...";
 						console.log(message);
-						writetoSummary(message);
+						writeToSummary(message);
 						getMatches(undefined, series.id);
 					} else {
 						let message = "✅ Matches for " + series.name + " (" + series.id + ") are up to date.";
 						console.log(message);
-						writetoSummary(message);
+						writeToSummary(message);
 					}
 				} else {
 					let message = "🕵️ Matches for " + series.name + " (" + series.id + ") do not exist. Fetching new matches...";
 					console.log(message);
-					writetoSummary(message);
+					writeToSummary(message);
 					getMatches(undefined, series.id);
 				}
 			});
@@ -76,7 +76,8 @@ getMatchSeries()
 		return;
 	});
 
-function writetoSummary(text: string) {
+// this writes to a file that is being read during the github actions run to craft a summary of the job
+export function writeToSummary(text: string) {
 	if (!fs.existsSync(GITHUB_SUMMARY_FILE)) {
 		fs.writeFileSync(GITHUB_SUMMARY_FILE, "");
 	}
