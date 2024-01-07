@@ -43,7 +43,7 @@ export default function Tabelle() {
 					})}
 				</div>
 				{lastResultCap > 0 && matchCount > 1 && (
-					<div className="col-full-content sm:col-center-content card-narrow my-4 mb-8">
+					<div className="col-full-content sm:col-center-content card-narrow-flex my-4 mb-8">
 						<h2 className="card-heading">Unsere letzten {lastResultWord} Spiele</h2>
 						<Matches
 							teamId={cachedGetTeamIds("id")}

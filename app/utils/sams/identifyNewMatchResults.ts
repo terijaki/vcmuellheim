@@ -5,7 +5,7 @@ import { matchesType } from "./typeMatches";
 import { socialMatchesCache, socialMatchesEntry } from "../social/typeCache";
 
 // prepare a list of matches that should be shared on social media
-const SOCIAL_TIME_RANGE = 3, // time in days to look into the past for new results
+const SOCIAL_TIME_RANGE = 3, // time in days to look into the past for new results ❗️increasing this number might fetch and post old matches to social
 	SOCIAL_CACHE_FILE = "matchResults.json", // file used to keep track of which matches have been shared on social already
 	SOCIAL_CACHE_FOLDER = "data/social";
 

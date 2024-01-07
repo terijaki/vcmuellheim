@@ -64,14 +64,15 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 								className="font-bold"
 								key="team"
 							>
-								{match.team?.map((team) => {
+								{match.team?.map((team, index) => {
 									return (
 										<p
-											className="inline-flex first:after:content-['_:_'] first:after:px-1"
+											className="md:inline"
 											key={team.id}
 											data-team-id={team.id}
 											data-team-name={team.name}
 										>
+											{index > 0 && <span className="hidden md:inline mx-1">:</span>}
 											{team.name}
 										</p>
 									);
@@ -156,15 +157,16 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 								className="py-1 font-bold"
 								key="team"
 							>
-								{match.team?.map((team) => {
+								{match.team?.map((team, index) => {
 									if (team.id && (teamIdString.length > 1 || !teamIdString.includes(team.id))) {
 										return (
 											<p
-												className="whitespace-nowrap line-clamp-1 break-before-all"
+												className="whitespace-nowrap line-clamp-1 break-before-all lg:inline"
 												key={team.name}
 												data-team-id={team.id}
 												data-team-name={team.name}
 											>
+												{index > 0 && <span className="hidden lg:inline mx-1">:</span>}
 												{team.name}
 											</p>
 										);

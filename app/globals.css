@@ -39,6 +39,12 @@
 	.card-narrow .card-heading {
 		@apply px-6 pt-4;
 	}
+	.card-narrow-flex {
+		@apply card-narrow lg:card;
+	}
+	.card-narrow-flex .card-heading {
+		@apply px-6 pt-4 lg:p-0;
+	}
 	.col-full-content.card,
 	.col-full-content.card-narrow,
 	.col-full-content > .card,

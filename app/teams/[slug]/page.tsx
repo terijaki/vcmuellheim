@@ -74,7 +74,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 								</p>
 							</div>
 							{matchesPast.length > 0 && (
-								<div className="card-narrow lg:card">
+								<div className="card-narrow-flex">
 									<h2 className="card-heading">Ergebnisse</h2>
 									<Matches
 										filter="past"
@@ -83,7 +83,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 								</div>
 							)}
 							{matchesFuture.length > 0 ? (
-								<div className="card-narrow lg:card">
+								<div className="card-narrow-flex">
 									<h2 className="card-heading">Spielplan</h2>
 									<Matches
 										filter="future"
@@ -99,7 +99,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 							)}
 						</>
 					) : (
-						<div className="card lg:card">
+						<div className="card-narrow-flex">
 							<h2 className="card-heading">Keine Spieltermine gefunden</h2>
 							{seasonMonth && <p className="mb-6">Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.</p>}
 
@@ -120,7 +120,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 							return (
 								<div
 									key="tabelle"
-									className="*:card-narrow *:lg:card"
+									className="*:card-narrow-flex"
 								>
 									<RankingTable
 										{...ranking}
