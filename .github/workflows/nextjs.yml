@@ -30,6 +30,7 @@ env:
   IMAGES_FOLDER: "public/images"
   BLOG_FOLDER: "data/posts"
   INBOX_FOLDER: "inbox"
+  SOCIAL_CACHE_MATCHES: "data/social/matchResults.json"
 
 jobs:
   # Build jobs
@@ -38,6 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       sams_status: ${{ steps.sams_git.outputs.status }}
+      sams_social: ${{ steps.sams_git.outputs.social }}
       build_status: ${{ steps.next_build.outputs.status }}
       blog_check: ${{ steps.next_build.outputs.status }}
     steps:
@@ -123,6 +125,20 @@ jobs:
           fi
 
           cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
+
+          if [ -z "$(git stage ${{ env.SOCIAL_CACHE_MATCHES }} --dry-run)" ]
+          then
+            echo "✅ No new Match Result for social."
+            echo "✅ No new Match Result for social." >> $GITHUB_STEP_SUMMARY
+
+          else
+            echo "🏐 New Match Result detected! Pushing to repository."
+            git add ${{ env.SOCIAL_CACHE_MATCHES }}
+            git commit -m "automated deployment update"
+            git push origin --all --quiet --force
+            echo "social=new" >> $GITHUB_OUTPUT
+            echo "🏐 New Match Result detected! Pushing to repository." >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: Setup Pages
         id: setup_pages
@@ -213,8 +229,8 @@ jobs:
     if: ${{ needs.build.outputs.build_status == 'started' }}
     steps:
       - name: Match Results
-        if: ${{ needs.build.outputs.sams_status == 'updated' }}
-        run: echo "To be implemented"
+        if: ${{ needs.build.outputs.sams_social == 'new' }}
+        run: cat data/social/matchResults.json
 
       - name: Blog Posts
         if: ${{ needs.build.outputs.blog_check == 'new' }}

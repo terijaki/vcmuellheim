@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-const SAMS_FOLDER = "data/sams/";
+const SAMS_FOLDER = "data/sams";
 
 export function cachedGetRankings(matchSeriesArray: string[]): rankingsArray[] {
 	let resultArray = new Array();

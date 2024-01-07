@@ -3,9 +3,9 @@ import path from "path";
 import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
 
-const ICS_FOLDER_LOCATION = "public/ics";
-const TEMPLATE_START = "BEGIN:VEVENT";
-const TEMPLATE_END = "END:VEVENT";
+const ICS_FOLDER_LOCATION = "public/ics",
+	TEMPLATE_START = "BEGIN:VEVENT",
+	TEMPLATE_END = "END:VEVENT";
 
 export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string) {
 	const template: string = fs.readFileSync(path.join(ICS_FOLDER_LOCATION, "template.ics")).toString();

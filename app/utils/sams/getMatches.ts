@@ -20,9 +20,9 @@ import convertDate from "./convertDate";
 import { matchType, matchesType } from "./typeMatches";
 import { identifyNewMatchResults } from "./identifyNewMatchResults";
 
-const SAMS_API = env.SAMS_API;
-const SAMS_URL = env.SAMS_URL;
-const JSON_FILE_TARGET = "data/sams";
+const SAMS_API = env.SAMS_API,
+	SAMS_URL = env.SAMS_URL,
+	JSON_FILE_TARGET = "data/sams";
 
 // fetch Club Data
 export default function getMatches(teamId?: string | number, matchSeriesId?: string | number, allSeasonMatchSeriesId?: string, pastOffset = 20, futureOffset = 10): matchType | void {

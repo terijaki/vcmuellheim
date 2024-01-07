@@ -3,9 +3,9 @@ import fs from "fs";
 import matter from "gray-matter";
 import { shuffleArray } from "./shuffleArray";
 
-const SPONSOR_DURATION: number = 12; // in months
-const SPONSORS_FOLDER: string = "data/sponsors";
-const TODAY: Date = new Date();
+const SPONSOR_DURATION: number = 12, // in months
+	SPONSORS_FOLDER: string = "data/sponsors",
+	TODAY: Date = new Date();
 
 export function getActiveSponsors() {
 	const targetFolder = SPONSORS_FOLDER;
