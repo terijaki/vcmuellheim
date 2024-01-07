@@ -37,7 +37,7 @@ export default function HomeHeimspiele() {
 				/>
 				<div className="col-center-content py-8 sm:py-12">
 					<h2 className="text-center md:text-left text-white font-bold text-3xl">Wir laden ein zum Heimspiel!</h2>
-					<p className="text-center md:text-left text-white py-2">In den kommenden Tagen spielen wir in Müllheim und freuen uns über jeden Zuschauer!</p>
+					<p className="text-center md:text-left text-balance text-white py-2">In den kommenden Tagen spielen wir in Müllheim und freuen uns über jeden Zuschauer!</p>
 					<div className="col-center-content columns-1 sm:has-[>:nth-of-type(2)]:columns-2 md:columns-2 lg:has-[>:nth-of-type(5)]:columns-3 gap-4 mt-3">
 						{homeGamesFiltered.map((match) => {
 							// consider this match if its taking place in the future and is within the specified TIME_RANGE
@@ -130,7 +130,7 @@ export default function HomeHeimspiele() {
 							}
 						})}
 					</div>
-					<p className="mt-3 text-white text-pretty">
+					<p className="mt-3 text-white text-balance text-center sm:text-left">
 						Auswärtsspiele findest du im Spielplan der jeweiligen Mannschaft.
 						<span className="ml-1 sm:ml-0 sm:block *:inline *:align-text-center">
 							Alle offiziellen Termine unserer Mannschaften findest du

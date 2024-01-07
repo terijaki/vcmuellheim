@@ -29,7 +29,7 @@ export default function DisplaySponsors() {
 								return (
 									<div
 										key={sponsor.name}
-										className="flex justify-center items-center text-center font-bold text-2xl md:text-4xl lg:text-5xl text-pretty font-industrial"
+										className="flex justify-center items-center text-center font-bold text-2xl md:text-4xl lg:text-5xl text-balance font-industrial"
 									>
 										{sponsor.name}
 									</div>
