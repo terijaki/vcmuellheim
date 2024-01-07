@@ -104,10 +104,10 @@ jobs:
             echo "✅ Match Series up to date."
             echo "✅ Match Series up to date." >> $GITHUB_STEP_SUMMARY
           else
-            echo "🏐 Match Series changes detected! Pushing to repository."
+            echo "🏐 Match Series changes detected and staged."
             git add ${{ env.SAMS_MATCHSERIES_JSON }} --force || true
             git commit -m "automated deployment update" || true
-            echo "🏐 Match Series changes detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
+            echo "🏐 Match Series changes detected and staged." >> $GITHUB_STEP_SUMMARY
           fi
 
           if [ -z "$(git stage ${{ env.SAMS_FOLDER }} --dry-run)" ]
