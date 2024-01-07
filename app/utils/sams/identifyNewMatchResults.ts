@@ -21,7 +21,6 @@ export function identifyNewMatchResults(matchData: string) {
 	todayMinusRange.setDate(todayMinusRange.getDate() - SOCIAL_TIME_RANGE);
 	const teamIds = cachedGetTeamIds("id");
 	const filteredMatches = matches.filter((match) => match.results && new Date(match.dateObject) >= todayMinusRange && (teamIds.includes(match.team[0].id) || teamIds.includes(match.team[1].id)));
-	console.log(filteredMatches.length);
 	// check if the social cache file exists
 	if (!fs.existsSync(path.join(SOCIAL_CACHE_FOLDER, SOCIAL_CACHE_FILE))) {
 		fs.mkdirSync(SOCIAL_CACHE_FOLDER, { recursive: true });
