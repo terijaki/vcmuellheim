@@ -2,7 +2,6 @@
 // run during deployment via: npx tsx --env-file=.env.local --env-file=.env app/utils/samsUpdateTasks.ts
 import fs from "fs";
 import { cachedGetTeamIds, cachedGetUniqueMatchSeriesIds } from "./cachedGetClubData";
-import { cachedGetMatches } from "./cachedGetMatches";
 import getMatchSeries from "./getMatchSeries";
 import getClubData from "./getClubData";
 import getRankings from "./getRankings";
