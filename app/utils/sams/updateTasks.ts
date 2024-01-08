@@ -6,8 +6,7 @@ import getMatchSeries from "./getMatchSeries";
 import getClubData from "./getClubData";
 import getRankings from "./getRankings";
 import getMatches from "./getMatches";
-
-const GITHUB_SUMMARY_FILE = "github_summary.md";
+import { writeToSummary } from "../github/actionSummary";
 
 // there is no rate limit on the getMatchSeries request ✌️
 getMatchSeries()
@@ -28,19 +27,19 @@ getMatchSeries()
 					const rankingsJsonFileContent = fs.readFileSync(rankingsJsonFile);
 					const rankingsJson = JSON.parse(rankingsJsonFileContent.toString());
 					if (rankingsJson.rankings.matchSeries.resultsUpdated != series.resultsUpdated || rankingsJson.rankings.matchSeries.structureUpdated != series.structureUpdated) {
-						let message = "🕵️ Rankings for " + series.name + " (" + series.id + ") are outdated. Fetching new rankings...";
-						console.log(message);
-						writeToSummary(message);
+						let consoleNote = "🕵️ Rankings for " + series.name + " (" + series.id + ") are outdated. Fetching new rankings...";
+						console.log(consoleNote);
+						writeToSummary(consoleNote);
 						getRankings(series.id);
 					} else {
-						let message = "✅ Rankings for " + series.name + " (" + series.id + ") are up to date.";
-						console.log(message);
-						writeToSummary(message);
+						let consoleNote = "✅ Rankings for " + series.name + " (" + series.id + ") are up to date.";
+						console.log(consoleNote);
+						writeToSummary(consoleNote);
 					}
 				} else {
-					let message = "🕵️ Rankings for " + series.name + " (" + series.id + ") do not exist. Fetching new rankings...";
-					console.log(message);
-					writeToSummary(message);
+					let consoleNote = "🕵️ Rankings for " + series.name + " (" + series.id + ") do not exist. Fetching new rankings...";
+					console.log(consoleNote);
+					writeToSummary(consoleNote);
 					getRankings(series.id);
 				}
 				// MATCHES
@@ -50,19 +49,19 @@ getMatchSeries()
 					const matchesJsonFileContent = fs.readFileSync(matchesJsonFile);
 					const matchesJson = JSON.parse(matchesJsonFileContent.toString());
 					if (matchesJson.matches.match[0].matchSeries.resultsUpdated != series.resultsUpdated || matchesJson.matches.match[0].matchSeries.structureUpdated != series.structureUpdated) {
-						let message = "🕵️ Matches for " + series.name + " (" + series.id + ") are outdated. Fetching new matches...";
-						console.log(message);
-						writeToSummary(message);
+						let consoleNote = "🕵️ Matches for " + series.name + " (" + series.id + ") are outdated. Fetching new matches...";
+						console.log(consoleNote);
+						writeToSummary(consoleNote);
 						getMatches(undefined, series.id);
 					} else {
-						let message = "✅ Matches for " + series.name + " (" + series.id + ") are up to date.";
-						console.log(message);
-						writeToSummary(message);
+						let consoleNote = "✅ Matches for " + series.name + " (" + series.id + ") are up to date.";
+						console.log(consoleNote);
+						writeToSummary(consoleNote);
 					}
 				} else {
-					let message = "🕵️ Matches for " + series.name + " (" + series.id + ") do not exist. Fetching new matches...";
-					console.log(message);
-					writeToSummary(message);
+					let consoleNote = "🕵️ Matches for " + series.name + " (" + series.id + ") do not exist. Fetching new matches...";
+					console.log(consoleNote);
+					writeToSummary(consoleNote);
 					getMatches(undefined, series.id);
 				}
 			});
@@ -74,11 +73,3 @@ getMatchSeries()
 	.finally(() => {
 		return;
 	});
-
-// this writes to a file that is being read during the github actions run to craft a summary of the job
-export function writeToSummary(text: string) {
-	if (!fs.existsSync(GITHUB_SUMMARY_FILE)) {
-		fs.writeFileSync(GITHUB_SUMMARY_FILE, "");
-	}
-	fs.appendFileSync(GITHUB_SUMMARY_FILE, text + "\n");
-}

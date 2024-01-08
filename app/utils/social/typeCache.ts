@@ -9,5 +9,6 @@ export type socialMatchesEntry = {
 	score: string;
 	team: string[];
 	winner: number;
-	mastodon?: "new" | "queued" | "published";
+	mastodon?: "new" | "queued" | "published" | "legacy";
+	mastodonUrl?: string;
 };
