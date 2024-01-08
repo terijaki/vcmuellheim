@@ -15,7 +15,7 @@
 import { env } from "process";
 import fs from "fs";
 import path from "path";
-import { writeToSummary } from "./updateTasks";
+import { writeToSummary } from "../github/actionSummary";
 import convertDate from "./convertDate";
 import { matchType, matchesType } from "./typeMatches";
 import { identifyNewMatchResults } from "./identifyNewMatchResults";
