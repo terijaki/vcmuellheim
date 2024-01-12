@@ -85,7 +85,8 @@ export async function generateMetadata({ params }: { params: { postorpage: strin
 
 // display the content of the current [params]
 export default function postDisplay({ params }: { params: { postorpage: string } }) {
-	let readTarget = null;
+	let readTarget: null | string = null;
+	let isPost: boolean = false;
 
 	// step 1: read the possible folder + extension combinations from toStaticGenerate
 	toStaticGenerate.map((target) => {
@@ -95,6 +96,9 @@ export default function postDisplay({ params }: { params: { postorpage: string }
 			if (fs.existsSync(testTarget)) {
 				// step 3: pass the string to be opened
 				readTarget = testTarget;
+				if (target.folder.includes("post")) {
+					isPost = true;
+				}
 			}
 		});
 	});
@@ -110,6 +114,7 @@ export default function postDisplay({ params }: { params: { postorpage: string }
 		if (frontmatter.gallery && frontmatter.thumbnail && !frontmatter.gallery.includes(frontmatter.thumbnail)) {
 			frontmatter.gallery.push(frontmatter.thumbnail);
 		}
+
 		return (
 			<>
 				<PageHeading
@@ -122,9 +127,7 @@ export default function postDisplay({ params }: { params: { postorpage: string }
 						<Markdown>{content}</Markdown>
 						{frontmatter.gallery && galleryDisplay(frontmatter.gallery)}
 					</article>
-					<div className="text-center mb-8">
-						<SharingButon label={"Beitrag teilen"} />
-					</div>
+					<div className="text-center mb-8">{isPost && <SharingButon label={"Beitrag teilen"} />}</div>
 				</div>
 			</>
 		);
