@@ -123,11 +123,7 @@ export default function postDisplay({ params }: { params: { postorpage: string }
 						{frontmatter.gallery && galleryDisplay(frontmatter.gallery)}
 					</article>
 					<div className="text-center mb-8">
-						<SharingButon
-							title={frontmatter.title}
-							url={params.postorpage}
-							label={"Beitrag teilen"}
-						/>
+						<SharingButon label={"Beitrag teilen"} />
 					</div>
 				</div>
 			</>
