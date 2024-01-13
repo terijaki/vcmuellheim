@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2024-01-12 17:38:48.388",
+      "updated": "2024-01-13 15:12:22.234",
       "structureUpdated": "2023-12-16 16:58:33.677",
-      "resultsUpdated": "2024-01-12 17:38:48.388",
+      "resultsUpdated": "2024-01-13 15:12:22.234",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -138,6 +138,62 @@
       },
       {
         "team": {
+          "id": "25932653",
+          "uuid": "7c4d59d2-6f61-432f-9086-c47020cf63e2",
+          "name": "VC Haslach",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VC 94 Haslach",
+            "shortName": null
+          }
+        },
+        "place": "2",
+        "matchesPlayed": "8",
+        "wins": "7",
+        "losses": "1",
+        "points": "21",
+        "setPoints": "22:5",
+        "setWinScore": "22",
+        "setLoseScore": "5",
+        "setPointDifference": "17",
+        "setQuotient": "4,400",
+        "ballPoints": "656:558",
+        "ballWinScore": "656",
+        "ballLoseScore": "558",
+        "ballPointDifference": "98",
+        "ballQuotient": "1,176",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "5"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "25932661",
           "uuid": "1a5c08ea-5b97-4449-9ec7-689d57b26f78",
           "name": "VfR Merzhausen 1",
@@ -148,7 +204,7 @@
             "shortName": null
           }
         },
-        "place": "2",
+        "place": "3",
         "matchesPlayed": "8",
         "wins": "7",
         "losses": "1",
@@ -176,62 +232,6 @@
             {
               "result": "3:2",
               "count": "1"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "1"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "25932653",
-          "uuid": "7c4d59d2-6f61-432f-9086-c47020cf63e2",
-          "name": "VC Haslach",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "VC 94 Haslach",
-            "shortName": null
-          }
-        },
-        "place": "3",
-        "matchesPlayed": "7",
-        "wins": "6",
-        "losses": "1",
-        "points": "18",
-        "setPoints": "19:5",
-        "setWinScore": "19",
-        "setLoseScore": "5",
-        "setPointDifference": "14",
-        "setQuotient": "3,800",
-        "ballPoints": "581:514",
-        "ballWinScore": "581",
-        "ballLoseScore": "514",
-        "ballPointDifference": "67",
-        "ballQuotient": "1,130",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "4"
-            },
-            {
-              "result": "3:1",
-              "count": "2"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
             },
             {
               "result": "2:3",
@@ -597,20 +597,20 @@
           }
         },
         "place": "10",
-        "matchesPlayed": "8",
+        "matchesPlayed": "9",
         "wins": "2",
-        "losses": "6",
+        "losses": "7",
         "points": "4",
-        "setPoints": "6:22",
+        "setPoints": "6:25",
         "setWinScore": "6",
-        "setLoseScore": "22",
-        "setPointDifference": "-16",
-        "setQuotient": "0,273",
-        "ballPoints": "487:654",
-        "ballWinScore": "487",
-        "ballLoseScore": "654",
-        "ballPointDifference": "-167",
-        "ballQuotient": "0,745",
+        "setLoseScore": "25",
+        "setPointDifference": "-19",
+        "setQuotient": "0,240",
+        "ballPoints": "531:729",
+        "ballWinScore": "531",
+        "ballLoseScore": "729",
+        "ballPointDifference": "-198",
+        "ballQuotient": "0,728",
         "resultTypes": {
           "matchResult": [
             {
@@ -635,7 +635,7 @@
             },
             {
               "result": "0:3",
-              "count": "6"
+              "count": "7"
             }
           ]
         }
