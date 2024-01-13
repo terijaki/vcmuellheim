@@ -43,6 +43,11 @@ export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string)
 					(slug == "all" ? "\\nhttps://vcmuellheim.de/termine" : "\\nhttps://vcmuellheim.de/teams/" + slug)
 			);
 			matchArray.push(matchConstruct);
+			if (match.uuid == "70068c47-f9a6-4413-bcbe-07d243ac0eed") {
+				console.log(match.dateObject);
+				console.log(match.dateIso);
+				console.log(matchConstruct);
+			}
 		}
 
 		// enhance the default calender name with the teams & league name
@@ -87,6 +92,10 @@ export function icsAllGeneration() {
 }
 
 export function toICSFormat(date: Date) {
-	let dateICS: string = date.toISOString().slice(0, -5).replaceAll("-", "").replaceAll(":", "").replaceAll(".", "");
+	let dateICS: string = date
+		.toISOString()
+		.replaceAll("-", "")
+		.replaceAll(":", "")
+		.replace(/\.[0-9]{3}/, ""); // removes milliseconds
 	return dateICS;
 }

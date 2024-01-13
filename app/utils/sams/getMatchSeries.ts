@@ -5,10 +5,12 @@
 // In dieser Schnittstelle wird zusätzlich die hierarchische Struktur jeder Liga ausgegeben. Jede Spielrunde ist einer Hierarchie zugeordnet; jede Hierarchie kann mehrere Spielrunden sowie weitere untergeordnete Hierarchien enthalten. Die Hierarchien werden von jedem Verband frei definiert und dienen der organisatorischen Strukturierung der Spielrunden. Im direkt zugeordneten Element <hierarchy> ist die direkte Hierarchie der Liga hinterlegt. Im Element <fullHierarchy> finden sich alle Hierarchien, denen diese Liga untergeordnet ist. Jedes <hierarchy>-Element besitzt einen <hierarchyLevel>, der die Anzahl der übergeordneten Hierarchien angibt. Hierarchien mit <hierarchyLevel>0</hierarchyLevel> besitzen keine weiteren übergeordneten Hierarchien.
 import { env } from "process";
 import fs from "fs";
+import path from "path";
 
 const SAMS_API = env.SAMS_API,
 	SAMS_URL = env.SAMS_URL,
-	JSON_FILE_TARGET = "data/sams/matchSeries.json";
+	JSON_FILE_FOLDER = "data/sams",
+	JSON_FILE_TARGET = path.join(JSON_FILE_FOLDER, "matchSeries.json");
 
 // fetch Club Data
 export default async function getMatchSeries(): Promise<Object | boolean> {
@@ -24,6 +26,7 @@ export default async function getMatchSeries(): Promise<Object | boolean> {
 						if (!err) {
 							console.log("✅ Match Series retrieved. Looks good. Writing response to: " + JSON_FILE_TARGET);
 							const output = JSON.stringify(result, null, 2);
+							fs.mkdirSync(JSON_FILE_FOLDER, { recursive: true });
 							fs.writeFileSync(JSON_FILE_TARGET, output);
 							return output;
 						} else {
