@@ -166,7 +166,7 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 												data-team-id={team.id}
 												data-team-name={team.name}
 											>
-												{index > 0 && <span className="hidden lg:inline mx-1">:</span>}
+												{index > 0 && teamIdString.length > 1 && <span className="hidden lg:inline mx-1">:</span>}
 												{team.name}
 											</p>
 										);
