@@ -52,9 +52,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -170,8 +170,8 @@
         },
         "spectators": "-",
         "netDuration": "82",
-        "dateObject": "2023-10-08T09:00:00.000Z",
-        "dateIso": "2023-10-08T09:00:00.000Z"
+        "dateObject": "2023-10-08T10:00:00.000Z",
+        "dateIso": "2023-10-08T10:00:00.000Z"
       },
       {
         "id": "25923602",
@@ -224,9 +224,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -342,8 +342,8 @@
         },
         "spectators": "18",
         "netDuration": "68",
-        "dateObject": "2023-10-08T09:00:00.000Z",
-        "dateIso": "2023-10-08T09:00:00.000Z"
+        "dateObject": "2023-10-08T10:00:00.000Z",
+        "dateIso": "2023-10-08T10:00:00.000Z"
       },
       {
         "id": "25923605",
@@ -396,9 +396,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -526,8 +526,8 @@
         },
         "spectators": "1000",
         "netDuration": "118",
-        "dateObject": "2023-10-08T09:00:00.000Z",
-        "dateIso": "2023-10-08T09:00:00.000Z"
+        "dateObject": "2023-10-08T10:00:00.000Z",
+        "dateIso": "2023-10-08T10:00:00.000Z"
       },
       {
         "id": "25923609",
@@ -580,9 +580,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -710,8 +710,8 @@
         },
         "spectators": "30",
         "netDuration": "104",
-        "dateObject": "2023-10-14T12:00:00.000Z",
-        "dateIso": "2023-10-14T12:00:00.000Z"
+        "dateObject": "2023-10-14T13:00:00.000Z",
+        "dateIso": "2023-10-14T13:00:00.000Z"
       },
       {
         "id": "25923612",
@@ -764,9 +764,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -882,8 +882,8 @@
         },
         "spectators": "19",
         "netDuration": "61",
-        "dateObject": "2023-10-14T12:00:00.000Z",
-        "dateIso": "2023-10-14T12:00:00.000Z"
+        "dateObject": "2023-10-14T13:00:00.000Z",
+        "dateIso": "2023-10-14T13:00:00.000Z"
       },
       {
         "id": "25923615",
@@ -936,9 +936,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1066,8 +1066,8 @@
         },
         "spectators": "0",
         "netDuration": "113",
-        "dateObject": "2023-10-14T12:00:00.000Z",
-        "dateIso": "2023-10-14T12:00:00.000Z"
+        "dateObject": "2023-10-14T13:00:00.000Z",
+        "dateIso": "2023-10-14T13:00:00.000Z"
       },
       {
         "id": "25923618",
@@ -1120,9 +1120,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1238,8 +1238,8 @@
         },
         "spectators": "-",
         "netDuration": "58",
-        "dateObject": "2023-10-14T12:30:00.000Z",
-        "dateIso": "2023-10-14T12:30:00.000Z"
+        "dateObject": "2023-10-14T13:30:00.000Z",
+        "dateIso": "2023-10-14T13:30:00.000Z"
       },
       {
         "id": "25923621",
@@ -1292,9 +1292,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1410,8 +1410,8 @@
         },
         "spectators": "22",
         "netDuration": "61",
-        "dateObject": "2023-10-14T12:30:00.000Z",
-        "dateIso": "2023-10-14T12:30:00.000Z"
+        "dateObject": "2023-10-14T13:30:00.000Z",
+        "dateIso": "2023-10-14T13:30:00.000Z"
       },
       {
         "id": "25923624",
@@ -1464,9 +1464,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1582,8 +1582,8 @@
         },
         "spectators": "10",
         "netDuration": "28288392",
-        "dateObject": "2023-10-14T12:30:00.000Z",
-        "dateIso": "2023-10-14T12:30:00.000Z"
+        "dateObject": "2023-10-14T13:30:00.000Z",
+        "dateIso": "2023-10-14T13:30:00.000Z"
       },
       {
         "id": "25923628",
@@ -1636,9 +1636,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1760,8 +1760,8 @@
         },
         "spectators": "-",
         "netDuration": "90",
-        "dateObject": "2023-10-28T12:00:00.000Z",
-        "dateIso": "2023-10-28T12:00:00.000Z"
+        "dateObject": "2023-10-28T13:00:00.000Z",
+        "dateIso": "2023-10-28T13:00:00.000Z"
       },
       {
         "id": "25923631",
@@ -1814,9 +1814,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1932,8 +1932,8 @@
         },
         "spectators": "1",
         "netDuration": "66",
-        "dateObject": "2023-10-28T12:00:00.000Z",
-        "dateIso": "2023-10-28T12:00:00.000Z"
+        "dateObject": "2023-10-28T13:00:00.000Z",
+        "dateIso": "2023-10-28T13:00:00.000Z"
       },
       {
         "id": "25923634",
@@ -1986,9 +1986,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -2104,8 +2104,8 @@
         },
         "spectators": "20",
         "netDuration": "65",
-        "dateObject": "2023-10-28T12:00:00.000Z",
-        "dateIso": "2023-10-28T12:00:00.000Z"
+        "dateObject": "2023-10-28T13:00:00.000Z",
+        "dateIso": "2023-10-28T13:00:00.000Z"
       },
       {
         "id": "25923637",
@@ -2158,9 +2158,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -2288,8 +2288,8 @@
         },
         "spectators": "-",
         "netDuration": "114",
-        "dateObject": "2023-10-29T09:00:00.000Z",
-        "dateIso": "2023-10-29T09:00:00.000Z"
+        "dateObject": "2023-10-29T10:00:00.000Z",
+        "dateIso": "2023-10-29T10:00:00.000Z"
       },
       {
         "id": "25923640",
@@ -2342,9 +2342,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -2460,8 +2460,8 @@
         },
         "spectators": "0",
         "netDuration": "72",
-        "dateObject": "2023-10-29T09:00:00.000Z",
-        "dateIso": "2023-10-29T09:00:00.000Z"
+        "dateObject": "2023-10-29T10:00:00.000Z",
+        "dateIso": "2023-10-29T10:00:00.000Z"
       },
       {
         "id": "25923643",
@@ -2514,9 +2514,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -2632,8 +2632,8 @@
         },
         "spectators": "15",
         "netDuration": "69",
-        "dateObject": "2023-10-29T09:00:00.000Z",
-        "dateIso": "2023-10-29T09:00:00.000Z"
+        "dateObject": "2023-10-29T10:00:00.000Z",
+        "dateIso": "2023-10-29T10:00:00.000Z"
       },
       {
         "id": "25923656",
@@ -2686,9 +2686,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -2858,9 +2858,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -3030,9 +3030,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -3208,9 +3208,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -3386,9 +3386,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -3570,9 +3570,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -3748,9 +3748,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -3920,9 +3920,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -4092,9 +4092,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -4264,9 +4264,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -4436,9 +4436,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -4608,9 +4608,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -4792,9 +4792,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -4964,9 +4964,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -5136,9 +5136,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -5308,9 +5308,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -5480,9 +5480,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -5652,9 +5652,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -5740,6 +5740,42 @@
           "note": "Anzahl Spielfelder 3 - Zulassung bis VL - Zulassung am 37435 - Ausnahme"
         },
         "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "1:3",
+          "ballPoints": "80:97",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "23:25",
+                "winner": "TEAM2",
+                "duration": "19"
+              },
+              {
+                "number": "2",
+                "points": "25:22",
+                "winner": "TEAM1",
+                "duration": "23"
+              },
+              {
+                "number": "3",
+                "points": "20:25",
+                "winner": "TEAM2",
+                "duration": "19"
+              },
+              {
+                "number": "4",
+                "points": "12:25",
+                "winner": "TEAM2",
+                "duration": "16"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "-",
+        "netDuration": "77",
         "dateObject": "2024-01-13T13:00:00.000Z",
         "dateIso": "2024-01-13T13:00:00.000Z"
       },
@@ -5794,9 +5830,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -5936,9 +5972,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -6078,9 +6114,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -6220,9 +6256,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -6362,9 +6398,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -6504,9 +6540,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -6646,9 +6682,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -6788,9 +6824,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -6930,9 +6966,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -7072,9 +7108,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -7214,9 +7250,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -7356,9 +7392,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -7498,9 +7534,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -7640,9 +7676,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -7782,9 +7818,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -7924,9 +7960,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -8066,9 +8102,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -8208,9 +8244,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -8350,9 +8386,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -8492,9 +8528,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -8634,9 +8670,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -8776,9 +8812,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -8918,9 +8954,9 @@
           "name": "Bezirksliga Herren Süd",
           "shortName": "bzl s h",
           "type": "League",
-          "updated": "2024-01-08 12:07:27.975",
+          "updated": "2024-01-13 15:30:54.128",
           "structureUpdated": "2024-01-08 12:07:27.975",
-          "resultsUpdated": "2023-12-18 12:00:35.474",
+          "resultsUpdated": "2024-01-13 15:30:54.128",
           "season": {
             "id": "25640073",
             "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
