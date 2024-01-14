@@ -7,9 +7,9 @@
       "name": "Kreisliga Damen Süd",
       "shortName": "kl s d",
       "type": "League",
-      "updated": "2024-01-14 14:22:59.368",
+      "updated": "2024-01-14 15:55:19.161",
       "structureUpdated": "2024-01-10 20:49:03.488",
-      "resultsUpdated": "2024-01-14 14:22:59.368",
+      "resultsUpdated": "2024-01-14 15:55:19.161",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -212,6 +212,62 @@
       },
       {
         "team": {
+          "id": "25922075",
+          "uuid": "dc4e03f3-3b67-4262-94bc-30247b621ec0",
+          "name": "VC Müllheim2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VC Müllheim",
+            "shortName": null
+          }
+        },
+        "place": "3",
+        "matchesPlayed": "10",
+        "wins": "6",
+        "losses": "4",
+        "points": "19",
+        "setPoints": "22:13",
+        "setWinScore": "22",
+        "setLoseScore": "13",
+        "setPointDifference": "9",
+        "setQuotient": "1,692",
+        "ballPoints": "802:690",
+        "ballWinScore": "802",
+        "ballLoseScore": "690",
+        "ballPointDifference": "112",
+        "ballQuotient": "1,162",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "5"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "2"
+            },
+            {
+              "result": "0:3",
+              "count": "1"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "25922059",
           "uuid": "ca013309-2aa0-4864-98a7-fec75d08db29",
           "name": "TV Bad Säckingen 3",
@@ -222,7 +278,7 @@
             "shortName": null
           }
         },
-        "place": "3",
+        "place": "4",
         "matchesPlayed": "9",
         "wins": "6",
         "losses": "3",
@@ -268,62 +324,6 @@
       },
       {
         "team": {
-          "id": "25922075",
-          "uuid": "dc4e03f3-3b67-4262-94bc-30247b621ec0",
-          "name": "VC Müllheim2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "VC Müllheim",
-            "shortName": null
-          }
-        },
-        "place": "4",
-        "matchesPlayed": "9",
-        "wins": "5",
-        "losses": "4",
-        "points": "16",
-        "setPoints": "19:12",
-        "setWinScore": "19",
-        "setLoseScore": "12",
-        "setPointDifference": "7",
-        "setQuotient": "1,583",
-        "ballPoints": "708:605",
-        "ballWinScore": "708",
-        "ballLoseScore": "605",
-        "ballPointDifference": "103",
-        "ballQuotient": "1,170",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "5"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "1"
-            },
-            {
-              "result": "1:3",
-              "count": "2"
-            },
-            {
-              "result": "0:3",
-              "count": "1"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "25922081",
           "uuid": "561bef7f-6fdb-4e0a-b977-231e7e7d4116",
           "name": "VC Weil 3",
@@ -335,20 +335,20 @@
           }
         },
         "place": "5",
-        "matchesPlayed": "8",
+        "matchesPlayed": "9",
         "wins": "5",
-        "losses": "3",
+        "losses": "4",
         "points": "15",
-        "setPoints": "15:13",
-        "setWinScore": "15",
-        "setLoseScore": "13",
-        "setPointDifference": "2",
-        "setQuotient": "1,154",
-        "ballPoints": "573:617",
-        "ballWinScore": "573",
-        "ballLoseScore": "617",
-        "ballPointDifference": "-44",
-        "ballQuotient": "0,929",
+        "setPoints": "16:16",
+        "setWinScore": "16",
+        "setLoseScore": "16",
+        "setPointDifference": "0",
+        "setQuotient": "1,000",
+        "ballPoints": "658:711",
+        "ballWinScore": "658",
+        "ballLoseScore": "711",
+        "ballPointDifference": "-53",
+        "ballQuotient": "0,925",
         "resultTypes": {
           "matchResult": [
             {
@@ -369,7 +369,63 @@
             },
             {
               "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "3"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "25922064",
+          "uuid": "48afaf5b-a3db-4320-aba3-e31b74c3d28d",
+          "name": "SG Breisach - Gündlingen 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "SG Breisach - Gündlingen",
+            "shortName": null
+          }
+        },
+        "place": "6",
+        "matchesPlayed": "10",
+        "wins": "4",
+        "losses": "6",
+        "points": "12",
+        "setPoints": "15:20",
+        "setWinScore": "15",
+        "setLoseScore": "20",
+        "setPointDifference": "-5",
+        "setQuotient": "0,750",
+        "ballPoints": "696:724",
+        "ballWinScore": "696",
+        "ballLoseScore": "724",
+        "ballPointDifference": "-28",
+        "ballQuotient": "0,961",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "2"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
               "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "3"
             },
             {
               "result": "0:3",
@@ -390,7 +446,7 @@
             "shortName": null
           }
         },
-        "place": "6",
+        "place": "7",
         "matchesPlayed": "10",
         "wins": "4",
         "losses": "6",
@@ -436,62 +492,6 @@
       },
       {
         "team": {
-          "id": "25922064",
-          "uuid": "48afaf5b-a3db-4320-aba3-e31b74c3d28d",
-          "name": "SG Breisach - Gündlingen 2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "SG Breisach - Gündlingen",
-            "shortName": null
-          }
-        },
-        "place": "7",
-        "matchesPlayed": "9",
-        "wins": "3",
-        "losses": "6",
-        "points": "9",
-        "setPoints": "12:20",
-        "setWinScore": "12",
-        "setLoseScore": "20",
-        "setPointDifference": "-8",
-        "setQuotient": "0,600",
-        "ballPoints": "621:701",
-        "ballWinScore": "621",
-        "ballLoseScore": "701",
-        "ballPointDifference": "-80",
-        "ballQuotient": "0,886",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "1"
-            },
-            {
-              "result": "3:1",
-              "count": "2"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "3"
-            },
-            {
-              "result": "0:3",
-              "count": "3"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "25922078",
           "uuid": "6efeaae2-7ec5-4277-b150-c964eeaa0fb1",
           "name": "TV Freiburg-St.Georgen 3",
@@ -503,20 +503,20 @@
           }
         },
         "place": "8",
-        "matchesPlayed": "9",
+        "matchesPlayed": "10",
         "wins": "1",
-        "losses": "8",
+        "losses": "9",
         "points": "3",
-        "setPoints": "4:24",
+        "setPoints": "4:27",
         "setWinScore": "4",
-        "setLoseScore": "24",
-        "setPointDifference": "-20",
-        "setQuotient": "0,167",
-        "ballPoints": "409:669",
-        "ballWinScore": "409",
-        "ballLoseScore": "669",
-        "ballPointDifference": "-260",
-        "ballQuotient": "0,611",
+        "setLoseScore": "27",
+        "setPointDifference": "-23",
+        "setQuotient": "0,148",
+        "ballPoints": "432:744",
+        "ballWinScore": "432",
+        "ballLoseScore": "744",
+        "ballPointDifference": "-312",
+        "ballQuotient": "0,581",
         "resultTypes": {
           "matchResult": [
             {
@@ -541,7 +541,7 @@
             },
             {
               "result": "0:3",
-              "count": "7"
+              "count": "8"
             }
           ]
         }
