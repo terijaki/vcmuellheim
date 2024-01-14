@@ -32,7 +32,7 @@ if (fs.existsSync(cacheFile)) {
 				});
 
 				// construct the message we like to post
-				const message = entry.league + ": " + entry.team[0] + " - " + entry.team[1] + "(" + entry.score + ")";
+				const message = entry.league + ": " + entry.team[0] + " - " + entry.team[1] + " (" + entry.score + ")";
 
 				// check if the status has already been posted ❗️ this time range should be larger than the filter
 				const checkDateRange = new Date(filterDateRange.setMonth(filterDateRange.getMonth() - 1)); // 1 month older than the filter
@@ -60,7 +60,7 @@ if (fs.existsSync(cacheFile)) {
 						const postStatus = await mastodonPostStatus(message); // this will post the message
 
 						if (postStatus.status == 200) {
-							let consoleNote = "✅ Post shared successfully:" + postStatus.response.url;
+							let consoleNote = "✅ Post shared successfully: " + postStatus.response.url;
 							console.log(consoleNote);
 							writeToSummary(consoleNote);
 							matches.entries.map(() => {
