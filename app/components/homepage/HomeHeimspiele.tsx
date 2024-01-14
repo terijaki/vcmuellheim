@@ -6,28 +6,36 @@ import { Fragment } from "react";
 import { FaLocationDot as IconLocation, FaAngleRight as IconRight, FaAngleLeft as IconLeft } from "react-icons/fa6";
 
 const TIME_RANGE: number = 7 * 4; // controls the display matches taking place # days in the future
+const MIN_GAMES: number = 2;
+const MAX_GAMES: number = 4;
 
-//TODO: redo the filtering. it needs to be filtered way sooner and predictable before the return not while returning. maybe get the amount of dlc beforehand
 export default function HomeHeimspiele() {
 	testMinRange();
 	// construct the cut off date. dates after this value are excluded
 	const todayPlusRange = new Date();
 	todayPlusRange.setDate(todayPlusRange.getDate() + TIME_RANGE);
-	// get the matches
-	const homeGames = cachedGetMatches(cachedGetTeamIds("id"), "future");
-	// filter out the matches that do not qualify based on their date
-	let homeGamesFiltered = homeGames.filter((match) => match.dateObject > new Date() && match.host?.club?.includes("VC Müllheim"));
+	// get future matches from our teams
+	const allMatches = cachedGetMatches(cachedGetTeamIds("id"), "future");
+	// filter reduce to matches we are hosting
+	const homeGames = allMatches.filter((match) => match.host?.club?.includes("VC Müllheim"));
+	// sort by date
+	const homeGamesSorted = homeGames.sort((b, a) => Number(a.dateIso) - Number(b.dateIso));
+	// count unique combination of date, location, league
+	let uniqueHosts: string[] = [];
+	homeGamesSorted.forEach((match) => {
+		const dateLocationCombi: string = match.date + match.matchSeries.name + match.location?.id; // this is used below and needs to be identical!
+		if (!uniqueHosts.includes(dateLocationCombi) && uniqueHosts.length < MAX_GAMES) {
+			if (uniqueHosts.length < MIN_GAMES || match.dateObject <= todayPlusRange) {
+				uniqueHosts.push(dateLocationCombi);
+			}
+		}
+	});
+	const homeGamesReduced = homeGamesSorted.filter((match) => uniqueHosts.includes(match.date + match.matchSeries.name + match.location?.id)); // this includes condition needs to be identical to the above "dateLocationCombi"
 
-	if (homeGamesFiltered.length > 4) {
-		// if more than two games then use todayPlusRange filter
-		homeGamesFiltered.filter((match) => match.dateObject > new Date() && match.dateObject < todayPlusRange && match.host?.club?.includes("VC Müllheim"));
-	}
-
-	// if there is at least one home game
-	if (homeGamesFiltered.length >= 1) {
+	// if there is at least one home game, display the matches
+	if (homeGamesReduced.length >= 1) {
 		// arrays to sort and fill throghout the following process
 		let matchBuffer: string[] = [];
-		let matchCountBuffer: number = 0;
 		return (
 			<section className="col-full-content grid grid-cols-main-grid section-bg-gradient after:opacity-95">
 				<a
@@ -46,16 +54,13 @@ export default function HomeHeimspiele() {
 					<h2 className="text-center md:text-left text-white font-bold text-3xl">Wir laden ein zum Heimspiel!</h2>
 					<p className="text-center md:text-left text-balance text-white py-2">In den kommenden Tagen spielen wir in Müllheim und freuen uns über jeden Zuschauer!</p>
 					<div className="col-center-content columns-1 sm:has-[>:nth-of-type(2)]:columns-2 md:columns-2 lg:has-[>:nth-of-type(5)]:columns-3 gap-4 mt-3">
-						{homeGamesFiltered.map((match) => {
-							// consider this match if its taking place in the future and is within the specified TIME_RANGE
-
+						{homeGamesReduced.map((match) => {
+							// group games together
 							const dateLocationCombi: string = "dlc" + match.date + match.location?.id; // this is used to group games together
-							const filterLevel1 = !matchBuffer.includes(match.uuid) && !matchBuffer.includes(dateLocationCombi) && matchCountBuffer < 555;
-
-							if (filterLevel1) {
+							const groupFilterOne = !matchBuffer.includes(match.uuid) && !matchBuffer.includes(dateLocationCombi);
+							if (groupFilterOne) {
 								matchBuffer.push(match.uuid); // makes sure the specific match is already rendered, this avoids duplicates if two of our teams play against each other
 								matchBuffer.push(dateLocationCombi); // this groups games together if date and location match
-								matchCountBuffer = matchCountBuffer + 1;
 								return (
 									<div
 										className="card bg-onyx text-white inline-block w-full break-inside-avoid mb-3"
@@ -80,10 +85,10 @@ export default function HomeHeimspiele() {
 											</Link>
 
 											{/* dateTimeLeagueLocationCombi */}
-											{homeGamesFiltered.map((matchLeagueTime) => {
+											{homeGamesReduced.map((matchLeagueTime) => {
 												const dateTimeLeagueLocationCombi: string = "dtllc" + match.date + matchLeagueTime.time + matchLeagueTime.matchSeries?.name + match.location?.name; // this is used to group games
-												const filterLevel3 = filterLevel1 && !matchBuffer.includes(dateTimeLeagueLocationCombi);
-												if (filterLevel3 && match.date == matchLeagueTime.date && match.location?.id == matchLeagueTime.location?.id) {
+												const groupFilterTwo = groupFilterOne && !matchBuffer.includes(dateTimeLeagueLocationCombi);
+												if (groupFilterTwo && match.date == matchLeagueTime.date && match.location?.id == matchLeagueTime.location?.id) {
 													matchBuffer.push(dateTimeLeagueLocationCombi); // this groups games together if date and location match
 													return (
 														<Fragment key="League Name and Time">
@@ -94,7 +99,7 @@ export default function HomeHeimspiele() {
 															</p>
 															{/* fetch the guest for this date, time, league and location combination */}
 															<ul>
-																{homeGamesFiltered.map((matchGuest) => {
+																{homeGamesReduced.map((matchGuest) => {
 																	if (matchLeagueTime.location?.id == matchGuest.location?.id && match.date == matchGuest.date && matchLeagueTime.matchSeries?.uuid == matchGuest.matchSeries?.uuid) {
 																		return (
 																			<Fragment key="Guests">
