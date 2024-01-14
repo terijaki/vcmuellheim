@@ -274,8 +274,8 @@ jobs:
         id: match_results
         if: ${{ needs.build.outputs.sams_social == 'new' }}
         env:
-          CLIENT_ID: ${{ secrets.MASTODON_CLIENT_ID }}
-          ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+          MASTODON_CLIENT_ID: ${{ secrets.MASTODON_CLIENT_ID }}
+          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
         run: |
           npm run sams-new-results
           cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
