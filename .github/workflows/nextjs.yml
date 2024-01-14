@@ -276,14 +276,17 @@ jobs:
         env:
           MASTODON_CLIENT_ID: ${{ secrets.MASTODON_CLIENT_ID }}
           MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
-        run: |
-          npm run sams-new-results
-          cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
+        run: npm run sams-new-results
 
       - name: Blog Posts (WIP)
         id: blog_posts
         if: ${{ needs.build.outputs.blog_check == 'new' }}
         run: echo "To be implemented."
+
+      - name: Github Summary
+        if: steps.match_results.conclusion == 'success' || steps.blog_posts.conclusion == 'success'
+        continue-on-error: true
+        run: cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
 
       - name: Commit Changes
         if: steps.match_results.conclusion == 'success' || steps.blog_posts.conclusion == 'success'
