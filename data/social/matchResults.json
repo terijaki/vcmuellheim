@@ -115,6 +115,18 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/111755496196728566"
+    },
+    {
+      "uuid": "09fc1f31-bb68-4b62-9e48-77a957afbc90",
+      "date": "2024-01-14T10:00:00.000Z",
+      "league": "Kreisliga Damen Süd",
+      "team": [
+        "VC Müllheim2",
+        "VC Weil 3"
+      ],
+      "winner": 1,
+      "score": "3:1",
+      "mastodon": "new"
     }
   ]
 }
