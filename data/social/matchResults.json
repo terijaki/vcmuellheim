@@ -74,7 +74,8 @@
       ],
       "winner": 1,
       "score": "3:1",
-      "mastodon": "new"
+      "mastodon": "published",
+      "mastodonUrl": "https://freiburg.social/@VCM/111754872528795500"
     },
     {
       "uuid": "94c21152-e57b-4f11-8474-f29d980c0aa9",
@@ -86,7 +87,8 @@
       ],
       "winner": 2,
       "score": "2:3",
-      "mastodon": "new"
+      "mastodon": "published",
+      "mastodonUrl": "https://freiburg.social/@VCM/111754872596449303"
     },
     {
       "uuid": "70068c47-f9a6-4413-bcbe-07d243ac0eed",
@@ -98,7 +100,8 @@
       ],
       "winner": 2,
       "score": "0:3",
-      "mastodon": "new"
+      "mastodon": "published",
+      "mastodonUrl": "https://freiburg.social/@VCM/111754872627009324"
     }
   ]
 }
