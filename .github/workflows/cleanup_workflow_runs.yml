@@ -19,4 +19,4 @@ jobs:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
           retain_days: 90
-          keep_minimum_runs: 12
+          keep_minimum_runs: 0
