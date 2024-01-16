@@ -192,6 +192,11 @@ jobs:
           then
             echo "✅ No new blog post found."
             echo "✅ No new blog post found." >> $GITHUB_STEP_SUMMARY
+            if ! grep -q "Mastodon: test" "${{ env.SOCIAL_CACHE_MATCHES }}"; then
+              echo "🚨 Unpublished status detetected in social cache file!"
+              echo "🚨 Unpublished status detetected in social cache file!" >> $GITHUB_STEP_SUMMARY
+              echo "status=new" >> $GITHUB_OUTPUT
+            fi
           else
             echo "📑 New Blog post detected! Pushing to repository and cleaning the inbox folder."
             git add ${{ env.BLOG_FOLDER }}
