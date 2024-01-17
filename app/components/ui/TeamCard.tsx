@@ -78,12 +78,16 @@ export default function TeamCard(props: teamObject) {
 								return (
 									<Fragment key="trainer">
 										{index != 0 && " & "}
-										<Link
-											href={"mailto:" + trainer.email}
-											scroll={false}
-										>
-											{trainer.name}
-										</Link>
+										{trainer.email ? (
+											<Link
+												href={"mailto:" + trainer.email}
+												scroll={false}
+											>
+												{trainer.name}
+											</Link>
+										) : (
+											trainer.name
+										)}
 									</Fragment>
 								);
 							})}
