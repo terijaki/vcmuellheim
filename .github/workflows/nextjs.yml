@@ -158,6 +158,7 @@ jobs:
           else
             echo "📑 New Blog post detected! Pushing to repository and cleaning the inbox folder."
             git add ${{ env.BLOG_FOLDER }}
+            git add ${{ env.IMAGES_FOLDER }}
             git add ${{ env.INBOX_FOLDER }}
             git commit -m "automated deployment update"
             git push origin --all --quiet --force
