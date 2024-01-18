@@ -140,7 +140,7 @@ jobs:
 
       - name: Process Inbox
         id: process_inbox
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name != 'schedule' }}
         run: npm run inbox
 
       - name: New Blog Post Check
