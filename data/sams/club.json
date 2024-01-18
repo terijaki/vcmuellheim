@@ -59,8 +59,8 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2024-01-15 14:02:05.837",
-            "structureUpdated": "2023-12-16 16:58:33.677",
+            "updated": "2024-01-17 13:07:08.633",
+            "structureUpdated": "2024-01-17 13:07:08.633",
             "resultsUpdated": "2024-01-15 14:02:05.837",
             "season": {
               "id": "25640073",
@@ -162,8 +162,8 @@
             "name": "Herren Pokal Quali LL+VL am 20.1.24",
             "shortName": "hp_ll_vl",
             "type": "Competition",
-            "updated": "2024-01-15 22:22:38.629",
-            "structureUpdated": "2024-01-15 22:22:38.628",
+            "updated": "2024-01-17 09:33:16.73",
+            "structureUpdated": "2024-01-17 09:33:16.73",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
@@ -241,9 +241,9 @@
             "name": "Bezirksliga Herren Süd",
             "shortName": "bzl s h",
             "type": "League",
-            "updated": "2024-01-14 17:43:57.605",
-            "structureUpdated": "2024-01-08 12:07:27.975",
-            "resultsUpdated": "2024-01-14 17:43:57.605",
+            "updated": "2024-01-16 09:55:56.193",
+            "structureUpdated": "2024-01-16 09:40:52.004",
+            "resultsUpdated": "2024-01-16 09:55:56.193",
             "season": {
               "id": "25640073",
               "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1261,6 +1261,85 @@
           }
         },
         {
+          "id": "28336534",
+          "uuid": "26125b1c-0ca1-42dc-8399-7ccbaebb3616",
+          "seasonTeamId": "28336534",
+          "placeCipher": "3",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "25749854",
+            "uuid": "938c7b32-326b-4c4f-a450-197fc8e44fb3",
+            "allSeasonId": "5cd92285-fedb-474e-ae90-16f666bcab5e",
+            "name": "SBVV - U16 weiblich am 2.3.2024",
+            "shortName": "sbvv-u16w",
+            "type": "Competition",
+            "updated": "2024-01-17 12:25:45.933",
+            "structureUpdated": "2024-01-17 12:25:45.933",
+            "resultsUpdated": "2023-02-25 18:27:43.984",
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25749344",
+              "uuid": "334935bb-d44e-4005-aca6-15e06f91781b",
+              "name": "SBVV-Jugendmeisterschaften",
+              "shortName": "sbvv_jm",
+              "hierarchyLevel": "3"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        },
+        {
           "id": "26985193",
           "uuid": "a43c4527-cf19-43c6-87e1-b0190bfe49b1",
           "seasonTeamId": "26985193",
@@ -1531,7 +1610,7 @@
           "id": "28010515",
           "uuid": "00bd91a2-5f7c-4c38-b5e0-2ca6e80a0a4c",
           "seasonTeamId": "28010515",
-          "placeCipher": "0",
+          "placeCipher": "2",
           "name": "VC Müllheim",
           "shortName": null,
           "clubCode": null,
@@ -1557,8 +1636,8 @@
             "name": "SBVV - U14 männlich am 3.2.24",
             "shortName": "sbvv-u14m",
             "type": "Competition",
-            "updated": "2024-01-08 10:34:29.237",
-            "structureUpdated": "2023-12-12 10:46:53.803",
+            "updated": "2024-01-17 12:26:50.022",
+            "structureUpdated": "2024-01-17 12:26:50.022",
             "resultsUpdated": "2023-03-13 09:40:18.268",
             "season": {
               "id": "25640073",
