@@ -1,6 +1,6 @@
 ---
 title: 'Kaderlehrgang und Spielserie U14 Jungs in Radolfzell'
-date: 2024-01-18T17:43:16.167Z
+date: 2024-01-18T17:52:28.497Z
 gallery:
 - /images/blog/2024/01/18/img-20240114-wa0097.jpg
 - /images/blog/2024/01/18/img-20240114-wa0098.jpg
