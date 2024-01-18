@@ -51,7 +51,7 @@ export function inboxProcessing() {
 				const WordExtractor = require("word-extractor");
 				const extractor = new WordExtractor();
 				const extracted = await extractor.extract(path.join(INBOX_FOLDER, document));
-				const content = extracted.getBody();
+				const content = extracted.getBody().replaceAll("\n", "\n\n"); // double linebreaks are required!
 				const markdownDate = new Date().toISOString();
 				let markdownGallery = "";
 				if (images.size > 0) {
