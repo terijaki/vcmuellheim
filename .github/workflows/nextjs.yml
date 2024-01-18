@@ -38,7 +38,7 @@ jobs:
       sams_status: ${{ steps.sams_git.outputs.status }}
       sams_social: ${{ steps.sams_git.outputs.social }}
       build_status: ${{ steps.next_build.outputs.status }}
-      blog_check: ${{ steps.next_build.outputs.status }}
+      blog_check: ${{ steps.blog_check.outputs.status }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
