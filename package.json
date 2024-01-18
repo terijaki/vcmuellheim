@@ -16,7 +16,8 @@
 		"start": "next start",
 		"lint": "next lint",
 		"sams-update": "tsx --env-file=.env.local --env-file=.env app/utils/sams/updateTasks.ts",
-		"sams-new-results": "tsx --env-file=.env.local --env-file=.env app/utils/sams/processNewMatchResults.ts"
+		"sams-new-results": "tsx --env-file=.env.local --env-file=.env app/utils/sams/processNewMatchResults.ts",
+		"inbox": "tsx app/utils/inboxProcessing.ts"
 	},
 	"dependencies": {
 		"gray-matter": "^4.0.3",
