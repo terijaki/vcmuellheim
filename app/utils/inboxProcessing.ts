@@ -75,7 +75,7 @@ export function inboxProcessing() {
 				if (images.size > 0) {
 					message = message.replace("blog post:", "blog post with " + images.size + " images:");
 				}
-				writeToSummary(message);
+				writeToSummary(message, true);
 				console.log(message);
 			});
 		}

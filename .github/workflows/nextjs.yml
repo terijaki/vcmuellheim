@@ -166,6 +166,8 @@ jobs:
             echo "📑 New Blog post detected. Sharing on social initiated." >> $GITHUB_STEP_SUMMARY
           fi
 
+          cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
+
       - name: Setup Pages
         id: setup_pages
         ## skip the github pages and build process if there was no SAMS update for our club
