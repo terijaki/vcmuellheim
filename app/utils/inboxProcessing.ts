@@ -63,7 +63,8 @@ export function inboxProcessing() {
 				// patch the markdown together
 				const markdownContent = "---\n" + "title: '" + title + "'\n" + "date: " + markdownDate + "\n" + markdownGallery + "---\n" + content;
 				// write the markdown file
-				const documentTargetPath = POST_TARGET_FOLDER + "/" + new Date().toISOString().slice(0, 10) + "-" + title.toLowerCase().replaceAll(" ", "-") + ".md";
+				const safeTitle = title.toLowerCase().replaceAll(" ", "-").replaceAll(".", "").replaceAll("ü", "ue").replaceAll("ä", "ae").replaceAll("ö", "oe").replaceAll("ß", "ss");
+				const documentTargetPath = POST_TARGET_FOLDER + "/" + new Date().toISOString().slice(0, 10) + "-" + safeTitle + ".md";
 				fs.writeFileSync(documentTargetPath, markdownContent);
 				images.forEach((image) => {
 					const newFolder = image[1].slice(0, image[1].lastIndexOf("/"));
