@@ -164,9 +164,8 @@ jobs:
             git push origin --all --quiet --force
             echo "status=new" >> $GITHUB_OUTPUT
             echo "📑 New Blog post detected. Sharing on social initiated." >> $GITHUB_STEP_SUMMARY
+            cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
           fi
-
-          cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
 
       - name: Setup Pages
         id: setup_pages
