@@ -4,7 +4,7 @@ const GITHUB_SUMMARY_FILE = "github_summary.md";
 
 // this writes to a file that is being read during a github actions run to craft a summary of the job
 export function writeToSummary(text: string, forced = false) {
-	if (forced) {
+	if (forced && fs.existsSync(GITHUB_SUMMARY_FILE)) {
 		fs.rmSync(GITHUB_SUMMARY_FILE);
 	}
 	if (!fs.existsSync(GITHUB_SUMMARY_FILE)) {
