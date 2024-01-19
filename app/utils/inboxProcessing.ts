@@ -67,6 +67,10 @@ export function inboxProcessing() {
 					.toLowerCase()
 					.replaceAll(" ", "-")
 					.replaceAll(".", "")
+					.replaceAll("ü", "ue")
+					.replaceAll("ö", "oe")
+					.replaceAll("ä", "ae")
+					.replaceAll("ß", "ss")
 					.replaceAll(/[^\x00-\x7F]/g, "");
 				const documentTargetPath = POST_TARGET_FOLDER + "/" + new Date().toISOString().slice(0, 10) + "-" + safeTitle + ".md";
 				fs.writeFileSync(documentTargetPath, markdownContent);
