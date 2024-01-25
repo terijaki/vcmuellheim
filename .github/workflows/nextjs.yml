@@ -200,7 +200,7 @@ jobs:
             echo "✅ Image optimizations are up to date." >> $GITHUB_STEP_SUMMARY
           else
             echo "🖼️ New image optimizations! Pushing to repository."
-            git add ${{ env.IMAGES_FOLDER }}
+            git add ${{ env.IMAGES_FOLDER }} --force
             git commit -m "automated deployment update"
             git push origin --all --quiet --force
             echo "🖼️ New image optimizations changes detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
