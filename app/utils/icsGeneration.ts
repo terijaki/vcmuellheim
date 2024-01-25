@@ -14,8 +14,6 @@ export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string)
 	const templateBody = template.slice(template.indexOf(TEMPLATE_START), template.indexOf(TEMPLATE_END) + TEMPLATE_END.length);
 	let matchArray: string[] = [];
 	// loop through all matches for the team
-	// console.log(sbvvTeamId + " test " + slug);
-	// console.log(getMatches(sbvvTeamId.map(String)));
 	cachedGetMatches(sbvvTeamId).map((match, index) => {
 		if (match.uuid && match.team?.length == 2 && match.location && match.matchSeries?.name && match.matchSeries.updated) {
 			// use the match update date as the date this entry is updated
@@ -43,11 +41,6 @@ export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string)
 					(slug == "all" ? "\\nhttps://vcmuellheim.de/termine" : "\\nhttps://vcmuellheim.de/teams/" + slug)
 			);
 			matchArray.push(matchConstruct);
-			if (match.uuid == "70068c47-f9a6-4413-bcbe-07d243ac0eed") {
-				console.log(match.dateObject);
-				console.log(match.dateIso);
-				console.log(matchConstruct);
-			}
 		}
 
 		// enhance the default calender name with the teams & league name
