@@ -4,7 +4,7 @@ import { writeToSummary } from "./github/actionSummary";
 
 const INBOX_FOLDER = "inbox",
 	IMAGE_FOLDER = "public/images/blog",
-	DOCUMENT_EXTENSIONS = ["docx", "rtf", "txt", "odt"],
+	DOCUMENT_EXTENSIONS = ["docx", "doc"],
 	IMAGE_EXTENSIONS = ["jpg", "jpeg", "png"],
 	POST_TARGET_FOLDER = "data/posts";
 
