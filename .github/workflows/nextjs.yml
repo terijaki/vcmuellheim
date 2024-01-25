@@ -194,7 +194,7 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
-          if [ -z "$(git stage ${{ env.IMAGES_FOLDER }} --dry-run)" ]
+          if [ -z "$(git stage ${{ env.IMAGES_FOLDER }} --force --dry-run)" ]
           then
             echo "✅ Image optimizations are up to date."
             echo "✅ Image optimizations are up to date." >> $GITHUB_STEP_SUMMARY
