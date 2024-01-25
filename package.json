@@ -15,8 +15,10 @@
 		"build": "next build && next-image-export-optimizer",
 		"start": "next start",
 		"lint": "next lint",
-		"sams-update": "tsx --env-file=.env.local --env-file=.env app/utils/sams/updateTasks.ts",
-		"sams-new-results": "tsx --env-file=.env.local --env-file=.env app/utils/sams/processNewMatchResults.ts",
+		"sams-update": "tsx --env-file=.env app/utils/sams/updateTasks.ts",
+		"sams-update-local": "tsx --env-file=.env.local --env-file=.env app/utils/sams/updateTasks.ts",
+		"sams-new-results": "tsx --env-file=.env app/utils/sams/processNewMatchResults.ts",
+		"sams-new-results-local": "tsx --env-file=.env.local --env-file=.env app/utils/sams/processNewMatchResults.ts",
 		"inbox": "tsx app/utils/inboxProcessing.ts"
 	},
 	"dependencies": {
