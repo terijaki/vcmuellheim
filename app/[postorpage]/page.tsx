@@ -127,7 +127,7 @@ export default function postDisplay({ params }: { params: { postorpage: string }
 						<Markdown>{content}</Markdown>
 						{frontmatter.gallery && galleryDisplay(frontmatter.gallery)}
 					</article>
-					<div className="text-center mb-8">{isPost && <SharingButon label={"Beitrag teilen"} />}</div>
+					<div className="text-center mb-8">{isPost == "not-disabled" && <SharingButon label={"Beitrag teilen"} />}</div>
 				</div>
 			</>
 		);
