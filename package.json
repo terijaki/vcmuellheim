@@ -12,7 +12,7 @@
 	},
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build && next-image-export-optimizer",
+		"build": "next build && next export && next-image-export-optimizer",
 		"start": "next start",
 		"lint": "next lint",
 		"sams-update": "tsx --env-file=.env app/utils/sams/updateTasks.ts",
