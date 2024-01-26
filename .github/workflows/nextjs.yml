@@ -167,20 +167,9 @@ jobs:
             cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
           fi
 
-      - name: Setup Pages
-        id: setup_pages
-        ## skip the github pages and build process if there was no SAMS update for our club
-        if: ${{ github.event.schedule != '15,45 09-21 * JAN-APR,OCT-DEC 0,6' || steps.sams_git.outputs.status == 'updated' }}
-        uses: actions/configure-pages@v4
-        with:
-          # Automatically inject basePath in your Next.js configuration file and disable
-          # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
-          # You may remove this line if you want to manage the configuration yourself.
-          static_site_generator: next
-
       - name: Build with Next.js
         id: next_build
-        if: steps.setup_pages.conclusion == 'success'
+        if: ${{ github.event.schedule != '15,45 09-21 * JAN-APR,OCT-DEC 0,6' || steps.sams_git.outputs.status == 'updated' }}
         run: |
           echo "status=started" >> $GITHUB_OUTPUT
           ${{ steps.detect-package-manager.outputs.runner }} build
