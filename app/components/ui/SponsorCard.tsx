@@ -15,7 +15,7 @@ export default function SponsorCard(props: { name?: string; website?: string; lo
 				className="relative block min-h-20 min-w-20 w-full h-full hover:cursor-pointer"
 			>
 				<ExportedImage
-					unoptimized={true}
+					unoptimized
 					fill
 					loading="lazy"
 					src={props.logo}
