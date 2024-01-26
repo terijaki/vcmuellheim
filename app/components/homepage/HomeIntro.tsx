@@ -21,7 +21,6 @@ export default function HomeIntro() {
 			<ExportedImage
 				fill
 				priority
-				unoptimized
 				alt=""
 				src={backgroundImageRandom}
 				className="absolute w-full h-full z-[-10] object-cover"
