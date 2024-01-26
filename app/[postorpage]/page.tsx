@@ -114,7 +114,7 @@ export default function postDisplay({ params }: { params: { postorpage: string }
 		if (frontmatter.gallery && frontmatter.thumbnail && !frontmatter.gallery.includes(frontmatter.thumbnail)) {
 			frontmatter.gallery.push(frontmatter.thumbnail);
 		}
-// DISABLED SHARING BUTTON #137 <div className="text-center mb-8">{isPost && <SharingButon label={"Beitrag teilen"} />}</div>
+		// DISABLED SHARING BUTTON #137 <div className="text-center mb-8">{isPost && <SharingButon label={"Beitrag teilen"} />}</div>
 		return (
 			<>
 				<PageHeading
@@ -127,7 +127,6 @@ export default function postDisplay({ params }: { params: { postorpage: string }
 						<Markdown>{content}</Markdown>
 						{frontmatter.gallery && galleryDisplay(frontmatter.gallery)}
 					</article>
-					
 				</div>
 			</>
 		);
@@ -148,7 +147,7 @@ function galleryDisplay(gallery: string[]) {
 					>
 						<div className="realtive object-cover aspect-video sm:aspect-[3/2] xl:aspect-[4/3] m-0 p-0 group-hover:scale-105 transition-transform duration-700">
 							<ExportedImage
-								src={galleryItem}
+								src={path.join(galleryItem)}
 								width={540}
 								height={310}
 								alt={"Foto:" + galleryItem}
