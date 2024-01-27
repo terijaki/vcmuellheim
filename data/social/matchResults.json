@@ -128,6 +128,18 @@
       "score": "3:1",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/111764198097801943"
+    },
+    {
+      "uuid": "4b0560ce-785c-4571-af83-1ad27d530cd9",
+      "date": "2024-01-27T13:00:00.000Z",
+      "league": "Landesliga West Herren",
+      "team": [
+        "VC Müllheim",
+        "TSV Al. Freiburg-Zähringen 2"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
     }
   ]
 }
