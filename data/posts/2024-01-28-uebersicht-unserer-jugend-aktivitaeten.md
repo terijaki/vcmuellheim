@@ -4,9 +4,9 @@ date: 2024-01-28T11:11:40.724Z
 ---
 In unserer Jugend geht es heiß her! Da nicht alle Aktivitäten mit dem SBVV verbunden sind oder dort nicht einfach zugänglich sind, möchten wir hiermit Transparenz schaffen und über die bevorstehenden Termine informieren.
 
-Gestern (27.01.24) spielte unsere weibliche U14 um die Bezirksmeisterschaft und den Einzug zur Südbadischen in Offenburg. Gute Neuigkeiten: Sie haben sich qualifiziert! 🥳
+Gestern (27.01.24) spielte unsere weibliche U14 um die Landesmeisterschaft und den Einzug zur Südbadischen in Offenburg. Gute Neuigkeiten: Sie haben sich qualifiziert! 🥳
 
-Am 03.02.24 finden die Bezirksvizemeister der U14 Jungs und der U14 Mädels statt. Hierbei geht es um den Einzug in die Regionalmeisterschaften, welche in Nordbaden ausgetragen werden. Für die U14 Jungs steht der Ausrichter noch nicht final fest. Die U14 Mädels wird in Offenburg ausgetragen.
+Am 03.02.24 finden die Landesmeisterschaften der U14 Jungs und der U14 Mädels statt. Hierbei geht es um den Einzug in die Regionalmeisterschaften, welche in Nordbaden ausgetragen werden. Für die U14 Jungs steht der Ausrichter noch nicht final fest. Die U14 Mädels wird in Offenburg ausgetragen.
 
 Am 04.02.24 findet das zweite Jugendrundenturnier (männlich & weiblich) für die Jahrgänge 2008 und jünger statt. Der Ausrichter ist noch nicht bekannt.
 
