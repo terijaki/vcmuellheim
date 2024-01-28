@@ -220,7 +220,7 @@ jobs:
     name: "📡 Share to Mastodon"
     runs-on: ubuntu-latest
     needs: [build, deploy]
-    if: ${{ needs.build.outputs.build_status == 'started' &&  (needs.build.outputs.sams_social == 'new' || needs.build.outputs.blog_check == 'new') }}
+    if: ${{ needs.build.outputs.build_status == 'started' &&  (needs.build.outputs.sams_social == 'new' || needs.build.outputs.blog_check == 'new'  || github.event_name == 'workflow_dispatch' ) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -265,7 +265,7 @@ jobs:
 
       - name: Match Results
         id: match_results
-        if: ${{ needs.build.outputs.sams_social == 'new' }}
+        if: ${{ needs.build.outputs.sams_social == 'new' || github.event_name == 'workflow_dispatch' }}
         env:
           MASTODON_CLIENT_ID: ${{ secrets.MASTODON_CLIENT_ID }}
           MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
@@ -273,7 +273,7 @@ jobs:
 
       - name: Blog Posts (WIP)
         id: blog_posts
-        if: ${{ needs.build.outputs.blog_check == 'new' }}
+        if: ${{ needs.build.outputs.blog_check == 'new' || github.event_name == 'workflow_dispatch' }}
         run: echo "To be implemented."
 
       - name: Commit Changes
