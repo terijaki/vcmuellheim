@@ -39,9 +39,8 @@ export default function MembersCard(props: { name?: string; email?: string; avat
 			</div>
 			<div className="grid grid-cols-1 overflow-hidden w-full px-2">
 				<div className="">{props.name}</div>
-				{props.function && <div className="hidden md:block whitespace-nowrap hyphens-auto text-xs pr-2">{props.function}</div>}
 			</div>
-			{props.function && <div className="md:hidden bg-blumine text-white w-full h-full hyphens-auto text-xs text-center col-span-2">{props.function}</div>}
+			{props.function && <div className="bg-blumine text-white w-full h-full hyphens-auto text-xs text-center col-span-2">{props.function}</div>}
 		</Link>
 	);
 }
