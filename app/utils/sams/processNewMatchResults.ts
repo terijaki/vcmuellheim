@@ -77,6 +77,8 @@ if (fs.existsSync(CACHE_FILE)) {
 				} else {
 					throw "Could not verify status existence:" + checkStatusExistance.status;
 				}
+			} else {
+				console.log("✅ " + entry.uuid + " was already shared: " + entry.mastodonUrl);
 			}
 		}
 	};
