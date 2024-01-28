@@ -299,4 +299,4 @@ jobs:
       - name: Github Summary
         if: steps.commit_changes.conclusion == 'success'
         continue-on-error: true
-        run: cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
+        run: cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY | true
