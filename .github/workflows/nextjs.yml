@@ -276,12 +276,8 @@ jobs:
         if: ${{ needs.build.outputs.blog_check == 'new' }}
         run: echo "To be implemented."
 
-      - name: Github Summary
-        if: steps.match_results.conclusion == 'success' || steps.blog_posts.conclusion == 'success'
-        continue-on-error: true
-        run: cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
-
       - name: Commit Changes
+        id: commit_changes
         if: steps.match_results.conclusion == 'success' || steps.blog_posts.conclusion == 'success'
         continue-on-error: true
         run: |
@@ -299,3 +295,8 @@ jobs:
             git push origin --all --quiet --force
             echo "🏐 Match Results Cache file modified and pushed to repository." >> $GITHUB_STEP_SUMMARY
           fi
+
+      - name: Github Summary
+        if: steps.commit_changes.conclusion == 'success'
+        continue-on-error: true
+        run: cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
