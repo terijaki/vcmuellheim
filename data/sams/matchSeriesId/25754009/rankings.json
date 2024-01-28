@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2024-01-27 17:34:24.859",
+      "updated": "2024-01-28 13:46:37.958",
       "structureUpdated": "2024-01-27 16:45:47.845",
-      "resultsUpdated": "2024-01-27 17:34:24.859",
+      "resultsUpdated": "2024-01-28 13:46:37.958",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -317,20 +317,20 @@
           }
         },
         "place": "5",
-        "matchesPlayed": "10",
+        "matchesPlayed": "11",
         "wins": "5",
-        "losses": "5",
+        "losses": "6",
         "points": "15",
-        "setPoints": "21:21",
-        "setWinScore": "21",
-        "setLoseScore": "21",
-        "setPointDifference": "0",
-        "setQuotient": "1,000",
-        "ballPoints": "901:935",
-        "ballWinScore": "901",
-        "ballLoseScore": "935",
-        "ballPointDifference": "-34",
-        "ballQuotient": "0,964",
+        "setPoints": "22:24",
+        "setWinScore": "22",
+        "setLoseScore": "24",
+        "setPointDifference": "-2",
+        "setQuotient": "0,917",
+        "ballPoints": "971:1030",
+        "ballWinScore": "971",
+        "ballLoseScore": "1030",
+        "ballPointDifference": "-59",
+        "ballQuotient": "0,943",
         "resultTypes": {
           "matchResult": [
             {
@@ -351,11 +351,67 @@
             },
             {
               "result": "1:3",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "0:3",
               "count": "1"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "25932638",
+          "uuid": "a74ec2d8-92f1-4e17-b833-d8abebff83d7",
+          "name": "TSV Al. Freiburg-Zähringen 1",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TSV Alemannia Freiburg-Zähringen",
+            "shortName": null
+          }
+        },
+        "place": "6",
+        "matchesPlayed": "11",
+        "wins": "5",
+        "losses": "6",
+        "points": "15",
+        "setPoints": "19:21",
+        "setWinScore": "19",
+        "setLoseScore": "21",
+        "setPointDifference": "-2",
+        "setQuotient": "0,905",
+        "ballPoints": "883:866",
+        "ballWinScore": "883",
+        "ballLoseScore": "866",
+        "ballPointDifference": "17",
+        "ballQuotient": "1,020",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "3"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "2"
+            },
+            {
+              "result": "0:3",
+              "count": "3"
             }
           ]
         }
@@ -372,7 +428,7 @@
             "shortName": null
           }
         },
-        "place": "6",
+        "place": "7",
         "matchesPlayed": "11",
         "wins": "4",
         "losses": "7",
@@ -412,62 +468,6 @@
             {
               "result": "0:3",
               "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "25932638",
-          "uuid": "a74ec2d8-92f1-4e17-b833-d8abebff83d7",
-          "name": "TSV Al. Freiburg-Zähringen 1",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TSV Alemannia Freiburg-Zähringen",
-            "shortName": null
-          }
-        },
-        "place": "7",
-        "matchesPlayed": "10",
-        "wins": "4",
-        "losses": "6",
-        "points": "12",
-        "setPoints": "16:20",
-        "setWinScore": "16",
-        "setLoseScore": "20",
-        "setPointDifference": "-4",
-        "setQuotient": "0,800",
-        "ballPoints": "788:796",
-        "ballWinScore": "788",
-        "ballLoseScore": "796",
-        "ballPointDifference": "-8",
-        "ballQuotient": "0,990",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "3"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "1"
-            },
-            {
-              "result": "2:3",
-              "count": "1"
-            },
-            {
-              "result": "1:3",
-              "count": "2"
-            },
-            {
-              "result": "0:3",
-              "count": "3"
             }
           ]
         }
