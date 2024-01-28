@@ -35,48 +35,50 @@ export default function NewsCard(props: any) {
 				/>
 			)}
 			<h1 className={"mt-3 px-3 w-full text-lg font-bold col-start-1 col-end-2 row-start-1 row-end-2 z-10" + " " + thumbnailHeadingClass}>{props.title}</h1>
-			<Markdown
-				components={{
-					// replace HTML tags to become spans. this displays everything inline´
-					p: "span",
-					h1: "span",
-					h2: "span",
-					h3: "span",
-					ol: "span",
-					ul: "span",
-					br: "span",
-					blockquote: "span",
-					// turn list items into inline elements and also add a leading hyphen
-					li(props) {
-						const { node, ...rest } = props;
-						return (
-							<span
-								className="before:content-['-_']"
-								{...rest}
-							/>
-						);
-					},
-					a(props) {
-						const { node, ...rest } = props;
-						return (
-							<span
-								className="pointer-events-none"
-								{...rest}
-							/>
-						);
-					},
-				}}
-				className={
-					"px-3 mb-3 pt-2 font-normal text-gray-700 bg-white z-10 text-sm prose prose-strong:font-normal prose-i:font-normal prose-img:hidden prose-video:hidden prose-div:hidden prose-p:inline prose-p:mr-1 prose-ul:m-0 prose-ol:m-0 prose-li:m-0" +
-					" " +
-					thumbnailExperptClass
-				}
-			>
-				{props.content
-					.replace("<embed", "<embed style='display:none'")
-					.replace("<br>", "")
-					.replace(/(<([^>]+)>)/gi, "")}
-			</Markdown>
+			<div className="pb-3 bg-white z-10">
+				<Markdown
+					components={{
+						// replace HTML tags to become spans. this displays everything inline´
+						p: "span",
+						h1: "span",
+						h2: "span",
+						h3: "span",
+						ol: "span",
+						ul: "span",
+						br: "span",
+						blockquote: "span",
+						// turn list items into inline elements and also add a leading hyphen
+						li(props) {
+							const { node, ...rest } = props;
+							return (
+								<span
+									className="before:content-['-_']"
+									{...rest}
+								/>
+							);
+						},
+						a(props) {
+							const { node, ...rest } = props;
+							return (
+								<span
+									className="pointer-events-none"
+									{...rest}
+								/>
+							);
+						},
+					}}
+					className={
+						"px-3 pt-2 font-normal text-gray-700 text-sm prose max-w-full prose-strong:font-normal prose-i:font-normal prose-img:hidden prose-video:hidden prose-div:hidden prose-p:inline prose-p:mr-1 prose-ul:m-0 prose-ol:m-0 prose-li:m-0" +
+						" " +
+						thumbnailExperptClass
+					}
+				>
+					{props.content
+						.replace("<embed", "<embed style='display:none'")
+						.replace("<br>", "")
+						.replace(/(<([^>]+)>)/gi, "")}
+				</Markdown>
+			</div>
 		</Link>
 	);
 }
