@@ -59,9 +59,9 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2024-01-28 21:27:24.794",
+            "updated": "2024-01-29 22:16:15.869",
             "structureUpdated": "2024-01-27 16:45:47.845",
-            "resultsUpdated": "2024-01-28 21:27:24.794",
+            "resultsUpdated": "2024-01-29 22:16:15.869",
             "season": {
               "id": "25640073",
               "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -671,8 +671,8 @@
             "name": "West Jugendrunde (4:4) weiblich",
             "shortName": "W_JRw",
             "type": "Competition",
-            "updated": "2024-01-26 17:19:10.682",
-            "structureUpdated": "2024-01-26 17:19:10.682",
+            "updated": "2024-01-29 18:33:20.494",
+            "structureUpdated": "2024-01-29 18:33:20.494",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
@@ -762,8 +762,8 @@
             "name": "West Jugendrunde (4:4) weiblich",
             "shortName": "W_JRw",
             "type": "Competition",
-            "updated": "2024-01-26 17:19:10.682",
-            "structureUpdated": "2024-01-26 17:19:10.682",
+            "updated": "2024-01-29 18:33:20.494",
+            "structureUpdated": "2024-01-29 18:33:20.494",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
@@ -1029,8 +1029,8 @@
             "name": "U14 weiblich - Quali 1 am 27.1.24",
             "shortName": "Q2_U14_w",
             "type": "Competition",
-            "updated": "2024-01-27 17:01:10.752",
-            "structureUpdated": "2024-01-26 09:52:22.671",
+            "updated": "2024-01-29 11:43:53.347",
+            "structureUpdated": "2024-01-29 11:43:53.347",
             "resultsUpdated": "2024-01-27 17:01:10.752",
             "season": {
               "id": "25640073",
@@ -1081,6 +1081,85 @@
             "association": {
               "name": "Südbadischer Volleyball-Verband",
               "shortName": "SBVV"
+            }
+          }
+        },
+        {
+          "id": "28445511",
+          "uuid": "629010e4-6ecd-4d1f-898c-187e3c983249",
+          "seasonTeamId": "28445511",
+          "placeCipher": "3",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "471",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/8a9c3647-2ff9-4076-b1dc-5a896d75f0c2/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "25749841",
+            "uuid": "4630793a-eb21-4903-bbba-47e64628caff",
+            "allSeasonId": "1c3d7de7-aa70-4d66-ba37-6b78807116c6",
+            "name": "SBVV - U14 weiblich am 3.2.24",
+            "shortName": "sbvv-u14w",
+            "type": "Competition",
+            "updated": "2024-01-29 12:09:03.295",
+            "structureUpdated": "2024-01-29 12:09:03.295",
+            "resultsUpdated": "2023-03-13 09:46:12.806",
+            "season": {
+              "id": "25640073",
+              "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "25749344",
+              "uuid": "334935bb-d44e-4005-aca6-15e06f91781b",
+              "name": "SBVV-Jugendmeisterschaften",
+              "shortName": "sbvv_jm",
+              "hierarchyLevel": "3"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "25749344",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "25749343",
+                  "name": "Regionaljugendmeisterschaften",
+                  "shortName": "rjm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "25749342",
+                  "name": "Deutsche Jugendmeisterschaften",
+                  "shortName": "djm",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "25749341",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "jug",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": null,
+              "shortName": null
             }
           }
         },
@@ -1633,11 +1712,11 @@
             "id": "25749932",
             "uuid": "3fe5caed-5b0d-42b7-ba4f-34d3fecf1c36",
             "allSeasonId": "0448a253-0668-40e5-a856-eaefed292e32",
-            "name": "SBVV - U14 männlich am 3.2.24 in ??",
+            "name": "SBVV - U14 männlich am 3.2.24",
             "shortName": "sbvv-u14m",
             "type": "Competition",
-            "updated": "2024-01-25 14:54:31.743",
-            "structureUpdated": "2024-01-25 09:47:00.044",
+            "updated": "2024-01-29 12:05:04.649",
+            "structureUpdated": "2024-01-29 12:05:04.649",
             "resultsUpdated": "2023-03-13 09:40:18.268",
             "season": {
               "id": "25640073",
