@@ -26,7 +26,7 @@ Danach standen uns die Jungs des FT 1844 Freiburg 4 gegenüber. Erst im Dezember
 
 
 
-Zudem verletzte sich unser Thomas leider an der Verse, sodass er umgehend das Spielfeld verlassen musste. Nach dem Schreckmoment sorgte der Vorfall zwar nochmal für einen Schub an Motivation und Kämpfergeist, jedoch mussten wir uns am Ende mit 1:3 geschlagen geben. (19:25, 25:12, 19:25, 25:27)
+Zudem verletzte sich unser Thomas leider an der Achillessehne, sodass er umgehend das Spielfeld verlassen musste. Nach dem Schreckmoment sorgte der Vorfall zwar nochmal für einen Schub an Motivation und Kämpfergeist, jedoch mussten wir uns am Ende mit 1:3 geschlagen geben. (19:25, 25:12, 19:25, 25:27)
 
 
 
