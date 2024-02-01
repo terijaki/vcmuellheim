@@ -671,8 +671,8 @@
             "name": "West Jugendrunde (4:4) weiblich",
             "shortName": "W_JRw",
             "type": "Competition",
-            "updated": "2024-01-29 18:33:20.494",
-            "structureUpdated": "2024-01-29 18:33:20.494",
+            "updated": "2024-01-31 12:03:59.326",
+            "structureUpdated": "2024-01-31 12:03:59.325",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
@@ -762,8 +762,8 @@
             "name": "West Jugendrunde (4:4) weiblich",
             "shortName": "W_JRw",
             "type": "Competition",
-            "updated": "2024-01-29 18:33:20.494",
-            "structureUpdated": "2024-01-29 18:33:20.494",
+            "updated": "2024-01-31 12:03:59.326",
+            "structureUpdated": "2024-01-31 12:03:59.325",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
@@ -1448,8 +1448,8 @@
             "name": "West Jugendrunde (4:4) männlich",
             "shortName": "W_JRm",
             "type": "Competition",
-            "updated": "2023-12-19 10:01:47.573",
-            "structureUpdated": "2023-12-19 10:01:47.572",
+            "updated": "2024-01-31 12:04:21.598",
+            "structureUpdated": "2024-01-31 12:04:21.598",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
@@ -1539,8 +1539,8 @@
             "name": "West Quali - U14m am 25.11.2023",
             "shortName": "WQ_U14m",
             "type": "Competition",
-            "updated": "2024-01-22 13:26:21.117",
-            "structureUpdated": "2024-01-22 13:26:21.117",
+            "updated": "2024-01-31 19:08:13.115",
+            "structureUpdated": "2024-01-31 19:08:13.115",
             "resultsUpdated": "2023-01-15 16:33:00.278",
             "season": {
               "id": "25640073",
@@ -1630,7 +1630,7 @@
             "name": "U14 männlich - Quali 2 am 25.11.2023",
             "shortName": "Q2_U14_m",
             "type": "Competition",
-            "updated": "2024-01-22 13:11:29.849",
+            "updated": "2024-01-31 19:08:13.115",
             "structureUpdated": "2023-12-11 21:42:40.288",
             "resultsUpdated": "2023-11-25 17:14:27.33",
             "season": {
@@ -1715,7 +1715,7 @@
             "name": "SBVV - U14 männlich am 3.2.24",
             "shortName": "sbvv-u14m",
             "type": "Competition",
-            "updated": "2024-01-29 12:05:04.649",
+            "updated": "2024-01-31 19:08:13.115",
             "structureUpdated": "2024-01-29 12:05:04.649",
             "resultsUpdated": "2023-03-13 09:40:18.268",
             "season": {
