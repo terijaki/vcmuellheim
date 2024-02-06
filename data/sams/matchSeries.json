@@ -8,9 +8,9 @@
         "name": "Oberliga Baden Damen",
         "shortName": "ol bd d",
         "type": "League",
-        "updated": "2024-02-04 13:32:30.834",
+        "updated": "2024-02-05 12:44:17.116",
         "structureUpdated": "2024-02-02 12:24:13.028",
-        "resultsUpdated": "2024-02-04 13:32:30.834",
+        "resultsUpdated": "2024-02-05 12:44:17.116",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -69,9 +69,9 @@
         "name": "Oberliga Baden Herren",
         "shortName": "ol bd h",
         "type": "League",
-        "updated": "2024-02-04 17:41:24.701",
-        "structureUpdated": "2024-02-04 00:15:12.29",
-        "resultsUpdated": "2024-02-04 17:41:24.701",
+        "updated": "2024-02-06 00:15:11.816",
+        "structureUpdated": "2024-02-06 00:15:11.814",
+        "resultsUpdated": "2024-02-05 08:16:20.988",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -944,8 +944,8 @@
         "name": "Bezirksklasse Damen 2",
         "shortName": "BK2D",
         "type": "League",
-        "updated": "2024-02-01 23:27:51.784",
-        "structureUpdated": "2024-02-01 23:27:51.784",
+        "updated": "2024-02-04 23:43:03.95",
+        "structureUpdated": "2024-02-04 23:43:03.95",
         "resultsUpdated": "2024-01-28 16:02:22.135",
         "season": {
           "id": "25640073",
@@ -2680,8 +2680,8 @@
         "name": "Bezirksklasse Damen Süd",
         "shortName": "bzk s d",
         "type": "League",
-        "updated": "2024-01-17 14:55:24.563",
-        "structureUpdated": "2024-01-15 09:13:11.901",
+        "updated": "2024-02-05 08:56:16.3",
+        "structureUpdated": "2024-02-05 08:56:16.3",
         "resultsUpdated": "2024-01-17 14:55:24.563",
         "season": {
           "id": "25640073",
@@ -2862,8 +2862,8 @@
         "name": "Bezirksklasse Herren Süd",
         "shortName": "bzk s h",
         "type": "League",
-        "updated": "2024-01-30 12:15:32.045",
-        "structureUpdated": "2024-01-30 12:15:32.045",
+        "updated": "2024-02-05 08:58:08.11",
+        "structureUpdated": "2024-02-05 08:58:08.11",
         "resultsUpdated": "2024-01-18 11:23:43.266",
         "season": {
           "id": "25640073",
@@ -3050,8 +3050,8 @@
         "name": "Kreisliga Damen Süd",
         "shortName": "kl s d",
         "type": "League",
-        "updated": "2024-02-02 10:02:51.258",
-        "structureUpdated": "2024-02-02 10:02:51.258",
+        "updated": "2024-02-05 08:55:59.336",
+        "structureUpdated": "2024-02-05 08:55:59.336",
         "resultsUpdated": "2024-01-15 09:43:31.269",
         "season": {
           "id": "25640073",
@@ -4934,9 +4934,9 @@
         "name": "U12 Runde weiblich",
         "shortName": "U12w",
         "type": "SuperCompetition",
-        "updated": "2024-02-03 13:16:07.214",
-        "structureUpdated": "2024-02-02 08:36:02.353",
-        "resultsUpdated": "2024-02-03 13:16:07.214",
+        "updated": "2024-02-05 20:48:42.934",
+        "structureUpdated": "2024-02-05 20:48:42.934",
+        "resultsUpdated": "2024-02-05 20:47:54.057",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -5056,9 +5056,9 @@
         "name": "U12 weiblich 2. Spieltag Verbandsliga",
         "shortName": "U12w_vl2",
         "type": "Competition",
-        "updated": "2024-02-03 13:16:07.214",
-        "structureUpdated": "2024-01-29 10:31:19.824",
-        "resultsUpdated": "2024-02-03 13:16:07.214",
+        "updated": "2024-02-05 20:48:42.934",
+        "structureUpdated": "2024-02-05 20:48:42.934",
+        "resultsUpdated": "2024-02-05 20:47:54.057",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -5422,9 +5422,9 @@
         "name": "U13 weiblich",
         "shortName": "U13w",
         "type": "SuperCompetition",
-        "updated": "2024-01-29 09:57:44.506",
+        "updated": "2024-02-05 20:40:12.623",
         "structureUpdated": "2024-01-26 16:21:59.585",
-        "resultsUpdated": "2024-01-29 09:57:44.506",
+        "resultsUpdated": "2024-02-05 20:40:12.623",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -5910,9 +5910,9 @@
         "name": "U13 weiblich 4. Spieltag Landesliga",
         "shortName": "U13w_ll4",
         "type": "Competition",
-        "updated": "2024-01-27 16:42:17.338",
+        "updated": "2024-02-05 20:40:12.623",
         "structureUpdated": "2024-01-11 11:19:50.563",
-        "resultsUpdated": "2024-01-27 16:42:17.338",
+        "resultsUpdated": "2024-02-05 20:40:12.623",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -5971,9 +5971,9 @@
         "name": "U14 männlich",
         "shortName": "U14m",
         "type": "SuperCompetition",
-        "updated": "2024-02-04 16:16:59.432",
-        "structureUpdated": "2024-02-04 09:19:48.784",
-        "resultsUpdated": "2024-02-04 16:16:59.432",
+        "updated": "2024-02-05 19:56:52.938",
+        "structureUpdated": "2024-02-05 19:56:52.938",
+        "resultsUpdated": "2024-02-05 09:51:49.413",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -6398,8 +6398,8 @@
         "name": "U14 männlich 4. Spieltag Verbandsliga",
         "shortName": "U14m_vl4",
         "type": "Competition",
-        "updated": "2024-02-04 09:19:48.784",
-        "structureUpdated": "2024-01-22 10:27:57.443",
+        "updated": "2024-02-05 19:56:52.938",
+        "structureUpdated": "2024-02-05 19:56:52.938",
         "resultsUpdated": "2024-01-22 10:26:20.828",
         "season": {
           "id": "25640073",
@@ -6520,9 +6520,9 @@
         "name": "U14 männlich 5. Spieltag Verbandsliga",
         "shortName": "U14m_vl5",
         "type": "Competition",
-        "updated": "2024-02-04 15:21:21.173",
+        "updated": "2024-02-05 09:49:59.348",
         "structureUpdated": "2024-01-24 09:16:37.642",
-        "resultsUpdated": "2024-02-04 15:21:21.173",
+        "resultsUpdated": "2024-02-05 09:49:59.348",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -6581,9 +6581,9 @@
         "name": "U14 männlich 5. Spieltag Landesliga",
         "shortName": "U14m_ll5",
         "type": "Competition",
-        "updated": "2024-02-04 16:16:59.432",
-        "structureUpdated": "2024-02-03 18:33:38.409",
-        "resultsUpdated": "2024-02-04 16:16:59.432",
+        "updated": "2024-02-05 09:52:45.937",
+        "structureUpdated": "2024-02-05 09:52:45.936",
+        "resultsUpdated": "2024-02-05 09:51:49.413",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -6642,9 +6642,9 @@
         "name": "U14 weiblich",
         "shortName": "U14w",
         "type": "SuperCompetition",
-        "updated": "2024-02-04 18:09:16.677",
-        "structureUpdated": "2024-02-04 07:53:22.439",
-        "resultsUpdated": "2024-02-04 18:09:16.677",
+        "updated": "2024-02-05 14:51:39.23",
+        "structureUpdated": "2024-02-05 14:51:39.23",
+        "resultsUpdated": "2024-02-05 09:18:11.977",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -6703,7 +6703,7 @@
         "name": "U14 weiblich 1. Spieltag Verbandsliga",
         "shortName": "U14w_vl1",
         "type": "Competition",
-        "updated": "2024-02-02 10:54:38.756",
+        "updated": "2024-02-05 14:51:39.23",
         "structureUpdated": "2023-11-11 11:59:29.002",
         "resultsUpdated": "2023-10-10 08:55:16.9",
         "season": {
@@ -6947,7 +6947,7 @@
         "name": "U14 weiblich 2. Spieltag Landesliga",
         "shortName": "U14w_ll2",
         "type": "Competition",
-        "updated": "2024-02-02 09:45:19.088",
+        "updated": "2024-02-05 14:51:39.23",
         "structureUpdated": "2023-11-02 18:02:20.622",
         "resultsUpdated": "2023-11-11 11:53:04.468",
         "season": {
@@ -7191,7 +7191,7 @@
         "name": "U14 weiblich 3. Spieltag Bezirksliga",
         "shortName": "U14w_bl3",
         "type": "Competition",
-        "updated": "2024-02-02 13:39:38.143",
+        "updated": "2024-02-05 14:51:39.23",
         "structureUpdated": "2023-11-20 09:52:20.761",
         "resultsUpdated": "2023-12-05 18:09:50.084",
         "season": {
@@ -7313,8 +7313,8 @@
         "name": "U14 weiblich 4. Spieltag Landesliga",
         "shortName": "U14w_ll4",
         "type": "Competition",
-        "updated": "2024-02-04 07:53:22.439",
-        "structureUpdated": "2024-01-20 19:19:29.86",
+        "updated": "2024-02-05 09:27:57.05",
+        "structureUpdated": "2024-02-05 09:27:57.05",
         "resultsUpdated": "2024-01-20 19:12:48.324",
         "season": {
           "id": "25640073",
@@ -7374,7 +7374,7 @@
         "name": "U14 weiblich 4. Spieltag Bezirksliga",
         "shortName": "U14w_bl4",
         "type": "Competition",
-        "updated": "2024-02-01 13:09:47.013",
+        "updated": "2024-02-05 14:51:39.23",
         "structureUpdated": "2024-01-19 17:49:33.685",
         "resultsUpdated": "2024-01-20 19:07:52.266",
         "season": {
@@ -7435,9 +7435,9 @@
         "name": "U14 weiblich 5. Spieltag Verbandsliga",
         "shortName": "U14w_vl5",
         "type": "Competition",
-        "updated": "2024-02-04 16:07:49.417",
+        "updated": "2024-02-05 09:03:17.229",
         "structureUpdated": "2024-01-29 09:42:58.248",
-        "resultsUpdated": "2024-02-04 16:07:49.417",
+        "resultsUpdated": "2024-02-05 09:03:17.229",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -7496,9 +7496,9 @@
         "name": "U14 weiblich 5. Spieltag Landesliga",
         "shortName": "U14w_ll5",
         "type": "Competition",
-        "updated": "2024-02-04 18:09:16.677",
-        "structureUpdated": "2024-01-29 09:43:07.943",
-        "resultsUpdated": "2024-02-04 18:09:16.677",
+        "updated": "2024-02-05 14:51:39.23",
+        "structureUpdated": "2024-02-05 09:27:00.272",
+        "resultsUpdated": "2024-02-05 09:14:12.386",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -7557,9 +7557,9 @@
         "name": "U14 weiblich 5. Spieltag Bezirksliga",
         "shortName": "U14w_bl5",
         "type": "Competition",
-        "updated": "2024-02-04 14:16:59.102",
-        "structureUpdated": "2024-01-29 09:43:14.755",
-        "resultsUpdated": "2024-02-04 14:16:59.102",
+        "updated": "2024-02-05 09:27:25.655",
+        "structureUpdated": "2024-02-05 09:27:25.654",
+        "resultsUpdated": "2024-02-05 09:18:11.977",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -7618,9 +7618,70 @@
         "name": "U15 weiblich",
         "shortName": "U15w",
         "type": "SuperCompetition",
-        "updated": "2024-02-03 15:32:13.961",
-        "structureUpdated": "2024-02-02 11:36:55.442",
-        "resultsUpdated": "2024-02-03 15:32:13.961",
+        "updated": "2024-02-05 20:02:23.037",
+        "structureUpdated": "2024-02-05 20:02:23.037",
+        "resultsUpdated": "2024-02-05 19:59:56.823",
+        "season": {
+          "id": "25640073",
+          "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+          "name": "2023/24"
+        },
+        "hierarchy": {
+          "id": "25750839",
+          "uuid": "6dd94fb5-8dbd-4b7b-9c12-fa93599c41c6",
+          "name": "U15",
+          "shortName": "U15",
+          "hierarchyLevel": "4"
+        },
+        "fullHierarchy": {
+          "hierarchy": [
+            {
+              "id": "25750839",
+              "name": "U15",
+              "shortName": "U15",
+              "hierarchyLevel": "4"
+            },
+            {
+              "id": "25749980",
+              "name": "NVV-Jugendmeisterschaften",
+              "shortName": "nvv_jm",
+              "hierarchyLevel": "3"
+            },
+            {
+              "id": "25749343",
+              "name": "Regionaljugendmeisterschaften",
+              "shortName": "rjm",
+              "hierarchyLevel": "2"
+            },
+            {
+              "id": "25749342",
+              "name": "Deutsche Jugendmeisterschaften",
+              "shortName": "djm",
+              "hierarchyLevel": "1"
+            },
+            {
+              "id": "25749341",
+              "name": "Jugendspielbetrieb",
+              "shortName": "jug",
+              "hierarchyLevel": "0"
+            }
+          ]
+        },
+        "association": {
+          "name": "Nordbadischer Volleyball-Verband",
+          "shortName": "NVV"
+        }
+      },
+      {
+        "id": "25750846",
+        "uuid": "778a2d32-b598-4ff0-9b26-ba903e860011",
+        "allSeasonId": "6b1cbf79-cf4c-4cd8-8b89-e3c98fb8e8b0",
+        "name": "U15 weiblich 1. Spieltag Verbandsliga",
+        "shortName": "U15w_vl1",
+        "type": "Competition",
+        "updated": "2024-02-05 20:02:23.04",
+        "structureUpdated": "2024-02-05 20:02:23.037",
+        "resultsUpdated": "2023-11-02 18:38:07.826",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -7984,9 +8045,9 @@
         "name": "U15 weiblich 4. Spieltag Verbandsliga",
         "shortName": "U15w_vl4",
         "type": "Competition",
-        "updated": "2024-02-03 15:32:13.961",
+        "updated": "2024-02-05 19:59:56.823",
         "structureUpdated": "2024-01-30 13:58:12.449",
-        "resultsUpdated": "2024-02-03 15:32:13.961",
+        "resultsUpdated": "2024-02-05 19:59:56.823",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -8045,9 +8106,9 @@
         "name": "U16 männlich",
         "shortName": "U16m",
         "type": "SuperCompetition",
-        "updated": "2024-02-03 15:46:04.954",
+        "updated": "2024-02-05 19:41:18.849",
         "structureUpdated": "2024-02-03 06:34:08.112",
-        "resultsUpdated": "2024-02-03 15:46:04.954",
+        "resultsUpdated": "2024-02-05 19:41:18.849",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -8289,9 +8350,9 @@
         "name": "U16 männlich 4. Spieltag Verbandsliga",
         "shortName": "U16m_vl4",
         "type": "Competition",
-        "updated": "2024-02-03 15:46:04.954",
+        "updated": "2024-02-05 19:41:18.849",
         "structureUpdated": "2024-01-24 09:33:11.154",
-        "resultsUpdated": "2024-02-03 15:46:04.954",
+        "resultsUpdated": "2024-02-05 19:41:18.849",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -8350,9 +8411,9 @@
         "name": "U16 männlich - Landesmeisterschaft",
         "shortName": "U16m_lm",
         "type": "Competition",
-        "updated": "2024-02-03 16:45:30.577",
+        "updated": "2024-02-05 19:40:52.575",
         "structureUpdated": "2024-01-24 09:33:17.491",
-        "resultsUpdated": "2024-02-03 16:45:30.577",
+        "resultsUpdated": "2024-02-05 19:40:52.575",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -8411,9 +8472,9 @@
         "name": "U16 weiblich",
         "shortName": "U16w",
         "type": "SuperCompetition",
-        "updated": "2024-02-04 14:18:22.118",
-        "structureUpdated": "2024-02-03 18:16:25.626",
-        "resultsUpdated": "2024-02-04 14:18:22.118",
+        "updated": "2024-02-05 19:53:56.277",
+        "structureUpdated": "2024-02-05 19:53:56.277",
+        "resultsUpdated": "2024-02-05 19:52:13.06",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -8838,8 +8899,8 @@
         "name": "U16 weiblich 3. Spieltag Verbandsliga",
         "shortName": "U16w_vl3",
         "type": "Competition",
-        "updated": "2024-02-02 23:17:09.994",
-        "structureUpdated": "2024-01-22 17:28:24.884",
+        "updated": "2024-02-05 19:53:56.278",
+        "structureUpdated": "2024-02-05 19:53:56.277",
         "resultsUpdated": "2024-01-21 16:58:16.807",
         "season": {
           "id": "25640073",
@@ -8899,8 +8960,8 @@
         "name": "U16 weiblich 3. Spieltag Landesliga",
         "shortName": "U16w_ll3",
         "type": "Competition",
-        "updated": "2024-02-02 10:44:36.077",
-        "structureUpdated": "2024-01-22 17:33:28.153",
+        "updated": "2024-02-05 19:53:37.04",
+        "structureUpdated": "2024-02-05 19:53:37.04",
         "resultsUpdated": "2024-01-21 17:31:50.926",
         "season": {
           "id": "25640073",
@@ -9021,9 +9082,9 @@
         "name": "U16 weiblich 4. Spieltag Verbandsliga",
         "shortName": "U16w_vl4",
         "type": "Competition",
-        "updated": "2024-02-04 14:18:22.118",
+        "updated": "2024-02-05 19:52:13.06",
         "structureUpdated": "2024-01-24 09:23:01.816",
-        "resultsUpdated": "2024-02-04 14:18:22.118",
+        "resultsUpdated": "2024-02-05 19:52:13.06",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -9082,9 +9143,9 @@
         "name": "U16 weiblich 4. Spieltag Landesliga",
         "shortName": "U16w_ll4",
         "type": "Competition",
-        "updated": "2024-02-03 17:48:46.256",
+        "updated": "2024-02-05 19:48:48.548",
         "structureUpdated": "2024-02-01 16:13:02.397",
-        "resultsUpdated": "2024-02-03 17:48:46.256",
+        "resultsUpdated": "2024-02-05 19:48:48.548",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -9204,9 +9265,9 @@
         "name": "U16 weiblich Quattro",
         "shortName": "U16wq",
         "type": "SuperCompetition",
-        "updated": "2024-02-03 17:41:39.14",
+        "updated": "2024-02-05 20:34:37.255",
         "structureUpdated": "2024-02-03 17:41:39.14",
-        "resultsUpdated": "2024-02-03 17:38:04.321",
+        "resultsUpdated": "2024-02-05 20:34:37.255",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -9753,9 +9814,9 @@
         "name": "U16 weiblich Quattro 4. Spieltag Verbandsliga",
         "shortName": "U16wq_vl4",
         "type": "Competition",
-        "updated": "2024-02-03 17:24:26.235",
+        "updated": "2024-02-05 20:34:37.255",
         "structureUpdated": "2024-02-02 08:29:27.158",
-        "resultsUpdated": "2024-02-03 17:24:26.235",
+        "resultsUpdated": "2024-02-05 20:34:37.255",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -9814,9 +9875,9 @@
         "name": "U16 weiblich Quattro 4. Spieltag Landesliga",
         "shortName": "U16wq_ll4",
         "type": "Competition",
-        "updated": "2024-02-03 17:41:39.14",
+        "updated": "2024-02-05 20:29:49.304",
         "structureUpdated": "2024-02-03 17:26:37.748",
-        "resultsUpdated": "2024-02-03 17:38:04.321",
+        "resultsUpdated": "2024-02-05 20:29:49.304",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -9875,9 +9936,9 @@
         "name": "U18 männlich",
         "shortName": "U18m",
         "type": "SuperCompetition",
-        "updated": "2024-02-04 17:41:20.297",
-        "structureUpdated": "2024-02-04 10:54:01.491",
-        "resultsUpdated": "2024-02-04 17:41:20.297",
+        "updated": "2024-02-05 09:46:47.757",
+        "structureUpdated": "2024-02-05 08:59:21.357",
+        "resultsUpdated": "2024-02-05 09:46:47.757",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -10363,8 +10424,8 @@
         "name": "U18 männlich 3. Spieltag Landesliga",
         "shortName": "U18m_ll3",
         "type": "Competition",
-        "updated": "2024-02-04 08:56:55.247",
-        "structureUpdated": "2023-12-12 18:42:11.736",
+        "updated": "2024-02-05 08:56:50.196",
+        "structureUpdated": "2024-02-05 08:56:50.196",
         "resultsUpdated": "2023-12-04 18:59:04.655",
         "season": {
           "id": "25640073",
@@ -10424,8 +10485,8 @@
         "name": "U18 männlich 3. Spieltag Bezirksliga",
         "shortName": "U18m_bl3",
         "type": "Competition",
-        "updated": "2024-02-02 14:44:34.548",
-        "structureUpdated": "2023-12-12 18:44:24.418",
+        "updated": "2024-02-05 08:57:23.208",
+        "structureUpdated": "2024-02-05 08:57:23.208",
         "resultsUpdated": "2023-12-12 18:35:12.849",
         "season": {
           "id": "25640073",
@@ -10485,9 +10546,9 @@
         "name": "U18 männlich 4. Spieltag Verbandsliga",
         "shortName": "U18m_vl4",
         "type": "Competition",
-        "updated": "2024-02-04 17:38:18.958",
+        "updated": "2024-02-05 08:46:28.975",
         "structureUpdated": "2024-01-24 09:34:38.211",
-        "resultsUpdated": "2024-02-04 17:38:18.958",
+        "resultsUpdated": "2024-02-05 08:46:28.975",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -10546,9 +10607,9 @@
         "name": "U18 männlich 4. Spieltag Landesliga",
         "shortName": "U18m_ll4",
         "type": "Competition",
-        "updated": "2024-02-04 17:41:20.297",
-        "structureUpdated": "2024-02-04 08:26:20.932",
-        "resultsUpdated": "2024-02-04 17:41:20.297",
+        "updated": "2024-02-05 08:59:21.357",
+        "structureUpdated": "2024-02-05 08:59:21.357",
+        "resultsUpdated": "2024-02-05 08:48:53.304",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -10607,9 +10668,9 @@
         "name": "U18 männlich 4. Spieltag Bezirksliga",
         "shortName": "U18m_bl4",
         "type": "Competition",
-        "updated": "2024-02-04 16:10:14.829",
+        "updated": "2024-02-05 09:46:47.757",
         "structureUpdated": "2024-02-04 10:54:01.491",
-        "resultsUpdated": "2024-02-04 16:10:14.829",
+        "resultsUpdated": "2024-02-05 09:46:47.757",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -10668,9 +10729,9 @@
         "name": "U18 weiblich",
         "shortName": "U18w",
         "type": "SuperCompetition",
-        "updated": "2024-02-04 17:22:48.056",
-        "structureUpdated": "2024-02-04 09:57:56.648",
-        "resultsUpdated": "2024-02-04 17:22:48.056",
+        "updated": "2024-02-05 08:39:51.726",
+        "structureUpdated": "2024-02-05 08:39:51.726",
+        "resultsUpdated": "2024-02-05 08:25:20.034",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -11461,8 +11522,8 @@
         "name": "U18 weiblich 3. Spieltag Verbandsliga",
         "shortName": "U18w_vl3",
         "type": "Competition",
-        "updated": "2024-02-04 09:35:46.567",
-        "structureUpdated": "2023-12-03 09:09:52.587",
+        "updated": "2024-02-05 08:28:36.856",
+        "structureUpdated": "2024-02-05 08:28:36.856",
         "resultsUpdated": "2023-12-03 09:05:28.418",
         "season": {
           "id": "25640073",
@@ -11522,8 +11583,8 @@
         "name": "U18 weiblich 3. Spieltag Landesliga 1",
         "shortName": "U18w_ll1_st3",
         "type": "Competition",
-        "updated": "2024-02-03 22:12:32.711",
-        "structureUpdated": "2023-12-03 09:15:50.946",
+        "updated": "2024-02-05 08:29:04.531",
+        "structureUpdated": "2024-02-05 08:29:04.531",
         "resultsUpdated": "2023-12-03 09:04:46.73",
         "season": {
           "id": "25640073",
@@ -11705,8 +11766,8 @@
         "name": "U18 weiblich 3. Spieltag Bezirksliga 2",
         "shortName": "U18w_bl2_st3",
         "type": "Competition",
-        "updated": "2024-02-04 09:22:17.839",
-        "structureUpdated": "2023-12-03 09:17:33.268",
+        "updated": "2024-02-05 08:29:34.959",
+        "structureUpdated": "2024-02-05 08:29:34.959",
         "resultsUpdated": "2023-12-03 08:56:27.277",
         "season": {
           "id": "25640073",
@@ -11827,9 +11888,9 @@
         "name": "U18 weiblich 4. Spieltag Verbandsliga",
         "shortName": "U18w_vl4",
         "type": "Competition",
-        "updated": "2024-02-04 17:22:48.056",
+        "updated": "2024-02-05 08:15:31.902",
         "structureUpdated": "2024-02-01 16:15:59.521",
-        "resultsUpdated": "2024-02-04 17:22:48.056",
+        "resultsUpdated": "2024-02-05 08:15:31.902",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -11888,9 +11949,9 @@
         "name": "U18 weiblich 4. Spieltag Landesliga 1",
         "shortName": "U18w_ll1_st4",
         "type": "Competition",
-        "updated": "2024-02-04 16:02:16.023",
-        "structureUpdated": "2024-01-25 17:37:13.149",
-        "resultsUpdated": "2024-02-04 16:02:16.023",
+        "updated": "2024-02-05 08:36:45.872",
+        "structureUpdated": "2024-02-05 08:36:45.871",
+        "resultsUpdated": "2024-02-05 08:25:20.034",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -11949,9 +12010,9 @@
         "name": "U18 weiblich 4. Spieltag Landesliga 2",
         "shortName": "U18w_ll2_st4",
         "type": "Competition",
-        "updated": "2024-02-04 16:14:20.589",
-        "structureUpdated": "2024-01-25 17:35:32.199",
-        "resultsUpdated": "2024-02-04 16:14:20.589",
+        "updated": "2024-02-05 08:38:29.107",
+        "structureUpdated": "2024-02-05 08:38:29.106",
+        "resultsUpdated": "2024-02-05 08:23:11.802",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -12010,9 +12071,9 @@
         "name": "U18 weiblich 4. Spieltag Bezirksliga 1",
         "shortName": "U18w_bl1_st4",
         "type": "Competition",
-        "updated": "2024-02-04 16:30:26.684",
+        "updated": "2024-02-05 08:17:43.599",
         "structureUpdated": "2024-02-04 09:30:16.142",
-        "resultsUpdated": "2024-02-04 16:30:26.684",
+        "resultsUpdated": "2024-02-05 08:17:43.599",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -12071,9 +12132,9 @@
         "name": "U18 weiblich 4. Spieltag Bezirksliga 2",
         "shortName": "U18w_bl2_st4",
         "type": "Competition",
-        "updated": "2024-02-04 17:11:11.106",
+        "updated": "2024-02-05 08:14:38.315",
         "structureUpdated": "2024-01-25 17:38:01.46",
-        "resultsUpdated": "2024-02-04 17:11:11.106",
+        "resultsUpdated": "2024-02-05 08:14:38.315",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -12132,9 +12193,9 @@
         "name": "U18 weiblich 4. Spieltag Bezirksliga 3",
         "shortName": "U18w_bl3_st4",
         "type": "Competition",
-        "updated": "2024-02-04 16:54:12.498",
-        "structureUpdated": "2024-02-01 16:17:21.678",
-        "resultsUpdated": "2024-02-04 16:54:12.498",
+        "updated": "2024-02-05 08:39:51.727",
+        "structureUpdated": "2024-02-05 08:39:51.726",
+        "resultsUpdated": "2024-02-05 08:16:00.534",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -13639,6 +13700,61 @@
         }
       },
       {
+        "id": "25749884",
+        "uuid": "925e68c5-21f9-4165-b92e-ffeb68d07776",
+        "allSeasonId": "08fb8be1-939e-4a4e-bafa-a3cc928c1ba6",
+        "name": "SBVV - U16 männlich am 2.3.2024",
+        "shortName": "sbvv-u16m",
+        "type": "Competition",
+        "updated": "2024-02-05 10:24:54.779",
+        "structureUpdated": "2024-02-05 10:24:54.779",
+        "resultsUpdated": "2023-02-25 17:48:44.742",
+        "season": {
+          "id": "25640073",
+          "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+          "name": "2023/24"
+        },
+        "hierarchy": {
+          "id": "25749344",
+          "uuid": "334935bb-d44e-4005-aca6-15e06f91781b",
+          "name": "SBVV-Jugendmeisterschaften",
+          "shortName": "sbvv_jm",
+          "hierarchyLevel": "3"
+        },
+        "fullHierarchy": {
+          "hierarchy": [
+            {
+              "id": "25749344",
+              "name": "SBVV-Jugendmeisterschaften",
+              "shortName": "sbvv_jm",
+              "hierarchyLevel": "3"
+            },
+            {
+              "id": "25749343",
+              "name": "Regionaljugendmeisterschaften",
+              "shortName": "rjm",
+              "hierarchyLevel": "2"
+            },
+            {
+              "id": "25749342",
+              "name": "Deutsche Jugendmeisterschaften",
+              "shortName": "djm",
+              "hierarchyLevel": "1"
+            },
+            {
+              "id": "25749341",
+              "name": "Jugendspielbetrieb",
+              "shortName": "jug",
+              "hierarchyLevel": "0"
+            }
+          ]
+        },
+        "association": {
+          "name": null,
+          "shortName": null
+        }
+      },
+      {
         "id": "25749854",
         "uuid": "938c7b32-326b-4c4f-a450-197fc8e44fb3",
         "allSeasonId": "5cd92285-fedb-474e-ae90-16f666bcab5e",
@@ -13700,7 +13816,7 @@
         "name": "SBVV - U18 männlich am 4.02.2024",
         "shortName": "sbvv-u18m",
         "type": "Competition",
-        "updated": "2024-02-04 18:19:06.337",
+        "updated": "2024-02-05 08:49:49.52",
         "structureUpdated": "2024-01-17 12:24:50.091",
         "resultsUpdated": "2024-02-04 18:19:06.337",
         "season": {
@@ -14835,7 +14951,7 @@
         "name": "U18 männlich - Quali 1 am 26.11.23",
         "shortName": "Q1_U18_m",
         "type": "Competition",
-        "updated": "2024-02-03 17:38:18.81",
+        "updated": "2024-02-05 08:49:49.52",
         "structureUpdated": "2023-11-29 07:05:40.787",
         "resultsUpdated": "2023-11-29 07:00:56.851",
         "season": {
@@ -15738,8 +15854,8 @@
         "name": "Verbandsliga Mixed",
         "shortName": "VLM",
         "type": "League",
-        "updated": "2024-01-31 09:50:07.231",
-        "structureUpdated": "2024-01-26 10:15:48.382",
+        "updated": "2024-02-05 20:36:31.238",
+        "structureUpdated": "2024-02-05 20:36:31.238",
         "resultsUpdated": "2024-01-31 09:50:07.231",
         "season": {
           "id": "25640073",
@@ -16894,9 +17010,9 @@
         "name": "Ortenau Freizeitstaffel A",
         "shortName": "OFzA",
         "type": "League",
-        "updated": "2024-02-04 18:04:24.69",
+        "updated": "2024-02-05 16:31:03.292",
         "structureUpdated": "2023-10-06 18:19:36.951",
-        "resultsUpdated": "2024-02-04 18:04:24.69",
+        "resultsUpdated": "2024-02-05 16:31:03.292",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -16967,9 +17083,9 @@
         "name": "Ortenau Freizeitstaffel B",
         "shortName": "OFzB",
         "type": "League",
-        "updated": "2024-01-25 11:54:22.291",
+        "updated": "2024-02-05 11:29:19.052",
         "structureUpdated": "2023-11-22 07:54:08.642",
-        "resultsUpdated": "2024-01-25 11:54:22.291",
+        "resultsUpdated": "2024-02-05 11:29:19.052",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
