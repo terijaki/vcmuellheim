@@ -124,18 +124,22 @@ jobs:
 
           cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
 
-          if [ -z "$(git stage ${{ env.SOCIAL_CACHE_MATCHES }} --dry-run)" ]
+          if grep -q '"mastodon": "queued"' "data/social/matchResults.json" || grep -q '"mastodon": "new"' "data/social/matchResults.json";
           then
+            echo "social=new" >> $GITHUB_OUTPUT
+            echo "🏐 Unpublished Match Result for social detected! Queueing job."
+            echo "🏐 Unpublished Match Result for social detected! Queueing job." >> $GITHUB_STEP_SUMMARY
+            if [ -z "$(git stage ${{ env.SAMS_FOLDER }} --dry-run)" ]
+            then
+              git add ${{ env.SOCIAL_CACHE_MATCHES }}
+              git commit -m "automated deployment update"
+              git push origin --all --quiet --force
+              echo "🏐 Changes in social cache detected! Pushing to repository."
+              echo "🏐 Changes in social cache detected! Pushing to repository." >> $GITHUB_STEP_SUMMARY
+            fi
+          else
             echo "✅ No new Match Result for social."
             echo "✅ No new Match Result for social." >> $GITHUB_STEP_SUMMARY
-
-          else
-            echo "🏐 New Match Result detected! Pushing to repository."
-            git add ${{ env.SOCIAL_CACHE_MATCHES }}
-            git commit -m "automated deployment update"
-            git push origin --all --quiet --force
-            echo "social=new" >> $GITHUB_OUTPUT
-            echo "🏐 New Match Result detected! Pushing to repository." >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Process Inbox
