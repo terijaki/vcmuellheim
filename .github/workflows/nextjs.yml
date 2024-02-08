@@ -124,7 +124,7 @@ jobs:
 
           cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
 
-          if grep -q '"mastodon": "queued"' "data/social/matchResults.json" || grep -q '"mastodon": "new"' "data/social/matchResults.json";
+          if grep -q '"mastodon": "queued"' ${{ env.SOCIAL_CACHE_MATCHES }} || grep -q '"mastodon": "new"' ${{ env.SOCIAL_CACHE_MATCHES }};
           then
             echo "social=new" >> $GITHUB_OUTPUT
             echo "🏐 Unpublished Match Result for social detected! Queueing job."
