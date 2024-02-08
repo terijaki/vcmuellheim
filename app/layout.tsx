@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 		apple: "/images/icons/favicon.png",
 		other: {
 			rel: "apple-touch-icon-precomposed",
-			url: "/images/icons/app_icon_512.png",
+			url: "/images/icons/ball-512x512.png",
 		},
 	},
 	openGraph: {
