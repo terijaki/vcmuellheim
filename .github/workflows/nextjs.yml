@@ -131,6 +131,9 @@ jobs:
             echo "🏐 Unpublished Match Result for social detected! Queueing job." >> $GITHUB_STEP_SUMMARY
             if [ -z "$(git stage ${{ env.SAMS_FOLDER }} --dry-run)" ]
             then
+              echo "✅ No social cache file changes. Nothing to commit."
+              echo "✅ No social cache file changes. Nothing to commit." >> $GITHUB_STEP_SUMMARY
+            else
               git add ${{ env.SOCIAL_CACHE_MATCHES }}
               git commit -m "automated deployment update"
               git push origin --all --quiet --force
@@ -138,8 +141,8 @@ jobs:
               echo "🏐 Changes in social cache detected! Pushing to repository." >> $GITHUB_STEP_SUMMARY
             fi
           else
-            echo "✅ No new Match Result for social."
-            echo "✅ No new Match Result for social." >> $GITHUB_STEP_SUMMARY
+            echo "✅ No unpublished Match Result found."
+            echo "✅ No unpublished Match Result found." >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Process Inbox
