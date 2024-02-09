@@ -14,13 +14,13 @@ export async function generateMetadata({}, parent: ResolvingMetadata): Promise<M
 }
 
 // reference of past tournaments
-export const pastTournamentPosts = [
+const pastTournamentPosts = [
 	["data/posts/2022-07-12-unser-1.jugendturnier-schlug-voll-ein.md", "Turnier 2022"],
 	["data/posts/2023-06-21-Zweites-Internationales-Jugendturnier.md", "Turnier 2023"],
 ];
 
 // contact people for this event
-export const people = [
+const people = [
 	{ name: "Klaus Ernst", email: "klaus@vcmuellheim.de", role: "Organisator & Trainer", picture: "/images/members/klausernst.jpg" },
 	{ name: "Dominik Ernst", email: "dominik@vcmuellheim.de", role: "Organisator & Trainer", picture: "/images/members/dominikernst.jpg" },
 	{ name: "Björn Kohnen", email: "bjoern@vcmuellheim.de", role: "Vorstand", picture: "/images/members/bjoernkohnen.jpg" },
