@@ -38,7 +38,7 @@ export default function JugendturnierPage() {
 		<>
 			<PageHeading
 				subtitle="Jugendturnier 2024"
-				title="Markgräfler Taxi Cub"
+				title="3. Markgräfler Taxi Cub"
 			/>
 
 			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-3 *:overflow-hidden">
@@ -92,7 +92,9 @@ export default function JugendturnierPage() {
 
 				<h2>Was muss ich mitbringen?</h2>
 				<p>
-					Alle Teilnehmer:innen <span className="italic font-bold">müssen</span> Hallenschuhe tragen! Wir bitten darum, Essen & Trinken selbst mitzubringen und Abfälle auch selbst wieder mitzunehmen.
+					Alle Teilnehmer:innen <span className="italic font-bold">müssen</span> Hallenschuhe tragen!
+					<br />
+					Wir bitten darum, Essen & Trinken selbst mitzubringen und Abfälle auch selbst wieder mitzunehmen. Kaffee, Kuchen und ein paar Kleinigkeiten werden auf Spendenbasis als Buffet angeboten.
 				</p>
 
 				<h2>Wie kann ich uns anmelden?</h2>
@@ -106,7 +108,7 @@ export default function JugendturnierPage() {
 						https://forms.gle/KofwhKyzq8BQ9PXs6
 					</Link>
 					<br />
-					Der Anmeldeschluss ist der <b>07.06.2024</b>.
+					Der Anmeldeschluss ist der <b>31.05.2024</b>.
 				</p>
 				<p>
 					Sollten wir zu viele Anmeldungen erhalten, verteilen wir fair anhand der Anmeldezeiten und teilen zunächst 1 Mannschaft pro Verein ein. Meldet euch aber trotzdem gerne mit allen Mannschaften
@@ -114,7 +116,7 @@ export default function JugendturnierPage() {
 				</p>
 			</div>
 
-			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-3 *:overflow-hidden *:m-auto ">
+			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-3 *:overflow-hidden *:m-auto bg-black text-white">
 				<ExportedImage
 					src="images/sponsors/markgraefler_taxi.png"
 					alt={""}
@@ -126,15 +128,15 @@ export default function JugendturnierPage() {
 					<Link
 						href="https://www.mgl-taxi.de"
 						target="_blank"
-						className="text-blumine hover:text-turquoise underline underline-offset-2"
+						className="text-lion hover:text-turquoise underline underline-offset-2"
 					>
-						https://www.mgl-taxi.de
-					</Link>{" "}
-					|{" "}
+						https://mgl-taxi.de
+					</Link>
+					<span className="mx-2 opacity-30">|</span>
 					<Link
 						href="tel:+4976315588"
 						target="_blank"
-						className="text-blumine hover:text-turquoise underline underline-offset-2"
+						className="text-lion hover:text-turquoise underline underline-offset-2"
 					>
 						07631 55 88
 					</Link>
