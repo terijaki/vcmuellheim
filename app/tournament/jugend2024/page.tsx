@@ -38,7 +38,7 @@ export default function JugendturnierPage() {
 		<>
 			<PageHeading
 				subtitle="Jugendturnier 2024"
-				title="3. Markgräfler Taxi Cub"
+				title="3. Markgräfler Taxi Cup"
 			/>
 
 			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-3 *:overflow-hidden">
@@ -148,59 +148,52 @@ export default function JugendturnierPage() {
 				<h2>Bilder aus den vergangenen Jahren</h2>
 				<p className="opacity-70">zufällige Auswahl und Reihenfolge</p>
 				<div className="gallery grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-3">
-					{shuffledPastImages.map((image) => {
-						return (
-							<>
-								<div className="relative w-auto h-auto aspect-video rounded-md overflow-hidden [&:nth-child(n+5)]:hidden sm:!block">
-									<Link
-										href={image}
-										target="_blank"
-										className="group shadow-xs hover:cursor-zoom-in after:opacity-0 hover:after:opacity-100 after:absolute after:inset-0 after:h-full after:w-full after:pointer-events-none hover:after:z-10 after:border-4 after:border-dashed after:border-white after:duration-300"
-									>
-										<ExportedImage
-											src={image}
-											fill
-											alt={""}
-											className="object-cover group-hover:scale-105 transition-transform duration-700"
-										/>
-									</Link>
-								</div>
-							</>
-						);
-					})}
+					{shuffledPastImages.map((image) => (
+						<div
+							className="relative w-auto h-auto aspect-video rounded-md overflow-hidden [&:nth-child(n+5)]:hidden sm:!block"
+							key={image}
+						>
+							<Link
+								href={image}
+								target="_blank"
+								className="group shadow-xs hover:cursor-zoom-in after:opacity-0 hover:after:opacity-100 after:absolute after:inset-0 after:h-full after:w-full after:pointer-events-none hover:after:z-10 after:border-4 after:border-dashed after:border-white after:duration-300"
+							>
+								<ExportedImage
+									src={image}
+									fill
+									alt={""}
+									className="object-cover group-hover:scale-105 transition-transform duration-700"
+								/>
+							</Link>
+						</div>
+					))}
 				</div>
 				<p>
 					Weitere Bilder findet ihr in den jeweiligen Berichten:
-					{pastTournamentPosts.map((post) => {
-						return (
-							<>
-								<Link
-									href={post[0].replace("data/posts/", "../").replace(".md", "")}
-									className="text-blumine hover:text-turquoise underline underline-offset-2 ml-2"
-								>
-									<span className="whitespace-nowrap">{post[1]}</span>
-								</Link>
-							</>
-						);
-					})}
+					{pastTournamentPosts.map((post) => (
+						<Link
+							key={post[0]}
+							href={post[0].replace("data/posts/", "../").replace(".md", "")}
+							className="text-blumine hover:text-turquoise underline underline-offset-2 ml-2"
+						>
+							<span className="whitespace-nowrap">{post[1]}</span>
+						</Link>
+					))}
 				</p>
 			</div>
 
 			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-3 *:overflow-hidden">
 				<h2>Ansprechpersonen</h2>
 				<div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(160px,min-content))] sm:grid-cols-[repeat(auto-fit,minmax(200px,min-content))] justi1fy-center my-3">
-					{people.map((person) => {
-						return (
-							<>
-								<MembersCard
-									name={person.name}
-									function={person.role}
-									email={person.email}
-									avatar={person.picture}
-								></MembersCard>
-							</>
-						);
-					})}
+					{people.map((person) => (
+						<MembersCard
+							key={person.name}
+							name={person.name}
+							function={person.role}
+							email={person.email}
+							avatar={person.picture}
+						></MembersCard>
+					))}
 				</div>
 			</div>
 		</>
