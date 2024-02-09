@@ -1,7 +1,7 @@
 // Fisher–Yates Shuffle
 // https://bost.ocks.org/mike/shuffle/
 
-export function shuffleArray(array: any[]): any[] {
+export function shuffleArray(array: any[], cap?: number): any[] {
 	var m = array.length,
 		t,
 		i;
@@ -16,6 +16,8 @@ export function shuffleArray(array: any[]): any[] {
 		array[m] = array[i];
 		array[i] = t;
 	}
-
+	if (cap) {
+		return array.slice(0, cap);
+	}
 	return array;
 }
