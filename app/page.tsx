@@ -7,6 +7,7 @@ import HomeSponsors from "@/app/components/homepage/HomeSponsors";
 import HomeMembers from "@/app/components/homepage/HomeMembers";
 import HomeFotos from "@/app/components/homepage/HomeFotos";
 import HomeKontakt from "@/app/components/homepage/HomeKontakt";
+import HomeHeimturnier from "@/app/components/homepage/HomeHeimturnier";
 
 export default function Page() {
 	return (
@@ -14,6 +15,7 @@ export default function Page() {
 			<HomeIntro />
 			<HomeNews />
 			<HomeHeimspiele />
+			<HomeHeimturnier />
 			<HomeTeams />
 			<HomeSponsors />
 			<HomeMembers />
