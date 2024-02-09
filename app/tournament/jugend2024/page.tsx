@@ -176,7 +176,7 @@ export default function JugendturnierPage() {
 									href={post[0].replace("data/posts/", "../").replace(".md", "")}
 									className="text-blumine hover:text-turquoise underline underline-offset-2 ml-2"
 								>
-									{post[1]}
+									<span className="whitespace-nowrap">{post[1]}</span>
 								</Link>
 							</>
 						);
