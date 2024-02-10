@@ -23,7 +23,7 @@ export default function HeimTurnier() {
 					classes="text-white border-white"
 				/>
 				<p className="text-center text-balance">
-					Der Volleyballclub Müllheim veranstaltet dieses Jahr am Sonntag den <span className="font-bold whitespace-nowrap">16 Juli 2024</span> erneut ein internationales Jugendturnier und du bist
+					Der Volleyballclub Müllheim veranstaltet dieses Jahr am Sonntag den <span className="font-bold whitespace-nowrap">16 Juni 2024</span> erneut ein internationales Jugendturnier und du bist
 					herzlich eingeladen!
 				</p>
 				<p className="text-center">
