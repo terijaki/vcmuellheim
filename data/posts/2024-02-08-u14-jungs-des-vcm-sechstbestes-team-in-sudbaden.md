@@ -1,12 +1,14 @@
 ---
-title: 'U14 Jungs des VCM sechstbestes Team in Südbaden'
+title: U14 Jungs des VCM sechstbestes Team in Südbaden
 date: 2024-02-08T07:03:40.582Z
 gallery:
-- /images/blog/2024/02/08/20240203_133610.jpg
-- /images/blog/2024/02/08/20240203_133734.jpg
-- /images/blog/2024/02/08/20240203_134714.jpg
-- /images/blog/2024/02/08/20240203_134715.jpg
-- /images/blog/2024/02/08/20240203_162350.jpg
+  - /images/blog/2024/02/08/20240203_133610.jpg
+  - /images/blog/2024/02/08/20240203_133734.jpg
+  - /images/blog/2024/02/08/20240203_134714.jpg
+  - /images/blog/2024/02/08/20240203_134715.jpg
+  - /images/blog/2024/02/08/20240203_162350.jpg
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/111895073127027817'
 ---
 Am vergangenen Samstag durften unsere U14 Jungs als Vizequali-Meister zur Südbadischen Meisterschaft nach Radolfzell an den Bodensee fahren. Zuerst einmal das ist schon ein Riesenerfolg! 
 

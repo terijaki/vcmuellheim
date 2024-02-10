@@ -1,17 +1,19 @@
 ---
-title: 'Turnierbericht Endrunde südbadische Meisterschaft Volleyball'
+title: Turnierbericht Endrunde südbadische Meisterschaft Volleyball
 date: 2024-02-09T17:43:25.424Z
 gallery:
-- /images/blog/2024/02/09/suedbadischemeisterschaft1.jpg
-- /images/blog/2024/02/09/suedbadischemeisterschaft10.jpg
-- /images/blog/2024/02/09/suedbadischemeisterschaft2.jpg
-- /images/blog/2024/02/09/suedbadischemeisterschaft3.jpg
-- /images/blog/2024/02/09/suedbadischemeisterschaft4.jpg
-- /images/blog/2024/02/09/suedbadischemeisterschaft5.jpg
-- /images/blog/2024/02/09/suedbadischemeisterschaft6.jpg
-- /images/blog/2024/02/09/suedbadischemeisterschaft7.jpg
-- /images/blog/2024/02/09/suedbadischemeisterschaft8.jpg
-- /images/blog/2024/02/09/suedbadischemeisterschaft9.jpg
+  - /images/blog/2024/02/09/suedbadischemeisterschaft1.jpg
+  - /images/blog/2024/02/09/suedbadischemeisterschaft10.jpg
+  - /images/blog/2024/02/09/suedbadischemeisterschaft2.jpg
+  - /images/blog/2024/02/09/suedbadischemeisterschaft3.jpg
+  - /images/blog/2024/02/09/suedbadischemeisterschaft4.jpg
+  - /images/blog/2024/02/09/suedbadischemeisterschaft5.jpg
+  - /images/blog/2024/02/09/suedbadischemeisterschaft6.jpg
+  - /images/blog/2024/02/09/suedbadischemeisterschaft7.jpg
+  - /images/blog/2024/02/09/suedbadischemeisterschaft8.jpg
+  - /images/blog/2024/02/09/suedbadischemeisterschaft9.jpg
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/111903059027073085'
 ---
 Turnierbericht Endrunde südbadische Meisterschaft Volleyball
 

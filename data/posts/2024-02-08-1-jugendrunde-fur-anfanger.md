@@ -1,15 +1,17 @@
 ---
-title: '1. Jugendrunde für Anfänger'
+title: 1. Jugendrunde für Anfänger
 date: 2024-02-08T13:58:47.434Z
 gallery:
-- /images/blog/2024/02/08/jugendrunde1.jpg
-- /images/blog/2024/02/08/jugendrunde2.jpg
-- /images/blog/2024/02/08/jugendrunde3.jpg
-- /images/blog/2024/02/08/jugendrunde4.jpg
-- /images/blog/2024/02/08/jugendrunde5.jpg
-- /images/blog/2024/02/08/jugendrunde6.jpg
-- /images/blog/2024/02/08/jugendrunde7.jpg
-- /images/blog/2024/02/08/jugendrunde8.jpg
+  - /images/blog/2024/02/08/jugendrunde1.jpg
+  - /images/blog/2024/02/08/jugendrunde2.jpg
+  - /images/blog/2024/02/08/jugendrunde3.jpg
+  - /images/blog/2024/02/08/jugendrunde4.jpg
+  - /images/blog/2024/02/08/jugendrunde5.jpg
+  - /images/blog/2024/02/08/jugendrunde6.jpg
+  - /images/blog/2024/02/08/jugendrunde7.jpg
+  - /images/blog/2024/02/08/jugendrunde8.jpg
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/111896227232603782'
 ---
 Nachdem am Samstag, den 03.02.2024 unsere beiden U14 Teams (männlich in Radolfzell und weiblich in Offenburg) von der Südbadischen Meisterschaft zurück waren, ging es am Sonntag mit unseren Anfängern der Jahrgänge 2008 und jünger zum Megaturnier mit 31 Mannschaften (10 männlich und 21 weiblich) nach Zell-Weiherbach in die Ortenau.
 
