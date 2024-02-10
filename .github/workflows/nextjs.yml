@@ -278,10 +278,13 @@ jobs:
           MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
         run: npm run sams-new-results
 
-      - name: Blog Posts (WIP)
+      - name: Blog Posts
         id: blog_posts
         if: ${{ needs.build.outputs.blog_check == 'new' || github.event_name == 'workflow_dispatch' }}
-        run: echo "To be implemented."
+        env:
+          MASTODON_CLIENT_ID: ${{ secrets.MASTODON_CLIENT_ID }}
+          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+        run: npm run blog-new-posts
 
       - name: Commit Changes
         id: commit_changes
@@ -297,10 +300,22 @@ jobs:
             echo "✅ Match Results Cache file up to date." >> $GITHUB_STEP_SUMMARY
           else
             echo "🏐 Match Results Cache file modified! Pushing to repository."
+            echo "🏐 Match Results Cache file modified and pushed to repository." >> $GITHUB_STEP_SUMMARY
             git add ${{ env.SOCIAL_CACHE_MATCHES }}
             git commit -m "automated deployment update"
             git push origin --all --quiet --force
-            echo "🏐 Match Results Cache file modified and pushed to repository." >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [ -z "$(git stage ${{ env.BLOG_FOLDER }} --dry-run)" ]
+          then
+            echo "✅ Blogs posts are up to date."
+            echo "✅ Blogs posts are up to date." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "🏐 Blog posts have been modified! Pushing to repository."
+            echo "🏐 Blog posts have been modified! Pushing to repository." >> $GITHUB_STEP_SUMMARY
+            git add ${{ env.BLOG_FOLDER }}
+            git commit -m "automated deployment update"
+            git push origin --all --quiet --force
           fi
 
       - name: Github Summary
