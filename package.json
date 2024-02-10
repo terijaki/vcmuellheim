@@ -19,7 +19,7 @@
 		"sams-update-local": "tsx --env-file=.env.local --env-file=.env app/utils/sams/updateTasks.ts",
 		"sams-new-results": "tsx --env-file=.env app/utils/sams/processNewMatchResults.ts",
 		"sams-new-results-local": "tsx --env-file=.env.local --env-file=.env app/utils/sams/processNewMatchResults.ts",
-		"inbox": "tsx app/utils/inboxProcessing.ts",
+		"inbox": "tsx app/utils/blog/inboxProcessing.ts",
 		"blog-new-posts": "tsx --env-file=.env app/utils/blog/shareNewPosts.ts",
 		"blog-new-posts-local": "tsx --env-file=.env.local --env-file=.env app/utils/blog/shareNewPosts.ts"
 	},
