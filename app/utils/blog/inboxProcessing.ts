@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { writeToSummary } from "./github/actionSummary";
+import { writeToSummary } from "@/app/utils/github/actionSummary";
 
 const INBOX_FOLDER = "inbox",
 	IMAGE_FOLDER = "public/images/blog",
