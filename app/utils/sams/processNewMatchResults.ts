@@ -36,7 +36,7 @@ if (fs.existsSync(CACHE_FILE)) {
 
 				// check if the status has already been posted ❗️ this time range should be larger than the filter
 				const checkDateRange = new Date(filterDateRange.setMonth(filterDateRange.getMonth() - 1)); // 1 month older than the filter
-				const checkStatusExistance = await mastodonSearchStatus(message); // this will be the message
+				const checkStatusExistance = await mastodonSearchStatus(message); // this is so we can avoid duplicates
 				if (checkStatusExistance.status == 200) {
 					checkStatusExistance.response.map((response) => {
 						// exclude old statuses as the same message may happen in the first/second half of the season or even years later
