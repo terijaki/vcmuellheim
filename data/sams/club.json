@@ -1193,8 +1193,8 @@
             "name": "West Quali - U16w am 3.12.2023",
             "shortName": "WQ_U16w",
             "type": "Competition",
-            "updated": "2023-12-04 09:22:49.199",
-            "structureUpdated": "2023-12-04 09:22:49.199",
+            "updated": "2024-02-11 11:11:49.727",
+            "structureUpdated": "2024-02-11 11:11:49.727",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
@@ -1284,7 +1284,7 @@
             "name": "U16 weiblich - Quali 2 am 3.12.23",
             "shortName": "Q2_U16_w",
             "type": "Competition",
-            "updated": "2023-12-03 16:28:36.962",
+            "updated": "2024-02-11 11:11:49.727",
             "structureUpdated": "2023-11-29 12:59:46.055",
             "resultsUpdated": "2023-12-03 16:28:36.962",
             "season": {
@@ -1369,7 +1369,7 @@
             "name": "SBVV - U16 weiblich am 2.3.2024",
             "shortName": "sbvv-u16w",
             "type": "Competition",
-            "updated": "2024-01-17 12:25:45.933",
+            "updated": "2024-02-11 11:11:49.727",
             "structureUpdated": "2024-01-17 12:25:45.933",
             "resultsUpdated": "2023-02-25 18:27:43.984",
             "season": {
