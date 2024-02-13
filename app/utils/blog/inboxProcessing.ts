@@ -80,7 +80,7 @@ export function inboxProcessing() {
 					fs.renameSync(image[0], image[1]); // moves the image from its old location to the new location
 				});
 				fs.rmSync(path.join(INBOX_FOLDER, document));
-				let message = "✅ Processed " + documents.length + " blog post: " + '"' + title + '"';
+				let message = "📑 Processed " + documents.length + " blog post: " + '"' + title + '"';
 				if (images.size > 0) {
 					message = message.replace("blog post:", "blog post with " + images.size + " images:");
 				}
