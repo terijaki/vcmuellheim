@@ -1,15 +1,17 @@
 ---
-title: 'Damen I Testspiel gegen TV Hartheim'
+title: Damen I Testspiel gegen TV Hartheim
 date: 2024-02-13T18:59:48.520Z
 gallery:
-- /images/blog/2024/02/13/img-20240207-wa0015.jpg
-- /images/blog/2024/02/13/img-20240207-wa0032.jpg
-- /images/blog/2024/02/13/img-20240207-wa0047.jpg
-- /images/blog/2024/02/13/img-20240207-wa0048.jpg
-- /images/blog/2024/02/13/img-20240207-wa0059.jpg
-- /images/blog/2024/02/13/img-20240207-wa0070.jpg
-- /images/blog/2024/02/13/img-20240207-wa0077.jpg
-- /images/blog/2024/02/13/img-20240207-wa0083.jpg
+  - /images/blog/2024/02/13/img-20240207-wa0015.jpg
+  - /images/blog/2024/02/13/img-20240207-wa0032.jpg
+  - /images/blog/2024/02/13/img-20240207-wa0047.jpg
+  - /images/blog/2024/02/13/img-20240207-wa0048.jpg
+  - /images/blog/2024/02/13/img-20240207-wa0059.jpg
+  - /images/blog/2024/02/13/img-20240207-wa0070.jpg
+  - /images/blog/2024/02/13/img-20240207-wa0077.jpg
+  - /images/blog/2024/02/13/img-20240207-wa0083.jpg
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/111925783011456859'
 ---
 Am 07.02.24 durfte unsere Damen I abends um 20 Uhr den TV Hartheim zu einem schon länger ausgemachten Testspiel begrüßen. Ein Dank geht an die Mädels von Damen II, die ihr Training rechtzeitig beendeten und schon alles aufgebaut hatten. 
 
