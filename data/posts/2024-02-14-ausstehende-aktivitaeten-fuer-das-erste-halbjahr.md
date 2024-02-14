@@ -1,6 +1,8 @@
 ---
 title: Ausstehende Aktivitäten für das erste Halbjahr
 date: 2024-02-14T14:00:00.000Z
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/111930093412720184'
 ---
 
 Viele Vereinsaktivitäten verlaufen parallel in unterschiedlicher Geschwindigkeit und Sichtbarkeit voran. Wir möchten euch daher über folgende Themen informieren:
