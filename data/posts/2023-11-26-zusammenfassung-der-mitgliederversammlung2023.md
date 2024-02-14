@@ -9,7 +9,7 @@ In diesen Beitrag möchten wir die Ergebnisse der Mitgliederversammlung vom 15.1
 - Wahl des Vorstands,
 - Anpassung der Mitgliedsbeiträge.
 
-Diverse Anträge, der Bericht des Kassiers und dem Verlauf der Versammlung können dem <a href="/docs/Protokoll-der-Mitgliederversammlung-des-VC-Muellheim-151123.pdf">Protokoll</a> _(verfügbar bis 31.12.2023)_ entnommen werden.
+Diverse Anträge, der Bericht des Kassiers und dem Verlauf der Versammlung können dem <a href="#">Protokoll</a> _(verfügbar bis 31.12.2023)_ entnommen werden.
 
 ## Begrüßung & Rückblick Einleitung
 
@@ -30,7 +30,7 @@ Lothar Voigt nannte noch weitere Aktivitäten: den [Besuch der Volleyballer aus 
 Aufgrund rechtlicher Änderungen musste die veraltete Satzung geändert werden. Zur Vorlage wurde eine rechtlich überprüfte Mustersatzung des Badischen Sportbundes verwendet. Es wurde darauf hingewiesen, dass eine neue Satzung die Zustimmung von 75% der stimmberechtigten anwesenden Mitgliedern benötige. Der Vorstand hatte sie im Vorfeld auf der Homepage veröffentlicht, um den Mitgliedern die Möglichkeit zu Änderungsanträgen zu geben.
 
 Details zu den Diskussionsüunkten kann dem Protokoll entnommen werden.  
-Die neue [Satzung](/satzung/) wurde auf der Webseite eingepflegt und kann wie zuvor über die Fußzeile erreicht werden.
+Die neue [Satzung](/satzung) wurde auf der Webseite eingepflegt und kann wie zuvor über die Fußzeile erreicht werden.
 
 ## Wahl des Vorstands
 
