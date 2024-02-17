@@ -21,6 +21,8 @@
 		"sams-new-results-local": "tsx --env-file=.env.local --env-file=.env app/utils/sams/processNewMatchResults.ts",
 		"sams-clubs-all": "tsx --env-file=.env app/utils/sams/getClubsAllData.ts",
 		"sams-clubs-all-local": "tsx --env-file=.env.local --env-file=.env app/utils/sams/getClubsAllData.ts",
+		"sams-clubs-logo": "tsx --env-file=.env app/utils/sams/getClubLogo.ts",
+		"sams-clubs-logo-local": "tsx --env-file=.env.local --env-file=.env app/utils/sams/getClubLogo.ts",
 		"inbox": "tsx app/utils/blog/inboxProcessing.ts",
 		"blog-new-posts": "tsx --env-file=.env app/utils/blog/shareNewPosts.ts",
 		"blog-new-posts-local": "tsx --env-file=.env.local --env-file=.env app/utils/blog/shareNewPosts.ts"
@@ -31,6 +33,7 @@
 		"markdown-to-jsx": "^7.3.2",
 		"next": "14.0.3",
 		"next-image-export-optimizer": "^1.11.0",
+		"nodejs-file-downloader": "^4.12.1",
 		"num-words-de": "^1.1.0",
 		"react": "^18",
 		"react-dom": "^18",
