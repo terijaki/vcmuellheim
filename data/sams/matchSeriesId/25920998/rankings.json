@@ -7,9 +7,9 @@
       "name": "Bezirksliga Herren Süd",
       "shortName": "bzl s h",
       "type": "League",
-      "updated": "2024-02-15 21:48:38.511",
+      "updated": "2024-02-17 15:32:49.147",
       "structureUpdated": "2024-02-15 21:48:38.511",
-      "resultsUpdated": "2024-02-12 16:37:50.284",
+      "resultsUpdated": "2024-02-17 15:32:49.147",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -256,6 +256,62 @@
       },
       {
         "team": {
+          "id": "25921027",
+          "uuid": "942d49a1-3092-47ed-afce-dc8421e83204",
+          "name": "VBG Efringen-Kirchen 1",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VBG Efringen-Kirchen",
+            "shortName": null
+          }
+        },
+        "place": "4",
+        "matchesPlayed": "9",
+        "wins": "5",
+        "losses": "4",
+        "points": "16",
+        "setPoints": "17:14",
+        "setWinScore": "17",
+        "setLoseScore": "14",
+        "setPointDifference": "3",
+        "setQuotient": "1,214",
+        "ballPoints": "694:689",
+        "ballWinScore": "694",
+        "ballLoseScore": "689",
+        "ballPointDifference": "5",
+        "ballQuotient": "1,007",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "3"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "3"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "25921012",
           "uuid": "02fedd2b-b788-495f-a13f-c0c9b5dbb4d1",
           "name": "TV Staufen 2",
@@ -266,7 +322,7 @@
             "shortName": null
           }
         },
-        "place": "4",
+        "place": "5",
         "matchesPlayed": "10",
         "wins": "5",
         "losses": "5",
@@ -322,86 +378,30 @@
             "shortName": null
           }
         },
-        "place": "5",
-        "matchesPlayed": "10",
-        "wins": "4",
-        "losses": "6",
-        "points": "14",
-        "setPoints": "19:19",
-        "setWinScore": "19",
-        "setLoseScore": "19",
-        "setPointDifference": "0",
-        "setQuotient": "1,000",
-        "ballPoints": "832:832",
-        "ballWinScore": "832",
-        "ballLoseScore": "832",
-        "ballPointDifference": "0",
-        "ballQuotient": "1,000",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "3"
-            },
-            {
-              "result": "3:1",
-              "count": "1"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "2"
-            },
-            {
-              "result": "1:3",
-              "count": "3"
-            },
-            {
-              "result": "0:3",
-              "count": "1"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "25921027",
-          "uuid": "942d49a1-3092-47ed-afce-dc8421e83204",
-          "name": "VBG Efringen-Kirchen 1",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "VBG Efringen-Kirchen",
-            "shortName": null
-          }
-        },
         "place": "6",
-        "matchesPlayed": "8",
+        "matchesPlayed": "11",
         "wins": "4",
-        "losses": "4",
-        "points": "13",
-        "setPoints": "14:14",
-        "setWinScore": "14",
-        "setLoseScore": "14",
-        "setPointDifference": "0",
-        "setQuotient": "1,000",
-        "ballPoints": "615:616",
-        "ballWinScore": "615",
-        "ballLoseScore": "616",
-        "ballPointDifference": "-1",
-        "ballQuotient": "0,998",
+        "losses": "7",
+        "points": "14",
+        "setPoints": "19:22",
+        "setWinScore": "19",
+        "setLoseScore": "22",
+        "setPointDifference": "-3",
+        "setQuotient": "0,864",
+        "ballPoints": "905:911",
+        "ballWinScore": "905",
+        "ballLoseScore": "911",
+        "ballPointDifference": "-6",
+        "ballQuotient": "0,993",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "3:1",
-              "count": "2"
+              "count": "1"
             },
             {
               "result": "3:2",
@@ -409,15 +409,15 @@
             },
             {
               "result": "2:3",
-              "count": "1"
+              "count": "2"
             },
             {
               "result": "1:3",
-              "count": "0"
+              "count": "3"
             },
             {
               "result": "0:3",
-              "count": "3"
+              "count": "2"
             }
           ]
         }
