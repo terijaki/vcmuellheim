@@ -60,7 +60,7 @@ export default function getMatches(teamId?: string | number, matchSeriesId?: str
 					const parseString = require("xml2js").parseString;
 					parseString(xmlData, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: matchesType) {
 						if (!err) {
-							let message = "✅ Match data for " + queryContext + " received. Writing response to: " + fileTarget;
+							let message = "🏐 Match data for " + queryContext + " received. Writing response to: " + fileTarget;
 							console.log(message);
 							writeToSummary(message);
 							// add date Object and ISO so other areas of the app can use this more conviniently
