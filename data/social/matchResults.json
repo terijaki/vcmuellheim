@@ -129,6 +129,18 @@
       "score": "3:2",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/111947906825211251"
+    },
+    {
+      "uuid": "bf579220-2810-4e43-9ed7-2ac68dda6c4e",
+      "date": "2024-02-17T13:30:00.000Z",
+      "league": "Bezirksliga Herren Süd",
+      "team": [
+        "VC Weil 2",
+        "VC Müllheim 2"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
     }
   ]
 }
