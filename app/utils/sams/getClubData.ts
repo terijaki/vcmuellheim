@@ -7,6 +7,7 @@ import fs from "fs";
 const SAMS_API = env.SAMS_API,
 	SAMS_URL = env.SAMS_URL,
 	SAMS_CLUB_ID = env.SAMS_CLUBID,
+	SAMS_FOLDER = "data/sams",
 	JSON_FILE_TARGET = "data/sams/club.json";
 
 export default async function getClubData(): Promise<Object | boolean> {
@@ -15,7 +16,6 @@ export default async function getClubData(): Promise<Object | boolean> {
 	await fetch(apiPath)
 		.then((response) => Promise.all([response.status, response.text()]))
 		.then(([status, xmlData]) => {
-			// console.log("CLUB DATA STATUS RESPONSE CODE:" + status);
 			// verify the status code
 			if (status == 200) {
 				// unfortunately some errors such as rate limits, maintenance mode etc, come in as status 200 and then the error message is in the body
@@ -27,6 +27,7 @@ export default async function getClubData(): Promise<Object | boolean> {
 							if (!err) {
 								console.log("✅ Club Data looks good. Writing response to: " + JSON_FILE_TARGET);
 								const output = JSON.stringify(result, null, 2);
+								fs.mkdirSync(SAMS_FOLDER, { recursive: true });
 								fs.writeFileSync(JSON_FILE_TARGET, output);
 								return output;
 							} else {
