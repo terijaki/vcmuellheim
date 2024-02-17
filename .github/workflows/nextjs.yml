@@ -131,7 +131,7 @@ jobs:
             echo "social=new" >> $GITHUB_OUTPUT
             echo "🕵️ Unpublished Match Result for social detected! Queueing job."
             echo "🕵️ Unpublished Match Result for social detected! Queueing job." >> $GITHUB_STEP_SUMMARY
-            if [ -z "$(git stage ${{ env.SAMS_FOLDER }} --dry-run)" ]
+            if [ -z "$(git stage ${{ env.SOCIAL_CACHE_MATCHES }} --dry-run)" ]
             then
               git add ${{ env.SOCIAL_CACHE_MATCHES }}
               git commit -m "automated deployment update"
