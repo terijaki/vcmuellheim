@@ -4,7 +4,7 @@ import { writeToSummary } from "@/app/utils/github/actionSummary";
 
 const INBOX_FOLDER = "inbox",
 	IMAGE_FOLDER = "public/images/blog",
-	DOCUMENT_EXTENSIONS = ["docx", "doc"],
+	DOCUMENT_EXTENSIONS = ["docx", "doc", "txt"],
 	IMAGE_EXTENSIONS = ["jpg", "jpeg", "png"],
 	POST_TARGET_FOLDER = "data/posts";
 
@@ -47,11 +47,19 @@ export function inboxProcessing() {
 				// isolate the file name as title
 				const fileNameLenght = document.lastIndexOf(".");
 				const title = document.slice(0, fileNameLenght);
+
 				// read the document
-				const WordExtractor = require("word-extractor");
-				const extractor = new WordExtractor();
-				const extracted = await extractor.extract(path.join(INBOX_FOLDER, document));
-				const content = extracted.getBody().replaceAll("\n", "\n\n"); // double linebreaks are required!
+				const thisExtension = document.split(".").pop() + "";
+				let content: string = "";
+				if (thisExtension.toLowerCase() == "txt") {
+					content = fs.readFileSync(path.join(INBOX_FOLDER, document)).toString();
+				} else if (thisExtension.toLowerCase() == "docx" || thisExtension.toLowerCase() == "doc") {
+					const WordExtractor = require("word-extractor");
+					const extractor = new WordExtractor();
+					const extracted = await extractor.extract(path.join(INBOX_FOLDER, document));
+					content = extracted.getBody().replaceAll("\n", "\n\n"); // double linebreaks are required!
+				}
+
 				const markdownDate = new Date().toISOString();
 				let markdownGallery = "";
 				if (images.size > 0) {
