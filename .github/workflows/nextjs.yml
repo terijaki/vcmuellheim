@@ -151,7 +151,7 @@ jobs:
             echo "🏐 SAMS changes detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
           fi
 
-          cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
+          cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY  || true
 
           if grep -q '"mastodon": "queued"' ${{ env.SOCIAL_CACHE_MATCHES }} || grep -q '"mastodon": "new"' ${{ env.SOCIAL_CACHE_MATCHES }};
           then
