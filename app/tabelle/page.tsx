@@ -29,7 +29,7 @@ export default function Tabelle() {
 		return (
 			<>
 				<PageHeading title="Tabelle" />
-				<div className="col-full-content sm:col-center-content grid gap-y-8 md:gap-4 my-4 sm:grid-cols-1 md:grid-cols-2 prose-h2:text-2xl">
+				<div className="col-full-content sm:col-center-content grid gap-y-8 md:gap-4 my-4 sm:grid-cols-1 lg:grid-cols-2 prose-h2:text-2xl">
 					{rankings.map((ranking) => {
 						if (!matchSeriesDisplayed.includes(ranking.matchSeries.uuid)) {
 							matchSeriesDisplayed.push(ranking.matchSeries.uuid);
