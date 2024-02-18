@@ -11,16 +11,7 @@ export async function getClubLogoUrl(clubName: string): Promise<string | undefin
 	const clubSlug = slugify(clubName);
 	const cacheFile = path.join(CLUBS_CACHE_FOLDER, clubSlug + ".json");
 	if (!fs.existsSync(cacheFile)) {
-		console.log("🕵️ " + clubName + " cache does not exist.");
-		// get the club's ID
-		const clubId = await getClubId(clubName);
-		// TODO: remove the below if its migrated to updateTask
-		// if (clubId && clubId > 0) {
-		// 	const clubData = await getClubData(clubId);
-		// 	fs.mkdirSync(CLUBS_CACHE_FOLDER, { recursive: true });
-		// 	fs.writeFileSync(cacheFile, JSON.stringify(clubData.response));
-		// 	return clubData.response.logo;
-		// }
+		console.log("🕵️ " + clubName + " cache does not exist. No logo is being returned.");
 	} else {
 		const cacheContent = fs.readFileSync(cacheFile);
 		const content = JSON.parse(cacheContent.toString());
