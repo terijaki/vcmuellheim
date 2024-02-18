@@ -1,6 +1,7 @@
 // this a sequence of code to be executed in order to keep our data in sync with SAMS while not hammering their API unnecessarily
 // run during deployment via: npx tsx --env-file=.env.local --env-file=.env app/utils/samsUpdateTasks.ts
 import fs from "fs";
+import { env } from "process";
 import { cachedGetTeamIds, cachedGetUniqueMatchSeriesIds } from "./cachedGetClubData";
 import getMatchSeries from "./getMatchSeries";
 import getClubData from "./getClubData";
@@ -8,10 +9,12 @@ import getRankings from "./getRankings";
 import getMatches from "./getMatches";
 import { writeToSummary } from "../github/actionSummary";
 
+const SAMS_CLUB_ID = env.SAMS_CLUBID;
+
 // there is no rate limit on the getMatchSeries request ✌️
 getMatchSeries()
 	.then(() => {
-		getClubData().then(() => {
+		getClubData(Number(SAMS_CLUB_ID)).then(() => {
 			// get our Match Series IDs so that we can use them to filter requests
 			const ourMatchSeries = cachedGetUniqueMatchSeriesIds(cachedGetTeamIds("id"));
 			// read the big Match Series file
