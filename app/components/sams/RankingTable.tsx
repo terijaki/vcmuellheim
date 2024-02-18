@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { rankingsArray } from "@/app/utils/sams/cachedGetRanking";
 import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
+import ClubLogo from "./ClubLogo";
 
 export default function RankingTable(props: rankingsArray) {
 	// prepare date formatting
@@ -35,7 +36,7 @@ export default function RankingTable(props: rankingsArray) {
 					<div className="font-bold text-slate-600 text-center mr-1 hidden sm:block md:hidden lg:block">Sätze</div>
 					<div className="font-bold text-slate-600 text-center mr-1 hidden lg:block">Punkte</div>
 					<div className="font-bold text-slate-600 text-center lg:hidden">Pkt</div>
-					{props.ranking.map((team: any) => {
+					{props.ranking.map(async (team: any) => {
 						return (
 							<Fragment key={team.team.id}>
 								<div
@@ -50,6 +51,7 @@ export default function RankingTable(props: rankingsArray) {
 									data-team-name={team.team.name}
 									className={"flex items-center truncate p-0.5" + " " + (clubTeamIds.includes(team.team.id) && "bg-onyx text-white")}
 								>
+									<ClubLogo clubName={team.team.club.name} />
 									{team.team.name}
 								</div>
 								<div
