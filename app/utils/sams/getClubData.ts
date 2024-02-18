@@ -3,6 +3,7 @@
 // Gibt detaillierte Informationen zu einem bestimmten Verein aus.
 import { env } from "process";
 import fs from "fs";
+import { error } from "console";
 
 const SAMS_API = env.SAMS_API,
 	SAMS_URL = env.SAMS_URL,
@@ -18,7 +19,7 @@ export default async function getClubData(clubId?: number): Promise<{ response: 
 		try {
 			const apiPath = await fetch(SAMS_URL + "/xml/sportsclub.xhtml?apiKey=" + SAMS_API + "&sportsclubId=" + clubId);
 			if (apiPath.status != 200) {
-				throw "🚨 SAMS API CALL NOT OK. STATUS " + apiPath.status + ": " + apiPath.statusText;
+				throw "🚨 SAMS API CALL NOT OK FOR CLUB(" + clubId + "). STATUS " + apiPath.status + ": " + apiPath.statusText;
 			}
 			let xmlReponse = await apiPath.text();
 			if (xmlReponse.includes("<error>")) {
