@@ -28,12 +28,12 @@ export default function RankingTable(props: rankingsArray) {
 				</li>
 			</ul>
 			<div className="tabelle pb-3">
-				<div className="grid grid-cols-[repeat(4,auto)] sm:grid-cols-[repeat(5,auto)] md:grid-cols-[repeat(4,auto)] lg:grid-cols-[repeat(5,auto)] relative overflow-hidden">
+				<div className="grid grid-cols-[repeat(4,auto)] sm:grid-cols-[repeat(5,auto)] relative overflow-hidden">
 					<div className="font-bold text-slate-600 text-center mr-1 sm:hidden">Nr</div>
 					<div className="font-bold text-slate-600 text-center mr-1 hidden sm:block">Platz</div>
 					<div className="font-bold text-slate-600 mr-1">Mannschaft</div>
 					<div className="font-bold text-slate-600 text-center mr-1">Siege</div>
-					<div className="font-bold text-slate-600 text-center mr-1 hidden sm:block md:hidden lg:block">Sätze</div>
+					<div className="font-bold text-slate-600 text-center mr-1 hidden sm:block">Sätze</div>
 					<div className="font-bold text-slate-600 text-center mr-1 hidden lg:block">Punkte</div>
 					<div className="font-bold text-slate-600 text-center lg:hidden">Pkt</div>
 					{props.ranking.map(async (team: any) => {
@@ -53,22 +53,22 @@ export default function RankingTable(props: rankingsArray) {
 								>
 									<ClubLogo
 										clubName={team.team.club.name}
-										className="mr-1"
+										className={"mr-1 " + (clubTeamIds.includes(team.team.id) && "saturate-0 brightness-0 invert")}
 									/>
 									{team.team.name}
 								</div>
 								<div
 									data-team-id={team.team.id}
 									data-team-name={team.team.name}
-									className={"flex justify-center items-center text-sm sm:text-base md:text-sm lg:text-base gap-1.5" + " " + (clubTeamIds.includes(team.team.id) && "bg-onyx text-white")}
+									className={"flex justify-center items-center text-sm gap-1.5" + " " + (clubTeamIds.includes(team.team.id) && "bg-onyx text-white")}
 								>
 									{team.wins}/{team.matchesPlayed}
-									<p className="text-xs sm:hidden md:inline lg:hidden italic opacity-50">{team.setPoints}</p>
+									<p className="text-xs sm:hidden italic opacity-50">{team.setPoints}</p>
 								</div>
 								<div
 									data-team-id={team.team.id}
 									data-team-name={team.team.name}
-									className={"justify-center items-center text-xs hidden sm:flex md:hidden lg:flex" + " " + (clubTeamIds.includes(team.team.id) && "bg-onyx text-white")}
+									className={"justify-center items-center text-xs hidden sm:flex" + " " + (clubTeamIds.includes(team.team.id) && "bg-onyx text-white")}
 								>
 									{team.setPoints}
 								</div>
