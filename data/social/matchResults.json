@@ -153,7 +153,8 @@
       ],
       "winner": 1,
       "score": "3:0",
-      "mastodon": "new"
+      "mastodon": "published",
+      "mastodonUrl": "https://freiburg.social/@VCM/111952803729950059"
     },
     {
       "uuid": "87f0f6e8-5920-4930-9350-095601885989",
@@ -165,7 +166,8 @@
       ],
       "winner": 2,
       "score": "0:3",
-      "mastodon": "new"
+      "mastodon": "published",
+      "mastodonUrl": "https://freiburg.social/@VCM/111952803750590291"
     }
   ]
 }
