@@ -24,6 +24,8 @@ env:
   GITHUB_SUMMARY_FILE: "github_summary.md"
   SAMS_FOLDER: "data/sams"
   SAMS_MATCHSERIES_JSON: "data/sams/matchSeries.json"
+  SAMS_CLUB_JSON: "data/sams/club.json"
+  SAMS_CLUBS_CACHE: "data/sams/club"
   IMAGES_FOLDER: "public/images"
   BLOG_FOLDER: "data/posts"
   INBOX_FOLDER: "inbox"
@@ -110,17 +112,43 @@ jobs:
             echo "🏐 Match Series changes detected and staged." >> $GITHUB_STEP_SUMMARY
           fi
 
+          if [ -z "$(git stage ${{ env.SAMS_CLUB_JSON }} --dry-run)" ]
+          then
+            echo "✅ Our club data is up to date."
+            echo "✅ Our club data is up to date." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "🏐 Our club data has changed! Pushing to repository."
+            git add ${{ env.SAMS_CLUB_JSON }}
+            git commit -m "automated deployment update"
+            git push origin --all --quiet --force
+            echo "status=updated" >> $GITHUB_OUTPUT
+            echo "🏐 Our club data has changed. Pushed to repository." >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [ -z "$(git stage ${{ env.SAMS_CLUBS_CACHE }} --dry-run)" ]
+          then
+            echo "✅ All club data up to date."
+            echo "✅ All club data up to date." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "🏐 Some new club data detected! Pushing to repository."
+            git add ${{ env.SAMS_CLUBS_CACHE }}
+            git commit -m "automated deployment update"
+            git push origin --all --quiet --force
+            echo "status=updated" >> $GITHUB_OUTPUT
+            echo "🏐 Some new club data detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
+          fi
+
           if [ -z "$(git stage ${{ env.SAMS_FOLDER }} --dry-run)" ]
           then
-            echo "✅ Club data up to date."
-            echo "✅ Club data up to date." >> $GITHUB_STEP_SUMMARY
+            echo "✅ SAMS data up to date."
+            echo "✅ SAMS data up to date." >> $GITHUB_STEP_SUMMARY
           else
-            echo "🏐 Club changes detected! Pushing to repository."
+            echo "🏐 SAMS changes detected! Pushing to repository."
             git add ${{ env.SAMS_FOLDER }}
             git commit -m "automated deployment update"
             git push origin --all --quiet --force
             echo "status=updated" >> $GITHUB_OUTPUT
-            echo "🏐 Club changes detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
+            echo "🏐 SAMS changes detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
           fi
 
           cat ${{ env.GITHUB_SUMMARY_FILE }} >> $GITHUB_STEP_SUMMARY
