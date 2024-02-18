@@ -181,6 +181,18 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/111953192951171444"
+    },
+    {
+      "uuid": "f2648544-a9e8-4b5a-8d8b-1260f6d805e8",
+      "date": "2024-02-18T10:00:00.000Z",
+      "league": "Kreisliga Damen Süd",
+      "team": [
+        "VBG Efringen-Kirchen 2",
+        "VC Müllheim 1"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
     }
   ]
 }
