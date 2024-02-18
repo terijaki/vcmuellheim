@@ -168,6 +168,18 @@
       "score": "0:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/111952803750590291"
+    },
+    {
+      "uuid": "ebf6b521-2f49-4f94-80b5-ed5a61515227",
+      "date": "2024-02-18T10:00:00.000Z",
+      "league": "Kreisliga Damen Süd",
+      "team": [
+        "TV Merdingen 2",
+        "VC Müllheim2"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
     }
   ]
 }
