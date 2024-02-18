@@ -83,3 +83,15 @@ getAllClubs();
 // - combine clubs from rankings
 // - remove duplicates
 // - for each get club data
+if (!fs.existsSync("data/sams/matchSeries") || !fs.readdirSync("data/sams/matchSeries")) {
+	console.log("🚨 Unable to process relevant clubs because not a single matchseries is present.");
+} else {
+	const rankings = fs.readdirSync("data/sams/matchSeries");
+}
+
+// if (clubId && clubId > 0) {
+// 	const clubData = await getClubData(clubId);
+// 	fs.mkdirSync(CLUBS_CACHE_FOLDER, { recursive: true });
+// 	fs.writeFileSync(cacheFile, JSON.stringify(clubData.response));
+// 	return clubData.response.logo;
+// }
