@@ -34,8 +34,8 @@ export default function RankingTable(props: rankingsArray) {
 					<div className="font-bold text-slate-600 mr-1">Mannschaft</div>
 					<div className="font-bold text-slate-600 text-center mr-1">Siege</div>
 					<div className="font-bold text-slate-600 text-center mr-1 hidden sm:block">Sätze</div>
-					<div className="font-bold text-slate-600 text-center mr-1 hidden lg:block">Punkte</div>
-					<div className="font-bold text-slate-600 text-center lg:hidden">Pkt</div>
+					<div className="font-bold text-slate-600 text-center mr-1 hidden sm:block">Punkte</div>
+					<div className="font-bold text-slate-600 text-center sm:hidden">Pkt</div>
 					{props.ranking.map(async (team: any) => {
 						return (
 							<Fragment key={team.team.id}>
