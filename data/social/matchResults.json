@@ -1,19 +1,6 @@
 {
   "entries": [
     {
-      "uuid": "11e47931-027a-4d60-a1f3-94121e21b9d9",
-      "date": "2023-12-17T10:00:00.000Z",
-      "league": "Bezirksliga Herren Süd",
-      "team": [
-        "VC Müllheim 2",
-        "VC Minseln"
-      ],
-      "winner": 1,
-      "score": "3:0",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/111595635280469724"
-    },
-    {
       "uuid": "9c0fd9d2-be70-4f66-9bd1-9145d56a5ff1",
       "date": "2024-01-14T10:00:00.000Z",
       "league": "Kreisliga Damen Süd",
