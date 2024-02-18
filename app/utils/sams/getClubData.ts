@@ -11,8 +11,8 @@ const SAMS_API = env.SAMS_API,
 	OWN_CLUB_CACHE_FILE = "data/sams/club.json";
 
 export default async function getClubData(clubId?: number): Promise<{ response: { id: number; name: string; logo: string } }> {
-	if (!clubId) {
-		const clubId = SAMS_CLUB_ID;
+	if (!clubId && SAMS_CLUB_ID) {
+		const clubId = Number(SAMS_CLUB_ID);
 	}
 	return new Promise(async (resolve, reject) => {
 		try {
@@ -30,7 +30,7 @@ export default async function getClubData(clubId?: number): Promise<{ response: 
 				parseString(xmlReponse, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
 					if (!err) {
 						console.log("✅ Club Data looks ok: " + result.sportsclub.name + "(" + result.sportsclub.id + ")");
-						if (clubId == SAMS_CLUB_ID) {
+						if (clubId == Number(SAMS_CLUB_ID)) {
 							const output = JSON.stringify(result, null, 2);
 							console.log("✅ Club is our own. Caching response to: " + OWN_CLUB_CACHE_FILE);
 							fs.mkdirSync(SAMS_FOLDER, { recursive: true });
