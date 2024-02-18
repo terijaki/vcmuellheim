@@ -1,24 +1,47 @@
 import { env } from "process";
 import fs from "fs";
 import path from "path";
+import { slugify } from "../slugify";
+import getClubData from "./getClubData";
+import { isElementOfType } from "react-dom/test-utils";
 
 const SAMS_API = env.SAMS_API,
 	SAMS_URL = env.SAMS_URL,
 	SAMS_FOLDER = "data/sams";
 
 const CLUBS_FILE_TARGET = "data/sams/allClubs.json";
-const SAMS_LOGO_FOLDER = "public/images/sams";
+const CLUBS_CACHE_FOLDER = "data/sams/clubs";
 
+// get the club's logo url
+export async function getClubLogoUrl(clubName: string) {
+	const clubSlug = slugify(clubName);
+	if (!clubSlug.includes("rieselfeld")) {
+		return true; // TEMP TO NOT SPAM THE API
+	}
+
+	if (!fs.existsSync(path.join(CLUBS_CACHE_FOLDER, clubSlug + ".json"))) {
+		console.log("🕵️ " + clubName + " cache does not exist.");
+		// get the club's ID
+		const clubId = await getClubId(clubName);
+		if (!clubId || clubId < 0) {
+			console.log("no club id"); // TODO: fetch the all clubs data and try again
+		} else if (clubId && clubId > 0) {
+			const clubData = await getClubData(clubId);
+			console.log(clubData);
+		}
+	}
+
+	return clubName;
+}
+
+// funtion to retrieve the club id when provided with the clubs name
 export async function getClubId(clubName: string): Promise<number | void> {
 	// read the cache file containing all clubs
 	const allClubsDataFile = fs.readFileSync(path.join(CLUBS_FILE_TARGET));
 	const allClubsData = JSON.parse(allClubsDataFile.toString()).sportsclubs.sportsclub;
 	// return the ID for the club in question
-	allClubsData.map((club: { name: string; id: any }) => {
-		if (club.name == clubName) {
-			return club.id;
-		}
-	});
+	const filteredClub = allClubsData.filter((club: { name: string }) => club.name == clubName);
+	return filteredClub[0].id;
 }
 
 export async function cacheClubLogo(clubName: string) {
@@ -78,5 +101,3 @@ export async function cacheClubLogo(clubName: string) {
 	// save image as slub e.g. "VC 94 Haslach" => vc94haslach.jpg
 	// done
 }
-
-cacheClubLogo("VC Müllheim");
