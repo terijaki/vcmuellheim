@@ -1,6 +1,7 @@
 // this a sequence of code to be executed in order to keep our data in sync with SAMS while not hammering their API unnecessarily
 // run during deployment via: npx tsx --env-file=.env.local --env-file=.env app/utils/samsUpdateTasks.ts
 import fs from "fs";
+import path from "path";
 import { env } from "process";
 import { cachedGetTeamIds, cachedGetUniqueMatchSeriesIds } from "./cachedGetClubData";
 import getMatchSeries from "./getMatchSeries";
@@ -9,8 +10,11 @@ import getRankings from "./getRankings";
 import getMatches from "./getMatches";
 import { writeToSummary } from "../github/actionSummary";
 import getAllClubs from "./getAllClubs";
+import { getClubId } from "./getClubLogo";
+import { slugify } from "../slugify";
 
 const SAMS_CLUB_ID = env.SAMS_CLUBID;
+const CLUBS_CACHE_FOLDER = "data/sams/clubs";
 
 // there is no rate limit on the getMatchSeries request ✌️
 getMatchSeries()
@@ -80,18 +84,37 @@ getMatchSeries()
 
 // CLUBS
 getAllClubs();
-// - combine clubs from rankings
-// - remove duplicates
-// - for each get club data
-if (!fs.existsSync("data/sams/matchSeries") || !fs.readdirSync("data/sams/matchSeries")) {
+if (!fs.existsSync("data/sams/matchSeriesId") || !fs.readdirSync("data/sams/matchSeriesId")) {
 	console.log("🚨 Unable to process relevant clubs because not a single matchseries is present.");
 } else {
-	const rankings = fs.readdirSync("data/sams/matchSeries");
+	// find all rankings and combine them
+	const rankings = fs.readdirSync("data/sams/matchSeriesId", { recursive: true, withFileTypes: true });
+	const rankingsFiltered = rankings.filter((entry) => entry.name.includes("rankings.json"));
+	// filter out duplicate clubs
+	let clubs = new Set();
+	rankingsFiltered.map((rankings) => {
+		const fullPath = path.join(rankings.path, rankings.name);
+		const rankingFile = fs.readFileSync(fullPath);
+		const rankingContent = JSON.parse(rankingFile.toString()).rankings.ranking;
+		rankingContent.map((team: { team: { club: { name: string } } }) => {
+			let clubName = team.team.club.name.toString();
+			if (!clubs.has(clubName)) {
+				clubs.add(clubName);
+			}
+		});
+	});
+	// get a cache for each club
+	clubs.forEach(async (club) => {
+		if (club) {
+			const clubSlug = slugify(club.toString());
+			const cacheFile = path.join(CLUBS_CACHE_FOLDER, clubSlug + ".json");
+			if (!fs.existsSync(cacheFile)) {
+				console.log("cache does not exist for " + clubSlug);
+				const clubId = await getClubId(club.toString());
+				const clubData = await getClubData(Number(clubId));
+				fs.mkdirSync(CLUBS_CACHE_FOLDER, { recursive: true });
+				fs.writeFileSync(cacheFile, JSON.stringify(clubData.response));
+			}
+		}
+	});
 }
-
-// if (clubId && clubId > 0) {
-// 	const clubData = await getClubData(clubId);
-// 	fs.mkdirSync(CLUBS_CACHE_FOLDER, { recursive: true });
-// 	fs.writeFileSync(cacheFile, JSON.stringify(clubData.response));
-// 	return clubData.response.logo;
-// }
