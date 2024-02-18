@@ -2,5 +2,9 @@
 
 module.exports = new Promise(async (resolve) => {
 	const listRemoteClubLogos = require("./app/utils/sams/listRemoteClubLogos.ts");
-	resolve(await listRemoteClubLogos());
+	let logoArray = await listRemoteClubLogos();
+	if (!logoArray) {
+		logoArray = []; // serve empty array if there is no logo found
+	}
+	resolve(logoArray);
 });
