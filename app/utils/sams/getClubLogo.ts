@@ -44,23 +44,9 @@ export async function cacheClubLogo(clubName: string) {
 						parseString(xmlData, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, async function (err: any, result: any) {
 							if (!err) {
 								console.log("✅ Club Data looks good. Logo should be availalbe at: " + result.sportsclub.logo.url);
-								// download the logo
-								// const logoDestination = path.join(SAMS_LOGO_FOLDER, clubId.toString() + ".png");
-								// fs.mkdirSync(SAMS_LOGO_FOLDER, { recursive: true });
 
-								const Downloader = require("nodejs-file-downloader");
-								const downloader = new Downloader({
-									url: result.sportsclub.logo.url,
-									directory: SAMS_LOGO_FOLDER,
-									fileName: clubId.toString() + ".png",
-								});
-
-								try {
-									await downloader.download();
-								} catch (error) {
-									// TODO better error message saying that the file could not be downloaded
-									console.log(error);
-								}
+								// write the club data into a cache file
+								// data/sams/clubs/slug.json
 
 								return result.sportsclub.logo.url;
 							} else {
