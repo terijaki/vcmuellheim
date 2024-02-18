@@ -19,32 +19,33 @@ export default async function getClubData(clubId?: number): Promise<{ response: 
 		try {
 			const apiPath = await fetch(SAMS_URL + "/xml/sportsclub.xhtml?apiKey=" + SAMS_API + "&sportsclubId=" + clubId);
 			if (apiPath.status != 200) {
-				throw "🚨 SAMS API CALL NOT OK FOR CLUB(" + clubId + "). STATUS " + apiPath.status + ": " + apiPath.statusText;
-			}
-			let xmlReponse = await apiPath.text();
-			if (xmlReponse.includes("<error>")) {
-				throw "🚨 SAMS API RETURNED AN ERROR IN THE XML RESPONSE!";
-			} else if (!xmlReponse.includes("<id>" + clubId + "</id>")) {
-				throw "🚨 CLUB DATA RESPONSE BODY DID NOT INCLUDE THE CLUB ID.🚨\nTHIS COULD INDICATE A MAINTENANCE OR SERVER ISSUE.";
+				error("🚨 SAMS API CALL NOT OK FOR CLUB(" + clubId + "). STATUS " + apiPath.status + ": " + apiPath.statusText);
 			} else {
-				const parseString = require("xml2js").parseString;
-				parseString(xmlReponse, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
-					if (!err) {
-						console.log("✅ Club Data looks ok: " + result.sportsclub.name + "(" + result.sportsclub.id + ")");
-						if (clubId == Number(SAMS_CLUB_ID)) {
-							const output = JSON.stringify(result, null, 2);
-							console.log("✅ Club is our own. Caching response to: " + OWN_CLUB_CACHE_FILE);
-							fs.mkdirSync(SAMS_FOLDER, { recursive: true });
-							fs.writeFileSync(OWN_CLUB_CACHE_FILE, output);
+				let xmlReponse = await apiPath.text();
+				if (xmlReponse.includes("<error>")) {
+					error("🚨 SAMS API RETURNED AN ERROR IN THE XML RESPONSE!");
+				} else if (!xmlReponse.includes("<id>" + clubId + "</id>")) {
+					error("🚨 CLUB DATA RESPONSE BODY DID NOT INCLUDE THE CLUB ID.🚨\nTHIS COULD INDICATE A MAINTENANCE OR SERVER ISSUE.");
+				} else {
+					const parseString = require("xml2js").parseString;
+					parseString(xmlReponse, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
+						if (!err) {
+							console.log("✅ Club Data looks ok: " + result.sportsclub.name + "(" + result.sportsclub.id + ")");
+							if (clubId == Number(SAMS_CLUB_ID)) {
+								const output = JSON.stringify(result, null, 2);
+								console.log("✅ Club is our own. Caching response to: " + OWN_CLUB_CACHE_FILE);
+								fs.mkdirSync(SAMS_FOLDER, { recursive: true });
+								fs.writeFileSync(OWN_CLUB_CACHE_FILE, output);
+							}
+							let clubDataJson = result.sportsclub;
+							// console.log(clubDataJson);
+							resolve({ response: { id: clubDataJson.id, name: clubDataJson.name, logo: clubDataJson.logo.url } });
+						} else {
+							console.log(err);
+							throw "🚨 COULD NOT CONVERT CLUB DATA XML TO JSON! 🚨";
 						}
-						let clubDataJson = result.sportsclub;
-						// console.log(clubDataJson);
-						resolve({ response: { id: clubDataJson.id, name: clubDataJson.name, logo: clubDataJson.logo.url } });
-					} else {
-						console.log(err);
-						throw "🚨 COULD NOT CONVERT CLUB DATA XML TO JSON! 🚨";
-					}
-				});
+					});
+				}
 			}
 		} catch (error) {
 			console.log(error);
