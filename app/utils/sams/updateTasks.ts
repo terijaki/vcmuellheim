@@ -83,7 +83,7 @@ getMatchSeries()
 	});
 
 // CLUBS
-getAllClubs();
+getAllClubs(); // gets all clubs, containing name and id (no details such as teams or logos)
 if (!fs.existsSync("data/sams/matchSeriesId") || !fs.readdirSync("data/sams/matchSeriesId")) {
 	console.log("🚨 Unable to process relevant clubs because not a single matchseries is present.");
 } else {
