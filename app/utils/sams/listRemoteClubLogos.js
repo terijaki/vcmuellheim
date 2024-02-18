@@ -4,9 +4,9 @@ import path from "path";
 const CLUBS_CACHE_FOLDER = "data/sams/clubs";
 
 // Remote logo images  should be cache during and build time and to do so next-image-export-optimizer requires a list of all remote images to be added to remoteOptimizedImages.js
-export default function listRemoteClubLogos(): string[] | undefined {
+export default function listRemoteClubLogos() {
 	if (fs.existsSync(CLUBS_CACHE_FOLDER)) {
-		let clubImages = new Set<string>();
+		let clubImages = new Set();
 
 		const clubs = fs.readdirSync(CLUBS_CACHE_FOLDER);
 		clubs.map((clubFile) => {
