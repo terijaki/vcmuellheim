@@ -8,6 +8,7 @@ import getClubData from "./getClubData";
 import getRankings from "./getRankings";
 import getMatches from "./getMatches";
 import { writeToSummary } from "../github/actionSummary";
+import getAllClubs from "./getAllClubs";
 
 const SAMS_CLUB_ID = env.SAMS_CLUBID;
 
@@ -69,6 +70,7 @@ getMatchSeries()
 				}
 
 				// CLUBS
+				getAllClubs();
 				// - combine clubs from rankings
 				// - remove duplicates
 				// - for each get club data

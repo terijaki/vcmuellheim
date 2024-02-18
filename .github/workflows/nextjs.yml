@@ -89,9 +89,7 @@ jobs:
         id: sams_update
         if: ${{ github.event_name != 'push' }}
         continue-on-error: true
-        run: |
-          npm run sams-update
-          npm run sams-all-clubs
+        run: npm run sams-update
         env:
           SAMS_API: ${{ secrets.SAMS_API }}
 
