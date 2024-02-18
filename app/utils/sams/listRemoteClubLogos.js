@@ -2,8 +2,8 @@
 module.export = function listRemoteClubLogos() {
 	const fs = require("fs");
 	const path = require("path");
-	const CLUBS_CACHE_FOLDER = "data/sams/clubs";
 
+	const CLUBS_CACHE_FOLDER = "data/sams/clubs";
 	if (fs.existsSync(CLUBS_CACHE_FOLDER)) {
 		let clubImages = new Set();
 
@@ -16,6 +16,11 @@ module.export = function listRemoteClubLogos() {
 				clubImages.add(clubData.logo);
 			}
 		});
-		return Array.from(clubImages);
+		let clubImageArray = Array.from(clubImages);
+		if (clubImageArray.length == 0) {
+			clubImageArray = []; // serve empty array if there is no logo found
+		}
+		return clubImageArray;
 	}
+	return [];
 };
