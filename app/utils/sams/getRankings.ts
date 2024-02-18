@@ -14,7 +14,7 @@ const SAMS_API = env.SAMS_API,
 	SAMS_URL = env.SAMS_URL,
 	JSON_FILE_TARGET = "data/sams";
 
-// fetch Club Data
+// fetch Rankings Data
 export default function getRankings(matchSeriesId?: string | number, allSeasonMatchSeriesId?: string): Object | void {
 	let apiPath: string;
 	let folderTarget: string;
