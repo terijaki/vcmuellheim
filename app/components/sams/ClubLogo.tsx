@@ -2,11 +2,11 @@ import { getClubLogoUrl } from "@/app/utils/sams/getClubLogo";
 import ExportedImage from "next-image-export-optimizer";
 import { FaVolleyball as Ball } from "react-icons/fa6";
 
-export default async function clubLogo(props: { clubName: string }) {
+export default async function clubLogo(props: { clubName: string; className?: string }) {
 	let logo = await getClubLogoUrl(props.clubName);
 	if (logo) {
 		return (
-			<div className="inline-block relative h-5 w-5 mr-1">
+			<div className={"inline-block relative h-5 w-5 " + props.className}>
 				<ExportedImage
 					src={logo}
 					fill
@@ -18,7 +18,7 @@ export default async function clubLogo(props: { clubName: string }) {
 		);
 	} else {
 		return (
-			<div className="inline-block h-5 w-5 text-lion text-xsflex items-center justify-center">
+			<div className={"inline-block h-5 w-5 text-lion text-xsflex items-center justify-center " + props.className}>
 				<Ball className="p-0.3 opacity-50" />
 			</div>
 		);

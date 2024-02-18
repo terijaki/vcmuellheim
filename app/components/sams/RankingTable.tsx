@@ -51,7 +51,10 @@ export default function RankingTable(props: rankingsArray) {
 									data-team-name={team.team.name}
 									className={"flex items-center truncate p-0.5" + " " + (clubTeamIds.includes(team.team.id) && "bg-onyx text-white")}
 								>
-									<ClubLogo clubName={team.team.club.name} />
+									<ClubLogo
+										clubName={team.team.club.name}
+										className="mr-1"
+									/>
 									{team.team.name}
 								</div>
 								<div
