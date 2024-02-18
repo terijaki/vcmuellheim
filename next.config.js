@@ -19,6 +19,9 @@ const nextConfig = {
 		// nextImageExportOptimizer_generateAndUseBlurImages to false and pass
 		// `placeholder="empty"` to all <ExportedImage> components.
 		nextImageExportOptimizer_generateAndUseBlurImages: "true",
+		// If you want to cache the remote images, you can set the time to live of the cache in seconds.
+		// The default value is 0 seconds.
+		nextImageExportOptimizer_remoteImageCacheTTL: "0",
 	},
 };
 module.exports = nextConfig;
