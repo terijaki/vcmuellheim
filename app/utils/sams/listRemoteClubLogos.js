@@ -1,5 +1,5 @@
 // Remote logo images  should be cache during and build time and to do so next-image-export-optimizer requires a list of all remote images to be added to remoteOptimizedImages.js
-export default function listRemoteClubLogos() {
+module.export = function listRemoteClubLogos() {
 	const fs = require("fs");
 	const path = require("path");
 	const CLUBS_CACHE_FOLDER = "data/sams/clubs";
@@ -18,4 +18,4 @@ export default function listRemoteClubLogos() {
 		});
 		return Array.from(clubImages);
 	}
-}
+};
