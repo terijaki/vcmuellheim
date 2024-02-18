@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
 import { rankingsArray } from "@/app/utils/sams/cachedGetRanking";
 import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
-import { slugify } from "@/app/utils/slugify";
-import { getClubLogoUrl } from "@/app/utils/sams/getClubLogo";
+import ClubLogo from "./ClubLogo";
 
 export default function RankingTable(props: rankingsArray) {
 	// prepare date formatting
@@ -52,7 +51,7 @@ export default function RankingTable(props: rankingsArray) {
 									data-team-name={team.team.name}
 									className={"flex items-center truncate p-0.5" + " " + (clubTeamIds.includes(team.team.id) && "bg-onyx text-white")}
 								>
-									{console.log(await getClubLogoUrl(team.team.club.name))}
+									<ClubLogo clubName={team.team.club.name} />
 									{team.team.name}
 								</div>
 								<div
