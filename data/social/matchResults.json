@@ -142,6 +142,30 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/111948439842343347"
+    },
+    {
+      "uuid": "1295b154-0d6b-49ea-8d7b-c0282d279da9",
+      "date": "2024-02-18T10:00:00.000Z",
+      "league": "Kreisliga Damen Süd",
+      "team": [
+        "TV Freiburg-St.Georgen 3",
+        "VC Müllheim2"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
+    },
+    {
+      "uuid": "87f0f6e8-5920-4930-9350-095601885989",
+      "date": "2024-02-18T10:00:00.000Z",
+      "league": "Kreisliga Damen Süd",
+      "team": [
+        "VC Weil 3",
+        "VC Müllheim 1"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
     }
   ]
 }
