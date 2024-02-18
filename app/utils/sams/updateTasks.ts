@@ -67,6 +67,11 @@ getMatchSeries()
 					writeToSummary(consoleNote);
 					getMatches(undefined, series.id);
 				}
+
+				// CLUBS
+				// - combine clubs from rankings
+				// - remove duplicates
+				// - for each get club data
 			});
 		});
 	})

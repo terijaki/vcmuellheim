@@ -1,9 +1,7 @@
-import { env } from "process";
 import fs from "fs";
 import path from "path";
 import { slugify } from "../slugify";
 import getClubData from "./getClubData";
-import getClubsDataAll from "./getClubsDataAll";
 
 const CLUBS_FILE_TARGET = "data/sams/allClubs.json";
 const CLUBS_CACHE_FOLDER = "data/sams/clubs";
@@ -33,7 +31,7 @@ export async function getClubLogoUrl(clubName: string): Promise<string | undefin
 export async function getClubId(clubName: string): Promise<number | void> {
 	// check if the cache file exists, if not then fetch it
 	if (!fs.existsSync(path.join(CLUBS_FILE_TARGET))) {
-		await getClubsDataAll();
+		console.log("🚨 Clubs cache cannot be found!");
 	}
 	// read the cache file containing all clubs
 	if (fs.existsSync(path.join(CLUBS_FILE_TARGET))) {

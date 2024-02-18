@@ -10,7 +10,7 @@ const SAMS_API = env.SAMS_API,
 
 const CLUBS_FILE_TARGET = "data/sams/allClubs.json";
 
-export default async function getClubsDataAll(): Promise<Object | boolean> {
+export default async function getAllClubs(): Promise<Object | boolean> {
 	const apiPath = SAMS_URL + "/xml/sportsclubList.xhtml?apiKey=" + SAMS_API;
 
 	await fetch(apiPath)

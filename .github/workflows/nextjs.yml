@@ -89,7 +89,9 @@ jobs:
         id: sams_update
         if: ${{ github.event_name != 'push' }}
         continue-on-error: true
-        run: npm run sams-update
+        run: |
+          npm run sams-update
+          npm run sams-all-clubs
         env:
           SAMS_API: ${{ secrets.SAMS_API }}
 
@@ -206,8 +208,6 @@ jobs:
       - name: Build with Next.js
         id: next_build
         if: ${{ github.event.schedule != '15,45 09-21 * JAN-APR,OCT-DEC 0,6' || steps.sams_git.outputs.status == 'updated' }}
-        env:
-          SAMS_API: ${{ secrets.SAMS_API }}
         run: |
           echo "status=started" >> $GITHUB_OUTPUT
           ${{ steps.detect-package-manager.outputs.runner }} build
