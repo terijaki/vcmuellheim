@@ -25,7 +25,7 @@ env:
   SAMS_FOLDER: "data/sams"
   SAMS_MATCHSERIES_JSON: "data/sams/matchSeries.json"
   SAMS_CLUB_JSON: "data/sams/club.json"
-  SAMS_CLUBS_CACHE: "data/sams/club"
+  SAMS_CLUBS_CACHE: "data/sams/allClubs.json"
   IMAGES_FOLDER: "public/images"
   BLOG_FOLDER: "data/posts"
   INBOX_FOLDER: "inbox"
