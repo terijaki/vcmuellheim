@@ -30,7 +30,7 @@ export default async function getClubData(clubId?: number): Promise<{ response: 
 					const parseString = require("xml2js").parseString;
 					parseString(xmlReponse, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
 						if (!err) {
-							console.log("✅ Club Data looks ok: " + result.sportsclub.name + "(" + result.sportsclub.id + ")");
+							console.log("✅ Club Data received and looks ok for: " + result.sportsclub.name + " (" + result.sportsclub.id + ")");
 							if (clubId == Number(SAMS_CLUB_ID)) {
 								const output = JSON.stringify(result, null, 2);
 								console.log("✅ Club is our own. Caching response to: " + OWN_CLUB_CACHE_FILE);
