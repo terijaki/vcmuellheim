@@ -9,7 +9,9 @@ export default async function clubLogo(props: { clubName: string }) {
 			<div className="relative h-5 w-5 mr-1">
 				<ExportedImage
 					src={logo}
-					fill
+					width={16}
+					height={16}
+					placeholder="empty"
 					alt={"Logo: " + props.clubName}
 					className="object-contain"
 				/>
