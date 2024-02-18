@@ -206,6 +206,8 @@ jobs:
       - name: Build with Next.js
         id: next_build
         if: ${{ github.event.schedule != '15,45 09-21 * JAN-APR,OCT-DEC 0,6' || steps.sams_git.outputs.status == 'updated' }}
+        env:
+          SAMS_API: ${{ secrets.SAMS_API }}
         run: |
           echo "status=started" >> $GITHUB_OUTPUT
           ${{ steps.detect-package-manager.outputs.runner }} build
