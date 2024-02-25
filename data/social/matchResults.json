@@ -259,6 +259,18 @@
       "score": "0:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/111992799872344991"
+    },
+    {
+      "uuid": "1fa8dd64-04e0-44e0-a5a5-910a9d574cec",
+      "date": "2024-02-25T10:00:00.000Z",
+      "league": "Bezirksliga Herren Süd",
+      "team": [
+        "Bad Säckinger Wölfe 2",
+        "VC Müllheim 2"
+      ],
+      "winner": 1,
+      "score": "3:1",
+      "mastodon": "new"
     }
   ]
 }
