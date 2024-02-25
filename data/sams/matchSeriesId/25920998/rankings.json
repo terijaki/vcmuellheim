@@ -7,9 +7,9 @@
       "name": "Bezirksliga Herren Süd",
       "shortName": "bzl s h",
       "type": "League",
-      "updated": "2024-02-25 16:41:02.481",
+      "updated": "2024-02-25 17:02:14.838",
       "structureUpdated": "2024-02-23 15:41:26.356",
-      "resultsUpdated": "2024-02-25 16:41:02.481",
+      "resultsUpdated": "2024-02-25 17:02:14.838",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -256,6 +256,62 @@
       },
       {
         "team": {
+          "id": "25921012",
+          "uuid": "02fedd2b-b788-495f-a13f-c0c9b5dbb4d1",
+          "name": "TV Staufen 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Staufen",
+            "shortName": null
+          }
+        },
+        "place": "4",
+        "matchesPlayed": "14",
+        "wins": "7",
+        "losses": "7",
+        "points": "21",
+        "setPoints": "27:26",
+        "setWinScore": "27",
+        "setLoseScore": "26",
+        "setPointDifference": "1",
+        "setQuotient": "1,038",
+        "ballPoints": "1207:1184",
+        "ballWinScore": "1207",
+        "ballLoseScore": "1184",
+        "ballPointDifference": "23",
+        "ballQuotient": "1,019",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "3"
+            },
+            {
+              "result": "3:1",
+              "count": "3"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "4"
+            },
+            {
+              "result": "0:3",
+              "count": "2"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "25921292",
           "uuid": "29553912-56f5-46a8-b494-5dd2d6232101",
           "name": "Bad Säckinger Wölfe 2",
@@ -266,7 +322,7 @@
             "shortName": null
           }
         },
-        "place": "4",
+        "place": "5",
         "matchesPlayed": "14",
         "wins": "6",
         "losses": "8",
@@ -322,77 +378,21 @@
             "shortName": null
           }
         },
-        "place": "5",
-        "matchesPlayed": "11",
-        "wins": "6",
-        "losses": "5",
-        "points": "19",
-        "setPoints": "20:18",
-        "setWinScore": "20",
-        "setLoseScore": "18",
-        "setPointDifference": "2",
-        "setQuotient": "1,111",
-        "ballPoints": "845:852",
-        "ballWinScore": "845",
-        "ballLoseScore": "852",
-        "ballPointDifference": "-7",
-        "ballQuotient": "0,992",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "3"
-            },
-            {
-              "result": "3:1",
-              "count": "3"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "1"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "4"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "25921012",
-          "uuid": "02fedd2b-b788-495f-a13f-c0c9b5dbb4d1",
-          "name": "TV Staufen 2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Staufen",
-            "shortName": null
-          }
-        },
         "place": "6",
-        "matchesPlayed": "13",
+        "matchesPlayed": "12",
         "wins": "6",
-        "losses": "7",
-        "points": "18",
-        "setPoints": "24:25",
-        "setWinScore": "24",
-        "setLoseScore": "25",
-        "setPointDifference": "-1",
-        "setQuotient": "0,960",
-        "ballPoints": "1108:1116",
-        "ballWinScore": "1108",
-        "ballLoseScore": "1116",
-        "ballPointDifference": "-8",
-        "ballQuotient": "0,993",
+        "losses": "6",
+        "points": "19",
+        "setPoints": "21:21",
+        "setWinScore": "21",
+        "setLoseScore": "21",
+        "setPointDifference": "0",
+        "setQuotient": "1,000",
+        "ballPoints": "913:951",
+        "ballWinScore": "913",
+        "ballLoseScore": "951",
+        "ballPointDifference": "-38",
+        "ballQuotient": "0,960",
         "resultTypes": {
           "matchResult": [
             {
@@ -401,11 +401,11 @@
             },
             {
               "result": "3:1",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "3:2",
-              "count": "1"
+              "count": "0"
             },
             {
               "result": "2:3",
@@ -413,11 +413,11 @@
             },
             {
               "result": "1:3",
-              "count": "4"
+              "count": "1"
             },
             {
               "result": "0:3",
-              "count": "2"
+              "count": "4"
             }
           ]
         }
