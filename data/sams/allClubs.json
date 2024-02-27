@@ -2232,16 +2232,6 @@
         }
       },
       {
-        "id": "4070251",
-        "name": "SC Pfingstberg-Hochstätt",
-        "lsbNumber": "61025",
-        "internalSportsclubId": "61025",
-        "association": {
-          "id": "3847842",
-          "name": "NVV Bezirk Nord"
-        }
-      },
-      {
         "id": "4070253",
         "name": "TV Philippsburg",
         "lsbNumber": "71307",
@@ -2399,6 +2389,16 @@
         "association": {
           "id": "3847855",
           "name": "NVV Bezirk Süd"
+        }
+      },
+      {
+        "id": "4070251",
+        "name": "SC Pfingstberg-Hochstätt",
+        "lsbNumber": "61025",
+        "internalSportsclubId": "61025",
+        "association": {
+          "id": "3847842",
+          "name": "NVV Bezirk Nord"
         }
       },
       {
@@ -5212,16 +5212,6 @@
         }
       },
       {
-        "id": "21208798",
-        "name": "Lichtbund Karlsruhe",
-        "lsbNumber": "81477",
-        "internalSportsclubId": "81477",
-        "association": {
-          "id": "3847855",
-          "name": "NVV Bezirk Süd"
-        }
-      },
-      {
         "id": "2243536",
         "name": "SC Baden-Baden",
         "lsbNumber": "180320",
@@ -5259,6 +5249,16 @@
         "association": {
           "id": "63938",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "21208798",
+        "name": "Lichtbund Karlsruhe",
+        "lsbNumber": "81477",
+        "internalSportsclubId": "81477",
+        "association": {
+          "id": "3847855",
+          "name": "NVV Bezirk Süd"
         }
       },
       {
