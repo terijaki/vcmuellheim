@@ -1,15 +1,17 @@
 ---
-title: 'Die Meisterschaft ist perfekt!'
+title: Die Meisterschaft ist perfekt!
 date: 2024-02-29T20:08:20.561Z
 gallery:
-- /images/blog/2024/02/29/img-20240225-wa0014.jpg
-- /images/blog/2024/02/29/img-20240225-wa0036.jpg
-- /images/blog/2024/02/29/img-20240225-wa0052.jpg
-- /images/blog/2024/02/29/img-20240225-wa0076.jpg
-- /images/blog/2024/02/29/img-20240225-wa0080.jpg
-- /images/blog/2024/02/29/img-20240225-wa0081.jpg
-- /images/blog/2024/02/29/img-20240225-wa0090.jpg
-- /images/blog/2024/02/29/img-20240225-wa0099.jpg
+  - /images/blog/2024/02/29/img-20240225-wa0014.jpg
+  - /images/blog/2024/02/29/img-20240225-wa0036.jpg
+  - /images/blog/2024/02/29/img-20240225-wa0052.jpg
+  - /images/blog/2024/02/29/img-20240225-wa0076.jpg
+  - /images/blog/2024/02/29/img-20240225-wa0080.jpg
+  - /images/blog/2024/02/29/img-20240225-wa0081.jpg
+  - /images/blog/2024/02/29/img-20240225-wa0090.jpg
+  - /images/blog/2024/02/29/img-20240225-wa0099.jpg
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/112016587512244356'
 ---
 Frühzeitige Meisterschaft für Damen I
 
