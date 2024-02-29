@@ -75,6 +75,8 @@ export function inboxProcessing() {
 					.toLowerCase()
 					.replaceAll(" ", "-")
 					.replaceAll(".", "")
+					.replaceAll("!", "")
+					.replaceAll("?", "")
 					.replaceAll("ü", "ue")
 					.replaceAll("ö", "oe")
 					.replaceAll("ä", "ae")
