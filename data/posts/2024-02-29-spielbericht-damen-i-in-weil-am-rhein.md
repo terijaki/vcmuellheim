@@ -1,13 +1,15 @@
 ---
-title: 'Spielbericht Damen I in Weil am Rhein'
+title: Spielbericht Damen I in Weil am Rhein
 date: 2024-02-29T20:04:05.378Z
 gallery:
-- /images/blog/2024/02/29/img-20240218-wa0138.jpg
-- /images/blog/2024/02/29/img-20240218-wa0148.jpg
-- /images/blog/2024/02/29/img-20240218-wa0151.jpg
-- /images/blog/2024/02/29/img-20240218-wa0174.jpg
-- /images/blog/2024/02/29/img-20240218-wa0189.jpg
-- /images/blog/2024/02/29/img-20240218-wa0197.jpg
+  - /images/blog/2024/02/29/img-20240218-wa0138.jpg
+  - /images/blog/2024/02/29/img-20240218-wa0148.jpg
+  - /images/blog/2024/02/29/img-20240218-wa0151.jpg
+  - /images/blog/2024/02/29/img-20240218-wa0174.jpg
+  - /images/blog/2024/02/29/img-20240218-wa0189.jpg
+  - /images/blog/2024/02/29/img-20240218-wa0197.jpg
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/112016570221829090'
 ---
 Die Saison neigt zum Ende…
 
