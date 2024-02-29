@@ -6050,6 +6050,26 @@
           "id": "3847855",
           "name": "NVV Bezirk Süd"
         }
+      },
+      {
+        "id": "28789729",
+        "name": "SV Salamander Kornwestheim",
+        "lsbNumber": "12101",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "1346366",
+          "name": "Volleyball-Landesverband Württemberg"
+        }
+      },
+      {
+        "id": "28790332",
+        "name": "KSV Unterkirchberg",
+        "lsbNumber": "1157",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "1346366",
+          "name": "Volleyball-Landesverband Württemberg"
+        }
       }
     ]
   }
