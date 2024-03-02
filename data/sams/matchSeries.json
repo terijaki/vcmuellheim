@@ -14200,9 +14200,9 @@
         "name": "SBVV - U16 männlich am 2.3.2024",
         "shortName": "sbvv-u16m",
         "type": "Competition",
-        "updated": "2024-03-02 11:45:22.026",
+        "updated": "2024-03-02 13:19:52.951",
         "structureUpdated": "2024-02-05 10:24:54.779",
-        "resultsUpdated": "2024-03-02 11:45:22.026",
+        "resultsUpdated": "2024-03-02 13:19:52.951",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -14249,9 +14249,9 @@
         "name": "SBVV - U16 weiblich am 2.3.2024",
         "shortName": "sbvv-u16w",
         "type": "Competition",
-        "updated": "2024-03-02 11:46:54.116",
+        "updated": "2024-03-02 12:58:39.729",
         "structureUpdated": "2024-01-17 12:25:45.933",
-        "resultsUpdated": "2024-03-02 11:46:54.116",
+        "resultsUpdated": "2024-03-02 12:58:39.729",
         "season": {
           "id": "25640073",
           "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -14494,7 +14494,7 @@
         "name": "U12 männlich - Quali 1 am 3.3.2024",
         "shortName": "Q1_U12_m",
         "type": "Competition",
-        "updated": "2024-02-27 09:54:21.943",
+        "updated": "2024-03-02 13:09:24.219",
         "structureUpdated": "2024-02-27 09:13:45.28",
         "resultsUpdated": null,
         "season": {
@@ -15374,7 +15374,7 @@
         "name": "U16 männlich - Quali 1 am 3.12.2023",
         "shortName": "Q1_U16_m",
         "type": "Competition",
-        "updated": "2024-03-02 10:01:43.694",
+        "updated": "2024-03-02 12:57:58.574",
         "structureUpdated": "2023-12-05 19:49:33.395",
         "resultsUpdated": "2023-12-05 19:52:18.74",
         "season": {
