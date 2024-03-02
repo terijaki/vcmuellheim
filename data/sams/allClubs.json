@@ -3182,16 +3182,6 @@
         }
       },
       {
-        "id": "322545",
-        "name": "Förderverein Tübinger Modell",
-        "lsbNumber": "1400",
-        "internalSportsclubId": "1400",
-        "association": {
-          "id": "1346366",
-          "name": "Volleyball-Landesverband Württemberg"
-        }
-      },
-      {
         "id": "6964045",
         "name": "SG Flehingen-Diefenbach",
         "lsbNumber": null,
@@ -6065,7 +6055,17 @@
         "id": "28790332",
         "name": "KSV Unterkirchberg",
         "lsbNumber": "1157",
-        "internalSportsclubId": null,
+        "internalSportsclubId": "419",
+        "association": {
+          "id": "1346366",
+          "name": "Volleyball-Landesverband Württemberg"
+        }
+      },
+      {
+        "id": "322545",
+        "name": "FV Tübinger Modell",
+        "lsbNumber": "22182",
+        "internalSportsclubId": "566",
         "association": {
           "id": "1346366",
           "name": "Volleyball-Landesverband Württemberg"
