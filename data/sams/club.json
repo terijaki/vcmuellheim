@@ -320,8 +320,8 @@
             "name": "Bezirksliga Herren Süd",
             "shortName": "bzl s h",
             "type": "League",
-            "updated": "2024-02-29 19:40:06.999",
-            "structureUpdated": "2024-02-29 19:40:06.999",
+            "updated": "2024-03-04 23:13:32.849",
+            "structureUpdated": "2024-03-04 23:13:32.849",
             "resultsUpdated": "2024-02-27 11:43:35.026",
             "season": {
               "id": "25640073",
@@ -920,8 +920,8 @@
             "name": "West Quali - U14w am 25.11.2023",
             "shortName": "WQ_U14w",
             "type": "Competition",
-            "updated": "2024-02-02 21:54:10.893",
-            "structureUpdated": "2024-02-02 21:54:10.893",
+            "updated": "2024-03-04 14:54:24.91",
+            "structureUpdated": "2024-03-04 14:54:24.91",
             "resultsUpdated": "2023-01-15 16:33:00.278",
             "season": {
               "id": "25640073",
@@ -1084,7 +1084,7 @@
             "name": "U14 weiblich - Quali 1 am 27.1.24",
             "shortName": "Q2_U14_w",
             "type": "Competition",
-            "updated": "2024-02-02 21:54:10.893",
+            "updated": "2024-03-04 14:54:24.91",
             "structureUpdated": "2024-01-29 11:43:53.347",
             "resultsUpdated": "2024-01-27 17:01:10.752",
             "season": {
@@ -1163,7 +1163,7 @@
             "name": "SBVV - U14 weiblich am 3.2.24",
             "shortName": "sbvv-u14w",
             "type": "Competition",
-            "updated": "2024-02-03 17:02:55.875",
+            "updated": "2024-03-04 14:54:24.91",
             "structureUpdated": "2024-01-29 12:09:03.295",
             "resultsUpdated": "2024-02-03 17:02:55.875",
             "season": {
@@ -1236,8 +1236,8 @@
             "name": "West Quali - U16w am 3.12.2023",
             "shortName": "WQ_U16w",
             "type": "Competition",
-            "updated": "2024-03-01 20:34:23.623",
-            "structureUpdated": "2024-03-01 20:34:23.623",
+            "updated": "2024-03-04 14:58:35.05",
+            "structureUpdated": "2024-03-04 14:58:35.05",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
@@ -1321,7 +1321,7 @@
             "name": "U16 weiblich - Quali 2 am 3.12.23",
             "shortName": "Q2_U16_w",
             "type": "Competition",
-            "updated": "2024-03-01 20:34:23.623",
+            "updated": "2024-03-04 14:58:35.05",
             "structureUpdated": "2023-11-29 12:59:46.055",
             "resultsUpdated": "2023-12-03 16:28:36.962",
             "season": {
@@ -1400,7 +1400,7 @@
             "name": "SBVV - U16 weiblich am 2.3.2024",
             "shortName": "sbvv-u16w",
             "type": "Competition",
-            "updated": "2024-03-02 18:49:21.839",
+            "updated": "2024-03-04 14:58:35.05",
             "structureUpdated": "2024-01-17 12:25:45.933",
             "resultsUpdated": "2024-03-02 18:49:21.839",
             "season": {
