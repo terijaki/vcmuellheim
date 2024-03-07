@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2024-03-03 10:50:52.481",
+      "updated": "2024-03-06 19:34:38.911",
       "structureUpdated": "2024-02-24 20:11:10.929",
-      "resultsUpdated": "2024-03-03 10:50:52.481",
+      "resultsUpdated": "2024-03-06 19:34:38.911",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -474,6 +474,62 @@
       },
       {
         "team": {
+          "id": "25932647",
+          "uuid": "d73c02cc-e82d-4c3c-b902-cfe4909f3cb5",
+          "name": "USC Freiburg 3",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "USC Freiburg",
+            "shortName": null
+          }
+        },
+        "place": "8",
+        "matchesPlayed": "14",
+        "wins": "4",
+        "losses": "10",
+        "points": "11",
+        "setPoints": "17:36",
+        "setWinScore": "17",
+        "setLoseScore": "36",
+        "setPointDifference": "-19",
+        "setQuotient": "0,472",
+        "ballPoints": "1080:1219",
+        "ballWinScore": "1080",
+        "ballLoseScore": "1219",
+        "ballPointDifference": "-139",
+        "ballQuotient": "0,886",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "0"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "3"
+            },
+            {
+              "result": "0:3",
+              "count": "6"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "25932657",
           "uuid": "55047b28-6105-43ab-b632-6d85ab93b768",
           "name": "TSV Al. Freiburg-Zähringen 2",
@@ -484,7 +540,7 @@
             "shortName": null
           }
         },
-        "place": "8",
+        "place": "9",
         "matchesPlayed": "13",
         "wins": "2",
         "losses": "11",
@@ -530,62 +586,6 @@
       },
       {
         "team": {
-          "id": "25932647",
-          "uuid": "d73c02cc-e82d-4c3c-b902-cfe4909f3cb5",
-          "name": "USC Freiburg 3",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "USC Freiburg",
-            "shortName": null
-          }
-        },
-        "place": "9",
-        "matchesPlayed": "13",
-        "wins": "3",
-        "losses": "10",
-        "points": "8",
-        "setPoints": "14:35",
-        "setWinScore": "14",
-        "setLoseScore": "35",
-        "setPointDifference": "-21",
-        "setQuotient": "0,400",
-        "ballPoints": "981:1137",
-        "ballWinScore": "981",
-        "ballLoseScore": "1137",
-        "ballPointDifference": "-156",
-        "ballQuotient": "0,863",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "1"
-            },
-            {
-              "result": "3:2",
-              "count": "2"
-            },
-            {
-              "result": "2:3",
-              "count": "1"
-            },
-            {
-              "result": "1:3",
-              "count": "3"
-            },
-            {
-              "result": "0:3",
-              "count": "6"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "25932641",
           "uuid": "33cc39d8-055c-4c01-9723-566b11e23feb",
           "name": "Südbaden-Auswahl",
@@ -597,20 +597,20 @@
           }
         },
         "place": "10",
-        "matchesPlayed": "14",
+        "matchesPlayed": "15",
         "wins": "2",
-        "losses": "12",
+        "losses": "13",
         "points": "4",
-        "setPoints": "6:40",
-        "setWinScore": "6",
-        "setLoseScore": "40",
-        "setPointDifference": "-34",
-        "setQuotient": "0,150",
-        "ballPoints": "778:1105",
-        "ballWinScore": "778",
-        "ballLoseScore": "1105",
-        "ballPointDifference": "-327",
-        "ballQuotient": "0,704",
+        "setPoints": "7:43",
+        "setWinScore": "7",
+        "setLoseScore": "43",
+        "setPointDifference": "-36",
+        "setQuotient": "0,163",
+        "ballPoints": "860:1204",
+        "ballWinScore": "860",
+        "ballLoseScore": "1204",
+        "ballPointDifference": "-344",
+        "ballQuotient": "0,714",
         "resultTypes": {
           "matchResult": [
             {
@@ -631,7 +631,7 @@
             },
             {
               "result": "1:3",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "0:3",
