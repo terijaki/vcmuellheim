@@ -59,9 +59,9 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2024-03-03 10:50:52.481",
+            "updated": "2024-03-06 19:34:38.911",
             "structureUpdated": "2024-02-24 20:11:10.929",
-            "resultsUpdated": "2024-03-03 10:50:52.481",
+            "resultsUpdated": "2024-03-06 19:34:38.911",
             "season": {
               "id": "25640073",
               "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1880,9 +1880,9 @@
             "name": "U16 männlich - Quali 2 am 3.12.2023",
             "shortName": "Q2_U16_m",
             "type": "Competition",
-            "updated": "2024-03-02 07:37:53.282",
+            "updated": "2024-03-05 09:37:15.663",
             "structureUpdated": "2023-12-05 19:59:20.263",
-            "resultsUpdated": "2023-12-03 17:21:00.688",
+            "resultsUpdated": "2024-03-05 09:37:15.663",
             "season": {
               "id": "25640073",
               "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
