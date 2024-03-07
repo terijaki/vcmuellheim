@@ -592,16 +592,6 @@
         }
       },
       {
-        "id": "326216",
-        "name": "TSV G.A. Stuttgart",
-        "lsbNumber": "2200",
-        "internalSportsclubId": "2200",
-        "association": {
-          "id": "1346366",
-          "name": "Volleyball-Landesverband Württemberg"
-        }
-      },
-      {
         "id": "654",
         "name": "TV Erzingen",
         "lsbNumber": "5112",
@@ -1642,16 +1632,6 @@
         }
       },
       {
-        "id": "495",
-        "name": "TG Stockach",
-        "lsbNumber": "472960",
-        "internalSportsclubId": "3913",
-        "association": {
-          "id": "63940",
-          "name": "SBVV Bezirk Schwarzwald-Bodensee"
-        }
-      },
-      {
         "id": "2253106",
         "name": "VV Vörstetten",
         "lsbNumber": null,
@@ -1669,6 +1649,16 @@
         "association": {
           "id": "63939",
           "name": "SBVV Bezirk West"
+        }
+      },
+      {
+        "id": "495",
+        "name": "TG Stockach",
+        "lsbNumber": "472960",
+        "internalSportsclubId": "3913",
+        "association": {
+          "id": "63940",
+          "name": "SBVV Bezirk Schwarzwald-Bodensee"
         }
       },
       {
@@ -4012,16 +4002,6 @@
         }
       },
       {
-        "id": "4905394",
-        "name": "Allianz MTV Stuttgart",
-        "lsbNumber": "1101",
-        "internalSportsclubId": "1101",
-        "association": {
-          "id": "1346366",
-          "name": "Volleyball-Landesverband Württemberg"
-        }
-      },
-      {
         "id": "326228",
         "name": "SV Fellbach",
         "lsbNumber": "2400",
@@ -6042,16 +6022,6 @@
         }
       },
       {
-        "id": "28789729",
-        "name": "SV Salamander Kornwestheim",
-        "lsbNumber": "12101",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "1346366",
-          "name": "Volleyball-Landesverband Württemberg"
-        }
-      },
-      {
         "id": "28790332",
         "name": "KSV Unterkirchberg",
         "lsbNumber": "1157",
@@ -6066,6 +6036,46 @@
         "name": "FV Tübinger Modell",
         "lsbNumber": "22182",
         "internalSportsclubId": "566",
+        "association": {
+          "id": "1346366",
+          "name": "Volleyball-Landesverband Württemberg"
+        }
+      },
+      {
+        "id": "28855954",
+        "name": "Volleyball Akademie Stuttgart",
+        "lsbNumber": "200401",
+        "internalSportsclubId": "287",
+        "association": {
+          "id": "1346366",
+          "name": "Volleyball-Landesverband Württemberg"
+        }
+      },
+      {
+        "id": "326216",
+        "name": "TSV G.A. Stuttgart",
+        "lsbNumber": "20102",
+        "internalSportsclubId": "295",
+        "association": {
+          "id": "1346366",
+          "name": "Volleyball-Landesverband Württemberg"
+        }
+      },
+      {
+        "id": "4905394",
+        "name": "MTV Stuttgart 1843",
+        "lsbNumber": "20040",
+        "internalSportsclubId": "287",
+        "association": {
+          "id": "1346366",
+          "name": "Volleyball-Landesverband Württemberg"
+        }
+      },
+      {
+        "id": "28789729",
+        "name": "SV Salamander Kornwestheim",
+        "lsbNumber": "12101",
+        "internalSportsclubId": "70",
         "association": {
           "id": "1346366",
           "name": "Volleyball-Landesverband Württemberg"
