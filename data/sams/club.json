@@ -59,9 +59,9 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2024-03-06 19:34:38.911",
+            "updated": "2024-03-08 09:26:23.349",
             "structureUpdated": "2024-02-24 20:11:10.929",
-            "resultsUpdated": "2024-03-06 19:34:38.911",
+            "resultsUpdated": "2024-03-08 09:26:23.349",
             "season": {
               "id": "25640073",
               "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -1558,8 +1558,8 @@
             "name": "West Quali - U14m am 25.11.2023",
             "shortName": "WQ_U14m",
             "type": "Competition",
-            "updated": "2024-02-02 19:02:13.824",
-            "structureUpdated": "2024-02-02 19:02:13.824",
+            "updated": "2024-03-08 21:43:18.666",
+            "structureUpdated": "2024-03-08 21:43:18.666",
             "resultsUpdated": "2023-01-15 16:33:00.278",
             "season": {
               "id": "25640073",
@@ -1643,7 +1643,7 @@
             "name": "U14 männlich - Quali 2 am 25.11.2023",
             "shortName": "Q2_U14_m",
             "type": "Competition",
-            "updated": "2024-01-31 19:08:13.115",
+            "updated": "2024-03-08 21:43:18.666",
             "structureUpdated": "2023-12-11 21:42:40.288",
             "resultsUpdated": "2023-11-25 17:14:27.33",
             "season": {
@@ -1722,7 +1722,7 @@
             "name": "SBVV - U14 männlich am 3.2.24",
             "shortName": "sbvv-u14m",
             "type": "Competition",
-            "updated": "2024-02-07 09:16:09.544",
+            "updated": "2024-03-08 21:43:18.666",
             "structureUpdated": "2024-02-07 09:16:09.544",
             "resultsUpdated": "2024-02-03 18:26:59.329",
             "season": {
