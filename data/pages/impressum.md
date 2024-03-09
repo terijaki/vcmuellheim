@@ -6,7 +6,7 @@ title: Impressum
 
 Volleyballclub Müllheim e.V.  
 Lettenstr. 48  
-79424 Auggen
+79424 Auggen  
 Vereinsregister: VR158Mü  
 Registergericht: AG Müllheim
 
