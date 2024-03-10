@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2024-03-10 12:18:28.829",
+      "updated": "2024-03-10 13:46:02.649",
       "structureUpdated": "2024-02-24 20:11:10.929",
-      "resultsUpdated": "2024-03-10 12:18:28.829",
+      "resultsUpdated": "2024-03-10 13:46:02.649",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -317,20 +317,20 @@
           }
         },
         "place": "5",
-        "matchesPlayed": "16",
-        "wins": "8",
+        "matchesPlayed": "17",
+        "wins": "9",
         "losses": "8",
-        "points": "22",
-        "setPoints": "31:31",
-        "setWinScore": "31",
-        "setLoseScore": "31",
-        "setPointDifference": "0",
-        "setQuotient": "1,000",
-        "ballPoints": "1357:1327",
-        "ballWinScore": "1357",
-        "ballLoseScore": "1327",
-        "ballPointDifference": "30",
-        "ballQuotient": "1,023",
+        "points": "25",
+        "setPoints": "34:32",
+        "setWinScore": "34",
+        "setLoseScore": "32",
+        "setPointDifference": "2",
+        "setQuotient": "1,062",
+        "ballPoints": "1454:1413",
+        "ballWinScore": "1454",
+        "ballLoseScore": "1413",
+        "ballPointDifference": "41",
+        "ballQuotient": "1,029",
         "resultTypes": {
           "matchResult": [
             {
@@ -339,7 +339,7 @@
             },
             {
               "result": "3:1",
-              "count": "1"
+              "count": "2"
             },
             {
               "result": "3:2",
@@ -541,19 +541,19 @@
           }
         },
         "place": "9",
-        "matchesPlayed": "14",
+        "matchesPlayed": "15",
         "wins": "4",
-        "losses": "10",
+        "losses": "11",
         "points": "11",
-        "setPoints": "17:36",
-        "setWinScore": "17",
-        "setLoseScore": "36",
-        "setPointDifference": "-19",
-        "setQuotient": "0,472",
-        "ballPoints": "1080:1219",
-        "ballWinScore": "1080",
-        "ballLoseScore": "1219",
-        "ballPointDifference": "-139",
+        "setPoints": "18:39",
+        "setWinScore": "18",
+        "setLoseScore": "39",
+        "setPointDifference": "-21",
+        "setQuotient": "0,462",
+        "ballPoints": "1166:1316",
+        "ballWinScore": "1166",
+        "ballLoseScore": "1316",
+        "ballPointDifference": "-150",
         "ballQuotient": "0,886",
         "resultTypes": {
           "matchResult": [
@@ -575,7 +575,7 @@
             },
             {
               "result": "1:3",
-              "count": "3"
+              "count": "4"
             },
             {
               "result": "0:3",
