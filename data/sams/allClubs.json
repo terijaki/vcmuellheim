@@ -102,16 +102,6 @@
         }
       },
       {
-        "id": "8711478",
-        "name": "TSG Backnang",
-        "lsbNumber": "8144281587",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "1346366",
-          "name": "Volleyball-Landesverband Württemberg"
-        }
-      },
-      {
         "id": "621",
         "name": "TV Fridingen",
         "lsbNumber": null,
@@ -159,6 +149,16 @@
         "association": {
           "id": "3847855",
           "name": "NVV Bezirk Süd"
+        }
+      },
+      {
+        "id": "8711478",
+        "name": "TSG Backnang 1846",
+        "lsbNumber": "15027",
+        "internalSportsclubId": "9",
+        "association": {
+          "id": "1346366",
+          "name": "Volleyball-Landesverband Württemberg"
         }
       },
       {
@@ -402,16 +402,6 @@
         }
       },
       {
-        "id": "4070150",
-        "name": "TSV Assamstadt",
-        "lsbNumber": "10002",
-        "internalSportsclubId": "10002",
-        "association": {
-          "id": "3847842",
-          "name": "NVV Bezirk Nord"
-        }
-      },
-      {
         "id": "4070164",
         "name": "TSV Germania Dühren",
         "lsbNumber": "40397",
@@ -529,6 +519,16 @@
         "association": {
           "id": "63939",
           "name": "SBVV Bezirk West"
+        }
+      },
+      {
+        "id": "4070150",
+        "name": "TSV Assamstadt",
+        "lsbNumber": "10002",
+        "internalSportsclubId": "10002",
+        "association": {
+          "id": "3847842",
+          "name": "NVV Bezirk Nord"
         }
       },
       {
@@ -2502,16 +2502,6 @@
         }
       },
       {
-        "id": "322499",
-        "name": "SSV Ulm 1846",
-        "lsbNumber": "1200",
-        "internalSportsclubId": "1200",
-        "association": {
-          "id": "1346366",
-          "name": "Volleyball-Landesverband Württemberg"
-        }
-      },
-      {
         "id": "627185",
         "name": "TSG Weinheim",
         "lsbNumber": "61127",
@@ -2569,6 +2559,16 @@
         "association": {
           "id": "63939",
           "name": "SBVV Bezirk West"
+        }
+      },
+      {
+        "id": "322499",
+        "name": "SSV Ulm 1846",
+        "lsbNumber": "1136",
+        "internalSportsclubId": "414",
+        "association": {
+          "id": "1346366",
+          "name": "Volleyball-Landesverband Württemberg"
         }
       },
       {
@@ -3192,16 +3192,6 @@
         }
       },
       {
-        "id": "12905006",
-        "name": "SV Winnenden",
-        "lsbNumber": "8144281594",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "1346366",
-          "name": "Volleyball-Landesverband Württemberg"
-        }
-      },
-      {
         "id": "4070180",
         "name": "SV Großeicholzheim",
         "lsbNumber": "20164",
@@ -3269,6 +3259,16 @@
         "association": {
           "id": "63939",
           "name": "SBVV Bezirk West"
+        }
+      },
+      {
+        "id": "12905006",
+        "name": "SV Winnenden",
+        "lsbNumber": "15204",
+        "internalSportsclubId": "138",
+        "association": {
+          "id": "1346366",
+          "name": "Volleyball-Landesverband Württemberg"
         }
       },
       {
@@ -5452,16 +5452,6 @@
         }
       },
       {
-        "id": "16017464",
-        "name": "SV Esslingen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "1346366",
-          "name": "Volleyball-Landesverband Württemberg"
-        }
-      },
-      {
         "id": "4070259",
         "name": "TV Schwann",
         "lsbNumber": "91857",
@@ -5469,6 +5459,16 @@
         "association": {
           "id": "3847855",
           "name": "NVV Bezirk Süd"
+        }
+      },
+      {
+        "id": "16017464",
+        "name": "SV 1845 Esslingen",
+        "lsbNumber": "6395",
+        "internalSportsclubId": "183",
+        "association": {
+          "id": "1346366",
+          "name": "Volleyball-Landesverband Württemberg"
         }
       },
       {
