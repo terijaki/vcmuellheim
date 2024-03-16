@@ -259,6 +259,18 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/112105459409420483"
+    },
+    {
+      "uuid": "5b2ad9a7-3775-44f5-a8c8-4350a26d0c77",
+      "date": "2024-03-16T13:00:00.000Z",
+      "league": "Bezirksliga Herren Süd",
+      "team": [
+        "VC Minseln",
+        "VC Müllheim 2"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
     }
   ]
 }
