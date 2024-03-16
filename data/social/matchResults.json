@@ -285,6 +285,18 @@
       "score": "0:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/112105924767283883"
+    },
+    {
+      "uuid": "13a3364e-5cc3-4c0d-ae6a-fb005e302636",
+      "date": "2024-03-16T13:00:00.000Z",
+      "league": "Kreisliga Damen Süd",
+      "team": [
+        "VC Müllheim 1",
+        "TV Bad Säckingen 3"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
     }
   ]
 }
