@@ -5572,16 +5572,6 @@
         }
       },
       {
-        "id": "411",
-        "name": "VSG Endingen",
-        "lsbNumber": "480280",
-        "internalSportsclubId": "3402",
-        "association": {
-          "id": "63939",
-          "name": "SBVV Bezirk West"
-        }
-      },
-      {
         "id": "4070254",
         "name": "VfB Reicholzheim",
         "lsbNumber": "10063",
@@ -5672,6 +5662,16 @@
         }
       },
       {
+        "id": "411",
+        "name": "VSG Endingen",
+        "lsbNumber": "480280",
+        "internalSportsclubId": "3402",
+        "association": {
+          "id": "63939",
+          "name": "SBVV Bezirk West"
+        }
+      },
+      {
         "id": "25393994",
         "name": "Beachverein Freiburg e.V.",
         "lsbNumber": "480650",
@@ -5732,16 +5732,6 @@
         }
       },
       {
-        "id": "326210",
-        "name": "VfB Friedrichshafen",
-        "lsbNumber": "4021",
-        "internalSportsclubId": "355",
-        "association": {
-          "id": "1346366",
-          "name": "Volleyball-Landesverband Württemberg"
-        }
-      },
-      {
         "id": "4070212",
         "name": "SG Ketsch/Brühl",
         "lsbNumber": null,
@@ -5759,6 +5749,16 @@
         "association": {
           "id": "3847855",
           "name": "NVV Bezirk Süd"
+        }
+      },
+      {
+        "id": "326210",
+        "name": "VfB Friedrichshafen",
+        "lsbNumber": "4021",
+        "internalSportsclubId": "355",
+        "association": {
+          "id": "1346366",
+          "name": "Volleyball-Landesverband Württemberg"
         }
       },
       {
@@ -5962,16 +5962,6 @@
         }
       },
       {
-        "id": "4070275",
-        "name": "ASC Grünwettersbach",
-        "lsbNumber": "81532",
-        "internalSportsclubId": "81532",
-        "association": {
-          "id": "3847855",
-          "name": "NVV Bezirk Süd"
-        }
-      },
-      {
         "id": "4070200",
         "name": "TSV Jöhlingen",
         "lsbNumber": "81444",
@@ -6079,6 +6069,16 @@
         "association": {
           "id": "1346366",
           "name": "Volleyball-Landesverband Württemberg"
+        }
+      },
+      {
+        "id": "4070275",
+        "name": "ASC Grünwettersbach",
+        "lsbNumber": "81532",
+        "internalSportsclubId": "81532",
+        "association": {
+          "id": "3847855",
+          "name": "NVV Bezirk Süd"
         }
       }
     ]
