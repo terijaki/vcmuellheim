@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2024-03-15 09:49:07.171",
+      "updated": "2024-03-16 14:13:33.684",
       "structureUpdated": "2024-03-15 09:49:07.171",
-      "resultsUpdated": "2024-03-15 09:34:28.744",
+      "resultsUpdated": "2024-03-16 14:13:33.684",
       "season": {
         "id": "25640073",
         "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
@@ -138,6 +138,62 @@
       },
       {
         "team": {
+          "id": "25932661",
+          "uuid": "1a5c08ea-5b97-4449-9ec7-689d57b26f78",
+          "name": "VfR Merzhausen 1",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VfR Merzhausen",
+            "shortName": null
+          }
+        },
+        "place": "2",
+        "matchesPlayed": "16",
+        "wins": "15",
+        "losses": "1",
+        "points": "43",
+        "setPoints": "46:11",
+        "setWinScore": "46",
+        "setLoseScore": "11",
+        "setPointDifference": "35",
+        "setQuotient": "4,182",
+        "ballPoints": "1375:1046",
+        "ballWinScore": "1375",
+        "ballLoseScore": "1046",
+        "ballPointDifference": "329",
+        "ballQuotient": "1,315",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "9"
+            },
+            {
+              "result": "3:1",
+              "count": "4"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "25932650",
           "uuid": "c5072d37-5feb-4f08-8431-c5f2ccdb88b5",
           "name": "VC Müllheim",
@@ -148,7 +204,7 @@
             "shortName": null
           }
         },
-        "place": "2",
+        "place": "3",
         "matchesPlayed": "18",
         "wins": "13",
         "losses": "5",
@@ -184,62 +240,6 @@
             {
               "result": "1:3",
               "count": "2"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "25932661",
-          "uuid": "1a5c08ea-5b97-4449-9ec7-689d57b26f78",
-          "name": "VfR Merzhausen 1",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "VfR Merzhausen",
-            "shortName": null
-          }
-        },
-        "place": "3",
-        "matchesPlayed": "15",
-        "wins": "14",
-        "losses": "1",
-        "points": "40",
-        "setPoints": "43:11",
-        "setWinScore": "43",
-        "setLoseScore": "11",
-        "setPointDifference": "32",
-        "setQuotient": "3,909",
-        "ballPoints": "1300:1040",
-        "ballWinScore": "1300",
-        "ballLoseScore": "1040",
-        "ballPointDifference": "260",
-        "ballQuotient": "1,250",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "8"
-            },
-            {
-              "result": "3:1",
-              "count": "4"
-            },
-            {
-              "result": "3:2",
-              "count": "2"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "1"
             },
             {
               "result": "0:3",
@@ -541,20 +541,20 @@
           }
         },
         "place": "9",
-        "matchesPlayed": "16",
+        "matchesPlayed": "17",
         "wins": "4",
-        "losses": "12",
+        "losses": "13",
         "points": "11",
-        "setPoints": "19:42",
+        "setPoints": "19:45",
         "setWinScore": "19",
-        "setLoseScore": "42",
-        "setPointDifference": "-23",
-        "setQuotient": "0,452",
-        "ballPoints": "1245:1411",
-        "ballWinScore": "1245",
-        "ballLoseScore": "1411",
-        "ballPointDifference": "-166",
-        "ballQuotient": "0,882",
+        "setLoseScore": "45",
+        "setPointDifference": "-26",
+        "setQuotient": "0,422",
+        "ballPoints": "1251:1486",
+        "ballWinScore": "1251",
+        "ballLoseScore": "1486",
+        "ballPointDifference": "-235",
+        "ballQuotient": "0,842",
         "resultTypes": {
           "matchResult": [
             {
@@ -579,7 +579,7 @@
             },
             {
               "result": "0:3",
-              "count": "6"
+              "count": "7"
             }
           ]
         }
