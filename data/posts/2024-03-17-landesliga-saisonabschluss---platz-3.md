@@ -1,13 +1,15 @@
 ---
-title: 'Landesliga Saisonabschluss - Platz 3'
+title: Landesliga Saisonabschluss - Platz 3
 date: 2024-03-17T19:32:44.111Z
 gallery:
-- /images/blog/2024/03/17/img_2744.jpg
-- /images/blog/2024/03/17/img_2745.jpg
-- /images/blog/2024/03/17/img_2749.jpg
-- /images/blog/2024/03/17/img_2892.jpg
-- /images/blog/2024/03/17/img_2935.jpg
-- /images/blog/2024/03/17/img_2954.jpg
+  - /images/blog/2024/03/17/img_2744.jpg
+  - /images/blog/2024/03/17/img_2745.jpg
+  - /images/blog/2024/03/17/img_2749.jpg
+  - /images/blog/2024/03/17/img_2892.jpg
+  - /images/blog/2024/03/17/img_2935.jpg
+  - /images/blog/2024/03/17/img_2954.jpg
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/112112706009972043'
 ---
 Am vergangenen Samstag, den 9 März, hatten wir (Herren 1) bereits unseren letzten Spieltag für diese Saison in Forms zweier Heimspiele.
 
