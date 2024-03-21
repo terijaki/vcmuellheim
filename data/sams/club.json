@@ -320,7 +320,7 @@
             "name": "Bezirksliga Herren Süd",
             "shortName": "bzl s h",
             "type": "League",
-            "updated": "2024-03-18 15:22:47.587",
+            "updated": "2024-03-19 16:56:37.414",
             "structureUpdated": "2024-03-18 15:22:47.587",
             "resultsUpdated": "2024-03-18 15:18:08.323",
             "season": {
@@ -429,7 +429,7 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2024-03-16 19:45:20.625",
+            "updated": "2024-03-19 16:56:14.482",
             "structureUpdated": "2024-03-15 20:49:12.296",
             "resultsUpdated": "2024-03-16 19:45:20.625",
             "season": {
@@ -550,7 +550,7 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2024-03-16 19:45:20.625",
+            "updated": "2024-03-19 16:56:14.482",
             "structureUpdated": "2024-03-15 20:49:12.296",
             "resultsUpdated": "2024-03-16 19:45:20.625",
             "season": {
@@ -750,8 +750,8 @@
             "name": "West Jugendrunde (4:4) weiblich",
             "shortName": "W_JRw",
             "type": "Competition",
-            "updated": "2024-03-12 10:50:46.519",
-            "structureUpdated": "2024-03-12 10:50:46.519",
+            "updated": "2024-03-19 13:14:10.684",
+            "structureUpdated": "2024-03-19 13:14:10.684",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
@@ -835,8 +835,8 @@
             "name": "West Jugendrunde (4:4) weiblich",
             "shortName": "W_JRw",
             "type": "Competition",
-            "updated": "2024-03-12 10:50:46.519",
-            "structureUpdated": "2024-03-12 10:50:46.519",
+            "updated": "2024-03-19 13:14:10.684",
+            "structureUpdated": "2024-03-19 13:14:10.684",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
@@ -1473,8 +1473,8 @@
             "name": "West Jugendrunde (4:4) männlich",
             "shortName": "W_JRm",
             "type": "Competition",
-            "updated": "2024-01-31 12:04:21.598",
-            "structureUpdated": "2024-01-31 12:04:21.598",
+            "updated": "2024-03-19 13:15:30.637",
+            "structureUpdated": "2024-03-19 13:15:30.637",
             "resultsUpdated": null,
             "season": {
               "id": "25640073",
