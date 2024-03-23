@@ -72,7 +72,7 @@ export default function RankingTable(props: rankingsArray) {
 										{clubTeamIds.includes(team.team.id) && props.linkToTeamPage ? (
 											<Link
 												href={"teams/" + getTeams(team.team.id)[0].slug}
-												className="w-full"
+												className="w-full inline-flex"
 											>
 												<ClubLogo
 													clubName={team.team.club.name}
