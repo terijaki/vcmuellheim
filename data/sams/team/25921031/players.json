@@ -1,0 +1,186 @@
+[
+    {
+        "lastname": "Ernst",
+        "firstname": "Dominik",
+        "nationality": "DE",
+        "number": "",
+        "height": 180,
+        "function": "Co-Trainer"
+    },
+    {
+        "lastname": "B�hler",
+        "firstname": "Josua",
+        "nationality": "DE",
+        "number": 7,
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Ernst",
+        "firstname": "Dominik",
+        "nationality": "DE",
+        "number": 23,
+        "height": 180,
+        "function": ""
+    },
+    {
+        "lastname": "Ernst",
+        "firstname": "Mirko",
+        "nationality": "DE",
+        "number": 4,
+        "height": 181,
+        "function": ""
+    },
+    {
+        "lastname": "Mai",
+        "firstname": "Luca",
+        "nationality": "DE",
+        "number": 3,
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Stromberger",
+        "firstname": "Jakob",
+        "nationality": "DE",
+        "number": "",
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Reichert",
+        "firstname": "Nico",
+        "nationality": "DE",
+        "number": 1,
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Bubalo",
+        "firstname": "Ognjen",
+        "nationality": "HR",
+        "number": 6,
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Richert",
+        "firstname": "Julius",
+        "nationality": "DE",
+        "number": "",
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Lewetz",
+        "firstname": "Lars",
+        "nationality": "DE",
+        "number": 24,
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Amin-Charifi",
+        "firstname": "Marlon",
+        "nationality": "DE",
+        "number": "",
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Cuccu",
+        "firstname": "Daniele Luca",
+        "nationality": "IT",
+        "number": 10,
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Solovey",
+        "firstname": "Ruven",
+        "nationality": "DE",
+        "number": 21,
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Muschiol",
+        "firstname": "Lasse",
+        "nationality": "DE",
+        "number": "",
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Muci",
+        "firstname": "Mateos",
+        "nationality": "AL",
+        "number": 5,
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Ngo",
+        "firstname": "Philipp",
+        "nationality": "DE",
+        "number": "",
+        "height": 170,
+        "function": "Trainer"
+    },
+    {
+        "lastname": "Siege",
+        "firstname": "Thanathon",
+        "nationality": "DE",
+        "number": 8,
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Radloff",
+        "firstname": "Jan",
+        "nationality": "DE",
+        "number": 25,
+        "height": 180,
+        "function": ""
+    },
+    {
+        "lastname": "V�lkle",
+        "firstname": "Laurin Jakob",
+        "nationality": "DE",
+        "number": "",
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Ernst",
+        "firstname": "Dominik",
+        "nationality": "DE",
+        "number": "",
+        "height": 180,
+        "function": "Trainer"
+    },
+    {
+        "lastname": "Herr",
+        "firstname": "Noah",
+        "nationality": "DE",
+        "number": 11,
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Muci",
+        "firstname": "Mateos",
+        "nationality": "AL",
+        "number": "",
+        "height": "",
+        "function": "Physiotherapeut"
+    },
+    {
+        "lastname": "Haase",
+        "firstname": "Paul",
+        "nationality": "DE",
+        "number": 15,
+        "height": 188,
+        "function": ""
+    }
+]
