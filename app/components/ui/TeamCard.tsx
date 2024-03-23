@@ -131,7 +131,7 @@ export default function TeamCard(props: teamObject) {
 								href={"/teams/" + props.slug}
 								className="inline-flex gap-x-1 items-baseline"
 							>
-								Ergebnisse, Tabelle & Kalender
+								Spielplan, Tabelle & Kader
 							</Link>
 						</div>
 					)}
