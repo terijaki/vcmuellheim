@@ -6,16 +6,19 @@ import { navbarLinks } from "@/app/utils/navbarLinks";
 import Socials from "@/app/components/layout/Socials";
 
 function navbarLinksRender() {
-	const navLinks = navbarLinks.map((item) => {
+	const navLinks = navbarLinks.map((item, index) => {
 		return (
-			<li key={item.name}>
-				<Link
-					{...item}
-					className="hover:text-lion font-medium tracking-normal p-1 md:p-0 block text-lg md:text-base"
-				>
-					{item.name}
-				</Link>
-			</li>
+			<>
+				{index != 0 && <li className="hidden md:block opacity-30">&#x2022;</li>}
+				<li key={item.name}>
+					<Link
+						{...item}
+						className="hover:text-lion font-medium tracking-normal p-1 md:p-0 block text-lg md:text-base"
+					>
+						{item.name}
+					</Link>
+				</li>
+			</>
 		);
 	});
 	return navLinks;
@@ -61,7 +64,7 @@ export default function Header() {
 						}
 					>
 						<ul
-							className={(isMobileNavCollapsed ? "" : "grid-flow-row ") + " md:max-h-full md:grid md:grid-flow-col gap-x-2 place-self-center"}
+							className={(isMobileNavCollapsed ? "" : "grid-flow-row ") + " md:max-h-full md:grid md:grid-flow-col gap-x-1 place-self-center"}
 							onClick={() => setIsMobileNavCollapsed(true)}
 						>
 							{navbarLinksRender()}
