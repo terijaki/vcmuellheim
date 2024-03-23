@@ -26,6 +26,7 @@ env:
   SAMS_MATCHSERIES_JSON: "data/sams/matchSeries.json"
   SAMS_CLUB_JSON: "data/sams/club.json"
   SAMS_CLUBS_CACHE: "data/sams/allClubs.json"
+  SAMS_PLAYERS_CACHE: "data/sams/team"
   IMAGES_FOLDER: "public/images"
   BLOG_FOLDER: "data/posts"
   INBOX_FOLDER: "inbox"
@@ -136,6 +137,19 @@ jobs:
             git push origin --all --quiet --force
             echo "status=updated" >> $GITHUB_OUTPUT
             echo "🏐 Some new club data detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [ -z "$(git stage ${{ env.SAMS_PLAYERS_CACHE }} --dry-run)" ]
+          then
+            echo "✅ All player data up to date."
+            echo "✅ All player data up to date." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "🏐 Some new player data detected! Pushing to repository."
+            git add ${{ env.SAMS_PLAYERS_CACHE }}
+            git commit -m "automated deployment update"
+            git push origin --all --quiet --force
+            echo "status=updated" >> $GITHUB_OUTPUT
+            echo "🏐 Some new player data detected and pushed to repository." >> $GITHUB_STEP_SUMMARY
           fi
 
           if [ -z "$(git stage ${{ env.SAMS_FOLDER }} --dry-run)" ]
