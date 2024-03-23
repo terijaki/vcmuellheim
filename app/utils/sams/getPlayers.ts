@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { writeToSummary } from "../github/actionSummary";
 
 const SAMS_PLAYER_URL = "https://www.sbvv-online.de/servlet/sportsclub/TeamMemberCsvExport?teamId=";
 const TEAM_FOLDER = "data/sams/team";
@@ -11,6 +12,11 @@ export default async function getPlayers(teamId: number | string) {
 	if (res.ok) {
 		// read the player data from SAMS
 		const samsData = await res.text();
+		if (samsData) {
+			let consoleNote = "✅ Player data retrieved for team " + teamId;
+			console.log(consoleNote);
+			writeToSummary(consoleNote);
+		}
 		// convert it to json
 		const dumbcsv = require("dumb-csv");
 		const jsonData = await dumbcsv.fromCSV({ data: samsData, separator: ";" }).toJSON();

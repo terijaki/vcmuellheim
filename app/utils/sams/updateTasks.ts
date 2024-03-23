@@ -4,11 +4,12 @@ import fs from "fs";
 import path from "path";
 import { env } from "process";
 import { cachedGetTeamIds, cachedGetUniqueMatchSeriesIds } from "./cachedGetClubData";
+import { writeToSummary } from "../github/actionSummary";
 import getMatchSeries from "./getMatchSeries";
 import getClubData from "./getClubData";
 import getRankings from "./getRankings";
 import getMatches from "./getMatches";
-import { writeToSummary } from "../github/actionSummary";
+import getPlayers from "./getPlayers";
 import getAllClubs from "./getAllClubs";
 import { getClubId } from "./getClubLogo";
 import { slugify } from "../slugify";
@@ -73,6 +74,9 @@ getMatchSeries()
 					getMatches(undefined, series.id);
 				}
 			});
+			// PLAYERS
+			// fetches and stores player data for each team
+			cachedGetTeamIds("id", true).forEach((teamId) => getPlayers(teamId));
 		});
 	})
 	.catch((error) => {
