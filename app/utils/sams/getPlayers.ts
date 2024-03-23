@@ -30,7 +30,7 @@ export default async function getPlayers(teamId: number | string) {
 					firstname: player["Vorname"],
 					nationality: player["NAT"],
 					number: player["Trikot"],
-					height: player["Gr��e"],
+					height: player["Größe"],
 					function: player["Position/Funktion Offizieller"],
 				};
 			});
