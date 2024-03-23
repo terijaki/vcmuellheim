@@ -26,6 +26,7 @@
 		"blog-new-posts-local": "tsx --env-file=.env.local --env-file=.env app/utils/blog/shareNewPosts.ts"
 	},
 	"dependencies": {
+		"dumb-csv": "^1.1.2",
 		"gray-matter": "^4.0.3",
 		"is-dst": "^1.0.0",
 		"markdown-to-jsx": "^7.3.2",
