@@ -37,6 +37,7 @@ export default function Tabelle() {
 								<RankingTable
 									{...ranking}
 									key={ranking.matchSeries.id}
+									linkToTeamPage={true}
 								/>
 							);
 						}
