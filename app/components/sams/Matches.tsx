@@ -85,21 +85,21 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 										return (
 											<IconResult
 												className="inline text-turquoise mr-1"
-												key={team}
+												key={team.id}
 											/>
 										);
 									} else if (match.results && match.results.winner == (index + 2).toString() && team.id && teamIdString.includes(team.id)) {
 										return (
 											<IconResult
 												className="inline text-turquoise mr-1"
-												key={team}
+												key={team.id}
 											/>
 										);
 									} else if (team.id && teamIdString.includes(team.id)) {
 										return (
 											<IconResult
 												className="inline mr-1"
-												key={team}
+												key={team.id}
 											/>
 										);
 									}
