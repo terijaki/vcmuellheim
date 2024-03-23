@@ -39,4 +39,5 @@ export type rankingsArray = {
 		}
 	];
 	exclusive?: string | number;
+	linkToTeamPage?: boolean;
 };
