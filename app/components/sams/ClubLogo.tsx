@@ -12,7 +12,7 @@ export default async function clubLogo(props: { clubName: string; className?: st
 					fill
 					placeholder="empty"
 					alt={"Logo: " + props.clubName}
-					className="object-contain"
+					className="object-contain mix-blend-multiply"
 				/>
 			</div>
 		);
