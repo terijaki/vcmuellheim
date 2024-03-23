@@ -12,6 +12,8 @@ import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import RankingTable from "@/app/components/sams/RankingTable";
 import { icsTeamGeneration } from "@/app/utils/icsGeneration";
 import { env } from "process";
+import { cachedGetPlayers } from "@/app/utils/sams/cachedGetPlayers";
+import Flag from "react-world-flags";
 
 // generate static routes for each team slug
 // example: http://localhost:3000/teams/herren1
@@ -47,6 +49,11 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 		// check if its currently a month outside of the season
 		const currentMonth = new Date().getMonth() + 1;
 		const seasonMonth = currentMonth >= 5 && currentMonth <= 9 ? true : false;
+		// retrive players
+		const players = cachedGetPlayers(team.sbvvId);
+		if (players) {
+			players.sort((a, b) => (a.number ? a.number : 99) - (b.number ? b.number : 99));
+		}
 		// render the page
 		return (
 			<>
@@ -58,6 +65,36 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 				)}
 
 				<div className="col-full-content md:col-center-content *:mb-10 mt-6">
+					{/* players */}
+					{players && (
+						<>
+							<div className="card *:mb-3">
+								<h2 className="card-heading">Spieler</h2>
+
+								<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
+									{players.map((player) => {
+										return (
+											<Fragment key="player">
+												<div className="odd:bg-blac1k/5 inline-flex gap-1">
+													<div className="flex w-6 justify-center items-center">{player.number}</div>
+													<div className="flex justify-center items-center h-6 w-8">
+														<Flag
+															code={player.nationality}
+															className="h-full w-full object-cover border-onyx/10 border-[1px] shadow"
+														/>
+													</div>
+													<div className="ml-1 col-span-2 text-balance">
+														{player.firstname} {player.lastname}
+													</div>
+												</div>
+											</Fragment>
+										);
+									})}
+								</div>
+							</div>
+						</>
+					)}
+
 					{/* matches */}
 					{matchesFuture.length + matchesPast.length > 0 ? (
 						<>
@@ -130,9 +167,9 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 								</div>
 							);
 						})}
-					{/* team info */}
+					{/* training */}
 					<div className="card *:mb-3">
-						<h2 className="card-heading">Team Infos</h2>
+						<h2 className="card-heading">Training</h2>
 						{team.training && (
 							<div className="leading-tight">
 								<h3 className="font-bold flex gap-x-1 items-baseline">
