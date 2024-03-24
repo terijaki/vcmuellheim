@@ -81,6 +81,7 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 							</div>
 							<div className="pb-1 sm:py-1 mr-3 sm:mr-0 inline-flex items-center">
 								{match.team?.map((team, index) => {
+									// when winner and index are identical and the team id is in our club data then color the result icon
 									if (match.results && match.results.winner == (index + 1).toString() && team.id && teamIdString.includes(team.id)) {
 										return (
 											<IconResult
@@ -88,13 +89,7 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 												key={team.id}
 											/>
 										);
-									} else if (match.results && match.results.winner == (index + 2).toString() && team.id && teamIdString.includes(team.id)) {
-										return (
-											<IconResult
-												className="inline text-turquoise mr-1"
-												key={team.id}
-											/>
-										);
+										// otherwise display in the default color (condition still required to now show the icon twice, for each team)
 									} else if (team.id && teamIdString.includes(team.id)) {
 										return (
 											<IconResult
