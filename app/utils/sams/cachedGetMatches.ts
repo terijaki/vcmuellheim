@@ -38,7 +38,19 @@ export function cachedGetMatches(teamIds: (string | number)[], filter?: "past" |
 		// transform the sams date from "19.03.2024" to "2024-03-19"
 		const aDate = a.date?.slice(6, 10) + "-" + a.date?.slice(3, 5) + "-" + a.date?.slice(0, 2);
 		const bDate = b.date?.slice(6, 10) + "-" + b.date?.slice(3, 5) + "-" + b.date?.slice(0, 2);
-		return new Date(aDate).getTime() - new Date(bDate).getTime();
+
+		// return new Date(aDate).getTime() - new Date(bDate).getTime();
+		if (new Date(aDate).getTime() > new Date(bDate).getTime()) {
+			return 1;
+		} else if (new Date(aDate).getTime() < new Date(bDate).getTime()) {
+			return -1;
+		} else if (a.number && b.number && a.number > b.number) {
+			return 1;
+		} else if (a.number && b.number && a.number < b.number) {
+			return -1;
+		} else {
+			return 0;
+		}
 	});
 
 	// filter our duplicate matches
