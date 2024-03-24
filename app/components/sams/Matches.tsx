@@ -34,6 +34,9 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 								(matches.length % 2 ? " odd:bg-black/5" : " even:bg-black/5")
 							}
 							key={match.uuid}
+							data-match-number={match.number}
+							data-match-id={match.id}
+							data-match-uuid={match.uuid}
 						>
 							<div className="sm:text-center text-sm pt-1 sm:py-1">
 								{match.date ? (
