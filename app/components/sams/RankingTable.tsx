@@ -31,18 +31,18 @@ export default function RankingTable(props: rankingsArray) {
 			</ul>
 
 			<div className="tabelle pb-3">
-				<table className="w-full">
-					<thead className="font-bold text-slate-600">
-						<td className="text-center mr-1">
-							<span className="">Nr</span>
-							<span className="hidden">Platz</span>
+				<table className="w-full prose-td:px-2 prose-td:h-full prise-td:items-center">
+					<thead className="font-bold text-slate-600 *:text-center">
+						<td>
+							<span className="sm:hidden lg:inline xl:hidden">Nr</span>
+							<span className="hidden sm:inline lg:hidden xl:inline">Platz</span>
 						</td>
-						<td className="mr-1">Mannschaft</td>
-						<td className="text-center mr-1">Siege</td>
-						<td className="text-center mr-1 hidden sm:block">Sätze</td>
-						<td className="text-center mr-1">
-							<span className="">Punkte</span>
-							<span className="hidden">PlaPkttz</span>
+						<td className="!text-left">Mannschaft</td>
+						<td>Siege</td>
+						<td className="hidden sm:block">Sätze</td>
+						<td>
+							<span className="sm:hidden lg:inline xl:hidden">Pkt</span>
+							<span className="hidden sm:inline lg:hidden xl:inline">Punkte</span>
 						</td>
 					</thead>
 					{props.ranking.map(async (team: any) => {
@@ -52,8 +52,8 @@ export default function RankingTable(props: rankingsArray) {
 								<tr
 									key={team.team.id}
 									className={
+										"hover:bg-blumine hover:text-white " +
 										(props.ranking.length % 2 == 0 ? "even:bg-black/5" : "odd:bg-black/5") +
-										" hover:bg-blumine hover:text-white" +
 										(clubTeamIds.includes(team.team.id) != false ? " odd:bg-onyx even:bg-onyx text-white" : "")
 									}
 								>
@@ -67,33 +67,33 @@ export default function RankingTable(props: rankingsArray) {
 									<td
 										data-team-id={team.team.id}
 										data-team-name={team.team.name}
-										className="items-center truncate p-0.5 inline-flex w-full"
+										className="truncate justify-left items-center p-0.5 w-full h-full"
 									>
 										{clubTeamIds.includes(team.team.id) && props.linkToTeamPage ? (
 											<Link
 												href={"teams/" + getTeams(team.team.id)[0].slug}
-												className="w-full inline-flex"
+												className="w-full flex justify-start items-center"
 											>
 												<ClubLogo
 													clubName={team.team.club.name}
 													className={"mr-1 " + (clubTeamIds.includes(team.team.id) && "saturate-0 brightness-0 invert")}
 												/>
-												{team.team.name}
+												<div>{team.team.name}</div>
 											</Link>
 										) : (
-											<>
+											<div className="w-full flex justify-start items-center">
 												<ClubLogo
 													clubName={team.team.club.name}
 													className={"mr-1 " + (clubTeamIds.includes(team.team.id) && "saturate-0 brightness-0 invert")}
 												/>
-												{team.team.name}
-											</>
+												<div>{team.team.name}</div>
+											</div>
 										)}
 									</td>
 									<td
 										data-team-id={team.team.id}
 										data-team-name={team.team.name}
-										className="text-center text-sm gap-1.5"
+										className="text-center text-sm gap-1.5 infline-flex"
 									>
 										{team.wins}/{team.matchesPlayed}
 										<p className="text-xs sm:hidden italic opacity-50">{team.setPoints}</p>
