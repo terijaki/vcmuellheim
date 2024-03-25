@@ -1,14 +1,16 @@
 ---
-title: 'Damen I krönen grandiose Saison'
+title: Damen I krönen grandiose Saison
 date: 2024-03-25T17:03:34.734Z
 gallery:
-- /images/blog/2024/03/25/img-20240316-wa0110.jpg
-- /images/blog/2024/03/25/img-20240316-wa0115.jpg
-- /images/blog/2024/03/25/img-20240316-wa0131.jpg
-- /images/blog/2024/03/25/img-20240316-wa0138.jpg
-- /images/blog/2024/03/25/img-20240316-wa0143.jpg
-- /images/blog/2024/03/25/img-20240316-wa0145.jpg
-- /images/blog/2024/03/25/img-20240316-wa0149.jpg
+  - /images/blog/2024/03/25/img-20240316-wa0110.jpg
+  - /images/blog/2024/03/25/img-20240316-wa0115.jpg
+  - /images/blog/2024/03/25/img-20240316-wa0131.jpg
+  - /images/blog/2024/03/25/img-20240316-wa0138.jpg
+  - /images/blog/2024/03/25/img-20240316-wa0143.jpg
+  - /images/blog/2024/03/25/img-20240316-wa0145.jpg
+  - /images/blog/2024/03/25/img-20240316-wa0149.jpg
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/112157418719677958'
 ---
 Damen I krönen grandiose Saison
 
