@@ -12,10 +12,6 @@ gallery:
 mastodon: published
 mastodonUrl: 'https://freiburg.social/@VCM/112157418719677958'
 ---
-Damen I krönen grandiose Saison
-
-
-
 Am 16.3.24 war es so weit, der letzte Spieltag stand an. Und somit auch das Duell Erster gegen Zweiten. Müllheim gegen Merdingen, Meister gegen Vize-Meister
 
 
