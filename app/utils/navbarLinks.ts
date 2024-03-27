@@ -5,5 +5,5 @@ export const navbarLinks = [
 	{ name: "Termine", href: "/termine" },
 	{ name: "Fotos", href: "/fotos" },
 	{ name: "Shop", href: "https://vcmuellheim.fan12.de", target: "_blank", rel: "noreferrer" },
-	{ name: "Kontakt", href: "./#kontakt" },
+	{ name: "Kontakt", href: "/#kontakt" },
 ];
