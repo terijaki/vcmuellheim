@@ -1,15 +1,17 @@
 ---
-title: 'Keine Punkte am letzten Spieltag'
+title: Keine Punkte am letzten Spieltag
 date: 2024-03-28T07:06:21.545Z
 gallery:
-- /images/blog/2024/03/28/img-20240316-wa0022.jpg
-- /images/blog/2024/03/28/img-20240316-wa0024.jpg
-- /images/blog/2024/03/28/img-20240316-wa0035.jpg
-- /images/blog/2024/03/28/img-20240316-wa0039.jpg
-- /images/blog/2024/03/28/img-20240316-wa0040.jpg
-- /images/blog/2024/03/28/img-20240316-wa0042.jpg
-- /images/blog/2024/03/28/img-20240316-wa0056.jpg
-- /images/blog/2024/03/28/img-20240316-wa0077.jpg
+  - /images/blog/2024/03/28/img-20240316-wa0022.jpg
+  - /images/blog/2024/03/28/img-20240316-wa0024.jpg
+  - /images/blog/2024/03/28/img-20240316-wa0035.jpg
+  - /images/blog/2024/03/28/img-20240316-wa0039.jpg
+  - /images/blog/2024/03/28/img-20240316-wa0040.jpg
+  - /images/blog/2024/03/28/img-20240316-wa0042.jpg
+  - /images/blog/2024/03/28/img-20240316-wa0056.jpg
+  - /images/blog/2024/03/28/img-20240316-wa0077.jpg
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/112172059665732971'
 ---
 Am 16.03.24 ging es für die Herren 2 zum letzten Auswärtsspiel nach Rheinfelden. Es wurde gegen den VC Minseln und SVO-Rieselfeld gespielt.
 
