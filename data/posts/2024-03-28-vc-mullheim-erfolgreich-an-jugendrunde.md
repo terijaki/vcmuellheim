@@ -1,15 +1,17 @@
 ---
-title: 'VC Müllheim erfolgreich an Jugendrunde'
+title: VC Müllheim erfolgreich an Jugendrunde
 date: 2024-03-28T07:11:28.937Z
 gallery:
-- /images/blog/2024/03/28/20240317_105053.jpg
-- /images/blog/2024/03/28/20240317_125259.jpg
-- /images/blog/2024/03/28/20240317_125335.jpg
-- /images/blog/2024/03/28/20240317_140051.jpg
-- /images/blog/2024/03/28/img-20240317-wa0010.jpg
-- /images/blog/2024/03/28/img-20240317-wa0016.jpg
-- /images/blog/2024/03/28/img-20240317-wa0020.jpg
-- /images/blog/2024/03/28/img-20240317-wa0024.jpg
+  - /images/blog/2024/03/28/20240317_105053.jpg
+  - /images/blog/2024/03/28/20240317_125259.jpg
+  - /images/blog/2024/03/28/20240317_125335.jpg
+  - /images/blog/2024/03/28/20240317_140051.jpg
+  - /images/blog/2024/03/28/img-20240317-wa0010.jpg
+  - /images/blog/2024/03/28/img-20240317-wa0016.jpg
+  - /images/blog/2024/03/28/img-20240317-wa0020.jpg
+  - /images/blog/2024/03/28/img-20240317-wa0024.jpg
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/112172078744138761'
 ---
 Am 17.03.24, also einen Tag nach dem letzten Spieltag auf Bezirksebene, durften viele unserer Jugendspieler und Jugendspielerinnen mit ihren Trainern zur Jugendrunde nach Kirchzarten reisen. 
 
