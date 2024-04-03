@@ -13,6 +13,7 @@ import getPlayers from "./getPlayers";
 import getAllClubs from "./getAllClubs";
 import { getClubId } from "./getClubLogo";
 import { slugify } from "../slugify";
+import verifyTeams from "./verifyTeams";
 
 const SAMS_CLUB_ID = env.SAMS_CLUBID;
 const CLUBS_CACHE_FOLDER = "data/sams/clubs";
@@ -122,3 +123,6 @@ if (!fs.existsSync("data/sams/matchSeriesId") || !fs.readdirSync("data/sams/matc
 		}
 	});
 }
+
+// TEAM'S SBVV-ID
+verifyTeams();
