@@ -13,8 +13,8 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.BK_GH_PAT }}
-  SAMS_CLUB_FILE: _sams/xml/club.xml # the file containing the current team IDs
-  TEAMS_FOLDER: _teams/ # the folder containing the teams on our website
+  SAMS_CLUB_FILE: data/sams/club.json # the file containing the current team IDs
+  TEAMS_FOLDER: data/teams # the folder containing the teams for our website
 
 jobs:
   Verify-Teams:
@@ -34,14 +34,14 @@ jobs:
           echo "Starting process to check if any team's SBVV ID needs attention..."
           for team in $(ls $TEAMS_FOLDER)
             do
-              this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER$team" | sed 's/[^0-9]*//g')
+              this_team_id=$(grep -e "sbvv_id" "$TEAMS_FOLDER/$team" | sed 's/[^0-9]*//g')
               if [[ -z "$this_team_id" ]]; then
                 echo "ℹ️ $team contains no SBVV ID"
               else
                 if grep -q "$this_team_id" "$SAMS_CLUB_FILE"; then
-                  echo "✅ $team ($this_team_id) still present in club.xml"
+                  echo "✅ $team ($this_team_id) still present in the club cache file"
                 else
-                  echo "⛔️ $team ($this_team_id) no longer present in club.xml"
+                  echo "⛔️ $team ($this_team_id) no longer present in the club cache file"
                   outdated+=($team#$this_team_id)
                 fi
               fi
@@ -54,7 +54,7 @@ jobs:
           echo "outdated=$outdated" >> $GITHUB_OUTPUT
           echo $outdated
         # loop through files in the teams folder and check for sbvv_id
-        # for every Id found, check if the ID is still present in the SAMS club.xml
+        # for every Id found, check if the ID is still present in the SAMS club.json
         # when the ID is no longer present, add it to an array
         # the array is then converted from bash array to JSON array, which serves as a matrix for the follow up job
 
@@ -92,6 +92,7 @@ jobs:
           git config user.email "<>"
 
       - name: Remove Outdated ID
+        if: false
         id: remove_id
         run: |
           cd $TEAMS_FOLDER
@@ -113,5 +114,5 @@ jobs:
         with:
           token: ${{ github.token }}
           title: Team ID in ${{steps.log.outputs.team_name}} is outdated
-          body: The SAMS ID (${{steps.log.outputs.sams_id}}) stored in ${{steps.log.outputs.team_name}} could not be found in club.xml and may need to be updated. ${{github.sha}} See https://www.sbvv-online.de/cms/startseite/verband/ueber_uns/vereine.xhtml?c4302050.view=teams&c4302050.club=471&c4302050.type=list
+          body: The SAMS ID (${{steps.log.outputs.sams_id}}) stored in ${{steps.log.outputs.team_name}} could not be found in $SAMS_CLUB_FILE and may need to be updated. ${{github.sha}} See https://www.sbvv-online.de/cms/startseite/verband/ueber_uns/vereine.xhtml?c4302050.view=teams&c4302050.club=471&c4302050.type=list
         # Create an issue referencing the ID removal. This serves as a todo task to get the new SBVV ID manually from their portal.
