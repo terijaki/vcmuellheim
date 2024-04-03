@@ -48,11 +48,14 @@ export function cachedGetUniqueMatchSeriesIds(teamIds?: (string | number)[]): st
 	return UniqueMatchSeriesIds;
 }
 
-export function getLeagueName(teamId?: number) {
+export function getLeagueName(teamId?: number): string | false {
 	const clubdata = fs.readFileSync(CLUB_SAMS_FILE);
 	const clubDataObject = JSON.parse(clubdata.toString());
 	const teams = clubDataObject.sportsclub.teams.team;
 	const filteredTeam = teams.filter((team: { id: number | undefined }) => team.id && teamId == team.id);
+	if (filteredTeam.length == 0) {
+		return false;
+	}
 	const leagueName = filteredTeam[0].matchSeries.name;
 	return leagueName;
 }

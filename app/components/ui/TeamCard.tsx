@@ -15,8 +15,8 @@ import Markdown from "react-markdown";
 
 export default function TeamCard(props: teamObject) {
 	let liga;
-	if (props.sbvvId) {
-		liga = getLeagueName(props.sbvvId).replace("Herren", "").replace("Damen", "").replace("Nord", "").replace("Ost", "").replace("Süd", "").replace("West", "");
+	if (props.sbvvId && getLeagueName(props.sbvvId)) {
+		liga = getLeagueName(props.sbvvId).toString().replace("Herren", "").replace("Damen", "").replace("Nord", "").replace("Ost", "").replace("Süd", "").replace("West", "");
 	}
 
 	return (

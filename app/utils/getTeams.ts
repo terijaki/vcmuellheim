@@ -9,7 +9,7 @@ export type teamObject = {
 	slug?: string;
 	sorting?: number;
 	liga?: boolean;
-	sbvvId?: number;
+	sbvvId?: any;
 	alter?: number;
 	training?: [{ zeit?: string; ort?: string; map?: string }];
 	trainer?: [{ name?: string; email?: string; avatar?: string }];
