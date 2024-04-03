@@ -1,15 +1,7 @@
 import Link from "next/link";
 import { Fragment } from "react";
 import { teamObject } from "@/app/utils/getTeams";
-import {
-	FaCircleXmark as IconXmark,
-	FaChevronDown as IconExpand,
-	FaChevronUp as IconCollapse,
-	FaCalendarDays as IconCalendar,
-	FaUser as IconPerson,
-	FaUserGroup as IconPersons,
-	FaClock as IconClock,
-} from "react-icons/fa6";
+import { FaChevronUp as IconCollapse, FaCalendarDays as IconCalendar, FaUser as IconPerson, FaUserGroup as IconPersons, FaClock as IconClock } from "react-icons/fa6";
 import { getLeagueName } from "@/app/utils/sams/cachedGetClubData";
 import Markdown from "react-markdown";
 
