@@ -58,7 +58,6 @@ export default function verifyTeams() {
 		});
 	} else {
 		let consoleNote = "✅ SBVV-IDs are all up to date.";
-		console.log(consoleNote);
 		writeToSummary(consoleNote);
 	}
 }
