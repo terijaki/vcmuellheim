@@ -29,10 +29,12 @@ getMatchSeries()
 			const matchSeriesJson = JSON.parse(matchSeriesJsonFile.toString());
 			// filter down to our ids only
 			const matchSeriesJsonFiltered = matchSeriesJson.matchSeriesList.matchSeries.filter((series: { id: string | number }) => ourMatchSeries.includes(series.id.toString()));
+			// sets to consolidate summary messages if everything is up to date
+			const matchesSummary = new Set<string>();
+			const rankingsSummary = new Set<string>();
 			// identify which of our Match Series need to be updated
 			matchSeriesJsonFiltered.map((series: { id: string | number; type: string; structureUpdated: string; resultsUpdated: string; name: string }) => {
 				// RANKINGS
-				const rankingsSummary = new Set<string>();
 				const rankingsJsonFile = "data/sams/matchSeriesId/" + series.id + "/rankings.json";
 				if (fs.existsSync(rankingsJsonFile)) {
 					const rankingsJsonFileContent = fs.readFileSync(rankingsJsonFile);
@@ -47,21 +49,12 @@ getMatchSeries()
 						console.log(consoleNote);
 						rankingsSummary.add(consoleNote);
 					}
-					if (rankingsSummary.size > 1) {
-						rankingsSummary.forEach((entry) => {
-							writeToSummary(entry);
-						});
-					} else {
-						let consoleNote = "✅ Rankings are all up to date.";
-						writeToSummary(consoleNote);
-					}
 				} else {
 					let consoleNote = "🕵️ Rankings for " + series.name + " (" + series.id + ") do not exist. Fetching new rankings...";
 					console.log(consoleNote);
 					writeToSummary(consoleNote);
 					getRankings(series.id);
 				}
-
 				// MATCHES
 				// need to check if the file already exists
 				const matchesJsonFile = "data/sams/matchSeriesId/" + series.id + "/matches.json";
@@ -69,14 +62,14 @@ getMatchSeries()
 					const matchesJsonFileContent = fs.readFileSync(matchesJsonFile);
 					const matchesJson = JSON.parse(matchesJsonFileContent.toString());
 					if (matchesJson.matches.match[0].matchSeries.resultsUpdated != series.resultsUpdated || matchesJson.matches.match[0].matchSeries.structureUpdated != series.structureUpdated) {
-						let consoleNote = "🕵️ Matches for " + series.name + " (" + series.id + ") are outdated. Fetching new matches...";
+						let consoleNote = "🕵️ Matches for " + series.name + " (" + series.id + ") are outdated. Update fetched.";
 						console.log(consoleNote);
-						writeToSummary(consoleNote);
+						matchesSummary.add(consoleNote);
 						getMatches(undefined, series.id);
 					} else {
 						let consoleNote = "✅ Matches for " + series.name + " (" + series.id + ") are up to date.";
 						console.log(consoleNote);
-						writeToSummary(consoleNote);
+						matchesSummary.add(consoleNote);
 					}
 				} else {
 					let consoleNote = "🕵️ Matches for " + series.name + " (" + series.id + ") do not exist. Fetching new matches...";
@@ -85,6 +78,24 @@ getMatchSeries()
 					getMatches(undefined, series.id);
 				}
 			});
+			// github summary messages for RANKINGS and MATCHES
+			if (rankingsSummary.size > 1) {
+				rankingsSummary.forEach((entry) => {
+					writeToSummary(entry);
+				});
+			} else {
+				let consoleNote = "✅ Rankings are all up to date.";
+				writeToSummary(consoleNote);
+			}
+			if (matchesSummary.size > 1) {
+				matchesSummary.forEach((entry) => {
+					writeToSummary(entry);
+				});
+			} else {
+				let consoleNote = "✅ Matches are all up to date.";
+				writeToSummary(consoleNote);
+			}
+
 			// PLAYERS
 			// fetches and stores player data for each team
 			cachedGetTeamIds("id", true).forEach((teamId) => getPlayers(teamId));
