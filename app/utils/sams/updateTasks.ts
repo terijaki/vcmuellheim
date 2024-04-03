@@ -32,6 +32,7 @@ getMatchSeries()
 			// identify which of our Match Series need to be updated
 			matchSeriesJsonFiltered.map((series: { id: string | number; type: string; structureUpdated: string; resultsUpdated: string; name: string }) => {
 				// RANKINGS
+				const rankingsSummary = new Set<string>();
 				const rankingsJsonFile = "data/sams/matchSeriesId/" + series.id + "/rankings.json";
 				if (fs.existsSync(rankingsJsonFile)) {
 					const rankingsJsonFileContent = fs.readFileSync(rankingsJsonFile);
@@ -39,11 +40,19 @@ getMatchSeries()
 					if (rankingsJson.rankings.matchSeries.resultsUpdated != series.resultsUpdated || rankingsJson.rankings.matchSeries.structureUpdated != series.structureUpdated) {
 						let consoleNote = "🕵️ Rankings for " + series.name + " (" + series.id + ") are outdated. Fetching new rankings...";
 						console.log(consoleNote);
-						writeToSummary(consoleNote);
+						rankingsSummary.add(consoleNote);
 						getRankings(series.id);
 					} else {
 						let consoleNote = "✅ Rankings for " + series.name + " (" + series.id + ") are up to date.";
 						console.log(consoleNote);
+						rankingsSummary.add(consoleNote);
+					}
+					if (rankingsSummary.size > 1) {
+						rankingsSummary.forEach((entry) => {
+							writeToSummary(entry);
+						});
+					} else {
+						let consoleNote = "✅ Rankings are all up to date.";
 						writeToSummary(consoleNote);
 					}
 				} else {
@@ -52,6 +61,7 @@ getMatchSeries()
 					writeToSummary(consoleNote);
 					getRankings(series.id);
 				}
+
 				// MATCHES
 				// need to check if the file already exists
 				const matchesJsonFile = "data/sams/matchSeriesId/" + series.id + "/matches.json";
