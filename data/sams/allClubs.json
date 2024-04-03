@@ -4542,16 +4542,6 @@
         }
       },
       {
-        "id": "629542",
-        "name": "TV Rottenburg",
-        "lsbNumber": "22058",
-        "internalSportsclubId": "547",
-        "association": {
-          "id": "1346366",
-          "name": "Volleyball-Landesverband Württemberg"
-        }
-      },
-      {
         "id": "18395731",
         "name": "TV Gottmadingen",
         "lsbNumber": "8144281646",
@@ -4589,6 +4579,16 @@
         "association": {
           "id": "63939",
           "name": "SBVV Bezirk West"
+        }
+      },
+      {
+        "id": "629542",
+        "name": "TV Rottenburg",
+        "lsbNumber": "22058",
+        "internalSportsclubId": "547",
+        "association": {
+          "id": "1346366",
+          "name": "Volleyball-Landesverband Württemberg"
         }
       },
       {
@@ -6042,16 +6042,6 @@
         }
       },
       {
-        "id": "326216",
-        "name": "TSV G.A. Stuttgart",
-        "lsbNumber": "20102",
-        "internalSportsclubId": "295",
-        "association": {
-          "id": "1346366",
-          "name": "Volleyball-Landesverband Württemberg"
-        }
-      },
-      {
         "id": "4905394",
         "name": "MTV Stuttgart 1843",
         "lsbNumber": "20040",
@@ -6079,6 +6069,16 @@
         "association": {
           "id": "3847855",
           "name": "NVV Bezirk Süd"
+        }
+      },
+      {
+        "id": "326216",
+        "name": "TSV G.A. Stuttgart",
+        "lsbNumber": "20102",
+        "internalSportsclubId": "295",
+        "association": {
+          "id": "1346366",
+          "name": "Volleyball-Landesverband Württemberg"
         }
       }
     ]
