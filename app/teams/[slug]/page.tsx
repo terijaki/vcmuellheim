@@ -57,7 +57,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 		// render the page
 		return (
 			<>
-				{team.title && (
+				{team.title && ligaName && (
 					<PageHeading
 						title={team.title}
 						subtitle={ligaName}
