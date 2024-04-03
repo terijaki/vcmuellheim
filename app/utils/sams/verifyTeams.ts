@@ -126,5 +126,3 @@ async function createTicketForInvalidTeam(newteam: teamSetItem) {
 		writeToSummary(consoleNote);
 	}
 }
-
-verifyTeams();

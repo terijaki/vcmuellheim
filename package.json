@@ -21,7 +21,6 @@
 		"sams-new-results-local": "tsx --env-file=.env.local --env-file=.env app/utils/sams/processNewMatchResults.ts",
 		"sams-all-clubs": "tsx --env-file=.env app/utils/sams/getAllClubs.ts",
 		"sams-all-clubs-local": "tsx --env-file=.env.local --env-file=.env app/utils/sams/getAllClubs.ts",
-		"sams-verify-teams": "tsx --env-file=.env.local --env-file=.env app/utils/sams/verifyTeams.ts",
 		"inbox": "tsx app/utils/blog/inboxProcessing.ts",
 		"blog-new-posts": "tsx --env-file=.env app/utils/blog/shareNewPosts.ts",
 		"blog-new-posts-local": "tsx --env-file=.env.local --env-file=.env app/utils/blog/shareNewPosts.ts"
