@@ -1,32 +1,6 @@
 {
   "entries": [
     {
-      "uuid": "4b0560ce-785c-4571-af83-1ad27d530cd9",
-      "date": "2024-01-27T13:00:00.000Z",
-      "league": "Landesliga West Herren",
-      "team": [
-        "VC Müllheim",
-        "TSV Al. Freiburg-Zähringen 2"
-      ],
-      "winner": 1,
-      "score": "3:0",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/111828942838078907"
-    },
-    {
-      "uuid": "c889942b-a292-417c-8f7a-4da35034146d",
-      "date": "2024-01-27T13:00:00.000Z",
-      "league": "Landesliga West Herren",
-      "team": [
-        "VC Müllheim",
-        "FT 1844 Freiburg 4"
-      ],
-      "winner": 2,
-      "score": "1:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/111832853821191999"
-    },
-    {
       "uuid": "21e472bc-2356-44c3-a788-76451bc0aa36",
       "date": "2024-02-03T15:00:00.000Z",
       "league": "Landesliga West Herren",
