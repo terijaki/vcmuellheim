@@ -59,7 +59,7 @@ export default async function getPlayers(teamId: (number | string)[]) {
 			writeToSummary(entry);
 		});
 	} else {
-		let consoleNote = "✅ Player data for all teams is up to date.";
+		let consoleNote = "✅ Player data retrieved for all teams.";
 		writeToSummary(consoleNote);
 	}
 }
