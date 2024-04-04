@@ -96,7 +96,7 @@ getMatchSeries()
 
 			// PLAYERS
 			// fetches and stores player data for each team
-			cachedGetTeamIds("id", true).forEach((teamId) => getPlayers(teamId));
+			getPlayers(cachedGetTeamIds("id", true));
 		});
 	})
 	.catch((error) => {
