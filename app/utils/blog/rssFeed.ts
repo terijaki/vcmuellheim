@@ -4,9 +4,9 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-let HOMEPAGE = process.env.FULL_URL,
-	NAME = process.env.CLUB_NAME,
-	EMAIL = process.env.GENERIC_EMAIL;
+let HOMEPAGE = env.FULL_URL,
+	NAME = env.CLUB_NAME,
+	EMAIL = env.GENERIC_EMAIL;
 
 const POSTS_FOLDER = "data/posts";
 
