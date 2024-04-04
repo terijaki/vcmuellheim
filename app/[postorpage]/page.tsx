@@ -38,8 +38,10 @@ export async function generateStaticParams(): Promise<{ postorpage: string }[]> 
 		});
 	});
 
-	// generate the rss feed containing the blog posts
-	rssFeed();
+	if (process.env.NODE_ENV == "production") {
+		// generate the rss feed containing the blog posts
+		rssFeed();
+	}
 
 	return filesToGenerate.map((param) => ({
 		postorpage: param,
