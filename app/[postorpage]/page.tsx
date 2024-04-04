@@ -7,6 +7,7 @@ import ExportedImage from "next-image-export-optimizer";
 import PageHeading from "@/app/components/layout/PageHeading";
 import SharingButon from "@/app/components/ui/SharingButton";
 import Markdown from "markdown-to-jsx";
+import rssFeed from "@/app/utils/blog/rssFeed";
 
 // TODO
 // - do not generate static file if name is identical to a page OR replace markdown pages with jsx
@@ -36,6 +37,9 @@ export async function generateStaticParams(): Promise<{ postorpage: string }[]> 
 			});
 		});
 	});
+
+	// generate the rss feed containing the blog posts
+	rssFeed();
 
 	return filesToGenerate.map((param) => ({
 		postorpage: param,
