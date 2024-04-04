@@ -1,4 +1,3 @@
-import { migratePosts, moveFolder, deleteFolder, deleteFile, replaceString, migrateTeamsToJSON } from "@/app/utils/migration";
 import HomeIntro from "@/app/components/homepage/HomeIntro";
 import HomeNews from "@/app/components/homepage/HomeNews";
 import HomeHeimspiele from "@/app/components/homepage/HomeHeimspiele";
