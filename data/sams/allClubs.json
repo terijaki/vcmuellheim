@@ -61972,16 +61972,6 @@
         }
       },
       {
-        "id": "65036648",
-        "name": "VC Müllheim",
-        "lsbNumber": "480190",
-        "internalSportsclubId": "3530",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037044",
         "name": "SV Waltershofen",
         "lsbNumber": "186460",
@@ -63149,6 +63139,16 @@
         "association": {
           "id": "26249243",
           "name": "Kreisverband Nord-Ost"
+        }
+      },
+      {
+        "id": "65036648",
+        "name": "VC Müllheim",
+        "lsbNumber": "480190",
+        "internalSportsclubId": "3530",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       }
     ]
