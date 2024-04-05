@@ -40,7 +40,7 @@ export default async function getPlayers(teamId: (number | string)[]) {
 					};
 				});
 				// store the player data
-				const targetPath = path.join(TEAM_FOLDER, teamId.toString());
+				const targetPath = path.join(TEAM_FOLDER, id.toString());
 				fs.mkdirSync(targetPath, { recursive: true });
 				const targetFile = path.join(targetPath, "players.json");
 				fs.writeFileSync(targetFile, JSON.stringify(jsonClean, null, 4));
