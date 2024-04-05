@@ -1,23 +1,7 @@
 [
     {
-        "lastname": "Batagan",
-        "firstname": "Zeynep Rana",
-        "nationality": "DE",
-        "number": "",
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Eichmann",
-        "firstname": "Valentina",
-        "nationality": "DE",
-        "number": "",
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Tschumak",
-        "firstname": "Selina",
+        "lastname": "Peters",
+        "firstname": "Marina",
         "nationality": "DE",
         "number": "",
         "height": "",
@@ -32,73 +16,9 @@
         "function": "Trainer"
     },
     {
-        "lastname": "Kasperek",
-        "firstname": "Maurice",
-        "nationality": "DE",
-        "number": "",
-        "height": "",
-        "function": ""
-    },
-    {
         "lastname": "Merstetter",
         "firstname": "Madyson",
         "nationality": "DE",
-        "number": "",
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Peters",
-        "firstname": "Marina",
-        "nationality": "DE",
-        "number": "",
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Peters",
-        "firstname": "Marina",
-        "nationality": "DE",
-        "number": "",
-        "height": "",
-        "function": "Trainer"
-    },
-    {
-        "lastname": "Pyanenko",
-        "firstname": "Evelina",
-        "nationality": "DE",
-        "number": "",
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Eichmann",
-        "firstname": "Maria",
-        "nationality": "DE",
-        "number": "",
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Fries",
-        "firstname": "Kristina",
-        "nationality": "DE",
-        "number": "",
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Peters",
-        "firstname": "Alessia",
-        "nationality": "DE",
-        "number": "",
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Pommeranz",
-        "firstname": "Jessika Alice",
-        "nationality": "CH",
         "number": "",
         "height": "",
         "function": ""
@@ -120,11 +40,91 @@
         "function": ""
     },
     {
+        "lastname": "Kasperek",
+        "firstname": "Maurice",
+        "nationality": "DE",
+        "number": "",
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Pyanenko",
+        "firstname": "Evelina",
+        "nationality": "DE",
+        "number": "",
+        "height": "",
+        "function": ""
+    },
+    {
         "lastname": "Mertens",
         "firstname": "Emely",
         "nationality": "DE",
         "number": "",
         "height": "",
         "function": ""
+    },
+    {
+        "lastname": "Pommeranz",
+        "firstname": "Jessika Alice",
+        "nationality": "CH",
+        "number": "",
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Peters",
+        "firstname": "Alessia",
+        "nationality": "DE",
+        "number": "",
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Eichmann",
+        "firstname": "Maria",
+        "nationality": "DE",
+        "number": "",
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Batagan",
+        "firstname": "Zeynep Rana",
+        "nationality": "DE",
+        "number": "",
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Tschumak",
+        "firstname": "Selina",
+        "nationality": "DE",
+        "number": "",
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Eichmann",
+        "firstname": "Valentina",
+        "nationality": "DE",
+        "number": "",
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Fries",
+        "firstname": "Kristina",
+        "nationality": "DE",
+        "number": "",
+        "height": "",
+        "function": ""
+    },
+    {
+        "lastname": "Peters",
+        "firstname": "Marina",
+        "nationality": "DE",
+        "number": "",
+        "height": "",
+        "function": "Trainer"
     }
 ]

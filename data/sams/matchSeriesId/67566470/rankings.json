@@ -1,81 +1,57 @@
 {
   "rankings": {
     "matchSeries": {
-      "id": "25920998",
-      "uuid": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
+      "id": "67566470",
+      "uuid": "601db9f2-ae02-48f5-a7b8-f44fa43aefcd",
       "allSeasonId": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
       "name": "Bezirksliga Herren Süd",
       "shortName": "bzl s h",
       "type": "League",
-      "updated": "2024-03-18 15:22:47.587",
+      "updated": "2024-03-19 16:56:37.414",
       "structureUpdated": "2024-03-18 15:22:47.587",
       "resultsUpdated": "2024-03-18 15:18:08.323",
       "season": {
-        "id": "25640073",
-        "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+        "id": "52761843",
+        "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
         "name": "2023/24"
       },
       "hierarchy": {
-        "id": "25752573",
-        "uuid": "d32509b9-cd2f-4960-848b-b13626415284",
+        "id": "67566463",
+        "uuid": "ebc9d35c-a576-407c-a1b4-e42c93d5f6fb",
         "name": "Bezirksligen",
         "shortName": "bzl w",
-        "hierarchyLevel": "8"
+        "hierarchyLevel": "4"
       },
       "fullHierarchy": {
         "hierarchy": [
           {
-            "id": "25752573",
+            "id": "67566463",
             "name": "Bezirksligen",
             "shortName": "bzl w",
-            "hierarchyLevel": "8"
-          },
-          {
-            "id": "25752270",
-            "name": "Bezirk West",
-            "shortName": "bw",
-            "hierarchyLevel": "7"
-          },
-          {
-            "id": "25752269",
-            "name": "SBVV Bezirke",
-            "shortName": "SBVV Bezirke",
-            "hierarchyLevel": "6"
-          },
-          {
-            "id": "25752268",
-            "name": "Spielbetrieb Südbaden",
-            "shortName": "sbvv",
-            "hierarchyLevel": "5"
-          },
-          {
-            "id": "25751076",
-            "name": "Oberliga Baden",
-            "shortName": "Ol",
             "hierarchyLevel": "4"
           },
           {
-            "id": "25751075",
-            "name": "Regionalliga Süd",
-            "shortName": "RL",
+            "id": "67566433",
+            "name": "Bezirk West",
+            "shortName": "bw",
             "hierarchyLevel": "3"
           },
           {
-            "id": "25751074",
-            "name": "Dritte Liga Süd",
-            "shortName": "DLS",
+            "id": "67566401",
+            "name": "SBVV Bezirke",
+            "shortName": "SBVV Bezirke",
             "hierarchyLevel": "2"
           },
           {
-            "id": "25751073",
-            "name": "Bundesligen",
-            "shortName": "BL",
+            "id": "67566357",
+            "name": "Erwachsenenspielbetrieb SBVV",
+            "shortName": "SBVV Erw.",
             "hierarchyLevel": "1"
           },
           {
-            "id": "25751072",
-            "name": "Allgemeiner Spielbetrieb",
-            "shortName": "alg",
+            "id": "62752550",
+            "name": "Südbadischer Volleyball-Verband (SBVV)",
+            "shortName": "SBVV",
             "hierarchyLevel": "0"
           }
         ]
@@ -88,8 +64,8 @@
     "ranking": [
       {
         "team": {
-          "id": "25921015",
-          "uuid": "a32a1d51-d5aa-46a6-9c23-e01afec1a645",
+          "id": "67669976",
+          "uuid": "9dac1a0b-c48f-437a-99fc-3714364946c1",
           "name": "VC Weil 2",
           "shortName": "VC Weil 2",
           "clubCode": null,
@@ -144,8 +120,8 @@
       },
       {
         "team": {
-          "id": "25921018",
-          "uuid": "c9d02dda-a926-4112-b938-e2f163867094",
+          "id": "67669977",
+          "uuid": "f1b5c6de-f502-4711-b069-289a622be68b",
           "name": "Sport vor Ort Rieselfeld",
           "shortName": "SvO",
           "clubCode": null,
@@ -200,8 +176,8 @@
       },
       {
         "team": {
-          "id": "25921020",
-          "uuid": "6f00de7d-ad16-4ebd-9e3e-2bbaa017ae5a",
+          "id": "67669972",
+          "uuid": "03e9b713-4022-4f16-8d5f-61bc917e44fa",
           "name": "TV Freiburg-St.Georgen",
           "shortName": "TV Freiburg-StG 1",
           "clubCode": null,
@@ -256,8 +232,8 @@
       },
       {
         "team": {
-          "id": "25921027",
-          "uuid": "942d49a1-3092-47ed-afce-dc8421e83204",
+          "id": "67669978",
+          "uuid": "d589984f-a5c6-435c-9f7f-8283237101a0",
           "name": "VBG Efringen-Kirchen 1",
           "shortName": null,
           "clubCode": null,
@@ -312,8 +288,8 @@
       },
       {
         "team": {
-          "id": "25921012",
-          "uuid": "02fedd2b-b788-495f-a13f-c0c9b5dbb4d1",
+          "id": "67669975",
+          "uuid": "10d25b0e-20f0-471e-bb55-a4154eca93de",
           "name": "TV Staufen 2",
           "shortName": null,
           "clubCode": null,
@@ -368,8 +344,8 @@
       },
       {
         "team": {
-          "id": "25921292",
-          "uuid": "29553912-56f5-46a8-b494-5dd2d6232101",
+          "id": "67669971",
+          "uuid": "5eb463bb-3b94-4b3a-a97e-c3b1834fb71f",
           "name": "Bad Säckinger Wölfe 2",
           "shortName": null,
           "clubCode": null,
@@ -424,8 +400,8 @@
       },
       {
         "team": {
-          "id": "25921023",
-          "uuid": "a44875d3-92a8-4958-8440-39dceef0a1b6",
+          "id": "67669973",
+          "uuid": "fbf8cf49-d0bc-46a2-adda-369403680563",
           "name": "VC Minseln",
           "shortName": null,
           "clubCode": null,
@@ -480,8 +456,8 @@
       },
       {
         "team": {
-          "id": "25921031",
-          "uuid": "ee1c9cf0-7df1-458f-9f2c-763526496fd9",
+          "id": "67669974",
+          "uuid": "4c269dac-f2d6-493c-a1c5-7986cbbe555d",
           "name": "VC Müllheim 2",
           "shortName": null,
           "clubCode": null,

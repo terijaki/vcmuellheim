@@ -1,8 +1,8 @@
 {
   "rankings": {
     "matchSeries": {
-      "id": "25754009",
-      "uuid": "85555565-6f15-4f45-a3af-f3344ce8a506",
+      "id": "67566429",
+      "uuid": "ffe00b15-6f28-41df-8d18-31d5d068eac2",
       "allSeasonId": "799a634e-d2b1-6639-32fb-e36ccbf44f87",
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
@@ -11,65 +11,41 @@
       "structureUpdated": "2024-03-15 09:49:07.171",
       "resultsUpdated": "2024-03-24 08:37:19.234",
       "season": {
-        "id": "25640073",
-        "uuid": "5e7edab4-2596-49ae-9d2b-a626bfad3b14",
+        "id": "52761843",
+        "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
         "name": "2023/24"
       },
       "hierarchy": {
-        "id": "25753838",
-        "uuid": "ade10ab0-84b9-4c9c-b8ae-0a4ad838c816",
+        "id": "67566422",
+        "uuid": "bcdbd4d1-2d6e-446f-bd33-b7fe0859432a",
         "name": "Landesligen",
         "shortName": "ll",
-        "hierarchyLevel": "7"
+        "hierarchyLevel": "3"
       },
       "fullHierarchy": {
         "hierarchy": [
           {
-            "id": "25753838",
+            "id": "67566422",
             "name": "Landesligen",
             "shortName": "ll",
-            "hierarchyLevel": "7"
-          },
-          {
-            "id": "25753837",
-            "name": "Verbandsligen",
-            "shortName": "vl",
-            "hierarchyLevel": "6"
-          },
-          {
-            "id": "25752268",
-            "name": "Spielbetrieb Südbaden",
-            "shortName": "sbvv",
-            "hierarchyLevel": "5"
-          },
-          {
-            "id": "25751076",
-            "name": "Oberliga Baden",
-            "shortName": "Ol",
-            "hierarchyLevel": "4"
-          },
-          {
-            "id": "25751075",
-            "name": "Regionalliga Süd",
-            "shortName": "RL",
             "hierarchyLevel": "3"
           },
           {
-            "id": "25751074",
-            "name": "Dritte Liga Süd",
-            "shortName": "DLS",
+            "id": "67566359",
+            "name": "Verbandsligen",
+            "shortName": "vl",
             "hierarchyLevel": "2"
           },
           {
-            "id": "25751073",
-            "name": "Bundesligen",
-            "shortName": "BL",
+            "id": "67566357",
+            "name": "Erwachsenenspielbetrieb SBVV",
+            "shortName": "SBVV Erw.",
             "hierarchyLevel": "1"
           },
           {
-            "id": "25751072",
-            "name": "Allgemeiner Spielbetrieb",
-            "shortName": "alg",
+            "id": "62752550",
+            "name": "Südbadischer Volleyball-Verband (SBVV)",
+            "shortName": "SBVV",
             "hierarchyLevel": "0"
           }
         ]
@@ -82,8 +58,8 @@
     "ranking": [
       {
         "team": {
-          "id": "25932653",
-          "uuid": "7c4d59d2-6f61-432f-9086-c47020cf63e2",
+          "id": "67669162",
+          "uuid": "88b671b7-0060-48ee-a6f5-dd840ce08385",
           "name": "VC Haslach",
           "shortName": null,
           "clubCode": null,
@@ -138,8 +114,8 @@
       },
       {
         "team": {
-          "id": "25932661",
-          "uuid": "1a5c08ea-5b97-4449-9ec7-689d57b26f78",
+          "id": "67669165",
+          "uuid": "89a68dac-8bff-4e2b-9372-be3b1fb01ef8",
           "name": "VfR Merzhausen 1",
           "shortName": null,
           "clubCode": null,
@@ -194,8 +170,8 @@
       },
       {
         "team": {
-          "id": "25932650",
-          "uuid": "c5072d37-5feb-4f08-8431-c5f2ccdb88b5",
+          "id": "67669161",
+          "uuid": "0fd480ba-8f0a-4852-990e-b9d94e58a906",
           "name": "VC Müllheim",
           "shortName": null,
           "clubCode": null,
@@ -250,8 +226,8 @@
       },
       {
         "team": {
-          "id": "25932665",
-          "uuid": "b56f925f-383c-4cdd-8658-8707585d593b",
+          "id": "67669167",
+          "uuid": "8d2ce255-1431-4623-8012-06a35b57c69d",
           "name": "SG BEG United 2",
           "shortName": null,
           "clubCode": null,
@@ -306,8 +282,8 @@
       },
       {
         "team": {
-          "id": "25932635",
-          "uuid": "e6b9b5e2-ab9a-4b89-8441-bd7a1b1d6f35",
+          "id": "67669164",
+          "uuid": "186c296b-5049-4916-b77a-e16620659859",
           "name": "FT 1844 Freiburg 4",
           "shortName": null,
           "clubCode": null,
@@ -362,8 +338,8 @@
       },
       {
         "team": {
-          "id": "25932644",
-          "uuid": "7e94a7f4-2254-42e6-bd3e-23071d627d89",
+          "id": "67669160",
+          "uuid": "c4354a2f-d393-4e9f-8b33-751030876b1d",
           "name": "TV Staufen",
           "shortName": null,
           "clubCode": null,
@@ -418,8 +394,8 @@
       },
       {
         "team": {
-          "id": "25932638",
-          "uuid": "a74ec2d8-92f1-4e17-b833-d8abebff83d7",
+          "id": "67669168",
+          "uuid": "77bf43d8-197d-4492-9ca2-f750f4632e37",
           "name": "TSV Al. Freiburg-Zähringen 1",
           "shortName": null,
           "clubCode": null,
@@ -474,8 +450,8 @@
       },
       {
         "team": {
-          "id": "25932657",
-          "uuid": "55047b28-6105-43ab-b632-6d85ab93b768",
+          "id": "67669169",
+          "uuid": "b83066d4-7460-4638-af50-d91b6d9c31e4",
           "name": "TSV Al. Freiburg-Zähringen 2",
           "shortName": null,
           "clubCode": null,
@@ -530,8 +506,8 @@
       },
       {
         "team": {
-          "id": "25932647",
-          "uuid": "d73c02cc-e82d-4c3c-b902-cfe4909f3cb5",
+          "id": "67669166",
+          "uuid": "07608e69-cdf5-4a4f-bd81-770f33e7edb8",
           "name": "USC Freiburg 3",
           "shortName": null,
           "clubCode": null,
@@ -586,8 +562,8 @@
       },
       {
         "team": {
-          "id": "25932641",
-          "uuid": "33cc39d8-055c-4c01-9723-566b11e23feb",
+          "id": "67669163",
+          "uuid": "d3aff2cc-b8c2-47db-b713-b9897170bdae",
           "name": "Südbaden-Auswahl",
           "shortName": null,
           "clubCode": null,
