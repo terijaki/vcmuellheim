@@ -22,7 +22,7 @@ export default async function getClubData(clubId?: number): Promise<{ response: 
 				error("🚨 SAMS API CALL NOT OK FOR CLUB(" + clubId + "). STATUS " + apiPath.status + ": " + apiPath.statusText);
 			} else {
 				let xmlReponse = await apiPath.text();
-				if (xmlReponse.includes("<error>")) {
+				if (xmlReponse.includes("<error>") || xmlReponse.includes("<title>Ausnahmefehler</title>")) {
 					error("🚨 SAMS API RETURNED AN ERROR IN THE XML RESPONSE!");
 				} else if (!xmlReponse.includes("<id>" + clubId + "</id>")) {
 					error("🚨 CLUB DATA RESPONSE BODY DID NOT INCLUDE THE CLUB ID.🚨\nTHIS COULD INDICATE A MAINTENANCE OR SERVER ISSUE.");

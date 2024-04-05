@@ -24,24 +24,24 @@ export default async function getMatchSeries(): Promise<Object | boolean> {
 					const parseString = require("xml2js").parseString;
 					parseString(xmlData, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
 						if (!err) {
-							console.log("✅ Match Series retrieved. Looks good. Writing response to: " + JSON_FILE_TARGET);
+							console.log("✅ General Match Series retrieved. Looks good. Writing response to: " + JSON_FILE_TARGET);
 							const output = JSON.stringify(result, null, 2);
 							fs.mkdirSync(JSON_FILE_FOLDER, { recursive: true });
 							fs.writeFileSync(JSON_FILE_TARGET, output);
 							return output;
 						} else {
-							console.log("🚨 COULD NOT CONVERT MATCH SERIES XML TO JSON! 🚨");
+							console.log("🚨 COULD NOT CONVERT GENERAL MATCH SERIES XML TO JSON! 🚨");
 							console.log(err);
 							return false;
 						}
 					});
 				} else {
-					console.log("🚨 RECEIVED ERROR MESSAGE FOR MATCH SERIES! 🚨");
+					console.log("🚨 RECEIVED ERROR MESSAGE FOR GENERAL MATCH SERIES! 🚨");
 					console.log(xmlData);
 					return false;
 				}
 			} else {
-				console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR MATCH SERIES! 🚨");
+				console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR GENERAL MATCH SERIES! 🚨");
 				return false;
 			}
 		});
