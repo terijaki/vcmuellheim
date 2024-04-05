@@ -7,6 +7,7 @@ import { error } from "console";
 
 const SAMS_API = env.SAMS_API,
 	SAMS_URL = env.SAMS_URL,
+	SAMS_CLUB_NAME = env.SAMS_CLUB_NAME,
 	SAMS_FOLDER = "data/sams",
 	OWN_CLUB_CACHE_FILE = "data/sams/club.json";
 
@@ -30,7 +31,7 @@ export default async function getClubData(clubId: number): Promise<{ response: {
 							throw "🚨 COULD NOT CONVERT CLUB DATA XML TO JSON! 🚨";
 						} else {
 							console.log("✅ Club Data received and looks ok for: " + result.sportsclub.name + " (" + result.sportsclub.id + ")");
-							if (clubId == Number(result.sportsclub.id)) {
+							if (SAMS_CLUB_NAME && SAMS_CLUB_NAME == result.sportsclub.name) {
 								const output = JSON.stringify(result, null, 2);
 								console.log("✅ Club is our own. Caching response to: " + OWN_CLUB_CACHE_FILE);
 								fs.mkdirSync(SAMS_FOLDER, { recursive: true });
