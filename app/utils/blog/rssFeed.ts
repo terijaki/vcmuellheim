@@ -56,11 +56,17 @@ export default function rssFeed() {
 			}
 			if (path.parse(filename).ext == ".md" || path.parse(filename).ext == ".mdx") {
 				const slug = path.parse(filename).name;
+				// transform the Markdown to HTML
+				const showdown = require("showdown");
+				showdown.setFlavor("github");
+				const converter = new showdown.Converter();
+				const contentFormatted = converter.makeHtml(content);
+				// add every blog post as feed item
 				feed.addItem({
 					title: frontmatter.title,
 					id: slug,
 					link: HOMEPAGE + slug,
-					content: content,
+					content: contentFormatted,
 					date: new Date(frontmatter.date),
 					image: thumbnail,
 				});
