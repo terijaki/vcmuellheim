@@ -7,19 +7,15 @@ import { error } from "console";
 
 const SAMS_API = env.SAMS_API,
 	SAMS_URL = env.SAMS_URL,
-	SAMS_CLUB_ID = env.SAMS_CLUBID,
 	SAMS_FOLDER = "data/sams",
 	OWN_CLUB_CACHE_FILE = "data/sams/club.json";
 
-export default async function getClubData(clubId?: number): Promise<{ response: { id: number; name: string; logo: string } }> {
-	if (!clubId && SAMS_CLUB_ID) {
-		const clubId = Number(SAMS_CLUB_ID);
-	}
+export default async function getClubData(clubId: number): Promise<{ response: { id: number; name: string; logo: string } }> {
 	return new Promise(async (resolve, reject) => {
 		try {
 			const apiPath = await fetch(SAMS_URL + "/xml/sportsclub.xhtml?apiKey=" + SAMS_API + "&sportsclubId=" + clubId);
 			if (apiPath.status != 200) {
-				error("🚨 SAMS API CALL NOT OK FOR CLUB(" + clubId + "). STATUS " + apiPath.status + ": " + apiPath.statusText);
+				error("🚨 SAMS API CALL NOT OK FOR CLUB (" + clubId + "). STATUS " + apiPath.status + ": " + apiPath.statusText);
 			} else {
 				let xmlReponse = await apiPath.text();
 				if (xmlReponse.includes("<error>") || xmlReponse.includes("<title>Ausnahmefehler</title>")) {
@@ -29,9 +25,12 @@ export default async function getClubData(clubId?: number): Promise<{ response: 
 				} else {
 					const parseString = require("xml2js").parseString;
 					parseString(xmlReponse, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
-						if (!err) {
+						if (err) {
+							console.log(err);
+							throw "🚨 COULD NOT CONVERT CLUB DATA XML TO JSON! 🚨";
+						} else {
 							console.log("✅ Club Data received and looks ok for: " + result.sportsclub.name + " (" + result.sportsclub.id + ")");
-							if (clubId == Number(SAMS_CLUB_ID)) {
+							if (clubId == Number(result.sportsclub.id)) {
 								const output = JSON.stringify(result, null, 2);
 								console.log("✅ Club is our own. Caching response to: " + OWN_CLUB_CACHE_FILE);
 								fs.mkdirSync(SAMS_FOLDER, { recursive: true });
@@ -40,9 +39,6 @@ export default async function getClubData(clubId?: number): Promise<{ response: 
 							let clubDataJson = result.sportsclub;
 							// console.log(clubDataJson);
 							resolve({ response: { id: clubDataJson.id, name: clubDataJson.name, logo: clubDataJson.logo.url } });
-						} else {
-							console.log(err);
-							throw "🚨 COULD NOT CONVERT CLUB DATA XML TO JSON! 🚨";
 						}
 					});
 				}
@@ -52,57 +48,4 @@ export default async function getClubData(clubId?: number): Promise<{ response: 
 			reject(error);
 		}
 	});
-}
-
-/// TODO: remove this backup funciton if everything works fine
-export async function getClubDataOld(clubId?: number): Promise<Object | boolean> {
-	if (!clubId) {
-		const clubId = SAMS_CLUB_ID;
-	}
-
-	const apiPath = SAMS_URL + "/xml/sportsclub.xhtml?apiKey=" + SAMS_API + "&sportsclubId=" + clubId;
-	// fetch Club Data
-	await fetch(apiPath)
-		.then((response) => Promise.all([response.status, response.text()]))
-		.then(([status, xmlData]) => {
-			// verify the status code
-			if (status == 200) {
-				// unfortunately some errors such as rate limits, maintenance mode etc, come in as status 200 and then the error message is in the body
-				if (!xmlData.includes("<error>")) {
-					// verify the response includes our club ID
-					if (xmlData.includes("<id>" + clubId + "</id>")) {
-						const parseString = require("xml2js").parseString;
-						parseString(xmlData, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
-							if (!err) {
-								console.log("✅ Club Data looks ok: " + result.sportsclub.name + "(" + result.sportsclub.id + ")");
-								if (clubId == SAMS_CLUB_ID) {
-									const output = JSON.stringify(result, null, 2);
-									console.log("✅ Club is our own. Caching response to: " + OWN_CLUB_CACHE_FILE);
-									fs.mkdirSync(SAMS_FOLDER, { recursive: true });
-									fs.writeFileSync(OWN_CLUB_CACHE_FILE, output);
-								}
-								return result.sportsclub;
-							} else {
-								console.log("🚨 COULD NOT CONVERT CLUB DATA XML TO JSON! 🚨");
-								console.log(err);
-								return false;
-							}
-						});
-					} else {
-						console.log("🚨 CLUB DATA RESPONSE BODY DID NOT INCLUDE THE CLUB ID.🚨\nTHIS COULD INDICATE A MAINTENANCE OR SERVER ISSUE.");
-						console.log(xmlData);
-						return false;
-					}
-				} else {
-					console.log("🚨 RECEIVED ERROR MESSAGE FOR CLUB DATA! 🚨");
-					console.log(xmlData);
-					return false;
-				}
-			} else {
-				console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR CLUB DATA! 🚨");
-				return false;
-			}
-		});
-
-	return true;
 }

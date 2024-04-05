@@ -10,9 +10,13 @@ const SAMS_API = env.SAMS_API,
 
 const CLUBS_FILE_TARGET = "data/sams/allClubs.json";
 
-export default async function getAllClubs(): Promise<Object | boolean> {
-	const apiPath = SAMS_URL + "/xml/sportsclubList.xhtml?apiKey=" + SAMS_API;
+// TODO: add github summary messages
 
+export type clubData = { sportsclubs: { sportsclub: [{ id: string; name: string; lsbNumber: string; internalSportsclubId: string; association: { id: string; name: string } }] } };
+
+export default async function getAllClubs(): Promise<string | false> {
+	const apiPath = SAMS_URL + "/xml/sportsclubList.xhtml?apiKey=" + SAMS_API;
+	let outputAll: string | false = false;
 	await fetch(apiPath)
 		.then((response) => Promise.all([response.status, response.text()]))
 		.then(([status, xmlData]) => {
@@ -25,7 +29,7 @@ export default async function getAllClubs(): Promise<Object | boolean> {
 							const output = JSON.stringify(result, null, 2);
 							fs.mkdirSync(SAMS_FOLDER, { recursive: true });
 							fs.writeFileSync(CLUBS_FILE_TARGET, output);
-							return output;
+							outputAll = output;
 						} else {
 							console.log("🚨 COULD NOT CONVERT CLUBS XML TO JSON! 🚨");
 							console.log(err);
@@ -42,5 +46,5 @@ export default async function getAllClubs(): Promise<Object | boolean> {
 				return false;
 			}
 		});
-	return true;
+	return outputAll;
 }
