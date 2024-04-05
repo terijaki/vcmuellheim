@@ -3592,16 +3592,6 @@
         }
       },
       {
-        "id": "26818864",
-        "name": "SSG 01 Blankenhain e.V.",
-        "lsbNumber": "370177",
-        "internalSportsclubId": "37207",
-        "association": {
-          "id": "26249243",
-          "name": "Kreisverband Nord-Ost"
-        }
-      },
-      {
         "id": "26818848",
         "name": "VfB Schleiz e.V.",
         "lsbNumber": "280020",
@@ -34652,16 +34642,6 @@
         }
       },
       {
-        "id": "11618290",
-        "name": "BSV Ostbevern 1923 e.V.",
-        "lsbNumber": "3308003",
-        "internalSportsclubId": "2704",
-        "association": {
-          "id": "33797364",
-          "name": "Warendorf"
-        }
-      },
-      {
         "id": "37921571",
         "name": "1. Volleyball-Verein Holzwickede 1986 e.V.",
         "lsbNumber": "5704020",
@@ -63149,6 +63129,26 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "11618290",
+        "name": "BSV Ostbevern 1923 e.V.",
+        "lsbNumber": "3308003",
+        "internalSportsclubId": "2704",
+        "association": {
+          "id": "33797364",
+          "name": "Warendorf"
+        }
+      },
+      {
+        "id": "26818864",
+        "name": "SSG 01 Blankenhain e.V.",
+        "lsbNumber": "370177",
+        "internalSportsclubId": "37207",
+        "association": {
+          "id": "26249243",
+          "name": "Kreisverband Nord-Ost"
         }
       }
     ]
