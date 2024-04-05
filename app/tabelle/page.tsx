@@ -66,7 +66,7 @@ export default function Tabelle() {
 					<h2 className="card-heading">Keine Daten gefunden</h2>
 					<p>Tablleninformationen stehen aktuell nicht zur Verfügung. Eventuell liegt ein technisches Problem vor, oder es ist einfach der falsche Zeitpunkt.</p>
 				</div>
-				{currentMonth >= 1 && currentMonth <= 9 ? (
+				{currentMonth >= 4 && currentMonth <= 9 ? (
 					<div className="col-center-content card mb-6">
 						<h2 className="card-heading">Außerhalb der Saison?</h2>
 						<p className="mt-3">

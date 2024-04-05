@@ -50,6 +50,7 @@ export default function Termine() {
 			<>
 				<PageHeading title="Spielermine unserer Mannschaften" />
 				<div className="col-full-content sm:col-center-content card my-6">
+					<h2 className="card-heading">Keine Ligaspiele gefunden</h2>
 					<p className="mb-3">Derzeit stehen keine weiteren Spieltermine an.</p>
 					{seasonMonth && <p className="mb-6">Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.</p>}
 					<p className="text-pretty">
@@ -62,6 +63,17 @@ export default function Termine() {
 						, um neue Termine saisonübergreifend automatisch in deiner <span className="font-bold">Kalender-App</span> zu empfangen.
 					</p>
 				</div>
+				{currentMonth >= 4 && currentMonth <= 9 ? (
+					<div className="col-center-content card mb-6">
+						<h2 className="card-heading">Außerhalb der Saison?</h2>
+						<p className="mt-3">
+							Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt. Dazwischen und kurz vor Saisonbeginn, wurden die neusten Informationen vom Südbadischen
+							Volleyballverband ggf. noch nicht veröffentlicht.
+						</p>
+					</div>
+				) : (
+					""
+				)}
 			</>
 		);
 	}
