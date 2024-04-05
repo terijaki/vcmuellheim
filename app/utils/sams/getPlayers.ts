@@ -21,7 +21,7 @@ export default async function getPlayers(teamId: (number | string)[]) {
 				let samsData = decoder.decode(buffer);
 				// debug messages
 				if (samsData) {
-					let consoleNote = "✅ Player data retrieved for team " + teamId;
+					let consoleNote = "✅ Player data retrieved for team " + id;
 					console.log(consoleNote);
 					summaryList.add(consoleNote);
 				}
