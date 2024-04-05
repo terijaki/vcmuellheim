@@ -6,8 +6,6 @@ thumbnail: ""
 
 Wie im letzten Jahr, müssen wir auch in 2021 pandemiebedingt auf unser Stadtfest verzichten.
 
-<!--more-->
-
 > Sehr geehrte Damen und Herren,
 >
 > liebe Müllheimer Vereine,

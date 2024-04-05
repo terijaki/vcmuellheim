@@ -10,5 +10,3 @@ gallery:
 Unsere "Alten Hasen" haben mal wieder gezeigt was in Ihnen steckt!
 
 Am heutigen Ü41 Senioren Volleyball Turnier hat unser Team den zweiten Platz errungen. Gratulation!
-
-<!--more-->

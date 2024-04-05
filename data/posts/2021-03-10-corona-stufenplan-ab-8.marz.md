@@ -8,8 +8,6 @@ Die Bundesregierung hat eine neue Regelungen beschlossen, die seit dem 8 März g
 
 Die Regelungen sind **abhängig von** dem jeweiligen [**7-Tage-Inzidenzwert**](https://www.baden-wuerttemberg.de/de/service/presse/pressemitteilung/pid/infektionen-und-todesfaelle-in-baden-wuerttemberg/) im jeweiligen Land- oder Stadtkreis.
 
-<!--more-->
-
 > **7-Tage-Inzidenz zwischen 50 und 100 Neuinfektionen je 100.000 Einwohner:**
 >
 > Sportausübung (kontaktarm) im Freien und in geschlossenen Räumen mit maximal 5 Personen (Kinder bis 14 werden nicht mitgezählt) aus 2 Haushalten möglich.

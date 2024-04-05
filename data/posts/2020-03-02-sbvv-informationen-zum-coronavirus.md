@@ -5,8 +5,6 @@ title: "SBVV: Informationen zum Coronavirus"
 
 Der Südbadische Volleyball-Verband veröffentlichte am vergangenen Freitag folgenden Beitrag zum Thema Coronavirus auf: [volleyball-baden.de](volleyball-baden.de)
 
-<!--more-->
-
 Zitat:
 
 > Zum Thema Coronavirus orientiert sich der DVV an den Mitteilungen des Robert-Koch-Instituts (RKI). Das RKI ist das Bundesinstitut im Geschäftsbereich des Bundesministeriums für Gesundheit, welches als zentrale Einrichtung der Bundesregierung auf dem Gebiet der Krankheitsüberwachung und -prävention für das Coronavirus zuständig ist. Nach aktuellem Stand und bis auf Widerruf werden neben den Begegnungen der 1. und 2. Bundesliga auch die Begegnungen der DVV-Ligen, 3. Liga und Regionalliga sowie alle Spiele innerhalb des Nordbadischen Volleyball-Verbandes (NVV) wie auch des Südbadischen Volleyball-Verbandes (SBVV) ausgetragen. Sollte sich die Risikobewertung aus Sicht der zuständigen Behörden ändern, entscheiden die regionalen Gesundheitsbehörden, wie Gesundheits- und Landratsämter vor Ort, über mögliche Konsequenzen. Hier erfolgt durch den betreffenden Verein bitte eine sofortige, direkte Kontaktaufnahme zum zuständigen Staffelleiter bzw. Spielwart.
