@@ -1,122 +1,125 @@
-[
-    {
-        "lastname": "Larionovs",
-        "firstname": "Lauris",
-        "nationality": "LV",
-        "number": 13,
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Ettner",
-        "firstname": "Ludwig",
-        "nationality": "DE",
-        "number": 7,
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Moerel",
-        "firstname": "Maarten",
-        "nationality": "DE",
-        "number": 14,
-        "height": 193,
-        "function": ""
-    },
-    {
-        "lastname": "Seywald",
-        "firstname": "Thomas",
-        "nationality": "DE",
-        "number": "",
-        "height": 180,
-        "function": "Trainer"
-    },
-    {
-        "lastname": "Komorowski",
-        "firstname": "Jaroslaw",
-        "nationality": "PL",
-        "number": 9,
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Lacher",
-        "firstname": "Theo",
-        "nationality": "DE",
-        "number": 8,
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Maier",
-        "firstname": "Felix",
-        "nationality": "DE",
-        "number": 22,
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Wink",
-        "firstname": "Anton",
-        "nationality": "DE",
-        "number": 24,
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Seywald",
-        "firstname": "Thomas",
-        "nationality": "DE",
-        "number": 21,
-        "height": 180,
-        "function": ""
-    },
-    {
-        "lastname": "Pohl",
-        "firstname": "Michael",
-        "nationality": "DE",
-        "number": 10,
-        "height": 190,
-        "function": ""
-    },
-    {
-        "lastname": "Rasp",
-        "firstname": "Philipp",
-        "nationality": "DE",
-        "number": 5,
-        "height": 190,
-        "function": ""
-    },
-    {
-        "lastname": "Morawietz",
-        "firstname": "Paul",
-        "nationality": "DE",
-        "number": 31,
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Kohnen",
-        "firstname": "Björn",
-        "nationality": "DE",
-        "number": 6,
-        "height": 181,
-        "function": ""
-    },
-    {
-        "lastname": "Lacher",
-        "firstname": "Paul",
-        "nationality": "DE",
-        "number": 12,
-        "height": "",
-        "function": ""
-    },
-    {
-        "lastname": "Stücklin",
-        "firstname": "Johannes",
-        "nationality": "DE",
-        "number": 1,
-        "height": "",
-        "function": ""
-    }
-]
+{
+    "date": "2024-04-06T08:47:26.938Z",
+    "players": [
+        {
+            "lastname": "Larionovs",
+            "firstname": "Lauris",
+            "nationality": "LV",
+            "number": 13,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Ettner",
+            "firstname": "Ludwig",
+            "nationality": "DE",
+            "number": 7,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Moerel",
+            "firstname": "Maarten",
+            "nationality": "DE",
+            "number": 14,
+            "height": 193,
+            "function": ""
+        },
+        {
+            "lastname": "Seywald",
+            "firstname": "Thomas",
+            "nationality": "DE",
+            "number": "",
+            "height": 180,
+            "function": "Trainer"
+        },
+        {
+            "lastname": "Komorowski",
+            "firstname": "Jaroslaw",
+            "nationality": "PL",
+            "number": 9,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Lacher",
+            "firstname": "Theo",
+            "nationality": "DE",
+            "number": 8,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Maier",
+            "firstname": "Felix",
+            "nationality": "DE",
+            "number": 22,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Wink",
+            "firstname": "Anton",
+            "nationality": "DE",
+            "number": 24,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Seywald",
+            "firstname": "Thomas",
+            "nationality": "DE",
+            "number": 21,
+            "height": 180,
+            "function": ""
+        },
+        {
+            "lastname": "Pohl",
+            "firstname": "Michael",
+            "nationality": "DE",
+            "number": 10,
+            "height": 190,
+            "function": ""
+        },
+        {
+            "lastname": "Rasp",
+            "firstname": "Philipp",
+            "nationality": "DE",
+            "number": 5,
+            "height": 190,
+            "function": ""
+        },
+        {
+            "lastname": "Morawietz",
+            "firstname": "Paul",
+            "nationality": "DE",
+            "number": 31,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Kohnen",
+            "firstname": "Björn",
+            "nationality": "DE",
+            "number": 6,
+            "height": 181,
+            "function": ""
+        },
+        {
+            "lastname": "Lacher",
+            "firstname": "Paul",
+            "nationality": "DE",
+            "number": 12,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Stücklin",
+            "firstname": "Johannes",
+            "nationality": "DE",
+            "number": 1,
+            "height": "",
+            "function": ""
+        }
+    ]
+}

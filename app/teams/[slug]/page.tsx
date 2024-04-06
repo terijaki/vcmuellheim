@@ -65,8 +65,8 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 				)}
 
 				<div className="col-full-content md:col-center-content *:mb-10 mt-6">
-					{/* players */}
-					{players && (
+					{/* display players */}
+					{players && players.length > 0 && (
 						<>
 							<div className="card *:mb-3">
 								<h2 className="card-heading">Spieler</h2>
