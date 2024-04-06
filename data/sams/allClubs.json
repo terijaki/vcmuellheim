@@ -17692,16 +17692,6 @@
         }
       },
       {
-        "id": "26925402",
-        "name": "TV 1862 Biedenkopf",
-        "lsbNumber": "16013",
-        "internalSportsclubId": "5101",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
         "id": "26925392",
         "name": "TTC 1955 Hornbach e.V.",
         "lsbNumber": "36105",
@@ -63149,6 +63139,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26925402",
+        "name": "TV 1862 Biedenkopf",
+        "lsbNumber": "16013",
+        "internalSportsclubId": "5101",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
         }
       }
     ]
