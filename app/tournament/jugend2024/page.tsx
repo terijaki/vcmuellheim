@@ -16,7 +16,7 @@ export async function generateMetadata({}, parent: ResolvingMetadata): Promise<M
 // reference of past tournaments
 const pastTournamentPosts = [
 	["data/posts/2022-07-12-unser-1.jugendturnier-schlug-voll-ein.md", "Turnier 2022"],
-	["data/posts/2023-06-21-Zweites-Internationales-Jugendturnier.md", "Turnier 2023"],
+	["data/posts/2023-06-21-zweites-internationales-jugendturnier.md", "Turnier 2023"],
 ];
 
 // contact people for this event
