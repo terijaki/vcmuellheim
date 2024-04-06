@@ -9,7 +9,6 @@ const CLUBS_CACHE_FOLDER = "data/sams/clubs";
 // get the club's logo url
 export async function getClubLogoUrl(clubName: string): Promise<string | undefined> {
 	const clubSlug = slugify(clubName, true);
-	console.log(clubSlug);
 	const cacheFile = path.join(CLUBS_CACHE_FOLDER, clubSlug + ".json");
 	if (!fs.existsSync(cacheFile)) {
 		console.log("🕵️ " + clubName + " cache does not exist. No logo is being returned.");
