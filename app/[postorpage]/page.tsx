@@ -8,6 +8,7 @@ import PageHeading from "@/app/components/layout/PageHeading";
 import SharingButon from "@/app/components/ui/SharingButton";
 import Markdown from "markdown-to-jsx";
 import rssFeed from "@/app/utils/blog/rssFeed";
+import { slugify } from "../utils/slugify";
 
 // TODO
 // - do not generate static file if name is identical to a page OR replace markdown pages with jsx
@@ -32,7 +33,7 @@ export async function generateStaticParams(): Promise<{ postorpage: string }[]> 
 			const files = fs.readdirSync(target.folder);
 			const filesFiltered = files.filter((file) => file.endsWith(ext));
 			filesFiltered.map((file) => {
-				const filesNoExt = file.replace(ext, "");
+				const filesNoExt = slugify(file.replace(ext, ""));
 				filesToGenerate.push(filesNoExt);
 			});
 		});

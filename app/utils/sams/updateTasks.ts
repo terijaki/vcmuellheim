@@ -158,10 +158,10 @@ getAllClubs()
 			// get a cache for each club
 			clubs.forEach(async (club) => {
 				if (club) {
-					const clubSlug = slugify(club.toString());
+					const clubSlug = slugify(club.toString(), true);
 					const cacheFile = path.join(CLUBS_CACHE_FOLDER, clubSlug + ".json");
 					if (!fs.existsSync(cacheFile)) {
-						console.log("cache does not exist for " + clubSlug);
+						console.log("🕵️ Club cache does not exist for " + club);
 						const clubId = await getClubId(club.toString());
 						const clubData = await getClubData(Number(clubId));
 						fs.mkdirSync(CLUBS_CACHE_FOLDER, { recursive: true });
