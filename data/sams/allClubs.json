@@ -38112,6 +38112,16 @@
         }
       },
       {
+        "id": "21797214",
+        "name": "Elsterwerdaer SV 94",
+        "lsbNumber": "620156",
+        "internalSportsclubId": "620156",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "53996540",
         "name": "Sand für Alle e.V.",
         "lsbNumber": "1111111110000027",
@@ -38129,16 +38139,6 @@
         "association": {
           "id": "33299148",
           "name": "Krefeld-Viersen"
-        }
-      },
-      {
-        "id": "21797214",
-        "name": "Elsterwerdaer SV 94",
-        "lsbNumber": "620156",
-        "internalSportsclubId": "620156",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
