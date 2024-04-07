@@ -42362,6 +42362,16 @@
         }
       },
       {
+        "id": "58935544",
+        "name": "SG Medizin Bad Liebenwerda e.V.",
+        "lsbNumber": "620252",
+        "internalSportsclubId": "620252",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "50621683",
         "name": "SV Niedergurig e.V.",
         "lsbNumber": "430321",
@@ -42519,16 +42529,6 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
-        "id": "58935544",
-        "name": "SG Medizin Bad Liebenwerda e.V.",
-        "lsbNumber": "1111111110000032",
-        "internalSportsclubId": "650001",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
