@@ -54032,16 +54032,6 @@
         }
       },
       {
-        "id": "51836494",
-        "name": "SC Ransbach-Baumbach e. V.",
-        "lsbNumber": "1004473",
-        "internalSportsclubId": "32-21-18",
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
         "id": "65036494",
         "name": "Volleyball-Landesverband Württemberg",
         "lsbNumber": "100085",
@@ -54056,6 +54046,16 @@
         "name": "DJK Andernach",
         "lsbNumber": "1001382",
         "internalSportsclubId": "32-16-01",
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
+        "id": "51836494",
+        "name": "SC Ransbach-Baumbach e. V.",
+        "lsbNumber": "1004473",
+        "internalSportsclubId": "32-21-18",
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
