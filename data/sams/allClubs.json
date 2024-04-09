@@ -1562,16 +1562,6 @@
         }
       },
       {
-        "id": "15437209",
-        "name": "Sächsischer Sportverband Volleyball",
-        "lsbNumber": "304495556",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "242",
-          "name": "Deutscher Volleyball-Verband"
-        }
-      },
-      {
         "id": "9261324",
         "name": "DJK Füchtel Vechta",
         "lsbNumber": "304495500",
@@ -1679,6 +1669,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "15437209",
+        "name": "Sächsischer Sportverband Volleyball",
+        "lsbNumber": "304495556",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
         }
       },
       {
@@ -2002,16 +2002,6 @@
         }
       },
       {
-        "id": "54611141",
-        "name": "TSV Hirschau",
-        "lsbNumber": "22087",
-        "internalSportsclubId": "499",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "54611138",
         "name": "TSV Hayingen",
         "lsbNumber": "16036",
@@ -2139,6 +2129,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "54611141",
+        "name": "TSV Hirschau",
+        "lsbNumber": "22087",
+        "internalSportsclubId": "499",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -11642,16 +11642,6 @@
         }
       },
       {
-        "id": "54611157",
-        "name": "TuS Metzingen",
-        "lsbNumber": "16060",
-        "internalSportsclubId": "516",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "26846578",
         "name": "Ballsport Interkulturell e.V.",
         "lsbNumber": "325",
@@ -19832,16 +19822,6 @@
         }
       },
       {
-        "id": "26925723",
-        "name": "TSG 1890 Köppern",
-        "lsbNumber": "31073",
-        "internalSportsclubId": "6107",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "26925638",
         "name": "TSV 1869 Herleshausen",
         "lsbNumber": "43052",
@@ -19859,6 +19839,16 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "26925723",
+        "name": "TSG 1890 Köppern",
+        "lsbNumber": "31073",
+        "internalSportsclubId": "6107",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -38229,16 +38219,6 @@
         "association": {
           "id": "33797282",
           "name": "Vest"
-        }
-      },
-      {
-        "id": "12490237",
-        "name": "SC Union Emlichheim",
-        "lsbNumber": "304431200",
-        "internalSportsclubId": "10803",
-        "association": {
-          "id": "7223",
-          "name": "Nordwestdeutscher Volleyball-Verband e.V."
         }
       },
       {
@@ -61662,16 +61642,6 @@
         }
       },
       {
-        "id": "30226886",
-        "name": "TG Schwenningen",
-        "lsbNumber": null,
-        "internalSportsclubId": "4909",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037080",
         "name": "TV Kippenheim",
         "lsbNumber": "471550",
@@ -61716,6 +61686,16 @@
         "name": "FT 1844 Freiburg",
         "lsbNumber": "473460",
         "internalSportsclubId": "3501",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "30226886",
+        "name": "TG Schwenningen",
+        "lsbNumber": null,
+        "internalSportsclubId": "4909",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -62322,16 +62302,6 @@
         }
       },
       {
-        "id": "65037100",
-        "name": "TV Zunsweier 1912 e.V.",
-        "lsbNumber": "473430",
-        "internalSportsclubId": "5118",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036689",
         "name": "SV Ballrechten-Dott.",
         "lsbNumber": "180370",
@@ -62346,6 +62316,16 @@
         "name": "TTSF Hohberg",
         "lsbNumber": "461310",
         "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037100",
+        "name": "TV Zunsweier 1912 e.V.",
+        "lsbNumber": "473430",
+        "internalSportsclubId": "5118",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -63149,6 +63129,26 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "54611157",
+        "name": "TuS Metzingen",
+        "lsbNumber": "16060",
+        "internalSportsclubId": "516",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "12490237",
+        "name": "Ursula Timmer",
+        "lsbNumber": "304431200",
+        "internalSportsclubId": "10803",
+        "association": {
+          "id": "7223",
+          "name": "Nordwestdeutscher Volleyball-Verband e.V."
         }
       }
     ]
