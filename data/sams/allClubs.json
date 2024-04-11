@@ -1042,16 +1042,6 @@
         }
       },
       {
-        "id": "11619359",
-        "name": "SVG Lüneburg",
-        "lsbNumber": "20520",
-        "internalSportsclubId": "20520",
-        "association": {
-          "id": "7223",
-          "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
         "id": "54611130",
         "name": "TG Gönningen",
         "lsbNumber": "16029",
@@ -1059,6 +1049,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "11619359",
+        "name": "SVG Lüneburg",
+        "lsbNumber": "20520",
+        "internalSportsclubId": "20520",
+        "association": {
+          "id": "7223",
+          "name": "Nordwestdeutscher Volleyball-Verband e.V."
         }
       },
       {
@@ -1452,16 +1452,6 @@
         }
       },
       {
-        "id": "36969846",
-        "name": "Blau-Weiß Lohne",
-        "lsbNumber": "304493500",
-        "internalSportsclubId": "11403",
-        "association": {
-          "id": "7223",
-          "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
         "id": "37921590",
         "name": "Viersener Turnverein 1848 e.V.",
         "lsbNumber": "1408016",
@@ -1519,6 +1509,16 @@
         "association": {
           "id": "7215",
           "name": "Bayerischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "36969846",
+        "name": "Blau-Weiß Lohne",
+        "lsbNumber": "304493500",
+        "internalSportsclubId": "11403",
+        "association": {
+          "id": "7223",
+          "name": "Nordwestdeutscher Volleyball-Verband e.V."
         }
       },
       {
@@ -2412,6 +2412,16 @@
         }
       },
       {
+        "id": "31939278",
+        "name": "Testverein",
+        "lsbNumber": "100000",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7214",
+          "name": "Thüringer Volleyball-Verband e.V."
+        }
+      },
+      {
         "id": "26818724",
         "name": "Turnverein Apolda 1856 e.V.",
         "lsbNumber": "370129",
@@ -2439,16 +2449,6 @@
         "association": {
           "id": "26249329",
           "name": "Kreisverband Süd-West"
-        }
-      },
-      {
-        "id": "31939278",
-        "name": "Testverein",
-        "lsbNumber": "100000",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7214",
-          "name": "Thüringer Volleyball-Verband e.V."
         }
       },
       {
@@ -2732,16 +2732,6 @@
         }
       },
       {
-        "id": "26818728",
-        "name": "SV Sömmerda",
-        "lsbNumber": "310008",
-        "internalSportsclubId": "31092",
-        "association": {
-          "id": "26249165",
-          "name": "Kreisverband Mitte"
-        }
-      },
-      {
         "id": "26818809",
         "name": "Sportverein Eintracht Ponitz e.V.",
         "lsbNumber": "410077",
@@ -2999,6 +2989,16 @@
         "association": {
           "id": "26272888",
           "name": "tbc TVV 40"
+        }
+      },
+      {
+        "id": "26818728",
+        "name": "SV Sömmerda",
+        "lsbNumber": "310008",
+        "internalSportsclubId": "31092",
+        "association": {
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
         }
       },
       {
@@ -4342,16 +4342,6 @@
         }
       },
       {
-        "id": "26818948",
-        "name": "Sportverein 1899 Mühlhausen e.V.",
-        "lsbNumber": "220009",
-        "internalSportsclubId": "22168",
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
-        }
-      },
-      {
         "id": "26818946",
         "name": "Arbeitsamtssportverein Gera e.V.",
         "lsbNumber": "120247",
@@ -4592,16 +4582,6 @@
         }
       },
       {
-        "id": "26818952",
-        "name": "TSV Musterstadt e.V.",
-        "lsbNumber": "111122223333",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
-        }
-      },
-      {
         "id": "26818978",
         "name": "Thüringer Skiverband e.V.",
         "lsbNumber": "880036",
@@ -4639,6 +4619,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26818952",
+        "name": "TSV Musterstadt e.V.",
+        "lsbNumber": "111122223333",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26272888",
+          "name": "tbc TVV 40"
         }
       },
       {
@@ -4992,16 +4982,6 @@
         }
       },
       {
-        "id": "26819049",
-        "name": "SV Germania Wüstheuterode",
-        "lsbNumber": "150020",
-        "internalSportsclubId": "611",
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
-        }
-      },
-      {
         "id": "26819039",
         "name": "Sportverein Suhl 04 e.V.",
         "lsbNumber": "360091",
@@ -5099,6 +5079,16 @@
         "association": {
           "id": "26249283",
           "name": "Kreisverband Süd"
+        }
+      },
+      {
+        "id": "26819049",
+        "name": "SV Germania Wüstheuterode",
+        "lsbNumber": "150020",
+        "internalSportsclubId": "611",
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
         }
       },
       {
@@ -10129,16 +10119,6 @@
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
-        "id": "28521605",
-        "name": "Rodeberger-Volleyball-Club e.V.",
-        "lsbNumber": "220243",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
         }
       },
       {
@@ -15406,16 +15386,6 @@
         "name": "CVJM SG Dillenburg",
         "lsbNumber": "15018",
         "internalSportsclubId": "5204",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
-        "id": "26925129",
-        "name": "TSV 03/30 Michelbach e.V.",
-        "lsbNumber": "10117",
-        "internalSportsclubId": "1003",
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
@@ -35432,16 +35402,6 @@
         }
       },
       {
-        "id": "961583",
-        "name": "SG Spfr. 69 Marmagen/Nettersheim e.V.",
-        "lsbNumber": "2408004",
-        "internalSportsclubId": "94",
-        "association": {
-          "id": "33795239",
-          "name": "Euskirchen"
-        }
-      },
-      {
         "id": "40402494",
         "name": "Volleyball-Krähen-Berlin e.V.",
         "lsbNumber": "5221",
@@ -36902,6 +36862,16 @@
         }
       },
       {
+        "id": "42924374",
+        "name": "TSV 1869 Sundhausen e.V.",
+        "lsbNumber": "130062",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249207",
+          "name": "Kreisverband Mitte-West"
+        }
+      },
+      {
         "id": "26925203",
         "name": "TV 1893 Lieblos",
         "lsbNumber": "27093",
@@ -36952,16 +36922,6 @@
         }
       },
       {
-        "id": "26818783",
-        "name": "Volleyballclub Marksuhl 02",
-        "lsbNumber": "470136",
-        "internalSportsclubId": "06254",
-        "association": {
-          "id": "26249309",
-          "name": "Kreisverband West"
-        }
-      },
-      {
         "id": "37920864",
         "name": "DJK Teutonia Ehrenfeld 1913 e.V.",
         "lsbNumber": "5001022",
@@ -36979,16 +36939,6 @@
         "association": {
           "id": "33299092",
           "name": "Düsseldorf"
-        }
-      },
-      {
-        "id": "42924374",
-        "name": "TSV 1869 Sundhausen e.V.",
-        "lsbNumber": "111122223346",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249207",
-          "name": "Kreisverband Mitte-West"
         }
       },
       {
@@ -39782,6 +39732,16 @@
         }
       },
       {
+        "id": "38989907",
+        "name": "Spielgemeinschaft Westerwald Volleys",
+        "lsbNumber": "3000166",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
         "id": "54611293",
         "name": "TV Bermatingen",
         "lsbNumber": "200661",
@@ -39829,16 +39789,6 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
-        "id": "38989907",
-        "name": "Spielgemeinschaft Westerwald Volleys",
-        "lsbNumber": "3000166",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
         }
       },
       {
@@ -41612,16 +41562,6 @@
         }
       },
       {
-        "id": "50621602",
-        "name": "VSV Treuen e.V.",
-        "lsbNumber": "510107",
-        "internalSportsclubId": "481",
-        "association": {
-          "id": "24908726",
-          "name": "Vogtlandkreis"
-        }
-      },
-      {
         "id": "50621603",
         "name": "Sportverein Burkau e.V.",
         "lsbNumber": "430287",
@@ -41659,6 +41599,16 @@
         "association": {
           "id": "24908869",
           "name": "Landkreis Nordsachsen"
+        }
+      },
+      {
+        "id": "50621602",
+        "name": "VSV Treuen e.V.",
+        "lsbNumber": "510107",
+        "internalSportsclubId": "481",
+        "association": {
+          "id": "24908726",
+          "name": "Vogtlandkreis"
         }
       },
       {
@@ -41874,7 +41824,7 @@
       {
         "id": "59702728",
         "name": "FSV Grün-Weiß Plaue 96 e.V.",
-        "lsbNumber": "1111111110000033",
+        "lsbNumber": "430145",
         "internalSportsclubId": null,
         "association": {
           "id": "26249329",
@@ -44772,16 +44722,6 @@
         }
       },
       {
-        "id": "65036885",
-        "name": "SV Bohlingen",
-        "lsbNumber": "180640",
-        "internalSportsclubId": "3905",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "50621959",
         "name": "SSV Königshain-Wiederau e.V.",
         "lsbNumber": "480190",
@@ -44859,6 +44799,16 @@
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
+        }
+      },
+      {
+        "id": "65036885",
+        "name": "SV Bohlingen",
+        "lsbNumber": "180640",
+        "internalSportsclubId": "3905",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -54032,16 +53982,6 @@
         }
       },
       {
-        "id": "51836494",
-        "name": "SC Ransbach-Baumbach e. V.",
-        "lsbNumber": "1004473",
-        "internalSportsclubId": "32-21-18",
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
         "id": "51836436",
         "name": "SV Ötzingen",
         "lsbNumber": "1000550",
@@ -54672,16 +54612,6 @@
         }
       },
       {
-        "id": "54611106",
-        "name": "VfL Dettenhausen",
-        "lsbNumber": "22016",
-        "internalSportsclubId": "464",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "54611107",
         "name": "EK Dettingen",
         "lsbNumber": "16164",
@@ -54799,6 +54729,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "54611106",
+        "name": "VfL Dettenhausen",
+        "lsbNumber": "22016",
+        "internalSportsclubId": "464",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -57262,16 +57202,6 @@
         }
       },
       {
-        "id": "26819095",
-        "name": "Verein der Springmäuse, Volleyball und Wandern e.V.",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249165",
-          "name": "Kreisverband Mitte"
-        }
-      },
-      {
         "id": "54611351",
         "name": "GSV Hemmingen",
         "lsbNumber": "12073",
@@ -58922,16 +58852,6 @@
         }
       },
       {
-        "id": "65036592",
-        "name": "Volleyball Akademie Stuttgart",
-        "lsbNumber": "200401",
-        "internalSportsclubId": "287",
-        "association": {
-          "id": "62829048",
-          "name": "Baden"
-        }
-      },
-      {
         "id": "65036598",
         "name": "TV Tiengen 1928 e.V.",
         "lsbNumber": "472990",
@@ -59379,16 +59299,6 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65036898",
-        "name": "MTV Stuttgart 1843",
-        "lsbNumber": "20040",
-        "internalSportsclubId": "287",
-        "association": {
-          "id": "62829048",
-          "name": "Baden"
         }
       },
       {
@@ -59949,16 +59859,6 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65037082",
-        "name": "SV Salamander Kornwestheim",
-        "lsbNumber": "12101",
-        "internalSportsclubId": "70",
-        "association": {
-          "id": "62829048",
-          "name": "Baden"
         }
       },
       {
@@ -60662,16 +60562,6 @@
         }
       },
       {
-        "id": "65037287",
-        "name": "SV 1845 Esslingen",
-        "lsbNumber": "6395",
-        "internalSportsclubId": "183",
-        "association": {
-          "id": "62829048",
-          "name": "Baden"
-        }
-      },
-      {
         "id": "65037288",
         "name": "TV Lichtenau",
         "lsbNumber": null,
@@ -60812,16 +60702,6 @@
         }
       },
       {
-        "id": "65037322",
-        "name": "SG Karlsruhe e.V.",
-        "lsbNumber": "81492",
-        "internalSportsclubId": "81492",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037323",
         "name": "TSV 1846 Ellwangen",
         "lsbNumber": "8144281599",
@@ -60909,6 +60789,16 @@
         "association": {
           "id": "242",
           "name": "Deutscher Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037322",
+        "name": "SG Karlsruhe e.V.",
+        "lsbNumber": "81492",
+        "internalSportsclubId": "81492",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -63002,16 +62892,6 @@
         }
       },
       {
-        "id": "68925560",
-        "name": "DJK SG Böspede 1963 e.V.",
-        "lsbNumber": "1111111110000041",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "33798063",
-          "name": "Märkischer Kreis"
-        }
-      },
-      {
         "id": "65036606",
         "name": "SG Mittelbaden Volleys",
         "lsbNumber": null,
@@ -63112,6 +62992,16 @@
         }
       },
       {
+        "id": "68925560",
+        "name": "DJK SG Bösperde 1963 e.V.",
+        "lsbNumber": "1111111110000041",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "33798063",
+          "name": "Märkischer Kreis"
+        }
+      },
+      {
         "id": "65036648",
         "name": "VC Müllheim",
         "lsbNumber": "480190",
@@ -63143,12 +63033,82 @@
       },
       {
         "id": "12490237",
-        "name": "Ursula Timmer",
+        "name": "SCU Emlichheim",
         "lsbNumber": "304431200",
         "internalSportsclubId": "10803",
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "26925129",
+        "name": "TSV 03/30 Michelbach e.V.",
+        "lsbNumber": "10117",
+        "internalSportsclubId": "1003",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "26818948",
+        "name": "Sportverein 1899 Mühlhausen e.V.",
+        "lsbNumber": "220009",
+        "internalSportsclubId": "22168",
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
+        }
+      },
+      {
+        "id": "26819095",
+        "name": "Verein der Springmäuse, Volleyball und Wandern e.V.",
+        "lsbNumber": "100088",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
+        }
+      },
+      {
+        "id": "28521605",
+        "name": "Rodeberger-Volleyball-Club e.V.",
+        "lsbNumber": "150256",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
+        }
+      },
+      {
+        "id": "961583",
+        "name": "SG Spfr. 69 Marmagen/Nettersheim e.V.",
+        "lsbNumber": "2408004",
+        "internalSportsclubId": "94",
+        "association": {
+          "id": "33795239",
+          "name": "Euskirchen"
+        }
+      },
+      {
+        "id": "51836494",
+        "name": "SC Ransbach-Baumbach e. V.",
+        "lsbNumber": "1004473",
+        "internalSportsclubId": "32-21-18",
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
+        "id": "26818783",
+        "name": "Volleyballclub Marksuhl 02",
+        "lsbNumber": "470136",
+        "internalSportsclubId": "06254",
+        "association": {
+          "id": "26249309",
+          "name": "Kreisverband West"
         }
       }
     ]
