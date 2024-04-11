@@ -6,7 +6,7 @@ import { Fragment } from "react";
 import { getMembers } from "@/app/utils/getMembers";
 import { getTeams } from "@/app/utils/getTeams";
 import { getLeagueName, cachedGetUniqueMatchSeriesIds } from "@/app/utils/sams/cachedGetClubData";
-import { FaUser as IconPerson, FaUserGroup as IconPersons, FaClock as IconClock, FaBullhorn as IconSubscribe } from "react-icons/fa6";
+import { FaUser as IconPerson, FaUserGroup as IconPersons, FaClock as IconClock, FaBullhorn as IconSubscribe, FaEnvelope as IconEmail } from "react-icons/fa6";
 import { cachedGetRankings } from "@/app/utils/sams/cachedGetRanking";
 import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import RankingTable from "@/app/components/sams/RankingTable";
@@ -193,31 +193,42 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 								})}
 							</div>
 						)}
-						<div className="trainers">
-							<h3 className="font-bold flex gap-x-1 items-baseline">
-								{team.trainer?.length == 1 ? <IconPerson className="text-xs" /> : <IconPersons className="text-xs" />}
-								Trainer:
-							</h3>
-							<div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(180px,max-content))] md:grid-cols-[repeat(auto-fit,minmax(250px,max-content))]">
-								{team.trainer?.map((trainer) => {
-									// check if this trainer is in the member list and has an avatar
-									const trainerList = getMembers();
-									const filteredTrainers = trainerList.filter((thisTrainer) => thisTrainer.name == trainer.name);
-									return (
-										<div key="trainercard">
-											{filteredTrainers[0] && filteredTrainers[0].avatar ? (
-												<MembersCard
-													{...trainer}
-													avatar={filteredTrainers[0].avatar}
-												/>
-											) : (
-												<MembersCard {...trainer} />
-											)}
-										</div>
-									);
-								})}
+						{team.trainer && team.trainer?.length >= 1 && (
+							<div className="trainers">
+								<h3 className="font-bold flex gap-x-1 items-baseline">
+									{team.trainer?.length == 1 ? <IconPerson className="text-xs" /> : <IconPersons className="text-xs" />}
+									Trainer:
+								</h3>
+								<div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(180px,max-content))] md:grid-cols-[repeat(auto-fit,minmax(250px,max-content))]">
+									{team.trainer?.map((trainer) => {
+										// check if this trainer is in the member list and has an avatar
+										const trainerList = getMembers();
+										const filteredTrainers = trainerList.filter((thisTrainer) => thisTrainer.name == trainer.name);
+										return (
+											<div key="trainercard">
+												{filteredTrainers[0] && filteredTrainers[0].avatar ? (
+													<MembersCard
+														{...trainer}
+														avatar={filteredTrainers[0].avatar}
+													/>
+												) : (
+													<MembersCard {...trainer} />
+												)}
+											</div>
+										);
+									})}
+								</div>
 							</div>
-						</div>
+						)}
+						{team.trainer && team.trainer?.length < 1 && (
+							<div className="trainers">
+								<h3 className="font-bold flex gap-x-1 items-baseline">
+									<IconEmail className="text-xs" />
+									Kontakt:
+								</h3>
+								Bei Fragen und Interesse zu dieser Mannschaft, wende dich bitte an info@vcmuellheim.de
+							</div>
+						)}
 					</div>
 
 					<div className="text-center">
