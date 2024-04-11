@@ -57,7 +57,7 @@ export default function TeamCard(props: teamObject) {
 							})}
 						</div>
 					)}
-					{props.trainer && (
+					{props.trainer && props.trainer.length >= 1 && (
 						<div
 							className="leading-tight"
 							key="trainers"
