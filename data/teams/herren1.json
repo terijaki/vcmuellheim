@@ -12,12 +12,12 @@
 	],
 	"trainer": [
 		{
-			"name": "Thomas Seywald",
-			"email": "thomas@vcmuellheim.de"
-		},
-		{
 			"name": "Marko Bogicevic",
 			"email": "marko@vcmuellheim.de"
+		},
+		{
+			"name": "Thomas Seywald",
+			"email": "thomas@vcmuellheim.de"
 		}
 	],
 	"foto": "/images/blog/2019-04-03-bild1.jpg"
