@@ -59,7 +59,7 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2024-03-24 08:37:19.234",
+            "updated": "2024-04-13 08:26:10.876",
             "structureUpdated": "2024-03-15 09:49:07.171",
             "resultsUpdated": "2024-03-24 08:37:19.234",
             "season": {
@@ -284,8 +284,8 @@
             "name": "Bezirksliga Herren Süd",
             "shortName": "bzl s h",
             "type": "League",
-            "updated": "2024-03-19 16:56:37.414",
-            "structureUpdated": "2024-03-18 15:22:47.587",
+            "updated": "2024-04-13 08:10:38.695",
+            "structureUpdated": "2024-04-13 08:10:38.695",
             "resultsUpdated": "2024-03-18 15:18:08.323",
             "season": {
               "id": "52761843",
@@ -369,8 +369,8 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2024-03-25 13:18:34.811",
-            "structureUpdated": "2024-03-15 20:49:12.296",
+            "updated": "2024-04-12 14:14:02.892",
+            "structureUpdated": "2024-04-12 14:14:02.892",
             "resultsUpdated": "2024-03-25 13:18:34.811",
             "season": {
               "id": "52761843",
@@ -466,8 +466,8 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2024-03-25 13:18:34.811",
-            "structureUpdated": "2024-03-15 20:49:12.296",
+            "updated": "2024-04-12 14:14:02.892",
+            "structureUpdated": "2024-04-12 14:14:02.892",
             "resultsUpdated": "2024-03-25 13:18:34.811",
             "season": {
               "id": "52761843",
@@ -636,8 +636,8 @@
             "name": "West Jugendrunde (4:4) weiblich",
             "shortName": "W_JRw",
             "type": "Competition",
-            "updated": "2024-03-19 13:14:10.684",
-            "structureUpdated": "2024-03-19 13:14:10.684",
+            "updated": "2024-04-12 10:40:30.031",
+            "structureUpdated": "2024-04-12 10:40:30.031",
             "resultsUpdated": null,
             "season": {
               "id": "52761843",
@@ -721,8 +721,8 @@
             "name": "West Jugendrunde (4:4) weiblich",
             "shortName": "W_JRw",
             "type": "Competition",
-            "updated": "2024-03-19 13:14:10.684",
-            "structureUpdated": "2024-03-19 13:14:10.684",
+            "updated": "2024-04-12 10:40:30.031",
+            "structureUpdated": "2024-04-12 10:40:30.031",
             "resultsUpdated": null,
             "season": {
               "id": "52761843",
@@ -1122,8 +1122,8 @@
             "name": "West Quali - U16w am 3.12.2023",
             "shortName": "WQ_U16w",
             "type": "Competition",
-            "updated": "2024-03-14 22:41:37.982",
-            "structureUpdated": "2024-03-14 22:41:37.982",
+            "updated": "2024-04-11 13:39:29.393",
+            "structureUpdated": "2024-04-11 13:37:52.139",
             "resultsUpdated": null,
             "season": {
               "id": "52761843",
@@ -1207,7 +1207,7 @@
             "name": "U16 weiblich - Quali 2 am 3.12.23",
             "shortName": "Q2_U16_w",
             "type": "Competition",
-            "updated": "2024-03-14 22:41:37.982",
+            "updated": "2024-04-11 13:39:29.393",
             "structureUpdated": "2023-11-29 12:59:46.055",
             "resultsUpdated": "2023-12-03 16:28:36.962",
             "season": {
@@ -1286,7 +1286,7 @@
             "name": "SBVV - U16 weiblich am 2.3.2024",
             "shortName": "sbvv-u16w",
             "type": "Competition",
-            "updated": "2024-03-25 11:52:32.155",
+            "updated": "2024-04-11 13:39:29.393",
             "structureUpdated": "2024-01-17 12:25:45.933",
             "resultsUpdated": "2024-03-25 11:52:32.155",
             "season": {
@@ -1359,8 +1359,8 @@
             "name": "West Jugendrunde (4:4) männlich",
             "shortName": "W_JRm",
             "type": "Competition",
-            "updated": "2024-03-19 13:15:30.637",
-            "structureUpdated": "2024-03-19 13:15:30.637",
+            "updated": "2024-04-12 09:35:20.949",
+            "structureUpdated": "2024-04-12 09:35:20.949",
             "resultsUpdated": null,
             "season": {
               "id": "52761843",
@@ -1444,8 +1444,8 @@
             "name": "West Quali - U14m am 25.11.2023",
             "shortName": "WQ_U14m",
             "type": "Competition",
-            "updated": "2024-03-08 21:43:18.666",
-            "structureUpdated": "2024-03-08 21:43:18.666",
+            "updated": "2024-04-11 13:38:28.827",
+            "structureUpdated": "2024-04-11 13:36:56.96",
             "resultsUpdated": "2023-01-15 16:33:00.278",
             "season": {
               "id": "52761843",
@@ -1529,7 +1529,7 @@
             "name": "U14 männlich - Quali 2 am 25.11.2023",
             "shortName": "Q2_U14_m",
             "type": "Competition",
-            "updated": "2024-03-08 21:43:18.666",
+            "updated": "2024-04-11 13:38:28.827",
             "structureUpdated": "2023-12-11 21:42:40.288",
             "resultsUpdated": "2023-11-25 17:14:27.33",
             "season": {
@@ -1608,7 +1608,7 @@
             "name": "SBVV - U14 männlich am 3.2.24",
             "shortName": "sbvv-u14m",
             "type": "Competition",
-            "updated": "2024-04-07 13:34:22.983",
+            "updated": "2024-04-11 13:38:28.827",
             "structureUpdated": "2024-04-07 13:34:22.983",
             "resultsUpdated": "2024-03-25 11:53:52.333",
             "season": {
@@ -1681,8 +1681,8 @@
             "name": "West Quali - U16m am 3.12.2023",
             "shortName": "WQ_U16m",
             "type": "Competition",
-            "updated": "2024-03-02 07:37:53.282",
-            "structureUpdated": "2024-03-02 07:37:53.282",
+            "updated": "2024-04-11 13:38:43.249",
+            "structureUpdated": "2024-04-11 13:37:05.829",
             "resultsUpdated": null,
             "season": {
               "id": "52761843",
@@ -1766,7 +1766,7 @@
             "name": "U16 männlich - Quali 2 am 3.12.2023",
             "shortName": "Q2_U16_m",
             "type": "Competition",
-            "updated": "2024-03-05 09:37:15.663",
+            "updated": "2024-04-11 13:38:43.249",
             "structureUpdated": "2023-12-05 19:59:20.263",
             "resultsUpdated": "2024-03-05 09:37:15.663",
             "season": {
