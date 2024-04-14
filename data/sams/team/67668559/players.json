@@ -1,5 +1,5 @@
 {
-    "date": "2024-04-11T02:35:25.034Z",
+    "date": "2024-04-14T10:31:43.578Z",
     "players": [
         {
             "lastname": "Graf",
@@ -16,6 +16,14 @@
             "number": 16,
             "height": "",
             "function": ""
+        },
+        {
+            "lastname": "Kohnen",
+            "firstname": "Björn",
+            "nationality": "DE",
+            "number": "",
+            "height": 181,
+            "function": "Trainer"
         },
         {
             "lastname": "Konop",
@@ -50,14 +58,6 @@
             "function": ""
         },
         {
-            "lastname": "Ernst",
-            "firstname": "Dominik",
-            "nationality": "DE",
-            "number": "",
-            "height": 180,
-            "function": "Trainer"
-        },
-        {
             "lastname": "Guzzoni",
             "firstname": "Elina",
             "nationality": "DE",
@@ -72,22 +72,6 @@
             "number": 18,
             "height": "",
             "function": ""
-        },
-        {
-            "lastname": "Muci",
-            "firstname": "Mateos",
-            "nationality": "AL",
-            "number": "",
-            "height": "",
-            "function": "Physiotherapeut"
-        },
-        {
-            "lastname": "Reichert",
-            "firstname": "Nico",
-            "nationality": "DE",
-            "number": "",
-            "height": "",
-            "function": "Co-Trainer"
         },
         {
             "lastname": "Mujevic",
