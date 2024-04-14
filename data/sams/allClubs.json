@@ -252,16 +252,6 @@
         }
       },
       {
-        "id": "26925067",
-        "name": "TV 1905 Zotzenbach e.V.",
-        "lsbNumber": "36203",
-        "internalSportsclubId": "1704",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "6524",
         "name": "VfL Nürnberg",
         "lsbNumber": "75",
@@ -63039,6 +63029,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26925067",
+        "name": "TV 1905 Zotzenbach e.V.",
+        "lsbNumber": "36203",
+        "internalSportsclubId": "1704",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       }
     ]
