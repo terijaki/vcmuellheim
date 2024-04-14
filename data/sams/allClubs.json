@@ -48792,16 +48792,6 @@
         }
       },
       {
-        "id": "54611014",
-        "name": "SV Jedesheim 1921",
-        "lsbNumber": "300369",
-        "internalSportsclubId": "369",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "54611026",
         "name": "TSF Ludwigsfeld",
         "lsbNumber": "300382",
@@ -48826,6 +48816,16 @@
         "name": "BSG Immenstaad",
         "lsbNumber": "200366",
         "internalSportsclubId": "366",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
+        }
+      },
+      {
+        "id": "54611014",
+        "name": "SV Jedesheim 1921",
+        "lsbNumber": "300369",
+        "internalSportsclubId": "369",
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
