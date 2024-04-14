@@ -1582,16 +1582,6 @@
         }
       },
       {
-        "id": "15437231",
-        "name": "Volleyball-Verband Rheinland-Pfalz",
-        "lsbNumber": "304495559",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7221",
-          "name": "Volleyball-Verband Rheinland-Pfalz"
-        }
-      },
-      {
         "id": "11618640",
         "name": "SC Spelle-Venhaus",
         "lsbNumber": "304413550",
@@ -1629,6 +1619,16 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "15437231",
+        "name": "Volleyball-Verband Rheinland-Pfalz",
+        "lsbNumber": "304495559",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7221",
+          "name": "Volleyball-Verband Rheinland-Pfalz"
         }
       },
       {
