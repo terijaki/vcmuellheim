@@ -42942,6 +42942,16 @@
         }
       },
       {
+        "id": "54610726",
+        "name": "FC Kirchhausen",
+        "lsbNumber": "10096",
+        "internalSportsclubId": "64",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
+        }
+      },
+      {
         "id": "50621764",
         "name": "TSV Großhennersdorf e.V.",
         "lsbNumber": "450337",
@@ -42986,16 +42996,6 @@
         "name": "EK Kornwestheim",
         "lsbNumber": "12228",
         "internalSportsclubId": "69",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
-        "id": "54610726",
-        "name": "FC Kirchhausen",
-        "lsbNumber": "10096",
-        "internalSportsclubId": "64",
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
