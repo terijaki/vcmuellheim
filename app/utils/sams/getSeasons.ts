@@ -14,29 +14,28 @@ export function getSeasons() {
 	fetch(apiPath)
 		.then((response) => Promise.all([response.status, response.text()]))
 		.then(([status, xmlData]) => {
-			console.log("STATUS RESPONSE CODE:" + status);
 			if (status == 200) {
 				if (!xmlData.includes("<error>")) {
 					const parseString = require("xml2js").parseString;
 					parseString(xmlData, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
 						if (!err) {
-							console.log("✅ All good. Writing response to: " + JSON_FILE_TARGET);
+							console.log("✅ Season data received. Writing response to: " + JSON_FILE_TARGET);
 							const output = JSON.stringify(result, null, 2);
 							fs.writeFileSync(JSON_FILE_TARGET, output);
 							return output;
 						} else {
-							console.log("🚨 COULD NOT CONVERT XML TO JSON! 🚨");
+							console.log("🚨 COULD NOT CONVERT SEASONS XML TO JSON! 🚨");
 							console.log(err);
 							return false;
 						}
 					});
 				} else {
-					console.log("🚨 RECEIVED ERROR MESSAGE! 🚨");
+					console.log("🚨 RECEIVED ERROR MESSAGE FOR SEASONS! 🚨");
 					console.log(xmlData);
 					return false;
 				}
 			} else {
-				console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE! 🚨");
+				console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR SEASONS! 🚨");
 				return false;
 			}
 		});

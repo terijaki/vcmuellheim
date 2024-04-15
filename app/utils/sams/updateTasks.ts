@@ -14,6 +14,7 @@ import getAllClubs, { clubData } from "./getAllClubs";
 import { getClubId } from "./getClubLogo";
 import { slugify } from "../slugify";
 import verifyTeams from "./verifyTeams";
+import { getSeasons } from "./getSeasons";
 
 const SAMS_CLUB_NUMBER = env.SAMS_CLUB_NUMBER,
 	SAMS_CLUB_NAME = env.SAMS_CLUB_NAME;
@@ -47,6 +48,8 @@ getAllClubs()
 	})
 	.then((club) => {
 		console.log("✅ Continue with SAMS Update Tasks for " + club.name + " (" + club.id + "), associtated with " + club.association);
+		// there is no rate limit on the getSeasons request ✌️
+		getSeasons();
 		// there is no rate limit on the getMatchSeries request ✌️
 		getMatchSeries()
 			.then(() => {
