@@ -16,7 +16,7 @@ export type teamObject = {
 	ansprechperson?: [{ name?: string; email?: string }];
 	kommentar?: string;
 	kurztext?: string;
-	foto?: string;
+	pictures?: string[];
 };
 
 export function getTeams(sbvvId?: number, slug?: string): teamObject[] {
