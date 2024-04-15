@@ -14,6 +14,7 @@ import { icsTeamGeneration } from "@/app/utils/icsGeneration";
 import { env } from "process";
 import { cachedGetPlayers } from "@/app/utils/sams/cachedGetPlayers";
 import Flag from "react-world-flags";
+import ExportedImage from "next-image-export-optimizer";
 
 // generate static routes for each team slug
 // example: http://localhost:3000/teams/herren1
@@ -68,7 +69,10 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 					{/* display players */}
 					{players && players.length > 0 && (
 						<>
-							<div className="card *:mb-3">
+							<div
+								className="card *:mb-3"
+								data-section="players"
+							>
 								<h2 className="card-heading">Spieler</h2>
 
 								<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
@@ -98,7 +102,10 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 					{/* matches */}
 					{matchesFuture.length + matchesPast.length > 0 ? (
 						<>
-							<div className="card">
+							<div
+								className="card"
+								data-section="calendar"
+							>
 								<h2 className="card-heading">Mannschaftskalender</h2>
 								<p className="my-3 text-pretty">
 									<Link
@@ -111,7 +118,10 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 								</p>
 							</div>
 							{matchesPast.length > 0 && (
-								<div className="card-narrow-flex">
+								<div
+									className="card-narrow-flex"
+									data-section="match results"
+								>
 									<h2 className="card-heading">Ergebnisse</h2>
 									<Matches
 										filter="past"
@@ -120,7 +130,10 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 								</div>
 							)}
 							{matchesFuture.length > 0 ? (
-								<div className="card-narrow-flex">
+								<div
+									className="card-narrow-flex"
+									data-section="future matches"
+								>
 									<h2 className="card-heading">Spielplan</h2>
 									<Matches
 										filter="future"
@@ -128,7 +141,10 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 									/>
 								</div>
 							) : (
-								<div className="card">
+								<div
+									className="card"
+									data-section="empty future matches"
+								>
 									<h2 className="card-heading">Spielplan</h2>
 									<p>Aktuell konnten keine Spieltermine gefunden werden.</p>
 									{!seasonMonth && <p>Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.</p>}
@@ -158,6 +174,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 								<div
 									key="tabelle"
 									className="*:card-narrow-flex"
+									data-section="ranking"
 								>
 									<RankingTable
 										{...ranking}
@@ -168,7 +185,10 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 							);
 						})}
 					{/* training */}
-					<div className="card *:mb-3">
+					<div
+						className="card *:mb-3"
+						data-section="training"
+					>
 						<h2 className="card-heading">Training</h2>
 						{team.training && (
 							<div className="leading-tight">
@@ -194,7 +214,10 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 							</div>
 						)}
 						{team.trainer && team.trainer?.length >= 1 && (
-							<div className="trainers">
+							<div
+								className="trainers"
+								data-section="trainers"
+							>
 								<h3 className="font-bold flex gap-x-1 items-baseline">
 									{team.trainer?.length == 1 ? <IconPerson className="text-xs" /> : <IconPersons className="text-xs" />}
 									Trainer:
@@ -230,6 +253,39 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 							</div>
 						)}
 					</div>
+
+					{/* pictures */}
+					{team.pictures && team.pictures.length >= 1 && (
+						<div
+							className="card *:mb-3"
+							data-section="pictures"
+						>
+							<h2 className="card-heading">Foto{team.pictures.length > 1 && "s"}</h2>
+
+							<div className="grid gap-3 mt-3 grid-cols-[repeat(auto-fit,minmax(250px,1fr))]">
+								{team.pictures.map((picture) => {
+									return (
+										<Link
+											key={picture}
+											href={picture}
+											target="_blank"
+											className="relative group hover:cursor-zoom-in rounded-md overflow-hidden after:opacity-0 hover:after:opacity-100 after:absolute after:inset-0 after:h-full after:w-full after:pointer-events-none hover:after:z-10 after:border-[0.4rem] after:border-dashed after:border-white after:duration-300"
+										>
+											<div className="realtive object-cover aspect-video sm:aspect-[3/2] xl:aspect-[4/3] m-0 p-0 group-hover:scale-105 transition-transform duration-700">
+												<ExportedImage
+													src={picture}
+													width={540}
+													height={310}
+													alt={"Mannschaftsfoto"}
+													className="object-cover h-full w-full m-0 p-0"
+												/>
+											</div>
+										</Link>
+									);
+								})}
+							</div>
+						</div>
+					)}
 
 					<div className="text-center">
 						<Link

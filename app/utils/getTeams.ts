@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { shuffleArray } from "./shuffleArray";
 
 const TEAMS_FOLDER = "data/teams";
 
@@ -28,6 +29,10 @@ export function getTeams(sbvvId?: number, slug?: string): teamObject[] {
 		const teamData = JSON.parse(teamContent.toString());
 		// add slug based on file name
 		teamData.slug = team.replace(".json", "");
+		// randomize team picture order
+		if (teamData.pictures && teamData.pictures.length > 1) {
+			teamData.pictures = shuffleArray(teamData.pictures);
+		}
 		return teamData;
 	});
 	// sort results by sorting object-key
