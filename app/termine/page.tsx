@@ -64,7 +64,7 @@ export default function Termine() {
 					</p>
 				</div>
 				{currentMonth >= 4 && currentMonth <= 9 ? (
-					<div className="col-center-content card mb-6">
+					<div className="col-full-content sm:col-center-content card mb-6">
 						<h2 className="card-heading">Außerhalb der Saison?</h2>
 						<p className="mt-3">
 							Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt. Dazwischen und kurz vor Saisonbeginn, wurden die neusten Informationen vom Südbadischen
