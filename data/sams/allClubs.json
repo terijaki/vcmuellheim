@@ -8872,16 +8872,6 @@
         }
       },
       {
-        "id": "26818863",
-        "name": "Dorndorfer SV - 03",
-        "lsbNumber": "460027",
-        "internalSportsclubId": "06015",
-        "association": {
-          "id": "26249309",
-          "name": "Kreisverband West"
-        }
-      },
-      {
         "id": "26846563",
         "name": "Handball-Club Steglitz 1985 e.V.",
         "lsbNumber": "1766",
@@ -8919,6 +8909,16 @@
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "26818863",
+        "name": "Dorndorfer SV - 03",
+        "lsbNumber": "460027",
+        "internalSportsclubId": "06015",
+        "association": {
+          "id": "26249309",
+          "name": "Kreisverband West"
         }
       },
       {
@@ -12962,16 +12962,6 @@
         }
       },
       {
-        "id": "37921380",
-        "name": "SV Langendreer 04 Volleyball e.V.",
-        "lsbNumber": "5001200",
-        "internalSportsclubId": "350",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
         "id": "37920954",
         "name": "VC Phoenix Musterhausen",
         "lsbNumber": "0",
@@ -12996,6 +12986,16 @@
         "name": "Indischer Kultur-Verein Schwelm e.V.",
         "lsbNumber": "5106018",
         "internalSportsclubId": "1166",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
+        }
+      },
+      {
+        "id": "37921380",
+        "name": "SV Langendreer 04 Volleyball e.V.",
+        "lsbNumber": "5001200",
+        "internalSportsclubId": "350",
         "association": {
           "id": "33797844",
           "name": "Bochum - Ennepe-Ruhr - Herne"
@@ -24462,16 +24462,6 @@
         }
       },
       {
-        "id": "37922020",
-        "name": "TSV Leopoldstal 09 e.V.",
-        "lsbNumber": "4408012",
-        "internalSportsclubId": "546",
-        "association": {
-          "id": "33797741",
-          "name": "Lippe"
-        }
-      },
-      {
         "id": "37920978",
         "name": "SuS Wahmbeck von 1921 e.V.",
         "lsbNumber": "4411025",
@@ -24569,6 +24559,16 @@
         "association": {
           "id": "33798063",
           "name": "Märkischer Kreis"
+        }
+      },
+      {
+        "id": "37922020",
+        "name": "TSV Leopoldstal 09 e.V.",
+        "lsbNumber": "4408012",
+        "internalSportsclubId": "546",
+        "association": {
+          "id": "33797741",
+          "name": "Lippe"
         }
       },
       {
@@ -62112,16 +62112,6 @@
         }
       },
       {
-        "id": "65036642",
-        "name": "TV Haueneberstein",
-        "lsbNumber": null,
-        "internalSportsclubId": "100059",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036951",
         "name": "TV Hardheim",
         "lsbNumber": "20168",
@@ -62349,6 +62339,16 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "65036642",
+        "name": "TV Haueneberstein",
+        "lsbNumber": null,
+        "internalSportsclubId": "100059",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -63039,6 +63039,26 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "69392578",
+        "name": "TV Niederbobritzsch e.V.",
+        "lsbNumber": "1111111110000043",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "69392557",
+        "name": "TSV Lindenthal e.V.",
+        "lsbNumber": "1111111110000042",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
         }
       }
     ]
