@@ -59,8 +59,8 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2024-04-15 07:58:35.898",
-            "structureUpdated": "2024-03-15 09:49:07.171",
+            "updated": "2024-04-16 17:12:57.713",
+            "structureUpdated": "2024-04-16 17:12:57.713",
             "resultsUpdated": "2024-03-24 08:37:19.234",
             "season": {
               "id": "52761843",
@@ -185,7 +185,7 @@
           "id": "67670452",
           "uuid": "f09369b0-223f-4b23-b533-3749026a047c",
           "seasonTeamId": "28787449",
-          "placeCipher": "1",
+          "placeCipher": "5",
           "name": "VC Müllheim",
           "shortName": null,
           "clubCode": null,
@@ -208,11 +208,11 @@
             "id": "67565598",
             "uuid": "e72b7b97-4e9e-44ba-b96a-2d2009b9c703",
             "allSeasonId": "ea011273-130f-4660-9869-34975e486c0d",
-            "name": "Herren Pokal Finale bis VL am 21.4.24",
+            "name": "Herren Pokal Finale bis VL am 20.4.24",
             "shortName": "hp_ll_vl",
             "type": "Competition",
-            "updated": "2024-04-15 07:58:35.898",
-            "structureUpdated": "2024-02-28 11:38:10.697",
+            "updated": "2024-04-16 10:34:02.253",
+            "structureUpdated": "2024-04-16 10:34:02.252",
             "resultsUpdated": "2024-01-21 18:06:48.318",
             "season": {
               "id": "52761843",
@@ -369,7 +369,7 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2024-04-15 08:01:50.953",
+            "updated": "2024-04-16 12:55:59.218",
             "structureUpdated": "2024-04-12 14:14:02.892",
             "resultsUpdated": "2024-03-25 13:18:34.811",
             "season": {
@@ -466,7 +466,7 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2024-04-15 08:01:50.953",
+            "updated": "2024-04-16 12:55:59.218",
             "structureUpdated": "2024-04-12 14:14:02.892",
             "resultsUpdated": "2024-03-25 13:18:34.811",
             "season": {
@@ -530,6 +530,91 @@
             "association": {
               "name": null,
               "shortName": null
+            }
+          }
+        },
+        {
+          "id": "69449724",
+          "uuid": "cb72b1ca-f7c3-4bf4-aacb-ec3929bd8cf5",
+          "seasonTeamId": "69449724",
+          "placeCipher": "0",
+          "name": "VC Müllheim 1",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "65036648",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "67566496",
+            "uuid": "ce04b2a8-9c9e-49de-b918-5dd28887c0da",
+            "allSeasonId": "6bef6b73-7778-4594-9d59-4d0921847ef8",
+            "name": "Aufstieg in die Bkl Damen West-24/25",
+            "shortName": "A-Bkl-W-D",
+            "type": "League",
+            "updated": "2024-04-17 21:42:17.32",
+            "structureUpdated": "2024-04-16 09:42:52.724",
+            "resultsUpdated": null,
+            "season": {
+              "id": "52761843",
+              "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "67566472",
+              "uuid": "64b2b6bc-eb25-4349-8e91-2d7a9bd17de3",
+              "name": "Rueckmeldungen Bezirk West",
+              "shortName": "RueckmBezWest",
+              "hierarchyLevel": "4"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "67566472",
+                  "name": "Rueckmeldungen Bezirk West",
+                  "shortName": "RueckmBezWest",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "67566433",
+                  "name": "Bezirk West",
+                  "shortName": "bw",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "67566401",
+                  "name": "SBVV Bezirke",
+                  "shortName": "SBVV Bezirke",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "67566357",
+                  "name": "Erwachsenenspielbetrieb SBVV",
+                  "shortName": "SBVV Erw.",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "62752550",
+                  "name": "Südbadischer Volleyball-Verband (SBVV)",
+                  "shortName": "SBVV",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
             }
           }
         },
