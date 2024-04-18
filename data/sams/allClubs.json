@@ -7862,16 +7862,6 @@
         }
       },
       {
-        "id": "37920740",
-        "name": "TB Gross-Ösinghausen 1884 e.V.",
-        "lsbNumber": "2702008",
-        "internalSportsclubId": "7110",
-        "association": {
-          "id": "33795544",
-          "name": "Leverkusen-Rhein-Berg"
-        }
-      },
-      {
         "id": "26846442",
         "name": "Polizei-Sportverein Berlin e.V.",
         "lsbNumber": null,
@@ -11652,16 +11642,6 @@
         }
       },
       {
-        "id": "29772730",
-        "name": "Thüringer Volleyball-Verband",
-        "lsbNumber": "3044955558",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "242",
-          "name": "Deutscher Volleyball-Verband"
-        }
-      },
-      {
         "id": "29772706",
         "name": "Südbadischer Volleyball-Verband",
         "lsbNumber": "304495566",
@@ -11789,6 +11769,16 @@
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "29772730",
+        "name": "Thüringer Volleyball-Verband",
+        "lsbNumber": "3044955558",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7214",
+          "name": "Thüringer Volleyball-Verband e.V."
         }
       },
       {
@@ -13136,16 +13126,6 @@
         "name": "SV Teutonia Bochum-Riemke 1919 e.V.",
         "lsbNumber": "5001143",
         "internalSportsclubId": "2306",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
-        "id": "37922054",
-        "name": "TuS Hattingen 1863 e.V.",
-        "lsbNumber": "5104031",
-        "internalSportsclubId": "9042",
         "association": {
           "id": "33797844",
           "name": "Bochum - Ennepe-Ruhr - Herne"
@@ -38892,16 +38872,6 @@
         }
       },
       {
-        "id": "54611262",
-        "name": "SV Unter/Oberschmeien",
-        "lsbNumber": "0",
-        "internalSportsclubId": "629",
-        "association": {
-          "id": "51583473",
-          "name": "tbc VLW 40"
-        }
-      },
-      {
         "id": "49504430",
         "name": "Werderaner VV 1990",
         "lsbNumber": "690233",
@@ -38909,6 +38879,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "54611262",
+        "name": "SV Unter/Oberschmeien",
+        "lsbNumber": "0",
+        "internalSportsclubId": "629",
+        "association": {
+          "id": "51583473",
+          "name": "tbc VLW 40"
         }
       },
       {
@@ -43222,16 +43202,6 @@
         }
       },
       {
-        "id": "54610736",
-        "name": "TV Lauffen",
-        "lsbNumber": "10106",
-        "internalSportsclubId": "74",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
         "id": "54610734",
         "name": "TSV Künzelsau",
         "lsbNumber": "11019",
@@ -43269,6 +43239,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "54610736",
+        "name": "TV Lauffen",
+        "lsbNumber": "10106",
+        "internalSportsclubId": "74",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
         }
       },
       {
@@ -58352,16 +58332,6 @@
         }
       },
       {
-        "id": "54610892",
-        "name": "TSV Neckartailfingen",
-        "lsbNumber": "6113",
-        "internalSportsclubId": "238",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "54610725",
         "name": "SVG Kirchberg/Murr",
         "lsbNumber": "15069",
@@ -58389,6 +58359,16 @@
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "54610892",
+        "name": "TSV Neckartailfingen",
+        "lsbNumber": "6113",
+        "internalSportsclubId": "238",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       },
       {
@@ -59322,16 +59302,6 @@
         }
       },
       {
-        "id": "65036940",
-        "name": "DJK Handschuhsheim",
-        "lsbNumber": "50641",
-        "internalSportsclubId": "50641",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036944",
         "name": "SG Stupferich",
         "lsbNumber": "81565",
@@ -59396,6 +59366,16 @@
         "name": "DJK Bruchsal",
         "lsbNumber": "71212",
         "internalSportsclubId": "71212",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65036940",
+        "name": "DJK Handschuhsheim",
+        "lsbNumber": "50641",
+        "internalSportsclubId": "50641",
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
@@ -60572,16 +60552,6 @@
         }
       },
       {
-        "id": "65037314",
-        "name": "Spvgg Märkt-Eimeldingen",
-        "lsbNumber": "8144281629",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037317",
         "name": "Sport-Club Önsbach",
         "lsbNumber": "184460",
@@ -60595,6 +60565,16 @@
         "id": "65037319",
         "name": "Lehrer-Spielgemeinschaft Lörrach",
         "lsbNumber": "8144281664",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037314",
+        "name": "Spvgg Märkt-Eimeldingen",
+        "lsbNumber": "183600",
         "internalSportsclubId": null,
         "association": {
           "id": "7217",
@@ -63032,6 +63012,16 @@
         }
       },
       {
+        "id": "37920740",
+        "name": "TB Gross-Ösinghausen 1884 e.V.",
+        "lsbNumber": "2702008",
+        "internalSportsclubId": "7110",
+        "association": {
+          "id": "33795544",
+          "name": "Leverkusen-Rhein-Berg"
+        }
+      },
+      {
         "id": "26925067",
         "name": "TV 1905 Zotzenbach e.V.",
         "lsbNumber": "36203",
@@ -63039,6 +63029,16 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "69475506",
+        "name": "ohne Verein (VVB)",
+        "lsbNumber": null,
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -63059,6 +63059,16 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "37922054",
+        "name": "TuS Hattingen 1863 e.V.",
+        "lsbNumber": "5104031",
+        "internalSportsclubId": "9042",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
         }
       }
     ]
