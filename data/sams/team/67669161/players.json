@@ -1,11 +1,19 @@
 {
-    "date": "2024-04-08T02:36:41.384Z",
+    "date": "2024-04-20T18:59:31.214Z",
     "players": [
         {
             "lastname": "Larionovs",
             "firstname": "Lauris",
             "nationality": "LV",
             "number": 13,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Rah Anjam Nokande",
+            "firstname": "Mohammad",
+            "nationality": "IR",
+            "number": "",
             "height": "",
             "function": ""
         },
@@ -118,6 +126,14 @@
             "firstname": "Johannes",
             "nationality": "DE",
             "number": 1,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Shyrokorad",
+            "firstname": "Yefym",
+            "nationality": "UA",
+            "number": "",
             "height": "",
             "function": ""
         }
