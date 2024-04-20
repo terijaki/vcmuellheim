@@ -648,8 +648,8 @@
             "name": "Landespokal Herren 2023",
             "shortName": "PokalHe",
             "type": "Competition",
-            "updated": "2024-02-23 15:44:12.0",
-            "structureUpdated": "2024-02-23 15:44:12.0",
+            "updated": "2024-04-19 21:09:44.64",
+            "structureUpdated": "2024-04-19 21:09:44.64",
             "resultsUpdated": "2023-09-25 08:04:01.862",
             "season": {
               "id": "52761843",
@@ -721,8 +721,8 @@
             "name": "West Jugendrunde (4:4) weiblich",
             "shortName": "W_JRw",
             "type": "Competition",
-            "updated": "2024-04-12 10:40:30.031",
-            "structureUpdated": "2024-04-12 10:40:30.031",
+            "updated": "2024-04-19 13:48:18.336",
+            "structureUpdated": "2024-04-19 13:48:18.336",
             "resultsUpdated": null,
             "season": {
               "id": "52761843",
@@ -806,8 +806,8 @@
             "name": "West Jugendrunde (4:4) weiblich",
             "shortName": "W_JRw",
             "type": "Competition",
-            "updated": "2024-04-12 10:40:30.031",
-            "structureUpdated": "2024-04-12 10:40:30.031",
+            "updated": "2024-04-19 13:48:18.336",
+            "structureUpdated": "2024-04-19 13:48:18.336",
             "resultsUpdated": null,
             "season": {
               "id": "52761843",
@@ -1444,8 +1444,8 @@
             "name": "West Jugendrunde (4:4) männlich",
             "shortName": "W_JRm",
             "type": "Competition",
-            "updated": "2024-04-12 09:35:20.949",
-            "structureUpdated": "2024-04-12 09:35:20.949",
+            "updated": "2024-04-19 13:50:58.254",
+            "structureUpdated": "2024-04-19 13:50:58.254",
             "resultsUpdated": null,
             "season": {
               "id": "52761843",
