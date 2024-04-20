@@ -12613,7 +12613,7 @@
       },
       {
         "id": "26925687",
-        "name": "Hessischer Volleyball-Verband",
+        "name": "Hessischer Volleyballverband",
         "lsbNumber": "-3",
         "internalSportsclubId": "1",
         "association": {
@@ -21832,6 +21832,16 @@
         }
       },
       {
+        "id": "15371174",
+        "name": "Volleyball-Verband Berlin",
+        "lsbNumber": "304495548",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
         "id": "37921917",
         "name": "Wiedenbrücker Turnverein 1887 e.V.",
         "lsbNumber": "4107017",
@@ -21879,16 +21889,6 @@
         "association": {
           "id": "33797382",
           "name": "Gütersloh-Bielefeld"
-        }
-      },
-      {
-        "id": "15371174",
-        "name": "Volleyball-Verband Berlin",
-        "lsbNumber": "304495548",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "242",
-          "name": "Deutscher Volleyball-Verband"
         }
       },
       {
@@ -27762,16 +27762,6 @@
         }
       },
       {
-        "id": "65036685",
-        "name": "SG Sinsheim/Helmstadt",
-        "lsbNumber": null,
-        "internalSportsclubId": "4046342211",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036686",
         "name": "LV Ettenheim",
         "lsbNumber": "8144281619",
@@ -27779,16 +27769,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "37921879",
-        "name": "SuS Cappel 1929 e.V.",
-        "lsbNumber": "5607013",
-        "internalSportsclubId": "1281",
-        "association": {
-          "id": "33798121",
-          "name": "Soest"
         }
       },
       {
@@ -33719,16 +33699,6 @@
         "association": {
           "id": "33797282",
           "name": "Vest"
-        }
-      },
-      {
-        "id": "37921215",
-        "name": "Freie Schwimmer Rheinkamp 1927 e.V.",
-        "lsbNumber": "1506001",
-        "internalSportsclubId": "10243",
-        "association": {
-          "id": "33298901",
-          "name": "Wesel"
         }
       },
       {
@@ -49402,16 +49372,6 @@
         }
       },
       {
-        "id": "50622016",
-        "name": "VfB Görlitz i.L.",
-        "lsbNumber": "450345",
-        "internalSportsclubId": "257",
-        "association": {
-          "id": "24908944",
-          "name": "Landkreis Görlitz"
-        }
-      },
-      {
         "id": "50621849",
         "name": "SG Wurgwitz e.V.",
         "lsbNumber": "500193",
@@ -51872,6 +51832,16 @@
         }
       },
       {
+        "id": "65036474",
+        "name": "TV Malsch",
+        "lsbNumber": "81588",
+        "internalSportsclubId": "81588",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "51836355",
         "name": "TuS Kenn 1924 e.V.",
         "lsbNumber": "1000353",
@@ -51929,16 +51899,6 @@
         "association": {
           "id": "25383414",
           "name": "Volleyball-Verband Pfalz"
-        }
-      },
-      {
-        "id": "65036474",
-        "name": "TV Malsch",
-        "lsbNumber": "81588",
-        "internalSportsclubId": "81588",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -61622,16 +61582,6 @@
         }
       },
       {
-        "id": "54611203",
-        "name": "TG Tuttlingen",
-        "lsbNumber": null,
-        "internalSportsclubId": "4916",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037023",
         "name": "TV Neustadt",
         "lsbNumber": "472080",
@@ -61646,6 +61596,16 @@
         "name": "TV Donaueschingen",
         "lsbNumber": "470600",
         "internalSportsclubId": "3305",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "54611203",
+        "name": "TG Tuttlingen",
+        "lsbNumber": null,
+        "internalSportsclubId": "4916",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -63069,6 +63029,66 @@
         "association": {
           "id": "33797844",
           "name": "Bochum - Ennepe-Ruhr - Herne"
+        }
+      },
+      {
+        "id": "37921879",
+        "name": "SuS Cappel 1929 e.V.",
+        "lsbNumber": "5607013",
+        "internalSportsclubId": "1281",
+        "association": {
+          "id": "33798121",
+          "name": "Soest"
+        }
+      },
+      {
+        "id": "65036685",
+        "name": "SG Sinsheim/Helmstadt",
+        "lsbNumber": null,
+        "internalSportsclubId": "4046342211",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "69518466",
+        "name": "SC Schwarz-Weiß Friesheim e.V.",
+        "lsbNumber": "1111111110000044",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "33795221",
+          "name": "Rhein-Erft"
+        }
+      },
+      {
+        "id": "69519093",
+        "name": "Sport- u. Kulturverein Roter Stern Köln e.V.",
+        "lsbNumber": "1111111110000045",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "33795261",
+          "name": "Köln"
+        }
+      },
+      {
+        "id": "37921215",
+        "name": "Freie Schwimmer Rheinkamp 1927 e.V.",
+        "lsbNumber": "1506001",
+        "internalSportsclubId": "10243",
+        "association": {
+          "id": "33298901",
+          "name": "Wesel"
+        }
+      },
+      {
+        "id": "50622016",
+        "name": "VfB Görlitz i.L.",
+        "lsbNumber": "450345",
+        "internalSportsclubId": "257",
+        "association": {
+          "id": "24908944",
+          "name": "Landkreis Görlitz"
         }
       }
     ]
