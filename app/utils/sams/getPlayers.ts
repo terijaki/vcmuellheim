@@ -81,7 +81,7 @@ export default async function getPlayers(teamId: (number | string)[]) {
 		summaryList.forEach((entry) => {
 			writeToSummary(entry);
 		});
-	} else if (summaryList.size > 1) {
+	} else if (summaryList.size >= 1) {
 		let consoleNote = "✅ Player data retrieved for some teams.";
 		writeToSummary(consoleNote);
 	} else {
