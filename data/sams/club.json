@@ -211,9 +211,9 @@
             "name": "Herren Pokal Finale bis VL am 20.4.24",
             "shortName": "hp_ll_vl",
             "type": "Competition",
-            "updated": "2024-04-20 11:44:45.268",
+            "updated": "2024-04-20 12:04:11.267",
             "structureUpdated": "2024-04-16 10:34:02.252",
-            "resultsUpdated": "2024-04-20 11:44:45.268",
+            "resultsUpdated": "2024-04-20 12:04:11.267",
             "season": {
               "id": "52761843",
               "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
@@ -648,8 +648,8 @@
             "name": "Landespokal Herren 2023",
             "shortName": "PokalHe",
             "type": "Competition",
-            "updated": "2024-04-19 21:09:44.64",
-            "structureUpdated": "2024-04-19 21:09:44.64",
+            "updated": "2024-04-20 12:10:28.607",
+            "structureUpdated": "2024-04-20 12:10:28.607",
             "resultsUpdated": "2023-09-25 08:04:01.862",
             "season": {
               "id": "52761843",
