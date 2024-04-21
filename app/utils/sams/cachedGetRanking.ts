@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
-
-const SAMS_FOLDER = "data/sams";
+import { JSON_FILE_TARGET as SAMS_FOLDER } from "@/app/utils/sams/getRankings";
 
 export function cachedGetRankings(matchSeriesArray: string[]): rankingsArray[] {
 	let resultArray = new Array();

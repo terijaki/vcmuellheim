@@ -1,11 +1,9 @@
 import fs from "fs";
 import path from "path";
-import { playersType, playerType } from "./getPlayers";
-
-const TEAMS_FOLDER = "data/sams/team";
+import { playersType, playerType, TEAM_FOLDER } from "./getPlayers";
 
 export function cachedGetPlayers(teamId: number | string, playersOnly = true): playerType[] | false | undefined {
-	const file = path.join(TEAMS_FOLDER, teamId.toString()) + "/players.json";
+	const file = path.join(TEAM_FOLDER, teamId.toString()) + "/players.json";
 	if (fs.existsSync(file)) {
 		const players = fs.readFileSync(file);
 		const playersObject: playersType = JSON.parse(players.toString());

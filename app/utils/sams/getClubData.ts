@@ -8,8 +8,8 @@ import { error } from "console";
 const SAMS_API = env.SAMS_API,
 	SAMS_URL = env.SAMS_URL,
 	SAMS_CLUB_NAME = env.SAMS_CLUB_NAME,
-	SAMS_FOLDER = "data/sams",
-	OWN_CLUB_CACHE_FILE = "data/sams/club.json";
+	SAMS_FOLDER = "data/sams";
+export const OWN_CLUB_CACHE_FILE = "data/sams/club.json";
 
 export default async function getClubData(clubId: number): Promise<{ response: { id: number; name: string; logo: string } }> {
 	return new Promise(async (resolve, reject) => {

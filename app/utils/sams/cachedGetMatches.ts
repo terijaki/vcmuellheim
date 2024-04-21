@@ -3,8 +3,7 @@ import path from "path";
 import { cachedGetUniqueMatchSeriesIds } from "./cachedGetClubData";
 import convertDate from "./convertDate";
 import { matchType } from "./typeMatches";
-
-const SAMS_FOLDER = "data/sams";
+import { JSON_FILE_TARGET as SAMS_FOLDER } from "./getMatches";
 
 export function cachedGetMatches(teamIds: (string | number)[], filter?: "past" | "future"): matchType[] {
 	// allow string or number input regardless

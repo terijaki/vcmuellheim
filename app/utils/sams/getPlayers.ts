@@ -3,7 +3,7 @@ import path from "path";
 import { writeToSummary } from "../github/actionSummary";
 
 const SAMS_PLAYER_URL = "https://www.sbvv-online.de/servlet/sportsclub/TeamMemberCsvExport?teamId=";
-const TEAM_FOLDER = "data/sams/team";
+export const TEAM_FOLDER = "data/sams/team";
 
 export type playerType = {
 	lastname: string;

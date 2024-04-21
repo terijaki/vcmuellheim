@@ -1,6 +1,5 @@
 import fs from "fs";
-
-const CLUB_SAMS_FILE = "data/sams/club.json";
+import { OWN_CLUB_CACHE_FILE as CLUB_SAMS_FILE } from "./getClubData";
 
 export function cachedGetTeamIds(idType: "id" | "uuid" | "seasonTeamId" = "id", leagueOnly: boolean = true): string[] {
 	const clubdata = fs.readFileSync(CLUB_SAMS_FILE);
