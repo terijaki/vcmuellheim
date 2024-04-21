@@ -33102,16 +33102,6 @@
         }
       },
       {
-        "id": "37921464",
-        "name": "TV Eifeler Turnkraft Konzen e.V.",
-        "lsbNumber": "2105011",
-        "internalSportsclubId": "248",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
-        }
-      },
-      {
         "id": "37921683",
         "name": "Athletiksportverein Siegfried 1926 Essen",
         "lsbNumber": "1003122",
@@ -63089,6 +63079,16 @@
         "association": {
           "id": "24908944",
           "name": "Landkreis Görlitz"
+        }
+      },
+      {
+        "id": "37921464",
+        "name": "TV Eifeler Turnkraft Konzen e.V.",
+        "lsbNumber": "2105011",
+        "internalSportsclubId": "248",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
         }
       }
     ]
