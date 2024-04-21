@@ -21,7 +21,7 @@ export default async function getPlayers(teamId: (number | string)[]) {
 	let summaryErrorList = new Set<string>();
 
 	// process for each team id
-	teamId.forEach(async (id) => {
+	for (const id of teamId) {
 		const targetPath = path.join(TEAM_FOLDER, id.toString());
 		const targetFile = path.join(targetPath, "players.json");
 		// check if the player data already exists and its not older than 3 days
@@ -74,14 +74,14 @@ export default async function getPlayers(teamId: (number | string)[]) {
 					});
 			}
 		}
-	});
+	}
 
 	// output summary consolidated or individually
 	if (summaryErrorList.size > 0) {
 		summaryList.forEach((entry) => {
 			writeToSummary(entry);
 		});
-	} else if (summaryList.size >= 1) {
+	} else if (summaryList.size > 0) {
 		let consoleNote = "✅ Player data retrieved for some teams.";
 		writeToSummary(consoleNote);
 	} else {
