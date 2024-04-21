@@ -46272,6 +46272,16 @@
         }
       },
       {
+        "id": "54610884",
+        "name": "TSV Linsenhofen",
+        "lsbNumber": "6106",
+        "internalSportsclubId": "230",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
         "id": "54610900",
         "name": "TSV Oberboihingen",
         "lsbNumber": "6140",
@@ -46316,16 +46326,6 @@
         "name": "TV Nellingen",
         "lsbNumber": "6120",
         "internalSportsclubId": "239",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
-        "id": "54610884",
-        "name": "TSV Linsenhofen",
-        "lsbNumber": "6106",
-        "internalSportsclubId": "230",
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
