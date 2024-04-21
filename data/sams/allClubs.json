@@ -61562,16 +61562,6 @@
         }
       },
       {
-        "id": "65036562",
-        "name": "TV Gundelfingen",
-        "lsbNumber": "471120",
-        "internalSportsclubId": "3504",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037023",
         "name": "TV Neustadt",
         "lsbNumber": "472080",
@@ -61596,6 +61586,16 @@
         "name": "TG Tuttlingen",
         "lsbNumber": null,
         "internalSportsclubId": "4916",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65036562",
+        "name": "TV Gundelfingen",
+        "lsbNumber": "471120",
+        "internalSportsclubId": "3504",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
