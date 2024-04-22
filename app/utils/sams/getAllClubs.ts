@@ -3,14 +3,13 @@
 // Gibt eine Übersicht aller Vereine mit wichtigen Informationen aus.
 import { env } from "process";
 import fs from "fs";
+import { writeToSummary } from "../github/actionSummary";
 
 const SAMS_API = env.SAMS_API,
 	SAMS_URL = env.SAMS_URL,
 	SAMS_FOLDER = "data/sams";
 
-const CLUBS_FILE_TARGET = "data/sams/allClubs.json";
-
-// TODO: add github summary messages
+export const CLUBS_FILE_TARGET = "data/sams/allClubs.json";
 
 export type clubData = { sportsclubs: { sportsclub: [{ id: string; name: string; lsbNumber: string; internalSportsclubId: string; association: { id: string; name: string } }] } };
 
@@ -31,18 +30,24 @@ export default async function getAllClubs(): Promise<string | false> {
 							fs.writeFileSync(CLUBS_FILE_TARGET, output);
 							outputAll = output;
 						} else {
-							console.log("🚨 COULD NOT CONVERT CLUBS XML TO JSON! 🚨");
+							let message = "🚨 COULD NOT CONVERT CLUBS XML TO JSON! 🚨";
+							console.log(message);
 							console.log(err);
+							writeToSummary(message);
 							return false;
 						}
 					});
 				} else {
-					console.log("🚨 RECEIVED ERROR MESSAGE FOR CLUBS DATA! 🚨");
+					let message = "🚨 RECEIVED ERROR MESSAGE FOR CLUBS DATA! 🚨";
+					console.log(message);
 					console.log(xmlData);
+					writeToSummary(message);
 					return false;
 				}
 			} else {
-				console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR CLUBS! 🚨");
+				let message = "🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR CLUBS! 🚨";
+				console.log(message);
+				writeToSummary(message);
 				return false;
 			}
 		});
