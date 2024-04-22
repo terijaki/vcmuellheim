@@ -15,6 +15,7 @@ import { env } from "process";
 import { cachedGetPlayers } from "@/app/utils/sams/cachedGetPlayers";
 import Flag from "react-world-flags";
 import ExportedImage from "next-image-export-optimizer";
+import cachedGetSeasons from "@/app/utils/sams/cachedGetSeasons";
 
 // generate static routes for each team slug
 // example: http://localhost:3000/teams/herren1
@@ -55,6 +56,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 		if (players) {
 			players.sort((a, b) => (a.number ? a.number : 99) - (b.number ? b.number : 99));
 		}
+
 		// render the page
 		return (
 			<>
@@ -74,14 +76,13 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 								data-section="players"
 							>
 								<h2 className="card-heading">Spieler</h2>
-
 								<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
 									{players.map((player) => {
 										return (
 											<Fragment key="player">
 												<div className="odd:bg-blac1k/5 inline-flex gap-1">
-													<div className="flex w-6 justify-center items-center">{player.number}</div>
-													<div className="flex justify-center items-center h-6 w-8">
+													<div className="flex w-6 justify-center items-center shrink-0">{player.number}</div>
+													<div className="flex justify-center items-center h-6 w-8 shrink-0">
 														<Flag
 															code={player.nationality}
 															className="h-full w-full object-cover border-onyx/10 border-[1px] shadow"
@@ -95,6 +96,12 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 										);
 									})}
 								</div>
+								<p
+									className="text-right text-sm italic text-gray-400 py-1 px-3"
+									data-match-type="past"
+								>
+									Saison {cachedGetSeasons(1)[0].name}
+								</p>
 							</div>
 						</>
 					)}
