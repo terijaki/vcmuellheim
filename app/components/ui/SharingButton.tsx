@@ -9,7 +9,7 @@ export default function SharingButon(props: { label: string; wrapper?: boolean }
 	useEffect(() => {
 		setPageURL(window.location.href);
 		setPageTitle(document.title);
-		if (navigator.share && navigator.canShare({ title: pageTitle, url: pageURL })) {
+		if (navigator.canShare && navigator.canShare({ title: pageTitle, url: pageURL })) {
 			setNativeShare(true);
 		}
 	}, [pageTitle, pageURL]);
