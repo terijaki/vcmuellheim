@@ -121,7 +121,6 @@ export default function postDisplay({ params }: { params: { postorpage: string }
 		if (frontmatter.gallery && frontmatter.thumbnail && !frontmatter.gallery.includes(frontmatter.thumbnail)) {
 			frontmatter.gallery.push(frontmatter.thumbnail);
 		}
-		// DISABLED SHARING BUTTON #137 <div className="text-center mb-8">{isPost && <SharingButon label={"Beitrag teilen"} />}</div>
 		return (
 			<>
 				<PageHeading
@@ -134,6 +133,12 @@ export default function postDisplay({ params }: { params: { postorpage: string }
 						<Markdown>{content}</Markdown>
 						{frontmatter.gallery && galleryDisplay(frontmatter.gallery)}
 					</article>
+					{isPost && (
+						<SharingButon
+							label={"Beitrag teilen"}
+							wrapper={true}
+						/>
+					)}
 				</div>
 			</>
 		);
