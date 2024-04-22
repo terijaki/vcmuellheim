@@ -9,6 +9,7 @@ import { env } from "process";
 
 // generate a custom title
 import { Metadata, ResolvingMetadata } from "next";
+import cachedGetSeasons from "../utils/sams/cachedGetSeasons";
 export async function generateMetadata({}, parent: ResolvingMetadata): Promise<Metadata> {
 	return {
 		title: "Termine",
@@ -67,9 +68,29 @@ export default function Termine() {
 					<div className="col-full-content sm:col-center-content card mb-6">
 						<h2 className="card-heading">Außerhalb der Saison?</h2>
 						<p className="mt-3">
-							Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt. Dazwischen und kurz vor Saisonbeginn, wurden die neusten Informationen vom Südbadischen
-							Volleyballverband ggf. noch nicht veröffentlicht.
+							Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt. Dazwischen wird die nächste Saison vorbereitet und die neusten Informationen vom
+							Südbadischen Volleyballverband wurden ggf. noch nicht veröffentlicht.
 						</p>
+						{cachedGetSeasons(2).length == 2 && (
+							<p className="mt-3">
+								Offizielle Zeitspanne der letzten zwei Saisons:
+								{cachedGetSeasons(2).map((season) => (
+									<ul key={season.id}>
+										<li className="list-disc ml-6">
+											{season.begin.toLocaleDateString("de", {
+												month: "long",
+												year: "numeric",
+											})}{" "}
+											<span className="mx-1">bis</span>
+											{season.end.toLocaleDateString("de", {
+												month: "long",
+												year: "numeric",
+											})}
+										</li>
+									</ul>
+								))}
+							</p>
+						)}
 					</div>
 				) : (
 					""
