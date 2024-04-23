@@ -482,16 +482,6 @@
         }
       },
       {
-        "id": "6544",
-        "name": "VCO Kempfenhausen",
-        "lsbNumber": "123456789",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7215",
-          "name": "Bayerischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "37920983",
         "name": "VGS Königsfeld e.V.",
         "lsbNumber": "5102037",
@@ -539,6 +529,16 @@
         "association": {
           "id": "33795203",
           "name": "Aachen-Düren-Heinsberg"
+        }
+      },
+      {
+        "id": "6544",
+        "name": "VCO Kempfenhausen",
+        "lsbNumber": "1234567890",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7215",
+          "name": "Bayerischer Volleyball-Verband"
         }
       },
       {
@@ -9222,16 +9222,6 @@
         }
       },
       {
-        "id": "26846640",
-        "name": "VVB-Verein",
-        "lsbNumber": null,
-        "internalSportsclubId": "14-11-999",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "26846635",
         "name": "Sportclub Potsdam",
         "lsbNumber": null,
@@ -9346,6 +9336,16 @@
         "name": "Volleyball Club Noctua e.V.",
         "lsbNumber": "5206",
         "internalSportsclubId": "14-11-232",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "26846640",
+        "name": "VVB-Verein",
+        "lsbNumber": "123456789",
+        "internalSportsclubId": "14-11-999",
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
@@ -14092,16 +14092,6 @@
         }
       },
       {
-        "id": "37921819",
-        "name": "Beachclub 2000 e.V.",
-        "lsbNumber": "5002642",
-        "internalSportsclubId": "9152",
-        "association": {
-          "id": "33797822",
-          "name": "Dortmund"
-        }
-      },
-      {
         "id": "37921840",
         "name": "TuS FREIHEIT Dortmund-Deusen e.V.",
         "lsbNumber": "5002198",
@@ -14206,6 +14196,16 @@
         "name": "TV Asseln 1885 e.V.",
         "lsbNumber": "5002094",
         "internalSportsclubId": "2611",
+        "association": {
+          "id": "33797822",
+          "name": "Dortmund"
+        }
+      },
+      {
+        "id": "37921819",
+        "name": "Beachclub 2000 e.V.",
+        "lsbNumber": "5002642",
+        "internalSportsclubId": "9152",
         "association": {
           "id": "33797822",
           "name": "Dortmund"
@@ -36682,16 +36682,6 @@
         }
       },
       {
-        "id": "26819143",
-        "name": "SG Blau-Weiß Schwallungen e.V.",
-        "lsbNumber": "210091",
-        "internalSportsclubId": "29177",
-        "association": {
-          "id": "26249329",
-          "name": "Kreisverband Süd-West"
-        }
-      },
-      {
         "id": "37921666",
         "name": "Turnverein 09 Pivitsheide",
         "lsbNumber": "4405005",
@@ -47949,16 +47939,6 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
-        "id": "54610730",
-        "name": "TSV Knittlingen",
-        "lsbNumber": null,
-        "internalSportsclubId": "02101",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -60852,16 +60832,6 @@
         }
       },
       {
-        "id": "65037409",
-        "name": "VSG Kleinsteinbach",
-        "lsbNumber": "82555",
-        "internalSportsclubId": "82555",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037410",
         "name": "Friedrich-Hecker-Gymnasium Radolfzell",
         "lsbNumber": "8144281588",
@@ -60879,6 +60849,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037409",
+        "name": "VSG Kleinsteinbach",
+        "lsbNumber": "82555",
+        "internalSportsclubId": "82555",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -62702,16 +62682,6 @@
         }
       },
       {
-        "id": "11594041",
-        "name": "TV Radolfzell",
-        "lsbNumber": "472450",
-        "internalSportsclubId": "3909",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "4450240",
         "name": "TSG HD-Rohrbach",
         "lsbNumber": "50659",
@@ -62799,6 +62769,16 @@
         "association": {
           "id": "33798063",
           "name": "Märkischer Kreis"
+        }
+      },
+      {
+        "id": "11594041",
+        "name": "Untersee Volleys Radolfzell",
+        "lsbNumber": "472450",
+        "internalSportsclubId": "3909",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -63089,6 +63069,36 @@
         "association": {
           "id": "33795203",
           "name": "Aachen-Düren-Heinsberg"
+        }
+      },
+      {
+        "id": "69683724",
+        "name": "Bewegungskombinat Dessau e.V.",
+        "lsbNumber": "130122",
+        "internalSportsclubId": "130122",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "26819143",
+        "name": "SG Blau-Weiß Schwallungen e.V.",
+        "lsbNumber": "210091",
+        "internalSportsclubId": "29177",
+        "association": {
+          "id": "26249329",
+          "name": "Kreisverband Süd-West"
+        }
+      },
+      {
+        "id": "54610730",
+        "name": "TSV Knittlingen",
+        "lsbNumber": null,
+        "internalSportsclubId": "02101",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       }
     ]
