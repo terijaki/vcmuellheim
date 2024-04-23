@@ -84,8 +84,8 @@ export function icsAllGeneration() {
 	icsTeamGeneration(cachedGetTeamIds("id"), "all");
 }
 
-export function toICSFormat(date: Date) {
-	let dateICS: string = date
+export function toICSFormat(date: Date): string {
+	let dateICS = date
 		.toISOString()
 		.replaceAll("-", "")
 		.replaceAll(":", "")
