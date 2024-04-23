@@ -62,13 +62,13 @@ export function cachedGetMatches(teamIds: (string | number)[], filter?: "past" |
 		return true;
 	});
 
-	// 🚨🚨🚨🚨🚨🚨🚨v THIS IS NO LONGER NEEDED ONCE THE OLD CACHE IS DELETED! 🚨🚨🚨🚨🚨🚨🚨
+	// 🚨🚨🚨🚨🚨🚨🚨 TODO: THIS IS NO LONGER NEEDED ONCE THE OLD CACHE IS DELETED! 🚨🚨🚨🚨🚨🚨🚨
 	// add date Object and ISO so other areas of the app can use this more conviniently
 	filteredUniqueMatches.map((match) => {
 		match.dateObject = convertDate(match.date, match.time);
 		match.dateIso = match.dateObject.toISOString();
 	});
-	// 🚨🚨🚨🚨🚨🚨🚨v THIS IS NO LONGER NEEDED ONCE THE OLD CACHE IS DELETED! 🚨🚨🚨🚨🚨🚨🚨
+	// 🚨🚨🚨🚨🚨🚨🚨 THIS IS NO LONGER NEEDED ONCE THE OLD CACHE IS DELETED! 🚨🚨🚨🚨🚨🚨🚨
 
 	// filter matches based on a provided filter
 	let filteredMatches = filteredUniqueMatches;
