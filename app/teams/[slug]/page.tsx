@@ -81,7 +81,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 										return (
 											<Fragment key="player">
 												<div className="odd:bg-blac1k/5 inline-flex gap-1">
-													<div className="flex w-6 justify-center items-center shrink-0">{player.number}</div>
+													<div className="flex justify-center items-center h-6 w-8 shrink-0">{player.number}</div>
 													<div className="flex justify-center items-center h-6 w-8 shrink-0">
 														<Flag
 															code={player.nationality}
