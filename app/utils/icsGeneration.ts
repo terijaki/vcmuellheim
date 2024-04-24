@@ -18,68 +18,70 @@ export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string)
 	// CUSTOM EVENTS
 	let eventArray: string[] = [];
 	// loop through all custom events
-	getEvents(30).map((event) => {
-		if (event.title && event.start) {
-			let eventConstruct: string = templateBody;
-			eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_UUID", event.title + event.start);
-			eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_UPDATED", toICSFormat(new Date()));
-			eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_TIMEZONE", "Europe/Berlin");
-			eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_START", toICSFormat(event.start));
-			if (event.end) {
-				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_END", toICSFormat(event.end));
-			} else {
-				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_END", toICSFormat(new Date(event.start.setHours(event.start.getHours() + 2))));
-			}
-			// summary
-			eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_SUMMARY", event.title);
-			// location
-			if (event.location) {
-				let locationString = "";
-				if (event.location.street && event.location.postalCode) {
-					locationString = locationString + event.location.street + "\\, " + event.location.postalCode;
-				} else if (event.location.street) {
-					locationString = locationString + event.location.street;
-				}
-				if (event.location.city) {
-					if (locationString.length > 0) {
-						locationString = locationString + " ";
-					}
-					locationString = locationString + event.location.city;
-				}
-				if (event.location.name) {
-					locationString = locationString + "\\, " + event.location.name;
-				}
-				if (locationString.length > 0) {
-					eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_LOCATION", locationString);
+	if (!sbvvTeamId) {
+		getEvents(30).map((event) => {
+			if (event.title && event.start) {
+				let eventConstruct: string = templateBody;
+				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_UUID", event.title + event.start);
+				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_UPDATED", toICSFormat(new Date()));
+				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_TIMEZONE", "Europe/Berlin");
+				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_START", toICSFormat(event.start));
+				if (event.end) {
+					eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_END", toICSFormat(event.end));
 				} else {
+					eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_END", toICSFormat(new Date(event.start.setHours(event.start.getHours() + 2))));
+				}
+				// summary
+				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_SUMMARY", event.title);
+				// location
+				if (event.location) {
+					let locationString = "";
+					if (event.location.street && event.location.postalCode) {
+						locationString = locationString + event.location.street + "\\, " + event.location.postalCode;
+					} else if (event.location.street) {
+						locationString = locationString + event.location.street;
+					}
+					if (event.location.city) {
+						if (locationString.length > 0) {
+							locationString = locationString + " ";
+						}
+						locationString = locationString + event.location.city;
+					}
+					if (event.location.name) {
+						locationString = locationString + "\\, " + event.location.name;
+					}
+					if (locationString.length > 0) {
+						eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_LOCATION", locationString);
+					} else {
+						// remove the template string if there is nothing to include
+						eventConstruct = eventConstruct.replaceAll("LOCATION:REPLACE_EVENTTEMPLATE_LOCATION\n", "");
+					}
+				}
+				// description
+				if (!event.description && !event.url) {
 					// remove the template string if there is nothing to include
-					eventConstruct = eventConstruct.replaceAll("LOCATION:REPLACE_EVENTTEMPLATE_LOCATION\n", "");
-				}
-			}
-			// description
-			if (!event.description && !event.url) {
-				// remove the template string if there is nothing to include
-				eventConstruct = eventConstruct.replaceAll("DESCRIPTION:REPLACE_EVENTTEMPLATE_DESCRIPTION\n", "");
-			} else {
-				let descriptioString: string = "";
-				if (event.description) {
-					descriptioString = event.description;
-				}
-				if (event.url && !event.url.includes("https://") && !event.url.includes("http://")) {
-					if (event.url && !event.url.includes("https://vcmuellheim.de") && !event.url.includes("https://vcmuellheim.de")) {
-						event.url = "https://vcmuellheim.de" + event.url;
+					eventConstruct = eventConstruct.replaceAll("DESCRIPTION:REPLACE_EVENTTEMPLATE_DESCRIPTION\n", "");
+				} else {
+					let descriptioString: string = "";
+					if (event.description) {
+						descriptioString = event.description;
 					}
-					if (event.description && event.description.length > 0) {
-						descriptioString = descriptioString + "\n";
+					if (event.url && !event.url.includes("https://") && !event.url.includes("http://")) {
+						if (event.url && !event.url.includes("https://vcmuellheim.de") && !event.url.includes("https://vcmuellheim.de")) {
+							event.url = "https://vcmuellheim.de" + event.url;
+						}
+						if (event.description && event.description.length > 0) {
+							descriptioString = descriptioString + "\n";
+						}
+						descriptioString = descriptioString + event.url;
 					}
-					descriptioString = descriptioString + event.url;
+					eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DESCRIPTION", descriptioString);
 				}
-				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DESCRIPTION", descriptioString);
+				// add the complete event string to the array
+				eventArray.push(eventConstruct);
 			}
-			// add the complete event string to the array
-			eventArray.push(eventConstruct);
-		}
-	});
+		});
+	}
 
 	// MATCHES
 	let matchArray: string[] = [];
@@ -153,6 +155,9 @@ export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string)
 		matchesToAdd = matchArray.reduce((a, b) => {
 			return a.concat("\n" + b);
 		});
+	}
+	if (eventsToAdd.length > 0 && matchesToAdd.length > 0) {
+		eventsToAdd = eventsToAdd + "\n";
 	}
 	let result = templateStart + eventsToAdd + matchesToAdd + templateEnd;
 	fs.writeFileSync(path.join(ICS_FOLDER_LOCATION, slug) + ".ics", result);
