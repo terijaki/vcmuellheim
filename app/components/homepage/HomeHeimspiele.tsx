@@ -229,7 +229,7 @@ export default function HomeHeimspiele() {
 				<div className="col-center-content py-8 sm:py-12">
 					<h2 className="text-center md:text-left text-white font-bold text-3xl">Zunächst keine Heimspiele</h2>
 					<p className="text-center md:text-left text-white py-2 text-balance">
-						In den kommenden {numToWordsDe.numToWord((TIME_RANGE / 7).toFixed(0), { uppercase: false })} Wochen stehen keine Spiele in Müllheim an.
+						In den kommenden {numToWordsDe.numToWord(((TIME_RANGE * TIME_RANGE_MAX_MULTIPLIER) / 7).toFixed(0), { uppercase: false })} Wochen stehen keine Spiele in Müllheim an.
 					</p>
 
 					{allMatchesCount >= 1 && (
