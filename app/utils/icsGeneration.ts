@@ -19,7 +19,7 @@ export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string)
 	let eventArray: string[] = [];
 	// loop through all custom events
 	if (slug == "all") {
-		getEvents(30).map((event) => {
+		getEvents(30, 120).map((event) => {
 			if (event.title && event.start) {
 				let eventConstruct: string = templateBody;
 				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_UUID", event.title + event.start);
