@@ -619,6 +619,79 @@
           }
         },
         {
+          "id": "69775085",
+          "uuid": "439de6fb-d7a2-4a5a-b470-e34e27e7437e",
+          "seasonTeamId": "69775085",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "65036648",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "67565589",
+            "uuid": "4a9e8411-e8ce-4c3e-bcf5-a5443c091a77",
+            "allSeasonId": "bc7345dc-21ee-4892-9364-653244622509",
+            "name": "Herren TOP-Ligen (OL und höher)",
+            "shortName": "hp_top",
+            "type": "Competition",
+            "updated": "2024-04-24 11:00:32.648",
+            "structureUpdated": "2024-04-24 11:00:32.648",
+            "resultsUpdated": null,
+            "season": {
+              "id": "52761843",
+              "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+              "name": "2023/24"
+            },
+            "hierarchy": {
+              "id": "67565581",
+              "uuid": "efc3047b-5fee-40e2-9ca0-d2795789dc48",
+              "name": "Verbandspokal 2023/2024",
+              "shortName": "vp",
+              "hierarchyLevel": "2"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "67565581",
+                  "name": "Verbandspokal 2023/2024",
+                  "shortName": "vp",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "62752633",
+                  "name": "Pokalwettbewerbe",
+                  "shortName": "P",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "62752550",
+                  "name": "Südbadischer Volleyball-Verband (SBVV)",
+                  "shortName": "SBVV",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
+            }
+          }
+        },
+        {
           "id": "67668746",
           "uuid": "1c5677ed-9e05-4aff-888c-803276b7c640",
           "seasonTeamId": "25921412",
@@ -648,8 +721,8 @@
             "name": "Landespokal Herren 2023",
             "shortName": "PokalHe",
             "type": "Competition",
-            "updated": "2024-04-20 12:10:28.607",
-            "structureUpdated": "2024-04-20 12:10:28.607",
+            "updated": "2024-04-24 11:01:22.791",
+            "structureUpdated": "2024-04-24 11:01:22.79",
             "resultsUpdated": "2023-09-25 08:04:01.862",
             "season": {
               "id": "52761843",
@@ -721,8 +794,8 @@
             "name": "West Jugendrunde (4:4) weiblich",
             "shortName": "W_JRw",
             "type": "Competition",
-            "updated": "2024-04-19 13:48:18.336",
-            "structureUpdated": "2024-04-19 13:48:18.336",
+            "updated": "2024-04-23 08:49:37.377",
+            "structureUpdated": "2024-04-23 08:49:37.377",
             "resultsUpdated": null,
             "season": {
               "id": "52761843",
@@ -806,8 +879,8 @@
             "name": "West Jugendrunde (4:4) weiblich",
             "shortName": "W_JRw",
             "type": "Competition",
-            "updated": "2024-04-19 13:48:18.336",
-            "structureUpdated": "2024-04-19 13:48:18.336",
+            "updated": "2024-04-23 08:49:37.377",
+            "structureUpdated": "2024-04-23 08:49:37.377",
             "resultsUpdated": null,
             "season": {
               "id": "52761843",
