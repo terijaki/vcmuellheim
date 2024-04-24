@@ -2,10 +2,11 @@ import fs from "fs";
 import path from "path";
 import { cachedGetUniqueMatchSeriesIds } from "./cachedGetClubData";
 import convertDate from "./convertDate";
-import { matchType } from "./typeMatches";
+import { matchType } from "@/app/utils/sams/typeMatches";
 import { JSON_FILE_TARGET as SAMS_FOLDER } from "./getMatches";
 
 export function cachedGetMatches(teamIds: (string | number)[], filter?: "past" | "future"): matchType[] {
+	// TODO enhance the funciton to allow specifying a min/max date. Similar to the getEvents funciton
 	// allow string or number input regardless
 	teamIds = teamIds.map(String);
 	// setup the empty array
