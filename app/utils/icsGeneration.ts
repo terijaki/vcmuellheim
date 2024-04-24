@@ -18,7 +18,7 @@ export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string)
 	// CUSTOM EVENTS
 	let eventArray: string[] = [];
 	// loop through all custom events
-	if (!sbvvTeamId) {
+	if (slug == "all") {
 		getEvents(30).map((event) => {
 			if (event.title && event.start) {
 				let eventConstruct: string = templateBody;
