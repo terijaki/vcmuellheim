@@ -12722,6 +12722,16 @@
         }
       },
       {
+        "id": "37920974",
+        "name": "Brander TV 1883 Aachen e.V.",
+        "lsbNumber": "2001040",
+        "internalSportsclubId": "10119",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
+        }
+      },
+      {
         "id": "37920976",
         "name": "TSV 1947 Kesternich e.V.",
         "lsbNumber": "2107008",
@@ -12786,16 +12796,6 @@
         "name": "SC Komet Steckenborn e.V.",
         "lsbNumber": "2107011",
         "internalSportsclubId": "379",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
-        }
-      },
-      {
-        "id": "37920974",
-        "name": "Brander TV 1883 Aachen e.V.",
-        "lsbNumber": "2001040",
-        "internalSportsclubId": "10119",
         "association": {
           "id": "33795203",
           "name": "Aachen-Düren-Heinsberg"
@@ -13629,16 +13629,6 @@
         "association": {
           "id": "33797382",
           "name": "Gütersloh-Bielefeld"
-        }
-      },
-      {
-        "id": "37920745",
-        "name": "Raesfelder VG 1976 e.V.",
-        "lsbNumber": "3110002",
-        "internalSportsclubId": "1408",
-        "association": {
-          "id": "33797190",
-          "name": "Borken"
         }
       },
       {
@@ -18622,16 +18612,6 @@
         }
       },
       {
-        "id": "26925504",
-        "name": "TG Schwalbach 1887 e.V.",
-        "lsbNumber": "30132",
-        "internalSportsclubId": "5803",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "26925506",
         "name": "TSG Idstein 1879 e.V.",
         "lsbNumber": "40054",
@@ -18756,6 +18736,16 @@
         "name": "TS 1860 Heddernheim e.V.",
         "lsbNumber": "24209",
         "internalSportsclubId": "5407",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
+        }
+      },
+      {
+        "id": "26925504",
+        "name": "TG Schwalbach 1887 e.V.",
+        "lsbNumber": "30132",
+        "internalSportsclubId": "5803",
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
@@ -26442,16 +26432,6 @@
         }
       },
       {
-        "id": "37920661",
-        "name": "Gadderbaumer TV von 1878 e.V.",
-        "lsbNumber": "4001105",
-        "internalSportsclubId": "57",
-        "association": {
-          "id": "33797382",
-          "name": "Gütersloh-Bielefeld"
-        }
-      },
-      {
         "id": "37921346",
         "name": "TSV Schwarz-Weiß Radevormwald e.V.",
         "lsbNumber": "2609006",
@@ -28512,16 +28492,6 @@
         }
       },
       {
-        "id": "37921094",
-        "name": "Kölner Turnerbund 1893 e.V.",
-        "lsbNumber": "2003202",
-        "internalSportsclubId": "1017",
-        "association": {
-          "id": "33795261",
-          "name": "Köln"
-        }
-      },
-      {
         "id": "37921605",
         "name": "Gymnastikverein Waltrop 1961 e.V.",
         "lsbNumber": "3409023",
@@ -28559,16 +28529,6 @@
         "association": {
           "id": "33797282",
           "name": "Vest"
-        }
-      },
-      {
-        "id": "37921106",
-        "name": "TuS Schmidt 1911 e.V.",
-        "lsbNumber": "2211003",
-        "internalSportsclubId": "35",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
@@ -28669,6 +28629,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "37921106",
+        "name": "TuS Schmidt 1911 e.V.",
+        "lsbNumber": "2211003",
+        "internalSportsclubId": "35",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
@@ -33132,16 +33102,6 @@
         }
       },
       {
-        "id": "65036701",
-        "name": "TV Freiburg-Tiengen",
-        "lsbNumber": "8144281600",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "37921582",
         "name": "Alsdorfer Turnverein 1927 e.V.",
         "lsbNumber": "2101008",
@@ -37272,16 +37232,6 @@
         }
       },
       {
-        "id": "37922042",
-        "name": "SSG Wuppertal 1863 e.V.",
-        "lsbNumber": "1010010",
-        "internalSportsclubId": "7503",
-        "association": {
-          "id": "33299074",
-          "name": "Wupper-Mettmann"
-        }
-      },
-      {
         "id": "26866424",
         "name": "SSG Schwarzenholz-Griesborn",
         "lsbNumber": "12348",
@@ -38772,16 +38722,6 @@
         }
       },
       {
-        "id": "37920774",
-        "name": "Sportverein Ubbedissen 09 e.V.",
-        "lsbNumber": "4001094",
-        "internalSportsclubId": "629",
-        "association": {
-          "id": "33797382",
-          "name": "Gütersloh-Bielefeld"
-        }
-      },
-      {
         "id": "54611259",
         "name": "SV Hirrlingen",
         "lsbNumber": "0",
@@ -38839,6 +38779,16 @@
         "association": {
           "id": "51583473",
           "name": "tbc VLW 40"
+        }
+      },
+      {
+        "id": "37920774",
+        "name": "Sportverein Ubbedissen 09 e.V.",
+        "lsbNumber": "4001094",
+        "internalSportsclubId": "629",
+        "association": {
+          "id": "33797382",
+          "name": "Gütersloh-Bielefeld"
         }
       },
       {
@@ -39522,16 +39472,6 @@
         }
       },
       {
-        "id": "37921164",
-        "name": "Turn- u.Sportverein 1911 Echthausen e.V.",
-        "lsbNumber": "5614005",
-        "internalSportsclubId": "125",
-        "association": {
-          "id": "33798121",
-          "name": "Soest"
-        }
-      },
-      {
         "id": "54611288",
         "name": "CVJM Mitteltal-Obertal",
         "lsbNumber": "0",
@@ -39782,16 +39722,6 @@
         }
       },
       {
-        "id": "38788263",
-        "name": "BSV Rot Weiß Schönow",
-        "lsbNumber": "600056",
-        "internalSportsclubId": "600056",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "56230796",
         "name": "Angermünder Ballsportler e.V.",
         "lsbNumber": "730184",
@@ -39859,6 +39789,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "38788263",
+        "name": "BSV Rot Weiß Schönow",
+        "lsbNumber": "600056",
+        "internalSportsclubId": "600056",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -43422,6 +43362,16 @@
         }
       },
       {
+        "id": "37921094",
+        "name": "Kölner Turnerbund 1893 e.V.",
+        "lsbNumber": "2003202",
+        "internalSportsclubId": "1017",
+        "association": {
+          "id": "33795261",
+          "name": "Köln"
+        }
+      },
+      {
         "id": "50621818",
         "name": "SG Frankenau e.V.",
         "lsbNumber": "480222",
@@ -43732,16 +43682,6 @@
         }
       },
       {
-        "id": "54610753",
-        "name": "TV Neckarweihingen",
-        "lsbNumber": "12168",
-        "internalSportsclubId": "92",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
         "id": "54610754",
         "name": "TSV Nellmersbach",
         "lsbNumber": "15083",
@@ -43789,6 +43729,16 @@
         "association": {
           "id": "24908890",
           "name": "Stadt Leipzig"
+        }
+      },
+      {
+        "id": "54610753",
+        "name": "TV Neckarweihingen",
+        "lsbNumber": "12168",
+        "internalSportsclubId": "92",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
         }
       },
       {
@@ -48932,16 +48882,6 @@
         }
       },
       {
-        "id": "37921147",
-        "name": "TuW Recklinghausen-Süd 1886 e.V.",
-        "lsbNumber": "3408056",
-        "internalSportsclubId": "10121",
-        "association": {
-          "id": "33797282",
-          "name": "Vest"
-        }
-      },
-      {
         "id": "50621520",
         "name": "SG Blau-Weiß Altenhain e.V.",
         "lsbNumber": "460181",
@@ -49009,6 +48949,16 @@
         "association": {
           "id": "24908944",
           "name": "Landkreis Görlitz"
+        }
+      },
+      {
+        "id": "37921147",
+        "name": "TuW Recklinghausen-Süd 1886 e.V.",
+        "lsbNumber": "3408056",
+        "internalSportsclubId": "10121",
+        "association": {
+          "id": "33797282",
+          "name": "Vest"
         }
       },
       {
@@ -50752,6 +50702,16 @@
         }
       },
       {
+        "id": "37922042",
+        "name": "SSG Wuppertal 1863 e.V.",
+        "lsbNumber": "1010010",
+        "internalSportsclubId": "7503",
+        "association": {
+          "id": "33299074",
+          "name": "Wupper-Mettmann"
+        }
+      },
+      {
         "id": "51836109",
         "name": "VC Feuerball Kaiserslautern",
         "lsbNumber": "119",
@@ -51102,16 +51062,6 @@
         }
       },
       {
-        "id": "51836171",
-        "name": "SSV Mannheim-Vogelstang",
-        "lsbNumber": "436",
-        "internalSportsclubId": "99-1009",
-        "association": {
-          "id": "25383414",
-          "name": "Volleyball-Verband Pfalz"
-        }
-      },
-      {
         "id": "51836173",
         "name": "SV Gonzerath",
         "lsbNumber": "1000201",
@@ -51149,6 +51099,16 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
+        "id": "51836171",
+        "name": "Zu Löschen",
+        "lsbNumber": null,
+        "internalSportsclubId": null,
+        "association": {
+          "id": "25383414",
+          "name": "Volleyball-Verband Pfalz"
         }
       },
       {
@@ -57762,16 +57722,6 @@
         }
       },
       {
-        "id": "26846634",
-        "name": "Saarower VSV",
-        "lsbNumber": "670203",
-        "internalSportsclubId": "670203",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "37921021",
         "name": "TSV Handorf 1926/64 e.V.",
         "lsbNumber": "3003006",
@@ -58712,16 +58662,6 @@
         }
       },
       {
-        "id": "65036598",
-        "name": "TV Tiengen 1928 e.V.",
-        "lsbNumber": "472990",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036599",
         "name": "SG Neininger Freiburg",
         "lsbNumber": "8144281625",
@@ -58736,6 +58676,16 @@
         "name": "TV Jestetten",
         "lsbNumber": "471470",
         "internalSportsclubId": "3918",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65036598",
+        "name": "TV Tiengen 1928 e.V.",
+        "lsbNumber": null,
+        "internalSportsclubId": null,
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -61312,16 +61262,6 @@
         }
       },
       {
-        "id": "65037080",
-        "name": "TV Kippenheim",
-        "lsbNumber": "471550",
-        "internalSportsclubId": "4405",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037229",
         "name": "TV Bad Säckingen",
         "lsbNumber": "470250",
@@ -61379,6 +61319,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037080",
+        "name": "TV Kippenheim",
+        "lsbNumber": "471550",
+        "internalSportsclubId": "4405",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -63099,6 +63049,56 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "37920661",
+        "name": "Gadderbaumer TV von 1878 e.V.",
+        "lsbNumber": "4001105",
+        "internalSportsclubId": "57",
+        "association": {
+          "id": "33797382",
+          "name": "Gütersloh-Bielefeld"
+        }
+      },
+      {
+        "id": "65036701",
+        "name": "TV Freiburg-Tiengen 1928 e.V.",
+        "lsbNumber": "472990",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "37921164",
+        "name": "Turn- u.Sportverein 1911 Echthausen e.V.",
+        "lsbNumber": "5614005",
+        "internalSportsclubId": "125",
+        "association": {
+          "id": "33798121",
+          "name": "Soest"
+        }
+      },
+      {
+        "id": "37920745",
+        "name": "Raesfelder VG 1976 e.V.",
+        "lsbNumber": "3110002",
+        "internalSportsclubId": "1408",
+        "association": {
+          "id": "33797190",
+          "name": "Borken"
+        }
+      },
+      {
+        "id": "26846634",
+        "name": "Saarower VSV",
+        "lsbNumber": "670203",
+        "internalSportsclubId": "670203",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       }
     ]
