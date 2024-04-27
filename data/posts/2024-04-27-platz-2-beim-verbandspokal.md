@@ -1,8 +1,10 @@
 ---
-title: 'Platz 2 beim Verbandspokal'
+title: Platz 2 beim Verbandspokal
 date: 2024-04-27T19:47:53.111Z
 gallery:
-- /images/blog/2024/04/27/image2024-04-20_204157.jpg
+  - /images/blog/2024/04/27/image2024-04-20_204157.jpg
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/112344920749500390'
 ---
 Die Herren des VC Offenburg sind Verbandspokalsieger 2023/24... doch unsere Herren sicherten sich den zweiten Platz!
 
