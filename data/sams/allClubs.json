@@ -2072,16 +2072,6 @@
         }
       },
       {
-        "id": "37922059",
-        "name": "Dünnwalder TV von 1905 e.V.",
-        "lsbNumber": "2003021",
-        "internalSportsclubId": "1377",
-        "association": {
-          "id": "33795261",
-          "name": "Köln"
-        }
-      },
-      {
         "id": "13897080",
         "name": "USV Potsdam",
         "lsbNumber": "540016",
@@ -2129,6 +2119,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "37922059",
+        "name": "Dünnwalder TV von 1905 e.V.",
+        "lsbNumber": "2003021",
+        "internalSportsclubId": "1377",
+        "association": {
+          "id": "33795261",
+          "name": "Köln"
         }
       },
       {
@@ -5949,16 +5949,6 @@
         "association": {
           "id": "24908851",
           "name": "Landkreis Leipzig"
-        }
-      },
-      {
-        "id": "37948608",
-        "name": "SV Lokomotive Blankenburg e.V.",
-        "lsbNumber": "50249",
-        "internalSportsclubId": "50249",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -21312,16 +21302,6 @@
         }
       },
       {
-        "id": "26925423",
-        "name": "TuS Eintracht Wiesbaden 1846",
-        "lsbNumber": "38147",
-        "internalSportsclubId": "6701",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "16604817",
         "name": "TSV 1860 Hanau",
         "lsbNumber": "28076",
@@ -21439,6 +21419,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26925423",
+        "name": "TuS Eintracht Wiesbaden 1846",
+        "lsbNumber": "38147",
+        "internalSportsclubId": "6701",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -21832,16 +21822,6 @@
         }
       },
       {
-        "id": "37921917",
-        "name": "Wiedenbrücker Turnverein 1887 e.V.",
-        "lsbNumber": "4107017",
-        "internalSportsclubId": "4503",
-        "association": {
-          "id": "33797382",
-          "name": "Gütersloh-Bielefeld"
-        }
-      },
-      {
         "id": "37921313",
         "name": "Sportclub Blankenhagen 1975 e.V.",
         "lsbNumber": "4102037",
@@ -21876,6 +21856,16 @@
         "name": "Dynamo Weichei Bielefeld e.V.",
         "lsbNumber": "4001235",
         "internalSportsclubId": "1284",
+        "association": {
+          "id": "33797382",
+          "name": "Gütersloh-Bielefeld"
+        }
+      },
+      {
+        "id": "37921917",
+        "name": "Wiedenbrücker Turnverein 1887 e.V.",
+        "lsbNumber": "4107017",
+        "internalSportsclubId": "4503",
         "association": {
           "id": "33797382",
           "name": "Gütersloh-Bielefeld"
@@ -26542,16 +26532,6 @@
         }
       },
       {
-        "id": "26925093",
-        "name": "TG 1875 Darmstadt",
-        "lsbNumber": "33063",
-        "internalSportsclubId": "1407",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "37922004",
         "name": "TV Büren 1913 e.V.",
         "lsbNumber": "4604005",
@@ -26569,6 +26549,16 @@
         "association": {
           "id": "33795588",
           "name": "Oberberg"
+        }
+      },
+      {
+        "id": "26925093",
+        "name": "TG 1875 Darmstadt",
+        "lsbNumber": "33063",
+        "internalSportsclubId": "1407",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -27359,16 +27349,6 @@
         "association": {
           "id": "33798087",
           "name": "Siegen-Olpe"
-        }
-      },
-      {
-        "id": "37921769",
-        "name": "Haarener Turnverein 1862 e.V.",
-        "lsbNumber": "2001049",
-        "internalSportsclubId": "1308",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
@@ -33802,16 +33782,6 @@
         }
       },
       {
-        "id": "37920752",
-        "name": "Sportverein Heiligenhaus e.V.",
-        "lsbNumber": "1203020",
-        "internalSportsclubId": "5302",
-        "association": {
-          "id": "33299074",
-          "name": "Wupper-Mettmann"
-        }
-      },
-      {
         "id": "37920668",
         "name": "TV Frisch Auf Lennep 1933 e.V.",
         "lsbNumber": "1008050",
@@ -33839,6 +33809,16 @@
         "association": {
           "id": "33795261",
           "name": "Köln"
+        }
+      },
+      {
+        "id": "37920752",
+        "name": "Sportverein Heiligenhaus e.V.",
+        "lsbNumber": "1203020",
+        "internalSportsclubId": "5302",
+        "association": {
+          "id": "33299074",
+          "name": "Wupper-Mettmann"
         }
       },
       {
@@ -34329,16 +34309,6 @@
         "association": {
           "id": "33299034",
           "name": "Mühlheim-Oberhausen"
-        }
-      },
-      {
-        "id": "1004708",
-        "name": "Post Telekom SV 1925 Aachen e.V.",
-        "lsbNumber": "2001029",
-        "internalSportsclubId": "10134",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
@@ -41382,16 +41352,6 @@
         }
       },
       {
-        "id": "50621600",
-        "name": "VSG Leipzig 2000 e.V.",
-        "lsbNumber": "420390",
-        "internalSportsclubId": "59",
-        "association": {
-          "id": "24908890",
-          "name": "Stadt Leipzig"
-        }
-      },
-      {
         "id": "50621588",
         "name": "Gehörlosen Sportverein Chemnitz 1929 e.V.",
         "lsbNumber": "400070",
@@ -41449,6 +41409,16 @@
         "association": {
           "id": "24908726",
           "name": "Vogtlandkreis"
+        }
+      },
+      {
+        "id": "50621600",
+        "name": "VSG Leipzig 2000 e.V.",
+        "lsbNumber": "420390",
+        "internalSportsclubId": "59",
+        "association": {
+          "id": "24908890",
+          "name": "Stadt Leipzig"
         }
       },
       {
@@ -41652,16 +41622,6 @@
         }
       },
       {
-        "id": "50621843",
-        "name": "SV Wacker Mohorn",
-        "lsbNumber": "849",
-        "internalSportsclubId": "849",
-        "association": {
-          "id": "7213",
-          "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
         "id": "59702728",
         "name": "FSV Grün-Weiß Plaue 96 e.V.",
         "lsbNumber": "430145",
@@ -41669,6 +41629,16 @@
         "association": {
           "id": "26249329",
           "name": "Kreisverband Süd-West"
+        }
+      },
+      {
+        "id": "50621843",
+        "name": "SV Wacker Mohorn",
+        "lsbNumber": "849",
+        "internalSportsclubId": "849",
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
         }
       },
       {
@@ -43652,16 +43622,6 @@
         }
       },
       {
-        "id": "54610755",
-        "name": "TSV Neudenau",
-        "lsbNumber": "30313",
-        "internalSportsclubId": "30313",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "54610751",
         "name": "TSV Neckargröningen",
         "lsbNumber": "12162",
@@ -43746,6 +43706,16 @@
         "name": "TSV Michelbach",
         "lsbNumber": "18066",
         "internalSportsclubId": "85",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
+        }
+      },
+      {
+        "id": "54610755",
+        "name": "TSV Neudenau",
+        "lsbNumber": "30313",
+        "internalSportsclubId": "30313",
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
@@ -43912,16 +43882,6 @@
         }
       },
       {
-        "id": "50621884",
-        "name": "Roßweiner SV e. V.",
-        "lsbNumber": "480188",
-        "internalSportsclubId": "4",
-        "association": {
-          "id": "24908772",
-          "name": "Landkreis Meißen"
-        }
-      },
-      {
         "id": "50621885",
         "name": "Sportgemeinschaft Crostwitz 1981 e.V.",
         "lsbNumber": "430232",
@@ -43929,6 +43889,16 @@
         "association": {
           "id": "24908926",
           "name": "Landkreis Bautzen"
+        }
+      },
+      {
+        "id": "50621884",
+        "name": "Roßweiner SV e. V.",
+        "lsbNumber": "480188",
+        "internalSportsclubId": "4",
+        "association": {
+          "id": "24908772",
+          "name": "Landkreis Meißen"
         }
       },
       {
@@ -46876,16 +46846,6 @@
         "name": "Sportfreunde  Stuttgart",
         "lsbNumber": "20084",
         "internalSportsclubId": "289",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
-        "id": "54610956",
-        "name": "VfL Waiblingen",
-        "lsbNumber": "15136",
-        "internalSportsclubId": "306",
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
@@ -52942,6 +52902,16 @@
         }
       },
       {
+        "id": "54610956",
+        "name": "VfL Waiblingen",
+        "lsbNumber": "15136",
+        "internalSportsclubId": "306",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
         "id": "54611096",
         "name": "SV Bondorf",
         "lsbNumber": "3011",
@@ -54522,16 +54492,6 @@
         }
       },
       {
-        "id": "54611115",
-        "name": "TGV Entringen",
-        "lsbNumber": "22002",
-        "internalSportsclubId": "473",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "37921578",
         "name": "Hülser SV 1971 e.V.",
         "lsbNumber": "1004118",
@@ -54576,6 +54536,16 @@
         "name": "TSV Ehningen",
         "lsbNumber": "3019",
         "internalSportsclubId": "470",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "54611115",
+        "name": "TGV Entringen",
+        "lsbNumber": "22002",
+        "internalSportsclubId": "473",
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
@@ -54682,16 +54652,6 @@
         }
       },
       {
-        "id": "54611350",
-        "name": "TSV Tauberbischofsheim",
-        "lsbNumber": "10076",
-        "internalSportsclubId": "10076",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "37948604",
         "name": "Böllberger SV Halle e.V.",
         "lsbNumber": "140007",
@@ -54699,6 +54659,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "54611350",
+        "name": "TSV Tauberbischofsheim",
+        "lsbNumber": "10076",
+        "internalSportsclubId": "10076",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
         }
       },
       {
@@ -55692,16 +55662,6 @@
         }
       },
       {
-        "id": "54610971",
-        "name": "SV Bad Buchau",
-        "lsbNumber": "2013",
-        "internalSportsclubId": "322",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "54610972",
         "name": "BSC Berkheim",
         "lsbNumber": "2022",
@@ -55919,6 +55879,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "54610971",
+        "name": "SV Bad Buchau",
+        "lsbNumber": "2013",
+        "internalSportsclubId": "322",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
@@ -63099,6 +63069,36 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "37921769",
+        "name": "Haarener Turnverein 1862 e.V.",
+        "lsbNumber": "2001049",
+        "internalSportsclubId": "1308",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
+        }
+      },
+      {
+        "id": "37948608",
+        "name": "SV Lokomotive Blankenburg e.V.",
+        "lsbNumber": "50249",
+        "internalSportsclubId": "50249",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "1004708",
+        "name": "Post Telekom SV 1925 Aachen e.V.",
+        "lsbNumber": "2001029",
+        "internalSportsclubId": "10134",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
         }
       }
     ]
