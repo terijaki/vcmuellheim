@@ -47,12 +47,11 @@ export default function Termine() {
 						<h2 className="card-heading">Veranstaltungen</h2>
 						{events.map((event) => {
 							return (
-								<>
-									<Events
-										{...event}
-										totalSiblings={events.length}
-									/>
-								</>
+								<Events
+									{...event}
+									totalSiblings={events.length}
+									key={event.title + event.start}
+								/>
 							);
 						})}
 					</div>
