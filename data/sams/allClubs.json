@@ -60612,16 +60612,6 @@
         }
       },
       {
-        "id": "65037371",
-        "name": "TBG Reilingen",
-        "lsbNumber": "61084",
-        "internalSportsclubId": "61084",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037375",
         "name": "TB Dillweißenstein",
         "lsbNumber": "91808",
@@ -60646,6 +60636,16 @@
         "name": "TV Ispringen",
         "lsbNumber": "91737",
         "internalSportsclubId": "91737",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037371",
+        "name": "TBG Reilingen",
+        "lsbNumber": "61084",
+        "internalSportsclubId": "61084",
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
