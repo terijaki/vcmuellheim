@@ -19,15 +19,18 @@ export default function getRankings(matchSeriesId?: string | number, allSeasonMa
 	let apiPath: string;
 	let folderTarget: string;
 	let fileTarget: string;
+	let rankingRequestId: string;
 
 	if (matchSeriesId) {
 		apiPath = SAMS_URL + "/xml/rankings.xhtml?apiKey=" + SAMS_API + "&matchSeriesId=" + matchSeriesId;
 		folderTarget = path.join(JSON_FILE_TARGET, "matchSeriesId", matchSeriesId.toString());
 		fileTarget = folderTarget + "/rankings.json";
+		rankingRequestId = matchSeriesId.toString();
 	} else if (allSeasonMatchSeriesId) {
 		apiPath = SAMS_URL + "/xml/rankings.xhtml?apiKey=" + SAMS_API + "&matchSeriesId=" + allSeasonMatchSeriesId;
 		folderTarget = path.join(JSON_FILE_TARGET, "allSeasonMatchSeriesId", allSeasonMatchSeriesId.toString());
 		fileTarget = folderTarget + "/rankings.json";
+		rankingRequestId = allSeasonMatchSeriesId.toString();
 	} else {
 		return false;
 	}
@@ -47,18 +50,18 @@ export default function getRankings(matchSeriesId?: string | number, allSeasonMa
 								fs.writeFileSync(fileTarget, output);
 								return output;
 							} else {
-								console.log("🚨 COULD NOT CONVERT XML TO JSON! 🚨");
+								console.log("🚨 COULD NOT CONVERT RANKINGS (" + rankingRequestId + ") XML TO JSON! 🚨");
 								console.log(err);
 								return false;
 							}
 						});
 					} else {
-						console.log("🚨 RECEIVED ERROR MESSAGE! 🚨");
+						console.log("🚨 RECEIVED ERROR MESSAGE FOR RANKINGS (" + rankingRequestId + ")! 🚨");
 						console.log(xmlData);
 						return false;
 					}
 				} else {
-					console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE! 🚨");
+					console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR RANKINGS (" + rankingRequestId + ")! 🚨");
 					return false;
 				}
 			});

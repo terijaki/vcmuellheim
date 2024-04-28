@@ -34,22 +34,26 @@ export default function getMatches(teamId?: string | number, matchSeriesId?: str
 	let folderTarget = JSON_FILE_TARGET;
 	let fileTarget = folderTarget + "/matches.json";
 	let queryContext: string;
+	let matchRequestId: string;
 
 	if (teamId) {
 		apiPath = SAMS_URL + "/xml/matches.xhtml?apiKey=" + SAMS_API + "&teamId=" + teamId;
 		folderTarget = path.join(JSON_FILE_TARGET, "teamId", teamId.toString());
 		fileTarget = folderTarget + "/matches.json";
 		queryContext = "Team (" + teamId + ")";
+		matchRequestId = teamId.toString();
 	} else if (matchSeriesId) {
 		apiPath = SAMS_URL + "/xml/matches.xhtml?apiKey=" + SAMS_API + "&matchSeriesId=" + matchSeriesId;
 		folderTarget = path.join(JSON_FILE_TARGET, "matchSeriesId", matchSeriesId.toString());
 		fileTarget = folderTarget + "/matches.json";
 		queryContext = "MatchSeries (" + matchSeriesId + ")";
+		matchRequestId = matchSeriesId.toString();
 	} else if (allSeasonMatchSeriesId) {
 		apiPath = SAMS_URL + "/xml/matches.xhtml?apiKey=" + SAMS_API + "&matchSeriesId=" + allSeasonMatchSeriesId;
 		folderTarget = path.join(JSON_FILE_TARGET, "allSeasonMatchSeriesId", allSeasonMatchSeriesId.toString());
 		fileTarget = folderTarget + "/matches.json";
 		queryContext = "All-Season-MatchSeries (" + allSeasonMatchSeriesId + ")";
+		matchRequestId = allSeasonMatchSeriesId.toString();
 	}
 	fetch(apiPath)
 		.then((response) => Promise.all([response.status, response.text()]))
@@ -76,18 +80,18 @@ export default function getMatches(teamId?: string | number, matchSeriesId?: str
 							identifyNewMatchResults(output);
 							return output;
 						} else {
-							console.log("🚨 COULD NOT CONVERT XML TO JSON! 🚨");
+							console.log("🚨 COULD NOT CONVERT MATCH DATA (" + matchRequestId + ") XML TO JSON! 🚨");
 							console.log(err);
 							return false;
 						}
 					});
 				} else {
-					console.log("🚨 RECEIVED ERROR MESSAGE! 🚨");
+					console.log("🚨 RECEIVED ERROR MESSAGE FOR MATCH DATA (" + matchRequestId + ")! 🚨");
 					console.log(xmlData);
 					return false;
 				}
 			} else {
-				console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE! 🚨");
+				console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR MATCH DATA (" + matchRequestId + ")! 🚨");
 				return false;
 			}
 		});
