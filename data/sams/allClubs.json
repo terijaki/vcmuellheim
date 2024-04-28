@@ -1462,16 +1462,6 @@
         }
       },
       {
-        "id": "37920692",
-        "name": "TuRa Löhne 1910 e.V.",
-        "lsbNumber": "4206018",
-        "internalSportsclubId": "3602",
-        "association": {
-          "id": "33797702",
-          "name": "Minden-Ravensberg"
-        }
-      },
-      {
         "id": "15437160",
         "name": "Volleyball-Verband Sachsen-Anhalt",
         "lsbNumber": "304495555",
@@ -1539,6 +1529,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "37920692",
+        "name": "TuRa Löhne 1910 e.V.",
+        "lsbNumber": "4206018",
+        "internalSportsclubId": "3602",
+        "association": {
+          "id": "33797702",
+          "name": "Minden-Ravensberg"
         }
       },
       {
