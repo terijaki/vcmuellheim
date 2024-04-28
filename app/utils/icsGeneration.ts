@@ -3,183 +3,124 @@ import path from "path";
 import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
 import getEvents from "./getEvents";
+import { v5 as uuidv5 } from "uuid";
+import { env } from "process";
 
-const ICS_FOLDER_LOCATION = "public/ics",
-	TEMPLATE_START = "BEGIN:VEVENT",
-	TEMPLATE_END = "END:VEVENT";
+const ICS_FOLDER_LOCATION = "public/ics";
 
 export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string) {
-	// read the template to get the template
-	const template: string = fs.readFileSync(path.join(ICS_FOLDER_LOCATION, "template.ics")).toString();
-	let templateStart = template.slice(0, template.indexOf(TEMPLATE_START));
-	const templateEnd = template.slice(template.indexOf(TEMPLATE_END) + TEMPLATE_END.length);
-	const templateBody = template.slice(template.indexOf(TEMPLATE_START), template.indexOf(TEMPLATE_END) + TEMPLATE_END.length);
+	// calendar title (if not default)
+	let calendarTitle: string = "";
+	env.CLUB_SHORTNAME && (calendarTitle = env.CLUB_SHORTNAME);
+
+	// set to be filled and used at the end of the function
+	let eventSet = new Set<string>();
 
 	// CUSTOM EVENTS
-	let eventArray: string[] = [];
 	// loop through all custom events
 	if (slug == "all") {
 		getEvents(30, 120).map((event) => {
 			if (event.title && event.start) {
-				let eventConstruct: string = templateBody;
-				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_UUID", event.title + event.start);
-				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_UPDATED", toICSFormat(new Date()));
-				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_TIMEZONE", "Europe/Berlin");
-				// start and end date
-				if (event.start.getUTCHours() + event.start.getUTCMinutes() == 0) {
-					// ALL DAY EVENTS
-					// if only a start date without time is provided, then an all day event should be created in the format:
-					// DTSTART;VALUE=DATE:19801231
-					// DTEND;VALUE=DATE:19801231
-					eventConstruct = eventConstruct.replaceAll("DTSTART:REPLACE_EVENTTEMPLATE_DATETIME_START", "DTSTART;VALUE=DATE:" + event.start.toISOString().replaceAll("-", "").slice(0, 8));
-					if (event.end && event.end.getUTCHours() + event.end.getUTCMinutes() > 0) {
-						// add 1 day to the date so the all day event ends at midnight
-						event.end.setDate(event.end.getDate() + 1);
-						eventConstruct = eventConstruct.replaceAll("DTEND:REPLACE_EVENTTEMPLATE_DATETIME_END", "DTEND;VALUE=DATE:" + event.end.toISOString().replaceAll("-", "").slice(0, 8));
-					} else if (event.end) {
-						eventConstruct = eventConstruct.replaceAll("DTEND:REPLACE_EVENTTEMPLATE_DATETIME_END", "DTEND;VALUE=DATE:" + event.end.toISOString().replaceAll("-", "").slice(0, 8));
-					} else {
-						eventConstruct = eventConstruct.replaceAll("DTEND:REPLACE_EVENTTEMPLATE_DATETIME_END", "DTEND;VALUE=DATE:" + event.start.toISOString().replaceAll("-", "").slice(0, 8));
-					}
-				} else {
-					eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_START", toICSFormat(event.start));
-
-					if (event.end) {
-						eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_END", toICSFormat(event.end));
-					} else {
-						eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_END", toICSFormat(new Date(event.start.setHours(event.start.getHours() + 2))));
-					}
-				}
-
-				// summary
-				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_SUMMARY", event.title);
+				// prepare the event data
+				let customEventObjects: ICSEventComponent = { title: event.title, start: event.start };
+				event.end && (customEventObjects.end = event.end);
 				// location
 				if (event.location) {
-					let locationString = "";
 					if (event.location.street && event.location.postalCode) {
-						locationString = locationString + event.location.street + "\\, " + event.location.postalCode;
+						customEventObjects.location = event.location.street + "\\, " + event.location.postalCode;
 					} else if (event.location.street) {
-						locationString = locationString + event.location.street;
+						customEventObjects.location = event.location.street;
 					}
 					if (event.location.city) {
-						if (locationString.length > 0) {
-							locationString = locationString + " ";
+						if (customEventObjects.location && customEventObjects.location.length > 0) {
+							customEventObjects.location = customEventObjects.location + " " + event.location.city;
+						} else {
+							customEventObjects.location = event.location.city;
 						}
-						locationString = locationString + event.location.city;
 					}
 					if (event.location.name) {
-						locationString = locationString + "\\, " + event.location.name;
+						if (customEventObjects.location) {
+							customEventObjects.location = customEventObjects.location + "\\, " + event.location.name;
+						} else {
+							customEventObjects.location = event.location.name;
+						}
 					}
-					if (locationString.length > 0) {
-						eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_LOCATION", locationString);
+				}
+				//description + url
+				if (event.description) {
+					customEventObjects.description = event.description;
+				}
+				if (event.url && !event.url.includes("https://") && !event.url.includes("http://")) {
+					if (event.url && !event.url.includes("https://vcmuellheim.de") && !event.url.includes("https://vcmuellheim.de")) {
+						event.url = "https://vcmuellheim.de" + event.url;
+					}
+					if (customEventObjects.description) {
+						customEventObjects.description = customEventObjects.description + "\\n" + event.url;
 					} else {
-						// remove the template string if there is nothing to include
-						eventConstruct = eventConstruct.replaceAll("LOCATION:REPLACE_EVENTTEMPLATE_LOCATION\n", "");
+						customEventObjects.description = event.url;
 					}
 				}
-				// description
-				if (!event.description && !event.url) {
-					// remove the template string if there is nothing to include
-					eventConstruct = eventConstruct.replaceAll("DESCRIPTION:REPLACE_EVENTTEMPLATE_DESCRIPTION\n", "");
-				} else {
-					let descriptioString: string = "";
-					if (event.description) {
-						descriptioString = event.description;
-					}
-					if (event.url && !event.url.includes("https://") && !event.url.includes("http://")) {
-						if (event.url && !event.url.includes("https://vcmuellheim.de") && !event.url.includes("https://vcmuellheim.de")) {
-							event.url = "https://vcmuellheim.de" + event.url;
-						}
-						if (event.description && event.description.length > 0) {
-							descriptioString = descriptioString + "\n";
-						}
-						descriptioString = descriptioString + event.url;
-					}
-					eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DESCRIPTION", descriptioString);
-				}
+				// turn the event data into the ICS string
+				const customEventString = getICSEventComponent(customEventObjects);
 				// add the complete event string to the array
-				eventArray.push(eventConstruct);
+				eventSet.add(customEventString);
 			}
 		});
 	}
 
 	// MATCHES
-	let matchArray: string[] = [];
 	// loop through all matches for the team
 	cachedGetMatches(sbvvTeamId).map((match, index) => {
 		if (match.uuid && match.team?.length == 2 && match.location && match.matchSeries?.name && match.matchSeries.updated) {
-			// use the match update date as the date this entry is updated
-			const dateLastUpdated = new Date(match.matchSeries.updated);
 			// construct an end date, assuming the match lasts 3 hours
 			const dateTimeEnd = new Date(match.dateObject);
 			dateTimeEnd.setHours(dateTimeEnd.getHours() + 3);
-			// begin replacing the template
-			let matchConstruct: string = templateBody;
-			matchConstruct = matchConstruct.replaceAll("REPLACE_EVENTTEMPLATE_UUID", match.uuid);
-			matchConstruct = matchConstruct.replaceAll("REPLACE_EVENTTEMPLATE_UPDATED", toICSFormat(dateLastUpdated));
-			matchConstruct = matchConstruct.replaceAll("REPLACE_EVENTTEMPLATE_TIMEZONE", "Europe/Berlin");
-			matchConstruct = matchConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_START", toICSFormat(match.dateObject));
-			matchConstruct = matchConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_END", toICSFormat(dateTimeEnd));
-			matchConstruct = matchConstruct.replaceAll("REPLACE_EVENTTEMPLATE_SUMMARY", match.team[0].name + (match.results ? " (" + match.results.setPoints + ") " : " vs. ") + match.team[1].name);
-			matchConstruct = matchConstruct.replaceAll(
-				"REPLACE_EVENTTEMPLATE_LOCATION",
-				match.location.street + "\\, " + match.location.postalCode + " " + match.location.city + (match.location.name && "\\, " + match.location.name)
-			);
-			matchConstruct = matchConstruct.replaceAll(
-				"REPLACE_EVENTTEMPLATE_DESCRIPTION",
+			// constuct a title
+			const matchTitle = match.team[0].name + (match.results ? " (" + match.results.setPoints + ") " : " vs. ") + match.team[1].name;
+			// constuct the location
+			const matchLocation = match.location.street + "\\, " + match.location.postalCode + " " + match.location.city + (match.location.name && "\\, " + match.location.name);
+			// constuct the description
+			const matchDescription =
 				match.matchSeries.name +
-					(match.results?.setPoints ? "\\nErgebnis: " + match.results.setPoints : "") +
-					(match.host?.name && "\\nGastgeber: " + match.host.name) +
-					(slug == "all" ? "\\nhttps://vcmuellheim.de/termine" : "\\nhttps://vcmuellheim.de/teams/" + slug)
-			);
-			matchArray.push(matchConstruct);
+				(match.results?.setPoints ? "\\nErgebnis: " + match.results.setPoints : "") +
+				(match.host?.name && "\\nGastgeber: " + match.host.name) +
+				(slug == "all" ? "\\nhttps://vcmuellheim.de/termine" : "\\nhttps://vcmuellheim.de/teams/" + slug);
+			// construct the complete string
+			const matchEventString = getICSEventComponent({
+				title: matchTitle,
+				start: match.dateObject,
+				end: dateTimeEnd,
+				id: match.uuid,
+				updated: new Date(match.matchSeries.updated),
+				location: matchLocation,
+				description: matchDescription,
+			});
+			// add this match to the array
+			eventSet.add(matchEventString);
 		}
 
 		// enhance the default calender name with the teams & league name
 		if (sbvvTeamId.length == 1 && index == 0) {
 			match.team?.forEach((team) => {
 				if (team.id == sbvvTeamId[0] && match.matchSeries?.name) {
-					templateStart = templateStart.replace("X-WR-CALNAME:VC Müllheim", "X-WR-CALNAME:" + team.name + " - " + match.matchSeries.name);
+					calendarTitle = team.name + " - " + match.matchSeries.name;
 				}
 			});
 		}
 	});
 
-	// handle the case when there are no matches or events because its required for the ICS file to have at least one event
-	if (matchArray.length == 0 && eventArray.length == 0) {
+	// handle the case when there are no matches or custom events because its required for the ICS file to have at least one event
+	if (eventSet.size == 0) {
 		let yesterdayStart = new Date();
 		yesterdayStart.setDate(yesterdayStart.getDate() - 3);
 		let yesterdayEnd = new Date(yesterdayStart);
 		yesterdayEnd.setMinutes(yesterdayEnd.getMinutes() + 15);
-		let matchConstruct: string = templateBody;
-		matchConstruct = matchConstruct.replaceAll("REPLACE_EVENTTEMPLATE_UUID", Date.now().toString());
-		matchConstruct = matchConstruct.replaceAll("REPLACE_EVENTTEMPLATE_UPDATED", toICSFormat(new Date()));
-		matchConstruct = matchConstruct.replaceAll("REPLACE_EVENTTEMPLATE_TIMEZONE", "Europe/Berlin");
-		matchConstruct = matchConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_START", toICSFormat(yesterdayStart));
-		matchConstruct = matchConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_END", toICSFormat(yesterdayEnd));
-		matchConstruct = matchConstruct.replaceAll("REPLACE_EVENTTEMPLATE_SUMMARY", "Derzeit sind keine Termine verfügbar.");
-		matchConstruct = matchConstruct.replaceAll("LOCATION:REPLACE_EVENTTEMPLATE_LOCATION\n", "");
-		matchConstruct = matchConstruct.replaceAll("DESCRIPTION:REPLACE_EVENTTEMPLATE_DESCRIPTION\n", slug == "all" ? "\\nhttps://vcmuellheim.de/termine" : "\\nhttps://vcmuellheim.de/teams/" + slug);
-		matchArray.push(matchConstruct);
+		let noEvents: ICSEventComponent = { title: "Derzeit sind keine Termine verfügbar.", start: yesterdayStart, end: yesterdayEnd };
+		slug == "all" ? (noEvents.description = "https://vcmuellheim.de/termine") : (noEvents.description = "https://vcmuellheim.de/teams/" + slug);
+		eventSet.add(getICSEventComponent(noEvents));
 	}
-
 	// build the output string
-	let eventsToAdd = "";
-	if (eventArray.length > 0) {
-		eventsToAdd = eventArray.reduce((a, b) => {
-			return a.concat("\n" + b);
-		});
-	}
-	let matchesToAdd = "";
-	if (matchArray.length > 0) {
-		matchesToAdd = matchArray.reduce((a, b) => {
-			return a.concat("\n" + b);
-		});
-	}
-	if (eventsToAdd.length > 0 && matchesToAdd.length > 0) {
-		eventsToAdd = eventsToAdd + "\n";
-	}
-	let result = templateStart + eventsToAdd + matchesToAdd + templateEnd;
+	let result = getICSComponent("start", calendarTitle) + Array.from(eventSet).join("\n") + getICSComponent("end");
 	fs.writeFileSync(path.join(ICS_FOLDER_LOCATION, slug) + ".ics", result);
 }
 
@@ -194,4 +135,204 @@ export function toICSFormat(date: Date): string {
 		.replaceAll(":", "")
 		.replace(/\.[0-9]{3}/, ""); // removes milliseconds
 	return dateICS;
+}
+
+export function getICSComponent(component: "start" | "end", title?: string): string | void {
+	// BEGIN:VCALENDAR
+	// X-WR-CALNAME:VC Müllheim
+	// PRODID:-//Volleyballclub Müllheim e.V.//Website//DE
+	// VERSION:2.0
+	// CALSCALE:GREGORIAN
+
+	// PRODID
+	let calProdId = "Unknown";
+	if (env.CLUB_NAME) {
+		calProdId = "\nPRODID:-//" + env.CLUB_NAME + "//Website//DE";
+	} else if (title) {
+		calProdId = "\nPRODID:-//" + title + "//Website//DE";
+	} else {
+		console.log("🚨 Calendar Product ID was not identified!");
+	}
+	// TITLE
+	let calTitle = "\nX-WR-CALNAME:Unknown";
+	if (title && title?.length > 0) {
+		calTitle = "\nX-WR-CALNAME:" + title;
+	} else if (env.CLUB_SHORTNAME) {
+		calTitle = "\nX-WR-CALNAME:" + env.CLUB_SHORTNAME;
+	} else {
+		console.log("🚨 Calendar title was not identified!");
+	}
+	let start = "BEGIN:VCALENDAR" + calTitle + calProdId + "\nVERSION:2.0\nCALSCALE:GREGORIAN\n";
+	// 	BEGIN:VTIMEZONE
+	// TZID:Europe/Berlin
+	// LAST-MODIFIED:REPLACE_TODAY
+	// TZURL:https://www.tzurl.org/zoneinfo/Europe/Berlin
+	// X-LIC-LOCATION:Europe/Berlin
+	// X-PROLEPTIC-TZNAME:LMT
+	// BEGIN:STANDARD
+	// TZNAME:CET
+	// TZOFFSETFROM:+005328
+	// TZOFFSETTO:+0100
+	// DTSTART:18930401T000000
+	// END:STANDARD
+	// BEGIN:DAYLIGHT
+	// TZNAME:CEST
+	// TZOFFSETFROM:+0100
+	// TZOFFSETTO:+0200
+	// DTSTART:19160430T230000
+	// RDATE:19400401T020000
+	// RDATE:19430329T020000
+	// RDATE:19460414T020000
+	// RDATE:19470406T030000
+	// RDATE:19480418T020000
+	// RDATE:19490410T020000
+	// RDATE:19800406T020000
+	// END:DAYLIGHT
+	// BEGIN:STANDARD
+	// TZNAME:CET
+	// TZOFFSETFROM:+0200
+	// TZOFFSETTO:+0100
+	// DTSTART:19161001T010000
+	// RDATE:19421102T030000
+	// RDATE:19431004T030000
+	// RDATE:19441002T030000
+	// RDATE:19451118T030000
+	// RDATE:19461007T030000
+	// END:STANDARD
+	// BEGIN:DAYLIGHT
+	// TZNAME:CEST
+	// TZOFFSETFROM:+0100
+	// TZOFFSETTO:+0200
+	// DTSTART:19170416T020000
+	// RRULE:FREQ=YEARLY;UNTIL=19180415T010000Z;BYMONTH=4;BYDAY=3MO
+	// END:DAYLIGHT
+	// BEGIN:STANDARD
+	// TZNAME:CET
+	// TZOFFSETFROM:+0200
+	// TZOFFSETTO:+0100
+	// DTSTART:19170917T030000
+	// RRULE:FREQ=YEARLY;UNTIL=19180916T010000Z;BYMONTH=9;BYDAY=3MO
+	// END:STANDARD
+	// BEGIN:DAYLIGHT
+	// TZNAME:CEST
+	// TZOFFSETFROM:+0100
+	// TZOFFSETTO:+0200
+	// DTSTART:19440403T020000
+	// RRULE:FREQ=YEARLY;UNTIL=19450402T010000Z;BYMONTH=4;BYDAY=1MO
+	// END:DAYLIGHT
+	// BEGIN:DAYLIGHT
+	// TZNAME:CEMT
+	// TZOFFSETFROM:+0200
+	// TZOFFSETTO:+0300
+	// DTSTART:19450524T020000
+	// RDATE:19470511T030000
+	// END:DAYLIGHT
+	// BEGIN:DAYLIGHT
+	// TZNAME:CEST
+	// TZOFFSETFROM:+0300
+	// TZOFFSETTO:+0200
+	// DTSTART:19450924T030000
+	// RDATE:19470629T030000
+	// END:DAYLIGHT
+	// BEGIN:STANDARD
+	// TZNAME:CET
+	// TZOFFSETFROM:+0100
+	// TZOFFSETTO:+0100
+	// DTSTART:19460101T000000
+	// RDATE:19800101T000000
+	// END:STANDARD
+	// BEGIN:STANDARD
+	// TZNAME:CET
+	// TZOFFSETFROM:+0200
+	// TZOFFSETTO:+0100
+	// DTSTART:19471005T030000
+	// RRULE:FREQ=YEARLY;UNTIL=19491002T010000Z;BYMONTH=10;BYDAY=1SU
+	// END:STANDARD
+	// BEGIN:STANDARD
+	// TZNAME:CET
+	// TZOFFSETFROM:+0200
+	// TZOFFSETTO:+0100
+	// DTSTART:19800928T030000
+	// RRULE:FREQ=YEARLY;UNTIL=19950924T010000Z;BYMONTH=9;BYDAY=-1SU
+	// END:STANDARD
+	// BEGIN:DAYLIGHT
+	// TZNAME:CEST
+	// TZOFFSETFROM:+0100
+	// TZOFFSETTO:+0200
+	// DTSTART:19810329T020000
+	// RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+	// END:DAYLIGHT
+	// BEGIN:STANDARD
+	// TZNAME:CET
+	// TZOFFSETFROM:+0200
+	// TZOFFSETTO:+0100
+	// DTSTART:19961027T030000
+	// RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+	// END:STANDARD
+	// END:VTIMEZONE
+	// END:VCALENDAR
+	let end =
+		"\nBEGIN:VTIMEZONE\nTZID:Europe/Berlin\nLAST-MODIFIED:REPLACE_TODAY\nTZURL:https://www.tzurl.org/zoneinfo/Europe/Berlin\nX-LIC-LOCATION:Europe/Berlin\nX-PROLEPTIC-TZNAME:LMT\nBEGIN:STANDARD\nTZNAME:CET\nTZOFFSETFROM:+005328\nTZOFFSETTO:+0100\nDTSTART:18930401T000000\nEND:STANDARD\nBEGIN:DAYLIGHT\nTZNAME:CEST\nTZOFFSETFROM:+0100\nTZOFFSETTO:+0200\nDTSTART:19160430T230000\nRDATE:19400401T020000\nRDATE:19430329T020000\nRDATE:19460414T020000\nRDATE:19470406T030000\nRDATE:19480418T020000\nRDATE:19490410T020000\nRDATE:19800406T020000\nEND:DAYLIGHT\nBEGIN:STANDARD\nTZNAME:CET\nTZOFFSETFROM:+0200\nTZOFFSETTO:+0100\nDTSTART:19161001T010000\nRDATE:19421102T030000\nRDATE:19431004T030000\nRDATE:19441002T030000\nRDATE:19451118T030000\nRDATE:19461007T030000\nEND:STANDARD\nBEGIN:DAYLIGHT\nTZNAME:CEST\nTZOFFSETFROM:+0100\nTZOFFSETTO:+0200\nDTSTART:19170416T020000\nRRULE:FREQ=YEARLY;UNTIL=19180415T010000Z;BYMONTH=4;BYDAY=3MO\nEND:DAYLIGHT\nBEGIN:STANDARD\nTZNAME:CET\nTZOFFSETFROM:+0200\nTZOFFSETTO:+0100\nDTSTART:19170917T030000\nRRULE:FREQ=YEARLY;UNTIL=19180916T010000Z;BYMONTH=9;BYDAY=3MO\nEND:STANDARD\nBEGIN:DAYLIGHT\nTZNAME:CEST\nTZOFFSETFROM:+0100\nTZOFFSETTO:+0200\nDTSTART:19440403T020000\nRRULE:FREQ=YEARLY;UNTIL=19450402T010000Z;BYMONTH=4;BYDAY=1MO\nEND:DAYLIGHT\nBEGIN:DAYLIGHT\nTZNAME:CEMT\nTZOFFSETFROM:+0200\nTZOFFSETTO:+0300\nDTSTART:19450524T020000\nRDATE:19470511T030000\nEND:DAYLIGHT\nBEGIN:DAYLIGHT\nTZNAME:CEST\nTZOFFSETFROM:+0300\nTZOFFSETTO:+0200\nDTSTART:19450924T030000\nRDATE:19470629T030000\nEND:DAYLIGHT\nBEGIN:STANDARD\nTZNAME:CET\nTZOFFSETFROM:+0100\nTZOFFSETTO:+0100\nDTSTART:19460101T000000\nRDATE:19800101T000000\nEND:STANDARD\nBEGIN:STANDARD\nTZNAME:CET\nTZOFFSETFROM:+0200\nTZOFFSETTO:+0100\nDTSTART:19471005T030000\nRRULE:FREQ=YEARLY;UNTIL=19491002T010000Z;BYMONTH=10;BYDAY=1SU\nEND:STANDARD\nBEGIN:STANDARD\nTZNAME:CET\nTZOFFSETFROM:+0200\nTZOFFSETTO:+0100\nDTSTART:19800928T030000\nRRULE:FREQ=YEARLY;UNTIL=19950924T010000Z;BYMONTH=9;BYDAY=-1SU\nEND:STANDARD\nBEGIN:DAYLIGHT\nTZNAME:CEST\nTZOFFSETFROM:+0100\nTZOFFSETTO:+0200\nDTSTART:19810329T020000\nRRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU\nEND:DAYLIGHT\nBEGIN:STANDARD\nTZNAME:CET\nTZOFFSETFROM:+0200\nTZOFFSETTO:+0100\nDTSTART:19961027T030000\nRRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU\nEND:STANDARD\nEND:VTIMEZONE\nEND:VCALENDAR";
+	if (component == "start") {
+		return start;
+	} else if (component == "end") {
+		return end;
+	} else {
+		throw "🚨 ICSComponent attempted to be generated with invalid component name.";
+	}
+}
+
+type ICSEventComponent = { title: string; start: Date; end?: Date; id?: string; location?: string; description?: string; updated?: Date; timezone?: string };
+export function getICSEventComponent(props: ICSEventComponent): string {
+	// input test
+	if (!props.title || !props.start) {
+		throw "🚨 ICS Event Component attempted to be generated without title or start date.";
+	}
+	// replace missing data
+	!props.updated && (props.updated = new Date());
+	!props.timezone && (props.timezone = "Europe/Berlin");
+	!props.id && (props.id = uuidv5(props.title + props.start.getDate(), "c0c6fac1-26ea-4cfb-921b-149cd6aef705"));
+
+	// build the output string
+	// BEGIN:VEVENT
+	// UID:71fc6724-818b-45bc-9b73-7abba135e21e
+	// SUMMARY:VfR Merzhausen 1 (3:1) VC Müllheim
+	// DTSTART:20231014T120000Z
+	// DTEND:20231014T150000Z
+	// LOCATION:Am Marktplatz 1\, 79249 Merzhausen\, Sporthalle Merzhausen
+	// DESCRIPTION:Landesliga West Herren\nErgebnis: 3:1\nGastgeber: VfR Merzhausen 1\nhttps://vcmuellheim.de/termine
+	// DTSTAMP:20240420T184955Z
+	// TZID:Europe/Berlin
+	// END:VEVENT
+	let output = "BEGIN:VEVENT";
+	output = output.concat("\nUID:" + props.id);
+	output = output.concat("\nSUMMARY:" + props.title);
+	// START, END & ALL DAY EVENTS
+	if (props.start.getUTCHours() + props.start.getUTCMinutes() == 0 || (props.end && props.end.getUTCHours() + props.end.getUTCMinutes() == 0)) {
+		// if only a start date without time is provided, then an all day event should be created in the format:
+		// DTSTART;VALUE=DATE:19801231
+		// DTEND;VALUE=DATE:19801231
+		output = output.concat("\nDTSTART;VALUE=DATE:" + props.start.toISOString().replaceAll("-", "").slice(0, 8));
+		!props.end && (props.end = new Date(props.start)); // in case there is only a start without time, duplicate it as end for a "1-day-all-day-event"
+		// add 1 day to the date so the all day event ends at midnight
+		props.end.setDate(props.end.getDate() + 1);
+		output = output.concat("\nDTEND;VALUE=DATE:" + props.end.toISOString().replaceAll("-", "").slice(0, 8));
+	} else {
+		// START
+		output = output.concat("\nDTSTART:" + toICSFormat(props.start));
+		// END
+		if (!props.end) {
+			props.end = new Date(props.start);
+			props.end.setHours(props.start.getHours() + 2);
+		}
+		output = output.concat("\nDTEND:" + toICSFormat(props.end));
+	}
+	// LOCATION, DESCRIPTION & MORE
+	props.location && (output = output.concat("\nLOCATION:" + props.location));
+	props.description && (output = output.concat("\nDESCRIPTION:" + props.description));
+	output = output.concat("\nDTSTAMP:" + toICSFormat(props.updated));
+	output = output.concat("\nTZID:" + props.timezone);
+	output = output.concat("\nEND:VEVENT");
+
+	return output;
 }
