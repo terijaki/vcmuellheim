@@ -25,12 +25,28 @@ export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string)
 				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_UUID", event.title + event.start);
 				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_UPDATED", toICSFormat(new Date()));
 				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_TIMEZONE", "Europe/Berlin");
-				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_START", toICSFormat(event.start));
-				if (event.end) {
-					eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_END", toICSFormat(event.end));
+				// start and end date
+				if (event.start.getUTCHours() + event.start.getUTCMinutes() == 0) {
+					// ALL DAY EVENTS
+					// if only a start date without time is provided, then an all day event should be created in the format:
+					// DTSTART;VALUE=DATE:19801231
+					// DTEND;VALUE=DATE:19801231
+					eventConstruct = eventConstruct.replaceAll("DTSTART:REPLACE_EVENTTEMPLATE_DATETIME_START", "DTSTART;VALUE=DATE:" + event.start.toISOString().replaceAll("-", "").slice(0, 8));
+					if (event.end) {
+						eventConstruct = eventConstruct.replaceAll("DTEND:REPLACE_EVENTTEMPLATE_DATETIME_END", "DTEND;VALUE=DATE:" + event.end.toISOString().replaceAll("-", "").slice(0, 8));
+					} else {
+						eventConstruct = eventConstruct.replaceAll("DTEND:REPLACE_EVENTTEMPLATE_DATETIME_END", "DTEND;VALUE=DATE:" + event.start.toISOString().replaceAll("-", "").slice(0, 8));
+					}
 				} else {
-					eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_END", toICSFormat(new Date(event.start.setHours(event.start.getHours() + 2))));
+					eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_START", toICSFormat(event.start));
+
+					if (event.end) {
+						eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_END", toICSFormat(event.end));
+					} else {
+						eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_DATETIME_END", toICSFormat(new Date(event.start.setHours(event.start.getHours() + 2))));
+					}
 				}
+
 				// summary
 				eventConstruct = eventConstruct.replaceAll("REPLACE_EVENTTEMPLATE_SUMMARY", event.title);
 				// location
