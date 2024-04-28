@@ -32,7 +32,11 @@ export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string)
 					// DTSTART;VALUE=DATE:19801231
 					// DTEND;VALUE=DATE:19801231
 					eventConstruct = eventConstruct.replaceAll("DTSTART:REPLACE_EVENTTEMPLATE_DATETIME_START", "DTSTART;VALUE=DATE:" + event.start.toISOString().replaceAll("-", "").slice(0, 8));
-					if (event.end) {
+					if (event.end && event.end.getUTCHours() + event.end.getUTCMinutes() > 0) {
+						// add 1 day to the date so the all day event ends at midnight
+						event.end.setDate(event.end.getDate() + 1);
+						eventConstruct = eventConstruct.replaceAll("DTEND:REPLACE_EVENTTEMPLATE_DATETIME_END", "DTEND;VALUE=DATE:" + event.end.toISOString().replaceAll("-", "").slice(0, 8));
+					} else if (event.end) {
 						eventConstruct = eventConstruct.replaceAll("DTEND:REPLACE_EVENTTEMPLATE_DATETIME_END", "DTEND;VALUE=DATE:" + event.end.toISOString().replaceAll("-", "").slice(0, 8));
 					} else {
 						eventConstruct = eventConstruct.replaceAll("DTEND:REPLACE_EVENTTEMPLATE_DATETIME_END", "DTEND;VALUE=DATE:" + event.start.toISOString().replaceAll("-", "").slice(0, 8));
