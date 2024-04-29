@@ -1,8 +1,10 @@
 ---
-title: 'Jugendrunde in Rheinfelden'
+title: Jugendrunde in Rheinfelden
 date: 2024-04-29T11:47:19.066Z
 gallery:
-- /images/blog/2024/04/29/photo-2024-04-29-10-07-44.jpg
+  - /images/blog/2024/04/29/photo-2024-04-29-10-07-44.jpg
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/112354355394047530'
 ---
 Der VC Minseln hat am vergangenen Samstag ein Jugendturnier ausgerichtet. Unsere Mädels waren nicht nur dabei, sondern kürten sich als Sieger des Turniers!
 
