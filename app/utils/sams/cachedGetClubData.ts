@@ -15,6 +15,7 @@ export function cachedGetTeamIds(idType: "id" | "uuid" | "seasonTeamId" = "id", 
 			}
 		}
 	});
+
 	return teamIds;
 }
 
@@ -36,7 +37,7 @@ export function cachedGetUniqueMatchSeriesIds(teamIds?: (string | number)[]): st
 	// if no teamId parameter is provided, the function fetches ids of league teams from the club file itself
 	let UniqueMatchSeriesIds = new Array();
 	if (!teamIds) {
-		teamIds = cachedGetTeamIds("id");
+		teamIds = cachedGetTeamIds("id", false);
 	}
 	teamIds.map((team) => {
 		const matchSeriesId = cachedGetMatchSeriesId(team);
@@ -58,3 +59,32 @@ export function getLeagueName(teamId?: number): string | false {
 	const leagueName = filteredTeam[0].matchSeries.name;
 	return leagueName;
 }
+
+export function cachedGetClubTournaments() {
+	const clubdata = fs.readFileSync(CLUB_SAMS_FILE);
+	const clubDataObject = JSON.parse(clubdata.toString());
+	const teams = clubDataObject.sportsclub.teams.team;
+	const tournaments = teams.filter((team: clubTeamObject) => team.status == "ACTIVE" && team.matchSeries && team.matchSeries.type == "Competition");
+
+	return tournaments;
+}
+
+export type clubTeamObject = {
+	id?: string;
+	uuid?: string;
+	seasonTeamId?: string;
+	placeCipher?: string;
+	status?: string;
+	club?: { name: string; id: string; logo?: { url: string } };
+	matchSeries?: {
+		id: string;
+		uuid: string;
+		allSeasonId: string;
+		name: string;
+		type: string;
+		structureUpdated?: string;
+		resultsUpdated?: string;
+		season?: { id: string; uuid: string; name: string };
+		hierarchy?: { id: string; uuid: string; name: string };
+	};
+};

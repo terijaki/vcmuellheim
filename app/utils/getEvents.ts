@@ -7,6 +7,7 @@ export type eventObject = {
 	title: string;
 	start: Date;
 	end?: Date;
+	uuid?: string;
 	url?: string;
 	thumbnail?: string;
 	description?: string;

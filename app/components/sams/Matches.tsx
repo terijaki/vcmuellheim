@@ -155,22 +155,30 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 								className="py-1 font-bold"
 								key="team"
 							>
-								{match.team?.map((team, index) => {
-									if (team.id && (teamIdString.length > 1 || !teamIdString.includes(team.id))) {
-										return (
-											<p
-												className="whitespace-nowrap line-clamp-1 break-before-all lg:inline"
-												key={team.name}
-												data-team-id={team.id}
-												data-team-name={team.name}
-											>
-												{index > 0 && teamIdString.length > 1 && <span className="hidden lg:inline mx-1">:</span>}
-												{team.name}
-											</p>
-										);
-									}
-								})}
-								{match.matchSeries?.name && <p className="text-lion font-thin text-sm md:text-base whitespace-nowrap line-clamp-1 break-all">{match.matchSeries?.name}</p>}
+								{/* League or Competition */}
+								{match.matchSeries.type == "League" &&
+									match.team?.map((team, index) => {
+										if (team.id && (teamIdString.length > 1 || !teamIdString.includes(team.id))) {
+											return (
+												<p
+													className="whitespace-nowrap line-clamp-1 break-before-all lg:inline"
+													key={team.name}
+													data-team-id={team.id}
+													data-team-name={team.name}
+												>
+													{index > 0 && teamIdString.length > 1 && <span className="hidden lg:inline mx-1">:</span>}
+													{team.name}
+												</p>
+											);
+										}
+									})}
+								{match.matchSeries.type == "Competition" && match.matchSeries.name}
+								{match.matchSeries?.name && match.matchSeries.type != "Competition" && (
+									<p className="text-lion font-thin text-sm md:text-base whitespace-nowrap line-clamp-1 break-all">{match.matchSeries?.name}</p>
+								)}
+								{match.matchSeries.type == "Competition" && match.matchSeries.hierarchy && (
+									<p className="text-lion font-thin text-sm md:text-base whitespace-nowrap line-clamp-1 break-all">{match.matchSeries.hierarchy.name}</p>
+								)}
 							</div>
 							<div className="pb-1 sm:py-1 mr-3 sm:mr-0">
 								{match.location && match.location.city && match.location.postalCode && match.location.street && match.location.name ? (

@@ -25,13 +25,13 @@ export default function Termine() {
 	// load custom events
 	let events: eventObject[] = getEvents(0, EVENT_RANGE);
 	let eventCount = events.length;
-	let matchCount = cachedGetMatches(cachedGetTeamIds("id"), "future").length;
+	let matchCount = cachedGetMatches(cachedGetTeamIds("id", false), "future").length;
+	let turnamentCount = matchCount - cachedGetMatches(cachedGetTeamIds("id", true), "future").length;
 	if (matchCount + eventCount <= 3) {
 		EVENT_RANGE = EVENT_RANGE * 2; // doubles the days if there is not much to show
 		events = getEvents(0, EVENT_RANGE);
 		eventCount = events.length;
 	}
-
 	// dates
 	const currentMonth = new Date().getMonth() + 1;
 	const seasonMonth = currentMonth >= 5 && currentMonth <= 9 ? true : false;
@@ -74,9 +74,9 @@ export default function Termine() {
 						</p>
 					</div>
 					<div className="col-full-content sm:col-center-content card-narrow-flex mb-6">
-						<h2 className="card-heading">Ligaspiele</h2>
+						{turnamentCount == 0 ? <h2 className="card-heading">Ligaspiele</h2> : <h2 className="card-heading">Ligaspiele & Turneire</h2>}
 						<Matches
-							teamId={cachedGetTeamIds("id")}
+							teamId={cachedGetTeamIds("id", false)}
 							filter="future"
 						/>
 					</div>

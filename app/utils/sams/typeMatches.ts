@@ -16,6 +16,7 @@ export type matchType = {
 		updated?: string;
 		resultsUpdated?: string;
 		season?: { id: string; uuid?: string; name?: string };
+		hierarchy?: { id: string; uuid?: string; name?: string; hierarchyLevel?: string };
 	};
 	location?: { id?: string; name?: string; street: string; postalCode: string; city: string };
 	results?: { winner: string; setPoints: string; ballPoints?: string; sets?: { set?: [{ number?: string; points?: string; winner?: string }] } };

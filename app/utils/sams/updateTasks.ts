@@ -55,7 +55,7 @@ getAllClubs()
 			.then(() => {
 				getClubData(club.id).then(() => {
 					// get our Match Series IDs so that we can use them to filter requests
-					const ourMatchSeries = cachedGetUniqueMatchSeriesIds(cachedGetTeamIds("id"));
+					const ourMatchSeries = cachedGetUniqueMatchSeriesIds(cachedGetTeamIds("id", false));
 					// read the big Match Series file
 					const matchSeriesJsonFile = fs.readFileSync("data/sams/matchSeries.json");
 					const matchSeriesJson = JSON.parse(matchSeriesJsonFile.toString());
@@ -152,9 +152,11 @@ getAllClubs()
 				const rankingFile = fs.readFileSync(fullPath);
 				const rankingContent = JSON.parse(rankingFile.toString()).rankings.ranking;
 				rankingContent.map((team: { team: { club: { name: string } } }) => {
-					let clubName = team.team.club.name.toString();
-					if (!clubs.has(clubName)) {
-						clubs.add(clubName);
+					if (team.team.club && team.team.club.name) {
+						let clubName = team.team.club.name.toString();
+						if (!clubs.has(clubName)) {
+							clubs.add(clubName);
+						}
 					}
 				});
 			});

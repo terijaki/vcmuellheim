@@ -30,7 +30,7 @@ export default function HomeHeimspiele() {
 		const todayPlusRange = new Date();
 		todayPlusRange.setDate(todayPlusRange.getDate() + TIME_RANGE * loopCount);
 		// get future matches from our teams
-		let allMatches = cachedGetMatches(cachedGetTeamIds("id"), "future");
+		let allMatches = cachedGetMatches(cachedGetTeamIds("id"), "future"); //TODO add support for turnaments (official SBVV self-hosted only)
 		// filter reduce to matches we are hosting
 		let homeGames = allMatches.filter((match) => match.host?.club?.includes("VC Müllheim"));
 		// sort by date
