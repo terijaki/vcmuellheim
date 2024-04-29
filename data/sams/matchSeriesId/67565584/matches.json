@@ -1,0 +1,1318 @@
+{
+  "matches": {
+    "match": [
+      {
+        "id": "67903568",
+        "uuid": "c8a82261-c8b9-4c4d-bdab-13369351f6bb",
+        "number": "1",
+        "date": "20.01.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67670002",
+          "uuid": "680ab6c3-89d9-409b-92ef-b11772b9dccc",
+          "name": "USC Konstanz 2",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670001",
+            "uuid": "3488d2b3-5ec9-4376-a46a-87a1897e6456",
+            "seasonTeamId": "28198747",
+            "name": "TSV Mimmenhausen 3",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TSV Mimmenhausen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670003",
+            "uuid": "ca6225b3-38fe-469b-be45-a167e10f2ff6",
+            "seasonTeamId": "28094246",
+            "name": "SV Litzelstetten",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "SV Litzelstetten",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565584",
+          "uuid": "c337535c-95a2-4423-b5cb-7dbc39d240f2",
+          "allSeasonId": "e6486280-1d3d-4a78-b845-8ea287f1419b",
+          "name": "Herren Pokal Quali LL+VL am 20.1.24",
+          "shortName": "hp_ll_vl",
+          "type": "Competition",
+          "updated": "2024-04-20 20:49:55.848",
+          "structureUpdated": "2024-01-17 09:33:16.73",
+          "resultsUpdated": "2024-01-20 16:17:54.628",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565581",
+            "uuid": "efc3047b-5fee-40e2-9ca0-d2795789dc48",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565581",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752633",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "33245",
+          "name": "Schänzle Sporthalle",
+          "street": "Winterer Steig 23",
+          "extraField": "-",
+          "postalCode": "78462",
+          "city": "Konstanz",
+          "note": "Das Hygienekonzept für diese Halle finden Sie unter: https://www.dvv-ligen.de/DLS/Hygiene/Konstanz"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "34:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "14:25",
+                "winner": "TEAM2",
+                "duration": "24"
+              },
+              {
+                "number": "2",
+                "points": "20:25",
+                "winner": "TEAM2",
+                "duration": "20"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "4",
+        "netDuration": "44",
+        "dateObject": "2024-01-20T10:00:00.000Z",
+        "dateIso": "2024-01-20T10:00:00.000Z"
+      },
+      {
+        "id": "67903612",
+        "uuid": "00539986-1c12-4628-82b2-5c5d31ad2350",
+        "number": "2",
+        "date": "20.01.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67670002",
+          "uuid": "680ab6c3-89d9-409b-92ef-b11772b9dccc",
+          "name": "USC Konstanz 2",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670002",
+            "uuid": "680ab6c3-89d9-409b-92ef-b11772b9dccc",
+            "seasonTeamId": "28044089",
+            "name": "USC Konstanz 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "USC Konstanz",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670000",
+            "uuid": "e265505b-9457-4117-8dec-b6020b3b36d1",
+            "seasonTeamId": "28107458",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565584",
+          "uuid": "c337535c-95a2-4423-b5cb-7dbc39d240f2",
+          "allSeasonId": "e6486280-1d3d-4a78-b845-8ea287f1419b",
+          "name": "Herren Pokal Quali LL+VL am 20.1.24",
+          "shortName": "hp_ll_vl",
+          "type": "Competition",
+          "updated": "2024-04-20 20:49:55.848",
+          "structureUpdated": "2024-01-17 09:33:16.73",
+          "resultsUpdated": "2024-01-20 16:17:54.628",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565581",
+            "uuid": "efc3047b-5fee-40e2-9ca0-d2795789dc48",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565581",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752633",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "33245",
+          "name": "Schänzle Sporthalle",
+          "street": "Winterer Steig 23",
+          "extraField": "-",
+          "postalCode": "78462",
+          "city": "Konstanz",
+          "note": "Das Hygienekonzept für diese Halle finden Sie unter: https://www.dvv-ligen.de/DLS/Hygiene/Konstanz"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "1:2",
+          "ballPoints": "51:58",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:18",
+                "winner": "TEAM1",
+                "duration": "16"
+              },
+              {
+                "number": "2",
+                "points": "16:25",
+                "winner": "TEAM2",
+                "duration": "16"
+              },
+              {
+                "number": "3",
+                "points": "10:15",
+                "winner": "TEAM2",
+                "duration": "11"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "-",
+        "netDuration": "43",
+        "dateObject": "2024-01-20T10:00:00.000Z",
+        "dateIso": "2024-01-20T10:00:00.000Z"
+      },
+      {
+        "id": "67903648",
+        "uuid": "7f77f5a5-c156-4a3e-9bc6-1e4a9dc00523",
+        "number": "3",
+        "date": "20.01.2024",
+        "time": "12:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67670002",
+          "uuid": "680ab6c3-89d9-409b-92ef-b11772b9dccc",
+          "name": "USC Konstanz 2",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670001",
+            "uuid": "3488d2b3-5ec9-4376-a46a-87a1897e6456",
+            "seasonTeamId": "28198747",
+            "name": "TSV Mimmenhausen 3",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TSV Mimmenhausen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67669998",
+            "uuid": "ddbefe53-8443-4096-99cd-fcd9cc5fcde4",
+            "seasonTeamId": "28161931",
+            "name": "VC Offenburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Offenburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565584",
+          "uuid": "c337535c-95a2-4423-b5cb-7dbc39d240f2",
+          "allSeasonId": "e6486280-1d3d-4a78-b845-8ea287f1419b",
+          "name": "Herren Pokal Quali LL+VL am 20.1.24",
+          "shortName": "hp_ll_vl",
+          "type": "Competition",
+          "updated": "2024-04-20 20:49:55.848",
+          "structureUpdated": "2024-01-17 09:33:16.73",
+          "resultsUpdated": "2024-01-20 16:17:54.628",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565581",
+            "uuid": "efc3047b-5fee-40e2-9ca0-d2795789dc48",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565581",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752633",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "33245",
+          "name": "Schänzle Sporthalle",
+          "street": "Winterer Steig 23",
+          "extraField": "-",
+          "postalCode": "78462",
+          "city": "Konstanz",
+          "note": "Das Hygienekonzept für diese Halle finden Sie unter: https://www.dvv-ligen.de/DLS/Hygiene/Konstanz"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "25:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "9:25",
+                "winner": "TEAM2",
+                "duration": "30"
+              },
+              {
+                "number": "2",
+                "points": "16:25",
+                "winner": "TEAM2",
+                "duration": "17"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "2",
+        "netDuration": "47",
+        "dateObject": "2024-01-20T11:00:00.000Z",
+        "dateIso": "2024-01-20T11:00:00.000Z"
+      },
+      {
+        "id": "67903682",
+        "uuid": "03ee00be-2e6c-41e0-8dba-28819f77cf20",
+        "number": "4",
+        "date": "20.01.2024",
+        "time": "12:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67670002",
+          "uuid": "680ab6c3-89d9-409b-92ef-b11772b9dccc",
+          "name": "USC Konstanz 2",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670003",
+            "uuid": "ca6225b3-38fe-469b-be45-a167e10f2ff6",
+            "seasonTeamId": "28094246",
+            "name": "SV Litzelstetten",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "SV Litzelstetten",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670002",
+            "uuid": "680ab6c3-89d9-409b-92ef-b11772b9dccc",
+            "seasonTeamId": "28044089",
+            "name": "USC Konstanz 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "USC Konstanz",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565584",
+          "uuid": "c337535c-95a2-4423-b5cb-7dbc39d240f2",
+          "allSeasonId": "e6486280-1d3d-4a78-b845-8ea287f1419b",
+          "name": "Herren Pokal Quali LL+VL am 20.1.24",
+          "shortName": "hp_ll_vl",
+          "type": "Competition",
+          "updated": "2024-04-20 20:49:55.848",
+          "structureUpdated": "2024-01-17 09:33:16.73",
+          "resultsUpdated": "2024-01-20 16:17:54.628",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565581",
+            "uuid": "efc3047b-5fee-40e2-9ca0-d2795789dc48",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565581",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752633",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "33245",
+          "name": "Schänzle Sporthalle",
+          "street": "Winterer Steig 23",
+          "extraField": "-",
+          "postalCode": "78462",
+          "city": "Konstanz",
+          "note": "Das Hygienekonzept für diese Halle finden Sie unter: https://www.dvv-ligen.de/DLS/Hygiene/Konstanz"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "1:2",
+          "ballPoints": "56:63",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:23",
+                "winner": "TEAM1",
+                "duration": "31"
+              },
+              {
+                "number": "2",
+                "points": "21:25",
+                "winner": "TEAM2",
+                "duration": "22"
+              },
+              {
+                "number": "3",
+                "points": "10:15",
+                "winner": "TEAM2",
+                "duration": "11"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "5",
+        "netDuration": "64",
+        "dateObject": "2024-01-20T11:00:00.000Z",
+        "dateIso": "2024-01-20T11:00:00.000Z"
+      },
+      {
+        "id": "67903725",
+        "uuid": "588ca581-7016-4af7-b135-c1d27a9b8173",
+        "number": "5",
+        "date": "20.01.2024",
+        "time": "13:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67670002",
+          "uuid": "680ab6c3-89d9-409b-92ef-b11772b9dccc",
+          "name": "USC Konstanz 2",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670001",
+            "uuid": "3488d2b3-5ec9-4376-a46a-87a1897e6456",
+            "seasonTeamId": "28198747",
+            "name": "TSV Mimmenhausen 3",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TSV Mimmenhausen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670000",
+            "uuid": "e265505b-9457-4117-8dec-b6020b3b36d1",
+            "seasonTeamId": "28107458",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565584",
+          "uuid": "c337535c-95a2-4423-b5cb-7dbc39d240f2",
+          "allSeasonId": "e6486280-1d3d-4a78-b845-8ea287f1419b",
+          "name": "Herren Pokal Quali LL+VL am 20.1.24",
+          "shortName": "hp_ll_vl",
+          "type": "Competition",
+          "updated": "2024-04-20 20:49:55.848",
+          "structureUpdated": "2024-01-17 09:33:16.73",
+          "resultsUpdated": "2024-01-20 16:17:54.628",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565581",
+            "uuid": "efc3047b-5fee-40e2-9ca0-d2795789dc48",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565581",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752633",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "33245",
+          "name": "Schänzle Sporthalle",
+          "street": "Winterer Steig 23",
+          "extraField": "-",
+          "postalCode": "78462",
+          "city": "Konstanz",
+          "note": "Das Hygienekonzept für diese Halle finden Sie unter: https://www.dvv-ligen.de/DLS/Hygiene/Konstanz"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "45:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "22:25",
+                "winner": "TEAM2",
+                "duration": "53"
+              },
+              {
+                "number": "2",
+                "points": "23:25",
+                "winner": "TEAM2",
+                "duration": "18"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "5",
+        "netDuration": "71",
+        "dateObject": "2024-01-20T12:00:00.000Z",
+        "dateIso": "2024-01-20T12:00:00.000Z"
+      },
+      {
+        "id": "67903761",
+        "uuid": "f3480a45-ed6e-44ba-a89b-db1d9628dde0",
+        "number": "6",
+        "date": "20.01.2024",
+        "time": "13:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67670002",
+          "uuid": "680ab6c3-89d9-409b-92ef-b11772b9dccc",
+          "name": "USC Konstanz 2",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670003",
+            "uuid": "ca6225b3-38fe-469b-be45-a167e10f2ff6",
+            "seasonTeamId": "28094246",
+            "name": "SV Litzelstetten",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "SV Litzelstetten",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67669998",
+            "uuid": "ddbefe53-8443-4096-99cd-fcd9cc5fcde4",
+            "seasonTeamId": "28161931",
+            "name": "VC Offenburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Offenburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565584",
+          "uuid": "c337535c-95a2-4423-b5cb-7dbc39d240f2",
+          "allSeasonId": "e6486280-1d3d-4a78-b845-8ea287f1419b",
+          "name": "Herren Pokal Quali LL+VL am 20.1.24",
+          "shortName": "hp_ll_vl",
+          "type": "Competition",
+          "updated": "2024-04-20 20:49:55.848",
+          "structureUpdated": "2024-01-17 09:33:16.73",
+          "resultsUpdated": "2024-01-20 16:17:54.628",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565581",
+            "uuid": "efc3047b-5fee-40e2-9ca0-d2795789dc48",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565581",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752633",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "33245",
+          "name": "Schänzle Sporthalle",
+          "street": "Winterer Steig 23",
+          "extraField": "-",
+          "postalCode": "78462",
+          "city": "Konstanz",
+          "note": "Das Hygienekonzept für diese Halle finden Sie unter: https://www.dvv-ligen.de/DLS/Hygiene/Konstanz"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "30:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "12:25",
+                "winner": "TEAM2",
+                "duration": "47"
+              },
+              {
+                "number": "2",
+                "points": "18:25",
+                "winner": "TEAM2",
+                "duration": "17"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "5",
+        "netDuration": "64",
+        "dateObject": "2024-01-20T12:00:00.000Z",
+        "dateIso": "2024-01-20T12:00:00.000Z"
+      },
+      {
+        "id": "67903801",
+        "uuid": "342a7009-cad0-4763-87fe-294d0a9a40a7",
+        "number": "7",
+        "date": "20.01.2024",
+        "time": "14:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67670002",
+          "uuid": "680ab6c3-89d9-409b-92ef-b11772b9dccc",
+          "name": "USC Konstanz 2",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670001",
+            "uuid": "3488d2b3-5ec9-4376-a46a-87a1897e6456",
+            "seasonTeamId": "28198747",
+            "name": "TSV Mimmenhausen 3",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TSV Mimmenhausen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670002",
+            "uuid": "680ab6c3-89d9-409b-92ef-b11772b9dccc",
+            "seasonTeamId": "28044089",
+            "name": "USC Konstanz 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "USC Konstanz",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565584",
+          "uuid": "c337535c-95a2-4423-b5cb-7dbc39d240f2",
+          "allSeasonId": "e6486280-1d3d-4a78-b845-8ea287f1419b",
+          "name": "Herren Pokal Quali LL+VL am 20.1.24",
+          "shortName": "hp_ll_vl",
+          "type": "Competition",
+          "updated": "2024-04-20 20:49:55.848",
+          "structureUpdated": "2024-01-17 09:33:16.73",
+          "resultsUpdated": "2024-01-20 16:17:54.628",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565581",
+            "uuid": "efc3047b-5fee-40e2-9ca0-d2795789dc48",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565581",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752633",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "33245",
+          "name": "Schänzle Sporthalle",
+          "street": "Winterer Steig 23",
+          "extraField": "-",
+          "postalCode": "78462",
+          "city": "Konstanz",
+          "note": "Das Hygienekonzept für diese Halle finden Sie unter: https://www.dvv-ligen.de/DLS/Hygiene/Konstanz"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "29:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "14:25",
+                "winner": "TEAM2",
+                "duration": "53"
+              },
+              {
+                "number": "2",
+                "points": "15:25",
+                "winner": "TEAM2",
+                "duration": "17"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "10",
+        "netDuration": "70",
+        "dateObject": "2024-01-20T13:00:00.000Z",
+        "dateIso": "2024-01-20T13:00:00.000Z"
+      },
+      {
+        "id": "67903839",
+        "uuid": "bfb911a6-7e1f-4120-b522-da1276bdc5e5",
+        "number": "8",
+        "date": "20.01.2024",
+        "time": "14:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67670002",
+          "uuid": "680ab6c3-89d9-409b-92ef-b11772b9dccc",
+          "name": "USC Konstanz 2",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670000",
+            "uuid": "e265505b-9457-4117-8dec-b6020b3b36d1",
+            "seasonTeamId": "28107458",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67669998",
+            "uuid": "ddbefe53-8443-4096-99cd-fcd9cc5fcde4",
+            "seasonTeamId": "28161931",
+            "name": "VC Offenburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Offenburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565584",
+          "uuid": "c337535c-95a2-4423-b5cb-7dbc39d240f2",
+          "allSeasonId": "e6486280-1d3d-4a78-b845-8ea287f1419b",
+          "name": "Herren Pokal Quali LL+VL am 20.1.24",
+          "shortName": "hp_ll_vl",
+          "type": "Competition",
+          "updated": "2024-04-20 20:49:55.848",
+          "structureUpdated": "2024-01-17 09:33:16.73",
+          "resultsUpdated": "2024-01-20 16:17:54.628",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565581",
+            "uuid": "efc3047b-5fee-40e2-9ca0-d2795789dc48",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565581",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752633",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "33245",
+          "name": "Schänzle Sporthalle",
+          "street": "Winterer Steig 23",
+          "extraField": "-",
+          "postalCode": "78462",
+          "city": "Konstanz",
+          "note": "Das Hygienekonzept für diese Halle finden Sie unter: https://www.dvv-ligen.de/DLS/Hygiene/Konstanz"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "23:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "16:25",
+                "winner": "TEAM2",
+                "duration": "53"
+              },
+              {
+                "number": "2",
+                "points": "7:25",
+                "winner": "TEAM2",
+                "duration": "14"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "11",
+        "netDuration": "67",
+        "dateObject": "2024-01-20T13:00:00.000Z",
+        "dateIso": "2024-01-20T13:00:00.000Z"
+      },
+      {
+        "id": "67903876",
+        "uuid": "b41b5703-d753-4ccc-9d22-9727cb1ab6af",
+        "number": "9",
+        "date": "20.01.2024",
+        "time": "15:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67670002",
+          "uuid": "680ab6c3-89d9-409b-92ef-b11772b9dccc",
+          "name": "USC Konstanz 2",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670003",
+            "uuid": "ca6225b3-38fe-469b-be45-a167e10f2ff6",
+            "seasonTeamId": "28094246",
+            "name": "SV Litzelstetten",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "SV Litzelstetten",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670000",
+            "uuid": "e265505b-9457-4117-8dec-b6020b3b36d1",
+            "seasonTeamId": "28107458",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565584",
+          "uuid": "c337535c-95a2-4423-b5cb-7dbc39d240f2",
+          "allSeasonId": "e6486280-1d3d-4a78-b845-8ea287f1419b",
+          "name": "Herren Pokal Quali LL+VL am 20.1.24",
+          "shortName": "hp_ll_vl",
+          "type": "Competition",
+          "updated": "2024-04-20 20:49:55.848",
+          "structureUpdated": "2024-01-17 09:33:16.73",
+          "resultsUpdated": "2024-01-20 16:17:54.628",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565581",
+            "uuid": "efc3047b-5fee-40e2-9ca0-d2795789dc48",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565581",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752633",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "33245",
+          "name": "Schänzle Sporthalle",
+          "street": "Winterer Steig 23",
+          "extraField": "-",
+          "postalCode": "78462",
+          "city": "Konstanz",
+          "note": "Das Hygienekonzept für diese Halle finden Sie unter: https://www.dvv-ligen.de/DLS/Hygiene/Konstanz"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "36:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "14:25",
+                "winner": "TEAM2",
+                "duration": "52"
+              },
+              {
+                "number": "2",
+                "points": "22:25",
+                "winner": "TEAM2",
+                "duration": "21"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "-",
+        "netDuration": "73",
+        "dateObject": "2024-01-20T14:00:00.000Z",
+        "dateIso": "2024-01-20T14:00:00.000Z"
+      },
+      {
+        "id": "67903919",
+        "uuid": "eca53c6e-03e3-44e7-ab68-361eaca50720",
+        "number": "10",
+        "date": "20.01.2024",
+        "time": "15:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67670002",
+          "uuid": "680ab6c3-89d9-409b-92ef-b11772b9dccc",
+          "name": "USC Konstanz 2",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670002",
+            "uuid": "680ab6c3-89d9-409b-92ef-b11772b9dccc",
+            "seasonTeamId": "28044089",
+            "name": "USC Konstanz 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "USC Konstanz",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67669998",
+            "uuid": "ddbefe53-8443-4096-99cd-fcd9cc5fcde4",
+            "seasonTeamId": "28161931",
+            "name": "VC Offenburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Offenburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565584",
+          "uuid": "c337535c-95a2-4423-b5cb-7dbc39d240f2",
+          "allSeasonId": "e6486280-1d3d-4a78-b845-8ea287f1419b",
+          "name": "Herren Pokal Quali LL+VL am 20.1.24",
+          "shortName": "hp_ll_vl",
+          "type": "Competition",
+          "updated": "2024-04-20 20:49:55.848",
+          "structureUpdated": "2024-01-17 09:33:16.73",
+          "resultsUpdated": "2024-01-20 16:17:54.628",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565581",
+            "uuid": "efc3047b-5fee-40e2-9ca0-d2795789dc48",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565581",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752633",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "33245",
+          "name": "Schänzle Sporthalle",
+          "street": "Winterer Steig 23",
+          "extraField": "-",
+          "postalCode": "78462",
+          "city": "Konstanz",
+          "note": "Das Hygienekonzept für diese Halle finden Sie unter: https://www.dvv-ligen.de/DLS/Hygiene/Konstanz"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "42:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "23:25",
+                "winner": "TEAM2",
+                "duration": "51"
+              },
+              {
+                "number": "2",
+                "points": "19:25",
+                "winner": "TEAM2",
+                "duration": "18"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "-",
+        "netDuration": "69",
+        "dateObject": "2024-01-20T14:00:00.000Z",
+        "dateIso": "2024-01-20T14:00:00.000Z"
+      }
+    ]
+  }
+}

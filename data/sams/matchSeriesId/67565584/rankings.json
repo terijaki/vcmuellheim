@@ -1,0 +1,100 @@
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "67565584",
+      "uuid": "c337535c-95a2-4423-b5cb-7dbc39d240f2",
+      "allSeasonId": "e6486280-1d3d-4a78-b845-8ea287f1419b",
+      "name": "Herren Pokal Quali LL+VL am 20.1.24",
+      "shortName": "hp_ll_vl",
+      "type": "Competition",
+      "updated": "2024-04-20 20:49:55.848",
+      "structureUpdated": "2024-01-17 09:33:16.73",
+      "resultsUpdated": "2024-01-20 16:17:54.628",
+      "season": {
+        "id": "52761843",
+        "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+        "name": "2023/24"
+      },
+      "hierarchy": {
+        "id": "67565581",
+        "uuid": "efc3047b-5fee-40e2-9ca0-d2795789dc48",
+        "name": "Verbandspokal 2023/2024",
+        "shortName": "vp",
+        "hierarchyLevel": "2"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "67565581",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "62752633",
+            "name": "Pokalwettbewerbe",
+            "shortName": "P",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "62752550",
+            "name": "Südbadischer Volleyball-Verband (SBVV)",
+            "shortName": "SBVV",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": "Südbadischer Volleyball-Verband",
+        "shortName": "SBVV"
+      }
+    },
+    "ranking": [
+      {
+        "place": "1",
+        "team": {
+          "id": "67669998",
+          "uuid": "ddbefe53-8443-4096-99cd-fcd9cc5fcde4",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        }
+      },
+      {
+        "place": "2",
+        "team": {
+          "id": "67670000",
+          "uuid": "e265505b-9457-4117-8dec-b6020b3b36d1",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": "3",
+        "team": {
+          "id": "67670002",
+          "uuid": "680ab6c3-89d9-409b-92ef-b11772b9dccc",
+          "name": "USC Konstanz 2",
+          "club": "USC Konstanz"
+        }
+      },
+      {
+        "place": "4",
+        "team": {
+          "id": "67670003",
+          "uuid": "ca6225b3-38fe-469b-be45-a167e10f2ff6",
+          "name": "SV Litzelstetten",
+          "club": "SV Litzelstetten"
+        }
+      },
+      {
+        "place": "5",
+        "team": {
+          "id": "67670001",
+          "uuid": "3488d2b3-5ec9-4376-a46a-87a1897e6456",
+          "name": "TSV Mimmenhausen 3",
+          "club": "TSV Mimmenhausen"
+        }
+      }
+    ]
+  }
+}

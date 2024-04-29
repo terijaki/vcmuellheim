@@ -1,0 +1,109 @@
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "67565833",
+      "uuid": "06573d45-b0cd-448e-a71c-ab00152f6d15",
+      "allSeasonId": "5cd92285-fedb-474e-ae90-16f666bcab5e",
+      "name": "SBVV - U16 weiblich am 2.3.2024",
+      "shortName": "sbvv-u16w",
+      "type": "Competition",
+      "updated": "2024-04-11 13:39:29.393",
+      "structureUpdated": "2024-01-17 12:25:45.933",
+      "resultsUpdated": "2024-03-25 11:52:32.155",
+      "season": {
+        "id": "52761843",
+        "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+        "name": "2023/24"
+      },
+      "hierarchy": {
+        "id": "67565828",
+        "uuid": "3f82ed3e-0a4d-4403-9020-0531fff0c814",
+        "name": "SBVV-Jugendmeisterschaften",
+        "shortName": "sbvv_jm",
+        "hierarchyLevel": "2"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "67565828",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "62752642",
+            "name": "Jugendspielbetrieb",
+            "shortName": "JUG",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "62752550",
+            "name": "Südbadischer Volleyball-Verband (SBVV)",
+            "shortName": "SBVV",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": "Südbadischer Volleyball-Verband",
+        "shortName": "SBVV"
+      }
+    },
+    "ranking": [
+      {
+        "place": "1",
+        "team": {
+          "id": "67670180",
+          "uuid": "33f6f109-25d2-4a85-b7c2-dc21e9a2526f",
+          "name": "TSV Mimmenhausen 1",
+          "club": "TSV Mimmenhausen"
+        }
+      },
+      {
+        "place": "2",
+        "team": {
+          "id": "67670181",
+          "uuid": "a69c0caa-4509-4f5b-8162-95dd5b9a29ce",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": "3",
+        "team": {
+          "id": "67670179",
+          "uuid": "494746ea-d571-4b0a-a96d-3b1ccf4ca50f",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        }
+      },
+      {
+        "place": "4",
+        "team": {
+          "id": "67670183",
+          "uuid": "ea33b02e-a71a-4e2c-9225-8dcd72e6b52d",
+          "name": "TV Villingen",
+          "club": "TV Villingen"
+        }
+      },
+      {
+        "place": "5",
+        "team": {
+          "id": "67670182",
+          "uuid": "9dbf046d-6054-46ba-b2c6-3a6abf88fd23",
+          "name": "TV Donaueschingen",
+          "club": "TV Donaueschingen"
+        }
+      },
+      {
+        "place": "6",
+        "team": {
+          "id": "67670178",
+          "uuid": "7d95b11e-55eb-49bf-bad9-78007175da60",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        }
+      }
+    ]
+  }
+}

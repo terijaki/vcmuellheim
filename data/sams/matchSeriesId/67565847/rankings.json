@@ -1,0 +1,127 @@
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "67565847",
+      "uuid": "b56d4b04-13d3-45a0-a402-85938c86eae4",
+      "allSeasonId": "0448a253-0668-40e5-a856-eaefed292e32",
+      "name": "SBVV - U14 männlich am 3.2.24",
+      "shortName": "sbvv-u14m",
+      "type": "Competition",
+      "updated": "2024-04-11 13:38:28.827",
+      "structureUpdated": "2024-04-07 13:34:22.983",
+      "resultsUpdated": "2024-03-25 11:53:52.333",
+      "season": {
+        "id": "52761843",
+        "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+        "name": "2023/24"
+      },
+      "hierarchy": {
+        "id": "67565828",
+        "uuid": "3f82ed3e-0a4d-4403-9020-0531fff0c814",
+        "name": "SBVV-Jugendmeisterschaften",
+        "shortName": "sbvv_jm",
+        "hierarchyLevel": "2"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "67565828",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "62752642",
+            "name": "Jugendspielbetrieb",
+            "shortName": "JUG",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "62752550",
+            "name": "Südbadischer Volleyball-Verband (SBVV)",
+            "shortName": "SBVV",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": "Südbadischer Volleyball-Verband",
+        "shortName": "SBVV"
+      }
+    },
+    "ranking": [
+      {
+        "place": "1",
+        "team": {
+          "id": "67669985",
+          "uuid": "b906243b-d0c9-4519-ade2-c4d7d1840719",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": "2",
+        "team": {
+          "id": "67669987",
+          "uuid": "abc76982-6ce8-4a81-ac47-efba464379bc",
+          "name": "VC Offenburg",
+          "club": "VC Offenburg"
+        }
+      },
+      {
+        "place": "3",
+        "team": {
+          "id": "67669988",
+          "uuid": "67699cfe-a778-4c35-a6b2-c7d7bfce2864",
+          "name": "USC Konstanz",
+          "club": "USC Konstanz"
+        }
+      },
+      {
+        "place": "4",
+        "team": {
+          "id": "67669986",
+          "uuid": "2ec1e027-5257-4547-850a-807e8fb1fee3",
+          "name": "FT 1844 Freiburg 2",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": "5",
+        "team": {
+          "id": "67669992",
+          "uuid": "effd8302-87d0-43ea-8f81-c632f99febe9",
+          "name": "TSV Mimmenhausen",
+          "club": "TSV Mimmenhausen"
+        }
+      },
+      {
+        "place": "6",
+        "team": {
+          "id": "67669990",
+          "uuid": "77c7b04a-e7aa-4c3b-8299-69e7e0fec10b",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": "7",
+        "team": {
+          "id": "67669991",
+          "uuid": "1fcea9d0-a076-4ee1-a7b3-713f59251cd9",
+          "name": "Untersee Volleys Radolfzell 1",
+          "club": "Untersee Volleys Radolfzell"
+        }
+      },
+      {
+        "place": "8",
+        "team": {
+          "id": "67669989",
+          "uuid": "1d0b65db-e2e8-4c78-95cc-5a63dc8d6775",
+          "name": "VC Minseln",
+          "club": "VC Minseln"
+        }
+      }
+    ]
+  }
+}

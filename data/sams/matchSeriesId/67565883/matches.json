@@ -1,0 +1,1372 @@
+{
+  "matches": {
+    "match": [
+      {
+        "id": "67892941",
+        "uuid": "35a41bea-0437-457e-bd85-a451c0c12e27",
+        "number": "1",
+        "date": "25.11.2023",
+        "time": "10:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67669397",
+          "uuid": "eb09390c-c5bf-4771-ac05-8bbb899cf14d",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67669398",
+            "uuid": "7f514b44-7878-4b1d-8fdc-e97b72b838fd",
+            "seasonTeamId": "27057541",
+            "name": "FT 1844 Freiburg 3",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67669397",
+            "uuid": "eb09390c-c5bf-4771-ac05-8bbb899cf14d",
+            "seasonTeamId": "26985141",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565883",
+          "uuid": "8a779b58-781d-444e-b7ea-6d5041225271",
+          "allSeasonId": "1bd0c85a-0d78-4cb1-9330-66bb312b2a2b",
+          "name": "U14 männlich - Quali 2 am 25.11.2023",
+          "shortName": "Q2_U14_m",
+          "type": "Competition",
+          "updated": "2024-04-11 13:38:28.827",
+          "structureUpdated": "2023-12-11 21:42:40.288",
+          "resultsUpdated": "2023-11-25 17:14:27.33",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565864",
+            "uuid": "ad1e803f-1985-4939-a566-168d4440881b",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565864",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905820",
+          "name": "Halle II",
+          "street": "Schwarzwaldstraße 12A",
+          "extraField": "-",
+          "postalCode": "79379",
+          "city": "Müllheim",
+          "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "32:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "18:25",
+                "winner": "TEAM2",
+                "duration": "-"
+              },
+              {
+                "number": "2",
+                "points": "14:25",
+                "winner": "TEAM2",
+                "duration": "-"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "-",
+        "dateObject": "2023-11-25T09:00:00.000Z",
+        "dateIso": "2023-11-25T09:00:00.000Z"
+      },
+      {
+        "id": "67892945",
+        "uuid": "c983d253-c65f-47af-b31c-5cdd6c234737",
+        "number": "2",
+        "date": "25.11.2023",
+        "time": "10:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67669397",
+          "uuid": "eb09390c-c5bf-4771-ac05-8bbb899cf14d",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67669399",
+            "uuid": "688983cd-9f07-45c9-9d16-ca591f1e556b",
+            "seasonTeamId": "27057512",
+            "name": "FT 1844 Freiburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67669396",
+            "uuid": "89aeac3f-3ba5-4d0a-a6bd-797a1cdd7942",
+            "seasonTeamId": "27172826",
+            "name": "VC Minseln",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Minseln",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565883",
+          "uuid": "8a779b58-781d-444e-b7ea-6d5041225271",
+          "allSeasonId": "1bd0c85a-0d78-4cb1-9330-66bb312b2a2b",
+          "name": "U14 männlich - Quali 2 am 25.11.2023",
+          "shortName": "Q2_U14_m",
+          "type": "Competition",
+          "updated": "2024-04-11 13:38:28.827",
+          "structureUpdated": "2023-12-11 21:42:40.288",
+          "resultsUpdated": "2023-11-25 17:14:27.33",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565864",
+            "uuid": "ad1e803f-1985-4939-a566-168d4440881b",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565864",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905820",
+          "name": "Halle II",
+          "street": "Schwarzwaldstraße 12A",
+          "extraField": "-",
+          "postalCode": "79379",
+          "city": "Müllheim",
+          "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:18",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:8",
+                "winner": "TEAM1",
+                "duration": "-"
+              },
+              {
+                "number": "2",
+                "points": "25:10",
+                "winner": "TEAM1",
+                "duration": "-"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "-",
+        "dateObject": "2023-11-25T09:00:00.000Z",
+        "dateIso": "2023-11-25T09:00:00.000Z"
+      },
+      {
+        "id": "67892949",
+        "uuid": "420e629e-e0c4-46b9-b410-df8a9f8195a8",
+        "number": "3",
+        "date": "25.11.2023",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67669397",
+          "uuid": "eb09390c-c5bf-4771-ac05-8bbb899cf14d",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67669398",
+            "uuid": "7f514b44-7878-4b1d-8fdc-e97b72b838fd",
+            "seasonTeamId": "27057541",
+            "name": "FT 1844 Freiburg 3",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67669400",
+            "uuid": "f46ceace-5de5-41e3-a49c-47fc3a8a6d94",
+            "seasonTeamId": "27295972",
+            "name": "VC Weil",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Weil",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565883",
+          "uuid": "8a779b58-781d-444e-b7ea-6d5041225271",
+          "allSeasonId": "1bd0c85a-0d78-4cb1-9330-66bb312b2a2b",
+          "name": "U14 männlich - Quali 2 am 25.11.2023",
+          "shortName": "Q2_U14_m",
+          "type": "Competition",
+          "updated": "2024-04-11 13:38:28.827",
+          "structureUpdated": "2023-12-11 21:42:40.288",
+          "resultsUpdated": "2023-11-25 17:14:27.33",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565864",
+            "uuid": "ad1e803f-1985-4939-a566-168d4440881b",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565864",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905820",
+          "name": "Halle II",
+          "street": "Schwarzwaldstraße 12A",
+          "extraField": "-",
+          "postalCode": "79379",
+          "city": "Müllheim",
+          "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:38",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:16",
+                "winner": "TEAM1",
+                "duration": "-"
+              },
+              {
+                "number": "2",
+                "points": "25:22",
+                "winner": "TEAM1",
+                "duration": "-"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "-",
+        "dateObject": "2023-11-25T10:00:00.000Z",
+        "dateIso": "2023-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "67892953",
+        "uuid": "6838929d-418e-49e5-9184-17048f07be23",
+        "number": "4",
+        "date": "25.11.2023",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67669397",
+          "uuid": "eb09390c-c5bf-4771-ac05-8bbb899cf14d",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67669397",
+            "uuid": "eb09390c-c5bf-4771-ac05-8bbb899cf14d",
+            "seasonTeamId": "26985141",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67669399",
+            "uuid": "688983cd-9f07-45c9-9d16-ca591f1e556b",
+            "seasonTeamId": "27057512",
+            "name": "FT 1844 Freiburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565883",
+          "uuid": "8a779b58-781d-444e-b7ea-6d5041225271",
+          "allSeasonId": "1bd0c85a-0d78-4cb1-9330-66bb312b2a2b",
+          "name": "U14 männlich - Quali 2 am 25.11.2023",
+          "shortName": "Q2_U14_m",
+          "type": "Competition",
+          "updated": "2024-04-11 13:38:28.827",
+          "structureUpdated": "2023-12-11 21:42:40.288",
+          "resultsUpdated": "2023-11-25 17:14:27.33",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565864",
+            "uuid": "ad1e803f-1985-4939-a566-168d4440881b",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565864",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905820",
+          "name": "Halle II",
+          "street": "Schwarzwaldstraße 12A",
+          "extraField": "-",
+          "postalCode": "79379",
+          "city": "Müllheim",
+          "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "18:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "11:25",
+                "winner": "TEAM2",
+                "duration": "-"
+              },
+              {
+                "number": "2",
+                "points": "7:25",
+                "winner": "TEAM2",
+                "duration": "-"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "-",
+        "dateObject": "2023-11-25T10:00:00.000Z",
+        "dateIso": "2023-11-25T10:00:00.000Z"
+      },
+      {
+        "id": "67892957",
+        "uuid": "2c07b6b0-dbb4-49ff-ae4a-1afee5bdff8c",
+        "number": "5",
+        "date": "25.11.2023",
+        "time": "12:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67669397",
+          "uuid": "eb09390c-c5bf-4771-ac05-8bbb899cf14d",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67669398",
+            "uuid": "7f514b44-7878-4b1d-8fdc-e97b72b838fd",
+            "seasonTeamId": "27057541",
+            "name": "FT 1844 Freiburg 3",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67669396",
+            "uuid": "89aeac3f-3ba5-4d0a-a6bd-797a1cdd7942",
+            "seasonTeamId": "27172826",
+            "name": "VC Minseln",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Minseln",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565883",
+          "uuid": "8a779b58-781d-444e-b7ea-6d5041225271",
+          "allSeasonId": "1bd0c85a-0d78-4cb1-9330-66bb312b2a2b",
+          "name": "U14 männlich - Quali 2 am 25.11.2023",
+          "shortName": "Q2_U14_m",
+          "type": "Competition",
+          "updated": "2024-04-11 13:38:28.827",
+          "structureUpdated": "2023-12-11 21:42:40.288",
+          "resultsUpdated": "2023-11-25 17:14:27.33",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565864",
+            "uuid": "ad1e803f-1985-4939-a566-168d4440881b",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565864",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905820",
+          "name": "Halle II",
+          "street": "Schwarzwaldstraße 12A",
+          "extraField": "-",
+          "postalCode": "79379",
+          "city": "Müllheim",
+          "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "1:2",
+          "ballPoints": "60:62",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:20",
+                "winner": "TEAM1",
+                "duration": "-"
+              },
+              {
+                "number": "2",
+                "points": "20:25",
+                "winner": "TEAM2",
+                "duration": "-"
+              },
+              {
+                "number": "3",
+                "points": "15:17",
+                "winner": "TEAM2",
+                "duration": "-"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "-",
+        "dateObject": "2023-11-25T11:00:00.000Z",
+        "dateIso": "2023-11-25T11:00:00.000Z"
+      },
+      {
+        "id": "67892961",
+        "uuid": "0bd09e85-d129-4bdb-99f4-0e832b384ac7",
+        "number": "6",
+        "date": "25.11.2023",
+        "time": "12:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67669397",
+          "uuid": "eb09390c-c5bf-4771-ac05-8bbb899cf14d",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67669397",
+            "uuid": "eb09390c-c5bf-4771-ac05-8bbb899cf14d",
+            "seasonTeamId": "26985141",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67669400",
+            "uuid": "f46ceace-5de5-41e3-a49c-47fc3a8a6d94",
+            "seasonTeamId": "27295972",
+            "name": "VC Weil",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Weil",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565883",
+          "uuid": "8a779b58-781d-444e-b7ea-6d5041225271",
+          "allSeasonId": "1bd0c85a-0d78-4cb1-9330-66bb312b2a2b",
+          "name": "U14 männlich - Quali 2 am 25.11.2023",
+          "shortName": "Q2_U14_m",
+          "type": "Competition",
+          "updated": "2024-04-11 13:38:28.827",
+          "structureUpdated": "2023-12-11 21:42:40.288",
+          "resultsUpdated": "2023-11-25 17:14:27.33",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565864",
+            "uuid": "ad1e803f-1985-4939-a566-168d4440881b",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565864",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905820",
+          "name": "Halle II",
+          "street": "Schwarzwaldstraße 12A",
+          "extraField": "-",
+          "postalCode": "79379",
+          "city": "Müllheim",
+          "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:30",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:12",
+                "winner": "TEAM1",
+                "duration": "-"
+              },
+              {
+                "number": "2",
+                "points": "25:18",
+                "winner": "TEAM1",
+                "duration": "-"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "-",
+        "dateObject": "2023-11-25T11:00:00.000Z",
+        "dateIso": "2023-11-25T11:00:00.000Z"
+      },
+      {
+        "id": "67892965",
+        "uuid": "81323f5c-da5d-465c-bde0-dcaddc171a03",
+        "number": "7",
+        "date": "25.11.2023",
+        "time": "13:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67669397",
+          "uuid": "eb09390c-c5bf-4771-ac05-8bbb899cf14d",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67669398",
+            "uuid": "7f514b44-7878-4b1d-8fdc-e97b72b838fd",
+            "seasonTeamId": "27057541",
+            "name": "FT 1844 Freiburg 3",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67669399",
+            "uuid": "688983cd-9f07-45c9-9d16-ca591f1e556b",
+            "seasonTeamId": "27057512",
+            "name": "FT 1844 Freiburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565883",
+          "uuid": "8a779b58-781d-444e-b7ea-6d5041225271",
+          "allSeasonId": "1bd0c85a-0d78-4cb1-9330-66bb312b2a2b",
+          "name": "U14 männlich - Quali 2 am 25.11.2023",
+          "shortName": "Q2_U14_m",
+          "type": "Competition",
+          "updated": "2024-04-11 13:38:28.827",
+          "structureUpdated": "2023-12-11 21:42:40.288",
+          "resultsUpdated": "2023-11-25 17:14:27.33",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565864",
+            "uuid": "ad1e803f-1985-4939-a566-168d4440881b",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565864",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905820",
+          "name": "Halle II",
+          "street": "Schwarzwaldstraße 12A",
+          "extraField": "-",
+          "postalCode": "79379",
+          "city": "Müllheim",
+          "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "19:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "8:25",
+                "winner": "TEAM2",
+                "duration": "-"
+              },
+              {
+                "number": "2",
+                "points": "11:25",
+                "winner": "TEAM2",
+                "duration": "-"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "-",
+        "dateObject": "2023-11-25T12:00:00.000Z",
+        "dateIso": "2023-11-25T12:00:00.000Z"
+      },
+      {
+        "id": "67892969",
+        "uuid": "ddf9e3c4-47e2-4748-9867-d0079e222359",
+        "number": "8",
+        "date": "25.11.2023",
+        "time": "13:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67669397",
+          "uuid": "eb09390c-c5bf-4771-ac05-8bbb899cf14d",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67669396",
+            "uuid": "89aeac3f-3ba5-4d0a-a6bd-797a1cdd7942",
+            "seasonTeamId": "27172826",
+            "name": "VC Minseln",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Minseln",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67669400",
+            "uuid": "f46ceace-5de5-41e3-a49c-47fc3a8a6d94",
+            "seasonTeamId": "27295972",
+            "name": "VC Weil",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Weil",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565883",
+          "uuid": "8a779b58-781d-444e-b7ea-6d5041225271",
+          "allSeasonId": "1bd0c85a-0d78-4cb1-9330-66bb312b2a2b",
+          "name": "U14 männlich - Quali 2 am 25.11.2023",
+          "shortName": "Q2_U14_m",
+          "type": "Competition",
+          "updated": "2024-04-11 13:38:28.827",
+          "structureUpdated": "2023-12-11 21:42:40.288",
+          "resultsUpdated": "2023-11-25 17:14:27.33",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565864",
+            "uuid": "ad1e803f-1985-4939-a566-168d4440881b",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565864",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905820",
+          "name": "Halle II",
+          "street": "Schwarzwaldstraße 12A",
+          "extraField": "-",
+          "postalCode": "79379",
+          "city": "Müllheim",
+          "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "53:39",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "28:26",
+                "winner": "TEAM1",
+                "duration": "-"
+              },
+              {
+                "number": "2",
+                "points": "25:13",
+                "winner": "TEAM1",
+                "duration": "-"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "-",
+        "dateObject": "2023-11-25T12:00:00.000Z",
+        "dateIso": "2023-11-25T12:00:00.000Z"
+      },
+      {
+        "id": "67892973",
+        "uuid": "2515719f-6100-4c77-9819-02d583918782",
+        "number": "9",
+        "date": "25.11.2023",
+        "time": "14:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67669397",
+          "uuid": "eb09390c-c5bf-4771-ac05-8bbb899cf14d",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67669397",
+            "uuid": "eb09390c-c5bf-4771-ac05-8bbb899cf14d",
+            "seasonTeamId": "26985141",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67669396",
+            "uuid": "89aeac3f-3ba5-4d0a-a6bd-797a1cdd7942",
+            "seasonTeamId": "27172826",
+            "name": "VC Minseln",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Minseln",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565883",
+          "uuid": "8a779b58-781d-444e-b7ea-6d5041225271",
+          "allSeasonId": "1bd0c85a-0d78-4cb1-9330-66bb312b2a2b",
+          "name": "U14 männlich - Quali 2 am 25.11.2023",
+          "shortName": "Q2_U14_m",
+          "type": "Competition",
+          "updated": "2024-04-11 13:38:28.827",
+          "structureUpdated": "2023-12-11 21:42:40.288",
+          "resultsUpdated": "2023-11-25 17:14:27.33",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565864",
+            "uuid": "ad1e803f-1985-4939-a566-168d4440881b",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565864",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905820",
+          "name": "Halle II",
+          "street": "Schwarzwaldstraße 12A",
+          "extraField": "-",
+          "postalCode": "79379",
+          "city": "Müllheim",
+          "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:22",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:15",
+                "winner": "TEAM1",
+                "duration": "-"
+              },
+              {
+                "number": "2",
+                "points": "25:7",
+                "winner": "TEAM1",
+                "duration": "-"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "-",
+        "dateObject": "2023-11-25T13:00:00.000Z",
+        "dateIso": "2023-11-25T13:00:00.000Z"
+      },
+      {
+        "id": "67892977",
+        "uuid": "2ea3320c-d6ba-429a-8a72-30b29901b39d",
+        "number": "10",
+        "date": "25.11.2023",
+        "time": "14:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67669397",
+          "uuid": "eb09390c-c5bf-4771-ac05-8bbb899cf14d",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67669399",
+            "uuid": "688983cd-9f07-45c9-9d16-ca591f1e556b",
+            "seasonTeamId": "27057512",
+            "name": "FT 1844 Freiburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67669400",
+            "uuid": "f46ceace-5de5-41e3-a49c-47fc3a8a6d94",
+            "seasonTeamId": "27295972",
+            "name": "VC Weil",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Weil",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565883",
+          "uuid": "8a779b58-781d-444e-b7ea-6d5041225271",
+          "allSeasonId": "1bd0c85a-0d78-4cb1-9330-66bb312b2a2b",
+          "name": "U14 männlich - Quali 2 am 25.11.2023",
+          "shortName": "Q2_U14_m",
+          "type": "Competition",
+          "updated": "2024-04-11 13:38:28.827",
+          "structureUpdated": "2023-12-11 21:42:40.288",
+          "resultsUpdated": "2023-11-25 17:14:27.33",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565864",
+            "uuid": "ad1e803f-1985-4939-a566-168d4440881b",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565864",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905820",
+          "name": "Halle II",
+          "street": "Schwarzwaldstraße 12A",
+          "extraField": "-",
+          "postalCode": "79379",
+          "city": "Müllheim",
+          "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:17",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:9",
+                "winner": "TEAM1",
+                "duration": "-"
+              },
+              {
+                "number": "2",
+                "points": "25:8",
+                "winner": "TEAM1",
+                "duration": "-"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "-",
+        "dateObject": "2023-11-25T13:00:00.000Z",
+        "dateIso": "2023-11-25T13:00:00.000Z"
+      }
+    ]
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "67565880",
+      "uuid": "e945695f-d642-4cd3-886d-2c679cc45681",
+      "allSeasonId": "27a326bf-f46a-4e4c-92a4-4f6c43b99ca8",
+      "name": "U14 weiblich - Quali 1 am 27.1.24",
+      "shortName": "Q2_U14_w",
+      "type": "Competition",
+      "updated": "2024-03-04 14:54:24.91",
+      "structureUpdated": "2024-01-29 11:43:53.347",
+      "resultsUpdated": "2024-01-27 17:01:10.752",
+      "season": {
+        "id": "52761843",
+        "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+        "name": "2023/24"
+      },
+      "hierarchy": {
+        "id": "67565864",
+        "uuid": "ad1e803f-1985-4939-a566-168d4440881b",
+        "name": "Quali-Turniere Jugendmeisterschaften",
+        "shortName": "Quali",
+        "hierarchyLevel": "3"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "67565864",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          {
+            "id": "67565828",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "62752642",
+            "name": "Jugendspielbetrieb",
+            "shortName": "JUG",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "62752550",
+            "name": "Südbadischer Volleyball-Verband (SBVV)",
+            "shortName": "SBVV",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": "Südbadischer Volleyball-Verband",
+        "shortName": "SBVV"
+      }
+    },
+    "ranking": [
+      {
+        "place": "1",
+        "team": {
+          "id": "67669417",
+          "uuid": "58963060-8036-49f6-a872-42d3db12ff7c",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        }
+      },
+      {
+        "place": "2",
+        "team": {
+          "id": "67669414",
+          "uuid": "1621288b-2251-4797-a9c2-66ac1d1b2d3b",
+          "name": "FT 1844 Freiburg 2",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": "3",
+        "team": {
+          "id": "67669416",
+          "uuid": "f16afa47-a512-49d0-aa1d-847578faaefe",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": "4",
+        "team": {
+          "id": "67669418",
+          "uuid": "b73f1c49-975d-4e3b-9106-e5fa8d801738",
+          "name": "VC Weil",
+          "club": "VC Weil"
+        }
+      },
+      {
+        "place": "5",
+        "team": {
+          "id": "67669421",
+          "uuid": "336bb69c-c80c-4160-aeb2-bbbfdf163d4a",
+          "name": "VfR Umkirch",
+          "club": "VfR Umkirch"
+        }
+      },
+      {
+        "place": "6",
+        "team": {
+          "id": "67669419",
+          "uuid": "3ee8859f-1226-41e1-9076-befe50cb7134",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": "7",
+        "team": {
+          "id": "67669415",
+          "uuid": "99260fd2-b6c3-4f8b-86b1-d2a35372f98e",
+          "name": "TV Gundelfingen 1",
+          "club": "TV Gundelfingen"
+        }
+      }
+    ]
+  }
+}
