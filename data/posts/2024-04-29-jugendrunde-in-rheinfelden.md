@@ -1,3 +1,9 @@
+---
+title: 'Jugendrunde in Rheinfelden'
+date: 2024-04-29T11:47:19.066Z
+gallery:
+- /images/blog/2024/04/29/photo-2024-04-29-10-07-44.jpg
+---
 Der VC Minseln hat am vergangenen Samstag ein Jugendturnier ausgerichtet. Unsere Mädels waren nicht nur dabei, sondern kürten sich als Sieger des Turniers!
 
 Gespielt wurde im Modus 4:4, Jeder-gegen-Jeden mit jeweils 3 Sätze auf 15 Minuten.
