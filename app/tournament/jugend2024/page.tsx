@@ -20,7 +20,10 @@ const pastTournamentPosts = [
 ];
 
 // contact people for this event
-const people = [{ name: "Björn Kohnen", email: "bjoern@vcmuellheim.de", role: "Vorstand", picture: "/images/members/bjoernkohnen.jpg" }];
+const people = [
+	{ name: "Thomas Seywald", email: "thomas@vcmuellheim.de", role: "Turnierleitung", picture: "/images/members/thomasseywald.jpg" },
+	{ name: "Björn Kohnen", email: "bjoern@vcmuellheim.de", role: "Vorstand", picture: "/images/members/bjoernkohnen.jpg" },
+];
 
 export default function JugendturnierPage() {
 	let pastImages: string[] = [];
