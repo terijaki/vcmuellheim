@@ -54472,16 +54472,6 @@
         }
       },
       {
-        "id": "37921569",
-        "name": "SC Fortuna 1904/50 Bonn e.V.",
-        "lsbNumber": "2002113",
-        "internalSportsclubId": "8202",
-        "association": {
-          "id": "33795281",
-          "name": "Bonn"
-        }
-      },
-      {
         "id": "54611121",
         "name": "TSV Freudenstadt",
         "lsbNumber": "7044",
@@ -54489,6 +54479,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "37921569",
+        "name": "SC Fortuna Bonn 1904/50 e.V.",
+        "lsbNumber": "2002113",
+        "internalSportsclubId": "8202",
+        "association": {
+          "id": "33795281",
+          "name": "Bonn"
         }
       },
       {
@@ -61482,20 +61482,20 @@
         }
       },
       {
-        "id": "54611203",
-        "name": "TG Tuttlingen",
-        "lsbNumber": null,
-        "internalSportsclubId": "4916",
+        "id": "65036562",
+        "name": "TV Gundelfingen",
+        "lsbNumber": "471120",
+        "internalSportsclubId": "3504",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
-        "id": "65036562",
-        "name": "TV Gundelfingen",
-        "lsbNumber": "471120",
-        "internalSportsclubId": "3504",
+        "id": "54611203",
+        "name": "TG Tuttlingen",
+        "lsbNumber": null,
+        "internalSportsclubId": "4916",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
