@@ -11372,16 +11372,6 @@
         }
       },
       {
-        "id": "36965363",
-        "name": "VfL Geesthacht",
-        "lsbNumber": "70243",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7208",
-          "name": "Hamburger Volleyball-Verband"
-        }
-      },
-      {
         "id": "26925161",
         "name": "TSV 1905 Trebur e.V.",
         "lsbNumber": "37142",
@@ -11419,6 +11409,16 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "36965363",
+        "name": "VfL Geesthacht",
+        "lsbNumber": "70243",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband"
         }
       },
       {
@@ -29232,16 +29232,6 @@
         }
       },
       {
-        "id": "37948276",
-        "name": "Reideburger SV 1990 e.V.",
-        "lsbNumber": "140048",
-        "internalSportsclubId": "140048",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37948294",
         "name": "SC Empor Laucha e.V.",
         "lsbNumber": "110015",
@@ -29286,6 +29276,16 @@
         "name": "SV Blau-Rot Coswig e.V.",
         "lsbNumber": "80169",
         "internalSportsclubId": "80169",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "37948276",
+        "name": "Reideburger SV 1990 e.V.",
+        "lsbNumber": "140048",
+        "internalSportsclubId": "140048",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -33459,16 +33459,6 @@
         "association": {
           "id": "33299074",
           "name": "Wupper-Mettmann"
-        }
-      },
-      {
-        "id": "37921238",
-        "name": "SG VfV Aachen Vaalserquartier e.V",
-        "lsbNumber": "2001178",
-        "internalSportsclubId": "306",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
@@ -39412,6 +39402,16 @@
         }
       },
       {
+        "id": "54611288",
+        "name": "CVJM Mitteltal-Obertal",
+        "lsbNumber": "0",
+        "internalSportsclubId": "656",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
         "id": "54611269",
         "name": "TSV Güglingen",
         "lsbNumber": "10048",
@@ -39439,16 +39439,6 @@
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
-        }
-      },
-      {
-        "id": "54611288",
-        "name": "CVJM Mitteltal-Obertal",
-        "lsbNumber": "0",
-        "internalSportsclubId": "656",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
         }
       },
       {
@@ -45902,6 +45892,16 @@
         }
       },
       {
+        "id": "54610866",
+        "name": "TV Hochdorf",
+        "lsbNumber": "6082",
+        "internalSportsclubId": "212",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
         "id": "54610850",
         "name": "SC Giengen",
         "lsbNumber": "9018",
@@ -45956,16 +45956,6 @@
         "name": "TV Heuchlingen",
         "lsbNumber": "13078",
         "internalSportsclubId": "210",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
-        "id": "54610866",
-        "name": "TV Hochdorf",
-        "lsbNumber": "6082",
-        "internalSportsclubId": "212",
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
@@ -58494,7 +58484,7 @@
       {
         "id": "26846621",
         "name": "Hauptstadt Beacher e.V.",
-        "lsbNumber": "1794",
+        "lsbNumber": "11794",
         "internalSportsclubId": "14-11-225",
         "association": {
           "id": "7211",
@@ -63096,6 +63086,16 @@
         "name": "Post Telekom SV 1925 Aachen e.V.",
         "lsbNumber": "2001029",
         "internalSportsclubId": "10134",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
+        }
+      },
+      {
+        "id": "37921238",
+        "name": "SG VfV Aachen Vaalserquartier e.V",
+        "lsbNumber": "2001178",
+        "internalSportsclubId": "306",
         "association": {
           "id": "33795203",
           "name": "Aachen-Düren-Heinsberg"
