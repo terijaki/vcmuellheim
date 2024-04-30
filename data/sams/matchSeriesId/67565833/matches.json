@@ -1,0 +1,1454 @@
+{
+  "matches": {
+    "match": [
+      {
+        "id": "67907384",
+        "uuid": "7fd51cda-b05a-4cf4-884b-e7147806dcb4",
+        "number": "4",
+        "date": "02.03.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": null,
+          "uuid": null,
+          "name": null,
+          "club": null
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670181",
+            "uuid": "a69c0caa-4509-4f5b-8162-95dd5b9a29ce",
+            "seasonTeamId": "28336531",
+            "name": "FT 1844 Freiburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670183",
+            "uuid": "ea33b02e-a71a-4e2c-9225-8dcd72e6b52d",
+            "seasonTeamId": "28336538",
+            "name": "TV Villingen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TV Villingen",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565833",
+          "uuid": "06573d45-b0cd-448e-a71c-ab00152f6d15",
+          "allSeasonId": "5cd92285-fedb-474e-ae90-16f666bcab5e",
+          "name": "SBVV - U16 weiblich am 2.3.2024",
+          "shortName": "sbvv-u16w",
+          "type": "Competition",
+          "updated": "2024-04-11 13:39:29.393",
+          "structureUpdated": "2024-01-17 12:25:45.933",
+          "resultsUpdated": "2024-03-25 11:52:32.155",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565828",
+            "uuid": "3f82ed3e-0a4d-4403-9020-0531fff0c814",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 3",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:28",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:13",
+                "winner": "TEAM1",
+                "duration": "16"
+              },
+              {
+                "number": "2",
+                "points": "25:15",
+                "winner": "TEAM1",
+                "duration": "25"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "41",
+        "dateObject": "2024-03-02T10:00:00.000Z",
+        "dateIso": "2024-03-02T10:00:00.000Z"
+      },
+      {
+        "id": "67907658",
+        "uuid": "da94ea20-75bd-4d1c-bc20-821b1580f93b",
+        "number": "1",
+        "date": "02.03.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67670179",
+          "uuid": "494746ea-d571-4b0a-a96d-3b1ccf4ca50f",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670180",
+            "uuid": "33f6f109-25d2-4a85-b7c2-dc21e9a2526f",
+            "seasonTeamId": "28336525",
+            "name": "TSV Mimmenhausen 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TSV Mimmenhausen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670178",
+            "uuid": "7d95b11e-55eb-49bf-bad9-78007175da60",
+            "seasonTeamId": "28336534",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565833",
+          "uuid": "06573d45-b0cd-448e-a71c-ab00152f6d15",
+          "allSeasonId": "5cd92285-fedb-474e-ae90-16f666bcab5e",
+          "name": "SBVV - U16 weiblich am 2.3.2024",
+          "shortName": "sbvv-u16w",
+          "type": "Competition",
+          "updated": "2024-04-11 13:39:29.393",
+          "structureUpdated": "2024-01-17 12:25:45.933",
+          "resultsUpdated": "2024-03-25 11:52:32.155",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565828",
+            "uuid": "3f82ed3e-0a4d-4403-9020-0531fff0c814",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 3",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:11",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:4",
+                "winner": "TEAM1",
+                "duration": "14"
+              },
+              {
+                "number": "2",
+                "points": "25:7",
+                "winner": "TEAM1",
+                "duration": "15"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "29",
+        "dateObject": "2024-03-02T10:00:00.000Z",
+        "dateIso": "2024-03-02T10:00:00.000Z"
+      },
+      {
+        "id": "67907296",
+        "uuid": "accee146-244d-4d26-bb87-18532c76cd17",
+        "number": "5",
+        "date": "02.03.2024",
+        "time": "12:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": null,
+          "uuid": null,
+          "name": null,
+          "club": null
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670182",
+            "uuid": "9dbf046d-6054-46ba-b2c6-3a6abf88fd23",
+            "seasonTeamId": "28336527",
+            "name": "TV Donaueschingen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TV Donaueschingen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670183",
+            "uuid": "ea33b02e-a71a-4e2c-9225-8dcd72e6b52d",
+            "seasonTeamId": "28336538",
+            "name": "TV Villingen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TV Villingen",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565833",
+          "uuid": "06573d45-b0cd-448e-a71c-ab00152f6d15",
+          "allSeasonId": "5cd92285-fedb-474e-ae90-16f666bcab5e",
+          "name": "SBVV - U16 weiblich am 2.3.2024",
+          "shortName": "sbvv-u16w",
+          "type": "Competition",
+          "updated": "2024-04-11 13:39:29.393",
+          "structureUpdated": "2024-01-17 12:25:45.933",
+          "resultsUpdated": "2024-03-25 11:52:32.155",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565828",
+            "uuid": "3f82ed3e-0a4d-4403-9020-0531fff0c814",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 3",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "1:2",
+          "ballPoints": "50:62",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "13:25",
+                "winner": "TEAM2",
+                "duration": "32"
+              },
+              {
+                "number": "2",
+                "points": "25:22",
+                "winner": "TEAM1",
+                "duration": "23"
+              },
+              {
+                "number": "3",
+                "points": "12:15",
+                "winner": "TEAM2",
+                "duration": "18"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "73",
+        "dateObject": "2024-03-02T11:00:00.000Z",
+        "dateIso": "2024-03-02T11:00:00.000Z"
+      },
+      {
+        "id": "67907706",
+        "uuid": "c10b44dd-d64c-4e82-a2a7-dbfc024d65f7",
+        "number": "2",
+        "date": "02.03.2024",
+        "time": "12:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67670179",
+          "uuid": "494746ea-d571-4b0a-a96d-3b1ccf4ca50f",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670179",
+            "uuid": "494746ea-d571-4b0a-a96d-3b1ccf4ca50f",
+            "seasonTeamId": "28336536",
+            "name": "VC Offenburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Offenburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670178",
+            "uuid": "7d95b11e-55eb-49bf-bad9-78007175da60",
+            "seasonTeamId": "28336534",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565833",
+          "uuid": "06573d45-b0cd-448e-a71c-ab00152f6d15",
+          "allSeasonId": "5cd92285-fedb-474e-ae90-16f666bcab5e",
+          "name": "SBVV - U16 weiblich am 2.3.2024",
+          "shortName": "sbvv-u16w",
+          "type": "Competition",
+          "updated": "2024-04-11 13:39:29.393",
+          "structureUpdated": "2024-01-17 12:25:45.933",
+          "resultsUpdated": "2024-03-25 11:52:32.155",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565828",
+            "uuid": "3f82ed3e-0a4d-4403-9020-0531fff0c814",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 3",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:23",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:8",
+                "winner": "TEAM1",
+                "duration": "33"
+              },
+              {
+                "number": "2",
+                "points": "25:15",
+                "winner": "TEAM1",
+                "duration": "19"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "18",
+        "netDuration": "52",
+        "dateObject": "2024-03-02T11:00:00.000Z",
+        "dateIso": "2024-03-02T11:00:00.000Z"
+      },
+      {
+        "id": "67907335",
+        "uuid": "416c9973-fda8-4fd7-8fab-067f1952ef31",
+        "number": "6",
+        "date": "02.03.2024",
+        "time": "13:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": null,
+          "uuid": null,
+          "name": null,
+          "club": null
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670181",
+            "uuid": "a69c0caa-4509-4f5b-8162-95dd5b9a29ce",
+            "seasonTeamId": "28336531",
+            "name": "FT 1844 Freiburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670182",
+            "uuid": "9dbf046d-6054-46ba-b2c6-3a6abf88fd23",
+            "seasonTeamId": "28336527",
+            "name": "TV Donaueschingen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TV Donaueschingen",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565833",
+          "uuid": "06573d45-b0cd-448e-a71c-ab00152f6d15",
+          "allSeasonId": "5cd92285-fedb-474e-ae90-16f666bcab5e",
+          "name": "SBVV - U16 weiblich am 2.3.2024",
+          "shortName": "sbvv-u16w",
+          "type": "Competition",
+          "updated": "2024-04-11 13:39:29.393",
+          "structureUpdated": "2024-01-17 12:25:45.933",
+          "resultsUpdated": "2024-03-25 11:52:32.155",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565828",
+            "uuid": "3f82ed3e-0a4d-4403-9020-0531fff0c814",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 3",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:22",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:14",
+                "winner": "TEAM1",
+                "duration": "23"
+              },
+              {
+                "number": "2",
+                "points": "25:8",
+                "winner": "TEAM1",
+                "duration": "15"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "38",
+        "dateObject": "2024-03-02T12:00:00.000Z",
+        "dateIso": "2024-03-02T12:00:00.000Z"
+      },
+      {
+        "id": "67907763",
+        "uuid": "dca9fb98-99ee-41e4-9ee5-3fde8d224756",
+        "number": "3",
+        "date": "02.03.2024",
+        "time": "13:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "67670179",
+          "uuid": "494746ea-d571-4b0a-a96d-3b1ccf4ca50f",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670180",
+            "uuid": "33f6f109-25d2-4a85-b7c2-dc21e9a2526f",
+            "seasonTeamId": "28336525",
+            "name": "TSV Mimmenhausen 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TSV Mimmenhausen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670179",
+            "uuid": "494746ea-d571-4b0a-a96d-3b1ccf4ca50f",
+            "seasonTeamId": "28336536",
+            "name": "VC Offenburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Offenburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565833",
+          "uuid": "06573d45-b0cd-448e-a71c-ab00152f6d15",
+          "allSeasonId": "5cd92285-fedb-474e-ae90-16f666bcab5e",
+          "name": "SBVV - U16 weiblich am 2.3.2024",
+          "shortName": "sbvv-u16w",
+          "type": "Competition",
+          "updated": "2024-04-11 13:39:29.393",
+          "structureUpdated": "2024-01-17 12:25:45.933",
+          "resultsUpdated": "2024-03-25 11:52:32.155",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565828",
+            "uuid": "3f82ed3e-0a4d-4403-9020-0531fff0c814",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 3",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:1",
+          "ballPoints": "56:61",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:23",
+                "winner": "TEAM1",
+                "duration": "31"
+              },
+              {
+                "number": "2",
+                "points": "16:25",
+                "winner": "TEAM2",
+                "duration": "22"
+              },
+              {
+                "number": "3",
+                "points": "15:13",
+                "winner": "TEAM1",
+                "duration": "16"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "10",
+        "netDuration": "69",
+        "dateObject": "2024-03-02T12:00:00.000Z",
+        "dateIso": "2024-03-02T12:00:00.000Z"
+      },
+      {
+        "id": "67907478",
+        "uuid": "a91f6918-4283-420e-b9e7-5d1fd1a32280",
+        "number": "7",
+        "date": "02.03.2024",
+        "time": "14:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": null,
+          "uuid": null,
+          "name": null,
+          "club": null
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670180",
+            "uuid": "33f6f109-25d2-4a85-b7c2-dc21e9a2526f",
+            "seasonTeamId": "28336525",
+            "name": "TSV Mimmenhausen 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TSV Mimmenhausen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670183",
+            "uuid": "ea33b02e-a71a-4e2c-9225-8dcd72e6b52d",
+            "seasonTeamId": "28336538",
+            "name": "TV Villingen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TV Villingen",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565833",
+          "uuid": "06573d45-b0cd-448e-a71c-ab00152f6d15",
+          "allSeasonId": "5cd92285-fedb-474e-ae90-16f666bcab5e",
+          "name": "SBVV - U16 weiblich am 2.3.2024",
+          "shortName": "sbvv-u16w",
+          "type": "Competition",
+          "updated": "2024-04-11 13:39:29.393",
+          "structureUpdated": "2024-01-17 12:25:45.933",
+          "resultsUpdated": "2024-03-25 11:52:32.155",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565828",
+            "uuid": "3f82ed3e-0a4d-4403-9020-0531fff0c814",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 3",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:23",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:13",
+                "winner": "TEAM1",
+                "duration": "21"
+              },
+              {
+                "number": "2",
+                "points": "25:10",
+                "winner": "TEAM1",
+                "duration": "18"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "39",
+        "dateObject": "2024-03-02T13:00:00.000Z",
+        "dateIso": "2024-03-02T13:00:00.000Z"
+      },
+      {
+        "id": "67907430",
+        "uuid": "a84177d2-19ad-437b-abbd-23974d90c2da",
+        "number": "8",
+        "date": "02.03.2024",
+        "time": "14:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": null,
+          "uuid": null,
+          "name": null,
+          "club": null
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670181",
+            "uuid": "a69c0caa-4509-4f5b-8162-95dd5b9a29ce",
+            "seasonTeamId": "28336531",
+            "name": "FT 1844 Freiburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670179",
+            "uuid": "494746ea-d571-4b0a-a96d-3b1ccf4ca50f",
+            "seasonTeamId": "28336536",
+            "name": "VC Offenburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Offenburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565833",
+          "uuid": "06573d45-b0cd-448e-a71c-ab00152f6d15",
+          "allSeasonId": "5cd92285-fedb-474e-ae90-16f666bcab5e",
+          "name": "SBVV - U16 weiblich am 2.3.2024",
+          "shortName": "sbvv-u16w",
+          "type": "Competition",
+          "updated": "2024-04-11 13:39:29.393",
+          "structureUpdated": "2024-01-17 12:25:45.933",
+          "resultsUpdated": "2024-03-25 11:52:32.155",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565828",
+            "uuid": "3f82ed3e-0a4d-4403-9020-0531fff0c814",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 3",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "52:36",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:11",
+                "winner": "TEAM1",
+                "duration": "22"
+              },
+              {
+                "number": "2",
+                "points": "27:25",
+                "winner": "TEAM1",
+                "duration": "28"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "25",
+        "netDuration": "50",
+        "dateObject": "2024-03-02T13:00:00.000Z",
+        "dateIso": "2024-03-02T13:00:00.000Z"
+      },
+      {
+        "id": "67907607",
+        "uuid": "0e645d7b-2663-48ac-a8bf-fccacb241812",
+        "number": "9",
+        "date": "02.03.2024",
+        "time": "15:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": null,
+          "uuid": null,
+          "name": null,
+          "club": null
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670178",
+            "uuid": "7d95b11e-55eb-49bf-bad9-78007175da60",
+            "seasonTeamId": "28336534",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670182",
+            "uuid": "9dbf046d-6054-46ba-b2c6-3a6abf88fd23",
+            "seasonTeamId": "28336527",
+            "name": "TV Donaueschingen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TV Donaueschingen",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565833",
+          "uuid": "06573d45-b0cd-448e-a71c-ab00152f6d15",
+          "allSeasonId": "5cd92285-fedb-474e-ae90-16f666bcab5e",
+          "name": "SBVV - U16 weiblich am 2.3.2024",
+          "shortName": "sbvv-u16w",
+          "type": "Competition",
+          "updated": "2024-04-11 13:39:29.393",
+          "structureUpdated": "2024-01-17 12:25:45.933",
+          "resultsUpdated": "2024-03-25 11:52:32.155",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565828",
+            "uuid": "3f82ed3e-0a4d-4403-9020-0531fff0c814",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 3",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "29:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "13:25",
+                "winner": "TEAM2",
+                "duration": "17"
+              },
+              {
+                "number": "2",
+                "points": "16:25",
+                "winner": "TEAM2",
+                "duration": "22"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "39",
+        "dateObject": "2024-03-02T14:00:00.000Z",
+        "dateIso": "2024-03-02T14:00:00.000Z"
+      },
+      {
+        "id": "67907516",
+        "uuid": "c035fee6-ae3a-475f-b823-4b5f759e9c2c",
+        "number": "10",
+        "date": "02.03.2024",
+        "time": "15:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": null,
+          "uuid": null,
+          "name": null,
+          "club": null
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670183",
+            "uuid": "ea33b02e-a71a-4e2c-9225-8dcd72e6b52d",
+            "seasonTeamId": "28336538",
+            "name": "TV Villingen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TV Villingen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670179",
+            "uuid": "494746ea-d571-4b0a-a96d-3b1ccf4ca50f",
+            "seasonTeamId": "28336536",
+            "name": "VC Offenburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Offenburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565833",
+          "uuid": "06573d45-b0cd-448e-a71c-ab00152f6d15",
+          "allSeasonId": "5cd92285-fedb-474e-ae90-16f666bcab5e",
+          "name": "SBVV - U16 weiblich am 2.3.2024",
+          "shortName": "sbvv-u16w",
+          "type": "Competition",
+          "updated": "2024-04-11 13:39:29.393",
+          "structureUpdated": "2024-01-17 12:25:45.933",
+          "resultsUpdated": "2024-03-25 11:52:32.155",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565828",
+            "uuid": "3f82ed3e-0a4d-4403-9020-0531fff0c814",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 3",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "40:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "18:25",
+                "winner": "TEAM2",
+                "duration": "26"
+              },
+              {
+                "number": "2",
+                "points": "22:25",
+                "winner": "TEAM2",
+                "duration": "23"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "49",
+        "dateObject": "2024-03-02T14:00:00.000Z",
+        "dateIso": "2024-03-02T14:00:00.000Z"
+      },
+      {
+        "id": "67907560",
+        "uuid": "a8ae5ce5-58d0-42b9-81e8-422b53ea34ed",
+        "number": "11",
+        "date": "02.03.2024",
+        "time": "16:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": null,
+          "uuid": null,
+          "name": null,
+          "club": null
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "67670180",
+            "uuid": "33f6f109-25d2-4a85-b7c2-dc21e9a2526f",
+            "seasonTeamId": "28336525",
+            "name": "TSV Mimmenhausen 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TSV Mimmenhausen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "67670181",
+            "uuid": "a69c0caa-4509-4f5b-8162-95dd5b9a29ce",
+            "seasonTeamId": "28336531",
+            "name": "FT 1844 Freiburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "67565833",
+          "uuid": "06573d45-b0cd-448e-a71c-ab00152f6d15",
+          "allSeasonId": "5cd92285-fedb-474e-ae90-16f666bcab5e",
+          "name": "SBVV - U16 weiblich am 2.3.2024",
+          "shortName": "sbvv-u16w",
+          "type": "Competition",
+          "updated": "2024-04-11 13:39:29.393",
+          "structureUpdated": "2024-01-17 12:25:45.933",
+          "resultsUpdated": "2024-03-25 11:52:32.155",
+          "season": {
+            "id": "52761843",
+            "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "name": "2023/24"
+          },
+          "hierarchy": {
+            "id": "67565828",
+            "uuid": "3f82ed3e-0a4d-4403-9020-0531fff0c814",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "67565828",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "62752642",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "62752550",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 3",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:1",
+          "ballPoints": "63:47",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:16",
+                "winner": "TEAM1",
+                "duration": "21"
+              },
+              {
+                "number": "2",
+                "points": "23:25",
+                "winner": "TEAM2",
+                "duration": "29"
+              },
+              {
+                "number": "3",
+                "points": "15:6",
+                "winner": "TEAM1",
+                "duration": "10"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "60",
+        "dateObject": "2024-03-02T15:00:00.000Z",
+        "dateIso": "2024-03-02T15:00:00.000Z"
+      }
+    ]
+  }
+}

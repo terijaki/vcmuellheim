@@ -1,0 +1,124 @@
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "67565862",
+      "uuid": "0cc97506-fd41-426e-bb3e-011ffc7f2230",
+      "allSeasonId": "c42d6266-76de-4aba-85b8-af18eb0e01a0",
+      "name": "Vor-Quali 3 - U14 weiblich am 25.11.23",
+      "shortName": "VQ3_U14_w",
+      "type": "Competition",
+      "updated": "2024-01-22 17:52:41.234",
+      "structureUpdated": "2023-12-05 11:31:58.113",
+      "resultsUpdated": "2023-11-25 17:15:49.449",
+      "season": {
+        "id": "52761843",
+        "uuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+        "name": "2023/24"
+      },
+      "hierarchy": {
+        "id": "67565859",
+        "uuid": "1aaff6fe-d1f1-4802-99b1-a73287d12102",
+        "name": "Vor-Qualifikation Jugendmeisterschaft",
+        "shortName": "VQ",
+        "hierarchyLevel": "3"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "67565859",
+            "name": "Vor-Qualifikation Jugendmeisterschaft",
+            "shortName": "VQ",
+            "hierarchyLevel": "3"
+          },
+          {
+            "id": "67565828",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "62752642",
+            "name": "Jugendspielbetrieb",
+            "shortName": "JUG",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "62752550",
+            "name": "Südbadischer Volleyball-Verband (SBVV)",
+            "shortName": "SBVV",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": "Südbadischer Volleyball-Verband",
+        "shortName": "SBVV"
+      }
+    },
+    "ranking": [
+      {
+        "place": "1",
+        "team": {
+          "id": "67669412",
+          "uuid": "a4efb0c6-ad7c-4e63-a331-cb633ed8a6de",
+          "name": "TV Gundelfingen 1",
+          "club": "TV Gundelfingen"
+        }
+      },
+      {
+        "place": "2",
+        "team": {
+          "id": "67669413",
+          "uuid": "76a5da69-67f2-44de-8002-97bdf6ccdbde",
+          "name": "VC Weil",
+          "club": "VC Weil"
+        }
+      },
+      {
+        "place": "3",
+        "team": {
+          "id": "67669410",
+          "uuid": "1b245819-16cb-4e59-a1bc-b44a9dad717d",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": "3",
+        "team": {
+          "id": "67669409",
+          "uuid": "133e98ca-9bac-45e7-9624-4f03aff23c26",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": "5",
+        "team": {
+          "id": "67669407",
+          "uuid": "7ba34940-74ca-4b89-8461-284895f91c70",
+          "name": "FT 1844 Freiburg 3",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": "6",
+        "team": {
+          "id": "67669408",
+          "uuid": "6d09f3f4-73e0-40c1-a8dc-9dd527abbddc",
+          "name": "VfR Merzhausen",
+          "club": "VfR Merzhausen"
+        }
+      },
+      {
+        "place": "7",
+        "team": {
+          "id": "67669411",
+          "uuid": "db5f71df-7b40-41df-a088-245a7dc7d418",
+          "name": "VC Bötzingen e.V.",
+          "club": "VC Bötzingen e.V."
+        }
+      }
+    ]
+  }
+}
