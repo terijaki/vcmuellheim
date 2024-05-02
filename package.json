@@ -45,7 +45,6 @@
 		"react-world-flags": "^1.6.0",
 		"remark-gfm": "^4.0.0",
 		"showdown": "^2.1.0",
-		"uuid": "^9.0.1",
 		"word-extractor": "^1.0.4",
 		"xml2js": "^0.6.2"
 	},
@@ -55,7 +54,6 @@
 		"@types/react": "^18",
 		"@types/react-dom": "^18",
 		"@types/react-world-flags": "^1.4.5",
-		"@types/uuid": "^9.0.8",
 		"autoprefixer": "^10.0.1",
 		"eslint": "^8",
 		"eslint-config-next": "14.0.3",

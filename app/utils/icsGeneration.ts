@@ -3,8 +3,8 @@ import path from "path";
 import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
 import getEvents from "./getEvents";
-import { v5 as uuidv5 } from "uuid";
 import { env } from "process";
+import crypto from "crypto";
 
 const ICS_FOLDER_LOCATION = "public/ics";
 
@@ -291,7 +291,11 @@ export function getICSEventComponent(props: ICSEventComponent): string {
 	// replace missing data
 	!props.updated && (props.updated = new Date());
 	!props.timezone && (props.timezone = "Europe/Berlin");
-	!props.id && (props.id = uuidv5(props.title + props.start.getDate(), "c0c6fac1-26ea-4cfb-921b-149cd6aef705"));
+	!props.id &&
+		(props.id = crypto
+			.createHash("md5")
+			.update(props.title + props.start.getDate())
+			.digest("hex"));
 
 	// build the output string
 	// BEGIN:VEVENT
