@@ -15252,16 +15252,6 @@
         }
       },
       {
-        "id": "26925131",
-        "name": "Gießener SV 1923",
-        "lsbNumber": "12053",
-        "internalSportsclubId": "1904",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
         "id": "26925121",
         "name": "SG Schenklengsfeld",
         "lsbNumber": "0",
@@ -21002,16 +20992,6 @@
         }
       },
       {
-        "id": "26925789",
-        "name": "TSV Heusenstamm 1873 e. V.",
-        "lsbNumber": "29072",
-        "internalSportsclubId": "2506",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "37921205",
         "name": "TV Kettwig 1870",
         "lsbNumber": "1003128",
@@ -23152,16 +23132,6 @@
         }
       },
       {
-        "id": "37921938",
-        "name": "Aktiver Volleyball-Club Köln 93 e.V.",
-        "lsbNumber": "2003611",
-        "internalSportsclubId": "1230",
-        "association": {
-          "id": "33795261",
-          "name": "Köln"
-        }
-      },
-      {
         "id": "37921314",
         "name": "TVG Steele 1863 e.V.",
         "lsbNumber": "1003356",
@@ -23752,16 +23722,6 @@
         }
       },
       {
-        "id": "37921554",
-        "name": "DJK VfL 1919 Willich e.V.",
-        "lsbNumber": "1409018",
-        "internalSportsclubId": "207",
-        "association": {
-          "id": "33299148",
-          "name": "Krefeld-Viersen"
-        }
-      },
-      {
         "id": "37920728",
         "name": "TV 1861 Lobberich e.V.",
         "lsbNumber": "1404013",
@@ -23956,6 +23916,16 @@
         "name": "ASV Süchteln 1867/03 e.V.",
         "lsbNumber": "1408021",
         "internalSportsclubId": "5809",
+        "association": {
+          "id": "33299148",
+          "name": "Krefeld-Viersen"
+        }
+      },
+      {
+        "id": "37921554",
+        "name": "DJK VfL 1919 Willich e.V.",
+        "lsbNumber": "1409018",
+        "internalSportsclubId": "207",
         "association": {
           "id": "33299148",
           "name": "Krefeld-Viersen"
@@ -28662,16 +28632,6 @@
         }
       },
       {
-        "id": "63877284",
-        "name": "SV Groß Garz e.V.",
-        "lsbNumber": "20025",
-        "internalSportsclubId": "20025",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37948209",
         "name": "Sport- und Spielverein Eisleben e.V.",
         "lsbNumber": "90072",
@@ -32592,16 +32552,6 @@
         }
       },
       {
-        "id": "37921760",
-        "name": "Weseler Turnverein v. 1860 e.V.",
-        "lsbNumber": "1512017",
-        "internalSportsclubId": "219",
-        "association": {
-          "id": "33298901",
-          "name": "Wesel"
-        }
-      },
-      {
         "id": "37921202",
         "name": "Turn- u. Spielverein 1899 Wuppertal e.V.",
         "lsbNumber": "1010061",
@@ -35302,6 +35252,16 @@
         }
       },
       {
+        "id": "26925501",
+        "name": "Turnverein Lauterbach von 1862",
+        "lsbNumber": "20040",
+        "internalSportsclubId": "2301",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
         "id": "37920665",
         "name": "TV Mülfort-Bell 1907 e.V.",
         "lsbNumber": "1005043",
@@ -35319,16 +35279,6 @@
         "association": {
           "id": "33797282",
           "name": "Vest"
-        }
-      },
-      {
-        "id": "26925501",
-        "name": "Turnverein Lauterbach von 1862",
-        "lsbNumber": "20040",
-        "internalSportsclubId": "2301",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -39002,16 +38952,6 @@
         }
       },
       {
-        "id": "49504504",
-        "name": "HSG Senftenberg",
-        "lsbNumber": "660140",
-        "internalSportsclubId": "660140",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "49504505",
         "name": "SV Wusterhausen",
         "lsbNumber": "680073",
@@ -39109,6 +39049,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "49504504",
+        "name": "HSG Senftenberg",
+        "lsbNumber": "660140",
+        "internalSportsclubId": "660140",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -39832,16 +39782,6 @@
         }
       },
       {
-        "id": "54611317",
-        "name": "VfR Klosterreichenbach",
-        "lsbNumber": "7072",
-        "internalSportsclubId": "697",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "54611319",
         "name": "Sport- und Freizeitclub Stuttgart",
         "lsbNumber": "0",
@@ -39889,6 +39829,16 @@
         "association": {
           "id": "24908869",
           "name": "Landkreis Nordsachsen"
+        }
+      },
+      {
+        "id": "54611317",
+        "name": "VfR Klosterreichenbach",
+        "lsbNumber": "7072",
+        "internalSportsclubId": "697",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -59382,6 +59332,16 @@
         }
       },
       {
+        "id": "70184407",
+        "name": "TV Sunthausen",
+        "lsbNumber": "1111111110000046",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "65037045",
         "name": "TV Bietingen",
         "lsbNumber": "470330",
@@ -63109,6 +63069,56 @@
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
+        }
+      },
+      {
+        "id": "37921760",
+        "name": "Weseler Turnverein v. 1860 e.V.",
+        "lsbNumber": "1512017",
+        "internalSportsclubId": "219",
+        "association": {
+          "id": "33298901",
+          "name": "Wesel"
+        }
+      },
+      {
+        "id": "37921938",
+        "name": "Aktiver Volleyball-Club Köln 93 e.V.",
+        "lsbNumber": "2003611",
+        "internalSportsclubId": "1230",
+        "association": {
+          "id": "33795261",
+          "name": "Köln"
+        }
+      },
+      {
+        "id": "26925789",
+        "name": "TSV Heusenstamm 1873 e. V.",
+        "lsbNumber": "29072",
+        "internalSportsclubId": "2506",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "63877284",
+        "name": "SV Groß Garz e.V.",
+        "lsbNumber": "20025",
+        "internalSportsclubId": "20025",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "26925131",
+        "name": "Gießener SV 1923",
+        "lsbNumber": "12053",
+        "internalSportsclubId": "1904",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
         }
       }
     ]
