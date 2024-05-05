@@ -5,7 +5,6 @@ gallery:
   - /images/blog/2023/12/24/20231221-wa0011.jpg
   - /images/blog/2023/12/24/20231221-wa0058.jpg
   - /images/blog/2023/12/24/20231221-wa0060.jpg
-  - /images/blog/2023/12/24/20231221-wa0061.jpg
   - /images/blog/2023/12/24/20231221-wa0066.jpg
 ---
 
