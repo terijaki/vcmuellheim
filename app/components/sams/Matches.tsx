@@ -27,6 +27,17 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 					Stand: <time dateTime={matches[0].matchSeries?.updated}>{dateDisplay}</time>
 				</p>
 				{matches.map((match) => {
+					// determine if this is a win for the club/team
+					let winForClubOrTeam = false;
+					if (
+						match.results &&
+						match.results.winner &&
+						match.team[Number(match.results.winner) - 1] &&
+						match.team[Number(match.results.winner) - 1].id &&
+						teamIdString.includes(match.team[Number(match.results.winner) - 1].id)
+					) {
+						winForClubOrTeam = true;
+					}
 					return (
 						<div
 							className={
@@ -38,11 +49,16 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 							data-match-id={match.id}
 							data-match-uuid={match.uuid}
 						>
-							<div className="sm:text-center text-sm pt-1 sm:py-1">
+							{/* date and location */}
+							<div
+								className="sm:text-center text-sm pt-1 sm:py-1"
+								key="date & location"
+							>
 								{match.date ? (
 									<time
 										className="mr-1 sm:block"
 										dateTime={match.dateIso}
+										key={"datetime"}
 									>
 										{match.date}
 									</time>
@@ -55,6 +71,7 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 										className="text-gray-600 line-clamp-1 break-all text-xs inline-flex items-baseline"
 										target="_blank"
 										rel="noopener noreferrer"
+										key={"location"}
 									>
 										<IconLocation className="inline text-xs" />
 										{match.location.city.split("-")[0]}
@@ -63,6 +80,7 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 									""
 								)}
 							</div>
+							{/* teams & league*/}
 							<div
 								className="font-bold"
 								key="team"
@@ -82,26 +100,9 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 								})}
 								{match.matchSeries?.name && <p className="text-lion font-thin text-sm md:text-base whitespace-nowrap line-clamp-1 break-all">{match.matchSeries?.name}</p>}
 							</div>
+							{/* score*/}
 							<div className="pb-1 sm:py-1 mr-3 sm:mr-0 inline-flex items-center">
-								{match.team?.map((team, index) => {
-									// when winner and index are identical and the team id is in our club data then color the result icon
-									if (match.results && match.results.winner == (index + 1).toString() && team.id && teamIdString.includes(team.id)) {
-										return (
-											<IconResult
-												className="inline text-turquoise mr-1"
-												key={team.id}
-											/>
-										);
-										// otherwise display in the default color (condition still required to now show the icon twice, for each team)
-									} else if (team.id && teamIdString.includes(team.id)) {
-										return (
-											<IconResult
-												className="inline mr-1"
-												key={team.id}
-											/>
-										);
-									}
-								})}
+								{winForClubOrTeam && match.team && match.id ? <IconResult className="inline text-turquoise mr-1" /> : <IconResult className="inline mr-1" />}
 								{match.results?.setPoints}
 								{match.results &&
 									match.results.sets &&
@@ -130,7 +131,7 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 					className="text-right text-sm italic text-gray-400 py-1 px-3"
 					data-match-type="future"
 				>
-					Stand: {dateDisplay}
+					Stand: <time dateTime={matches[0].matchSeries?.updated}>{dateDisplay}</time>
 				</p>
 				{matches.map((match) => {
 					return (
