@@ -1,3 +1,14 @@
+---
+title: '50 Jahre Waldkirch Volleyball'
+date: 2024-05-05T08:18:33.685Z
+gallery:
+- /images/blog/2024/05/05/img_3195.jpg
+- /images/blog/2024/05/05/img_3198.jpg
+- /images/blog/2024/05/05/img_3203.jpg
+- /images/blog/2024/05/05/img_3206.jpg
+- /images/blog/2024/05/05/img_3210.jpg
+- /images/blog/2024/05/05/img_3214.jpg
+---
 Die Volleyballabteilung des SV Waldkirch feiert dieses Jahr ihr 50 jähriges Jubiläum und hat zu diesem Anlass zum Jugendturnier in der Kastelberghalle eingeladen.
 
 20 Spielerinnen und 3 Trainer des VC Müllheim folgten am Samstag dieser Einladung in Form von 4 Mannschaften.
