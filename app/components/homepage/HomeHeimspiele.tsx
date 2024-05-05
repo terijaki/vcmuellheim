@@ -18,17 +18,17 @@ export default function HomeHeimspiele() {
 	testMinRange();
 	let eventsToDisplay: eventObject[] = [];
 	let matchesToDisplay: matchType[] = [];
-	let loopCount = 1;
+	let loopCount = 0;
 
 	while (eventsToDisplay.length == 0 && matchesToDisplay.length == 0 && TIME_RANGE_MAX_MULTIPLIER > loopCount) {
 		// CUSTOM EVENTS
-		eventsToDisplay = getEvents(0, TIME_RANGE * loopCount);
+		eventsToDisplay = getEvents(0, TIME_RANGE * (1 + loopCount));
 
 		// MATCHES
 
 		// construct the cut off date. dates after this value are excluded
 		const todayPlusRange = new Date();
-		todayPlusRange.setDate(todayPlusRange.getDate() + TIME_RANGE * loopCount);
+		todayPlusRange.setDate(todayPlusRange.getDate() + TIME_RANGE * (1 + loopCount));
 		// get future matches from our teams
 		let allMatches = cachedGetMatches(cachedGetTeamIds("id"), "future"); //TODO add support for turnaments (official SBVV self-hosted only)
 		// filter reduce to matches we are hosting
@@ -49,7 +49,6 @@ export default function HomeHeimspiele() {
 		matchesToDisplay = homeGamesReduced;
 
 		// LOOP COUNTER
-		TIME_RANGE_MAX_MULTIPLIER = TIME_RANGE_MAX_MULTIPLIER - 1;
 		loopCount = loopCount + 1;
 	}
 
@@ -206,11 +205,17 @@ export default function HomeHeimspiele() {
 	} else {
 		// check how many matches we have in total
 		const allMatchesCount = cachedGetMatches(cachedGetTeamIds("id"), "future").length;
+		// check how many events we have in total
+		const allEventsCount = getEvents(0, 365).length;
 		// prepare to display them as words
 		const numToWordsDe = require("num-words-de");
 		let allMatchesCountWord = numToWordsDe.numToWord(allMatchesCount, { uppercase: true });
 		if (allMatchesCount > 12) {
 			allMatchesCountWord = allMatchesCount; // shows higher numbers as integer
+		}
+		let allEventsCountWord = numToWordsDe.numToWord(allEventsCount, { uppercase: true });
+		if (allEventsCount > 12) {
+			allEventsCountWord = allEventsCount; // shows higher numbers as integer
 		}
 		return (
 			<section className="col-full-content grid grid-cols-main-grid section-bg-gradient after:opacity-95">
@@ -227,16 +232,17 @@ export default function HomeHeimspiele() {
 					className="absolute w-full h-full z-[-10] object-cover"
 				/>
 				<div className="col-center-content py-8 sm:py-12">
-					<h2 className="text-center md:text-left text-white font-bold text-3xl">Zunächst keine Heimspiele</h2>
+					<h2 className="text-center md:text-left text-white font-bold text-3xl">
+						{allEventsCount >= 1 && allMatchesCount == 0 && "Zunächst keine Veranstaltungen"}
+						{allEventsCount == 0 && allMatchesCount == 0 && "Zunächst keine Heimspiele"}
+					</h2>
 					<p className="text-center md:text-left text-white py-2 text-balance">
-						In den kommenden {numToWordsDe.numToWord(((TIME_RANGE * TIME_RANGE_MAX_MULTIPLIER) / 7).toFixed(0), { uppercase: false })} Wochen stehen keine Spiele in Müllheim an.
-					</p>
-
-					{allMatchesCount >= 1 && (
-						<p className="text-center md:text-left mt-3 text-white  text-balance">
-							Auswärtsspiele findest du im Spielplan der jeweiligen Mannschaft.
+						In den kommenden {numToWordsDe.numToWord(((TIME_RANGE * TIME_RANGE_MAX_MULTIPLIER) / 7).toFixed(0), { uppercase: false })} Wochen stehen keine
+						{allEventsCount >= 1 && allMatchesCount == 0 ? " Veranstaltungen " : " Spiele in Müllheim "}
+						an.
+						{allEventsCount >= 1 && allMatchesCount == 0 && (
 							<span className="ml-1 sm:ml-0 sm:block *:inline *:align-text-center">
-								{allMatchesCount == 1 ? "Einen weiteren Termin findest du" : allMatchesCountWord + " weitere Termine unserer Mannschaften findest du"}
+								{allEventsCount == 1 ? "Einen weiteren Termin zu einem späteren Zeitpunkt findest du" : allEventsCountWord + " weitere Termine zu einem späteren Zeitpunkt findest du"}
 								<IconRight className="animate-pulse text-sm mb-1" />
 								<IconRight className="-ml-2.5 animate-pulse mb-1" />
 								<Link
@@ -248,8 +254,26 @@ export default function HomeHeimspiele() {
 								<IconLeft className="-mr-2.5 animate-pulse mb-1" />
 								<IconLeft className="animate-pulse text-sm mb-1" />
 							</span>
-						</p>
-					)}
+						)}
+						{allMatchesCount >= 1 && (
+							<p className="text-center md:text-left mt-3 text-white  text-balance">
+								Auswärtsspiele findest du im Spielplan der jeweiligen Mannschaft.
+								<span className="ml-1 sm:ml-0 sm:block *:inline *:align-text-center">
+									{allMatchesCount == 1 ? "Einen weiteren Termin findest du" : allMatchesCountWord + " weitere Termine unserer Mannschaften findest du"}
+									<IconRight className="animate-pulse text-sm mb-1" />
+									<IconRight className="-ml-2.5 animate-pulse mb-1" />
+									<Link
+										href="termine"
+										className="gap-1 font-bold group"
+									>
+										hier
+									</Link>
+									<IconLeft className="-mr-2.5 animate-pulse mb-1" />
+									<IconLeft className="animate-pulse text-sm mb-1" />
+								</span>
+							</p>
+						)}
+					</p>
 				</div>
 			</section>
 		);
@@ -258,7 +282,7 @@ export default function HomeHeimspiele() {
 
 // tests
 function testMinRange() {
-	if (Number((TIME_RANGE / 7).toFixed(0)) < 2) {
+	if (Number(((TIME_RANGE * TIME_RANGE_MAX_MULTIPLIER) / 7).toFixed(0)) < 2) {
 		throw "Time range for Home Games too short. Min 2 weeks required or else the number as word display is messed up. (Also it makes no sense to have it such a short range).";
 	}
 }
