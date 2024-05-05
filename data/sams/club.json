@@ -806,8 +806,8 @@
             "name": "Bezirk West Herren Bezirksklasse Rückmeldungen-24/25",
             "shortName": "RueckBezKlHerren",
             "type": "League",
-            "updated": "2024-04-29 08:46:35.845",
-            "structureUpdated": "2024-04-29 08:46:35.845",
+            "updated": "2024-05-02 10:29:25.184",
+            "structureUpdated": "2024-05-02 10:29:25.184",
             "resultsUpdated": null,
             "season": {
               "id": "52761843",
@@ -1207,7 +1207,7 @@
             "name": "West Quali - U14w am 25.11.2023",
             "shortName": "WQ_U14w",
             "type": "Competition",
-            "updated": "2024-03-04 14:54:24.91",
+            "updated": "2024-05-02 19:27:50.304",
             "structureUpdated": "2024-03-04 14:54:24.91",
             "resultsUpdated": "2023-01-15 16:33:00.278",
             "season": {
@@ -1371,7 +1371,7 @@
             "name": "U14 weiblich - Quali 1 am 27.1.24",
             "shortName": "Q2_U14_w",
             "type": "Competition",
-            "updated": "2024-03-04 14:54:24.91",
+            "updated": "2024-05-02 19:27:50.304",
             "structureUpdated": "2024-01-29 11:43:53.347",
             "resultsUpdated": "2024-01-27 17:01:10.752",
             "season": {
@@ -1450,7 +1450,7 @@
             "name": "SBVV - U14 weiblich am 3.2.24",
             "shortName": "sbvv-u14w",
             "type": "Competition",
-            "updated": "2024-04-07 13:34:36.235",
+            "updated": "2024-05-02 19:27:50.304",
             "structureUpdated": "2024-04-07 13:34:36.235",
             "resultsUpdated": "2024-03-25 11:53:17.826",
             "season": {
