@@ -1252,6 +1252,16 @@
         }
       },
       {
+        "id": "26846609",
+        "name": "Boxgirls Berlin e. V.",
+        "lsbNumber": "3117",
+        "internalSportsclubId": "14-11-213",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
         "id": "965310",
         "name": "Wiker SV",
         "lsbNumber": "70160",
@@ -1279,6 +1289,16 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "37948614",
+        "name": "SV Germania Tangerhütte e.V.",
+        "lsbNumber": "20119",
+        "internalSportsclubId": "20119",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -1472,6 +1492,16 @@
         }
       },
       {
+        "id": "37948612",
+        "name": "SV Schwarz-Weiß Badeborn",
+        "lsbNumber": "50145",
+        "internalSportsclubId": "50145",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "15437138",
         "name": "Schleswig-Holsteinischer Volleyball-Verband",
         "lsbNumber": "304495554",
@@ -1589,6 +1619,16 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "37948344",
+        "name": "SSV Eintracht Loitsche-Zielitz e.V.",
+        "lsbNumber": "30177",
+        "internalSportsclubId": "30177",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -1949,6 +1989,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "70394781",
+        "name": "Sport- und Kulturgemeinde  Roßdorf 1877 e.V",
+        "lsbNumber": "33136",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7220",
+          "name": "Hessischer Volleyballverband"
         }
       },
       {
@@ -2319,6 +2369,16 @@
         "association": {
           "id": "33797844",
           "name": "Bochum - Ennepe-Ruhr - Herne"
+        }
+      },
+      {
+        "id": "70396856",
+        "name": "DITF Denkendorf",
+        "lsbNumber": "1111111110000047",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7216",
+          "name": "Volleyball-Landesverband Württemberg"
         }
       },
       {
@@ -3612,6 +3672,16 @@
         }
       },
       {
+        "id": "65036611",
+        "name": "FSV Umkirch",
+        "lsbNumber": "480230",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "26818848",
         "name": "VfB Schleiz e.V.",
         "lsbNumber": "280020",
@@ -3669,16 +3739,6 @@
         "association": {
           "id": "26249261",
           "name": "Kreisverband Ost"
-        }
-      },
-      {
-        "id": "65036611",
-        "name": "FSV Umkirch",
-        "lsbNumber": "480230",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -5542,6 +5602,16 @@
         }
       },
       {
+        "id": "54611116",
+        "name": "TuS Ergenzingen",
+        "lsbNumber": "22101",
+        "internalSportsclubId": "474",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
         "id": "26819117",
         "name": "VfB Elleben 1997 e.V.",
         "lsbNumber": "430164",
@@ -5689,16 +5759,6 @@
         "association": {
           "id": "26272888",
           "name": "tbc TVV 40"
-        }
-      },
-      {
-        "id": "54611116",
-        "name": "TuS Ergenzingen",
-        "lsbNumber": "22101",
-        "internalSportsclubId": "474",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
         }
       },
       {
@@ -9139,16 +9199,6 @@
         "association": {
           "id": "33797300",
           "name": "Münster"
-        }
-      },
-      {
-        "id": "26846609",
-        "name": "Boxgirls Berlin e. V.",
-        "lsbNumber": "3117",
-        "internalSportsclubId": "14-11-213",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -13372,6 +13422,16 @@
         }
       },
       {
+        "id": "37921251",
+        "name": "Polizei-Sportverein Bonn e.V.",
+        "lsbNumber": "2002139",
+        "internalSportsclubId": "10211",
+        "association": {
+          "id": "33795281",
+          "name": "Bonn"
+        }
+      },
+      {
         "id": "37921933",
         "name": "Bonner Wassersportverein 1922 e.V.",
         "lsbNumber": "2002109",
@@ -13466,16 +13526,6 @@
         "name": "SG Hijos del Sol e.V.",
         "lsbNumber": "2002843",
         "internalSportsclubId": "10088",
-        "association": {
-          "id": "33795281",
-          "name": "Bonn"
-        }
-      },
-      {
-        "id": "37921251",
-        "name": "Polizei-Sportverein Bonn e.V.",
-        "lsbNumber": "2002139",
-        "internalSportsclubId": "10211",
         "association": {
           "id": "33795281",
           "name": "Bonn"
@@ -14212,6 +14262,16 @@
         }
       },
       {
+        "id": "54611327",
+        "name": "TV Ebhausen",
+        "lsbNumber": "5040",
+        "internalSportsclubId": "711",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
         "id": "37921264",
         "name": "TuRa 88 Duisburg e.V.",
         "lsbNumber": "1002165",
@@ -14279,16 +14339,6 @@
         "association": {
           "id": "33298943",
           "name": "Duisburg"
-        }
-      },
-      {
-        "id": "54611327",
-        "name": "TV Ebhausen",
-        "lsbNumber": "5040",
-        "internalSportsclubId": "711",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
         }
       },
       {
@@ -29652,16 +29702,6 @@
         }
       },
       {
-        "id": "37948344",
-        "name": "SSV Eintracht Loitsche-Zielitz e.V.",
-        "lsbNumber": "30177",
-        "internalSportsclubId": "30177",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37948341",
         "name": "Sportgemeinschaft Grün-Weiß Hasselfelde e.V.",
         "lsbNumber": "50439",
@@ -31666,16 +31706,6 @@
         "name": "SV Grün-Weiss Langendorf e.V.",
         "lsbNumber": "110255",
         "internalSportsclubId": "110255",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "37948614",
-        "name": "SV Germania Tangerhütte e.V.",
-        "lsbNumber": "20119",
-        "internalSportsclubId": "20119",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -36152,16 +36182,6 @@
         }
       },
       {
-        "id": "37948612",
-        "name": "SV Schwarz-Weiß Badeborn",
-        "lsbNumber": "50145",
-        "internalSportsclubId": "50145",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37948411",
         "name": "TSV 90 Querfurt e.V.",
         "lsbNumber": "100093",
@@ -39542,6 +39562,16 @@
         }
       },
       {
+        "id": "37948260",
+        "name": "SG Buna Halle e.V.",
+        "lsbNumber": "140005",
+        "internalSportsclubId": "140005",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "49504390",
         "name": "SV electronic Hohen Neuendorf",
         "lsbNumber": "650095",
@@ -39646,16 +39676,6 @@
         "name": "Merseburger Sportverein 1990 e.V.",
         "lsbNumber": "100036",
         "internalSportsclubId": "100036",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "37948260",
-        "name": "SG Buna Halle e.V.",
-        "lsbNumber": "140005",
-        "internalSportsclubId": "140005",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -41762,6 +41782,16 @@
         }
       },
       {
+        "id": "50621674",
+        "name": "SV Automation 61 Leipzig e.V.",
+        "lsbNumber": "420200",
+        "internalSportsclubId": "15",
+        "association": {
+          "id": "24908890",
+          "name": "Stadt Leipzig"
+        }
+      },
+      {
         "id": "50621659",
         "name": "SSV St. Egidien e.V.",
         "lsbNumber": "520226",
@@ -41919,16 +41949,6 @@
         "association": {
           "id": "33299074",
           "name": "Wupper-Mettmann"
-        }
-      },
-      {
-        "id": "50621674",
-        "name": "SV Automation 61 Leipzig e.V.",
-        "lsbNumber": "420200",
-        "internalSportsclubId": "15",
-        "association": {
-          "id": "24908890",
-          "name": "Stadt Leipzig"
         }
       },
       {
@@ -46172,6 +46192,16 @@
         }
       },
       {
+        "id": "54610920",
+        "name": "EK Schlierbach",
+        "lsbNumber": "8242",
+        "internalSportsclubId": "266",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
         "id": "54610915",
         "name": "SF Rosenberg",
         "lsbNumber": "13140",
@@ -46196,16 +46226,6 @@
         "name": "TB Ruit",
         "lsbNumber": "6160",
         "internalSportsclubId": "263",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
-        "id": "54610920",
-        "name": "EK Schlierbach",
-        "lsbNumber": "8242",
-        "internalSportsclubId": "266",
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
@@ -46642,16 +46662,6 @@
         }
       },
       {
-        "id": "54611003",
-        "name": "FV Gerlenhofen",
-        "lsbNumber": "300",
-        "internalSportsclubId": "357",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "53066275",
         "name": "TV 1846 Bretten e.V.",
         "lsbNumber": "81393",
@@ -46659,6 +46669,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "54611003",
+        "name": "FV Gerlenhofen",
+        "lsbNumber": "300",
+        "internalSportsclubId": "357",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
@@ -48982,16 +49002,6 @@
         }
       },
       {
-        "id": "50621476",
-        "name": "Sportgemeinschaft Podelwitz e.V.",
-        "lsbNumber": "490169",
-        "internalSportsclubId": "90",
-        "association": {
-          "id": "24908869",
-          "name": "Landkreis Nordsachsen"
-        }
-      },
-      {
         "id": "50621717",
         "name": "TSV Plauen 1990 e.V.",
         "lsbNumber": "510287",
@@ -49122,6 +49132,16 @@
         }
       },
       {
+        "id": "50621476",
+        "name": "Sportgemeinschaft Podelwitz e.V.",
+        "lsbNumber": "490169",
+        "internalSportsclubId": "90",
+        "association": {
+          "id": "24908869",
+          "name": "Landkreis Nordsachsen"
+        }
+      },
+      {
         "id": "50621849",
         "name": "SG Wurgwitz e.V.",
         "lsbNumber": "500193",
@@ -49222,6 +49242,16 @@
         }
       },
       {
+        "id": "50621858",
+        "name": "SG Somsdorf e.V.",
+        "lsbNumber": "500189",
+        "internalSportsclubId": "348",
+        "association": {
+          "id": "24908790",
+          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
+        }
+      },
+      {
         "id": "50621559",
         "name": "SLS \"Der Bogenschütze\" Dresden e.V.",
         "lsbNumber": "410080",
@@ -49249,16 +49279,6 @@
         "association": {
           "id": "24908772",
           "name": "Landkreis Meißen"
-        }
-      },
-      {
-        "id": "50621858",
-        "name": "SG Somsdorf e.V.",
-        "lsbNumber": "500189",
-        "internalSportsclubId": "348",
-        "association": {
-          "id": "24908790",
-          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
         }
       },
       {
@@ -51052,16 +51072,6 @@
         }
       },
       {
-        "id": "51836223",
-        "name": "TuS Kaisersesch",
-        "lsbNumber": "1000369",
-        "internalSportsclubId": "32-14-02",
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
         "id": "37921073",
         "name": "Märkische TG Horst 1881 e.V.",
         "lsbNumber": "1003256",
@@ -51169,6 +51179,16 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
+        }
+      },
+      {
+        "id": "51836223",
+        "name": "TuS Kaisersesch",
+        "lsbNumber": "1000369",
+        "internalSportsclubId": "32-14-02",
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
         }
       },
       {
@@ -56622,16 +56642,6 @@
         }
       },
       {
-        "id": "54611346",
-        "name": "TV Pfalzgrafenweiler",
-        "lsbNumber": "7092",
-        "internalSportsclubId": "749",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "54611348",
         "name": "TSV Zweiflingen",
         "lsbNumber": "11064",
@@ -56739,6 +56749,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "54611346",
+        "name": "TV Pfalzgrafenweiler",
+        "lsbNumber": "7092",
+        "internalSportsclubId": "749",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -62612,16 +62632,6 @@
         }
       },
       {
-        "id": "961583",
-        "name": "SG Spfr. 69 Marmagen/Nettersheim e.V.",
-        "lsbNumber": "2408004",
-        "internalSportsclubId": "94",
-        "association": {
-          "id": "33795239",
-          "name": "Euskirchen"
-        }
-      },
-      {
         "id": "51836494",
         "name": "SC Ransbach-Baumbach e. V.",
         "lsbNumber": "1004473",
@@ -62699,6 +62709,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "961583",
+        "name": "SG Spfr. 69 Marmagen/Nettersheim e.V.",
+        "lsbNumber": "2408004",
+        "internalSportsclubId": "94",
+        "association": {
+          "id": "33795239",
+          "name": "Euskirchen"
         }
       },
       {
@@ -62782,6 +62802,16 @@
         }
       },
       {
+        "id": "50622016",
+        "name": "VfB Görlitz i.L.",
+        "lsbNumber": "450345",
+        "internalSportsclubId": "257",
+        "association": {
+          "id": "24908944",
+          "name": "Landkreis Görlitz"
+        }
+      },
+      {
         "id": "69518466",
         "name": "SC Schwarz-Weiß Friesheim e.V.",
         "lsbNumber": "1111111110000044",
@@ -62809,16 +62839,6 @@
         "association": {
           "id": "33298901",
           "name": "Wesel"
-        }
-      },
-      {
-        "id": "50622016",
-        "name": "VfB Görlitz i.L.",
-        "lsbNumber": "450345",
-        "internalSportsclubId": "257",
-        "association": {
-          "id": "24908944",
-          "name": "Landkreis Görlitz"
         }
       },
       {
