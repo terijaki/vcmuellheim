@@ -284,8 +284,8 @@
             "name": "SBVV Rueckm. LaLi West Herren-24/25",
             "shortName": "RueckHerrenLaliWest",
             "type": "League",
-            "updated": "2024-04-30 08:47:05.74",
-            "structureUpdated": "2024-04-30 08:47:05.74",
+            "updated": "2024-05-07 09:01:33.208",
+            "structureUpdated": "2024-05-07 09:01:33.208",
             "resultsUpdated": null,
             "season": {
               "id": "52761843",
@@ -630,14 +630,14 @@
             "wwwDepartment": null
           },
           "matchSeries": {
-            "id": "67566496",
-            "uuid": "ce04b2a8-9c9e-49de-b918-5dd28887c0da",
-            "allSeasonId": "6bef6b73-7778-4594-9d59-4d0921847ef8",
-            "name": "Aufstieg in die Bkl Damen West-24/25",
-            "shortName": "A-Bkl-W-D",
+            "id": "67566475",
+            "uuid": "1497cc7b-1723-4161-9887-4499a8e235ab",
+            "allSeasonId": "7be1abbf-3320-d97e-e428-2abc7b693a5b",
+            "name": "Bezirk West Damen Bezirksklasse Rückmeldungen-24/25",
+            "shortName": "RueckBezKlDamen",
             "type": "League",
-            "updated": "2024-04-25 21:37:22.235",
-            "structureUpdated": "2024-04-25 21:37:22.235",
+            "updated": "2024-05-07 09:11:23.249",
+            "structureUpdated": "2024-05-07 09:11:23.249",
             "resultsUpdated": null,
             "season": {
               "id": "52761843",
@@ -806,8 +806,8 @@
             "name": "Bezirk West Herren Bezirksklasse Rückmeldungen-24/25",
             "shortName": "RueckBezKlHerren",
             "type": "League",
-            "updated": "2024-05-02 10:29:25.184",
-            "structureUpdated": "2024-05-02 10:29:25.184",
+            "updated": "2024-05-08 09:45:45.341",
+            "structureUpdated": "2024-05-07 09:15:12.404",
             "resultsUpdated": null,
             "season": {
               "id": "52761843",
