@@ -48,29 +48,8 @@ jobs:
         with:
           ref: ${{ github.ref }} # latest commit, default is the commit that triggered the workflow
 
-      - name: Detect package manager
-        id: detect-package-manager
-        run: |
-          if [ -f "${{ github.workspace }}/yarn.lock" ]; then
-            echo "manager=yarn" >> $GITHUB_OUTPUT
-            echo "command=install" >> $GITHUB_OUTPUT
-            echo "runner=yarn" >> $GITHUB_OUTPUT
-            exit 0
-          elif [ -f "${{ github.workspace }}/package.json" ]; then
-            echo "manager=npm" >> $GITHUB_OUTPUT
-            echo "command=ci" >> $GITHUB_OUTPUT
-            echo "runner=npm run" >> $GITHUB_OUTPUT
-            exit 0
-          else
-            echo "Unable to determine package manager"
-            exit 1
-          fi
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: ${{ steps.detect-package-manager.outputs.manager }}
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
 
       - name: Restore cache
         uses: actions/cache@v4
@@ -84,13 +63,13 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
 
       - name: Install dependencies
-        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+        run: bun install}}
 
       - name: Perform SAMS Update
         id: sams_update
         if: ${{ github.event_name != 'push' }}
         continue-on-error: true
-        run: npm run sams-update
+        run: bun run sams-update
         env:
           SAMS_API: ${{ secrets.SAMS_API }}
 
@@ -191,7 +170,7 @@ jobs:
       - name: Process Inbox
         id: process_inbox
         if: ${{ github.event_name != 'schedule' }}
-        run: npm run inbox
+        run: bun run inbox
 
       - name: New Blog Post Check
         id: blog_check
@@ -222,7 +201,7 @@ jobs:
         if: ${{ github.event.schedule != '15,45 09-21 * JAN-APR,OCT-DEC 0,6' || steps.sams_git.outputs.status == 'updated' }}
         run: |
           echo "status=started" >> $GITHUB_OUTPUT
-          ${{ steps.detect-package-manager.outputs.runner }} build
+          bun run build
           echo "👷 Build complete:" >> $GITHUB_STEP_SUMMARY
           du -hsc out | grep -e "total" >> $GITHUB_STEP_SUMMARY
 
@@ -280,29 +259,8 @@ jobs:
         with:
           ref: ${{ github.ref }} # latest commit, default is the commit that triggered the workflow
 
-      - name: Detect package manager
-        id: detect-package-manager
-        run: |
-          if [ -f "${{ github.workspace }}/yarn.lock" ]; then
-            echo "manager=yarn" >> $GITHUB_OUTPUT
-            echo "command=install" >> $GITHUB_OUTPUT
-            echo "runner=yarn" >> $GITHUB_OUTPUT
-            exit 0
-          elif [ -f "${{ github.workspace }}/package.json" ]; then
-            echo "manager=npm" >> $GITHUB_OUTPUT
-            echo "command=ci" >> $GITHUB_OUTPUT
-            echo "runner=npm run" >> $GITHUB_OUTPUT
-            exit 0
-          else
-            echo "Unable to determine package manager"
-            exit 1
-          fi
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: ${{ steps.detect-package-manager.outputs.manager }}
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
 
       - name: Restore cache
         uses: actions/cache@v4
@@ -316,17 +274,17 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
 
       - name: Install dependencies
-        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+        run: bun install
 
       - name: Match Results
         id: match_results
         if: ${{ needs.build.outputs.sams_social == 'new' || github.event_name == 'workflow_dispatch' }}
-        run: npm run sams-new-results
+        run: bun run sams-new-results
 
       - name: Blog Posts
         id: blog_posts
         if: ${{ needs.build.outputs.blog_check == 'new' || github.event_name == 'workflow_dispatch' }}
-        run: npm run blog-new-posts
+        run: bun run blog-new-posts
 
       - name: Commit Changes
         id: commit_changes
