@@ -11,7 +11,7 @@
     "email": "bjoern@vcmuellheim.de"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "bun update && next dev",
     "build": "next build && next-image-export-optimizer",
     "start": "next start",
     "lint": "next lint",
