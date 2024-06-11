@@ -1,6 +1,6 @@
 import SectionHeading from "@/app/components/layout/SectionHeading";
 import Link from "next/link";
-import { FaEnvelope as IconEmail, FaFilePdf as IconPDF, FaFileExcel as IconExcel } from "react-icons/fa6";
+import { FaEnvelope as IconEmail, FaFileExcel as IconExcel, FaArrowUpRightFromSquare as IconExtern } from "react-icons/fa6";
 
 export default function HomeKontakt() {
 	return (
@@ -33,12 +33,14 @@ export default function HomeKontakt() {
 						und hier zum{" "}
 						<Link
 							className="inline-block"
-							href="https://vcmuellheim.de/docs/anmeldeformular.pdf"
+							href="https://vcm.kurabu.com/de/join/"
+							target="_blank"
 							download={true}
 							prefetch={false}
 						>
-							<IconPDF className="inline-block" /> Anmeldeformular
-						</Link>
+							<IconExtern className="inline-block" /> Anmeldeformular
+						</Link>{" "}
+						auf unserer Verwaltungssoftware KURABU.
 					</span>
 				</div>
 
