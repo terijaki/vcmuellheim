@@ -3,11 +3,7 @@
 	"sorting": 4,
 	"alter": "14-18 Jahre",
 	"training": [
-		{
-			"zeit": "Donnerstags 17:00-18:30 Uhr",
-			"ort": "Rosenburgschule",
-			"map": "https://goo.gl/maps/eAeBCM12GVk"
-		},
+		
 		{
 			"zeit": "Freitags 18:30-20:00 Uhr",
 			"ort": "Sporthalle II Teil C",
