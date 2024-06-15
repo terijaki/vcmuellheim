@@ -34,7 +34,7 @@ title: Beitragsordnung
 
 ## § 5 Beendigung der Mitgliedschaft
 
-1. In §6 der <a href="/satzung/">Vereinssatzung</a> ist das Procedere bei rückständiger Beitragszahlung geregelt. Dies kann zu einer Streichung von der Mitgliederliste des Vereins führen. Verpflichtungen dem Verein gegenüber sind bis zum Ablauf des laufenden Geschäftsjahres zu erfüllen.
+1. In §6 der <a href="/satzung">Vereinssatzung</a> ist das Procedere bei rückständiger Beitragszahlung geregelt. Dies kann zu einer Streichung von der Mitgliederliste des Vereins führen. Verpflichtungen dem Verein gegenüber sind bis zum Ablauf des laufenden Geschäftsjahres zu erfüllen.
 2. Der freiwillige Austritt hat in Textform gegenüber einem Mitglied des Vorstands oder der Vereinsgeschäftsstelle erfolgen. Er ist frühestens zum Ende des dem Eintritt folgenden Kalenderjahres unter Einhaltung einer Kündigungsfrist von einem Monat zulässig.
 
 <p className="text-right my-xl italic">Stand 26.11.2023</p>
