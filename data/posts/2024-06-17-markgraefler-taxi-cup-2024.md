@@ -1,32 +1,34 @@
 ---
-title: 'Markgräfler Taxi Cup 2024'
+title: Markgräfler Taxi Cup 2024
 date: 2024-06-17T16:39:57.363Z
 gallery:
-- /images/blog/2024/06/17/dsc_0027.jpg
-- /images/blog/2024/06/17/img_6389.jpg
-- /images/blog/2024/06/17/img_6383.jpg
-- /images/blog/2024/06/17/img_6357.jpg
-- /images/blog/2024/06/17/img_3522.jpg
-- /images/blog/2024/06/17/img_3424.jpg
-- /images/blog/2024/06/17/img_6387.jpg
-- /images/blog/2024/06/17/img_3418.jpg
-- /images/blog/2024/06/17/img_6364.jpg
-- /images/blog/2024/06/17/img_6386.jpg
-- /images/blog/2024/06/17/dsc_0078.jpg
-- /images/blog/2024/06/17/img_3455.jpg
-- /images/blog/2024/06/17/img_3492.jpg
-- /images/blog/2024/06/17/dsc_0049.jpg
-- /images/blog/2024/06/17/img_6361.jpg
-- /images/blog/2024/06/17/img_6368.jpg
-- /images/blog/2024/06/17/dsc_0074.jpg
-- /images/blog/2024/06/17/img_3435.jpg
-- /images/blog/2024/06/17/img_3480.jpg
-- /images/blog/2024/06/17/img_3429.jpg
-- /images/blog/2024/06/17/img_6374.jpg
-- /images/blog/2024/06/17/img_3465.jpg
-- /images/blog/2024/06/17/img_6352.jpg
-- /images/blog/2024/06/17/img_3449.jpg
-- /images/blog/2024/06/17/img_6356.jpg
+  - /images/blog/2024/06/17/dsc_0027.jpg
+  - /images/blog/2024/06/17/img_6389.jpg
+  - /images/blog/2024/06/17/img_6383.jpg
+  - /images/blog/2024/06/17/img_6357.jpg
+  - /images/blog/2024/06/17/img_3522.jpg
+  - /images/blog/2024/06/17/img_3424.jpg
+  - /images/blog/2024/06/17/img_6387.jpg
+  - /images/blog/2024/06/17/img_3418.jpg
+  - /images/blog/2024/06/17/img_6364.jpg
+  - /images/blog/2024/06/17/img_6386.jpg
+  - /images/blog/2024/06/17/dsc_0078.jpg
+  - /images/blog/2024/06/17/img_3455.jpg
+  - /images/blog/2024/06/17/img_3492.jpg
+  - /images/blog/2024/06/17/dsc_0049.jpg
+  - /images/blog/2024/06/17/img_6361.jpg
+  - /images/blog/2024/06/17/img_6368.jpg
+  - /images/blog/2024/06/17/dsc_0074.jpg
+  - /images/blog/2024/06/17/img_3435.jpg
+  - /images/blog/2024/06/17/img_3480.jpg
+  - /images/blog/2024/06/17/img_3429.jpg
+  - /images/blog/2024/06/17/img_6374.jpg
+  - /images/blog/2024/06/17/img_3465.jpg
+  - /images/blog/2024/06/17/img_6352.jpg
+  - /images/blog/2024/06/17/img_3449.jpg
+  - /images/blog/2024/06/17/img_6356.jpg
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/112632965021959775'
 ---
 Auch dieses Jahr haben wir zu unserem traditionellen Jugendturnier eingeladen, das am Sonntag, den 16. Juli 2024, stattfand. Es war wieder ein großartiges Event, bei dem der Spaß und der sportliche Ehrgeiz im Vordergrund standen.
 
