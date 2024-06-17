@@ -24,7 +24,7 @@
   "dependencies": {
     "@octokit/action": "^6.1.0",
     "@octokit/request": "^9.1.1",
-    "bun-types": "^1.1.12",
+    "bun-types": "^1.1.13",
     "dumb-csv": "^1.1.2",
     "feed": "^4.2.2",
     "gray-matter": "^4.0.3",
