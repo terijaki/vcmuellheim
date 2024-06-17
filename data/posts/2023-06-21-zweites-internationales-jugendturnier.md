@@ -80,6 +80,6 @@ Auf ein nächstes Mal im nächsten Jahr 2024, hoffentlich wieder mit den Teams v
 
 Ebenso stehen wir für nächstes Jahr mit Teams aus Aarau und Frick aus der Schweiz, Bliesheim aus dem Elsass sowie Weil, Schliengen, Hausach i.K., Efringen-Kirchen und der Black Forest Academy in Kandern in Kontakt.
 
-Wir freuen und schon jetzt auf Euch.Alle.
+Wir freuen uns schon jetzt auf Euch Alle.
 
 Euer Jugendbetreuerteam vom VC Müllheim
