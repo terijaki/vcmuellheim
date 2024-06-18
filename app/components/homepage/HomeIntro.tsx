@@ -3,7 +3,7 @@ import { navbarLinks } from "@/app/utils/navbarLinks";
 import { FaAnglesDown as IconDown } from "react-icons/fa6";
 import Link from "next/link";
 
-const backgroundImages = ["/images/backgrounds/intro1.jpg", "/images/backgrounds/intro2.jpg", "/images/backgrounds/intro3.jpg"];
+const backgroundImages = ["/images/backgrounds/intro1.jpg", "/images/backgrounds/intro2.jpg", "/images/backgrounds/intro3.jpg", "https://vcmuellheim.de/images/blog/2024/06/17/dsc_0078.jpg"];
 
 export default function HomeIntro() {
 	var backgroundImageRandom = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
