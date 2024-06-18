@@ -7,7 +7,7 @@ title: Impressum
 Volleyballclub Müllheim e.V.  
 Lettenstr. 48  
 79424 Auggen  
-Vereinsregister: VR 300158
+Vereinsregister: VR 300158  
 Registergericht: Amtsgericht Freiburg
 
 #### Vertreten durch:
