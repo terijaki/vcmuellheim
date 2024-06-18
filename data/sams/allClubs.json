@@ -252,16 +252,6 @@
         }
       },
       {
-        "id": "54611252",
-        "name": "SG Leinfelden-Echterdingen",
-        "lsbNumber": null,
-        "internalSportsclubId": "619",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "6524",
         "name": "VfL Nürnberg",
         "lsbNumber": "75",
@@ -432,16 +422,6 @@
         }
       },
       {
-        "id": "1065645",
-        "name": "1. VC Parchim",
-        "lsbNumber": null,
-        "internalSportsclubId": "107",
-        "association": {
-          "id": "7209",
-          "name": "Volleyballverband Mecklenburg-Vorpommern"
-        }
-      },
-      {
         "id": "961574",
         "name": "KSC Berlin",
         "lsbNumber": "70172",
@@ -579,6 +559,16 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "1065645",
+        "name": "1. VC Parchim",
+        "lsbNumber": "761473",
+        "internalSportsclubId": "761473",
+        "association": {
+          "id": "7209",
+          "name": "Volleyballverband Mecklenburg-Vorpommern"
         }
       },
       {
@@ -1292,16 +1282,6 @@
         }
       },
       {
-        "id": "65036605",
-        "name": "TV Neuenburg",
-        "lsbNumber": "472070",
-        "internalSportsclubId": "3537",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "37948614",
         "name": "SV Germania Tangerhütte e.V.",
         "lsbNumber": "20119",
@@ -1419,6 +1399,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65036605",
+        "name": "TV Neuenburg",
+        "lsbNumber": "472070",
+        "internalSportsclubId": "3537",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -4892,16 +4882,6 @@
         }
       },
       {
-        "id": "26818986",
-        "name": "TSV - Königshofen",
-        "lsbNumber": "480004",
-        "internalSportsclubId": "08021",
-        "association": {
-          "id": "26249243",
-          "name": "Kreisverband Nord-Ost"
-        }
-      },
-      {
         "id": "26819014",
         "name": "Thüringer Ringer-Verband e.V.",
         "lsbNumber": "880028",
@@ -4969,6 +4949,16 @@
         "association": {
           "id": "26272888",
           "name": "tbc TVV 40"
+        }
+      },
+      {
+        "id": "26818986",
+        "name": "TSV Königshofen / Thüringen e.V.",
+        "lsbNumber": "480004",
+        "internalSportsclubId": "08021",
+        "association": {
+          "id": "26249243",
+          "name": "Kreisverband Nord-Ost"
         }
       },
       {
@@ -5419,16 +5409,6 @@
         "association": {
           "id": "26249283",
           "name": "Kreisverband Süd"
-        }
-      },
-      {
-        "id": "26819067",
-        "name": "SV - Wartburgstadt Eisenach",
-        "lsbNumber": "470031",
-        "internalSportsclubId": "07020",
-        "association": {
-          "id": "26249309",
-          "name": "Kreisverband West"
         }
       },
       {
@@ -17772,16 +17752,6 @@
         }
       },
       {
-        "id": "60265051",
-        "name": "Gramzower VFB e.V.",
-        "lsbNumber": "730062",
-        "internalSportsclubId": "730062",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "26925419",
         "name": "VFF Finanzamt Gießen",
         "lsbNumber": "0",
@@ -17989,6 +17959,16 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "60265051",
+        "name": "Gramzower VFB e.V.",
+        "lsbNumber": "730062",
+        "internalSportsclubId": "730062",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -27842,6 +27822,16 @@
         }
       },
       {
+        "id": "37921904",
+        "name": "TuS Altenberge 09 e.V.",
+        "lsbNumber": "3501002",
+        "internalSportsclubId": "9135",
+        "association": {
+          "id": "33797208",
+          "name": "Steinfurt"
+        }
+      },
+      {
         "id": "37920686",
         "name": "Sportverein Schwarz-Weiß Esch 1930 e.V.",
         "lsbNumber": "3507016",
@@ -27986,16 +27976,6 @@
         "name": "Spiel- und Sport Neuenkirchen 09 e.V.",
         "lsbNumber": "3515004",
         "internalSportsclubId": "2509",
-        "association": {
-          "id": "33797208",
-          "name": "Steinfurt"
-        }
-      },
-      {
-        "id": "37921904",
-        "name": "TuS Altenberge 09 e.V.",
-        "lsbNumber": "3501002",
-        "internalSportsclubId": "9135",
         "association": {
           "id": "33797208",
           "name": "Steinfurt"
@@ -30489,16 +30469,6 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "65036696",
-        "name": "Sportausschuss Bad Dürrheim",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -40032,6 +40002,16 @@
         }
       },
       {
+        "id": "54611328",
+        "name": "Last Minute",
+        "lsbNumber": "1",
+        "internalSportsclubId": "714",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
         "id": "54611323",
         "name": "SSV Stimpfach",
         "lsbNumber": "18122",
@@ -40059,16 +40039,6 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
-        "id": "54611328",
-        "name": "Last Minute",
-        "lsbNumber": "0",
-        "internalSportsclubId": "714",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
         }
       },
       {
@@ -40702,6 +40672,16 @@
         }
       },
       {
+        "id": "54610678",
+        "name": "SpVgg Besigheim",
+        "lsbNumber": "12015",
+        "internalSportsclubId": "14",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
+        }
+      },
+      {
         "id": "50621568",
         "name": "Linde SV e. V.",
         "lsbNumber": "410150",
@@ -40796,16 +40776,6 @@
         "name": "TSV Bietigheim",
         "lsbNumber": "12028",
         "internalSportsclubId": "17",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
-        "id": "54610678",
-        "name": "SpVgg Besigheim",
-        "lsbNumber": "12015",
-        "internalSportsclubId": "14",
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
@@ -46032,6 +46002,16 @@
         }
       },
       {
+        "id": "54610910",
+        "name": "TG Reichenbach",
+        "lsbNumber": "8123",
+        "internalSportsclubId": "256",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
         "id": "54610917",
         "name": "TB Ruit",
         "lsbNumber": "6160",
@@ -46129,16 +46109,6 @@
         "association": {
           "id": "24908890",
           "name": "Stadt Leipzig"
-        }
-      },
-      {
-        "id": "54610910",
-        "name": "TG Reichenbach",
-        "lsbNumber": "8123",
-        "internalSportsclubId": "256",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
         }
       },
       {
@@ -49542,16 +49512,6 @@
         }
       },
       {
-        "id": "26925630",
-        "name": "TV Jahn Kassel 1883",
-        "lsbNumber": "41108",
-        "internalSportsclubId": "3910",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "961599",
         "name": "Eintracht Frankfurt",
         "lsbNumber": "24048",
@@ -49669,6 +49629,16 @@
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
+        }
+      },
+      {
+        "id": "26925630",
+        "name": "TV Jahn Kassel 1883",
+        "lsbNumber": "41108",
+        "internalSportsclubId": "3910",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -49862,16 +49832,6 @@
         }
       },
       {
-        "id": "26866460",
-        "name": "TV Lockweiler-Krettnich",
-        "lsbNumber": "84570",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
         "id": "51836010",
         "name": "VBC Haßloch",
         "lsbNumber": "24",
@@ -49999,6 +49959,16 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
+        "id": "26866460",
+        "name": "TV Lockweiler-Krettnich",
+        "lsbNumber": "84570",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
         }
       },
       {
@@ -52002,16 +51972,6 @@
         }
       },
       {
-        "id": "51836419",
-        "name": "SV Pellingen",
-        "lsbNumber": "1001474",
-        "internalSportsclubId": "32-75-15",
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
         "id": "51836409",
         "name": "BSG Boehringer Ingelheim",
         "lsbNumber": "10023",
@@ -52056,6 +52016,16 @@
         "name": "VBC Wissen",
         "lsbNumber": "246",
         "internalSportsclubId": "32-12-12",
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
+        "id": "51836419",
+        "name": "SV Pellingen",
+        "lsbNumber": "1001474",
+        "internalSportsclubId": "32-75-15",
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
@@ -54162,20 +54132,20 @@
         }
       },
       {
-        "id": "54611114",
-        "name": "TSV Eningen",
-        "lsbNumber": "16021",
-        "internalSportsclubId": "472",
+        "id": "54611113",
+        "name": "SV Leonberg/Eltingen",
+        "lsbNumber": "3069",
+        "internalSportsclubId": "471",
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
         }
       },
       {
-        "id": "54611113",
-        "name": "SV Leonberg/Eltingen",
-        "lsbNumber": "3069",
-        "internalSportsclubId": "471",
+        "id": "54611114",
+        "name": "TSV Eningen",
+        "lsbNumber": "16021",
+        "internalSportsclubId": "472",
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
@@ -56972,16 +56942,6 @@
         }
       },
       {
-        "id": "37921790",
-        "name": "Bielefelder Turngemeinde 1848 e.V.",
-        "lsbNumber": "4001039",
-        "internalSportsclubId": "3107",
-        "association": {
-          "id": "33797382",
-          "name": "Gütersloh-Bielefeld"
-        }
-      },
-      {
         "id": "51836158",
         "name": "PST Trier",
         "lsbNumber": "1001255",
@@ -57109,6 +57069,16 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "37921790",
+        "name": "Bielefelder Turngemeinde 1848 e.V.",
+        "lsbNumber": "4001039",
+        "internalSportsclubId": "3107",
+        "association": {
+          "id": "33797382",
+          "name": "Gütersloh-Bielefeld"
         }
       },
       {
@@ -58332,16 +58302,6 @@
         }
       },
       {
-        "id": "37921466",
-        "name": "TSV Solingen Aufderhöhe 1877 e.V.",
-        "lsbNumber": "1009047",
-        "internalSportsclubId": "490",
-        "association": {
-          "id": "33299074",
-          "name": "Wupper-Mettmann"
-        }
-      },
-      {
         "id": "37922045",
         "name": "TSG von 1884 Hohenhausen e.V.",
         "lsbNumber": "4409015",
@@ -58349,16 +58309,6 @@
         "association": {
           "id": "33797741",
           "name": "Lippe"
-        }
-      },
-      {
-        "id": "6458",
-        "name": "DJK Graf-Sporck 1920 Delbrück e.V.",
-        "lsbNumber": "4605007",
-        "internalSportsclubId": "4305",
-        "association": {
-          "id": "33797722",
-          "name": "Paderborn"
         }
       },
       {
@@ -58372,6 +58322,16 @@
         }
       },
       {
+        "id": "6458",
+        "name": "DJK Graf-Sporck 1920 Delbrück e.V.",
+        "lsbNumber": "4605007",
+        "internalSportsclubId": "4305",
+        "association": {
+          "id": "33797722",
+          "name": "Paderborn"
+        }
+      },
+      {
         "id": "37920878",
         "name": "TuS Volmetal 1887 e.V.",
         "lsbNumber": "5003083",
@@ -58379,6 +58339,16 @@
         "association": {
           "id": "33797867",
           "name": "Hagen"
+        }
+      },
+      {
+        "id": "37921466",
+        "name": "TSV Solingen Aufderhöhe 1877 e.V.",
+        "lsbNumber": "1009047",
+        "internalSportsclubId": "490",
+        "association": {
+          "id": "33299074",
+          "name": "Wupper-Mettmann"
         }
       },
       {
@@ -59052,16 +59022,6 @@
         }
       },
       {
-        "id": "70813918",
-        "name": "Mörlenbach/Zotzenbach MZ Volleys",
-        "lsbNumber": "1111111110000050",
-        "internalSportsclubId": "9914",
-        "association": {
-          "id": "7220",
-          "name": "Hessischer Volleyballverband"
-        }
-      },
-      {
         "id": "65036935",
         "name": "SG Auerbach",
         "lsbNumber": "30257",
@@ -59229,6 +59189,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "73295553",
+        "name": "sun&kids-Verein",
+        "lsbNumber": "1111111110000052",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "33797702",
+          "name": "Minden-Ravensberg"
         }
       },
       {
@@ -59539,6 +59509,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "70813918",
+        "name": "Mörlenbach/Zotzenbach MZ Volleys",
+        "lsbNumber": "1111111110000050",
+        "internalSportsclubId": "9914",
+        "association": {
+          "id": "7220",
+          "name": "Hessischer Volleyballverband"
         }
       },
       {
@@ -59892,6 +59872,16 @@
         }
       },
       {
+        "id": "26819067",
+        "name": "SV - Wartburgstadt Eisenach",
+        "lsbNumber": "470031",
+        "internalSportsclubId": "07020",
+        "association": {
+          "id": "26249309",
+          "name": "Kreisverband West"
+        }
+      },
+      {
         "id": "65037164",
         "name": "Vereinslos",
         "lsbNumber": "9999",
@@ -59909,6 +59899,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65036696",
+        "name": "Sportausschuss Bad Dürrheim",
+        "lsbNumber": null,
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -59979,6 +59979,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "54611252",
+        "name": "SG Leinfelden-Echterdingen",
+        "lsbNumber": null,
+        "internalSportsclubId": "619",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       },
       {
@@ -60442,6 +60452,16 @@
         }
       },
       {
+        "id": "65037322",
+        "name": "SG Karlsruhe e.V.",
+        "lsbNumber": "81492",
+        "internalSportsclubId": "81492",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "65037325",
         "name": "TV Liedolsheim",
         "lsbNumber": "81578",
@@ -60509,16 +60529,6 @@
         "association": {
           "id": "242",
           "name": "Deutscher Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65037322",
-        "name": "SG Karlsruhe e.V.",
-        "lsbNumber": "81492",
-        "internalSportsclubId": "81492",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -61162,6 +61172,16 @@
         }
       },
       {
+        "id": "9241570",
+        "name": "TSV Mimmenhausen",
+        "lsbNumber": "210310",
+        "internalSportsclubId": "3906",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "65037534",
         "name": "SG Neckar Teck",
         "lsbNumber": "8144281682",
@@ -61169,16 +61189,6 @@
         "association": {
           "id": "62829048",
           "name": "Baden"
-        }
-      },
-      {
-        "id": "65037535",
-        "name": "ASC Grünwettersbach",
-        "lsbNumber": "81532",
-        "internalSportsclubId": "81532",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -61232,6 +61242,16 @@
         }
       },
       {
+        "id": "65037535",
+        "name": "ASC Grünwettersbach",
+        "lsbNumber": "81532",
+        "internalSportsclubId": "81532",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "65037229",
         "name": "TV Bad Säckingen",
         "lsbNumber": "470250",
@@ -61246,16 +61266,6 @@
         "name": "TB Bad Krozingen",
         "lsbNumber": "470220",
         "internalSportsclubId": "3526",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "9241570",
-        "name": "TSV Mimmenhausen",
-        "lsbNumber": "210310",
-        "internalSportsclubId": "3906",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -61356,16 +61366,6 @@
         "name": "USC Freiburg",
         "lsbNumber": "120110",
         "internalSportsclubId": "3503",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65036691",
-        "name": "TB Bad Dürrheim",
-        "lsbNumber": "470230",
-        "internalSportsclubId": "4913",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -61476,6 +61476,16 @@
         "name": "TSV Alemannia Freiburg-Zähringen",
         "lsbNumber": "187860",
         "internalSportsclubId": "3508",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65036691",
+        "name": "TB Bad Dürrheim",
+        "lsbNumber": "470230",
+        "internalSportsclubId": "4913",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -61612,16 +61622,6 @@
         }
       },
       {
-        "id": "65036998",
-        "name": "TV Furtwangen",
-        "lsbNumber": "470990",
-        "internalSportsclubId": "3303",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037256",
         "name": "TV Zell-Weierbach",
         "lsbNumber": "473400",
@@ -61686,6 +61686,16 @@
         "name": "TV Hartheim",
         "lsbNumber": "471190",
         "internalSportsclubId": "3534",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65036998",
+        "name": "TV Furtwangen",
+        "lsbNumber": "470990",
+        "internalSportsclubId": "3303",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -62072,16 +62082,6 @@
         }
       },
       {
-        "id": "65037157",
-        "name": "Südbadenauswahl",
-        "lsbNumber": null,
-        "internalSportsclubId": "100016",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037455",
         "name": "TUS Ottenheim",
         "lsbNumber": "472350",
@@ -62146,6 +62146,16 @@
         "name": "TV Haueneberstein",
         "lsbNumber": null,
         "internalSportsclubId": "100059",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037157",
+        "name": "Südbadenauswahl",
+        "lsbNumber": null,
+        "internalSportsclubId": "100016",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -62362,16 +62372,6 @@
         }
       },
       {
-        "id": "26925138",
-        "name": "ÜSC Wald-Michelbach",
-        "lsbNumber": "36308",
-        "internalSportsclubId": "1707",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "65037154",
         "name": "VV Vörstetten",
         "lsbNumber": null,
@@ -62549,6 +62549,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26925138",
+        "name": "ÜSC Wald-Michelbach",
+        "lsbNumber": "36308",
+        "internalSportsclubId": "1707",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -63092,16 +63102,6 @@
         }
       },
       {
-        "id": "65036532",
-        "name": "SG Breisach-Gündlingen",
-        "lsbNumber": null,
-        "internalSportsclubId": "3544",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "6498",
         "name": "TuS 1884 Kriftel",
         "lsbNumber": "30087",
@@ -63149,6 +63149,16 @@
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
+        }
+      },
+      {
+        "id": "65036532",
+        "name": "SG Breisach-Gündlingen",
+        "lsbNumber": null,
+        "internalSportsclubId": "3544",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
