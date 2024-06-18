@@ -51,4 +51,6 @@ Neu in diesem Jahr war unser erweitertes Speisenangebot, liebevoll zubereitet vo
 
 Unser herzlicher Dank gilt allen Helfern, Betreuern, Trainern, Eltern und Zuschauern, die das Turnier ermöglicht und den Teilnehmer:innen eine wunderbare Zeit bereitet haben.
 
+Ohne finanzielle Hilfe wäre das Turnier in diesem Maße nicht möglich gewesen. So freut es uns, dass Frau Balija von der Fa. Markgräfler Taxi GmbH nicht nur die Siegerehrung übernahm, sondern auch zusicherte, im nächsten Jahr erneut finanziell zu unterstützen.
+
 Wir freuen uns schon auf das nächste Jahr!
