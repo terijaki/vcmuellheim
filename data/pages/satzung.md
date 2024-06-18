@@ -5,7 +5,7 @@ title: Satzung des Volleyballclubs Müllheim
 <h2>§ 1 Name, Sitz, Geschäftsjahr</h2>
 <ol>
 <li>Der Verein trägt den Namen „Volleyballclub Müllheim e.V“.</li>
-<li>Der Verein hat seinen Sitz in Müllheim im Markgräflerland und ist im Vereinsregister des Amtsgerichts Müllheim eingetragen unter der Nummer VR 158/Mü</li>
+<li>Der Verein hat seinen Sitz in Müllheim im Markgräflerland und ist im Vereinsregister des Amtsgerichts Freiburg eingetragen unter der Nummer VR 300158</li>
 <li>Das Geschäftsjahr des Vereins ist das Kalenderjahr.</li>
 <li>Der Verein ist Mitglied des Badischen Sportbundes Süd e.V. und des Südbadischen Volleyball Verband.Der Verein und seine Mitglieder anerkennen als für sich rechtsverbindlich die Satzungsbestimmungen und Ordnungen dieser Sportverbände in ihrer jeweils gültigen Fassung. Der Verein und seine Einzelmitglieder unterwerfen sich der Rechtsprechung dieser Verbände und ermächtigen diese, die ihnen überlassenen Befugnisse bei der Verfolgung von Verstößen gegen die Satzungen und Ordnungen an übergeordnete Verbände zu übertragen. Dies gilt ebenso bei Verstößen gegen die Satzungen und Ordnungen der übergeordneten Verbände.</li>
 <li>Der Verein kann in weiteren Fachverbänden Mitglied werden, deren Sportarten auf wettkampf-, breiten- oder freizeitsportlicher Basis betrieben werden. § 1 Abs. 4 gilt dann entsprechend. Die Mitgliedschaft in anderen Verbänden und Organisationen, die der Erfüllung des Vereinszweckes dienen, ist möglich.</li>
