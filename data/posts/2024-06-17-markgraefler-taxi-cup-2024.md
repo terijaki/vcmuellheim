@@ -35,9 +35,7 @@ Auch dieses Jahr haben wir zu unserem traditionellen Jugendturnier eingeladen, d
 
 Wir durften die folgenden 11 Vereine begrüßen:
 
-BSC Zelgli Aarau, Droste Hülshoff Gymnasium, SV Waldkirch, TV Bad Säckingen, TV Wehr
-
-USC Freiburg, VC Minseln, VC Weil, Volley Mulhouse Alsace, VSG Mundingen & VSG Rebland
+BSC Zelgli Aarau, Droste Hülshoff Gymnasium, SV Waldkirch, TV Bad Säckingen, TV Wehr, USC Freiburg, VC Minseln, VC Weil, Volley Mulhouse Alsace, VSG Mundingen & VSG Rebland
 
 Der VC Müllheim stellte selbst in jeder Gruppierung ein Team, was uns insgesamt auf 18 Teams und über 150 Spieler:innen brachte. Die Verteilung der Teams war wie folgt:
 
