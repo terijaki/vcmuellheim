@@ -1402,16 +1402,6 @@
         }
       },
       {
-        "id": "65036605",
-        "name": "TV Neuenburg",
-        "lsbNumber": "472070",
-        "internalSportsclubId": "3537",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "13899585",
         "name": "SV Mauerstetten",
         "lsbNumber": "304495529",
@@ -2299,16 +2289,6 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "37920963",
-        "name": "TuS Witten-Stockum 1945 e.V. / Ruhrvolleys",
-        "lsbNumber": "5109041",
-        "internalSportsclubId": "10044",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
         }
       },
       {
@@ -10332,16 +10312,6 @@
         }
       },
       {
-        "id": "26925388",
-        "name": "TV 1861 Sontra",
-        "lsbNumber": "43088",
-        "internalSportsclubId": "4502",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "26925689",
         "name": "TV 1912 e.V. Schwebda",
         "lsbNumber": "43082",
@@ -15402,16 +15372,6 @@
         }
       },
       {
-        "id": "26925143",
-        "name": "TV Offenbach am Main von 1824 e.V.",
-        "lsbNumber": "29195",
-        "internalSportsclubId": "2404",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "26925144",
         "name": "TV 1882 Runkel e.V.",
         "lsbNumber": "14174",
@@ -15479,6 +15439,16 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "26925143",
+        "name": "TV Offenbach am Main von 1824 e.V.",
+        "lsbNumber": "29195",
+        "internalSportsclubId": "2404",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -16252,20 +16222,20 @@
         }
       },
       {
-        "id": "26925246",
-        "name": "SC Farblos 1978 Schneidhain e.V.",
-        "lsbNumber": "31140",
-        "internalSportsclubId": "3111",
+        "id": "26925230",
+        "name": "SC Riedberg",
+        "lsbNumber": "24698",
+        "internalSportsclubId": "2436",
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
         }
       },
       {
-        "id": "26925230",
-        "name": "SC Riedberg",
-        "lsbNumber": "24698",
-        "internalSportsclubId": "2436",
+        "id": "26925246",
+        "name": "SC Farblos 1978 Schneidhain e.V.",
+        "lsbNumber": "31140",
+        "internalSportsclubId": "3111",
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
@@ -16942,16 +16912,6 @@
         }
       },
       {
-        "id": "26925320",
-        "name": "SC 1975 Steinatal e.V.",
-        "lsbNumber": "46054",
-        "internalSportsclubId": "4903",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "26925305",
         "name": "TV 1880 Dreieichenhain",
         "lsbNumber": "29035",
@@ -17512,16 +17472,6 @@
         }
       },
       {
-        "id": "26925385",
-        "name": "Orplid 1923 Darmstadt e.V.",
-        "lsbNumber": "33021",
-        "internalSportsclubId": "1401",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "26925392",
         "name": "TTC 1955 Hornbach e.V.",
         "lsbNumber": "36105",
@@ -17642,6 +17592,16 @@
         }
       },
       {
+        "id": "37920769",
+        "name": "VC Alsterwasser e.V. Düsseldorf",
+        "lsbNumber": "1001031",
+        "internalSportsclubId": "10124",
+        "association": {
+          "id": "33299092",
+          "name": "Düsseldorf"
+        }
+      },
+      {
         "id": "26925409",
         "name": "SSV Bunstruth",
         "lsbNumber": "0",
@@ -17732,13 +17692,13 @@
         }
       },
       {
-        "id": "37920769",
-        "name": "VC Alsterwasser e.V. Düsseldorf",
-        "lsbNumber": "1001031",
-        "internalSportsclubId": "10124",
+        "id": "26925385",
+        "name": "Orplid 1923 Darmstadt e.V.",
+        "lsbNumber": "33021",
+        "internalSportsclubId": "1401",
         "association": {
-          "id": "33299092",
-          "name": "Düsseldorf"
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -18822,16 +18782,6 @@
         }
       },
       {
-        "id": "26925541",
-        "name": "TV 1898 Gustavsburg e.V.",
-        "lsbNumber": "37063",
-        "internalSportsclubId": "6206",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "26925543",
         "name": "TSV Oberdünzebach",
         "lsbNumber": "0",
@@ -18929,6 +18879,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "26925541",
+        "name": "TV 1898 Gustavsburg e.V.",
+        "lsbNumber": "37063",
+        "internalSportsclubId": "6206",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -20109,16 +20069,6 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
-        }
-      },
-      {
-        "id": "26925693",
-        "name": "TSV 1882 Raunheim e.V.",
-        "lsbNumber": "37104",
-        "internalSportsclubId": "3705",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -24269,16 +24219,6 @@
         "association": {
           "id": "33797741",
           "name": "Lippe"
-        }
-      },
-      {
-        "id": "65036813",
-        "name": "TSG Lützelsachsen",
-        "lsbNumber": "60937",
-        "internalSportsclubId": "60937",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -35222,16 +35162,6 @@
         }
       },
       {
-        "id": "37922033",
-        "name": "Velberter Sportgemeinschaft e.V.",
-        "lsbNumber": "1208084",
-        "internalSportsclubId": "10046",
-        "association": {
-          "id": "33299074",
-          "name": "Wupper-Mettmann"
-        }
-      },
-      {
         "id": "37920848",
         "name": "TURA Lommersdorf e.V.",
         "lsbNumber": "2402005",
@@ -43252,16 +43182,6 @@
         }
       },
       {
-        "id": "50621853",
-        "name": "SG Dresdner Bank Dresden c/o Commerzbank AG",
-        "lsbNumber": "410210",
-        "internalSportsclubId": "357",
-        "association": {
-          "id": "24908815",
-          "name": "Stadt Dresden"
-        }
-      },
-      {
         "id": "50621850",
         "name": "Friedrich-Schiller-Gymnasium Leipzig",
         "lsbNumber": "100000017",
@@ -45942,16 +45862,6 @@
         }
       },
       {
-        "id": "54610907",
-        "name": "TSV Ottenbach",
-        "lsbNumber": "8117",
-        "internalSportsclubId": "253",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "54610908",
         "name": "TV Plochingen",
         "lsbNumber": "6151",
@@ -45996,6 +45906,16 @@
         "name": "TG Reichenbach",
         "lsbNumber": "8123",
         "internalSportsclubId": "256",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "54610907",
+        "name": "TSV Ottenbach",
+        "lsbNumber": "8117",
+        "internalSportsclubId": "253",
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
@@ -53632,6 +53552,16 @@
         }
       },
       {
+        "id": "51836273",
+        "name": "TSV Lehmen",
+        "lsbNumber": "1000389",
+        "internalSportsclubId": "389",
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
         "id": "51836421",
         "name": "PostSV Remagen",
         "lsbNumber": "1002085",
@@ -53739,16 +53669,6 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
-        "id": "51836273",
-        "name": "TSV Lehmen",
-        "lsbNumber": "1000389",
-        "internalSportsclubId": "389",
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
         }
       },
       {
@@ -55292,20 +55212,20 @@
         }
       },
       {
-        "id": "54610919",
-        "name": "TSG Salach",
-        "lsbNumber": "8129",
-        "internalSportsclubId": "265",
+        "id": "54610879",
+        "name": "SV Lauchheim",
+        "lsbNumber": "13093",
+        "internalSportsclubId": "225",
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
         }
       },
       {
-        "id": "54610879",
-        "name": "SV Lauchheim",
-        "lsbNumber": "13093",
-        "internalSportsclubId": "225",
+        "id": "54610919",
+        "name": "TSG Salach",
+        "lsbNumber": "8129",
+        "internalSportsclubId": "265",
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
@@ -60132,6 +60052,16 @@
         }
       },
       {
+        "id": "26925693",
+        "name": "TSV 1882 Raunheim e.V.",
+        "lsbNumber": "37104",
+        "internalSportsclubId": "3705",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
         "id": "65037224",
         "name": "DJK Unterbalbach",
         "lsbNumber": "10082",
@@ -60202,6 +60132,16 @@
         }
       },
       {
+        "id": "65036605",
+        "name": "TV Neuenburg",
+        "lsbNumber": "472070",
+        "internalSportsclubId": "3537",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "65037253",
         "name": "TV Heitersheim",
         "lsbNumber": "471270",
@@ -60209,6 +60149,66 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "50621853",
+        "name": "SG Dresdner Bank Dresden c/o Commerzbank AG",
+        "lsbNumber": "410210",
+        "internalSportsclubId": "357",
+        "association": {
+          "id": "24908815",
+          "name": "Stadt Dresden"
+        }
+      },
+      {
+        "id": "26925320",
+        "name": "SC 1975 Steinatal e.V.",
+        "lsbNumber": "46054",
+        "internalSportsclubId": "4903",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "37920963",
+        "name": "TuS Witten-Stockum 1945 e.V. / Ruhrvolleys",
+        "lsbNumber": "5109041",
+        "internalSportsclubId": "10044",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
+        }
+      },
+      {
+        "id": "37922033",
+        "name": "Velberter Sportgemeinschaft e.V.",
+        "lsbNumber": "1208084",
+        "internalSportsclubId": "10046",
+        "association": {
+          "id": "33299074",
+          "name": "Wupper-Mettmann"
+        }
+      },
+      {
+        "id": "26925388",
+        "name": "TV 1861 Sontra",
+        "lsbNumber": "43088",
+        "internalSportsclubId": "4502",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "65036813",
+        "name": "TSG Lützelsachsen",
+        "lsbNumber": "60937",
+        "internalSportsclubId": "60937",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
