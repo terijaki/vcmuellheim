@@ -15,4 +15,3 @@ Eine Woche später, am 02.02., fuhr man wieder Richtung Freiburg, konnte allerdi
 Ergebnis: VCM vs VfR Merzhausen (25:12 25:23 25:20)
 
 Im Ganzen keine schönen Siege aber wichtige im Kampf um die Meisterschaft!
-\_
