@@ -7,7 +7,6 @@ import HomeMembers from "@/app/components/homepage/HomeMembers";
 import HomeFotos from "@/app/components/homepage/HomeFotos";
 import HomeKontakt from "@/app/components/homepage/HomeKontakt";
 import HomeHeimturnier from "@/app/components/homepage/HomeHeimturnier";
-import "dotenv/config";
 
 export default function Page() {
 	return (
