@@ -12,7 +12,7 @@ export default function HomeSponsors() {
 					className="scroll-anchor"
 				></a>
 				<Image
-					src="images/backgrounds/sponsors.jpg"
+					src="/images/backgrounds/sponsors.jpg"
 					loading="lazy"
 					fill
 					alt=""
