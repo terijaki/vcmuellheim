@@ -8,6 +8,7 @@ import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 
 // generate a custom title
 import { Metadata, ResolvingMetadata } from "next";
+import { getRankings } from "../utils/sams/rankings";
 export async function generateMetadata({}, parent: ResolvingMetadata): Promise<Metadata> {
 	return {
 		title: "Tabelle",
@@ -16,13 +17,16 @@ export async function generateMetadata({}, parent: ResolvingMetadata): Promise<M
 
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
 
-export default function Tabelle() {
+export default async function Tabelle() {
 	const lastResultCap = Number((cachedGetUniqueMatchSeriesIds(cachedGetTeamIds("id")).length * GAMES_PER_TEAM).toFixed(0)); // calculate the total number of games
 	const numToWordsDe = require("num-words-de");
 	const lastResultWord = numToWordsDe.numToWord(lastResultCap, { uppercase: false });
 
 	const rankings = cachedGetRankings(cachedGetUniqueMatchSeriesIds(cachedGetTeamIds("id")));
 	const matchCount = cachedGetMatches(cachedGetTeamIds("id"), "past").length;
+
+	const rankingsNew = await getRankings(cachedGetUniqueMatchSeriesIds(cachedGetTeamIds("id")));
+	console.log(rankingsNew); //TODO use this value from here on
 
 	let matchSeriesDisplayed: string[] = []; //placeholder to avoid duplicate league displays
 	if (rankings.length >= 1) {
