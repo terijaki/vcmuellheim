@@ -16,7 +16,7 @@ export type clubData = { sportsclubs: { sportsclub: [{ id: string; name: string;
 export default async function getAllClubs(): Promise<string | false> {
 	const apiPath = SAMS_URL + "/xml/sportsclubList.xhtml?apiKey=" + SAMS_API;
 	let outputAll: string | false = false;
-	await fetch(apiPath)
+	await fetch(apiPath, { cache: "force-cache", next: { revalidate: 600, tags: ["sams", "clubs"] } })
 		.then((response) => Promise.all([response.status, response.text()]))
 		.then(([status, xmlData]) => {
 			if (status == 200) {

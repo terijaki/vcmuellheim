@@ -14,7 +14,7 @@ export const OWN_CLUB_CACHE_FILE = "data/sams/club.json";
 export default async function getClubData(clubId: number): Promise<{ response: { id: number; name: string; logo: string } }> {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const apiPath = await fetch(SAMS_URL + "/xml/sportsclub.xhtml?apiKey=" + SAMS_API + "&sportsclubId=" + clubId);
+			const apiPath = await fetch(SAMS_URL + "/xml/sportsclub.xhtml?apiKey=" + SAMS_API + "&sportsclubId=" + clubId, { cache: "force-cache", next: { revalidate: 600, tags: ["sams", "club"] } });
 			if (apiPath.status != 200) {
 				error("🚨 SAMS API CALL NOT OK FOR CLUB (" + clubId + "). STATUS " + apiPath.status + ": " + apiPath.statusText);
 			} else {

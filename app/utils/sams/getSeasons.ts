@@ -11,7 +11,7 @@ export const JSON_FILE_TARGET = "data/sams/seasons.json";
 // fetch Club Data
 export function getSeasons() {
 	const apiPath = SAMS_URL + "/xml/seasons.xhtml?apiKey=" + SAMS_API;
-	fetch(apiPath)
+	fetch(apiPath, { cache: "force-cache", next: { revalidate: 600, tags: ["sams", "seasons"] } })
 		.then((response) => Promise.all([response.status, response.text()]))
 		.then(([status, xmlData]) => {
 			if (status == 200) {

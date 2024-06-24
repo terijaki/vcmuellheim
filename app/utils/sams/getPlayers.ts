@@ -35,7 +35,7 @@ export default async function getPlayers(teamId: (number | string)[]) {
 			if (cacheTTLDate > new Date(existingJsonObject.date).getTime()) {
 				const dataUrl: string = SAMS_PLAYER_URL + id;
 				// receive the player data from SAMS
-				await fetch(dataUrl, { headers: { "Content-Type": "text/html; charset=UTF-8" } })
+				await fetch(dataUrl, { headers: { "Content-Type": "text/html; charset=UTF-8" }, cache: "force-cache", next: { revalidate: 600, tags: ["sams", "players"] } })
 					.then((response) => response.arrayBuffer())
 					.then(async (buffer) => {
 						let decoder = new TextDecoder("iso-8859-1"); // this is needed to deal with german Umlauts

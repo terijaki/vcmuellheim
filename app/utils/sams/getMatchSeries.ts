@@ -15,7 +15,7 @@ const SAMS_API = env.SAMS_API,
 // fetch Club Data
 export default async function getMatchSeries(): Promise<Object | boolean> {
 	const apiPath = SAMS_URL + "/xml/matchSeries.xhtml?apiKey=" + SAMS_API;
-	await fetch(apiPath)
+	await fetch(apiPath, { cache: "force-cache", next: { revalidate: 600, tags: ["sams", "matchseries"] } })
 		.then((response) => Promise.all([response.status, response.text()]))
 		.then(([status, xmlData]) => {
 			// console.log("MATCH SERIES STATUS RESPONSE CODE:" + status);

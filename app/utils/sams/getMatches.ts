@@ -55,7 +55,7 @@ export default function getMatches(teamId?: string | number, matchSeriesId?: str
 		queryContext = "All-Season-MatchSeries (" + allSeasonMatchSeriesId + ")";
 		matchRequestId = allSeasonMatchSeriesId.toString();
 	}
-	fetch(apiPath)
+	fetch(apiPath, { cache: "force-cache", next: { revalidate: 600, tags: ["sams", "matches"] } })
 		.then((response) => Promise.all([response.status, response.text()]))
 		.then(([status, xmlData]) => {
 			// console.log("STATUS RESPONSE CODE:" + status);

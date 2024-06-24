@@ -35,7 +35,7 @@ export default function getRankings(matchSeriesId?: string | number, allSeasonMa
 		return false;
 	}
 	if (apiPath && folderTarget && fileTarget) {
-		fetch(apiPath)
+		fetch(apiPath, { cache: "force-cache", next: { revalidate: 600, tags: ["sams", "rankings"] } })
 			.then((response) => Promise.all([response.status, response.text()]))
 			.then(([status, xmlData]) => {
 				// console.log("STATUS RESPONSE CODE:" + status);
