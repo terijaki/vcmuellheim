@@ -1,6 +1,6 @@
 import React from "react";
 import PageHeading from "@/app/components/layout/PageHeading";
-import ExportedImage from "next-image-export-optimizer";
+import Image from "next/image";
 import Link from "next/link";
 
 // generate a custom title
@@ -37,7 +37,7 @@ export default function StyleGuidePage() {
 					<h2>Vektorgrafik</h2>
 					<p>Vektorgrafiken skalieren dynamisch und eigenen sich daher perfekt für den Druck oder die Beflockung von Trikots.</p>
 					<div className="flex flex-col items-center">
-						<ExportedImage
+						<Image
 							src="images/logo/logo.svg"
 							width={505}
 							height={288}
@@ -71,7 +71,7 @@ export default function StyleGuidePage() {
 					</p>
 					<div className="grid gap-3 items-center grid-cols-2 lg:grid-flow-col auto-cols-fr *:inline-flex *:flex-col *:items-center">
 						<div key="black">
-							<ExportedImage
+							<Image
 								src="images/logo/logo-schwarz.png"
 								width={505}
 								height={288}
@@ -89,7 +89,7 @@ export default function StyleGuidePage() {
 							</Link>
 						</div>
 						<div key="white">
-							<ExportedImage
+							<Image
 								src="images/logo/logo-weiss.png"
 								width={505}
 								height={288}
@@ -107,7 +107,7 @@ export default function StyleGuidePage() {
 							</Link>
 						</div>
 						<div key="onyx turquoise">
-							<ExportedImage
+							<Image
 								src="images/logo/logo-363B40-01A29A.png"
 								width={505}
 								height={288}
@@ -125,7 +125,7 @@ export default function StyleGuidePage() {
 							</Link>
 						</div>
 						<div key="onyx blumine">
-							<ExportedImage
+							<Image
 								src="images/logo/logo-363B40-366273.png"
 								width={505}
 								height={288}
@@ -149,7 +149,7 @@ export default function StyleGuidePage() {
 					<p>Fertige Bilddateien mit weißem Logo auf farbigem Hintergrund.</p>
 					<div className="grid gap-3 items-center sm:grid-flow-col auto-cols-fr *:inline-flex *:flex-col *:items-center">
 						<div key="blumine 366273">
-							<ExportedImage
+							<Image
 								src="images/logo/logo-366273.png"
 								width={500}
 								height={500}
@@ -166,7 +166,7 @@ export default function StyleGuidePage() {
 							</Link>
 						</div>
 						<div key="onyx 363B40">
-							<ExportedImage
+							<Image
 								src="images/logo/logo-363B40.png"
 								width={500}
 								height={500}
@@ -183,7 +183,7 @@ export default function StyleGuidePage() {
 							</Link>
 						</div>
 						<div key="turquoise 01A29A">
-							<ExportedImage
+							<Image
 								src="images/logo/logo-01A29A.png"
 								width={500}
 								height={500}
@@ -217,13 +217,13 @@ export default function StyleGuidePage() {
 					<span className="font-bold">Beispiele:</span>
 				</p>
 				<div className="grid sm:grid-cols-2 rounded-lg mb-3 *:w-full *:object-cover *:aspect-video">
-					<ExportedImage
+					<Image
 						width={600}
 						height={400}
 						src="images/blog/2023/09/28/hasslachpokal11.jpg"
 						alt={""}
 					/>
-					<ExportedImage
+					<Image
 						width={600}
 						height={400}
 						src="images/blog/2023/12/04/20231203-wa0046.jpg"

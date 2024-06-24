@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import ExportedImage from "next-image-export-optimizer";
+import Image from "next/image";
 
 export default function SponsorCard(props: { name?: string; website?: string; logo?: string; date?: Date }) {
 	if (!props.website) {
@@ -14,7 +14,7 @@ export default function SponsorCard(props: { name?: string; website?: string; lo
 				rel="noopener noreferrer"
 				className="relative block min-h-20 min-w-20 w-full h-full hover:cursor-pointer"
 			>
-				<ExportedImage
+				<Image
 					unoptimized
 					fill
 					loading="lazy"

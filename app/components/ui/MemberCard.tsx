@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import ExportedImage from "next-image-export-optimizer";
+import Image from "next/image";
 import { FaUser as IconAvatar } from "react-icons/fa6";
 
 export default function MembersCard(props: { name?: string; email?: string; avatar?: string; function?: string }) {
@@ -26,7 +26,7 @@ export default function MembersCard(props: { name?: string; email?: string; avat
 		>
 			<div className="overflow-hidden w-full h-full aspect-square group bg-lion *:h-full *:w-full *:group-hover:scale-105 *:duration-300">
 				{props.avatar ? (
-					<ExportedImage
+					<Image
 						width={96}
 						height={96}
 						src={props.avatar}

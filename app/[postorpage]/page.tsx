@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs";
 import matter from "gray-matter";
 import Link from "next/link";
-import ExportedImage from "next-image-export-optimizer";
+import Image from "next/image";
 import PageHeading from "@/app/components/layout/PageHeading";
 import SharingButon from "@/app/components/ui/SharingButton";
 import Markdown from "markdown-to-jsx";
@@ -158,7 +158,7 @@ function galleryDisplay(gallery: string[]) {
 						className="relative group hover:cursor-zoom-in rounded-md overflow-hidden after:opacity-0 hover:after:opacity-100 after:absolute after:inset-0 after:h-full after:w-full after:pointer-events-none hover:after:z-10 after:border-[0.4rem] after:border-dashed after:border-white after:duration-300"
 					>
 						<div className="realtive object-cover aspect-video sm:aspect-[3/2] xl:aspect-[4/3] m-0 p-0 group-hover:scale-105 transition-transform duration-700">
-							<ExportedImage
+							<Image
 								src={path.join(galleryItem)}
 								width={540}
 								height={310}

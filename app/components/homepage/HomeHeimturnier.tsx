@@ -1,6 +1,6 @@
 import Link from "next/link";
 import SectionHeading from "@/app/components/layout/SectionHeading";
-import ExportedImage from "next-image-export-optimizer";
+import Image from "next/image";
 
 export default function HeimTurnier() {
 	const today = new Date();
@@ -11,7 +11,7 @@ export default function HeimTurnier() {
 					id="heimturnier"
 					className="scroll-anchor"
 				></a>
-				<ExportedImage
+				<Image
 					src="images/blog/2023/06/21/jugendturnier00022.jpg"
 					loading="lazy"
 					fill

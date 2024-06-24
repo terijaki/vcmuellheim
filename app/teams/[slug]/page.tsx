@@ -14,7 +14,7 @@ import { icsTeamGeneration } from "@/app/utils/icsGeneration";
 import { env } from "process";
 import { cachedGetPlayers } from "@/app/utils/sams/cachedGetPlayers";
 import Flag from "react-world-flags";
-import ExportedImage from "next-image-export-optimizer";
+import Image from "next/image";
 import cachedGetSeasons from "@/app/utils/sams/cachedGetSeasons";
 
 // generate static routes for each team slug
@@ -56,7 +56,6 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 		if (players) {
 			players.sort((a, b) => (a.number ? a.number : 99) - (b.number ? b.number : 99));
 		}
-
 		// render the page
 		return (
 			<>
@@ -279,7 +278,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 											className="relative group hover:cursor-zoom-in rounded-md overflow-hidden after:opacity-0 hover:after:opacity-100 after:absolute after:inset-0 after:h-full after:w-full after:pointer-events-none hover:after:z-10 after:border-[0.4rem] after:border-dashed after:border-white after:duration-300"
 										>
 											<div className="realtive object-cover aspect-video sm:aspect-[3/2] xl:aspect-[4/3] m-0 p-0 group-hover:scale-105 transition-transform duration-700">
-												<ExportedImage
+												<Image
 													src={picture}
 													width={540}
 													height={310}

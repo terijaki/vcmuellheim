@@ -2,7 +2,7 @@ import Link from "next/link";
 import path from "path";
 import { fetchFotos } from "@/app/utils/fetchFotos";
 import PageHeading from "@/app/components/layout/PageHeading";
-import ExportedImage from "next-image-export-optimizer";
+import Image from "next/image";
 
 // generate a custom title
 import { Metadata, ResolvingMetadata } from "next";
@@ -31,7 +31,7 @@ export default function FotosDisplay() {
 								className="relative group shadow-xs hover:cursor-zoom-in rounded-md overflow-hidden after:opacity-0 hover:after:opacity-100 after:absolute after:inset-0 after:h-full after:w-full after:pointer-events-none hover:after:z-10 after:border-4 after:border-dashed after:border-white after:duration-300"
 								target="_blank"
 							>
-								<ExportedImage
+								<Image
 									src={path.join(image)}
 									className="object-cover w-full h-full aspect-video sm:aspect-[3/2] m-0 p-0 group-hover:scale-105 transition-transform duration-700"
 									width={264}
@@ -49,7 +49,7 @@ export default function FotosDisplay() {
 								className="relative group shadow-xs hover:cursor-zoom-in rounded-md overflow-hidden after:opacity-0 hover:after:opacity-100 after:absolute after:inset-0 after:h-full after:w-full after:pointer-events-none hover:after:z-10 after:border-4 after:border-dashed after:border-white after:duration-300"
 								target="_blank"
 							>
-								<ExportedImage
+								<Image
 									src={path.join(image)}
 									className="object-cover w-full h-full aspect-video sm:aspect-[3/2] m-0 p-0 group-hover:scale-105 transition-transform duration-700"
 									width={264}

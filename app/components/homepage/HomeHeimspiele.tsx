@@ -1,7 +1,7 @@
 import getEvents from "@/app/utils/getEvents";
 import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
 import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
-import ExportedImage from "next-image-export-optimizer";
+import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
 import { FaLocationDot as IconLocation, FaAngleRight as IconRight, FaAngleLeft as IconLeft } from "react-icons/fa6";
@@ -62,7 +62,7 @@ export default function HomeHeimspiele() {
 					id="heimspiele"
 					className="scroll-anchor"
 				></a>
-				<ExportedImage
+				<Image
 					width={948}
 					height={639}
 					alt=""
@@ -223,7 +223,7 @@ export default function HomeHeimspiele() {
 					id="heimspiele"
 					className="scroll-anchor"
 				></a>
-				<ExportedImage
+				<Image
 					width={948}
 					height={639}
 					alt=""

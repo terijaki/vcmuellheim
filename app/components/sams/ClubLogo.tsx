@@ -1,5 +1,5 @@
 import { getClubLogoUrl } from "@/app/utils/sams/getClubLogo";
-import ExportedImage from "next-image-export-optimizer";
+import Image from "next/image";
 import { FaVolleyball as Ball } from "react-icons/fa6";
 
 export default async function clubLogo(props: { clubName: string; className?: string }) {
@@ -7,7 +7,7 @@ export default async function clubLogo(props: { clubName: string; className?: st
 	if (logo) {
 		return (
 			<div className={"inline-block relative h-5 w-5 " + props.className}>
-				<ExportedImage
+				<Image
 					src={logo}
 					fill
 					placeholder="empty"

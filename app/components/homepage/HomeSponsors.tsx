@@ -1,7 +1,7 @@
 import Sponsors from "@/app/components/homepage/Sponsor";
 import { getActiveSponsors } from "@/app/utils/getSponsors";
 import SectionHeading from "@/app/components/layout/SectionHeading";
-import ExportedImage from "next-image-export-optimizer";
+import Image from "next/image";
 
 export default function HomeSponsors() {
 	if (getActiveSponsors().length >= 1) {
@@ -11,7 +11,7 @@ export default function HomeSponsors() {
 					id="sponsors"
 					className="scroll-anchor"
 				></a>
-				<ExportedImage
+				<Image
 					src="images/backgrounds/sponsors.jpg"
 					loading="lazy"
 					fill

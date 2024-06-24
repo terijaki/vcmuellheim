@@ -1,6 +1,6 @@
 import SectionHeading from "@/app/components/layout/SectionHeading";
 import { fetchFotos } from "@/app/utils/fetchFotos";
-import ExportedImage from "next-image-export-optimizer";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function HomeFotos() {
@@ -33,7 +33,7 @@ export default function HomeFotos() {
 							key={image}
 							className={"relative" + (index == 1 ? " hidden sm:block" : "") + (index == 2 ? " hidden lg:block" : "") + (index == 3 ? " hidden xl:block" : "") + (index > 3 ? " hidden 2xl:block" : "")}
 						>
-							<ExportedImage
+							<Image
 								src={image}
 								fill
 								className="object-cover"

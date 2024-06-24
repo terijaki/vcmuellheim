@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import Markdown from "react-markdown";
-import ExportedImage from "next-image-export-optimizer";
+import Image from "next/image";
 
 export default function NewsCard(props: any) {
 	// check if this post has a thumbnail  TODO: move this all to a {props.thumbnail && "class stuff"}
@@ -25,7 +25,7 @@ export default function NewsCard(props: any) {
 			className="card-narrow overflow-clip select-none grid grid-flow-row group"
 		>
 			{thumbnail && (
-				<ExportedImage
+				<Image
 					width={600}
 					height={128}
 					priority

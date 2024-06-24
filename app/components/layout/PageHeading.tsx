@@ -1,4 +1,4 @@
-import ExportedImage from "next-image-export-optimizer";
+import Image from "next/image";
 import React from "react";
 
 export default function PageHeading(props: { title: string; subtitle?: string; subtitleDate?: boolean }) {
@@ -11,7 +11,7 @@ export default function PageHeading(props: { title: string; subtitle?: string; s
 					bg-cover bg-no-repeat bg-center
 					bg-gradient-overlay bg-gradient-overlay-double"
 		>
-			<ExportedImage
+			<Image
 				width={948}
 				height={639}
 				alt=""

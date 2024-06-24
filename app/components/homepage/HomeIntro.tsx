@@ -1,4 +1,4 @@
-import ExportedImage from "next-image-export-optimizer";
+import Image from "next/image";
 import { navbarLinks } from "@/app/utils/navbarLinks";
 import { FaAnglesDown as IconDown } from "react-icons/fa6";
 import Link from "next/link";
@@ -18,17 +18,18 @@ export default function HomeIntro() {
 				id="intro"
 				className="scroll-anchor"
 			></a>
-			<ExportedImage
+			<Image
 				fill
 				priority
 				alt=""
 				src={backgroundImageRandom}
 				className="absolute w-full h-full z-[-10] object-cover"
+				quality={75}
 			/>
 			<div className="col-center-content w-full mt-6 flex flex-col items-center justify-center">
 				<p className="font-black text-2xl">Willkommen beim</p>
 				<div className="inline-block relative -mt-4 mb-4 mx-6 w-10/12 max-w-xl aspect-video">
-					<ExportedImage
+					<Image
 						priority
 						placeholder="empty"
 						width={5050}

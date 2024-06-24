@@ -5,7 +5,7 @@ import matter from "gray-matter";
 
 // generate a custom title
 import { Metadata, ResolvingMetadata } from "next";
-import ExportedImage from "next-image-export-optimizer";
+import Image from "next/image";
 import Link from "next/link";
 export async function generateMetadata({}, parent: ResolvingMetadata): Promise<Metadata | void> {
 	return {
@@ -116,7 +116,7 @@ export default function JugendturnierPage() {
 			</div>
 
 			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-3 *:overflow-hidden *:m-auto bg-black text-white">
-				<ExportedImage
+				<Image
 					src="images/sponsors/markgraefler_taxi.png"
 					alt={""}
 					width={570}
@@ -157,7 +157,7 @@ export default function JugendturnierPage() {
 								target="_blank"
 								className="group shadow-xs hover:cursor-zoom-in after:opacity-0 hover:after:opacity-100 after:absolute after:inset-0 after:h-full after:w-full after:pointer-events-none hover:after:z-10 after:border-4 after:border-dashed after:border-white after:duration-300"
 							>
-								<ExportedImage
+								<Image
 									src={image}
 									fill
 									alt={""}
