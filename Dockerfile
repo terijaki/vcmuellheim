@@ -20,6 +20,9 @@ COPY . .
 # Disable telemetry during the build
 ENV NEXT_TELEMETRY_DISABLED 1
 
+# use local variables as production (needed when testing locally)
+RUN mv -n .env.local .env.production || true
+
 RUN bun run build
 
 # Production image, copy all the files and run next
