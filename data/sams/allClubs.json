@@ -14632,16 +14632,6 @@
         }
       },
       {
-        "id": "26925056",
-        "name": "SV Concordia 1910 e.V. Gernsheim",
-        "lsbNumber": "37034",
-        "internalSportsclubId": "1711",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "26925058",
         "name": "SG 1908 Oberbiel e.V.",
         "lsbNumber": "13133",
@@ -14799,6 +14789,16 @@
         "association": {
           "id": "33299092",
           "name": "Düsseldorf"
+        }
+      },
+      {
+        "id": "26925056",
+        "name": "SV Concordia 1910 e.V. Gernsheim",
+        "lsbNumber": "37034",
+        "internalSportsclubId": "1711",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -17222,20 +17222,20 @@
         }
       },
       {
-        "id": "26925369",
-        "name": "TSG Altenhain 1900 e.V.",
-        "lsbNumber": "30001",
-        "internalSportsclubId": "3004",
+        "id": "26925384",
+        "name": "SV Blau-Gelb Frankfurt e.V.",
+        "lsbNumber": "24105",
+        "internalSportsclubId": "5402",
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
         }
       },
       {
-        "id": "26925384",
-        "name": "SV Blau-Gelb Frankfurt e.V.",
-        "lsbNumber": "24105",
-        "internalSportsclubId": "5402",
+        "id": "26925369",
+        "name": "TSG Altenhain 1900 e.V.",
+        "lsbNumber": "30001",
+        "internalSportsclubId": "3004",
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
@@ -19502,16 +19502,6 @@
         }
       },
       {
-        "id": "26925625",
-        "name": "TSG 1891 Elgershausen e.V.",
-        "lsbNumber": "41015",
-        "internalSportsclubId": "4117",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "26925626",
         "name": "TV Dorf-Erbach 1909 e.V.",
         "lsbNumber": "35023",
@@ -20749,16 +20739,6 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
-        "id": "26925759",
-        "name": "SG Egelsbach 1874 e.V.",
-        "lsbNumber": "29039",
-        "internalSportsclubId": "2505",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -34362,16 +34342,6 @@
         }
       },
       {
-        "id": "54611193",
-        "name": "TSV Schönaich",
-        "lsbNumber": "3102",
-        "internalSportsclubId": "553",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "37921699",
         "name": "SV Schermbeck e.V. 1912",
         "lsbNumber": "1509005",
@@ -34489,6 +34459,16 @@
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
+        }
+      },
+      {
+        "id": "54611193",
+        "name": "TSV Schönaich",
+        "lsbNumber": "3102",
+        "internalSportsclubId": "553",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -36732,16 +36712,6 @@
         }
       },
       {
-        "id": "71295426",
-        "name": "SV Ludwigsdorf 48 e.V.",
-        "lsbNumber": "450275",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7213",
-          "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
         "id": "37921899",
         "name": "Fischelner Turnverein 1905 e.V.",
         "lsbNumber": "1004108",
@@ -36769,6 +36739,16 @@
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
+        }
+      },
+      {
+        "id": "71295426",
+        "name": "SV Ludwigsdorf 48 e.V.",
+        "lsbNumber": "450275",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
         }
       },
       {
@@ -41382,16 +41362,6 @@
         }
       },
       {
-        "id": "51836205",
-        "name": "Turnerschaft 1863 Germersheim e.V",
-        "lsbNumber": "29",
-        "internalSportsclubId": "32-44-03",
-        "association": {
-          "id": "25383414",
-          "name": "Volleyball-Verband Pfalz"
-        }
-      },
-      {
         "id": "54610696",
         "name": "TV Creglingen",
         "lsbNumber": "21013",
@@ -45672,6 +45642,16 @@
         }
       },
       {
+        "id": "54610889",
+        "name": "TSV Musberg",
+        "lsbNumber": "6230",
+        "internalSportsclubId": "235",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
         "id": "54610882",
         "name": "TV Liebersbronn",
         "lsbNumber": "6059",
@@ -45786,16 +45766,6 @@
         "name": "EK Kohlberg",
         "lsbNumber": "6357",
         "internalSportsclubId": "221",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
-        "id": "54610889",
-        "name": "TSV Musberg",
-        "lsbNumber": "6230",
-        "internalSportsclubId": "235",
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
@@ -46062,16 +46032,6 @@
         }
       },
       {
-        "id": "54610928",
-        "name": "SpVgg Stetten",
-        "lsbNumber": "6166",
-        "internalSportsclubId": "276",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "54610932",
         "name": "Häretikon Stuttgart",
         "lsbNumber": "0",
@@ -46106,6 +46066,16 @@
         "name": "TV Stetten/R.",
         "lsbNumber": "15120",
         "internalSportsclubId": "278",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "54610928",
+        "name": "SpVgg Stetten",
+        "lsbNumber": "6166",
+        "internalSportsclubId": "276",
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
@@ -54622,16 +54592,6 @@
         }
       },
       {
-        "id": "6375",
-        "name": "VC Bitterfeld-Wolfen e.V.",
-        "lsbNumber": "70034",
-        "internalSportsclubId": "70034",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "50621457",
         "name": "CVJM Görlitz e.V.",
         "lsbNumber": "450033",
@@ -54719,6 +54679,16 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "6375",
+        "name": "VC Bitterfeld-Wolfen e.V.",
+        "lsbNumber": "70034",
+        "internalSportsclubId": "70034",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -60412,6 +60382,16 @@
         }
       },
       {
+        "id": "26925759",
+        "name": "SG Egelsbach 1874 e.V.",
+        "lsbNumber": "29039",
+        "internalSportsclubId": "2505",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
         "id": "65037317",
         "name": "Sport-Club Önsbach",
         "lsbNumber": "184460",
@@ -60439,6 +60419,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "51836205",
+        "name": "Turnerschaft 1863 Germersheim e.V.",
+        "lsbNumber": "29",
+        "internalSportsclubId": "32-44-03",
+        "association": {
+          "id": "25383414",
+          "name": "Volleyball-Verband Pfalz"
         }
       },
       {
@@ -60479,6 +60469,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26925625",
+        "name": "TSG 1891 Elgershausen e.V.",
+        "lsbNumber": "41015",
+        "internalSportsclubId": "4117",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -60672,6 +60672,16 @@
         }
       },
       {
+        "id": "65037412",
+        "name": "Sportfreunde SF Schliengen 1919 e.V.",
+        "lsbNumber": "185460",
+        "internalSportsclubId": "3529",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "65037387",
         "name": "FT Bodersweier",
         "lsbNumber": "473560",
@@ -60766,16 +60776,6 @@
         "name": "Friedrich-Hecker-Gymnasium Radolfzell",
         "lsbNumber": "8144281588",
         "internalSportsclubId": null,
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65037412",
-        "name": "Sportfreunde SF Schliengen 1919 e.V.",
-        "lsbNumber": "185460",
-        "internalSportsclubId": "3529",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -63202,16 +63202,6 @@
         }
       },
       {
-        "id": "70276810",
-        "name": "VSG Rebland",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "63877284",
         "name": "SV Groß Garz e.V.",
         "lsbNumber": "20025",
@@ -63219,6 +63209,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "70276810",
+        "name": "VSG Rebland",
+        "lsbNumber": null,
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
