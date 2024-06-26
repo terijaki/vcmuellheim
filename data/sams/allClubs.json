@@ -10472,6 +10472,16 @@
         }
       },
       {
+        "id": "26925400",
+        "name": "PSV Grün-Weiß e.V. Kassel",
+        "lsbNumber": "41083",
+        "internalSportsclubId": "3904",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
         "id": "39458947",
         "name": "VC Hohenschönhausen e.V.",
         "lsbNumber": null,
@@ -10499,16 +10509,6 @@
         "association": {
           "id": "26249309",
           "name": "Kreisverband West"
-        }
-      },
-      {
-        "id": "26925400",
-        "name": "PSV Grün-Weiß e.V. Kassel",
-        "lsbNumber": "41083",
-        "internalSportsclubId": "3904",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -13982,16 +13982,6 @@
         }
       },
       {
-        "id": "37922043",
-        "name": "Polizeisportverein Dortmund e.V. 1922",
-        "lsbNumber": "5002144",
-        "internalSportsclubId": "2613",
-        "association": {
-          "id": "33797822",
-          "name": "Dortmund"
-        }
-      },
-      {
         "id": "37921981",
         "name": "SV Wormersdorf 1946 e.V.",
         "lsbNumber": "2812005",
@@ -14126,6 +14116,16 @@
         "name": "TV Asseln 1885 e.V.",
         "lsbNumber": "5002094",
         "internalSportsclubId": "2611",
+        "association": {
+          "id": "33797822",
+          "name": "Dortmund"
+        }
+      },
+      {
+        "id": "37922043",
+        "name": "Polizeisportverein Dortmund e.V. 1922",
+        "lsbNumber": "5002144",
+        "internalSportsclubId": "2613",
         "association": {
           "id": "33797822",
           "name": "Dortmund"
@@ -22582,16 +22582,6 @@
         }
       },
       {
-        "id": "37921625",
-        "name": "SV Blau-Weiß 1910 Herongen e.V.",
-        "lsbNumber": "1113005",
-        "internalSportsclubId": "972",
-        "association": {
-          "id": "33298881",
-          "name": "Kleve"
-        }
-      },
-      {
         "id": "37921006",
         "name": "TuS von 1897 Amelunxen e.V.",
         "lsbNumber": "4302011",
@@ -26912,20 +26902,20 @@
         }
       },
       {
-        "id": "37921137",
-        "name": "SV 1920 Niederkassel e.V.",
-        "lsbNumber": "2811005",
-        "internalSportsclubId": "8921",
+        "id": "37921778",
+        "name": "Turnverein Hangelar 1962 e.V.",
+        "lsbNumber": "2814010",
+        "internalSportsclubId": "8924",
         "association": {
           "id": "33795566",
           "name": "Rhein-Sieg"
         }
       },
       {
-        "id": "37921778",
-        "name": "Turnverein Hangelar 1962 e.V.",
-        "lsbNumber": "2814010",
-        "internalSportsclubId": "8924",
+        "id": "37921137",
+        "name": "SV 1920 Niederkassel e.V.",
+        "lsbNumber": "2811005",
+        "internalSportsclubId": "8921",
         "association": {
           "id": "33795566",
           "name": "Rhein-Sieg"
@@ -33072,16 +33062,6 @@
         }
       },
       {
-        "id": "37921831",
-        "name": "TV Gerthe 1911 e.V.",
-        "lsbNumber": "5001018",
-        "internalSportsclubId": "2304",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
         "id": "37921326",
         "name": "Elberfelder TB 1881 Wuppertal e.V.",
         "lsbNumber": "1010034",
@@ -33249,6 +33229,16 @@
         "association": {
           "id": "33797282",
           "name": "Vest"
+        }
+      },
+      {
+        "id": "37921831",
+        "name": "TV Gerthe 1911 e.V.",
+        "lsbNumber": "5001018",
+        "internalSportsclubId": "2304",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
         }
       },
       {
@@ -35732,16 +35722,6 @@
         }
       },
       {
-        "id": "21795970",
-        "name": "Berliner Turn- und Sportclub e.V.",
-        "lsbNumber": "798",
-        "internalSportsclubId": "14-11-112",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "26846427",
         "name": "Verein für Leibesübungen Lichtenrade 1894 e.V.",
         "lsbNumber": "5134",
@@ -37342,16 +37322,6 @@
         }
       },
       {
-        "id": "6385",
-        "name": "Lindower SV Grün-Weiß",
-        "lsbNumber": "680097",
-        "internalSportsclubId": "680097",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "16610354",
         "name": "Märkischer SV Zossen 07",
         "lsbNumber": "720084",
@@ -37419,6 +37389,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "6385",
+        "name": "Lindower SV Grün-Weiß",
+        "lsbNumber": "680097",
+        "internalSportsclubId": "680097",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -42402,16 +42382,6 @@
         }
       },
       {
-        "id": "54610728",
-        "name": "TSV Kleiningersheim",
-        "lsbNumber": "12287",
-        "internalSportsclubId": "66",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
         "id": "54610727",
         "name": "TV Kirchheim/N.",
         "lsbNumber": "12088",
@@ -45902,6 +45872,16 @@
         }
       },
       {
+        "id": "54610911",
+        "name": "TV Reichenbach",
+        "lsbNumber": "6157",
+        "internalSportsclubId": "257",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
         "id": "54610926",
         "name": "TSV Steinhaldenfeld",
         "lsbNumber": "20191",
@@ -45949,16 +45929,6 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
-        }
-      },
-      {
-        "id": "54610911",
-        "name": "TV Reichenbach",
-        "lsbNumber": "6157",
-        "internalSportsclubId": "257",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
         }
       },
       {
@@ -50772,16 +50742,6 @@
         }
       },
       {
-        "id": "65036469",
-        "name": "VC Olympia Heidelberg",
-        "lsbNumber": "52417",
-        "internalSportsclubId": "52417",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "51836220",
         "name": "1.FC Urmitz",
         "lsbNumber": null,
@@ -53142,6 +53102,16 @@
         }
       },
       {
+        "id": "51836008",
+        "name": "TuS 1884/1919 Alsenz e.V.",
+        "lsbNumber": "26",
+        "internalSportsclubId": "32-43-02",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
         "id": "65036493",
         "name": "VSG Kaiserstuhl",
         "lsbNumber": "480640",
@@ -53176,16 +53146,6 @@
         "name": "VSC e.V. “Spike” Guldental",
         "lsbNumber": "1004363",
         "internalSportsclubId": "32-17-26",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
-        "id": "4452229",
-        "name": "TSG 1846 Mainz-Bretzenheim e.V.",
-        "lsbNumber": "64",
-        "internalSportsclubId": "32-55-04",
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
@@ -53246,16 +53206,6 @@
         "name": "BGV Simmern e.V.",
         "lsbNumber": "1002861",
         "internalSportsclubId": "32-22-12",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
-        "id": "51836008",
-        "name": "TuS 1884/1919 Alsenz e.V.",
-        "lsbNumber": "26",
-        "internalSportsclubId": "32-43-02",
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
@@ -53532,16 +53482,6 @@
         }
       },
       {
-        "id": "51836421",
-        "name": "PostSV Remagen",
-        "lsbNumber": "1002085",
-        "internalSportsclubId": "32-11-05",
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
         "id": "51836252",
         "name": "TSV Ludwigshafen",
         "lsbNumber": "362",
@@ -53549,6 +53489,16 @@
         "association": {
           "id": "25383414",
           "name": "Volleyball-Verband Pfalz"
+        }
+      },
+      {
+        "id": "51836421",
+        "name": "PostSV Remagen",
+        "lsbNumber": "1002085",
+        "internalSportsclubId": "32-11-05",
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
         }
       },
       {
@@ -60632,6 +60582,16 @@
         }
       },
       {
+        "id": "21795970",
+        "name": "Berliner Turn- und Sportclub e.V.",
+        "lsbNumber": "798",
+        "internalSportsclubId": "14-11-112",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
         "id": "65037380",
         "name": "Realschule am Salinensee",
         "lsbNumber": "8144281681",
@@ -60662,6 +60622,46 @@
         }
       },
       {
+        "id": "4452229",
+        "name": "TSG 1846 Mainz-Bretzenheim e.V.",
+        "lsbNumber": "64",
+        "internalSportsclubId": "32-55-04",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "65036469",
+        "name": "VC Olympia Heidelberg",
+        "lsbNumber": "52417",
+        "internalSportsclubId": "52417",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "37921625",
+        "name": "SV Blau-Weiß 1910 Herongen e.V.",
+        "lsbNumber": "1113005",
+        "internalSportsclubId": "972",
+        "association": {
+          "id": "33298881",
+          "name": "Kleve"
+        }
+      },
+      {
+        "id": "54610728",
+        "name": "TSV Kleiningersheim",
+        "lsbNumber": "12287",
+        "internalSportsclubId": "66",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
+        }
+      },
+      {
         "id": "65037385",
         "name": "TSV Oftersheim",
         "lsbNumber": "61068",
@@ -60689,6 +60689,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037396",
+        "name": "VSG Ubstadt/Forst",
+        "lsbNumber": null,
+        "internalSportsclubId": "7131971231",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -60729,16 +60739,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65037396",
-        "name": "VSG Ubstadt/Forst",
-        "lsbNumber": null,
-        "internalSportsclubId": "7131971231",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
