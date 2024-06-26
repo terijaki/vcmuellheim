@@ -58,7 +58,7 @@ export async function getRanking(matchSeriesId: string | number): Promise<Rankin
 	const parseString = require("xml2js").parseString;
 	await parseString(samsXMLResponseText, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: RankingsXMLResponse) {
 		if (!err) {
-			console.log("✅ Ranking data looks good for " + result.rankings.matchSeries.name + " (" + matchSeriesId + ")");
+			// console.log("✅ Ranking data looks good for " + result.rankings.matchSeries.name + " (" + matchSeriesId + ")");
 			thisObject = result.rankings;
 			return result;
 		} else {
