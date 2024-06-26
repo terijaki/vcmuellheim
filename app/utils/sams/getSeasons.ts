@@ -3,9 +3,10 @@
 // Zeigt eine Liste aller verfügbaren Saisons an. Die ID der Saison kann in der Spielrundenübersicht verwendet werden, um Zugriff auf historische Daten zu erhalten.
 import { env } from "process";
 import fs from "fs";
+import { SAMS } from "@/project.config";
 
 const SAMS_API = env.SAMS_API,
-	SAMS_URL = env.NEXT_PUBLIC_SAMS_URL;
+	SAMS_URL = SAMS.url;
 export const JSON_FILE_TARGET = "data/sams/seasons.json";
 
 // fetch Club Data

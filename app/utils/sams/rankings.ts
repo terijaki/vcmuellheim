@@ -6,17 +6,18 @@
 // benötiger Parameter:
 // matchSeriesId - Id einer Spielrunde (Bsp.: matchSeriesId=12345)
 // alternativ: allSeasonMatchSeriesId - saisonübergreifende Spielrunden-ID (Bsp.: allSeasonMatchSeriesId=012bfd2f-ad4a-40f5-8cef-a88e6a27a3aa)
+import { SAMS } from "@/project.config";
 import { env } from "process";
 
 const SAMS_API = env.SAMS_API,
-	SAMS_URL = env.NEXT_PUBLIC_SAMS_URL;
+	SAMS_URL = SAMS.url;
 
 /** Returns one or more Ranking when provided with a matchSeriesID
  * @param matchSeriesId can be either a matchSeriesID or allSeasonMatchSeriesID */
 export async function getRankings(matchSeriesIds: string[] | number[]): Promise<Rankings[] | false> {
 	// const requestedRankings = matchSeriesId.forEach(async (ranking) => {
 	// 	// construct the fetch URL
-	// 	const apiURL = NEXT_PUBLIC_SAMS_URL + "/xml/rankings.xhtml?apiKey=" + SAMS_API + "&matchSeriesId=" + ranking;
+	// 	const apiURL = SAMS_URL + "/xml/rankings.xhtml?apiKey=" + SAMS_API + "&matchSeriesId=" + ranking;
 
 	// 	try {
 	// 		// make the server request and check its status

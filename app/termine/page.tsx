@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { env } from "process";
+import { Club } from "@/project.config";
 import { Metadata, ResolvingMetadata } from "next";
 import PageHeading from "@/app/components/layout/PageHeading";
 import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
@@ -65,7 +65,7 @@ export default function Termine() {
 						<h2 className="card-heading">Vereinskalender</h2>
 						<p className="my-3 text-pretty">
 							<Link
-								href={"webcal://" + env.NEXT_PUBLIC_BASE_URL + "/ics/all.ics"}
+								href={"webcal://" + Club.domain + "/ics/all.ics"}
 								className="gap-1 hyperlink group"
 							>
 								<IconSubscribe className="inline align-baseline" /> Abboniere unseren Vereinskalender
@@ -92,7 +92,7 @@ export default function Termine() {
 						{seasonMonth && <p className="mb-6">Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.</p>}
 						<p className="text-pretty">
 							<Link
-								href={"webcal://" + env.NEXT_PUBLIC_BASE_URL + "/ics/all.ics"}
+								href={"webcal://" + Club.domain + "/ics/all.ics"}
 								className="gap-1 hyperlink group"
 							>
 								<IconSubscribe className="inline align-baseline" /> Abboniere unseren Kalender

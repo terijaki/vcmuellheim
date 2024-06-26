@@ -19,9 +19,10 @@ import { writeToSummary } from "../github/actionSummary";
 import convertDate from "./convertDate";
 import { matchType, matchesType } from "./typeMatches";
 import { identifyNewMatchResults } from "./identifyNewMatchResults";
+import { SAMS } from "@/project.config";
 
 const SAMS_API = env.SAMS_API,
-	SAMS_URL = env.NEXT_PUBLIC_SAMS_URL;
+	SAMS_URL = SAMS.url;
 export const JSON_FILE_TARGET = "data/sams";
 
 // fetch Club Data

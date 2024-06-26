@@ -11,11 +11,11 @@ import { cachedGetRankings } from "@/app/utils/sams/cachedGetRanking";
 import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import RankingTable from "@/app/components/sams/RankingTable";
 import { icsTeamGeneration } from "@/app/utils/icsGeneration";
-import { env } from "process";
 import { cachedGetPlayers } from "@/app/utils/sams/cachedGetPlayers";
 import Flag from "react-world-flags";
 import Image from "next/image";
 import cachedGetSeasons from "@/app/utils/sams/cachedGetSeasons";
+import { Club } from "@/project.config";
 
 // generate static routes for each team slug
 // example: http://localhost:3000/teams/herren1
@@ -115,7 +115,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 								<h2 className="card-heading">Mannschaftskalender</h2>
 								<p className="my-3 text-pretty">
 									<Link
-										href={"webcal://" + env.NEXT_PUBLIC_BASE_URL + "/ics/" + params.slug + ".ics"}
+										href={"webcal://" + Club.domain + "/ics/" + params.slug + ".ics"}
 										className="gap-1 hyperlink group"
 									>
 										<IconSubscribe className="inline align-baseline" /> Abboniere unseren Kalender
@@ -164,7 +164,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 
 							<p className="my-3 text-pretty">
 								<Link
-									href={"webcal://" + env.NEXT_PUBLIC_BASE_URL + "/ics/" + params.slug + ".ics"}
+									href={"webcal://" + Club.domain + "/ics/" + params.slug + ".ics"}
 									className="gap-1 hyperlink group"
 								>
 									<IconSubscribe className="inline align-baseline" /> Abboniere unseren Kalender

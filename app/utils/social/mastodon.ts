@@ -1,7 +1,8 @@
+import { Mastodon } from "@/project.config";
 import { env } from "process";
 
-const INSTANCE: string = env.NEXT_PUBLIC_MASTODON_INSTANCE + "",
-	CLIENT_ID: string = env.NEXT_PUBLIC_MASTODON_CLIENT_ID + "",
+const INSTANCE: string = Mastodon.instance + "",
+	CLIENT_ID: string = Mastodon.clientId + "",
 	ACCESS_TOKEN: string = env.MASTODON_ACCESS_TOKEN + "";
 
 type mastodonStatusResponse = {

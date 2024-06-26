@@ -9,9 +9,10 @@
 import { env } from "process";
 import fs from "fs";
 import path from "path";
+import { SAMS } from "@/project.config";
 
 const SAMS_API = env.SAMS_API,
-	SAMS_URL = env.NEXT_PUBLIC_SAMS_URL;
+	SAMS_URL = SAMS.url;
 export const JSON_FILE_TARGET = "data/sams";
 
 // fetch Rankings Data

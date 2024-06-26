@@ -6,9 +6,10 @@
 import { env } from "process";
 import fs from "fs";
 import path from "path";
+import { SAMS } from "@/project.config";
 
 const SAMS_API = env.SAMS_API,
-	SAMS_URL = env.NEXT_PUBLIC_SAMS_URL,
+	SAMS_URL = SAMS.url,
 	JSON_FILE_FOLDER = "data/sams",
 	JSON_FILE_TARGET = path.join(JSON_FILE_FOLDER, "matchSeries.json");
 

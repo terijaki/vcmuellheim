@@ -2,12 +2,13 @@
 // Verein (detailliert)
 // Gibt detaillierte Informationen zu einem bestimmten Verein aus.
 import { env } from "process";
+import { SAMS } from "@/project.config";
 import fs from "fs";
 import { error } from "console";
 
 const SAMS_API = env.SAMS_API,
-	SAMS_URL = env.NEXT_PUBLIC_SAMS_URL,
-	SAMS_CLUB_NAME = env.SAMS_CLUB_NAME,
+	SAMS_URL = SAMS.url,
+	SAMS_CLUB_NAME = SAMS.name,
 	SAMS_FOLDER = "data/sams";
 export const OWN_CLUB_CACHE_FILE = "data/sams/club.json";
 

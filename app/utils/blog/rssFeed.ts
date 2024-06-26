@@ -1,12 +1,12 @@
 import { Feed } from "feed";
-import { env } from "process";
+import { Club } from "@/project.config";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-let HOMEPAGE = env.NEXT_PUBLIC_FULL_URL,
-	NAME = env.NEXT_PUBLIC_CLUBNAME,
-	EMAIL = env.NEXT_PUBLIC_GENERIC_EMAIL;
+let HOMEPAGE = Club.url,
+	NAME = Club.name,
+	EMAIL = Club.email;
 
 const POSTS_FOLDER = "data/posts";
 
