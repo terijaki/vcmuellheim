@@ -115,7 +115,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 								<h2 className="card-heading">Mannschaftskalender</h2>
 								<p className="my-3 text-pretty">
 									<Link
-										href={"webcal://" + env.BASE_URL + "/ics/" + params.slug + ".ics"}
+										href={"webcal://" + env.NEXT_PUBLIC_BASE_URL + "/ics/" + params.slug + ".ics"}
 										className="gap-1 hyperlink group"
 									>
 										<IconSubscribe className="inline align-baseline" /> Abboniere unseren Kalender
@@ -164,7 +164,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 
 							<p className="my-3 text-pretty">
 								<Link
-									href={"webcal://" + env.BASE_URL + "/ics/" + params.slug + ".ics"}
+									href={"webcal://" + env.NEXT_PUBLIC_BASE_URL + "/ics/" + params.slug + ".ics"}
 									className="gap-1 hyperlink group"
 								>
 									<IconSubscribe className="inline align-baseline" /> Abboniere unseren Kalender

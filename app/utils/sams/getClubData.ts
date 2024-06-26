@@ -6,7 +6,7 @@ import fs from "fs";
 import { error } from "console";
 
 const SAMS_API = env.SAMS_API,
-	SAMS_URL = env.SAMS_URL,
+	SAMS_URL = env.NEXT_PUBLIC_SAMS_URL,
 	SAMS_CLUB_NAME = env.SAMS_CLUB_NAME,
 	SAMS_FOLDER = "data/sams";
 export const OWN_CLUB_CACHE_FILE = "data/sams/club.json";
@@ -14,7 +14,10 @@ export const OWN_CLUB_CACHE_FILE = "data/sams/club.json";
 export default async function getClubData(clubId: number): Promise<{ response: { id: number; name: string; logo: string } }> {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const apiPath = await fetch(SAMS_URL + "/xml/sportsclub.xhtml?apiKey=" + SAMS_API + "&sportsclubId=" + clubId, { cache: "force-cache", next: { revalidate: 600, tags: ["sams", "club"] } });
+			const apiPath = await fetch(SAMS_URL + "/xml/sportsclub.xhtml?apiKey=" + SAMS_API + "&sportsclubId=" + clubId, {
+				cache: "force-cache",
+				next: { revalidate: 600, tags: ["sams", "club"] },
+			});
 			if (apiPath.status != 200) {
 				error("🚨 SAMS API CALL NOT OK FOR CLUB (" + clubId + "). STATUS " + apiPath.status + ": " + apiPath.statusText);
 			} else {

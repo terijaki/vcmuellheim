@@ -6,7 +6,7 @@ import fs from "fs";
 import { writeToSummary } from "../github/actionSummary";
 
 const SAMS_API = env.SAMS_API,
-	SAMS_URL = env.SAMS_URL,
+	SAMS_URL = env.NEXT_PUBLIC_SAMS_URL,
 	SAMS_FOLDER = "data/sams";
 
 export const CLUBS_FILE_TARGET = "data/sams/allClubs.json";

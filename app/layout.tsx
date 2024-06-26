@@ -13,7 +13,7 @@ export const viewport: Viewport = {
 	maximumScale: 1,
 };
 export const metadata: Metadata = {
-	metadataBase: new URL("https://" + env.BASE_URL),
+	metadataBase: new URL("https://" + env.NEXT_PUBLIC_BASE_URL),
 	title: {
 		template: "VCM: %s",
 		default: "Volleyballclub Müllheim",

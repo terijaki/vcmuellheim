@@ -5,7 +5,7 @@ import { env } from "process";
 import fs from "fs";
 
 const SAMS_API = env.SAMS_API,
-	SAMS_URL = env.SAMS_URL;
+	SAMS_URL = env.NEXT_PUBLIC_SAMS_URL;
 export const JSON_FILE_TARGET = "data/sams/seasons.json";
 
 // fetch Club Data

@@ -16,8 +16,8 @@ import { slugify } from "../slugify";
 import verifyTeams from "./verifyTeams";
 import { getSeasons } from "./getSeasons";
 
-const SAMS_CLUB_NUMBER = env.SAMS_CLUB_NUMBER,
-	SAMS_CLUB_NAME = env.SAMS_CLUB_NAME;
+const SAMS_CLUB_NUMBER = env.NEXT_PUBLIC_SAMS_CLUB_NUMBER,
+	SAMS_CLUB_NAME = env.NEXT_PUBLIC_SAMS_CLUB_NAME;
 const CLUBS_CACHE_FOLDER = "data/sams/clubs";
 
 // GET ALL CLUBS

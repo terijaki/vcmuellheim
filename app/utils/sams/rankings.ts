@@ -9,14 +9,14 @@
 import { env } from "process";
 
 const SAMS_API = env.SAMS_API,
-	SAMS_URL = env.SAMS_URL;
+	SAMS_URL = env.NEXT_PUBLIC_SAMS_URL;
 
 /** Returns one or more Ranking when provided with a matchSeriesID
  * @param matchSeriesId can be either a matchSeriesID or allSeasonMatchSeriesID */
 export async function getRankings(matchSeriesIds: string[] | number[]): Promise<Rankings[] | false> {
 	// const requestedRankings = matchSeriesId.forEach(async (ranking) => {
 	// 	// construct the fetch URL
-	// 	const apiURL = SAMS_URL + "/xml/rankings.xhtml?apiKey=" + SAMS_API + "&matchSeriesId=" + ranking;
+	// 	const apiURL = NEXT_PUBLIC_SAMS_URL + "/xml/rankings.xhtml?apiKey=" + SAMS_API + "&matchSeriesId=" + ranking;
 
 	// 	try {
 	// 		// make the server request and check its status

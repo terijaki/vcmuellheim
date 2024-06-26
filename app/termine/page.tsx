@@ -65,7 +65,7 @@ export default function Termine() {
 						<h2 className="card-heading">Vereinskalender</h2>
 						<p className="my-3 text-pretty">
 							<Link
-								href={"webcal://" + env.BASE_URL + "/ics/all.ics"}
+								href={"webcal://" + env.NEXT_PUBLIC_BASE_URL + "/ics/all.ics"}
 								className="gap-1 hyperlink group"
 							>
 								<IconSubscribe className="inline align-baseline" /> Abboniere unseren Vereinskalender
@@ -92,7 +92,7 @@ export default function Termine() {
 						{seasonMonth && <p className="mb-6">Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.</p>}
 						<p className="text-pretty">
 							<Link
-								href={"webcal://" + env.BASE_URL + "/ics/all.ics"}
+								href={"webcal://" + env.NEXT_PUBLIC_BASE_URL + "/ics/all.ics"}
 								className="gap-1 hyperlink group"
 							>
 								<IconSubscribe className="inline align-baseline" /> Abboniere unseren Kalender

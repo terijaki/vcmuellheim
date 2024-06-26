@@ -46,8 +46,8 @@ export function shareNewPosts() {
 			if (!content.path) {
 				throw "🚨 Object does not contain path! Therefore cannot modify the post's file.";
 			} else {
-				if (!env.BASE_URL) {
-					throw "🚨 Environmental variable BASE_URL is missing!";
+				if (!env.NEXT_PUBLIC_BASE_URL) {
+					throw "🚨 Environmental variable NEXT_PUBLIC_BASE_URL is missing!";
 				} else {
 					// set status to queued before attempting to share
 					content.data.mastodon = "queued";
@@ -57,7 +57,7 @@ export function shareNewPosts() {
 					// construct the URL to be shared
 					let postUrl = content.path.replace(POST_PATH, ""); // remove the path
 					postUrl = postUrl.slice(0, postUrl.lastIndexOf(".")); // remove the file extension
-					postUrl = "https://" + env.BASE_URL + postUrl;
+					postUrl = "https://" + env.NEXT_PUBLIC_BASE_URL + postUrl;
 					const message: string = content.data.title + " " + postUrl;
 
 					// check if the post has already been shared to avoid duplicates

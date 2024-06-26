@@ -11,7 +11,7 @@ const ICS_FOLDER_LOCATION = "public/ics";
 export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string) {
 	// calendar title (if not default)
 	let calendarTitle: string = "";
-	env.CLUB_SHORTNAME && (calendarTitle = env.CLUB_SHORTNAME);
+	env.NEXT_PUBLIC_CLUB_SHORTNAME && (calendarTitle = env.NEXT_PUBLIC_CLUB_SHORTNAME);
 
 	// set to be filled and used at the end of the function
 	let eventSet = new Set<string>();
@@ -146,8 +146,8 @@ export function getICSComponent(component: "start" | "end", title?: string): str
 
 	// PRODID
 	let calProdId = "Unknown";
-	if (env.CLUB_NAME) {
-		calProdId = "\nPRODID:-//" + env.CLUB_NAME + "//Website//DE";
+	if (env.NEXT_PUBLIC_CLUBNAME) {
+		calProdId = "\nPRODID:-//" + env.NEXT_PUBLIC_CLUBNAME + "//Website//DE";
 	} else if (title) {
 		calProdId = "\nPRODID:-//" + title + "//Website//DE";
 	} else {
@@ -157,8 +157,8 @@ export function getICSComponent(component: "start" | "end", title?: string): str
 	let calTitle = "\nX-WR-CALNAME:Unknown";
 	if (title && title?.length > 0) {
 		calTitle = "\nX-WR-CALNAME:" + title;
-	} else if (env.CLUB_SHORTNAME) {
-		calTitle = "\nX-WR-CALNAME:" + env.CLUB_SHORTNAME;
+	} else if (env.NEXT_PUBLIC_CLUB_SHORTNAME) {
+		calTitle = "\nX-WR-CALNAME:" + env.NEXT_PUBLIC_CLUB_SHORTNAME;
 	} else {
 		console.log("🚨 Calendar title was not identified!");
 	}

@@ -11,7 +11,7 @@ import fs from "fs";
 import path from "path";
 
 const SAMS_API = env.SAMS_API,
-	SAMS_URL = env.SAMS_URL;
+	SAMS_URL = env.NEXT_PUBLIC_SAMS_URL;
 export const JSON_FILE_TARGET = "data/sams";
 
 // fetch Rankings Data
