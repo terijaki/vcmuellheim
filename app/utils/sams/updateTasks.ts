@@ -9,7 +9,6 @@ import getMatchSeries from "./getMatchSeries";
 import getClubData from "./getClubData";
 import getRankings from "./getRankings";
 import getMatches from "./getMatches";
-import getPlayers from "./getPlayers";
 import getAllClubs, { clubData } from "./getAllClubs";
 import { getClubId } from "./getClubLogo";
 import { slugify } from "../slugify";
@@ -126,10 +125,6 @@ getAllClubs()
 						let consoleNote = "✅ Matches are all up to date.";
 						writeToSummary(consoleNote);
 					}
-
-					// PLAYERS
-					// fetches and stores player data for each team
-					getPlayers(cachedGetTeamIds("id", true));
 				});
 			})
 			.catch((error) => {
