@@ -5,13 +5,14 @@ import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
 import getEvents from "./getEvents";
 import { env } from "process";
 import crypto from "crypto";
+import { Club } from "@/project.config";
 
 const ICS_FOLDER_LOCATION = "public/ics";
 
 export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string) {
 	// calendar title (if not default)
 	let calendarTitle: string = "";
-	env.NEXT_PUBLIC_CLUB_SHORTNAME && (calendarTitle = env.NEXT_PUBLIC_CLUB_SHORTNAME);
+	Club.shortName && (calendarTitle = Club.shortName);
 
 	// set to be filled and used at the end of the function
 	let eventSet = new Set<string>();
@@ -146,8 +147,8 @@ export function getICSComponent(component: "start" | "end", title?: string): str
 
 	// PRODID
 	let calProdId = "Unknown";
-	if (env.NEXT_PUBLIC_CLUBNAME) {
-		calProdId = "\nPRODID:-//" + env.NEXT_PUBLIC_CLUBNAME + "//Website//DE";
+	if (Club.name) {
+		calProdId = "\nPRODID:-//" + Club.name + "//Website//DE";
 	} else if (title) {
 		calProdId = "\nPRODID:-//" + title + "//Website//DE";
 	} else {
@@ -157,8 +158,8 @@ export function getICSComponent(component: "start" | "end", title?: string): str
 	let calTitle = "\nX-WR-CALNAME:Unknown";
 	if (title && title?.length > 0) {
 		calTitle = "\nX-WR-CALNAME:" + title;
-	} else if (env.NEXT_PUBLIC_CLUB_SHORTNAME) {
-		calTitle = "\nX-WR-CALNAME:" + env.NEXT_PUBLIC_CLUB_SHORTNAME;
+	} else if (Club.shortName) {
+		calTitle = "\nX-WR-CALNAME:" + Club.shortName;
 	} else {
 		console.log("🚨 Calendar title was not identified!");
 	}
