@@ -7,16 +7,15 @@ import { getMembers } from "@/app/utils/getMembers";
 import { getTeams } from "@/app/utils/getTeams";
 import { getLeagueName, cachedGetUniqueMatchSeriesIds } from "@/app/utils/sams/cachedGetClubData";
 import { FaUser as IconPerson, FaUserGroup as IconPersons, FaClock as IconClock, FaBullhorn as IconSubscribe, FaEnvelope as IconEmail } from "react-icons/fa6";
-import { cachedGetRankings } from "@/app/utils/sams/cachedGetRanking";
 import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import RankingTable from "@/app/components/sams/RankingTable";
 import { icsTeamGeneration } from "@/app/utils/icsGeneration";
-import { cachedGetPlayers } from "@/app/utils/sams/cachedGetPlayers";
 import Flag from "react-world-flags";
 import Image from "next/image";
 import cachedGetSeasons from "@/app/utils/sams/cachedGetSeasons";
 import { Club } from "@/project.config";
 import { getRanking, getRankings } from "@/app/utils/sams/rankings";
+import { getTeamPlayers } from "@/app/utils/sams/players";
 
 // generate static routes for each team slug
 // example: http://localhost:3000/teams/herren1
@@ -54,10 +53,7 @@ export default async function TeamPage({ params }: { params: { slug: string } })
 		const currentMonth = new Date().getMonth() + 1;
 		const seasonMonth = currentMonth >= 5 && currentMonth <= 9 ? true : false;
 		// retrive players
-		const players = cachedGetPlayers(team.sbvvId);
-		if (players) {
-			players.sort((a, b) => (a.number ? a.number : 99) - (b.number ? b.number : 99));
-		}
+		const teamPlayers = await getTeamPlayers(team.sbvvId);
 		// render the page
 		return (
 			<>
@@ -70,7 +66,7 @@ export default async function TeamPage({ params }: { params: { slug: string } })
 
 				<div className="col-full-content md:col-center-content *:mb-10 mt-6">
 					{/* display players */}
-					{players && players.length > 0 && (
+					{teamPlayers && teamPlayers.players && teamPlayers.players?.length > 0 && (
 						<>
 							<div
 								className="card *:mb-3"
@@ -78,7 +74,7 @@ export default async function TeamPage({ params }: { params: { slug: string } })
 							>
 								<h2 className="card-heading">Spieler</h2>
 								<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
-									{players.map((player) => {
+									{teamPlayers.players.map((player) => {
 										return (
 											<Fragment key="player">
 												<div className="odd:bg-blac1k/5 inline-flex gap-1">
