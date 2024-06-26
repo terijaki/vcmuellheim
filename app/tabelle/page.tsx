@@ -1,6 +1,5 @@
 import React from "react";
 import { cachedGetTeamIds, cachedGetUniqueMatchSeriesIds } from "@/app/utils/sams/cachedGetClubData";
-import { cachedGetRankings } from "@/app/utils/sams/cachedGetRanking";
 import RankingTable from "@/app/components/sams/RankingTable";
 import PageHeading from "@/app/components/layout/PageHeading";
 import Matches from "@/app/components/sams/Matches";
@@ -22,14 +21,11 @@ export default async function Tabelle() {
 	const numToWordsDe = require("num-words-de");
 	const lastResultWord = numToWordsDe.numToWord(lastResultCap, { uppercase: false });
 
-	const rankings = cachedGetRankings(cachedGetUniqueMatchSeriesIds(cachedGetTeamIds("id")));
+	const rankings = await getRankings(cachedGetUniqueMatchSeriesIds(cachedGetTeamIds("id")));
 	const matchCount = cachedGetMatches(cachedGetTeamIds("id"), "past").length;
 
-	const rankingsNew = await getRankings(cachedGetUniqueMatchSeriesIds(cachedGetTeamIds("id")));
-	console.log(rankingsNew); //TODO use this value from here on
-
 	let matchSeriesDisplayed: string[] = []; //placeholder to avoid duplicate league displays
-	if (rankings.length >= 1) {
+	if (rankings) {
 		return (
 			<>
 				<PageHeading title="Tabelle" />

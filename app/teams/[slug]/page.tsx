@@ -16,6 +16,7 @@ import Flag from "react-world-flags";
 import Image from "next/image";
 import cachedGetSeasons from "@/app/utils/sams/cachedGetSeasons";
 import { Club } from "@/project.config";
+import { getRanking, getRankings } from "@/app/utils/sams/rankings";
 
 // generate static routes for each team slug
 // example: http://localhost:3000/teams/herren1
@@ -34,7 +35,7 @@ export async function generateStaticParams() {
 	}));
 }
 
-export default function TeamPage({ params }: { params: { slug: string } }) {
+export default async function TeamPage({ params }: { params: { slug: string } }) {
 	// pre-render setup
 	// removes the array and just returns the team object
 	const team = getTeams(undefined, params.slug)[0];
@@ -44,7 +45,8 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 		// initiate ICS file generation
 		team.sbvvId && icsTeamGeneration([team.sbvvId], params.slug);
 		// fetch the rankings
-		const ranking = cachedGetRankings(cachedGetUniqueMatchSeriesIds([team.sbvvId]));
+		// TODO get the matchSeries ID via the teamID (e.g. via club data?)		// 67669161 ==> 67566429
+		const ranking = await getRanking(cachedGetUniqueMatchSeriesIds([team.sbvvId])[0]);
 		// fetch the matches
 		const matchesFuture = cachedGetMatches([team.sbvvId], "future");
 		const matchesPast = cachedGetMatches([team.sbvvId], "past");
@@ -174,22 +176,19 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 						</div>
 					)}
 					{/* ranking */}
-					{ranking.length > 0 &&
-						ranking.map((ranking) => {
-							return (
-								<div
-									key="tabelle"
-									className="*:card-narrow-flex"
-									data-section="ranking"
-								>
-									<RankingTable
-										{...ranking}
-										key={ranking.matchSeries.id}
-										exclusive={team.sbvvId?.toString()}
-									/>
-								</div>
-							);
-						})}
+					{ranking && (
+						<div
+							key="tabelle"
+							className="*:card-narrow-flex"
+							data-section="ranking"
+						>
+							<RankingTable
+								{...ranking}
+								key={ranking.matchSeries.id}
+								exclusive={team.sbvvId?.toString()}
+							/>
+						</div>
+					)}
 					{/* training */}
 					<div
 						className="card *:mb-3"
