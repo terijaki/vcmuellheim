@@ -22922,16 +22922,6 @@
         }
       },
       {
-        "id": "26819170",
-        "name": "SV Einheit Ilmenau 1990 e.V.",
-        "lsbNumber": "430091",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249329",
-          "name": "Kreisverband Süd-West"
-        }
-      },
-      {
         "id": "37921974",
         "name": "Weidener Sportfreunde e.V.",
         "lsbNumber": "2006126",
@@ -23069,6 +23059,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26819170",
+        "name": "SV Einheit Ilmenau 1990 e.V.",
+        "lsbNumber": "430091",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249329",
+          "name": "Kreisverband Süd-West"
         }
       },
       {
