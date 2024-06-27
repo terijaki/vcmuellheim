@@ -3,7 +3,6 @@ import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import type { Metadata } from "next";
 import type { Viewport } from "next";
-import { env } from "process";
 import { Club } from "@/project.config";
 
 export const viewport: Viewport = {
