@@ -43,8 +43,9 @@ export default async function TeamPage({ params }: { params: { slug: string } })
 		let ligaName = getLeagueName(team.sbvvId);
 		// initiate ICS file generation
 		team.sbvvId && icsTeamGeneration([team.sbvvId], params.slug);
-		// fetch the rankings
 		// TODO get the matchSeries ID via the teamID (e.g. via club data?)		// 67669161 ==> 67566429
+		// TODO should also sanitize the matchSeriesId to only pass on matchSeries of a LEAGUE, not a competition. otherwise we are requesting rankings which will always be empty
+		// fetch the rankings
 		const ranking = await getRanking(cachedGetUniqueMatchSeriesIds([team.sbvvId])[0]);
 		// fetch the matches
 		const matchesFuture = cachedGetMatches([team.sbvvId], "future");
