@@ -72,7 +72,7 @@ export default function HomeHeimspiele() {
 				/>
 				<div className="col-center-content py-8 sm:py-12">
 					{/* HEADING */}
-					<h2 className="text-center md:text-left text-white font-bold text-3xl">{eventsToDisplay.length < 1 ? "Wir laden ein zum Heimspiel!" : "bevorstehende Veranstaltugnen"}</h2>
+					<h2 className="text-center md:text-left text-white font-bold text-3xl">{eventsToDisplay.length < 1 ? "Wir laden ein zum Heimspiel!" : "bevorstehende Veranstaltungen"}</h2>
 					{/* EVENTS */}
 					{eventsToDisplay.length > 0 && (
 						<>
