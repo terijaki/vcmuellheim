@@ -27242,16 +27242,6 @@
         }
       },
       {
-        "id": "37921557",
-        "name": "TV Gosenbach von 1895 e.V.",
-        "lsbNumber": "5510039",
-        "internalSportsclubId": "9107",
-        "association": {
-          "id": "33798087",
-          "name": "Siegen-Olpe"
-        }
-      },
-      {
         "id": "54611178",
         "name": "SpVgg Renningen",
         "lsbNumber": "3092",
@@ -27306,6 +27296,16 @@
         "name": "TSV Oberfischbach 1963 e.V.",
         "lsbNumber": "5504006",
         "internalSportsclubId": "4107",
+        "association": {
+          "id": "33798087",
+          "name": "Siegen-Olpe"
+        }
+      },
+      {
+        "id": "37921557",
+        "name": "TV Gosenbach von 1895 e.V.",
+        "lsbNumber": "5510039",
+        "internalSportsclubId": "9107",
         "association": {
           "id": "33798087",
           "name": "Siegen-Olpe"
@@ -31692,16 +31692,6 @@
         }
       },
       {
-        "id": "37920702",
-        "name": "Castroper Turnverein 1874 e.V.",
-        "lsbNumber": "3401006",
-        "internalSportsclubId": "9033",
-        "association": {
-          "id": "33797282",
-          "name": "Vest"
-        }
-      },
-      {
         "id": "37921361",
         "name": "Turn- und Sportverein Marl-Hüls 1912 eV",
         "lsbNumber": "3406016",
@@ -31869,6 +31859,16 @@
         "association": {
           "id": "33797364",
           "name": "Warendorf"
+        }
+      },
+      {
+        "id": "37920702",
+        "name": "Castroper Turnverein 1874 e.V.",
+        "lsbNumber": "3401006",
+        "internalSportsclubId": "9033",
+        "association": {
+          "id": "33797282",
+          "name": "Vest"
         }
       },
       {
@@ -36302,6 +36302,16 @@
         }
       },
       {
+        "id": "26866505",
+        "name": "ATSV Saarbrücken",
+        "lsbNumber": "87010",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
+        }
+      },
+      {
         "id": "6414",
         "name": "TV Werne 03",
         "lsbNumber": "5710002",
@@ -36379,16 +36389,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "26866505",
-        "name": "ATSV Saarbrücken",
-        "lsbNumber": "87010",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
         }
       },
       {
@@ -36669,16 +36669,6 @@
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
-        "id": "71295426",
-        "name": "SV Ludwigsdorf 48 e.V.",
-        "lsbNumber": "450275",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7213",
-          "name": "Sächsischer Sportverband Volleyball e.V."
         }
       },
       {
@@ -37082,16 +37072,6 @@
         }
       },
       {
-        "id": "26925587",
-        "name": "TuS 1883 Nordenstadt",
-        "lsbNumber": "38082",
-        "internalSportsclubId": "5814",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "12496905",
         "name": "WWK VCO München",
         "lsbNumber": null,
@@ -37209,6 +37189,16 @@
         "association": {
           "id": "33299034",
           "name": "Mühlheim-Oberhausen"
+        }
+      },
+      {
+        "id": "26925587",
+        "name": "TuS 1883 Nordenstadt",
+        "lsbNumber": "38082",
+        "internalSportsclubId": "5814",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -38662,16 +38652,6 @@
         }
       },
       {
-        "id": "49724566",
-        "name": "Netzhoppers Königs Wusterhausen",
-        "lsbNumber": "610087",
-        "internalSportsclubId": "610087",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "50621510",
         "name": "TSV Niederoderwitz e.V.",
         "lsbNumber": "450325",
@@ -39612,16 +39592,6 @@
         }
       },
       {
-        "id": "38988173",
-        "name": "SC Freital e.V.",
-        "lsbNumber": "500054",
-        "internalSportsclubId": "346",
-        "association": {
-          "id": "24908790",
-          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
-        }
-      },
-      {
         "id": "16610342",
         "name": "PSV 90 Dessau e.V.",
         "lsbNumber": "130025",
@@ -39639,6 +39609,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "38988173",
+        "name": "SC Freital e.V.",
+        "lsbNumber": "500054",
+        "internalSportsclubId": "346",
+        "association": {
+          "id": "24908790",
+          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
         }
       },
       {
@@ -40412,16 +40392,6 @@
         }
       },
       {
-        "id": "6490",
-        "name": "TGM 1861 e.V. Mainz-Gonsenheim",
-        "lsbNumber": "66",
-        "internalSportsclubId": "32-55-06",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "54610674",
         "name": "FSV Bad Friedrichshall",
         "lsbNumber": "10313",
@@ -40429,6 +40399,16 @@
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
+        }
+      },
+      {
+        "id": "6490",
+        "name": "TGM 1861 e.V. Mainz-Gonsenheim",
+        "lsbNumber": "66",
+        "internalSportsclubId": "32-55-06",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -41629,16 +41609,6 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
-        "id": "50621692",
-        "name": "BeachL B-Cup",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": null,
-          "name": null
         }
       },
       {
@@ -43132,6 +43102,16 @@
         }
       },
       {
+        "id": "54610752",
+        "name": "Sport-Union Neckarsulm",
+        "lsbNumber": "10123",
+        "internalSportsclubId": "91",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
+        }
+      },
+      {
         "id": "50621866",
         "name": "Volleyballfreunde Plauen e.V.",
         "lsbNumber": "8000017",
@@ -43176,16 +43156,6 @@
         "name": "TSV Neudenau",
         "lsbNumber": "30313",
         "internalSportsclubId": "30313",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
-        "id": "54610752",
-        "name": "Sport-Union Neckarsulm",
-        "lsbNumber": "10123",
-        "internalSportsclubId": "91",
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
@@ -43759,16 +43729,6 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
-        "id": "50621933",
-        "name": "BeachL A Masters Damen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": null,
-          "name": null
         }
       },
       {
@@ -53872,16 +53832,6 @@
         }
       },
       {
-        "id": "54611114",
-        "name": "TSV Eningen",
-        "lsbNumber": "16021",
-        "internalSportsclubId": "472",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "65036647",
         "name": "SG Hohensachsen",
         "lsbNumber": "60903",
@@ -53949,6 +53899,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "54611114",
+        "name": "TSV Eningen",
+        "lsbNumber": "16021",
+        "internalSportsclubId": "472",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -55202,6 +55162,16 @@
         }
       },
       {
+        "id": "54610971",
+        "name": "SV Bad Buchau",
+        "lsbNumber": "2013",
+        "internalSportsclubId": "322",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
+        }
+      },
+      {
         "id": "54611110",
         "name": "SV Dotternhausen",
         "lsbNumber": "24035",
@@ -55299,16 +55269,6 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
-        }
-      },
-      {
-        "id": "54610971",
-        "name": "SV Bad Buchau",
-        "lsbNumber": "2013",
-        "internalSportsclubId": "322",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
         }
       },
       {
@@ -61182,16 +61142,6 @@
         }
       },
       {
-        "id": "50621956",
-        "name": "SV Lok Nossen e.V.",
-        "lsbNumber": "470219",
-        "internalSportsclubId": "330",
-        "association": {
-          "id": "24908772",
-          "name": "Landkreis Meißen"
-        }
-      },
-      {
         "id": "65037383",
         "name": "TV Lahr",
         "lsbNumber": "471660",
@@ -61259,6 +61209,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "50621956",
+        "name": "SV Lok Nossen e.V.",
+        "lsbNumber": "470219",
+        "internalSportsclubId": "330",
+        "association": {
+          "id": "24908772",
+          "name": "Landkreis Meißen"
         }
       },
       {
@@ -62122,16 +62082,6 @@
         }
       },
       {
-        "id": "54610828",
-        "name": "TTV Dettingen/Teck",
-        "lsbNumber": "6223",
-        "internalSportsclubId": "171",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "9241572",
         "name": "VfB Friedrichshafen",
         "lsbNumber": "4021",
@@ -62259,16 +62209,6 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
-        }
-      },
-      {
-        "id": "16946996",
-        "name": "MTV Ludwigsburg",
-        "lsbNumber": "12112",
-        "internalSportsclubId": "81",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
         }
       },
       {
@@ -62722,6 +62662,46 @@
         }
       },
       {
+        "id": "54610828",
+        "name": "TTV Dettingen/Teck",
+        "lsbNumber": "6223",
+        "internalSportsclubId": "171",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "49724566",
+        "name": "Netzhoppers Königs Wusterhausen",
+        "lsbNumber": "610087",
+        "internalSportsclubId": "610087",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "71295426",
+        "name": "SV Ludwigsdorf 48 e.V.",
+        "lsbNumber": "450275",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "16946996",
+        "name": "MTV Ludwigsburg",
+        "lsbNumber": "12112",
+        "internalSportsclubId": "81",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
+        }
+      },
+      {
         "id": "26818948",
         "name": "Sportverein 1899 Mühlhausen e.V.",
         "lsbNumber": "220009",
@@ -62902,13 +62882,13 @@
         }
       },
       {
-        "id": "37921879",
-        "name": "SuS Cappel 1929 e.V.",
-        "lsbNumber": "5607013",
-        "internalSportsclubId": "1281",
+        "id": "50622016",
+        "name": "VfB Görlitz i.L.",
+        "lsbNumber": "450345",
+        "internalSportsclubId": "257",
         "association": {
-          "id": "33798121",
-          "name": "Soest"
+          "id": "24908944",
+          "name": "Landkreis Görlitz"
         }
       },
       {
@@ -62922,13 +62902,13 @@
         }
       },
       {
-        "id": "50622016",
-        "name": "VfB Görlitz i.L.",
-        "lsbNumber": "450345",
-        "internalSportsclubId": "257",
+        "id": "37921879",
+        "name": "SuS Cappel 1929 e.V.",
+        "lsbNumber": "5607013",
+        "internalSportsclubId": "1281",
         "association": {
-          "id": "24908944",
-          "name": "Landkreis Görlitz"
+          "id": "33798121",
+          "name": "Soest"
         }
       },
       {
