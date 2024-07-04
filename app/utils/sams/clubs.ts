@@ -15,6 +15,9 @@
 // sportsclubId - Id eines vorhandenen Vereins (Bsp.: sportsclubId=12345)
 import { env } from "process";
 import { SAMS } from "@/project.config";
+import path from "path";
+
+const CACHE_FOLDER = ".temp/sams";
 
 const SAMS_API = env.SAMS_API,
 	SAMS_URL = SAMS.url;
@@ -150,7 +153,7 @@ export type Season = {
 /** Returns a array of basic club data for each club. No input required. */
 export async function getAllClubs(): Promise<ClubSimple[] | false> {
 	//#region caching since the response is likely to be larger than 2MB
-	const cacheFile = Bun.file(".temp/allClubs.json", { type: "application/json" });
+	const cacheFile = Bun.file(path.join(CACHE_FOLDER, "allClubs.json"), { type: "application/json" });
 	if (await cacheFile.exists()) {
 		const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60 * 60 * 24); // in days
 		// const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60); // in minutes
