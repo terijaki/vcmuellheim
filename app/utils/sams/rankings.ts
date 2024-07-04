@@ -1,3 +1,4 @@
+"use server";
 // http://wiki.sams-server.de/wiki/XML-Schnittstelle
 // Tabellen
 // Gibt die aktuelle Tabelle einer Liga oder eines Wettbewerbs aus.
@@ -67,6 +68,7 @@ export async function getRanking(matchSeriesId: string | number): Promise<Rankin
 			return false;
 		}
 	});
+
 	if (thisObject) return thisObject;
 	console.log("🚨 SOMETHING WENT WRONT WHILE RETRIEVING RANKINGS (" + matchSeriesId + ")! 🚨");
 	return false;

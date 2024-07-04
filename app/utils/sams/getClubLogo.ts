@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import { slugify } from "../slugify";
-import getClubData from "./getClubData";
 
 const CLUBS_FILE_TARGET = "data/sams/allClubs.json";
 const CLUBS_CACHE_FOLDER = "data/sams/clubs";
