@@ -149,45 +149,57 @@ export type Season = {
 
 /** Returns a array of basic club data for each club. No input required. */
 export async function getAllClubs(): Promise<ClubSimple[] | false> {
+	//#region caching since the response is likely to be larger than 2MB
+	const cacheFile = Bun.file(".temp/allClubs.json", { type: "application/json" });
+	if (await cacheFile.exists()) {
+		const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60 * 60 * 24); // in days
+		// const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60); // in minutes
+		if (cacheAge < 1) {
+			const cacheData = await cacheFile.json();
+			return cacheData;
+		}
+	}
+	//#endregion caching
+
 	if (!SAMS_API) {
 		console.log("🚨 SAMS API KEY MISSING IN FETCH ALL CLUBS CONTEXT");
 		return false;
 	}
-
 	const apiURL = SAMS_URL + "/xml/sportsclubList.xhtml?apiKey=" + SAMS_API;
-
-	const samsRequest = await fetch(apiURL, { next: { revalidate: 3600 * 24, tags: ["sams", "clubs"] } });
-	// TODO the cache limit is 2MB and the response is bigger. need to find a workaround
-
+	const samsRequest = await fetch(apiURL, { cache: "no-cache", method: "POST" });
 	// make the server request and check its status
-	if (samsRequest.status != 200) {
-		console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR ALL CLUBS! 🚨");
+	if (!samsRequest.status || samsRequest.status != 200) {
+		console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR ALL CLUBS! 🚨 ERROR: " + samsRequest.status);
 		return false;
 	}
 	// read the XML response
 	const samsXMLResponseText = await samsRequest.text(); // this is the XML response
-	if (samsXMLResponseText.includes("<error>")) {
+	if (!samsXMLResponseText) {
+		console.log("🚨 EMPTY RESPONSE RECEIVED FOR ALL CLUBS! 🚨");
+		return false;
+	} else if (samsXMLResponseText.includes("<error>")) {
 		console.log("🚨 RECEIVED ERROR MESSAGE FOR ALL CLUBS! 🚨");
 		console.log(samsXMLResponseText);
 		return false;
 	}
-
 	// turn the XML string into an Object
-	let allClubs: false | Object[] = false;
+	let allClubs: false | ClubSimple[] = false;
 	const parseString = require("xml2js").parseString;
 	await parseString(samsXMLResponseText, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
 		if (!err) {
-			// console.log("✅ Data for all clubs retrieved. Looks good.");
+			// console.log("✅ Data for all clubs converted from XML to JSON.");
 			// console.log(result);
 			allClubs = result.sportsclubs.sportsclub;
-			return result;
+			if (allClubs) {
+				Bun.write(cacheFile, JSON.stringify(allClubs));
+				return allClubs;
+			}
 		} else {
 			console.log("🚨 COULD NOT CONVERT CLUBS XML TO JSON! 🚨");
 			console.log(err);
 			return false;
 		}
 	});
-
 	if (allClubs) return allClubs;
 	console.log("🚨 SOMETHING WENT WRONT WHILE RETRIEVING ALL CLUBS! 🚨");
 	return false;

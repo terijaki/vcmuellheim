@@ -15,8 +15,14 @@ export async function getTeamPlayers(teamId: number | string): Promise<TeamPlaye
 	if (!teamId) return false;
 	// fetch the player data from SAMS' website
 	const dataUrl: string = SAMS_PLAYER_URL + teamId;
+	let playerCSV;
+	try {
+		playerCSV = await fetch(dataUrl, { headers: { "Content-Type": "text/csv; charset=UTF-8" }, next: { revalidate: 3600 * 24, tags: ["sams", "players"] } });
+	} catch (error) {
+		console.log("🚨 CSV player data for team " + teamId + " could not be retrieved");
+		return false;
+	}
 
-	const playerCSV = await fetch(dataUrl, { headers: { "Content-Type": "text/html; charset=UTF-8" }, next: { revalidate: 600, tags: ["sams", "players"] } });
 	if (!playerCSV) {
 		console.log("🚨 CSV player data for team " + teamId + " could not be retrieved");
 		return false;

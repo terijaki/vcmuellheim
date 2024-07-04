@@ -42,14 +42,17 @@ export async function getRanking(matchSeriesId: string | number): Promise<Rankin
 	const samsRequest = await fetch(apiURL, { next: { revalidate: 600, tags: ["sams", "rankings"] } });
 
 	// make the server request and check its status
-	if (samsRequest.status != 200) {
+	if (!samsRequest.status || samsRequest.status != 200) {
 		console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR RANKINGS (" + matchSeriesId + ")! 🚨");
 		return false;
 	}
 
 	// read the XML response
 	const samsXMLResponseText = await samsRequest.text(); // this is the XML response
-	if (samsXMLResponseText.includes("<error>")) {
+	if (!samsXMLResponseText) {
+		console.log("🚨 RECEIVED EMPTY MESSAGE FOR RANKINGS (" + matchSeriesId + ")! 🚨");
+		return false;
+	} else if (samsXMLResponseText.includes("<error>")) {
 		console.log("🚨 RECEIVED ERROR MESSAGE FOR RANKINGS (" + matchSeriesId + ")! 🚨");
 		console.log(samsXMLResponseText);
 		return false;

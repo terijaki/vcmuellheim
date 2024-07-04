@@ -5,8 +5,6 @@ import { FaVolleyball as Ball } from "react-icons/fa6";
 export default async function clubLogo(props: { clubName: string; className?: string }) {
 	let logo = await getClubLogoByName(props.clubName);
 
-	//TODO fallback if the image cannot be retrieved
-
 	if (logo) {
 		return (
 			<div className={"inline-block relative h-5 w-5 " + props.className}>

@@ -17,6 +17,9 @@
 # production
 /build
 
+# cache
+.temp/
+
 # calendar files
 /public/ics/*.ics
 !/public/ics/template.ics
