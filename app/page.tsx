@@ -7,14 +7,19 @@ import HomeMembers from "@/app/components/homepage/HomeMembers";
 import HomeFotos from "@/app/components/homepage/HomeFotos";
 import HomeKontakt from "@/app/components/homepage/HomeKontakt";
 import HomeHeimturnier from "@/app/components/homepage/HomeHeimturnier";
+import { Suspense } from "react";
 
 export default function Page() {
 	return (
 		<>
 			<HomeIntro />
 			<HomeNews />
-			<HomeHeimspiele />
-			<HomeHeimturnier />
+			<Suspense>
+				<HomeHeimspiele />
+			</Suspense>
+			<Suspense>
+				<HomeHeimturnier />
+			</Suspense>
 			<HomeTeams />
 			<HomeSponsors />
 			<HomeMembers />

@@ -2,7 +2,6 @@
 // run during deployment via: npx tsx --env-file=.env.local --env-file=.env app/utils/samsUpdateTasks.ts
 import fs from "fs";
 import path from "path";
-import { cachedGetTeamIds, cachedGetUniqueMatchSeriesIds } from "./cachedGetClubData";
 import { writeToSummary } from "../github/actionSummary";
 import getMatchSeries from "./getMatchSeries";
 import getRankings from "./getRankings";
@@ -10,9 +9,9 @@ import getMatches from "./getMatches";
 import verifyTeams from "./verifyTeams";
 import { getSeasons } from "./getSeasons";
 import { SAMS } from "@/project.config";
-import { getClubData } from "./clubs";
+import { getClubData, getClubsTeamIds } from "./clubs";
 
-const SAMS_CLUB_NUMBER = SAMS.clubId,
+const SAMS_CLUB_NUMBER = SAMS.vereinsnummer,
 	SAMS_CLUB_NAME = SAMS.name;
 const CLUBS_CACHE_FOLDER = "data/sams/clubs";
 
@@ -33,14 +32,14 @@ async function tasks() {
 	// there is no rate limit on the getMatchSeries request ✌️
 	getMatchSeries()
 		.then(() => {
-			getClubData(samsClubId).then(() => {
+			getClubData(samsClubId).then(async () => {
 				// get our Match Series IDs so that we can use them to filter requests
-				const ourMatchSeries = cachedGetUniqueMatchSeriesIds(cachedGetTeamIds("id", false));
+				const ourMatchSeries = await getClubsTeamIds("matchSeriesId", false);
 				// read the big Match Series file
 				const matchSeriesJsonFile = fs.readFileSync("data/sams/matchSeries.json");
 				const matchSeriesJson = JSON.parse(matchSeriesJsonFile.toString());
 				// filter down to our ids only
-				const matchSeriesJsonFiltered = matchSeriesJson.matchSeriesList.matchSeries.filter((series: { id: string | number }) => ourMatchSeries.includes(series.id.toString()));
+				const matchSeriesJsonFiltered = matchSeriesJson.matchSeriesList.matchSeries.filter((series: { id: string | number }) => ourMatchSeries && ourMatchSeries.includes(series.id.toString()));
 				// sets to consolidate summary messages if everything is up to date
 				const matchesSummary = new Set<string>();
 				const rankingsSummary = new Set<string>();

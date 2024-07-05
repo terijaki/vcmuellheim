@@ -3,9 +3,9 @@ import path from "path";
 import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
 import getEvents from "./getEvents";
-import { env } from "process";
 import crypto from "crypto";
 import { Club } from "@/project.config";
+import { getClubsTeamIds } from "./sams/clubs";
 
 const ICS_FOLDER_LOCATION = "public/ics";
 
@@ -125,8 +125,8 @@ export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string)
 	fs.writeFileSync(path.join(ICS_FOLDER_LOCATION, slug) + ".ics", result);
 }
 
-export function icsAllGeneration() {
-	icsTeamGeneration(cachedGetTeamIds("id"), "all");
+export async function icsAllGeneration() {
+	icsTeamGeneration((await getClubsTeamIds("id")) || [], "all");
 }
 
 export function toICSFormat(date: Date): string {

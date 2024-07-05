@@ -1,5 +1,4 @@
 import getEvents from "@/app/utils/getEvents";
-import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
 import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,13 +7,14 @@ import { FaLocationDot as IconLocation, FaAngleRight as IconRight, FaAngleLeft a
 import { matchType } from "@/app/utils/sams/typeMatches";
 import { eventObject } from "@/app/utils/getEvents";
 import HeimspieleEvents from "./HeimspieleEvents";
+import { getClubsTeamIds } from "@/app/utils/sams/clubs";
 
 let TIME_RANGE: number = 14; // controls the display matches taking place # days in the future
 let TIME_RANGE_MAX_MULTIPLIER: number = 3;
 const MIN_GAMES: number = 2,
 	MAX_GAMES: number = 4;
 
-export default function HomeHeimspiele() {
+export default async function HomeHeimspiele() {
 	testMinRange();
 	let eventsToDisplay: eventObject[] = [];
 	let matchesToDisplay: matchType[] = [];
@@ -30,7 +30,7 @@ export default function HomeHeimspiele() {
 		const todayPlusRange = new Date();
 		todayPlusRange.setDate(todayPlusRange.getDate() + TIME_RANGE * (1 + loopCount));
 		// get future matches from our teams
-		let allMatches = cachedGetMatches(cachedGetTeamIds("id"), "future"); //TODO add support for turnaments (official SBVV self-hosted only)
+		let allMatches = cachedGetMatches((await getClubsTeamIds("id")) || [], "future"); //TODO add support for turnaments (official SBVV self-hosted only)
 		// filter reduce to matches we are hosting
 		let homeGames = allMatches.filter((match) => match.host?.club?.includes("VC Müllheim"));
 		// sort by date
@@ -204,7 +204,7 @@ export default function HomeHeimspiele() {
 		);
 	} else {
 		// check how many matches we have in total
-		const allMatchesCount = cachedGetMatches(cachedGetTeamIds("id"), "future").length;
+		const allMatchesCount = cachedGetMatches((await getClubsTeamIds("id")) || [], "future").length;
 		// check how many events we have in total
 		const allEventsCount = getEvents(0, 365).length;
 		// prepare to display them as words

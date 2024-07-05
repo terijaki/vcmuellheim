@@ -2,7 +2,7 @@ import ClubLogo from "./ClubLogo";
 import Link from "next/link";
 import { getTeams } from "@/app/utils/getTeams";
 import { Rankings } from "@/app/utils/sams/rankings";
-import { getClubsTeamIds } from "@/app/utils/sams/clubs";
+import { getClubLogoByName, getClubsTeamIds } from "@/app/utils/sams/clubs";
 import { Suspense } from "react";
 
 type RankingTable = Rankings & {
@@ -61,6 +61,8 @@ export default async function RankingTable(props: RankingTable) {
 								</td>
 							</thead>
 							{props.ranking.map(async (team: any) => {
+								const isClubTeam = clubTeamIds.includes(team.team.id);
+								const clubLogo = (await getClubLogoByName(team.team.club.name)) || undefined;
 								return (
 									<>
 										<tr
@@ -68,21 +70,22 @@ export default async function RankingTable(props: RankingTable) {
 											className={
 												"hover:bg-blumine hover:text-white " +
 												(props.ranking.length % 2 == 0 ? "even:bg-black/5" : "odd:bg-black/5") +
-												(clubTeamIds.includes(team.team.id) != false ? " odd:bg-onyx even:bg-onyx text-white" : "")
+												(isClubTeam != false ? " odd:bg-onyx even:bg-onyx text-white" : "")
 											}
 											data-team-id={team.team.id}
 											data-team-name={team.team.name}
 										>
 											<td className="text-center justify-center items-center">{team.place}</td>
 											<td className="truncate justify-left items-center p-0.5 w-full h-full">
-												{clubTeamIds.includes(team.team.id) && props.linkToTeamPage && getTeams(team.team.id).length == 1 ? (
+												{isClubTeam && props.linkToTeamPage && getTeams(team.team.id).length == 1 ? (
 													<Link
 														href={"teams/" + getTeams(team.team.id)[0].slug}
 														className="w-full flex justify-start items-center"
 													>
 														<ClubLogo
 															clubName={team.team.club.name}
-															className={"mr-1 " + (clubTeamIds.includes(team.team.id) && "saturate-0 brightness-0 invert")}
+															logo={clubLogo}
+															className={"mr-1 " + (isClubTeam && "saturate-0 brightness-0 invert")}
 														/>
 														<div>{team.team.name}</div>
 													</Link>
@@ -90,6 +93,7 @@ export default async function RankingTable(props: RankingTable) {
 													<div className="w-full flex justify-start items-center">
 														<ClubLogo
 															clubName={team.team.club.name}
+															logo={clubLogo}
 															className={"mr-1 " + (clubTeamIds.includes(team.team.id) && "saturate-0 brightness-0 invert")}
 														/>
 														<div>{team.team.name}</div>

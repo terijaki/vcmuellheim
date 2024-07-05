@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Club } from "@/project.config";
 import { Metadata, ResolvingMetadata } from "next";
 import PageHeading from "@/app/components/layout/PageHeading";
-import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
 import { icsAllGeneration } from "@/app/utils/icsGeneration";
 import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import getEvents, { eventObject } from "@/app/utils/getEvents";
@@ -10,6 +9,7 @@ import Events from "@/app/components/ui/Events";
 import Matches from "@/app/components/sams/Matches";
 import cachedGetSeasons from "@/app/utils/sams/cachedGetSeasons";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
+import { getClubsTeamIds } from "../utils/sams/clubs";
 
 // generate a custom title
 export async function generateMetadata({}, parent: ResolvingMetadata): Promise<Metadata> {
@@ -20,13 +20,18 @@ export async function generateMetadata({}, parent: ResolvingMetadata): Promise<M
 
 let EVENT_RANGE = 40; // days to look in the future for custom events
 
-export default function Termine() {
+export default async function Termine() {
 	icsAllGeneration(); // triggers the generation of the all.ics file
+
+	// get team Ids
+	const clubLeagueTeamIds = (await getClubsTeamIds("id", true)) || [];
+	const clubAllTeamIds = (await getClubsTeamIds("id", false)) || [];
+
 	// load custom events
 	let events: eventObject[] = getEvents(0, EVENT_RANGE);
 	let eventCount = events.length;
-	let matchCount = cachedGetMatches(cachedGetTeamIds("id", false), "future").length;
-	let turnamentCount = matchCount - cachedGetMatches(cachedGetTeamIds("id", true), "future").length;
+	let matchCount = cachedGetMatches(clubAllTeamIds, "future").length;
+	let turnamentCount = matchCount - cachedGetMatches(clubLeagueTeamIds, "future").length;
 	if (matchCount + eventCount <= 3) {
 		EVENT_RANGE = EVENT_RANGE * 2; // doubles the days if there is not much to show
 		events = getEvents(0, EVENT_RANGE);
@@ -76,7 +81,7 @@ export default function Termine() {
 					<div className="col-full-content sm:col-center-content card-narrow-flex mb-6">
 						{turnamentCount == 0 ? <h2 className="card-heading">Ligaspiele</h2> : <h2 className="card-heading">Ligaspiele & Turneire</h2>}
 						<Matches
-							teamId={cachedGetTeamIds("id", false)}
+							teamId={clubAllTeamIds}
 							filter="future"
 						/>
 					</div>
