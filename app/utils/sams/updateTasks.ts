@@ -7,7 +7,6 @@ import getMatchSeries from "./getMatchSeries";
 import getRankings from "./getRankings";
 import getMatches from "./getMatches";
 import verifyTeams from "./verifyTeams";
-import { getSeasons } from "./getSeasons";
 import { SAMS } from "@/project.config";
 import { getClubData, getClubsTeamIds } from "./clubs";
 
@@ -27,8 +26,7 @@ async function tasks() {
 		samsClubName = filteredClub[0].name,
 		samsClubAssociation = filteredClub[0].association.name;
 
-	// there is no rate limit on the getSeasons request ✌️
-	getSeasons();
+
 	// there is no rate limit on the getMatchSeries request ✌️
 	getMatchSeries()
 		.then(() => {

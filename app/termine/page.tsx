@@ -7,9 +7,9 @@ import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import getEvents, { eventObject } from "@/app/utils/getEvents";
 import Events from "@/app/components/ui/Events";
 import Matches from "@/app/components/sams/Matches";
-import cachedGetSeasons from "@/app/utils/sams/cachedGetSeasons";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import { getClubsTeamIds } from "../utils/sams/clubs";
+import { getSeasons } from "../utils/sams/seasons";
 
 // generate a custom title
 export async function generateMetadata({}, parent: ResolvingMetadata): Promise<Metadata> {
@@ -40,6 +40,7 @@ export default async function Termine() {
 	// dates
 	const currentMonth = new Date().getMonth() + 1;
 	const seasonMonth = currentMonth >= 5 && currentMonth <= 9 ? true : false;
+	const pastTwoSeasons = (await getSeasons(2)) || [];
 
 	return (
 		<>
@@ -112,18 +113,18 @@ export default async function Termine() {
 								Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt. Dazwischen wird die nächste Saison vorbereitet und die neusten Informationen vom
 								Südbadischen Volleyballverband wurden ggf. noch nicht veröffentlicht.
 							</p>
-							{cachedGetSeasons(2).length == 2 && (
+							{pastTwoSeasons.length == 2 && (
 								<p className="mt-3">
 									Offizielle Zeitspanne der letzten zwei Saisons:
-									{cachedGetSeasons(2).map((season) => (
+									{pastTwoSeasons.map((season) => (
 										<ul key={season.id}>
 											<li className="list-disc ml-6">
-												{season.begin.toLocaleDateString("de", {
+												{season.begin.toLocaleString("de", {
 													month: "long",
 													year: "numeric",
 												})}{" "}
 												<span className="mx-1">bis</span>
-												{season.end.toLocaleDateString("de", {
+												{season.end.toLocaleString("de", {
 													month: "long",
 													year: "numeric",
 												})}
