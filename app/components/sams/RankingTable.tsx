@@ -24,6 +24,14 @@ export default async function RankingTable(props: RankingTable) {
 	} else {
 		clubTeamIds = (await getClubsTeamIds("id", true)) || [];
 	}
+
+	// check if placenumber is busted
+	let placeNumbers = new Set();
+	props.ranking.forEach((ranking) => {
+		placeNumbers.add(ranking.place);
+	});
+	const placeOk = placeNumbers.size > 1;
+
 	if (props.ranking) {
 		return (
 			<div className="card-narrow">
@@ -49,8 +57,12 @@ export default async function RankingTable(props: RankingTable) {
 						<table className="w-full prose-td:px-2 prose-td:h-full prise-td:items-center">
 							<thead className="font-bold text-slate-600 *:text-center">
 								<td>
-									<span className="sm:hidden lg:inline xl:hidden">Nr</span>
-									<span className="hidden sm:inline lg:hidden xl:inline">Platz</span>
+									{placeOk && (
+										<>
+											<span className="sm:hidden lg:inline xl:hidden">Nr</span>
+											<span className="hidden sm:inline lg:hidden xl:inline">Platz</span>
+										</>
+									)}
 								</td>
 								<td className="!text-left">Mannschaft</td>
 								<td>Siege</td>
@@ -75,7 +87,7 @@ export default async function RankingTable(props: RankingTable) {
 											data-team-id={team.team.id}
 											data-team-name={team.team.name}
 										>
-											<td className="text-center justify-center items-center">{team.place}</td>
+											<td className="text-center justify-center items-center">{placeOk && team.place}</td>
 											<td className="truncate justify-left items-center p-0.5 w-full h-full">
 												{isClubTeam && props.linkToTeamPage && getTeams(team.team.id).length == 1 ? (
 													<Link
