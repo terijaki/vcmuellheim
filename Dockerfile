@@ -32,16 +32,14 @@ RUN chown nextjs:bun .next
 COPY --from=builder --chown=nextjs:bun /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:bun /app/.next/static ./.next/static
 # Volume to cache larger SAMS responses which are above the NextJS cache limit of 2MB
-VOLUME ["/.temp/sams", "/data"]
+VOLUME ["/app/.temp/sams", "/app/data"]
 
 USER nextjs
 
-
 EXPOSE 3000
-
 ENV PORT 3000
-# Set hostname to localhost
 ENV HOSTNAME "0.0.0.0"
+
 HEALTHCHECK NONE
 
 CMD ["bun", "server.js"]
