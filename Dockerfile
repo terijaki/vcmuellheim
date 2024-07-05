@@ -28,6 +28,7 @@ ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN adduser --system --uid 1001 nextjs
 COPY --from=builder /app/public ./public
+COPY --from=builder /data ./data
 # Set the correct permission for prerender cache
 RUN mkdir .next
 RUN chown nextjs:bun .next
@@ -39,7 +40,7 @@ COPY --from=builder --chown=nextjs:bun /app/.next/static ./.next/static
 USER nextjs
 
 # Volume to cache larger SAMS responses which are above the NextJS cache limit of 2MB
-VOLUME ["/.temp/sams"]
+VOLUME ["/.temp/sams", "/data"]
 
 EXPOSE 3000
 
