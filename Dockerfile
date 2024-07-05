@@ -2,14 +2,14 @@ FROM oven/bun AS base
 
 # Install dependencies only when needed
 FROM base AS deps
-WORKDIR /app
+WORKDIR /
 # Install dependencies
 COPY package.json bun.lockb ./
 RUN bun install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM base AS builder
-WORKDIR /app
+WORKDIR /
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # Next.js collects completely anonymous telemetry data about general usage.
@@ -22,7 +22,7 @@ RUN bun --bun run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
-WORKDIR /app
+WORKDIR /
 ENV NODE_ENV production
 # Disable telemetry
 ENV NEXT_TELEMETRY_DISABLED 1
