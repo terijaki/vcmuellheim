@@ -1,0 +1,28 @@
+name: "vc_muellheim_website"
+services:
+  nextjs:
+    container_name: "Next.js-VCM-Website"
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - sams_cache:/.temp/sams
+      - staticbuild:/app/out
+      - staticbuild:/app/public/images
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./
+          target: /app
+          ignore:
+            - /node_modules/
+            - /app/data
+        - action: sync
+          path: ./data
+          target: /app/data
+        - action: rebuild
+          path: package.json
+
+volumes:
+  sams_cache:
+  staticbuild:

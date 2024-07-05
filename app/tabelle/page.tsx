@@ -18,7 +18,7 @@ const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown
 
 export default async function Tabelle() {
 	const clubsTeamIds = await getClubsTeamIds("matchSeriesId", true);
-	if (!clubsTeamIds) return <>Team IDs konnten nicht gefunden werden.</>; // TODO make this look better
+	if (!clubsTeamIds) return <div className="flex">Team IDs konnten nicht gefunden werden. 🫨</div>; // TODO make this look better
 
 	const lastResultCap = Number((clubsTeamIds.length * GAMES_PER_TEAM).toFixed(0)); // calculate the total number of games
 	const numToWordsDe = require("num-words-de");
