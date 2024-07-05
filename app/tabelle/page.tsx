@@ -1,13 +1,13 @@
-import React from "react";
-import { cachedGetTeamIds, cachedGetUniqueMatchSeriesIds } from "@/app/utils/sams/cachedGetClubData";
+import React, { Suspense } from "react";
 import RankingTable from "@/app/components/sams/RankingTable";
 import PageHeading from "@/app/components/layout/PageHeading";
 import Matches from "@/app/components/sams/Matches";
 import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
+import { getRankings } from "../utils/sams/rankings";
+import { getClubsTeamIds } from "../utils/sams/clubs";
 
 // generate a custom title
 import { Metadata, ResolvingMetadata } from "next";
-import { getRankings } from "../utils/sams/rankings";
 export async function generateMetadata({}, parent: ResolvingMetadata): Promise<Metadata> {
 	return {
 		title: "Tabelle",
@@ -17,12 +17,15 @@ export async function generateMetadata({}, parent: ResolvingMetadata): Promise<M
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
 
 export default async function Tabelle() {
-	const lastResultCap = Number((cachedGetUniqueMatchSeriesIds(cachedGetTeamIds("id")).length * GAMES_PER_TEAM).toFixed(0)); // calculate the total number of games
+	const clubsTeamIds = await getClubsTeamIds("matchSeriesId", true);
+	if (!clubsTeamIds) return <>Team IDs konnten nicht gefunden werden.</>; // TODO make this look better
+
+	const lastResultCap = Number((clubsTeamIds.length * GAMES_PER_TEAM).toFixed(0)); // calculate the total number of games
 	const numToWordsDe = require("num-words-de");
 	const lastResultWord = numToWordsDe.numToWord(lastResultCap, { uppercase: false });
 
-	const rankings = await getRankings(cachedGetUniqueMatchSeriesIds(cachedGetTeamIds("id")));
-	const matchCount = cachedGetMatches(cachedGetTeamIds("id"), "past").length;
+	const rankings = await getRankings(clubsTeamIds);
+	const matchCount = cachedGetMatches(clubsTeamIds, "past").length;
 
 	let matchSeriesDisplayed: string[] = []; //placeholder to avoid duplicate league displays
 	if (rankings) {
@@ -34,11 +37,15 @@ export default async function Tabelle() {
 						if (!matchSeriesDisplayed.includes(ranking.matchSeries.uuid)) {
 							matchSeriesDisplayed.push(ranking.matchSeries.uuid);
 							return (
-								<RankingTable
-									{...ranking}
+								<Suspense
+									fallback={<div className="card-narrow p-6 flex justify-center place-items-center">lade {ranking.matchSeries.name}..</div>}
 									key={ranking.matchSeries.id}
-									linkToTeamPage={true}
-								/>
+								>
+									<RankingTable
+										{...ranking}
+										linkToTeamPage={true}
+									/>
+								</Suspense>
 							);
 						}
 					})}
@@ -47,7 +54,7 @@ export default async function Tabelle() {
 					<div className="col-full-content sm:col-center-content card-narrow-flex my-4 mb-8">
 						<h2 className="card-heading">Unsere letzten {lastResultWord} Spiele</h2>
 						<Matches
-							teamId={cachedGetTeamIds("id")}
+							teamId={clubsTeamIds}
 							filter="past"
 							limit={lastResultCap}
 						/>

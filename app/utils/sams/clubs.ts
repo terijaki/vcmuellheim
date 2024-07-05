@@ -16,6 +16,7 @@
 import { env } from "process";
 import { SAMS } from "@/project.config";
 import path from "path";
+import { makeArrayUnique } from "../makeArrayUnique";
 
 const CACHE_FOLDER = ".temp/sams";
 
@@ -156,7 +157,6 @@ export async function getAllClubs(): Promise<ClubSimple[] | false> {
 	const cacheFile = Bun.file(path.join(CACHE_FOLDER, "allClubs.json"), { type: "application/json" });
 	if (await cacheFile.exists()) {
 		const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60 * 60 * 24); // in days
-		// const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60); // in minutes
 		if (cacheAge < 1) {
 			const cacheData = await cacheFile.json();
 			return cacheData;
@@ -208,7 +208,8 @@ export async function getAllClubs(): Promise<ClubSimple[] | false> {
 	return false;
 }
 
-export async function getClubData(clubId: number): Promise<Club | false> {
+/** Returns the full club information for the club ID provides. */
+export async function getClubData(clubId: number | string): Promise<Club | false> {
 	if (!SAMS_API) {
 		console.log("🚨 SAMS API KEY MISSING IN FETCH CLUB DATA CONTEXT");
 		return false;
@@ -220,12 +221,16 @@ export async function getClubData(clubId: number): Promise<Club | false> {
 
 	// make the server request and check its status
 	if (samsRequest.status != 200) {
-		console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR CLUB " + clubId + "! 🚨");
+		console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR CLUB " + clubId + "! 🚨 ERROR: " + samsRequest.status);
 		return false;
 	}
 	// read the XML response
 	const samsXMLResponseText = await samsRequest.text(); // this is the XML response
-	if (samsXMLResponseText.includes("<error>")) {
+	if (!samsXMLResponseText || !samsXMLResponseText.includes("<sportsclub>")) {
+		console.log("🚨 EMPTY RESPONSE RECEIVED FOR CLUB " + clubId + "! 🚨");
+		console.log(samsXMLResponseText);
+		return false;
+	} else if (samsXMLResponseText.includes("<error>")) {
 		console.log("🚨 RECEIVED ERROR MESSAGE FOR CLUB " + clubId + "! 🚨");
 		console.log(samsXMLResponseText);
 		return false;
@@ -252,14 +257,27 @@ export async function getClubData(clubId: number): Promise<Club | false> {
 	return false;
 }
 
-export async function getClubId(clubName: string): Promise<number | false> {
+/** Get a club's ID by it's name. */
+export async function getClubId(clubName: string): Promise<(number | string) | false> {
 	const allClubs = await getAllClubs();
 	if (!allClubs) return false;
 
 	const filteredAllClubs = allClubs.filter((club: { name: string }) => club.name == clubName);
+	return filteredAllClubs[0].id || false;
+}
+
+/** In 2024 SAMS united across federal states and since then this is the "internalSportsclubId" and no longer the "clubId"
+ * @param sportsclubId (4 digits)
+ * @returns **clubId** (8 digits) */
+export async function getClubIdBySportsclubId(sportsclubId: number | string): Promise<number | false> {
+	const allClubs = await getAllClubs();
+	if (!allClubs) return false;
+
+	const filteredAllClubs = allClubs.filter((club: { internalSportsclubId: string }) => club.internalSportsclubId == sportsclubId.toString());
 	return Number(filteredAllClubs[0].id) || false;
 }
 
+/** Retrieve a club's logo by its name. This is useful for ranking displays since the ranking data does not contain this data unfortunately. */
 export async function getClubLogoByName(clubName: string): Promise<string | false> {
 	const clubId = await getClubId(clubName);
 	if (!clubId) return false;
@@ -272,4 +290,45 @@ export async function getClubLogoByName(clubName: string): Promise<string | fals
 	}
 
 	return false;
+}
+
+/** Get the club details and isolate the TeamIds from each team.
+ * Results can be filtered to include all teams or only league teams, to filter out championships (one off tournaments).*/
+export async function getClubsTeamIds(
+	idType: "id" | "uuid" | "seasonTeamId" | "matchSeriesId" | "matchSeriesAllSeasonId" = "id",
+	leagueOnly: boolean = true,
+	clubId?: number | string
+): Promise<(string | number)[] | false> {
+	const idToUse = clubId || (await getClubIdBySportsclubId(SAMS.vereinsnummer)); // either use the clubId prop if present or fallback to the project config
+	if (!idToUse) return false;
+
+	const clubData = await getClubData(idToUse);
+	if (!clubData || !clubData.teams) return false;
+	const teams = clubData.teams.team;
+	if (!teams) return false;
+
+	let teamIds = new Array();
+	teams.forEach((team) => {
+		if (team.status == "ACTIVE") {
+			if (leagueOnly && team.matchSeries?.type == "League") {
+				if (idType == "matchSeriesId") {
+					teamIds.push(team.matchSeries.id);
+				} else if (idType == "matchSeriesAllSeasonId") {
+					teamIds.push(team.matchSeries.allSeasonId);
+				} else {
+					teamIds.push(team[idType]);
+				}
+			} else if (!leagueOnly) {
+				if (idType == "matchSeriesId") {
+					teamIds.push(team.matchSeries?.id);
+				} else if (idType == "matchSeriesAllSeasonId") {
+					teamIds.push(team.matchSeries?.allSeasonId);
+				} else {
+					teamIds.push(team[idType]);
+				}
+			}
+		}
+	});
+	teamIds = makeArrayUnique(teamIds);
+	return teamIds;
 }

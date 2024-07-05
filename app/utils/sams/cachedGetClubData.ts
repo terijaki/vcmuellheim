@@ -1,9 +1,11 @@
 import fs from "fs";
 import { OWN_CLUB_CACHE_FILE as CLUB_SAMS_FILE } from "./getClubData";
+import { getClubData } from "./clubs";
 
 export function cachedGetTeamIds(idType: "id" | "uuid" | "seasonTeamId" = "id", leagueOnly: boolean = true): string[] {
 	const clubdata = fs.readFileSync(CLUB_SAMS_FILE);
 	const clubDataObject = JSON.parse(clubdata.toString());
+	// console.log(clubDataObject);
 	const teams = clubDataObject.sportsclub.teams.team;
 	let teamIds = new Array();
 	teams.forEach((team: { status: string; matchSeries: { type: string }; id: string; uuid: string; seasonTeamId: string }) => {

@@ -1,16 +1,16 @@
-import React, { Suspense } from "react";
-import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
 import ClubLogo from "./ClubLogo";
 import Link from "next/link";
 import { getTeams } from "@/app/utils/getTeams";
 import { Rankings } from "@/app/utils/sams/rankings";
+import { getClubsTeamIds } from "@/app/utils/sams/clubs";
+import { Suspense } from "react";
 
 type RankingTable = Rankings & {
 	exclusive?: string | number;
 	linkToTeamPage?: boolean;
 };
 
-export default function RankingTable(props: RankingTable) {
+export default async function RankingTable(props: RankingTable) {
 	// prepare date formatting
 	const dateInput = new Date(props.matchSeries.updated);
 	const dateFormat = new Intl.DateTimeFormat("de-DE", { day: "numeric", month: "2-digit", year: "2-digit" });
@@ -22,20 +22,29 @@ export default function RankingTable(props: RankingTable) {
 	if (props.exclusive) {
 		clubTeamIds.push(props.exclusive);
 	} else {
-		clubTeamIds = cachedGetTeamIds("id");
+		clubTeamIds = (await getClubsTeamIds("id", true)) || [];
 	}
 	if (props.ranking) {
 		return (
-			<Suspense>
-				<div className="card-narrow">
-					<h2 className="card-heading">{props.matchSeries.name}</h2>
-					<ul className="grid grid-cols-2 text-xs text-lion italic w-full my-2 px-6">
-						<li>Saison {props.matchSeries.season.name}</li>
-						<li className="text-xs text-gray-400 text-end">
-							Stand {dateDisplay} {dateTimeDisplay} Uhr
-						</li>
-					</ul>
+			<div className="card-narrow">
+				<h2 className="card-heading">{props.matchSeries.name}</h2>
+				<ul className="grid grid-cols-2 text-xs text-lion italic w-full my-2 px-6">
+					<li>Saison {props.matchSeries.season.name}</li>
+					<li className="text-xs text-gray-400 text-end">
+						Stand {dateDisplay} {dateTimeDisplay} Uhr
+					</li>
+				</ul>
 
+				<Suspense
+					fallback={
+						<div>
+							<div className="p-3 bg-onyx/5 animate-pulse" />
+							<div className="p-3" />
+							<div className="p-3 bg-onyx/5 animate-pulse" />
+							<div className="p-3" />
+						</div>
+					}
+				>
 					<div className="tabelle pb-3">
 						<table className="w-full prose-td:px-2 prose-td:h-full prise-td:items-center">
 							<thead className="font-bold text-slate-600 *:text-center">
@@ -99,8 +108,8 @@ export default function RankingTable(props: RankingTable) {
 							})}
 						</table>
 					</div>
-				</div>
-			</Suspense>
+				</Suspense>
+			</div>
 		);
 	}
 }
