@@ -16,7 +16,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Volume to cache larger SAMS responses which are above the NextJS cache limit of 2MB
-VOLUME ["/.temp/sams"]
+# VOLUME ["/.temp/sams"]
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
