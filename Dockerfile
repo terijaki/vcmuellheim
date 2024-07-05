@@ -15,8 +15,6 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Volume to cache larger SAMS responses which are above the NextJS cache limit of 2MB
-# VOLUME ["/.temp/sams"]
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
@@ -51,6 +49,9 @@ COPY --from=builder --chown=nextjs:bun /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:bun /app/.next/static ./.next/static
 
 USER nextjs
+
+# Volume to cache larger SAMS responses which are above the NextJS cache limit of 2MB
+VOLUME ["/.temp/sams"]
 
 EXPOSE 3000
 
