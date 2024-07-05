@@ -32,7 +32,7 @@ RUN chown nextjs:bun .next
 COPY --from=builder --chown=nextjs:bun /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:bun /app/.next/static ./.next/static
 # Volume to cache larger SAMS responses which are above the NextJS cache limit of 2MB
-VOLUME ["/app/.temp/sams", "/app/data"]
+VOLUME ["/app/.temp/sams","./temp", "/.temp/sams"]
 
 USER nextjs
 

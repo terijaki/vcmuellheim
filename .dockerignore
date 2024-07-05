@@ -12,3 +12,4 @@ helm-charts
 .editorconfig
 .idea
 coverage*
+.DS_Store
