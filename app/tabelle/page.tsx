@@ -25,7 +25,7 @@ export default async function Tabelle() {
 	const lastResultWord = numToWordsDe.numToWord(lastResultCap, { uppercase: false });
 
 	const rankings = await getRankings(clubsTeamIds);
-	const matchCount = cachedGetMatches(clubsTeamIds, "past").length;
+	const matchCount = 0 || cachedGetMatches(clubsTeamIds, "past").length; //TODO only temporary disabled
 
 	let matchSeriesDisplayed: string[] = []; //placeholder to avoid duplicate league displays
 	if (rankings) {
