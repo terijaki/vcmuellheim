@@ -2,7 +2,7 @@ FROM oven/bun AS base
 
 # STAGE 1. PACKAGES
 #Install dependencies only when needed
-FROM base AS deps
+FROM base AS dependencies
 WORKDIR /app
 # Install dependencies
 COPY package.json bun.lockb ./
@@ -12,7 +12,7 @@ RUN bun install --frozen-lockfile
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 # use local variables as production (needed when testing locally)
 RUN mv -n .env.local .env.production || true
@@ -31,11 +31,11 @@ RUN mkdir .next
 RUN chown nextjs:bun .next
 COPY --from=builder --chown=nextjs:bun /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:bun /app/.next/static ./.next/static
+# Volume to cache larger SAMS responses which are above the NextJS cache limit of 2MB
+VOLUME ["/.temp/sams", "/data"]
 
 USER nextjs
 
-# Volume to cache larger SAMS responses which are above the NextJS cache limit of 2MB
-VOLUME ["/.temp/sams", "/data"]
 
 EXPOSE 3000
 
