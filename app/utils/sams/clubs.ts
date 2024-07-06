@@ -1,4 +1,3 @@
-"use server";
 // http://wiki.sams-server.de/wiki/XML-Schnittstelle
 // Vereine
 // Gibt eine Übersicht aller Vereine mit wichtigen Informationen aus.

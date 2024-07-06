@@ -1,4 +1,3 @@
-"use server";
 // http://wiki.sams-server.de/wiki/XML-Schnittstelle
 // Tabellen
 // Gibt die aktuelle Tabelle einer Liga oder eines Wettbewerbs aus.
@@ -17,6 +16,10 @@ const SAMS_API = env.SAMS_API,
 /** Returns one or more Ranking when provided with a matchSeriesId
  * @param matchSeriesIds can be either a matchSeriesId or allSeasonMatchSeriesId */
 export async function getRankings(matchSeriesIds: (string | number)[]): Promise<Rankings[] | false> {
+	if (!matchSeriesIds || matchSeriesIds.length == 0) {
+		console.log("🚨 NO MATCHSERIESID PROVIDED IN RANKINGS CONTEXT! 🚨");
+		return false;
+	}
 	let output: Rankings[] = [];
 
 	const uniqueMatchSeriesIds = makeArrayUnique(matchSeriesIds); // remove duplicate match series (in case they have not been sanitised when requested)
@@ -33,8 +36,11 @@ export async function getRankings(matchSeriesIds: (string | number)[]): Promise<
 /** Returns a single Ranking when provided with a matchSeriesId
  * @param matchSeriesId can be either a matchSeriesId or allSeasonMatchSeriesId */
 export async function getRanking(matchSeriesId: string | number): Promise<Rankings | false> {
-	if (!SAMS_API) {
-		console.log("🚨 SAMS API KEY MISSING IN FETCH RANKINGS CONTEXT");
+	if (!matchSeriesId) {
+		console.log("🚨 NO MATCHSERIESID PROVIDED IN RANKING CONTEXT! 🚨");
+		return false;
+	} else if (!SAMS_API) {
+		console.log("🚨 SAMS API KEY MISSING IN FETCH RANKING CONTEXT! 🚨");
 		return false;
 	}
 	const apiURL = SAMS_URL + "/xml/rankings.xhtml?apiKey=" + SAMS_API + "&matchSeriesId=" + matchSeriesId;
@@ -43,17 +49,17 @@ export async function getRanking(matchSeriesId: string | number): Promise<Rankin
 
 	// make the server request and check its status
 	if (!samsRequest.status || samsRequest.status != 200) {
-		console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR RANKINGS (" + matchSeriesId + ")! 🚨");
+		console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR RANKING (" + matchSeriesId + ")! 🚨");
 		return false;
 	}
 
 	// read the XML response
 	const samsXMLResponseText = await samsRequest.text(); // this is the XML response
 	if (!samsXMLResponseText) {
-		console.log("🚨 RECEIVED EMPTY MESSAGE FOR RANKINGS (" + matchSeriesId + ")! 🚨");
+		console.log("🚨 RECEIVED EMPTY MESSAGE FOR RANKING (" + matchSeriesId + ")! 🚨");
 		return false;
 	} else if (samsXMLResponseText.includes("<error>")) {
-		console.log("🚨 RECEIVED ERROR MESSAGE FOR RANKINGS (" + matchSeriesId + ")! 🚨");
+		console.log("🚨 RECEIVED ERROR MESSAGE FOR RANKING (" + matchSeriesId + ")! 🚨");
 		console.log(samsXMLResponseText);
 		return false;
 	}
@@ -66,14 +72,14 @@ export async function getRanking(matchSeriesId: string | number): Promise<Rankin
 			thisObject = result.rankings;
 			return result;
 		} else {
-			console.log("🚨 COULD NOT CONVERT RANKINGS (" + matchSeriesId + ") XML TO JSON! 🚨");
+			console.log("🚨 COULD NOT CONVERT RANKING (" + matchSeriesId + ") XML TO JSON! 🚨");
 			console.log(err);
 			return false;
 		}
 	});
 
 	if (thisObject) return thisObject;
-	console.log("🚨 SOMETHING WENT WRONT WHILE RETRIEVING RANKINGS (" + matchSeriesId + ")! 🚨");
+	console.log("🚨 SOMETHING WENT WRONT WHILE RETRIEVING RANKING (" + matchSeriesId + ")! 🚨");
 	return false;
 }
 
