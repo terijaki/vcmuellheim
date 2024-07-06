@@ -1,6 +1,6 @@
 {
 	"name": "vcmuellheim.de",
-	"version": "0.1.0",
+	"version": "2.0.0",
 	"private": true,
 	"homepage": "https://vcmuellheim.de",
 	"bugs": {
@@ -20,7 +20,7 @@
 		"sams-all-clubs": "bun app/utils/sams/getAllClubs.ts",
 		"inbox": "bun app/utils/blog/inboxProcessing.ts",
 		"blog-new-posts": "bun app/utils/blog/shareNewPosts.ts",
-		"docker": "docker compose up"
+		"docker": "docker compose down && docker compose up --build --watch"
 	},
 	"dependencies": {
 		"@octokit/action": "^6.1.0",

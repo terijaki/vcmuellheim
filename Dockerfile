@@ -12,6 +12,7 @@ RUN bun install --frozen-lockfile
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
+RUN find . -name ".DS_Store" -type f -delete
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 # use local variables as production (needed when testing locally)
@@ -31,8 +32,6 @@ RUN mkdir .next
 RUN chown nextjs:bun .next
 COPY --from=builder --chown=nextjs:bun /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:bun /app/.next/static ./.next/static
-# Volume to cache larger SAMS responses which are above the NextJS cache limit of 2MB
-VOLUME ["/app/.temp/sams","./temp", "/.temp/sams"]
 
 USER nextjs
 

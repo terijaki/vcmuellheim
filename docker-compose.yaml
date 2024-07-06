@@ -1,17 +1,18 @@
 name: "vc_muellheim_website"
 services:
   nextjs:
-    container_name: "Next.js-VCM-Website"
-    build: .
+    container_name: "nextjs-frontend"
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "3080:3080"
     volumes:
-      - sams_cache:/.temp/sams
-      - staticbuild:/app/out
-      - staticbuild:/app/public/images
+      - sams_cache:/app/.temp/sams
+    restart: always
     develop:
       watch:
-        - action: sync+restart
+        - action: sync
           path: ./
           target: /app
           ignore:
@@ -25,4 +26,3 @@ services:
 
 volumes:
   sams_cache:
-  staticbuild:
