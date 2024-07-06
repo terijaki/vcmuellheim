@@ -27,6 +27,7 @@ ENV NODE_ENV production
 RUN adduser --system --uid 1001 nextjs
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/data ./data
+COPY --from=builder /app/.temp ./.temp
 # Set the correct permission for prerender cache
 RUN mkdir .next
 RUN chown nextjs:bun .next
