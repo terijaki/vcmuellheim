@@ -19,20 +19,20 @@ import { getTeamPlayers } from "@/app/utils/sams/players";
 
 // generate static routes for each team slug
 // example: http://localhost:3000/teams/herren1
-export async function generateStaticParams() {
-	const teams = getTeams();
-	let slugList: string[] = [];
+// export async function generateStaticParams() {
+// 	const teams = getTeams();
+// 	let slugList: string[] = [];
 
-	teams.forEach((team) => {
-		if (team.slug && team.sbvvId) {
-			// herren1, damen2, etc. <-- file name of the team without the extension
-			slugList.push(team.slug);
-		}
-	});
-	return slugList.map((param) => ({
-		slug: param,
-	}));
-}
+// 	teams.forEach((team) => {
+// 		if (team.slug && team.sbvvId) {
+// 			// herren1, damen2, etc. <-- file name of the team without the extension
+// 			slugList.push(team.slug);
+// 		}
+// 	});
+// 	return slugList.map((param) => ({
+// 		slug: param,
+// 	}));
+// }
 
 export default async function TeamPage({ params }: { params: { slug: string } }) {
 	// pre-render setup
@@ -68,40 +68,38 @@ export default async function TeamPage({ params }: { params: { slug: string } })
 				<div className="col-full-content md:col-center-content *:mb-10 mt-6">
 					{/* display players */}
 					{teamPlayers && teamPlayers.players && teamPlayers.players?.length > 0 && (
-						<>
-							<div
-								className="card *:mb-3"
-								data-section="players"
-							>
-								<h2 className="card-heading">Spieler</h2>
-								<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
-									{teamPlayers.players.map((player) => {
-										return (
-											<Fragment key="player">
-												<div className="odd:bg-blac1k/5 inline-flex gap-1">
-													<div className="flex justify-center items-center h-6 w-8 shrink-0">{player.number}</div>
-													<div className="flex justify-center items-center h-6 w-8 shrink-0">
-														<Flag
-															code={player.nationality}
-															className="h-full w-full object-cover border-onyx/10 border-[1px] shadow"
-														/>
-													</div>
-													<div className="ml-1 col-span-2 text-balance">
-														{player.firstname} {player.lastname}
-													</div>
+						<div
+							className="card *:mb-3"
+							data-section="players"
+						>
+							<h2 className="card-heading">Spieler</h2>
+							<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
+								{teamPlayers.players.map((player) => {
+									return (
+										<Fragment key="player">
+											<div className="odd:bg-blac1k/5 inline-flex gap-1">
+												<div className="flex justify-center items-center h-6 w-8 shrink-0">{player.number}</div>
+												<div className="flex justify-center items-center h-6 w-8 shrink-0">
+													<Flag
+														code={player.nationality}
+														className="h-full w-full object-cover border-onyx/10 border-[1px] shadow"
+													/>
 												</div>
-											</Fragment>
-										);
-									})}
-								</div>
-								<p
-									className="text-right text-sm italic text-gray-400 py-1 px-3"
-									data-match-type="past"
-								>
-									Saison {cachedGetSeasons(1)[0].name}
-								</p>
+												<div className="ml-1 col-span-2 text-balance">
+													{player.firstname} {player.lastname}
+												</div>
+											</div>
+										</Fragment>
+									);
+								})}
 							</div>
-						</>
+							<p
+								className="text-right text-sm italic text-gray-400 py-1 px-3"
+								data-match-type="past"
+							>
+								Saison {cachedGetSeasons(1)[0].name}
+							</p>
+						</div>
 					)}
 
 					{/* matches */}
