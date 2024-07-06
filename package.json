@@ -11,16 +11,16 @@
 		"email": "bjoern@vcmuellheim.de"
 	},
 	"scripts": {
-		"dev": "next dev",
+		"dev": "next dev -p 3080",
 		"build": "next build",
-		"start": "next start",
+		"start": "next start -p 3080",
 		"lint": "next lint",
 		"sams-update": "bun app/utils/sams/updateTasks.ts",
 		"sams-new-results": "bun app/utils/sams/processNewMatchResults.ts",
 		"sams-all-clubs": "bun app/utils/sams/getAllClubs.ts",
 		"inbox": "bun app/utils/blog/inboxProcessing.ts",
 		"blog-new-posts": "bun app/utils/blog/shareNewPosts.ts",
-		"docker": "docker build -t vcm-homepage . && docker run -p 3000:3000 vcm-homepage"
+		"docker": "docker compose up"
 	},
 	"dependencies": {
 		"@octokit/action": "^6.1.0",

@@ -36,8 +36,8 @@ VOLUME ["/app/.temp/sams","./temp", "/.temp/sams"]
 
 USER nextjs
 
-EXPOSE 3000
-ENV PORT 3000
+EXPOSE 3080
+ENV PORT 3080
 ENV HOSTNAME "0.0.0.0"
 
 HEALTHCHECK NONE

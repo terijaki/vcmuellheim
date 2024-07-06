@@ -4,7 +4,7 @@ services:
     container_name: "Next.js-VCM-Website"
     build: .
     ports:
-      - "3000:3000"
+      - "3080:3080"
     volumes:
       - sams_cache:/.temp/sams
       - staticbuild:/app/out
