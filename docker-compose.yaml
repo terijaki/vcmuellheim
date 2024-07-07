@@ -10,7 +10,7 @@ services:
       - "3080:3080"
     restart: always
     volumes:
-      - .temp:/.temp
+      - .temp:/.temp ## 🚨 this needs to match the SAMS_CACHE env (see Dockerfile)
       - .next/cache:/app/.next/cache
     develop:
       watch:

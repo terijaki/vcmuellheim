@@ -33,8 +33,6 @@ RUN mkdir .next
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
-# VOLUME $SAMS_CACHE
-
 EXPOSE 3080
 ENV PORT 3080
 ENV HOSTNAME "0.0.0.0"
