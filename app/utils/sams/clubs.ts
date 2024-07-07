@@ -208,6 +208,17 @@ export async function getAllClubs(): Promise<ClubSimple[] | false> {
 
 /** Returns the full club information for the club ID provides. */
 export async function getClubData(clubId: number | string): Promise<Club | false> {
+	//#region caching since the response is likely to be larger than 2MB
+	const cacheFile = Bun.file(path.join(SAMS_CACHE, "club", clubId + ".json"), { type: "application/json" });
+	if (await cacheFile.exists()) {
+		const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60 * 60 * 24); // in days
+		if (cacheAge < 1) {
+			const cacheData = await cacheFile.json();
+			return cacheData;
+		}
+	}
+	//#endregion caching
+
 	if (!SAMS_API) {
 		console.log("🚨 SAMS API KEY MISSING IN FETCH CLUB DATA CONTEXT");
 		return false;
@@ -215,7 +226,7 @@ export async function getClubData(clubId: number | string): Promise<Club | false
 
 	const apiURL = SAMS_URL + "/xml/sportsclub.xhtml?apiKey=" + SAMS_API + "&sportsclubId=" + clubId;
 
-	const samsRequest = await fetch(apiURL, { next: { revalidate: 3600 * 24, tags: ["sams", "club", clubId.toString()] } });
+	const samsRequest = await fetch(apiURL, { next: { revalidate: 3600, tags: ["sams", "club", clubId.toString()] } });
 
 	// make the server request and check its status
 	if (samsRequest.status != 200) {
@@ -235,14 +246,14 @@ export async function getClubData(clubId: number | string): Promise<Club | false
 	}
 
 	// turn the XML string into an Object
-	let thisClub: false | Object[] = false;
+	let thisClub: false | Club = false;
 	const parseString = require("xml2js").parseString;
 	await parseString(samsXMLResponseText, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
 		if (!err) {
 			// console.log("✅ Data for all clubs retrieved. Looks good.");
 			// console.log(result);
 			thisClub = result.sportsclub;
-			return result.sportsclub;
+			Bun.write(cacheFile, JSON.stringify(thisClub));
 		} else {
 			console.log("🚨 COULD NOT CONVERT CLUBS XML TO JSON! 🚨");
 			console.log(err);

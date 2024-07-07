@@ -8,6 +8,9 @@ services:
     ports:
       - "3080:3080"
     restart: always
+    volumes:
+      - .temp:/.temp
+      - .next/cache:/app/.next/cache
     develop:
       watch:
         - action: sync
