@@ -11,6 +11,8 @@ import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import { getClubsTeamIds } from "../utils/sams/clubs";
 import { getSeasons } from "../utils/sams/seasons";
 
+export const revalidate = 120;
+
 // generate a custom title
 export async function generateMetadata({}, parent: ResolvingMetadata): Promise<Metadata> {
 	return {

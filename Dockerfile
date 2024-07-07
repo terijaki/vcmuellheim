@@ -1,5 +1,8 @@
 FROM oven/bun AS base
 
+ARG SAMS_CACHE=/.temp/sams
+ENV SAMS_CACHE=$SAMS_CACHE
+
 # STAGE 1. PACKAGES
 #Install dependencies only when needed
 FROM base AS dependencies
@@ -12,7 +15,6 @@ RUN bun install --frozen-lockfile
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
-RUN find . -name ".DS_Store" -type f -delete
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 # use local variables as production (needed when testing locally)
@@ -24,17 +26,14 @@ RUN bun --bun run build
 FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV production
-RUN adduser --system --uid 1001 nextjs
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/data ./data
-COPY --from=builder /app/.temp ./.temp
-# Set the correct permission for prerender cache
+COPY --from=builder $SAMS_CACHE $SAMS_CACHE
 RUN mkdir .next
-RUN chown nextjs:bun .next
-COPY --from=builder --chown=nextjs:bun /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:bun /app/.next/static ./.next/static
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
-USER nextjs
+VOLUME $SAMS_CACHE
 
 EXPOSE 3080
 ENV PORT 3080

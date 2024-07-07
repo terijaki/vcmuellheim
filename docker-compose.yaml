@@ -7,8 +7,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3080:3080"
-    volumes:
-      - sams_cache:/app/.temp/sams
     restart: always
     develop:
       watch:
@@ -16,13 +14,11 @@ services:
           path: ./
           target: /app
           ignore:
-            - /node_modules/
+            - /node_modules
             - /app/data
+            - /.temp
         - action: sync
           path: ./data
           target: /app/data
         - action: rebuild
           path: package.json
-
-volumes:
-  sams_cache:

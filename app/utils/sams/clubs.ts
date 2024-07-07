@@ -17,10 +17,9 @@ import { SAMS } from "@/project.config";
 import path from "path";
 import { makeArrayUnique } from "../makeArrayUnique";
 
-const CACHE_FOLDER = ".temp/sams";
-
 const SAMS_API = env.SAMS_API,
-	SAMS_URL = SAMS.url;
+	SAMS_URL = SAMS.url,
+	SAMS_CACHE = env.SAMS_CACHE || "/.temp/sams";
 
 //#region -- Type Definitions for Club(s) --
 export type ClubSimple = {
@@ -153,7 +152,7 @@ export type Season = {
 /** Returns a array of basic club data for each club. No input required. */
 export async function getAllClubs(): Promise<ClubSimple[] | false> {
 	//#region caching since the response is likely to be larger than 2MB
-	const cacheFile = Bun.file(path.join(CACHE_FOLDER, "allClubs.json"), { type: "application/json" });
+	const cacheFile = Bun.file(path.join(SAMS_CACHE, "allClubs.json"), { type: "application/json" });
 	if (await cacheFile.exists()) {
 		const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60 * 60 * 24); // in days
 		if (cacheAge < 1) {

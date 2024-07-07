@@ -11,7 +11,8 @@ import { env } from "process";
 import { makeArrayUnique } from "../makeArrayUnique";
 
 const SAMS_API = env.SAMS_API,
-	SAMS_URL = SAMS.url;
+	SAMS_URL = SAMS.url,
+	SAMS_CACHE = env.SAMS_CACHE || "/.temp/sams";
 
 /** Returns one or more Ranking when provided with a matchSeriesId
  * @param matchSeriesIds can be either a matchSeriesId or allSeasonMatchSeriesId */

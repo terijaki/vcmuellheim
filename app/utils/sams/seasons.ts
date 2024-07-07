@@ -3,13 +3,26 @@
 // Zeigt eine Liste aller verfügbaren Saisons an. Die ID der Saison kann in der Spielrundenübersicht verwendet werden, um Zugriff auf historische Daten zu erhalten.
 import { env } from "process";
 import { SAMS } from "@/project.config";
+import path from "path";
 
 const SAMS_API = env.SAMS_API,
-	SAMS_URL = SAMS.url;
+	SAMS_URL = SAMS.url,
+	SAMS_CACHE = env.SAMS_CACHE || "/.temp/sams";
 
 /** Retrieves the Seasons.
  * Usually includes all past seasons and the upcoming season towards the end of the current season. */
 export async function getSeasons(amount?: number, reverse = false): Promise<Season[] | false> {
+	//#region caching since the response is likely to be larger than 2MB
+	const cacheFile = Bun.file(path.join(SAMS_CACHE, "seasons.json"), { type: "application/json" });
+	if (await cacheFile.exists()) {
+		const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60 * 60 * 24); // in days
+		if (cacheAge < 1) {
+			const cacheData = await cacheFile.json();
+			return cacheData;
+		}
+	}
+	//#endregion caching
+
 	if (!SAMS_API) {
 		console.log("🚨 SAMS API KEY MISSING IN FETCH SEASONS CONTEXT");
 		return false;
@@ -70,7 +83,10 @@ export async function getSeasons(amount?: number, reverse = false): Promise<Seas
 	// trim it by the amount specified
 	let seasonsTrimmed = seasonsSorted.slice(0, amount);
 
-	if (seasonsTrimmed) return seasonsTrimmed;
+	if (seasonsTrimmed) {
+		Bun.write(cacheFile, JSON.stringify(seasonsTrimmed));
+		return seasonsTrimmed;
+	}
 
 	console.log("🚨 SOMETHING WENT WRONT WHILE RETRIEVING SEASONS! 🚨");
 	return false;
