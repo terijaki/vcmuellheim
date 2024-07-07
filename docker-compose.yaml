@@ -19,6 +19,7 @@ services:
           ignore:
             - /node_modules
             - /app/data
+            - /.next
             - /.temp
         - action: sync
           path: ./data
