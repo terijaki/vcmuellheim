@@ -1,4 +1,5 @@
 name: "vc_muellheim_website"
+## TODO differenciate between production and dev
 services:
   nextjs:
     container_name: "nextjs-frontend"

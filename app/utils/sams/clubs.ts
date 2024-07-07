@@ -155,7 +155,7 @@ export async function getAllClubs(): Promise<ClubSimple[] | false> {
 	const cacheFile = Bun.file(path.join(SAMS_CACHE, "allClubs.json"), { type: "application/json" });
 	if (await cacheFile.exists()) {
 		const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60 * 60 * 24); // in days
-		if (cacheAge < 1) {
+		if (cacheAge < 7) {
 			const cacheData = await cacheFile.json();
 			return cacheData;
 		}
@@ -212,7 +212,7 @@ export async function getClubData(clubId: number | string): Promise<Club | false
 	const cacheFile = Bun.file(path.join(SAMS_CACHE, "club", clubId + ".json"), { type: "application/json" });
 	if (await cacheFile.exists()) {
 		const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60 * 60 * 24); // in days
-		if (cacheAge < 1) {
+		if (cacheAge < 3) {
 			const cacheData = await cacheFile.json();
 			return cacheData;
 		}
