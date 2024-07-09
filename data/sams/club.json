@@ -59,8 +59,8 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2024-06-25 13:16:07.573",
-            "structureUpdated": "2024-06-25 13:16:07.573",
+            "updated": "2024-07-08 22:56:25.173",
+            "structureUpdated": "2024-07-08 22:56:25.173",
             "resultsUpdated": "2024-04-28 19:27:28.701",
             "season": {
               "id": "70098350",
@@ -138,9 +138,9 @@
             "name": "Bezirksliga Herren Süd",
             "shortName": "bzl s h",
             "type": "League",
-            "updated": "2024-06-27 10:47:47.659",
-            "structureUpdated": "2024-06-27 10:47:47.659",
-            "resultsUpdated": "2024-04-28 19:27:28.701",
+            "updated": "2024-07-08 11:39:06.462",
+            "structureUpdated": "2024-07-08 11:39:06.462",
+            "resultsUpdated": "2024-07-08 11:04:26.273",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -223,9 +223,9 @@
             "name": "Bezirksklasse Damen Süd",
             "shortName": "bzk s d",
             "type": "League",
-            "updated": "2024-06-25 13:18:32.758",
-            "structureUpdated": "2024-06-25 13:18:32.758",
-            "resultsUpdated": "2024-03-12 07:28:59.828",
+            "updated": "2024-07-07 20:19:45.61",
+            "structureUpdated": "2024-07-02 22:43:47.321",
+            "resultsUpdated": "2024-07-07 20:19:45.61",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -378,6 +378,79 @@
             "association": {
               "name": null,
               "shortName": null
+            }
+          }
+        },
+        {
+          "id": "74192324",
+          "uuid": "8e4f5448-e86e-4f6d-8cf2-4124a0cca5a7",
+          "seasonTeamId": "74192324",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "65036648",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "70100692",
+            "uuid": "e551986d-e57b-4188-9706-a0c50bfc2d4f",
+            "allSeasonId": "bc7345dc-21ee-4892-9364-653244622509",
+            "name": "Herren TOP-Ligen (OL und höher)",
+            "shortName": "hp_top",
+            "type": "Competition",
+            "updated": "2024-07-05 08:40:13.474",
+            "structureUpdated": "2024-07-05 08:40:13.474",
+            "resultsUpdated": null,
+            "season": {
+              "id": "70098350",
+              "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+              "name": "2024/25"
+            },
+            "hierarchy": {
+              "id": "70100640",
+              "uuid": "5f3c9b05-b0d3-44da-a7f2-1bb66e11b59e",
+              "name": "Verbandspokal 2023/2024",
+              "shortName": "vp",
+              "hierarchyLevel": "2"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "70100640",
+                  "name": "Verbandspokal 2023/2024",
+                  "shortName": "vp",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "70100639",
+                  "name": "Pokalwettbewerbe",
+                  "shortName": "P",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "70098566",
+                  "name": "Südbadischer Volleyball-Verband (SBVV)",
+                  "shortName": "SBVV",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
             }
           }
         }
