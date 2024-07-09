@@ -38,6 +38,7 @@ export default function HomeFotos() {
 								fill
 								className="object-cover"
 								alt=""
+								loading="lazy"
 							/>
 						</div>
 					);

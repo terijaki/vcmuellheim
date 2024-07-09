@@ -25,7 +25,9 @@ export default function Page() {
 			</Suspense>
 			<HomeSponsors />
 			<HomeMembers />
-			<HomeFotos />
+			<Suspense>
+				<HomeFotos />
+			</Suspense>
 			<HomeKontakt />
 		</>
 	);
