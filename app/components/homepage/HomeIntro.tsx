@@ -3,10 +3,10 @@ import { navbarLinks } from "@/app/utils/navbarLinks";
 import { FaAnglesDown as IconDown } from "react-icons/fa6";
 import Link from "next/link";
 
-import "/public/images/backgrounds/intro1.jpg";
-import "/public/images/backgrounds/intro2.jpg";
-import "/public/images/backgrounds/intro3.jpg";
-import "/public/images/blog/2024/06/17/dsc_0078.jpg";
+import "/images/backgrounds/intro1.jpg";
+import "/images/backgrounds/intro2.jpg";
+import "/images/backgrounds/intro3.jpg";
+import "/images/blog/2024/06/17/dsc_0078.jpg";
 
 const backgroundImages = ["/images/backgrounds/intro1.jpg", "/images/backgrounds/intro2.jpg", "/images/backgrounds/intro3.jpg", "/images/blog/2024/06/17/dsc_0078.jpg"];
 
