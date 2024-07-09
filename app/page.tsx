@@ -20,7 +20,9 @@ export default function Page() {
 			<Suspense>
 				<HomeHeimturnier />
 			</Suspense>
-			<HomeTeams />
+			<Suspense>
+				<HomeTeams />
+			</Suspense>
 			<HomeSponsors />
 			<HomeMembers />
 			<HomeFotos />
