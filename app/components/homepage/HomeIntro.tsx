@@ -6,9 +6,9 @@ import Link from "next/link";
 import "/images/backgrounds/intro1.jpg";
 import "/images/backgrounds/intro2.jpg";
 import "/images/backgrounds/intro3.jpg";
-import "/images/blog/2024/06/17/dsc_0078.jpg";
+import "/images/backgrounds/intro4.jpg";
 
-const backgroundImages = ["/images/backgrounds/intro1.jpg", "/images/backgrounds/intro2.jpg", "/images/backgrounds/intro3.jpg", "/images/blog/2024/06/17/dsc_0078.jpg"];
+const backgroundImages = ["/images/backgrounds/intro1.jpg", "/images/backgrounds/intro2.jpg", "/images/backgrounds/intro3.jpg", "/images/backgrounds/intro3.jpg"];
 
 export default function HomeIntro() {
 	var backgroundImageRandom = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
