@@ -2,22 +2,24 @@
 title: 'Stadtfest 2024 - Party, Fußball und viel Wetter'
 date: 2024-07-10T13:50:37.804Z
 gallery:
-- /images/blog/2024/07/10/image-00002.jpg
-- /images/blog/2024/07/10/image-00007.jpg
-- /images/blog/2024/07/10/image-00014.jpg
-- /images/blog/2024/07/10/image-00013.jpg
-- /images/blog/2024/07/10/image-00001.jpg
-- /images/blog/2024/07/10/image-00004.jpg
-- /images/blog/2024/07/10/image-00015.jpg
-- /images/blog/2024/07/10/image-00006.jpg
-- /images/blog/2024/07/10/image-00010.jpg
-- /images/blog/2024/07/10/image-00009.jpg
-- /images/blog/2024/07/10/image-00008.jpg
-- /images/blog/2024/07/10/image-00003.jpg
-- /images/blog/2024/07/10/image-00016.jpg
-- /images/blog/2024/07/10/image-00012.jpg
-- /images/blog/2024/07/10/image-00011.jpg
-- /images/blog/2024/07/10/image-00005.jpg
+  - /images/blog/2024/07/10/image-00002.jpg
+  - /images/blog/2024/07/10/image-00007.jpg
+  - /images/blog/2024/07/10/image-00014.jpg
+  - /images/blog/2024/07/10/image-00013.jpg
+  - /images/blog/2024/07/10/image-00001.jpg
+  - /images/blog/2024/07/10/image-00004.jpg
+  - /images/blog/2024/07/10/image-00015.jpg
+  - /images/blog/2024/07/10/image-00006.jpg
+  - /images/blog/2024/07/10/image-00010.jpg
+  - /images/blog/2024/07/10/image-00009.jpg
+  - /images/blog/2024/07/10/image-00008.jpg
+  - /images/blog/2024/07/10/image-00003.jpg
+  - /images/blog/2024/07/10/image-00016.jpg
+  - /images/blog/2024/07/10/image-00012.jpg
+  - /images/blog/2024/07/10/image-00011.jpg
+  - /images/blog/2024/07/10/image-00005.jpg
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/112762530675796467'
 ---
 Am letzten Juni Wochenende war es wieder soweit: Fassanstich auf dem Müllheimer Stadtfest.
 
