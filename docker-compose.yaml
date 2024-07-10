@@ -27,3 +27,6 @@ services:
           target: /app/data
         - action: rebuild
           path: package.json
+
+volumes:
+  nextjs-image-cache:
