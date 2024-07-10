@@ -12,7 +12,7 @@ export const Club = {
 	email: "info@vcmuellheim.de",
 };
 /** The clubs details on the SAMS platform. */
-export const SAMS = {
+export const SAMS = { 
 	url: "https://www.volleyball-baden.de",
 	vereinsnummer: 3530, // in 2024 SAMS united across federal states and since then this is the "internalSportsclubId" and no longer the "clubId"
 	name: "VC Müllheim",
