@@ -268,22 +268,35 @@ export async function getClubData(clubId: number | string): Promise<Club | false
 
 /** Get a club's ID by it's name. */
 export async function getClubId(clubName: string): Promise<(number | string) | false> {
-	const allClubs = await getAllClubs();
-	if (!allClubs) return false;
-
-	const filteredAllClubs = allClubs.filter((club: { name: string }) => club.name == clubName);
-	return filteredAllClubs[0].id || false;
+	try {
+		if (!clubName) return false;
+		const allClubs = await getAllClubs();
+		if (!allClubs) return false;
+		const filteredAllClubs = allClubs.filter((club: { name: string }) => club.name == clubName);
+		return filteredAllClubs[0].id || false;
+	} catch (error) {
+		console.log("Unable to get Club ID for " + clubName);
+		console.log(error);
+		return false;
+	}
 }
 
 /** In 2024 SAMS united across federal states and since then this is the "internalSportsclubId" and no longer the "clubId"
  * @param sportsclubId (4 digits)
  * @returns **clubId** (8 digits) */
-export async function getClubIdBySportsclubId(sportsclubId: number | string): Promise<number | false> {
-	const allClubs = await getAllClubs();
-	if (!allClubs) return false;
+export async function getClubIdBySportsclubId(sportsClubId: number | string): Promise<number | false> {
+	try {
+		if (!sportsClubId) return false;
+		const allClubs = await getAllClubs();
+		if (!allClubs) return false;
 
-	const filteredAllClubs = allClubs.filter((club: { internalSportsclubId: string }) => club.internalSportsclubId == sportsclubId.toString());
-	return Number(filteredAllClubs[0].id) || false;
+		const filteredAllClubs = allClubs.filter((club: { internalSportsclubId: string }) => club.internalSportsclubId == sportsClubId.toString());
+		if (!filteredAllClubs || !filteredAllClubs[0].id) return false;
+		return Number(filteredAllClubs[0].id) || false;
+	} catch (error) {
+		console.log(error);
+		return false;
+	}
 }
 
 /** Retrieve a club's logo by its name. This is useful for ranking displays since the ranking data does not contain this data unfortunately. */
