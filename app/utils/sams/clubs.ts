@@ -301,17 +301,20 @@ export async function getClubIdBySportsclubId(sportsClubId: number | string): Pr
 
 /** Retrieve a club's logo by its name. This is useful for ranking displays since the ranking data does not contain this data unfortunately. */
 export async function getClubLogoByName(clubName: string): Promise<string | false> {
-	const clubId = await getClubId(clubName);
-	if (!clubId) return false;
-
-	if (clubId) {
-		const clubData = await getClubData(clubId);
-		if (!clubData || !clubData.logo?.url) return false;
-		// console.log(clubData.logo.url)
-		return clubData.logo.url;
+	try {
+		const clubId = await getClubId(clubName);
+		if (!clubId) return false;
+		if (clubId) {
+			const clubData = await getClubData(clubId);
+			if (!clubData || !clubData.logo?.url) return false;
+			return clubData.logo.url;
+		}
+		return false;
+	} catch (error) {
+		console.log("Encountered problem when retriving the Logo for " + clubName);
+		console.log(error);
+		return false;
 	}
-
-	return false;
 }
 
 /** Get the club details and isolate the TeamIds from each team.
@@ -321,36 +324,42 @@ export async function getClubsTeamIds(
 	leagueOnly: boolean = true,
 	clubId?: number | string
 ): Promise<(string | number)[] | false> {
-	const idToUse = clubId || (await getClubIdBySportsclubId(SAMS.vereinsnummer)); // either use the clubId prop if present or fallback to the project config
-	if (!idToUse) return false;
+	try {
+		const idToUse = clubId || (await getClubIdBySportsclubId(SAMS.vereinsnummer)); // either use the clubId prop if present or fallback to the project config
+		if (!idToUse) return false;
 
-	const clubData = await getClubData(idToUse);
-	if (!clubData || !clubData.teams) return false;
-	const teams = clubData.teams.team;
-	if (!teams) return false;
+		const clubData = await getClubData(idToUse);
+		if (!clubData || !clubData.teams) return false;
+		const teams = clubData.teams.team;
+		if (!teams) return false;
 
-	let teamIds = new Array();
-	teams.forEach((team) => {
-		if (team.status == "ACTIVE") {
-			if (leagueOnly && team.matchSeries?.type == "League") {
-				if (idType == "matchSeriesId") {
-					teamIds.push(team.matchSeries.id);
-				} else if (idType == "matchSeriesAllSeasonId") {
-					teamIds.push(team.matchSeries.allSeasonId);
-				} else {
-					teamIds.push(team[idType]);
-				}
-			} else if (!leagueOnly) {
-				if (idType == "matchSeriesId") {
-					teamIds.push(team.matchSeries?.id);
-				} else if (idType == "matchSeriesAllSeasonId") {
-					teamIds.push(team.matchSeries?.allSeasonId);
-				} else {
-					teamIds.push(team[idType]);
+		let teamIds = new Array();
+		teams.forEach((team) => {
+			if (team.status == "ACTIVE") {
+				if (leagueOnly && team.matchSeries?.type == "League") {
+					if (idType == "matchSeriesId") {
+						teamIds.push(team.matchSeries.id);
+					} else if (idType == "matchSeriesAllSeasonId") {
+						teamIds.push(team.matchSeries.allSeasonId);
+					} else {
+						teamIds.push(team[idType]);
+					}
+				} else if (!leagueOnly) {
+					if (idType == "matchSeriesId") {
+						teamIds.push(team.matchSeries?.id);
+					} else if (idType == "matchSeriesAllSeasonId") {
+						teamIds.push(team.matchSeries?.allSeasonId);
+					} else {
+						teamIds.push(team[idType]);
+					}
 				}
 			}
-		}
-	});
-	teamIds = makeArrayUnique(teamIds);
-	return teamIds;
+		});
+		teamIds = makeArrayUnique(teamIds);
+		return teamIds;
+	} catch (error) {
+		console.log("Unable to get our club's SportsClubId");
+		console.log(error);
+		return false;
+	}
 }
