@@ -1,9 +1,6 @@
 ---
 date: 2022-09-27
 title: Unser Onlineshop
-thumbnail: ""
-gallery:
-  - https://vcmuellheim.de/img/shop/teaser-marketing-v3.jpg
 ---
 
 Wäre es nicht total super, wenn unser Verein einen [Onlineshop](https://vcmuellheim.fan12.de) hätte, in dem Mitglieder, Freunde, Familienangehörige und Fans sich Artikel mit unserem Vereinslogo aussuchen und eigenständig bestellen könnten? Ohne Aufwand, bequem geliefert nach Hause? **Ja, das wäre super und ist ab heute Wirklichkeit!**
