@@ -20,7 +20,8 @@
 		"sams-all-clubs": "bun app/utils/sams/getAllClubs.ts",
 		"inbox": "bun app/utils/blog/inboxProcessing.ts",
 		"blog-new-posts": "bun app/utils/blog/shareNewPosts.ts",
-		"docker": "docker compose down && docker compose up --build --watch"
+		"docker": "docker compose up --build",
+		"docker-dev": "docker compose down && docker compose up --build --watch"
 	},
 	"dependencies": {
 		"@octokit/action": "^6.1.0",

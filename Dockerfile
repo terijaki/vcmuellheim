@@ -17,6 +17,7 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
+ENV NEXT_TELEMETRY_DISABLED 1
 # use local variables as production (needed when testing locally)
 RUN mv -n .env.local .env.production || true
 RUN bun --bun run build
@@ -26,10 +27,13 @@ RUN bun --bun run build
 FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED 1
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/data ./data
 COPY --from=builder $SAMS_CACHE $SAMS_CACHE
-RUN mkdir .next
+# RUN mkdir .next
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 

@@ -3,6 +3,10 @@ name: "vc_muellheim_website"
 services:
   nextjs:
     container_name: "nextjs-frontend"
+    cpu_period: 50000
+    cpu_quota: 25000
+    cpu_count: 2
+    mem_limit: 512m
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,8 +16,8 @@ services:
     volumes:
       - .temp:/.temp ## 🚨 this needs to match the SAMS_CACHE env (see Dockerfile)
       - nextjs-image-cache:/app/.next/cache/images
-      # - .:/app
     develop:
+      command: bun run dev
       watch:
         - action: sync
           path: ./

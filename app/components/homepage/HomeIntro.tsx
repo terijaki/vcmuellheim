@@ -17,7 +17,7 @@ export default function HomeIntro() {
 	return (
 		<section
 			className={
-				"col-full-content relative group min-h-[calc(100svh-3rem)] text-white justify-items-center grid grid-cols-main-grid bg-cover bg-no-repeat bg-center before:content-[''] before:absolute before:inset-0 before:block before:z-[-5] before:bg-gradient-to-bl before:to-onyx before:from-blumine before:opacity-80"
+				"col-full-content relative group min-h-[calc(80svh-3rem)] text-white justify-items-center grid grid-cols-main-grid bg-cover bg-no-repeat bg-center before:content-[''] before:absolute before:inset-0 before:block before:z-[-5] before:bg-gradient-to-bl before:to-onyx before:from-blumine before:opacity-80"
 			}
 		>
 			<a
@@ -43,7 +43,7 @@ export default function HomeIntro() {
 						className="object-contain border-0"
 					/>
 				</div>
-				<div className="links text-center inline-flex md:hidden gap-x-2 gap-y-2 w-10/12 flex-wrap place-content-center">
+				<div className="links text-center inline-flex md:hidden gap-x-2 gap-y-2 w-10/12 flex-wrap place-content-center pb-6">
 					{navbarLinks.map((link) => {
 						return (
 							<Link

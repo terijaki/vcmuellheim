@@ -17,6 +17,11 @@ export async function generateMetadata({}, parent: ResolvingMetadata): Promise<M
 
 export const dynamic = "force-static"; // ensures the gallery is rendered at build time
 
+// ideas
+// - create an image index that contains the file name of each image
+// - create a base84 library of images (thumbnails)
+// - use library or create the base84 on the fly and add it to the library
+
 export default async function FotosDisplay() {
 	const fotos = await fetchFotos();
 
