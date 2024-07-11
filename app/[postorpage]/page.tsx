@@ -9,6 +9,7 @@ import SharingButon from "@/app/components/ui/SharingButton";
 import Markdown from "markdown-to-jsx";
 import rssFeed from "@/app/utils/blog/rssFeed";
 import { slugify } from "../utils/slugify";
+import { getPlaiceholder } from "plaiceholder";
 
 // TODO
 // - do not generate static file if name is identical to a page OR replace markdown pages with jsx
@@ -91,7 +92,7 @@ export async function generateMetadata({ params }: { params: { postorpage: strin
 }
 
 // display the content of the current [params]
-export default function postDisplay({ params }: { params: { postorpage: string } }) {
+export default async function postDisplay({ params }: { params: { postorpage: string } }) {
 	let readTarget: null | string = null;
 	let isPost: boolean = false;
 
@@ -131,7 +132,7 @@ export default function postDisplay({ params }: { params: { postorpage: string }
 				<div className="col-full-content sm:col-center-content">
 					<article className="card my-8 prose max-w-full leading-normal prose-headings:m-0 prose-li:m-auto hyphens-auto lg:hyphens-none">
 						<Markdown>{content}</Markdown>
-						{frontmatter.gallery && galleryDisplay(frontmatter.gallery)}
+						{frontmatter.gallery && (await galleryDisplay(frontmatter.gallery))}
 					</article>
 					{isPost && (
 						<SharingButon
@@ -145,14 +146,25 @@ export default function postDisplay({ params }: { params: { postorpage: string }
 	}
 }
 
-function galleryDisplay(gallery: string[]) {
+async function galleryDisplay(gallery: string[]) {
 	const shuffledGallery = gallery.sort(() => 0.5 - Math.random());
+
 	return (
 		<div className="grid gap-3 mt-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-			{shuffledGallery.map((galleryItem: string) => {
+			{shuffledGallery.map(async (galleryItem: string, index) => {
+				let plaiceholderImage;
+				try {
+					console.log("Generate Plaiceholder for " + galleryItem);
+					const file = fs.readFileSync("public" + galleryItem);
+					const { base64 } = await getPlaiceholder(file, { format: ["webp"] });
+					plaiceholderImage = base64;
+				} catch (err) {
+					console.log("Unable to create plaiceholder image for " + galleryItem);
+				}
+
 				return (
 					<Link
-						key={galleryItem}
+						key={"Gallerybild" + index}
 						href={galleryItem}
 						target="_blank"
 						className="relative group hover:cursor-zoom-in rounded-md overflow-hidden after:opacity-0 hover:after:opacity-100 after:absolute after:inset-0 after:h-full after:w-full after:pointer-events-none hover:after:z-10 after:border-[0.4rem] after:border-dashed after:border-white after:duration-300 bg-blumine/25"
@@ -164,6 +176,8 @@ function galleryDisplay(gallery: string[]) {
 								height={310}
 								alt={"Foto:" + galleryItem}
 								className="object-cover h-full w-full m-0 p-0"
+								placeholder={plaiceholderImage ? "blur" : undefined}
+								blurDataURL={plaiceholderImage}
 							/>
 						</div>
 					</Link>

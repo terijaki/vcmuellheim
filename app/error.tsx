@@ -1,6 +1,9 @@
 "use client"; // Error components must be Client Components
 
 import { useEffect } from "react";
+import PageHeading from "./components/layout/PageHeading";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
 	useEffect(() => {
@@ -8,17 +11,31 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
 	}, [error]);
 
 	return (
-		<div>
-			<h2>Hoppala!</h2>
-			<div>Etwas ist schief gelaufen.</div>
-			<button
-				onClick={
-					// Attempt to recover by trying to re-render the segment
-					() => reset()
-				}
-			>
-				nochmal versuchen
-			</button>
-		</div>
+		<>
+			<PageHeading title="Hoppala! 🫢" />
+			<div className="col-full-content sm:col-center-content card mb-6 first-of-type:mt-6">
+				<div>Etwas ist schief gelaufen. Der Server konnte dir diesen Bereich ({usePathname()}) nicht fehlerfrei darstellen.</div>
+				<div>Bitte versuche es zu einem späteren Zeitpunkt noch einmal.</div>
+			</div>
+			<div className="col-full-content text-center pb-6">
+				<div className="col-span-2 gap-3">
+					<button
+						className="button"
+						onClick={
+							// Attempt to recover by trying to re-render the segment
+							() => reset()
+						}
+					>
+						Seite neu laden
+					</button>
+					<Link
+						className="button"
+						href="/"
+					>
+						Zurück zur Startseite
+					</Link>
+				</div>
+			</div>
+		</>
 	);
 }

@@ -12,6 +12,7 @@ services:
     volumes:
       - .temp:/.temp ## 🚨 this needs to match the SAMS_CACHE env (see Dockerfile)
       - nextjs-image-cache:/app/.next/cache/images
+      # - .:/app
     develop:
       watch:
         - action: sync

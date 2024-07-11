@@ -19,7 +19,7 @@ import { makeArrayUnique } from "../makeArrayUnique";
 
 const SAMS_API = env.SAMS_API,
 	SAMS_URL = SAMS.url,
-	SAMS_CACHE = env.SAMS_CACHE || "/.temp/sams";
+	SAMS_CACHE = env.SAMS_CACHE || ".temp/sams";
 
 //#region -- Type Definitions for Club(s) --
 export type ClubSimple = {

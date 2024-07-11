@@ -1,10 +1,11 @@
-"use client";
 import Link from "next/link";
 import React from "react";
 import Markdown from "react-markdown";
 import Image from "next/image";
+import { getPlaiceholder } from "plaiceholder";
+import fs from "fs";
 
-export default function NewsCard(props: any) {
+export default async function NewsCard(props: any) {
 	// check if this post has a thumbnail  TODO: move this all to a {props.thumbnail && "class stuff"}
 	let thumbnail: string = props.thumbnail;
 	let thumbnailHeadingClass = "line-clamp-2";
@@ -13,10 +14,18 @@ export default function NewsCard(props: any) {
 		let randomIndex = Math.floor(Math.random() * props.gallery.length);
 		thumbnail = props.gallery[randomIndex];
 	}
+	let plaiceholderImage;
 	if (thumbnail) {
 		// add a class to the heading when a thumbnail is present
 		thumbnailHeadingClass = "line-clamp-2 py-1 text-white bg-black/50 row-start-1 row-end-3 place-self-end";
 		thumbnailExperptClass = "line-clamp-2 row-start-3 row-end-3";
+		try {
+			const file = fs.readFileSync("public" + thumbnail);
+			const { base64 } = await getPlaiceholder(file, { saturation: 0.8, format: ["webp"] });
+			plaiceholderImage = base64;
+		} catch (err) {
+			console.log("Unable to create plaiceholder image for " + thumbnail);
+		}
 	}
 	return (
 		<Link
@@ -29,6 +38,8 @@ export default function NewsCard(props: any) {
 					width={600}
 					height={128}
 					priority
+					placeholder={plaiceholderImage ? "blur" : undefined}
+					blurDataURL={plaiceholderImage}
 					className="h-32 w-full object-cover line-clamp-1 bg-gradient-to-br from-onyx to-blumine col-start-1 col-end-2 row-start-1 row-end-2 z-0 group-hover:scale-105 transition-transform duration-200 group-hover:duration-1000 ease-in-out"
 					src={thumbnail}
 					alt=""

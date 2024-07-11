@@ -3,7 +3,9 @@ import { fetchFotos } from "@/app/utils/fetchFotos";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function HomeFotos() {
+export default async function HomeFotos() {
+	const fotos = await fetchFotos(5);
+
 	return (
 		<section className="col-full-content grid-cols-main-grid bg-gradient-overlay overflow-hidden">
 			<a
@@ -27,7 +29,7 @@ export default function HomeFotos() {
 			</div>
 
 			<div className="absolute inset-0 grid grid-flow-col z-[-10]">
-				{fetchFotos(5).map((image, index) => {
+				{fotos.map((image, index) => {
 					return (
 						<div
 							key={image}

@@ -2,8 +2,10 @@ import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import { FaUser as IconAvatar } from "react-icons/fa6";
+import fs from "fs";
+import { getPlaiceholder } from "plaiceholder";
 
-export default function MembersCard(props: { name?: string; email?: string; avatar?: string; function?: string }) {
+export default async function MembersCard(props: { name?: string; email?: string; avatar?: string; function?: string }) {
 	if (!props.name) {
 		return null;
 	}
@@ -15,6 +17,17 @@ export default function MembersCard(props: { name?: string; email?: string; avat
 	} else {
 		emailClass = " hover:cursor-default";
 	}
+	let plaiceholderImage;
+	if (props.avatar) {
+		try {
+			const file = fs.readFileSync("public" + props.avatar);
+			const { base64 } = await getPlaiceholder(file, { saturation: 0.8, format: ["webp"], size: 64 });
+			plaiceholderImage = base64;
+		} catch (err) {
+			console.log("Unable to create plaiceholder image for " + props.avatar);
+		}
+	}
+
 	return (
 		<Link
 			className={
@@ -32,6 +45,8 @@ export default function MembersCard(props: { name?: string; email?: string; avat
 						src={props.avatar}
 						alt={props.name}
 						className="object-cover"
+						placeholder={plaiceholderImage ? "blur" : undefined}
+						blurDataURL={plaiceholderImage}
 					/>
 				) : (
 					<IconAvatar className="text-white mt-3" />

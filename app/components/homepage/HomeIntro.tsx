@@ -37,8 +37,7 @@ export default function HomeIntro() {
 					<Image
 						priority
 						placeholder="empty"
-						width={5050}
-						height={2880}
+						fill
 						src="/images/logo/logo-weiss.png"
 						alt="Vereinslogo"
 						className="object-contain border-0"

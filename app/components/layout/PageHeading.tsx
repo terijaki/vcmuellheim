@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import HeaderImage from "/public/images/backgrounds/pageheading.jpg";
 
 export default function PageHeading(props: { title: string; subtitle?: string; subtitleDate?: boolean }) {
 	// grid info: seaction is placed the in "full-content" grid area to take up the maximum post width
@@ -15,8 +16,9 @@ export default function PageHeading(props: { title: string; subtitle?: string; s
 				width={948}
 				height={639}
 				alt=""
-				src="/images/backgrounds/pageheading.jpg"
+				src={HeaderImage}
 				className="absolute w-full h-full z-[-10] object-cover"
+				placeholder="blur"
 			/>
 			{/* grid info: section now applies the main grid for its own children */}
 			<div className="grid grid-cols-main-grid py-6 *:text-balance *:text-center">
