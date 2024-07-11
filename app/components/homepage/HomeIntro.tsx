@@ -3,6 +3,7 @@ import { navbarLinks } from "@/app/utils/navbarLinks";
 import { FaAnglesDown as IconDown } from "react-icons/fa6";
 import Link from "next/link";
 
+import "/public/images/logo/logo-weiss.png";
 import "/public/images/backgrounds/intro1.jpg";
 import "/public/images/backgrounds/intro2.jpg";
 import "/public/images/backgrounds/intro3.jpg";
@@ -36,7 +37,6 @@ export default function HomeIntro() {
 				<div className="inline-block relative -mt-4 mb-4 mx-6 w-10/12 max-w-xl aspect-video">
 					<Image
 						priority
-						placeholder="empty"
 						fill
 						src="/images/logo/logo-weiss.png"
 						alt="Vereinslogo"
