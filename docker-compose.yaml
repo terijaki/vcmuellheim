@@ -3,10 +3,9 @@ name: "vc_muellheim_website"
 services:
   nextjs:
     container_name: "nextjs-frontend"
-    cpu_period: 50000
-    cpu_quota: 25000
     cpu_count: 2
     mem_limit: 512m
+    mem_reservation: 256m
     build:
       context: .
       dockerfile: Dockerfile
