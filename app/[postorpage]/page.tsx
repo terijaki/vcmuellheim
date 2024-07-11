@@ -153,14 +153,14 @@ async function galleryDisplay(gallery: string[]) {
 		<div className="grid gap-3 mt-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
 			{shuffledGallery.map(async (galleryItem: string, index) => {
 				let plaiceholderImage;
-				try {
-					console.log("Generate Plaiceholder for " + galleryItem);
-					const file = fs.readFileSync("public" + galleryItem);
-					const { base64 } = await getPlaiceholder(file, { format: ["webp"] });
-					plaiceholderImage = base64;
-				} catch (err) {
-					console.log("Unable to create plaiceholder image for " + galleryItem);
-				}
+				// try {
+				// 	console.log("Generate Plaiceholder for " + galleryItem);
+				// 	const file = fs.readFileSync("public" + galleryItem);
+				// 	const { base64 } = await getPlaiceholder(file, { format: ["webp"] });
+				// 	plaiceholderImage = base64;
+				// } catch (err) {
+				// 	console.log("Unable to create plaiceholder image for " + galleryItem);
+				// }
 
 				return (
 					<Link
