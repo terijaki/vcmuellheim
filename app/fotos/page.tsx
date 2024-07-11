@@ -31,18 +31,18 @@ export default async function FotosDisplay() {
 					{fotos.map(async (image, index) => {
 						let isAmongFirstImages = index < 12;
 						let plaiceholderImage;
-						try {
-							if (index == 0) {
-								console.log("⌛️ Generating Plaiceholders for Picture Gallery.");
-							} else if (index == fotos.length) {
-								console.log("✅ All Plaiceholders generated for Picture Gallery.");
-							}
-							const file = fs.readFileSync("public" + image);
-							const { base64 } = await getPlaiceholder(file, { saturation: 0.8, format: ["webp"] });
-							plaiceholderImage = base64;
-						} catch (err) {
-							console.log("Unable to create plaiceholder image for " + image);
-						}
+						// try {
+						// 	if (index == 0) {
+						// 		console.log("⌛️ Generating Plaiceholders for Picture Gallery.");
+						// 	} else if (index == fotos.length) {
+						// 		console.log("✅ All Plaiceholders generated for Picture Gallery.");
+						// 	}
+						// 	const file = fs.readFileSync("public" + image);
+						// 	const { base64 } = await getPlaiceholder(file, { saturation: 0.8, format: ["webp"] });
+						// 	plaiceholderImage = base64;
+						// } catch (err) {
+						// 	console.log("Unable to create plaiceholder image for " + image);
+						// }
 						return (
 							<Link
 								key={"picture" + index}
