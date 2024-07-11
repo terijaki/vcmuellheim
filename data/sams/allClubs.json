@@ -1182,16 +1182,6 @@
         }
       },
       {
-        "id": "52547546",
-        "name": "SG Heidelberg",
-        "lsbNumber": null,
-        "internalSportsclubId": "506125063550659",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "26925221",
         "name": "Sport Klub 1990 Driedorf e.V.",
         "lsbNumber": "15214",
@@ -1229,6 +1219,16 @@
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "52547546",
+        "name": "SG Heidelberg",
+        "lsbNumber": null,
+        "internalSportsclubId": "506125063550659",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -2332,16 +2332,6 @@
         }
       },
       {
-        "id": "37921260",
-        "name": "Walsumer Volleybären e.V.",
-        "lsbNumber": "1002216",
-        "internalSportsclubId": "1159",
-        "association": {
-          "id": "33298943",
-          "name": "Duisburg"
-        }
-      },
-      {
         "id": "26925637",
         "name": "TV 1889 Weißkirchen e.V.",
         "lsbNumber": "31175",
@@ -2479,6 +2469,16 @@
         "association": {
           "id": "26249165",
           "name": "Kreisverband Mitte"
+        }
+      },
+      {
+        "id": "37921260",
+        "name": "Walsumer Volleybären e.V.",
+        "lsbNumber": "1002216",
+        "internalSportsclubId": "1159",
+        "association": {
+          "id": "33298943",
+          "name": "Duisburg"
         }
       },
       {
@@ -4099,16 +4099,6 @@
         "association": {
           "id": "33298881",
           "name": "Kleve"
-        }
-      },
-      {
-        "id": "26818931",
-        "name": "1. SC Leinefelde 1912 e.V.",
-        "lsbNumber": "150095",
-        "internalSportsclubId": "38110",
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
         }
       },
       {
@@ -9982,16 +9972,6 @@
         }
       },
       {
-        "id": "52654562",
-        "name": "TV Rüggeberg 1885 e.V.",
-        "lsbNumber": "5102009",
-        "internalSportsclubId": "1111111110000017",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
         "id": "26866511",
         "name": "TV Breitfurt",
         "lsbNumber": "80667",
@@ -12882,20 +12862,20 @@
         }
       },
       {
-        "id": "37922061",
-        "name": "DJK Blau-Weiß Annen e.V.",
-        "lsbNumber": "5109047",
-        "internalSportsclubId": "134",
+        "id": "37921110",
+        "name": "Indischer Kultur-Verein Schwelm e.V.",
+        "lsbNumber": "5106018",
+        "internalSportsclubId": "1166",
         "association": {
           "id": "33797844",
           "name": "Bochum - Ennepe-Ruhr - Herne"
         }
       },
       {
-        "id": "37921110",
-        "name": "Indischer Kultur-Verein Schwelm e.V.",
-        "lsbNumber": "5106018",
-        "internalSportsclubId": "1166",
+        "id": "37922061",
+        "name": "DJK Blau-Weiß Annen e.V.",
+        "lsbNumber": "5109047",
+        "internalSportsclubId": "134",
         "association": {
           "id": "33797844",
           "name": "Bochum - Ennepe-Ruhr - Herne"
@@ -13392,6 +13372,16 @@
         }
       },
       {
+        "id": "26925156",
+        "name": "TV 1863 Dieburg e.V.",
+        "lsbNumber": "34022",
+        "internalSportsclubId": "1601",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
         "id": "37921575",
         "name": "Turnverein Westfalia Epe 1907 e.V.",
         "lsbNumber": "3105003",
@@ -13429,16 +13419,6 @@
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
-        "id": "26925156",
-        "name": "TV 1863 Dieburg e.V.",
-        "lsbNumber": "34022",
-        "internalSportsclubId": "1601",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -20772,16 +20752,6 @@
         }
       },
       {
-        "id": "26925782",
-        "name": "TSV 1887/99 Ginsheim e.V.",
-        "lsbNumber": "37040",
-        "internalSportsclubId": "2215",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "26925783",
         "name": "TSG 03 e.V. Wetzlar-Niedergirmes",
         "lsbNumber": "13202",
@@ -21009,6 +20979,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "26925782",
+        "name": "TSV 1887/99 Ginsheim e.V.",
+        "lsbNumber": "37040",
+        "internalSportsclubId": "2215",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -21472,6 +21452,16 @@
         }
       },
       {
+        "id": "37921282",
+        "name": "TuS Quelle e.V.",
+        "lsbNumber": "4001041",
+        "internalSportsclubId": "826",
+        "association": {
+          "id": "33797382",
+          "name": "Gütersloh-Bielefeld"
+        }
+      },
+      {
         "id": "37920748",
         "name": "CVJM Jöllenbeck e.V.",
         "lsbNumber": "4001123",
@@ -21486,16 +21476,6 @@
         "name": "Volleyball-Förderverein Gütersloh e.V.",
         "lsbNumber": "4102110",
         "internalSportsclubId": "1249",
-        "association": {
-          "id": "33797382",
-          "name": "Gütersloh-Bielefeld"
-        }
-      },
-      {
-        "id": "37921282",
-        "name": "TuS Quelle e.V.",
-        "lsbNumber": "4001041",
-        "internalSportsclubId": "826",
         "association": {
           "id": "33797382",
           "name": "Gütersloh-Bielefeld"
@@ -28122,20 +28102,20 @@
         }
       },
       {
-        "id": "37921605",
-        "name": "Gymnastikverein Waltrop 1961 e.V.",
-        "lsbNumber": "3409023",
-        "internalSportsclubId": "340",
+        "id": "37921258",
+        "name": "SG Suderwich e.V.",
+        "lsbNumber": "3408023",
+        "internalSportsclubId": "460",
         "association": {
           "id": "33797282",
           "name": "Vest"
         }
       },
       {
-        "id": "37921258",
-        "name": "SG Suderwich e.V.",
-        "lsbNumber": "3408023",
-        "internalSportsclubId": "460",
+        "id": "37921605",
+        "name": "Gymnastikverein Waltrop 1961 e.V.",
+        "lsbNumber": "3409023",
+        "internalSportsclubId": "340",
         "association": {
           "id": "33797282",
           "name": "Vest"
@@ -28526,16 +28506,6 @@
         "name": "Oscherslebener SC e.V.",
         "lsbNumber": "30057",
         "internalSportsclubId": "30057",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "37948214",
-        "name": "SV Oebisfelde e.V.",
-        "lsbNumber": "30188",
-        "internalSportsclubId": "30188",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -29802,6 +29772,16 @@
         }
       },
       {
+        "id": "37948422",
+        "name": "TSV Frisch Auf Reichardtswerben e.V.",
+        "lsbNumber": "110260",
+        "internalSportsclubId": "110260",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "54824124",
         "name": "SV Waldmössingen",
         "lsbNumber": "17125",
@@ -29916,16 +29896,6 @@
         "name": "TSG Wittenberg e.V.",
         "lsbNumber": "80002",
         "internalSportsclubId": "80002",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "37948422",
-        "name": "TSV Frisch Auf  Reichardtswerben e.V.",
-        "lsbNumber": "110260",
-        "internalSportsclubId": "110260",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -38942,16 +38912,6 @@
         }
       },
       {
-        "id": "54611293",
-        "name": "TV Bermatingen",
-        "lsbNumber": "200661",
-        "internalSportsclubId": "661",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "37920917",
         "name": "VfB Schloß Holte 1919 e.V.",
         "lsbNumber": "4109005",
@@ -38979,6 +38939,16 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "54611293",
+        "name": "TV Bermatingen",
+        "lsbNumber": "470280",
+        "internalSportsclubId": "661",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -39272,16 +39242,6 @@
         }
       },
       {
-        "id": "54611343",
-        "name": "Beachvolleyball in Baden-Württemberg",
-        "lsbNumber": "480630",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "62829048",
-          "name": "Baden"
-        }
-      },
-      {
         "id": "16665195",
         "name": "USV TU Dresden e.V.",
         "lsbNumber": "410321",
@@ -39409,6 +39369,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "54611343",
+        "name": "Beachvolleyball in Baden-Württemberg",
+        "lsbNumber": "480630",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -44122,16 +44092,6 @@
         }
       },
       {
-        "id": "50621984",
-        "name": "SV Fortschritt Crimmitschau e.V.",
-        "lsbNumber": "520243",
-        "internalSportsclubId": "403",
-        "association": {
-          "id": "24908690",
-          "name": "Landkreis Zwickau/Erzgebirge"
-        }
-      },
-      {
         "id": "50621985",
         "name": "SV Coschütz e.V.",
         "lsbNumber": "100000009",
@@ -46252,16 +46212,6 @@
         }
       },
       {
-        "id": "54610980",
-        "name": "ASV Bellenberg",
-        "lsbNumber": "30012345",
-        "internalSportsclubId": "332",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "54610961",
         "name": "TSV Weilimdorf",
         "lsbNumber": "20211",
@@ -46349,6 +46299,16 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "54610980",
+        "name": "ASV Bellenberg",
+        "lsbNumber": "30012345",
+        "internalSportsclubId": "332",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
@@ -52912,6 +52872,16 @@
         }
       },
       {
+        "id": "51836325",
+        "name": "FSV Dieblich",
+        "lsbNumber": "1000117",
+        "internalSportsclubId": "32-16-18",
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
         "id": "51836008",
         "name": "TuS 1884/1919 Alsenz e.V.",
         "lsbNumber": "26",
@@ -53039,16 +53009,6 @@
         "association": {
           "id": "25383414",
           "name": "Volleyball-Verband Pfalz"
-        }
-      },
-      {
-        "id": "51836325",
-        "name": "FSV Dieblich",
-        "lsbNumber": "1000117",
-        "internalSportsclubId": "32-16-18",
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
         }
       },
       {
@@ -59102,16 +59062,6 @@
         }
       },
       {
-        "id": "65037056",
-        "name": "PH Freiburg",
-        "lsbNumber": "8144281665",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037059",
         "name": "VfB Reicholzheim",
         "lsbNumber": "10063",
@@ -59119,6 +59069,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037056",
+        "name": "PH Freiburg",
+        "lsbNumber": "8144281665",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -62012,16 +61972,6 @@
         }
       },
       {
-        "id": "9241572",
-        "name": "VfB Friedrichshafen",
-        "lsbNumber": "4021",
-        "internalSportsclubId": "355",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "53311687",
         "name": "VfL Sindelfingen",
         "lsbNumber": "3111",
@@ -62112,16 +62062,6 @@
         }
       },
       {
-        "id": "54611294",
-        "name": "SC Göggingen",
-        "lsbNumber": "2001234",
-        "internalSportsclubId": "662",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "65036992",
         "name": "TUS Badenweiler",
         "lsbNumber": "470210",
@@ -62179,6 +62119,26 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "54611294",
+        "name": "SC Göggingen",
+        "lsbNumber": "181880",
+        "internalSportsclubId": "662",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "9241572",
+        "name": "VfB Friedrichshafen",
+        "lsbNumber": "4021",
+        "internalSportsclubId": "355",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
@@ -62727,8 +62687,8 @@
         "lsbNumber": "470200",
         "internalSportsclubId": "01003",
         "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -62952,6 +62912,26 @@
         }
       },
       {
+        "id": "52654562",
+        "name": "TV Rüggeberg 1885 e.V.",
+        "lsbNumber": "5102009",
+        "internalSportsclubId": "1111111110000017",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
+        }
+      },
+      {
+        "id": "37948214",
+        "name": "SV Oebisfelde e.V.",
+        "lsbNumber": "30188",
+        "internalSportsclubId": "30188",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "37921464",
         "name": "TV Eifeler Turnkraft Konzen e.V.",
         "lsbNumber": "2105011",
@@ -62979,6 +62959,16 @@
         "association": {
           "id": "26249329",
           "name": "Kreisverband Süd-West"
+        }
+      },
+      {
+        "id": "26818931",
+        "name": "1. SC Leinefelde 1912 e.V.",
+        "lsbNumber": "150095",
+        "internalSportsclubId": "38110",
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
         }
       },
       {
@@ -63039,6 +63029,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "50621984",
+        "name": "SV Fortschritt Crimmitschau e.V.",
+        "lsbNumber": "520243",
+        "internalSportsclubId": "403",
+        "association": {
+          "id": "24908690",
+          "name": "Landkreis Zwickau/Erzgebirge"
         }
       },
       {
