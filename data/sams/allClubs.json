@@ -692,6 +692,16 @@
         }
       },
       {
+        "id": "51836378",
+        "name": "TV 05 Mülheim",
+        "lsbNumber": "1152",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
         "id": "1062276",
         "name": "HSV Neubrandenburg",
         "lsbNumber": null,
@@ -1182,16 +1192,6 @@
         }
       },
       {
-        "id": "26925221",
-        "name": "Sport Klub 1990 Driedorf e.V.",
-        "lsbNumber": "15214",
-        "internalSportsclubId": "5216",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
         "id": "50621930",
         "name": "TSV 1863 Lobstädt e.V.",
         "lsbNumber": "460285",
@@ -1199,6 +1199,16 @@
         "association": {
           "id": "24908851",
           "name": "Landkreis Leipzig"
+        }
+      },
+      {
+        "id": "26925221",
+        "name": "Sport Klub 1990 Driedorf e.V.",
+        "lsbNumber": "15214",
+        "internalSportsclubId": "5216",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
         }
       },
       {
@@ -1522,16 +1532,6 @@
         }
       },
       {
-        "id": "36969846",
-        "name": "Blau-Weiß Lohne",
-        "lsbNumber": "304493500",
-        "internalSportsclubId": "11403",
-        "association": {
-          "id": "7223",
-          "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
         "id": "15437160",
         "name": "Volleyball-Verband Sachsen-Anhalt",
         "lsbNumber": "304495555",
@@ -1699,6 +1699,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "36969846",
+        "name": "Blau-Weiß Lohne",
+        "lsbNumber": "304493500",
+        "internalSportsclubId": "11403",
+        "association": {
+          "id": "7223",
+          "name": "Nordwestdeutscher Volleyball-Verband e.V."
         }
       },
       {
@@ -10672,16 +10682,6 @@
         }
       },
       {
-        "id": "4465152",
-        "name": "TV Bliesen",
-        "lsbNumber": "80612",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
         "id": "26846597",
         "name": "Sportfreunde Kladow e.V.",
         "lsbNumber": "3564",
@@ -10739,6 +10739,16 @@
         "association": {
           "id": "26249329",
           "name": "Kreisverband Süd-West"
+        }
+      },
+      {
+        "id": "4465152",
+        "name": "TV Bliesen",
+        "lsbNumber": "80612",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
         }
       },
       {
@@ -16389,16 +16399,6 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
-        "id": "26925408",
-        "name": "TV 1918 Dornholzhausen e.V.",
-        "lsbNumber": "31029",
-        "internalSportsclubId": "6123",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -23782,20 +23782,20 @@
         }
       },
       {
-        "id": "37921997",
-        "name": "TuS Opladen 1882",
-        "lsbNumber": "2004052",
-        "internalSportsclubId": "7103",
+        "id": "37921289",
+        "name": "Turn- und Spielverein 05 Quettingen e.V.",
+        "lsbNumber": "2004060",
+        "internalSportsclubId": "7112",
         "association": {
           "id": "33795544",
           "name": "Leverkusen-Rhein-Berg"
         }
       },
       {
-        "id": "37921289",
-        "name": "Turn- und Spielverein 05 Quettingen e.V.",
-        "lsbNumber": "2004060",
-        "internalSportsclubId": "7112",
+        "id": "37921997",
+        "name": "TuS Opladen 1882",
+        "lsbNumber": "2004052",
+        "internalSportsclubId": "7103",
         "association": {
           "id": "33795544",
           "name": "Leverkusen-Rhein-Berg"
@@ -44042,6 +44042,16 @@
         }
       },
       {
+        "id": "54610785",
+        "name": "TSV Untergruppenbach",
+        "lsbNumber": "10162",
+        "internalSportsclubId": "125",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
+        }
+      },
+      {
         "id": "50621976",
         "name": "SV Haselbachtal e.V.",
         "lsbNumber": "430307",
@@ -44159,16 +44169,6 @@
         "association": {
           "id": "24908869",
           "name": "Landkreis Nordsachsen"
-        }
-      },
-      {
-        "id": "54610785",
-        "name": "TSV Untergruppenbach",
-        "lsbNumber": "10162",
-        "internalSportsclubId": "125",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
         }
       },
       {
@@ -45672,6 +45672,16 @@
         }
       },
       {
+        "id": "54610906",
+        "name": "TSV Ötlingen",
+        "lsbNumber": "6098",
+        "internalSportsclubId": "252",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
         "id": "54610926",
         "name": "TSV Steinhaldenfeld",
         "lsbNumber": "20191",
@@ -45686,16 +45696,6 @@
         "name": "TSG Schnaitheim",
         "lsbNumber": "9040",
         "internalSportsclubId": "269",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
-        "id": "54610906",
-        "name": "TSV Ötlingen",
-        "lsbNumber": "6098",
-        "internalSportsclubId": "252",
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
@@ -51402,16 +51402,6 @@
         }
       },
       {
-        "id": "51836378",
-        "name": "TV 05 Mülheim",
-        "lsbNumber": "1152",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
         "id": "51836400",
         "name": "TV Brücken",
         "lsbNumber": "350",
@@ -51602,16 +51592,6 @@
         }
       },
       {
-        "id": "54611075",
-        "name": "TV Aldingen",
-        "lsbNumber": "23005",
-        "internalSportsclubId": "433",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "54611076",
         "name": "TV Alpirsbach",
         "lsbNumber": "7008",
@@ -51659,6 +51639,16 @@
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
+        }
+      },
+      {
+        "id": "54611075",
+        "name": "TV Aldingen",
+        "lsbNumber": "23005",
+        "internalSportsclubId": "433",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -61212,16 +61202,6 @@
         }
       },
       {
-        "id": "65037123",
-        "name": "VC Weil",
-        "lsbNumber": "480270",
-        "internalSportsclubId": "4205",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037265",
         "name": "TV Oberkirch",
         "lsbNumber": "472180",
@@ -61296,6 +61276,16 @@
         "name": "TB Bad Dürrheim",
         "lsbNumber": "470230",
         "internalSportsclubId": "4913",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037123",
+        "name": "VC Weil am Rhein",
+        "lsbNumber": "480270",
+        "internalSportsclubId": "4205",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -63179,6 +63169,16 @@
         "association": {
           "id": "33795261",
           "name": "Köln"
+        }
+      },
+      {
+        "id": "26925408",
+        "name": "TV 1918 Dornholzhausen e.V.",
+        "lsbNumber": "31029",
+        "internalSportsclubId": "6123",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       },
       {
