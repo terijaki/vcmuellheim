@@ -21,134 +21,6 @@ const SAMS_API = env.SAMS_API,
 	SAMS_URL = SAMS.url,
 	SAMS_CACHE = env.SAMS_CACHE || ".temp/sams";
 
-//#region -- Type Definitions for Club(s) --
-export type ClubSimple = {
-	id: string;
-	name: string;
-	lsbNumber: string;
-	internalSportsclubId: string;
-	association?: {
-		id: string;
-		name: string;
-	};
-};
-export type Club = {
-	id?: number;
-	name?: string;
-	logo?: SportsclubLogo;
-	lsbNumber?: number;
-	internalSportsclubId?: number;
-	association?: SportsclubAssociation;
-	matchOperationCompany?: MatchOperationCompany;
-	teams?: Teams;
-	locations?: Locations;
-};
-export type SportsclubAssociation = {
-	id?: number;
-	name?: string;
-};
-export type Locations = {
-	main?: Main;
-};
-export type Main = {
-	id?: number;
-	name?: string;
-	address?: MainAddress;
-	homepage?: string;
-};
-export type MainAddress = {
-	postbox?: string;
-	street?: string;
-	extraField?: string;
-	postcode?: number;
-	city?: string;
-	region?: string;
-	country?: string;
-};
-export type SportsclubLogo = {
-	url?: string;
-	filename?: string;
-	createDate?: Date;
-};
-export type MatchOperationCompany = {
-	id?: string;
-	name?: string;
-	address?: MatchOperationCompanyAddress;
-	homepage?: string;
-};
-export type MatchOperationCompanyAddress = {
-	postbox?: string;
-	street?: string;
-	extraField?: string;
-	postcode?: string;
-	city?: string;
-	region?: string;
-	country?: string;
-};
-export type Teams = {
-	team?: Team[];
-};
-export type Team = {
-	id?: number;
-	uuid?: string;
-	seasonTeamId?: number;
-	placeCipher?: number;
-	name?: string;
-	shortName?: string;
-	clubCode?: string;
-	status?: string;
-	www?: string;
-	logo?: ClubLogo;
-	club?: TeamsClub;
-	matchSeries?: MatchSeries;
-};
-export type TeamsClub = {
-	name?: string;
-	id?: number;
-	shortName?: string;
-	logo?: ClubLogo;
-	www?: string;
-	wwwDepartment?: string;
-};
-export type ClubLogo = {
-	url?: string;
-};
-export type MatchSeries = {
-	id?: number;
-	uuid?: string;
-	allSeasonId?: string;
-	name?: string;
-	shortName?: string;
-	type?: string;
-	updated?: Date;
-	structureUpdated?: Date;
-	resultsUpdated?: Date;
-	season?: Season;
-	hierarchy?: Hierarchy;
-	fullHierarchy?: FullHierarchy;
-	association?: MatchSeriesAssociation;
-};
-export type MatchSeriesAssociation = {
-	name?: string;
-	shortName?: string;
-};
-export type FullHierarchy = {
-	hierarchy?: Hierarchy[];
-};
-export type Hierarchy = {
-	id?: number;
-	name?: string;
-	shortName?: string;
-	hierarchyLevel?: number;
-	uuid?: string;
-};
-export type Season = {
-	id?: number;
-	uuid?: string;
-	name?: string;
-};
-//#endregion
-
 /** Returns a array of basic club data for each club. No input required. */
 export async function getAllClubs(): Promise<ClubSimple[] | false> {
 	//#region caching since the response is likely to be larger than 2MB
@@ -363,3 +235,131 @@ export async function getClubsTeamIds(
 		return false;
 	}
 }
+
+//#region -- Type Definitions for Club(s) --
+export type ClubSimple = {
+	id: string;
+	name: string;
+	lsbNumber: string;
+	internalSportsclubId: string;
+	association?: {
+		id: string;
+		name: string;
+	};
+};
+export type Club = {
+	id?: number;
+	name?: string;
+	logo?: SportsclubLogo;
+	lsbNumber?: number;
+	internalSportsclubId?: number;
+	association?: SportsclubAssociation;
+	matchOperationCompany?: MatchOperationCompany;
+	teams?: Teams;
+	locations?: Locations;
+};
+export type SportsclubAssociation = {
+	id?: number;
+	name?: string;
+};
+export type Locations = {
+	main?: Main;
+};
+export type Main = {
+	id?: number;
+	name?: string;
+	address?: MainAddress;
+	homepage?: string;
+};
+export type MainAddress = {
+	postbox?: string;
+	street?: string;
+	extraField?: string;
+	postcode?: number;
+	city?: string;
+	region?: string;
+	country?: string;
+};
+export type SportsclubLogo = {
+	url?: string;
+	filename?: string;
+	createDate?: Date;
+};
+export type MatchOperationCompany = {
+	id?: string;
+	name?: string;
+	address?: MatchOperationCompanyAddress;
+	homepage?: string;
+};
+export type MatchOperationCompanyAddress = {
+	postbox?: string;
+	street?: string;
+	extraField?: string;
+	postcode?: string;
+	city?: string;
+	region?: string;
+	country?: string;
+};
+export type Teams = {
+	team?: Team[];
+};
+export type Team = {
+	id?: number;
+	uuid?: string;
+	seasonTeamId?: number;
+	placeCipher?: number;
+	name?: string;
+	shortName?: string;
+	clubCode?: string;
+	status?: string;
+	www?: string;
+	logo?: ClubLogo;
+	club?: TeamsClub;
+	matchSeries?: MatchSeries;
+};
+export type TeamsClub = {
+	name?: string;
+	id?: number;
+	shortName?: string;
+	logo?: ClubLogo;
+	www?: string;
+	wwwDepartment?: string;
+};
+export type ClubLogo = {
+	url?: string;
+};
+export type MatchSeries = {
+	id?: number;
+	uuid?: string;
+	allSeasonId?: string;
+	name?: string;
+	shortName?: string;
+	type?: string;
+	updated?: Date;
+	structureUpdated?: Date;
+	resultsUpdated?: Date;
+	season?: Season;
+	hierarchy?: Hierarchy;
+	fullHierarchy?: FullHierarchy;
+	association?: MatchSeriesAssociation;
+};
+export type MatchSeriesAssociation = {
+	name?: string;
+	shortName?: string;
+};
+export type FullHierarchy = {
+	hierarchy?: Hierarchy[];
+};
+export type Hierarchy = {
+	id?: number;
+	name?: string;
+	shortName?: string;
+	hierarchyLevel?: number;
+	uuid?: string;
+};
+export type Season = {
+	id?: number;
+	uuid?: string;
+	name?: string;
+};
+//#endregion
