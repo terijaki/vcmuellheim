@@ -52,6 +52,16 @@
         }
       },
       {
+        "id": "26925647",
+        "name": "TG 1904 e.V. Sachsenhausen",
+        "lsbNumber": "24271",
+        "internalSportsclubId": "2428",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
+        }
+      },
+      {
         "id": "6444",
         "name": "FC Schüttorf 09",
         "lsbNumber": "36",
@@ -602,6 +612,16 @@
         }
       },
       {
+        "id": "51836009",
+        "name": "TV 1893 Nieder-Olm e.V.",
+        "lsbNumber": "76",
+        "internalSportsclubId": "32-58-02",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
         "id": "37920669",
         "name": "TSV Bonn rrh. 1897/07 e.V.",
         "lsbNumber": "2002054",
@@ -729,16 +749,6 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
-        "id": "51836009",
-        "name": "TV 1893 Nieder-Olm e.V.",
-        "lsbNumber": "76",
-        "internalSportsclubId": "32-58-02",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -19629,16 +19639,6 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
-        "id": "26925647",
-        "name": "TG 1904 e.V. Sachsenhausen",
-        "lsbNumber": "24271",
-        "internalSportsclubId": "2428",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -47672,6 +47672,16 @@
         }
       },
       {
+        "id": "50621744",
+        "name": "SV Kreuzschule Dresden e.V.",
+        "lsbNumber": "410274",
+        "internalSportsclubId": "211",
+        "association": {
+          "id": "24908815",
+          "name": "Stadt Dresden"
+        }
+      },
+      {
         "id": "50621565",
         "name": "SV Einheit Borna e.V.",
         "lsbNumber": "460214",
@@ -47729,16 +47739,6 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
-        }
-      },
-      {
-        "id": "50621744",
-        "name": "SV Kreuzschule Dresden e.V.",
-        "lsbNumber": "410274",
-        "internalSportsclubId": "211",
-        "association": {
-          "id": "24908815",
-          "name": "Stadt Dresden"
         }
       },
       {
