@@ -24,5 +24,5 @@ export const Mastodon = {
 
 function samsUrl() {
 	if (process.env.NODE_ENV == "production") return "https://www.volleyball-baden.de";
-	return "http://localhost:3080/sams/mockup";
+	return "http://localhost:3080/sams/mockup/";
 }

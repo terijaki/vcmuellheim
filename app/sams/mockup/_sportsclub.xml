@@ -1,0 +1,463 @@
+<?xml version="1.0"?>
+<sportsclub>
+    <id>65036648</id>
+    <name>VC Müllheim</name>
+    <logo>
+        <url>https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png</url>
+        <filename>muellheim_logo.png</filename>
+        <createDate>2023-10-07 00:00:00.0</createDate>
+    </logo>
+    <lsbNumber>480190</lsbNumber>
+    <internalSportsclubId>3530</internalSportsclubId>
+    <association>
+        <id>7217</id>
+        <name>Südbadischer Volleyball-Verband</name>
+    </association>
+    <matchOperationCompany>
+        <id></id>
+        <name></name>
+        <address>
+            <postbox></postbox>
+            <street></street>
+            <extraField></extraField>
+            <postcode></postcode>
+            <city></city>
+            <region></region>
+            <country></country>
+        </address>
+        <homepage></homepage>
+    </matchOperationCompany>
+    <teams>
+        <team>
+            <id>73349528</id>
+            <uuid>103ede37-4f7a-48bf-95b8-edbcfb3604fc</uuid>
+            <seasonTeamId>73349528</seasonTeamId>
+            <placeCipher>7</placeCipher>
+            <name>VC Müllheim 1</name>
+            <shortName></shortName>
+            <clubCode></clubCode>
+            <status>ACTIVE</status>
+            <www>http://vcmuellheim.de</www>
+            <logo>
+                <url>https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png</url>
+            </logo>
+            <club>
+                <name>VC Müllheim</name>
+                <id>65036648</id>
+                <shortName></shortName>
+                <logo>
+                    <url>https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png</url>
+                </logo>
+                <www>http://vcmuellheim.de</www>
+                <wwwDepartment></wwwDepartment>
+            </club>
+            <matchSeries>
+                <id>70100226</id>
+                <uuid>d6eafbcb-61ed-4c37-8b60-f7e3e407c521</uuid>
+                <allSeasonId>799a634e-d2b1-6639-32fb-e36ccbf44f87</allSeasonId>
+                <name>Landesliga West Herren</name>
+                <shortName>LL w h</shortName>
+                <type>League</type>
+                <updated>2024-07-11 00:15:44.644</updated>
+                <structureUpdated>2024-07-09 12:33:50.366</structureUpdated>
+                <resultsUpdated>2024-07-11 00:15:44.644</resultsUpdated>
+                <season>
+                    <id>70098350</id>
+                    <uuid>d68be217-1d72-4895-9a85-4be09715258d</uuid>
+                    <name>2024/25</name>
+                </season>
+                <hierarchy>
+                    <id>70100181</id>
+                    <uuid>b335261e-0c2e-42f4-b950-e4c95d3553f6</uuid>
+                    <name>Landesligen</name>
+                    <shortName>ll</shortName>
+                    <hierarchyLevel>3</hierarchyLevel>
+                </hierarchy>
+                <fullHierarchy>
+                    <hierarchy>
+                        <id>70100181</id>
+                        <name>Landesligen</name>
+                        <shortName>ll</shortName>
+                        <hierarchyLevel>3</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70100180</id>
+                        <name>Verbandsligen</name>
+                        <shortName>vl</shortName>
+                        <hierarchyLevel>2</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70099119</id>
+                        <name>Erwachsenenspielbetrieb SBVV</name>
+                        <shortName>SBVV Erw.</shortName>
+                        <hierarchyLevel>1</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70098566</id>
+                        <name>Südbadischer Volleyball-Verband (SBVV)</name>
+                        <shortName>SBVV</shortName>
+                        <hierarchyLevel>0</hierarchyLevel>
+                    </hierarchy>
+                </fullHierarchy>
+                <association>
+                    <name></name>
+                    <shortName></shortName>
+                </association>
+            </matchSeries>
+        </team>
+        <team>
+            <id>73552774</id>
+            <uuid>1043862e-a30c-4c51-8fdd-97cb6166cdcc</uuid>
+            <seasonTeamId>73552774</seasonTeamId>
+            <placeCipher>4</placeCipher>
+            <name>VC Müllheim 2</name>
+            <shortName></shortName>
+            <clubCode></clubCode>
+            <status>ACTIVE</status>
+            <www>http://vcmuellheim.de</www>
+            <logo>
+                <url>https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png</url>
+            </logo>
+            <club>
+                <name>VC Müllheim</name>
+                <id>65036648</id>
+                <shortName></shortName>
+                <logo>
+                    <url>https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png</url>
+                </logo>
+                <www>http://vcmuellheim.de</www>
+                <wwwDepartment></wwwDepartment>
+            </club>
+            <matchSeries>
+                <id>70099681</id>
+                <uuid>93da5f47-9d78-47f1-b429-81e398c17007</uuid>
+                <allSeasonId>408a4e24-d730-4b5d-8ade-5b08a2958e0c</allSeasonId>
+                <name>Bezirksliga Herren Süd</name>
+                <shortName>bzl s h</shortName>
+                <type>League</type>
+                <updated>2024-07-15 16:05:51.589</updated>
+                <structureUpdated>2024-07-15 16:05:51.589</structureUpdated>
+                <resultsUpdated>2024-07-11 15:25:42.047</resultsUpdated>
+                <season>
+                    <id>70098350</id>
+                    <uuid>d68be217-1d72-4895-9a85-4be09715258d</uuid>
+                    <name>2024/25</name>
+                </season>
+                <hierarchy>
+                    <id>70099463</id>
+                    <uuid>c6b590b3-39b3-4533-875b-5459eced0e29</uuid>
+                    <name>Bezirksligen</name>
+                    <shortName>bzl w</shortName>
+                    <hierarchyLevel>4</hierarchyLevel>
+                </hierarchy>
+                <fullHierarchy>
+                    <hierarchy>
+                        <id>70099463</id>
+                        <name>Bezirksligen</name>
+                        <shortName>bzl w</shortName>
+                        <hierarchyLevel>4</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70099121</id>
+                        <name>Bezirk West</name>
+                        <shortName>bw</shortName>
+                        <hierarchyLevel>3</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70099120</id>
+                        <name>SBVV Bezirke</name>
+                        <shortName>SBVV Bezirke</shortName>
+                        <hierarchyLevel>2</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70099119</id>
+                        <name>Erwachsenenspielbetrieb SBVV</name>
+                        <shortName>SBVV Erw.</shortName>
+                        <hierarchyLevel>1</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70098566</id>
+                        <name>Südbadischer Volleyball-Verband (SBVV)</name>
+                        <shortName>SBVV</shortName>
+                        <hierarchyLevel>0</hierarchyLevel>
+                    </hierarchy>
+                </fullHierarchy>
+                <association>
+                    <name></name>
+                    <shortName></shortName>
+                </association>
+            </matchSeries>
+        </team>
+        <team>
+            <id>73557234</id>
+            <uuid>86ba86e3-f6ac-48ff-8136-09d0cf3e7981</uuid>
+            <seasonTeamId>73557234</seasonTeamId>
+            <placeCipher>7</placeCipher>
+            <name>VC Müllheim 1</name>
+            <shortName></shortName>
+            <clubCode></clubCode>
+            <status>ACTIVE</status>
+            <www>http://vcmuellheim.de</www>
+            <logo>
+                <url>https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png</url>
+            </logo>
+            <club>
+                <name>VC Müllheim</name>
+                <id>65036648</id>
+                <shortName></shortName>
+                <logo>
+                    <url>https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png</url>
+                </logo>
+                <www>http://vcmuellheim.de</www>
+                <wwwDepartment></wwwDepartment>
+            </club>
+            <matchSeries>
+                <id>70099615</id>
+                <uuid>4b1a46c3-578c-44fb-a7bd-170c8aed5f32</uuid>
+                <allSeasonId>3bcf1600-4096-3230-4a1c-ecdd9b06212c</allSeasonId>
+                <name>Bezirksklasse Damen Süd</name>
+                <shortName>bzk s d</shortName>
+                <type>League</type>
+                <updated>2024-07-15 16:06:15.449</updated>
+                <structureUpdated>2024-07-15 16:06:15.449</structureUpdated>
+                <resultsUpdated>2024-07-10 16:14:52.587</resultsUpdated>
+                <season>
+                    <id>70098350</id>
+                    <uuid>d68be217-1d72-4895-9a85-4be09715258d</uuid>
+                    <name>2024/25</name>
+                </season>
+                <hierarchy>
+                    <id>70099464</id>
+                    <uuid>228601fe-f5e6-4234-9712-de360fec8152</uuid>
+                    <name>Bezirksklassen</name>
+                    <shortName>bzk w</shortName>
+                    <hierarchyLevel>5</hierarchyLevel>
+                </hierarchy>
+                <fullHierarchy>
+                    <hierarchy>
+                        <id>70099464</id>
+                        <name>Bezirksklassen</name>
+                        <shortName>bzk w</shortName>
+                        <hierarchyLevel>5</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70099463</id>
+                        <name>Bezirksligen</name>
+                        <shortName>bzl w</shortName>
+                        <hierarchyLevel>4</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70099121</id>
+                        <name>Bezirk West</name>
+                        <shortName>bw</shortName>
+                        <hierarchyLevel>3</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70099120</id>
+                        <name>SBVV Bezirke</name>
+                        <shortName>SBVV Bezirke</shortName>
+                        <hierarchyLevel>2</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70099119</id>
+                        <name>Erwachsenenspielbetrieb SBVV</name>
+                        <shortName>SBVV Erw.</shortName>
+                        <hierarchyLevel>1</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70098566</id>
+                        <name>Südbadischer Volleyball-Verband (SBVV)</name>
+                        <shortName>SBVV</shortName>
+                        <hierarchyLevel>0</hierarchyLevel>
+                    </hierarchy>
+                </fullHierarchy>
+                <association>
+                    <name></name>
+                    <shortName></shortName>
+                </association>
+            </matchSeries>
+        </team>
+        <team>
+            <id>73557959</id>
+            <uuid>0c25a7ca-9173-4809-b276-00da66502e21</uuid>
+            <seasonTeamId>73557959</seasonTeamId>
+            <placeCipher>1</placeCipher>
+            <name>VC Müllheim 2</name>
+            <shortName></shortName>
+            <clubCode></clubCode>
+            <status>ACTIVE</status>
+            <www>http://vcmuellheim.de</www>
+            <logo>
+                <url>https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png</url>
+            </logo>
+            <club>
+                <name>VC Müllheim</name>
+                <id>65036648</id>
+                <shortName></shortName>
+                <logo>
+                    <url>https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png</url>
+                </logo>
+                <www>http://vcmuellheim.de</www>
+                <wwwDepartment></wwwDepartment>
+            </club>
+            <matchSeries>
+                <id>70099518</id>
+                <uuid>24066d81-d513-497b-894f-45e9e14beaab</uuid>
+                <allSeasonId>955f1d4d-bc60-8f21-1003-fcc2a85bd10a</allSeasonId>
+                <name>Kreisliga Damen Süd</name>
+                <shortName>kl s d</shortName>
+                <type>League</type>
+                <updated>2024-07-15 22:17:48.655</updated>
+                <structureUpdated>2024-07-15 22:17:48.655</structureUpdated>
+                <resultsUpdated>2024-07-13 07:12:52.965</resultsUpdated>
+                <season>
+                    <id>70098350</id>
+                    <uuid>d68be217-1d72-4895-9a85-4be09715258d</uuid>
+                    <name>2024/25</name>
+                </season>
+                <hierarchy>
+                    <id>70099465</id>
+                    <uuid>0a1735d1-9487-4bd6-bb10-1895ced9f372</uuid>
+                    <name>Kreisligen</name>
+                    <shortName>kl w</shortName>
+                    <hierarchyLevel>6</hierarchyLevel>
+                </hierarchy>
+                <fullHierarchy>
+                    <hierarchy>
+                        <id>70099465</id>
+                        <name>Kreisligen</name>
+                        <shortName>kl w</shortName>
+                        <hierarchyLevel>6</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70099464</id>
+                        <name>Bezirksklassen</name>
+                        <shortName>bzk w</shortName>
+                        <hierarchyLevel>5</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70099463</id>
+                        <name>Bezirksligen</name>
+                        <shortName>bzl w</shortName>
+                        <hierarchyLevel>4</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70099121</id>
+                        <name>Bezirk West</name>
+                        <shortName>bw</shortName>
+                        <hierarchyLevel>3</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70099120</id>
+                        <name>SBVV Bezirke</name>
+                        <shortName>SBVV Bezirke</shortName>
+                        <hierarchyLevel>2</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70099119</id>
+                        <name>Erwachsenenspielbetrieb SBVV</name>
+                        <shortName>SBVV Erw.</shortName>
+                        <hierarchyLevel>1</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70098566</id>
+                        <name>Südbadischer Volleyball-Verband (SBVV)</name>
+                        <shortName>SBVV</shortName>
+                        <hierarchyLevel>0</hierarchyLevel>
+                    </hierarchy>
+                </fullHierarchy>
+                <association>
+                    <name></name>
+                    <shortName></shortName>
+                </association>
+            </matchSeries>
+        </team>
+        <team>
+            <id>74192324</id>
+            <uuid>8e4f5448-e86e-4f6d-8cf2-4124a0cca5a7</uuid>
+            <seasonTeamId>74192324</seasonTeamId>
+            <placeCipher>0</placeCipher>
+            <name>VC Müllheim</name>
+            <shortName></shortName>
+            <clubCode></clubCode>
+            <status>ACTIVE</status>
+            <www>http://vcmuellheim.de</www>
+            <logo>
+                <url>https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png</url>
+            </logo>
+            <club>
+                <name>VC Müllheim</name>
+                <id>65036648</id>
+                <shortName></shortName>
+                <logo>
+                    <url>https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png</url>
+                </logo>
+                <www>http://vcmuellheim.de</www>
+                <wwwDepartment></wwwDepartment>
+            </club>
+            <matchSeries>
+                <id>70100692</id>
+                <uuid>e551986d-e57b-4188-9706-a0c50bfc2d4f</uuid>
+                <allSeasonId>bc7345dc-21ee-4892-9364-653244622509</allSeasonId>
+                <name>Herren TOP-Ligen (OL und höher)</name>
+                <shortName>hp_top</shortName>
+                <type>Competition</type>
+                <updated>2024-07-05 08:40:13.474</updated>
+                <structureUpdated>2024-07-05 08:40:13.474</structureUpdated>
+                <resultsUpdated></resultsUpdated>
+                <season>
+                    <id>70098350</id>
+                    <uuid>d68be217-1d72-4895-9a85-4be09715258d</uuid>
+                    <name>2024/25</name>
+                </season>
+                <hierarchy>
+                    <id>70100640</id>
+                    <uuid>5f3c9b05-b0d3-44da-a7f2-1bb66e11b59e</uuid>
+                    <name>Verbandspokal 2023/2024</name>
+                    <shortName>vp</shortName>
+                    <hierarchyLevel>2</hierarchyLevel>
+                </hierarchy>
+                <fullHierarchy>
+                    <hierarchy>
+                        <id>70100640</id>
+                        <name>Verbandspokal 2023/2024</name>
+                        <shortName>vp</shortName>
+                        <hierarchyLevel>2</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70100639</id>
+                        <name>Pokalwettbewerbe</name>
+                        <shortName>P</shortName>
+                        <hierarchyLevel>1</hierarchyLevel>
+                    </hierarchy>
+                    <hierarchy>
+                        <id>70098566</id>
+                        <name>Südbadischer Volleyball-Verband (SBVV)</name>
+                        <shortName>SBVV</shortName>
+                        <hierarchyLevel>0</hierarchyLevel>
+                    </hierarchy>
+                </fullHierarchy>
+                <association>
+                    <name>Südbadischer Volleyball-Verband</name>
+                    <shortName>SBVV</shortName>
+                </association>
+            </matchSeries>
+        </team>
+    </teams>
+    <locations>
+        <main>
+            <id>13905820</id>
+            <name>Halle II</name>
+            <address>
+                <postbox></postbox>
+                <street>Schwarzwaldstraße 12A</street>
+                <extraField></extraField>
+                <postcode>79379</postcode>
+                <city>Müllheim</city>
+                <region>Baden-Württenberg</region>
+                <country>Deutschland</country>
+            </address>
+            <homepage></homepage>
+        </main>
+    </locations>
+</sportsclub>
