@@ -7,8 +7,8 @@
       "name": "Bezirksklasse Damen Süd",
       "shortName": "bzk s d",
       "type": "League",
-      "updated": "2024-07-15 16:06:15.449",
-      "structureUpdated": "2024-07-15 16:06:15.449",
+      "updated": "2024-07-17 11:11:50.227",
+      "structureUpdated": "2024-07-17 11:11:50.227",
       "resultsUpdated": "2024-07-10 16:14:52.587",
       "season": {
         "id": "70098350",
@@ -73,7 +73,7 @@
           "id": "73557238",
           "uuid": "50d693e6-3417-488d-98a5-55769eb1e7aa",
           "name": "VfR Merzhausen 2",
-          "shortName": "VfR Merzh. 2",
+          "shortName": null,
           "clubCode": null,
           "club": {
             "name": "VfR Merzhausen",
@@ -128,7 +128,7 @@
         "team": {
           "id": "73557221",
           "uuid": "26845c9c-9d8d-4fd6-a887-497225c76fd2",
-          "name": "VC Offenburg 4 (Bkl Süd)",
+          "name": "VC Offenburg 4",
           "shortName": null,
           "clubCode": null,
           "club": {
@@ -241,7 +241,7 @@
           "id": "73557218",
           "uuid": "62ee23f7-989e-4d5d-b75f-69ecf555d6c2",
           "name": "TV Todtnau",
-          "shortName": "TV Todtnau SILBERBERGLÖWEN",
+          "shortName": "Silberberglöwen Todtnau",
           "clubCode": null,
           "club": {
             "name": "TV Todtnau",
