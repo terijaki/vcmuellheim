@@ -8,8 +8,8 @@
         "name": "Dritte Liga Nord Frauen",
         "shortName": "DLN F",
         "type": "League",
-        "updated": "2024-07-12 14:01:44.83",
-        "structureUpdated": "2024-07-12 14:01:44.83",
+        "updated": "2024-07-17 16:21:14.75",
+        "structureUpdated": "2024-07-17 16:21:14.75",
         "resultsUpdated": "2024-07-12 14:01:40.547",
         "season": {
           "id": "70098350",
@@ -69,8 +69,8 @@
         "name": "Dritte Liga Nord Männer",
         "shortName": "DLN M",
         "type": "League",
-        "updated": "2024-07-16 13:10:59.284",
-        "structureUpdated": "2024-07-16 13:10:59.284",
+        "updated": "2024-07-17 18:06:55.261",
+        "structureUpdated": "2024-07-17 18:06:55.261",
         "resultsUpdated": "2024-07-12 14:02:28.458",
         "season": {
           "id": "70098350",
@@ -130,9 +130,9 @@
         "name": "Dritte Liga West Frauen",
         "shortName": "DLW F",
         "type": "League",
-        "updated": "2024-07-16 13:27:05.885",
-        "structureUpdated": "2024-07-16 13:26:00.109",
-        "resultsUpdated": "2024-07-08 15:19:37.256",
+        "updated": "2024-07-17 16:58:39.132",
+        "structureUpdated": "2024-07-17 16:58:39.132",
+        "resultsUpdated": "2024-07-16 17:43:47.438",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -243,6 +243,128 @@
         "association": {
           "name": "Dritte Liga West",
           "shortName": "DL W"
+        }
+      },
+      {
+        "id": "70138109",
+        "uuid": "6c9edc81-3c7b-44b1-baf4-5ae48b552959",
+        "allSeasonId": "a1e5b97a-39ae-cc07-96db-a1eb8a603d0f",
+        "name": "Dritte Liga Süd Frauen",
+        "shortName": "DLS F",
+        "type": "League",
+        "updated": "2024-07-17 11:10:36.35",
+        "structureUpdated": "2024-07-17 11:10:36.35",
+        "resultsUpdated": "2024-07-16 10:09:38.004",
+        "season": {
+          "id": "70098350",
+          "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+          "name": "2024/25"
+        },
+        "hierarchy": {
+          "id": "70138050",
+          "uuid": "3f894ba7-8f78-441b-82a9-29d1ed0e5ceb",
+          "name": "Dritte Liga Süd Frauen",
+          "shortName": "DLSF",
+          "hierarchyLevel": "4"
+        },
+        "fullHierarchy": {
+          "hierarchy": [
+            {
+              "id": "70138050",
+              "name": "Dritte Liga Süd Frauen",
+              "shortName": "DLSF",
+              "hierarchyLevel": "4"
+            },
+            {
+              "id": "70137840",
+              "name": "Dritte Liga Süd",
+              "shortName": "DLS",
+              "hierarchyLevel": "3"
+            },
+            {
+              "id": "70137839",
+              "name": "Bereich 2.BL Süd",
+              "shortName": "Süd",
+              "hierarchyLevel": "2"
+            },
+            {
+              "id": "70137149",
+              "name": "Dritte Liga",
+              "shortName": "DL",
+              "hierarchyLevel": "1"
+            },
+            {
+              "id": "70137148",
+              "name": "Deutscher Volleyball-Verband",
+              "shortName": "DVV",
+              "hierarchyLevel": "0"
+            }
+          ]
+        },
+        "association": {
+          "name": "Dritte Liga Süd",
+          "shortName": "DL S"
+        }
+      },
+      {
+        "id": "70137902",
+        "uuid": "3a88daf1-4900-46ef-9a29-bfb1bbced1e3",
+        "allSeasonId": "d924be72-b294-a69f-2f65-f411cb9fd671",
+        "name": "Dritte Liga Süd Männer",
+        "shortName": "DLS M",
+        "type": "League",
+        "updated": "2024-07-17 16:31:11.596",
+        "structureUpdated": "2024-07-17 16:31:11.596",
+        "resultsUpdated": "2024-07-17 12:08:23.771",
+        "season": {
+          "id": "70098350",
+          "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+          "name": "2024/25"
+        },
+        "hierarchy": {
+          "id": "70137841",
+          "uuid": "93b17994-3e8d-4290-9245-e4858a747206",
+          "name": "Dritte Liga Süd Männer",
+          "shortName": "DLSM",
+          "hierarchyLevel": "4"
+        },
+        "fullHierarchy": {
+          "hierarchy": [
+            {
+              "id": "70137841",
+              "name": "Dritte Liga Süd Männer",
+              "shortName": "DLSM",
+              "hierarchyLevel": "4"
+            },
+            {
+              "id": "70137840",
+              "name": "Dritte Liga Süd",
+              "shortName": "DLS",
+              "hierarchyLevel": "3"
+            },
+            {
+              "id": "70137839",
+              "name": "Bereich 2.BL Süd",
+              "shortName": "Süd",
+              "hierarchyLevel": "2"
+            },
+            {
+              "id": "70137149",
+              "name": "Dritte Liga",
+              "shortName": "DL",
+              "hierarchyLevel": "1"
+            },
+            {
+              "id": "70137148",
+              "name": "Deutscher Volleyball-Verband",
+              "shortName": "DVV",
+              "hierarchyLevel": "0"
+            }
+          ]
+        },
+        "association": {
+          "name": "Dritte Liga Süd",
+          "shortName": "DL S"
         }
       },
       {
@@ -368,8 +490,8 @@
         "name": "Regionalliga Nordost Männer",
         "shortName": "RLNO M",
         "type": "League",
-        "updated": "2024-07-16 14:49:00.315",
-        "structureUpdated": "2024-07-10 14:55:40.816",
+        "updated": "2024-07-16 17:10:45.663",
+        "structureUpdated": "2024-07-16 17:10:45.663",
         "resultsUpdated": "2024-07-08 13:29:33.186",
         "season": {
           "id": "70098350",
@@ -478,8 +600,8 @@
         "name": "Regionalliga Ost Männer",
         "shortName": "RLO M",
         "type": "League",
-        "updated": "2024-07-15 17:33:44.49",
-        "structureUpdated": "2024-07-15 17:33:44.49",
+        "updated": "2024-07-17 14:51:01.274",
+        "structureUpdated": "2024-07-17 14:51:01.274",
         "resultsUpdated": "2024-07-15 17:33:00.072",
         "season": {
           "id": "70098350",
@@ -533,8 +655,8 @@
         "name": "Regionalliga West Männer",
         "shortName": "RLW M",
         "type": "League",
-        "updated": "2024-07-16 12:54:31.156",
-        "structureUpdated": "2024-07-16 10:31:22.373",
+        "updated": "2024-07-17 17:52:56.822",
+        "structureUpdated": "2024-07-17 17:17:18.452",
         "resultsUpdated": "2024-07-05 21:39:33.196",
         "season": {
           "id": "70098350",
@@ -588,8 +710,8 @@
         "name": "Regionalliga West Frauen",
         "shortName": "RLW F",
         "type": "League",
-        "updated": "2024-07-15 22:41:27.417",
-        "structureUpdated": "2024-07-15 22:41:27.417",
+        "updated": "2024-07-16 21:09:43.125",
+        "structureUpdated": "2024-07-16 21:09:43.125",
         "resultsUpdated": "2024-07-09 13:45:41.913",
         "season": {
           "id": "70098350",
@@ -698,9 +820,9 @@
         "name": "Regionalliga Südwest Männer",
         "shortName": "RLSW M",
         "type": "League",
-        "updated": "2024-07-15 09:22:58.253",
-        "structureUpdated": "2024-07-15 09:22:58.253",
-        "resultsUpdated": "2024-07-15 09:22:19.535",
+        "updated": "2024-07-17 11:54:18.628",
+        "structureUpdated": "2024-07-17 11:54:18.628",
+        "resultsUpdated": "2024-07-17 11:53:53.134",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -863,8 +985,8 @@
         "name": "Oberliga Rheinland-Pfalz|Saar Frauen",
         "shortName": "OL RPS F",
         "type": "League",
-        "updated": "2024-07-16 08:14:03.788",
-        "structureUpdated": "2024-07-16 08:14:03.788",
+        "updated": "2024-07-16 17:57:53.901",
+        "structureUpdated": "2024-07-16 17:57:53.901",
         "resultsUpdated": "2024-07-15 17:24:21.259",
         "season": {
           "id": "70098350",
@@ -918,7 +1040,7 @@
         "name": "Oberliga Rheinland-Pfalz|Saar Männer",
         "shortName": "OL RPS M",
         "type": "League",
-        "updated": "2024-07-15 10:06:50.888",
+        "updated": "2024-07-17 09:32:01.191",
         "structureUpdated": "2024-07-15 10:06:50.888",
         "resultsUpdated": "2024-07-15 10:06:45.869",
         "season": {
@@ -973,9 +1095,9 @@
         "name": "Regionalliga Süd Frauen",
         "shortName": "RLSF",
         "type": "League",
-        "updated": "2024-07-15 20:03:10.512",
-        "structureUpdated": "2024-07-15 20:03:10.512",
-        "resultsUpdated": "2024-07-15 20:02:35.8",
+        "updated": "2024-07-17 13:29:42.91",
+        "structureUpdated": "2024-07-17 13:29:42.91",
+        "resultsUpdated": "2024-07-17 09:30:42.221",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1891,8 +2013,8 @@
         "name": "Oberliga – Frauen",
         "shortName": "OL-F",
         "type": "League",
-        "updated": "2024-07-11 14:52:04.656",
-        "structureUpdated": "2024-07-11 09:59:15.33",
+        "updated": "2024-07-17 10:16:16.037",
+        "structureUpdated": "2024-07-17 10:16:16.037",
         "resultsUpdated": "2024-03-17 18:14:01.061",
         "season": {
           "id": "70098350",
@@ -1940,9 +2062,9 @@
         "name": "Oberliga – Männer",
         "shortName": "OL-M",
         "type": "League",
-        "updated": "2024-07-02 16:53:07.634",
+        "updated": "2024-07-17 18:01:10.286",
         "structureUpdated": "2024-07-02 16:53:07.634",
-        "resultsUpdated": "2024-03-18 19:21:14.091",
+        "resultsUpdated": "2024-07-17 18:01:10.286",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1989,8 +2111,8 @@
         "name": "Landesliga Nord – Frauen",
         "shortName": "LL-N-F",
         "type": "League",
-        "updated": "2024-07-14 10:53:56.649",
-        "structureUpdated": "2024-07-14 10:53:56.649",
+        "updated": "2024-07-17 21:05:29.364",
+        "structureUpdated": "2024-07-17 21:05:29.364",
         "resultsUpdated": "2024-04-21 20:24:59.106",
         "season": {
           "id": "70098350",
@@ -2038,8 +2160,8 @@
         "name": "Landesliga Nord – Männer",
         "shortName": "LL-N-M",
         "type": "League",
-        "updated": "2024-07-16 13:32:04.775",
-        "structureUpdated": "2024-07-16 13:32:04.775",
+        "updated": "2024-07-17 17:42:56.684",
+        "structureUpdated": "2024-07-17 17:42:56.684",
         "resultsUpdated": "2024-04-28 21:01:15.149",
         "season": {
           "id": "70098350",
@@ -2087,8 +2209,8 @@
         "name": "Landesliga Süd – Frauen",
         "shortName": "LL-S-F",
         "type": "League",
-        "updated": "2024-07-06 17:39:46.545",
-        "structureUpdated": "2024-07-06 17:39:46.545",
+        "updated": "2024-07-17 21:49:05.474",
+        "structureUpdated": "2024-07-17 21:49:05.474",
         "resultsUpdated": "2024-06-22 20:42:40.879",
         "season": {
           "id": "70098350",
@@ -2185,7 +2307,7 @@
         "name": "Bezirksoberliga Mitte – Frauen",
         "shortName": "BOL-M-F",
         "type": "League",
-        "updated": "2024-07-16 13:27:17.016",
+        "updated": "2024-07-17 10:22:59.186",
         "structureUpdated": "2024-07-04 20:22:45.497",
         "resultsUpdated": "2024-03-17 21:26:06.644",
         "season": {
@@ -2234,7 +2356,7 @@
         "name": "Bezirksoberliga Mitte – Männer",
         "shortName": "BOL-M-M",
         "type": "League",
-        "updated": "2024-07-08 10:32:37.493",
+        "updated": "2024-07-17 14:19:56.666",
         "structureUpdated": "2024-07-04 16:33:21.189",
         "resultsUpdated": "2024-03-17 21:20:40.83",
         "season": {
@@ -2283,9 +2405,58 @@
         "name": "Bezirksoberliga Nord – Frauen",
         "shortName": "BOL-N-F",
         "type": "League",
-        "updated": "2024-07-10 01:24:36.804",
+        "updated": "2024-07-17 21:24:12.648",
         "structureUpdated": "2024-07-07 19:48:24.388",
         "resultsUpdated": "2024-03-17 22:09:36.461",
+        "season": {
+          "id": "70098350",
+          "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+          "name": "2024/25"
+        },
+        "hierarchy": {
+          "id": "70124192",
+          "uuid": "1d09bc00-16fc-46a4-9666-32f0360fdc95",
+          "name": "Bezirksoberliga",
+          "shortName": "BOL",
+          "hierarchyLevel": "2"
+        },
+        "fullHierarchy": {
+          "hierarchy": [
+            {
+              "id": "70124192",
+              "name": "Bezirksoberliga",
+              "shortName": "BOL",
+              "hierarchyLevel": "2"
+            },
+            {
+              "id": "70122430",
+              "name": "Erwachsene",
+              "shortName": "HVV-E",
+              "hierarchyLevel": "1"
+            },
+            {
+              "id": "70122371",
+              "name": "Hessischer Volleyballverband",
+              "shortName": "HVV",
+              "hierarchyLevel": "0"
+            }
+          ]
+        },
+        "association": {
+          "name": "Hessischer Volleyballverband",
+          "shortName": "HVV"
+        }
+      },
+      {
+        "id": "70124559",
+        "uuid": "820ee68a-a690-440e-b014-2e2cfe4a6833",
+        "allSeasonId": "cd0a70ef-32d4-43d0-a1cb-ff028a8cfd96",
+        "name": "Bezirksoberliga Nord – Männer",
+        "shortName": "BOL-N-M",
+        "type": "League",
+        "updated": "2024-07-17 16:50:02.806",
+        "structureUpdated": "2024-07-17 11:46:53.582",
+        "resultsUpdated": "2024-02-26 12:24:21.778",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -2381,9 +2552,9 @@
         "name": "Bezirksoberliga Süd – Männer",
         "shortName": "BOL-S-M",
         "type": "League",
-        "updated": "2024-07-07 13:13:51.694",
+        "updated": "2024-07-17 18:43:00.552",
         "structureUpdated": "2024-07-07 13:13:51.694",
-        "resultsUpdated": "2024-04-28 21:03:48.718",
+        "resultsUpdated": "2024-07-17 18:37:44.352",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -2528,7 +2699,7 @@
         "name": "M-Bezirksliga Nord – Frauen",
         "shortName": "M-BezL-N-F",
         "type": "League",
-        "updated": "2024-07-12 13:45:50.488",
+        "updated": "2024-07-17 14:39:24.503",
         "structureUpdated": "2024-07-12 13:45:50.488",
         "resultsUpdated": "2024-03-17 16:23:33.265",
         "season": {
@@ -2626,8 +2797,8 @@
         "name": "M-Bezirksliga Süd – Frauen",
         "shortName": "M-BezL-S-F",
         "type": "League",
-        "updated": "2024-07-14 10:54:51.375",
-        "structureUpdated": "2024-07-14 10:54:51.375",
+        "updated": "2024-07-17 22:23:53.058",
+        "structureUpdated": "2024-07-17 22:23:53.058",
         "resultsUpdated": "2024-03-18 09:21:45.704",
         "season": {
           "id": "70098350",
@@ -2773,7 +2944,7 @@
         "name": "M-Kreisklasse Nord-Mitte – Frauen",
         "shortName": "M-KK-NM-F",
         "type": "League",
-        "updated": "2024-07-14 14:38:57.764",
+        "updated": "2024-07-17 14:15:40.179",
         "structureUpdated": "2024-07-14 14:38:57.764",
         "resultsUpdated": "2024-07-05 16:01:56.567",
         "season": {
@@ -2920,7 +3091,7 @@
         "name": "M-Kreisliga Mitte - Männer",
         "shortName": "M-KL-M-M",
         "type": "League",
-        "updated": "2024-07-08 13:25:53.046",
+        "updated": "2024-07-17 10:23:23.399",
         "structureUpdated": "2024-07-08 13:25:53.046",
         "resultsUpdated": null,
         "season": {
@@ -3165,8 +3336,8 @@
         "name": "S-Bezirksliga Ost – Männer",
         "shortName": "S-BezL-O-M",
         "type": "League",
-        "updated": "2024-07-14 16:27:10.508",
-        "structureUpdated": "2024-07-06 23:03:02.18",
+        "updated": "2024-07-17 11:23:55.109",
+        "structureUpdated": "2024-07-17 11:23:55.109",
         "resultsUpdated": "2024-07-14 16:27:10.508",
         "season": {
           "id": "70098350",
@@ -3263,8 +3434,8 @@
         "name": "S-Bezirksliga – Frauen",
         "shortName": "S-BezL-F",
         "type": "League",
-        "updated": "2024-07-14 13:15:11.721",
-        "structureUpdated": "2024-07-14 13:15:11.721",
+        "updated": "2024-07-16 23:23:16.449",
+        "structureUpdated": "2024-07-16 23:23:16.449",
         "resultsUpdated": "2024-07-14 13:14:54.895",
         "season": {
           "id": "70098350",
@@ -3459,8 +3630,8 @@
         "name": "S-Kreisliga Ost – Männer",
         "shortName": "S-KL-O-M",
         "type": "League",
-        "updated": "2024-07-04 09:47:52.882",
-        "structureUpdated": "2024-07-04 09:47:52.882",
+        "updated": "2024-07-17 18:43:39.101",
+        "structureUpdated": "2024-07-17 18:43:39.101",
         "resultsUpdated": "2024-03-20 21:21:34.649",
         "season": {
           "id": "70098350",
@@ -3557,7 +3728,7 @@
         "name": "S-Kreisliga – Frauen",
         "shortName": "S-KL-F",
         "type": "League",
-        "updated": "2024-07-15 20:06:38.244",
+        "updated": "2024-07-16 21:28:22.316",
         "structureUpdated": "2024-07-14 14:16:48.702",
         "resultsUpdated": "2024-07-14 14:16:39.475",
         "season": {
@@ -5250,6 +5421,61 @@
         }
       },
       {
+        "id": "70126363",
+        "uuid": "641fb6d8-ad6b-4ac5-b3cd-03f85bd7cc35",
+        "allSeasonId": "a1ae0188-38f6-4a70-837c-13061d510408",
+        "name": "U16w – Bezirksliga Mitte (4vs4)",
+        "shortName": "U16w-4vs4-BezL-M",
+        "type": "SuperCompetition",
+        "updated": "2024-07-17 18:01:11.052",
+        "structureUpdated": "2024-07-17 18:01:11.052",
+        "resultsUpdated": null,
+        "season": {
+          "id": "70098350",
+          "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+          "name": "2024/25"
+        },
+        "hierarchy": {
+          "id": "70126304",
+          "uuid": "d3bfd310-d9a0-4e12-9254-f7fe8bc2ba29",
+          "name": "U16 weiblich",
+          "shortName": "HVV-J-U16w",
+          "hierarchyLevel": "3"
+        },
+        "fullHierarchy": {
+          "hierarchy": [
+            {
+              "id": "70126304",
+              "name": "U16 weiblich",
+              "shortName": "HVV-J-U16w",
+              "hierarchyLevel": "3"
+            },
+            {
+              "id": "70126095",
+              "name": "U16",
+              "shortName": "HVV-J-U16",
+              "hierarchyLevel": "2"
+            },
+            {
+              "id": "70124810",
+              "name": "Jugend",
+              "shortName": "HVV-J",
+              "hierarchyLevel": "1"
+            },
+            {
+              "id": "70122371",
+              "name": "Hessischer Volleyballverband",
+              "shortName": "HVV",
+              "hierarchyLevel": "0"
+            }
+          ]
+        },
+        "association": {
+          "name": "Hessischer Volleyballverband",
+          "shortName": "HVV"
+        }
+      },
+      {
         "id": "70126383",
         "uuid": "c22fc1fa-9b86-4c5d-8f66-5229a39523a6",
         "allSeasonId": "654d842f-ec30-49c1-b611-94f249bf94d5",
@@ -6081,7 +6307,7 @@
         "name": "U18w – Bezirksliga West 2",
         "shortName": "U18w-BezL-W 2",
         "type": "SuperCompetition",
-        "updated": "2024-07-16 09:18:29.583",
+        "updated": "2024-07-17 09:46:28.429",
         "structureUpdated": "2024-07-01 20:25:00.757",
         "resultsUpdated": "2023-10-20 17:57:09.676",
         "season": {
@@ -7456,8 +7682,8 @@
         "name": "S-Jugendliga 4 – weiblich",
         "shortName": "S-JL-4-w",
         "type": "League",
-        "updated": "2024-07-13 12:37:27.094",
-        "structureUpdated": "2024-07-13 12:37:27.094",
+        "updated": "2024-07-17 11:24:06.458",
+        "structureUpdated": "2024-07-17 11:22:54.991",
         "resultsUpdated": "2024-07-13 12:37:10.242",
         "season": {
           "id": "70098350",
@@ -7511,8 +7737,8 @@
         "name": "Thüringenliga Damen",
         "shortName": "THLD",
         "type": "League",
-        "updated": "2024-07-16 10:56:01.146",
-        "structureUpdated": "2024-07-16 10:56:01.146",
+        "updated": "2024-07-17 14:59:57.129",
+        "structureUpdated": "2024-07-17 14:59:57.129",
         "resultsUpdated": "2024-06-25 16:19:55.234",
         "season": {
           "id": "70098350",
@@ -7707,8 +7933,8 @@
         "name": "Verbandsliga Süd Damen",
         "shortName": "VLSD",
         "type": "League",
-        "updated": "2024-07-16 10:51:40.581",
-        "structureUpdated": "2024-07-16 10:51:40.581",
+        "updated": "2024-07-17 15:00:16.119",
+        "structureUpdated": "2024-07-17 15:00:16.119",
         "resultsUpdated": "2024-06-24 10:38:57.091",
         "season": {
           "id": "70098350",
@@ -7756,8 +7982,8 @@
         "name": "Verbandsliga Süd Herren",
         "shortName": "VLSH",
         "type": "League",
-        "updated": "2024-07-15 22:59:36.788",
-        "structureUpdated": "2024-07-10 15:41:22.51",
+        "updated": "2024-07-17 09:42:52.286",
+        "structureUpdated": "2024-07-17 09:42:52.286",
         "resultsUpdated": "2024-06-24 10:21:57.811",
         "season": {
           "id": "70098350",
@@ -7805,8 +8031,8 @@
         "name": "Bezirksliga Nord-Mitte Herren",
         "shortName": "BLNMH",
         "type": "League",
-        "updated": "2024-07-09 07:21:27.808",
-        "structureUpdated": "2024-07-09 07:21:27.808",
+        "updated": "2024-07-17 09:43:16.076",
+        "structureUpdated": "2024-07-17 09:43:16.076",
         "resultsUpdated": "2024-06-23 19:29:50.326",
         "season": {
           "id": "70098350",
@@ -8245,8 +8471,8 @@
         "name": "Bezirksliga Süd West Damen",
         "shortName": "BLSWD",
         "type": "League",
-        "updated": "2024-06-25 16:51:14.935",
-        "structureUpdated": "2024-06-25 16:51:14.935",
+        "updated": "2024-07-17 15:00:38.604",
+        "structureUpdated": "2024-07-17 15:00:38.604",
         "resultsUpdated": "2024-06-23 18:04:40.378",
         "season": {
           "id": "70098350",
@@ -8398,9 +8624,9 @@
         "name": "Sachsenklasse Frauen Ost",
         "shortName": "SK F Ost",
         "type": "League",
-        "updated": "2024-07-11 17:49:48.023",
-        "structureUpdated": "2024-07-11 17:49:48.023",
-        "resultsUpdated": "2024-06-30 22:51:45.231",
+        "updated": "2024-07-17 13:12:30.485",
+        "structureUpdated": "2024-07-17 13:12:30.485",
+        "resultsUpdated": "2024-07-17 13:12:00.971",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8508,8 +8734,8 @@
         "name": "Sachsenklasse Männer Ost",
         "shortName": "SK M Ost",
         "type": "League",
-        "updated": "2024-07-15 14:19:51.657",
-        "structureUpdated": "2024-07-15 14:19:51.657",
+        "updated": "2024-07-17 21:15:42.033",
+        "structureUpdated": "2024-07-17 21:15:42.033",
         "resultsUpdated": "2024-07-10 12:20:36.247",
         "season": {
           "id": "70098350",
@@ -8563,8 +8789,8 @@
         "name": "Sachsenklasse Männer West",
         "shortName": "SK M West",
         "type": "League",
-        "updated": "2024-07-11 11:25:55.518",
-        "structureUpdated": "2024-07-11 11:25:55.518",
+        "updated": "2024-07-17 17:02:59.93",
+        "structureUpdated": "2024-07-17 17:02:59.93",
         "resultsUpdated": "2024-06-28 23:21:03.183",
         "season": {
           "id": "70098350",
@@ -8618,7 +8844,7 @@
         "name": "Bezirksliga Chemnitz Frauen",
         "shortName": "Bezirksliga Frauen",
         "type": "League",
-        "updated": "2024-07-08 21:12:30.808",
+        "updated": "2024-07-17 13:49:37.684",
         "structureUpdated": "2024-07-08 21:12:30.808",
         "resultsUpdated": "2024-07-02 09:15:51.78",
         "season": {
@@ -8685,8 +8911,8 @@
         "name": "Bezirksliga Chemnitz Männer",
         "shortName": "Bezirksliga Männner",
         "type": "League",
-        "updated": "2024-07-15 07:15:13.952",
-        "structureUpdated": "2024-07-12 10:57:53.56",
+        "updated": "2024-07-17 15:21:28.029",
+        "structureUpdated": "2024-07-17 15:21:28.029",
         "resultsUpdated": "2024-04-28 14:50:22.217",
         "season": {
           "id": "70098350",
@@ -9488,8 +9714,8 @@
         "name": "Bezirksliga Frauen Leipzig",
         "shortName": "Bezirksliga Frauen",
         "type": "League",
-        "updated": "2024-07-16 15:26:32.446",
-        "structureUpdated": "2024-07-16 15:26:32.446",
+        "updated": "2024-07-17 21:28:08.404",
+        "structureUpdated": "2024-07-17 21:28:08.404",
         "resultsUpdated": "2024-07-16 10:27:34.544",
         "season": {
           "id": "70098350",
@@ -9622,8 +9848,8 @@
         "name": "1. Bezirksklasse Frauen Leipzig",
         "shortName": "1. BK Frauen",
         "type": "League",
-        "updated": "2024-07-15 14:51:07.6",
-        "structureUpdated": "2024-07-15 14:51:07.6",
+        "updated": "2024-07-17 16:58:55.638",
+        "structureUpdated": "2024-07-17 16:58:55.638",
         "resultsUpdated": "2024-06-06 21:36:56.133",
         "season": {
           "id": "70098350",
@@ -9695,9 +9921,9 @@
         "name": "Bezirksklasse Männer Leipzig",
         "shortName": "BK Männer",
         "type": "League",
-        "updated": "2024-05-29 17:20:50.509",
+        "updated": "2024-07-17 09:11:51.767",
         "structureUpdated": "2024-05-29 17:20:50.509",
-        "resultsUpdated": "2024-05-16 00:41:31.156",
+        "resultsUpdated": "2024-07-17 09:11:51.767",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -9847,8 +10073,8 @@
         "name": "Stadtliga Leipzig Frauen",
         "shortName": "StL L F",
         "type": "League",
-        "updated": "2024-07-11 12:38:51.07",
-        "structureUpdated": "2024-07-09 11:39:33.632",
+        "updated": "2024-07-17 13:13:22.293",
+        "structureUpdated": "2024-07-17 13:13:22.293",
         "resultsUpdated": "2024-07-09 16:05:24.529",
         "season": {
           "id": "70098350",
@@ -10187,8 +10413,8 @@
         "name": "Bezirksliga Männer Dresden",
         "shortName": "Bezirksliga Männer",
         "type": "League",
-        "updated": "2024-07-16 11:15:32.203",
-        "structureUpdated": "2024-07-16 11:15:32.203",
+        "updated": "2024-07-17 21:43:13.844",
+        "structureUpdated": "2024-07-17 21:43:13.844",
         "resultsUpdated": "2024-04-27 18:23:37.193",
         "season": {
           "id": "70098350",
@@ -10400,8 +10626,8 @@
         "name": "Bezirksklasse Männer Dresden Staffel Ost",
         "shortName": "BK Männer Ost",
         "type": "League",
-        "updated": "2024-07-16 10:22:03.079",
-        "structureUpdated": "2024-07-16 10:22:03.079",
+        "updated": "2024-07-16 17:20:05.133",
+        "structureUpdated": "2024-07-16 17:20:05.133",
         "resultsUpdated": "2024-07-01 20:05:05.602",
         "season": {
           "id": "70098350",
@@ -10473,8 +10699,8 @@
         "name": "Kreisklasse Sächsische Schweiz-Osterzgebirge Herren",
         "shortName": "KK SSOE Herren",
         "type": "League",
-        "updated": "2024-07-15 17:46:53.09",
-        "structureUpdated": "2024-07-15 17:46:53.09",
+        "updated": "2024-07-17 22:18:23.074",
+        "structureUpdated": "2024-07-17 22:18:23.074",
         "resultsUpdated": "2024-04-26 22:44:58.922",
         "season": {
           "id": "70098350",
@@ -10619,8 +10845,8 @@
         "name": "Bezirkspokal Männer",
         "shortName": "Bezirkspokal Männer",
         "type": "Competition",
-        "updated": "2024-07-16 13:00:40.839",
-        "structureUpdated": "2024-07-16 13:00:40.839",
+        "updated": "2024-07-17 21:47:29.235",
+        "structureUpdated": "2024-07-17 21:47:29.235",
         "resultsUpdated": "2023-09-23 13:05:42.62",
         "season": {
           "id": "70098350",
@@ -10747,8 +10973,8 @@
         "name": "BL Männer Ostsachsen",
         "shortName": "BL Männer",
         "type": "League",
-        "updated": "2024-07-16 09:10:20.044",
-        "structureUpdated": "2024-07-16 09:10:20.044",
+        "updated": "2024-07-17 07:46:40.028",
+        "structureUpdated": "2024-07-17 07:46:40.028",
         "resultsUpdated": "2024-07-03 07:36:52.125",
         "season": {
           "id": "70098350",
@@ -10814,8 +11040,8 @@
         "name": "BK Frauen Ostsachsen",
         "shortName": "BK Frauen",
         "type": "League",
-        "updated": "2024-07-16 13:00:34.941",
-        "structureUpdated": "2024-07-16 13:00:34.941",
+        "updated": "2024-07-17 21:01:11.914",
+        "structureUpdated": "2024-07-17 21:01:11.914",
         "resultsUpdated": "2024-07-01 18:32:00.367",
         "season": {
           "id": "70098350",
@@ -10960,8 +11186,8 @@
         "name": "Bezirksmeisterschaft U11",
         "shortName": "BM U11",
         "type": "Competition",
-        "updated": "2024-07-09 14:32:27.165",
-        "structureUpdated": "2024-07-09 14:32:27.165",
+        "updated": "2024-07-17 11:36:19.318",
+        "structureUpdated": "2024-07-17 11:36:19.318",
         "resultsUpdated": "2024-04-28 13:13:38.928",
         "season": {
           "id": "70098350",
@@ -11204,8 +11430,8 @@
         "name": "Bezirksmeisterschaft U16 männlich",
         "shortName": "BM U16 mnl",
         "type": "Competition",
-        "updated": "2024-07-09 14:39:33.698",
-        "structureUpdated": "2024-07-09 14:39:33.697",
+        "updated": "2024-07-17 09:11:52.514",
+        "structureUpdated": "2024-07-17 09:11:52.514",
         "resultsUpdated": "2023-12-17 14:11:30.565",
         "season": {
           "id": "70098350",
@@ -11265,8 +11491,8 @@
         "name": "Bezirksmeisterschaft U18 männlich",
         "shortName": "BM U18 mnl",
         "type": "Competition",
-        "updated": "2024-07-09 14:39:39.363",
-        "structureUpdated": "2024-07-09 14:39:39.362",
+        "updated": "2024-07-17 13:37:20.961",
+        "structureUpdated": "2024-07-17 13:37:20.961",
         "resultsUpdated": "2023-12-05 23:36:44.231",
         "season": {
           "id": "70098350",
@@ -11326,8 +11552,8 @@
         "name": "Bezirksmeisterschaft U20 männlich",
         "shortName": "BM U20 mnl",
         "type": "Competition",
-        "updated": "2024-07-09 14:39:44.423",
-        "structureUpdated": "2024-07-09 14:39:44.423",
+        "updated": "2024-07-17 13:37:57.13",
+        "structureUpdated": "2024-07-17 13:37:57.13",
         "resultsUpdated": "2023-12-14 13:13:12.314",
         "season": {
           "id": "70098350",
@@ -11552,8 +11778,8 @@
         "name": "BFS-Liga Mittelsachsen",
         "shortName": "BFS-Liga MS",
         "type": "League",
-        "updated": "2024-07-10 17:18:48.473",
-        "structureUpdated": "2024-07-10 17:18:48.473",
+        "updated": "2024-07-17 06:35:44.334",
+        "structureUpdated": "2024-07-17 06:35:44.334",
         "resultsUpdated": "2024-07-02 07:06:19.435",
         "season": {
           "id": "70098350",
@@ -11656,8 +11882,8 @@
         "name": "VVRP Rheinland-Pfalz-Liga Männer",
         "shortName": "RLP M",
         "type": "League",
-        "updated": "2024-07-16 07:29:05.329",
-        "structureUpdated": "2024-07-16 07:29:05.329",
+        "updated": "2024-07-17 11:23:21.255",
+        "structureUpdated": "2024-07-17 11:23:21.255",
         "resultsUpdated": "2024-07-16 07:28:34.705",
         "season": {
           "id": "70098350",
@@ -11711,8 +11937,8 @@
         "name": "VVRP Verbandsliga Nord Frauen",
         "shortName": "VbL Nord F",
         "type": "League",
-        "updated": "2024-07-15 19:53:00.927",
-        "structureUpdated": "2024-07-15 19:53:00.927",
+        "updated": "2024-07-17 11:23:12.773",
+        "structureUpdated": "2024-07-17 11:23:12.773",
         "resultsUpdated": "2024-07-15 19:52:57.314",
         "season": {
           "id": "70098350",
@@ -11821,8 +12047,8 @@
         "name": "VVRP Verbandsliga Süd Frauen",
         "shortName": "VbL Süd F",
         "type": "League",
-        "updated": "2024-07-16 13:54:18.848",
-        "structureUpdated": "2024-07-16 13:54:18.848",
+        "updated": "2024-07-16 16:32:29.773",
+        "structureUpdated": "2024-07-16 16:32:29.773",
         "resultsUpdated": "2024-07-16 10:38:40.25",
         "season": {
           "id": "70098350",
@@ -11876,8 +12102,8 @@
         "name": "VVRP Verbandsliga Süd Männer",
         "shortName": "VbL Süd M",
         "type": "League",
-        "updated": "2024-07-16 07:12:53.615",
-        "structureUpdated": "2024-07-16 07:12:53.615",
+        "updated": "2024-07-16 17:59:33.368",
+        "structureUpdated": "2024-07-16 17:59:33.368",
         "resultsUpdated": "2024-07-16 07:12:35.99",
         "season": {
           "id": "70098350",
@@ -12157,15 +12383,76 @@
         }
       },
       {
+        "id": "70144064",
+        "uuid": "db504510-e4f8-48bb-b586-2bc3a18ca9aa",
+        "allSeasonId": "76e1aefc-ebcd-0e44-8784-25ac2123fe3b",
+        "name": "VVP Bezirksklasse Frauen",
+        "shortName": "vvp-bkf",
+        "type": "League",
+        "updated": "2024-07-17 07:35:53.001",
+        "structureUpdated": "2024-07-17 07:35:53.0",
+        "resultsUpdated": "2024-07-17 07:34:58.645",
+        "season": {
+          "id": "70098350",
+          "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+          "name": "2024/25"
+        },
+        "hierarchy": {
+          "id": "70144010",
+          "uuid": "19285bd6-5904-4065-8a29-c7eeb654aed9",
+          "name": "VVP-Bezirksklassen",
+          "shortName": "VVP-BK",
+          "hierarchyLevel": "4"
+        },
+        "fullHierarchy": {
+          "hierarchy": [
+            {
+              "id": "70144010",
+              "name": "VVP-Bezirksklassen",
+              "shortName": "VVP-BK",
+              "hierarchyLevel": "4"
+            },
+            {
+              "id": "70143990",
+              "name": "Volleyball-Verband Pfalz",
+              "shortName": "VVP-ESB",
+              "hierarchyLevel": "3"
+            },
+            {
+              "id": "70143989",
+              "name": "Volleyball-Verband Rheinland-Pfalz",
+              "shortName": "VVRP",
+              "hierarchyLevel": "2"
+            },
+            {
+              "id": "70143988",
+              "name": "Erwachsenenspielbetrieb",
+              "shortName": "ESB",
+              "hierarchyLevel": "1"
+            },
+            {
+              "id": "70142426",
+              "name": "Volleyball-Verband Rheinland-Pfalz",
+              "shortName": "VVRP",
+              "hierarchyLevel": "0"
+            }
+          ]
+        },
+        "association": {
+          "name": null,
+          "shortName": null
+        }
+      },
+      {
         "id": "70144014",
         "uuid": "e55ec495-ec0c-45db-910c-fbecf826e809",
         "allSeasonId": "0a6c7cec-ca7c-4bf1-ae6d-c122234f18b8",
         "name": "VVP Bezirksklasse Männer",
         "shortName": "vvp-bkm",
         "type": "League",
-        "updated": "2024-07-16 12:20:28.576",
-        "structureUpdated": "2024-07-16 12:20:28.576",
-        "resultsUpdated": "2024-07-16 11:44:35.211",
+        "updated": "2024-07-17 06:59:56.696",
+        "structureUpdated": "2024-07-17 06:59:56.696",
+        "resultsUpdated": "2024-07-17 06:59:54.495",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -12224,9 +12511,9 @@
         "name": "VVP Kreisliga Frauen",
         "shortName": "vvp-klf",
         "type": "League",
-        "updated": "2024-07-16 13:11:31.018",
-        "structureUpdated": "2024-07-16 13:11:31.018",
-        "resultsUpdated": "2024-07-16 11:23:25.873",
+        "updated": "2024-07-17 07:11:27.786",
+        "structureUpdated": "2024-07-17 07:11:27.786",
+        "resultsUpdated": "2024-07-17 07:06:29.147",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -12468,9 +12755,9 @@
         "name": "VVRh Rheinhessenliga Männer",
         "shortName": "VVRh BzL M",
         "type": "League",
-        "updated": "2024-07-15 16:40:19.999",
-        "structureUpdated": "2024-07-15 16:40:19.999",
-        "resultsUpdated": "2024-07-15 16:40:15.828",
+        "updated": "2024-07-17 11:58:41.246",
+        "structureUpdated": "2024-07-17 11:58:41.246",
+        "resultsUpdated": "2024-07-17 11:58:37.794",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -12529,7 +12816,7 @@
         "name": "VVRh Bezirksklasse Frauen",
         "shortName": "VVRh BzK F",
         "type": "League",
-        "updated": "2024-07-16 10:21:14.069",
+        "updated": "2024-07-17 11:01:27.462",
         "structureUpdated": "2024-07-16 10:21:14.069",
         "resultsUpdated": "2024-07-16 10:21:10.087",
         "season": {
@@ -12773,8 +13060,8 @@
         "name": "VVRh Kreisklasse B Frauen",
         "shortName": "VVRh KrK B F",
         "type": "League",
-        "updated": "2024-07-16 10:26:52.508",
-        "structureUpdated": "2024-07-16 10:26:52.508",
+        "updated": "2024-07-17 23:15:57.211",
+        "structureUpdated": "2024-07-17 23:15:57.211",
         "resultsUpdated": null,
         "season": {
           "id": "70098350",
@@ -13917,8 +14204,8 @@
         "name": "Qualifikation VVRh Verbandsmeisterschaft U18 weiblich",
         "shortName": "Q VVRh U18w",
         "type": "Competition",
-        "updated": "2024-07-16 10:29:58.861",
-        "structureUpdated": "2024-07-16 10:29:58.861",
+        "updated": "2024-07-17 10:56:39.719",
+        "structureUpdated": "2024-07-17 10:56:39.719",
         "resultsUpdated": "2024-02-05 18:16:36.962",
         "season": {
           "id": "70098350",
@@ -13972,8 +14259,8 @@
         "name": "Qualifikation VVRh Verbandsmeisterschaft U20 männlich",
         "shortName": "Q VVRh U20m",
         "type": "Competition",
-        "updated": "2024-07-16 10:30:36.801",
-        "structureUpdated": "2024-07-16 10:30:36.801",
+        "updated": "2024-07-17 10:58:21.759",
+        "structureUpdated": "2024-07-17 10:58:21.759",
         "resultsUpdated": "2024-03-04 11:07:38.985",
         "season": {
           "id": "70098350",
@@ -15000,8 +15287,8 @@
         "name": "Sparkassen-Landesoberliga Damen",
         "shortName": "S-LOL-D",
         "type": "League",
-        "updated": "2024-07-16 13:08:52.292",
-        "structureUpdated": "2024-07-16 13:08:52.292",
+        "updated": "2024-07-17 21:45:30.715",
+        "structureUpdated": "2024-07-17 21:45:30.715",
         "resultsUpdated": "2024-07-09 17:32:22.555",
         "season": {
           "id": "70098350",
@@ -15110,8 +15397,8 @@
         "name": "Landesliga Mitte Herren",
         "shortName": "LLM-H",
         "type": "League",
-        "updated": "2024-07-16 10:42:27.313",
-        "structureUpdated": "2024-07-16 10:42:27.313",
+        "updated": "2024-07-16 20:58:49.102",
+        "structureUpdated": "2024-07-16 20:58:49.102",
         "resultsUpdated": "2024-06-17 16:46:55.421",
         "season": {
           "id": "70098350",
@@ -15165,8 +15452,8 @@
         "name": "Landesliga Nord Damen",
         "shortName": "LLN-D",
         "type": "League",
-        "updated": "2024-06-22 09:43:45.132",
-        "structureUpdated": "2024-06-22 09:43:45.132",
+        "updated": "2024-07-17 12:54:36.234",
+        "structureUpdated": "2024-07-17 12:54:36.234",
         "resultsUpdated": "2024-06-22 09:43:32.876",
         "season": {
           "id": "70098350",
@@ -15220,8 +15507,8 @@
         "name": "Landesliga Nord Herren",
         "shortName": "LLN-H",
         "type": "League",
-        "updated": "2024-07-15 13:06:00.232",
-        "structureUpdated": "2024-07-15 13:06:00.232",
+        "updated": "2024-07-16 16:28:09.712",
+        "structureUpdated": "2024-07-16 16:11:25.182",
         "resultsUpdated": "2024-07-09 17:24:36.732",
         "season": {
           "id": "70098350",
@@ -15385,7 +15672,7 @@
         "name": "Landesklasse Nord Damen",
         "shortName": "LKN-D",
         "type": "League",
-        "updated": "2024-07-16 13:26:09.68",
+        "updated": "2024-07-16 16:27:06.352",
         "structureUpdated": "2024-07-16 13:26:09.68",
         "resultsUpdated": "2024-06-21 19:54:00.211",
         "season": {
@@ -15446,8 +15733,8 @@
         "name": "Landesklasse Süd Damen",
         "shortName": "LKS-D",
         "type": "League",
-        "updated": "2024-07-16 10:47:11.534",
-        "structureUpdated": "2024-07-16 10:47:11.534",
+        "updated": "2024-07-17 13:58:22.705",
+        "structureUpdated": "2024-07-17 13:58:22.705",
         "resultsUpdated": "2024-06-25 19:06:49.851",
         "season": {
           "id": "70098350",
@@ -15617,7 +15904,7 @@
         "name": "VVSA-Pokal Damen",
         "shortName": "VVSA-Pok-D",
         "type": "SuperCompetition",
-        "updated": "2024-07-16 13:26:09.68",
+        "updated": "2024-07-17 21:45:30.715",
         "structureUpdated": "2024-07-05 10:56:18.656",
         "resultsUpdated": "2024-02-25 17:23:16.997",
         "season": {
@@ -15678,7 +15965,7 @@
         "name": "VVSA-Pokal Damen Qualirunde",
         "shortName": "VVSA-Pok-D-Q",
         "type": "Competition",
-        "updated": "2024-07-16 10:47:11.534",
+        "updated": "2024-07-17 13:58:22.705",
         "structureUpdated": "2024-07-05 10:59:10.642",
         "resultsUpdated": "2024-02-20 16:18:36.928",
         "season": {
@@ -15739,7 +16026,7 @@
         "name": "VVSA-Pokal Herren",
         "shortName": "VVSA-Pok-H",
         "type": "SuperCompetition",
-        "updated": "2024-07-16 10:42:27.313",
+        "updated": "2024-07-16 20:58:49.102",
         "structureUpdated": "2024-07-05 11:12:31.235",
         "resultsUpdated": "2024-02-26 06:41:40.234",
         "season": {
@@ -15861,8 +16148,8 @@
         "name": "Oberliga 1 Frauen",
         "shortName": "OL1F",
         "type": "League",
-        "updated": "2024-07-13 10:30:15.887",
-        "structureUpdated": "2024-07-13 10:30:15.887",
+        "updated": "2024-07-16 20:13:45.74",
+        "structureUpdated": "2024-07-16 20:13:45.74",
         "resultsUpdated": "2024-07-13 10:29:53.476",
         "season": {
           "id": "70098350",
@@ -15959,7 +16246,7 @@
         "name": "Oberliga 2 Frauen",
         "shortName": "OL2F",
         "type": "League",
-        "updated": "2024-07-08 19:26:11.132",
+        "updated": "2024-07-17 16:49:35.928",
         "structureUpdated": "2024-07-08 19:26:11.132",
         "resultsUpdated": "2024-07-06 09:25:42.441",
         "season": {
@@ -16057,9 +16344,9 @@
         "name": "Verbandsliga 1 Frauen",
         "shortName": "VL1F",
         "type": "League",
-        "updated": "2024-07-16 11:08:51.282",
-        "structureUpdated": "2024-07-16 11:08:51.282",
-        "resultsUpdated": "2024-07-16 11:08:00.566",
+        "updated": "2024-07-17 09:37:06.915",
+        "structureUpdated": "2024-07-17 09:37:06.915",
+        "resultsUpdated": "2024-07-16 19:12:26.431",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -16106,8 +16393,8 @@
         "name": "Verbandsliga 1 Männer",
         "shortName": "VL1M",
         "type": "League",
-        "updated": "2024-07-14 22:42:26.514",
-        "structureUpdated": "2024-07-14 22:42:26.514",
+        "updated": "2024-07-17 16:09:33.851",
+        "structureUpdated": "2024-07-17 16:09:33.851",
         "resultsUpdated": "2024-07-12 11:14:11.33",
         "season": {
           "id": "70098350",
@@ -16155,8 +16442,8 @@
         "name": "Verbandsliga 2 Frauen",
         "shortName": "VL2F",
         "type": "League",
-        "updated": "2024-07-16 10:31:51.748",
-        "structureUpdated": "2024-07-16 10:31:51.748",
+        "updated": "2024-07-16 21:41:56.898",
+        "structureUpdated": "2024-07-16 21:41:56.898",
         "resultsUpdated": "2024-07-12 23:52:49.173",
         "season": {
           "id": "70098350",
@@ -16253,8 +16540,8 @@
         "name": "Verbandsliga 3 Frauen",
         "shortName": "VL3F",
         "type": "League",
-        "updated": "2024-07-16 14:30:35.05",
-        "structureUpdated": "2024-07-16 14:30:35.05",
+        "updated": "2024-07-17 16:46:53.556",
+        "structureUpdated": "2024-07-16 16:00:02.814",
         "resultsUpdated": "2024-07-02 18:57:26.677",
         "season": {
           "id": "70098350",
@@ -16351,8 +16638,8 @@
         "name": "Verbandsliga 4 Frauen",
         "shortName": "VL4F",
         "type": "League",
-        "updated": "2024-07-13 23:18:12.336",
-        "structureUpdated": "2024-07-13 23:18:12.336",
+        "updated": "2024-07-17 09:11:28.243",
+        "structureUpdated": "2024-07-17 09:11:28.243",
         "resultsUpdated": "2024-07-12 13:08:03.708",
         "season": {
           "id": "70098350",
@@ -16400,8 +16687,8 @@
         "name": "Verbandsliga 4 Männer",
         "shortName": "VL4M",
         "type": "League",
-        "updated": "2024-07-16 11:55:47.101",
-        "structureUpdated": "2024-07-16 11:55:47.101",
+        "updated": "2024-07-17 17:36:14.47",
+        "structureUpdated": "2024-07-17 17:36:14.47",
         "resultsUpdated": "2024-07-12 11:01:06.903",
         "season": {
           "id": "70098350",
@@ -16449,8 +16736,8 @@
         "name": "Landesliga 1 Frauen",
         "shortName": "LL1F",
         "type": "League",
-        "updated": "2024-07-14 11:15:10.548",
-        "structureUpdated": "2024-07-14 11:15:10.548",
+        "updated": "2024-07-17 12:00:28.518",
+        "structureUpdated": "2024-07-17 12:00:28.518",
         "resultsUpdated": "2024-07-14 11:12:43.745",
         "season": {
           "id": "70098350",
@@ -16559,9 +16846,9 @@
         "name": "Landesliga 2 Frauen",
         "shortName": "LL2F",
         "type": "League",
-        "updated": "2024-07-15 12:05:10.041",
+        "updated": "2024-07-17 19:13:40.99",
         "structureUpdated": "2024-07-15 12:05:10.041",
-        "resultsUpdated": "2024-07-13 11:31:00.194",
+        "resultsUpdated": "2024-07-17 19:13:40.99",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -16614,8 +16901,8 @@
         "name": "Landesliga 2 Männer",
         "shortName": "LL2M",
         "type": "League",
-        "updated": "2024-07-16 13:48:36.772",
-        "structureUpdated": "2024-07-14 22:44:34.166",
+        "updated": "2024-07-17 18:32:25.858",
+        "structureUpdated": "2024-07-17 18:32:25.858",
         "resultsUpdated": "2024-07-12 11:40:58.207",
         "season": {
           "id": "70098350",
@@ -16999,8 +17286,8 @@
         "name": "Landesliga 6 Frauen",
         "shortName": "LL6F",
         "type": "League",
-        "updated": "2024-07-09 21:09:03.12",
-        "structureUpdated": "2024-07-09 21:09:03.12",
+        "updated": "2024-07-17 17:15:54.042",
+        "structureUpdated": "2024-07-17 17:15:54.042",
         "resultsUpdated": "2024-06-02 12:53:36.0",
         "season": {
           "id": "70098350",
@@ -17054,9 +17341,9 @@
         "name": "Landesliga 6 Männer",
         "shortName": "LL6M",
         "type": "League",
-        "updated": "2024-07-06 14:51:15.28",
-        "structureUpdated": "2024-07-05 09:06:10.161",
-        "resultsUpdated": "2024-07-06 14:51:15.28",
+        "updated": "2024-07-17 14:25:39.799",
+        "structureUpdated": "2024-07-17 14:25:39.799",
+        "resultsUpdated": "2024-07-17 14:25:01.927",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -17109,9 +17396,9 @@
         "name": "Landesliga 7 Frauen",
         "shortName": "LL7F",
         "type": "League",
-        "updated": "2024-07-10 11:12:32.493",
+        "updated": "2024-07-16 21:09:41.564",
         "structureUpdated": "2024-07-08 10:25:41.847",
-        "resultsUpdated": "2024-07-10 11:12:32.493",
+        "resultsUpdated": "2024-07-16 21:09:41.564",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -17219,8 +17506,8 @@
         "name": "Landesliga 8 Frauen",
         "shortName": "LL8F",
         "type": "League",
-        "updated": "2024-07-08 18:41:12.145",
-        "structureUpdated": "2024-07-08 18:41:12.144",
+        "updated": "2024-07-17 16:25:17.723",
+        "structureUpdated": "2024-07-17 16:25:17.723",
         "resultsUpdated": "2024-07-08 18:23:25.484",
         "season": {
           "id": "70098350",
@@ -17329,8 +17616,8 @@
         "name": "Bezirksliga 1 Frauen",
         "shortName": "BeL1F",
         "type": "League",
-        "updated": "2024-07-16 12:01:07.668",
-        "structureUpdated": "2024-07-14 12:24:49.175",
+        "updated": "2024-07-17 19:14:31.698",
+        "structureUpdated": "2024-07-17 19:14:31.698",
         "resultsUpdated": "2024-07-14 12:19:48.709",
         "season": {
           "id": "70098350",
@@ -17549,8 +17836,8 @@
         "name": "Bezirksliga 3 Frauen",
         "shortName": "BeL3F",
         "type": "League",
-        "updated": "2024-07-15 21:28:11.611",
-        "structureUpdated": "2024-07-15 21:28:11.611",
+        "updated": "2024-07-16 19:38:36.703",
+        "structureUpdated": "2024-07-16 19:38:36.703",
         "resultsUpdated": "2024-07-15 21:27:43.92",
         "season": {
           "id": "70098350",
@@ -17604,7 +17891,7 @@
         "name": "Bezirksliga 3 Männer",
         "shortName": "BeL3M",
         "type": "League",
-        "updated": "2024-07-14 14:37:58.878",
+        "updated": "2024-07-17 17:56:57.485",
         "structureUpdated": "2024-07-12 06:12:04.857",
         "resultsUpdated": "2024-07-06 12:54:44.979",
         "season": {
@@ -17714,8 +18001,8 @@
         "name": "Bezirksliga 5 Frauen",
         "shortName": "BeL5F",
         "type": "League",
-        "updated": "2024-07-16 11:54:06.69",
-        "structureUpdated": "2024-07-16 11:54:06.69",
+        "updated": "2024-07-16 21:42:50.158",
+        "structureUpdated": "2024-07-16 21:42:50.158",
         "resultsUpdated": "2024-07-09 05:51:22.53",
         "season": {
           "id": "70098350",
@@ -17769,9 +18056,9 @@
         "name": "Bezirksliga 5 Männer",
         "shortName": "BeL5M",
         "type": "League",
-        "updated": "2024-07-15 14:57:21.651",
+        "updated": "2024-07-17 21:55:54.347",
         "structureUpdated": "2024-07-15 10:18:24.073",
-        "resultsUpdated": "2024-06-26 08:57:13.213",
+        "resultsUpdated": "2024-07-17 21:55:54.347",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -17824,7 +18111,7 @@
         "name": "Bezirksliga 6 Frauen",
         "shortName": "BeL6F",
         "type": "League",
-        "updated": "2024-07-11 13:00:53.637",
+        "updated": "2024-07-16 20:26:27.155",
         "structureUpdated": "2024-07-11 13:00:53.637",
         "resultsUpdated": "2024-07-04 09:35:33.642",
         "season": {
@@ -17934,8 +18221,8 @@
         "name": "Bezirksliga 7 Frauen",
         "shortName": "BeL7F",
         "type": "League",
-        "updated": "2024-07-16 13:09:09.149",
-        "structureUpdated": "2024-07-16 13:09:09.149",
+        "updated": "2024-07-17 11:00:57.961",
+        "structureUpdated": "2024-07-17 11:00:57.961",
         "resultsUpdated": "2024-07-15 12:56:20.904",
         "season": {
           "id": "70098350",
@@ -18154,9 +18441,9 @@
         "name": "Bezirksliga 04 Männer",
         "shortName": "BeL04M",
         "type": "League",
-        "updated": "2024-07-09 22:25:17.594",
+        "updated": "2024-07-17 18:11:10.712",
         "structureUpdated": "2024-06-04 17:39:33.524",
-        "resultsUpdated": "2024-07-09 22:25:17.594",
+        "resultsUpdated": "2024-07-17 18:11:10.712",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -18209,8 +18496,8 @@
         "name": "Bezirksliga 09 Frauen",
         "shortName": "BeL09F",
         "type": "League",
-        "updated": "2024-07-16 13:10:31.427",
-        "structureUpdated": "2024-07-16 13:10:31.427",
+        "updated": "2024-07-17 10:04:10.936",
+        "structureUpdated": "2024-07-17 10:04:10.936",
         "resultsUpdated": "2024-07-15 09:16:09.948",
         "season": {
           "id": "70098350",
@@ -18814,9 +19101,9 @@
         "name": "Bezirksliga 15 Frauen",
         "shortName": "BeL15F",
         "type": "League",
-        "updated": "2024-07-16 10:07:41.59",
-        "structureUpdated": "2024-07-16 10:07:41.589",
-        "resultsUpdated": "2024-07-16 10:05:45.051",
+        "updated": "2024-07-17 10:32:55.583",
+        "structureUpdated": "2024-07-17 10:32:55.583",
+        "resultsUpdated": "2024-07-17 10:32:49.143",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -18979,9 +19266,9 @@
         "name": "Bezirksklasse 1 Frauen",
         "shortName": "BK1F",
         "type": "League",
-        "updated": "2024-07-16 14:22:20.463",
-        "structureUpdated": "2024-07-16 14:22:20.463",
-        "resultsUpdated": "2024-07-05 20:49:11.227",
+        "updated": "2024-07-17 13:50:37.821",
+        "structureUpdated": "2024-07-17 13:50:37.821",
+        "resultsUpdated": "2024-07-17 13:49:55.268",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -19034,8 +19321,8 @@
         "name": "Bezirksklasse 2 Frauen",
         "shortName": "BK2F",
         "type": "League",
-        "updated": "2024-07-15 10:08:32.258",
-        "structureUpdated": "2024-07-15 10:08:32.258",
+        "updated": "2024-07-17 11:49:20.359",
+        "structureUpdated": "2024-07-17 11:49:20.359",
         "resultsUpdated": "2024-07-05 21:35:00.607",
         "season": {
           "id": "70098350",
@@ -19144,7 +19431,7 @@
         "name": "Bezirksklasse 3 Frauen",
         "shortName": "BK3F",
         "type": "League",
-        "updated": "2024-07-13 23:15:02.318",
+        "updated": "2024-07-16 20:10:40.597",
         "structureUpdated": "2024-07-13 23:15:02.318",
         "resultsUpdated": "2024-06-06 20:22:58.794",
         "season": {
@@ -19309,8 +19596,8 @@
         "name": "Bezirksklasse 5 Frauen",
         "shortName": "BK5F",
         "type": "League",
-        "updated": "2024-07-15 15:16:37.397",
-        "structureUpdated": "2024-07-15 15:16:37.397",
+        "updated": "2024-07-17 18:37:31.382",
+        "structureUpdated": "2024-07-17 18:37:31.382",
         "resultsUpdated": "2024-07-01 23:45:05.903",
         "season": {
           "id": "70098350",
@@ -19694,7 +19981,7 @@
         "name": "Bezirksklasse 11 Frauen",
         "shortName": "BK11F",
         "type": "League",
-        "updated": "2024-07-16 00:54:00.031",
+        "updated": "2024-07-16 20:27:19.343",
         "structureUpdated": "2024-07-16 00:53:25.409",
         "resultsUpdated": "2024-06-26 09:33:43.394",
         "season": {
@@ -19804,7 +20091,7 @@
         "name": "Bezirksklasse 12 Männer",
         "shortName": "BK12M",
         "type": "League",
-        "updated": "2024-07-12 09:19:33.905",
+        "updated": "2024-07-16 20:29:32.825",
         "structureUpdated": "2024-07-12 09:13:34.58",
         "resultsUpdated": "2024-07-12 09:12:39.989",
         "season": {
@@ -19914,8 +20201,8 @@
         "name": "Bezirksklasse 14 Frauen",
         "shortName": "BK14F",
         "type": "League",
-        "updated": "2024-07-10 21:19:32.125",
-        "structureUpdated": "2024-07-09 11:00:20.138",
+        "updated": "2024-07-17 20:16:27.703",
+        "structureUpdated": "2024-07-17 20:16:27.703",
         "resultsUpdated": "2024-07-07 09:42:00.332",
         "season": {
           "id": "70098350",
@@ -20134,7 +20421,7 @@
         "name": "Bezirksklasse 18 Frauen",
         "shortName": "BK18F",
         "type": "League",
-        "updated": "2024-06-09 10:46:47.336",
+        "updated": "2024-07-17 16:00:00.796",
         "structureUpdated": "2024-06-03 16:42:36.663",
         "resultsUpdated": "2024-06-09 10:46:47.336",
         "season": {
@@ -20299,8 +20586,8 @@
         "name": "Bezirksklasse 20 Frauen",
         "shortName": "BK20F",
         "type": "League",
-        "updated": "2024-07-09 10:09:43.23",
-        "structureUpdated": "2024-07-09 10:09:43.23",
+        "updated": "2024-07-17 14:42:16.259",
+        "structureUpdated": "2024-07-17 14:37:55.885",
         "resultsUpdated": "2024-06-02 20:04:34.087",
         "season": {
           "id": "70098350",
@@ -20519,9 +20806,9 @@
         "name": "Bezirksklasse 22 Männer",
         "shortName": "BK22M",
         "type": "League",
-        "updated": "2024-07-16 13:46:29.214",
+        "updated": "2024-07-16 21:26:08.767",
         "structureUpdated": "2024-07-16 13:46:29.214",
-        "resultsUpdated": "2024-07-13 10:52:31.719",
+        "resultsUpdated": "2024-07-16 21:26:08.767",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -20629,9 +20916,9 @@
         "name": "Bezirksklasse 24 Frauen",
         "shortName": "BK24F",
         "type": "League",
-        "updated": "2024-07-13 13:02:50.072",
-        "structureUpdated": "2024-07-07 14:56:07.787",
-        "resultsUpdated": "2024-07-13 13:02:50.072",
+        "updated": "2024-07-17 10:23:46.333",
+        "structureUpdated": "2024-07-17 10:23:46.333",
+        "resultsUpdated": "2024-07-17 10:23:40.882",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -20849,9 +21136,9 @@
         "name": "Bezirksklasse 26 Männer",
         "shortName": "BK26M",
         "type": "League",
-        "updated": "2024-07-12 09:25:46.372",
+        "updated": "2024-07-17 14:32:43.653",
         "structureUpdated": "2024-07-12 09:25:46.372",
-        "resultsUpdated": "2024-06-26 12:28:12.335",
+        "resultsUpdated": "2024-07-17 14:32:43.653",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -20904,9 +21191,9 @@
         "name": "Bezirksklasse 27 Frauen",
         "shortName": "BK27F",
         "type": "League",
-        "updated": "2024-07-12 20:17:51.765",
-        "structureUpdated": "2024-07-12 20:17:51.765",
-        "resultsUpdated": "2024-06-26 12:28:51.154",
+        "updated": "2024-07-17 12:45:55.709",
+        "structureUpdated": "2024-07-17 12:45:55.709",
+        "resultsUpdated": "2024-07-17 12:45:24.28",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -21014,9 +21301,9 @@
         "name": "Bezirksklasse 29 Frauen",
         "shortName": "BK29F",
         "type": "League",
-        "updated": "2024-07-16 10:08:46.939",
-        "structureUpdated": "2024-07-16 10:08:46.938",
-        "resultsUpdated": "2024-07-07 12:32:01.539",
+        "updated": "2024-07-17 10:40:34.117",
+        "structureUpdated": "2024-07-17 10:40:34.117",
+        "resultsUpdated": "2024-07-17 10:40:28.906",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -21124,8 +21411,8 @@
         "name": "Kreisliga Essen/Wesel Frauen",
         "shortName": "KLEWESF",
         "type": "League",
-        "updated": "2024-07-16 15:43:24.291",
-        "structureUpdated": "2024-07-16 15:43:24.291",
+        "updated": "2024-07-17 10:53:14.214",
+        "structureUpdated": "2024-07-17 10:53:14.214",
         "resultsUpdated": "2024-07-16 15:25:40.671",
         "season": {
           "id": "70098350",
@@ -21551,9 +21838,9 @@
         "name": "Kreisliga Unna Jungen/Mixed",
         "shortName": "KLUNJMix",
         "type": "League",
-        "updated": "2024-07-11 09:52:31.798",
-        "structureUpdated": "2024-07-11 09:52:31.798",
-        "resultsUpdated": "2024-07-03 18:33:12.364",
+        "updated": "2024-07-17 22:15:45.789",
+        "structureUpdated": "2024-07-17 21:54:37.005",
+        "resultsUpdated": "2024-07-17 22:15:45.789",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -21795,9 +22082,9 @@
         "name": "Kreisliga Vest Frauen I",
         "shortName": "KLVestF I",
         "type": "League",
-        "updated": "2024-07-14 06:17:36.145",
-        "structureUpdated": "2024-07-13 11:22:35.468",
-        "resultsUpdated": "2024-07-13 10:36:07.036",
+        "updated": "2024-07-17 14:14:11.693",
+        "structureUpdated": "2024-07-17 14:14:11.693",
+        "resultsUpdated": "2024-07-17 09:51:48.18",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -22039,8 +22326,8 @@
         "name": "Kreisliga Lippe Frauen",
         "shortName": "KLLIPF",
         "type": "League",
-        "updated": "2024-07-16 10:09:30.627",
-        "structureUpdated": "2024-07-16 10:09:30.626",
+        "updated": "2024-07-17 11:24:33.026",
+        "structureUpdated": "2024-07-17 11:24:33.026",
         "resultsUpdated": "2024-07-14 11:39:57.299",
         "season": {
           "id": "70098350",
@@ -22222,8 +22509,8 @@
         "name": "Oberliga 2 mU20",
         "shortName": "mU20OL2",
         "type": "League",
-        "updated": "2024-07-14 14:52:02.699",
-        "structureUpdated": "2024-07-12 09:50:29.467",
+        "updated": "2024-07-17 07:57:45.223",
+        "structureUpdated": "2024-07-17 07:57:45.223",
         "resultsUpdated": "2024-07-12 09:50:22.962",
         "season": {
           "id": "70098350",
@@ -22283,9 +22570,9 @@
         "name": "Oberliga 3 mU20",
         "shortName": "mU20OL3",
         "type": "League",
-        "updated": "2024-05-28 19:56:37.692",
-        "structureUpdated": "2024-05-28 19:56:37.692",
-        "resultsUpdated": "2023-12-17 18:21:44.296",
+        "updated": "2024-07-17 08:51:54.102",
+        "structureUpdated": "2024-07-17 08:51:54.102",
+        "resultsUpdated": "2024-07-17 08:32:00.198",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -23076,9 +23363,9 @@
         "name": "Oberliga 2 wU20",
         "shortName": "wU20OL2",
         "type": "League",
-        "updated": "2024-07-09 17:53:28.396",
-        "structureUpdated": "2024-06-27 07:11:39.219",
-        "resultsUpdated": "2023-12-03 10:13:13.084",
+        "updated": "2024-07-17 16:20:04.634",
+        "structureUpdated": "2024-07-17 09:07:15.305",
+        "resultsUpdated": "2024-07-17 08:28:26.446",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -23137,8 +23424,8 @@
         "name": "Oberliga 3 wU20",
         "shortName": "wU20OL3",
         "type": "League",
-        "updated": "2024-07-16 14:32:30.537",
-        "structureUpdated": "2024-07-15 20:45:10.495",
+        "updated": "2024-07-17 07:57:28.169",
+        "structureUpdated": "2024-07-17 07:57:28.169",
         "resultsUpdated": "2024-07-12 09:31:39.29",
         "season": {
           "id": "70098350",
@@ -23259,8 +23546,8 @@
         "name": "Oberliga 5 wU20",
         "shortName": "wU20OL5",
         "type": "League",
-        "updated": "2024-07-15 07:21:59.231",
-        "structureUpdated": "2024-07-15 07:21:59.231",
+        "updated": "2024-07-17 17:17:59.709",
+        "structureUpdated": "2024-07-17 14:45:32.664",
         "resultsUpdated": "2024-06-27 22:58:11.324",
         "season": {
           "id": "70098350",
@@ -23381,8 +23668,8 @@
         "name": "Bezirksliga 10 wU20",
         "shortName": "wU20BeL10",
         "type": "League",
-        "updated": "2024-06-12 09:53:04.427",
-        "structureUpdated": "2024-06-12 09:53:04.427",
+        "updated": "2024-07-17 18:21:53.281",
+        "structureUpdated": "2024-07-17 18:21:53.281",
         "resultsUpdated": "2024-04-09 19:06:56.41",
         "season": {
           "id": "70098350",
@@ -23564,8 +23851,8 @@
         "name": "Bezirksliga 13 wU20",
         "shortName": "wU20BeL13",
         "type": "League",
-        "updated": "2024-07-02 10:42:25.815",
-        "structureUpdated": "2024-06-17 21:20:07.118",
+        "updated": "2024-07-16 21:00:20.76",
+        "structureUpdated": "2024-07-16 21:00:20.76",
         "resultsUpdated": "2024-07-02 10:42:25.815",
         "season": {
           "id": "70098350",
@@ -23930,8 +24217,8 @@
         "name": "Bezirksliga 5 wU20",
         "shortName": "wU20BeL5",
         "type": "League",
-        "updated": "2024-07-07 11:40:59.386",
-        "structureUpdated": "2024-07-07 11:37:58.034",
+        "updated": "2024-07-16 19:25:51.453",
+        "structureUpdated": "2024-07-16 19:25:51.453",
         "resultsUpdated": "2024-07-07 11:40:59.386",
         "season": {
           "id": "70098350",
@@ -24418,8 +24705,8 @@
         "name": "Oberliga 3 mU18",
         "shortName": "mU18OL3",
         "type": "League",
-        "updated": "2024-07-12 09:42:30.961",
-        "structureUpdated": "2024-07-12 09:42:30.961",
+        "updated": "2024-07-17 08:05:07.6",
+        "structureUpdated": "2024-07-17 08:05:07.6",
         "resultsUpdated": "2024-07-09 07:05:17.537",
         "season": {
           "id": "70098350",
@@ -24479,9 +24766,9 @@
         "name": "Oberliga 4 mU18",
         "shortName": "mU18OL4",
         "type": "League",
-        "updated": "2024-05-28 10:13:41.964",
-        "structureUpdated": "2024-05-28 10:13:41.963",
-        "resultsUpdated": "2024-01-22 23:04:22.272",
+        "updated": "2024-07-17 14:26:52.908",
+        "structureUpdated": "2024-07-17 14:26:52.908",
+        "resultsUpdated": "2024-07-17 14:26:43.021",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -25089,8 +25376,8 @@
         "name": "Bezirksliga 8 mU18",
         "shortName": "mU18BeL8",
         "type": "League",
-        "updated": "2024-07-14 13:09:08.73",
-        "structureUpdated": "2024-07-09 10:13:01.692",
+        "updated": "2024-07-17 13:36:12.04",
+        "structureUpdated": "2024-07-17 13:36:12.04",
         "resultsUpdated": "2024-07-04 12:04:45.099",
         "season": {
           "id": "70098350",
@@ -25394,9 +25681,9 @@
         "name": "Oberliga 3 wU18",
         "shortName": "wU18OL3",
         "type": "League",
-        "updated": "2024-07-03 11:08:13.985",
-        "structureUpdated": "2024-07-03 11:08:13.985",
-        "resultsUpdated": "2023-12-03 18:48:15.101",
+        "updated": "2024-07-17 10:27:08.285",
+        "structureUpdated": "2024-07-17 10:27:08.285",
+        "resultsUpdated": "2024-07-16 20:37:05.006",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -25455,9 +25742,9 @@
         "name": "Oberliga 4 wU18",
         "shortName": "wU18OL4",
         "type": "League",
-        "updated": "2024-07-09 17:55:36.889",
+        "updated": "2024-07-16 22:44:29.967",
         "structureUpdated": "2024-07-02 16:17:21.93",
-        "resultsUpdated": "2024-07-02 16:54:09.682",
+        "resultsUpdated": "2024-07-16 22:44:29.967",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -25516,8 +25803,8 @@
         "name": "Oberliga 5 wU18",
         "shortName": "wU18OL5",
         "type": "League",
-        "updated": "2024-07-07 20:16:59.024",
-        "structureUpdated": "2024-07-07 20:16:59.024",
+        "updated": "2024-07-16 21:49:58.984",
+        "structureUpdated": "2024-07-16 21:49:58.984",
         "resultsUpdated": "2024-07-03 10:50:59.021",
         "season": {
           "id": "70098350",
@@ -25699,8 +25986,8 @@
         "name": "Oberliga 8 wU18",
         "shortName": "wU18OL8",
         "type": "League",
-        "updated": "2024-07-09 16:36:04.303",
-        "structureUpdated": "2024-07-09 16:35:10.216",
+        "updated": "2024-07-17 14:46:17.818",
+        "structureUpdated": "2024-07-17 14:46:17.818",
         "resultsUpdated": "2024-07-07 21:36:09.526",
         "season": {
           "id": "70098350",
@@ -26004,8 +26291,8 @@
         "name": "Bezirksliga 13 wU18",
         "shortName": "wU18BeL13",
         "type": "League",
-        "updated": "2024-07-14 10:36:03.822",
-        "structureUpdated": "2024-07-11 10:34:47.608",
+        "updated": "2024-07-17 11:55:02.289",
+        "structureUpdated": "2024-07-17 11:55:02.289",
         "resultsUpdated": "2024-07-14 10:36:03.822",
         "season": {
           "id": "70098350",
@@ -26553,9 +26840,9 @@
         "name": "Bezirksliga 21 wU18",
         "shortName": "wU18BeL21",
         "type": "League",
-        "updated": "2024-07-13 11:04:28.419",
-        "structureUpdated": "2024-07-13 11:04:28.419",
-        "resultsUpdated": "2024-07-13 11:03:54.982",
+        "updated": "2024-07-17 14:47:21.0",
+        "structureUpdated": "2024-07-17 14:47:21.0",
+        "resultsUpdated": "2024-07-16 19:18:28.71",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -26675,8 +26962,8 @@
         "name": "Bezirksliga 3 wU18",
         "shortName": "wU18BeL3",
         "type": "League",
-        "updated": "2024-07-16 09:50:04.496",
-        "structureUpdated": "2024-07-16 09:50:04.496",
+        "updated": "2024-07-17 23:13:24.732",
+        "structureUpdated": "2024-07-17 23:13:24.732",
         "resultsUpdated": "2024-07-11 16:35:46.44",
         "season": {
           "id": "70098350",
@@ -27041,9 +27328,9 @@
         "name": "Bezirksliga 9 wU18",
         "shortName": "wU18BeL9",
         "type": "League",
-        "updated": "2024-07-16 08:29:38.153",
-        "structureUpdated": "2024-07-16 01:53:09.171",
-        "resultsUpdated": "2024-07-16 01:51:33.89",
+        "updated": "2024-07-16 23:33:06.26",
+        "structureUpdated": "2024-07-16 23:33:06.26",
+        "resultsUpdated": "2024-07-16 23:32:40.699",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -27224,9 +27511,9 @@
         "name": "Oberliga 2 mU16",
         "shortName": "mU16OL2",
         "type": "League",
-        "updated": "2024-07-12 10:50:04.445",
-        "structureUpdated": "2024-05-28 10:46:59.399",
-        "resultsUpdated": "2023-12-03 16:03:13.673",
+        "updated": "2024-07-17 08:41:41.932",
+        "structureUpdated": "2024-07-17 08:41:41.932",
+        "resultsUpdated": "2024-07-17 08:39:51.699",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -27956,8 +28243,8 @@
         "name": "Oberliga 2 wU16",
         "shortName": "wU16OL2",
         "type": "League",
-        "updated": "2024-07-05 19:45:52.208",
-        "structureUpdated": "2024-06-28 22:30:46.997",
+        "updated": "2024-07-17 10:28:19.377",
+        "structureUpdated": "2024-07-17 10:28:19.377",
         "resultsUpdated": "2024-07-04 16:40:55.47",
         "season": {
           "id": "70098350",
@@ -28444,8 +28731,8 @@
         "name": "Bezirksliga 12 wU16",
         "shortName": "wU16BeL12",
         "type": "League",
-        "updated": "2024-07-12 10:05:04.135",
-        "structureUpdated": "2024-07-12 10:05:04.135",
+        "updated": "2024-07-17 14:14:32.621",
+        "structureUpdated": "2024-07-17 14:14:32.621",
         "resultsUpdated": "2024-07-10 10:00:25.337",
         "season": {
           "id": "70098350",
@@ -28810,8 +29097,8 @@
         "name": "Bezirksliga 18 wU16",
         "shortName": "wU16BeL18",
         "type": "League",
-        "updated": "2024-07-13 21:06:49.218",
-        "structureUpdated": "2024-07-13 21:06:49.218",
+        "updated": "2024-07-17 14:49:03.379",
+        "structureUpdated": "2024-07-17 14:49:03.379",
         "resultsUpdated": "2024-07-13 21:06:37.334",
         "season": {
           "id": "70098350",
@@ -28993,9 +29280,9 @@
         "name": "Bezirksliga 3 wU16",
         "shortName": "wU16BeL3",
         "type": "League",
-        "updated": "2024-07-03 19:53:00.865",
-        "structureUpdated": "2024-07-03 19:53:00.865",
-        "resultsUpdated": "2024-07-01 10:10:21.65",
+        "updated": "2024-07-17 15:53:13.24",
+        "structureUpdated": "2024-07-17 15:53:13.24",
+        "resultsUpdated": "2024-07-17 15:53:09.342",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -29420,9 +29707,9 @@
         "name": "Oberliga 1 mU14",
         "shortName": "mU14OL1",
         "type": "League",
-        "updated": "2024-07-12 09:59:45.643",
-        "structureUpdated": "2024-07-12 09:59:45.643",
-        "resultsUpdated": "2024-07-12 09:59:32.797",
+        "updated": "2024-07-17 14:41:39.761",
+        "structureUpdated": "2024-07-17 14:41:39.761",
+        "resultsUpdated": "2024-07-17 14:41:37.659",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -29481,9 +29768,9 @@
         "name": "Oberliga 2 mU14",
         "shortName": "mU14OL2",
         "type": "League",
-        "updated": "2024-07-12 10:49:06.945",
-        "structureUpdated": "2024-05-28 10:52:09.863",
-        "resultsUpdated": "2024-07-02 17:54:30.981",
+        "updated": "2024-07-17 19:27:21.656",
+        "structureUpdated": "2024-07-17 08:48:28.337",
+        "resultsUpdated": "2024-07-17 08:48:03.54",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -29603,8 +29890,8 @@
         "name": "NRW-Liga wU14",
         "shortName": "wU14NRW",
         "type": "League",
-        "updated": "2024-07-15 19:50:00.323",
-        "structureUpdated": "2024-07-15 19:50:00.323",
+        "updated": "2024-07-17 09:36:44.922",
+        "structureUpdated": "2024-07-17 09:36:44.922",
         "resultsUpdated": "2024-07-11 22:20:22.924",
         "season": {
           "id": "70098350",
@@ -30207,8 +30494,8 @@
         "name": "Oberliga 1 wU13",
         "shortName": "wU13OL1",
         "type": "League",
-        "updated": "2024-07-10 17:27:22.767",
-        "structureUpdated": "2024-07-10 17:27:22.767",
+        "updated": "2024-07-16 17:16:49.087",
+        "structureUpdated": "2024-07-16 17:16:49.087",
         "resultsUpdated": "2024-07-07 13:13:47.084",
         "season": {
           "id": "70098350",
@@ -30268,8 +30555,8 @@
         "name": "Oberliga 2 wU13",
         "shortName": "wU13OL2",
         "type": "League",
-        "updated": "2024-07-15 15:25:32.416",
-        "structureUpdated": "2024-07-07 22:43:13.51",
+        "updated": "2024-07-17 18:48:43.266",
+        "structureUpdated": "2024-07-17 18:48:43.266",
         "resultsUpdated": "2024-07-15 15:25:32.416",
         "season": {
           "id": "70098350",
@@ -31404,14 +31691,57 @@
         }
       },
       {
+        "id": "74638442",
+        "uuid": "5280955a-c31f-4d2a-bcd0-c1b674831ea1",
+        "allSeasonId": "5280955a-c31f-4d2a-bcd0-c1b674831ea1",
+        "name": "Testspiel Saarbrücken",
+        "shortName": "DVV_Testspiel",
+        "type": "Competition",
+        "updated": "2024-07-17 18:21:17.186",
+        "structureUpdated": "2024-07-17 18:21:17.186",
+        "resultsUpdated": null,
+        "season": {
+          "id": "70098350",
+          "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+          "name": "2024/25"
+        },
+        "hierarchy": {
+          "id": "70142414",
+          "uuid": "fe7ff7ce-b301-4ad2-8c22-f2b6f0da1968",
+          "name": "Männer Nationalmannschaft",
+          "shortName": "MN",
+          "hierarchyLevel": "1"
+        },
+        "fullHierarchy": {
+          "hierarchy": [
+            {
+              "id": "70142414",
+              "name": "Männer Nationalmannschaft",
+              "shortName": "MN",
+              "hierarchyLevel": "1"
+            },
+            {
+              "id": "70142413",
+              "name": "Deutsche Nationalmannschaft",
+              "shortName": "DN",
+              "hierarchyLevel": "0"
+            }
+          ]
+        },
+        "association": {
+          "name": null,
+          "shortName": null
+        }
+      },
+      {
         "id": "70128624",
         "uuid": "4e24fceb-aa1c-4f49-be07-f1b77b11abd9",
         "allSeasonId": "bc4621d5-91e4-4626-93db-af052099b5f8",
         "name": "Oberliga Württemberg Damen",
         "shortName": "OLD",
         "type": "League",
-        "updated": "2024-07-11 10:50:42.224",
-        "structureUpdated": "2024-07-11 10:50:42.224",
+        "updated": "2024-07-16 16:47:57.26",
+        "structureUpdated": "2024-07-16 16:47:57.26",
         "resultsUpdated": "2024-07-11 10:50:25.15",
         "season": {
           "id": "70098350",
@@ -31520,8 +31850,8 @@
         "name": "Verbandsliga 2 Damen",
         "shortName": "VL2D",
         "type": "League",
-        "updated": "2024-07-16 11:36:11.636",
-        "structureUpdated": "2024-07-16 11:36:11.636",
+        "updated": "2024-07-17 08:25:17.564",
+        "structureUpdated": "2024-07-17 08:25:17.564",
         "resultsUpdated": "2024-06-29 17:52:43.963",
         "season": {
           "id": "70098350",
@@ -31575,8 +31905,8 @@
         "name": "Landesliga 1 Damen",
         "shortName": "LL1D",
         "type": "League",
-        "updated": "2024-07-11 19:48:51.918",
-        "structureUpdated": "2024-07-11 19:48:51.918",
+        "updated": "2024-07-17 00:27:19.903",
+        "structureUpdated": "2024-07-17 00:27:19.903",
         "resultsUpdated": "2024-07-11 19:48:46.373",
         "season": {
           "id": "70098350",
@@ -31740,7 +32070,7 @@
         "name": "Landesliga 4 Damen",
         "shortName": "LL4D",
         "type": "League",
-        "updated": "2024-07-15 22:55:56.541",
+        "updated": "2024-07-17 21:33:16.798",
         "structureUpdated": "2024-07-15 22:55:56.541",
         "resultsUpdated": "2024-07-11 17:17:30.959",
         "season": {
@@ -31905,8 +32235,8 @@
         "name": "Bezirksliga 3 Damen",
         "shortName": "BZL3D",
         "type": "League",
-        "updated": "2024-07-14 16:21:19.236",
-        "structureUpdated": "2024-07-14 16:21:19.236",
+        "updated": "2024-07-16 20:17:36.281",
+        "structureUpdated": "2024-07-16 20:17:36.281",
         "resultsUpdated": "2024-03-26 20:21:05.287",
         "season": {
           "id": "70098350",
@@ -31960,8 +32290,8 @@
         "name": "Bezirksliga 4 Damen",
         "shortName": "BZL4D",
         "type": "League",
-        "updated": "2024-07-16 11:29:07.487",
-        "structureUpdated": "2024-07-16 11:29:07.487",
+        "updated": "2024-07-17 16:49:03.813",
+        "structureUpdated": "2024-07-17 16:49:03.813",
         "resultsUpdated": "2024-03-29 11:35:16.943",
         "season": {
           "id": "70098350",
@@ -32015,9 +32345,9 @@
         "name": "Bezirksliga 5 Damen",
         "shortName": "BZL5D",
         "type": "League",
-        "updated": "2024-07-16 14:29:48.327",
+        "updated": "2024-07-17 07:50:32.929",
         "structureUpdated": "2024-07-09 15:25:30.427",
-        "resultsUpdated": "2024-07-16 14:29:48.327",
+        "resultsUpdated": "2024-07-17 07:50:32.929",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -32180,8 +32510,8 @@
         "name": "Bezirksklasse 1 Damen",
         "shortName": "BZK1D",
         "type": "League",
-        "updated": "2024-07-04 09:55:52.092",
-        "structureUpdated": "2024-07-04 09:54:07.867",
+        "updated": "2024-07-17 08:22:19.695",
+        "structureUpdated": "2024-07-17 08:22:19.695",
         "resultsUpdated": "2024-03-27 21:59:24.316",
         "season": {
           "id": "70098350",
@@ -32290,8 +32620,8 @@
         "name": "Bezirksklasse 11 Damen",
         "shortName": "BZK11D",
         "type": "League",
-        "updated": "2024-07-05 16:03:50.133",
-        "structureUpdated": "2024-07-05 16:03:50.133",
+        "updated": "2024-07-17 18:41:30.712",
+        "structureUpdated": "2024-07-17 18:41:30.712",
         "resultsUpdated": "2024-03-24 14:22:36.808",
         "season": {
           "id": "70098350",
@@ -32345,8 +32675,8 @@
         "name": "Bezirksklasse 2 Damen",
         "shortName": "BZK2D",
         "type": "League",
-        "updated": "2024-07-10 11:04:29.991",
-        "structureUpdated": "2024-07-09 18:52:08.73",
+        "updated": "2024-07-17 00:37:24.505",
+        "structureUpdated": "2024-07-17 00:26:57.155",
         "resultsUpdated": "2024-07-10 11:04:29.991",
         "season": {
           "id": "70098350",
@@ -32730,7 +33060,7 @@
         "name": "Bezirksklasse 9 Damen",
         "shortName": "BZK9D",
         "type": "League",
-        "updated": "2024-07-01 20:08:56.036",
+        "updated": "2024-07-17 19:48:46.755",
         "structureUpdated": "2024-07-01 20:08:56.036",
         "resultsUpdated": "2024-03-26 17:03:55.386",
         "season": {
@@ -32840,8 +33170,8 @@
         "name": "Verbandsliga 1 Herren",
         "shortName": "VL1H",
         "type": "League",
-        "updated": "2024-07-14 16:21:41.513",
-        "structureUpdated": "2024-07-14 16:21:41.513",
+        "updated": "2024-07-16 20:24:54.536",
+        "structureUpdated": "2024-07-16 20:24:54.536",
         "resultsUpdated": "2024-03-26 20:23:03.511",
         "season": {
           "id": "70098350",
@@ -32895,8 +33225,8 @@
         "name": "Verbandsliga 2 Herren",
         "shortName": "VL2H",
         "type": "League",
-        "updated": "2024-07-14 16:53:36.21",
-        "structureUpdated": "2024-07-01 20:16:56.101",
+        "updated": "2024-07-16 16:41:20.429",
+        "structureUpdated": "2024-07-16 16:41:20.429",
         "resultsUpdated": "2024-04-14 17:51:38.583",
         "season": {
           "id": "70098350",
@@ -32950,8 +33280,8 @@
         "name": "Landesliga 1 Herren",
         "shortName": "LL1H",
         "type": "League",
-        "updated": "2024-07-15 19:41:10.267",
-        "structureUpdated": "2024-07-15 15:56:41.278",
+        "updated": "2024-07-17 00:28:37.394",
+        "structureUpdated": "2024-07-17 00:28:37.394",
         "resultsUpdated": "2024-07-04 19:18:46.398",
         "season": {
           "id": "70098350",
@@ -33225,8 +33555,8 @@
         "name": "Bezirksliga 2 Herren",
         "shortName": "BZL2H",
         "type": "League",
-        "updated": "2024-07-14 17:59:22.337",
-        "structureUpdated": "2024-07-14 17:59:22.337",
+        "updated": "2024-07-16 20:27:32.096",
+        "structureUpdated": "2024-07-16 20:27:32.096",
         "resultsUpdated": "2024-03-28 10:28:38.51",
         "season": {
           "id": "70098350",
@@ -33280,7 +33610,7 @@
         "name": "Bezirksliga 3 Herren",
         "shortName": "BZL3H",
         "type": "League",
-        "updated": "2024-07-15 21:41:24.315",
+        "updated": "2024-07-17 12:23:02.554",
         "structureUpdated": "2024-07-15 21:41:24.315",
         "resultsUpdated": "2024-07-15 18:56:24.42",
         "season": {
@@ -33390,9 +33720,9 @@
         "name": "Bezirksklasse 1 Herren",
         "shortName": "BZK1H",
         "type": "League",
-        "updated": "2024-07-16 13:28:22.741",
-        "structureUpdated": "2024-07-16 13:28:22.741",
-        "resultsUpdated": "2024-07-11 20:02:56.33",
+        "updated": "2024-07-17 15:32:54.448",
+        "structureUpdated": "2024-07-17 13:34:21.072",
+        "resultsUpdated": "2024-07-17 15:32:54.448",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -33555,8 +33885,8 @@
         "name": "Bezirksklasse 4 Herren",
         "shortName": "BZK4H",
         "type": "League",
-        "updated": "2024-07-02 15:22:15.462",
-        "structureUpdated": "2024-07-01 20:21:58.982",
+        "updated": "2024-07-18 00:58:45.937",
+        "structureUpdated": "2024-07-18 00:58:45.937",
         "resultsUpdated": "2024-03-28 10:32:35.574",
         "season": {
           "id": "70098350",
@@ -33610,8 +33940,8 @@
         "name": "Bezirksklasse 5 Herren",
         "shortName": "BZK5H",
         "type": "League",
-        "updated": "2024-07-14 16:44:49.629",
-        "structureUpdated": "2024-07-14 16:44:49.629",
+        "updated": "2024-07-17 21:18:42.089",
+        "structureUpdated": "2024-07-17 21:18:42.089",
         "resultsUpdated": "2024-04-03 10:09:57.228",
         "season": {
           "id": "70098350",
@@ -33720,9 +34050,9 @@
         "name": "Bezirksklasse 7 Herren",
         "shortName": "BZK7H",
         "type": "League",
-        "updated": "2024-07-16 10:37:09.178",
-        "structureUpdated": "2024-07-08 12:27:45.243",
-        "resultsUpdated": "2024-07-16 09:59:51.215",
+        "updated": "2024-07-17 17:26:44.829",
+        "structureUpdated": "2024-07-17 17:26:44.829",
+        "resultsUpdated": "2024-07-16 19:12:32.912",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -33775,7 +34105,7 @@
         "name": "Bezirksklasse 8 Herren",
         "shortName": "BZK8H",
         "type": "League",
-        "updated": "2024-07-12 08:49:43.647",
+        "updated": "2024-07-17 20:09:34.795",
         "structureUpdated": "2024-07-05 15:57:05.156",
         "resultsUpdated": "2024-03-24 14:22:36.808",
         "season": {
@@ -33885,8 +34215,8 @@
         "name": "Leistungsstaffel U18 weiblich Nord",
         "shortName": "LS U18w Nord",
         "type": "League",
-        "updated": "2024-07-01 09:21:24.542",
-        "structureUpdated": "2024-07-01 09:21:24.542",
+        "updated": "2024-07-17 00:33:36.09",
+        "structureUpdated": "2024-07-17 00:33:36.09",
         "resultsUpdated": "2023-12-11 13:27:56.134",
         "season": {
           "id": "70098350",
@@ -33940,7 +34270,7 @@
         "name": "Leistungsstaffel U18 weiblich Süd",
         "shortName": "LS U18w Süd",
         "type": "League",
-        "updated": "2024-07-15 22:03:41.79",
+        "updated": "2024-07-17 12:23:28.358",
         "structureUpdated": "2024-07-13 13:39:42.794",
         "resultsUpdated": "2024-07-15 22:03:41.79",
         "season": {
@@ -34587,8 +34917,8 @@
         "name": "Bezirksstaffel U16 Nord 2 weiblich",
         "shortName": "BS U16w Nord 2",
         "type": "League",
-        "updated": "2024-07-01 08:46:19.113",
-        "structureUpdated": "2024-07-01 08:46:19.113",
+        "updated": "2024-07-17 00:36:36.956",
+        "structureUpdated": "2024-07-17 00:36:36.956",
         "resultsUpdated": "2024-01-22 22:20:54.878",
         "season": {
           "id": "70098350",
@@ -34831,9 +35161,9 @@
         "name": "Bezirksstaffel U18 Nord 1 männlich",
         "shortName": "BS U18m Nord 1",
         "type": "League",
-        "updated": "2024-07-16 13:29:47.654",
-        "structureUpdated": "2024-07-16 13:29:47.654",
-        "resultsUpdated": "2023-12-09 14:30:55.812",
+        "updated": "2024-07-17 15:34:56.26",
+        "structureUpdated": "2024-07-17 15:34:56.26",
+        "resultsUpdated": "2024-07-17 15:34:22.897",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -35136,7 +35466,7 @@
         "name": "Bezirksstaffel U20 Ost 3 weiblich",
         "shortName": "BS U20w Ost 3",
         "type": "League",
-        "updated": "2024-07-07 16:08:47.147",
+        "updated": "2024-07-17 16:13:25.496",
         "structureUpdated": "2024-07-07 16:08:47.147",
         "resultsUpdated": "2024-01-25 10:22:09.416",
         "season": {
@@ -35746,8 +36076,8 @@
         "name": "Bezirksstaffel U20 Ost 2 männlich",
         "shortName": "BS U20m Ost 2",
         "type": "League",
-        "updated": "2024-07-15 21:50:30.072",
-        "structureUpdated": "2024-07-15 21:46:38.734",
+        "updated": "2024-07-17 21:19:32.831",
+        "structureUpdated": "2024-07-17 21:19:32.831",
         "resultsUpdated": "2024-01-24 06:10:15.606",
         "season": {
           "id": "70098350",
@@ -36112,8 +36442,8 @@
         "name": "Bezirksstaffel U16 Ost 2 männlich",
         "shortName": "BS U16m Ost 2",
         "type": "League",
-        "updated": "2024-07-15 00:42:09.558",
-        "structureUpdated": "2024-07-15 00:42:09.558",
+        "updated": "2024-07-16 23:38:47.929",
+        "structureUpdated": "2024-07-16 23:38:47.929",
         "resultsUpdated": "2024-06-25 19:48:37.489",
         "season": {
           "id": "70098350",
@@ -36417,9 +36747,9 @@
         "name": "Bezirksstaffel U16 Süd 1 weiblich",
         "shortName": "BS U16w Süd 1",
         "type": "League",
-        "updated": "2024-07-01 12:58:52.421",
+        "updated": "2024-07-17 16:10:09.869",
         "structureUpdated": "2024-06-14 21:40:32.697",
-        "resultsUpdated": "2024-02-03 12:11:23.938",
+        "resultsUpdated": "2024-07-17 16:10:09.869",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -36478,7 +36808,7 @@
         "name": "Bezirksstaffel U16 Süd 2 weiblich",
         "shortName": "BS U16w Süd 2",
         "type": "League",
-        "updated": "2024-07-13 10:38:23.804",
+        "updated": "2024-07-17 12:23:43.488",
         "structureUpdated": "2024-07-01 21:58:26.919",
         "resultsUpdated": "2024-02-01 12:24:34.515",
         "season": {
@@ -36844,8 +37174,8 @@
         "name": "Bezirksstaffel U20 West 2 weiblich",
         "shortName": "BS U20w West 2",
         "type": "League",
-        "updated": "2024-07-15 08:25:29.132",
-        "structureUpdated": "2024-07-15 08:25:29.132",
+        "updated": "2024-07-17 18:13:47.523",
+        "structureUpdated": "2024-07-17 18:13:47.523",
         "resultsUpdated": "2024-07-15 08:24:53.562",
         "season": {
           "id": "70098350",
@@ -36905,7 +37235,7 @@
         "name": "Bezirksstaffel U20 West 3 weiblich",
         "shortName": "BS U20w West 3",
         "type": "League",
-        "updated": "2024-07-11 13:53:16.649",
+        "updated": "2024-07-17 08:25:47.718",
         "structureUpdated": "2024-07-11 13:53:16.649",
         "resultsUpdated": "2024-01-22 18:24:34.93",
         "season": {
@@ -37027,7 +37357,7 @@
         "name": "Bezirksstaffel U18 West 1 weiblich",
         "shortName": "BS U18w West 1",
         "type": "League",
-        "updated": "2024-07-10 11:29:00.166",
+        "updated": "2024-07-16 17:42:02.414",
         "structureUpdated": "2024-07-10 11:29:00.166",
         "resultsUpdated": "2024-01-20 17:52:23.806",
         "season": {
@@ -37088,8 +37418,8 @@
         "name": "Bezirksstaffel U18 West 2 weiblich",
         "shortName": "BS U18w West 2",
         "type": "League",
-        "updated": "2024-07-05 16:01:25.645",
-        "structureUpdated": "2024-07-05 16:01:25.645",
+        "updated": "2024-07-17 18:39:03.578",
+        "structureUpdated": "2024-07-17 18:39:03.578",
         "resultsUpdated": "2024-02-03 11:20:03.224",
         "season": {
           "id": "70098350",
@@ -37210,7 +37540,7 @@
         "name": "Bezirksstaffel U18 West 4 weiblich",
         "shortName": "BS U18w West 4",
         "type": "League",
-        "updated": "2024-06-14 22:41:50.325",
+        "updated": "2024-07-17 21:34:37.523",
         "structureUpdated": "2024-06-14 22:41:50.325",
         "resultsUpdated": "2024-01-26 10:23:56.875",
         "season": {
@@ -37515,8 +37845,8 @@
         "name": "Bezirksstaffel U18 West männlich",
         "shortName": "BS U18m West",
         "type": "League",
-        "updated": "2024-07-07 22:17:16.263",
-        "structureUpdated": "2024-07-07 22:17:16.263",
+        "updated": "2024-07-17 10:37:51.674",
+        "structureUpdated": "2024-07-17 10:37:51.674",
         "resultsUpdated": "2024-01-20 17:17:42.035",
         "season": {
           "id": "70098350",
@@ -39342,7 +39672,7 @@
         "name": "Mixed 2/4 A West",
         "shortName": "A West",
         "type": "League",
-        "updated": "2024-06-25 20:44:45.088",
+        "updated": "2024-07-17 21:32:31.981",
         "structureUpdated": "2024-06-25 20:36:18.517",
         "resultsUpdated": "2024-06-25 20:44:45.088",
         "season": {
@@ -39452,7 +39782,7 @@
         "name": "Mixed 2/4 B2 West",
         "shortName": "B2 West",
         "type": "League",
-        "updated": "2024-06-28 10:42:12.892",
+        "updated": "2024-07-17 08:26:38.625",
         "structureUpdated": "2024-06-28 10:42:12.892",
         "resultsUpdated": "2024-03-10 15:58:44.362",
         "season": {
@@ -40180,8 +40510,8 @@
         "name": "Landesliga Männer",
         "shortName": "LLM",
         "type": "League",
-        "updated": "2024-07-14 22:34:10.285",
-        "structureUpdated": "2024-07-12 12:02:36.224",
+        "updated": "2024-07-16 23:56:44.48",
+        "structureUpdated": "2024-07-16 23:56:44.48",
         "resultsUpdated": "2024-07-07 13:12:34.723",
         "season": {
           "id": "70098350",
@@ -40479,8 +40809,8 @@
         "name": "Bezirksklasse Frauen 1",
         "shortName": "BK1F",
         "type": "League",
-        "updated": "2024-07-16 08:48:13.879",
-        "structureUpdated": "2024-07-16 08:48:13.879",
+        "updated": "2024-07-17 12:49:48.706",
+        "structureUpdated": "2024-07-17 12:49:48.706",
         "resultsUpdated": "2024-07-07 11:43:14.716",
         "season": {
           "id": "70098350",
@@ -40881,8 +41211,8 @@
         "name": "Bezirksklasse Männer 4",
         "shortName": "BK4M",
         "type": "League",
-        "updated": "2024-07-15 13:35:48.384",
-        "structureUpdated": "2024-07-15 13:35:48.384",
+        "updated": "2024-07-17 15:28:31.39",
+        "structureUpdated": "2024-07-17 15:28:31.39",
         "resultsUpdated": "2024-07-07 16:31:03.141",
         "season": {
           "id": "70098350",
@@ -41301,8 +41631,8 @@
         "name": "Bezirksliga Mixed Nord",
         "shortName": "BLMN",
         "type": "League",
-        "updated": "2024-07-15 21:53:28.493",
-        "structureUpdated": "2024-07-15 21:53:28.493",
+        "updated": "2024-07-17 21:01:04.31",
+        "structureUpdated": "2024-07-17 21:01:04.31",
         "resultsUpdated": "2024-07-15 21:53:00.43",
         "season": {
           "id": "70098350",
@@ -41435,7 +41765,7 @@
         "name": "Bezirksklasse Mixed Nord",
         "shortName": "BKMN",
         "type": "League",
-        "updated": "2024-07-12 15:30:52.975",
+        "updated": "2024-07-17 19:58:31.424",
         "structureUpdated": "2024-07-12 15:30:52.975",
         "resultsUpdated": "2024-07-05 12:41:54.708",
         "season": {
@@ -41709,15 +42039,125 @@
         }
       },
       {
+        "id": "70100268",
+        "uuid": "216ed91e-bab2-4fe8-a15d-93350608139f",
+        "allSeasonId": "230db669-24d8-ff99-315a-66fa61d72b6b",
+        "name": "Landesliga West Damen",
+        "shortName": "LL w d",
+        "type": "League",
+        "updated": "2024-07-17 20:33:25.111",
+        "structureUpdated": "2024-07-17 10:27:52.486",
+        "resultsUpdated": "2024-07-17 20:33:25.111",
+        "season": {
+          "id": "70098350",
+          "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+          "name": "2024/25"
+        },
+        "hierarchy": {
+          "id": "70100181",
+          "uuid": "b335261e-0c2e-42f4-b950-e4c95d3553f6",
+          "name": "Landesligen",
+          "shortName": "ll",
+          "hierarchyLevel": "3"
+        },
+        "fullHierarchy": {
+          "hierarchy": [
+            {
+              "id": "70100181",
+              "name": "Landesligen",
+              "shortName": "ll",
+              "hierarchyLevel": "3"
+            },
+            {
+              "id": "70100180",
+              "name": "Verbandsligen",
+              "shortName": "vl",
+              "hierarchyLevel": "2"
+            },
+            {
+              "id": "70099119",
+              "name": "Erwachsenenspielbetrieb SBVV",
+              "shortName": "SBVV Erw.",
+              "hierarchyLevel": "1"
+            },
+            {
+              "id": "70098566",
+              "name": "Südbadischer Volleyball-Verband (SBVV)",
+              "shortName": "SBVV",
+              "hierarchyLevel": "0"
+            }
+          ]
+        },
+        "association": {
+          "name": null,
+          "shortName": null
+        }
+      },
+      {
+        "id": "70100226",
+        "uuid": "d6eafbcb-61ed-4c37-8b60-f7e3e407c521",
+        "allSeasonId": "799a634e-d2b1-6639-32fb-e36ccbf44f87",
+        "name": "Landesliga West Herren",
+        "shortName": "LL w h",
+        "type": "League",
+        "updated": "2024-07-17 21:22:38.438",
+        "structureUpdated": "2024-07-17 10:30:21.039",
+        "resultsUpdated": "2024-07-17 21:22:38.438",
+        "season": {
+          "id": "70098350",
+          "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+          "name": "2024/25"
+        },
+        "hierarchy": {
+          "id": "70100181",
+          "uuid": "b335261e-0c2e-42f4-b950-e4c95d3553f6",
+          "name": "Landesligen",
+          "shortName": "ll",
+          "hierarchyLevel": "3"
+        },
+        "fullHierarchy": {
+          "hierarchy": [
+            {
+              "id": "70100181",
+              "name": "Landesligen",
+              "shortName": "ll",
+              "hierarchyLevel": "3"
+            },
+            {
+              "id": "70100180",
+              "name": "Verbandsligen",
+              "shortName": "vl",
+              "hierarchyLevel": "2"
+            },
+            {
+              "id": "70099119",
+              "name": "Erwachsenenspielbetrieb SBVV",
+              "shortName": "SBVV Erw.",
+              "hierarchyLevel": "1"
+            },
+            {
+              "id": "70098566",
+              "name": "Südbadischer Volleyball-Verband (SBVV)",
+              "shortName": "SBVV",
+              "hierarchyLevel": "0"
+            }
+          ]
+        },
+        "association": {
+          "name": null,
+          "shortName": null
+        }
+      },
+      {
         "id": "70099756",
         "uuid": "18c86e23-68cb-46ab-aacf-6efe646500c7",
         "allSeasonId": "c09b173b-1070-5f5a-99e9-c6f40542ca4c",
         "name": "Bezirksliga Damen Süd",
         "shortName": "bzl s d",
         "type": "League",
-        "updated": "2024-07-16 12:29:34.034",
+        "updated": "2024-07-16 22:03:11.252",
         "structureUpdated": "2024-07-16 12:29:34.034",
-        "resultsUpdated": "2024-07-12 07:06:48.423",
+        "resultsUpdated": "2024-07-16 22:03:11.252",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -41776,8 +42216,8 @@
         "name": "Bezirksliga Herren Nord",
         "shortName": "bzl n h",
         "type": "League",
-        "updated": "2024-07-16 13:40:25.797",
-        "structureUpdated": "2024-07-16 13:40:25.796",
+        "updated": "2024-07-17 10:59:53.855",
+        "structureUpdated": "2024-07-17 10:59:53.855",
         "resultsUpdated": "2024-07-16 13:38:20.525",
         "season": {
           "id": "70098350",
@@ -41837,8 +42277,8 @@
         "name": "Bezirksliga Herren Süd",
         "shortName": "bzl s h",
         "type": "League",
-        "updated": "2024-07-15 16:05:51.589",
-        "structureUpdated": "2024-07-15 16:05:51.589",
+        "updated": "2024-07-17 11:08:23.124",
+        "structureUpdated": "2024-07-17 11:08:23.124",
         "resultsUpdated": "2024-07-11 15:25:42.047",
         "season": {
           "id": "70098350",
@@ -41898,9 +42338,76 @@
         "name": "Bezirksklasse Damen Süd",
         "shortName": "bzk s d",
         "type": "League",
-        "updated": "2024-07-15 16:06:15.449",
-        "structureUpdated": "2024-07-15 16:06:15.449",
+        "updated": "2024-07-17 11:11:50.227",
+        "structureUpdated": "2024-07-17 11:11:50.227",
         "resultsUpdated": "2024-07-10 16:14:52.587",
+        "season": {
+          "id": "70098350",
+          "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+          "name": "2024/25"
+        },
+        "hierarchy": {
+          "id": "70099464",
+          "uuid": "228601fe-f5e6-4234-9712-de360fec8152",
+          "name": "Bezirksklassen",
+          "shortName": "bzk w",
+          "hierarchyLevel": "5"
+        },
+        "fullHierarchy": {
+          "hierarchy": [
+            {
+              "id": "70099464",
+              "name": "Bezirksklassen",
+              "shortName": "bzk w",
+              "hierarchyLevel": "5"
+            },
+            {
+              "id": "70099463",
+              "name": "Bezirksligen",
+              "shortName": "bzl w",
+              "hierarchyLevel": "4"
+            },
+            {
+              "id": "70099121",
+              "name": "Bezirk West",
+              "shortName": "bw",
+              "hierarchyLevel": "3"
+            },
+            {
+              "id": "70099120",
+              "name": "SBVV Bezirke",
+              "shortName": "SBVV Bezirke",
+              "hierarchyLevel": "2"
+            },
+            {
+              "id": "70099119",
+              "name": "Erwachsenenspielbetrieb SBVV",
+              "shortName": "SBVV Erw.",
+              "hierarchyLevel": "1"
+            },
+            {
+              "id": "70098566",
+              "name": "Südbadischer Volleyball-Verband (SBVV)",
+              "shortName": "SBVV",
+              "hierarchyLevel": "0"
+            }
+          ]
+        },
+        "association": {
+          "name": null,
+          "shortName": null
+        }
+      },
+      {
+        "id": "70099553",
+        "uuid": "5e9fba6e-4f3e-4ae8-80c7-0ea28b57a5d4",
+        "allSeasonId": "74bc1ade-7a7e-4f3a-bd4c-f320be4bcddf",
+        "name": "Bezirksklasse Herren Nord",
+        "shortName": "bzk n h",
+        "type": "League",
+        "updated": "2024-07-17 09:19:09.04",
+        "structureUpdated": "2024-07-17 09:19:09.04",
+        "resultsUpdated": "2024-07-16 22:07:01.362",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -42038,8 +42545,8 @@
         "name": "Kreisliga Damen Nord",
         "shortName": "kl n d",
         "type": "League",
-        "updated": "2024-07-08 11:36:27.128",
-        "structureUpdated": "2024-07-08 11:36:27.127",
+        "updated": "2024-07-17 11:15:59.609",
+        "structureUpdated": "2024-07-17 11:15:59.609",
         "resultsUpdated": "2024-07-06 14:06:07.225",
         "season": {
           "id": "70098350",
@@ -42111,8 +42618,8 @@
         "name": "Kreisliga Damen Süd",
         "shortName": "kl s d",
         "type": "League",
-        "updated": "2024-07-16 13:45:08.794",
-        "structureUpdated": "2024-07-16 13:45:08.794",
+        "updated": "2024-07-17 22:40:16.603",
+        "structureUpdated": "2024-07-17 22:40:16.603",
         "resultsUpdated": "2024-07-13 07:12:52.965",
         "season": {
           "id": "70098350",
@@ -42184,8 +42691,8 @@
         "name": "Bezirksliga Schwarzwald-Bodensee Damen",
         "shortName": "bzl sb d",
         "type": "League",
-        "updated": "2024-07-16 15:45:51.466",
-        "structureUpdated": "2024-07-16 11:51:23.723",
+        "updated": "2024-07-17 15:05:40.364",
+        "structureUpdated": "2024-07-17 15:05:40.364",
         "resultsUpdated": "2024-07-16 11:49:22.32",
         "season": {
           "id": "70098350",
@@ -42245,8 +42752,8 @@
         "name": "Bezirksklasse Schwarzwald-Bodensee Herren",
         "shortName": "Bzl BS h",
         "type": "League",
-        "updated": "2024-07-15 14:54:09.464",
-        "structureUpdated": "2024-07-15 14:54:09.464",
+        "updated": "2024-07-17 14:09:07.073",
+        "structureUpdated": "2024-07-17 14:09:07.073",
         "resultsUpdated": "2024-07-12 22:21:46.817",
         "season": {
           "id": "70098350",
