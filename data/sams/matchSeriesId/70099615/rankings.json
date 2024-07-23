@@ -7,8 +7,8 @@
       "name": "Bezirksklasse Damen Süd",
       "shortName": "bzk s d",
       "type": "League",
-      "updated": "2024-07-17 11:11:50.227",
-      "structureUpdated": "2024-07-17 11:11:50.227",
+      "updated": "2024-07-21 22:22:54.76",
+      "structureUpdated": "2024-07-21 22:22:54.76",
       "resultsUpdated": "2024-07-10 16:14:52.587",
       "season": {
         "id": "70098350",
@@ -38,7 +38,7 @@
           },
           {
             "id": "70099121",
-            "name": "Bezirk West",
+            "name": "Region West",
             "shortName": "bw",
             "hierarchyLevel": "3"
           },
