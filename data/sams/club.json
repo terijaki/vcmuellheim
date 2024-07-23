@@ -59,9 +59,9 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2024-07-17 21:22:38.438",
-            "structureUpdated": "2024-07-17 10:30:21.039",
-            "resultsUpdated": "2024-07-17 21:22:38.438",
+            "updated": "2024-07-19 12:25:21.843",
+            "structureUpdated": "2024-07-18 19:18:16.361",
+            "resultsUpdated": "2024-07-19 12:25:21.843",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -163,7 +163,7 @@
                 },
                 {
                   "id": "70099121",
-                  "name": "Bezirk West",
+                  "name": "Region West",
                   "shortName": "bw",
                   "hierarchyLevel": "3"
                 },
@@ -223,8 +223,8 @@
             "name": "Bezirksklasse Damen Süd",
             "shortName": "bzk s d",
             "type": "League",
-            "updated": "2024-07-17 11:11:50.227",
-            "structureUpdated": "2024-07-17 11:11:50.227",
+            "updated": "2024-07-21 22:22:54.76",
+            "structureUpdated": "2024-07-21 22:22:54.76",
             "resultsUpdated": "2024-07-10 16:14:52.587",
             "season": {
               "id": "70098350",
@@ -254,7 +254,7 @@
                 },
                 {
                   "id": "70099121",
-                  "name": "Bezirk West",
+                  "name": "Region West",
                   "shortName": "bw",
                   "hierarchyLevel": "3"
                 },
@@ -314,8 +314,8 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2024-07-17 22:40:16.603",
-            "structureUpdated": "2024-07-17 22:40:16.603",
+            "updated": "2024-07-21 10:02:13.741",
+            "structureUpdated": "2024-07-21 10:02:13.741",
             "resultsUpdated": "2024-07-13 07:12:52.965",
             "season": {
               "id": "70098350",
@@ -351,7 +351,7 @@
                 },
                 {
                   "id": "70099121",
-                  "name": "Bezirk West",
+                  "name": "Region West",
                   "shortName": "bw",
                   "hierarchyLevel": "3"
                 },
