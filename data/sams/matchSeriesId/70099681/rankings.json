@@ -7,8 +7,8 @@
       "name": "Bezirksliga Herren Süd",
       "shortName": "bzl s h",
       "type": "League",
-      "updated": "2024-07-17 11:08:23.124",
-      "structureUpdated": "2024-07-17 11:08:23.124",
+      "updated": "2024-07-24 12:04:49.773",
+      "structureUpdated": "2024-07-24 12:04:49.773",
       "resultsUpdated": "2024-07-11 15:25:42.047",
       "season": {
         "id": "70098350",
@@ -32,7 +32,7 @@
           },
           {
             "id": "70099121",
-            "name": "Bezirk West",
+            "name": "Region West",
             "shortName": "bw",
             "hierarchyLevel": "3"
           },
