@@ -59,9 +59,9 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2024-07-19 12:25:21.843",
+            "updated": "2024-07-23 06:18:17.884",
             "structureUpdated": "2024-07-18 19:18:16.361",
-            "resultsUpdated": "2024-07-19 12:25:21.843",
+            "resultsUpdated": "2024-07-23 06:18:17.884",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -138,8 +138,8 @@
             "name": "Bezirksliga Herren Süd",
             "shortName": "bzl s h",
             "type": "League",
-            "updated": "2024-07-17 11:08:23.124",
-            "structureUpdated": "2024-07-17 11:08:23.124",
+            "updated": "2024-07-24 12:04:49.773",
+            "structureUpdated": "2024-07-24 12:04:49.773",
             "resultsUpdated": "2024-07-11 15:25:42.047",
             "season": {
               "id": "70098350",
@@ -202,7 +202,7 @@
           "shortName": null,
           "clubCode": null,
           "status": "ACTIVE",
-          "www": "http://vcmuellheim.de",
+          "www": "https://vcmuellheim.de",
           "logo": {
             "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
           },
@@ -223,8 +223,8 @@
             "name": "Bezirksklasse Damen Süd",
             "shortName": "bzk s d",
             "type": "League",
-            "updated": "2024-07-21 22:22:54.76",
-            "structureUpdated": "2024-07-21 22:22:54.76",
+            "updated": "2024-07-24 11:58:25.519",
+            "structureUpdated": "2024-07-24 11:58:25.519",
             "resultsUpdated": "2024-07-10 16:14:52.587",
             "season": {
               "id": "70098350",
