@@ -1662,6 +1662,16 @@
         }
       },
       {
+        "id": "36969846",
+        "name": "Blau-Weiß Lohne",
+        "lsbNumber": "304493500",
+        "internalSportsclubId": "11403",
+        "association": {
+          "id": "7223",
+          "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
         "id": "11618640",
         "name": "SC Spelle-Venhaus",
         "lsbNumber": "304413550",
@@ -1709,16 +1719,6 @@
         "association": {
           "id": "7221",
           "name": "Volleyball-Verband Rheinland-Pfalz"
-        }
-      },
-      {
-        "id": "36969846",
-        "name": "Blau-Weiß Lohne",
-        "lsbNumber": "304493500",
-        "internalSportsclubId": "11403",
-        "association": {
-          "id": "7223",
-          "name": "Nordwestdeutscher Volleyball-Verband e.V."
         }
       },
       {
@@ -8472,16 +8472,6 @@
         }
       },
       {
-        "id": "9244285",
-        "name": "DJK Schwäbisch Gmünd",
-        "lsbNumber": "13145",
-        "internalSportsclubId": "271",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "26818878",
         "name": "SV Aufbau Altenburg",
         "lsbNumber": "410008",
@@ -9382,6 +9372,16 @@
         }
       },
       {
+        "id": "37920998",
+        "name": "M@SPORT e.V.  Dortmund",
+        "lsbNumber": "5002038",
+        "internalSportsclubId": "9159",
+        "association": {
+          "id": "33797822",
+          "name": "Dortmund"
+        }
+      },
+      {
         "id": "12483437",
         "name": "TSV Tempelhof-Mariendorf e.V.",
         "lsbNumber": "4972",
@@ -9399,26 +9399,6 @@
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
-        "id": "37920998",
-        "name": "M@SPORT e.V.  Dortmund",
-        "lsbNumber": "5002038",
-        "internalSportsclubId": "9159",
-        "association": {
-          "id": "33797822",
-          "name": "Dortmund"
-        }
-      },
-      {
-        "id": "11593828",
-        "name": "Turn-und Sportverein Spandau 1860 e.V.",
-        "lsbNumber": "4960",
-        "internalSportsclubId": "14-11-028",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -20762,16 +20742,6 @@
         }
       },
       {
-        "id": "65036673",
-        "name": "VSG KiLa",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "26925765",
         "name": "TSV Vockenhausen",
         "lsbNumber": "0",
@@ -23992,16 +23962,6 @@
         }
       },
       {
-        "id": "37921864",
-        "name": "TV Voiswinkel 1919 e.V.",
-        "lsbNumber": "2705008",
-        "internalSportsclubId": "1110",
-        "association": {
-          "id": "33795544",
-          "name": "Leverkusen-Rhein-Berg"
-        }
-      },
-      {
         "id": "37921770",
         "name": "TuS Schildgen 1932 e.V.",
         "lsbNumber": "2701017",
@@ -24129,6 +24089,16 @@
         "association": {
           "id": "33798063",
           "name": "Märkischer Kreis"
+        }
+      },
+      {
+        "id": "37921864",
+        "name": "TV Voiswinkel 1919 e.V.",
+        "lsbNumber": "2705008",
+        "internalSportsclubId": "1110",
+        "association": {
+          "id": "33795544",
+          "name": "Leverkusen-Rhein-Berg"
         }
       },
       {
@@ -24929,6 +24899,16 @@
         "association": {
           "id": "33797702",
           "name": "Minden-Ravensberg"
+        }
+      },
+      {
+        "id": "50621481",
+        "name": "Hennersdorfer SV e.V.",
+        "lsbNumber": "480093",
+        "internalSportsclubId": "429",
+        "association": {
+          "id": "24908672",
+          "name": "Landkreis Mittelsachsen"
         }
       },
       {
@@ -26812,6 +26792,16 @@
         }
       },
       {
+        "id": "16610338",
+        "name": "Marzahner Volleyballclub e.V.",
+        "lsbNumber": "2298",
+        "internalSportsclubId": "14-11-165",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
         "id": "37921472",
         "name": "Wesselinger Wallabies e.V.",
         "lsbNumber": "2310026",
@@ -27862,6 +27852,16 @@
         }
       },
       {
+        "id": "11593828",
+        "name": "Turn-und Sportverein Spandau 1860 e.V.",
+        "lsbNumber": "4960",
+        "internalSportsclubId": "14-11-028",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
         "id": "37920686",
         "name": "Sportverein Schwarz-Weiß Esch 1930 e.V.",
         "lsbNumber": "3507016",
@@ -28732,6 +28732,16 @@
         }
       },
       {
+        "id": "9244285",
+        "name": "DJK Schwäbisch Gmünd",
+        "lsbNumber": "13145",
+        "internalSportsclubId": "271",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
         "id": "37948240",
         "name": "VfB Borussia Görzig e.V.",
         "lsbNumber": "71029",
@@ -29429,6 +29439,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "75228801",
+        "name": "BSG Wismut Aue",
+        "lsbNumber": "440555",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
         }
       },
       {
@@ -30189,6 +30209,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "65036673",
+        "name": "VSG KiLa",
+        "lsbNumber": null,
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -31642,6 +31672,16 @@
         }
       },
       {
+        "id": "6410",
+        "name": "SV Blau-Weiß Dingden e.V.",
+        "lsbNumber": "1503007",
+        "internalSportsclubId": "1403",
+        "association": {
+          "id": "33298901",
+          "name": "Wesel"
+        }
+      },
+      {
         "id": "37948277",
         "name": "1. BC Halle-Kröllwitz e.V.",
         "lsbNumber": "140086",
@@ -31659,16 +31699,6 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "6410",
-        "name": "SV Blau-Weiß Dingden e.V.",
-        "lsbNumber": "1503007",
-        "internalSportsclubId": "1403",
-        "association": {
-          "id": "33298901",
-          "name": "Wesel"
         }
       },
       {
@@ -33332,6 +33362,16 @@
         }
       },
       {
+        "id": "37920752",
+        "name": "Sportverein Heiligenhaus e.V.",
+        "lsbNumber": "1203020",
+        "internalSportsclubId": "5302",
+        "association": {
+          "id": "33299074",
+          "name": "Wupper-Mettmann"
+        }
+      },
+      {
         "id": "37922031",
         "name": "Allgemeiner Sportverein Wuppertal e.V.",
         "lsbNumber": "1010008",
@@ -33499,16 +33539,6 @@
         "association": {
           "id": "33795261",
           "name": "Köln"
-        }
-      },
-      {
-        "id": "37920752",
-        "name": "Sportverein Heiligenhaus e.V.",
-        "lsbNumber": "1203020",
-        "internalSportsclubId": "5302",
-        "association": {
-          "id": "33299074",
-          "name": "Wupper-Mettmann"
         }
       },
       {
@@ -34712,6 +34742,16 @@
         }
       },
       {
+        "id": "37921018",
+        "name": "Deutzer TV 1878 e.V.",
+        "lsbNumber": "2003022",
+        "internalSportsclubId": "8503",
+        "association": {
+          "id": "33795261",
+          "name": "Köln"
+        }
+      },
+      {
         "id": "56091057",
         "name": "Egelner Sportverein Germania e.V.",
         "lsbNumber": "60033",
@@ -34779,16 +34819,6 @@
         "association": {
           "id": "33298881",
           "name": "Kleve"
-        }
-      },
-      {
-        "id": "37921018",
-        "name": "Deutzer TV 1878 e.V.",
-        "lsbNumber": "2003022",
-        "internalSportsclubId": "8503",
-        "association": {
-          "id": "33795261",
-          "name": "Köln"
         }
       },
       {
@@ -38872,16 +38902,6 @@
         }
       },
       {
-        "id": "50621481",
-        "name": "Hennersdorfer SV e.V.",
-        "lsbNumber": "480093",
-        "internalSportsclubId": "429",
-        "association": {
-          "id": "24908672",
-          "name": "Landkreis Mittelsachsen"
-        }
-      },
-      {
         "id": "54611270",
         "name": "TSV Haiterbach",
         "lsbNumber": "5052",
@@ -39802,16 +39822,6 @@
         }
       },
       {
-        "id": "50621466",
-        "name": "Röthaer Sportverein e.V.",
-        "lsbNumber": "880152",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7213",
-          "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
         "id": "50621467",
         "name": "Radeberg Volleyballteam",
         "lsbNumber": "872",
@@ -39919,6 +39929,16 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
+        }
+      },
+      {
+        "id": "50621466",
+        "name": "Röthaer Sportverein e.V.",
+        "lsbNumber": "880152",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
         }
       },
       {
@@ -44242,6 +44262,16 @@
         }
       },
       {
+        "id": "54610783",
+        "name": "TSV Talheim",
+        "lsbNumber": "10159",
+        "internalSportsclubId": "123",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
+        }
+      },
+      {
         "id": "50621985",
         "name": "SV Coschütz e.V.",
         "lsbNumber": "100000009",
@@ -44269,16 +44299,6 @@
         "association": {
           "id": "24908790",
           "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
-        }
-      },
-      {
-        "id": "54610783",
-        "name": "TSV Talheim",
-        "lsbNumber": "10159",
-        "internalSportsclubId": "123",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
         }
       },
       {
@@ -49262,16 +49282,6 @@
         }
       },
       {
-        "id": "961599",
-        "name": "Eintracht Frankfurt",
-        "lsbNumber": "24048",
-        "internalSportsclubId": "5401",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "65036457",
         "name": "TV Ichenheim",
         "lsbNumber": "471420",
@@ -49279,6 +49289,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "961599",
+        "name": "Eintracht Frankfurt",
+        "lsbNumber": "24048",
+        "internalSportsclubId": "5401",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -62012,6 +62032,16 @@
         }
       },
       {
+        "id": "9241572",
+        "name": "VfB Friedrichshafen",
+        "lsbNumber": "4021",
+        "internalSportsclubId": "355",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
+        }
+      },
+      {
         "id": "53311687",
         "name": "VfL Sindelfingen",
         "lsbNumber": "3111",
@@ -62169,16 +62199,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "9241572",
-        "name": "VfB Friedrichshafen",
-        "lsbNumber": "4021",
-        "internalSportsclubId": "355",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
         }
       },
       {
@@ -62499,16 +62519,6 @@
         "association": {
           "id": "26249243",
           "name": "Kreisverband Nord-Ost"
-        }
-      },
-      {
-        "id": "16610338",
-        "name": "Marzahner Volleyballclub e.V.",
-        "lsbNumber": "2298",
-        "internalSportsclubId": "14-11-165",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -62852,16 +62862,6 @@
         }
       },
       {
-        "id": "50622016",
-        "name": "VfB Görlitz i.L.",
-        "lsbNumber": "450345",
-        "internalSportsclubId": "257",
-        "association": {
-          "id": "24908944",
-          "name": "Landkreis Görlitz"
-        }
-      },
-      {
         "id": "65036685",
         "name": "SG Sinsheim/Helmstadt",
         "lsbNumber": null,
@@ -62899,6 +62899,16 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
+        "id": "50622016",
+        "name": "VfB Görlitz i.L.",
+        "lsbNumber": "450345",
+        "internalSportsclubId": "257",
+        "association": {
+          "id": "24908944",
+          "name": "Landkreis Görlitz"
         }
       },
       {
@@ -63122,16 +63132,6 @@
         }
       },
       {
-        "id": "1004708",
-        "name": "Post Telekom SV 1925 Aachen e.V.",
-        "lsbNumber": "2001029",
-        "internalSportsclubId": "10134",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
-        }
-      },
-      {
         "id": "37921238",
         "name": "SG VfV Aachen Vaalserquartier e.V",
         "lsbNumber": "2001178",
@@ -63159,6 +63159,16 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
+        }
+      },
+      {
+        "id": "1004708",
+        "name": "Post Telekom SV 1925 Aachen e.V.",
+        "lsbNumber": "2001029",
+        "internalSportsclubId": "10134",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
