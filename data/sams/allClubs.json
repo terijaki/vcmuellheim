@@ -1832,16 +1832,6 @@
         }
       },
       {
-        "id": "6448",
-        "name": "VfL Lintorf",
-        "lsbNumber": "304472560",
-        "internalSportsclubId": "11201",
-        "association": {
-          "id": "7223",
-          "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
         "id": "37920725",
         "name": "TV Rheinbach 1905 e.V.",
         "lsbNumber": "2812001",
@@ -1929,6 +1919,16 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "6448",
+        "name": "VfL Lintorf",
+        "lsbNumber": "304472560",
+        "internalSportsclubId": "11201",
+        "association": {
+          "id": "7223",
+          "name": "Nordwestdeutscher Volleyball-Verband e.V."
         }
       },
       {
@@ -16452,16 +16452,6 @@
         }
       },
       {
-        "id": "26925271",
-        "name": "IG Rettungsdienst Walldorf",
-        "lsbNumber": "37164",
-        "internalSportsclubId": "3716",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "26925263",
         "name": "TUS Merzhausen",
         "lsbNumber": "0",
@@ -24162,16 +24152,6 @@
         }
       },
       {
-        "id": "37920966",
-        "name": "TuS Rheindorf 1892 e.V.",
-        "lsbNumber": "2004028",
-        "internalSportsclubId": "6205",
-        "association": {
-          "id": "33795544",
-          "name": "Leverkusen-Rhein-Berg"
-        }
-      },
-      {
         "id": "37922065",
         "name": "TG Bochum 1884 e.V.",
         "lsbNumber": "5001027",
@@ -26312,20 +26292,20 @@
         }
       },
       {
-        "id": "37921346",
-        "name": "TSV Schwarz-Weiß Radevormwald e.V.",
-        "lsbNumber": "2609006",
-        "internalSportsclubId": "10159",
+        "id": "37921996",
+        "name": "Volleyball Club Wiehl 2006 e.V.",
+        "lsbNumber": "2612038",
+        "internalSportsclubId": "9301",
         "association": {
           "id": "33795588",
           "name": "Oberberg"
         }
       },
       {
-        "id": "37921996",
-        "name": "Volleyball Club Wiehl 2006 e.V.",
-        "lsbNumber": "2612038",
-        "internalSportsclubId": "9301",
+        "id": "37921346",
+        "name": "TSV Schwarz-Weiß Radevormwald e.V.",
+        "lsbNumber": "2609006",
+        "internalSportsclubId": "10159",
         "association": {
           "id": "33795588",
           "name": "Oberberg"
@@ -28212,16 +28192,6 @@
         }
       },
       {
-        "id": "37921152",
-        "name": "TG Einigkeit 1912 Selm e.V.",
-        "lsbNumber": "5708010",
-        "internalSportsclubId": "54",
-        "association": {
-          "id": "33797802",
-          "name": "Unna"
-        }
-      },
-      {
         "id": "37948235",
         "name": "VfL Ilberstedt e.V.",
         "lsbNumber": "60172",
@@ -29442,16 +29412,6 @@
         }
       },
       {
-        "id": "75228801",
-        "name": "BSG Wismut Aue",
-        "lsbNumber": "440555",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7213",
-          "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
         "id": "37948363",
         "name": "SV Grün-Weiß 1926 Süplingen e.V.",
         "lsbNumber": "30198",
@@ -29549,6 +29509,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "75228801",
+        "name": "BSG Wismut Aue e.V.",
+        "lsbNumber": "440555",
+        "internalSportsclubId": "553",
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
         }
       },
       {
@@ -31182,6 +31152,16 @@
         }
       },
       {
+        "id": "37948597",
+        "name": "SG Dessau-Kühnau e.V.",
+        "lsbNumber": "130008",
+        "internalSportsclubId": "130008",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "37948566",
         "name": "TSV Stahl Rothenburg e.V.",
         "lsbNumber": "100192",
@@ -31296,16 +31276,6 @@
         "name": "MTV 1887 Welsleben e.V.",
         "lsbNumber": "60245",
         "internalSportsclubId": "60245",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "37948597",
-        "name": "SG Dessau-Kühnau e.V.",
-        "lsbNumber": "130008",
-        "internalSportsclubId": "130008",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -31912,6 +31882,16 @@
         }
       },
       {
+        "id": "75280617",
+        "name": "PSV Basdorf",
+        "lsbNumber": "600077",
+        "internalSportsclubId": "600077",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "26925636",
         "name": "TSV 1850/09 Korbach",
         "lsbNumber": "47085",
@@ -31929,6 +31909,16 @@
         "association": {
           "id": "33797282",
           "name": "Vest"
+        }
+      },
+      {
+        "id": "26925271",
+        "name": "IG Rettungsdienst Walldorf",
+        "lsbNumber": "37164",
+        "internalSportsclubId": "3716",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -32692,6 +32682,16 @@
         }
       },
       {
+        "id": "37920966",
+        "name": "TuS Rheindorf 1892 e.V.",
+        "lsbNumber": "2004028",
+        "internalSportsclubId": "6205",
+        "association": {
+          "id": "33795544",
+          "name": "Leverkusen-Rhein-Berg"
+        }
+      },
+      {
         "id": "37920923",
         "name": "Aachen-Laurensberger Volleyball-Club eV",
         "lsbNumber": "2001281",
@@ -32829,6 +32829,16 @@
         "association": {
           "id": "33795203",
           "name": "Aachen-Düren-Heinsberg"
+        }
+      },
+      {
+        "id": "37921152",
+        "name": "TG Einigkeit 1912 Selm e.V.",
+        "lsbNumber": "5708010",
+        "internalSportsclubId": "54",
+        "association": {
+          "id": "33797802",
+          "name": "Unna"
         }
       },
       {
@@ -33192,6 +33202,16 @@
         }
       },
       {
+        "id": "37922008",
+        "name": "Werdener TB v. 1886 e.V.",
+        "lsbNumber": "1003143",
+        "internalSportsclubId": "5510",
+        "association": {
+          "id": "33299056",
+          "name": "Essen"
+        }
+      },
+      {
         "id": "37921878",
         "name": "SV Eintracht Bochum-Grumme 1919 e.V.",
         "lsbNumber": "5001033",
@@ -33209,16 +33229,6 @@
         "association": {
           "id": "33298901",
           "name": "Wesel"
-        }
-      },
-      {
-        "id": "37922008",
-        "name": "Werdener TB v. 1886 e.V.",
-        "lsbNumber": "1003143",
-        "internalSportsclubId": "5510",
-        "association": {
-          "id": "33299056",
-          "name": "Essen"
         }
       },
       {
@@ -34752,16 +34762,6 @@
         }
       },
       {
-        "id": "56091057",
-        "name": "Egelner Sportverein Germania e.V.",
-        "lsbNumber": "60033",
-        "internalSportsclubId": "60033",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37921743",
         "name": "Vereinigte Turnerschaft Kempen 1859 e.V.",
         "lsbNumber": "1403010",
@@ -34809,6 +34809,16 @@
         "association": {
           "id": "33797300",
           "name": "Münster"
+        }
+      },
+      {
+        "id": "56091057",
+        "name": "Egelner Sportverein Germania e.V.",
+        "lsbNumber": "60033",
+        "internalSportsclubId": "60033",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -35072,6 +35082,16 @@
         }
       },
       {
+        "id": "37948515",
+        "name": "SG Einheit Halle e.V.",
+        "lsbNumber": "140010",
+        "internalSportsclubId": "140010",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "26819052",
         "name": "SV Concordia Lauchröden e.V.",
         "lsbNumber": "470014",
@@ -35179,16 +35199,6 @@
         "association": {
           "id": "26249225",
           "name": "Kreisverband Nord"
-        }
-      },
-      {
-        "id": "37948515",
-        "name": "SG Einheit Halle e.V.",
-        "lsbNumber": "140010",
-        "internalSportsclubId": "140010",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -44512,6 +44522,16 @@
         }
       },
       {
+        "id": "58304671",
+        "name": "NetzWerk e.V.",
+        "lsbNumber": "1111111110000030",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
         "id": "50622014",
         "name": "SV Union Milkau e.V.",
         "lsbNumber": "480324",
@@ -44659,16 +44679,6 @@
         "association": {
           "id": "7215",
           "name": "Bayerischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "58304671",
-        "name": "NetzWerk e.V.",
-        "lsbNumber": "1111111110000030",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7213",
-          "name": "Sächsischer Sportverband Volleyball e.V."
         }
       },
       {
@@ -45452,6 +45462,16 @@
         }
       },
       {
+        "id": "50621768",
+        "name": "SV Liebertwolkwitz e.V.",
+        "lsbNumber": "420361",
+        "internalSportsclubId": "69",
+        "association": {
+          "id": "24908890",
+          "name": "Stadt Leipzig"
+        }
+      },
+      {
         "id": "54610867",
         "name": "TSG Hofherrnweiler",
         "lsbNumber": "13016",
@@ -45526,16 +45546,6 @@
         "name": "SV Energetik 1960 Leipzig e.V.",
         "lsbNumber": "420023",
         "internalSportsclubId": "92",
-        "association": {
-          "id": "24908890",
-          "name": "Stadt Leipzig"
-        }
-      },
-      {
-        "id": "50621768",
-        "name": "SV Liebertwolkwitz e.V.",
-        "lsbNumber": "420361",
-        "internalSportsclubId": "69",
         "association": {
           "id": "24908890",
           "name": "Stadt Leipzig"
@@ -52082,16 +52092,6 @@
         }
       },
       {
-        "id": "54610959",
-        "name": "TV Weiler",
-        "lsbNumber": "15116",
-        "internalSportsclubId": "310",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "51836457",
         "name": "TuS Monzingen 1904",
         "lsbNumber": "1000449",
@@ -52129,6 +52129,16 @@
         "association": {
           "id": "25383414",
           "name": "Volleyball-Verband Pfalz"
+        }
+      },
+      {
+        "id": "54610959",
+        "name": "TV Weiler",
+        "lsbNumber": "15116",
+        "internalSportsclubId": "310",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       },
       {
@@ -56412,6 +56422,16 @@
         }
       },
       {
+        "id": "37948475",
+        "name": "FSV 1895 Magdeburg e.V.",
+        "lsbNumber": "120004",
+        "internalSportsclubId": "120004",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "26925349",
         "name": "TG Bornheim 1860",
         "lsbNumber": "24007",
@@ -56456,16 +56476,6 @@
         "name": "Chemie Volley Mitteldeutschland e.V.",
         "lsbNumber": "100128",
         "internalSportsclubId": "100128",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "37948475",
-        "name": "FSV 1895 Magdeburg e.V.",
-        "lsbNumber": "120004",
-        "internalSportsclubId": "120004",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -59792,6 +59802,16 @@
         }
       },
       {
+        "id": "26925388",
+        "name": "TV 1861 Sontra",
+        "lsbNumber": "43088",
+        "internalSportsclubId": "4502",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
         "id": "26925693",
         "name": "TSV 1882 Raunheim e.V.",
         "lsbNumber": "37104",
@@ -59929,16 +59949,6 @@
         "association": {
           "id": "33299074",
           "name": "Wupper-Mettmann"
-        }
-      },
-      {
-        "id": "26925388",
-        "name": "TV 1861 Sontra",
-        "lsbNumber": "43088",
-        "internalSportsclubId": "4502",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -63132,16 +63142,6 @@
         }
       },
       {
-        "id": "37921238",
-        "name": "SG VfV Aachen Vaalserquartier e.V",
-        "lsbNumber": "2001178",
-        "internalSportsclubId": "306",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
-        }
-      },
-      {
         "id": "70031167",
         "name": "Sport- und Spielverein Jüterbog 1990 e.V.",
         "lsbNumber": "720039",
@@ -63149,6 +63149,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "37921238",
+        "name": "SG VfV Aachen Vaalserquartier e.V",
+        "lsbNumber": "2001178",
+        "internalSportsclubId": "306",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
