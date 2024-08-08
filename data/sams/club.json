@@ -138,8 +138,8 @@
             "name": "Bezirksliga Herren Süd",
             "shortName": "bzl s h",
             "type": "League",
-            "updated": "2024-08-02 12:35:17.024",
-            "structureUpdated": "2024-08-02 12:35:17.024",
+            "updated": "2024-08-06 21:04:40.236",
+            "structureUpdated": "2024-08-06 21:04:40.236",
             "resultsUpdated": "2024-08-02 12:34:12.823",
             "season": {
               "id": "70098350",
@@ -411,8 +411,8 @@
             "name": "Herren TOP-Ligen (OL und höher)",
             "shortName": "hp_top",
             "type": "Competition",
-            "updated": "2024-08-05 13:16:30.033",
-            "structureUpdated": "2024-07-05 08:40:13.474",
+            "updated": "2024-08-06 13:12:03.526",
+            "structureUpdated": "2024-08-06 13:12:03.526",
             "resultsUpdated": null,
             "season": {
               "id": "70098350",
