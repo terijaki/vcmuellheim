@@ -8902,16 +8902,6 @@
         }
       },
       {
-        "id": "1065645",
-        "name": "1. VC Parchim",
-        "lsbNumber": "761473",
-        "internalSportsclubId": "761473",
-        "association": {
-          "id": "7209",
-          "name": "Volleyballverband Mecklenburg-Vorpommern"
-        }
-      },
-      {
         "id": "26846555",
         "name": "Sport-und Freizeitverein Ostkreuz e.V.",
         "lsbNumber": "3847",
@@ -27772,16 +27762,6 @@
         }
       },
       {
-        "id": "37922049",
-        "name": "Turnerbund 1862 Burgsteinfurt e.V.",
-        "lsbNumber": "3521002",
-        "internalSportsclubId": "2507",
-        "association": {
-          "id": "33797208",
-          "name": "Steinfurt"
-        }
-      },
-      {
         "id": "37920883",
         "name": "TuS Graf KobboTecklenburg e.V.",
         "lsbNumber": "3522005",
@@ -31202,6 +31182,16 @@
         }
       },
       {
+        "id": "37948581",
+        "name": "SG Schafstädt 99 e.V.",
+        "lsbNumber": "100135",
+        "internalSportsclubId": "100135",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "37948568",
         "name": "Eckartsbergaer Volleyballclub 1968 e.V.",
         "lsbNumber": "110307",
@@ -31246,16 +31236,6 @@
         "name": "MTV 1887 Welsleben e.V.",
         "lsbNumber": "60245",
         "internalSportsclubId": "60245",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "37948581",
-        "name": "SG Schafstädt 99 e.V.",
-        "lsbNumber": "100135",
-        "internalSportsclubId": "100135",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -36242,6 +36222,16 @@
         }
       },
       {
+        "id": "37922049",
+        "name": "Turnerbund 1862 Burgsteinfurt e.V.",
+        "lsbNumber": "3521002",
+        "internalSportsclubId": "2507",
+        "association": {
+          "id": "33797208",
+          "name": "Steinfurt"
+        }
+      },
+      {
         "id": "26925752",
         "name": "TV 1889 Gedern",
         "lsbNumber": "26054",
@@ -36462,6 +36452,16 @@
         }
       },
       {
+        "id": "1065645",
+        "name": "1. VC Parchim",
+        "lsbNumber": "761473",
+        "internalSportsclubId": "761473",
+        "association": {
+          "id": "7209",
+          "name": "Volleyballverband Mecklenburg-Vorpommern"
+        }
+      },
+      {
         "id": "26925375",
         "name": "KSV Baunatal e.V.",
         "lsbNumber": "41002",
@@ -36599,6 +36599,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "21870350",
+        "name": "Krostitzer SV e.V.",
+        "lsbNumber": "490073",
+        "internalSportsclubId": "47",
+        "association": {
+          "id": "24908869",
+          "name": "Landkreis Nordsachsen"
         }
       },
       {
@@ -42142,16 +42152,6 @@
         }
       },
       {
-        "id": "50621731",
-        "name": "L.O. Volleys e.V.",
-        "lsbNumber": "520399",
-        "internalSportsclubId": "537",
-        "association": {
-          "id": "24908690",
-          "name": "Landkreis Zwickau/Erzgebirge"
-        }
-      },
-      {
         "id": "50621733",
         "name": "SV Oberschöna 1902 e.V.",
         "lsbNumber": "480312",
@@ -42279,6 +42279,16 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "50621731",
+        "name": "L.O. Volleys e.V.",
+        "lsbNumber": "520399",
+        "internalSportsclubId": "537",
+        "association": {
+          "id": "24908690",
+          "name": "Landkreis Zwickau/Erzgebirge"
         }
       },
       {
@@ -45872,6 +45882,16 @@
         }
       },
       {
+        "id": "50621456",
+        "name": "Postsportverein Leipzig e.V.",
+        "lsbNumber": "1000008",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "24908890",
+          "name": "Stadt Leipzig"
+        }
+      },
+      {
         "id": "54610907",
         "name": "TSV Ottenbach",
         "lsbNumber": "8117",
@@ -45959,16 +45979,6 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
-        }
-      },
-      {
-        "id": "50621456",
-        "name": "Postsportverein Leipzig e.V.",
-        "lsbNumber": "1000008",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "24908890",
-          "name": "Stadt Leipzig"
         }
       },
       {
@@ -57399,16 +57409,6 @@
         "association": {
           "id": "24908926",
           "name": "Landkreis Bautzen"
-        }
-      },
-      {
-        "id": "21870350",
-        "name": "Krostitzer SV e.V.",
-        "lsbNumber": "490073",
-        "internalSportsclubId": "47",
-        "association": {
-          "id": "24908869",
-          "name": "Landkreis Nordsachsen"
         }
       },
       {
