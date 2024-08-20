@@ -11862,16 +11862,6 @@
         }
       },
       {
-        "id": "74672245",
-        "name": "BSC Eintracht/Südring 1931 e.V.",
-        "lsbNumber": "10628",
-        "internalSportsclubId": "14-11-239",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "26846474",
         "name": "Sportgemeinschaft Medizin Friedrichshain e.V.",
         "lsbNumber": "3704",
@@ -12449,16 +12439,6 @@
         "association": {
           "id": "33798121",
           "name": "Soest"
-        }
-      },
-      {
-        "id": "37921504",
-        "name": "Bürger-Schützen-Verein zu Wesel e.V.",
-        "lsbNumber": "1512019",
-        "internalSportsclubId": "1354",
-        "association": {
-          "id": "33298901",
-          "name": "Wesel"
         }
       },
       {
@@ -15472,6 +15452,16 @@
         }
       },
       {
+        "id": "37921939",
+        "name": "SSG Düsseldorf e.V.",
+        "lsbNumber": "1001323",
+        "internalSportsclubId": "1375",
+        "association": {
+          "id": "33299092",
+          "name": "Düsseldorf"
+        }
+      },
+      {
         "id": "26925153",
         "name": "VSW Wetzlar",
         "lsbNumber": "0",
@@ -15579,16 +15569,6 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
-        }
-      },
-      {
-        "id": "37921939",
-        "name": "SSG Düsseldorf e.V.",
-        "lsbNumber": "1001323",
-        "internalSportsclubId": "1375",
-        "association": {
-          "id": "33299092",
-          "name": "Düsseldorf"
         }
       },
       {
@@ -20222,6 +20202,16 @@
         }
       },
       {
+        "id": "37921473",
+        "name": "TV Rhede 1925 e.V.",
+        "lsbNumber": "3112004",
+        "internalSportsclubId": "513",
+        "association": {
+          "id": "33797190",
+          "name": "Borken"
+        }
+      },
+      {
         "id": "26925710",
         "name": "TUSPO Grebenstein e.V.",
         "lsbNumber": "49022",
@@ -20339,16 +20329,6 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
-        "id": "37921473",
-        "name": "TV Rhede 1925 e.V.",
-        "lsbNumber": "3112004",
-        "internalSportsclubId": "513",
-        "association": {
-          "id": "33797190",
-          "name": "Borken"
         }
       },
       {
@@ -21242,16 +21222,6 @@
         }
       },
       {
-        "id": "37921268",
-        "name": "Turn- u. Sportvereinigung1884/1910 Bergeborbeck e.V.",
-        "lsbNumber": "1003302",
-        "internalSportsclubId": "5524",
-        "association": {
-          "id": "33299056",
-          "name": "Essen"
-        }
-      },
-      {
         "id": "37922046",
         "name": "TV Jahn 1894 Dortmund e.V.",
         "lsbNumber": "5002086",
@@ -21279,6 +21249,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "37921268",
+        "name": "Turn- u. Sportvereinigung1884/1910 Bergeborbeck e.V.",
+        "lsbNumber": "1003302",
+        "internalSportsclubId": "5524",
+        "association": {
+          "id": "33299056",
+          "name": "Essen"
         }
       },
       {
@@ -22422,16 +22402,6 @@
         }
       },
       {
-        "id": "37920797",
-        "name": "TV Dalhausen 1913 e.V.",
-        "lsbNumber": "4302005",
-        "internalSportsclubId": "594",
-        "association": {
-          "id": "33797762",
-          "name": "Höxter"
-        }
-      },
-      {
         "id": "37920824",
         "name": "SSV Germania Wehrden e.V.",
         "lsbNumber": "4302012",
@@ -22622,16 +22592,6 @@
         }
       },
       {
-        "id": "37921006",
-        "name": "TuS von 1897 Amelunxen e.V.",
-        "lsbNumber": "4302011",
-        "internalSportsclubId": "9241",
-        "association": {
-          "id": "33797762",
-          "name": "Höxter"
-        }
-      },
-      {
         "id": "37920753",
         "name": "CVJM Rothenuffeln/Haddenhausen",
         "lsbNumber": "4503030",
@@ -22642,6 +22602,16 @@
         }
       },
       {
+        "id": "37921006",
+        "name": "TuS von 1897 Amelunxen e.V.",
+        "lsbNumber": "4302011",
+        "internalSportsclubId": "9241",
+        "association": {
+          "id": "33797762",
+          "name": "Höxter"
+        }
+      },
+      {
         "id": "51836183",
         "name": "TSG 1861 Grünstadt",
         "lsbNumber": "22",
@@ -22649,16 +22619,6 @@
         "association": {
           "id": "25383414",
           "name": "Volleyball-Verband Pfalz"
-        }
-      },
-      {
-        "id": "37921700",
-        "name": "S.V. Borussia Darup 1924 e.V.",
-        "lsbNumber": "3208005",
-        "internalSportsclubId": "10082",
-        "association": {
-          "id": "33797226",
-          "name": "Coesfeld"
         }
       },
       {
@@ -22922,16 +22882,6 @@
         }
       },
       {
-        "id": "37921951",
-        "name": "ASG Porz e.V.",
-        "lsbNumber": "2003519",
-        "internalSportsclubId": "855",
-        "association": {
-          "id": "33795261",
-          "name": "Köln"
-        }
-      },
-      {
         "id": "37921896",
         "name": "VC Rosenmaar",
         "lsbNumber": "2006037",
@@ -23132,16 +23082,6 @@
         }
       },
       {
-        "id": "37921301",
-        "name": "Turner-Club 1874 Gelsenkirchen e.V.",
-        "lsbNumber": "3002081",
-        "internalSportsclubId": "1701",
-        "association": {
-          "id": "33797282",
-          "name": "Vest"
-        }
-      },
-      {
         "id": "37920744",
         "name": "Playa e.V.",
         "lsbNumber": "2003653",
@@ -23289,6 +23229,16 @@
         "association": {
           "id": "33795261",
           "name": "Köln"
+        }
+      },
+      {
+        "id": "37921301",
+        "name": "Turner-Club 1874 Gelsenkirchen e.V.",
+        "lsbNumber": "3002081",
+        "internalSportsclubId": "1701",
+        "association": {
+          "id": "33797282",
+          "name": "Vest"
         }
       },
       {
@@ -24082,16 +24032,6 @@
         }
       },
       {
-        "id": "37921568",
-        "name": "VfL Lieme e.V.",
-        "lsbNumber": "4411021",
-        "internalSportsclubId": "681",
-        "association": {
-          "id": "33797741",
-          "name": "Lippe"
-        }
-      },
-      {
         "id": "37921077",
         "name": "Volleyballclub Reken 1974 e.V.",
         "lsbNumber": "3111001",
@@ -24226,6 +24166,16 @@
         "name": "TSV Bösingfeld e.V.",
         "lsbNumber": "4407012",
         "internalSportsclubId": "3904",
+        "association": {
+          "id": "33797741",
+          "name": "Lippe"
+        }
+      },
+      {
+        "id": "37921568",
+        "name": "VfL Lieme e.V.",
+        "lsbNumber": "4411021",
+        "internalSportsclubId": "681",
         "association": {
           "id": "33797741",
           "name": "Lippe"
@@ -24932,10 +24882,10 @@
         }
       },
       {
-        "id": "37921495",
-        "name": "HSC Alswede von 1946 e.V.",
-        "lsbNumber": "4505003",
-        "internalSportsclubId": "9279",
+        "id": "37921723",
+        "name": "CVJM Lübbecke e.V.",
+        "lsbNumber": "4505009",
+        "internalSportsclubId": "10218",
         "association": {
           "id": "33797702",
           "name": "Minden-Ravensberg"
@@ -25029,16 +24979,6 @@
         "association": {
           "id": "33299130",
           "name": "Mönchengladbach"
-        }
-      },
-      {
-        "id": "37921723",
-        "name": "CVJM Lübbecke e.V.",
-        "lsbNumber": "4505009",
-        "internalSportsclubId": "10218",
-        "association": {
-          "id": "33797702",
-          "name": "Minden-Ravensberg"
         }
       },
       {
@@ -27352,6 +27292,16 @@
         }
       },
       {
+        "id": "37921085",
+        "name": "Verein z. Hilfe f.Aussiedler u. Spätaussiedler-Freundschaft-Druschba e.V.",
+        "lsbNumber": "4415025",
+        "internalSportsclubId": "10207",
+        "association": {
+          "id": "33797741",
+          "name": "Lippe"
+        }
+      },
+      {
         "id": "30226894",
         "name": "TV F.A. Dresselndorf e.V.",
         "lsbNumber": "5502004",
@@ -27412,16 +27362,6 @@
         }
       },
       {
-        "id": "37921085",
-        "name": "Verein z. Hilfe f.Aussiedler u. Spätaussiedler-Freundschaft-Druschba e.V.",
-        "lsbNumber": "4415025",
-        "internalSportsclubId": "10207",
-        "association": {
-          "id": "33797741",
-          "name": "Lippe"
-        }
-      },
-      {
         "id": "37948541",
         "name": "SV 1950 Schrenz e.V.",
         "lsbNumber": "70024",
@@ -27469,6 +27409,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "37921003",
+        "name": "TuS Belecke 1899/1945 e.V.",
+        "lsbNumber": "5611019",
+        "internalSportsclubId": "9028",
+        "association": {
+          "id": "33798121",
+          "name": "Soest"
         }
       },
       {
@@ -27679,16 +27629,6 @@
         "association": {
           "id": "7215",
           "name": "Bayerischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "37921003",
-        "name": "TuS Belecke 1899/1945 e.V.",
-        "lsbNumber": "5611019",
-        "internalSportsclubId": "9028",
-        "association": {
-          "id": "33798121",
-          "name": "Soest"
         }
       },
       {
@@ -27912,16 +27852,6 @@
         }
       },
       {
-        "id": "37921091",
-        "name": "Ski-Klub Soest e.V.",
-        "lsbNumber": "5610007",
-        "internalSportsclubId": "9247",
-        "association": {
-          "id": "33798121",
-          "name": "Soest"
-        }
-      },
-      {
         "id": "37921538",
         "name": "SC 28 Nordwalde e.V.",
         "lsbNumber": "3516001",
@@ -28119,6 +28049,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "37921091",
+        "name": "Ski-Klub Soest e.V.",
+        "lsbNumber": "5610007",
+        "internalSportsclubId": "9247",
+        "association": {
+          "id": "33798121",
+          "name": "Soest"
         }
       },
       {
@@ -31552,16 +31492,6 @@
         }
       },
       {
-        "id": "26925532",
-        "name": "VC Ober-Roden e.V.",
-        "lsbNumber": "29153",
-        "internalSportsclubId": "1604",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "37921114",
         "name": "Kirchhörder Sportclub 58 e.V.",
         "lsbNumber": "5002187",
@@ -31752,16 +31682,6 @@
         }
       },
       {
-        "id": "37921784",
-        "name": "DJK Rot-Weiß Alverskirchen e.V.",
-        "lsbNumber": "3306001",
-        "internalSportsclubId": "330",
-        "association": {
-          "id": "33797364",
-          "name": "Warendorf"
-        }
-      },
-      {
         "id": "26925636",
         "name": "TSV 1850/09 Korbach",
         "lsbNumber": "47085",
@@ -31799,16 +31719,6 @@
         "association": {
           "id": "33797282",
           "name": "Vest"
-        }
-      },
-      {
-        "id": "37921681",
-        "name": "NaturFreunde Deutschlands, Verband f. Umschutz,sanften Tourismus, Kultur + Sport",
-        "lsbNumber": "1003414",
-        "internalSportsclubId": "949",
-        "association": {
-          "id": "33299056",
-          "name": "Essen"
         }
       },
       {
@@ -31912,6 +31822,16 @@
         }
       },
       {
+        "id": "37921784",
+        "name": "DJK Rot-Weiß Alverskirchen e.V.",
+        "lsbNumber": "3306001",
+        "internalSportsclubId": "330",
+        "association": {
+          "id": "33797364",
+          "name": "Warendorf"
+        }
+      },
+      {
         "id": "37921890",
         "name": "Sportgemeinschaft Ennigerloh 81 e.V.",
         "lsbNumber": "3305019",
@@ -31962,16 +31882,6 @@
         }
       },
       {
-        "id": "37920762",
-        "name": "Sportverein Diestedde e.V.",
-        "lsbNumber": "3312002",
-        "internalSportsclubId": "1042",
-        "association": {
-          "id": "33797364",
-          "name": "Warendorf"
-        }
-      },
-      {
         "id": "37921120",
         "name": "1. Walsumer Judo-Club 1961 e.V.",
         "lsbNumber": "1002230",
@@ -31979,6 +31889,16 @@
         "association": {
           "id": "33298943",
           "name": "Duisburg"
+        }
+      },
+      {
+        "id": "37920762",
+        "name": "Sportverein Diestedde e.V.",
+        "lsbNumber": "3312002",
+        "internalSportsclubId": "1042",
+        "association": {
+          "id": "33797364",
+          "name": "Warendorf"
         }
       },
       {
@@ -32132,16 +32052,6 @@
         }
       },
       {
-        "id": "37921905",
-        "name": "BSG Stadtverwaltung Wuppertal e.V.",
-        "lsbNumber": "1010847",
-        "internalSportsclubId": "613",
-        "association": {
-          "id": "33299074",
-          "name": "Wupper-Mettmann"
-        }
-      },
-      {
         "id": "26818929",
         "name": "Sportverein Yuko e.V. Saalfeld",
         "lsbNumber": "270208",
@@ -32259,16 +32169,6 @@
         "association": {
           "id": "33797364",
           "name": "Warendorf"
-        }
-      },
-      {
-        "id": "37921202",
-        "name": "Turn- u. Spielverein 1899 Wuppertal e.V.",
-        "lsbNumber": "1010061",
-        "internalSportsclubId": "1099",
-        "association": {
-          "id": "33299074",
-          "name": "Wupper-Mettmann"
         }
       },
       {
@@ -32592,16 +32492,6 @@
         }
       },
       {
-        "id": "37920795",
-        "name": "Universitäts Volleyball Verein Aachen eV",
-        "lsbNumber": "2001232",
-        "internalSportsclubId": "10027",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
-        }
-      },
-      {
         "id": "37921316",
         "name": "Kohlscheider SC 1973 e.V.",
         "lsbNumber": "2104013",
@@ -32659,16 +32549,6 @@
         "association": {
           "id": "25464763",
           "name": "Kreis Ammerland"
-        }
-      },
-      {
-        "id": "37921402",
-        "name": "FC Eintracht 1920 Kornelimünster e.V.",
-        "lsbNumber": "2001094",
-        "internalSportsclubId": "10060",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
@@ -33092,16 +32972,6 @@
         }
       },
       {
-        "id": "37921592",
-        "name": "SV Borussia Veen 1920 e.V.",
-        "lsbNumber": "1501009",
-        "internalSportsclubId": "10138",
-        "association": {
-          "id": "33298901",
-          "name": "Wesel"
-        }
-      },
-      {
         "id": "37921985",
         "name": "SSV Berghausen 1968 e.V.",
         "lsbNumber": "1205002",
@@ -33239,6 +33109,16 @@
         "association": {
           "id": "33795588",
           "name": "Oberberg"
+        }
+      },
+      {
+        "id": "37921592",
+        "name": "SV Borussia Veen 1920 e.V.",
+        "lsbNumber": "1501009",
+        "internalSportsclubId": "10138",
+        "association": {
+          "id": "33298901",
+          "name": "Wesel"
         }
       },
       {
@@ -33722,16 +33602,6 @@
         }
       },
       {
-        "id": "37921525",
-        "name": "CSV Düren e.V.",
-        "lsbNumber": "2202154",
-        "internalSportsclubId": "10161",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
-        }
-      },
-      {
         "id": "39829599",
         "name": "Beachclub-Köln e.V.",
         "lsbNumber": "2003547",
@@ -33812,13 +33682,13 @@
         }
       },
       {
-        "id": "37921995",
-        "name": "Bergischer TV 1892 Wuppertal Ronsdorf Graben e.V.",
-        "lsbNumber": "1010084",
-        "internalSportsclubId": "10155",
+        "id": "37921525",
+        "name": "CSV Düren e.V.",
+        "lsbNumber": "2202154",
+        "internalSportsclubId": "10161",
         "association": {
-          "id": "33299074",
-          "name": "Wupper-Mettmann"
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
@@ -33829,6 +33699,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "37921995",
+        "name": "Bergischer TV 1892 Wuppertal Ronsdorf Graben e.V.",
+        "lsbNumber": "1010084",
+        "internalSportsclubId": "10155",
+        "association": {
+          "id": "33299074",
+          "name": "Wupper-Mettmann"
         }
       },
       {
@@ -39332,16 +39212,6 @@
         }
       },
       {
-        "id": "43006259",
-        "name": "TV Jahn Essen 1899 e.V.",
-        "lsbNumber": "1003196",
-        "internalSportsclubId": "111122223349",
-        "association": {
-          "id": "33299056",
-          "name": "Essen"
-        }
-      },
-      {
         "id": "26925357",
         "name": "TGV 1859 Schotten e.V.",
         "lsbNumber": "20072",
@@ -41322,16 +41192,6 @@
         }
       },
       {
-        "id": "50621642",
-        "name": "WSG Oberreichenbach e.V.",
-        "lsbNumber": "510354",
-        "internalSportsclubId": "441",
-        "association": {
-          "id": "24908726",
-          "name": "Vogtlandkreis"
-        }
-      },
-      {
         "id": "50621640",
         "name": "Sportverein Bautzen e.V.",
         "lsbNumber": "430264",
@@ -42432,6 +42292,16 @@
         }
       },
       {
+        "id": "37921495",
+        "name": "HSC Alswede von 1946 e.V.",
+        "lsbNumber": "4505003",
+        "internalSportsclubId": "9279",
+        "association": {
+          "id": "33797702",
+          "name": "Minden-Ravensberg"
+        }
+      },
+      {
         "id": "50621764",
         "name": "TSV Großhennersdorf e.V.",
         "lsbNumber": "450337",
@@ -42539,6 +42409,16 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "37920795",
+        "name": "Universitäts Volleyball Verein Aachen eV",
+        "lsbNumber": "2001232",
+        "internalSportsclubId": "10027",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
@@ -42839,6 +42719,16 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "37921700",
+        "name": "S.V. Borussia Darup 1924 e.V.",
+        "lsbNumber": "3208005",
+        "internalSportsclubId": "10082",
+        "association": {
+          "id": "33797226",
+          "name": "Coesfeld"
         }
       },
       {
@@ -43219,6 +43109,16 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "37921681",
+        "name": "NaturFreunde Deutschlands, Verband f. Umschutz,sanften Tourismus, Kultur + Sport",
+        "lsbNumber": "1003414",
+        "internalSportsclubId": "949",
+        "association": {
+          "id": "33299056",
+          "name": "Essen"
         }
       },
       {
@@ -43702,16 +43602,6 @@
         }
       },
       {
-        "id": "50621908",
-        "name": "SV Rot-Weiß Knau e.V.",
-        "lsbNumber": "100000005",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7213",
-          "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
         "id": "54610769",
         "name": "GSV Pleidelsheim",
         "lsbNumber": "12175",
@@ -43819,6 +43709,16 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "50621642",
+        "name": "WSG Oberreichenbach e.V.",
+        "lsbNumber": "510354",
+        "internalSportsclubId": "441",
+        "association": {
+          "id": "24908726",
+          "name": "Vogtlandkreis"
         }
       },
       {
@@ -44182,6 +44082,16 @@
         }
       },
       {
+        "id": "43006259",
+        "name": "TV Jahn Essen 1899 e.V.",
+        "lsbNumber": "1003196",
+        "internalSportsclubId": "111122223349",
+        "association": {
+          "id": "33299056",
+          "name": "Essen"
+        }
+      },
+      {
         "id": "50621963",
         "name": "SV Kühnhaide e.V.",
         "lsbNumber": "440380",
@@ -44372,6 +44282,26 @@
         }
       },
       {
+        "id": "37920797",
+        "name": "TV Dalhausen 1913 e.V.",
+        "lsbNumber": "4302005",
+        "internalSportsclubId": "594",
+        "association": {
+          "id": "33797762",
+          "name": "Höxter"
+        }
+      },
+      {
+        "id": "37921402",
+        "name": "FC Eintracht 1920 Kornelimünster e.V.",
+        "lsbNumber": "2001094",
+        "internalSportsclubId": "10060",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
+        }
+      },
+      {
         "id": "50621985",
         "name": "SV Coschütz e.V.",
         "lsbNumber": "100000009",
@@ -44499,6 +44429,16 @@
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
+        }
+      },
+      {
+        "id": "37921951",
+        "name": "ASG Porz e.V.",
+        "lsbNumber": "2003519",
+        "internalSportsclubId": "855",
+        "association": {
+          "id": "33795261",
+          "name": "Köln"
         }
       },
       {
@@ -44842,6 +44782,16 @@
         }
       },
       {
+        "id": "37921202",
+        "name": "Turn- u. Spielverein 1899 Wuppertal e.V.",
+        "lsbNumber": "1010061",
+        "internalSportsclubId": "1099",
+        "association": {
+          "id": "33299074",
+          "name": "Wupper-Mettmann"
+        }
+      },
+      {
         "id": "54610794",
         "name": "TSV Weiler zum Stein",
         "lsbNumber": "15140",
@@ -45122,6 +45072,16 @@
         }
       },
       {
+        "id": "37921504",
+        "name": "Bürger-Schützen-Verein zu Wesel e.V.",
+        "lsbNumber": "1512019",
+        "internalSportsclubId": "1354",
+        "association": {
+          "id": "33298901",
+          "name": "Wesel"
+        }
+      },
+      {
         "id": "54610802",
         "name": "VC 96 Aichtal",
         "lsbNumber": "6379",
@@ -45309,6 +45269,16 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "37921905",
+        "name": "BSG Stadtverwaltung Wuppertal e.V.",
+        "lsbNumber": "1010847",
+        "internalSportsclubId": "613",
+        "association": {
+          "id": "33299074",
+          "name": "Wupper-Mettmann"
         }
       },
       {
@@ -45602,6 +45572,16 @@
         }
       },
       {
+        "id": "26925532",
+        "name": "VC Ober-Roden e.V.",
+        "lsbNumber": "29153",
+        "internalSportsclubId": "1604",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
         "id": "54610863",
         "name": "TSV Heubach",
         "lsbNumber": "13075",
@@ -45782,6 +45762,16 @@
         }
       },
       {
+        "id": "74672245",
+        "name": "BSC Eintracht/Südring 1931 e.V.",
+        "lsbNumber": "10628",
+        "internalSportsclubId": "14-11-239",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
         "id": "54610875",
         "name": "EK Kohlberg",
         "lsbNumber": "6357",
@@ -45949,6 +45939,16 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "50621908",
+        "name": "SV Rot-Weiß Knau e.V.",
+        "lsbNumber": "100000005",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
         }
       },
       {
@@ -54032,16 +54032,6 @@
         }
       },
       {
-        "id": "37921136",
-        "name": "BSG Westfalia Separator",
-        "lsbNumber": "3307800",
-        "internalSportsclubId": "1031",
-        "association": {
-          "id": "33797364",
-          "name": "Warendorf"
-        }
-      },
-      {
         "id": "50621897",
         "name": "SV Borsdorf 1990 e.V.",
         "lsbNumber": "460227",
@@ -54129,6 +54119,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "37921136",
+        "name": "BSG Westfalia Separator",
+        "lsbNumber": "3307800",
+        "internalSportsclubId": "1031",
+        "association": {
+          "id": "33797364",
+          "name": "Warendorf"
         }
       },
       {
@@ -54232,13 +54232,13 @@
         }
       },
       {
-        "id": "37921409",
-        "name": "TV Berchum 1885",
-        "lsbNumber": "5003003",
-        "internalSportsclubId": "939",
+        "id": "37921847",
+        "name": "Volleyball-IG Weiden-Süd",
+        "lsbNumber": "2006007",
+        "internalSportsclubId": "575",
         "association": {
-          "id": "33797867",
-          "name": "Hagen"
+          "id": "33795261",
+          "name": "Köln"
         }
       },
       {
@@ -54352,16 +54352,6 @@
         }
       },
       {
-        "id": "37921847",
-        "name": "Volleyball-IG Weiden-Süd",
-        "lsbNumber": "2006007",
-        "internalSportsclubId": "575",
-        "association": {
-          "id": "33795261",
-          "name": "Köln"
-        }
-      },
-      {
         "id": "51836081",
         "name": "TSG 1886 Mutterstadt",
         "lsbNumber": "56",
@@ -54369,6 +54359,16 @@
         "association": {
           "id": "25383414",
           "name": "Volleyball-Verband Pfalz"
+        }
+      },
+      {
+        "id": "37921409",
+        "name": "TV Berchum 1885",
+        "lsbNumber": "5003003",
+        "internalSportsclubId": "939",
+        "association": {
+          "id": "33797867",
+          "name": "Hagen"
         }
       },
       {
@@ -57352,16 +57352,6 @@
         }
       },
       {
-        "id": "57328107",
-        "name": "IntegraSPORT e.V.",
-        "lsbNumber": "400219",
-        "internalSportsclubId": "550",
-        "association": {
-          "id": "24908654",
-          "name": "Bezirk Chemnitz"
-        }
-      },
-      {
         "id": "20252",
         "name": "Moerser SC 1985 e.V.",
         "lsbNumber": "1506050",
@@ -57399,6 +57389,16 @@
         "association": {
           "id": "24908851",
           "name": "Landkreis Leipzig"
+        }
+      },
+      {
+        "id": "57328107",
+        "name": "IntegraSPORT e.V.",
+        "lsbNumber": "400219",
+        "internalSportsclubId": "550",
+        "association": {
+          "id": "24908654",
+          "name": "Bezirk Chemnitz"
         }
       },
       {
@@ -62902,16 +62902,6 @@
         }
       },
       {
-        "id": "65036685",
-        "name": "SG Sinsheim/Helmstadt",
-        "lsbNumber": null,
-        "internalSportsclubId": "4046342211",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "37921879",
         "name": "SuS Cappel 1929 e.V.",
         "lsbNumber": "5607013",
@@ -62969,6 +62959,16 @@
         "association": {
           "id": "33298901",
           "name": "Wesel"
+        }
+      },
+      {
+        "id": "65036685",
+        "name": "SG Sinsheim/Helmstadt",
+        "lsbNumber": null,
+        "internalSportsclubId": "4046342211",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
