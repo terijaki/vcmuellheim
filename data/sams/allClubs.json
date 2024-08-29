@@ -21642,16 +21642,6 @@
         }
       },
       {
-        "id": "37921917",
-        "name": "Wiedenbrücker Turnverein 1887 e.V.",
-        "lsbNumber": "4107017",
-        "internalSportsclubId": "4503",
-        "association": {
-          "id": "33797382",
-          "name": "Gütersloh-Bielefeld"
-        }
-      },
-      {
         "id": "15371174",
         "name": "Volleyball-Verband Berlin",
         "lsbNumber": "304495548",
@@ -23496,16 +23486,6 @@
         "name": "Turnklub Krefeld 1925 e.V.",
         "lsbNumber": "1004080",
         "internalSportsclubId": "5801",
-        "association": {
-          "id": "33299148",
-          "name": "Krefeld-Viersen"
-        }
-      },
-      {
-        "id": "37921411",
-        "name": "SG Dülken 1860/95 e.V.",
-        "lsbNumber": "1408010",
-        "internalSportsclubId": "831",
         "association": {
           "id": "33299148",
           "name": "Krefeld-Viersen"
@@ -30522,16 +30502,6 @@
         }
       },
       {
-        "id": "37948501",
-        "name": "Sportfreunde Magdeburg e.V.",
-        "lsbNumber": "120220",
-        "internalSportsclubId": "120220",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37948524",
         "name": "Sportgemeinschaft Badel e.V.",
         "lsbNumber": "10008",
@@ -33882,16 +33852,6 @@
         }
       },
       {
-        "id": "37921571",
-        "name": "1. Volleyball-Verein Holzwickede 1986 e.V.",
-        "lsbNumber": "5704020",
-        "internalSportsclubId": "890",
-        "association": {
-          "id": "33797802",
-          "name": "Unna"
-        }
-      },
-      {
         "id": "37921909",
         "name": "Lippstädter TV 1848",
         "lsbNumber": "5607017",
@@ -33912,13 +33872,13 @@
         }
       },
       {
-        "id": "36988125",
-        "name": "Rumelner TV 1900 e.V.",
-        "lsbNumber": "1002177",
-        "internalSportsclubId": "6302",
+        "id": "37921571",
+        "name": "1. Volleyball-Verein Holzwickede 1986 e.V.",
+        "lsbNumber": "5704020",
+        "internalSportsclubId": "890",
         "association": {
-          "id": "33298943",
-          "name": "Duisburg"
+          "id": "33797802",
+          "name": "Unna"
         }
       },
       {
@@ -33969,6 +33929,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "36988125",
+        "name": "Rumelner TV 1900 e.V.",
+        "lsbNumber": "1002177",
+        "internalSportsclubId": "6302",
+        "association": {
+          "id": "33298943",
+          "name": "Duisburg"
         }
       },
       {
@@ -36542,16 +36512,6 @@
         }
       },
       {
-        "id": "37921707",
-        "name": "TG Zur roten Erde Schwelm e.V.",
-        "lsbNumber": "5106020",
-        "internalSportsclubId": "9043",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
         "id": "26866424",
         "name": "SSG Schwarzenholz-Griesborn",
         "lsbNumber": "12348",
@@ -37282,16 +37242,6 @@
         }
       },
       {
-        "id": "6335",
-        "name": "BBSC e.V.",
-        "lsbNumber": "384",
-        "internalSportsclubId": "14-11-191",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "26925284",
         "name": "TV 1911 Eibelshausen",
         "lsbNumber": "15035",
@@ -37376,6 +37326,16 @@
         "name": "Volkssportgemeinschaft Einheit Rüdersdorf e.V.",
         "lsbNumber": "5255",
         "internalSportsclubId": "14-11-108",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "6335",
+        "name": "BBSC e.V.",
+        "lsbNumber": "384",
+        "internalSportsclubId": "14-11-191",
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
@@ -39019,16 +38979,6 @@
         "association": {
           "id": "33798143",
           "name": "Hochsauerlandkreis"
-        }
-      },
-      {
-        "id": "37948260",
-        "name": "SG Buna Halle e.V.",
-        "lsbNumber": "140005",
-        "internalSportsclubId": "140005",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -57792,6 +57742,46 @@
         }
       },
       {
+        "id": "37921917",
+        "name": "Wiedenbrücker Turnverein 1887 e.V.",
+        "lsbNumber": "4107017",
+        "internalSportsclubId": "4503",
+        "association": {
+          "id": "33797382",
+          "name": "Gütersloh-Bielefeld"
+        }
+      },
+      {
+        "id": "37948260",
+        "name": "SG Buna Halle e.V.",
+        "lsbNumber": "140005",
+        "internalSportsclubId": "140005",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "37921411",
+        "name": "SG Dülken 1860/95 e.V.",
+        "lsbNumber": "1408010",
+        "internalSportsclubId": "831",
+        "association": {
+          "id": "33299148",
+          "name": "Krefeld-Viersen"
+        }
+      },
+      {
+        "id": "37921707",
+        "name": "TG Zur roten Erde Schwelm e.V.",
+        "lsbNumber": "5106020",
+        "internalSportsclubId": "9043",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
+        }
+      },
+      {
         "id": "65036574",
         "name": "SG Waldbrunn",
         "lsbNumber": "30349",
@@ -57809,6 +57799,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "37948501",
+        "name": "Sportfreunde Magdeburg e.V.",
+        "lsbNumber": "120220",
+        "internalSportsclubId": "120220",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -58872,16 +58872,6 @@
         }
       },
       {
-        "id": "65036970",
-        "name": "VfL Heiligkreuzsteinach",
-        "lsbNumber": "50669",
-        "internalSportsclubId": "50669",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036971",
         "name": "DJK Sportverband Mannheim",
         "lsbNumber": "60943",
@@ -58909,6 +58899,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65036970",
+        "name": "VfL Heiligkreuzsteinach",
+        "lsbNumber": "50669",
+        "internalSportsclubId": "50669",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -60572,6 +60572,16 @@
         }
       },
       {
+        "id": "65037409",
+        "name": "VSG Kleinsteinbach",
+        "lsbNumber": "82555",
+        "internalSportsclubId": "82555",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "65037391",
         "name": "SV Post-Telekom Offenburg",
         "lsbNumber": "8144281635",
@@ -60649,16 +60659,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65037409",
-        "name": "VSG Kleinsteinbach",
-        "lsbNumber": "82555",
-        "internalSportsclubId": "82555",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
