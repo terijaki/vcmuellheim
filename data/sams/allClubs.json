@@ -20712,16 +20712,6 @@
         }
       },
       {
-        "id": "42961198",
-        "name": "SV Beach",
-        "lsbNumber": "111122223347",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "26925781",
         "name": "TV Harheim 1882",
         "lsbNumber": "0",
@@ -23042,16 +23032,6 @@
         }
       },
       {
-        "id": "26925098",
-        "name": "SF Blau-Gelb Marburg",
-        "lsbNumber": "10090",
-        "internalSportsclubId": "4202",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
         "id": "26819098",
         "name": "Volleyballfreunde Schmalkalden e.V.",
         "lsbNumber": "210153",
@@ -23229,6 +23209,16 @@
         "association": {
           "id": "33795261",
           "name": "Köln"
+        }
+      },
+      {
+        "id": "26925098",
+        "name": "SF Blau-Gelb Marburg",
+        "lsbNumber": "10090",
+        "internalSportsclubId": "4202",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
         }
       },
       {
@@ -24662,16 +24652,6 @@
         }
       },
       {
-        "id": "37921913",
-        "name": "ATSV Espelkamp e.V.",
-        "lsbNumber": "4502002",
-        "internalSportsclubId": "4101",
-        "association": {
-          "id": "33797702",
-          "name": "Minden-Ravensberg"
-        }
-      },
-      {
         "id": "50621481",
         "name": "Hennersdorfer SV e.V.",
         "lsbNumber": "480093",
@@ -24776,6 +24756,16 @@
         "name": "SuS 1920 Holzhausen e.V.",
         "lsbNumber": "4509003",
         "internalSportsclubId": "4108",
+        "association": {
+          "id": "33797702",
+          "name": "Minden-Ravensberg"
+        }
+      },
+      {
+        "id": "37921913",
+        "name": "ATSV Espelkamp e.V.",
+        "lsbNumber": "4502002",
+        "internalSportsclubId": "4101",
         "association": {
           "id": "33797702",
           "name": "Minden-Ravensberg"
@@ -27422,6 +27412,16 @@
         }
       },
       {
+        "id": "26818804",
+        "name": "SV Glückauf e.V. Lehesten",
+        "lsbNumber": "270058",
+        "internalSportsclubId": "20345",
+        "association": {
+          "id": "26249283",
+          "name": "Kreisverband Süd"
+        }
+      },
+      {
         "id": "37921248",
         "name": "Lippstädter Segler e.V.",
         "lsbNumber": "5607072",
@@ -27519,16 +27519,6 @@
         "association": {
           "id": "33797208",
           "name": "Steinfurt"
-        }
-      },
-      {
-        "id": "26818804",
-        "name": "SV Glückauf e.V. Lehesten",
-        "lsbNumber": "270058",
-        "internalSportsclubId": "20345",
-        "association": {
-          "id": "26249283",
-          "name": "Kreisverband Süd"
         }
       },
       {
@@ -29302,6 +29292,16 @@
         }
       },
       {
+        "id": "37948367",
+        "name": "VSG 1988 Salzwedel e.V.",
+        "lsbNumber": "10121",
+        "internalSportsclubId": "10121",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "37948353",
         "name": "SV Aufbau Bernburg e.V.",
         "lsbNumber": "60134",
@@ -29366,16 +29366,6 @@
         "name": "TUS Blau-Weiß Kakerbeck e.V.",
         "lsbNumber": "10048",
         "internalSportsclubId": "10048",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "37948367",
-        "name": "VSG 1988 Salzwedel e.V.",
-        "lsbNumber": "10121",
-        "internalSportsclubId": "10121",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -31592,6 +31582,16 @@
         }
       },
       {
+        "id": "37920948",
+        "name": "TV Einigkeit Ahlen 1919 e.V.",
+        "lsbNumber": "3301005",
+        "internalSportsclubId": "392",
+        "association": {
+          "id": "33797364",
+          "name": "Warendorf"
+        }
+      },
+      {
         "id": "26925636",
         "name": "TSV 1850/09 Korbach",
         "lsbNumber": "47085",
@@ -31689,16 +31689,6 @@
         "association": {
           "id": "33797282",
           "name": "Vest"
-        }
-      },
-      {
-        "id": "37920948",
-        "name": "TV Einigkeit Ahlen 1919 e.V.",
-        "lsbNumber": "3301005",
-        "internalSportsclubId": "392",
-        "association": {
-          "id": "33797364",
-          "name": "Warendorf"
         }
       },
       {
@@ -34782,16 +34772,6 @@
         }
       },
       {
-        "id": "37921531",
-        "name": "TuS Meinerzhagen 1877 e.V.",
-        "lsbNumber": "5309011",
-        "internalSportsclubId": "424",
-        "association": {
-          "id": "33798063",
-          "name": "Märkischer Kreis"
-        }
-      },
-      {
         "id": "37948515",
         "name": "SG Einheit Halle e.V.",
         "lsbNumber": "140010",
@@ -35722,16 +35702,6 @@
         }
       },
       {
-        "id": "26925573",
-        "name": "TSV Taunusstein-Bleidenstadt",
-        "lsbNumber": "40014",
-        "internalSportsclubId": "6401",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "37921480",
         "name": "Friedrichstädter TV 1880 e.V.",
         "lsbNumber": "1001175",
@@ -36339,16 +36309,6 @@
         "association": {
           "id": "33797208",
           "name": "Steinfurt"
-        }
-      },
-      {
-        "id": "6434",
-        "name": "USC Münster e.V.",
-        "lsbNumber": "3003031",
-        "internalSportsclubId": "2101",
-        "association": {
-          "id": "33797300",
-          "name": "Münster"
         }
       },
       {
@@ -38532,16 +38492,6 @@
         }
       },
       {
-        "id": "16663831",
-        "name": "Dresdner SC 1898 e.V.",
-        "lsbNumber": "410073",
-        "internalSportsclubId": "201",
-        "association": {
-          "id": "24908815",
-          "name": "Stadt Dresden"
-        }
-      },
-      {
         "id": "50621510",
         "name": "TSV Niederoderwitz e.V.",
         "lsbNumber": "450325",
@@ -38639,6 +38589,16 @@
         "association": {
           "id": "33797300",
           "name": "Münster"
+        }
+      },
+      {
+        "id": "16663831",
+        "name": "Dresdner SC 1898 e.V.",
+        "lsbNumber": "410073",
+        "internalSportsclubId": "201",
+        "association": {
+          "id": "24908815",
+          "name": "Stadt Dresden"
         }
       },
       {
@@ -39192,16 +39152,6 @@
         }
       },
       {
-        "id": "15437225",
-        "name": "Volley Juniors Thüringen",
-        "lsbNumber": "110111",
-        "internalSportsclubId": "03498",
-        "association": {
-          "id": "7214",
-          "name": "Thüringer Volleyball-Verband e.V."
-        }
-      },
-      {
         "id": "54611319",
         "name": "Sport- und Freizeitclub Stuttgart",
         "lsbNumber": "0",
@@ -39219,6 +39169,16 @@
         "association": {
           "id": "24908690",
           "name": "Landkreis Zwickau/Erzgebirge"
+        }
+      },
+      {
+        "id": "15437225",
+        "name": "Volley Juniors Thüringen",
+        "lsbNumber": "110111",
+        "internalSportsclubId": "03498",
+        "association": {
+          "id": "7214",
+          "name": "Thüringer Volleyball-Verband e.V."
         }
       },
       {
@@ -40042,16 +40002,6 @@
         }
       },
       {
-        "id": "54610666",
-        "name": "TGV Abstatt",
-        "lsbNumber": "10002",
-        "internalSportsclubId": "1",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
         "id": "50621534",
         "name": "VSV Grün-Weiß Dresden-West e. V.",
         "lsbNumber": "811",
@@ -40079,6 +40029,16 @@
         "association": {
           "id": "24908726",
           "name": "Vogtlandkreis"
+        }
+      },
+      {
+        "id": "54610666",
+        "name": "TGV Abstatt",
+        "lsbNumber": "10002",
+        "internalSportsclubId": "1",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
         }
       },
       {
@@ -41989,16 +41949,6 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
-        "id": "50621749",
-        "name": "Sportgemeinschaft 47 Wolkenstein e.V.",
-        "lsbNumber": "440272",
-        "internalSportsclubId": "534",
-        "association": {
-          "id": "24908690",
-          "name": "Landkreis Zwickau/Erzgebirge"
         }
       },
       {
@@ -44049,16 +43999,6 @@
         "association": {
           "id": "24908926",
           "name": "Landkreis Bautzen"
-        }
-      },
-      {
-        "id": "50621977",
-        "name": "SV Groitzsch 1861 e.V.",
-        "lsbNumber": "460239",
-        "internalSportsclubId": "25",
-        "association": {
-          "id": "24908851",
-          "name": "Landkreis Leipzig"
         }
       },
       {
@@ -53422,16 +53362,6 @@
         }
       },
       {
-        "id": "30228067",
-        "name": "SV 1860 Minden e.V.",
-        "lsbNumber": "4506022",
-        "internalSportsclubId": "4212",
-        "association": {
-          "id": "33797702",
-          "name": "Minden-Ravensberg"
-        }
-      },
-      {
         "id": "51836302",
         "name": "DJK SF Budenheim e.V.",
         "lsbNumber": "75",
@@ -54102,16 +54032,6 @@
         }
       },
       {
-        "id": "54611376",
-        "name": "SSV Ernsbach",
-        "lsbNumber": "11008",
-        "internalSportsclubId": "813",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
         "id": "54611362",
         "name": "TSV Ingelfingen",
         "lsbNumber": "11015",
@@ -54299,6 +54219,16 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "54611376",
+        "name": "SSV Ernsbach",
+        "lsbNumber": "11008",
+        "internalSportsclubId": "813",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
         }
       },
       {
@@ -56422,16 +56352,6 @@
         }
       },
       {
-        "id": "21650805",
-        "name": "Chemie Volley Mitteldeutschland e.V.",
-        "lsbNumber": "100128",
-        "internalSportsclubId": "100128",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37948542",
         "name": "HG 85 Köthen e.V.",
         "lsbNumber": "70109",
@@ -56516,16 +56436,6 @@
         "name": "SV Sietzsch e.V.",
         "lsbNumber": "100201",
         "internalSportsclubId": "100201",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "37948462",
-        "name": "SV Zörbig e.V.",
-        "lsbNumber": "70031",
-        "internalSportsclubId": "70031",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -57742,16 +57652,6 @@
         }
       },
       {
-        "id": "37921917",
-        "name": "Wiedenbrücker Turnverein 1887 e.V.",
-        "lsbNumber": "4107017",
-        "internalSportsclubId": "4503",
-        "association": {
-          "id": "33797382",
-          "name": "Gütersloh-Bielefeld"
-        }
-      },
-      {
         "id": "37948260",
         "name": "SG Buna Halle e.V.",
         "lsbNumber": "140005",
@@ -57822,6 +57722,26 @@
         }
       },
       {
+        "id": "37921917",
+        "name": "Wiedenbrücker Turnverein 1887 e.V.",
+        "lsbNumber": "4107017",
+        "internalSportsclubId": "4503",
+        "association": {
+          "id": "33797382",
+          "name": "Gütersloh-Bielefeld"
+        }
+      },
+      {
+        "id": "37948462",
+        "name": "SV Zörbig e.V.",
+        "lsbNumber": "70031",
+        "internalSportsclubId": "70031",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "65036583",
         "name": "SG Aldingen-Spaichingen",
         "lsbNumber": null,
@@ -57839,6 +57759,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "30228067",
+        "name": "SV 1860 Minden e.V.",
+        "lsbNumber": "4506022",
+        "internalSportsclubId": "4212",
+        "association": {
+          "id": "33797702",
+          "name": "Minden-Ravensberg"
         }
       },
       {
@@ -57879,16 +57809,6 @@
         "association": {
           "id": "33795544",
           "name": "Leverkusen-Rhein-Berg"
-        }
-      },
-      {
-        "id": "49504415",
-        "name": "SV Grün-Weiß Großbeeren",
-        "lsbNumber": "720056",
-        "internalSportsclubId": "720056",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -57949,6 +57869,16 @@
         "association": {
           "id": "33797208",
           "name": "Steinfurt"
+        }
+      },
+      {
+        "id": "49504415",
+        "name": "SV Grün-Weiß Großbeeren",
+        "lsbNumber": "720056",
+        "internalSportsclubId": "720056",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -58092,6 +58022,16 @@
         }
       },
       {
+        "id": "6434",
+        "name": "USC Münster e.V.",
+        "lsbNumber": "3003031",
+        "internalSportsclubId": "2101",
+        "association": {
+          "id": "33797300",
+          "name": "Münster"
+        }
+      },
+      {
         "id": "65036599",
         "name": "SG Neininger Freiburg",
         "lsbNumber": "8144281625",
@@ -58219,6 +58159,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "21650805",
+        "name": "Chemie Volley Mitteldeutschland e.V.",
+        "lsbNumber": "100128",
+        "internalSportsclubId": "100128",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -58402,6 +58352,46 @@
         }
       },
       {
+        "id": "42961198",
+        "name": "SV Beach",
+        "lsbNumber": "111122223347",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "37921531",
+        "name": "TuS Meinerzhagen 1877 e.V.",
+        "lsbNumber": "5309011",
+        "internalSportsclubId": "424",
+        "association": {
+          "id": "33798063",
+          "name": "Märkischer Kreis"
+        }
+      },
+      {
+        "id": "50621977",
+        "name": "SV Groitzsch 1861 e.V.",
+        "lsbNumber": "460239",
+        "internalSportsclubId": "25",
+        "association": {
+          "id": "24908851",
+          "name": "Landkreis Leipzig"
+        }
+      },
+      {
+        "id": "26925573",
+        "name": "TSV Taunusstein-Bleidenstadt",
+        "lsbNumber": "40014",
+        "internalSportsclubId": "6401",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
+        }
+      },
+      {
         "id": "65036842",
         "name": "TuS Rüppurr",
         "lsbNumber": "81564",
@@ -58562,16 +58552,6 @@
         }
       },
       {
-        "id": "26925085",
-        "name": "TV Jahn 1913 Willingen e.V.",
-        "lsbNumber": "47152",
-        "internalSportsclubId": "4703",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "65036864",
         "name": "TV Rielasingen",
         "lsbNumber": "472590",
@@ -58599,6 +58579,26 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26925085",
+        "name": "TV Jahn 1913 Willingen e.V.",
+        "lsbNumber": "47152",
+        "internalSportsclubId": "4703",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "50621749",
+        "name": "Sportgemeinschaft 47 Wolkenstein e.V.",
+        "lsbNumber": "440272",
+        "internalSportsclubId": "534",
+        "association": {
+          "id": "24908690",
+          "name": "Landkreis Zwickau/Erzgebirge"
         }
       },
       {
@@ -59142,16 +59142,6 @@
         }
       },
       {
-        "id": "70813918",
-        "name": "Mörlenbach/Zotzenbach MZ Volleys",
-        "lsbNumber": "1111111110000050",
-        "internalSportsclubId": "9914",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "65037049",
         "name": "FC Pfohren",
         "lsbNumber": "184700",
@@ -59159,6 +59149,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "70813918",
+        "name": "Mörlenbach/Zotzenbach MZ Volleys",
+        "lsbNumber": "1111111110000050",
+        "internalSportsclubId": "9914",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -59882,6 +59882,16 @@
         }
       },
       {
+        "id": "65037236",
+        "name": "TSG Seckenheim",
+        "lsbNumber": "62565",
+        "internalSportsclubId": "62565",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "65037228",
         "name": "TV Sasbach",
         "lsbNumber": "8144281647",
@@ -59896,16 +59906,6 @@
         "name": "TB Rohrbach",
         "lsbNumber": "50658",
         "internalSportsclubId": "50658",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65037236",
-        "name": "TSG Seckenheim",
-        "lsbNumber": "62565",
-        "internalSportsclubId": "62565",
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
