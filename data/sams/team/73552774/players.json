@@ -1,0 +1,85 @@
+{
+    "date": "2024-09-09T05:55:04.869Z",
+    "players": [
+        {
+            "lastname": "Barkowski",
+            "firstname": "Rico",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Lindemann",
+            "firstname": "Tim-Luca",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Gasser",
+            "firstname": "Christophe",
+            "nationality": "FR",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Radloff",
+            "firstname": "Jan",
+            "nationality": "DE",
+            "number": "",
+            "height": 180,
+            "function": ""
+        },
+        {
+            "lastname": "Joly",
+            "firstname": "Laurent",
+            "nationality": "FR",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Albrecht",
+            "firstname": "Andreas",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Rastenis",
+            "firstname": "Edgaras",
+            "nationality": "LT",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Kohnen",
+            "firstname": "Björn",
+            "nationality": "DE",
+            "number": "",
+            "height": 181,
+            "function": ""
+        },
+        {
+            "lastname": "Knobloch",
+            "firstname": "Markus",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Nikonov",
+            "firstname": "Wladimir",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        }
+    ]
+}
