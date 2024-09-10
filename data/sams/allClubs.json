@@ -3132,16 +3132,6 @@
         }
       },
       {
-        "id": "26818782",
-        "name": "Erfurter StraBA Sport e.V.",
-        "lsbNumber": "100325",
-        "internalSportsclubId": "652",
-        "association": {
-          "id": "26249165",
-          "name": "Kreisverband Mitte"
-        }
-      },
-      {
         "id": "26818771",
         "name": "Sportverein TU - Ilmenau",
         "lsbNumber": "430096",
@@ -34722,16 +34712,6 @@
         }
       },
       {
-        "id": "26866425",
-        "name": "TV Saarwellingen",
-        "lsbNumber": "87180",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
         "id": "37921084",
         "name": "Turn- u. Spielverein Wermelskirchen 07 e.V.",
         "lsbNumber": "2708028",
@@ -34859,6 +34839,16 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "26866425",
+        "name": "TV Saarwellingen",
+        "lsbNumber": "87180",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
         }
       },
       {
@@ -38229,16 +38219,6 @@
         "association": {
           "id": "24908790",
           "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
-        }
-      },
-      {
-        "id": "49504494",
-        "name": "SV Blau-Weiß Dahlewitz",
-        "lsbNumber": "720076",
-        "internalSportsclubId": "720076",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -59042,6 +59022,26 @@
         }
       },
       {
+        "id": "26818782",
+        "name": "Erfurter StraBA Sport e.V.",
+        "lsbNumber": "100325",
+        "internalSportsclubId": "652",
+        "association": {
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
+        }
+      },
+      {
+        "id": "49504494",
+        "name": "SV Blau-Weiß Dahlewitz",
+        "lsbNumber": "720076",
+        "internalSportsclubId": "720076",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "65037007",
         "name": "SG EK Karlsruhe",
         "lsbNumber": "81491",
@@ -62392,6 +62392,16 @@
         }
       },
       {
+        "id": "26925138",
+        "name": "ÜSC Wald-Michelbach",
+        "lsbNumber": "36308",
+        "internalSportsclubId": "1707",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
         "id": "54610788",
         "name": "SG Weissach im Tal",
         "lsbNumber": "15363",
@@ -62459,16 +62469,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "26925138",
-        "name": "ÜSC Wald-Michelbach",
-        "lsbNumber": "36308",
-        "internalSportsclubId": "1707",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
         }
       },
       {
