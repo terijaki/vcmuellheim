@@ -952,6 +952,16 @@
         }
       },
       {
+        "id": "26925282",
+        "name": "Sportfreunde Seligenstadt",
+        "lsbNumber": "29220",
+        "internalSportsclubId": "5602",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
         "id": "11619336",
         "name": "TV Baden",
         "lsbNumber": "303350600",
@@ -1079,16 +1089,6 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "26925282",
-        "name": "Sportfreunde Seligenstadt",
-        "lsbNumber": "29220",
-        "internalSportsclubId": "5602",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -10622,16 +10622,6 @@
         }
       },
       {
-        "id": "54611155",
-        "name": "GSV Maichingen",
-        "lsbNumber": "3113",
-        "internalSportsclubId": "514",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "26925133",
         "name": "TV Wallau",
         "lsbNumber": "0",
@@ -10669,6 +10659,16 @@
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "54611155",
+        "name": "GSV Maichingen",
+        "lsbNumber": "3113",
+        "internalSportsclubId": "514",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -17822,16 +17822,6 @@
         }
       },
       {
-        "id": "26925440",
-        "name": "TV 1909 Petersberg e.V.",
-        "lsbNumber": "18137",
-        "internalSportsclubId": "3503",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "26925431",
         "name": "FTG 1847 Frankfurt",
         "lsbNumber": "24069",
@@ -17839,6 +17829,16 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
+        }
+      },
+      {
+        "id": "26925440",
+        "name": "TV 1909 Petersberg e.V.",
+        "lsbNumber": "18137",
+        "internalSportsclubId": "3503",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -22742,6 +22742,16 @@
         }
       },
       {
+        "id": "37921788",
+        "name": "VC Melanchthon Hürth e.V.",
+        "lsbNumber": "2307041",
+        "internalSportsclubId": "1364",
+        "association": {
+          "id": "33795261",
+          "name": "Köln"
+        }
+      },
+      {
         "id": "37921896",
         "name": "VC Rosenmaar",
         "lsbNumber": "2006037",
@@ -22876,16 +22886,6 @@
         "name": "SUN e.V. Köln",
         "lsbNumber": "2003637",
         "internalSportsclubId": "1312",
-        "association": {
-          "id": "33795261",
-          "name": "Köln"
-        }
-      },
-      {
-        "id": "37921788",
-        "name": "VC Melanchthon Hürth e.V.",
-        "lsbNumber": "2307041",
-        "internalSportsclubId": "1364",
         "association": {
           "id": "33795261",
           "name": "Köln"
@@ -27966,16 +27966,6 @@
         "name": "SG Suderwich e.V.",
         "lsbNumber": "3408023",
         "internalSportsclubId": "460",
-        "association": {
-          "id": "33797282",
-          "name": "Vest"
-        }
-      },
-      {
-        "id": "37921605",
-        "name": "Gymnastikverein Waltrop 1961 e.V.",
-        "lsbNumber": "3409023",
-        "internalSportsclubId": "340",
         "association": {
           "id": "33797282",
           "name": "Vest"
@@ -34832,16 +34822,6 @@
         }
       },
       {
-        "id": "75440838",
-        "name": "VfB Zwenkau 02 e.V.",
-        "lsbNumber": "460306",
-        "internalSportsclubId": "111",
-        "association": {
-          "id": "7213",
-          "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
         "id": "26866425",
         "name": "TV Saarwellingen",
         "lsbNumber": "87180",
@@ -34849,6 +34829,16 @@
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
+        }
+      },
+      {
+        "id": "75440838",
+        "name": "VfB Zwenkau 02 e.V.",
+        "lsbNumber": "460306",
+        "internalSportsclubId": "111",
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
         }
       },
       {
@@ -35612,16 +35602,6 @@
         }
       },
       {
-        "id": "26925331",
-        "name": "TV 1898 Elz",
-        "lsbNumber": "14047",
-        "internalSportsclubId": "5705",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "37921480",
         "name": "Friedrichstädter TV 1880 e.V.",
         "lsbNumber": "1001175",
@@ -35639,6 +35619,16 @@
         "association": {
           "id": "33795239",
           "name": "Euskirchen"
+        }
+      },
+      {
+        "id": "26925331",
+        "name": "TV 1898 Elz",
+        "lsbNumber": "14047",
+        "internalSportsclubId": "5705",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -37192,16 +37182,6 @@
         }
       },
       {
-        "id": "54611241",
-        "name": "SV Oberzell",
-        "lsbNumber": "14102",
-        "internalSportsclubId": "608",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "26846510",
         "name": "Volkssportgemeinschaft Einheit Rüdersdorf e.V.",
         "lsbNumber": "5255",
@@ -37226,6 +37206,16 @@
         "name": "SV Gebrazhofen",
         "lsbNumber": "14060",
         "internalSportsclubId": "609",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
+        }
+      },
+      {
+        "id": "54611241",
+        "name": "SV Oberzell",
+        "lsbNumber": "14102",
+        "internalSportsclubId": "608",
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
@@ -55922,16 +55912,6 @@
         }
       },
       {
-        "id": "54611348",
-        "name": "TSV Zweiflingen",
-        "lsbNumber": "11064",
-        "internalSportsclubId": "751",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
         "id": "54611352",
         "name": "Hasch du - pauls 53 Heidenheim",
         "lsbNumber": "0",
@@ -56072,6 +56052,16 @@
         }
       },
       {
+        "id": "54611348",
+        "name": "TSV Zweiflingen",
+        "lsbNumber": "11064",
+        "internalSportsclubId": "751",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
+        }
+      },
+      {
         "id": "26818893",
         "name": "Rhönbeach e.V.",
         "lsbNumber": "210257",
@@ -56139,16 +56129,6 @@
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
-        }
-      },
-      {
-        "id": "49504463",
-        "name": "Kultur- und Sportverein Jacobsdorf OT Pillgram 99 e.V.",
-        "lsbNumber": "670246",
-        "internalSportsclubId": "670246",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -56309,6 +56289,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "49504463",
+        "name": "Kultur- und Sportverein Jacobsdorf OT Pillgram 99 e.V.",
+        "lsbNumber": "670246",
+        "internalSportsclubId": "670246",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -59172,6 +59162,16 @@
         }
       },
       {
+        "id": "76947515",
+        "name": "SLFV Ortsverein Beerendorf",
+        "lsbNumber": "1111111110000059",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
         "id": "65037049",
         "name": "FC Pfohren",
         "lsbNumber": "184700",
@@ -59232,6 +59232,16 @@
         }
       },
       {
+        "id": "76964974",
+        "name": "Dream Team e.V.",
+        "lsbNumber": null,
+        "internalSportsclubId": "14-11-240",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
         "id": "65037064",
         "name": "TV Engen 1847 e.V.",
         "lsbNumber": "470750",
@@ -59289,6 +59299,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "37921605",
+        "name": "Gymnastikverein Waltrop 1961 e.V.",
+        "lsbNumber": "3409023",
+        "internalSportsclubId": "340",
+        "association": {
+          "id": "33797282",
+          "name": "Vest"
         }
       },
       {
@@ -59452,16 +59472,6 @@
         }
       },
       {
-        "id": "65037121",
-        "name": "VSG Helmstadt",
-        "lsbNumber": "42211",
-        "internalSportsclubId": "42211",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037125",
         "name": "TB Pforzheim",
         "lsbNumber": "91792",
@@ -59479,6 +59489,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037121",
+        "name": "VSG Helmstadt",
+        "lsbNumber": "42211",
+        "internalSportsclubId": "42211",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -62212,16 +62232,6 @@
         }
       },
       {
-        "id": "6464",
-        "name": "TV Rottenburg",
-        "lsbNumber": "22058",
-        "internalSportsclubId": "547",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "65036992",
         "name": "TUS Badenweiler",
         "lsbNumber": "470210",
@@ -62229,6 +62239,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "6464",
+        "name": "TV Rottenburg",
+        "lsbNumber": "22058",
+        "internalSportsclubId": "547",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
