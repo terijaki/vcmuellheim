@@ -1,5 +1,5 @@
 {
-    "date": "2024-09-09T05:55:04.986Z",
+    "date": "2024-09-17T02:34:56.214Z",
     "players": [
         {
             "lastname": "Konop",
@@ -20,6 +20,14 @@
         {
             "lastname": "Guzzoni",
             "firstname": "Elina",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Panknin",
+            "firstname": "Julia",
             "nationality": "DE",
             "number": "",
             "height": "",

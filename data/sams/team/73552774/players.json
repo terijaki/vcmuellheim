@@ -1,5 +1,5 @@
 {
-    "date": "2024-09-09T05:55:04.869Z",
+    "date": "2024-09-17T02:34:56.045Z",
     "players": [
         {
             "lastname": "Barkowski",
@@ -34,6 +34,14 @@
             "function": ""
         },
         {
+            "lastname": "Lacher",
+            "firstname": "Lucas",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
             "lastname": "Joly",
             "firstname": "Laurent",
             "nationality": "FR",
@@ -53,6 +61,14 @@
             "lastname": "Rastenis",
             "firstname": "Edgaras",
             "nationality": "LT",
+            "number": 6,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Albrecht",
+            "firstname": "Andreas",
+            "nationality": "DE",
             "number": "",
             "height": "",
             "function": ""

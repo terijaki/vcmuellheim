@@ -1,5 +1,5 @@
 {
-    "date": "2024-09-09T05:55:05.102Z",
+    "date": "2024-09-17T02:34:56.385Z",
     "players": [
         {
             "lastname": "Albrecht",
@@ -7,11 +7,19 @@
             "nationality": "DE",
             "number": "",
             "height": "",
-            "function": ""
+            "function": "Trainer"
         },
         {
             "lastname": "Batagan",
             "firstname": "Zeynep Rana",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Koppe",
+            "firstname": "Katja",
             "nationality": "DE",
             "number": "",
             "height": "",
@@ -31,7 +39,7 @@
             "nationality": "DE",
             "number": "",
             "height": "",
-            "function": ""
+            "function": "Co-Trainer"
         },
         {
             "lastname": "Mertens",
@@ -42,8 +50,16 @@
             "function": ""
         },
         {
-            "lastname": "Peters",
-            "firstname": "Alessia",
+            "lastname": "Schmidt",
+            "firstname": "Jennifer",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Baussmann",
+            "firstname": "Johanna",
             "nationality": "DE",
             "number": "",
             "height": "",
@@ -66,8 +82,8 @@
             "function": ""
         },
         {
-            "lastname": "Panknin",
-            "firstname": "Julia",
+            "lastname": "Peters",
+            "firstname": "Marina",
             "nationality": "DE",
             "number": "",
             "height": "",
@@ -75,7 +91,15 @@
         },
         {
             "lastname": "Peters",
-            "firstname": "Marina",
+            "firstname": "Rufina",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Peters",
+            "firstname": "Alessia",
             "nationality": "DE",
             "number": "",
             "height": "",
