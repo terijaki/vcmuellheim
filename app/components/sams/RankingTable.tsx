@@ -1,9 +1,8 @@
-import React, { Fragment } from "react";
-import { rankingsArray } from "@/app/utils/sams/cachedGetRanking";
-import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
-import ClubLogo from "./ClubLogo";
-import Link from "next/link";
 import { getTeams } from "@/app/utils/getTeams";
+import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
+import { rankingsArray } from "@/app/utils/sams/cachedGetRanking";
+import Link from "next/link";
+import ClubLogo from "./ClubLogo";
 
 export default function RankingTable(props: rankingsArray) {
 	// prepare date formatting
@@ -47,48 +46,42 @@ export default function RankingTable(props: rankingsArray) {
 					</thead>
 					{props.ranking.map(async (team: any) => {
 						return (
-							<>
-								<tr
-									key={team.team.id}
-									className={
-										"hover:bg-blumine hover:text-white " +
-										(props.ranking.length % 2 == 0 ? "even:bg-black/5" : "odd:bg-black/5") +
-										(clubTeamIds.includes(team.team.id) != false ? " odd:bg-onyx even:bg-onyx text-white" : "")
-									}
-									data-team-id={team.team.id}
-									data-team-name={team.team.name}
-								>
-									<td className="text-center justify-center items-center">{team.place}</td>
-									<td className="truncate justify-left items-center p-0.5 w-full h-full">
-										{clubTeamIds.includes(team.team.id) && props.linkToTeamPage && getTeams(team.team.id).length == 1 ? (
-											<Link
-												href={"teams/" + getTeams(team.team.id)[0].slug}
-												className="w-full flex justify-start items-center"
-											>
-												<ClubLogo
-													clubName={team.team.club.name}
-													className={"mr-1 " + (clubTeamIds.includes(team.team.id) && "saturate-0 brightness-0 invert")}
-												/>
-												<div>{team.team.name}</div>
-											</Link>
-										) : (
-											<div className="w-full flex justify-start items-center">
-												<ClubLogo
-													clubName={team.team.club.name}
-													className={"mr-1 " + (clubTeamIds.includes(team.team.id) && "saturate-0 brightness-0 invert")}
-												/>
-												<div>{team.team.name}</div>
-											</div>
-										)}
-									</td>
-									<td className="text-center text-sm gap-1.5 infline-flex">
-										{team.wins}/{team.matchesPlayed}
-										<p className="text-xs sm:hidden italic opacity-50">{team.setPoints}</p>
-									</td>
-									<td className="text-xs hidden sm:inline-flex w-full justify-center">{team.setPoints}</td>
-									<td className="text-center text-sm">{team.points}</td>
-								</tr>
-							</>
+							<tr
+								key={team.team.id}
+								className={"hover:bg-blumine hover:text-white " + (props.ranking.length % 2 == 0 ? "even:bg-black/5" : "odd:bg-black/5") + (clubTeamIds.includes(team.team.id) != false ? " odd:bg-onyx even:bg-onyx text-white" : "")}
+								data-team-id={team.team.id}
+								data-team-name={team.team.name}
+							>
+								<td className="text-center justify-center items-center">{team.place}</td>
+								<td className="justify-left items-center p-0.5 w-full h-full">
+									{clubTeamIds.includes(team.team.id) && props.linkToTeamPage && getTeams(team.team.id).length == 1 ? (
+										<Link
+											href={"teams/" + getTeams(team.team.id)[0].slug}
+											className="w-full flex justify-start items-center"
+										>
+											<ClubLogo
+												clubName={team.team.club.name}
+												className={"mr-1 " + (clubTeamIds.includes(team.team.id) && "saturate-0 brightness-0 invert")}
+											/>
+											<div className="text-wrap line-clamp-1">{team.team.name}</div>
+										</Link>
+									) : (
+										<div className="w-full flex justify-start items-center">
+											<ClubLogo
+												clubName={team.team.club.name}
+												className={"mr-1 " + (clubTeamIds.includes(team.team.id) && "saturate-0 brightness-0 invert")}
+											/>
+											<div className="text-wrap line-clamp-1">{team.team.name}</div>
+										</div>
+									)}
+								</td>
+								<td className="text-center text-sm gap-1.5 infline-flex">
+									{team.wins}/{team.matchesPlayed}
+									<p className="text-xs sm:hidden italic opacity-50">{team.setPoints}</p>
+								</td>
+								<td className="text-xs hidden sm:inline-flex w-full justify-center">{team.setPoints}</td>
+								<td className="text-center text-sm">{team.points}</td>
+							</tr>
 						);
 					})}
 				</table>

@@ -1,16 +1,16 @@
 "use client";
-import Link from "next/link";
-import React, { useState } from "react";
-import { FaVolleyball as Logo, FaBars as Bars, FaXmark as Xmark } from "react-icons/fa6";
-import { navbarLinks } from "@/app/utils/navbarLinks";
 import Socials from "@/app/components/layout/Socials";
+import { navbarLinks } from "@/app/utils/navbarLinks";
+import Link from "next/link";
+import { Fragment, useState } from "react";
+import { FaBars as Bars, FaVolleyball as Logo, FaXmark as Xmark } from "react-icons/fa6";
 
 function navbarLinksRender() {
 	const navLinks = navbarLinks.map((item, index) => {
 		return (
-			<>
+			<Fragment key={item.name}>
 				{index != 0 && <li className="hidden md:block opacity-30">&#x2022;</li>}
-				<li key={item.name}>
+				<li>
 					<Link
 						{...item}
 						className="hover:text-lion font-medium tracking-normal p-1 md:p-0 block text-lg md:text-base"
@@ -18,7 +18,7 @@ function navbarLinksRender() {
 						{item.name}
 					</Link>
 				</li>
-			</>
+			</Fragment>
 		);
 	});
 	return navLinks;
@@ -56,13 +56,7 @@ export default function Header() {
 							/>
 						</div>
 					</div>
-					<div
-						className={
-							(isMobileNavCollapsed ? "max-h-0 overflow-hidden " : "max-h-screen my-2 duration-500 ") +
-							" " +
-							"md:max-h-full w-full md:w-auto grid grid-flow-col gap-x-4 md:gap-x-0 col-span-2 md:col-span-1 justify-self-center md:justify-self-end justify-around md:m-0 font-systemui"
-						}
-					>
+					<div className={(isMobileNavCollapsed ? "max-h-0 overflow-hidden " : "max-h-screen my-2 duration-500 ") + " " + "md:max-h-full w-full md:w-auto grid grid-flow-col gap-x-4 md:gap-x-0 col-span-2 md:col-span-1 justify-self-center md:justify-self-end justify-around md:m-0 font-systemui"}>
 						<ul
 							className={(isMobileNavCollapsed ? "" : "grid-flow-row ") + " md:max-h-full md:grid md:grid-flow-col gap-x-1 place-self-center"}
 							onClick={() => setIsMobileNavCollapsed(true)}
