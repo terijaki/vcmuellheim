@@ -1,10 +1,10 @@
+import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
+import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
+import crypto from "crypto";
 import fs from "fs";
 import path from "path";
-import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
-import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
-import getEvents from "./getEvents";
 import { env } from "process";
-import crypto from "crypto";
+import getEvents from "./getEvents";
 
 const ICS_FOLDER_LOCATION = "public/ics";
 
@@ -80,11 +80,7 @@ export function icsTeamGeneration(sbvvTeamId: (string | number)[], slug: string)
 			// constuct the location
 			const matchLocation = match.location.street + "\\, " + match.location.postalCode + " " + match.location.city + (match.location.name && "\\, " + match.location.name);
 			// constuct the description
-			const matchDescription =
-				match.matchSeries.name +
-				(match.results?.setPoints ? "\\nErgebnis: " + match.results.setPoints : "") +
-				(match.host?.name && "\\nGastgeber: " + match.host.name) +
-				(slug == "all" ? "\\nhttps://vcmuellheim.de/termine" : "\\nhttps://vcmuellheim.de/teams/" + slug);
+			const matchDescription = match.matchSeries.name + (match.results?.setPoints ? "\\nErgebnis: " + match.results.setPoints : "") + (match.host?.name && "\\nGastgeber: " + match.host.name) + (slug == "all" ? "\\nhttps://vcmuellheim.de/termine" : "\\nhttps://vcmuellheim.de/teams/" + slug);
 			// construct the complete string
 			const matchEventString = getICSEventComponent({
 				title: matchTitle,
@@ -323,7 +319,9 @@ export function getICSEventComponent(props: ICSEventComponent): string {
 		output = output.concat("\nDTEND;VALUE=DATE:" + props.end.toISOString().replaceAll("-", "").slice(0, 8));
 	} else {
 		// START
+		console.log("👀", props.start);
 		output = output.concat("\nDTSTART:" + toICSFormat(props.start));
+		console.log("👀", output);
 		// END
 		if (!props.end) {
 			props.end = new Date(props.start);

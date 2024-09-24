@@ -39,9 +39,7 @@ export default function getEvents(daysInPast = 0, daysInFuture = 90): eventObjec
 		});
 
 		// remove events outside the specified range, relative to today
-		const filteredEvents = eventObjects.filter(
-			(event) => (minDate < event.start.getTime() && maxDate > event.start.getTime()) || (event.end && minDate < event.end.getTime() && maxDate > event.end.getTime())
-		);
+		const filteredEvents = eventObjects.filter((event) => (minDate < event.start.getTime() && maxDate > event.start.getTime()) || (event.end && minDate < event.end.getTime() && maxDate > event.end.getTime()));
 
 		return filteredEvents;
 	} else {

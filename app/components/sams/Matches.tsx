@@ -1,6 +1,6 @@
 import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
-import { FaLocationDot as IconLocation, FaSquarePollVertical as IconResult } from "react-icons/fa6";
 import Link from "next/link";
+import { FaLocationDot as IconLocation, FaSquarePollVertical as IconResult } from "react-icons/fa6";
 
 export default function Matches(props: { teamId: (number | string)[]; filter?: "future" | "past"; limit?: number }) {
 	const teamIdString = props.teamId.map(String); // allows the teamId input to be string or number regardlessly
@@ -29,21 +29,12 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 				{matches.map((match) => {
 					// determine if this is a win for the club/team
 					let winForClubOrTeam = false;
-					if (
-						match.results &&
-						match.results.winner &&
-						match.team[Number(match.results.winner) - 1] &&
-						match.team[Number(match.results.winner) - 1].id &&
-						teamIdString.includes(match.team[Number(match.results.winner) - 1].id)
-					) {
+					if (match.results && match.results.winner && match.team[Number(match.results.winner) - 1] && match.team[Number(match.results.winner) - 1].id && teamIdString.includes(match.team[Number(match.results.winner) - 1].id)) {
 						winForClubOrTeam = true;
 					}
 					return (
 						<div
-							className={
-								"grid grid-flow-row sm:grid-cols-[max-content,minmax(auto,1fr),max-content] md:grid-cols-[1fr,4fr,2fr] gap-x-4 items-center px-4 py-2 text-onyx" +
-								(matches.length % 2 ? " odd:bg-black/5" : " even:bg-black/5")
-							}
+							className={"grid grid-flow-row sm:grid-cols-[max-content,minmax(auto,1fr),max-content] md:grid-cols-[1fr,4fr,2fr] gap-x-4 items-center px-4 py-2 text-onyx" + (matches.length % 2 ? " odd:bg-black/5" : " even:bg-black/5")}
 							key={match.uuid}
 							data-match-number={match.number}
 							data-match-id={match.id}
@@ -60,7 +51,7 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 										dateTime={match.dateIso}
 										key={"datetime"}
 									>
-										{match.date}
+										{match.dateObject.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) + " Uhr"}
 									</time>
 								) : (
 									""
@@ -150,7 +141,7 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 								) : (
 									""
 								)}
-								{match.time && Number(match.time.slice(0, 2)) > 0 ? match.time + " Uhr" : ""}
+								{match.dateObject.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) + " Uhr"}
 							</div>
 							<div
 								className="py-1 font-bold"
@@ -174,12 +165,8 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 										}
 									})}
 								{match.matchSeries.type == "Competition" && match.matchSeries.name}
-								{match.matchSeries?.name && match.matchSeries.type != "Competition" && (
-									<p className="text-lion font-thin text-sm md:text-base whitespace-nowrap line-clamp-1 break-all">{match.matchSeries?.name}</p>
-								)}
-								{match.matchSeries.type == "Competition" && match.matchSeries.hierarchy && (
-									<p className="text-lion font-thin text-sm md:text-base whitespace-nowrap line-clamp-1 break-all">{match.matchSeries.hierarchy.name}</p>
-								)}
+								{match.matchSeries?.name && match.matchSeries.type != "Competition" && <p className="text-lion font-thin text-sm md:text-base whitespace-nowrap line-clamp-1 break-all">{match.matchSeries?.name}</p>}
+								{match.matchSeries.type == "Competition" && match.matchSeries.hierarchy && <p className="text-lion font-thin text-sm md:text-base whitespace-nowrap line-clamp-1 break-all">{match.matchSeries.hierarchy.name}</p>}
 							</div>
 							<div className="pb-1 sm:py-1 mr-3 sm:mr-0">
 								{match.location && match.location.city && match.location.postalCode && match.location.street && match.location.name ? (
