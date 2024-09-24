@@ -51,7 +51,7 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 										dateTime={match.dateIso}
 										key={"datetime"}
 									>
-										{match.dateObject.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) + " Uhr"}
+										{match.dateObject.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Berlin" }) + " Uhr"}
 									</time>
 								) : (
 									""
@@ -141,7 +141,7 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 								) : (
 									""
 								)}
-								{match.dateObject.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) + " Uhr"}
+								{match.dateObject.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Berlin" }) + " Uhr"}
 							</div>
 							<div
 								className="py-1 font-bold"
