@@ -319,9 +319,7 @@ export function getICSEventComponent(props: ICSEventComponent): string {
 		output = output.concat("\nDTEND;VALUE=DATE:" + props.end.toISOString().replaceAll("-", "").slice(0, 8));
 	} else {
 		// START
-		console.log("👀", props.start);
 		output = output.concat("\nDTSTART:" + toICSFormat(props.start));
-		console.log("👀", output);
 		// END
 		if (!props.end) {
 			props.end = new Date(props.start);
