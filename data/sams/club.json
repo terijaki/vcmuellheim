@@ -314,9 +314,9 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2024-09-15 19:32:50.335",
-            "structureUpdated": "2024-09-15 19:32:50.335",
-            "resultsUpdated": "2024-08-12 11:30:03.093",
+            "updated": "2024-09-22 14:23:52.666",
+            "structureUpdated": "2024-09-22 14:23:52.666",
+            "resultsUpdated": "2024-09-22 12:50:26.658",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -411,8 +411,81 @@
             "name": "Herren Pokal-Finale 2024 (OL und höher)",
             "shortName": "hp_top",
             "type": "Competition",
-            "updated": "2024-09-17 13:28:40.958",
-            "structureUpdated": "2024-09-17 13:28:40.958",
+            "updated": "2024-09-23 22:39:47.411",
+            "structureUpdated": "2024-09-23 22:39:47.411",
+            "resultsUpdated": null,
+            "season": {
+              "id": "70098350",
+              "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+              "name": "2024/25"
+            },
+            "hierarchy": {
+              "id": "70100640",
+              "uuid": "5f3c9b05-b0d3-44da-a7f2-1bb66e11b59e",
+              "name": "Verbandspokal 2023/2024",
+              "shortName": "vp",
+              "hierarchyLevel": "2"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "70100640",
+                  "name": "Verbandspokal 2023/2024",
+                  "shortName": "vp",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "70100639",
+                  "name": "Pokalwettbewerbe",
+                  "shortName": "P",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "70098566",
+                  "name": "Südbadischer Volleyball-Verband (SBVV)",
+                  "shortName": "SBVV",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
+            }
+          }
+        },
+        {
+          "id": "77641881",
+          "uuid": "e95e7ef2-40f2-4a43-8e61-2bd4ae56d0a1",
+          "seasonTeamId": "77641881",
+          "placeCipher": "0",
+          "name": "VC Müllheim 1",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "65036648",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "70100707",
+            "uuid": "165213db-7597-4cce-8521-b2c27a43c194",
+            "allSeasonId": "9a9e18a6-79d7-485f-8d86-3f19d7d487da",
+            "name": "Meldung Damen Pokal Bezirksklasse + Bezirksliga",
+            "shortName": "dp_bkl_bl",
+            "type": "Competition",
+            "updated": "2024-08-20 10:05:15.255",
+            "structureUpdated": "2024-08-20 10:05:15.255",
             "resultsUpdated": null,
             "season": {
               "id": "70098350",
