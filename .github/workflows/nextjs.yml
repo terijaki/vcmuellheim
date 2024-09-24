@@ -37,6 +37,8 @@ jobs:
   build:
     name: "🏗️ SAMS & Build"
     runs-on: ubuntu-latest
+    env:
+      TZ: Europe/Berlin
     outputs:
       sams_status: ${{ steps.sams_git.outputs.status }}
       sams_social: ${{ steps.sams_git.outputs.social }}
