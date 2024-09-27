@@ -1,5 +1,5 @@
 {
-    "date": "2024-09-24T02:47:29.939Z",
+    "date": "2024-09-27T19:03:54.195Z",
     "players": [
         {
             "lastname": "Albrecht",
@@ -100,6 +100,22 @@
         {
             "lastname": "Peters",
             "firstname": "Alessia",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Smaili",
+            "firstname": "Elijona",
+            "nationality": "DE",
+            "number": 17,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Maier",
+            "firstname": "Jana",
             "nationality": "DE",
             "number": "",
             "height": "",

@@ -1,26 +1,10 @@
 {
-    "date": "2024-09-24T02:47:29.692Z",
+    "date": "2024-09-27T19:03:53.852Z",
     "players": [
-        {
-            "lastname": "Barkowski",
-            "firstname": "Rico",
-            "nationality": "DE",
-            "number": "",
-            "height": "",
-            "function": ""
-        },
         {
             "lastname": "Lindemann",
             "firstname": "Tim-Luca",
             "nationality": "DE",
-            "number": "",
-            "height": "",
-            "function": ""
-        },
-        {
-            "lastname": "Gasser",
-            "firstname": "Christophe",
-            "nationality": "FR",
             "number": "",
             "height": "",
             "function": ""
@@ -34,8 +18,8 @@
             "function": ""
         },
         {
-            "lastname": "Lacher",
-            "firstname": "Lucas",
+            "lastname": "Rotthaus",
+            "firstname": "Jonas",
             "nationality": "DE",
             "number": "",
             "height": "",
@@ -58,22 +42,6 @@
             "function": ""
         },
         {
-            "lastname": "Rastenis",
-            "firstname": "Edgaras",
-            "nationality": "LT",
-            "number": 6,
-            "height": "",
-            "function": ""
-        },
-        {
-            "lastname": "Albrecht",
-            "firstname": "Andreas",
-            "nationality": "DE",
-            "number": "",
-            "height": "",
-            "function": ""
-        },
-        {
             "lastname": "Kohnen",
             "firstname": "Björn",
             "nationality": "DE",
@@ -84,6 +52,46 @@
         {
             "lastname": "Knobloch",
             "firstname": "Markus",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Barkowski",
+            "firstname": "Rico",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Gasser",
+            "firstname": "Christophe",
+            "nationality": "FR",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Lacher",
+            "firstname": "Lucas",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Rastenis",
+            "firstname": "Edgaras",
+            "nationality": "LT",
+            "number": 6,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Albrecht",
+            "firstname": "Andreas",
             "nationality": "DE",
             "number": "",
             "height": "",
