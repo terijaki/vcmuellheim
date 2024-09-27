@@ -1852,16 +1852,6 @@
         }
       },
       {
-        "id": "26925355",
-        "name": "SG 1886 e.V. Weiterstadt",
-        "lsbNumber": "33156",
-        "internalSportsclubId": "1514",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "26818939",
         "name": "Thüringer Box-Verband e.V.",
         "lsbNumber": "880008",
@@ -1919,6 +1909,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26925355",
+        "name": "SG 1886 e.V. Weiterstadt",
+        "lsbNumber": "33156",
+        "internalSportsclubId": "1514",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -10289,16 +10289,6 @@
         "association": {
           "id": "26249283",
           "name": "Kreisverband Süd"
-        }
-      },
-      {
-        "id": "4438002",
-        "name": "Volleyballclub Olympia 93 Berlin e.V.",
-        "lsbNumber": "5212",
-        "internalSportsclubId": "14-11-069",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -25822,16 +25812,6 @@
         }
       },
       {
-        "id": "37921759",
-        "name": "Turnerbund Hückeswagen 1887 e.V.",
-        "lsbNumber": "2604004",
-        "internalSportsclubId": "7102",
-        "association": {
-          "id": "33795588",
-          "name": "Oberberg"
-        }
-      },
-      {
         "id": "37920820",
         "name": "Sportverein Frielingsdorf 1925 e.V.",
         "lsbNumber": "2605008",
@@ -36132,6 +36112,16 @@
         }
       },
       {
+        "id": "54611206",
+        "name": "TSV Waldenbuch",
+        "lsbNumber": "3117",
+        "internalSportsclubId": "571",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
         "id": "54611205",
         "name": "FC Unterjettingen",
         "lsbNumber": "3056",
@@ -36159,16 +36149,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "54611206",
-        "name": "TSV Waldenbuch",
-        "lsbNumber": "3117",
-        "internalSportsclubId": "571",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
         }
       },
       {
@@ -38942,16 +38922,6 @@
         }
       },
       {
-        "id": "15437225",
-        "name": "Volley Juniors Thüringen",
-        "lsbNumber": "110111",
-        "internalSportsclubId": "03498",
-        "association": {
-          "id": "7214",
-          "name": "Thüringer Volleyball-Verband e.V."
-        }
-      },
-      {
         "id": "37948543",
         "name": "SV Naundorf e.V.",
         "lsbNumber": "490218",
@@ -39019,6 +38989,16 @@
         "association": {
           "id": "33795566",
           "name": "Rhein-Sieg"
+        }
+      },
+      {
+        "id": "15437225",
+        "name": "Volley Juniors Thüringen",
+        "lsbNumber": "110111",
+        "internalSportsclubId": "03498",
+        "association": {
+          "id": "7214",
+          "name": "Thüringer Volleyball-Verband e.V."
         }
       },
       {
@@ -39609,16 +39589,6 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
-        }
-      },
-      {
-        "id": "50621480",
-        "name": "VSV Blau-Weiß Freital e.V.",
-        "lsbNumber": "500291",
-        "internalSportsclubId": "204",
-        "association": {
-          "id": "24908790",
-          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
         }
       },
       {
@@ -50862,16 +50832,6 @@
         }
       },
       {
-        "id": "54611074",
-        "name": "SV Wolpertswende",
-        "lsbNumber": "14169",
-        "internalSportsclubId": "432",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "51836387",
         "name": "Mombacher TV-BSC",
         "lsbNumber": "225",
@@ -50939,6 +50899,16 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
+        "id": "54611074",
+        "name": "SV Wolpertswende",
+        "lsbNumber": "14169",
+        "internalSportsclubId": "432",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
@@ -51642,6 +51612,16 @@
         }
       },
       {
+        "id": "54611094",
+        "name": "TV Bochingen",
+        "lsbNumber": "17015",
+        "internalSportsclubId": "452",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
         "id": "51836465",
         "name": "SG 1889 Waldfischbach",
         "lsbNumber": "71",
@@ -51756,16 +51736,6 @@
         "name": "TV Böblingen",
         "lsbNumber": "3008",
         "internalSportsclubId": "451",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
-        "id": "54611094",
-        "name": "TV Bochingen",
-        "lsbNumber": "17015",
-        "internalSportsclubId": "452",
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
@@ -53592,6 +53562,16 @@
         }
       },
       {
+        "id": "54611369",
+        "name": "FTSV Bad Ditzenbach-Gosbach",
+        "lsbNumber": "8253",
+        "internalSportsclubId": "804",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
         "id": "54611362",
         "name": "TSV Ingelfingen",
         "lsbNumber": "11015",
@@ -53629,16 +53609,6 @@
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
-        }
-      },
-      {
-        "id": "54611369",
-        "name": "FTSV Bad Ditzenbach-Gosbach",
-        "lsbNumber": "8253",
-        "internalSportsclubId": "804",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
         }
       },
       {
@@ -53876,16 +53846,6 @@
         "name": "Volleyball-Sportclub Lankwitz e.V.",
         "lsbNumber": "5230",
         "internalSportsclubId": "14-11-047",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
-        "id": "26846426",
-        "name": "Füchse Berlin Reinickendorf BTV von 1891  e.V.",
-        "lsbNumber": "2672",
-        "internalSportsclubId": "14-11-017",
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
@@ -58132,16 +58092,6 @@
         }
       },
       {
-        "id": "65036887",
-        "name": "TV Philippsburg",
-        "lsbNumber": "71307",
-        "internalSportsclubId": "71307",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036888",
         "name": "SC Weiler/Fils",
         "lsbNumber": null,
@@ -58229,6 +58179,16 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "65036887",
+        "name": "TV Philippsburg",
+        "lsbNumber": "71307",
+        "internalSportsclubId": "71307",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -61032,16 +60992,6 @@
         }
       },
       {
-        "id": "26819146",
-        "name": "SV SCHOTT JENA e.V.",
-        "lsbNumber": "190019",
-        "internalSportsclubId": "19268",
-        "association": {
-          "id": "26249243",
-          "name": "Kreisverband Nord-Ost"
-        }
-      },
-      {
         "id": "65037499",
         "name": "Förderverein für J.u.L-Volleyball",
         "lsbNumber": "8144281609",
@@ -61099,6 +61049,36 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26819146",
+        "name": "SV SCHOTT JENA e.V.",
+        "lsbNumber": "190019",
+        "internalSportsclubId": "19268",
+        "association": {
+          "id": "26249243",
+          "name": "Kreisverband Nord-Ost"
+        }
+      },
+      {
+        "id": "50621480",
+        "name": "VSV Blau-Weiß Freital e.V.",
+        "lsbNumber": "500291",
+        "internalSportsclubId": "204",
+        "association": {
+          "id": "24908790",
+          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
+        }
+      },
+      {
+        "id": "37921759",
+        "name": "Turnerbund Hückeswagen 1887 e.V.",
+        "lsbNumber": "2604004",
+        "internalSportsclubId": "7102",
+        "association": {
+          "id": "33795588",
+          "name": "Oberberg"
         }
       },
       {
@@ -61252,6 +61232,16 @@
         }
       },
       {
+        "id": "4438002",
+        "name": "Volleyballclub Olympia 93 Berlin e.V.",
+        "lsbNumber": "5212",
+        "internalSportsclubId": "14-11-069",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
         "id": "65036930",
         "name": "TB Bad Krozingen",
         "lsbNumber": "470220",
@@ -61349,6 +61339,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26846426",
+        "name": "Füchse Berlin Reinickendorf BTV von 1891  e.V.",
+        "lsbNumber": "2672",
+        "internalSportsclubId": "14-11-017",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -61702,16 +61702,6 @@
         }
       },
       {
-        "id": "65037388",
-        "name": "VT Hagsfeld",
-        "lsbNumber": "81537",
-        "internalSportsclubId": "81537",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037448",
         "name": "TV Neuweier",
         "lsbNumber": "472090",
@@ -61726,6 +61716,16 @@
         "name": "SC Baden-Baden",
         "lsbNumber": "180320",
         "internalSportsclubId": "01002",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037388",
+        "name": "VT Hagsfeld",
+        "lsbNumber": "81537",
+        "internalSportsclubId": "81537",
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
@@ -62532,16 +62532,6 @@
         }
       },
       {
-        "id": "73994392",
-        "name": "SV Hahnbach",
-        "lsbNumber": "1111111110000053",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7215",
-          "name": "Bayerischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "16816147",
         "name": "TuS Iserlohn 1846 e.V.",
         "lsbNumber": "5306036",
@@ -62609,6 +62599,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "73994392",
+        "name": "SV Hahnbach",
+        "lsbNumber": "1111111110000053",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7215",
+          "name": "Bayerischer Volleyball-Verband"
         }
       },
       {
@@ -63072,6 +63072,16 @@
         }
       },
       {
+        "id": "6333",
+        "name": "SV Pädagogik Schönebeck e.V.",
+        "lsbNumber": "60224",
+        "internalSportsclubId": "60224",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "37948377",
         "name": "SV Rotation Weddersleben e.V.",
         "lsbNumber": "50165",
@@ -63089,16 +63099,6 @@
         "association": {
           "id": "33795221",
           "name": "Rhein-Erft"
-        }
-      },
-      {
-        "id": "6333",
-        "name": "SV Pädagogik Schönebeck e.V.",
-        "lsbNumber": "60224",
-        "internalSportsclubId": "60224",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
