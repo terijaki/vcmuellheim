@@ -7,9 +7,9 @@
       "name": "Herren Pokal-Finale 2024 (OL und höher)",
       "shortName": "hp_top",
       "type": "Competition",
-      "updated": "2024-09-27 11:32:14.28",
-      "structureUpdated": "2024-09-27 11:32:14.279",
-      "resultsUpdated": null,
+      "updated": "2024-09-29 17:27:29.893",
+      "structureUpdated": "2024-09-29 09:21:32.628",
+      "resultsUpdated": "2024-09-29 17:27:29.893",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -51,43 +51,7 @@
     },
     "ranking": [
       {
-        "place": null,
-        "team": {
-          "id": "74192321",
-          "uuid": "1353cf84-b5ef-4eb3-afee-2e2c19349be0",
-          "name": "FT 1844 Freiburg 2",
-          "club": "FT 1844 Freiburg"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "74192382",
-          "uuid": "d713b890-911e-44fa-b580-a0289fdb6413",
-          "name": "SV Litzelstetten",
-          "club": "SV Litzelstetten"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "74192328",
-          "uuid": "1c218ce2-1473-4e4f-a649-da0e205a1ff9",
-          "name": "TG Schwenningen",
-          "club": "TG Schwenningen"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "74192324",
-          "uuid": "8e4f5448-e86e-4f6d-8cf2-4124a0cca5a7",
-          "name": "VC Müllheim",
-          "club": "VC Müllheim"
-        }
-      },
-      {
-        "place": null,
+        "place": "3",
         "team": {
           "id": "74192336",
           "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
@@ -96,12 +60,30 @@
         }
       },
       {
-        "place": null,
+        "place": "4",
         "team": {
           "id": "74192333",
           "uuid": "ed47b4be-d704-4426-89e9-4c39414999bb",
           "name": "VC Weil",
           "club": "VC Weil am Rhein"
+        }
+      },
+      {
+        "place": "5",
+        "team": {
+          "id": "74192324",
+          "uuid": "8e4f5448-e86e-4f6d-8cf2-4124a0cca5a7",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": "6",
+        "team": {
+          "id": "74192382",
+          "uuid": "d713b890-911e-44fa-b580-a0289fdb6413",
+          "name": "SV Litzelstetten",
+          "club": "SV Litzelstetten"
         }
       }
     ]
