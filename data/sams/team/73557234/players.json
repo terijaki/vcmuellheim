@@ -1,5 +1,5 @@
 {
-    "date": "2024-08-27T19:03:53.958Z",
+    "date": "2024-09-29T18:37:26.144Z",
     "players": [
         {
             "lastname": "Konop",
@@ -12,6 +12,14 @@
         {
             "lastname": "Mujevic",
             "firstname": "Suanita",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Schmidt",
+            "firstname": "Lene",
             "nationality": "DE",
             "number": "",
             "height": "",
@@ -39,14 +47,6 @@
             "nationality": "DE",
             "number": "",
             "height": "",
-            "function": ""
-        },
-        {
-            "lastname": "Mujevic",
-            "firstname": "Mirela",
-            "nationality": "DE",
-            "number": "",
-            "height": 175,
             "function": ""
         },
         {
