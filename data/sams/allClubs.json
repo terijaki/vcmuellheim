@@ -412,16 +412,6 @@
         }
       },
       {
-        "id": "26925078",
-        "name": "Fuldaer TS 1848",
-        "lsbNumber": "18047",
-        "internalSportsclubId": "1824",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "26819082",
         "name": "TSV Ulstertal Geisa e.V.",
         "lsbNumber": "460059",
@@ -579,6 +569,16 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "26925078",
+        "name": "Fuldaer TS 1848",
+        "lsbNumber": "18047",
+        "internalSportsclubId": "1824",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -2362,6 +2362,16 @@
         }
       },
       {
+        "id": "21869892",
+        "name": "DSW 1912 Darmstadt",
+        "lsbNumber": "33049",
+        "internalSportsclubId": "1404",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
         "id": "26818721",
         "name": "TSV 1858 Pößneck e.V.",
         "lsbNumber": "280087",
@@ -2499,16 +2509,6 @@
         "association": {
           "id": "26249207",
           "name": "Kreisverband Mitte-West"
-        }
-      },
-      {
-        "id": "21869892",
-        "name": "DSW 1912 Darmstadt",
-        "lsbNumber": "33049",
-        "internalSportsclubId": "1404",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -9972,9 +9972,9 @@
         }
       },
       {
-        "id": "27480356",
-        "name": "TUS Wiebelskirchen",
-        "lsbNumber": "89106",
+        "id": "27480354",
+        "name": "KV St. Ingbert",
+        "lsbNumber": "88027",
         "internalSportsclubId": null,
         "association": {
           "id": "7219",
@@ -9982,9 +9982,9 @@
         }
       },
       {
-        "id": "27480354",
-        "name": "KV St. Ingbert",
-        "lsbNumber": "88027",
+        "id": "27480356",
+        "name": "TUS Wiebelskirchen",
+        "lsbNumber": "89106",
         "internalSportsclubId": null,
         "association": {
           "id": "7219",
@@ -10922,6 +10922,16 @@
         }
       },
       {
+        "id": "26925387",
+        "name": "TSV 1891 Kassel-Oberzwehren",
+        "lsbNumber": "41136",
+        "internalSportsclubId": "3720",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
         "id": "26925641",
         "name": "SVW Ahnatal e.V.",
         "lsbNumber": "41189",
@@ -11079,16 +11089,6 @@
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
-        "id": "26925387",
-        "name": "TSV 1891 e.V. Kassel-Oberzwehren",
-        "lsbNumber": "41136",
-        "internalSportsclubId": "3720",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -14662,16 +14662,6 @@
         }
       },
       {
-        "id": "26925054",
-        "name": "SKG Wallerstädten e.V.",
-        "lsbNumber": "37150",
-        "internalSportsclubId": "3711",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "37921276",
         "name": "TV Kalkum 1911- Wittlaer e.V.",
         "lsbNumber": "1001135",
@@ -14686,6 +14676,16 @@
         "name": "SV Concordia 1910 e.V. Gernsheim",
         "lsbNumber": "37034",
         "internalSportsclubId": "1711",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "26925054",
+        "name": "SKG Wallerstädten",
+        "lsbNumber": "37150",
+        "internalSportsclubId": "3711",
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
@@ -17562,16 +17562,6 @@
         }
       },
       {
-        "id": "26925434",
-        "name": "SV Blau-Gelb Groß-Gerau e.V.",
-        "lsbNumber": "37051",
-        "internalSportsclubId": "2203",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "26925424",
         "name": "VF Körle",
         "lsbNumber": "0",
@@ -19742,16 +19732,6 @@
         }
       },
       {
-        "id": "26925674",
-        "name": "TV 1910 Ronshausen e.V.",
-        "lsbNumber": "22161",
-        "internalSportsclubId": "4506",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "26925675",
         "name": "TG 1888  Sv 1915 Jügesheim e.V.",
         "lsbNumber": "29080",
@@ -19909,6 +19889,16 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "26925674",
+        "name": "TV 1910 Ronshausen",
+        "lsbNumber": "22161",
+        "internalSportsclubId": "4506",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -20862,16 +20852,6 @@
         }
       },
       {
-        "id": "26925423",
-        "name": "TuS Eintracht Wiesbaden 1846",
-        "lsbNumber": "38147",
-        "internalSportsclubId": "6701",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "37921587",
         "name": "SGN Essen e.V.",
         "lsbNumber": "1003262",
@@ -20999,6 +20979,16 @@
         "association": {
           "id": "33299056",
           "name": "Essen"
+        }
+      },
+      {
+        "id": "26925423",
+        "name": "TuS Eintracht Wiesbaden 1846",
+        "lsbNumber": "38147",
+        "internalSportsclubId": "6701",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -31902,16 +31892,6 @@
         }
       },
       {
-        "id": "37920697",
-        "name": "Polizeisportvereinigung Bochum e.V.",
-        "lsbNumber": "5001082",
-        "internalSportsclubId": "975",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
         "id": "37920749",
         "name": "Turn- u.Sportgemeinde von 1880 Vlotho e.V.",
         "lsbNumber": "4209005",
@@ -31949,6 +31929,16 @@
         "association": {
           "id": "33797364",
           "name": "Warendorf"
+        }
+      },
+      {
+        "id": "37920697",
+        "name": "Polizeisportvereinigung Bochum e.V.",
+        "lsbNumber": "5001082",
+        "internalSportsclubId": "975",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
         }
       },
       {
@@ -34369,16 +34359,6 @@
         "association": {
           "id": "33797822",
           "name": "Dortmund"
-        }
-      },
-      {
-        "id": "40714594",
-        "name": "Turnverein 1888 Büttelborn e.V.",
-        "lsbNumber": "37023",
-        "internalSportsclubId": "1516",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -39152,16 +39132,6 @@
         }
       },
       {
-        "id": "26925398",
-        "name": "FSV Bergshausen 1899 e.V.",
-        "lsbNumber": "41004",
-        "internalSportsclubId": "4111",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "37948474",
         "name": "VV 1984 Kleinpaschleben e.V.",
         "lsbNumber": "70170",
@@ -41582,16 +41552,6 @@
         }
       },
       {
-        "id": "26925605",
-        "name": "TV 1906 e.V. Wächtersbach",
-        "lsbNumber": "27136",
-        "internalSportsclubId": "5305",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
         "id": "50621745",
         "name": "SG Mauersberg e.V.",
         "lsbNumber": "440281",
@@ -41632,6 +41592,16 @@
         }
       },
       {
+        "id": "50621731",
+        "name": "L.O. Volleys e.V.",
+        "lsbNumber": "520399",
+        "internalSportsclubId": "537",
+        "association": {
+          "id": "24908690",
+          "name": "Landkreis Zwickau/Erzgebirge"
+        }
+      },
+      {
         "id": "26925235",
         "name": "SC 1953 Steinberg",
         "lsbNumber": "29234",
@@ -41642,13 +41612,13 @@
         }
       },
       {
-        "id": "50621731",
-        "name": "L.O. Volleys e.V.",
-        "lsbNumber": "520399",
-        "internalSportsclubId": "537",
+        "id": "26925605",
+        "name": "TV 1906 Wächtersbach",
+        "lsbNumber": "27136",
+        "internalSportsclubId": "5305",
         "association": {
-          "id": "24908690",
-          "name": "Landkreis Zwickau/Erzgebirge"
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
         }
       },
       {
@@ -47362,16 +47332,6 @@
         }
       },
       {
-        "id": "26925566",
-        "name": "SF Rodgau 1911 e. V.",
-        "lsbNumber": "29075",
-        "internalSportsclubId": "2912",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "50621804",
         "name": "SV Reichenbach e.V.",
         "lsbNumber": "450279",
@@ -48672,16 +48632,6 @@
         }
       },
       {
-        "id": "26925539",
-        "name": "TV 1892 Großen-Linden e.V.",
-        "lsbNumber": "12092",
-        "internalSportsclubId": "2103",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
         "id": "37920924",
         "name": "TuS Schladern 1913 e.V.",
         "lsbNumber": "2819015",
@@ -48689,6 +48639,16 @@
         "association": {
           "id": "33795566",
           "name": "Rhein-Sieg"
+        }
+      },
+      {
+        "id": "26925539",
+        "name": "TV 1892 Großen-Linden",
+        "lsbNumber": "12092",
+        "internalSportsclubId": "2103",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
         }
       },
       {
@@ -52242,16 +52202,6 @@
         }
       },
       {
-        "id": "27277305",
-        "name": "DVV Stützpunkt Südwest",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7220",
-          "name": "Hessischer Volleyballverband"
-        }
-      },
-      {
         "id": "54611263",
         "name": "SV Westerheim",
         "lsbNumber": "1163",
@@ -52339,6 +52289,16 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
+        "id": "27277305",
+        "name": "DVV-Stützpunkt Südwest",
+        "lsbNumber": null,
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7220",
+          "name": "Hessischer Volleyballverband"
         }
       },
       {
@@ -52902,16 +52862,6 @@
         }
       },
       {
-        "id": "26925210",
-        "name": "TV 1906 Berstadt",
-        "lsbNumber": "25031",
-        "internalSportsclubId": "204",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
         "id": "50621820",
         "name": "SV Meißen e.V.",
         "lsbNumber": "470181",
@@ -52939,6 +52889,16 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "26925210",
+        "name": "TV 1906 Berstadt",
+        "lsbNumber": "25031",
+        "internalSportsclubId": "204",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
         }
       },
       {
@@ -54569,16 +54529,6 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
-        }
-      },
-      {
-        "id": "54610971",
-        "name": "SV Bad Buchau",
-        "lsbNumber": "2013",
-        "internalSportsclubId": "322",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
         }
       },
       {
@@ -58522,16 +58472,6 @@
         }
       },
       {
-        "id": "26925085",
-        "name": "TV Jahn 1913 Willingen e.V.",
-        "lsbNumber": "47152",
-        "internalSportsclubId": "4703",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "65036981",
         "name": "SV Linx",
         "lsbNumber": "8144281631",
@@ -62012,6 +61952,16 @@
         }
       },
       {
+        "id": "54610971",
+        "name": "SV Bad Buchau",
+        "lsbNumber": "2013",
+        "internalSportsclubId": "322",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
+        }
+      },
+      {
         "id": "65037233",
         "name": "TV Haagen 1881 e.V.",
         "lsbNumber": "471160",
@@ -62322,6 +62272,16 @@
         }
       },
       {
+        "id": "26925085",
+        "name": "TV Jahn 1913 Willingen",
+        "lsbNumber": "47152",
+        "internalSportsclubId": "4703",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
         "id": "65036576",
         "name": "BSG Dornier/ TuS Immenstaad",
         "lsbNumber": "182740",
@@ -62532,6 +62492,16 @@
         }
       },
       {
+        "id": "26925566",
+        "name": "SF Rodgau 1911",
+        "lsbNumber": "29075",
+        "internalSportsclubId": "2912",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
         "id": "16816147",
         "name": "TuS Iserlohn 1846 e.V.",
         "lsbNumber": "5306036",
@@ -62652,6 +62622,16 @@
         }
       },
       {
+        "id": "26925434",
+        "name": "SV Blau-Gelb Groß-Gerau",
+        "lsbNumber": "37051",
+        "internalSportsclubId": "2203",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
         "id": "37920873",
         "name": "Turnerschaft St. Tönis 1861 e.V.",
         "lsbNumber": "1407013",
@@ -62672,6 +62652,16 @@
         }
       },
       {
+        "id": "26925398",
+        "name": "FSV Bergshausen 1899",
+        "lsbNumber": "41004",
+        "internalSportsclubId": "4111",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
         "id": "26925402",
         "name": "TV 1862 Biedenkopf",
         "lsbNumber": "16013",
@@ -62689,6 +62679,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "40714594",
+        "name": "Turnverein 1888 Büttelborn",
+        "lsbNumber": "37023",
+        "internalSportsclubId": "1516",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
