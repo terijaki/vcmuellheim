@@ -52,9 +52,9 @@
           "name": "Herren Pokal-Finale 2024 (OL und höher)",
           "shortName": "hp_top",
           "type": "Competition",
-          "updated": "2024-09-29 17:27:29.893",
-          "structureUpdated": "2024-09-29 09:21:32.628",
-          "resultsUpdated": "2024-09-29 17:27:29.893",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -182,9 +182,9 @@
           "name": "Herren Pokal-Finale 2024 (OL und höher)",
           "shortName": "hp_top",
           "type": "Competition",
-          "updated": "2024-09-29 17:27:29.893",
-          "structureUpdated": "2024-09-29 09:21:32.628",
-          "resultsUpdated": "2024-09-29 17:27:29.893",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -312,9 +312,9 @@
           "name": "Herren Pokal-Finale 2024 (OL und höher)",
           "shortName": "hp_top",
           "type": "Competition",
-          "updated": "2024-09-29 17:27:29.893",
-          "structureUpdated": "2024-09-29 09:21:32.628",
-          "resultsUpdated": "2024-09-29 17:27:29.893",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -442,9 +442,9 @@
           "name": "Herren Pokal-Finale 2024 (OL und höher)",
           "shortName": "hp_top",
           "type": "Competition",
-          "updated": "2024-09-29 17:27:29.893",
-          "structureUpdated": "2024-09-29 09:21:32.628",
-          "resultsUpdated": "2024-09-29 17:27:29.893",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -572,9 +572,9 @@
           "name": "Herren Pokal-Finale 2024 (OL und höher)",
           "shortName": "hp_top",
           "type": "Competition",
-          "updated": "2024-09-29 17:27:29.893",
-          "structureUpdated": "2024-09-29 09:21:32.628",
-          "resultsUpdated": "2024-09-29 17:27:29.893",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -702,9 +702,9 @@
           "name": "Herren Pokal-Finale 2024 (OL und höher)",
           "shortName": "hp_top",
           "type": "Competition",
-          "updated": "2024-09-29 17:27:29.893",
-          "structureUpdated": "2024-09-29 09:21:32.628",
-          "resultsUpdated": "2024-09-29 17:27:29.893",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -754,6 +754,36 @@
           "note": "-"
         },
         "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "1:2",
+          "ballPoints": "57:58",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "21:25",
+                "winner": "TEAM2",
+                "duration": "-"
+              },
+              {
+                "number": "1",
+                "points": "25:18",
+                "winner": "TEAM1",
+                "duration": "-"
+              },
+              {
+                "number": "1",
+                "points": "11:15",
+                "winner": "TEAM2",
+                "duration": "-"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "-",
+        "netDuration": "-",
         "dateObject": "2024-09-29T09:00:00.000Z",
         "dateIso": "2024-09-29T09:00:00.000Z"
       },
@@ -808,9 +838,9 @@
           "name": "Herren Pokal-Finale 2024 (OL und höher)",
           "shortName": "hp_top",
           "type": "Competition",
-          "updated": "2024-09-29 17:27:29.893",
-          "structureUpdated": "2024-09-29 09:21:32.628",
-          "resultsUpdated": "2024-09-29 17:27:29.893",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -938,9 +968,9 @@
           "name": "Herren Pokal-Finale 2024 (OL und höher)",
           "shortName": "hp_top",
           "type": "Competition",
-          "updated": "2024-09-29 17:27:29.893",
-          "structureUpdated": "2024-09-29 09:21:32.628",
-          "resultsUpdated": "2024-09-29 17:27:29.893",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1068,9 +1098,9 @@
           "name": "Herren Pokal-Finale 2024 (OL und höher)",
           "shortName": "hp_top",
           "type": "Competition",
-          "updated": "2024-09-29 17:27:29.893",
-          "structureUpdated": "2024-09-29 09:21:32.628",
-          "resultsUpdated": "2024-09-29 17:27:29.893",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1204,9 +1234,9 @@
           "name": "Herren Pokal-Finale 2024 (OL und höher)",
           "shortName": "hp_top",
           "type": "Competition",
-          "updated": "2024-09-29 17:27:29.893",
-          "structureUpdated": "2024-09-29 09:21:32.628",
-          "resultsUpdated": "2024-09-29 17:27:29.893",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1334,9 +1364,9 @@
           "name": "Herren Pokal-Finale 2024 (OL und höher)",
           "shortName": "hp_top",
           "type": "Competition",
-          "updated": "2024-09-29 17:27:29.893",
-          "structureUpdated": "2024-09-29 09:21:32.628",
-          "resultsUpdated": "2024-09-29 17:27:29.893",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",

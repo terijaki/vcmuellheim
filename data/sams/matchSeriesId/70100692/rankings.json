@@ -7,9 +7,9 @@
       "name": "Herren Pokal-Finale 2024 (OL und höher)",
       "shortName": "hp_top",
       "type": "Competition",
-      "updated": "2024-09-29 17:27:29.893",
-      "structureUpdated": "2024-09-29 09:21:32.628",
-      "resultsUpdated": "2024-09-29 17:27:29.893",
+      "updated": "2024-09-30 08:53:41.076",
+      "structureUpdated": "2024-09-30 08:50:35.908",
+      "resultsUpdated": "2024-09-30 08:53:41.076",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -50,6 +50,24 @@
       }
     },
     "ranking": [
+      {
+        "place": "1",
+        "team": {
+          "id": "74192321",
+          "uuid": "1353cf84-b5ef-4eb3-afee-2e2c19349be0",
+          "name": "FT 1844 Freiburg 2",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": "2",
+        "team": {
+          "id": "74192328",
+          "uuid": "1c218ce2-1473-4e4f-a649-da0e205a1ff9",
+          "name": "TG Schwenningen",
+          "club": "TG Schwenningen"
+        }
+      },
       {
         "place": "3",
         "team": {
