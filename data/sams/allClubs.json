@@ -15162,16 +15162,6 @@
         }
       },
       {
-        "id": "70394781",
-        "name": "Sport- und Kulturgemeinde  Roßdorf 1877 e.V",
-        "lsbNumber": "33136",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7220",
-          "name": "Hessischer Volleyballverband"
-        }
-      },
-      {
         "id": "26925124",
         "name": "Sportverein Kirchvers e.V.",
         "lsbNumber": "10070",
@@ -15179,6 +15169,16 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "70394781",
+        "name": "SKG Roßdorf 1877",
+        "lsbNumber": "33136",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7220",
+          "name": "Hessischer Volleyballverband"
         }
       },
       {
@@ -18262,16 +18262,6 @@
         }
       },
       {
-        "id": "26925483",
-        "name": "TV 1891 Babenhausen e.V.",
-        "lsbNumber": "34011",
-        "internalSportsclubId": "1603",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "26925525",
         "name": "TV 1903 Breitenbach",
         "lsbNumber": "22040",
@@ -18472,6 +18462,16 @@
         }
       },
       {
+        "id": "26925483",
+        "name": "TV 1891 Babenhausen",
+        "lsbNumber": "34011",
+        "internalSportsclubId": "1603",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
         "id": "37921702",
         "name": "Volleyballverein Traktor Flingern e.V.",
         "lsbNumber": "1001520",
@@ -18569,16 +18569,6 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
-        }
-      },
-      {
-        "id": "26925535",
-        "name": "TV 1888 Reinheim e.V.",
-        "lsbNumber": "34093",
-        "internalSportsclubId": "1511",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -27082,16 +27072,6 @@
         }
       },
       {
-        "id": "55923640",
-        "name": "TB Gaisburg",
-        "lsbNumber": "20157",
-        "internalSportsclubId": "825",
-        "association": {
-          "id": "7216",
-          "name": "Volleyball-Landesverband Württemberg"
-        }
-      },
-      {
         "id": "37948541",
         "name": "SV 1950 Schrenz e.V.",
         "lsbNumber": "70024",
@@ -34762,6 +34742,16 @@
         }
       },
       {
+        "id": "26925136",
+        "name": "VC Breuberg",
+        "lsbNumber": "35135",
+        "internalSportsclubId": "1712",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
         "id": "37921188",
         "name": "TV Anrath 1899 e.V.",
         "lsbNumber": "1409008",
@@ -34819,16 +34809,6 @@
         "association": {
           "id": "33299148",
           "name": "Krefeld-Viersen"
-        }
-      },
-      {
-        "id": "26925136",
-        "name": "VC Breuberg e.V.",
-        "lsbNumber": "35135",
-        "internalSportsclubId": "1712",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -39412,16 +39392,6 @@
         }
       },
       {
-        "id": "54611313",
-        "name": "SSC Tübingen",
-        "lsbNumber": "22163",
-        "internalSportsclubId": "693",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "50621486",
         "name": "SV Fortschritt Großharthau e.V.",
         "lsbNumber": "430296",
@@ -39559,6 +39529,16 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "54611313",
+        "name": "SSC Tübingen",
+        "lsbNumber": "22163",
+        "internalSportsclubId": "693",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -53722,16 +53702,6 @@
         }
       },
       {
-        "id": "51836276",
-        "name": "TSV 1885 Annweiler",
-        "lsbNumber": "50",
-        "internalSportsclubId": "32-51-02",
-        "association": {
-          "id": "25383414",
-          "name": "Volleyball-Verband Pfalz"
-        }
-      },
-      {
         "id": "50621459",
         "name": "ASV Vorwärts Rothenburg e.V.",
         "lsbNumber": "450017",
@@ -53809,6 +53779,16 @@
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "51836276",
+        "name": "TSV 1885 Annweiler",
+        "lsbNumber": "50",
+        "internalSportsclubId": "32-51-02",
+        "association": {
+          "id": "25383414",
+          "name": "Volleyball-Verband Pfalz"
         }
       },
       {
@@ -58019,16 +57999,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "50621749",
-        "name": "Sportgemeinschaft 47 Wolkenstein e.V.",
-        "lsbNumber": "440272",
-        "internalSportsclubId": "534",
-        "association": {
-          "id": "24908690",
-          "name": "Landkreis Zwickau/Erzgebirge"
         }
       },
       {
@@ -62572,16 +62542,6 @@
         }
       },
       {
-        "id": "73994392",
-        "name": "SV Hahnbach",
-        "lsbNumber": "1111111110000053",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7215",
-          "name": "Bayerischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "4450240",
         "name": "TSG HD-Rohrbach",
         "lsbNumber": "50659",
@@ -62629,6 +62589,16 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "73994392",
+        "name": "SV Hahnbach",
+        "lsbNumber": "1111111110000053",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7215",
+          "name": "Bayerischer Volleyball-Verband"
         }
       },
       {
@@ -62689,6 +62659,36 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "26925535",
+        "name": "TV 1888 Reinheim",
+        "lsbNumber": "34093",
+        "internalSportsclubId": "1511",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "55923640",
+        "name": "TB Gaisburg",
+        "lsbNumber": "20157",
+        "internalSportsclubId": "825",
+        "association": {
+          "id": "7216",
+          "name": "Volleyball-Landesverband Württemberg"
+        }
+      },
+      {
+        "id": "50621749",
+        "name": "Sportgemeinschaft 47 Wolkenstein e.V.",
+        "lsbNumber": "440272",
+        "internalSportsclubId": "534",
+        "association": {
+          "id": "24908690",
+          "name": "Landkreis Zwickau/Erzgebirge"
         }
       },
       {
