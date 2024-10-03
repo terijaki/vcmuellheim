@@ -442,16 +442,6 @@
         }
       },
       {
-        "id": "26925395",
-        "name": "TG 1949 Wehlheiden",
-        "lsbNumber": "41186",
-        "internalSportsclubId": "3709",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "37920983",
         "name": "VGS Königsfeld e.V.",
         "lsbNumber": "5102037",
@@ -589,6 +579,16 @@
         "association": {
           "id": "33298901",
           "name": "Wesel"
+        }
+      },
+      {
+        "id": "26925395",
+        "name": "TG 1949 Wehlheiden",
+        "lsbNumber": "41186",
+        "internalSportsclubId": "3709",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -1342,16 +1342,6 @@
         }
       },
       {
-        "id": "12482807",
-        "name": "SV Karlsruhe-Beiertheim",
-        "lsbNumber": "81505",
-        "internalSportsclubId": "81505",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "54611135",
         "name": "VC Hardt",
         "lsbNumber": "17172",
@@ -1379,6 +1369,16 @@
         "association": {
           "id": "26249261",
           "name": "Kreisverband Ost"
+        }
+      },
+      {
+        "id": "12482807",
+        "name": "SV Karlsruhe-Beiertheim",
+        "lsbNumber": "81505",
+        "internalSportsclubId": "81505",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -24672,16 +24672,6 @@
         }
       },
       {
-        "id": "37921912",
-        "name": "1. BSV Wulferdingsen e.V.",
-        "lsbNumber": "4501006",
-        "internalSportsclubId": "10140",
-        "association": {
-          "id": "33797702",
-          "name": "Minden-Ravensberg"
-        }
-      },
-      {
         "id": "37921745",
         "name": "Turnverein Rheindahlen 1883 e.V.",
         "lsbNumber": "1005124",
@@ -24749,6 +24739,16 @@
         "association": {
           "id": "33299130",
           "name": "Mönchengladbach"
+        }
+      },
+      {
+        "id": "37921912",
+        "name": "1. BSV Wulferdingsen e.V.",
+        "lsbNumber": "4501006",
+        "internalSportsclubId": "10140",
+        "association": {
+          "id": "33797702",
+          "name": "Minden-Ravensberg"
         }
       },
       {
@@ -39522,16 +39522,6 @@
         }
       },
       {
-        "id": "30150834",
-        "name": "TSV Herbrechtingen",
-        "lsbNumber": "9044",
-        "internalSportsclubId": "207",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "54611313",
         "name": "SSC Tübingen",
         "lsbNumber": "22163",
@@ -39539,6 +39529,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "30150834",
+        "name": "TSV Herbrechtingen",
+        "lsbNumber": "9044",
+        "internalSportsclubId": "207",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       },
       {
@@ -42819,16 +42819,6 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
-        "id": "50621884",
-        "name": "Roßweiner SV e. V.",
-        "lsbNumber": "480188",
-        "internalSportsclubId": "4",
-        "association": {
-          "id": "24908772",
-          "name": "Landkreis Meißen"
         }
       },
       {
@@ -57052,16 +57042,6 @@
         }
       },
       {
-        "id": "51836308",
-        "name": "TuS 1878 Gensingen e.V.",
-        "lsbNumber": "83",
-        "internalSportsclubId": "32-58-15",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "65036566",
         "name": "SG Kappelrodeck/Oberachern",
         "lsbNumber": null,
@@ -58622,6 +58602,16 @@
         }
       },
       {
+        "id": "65037028",
+        "name": "DJK MA-Feudenheim",
+        "lsbNumber": "61171",
+        "internalSportsclubId": "61171",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "65037016",
         "name": "SV Großeicholzheim",
         "lsbNumber": "20164",
@@ -58649,16 +58639,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65037028",
-        "name": "ASC MA-Feudenheim",
-        "lsbNumber": "61171",
-        "internalSportsclubId": "61171",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -62689,6 +62669,36 @@
         "association": {
           "id": "24908690",
           "name": "Landkreis Zwickau/Erzgebirge"
+        }
+      },
+      {
+        "id": "51836308",
+        "name": "TuS 1878 Gensingen e.V.",
+        "lsbNumber": "83",
+        "internalSportsclubId": "32-58-15",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "50621884",
+        "name": "Roßweiner SV e. V.",
+        "lsbNumber": "480188",
+        "internalSportsclubId": "4",
+        "association": {
+          "id": "24908772",
+          "name": "Landkreis Meißen"
+        }
+      },
+      {
+        "id": "78171945",
+        "name": "TV Tiengen 1886 e.V.",
+        "lsbNumber": null,
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
