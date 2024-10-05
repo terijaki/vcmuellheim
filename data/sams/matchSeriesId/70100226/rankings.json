@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2024-10-05 17:55:59.834",
+      "updated": "2024-10-05 19:31:05.985",
       "structureUpdated": "2024-10-05 13:20:26.732",
-      "resultsUpdated": "2024-10-05 17:55:59.834",
+      "resultsUpdated": "2024-10-05 19:31:05.985",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -170,6 +170,62 @@
       },
       {
         "team": {
+          "id": "73349535",
+          "uuid": "d749145f-4492-4ae4-867e-39689506efb9",
+          "name": "VC Weil 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VC Weil am Rhein",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "2",
+        "wins": "1",
+        "losses": "1",
+        "points": "3",
+        "setPoints": "5:5",
+        "setWinScore": "5",
+        "setLoseScore": "5",
+        "setPointDifference": "0",
+        "setQuotient": "1,000\n            ",
+        "ballPoints": "205:216",
+        "ballWinScore": "205",
+        "ballLoseScore": "216",
+        "ballPointDifference": "-11",
+        "ballQuotient": "0,949\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "0"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73349554",
           "uuid": "05640b90-239f-4738-aade-96c68a7f1e86",
           "name": "Südbaden-Auswahl",
@@ -226,13 +282,13 @@
       },
       {
         "team": {
-          "id": "73349535",
-          "uuid": "d749145f-4492-4ae4-867e-39689506efb9",
-          "name": "VC Weil 2",
+          "id": "73349557",
+          "uuid": "3d6b9adf-0dc2-49dc-876c-4a005f416b0a",
+          "name": "Bad Säckinger Wölfe",
           "shortName": null,
           "clubCode": null,
           "club": {
-            "name": "VC Weil am Rhein",
+            "name": "TV Bad Säckingen",
             "shortName": null
           }
         },
@@ -246,11 +302,11 @@
         "setLoseScore": "2",
         "setPointDifference": "1",
         "setQuotient": "1,500\n            ",
-        "ballPoints": "106:110",
+        "ballPoints": "106:99",
         "ballWinScore": "106",
-        "ballLoseScore": "110",
-        "ballPointDifference": "-4",
-        "ballQuotient": "0,964\n            ",
+        "ballLoseScore": "99",
+        "ballPointDifference": "7",
+        "ballQuotient": "1,071\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -345,62 +401,6 @@
           "clubCode": null,
           "club": {
             "name": "TB Bad Krozingen",
-            "shortName": null
-          }
-        },
-        "place": "1",
-        "matchesPlayed": "0",
-        "wins": "0",
-        "losses": "0",
-        "points": "0",
-        "setPoints": "0:0",
-        "setWinScore": "0",
-        "setLoseScore": "0",
-        "setPointDifference": "0",
-        "setQuotient": "∞\n            ",
-        "ballPoints": "0:0",
-        "ballWinScore": "0",
-        "ballLoseScore": "0",
-        "ballPointDifference": "0",
-        "ballQuotient": "∞\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73349557",
-          "uuid": "3d6b9adf-0dc2-49dc-876c-4a005f416b0a",
-          "name": "Bad Säckinger Wölfe",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Bad Säckingen",
             "shortName": null
           }
         },
