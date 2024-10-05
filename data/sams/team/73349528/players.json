@@ -1,6 +1,22 @@
 {
-    "date": "2024-10-01T02:52:35.325Z",
+    "date": "2024-10-05T09:21:18.996Z",
     "players": [
+        {
+            "lastname": "Pohl",
+            "firstname": "Michael",
+            "nationality": "DE",
+            "number": "",
+            "height": 190,
+            "function": ""
+        },
+        {
+            "lastname": "Bubalo",
+            "firstname": "Ognjen",
+            "nationality": "HR",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
         {
             "lastname": "Lacher",
             "firstname": "Paul",
@@ -55,6 +71,14 @@
             "nationality": "DE",
             "number": 21,
             "height": 180,
+            "function": ""
+        },
+        {
+            "lastname": "Rah Anjam Nokande",
+            "firstname": "Mohammad",
+            "nationality": "IR",
+            "number": "",
+            "height": "",
             "function": ""
         }
     ]

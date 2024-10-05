@@ -1,5 +1,5 @@
 {
-    "date": "2024-10-01T02:52:35.537Z",
+    "date": "2024-10-05T09:21:19.251Z",
     "players": [
         {
             "lastname": "Albrecht",
@@ -40,6 +40,14 @@
             "number": "",
             "height": "",
             "function": "Co-Trainer"
+        },
+        {
+            "lastname": "Panknin",
+            "firstname": "Julia",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
         },
         {
             "lastname": "Mertens",
@@ -118,7 +126,7 @@
             "firstname": "Jana",
             "nationality": "DE",
             "number": "",
-            "height": "",
+            "height": 165,
             "function": ""
         }
     ]
