@@ -1,3 +1,16 @@
 {
-  "entries": []
+  "entries": [
+    {
+      "uuid": "e0a85c15-5ab0-49af-9d69-c0adbfb10d13",
+      "date": "2024-10-05T12:00:00.000Z",
+      "league": "Landesliga West Herren",
+      "team": [
+        "Südbaden-Auswahl",
+        "VC Müllheim 1"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
+    }
+  ]
 }
