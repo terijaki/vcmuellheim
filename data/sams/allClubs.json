@@ -36962,16 +36962,6 @@
         }
       },
       {
-        "id": "961603",
-        "name": "Rote Raben Vilsbiburg",
-        "lsbNumber": "70186",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7215",
-          "name": "Bayerischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "17048800",
         "name": "Schweriner SC",
         "lsbNumber": "40623",
@@ -36999,6 +36989,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "961603",
+        "name": "Rote Raben Vilsbiburg",
+        "lsbNumber": "70186",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7215",
+          "name": "Bayerischer Volleyball-Verband"
         }
       },
       {
@@ -52562,16 +52562,6 @@
         }
       },
       {
-        "id": "16932418",
-        "name": "VfB Ulm",
-        "lsbNumber": "1144",
-        "internalSportsclubId": "415",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "51836142",
         "name": "TV Ehrang",
         "lsbNumber": "1001383",
@@ -52619,6 +52609,16 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
+        "id": "16932418",
+        "name": "VfB Ulm",
+        "lsbNumber": "1144",
+        "internalSportsclubId": "415",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
@@ -58603,7 +58603,7 @@
       },
       {
         "id": "65037028",
-        "name": "DJK MA-Feudenheim",
+        "name": "DJK Feudenheim",
         "lsbNumber": "61171",
         "internalSportsclubId": "61171",
         "association": {
@@ -61322,16 +61322,6 @@
         }
       },
       {
-        "id": "65036759",
-        "name": "TV Donaueschingen",
-        "lsbNumber": "470600",
-        "internalSportsclubId": "3305",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037023",
         "name": "TV Neustadt",
         "lsbNumber": "472080",
@@ -62702,6 +62692,16 @@
         }
       },
       {
+        "id": "65036759",
+        "name": "TV Donaueschingen",
+        "lsbNumber": "470600",
+        "internalSportsclubId": "3305",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "54611157",
         "name": "TuS Metzingen",
         "lsbNumber": "16060",
@@ -62982,16 +62982,6 @@
         }
       },
       {
-        "id": "52654562",
-        "name": "TV Rüggeberg 1885 e.V.",
-        "lsbNumber": "5102009",
-        "internalSportsclubId": "1111111110000017",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
         "id": "65036685",
         "name": "SG Sinsheim/Helmstadt",
         "lsbNumber": null,
@@ -63089,6 +63079,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "52654562",
+        "name": "TV Rüggeberg 1885 e.V.",
+        "lsbNumber": "5102009",
+        "internalSportsclubId": "1111111110000017",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
         }
       },
       {
