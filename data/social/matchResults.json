@@ -25,6 +25,18 @@
       "score": "2:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113255977125914246"
+    },
+    {
+      "uuid": "d31a0245-1c5e-4c00-99ef-c989c5db141b",
+      "date": "2024-10-05T12:00:00.000Z",
+      "league": "Kreisliga Damen Süd",
+      "team": [
+        "TV Neuenburg",
+        "VC Müllheim 2"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
     }
   ]
 }
