@@ -57512,16 +57512,6 @@
         }
       },
       {
-        "id": "65036757",
-        "name": "Heidelberger Sport-Club",
-        "lsbNumber": "50610",
-        "internalSportsclubId": "50610",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036758",
         "name": "SG Heddesheim",
         "lsbNumber": "60874",
@@ -62699,6 +62689,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65036757",
+        "name": "Heidelberger Sport-Club",
+        "lsbNumber": "50610",
+        "internalSportsclubId": "50610",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
