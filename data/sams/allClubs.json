@@ -63412,16 +63412,6 @@
         }
       },
       {
-        "id": "26925131",
-        "name": "Gießener SV 1923",
-        "lsbNumber": "12053",
-        "internalSportsclubId": "1904",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
         "id": "37920709",
         "name": "ATV Haltern von 1882 e.V.",
         "lsbNumber": "3404008",
@@ -63429,6 +63419,16 @@
         "association": {
           "id": "33797282",
           "name": "Vest"
+        }
+      },
+      {
+        "id": "26925131",
+        "name": "Gießener SV 1923",
+        "lsbNumber": "12053",
+        "internalSportsclubId": "1904",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
         }
       },
       {
