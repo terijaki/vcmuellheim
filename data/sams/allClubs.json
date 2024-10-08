@@ -34452,16 +34452,6 @@
         }
       },
       {
-        "id": "26846478",
-        "name": "Vorspiel - Queerer Sportverein Berlin e.V.",
-        "lsbNumber": "5250",
-        "internalSportsclubId": "14-11-073",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "37920665",
         "name": "TV Mülfort-Bell 1907 e.V.",
         "lsbNumber": "1005043",
@@ -45874,7 +45864,7 @@
       {
         "id": "54610975",
         "name": "Landjugend Baindt",
-        "lsbNumber": "0",
+        "lsbNumber": null,
         "internalSportsclubId": "327",
         "association": {
           "id": "51583412",
@@ -58192,6 +58182,16 @@
         }
       },
       {
+        "id": "30190519",
+        "name": "TG Neuss von 1848 e.V.",
+        "lsbNumber": "1307065",
+        "internalSportsclubId": "6601",
+        "association": {
+          "id": "33299112",
+          "name": "Neuss-Grevenbroich"
+        }
+      },
+      {
         "id": "65036935",
         "name": "SG Auerbach",
         "lsbNumber": "30257",
@@ -58249,16 +58249,6 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "30190519",
-        "name": "TG Neuss von 1848 e.V.",
-        "lsbNumber": "1307065",
-        "internalSportsclubId": "6601",
-        "association": {
-          "id": "33299112",
-          "name": "Neuss-Grevenbroich"
         }
       },
       {
@@ -61182,16 +61172,6 @@
         }
       },
       {
-        "id": "65036721",
-        "name": "TV Staufen",
-        "lsbNumber": "472900",
-        "internalSportsclubId": "3511",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036655",
         "name": "VC 94 Haslach",
         "lsbNumber": "480470",
@@ -61356,6 +61336,16 @@
         "name": "VC Weil am Rhein",
         "lsbNumber": "480270",
         "internalSportsclubId": "4205",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65036721",
+        "name": "TV Staufen",
+        "lsbNumber": "472900",
+        "internalSportsclubId": "3511",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -62699,6 +62689,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26846478",
+        "name": "Vorspiel - Queerer Sportverein Berlin e.V.",
+        "lsbNumber": "5250",
+        "internalSportsclubId": "14-11-073",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
         }
       },
       {
