@@ -52,9 +52,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -154,7 +154,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "-",
         "netDuration": "-",
@@ -212,9 +212,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -308,7 +308,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "22",
         "netDuration": "205",
@@ -366,9 +366,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -462,7 +462,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "15",
         "netDuration": "52",
@@ -520,9 +520,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -590,6 +590,36 @@
           "note": "-"
         },
         "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:3",
+          "ballPoints": "39:75",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "11:25",
+                "winner": "TEAM2",
+                "duration": "-"
+              },
+              {
+                "number": "1",
+                "points": "13:25",
+                "winner": "TEAM2",
+                "duration": "-"
+              },
+              {
+                "number": "1",
+                "points": "15:25",
+                "winner": "TEAM2",
+                "duration": "-"
+              }
+            ]
+          },
+          "verified": "true"
+        },
+        "spectators": "-",
+        "netDuration": "-",
         "dateObject": "2024-10-05T12:00:00.000Z",
         "dateIso": "2024-10-05T12:00:00.000Z"
       },
@@ -644,9 +674,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -746,7 +776,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "20",
         "netDuration": "97",
@@ -804,9 +834,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -912,7 +942,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "6",
         "netDuration": "117",
@@ -970,9 +1000,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1066,7 +1096,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "22",
         "netDuration": "58",
@@ -1124,9 +1154,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1220,7 +1250,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "10",
         "netDuration": "54",
@@ -1278,9 +1308,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1374,7 +1404,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "12",
         "netDuration": "63",
@@ -1432,9 +1462,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1556,9 +1586,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1680,9 +1710,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1804,9 +1834,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1928,9 +1958,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -2052,9 +2082,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -2176,9 +2206,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -2300,9 +2330,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -2424,9 +2454,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -2548,9 +2578,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -2672,9 +2702,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -2796,9 +2826,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -2920,9 +2950,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -3044,9 +3074,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -3168,9 +3198,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -3292,9 +3322,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -3416,9 +3446,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -3540,9 +3570,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -3664,9 +3694,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -3788,9 +3818,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -3912,9 +3942,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4036,9 +4066,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4160,9 +4190,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4284,9 +4314,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4408,9 +4438,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4532,9 +4562,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4656,9 +4686,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4780,9 +4810,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4904,9 +4934,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5028,9 +5058,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5152,9 +5182,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5276,9 +5306,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5400,9 +5430,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5524,9 +5554,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5648,9 +5678,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5772,9 +5802,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5896,9 +5926,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -6020,9 +6050,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -6144,9 +6174,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -6268,9 +6298,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -6392,9 +6422,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -6516,9 +6546,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -6640,9 +6670,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -6764,9 +6794,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -6888,9 +6918,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7012,9 +7042,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7136,9 +7166,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7260,9 +7290,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7384,9 +7414,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7508,9 +7538,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7632,9 +7662,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7756,9 +7786,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7880,9 +7910,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8004,9 +8034,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8128,9 +8158,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8252,9 +8282,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8376,9 +8406,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8500,9 +8530,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8624,9 +8654,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8748,9 +8778,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8872,9 +8902,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8996,9 +9026,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -9120,9 +9150,9 @@
           "name": "Bezirksklasse Damen Süd",
           "shortName": "bzk s d",
           "type": "League",
-          "updated": "2024-10-06 16:52:21.211",
+          "updated": "2024-10-07 21:09:15.164",
           "structureUpdated": "2024-10-05 19:57:04.767",
-          "resultsUpdated": "2024-10-06 16:52:21.211",
+          "resultsUpdated": "2024-10-07 21:09:15.164",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
