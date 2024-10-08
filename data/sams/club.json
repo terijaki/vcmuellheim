@@ -59,9 +59,9 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2024-10-05 19:31:05.985",
-            "structureUpdated": "2024-10-05 13:20:26.732",
-            "resultsUpdated": "2024-10-05 19:31:05.985",
+            "updated": "2024-10-07 15:10:56.31",
+            "structureUpdated": "2024-10-07 09:39:18.474",
+            "resultsUpdated": "2024-10-07 15:10:56.31",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -138,8 +138,8 @@
             "name": "Bezirksliga Herren Süd",
             "shortName": "bzl s h",
             "type": "League",
-            "updated": "2024-10-06 17:16:55.343",
-            "structureUpdated": "2024-10-04 10:52:19.01",
+            "updated": "2024-10-07 18:14:05.34",
+            "structureUpdated": "2024-10-07 18:14:05.34",
             "resultsUpdated": "2024-10-06 17:16:55.343",
             "season": {
               "id": "70098350",
@@ -223,9 +223,9 @@
             "name": "Bezirksklasse Damen Süd",
             "shortName": "bzk s d",
             "type": "League",
-            "updated": "2024-10-06 16:52:21.211",
+            "updated": "2024-10-07 21:09:15.164",
             "structureUpdated": "2024-10-05 19:57:04.767",
-            "resultsUpdated": "2024-10-06 16:52:21.211",
+            "resultsUpdated": "2024-10-07 21:09:15.164",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -432,79 +432,6 @@
                   "id": "70100640",
                   "name": "Verbandspokal 2023/2024",
                   "shortName": "vp-23-24",
-                  "hierarchyLevel": "2"
-                },
-                {
-                  "id": "70100639",
-                  "name": "Pokalwettbewerbe",
-                  "shortName": "P",
-                  "hierarchyLevel": "1"
-                },
-                {
-                  "id": "70098566",
-                  "name": "Südbadischer Volleyball-Verband (SBVV)",
-                  "shortName": "SBVV",
-                  "hierarchyLevel": "0"
-                }
-              ]
-            },
-            "association": {
-              "name": "Südbadischer Volleyball-Verband",
-              "shortName": "SBVV"
-            }
-          }
-        },
-        {
-          "id": "78239460",
-          "uuid": "c6014462-4314-49db-8d7f-6ea468f47a99",
-          "seasonTeamId": "78239460",
-          "placeCipher": "0",
-          "name": "VC Müllheim 1",
-          "shortName": null,
-          "clubCode": null,
-          "status": "ACTIVE",
-          "www": "http://vcmuellheim.de",
-          "logo": {
-            "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
-          },
-          "club": {
-            "name": "VC Müllheim",
-            "id": "65036648",
-            "shortName": null,
-            "logo": {
-              "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
-            },
-            "www": "http://vcmuellheim.de",
-            "wwwDepartment": null
-          },
-          "matchSeries": {
-            "id": "78239434",
-            "uuid": "e1b65b76-49a4-4fe9-8aec-47007829fc87",
-            "allSeasonId": "e1b65b76-49a4-4fe9-8aec-47007829fc87",
-            "name": "Meldung Damen Pokal Bezirksklasse + Bezirksliga",
-            "shortName": "dp_bkl_bl",
-            "type": "Competition",
-            "updated": "2024-10-04 13:31:35.59",
-            "structureUpdated": "2024-10-04 13:31:35.59",
-            "resultsUpdated": null,
-            "season": {
-              "id": "70098350",
-              "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
-              "name": "2024/25"
-            },
-            "hierarchy": {
-              "id": "78237127",
-              "uuid": "6f2981b8-559e-4302-8550-ed8863bc189f",
-              "name": "Verbandspokal 2024/2025",
-              "shortName": "vp-24-25",
-              "hierarchyLevel": "2"
-            },
-            "fullHierarchy": {
-              "hierarchy": [
-                {
-                  "id": "78237127",
-                  "name": "Verbandspokal 2024/2025",
-                  "shortName": "vp-24-25",
                   "hierarchyLevel": "2"
                 },
                 {
