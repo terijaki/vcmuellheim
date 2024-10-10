@@ -1,0 +1,100 @@
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "78237396",
+      "uuid": "b70406e0-2424-43f9-92f2-6fbb07e18f51",
+      "allSeasonId": "b70406e0-2424-43f9-92f2-6fbb07e18f51",
+      "name": "Quali 1 Damen Pokal Bezirksklasse + Bezirksliga",
+      "shortName": "q1-dp_bkl_bl",
+      "type": "Competition",
+      "updated": "2024-10-08 09:01:31.622",
+      "structureUpdated": "2024-10-08 09:01:31.622",
+      "resultsUpdated": null,
+      "season": {
+        "id": "70098350",
+        "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+        "name": "2024/25"
+      },
+      "hierarchy": {
+        "id": "78237127",
+        "uuid": "6f2981b8-559e-4302-8550-ed8863bc189f",
+        "name": "Verbandspokal 2024/2025",
+        "shortName": "vp-24-25",
+        "hierarchyLevel": "2"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "78237127",
+            "name": "Verbandspokal 2024/2025",
+            "shortName": "vp-24-25",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "70100639",
+            "name": "Pokalwettbewerbe",
+            "shortName": "P",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "70098566",
+            "name": "Südbadischer Volleyball-Verband (SBVV)",
+            "shortName": "SBVV",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": "Südbadischer Volleyball-Verband",
+        "shortName": "SBVV"
+      }
+    },
+    "ranking": [
+      {
+        "place": null,
+        "team": {
+          "id": "78237603",
+          "uuid": "86c4e4c7-4cc0-4f5b-8eda-7c46bd2825b4",
+          "name": "TV Merdingen 1",
+          "club": "TV Merdingen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "78237584",
+          "uuid": "93e411d3-4d65-4310-b985-5a4f9f1afdfb",
+          "name": "VC Minseln 1",
+          "club": "VC Minseln"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "78237611",
+          "uuid": "f068de3c-550a-460e-85ca-9f338e7cb962",
+          "name": "VC Weil 2",
+          "club": "VC Weil am Rhein"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "78237597",
+          "uuid": "4624a33f-3e80-4952-8050-9acd4c5e9dd2",
+          "name": "SV Waltershofen 2",
+          "club": "SV Waltershofen"
+        }
+      },
+      {
+        "place": null,
+        "team": {
+          "id": "78237606",
+          "uuid": "ede15c4e-49a1-4edf-a930-16153eee728b",
+          "name": "VC Müllheim 1",
+          "club": "VC Müllheim"
+        }
+      }
+    ]
+  }
+}
