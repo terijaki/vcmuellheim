@@ -138,9 +138,9 @@
             "name": "Bezirksliga Herren Süd",
             "shortName": "bzl s h",
             "type": "League",
-            "updated": "2024-10-07 18:14:05.34",
-            "structureUpdated": "2024-10-07 18:14:05.34",
-            "resultsUpdated": "2024-10-06 17:16:55.343",
+            "updated": "2024-10-09 13:37:36.191",
+            "structureUpdated": "2024-10-09 13:37:36.191",
+            "resultsUpdated": "2024-10-08 10:04:02.676",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -285,6 +285,79 @@
           }
         },
         {
+          "id": "78237606",
+          "uuid": "ede15c4e-49a1-4edf-a930-16153eee728b",
+          "seasonTeamId": "78237606",
+          "placeCipher": "3",
+          "name": "VC Müllheim 1",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "https://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "65036648",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "78237396",
+            "uuid": "b70406e0-2424-43f9-92f2-6fbb07e18f51",
+            "allSeasonId": "b70406e0-2424-43f9-92f2-6fbb07e18f51",
+            "name": "Quali 1 Damen Pokal Bezirksklasse + Bezirksliga",
+            "shortName": "q1-dp_bkl_bl",
+            "type": "Competition",
+            "updated": "2024-10-08 09:01:31.622",
+            "structureUpdated": "2024-10-08 09:01:31.622",
+            "resultsUpdated": null,
+            "season": {
+              "id": "70098350",
+              "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+              "name": "2024/25"
+            },
+            "hierarchy": {
+              "id": "78237127",
+              "uuid": "6f2981b8-559e-4302-8550-ed8863bc189f",
+              "name": "Verbandspokal 2024/2025",
+              "shortName": "vp-24-25",
+              "hierarchyLevel": "2"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "78237127",
+                  "name": "Verbandspokal 2024/2025",
+                  "shortName": "vp-24-25",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "70100639",
+                  "name": "Pokalwettbewerbe",
+                  "shortName": "P",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "70098566",
+                  "name": "Südbadischer Volleyball-Verband (SBVV)",
+                  "shortName": "SBVV",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
+            }
+          }
+        },
+        {
           "id": "73557959",
           "uuid": "0c25a7ca-9173-4809-b276-00da66502e21",
           "seasonTeamId": "73557959",
@@ -314,9 +387,9 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2024-10-05 21:08:56.755",
+            "updated": "2024-10-09 10:25:45.001",
             "structureUpdated": "2024-10-05 12:20:44.6",
-            "resultsUpdated": "2024-10-05 21:08:56.755",
+            "resultsUpdated": "2024-10-09 10:25:45.001",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -451,6 +524,176 @@
             "association": {
               "name": "Südbadischer Volleyball-Verband",
               "shortName": "SBVV"
+            }
+          }
+        },
+        {
+          "id": "78486740",
+          "uuid": "da910763-9a52-463c-b280-7c5706e999b2",
+          "seasonTeamId": "78486740",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "65036648",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "70100868",
+            "uuid": "db7d70e2-ca84-4fae-95f5-9f3aaad89786",
+            "allSeasonId": "df4ecc81-677f-4914-9eea-e457a230de1e",
+            "name": "West - U16 weiblich",
+            "shortName": "WQ_U16w",
+            "type": "Competition",
+            "updated": "2024-09-26 22:27:52.863",
+            "structureUpdated": "2024-09-26 22:27:52.863",
+            "resultsUpdated": null,
+            "season": {
+              "id": "70098350",
+              "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+              "name": "2024/25"
+            },
+            "hierarchy": {
+              "id": "70100827",
+              "uuid": "28119fe5-ae00-4a3d-bd64-7dbe8277684d",
+              "name": "Meldungen Bezirk West Jugend weiblich",
+              "shortName": "bwjw",
+              "hierarchyLevel": "4"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "70100827",
+                  "name": "Meldungen Bezirk West Jugend weiblich",
+                  "shortName": "bwjw",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "70100826",
+                  "name": "SBVV Bezirk West Jugend",
+                  "shortName": "bwj",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "70100789",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "70100788",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "JUG",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "70098566",
+                  "name": "Südbadischer Volleyball-Verband (SBVV)",
+                  "shortName": "SBVV",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        },
+        {
+          "id": "78486747",
+          "uuid": "a022354c-0491-4728-b3e7-f5e1731cecb5",
+          "seasonTeamId": "78486747",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "65036648",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "70100875",
+            "uuid": "88e70cac-888e-4235-ae6d-4202ea8f711e",
+            "allSeasonId": "9e5161cd-3ef1-c9f2-eb12-1791a34e6e1e",
+            "name": "West - U20 weiblich",
+            "shortName": "WQ_U20w",
+            "type": "Competition",
+            "updated": "2024-07-30 10:24:50.33",
+            "structureUpdated": "2024-07-30 10:24:50.33",
+            "resultsUpdated": "2022-12-06 13:24:36.45",
+            "season": {
+              "id": "70098350",
+              "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+              "name": "2024/25"
+            },
+            "hierarchy": {
+              "id": "70100827",
+              "uuid": "28119fe5-ae00-4a3d-bd64-7dbe8277684d",
+              "name": "Meldungen Bezirk West Jugend weiblich",
+              "shortName": "bwjw",
+              "hierarchyLevel": "4"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "70100827",
+                  "name": "Meldungen Bezirk West Jugend weiblich",
+                  "shortName": "bwjw",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "70100826",
+                  "name": "SBVV Bezirk West Jugend",
+                  "shortName": "bwj",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "70100789",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "70100788",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "JUG",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "70098566",
+                  "name": "Südbadischer Volleyball-Verband (SBVV)",
+                  "shortName": "SBVV",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": null,
+              "shortName": null
             }
           }
         }
