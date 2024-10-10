@@ -7302,16 +7302,6 @@
         }
       },
       {
-        "id": "26819334",
-        "name": "SG Handel Jena e.V.",
-        "lsbNumber": "190007",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
-        }
-      },
-      {
         "id": "26819307",
         "name": "TSV 1861 Bad Tennstedt e.V.",
         "lsbNumber": "220091",
@@ -14019,16 +14009,6 @@
         "association": {
           "id": "33797822",
           "name": "Dortmund"
-        }
-      },
-      {
-        "id": "37921588",
-        "name": "Freie Schwimmer Duisburg",
-        "lsbNumber": "1002156",
-        "internalSportsclubId": "419",
-        "association": {
-          "id": "33298943",
-          "name": "Duisburg"
         }
       },
       {
@@ -23702,16 +23682,6 @@
         }
       },
       {
-        "id": "37921806",
-        "name": "TV Hitdorf 1893 e.V.",
-        "lsbNumber": "2004029",
-        "internalSportsclubId": "9122",
-        "association": {
-          "id": "33795544",
-          "name": "Leverkusen-Rhein-Berg"
-        }
-      },
-      {
         "id": "37921643",
         "name": "Kempener Turnverein 1960 e.V.",
         "lsbNumber": "1403004",
@@ -23719,6 +23689,16 @@
         "association": {
           "id": "33299148",
           "name": "Krefeld-Viersen"
+        }
+      },
+      {
+        "id": "37921806",
+        "name": "TV Hitdorf 1893 e.V.",
+        "lsbNumber": "2004029",
+        "internalSportsclubId": "9122",
+        "association": {
+          "id": "33795544",
+          "name": "Leverkusen-Rhein-Berg"
         }
       },
       {
@@ -23872,16 +23852,6 @@
         }
       },
       {
-        "id": "37920741",
-        "name": "TV Lemgo von 1863 e.V.",
-        "lsbNumber": "4411016",
-        "internalSportsclubId": "10002",
-        "association": {
-          "id": "33797741",
-          "name": "Lippe"
-        }
-      },
-      {
         "id": "37920920",
         "name": "Turn- u. Sportverein Ahmsen v. 1921 e.V.",
         "lsbNumber": "4402027",
@@ -23929,6 +23899,16 @@
         "association": {
           "id": "33798087",
           "name": "Siegen-Olpe"
+        }
+      },
+      {
+        "id": "37920741",
+        "name": "TV Lemgo von 1863 e.V.",
+        "lsbNumber": "4411016",
+        "internalSportsclubId": "10002",
+        "association": {
+          "id": "33797741",
+          "name": "Lippe"
         }
       },
       {
@@ -37952,16 +37932,6 @@
         }
       },
       {
-        "id": "49504489",
-        "name": "BSG Pneumant Fürstenwalde",
-        "lsbNumber": "670045",
-        "internalSportsclubId": "670045",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "49504483",
         "name": "SV Blau-Weiss Heinersdorf 1990",
         "lsbNumber": "670039",
@@ -38512,6 +38482,16 @@
         }
       },
       {
+        "id": "54611293",
+        "name": "TV Bermatingen",
+        "lsbNumber": "470280",
+        "internalSportsclubId": "661",
+        "association": {
+          "id": "7216",
+          "name": "Volleyball-Landesverband Württemberg"
+        }
+      },
+      {
         "id": "38989907",
         "name": "Spielgemeinschaft Westerwald Volleys",
         "lsbNumber": "3000166",
@@ -38549,16 +38529,6 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
-        }
-      },
-      {
-        "id": "54611293",
-        "name": "TV Bermatingen",
-        "lsbNumber": "470280",
-        "internalSportsclubId": "661",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -39032,16 +39002,6 @@
         }
       },
       {
-        "id": "16664716",
-        "name": "SG Adelsberg e.V.",
-        "lsbNumber": "400125",
-        "internalSportsclubId": "463",
-        "association": {
-          "id": "24908708",
-          "name": "Stadt Chemnitz"
-        }
-      },
-      {
         "id": "30227085",
         "name": "VV Zittau 09 e.V.",
         "lsbNumber": "450366",
@@ -39099,6 +39059,16 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "16664716",
+        "name": "SG Adelsberg e.V.",
+        "lsbNumber": "400125",
+        "internalSportsclubId": "463",
+        "association": {
+          "id": "24908708",
+          "name": "Stadt Chemnitz"
         }
       },
       {
@@ -47782,16 +47752,6 @@
         }
       },
       {
-        "id": "54611032",
-        "name": "TSV Mühlhofen",
-        "lsbNumber": "472030",
-        "internalSportsclubId": "3933",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "50621928",
         "name": "SV Lok Glauchau/Niederlungwitz e.V.",
         "lsbNumber": "520250",
@@ -47919,6 +47879,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "54611032",
+        "name": "TSV Mühlhofen",
+        "lsbNumber": "472030",
+        "internalSportsclubId": "3933",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -50752,6 +50722,16 @@
         }
       },
       {
+        "id": "51836384",
+        "name": "Mainzer Turnverein von 1817 e.V.",
+        "lsbNumber": null,
+        "internalSportsclubId": "32-55-01",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
         "id": "51836387",
         "name": "Mombacher TV-BSC",
         "lsbNumber": "225",
@@ -50869,16 +50849,6 @@
         "association": {
           "id": "25383414",
           "name": "Volleyball-Verband Pfalz"
-        }
-      },
-      {
-        "id": "51836384",
-        "name": "Mainzer Turnverein von 1817 e.V.",
-        "lsbNumber": null,
-        "internalSportsclubId": "32-55-01",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -51226,16 +51196,6 @@
         "name": "SV Auingen",
         "lsbNumber": "16072",
         "internalSportsclubId": "439",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
-        "id": "54611079",
-        "name": "SV Althengstett",
-        "lsbNumber": "5011",
-        "internalSportsclubId": "437",
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
@@ -52602,16 +52562,6 @@
         }
       },
       {
-        "id": "16932418",
-        "name": "VfB Ulm",
-        "lsbNumber": "1144",
-        "internalSportsclubId": "415",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "51836312",
         "name": "VBC Ediger",
         "lsbNumber": "1003780",
@@ -52649,6 +52599,16 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "16932418",
+        "name": "VfB Ulm",
+        "lsbNumber": "1144",
+        "internalSportsclubId": "415",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
@@ -57432,16 +57392,6 @@
         }
       },
       {
-        "id": "65036595",
-        "name": "TV Jestetten",
-        "lsbNumber": "471470",
-        "internalSportsclubId": "3918",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "13901793",
         "name": "TG 1875 Bad Soden",
         "lsbNumber": "30004",
@@ -57456,6 +57406,16 @@
         "name": "TV Tiengen 1928 e.V.",
         "lsbNumber": null,
         "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65036595",
+        "name": "TV Jestetten",
+        "lsbNumber": "471470",
+        "internalSportsclubId": "3918",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -57722,16 +57682,6 @@
         }
       },
       {
-        "id": "65036805",
-        "name": "KTV Karlsruhe",
-        "lsbNumber": "81475",
-        "internalSportsclubId": "81475",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "42961198",
         "name": "SV Beach",
         "lsbNumber": "111122223347",
@@ -57769,6 +57719,16 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
+        }
+      },
+      {
+        "id": "65036805",
+        "name": "KTV Karlsruhe",
+        "lsbNumber": "81475",
+        "internalSportsclubId": "81475",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -58584,8 +58544,8 @@
       {
         "id": "65037028",
         "name": "DJK Feudenheim",
-        "lsbNumber": "61171",
-        "internalSportsclubId": "61171",
+        "lsbNumber": "60997",
+        "internalSportsclubId": "60997",
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
@@ -62702,6 +62662,36 @@
         }
       },
       {
+        "id": "54611079",
+        "name": "SV Althengstett",
+        "lsbNumber": "5011",
+        "internalSportsclubId": "437",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "37921588",
+        "name": "Freie Schwimmer Duisburg",
+        "lsbNumber": "1002156",
+        "internalSportsclubId": "419",
+        "association": {
+          "id": "33298943",
+          "name": "Duisburg"
+        }
+      },
+      {
+        "id": "26819334",
+        "name": "SG Handel Jena e.V.",
+        "lsbNumber": "190007",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26272888",
+          "name": "tbc TVV 40"
+        }
+      },
+      {
         "id": "54611157",
         "name": "TuS Metzingen",
         "lsbNumber": "16060",
@@ -62779,6 +62769,16 @@
         "association": {
           "id": "7208",
           "name": "Hamburger Volleyball-Verband"
+        }
+      },
+      {
+        "id": "49504489",
+        "name": "BSG Pneumant Fürstenwalde",
+        "lsbNumber": "670045",
+        "internalSportsclubId": "670045",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
