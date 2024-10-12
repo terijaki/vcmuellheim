@@ -59862,6 +59862,16 @@
         }
       },
       {
+        "id": "65037309",
+        "name": "CVJM Graben-Neudorf",
+        "lsbNumber": "72514",
+        "internalSportsclubId": "72514",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "65037295",
         "name": "TAVIDO Sports Pforzheim e.V.",
         "lsbNumber": "92029",
@@ -59919,16 +59929,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65037309",
-        "name": "CVJM Graben-Neudorf",
-        "lsbNumber": "72514",
-        "internalSportsclubId": "72514",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
