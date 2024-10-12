@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2024-10-12 15:57:12.884",
+      "updated": "2024-10-12 18:30:50.861",
       "structureUpdated": "2024-10-11 16:14:01.796",
-      "resultsUpdated": "2024-10-12 15:57:12.884",
+      "resultsUpdated": "2024-10-12 18:30:50.861",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -56,6 +56,118 @@
       }
     },
     "ranking": [
+      {
+        "team": {
+          "id": "73349557",
+          "uuid": "3d6b9adf-0dc2-49dc-876c-4a005f416b0a",
+          "name": "Bad Säckinger Wölfe",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Bad Säckingen",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "3",
+        "wins": "3",
+        "losses": "0",
+        "points": "8",
+        "setPoints": "9:4",
+        "setWinScore": "9",
+        "setLoseScore": "4",
+        "setPointDifference": "5",
+        "setQuotient": "2,250\n            ",
+        "ballPoints": "301:270",
+        "ballWinScore": "301",
+        "ballLoseScore": "270",
+        "ballPointDifference": "31",
+        "ballQuotient": "1,115\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "0"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73349551",
+          "uuid": "4f2d65c6-b7f7-4ab3-a141-1feedb3ce0ac",
+          "name": "SG BEG United 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TB Emmendingen",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "2",
+        "wins": "2",
+        "losses": "0",
+        "points": "6",
+        "setPoints": "6:1",
+        "setWinScore": "6",
+        "setLoseScore": "1",
+        "setPointDifference": "5",
+        "setQuotient": "6,000\n            ",
+        "ballPoints": "175:142",
+        "ballWinScore": "175",
+        "ballLoseScore": "142",
+        "ballPointDifference": "33",
+        "ballQuotient": "1,232\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "1"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
       {
         "team": {
           "id": "73349531",
@@ -170,118 +282,6 @@
       },
       {
         "team": {
-          "id": "73349557",
-          "uuid": "3d6b9adf-0dc2-49dc-876c-4a005f416b0a",
-          "name": "Bad Säckinger Wölfe",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Bad Säckingen",
-            "shortName": null
-          }
-        },
-        "place": "1",
-        "matchesPlayed": "2",
-        "wins": "2",
-        "losses": "0",
-        "points": "5",
-        "setPoints": "6:3",
-        "setWinScore": "6",
-        "setLoseScore": "3",
-        "setPointDifference": "3",
-        "setQuotient": "2,000\n            ",
-        "ballPoints": "203:183",
-        "ballWinScore": "203",
-        "ballLoseScore": "183",
-        "ballPointDifference": "20",
-        "ballQuotient": "1,109\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "1"
-            },
-            {
-              "result": "3:2",
-              "count": "1"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73349551",
-          "uuid": "4f2d65c6-b7f7-4ab3-a141-1feedb3ce0ac",
-          "name": "SG BEG United 2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TB Emmendingen",
-            "shortName": null
-          }
-        },
-        "place": "1",
-        "matchesPlayed": "1",
-        "wins": "1",
-        "losses": "0",
-        "points": "3",
-        "setPoints": "3:0",
-        "setWinScore": "3",
-        "setLoseScore": "0",
-        "setPointDifference": "3",
-        "setQuotient": "∞\n            ",
-        "ballPoints": "75:48",
-        "ballWinScore": "75",
-        "ballLoseScore": "48",
-        "ballPointDifference": "27",
-        "ballQuotient": "1,562\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "1"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "73349554",
           "uuid": "05640b90-239f-4738-aade-96c68a7f1e86",
           "name": "Südbaden-Auswahl",
@@ -293,20 +293,20 @@
           }
         },
         "place": "1",
-        "matchesPlayed": "2",
+        "matchesPlayed": "3",
         "wins": "1",
-        "losses": "1",
+        "losses": "2",
         "points": "3",
-        "setPoints": "3:3",
-        "setWinScore": "3",
-        "setLoseScore": "3",
-        "setPointDifference": "0",
-        "setQuotient": "1,000\n            ",
-        "ballPoints": "124:138",
-        "ballWinScore": "124",
-        "ballLoseScore": "138",
-        "ballPointDifference": "-14",
-        "ballQuotient": "0,899\n            ",
+        "setPoints": "4:6",
+        "setWinScore": "4",
+        "setLoseScore": "6",
+        "setPointDifference": "-2",
+        "setQuotient": "0,667\n            ",
+        "ballPoints": "211:236",
+        "ballWinScore": "211",
+        "ballLoseScore": "236",
+        "ballPointDifference": "-25",
+        "ballQuotient": "0,894\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -327,7 +327,7 @@
             },
             {
               "result": "1:3",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "0:3",
@@ -349,20 +349,20 @@
           }
         },
         "place": "1",
-        "matchesPlayed": "2",
+        "matchesPlayed": "3",
         "wins": "1",
-        "losses": "1",
+        "losses": "2",
         "points": "3",
-        "setPoints": "3:4",
-        "setWinScore": "3",
-        "setLoseScore": "4",
-        "setPointDifference": "-1",
-        "setQuotient": "0,750\n            ",
-        "ballPoints": "162:160",
-        "ballWinScore": "162",
-        "ballLoseScore": "160",
-        "ballPointDifference": "2",
-        "ballQuotient": "1,013\n            ",
+        "setPoints": "4:7",
+        "setWinScore": "4",
+        "setLoseScore": "7",
+        "setPointDifference": "-3",
+        "setQuotient": "0,571\n            ",
+        "ballPoints": "256:260",
+        "ballWinScore": "256",
+        "ballLoseScore": "260",
+        "ballPointDifference": "-4",
+        "ballQuotient": "0,985\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -383,7 +383,7 @@
             },
             {
               "result": "1:3",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "0:3",
