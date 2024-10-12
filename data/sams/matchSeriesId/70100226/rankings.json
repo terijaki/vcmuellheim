@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2024-10-12 18:30:50.861",
+      "updated": "2024-10-12 18:56:18.156",
       "structureUpdated": "2024-10-11 16:14:01.796",
-      "resultsUpdated": "2024-10-12 18:30:50.861",
+      "resultsUpdated": "2024-10-12 18:56:18.156",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -394,6 +394,62 @@
       },
       {
         "team": {
+          "id": "73349525",
+          "uuid": "087bcb12-62cd-459e-88ee-1343b21fff34",
+          "name": "FT 1844 Freiburg 4",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "FT 1844 Freiburg",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "2",
+        "wins": "1",
+        "losses": "1",
+        "points": "2",
+        "setPoints": "4:5",
+        "setWinScore": "4",
+        "setLoseScore": "5",
+        "setPointDifference": "-1",
+        "setQuotient": "0,800\n            ",
+        "ballPoints": "188:194",
+        "ballWinScore": "188",
+        "ballLoseScore": "194",
+        "ballPointDifference": "-6",
+        "ballQuotient": "0,969\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "0"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73349547",
           "uuid": "447ad96d-f886-4b5b-bee4-ed76c5c2962a",
           "name": "TSV Al. Zähringen 1",
@@ -450,31 +506,31 @@
       },
       {
         "team": {
-          "id": "73349525",
-          "uuid": "087bcb12-62cd-459e-88ee-1343b21fff34",
-          "name": "FT 1844 Freiburg 4",
+          "id": "73349539",
+          "uuid": "c5acdb80-aaab-4e7d-9f0d-0447b6ba37d0",
+          "name": "TV Kollnau-Gutach 1",
           "shortName": null,
           "clubCode": null,
           "club": {
-            "name": "FT 1844 Freiburg",
+            "name": "TV Kollnau-Gutach",
             "shortName": null
           }
         },
         "place": "1",
-        "matchesPlayed": "1",
+        "matchesPlayed": "3",
         "wins": "0",
-        "losses": "1",
-        "points": "0",
-        "setPoints": "1:3",
-        "setWinScore": "1",
-        "setLoseScore": "3",
-        "setPointDifference": "-2",
+        "losses": "3",
+        "points": "1",
+        "setPoints": "3:9",
+        "setWinScore": "3",
+        "setLoseScore": "9",
+        "setPointDifference": "-6",
         "setQuotient": "0,333\n            ",
-        "ballPoints": "85:95",
-        "ballWinScore": "85",
-        "ballLoseScore": "95",
-        "ballPointDifference": "-10",
-        "ballQuotient": "0,895\n            ",
+        "ballPoints": "233:268",
+        "ballWinScore": "233",
+        "ballLoseScore": "268",
+        "ballPointDifference": "-35",
+        "ballQuotient": "0,869\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -491,7 +547,7 @@
             },
             {
               "result": "2:3",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "1:3",
@@ -499,7 +555,7 @@
             },
             {
               "result": "0:3",
-              "count": "0"
+              "count": "1"
             }
           ]
         }
@@ -556,62 +612,6 @@
             {
               "result": "0:3",
               "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73349539",
-          "uuid": "c5acdb80-aaab-4e7d-9f0d-0447b6ba37d0",
-          "name": "TV Kollnau-Gutach 1",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Kollnau-Gutach",
-            "shortName": null
-          }
-        },
-        "place": "1",
-        "matchesPlayed": "2",
-        "wins": "0",
-        "losses": "2",
-        "points": "0",
-        "setPoints": "1:6",
-        "setWinScore": "1",
-        "setLoseScore": "6",
-        "setPointDifference": "-5",
-        "setQuotient": "0,167\n            ",
-        "ballPoints": "134:165",
-        "ballWinScore": "134",
-        "ballLoseScore": "165",
-        "ballPointDifference": "-31",
-        "ballQuotient": "0,812\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "1"
-            },
-            {
-              "result": "0:3",
-              "count": "1"
             }
           ]
         }
