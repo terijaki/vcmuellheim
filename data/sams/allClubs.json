@@ -61472,16 +61472,6 @@
         }
       },
       {
-        "id": "65036796",
-        "name": "VBG Efringen-Kirchen",
-        "lsbNumber": "480030",
-        "internalSportsclubId": "4202",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036823",
         "name": "TV Opfingen",
         "lsbNumber": "473800",
@@ -63099,6 +63089,16 @@
         "association": {
           "id": "33797844",
           "name": "Bochum - Ennepe-Ruhr - Herne"
+        }
+      },
+      {
+        "id": "65036796",
+        "name": "VBG Efringen-Kirchen",
+        "lsbNumber": "480030",
+        "internalSportsclubId": "4202",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
