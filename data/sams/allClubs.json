@@ -2402,16 +2402,6 @@
         }
       },
       {
-        "id": "27451705",
-        "name": "Jugendschmiede - Stadtjugendring Suhl e.V.",
-        "lsbNumber": "123456751",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249329",
-          "name": "Kreisverband Süd-West"
-        }
-      },
-      {
         "id": "27451703",
         "name": "FSV Uder 1921 e.V.",
         "lsbNumber": "150032",
@@ -2419,6 +2409,16 @@
         "association": {
           "id": "26249225",
           "name": "Kreisverband Nord"
+        }
+      },
+      {
+        "id": "27451705",
+        "name": "Jugendschmiede - Stadtjugendring Suhl e.V.",
+        "lsbNumber": "123456751",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249329",
+          "name": "Kreisverband Süd-West"
         }
       },
       {
