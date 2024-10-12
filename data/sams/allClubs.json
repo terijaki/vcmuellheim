@@ -2042,16 +2042,6 @@
         }
       },
       {
-        "id": "13897080",
-        "name": "USV Potsdam",
-        "lsbNumber": "540016",
-        "internalSportsclubId": "540016",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "26925449",
         "name": "SV Aschenberg United",
         "lsbNumber": "18325",
@@ -2079,6 +2069,16 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "13897080",
+        "name": "USV Potsdam",
+        "lsbNumber": "540016",
+        "internalSportsclubId": "540016",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -15982,16 +15982,6 @@
         }
       },
       {
-        "id": "26925237",
-        "name": "DJK SG 1929 Zeilsheim e.V.",
-        "lsbNumber": "24298",
-        "internalSportsclubId": "2413",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "26925239",
         "name": "TG 1910 Zellhausen e.V.",
         "lsbNumber": "29250",
@@ -16079,6 +16069,16 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "26925237",
+        "name": "DJK SG 1929 Zeilsheim e.V.",
+        "lsbNumber": "24298",
+        "internalSportsclubId": "2413",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -24306,16 +24306,6 @@
         "name": "Turngemeinde Ennigloh von 1887 e.V.",
         "lsbNumber": "4201017",
         "internalSportsclubId": "539",
-        "association": {
-          "id": "33797702",
-          "name": "Minden-Ravensberg"
-        }
-      },
-      {
-        "id": "37920854",
-        "name": "Turngemeinde Herford von 1860 e.V.",
-        "lsbNumber": "4203035",
-        "internalSportsclubId": "84",
         "association": {
           "id": "33797702",
           "name": "Minden-Ravensberg"
@@ -34272,16 +34262,6 @@
         }
       },
       {
-        "id": "37921422",
-        "name": "TuS Knetterheide 1909 e.V.",
-        "lsbNumber": "4402004",
-        "internalSportsclubId": "441",
-        "association": {
-          "id": "33797741",
-          "name": "Lippe"
-        }
-      },
-      {
         "id": "26925711",
         "name": "DJK-SSV 1958 Großenlüder",
         "lsbNumber": "18073",
@@ -34319,6 +34299,16 @@
         "association": {
           "id": "33797822",
           "name": "Dortmund"
+        }
+      },
+      {
+        "id": "37921422",
+        "name": "TuS Knetterheide 1909 e.V.",
+        "lsbNumber": "4402004",
+        "internalSportsclubId": "441",
+        "association": {
+          "id": "33797741",
+          "name": "Lippe"
         }
       },
       {
@@ -39022,16 +39012,6 @@
         }
       },
       {
-        "id": "6412",
-        "name": "RSV Borken 22 e.V.",
-        "lsbNumber": "3103032",
-        "internalSportsclubId": "10074",
-        "association": {
-          "id": "33797190",
-          "name": "Borken"
-        }
-      },
-      {
         "id": "13832191",
         "name": "L.E. Volleys e.V.",
         "lsbNumber": "420486",
@@ -39089,6 +39069,16 @@
         "association": {
           "id": "24908790",
           "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
+        }
+      },
+      {
+        "id": "6412",
+        "name": "RSV Borken 22 e.V.",
+        "lsbNumber": "3103032",
+        "internalSportsclubId": "10074",
+        "association": {
+          "id": "33797190",
+          "name": "Borken"
         }
       },
       {
@@ -51632,16 +51622,6 @@
         }
       },
       {
-        "id": "54611096",
-        "name": "SV Bondorf",
-        "lsbNumber": "3011",
-        "internalSportsclubId": "454",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "51836478",
         "name": "TuS Laubenheim",
         "lsbNumber": "280",
@@ -51839,6 +51819,16 @@
         "association": {
           "id": null,
           "name": null
+        }
+      },
+      {
+        "id": "54611096",
+        "name": "SV Bondorf",
+        "lsbNumber": "3011",
+        "internalSportsclubId": "454",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -56749,16 +56739,6 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65036535",
-        "name": "B-Top VC Baustetten",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "62829048",
-          "name": "Baden"
         }
       },
       {
@@ -62862,6 +62842,16 @@
         }
       },
       {
+        "id": "37920854",
+        "name": "Turngemeinde Herford von 1860 e.V.",
+        "lsbNumber": "4203035",
+        "internalSportsclubId": "84",
+        "association": {
+          "id": "33797702",
+          "name": "Minden-Ravensberg"
+        }
+      },
+      {
         "id": "65037124",
         "name": "TG Baden-Baden",
         "lsbNumber": "470200",
@@ -62972,6 +62962,16 @@
         }
       },
       {
+        "id": "78577436",
+        "name": "SC Oberbecksen-Babbenhausen e.V.",
+        "lsbNumber": "1111111110000061",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "33797702",
+          "name": "Minden-Ravensberg"
+        }
+      },
+      {
         "id": "39047269",
         "name": "BSV Baesweiler",
         "lsbNumber": "2102002",
@@ -62979,6 +62979,16 @@
         "association": {
           "id": "33795203",
           "name": "Aachen-Düren-Heinsberg"
+        }
+      },
+      {
+        "id": "78582306",
+        "name": "BSC Victoria Naunhof e. V.",
+        "lsbNumber": "460016",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
         }
       },
       {
