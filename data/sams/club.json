@@ -59,8 +59,8 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2024-10-07 15:10:56.31",
-            "structureUpdated": "2024-10-07 09:39:18.474",
+            "updated": "2024-10-11 16:14:01.796",
+            "structureUpdated": "2024-10-11 16:14:01.796",
             "resultsUpdated": "2024-10-07 15:10:56.31",
             "season": {
               "id": "70098350",
@@ -285,79 +285,6 @@
           }
         },
         {
-          "id": "78237606",
-          "uuid": "ede15c4e-49a1-4edf-a930-16153eee728b",
-          "seasonTeamId": "78237606",
-          "placeCipher": "3",
-          "name": "VC Müllheim 1",
-          "shortName": null,
-          "clubCode": null,
-          "status": "ACTIVE",
-          "www": "https://vcmuellheim.de",
-          "logo": {
-            "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
-          },
-          "club": {
-            "name": "VC Müllheim",
-            "id": "65036648",
-            "shortName": null,
-            "logo": {
-              "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
-            },
-            "www": "http://vcmuellheim.de",
-            "wwwDepartment": null
-          },
-          "matchSeries": {
-            "id": "78237396",
-            "uuid": "b70406e0-2424-43f9-92f2-6fbb07e18f51",
-            "allSeasonId": "b70406e0-2424-43f9-92f2-6fbb07e18f51",
-            "name": "Quali 1 Damen Pokal Bezirksklasse + Bezirksliga",
-            "shortName": "q1-dp_bkl_bl",
-            "type": "Competition",
-            "updated": "2024-10-08 09:01:31.622",
-            "structureUpdated": "2024-10-08 09:01:31.622",
-            "resultsUpdated": null,
-            "season": {
-              "id": "70098350",
-              "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
-              "name": "2024/25"
-            },
-            "hierarchy": {
-              "id": "78237127",
-              "uuid": "6f2981b8-559e-4302-8550-ed8863bc189f",
-              "name": "Verbandspokal 2024/2025",
-              "shortName": "vp-24-25",
-              "hierarchyLevel": "2"
-            },
-            "fullHierarchy": {
-              "hierarchy": [
-                {
-                  "id": "78237127",
-                  "name": "Verbandspokal 2024/2025",
-                  "shortName": "vp-24-25",
-                  "hierarchyLevel": "2"
-                },
-                {
-                  "id": "70100639",
-                  "name": "Pokalwettbewerbe",
-                  "shortName": "P",
-                  "hierarchyLevel": "1"
-                },
-                {
-                  "id": "70098566",
-                  "name": "Südbadischer Volleyball-Verband (SBVV)",
-                  "shortName": "SBVV",
-                  "hierarchyLevel": "0"
-                }
-              ]
-            },
-            "association": {
-              "name": "Südbadischer Volleyball-Verband",
-              "shortName": "SBVV"
-            }
-          }
-        },
-        {
           "id": "73557959",
           "uuid": "0c25a7ca-9173-4809-b276-00da66502e21",
           "seasonTeamId": "73557959",
@@ -387,9 +314,9 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2024-10-09 10:25:45.001",
-            "structureUpdated": "2024-10-05 12:20:44.6",
-            "resultsUpdated": "2024-10-09 10:25:45.001",
+            "updated": "2024-10-12 10:58:01.909",
+            "structureUpdated": "2024-10-12 10:52:05.003",
+            "resultsUpdated": "2024-10-12 10:58:01.909",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -557,8 +484,8 @@
             "name": "West - U16 weiblich",
             "shortName": "WQ_U16w",
             "type": "Competition",
-            "updated": "2024-09-26 22:27:52.863",
-            "structureUpdated": "2024-09-26 22:27:52.863",
+            "updated": "2024-10-11 09:25:48.193",
+            "structureUpdated": "2024-10-11 09:25:48.193",
             "resultsUpdated": null,
             "season": {
               "id": "70098350",
@@ -642,8 +569,8 @@
             "name": "West - U20 weiblich",
             "shortName": "WQ_U20w",
             "type": "Competition",
-            "updated": "2024-07-30 10:24:50.33",
-            "structureUpdated": "2024-07-30 10:24:50.33",
+            "updated": "2024-10-10 17:08:52.412",
+            "structureUpdated": "2024-10-10 17:08:52.412",
             "resultsUpdated": "2022-12-06 13:24:36.45",
             "season": {
               "id": "70098350",
