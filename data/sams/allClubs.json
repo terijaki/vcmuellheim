@@ -49562,16 +49562,6 @@
         }
       },
       {
-        "id": "54611051",
-        "name": "TSG Söflingen",
-        "lsbNumber": "1150",
-        "internalSportsclubId": "407",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "54611052",
         "name": "SC Staig",
         "lsbNumber": "1257",
@@ -49599,6 +49589,16 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
+        "id": "54611051",
+        "name": "TSG Söflingen",
+        "lsbNumber": "1150",
+        "internalSportsclubId": "407",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
