@@ -8462,16 +8462,6 @@
         }
       },
       {
-        "id": "54611049",
-        "name": "TV Senden-Ay",
-        "lsbNumber": "300405",
-        "internalSportsclubId": "405",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "26846534",
         "name": "Trigammon SC \"Flotte Motte\" Tempelhof e.V.",
         "lsbNumber": null,
@@ -63169,6 +63159,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "54611049",
+        "name": "TV Senden-Ay",
+        "lsbNumber": "300405",
+        "internalSportsclubId": "405",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
