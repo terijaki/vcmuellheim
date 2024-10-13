@@ -57452,16 +57452,6 @@
         }
       },
       {
-        "id": "65036748",
-        "name": "SV Schlierstadt",
-        "lsbNumber": "20197",
-        "internalSportsclubId": "20197",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036762",
         "name": "SG TAVIDO Sports / TV Eutingen",
         "lsbNumber": null,
@@ -63229,6 +63219,16 @@
         "association": {
           "id": "24908690",
           "name": "Landkreis Zwickau/Erzgebirge"
+        }
+      },
+      {
+        "id": "65036748",
+        "name": "SV Schlierstadt",
+        "lsbNumber": "20197",
+        "internalSportsclubId": "20197",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
