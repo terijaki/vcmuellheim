@@ -56702,16 +56702,6 @@
         }
       },
       {
-        "id": "50621709",
-        "name": "Frauensteiner SV - Einheit e.V.",
-        "lsbNumber": "480059",
-        "internalSportsclubId": "401",
-        "association": {
-          "id": "24908672",
-          "name": "Landkreis Mittelsachsen"
-        }
-      },
-      {
         "id": "50621639",
         "name": "SG Großröhrsdorf e.V.",
         "lsbNumber": "430236",
@@ -62072,16 +62062,6 @@
         }
       },
       {
-        "id": "54611373",
-        "name": "TSV Möttlingen",
-        "lsbNumber": "5059",
-        "internalSportsclubId": "810",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "54611294",
         "name": "SC Göggingen",
         "lsbNumber": "181880",
@@ -62109,6 +62089,16 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "54611373",
+        "name": "TSV Möttlingen",
+        "lsbNumber": "5059",
+        "internalSportsclubId": "810",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -62952,16 +62942,6 @@
         }
       },
       {
-        "id": "78582306",
-        "name": "BSC Victoria Naunhof e. V.",
-        "lsbNumber": "460016",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7213",
-          "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
         "id": "65036685",
         "name": "SG Sinsheim/Helmstadt",
         "lsbNumber": null,
@@ -63079,6 +63059,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "78582306",
+        "name": "BSC Victoria Naunhof e. V.",
+        "lsbNumber": "460016",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
         }
       },
       {
@@ -63229,6 +63219,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "50621709",
+        "name": "Frauensteiner SV - Einheit e.V.",
+        "lsbNumber": "480059",
+        "internalSportsclubId": "401",
+        "association": {
+          "id": "24908672",
+          "name": "Landkreis Mittelsachsen"
         }
       },
       {
