@@ -11202,16 +11202,6 @@
         }
       },
       {
-        "id": "26818867",
-        "name": "Universitätssportverein Erfurt e.V.",
-        "lsbNumber": "100041",
-        "internalSportsclubId": "09034",
-        "association": {
-          "id": "26249165",
-          "name": "Kreisverband Mitte"
-        }
-      },
-      {
         "id": "26819089",
         "name": "SV Stahl 90 Schmiedefeld e.V.",
         "lsbNumber": "270068",
@@ -11219,6 +11209,16 @@
         "association": {
           "id": "26249283",
           "name": "Kreisverband Süd"
+        }
+      },
+      {
+        "id": "26818867",
+        "name": "Universitätssportverein Erfurt e.V.",
+        "lsbNumber": "100041",
+        "internalSportsclubId": "09034",
+        "association": {
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
         }
       },
       {
@@ -11259,16 +11259,6 @@
         "association": {
           "id": "7208",
           "name": "Hamburger Volleyball-Verband"
-        }
-      },
-      {
-        "id": "26925459",
-        "name": "VC Goldener Grund",
-        "lsbNumber": "14302",
-        "internalSportsclubId": "5708",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -23802,16 +23792,6 @@
         }
       },
       {
-        "id": "37921765",
-        "name": "TuS Asemissen",
-        "lsbNumber": "4412005",
-        "internalSportsclubId": "3901",
-        "association": {
-          "id": "33797741",
-          "name": "Lippe"
-        }
-      },
-      {
         "id": "37921304",
         "name": "TV Frisch-Auf Heidenoldendorf von 1896 e.V.",
         "lsbNumber": "4405038",
@@ -23896,6 +23876,16 @@
         "name": "TV Lemgo von 1863 e.V.",
         "lsbNumber": "4411016",
         "internalSportsclubId": "10002",
+        "association": {
+          "id": "33797741",
+          "name": "Lippe"
+        }
+      },
+      {
+        "id": "37921765",
+        "name": "TuS Asemissen",
+        "lsbNumber": "4412005",
+        "internalSportsclubId": "3901",
         "association": {
           "id": "33797741",
           "name": "Lippe"
@@ -25832,6 +25822,16 @@
         }
       },
       {
+        "id": "37920817",
+        "name": "TV Jahn Bad Lippspringe e.V.",
+        "lsbNumber": "4602004",
+        "internalSportsclubId": "492",
+        "association": {
+          "id": "33797722",
+          "name": "Paderborn"
+        }
+      },
+      {
         "id": "37921346",
         "name": "TSV Schwarz-Weiß Radevormwald e.V.",
         "lsbNumber": "2609006",
@@ -25949,16 +25949,6 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
-        "id": "37920817",
-        "name": "TV Jahn Bad Lippspringe e.V.",
-        "lsbNumber": "4602004",
-        "internalSportsclubId": "492",
-        "association": {
-          "id": "33797722",
-          "name": "Paderborn"
         }
       },
       {
@@ -34362,16 +34352,6 @@
         }
       },
       {
-        "id": "37921285",
-        "name": "VSC Grevenbroich 1988 e.V.",
-        "lsbNumber": "1302080",
-        "internalSportsclubId": "978",
-        "association": {
-          "id": "33299112",
-          "name": "Neuss-Grevenbroich"
-        }
-      },
-      {
         "id": "37921163",
         "name": "TuS Schieder-Schwalenberg e.V.",
         "lsbNumber": "4415002",
@@ -34439,6 +34419,16 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "37921285",
+        "name": "VSC Grevenbroich 1988 e.V.",
+        "lsbNumber": "1302080",
+        "internalSportsclubId": "978",
+        "association": {
+          "id": "33299112",
+          "name": "Neuss-Grevenbroich"
         }
       },
       {
@@ -59752,16 +59742,6 @@
         }
       },
       {
-        "id": "26846473",
-        "name": "Turn-Sport-Club Berlin 1893 e.V.",
-        "lsbNumber": "4848",
-        "internalSportsclubId": "14-11-067",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "37921287",
         "name": "TUSEM Essen 1926 e.V.",
         "lsbNumber": "1003191",
@@ -62562,16 +62542,6 @@
         }
       },
       {
-        "id": "78171945",
-        "name": "TV Tiengen 1886 e.V.",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036759",
         "name": "TV Donaueschingen",
         "lsbNumber": "470600",
@@ -62682,16 +62652,6 @@
         }
       },
       {
-        "id": "74199050",
-        "name": "WSG Sportfrei e.V.",
-        "lsbNumber": "26390",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7213",
-          "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
         "id": "49724566",
         "name": "Netzhoppers Königs Wusterhausen",
         "lsbNumber": "610087",
@@ -62719,6 +62679,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "74199050",
+        "name": "WSG Sportfrei e.V.",
+        "lsbNumber": "26390",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
         }
       },
       {
@@ -63229,6 +63199,36 @@
         "association": {
           "id": "24908672",
           "name": "Landkreis Mittelsachsen"
+        }
+      },
+      {
+        "id": "78171945",
+        "name": "TV Tiengen 1886 e.V.",
+        "lsbNumber": "473000",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26846473",
+        "name": "Turn-Sport-Club Berlin 1893 e.V.",
+        "lsbNumber": "4848",
+        "internalSportsclubId": "14-11-067",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "26925459",
+        "name": "VC Goldener Grund",
+        "lsbNumber": "14302",
+        "internalSportsclubId": "5708",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       },
       {
