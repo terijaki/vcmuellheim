@@ -2312,16 +2312,6 @@
         }
       },
       {
-        "id": "54611290",
-        "name": "SSV Auenstein",
-        "lsbNumber": "10005",
-        "internalSportsclubId": "658",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
         "id": "26925637",
         "name": "TV 1889 Weißkirchen e.V.",
         "lsbNumber": "31175",
@@ -2419,6 +2409,16 @@
         "association": {
           "id": "33797762",
           "name": "Höxter"
+        }
+      },
+      {
+        "id": "54611290",
+        "name": "SSV Auenstein",
+        "lsbNumber": "10005",
+        "internalSportsclubId": "658",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
         }
       },
       {
