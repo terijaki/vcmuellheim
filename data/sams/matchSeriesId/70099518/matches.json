@@ -52,9 +52,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -224,9 +224,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -396,9 +396,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -556,9 +556,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -716,9 +716,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -888,9 +888,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1048,9 +1048,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1156,7 +1156,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "25",
         "netDuration": "115",
@@ -1214,9 +1214,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1328,7 +1328,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "20",
         "netDuration": "275",
@@ -1386,9 +1386,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1494,7 +1494,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "10",
         "netDuration": "427",
@@ -1552,9 +1552,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1682,9 +1682,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1812,9 +1812,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1892,396 +1892,6 @@
         "dateIso": "2024-10-26T12:00:00.000Z"
       },
       {
-        "id": "73786736",
-        "uuid": "947cb932-bf24-4d7a-ad04-1b5f43fa79b1",
-        "number": "13",
-        "date": "26.10.2024",
-        "time": "14:00",
-        "delayPossible": "false",
-        "decidingMatch": "false",
-        "indefinitelyRescheduled": "false",
-        "gameReassessed": "false",
-        "host": {
-          "id": "73557956",
-          "uuid": "a4b8f3d2-ec9d-4644-b2a1-cc89b0435ca4",
-          "name": "SG Breisach - Gündlingen 2",
-          "club": "SG Breisach-Gündlingen"
-        },
-        "team": [
-          {
-            "number": "1",
-            "id": "73557956",
-            "uuid": "a4b8f3d2-ec9d-4644-b2a1-cc89b0435ca4",
-            "seasonTeamId": "73557956",
-            "name": "SG Breisach - Gündlingen 2",
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": "SG Breisach-Gündlingen",
-              "shortName": null
-            }
-          },
-          {
-            "number": "2",
-            "id": "73557972",
-            "uuid": "dba63df0-226d-4a14-8179-1e699ebbb562",
-            "seasonTeamId": "73557972",
-            "name": "TV Neuenburg",
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": "TV Neuenburg",
-              "shortName": null
-            }
-          }
-        ],
-        "matchSeries": {
-          "id": "70099518",
-          "uuid": "24066d81-d513-497b-894f-45e9e14beaab",
-          "allSeasonId": "955f1d4d-bc60-8f21-1003-fcc2a85bd10a",
-          "name": "Kreisliga Damen Süd",
-          "shortName": "kl s d",
-          "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
-          "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
-          "season": {
-            "id": "70098350",
-            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
-            "name": "2024/25"
-          },
-          "hierarchy": {
-            "id": "70099465",
-            "uuid": "0a1735d1-9487-4bd6-bb10-1895ced9f372",
-            "name": "Kreisligen",
-            "shortName": "kl w",
-            "hierarchyLevel": "6"
-          },
-          "fullHierarchy": {
-            "hierarchy": [
-              {
-                "id": "70099465",
-                "name": "Kreisligen",
-                "shortName": "kl w",
-                "hierarchyLevel": "6"
-              },
-              {
-                "id": "70099464",
-                "name": "Bezirksklassen",
-                "shortName": "bzk w",
-                "hierarchyLevel": "5"
-              },
-              {
-                "id": "70099463",
-                "name": "Bezirksligen",
-                "shortName": "bzl w",
-                "hierarchyLevel": "4"
-              },
-              {
-                "id": "70099121",
-                "name": "Region West",
-                "shortName": "bw",
-                "hierarchyLevel": "3"
-              },
-              {
-                "id": "70099120",
-                "name": "SBVV Bezirke",
-                "shortName": "SBVV Bezirke",
-                "hierarchyLevel": "2"
-              },
-              {
-                "id": "70099119",
-                "name": "Erwachsenenspielbetrieb SBVV",
-                "shortName": "SBVV Erw.",
-                "hierarchyLevel": "1"
-              },
-              {
-                "id": "70098566",
-                "name": "Südbadischer Volleyball-Verband (SBVV)",
-                "shortName": "SBVV",
-                "hierarchyLevel": "0"
-              }
-            ]
-          },
-          "association": {
-            "name": null,
-            "shortName": null
-          }
-        },
-        "location": {
-          "id": "13906073",
-          "name": "Breisgau-Halle",
-          "street": "Breisgaustr. 6",
-          "extraField": "-",
-          "postalCode": "79206",
-          "city": "Breisach",
-          "note": "-"
-        },
-        "referees": null,
-        "dateObject": "2024-10-26T12:00:00.000Z",
-        "dateIso": "2024-10-26T12:00:00.000Z"
-      },
-      {
-        "id": "73786737",
-        "uuid": "b82f28fc-4072-4d1a-9d57-12929dda2e37",
-        "number": "14",
-        "date": "26.10.2024",
-        "time": "14:00",
-        "delayPossible": "false",
-        "decidingMatch": "false",
-        "indefinitelyRescheduled": "false",
-        "gameReassessed": "false",
-        "host": {
-          "id": "73557956",
-          "uuid": "a4b8f3d2-ec9d-4644-b2a1-cc89b0435ca4",
-          "name": "SG Breisach - Gündlingen 2",
-          "club": "SG Breisach-Gündlingen"
-        },
-        "team": [
-          {
-            "number": "1",
-            "id": "73557956",
-            "uuid": "a4b8f3d2-ec9d-4644-b2a1-cc89b0435ca4",
-            "seasonTeamId": "73557956",
-            "name": "SG Breisach - Gündlingen 2",
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": "SG Breisach-Gündlingen",
-              "shortName": null
-            }
-          },
-          {
-            "number": "2",
-            "id": "73557968",
-            "uuid": "8fdee211-fe64-4216-b879-3c3d9951c7c6",
-            "seasonTeamId": "73557968",
-            "name": "Spvgg Märkt-Eimeldingen",
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": "Spvgg Märkt-Eimeldingen",
-              "shortName": null
-            }
-          }
-        ],
-        "matchSeries": {
-          "id": "70099518",
-          "uuid": "24066d81-d513-497b-894f-45e9e14beaab",
-          "allSeasonId": "955f1d4d-bc60-8f21-1003-fcc2a85bd10a",
-          "name": "Kreisliga Damen Süd",
-          "shortName": "kl s d",
-          "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
-          "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
-          "season": {
-            "id": "70098350",
-            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
-            "name": "2024/25"
-          },
-          "hierarchy": {
-            "id": "70099465",
-            "uuid": "0a1735d1-9487-4bd6-bb10-1895ced9f372",
-            "name": "Kreisligen",
-            "shortName": "kl w",
-            "hierarchyLevel": "6"
-          },
-          "fullHierarchy": {
-            "hierarchy": [
-              {
-                "id": "70099465",
-                "name": "Kreisligen",
-                "shortName": "kl w",
-                "hierarchyLevel": "6"
-              },
-              {
-                "id": "70099464",
-                "name": "Bezirksklassen",
-                "shortName": "bzk w",
-                "hierarchyLevel": "5"
-              },
-              {
-                "id": "70099463",
-                "name": "Bezirksligen",
-                "shortName": "bzl w",
-                "hierarchyLevel": "4"
-              },
-              {
-                "id": "70099121",
-                "name": "Region West",
-                "shortName": "bw",
-                "hierarchyLevel": "3"
-              },
-              {
-                "id": "70099120",
-                "name": "SBVV Bezirke",
-                "shortName": "SBVV Bezirke",
-                "hierarchyLevel": "2"
-              },
-              {
-                "id": "70099119",
-                "name": "Erwachsenenspielbetrieb SBVV",
-                "shortName": "SBVV Erw.",
-                "hierarchyLevel": "1"
-              },
-              {
-                "id": "70098566",
-                "name": "Südbadischer Volleyball-Verband (SBVV)",
-                "shortName": "SBVV",
-                "hierarchyLevel": "0"
-              }
-            ]
-          },
-          "association": {
-            "name": null,
-            "shortName": null
-          }
-        },
-        "location": {
-          "id": "13906073",
-          "name": "Breisgau-Halle",
-          "street": "Breisgaustr. 6",
-          "extraField": "-",
-          "postalCode": "79206",
-          "city": "Breisach",
-          "note": "-"
-        },
-        "referees": null,
-        "dateObject": "2024-10-26T12:00:00.000Z",
-        "dateIso": "2024-10-26T12:00:00.000Z"
-      },
-      {
-        "id": "73786738",
-        "uuid": "fc92cf31-90a3-4825-bc69-c95648645933",
-        "number": "15",
-        "date": "26.10.2024",
-        "time": "14:00",
-        "delayPossible": "false",
-        "decidingMatch": "false",
-        "indefinitelyRescheduled": "false",
-        "gameReassessed": "false",
-        "host": {
-          "id": "73557956",
-          "uuid": "a4b8f3d2-ec9d-4644-b2a1-cc89b0435ca4",
-          "name": "SG Breisach - Gündlingen 2",
-          "club": "SG Breisach-Gündlingen"
-        },
-        "team": [
-          {
-            "number": "1",
-            "id": "73557972",
-            "uuid": "dba63df0-226d-4a14-8179-1e699ebbb562",
-            "seasonTeamId": "73557972",
-            "name": "TV Neuenburg",
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": "TV Neuenburg",
-              "shortName": null
-            }
-          },
-          {
-            "number": "2",
-            "id": "73557968",
-            "uuid": "8fdee211-fe64-4216-b879-3c3d9951c7c6",
-            "seasonTeamId": "73557968",
-            "name": "Spvgg Märkt-Eimeldingen",
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": "Spvgg Märkt-Eimeldingen",
-              "shortName": null
-            }
-          }
-        ],
-        "matchSeries": {
-          "id": "70099518",
-          "uuid": "24066d81-d513-497b-894f-45e9e14beaab",
-          "allSeasonId": "955f1d4d-bc60-8f21-1003-fcc2a85bd10a",
-          "name": "Kreisliga Damen Süd",
-          "shortName": "kl s d",
-          "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
-          "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
-          "season": {
-            "id": "70098350",
-            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
-            "name": "2024/25"
-          },
-          "hierarchy": {
-            "id": "70099465",
-            "uuid": "0a1735d1-9487-4bd6-bb10-1895ced9f372",
-            "name": "Kreisligen",
-            "shortName": "kl w",
-            "hierarchyLevel": "6"
-          },
-          "fullHierarchy": {
-            "hierarchy": [
-              {
-                "id": "70099465",
-                "name": "Kreisligen",
-                "shortName": "kl w",
-                "hierarchyLevel": "6"
-              },
-              {
-                "id": "70099464",
-                "name": "Bezirksklassen",
-                "shortName": "bzk w",
-                "hierarchyLevel": "5"
-              },
-              {
-                "id": "70099463",
-                "name": "Bezirksligen",
-                "shortName": "bzl w",
-                "hierarchyLevel": "4"
-              },
-              {
-                "id": "70099121",
-                "name": "Region West",
-                "shortName": "bw",
-                "hierarchyLevel": "3"
-              },
-              {
-                "id": "70099120",
-                "name": "SBVV Bezirke",
-                "shortName": "SBVV Bezirke",
-                "hierarchyLevel": "2"
-              },
-              {
-                "id": "70099119",
-                "name": "Erwachsenenspielbetrieb SBVV",
-                "shortName": "SBVV Erw.",
-                "hierarchyLevel": "1"
-              },
-              {
-                "id": "70098566",
-                "name": "Südbadischer Volleyball-Verband (SBVV)",
-                "shortName": "SBVV",
-                "hierarchyLevel": "0"
-              }
-            ]
-          },
-          "association": {
-            "name": null,
-            "shortName": null
-          }
-        },
-        "location": {
-          "id": "13906073",
-          "name": "Breisgau-Halle",
-          "street": "Breisgaustr. 6",
-          "extraField": "-",
-          "postalCode": "79206",
-          "city": "Breisach",
-          "note": "-"
-        },
-        "referees": null,
-        "dateObject": "2024-10-26T12:00:00.000Z",
-        "dateIso": "2024-10-26T12:00:00.000Z"
-      },
-      {
         "id": "73786739",
         "uuid": "8a252e0d-0381-4a38-bf3f-df89c5df2110",
         "number": "16",
@@ -2332,9 +1942,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -2462,9 +2072,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -2592,9 +2202,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -2722,9 +2332,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -2852,9 +2462,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -2982,9 +2592,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -3112,9 +2722,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -3242,9 +2852,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -3372,9 +2982,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -3502,9 +3112,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -3632,9 +3242,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -3762,9 +3372,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -3842,6 +3452,396 @@
         "dateIso": "2024-11-17T10:00:00.000Z"
       },
       {
+        "id": "73786736",
+        "uuid": "947cb932-bf24-4d7a-ad04-1b5f43fa79b1",
+        "number": "13",
+        "date": "24.11.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "73557956",
+          "uuid": "a4b8f3d2-ec9d-4644-b2a1-cc89b0435ca4",
+          "name": "SG Breisach - Gündlingen 2",
+          "club": "SG Breisach-Gündlingen"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "73557956",
+            "uuid": "a4b8f3d2-ec9d-4644-b2a1-cc89b0435ca4",
+            "seasonTeamId": "73557956",
+            "name": "SG Breisach - Gündlingen 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "SG Breisach-Gündlingen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "73557972",
+            "uuid": "dba63df0-226d-4a14-8179-1e699ebbb562",
+            "seasonTeamId": "73557972",
+            "name": "TV Neuenburg",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TV Neuenburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70099518",
+          "uuid": "24066d81-d513-497b-894f-45e9e14beaab",
+          "allSeasonId": "955f1d4d-bc60-8f21-1003-fcc2a85bd10a",
+          "name": "Kreisliga Damen Süd",
+          "shortName": "kl s d",
+          "type": "League",
+          "updated": "2024-10-18 09:42:30.858",
+          "structureUpdated": "2024-10-12 10:52:05.003",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70099465",
+            "uuid": "0a1735d1-9487-4bd6-bb10-1895ced9f372",
+            "name": "Kreisligen",
+            "shortName": "kl w",
+            "hierarchyLevel": "6"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70099465",
+                "name": "Kreisligen",
+                "shortName": "kl w",
+                "hierarchyLevel": "6"
+              },
+              {
+                "id": "70099464",
+                "name": "Bezirksklassen",
+                "shortName": "bzk w",
+                "hierarchyLevel": "5"
+              },
+              {
+                "id": "70099463",
+                "name": "Bezirksligen",
+                "shortName": "bzl w",
+                "hierarchyLevel": "4"
+              },
+              {
+                "id": "70099121",
+                "name": "Region West",
+                "shortName": "bw",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70099120",
+                "name": "SBVV Bezirke",
+                "shortName": "SBVV Bezirke",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70099119",
+                "name": "Erwachsenenspielbetrieb SBVV",
+                "shortName": "SBVV Erw.",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": null,
+            "shortName": null
+          }
+        },
+        "location": {
+          "id": "13906073",
+          "name": "Breisgau-Halle",
+          "street": "Breisgaustr. 6",
+          "extraField": "-",
+          "postalCode": "79206",
+          "city": "Breisach",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2024-11-24T10:00:00.000Z",
+        "dateIso": "2024-11-24T10:00:00.000Z"
+      },
+      {
+        "id": "73786737",
+        "uuid": "b82f28fc-4072-4d1a-9d57-12929dda2e37",
+        "number": "14",
+        "date": "24.11.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "73557956",
+          "uuid": "a4b8f3d2-ec9d-4644-b2a1-cc89b0435ca4",
+          "name": "SG Breisach - Gündlingen 2",
+          "club": "SG Breisach-Gündlingen"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "73557956",
+            "uuid": "a4b8f3d2-ec9d-4644-b2a1-cc89b0435ca4",
+            "seasonTeamId": "73557956",
+            "name": "SG Breisach - Gündlingen 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "SG Breisach-Gündlingen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "73557968",
+            "uuid": "8fdee211-fe64-4216-b879-3c3d9951c7c6",
+            "seasonTeamId": "73557968",
+            "name": "Spvgg Märkt-Eimeldingen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "Spvgg Märkt-Eimeldingen",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70099518",
+          "uuid": "24066d81-d513-497b-894f-45e9e14beaab",
+          "allSeasonId": "955f1d4d-bc60-8f21-1003-fcc2a85bd10a",
+          "name": "Kreisliga Damen Süd",
+          "shortName": "kl s d",
+          "type": "League",
+          "updated": "2024-10-18 09:42:30.858",
+          "structureUpdated": "2024-10-12 10:52:05.003",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70099465",
+            "uuid": "0a1735d1-9487-4bd6-bb10-1895ced9f372",
+            "name": "Kreisligen",
+            "shortName": "kl w",
+            "hierarchyLevel": "6"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70099465",
+                "name": "Kreisligen",
+                "shortName": "kl w",
+                "hierarchyLevel": "6"
+              },
+              {
+                "id": "70099464",
+                "name": "Bezirksklassen",
+                "shortName": "bzk w",
+                "hierarchyLevel": "5"
+              },
+              {
+                "id": "70099463",
+                "name": "Bezirksligen",
+                "shortName": "bzl w",
+                "hierarchyLevel": "4"
+              },
+              {
+                "id": "70099121",
+                "name": "Region West",
+                "shortName": "bw",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70099120",
+                "name": "SBVV Bezirke",
+                "shortName": "SBVV Bezirke",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70099119",
+                "name": "Erwachsenenspielbetrieb SBVV",
+                "shortName": "SBVV Erw.",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": null,
+            "shortName": null
+          }
+        },
+        "location": {
+          "id": "13906073",
+          "name": "Breisgau-Halle",
+          "street": "Breisgaustr. 6",
+          "extraField": "-",
+          "postalCode": "79206",
+          "city": "Breisach",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2024-11-24T10:00:00.000Z",
+        "dateIso": "2024-11-24T10:00:00.000Z"
+      },
+      {
+        "id": "73786738",
+        "uuid": "fc92cf31-90a3-4825-bc69-c95648645933",
+        "number": "15",
+        "date": "24.11.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "73557956",
+          "uuid": "a4b8f3d2-ec9d-4644-b2a1-cc89b0435ca4",
+          "name": "SG Breisach - Gündlingen 2",
+          "club": "SG Breisach-Gündlingen"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "73557972",
+            "uuid": "dba63df0-226d-4a14-8179-1e699ebbb562",
+            "seasonTeamId": "73557972",
+            "name": "TV Neuenburg",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TV Neuenburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "73557968",
+            "uuid": "8fdee211-fe64-4216-b879-3c3d9951c7c6",
+            "seasonTeamId": "73557968",
+            "name": "Spvgg Märkt-Eimeldingen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "Spvgg Märkt-Eimeldingen",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70099518",
+          "uuid": "24066d81-d513-497b-894f-45e9e14beaab",
+          "allSeasonId": "955f1d4d-bc60-8f21-1003-fcc2a85bd10a",
+          "name": "Kreisliga Damen Süd",
+          "shortName": "kl s d",
+          "type": "League",
+          "updated": "2024-10-18 09:42:30.858",
+          "structureUpdated": "2024-10-12 10:52:05.003",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70099465",
+            "uuid": "0a1735d1-9487-4bd6-bb10-1895ced9f372",
+            "name": "Kreisligen",
+            "shortName": "kl w",
+            "hierarchyLevel": "6"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70099465",
+                "name": "Kreisligen",
+                "shortName": "kl w",
+                "hierarchyLevel": "6"
+              },
+              {
+                "id": "70099464",
+                "name": "Bezirksklassen",
+                "shortName": "bzk w",
+                "hierarchyLevel": "5"
+              },
+              {
+                "id": "70099463",
+                "name": "Bezirksligen",
+                "shortName": "bzl w",
+                "hierarchyLevel": "4"
+              },
+              {
+                "id": "70099121",
+                "name": "Region West",
+                "shortName": "bw",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70099120",
+                "name": "SBVV Bezirke",
+                "shortName": "SBVV Bezirke",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70099119",
+                "name": "Erwachsenenspielbetrieb SBVV",
+                "shortName": "SBVV Erw.",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": null,
+            "shortName": null
+          }
+        },
+        "location": {
+          "id": "13906073",
+          "name": "Breisgau-Halle",
+          "street": "Breisgaustr. 6",
+          "extraField": "-",
+          "postalCode": "79206",
+          "city": "Breisach",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2024-11-24T10:00:00.000Z",
+        "dateIso": "2024-11-24T10:00:00.000Z"
+      },
+      {
         "id": "73786753",
         "uuid": "46bc9d95-e668-4ecb-8f8f-04f69d7c4917",
         "number": "28",
@@ -3892,9 +3892,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4022,9 +4022,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4152,9 +4152,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4282,9 +4282,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4412,9 +4412,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4542,9 +4542,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4672,9 +4672,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4802,9 +4802,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -4932,9 +4932,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5062,9 +5062,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5192,9 +5192,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5322,9 +5322,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5452,9 +5452,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5582,9 +5582,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5712,9 +5712,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5842,9 +5842,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5972,9 +5972,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -6102,9 +6102,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -6232,9 +6232,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -6362,9 +6362,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -6492,9 +6492,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -6622,9 +6622,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -6752,9 +6752,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -6882,9 +6882,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7012,9 +7012,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7142,9 +7142,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7272,9 +7272,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7402,9 +7402,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7532,9 +7532,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7662,9 +7662,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7792,9 +7792,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -7922,9 +7922,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8052,9 +8052,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8182,9 +8182,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8312,9 +8312,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8442,9 +8442,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8572,9 +8572,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8702,9 +8702,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8832,9 +8832,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -8962,9 +8962,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -9092,9 +9092,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -9222,9 +9222,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -9352,9 +9352,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -9482,9 +9482,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -9612,9 +9612,9 @@
           "name": "Kreisliga Damen Süd",
           "shortName": "kl s d",
           "type": "League",
-          "updated": "2024-10-12 18:20:34.242",
+          "updated": "2024-10-18 09:42:30.858",
           "structureUpdated": "2024-10-12 10:52:05.003",
-          "resultsUpdated": "2024-10-12 18:20:34.242",
+          "resultsUpdated": "2024-10-18 09:42:30.858",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
