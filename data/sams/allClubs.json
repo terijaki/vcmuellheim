@@ -612,16 +612,6 @@
         }
       },
       {
-        "id": "51836009",
-        "name": "TV 1893 Nieder-Olm e.V.",
-        "lsbNumber": "76",
-        "internalSportsclubId": "32-58-02",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "54611175",
         "name": "VfL Pfullingen",
         "lsbNumber": "16081",
@@ -13602,6 +13592,16 @@
         }
       },
       {
+        "id": "49504372",
+        "name": "VC Angermünde e.V.",
+        "lsbNumber": "730188",
+        "internalSportsclubId": "730188",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "37921746",
         "name": "TV Dülmen 1884 e.V.",
         "lsbNumber": "3204022",
@@ -13749,16 +13749,6 @@
         "association": {
           "id": "33797822",
           "name": "Dortmund"
-        }
-      },
-      {
-        "id": "49504372",
-        "name": "VC Angermünde",
-        "lsbNumber": "730188",
-        "internalSportsclubId": "730188",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -31592,16 +31582,6 @@
         }
       },
       {
-        "id": "37921263",
-        "name": "SuS Blau-Weiss Sünninghausen 1970 e.V.",
-        "lsbNumber": "3307010",
-        "internalSportsclubId": "1352",
-        "association": {
-          "id": "33797364",
-          "name": "Warendorf"
-        }
-      },
-      {
         "id": "37921491",
         "name": "Ski-Club Ahlen 1960 e.V.",
         "lsbNumber": "3301012",
@@ -31679,6 +31659,16 @@
         "association": {
           "id": "33797282",
           "name": "Vest"
+        }
+      },
+      {
+        "id": "37921263",
+        "name": "SuS Blau-Weiss Sünninghausen 1970 e.V.",
+        "lsbNumber": "3307010",
+        "internalSportsclubId": "1352",
+        "association": {
+          "id": "33797364",
+          "name": "Warendorf"
         }
       },
       {
@@ -36052,6 +36042,16 @@
         }
       },
       {
+        "id": "16604819",
+        "name": "TSVgg 1848 Stadecken-Elsheim e.V.",
+        "lsbNumber": "85",
+        "internalSportsclubId": "32-58-21",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
         "id": "54611213",
         "name": "EnBW Stuttgart Abt. SG Verbandssport",
         "lsbNumber": "0",
@@ -36099,16 +36099,6 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
-        }
-      },
-      {
-        "id": "16604819",
-        "name": "TSVgg 1848 Stadecken-Elsheim e.V.",
-        "lsbNumber": "85",
-        "internalSportsclubId": "32-58-21",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -36742,16 +36732,6 @@
         }
       },
       {
-        "id": "16610354",
-        "name": "Märkischer SV Zossen 07",
-        "lsbNumber": "720084",
-        "internalSportsclubId": "720084",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "21797206",
         "name": "HSV Cottbus",
         "lsbNumber": "520166",
@@ -36812,6 +36792,16 @@
         }
       },
       {
+        "id": "16610354",
+        "name": "Märkischer SV Zossen 07 e.V.",
+        "lsbNumber": "720084",
+        "internalSportsclubId": "720084",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "21797214",
         "name": "Elsterwerdaer SV 94",
         "lsbNumber": "620156",
@@ -36862,16 +36852,6 @@
         }
       },
       {
-        "id": "37313158",
-        "name": "VC Teltow/Kleinmachnow",
-        "lsbNumber": "690222",
-        "internalSportsclubId": "690222",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "26925284",
         "name": "TV 1911 Eibelshausen",
         "lsbNumber": "15035",
@@ -36892,10 +36872,10 @@
         }
       },
       {
-        "id": "21795265",
-        "name": "KSC ASAHI Spremberg",
-        "lsbNumber": "710203",
-        "internalSportsclubId": "710203",
+        "id": "37313158",
+        "name": "VC Teltow/Kleinmachnow e.V.",
+        "lsbNumber": "690222",
+        "internalSportsclubId": "690222",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -36929,16 +36909,6 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "961603",
-        "name": "Rote Raben Vilsbiburg",
-        "lsbNumber": "70186",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7215",
-          "name": "Bayerischer Volleyball-Verband"
         }
       },
       {
@@ -36982,6 +36952,16 @@
         }
       },
       {
+        "id": "21795265",
+        "name": "KSC ASAHI Spremberg e.V.",
+        "lsbNumber": "710203",
+        "internalSportsclubId": "710203",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "12483439",
         "name": "SV Braunsbedra e.V.",
         "lsbNumber": "100002",
@@ -36989,6 +36969,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "961603",
+        "name": "Rote Raben Vilsbiburg",
+        "lsbNumber": "70186",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7215",
+          "name": "Bayerischer Volleyball-Verband"
         }
       },
       {
@@ -37009,16 +36999,6 @@
         "association": {
           "id": "7208",
           "name": "Hamburger Volleyball-Verband"
-        }
-      },
-      {
-        "id": "49504335",
-        "name": "SG Burg (Spreewald)",
-        "lsbNumber": "710102",
-        "internalSportsclubId": "710102",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -37056,6 +37036,16 @@
         "name": "SV Prieros Dahme",
         "lsbNumber": "610187",
         "internalSportsclubId": "610187",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "49504335",
+        "name": "SG Burg (Spreewald) e.V.",
+        "lsbNumber": "710102",
+        "internalSportsclubId": "710102",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -37162,20 +37152,20 @@
         }
       },
       {
-        "id": "49504362",
-        "name": "TV 1861 Forst (Lausitz)",
-        "lsbNumber": "710051",
-        "internalSportsclubId": "710051",
+        "id": "49504366",
+        "name": "Rheinsberger SV",
+        "lsbNumber": "680078",
+        "internalSportsclubId": "680078",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
-        "id": "49504366",
-        "name": "Rheinsberger SV",
-        "lsbNumber": "680078",
-        "internalSportsclubId": "680078",
+        "id": "49504370",
+        "name": "SG Geltow e.V.",
+        "lsbNumber": "690058",
+        "internalSportsclubId": "690058",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -37272,16 +37262,6 @@
         }
       },
       {
-        "id": "49504370",
-        "name": "SG Geltow",
-        "lsbNumber": "690058",
-        "internalSportsclubId": "690058",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "37948339",
         "name": "LSG Klobikau-Milzau 1899 e.V.",
         "lsbNumber": "100026",
@@ -37372,16 +37352,6 @@
         }
       },
       {
-        "id": "49504381",
-        "name": "SV Empor Grün/Rot Wittenberge 1990",
-        "lsbNumber": "700007",
-        "internalSportsclubId": "700007",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "37921421",
         "name": "Hennefer TV 1895 e.V.",
         "lsbNumber": "2805013",
@@ -37389,16 +37359,6 @@
         "association": {
           "id": "33795566",
           "name": "Rhein-Sieg"
-        }
-      },
-      {
-        "id": "49504392",
-        "name": "VSV Tempo Welzow",
-        "lsbNumber": "710137",
-        "internalSportsclubId": "710137",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -37419,6 +37379,26 @@
         "association": {
           "id": "26249225",
           "name": "Kreisverband Nord"
+        }
+      },
+      {
+        "id": "49504381",
+        "name": "SV Empor Grün/Rot Wittenberge 1990 e.V.",
+        "lsbNumber": "700007",
+        "internalSportsclubId": "700007",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "49504392",
+        "name": "VSV Tempo Welzow e.V.",
+        "lsbNumber": "710137",
+        "internalSportsclubId": "710137",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -37512,16 +37492,6 @@
         }
       },
       {
-        "id": "49504419",
-        "name": "TuS 1896 Dallmin",
-        "lsbNumber": "700030",
-        "internalSportsclubId": "700030",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "49504423",
         "name": "VSV Ludwigsfelde",
         "lsbNumber": "720176",
@@ -37536,16 +37506,6 @@
         "name": "Landesauswahl BVV",
         "lsbNumber": "730200",
         "internalSportsclubId": null,
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
-        "id": "49504422",
-        "name": "RSV Mellensee 08",
-        "lsbNumber": "720011",
-        "internalSportsclubId": "720011",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -37632,6 +37592,16 @@
         }
       },
       {
+        "id": "49504430",
+        "name": "Werderaner VV 1990 e.V.",
+        "lsbNumber": "690233",
+        "internalSportsclubId": "690233",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "49504437",
         "name": "VC Sandwürmer",
         "lsbNumber": "540169",
@@ -37672,10 +37642,10 @@
         }
       },
       {
-        "id": "49504430",
-        "name": "Werderaner VV 1990",
-        "lsbNumber": "690233",
-        "internalSportsclubId": "690233",
+        "id": "49504419",
+        "name": "TuS 1896 Dallmin e.V.",
+        "lsbNumber": "700030",
+        "internalSportsclubId": "700030",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -37689,6 +37659,16 @@
         "association": {
           "id": "51583473",
           "name": "tbc VLW 40"
+        }
+      },
+      {
+        "id": "49504422",
+        "name": "RSV Mellensee 08 e.V.",
+        "lsbNumber": "720011",
+        "internalSportsclubId": "720011",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -37762,10 +37742,10 @@
         }
       },
       {
-        "id": "49504462",
-        "name": "Verein für Volleyball von 1968 Pritzwalk",
-        "lsbNumber": "700052",
-        "internalSportsclubId": "700052",
+        "id": "49504467",
+        "name": "SV Döbern e.V.",
+        "lsbNumber": "710030",
+        "internalSportsclubId": "710030",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -37792,16 +37772,6 @@
         }
       },
       {
-        "id": "49504460",
-        "name": "Nahmitzer SV",
-        "lsbNumber": "690123",
-        "internalSportsclubId": "690123",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "37921053",
         "name": "TV Kalterherberg 1896 e.V.",
         "lsbNumber": "2105009",
@@ -37816,16 +37786,6 @@
         "name": "1. VC Herzberg",
         "lsbNumber": "620083",
         "internalSportsclubId": "620083",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
-        "id": "49504467",
-        "name": "SV Döbern",
-        "lsbNumber": "710030",
-        "internalSportsclubId": "710030",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -37872,6 +37832,26 @@
         }
       },
       {
+        "id": "49504460",
+        "name": "Nahmitzer SV e.V.",
+        "lsbNumber": "690123",
+        "internalSportsclubId": "690123",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "49504462",
+        "name": "Verein für Volleyball von 1968 Pritzwalk e.V.",
+        "lsbNumber": "700052",
+        "internalSportsclubId": "700052",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "26925213",
         "name": "TV 1881 Bierstadt e.V.",
         "lsbNumber": "38027",
@@ -37892,10 +37872,10 @@
         }
       },
       {
-        "id": "49504478",
-        "name": "SV Blau-Weiß 07 Spremberg",
-        "lsbNumber": "710037",
-        "internalSportsclubId": "710037",
+        "id": "49504493",
+        "name": "WSG Buckow e.V.",
+        "lsbNumber": "710046",
+        "internalSportsclubId": "710046",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -37926,6 +37906,16 @@
         "name": "WSG Potsdam-West",
         "lsbNumber": "540015",
         "internalSportsclubId": "540015",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "49504478",
+        "name": "SV Blau-Weiß 07 Spremberg e.V.",
+        "lsbNumber": "710037",
+        "internalSportsclubId": "710037",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -38016,16 +38006,6 @@
         "name": "Kremmener SV",
         "lsbNumber": "650015",
         "internalSportsclubId": "650015",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
-        "id": "49504493",
-        "name": "WSG Buckow",
-        "lsbNumber": "710046",
-        "internalSportsclubId": "710046",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -38252,6 +38232,16 @@
         }
       },
       {
+        "id": "49504344",
+        "name": "VV Michendorf e.V.",
+        "lsbNumber": "690195",
+        "internalSportsclubId": "690195",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "54611270",
         "name": "TSV Haiterbach",
         "lsbNumber": "5052",
@@ -38273,19 +38263,9 @@
       },
       {
         "id": "49504352",
-        "name": "VC Schlafmützen 13",
+        "name": "VC Schlafmützen 13 e.V.",
         "lsbNumber": "720259",
         "internalSportsclubId": "720259",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
-        "id": "49504344",
-        "name": "VV Michendorf",
-        "lsbNumber": "690195",
-        "internalSportsclubId": "690195",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -42752,6 +42732,16 @@
         }
       },
       {
+        "id": "50621874",
+        "name": "SV Fortschritt Pirna e.V.",
+        "lsbNumber": "500237",
+        "internalSportsclubId": "305",
+        "association": {
+          "id": "24908790",
+          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
+        }
+      },
+      {
         "id": "54610758",
         "name": "SV Frauenzimmern",
         "lsbNumber": "10216",
@@ -42789,16 +42779,6 @@
         "association": {
           "id": "24908890",
           "name": "Stadt Leipzig"
-        }
-      },
-      {
-        "id": "50621874",
-        "name": "SV Fortschritt Pirna e.V.",
-        "lsbNumber": "500237",
-        "internalSportsclubId": "305",
-        "association": {
-          "id": "24908790",
-          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
         }
       },
       {
@@ -42892,6 +42872,16 @@
         }
       },
       {
+        "id": "54610768",
+        "name": "TSV Köngen",
+        "lsbNumber": "6101",
+        "internalSportsclubId": "107",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
         "id": "50621907",
         "name": "SC Riesa e.V.",
         "lsbNumber": "470174",
@@ -42979,16 +42969,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "54610768",
-        "name": "TSV Köngen",
-        "lsbNumber": "6101",
-        "internalSportsclubId": "107",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
         }
       },
       {
@@ -45592,6 +45572,16 @@
         }
       },
       {
+        "id": "49504359",
+        "name": "RSV Eintracht 1949 e.V.",
+        "lsbNumber": "690061",
+        "internalSportsclubId": "690061",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "54610943",
         "name": "tus Stuttgart",
         "lsbNumber": "20085",
@@ -45669,16 +45659,6 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
-        }
-      },
-      {
-        "id": "49504359",
-        "name": "RSV Eintracht 1949",
-        "lsbNumber": "690061",
-        "internalSportsclubId": "690061",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -51152,6 +51132,16 @@
         }
       },
       {
+        "id": "51836476",
+        "name": "TV 1893 Dautenheim e.V.",
+        "lsbNumber": "470",
+        "internalSportsclubId": "470",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
         "id": "51836434",
         "name": "TG Oggersheim",
         "lsbNumber": "357",
@@ -51269,16 +51259,6 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
-        "id": "51836476",
-        "name": "TV Dautenheim",
-        "lsbNumber": "470",
-        "internalSportsclubId": "470",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -52422,16 +52402,6 @@
         }
       },
       {
-        "id": "51836406",
-        "name": "TG 1846 Worms e.V.",
-        "lsbNumber": "92",
-        "internalSportsclubId": "32-61-10",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "65036494",
         "name": "Volleyball-Landesverband Württemberg",
         "lsbNumber": "100085",
@@ -52579,6 +52549,16 @@
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
+        }
+      },
+      {
+        "id": "51836406",
+        "name": "TG 1846 Worms e.V.",
+        "lsbNumber": "92",
+        "internalSportsclubId": "32-61-10",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -56412,6 +56392,16 @@
         }
       },
       {
+        "id": "49504480",
+        "name": "Gubener Füchse e.V.",
+        "lsbNumber": "710090",
+        "internalSportsclubId": "710090",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "37948599",
         "name": "VfB Zahna 1921 e.V.",
         "lsbNumber": "80005",
@@ -56419,16 +56409,6 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "49504480",
-        "name": "Gubener Füchse",
-        "lsbNumber": "710090",
-        "internalSportsclubId": "710090",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -57192,6 +57172,16 @@
         }
       },
       {
+        "id": "49504415",
+        "name": "SV Grün-Weiß Großbeeren e.V.",
+        "lsbNumber": "720056",
+        "internalSportsclubId": "720056",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "13901828",
         "name": "Volleyball Club Juniors Frankfurt",
         "lsbNumber": "24773",
@@ -57209,16 +57199,6 @@
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
-        }
-      },
-      {
-        "id": "49504415",
-        "name": "SV Grün-Weiß Großbeeren",
-        "lsbNumber": "720056",
-        "internalSportsclubId": "720056",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -57692,16 +57672,6 @@
         }
       },
       {
-        "id": "26818899",
-        "name": "VSV 90 Ebeleben e.V.",
-        "lsbNumber": "320026",
-        "internalSportsclubId": "32094",
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
-        }
-      },
-      {
         "id": "65036845",
         "name": "Slow Motion Freiburg e.V.",
         "lsbNumber": "480400",
@@ -57869,6 +57839,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26818899",
+        "name": "VSV 90 Ebeleben e.V.",
+        "lsbNumber": "320026",
+        "internalSportsclubId": "32094",
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
         }
       },
       {
@@ -58433,7 +58413,7 @@
       },
       {
         "id": "49504494",
-        "name": "SV Blau-Weiß Dahlewitz",
+        "name": "SV Blau-Weiß Dahlewitz e.V.",
         "lsbNumber": "720076",
         "internalSportsclubId": "720076",
         "association": {
@@ -62894,8 +62874,8 @@
       {
         "id": "78577436",
         "name": "SC Oberbecksen-Babbenhausen e.V.",
-        "lsbNumber": "1111111110000061",
-        "internalSportsclubId": null,
+        "lsbNumber": "4501012",
+        "internalSportsclubId": "111111110000061",
         "association": {
           "id": "33797702",
           "name": "Minden-Ravensberg"
@@ -63229,6 +63209,26 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
+        }
+      },
+      {
+        "id": "49504362",
+        "name": "TV 1861 Forst (Lausitz) e.V.",
+        "lsbNumber": "710051",
+        "internalSportsclubId": "710051",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "51836009",
+        "name": "TV 1893 Nieder-Olm e.V.",
+        "lsbNumber": "76",
+        "internalSportsclubId": "32-58-02",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
