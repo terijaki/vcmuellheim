@@ -62642,16 +62642,6 @@
         }
       },
       {
-        "id": "1065723",
-        "name": "Sportverein Grün-Weiß Eimsbüttel von 1901 e.V.",
-        "lsbNumber": null,
-        "internalSportsclubId": "121223",
-        "association": {
-          "id": "7208",
-          "name": "Hamburger Volleyball-Verband"
-        }
-      },
-      {
         "id": "49504489",
         "name": "BSG Pneumant Fürstenwalde",
         "lsbNumber": "670045",
@@ -62669,6 +62659,16 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "1065723",
+        "name": "Sportverein Grün-Weiß Eimsbüttel von 1901 e.V.",
+        "lsbNumber": null,
+        "internalSportsclubId": "121223",
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband"
         }
       },
       {
