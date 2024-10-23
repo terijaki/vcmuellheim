@@ -33713,7 +33713,7 @@
       },
       {
         "id": "75280617",
-        "name": "PSV Basdorf",
+        "name": "PSV Basdorf e.V.",
         "lsbNumber": "600077",
         "internalSportsclubId": "600077",
         "association": {
@@ -36902,6 +36902,16 @@
         }
       },
       {
+        "id": "12483439",
+        "name": "SV Braunsbedra e.V.",
+        "lsbNumber": "100002",
+        "internalSportsclubId": "100002",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "26846510",
         "name": "Volkssportgemeinschaft Einheit Rüdersdorf e.V.",
         "lsbNumber": "5255",
@@ -36949,16 +36959,6 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
-        "id": "12483439",
-        "name": "SV Braunsbedra e.V.",
-        "lsbNumber": "100002",
-        "internalSportsclubId": "100002",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -41272,20 +41272,20 @@
         }
       },
       {
-        "id": "51836177",
-        "name": "TSV Armsheim - Schimsheim",
-        "lsbNumber": "473",
-        "internalSportsclubId": "473",
+        "id": "51836466",
+        "name": "Turn- und Sportverein 1897 Saulheim e.V.",
+        "lsbNumber": "440",
+        "internalSportsclubId": "32-58-26",
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
-        "id": "51836466",
-        "name": "Turn- und Sportverein 1897 Saulheim e.V.",
-        "lsbNumber": "440",
-        "internalSportsclubId": "32-58-26",
+        "id": "51836177",
+        "name": "TSV Armsheim - Schimsheim",
+        "lsbNumber": "473",
+        "internalSportsclubId": "473",
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
@@ -44082,20 +44082,20 @@
         }
       },
       {
-        "id": "51836033",
-        "name": "Mombacher Turnverein 1861 e.V.",
-        "lsbNumber": "372",
-        "internalSportsclubId": "32-55-03",
+        "id": "51836031",
+        "name": "RSV Klein-Winternheim",
+        "lsbNumber": "463",
+        "internalSportsclubId": "463",
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
-        "id": "51836031",
-        "name": "RSV Klein-Winternheim",
-        "lsbNumber": "463",
-        "internalSportsclubId": "463",
+        "id": "51836033",
+        "name": "Mombacher Turnverein 1861 e.V.",
+        "lsbNumber": "372",
+        "internalSportsclubId": "32-55-03",
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
@@ -46352,6 +46352,16 @@
         }
       },
       {
+        "id": "51836330",
+        "name": "Sportgemeinde 1898 Partenheim e.V.",
+        "lsbNumber": "340",
+        "internalSportsclubId": "32-47-01",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
         "id": "54610993",
         "name": "DJK Ehingen",
         "lsbNumber": "1239",
@@ -46399,16 +46409,6 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
-        "id": "51836330",
-        "name": "Sportgemeinde 1898 Partenheim e.V.",
-        "lsbNumber": "340",
-        "internalSportsclubId": "32-47-01",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
