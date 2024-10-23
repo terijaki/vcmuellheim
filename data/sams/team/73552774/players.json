@@ -1,5 +1,5 @@
 {
-    "date": "2023-10-20T09:20:36.226Z",
+    "date": "2024-10-23T09:58:50.840Z",
     "players": [
         {
             "lastname": "Lindemann",
@@ -26,12 +26,28 @@
             "function": ""
         },
         {
+            "lastname": "Vöster",
+            "firstname": "Jan",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
             "lastname": "Joly",
             "firstname": "Laurent",
             "nationality": "FR",
             "number": "",
             "height": "",
             "function": ""
+        },
+        {
+            "lastname": "Czak-Lindemann",
+            "firstname": "Claudio",
+            "nationality": "AT",
+            "number": "",
+            "height": "",
+            "function": "Trainer"
         },
         {
             "lastname": "Albrecht",
@@ -85,13 +101,21 @@
             "lastname": "Rastenis",
             "firstname": "Edgaras",
             "nationality": "LT",
-            "number": 6,
+            "number": "",
             "height": "",
             "function": ""
         },
         {
             "lastname": "Albrecht",
             "firstname": "Andreas",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": "Kontaktperson Spieltag"
+        },
+        {
+            "lastname": "Vöster",
+            "firstname": "Malte",
             "nationality": "DE",
             "number": "",
             "height": "",
