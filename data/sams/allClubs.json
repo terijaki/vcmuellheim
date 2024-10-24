@@ -1692,16 +1692,6 @@
         }
       },
       {
-        "id": "13899375",
-        "name": "1. VC Essen-Borbeck e.V.",
-        "lsbNumber": "1003432",
-        "internalSportsclubId": "211",
-        "association": {
-          "id": "33299056",
-          "name": "Essen"
-        }
-      },
-      {
         "id": "52574223",
         "name": "Westpark Volley e.V.",
         "lsbNumber": "5001320",
@@ -1729,6 +1719,16 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "13899375",
+        "name": "1. VC Essen-Borbeck e.V.",
+        "lsbNumber": "1003432",
+        "internalSportsclubId": "211",
+        "association": {
+          "id": "33299056",
+          "name": "Essen"
         }
       },
       {
@@ -25522,16 +25522,6 @@
         }
       },
       {
-        "id": "37920659",
-        "name": "SC Blau-Weiß 1946 Ottmarsbocholt e.V.",
-        "lsbNumber": "3211007",
-        "internalSportsclubId": "607",
-        "association": {
-          "id": "33797226",
-          "name": "Coesfeld"
-        }
-      },
-      {
         "id": "37920915",
         "name": "VfL Strümp e.V.",
         "lsbNumber": "1306004",
@@ -25549,6 +25539,16 @@
         "association": {
           "id": "33298901",
           "name": "Wesel"
+        }
+      },
+      {
+        "id": "37920659",
+        "name": "SC Blau-Weiß 1946 Ottmarsbocholt e.V.",
+        "lsbNumber": "3211007",
+        "internalSportsclubId": "607",
+        "association": {
+          "id": "33797226",
+          "name": "Coesfeld"
         }
       },
       {
@@ -35842,16 +35842,6 @@
         }
       },
       {
-        "id": "26819032",
-        "name": "Volleyball Gemeinschaft Bleicherode",
-        "lsbNumber": "240155",
-        "internalSportsclubId": "38311",
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
-        }
-      },
-      {
         "id": "37921876",
         "name": "Sport- u. Kulturverein Adler e.V. Kürten",
         "lsbNumber": "2703010",
@@ -35919,6 +35909,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26819032",
+        "name": "Volleyball Gemeinschaft Bleicherode",
+        "lsbNumber": "240155",
+        "internalSportsclubId": "38311",
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
         }
       },
       {
