@@ -223,8 +223,8 @@
             "name": "Bezirksklasse Damen Süd",
             "shortName": "bzk s d",
             "type": "League",
-            "updated": "2024-10-22 08:59:14.032",
-            "structureUpdated": "2024-10-22 08:59:14.032",
+            "updated": "2024-10-23 20:01:33.728",
+            "structureUpdated": "2024-10-23 20:01:33.728",
             "resultsUpdated": "2024-10-07 21:09:15.164",
             "season": {
               "id": "70098350",
@@ -314,8 +314,8 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2024-10-18 09:42:30.858",
-            "structureUpdated": "2024-10-12 10:52:05.003",
+            "updated": "2024-10-23 22:46:47.293",
+            "structureUpdated": "2024-10-23 22:46:47.293",
             "resultsUpdated": "2024-10-18 09:42:30.858",
             "season": {
               "id": "70098350",
@@ -455,9 +455,9 @@
           }
         },
         {
-          "id": "78486740",
-          "uuid": "da910763-9a52-463c-b280-7c5706e999b2",
-          "seasonTeamId": "78486740",
+          "id": "79051348",
+          "uuid": "30e0f4bf-db4e-4834-98f0-b83768b002a2",
+          "seasonTeamId": "79051348",
           "placeCipher": "0",
           "name": "VC Müllheim",
           "shortName": null,
@@ -478,39 +478,33 @@
             "wwwDepartment": null
           },
           "matchSeries": {
-            "id": "70100868",
-            "uuid": "db7d70e2-ca84-4fae-95f5-9f3aaad89786",
-            "allSeasonId": "df4ecc81-677f-4914-9eea-e457a230de1e",
-            "name": "West - U16 weiblich",
-            "shortName": "WQ_U16w",
+            "id": "70101230",
+            "uuid": "f7a41788-f85c-4e4d-9cd4-4a579d816806",
+            "allSeasonId": "3f3ded0f-43fa-4ab6-a80e-3efb4e667632",
+            "name": "U16 weiblich - Quali 1 am 9.11.24 in Breisach",
+            "shortName": "Q1_U16_w",
             "type": "Competition",
-            "updated": "2024-10-17 20:36:34.829",
-            "structureUpdated": "2024-10-17 20:36:34.829",
-            "resultsUpdated": null,
+            "updated": "2024-10-23 12:51:58.921",
+            "structureUpdated": "2024-10-23 12:51:58.921",
+            "resultsUpdated": "2023-12-04 09:29:20.342",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
               "name": "2024/25"
             },
             "hierarchy": {
-              "id": "70100827",
-              "uuid": "28119fe5-ae00-4a3d-bd64-7dbe8277684d",
-              "name": "Meldungen Bezirk West Jugend weiblich",
-              "shortName": "bwjw",
-              "hierarchyLevel": "4"
+              "id": "70101070",
+              "uuid": "e389ba27-2145-4506-967b-68d06a0c8c76",
+              "name": "Quali-Turniere Jugendmeisterschaften",
+              "shortName": "Quali",
+              "hierarchyLevel": "3"
             },
             "fullHierarchy": {
               "hierarchy": [
                 {
-                  "id": "70100827",
-                  "name": "Meldungen Bezirk West Jugend weiblich",
-                  "shortName": "bwjw",
-                  "hierarchyLevel": "4"
-                },
-                {
-                  "id": "70100826",
-                  "name": "SBVV Bezirk West Jugend",
-                  "shortName": "bwj",
+                  "id": "70101070",
+                  "name": "Quali-Turniere Jugendmeisterschaften",
+                  "shortName": "Quali",
                   "hierarchyLevel": "3"
                 },
                 {
@@ -534,8 +528,8 @@
               ]
             },
             "association": {
-              "name": null,
-              "shortName": null
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
             }
           }
         },
