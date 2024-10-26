@@ -7,9 +7,9 @@
       "name": "Bezirksklasse Damen Süd",
       "shortName": "bzk s d",
       "type": "League",
-      "updated": "2024-10-26 08:31:22.305",
+      "updated": "2024-10-26 15:38:24.279",
       "structureUpdated": "2024-10-26 08:31:22.305",
-      "resultsUpdated": "2024-10-07 21:09:15.164",
+      "resultsUpdated": "2024-10-26 15:38:24.279",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -70,36 +70,36 @@
     "ranking": [
       {
         "team": {
-          "id": "73557227",
-          "uuid": "05f5e5a1-62d3-42fa-82a4-2a25c95952b2",
-          "name": "TV Bad Säckingen 2",
+          "id": "73557224",
+          "uuid": "f02c6e36-a66a-45ce-9e14-450e74619da3",
+          "name": "SV Waltershofen 2",
           "shortName": null,
           "clubCode": null,
           "club": {
-            "name": "TV Bad Säckingen",
+            "name": "SV Waltershofen",
             "shortName": null
           }
         },
         "place": "1",
-        "matchesPlayed": "2",
-        "wins": "2",
+        "matchesPlayed": "3",
+        "wins": "3",
         "losses": "0",
-        "points": "6",
-        "setPoints": "6:0",
-        "setWinScore": "6",
+        "points": "9",
+        "setPoints": "9:0",
+        "setWinScore": "9",
         "setLoseScore": "0",
-        "setPointDifference": "6",
+        "setPointDifference": "9",
         "setQuotient": "∞\n            ",
-        "ballPoints": "150:78",
-        "ballWinScore": "150",
-        "ballLoseScore": "78",
-        "ballPointDifference": "72",
-        "ballQuotient": "1,923\n            ",
+        "ballPoints": "225:132",
+        "ballWinScore": "225",
+        "ballLoseScore": "132",
+        "ballPointDifference": "93",
+        "ballQuotient": "1,705\n            ",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "3:1",
@@ -126,13 +126,13 @@
       },
       {
         "team": {
-          "id": "73557224",
-          "uuid": "f02c6e36-a66a-45ce-9e14-450e74619da3",
-          "name": "SV Waltershofen 2",
+          "id": "73557227",
+          "uuid": "05f5e5a1-62d3-42fa-82a4-2a25c95952b2",
+          "name": "TV Bad Säckingen 2",
           "shortName": null,
           "clubCode": null,
           "club": {
-            "name": "SV Waltershofen",
+            "name": "TV Bad Säckingen",
             "shortName": null
           }
         },
@@ -146,11 +146,11 @@
         "setLoseScore": "0",
         "setPointDifference": "6",
         "setQuotient": "∞\n            ",
-        "ballPoints": "150:87",
+        "ballPoints": "150:78",
         "ballWinScore": "150",
-        "ballLoseScore": "87",
-        "ballPointDifference": "63",
-        "ballQuotient": "1,724\n            ",
+        "ballLoseScore": "78",
+        "ballPointDifference": "72",
+        "ballQuotient": "1,923\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -473,20 +473,20 @@
           }
         },
         "place": "1",
-        "matchesPlayed": "2",
+        "matchesPlayed": "3",
         "wins": "0",
-        "losses": "2",
+        "losses": "3",
         "points": "0",
-        "setPoints": "1:6",
+        "setPoints": "1:9",
         "setWinScore": "1",
-        "setLoseScore": "6",
-        "setPointDifference": "-5",
-        "setQuotient": "0,167\n            ",
-        "ballPoints": "118:177",
-        "ballWinScore": "118",
-        "ballLoseScore": "177",
-        "ballPointDifference": "-59",
-        "ballQuotient": "0,667\n            ",
+        "setLoseScore": "9",
+        "setPointDifference": "-8",
+        "setQuotient": "0,111\n            ",
+        "ballPoints": "163:252",
+        "ballWinScore": "163",
+        "ballLoseScore": "252",
+        "ballPointDifference": "-89",
+        "ballQuotient": "0,647\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -511,7 +511,7 @@
             },
             {
               "result": "0:3",
-              "count": "1"
+              "count": "2"
             }
           ]
         }
