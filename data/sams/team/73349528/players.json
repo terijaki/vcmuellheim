@@ -1,8 +1,8 @@
 {
-    "date": "2024-10-23T09:58:50.716Z",
+    "date": "2024-10-26T10:21:30.404Z",
     "players": [
         {
-            "lastname": "Pohl",
+            "lastname": "Haas",
             "firstname": "Michael",
             "nationality": "DE",
             "number": "",
@@ -37,6 +37,14 @@
             "lastname": "Shyrokorad",
             "firstname": "Yefym",
             "nationality": "UA",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Komorowski",
+            "firstname": "Jaroslaw",
+            "nationality": "PL",
             "number": "",
             "height": "",
             "function": ""
