@@ -4872,16 +4872,6 @@
         }
       },
       {
-        "id": "26819037",
-        "name": "FSV Blau-Weiß 1862 Ziegenrück e.V.",
-        "lsbNumber": "280016",
-        "internalSportsclubId": "639",
-        "association": {
-          "id": "26249261",
-          "name": "Kreisverband Ost"
-        }
-      },
-      {
         "id": "26819028",
         "name": "SV Ultra Möbel Sachsenbrunn",
         "lsbNumber": "160016",
@@ -10352,16 +10342,6 @@
         }
       },
       {
-        "id": "28919893",
-        "name": "SG TC BW Eisenach SV Wartburgstadt Eisenach",
-        "lsbNumber": "8888888910",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249309",
-          "name": "Kreisverband West"
-        }
-      },
-      {
         "id": "30190531",
         "name": "RBSSV Düren e.V. (Rhein. Blinden-u. Sehbehinderten SV)",
         "lsbNumber": "2202008",
@@ -10459,6 +10439,16 @@
         "association": {
           "id": "24908890",
           "name": "Stadt Leipzig"
+        }
+      },
+      {
+        "id": "28919893",
+        "name": "SG TC BW Eisenach SV Wartburgstadt Eisenach",
+        "lsbNumber": "8888888910",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249309",
+          "name": "Kreisverband West"
         }
       },
       {
@@ -18082,16 +18072,6 @@
         }
       },
       {
-        "id": "26925487",
-        "name": "TV Eschborn 1888 e.V.",
-        "lsbNumber": "30022",
-        "internalSportsclubId": "5807",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "26925488",
         "name": "SV Reichensachsen",
         "lsbNumber": "43078",
@@ -23772,16 +23752,6 @@
         }
       },
       {
-        "id": "37921868",
-        "name": "Sportfreunde Oesterholz-Kohlstädt e.V.",
-        "lsbNumber": "4416019",
-        "internalSportsclubId": "9252",
-        "association": {
-          "id": "33797741",
-          "name": "Lippe"
-        }
-      },
-      {
         "id": "37921304",
         "name": "TV Frisch-Auf Heidenoldendorf von 1896 e.V.",
         "lsbNumber": "4405038",
@@ -23876,6 +23846,16 @@
         "name": "TuS Asemissen",
         "lsbNumber": "4412005",
         "internalSportsclubId": "3901",
+        "association": {
+          "id": "33797741",
+          "name": "Lippe"
+        }
+      },
+      {
+        "id": "37921868",
+        "name": "Sportfreunde Oesterholz-Kohlstädt e.V.",
+        "lsbNumber": "4416019",
+        "internalSportsclubId": "9252",
         "association": {
           "id": "33797741",
           "name": "Lippe"
@@ -33432,16 +33412,6 @@
         }
       },
       {
-        "id": "37921991",
-        "name": "TV Eintracht Vogelsang von 1898 e.V.",
-        "lsbNumber": "5103011",
-        "internalSportsclubId": "985",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
         "id": "14902323",
         "name": "FC Junkersdorf 1946 e.V.",
         "lsbNumber": "2003195",
@@ -33449,6 +33419,16 @@
         "association": {
           "id": "33795261",
           "name": "Köln"
+        }
+      },
+      {
+        "id": "37921991",
+        "name": "TV Eintracht Vogelsang von 1898 e.V.",
+        "lsbNumber": "5103011",
+        "internalSportsclubId": "985",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
         }
       },
       {
@@ -34102,16 +34082,6 @@
         }
       },
       {
-        "id": "26818723",
-        "name": "SV 1860 Oberweißbach",
-        "lsbNumber": "270060",
-        "internalSportsclubId": "23151",
-        "association": {
-          "id": "26249283",
-          "name": "Kreisverband Süd"
-        }
-      },
-      {
         "id": "37921505",
         "name": "Hammer SportClub 2008 e.V.",
         "lsbNumber": "5004022",
@@ -34139,6 +34109,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "26818723",
+        "name": "SV 1860 Oberweißbach",
+        "lsbNumber": "270060",
+        "internalSportsclubId": "23151",
+        "association": {
+          "id": "26249283",
+          "name": "Kreisverband Süd"
         }
       },
       {
@@ -41062,16 +41042,6 @@
         }
       },
       {
-        "id": "51836154",
-        "name": "Fit & Gesund Hechtsheim e.V.",
-        "lsbNumber": "466",
-        "internalSportsclubId": "466",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "50621702",
         "name": "SV Zschepplin e.V.",
         "lsbNumber": "490230",
@@ -46892,16 +46862,6 @@
         }
       },
       {
-        "id": "65036729",
-        "name": "TV Gorxheim",
-        "lsbNumber": null,
-        "internalSportsclubId": "03001",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "51836280",
         "name": "VfB Linz",
         "lsbNumber": "1000382",
@@ -48142,16 +48102,6 @@
         }
       },
       {
-        "id": "50621913",
-        "name": "SG Kesselsdorf e.V.",
-        "lsbNumber": "500175",
-        "internalSportsclubId": "370",
-        "association": {
-          "id": "24908790",
-          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
-        }
-      },
-      {
         "id": "50621969",
         "name": "VSV Ottendorf-Okrilla e.V.",
         "lsbNumber": "430395",
@@ -48169,6 +48119,16 @@
         "association": {
           "id": "24908815",
           "name": "Stadt Dresden"
+        }
+      },
+      {
+        "id": "50621913",
+        "name": "SG Kesselsdorf e.V.",
+        "lsbNumber": "500175",
+        "internalSportsclubId": "370",
+        "association": {
+          "id": "24908790",
+          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
         }
       },
       {
@@ -48492,16 +48452,6 @@
         }
       },
       {
-        "id": "37920924",
-        "name": "TuS Schladern 1913 e.V.",
-        "lsbNumber": "2819015",
-        "internalSportsclubId": "8925",
-        "association": {
-          "id": "33795566",
-          "name": "Rhein-Sieg"
-        }
-      },
-      {
         "id": "26925539",
         "name": "TV 1892 Großen-Linden",
         "lsbNumber": "12092",
@@ -48732,6 +48682,16 @@
         }
       },
       {
+        "id": "65036458",
+        "name": "VC Hoffenheim",
+        "lsbNumber": "40549",
+        "internalSportsclubId": "40549",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "26925302",
         "name": "TUS Löhnberg 1909 e.V.",
         "lsbNumber": "14129",
@@ -48749,16 +48709,6 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
-        "id": "65036458",
-        "name": "VC Hoffenheim",
-        "lsbNumber": "40549",
-        "internalSportsclubId": "40549",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -52232,16 +52182,6 @@
         }
       },
       {
-        "id": "51836008",
-        "name": "TuS 1884/1919 Alsenz e.V.",
-        "lsbNumber": "26",
-        "internalSportsclubId": "32-43-02",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "65036493",
         "name": "VSG Kaiserstuhl",
         "lsbNumber": "480640",
@@ -52269,6 +52209,16 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
+        "id": "51836008",
+        "name": "TuS 1884/1919 Alsenz e.V.",
+        "lsbNumber": "26",
+        "internalSportsclubId": "32-43-02",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -57522,16 +57472,6 @@
         }
       },
       {
-        "id": "65036785",
-        "name": "TV Heppenheim",
-        "lsbNumber": null,
-        "internalSportsclubId": "03004",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036786",
         "name": "VC Eppingen",
         "lsbNumber": "42251",
@@ -57626,6 +57566,16 @@
         "name": "KTV Karlsruhe",
         "lsbNumber": "81475",
         "internalSportsclubId": "81475",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65036785",
+        "name": "TV Heppenheim",
+        "lsbNumber": null,
+        "internalSportsclubId": "03004",
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
@@ -63222,6 +63172,16 @@
         }
       },
       {
+        "id": "26819037",
+        "name": "FSV Blau-Weiß 1862 Ziegenrück e.V.",
+        "lsbNumber": "280016",
+        "internalSportsclubId": "639",
+        "association": {
+          "id": "26249261",
+          "name": "Kreisverband Ost"
+        }
+      },
+      {
         "id": "37921342",
         "name": "DJK Olympia v. 1955 Drensteinfurt e.V.",
         "lsbNumber": "3304009",
@@ -63362,6 +63322,16 @@
         }
       },
       {
+        "id": "79075294",
+        "name": "TG Tuttlingen",
+        "lsbNumber": "1111111110000061",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7216",
+          "name": "Volleyball-Landesverband Württemberg"
+        }
+      },
+      {
         "id": "26925408",
         "name": "TV 1918 Dornholzhausen e.V.",
         "lsbNumber": "31029",
@@ -63442,6 +63412,16 @@
         }
       },
       {
+        "id": "65036729",
+        "name": "TV Gorxheim",
+        "lsbNumber": null,
+        "internalSportsclubId": "03001",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "51836226",
         "name": "TV Dienheim",
         "lsbNumber": "81",
@@ -63449,6 +63429,36 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "37920924",
+        "name": "TuS Schladern 1913 e.V.",
+        "lsbNumber": "2819015",
+        "internalSportsclubId": "8925",
+        "association": {
+          "id": "33795566",
+          "name": "Rhein-Sieg"
+        }
+      },
+      {
+        "id": "51836154",
+        "name": "Fit & Gesund Hechtsheim e.V.",
+        "lsbNumber": "466",
+        "internalSportsclubId": "466",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "26925487",
+        "name": "TV Eschborn 1888 e.V.",
+        "lsbNumber": "30022",
+        "internalSportsclubId": "5807",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       }
     ]
