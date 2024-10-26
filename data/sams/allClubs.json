@@ -45122,16 +45122,6 @@
         }
       },
       {
-        "id": "54610911",
-        "name": "TV Reichenbach",
-        "lsbNumber": "6157",
-        "internalSportsclubId": "257",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "50621908",
         "name": "SV Rot-Weiß Knau e.V.",
         "lsbNumber": "100000005",
@@ -63459,6 +63449,16 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
+        }
+      },
+      {
+        "id": "54610911",
+        "name": "TV Reichenbach",
+        "lsbNumber": "6157",
+        "internalSportsclubId": "257",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       }
     ]
