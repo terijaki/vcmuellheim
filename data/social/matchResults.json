@@ -103,6 +103,18 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113373943723432391"
+    },
+    {
+      "uuid": "d643a0c8-f56b-4c7b-b56e-1997c81b4116",
+      "date": "2024-10-26T12:30:00.000Z",
+      "league": "Landesliga West Herren",
+      "team": [
+        "VC Weil 2",
+        "VC Müllheim 1"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
     }
   ]
 }
