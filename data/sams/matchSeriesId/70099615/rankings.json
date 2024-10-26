@@ -7,9 +7,9 @@
       "name": "Bezirksklasse Damen Süd",
       "shortName": "bzk s d",
       "type": "League",
-      "updated": "2024-10-26 19:33:52.846",
+      "updated": "2024-10-26 19:55:53.259",
       "structureUpdated": "2024-10-26 15:55:51.755",
-      "resultsUpdated": "2024-10-26 19:33:52.846",
+      "resultsUpdated": "2024-10-26 19:55:53.259",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -68,6 +68,62 @@
       }
     },
     "ranking": [
+      {
+        "team": {
+          "id": "73557227",
+          "uuid": "05f5e5a1-62d3-42fa-82a4-2a25c95952b2",
+          "name": "TV Bad Säckingen 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Bad Säckingen",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "4",
+        "wins": "4",
+        "losses": "0",
+        "points": "11",
+        "setPoints": "12:2",
+        "setWinScore": "12",
+        "setLoseScore": "2",
+        "setPointDifference": "10",
+        "setQuotient": "6,000\n            ",
+        "ballPoints": "321:234",
+        "ballWinScore": "321",
+        "ballLoseScore": "234",
+        "ballPointDifference": "87",
+        "ballQuotient": "1,372\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "3"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
       {
         "team": {
           "id": "73557238",
@@ -168,62 +224,6 @@
             {
               "result": "2:3",
               "count": "1"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73557227",
-          "uuid": "05f5e5a1-62d3-42fa-82a4-2a25c95952b2",
-          "name": "TV Bad Säckingen 2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Bad Säckingen",
-            "shortName": null
-          }
-        },
-        "place": "1",
-        "matchesPlayed": "3",
-        "wins": "3",
-        "losses": "0",
-        "points": "8",
-        "setPoints": "9:2",
-        "setWinScore": "9",
-        "setLoseScore": "2",
-        "setPointDifference": "7",
-        "setQuotient": "4,500\n            ",
-        "ballPoints": "246:179",
-        "ballWinScore": "246",
-        "ballLoseScore": "179",
-        "ballPointDifference": "67",
-        "ballQuotient": "1,374\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "2"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "1"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
             },
             {
               "result": "1:3",
@@ -473,20 +473,20 @@
           }
         },
         "place": "1",
-        "matchesPlayed": "3",
+        "matchesPlayed": "4",
         "wins": "0",
-        "losses": "3",
+        "losses": "4",
         "points": "0",
-        "setPoints": "1:9",
+        "setPoints": "1:12",
         "setWinScore": "1",
-        "setLoseScore": "9",
-        "setPointDifference": "-8",
-        "setQuotient": "0,111\n            ",
-        "ballPoints": "163:252",
-        "ballWinScore": "163",
-        "ballLoseScore": "252",
-        "ballPointDifference": "-89",
-        "ballQuotient": "0,647\n            ",
+        "setLoseScore": "12",
+        "setPointDifference": "-11",
+        "setQuotient": "0,083\n            ",
+        "ballPoints": "218:327",
+        "ballWinScore": "218",
+        "ballLoseScore": "327",
+        "ballPointDifference": "-109",
+        "ballQuotient": "0,667\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -511,7 +511,7 @@
             },
             {
               "result": "0:3",
-              "count": "2"
+              "count": "3"
             }
           ]
         }
