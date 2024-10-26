@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2024-10-26 14:08:16.17",
+      "updated": "2024-10-26 16:46:21.153",
       "structureUpdated": "2024-10-26 14:08:16.17",
-      "resultsUpdated": "2024-10-13 20:50:47.584",
+      "resultsUpdated": "2024-10-26 16:46:21.153",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -56,6 +56,62 @@
       }
     },
     "ranking": [
+      {
+        "team": {
+          "id": "73349551",
+          "uuid": "4f2d65c6-b7f7-4ab3-a141-1feedb3ce0ac",
+          "name": "SG BEG United 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TB Emmendingen",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "3",
+        "wins": "3",
+        "losses": "0",
+        "points": "9",
+        "setPoints": "9:1",
+        "setWinScore": "9",
+        "setLoseScore": "1",
+        "setPointDifference": "8",
+        "setQuotient": "9,000\n            ",
+        "ballPoints": "250:200",
+        "ballWinScore": "250",
+        "ballLoseScore": "200",
+        "ballPointDifference": "50",
+        "ballQuotient": "1,250\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "2"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
       {
         "team": {
           "id": "73349557",
@@ -114,36 +170,36 @@
       },
       {
         "team": {
-          "id": "73349551",
-          "uuid": "4f2d65c6-b7f7-4ab3-a141-1feedb3ce0ac",
-          "name": "SG BEG United 2",
+          "id": "73349535",
+          "uuid": "d749145f-4492-4ae4-867e-39689506efb9",
+          "name": "VC Weil 2",
           "shortName": null,
           "clubCode": null,
           "club": {
-            "name": "TB Emmendingen",
+            "name": "VC Weil am Rhein",
             "shortName": null
           }
         },
         "place": "1",
-        "matchesPlayed": "2",
+        "matchesPlayed": "4",
         "wins": "2",
-        "losses": "0",
-        "points": "6",
-        "setPoints": "6:1",
-        "setWinScore": "6",
-        "setLoseScore": "1",
-        "setPointDifference": "5",
-        "setQuotient": "6,000\n            ",
-        "ballPoints": "175:142",
-        "ballWinScore": "175",
-        "ballLoseScore": "142",
-        "ballPointDifference": "33",
-        "ballQuotient": "1,232\n            ",
+        "losses": "2",
+        "points": "7",
+        "setPoints": "10:9",
+        "setWinScore": "10",
+        "setLoseScore": "9",
+        "setPointDifference": "1",
+        "setQuotient": "1,111\n            ",
+        "ballPoints": "387:400",
+        "ballWinScore": "387",
+        "ballLoseScore": "400",
+        "ballPointDifference": "-13",
+        "ballQuotient": "0,967\n            ",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "1"
+              "count": "0"
             },
             {
               "result": "3:1",
@@ -151,11 +207,11 @@
             },
             {
               "result": "3:2",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "2:3",
-              "count": "0"
+              "count": "2"
             },
             {
               "result": "1:3",
@@ -226,62 +282,6 @@
       },
       {
         "team": {
-          "id": "73349535",
-          "uuid": "d749145f-4492-4ae4-867e-39689506efb9",
-          "name": "VC Weil 2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "VC Weil am Rhein",
-            "shortName": null
-          }
-        },
-        "place": "1",
-        "matchesPlayed": "3",
-        "wins": "2",
-        "losses": "1",
-        "points": "6",
-        "setPoints": "8:6",
-        "setWinScore": "8",
-        "setLoseScore": "6",
-        "setPointDifference": "2",
-        "setQuotient": "1,333\n            ",
-        "ballPoints": "295:296",
-        "ballWinScore": "295",
-        "ballLoseScore": "296",
-        "ballPointDifference": "-1",
-        "ballQuotient": "0,997\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "1"
-            },
-            {
-              "result": "3:2",
-              "count": "1"
-            },
-            {
-              "result": "2:3",
-              "count": "1"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "73349554",
           "uuid": "05640b90-239f-4738-aade-96c68a7f1e86",
           "name": "Südbaden-Auswahl",
@@ -293,20 +293,20 @@
           }
         },
         "place": "1",
-        "matchesPlayed": "3",
-        "wins": "1",
+        "matchesPlayed": "4",
+        "wins": "2",
         "losses": "2",
-        "points": "3",
-        "setPoints": "4:6",
-        "setWinScore": "4",
-        "setLoseScore": "6",
-        "setPointDifference": "-2",
-        "setQuotient": "0,667\n            ",
-        "ballPoints": "211:236",
-        "ballWinScore": "211",
-        "ballLoseScore": "236",
-        "ballPointDifference": "-25",
-        "ballQuotient": "0,894\n            ",
+        "points": "5",
+        "setPoints": "7:8",
+        "setWinScore": "7",
+        "setLoseScore": "8",
+        "setPointDifference": "-1",
+        "setQuotient": "0,875\n            ",
+        "ballPoints": "317:343",
+        "ballWinScore": "317",
+        "ballLoseScore": "343",
+        "ballPointDifference": "-26",
+        "ballQuotient": "0,924\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -319,7 +319,7 @@
             },
             {
               "result": "3:2",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "2:3",
@@ -332,6 +332,62 @@
             {
               "result": "0:3",
               "count": "1"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73349525",
+          "uuid": "087bcb12-62cd-459e-88ee-1343b21fff34",
+          "name": "FT 1844 Freiburg 4",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "FT 1844 Freiburg",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "3",
+        "wins": "2",
+        "losses": "1",
+        "points": "4",
+        "setPoints": "7:7",
+        "setWinScore": "7",
+        "setLoseScore": "7",
+        "setPointDifference": "0",
+        "setQuotient": "1,000\n            ",
+        "ballPoints": "292:286",
+        "ballWinScore": "292",
+        "ballLoseScore": "286",
+        "ballPointDifference": "6",
+        "ballQuotient": "1,021\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "0"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
             }
           ]
         }
@@ -394,31 +450,31 @@
       },
       {
         "team": {
-          "id": "73349525",
-          "uuid": "087bcb12-62cd-459e-88ee-1343b21fff34",
-          "name": "FT 1844 Freiburg 4",
+          "id": "73349543",
+          "uuid": "11ec2c59-48e3-401b-ace3-0262251a5305",
+          "name": "TB Bad Krozingen",
           "shortName": null,
           "clubCode": null,
           "club": {
-            "name": "FT 1844 Freiburg",
+            "name": "TB Bad Krozingen",
             "shortName": null
           }
         },
         "place": "1",
         "matchesPlayed": "2",
-        "wins": "1",
-        "losses": "1",
-        "points": "2",
-        "setPoints": "4:5",
-        "setWinScore": "4",
-        "setLoseScore": "5",
-        "setPointDifference": "-1",
-        "setQuotient": "0,800\n            ",
-        "ballPoints": "188:194",
-        "ballWinScore": "188",
-        "ballLoseScore": "194",
-        "ballPointDifference": "-6",
-        "ballQuotient": "0,969\n            ",
+        "wins": "0",
+        "losses": "2",
+        "points": "1",
+        "setPoints": "3:6",
+        "setWinScore": "3",
+        "setLoseScore": "6",
+        "setPointDifference": "-3",
+        "setQuotient": "0,500\n            ",
+        "ballPoints": "191:203",
+        "ballWinScore": "191",
+        "ballLoseScore": "203",
+        "ballPointDifference": "-12",
+        "ballQuotient": "0,941\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -431,11 +487,11 @@
             },
             {
               "result": "3:2",
-              "count": "1"
+              "count": "0"
             },
             {
               "result": "2:3",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "1:3",
@@ -461,20 +517,20 @@
           }
         },
         "place": "1",
-        "matchesPlayed": "2",
+        "matchesPlayed": "3",
         "wins": "0",
-        "losses": "2",
+        "losses": "3",
         "points": "1",
-        "setPoints": "3:6",
+        "setPoints": "3:9",
         "setWinScore": "3",
-        "setLoseScore": "6",
-        "setPointDifference": "-3",
-        "setQuotient": "0,500\n            ",
-        "ballPoints": "194:205",
-        "ballWinScore": "194",
-        "ballLoseScore": "205",
-        "ballPointDifference": "-11",
-        "ballQuotient": "0,946\n            ",
+        "setLoseScore": "9",
+        "setPointDifference": "-6",
+        "setQuotient": "0,333\n            ",
+        "ballPoints": "252:280",
+        "ballWinScore": "252",
+        "ballLoseScore": "280",
+        "ballPointDifference": "-28",
+        "ballQuotient": "0,900\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -499,7 +555,7 @@
             },
             {
               "result": "0:3",
-              "count": "0"
+              "count": "1"
             }
           ]
         }
@@ -556,62 +612,6 @@
             {
               "result": "0:3",
               "count": "1"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73349543",
-          "uuid": "11ec2c59-48e3-401b-ace3-0262251a5305",
-          "name": "TB Bad Krozingen",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TB Bad Krozingen",
-            "shortName": null
-          }
-        },
-        "place": "1",
-        "matchesPlayed": "1",
-        "wins": "0",
-        "losses": "1",
-        "points": "0",
-        "setPoints": "1:3",
-        "setWinScore": "1",
-        "setLoseScore": "3",
-        "setPointDifference": "-2",
-        "setQuotient": "0,333\n            ",
-        "ballPoints": "84:97",
-        "ballWinScore": "84",
-        "ballLoseScore": "97",
-        "ballPointDifference": "-13",
-        "ballQuotient": "0,866\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "1"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
             }
           ]
         }
