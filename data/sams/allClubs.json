@@ -38122,16 +38122,6 @@
         }
       },
       {
-        "id": "4469724",
-        "name": "VSV Havel Oranienburg",
-        "lsbNumber": "650166",
-        "internalSportsclubId": "650166",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "50621505",
         "name": "Meißner SV 08 e.V.",
         "lsbNumber": "470098",
@@ -63369,6 +63359,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "4469724",
+        "name": "VSV Havel Oranienburg",
+        "lsbNumber": "650166",
+        "internalSportsclubId": "650166",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
