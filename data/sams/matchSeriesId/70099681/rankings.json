@@ -7,9 +7,9 @@
       "name": "Bezirksliga Herren Süd",
       "shortName": "bzl s h",
       "type": "League",
-      "updated": "2024-10-26 19:47:45.682",
+      "updated": "2024-10-27 17:26:03.172",
       "structureUpdated": "2024-10-25 17:33:26.73",
-      "resultsUpdated": "2024-10-26 19:47:45.682",
+      "resultsUpdated": "2024-10-27 17:26:03.172",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -62,6 +62,62 @@
       }
     },
     "ranking": [
+      {
+        "team": {
+          "id": "73550114",
+          "uuid": "097b62bb-ec20-40f6-b957-bf968c3423f0",
+          "name": "TSV Alemannia Freiburg-Zähringen 2",
+          "shortName": "TSV Al. Zähringen 2",
+          "clubCode": null,
+          "club": {
+            "name": "TSV Alemannia Freiburg-Zähringen",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "4",
+        "wins": "3",
+        "losses": "1",
+        "points": "9",
+        "setPoints": "10:4",
+        "setWinScore": "10",
+        "setLoseScore": "4",
+        "setPointDifference": "6",
+        "setQuotient": "2,500\n            ",
+        "ballPoints": "328:290",
+        "ballWinScore": "328",
+        "ballLoseScore": "290",
+        "ballPointDifference": "38",
+        "ballQuotient": "1,131\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "2"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
       {
         "team": {
           "id": "73550100",
@@ -232,36 +288,36 @@
       },
       {
         "team": {
-          "id": "73550114",
-          "uuid": "097b62bb-ec20-40f6-b957-bf968c3423f0",
-          "name": "TSV Alemannia Freiburg-Zähringen 2",
-          "shortName": "TSV Al. Zähringen 2",
+          "id": "73550107",
+          "uuid": "0729efeb-2043-4424-a0bd-8744136ebb14",
+          "name": "TV Staufen 1",
+          "shortName": null,
           "clubCode": null,
           "club": {
-            "name": "TSV Alemannia Freiburg-Zähringen",
+            "name": "TV Staufen",
             "shortName": null
           }
         },
         "place": "1",
-        "matchesPlayed": "2",
+        "matchesPlayed": "4",
         "wins": "2",
-        "losses": "0",
+        "losses": "2",
         "points": "6",
-        "setPoints": "6:1",
-        "setWinScore": "6",
-        "setLoseScore": "1",
-        "setPointDifference": "5",
-        "setQuotient": "6,000\n            ",
-        "ballPoints": "166:148",
-        "ballWinScore": "166",
-        "ballLoseScore": "148",
-        "ballPointDifference": "18",
-        "ballQuotient": "1,122\n            ",
+        "setPoints": "8:9",
+        "setWinScore": "8",
+        "setLoseScore": "9",
+        "setPointDifference": "-1",
+        "setQuotient": "0,889\n            ",
+        "ballPoints": "345:371",
+        "ballWinScore": "345",
+        "ballLoseScore": "371",
+        "ballPointDifference": "-26",
+        "ballQuotient": "0,930\n            ",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "1"
+              "count": "0"
             },
             {
               "result": "3:1",
@@ -269,11 +325,11 @@
             },
             {
               "result": "3:2",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "2:3",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "1:3",
@@ -281,7 +337,63 @@
             },
             {
               "result": "0:3",
+              "count": "1"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73550110",
+          "uuid": "cc5caf6b-b159-4f28-933e-8cfb948149a8",
+          "name": "TV Todtnau",
+          "shortName": "Silberberglöwen Todtnau",
+          "clubCode": null,
+          "club": {
+            "name": "TV Todtnau",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "4",
+        "wins": "0",
+        "losses": "4",
+        "points": "3",
+        "setPoints": "6:12",
+        "setWinScore": "6",
+        "setLoseScore": "12",
+        "setPointDifference": "-6",
+        "setQuotient": "0,500\n            ",
+        "ballPoints": "344:384",
+        "ballWinScore": "344",
+        "ballLoseScore": "384",
+        "ballPointDifference": "-40",
+        "ballQuotient": "0,896\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
               "count": "0"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "3"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "1"
             }
           ]
         }
@@ -338,118 +450,6 @@
             {
               "result": "0:3",
               "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73550110",
-          "uuid": "cc5caf6b-b159-4f28-933e-8cfb948149a8",
-          "name": "TV Todtnau",
-          "shortName": "Silberberglöwen Todtnau",
-          "clubCode": null,
-          "club": {
-            "name": "TV Todtnau",
-            "shortName": null
-          }
-        },
-        "place": "1",
-        "matchesPlayed": "2",
-        "wins": "0",
-        "losses": "2",
-        "points": "2",
-        "setPoints": "4:6",
-        "setWinScore": "4",
-        "setLoseScore": "6",
-        "setPointDifference": "-2",
-        "setQuotient": "0,667\n            ",
-        "ballPoints": "198:200",
-        "ballWinScore": "198",
-        "ballLoseScore": "200",
-        "ballPointDifference": "-2",
-        "ballQuotient": "0,990\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "2"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73550107",
-          "uuid": "0729efeb-2043-4424-a0bd-8744136ebb14",
-          "name": "TV Staufen 1",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Staufen",
-            "shortName": null
-          }
-        },
-        "place": "1",
-        "matchesPlayed": "2",
-        "wins": "0",
-        "losses": "2",
-        "points": "1",
-        "setPoints": "2:6",
-        "setWinScore": "2",
-        "setLoseScore": "6",
-        "setPointDifference": "-4",
-        "setQuotient": "0,333\n            ",
-        "ballPoints": "143:187",
-        "ballWinScore": "143",
-        "ballLoseScore": "187",
-        "ballPointDifference": "-44",
-        "ballQuotient": "0,765\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "1"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "1"
             }
           ]
         }
