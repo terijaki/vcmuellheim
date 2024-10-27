@@ -129,6 +129,30 @@
       "score": "1:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113375124812913958"
+    },
+    {
+      "uuid": "752a28a6-1224-4593-a3e5-d3ab7860e064",
+      "date": "2024-10-27T09:00:00.000Z",
+      "league": "Bezirksklasse Damen Süd",
+      "team": [
+        "VC Offenburg 4",
+        "VC Müllheim 1"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
+    },
+    {
+      "uuid": "38c57421-d809-4ba9-b811-0e3ddce72a13",
+      "date": "2024-10-27T09:00:00.000Z",
+      "league": "Kreisliga Damen Süd",
+      "team": [
+        "VC Weil 3",
+        "VC Müllheim 2"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
     }
   ]
 }
