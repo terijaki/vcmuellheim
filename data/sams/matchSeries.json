@@ -716,9 +716,9 @@
         "name": "Regionalliga Ost Frauen",
         "shortName": "RLO F",
         "type": "League",
-        "updated": "2024-10-27 15:16:50.642",
+        "updated": "2024-10-27 16:21:33.199",
         "structureUpdated": "2024-10-27 00:23:44.267",
-        "resultsUpdated": "2024-10-27 15:16:50.642",
+        "resultsUpdated": "2024-10-27 16:21:33.199",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -5461,8 +5461,8 @@
         "name": "U13 weiblich",
         "shortName": "U13w",
         "type": "SuperCompetition",
-        "updated": "2024-10-27 16:15:02.721",
-        "structureUpdated": "2024-10-27 16:15:02.721",
+        "updated": "2024-10-27 16:39:25.072",
+        "structureUpdated": "2024-10-27 16:39:25.072",
         "resultsUpdated": "2023-11-26 10:56:10.959",
         "season": {
           "id": "70098350",
@@ -5626,8 +5626,8 @@
         "name": "Spieltag 1 – U13w-LL-M",
         "shortName": "Spieltag 1",
         "type": "Competition",
-        "updated": "2024-10-27 16:16:22.696",
-        "structureUpdated": "2024-10-27 16:16:22.696",
+        "updated": "2024-10-27 16:39:25.074",
+        "structureUpdated": "2024-10-27 16:39:25.072",
         "resultsUpdated": "2023-10-14 17:38:03.251",
         "season": {
           "id": "70098350",
@@ -5681,9 +5681,119 @@
         "name": "Spieltag 1 – U13w-LL-W",
         "shortName": "Spieltag 1",
         "type": "Competition",
-        "updated": "2024-10-27 16:04:54.282",
+        "updated": "2024-10-27 16:34:00.546",
         "structureUpdated": "2024-10-27 16:04:54.28",
         "resultsUpdated": "2023-10-16 17:50:40.931",
+        "season": {
+          "id": "70098350",
+          "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+          "name": "2024/25"
+        },
+        "hierarchy": {
+          "id": "70126995",
+          "uuid": "47eb098a-5988-4bb1-a517-5e24c67f137d",
+          "name": "U13 weiblich",
+          "shortName": "HVV-J-U13w",
+          "hierarchyLevel": "3"
+        },
+        "fullHierarchy": {
+          "hierarchy": [
+            {
+              "id": "70126995",
+              "name": "U13 weiblich",
+              "shortName": "HVV-J-U13w",
+              "hierarchyLevel": "3"
+            },
+            {
+              "id": "70126994",
+              "name": "U13",
+              "shortName": "HVV-J-U13",
+              "hierarchyLevel": "2"
+            },
+            {
+              "id": "70124810",
+              "name": "Jugend",
+              "shortName": "HVV-J",
+              "hierarchyLevel": "1"
+            },
+            {
+              "id": "70122371",
+              "name": "Hessischer Volleyballverband",
+              "shortName": "HVV",
+              "hierarchyLevel": "0"
+            }
+          ]
+        },
+        "association": {
+          "name": "Hessischer Volleyballverband",
+          "shortName": "HVV"
+        }
+      },
+      {
+        "id": "70127189",
+        "uuid": "4e73954f-d55d-48e7-9a84-a76cf9fcfc53",
+        "allSeasonId": "3f27666c-c28c-418f-a778-557e41bd6518",
+        "name": "Spieltag 1 – U13w-Bezl-S",
+        "shortName": "Spieltag 1",
+        "type": "Competition",
+        "updated": "2024-10-27 16:37:58.647",
+        "structureUpdated": "2024-10-27 16:37:58.647",
+        "resultsUpdated": "2023-10-19 10:36:36.053",
+        "season": {
+          "id": "70098350",
+          "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+          "name": "2024/25"
+        },
+        "hierarchy": {
+          "id": "70126995",
+          "uuid": "47eb098a-5988-4bb1-a517-5e24c67f137d",
+          "name": "U13 weiblich",
+          "shortName": "HVV-J-U13w",
+          "hierarchyLevel": "3"
+        },
+        "fullHierarchy": {
+          "hierarchy": [
+            {
+              "id": "70126995",
+              "name": "U13 weiblich",
+              "shortName": "HVV-J-U13w",
+              "hierarchyLevel": "3"
+            },
+            {
+              "id": "70126994",
+              "name": "U13",
+              "shortName": "HVV-J-U13",
+              "hierarchyLevel": "2"
+            },
+            {
+              "id": "70124810",
+              "name": "Jugend",
+              "shortName": "HVV-J",
+              "hierarchyLevel": "1"
+            },
+            {
+              "id": "70122371",
+              "name": "Hessischer Volleyballverband",
+              "shortName": "HVV",
+              "hierarchyLevel": "0"
+            }
+          ]
+        },
+        "association": {
+          "name": "Hessischer Volleyballverband",
+          "shortName": "HVV"
+        }
+      },
+      {
+        "id": "70127169",
+        "uuid": "3ed02b5c-cd51-45dd-bce7-4b4b95346c7e",
+        "allSeasonId": "bceb9323-a73b-41df-8c69-005360389f3a",
+        "name": "Spieltag 1 – U13w-Bezl-W",
+        "shortName": "Spieltag 1",
+        "type": "Competition",
+        "updated": "2024-10-27 16:28:04.189",
+        "structureUpdated": "2024-10-27 16:28:04.187",
+        "resultsUpdated": "2023-11-26 10:56:10.959",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -16145,9 +16255,9 @@
         "name": "Bezirksliga Nord-Mitte Herren",
         "shortName": "BLNMH",
         "type": "League",
-        "updated": "2024-10-26 17:32:38.813",
+        "updated": "2024-10-27 16:46:08.833",
         "structureUpdated": "2024-10-26 08:17:49.751",
-        "resultsUpdated": "2024-10-26 17:32:38.813",
+        "resultsUpdated": "2024-10-27 16:46:08.833",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -19654,9 +19764,9 @@
         "name": "U14m Landesspielbetrieb",
         "shortName": "U14m LM",
         "type": "SuperCompetition",
-        "updated": "2024-10-27 15:58:29.401",
+        "updated": "2024-10-27 16:41:25.415",
         "structureUpdated": "2024-10-27 09:18:29.161",
-        "resultsUpdated": "2024-10-27 15:58:29.401",
+        "resultsUpdated": "2024-10-27 16:41:25.415",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -19764,9 +19874,9 @@
         "name": "U14m #2 Schmalkalden 27.10.24",
         "shortName": "U14m#2",
         "type": "Competition",
-        "updated": "2024-10-27 15:58:29.401",
+        "updated": "2024-10-27 16:41:25.415",
         "structureUpdated": "2024-10-24 21:56:47.665",
-        "resultsUpdated": "2024-10-27 15:58:29.401",
+        "resultsUpdated": "2024-10-27 16:41:25.415",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -20039,9 +20149,9 @@
         "name": "U14w Landesspielbetrieb",
         "shortName": "U14w LM",
         "type": "SuperCompetition",
-        "updated": "2024-10-27 16:08:48.115",
+        "updated": "2024-10-27 16:44:53.521",
         "structureUpdated": "2024-10-27 11:44:13.155",
-        "resultsUpdated": "2024-10-27 16:08:48.115",
+        "resultsUpdated": "2024-10-27 16:44:53.521",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -20204,9 +20314,9 @@
         "name": "U14w #2 Suhl LK A 27.10.",
         "shortName": "U14w#2 A Suhl",
         "type": "Competition",
-        "updated": "2024-10-27 16:08:48.115",
+        "updated": "2024-10-27 16:44:53.521",
         "structureUpdated": "2024-10-25 09:07:36.059",
-        "resultsUpdated": "2024-10-27 16:08:48.115",
+        "resultsUpdated": "2024-10-27 16:44:53.521",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -20259,9 +20369,9 @@
         "name": "U14w #2 Gera LK B 27.10.",
         "shortName": "U14w#2 B Gera",
         "type": "Competition",
-        "updated": "2024-10-27 15:39:51.199",
+        "updated": "2024-10-27 16:38:24.756",
         "structureUpdated": "2024-10-25 09:06:48.701",
-        "resultsUpdated": "2024-10-27 15:39:51.199",
+        "resultsUpdated": "2024-10-27 16:38:24.756",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -36015,9 +36125,9 @@
         "name": "Sparkassencup Frauen (Sachsenpokal)",
         "shortName": "SC F",
         "type": "Competition",
-        "updated": "2024-10-27 16:14:01.345",
+        "updated": "2024-10-27 16:25:50.932",
         "structureUpdated": "2024-10-24 11:38:02.006",
-        "resultsUpdated": "2024-10-27 16:14:01.345",
+        "resultsUpdated": "2024-10-27 16:25:50.932",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -36064,9 +36174,9 @@
         "name": "Sparkassencup Männer (Sachsenpokal)",
         "shortName": "SC M",
         "type": "Competition",
-        "updated": "2024-10-27 15:50:00.667",
+        "updated": "2024-10-27 16:42:56.292",
         "structureUpdated": "2024-10-27 11:19:24.081",
-        "resultsUpdated": "2024-10-27 15:50:00.667",
+        "resultsUpdated": "2024-10-27 16:42:56.292",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -38734,8 +38844,8 @@
         "name": "Bezirksliga Frauen Dresden",
         "shortName": "Bezirksliga Frauen",
         "type": "League",
-        "updated": "2024-10-27 16:12:10.902",
-        "structureUpdated": "2024-10-27 16:12:10.902",
+        "updated": "2024-10-27 16:26:26.325",
+        "structureUpdated": "2024-10-27 16:26:26.325",
         "resultsUpdated": "2024-10-27 16:10:40.763",
         "season": {
           "id": "70098350",
@@ -42719,8 +42829,8 @@
         "name": "Bezirksmeisterschaft U16 weiblich",
         "shortName": "BM U16 wbl",
         "type": "Competition",
-        "updated": "2024-10-27 16:15:21.313",
-        "structureUpdated": "2024-10-27 16:15:21.313",
+        "updated": "2024-10-27 16:38:25.979",
+        "structureUpdated": "2024-10-27 16:38:25.979",
         "resultsUpdated": "2023-12-17 16:49:57.453",
         "season": {
           "id": "70098350",
@@ -43024,8 +43134,8 @@
         "name": "Kreismeisterschaft Bautzen U 18 weiblich",
         "shortName": "KM Bz U 18 w",
         "type": "Competition",
-        "updated": "2024-09-26 09:54:15.696",
-        "structureUpdated": "2024-09-26 09:54:15.696",
+        "updated": "2024-10-27 16:34:06.351",
+        "structureUpdated": "2024-10-27 16:34:06.351",
         "resultsUpdated": null,
         "season": {
           "id": "70098350",
@@ -43390,8 +43500,8 @@
         "name": "Quali zur Bezirksmeisterschaft U 20 weiblich",
         "shortName": "Quali U 20 w",
         "type": "Competition",
-        "updated": "2024-10-27 13:13:37.149",
-        "structureUpdated": "2024-10-27 13:13:37.149",
+        "updated": "2024-10-27 16:37:58.791",
+        "structureUpdated": "2024-10-27 16:37:58.791",
         "resultsUpdated": null,
         "season": {
           "id": "70098350",
@@ -56468,9 +56578,9 @@
         "name": "Oberliga 1 Frauen",
         "shortName": "OL1F",
         "type": "League",
-        "updated": "2024-10-26 16:39:25.931",
+        "updated": "2024-10-27 16:29:49.571",
         "structureUpdated": "2024-10-26 00:30:24.22",
-        "resultsUpdated": "2024-10-26 16:39:25.931",
+        "resultsUpdated": "2024-10-27 16:29:49.571",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -56517,9 +56627,9 @@
         "name": "Oberliga 1 Männer",
         "shortName": "OL1M",
         "type": "League",
-        "updated": "2024-10-27 00:29:55.782",
+        "updated": "2024-10-27 16:26:12.425",
         "structureUpdated": "2024-10-27 00:29:55.782",
-        "resultsUpdated": "2024-10-26 18:15:01.702",
+        "resultsUpdated": "2024-10-27 16:26:12.425",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -57606,9 +57716,9 @@
         "name": "Landesliga 6 Frauen",
         "shortName": "LL6F",
         "type": "League",
-        "updated": "2024-10-27 15:48:33.288",
+        "updated": "2024-10-27 16:32:16.327",
         "structureUpdated": "2024-10-23 19:15:23.303",
-        "resultsUpdated": "2024-10-27 15:48:33.288",
+        "resultsUpdated": "2024-10-27 16:32:16.327",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -58431,9 +58541,9 @@
         "name": "Bezirksliga 6 Frauen",
         "shortName": "BeL6F",
         "type": "League",
-        "updated": "2024-10-27 14:38:15.335",
+        "updated": "2024-10-27 16:44:37.922",
         "structureUpdated": "2024-10-26 15:07:11.408",
-        "resultsUpdated": "2024-10-27 14:38:15.335",
+        "resultsUpdated": "2024-10-27 16:44:37.922",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -58651,9 +58761,9 @@
         "name": "Bezirksliga 8 Frauen",
         "shortName": "BeL8F",
         "type": "League",
-        "updated": "2024-10-27 15:01:44.519",
+        "updated": "2024-10-27 16:38:36.271",
         "structureUpdated": "2024-10-27 12:48:49.669",
-        "resultsUpdated": "2024-10-27 15:01:44.519",
+        "resultsUpdated": "2024-10-27 16:38:36.271",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -59256,9 +59366,9 @@
         "name": "Bezirksliga 13 Frauen",
         "shortName": "BeL13F",
         "type": "League",
-        "updated": "2024-10-27 15:15:59.917",
+        "updated": "2024-10-27 16:22:14.455",
         "structureUpdated": "2024-10-27 08:07:56.695",
-        "resultsUpdated": "2024-10-27 15:15:59.917",
+        "resultsUpdated": "2024-10-27 16:22:14.455",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -59366,9 +59476,9 @@
         "name": "Bezirksliga 14 Frauen",
         "shortName": "BeL14F",
         "type": "League",
-        "updated": "2024-10-27 14:10:06.861",
+        "updated": "2024-10-27 16:33:42.599",
         "structureUpdated": "2024-10-25 15:47:06.419",
-        "resultsUpdated": "2024-10-27 14:10:06.861",
+        "resultsUpdated": "2024-10-27 16:33:42.599",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -59586,9 +59696,9 @@
         "name": "Bezirksliga 16 Frauen",
         "shortName": "BeL16F",
         "type": "League",
-        "updated": "2024-10-27 04:05:28.404",
-        "structureUpdated": "2024-10-07 11:57:51.773",
-        "resultsUpdated": "2024-10-27 04:05:28.404",
+        "updated": "2024-10-27 16:32:35.396",
+        "structureUpdated": "2024-10-27 16:32:35.396",
+        "resultsUpdated": "2024-10-27 16:29:29.368",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -59751,9 +59861,9 @@
         "name": "Bezirksklasse 2 Frauen",
         "shortName": "BK2F",
         "type": "League",
-        "updated": "2024-10-27 12:38:14.853",
+        "updated": "2024-10-27 16:30:30.439",
         "structureUpdated": "2024-10-27 12:38:14.853",
-        "resultsUpdated": "2024-10-27 12:28:40.981",
+        "resultsUpdated": "2024-10-27 16:30:30.439",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -59861,9 +59971,9 @@
         "name": "Bezirksklasse 3 Frauen",
         "shortName": "BK3F",
         "type": "League",
-        "updated": "2024-10-26 14:02:53.285",
+        "updated": "2024-10-27 16:23:34.287",
         "structureUpdated": "2024-10-25 19:48:00.995",
-        "resultsUpdated": "2024-10-26 14:02:53.285",
+        "resultsUpdated": "2024-10-27 16:23:34.287",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -60961,9 +61071,9 @@
         "name": "Bezirksklasse 19 Frauen",
         "shortName": "BK19F",
         "type": "League",
-        "updated": "2024-10-27 14:25:33.45",
+        "updated": "2024-10-27 16:27:02.019",
         "structureUpdated": "2024-10-27 01:24:56.876",
-        "resultsUpdated": "2024-10-27 14:25:33.45",
+        "resultsUpdated": "2024-10-27 16:27:02.019",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -61126,9 +61236,9 @@
         "name": "Bezirksklasse 21 Frauen",
         "shortName": "BK21F",
         "type": "League",
-        "updated": "2024-10-27 13:21:31.008",
+        "updated": "2024-10-27 16:26:08.119",
         "structureUpdated": "2024-10-27 09:19:21.705",
-        "resultsUpdated": "2024-10-27 13:21:31.008",
+        "resultsUpdated": "2024-10-27 16:26:08.119",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -63165,9 +63275,9 @@
         "name": "Kreisliga Gütersloh/Bielefeld Frauen",
         "shortName": "KLGTBIF",
         "type": "League",
-        "updated": "2024-10-27 14:07:34.779",
+        "updated": "2024-10-27 16:23:22.77",
         "structureUpdated": "2024-10-26 21:11:20.067",
-        "resultsUpdated": "2024-10-27 14:07:34.779",
+        "resultsUpdated": "2024-10-27 16:23:22.77",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -63348,9 +63458,9 @@
         "name": "Kreisliga Paderborn Frauen",
         "shortName": "KLPBF",
         "type": "League",
-        "updated": "2024-10-27 15:03:47.64",
+        "updated": "2024-10-27 16:41:27.466",
         "structureUpdated": "2024-10-27 11:23:46.977",
-        "resultsUpdated": "2024-10-27 15:03:47.64",
+        "resultsUpdated": "2024-10-27 16:41:27.466",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -65052,7 +65162,7 @@
         "name": "Kreispokal GT/BI Frauen",
         "shortName": "KP GT/BI F",
         "type": "Competition",
-        "updated": "2024-10-25 20:45:30.176",
+        "updated": "2024-10-27 16:30:32.778",
         "structureUpdated": "2024-10-18 19:52:55.248",
         "resultsUpdated": "2024-10-25 20:45:30.176",
         "season": {
@@ -65344,9 +65454,9 @@
         "name": "Kreispokal Mi-Rav Frauen",
         "shortName": "KP Mi-Rav F",
         "type": "Competition",
-        "updated": "2024-10-27 07:11:01.827",
-        "structureUpdated": "2024-10-27 04:17:43.276",
-        "resultsUpdated": "2024-10-24 11:42:14.906",
+        "updated": "2024-10-27 16:26:09.933",
+        "structureUpdated": "2024-10-27 16:26:09.933",
+        "resultsUpdated": "2024-10-27 16:25:23.929",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -73528,7 +73638,7 @@
         "name": "Bezirksliga 3 U16midi",
         "shortName": "BeL3 U16midi",
         "type": "League",
-        "updated": "2024-10-25 15:03:26.801",
+        "updated": "2024-10-27 16:35:09.284",
         "structureUpdated": "2024-10-25 15:03:26.801",
         "resultsUpdated": "2024-10-25 14:55:29.406",
         "season": {
@@ -75048,8 +75158,8 @@
         "name": "Bezirksliga 6 U14",
         "shortName": "U14BeL6",
         "type": "League",
-        "updated": "2024-10-27 10:49:11.818",
-        "structureUpdated": "2024-10-27 10:49:11.818",
+        "updated": "2024-10-27 16:35:13.807",
+        "structureUpdated": "2024-10-27 16:35:13.807",
         "resultsUpdated": "2024-10-26 11:04:20.987",
         "season": {
           "id": "70098350",
@@ -80257,9 +80367,9 @@
         "name": "Bezirksklasse 1 Damen",
         "shortName": "BZK1D",
         "type": "League",
-        "updated": "2024-10-27 10:44:40.7",
+        "updated": "2024-10-27 16:33:01.946",
         "structureUpdated": "2024-10-27 10:44:40.7",
-        "resultsUpdated": "2024-10-27 10:43:15.164",
+        "resultsUpdated": "2024-10-27 16:33:01.946",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -94054,9 +94164,9 @@
         "name": "Kreisliga Frauen 3",
         "shortName": "KL3F",
         "type": "League",
-        "updated": "2024-10-27 16:19:36.79",
+        "updated": "2024-10-27 16:25:21.435",
         "structureUpdated": "2024-10-26 00:04:03.911",
-        "resultsUpdated": "2024-10-27 16:19:36.79",
+        "resultsUpdated": "2024-10-27 16:25:21.435",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -94127,9 +94237,9 @@
         "name": "Kreisliga Frauen 4",
         "shortName": "KL4F",
         "type": "League",
-        "updated": "2024-10-27 15:45:49.459",
+        "updated": "2024-10-27 16:45:42.611",
         "structureUpdated": "2024-10-25 13:03:56.691",
-        "resultsUpdated": "2024-10-27 15:45:49.459",
+        "resultsUpdated": "2024-10-27 16:45:42.611",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -97804,9 +97914,9 @@
         "name": "Verbandsliga Damen",
         "shortName": "vl d",
         "type": "League",
-        "updated": "2024-10-27 13:32:36.569",
+        "updated": "2024-10-27 16:31:39.254",
         "structureUpdated": "2024-10-27 06:40:17.925",
-        "resultsUpdated": "2024-10-27 13:32:36.569",
+        "resultsUpdated": "2024-10-27 16:31:39.254",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -97957,9 +98067,9 @@
         "name": "Landesliga Ost Herren",
         "shortName": "LL o h",
         "type": "League",
-        "updated": "2024-10-27 15:34:49.435",
+        "updated": "2024-10-27 16:25:26.977",
         "structureUpdated": "2024-10-27 07:47:39.113",
-        "resultsUpdated": "2024-10-27 15:34:49.435",
+        "resultsUpdated": "2024-10-27 16:25:26.977",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -98183,9 +98293,9 @@
         "name": "Bezirksliga Damen Süd",
         "shortName": "bzl s d",
         "type": "League",
-        "updated": "2024-10-27 16:10:47.644",
+        "updated": "2024-10-27 16:37:16.935",
         "structureUpdated": "2024-10-27 16:10:47.644",
-        "resultsUpdated": "2024-10-27 13:50:47.815",
+        "resultsUpdated": "2024-10-27 16:37:16.935",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -98433,9 +98543,9 @@
         "name": "Bezirksklasse Damen Süd",
         "shortName": "bzk s d",
         "type": "League",
-        "updated": "2024-10-27 14:07:01.152",
+        "updated": "2024-10-27 16:33:00.068",
         "structureUpdated": "2024-10-26 15:55:51.755",
-        "resultsUpdated": "2024-10-27 14:07:01.152",
+        "resultsUpdated": "2024-10-27 16:33:00.068",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -98701,9 +98811,9 @@
         "name": "Kreisliga Damen Mitte",
         "shortName": "kl s d",
         "type": "League",
-        "updated": "2024-10-27 14:31:45.212",
+        "updated": "2024-10-27 16:26:54.989",
         "structureUpdated": "2024-10-26 21:30:21.23",
-        "resultsUpdated": "2024-10-27 14:31:45.212",
+        "resultsUpdated": "2024-10-27 16:26:54.989",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -98920,9 +99030,9 @@
         "name": "Bezirksliga Schwarzwald-Bodensee Damen",
         "shortName": "bzl sb d",
         "type": "League",
-        "updated": "2024-10-27 14:04:13.574",
+        "updated": "2024-10-27 16:42:38.86",
         "structureUpdated": "2024-10-27 09:33:24.068",
-        "resultsUpdated": "2024-10-27 14:04:13.574",
+        "resultsUpdated": "2024-10-27 16:42:38.86",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -99998,9 +100108,9 @@
         "name": "Ortenau Freizeitstaffel B",
         "shortName": "OFzB",
         "type": "League",
-        "updated": "2024-10-15 10:12:52.599",
+        "updated": "2024-10-27 16:30:42.029",
         "structureUpdated": "2024-09-12 19:19:16.374",
-        "resultsUpdated": "2024-10-15 10:12:52.599",
+        "resultsUpdated": "2024-10-27 16:30:42.029",
         "season": {
           "id": "70098350",
           "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
