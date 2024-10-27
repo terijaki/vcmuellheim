@@ -155,6 +155,18 @@
       "score": "0:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113379605050507480"
+    },
+    {
+      "uuid": "ae9cccd1-2355-457f-93af-4a992b3a12e4",
+      "date": "2024-10-27T09:00:00.000Z",
+      "league": "Kreisliga Damen Süd",
+      "team": [
+        "TV Wehr",
+        "VC Müllheim 2"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
     }
   ]
 }
