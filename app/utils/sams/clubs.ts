@@ -12,9 +12,9 @@
 // Beispiel: https://www.volleyball-bundesliga.de/xml/sportsclub.xhtml?apiKey=XXXXXXXXXXXXXXXXXXXXXX&sportsclubId=12345
 // benötiger Parameter:
 // sportsclubId - Id eines vorhandenen Vereins (Bsp.: sportsclubId=12345)
-import { env } from "process";
 import { SAMS } from "@/project.config";
-import path from "path";
+import { unstable_cache } from "next/cache";
+import { env } from "process";
 import { makeArrayUnique } from "../makeArrayUnique";
 
 const SAMS_API = env.SAMS_API,
@@ -22,73 +22,89 @@ const SAMS_API = env.SAMS_API,
 	SAMS_CACHE = env.SAMS_CACHE || ".temp/sams";
 
 /** Returns a array of basic club data for each club. No input required. */
-export async function getAllClubs(): Promise<ClubSimple[] | false> {
+export async function getAllClubs() {
 	//#region caching since the response is likely to be larger than 2MB
-	const cacheFile = Bun.file(path.join(SAMS_CACHE, "allClubs.json"), { type: "application/json" });
-	if (await cacheFile.exists()) {
-		const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60 * 60 * 24); // in days
-		if (cacheAge < 7) {
-			const cacheData = await cacheFile.json();
-			return cacheData;
-		}
-	}
+	// const cacheFile = Bun.file(path.join(SAMS_CACHE, "allClubs.json"), { type: "application/json" });
+	// if (await cacheFile.exists()) {
+	// 	const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60 * 60 * 24); // in days
+	// 	if (cacheAge < 7) {
+	// 		const cacheData = await cacheFile.json();
+	// 		return cacheData;
+	// 	}
+	// }
 	//#endregion caching
 
 	if (!SAMS_API) {
-		console.log("🚨 SAMS API KEY MISSING IN FETCH ALL CLUBS CONTEXT");
+		console.error("🚨 SAMS API KEY MISSING IN FETCH ALL CLUBS CONTEXT");
 		return false;
 	}
-	const apiURL = SAMS_URL + "/xml/sportsclubList.xhtml?apiKey=" + SAMS_API;
-	const samsRequest = await fetch(apiURL, { cache: "no-cache", method: "POST" });
-	// make the server request and check its status
-	if (!samsRequest.status || samsRequest.status != 200) {
-		console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR ALL CLUBS! 🚨 ERROR: " + samsRequest.status);
-		return false;
-	}
-	// read the XML response
-	const samsXMLResponseText = await samsRequest.text(); // this is the XML response
-	if (!samsXMLResponseText) {
-		console.log("🚨 EMPTY RESPONSE RECEIVED FOR ALL CLUBS! 🚨");
-		return false;
-	} else if (samsXMLResponseText.includes("<error>")) {
-		console.log("🚨 RECEIVED ERROR MESSAGE FOR ALL CLUBS! 🚨");
-		console.log(samsXMLResponseText);
-		return false;
-	}
-	// turn the XML string into an Object
-	let allClubs: false | ClubSimple[] = false;
-	const parseString = require("xml2js").parseString;
-	await parseString(samsXMLResponseText, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
-		if (!err) {
-			// console.log("✅ Data for all clubs converted from XML to JSON.");
-			// console.log(result);
-			allClubs = result.sportsclubs.sportsclub;
-			if (allClubs) {
-				Bun.write(cacheFile, JSON.stringify(allClubs));
-				return allClubs;
+	const samsJson = unstable_cache(
+		async () => {
+			const apiURL = SAMS_URL + "/xml/sportsclubList.xhtml?apiKey=" + SAMS_API;
+
+			try {
+				const samsRequest = await fetch(apiURL, { method: "POST", cache: "force-cache" });
+				console.log(samsRequest);
+				// make the server request and check its status
+				if (!samsRequest.status || samsRequest.status != 200) {
+					console.error("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR ALL CLUBS! 🚨 ERROR: " + samsRequest.status);
+					return false;
+				}
+				// read the XML response
+				const samsXMLResponseText = await samsRequest.text(); // this is the XML response
+				if (!samsXMLResponseText) {
+					console.error("🚨 EMPTY RESPONSE RECEIVED FOR ALL CLUBS! 🚨");
+					return false;
+				} else if (samsXMLResponseText.includes("<error>")) {
+					console.error("🚨 RECEIVED ERROR MESSAGE FOR ALL CLUBS! 🚨");
+					console.error(samsXMLResponseText);
+					return false;
+				}
+
+				// turn the XML string into an Object
+				let allClubs: false | ClubSimple[] = false;
+				const parseString = require("xml2js").parseString;
+				await parseString(samsXMLResponseText, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
+					if (!err) {
+						// console.log("✅ Data for all clubs converted from XML to JSON.");
+						// console.log(result);
+						allClubs = result.sportsclubs.sportsclub;
+						if (allClubs) {
+							// Bun.write(cacheFile, JSON.stringify(allClubs));
+							return allClubs;
+						}
+					} else {
+						console.error("🚨 COULD NOT CONVERT CLUBS XML TO JSON! 🚨");
+						console.error(err);
+						return false;
+					}
+				});
+				if (allClubs) return allClubs;
+				console.error("🚨 SOMETHING WENT WRONT WHILE RETRIEVING ALL CLUBS! 🚨");
+			} catch (error) {
+				console.error("🚨 SOMETHING WENT WRONG FETCHING ALL CLUBS! 🚨", error);
 			}
-		} else {
-			console.log("🚨 COULD NOT CONVERT CLUBS XML TO JSON! 🚨");
-			console.log(err);
-			return false;
-		}
-	});
-	if (allClubs) return allClubs;
-	console.log("🚨 SOMETHING WENT WRONT WHILE RETRIEVING ALL CLUBS! 🚨");
+		},
+		["sams-all-clubs"],
+		{ revalidate: 60 * 60 }
+	);
+
+	return samsJson;
+
 	return false;
 }
 
 /** Returns the full club information for the club ID provides. */
 export async function getClubData(clubId: number | string): Promise<Club | false> {
 	//#region caching since the response is likely to be larger than 2MB
-	const cacheFile = Bun.file(path.join(SAMS_CACHE, "club", clubId + ".json"), { type: "application/json" });
-	if (await cacheFile.exists()) {
-		const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60 * 60 * 24); // in days
-		if (cacheAge < 3) {
-			const cacheData = await cacheFile.json();
-			return cacheData;
-		}
-	}
+	// const cacheFile = Bun.file(path.join(SAMS_CACHE, "club", clubId + ".json"), { type: "application/json" });
+	// if (await cacheFile.exists()) {
+	// 	const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60 * 60 * 24); // in days
+	// 	if (cacheAge < 3) {
+	// 		const cacheData = await cacheFile.json();
+	// 		return cacheData;
+	// 	}
+	// }
 	//#endregion caching
 
 	if (!SAMS_API) {
@@ -125,7 +141,7 @@ export async function getClubData(clubId: number | string): Promise<Club | false
 			// console.log("✅ Data for all clubs retrieved. Looks good.");
 			// console.log(result);
 			thisClub = result.sportsclub;
-			Bun.write(cacheFile, JSON.stringify(thisClub));
+			// Bun.write(cacheFile, JSON.stringify(thisClub));
 		} else {
 			console.log("🚨 COULD NOT CONVERT CLUBS XML TO JSON! 🚨");
 			console.log(err);
@@ -191,11 +207,7 @@ export async function getClubLogoByName(clubName: string): Promise<string | fals
 
 /** Get the club details and isolate the TeamIds from each team.
  * Results can be filtered to include all teams or only league teams, to filter out championships (one off tournaments).*/
-export async function getClubsTeamIds(
-	idType: "id" | "uuid" | "seasonTeamId" | "matchSeriesId" | "matchSeriesAllSeasonId" = "id",
-	leagueOnly: boolean = true,
-	clubId?: number | string
-): Promise<(string | number)[] | false> {
+export async function getClubsTeamIds(idType: "id" | "uuid" | "seasonTeamId" | "matchSeriesId" | "matchSeriesAllSeasonId" = "id", leagueOnly: boolean = true, clubId?: number | string): Promise<(string | number)[] | false> {
 	try {
 		const idToUse = clubId || (await getClubIdBySportsclubId(SAMS.vereinsnummer)); // either use the clubId prop if present or fallback to the project config
 		if (!idToUse) return false;

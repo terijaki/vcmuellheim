@@ -1,9 +1,8 @@
 // http://wiki.sams-server.de/wiki/XML-Schnittstelle
 // Saisonübersicht
 // Zeigt eine Liste aller verfügbaren Saisons an. Die ID der Saison kann in der Spielrundenübersicht verwendet werden, um Zugriff auf historische Daten zu erhalten.
-import { env } from "process";
 import { SAMS } from "@/project.config";
-import path from "path";
+import { env } from "process";
 
 const SAMS_API = env.SAMS_API,
 	SAMS_URL = SAMS.url,
@@ -14,14 +13,14 @@ const SAMS_API = env.SAMS_API,
 export async function getSeasons(amount?: number, reverse = false): Promise<Season[] | false> {
 	try {
 		//#region caching since the response is likely to be larger than 2MB
-		const cacheFile = Bun.file(path.join(SAMS_CACHE, "seasons.json"), { type: "application/json" });
-		if (await cacheFile.exists()) {
-			const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60 * 60 * 24); // in days
-			if (cacheAge < 1) {
-				const cacheData = await cacheFile.json();
-				return cacheData;
-			}
-		}
+		// const cacheFile = Bun.file(path.join(SAMS_CACHE, "seasons.json"), { type: "application/json" });
+		// if (await cacheFile.exists()) {
+		// 	const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60 * 60 * 24); // in days
+		// 	if (cacheAge < 1) {
+		// 		const cacheData = await cacheFile.json();
+		// 		return cacheData;
+		// 	}
+		// }
 		//#endregion caching
 
 		if (!SAMS_API) {
@@ -85,7 +84,7 @@ export async function getSeasons(amount?: number, reverse = false): Promise<Seas
 		let seasonsTrimmed = seasonsSorted.slice(0, amount);
 
 		if (seasonsTrimmed) {
-			Bun.write(cacheFile, JSON.stringify(seasonsTrimmed));
+			// Bun.write(cacheFile, JSON.stringify(seasonsTrimmed));
 			return seasonsTrimmed;
 		}
 
