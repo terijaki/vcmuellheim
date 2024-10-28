@@ -12,19 +12,20 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 	// define how dates should be displayed
 	const dateFormat = new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "short" });
 	// structure the last update date
-	let dateDisplay;
+	let lastUpdateDate;
 	if (matches[0].matchSeries?.updated) {
 		const dateInput = new Date(matches[0].matchSeries?.updated);
-		dateDisplay = dateFormat.format(dateInput).toString() + " Uhr";
+		lastUpdateDate = dateFormat.format(dateInput).toString() + " Uhr";
 	}
 	if (props.filter == "past") {
+		// past matches
 		return (
 			<div key="past matches">
 				<p
 					className="text-right text-sm italic text-gray-400 py-1 px-3"
 					data-match-type="past"
 				>
-					Stand: <time dateTime={matches[0].matchSeries?.updated}>{dateDisplay}</time>
+					Stand: <time dateTime={matches[0].matchSeries?.updated}>{lastUpdateDate}</time>
 				</p>
 				{matches.map((match) => {
 					// determine if this is a win for the club/team
@@ -51,7 +52,7 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 										dateTime={match.dateIso}
 										key={"datetime"}
 									>
-										{match.dateObject.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Berlin" }) + " Uhr"}
+										{match.dateObject.toLocaleDateString("de-DE", { dateStyle: "short" })}
 									</time>
 								) : (
 									""
@@ -116,13 +117,14 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 		);
 	}
 	if (props.filter == "future") {
+		// future matches
 		return (
 			<div key="future matches">
 				<p
 					className="text-right text-sm italic text-gray-400 py-1 px-3"
 					data-match-type="future"
 				>
-					Stand: <time dateTime={matches[0].matchSeries?.updated}>{dateDisplay}</time>
+					Stand: <time dateTime={matches[0].matchSeries?.updated}>{lastUpdateDate}</time>
 				</p>
 				{matches.map((match) => {
 					return (
