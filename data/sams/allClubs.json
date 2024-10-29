@@ -372,16 +372,6 @@
         }
       },
       {
-        "id": "37921366",
-        "name": "Fussball-Club Augustdorf e.V.",
-        "lsbNumber": "4401013",
-        "internalSportsclubId": "10066",
-        "association": {
-          "id": "33797741",
-          "name": "Lippe"
-        }
-      },
-      {
         "id": "50621653",
         "name": "Dresdner SV 1953 e. V.",
         "lsbNumber": "410074",
@@ -609,6 +599,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "50621658",
+        "name": "SV Blau-Gelb Stolpen e.V.",
+        "lsbNumber": "500230",
+        "internalSportsclubId": "210",
+        "association": {
+          "id": "24908790",
+          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
         }
       },
       {
@@ -1159,6 +1159,16 @@
         "association": {
           "id": "26249165",
           "name": "Kreisverband Mitte"
+        }
+      },
+      {
+        "id": "37921366",
+        "name": "Fussball-Club Augustdorf e.V.",
+        "lsbNumber": "4401013",
+        "internalSportsclubId": "10066",
+        "association": {
+          "id": "33797741",
+          "name": "Lippe"
         }
       },
       {
@@ -5502,6 +5512,16 @@
         }
       },
       {
+        "id": "16610356",
+        "name": "Deutsche Jugendkraft Westen 1923 e.V.",
+        "lsbNumber": "1140",
+        "internalSportsclubId": "14-11-004",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
         "id": "26819109",
         "name": "Ebenheimer Sportverein e.V.",
         "lsbNumber": "130244",
@@ -9429,16 +9449,6 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
-        "id": "16610356",
-        "name": "Deutsche Jugendkraft Westen 1923 e.V.",
-        "lsbNumber": "1140",
-        "internalSportsclubId": "14-11-004",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -39762,16 +39772,6 @@
         }
       },
       {
-        "id": "54610674",
-        "name": "FSV Bad Friedrichshall",
-        "lsbNumber": "10313",
-        "internalSportsclubId": "10",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
         "id": "6490",
         "name": "TGM 1861 e.V. Mainz-Gonsenheim",
         "lsbNumber": "66",
@@ -39779,6 +39779,16 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "54610674",
+        "name": "FSV Bad Friedrichshall",
+        "lsbNumber": "10313",
+        "internalSportsclubId": "10",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
         }
       },
       {
@@ -46162,6 +46172,16 @@
         }
       },
       {
+        "id": "51836208",
+        "name": "TuS 1884/1919 Alsenz",
+        "lsbNumber": "442",
+        "internalSportsclubId": "99-1005",
+        "association": {
+          "id": "25383414",
+          "name": "Volleyball-Verband Pfalz"
+        }
+      },
+      {
         "id": "51836189",
         "name": "SV 1906 Katzweiler",
         "lsbNumber": "331",
@@ -46259,16 +46279,6 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
-        "id": "51836208",
-        "name": "TuS 1884/1919 Alsenz",
-        "lsbNumber": "442",
-        "internalSportsclubId": "99-1005",
-        "association": {
-          "id": "25383414",
-          "name": "Volleyball-Verband Pfalz"
         }
       },
       {
@@ -51402,6 +51412,16 @@
         }
       },
       {
+        "id": "54611091",
+        "name": "HP FC 110 Böblingen",
+        "lsbNumber": "0",
+        "internalSportsclubId": "449",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
         "id": "54611088",
         "name": "TSV Bickelsberg",
         "lsbNumber": "24014",
@@ -51459,16 +51479,6 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
-        "id": "54611091",
-        "name": "HP FC 110 Böblingen",
-        "lsbNumber": "0",
-        "internalSportsclubId": "449",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
         }
       },
       {
@@ -57162,16 +57172,6 @@
         }
       },
       {
-        "id": "37921466",
-        "name": "TSV Solingen Aufderhöhe 1877 e.V.",
-        "lsbNumber": "1009047",
-        "internalSportsclubId": "490",
-        "association": {
-          "id": "33299074",
-          "name": "Wupper-Mettmann"
-        }
-      },
-      {
         "id": "37921500",
         "name": "Aachener Volleyball-Enthusiasten `79 eV",
         "lsbNumber": "2001177",
@@ -58562,16 +58562,6 @@
         }
       },
       {
-        "id": "65037074",
-        "name": "VC Mengen",
-        "lsbNumber": "480180",
-        "internalSportsclubId": "100000",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037076",
         "name": "TV Knielingen",
         "lsbNumber": "81541",
@@ -58639,6 +58629,16 @@
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "65037074",
+        "name": "VC Mengen",
+        "lsbNumber": "480180",
+        "internalSportsclubId": "100000",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -60839,16 +60839,6 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
-        "id": "50621658",
-        "name": "SV Blau-Gelb Stolpen e.V.",
-        "lsbNumber": "500230",
-        "internalSportsclubId": "210",
-        "association": {
-          "id": "24908790",
-          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
         }
       },
       {
@@ -63369,6 +63359,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "37921466",
+        "name": "TSV Solingen Aufderhöhe 1877 e.V.",
+        "lsbNumber": "1009047",
+        "internalSportsclubId": "490",
+        "association": {
+          "id": "33299074",
+          "name": "Wupper-Mettmann"
         }
       },
       {
