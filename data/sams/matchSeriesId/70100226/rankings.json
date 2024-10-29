@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2024-10-27 09:21:29.84",
+      "updated": "2024-10-28 21:49:10.089",
       "structureUpdated": "2024-10-26 14:08:16.17",
-      "resultsUpdated": "2024-10-27 09:21:29.84",
+      "resultsUpdated": "2024-10-28 21:49:10.089",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -394,62 +394,6 @@
       },
       {
         "team": {
-          "id": "73349525",
-          "uuid": "087bcb12-62cd-459e-88ee-1343b21fff34",
-          "name": "FT 1844 Freiburg 4",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "FT 1844 Freiburg",
-            "shortName": null
-          }
-        },
-        "place": "1",
-        "matchesPlayed": "3",
-        "wins": "2",
-        "losses": "1",
-        "points": "4",
-        "setPoints": "7:7",
-        "setWinScore": "7",
-        "setLoseScore": "7",
-        "setPointDifference": "0",
-        "setQuotient": "1,000\n            ",
-        "ballPoints": "292:286",
-        "ballWinScore": "292",
-        "ballLoseScore": "286",
-        "ballPointDifference": "6",
-        "ballQuotient": "1,021\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "2"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "1"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "73349547",
           "uuid": "447ad96d-f886-4b5b-bee4-ed76c5c2962a",
           "name": "TSV Al. Zähringen 1",
@@ -556,6 +500,62 @@
             {
               "result": "0:3",
               "count": "1"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73349525",
+          "uuid": "087bcb12-62cd-459e-88ee-1343b21fff34",
+          "name": "FT 1844 Freiburg 4",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "FT 1844 Freiburg",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "3",
+        "wins": "1",
+        "losses": "1",
+        "points": "2",
+        "setPoints": "4:8",
+        "setWinScore": "4",
+        "setLoseScore": "8",
+        "setPointDifference": "-4",
+        "setQuotient": "0,500\n            ",
+        "ballPoints": "188:269",
+        "ballWinScore": "188",
+        "ballLoseScore": "269",
+        "ballPointDifference": "-81",
+        "ballQuotient": "0,699\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "0"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
             }
           ]
         }
