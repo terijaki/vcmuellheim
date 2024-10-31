@@ -59,9 +59,9 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2024-10-28 21:49:10.089",
-            "structureUpdated": "2024-10-26 14:08:16.17",
-            "resultsUpdated": "2024-10-28 21:49:10.089",
+            "updated": "2024-10-30 10:47:31.151",
+            "structureUpdated": "2024-10-30 08:08:54.134",
+            "resultsUpdated": "2024-10-30 10:47:31.151",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -223,9 +223,9 @@
             "name": "Bezirksklasse Damen Süd",
             "shortName": "bzk s d",
             "type": "League",
-            "updated": "2024-10-28 11:09:56.669",
-            "structureUpdated": "2024-10-28 11:09:56.669",
-            "resultsUpdated": "2024-10-27 16:33:00.068",
+            "updated": "2024-10-30 16:57:29.225",
+            "structureUpdated": "2024-10-30 16:57:01.543",
+            "resultsUpdated": "2024-10-30 16:57:29.225",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -484,9 +484,88 @@
             "name": "U16 weiblich - Quali 1 am 9.11.24 in Breisach",
             "shortName": "Q1_U16_w",
             "type": "Competition",
-            "updated": "2024-10-23 12:51:58.921",
-            "structureUpdated": "2024-10-23 12:51:58.921",
+            "updated": "2024-10-30 09:22:25.845",
+            "structureUpdated": "2024-10-30 09:22:25.845",
             "resultsUpdated": "2023-12-04 09:29:20.342",
+            "season": {
+              "id": "70098350",
+              "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+              "name": "2024/25"
+            },
+            "hierarchy": {
+              "id": "70101070",
+              "uuid": "e389ba27-2145-4506-967b-68d06a0c8c76",
+              "name": "Quali-Turniere Jugendmeisterschaften",
+              "shortName": "Quali",
+              "hierarchyLevel": "3"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "70101070",
+                  "name": "Quali-Turniere Jugendmeisterschaften",
+                  "shortName": "Quali",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "70100789",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "70100788",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "JUG",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "70098566",
+                  "name": "Südbadischer Volleyball-Verband (SBVV)",
+                  "shortName": "SBVV",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
+            }
+          }
+        },
+        {
+          "id": "79319229",
+          "uuid": "684d5c13-22e8-4c34-8446-1f5097c82b85",
+          "seasonTeamId": "79319229",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "65036648",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "79052977",
+            "uuid": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+            "allSeasonId": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+            "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
+            "shortName": "Q1_U20_w",
+            "type": "Competition",
+            "updated": "2024-10-30 09:29:53.066",
+            "structureUpdated": "2024-10-30 09:29:53.065",
+            "resultsUpdated": "2023-11-06 09:08:01.713",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
