@@ -9302,6 +9302,16 @@
         }
       },
       {
+        "id": "37948415",
+        "name": "TVC 99 Eisleben e.V.",
+        "lsbNumber": "90124",
+        "internalSportsclubId": "90124",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "37921000",
         "name": "TuS Makkabi Dortmund e.V.",
         "lsbNumber": "5002227",
@@ -9389,6 +9399,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "54610912",
+        "name": "SV Remshalden",
+        "lsbNumber": "15195",
+        "internalSportsclubId": "258",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       },
       {
@@ -10102,6 +10122,16 @@
         }
       },
       {
+        "id": "26925446",
+        "name": "TSV Eintracht 1920 Stadtallendorf",
+        "lsbNumber": "10178",
+        "internalSportsclubId": "4303",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
         "id": "11618346",
         "name": "Tuspo Weende",
         "lsbNumber": "301091720",
@@ -10129,16 +10159,6 @@
         "association": {
           "id": "33795239",
           "name": "Euskirchen"
-        }
-      },
-      {
-        "id": "26925446",
-        "name": "TSV Eintracht 1920 Stadtallendorf",
-        "lsbNumber": "10178",
-        "internalSportsclubId": "4303",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
         }
       },
       {
@@ -33802,16 +33822,6 @@
         }
       },
       {
-        "id": "37948415",
-        "name": "TVC 99 Eisleben e.V.",
-        "lsbNumber": "90124",
-        "internalSportsclubId": "90124",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37921699",
         "name": "SV Schermbeck e.V. 1912",
         "lsbNumber": "1509005",
@@ -35212,6 +35222,16 @@
         }
       },
       {
+        "id": "37920997",
+        "name": "SV Dringenberg e.V.",
+        "lsbNumber": "4301003",
+        "internalSportsclubId": "377",
+        "association": {
+          "id": "33797762",
+          "name": "Höxter"
+        }
+      },
+      {
         "id": "37921509",
         "name": "VBC Beckum e.V.",
         "lsbNumber": "3302026",
@@ -35229,16 +35249,6 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "37920997",
-        "name": "SV Dringenberg e.V.",
-        "lsbNumber": "4301003",
-        "internalSportsclubId": "377",
-        "association": {
-          "id": "33797762",
-          "name": "Höxter"
         }
       },
       {
@@ -36532,6 +36542,16 @@
         }
       },
       {
+        "id": "37920804",
+        "name": "TV Concordia von 1864 Enger e.V.",
+        "lsbNumber": "4202003",
+        "internalSportsclubId": "171",
+        "association": {
+          "id": "33797702",
+          "name": "Minden-Ravensberg"
+        }
+      },
+      {
         "id": "12496905",
         "name": "WWK VCO München",
         "lsbNumber": null,
@@ -36559,16 +36579,6 @@
         "association": {
           "id": "33797741",
           "name": "Lippe"
-        }
-      },
-      {
-        "id": "37920804",
-        "name": "TV Concordia von 1864 Enger e.V.",
-        "lsbNumber": "4202003",
-        "internalSportsclubId": "171",
-        "association": {
-          "id": "33797702",
-          "name": "Minden-Ravensberg"
         }
       },
       {
@@ -49772,16 +49782,6 @@
         }
       },
       {
-        "id": "54610912",
-        "name": "SV Remshalden",
-        "lsbNumber": "15195",
-        "internalSportsclubId": "258",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "54611054",
         "name": "Wassermonarchen Tettnang",
         "lsbNumber": "0",
@@ -56322,6 +56322,16 @@
         }
       },
       {
+        "id": "51836114",
+        "name": "TV Alzey",
+        "lsbNumber": "42",
+        "internalSportsclubId": "32-47-02",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
         "id": "37948599",
         "name": "VfB Zahna 1921 e.V.",
         "lsbNumber": "80005",
@@ -56349,16 +56359,6 @@
         "association": {
           "id": "33797802",
           "name": "Unna"
-        }
-      },
-      {
-        "id": "51836114",
-        "name": "TV Alzey",
-        "lsbNumber": "42",
-        "internalSportsclubId": "32-47-02",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -60152,16 +60152,6 @@
         }
       },
       {
-        "id": "65037409",
-        "name": "VSG Kleinsteinbach",
-        "lsbNumber": "82555",
-        "internalSportsclubId": "82555",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037391",
         "name": "SV Post-Telekom Offenburg",
         "lsbNumber": "8144281635",
@@ -60219,6 +60209,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037409",
+        "name": "VSG Kleinsteinbach",
+        "lsbNumber": "82555",
+        "internalSportsclubId": "82555",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -63332,16 +63332,6 @@
         }
       },
       {
-        "id": "37921902",
-        "name": "DJK/VfL Billerbeck 1912 e.V.",
-        "lsbNumber": "3202002",
-        "internalSportsclubId": "1605",
-        "association": {
-          "id": "33797226",
-          "name": "Coesfeld"
-        }
-      },
-      {
         "id": "63877284",
         "name": "SV Groß Garz e.V.",
         "lsbNumber": "20025",
@@ -63459,6 +63449,16 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "37921902",
+        "name": "DJK/VfL Billerbeck 1912 e.V.",
+        "lsbNumber": "3202002",
+        "internalSportsclubId": "1605",
+        "association": {
+          "id": "33797226",
+          "name": "Coesfeld"
         }
       }
     ]
