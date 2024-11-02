@@ -455,9 +455,9 @@
           }
         },
         {
-          "id": "79051348",
-          "uuid": "30e0f4bf-db4e-4834-98f0-b83768b002a2",
-          "seasonTeamId": "79051348",
+          "id": "79319229",
+          "uuid": "684d5c13-22e8-4c34-8446-1f5097c82b85",
+          "seasonTeamId": "79319229",
           "placeCipher": "0",
           "name": "VC Müllheim",
           "shortName": null,
@@ -478,15 +478,15 @@
             "wwwDepartment": null
           },
           "matchSeries": {
-            "id": "70101230",
-            "uuid": "f7a41788-f85c-4e4d-9cd4-4a579d816806",
-            "allSeasonId": "3f3ded0f-43fa-4ab6-a80e-3efb4e667632",
-            "name": "U16 weiblich - Quali 1 am 9.11.24 in Breisach",
-            "shortName": "Q1_U16_w",
+            "id": "79052977",
+            "uuid": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+            "allSeasonId": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+            "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
+            "shortName": "Q1_U20_w",
             "type": "Competition",
-            "updated": "2024-10-30 09:22:25.845",
-            "structureUpdated": "2024-10-30 09:22:25.845",
-            "resultsUpdated": "2023-12-04 09:29:20.342",
+            "updated": "2024-10-31 15:37:25.31",
+            "structureUpdated": "2024-10-31 15:37:25.31",
+            "resultsUpdated": "2023-11-06 09:08:01.713",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -534,9 +534,9 @@
           }
         },
         {
-          "id": "79319229",
-          "uuid": "684d5c13-22e8-4c34-8446-1f5097c82b85",
-          "seasonTeamId": "79319229",
+          "id": "79380557",
+          "uuid": "14302084-69fa-427f-9ba4-397754010671",
+          "seasonTeamId": "79380557",
           "placeCipher": "0",
           "name": "VC Müllheim",
           "shortName": null,
@@ -557,33 +557,33 @@
             "wwwDepartment": null
           },
           "matchSeries": {
-            "id": "79052977",
-            "uuid": "2add32c1-fb6d-404c-b6c2-7feed3509613",
-            "allSeasonId": "2add32c1-fb6d-404c-b6c2-7feed3509613",
-            "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
-            "shortName": "Q1_U20_w",
+            "id": "70101230",
+            "uuid": "f7a41788-f85c-4e4d-9cd4-4a579d816806",
+            "allSeasonId": "3f3ded0f-43fa-4ab6-a80e-3efb4e667632",
+            "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
+            "shortName": "VQ1_U16_w",
             "type": "Competition",
-            "updated": "2024-10-30 09:29:53.066",
-            "structureUpdated": "2024-10-30 09:29:53.065",
-            "resultsUpdated": "2023-11-06 09:08:01.713",
+            "updated": "2024-10-31 13:16:36.929",
+            "structureUpdated": "2024-10-31 13:16:36.929",
+            "resultsUpdated": "2023-12-04 09:29:20.342",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
               "name": "2024/25"
             },
             "hierarchy": {
-              "id": "70101070",
-              "uuid": "e389ba27-2145-4506-967b-68d06a0c8c76",
-              "name": "Quali-Turniere Jugendmeisterschaften",
-              "shortName": "Quali",
+              "id": "70100790",
+              "uuid": "b29423d4-5024-44ba-a498-84f475c5380b",
+              "name": "Vor-Qualifikation Jugendmeisterschaft",
+              "shortName": "VQ",
               "hierarchyLevel": "3"
             },
             "fullHierarchy": {
               "hierarchy": [
                 {
-                  "id": "70101070",
-                  "name": "Quali-Turniere Jugendmeisterschaften",
-                  "shortName": "Quali",
+                  "id": "70100790",
+                  "name": "Vor-Qualifikation Jugendmeisterschaft",
+                  "shortName": "VQ",
                   "hierarchyLevel": "3"
                 },
                 {
@@ -642,8 +642,8 @@
             "name": "West - U20 weiblich",
             "shortName": "WQ_U20w",
             "type": "Competition",
-            "updated": "2024-10-17 20:57:41.657",
-            "structureUpdated": "2024-10-17 20:57:41.657",
+            "updated": "2024-11-01 10:59:08.612",
+            "structureUpdated": "2024-11-01 10:59:08.612",
             "resultsUpdated": "2022-12-06 13:24:36.45",
             "season": {
               "id": "70098350",
