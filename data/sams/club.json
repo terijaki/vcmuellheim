@@ -613,6 +613,91 @@
           }
         },
         {
+          "id": "79487212",
+          "uuid": "7c4e1366-a7cd-414c-a55d-c3ea05a31784",
+          "seasonTeamId": "79487212",
+          "placeCipher": "0",
+          "name": "VC Müllheim",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "65036648",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "70100844",
+            "uuid": "5244d6f2-7094-4693-b916-9b8f65a30ce4",
+            "allSeasonId": "a6d2aafa-f16b-8491-9191-0e77342513c9",
+            "name": "West - Jugendrunde weiblich (4:4)",
+            "shortName": "W_JRw",
+            "type": "Competition",
+            "updated": "2024-10-24 10:07:11.107",
+            "structureUpdated": "2024-10-24 10:07:11.107",
+            "resultsUpdated": null,
+            "season": {
+              "id": "70098350",
+              "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+              "name": "2024/25"
+            },
+            "hierarchy": {
+              "id": "70100827",
+              "uuid": "28119fe5-ae00-4a3d-bd64-7dbe8277684d",
+              "name": "Meldungen Bezirk West Jugend weiblich",
+              "shortName": "bwjw",
+              "hierarchyLevel": "4"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "70100827",
+                  "name": "Meldungen Bezirk West Jugend weiblich",
+                  "shortName": "bwjw",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "70100826",
+                  "name": "SBVV Bezirk West Jugend",
+                  "shortName": "bwj",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "70100789",
+                  "name": "SBVV-Jugendmeisterschaften",
+                  "shortName": "sbvv_jm",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "70100788",
+                  "name": "Jugendspielbetrieb",
+                  "shortName": "JUG",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "70098566",
+                  "name": "Südbadischer Volleyball-Verband (SBVV)",
+                  "shortName": "SBVV",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        },
+        {
           "id": "78486747",
           "uuid": "a022354c-0491-4728-b3e7-f5e1731cecb5",
           "seasonTeamId": "78486747",
