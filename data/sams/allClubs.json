@@ -9432,6 +9432,16 @@
         }
       },
       {
+        "id": "51836088",
+        "name": "Turnverein Mainz-Zahlbach 1862 e.V.",
+        "lsbNumber": "483",
+        "internalSportsclubId": "483",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
         "id": "26866513",
         "name": "VfB Eppelborn-Macherbach",
         "lsbNumber": "85000",
@@ -34372,16 +34382,6 @@
         }
       },
       {
-        "id": "37920665",
-        "name": "TV Mülfort-Bell 1907 e.V.",
-        "lsbNumber": "1005043",
-        "internalSportsclubId": "7201",
-        "association": {
-          "id": "33299130",
-          "name": "Mönchengladbach"
-        }
-      },
-      {
         "id": "40402494",
         "name": "Volleyball-Krähen-Berlin e.V.",
         "lsbNumber": "5221",
@@ -34419,6 +34419,16 @@
         "association": {
           "id": "33797282",
           "name": "Vest"
+        }
+      },
+      {
+        "id": "37920665",
+        "name": "TV Mülfort-Bell 1907 e.V.",
+        "lsbNumber": "1005043",
+        "internalSportsclubId": "7201",
+        "association": {
+          "id": "33299130",
+          "name": "Mönchengladbach"
         }
       },
       {
@@ -37142,6 +37152,16 @@
         }
       },
       {
+        "id": "49504361",
+        "name": "SV Glienicke/Nordbahn",
+        "lsbNumber": "650036",
+        "internalSportsclubId": "650036",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "49504366",
         "name": "Rheinsberger SV",
         "lsbNumber": "680078",
@@ -37196,16 +37216,6 @@
         "name": "1. VC Wildau",
         "lsbNumber": "610132",
         "internalSportsclubId": "610132",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
-        "id": "49504361",
-        "name": "SV Glienicke/Nordbahn",
-        "lsbNumber": "650036",
-        "internalSportsclubId": "650036",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -49186,16 +49196,6 @@
         "name": "TV Herrstein",
         "lsbNumber": "1000248",
         "internalSportsclubId": "32-13-06",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
-        "id": "51836088",
-        "name": "Turnverein Mainz-Zahlbach 1862 e.V.",
-        "lsbNumber": "483",
-        "internalSportsclubId": "483",
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
@@ -62732,16 +62732,6 @@
         }
       },
       {
-        "id": "69257372",
-        "name": "SV Markelfingen",
-        "lsbNumber": "183670",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "26925129",
         "name": "TSV 03/30 Michelbach e.V.",
         "lsbNumber": "10117",
@@ -62759,6 +62749,16 @@
         "association": {
           "id": "33795544",
           "name": "Leverkusen-Rhein-Berg"
+        }
+      },
+      {
+        "id": "69257372",
+        "name": "SV Markelfingen 1925 e.V.",
+        "lsbNumber": "183670",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -63332,6 +63332,16 @@
         }
       },
       {
+        "id": "26925487",
+        "name": "TV Eschborn 1888 e.V.",
+        "lsbNumber": "30022",
+        "internalSportsclubId": "5807",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
+        }
+      },
+      {
         "id": "63877284",
         "name": "SV Groß Garz e.V.",
         "lsbNumber": "20025",
@@ -63429,16 +63439,6 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
-        "id": "26925487",
-        "name": "TV Eschborn 1888 e.V.",
-        "lsbNumber": "30022",
-        "internalSportsclubId": "5807",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
         }
       },
       {
