@@ -50242,20 +50242,20 @@
         }
       },
       {
-        "id": "54611062",
-        "name": "TSG LJG Unterschwarzach",
-        "lsbNumber": "14179",
-        "internalSportsclubId": "420",
+        "id": "54611060",
+        "name": "SV Unlingen",
+        "lsbNumber": "2112",
+        "internalSportsclubId": "418",
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
         }
       },
       {
-        "id": "54611060",
-        "name": "SV Unlingen",
-        "lsbNumber": "2112",
-        "internalSportsclubId": "418",
+        "id": "54611062",
+        "name": "TSG LJG Unterschwarzach",
+        "lsbNumber": "14179",
+        "internalSportsclubId": "420",
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
