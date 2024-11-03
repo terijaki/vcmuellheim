@@ -10142,6 +10142,16 @@
         }
       },
       {
+        "id": "26925673",
+        "name": "VC Schöneck",
+        "lsbNumber": "28178",
+        "internalSportsclubId": "6112",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
         "id": "11618346",
         "name": "Tuspo Weende",
         "lsbNumber": "301091720",
@@ -19859,16 +19869,6 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
-        "id": "26925673",
-        "name": "VC Schöneck",
-        "lsbNumber": "28178",
-        "internalSportsclubId": "6112",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
         }
       },
       {
