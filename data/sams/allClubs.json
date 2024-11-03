@@ -45722,16 +45722,6 @@
         }
       },
       {
-        "id": "37921884",
-        "name": "TV Datteln 09 e.V.",
-        "lsbNumber": "3402013",
-        "internalSportsclubId": "2402",
-        "association": {
-          "id": "33797282",
-          "name": "Vest"
-        }
-      },
-      {
         "id": "54610973",
         "name": "SV Waltershofen",
         "lsbNumber": "14137",
@@ -45769,6 +45759,16 @@
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
+        }
+      },
+      {
+        "id": "37921884",
+        "name": "TV Datteln 09 e.V.",
+        "lsbNumber": "3402013",
+        "internalSportsclubId": "2402",
+        "association": {
+          "id": "33797282",
+          "name": "Vest"
         }
       },
       {
