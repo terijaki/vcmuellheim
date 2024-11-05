@@ -792,16 +792,6 @@
         }
       },
       {
-        "id": "26925801",
-        "name": "USC Gießen",
-        "lsbNumber": "12078",
-        "internalSportsclubId": "1901",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
         "id": "963365",
         "name": "ASC 46 Göttingen",
         "lsbNumber": "301090360",
@@ -819,6 +809,16 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26925801",
+        "name": "USC Gießen",
+        "lsbNumber": "12078",
+        "internalSportsclubId": "1901",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
         }
       },
       {
@@ -9502,16 +9502,6 @@
         }
       },
       {
-        "id": "26818861",
-        "name": "SVV Weimar",
-        "lsbNumber": "1000000000",
-        "internalSportsclubId": "11-602",
-        "association": {
-          "id": "26249243",
-          "name": "Kreisverband Nord-Ost"
-        }
-      },
-      {
         "id": "37921439",
         "name": "SC Halle 1919 e.V.",
         "lsbNumber": "4103005",
@@ -9569,6 +9559,16 @@
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
+        }
+      },
+      {
+        "id": "26818861",
+        "name": "SVV Weimar",
+        "lsbNumber": "1000000000",
+        "internalSportsclubId": "11-602",
+        "association": {
+          "id": "26249243",
+          "name": "Kreisverband Nord-Ost"
         }
       },
       {
@@ -10142,16 +10142,6 @@
         }
       },
       {
-        "id": "26925673",
-        "name": "VC Schöneck",
-        "lsbNumber": "28178",
-        "internalSportsclubId": "6112",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
         "id": "11618346",
         "name": "Tuspo Weende",
         "lsbNumber": "301091720",
@@ -10502,6 +10492,16 @@
         }
       },
       {
+        "id": "79599451",
+        "name": "TG Trossingen",
+        "lsbNumber": "1111111110000062",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
         "id": "70570081",
         "name": "TV Schledehausen",
         "lsbNumber": "304475500",
@@ -10579,6 +10579,16 @@
         "association": {
           "id": "7209",
           "name": "Volleyballverband Mecklenburg-Vorpommern"
+        }
+      },
+      {
+        "id": "26925673",
+        "name": "VC Schöneck",
+        "lsbNumber": "28178",
+        "internalSportsclubId": "6112",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
         }
       },
       {
@@ -11529,6 +11539,16 @@
         "association": {
           "id": "26272888",
           "name": "tbc TVV 40"
+        }
+      },
+      {
+        "id": "51836501",
+        "name": "TV 1848 Bodenheim e.V.",
+        "lsbNumber": "475",
+        "internalSportsclubId": "475",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -12672,6 +12692,16 @@
         }
       },
       {
+        "id": "26925346",
+        "name": "TV 1912 Hartenrod",
+        "lsbNumber": "16049",
+        "internalSportsclubId": "4311",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
         "id": "37922073",
         "name": "FREUNDE CONNECT TEAM Aachen e.V.",
         "lsbNumber": null,
@@ -13572,6 +13602,16 @@
         }
       },
       {
+        "id": "37921823",
+        "name": "Bünder TV Westfalia v. 1862 e.V.",
+        "lsbNumber": "4201006",
+        "internalSportsclubId": "3603",
+        "association": {
+          "id": "33797702",
+          "name": "Minden-Ravensberg"
+        }
+      },
+      {
         "id": "37920845",
         "name": "SV DJK Grün-Weiß Nottuln 1919 e.V.",
         "lsbNumber": "3208003",
@@ -14019,6 +14059,16 @@
         "association": {
           "id": "33797822",
           "name": "Dortmund"
+        }
+      },
+      {
+        "id": "54610788",
+        "name": "SG Weissach im Tal",
+        "lsbNumber": "15363",
+        "internalSportsclubId": "128",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
         }
       },
       {
@@ -16859,16 +16909,6 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
-        "id": "26925346",
-        "name": "TV 1912 Hartenrod",
-        "lsbNumber": "16049",
-        "internalSportsclubId": "4311",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
         }
       },
       {
@@ -24516,16 +24556,6 @@
         "name": "TV Eintracht Valdorf e.V.",
         "lsbNumber": "4209004",
         "internalSportsclubId": "1380",
-        "association": {
-          "id": "33797702",
-          "name": "Minden-Ravensberg"
-        }
-      },
-      {
-        "id": "37921823",
-        "name": "Bünder TV Westfalia v. 1862 e.V.",
-        "lsbNumber": "4201006",
-        "internalSportsclubId": "3603",
         "association": {
           "id": "33797702",
           "name": "Minden-Ravensberg"
@@ -51962,16 +51992,6 @@
         }
       },
       {
-        "id": "51836501",
-        "name": "TV 1848 Bodenheim e.V.",
-        "lsbNumber": "475",
-        "internalSportsclubId": "475",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "51836513",
         "name": "Turn- und Sportverein 1863 Wöllstein e. V.",
         "lsbNumber": "10024",
@@ -57012,16 +57032,6 @@
         }
       },
       {
-        "id": "51836345",
-        "name": "Turn- und Sportverein 1910 e. V. Hargesheim",
-        "lsbNumber": "1000879",
-        "internalSportsclubId": "32-17-14",
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
         "id": "54610941",
         "name": "SG Stern Stuttgart",
         "lsbNumber": "0",
@@ -57119,6 +57129,16 @@
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
+        }
+      },
+      {
+        "id": "51836345",
+        "name": "Turn- und Sportverein 1910 e. V. Hargesheim",
+        "lsbNumber": "1000879",
+        "internalSportsclubId": "32-17-14",
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
         }
       },
       {
@@ -62079,16 +62099,6 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
-        "id": "54610788",
-        "name": "SG Weissach im Tal",
-        "lsbNumber": "15363",
-        "internalSportsclubId": "128",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
         }
       },
       {
