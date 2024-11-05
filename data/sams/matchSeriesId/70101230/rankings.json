@@ -7,8 +7,8 @@
       "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
       "shortName": "VQ1_U16_w",
       "type": "Competition",
-      "updated": "2024-11-03 10:07:27.516",
-      "structureUpdated": "2024-11-03 10:07:27.516",
+      "updated": "2024-11-04 23:15:06.099",
+      "structureUpdated": "2024-11-04 23:15:06.099",
       "resultsUpdated": "2023-12-04 09:29:20.342",
       "season": {
         "id": "70098350",
@@ -108,15 +108,6 @@
           "uuid": "cb46f6ba-90b4-4a65-82b9-5d49f801058c",
           "name": "VC Weil",
           "club": "VC Weil am Rhein"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "79051356",
-          "uuid": "5bfedac3-cc0b-4e2e-8a63-05f6ba3d289d",
-          "name": "VSG Rebland",
-          "club": "VSG Rebland"
         }
       }
     ]
