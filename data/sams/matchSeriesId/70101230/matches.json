@@ -2,8 +2,8 @@
   "matches": {
     "match": [
       {
-        "id": "79598995",
-        "uuid": "fe49233d-edd4-4da8-b58c-7f4a35ab1e07",
+        "id": "79689808",
+        "uuid": "f69cc49a-22ac-4289-a75b-ff856f1da1f9",
         "number": "1",
         "date": "09.11.2024",
         "time": "10:00",
@@ -12,35 +12,35 @@
         "indefinitelyRescheduled": "false",
         "gameReassessed": "false",
         "host": {
-          "id": null,
-          "uuid": null,
-          "name": null,
-          "club": null
+          "id": "79051359",
+          "uuid": "a93e7cd8-dc63-42ae-abd9-74ea033b6d1d",
+          "name": "SG Breisach-Gündlingen",
+          "club": "SG Breisach-Gündlingen"
         },
         "team": [
           {
             "number": "1",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
+            "id": "79051359",
+            "uuid": "a93e7cd8-dc63-42ae-abd9-74ea033b6d1d",
+            "seasonTeamId": "79051359",
+            "name": "SG Breisach-Gündlingen",
             "shortName": null,
             "clubCode": null,
             "club": {
-              "name": null,
+              "name": "SG Breisach-Gündlingen",
               "shortName": null
             }
           },
           {
             "number": "2",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
+            "id": "79380564",
+            "uuid": "2bc0baec-2241-44da-a9ac-c9e646293b2a",
+            "seasonTeamId": "79380564",
+            "name": "FT 1844 Freiburg 4",
             "shortName": null,
             "clubCode": null,
             "club": {
-              "name": null,
+              "name": "FT 1844 Freiburg",
               "shortName": null
             }
           }
@@ -52,8 +52,8 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-04 23:15:06.099",
-          "structureUpdated": "2024-11-04 23:15:06.099",
+          "updated": "2024-11-06 16:53:32.894",
+          "structureUpdated": "2024-11-06 16:53:32.894",
           "resultsUpdated": "2023-12-04 09:29:20.342",
           "season": {
             "id": "70098350",
@@ -114,493 +114,45 @@
         "dateIso": "2024-11-09T09:00:00.000Z"
       },
       {
-        "id": "79598996",
-        "uuid": "fa3e5129-cb53-4042-a106-991042e8360b",
-        "number": "2",
-        "date": "09.11.2024",
-        "time": "10:00",
-        "delayPossible": "false",
-        "decidingMatch": "false",
-        "indefinitelyRescheduled": "false",
-        "gameReassessed": "false",
-        "host": {
-          "id": null,
-          "uuid": null,
-          "name": null,
-          "club": null
-        },
-        "team": [
-          {
-            "number": "1",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": null,
-              "shortName": null
-            }
-          },
-          {
-            "number": "2",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": null,
-              "shortName": null
-            }
-          }
-        ],
-        "matchSeries": {
-          "id": "70101230",
-          "uuid": "f7a41788-f85c-4e4d-9cd4-4a579d816806",
-          "allSeasonId": "3f3ded0f-43fa-4ab6-a80e-3efb4e667632",
-          "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
-          "shortName": "VQ1_U16_w",
-          "type": "Competition",
-          "updated": "2024-11-04 23:15:06.099",
-          "structureUpdated": "2024-11-04 23:15:06.099",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
-          "season": {
-            "id": "70098350",
-            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
-            "name": "2024/25"
-          },
-          "hierarchy": {
-            "id": "70100790",
-            "uuid": "b29423d4-5024-44ba-a498-84f475c5380b",
-            "name": "Vor-Qualifikation Jugendmeisterschaft",
-            "shortName": "VQ",
-            "hierarchyLevel": "3"
-          },
-          "fullHierarchy": {
-            "hierarchy": [
-              {
-                "id": "70100790",
-                "name": "Vor-Qualifikation Jugendmeisterschaft",
-                "shortName": "VQ",
-                "hierarchyLevel": "3"
-              },
-              {
-                "id": "70100789",
-                "name": "SBVV-Jugendmeisterschaften",
-                "shortName": "sbvv_jm",
-                "hierarchyLevel": "2"
-              },
-              {
-                "id": "70100788",
-                "name": "Jugendspielbetrieb",
-                "shortName": "JUG",
-                "hierarchyLevel": "1"
-              },
-              {
-                "id": "70098566",
-                "name": "Südbadischer Volleyball-Verband (SBVV)",
-                "shortName": "SBVV",
-                "hierarchyLevel": "0"
-              }
-            ]
-          },
-          "association": {
-            "name": "Südbadischer Volleyball-Verband",
-            "shortName": "SBVV"
-          }
-        },
-        "location": {
-          "id": "13906073",
-          "name": "Breisgau-Halle",
-          "street": "Breisgaustr. 6",
-          "extraField": "-",
-          "postalCode": "79206",
-          "city": "Breisach",
-          "note": "-"
-        },
-        "referees": null,
-        "dateObject": "2024-11-09T09:00:00.000Z",
-        "dateIso": "2024-11-09T09:00:00.000Z"
-      },
-      {
-        "id": "79599002",
-        "uuid": "9c8f8bce-8f92-458d-835d-0ddfb0852004",
-        "number": "7",
-        "date": "09.11.2024",
-        "time": "10:00",
-        "delayPossible": "false",
-        "decidingMatch": "false",
-        "indefinitelyRescheduled": "false",
-        "gameReassessed": "false",
-        "host": {
-          "id": null,
-          "uuid": null,
-          "name": null,
-          "club": null
-        },
-        "team": [
-          {
-            "number": "1",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": null,
-              "shortName": null
-            }
-          },
-          {
-            "number": "2",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": null,
-              "shortName": null
-            }
-          }
-        ],
-        "matchSeries": {
-          "id": "70101230",
-          "uuid": "f7a41788-f85c-4e4d-9cd4-4a579d816806",
-          "allSeasonId": "3f3ded0f-43fa-4ab6-a80e-3efb4e667632",
-          "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
-          "shortName": "VQ1_U16_w",
-          "type": "Competition",
-          "updated": "2024-11-04 23:15:06.099",
-          "structureUpdated": "2024-11-04 23:15:06.099",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
-          "season": {
-            "id": "70098350",
-            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
-            "name": "2024/25"
-          },
-          "hierarchy": {
-            "id": "70100790",
-            "uuid": "b29423d4-5024-44ba-a498-84f475c5380b",
-            "name": "Vor-Qualifikation Jugendmeisterschaft",
-            "shortName": "VQ",
-            "hierarchyLevel": "3"
-          },
-          "fullHierarchy": {
-            "hierarchy": [
-              {
-                "id": "70100790",
-                "name": "Vor-Qualifikation Jugendmeisterschaft",
-                "shortName": "VQ",
-                "hierarchyLevel": "3"
-              },
-              {
-                "id": "70100789",
-                "name": "SBVV-Jugendmeisterschaften",
-                "shortName": "sbvv_jm",
-                "hierarchyLevel": "2"
-              },
-              {
-                "id": "70100788",
-                "name": "Jugendspielbetrieb",
-                "shortName": "JUG",
-                "hierarchyLevel": "1"
-              },
-              {
-                "id": "70098566",
-                "name": "Südbadischer Volleyball-Verband (SBVV)",
-                "shortName": "SBVV",
-                "hierarchyLevel": "0"
-              }
-            ]
-          },
-          "association": {
-            "name": "Südbadischer Volleyball-Verband",
-            "shortName": "SBVV"
-          }
-        },
-        "location": {
-          "id": "13906073",
-          "name": "Breisgau-Halle",
-          "street": "Breisgaustr. 6",
-          "extraField": "-",
-          "postalCode": "79206",
-          "city": "Breisach",
-          "note": "-"
-        },
-        "referees": null,
-        "dateObject": "2024-11-09T09:00:00.000Z",
-        "dateIso": "2024-11-09T09:00:00.000Z"
-      },
-      {
-        "id": "79598997",
-        "uuid": "4447d97c-baf4-4b2b-9d84-07bd3d66590a",
-        "number": "3",
-        "date": "09.11.2024",
-        "time": "11:00",
-        "delayPossible": "false",
-        "decidingMatch": "false",
-        "indefinitelyRescheduled": "false",
-        "gameReassessed": "false",
-        "host": {
-          "id": null,
-          "uuid": null,
-          "name": null,
-          "club": null
-        },
-        "team": [
-          {
-            "number": "1",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": null,
-              "shortName": null
-            }
-          },
-          {
-            "number": "2",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": null,
-              "shortName": null
-            }
-          }
-        ],
-        "matchSeries": {
-          "id": "70101230",
-          "uuid": "f7a41788-f85c-4e4d-9cd4-4a579d816806",
-          "allSeasonId": "3f3ded0f-43fa-4ab6-a80e-3efb4e667632",
-          "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
-          "shortName": "VQ1_U16_w",
-          "type": "Competition",
-          "updated": "2024-11-04 23:15:06.099",
-          "structureUpdated": "2024-11-04 23:15:06.099",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
-          "season": {
-            "id": "70098350",
-            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
-            "name": "2024/25"
-          },
-          "hierarchy": {
-            "id": "70100790",
-            "uuid": "b29423d4-5024-44ba-a498-84f475c5380b",
-            "name": "Vor-Qualifikation Jugendmeisterschaft",
-            "shortName": "VQ",
-            "hierarchyLevel": "3"
-          },
-          "fullHierarchy": {
-            "hierarchy": [
-              {
-                "id": "70100790",
-                "name": "Vor-Qualifikation Jugendmeisterschaft",
-                "shortName": "VQ",
-                "hierarchyLevel": "3"
-              },
-              {
-                "id": "70100789",
-                "name": "SBVV-Jugendmeisterschaften",
-                "shortName": "sbvv_jm",
-                "hierarchyLevel": "2"
-              },
-              {
-                "id": "70100788",
-                "name": "Jugendspielbetrieb",
-                "shortName": "JUG",
-                "hierarchyLevel": "1"
-              },
-              {
-                "id": "70098566",
-                "name": "Südbadischer Volleyball-Verband (SBVV)",
-                "shortName": "SBVV",
-                "hierarchyLevel": "0"
-              }
-            ]
-          },
-          "association": {
-            "name": "Südbadischer Volleyball-Verband",
-            "shortName": "SBVV"
-          }
-        },
-        "location": {
-          "id": "13906073",
-          "name": "Breisgau-Halle",
-          "street": "Breisgaustr. 6",
-          "extraField": "-",
-          "postalCode": "79206",
-          "city": "Breisach",
-          "note": "-"
-        },
-        "referees": null,
-        "dateObject": "2024-11-09T10:00:00.000Z",
-        "dateIso": "2024-11-09T10:00:00.000Z"
-      },
-      {
-        "id": "79599003",
-        "uuid": "e639347f-a0cc-4814-b1f4-63bfdf520881",
-        "number": "8",
-        "date": "09.11.2024",
-        "time": "11:00",
-        "delayPossible": "false",
-        "decidingMatch": "false",
-        "indefinitelyRescheduled": "false",
-        "gameReassessed": "false",
-        "host": {
-          "id": null,
-          "uuid": null,
-          "name": null,
-          "club": null
-        },
-        "team": [
-          {
-            "number": "1",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": null,
-              "shortName": null
-            }
-          },
-          {
-            "number": "2",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": null,
-              "shortName": null
-            }
-          }
-        ],
-        "matchSeries": {
-          "id": "70101230",
-          "uuid": "f7a41788-f85c-4e4d-9cd4-4a579d816806",
-          "allSeasonId": "3f3ded0f-43fa-4ab6-a80e-3efb4e667632",
-          "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
-          "shortName": "VQ1_U16_w",
-          "type": "Competition",
-          "updated": "2024-11-04 23:15:06.099",
-          "structureUpdated": "2024-11-04 23:15:06.099",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
-          "season": {
-            "id": "70098350",
-            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
-            "name": "2024/25"
-          },
-          "hierarchy": {
-            "id": "70100790",
-            "uuid": "b29423d4-5024-44ba-a498-84f475c5380b",
-            "name": "Vor-Qualifikation Jugendmeisterschaft",
-            "shortName": "VQ",
-            "hierarchyLevel": "3"
-          },
-          "fullHierarchy": {
-            "hierarchy": [
-              {
-                "id": "70100790",
-                "name": "Vor-Qualifikation Jugendmeisterschaft",
-                "shortName": "VQ",
-                "hierarchyLevel": "3"
-              },
-              {
-                "id": "70100789",
-                "name": "SBVV-Jugendmeisterschaften",
-                "shortName": "sbvv_jm",
-                "hierarchyLevel": "2"
-              },
-              {
-                "id": "70100788",
-                "name": "Jugendspielbetrieb",
-                "shortName": "JUG",
-                "hierarchyLevel": "1"
-              },
-              {
-                "id": "70098566",
-                "name": "Südbadischer Volleyball-Verband (SBVV)",
-                "shortName": "SBVV",
-                "hierarchyLevel": "0"
-              }
-            ]
-          },
-          "association": {
-            "name": "Südbadischer Volleyball-Verband",
-            "shortName": "SBVV"
-          }
-        },
-        "location": {
-          "id": "13906073",
-          "name": "Breisgau-Halle",
-          "street": "Breisgaustr. 6",
-          "extraField": "-",
-          "postalCode": "79206",
-          "city": "Breisach",
-          "note": "-"
-        },
-        "referees": null,
-        "dateObject": "2024-11-09T10:00:00.000Z",
-        "dateIso": "2024-11-09T10:00:00.000Z"
-      },
-      {
-        "id": "79598998",
-        "uuid": "74a53a92-7864-4fbd-bfcd-70d87f5f4837",
+        "id": "79689812",
+        "uuid": "12b2f589-2ae8-44ad-8343-802f90f98794",
         "number": "4",
         "date": "09.11.2024",
-        "time": "12:00",
+        "time": "10:00",
         "delayPossible": "false",
         "decidingMatch": "false",
         "indefinitelyRescheduled": "false",
         "gameReassessed": "false",
         "host": {
-          "id": null,
-          "uuid": null,
-          "name": null,
-          "club": null
+          "id": "79051359",
+          "uuid": "a93e7cd8-dc63-42ae-abd9-74ea033b6d1d",
+          "name": "SG Breisach-Gündlingen",
+          "club": "SG Breisach-Gündlingen"
         },
         "team": [
           {
             "number": "1",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
+            "id": "79051353",
+            "uuid": "0bc83ae2-59bc-42fc-ba2d-47cee568bcb9",
+            "seasonTeamId": "79051353",
+            "name": "FT 1844 Freiburg 2",
             "shortName": null,
             "clubCode": null,
             "club": {
-              "name": null,
+              "name": "FT 1844 Freiburg",
               "shortName": null
             }
           },
           {
             "number": "2",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
+            "id": "79051362",
+            "uuid": "cb46f6ba-90b4-4a65-82b9-5d49f801058c",
+            "seasonTeamId": "79051362",
+            "name": "VC Weil",
+            "shortName": "VC Weil",
             "clubCode": null,
             "club": {
-              "name": null,
+              "name": "VC Weil am Rhein",
               "shortName": null
             }
           }
@@ -612,8 +164,8 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-04 23:15:06.099",
-          "structureUpdated": "2024-11-04 23:15:06.099",
+          "updated": "2024-11-06 16:53:32.894",
+          "structureUpdated": "2024-11-06 16:53:32.894",
           "resultsUpdated": "2023-12-04 09:29:20.342",
           "season": {
             "id": "70098350",
@@ -670,49 +222,49 @@
           "note": "-"
         },
         "referees": null,
-        "dateObject": "2024-11-09T11:00:00.000Z",
-        "dateIso": "2024-11-09T11:00:00.000Z"
+        "dateObject": "2024-11-09T09:00:00.000Z",
+        "dateIso": "2024-11-09T09:00:00.000Z"
       },
       {
-        "id": "79599004",
-        "uuid": "f4efdc23-7113-40f5-90de-092a1992c2d8",
-        "number": "9",
+        "id": "79689809",
+        "uuid": "369232d2-a9b7-4e0f-a0fd-434d0b0818ae",
+        "number": "2",
         "date": "09.11.2024",
-        "time": "12:00",
+        "time": "11:15",
         "delayPossible": "false",
         "decidingMatch": "false",
         "indefinitelyRescheduled": "false",
         "gameReassessed": "false",
         "host": {
-          "id": null,
-          "uuid": null,
-          "name": null,
-          "club": null
+          "id": "79051359",
+          "uuid": "a93e7cd8-dc63-42ae-abd9-74ea033b6d1d",
+          "name": "SG Breisach-Gündlingen",
+          "club": "SG Breisach-Gündlingen"
         },
         "team": [
           {
             "number": "1",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
+            "id": "79380567",
+            "uuid": "7bda1af5-132a-4d2c-8314-14fd78fda278",
+            "seasonTeamId": "79380567",
+            "name": "VC Offenburg 2",
             "shortName": null,
             "clubCode": null,
             "club": {
-              "name": null,
+              "name": "VC Offenburg",
               "shortName": null
             }
           },
           {
             "number": "2",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
+            "id": "79380564",
+            "uuid": "2bc0baec-2241-44da-a9ac-c9e646293b2a",
+            "seasonTeamId": "79380564",
+            "name": "FT 1844 Freiburg 4",
             "shortName": null,
             "clubCode": null,
             "club": {
-              "name": null,
+              "name": "FT 1844 Freiburg",
               "shortName": null
             }
           }
@@ -724,8 +276,8 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-04 23:15:06.099",
-          "structureUpdated": "2024-11-04 23:15:06.099",
+          "updated": "2024-11-06 16:53:32.894",
+          "structureUpdated": "2024-11-06 16:53:32.894",
           "resultsUpdated": "2023-12-04 09:29:20.342",
           "season": {
             "id": "70098350",
@@ -782,49 +334,49 @@
           "note": "-"
         },
         "referees": null,
-        "dateObject": "2024-11-09T11:00:00.000Z",
-        "dateIso": "2024-11-09T11:00:00.000Z"
+        "dateObject": "2024-11-09T10:15:00.000Z",
+        "dateIso": "2024-11-09T10:15:00.000Z"
       },
       {
-        "id": "79598999",
-        "uuid": "c8fe47fc-5daf-4d2c-b4fb-65aad31e1c01",
+        "id": "79689813",
+        "uuid": "e8c5aa48-020e-43f4-8006-0a36233bfc48",
         "number": "5",
         "date": "09.11.2024",
-        "time": "13:00",
+        "time": "11:15",
         "delayPossible": "false",
         "decidingMatch": "false",
         "indefinitelyRescheduled": "false",
         "gameReassessed": "false",
         "host": {
-          "id": null,
-          "uuid": null,
-          "name": null,
-          "club": null
+          "id": "79051359",
+          "uuid": "a93e7cd8-dc63-42ae-abd9-74ea033b6d1d",
+          "name": "SG Breisach-Gündlingen",
+          "club": "SG Breisach-Gündlingen"
         },
         "team": [
           {
             "number": "1",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
+            "id": "79380557",
+            "uuid": "14302084-69fa-427f-9ba4-397754010671",
+            "seasonTeamId": "79380557",
+            "name": "VC Müllheim",
             "shortName": null,
             "clubCode": null,
             "club": {
-              "name": null,
+              "name": "VC Müllheim",
               "shortName": null
             }
           },
           {
             "number": "2",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
+            "id": "79051362",
+            "uuid": "cb46f6ba-90b4-4a65-82b9-5d49f801058c",
+            "seasonTeamId": "79051362",
+            "name": "VC Weil",
+            "shortName": "VC Weil",
             "clubCode": null,
             "club": {
-              "name": null,
+              "name": "VC Weil am Rhein",
               "shortName": null
             }
           }
@@ -836,8 +388,8 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-04 23:15:06.099",
-          "structureUpdated": "2024-11-04 23:15:06.099",
+          "updated": "2024-11-06 16:53:32.894",
+          "structureUpdated": "2024-11-06 16:53:32.894",
           "resultsUpdated": "2023-12-04 09:29:20.342",
           "season": {
             "id": "70098350",
@@ -894,49 +446,161 @@
           "note": "-"
         },
         "referees": null,
-        "dateObject": "2024-11-09T12:00:00.000Z",
-        "dateIso": "2024-11-09T12:00:00.000Z"
+        "dateObject": "2024-11-09T10:15:00.000Z",
+        "dateIso": "2024-11-09T10:15:00.000Z"
       },
       {
-        "id": "79599000",
-        "uuid": "23c31ae7-7cda-42a1-a3e0-25d91ec124d2",
+        "id": "79689810",
+        "uuid": "5cddf8e3-979a-4269-9483-e3928d03cd1f",
+        "number": "3",
+        "date": "09.11.2024",
+        "time": "12:30",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "79051359",
+          "uuid": "a93e7cd8-dc63-42ae-abd9-74ea033b6d1d",
+          "name": "SG Breisach-Gündlingen",
+          "club": "SG Breisach-Gündlingen"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "79051359",
+            "uuid": "a93e7cd8-dc63-42ae-abd9-74ea033b6d1d",
+            "seasonTeamId": "79051359",
+            "name": "SG Breisach-Gündlingen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "SG Breisach-Gündlingen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "79380567",
+            "uuid": "7bda1af5-132a-4d2c-8314-14fd78fda278",
+            "seasonTeamId": "79380567",
+            "name": "VC Offenburg 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Offenburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70101230",
+          "uuid": "f7a41788-f85c-4e4d-9cd4-4a579d816806",
+          "allSeasonId": "3f3ded0f-43fa-4ab6-a80e-3efb4e667632",
+          "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
+          "shortName": "VQ1_U16_w",
+          "type": "Competition",
+          "updated": "2024-11-06 16:53:32.894",
+          "structureUpdated": "2024-11-06 16:53:32.894",
+          "resultsUpdated": "2023-12-04 09:29:20.342",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100790",
+            "uuid": "b29423d4-5024-44ba-a498-84f475c5380b",
+            "name": "Vor-Qualifikation Jugendmeisterschaft",
+            "shortName": "VQ",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100790",
+                "name": "Vor-Qualifikation Jugendmeisterschaft",
+                "shortName": "VQ",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906073",
+          "name": "Breisgau-Halle",
+          "street": "Breisgaustr. 6",
+          "extraField": "-",
+          "postalCode": "79206",
+          "city": "Breisach",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2024-11-09T11:30:00.000Z",
+        "dateIso": "2024-11-09T11:30:00.000Z"
+      },
+      {
+        "id": "79689814",
+        "uuid": "ee5a965f-747c-4b14-8956-a87d53ec702b",
         "number": "6",
         "date": "09.11.2024",
-        "time": "14:00",
+        "time": "12:30",
         "delayPossible": "false",
         "decidingMatch": "false",
         "indefinitelyRescheduled": "false",
         "gameReassessed": "false",
         "host": {
-          "id": null,
-          "uuid": null,
-          "name": null,
-          "club": null
+          "id": "79051359",
+          "uuid": "a93e7cd8-dc63-42ae-abd9-74ea033b6d1d",
+          "name": "SG Breisach-Gündlingen",
+          "club": "SG Breisach-Gündlingen"
         },
         "team": [
           {
             "number": "1",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
+            "id": "79051353",
+            "uuid": "0bc83ae2-59bc-42fc-ba2d-47cee568bcb9",
+            "seasonTeamId": "79051353",
+            "name": "FT 1844 Freiburg 2",
             "shortName": null,
             "clubCode": null,
             "club": {
-              "name": null,
+              "name": "FT 1844 Freiburg",
               "shortName": null
             }
           },
           {
             "number": "2",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
+            "id": "79380557",
+            "uuid": "14302084-69fa-427f-9ba4-397754010671",
+            "seasonTeamId": "79380557",
+            "name": "VC Müllheim",
             "shortName": null,
             "clubCode": null,
             "club": {
-              "name": null,
+              "name": "VC Müllheim",
               "shortName": null
             }
           }
@@ -948,8 +612,8 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-04 23:15:06.099",
-          "structureUpdated": "2024-11-04 23:15:06.099",
+          "updated": "2024-11-06 16:53:32.894",
+          "structureUpdated": "2024-11-06 16:53:32.894",
           "resultsUpdated": "2023-12-04 09:29:20.342",
           "season": {
             "id": "70098350",
@@ -1006,12 +670,348 @@
           "note": "-"
         },
         "referees": null,
-        "dateObject": "2024-11-09T13:00:00.000Z",
-        "dateIso": "2024-11-09T13:00:00.000Z"
+        "dateObject": "2024-11-09T11:30:00.000Z",
+        "dateIso": "2024-11-09T11:30:00.000Z"
       },
       {
-        "id": "79599006",
-        "uuid": "6fc35714-db44-4338-ace8-8bbe05abdbf5",
+        "id": "79689816",
+        "uuid": "5c1cba16-1205-4572-abf9-4b3f1192052f",
+        "number": "7",
+        "date": "09.11.2024",
+        "time": "13:30",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "79051359",
+          "uuid": "a93e7cd8-dc63-42ae-abd9-74ea033b6d1d",
+          "name": "SG Breisach-Gündlingen",
+          "club": "SG Breisach-Gündlingen"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70101230",
+          "uuid": "f7a41788-f85c-4e4d-9cd4-4a579d816806",
+          "allSeasonId": "3f3ded0f-43fa-4ab6-a80e-3efb4e667632",
+          "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
+          "shortName": "VQ1_U16_w",
+          "type": "Competition",
+          "updated": "2024-11-06 16:53:32.894",
+          "structureUpdated": "2024-11-06 16:53:32.894",
+          "resultsUpdated": "2023-12-04 09:29:20.342",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100790",
+            "uuid": "b29423d4-5024-44ba-a498-84f475c5380b",
+            "name": "Vor-Qualifikation Jugendmeisterschaft",
+            "shortName": "VQ",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100790",
+                "name": "Vor-Qualifikation Jugendmeisterschaft",
+                "shortName": "VQ",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906073",
+          "name": "Breisgau-Halle",
+          "street": "Breisgaustr. 6",
+          "extraField": "-",
+          "postalCode": "79206",
+          "city": "Breisach",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2024-11-09T12:30:00.000Z",
+        "dateIso": "2024-11-09T12:30:00.000Z"
+      },
+      {
+        "id": "79689817",
+        "uuid": "cbde5fea-6165-4c51-9651-82a279cb64cb",
+        "number": "8",
+        "date": "09.11.2024",
+        "time": "13:30",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "79051359",
+          "uuid": "a93e7cd8-dc63-42ae-abd9-74ea033b6d1d",
+          "name": "SG Breisach-Gündlingen",
+          "club": "SG Breisach-Gündlingen"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70101230",
+          "uuid": "f7a41788-f85c-4e4d-9cd4-4a579d816806",
+          "allSeasonId": "3f3ded0f-43fa-4ab6-a80e-3efb4e667632",
+          "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
+          "shortName": "VQ1_U16_w",
+          "type": "Competition",
+          "updated": "2024-11-06 16:53:32.894",
+          "structureUpdated": "2024-11-06 16:53:32.894",
+          "resultsUpdated": "2023-12-04 09:29:20.342",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100790",
+            "uuid": "b29423d4-5024-44ba-a498-84f475c5380b",
+            "name": "Vor-Qualifikation Jugendmeisterschaft",
+            "shortName": "VQ",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100790",
+                "name": "Vor-Qualifikation Jugendmeisterschaft",
+                "shortName": "VQ",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906073",
+          "name": "Breisgau-Halle",
+          "street": "Breisgaustr. 6",
+          "extraField": "-",
+          "postalCode": "79206",
+          "city": "Breisach",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2024-11-09T12:30:00.000Z",
+        "dateIso": "2024-11-09T12:30:00.000Z"
+      },
+      {
+        "id": "79689819",
+        "uuid": "ab51d10b-0f7a-4040-bd9f-3f0a1ad78901",
+        "number": "9",
+        "date": "09.11.2024",
+        "time": "15:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "79051359",
+          "uuid": "a93e7cd8-dc63-42ae-abd9-74ea033b6d1d",
+          "name": "SG Breisach-Gündlingen",
+          "club": "SG Breisach-Gündlingen"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70101230",
+          "uuid": "f7a41788-f85c-4e4d-9cd4-4a579d816806",
+          "allSeasonId": "3f3ded0f-43fa-4ab6-a80e-3efb4e667632",
+          "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
+          "shortName": "VQ1_U16_w",
+          "type": "Competition",
+          "updated": "2024-11-06 16:53:32.894",
+          "structureUpdated": "2024-11-06 16:53:32.894",
+          "resultsUpdated": "2023-12-04 09:29:20.342",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100790",
+            "uuid": "b29423d4-5024-44ba-a498-84f475c5380b",
+            "name": "Vor-Qualifikation Jugendmeisterschaft",
+            "shortName": "VQ",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100790",
+                "name": "Vor-Qualifikation Jugendmeisterschaft",
+                "shortName": "VQ",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906073",
+          "name": "Breisgau-Halle",
+          "street": "Breisgaustr. 6",
+          "extraField": "-",
+          "postalCode": "79206",
+          "city": "Breisach",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2024-11-09T14:00:00.000Z",
+        "dateIso": "2024-11-09T14:00:00.000Z"
+      },
+      {
+        "id": "79689820",
+        "uuid": "39363ac6-f2f8-41f4-89ad-4d92ccfd956e",
         "number": "10",
         "date": "09.11.2024",
         "time": "15:00",
@@ -1020,10 +1020,10 @@
         "indefinitelyRescheduled": "false",
         "gameReassessed": "false",
         "host": {
-          "id": null,
-          "uuid": null,
-          "name": null,
-          "club": null
+          "id": "79051359",
+          "uuid": "a93e7cd8-dc63-42ae-abd9-74ea033b6d1d",
+          "name": "SG Breisach-Gündlingen",
+          "club": "SG Breisach-Gündlingen"
         },
         "team": [
           {
@@ -1060,8 +1060,8 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-04 23:15:06.099",
-          "structureUpdated": "2024-11-04 23:15:06.099",
+          "updated": "2024-11-06 16:53:32.894",
+          "structureUpdated": "2024-11-06 16:53:32.894",
           "resultsUpdated": "2023-12-04 09:29:20.342",
           "season": {
             "id": "70098350",
@@ -1122,244 +1122,20 @@
         "dateIso": "2024-11-09T14:00:00.000Z"
       },
       {
-        "id": "79599010",
-        "uuid": "854fa8f0-6a25-4fe4-bfa3-9891f3aa2c61",
-        "number": "15",
-        "date": "09.11.2024",
-        "time": "15:00",
-        "delayPossible": "false",
-        "decidingMatch": "false",
-        "indefinitelyRescheduled": "false",
-        "gameReassessed": "false",
-        "host": {
-          "id": null,
-          "uuid": null,
-          "name": null,
-          "club": null
-        },
-        "team": [
-          {
-            "number": "1",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": null,
-              "shortName": null
-            }
-          },
-          {
-            "number": "2",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": null,
-              "shortName": null
-            }
-          }
-        ],
-        "matchSeries": {
-          "id": "70101230",
-          "uuid": "f7a41788-f85c-4e4d-9cd4-4a579d816806",
-          "allSeasonId": "3f3ded0f-43fa-4ab6-a80e-3efb4e667632",
-          "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
-          "shortName": "VQ1_U16_w",
-          "type": "Competition",
-          "updated": "2024-11-04 23:15:06.099",
-          "structureUpdated": "2024-11-04 23:15:06.099",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
-          "season": {
-            "id": "70098350",
-            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
-            "name": "2024/25"
-          },
-          "hierarchy": {
-            "id": "70100790",
-            "uuid": "b29423d4-5024-44ba-a498-84f475c5380b",
-            "name": "Vor-Qualifikation Jugendmeisterschaft",
-            "shortName": "VQ",
-            "hierarchyLevel": "3"
-          },
-          "fullHierarchy": {
-            "hierarchy": [
-              {
-                "id": "70100790",
-                "name": "Vor-Qualifikation Jugendmeisterschaft",
-                "shortName": "VQ",
-                "hierarchyLevel": "3"
-              },
-              {
-                "id": "70100789",
-                "name": "SBVV-Jugendmeisterschaften",
-                "shortName": "sbvv_jm",
-                "hierarchyLevel": "2"
-              },
-              {
-                "id": "70100788",
-                "name": "Jugendspielbetrieb",
-                "shortName": "JUG",
-                "hierarchyLevel": "1"
-              },
-              {
-                "id": "70098566",
-                "name": "Südbadischer Volleyball-Verband (SBVV)",
-                "shortName": "SBVV",
-                "hierarchyLevel": "0"
-              }
-            ]
-          },
-          "association": {
-            "name": "Südbadischer Volleyball-Verband",
-            "shortName": "SBVV"
-          }
-        },
-        "location": {
-          "id": "13906073",
-          "name": "Breisgau-Halle",
-          "street": "Breisgaustr. 6",
-          "extraField": "-",
-          "postalCode": "79206",
-          "city": "Breisach",
-          "note": "-"
-        },
-        "referees": null,
-        "dateObject": "2024-11-09T14:00:00.000Z",
-        "dateIso": "2024-11-09T14:00:00.000Z"
-      },
-      {
-        "id": "79599011",
-        "uuid": "6674adda-43c2-4e88-a4bd-8104c8becbac",
-        "number": "16",
-        "date": "09.11.2024",
-        "time": "15:00",
-        "delayPossible": "false",
-        "decidingMatch": "false",
-        "indefinitelyRescheduled": "false",
-        "gameReassessed": "false",
-        "host": {
-          "id": null,
-          "uuid": null,
-          "name": null,
-          "club": null
-        },
-        "team": [
-          {
-            "number": "1",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": null,
-              "shortName": null
-            }
-          },
-          {
-            "number": "2",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": null,
-              "shortName": null
-            }
-          }
-        ],
-        "matchSeries": {
-          "id": "70101230",
-          "uuid": "f7a41788-f85c-4e4d-9cd4-4a579d816806",
-          "allSeasonId": "3f3ded0f-43fa-4ab6-a80e-3efb4e667632",
-          "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
-          "shortName": "VQ1_U16_w",
-          "type": "Competition",
-          "updated": "2024-11-04 23:15:06.099",
-          "structureUpdated": "2024-11-04 23:15:06.099",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
-          "season": {
-            "id": "70098350",
-            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
-            "name": "2024/25"
-          },
-          "hierarchy": {
-            "id": "70100790",
-            "uuid": "b29423d4-5024-44ba-a498-84f475c5380b",
-            "name": "Vor-Qualifikation Jugendmeisterschaft",
-            "shortName": "VQ",
-            "hierarchyLevel": "3"
-          },
-          "fullHierarchy": {
-            "hierarchy": [
-              {
-                "id": "70100790",
-                "name": "Vor-Qualifikation Jugendmeisterschaft",
-                "shortName": "VQ",
-                "hierarchyLevel": "3"
-              },
-              {
-                "id": "70100789",
-                "name": "SBVV-Jugendmeisterschaften",
-                "shortName": "sbvv_jm",
-                "hierarchyLevel": "2"
-              },
-              {
-                "id": "70100788",
-                "name": "Jugendspielbetrieb",
-                "shortName": "JUG",
-                "hierarchyLevel": "1"
-              },
-              {
-                "id": "70098566",
-                "name": "Südbadischer Volleyball-Verband (SBVV)",
-                "shortName": "SBVV",
-                "hierarchyLevel": "0"
-              }
-            ]
-          },
-          "association": {
-            "name": "Südbadischer Volleyball-Verband",
-            "shortName": "SBVV"
-          }
-        },
-        "location": {
-          "id": "13906073",
-          "name": "Breisgau-Halle",
-          "street": "Breisgaustr. 6",
-          "extraField": "-",
-          "postalCode": "79206",
-          "city": "Breisach",
-          "note": "-"
-        },
-        "referees": null,
-        "dateObject": "2024-11-09T14:00:00.000Z",
-        "dateIso": "2024-11-09T14:00:00.000Z"
-      },
-      {
-        "id": "79599007",
-        "uuid": "80056a48-2aa4-436b-abf0-18231bf43877",
+        "id": "79689821",
+        "uuid": "f649b19e-18b0-4651-880c-4d33bafc77e8",
         "number": "11",
         "date": "09.11.2024",
-        "time": "15:00",
+        "time": "16:00",
         "delayPossible": "false",
         "decidingMatch": "false",
         "indefinitelyRescheduled": "false",
         "gameReassessed": "false",
         "host": {
-          "id": null,
-          "uuid": null,
-          "name": null,
-          "club": null
+          "id": "79051359",
+          "uuid": "a93e7cd8-dc63-42ae-abd9-74ea033b6d1d",
+          "name": "SG Breisach-Gündlingen",
+          "club": "SG Breisach-Gündlingen"
         },
         "team": [
           {
@@ -1396,8 +1172,8 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-04 23:15:06.099",
-          "structureUpdated": "2024-11-04 23:15:06.099",
+          "updated": "2024-11-06 16:53:32.894",
+          "structureUpdated": "2024-11-06 16:53:32.894",
           "resultsUpdated": "2023-12-04 09:29:20.342",
           "season": {
             "id": "70098350",
@@ -1454,120 +1230,8 @@
           "note": "-"
         },
         "referees": null,
-        "dateObject": "2024-11-09T14:00:00.000Z",
-        "dateIso": "2024-11-09T14:00:00.000Z"
-      },
-      {
-        "id": "79599009",
-        "uuid": "a7559901-8622-499d-b0e7-a18961afe6a6",
-        "number": "14",
-        "date": "09.11.2024",
-        "time": "15:00",
-        "delayPossible": "false",
-        "decidingMatch": "false",
-        "indefinitelyRescheduled": "false",
-        "gameReassessed": "false",
-        "host": {
-          "id": null,
-          "uuid": null,
-          "name": null,
-          "club": null
-        },
-        "team": [
-          {
-            "number": "1",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": null,
-              "shortName": null
-            }
-          },
-          {
-            "number": "2",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
-            "shortName": null,
-            "clubCode": null,
-            "club": {
-              "name": null,
-              "shortName": null
-            }
-          }
-        ],
-        "matchSeries": {
-          "id": "70101230",
-          "uuid": "f7a41788-f85c-4e4d-9cd4-4a579d816806",
-          "allSeasonId": "3f3ded0f-43fa-4ab6-a80e-3efb4e667632",
-          "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
-          "shortName": "VQ1_U16_w",
-          "type": "Competition",
-          "updated": "2024-11-04 23:15:06.099",
-          "structureUpdated": "2024-11-04 23:15:06.099",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
-          "season": {
-            "id": "70098350",
-            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
-            "name": "2024/25"
-          },
-          "hierarchy": {
-            "id": "70100790",
-            "uuid": "b29423d4-5024-44ba-a498-84f475c5380b",
-            "name": "Vor-Qualifikation Jugendmeisterschaft",
-            "shortName": "VQ",
-            "hierarchyLevel": "3"
-          },
-          "fullHierarchy": {
-            "hierarchy": [
-              {
-                "id": "70100790",
-                "name": "Vor-Qualifikation Jugendmeisterschaft",
-                "shortName": "VQ",
-                "hierarchyLevel": "3"
-              },
-              {
-                "id": "70100789",
-                "name": "SBVV-Jugendmeisterschaften",
-                "shortName": "sbvv_jm",
-                "hierarchyLevel": "2"
-              },
-              {
-                "id": "70100788",
-                "name": "Jugendspielbetrieb",
-                "shortName": "JUG",
-                "hierarchyLevel": "1"
-              },
-              {
-                "id": "70098566",
-                "name": "Südbadischer Volleyball-Verband (SBVV)",
-                "shortName": "SBVV",
-                "hierarchyLevel": "0"
-              }
-            ]
-          },
-          "association": {
-            "name": "Südbadischer Volleyball-Verband",
-            "shortName": "SBVV"
-          }
-        },
-        "location": {
-          "id": "13906073",
-          "name": "Breisgau-Halle",
-          "street": "Breisgaustr. 6",
-          "extraField": "-",
-          "postalCode": "79206",
-          "city": "Breisach",
-          "note": "-"
-        },
-        "referees": null,
-        "dateObject": "2024-11-09T14:00:00.000Z",
-        "dateIso": "2024-11-09T14:00:00.000Z"
+        "dateObject": "2024-11-09T15:00:00.000Z",
+        "dateIso": "2024-11-09T15:00:00.000Z"
       }
     ]
   }
