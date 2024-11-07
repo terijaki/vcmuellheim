@@ -1,5 +1,5 @@
 {
-    "date": "2024-10-31T02:48:34.809Z",
+    "date": "2024-11-07T02:47:23.511Z",
     "players": [
         {
             "lastname": "Lindemann",
@@ -127,6 +127,14 @@
             "nationality": "DE",
             "number": "",
             "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Nafz",
+            "firstname": "Philipp",
+            "nationality": "DE",
+            "number": "",
+            "height": 190,
             "function": ""
         }
     ]
