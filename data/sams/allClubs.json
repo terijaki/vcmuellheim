@@ -14482,6 +14482,16 @@
         }
       },
       {
+        "id": "65036642",
+        "name": "TV Haueneberstein",
+        "lsbNumber": null,
+        "internalSportsclubId": "100059",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "37921618",
         "name": "TV Rosbach 1965 e.V.",
         "lsbNumber": "2819016",
@@ -14972,6 +14982,16 @@
         }
       },
       {
+        "id": "65037253",
+        "name": "TV Heitersheim",
+        "lsbNumber": "471270",
+        "internalSportsclubId": "3528",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "65036654",
         "name": "TSG Ketsch",
         "lsbNumber": "60913",
@@ -15339,6 +15359,16 @@
         "association": {
           "id": "33299092",
           "name": "Düsseldorf"
+        }
+      },
+      {
+        "id": "79681531",
+        "name": "Schulen Brandenburg",
+        "lsbNumber": "1111111110000063",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -17342,6 +17372,16 @@
         }
       },
       {
+        "id": "51836274",
+        "name": "Sportgemeinde 1926 Spiesheim e.V.",
+        "lsbNumber": "480",
+        "internalSportsclubId": "32-47-15",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
         "id": "37921144",
         "name": "Hellerhofer Sportverein e.V.",
         "lsbNumber": "1001288",
@@ -18382,16 +18422,6 @@
         }
       },
       {
-        "id": "15437083",
-        "name": "Volleyball-Verband Mecklenburg-Vorpommern",
-        "lsbNumber": "304495552",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "242",
-          "name": "Deutscher Volleyball-Verband"
-        }
-      },
-      {
         "id": "26925517",
         "name": "Freizeit V.V. Großkrotzenburg e.V.",
         "lsbNumber": "28229",
@@ -18479,6 +18509,16 @@
         "association": {
           "id": "7215",
           "name": "Bayerischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "15437083",
+        "name": "Volleyball-Verband Mecklenburg-Vorpommern",
+        "lsbNumber": "304495552",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "242",
+          "name": "Deutscher Volleyball-Verband"
         }
       },
       {
@@ -22642,16 +22682,6 @@
         }
       },
       {
-        "id": "37921788",
-        "name": "VC Melanchthon Hürth e.V.",
-        "lsbNumber": "2307041",
-        "internalSportsclubId": "1364",
-        "association": {
-          "id": "33795261",
-          "name": "Köln"
-        }
-      },
-      {
         "id": "37921896",
         "name": "VC Rosenmaar",
         "lsbNumber": "2006037",
@@ -22746,6 +22776,16 @@
         "name": "Indischer Volleyball Club Köln e.V.",
         "lsbNumber": "2003608",
         "internalSportsclubId": "1226",
+        "association": {
+          "id": "33795261",
+          "name": "Köln"
+        }
+      },
+      {
+        "id": "37921788",
+        "name": "VC Melanchthon Hürth e.V.",
+        "lsbNumber": "2307041",
+        "internalSportsclubId": "1364",
         "association": {
           "id": "33795261",
           "name": "Köln"
@@ -24802,6 +24842,16 @@
         }
       },
       {
+        "id": "37921222",
+        "name": "Polizei SV Oberhausen e.V.",
+        "lsbNumber": "1007059",
+        "internalSportsclubId": "1374",
+        "association": {
+          "id": "33299034",
+          "name": "Mühlheim-Oberhausen"
+        }
+      },
+      {
         "id": "37921589",
         "name": "TV Mönchengladbach Hardt 1901 e.V.",
         "lsbNumber": "1005085",
@@ -24899,16 +24949,6 @@
         "association": {
           "id": "33798063",
           "name": "Märkischer Kreis"
-        }
-      },
-      {
-        "id": "37921222",
-        "name": "Polizei SV Oberhausen e.V.",
-        "lsbNumber": "1007059",
-        "internalSportsclubId": "1374",
-        "association": {
-          "id": "33299034",
-          "name": "Mühlheim-Oberhausen"
         }
       },
       {
@@ -25632,16 +25672,6 @@
         }
       },
       {
-        "id": "37921146",
-        "name": "FC Büderich 02 e.V.",
-        "lsbNumber": "1306051",
-        "internalSportsclubId": "10149",
-        "association": {
-          "id": "33299112",
-          "name": "Neuss-Grevenbroich"
-        }
-      },
-      {
         "id": "37920750",
         "name": "TV Hochneukirch 1902 e.V.",
         "lsbNumber": "1303010",
@@ -25839,6 +25869,16 @@
         "association": {
           "id": "33795588",
           "name": "Oberberg"
+        }
+      },
+      {
+        "id": "37921146",
+        "name": "FC Büderich 02 e.V.",
+        "lsbNumber": "1306051",
+        "internalSportsclubId": "10149",
+        "association": {
+          "id": "33299112",
+          "name": "Neuss-Grevenbroich"
         }
       },
       {
@@ -35202,16 +35242,6 @@
         }
       },
       {
-        "id": "56113099",
-        "name": "Volleyball Akademie Stuttgart",
-        "lsbNumber": "200401",
-        "internalSportsclubId": "287",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "37921631",
         "name": "OTSV Preußisch Oldendorf e.V.",
         "lsbNumber": "4509002",
@@ -35279,6 +35309,16 @@
         "association": {
           "id": "33797364",
           "name": "Warendorf"
+        }
+      },
+      {
+        "id": "56113099",
+        "name": "Volleyball Akademie Stuttgart",
+        "lsbNumber": "200401",
+        "internalSportsclubId": "287",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       },
       {
@@ -44892,6 +44932,16 @@
         }
       },
       {
+        "id": "54610875",
+        "name": "EK Kohlberg",
+        "lsbNumber": "6357",
+        "internalSportsclubId": "221",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
         "id": "54610882",
         "name": "TV Liebersbronn",
         "lsbNumber": "6059",
@@ -45009,16 +45059,6 @@
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
-        "id": "54610875",
-        "name": "EK Kohlberg",
-        "lsbNumber": "6357",
-        "internalSportsclubId": "221",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
         }
       },
       {
@@ -46882,16 +46922,6 @@
         }
       },
       {
-        "id": "37311086",
-        "name": "VSG Ettlingen/Rüppurr",
-        "lsbNumber": null,
-        "internalSportsclubId": "8285881564",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "54611001",
         "name": "FC Friedrichshafen",
         "lsbNumber": "4008",
@@ -46912,20 +46942,20 @@
         }
       },
       {
+        "id": "37311086",
+        "name": "VSG Ettlingen/Rüppurr",
+        "lsbNumber": null,
+        "internalSportsclubId": "8285881564",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "51836284",
         "name": "Turn- und Sportgemeinde 1887/1924 Schwabenheim e.V.",
         "lsbNumber": "2789",
         "internalSportsclubId": null,
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
-        "id": "51836274",
-        "name": "Sportgemeinde 1926 Spiesheim e.V.",
-        "lsbNumber": "480",
-        "internalSportsclubId": "32-47-15",
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
@@ -59472,16 +59502,6 @@
         }
       },
       {
-        "id": "65037253",
-        "name": "TV Heitersheim",
-        "lsbNumber": "471270",
-        "internalSportsclubId": "3528",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "50621853",
         "name": "SG Dresdner Bank Dresden c/o Commerzbank AG",
         "lsbNumber": "410210",
@@ -60012,6 +60032,16 @@
         }
       },
       {
+        "id": "37921625",
+        "name": "SV Blau-Weiß 1910 Herongen e.V.",
+        "lsbNumber": "1113005",
+        "internalSportsclubId": "972",
+        "association": {
+          "id": "33298881",
+          "name": "Kleve"
+        }
+      },
+      {
         "id": "65037362",
         "name": "FSV Stegen",
         "lsbNumber": null,
@@ -60109,16 +60139,6 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "37921625",
-        "name": "SV Blau-Weiß 1910 Herongen e.V.",
-        "lsbNumber": "1113005",
-        "internalSportsclubId": "972",
-        "association": {
-          "id": "33298881",
-          "name": "Kleve"
         }
       },
       {
@@ -61769,16 +61789,6 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
-        "id": "65036642",
-        "name": "TV Haueneberstein",
-        "lsbNumber": null,
-        "internalSportsclubId": "100059",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
