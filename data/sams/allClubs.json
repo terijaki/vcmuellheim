@@ -50282,16 +50282,6 @@
         }
       },
       {
-        "id": "51836323",
-        "name": "SC Dittelsheim-Heßloch e.V.",
-        "lsbNumber": "3000168",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "54611066",
         "name": "TSV Walpertshofen",
         "lsbNumber": "2179",
@@ -50319,6 +50309,16 @@
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
+        }
+      },
+      {
+        "id": "51836323",
+        "name": "SC Dittelsheim-Heßloch e.V.",
+        "lsbNumber": "3000168",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
