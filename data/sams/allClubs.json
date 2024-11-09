@@ -38982,16 +38982,6 @@
         }
       },
       {
-        "id": "17068768",
-        "name": "Chemnitzer Volleyballverein e.V.",
-        "lsbNumber": "400246",
-        "internalSportsclubId": "542",
-        "association": {
-          "id": "24908708",
-          "name": "Stadt Chemnitz"
-        }
-      },
-      {
         "id": "6528",
         "name": "VSV Oelsnitz e.V.",
         "lsbNumber": "510341",
@@ -39089,6 +39079,16 @@
         "association": {
           "id": "24908790",
           "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
+        }
+      },
+      {
+        "id": "17068768",
+        "name": "Chemnitzer Volleyballverein e.V.",
+        "lsbNumber": "400246",
+        "internalSportsclubId": "542",
+        "association": {
+          "id": "24908708",
+          "name": "Stadt Chemnitz"
         }
       },
       {
