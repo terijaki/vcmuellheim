@@ -52,9 +52,9 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-09 06:31:06.963",
+          "updated": "2024-11-09 11:09:19.073",
           "structureUpdated": "2024-11-09 06:31:06.963",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
+          "resultsUpdated": "2024-11-09 11:09:19.073",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -110,6 +110,36 @@
           "note": "-"
         },
         "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:1",
+          "ballPoints": "57:53",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "17:25",
+                "winner": "TEAM2",
+                "duration": "18"
+              },
+              {
+                "number": "1",
+                "points": "25:21",
+                "winner": "TEAM1",
+                "duration": "16"
+              },
+              {
+                "number": "1",
+                "points": "15:7",
+                "winner": "TEAM1",
+                "duration": "11"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "5",
+        "netDuration": "45",
         "dateObject": "2024-11-09T09:00:00.000Z",
         "dateIso": "2024-11-09T09:00:00.000Z"
       },
@@ -164,9 +194,9 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-09 06:31:06.963",
+          "updated": "2024-11-09 11:09:19.073",
           "structureUpdated": "2024-11-09 06:31:06.963",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
+          "resultsUpdated": "2024-11-09 11:09:19.073",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -222,6 +252,30 @@
           "note": "-"
         },
         "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "30:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "12:25",
+                "winner": "TEAM2",
+                "duration": "30"
+              },
+              {
+                "number": "1",
+                "points": "18:25",
+                "winner": "TEAM2",
+                "duration": "17"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "10",
+        "netDuration": "47",
         "dateObject": "2024-11-09T09:00:00.000Z",
         "dateIso": "2024-11-09T09:00:00.000Z"
       },
@@ -276,9 +330,9 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-09 06:31:06.963",
+          "updated": "2024-11-09 11:09:19.073",
           "structureUpdated": "2024-11-09 06:31:06.963",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
+          "resultsUpdated": "2024-11-09 11:09:19.073",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -388,9 +442,9 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-09 06:31:06.963",
+          "updated": "2024-11-09 11:09:19.073",
           "structureUpdated": "2024-11-09 06:31:06.963",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
+          "resultsUpdated": "2024-11-09 11:09:19.073",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -500,9 +554,9 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-09 06:31:06.963",
+          "updated": "2024-11-09 11:09:19.073",
           "structureUpdated": "2024-11-09 06:31:06.963",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
+          "resultsUpdated": "2024-11-09 11:09:19.073",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -612,9 +666,9 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-09 06:31:06.963",
+          "updated": "2024-11-09 11:09:19.073",
           "structureUpdated": "2024-11-09 06:31:06.963",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
+          "resultsUpdated": "2024-11-09 11:09:19.073",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -724,9 +778,9 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-09 06:31:06.963",
+          "updated": "2024-11-09 11:09:19.073",
           "structureUpdated": "2024-11-09 06:31:06.963",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
+          "resultsUpdated": "2024-11-09 11:09:19.073",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -836,9 +890,9 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-09 06:31:06.963",
+          "updated": "2024-11-09 11:09:19.073",
           "structureUpdated": "2024-11-09 06:31:06.963",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
+          "resultsUpdated": "2024-11-09 11:09:19.073",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -948,9 +1002,9 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-09 06:31:06.963",
+          "updated": "2024-11-09 11:09:19.073",
           "structureUpdated": "2024-11-09 06:31:06.963",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
+          "resultsUpdated": "2024-11-09 11:09:19.073",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1060,9 +1114,9 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-09 06:31:06.963",
+          "updated": "2024-11-09 11:09:19.073",
           "structureUpdated": "2024-11-09 06:31:06.963",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
+          "resultsUpdated": "2024-11-09 11:09:19.073",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1172,9 +1226,9 @@
           "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
           "shortName": "VQ1_U16_w",
           "type": "Competition",
-          "updated": "2024-11-09 06:31:06.963",
+          "updated": "2024-11-09 11:09:19.073",
           "structureUpdated": "2024-11-09 06:31:06.963",
-          "resultsUpdated": "2023-12-04 09:29:20.342",
+          "resultsUpdated": "2024-11-09 11:09:19.073",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
