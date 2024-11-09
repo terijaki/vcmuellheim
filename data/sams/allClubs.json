@@ -9442,6 +9442,16 @@
         }
       },
       {
+        "id": "50621707",
+        "name": "TuS Ebersdorf e.V.",
+        "lsbNumber": "400181",
+        "internalSportsclubId": "508",
+        "association": {
+          "id": "24908708",
+          "name": "Stadt Chemnitz"
+        }
+      },
+      {
         "id": "26866513",
         "name": "VfB Eppelborn-Macherbach",
         "lsbNumber": "85000",
@@ -9609,16 +9619,6 @@
         "association": {
           "id": "33298943",
           "name": "Duisburg"
-        }
-      },
-      {
-        "id": "50621707",
-        "name": "TuS Ebersdorf e.V.",
-        "lsbNumber": "400181",
-        "internalSportsclubId": "508",
-        "association": {
-          "id": "24908708",
-          "name": "Stadt Chemnitz"
         }
       },
       {
@@ -14462,16 +14462,6 @@
         }
       },
       {
-        "id": "37921632",
-        "name": "BSG der Sparkasse Duisburg",
-        "lsbNumber": "1002817",
-        "internalSportsclubId": "10085",
-        "association": {
-          "id": "33298943",
-          "name": "Duisburg"
-        }
-      },
-      {
         "id": "54611228",
         "name": "TV Baiersbronn",
         "lsbNumber": "7011",
@@ -17822,6 +17812,16 @@
         }
       },
       {
+        "id": "36963900",
+        "name": "VSG Lübeck",
+        "lsbNumber": "7036202",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7207",
+          "name": "Schleswig-Holsteinischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "60265051",
         "name": "Gramzower VFB e.V.",
         "lsbNumber": "730062",
@@ -17839,6 +17839,16 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "37921632",
+        "name": "BSG der Sparkasse Duisburg",
+        "lsbNumber": "1002817",
+        "internalSportsclubId": "10085",
+        "association": {
+          "id": "33298943",
+          "name": "Duisburg"
         }
       },
       {
@@ -35242,16 +35252,6 @@
         }
       },
       {
-        "id": "37921631",
-        "name": "OTSV Preußisch Oldendorf e.V.",
-        "lsbNumber": "4509002",
-        "internalSportsclubId": "4106",
-        "association": {
-          "id": "33797702",
-          "name": "Minden-Ravensberg"
-        }
-      },
-      {
         "id": "37948220",
         "name": "SV Martineum Halberstadt e.V.",
         "lsbNumber": "50075",
@@ -35259,6 +35259,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "37921631",
+        "name": "OTSV Preußisch Oldendorf e.V.",
+        "lsbNumber": "4509002",
+        "internalSportsclubId": "4106",
+        "association": {
+          "id": "33797702",
+          "name": "Minden-Ravensberg"
         }
       },
       {
@@ -36369,16 +36379,6 @@
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
-        }
-      },
-      {
-        "id": "36963900",
-        "name": "VSG Lübeck",
-        "lsbNumber": "7036202",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7207",
-          "name": "Schleswig-Holsteinischer Volleyball-Verband"
         }
       },
       {
@@ -42212,6 +42212,16 @@
         }
       },
       {
+        "id": "50621826",
+        "name": "SV Stahl Brandis e.V.",
+        "lsbNumber": "460258",
+        "internalSportsclubId": "23",
+        "association": {
+          "id": "24908851",
+          "name": "Landkreis Leipzig"
+        }
+      },
+      {
         "id": "50621821",
         "name": "VC Leipzig e.V.",
         "lsbNumber": "420451",
@@ -42249,16 +42259,6 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
-        "id": "50621826",
-        "name": "SV Stahl Brandis e.V.",
-        "lsbNumber": "460258",
-        "internalSportsclubId": "23",
-        "association": {
-          "id": "24908851",
-          "name": "Landkreis Leipzig"
         }
       },
       {
@@ -47222,6 +47222,16 @@
         }
       },
       {
+        "id": "50621664",
+        "name": "SVV 1990 Glashütte-Schlottwitz e.V.",
+        "lsbNumber": "500256",
+        "internalSportsclubId": "338",
+        "association": {
+          "id": "24908790",
+          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
+        }
+      },
+      {
         "id": "50621804",
         "name": "SV Reichenbach e.V.",
         "lsbNumber": "450279",
@@ -47309,16 +47319,6 @@
         "association": {
           "id": "24908726",
           "name": "Vogtlandkreis"
-        }
-      },
-      {
-        "id": "50621664",
-        "name": "SVV 1990 Glashütte-Schlottwitz e.V.",
-        "lsbNumber": "500256",
-        "internalSportsclubId": "338",
-        "association": {
-          "id": "24908790",
-          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
         }
       },
       {
@@ -55432,16 +55432,6 @@
         }
       },
       {
-        "id": "54611367",
-        "name": "TSB Schwäbisch Gmünd",
-        "lsbNumber": "13156",
-        "internalSportsclubId": "802",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "54824123",
         "name": "Holzschwanger SV",
         "lsbNumber": "300123456789",
@@ -55536,6 +55526,16 @@
         "name": "TV 1884 Unterkochen",
         "lsbNumber": "13183",
         "internalSportsclubId": "822",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "54611367",
+        "name": "TSB Schwäbisch Gmünd",
+        "lsbNumber": "13156",
+        "internalSportsclubId": "802",
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
@@ -57222,6 +57222,16 @@
         }
       },
       {
+        "id": "52514901",
+        "name": "SV Grün Weiß 1924 Großtreben e.V.",
+        "lsbNumber": "490207",
+        "internalSportsclubId": "108",
+        "association": {
+          "id": "24908869",
+          "name": "Landkreis Nordsachsen"
+        }
+      },
+      {
         "id": "37921500",
         "name": "Aachener Volleyball-Enthusiasten `79 eV",
         "lsbNumber": "2001177",
@@ -57239,16 +57249,6 @@
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
-        }
-      },
-      {
-        "id": "52514901",
-        "name": "SV Grün Weiß 1924 Großtreben e.V.",
-        "lsbNumber": "490207",
-        "internalSportsclubId": "108",
-        "association": {
-          "id": "24908869",
-          "name": "Landkreis Nordsachsen"
         }
       },
       {
