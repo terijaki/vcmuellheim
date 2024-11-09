@@ -223,7 +223,7 @@
             "name": "Bezirksklasse Damen Süd",
             "shortName": "bzk s d",
             "type": "League",
-            "updated": "2024-10-30 16:57:29.225",
+            "updated": "2024-11-07 20:59:43.16",
             "structureUpdated": "2024-10-30 16:57:01.543",
             "resultsUpdated": "2024-10-30 16:57:29.225",
             "season": {
@@ -314,8 +314,8 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2024-10-27 16:02:10.985",
-            "structureUpdated": "2024-10-23 22:46:47.293",
+            "updated": "2024-11-09 08:42:09.167",
+            "structureUpdated": "2024-11-09 08:42:09.167",
             "resultsUpdated": "2024-10-27 16:02:10.985",
             "season": {
               "id": "70098350",
@@ -484,8 +484,8 @@
             "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
             "shortName": "Q1_U20_w",
             "type": "Competition",
-            "updated": "2024-11-06 21:56:48.488",
-            "structureUpdated": "2024-11-06 21:56:48.488",
+            "updated": "2024-11-08 11:18:32.944",
+            "structureUpdated": "2024-11-08 11:18:32.944",
             "resultsUpdated": "2023-11-06 09:08:01.713",
             "season": {
               "id": "70098350",
@@ -563,8 +563,8 @@
             "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
             "shortName": "VQ1_U16_w",
             "type": "Competition",
-            "updated": "2024-11-06 16:53:32.894",
-            "structureUpdated": "2024-11-06 16:53:32.894",
+            "updated": "2024-11-09 06:31:06.963",
+            "structureUpdated": "2024-11-09 06:31:06.963",
             "resultsUpdated": "2023-12-04 09:29:20.342",
             "season": {
               "id": "70098350",
@@ -642,7 +642,7 @@
             "name": "West - Jugendrunde weiblich (4:4)",
             "shortName": "W_JRw",
             "type": "Competition",
-            "updated": "2024-11-04 10:33:16.491",
+            "updated": "2024-11-07 19:08:03.925",
             "structureUpdated": "2024-11-04 10:33:16.491",
             "resultsUpdated": null,
             "season": {
@@ -727,8 +727,8 @@
             "name": "West - U20 weiblich",
             "shortName": "WQ_U20w",
             "type": "Competition",
-            "updated": "2024-11-06 08:35:09.667",
-            "structureUpdated": "2024-11-06 08:35:09.667",
+            "updated": "2024-11-07 17:51:02.565",
+            "structureUpdated": "2024-11-07 17:51:02.565",
             "resultsUpdated": "2022-12-06 13:24:36.45",
             "season": {
               "id": "70098350",
