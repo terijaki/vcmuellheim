@@ -62472,16 +62472,6 @@
         }
       },
       {
-        "id": "54611079",
-        "name": "SV Althengstett",
-        "lsbNumber": "5011",
-        "internalSportsclubId": "437",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "37921588",
         "name": "Freie Schwimmer Duisburg",
         "lsbNumber": "1002156",
@@ -62489,6 +62479,16 @@
         "association": {
           "id": "33298943",
           "name": "Duisburg"
+        }
+      },
+      {
+        "id": "54611079",
+        "name": "SV Althengstett",
+        "lsbNumber": "5011",
+        "internalSportsclubId": "437",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
