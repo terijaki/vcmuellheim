@@ -60232,16 +60232,6 @@
         }
       },
       {
-        "id": "51836058",
-        "name": "Turn und Sportgemeinde Pfeddersheim von 1886 e.V.",
-        "lsbNumber": "90",
-        "internalSportsclubId": "32-61-06",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "65037398",
         "name": "SV St.Blasien",
         "lsbNumber": "185640",
@@ -60259,6 +60249,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "51836058",
+        "name": "Turn und Sportgemeinde Pfeddersheim von 1886 e.V.",
+        "lsbNumber": "90",
+        "internalSportsclubId": "32-61-06",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
