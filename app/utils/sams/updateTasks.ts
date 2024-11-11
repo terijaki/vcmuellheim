@@ -3,18 +3,18 @@
 import fs from "fs";
 import path from "path";
 import { env } from "process";
-import { cachedGetTeamIds, cachedGetUniqueMatchSeriesIds } from "./cachedGetClubData";
 import { writeToSummary } from "../github/actionSummary";
-import getMatchSeries from "./getMatchSeries";
+import { slugify } from "../slugify";
+import { cachedGetTeamIds, cachedGetUniqueMatchSeriesIds } from "./cachedGetClubData";
+import getAllClubs, { clubData } from "./getAllClubs";
 import getClubData from "./getClubData";
-import getRankings from "./getRankings";
+import { getClubId } from "./getClubLogo";
+import getMatchSeries from "./getMatchSeries";
 import getMatches from "./getMatches";
 import getPlayers from "./getPlayers";
-import getAllClubs, { clubData } from "./getAllClubs";
-import { getClubId } from "./getClubLogo";
-import { slugify } from "../slugify";
-import verifyTeams from "./verifyTeams";
+import getRankings from "./getRankings";
 import { getSeasons } from "./getSeasons";
+import verifyTeams from "./verifyTeams";
 
 const SAMS_CLUB_NUMBER = env.SAMS_CLUB_NUMBER,
 	SAMS_CLUB_NAME = env.SAMS_CLUB_NAME;
@@ -150,15 +150,20 @@ getAllClubs()
 			rankingsFiltered.map((rankings) => {
 				const fullPath = path.join(rankings.path, rankings.name);
 				const rankingFile = fs.readFileSync(fullPath);
-				const rankingContent = JSON.parse(rankingFile.toString()).rankings.ranking;
-				rankingContent.map((team: { team: { club: { name: string } } }) => {
-					if (team.team.club && team.team.club.name) {
-						let clubName = team.team.club.name.toString();
-						if (!clubs.has(clubName)) {
-							clubs.add(clubName);
+				const rankingJSON = JSON.parse(rankingFile.toString());
+				if (rankingJSON.hasOwnProperty("rankings") && rankingJSON.rankings.hasOwnProperty("ranking")) {
+					const rankingContent = rankingJSON.rankings?.ranking;
+					rankingContent.map((team: { team: { club: { name: string } } }) => {
+						if (team.team.club && team.team.club.name) {
+							let clubName = team.team.club.name.toString();
+							if (!clubs.has(clubName)) {
+								clubs.add(clubName);
+							}
 						}
-					}
-				});
+					});
+				} else {
+					console.log("ℹ️ " + fullPath + " does not contain ranking information.");
+				}
 			});
 			// get a cache for each club
 			clubs.forEach(async (club) => {
