@@ -7,9 +7,9 @@
       "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
       "shortName": "VQ1_U16_w",
       "type": "Competition",
-      "updated": "2024-11-09 11:09:19.073",
-      "structureUpdated": "2024-11-09 06:31:06.963",
-      "resultsUpdated": "2024-11-09 11:09:19.073",
+      "updated": "2024-11-11 09:48:48.907",
+      "structureUpdated": "2024-11-11 09:48:48.906",
+      "resultsUpdated": "2024-11-09 16:55:56.518",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -54,6 +54,62 @@
         "name": "Südbadischer Volleyball-Verband",
         "shortName": "SBVV"
       }
-    }
+    },
+    "ranking": [
+      {
+        "place": "1",
+        "team": {
+          "id": "79380567",
+          "uuid": "7bda1af5-132a-4d2c-8314-14fd78fda278",
+          "name": "VC Offenburg 2",
+          "club": "VC Offenburg"
+        }
+      },
+      {
+        "place": "2",
+        "team": {
+          "id": "79051362",
+          "uuid": "cb46f6ba-90b4-4a65-82b9-5d49f801058c",
+          "name": "VC Weil",
+          "club": "VC Weil am Rhein"
+        }
+      },
+      {
+        "place": "3",
+        "team": {
+          "id": "79380557",
+          "uuid": "14302084-69fa-427f-9ba4-397754010671",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": "4",
+        "team": {
+          "id": "79051359",
+          "uuid": "a93e7cd8-dc63-42ae-abd9-74ea033b6d1d",
+          "name": "SG Breisach-Gündlingen",
+          "club": "SG Breisach-Gündlingen"
+        }
+      },
+      {
+        "place": "5",
+        "team": {
+          "id": "79051353",
+          "uuid": "0bc83ae2-59bc-42fc-ba2d-47cee568bcb9",
+          "name": "FT 1844 Freiburg 2",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": "6",
+        "team": {
+          "id": "79380564",
+          "uuid": "2bc0baec-2241-44da-a9ac-c9e646293b2a",
+          "name": "FT 1844 Freiburg 4",
+          "club": "FT 1844 Freiburg"
+        }
+      }
+    ]
   }
 }

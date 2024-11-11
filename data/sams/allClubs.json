@@ -9292,16 +9292,6 @@
         }
       },
       {
-        "id": "12483437",
-        "name": "TSV Tempelhof-Mariendorf e.V.",
-        "lsbNumber": "4972",
-        "internalSportsclubId": "14-11-019",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "37948415",
         "name": "TVC 99 Eisleben e.V.",
         "lsbNumber": "90124",
@@ -12756,16 +12746,6 @@
         "name": "SC Werne 02 e.V.",
         "lsbNumber": "5001442",
         "internalSportsclubId": "593",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
-        "id": "37920803",
-        "name": "Sportfreunde Niederwenigern 1924 e.V.",
-        "lsbNumber": "5104034",
-        "internalSportsclubId": "597",
         "association": {
           "id": "33797844",
           "name": "Bochum - Ennepe-Ruhr - Herne"
@@ -18782,6 +18762,16 @@
         }
       },
       {
+        "id": "37920784",
+        "name": "MTV Köln 1850 e.V.",
+        "lsbNumber": "2003043",
+        "internalSportsclubId": "8501",
+        "association": {
+          "id": "33795261",
+          "name": "Köln"
+        }
+      },
+      {
         "id": "26925555",
         "name": "TUS Hornau e.V.",
         "lsbNumber": "30071",
@@ -19169,6 +19159,16 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "80022553",
+        "name": "BSV Mahlsdorfer Waschbären \"Raccoons\" e.V.",
+        "lsbNumber": null,
+        "internalSportsclubId": "14-11-241",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -22712,16 +22712,6 @@
         }
       },
       {
-        "id": "37920784",
-        "name": "MTV Köln 1850 e.V.",
-        "lsbNumber": "2003043",
-        "internalSportsclubId": "8501",
-        "association": {
-          "id": "33795261",
-          "name": "Köln"
-        }
-      },
-      {
         "id": "37921449",
         "name": "Volleyballverein Deutz 66 e.V.",
         "lsbNumber": "2006064",
@@ -23762,6 +23752,16 @@
         }
       },
       {
+        "id": "12483437",
+        "name": "TSV Tempelhof-Mariendorf e.V.",
+        "lsbNumber": "4972",
+        "internalSportsclubId": "14-11-019",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
         "id": "37921643",
         "name": "Kempener Turnverein 1960 e.V.",
         "lsbNumber": "1403004",
@@ -24609,6 +24609,16 @@
         "association": {
           "id": "33797702",
           "name": "Minden-Ravensberg"
+        }
+      },
+      {
+        "id": "37920803",
+        "name": "Sportfreunde Niederwenigern 1924 e.V.",
+        "lsbNumber": "5104034",
+        "internalSportsclubId": "597",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
         }
       },
       {
@@ -35542,16 +35552,6 @@
         }
       },
       {
-        "id": "26818840",
-        "name": "TSV 1886 Gera - Leumnitz e.V.",
-        "lsbNumber": "120018",
-        "internalSportsclubId": "12182",
-        "association": {
-          "id": "26249261",
-          "name": "Kreisverband Ost"
-        }
-      },
-      {
         "id": "26819124",
         "name": "SV Grün Weiß - Wasungen",
         "lsbNumber": "210026",
@@ -35679,6 +35679,16 @@
         "association": {
           "id": "33797282",
           "name": "Vest"
+        }
+      },
+      {
+        "id": "26818840",
+        "name": "TSV 1886 Gera - Leumnitz e.V.",
+        "lsbNumber": "120018",
+        "internalSportsclubId": "12182",
+        "association": {
+          "id": "26249261",
+          "name": "Kreisverband Ost"
         }
       },
       {
@@ -37372,16 +37382,6 @@
         }
       },
       {
-        "id": "37921111",
-        "name": "VTHC Grün-Weiß Frechen 1948 e.V.",
-        "lsbNumber": "2306018",
-        "internalSportsclubId": "8601",
-        "association": {
-          "id": "33795221",
-          "name": "Rhein-Erft"
-        }
-      },
-      {
         "id": "49504377",
         "name": "SV Babelsberg 03",
         "lsbNumber": "540052",
@@ -37429,6 +37429,16 @@
         "association": {
           "id": "33795566",
           "name": "Rhein-Sieg"
+        }
+      },
+      {
+        "id": "37921111",
+        "name": "VTHC Grün-Weiß Frechen 1948 e.V.",
+        "lsbNumber": "2306018",
+        "internalSportsclubId": "8601",
+        "association": {
+          "id": "33795221",
+          "name": "Rhein-Erft"
         }
       },
       {

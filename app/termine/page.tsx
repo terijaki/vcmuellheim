@@ -1,14 +1,14 @@
+import PageHeading from "@/app/components/layout/PageHeading";
+import Matches from "@/app/components/sams/Matches";
+import Events from "@/app/components/ui/Events";
+import getEvents, { eventObject } from "@/app/utils/getEvents";
+import { icsAllGeneration } from "@/app/utils/icsGeneration";
+import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
+import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
+import cachedGetSeasons from "@/app/utils/sams/cachedGetSeasons";
+import { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { env } from "process";
-import { Metadata, ResolvingMetadata } from "next";
-import PageHeading from "@/app/components/layout/PageHeading";
-import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
-import { icsAllGeneration } from "@/app/utils/icsGeneration";
-import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
-import getEvents, { eventObject } from "@/app/utils/getEvents";
-import Events from "@/app/components/ui/Events";
-import Matches from "@/app/components/sams/Matches";
-import cachedGetSeasons from "@/app/utils/sams/cachedGetSeasons";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 
 // generate a custom title
@@ -74,7 +74,7 @@ export default function Termine() {
 						</p>
 					</div>
 					<div className="col-full-content sm:col-center-content card-narrow-flex mb-6">
-						{turnamentCount == 0 ? <h2 className="card-heading">Ligaspiele</h2> : <h2 className="card-heading">Ligaspiele & Turneire</h2>}
+						{turnamentCount == 0 ? <h2 className="card-heading">Ligaspiele</h2> : <h2 className="card-heading">Ligaspiele & Turniere</h2>}
 						<Matches
 							teamId={cachedGetTeamIds("id", false)}
 							filter="future"
@@ -103,10 +103,7 @@ export default function Termine() {
 					{currentMonth >= 4 && currentMonth <= 9 ? (
 						<div className="col-full-content sm:col-center-content card mb-6">
 							<h2 className="card-heading">Außerhalb der Saison?</h2>
-							<p className="mt-3">
-								Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt. Dazwischen wird die nächste Saison vorbereitet und die neusten Informationen vom
-								Südbadischen Volleyballverband wurden ggf. noch nicht veröffentlicht.
-							</p>
+							<p className="mt-3">Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt. Dazwischen wird die nächste Saison vorbereitet und die neusten Informationen vom Südbadischen Volleyballverband wurden ggf. noch nicht veröffentlicht.</p>
 							{cachedGetSeasons(2).length == 2 && (
 								<p className="mt-3">
 									Offizielle Zeitspanne der letzten zwei Saisons:

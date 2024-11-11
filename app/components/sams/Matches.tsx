@@ -131,6 +131,9 @@ export default function Matches(props: { teamId: (number | string)[]; filter?: "
 						<div
 							className={"grid grid-flow-row sm:grid-cols-[auto,minmax(auto,1fr),auto] gap-x-4 items-center px-4 text-onyx " + (matches.length % 2 ? " odd:bg-black/5" : " even:bg-black/5")}
 							key={match.uuid}
+							data-match-number={match.number}
+							data-match-id={match.id}
+							data-match-uuid={match.uuid}
 						>
 							<div className="sm:text-center text-sm pt-1 sm:py-1">
 								{match.date ? (

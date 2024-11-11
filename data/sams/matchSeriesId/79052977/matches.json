@@ -52,9 +52,9 @@
           "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
           "shortName": "Q1_U20_w",
           "type": "Competition",
-          "updated": "2024-11-08 11:18:32.944",
-          "structureUpdated": "2024-11-08 11:18:32.944",
-          "resultsUpdated": "2023-11-06 09:08:01.713",
+          "updated": "2024-11-10 15:49:53.669",
+          "structureUpdated": "2024-11-10 11:07:10.926",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -110,6 +110,30 @@
           "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
         },
         "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:5",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:0",
+                "winner": "TEAM1",
+                "duration": "19"
+              },
+              {
+                "number": "1",
+                "points": "25:5",
+                "winner": "TEAM1",
+                "duration": "15"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "10",
+        "netDuration": "34",
         "dateObject": "2024-11-10T09:00:00.000Z",
         "dateIso": "2024-11-10T09:00:00.000Z"
       },
@@ -164,9 +188,9 @@
           "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
           "shortName": "Q1_U20_w",
           "type": "Competition",
-          "updated": "2024-11-08 11:18:32.944",
-          "structureUpdated": "2024-11-08 11:18:32.944",
-          "resultsUpdated": "2023-11-06 09:08:01.713",
+          "updated": "2024-11-10 15:49:53.669",
+          "structureUpdated": "2024-11-10 11:07:10.926",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -222,6 +246,30 @@
           "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
         },
         "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "22:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "8:25",
+                "winner": "TEAM2",
+                "duration": "19"
+              },
+              {
+                "number": "1",
+                "points": "14:25",
+                "winner": "TEAM2",
+                "duration": "18"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "1",
+        "netDuration": "37",
         "dateObject": "2024-11-10T09:00:00.000Z",
         "dateIso": "2024-11-10T09:00:00.000Z"
       },
@@ -276,9 +324,9 @@
           "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
           "shortName": "Q1_U20_w",
           "type": "Competition",
-          "updated": "2024-11-08 11:18:32.944",
-          "structureUpdated": "2024-11-08 11:18:32.944",
-          "resultsUpdated": "2023-11-06 09:08:01.713",
+          "updated": "2024-11-10 15:49:53.669",
+          "structureUpdated": "2024-11-10 11:07:10.926",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -334,6 +382,30 @@
           "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
         },
         "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:14",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:3",
+                "winner": "TEAM1",
+                "duration": "17"
+              },
+              {
+                "number": "1",
+                "points": "25:11",
+                "winner": "TEAM1",
+                "duration": "18"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "30",
+        "netDuration": "35",
         "dateObject": "2024-11-10T10:00:00.000Z",
         "dateIso": "2024-11-10T10:00:00.000Z"
       },
@@ -388,9 +460,9 @@
           "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
           "shortName": "Q1_U20_w",
           "type": "Competition",
-          "updated": "2024-11-08 11:18:32.944",
-          "structureUpdated": "2024-11-08 11:18:32.944",
-          "resultsUpdated": "2023-11-06 09:08:01.713",
+          "updated": "2024-11-10 15:49:53.669",
+          "structureUpdated": "2024-11-10 11:07:10.926",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -446,6 +518,30 @@
           "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
         },
         "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:26",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:9",
+                "winner": "TEAM1",
+                "duration": "0"
+              },
+              {
+                "number": "1",
+                "points": "25:17",
+                "winner": "TEAM1",
+                "duration": "22"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "3",
+        "netDuration": "22",
         "dateObject": "2024-11-10T11:00:00.000Z",
         "dateIso": "2024-11-10T11:00:00.000Z"
       },
@@ -500,9 +596,9 @@
           "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
           "shortName": "Q1_U20_w",
           "type": "Competition",
-          "updated": "2024-11-08 11:18:32.944",
-          "structureUpdated": "2024-11-08 11:18:32.944",
-          "resultsUpdated": "2023-11-06 09:08:01.713",
+          "updated": "2024-11-10 15:49:53.669",
+          "structureUpdated": "2024-11-10 11:07:10.926",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -558,6 +654,30 @@
           "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
         },
         "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:16",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:6",
+                "winner": "TEAM1",
+                "duration": "11"
+              },
+              {
+                "number": "1",
+                "points": "25:10",
+                "winner": "TEAM1",
+                "duration": "17"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "10",
+        "netDuration": "28",
         "dateObject": "2024-11-10T11:00:00.000Z",
         "dateIso": "2024-11-10T11:00:00.000Z"
       },
@@ -612,9 +732,9 @@
           "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
           "shortName": "Q1_U20_w",
           "type": "Competition",
-          "updated": "2024-11-08 11:18:32.944",
-          "structureUpdated": "2024-11-08 11:18:32.944",
-          "resultsUpdated": "2023-11-06 09:08:01.713",
+          "updated": "2024-11-10 15:49:53.669",
+          "structureUpdated": "2024-11-10 11:07:10.926",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -670,6 +790,30 @@
           "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
         },
         "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "51:45",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:21",
+                "winner": "TEAM1",
+                "duration": "0"
+              },
+              {
+                "number": "1",
+                "points": "26:24",
+                "winner": "TEAM1",
+                "duration": "29"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "5",
+        "netDuration": "29",
         "dateObject": "2024-11-10T12:00:00.000Z",
         "dateIso": "2024-11-10T12:00:00.000Z"
       },
@@ -724,9 +868,9 @@
           "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
           "shortName": "Q1_U20_w",
           "type": "Competition",
-          "updated": "2024-11-08 11:18:32.944",
-          "structureUpdated": "2024-11-08 11:18:32.944",
-          "resultsUpdated": "2023-11-06 09:08:01.713",
+          "updated": "2024-11-10 15:49:53.669",
+          "structureUpdated": "2024-11-10 11:07:10.926",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -782,6 +926,30 @@
           "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
         },
         "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:10",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:5",
+                "winner": "TEAM1",
+                "duration": "11"
+              },
+              {
+                "number": "1",
+                "points": "25:5",
+                "winner": "TEAM1",
+                "duration": "15"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "-",
+        "netDuration": "26",
         "dateObject": "2024-11-10T13:00:00.000Z",
         "dateIso": "2024-11-10T13:00:00.000Z"
       },
@@ -836,9 +1004,9 @@
           "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
           "shortName": "Q1_U20_w",
           "type": "Competition",
-          "updated": "2024-11-08 11:18:32.944",
-          "structureUpdated": "2024-11-08 11:18:32.944",
-          "resultsUpdated": "2023-11-06 09:08:01.713",
+          "updated": "2024-11-10 15:49:53.669",
+          "structureUpdated": "2024-11-10 11:07:10.926",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -894,6 +1062,30 @@
           "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
         },
         "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:35",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:14",
+                "winner": "TEAM1",
+                "duration": "3"
+              },
+              {
+                "number": "1",
+                "points": "25:21",
+                "winner": "TEAM1",
+                "duration": "21"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "3",
+        "netDuration": "24",
         "dateObject": "2024-11-10T13:00:00.000Z",
         "dateIso": "2024-11-10T13:00:00.000Z"
       },
@@ -948,9 +1140,9 @@
           "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
           "shortName": "Q1_U20_w",
           "type": "Competition",
-          "updated": "2024-11-08 11:18:32.944",
-          "structureUpdated": "2024-11-08 11:18:32.944",
-          "resultsUpdated": "2023-11-06 09:08:01.713",
+          "updated": "2024-11-10 15:49:53.669",
+          "structureUpdated": "2024-11-10 11:07:10.926",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1006,6 +1198,30 @@
           "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
         },
         "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "38:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "20:25",
+                "winner": "TEAM2",
+                "duration": "41"
+              },
+              {
+                "number": "1",
+                "points": "18:25",
+                "winner": "TEAM2",
+                "duration": "0"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "10",
+        "netDuration": "41",
         "dateObject": "2024-11-10T14:00:00.000Z",
         "dateIso": "2024-11-10T14:00:00.000Z"
       },
@@ -1060,9 +1276,9 @@
           "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
           "shortName": "Q1_U20_w",
           "type": "Competition",
-          "updated": "2024-11-08 11:18:32.944",
-          "structureUpdated": "2024-11-08 11:18:32.944",
-          "resultsUpdated": "2023-11-06 09:08:01.713",
+          "updated": "2024-11-10 15:49:53.669",
+          "structureUpdated": "2024-11-10 11:07:10.926",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1118,6 +1334,36 @@
           "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
         },
         "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:1",
+          "ballPoints": "55:56",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:18",
+                "winner": "TEAM1",
+                "duration": "0"
+              },
+              {
+                "number": "1",
+                "points": "15:25",
+                "winner": "TEAM2",
+                "duration": "21"
+              },
+              {
+                "number": "1",
+                "points": "15:13",
+                "winner": "TEAM1",
+                "duration": "16"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "-",
+        "netDuration": "37",
         "dateObject": "2024-11-10T15:00:00.000Z",
         "dateIso": "2024-11-10T15:00:00.000Z"
       }

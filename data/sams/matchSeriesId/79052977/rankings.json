@@ -7,9 +7,9 @@
       "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
       "shortName": "Q1_U20_w",
       "type": "Competition",
-      "updated": "2024-11-08 11:18:32.944",
-      "structureUpdated": "2024-11-08 11:18:32.944",
-      "resultsUpdated": "2023-11-06 09:08:01.713",
+      "updated": "2024-11-10 15:49:53.669",
+      "structureUpdated": "2024-11-10 11:07:10.926",
+      "resultsUpdated": "2024-11-10 15:49:53.669",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -57,7 +57,7 @@
     },
     "ranking": [
       {
-        "place": null,
+        "place": "1",
         "team": {
           "id": "79319199",
           "uuid": "a3479a52-49ce-4806-b97d-d85c30cf8683",
@@ -66,25 +66,7 @@
         }
       },
       {
-        "place": null,
-        "team": {
-          "id": "79319203",
-          "uuid": "c6acbb52-911d-4e16-8402-e1586d44486b",
-          "name": "TV Freiburg-St.Georgen",
-          "club": "TV Freiburg-St.Georgen"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "79319220",
-          "uuid": "b9fe22da-2f19-4aa3-8cdf-10ac8ab4b141",
-          "name": "USC Freiburg",
-          "club": "USC Freiburg"
-        }
-      },
-      {
-        "place": null,
+        "place": "2",
         "team": {
           "id": "79319229",
           "uuid": "684d5c13-22e8-4c34-8446-1f5097c82b85",
@@ -93,7 +75,25 @@
         }
       },
       {
-        "place": null,
+        "place": "3",
+        "team": {
+          "id": "79319203",
+          "uuid": "c6acbb52-911d-4e16-8402-e1586d44486b",
+          "name": "TV Freiburg-St.Georgen",
+          "club": "TV Freiburg-St.Georgen"
+        }
+      },
+      {
+        "place": "4",
+        "team": {
+          "id": "79319220",
+          "uuid": "b9fe22da-2f19-4aa3-8cdf-10ac8ab4b141",
+          "name": "USC Freiburg",
+          "club": "USC Freiburg"
+        }
+      },
+      {
+        "place": "5",
         "team": {
           "id": "79319237",
           "uuid": "499ed2ab-e7cc-4d8b-b015-1520a367ff91",
