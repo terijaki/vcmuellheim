@@ -12872,16 +12872,6 @@
         }
       },
       {
-        "id": "37921380",
-        "name": "SV Langendreer 04 Volleyball e.V.",
-        "lsbNumber": "5001200",
-        "internalSportsclubId": "350",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
         "id": "37920723",
         "name": "VfL Gevelsberg Volleyball e.V.",
         "lsbNumber": "5103008",
@@ -12909,6 +12899,16 @@
         "association": {
           "id": "33298943",
           "name": "Duisburg"
+        }
+      },
+      {
+        "id": "37921380",
+        "name": "SV Langendreer 04 Volleyball e.V.",
+        "lsbNumber": "5001200",
+        "internalSportsclubId": "350",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
         }
       },
       {
@@ -27412,16 +27412,6 @@
         }
       },
       {
-        "id": "37921403",
-        "name": "TV Ibbenbüren 1860 e.V.",
-        "lsbNumber": "3507009",
-        "internalSportsclubId": "2602",
-        "association": {
-          "id": "33797208",
-          "name": "Steinfurt"
-        }
-      },
-      {
         "id": "11593828",
         "name": "Turn-und Sportverein Spandau 1860 e.V.",
         "lsbNumber": "4960",
@@ -27456,6 +27446,16 @@
         "name": "SC Hörstel 1921 e.V.",
         "lsbNumber": "3504004",
         "internalSportsclubId": "2605",
+        "association": {
+          "id": "33797208",
+          "name": "Steinfurt"
+        }
+      },
+      {
+        "id": "37921403",
+        "name": "TV Ibbenbüren 1860 e.V.",
+        "lsbNumber": "3507009",
+        "internalSportsclubId": "2602",
         "association": {
           "id": "33797208",
           "name": "Steinfurt"
@@ -38992,16 +38992,6 @@
         }
       },
       {
-        "id": "6528",
-        "name": "VSV Oelsnitz e.V.",
-        "lsbNumber": "510341",
-        "internalSportsclubId": "410",
-        "association": {
-          "id": "24908726",
-          "name": "Vogtlandkreis"
-        }
-      },
-      {
         "id": "51836444",
         "name": "Turnverein 1848 e.V. Gimbsheim",
         "lsbNumber": "43",
@@ -39109,6 +39099,16 @@
         "association": {
           "id": "33797190",
           "name": "Borken"
+        }
+      },
+      {
+        "id": "6528",
+        "name": "VSV Oelsnitz e.V.",
+        "lsbNumber": "510341",
+        "internalSportsclubId": "410",
+        "association": {
+          "id": "24908726",
+          "name": "Vogtlandkreis"
         }
       },
       {
@@ -40032,16 +40032,6 @@
         }
       },
       {
-        "id": "50621580",
-        "name": "SV Blau-Weiß Auerbach e.V.",
-        "lsbNumber": "510227",
-        "internalSportsclubId": "533",
-        "association": {
-          "id": "24908726",
-          "name": "Vogtlandkreis"
-        }
-      },
-      {
         "id": "50621581",
         "name": "HC Einheit Plauen e.V.",
         "lsbNumber": "880",
@@ -40109,6 +40099,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "50621580",
+        "name": "SV Blau-Weiß Auerbach e.V.",
+        "lsbNumber": "510227",
+        "internalSportsclubId": "533",
+        "association": {
+          "id": "24908726",
+          "name": "Vogtlandkreis"
         }
       },
       {
@@ -46962,6 +46962,16 @@
         }
       },
       {
+        "id": "51836272",
+        "name": "VC-Eintracht 1996 Mendig",
+        "lsbNumber": "1004564",
+        "internalSportsclubId": "32-16-19",
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
         "id": "51836284",
         "name": "Turn- und Sportgemeinde 1887/1924 Schwabenheim e.V.",
         "lsbNumber": "2789",
@@ -46969,16 +46979,6 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
-        "id": "51836272",
-        "name": "Volleyball-Club Eintracht 1996 Mendig e.V.",
-        "lsbNumber": "1004564",
-        "internalSportsclubId": "32-16-19",
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
         }
       },
       {
@@ -50332,6 +50332,16 @@
         }
       },
       {
+        "id": "37921331",
+        "name": "DJK Arminia Ibbenbüren e.V.",
+        "lsbNumber": "3507014",
+        "internalSportsclubId": "511",
+        "association": {
+          "id": "33797208",
+          "name": "Steinfurt"
+        }
+      },
+      {
         "id": "51836318",
         "name": "SSV Gymnasium an der Heinzenwies",
         "lsbNumber": "16",
@@ -50349,16 +50359,6 @@
         "association": {
           "id": "25383414",
           "name": "Volleyball-Verband Pfalz"
-        }
-      },
-      {
-        "id": "37921331",
-        "name": "DJK Arminia Ibbenbüren e.V.",
-        "lsbNumber": "3507014",
-        "internalSportsclubId": "511",
-        "association": {
-          "id": "33797208",
-          "name": "Steinfurt"
         }
       },
       {
@@ -55752,16 +55752,6 @@
         }
       },
       {
-        "id": "37948561",
-        "name": "TV 1922 Saubach e.V.",
-        "lsbNumber": "110020",
-        "internalSportsclubId": "110020",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "49504463",
         "name": "Kultur- und Sportverein Jacobsdorf OT Pillgram 99 e.V.",
         "lsbNumber": "670246",
@@ -55769,6 +55759,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "37948561",
+        "name": "TV 1922 Saubach e.V.",
+        "lsbNumber": "110020",
+        "internalSportsclubId": "110020",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
