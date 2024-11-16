@@ -192,7 +192,8 @@
       ],
       "winner": 1,
       "score": "3:1",
-      "mastodon": "new"
+      "mastodon": "published",
+      "mastodonUrl": "https://freiburg.social/@VCM/113493276450114004"
     }
   ]
 }
