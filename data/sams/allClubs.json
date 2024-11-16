@@ -18272,16 +18272,6 @@
         }
       },
       {
-        "id": "26925499",
-        "name": "TV 1909 Werdorf e.V.",
-        "lsbNumber": "13174",
-        "internalSportsclubId": "6602",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
         "id": "26925500",
         "name": "SG Fronhausen 1945",
         "lsbNumber": "10043",
@@ -18309,6 +18299,16 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
+        }
+      },
+      {
+        "id": "26925499",
+        "name": "TV 1909 Werdorf e.V.",
+        "lsbNumber": "13174",
+        "internalSportsclubId": "6602",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
         }
       },
       {
@@ -22452,16 +22452,6 @@
         }
       },
       {
-        "id": "37921936",
-        "name": "TV 1909 Sevelen e.V.",
-        "lsbNumber": "1105009",
-        "internalSportsclubId": "5604",
-        "association": {
-          "id": "33298881",
-          "name": "Kleve"
-        }
-      },
-      {
         "id": "37921648",
         "name": "TSV Wachtendonk/Wankum 1910 e.V.",
         "lsbNumber": "1115001",
@@ -22566,6 +22556,16 @@
         "name": "TV Rees e.V.",
         "lsbNumber": "1111007",
         "internalSportsclubId": "9244",
+        "association": {
+          "id": "33298881",
+          "name": "Kleve"
+        }
+      },
+      {
+        "id": "37921936",
+        "name": "TV 1909 Sevelen e.V.",
+        "lsbNumber": "1105009",
+        "internalSportsclubId": "5604",
         "association": {
           "id": "33298881",
           "name": "Kleve"
@@ -25259,6 +25259,26 @@
         "association": {
           "id": "33299112",
           "name": "Neuss-Grevenbroich"
+        }
+      },
+      {
+        "id": "80137431",
+        "name": "Leichtathletik-und Sportverein Schmölln e.V.",
+        "lsbNumber": "410159",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7214",
+          "name": "Thüringer Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "80169085",
+        "name": "TSV Oberdigisheim",
+        "lsbNumber": "1111111110000064",
+        "internalSportsclubId": "828",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -34242,6 +34262,16 @@
         }
       },
       {
+        "id": "21869880",
+        "name": "TG 1837 Hanau",
+        "lsbNumber": "28066",
+        "internalSportsclubId": "5501",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
         "id": "37921018",
         "name": "Deutzer TV 1878 e.V.",
         "lsbNumber": "2003022",
@@ -42799,16 +42829,6 @@
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
-        }
-      },
-      {
-        "id": "21869880",
-        "name": "TG 1837 Hanau",
-        "lsbNumber": "28066",
-        "internalSportsclubId": "5501",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
         }
       },
       {
@@ -57572,16 +57592,6 @@
         }
       },
       {
-        "id": "37921531",
-        "name": "TuS Meinerzhagen 1877 e.V.",
-        "lsbNumber": "5309011",
-        "internalSportsclubId": "424",
-        "association": {
-          "id": "33798063",
-          "name": "Märkischer Kreis"
-        }
-      },
-      {
         "id": "50621977",
         "name": "SV Groitzsch 1861 e.V.",
         "lsbNumber": "460239",
@@ -57619,6 +57629,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "37921531",
+        "name": "TuS Meinerzhagen 1877 e.V.",
+        "lsbNumber": "5309011",
+        "internalSportsclubId": "424",
+        "association": {
+          "id": "33798063",
+          "name": "Märkischer Kreis"
         }
       },
       {
@@ -61572,16 +61592,6 @@
         }
       },
       {
-        "id": "65037521",
-        "name": "VC Löffingen",
-        "lsbNumber": "480170",
-        "internalSportsclubId": "3302",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036951",
         "name": "TV Hardheim",
         "lsbNumber": "20168",
@@ -61799,6 +61809,16 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "65037521",
+        "name": "VC Löffingen",
+        "lsbNumber": "480170",
+        "internalSportsclubId": "3302",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
