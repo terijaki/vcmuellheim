@@ -1,5 +1,5 @@
 {
-    "date": "2024-11-11T20:03:42.409Z",
+    "date": "2024-11-16T09:20:42.850Z",
     "players": [
         {
             "lastname": "Haas",
@@ -45,6 +45,14 @@
             "lastname": "Komorowski",
             "firstname": "Jaroslaw",
             "nationality": "PL",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Ettner",
+            "firstname": "Ludwig",
+            "nationality": "DE",
             "number": "",
             "height": "",
             "function": ""

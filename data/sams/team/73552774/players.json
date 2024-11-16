@@ -1,5 +1,5 @@
 {
-    "date": "2024-11-11T20:03:42.441Z",
+    "date": "2024-11-16T09:20:42.962Z",
     "players": [
         {
             "lastname": "Lindemann",
@@ -112,6 +112,14 @@
             "number": "",
             "height": "",
             "function": "Kontaktperson Spieltag"
+        },
+        {
+            "lastname": "Peters",
+            "firstname": "Paul",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
         },
         {
             "lastname": "Vöster",
