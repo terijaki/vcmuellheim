@@ -233,6 +233,18 @@
       "score": "0:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113498037310374641"
+    },
+    {
+      "uuid": "de4d6f1b-ada0-4d19-bdf9-4d7a1b343054",
+      "date": "2024-11-17T09:30:00.000Z",
+      "league": "Kreisliga Damen Süd",
+      "team": [
+        "VC Müllheim 2",
+        "VC Minseln 2"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
     }
   ]
 }
