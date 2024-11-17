@@ -34462,16 +34462,6 @@
         }
       },
       {
-        "id": "37921163",
-        "name": "TuS Schieder-Schwalenberg e.V.",
-        "lsbNumber": "4415002",
-        "internalSportsclubId": "10076",
-        "association": {
-          "id": "33797741",
-          "name": "Lippe"
-        }
-      },
-      {
         "id": "53311844",
         "name": "TV Kappelrodeck",
         "lsbNumber": "471500",
@@ -34549,6 +34539,16 @@
         "association": {
           "id": "33299130",
           "name": "Mönchengladbach"
+        }
+      },
+      {
+        "id": "37921163",
+        "name": "TuS Schieder-Schwalenberg e.V.",
+        "lsbNumber": "4415002",
+        "internalSportsclubId": "10076",
+        "association": {
+          "id": "33797741",
+          "name": "Lippe"
         }
       },
       {
