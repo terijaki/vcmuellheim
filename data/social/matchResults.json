@@ -207,6 +207,18 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113494365868986235"
+    },
+    {
+      "uuid": "fb656256-12da-4f80-ba3d-ad01b7d155e5",
+      "date": "2024-11-17T09:30:00.000Z",
+      "league": "Kreisliga Damen Süd",
+      "team": [
+        "VC Müllheim 2",
+        "SG Breisach - Gündlingen 2"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
     }
   ]
 }
