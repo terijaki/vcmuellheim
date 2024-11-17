@@ -259,6 +259,18 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113498407635712596"
+    },
+    {
+      "uuid": "2b6d1485-1fab-49db-a43c-d33c945ff727",
+      "date": "2024-11-17T10:00:00.000Z",
+      "league": "Bezirksliga Herren Süd",
+      "team": [
+        "VC Müllheim 2",
+        "TV Todtnau"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
     }
   ]
 }
