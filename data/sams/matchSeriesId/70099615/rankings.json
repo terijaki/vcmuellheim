@@ -7,9 +7,9 @@
       "name": "Bezirksklasse Damen Süd",
       "shortName": "bzk s d",
       "type": "League",
-      "updated": "2024-11-17 16:10:24.401",
+      "updated": "2024-11-17 17:16:56.975",
       "structureUpdated": "2024-11-17 10:42:35.946",
-      "resultsUpdated": "2024-11-17 16:10:24.401",
+      "resultsUpdated": "2024-11-17 17:16:56.975",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -126,6 +126,62 @@
       },
       {
         "team": {
+          "id": "73557224",
+          "uuid": "f02c6e36-a66a-45ce-9e14-450e74619da3",
+          "name": "SV Waltershofen 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "SV Waltershofen",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "6",
+        "wins": "5",
+        "losses": "1",
+        "points": "16",
+        "setPoints": "17:4",
+        "setWinScore": "17",
+        "setLoseScore": "4",
+        "setPointDifference": "13",
+        "setQuotient": "4,250\n            ",
+        "ballPoints": "494:360",
+        "ballWinScore": "494",
+        "ballLoseScore": "360",
+        "ballPointDifference": "134",
+        "ballQuotient": "1,372\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "4"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73557227",
           "uuid": "05f5e5a1-62d3-42fa-82a4-2a25c95952b2",
           "name": "TV Bad Säckingen 2",
@@ -182,62 +238,6 @@
       },
       {
         "team": {
-          "id": "73557224",
-          "uuid": "f02c6e36-a66a-45ce-9e14-450e74619da3",
-          "name": "SV Waltershofen 2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "SV Waltershofen",
-            "shortName": null
-          }
-        },
-        "place": "1",
-        "matchesPlayed": "5",
-        "wins": "4",
-        "losses": "1",
-        "points": "13",
-        "setPoints": "14:3",
-        "setWinScore": "14",
-        "setLoseScore": "3",
-        "setPointDifference": "11",
-        "setQuotient": "4,667\n            ",
-        "ballPoints": "401:278",
-        "ballWinScore": "401",
-        "ballLoseScore": "278",
-        "ballPointDifference": "123",
-        "ballQuotient": "1,442\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "4"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "1"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "73557238",
           "uuid": "50d693e6-3417-488d-98a5-55769eb1e7aa",
           "name": "VfR Merzhausen 2",
@@ -249,20 +249,20 @@
           }
         },
         "place": "1",
-        "matchesPlayed": "5",
+        "matchesPlayed": "6",
         "wins": "4",
-        "losses": "1",
+        "losses": "2",
         "points": "11",
-        "setPoints": "14:8",
-        "setWinScore": "14",
-        "setLoseScore": "8",
-        "setPointDifference": "6",
-        "setQuotient": "1,750\n            ",
-        "ballPoints": "476:424",
-        "ballWinScore": "476",
-        "ballLoseScore": "424",
-        "ballPointDifference": "52",
-        "ballQuotient": "1,123\n            ",
+        "setPoints": "15:11",
+        "setWinScore": "15",
+        "setLoseScore": "11",
+        "setPointDifference": "4",
+        "setQuotient": "1,364\n            ",
+        "ballPoints": "558:517",
+        "ballWinScore": "558",
+        "ballLoseScore": "517",
+        "ballPointDifference": "41",
+        "ballQuotient": "1,079\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -283,7 +283,7 @@
             },
             {
               "result": "1:3",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "0:3",
