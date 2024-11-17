@@ -220,6 +220,18 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113497905376649223"
+    },
+    {
+      "uuid": "735936f1-65ba-4f1f-864b-bdd04abec310",
+      "date": "2024-11-17T10:00:00.000Z",
+      "league": "Bezirksliga Herren Süd",
+      "team": [
+        "VC Müllheim 2",
+        "Sport vor Ort Rieselfeld 1"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
     }
   ]
 }
