@@ -246,6 +246,18 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113498283886040008"
+    },
+    {
+      "uuid": "a27db3cc-ebe1-449f-adbb-e196e4229fd0",
+      "date": "2024-11-17T11:00:00.000Z",
+      "league": "Landesliga West Herren",
+      "team": [
+        "FT 1844 Freiburg 4",
+        "VC Müllheim 1"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
     }
   ]
 }
