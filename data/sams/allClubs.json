@@ -19782,16 +19782,6 @@
         }
       },
       {
-        "id": "37921291",
-        "name": "SG Essen-Heisingen 1887 e.V.",
-        "lsbNumber": "1003111",
-        "internalSportsclubId": "746",
-        "association": {
-          "id": "33299056",
-          "name": "Essen"
-        }
-      },
-      {
         "id": "26925675",
         "name": "TG 1888  Sv 1915 Jügesheim e.V.",
         "lsbNumber": "29080",
@@ -19919,6 +19909,16 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
+        }
+      },
+      {
+        "id": "37921291",
+        "name": "SG Essen-Heisingen 1887 e.V.",
+        "lsbNumber": "1003111",
+        "internalSportsclubId": "746",
+        "association": {
+          "id": "33299056",
+          "name": "Essen"
         }
       },
       {
@@ -62572,16 +62572,6 @@
         }
       },
       {
-        "id": "71295426",
-        "name": "SV Ludwigsdorf 48 e.V.",
-        "lsbNumber": "450275",
-        "internalSportsclubId": "552",
-        "association": {
-          "id": "24908908",
-          "name": "Bezirk Ostsachsen"
-        }
-      },
-      {
         "id": "49724566",
         "name": "Netzhoppers Königs Wusterhausen",
         "lsbNumber": "610087",
@@ -62589,6 +62579,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "71295426",
+        "name": "SV Ludwigsdorf 48 e.V.",
+        "lsbNumber": "450275",
+        "internalSportsclubId": "552",
+        "association": {
+          "id": "24908908",
+          "name": "Bezirk Ostsachsen"
         }
       },
       {
