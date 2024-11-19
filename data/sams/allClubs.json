@@ -6432,16 +6432,6 @@
         }
       },
       {
-        "id": "26819209",
-        "name": "SG Beerberg Goldlauter e.V.",
-        "lsbNumber": "360003",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
-        }
-      },
-      {
         "id": "26819225",
         "name": "Isserodaer SV e.V.",
         "lsbNumber": "370047",
@@ -19162,16 +19152,6 @@
         }
       },
       {
-        "id": "80022553",
-        "name": "BSV Mahlsdorfer Waschbären \"Raccoons\" e.V.",
-        "lsbNumber": null,
-        "internalSportsclubId": "14-11-241",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "26925591",
         "name": "VV  Erzhausen e.V.",
         "lsbNumber": "33319",
@@ -27862,16 +27842,6 @@
         }
       },
       {
-        "id": "37921401",
-        "name": "EVC Massen e.V.",
-        "lsbNumber": "5709032",
-        "internalSportsclubId": "4311",
-        "association": {
-          "id": "33797802",
-          "name": "Unna"
-        }
-      },
-      {
         "id": "37921877",
         "name": "Turnverein Unna 1861 e.V.",
         "lsbNumber": "5709029",
@@ -27919,6 +27889,16 @@
         "association": {
           "id": "33797282",
           "name": "Vest"
+        }
+      },
+      {
+        "id": "37921401",
+        "name": "EVC Massen e.V.",
+        "lsbNumber": "5709032",
+        "internalSportsclubId": "4311",
+        "association": {
+          "id": "33797802",
+          "name": "Unna"
         }
       },
       {
@@ -34552,6 +34532,16 @@
         }
       },
       {
+        "id": "80022553",
+        "name": "BSV Mahlsdorfer Waschbären \"Raccoons\" e.V.",
+        "lsbNumber": "10898",
+        "internalSportsclubId": "14-11-241",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
         "id": "53484937",
         "name": "FC Kleinaitingen",
         "lsbNumber": "1111111110000024",
@@ -34899,6 +34889,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26819209",
+        "name": "SG Beerberg Goldlauter e.V.",
+        "lsbNumber": "360003",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7214",
+          "name": "Thüringer Volleyball-Verband e.V."
         }
       },
       {
@@ -57262,16 +57262,6 @@
         }
       },
       {
-        "id": "37921500",
-        "name": "Aachener Volleyball-Enthusiasten `79 eV",
-        "lsbNumber": "2001177",
-        "internalSportsclubId": "299",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
-        }
-      },
-      {
         "id": "54610775",
         "name": "TSG Schwäbisch Hall",
         "lsbNumber": "18087",
@@ -57309,6 +57299,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "37921500",
+        "name": "Aachener Volleyball-Enthusiasten `79 eV",
+        "lsbNumber": "2001177",
+        "internalSportsclubId": "299",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
