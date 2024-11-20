@@ -4,6 +4,11 @@
 	"alter": "Ab 9 Jahren",
 	"training": [
 		{
+			"zeit": "Mittwochs 17:00-19:00 Uhr",
+			"ort": "Rosenburgschule",
+			"map": "https://maps.app.goo.gl/53gsRvocTmQiXgre9"
+		},
+		{
 			"zeit": "Donnerstags 17:00-18:30 Uhr",
 			"ort": "Sporthalle II Teil D",
 			"map": "https://goo.gl/maps/g3XhvCS9gpR2"
@@ -13,6 +18,10 @@
 		{
 			"name": "Wolfgang Lacher",
 			"email": "wolfgang@vcmuellheim.de"
+		},
+		{
+			"name": "Ognjen Bubalo",
+			"email": "ognjen@vcmuellheim.de"
 		}
 	]
 }
