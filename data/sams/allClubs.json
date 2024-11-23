@@ -1352,16 +1352,6 @@
         }
       },
       {
-        "id": "26818910",
-        "name": "OTG 1902 Gera e.V.",
-        "lsbNumber": "120002",
-        "internalSportsclubId": "12039",
-        "association": {
-          "id": "26249261",
-          "name": "Kreisverband Ost"
-        }
-      },
-      {
         "id": "12482807",
         "name": "SV Karlsruhe-Beiertheim",
         "lsbNumber": "81505",
@@ -1389,6 +1379,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "26818910",
+        "name": "OTG 1902 e.V.",
+        "lsbNumber": "120002",
+        "internalSportsclubId": "12039",
+        "association": {
+          "id": "26249261",
+          "name": "Kreisverband Ost"
         }
       },
       {
@@ -10052,16 +10052,6 @@
         }
       },
       {
-        "id": "26925222",
-        "name": "VC Liederbach",
-        "lsbNumber": "301870",
-        "internalSportsclubId": "5804",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "50621615",
         "name": "TuS Pleißa e.V.",
         "lsbNumber": "520299",
@@ -10129,6 +10119,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "26925222",
+        "name": "VC Liederbach",
+        "lsbNumber": "301870",
+        "internalSportsclubId": "5804",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -12122,16 +12122,6 @@
         }
       },
       {
-        "id": "26819149",
-        "name": "Volleyballverein Rückersdorf",
-        "lsbNumber": "140079",
-        "internalSportsclubId": "12166",
-        "association": {
-          "id": "26249261",
-          "name": "Kreisverband Ost"
-        }
-      },
-      {
         "id": "961579",
         "name": "TV Eiche Horn Bremen",
         "lsbNumber": "50101",
@@ -12169,6 +12159,16 @@
         "association": {
           "id": "33795566",
           "name": "Rhein-Sieg"
+        }
+      },
+      {
+        "id": "26819149",
+        "name": "Volleyballverein Rückersdorf",
+        "lsbNumber": "140079",
+        "internalSportsclubId": "12166",
+        "association": {
+          "id": "26249261",
+          "name": "Kreisverband Ost"
         }
       },
       {
@@ -25202,16 +25202,6 @@
         }
       },
       {
-        "id": "80169085",
-        "name": "TSV Oberdigisheim",
-        "lsbNumber": "1111111110000064",
-        "internalSportsclubId": "828",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "11618335",
         "name": "SV Blau-Weiß Aasee e.V.",
         "lsbNumber": "3003051",
@@ -37172,6 +37162,16 @@
         }
       },
       {
+        "id": "80169085",
+        "name": "TSV Oberdigisheim",
+        "lsbNumber": "1111111110000064",
+        "internalSportsclubId": "828",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
         "id": "49504341",
         "name": "SV Stahl Hennigsdorf",
         "lsbNumber": "650012",
@@ -39022,16 +39022,6 @@
         }
       },
       {
-        "id": "51836444",
-        "name": "Turnverein 1848 e.V. Gimbsheim",
-        "lsbNumber": "43",
-        "internalSportsclubId": "32-47-03",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "30227085",
         "name": "VV Zittau 09 e.V.",
         "lsbNumber": "450366",
@@ -39139,6 +39129,16 @@
         "association": {
           "id": "24908726",
           "name": "Vogtlandkreis"
+        }
+      },
+      {
+        "id": "51836444",
+        "name": "Turnverein 1848 e.V. Gimbsheim",
+        "lsbNumber": "43",
+        "internalSportsclubId": "32-47-03",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -47212,16 +47212,6 @@
         }
       },
       {
-        "id": "49504388",
-        "name": "SV Leonardo da Vinci Nauen",
-        "lsbNumber": "630159",
-        "internalSportsclubId": "630159",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "37921776",
         "name": "TuS Spenge e.V.",
         "lsbNumber": "4208005",
@@ -47259,6 +47249,16 @@
         "association": {
           "id": "24908790",
           "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
+        }
+      },
+      {
+        "id": "49504388",
+        "name": "SV Leonardo da Vinci Nauen",
+        "lsbNumber": "630159",
+        "internalSportsclubId": "630159",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -56972,16 +56972,6 @@
         }
       },
       {
-        "id": "65036575",
-        "name": "Turnverein Ludwigshafen 1911 e.V.",
-        "lsbNumber": "471820",
-        "internalSportsclubId": "100002",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "37948501",
         "name": "Sportfreunde Magdeburg e.V.",
         "lsbNumber": "120220",
@@ -57009,6 +56999,16 @@
         "association": {
           "id": "33797382",
           "name": "Gütersloh-Bielefeld"
+        }
+      },
+      {
+        "id": "65036575",
+        "name": "Turnverein Ludwigshafen 1911 e.V.",
+        "lsbNumber": "471820",
+        "internalSportsclubId": "100002",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
