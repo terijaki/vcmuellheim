@@ -284,6 +284,18 @@
       "winner": 2,
       "score": "1:3",
       "mastodon": "new"
+    },
+    {
+      "uuid": "5be176cb-0260-4d29-a241-b492cefaa495",
+      "date": "2024-11-23T13:00:00.000Z",
+      "league": "Bezirksliga Herren Süd",
+      "team": [
+        "VC Müllheim 2",
+        "TV Staufen 1"
+      ],
+      "winner": 2,
+      "score": "1:3",
+      "mastodon": "new"
     }
   ]
 }
