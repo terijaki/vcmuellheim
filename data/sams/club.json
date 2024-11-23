@@ -59,8 +59,8 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2024-11-17 19:33:34.155",
-            "structureUpdated": "2024-11-15 11:30:48.931",
+            "updated": "2024-11-22 06:24:30.03",
+            "structureUpdated": "2024-11-22 06:24:30.03",
             "resultsUpdated": "2024-11-17 19:33:34.155",
             "season": {
               "id": "70098350",
@@ -138,9 +138,9 @@
             "name": "Bezirksliga Herren Süd",
             "shortName": "bzl s h",
             "type": "League",
-            "updated": "2024-11-17 16:00:11.378",
+            "updated": "2024-11-21 12:02:36.12",
             "structureUpdated": "2024-11-13 11:30:53.72",
-            "resultsUpdated": "2024-11-17 16:00:11.378",
+            "resultsUpdated": "2024-11-21 12:02:36.12",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -314,8 +314,8 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2024-11-17 16:22:34.89",
-            "structureUpdated": "2024-11-17 09:42:38.1",
+            "updated": "2024-11-22 07:17:09.879",
+            "structureUpdated": "2024-11-22 07:17:09.879",
             "resultsUpdated": "2024-11-17 16:22:34.89",
             "season": {
               "id": "70098350",
