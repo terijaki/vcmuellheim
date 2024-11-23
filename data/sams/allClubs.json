@@ -24612,16 +24612,6 @@
         }
       },
       {
-        "id": "37920894",
-        "name": "Sportclub Minden 05 e.V.",
-        "lsbNumber": "4506035",
-        "internalSportsclubId": "9290",
-        "association": {
-          "id": "33797702",
-          "name": "Minden-Ravensberg"
-        }
-      },
-      {
         "id": "37920789",
         "name": "TV Häver 1968 e.V.",
         "lsbNumber": "4205014",
@@ -24776,6 +24766,16 @@
         "name": "TV Germania Nordhemmern e.V.",
         "lsbNumber": "4503004",
         "internalSportsclubId": "9231",
+        "association": {
+          "id": "33797702",
+          "name": "Minden-Ravensberg"
+        }
+      },
+      {
+        "id": "37920894",
+        "name": "Sportclub Minden 05 e.V.",
+        "lsbNumber": "4506035",
+        "internalSportsclubId": "9290",
         "association": {
           "id": "33797702",
           "name": "Minden-Ravensberg"
