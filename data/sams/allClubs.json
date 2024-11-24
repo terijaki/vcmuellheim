@@ -38032,6 +38032,16 @@
         }
       },
       {
+        "id": "6504",
+        "name": "TSV G.A. Stuttgart",
+        "lsbNumber": "20102",
+        "internalSportsclubId": "295",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
         "id": "49504490",
         "name": "Laufgruppe Wassersuppe",
         "lsbNumber": "630197",
@@ -61959,16 +61969,6 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
-        }
-      },
-      {
-        "id": "6504",
-        "name": "TSV G.A. Stuttgart",
-        "lsbNumber": "20102",
-        "internalSportsclubId": "295",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
         }
       },
       {
