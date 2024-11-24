@@ -7,9 +7,9 @@
       "name": "Kreisliga Damen Süd",
       "shortName": "kl s d",
       "type": "League",
-      "updated": "2024-11-22 07:17:09.879",
+      "updated": "2024-11-24 12:47:59.349",
       "structureUpdated": "2024-11-22 07:17:09.879",
-      "resultsUpdated": "2024-11-17 16:22:34.89",
+      "resultsUpdated": "2024-11-24 12:47:59.349",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -244,36 +244,36 @@
       },
       {
         "team": {
-          "id": "73557956",
-          "uuid": "a4b8f3d2-ec9d-4644-b2a1-cc89b0435ca4",
-          "name": "SG Breisach - Gündlingen 2",
+          "id": "73557972",
+          "uuid": "dba63df0-226d-4a14-8179-1e699ebbb562",
+          "name": "TV Neuenburg",
           "shortName": null,
           "clubCode": null,
           "club": {
-            "name": "SG Breisach-Gündlingen",
+            "name": "TV Neuenburg",
             "shortName": null
           }
         },
         "place": "1",
-        "matchesPlayed": "4",
-        "wins": "3",
+        "matchesPlayed": "5",
+        "wins": "4",
         "losses": "1",
-        "points": "9",
-        "setPoints": "9:3",
-        "setWinScore": "9",
-        "setLoseScore": "3",
-        "setPointDifference": "6",
-        "setQuotient": "3,000\n            ",
-        "ballPoints": "267:215",
-        "ballWinScore": "267",
-        "ballLoseScore": "215",
-        "ballPointDifference": "52",
-        "ballQuotient": "1,242\n            ",
+        "points": "10",
+        "setPoints": "12:7",
+        "setWinScore": "12",
+        "setLoseScore": "7",
+        "setPointDifference": "5",
+        "setQuotient": "1,714\n            ",
+        "ballPoints": "409:382",
+        "ballWinScore": "409",
+        "ballLoseScore": "382",
+        "ballPointDifference": "27",
+        "ballQuotient": "1,071\n            ",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "3"
+              "count": "2"
             },
             {
               "result": "3:1",
@@ -281,7 +281,7 @@
             },
             {
               "result": "3:2",
-              "count": "0"
+              "count": "2"
             },
             {
               "result": "2:3",
@@ -300,36 +300,36 @@
       },
       {
         "team": {
-          "id": "73557972",
-          "uuid": "dba63df0-226d-4a14-8179-1e699ebbb562",
-          "name": "TV Neuenburg",
+          "id": "73557956",
+          "uuid": "a4b8f3d2-ec9d-4644-b2a1-cc89b0435ca4",
+          "name": "SG Breisach - Gündlingen 2",
           "shortName": null,
           "clubCode": null,
           "club": {
-            "name": "TV Neuenburg",
+            "name": "SG Breisach-Gündlingen",
             "shortName": null
           }
         },
         "place": "1",
-        "matchesPlayed": "4",
+        "matchesPlayed": "5",
         "wins": "3",
-        "losses": "1",
-        "points": "8",
-        "setPoints": "9:5",
-        "setWinScore": "9",
-        "setLoseScore": "5",
-        "setPointDifference": "4",
-        "setQuotient": "1,800\n            ",
-        "ballPoints": "319:293",
-        "ballWinScore": "319",
-        "ballLoseScore": "293",
-        "ballPointDifference": "26",
-        "ballQuotient": "1,089\n            ",
+        "losses": "2",
+        "points": "10",
+        "setPoints": "11:6",
+        "setWinScore": "11",
+        "setLoseScore": "6",
+        "setPointDifference": "5",
+        "setQuotient": "1,833\n            ",
+        "ballPoints": "356:305",
+        "ballWinScore": "356",
+        "ballLoseScore": "305",
+        "ballPointDifference": "51",
+        "ballQuotient": "1,167\n            ",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "3:1",
@@ -337,11 +337,11 @@
             },
             {
               "result": "3:2",
-              "count": "1"
+              "count": "0"
             },
             {
               "result": "2:3",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "1:3",
