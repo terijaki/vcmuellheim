@@ -15892,16 +15892,6 @@
         }
       },
       {
-        "id": "16665062",
-        "name": "Erfurter Volleyball Club e.V.",
-        "lsbNumber": "100326",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249165",
-          "name": "Kreisverband Mitte"
-        }
-      },
-      {
         "id": "37921050",
         "name": "mettmann-sport e.V.",
         "lsbNumber": "1206039",
@@ -20682,16 +20672,6 @@
         }
       },
       {
-        "id": "26925803",
-        "name": "TS Kiedrich 1886 e.V.",
-        "lsbNumber": "39042",
-        "internalSportsclubId": "6209",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "26925795",
         "name": "KSV Hessen Kassel",
         "lsbNumber": "0",
@@ -20779,6 +20759,16 @@
         "association": {
           "id": "33298901",
           "name": "Wesel"
+        }
+      },
+      {
+        "id": "26925803",
+        "name": "TS Kiedrich 1886 e.V.",
+        "lsbNumber": "39042",
+        "internalSportsclubId": "6209",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -38652,6 +38642,16 @@
         }
       },
       {
+        "id": "16665062",
+        "name": "Erfurter Volleyball Club e.V.",
+        "lsbNumber": "100326",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
+        }
+      },
+      {
         "id": "50621896",
         "name": "SV 1861 Ortmannsdorf e.V.",
         "lsbNumber": "520231",
@@ -45682,6 +45682,16 @@
         }
       },
       {
+        "id": "37921067",
+        "name": "ASC 09 Dortmund e.V. (Aplerbeck)",
+        "lsbNumber": "5002065",
+        "internalSportsclubId": "144",
+        "association": {
+          "id": "33797822",
+          "name": "Dortmund"
+        }
+      },
+      {
         "id": "54610953",
         "name": "TSV Michelfeld",
         "lsbNumber": "18068",
@@ -45729,16 +45739,6 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
-        }
-      },
-      {
-        "id": "37921067",
-        "name": "ASC 09 Dortmund e.V. (Aplerbeck)",
-        "lsbNumber": "5002065",
-        "internalSportsclubId": "144",
-        "association": {
-          "id": "33797822",
-          "name": "Dortmund"
         }
       },
       {
