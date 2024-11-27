@@ -1,6 +1,8 @@
 ---
-title: 'Einladung Hauptversammlung 2024'
+title: Einladung Hauptversammlung 2024
 date: 2024-11-27T17:20:58.241Z
+mastodon: published
+mastodonUrl: 'https://freiburg.social/@VCM/113556078691108353'
 ---
 Liebe Mitglieder,
 
