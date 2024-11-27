@@ -1,3 +1,7 @@
+---
+title: 'Einladung Hauptversammlung 2024'
+date: 2024-11-27T17:20:58.241Z
+---
 Liebe Mitglieder,
 
 zu unserer Hauptversammlung für das Jahr 2024 darf ich Euch herzlich einladen. 
