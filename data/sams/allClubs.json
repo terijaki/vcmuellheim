@@ -4732,16 +4732,6 @@
         }
       },
       {
-        "id": "26818993",
-        "name": "VfB Grün - Weiß 90 Erfurt",
-        "lsbNumber": "100014",
-        "internalSportsclubId": "09026",
-        "association": {
-          "id": "26249165",
-          "name": "Kreisverband Mitte"
-        }
-      },
-      {
         "id": "26819009",
         "name": "SV Großstöbnitz 90 e.V.",
         "lsbNumber": "410091",
@@ -37082,16 +37072,6 @@
         }
       },
       {
-        "id": "6304",
-        "name": "VG WiWa",
-        "lsbNumber": "999998",
-        "internalSportsclubId": "121163",
-        "association": {
-          "id": "7208",
-          "name": "Hamburger Volleyball-Verband"
-        }
-      },
-      {
         "id": "30225508",
         "name": "DJK TuS Hürth 1964 e.V.",
         "lsbNumber": "2307026",
@@ -37169,6 +37149,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "6304",
+        "name": "VG WiWa Hamburg",
+        "lsbNumber": "999998",
+        "internalSportsclubId": "121163",
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband"
         }
       },
       {
@@ -38646,6 +38636,16 @@
         "name": "Erfurter Volleyball Club e.V.",
         "lsbNumber": "100326",
         "internalSportsclubId": null,
+        "association": {
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
+        }
+      },
+      {
+        "id": "26818993",
+        "name": "VfB Grün - Weiß 90 Erfurt",
+        "lsbNumber": "100014",
+        "internalSportsclubId": "09026",
         "association": {
           "id": "26249165",
           "name": "Kreisverband Mitte"
@@ -42892,16 +42892,6 @@
         }
       },
       {
-        "id": "50621898",
-        "name": "Polizeisportverein Leipzig e.V.",
-        "lsbNumber": "420045",
-        "internalSportsclubId": "63",
-        "association": {
-          "id": "24908890",
-          "name": "Stadt Leipzig"
-        }
-      },
-      {
         "id": "50621895",
         "name": "SG-90 Braunsdorf e.V.",
         "lsbNumber": "500162",
@@ -43049,6 +43039,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "50621898",
+        "name": "Polizeisportverein Leipzig e.V.",
+        "lsbNumber": "420045",
+        "internalSportsclubId": "63",
+        "association": {
+          "id": "24908890",
+          "name": "Stadt Leipzig"
         }
       },
       {
@@ -43682,16 +43682,6 @@
         }
       },
       {
-        "id": "50621981",
-        "name": "WSG Zauckerode e.V.",
-        "lsbNumber": "500298",
-        "internalSportsclubId": "278",
-        "association": {
-          "id": "24908790",
-          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
-        }
-      },
-      {
         "id": "50621968",
         "name": "SV Tresenwald e.V.",
         "lsbNumber": "460259",
@@ -43699,6 +43689,16 @@
         "association": {
           "id": "24908851",
           "name": "Landkreis Leipzig"
+        }
+      },
+      {
+        "id": "50621981",
+        "name": "WSG Zauckerode e.V.",
+        "lsbNumber": "500298",
+        "internalSportsclubId": "278",
+        "association": {
+          "id": "24908790",
+          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
         }
       },
       {
@@ -44602,16 +44602,6 @@
         }
       },
       {
-        "id": "54610822",
-        "name": "SpVgg 1897 Cannstatt",
-        "lsbNumber": "20240",
-        "internalSportsclubId": "165",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "37921905",
         "name": "BSG Stadtverwaltung Wuppertal e.V.",
         "lsbNumber": "1010847",
@@ -44716,6 +44706,16 @@
         "name": "TSV Eschenbach",
         "lsbNumber": "8047",
         "internalSportsclubId": "181",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "54610822",
+        "name": "SpVgg 1897 Cannstatt",
+        "lsbNumber": "20240",
+        "internalSportsclubId": "165",
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
