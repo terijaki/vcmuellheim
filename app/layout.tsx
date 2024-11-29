@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 		template: "VCM: %s",
 		default: "Volleyballclub Müllheim",
 	},
-	description: "In Müllheim geh es in Sachen Volleyball richtig ab! Von Freizeit Team bis zur Amateurliga. Hier findest du alle Infos und Neuigkeiten des Vereins.",
+	description: "In Müllheim geht es in Sachen Volleyball richtig ab! Von Freizeit Team bis zur Amateurliga. Hier findest du alle Infos und Neuigkeiten des Vereins.",
 	icons: {
 		icon: "/images/icons/favicon.png",
 		shortcut: "/images/icons/favicon.png",
