@@ -298,6 +298,18 @@
       "score": "1:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113533429449338342"
+    },
+    {
+      "uuid": "a940fd5b-1b62-4b1f-b3c1-3185ef117b1b",
+      "date": "2024-11-30T13:30:00.000Z",
+      "league": "Landesliga West Herren",
+      "team": [
+        "TB Bad Krozingen",
+        "VC Müllheim 1"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
     }
   ]
 }
