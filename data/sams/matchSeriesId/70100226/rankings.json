@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2024-11-30 15:59:05.495",
+      "updated": "2024-11-30 17:47:05.453",
       "structureUpdated": "2024-11-30 12:05:42.758",
-      "resultsUpdated": "2024-11-30 15:59:05.495",
+      "resultsUpdated": "2024-11-30 17:47:05.453",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -164,6 +164,62 @@
             {
               "result": "0:3",
               "count": "1"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73349525",
+          "uuid": "087bcb12-62cd-459e-88ee-1343b21fff34",
+          "name": "FT 1844 Freiburg 4",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "FT 1844 Freiburg",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "6",
+        "wins": "3",
+        "losses": "1",
+        "points": "9",
+        "setPoints": "10:9",
+        "setWinScore": "10",
+        "setLoseScore": "9",
+        "setPointDifference": "1",
+        "setQuotient": "1,111\n            ",
+        "ballPoints": "314:421",
+        "ballWinScore": "314",
+        "ballLoseScore": "421",
+        "ballPointDifference": "-107",
+        "ballQuotient": "0,746\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "3"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
             }
           ]
         }
@@ -394,62 +450,6 @@
       },
       {
         "team": {
-          "id": "73349525",
-          "uuid": "087bcb12-62cd-459e-88ee-1343b21fff34",
-          "name": "FT 1844 Freiburg 4",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "FT 1844 Freiburg",
-            "shortName": null
-          }
-        },
-        "place": "1",
-        "matchesPlayed": "5",
-        "wins": "2",
-        "losses": "1",
-        "points": "6",
-        "setPoints": "7:9",
-        "setWinScore": "7",
-        "setLoseScore": "9",
-        "setPointDifference": "-2",
-        "setQuotient": "0,778\n            ",
-        "ballPoints": "239:373",
-        "ballWinScore": "239",
-        "ballLoseScore": "373",
-        "ballPointDifference": "-134",
-        "ballQuotient": "0,641\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "2"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "1"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "73349539",
           "uuid": "c5acdb80-aaab-4e7d-9f0d-0447b6ba37d0",
           "name": "TV Kollnau-Gutach 1",
@@ -573,20 +573,20 @@
           }
         },
         "place": "1",
-        "matchesPlayed": "4",
+        "matchesPlayed": "5",
         "wins": "0",
-        "losses": "4",
+        "losses": "5",
         "points": "2",
-        "setPoints": "5:12",
+        "setPoints": "5:15",
         "setWinScore": "5",
-        "setLoseScore": "12",
-        "setPointDifference": "-7",
-        "setQuotient": "0,417\n            ",
-        "ballPoints": "356:389",
-        "ballWinScore": "356",
-        "ballLoseScore": "389",
-        "ballPointDifference": "-33",
-        "ballQuotient": "0,915\n            ",
+        "setLoseScore": "15",
+        "setPointDifference": "-10",
+        "setQuotient": "0,333\n            ",
+        "ballPoints": "404:464",
+        "ballWinScore": "404",
+        "ballLoseScore": "464",
+        "ballPointDifference": "-60",
+        "ballQuotient": "0,871\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -611,7 +611,7 @@
             },
             {
               "result": "0:3",
-              "count": "1"
+              "count": "2"
             }
           ]
         }
