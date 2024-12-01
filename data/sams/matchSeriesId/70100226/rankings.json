@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2024-12-01 05:34:47.413",
+      "updated": "2024-12-01 15:37:11.403",
       "structureUpdated": "2024-11-30 12:05:42.758",
-      "resultsUpdated": "2024-12-01 05:34:47.413",
+      "resultsUpdated": "2024-12-01 15:37:11.403",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -100,6 +100,62 @@
             {
               "result": "2:3",
               "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73349531",
+          "uuid": "33b47143-b56d-4cb1-94d1-54f6d6c415c7",
+          "name": "TV Kappelrodeck 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Kappelrodeck",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "5",
+        "wins": "3",
+        "losses": "2",
+        "points": "11",
+        "setPoints": "13:8",
+        "setWinScore": "13",
+        "setLoseScore": "8",
+        "setPointDifference": "5",
+        "setQuotient": "1,625\n            ",
+        "ballPoints": "471:447",
+        "ballWinScore": "471",
+        "ballLoseScore": "447",
+        "ballPointDifference": "24",
+        "ballQuotient": "1,054\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "1"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "2"
             },
             {
               "result": "1:3",
@@ -338,62 +394,6 @@
       },
       {
         "team": {
-          "id": "73349531",
-          "uuid": "33b47143-b56d-4cb1-94d1-54f6d6c415c7",
-          "name": "TV Kappelrodeck 2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Kappelrodeck",
-            "shortName": null
-          }
-        },
-        "place": "1",
-        "matchesPlayed": "4",
-        "wins": "2",
-        "losses": "2",
-        "points": "8",
-        "setPoints": "10:7",
-        "setWinScore": "10",
-        "setLoseScore": "7",
-        "setPointDifference": "3",
-        "setQuotient": "1,429\n            ",
-        "ballPoints": "372:359",
-        "ballWinScore": "372",
-        "ballLoseScore": "359",
-        "ballPointDifference": "13",
-        "ballQuotient": "1,036\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "1"
-            },
-            {
-              "result": "3:1",
-              "count": "1"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "2"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "73349535",
           "uuid": "d749145f-4492-4ae4-867e-39689506efb9",
           "name": "VC Weil 2",
@@ -405,20 +405,20 @@
           }
         },
         "place": "1",
-        "matchesPlayed": "6",
+        "matchesPlayed": "7",
         "wins": "2",
-        "losses": "4",
+        "losses": "5",
         "points": "7",
-        "setPoints": "10:15",
-        "setWinScore": "10",
-        "setLoseScore": "15",
-        "setPointDifference": "-5",
-        "setQuotient": "0,667\n            ",
-        "ballPoints": "509:550",
-        "ballWinScore": "509",
-        "ballLoseScore": "550",
-        "ballPointDifference": "-41",
-        "ballQuotient": "0,925\n            ",
+        "setPoints": "11:18",
+        "setWinScore": "11",
+        "setLoseScore": "18",
+        "setPointDifference": "-7",
+        "setQuotient": "0,611\n            ",
+        "ballPoints": "597:649",
+        "ballWinScore": "597",
+        "ballLoseScore": "649",
+        "ballPointDifference": "-52",
+        "ballQuotient": "0,920\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -439,7 +439,7 @@
             },
             {
               "result": "1:3",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "0:3",
