@@ -60932,16 +60932,6 @@
         }
       },
       {
-        "id": "36949861",
-        "name": "SV Energie Cottbus",
-        "lsbNumber": "520031",
-        "internalSportsclubId": "520031",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "50621575",
         "name": "WSG Zschertnitz e.V.",
         "lsbNumber": "410350",
@@ -60989,6 +60979,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "36949861",
+        "name": "SV Energie Cottbus",
+        "lsbNumber": "520031",
+        "internalSportsclubId": "520031",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
