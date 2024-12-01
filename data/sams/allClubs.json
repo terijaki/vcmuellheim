@@ -44752,6 +44752,16 @@
         }
       },
       {
+        "id": "26819146",
+        "name": "SV SCHOTT JENA e.V.",
+        "lsbNumber": "190019",
+        "internalSportsclubId": "19268",
+        "association": {
+          "id": "26249243",
+          "name": "Kreisverband Nord-Ost"
+        }
+      },
+      {
         "id": "54610845",
         "name": "TF Feuerbach",
         "lsbNumber": "20244",
@@ -60799,16 +60809,6 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "26819146",
-        "name": "SV SCHOTT JENA e.V.",
-        "lsbNumber": "190019",
-        "internalSportsclubId": "19268",
-        "association": {
-          "id": "26249243",
-          "name": "Kreisverband Nord-Ost"
         }
       },
       {
