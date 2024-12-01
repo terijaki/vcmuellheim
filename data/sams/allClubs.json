@@ -38542,16 +38542,6 @@
         }
       },
       {
-        "id": "49504398",
-        "name": "VC Fortuna Kyritz",
-        "lsbNumber": "680094",
-        "internalSportsclubId": "680094",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "37948426",
         "name": "SV Eintracht Gröbers e.V.",
         "lsbNumber": "100162",
@@ -41429,6 +41419,16 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "49504398",
+        "name": "VC Fortuna Kyritz",
+        "lsbNumber": "680094",
+        "internalSportsclubId": "680094",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
