@@ -11262,6 +11262,16 @@
         }
       },
       {
+        "id": "37920826",
+        "name": "Postsportverein Buer e.V.",
+        "lsbNumber": "3002068",
+        "internalSportsclubId": "9225",
+        "association": {
+          "id": "33797282",
+          "name": "Vest"
+        }
+      },
+      {
         "id": "26819022",
         "name": "1. SV Pößneck e.V.",
         "lsbNumber": "280194",
@@ -11399,16 +11409,6 @@
         "association": {
           "id": "33797844",
           "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
-        "id": "37920826",
-        "name": "Postsportverein Buer e.V.",
-        "lsbNumber": "3002068",
-        "internalSportsclubId": "9225",
-        "association": {
-          "id": "33797282",
-          "name": "Vest"
         }
       },
       {
@@ -36842,16 +36842,6 @@
         }
       },
       {
-        "id": "16610354",
-        "name": "Märkischer SV Zossen 07 e.V.",
-        "lsbNumber": "720084",
-        "internalSportsclubId": "720084",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "21797214",
         "name": "Elsterwerdaer SV 94",
         "lsbNumber": "620156",
@@ -36889,6 +36879,16 @@
         "association": {
           "id": "242",
           "name": "Deutscher Volleyball-Verband"
+        }
+      },
+      {
+        "id": "16610354",
+        "name": "Märkischer SV Zossen 07 e.V.",
+        "lsbNumber": "720084",
+        "internalSportsclubId": "720084",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -37222,16 +37222,6 @@
         }
       },
       {
-        "id": "49504361",
-        "name": "SV Glienicke/Nordbahn",
-        "lsbNumber": "650036",
-        "internalSportsclubId": "650036",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "49504366",
         "name": "Rheinsberger SV",
         "lsbNumber": "680078",
@@ -37246,6 +37236,16 @@
         "name": "SG Geltow e.V.",
         "lsbNumber": "690058",
         "internalSportsclubId": "690058",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "49504361",
+        "name": "SV Glienicke/Nordbahn",
+        "lsbNumber": "650036",
+        "internalSportsclubId": "650036",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -37672,16 +37672,6 @@
         }
       },
       {
-        "id": "49504437",
-        "name": "VC Sandwürmer",
-        "lsbNumber": "540169",
-        "internalSportsclubId": "540169",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "54611259",
         "name": "SV Hirrlingen",
         "lsbNumber": "0",
@@ -37749,6 +37739,16 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "49504437",
+        "name": "VC Sandwürmer",
+        "lsbNumber": "540169",
+        "internalSportsclubId": "540169",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -39012,6 +39012,16 @@
         }
       },
       {
+        "id": "38988173",
+        "name": "Sportclub Freital e. V.",
+        "lsbNumber": "500054",
+        "internalSportsclubId": "346",
+        "association": {
+          "id": "24908790",
+          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
+        }
+      },
+      {
         "id": "30227085",
         "name": "VV Zittau 09 e.V.",
         "lsbNumber": "450366",
@@ -39079,16 +39089,6 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "38988173",
-        "name": "Sportclub Freital e. V.",
-        "lsbNumber": "500054",
-        "internalSportsclubId": "346",
-        "association": {
-          "id": "24908790",
-          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
         }
       },
       {
@@ -44742,16 +44742,6 @@
         }
       },
       {
-        "id": "54610822",
-        "name": "SpVgg 1897 Cannstatt",
-        "lsbNumber": "20240",
-        "internalSportsclubId": "165",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "26819146",
         "name": "SV SCHOTT JENA e.V.",
         "lsbNumber": "190019",
@@ -45292,6 +45282,16 @@
         }
       },
       {
+        "id": "54611059",
+        "name": "TSV Ummendorf",
+        "lsbNumber": "2111",
+        "internalSportsclubId": "417",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
+        }
+      },
+      {
         "id": "50621908",
         "name": "SV Rot-Weiß Knau e.V.",
         "lsbNumber": "100000005",
@@ -45449,6 +45449,16 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "54611022",
+        "name": "TSV Laupheim",
+        "lsbNumber": "2071",
+        "internalSportsclubId": "378",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
@@ -46039,6 +46049,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "54610822",
+        "name": "SpVgg 1897 Cannstatt",
+        "lsbNumber": "20240",
+        "internalSportsclubId": "165",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       },
       {
@@ -47536,16 +47556,6 @@
         "name": "SV Jedesheim 1921",
         "lsbNumber": "300369",
         "internalSportsclubId": "369",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
-        "id": "54611022",
-        "name": "TSV Laupheim",
-        "lsbNumber": "2071",
-        "internalSportsclubId": "378",
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
@@ -49926,16 +49936,6 @@
         "name": "SV Steinhausen",
         "lsbNumber": "2108",
         "internalSportsclubId": "409",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
-        "id": "54611059",
-        "name": "TSV Ummendorf",
-        "lsbNumber": "2111",
-        "internalSportsclubId": "417",
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
@@ -58302,16 +58302,6 @@
         }
       },
       {
-        "id": "76672696",
-        "name": "SV Blau-Weiß Benhausen 1921 e.V.",
-        "lsbNumber": "1111111110000058",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7222",
-          "name": "Westdeutscher Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036981",
         "name": "SV Linx",
         "lsbNumber": "8144281631",
@@ -58449,6 +58439,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "76672696",
+        "name": "SV Blau-Weiß Benhausen 1921 e.V.",
+        "lsbNumber": "1111111110000058",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "33797722",
+          "name": "Paderborn"
         }
       },
       {
