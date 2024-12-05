@@ -2902,16 +2902,6 @@
         }
       },
       {
-        "id": "26818735",
-        "name": "FSV Meuselwitz e.V.",
-        "lsbNumber": "410036",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
-        }
-      },
-      {
         "id": "26818748",
         "name": "DJK Arenshausen e.V.",
         "lsbNumber": "150016",
@@ -24782,16 +24772,6 @@
         }
       },
       {
-        "id": "37921855",
-        "name": "TV Einigkeit 06 Mülheim-Dümpten e.V.",
-        "lsbNumber": "1006051",
-        "internalSportsclubId": "402",
-        "association": {
-          "id": "33299034",
-          "name": "Mühlheim-Oberhausen"
-        }
-      },
-      {
         "id": "37921039",
         "name": "TC Sterkrade 1869 e.V./Volleyballteam",
         "lsbNumber": "1007054",
@@ -24859,6 +24839,16 @@
         "association": {
           "id": "33798063",
           "name": "Märkischer Kreis"
+        }
+      },
+      {
+        "id": "37921855",
+        "name": "TV Einigkeit 06 Mülheim-Dümpten e.V.",
+        "lsbNumber": "1006051",
+        "internalSportsclubId": "402",
+        "association": {
+          "id": "33299034",
+          "name": "Mühlheim-Oberhausen"
         }
       },
       {
@@ -25157,8 +25147,8 @@
         "lsbNumber": "410159",
         "internalSportsclubId": null,
         "association": {
-          "id": "7214",
-          "name": "Thüringer Volleyball-Verband e.V."
+          "id": "26249261",
+          "name": "Kreisverband Ost"
         }
       },
       {
@@ -34682,6 +34672,16 @@
         }
       },
       {
+        "id": "26819209",
+        "name": "SG Beerberg Goldlauter e.V.",
+        "lsbNumber": "360003",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249329",
+          "name": "Kreisverband Süd-West"
+        }
+      },
+      {
         "id": "37921188",
         "name": "TV Anrath 1899 e.V.",
         "lsbNumber": "1409008",
@@ -34779,16 +34779,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "26819209",
-        "name": "SG Beerberg Goldlauter e.V.",
-        "lsbNumber": "360003",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7214",
-          "name": "Thüringer Volleyball-Verband e.V."
         }
       },
       {
@@ -52332,6 +52322,16 @@
         }
       },
       {
+        "id": "26818735",
+        "name": "FSV Meuselwitz e.V.",
+        "lsbNumber": "410036",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249261",
+          "name": "Kreisverband Ost"
+        }
+      },
+      {
         "id": "51836327",
         "name": "TG 1848 Osthofen e.V.",
         "lsbNumber": "44",
@@ -62547,8 +62547,8 @@
         "lsbNumber": "190007",
         "internalSportsclubId": null,
         "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
+          "id": "26249243",
+          "name": "Kreisverband Nord-Ost"
         }
       },
       {
