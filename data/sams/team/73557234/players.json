@@ -1,93 +1,93 @@
 {
-	"date": "2024-11-05T02:55:48.221Z",
-	"players": [
-		{
-			"lastname": "Konop",
-			"firstname": "Anastasia",
-			"nationality": "DE",
-			"number": "",
-			"height": "",
-			"function": ""
-		},
-		{
-			"lastname": "Mujevic",
-			"firstname": "Suanita",
-			"nationality": "DE",
-			"number": "",
-			"height": "",
-			"function": ""
-		},
-		{
-			"lastname": "Schmidt",
-			"firstname": "Lene",
-			"nationality": "DE",
-			"number": "",
-			"height": "",
-			"function": ""
-		},
-		{
-			"lastname": "Guzzoni",
-			"firstname": "Elina",
-			"nationality": "DE",
-			"number": "",
-			"height": "",
-			"function": ""
-		},
-		{
-			"lastname": "Schoester",
-			"firstname": "Marlene",
-			"nationality": "DE",
-			"number": "",
-			"height": "",
-			"function": ""
-		},
-		{
-			"lastname": "Zimmermann",
-			"firstname": "Stephanie",
-			"nationality": "DE",
-			"number": "",
-			"height": "",
-			"function": ""
-		},
-		{
-			"lastname": "Ettner",
-			"firstname": "Ida",
-			"nationality": "DE",
-			"number": "",
-			"height": "",
-			"function": ""
-		},
-		{
-			"lastname": "Beck",
-			"firstname": "Hanna",
-			"nationality": "DE",
-			"number": "",
-			"height": "",
-			"function": ""
-		},
-		{
-			"lastname": "Bulatov",
-			"firstname": "Daria",
-			"nationality": "DE",
-			"number": "",
-			"height": "",
-			"function": ""
-		},
-		{
-			"lastname": "Smaili",
-			"firstname": "Lorena",
-			"nationality": "DE",
-			"number": "",
-			"height": "",
-			"function": ""
-		},
-		{
-			"lastname": "Kohnen",
-			"firstname": "Björn",
-			"nationality": "DE",
-			"number": "",
-			"height": 181,
-			"function": "Trainer"
-		}
-	]
+    "date": "2024-12-05T14:45:22.796Z",
+    "players": [
+        {
+            "lastname": "Konop",
+            "firstname": "Anastasia",
+            "nationality": "DE",
+            "number": 5,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Mujevic",
+            "firstname": "Suanita",
+            "nationality": "DE",
+            "number": 7,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Schmidt",
+            "firstname": "Lene",
+            "nationality": "DE",
+            "number": 17,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Guzzoni",
+            "firstname": "Elina",
+            "nationality": "DE",
+            "number": 1,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Schoester",
+            "firstname": "Marlene",
+            "nationality": "DE",
+            "number": 15,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Zimmermann",
+            "firstname": "Stephanie",
+            "nationality": "DE",
+            "number": 12,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Ettner",
+            "firstname": "Ida",
+            "nationality": "DE",
+            "number": 10,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Beck",
+            "firstname": "Hanna",
+            "nationality": "DE",
+            "number": 14,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Bulatov",
+            "firstname": "Daria",
+            "nationality": "DE",
+            "number": 3,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Kohnen",
+            "firstname": "Björn",
+            "nationality": "DE",
+            "number": "",
+            "height": 181,
+            "function": "Trainer"
+        },
+        {
+            "lastname": "Smaili",
+            "firstname": "Lorena",
+            "nationality": "DE",
+            "number": 9,
+            "height": "",
+            "function": ""
+        }
+    ]
 }
