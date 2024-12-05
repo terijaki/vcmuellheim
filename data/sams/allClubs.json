@@ -19752,16 +19752,6 @@
         }
       },
       {
-        "id": "26925684",
-        "name": "TUS Froschhausen 1880 e.V.",
-        "lsbNumber": "29044",
-        "internalSportsclubId": "2908",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "26925685",
         "name": "FC Kleppergard Raunheim",
         "lsbNumber": "0",
@@ -19859,6 +19849,16 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "26925684",
+        "name": "TUS Froschhausen 1880 e.V.",
+        "lsbNumber": "29044",
+        "internalSportsclubId": "2908",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -20999,16 +20999,6 @@
         "association": {
           "id": "33299112",
           "name": "Neuss-Grevenbroich"
-        }
-      },
-      {
-        "id": "37921359",
-        "name": "Futsalicious Essen e.V.",
-        "lsbNumber": "1003497",
-        "internalSportsclubId": "10196",
-        "association": {
-          "id": "33299056",
-          "name": "Essen"
         }
       },
       {
@@ -38082,16 +38072,6 @@
         }
       },
       {
-        "id": "49504482",
-        "name": "Kremmener SV",
-        "lsbNumber": "650015",
-        "internalSportsclubId": "650015",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "49504492",
         "name": "RC Borken-Hoxfeld",
         "lsbNumber": null,
@@ -50642,6 +50622,16 @@
         }
       },
       {
+        "id": "37921359",
+        "name": "Futsalicious Essen e.V.",
+        "lsbNumber": "1003497",
+        "internalSportsclubId": "10196",
+        "association": {
+          "id": "33299056",
+          "name": "Essen"
+        }
+      },
+      {
         "id": "51836364",
         "name": "Floorball Mainz e.V.",
         "lsbNumber": null,
@@ -51079,6 +51069,16 @@
         "association": {
           "id": "25383414",
           "name": "Volleyball-Verband Pfalz"
+        }
+      },
+      {
+        "id": "49504482",
+        "name": "Kremmener SV",
+        "lsbNumber": "650015",
+        "internalSportsclubId": "650015",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
