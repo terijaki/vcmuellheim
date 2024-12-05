@@ -7,8 +7,8 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2024-12-02 06:03:06.184",
-      "structureUpdated": "2024-11-30 12:05:42.758",
+      "updated": "2024-12-05 14:39:13.895",
+      "structureUpdated": "2024-12-05 14:39:13.895",
       "resultsUpdated": "2024-12-02 06:03:06.184",
       "season": {
         "id": "70098350",
@@ -124,7 +124,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "2",
         "matchesPlayed": "6",
         "wins": "4",
         "losses": "2",
@@ -180,7 +180,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "3",
         "matchesPlayed": "6",
         "wins": "4",
         "losses": "2",
@@ -236,7 +236,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "4",
         "matchesPlayed": "6",
         "wins": "3",
         "losses": "3",
@@ -292,7 +292,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "5",
         "matchesPlayed": "6",
         "wins": "3",
         "losses": "3",
@@ -348,7 +348,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "6",
         "matchesPlayed": "7",
         "wins": "3",
         "losses": "4",
@@ -404,7 +404,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "7",
         "matchesPlayed": "5",
         "wins": "3",
         "losses": "2",
@@ -460,7 +460,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "8",
         "matchesPlayed": "7",
         "wins": "2",
         "losses": "5",
@@ -516,7 +516,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "9",
         "matchesPlayed": "6",
         "wins": "2",
         "losses": "4",
@@ -572,7 +572,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "10",
         "matchesPlayed": "5",
         "wins": "0",
         "losses": "5",

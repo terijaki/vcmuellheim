@@ -7,8 +7,8 @@
       "name": "Bezirksklasse Damen Süd",
       "shortName": "bzk s d",
       "type": "League",
-      "updated": "2024-11-26 12:52:37.845",
-      "structureUpdated": "2024-11-26 12:52:37.845",
+      "updated": "2024-12-05 15:40:44.322",
+      "structureUpdated": "2024-12-05 15:40:44.322",
       "resultsUpdated": "2024-11-17 19:48:33.968",
       "season": {
         "id": "70098350",
@@ -136,7 +136,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "2",
         "matchesPlayed": "6",
         "wins": "5",
         "losses": "1",
@@ -192,7 +192,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "3",
         "matchesPlayed": "6",
         "wins": "5",
         "losses": "1",
@@ -248,7 +248,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "4",
         "matchesPlayed": "6",
         "wins": "4",
         "losses": "2",
@@ -304,7 +304,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "5",
         "matchesPlayed": "6",
         "wins": "3",
         "losses": "3",
@@ -360,7 +360,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "6",
         "matchesPlayed": "6",
         "wins": "3",
         "losses": "3",
@@ -416,7 +416,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "7",
         "matchesPlayed": "6",
         "wins": "1",
         "losses": "5",
@@ -472,7 +472,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "8",
         "matchesPlayed": "6",
         "wins": "1",
         "losses": "5",
@@ -528,7 +528,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "9",
         "matchesPlayed": "6",
         "wins": "0",
         "losses": "6",
