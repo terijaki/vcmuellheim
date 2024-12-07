@@ -37252,16 +37252,6 @@
         }
       },
       {
-        "id": "49504348",
-        "name": "1. VC Wildau",
-        "lsbNumber": "610132",
-        "internalSportsclubId": "610132",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "51836085",
         "name": "TuS Mosella Schweich",
         "lsbNumber": "1000684",
@@ -37276,6 +37266,16 @@
         "name": "SV Preußen Frankfurt (Oder)",
         "lsbNumber": "530021",
         "internalSportsclubId": "530021",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "49504348",
+        "name": "1. VC Wildau",
+        "lsbNumber": "610132",
+        "internalSportsclubId": "610132",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
