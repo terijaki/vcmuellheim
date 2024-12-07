@@ -2342,16 +2342,6 @@
         }
       },
       {
-        "id": "21869892",
-        "name": "DSW 1912 Darmstadt",
-        "lsbNumber": "33049",
-        "internalSportsclubId": "1404",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "26818721",
         "name": "TSV 1858 Pößneck e.V.",
         "lsbNumber": "280087",
@@ -2459,6 +2449,16 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "21869892",
+        "name": "DSW 1912 Darmstadt",
+        "lsbNumber": "33049",
+        "internalSportsclubId": "1404",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -7469,16 +7469,6 @@
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
-        "id": "26819339",
-        "name": "SV 90 Gräfenroda e.V.",
-        "lsbNumber": "430008",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
         }
       },
       {
@@ -37182,20 +37172,20 @@
         }
       },
       {
-        "id": "49504357",
-        "name": "1. ASC Frankfurt (Oder) Red Cocks",
-        "lsbNumber": "530056",
-        "internalSportsclubId": "530056",
+        "id": "49504349",
+        "name": "BSV \"Funkstadt\"  Nauen",
+        "lsbNumber": "630079",
+        "internalSportsclubId": "630079",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
-        "id": "49504349",
-        "name": "BSV \"Funkstadt\"  Nauen",
-        "lsbNumber": "630079",
-        "internalSportsclubId": "630079",
+        "id": "49504357",
+        "name": "1. ASC Frankfurt (Oder) Red Cocks",
+        "lsbNumber": "530056",
+        "internalSportsclubId": "530056",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -37572,16 +37562,6 @@
         }
       },
       {
-        "id": "49504425",
-        "name": "VC Storkow 90",
-        "lsbNumber": "670223",
-        "internalSportsclubId": "670223",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "49504426",
         "name": "SG Töplitz 1922",
         "lsbNumber": "690005",
@@ -37726,6 +37706,16 @@
         "name": "VC Sandwürmer",
         "lsbNumber": "540169",
         "internalSportsclubId": "540169",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "49504425",
+        "name": "VC Storkow 90",
+        "lsbNumber": "670223",
+        "internalSportsclubId": "670223",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -53382,6 +53372,16 @@
         }
       },
       {
+        "id": "26819339",
+        "name": "SV 90 Gräfenroda e.V.",
+        "lsbNumber": "430008",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249329",
+          "name": "Kreisverband Süd-West"
+        }
+      },
+      {
         "id": "54611356",
         "name": "TUS Meersburg",
         "lsbNumber": "471890",
@@ -56712,6 +56712,16 @@
         }
       },
       {
+        "id": "16610313",
+        "name": "WSG Reform Magdeburg e.V.",
+        "lsbNumber": "120023",
+        "internalSportsclubId": "120023",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "50621639",
         "name": "SG Großröhrsdorf e.V.",
         "lsbNumber": "430236",
@@ -56759,16 +56769,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "16610313",
-        "name": "WSG Reform Magdeburg e.V.",
-        "lsbNumber": "120023",
-        "internalSportsclubId": "120023",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -59672,16 +59672,6 @@
         }
       },
       {
-        "id": "77468107",
-        "name": "Azadi e.V.",
-        "lsbNumber": "1111111110000060",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "33797822",
-          "name": "Dortmund"
-        }
-      },
-      {
         "id": "14902402",
         "name": "SC GW 1920 Paderborn e.V.",
         "lsbNumber": "4608028",
@@ -59739,6 +59729,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "77468107",
+        "name": "Azadi e.V.",
+        "lsbNumber": "1111111110000060",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "33797822",
+          "name": "Dortmund"
         }
       },
       {
