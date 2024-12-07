@@ -1,71 +1,6 @@
 {
   "entries": [
     {
-      "uuid": "e0a85c15-5ab0-49af-9d69-c0adbfb10d13",
-      "date": "2024-10-05T12:00:00.000Z",
-      "league": "Landesliga West Herren",
-      "team": [
-        "Südbaden-Auswahl",
-        "VC Müllheim 1"
-      ],
-      "winner": 1,
-      "score": "3:0",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113255605293978967"
-    },
-    {
-      "uuid": "2073297b-56f0-404b-b10c-d65cccd8baf2",
-      "date": "2024-10-05T12:00:00.000Z",
-      "league": "Kreisliga Damen Süd",
-      "team": [
-        "VBG Efringen-Kirchen 2",
-        "VC Müllheim 2"
-      ],
-      "winner": 2,
-      "score": "2:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113255977125914246"
-    },
-    {
-      "uuid": "d31a0245-1c5e-4c00-99ef-c989c5db141b",
-      "date": "2024-10-05T12:00:00.000Z",
-      "league": "Kreisliga Damen Süd",
-      "team": [
-        "TV Neuenburg",
-        "VC Müllheim 2"
-      ],
-      "winner": 2,
-      "score": "0:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113256441895470345"
-    },
-    {
-      "uuid": "37e723f4-68fc-49d5-9c48-e75bb0fde57b",
-      "date": "2024-10-06T10:00:00.000Z",
-      "league": "Bezirksklasse Damen Süd",
-      "team": [
-        "TV Staufen 2",
-        "VC Müllheim 1"
-      ],
-      "winner": 2,
-      "score": "0:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113260217877105394"
-    },
-    {
-      "uuid": "3d8dd6a0-3fcd-4ddd-add8-4d3f81cfb26c",
-      "date": "2024-10-06T10:00:00.000Z",
-      "league": "Bezirksklasse Damen Süd",
-      "team": [
-        "SV Waltershofen 2",
-        "VC Müllheim 1"
-      ],
-      "winner": 1,
-      "score": "3:0",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113261166273146481"
-    },
-    {
       "uuid": "11be41b4-21cd-46df-90c4-67acf631c2d2",
       "date": "2024-10-12T12:00:00.000Z",
       "league": "Landesliga West Herren",
@@ -322,7 +257,8 @@
       ],
       "winner": 2,
       "score": "0:3",
-      "mastodon": "new"
+      "mastodon": "published",
+      "mastodonUrl": "https://freiburg.social/@VCM/113611994588457087"
     },
     {
       "uuid": "47457a15-d624-419e-9dc0-9a23ad974d22",
@@ -334,7 +270,8 @@
       ],
       "winner": 1,
       "score": "3:0",
-      "mastodon": "new"
+      "mastodon": "published",
+      "mastodonUrl": "https://freiburg.social/@VCM/113611994621483318"
     }
   ]
 }
