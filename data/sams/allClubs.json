@@ -47452,16 +47452,6 @@
         }
       },
       {
-        "id": "54611006",
-        "name": "SV Hauerz",
-        "lsbNumber": "14067",
-        "internalSportsclubId": "360",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "54611018",
         "name": "TSV Laichingen",
         "lsbNumber": "1077",
@@ -47516,6 +47506,16 @@
         "name": "SV Jedesheim 1921",
         "lsbNumber": "300369",
         "internalSportsclubId": "369",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
+        }
+      },
+      {
+        "id": "54611006",
+        "name": "SV Hauerz",
+        "lsbNumber": "14067",
+        "internalSportsclubId": "360",
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
