@@ -36782,16 +36782,6 @@
         }
       },
       {
-        "id": "26846636",
-        "name": "VSB offensiv Eisenhüttenstadt",
-        "lsbNumber": "670231",
-        "internalSportsclubId": "670231",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "26846416",
         "name": "Männerturnverein Mariendorf 1889 e.V.",
         "lsbNumber": "2254",
@@ -36856,6 +36846,16 @@
         "name": "Märkischer SV Zossen 07 e.V.",
         "lsbNumber": "720084",
         "internalSportsclubId": "720084",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "26846636",
+        "name": "VSB offensiv Eisenhüttenstadt",
+        "lsbNumber": "670231",
+        "internalSportsclubId": "670231",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
