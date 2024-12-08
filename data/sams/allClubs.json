@@ -55812,16 +55812,6 @@
         }
       },
       {
-        "id": "49504463",
-        "name": "Kultur- und Sportverein Jacobsdorf OT Pillgram 99 e.V.",
-        "lsbNumber": "670246",
-        "internalSportsclubId": "670246",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "37948561",
         "name": "TV 1922 Saubach e.V.",
         "lsbNumber": "110020",
@@ -55829,6 +55819,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "49504463",
+        "name": "Kultur- und Sportverein Jacobsdorf OT Pillgram 99 e.V.",
+        "lsbNumber": "670246",
+        "internalSportsclubId": "670246",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
