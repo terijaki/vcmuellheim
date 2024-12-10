@@ -10022,6 +10022,16 @@
         }
       },
       {
+        "id": "52940299",
+        "name": "SV Blau-Weiß Petershagen/Eggersdorf e.V.",
+        "lsbNumber": "640047",
+        "internalSportsclubId": "640047",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "50621615",
         "name": "TuS Pleißa e.V.",
         "lsbNumber": "520299",
@@ -10079,16 +10089,6 @@
         "association": {
           "id": "33795239",
           "name": "Euskirchen"
-        }
-      },
-      {
-        "id": "52940299",
-        "name": "SV Blau-Weiß Petershagen/Eggersdorf e.V.",
-        "lsbNumber": "640047",
-        "internalSportsclubId": "640047",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -36742,10 +36742,10 @@
         }
       },
       {
-        "id": "6385",
-        "name": "Lindower SV Grün-Weiß",
-        "lsbNumber": "680097",
-        "internalSportsclubId": "680097",
+        "id": "6378",
+        "name": "TKC Wriezen",
+        "lsbNumber": "640132",
+        "internalSportsclubId": "640132",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -36812,10 +36812,10 @@
         }
       },
       {
-        "id": "6378",
-        "name": "TKC Wriezen",
-        "lsbNumber": "640132",
-        "internalSportsclubId": "640132",
+        "id": "6385",
+        "name": "Lindower SV Grün-Weiß",
+        "lsbNumber": "680097",
+        "internalSportsclubId": "680097",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -37162,16 +37162,6 @@
         }
       },
       {
-        "id": "49504347",
-        "name": "Belziger SG Einheit",
-        "lsbNumber": "690037",
-        "internalSportsclubId": "690037",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "49504349",
         "name": "BSV \"Funkstadt\"  Nauen",
         "lsbNumber": "630079",
@@ -37249,6 +37239,16 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "49504347",
+        "name": "Belziger SG Einheit",
+        "lsbNumber": "690037",
+        "internalSportsclubId": "690037",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -37616,16 +37616,6 @@
         "name": "BSV Kraftwerk Jänschwalde 94",
         "lsbNumber": "520091",
         "internalSportsclubId": "520091",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
-        "id": "49504430",
-        "name": "Werderaner VV 1990 e.V.",
-        "lsbNumber": "690233",
-        "internalSportsclubId": "690233",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -38769,16 +38759,6 @@
         "association": {
           "id": "24908726",
           "name": "Vogtlandkreis"
-        }
-      },
-      {
-        "id": "36965257",
-        "name": "TSG KW Boxberg Weißwasser e.V.",
-        "lsbNumber": "450315",
-        "internalSportsclubId": "208",
-        "association": {
-          "id": "24908944",
-          "name": "Landkreis Görlitz"
         }
       },
       {
@@ -44822,16 +44802,6 @@
         }
       },
       {
-        "id": "54610851",
-        "name": "TSG Giengen",
-        "lsbNumber": "9020",
-        "internalSportsclubId": "196",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "54610858",
         "name": "TV Hebsack",
         "lsbNumber": "15056",
@@ -44846,6 +44816,16 @@
         "name": "TV Heuchlingen",
         "lsbNumber": "13078",
         "internalSportsclubId": "210",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "54610851",
+        "name": "TSG Giengen",
+        "lsbNumber": "9020",
+        "internalSportsclubId": "196",
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
@@ -54532,6 +54512,16 @@
         }
       },
       {
+        "id": "81491306",
+        "name": "Zollsportverein Heinsberg 1977 e.V.",
+        "lsbNumber": "1111111110000065",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
+        }
+      },
+      {
         "id": "54611144",
         "name": "TSV Holzelfingen",
         "lsbNumber": "16040",
@@ -55832,6 +55822,16 @@
         }
       },
       {
+        "id": "36965257",
+        "name": "TSG KW Boxberg Weißwasser e.V.",
+        "lsbNumber": "450315",
+        "internalSportsclubId": "208",
+        "association": {
+          "id": "24908944",
+          "name": "Landkreis Görlitz"
+        }
+      },
+      {
         "id": "51836198",
         "name": "TV 1891 Lemberg e.V.",
         "lsbNumber": "73",
@@ -56449,6 +56449,16 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "49504430",
+        "name": "Werderaner VV 1990 e.V.",
+        "lsbNumber": "690233",
+        "internalSportsclubId": "690233",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
