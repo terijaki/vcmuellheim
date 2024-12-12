@@ -1,8 +1,8 @@
+import { teamObject } from "@/app/utils/getTeams";
+import { getLeagueName } from "@/app/utils/sams/cachedGetClubData";
 import Link from "next/link";
 import { Fragment } from "react";
-import { teamObject } from "@/app/utils/getTeams";
-import { FaChevronUp as IconCollapse, FaCalendarDays as IconCalendar, FaUser as IconPerson, FaUserGroup as IconPersons, FaClock as IconClock } from "react-icons/fa6";
-import { getLeagueName } from "@/app/utils/sams/cachedGetClubData";
+import { FaCalendarDays as IconCalendar, FaClock as IconClock, FaChevronUp as IconCollapse, FaUser as IconPerson, FaUserGroup as IconPersons } from "react-icons/fa6";
 import Markdown from "react-markdown";
 
 export default function TeamCard(props: teamObject) {
@@ -41,9 +41,9 @@ export default function TeamCard(props: teamObject) {
 								<IconClock className="text-xs" />
 								Trainingszeiten:
 							</p>
-							{props.training?.map((training) => {
+							{props.training?.map((training, index) => {
 								return (
-									<Fragment key="trainingszeiten">
+									<Fragment key={index}>
 										<p>{training.zeit}</p>
 										<Link
 											href={"" + training.map}
@@ -68,7 +68,7 @@ export default function TeamCard(props: teamObject) {
 							</p>
 							{props.trainer?.map((trainer, index) => {
 								return (
-									<Fragment key="trainer">
+									<Fragment key={index}>
 										{index != 0 && " & "}
 										{trainer.email ? (
 											<Link
@@ -96,7 +96,7 @@ export default function TeamCard(props: teamObject) {
 							</p>
 							{props.ansprechperson?.map((ansprechperson, index) => {
 								return (
-									<Fragment key="ansprechperson">
+									<Fragment key={index}>
 										{index != 0 && " & "}
 										<Link href={"mailto:" + ansprechperson.email}>{ansprechperson.name}</Link>
 									</Fragment>

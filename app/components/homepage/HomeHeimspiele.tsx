@@ -1,12 +1,11 @@
-import getEvents from "@/app/utils/getEvents";
+import getEvents, { eventObject } from "@/app/utils/getEvents";
 import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
 import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
+import { matchType } from "@/app/utils/sams/typeMatches";
 import ExportedImage from "next-image-export-optimizer";
 import Link from "next/link";
 import { Fragment } from "react";
-import { FaLocationDot as IconLocation, FaAngleRight as IconRight, FaAngleLeft as IconLeft } from "react-icons/fa6";
-import { matchType } from "@/app/utils/sams/typeMatches";
-import { eventObject } from "@/app/utils/getEvents";
+import { FaAngleLeft as IconLeft, FaLocationDot as IconLocation, FaAngleRight as IconRight } from "react-icons/fa6";
 import HeimspieleEvents from "./HeimspieleEvents";
 
 let TIME_RANGE: number = 14; // controls the display matches taking place # days in the future
@@ -111,9 +110,7 @@ export default function HomeHeimspiele() {
 														{match.date}
 													</time>
 													<Link
-														href={
-															"https://www.google.com/maps/search/?api=1&query=" + match.location?.street + "," + match.location?.postalCode + "," + match.location?.city + "," + match.location?.name
-														}
+														href={"https://www.google.com/maps/search/?api=1&query=" + match.location?.street + "," + match.location?.postalCode + "," + match.location?.city + "," + match.location?.name}
 														target="_blank"
 														rel="noopener noreferrer"
 														className="text-turquoise"
@@ -138,14 +135,10 @@ export default function HomeHeimspiele() {
 																	</p>
 																	{/* fetch the guest for this date, time, league and location combination */}
 																	<ul>
-																		{matchesToDisplay.map((matchGuest) => {
-																			if (
-																				matchLeagueTime.location?.id == matchGuest.location?.id &&
-																				match.date == matchGuest.date &&
-																				matchLeagueTime.matchSeries?.uuid == matchGuest.matchSeries?.uuid
-																			) {
+																		{matchesToDisplay.map((matchGuest, index) => {
+																			if (matchLeagueTime.location?.id == matchGuest.location?.id && match.date == matchGuest.date && matchLeagueTime.matchSeries?.uuid == matchGuest.matchSeries?.uuid) {
 																				return (
-																					<Fragment key="Guests">
+																					<Fragment key={index}>
 																						{matchGuest.team?.map((teamGuest) => {
 																							if (teamGuest.id != matchGuest.host?.id && !matchBuffer.includes(teamGuest.id + dateLocationCombi)) {
 																								matchBuffer.push(teamGuest.id + dateLocationCombi);

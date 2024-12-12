@@ -1,21 +1,21 @@
 import PageHeading from "@/app/components/layout/PageHeading";
-import MembersCard from "@/app/components/ui/MemberCard";
 import Matches from "@/app/components/sams/Matches";
-import Link from "next/link";
-import { Fragment } from "react";
+import RankingTable from "@/app/components/sams/RankingTable";
+import MembersCard from "@/app/components/ui/MemberCard";
 import { getMembers } from "@/app/utils/getMembers";
 import { getTeams } from "@/app/utils/getTeams";
-import { getLeagueName, cachedGetUniqueMatchSeriesIds } from "@/app/utils/sams/cachedGetClubData";
-import { FaUser as IconPerson, FaUserGroup as IconPersons, FaClock as IconClock, FaBullhorn as IconSubscribe, FaEnvelope as IconEmail } from "react-icons/fa6";
-import { cachedGetRankings } from "@/app/utils/sams/cachedGetRanking";
-import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
-import RankingTable from "@/app/components/sams/RankingTable";
 import { icsTeamGeneration } from "@/app/utils/icsGeneration";
-import { env } from "process";
+import { cachedGetUniqueMatchSeriesIds, getLeagueName } from "@/app/utils/sams/cachedGetClubData";
+import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
 import { cachedGetPlayers } from "@/app/utils/sams/cachedGetPlayers";
-import Flag from "react-world-flags";
-import ExportedImage from "next-image-export-optimizer";
+import { cachedGetRankings } from "@/app/utils/sams/cachedGetRanking";
 import cachedGetSeasons from "@/app/utils/sams/cachedGetSeasons";
+import ExportedImage from "next-image-export-optimizer";
+import Link from "next/link";
+import { env } from "process";
+import { Fragment } from "react";
+import { FaClock as IconClock, FaEnvelope as IconEmail, FaUser as IconPerson, FaUserGroup as IconPersons, FaBullhorn as IconSubscribe } from "react-icons/fa6";
+import Flag from "react-world-flags";
 
 // generate static routes for each team slug
 // example: http://localhost:3000/teams/herren1
@@ -34,7 +34,8 @@ export async function generateStaticParams() {
 	}));
 }
 
-export default function TeamPage({ params }: { params: { slug: string } }) {
+export default async function TeamPage(props: { params: Promise<{ slug: string }> }) {
+	const params = await props.params;
 	// pre-render setup
 	// removes the array and just returns the team object
 	const team = getTeams(undefined, params.slug)[0];
@@ -83,10 +84,13 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 												<div className="odd:bg-blac1k/5 inline-flex gap-1">
 													<div className="flex justify-center items-center h-6 w-8 shrink-0">{player.number}</div>
 													<div className="flex justify-center items-center h-6 w-8 shrink-0">
-														<Flag
-															code={player.nationality}
-															className="h-full w-full object-cover border-onyx/10 border-[1px] shadow"
-														/>
+														{
+															// @ts-ignore https://github.com/DefinitelyTyped/DefinitelyTyped/issues/66841
+															<Flag
+																code={player.nationality}
+																className="h-full w-full object-cover border-onyx/10 border-[1px] shadow"
+															/>
+														}
 													</div>
 													<div className="ml-1 col-span-2 text-balance">
 														{player.firstname} {player.lastname}

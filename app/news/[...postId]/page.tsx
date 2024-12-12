@@ -24,16 +24,17 @@ export async function generateStaticParams() {
 	}));
 }
 
-export default function newsDisplay({ params }: { params: { postId?: string } }) {
-	// redirect if no valid page is targeted
-	let newsPageId = Number(params.postId);
-	if (!params.postId || newsPageId > newsPagesTotal || Number.isNaN(newsPageId)) {
+export default async function newsDisplay(props: { params: Promise<{ postId?: string }> }) {
+    const params = await props.params;
+    // redirect if no valid page is targeted
+    let newsPageId = Number(params.postId);
+    if (!params.postId || newsPageId > newsPagesTotal || Number.isNaN(newsPageId)) {
 		redirect("/news/1");
 	}
 
-	let newsPostStart: number = (newsPageId - 1) * newsPerPage + 1;
-	let newsPostEnd: number = newsPageId * newsPerPage;
-	return (
+    let newsPostStart: number = (newsPageId - 1) * newsPerPage + 1;
+    let newsPostEnd: number = newsPageId * newsPerPage;
+    return (
 		<>
 			<PageHeading title={"Neuigkeiten des Volleyballclub Müllheim"} />
 			<div className="col-center-content mt-6 grid grid-cols-1 md:grid-cols-2 gap-5 py-3 flex-wrap">

@@ -1,8 +1,7 @@
 "use client";
-import Link from "next/link";
-import React from "react";
-import Markdown from "react-markdown";
 import ExportedImage from "next-image-export-optimizer";
+import Link from "next/link";
+import Markdown from "react-markdown";
 
 export default function NewsCard(props: any) {
 	// check if this post has a thumbnail  TODO: move this all to a {props.thumbnail && "class stuff"}
@@ -49,7 +48,7 @@ export default function NewsCard(props: any) {
 						blockquote: "span",
 						// turn list items into inline elements and also add a leading hyphen
 						li(props) {
-							const { node, ...rest } = props;
+							const { node, ref, children, ...rest } = props;
 							return (
 								<span
 									className="before:content-['-_']"
@@ -58,7 +57,7 @@ export default function NewsCard(props: any) {
 							);
 						},
 						a(props) {
-							const { node, ...rest } = props;
+							const { node, ref, children, ...rest } = props;
 							return (
 								<span
 									className="pointer-events-none"
@@ -67,11 +66,7 @@ export default function NewsCard(props: any) {
 							);
 						},
 					}}
-					className={
-						"px-3 pt-2 font-normal text-gray-700 text-sm prose max-w-full prose-strong:font-normal prose-i:font-normal prose-img:hidden prose-video:hidden prose-div:hidden prose-p:inline prose-p:mr-1 prose-ul:m-0 prose-ol:m-0 prose-li:m-0" +
-						" " +
-						thumbnailExperptClass
-					}
+					className={"px-3 pt-2 font-normal text-gray-700 text-sm prose max-w-full prose-strong:font-normal prose-i:font-normal prose-img:hidden prose-video:hidden prose-div:hidden prose-p:inline prose-p:mr-1 prose-ul:m-0 prose-ol:m-0 prose-li:m-0" + " " + thumbnailExperptClass}
 				>
 					{props.content
 						.replace("<embed", "<embed style='display:none'")
