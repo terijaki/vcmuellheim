@@ -272,6 +272,30 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113611994621483318"
+    },
+    {
+      "uuid": "38c2ffcd-6ad3-453f-943d-f2c48a84a3b5",
+      "date": "2024-12-14T13:00:00.000Z",
+      "league": "Landesliga West Herren",
+      "team": [
+        "VC Müllheim 1",
+        "TV Kappelrodeck 2"
+      ],
+      "winner": 2,
+      "score": "2:3",
+      "mastodon": "new"
+    },
+    {
+      "uuid": "1cb0d796-76c2-42bf-b27d-520364bcafac",
+      "date": "2024-12-14T13:00:00.000Z",
+      "league": "Kreisliga Damen Süd",
+      "team": [
+        "Spvgg Märkt-Eimeldingen",
+        "VC Müllheim 2"
+      ],
+      "winner": 2,
+      "score": "1:3",
+      "mastodon": "new"
     }
   ]
 }
