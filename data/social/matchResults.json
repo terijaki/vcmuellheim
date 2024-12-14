@@ -1,32 +1,6 @@
 {
   "entries": [
     {
-      "uuid": "11be41b4-21cd-46df-90c4-67acf631c2d2",
-      "date": "2024-10-12T12:00:00.000Z",
-      "league": "Landesliga West Herren",
-      "team": [
-        "VC Müllheim 1",
-        "TSV Al. Zähringen 1"
-      ],
-      "winner": 1,
-      "score": "3:1",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113294902396582072"
-    },
-    {
-      "uuid": "14e0eb91-9c29-47cf-94dc-3aeb7b3dcad2",
-      "date": "2024-10-12T12:00:00.000Z",
-      "league": "Landesliga West Herren",
-      "team": [
-        "VC Müllheim 1",
-        "SG BEG United 2"
-      ],
-      "winner": 2,
-      "score": "1:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113295481551509904"
-    },
-    {
       "uuid": "8f697417-37d7-45dd-94ed-037b70b14cd9",
       "date": "2024-10-26T12:00:00.000Z",
       "league": "Bezirksliga Herren Süd",
@@ -283,7 +257,8 @@
       ],
       "winner": 2,
       "score": "2:3",
-      "mastodon": "new"
+      "mastodon": "published",
+      "mastodonUrl": "https://freiburg.social/@VCM/113651866519669002"
     },
     {
       "uuid": "1cb0d796-76c2-42bf-b27d-520364bcafac",
@@ -295,7 +270,8 @@
       ],
       "winner": 2,
       "score": "1:3",
-      "mastodon": "new"
+      "mastodon": "published",
+      "mastodonUrl": "https://freiburg.social/@VCM/113651866548625698"
     }
   ]
 }
