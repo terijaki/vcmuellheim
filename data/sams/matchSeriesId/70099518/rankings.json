@@ -7,9 +7,9 @@
       "name": "Kreisliga Damen Süd",
       "shortName": "kl s d",
       "type": "League",
-      "updated": "2024-12-14 17:55:13.792",
+      "updated": "2024-12-14 18:59:25.588",
       "structureUpdated": "2024-12-11 12:32:09.031",
-      "resultsUpdated": "2024-12-14 17:55:13.792",
+      "resultsUpdated": "2024-12-14 18:59:25.588",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -132,6 +132,62 @@
       },
       {
         "team": {
+          "id": "73557972",
+          "uuid": "dba63df0-226d-4a14-8179-1e699ebbb562",
+          "name": "TV Neuenburg",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Neuenburg",
+            "shortName": null
+          }
+        },
+        "place": "2",
+        "matchesPlayed": "8",
+        "wins": "6",
+        "losses": "2",
+        "points": "16",
+        "setPoints": "18:10",
+        "setWinScore": "18",
+        "setLoseScore": "10",
+        "setPointDifference": "8",
+        "setQuotient": "1,800\n            ",
+        "ballPoints": "621:536",
+        "ballWinScore": "621",
+        "ballLoseScore": "536",
+        "ballPointDifference": "85",
+        "ballQuotient": "1,159\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "4"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "2"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73557953",
           "uuid": "a521c2e7-63b1-498d-bd10-759a0b51dbe6",
           "name": "VBG Efringen-Kirchen 2",
@@ -142,7 +198,7 @@
             "shortName": null
           }
         },
-        "place": "2",
+        "place": "3",
         "matchesPlayed": "6",
         "wins": "4",
         "losses": "2",
@@ -182,62 +238,6 @@
             {
               "result": "0:3",
               "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73557972",
-          "uuid": "dba63df0-226d-4a14-8179-1e699ebbb562",
-          "name": "TV Neuenburg",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Neuenburg",
-            "shortName": null
-          }
-        },
-        "place": "3",
-        "matchesPlayed": "7",
-        "wins": "5",
-        "losses": "2",
-        "points": "13",
-        "setPoints": "15:10",
-        "setWinScore": "15",
-        "setLoseScore": "10",
-        "setPointDifference": "5",
-        "setQuotient": "1,500\n            ",
-        "ballPoints": "546:505",
-        "ballWinScore": "546",
-        "ballLoseScore": "505",
-        "ballPointDifference": "41",
-        "ballQuotient": "1,081\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "3"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "2"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "2"
             }
           ]
         }
@@ -535,20 +535,20 @@
           }
         },
         "place": "9",
-        "matchesPlayed": "7",
+        "matchesPlayed": "8",
         "wins": "1",
-        "losses": "6",
+        "losses": "7",
         "points": "3",
-        "setPoints": "5:20",
+        "setPoints": "5:23",
         "setWinScore": "5",
-        "setLoseScore": "20",
-        "setPointDifference": "-15",
-        "setQuotient": "0,250\n            ",
-        "ballPoints": "351:588",
-        "ballWinScore": "351",
-        "ballLoseScore": "588",
-        "ballPointDifference": "-237",
-        "ballQuotient": "0,597\n            ",
+        "setLoseScore": "23",
+        "setPointDifference": "-18",
+        "setQuotient": "0,217\n            ",
+        "ballPoints": "382:663",
+        "ballWinScore": "382",
+        "ballLoseScore": "663",
+        "ballPointDifference": "-281",
+        "ballQuotient": "0,576\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -573,7 +573,7 @@
             },
             {
               "result": "0:3",
-              "count": "5"
+              "count": "6"
             }
           ]
         }
