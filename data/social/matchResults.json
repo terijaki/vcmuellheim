@@ -272,6 +272,18 @@
       "score": "1:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113651866548625698"
+    },
+    {
+      "uuid": "787fa414-bff3-4510-bee6-5ac1c21e06d8",
+      "date": "2024-12-14T13:00:00.000Z",
+      "league": "Landesliga West Herren",
+      "team": [
+        "VC Müllheim 1",
+        "TV Kollnau-Gutach 1"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
     }
   ]
 }
