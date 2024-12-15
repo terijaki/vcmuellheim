@@ -311,6 +311,18 @@
       "score": "1:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113656685657345213"
+    },
+    {
+      "uuid": "84f59919-43e4-40cc-8f5e-80cdc4c2dc50",
+      "date": "2024-12-15T09:30:00.000Z",
+      "league": "Bezirksklasse Damen Süd",
+      "team": [
+        "VC Müllheim 1",
+        "VfR Merzhausen 2"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
     }
   ]
 }
