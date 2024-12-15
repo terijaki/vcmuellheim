@@ -7,9 +7,9 @@
       "name": "Bezirksklasse Damen Süd",
       "shortName": "bzk s d",
       "type": "League",
-      "updated": "2024-12-15 12:19:50.936",
+      "updated": "2024-12-15 14:04:28.628",
       "structureUpdated": "2024-12-11 14:16:59.584",
-      "resultsUpdated": "2024-12-15 12:19:50.936",
+      "resultsUpdated": "2024-12-15 14:04:28.628",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -249,25 +249,25 @@
           }
         },
         "place": "4",
-        "matchesPlayed": "6",
-        "wins": "4",
+        "matchesPlayed": "7",
+        "wins": "5",
         "losses": "2",
-        "points": "11",
-        "setPoints": "15:11",
-        "setWinScore": "15",
+        "points": "14",
+        "setPoints": "18:11",
+        "setWinScore": "18",
         "setLoseScore": "11",
-        "setPointDifference": "4",
-        "setQuotient": "1,364\n            ",
-        "ballPoints": "558:517",
-        "ballWinScore": "558",
-        "ballLoseScore": "517",
-        "ballPointDifference": "41",
-        "ballQuotient": "1,079\n            ",
+        "setPointDifference": "7",
+        "setQuotient": "1,636\n            ",
+        "ballPoints": "633:552",
+        "ballWinScore": "633",
+        "ballLoseScore": "552",
+        "ballPointDifference": "81",
+        "ballQuotient": "1,147\n            ",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "1"
+              "count": "2"
             },
             {
               "result": "3:1",
@@ -361,20 +361,20 @@
           }
         },
         "place": "6",
-        "matchesPlayed": "7",
+        "matchesPlayed": "8",
         "wins": "3",
-        "losses": "4",
+        "losses": "5",
         "points": "9",
-        "setPoints": "11:13",
+        "setPoints": "11:16",
         "setWinScore": "11",
-        "setLoseScore": "13",
-        "setPointDifference": "-2",
-        "setQuotient": "0,846\n            ",
-        "ballPoints": "529:530",
-        "ballWinScore": "529",
-        "ballLoseScore": "530",
-        "ballPointDifference": "-1",
-        "ballQuotient": "0,998\n            ",
+        "setLoseScore": "16",
+        "setPointDifference": "-5",
+        "setQuotient": "0,688\n            ",
+        "ballPoints": "564:605",
+        "ballWinScore": "564",
+        "ballLoseScore": "605",
+        "ballPointDifference": "-41",
+        "ballQuotient": "0,932\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -399,7 +399,7 @@
             },
             {
               "result": "0:3",
-              "count": "2"
+              "count": "3"
             }
           ]
         }
