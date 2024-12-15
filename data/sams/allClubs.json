@@ -56152,16 +56152,6 @@
         }
       },
       {
-        "id": "37921662",
-        "name": "SSF Bonn 1905 e.V.",
-        "lsbNumber": "2002048",
-        "internalSportsclubId": "8201",
-        "association": {
-          "id": "33795281",
-          "name": "Bonn"
-        }
-      },
-      {
         "id": "37920988",
         "name": "SC DJK Everswinkel 1959 e.V.",
         "lsbNumber": "3306002",
@@ -60419,6 +60409,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "37921662",
+        "name": "SSF Bonn 1905 e.V.",
+        "lsbNumber": "2002048",
+        "internalSportsclubId": "8201",
+        "association": {
+          "id": "33795281",
+          "name": "Bonn"
         }
       },
       {
