@@ -22222,16 +22222,6 @@
         }
       },
       {
-        "id": "37921977",
-        "name": "Spielverein Veert 1934 e.V.",
-        "lsbNumber": "1103015",
-        "internalSportsclubId": "5608",
-        "association": {
-          "id": "33298881",
-          "name": "Kleve"
-        }
-      },
-      {
         "id": "37920753",
         "name": "CVJM Rothenuffeln/Haddenhausen",
         "lsbNumber": "4503030",
@@ -22266,6 +22256,16 @@
         "name": "Emmericher Turnverein 1883 e.V.",
         "lsbNumber": "1102010",
         "internalSportsclubId": "142",
+        "association": {
+          "id": "33298881",
+          "name": "Kleve"
+        }
+      },
+      {
+        "id": "37921977",
+        "name": "Spielverein Veert 1934 e.V.",
+        "lsbNumber": "1103015",
+        "internalSportsclubId": "5608",
         "association": {
           "id": "33298881",
           "name": "Kleve"
