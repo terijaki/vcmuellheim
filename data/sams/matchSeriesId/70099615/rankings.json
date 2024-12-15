@@ -7,9 +7,9 @@
       "name": "Bezirksklasse Damen Süd",
       "shortName": "bzk s d",
       "type": "League",
-      "updated": "2024-12-15 16:37:29.316",
+      "updated": "2024-12-15 17:03:51.789",
       "structureUpdated": "2024-12-11 14:16:59.584",
-      "resultsUpdated": "2024-12-15 16:37:29.316",
+      "resultsUpdated": "2024-12-15 17:03:51.789",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -126,6 +126,62 @@
       },
       {
         "team": {
+          "id": "73557224",
+          "uuid": "f02c6e36-a66a-45ce-9e14-450e74619da3",
+          "name": "SV Waltershofen 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "SV Waltershofen",
+            "shortName": null
+          }
+        },
+        "place": "2",
+        "matchesPlayed": "8",
+        "wins": "6",
+        "losses": "2",
+        "points": "20",
+        "setPoints": "22:7",
+        "setWinScore": "22",
+        "setLoseScore": "7",
+        "setPointDifference": "15",
+        "setQuotient": "3,143\n            ",
+        "ballPoints": "666:513",
+        "ballWinScore": "666",
+        "ballLoseScore": "513",
+        "ballPointDifference": "153",
+        "ballQuotient": "1,298\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "5"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "2"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73557227",
           "uuid": "05f5e5a1-62d3-42fa-82a4-2a25c95952b2",
           "name": "TV Bad Säckingen 2",
@@ -136,7 +192,7 @@
             "shortName": null
           }
         },
-        "place": "2",
+        "place": "3",
         "matchesPlayed": "8",
         "wins": "6",
         "losses": "2",
@@ -192,7 +248,7 @@
             "shortName": null
           }
         },
-        "place": "3",
+        "place": "4",
         "matchesPlayed": "8",
         "wins": "6",
         "losses": "2",
@@ -238,62 +294,6 @@
       },
       {
         "team": {
-          "id": "73557224",
-          "uuid": "f02c6e36-a66a-45ce-9e14-450e74619da3",
-          "name": "SV Waltershofen 2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "SV Waltershofen",
-            "shortName": null
-          }
-        },
-        "place": "4",
-        "matchesPlayed": "7",
-        "wins": "5",
-        "losses": "2",
-        "points": "17",
-        "setPoints": "19:7",
-        "setWinScore": "19",
-        "setLoseScore": "7",
-        "setPointDifference": "12",
-        "setQuotient": "2,714\n            ",
-        "ballPoints": "591:467",
-        "ballWinScore": "591",
-        "ballLoseScore": "467",
-        "ballPointDifference": "124",
-        "ballQuotient": "1,266\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "4"
-            },
-            {
-              "result": "3:1",
-              "count": "1"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "2"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "73557242",
           "uuid": "c880249d-f6e3-46bf-8fb4-8debf82f1359",
           "name": "TV Hartheim",
@@ -305,20 +305,20 @@
           }
         },
         "place": "5",
-        "matchesPlayed": "7",
+        "matchesPlayed": "8",
         "wins": "3",
-        "losses": "4",
+        "losses": "5",
         "points": "11",
-        "setPoints": "13:14",
+        "setPoints": "13:17",
         "setWinScore": "13",
-        "setLoseScore": "14",
-        "setPointDifference": "-1",
-        "setQuotient": "0,929\n            ",
-        "ballPoints": "539:589",
-        "ballWinScore": "539",
-        "ballLoseScore": "589",
-        "ballPointDifference": "-50",
-        "ballQuotient": "0,915\n            ",
+        "setLoseScore": "17",
+        "setPointDifference": "-4",
+        "setQuotient": "0,765\n            ",
+        "ballPoints": "585:664",
+        "ballWinScore": "585",
+        "ballLoseScore": "664",
+        "ballPointDifference": "-79",
+        "ballQuotient": "0,881\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -343,7 +343,7 @@
             },
             {
               "result": "0:3",
-              "count": "2"
+              "count": "3"
             }
           ]
         }
