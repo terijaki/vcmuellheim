@@ -11242,6 +11242,16 @@
         }
       },
       {
+        "id": "26846578",
+        "name": "Ballsport Interkulturell e.V.",
+        "lsbNumber": "325",
+        "internalSportsclubId": "14-11-180",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
         "id": "26819066",
         "name": "BSG des Asklepios FK Stadtroda e.V.",
         "lsbNumber": "80097",
@@ -11349,16 +11359,6 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
-        }
-      },
-      {
-        "id": "26846578",
-        "name": "Ballsport Interkulturell e.V.",
-        "lsbNumber": "325",
-        "internalSportsclubId": "14-11-180",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -54532,16 +54532,6 @@
         }
       },
       {
-        "id": "54611200",
-        "name": "TB Tailfingen",
-        "lsbNumber": "24141",
-        "internalSportsclubId": "563",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "54611209",
         "name": "Holzleim",
         "lsbNumber": "0",
@@ -60719,6 +60709,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "54611200",
+        "name": "TB Tailfingen",
+        "lsbNumber": "24141",
+        "internalSportsclubId": "563",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
