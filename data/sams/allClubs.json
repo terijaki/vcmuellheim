@@ -2262,6 +2262,16 @@
         }
       },
       {
+        "id": "52623037",
+        "name": "Volleyball Akademie Brandenburg e.V.",
+        "lsbNumber": "510126",
+        "internalSportsclubId": "510126",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "37921055",
         "name": "Baumberger Turn- u. Sport Club 1897 e.V.",
         "lsbNumber": "1210036",
@@ -2299,16 +2309,6 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
-        "id": "52623037",
-        "name": "Volleyball Akademie Brandenburg e.V.",
-        "lsbNumber": "510126",
-        "internalSportsclubId": "510126",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -23682,16 +23682,6 @@
         }
       },
       {
-        "id": "54611067",
-        "name": "MTG Wangen",
-        "lsbNumber": "14143",
-        "internalSportsclubId": "425",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "37921303",
         "name": "VC Lemgo e.V.",
         "lsbNumber": "4411047",
@@ -23699,6 +23689,16 @@
         "association": {
           "id": "33797741",
           "name": "Lippe"
+        }
+      },
+      {
+        "id": "54611067",
+        "name": "MTG Wangen",
+        "lsbNumber": "14143",
+        "internalSportsclubId": "425",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
@@ -36822,16 +36822,6 @@
         }
       },
       {
-        "id": "37313158",
-        "name": "VC Teltow/Kleinmachnow e.V.",
-        "lsbNumber": "690222",
-        "internalSportsclubId": "690222",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "17048800",
         "name": "Schweriner SC",
         "lsbNumber": "40623",
@@ -36952,6 +36942,26 @@
         }
       },
       {
+        "id": "37313158",
+        "name": "VC Teltow/Kleinmachnow e.V.",
+        "lsbNumber": "690222",
+        "internalSportsclubId": "690222",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "49504413",
+        "name": "TSG Lübben 65",
+        "lsbNumber": "610032",
+        "internalSportsclubId": "610032",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "30225508",
         "name": "DJK TuS Hürth 1964 e.V.",
         "lsbNumber": "2307026",
@@ -37056,16 +37066,6 @@
         "name": "VC Blau-Weiß Brandenburg",
         "lsbNumber": "510005",
         "internalSportsclubId": "510005",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
-        "id": "49504413",
-        "name": "TSG Lübben 65",
-        "lsbNumber": "610032",
-        "internalSportsclubId": "610032",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -37626,16 +37626,6 @@
         "name": "WSG Potsdam-Waldstadt",
         "lsbNumber": "540020",
         "internalSportsclubId": "540020",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
-        "id": "49504445",
-        "name": "SV 05 Rehbrücke",
-        "lsbNumber": "690006",
-        "internalSportsclubId": "690006",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -54342,16 +54332,6 @@
         }
       },
       {
-        "id": "54611131",
-        "name": "TV Gosheim",
-        "lsbNumber": "23033",
-        "internalSportsclubId": "489",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "54611134",
         "name": "SV Haigerloch",
         "lsbNumber": "24064",
@@ -54396,6 +54376,16 @@
         "name": "SG Deisslingen",
         "lsbNumber": "17152",
         "internalSportsclubId": "463",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "54611131",
+        "name": "TV Gosheim",
+        "lsbNumber": "23033",
+        "internalSportsclubId": "489",
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
@@ -62912,6 +62902,46 @@
         }
       },
       {
+        "id": "81982957",
+        "name": "TuS \"Westfalische Eiche\" Lügde 05 e.V.",
+        "lsbNumber": "1111111110000068",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "33797741",
+          "name": "Lippe"
+        }
+      },
+      {
+        "id": "81975906",
+        "name": "TV Barntrup v. 1865 e.V.",
+        "lsbNumber": "1111111110000067",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "33797741",
+          "name": "Lippe"
+        }
+      },
+      {
+        "id": "49504445",
+        "name": "SV 05 Rehbrücke",
+        "lsbNumber": "690006",
+        "internalSportsclubId": "690006",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "82002770",
+        "name": "SV BTL Rastatt e.V.",
+        "lsbNumber": "184870",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "65036685",
         "name": "SG Sinsheim/Helmstadt",
         "lsbNumber": null,
@@ -63212,16 +63242,6 @@
         }
       },
       {
-        "id": "26846473",
-        "name": "Turn-Sport-Club Berlin 1893 e.V.",
-        "lsbNumber": "4848",
-        "internalSportsclubId": "14-11-067",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "26925459",
         "name": "VC Goldener Grund",
         "lsbNumber": "14302",
@@ -63239,6 +63259,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "26846473",
+        "name": "Turn-Sport-Club Berlin 1893 e.V.",
+        "lsbNumber": "4848",
+        "internalSportsclubId": "14-11-067",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
         }
       },
       {
