@@ -60382,16 +60382,6 @@
         }
       },
       {
-        "id": "26818990",
-        "name": "SV Drosselberg 91 e.V.",
-        "lsbNumber": "100074",
-        "internalSportsclubId": "03549",
-        "association": {
-          "id": "26249165",
-          "name": "Kreisverband Mitte"
-        }
-      },
-      {
         "id": "50621863",
         "name": "SV Narsdorf e.V.",
         "lsbNumber": "460249",
@@ -62939,6 +62929,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26818990",
+        "name": "SV Drosselberg 91 e.V.",
+        "lsbNumber": "100074",
+        "internalSportsclubId": "03549",
+        "association": {
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
         }
       },
       {
