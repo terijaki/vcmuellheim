@@ -35392,6 +35392,16 @@
         }
       },
       {
+        "id": "37921750",
+        "name": "Schwimmverein Neptun 1910 Aachen e.V.",
+        "lsbNumber": "2001031",
+        "internalSportsclubId": "24",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
+        }
+      },
+      {
         "id": "37921259",
         "name": "CVJM Wermelskirchen",
         "lsbNumber": "2708006",
@@ -35539,16 +35549,6 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
-        "id": "37921750",
-        "name": "Schwimmverein Neptun 1910 Aachen e.V.",
-        "lsbNumber": "2001031",
-        "internalSportsclubId": "24",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
