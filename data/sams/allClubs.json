@@ -10332,16 +10332,6 @@
         }
       },
       {
-        "id": "26846548",
-        "name": "Volleyballclub Preußen Berlin e.V.",
-        "lsbNumber": "5215",
-        "internalSportsclubId": "14-11-148",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "37921438",
         "name": "TV Friesen Bochum 1887 e.V.",
         "lsbNumber": "5001147",
@@ -62889,6 +62879,16 @@
         "association": {
           "id": "33795203",
           "name": "Aachen-Düren-Heinsberg"
+        }
+      },
+      {
+        "id": "26846548",
+        "name": "Volleyballclub Preußen Berlin e.V.",
+        "lsbNumber": "5215",
+        "internalSportsclubId": "14-11-148",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
         }
       },
       {
