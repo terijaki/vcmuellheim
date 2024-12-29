@@ -48572,16 +48572,6 @@
         }
       },
       {
-        "id": "26925234",
-        "name": "Hünfelder SV 1919",
-        "lsbNumber": "21019",
-        "internalSportsclubId": "2305",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "29841584",
         "name": "TV Göttelborn",
         "lsbNumber": "82539",
@@ -48619,6 +48609,16 @@
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
+        }
+      },
+      {
+        "id": "26925234",
+        "name": "Hünfelder SV 1919",
+        "lsbNumber": "21019",
+        "internalSportsclubId": "2305",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
         }
       },
       {
