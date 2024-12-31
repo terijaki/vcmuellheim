@@ -36712,16 +36712,6 @@
         }
       },
       {
-        "id": "6382",
-        "name": "Berliner Volleyballverein Vorwärts e.V.",
-        "lsbNumber": "820",
-        "internalSportsclubId": "14-11-115",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "21797214",
         "name": "Elsterwerdaer SV 94",
         "lsbNumber": "620156",
@@ -39992,16 +39982,6 @@
         }
       },
       {
-        "id": "16786587",
-        "name": "Spielgemeinschaft U.N.S. Rheinhessen",
-        "lsbNumber": "3000164",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "50621585",
         "name": "BSV Strehla e.V.",
         "lsbNumber": "470015",
@@ -40189,6 +40169,16 @@
         "association": {
           "id": "24908890",
           "name": "Stadt Leipzig"
+        }
+      },
+      {
+        "id": "16786587",
+        "name": "Spielgemeinschaft U.N.S. Rheinhessen",
+        "lsbNumber": "3000164",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -45232,10 +45222,10 @@
         }
       },
       {
-        "id": "51836073",
-        "name": "VVRh-Förderkader",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
+        "id": "51836061",
+        "name": "VC Weierbach",
+        "lsbNumber": "1004071",
+        "internalSportsclubId": "32-13-05",
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
@@ -45282,20 +45272,10 @@
         }
       },
       {
-        "id": "51836061",
-        "name": "VC Weierbach",
-        "lsbNumber": "1004071",
-        "internalSportsclubId": "32-13-05",
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
-        "id": "51836072",
-        "name": "TSV Flörsheim-Dalsheim",
-        "lsbNumber": "476",
-        "internalSportsclubId": "476",
+        "id": "51836073",
+        "name": "VVRh-Förderkader",
+        "lsbNumber": null,
+        "internalSportsclubId": null,
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
@@ -46172,6 +46152,16 @@
         }
       },
       {
+        "id": "51836211",
+        "name": "Schwimmverein Freibad Gimbsheim e.V.",
+        "lsbNumber": "438",
+        "internalSportsclubId": "32-47-14",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
         "id": "51836189",
         "name": "SV 1906 Katzweiler",
         "lsbNumber": "331",
@@ -46266,16 +46256,6 @@
         "name": "SG Worms-Hochheim",
         "lsbNumber": null,
         "internalSportsclubId": null,
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
-        "id": "51836211",
-        "name": "Schwimmverein Freibad Gimbsheim e.V.",
-        "lsbNumber": "438",
-        "internalSportsclubId": "32-47-14",
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
@@ -50452,16 +50432,6 @@
         }
       },
       {
-        "id": "51836364",
-        "name": "Floorball Mainz e.V.",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "51836376",
         "name": "TV Koblenz-Wallersh.",
         "lsbNumber": null,
@@ -51742,6 +51712,16 @@
         }
       },
       {
+        "id": "51836513",
+        "name": "Turn- und Sportverein 1863 Wöllstein e. V.",
+        "lsbNumber": "10024",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
         "id": "51836509",
         "name": "Fehlerverein",
         "lsbNumber": "437",
@@ -51905,16 +51885,6 @@
         "id": "51836508",
         "name": "TSG Heppenheim",
         "lsbNumber": "3000154",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
-        "id": "51836513",
-        "name": "Turn- und Sportverein 1863 Wöllstein e. V.",
-        "lsbNumber": "10024",
         "internalSportsclubId": null,
         "association": {
           "id": "25383438",
@@ -58872,16 +58842,6 @@
         }
       },
       {
-        "id": "51836150",
-        "name": "Spielgemeinschaft TG Worms/TuS Hochheim",
-        "lsbNumber": "3000169",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "65037135",
         "name": "PTSV Konstanz",
         "lsbNumber": "270150",
@@ -58949,6 +58909,16 @@
         "association": {
           "id": "24908672",
           "name": "Landkreis Mittelsachsen"
+        }
+      },
+      {
+        "id": "51836150",
+        "name": "Spielgemeinschaft TG Worms/TuS Hochheim",
+        "lsbNumber": "3000169",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -59172,16 +59142,6 @@
         }
       },
       {
-        "id": "51836048",
-        "name": "TSG Bechtheim 1883 e.V.",
-        "lsbNumber": "485",
-        "internalSportsclubId": "485",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "65037184",
         "name": "TV Konstanz",
         "lsbNumber": "471600",
@@ -59279,6 +59239,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "51836048",
+        "name": "TSG Bechtheim 1883 e.V.",
+        "lsbNumber": "485",
+        "internalSportsclubId": "485",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -62892,6 +62862,36 @@
         }
       },
       {
+        "id": "51836072",
+        "name": "TSV Flörsheim-Dalsheim",
+        "lsbNumber": "476",
+        "internalSportsclubId": "476",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "6382",
+        "name": "Berliner Volleyballverein Vorwärts e.V.",
+        "lsbNumber": "820",
+        "internalSportsclubId": "14-11-115",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "72054051",
+        "name": "Spielgemeinschaft Koblenz-Maifeld-Volleys",
+        "lsbNumber": null,
+        "internalSportsclubId": null,
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
         "id": "81982957",
         "name": "TuS \"Westfalische Eiche\" Lügde 05 e.V.",
         "lsbNumber": "1111111110000068",
@@ -62909,6 +62909,16 @@
         "association": {
           "id": "33797741",
           "name": "Lippe"
+        }
+      },
+      {
+        "id": "51836364",
+        "name": "Floorball Mainz e.V.",
+        "lsbNumber": null,
+        "internalSportsclubId": null,
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -63019,16 +63029,6 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "72054051",
-        "name": "Spielgemeinschaft Koblenz-Maifeld-Volleys",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
         }
       },
       {
