@@ -21092,16 +21092,6 @@
         }
       },
       {
-        "id": "37921158",
-        "name": "Sport-Club Babenhausen e.V.",
-        "lsbNumber": "4001047",
-        "internalSportsclubId": "11",
-        "association": {
-          "id": "33797382",
-          "name": "Gütersloh-Bielefeld"
-        }
-      },
-      {
         "id": "54611119",
         "name": "TSV Flacht",
         "lsbNumber": "3020",
@@ -21109,6 +21099,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "37921158",
+        "name": "Sport-Club Babenhausen e.V.",
+        "lsbNumber": "4001047",
+        "internalSportsclubId": "11",
+        "association": {
+          "id": "33797382",
+          "name": "Gütersloh-Bielefeld"
         }
       },
       {
