@@ -20742,16 +20742,6 @@
         }
       },
       {
-        "id": "26925802",
-        "name": "TSV 1913  e.V. Wichmannshausen",
-        "lsbNumber": "43102",
-        "internalSportsclubId": "4507",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "37921609",
         "name": "TuS 1896 Chlodwig Zülpich e.V.",
         "lsbNumber": "2411003",
@@ -20899,6 +20889,16 @@
         "association": {
           "id": "33299056",
           "name": "Essen"
+        }
+      },
+      {
+        "id": "26925802",
+        "name": "TSV 1913  e.V. Wichmannshausen",
+        "lsbNumber": "43102",
+        "internalSportsclubId": "4507",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -33702,20 +33702,20 @@
         }
       },
       {
-        "id": "37948215",
-        "name": "SG 1990 Lindau e.V.",
-        "lsbNumber": "70195",
-        "internalSportsclubId": "70195",
+        "id": "37948400",
+        "name": "SV 90 Havelberg e.V.",
+        "lsbNumber": "20004",
+        "internalSportsclubId": "20004",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
-        "id": "37948400",
-        "name": "SV 90 Havelberg e.V.",
-        "lsbNumber": "20004",
-        "internalSportsclubId": "20004",
+        "id": "37948215",
+        "name": "SG 1990 Lindau e.V.",
+        "lsbNumber": "70195",
+        "internalSportsclubId": "70195",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -37732,6 +37732,16 @@
         }
       },
       {
+        "id": "49504457",
+        "name": "1. VC Herzberg",
+        "lsbNumber": "620083",
+        "internalSportsclubId": "620083",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "49504460",
         "name": "Nahmitzer SV e.V.",
         "lsbNumber": "690123",
@@ -37759,16 +37769,6 @@
         "association": {
           "id": "33795203",
           "name": "Aachen-Düren-Heinsberg"
-        }
-      },
-      {
-        "id": "49504457",
-        "name": "1. VC Herzberg",
-        "lsbNumber": "620083",
-        "internalSportsclubId": "620083",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -56672,16 +56672,6 @@
         }
       },
       {
-        "id": "49724566",
-        "name": "Netzhoppers Königs Wusterhausen",
-        "lsbNumber": "610087",
-        "internalSportsclubId": "610087",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "65036550",
         "name": "FC Steinenstadt",
         "lsbNumber": "8144281608",
@@ -57962,16 +57952,6 @@
         }
       },
       {
-        "id": "65036938",
-        "name": "SV Union 1920 Michelbach",
-        "lsbNumber": "30290",
-        "internalSportsclubId": "30290",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "76671482",
         "name": "Sportclub Concordia 1919 Scharmede e.V.",
         "lsbNumber": "1111111110000057",
@@ -57999,6 +57979,16 @@
         "association": {
           "id": "33299092",
           "name": "Düsseldorf"
+        }
+      },
+      {
+        "id": "65036938",
+        "name": "SV Union 1920 Michelbach",
+        "lsbNumber": "30290",
+        "internalSportsclubId": "30290",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -58076,16 +58066,6 @@
         "name": "DJK Bruchsal",
         "lsbNumber": "71212",
         "internalSportsclubId": "71212",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65036940",
-        "name": "DJK Handschuhsheim",
-        "lsbNumber": "50641",
-        "internalSportsclubId": "50641",
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
@@ -60212,16 +60192,6 @@
         }
       },
       {
-        "id": "65037409",
-        "name": "VSG Kleinsteinbach",
-        "lsbNumber": "82555",
-        "internalSportsclubId": "82555",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "51836058",
         "name": "Turn und Sportgemeinde Pfeddersheim von 1886 e.V.",
         "lsbNumber": "90",
@@ -60852,16 +60822,6 @@
         }
       },
       {
-        "id": "53311589",
-        "name": "Heidelberger TV",
-        "lsbNumber": "50612",
-        "internalSportsclubId": "50612",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037530",
         "name": "TV Neckarhausen",
         "lsbNumber": "61056",
@@ -61332,16 +61292,6 @@
         }
       },
       {
-        "id": "6486",
-        "name": "TV Bühl 1847",
-        "lsbNumber": "470470",
-        "internalSportsclubId": "01006",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036920",
         "name": "TG Ötigheim",
         "lsbNumber": "472390",
@@ -61419,6 +61369,16 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "6486",
+        "name": "TV Bühl 1847",
+        "lsbNumber": "470470",
+        "internalSportsclubId": "01006",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -62702,16 +62662,6 @@
         }
       },
       {
-        "id": "26818876",
-        "name": "SV Rennsteig Neuhaus e.V.",
-        "lsbNumber": "330067",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249283",
-          "name": "Kreisverband Süd"
-        }
-      },
-      {
         "id": "37920854",
         "name": "Turngemeinde Herford von 1860 e.V.",
         "lsbNumber": "4203035",
@@ -62819,6 +62769,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26818876",
+        "name": "SV Rennsteig Neuhaus e.V.",
+        "lsbNumber": "330067",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249283",
+          "name": "Kreisverband Süd"
         }
       },
       {
@@ -62932,6 +62892,16 @@
         }
       },
       {
+        "id": "65036940",
+        "name": "DJK Handschuhsheim",
+        "lsbNumber": "50641",
+        "internalSportsclubId": "50641",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "82002770",
         "name": "SV BTL Rastatt e.V.",
         "lsbNumber": "184870",
@@ -62949,6 +62919,36 @@
         "association": {
           "id": "26249165",
           "name": "Kreisverband Mitte"
+        }
+      },
+      {
+        "id": "49724566",
+        "name": "Netzhoppers Königs Wusterhausen",
+        "lsbNumber": "610087",
+        "internalSportsclubId": "610087",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "53311589",
+        "name": "Heidelberger TV",
+        "lsbNumber": "50612",
+        "internalSportsclubId": "50612",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037409",
+        "name": "VSG Kleinsteinbach",
+        "lsbNumber": "82555",
+        "internalSportsclubId": "82555",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -63262,16 +63262,6 @@
         }
       },
       {
-        "id": "26846473",
-        "name": "Turn-Sport-Club Berlin 1893 e.V.",
-        "lsbNumber": "4848",
-        "internalSportsclubId": "14-11-067",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "50621593",
         "name": "Chemnitzer Ballspiel-Club e.V.",
         "lsbNumber": "400243",
@@ -63299,6 +63289,16 @@
         "association": {
           "id": "33797364",
           "name": "Warendorf"
+        }
+      },
+      {
+        "id": "26846473",
+        "name": "Turn-Sport-Club Berlin 1893 e.V.",
+        "lsbNumber": "4848",
+        "internalSportsclubId": "14-11-067",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
         }
       },
       {
