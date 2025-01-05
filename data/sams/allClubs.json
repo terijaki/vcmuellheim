@@ -37802,16 +37802,6 @@
         }
       },
       {
-        "id": "49504483",
-        "name": "SV Blau-Weiss Heinersdorf 1990",
-        "lsbNumber": "670039",
-        "internalSportsclubId": "670039",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "961587",
         "name": "SVC Laggenbeck",
         "lsbNumber": "3507006",
@@ -37886,6 +37876,16 @@
         "name": "Juventas Crew Alpha",
         "lsbNumber": "540191",
         "internalSportsclubId": "540191",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "49504483",
+        "name": "SV Blau-Weiss Heinersdorf 1990",
+        "lsbNumber": "670039",
+        "internalSportsclubId": "670039",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
