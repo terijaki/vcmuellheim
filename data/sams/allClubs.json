@@ -3692,16 +3692,6 @@
         }
       },
       {
-        "id": "26818857",
-        "name": "Fitness- und Freizeitsportverein Martinroda e.V.",
-        "lsbNumber": "430090",
-        "internalSportsclubId": "621",
-        "association": {
-          "id": "26249329",
-          "name": "Kreisverband Süd-West"
-        }
-      },
-      {
         "id": "26818839",
         "name": "Frauensportgr. \\\"Rhönperlen\\\" Dorndorf e.V.",
         "lsbNumber": "460131",
@@ -28912,16 +28902,6 @@
         }
       },
       {
-        "id": "75228801",
-        "name": "BSG Wismut Aue e.V.",
-        "lsbNumber": "440555",
-        "internalSportsclubId": "553",
-        "association": {
-          "id": "7213",
-          "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
         "id": "37948341",
         "name": "Sportgemeinschaft Grün-Weiß Hasselfelde e.V.",
         "lsbNumber": "50439",
@@ -28979,6 +28959,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "75228801",
+        "name": "BSG Wismut Aue e.V.",
+        "lsbNumber": "440555",
+        "internalSportsclubId": "553",
+        "association": {
+          "id": "7213",
+          "name": "Sächsischer Sportverband Volleyball e.V."
         }
       },
       {
@@ -35812,16 +35802,6 @@
         }
       },
       {
-        "id": "21870350",
-        "name": "Krostitzer SV e.V.",
-        "lsbNumber": "490073",
-        "internalSportsclubId": "47",
-        "association": {
-          "id": "24908869",
-          "name": "Landkreis Nordsachsen"
-        }
-      },
-      {
         "id": "51836014",
         "name": "TSG Gau-Bickelheim",
         "lsbNumber": "45",
@@ -38502,16 +38482,6 @@
         }
       },
       {
-        "id": "56230796",
-        "name": "Angermünder Ballsportler e.V.",
-        "lsbNumber": "730184",
-        "internalSportsclubId": "730184",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "37948360",
         "name": "SV Germania Gernrode e.V.",
         "lsbNumber": "50151",
@@ -38649,6 +38619,16 @@
         "association": {
           "id": "24908726",
           "name": "Vogtlandkreis"
+        }
+      },
+      {
+        "id": "56230796",
+        "name": "Angermünder Ballsportler e.V.",
+        "lsbNumber": "730184",
+        "internalSportsclubId": "730184",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -56322,16 +56302,6 @@
         }
       },
       {
-        "id": "20252",
-        "name": "Moerser SC 1985 e.V.",
-        "lsbNumber": "1506050",
-        "internalSportsclubId": "766",
-        "association": {
-          "id": "33298901",
-          "name": "Wesel"
-        }
-      },
-      {
         "id": "51836362",
         "name": "VC Mainz e.V.",
         "lsbNumber": "2788",
@@ -56379,6 +56349,16 @@
         "association": {
           "id": "24908672",
           "name": "Landkreis Mittelsachsen"
+        }
+      },
+      {
+        "id": "20252",
+        "name": "Moerser SC 1985 e.V.",
+        "lsbNumber": "1506050",
+        "internalSportsclubId": "766",
+        "association": {
+          "id": "33298901",
+          "name": "Wesel"
         }
       },
       {
@@ -63149,6 +63129,26 @@
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
+        }
+      },
+      {
+        "id": "26818857",
+        "name": "Fitness- und Freizeitsportverein Martinroda e.V.",
+        "lsbNumber": "430090",
+        "internalSportsclubId": "621",
+        "association": {
+          "id": "26249329",
+          "name": "Kreisverband Süd-West"
+        }
+      },
+      {
+        "id": "21870350",
+        "name": "Krostitzer SV e.V.",
+        "lsbNumber": "490073",
+        "internalSportsclubId": "47",
+        "association": {
+          "id": "24908869",
+          "name": "Landkreis Nordsachsen"
         }
       },
       {
