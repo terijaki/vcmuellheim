@@ -32612,16 +32612,6 @@
         }
       },
       {
-        "id": "37922040",
-        "name": "Turn- und Spielverein 93/33 Wadersloh eV",
-        "lsbNumber": "3312003",
-        "internalSportsclubId": "1292",
-        "association": {
-          "id": "33797364",
-          "name": "Warendorf"
-        }
-      },
-      {
         "id": "37922021",
         "name": "BSG Kreisverwaltung Warendorf",
         "lsbNumber": "3313800",
@@ -57979,6 +57969,16 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "37922040",
+        "name": "Turn- und Spielverein 93/33 Wadersloh eV",
+        "lsbNumber": "3312003",
+        "internalSportsclubId": "1292",
+        "association": {
+          "id": "33797364",
+          "name": "Warendorf"
         }
       },
       {
