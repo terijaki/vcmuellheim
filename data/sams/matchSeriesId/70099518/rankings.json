@@ -7,9 +7,9 @@
       "name": "Kreisliga Damen Süd",
       "shortName": "kl s d",
       "type": "League",
-      "updated": "2025-01-11 17:24:37.703",
+      "updated": "2025-01-11 19:34:01.564",
       "structureUpdated": "2025-01-11 17:24:37.703",
-      "resultsUpdated": "2025-01-11 16:55:41.133",
+      "resultsUpdated": "2025-01-11 19:34:01.564",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -76,6 +76,62 @@
     "ranking": [
       {
         "team": {
+          "id": "73557953",
+          "uuid": "a521c2e7-63b1-498d-bd10-759a0b51dbe6",
+          "name": "VBG Efringen-Kirchen 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VBG Efringen-Kirchen",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "10",
+        "wins": "8",
+        "losses": "2",
+        "points": "26",
+        "setPoints": "28:8",
+        "setWinScore": "28",
+        "setLoseScore": "8",
+        "setPointDifference": "20",
+        "setQuotient": "3,500\n            ",
+        "ballPoints": "842:667",
+        "ballWinScore": "842",
+        "ballLoseScore": "667",
+        "ballPointDifference": "175",
+        "ballQuotient": "1,262\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "6"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "2"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73557959",
           "uuid": "0c25a7ca-9173-4809-b276-00da66502e21",
           "name": "VC Müllheim 2",
@@ -86,7 +142,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "2",
         "matchesPlayed": "8",
         "wins": "8",
         "losses": "0",
@@ -118,62 +174,6 @@
             {
               "result": "2:3",
               "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73557953",
-          "uuid": "a521c2e7-63b1-498d-bd10-759a0b51dbe6",
-          "name": "VBG Efringen-Kirchen 2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "VBG Efringen-Kirchen",
-            "shortName": null
-          }
-        },
-        "place": "2",
-        "matchesPlayed": "9",
-        "wins": "7",
-        "losses": "2",
-        "points": "23",
-        "setPoints": "25:7",
-        "setWinScore": "25",
-        "setLoseScore": "7",
-        "setPointDifference": "18",
-        "setQuotient": "3,571\n            ",
-        "ballPoints": "745:590",
-        "ballWinScore": "745",
-        "ballLoseScore": "590",
-        "ballPointDifference": "155",
-        "ballQuotient": "1,263\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "6"
-            },
-            {
-              "result": "3:1",
-              "count": "1"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "2"
             },
             {
               "result": "1:3",
@@ -311,20 +311,20 @@
           }
         },
         "place": "5",
-        "matchesPlayed": "9",
+        "matchesPlayed": "10",
         "wins": "4",
-        "losses": "5",
+        "losses": "6",
         "points": "13",
-        "setPoints": "15:16",
-        "setWinScore": "15",
-        "setLoseScore": "16",
-        "setPointDifference": "-1",
-        "setQuotient": "0,938\n            ",
-        "ballPoints": "661:616",
-        "ballWinScore": "661",
-        "ballLoseScore": "616",
-        "ballPointDifference": "45",
-        "ballQuotient": "1,073\n            ",
+        "setPoints": "16:19",
+        "setWinScore": "16",
+        "setLoseScore": "19",
+        "setPointDifference": "-3",
+        "setQuotient": "0,842\n            ",
+        "ballPoints": "738:713",
+        "ballWinScore": "738",
+        "ballLoseScore": "713",
+        "ballPointDifference": "25",
+        "ballQuotient": "1,035\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -345,7 +345,7 @@
             },
             {
               "result": "1:3",
-              "count": "1"
+              "count": "2"
             },
             {
               "result": "0:3",
