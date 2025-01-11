@@ -66282,16 +66282,6 @@
         }
       },
       {
-        "id": "72054051",
-        "name": "Spielgemeinschaft Koblenz-Maifeld-Volleys",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
         "id": "81975906",
         "name": "TV Barntrup v. 1865 e.V.",
         "lsbNumber": "1111111110000067",
@@ -66349,6 +66339,16 @@
         "association": {
           "id": "26249165",
           "name": "Kreisverband Mitte"
+        }
+      },
+      {
+        "id": "72054051",
+        "name": "Spielgemeinschaft Koblenz-Maifeld-Volleys",
+        "lsbNumber": null,
+        "internalSportsclubId": null,
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
         }
       },
       {
