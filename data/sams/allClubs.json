@@ -61822,6 +61822,16 @@
         }
       },
       {
+        "id": "37922037",
+        "name": "SuS Oberaden 1921 e.V.",
+        "lsbNumber": "5701019",
+        "internalSportsclubId": "107",
+        "association": {
+          "id": "33797802",
+          "name": "Unna"
+        }
+      },
+      {
         "id": "65037122",
         "name": "TS Gundelfingen 1976 e.V.",
         "lsbNumber": "8144281638",
@@ -68549,16 +68559,6 @@
         "association": {
           "id": "33795566",
           "name": "Rhein-Sieg"
-        }
-      },
-      {
-        "id": "37922037",
-        "name": "SuS Oberaden 1921 e.V.",
-        "lsbNumber": "5701019",
-        "internalSportsclubId": "107",
-        "association": {
-          "id": "33797802",
-          "name": "Unna"
         }
       },
       {
