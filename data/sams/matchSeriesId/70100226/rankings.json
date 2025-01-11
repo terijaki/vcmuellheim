@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2024-12-16 10:03:34.555",
+      "updated": "2025-01-11 15:32:22.005",
       "structureUpdated": "2024-12-11 09:08:37.299",
-      "resultsUpdated": "2024-12-16 10:03:34.555",
+      "resultsUpdated": "2025-01-11 15:32:22.005",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -405,20 +405,20 @@
           }
         },
         "place": "7",
-        "matchesPlayed": "8",
+        "matchesPlayed": "9",
         "wins": "4",
-        "losses": "4",
+        "losses": "5",
         "points": "11",
-        "setPoints": "13:17",
+        "setPoints": "13:20",
         "setWinScore": "13",
-        "setLoseScore": "17",
-        "setPointDifference": "-4",
-        "setQuotient": "0,765\n            ",
-        "ballPoints": "663:679",
-        "ballWinScore": "663",
-        "ballLoseScore": "679",
-        "ballPointDifference": "-16",
-        "ballQuotient": "0,976\n            ",
+        "setLoseScore": "20",
+        "setPointDifference": "-7",
+        "setQuotient": "0,650\n            ",
+        "ballPoints": "732:756",
+        "ballWinScore": "732",
+        "ballLoseScore": "756",
+        "ballPointDifference": "-24",
+        "ballQuotient": "0,968\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -443,7 +443,63 @@
             },
             {
               "result": "0:3",
-              "count": "3"
+              "count": "4"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73349539",
+          "uuid": "c5acdb80-aaab-4e7d-9f0d-0447b6ba37d0",
+          "name": "TV Kollnau-Gutach 1",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Kollnau-Gutach",
+            "shortName": null
+          }
+        },
+        "place": "8",
+        "matchesPlayed": "9",
+        "wins": "3",
+        "losses": "6",
+        "points": "10",
+        "setPoints": "15:20",
+        "setWinScore": "15",
+        "setLoseScore": "20",
+        "setPointDifference": "-5",
+        "setQuotient": "0,750\n            ",
+        "ballPoints": "756:730",
+        "ballWinScore": "756",
+        "ballLoseScore": "730",
+        "ballPointDifference": "26",
+        "ballQuotient": "1,036\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "2"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "2"
+            },
+            {
+              "result": "1:3",
+              "count": "2"
+            },
+            {
+              "result": "0:3",
+              "count": "2"
             }
           ]
         }
@@ -460,7 +516,7 @@
             "shortName": null
           }
         },
-        "place": "8",
+        "place": "9",
         "matchesPlayed": "8",
         "wins": "3",
         "losses": "5",
@@ -500,62 +556,6 @@
             {
               "result": "0:3",
               "count": "3"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73349539",
-          "uuid": "c5acdb80-aaab-4e7d-9f0d-0447b6ba37d0",
-          "name": "TV Kollnau-Gutach 1",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Kollnau-Gutach",
-            "shortName": null
-          }
-        },
-        "place": "9",
-        "matchesPlayed": "8",
-        "wins": "2",
-        "losses": "6",
-        "points": "7",
-        "setPoints": "12:20",
-        "setWinScore": "12",
-        "setLoseScore": "20",
-        "setPointDifference": "-8",
-        "setQuotient": "0,600\n            ",
-        "ballPoints": "679:661",
-        "ballWinScore": "679",
-        "ballLoseScore": "661",
-        "ballPointDifference": "18",
-        "ballQuotient": "1,027\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "1"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "1"
-            },
-            {
-              "result": "2:3",
-              "count": "2"
-            },
-            {
-              "result": "1:3",
-              "count": "2"
-            },
-            {
-              "result": "0:3",
-              "count": "2"
             }
           ]
         }
