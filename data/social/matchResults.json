@@ -324,6 +324,30 @@
       "score": "0:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113657062218866337"
+    },
+    {
+      "uuid": "0c484a1e-2d62-4989-b772-42a4985d18b7",
+      "date": "2025-01-11T13:00:00.000Z",
+      "league": "Bezirksliga Herren Süd",
+      "team": [
+        "VC Müllheim 2",
+        "TSV Alemannia Freiburg-Zähringen 2"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
+    },
+    {
+      "uuid": "f5fe90b6-2467-464e-83c2-b0cd4c6664d1",
+      "date": "2025-01-11T13:00:00.000Z",
+      "league": "Bezirksklasse Damen Süd",
+      "team": [
+        "VfR Merzhausen 2",
+        "VC Müllheim 1"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
     }
   ]
 }
