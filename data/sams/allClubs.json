@@ -50902,16 +50902,6 @@
         }
       },
       {
-        "id": "82879193",
-        "name": "MTV Immensen",
-        "lsbNumber": "302192880",
-        "internalSportsclubId": "30329",
-        "association": {
-          "id": "25463961",
-          "name": "Kreis Hannover-Land"
-        }
-      },
-      {
         "id": "82880029",
         "name": "MTV Engelbostel-Schulenburg",
         "lsbNumber": "302192605",
@@ -63799,6 +63789,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "82879193",
+        "name": "MTV Immensen",
+        "lsbNumber": "302192880",
+        "internalSportsclubId": "30329",
+        "association": {
+          "id": "25463961",
+          "name": "Kreis Hannover-Land"
         }
       },
       {
