@@ -272,6 +272,18 @@
       "score": "1:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113810748297153451"
+    },
+    {
+      "uuid": "cc144b27-1c7d-4f61-8e06-396e044b113e",
+      "date": "2025-01-11T13:00:00.000Z",
+      "league": "Bezirksklasse Damen Süd",
+      "team": [
+        "VC Müllheim 1",
+        "VC Offenburg 4"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
     }
   ]
 }
