@@ -7,9 +7,9 @@
       "name": "Bezirksliga Herren Süd",
       "shortName": "bzl s h",
       "type": "League",
-      "updated": "2025-01-11 19:28:34.602",
+      "updated": "2025-01-12 14:18:03.804",
       "structureUpdated": "2025-01-10 16:22:20.785",
-      "resultsUpdated": "2025-01-11 19:28:34.602",
+      "resultsUpdated": "2025-01-12 14:18:03.804",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -176,6 +176,62 @@
       },
       {
         "team": {
+          "id": "73550107",
+          "uuid": "0729efeb-2043-4424-a0bd-8744136ebb14",
+          "name": "TV Staufen 1",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Staufen",
+            "shortName": null
+          }
+        },
+        "place": "3",
+        "matchesPlayed": "9",
+        "wins": "5",
+        "losses": "4",
+        "points": "16",
+        "setPoints": "21:18",
+        "setWinScore": "21",
+        "setLoseScore": "18",
+        "setPointDifference": "3",
+        "setQuotient": "1,167\n            ",
+        "ballPoints": "836:816",
+        "ballWinScore": "836",
+        "ballLoseScore": "816",
+        "ballPointDifference": "20",
+        "ballQuotient": "1,025\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "1"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "3"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "1"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73550100",
           "uuid": "1ecf2c5f-6d29-4307-a32f-422cc6a3c94d",
           "name": "Sport vor Ort Rieselfeld 1",
@@ -186,21 +242,21 @@
             "shortName": null
           }
         },
-        "place": "3",
-        "matchesPlayed": "6",
+        "place": "4",
+        "matchesPlayed": "7",
         "wins": "5",
-        "losses": "1",
+        "losses": "2",
         "points": "15",
-        "setPoints": "16:5",
+        "setPoints": "16:8",
         "setWinScore": "16",
-        "setLoseScore": "5",
-        "setPointDifference": "11",
-        "setQuotient": "3,200\n            ",
-        "ballPoints": "496:363",
-        "ballWinScore": "496",
-        "ballLoseScore": "363",
-        "ballPointDifference": "133",
-        "ballQuotient": "1,366\n            ",
+        "setLoseScore": "8",
+        "setPointDifference": "8",
+        "setQuotient": "2,000\n            ",
+        "ballPoints": "559:439",
+        "ballWinScore": "559",
+        "ballLoseScore": "439",
+        "ballPointDifference": "120",
+        "ballQuotient": "1,273\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -222,62 +278,6 @@
             {
               "result": "1:3",
               "count": "1"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73550107",
-          "uuid": "0729efeb-2043-4424-a0bd-8744136ebb14",
-          "name": "TV Staufen 1",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Staufen",
-            "shortName": null
-          }
-        },
-        "place": "4",
-        "matchesPlayed": "8",
-        "wins": "4",
-        "losses": "4",
-        "points": "13",
-        "setPoints": "18:18",
-        "setWinScore": "18",
-        "setLoseScore": "18",
-        "setPointDifference": "0",
-        "setQuotient": "1,000\n            ",
-        "ballPoints": "760:753",
-        "ballWinScore": "760",
-        "ballLoseScore": "753",
-        "ballPointDifference": "7",
-        "ballQuotient": "1,009\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "2"
-            },
-            {
-              "result": "3:2",
-              "count": "2"
-            },
-            {
-              "result": "2:3",
-              "count": "3"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
             },
             {
               "result": "0:3",
