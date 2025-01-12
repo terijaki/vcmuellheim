@@ -67252,6 +67252,16 @@
         }
       },
       {
+        "id": "20252",
+        "name": "Moerser SC 1985 e.V.",
+        "lsbNumber": "1506050",
+        "internalSportsclubId": "766",
+        "association": {
+          "id": "33298901",
+          "name": "Wesel"
+        }
+      },
+      {
         "id": "16946996",
         "name": "MTV Ludwigsburg",
         "lsbNumber": "12112",
@@ -68229,16 +68239,6 @@
         "association": {
           "id": "33795544",
           "name": "Leverkusen-Rhein-Berg"
-        }
-      },
-      {
-        "id": "20252",
-        "name": "Moerser SC 1985 e.V.",
-        "lsbNumber": "1506050",
-        "internalSportsclubId": "766",
-        "association": {
-          "id": "33298901",
-          "name": "Wesel"
         }
       },
       {
