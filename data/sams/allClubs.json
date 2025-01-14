@@ -10752,16 +10752,6 @@
         }
       },
       {
-        "id": "79599451",
-        "name": "TG Trossingen",
-        "lsbNumber": "1111111110000062",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "37920932",
         "name": "TV Vreden 1922 e.V.",
         "lsbNumber": "3117012",
@@ -14679,16 +14669,6 @@
         "association": {
           "id": "33298943",
           "name": "Duisburg"
-        }
-      },
-      {
-        "id": "82880109",
-        "name": "Hagener SV",
-        "lsbNumber": "304471780",
-        "internalSportsclubId": "11228",
-        "association": {
-          "id": "25465051",
-          "name": "Kreis Osnabrück-Land"
         }
       },
       {
@@ -30322,16 +30302,6 @@
         }
       },
       {
-        "id": "37948383",
-        "name": "SV Hötensleben e.V.",
-        "lsbNumber": "30035",
-        "internalSportsclubId": "30035",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37948388",
         "name": "Anhaltiner Freizeitsportverein Dessau e.V.",
         "lsbNumber": "130044",
@@ -36219,16 +36189,6 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
-        }
-      },
-      {
-        "id": "53538704",
-        "name": "SV Orenhofen",
-        "lsbNumber": "1000568",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
         }
       },
       {
@@ -47322,16 +47282,6 @@
         }
       },
       {
-        "id": "51836061",
-        "name": "VC Weierbach",
-        "lsbNumber": "1004071",
-        "internalSportsclubId": "32-13-05",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "54610928",
         "name": "SpVgg Stetten",
         "lsbNumber": "6166",
@@ -48269,16 +48219,6 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
-        "id": "51836200",
-        "name": "SV Winterbach",
-        "lsbNumber": "1003062",
-        "internalSportsclubId": "32-17-21",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -59402,16 +59342,6 @@
         }
       },
       {
-        "id": "51836303",
-        "name": "TV Hochstetten 1907 e.V.",
-        "lsbNumber": "1001304",
-        "internalSportsclubId": "32-17-04",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "26925151",
         "name": "TV Seulberg 1898",
         "lsbNumber": "31146",
@@ -61812,16 +61742,6 @@
         }
       },
       {
-        "id": "37922037",
-        "name": "SuS Oberaden 1921 e.V.",
-        "lsbNumber": "5701019",
-        "internalSportsclubId": "107",
-        "association": {
-          "id": "33797802",
-          "name": "Unna"
-        }
-      },
-      {
         "id": "65037122",
         "name": "TS Gundelfingen 1976 e.V.",
         "lsbNumber": "8144281638",
@@ -62312,16 +62232,6 @@
         }
       },
       {
-        "id": "51836048",
-        "name": "TSG Bechtheim 1883 e.V.",
-        "lsbNumber": "485",
-        "internalSportsclubId": "485",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "65037200",
         "name": "Anpfiff Hoffenheim e.V.",
         "lsbNumber": "42263",
@@ -62329,6 +62239,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "51836048",
+        "name": "TSG Bechtheim 1883 e.V.",
+        "lsbNumber": "485",
+        "internalSportsclubId": "485",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -67752,6 +67672,26 @@
         }
       },
       {
+        "id": "37922037",
+        "name": "SuS Oberaden 1921 e.V.",
+        "lsbNumber": "5701019",
+        "internalSportsclubId": "107",
+        "association": {
+          "id": "33797802",
+          "name": "Unna"
+        }
+      },
+      {
+        "id": "37948383",
+        "name": "SV Hötensleben e.V.",
+        "lsbNumber": "30035",
+        "internalSportsclubId": "30035",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "21797198",
         "name": "Burger VC 99 e.V.",
         "lsbNumber": "40102",
@@ -69142,6 +69082,16 @@
         }
       },
       {
+        "id": "79599451",
+        "name": "TG Trossingen",
+        "lsbNumber": "1111111110000062",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
         "id": "4465199",
         "name": "TuS Durmersheim",
         "lsbNumber": "470620",
@@ -69912,6 +69862,46 @@
         }
       },
       {
+        "id": "51836200",
+        "name": "SV Winterbach",
+        "lsbNumber": "1003062",
+        "internalSportsclubId": "32-17-21",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "51836061",
+        "name": "VC Weierbach",
+        "lsbNumber": "1004071",
+        "internalSportsclubId": "32-13-05",
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
+        "id": "51836303",
+        "name": "TV Hochstetten 1907 e.V.",
+        "lsbNumber": "1001304",
+        "internalSportsclubId": "32-17-04",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "53538704",
+        "name": "SV Orenhofen",
+        "lsbNumber": "1000568",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
         "id": "4465201",
         "name": "USC Konstanz",
         "lsbNumber": "480130",
@@ -69959,6 +69949,16 @@
         "association": {
           "id": "33797382",
           "name": "Gütersloh-Bielefeld"
+        }
+      },
+      {
+        "id": "82880109",
+        "name": "Hagener SV",
+        "lsbNumber": "304471780",
+        "internalSportsclubId": "11228",
+        "association": {
+          "id": "25465051",
+          "name": "Kreis Osnabrück-Land"
         }
       },
       {
