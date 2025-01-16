@@ -832,16 +832,6 @@
         }
       },
       {
-        "id": "26925801",
-        "name": "USC Gießen",
-        "lsbNumber": "12078",
-        "internalSportsclubId": "1901",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
         "id": "26925491",
         "name": "TSV 1929 Kirchheim",
         "lsbNumber": "22093",
@@ -1599,16 +1589,6 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "26925083",
-        "name": "VfL 1860 Marburg",
-        "lsbNumber": "10107",
-        "internalSportsclubId": "4201",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
         }
       },
       {
@@ -14609,16 +14589,6 @@
         "association": {
           "id": "33797822",
           "name": "Dortmund"
-        }
-      },
-      {
-        "id": "37921560",
-        "name": "Volleyballclub Fabrik Duisburg e.V.",
-        "lsbNumber": "1002498",
-        "internalSportsclubId": "425",
-        "association": {
-          "id": "33298943",
-          "name": "Duisburg"
         }
       },
       {
@@ -28402,16 +28372,6 @@
         }
       },
       {
-        "id": "37921130",
-        "name": "SV Cheruskia Laggenbeck 1920 e.V.",
-        "lsbNumber": "3507006",
-        "internalSportsclubId": "2604",
-        "association": {
-          "id": "33797208",
-          "name": "Steinfurt"
-        }
-      },
-      {
         "id": "37921092",
         "name": "TV Leifringhausen 1896 e.V.",
         "lsbNumber": "5308006",
@@ -39169,16 +39129,6 @@
         "association": {
           "id": "25461757",
           "name": "Kreis Rotenburg"
-        }
-      },
-      {
-        "id": "49504489",
-        "name": "BSG Pneumant Fürstenwalde",
-        "lsbNumber": "670045",
-        "internalSportsclubId": "670045",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -55142,16 +55092,6 @@
         }
       },
       {
-        "id": "51836313",
-        "name": "TuS 1883/1919 Worms-Hochheim e.V.",
-        "lsbNumber": "89",
-        "internalSportsclubId": "32-61-02",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "51836151",
         "name": "SV Tawern",
         "lsbNumber": "1000714",
@@ -62152,16 +62092,6 @@
         }
       },
       {
-        "id": "50621770",
-        "name": "VV 90 Bautzen e.V.",
-        "lsbNumber": "430398",
-        "internalSportsclubId": "332",
-        "association": {
-          "id": "24908926",
-          "name": "Landkreis Bautzen"
-        }
-      },
-      {
         "id": "82880427",
         "name": "TuS Büppel",
         "lsbNumber": "304421300",
@@ -62229,6 +62159,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "50621770",
+        "name": "VV 90 Bautzen e.V.",
+        "lsbNumber": "430398",
+        "internalSportsclubId": "332",
+        "association": {
+          "id": "24908926",
+          "name": "Landkreis Bautzen"
         }
       },
       {
@@ -66112,16 +66052,6 @@
         }
       },
       {
-        "id": "26818876",
-        "name": "SV Rennsteig Neuhaus e.V.",
-        "lsbNumber": "330067",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249283",
-          "name": "Kreisverband Süd"
-        }
-      },
-      {
         "id": "82877684",
         "name": "GfL Bothfeld",
         "lsbNumber": "302205833",
@@ -69012,16 +68942,6 @@
         }
       },
       {
-        "id": "50622014",
-        "name": "SV Union Milkau e.V.",
-        "lsbNumber": "480324",
-        "internalSportsclubId": "458",
-        "association": {
-          "id": "24908672",
-          "name": "Landkreis Mittelsachsen"
-        }
-      },
-      {
         "id": "50621996",
         "name": "VSG Leipzig Nord e.V.",
         "lsbNumber": "420181",
@@ -69962,6 +69882,16 @@
         }
       },
       {
+        "id": "26818876",
+        "name": "SV Rennsteig Neuhaus e.V.",
+        "lsbNumber": "330067",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249283",
+          "name": "Kreisverband Süd"
+        }
+      },
+      {
         "id": "54611175",
         "name": "VfL Pfullingen",
         "lsbNumber": "16081",
@@ -70182,6 +70112,26 @@
         }
       },
       {
+        "id": "51836313",
+        "name": "TuS 1883/1919 Worms-Hochheim e.V.",
+        "lsbNumber": "89",
+        "internalSportsclubId": "32-61-02",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "37921560",
+        "name": "Volleyballclub Fabrik Duisburg e.V.",
+        "lsbNumber": "1002498",
+        "internalSportsclubId": "425",
+        "association": {
+          "id": "33298943",
+          "name": "Duisburg"
+        }
+      },
+      {
         "id": "12483437",
         "name": "TSV Tempelhof-Mariendorf e.V.",
         "lsbNumber": "4972",
@@ -70212,6 +70162,26 @@
         }
       },
       {
+        "id": "37921130",
+        "name": "SV Cheruskia Laggenbeck 1920 e.V.",
+        "lsbNumber": "3507006",
+        "internalSportsclubId": "2604",
+        "association": {
+          "id": "33797208",
+          "name": "Steinfurt"
+        }
+      },
+      {
+        "id": "82877835",
+        "name": "FSB Hildesheim",
+        "lsbNumber": "302212960",
+        "internalSportsclubId": "30529",
+        "association": {
+          "id": "25464082",
+          "name": "Kreis Hildesheim"
+        }
+      },
+      {
         "id": "16610338",
         "name": "Marzahner Volleyballclub e.V.",
         "lsbNumber": "2298",
@@ -70229,6 +70199,56 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "82880329",
+        "name": "Vallstedt Vechelde Vikings",
+        "lsbNumber": "3033249540",
+        "internalSportsclubId": "40923",
+        "association": {
+          "id": "25386545",
+          "name": "Kreis Peine"
+        }
+      },
+      {
+        "id": "26925083",
+        "name": "VfL 1860 Marburg",
+        "lsbNumber": "10107",
+        "internalSportsclubId": "4201",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "50622014",
+        "name": "SV Union Milkau e.V.",
+        "lsbNumber": "480324",
+        "internalSportsclubId": "458",
+        "association": {
+          "id": "24908672",
+          "name": "Landkreis Mittelsachsen"
+        }
+      },
+      {
+        "id": "49504489",
+        "name": "BSG Pneumant Fürstenwalde",
+        "lsbNumber": "670045",
+        "internalSportsclubId": "670045",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "26925801",
+        "name": "USC Gießen",
+        "lsbNumber": "12078",
+        "internalSportsclubId": "1901",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
         }
       },
       {
@@ -84392,16 +84412,6 @@
         }
       },
       {
-        "id": "82877835",
-        "name": "FSB Hildesheim",
-        "lsbNumber": "302212960",
-        "internalSportsclubId": "30529",
-        "association": {
-          "id": "25464082",
-          "name": "Kreis Hildesheim"
-        }
-      },
-      {
         "id": "82879676",
         "name": "GfL Godehardikamp Hildesheim",
         "lsbNumber": "302213005",
@@ -85539,16 +85549,6 @@
         "association": {
           "id": "25465051",
           "name": "Kreis Osnabrück-Land"
-        }
-      },
-      {
-        "id": "82880329",
-        "name": "Vallstedt Vechelde Vikings",
-        "lsbNumber": "3033249540",
-        "internalSportsclubId": "40923",
-        "association": {
-          "id": "25386545",
-          "name": "Kreis Peine"
         }
       },
       {
