@@ -1,5 +1,5 @@
 {
-    "date": "2025-01-16T02:46:35.369Z",
+    "date": "2025-01-23T02:46:26.661Z",
     "players": [
         {
             "lastname": "Lindemann",
@@ -124,6 +124,14 @@
         {
             "lastname": "Vöster",
             "firstname": "Malte",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Schwer",
+            "firstname": "Simon",
             "nationality": "DE",
             "number": "",
             "height": "",
