@@ -1,0 +1,1172 @@
+{
+  "matches": {
+    "match": [
+      {
+        "id": "86944049",
+        "uuid": "9efc71ce-d58a-4cd7-914f-604eff36862d",
+        "number": "1",
+        "date": "23.02.2025",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "80826149",
+          "uuid": "2d9a4f5d-0e02-46ba-a751-ea7bfee0cdab",
+          "name": "USC Konstanz",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "80826074",
+            "uuid": "bd89935e-6521-496f-b84a-f14d47be205e",
+            "seasonTeamId": "80826074",
+            "name": "FT 1844 Freiburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "80826149",
+            "uuid": "2d9a4f5d-0e02-46ba-a751-ea7bfee0cdab",
+            "seasonTeamId": "80826149",
+            "name": "USC Konstanz",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "USC Konstanz",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70101386",
+          "uuid": "610d875b-07d5-4238-846d-36a4c31bf9d6",
+          "allSeasonId": "7c40e20c-cf99-9a7d-b121-b612389e0948",
+          "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
+          "shortName": "sbvv-u20w",
+          "type": "Competition",
+          "updated": "2025-01-21 10:20:40.638",
+          "structureUpdated": "2025-01-21 10:20:40.637",
+          "resultsUpdated": "2024-03-25 11:45:13.959",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100789",
+            "uuid": "3f1a4aae-d0e4-40d0-86a7-df950e885dd1",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906332",
+          "name": "Pestalozzi-Halle",
+          "street": "Pestalozzistr. 1",
+          "extraField": "-",
+          "postalCode": "78467",
+          "city": "Konstanz",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2025-02-23T10:00:00.000Z",
+        "dateIso": "2025-02-23T10:00:00.000Z"
+      },
+      {
+        "id": "86944053",
+        "uuid": "b1a397e5-e695-4c32-b55f-bf24a5b94c4f",
+        "number": "4",
+        "date": "23.02.2025",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "80826149",
+          "uuid": "2d9a4f5d-0e02-46ba-a751-ea7bfee0cdab",
+          "name": "USC Konstanz",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "80826103",
+            "uuid": "d583d5c5-5fbe-40bc-8133-63427eb15172",
+            "seasonTeamId": "80826103",
+            "name": "FT 1844 Freiburg 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "80826159",
+            "uuid": "1079b1e5-c3e5-442c-a659-a031726d7b6a",
+            "seasonTeamId": "80826159",
+            "name": "TSV Mimmenhausen 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TSV Mimmenhausen",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70101386",
+          "uuid": "610d875b-07d5-4238-846d-36a4c31bf9d6",
+          "allSeasonId": "7c40e20c-cf99-9a7d-b121-b612389e0948",
+          "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
+          "shortName": "sbvv-u20w",
+          "type": "Competition",
+          "updated": "2025-01-21 10:20:40.638",
+          "structureUpdated": "2025-01-21 10:20:40.637",
+          "resultsUpdated": "2024-03-25 11:45:13.959",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100789",
+            "uuid": "3f1a4aae-d0e4-40d0-86a7-df950e885dd1",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906332",
+          "name": "Pestalozzi-Halle",
+          "street": "Pestalozzistr. 1",
+          "extraField": "-",
+          "postalCode": "78467",
+          "city": "Konstanz",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2025-02-23T10:00:00.000Z",
+        "dateIso": "2025-02-23T10:00:00.000Z"
+      },
+      {
+        "id": "86944050",
+        "uuid": "ab53eb91-b2b0-4339-9927-be2a64b20eea",
+        "number": "2",
+        "date": "23.02.2025",
+        "time": "12:15",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "80826149",
+          "uuid": "2d9a4f5d-0e02-46ba-a751-ea7bfee0cdab",
+          "name": "USC Konstanz",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "80826141",
+            "uuid": "71f73803-3590-4ffe-a519-ff67d4ec2cbb",
+            "seasonTeamId": "80826141",
+            "name": "TV Gundelfingen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TV Gundelfingen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "80826149",
+            "uuid": "2d9a4f5d-0e02-46ba-a751-ea7bfee0cdab",
+            "seasonTeamId": "80826149",
+            "name": "USC Konstanz",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "USC Konstanz",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70101386",
+          "uuid": "610d875b-07d5-4238-846d-36a4c31bf9d6",
+          "allSeasonId": "7c40e20c-cf99-9a7d-b121-b612389e0948",
+          "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
+          "shortName": "sbvv-u20w",
+          "type": "Competition",
+          "updated": "2025-01-21 10:20:40.638",
+          "structureUpdated": "2025-01-21 10:20:40.637",
+          "resultsUpdated": "2024-03-25 11:45:13.959",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100789",
+            "uuid": "3f1a4aae-d0e4-40d0-86a7-df950e885dd1",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906332",
+          "name": "Pestalozzi-Halle",
+          "street": "Pestalozzistr. 1",
+          "extraField": "-",
+          "postalCode": "78467",
+          "city": "Konstanz",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2025-02-23T11:15:00.000Z",
+        "dateIso": "2025-02-23T11:15:00.000Z"
+      },
+      {
+        "id": "86944054",
+        "uuid": "f770632e-5658-4c28-a01c-a1dea35dcfed",
+        "number": "5",
+        "date": "23.02.2025",
+        "time": "12:15",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "80826149",
+          "uuid": "2d9a4f5d-0e02-46ba-a751-ea7bfee0cdab",
+          "name": "USC Konstanz",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "80826130",
+            "uuid": "104a8621-8957-4883-9e54-035cdde71037",
+            "seasonTeamId": "80826130",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "80826159",
+            "uuid": "1079b1e5-c3e5-442c-a659-a031726d7b6a",
+            "seasonTeamId": "80826159",
+            "name": "TSV Mimmenhausen 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TSV Mimmenhausen",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70101386",
+          "uuid": "610d875b-07d5-4238-846d-36a4c31bf9d6",
+          "allSeasonId": "7c40e20c-cf99-9a7d-b121-b612389e0948",
+          "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
+          "shortName": "sbvv-u20w",
+          "type": "Competition",
+          "updated": "2025-01-21 10:20:40.638",
+          "structureUpdated": "2025-01-21 10:20:40.637",
+          "resultsUpdated": "2024-03-25 11:45:13.959",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100789",
+            "uuid": "3f1a4aae-d0e4-40d0-86a7-df950e885dd1",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906332",
+          "name": "Pestalozzi-Halle",
+          "street": "Pestalozzistr. 1",
+          "extraField": "-",
+          "postalCode": "78467",
+          "city": "Konstanz",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2025-02-23T11:15:00.000Z",
+        "dateIso": "2025-02-23T11:15:00.000Z"
+      },
+      {
+        "id": "86944051",
+        "uuid": "1138a6ac-8c9a-4e15-ad69-50abf6d9f184",
+        "number": "3",
+        "date": "23.02.2025",
+        "time": "13:30",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "80826149",
+          "uuid": "2d9a4f5d-0e02-46ba-a751-ea7bfee0cdab",
+          "name": "USC Konstanz",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "80826074",
+            "uuid": "bd89935e-6521-496f-b84a-f14d47be205e",
+            "seasonTeamId": "80826074",
+            "name": "FT 1844 Freiburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "80826141",
+            "uuid": "71f73803-3590-4ffe-a519-ff67d4ec2cbb",
+            "seasonTeamId": "80826141",
+            "name": "TV Gundelfingen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TV Gundelfingen",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70101386",
+          "uuid": "610d875b-07d5-4238-846d-36a4c31bf9d6",
+          "allSeasonId": "7c40e20c-cf99-9a7d-b121-b612389e0948",
+          "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
+          "shortName": "sbvv-u20w",
+          "type": "Competition",
+          "updated": "2025-01-21 10:20:40.638",
+          "structureUpdated": "2025-01-21 10:20:40.637",
+          "resultsUpdated": "2024-03-25 11:45:13.959",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100789",
+            "uuid": "3f1a4aae-d0e4-40d0-86a7-df950e885dd1",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906332",
+          "name": "Pestalozzi-Halle",
+          "street": "Pestalozzistr. 1",
+          "extraField": "-",
+          "postalCode": "78467",
+          "city": "Konstanz",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2025-02-23T12:30:00.000Z",
+        "dateIso": "2025-02-23T12:30:00.000Z"
+      },
+      {
+        "id": "86944055",
+        "uuid": "e7b3742e-df5f-4d47-b00f-18a6213f32f4",
+        "number": "6",
+        "date": "23.02.2025",
+        "time": "13:30",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "80826149",
+          "uuid": "2d9a4f5d-0e02-46ba-a751-ea7bfee0cdab",
+          "name": "USC Konstanz",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "80826103",
+            "uuid": "d583d5c5-5fbe-40bc-8133-63427eb15172",
+            "seasonTeamId": "80826103",
+            "name": "FT 1844 Freiburg 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "80826130",
+            "uuid": "104a8621-8957-4883-9e54-035cdde71037",
+            "seasonTeamId": "80826130",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70101386",
+          "uuid": "610d875b-07d5-4238-846d-36a4c31bf9d6",
+          "allSeasonId": "7c40e20c-cf99-9a7d-b121-b612389e0948",
+          "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
+          "shortName": "sbvv-u20w",
+          "type": "Competition",
+          "updated": "2025-01-21 10:20:40.638",
+          "structureUpdated": "2025-01-21 10:20:40.637",
+          "resultsUpdated": "2024-03-25 11:45:13.959",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100789",
+            "uuid": "3f1a4aae-d0e4-40d0-86a7-df950e885dd1",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906332",
+          "name": "Pestalozzi-Halle",
+          "street": "Pestalozzistr. 1",
+          "extraField": "-",
+          "postalCode": "78467",
+          "city": "Konstanz",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2025-02-23T12:30:00.000Z",
+        "dateIso": "2025-02-23T12:30:00.000Z"
+      },
+      {
+        "id": "86944057",
+        "uuid": "6d94b5c7-6acf-4dea-85bf-e0724560ee52",
+        "number": "7",
+        "date": "23.02.2025",
+        "time": "15:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "80826149",
+          "uuid": "2d9a4f5d-0e02-46ba-a751-ea7bfee0cdab",
+          "name": "USC Konstanz",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70101386",
+          "uuid": "610d875b-07d5-4238-846d-36a4c31bf9d6",
+          "allSeasonId": "7c40e20c-cf99-9a7d-b121-b612389e0948",
+          "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
+          "shortName": "sbvv-u20w",
+          "type": "Competition",
+          "updated": "2025-01-21 10:20:40.638",
+          "structureUpdated": "2025-01-21 10:20:40.637",
+          "resultsUpdated": "2024-03-25 11:45:13.959",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100789",
+            "uuid": "3f1a4aae-d0e4-40d0-86a7-df950e885dd1",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "27221077",
+          "name": "Pestalozzi Halle",
+          "street": "Pestalozzistr. 1",
+          "extraField": "-",
+          "postalCode": "78467",
+          "city": "Konstanz",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2025-02-23T14:00:00.000Z",
+        "dateIso": "2025-02-23T14:00:00.000Z"
+      },
+      {
+        "id": "86944058",
+        "uuid": "05bd63c8-993e-4648-9415-93a1044e649a",
+        "number": "8",
+        "date": "23.02.2025",
+        "time": "15:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "80826149",
+          "uuid": "2d9a4f5d-0e02-46ba-a751-ea7bfee0cdab",
+          "name": "USC Konstanz",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70101386",
+          "uuid": "610d875b-07d5-4238-846d-36a4c31bf9d6",
+          "allSeasonId": "7c40e20c-cf99-9a7d-b121-b612389e0948",
+          "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
+          "shortName": "sbvv-u20w",
+          "type": "Competition",
+          "updated": "2025-01-21 10:20:40.638",
+          "structureUpdated": "2025-01-21 10:20:40.637",
+          "resultsUpdated": "2024-03-25 11:45:13.959",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100789",
+            "uuid": "3f1a4aae-d0e4-40d0-86a7-df950e885dd1",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "27221077",
+          "name": "Pestalozzi Halle",
+          "street": "Pestalozzistr. 1",
+          "extraField": "-",
+          "postalCode": "78467",
+          "city": "Konstanz",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2025-02-23T14:00:00.000Z",
+        "dateIso": "2025-02-23T14:00:00.000Z"
+      },
+      {
+        "id": "86944060",
+        "uuid": "6e73a616-006c-4209-8107-a9fa52e5a500",
+        "number": "9",
+        "date": "23.02.2025",
+        "time": "16:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "80826149",
+          "uuid": "2d9a4f5d-0e02-46ba-a751-ea7bfee0cdab",
+          "name": "USC Konstanz",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70101386",
+          "uuid": "610d875b-07d5-4238-846d-36a4c31bf9d6",
+          "allSeasonId": "7c40e20c-cf99-9a7d-b121-b612389e0948",
+          "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
+          "shortName": "sbvv-u20w",
+          "type": "Competition",
+          "updated": "2025-01-21 10:20:40.638",
+          "structureUpdated": "2025-01-21 10:20:40.637",
+          "resultsUpdated": "2024-03-25 11:45:13.959",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100789",
+            "uuid": "3f1a4aae-d0e4-40d0-86a7-df950e885dd1",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "27221077",
+          "name": "Pestalozzi Halle",
+          "street": "Pestalozzistr. 1",
+          "extraField": "-",
+          "postalCode": "78467",
+          "city": "Konstanz",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2025-02-23T15:00:00.000Z",
+        "dateIso": "2025-02-23T15:00:00.000Z"
+      },
+      {
+        "id": "86944061",
+        "uuid": "76fafba6-683e-4b5f-a063-2efb369e635a",
+        "number": "10",
+        "date": "23.02.2025",
+        "time": "16:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "80826149",
+          "uuid": "2d9a4f5d-0e02-46ba-a751-ea7bfee0cdab",
+          "name": "USC Konstanz",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70101386",
+          "uuid": "610d875b-07d5-4238-846d-36a4c31bf9d6",
+          "allSeasonId": "7c40e20c-cf99-9a7d-b121-b612389e0948",
+          "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
+          "shortName": "sbvv-u20w",
+          "type": "Competition",
+          "updated": "2025-01-21 10:20:40.638",
+          "structureUpdated": "2025-01-21 10:20:40.637",
+          "resultsUpdated": "2024-03-25 11:45:13.959",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100789",
+            "uuid": "3f1a4aae-d0e4-40d0-86a7-df950e885dd1",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "27221077",
+          "name": "Pestalozzi Halle",
+          "street": "Pestalozzistr. 1",
+          "extraField": "-",
+          "postalCode": "78467",
+          "city": "Konstanz",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2025-02-23T15:00:00.000Z",
+        "dateIso": "2025-02-23T15:00:00.000Z"
+      },
+      {
+        "id": "86944062",
+        "uuid": "7584d985-7932-4723-a557-c54e5a76e509",
+        "number": "11",
+        "date": "23.02.2025",
+        "time": "17:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "80826149",
+          "uuid": "2d9a4f5d-0e02-46ba-a751-ea7bfee0cdab",
+          "name": "USC Konstanz",
+          "club": "USC Konstanz"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": null,
+            "uuid": null,
+            "seasonTeamId": null,
+            "name": null,
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": null,
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70101386",
+          "uuid": "610d875b-07d5-4238-846d-36a4c31bf9d6",
+          "allSeasonId": "7c40e20c-cf99-9a7d-b121-b612389e0948",
+          "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
+          "shortName": "sbvv-u20w",
+          "type": "Competition",
+          "updated": "2025-01-21 10:20:40.638",
+          "structureUpdated": "2025-01-21 10:20:40.637",
+          "resultsUpdated": "2024-03-25 11:45:13.959",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100789",
+            "uuid": "3f1a4aae-d0e4-40d0-86a7-df950e885dd1",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "27221077",
+          "name": "Pestalozzi Halle",
+          "street": "Pestalozzistr. 1",
+          "extraField": "-",
+          "postalCode": "78467",
+          "city": "Konstanz",
+          "note": "-"
+        },
+        "referees": null,
+        "dateObject": "2025-02-23T16:00:00.000Z",
+        "dateIso": "2025-02-23T16:00:00.000Z"
+      }
+    ]
+  }
+}
