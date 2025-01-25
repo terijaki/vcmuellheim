@@ -67692,16 +67692,6 @@
         }
       },
       {
-        "id": "37921533",
-        "name": "SV 1911 Lüttringen e.V.",
-        "lsbNumber": "5603007",
-        "internalSportsclubId": "1162",
-        "association": {
-          "id": "33798121",
-          "name": "Soest"
-        }
-      },
-      {
         "id": "6518",
         "name": "TV Planegg-Krailling",
         "lsbNumber": "72",
@@ -71949,6 +71939,16 @@
         "association": {
           "id": "25386581",
           "name": "Kreis Wolfenbüttel"
+        }
+      },
+      {
+        "id": "37921533",
+        "name": "SV 1911 Lüttringen e.V.",
+        "lsbNumber": "5603007",
+        "internalSportsclubId": "1162",
+        "association": {
+          "id": "33798121",
+          "name": "Soest"
         }
       },
       {
