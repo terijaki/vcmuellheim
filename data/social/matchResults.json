@@ -246,6 +246,30 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113889922530009464"
+    },
+    {
+      "uuid": "74ebe1b8-20b4-4371-8ae3-31c42febf125",
+      "date": "2025-01-25T13:00:00.000Z",
+      "league": "Bezirksliga Herren Süd",
+      "team": [
+        "VC Müllheim 2",
+        "SG BEG United 5"
+      ],
+      "winner": 2,
+      "score": "1:3",
+      "mastodon": "new"
+    },
+    {
+      "uuid": "1179003f-d6fd-44a6-8885-9124557c7d2c",
+      "date": "2025-01-25T13:00:00.000Z",
+      "league": "Kreisliga Damen Süd",
+      "team": [
+        "VC Müllheim 2",
+        "TV Wehr"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
     }
   ]
 }
