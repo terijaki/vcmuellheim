@@ -68682,16 +68682,6 @@
         }
       },
       {
-        "id": "16816038",
-        "name": "SG Coesfeld 06 e.V.",
-        "lsbNumber": "3203012",
-        "internalSportsclubId": "1601",
-        "association": {
-          "id": "33797226",
-          "name": "Coesfeld"
-        }
-      },
-      {
         "id": "37921157",
         "name": "SV Arminia Appelhülsen e.V.",
         "lsbNumber": "3208001",
@@ -68749,6 +68739,16 @@
         "association": {
           "id": "33797190",
           "name": "Borken"
+        }
+      },
+      {
+        "id": "16816038",
+        "name": "SG Coesfeld 06 e.V.",
+        "lsbNumber": "3203012",
+        "internalSportsclubId": "1601",
+        "association": {
+          "id": "33797226",
+          "name": "Coesfeld"
         }
       },
       {
