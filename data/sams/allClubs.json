@@ -63682,16 +63682,6 @@
         }
       },
       {
-        "id": "65036681",
-        "name": "TV Au am Rhein",
-        "lsbNumber": "470100",
-        "internalSportsclubId": "01001",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "82877945",
         "name": "MTV Förste",
         "lsbNumber": "301120450",
@@ -63699,6 +63689,16 @@
         "association": {
           "id": "25386748",
           "name": "Kreis Osterode"
+        }
+      },
+      {
+        "id": "65036681",
+        "name": "TV Au am Rhein",
+        "lsbNumber": "470100",
+        "internalSportsclubId": "01001",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
