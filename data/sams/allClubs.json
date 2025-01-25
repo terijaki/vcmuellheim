@@ -742,16 +742,6 @@
         }
       },
       {
-        "id": "51836378",
-        "name": "TV 1905 Mülheim e.V.",
-        "lsbNumber": "1152",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
         "id": "1062270",
         "name": "HSG Uni Rostock",
         "lsbNumber": "30550",
@@ -5462,16 +5452,6 @@
         }
       },
       {
-        "id": "26819103",
-        "name": "Demo Verein Spielbetrieb",
-        "lsbNumber": null,
-        "internalSportsclubId": "12345",
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
-        }
-      },
-      {
         "id": "26819102",
         "name": "Thüringer Schachbund e.V.",
         "lsbNumber": "880031",
@@ -5576,6 +5556,16 @@
         "name": "VfB Elleben 1997 e.V.",
         "lsbNumber": "430164",
         "internalSportsclubId": null,
+        "association": {
+          "id": "26272888",
+          "name": "tbc TVV 40"
+        }
+      },
+      {
+        "id": "26819103",
+        "name": "Demo Verein Spielbetrieb",
+        "lsbNumber": null,
+        "internalSportsclubId": "12345",
         "association": {
           "id": "26272888",
           "name": "tbc TVV 40"
@@ -6477,8 +6467,8 @@
         "lsbNumber": "280077",
         "internalSportsclubId": null,
         "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
+          "id": "26249261",
+          "name": "Kreisverband Ost"
         }
       },
       {
@@ -7622,16 +7612,6 @@
         }
       },
       {
-        "id": "26819349",
-        "name": "SV Frohndorf/Orlishausen e.V.",
-        "lsbNumber": "310045",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
-        }
-      },
-      {
         "id": "26819345",
         "name": "TSV 1860 Schalkau e.V.",
         "lsbNumber": "330002",
@@ -7782,6 +7762,16 @@
         }
       },
       {
+        "id": "26819349",
+        "name": "SV Frohndorf/Orlishausen e.V.",
+        "lsbNumber": "310045",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
+        }
+      },
+      {
         "id": "26846435",
         "name": "Turn-und Sportverein Berlin-Wittenau 1896 e.V.",
         "lsbNumber": null,
@@ -7889,16 +7879,6 @@
         "association": {
           "id": "25464691",
           "name": "Kreis Emsland"
-        }
-      },
-      {
-        "id": "50621707",
-        "name": "TuS Elsdorf",
-        "lsbNumber": "303311440",
-        "internalSportsclubId": "20705",
-        "association": {
-          "id": "25461757",
-          "name": "Kreis Rotenburg"
         }
       },
       {
@@ -8176,16 +8156,6 @@
         "name": "Iranischer Sportverein e.V.",
         "lsbNumber": "1886",
         "internalSportsclubId": "14-11-060",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
-        "id": "26846468",
-        "name": "Sportliche Vereinigung Reinickendorf 1896 e.V.",
-        "lsbNumber": "3824",
-        "internalSportsclubId": "14-11-062",
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
@@ -10282,16 +10252,6 @@
         }
       },
       {
-        "id": "26818998",
-        "name": "VC Blau-Weiß Gebesee e.V.",
-        "lsbNumber": "310175",
-        "internalSportsclubId": "09191",
-        "association": {
-          "id": "26249165",
-          "name": "Kreisverband Mitte"
-        }
-      },
-      {
         "id": "26866440",
         "name": "TV Schafbrücke",
         "lsbNumber": null,
@@ -10492,6 +10452,16 @@
         }
       },
       {
+        "id": "37920932",
+        "name": "TV Vreden 1922 e.V.",
+        "lsbNumber": "3117012",
+        "internalSportsclubId": "9001",
+        "association": {
+          "id": "33797190",
+          "name": "Borken"
+        }
+      },
+      {
         "id": "6401",
         "name": "VC SFG Olpe e.V.",
         "lsbNumber": "5406012",
@@ -10559,16 +10529,6 @@
         "association": {
           "id": "26249309",
           "name": "Kreisverband West"
-        }
-      },
-      {
-        "id": "37920932",
-        "name": "TV Vreden 1922 e.V.",
-        "lsbNumber": "3117012",
-        "internalSportsclubId": "9001",
-        "association": {
-          "id": "33797190",
-          "name": "Borken"
         }
       },
       {
@@ -13136,16 +13096,6 @@
         "name": "TSV Hordel 1912 e.V.",
         "lsbNumber": "5001040",
         "internalSportsclubId": "9220",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
-        "id": "37920710",
-        "name": "Schulsportver. Willy-Brandt-Gesamtschule",
-        "lsbNumber": "5001383",
-        "internalSportsclubId": "9227",
         "association": {
           "id": "33797844",
           "name": "Bochum - Ennepe-Ruhr - Herne"
@@ -32842,16 +32792,6 @@
         }
       },
       {
-        "id": "26925395",
-        "name": "TG 1949 Wehlheiden",
-        "lsbNumber": "41186",
-        "internalSportsclubId": "3709",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "37921316",
         "name": "Kohlscheider SC 1973 e.V.",
         "lsbNumber": "2104013",
@@ -33169,16 +33109,6 @@
         "association": {
           "id": "33299092",
           "name": "Düsseldorf"
-        }
-      },
-      {
-        "id": "37921976",
-        "name": "TV 1885 Huchem-Stammeln e.V.",
-        "lsbNumber": "2212001",
-        "internalSportsclubId": "9020",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
@@ -35347,8 +35277,8 @@
         "lsbNumber": null,
         "internalSportsclubId": "100018",
         "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
         }
       },
       {
@@ -36379,16 +36309,6 @@
         "association": {
           "id": "25464887",
           "name": "Kreis Vechta"
-        }
-      },
-      {
-        "id": "37921750",
-        "name": "Schwimmverein Neptun 1910 Aachen e.V.",
-        "lsbNumber": "2001031",
-        "internalSportsclubId": "24",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
@@ -37429,16 +37349,6 @@
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
-        "id": "82877741",
-        "name": "Polizei-Sportverein Hannover",
-        "lsbNumber": "302205109",
-        "internalSportsclubId": "30425",
-        "association": {
-          "id": "25463979",
-          "name": "Kreis Hannover-Stadt"
         }
       },
       {
@@ -43952,16 +43862,6 @@
         }
       },
       {
-        "id": "50621870",
-        "name": "SV Eurogymnasium Waldenburg 1998 e.V.",
-        "lsbNumber": "520218",
-        "internalSportsclubId": "513",
-        "association": {
-          "id": "24908690",
-          "name": "Landkreis Zwickau/Erzgebirge"
-        }
-      },
-      {
         "id": "50621871",
         "name": "TSV Musterhausen e.V.",
         "lsbNumber": "888",
@@ -49509,16 +49409,6 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "50621491",
-        "name": "1. VC Riesa 92 e. V.",
-        "lsbNumber": "470005",
-        "internalSportsclubId": "255",
-        "association": {
-          "id": "24908772",
-          "name": "Landkreis Meißen"
         }
       },
       {
@@ -57442,16 +57332,6 @@
         }
       },
       {
-        "id": "37948197",
-        "name": "SG Merseburger Volleyballfreunde e.V.",
-        "lsbNumber": "100047",
-        "internalSportsclubId": "100047",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37948567",
         "name": "SSV Besiegdas 03 Magdeburg e.V.",
         "lsbNumber": "120179",
@@ -60682,6 +60562,16 @@
         }
       },
       {
+        "id": "65037063",
+        "name": "TS Durlach",
+        "lsbNumber": "81523",
+        "internalSportsclubId": "81523",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "65037064",
         "name": "TV Engen 1847 e.V.",
         "lsbNumber": "470750",
@@ -60779,16 +60669,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65037063",
-        "name": "TS Durlach",
-        "lsbNumber": "81523",
-        "internalSportsclubId": "81523",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -68022,16 +67902,6 @@
         }
       },
       {
-        "id": "26866424",
-        "name": "SSG Schwarzenholz-Griesborn",
-        "lsbNumber": "12348",
-        "internalSportsclubId": "12",
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
         "id": "4465152",
         "name": "TV Bliesen",
         "lsbNumber": "80612",
@@ -68149,6 +68019,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "26866424",
+        "name": "SSG Schwarzenholz-Griesborn",
+        "lsbNumber": "12348",
+        "internalSportsclubId": "12",
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
         }
       },
       {
@@ -68792,16 +68672,6 @@
         }
       },
       {
-        "id": "16816166",
-        "name": "Dürener TV 1847 e.V.",
-        "lsbNumber": "2202010",
-        "internalSportsclubId": "9017",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
-        }
-      },
-      {
         "id": "37921508",
         "name": "ESV 1925 Horrem e.V.",
         "lsbNumber": "2308016",
@@ -69249,16 +69119,6 @@
         "association": {
           "id": "33298943",
           "name": "Duisburg"
-        }
-      },
-      {
-        "id": "12483437",
-        "name": "TSV Tempelhof-Mariendorf e.V.",
-        "lsbNumber": "4972",
-        "internalSportsclubId": "14-11-019",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -71622,6 +71482,16 @@
         }
       },
       {
+        "id": "50621870",
+        "name": "SV Eurogymnasium Waldenburg 1998 e.V.",
+        "lsbNumber": "520218",
+        "internalSportsclubId": "513",
+        "association": {
+          "id": "24908690",
+          "name": "Landkreis Zwickau/Erzgebirge"
+        }
+      },
+      {
         "id": "26819132",
         "name": "SV Lerchenberg Altenburg e.V.",
         "lsbNumber": "410065",
@@ -71629,6 +71499,16 @@
         "association": {
           "id": "26249261",
           "name": "Kreisverband Ost"
+        }
+      },
+      {
+        "id": "26818998",
+        "name": "VC Blau-Weiß Gebesee e.V.",
+        "lsbNumber": "310175",
+        "internalSportsclubId": "09191",
+        "association": {
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
         }
       },
       {
@@ -71672,6 +71552,16 @@
         }
       },
       {
+        "id": "37948197",
+        "name": "SG Merseburger Volleyballfreunde e.V.",
+        "lsbNumber": "100047",
+        "internalSportsclubId": "100047",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "82877153",
         "name": "BSG Landschaftsverband Westfalen-Lippe",
         "lsbNumber": "617096",
@@ -71682,6 +71572,16 @@
         }
       },
       {
+        "id": "12483437",
+        "name": "TSV Tempelhof-Mariendorf e.V.",
+        "lsbNumber": "4972",
+        "internalSportsclubId": "14-11-019",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
         "id": "82877155",
         "name": "VfL Schwerin",
         "lsbNumber": "608012",
@@ -71689,6 +71589,36 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "26846468",
+        "name": "Sportliche Vereinigung Reinickendorf 1896 e.V.",
+        "lsbNumber": "3824",
+        "internalSportsclubId": "14-11-062",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "87006486",
+        "name": "SV Haselbach e.V.",
+        "lsbNumber": "1111111110000077",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249261",
+          "name": "Kreisverband Ost"
+        }
+      },
+      {
+        "id": "37920710",
+        "name": "Schulsportver. Willy-Brandt-Gesamtschule",
+        "lsbNumber": "5001383",
+        "internalSportsclubId": "9227",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
         }
       },
       {
@@ -71912,6 +71842,36 @@
         }
       },
       {
+        "id": "37921750",
+        "name": "Schwimmverein Neptun 1910 Aachen e.V.",
+        "lsbNumber": "2001031",
+        "internalSportsclubId": "24",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
+        }
+      },
+      {
+        "id": "26925395",
+        "name": "TG 1949 Wehlheiden",
+        "lsbNumber": "41186",
+        "internalSportsclubId": "3709",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "37921976",
+        "name": "TV 1885 Huchem-Stammeln e.V.",
+        "lsbNumber": "2212001",
+        "internalSportsclubId": "9020",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
+        }
+      },
+      {
         "id": "82877221",
         "name": "BSG DJK Ibbenbüren",
         "lsbNumber": "617634",
@@ -71922,6 +71882,26 @@
         }
       },
       {
+        "id": "50621707",
+        "name": "TuS Elsdorf",
+        "lsbNumber": "303311440",
+        "internalSportsclubId": "20705",
+        "association": {
+          "id": "25461757",
+          "name": "Kreis Rotenburg"
+        }
+      },
+      {
+        "id": "50621491",
+        "name": "1. VC Riesa 92 e. V.",
+        "lsbNumber": "470005",
+        "internalSportsclubId": "255",
+        "association": {
+          "id": "24908772",
+          "name": "Landkreis Meißen"
+        }
+      },
+      {
         "id": "82877224",
         "name": "Uni Köln",
         "lsbNumber": "617131",
@@ -71929,6 +71909,36 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "16816166",
+        "name": "Dürener TV 1847 e.V.",
+        "lsbNumber": "2202010",
+        "internalSportsclubId": "9017",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
+        }
+      },
+      {
+        "id": "82877741",
+        "name": "Polizei-Sportverein Hannover",
+        "lsbNumber": "302205109",
+        "internalSportsclubId": "30425",
+        "association": {
+          "id": "25463979",
+          "name": "Kreis Hannover-Stadt"
+        }
+      },
+      {
+        "id": "51836378",
+        "name": "TV 1905 Mülheim e.V.",
+        "lsbNumber": "1152",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
         }
       },
       {
