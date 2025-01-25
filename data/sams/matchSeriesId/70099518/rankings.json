@@ -7,9 +7,9 @@
       "name": "Kreisliga Damen Süd",
       "shortName": "kl s d",
       "type": "League",
-      "updated": "2025-01-25 15:35:10.932",
+      "updated": "2025-01-25 17:13:02.446",
       "structureUpdated": "2025-01-21 08:20:59.919",
-      "resultsUpdated": "2025-01-25 15:35:10.932",
+      "resultsUpdated": "2025-01-25 17:13:02.446",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -188,6 +188,62 @@
       },
       {
         "team": {
+          "id": "73557956",
+          "uuid": "a4b8f3d2-ec9d-4644-b2a1-cc89b0435ca4",
+          "name": "SG Breisach - Gündlingen 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "SG Breisach-Gündlingen",
+            "shortName": null
+          }
+        },
+        "place": "3",
+        "matchesPlayed": "12",
+        "wins": "7",
+        "losses": "5",
+        "points": "22",
+        "setPoints": "26:17",
+        "setWinScore": "26",
+        "setLoseScore": "17",
+        "setPointDifference": "9",
+        "setQuotient": "1,529\n            ",
+        "ballPoints": "909:825",
+        "ballWinScore": "909",
+        "ballLoseScore": "825",
+        "ballPointDifference": "84",
+        "ballQuotient": "1,102\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "6"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "2"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "2"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73557972",
           "uuid": "dba63df0-226d-4a14-8179-1e699ebbb562",
           "name": "TV Neuenburg",
@@ -198,7 +254,7 @@
             "shortName": null
           }
         },
-        "place": "3",
+        "place": "4",
         "matchesPlayed": "10",
         "wins": "7",
         "losses": "3",
@@ -234,62 +290,6 @@
             {
               "result": "1:3",
               "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "2"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73557956",
-          "uuid": "a4b8f3d2-ec9d-4644-b2a1-cc89b0435ca4",
-          "name": "SG Breisach - Gündlingen 2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "SG Breisach-Gündlingen",
-            "shortName": null
-          }
-        },
-        "place": "4",
-        "matchesPlayed": "11",
-        "wins": "6",
-        "losses": "5",
-        "points": "19",
-        "setPoints": "23:17",
-        "setWinScore": "23",
-        "setLoseScore": "17",
-        "setPointDifference": "6",
-        "setQuotient": "1,353\n            ",
-        "ballPoints": "834:784",
-        "ballWinScore": "834",
-        "ballLoseScore": "784",
-        "ballPointDifference": "50",
-        "ballQuotient": "1,064\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "5"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "1"
-            },
-            {
-              "result": "2:3",
-              "count": "2"
-            },
-            {
-              "result": "1:3",
-              "count": "1"
             },
             {
               "result": "0:3",
@@ -535,20 +535,20 @@
           }
         },
         "place": "9",
-        "matchesPlayed": "10",
+        "matchesPlayed": "11",
         "wins": "1",
-        "losses": "9",
+        "losses": "10",
         "points": "3",
-        "setPoints": "5:29",
+        "setPoints": "5:32",
         "setWinScore": "5",
-        "setLoseScore": "29",
-        "setPointDifference": "-24",
-        "setQuotient": "0,172\n            ",
-        "ballPoints": "458:813",
-        "ballWinScore": "458",
-        "ballLoseScore": "813",
-        "ballPointDifference": "-355",
-        "ballQuotient": "0,563\n            ",
+        "setLoseScore": "32",
+        "setPointDifference": "-27",
+        "setQuotient": "0,156\n            ",
+        "ballPoints": "499:888",
+        "ballWinScore": "499",
+        "ballLoseScore": "888",
+        "ballPointDifference": "-389",
+        "ballQuotient": "0,562\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -573,7 +573,7 @@
             },
             {
               "result": "0:3",
-              "count": "8"
+              "count": "9"
             }
           ]
         }
