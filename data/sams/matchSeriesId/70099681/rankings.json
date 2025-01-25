@@ -7,9 +7,9 @@
       "name": "Bezirksliga Herren Süd",
       "shortName": "bzl s h",
       "type": "League",
-      "updated": "2025-01-25 16:46:47.422",
+      "updated": "2025-01-25 18:46:24.05",
       "structureUpdated": "2025-01-22 21:32:38.141",
-      "resultsUpdated": "2025-01-25 16:46:47.422",
+      "resultsUpdated": "2025-01-25 18:46:24.05",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -344,6 +344,62 @@
       },
       {
         "team": {
+          "id": "73550096",
+          "uuid": "bdb65493-9cd7-435c-afeb-1fecf18ac926",
+          "name": "SG BEG United 5",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TB Emmendingen",
+            "shortName": null
+          }
+        },
+        "place": "6",
+        "matchesPlayed": "10",
+        "wins": "4",
+        "losses": "6",
+        "points": "12",
+        "setPoints": "17:23",
+        "setWinScore": "17",
+        "setLoseScore": "23",
+        "setPointDifference": "-6",
+        "setQuotient": "0,739\n            ",
+        "ballPoints": "820:893",
+        "ballWinScore": "820",
+        "ballLoseScore": "893",
+        "ballPointDifference": "-73",
+        "ballQuotient": "0,918\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "0"
+            },
+            {
+              "result": "3:1",
+              "count": "3"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "3"
+            },
+            {
+              "result": "0:3",
+              "count": "2"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73550110",
           "uuid": "cc5caf6b-b159-4f28-933e-8cfb948149a8",
           "name": "TV Todtnau",
@@ -354,7 +410,7 @@
             "shortName": null
           }
         },
-        "place": "6",
+        "place": "7",
         "matchesPlayed": "10",
         "wins": "3",
         "losses": "7",
@@ -400,62 +456,6 @@
       },
       {
         "team": {
-          "id": "73550096",
-          "uuid": "bdb65493-9cd7-435c-afeb-1fecf18ac926",
-          "name": "SG BEG United 5",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TB Emmendingen",
-            "shortName": null
-          }
-        },
-        "place": "7",
-        "matchesPlayed": "9",
-        "wins": "3",
-        "losses": "6",
-        "points": "9",
-        "setPoints": "14:22",
-        "setWinScore": "14",
-        "setLoseScore": "22",
-        "setPointDifference": "-8",
-        "setQuotient": "0,636\n            ",
-        "ballPoints": "724:818",
-        "ballWinScore": "724",
-        "ballLoseScore": "818",
-        "ballPointDifference": "-94",
-        "ballQuotient": "0,885\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "2"
-            },
-            {
-              "result": "3:2",
-              "count": "1"
-            },
-            {
-              "result": "2:3",
-              "count": "1"
-            },
-            {
-              "result": "1:3",
-              "count": "3"
-            },
-            {
-              "result": "0:3",
-              "count": "2"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "73552774",
           "uuid": "1043862e-a30c-4c51-8fdd-97cb6166cdcc",
           "name": "VC Müllheim 2",
@@ -467,20 +467,20 @@
           }
         },
         "place": "8",
-        "matchesPlayed": "10",
+        "matchesPlayed": "11",
         "wins": "0",
-        "losses": "10",
+        "losses": "11",
         "points": "0",
-        "setPoints": "4:30",
-        "setWinScore": "4",
-        "setLoseScore": "30",
-        "setPointDifference": "-26",
-        "setQuotient": "0,133\n            ",
-        "ballPoints": "602:842",
-        "ballWinScore": "602",
-        "ballLoseScore": "842",
-        "ballPointDifference": "-240",
-        "ballQuotient": "0,715\n            ",
+        "setPoints": "5:33",
+        "setWinScore": "5",
+        "setLoseScore": "33",
+        "setPointDifference": "-28",
+        "setQuotient": "0,152\n            ",
+        "ballPoints": "677:938",
+        "ballWinScore": "677",
+        "ballLoseScore": "938",
+        "ballPointDifference": "-261",
+        "ballQuotient": "0,722\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -501,7 +501,7 @@
             },
             {
               "result": "1:3",
-              "count": "4"
+              "count": "5"
             },
             {
               "result": "0:3",
