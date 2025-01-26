@@ -285,6 +285,18 @@
       "score": "3:1",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113894392527948335"
+    },
+    {
+      "uuid": "78922372-3e5a-4239-a7ac-fa76a9ca8216",
+      "date": "2025-01-26T09:30:00.000Z",
+      "league": "Bezirksklasse Damen Süd",
+      "team": [
+        "VC Müllheim 1",
+        "TV Merdingen 2"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
     }
   ]
 }
