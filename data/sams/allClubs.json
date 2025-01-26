@@ -35932,16 +35932,6 @@
         }
       },
       {
-        "id": "82879526",
-        "name": "MTV Ilten",
-        "lsbNumber": "302194035",
-        "internalSportsclubId": "30326",
-        "association": {
-          "id": "25463961",
-          "name": "Kreis Hannover-Land"
-        }
-      },
-      {
         "id": "37920853",
         "name": "TuS Köln-Ehrenfeld 1865 e.V.",
         "lsbNumber": "2003049",
@@ -36029,6 +36019,16 @@
         "association": {
           "id": "33797762",
           "name": "Höxter"
+        }
+      },
+      {
+        "id": "82879526",
+        "name": "MTV Ilten",
+        "lsbNumber": "302194035",
+        "internalSportsclubId": "30326",
+        "association": {
+          "id": "25463961",
+          "name": "Kreis Hannover-Land"
         }
       },
       {
