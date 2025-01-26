@@ -272,6 +272,18 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113890257282825591"
+    },
+    {
+      "uuid": "a87ae0e7-c571-4a7b-aaf0-cbaf23e9af26",
+      "date": "2025-01-26T09:30:00.000Z",
+      "league": "Bezirksklasse Damen Süd",
+      "team": [
+        "VC Müllheim 1",
+        "TV Staufen 2"
+      ],
+      "winner": 1,
+      "score": "3:1",
+      "mastodon": "new"
     }
   ]
 }
