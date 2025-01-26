@@ -70392,16 +70392,6 @@
         }
       },
       {
-        "id": "65037388",
-        "name": "VT Hagsfeld",
-        "lsbNumber": "81537",
-        "internalSportsclubId": "81537",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "37921218",
         "name": "TV Eichen von 1888 e.V.",
         "lsbNumber": "5506025",
@@ -70569,6 +70559,16 @@
         "association": {
           "id": "26249165",
           "name": "Kreisverband Mitte"
+        }
+      },
+      {
+        "id": "65037388",
+        "name": "VT Hagsfeld",
+        "lsbNumber": "81537",
+        "internalSportsclubId": "81537",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
