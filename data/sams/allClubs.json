@@ -24212,16 +24212,6 @@
         }
       },
       {
-        "id": "82879930",
-        "name": "SV Schwarz-Weiß Lindern",
-        "lsbNumber": "304388800",
-        "internalSportsclubId": "10309",
-        "association": {
-          "id": "25464783",
-          "name": "Kreis Cloppenburg"
-        }
-      },
-      {
         "id": "37920920",
         "name": "Turn- u. Sportverein Ahmsen v. 1921 e.V.",
         "lsbNumber": "4402027",
@@ -71949,6 +71939,16 @@
         "association": {
           "id": "33797802",
           "name": "Unna"
+        }
+      },
+      {
+        "id": "82879930",
+        "name": "SV Schwarz-Weiß Lindern",
+        "lsbNumber": "304388800",
+        "internalSportsclubId": "10309",
+        "association": {
+          "id": "25464783",
+          "name": "Kreis Cloppenburg"
         }
       },
       {
