@@ -7,9 +7,9 @@
       "name": "Bezirksklasse Damen Süd",
       "shortName": "bzk s d",
       "type": "League",
-      "updated": "2025-01-26 12:16:03.076",
+      "updated": "2025-01-26 14:08:46.144",
       "structureUpdated": "2025-01-17 20:14:16.947",
-      "resultsUpdated": "2025-01-26 12:16:03.076",
+      "resultsUpdated": "2025-01-26 14:08:46.144",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -70,6 +70,62 @@
     "ranking": [
       {
         "team": {
+          "id": "73557221",
+          "uuid": "26845c9c-9d8d-4fd6-a887-497225c76fd2",
+          "name": "VC Offenburg 4",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VC Offenburg",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "12",
+        "wins": "11",
+        "losses": "1",
+        "points": "32",
+        "setPoints": "35:7",
+        "setWinScore": "35",
+        "setLoseScore": "7",
+        "setPointDifference": "28",
+        "setQuotient": "5,000\n            ",
+        "ballPoints": "990:731",
+        "ballWinScore": "990",
+        "ballLoseScore": "731",
+        "ballPointDifference": "259",
+        "ballQuotient": "1,354\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "9"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73557224",
           "uuid": "f02c6e36-a66a-45ce-9e14-450e74619da3",
           "name": "SV Waltershofen 2",
@@ -80,7 +136,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "2",
         "matchesPlayed": "12",
         "wins": "10",
         "losses": "2",
@@ -112,62 +168,6 @@
             {
               "result": "2:3",
               "count": "2"
-            },
-            {
-              "result": "1:3",
-              "count": "0"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73557221",
-          "uuid": "26845c9c-9d8d-4fd6-a887-497225c76fd2",
-          "name": "VC Offenburg 4",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "VC Offenburg",
-            "shortName": null
-          }
-        },
-        "place": "2",
-        "matchesPlayed": "11",
-        "wins": "10",
-        "losses": "1",
-        "points": "29",
-        "setPoints": "32:7",
-        "setWinScore": "32",
-        "setLoseScore": "7",
-        "setPointDifference": "25",
-        "setQuotient": "4,571\n            ",
-        "ballPoints": "915:669",
-        "ballWinScore": "915",
-        "ballLoseScore": "669",
-        "ballPointDifference": "246",
-        "ballQuotient": "1,368\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "8"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "2"
-            },
-            {
-              "result": "2:3",
-              "count": "1"
             },
             {
               "result": "1:3",
@@ -361,20 +361,20 @@
           }
         },
         "place": "6",
-        "matchesPlayed": "11",
+        "matchesPlayed": "12",
         "wins": "4",
-        "losses": "7",
+        "losses": "8",
         "points": "12",
-        "setPoints": "14:23",
+        "setPoints": "14:26",
         "setWinScore": "14",
-        "setLoseScore": "23",
-        "setPointDifference": "-9",
-        "setQuotient": "0,609\n            ",
-        "ballPoints": "781:822",
-        "ballWinScore": "781",
-        "ballLoseScore": "822",
-        "ballPointDifference": "-41",
-        "ballQuotient": "0,950\n            ",
+        "setLoseScore": "26",
+        "setPointDifference": "-12",
+        "setQuotient": "0,538\n            ",
+        "ballPoints": "832:897",
+        "ballWinScore": "832",
+        "ballLoseScore": "897",
+        "ballPointDifference": "-65",
+        "ballQuotient": "0,928\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -399,7 +399,7 @@
             },
             {
               "result": "0:3",
-              "count": "5"
+              "count": "6"
             }
           ]
         }
@@ -417,20 +417,20 @@
           }
         },
         "place": "7",
-        "matchesPlayed": "10",
+        "matchesPlayed": "11",
         "wins": "4",
-        "losses": "6",
+        "losses": "7",
         "points": "11",
-        "setPoints": "13:21",
+        "setPoints": "13:24",
         "setWinScore": "13",
-        "setLoseScore": "21",
-        "setPointDifference": "-8",
-        "setQuotient": "0,619\n            ",
-        "ballPoints": "676:766",
-        "ballWinScore": "676",
-        "ballLoseScore": "766",
-        "ballPointDifference": "-90",
-        "ballQuotient": "0,883\n            ",
+        "setLoseScore": "24",
+        "setPointDifference": "-11",
+        "setQuotient": "0,542\n            ",
+        "ballPoints": "738:841",
+        "ballWinScore": "738",
+        "ballLoseScore": "841",
+        "ballPointDifference": "-103",
+        "ballQuotient": "0,878\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -455,7 +455,7 @@
             },
             {
               "result": "0:3",
-              "count": "5"
+              "count": "6"
             }
           ]
         }
@@ -473,25 +473,25 @@
           }
         },
         "place": "8",
-        "matchesPlayed": "10",
-        "wins": "2",
+        "matchesPlayed": "11",
+        "wins": "3",
         "losses": "8",
-        "points": "6",
-        "setPoints": "11:26",
-        "setWinScore": "11",
+        "points": "9",
+        "setPoints": "14:26",
+        "setWinScore": "14",
         "setLoseScore": "26",
-        "setPointDifference": "-15",
-        "setQuotient": "0,423\n            ",
-        "ballPoints": "713:849",
-        "ballWinScore": "713",
-        "ballLoseScore": "849",
-        "ballPointDifference": "-136",
-        "ballQuotient": "0,840\n            ",
+        "setPointDifference": "-12",
+        "setQuotient": "0,538\n            ",
+        "ballPoints": "788:900",
+        "ballWinScore": "788",
+        "ballLoseScore": "900",
+        "ballPointDifference": "-112",
+        "ballQuotient": "0,876\n            ",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "1"
+              "count": "2"
             },
             {
               "result": "3:1",
