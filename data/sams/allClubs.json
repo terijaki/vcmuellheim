@@ -41942,16 +41942,6 @@
         }
       },
       {
-        "id": "37921401",
-        "name": "EVC Massen e.V.",
-        "lsbNumber": "5709032",
-        "internalSportsclubId": "4311",
-        "association": {
-          "id": "33797802",
-          "name": "Unna"
-        }
-      },
-      {
         "id": "82879047",
         "name": "TuS Bramsche",
         "lsbNumber": "304470930",
@@ -71949,6 +71939,16 @@
         "association": {
           "id": "33798121",
           "name": "Soest"
+        }
+      },
+      {
+        "id": "37921401",
+        "name": "EVC Massen e.V.",
+        "lsbNumber": "5709032",
+        "internalSportsclubId": "4311",
+        "association": {
+          "id": "33797802",
+          "name": "Unna"
         }
       },
       {
