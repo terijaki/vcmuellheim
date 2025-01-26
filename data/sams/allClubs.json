@@ -28482,16 +28482,6 @@
         }
       },
       {
-        "id": "37920773",
-        "name": "TSG Kirchhellen 1968 e.V.",
-        "lsbNumber": "3001080",
-        "internalSportsclubId": "633",
-        "association": {
-          "id": "33797282",
-          "name": "Vest"
-        }
-      },
-      {
         "id": "37921097",
         "name": "TV Dümmlinghausen-Hesselbach 1861 e.V.",
         "lsbNumber": "2603054",
@@ -71919,6 +71909,16 @@
         "association": {
           "id": "25386581",
           "name": "Kreis Wolfenbüttel"
+        }
+      },
+      {
+        "id": "37920773",
+        "name": "TSG Kirchhellen 1968 e.V.",
+        "lsbNumber": "3001080",
+        "internalSportsclubId": "633",
+        "association": {
+          "id": "33797282",
+          "name": "Vest"
         }
       },
       {
