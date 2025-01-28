@@ -4062,16 +4062,6 @@
         }
       },
       {
-        "id": "26818888",
-        "name": "Turn- und Sportverein Elstertal Bad Köstritz",
-        "lsbNumber": "140227",
-        "internalSportsclubId": "11347",
-        "association": {
-          "id": "26249261",
-          "name": "Kreisverband Ost"
-        }
-      },
-      {
         "id": "52835914",
         "name": "TUS Holzkirchen 1888 e.V.",
         "lsbNumber": "10534",
@@ -6072,16 +6062,6 @@
         }
       },
       {
-        "id": "26819179",
-        "name": "TSV 1890 Waltersdorf e.V.",
-        "lsbNumber": "140021",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
-        }
-      },
-      {
         "id": "26819162",
         "name": "SV Harpersdorf e.V.",
         "lsbNumber": "140077",
@@ -6299,6 +6279,16 @@
         "association": {
           "id": "26272888",
           "name": "tbc TVV 40"
+        }
+      },
+      {
+        "id": "26819179",
+        "name": "TSV 1890 Waltersdorf e.V.",
+        "lsbNumber": "140021",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249261",
+          "name": "Kreisverband Ost"
         }
       },
       {
@@ -6765,16 +6755,6 @@
         "id": "26819261",
         "name": "SV Blau-Weiß Lichte e.V.",
         "lsbNumber": "330127",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
-        }
-      },
-      {
-        "id": "26819249",
-        "name": "SG Medizin Blankenhain e.V.",
-        "lsbNumber": "370039",
         "internalSportsclubId": null,
         "association": {
           "id": "26272888",
@@ -13832,16 +13812,6 @@
         }
       },
       {
-        "id": "37920681",
-        "name": "BSG Stadtsparkasse Dortmund",
-        "lsbNumber": "5002838",
-        "internalSportsclubId": "722",
-        "association": {
-          "id": "33797822",
-          "name": "Dortmund"
-        }
-      },
-      {
         "id": "37921315",
         "name": "Lehrersportgemeinschaft Dortmund",
         "lsbNumber": "5002472",
@@ -14392,16 +14362,6 @@
         }
       },
       {
-        "id": "37921903",
-        "name": "BSG Walsum e.V.",
-        "lsbNumber": "1002046",
-        "internalSportsclubId": "10122",
-        "association": {
-          "id": "33298943",
-          "name": "Duisburg"
-        }
-      },
-      {
         "id": "26818858",
         "name": "Sportverein Hainrode e.V.",
         "lsbNumber": "240046",
@@ -14449,6 +14409,16 @@
         "association": {
           "id": "25464907",
           "name": "Kreis Wesermarsch"
+        }
+      },
+      {
+        "id": "37921903",
+        "name": "BSG Walsum e.V.",
+        "lsbNumber": "1002046",
+        "internalSportsclubId": "10122",
+        "association": {
+          "id": "33298943",
+          "name": "Duisburg"
         }
       },
       {
@@ -20392,16 +20362,6 @@
         }
       },
       {
-        "id": "26819030",
-        "name": "Geraer Volleyballclub e.V.",
-        "lsbNumber": "120150",
-        "internalSportsclubId": "09590",
-        "association": {
-          "id": "26249261",
-          "name": "Kreisverband Ost"
-        }
-      },
-      {
         "id": "54611379",
         "name": "VfL Stammheim",
         "lsbNumber": "5098",
@@ -21969,16 +21929,6 @@
         "association": {
           "id": "33797867",
           "name": "Hagen"
-        }
-      },
-      {
-        "id": "26925120",
-        "name": "TSG Wehrheim 1861 e.V.",
-        "lsbNumber": "31170",
-        "internalSportsclubId": "4210",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -24142,16 +24092,6 @@
         }
       },
       {
-        "id": "37921423",
-        "name": "Unser Hof e.V. Nasch Dwor",
-        "lsbNumber": "2004324",
-        "internalSportsclubId": "10127",
-        "association": {
-          "id": "33795544",
-          "name": "Leverkusen-Rhein-Berg"
-        }
-      },
-      {
         "id": "37920852",
         "name": "DJK Blau-Weiß Detmold e.V.",
         "lsbNumber": "4405047",
@@ -24239,6 +24179,16 @@
         "association": {
           "id": "25464120",
           "name": "Kreis Hameln-Pyrmont"
+        }
+      },
+      {
+        "id": "37921423",
+        "name": "Unser Hof e.V. Nasch Dwor",
+        "lsbNumber": "2004324",
+        "internalSportsclubId": "10127",
+        "association": {
+          "id": "33795544",
+          "name": "Leverkusen-Rhein-Berg"
         }
       },
       {
@@ -50762,16 +50712,6 @@
         }
       },
       {
-        "id": "54611047",
-        "name": "TV Schwenningen",
-        "lsbNumber": "19085",
-        "internalSportsclubId": "403",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "54611048",
         "name": "TSV Seissen",
         "lsbNumber": "1119",
@@ -50799,6 +50739,16 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "54611047",
+        "name": "TV Schwenningen",
+        "lsbNumber": "19085",
+        "internalSportsclubId": "403",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
@@ -53389,16 +53339,6 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
-        "id": "51836522",
-        "name": "TG Naurod",
-        "lsbNumber": "3000162",
-        "internalSportsclubId": null,
-        "association": {
-          "id": null,
-          "name": null
         }
       },
       {
@@ -62932,6 +62872,16 @@
         }
       },
       {
+        "id": "81934542",
+        "name": "Volleyball Freunde Röchling",
+        "lsbNumber": "90446",
+        "internalSportsclubId": "90446",
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
+        }
+      },
+      {
         "id": "65037504",
         "name": "SG Ketsch/Brühl",
         "lsbNumber": null,
@@ -62959,16 +62909,6 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "81934542",
-        "name": "Volleyball Freunde Röchling",
-        "lsbNumber": "90446",
-        "internalSportsclubId": "90446",
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
         }
       },
       {
@@ -71952,6 +71892,16 @@
         }
       },
       {
+        "id": "37920681",
+        "name": "BSG Sparkasse Dortmund",
+        "lsbNumber": "5002838",
+        "internalSportsclubId": "722",
+        "association": {
+          "id": "33797822",
+          "name": "Dortmund"
+        }
+      },
+      {
         "id": "82877246",
         "name": "TuS Wünnenberg",
         "lsbNumber": "617341",
@@ -71982,6 +71932,16 @@
         }
       },
       {
+        "id": "26925120",
+        "name": "TSG Wehrheim 1861 e.V.",
+        "lsbNumber": "31170",
+        "internalSportsclubId": "4210",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
+        }
+      },
+      {
         "id": "82877261",
         "name": "TuS Krempe",
         "lsbNumber": "614074",
@@ -71989,6 +71949,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "87338279",
+        "name": "TSV 1872 Langenwetzendorf",
+        "lsbNumber": "1111111110000078",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249261",
+          "name": "Kreisverband Ost"
         }
       },
       {
@@ -72112,6 +72082,26 @@
         }
       },
       {
+        "id": "26819249",
+        "name": "SG Medizin Blankenhain e.V.",
+        "lsbNumber": "370039",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249243",
+          "name": "Kreisverband Nord-Ost"
+        }
+      },
+      {
+        "id": "26818888",
+        "name": "Turn- und Sportverein Elstertal Bad Köstritz",
+        "lsbNumber": "140227",
+        "internalSportsclubId": "11347",
+        "association": {
+          "id": "26249261",
+          "name": "Kreisverband Ost"
+        }
+      },
+      {
         "id": "82877302",
         "name": "FC Union Ulzburg",
         "lsbNumber": "614004",
@@ -72149,6 +72139,26 @@
         "association": {
           "id": "25464691",
           "name": "Kreis Emsland"
+        }
+      },
+      {
+        "id": "87339765",
+        "name": "TV 1882 Dingelstädt",
+        "lsbNumber": "1111111110000079",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
+        }
+      },
+      {
+        "id": "26819030",
+        "name": "Geraer Volleyballclub e.V.",
+        "lsbNumber": "120150",
+        "internalSportsclubId": "09590",
+        "association": {
+          "id": "26249261",
+          "name": "Kreisverband Ost"
         }
       },
       {
@@ -83123,7 +83133,7 @@
       },
       {
         "id": "82880562",
-        "name": "Barmbek Uhlenhorst",
+        "name": "HSV Barmbek Uhlenhorst",
         "lsbNumber": "606062",
         "internalSportsclubId": "606062",
         "association": {
