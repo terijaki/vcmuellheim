@@ -1,5 +1,5 @@
 {
-    "date": "2025-01-26T09:20:30.857Z",
+    "date": "2025-01-30T02:46:02.717Z",
     "players": [
         {
             "lastname": "Konop",
@@ -18,6 +18,22 @@
             "function": ""
         },
         {
+            "lastname": "Pommeranz",
+            "firstname": "Jessika Alice",
+            "nationality": "CH",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Koppe",
+            "firstname": "Katja",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
             "lastname": "Schmidt",
             "firstname": "Lene",
             "nationality": "DE",
@@ -30,6 +46,14 @@
             "firstname": "Elina",
             "nationality": "DE",
             "number": 1,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Smaili",
+            "firstname": "Lorena",
+            "nationality": "DE",
+            "number": 9,
             "height": "",
             "function": ""
         },
@@ -80,14 +104,6 @@
             "number": "",
             "height": 181,
             "function": "Trainer"
-        },
-        {
-            "lastname": "Smaili",
-            "firstname": "Lorena",
-            "nationality": "DE",
-            "number": 9,
-            "height": "",
-            "function": ""
         }
     ]
 }
