@@ -2632,16 +2632,6 @@
         }
       },
       {
-        "id": "82878677",
-        "name": "SV Viktoria Gesmold",
-        "lsbNumber": "304471620",
-        "internalSportsclubId": "11231",
-        "association": {
-          "id": "25465051",
-          "name": "Kreis Osnabrück-Land"
-        }
-      },
-      {
         "id": "26818712",
         "name": "RSV Fortuna Kaltennordheim e.V.",
         "lsbNumber": "210329",
@@ -33032,16 +33022,6 @@
         }
       },
       {
-        "id": "37921928",
-        "name": "GVV Baggerfreunde 1979 e.V.",
-        "lsbNumber": "1001348",
-        "internalSportsclubId": "241",
-        "association": {
-          "id": "33299092",
-          "name": "Düsseldorf"
-        }
-      },
-      {
         "id": "37922018",
         "name": "DJK Brachelen e.V.",
         "lsbNumber": "2505026",
@@ -33119,6 +33099,16 @@
         "association": {
           "id": "33797190",
           "name": "Borken"
+        }
+      },
+      {
+        "id": "37921928",
+        "name": "GVV Baggerfreunde 1979 e.V.",
+        "lsbNumber": "1001348",
+        "internalSportsclubId": "241",
+        "association": {
+          "id": "33299092",
+          "name": "Düsseldorf"
         }
       },
       {
@@ -36209,16 +36199,6 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
-        "id": "9241566",
-        "name": "SSC Karlsruhe",
-        "lsbNumber": "81567",
-        "internalSportsclubId": "81567",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -46262,16 +46242,6 @@
         }
       },
       {
-        "id": "54610899",
-        "name": "TG Nürtingen",
-        "lsbNumber": "6138",
-        "internalSportsclubId": "245",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "54610876",
         "name": "TSV Kohlberg",
         "lsbNumber": "6104",
@@ -50199,16 +50169,6 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
-        }
-      },
-      {
-        "id": "26866465",
-        "name": "TV Wiesbach",
-        "lsbNumber": "89112",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
         }
       },
       {
@@ -60762,6 +60722,16 @@
         }
       },
       {
+        "id": "37948290",
+        "name": "VfB Ottersleben e.V.",
+        "lsbNumber": "120014",
+        "internalSportsclubId": "120014",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "65037118",
         "name": "VV Hemsbach",
         "lsbNumber": "62453",
@@ -60869,16 +60839,6 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
-        "id": "37948290",
-        "name": "VfB Ottersleben e.V.",
-        "lsbNumber": "120014",
-        "internalSportsclubId": "120014",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -62522,16 +62482,6 @@
         }
       },
       {
-        "id": "50621532",
-        "name": "Königsteiner Volleyball Gemeinschaft e.V.",
-        "lsbNumber": "500080",
-        "internalSportsclubId": "214",
-        "association": {
-          "id": "24908790",
-          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
-        }
-      },
-      {
         "id": "65037456",
         "name": "TV Friedrichsfeld",
         "lsbNumber": "61005",
@@ -62912,6 +62862,16 @@
         }
       },
       {
+        "id": "65037522",
+        "name": "Post SG Mannheim",
+        "lsbNumber": "60969",
+        "internalSportsclubId": "60969",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "81937934",
         "name": "Rahmer-Wasser-Sport-Club e.V.",
         "lsbNumber": "1111111110000066",
@@ -62949,16 +62909,6 @@
         "association": {
           "id": "242",
           "name": "Deutscher Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65037522",
-        "name": "Post SG Mannheim",
-        "lsbNumber": "60969",
-        "internalSportsclubId": "60969",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -68432,16 +68382,6 @@
         }
       },
       {
-        "id": "37921609",
-        "name": "TuS 1896 Chlodwig Zülpich e.V.",
-        "lsbNumber": "2411003",
-        "internalSportsclubId": "311",
-        "association": {
-          "id": "33795239",
-          "name": "Euskirchen"
-        }
-      },
-      {
         "id": "37920659",
         "name": "SC Blau-Weiß 1946 Ottmarsbocholt e.V.",
         "lsbNumber": "3211007",
@@ -68582,16 +68522,6 @@
         }
       },
       {
-        "id": "14902312",
-        "name": "Brühler TV 1879 e.V.",
-        "lsbNumber": "2303024",
-        "internalSportsclubId": "8212",
-        "association": {
-          "id": "33795221",
-          "name": "Rhein-Erft"
-        }
-      },
-      {
         "id": "37921157",
         "name": "SV Arminia Appelhülsen e.V.",
         "lsbNumber": "3208001",
@@ -68659,6 +68589,16 @@
         "association": {
           "id": "33797226",
           "name": "Coesfeld"
+        }
+      },
+      {
+        "id": "14902312",
+        "name": "Brühler TV 1879 e.V.",
+        "lsbNumber": "2303024",
+        "internalSportsclubId": "8212",
+        "association": {
+          "id": "33795221",
+          "name": "Rhein-Erft"
         }
       },
       {
@@ -72102,6 +72042,16 @@
         }
       },
       {
+        "id": "26866465",
+        "name": "TV Wiesbach",
+        "lsbNumber": "89112",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
+        }
+      },
+      {
         "id": "82877302",
         "name": "FC Union Ulzburg",
         "lsbNumber": "614004",
@@ -72182,6 +72132,26 @@
         }
       },
       {
+        "id": "50621532",
+        "name": "Königsteiner Volleyball Gemeinschaft e.V.",
+        "lsbNumber": "500080",
+        "internalSportsclubId": "214",
+        "association": {
+          "id": "24908790",
+          "name": "Landkreis Sächsische Schweiz/Osterzgebirge"
+        }
+      },
+      {
+        "id": "9241566",
+        "name": "SSC Karlsruhe",
+        "lsbNumber": "81567",
+        "internalSportsclubId": "81567",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "82877314",
         "name": "TSV Altenholz",
         "lsbNumber": "614050",
@@ -72212,6 +72182,16 @@
         }
       },
       {
+        "id": "87395435",
+        "name": "SV Jena Zwätzen",
+        "lsbNumber": "1111111110000080",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249243",
+          "name": "Kreisverband Nord-Ost"
+        }
+      },
+      {
         "id": "82877320",
         "name": "EC Bayer Worringen",
         "lsbNumber": "617354",
@@ -72219,6 +72199,36 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "37921609",
+        "name": "TuS 1896 Chlodwig Zülpich e.V.",
+        "lsbNumber": "2411003",
+        "internalSportsclubId": "311",
+        "association": {
+          "id": "33795239",
+          "name": "Euskirchen"
+        }
+      },
+      {
+        "id": "82878677",
+        "name": "SV Viktoria Gesmold",
+        "lsbNumber": "304471620",
+        "internalSportsclubId": "11231",
+        "association": {
+          "id": "25465051",
+          "name": "Kreis Osnabrück-Land"
+        }
+      },
+      {
+        "id": "54610899",
+        "name": "TG Nürtingen",
+        "lsbNumber": "6138",
+        "internalSportsclubId": "245",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       },
       {
