@@ -298,6 +298,18 @@
       "score": "0:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113894874829648497"
+    },
+    {
+      "uuid": "256ae3cf-bdfc-45c3-bda9-c32241a3088c",
+      "date": "2025-02-01T13:00:00.000Z",
+      "league": "Landesliga West Herren",
+      "team": [
+        "VC Müllheim 1",
+        "Bad Säckinger Wölfe"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
     }
   ]
 }
