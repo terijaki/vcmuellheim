@@ -298,6 +298,18 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113929079217441566"
+    },
+    {
+      "uuid": "f1feeaca-0573-44c4-9633-c93d85e50605",
+      "date": "2025-02-01T13:00:00.000Z",
+      "league": "Landesliga West Herren",
+      "team": [
+        "VC Müllheim 1",
+        "FT 1844 Freiburg 4"
+      ],
+      "winner": 2,
+      "score": "1:3",
+      "mastodon": "new"
     }
   ]
 }
