@@ -66332,16 +66332,6 @@
         }
       },
       {
-        "id": "36965257",
-        "name": "TSG KW Boxberg Weißwasser e.V.",
-        "lsbNumber": "450315",
-        "internalSportsclubId": "208",
-        "association": {
-          "id": "24908944",
-          "name": "Landkreis Görlitz"
-        }
-      },
-      {
         "id": "50621549",
         "name": "SV Aue-Brünlasberg e.V.",
         "lsbNumber": "440349",
@@ -72409,6 +72399,16 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "36965257",
+        "name": "TSG KW Boxberg Weißwasser e.V.",
+        "lsbNumber": "450315",
+        "internalSportsclubId": "208",
+        "association": {
+          "id": "24908944",
+          "name": "Landkreis Görlitz"
         }
       },
       {
