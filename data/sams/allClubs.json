@@ -39282,6 +39282,16 @@
         }
       },
       {
+        "id": "6478",
+        "name": "1. VC Wiesbaden e.V.",
+        "lsbNumber": "38160",
+        "internalSportsclubId": "6705",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
+        }
+      },
+      {
         "id": "54611292",
         "name": "TSV Sulzbach-Laufen",
         "lsbNumber": "18101",
@@ -39339,16 +39349,6 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
-        }
-      },
-      {
-        "id": "6478",
-        "name": "1. VC Wiesbaden e.V.",
-        "lsbNumber": "38160",
-        "internalSportsclubId": "6705",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -43219,16 +43219,6 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
-        "id": "37921693",
-        "name": "VC 99 Ratheim e.V.",
-        "lsbNumber": "2505048",
-        "internalSportsclubId": "9094",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
@@ -49702,16 +49692,6 @@
         }
       },
       {
-        "id": "26866492",
-        "name": "TV Rohrbach",
-        "lsbNumber": "86582",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
         "id": "50621688",
         "name": "Shatterhands Radebeul e.V.",
         "lsbNumber": "470023",
@@ -53422,16 +53402,6 @@
         }
       },
       {
-        "id": "51836435",
-        "name": "TV Undenheim 1861 e.V.",
-        "lsbNumber": "80",
-        "internalSportsclubId": "32-58-08",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "82877662",
         "name": "STV Ringelheim",
         "lsbNumber": "301140113",
@@ -53552,16 +53522,6 @@
         }
       },
       {
-        "id": "51836227",
-        "name": "VSC e.V. “Spike” Guldental",
-        "lsbNumber": "1004363",
-        "internalSportsclubId": "32-17-26",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "51836325",
         "name": "FSV Dieblich",
         "lsbNumber": "1000117",
@@ -53589,6 +53549,16 @@
         "association": {
           "id": "25386473",
           "name": "Kreis Helmstedt"
+        }
+      },
+      {
+        "id": "51836227",
+        "name": "VSC e.V. “Spike” Guldental",
+        "lsbNumber": "1004363",
+        "internalSportsclubId": "32-17-26",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -54949,16 +54919,6 @@
         "association": {
           "id": "33795588",
           "name": "Oberberg"
-        }
-      },
-      {
-        "id": "37948587",
-        "name": "Blankenburger VF e.V.",
-        "lsbNumber": "50321",
-        "internalSportsclubId": "50321",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -63206,16 +63166,6 @@
         "name": "TV Staufen",
         "lsbNumber": "472900",
         "internalSportsclubId": "3511",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "54611203",
-        "name": "TG Tuttlingen",
-        "lsbNumber": "618042",
-        "internalSportsclubId": "4916",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -72302,6 +72252,16 @@
         }
       },
       {
+        "id": "26866492",
+        "name": "TV Rohrbach",
+        "lsbNumber": "86582",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
+        }
+      },
+      {
         "id": "82877374",
         "name": "TSV Oestertal",
         "lsbNumber": "617209",
@@ -72382,6 +72342,16 @@
         }
       },
       {
+        "id": "37948587",
+        "name": "Blankenburger VF e.V.",
+        "lsbNumber": "50321",
+        "internalSportsclubId": "50321",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "82877385",
         "name": "Lehrer-VV Schortens",
         "lsbNumber": "107001",
@@ -72389,6 +72359,16 @@
         "association": {
           "id": "25464833",
           "name": "Kreis Friesland"
+        }
+      },
+      {
+        "id": "51836435",
+        "name": "TV Undenheim 1861 e.V.",
+        "lsbNumber": "80",
+        "internalSportsclubId": "32-58-08",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -72409,6 +72389,26 @@
         "association": {
           "id": "24908944",
           "name": "Landkreis Görlitz"
+        }
+      },
+      {
+        "id": "54611203",
+        "name": "TG Tuttlingen",
+        "lsbNumber": "618042",
+        "internalSportsclubId": "4916",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "37921693",
+        "name": "VC 99 Ratheim e.V.",
+        "lsbNumber": "2505048",
+        "internalSportsclubId": "9094",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
