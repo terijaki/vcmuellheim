@@ -24,4 +24,4 @@ Nichtsdestotrotz war es ein sehr spannendes, starkes und auch sehr lehrreiches S
 
 Danke auch an alle unsere Spielerinnen, die fast vollzählig am Spiel dabei waren, ob als Unterstützerinnen oder Spielerinnen. Glückwunsch auch an unsere Neue Spielerin Julia, die ihr erstes Spiel absolviert hat.
 
-_Spielbericht von Malou Hakenjos & Dominik Ernst_
+_Spielbericht von Malou & Dominik_

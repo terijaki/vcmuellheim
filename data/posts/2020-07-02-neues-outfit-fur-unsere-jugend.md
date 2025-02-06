@@ -8,7 +8,7 @@ gallery:
 
 Vor ungefähr einem Jahr durften wir neue junge Spieler und Spielerinnen in unserem Verein begrüßen.
 
-Seither betreuen Andreas Albrecht und Dominik Ernst eine Gruppe von Jungs und Mädchen, die mit großem Interesse regelmäßig am Training teilnimmt. Die Gruppe wurde sogar so groß, dass wir zwei Jugend Mannschaft daraus bilden konnten!
+Seither betreuen Andreas Albrecht und Dominik eine Gruppe von Jungs und Mädchen, die mit großem Interesse regelmäßig am Training teilnimmt. Die Gruppe wurde sogar so groß, dass wir zwei Jugend Mannschaft daraus bilden konnten!
 
 Besonders erfreut uns die Unterstützung von Eltern und Großeltern der Spieler(innen).
 

@@ -30,4 +30,4 @@ Von neun Teams haben wir somit den sechsten Platz ergattert.
 
 Das Turnier hat allen sehr viel Spaß gemacht, wir konnten neue Strategien ausprobieren und kamen zu guten und langen Spielzügen.
 
-_Bericht von Carla Feifel & Dominik Ernst_
+_Bericht von Carla & Dominik_

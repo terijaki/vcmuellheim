@@ -16,7 +16,5 @@ Für die Müllheimerinnen ging es gegen die Schulen bzw. Teams aus Waldkirch, Ba
 
 Die Müllheimerinnen erwischten nicht den besten Tag und auch durch Verletzungen sprang kein Sieg heraus. Die anderen Teams waren zu gut und zu eingespielt, bei den Schülerinnen des MGM kamen die Spielerinnen teils aus 4 Vereinen, während bei anderen Schulen teils die Mannschaften aus Ligamannschaften bestanden. Diese waren einfach besser eingespielt. Denn beim RB-Finale wurde erstmals 6 gegen 6 gespielt und nicht mehr 4 gegen 4. 
 
-Betreuer Dominik Ernst vom VC Müllheim konnte trotzdem zufrieden sein, dass man unter den besten Teams des Regierungsbezirkes gelandet war!
-
 Ein Dank des VC Müllheim geht an die großartige Kooperation mit dem Markgräfler Gymnasium, dass es ermöglichte durch Herrn Rosenkranz und Rektor Herrn Windisch, den Mädchen zusätzliche Spielerfahrung zu geben. 
 

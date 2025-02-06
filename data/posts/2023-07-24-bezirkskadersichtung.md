@@ -16,7 +16,6 @@ Nach der Begrüßung durch Kadertrainer Carlo wurde im Rundenlauf die Muskulatur
 Inzwischen wurden die Größenbilder mit Namen beschriftet und dem Kadertrainer Carlo weitergeleitet. Aus den 45 Kindern des Bezirks West werden nun ein paar von ihm ausgesucht, die dann in den Genuss monatlicher Zusatztrainings kommen. Im Training am darauffolgenden Dienstag berichteten die Kinder ihren Mitspielern und Mitspielerinnen, was sie erlebt hatten, und durften dort erlernte Übungen präsentieren, die alle nachgemacht haben.
 
 Beim nächsten Mal sind wir sicher wieder bei der Sichtung des Jahrgangs 2012/13 wieder dabei.
-_Bericht von Klaus Ernst_
 
 **Update: Unsere Louisa und Elijana wurden von Kadertrainer Carlo für die Nächste Runde der Sichtung nominiert!**
 Herzlichen Glückwunsch vom gesamten VC Müllheim wir sind stolz auf euch!

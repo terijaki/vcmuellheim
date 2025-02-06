@@ -22,4 +22,4 @@ Im vierten Satz kämpften wir dann und holten wir schlussendlich unseren verdien
 
 Ein weiterer tollen Spieltag, an dem wir viel lernen konnten und dabei kam jede Spielerin zum Einsatz. Einen großartigen 3. Tabellenplatz nach dem 6 Spieltag haben wir uns somit erkämpfen können.
 
-_Bericht von Carla Feifel & Dominik Ernst_
+_Bericht von Carla & Dominik_

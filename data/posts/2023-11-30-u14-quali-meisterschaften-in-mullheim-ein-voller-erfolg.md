@@ -49,9 +49,6 @@ geleistete.
 Unsere Jungs und Mädels schauen somit auf weitere Meisterschaften und
 freuen sich darauf.
 
-Die Koordinatoren des ganzen Klaus und Dominik Ernst waren ebenfalls
-unglaublich stolz auf das geleistete.
-
 Hier möchten wir uns noch bei allen Gastteams, mit deren Spielerinnen
 und Spielern, sowie deren Trainerinnen und Trainern für faire
 Meisterschaften bedanken!
@@ -62,5 +59,3 @@ Helfer, sei es Auf- und Abbau oder Kuchenverkauf etc..
 
 Wir schauen damit aufs nächste Wochenende am 03.12.23 sind dann die U16
 Meisterschaften zu Gast!
-
-_Euer Dominik_

@@ -33,6 +33,4 @@ Alles Gute wünschen wir dem tollen jungen Team aus Freiburg St. Georgen mit ihr
 Glückwunsch an unsere 5 jungen Spieler Ruven, Paul, Richard, Thana und Lars zu ihrem ersten Einsatz im Herrenbereich.
 
 Wir sind somit für die Endrunde am kommenden Samstag 01.04.23 in Staufen qualifiziert!  
- Unser erstes Spiel findet hier um 10 Uhr gegen den TV Bad Säckingen II statt anschließend geht es gegen TV Staufen I. Über Unterstützung freuen wir uns!
-
-_(Bericht Dominik Ernst)_
+Unser erstes Spiel findet hier um 10 Uhr gegen den TV Bad Säckingen II statt anschließend geht es gegen TV Staufen I. Über Unterstützung freuen wir uns!

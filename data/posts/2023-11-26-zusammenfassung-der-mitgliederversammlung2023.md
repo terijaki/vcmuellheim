@@ -42,7 +42,7 @@ Die neue [Satzung](/satzung) wurde auf der Webseite eingepflegt und kann wie zuv
 
 ## Mitgliedsbeiträge
 
-Angestoßen durch einen Antrag von Dominik Ernst, die Mitgliedsbeiträge zu erhöhen, wurde nach verschiedenen Vorschlägen und Diskussionsbeiträgen beschlossen, zum Jahr 2024 erhöhen die Beiträge zu erhöhen:
+Angestoßen durch einen Antrag von Dominik E., die Mitgliedsbeiträge zu erhöhen, wurde nach verschiedenen Vorschlägen und Diskussionsbeiträgen beschlossen, zum Jahr 2024 erhöhen die Beiträge zu erhöhen:
 
 - Kinder & Jugendliche bis 16 Jahre um 10 €
 - Erwachsene & Jugendliche ab 16 Jahren um 20 €

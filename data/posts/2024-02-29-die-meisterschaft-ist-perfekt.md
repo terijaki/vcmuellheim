@@ -34,7 +34,7 @@ Ein großes Dankeschön geht hierbei von der ganzen Mannschaft an unseren Traine
 
 Wir können stolz auf uns sein Mädels!!!
 
-_Spielbericht von Melisa Trtovac und Dominik Ernst_
+_Spielbericht von Melisa und Dominik_
 
 Für die Meisterinnen spielten diese Saison:
 

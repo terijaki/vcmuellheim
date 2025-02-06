@@ -16,4 +16,4 @@ Die Sätze:
 
 23:25 Satz 4
 
-Somit konnten wir den letzten Satz knapp für uns entscheiden! Wir freuen uns nun auf die komplette Saisonvorbereitung in Damen I und Damen II mit den Trainern Dominik Ernst bei Damen I und Andreas Albrecht bei Damen II.
+Somit konnten wir den letzten Satz knapp für uns entscheiden! Wir freuen uns nun auf die komplette Saisonvorbereitung in Damen I und Damen II mit den Trainern Dominik bei Damen I und Andreas Albrecht bei Damen II.

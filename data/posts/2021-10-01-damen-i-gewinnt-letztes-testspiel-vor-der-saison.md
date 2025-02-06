@@ -12,7 +12,7 @@ Ein Danke an die Spielerinnen und die beiden Trainer aus Efringen-Kirchen für d
 
 Auf dem Bild:
 
-Hinten: Trainer Dominik Ernst, Fjolla, Carla, Malou, Juliana, Melisa und Abigail.
+Hinten: Trainer Dominik, Fjolla, Carla, Malou, Juliana, Melisa und Abigail.
 
 Unten: Tamara, Anastasia und Mirela
 

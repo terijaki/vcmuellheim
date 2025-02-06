@@ -12,7 +12,7 @@ export async function generateMetadata({}, parent: ResolvingMetadata): Promise<M
 }
 
 // contact people for this event
-export const people = [
+const people = [
 	{ name: "Susanne Kainer", email: "susanne@vcmuellheim.de", role: "Jugendschutzbeauftragte", phone: "015201809406", picture: "/images/members/susannekainer.jpg" },
 	{ name: "Claudio Czak-Lindemann", email: "claudio@vcmuellheim.de", role: "Jugendschutzbeauftragter", phone: "01781659793", picture: "/images/members/claudiolindemannczak.jpg" },
 ];

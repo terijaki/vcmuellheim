@@ -16,7 +16,7 @@ Gegen TV Staufen 2 liefen alle drei Sätze eng ab. Der erste Satz endete infolge
 
 Außerdem bedanken wir uns bei VC Weil 4 & TV Staufen 2 für die tollen und belehrenden 6 Sätze und wünschen euch einen guten Saisonverlauf.
 
-Ein weiteres Dankeschön geht an Trainer Dominik & Klaus Ernst ohne die wir diesen großen Schritt niemals gemacht hätten und begrüßen gleichzeitig unseren neuen, offiziellen Co- Trainer Nico Reichert.
+Ein weiteres Dankeschön geht an unsere Trainer ohne die wir diesen großen Schritt niemals gemacht hätten und begrüßen gleichzeitig unseren neuen, offiziellen Co- Trainer Nico Reichert.
 
 Glückwunsch und weiterhin einen tollen Saisonverlauf unseren Mädels.
 

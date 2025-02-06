@@ -35,4 +35,4 @@ Melisa bei der Sichtung dabei zu sein.
 
 Danke Kai!
 
-<i>Bericht von Melisa Trtovac und Dominik Ernst</i>
+<i>Bericht von Melisa und Dominik</i>

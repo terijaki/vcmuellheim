@@ -20,4 +20,4 @@ In unserem zweiten Spiel trafen wir auf Breisach-Gündlingen. Hier zeigten wir u
 
 Somit konnten wir einen weiteren Sieg auf unser Konto holen und grüßen weiter von einem großartigen 3. Tabellenplatz.
 
-_Spielbericht von Tamara & Dominik Ernst_
+_Spielbericht von Tamara & Dominik_

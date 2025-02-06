@@ -19,7 +19,7 @@ Viele Spielerinnen und Spieler des VC Müllheims waren hier dabei, an den
 beiden Gymnasien Markgräfler Gymnasium Müllheim und Kreisgymnasium
 Neuenburg.
 
-Trainer Dominik Ernst vom VC Müllheim betreute die Mädchen der WK II des
+Trainer Dominik vom VC Müllheim betreute die Mädchen der WK II des
 MGM, die fast ausschließlich aus Spielerinnen des VCM außer Nina
 Wiesmann, die aber ehemals beim VCM war und einfach immer noch dazu
 gehört, bestand. Diese legten ein klasse Turnier hin und schafften es am

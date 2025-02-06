@@ -18,7 +18,7 @@ die beiden Teams des anderen Kreises, der Ortenau von den Gymnasien aus
 Offenburg und Hausach.
 
 Die Müllheimer Mädels, welche wieder mit vielen Spielerinnen vom VC
-Müllheim besetzt waren und von VCM Trainer Dominik Ernst betreut wurden,
+Müllheim besetzt waren und von VCM Trainer betreut wurden,
 schaften es erneut weiter zu kommen mit dem 3. Platz!
 
 In den ersten beiden Spielen (jeder spielte gegen jeden) mussten die
@@ -33,5 +33,3 @@ gegen 6 gespielt wird und nicht mehr 4:4.
 
 Der VCM ist stolz auf die Leistung der Mädels, die nach der ersten Runde
 bereits schon in der Zeitung zu sehen waren!
-
-<i>Bericht von Dominik Ernst</i>

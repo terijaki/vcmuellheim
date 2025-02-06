@@ -16,4 +16,4 @@ Während die Jungs des MGM Platz 3 erreichen konnten und noch um das Weiterkomme
 
 Insgesamt aber eine tolle Möglichkeit zum Volleyball spielen und zusätzlichen Spielformen für unsere Spieler\*innen.
 
-Ein Dank gilt unseren Kooperationspartnern MGM und KGN vor allem hier speziell Herrn Rosenkranz vom MGM. Für Trainer Dominik Ernst war es ebenfalls klasse so viele Jugendliche beim Volleyball in Neuenburg zu sehen.
+Ein Dank gilt unseren Kooperationspartnern MGM und KGN vor allem hier speziell Herrn Rosenkranz vom MGM.

@@ -24,5 +24,3 @@ In diesem Spiel zeigte die junge Müllheimer Mannschaft von Anfang an ein andere
 Das Spiel gegen Staufen zeigte somit, wieviel Potenzial in diesem Team stecken kann und zu was es fähig ist. Außerdem zeigte der gesamte Spieltag, was Volleyball ausmacht, nämlich wer weniger Fehler macht, gewinnt das Spiel!
 
 Punkte waren somit gegen diese beiden starken Gegner nicht zu holen, die müssen nun in anderen Spielen geholt werden im Kampf um den Klassenerhalt!
-
-_(Bericht von Dominik Ernst)_

@@ -22,7 +22,7 @@ Ziel wurde erreicht!
 
 Direkt im ersten Spiel ging es gegen den VC Minseln, welche ebenfalls
 bisher sieglos wie wir waren. Gecoacht wurde das Team von Herren I
-Spieler Michael Pohl, um Ersatz-Trainer Dominik Ernst die Möglichkeit zu
+Spieler Michael Pohl, um Dominik die Möglichkeit zu
 geben, sich mehr aufs Spiel zu konzentrieren. Vielen Dank vom gesamten
 Team für das Einspringen und das überragende Coaching lieber Michi!
 Unserem erkrankten Coach Phillipp Ngo beste Grüße in die Reha! Komm bald
@@ -54,4 +54,4 @@ besteht eine kleine Hoffnung auf einen Klassenverbleib.
 Die Jungs wünschen allen ein frohes Weihnachtsfest und einen guten
 Rutsch ins neue Jahr!
 
-<i>Bericht von Mirko Ernst und Dominik Ernst</i>
+<i>Bericht von Mirko und Dominik</i>
