@@ -942,16 +942,6 @@
         }
       },
       {
-        "id": "26925282",
-        "name": "Sportfreunde Seligenstadt",
-        "lsbNumber": "29220",
-        "internalSportsclubId": "5602",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "11519755",
         "name": "SC Neubrandenburg",
         "lsbNumber": "304495501",
@@ -1069,6 +1059,16 @@
         "association": {
           "id": "7214",
           "name": "Thüringer Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "26925282",
+        "name": "Sportfreunde Seligenstadt",
+        "lsbNumber": "29220",
+        "internalSportsclubId": "5602",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -1329,16 +1329,6 @@
         "association": {
           "id": "25461385",
           "name": "Kreis Harburg"
-        }
-      },
-      {
-        "id": "82880240",
-        "name": "Norder TV",
-        "lsbNumber": "304370118",
-        "internalSportsclubId": "10206",
-        "association": {
-          "id": "25465107",
-          "name": "Kreis Aurich"
         }
       },
       {
@@ -4957,8 +4947,8 @@
         "lsbNumber": "310113",
         "internalSportsclubId": "31183",
         "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
+          "id": "26249225",
+          "name": "Kreisverband Nord"
         }
       },
       {
@@ -7242,16 +7232,6 @@
         }
       },
       {
-        "id": "26819333",
-        "name": "Power-Fight-Club Ilmenau 90 e.V.",
-        "lsbNumber": "430093",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
-        }
-      },
-      {
         "id": "26819308",
         "name": "Sportfreunde Elxleben e.V.",
         "lsbNumber": "430219",
@@ -8819,16 +8799,6 @@
         "association": {
           "id": "26272866",
           "name": "tbc VVB 40"
-        }
-      },
-      {
-        "id": "37920802",
-        "name": "TV Wolbeck 1962 e.V.",
-        "lsbNumber": "3003011",
-        "internalSportsclubId": "2206",
-        "association": {
-          "id": "33797300",
-          "name": "Münster"
         }
       },
       {
@@ -13269,16 +13239,6 @@
         "association": {
           "id": "33795281",
           "name": "Bonn"
-        }
-      },
-      {
-        "id": "26819221",
-        "name": "SV Eintracht Wolfersdorf e.V.",
-        "lsbNumber": null,
-        "internalSportsclubId": "80065",
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
         }
       },
       {
@@ -31232,16 +31192,6 @@
         }
       },
       {
-        "id": "37948624",
-        "name": "TSG GutsMuths 1860 Quedlinburg e.V.",
-        "lsbNumber": "50130",
-        "internalSportsclubId": "50130",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37948591",
         "name": "TSV Eintracht Lützen e.V.",
         "lsbNumber": "110243",
@@ -33112,16 +33062,6 @@
         }
       },
       {
-        "id": "37921767",
-        "name": "RSV Hertha Strauch 1921 e.V.",
-        "lsbNumber": "2107002",
-        "internalSportsclubId": "1204",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
-        }
-      },
-      {
         "id": "37921326",
         "name": "Elberfelder TB 1881 Wuppertal e.V.",
         "lsbNumber": "1010034",
@@ -33849,16 +33789,6 @@
         "association": {
           "id": "33795566",
           "name": "Rhein-Sieg"
-        }
-      },
-      {
-        "id": "37921731",
-        "name": "SV Lövenich/Widdersdorf 1986/27 e.V.",
-        "lsbNumber": "2003341",
-        "internalSportsclubId": "10148",
-        "association": {
-          "id": "33795261",
-          "name": "Köln"
         }
       },
       {
@@ -39959,16 +39889,6 @@
         "association": {
           "id": "24908869",
           "name": "Landkreis Nordsachsen"
-        }
-      },
-      {
-        "id": "82877727",
-        "name": "SV Grün-Weiß Dersum",
-        "lsbNumber": "304410730",
-        "internalSportsclubId": "10627",
-        "association": {
-          "id": "25464691",
-          "name": "Kreis Emsland"
         }
       },
       {
@@ -52912,16 +52832,6 @@
         }
       },
       {
-        "id": "54611097",
-        "name": "TSV Burladingen",
-        "lsbNumber": "24033",
-        "internalSportsclubId": "455",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "51836491",
         "name": "TuS Kirchberg",
         "lsbNumber": "1000358",
@@ -62722,16 +62632,6 @@
         }
       },
       {
-        "id": "65037504",
-        "name": "SG Ketsch/Brühl",
-        "lsbNumber": null,
-        "internalSportsclubId": "6091360865",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "37921759",
         "name": "Turnerbund Hückeswagen 1887 e.V.",
         "lsbNumber": "2604004",
@@ -62776,6 +62676,16 @@
         "name": "TV Mosbach",
         "lsbNumber": "30298",
         "internalSportsclubId": "30298",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037504",
+        "name": "SG Ketsch/Brühl",
+        "lsbNumber": null,
+        "internalSportsclubId": "6091360865",
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
@@ -67252,16 +67162,6 @@
         }
       },
       {
-        "id": "37921455",
-        "name": "SV Blau-Weiß Sande e.V.",
-        "lsbNumber": "4608035",
-        "internalSportsclubId": "9109",
-        "association": {
-          "id": "33797722",
-          "name": "Paderborn"
-        }
-      },
-      {
         "id": "37921442",
         "name": "Osterather TV 1893 e.V.",
         "lsbNumber": "1306021",
@@ -67642,26 +67542,6 @@
         }
       },
       {
-        "id": "26866453",
-        "name": "TV Walpershofen",
-        "lsbNumber": "89049",
-        "internalSportsclubId": "611008",
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
-        "id": "26866425",
-        "name": "TV Saarwellingen",
-        "lsbNumber": "87180",
-        "internalSportsclubId": "611009",
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
         "id": "50621661",
         "name": "ESV Lok Pirna e.V.",
         "lsbNumber": "500032",
@@ -67746,6 +67626,26 @@
         "name": "SSG Schwarzenholz-Griesborn",
         "lsbNumber": "12348",
         "internalSportsclubId": "12",
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
+        }
+      },
+      {
+        "id": "26866453",
+        "name": "TV Walpershofen",
+        "lsbNumber": "89049",
+        "internalSportsclubId": "611008",
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
+        }
+      },
+      {
+        "id": "26866425",
+        "name": "TV Saarwellingen",
+        "lsbNumber": "87180",
+        "internalSportsclubId": "611009",
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
@@ -68592,16 +68492,6 @@
         }
       },
       {
-        "id": "26818876",
-        "name": "SV Rennsteig Neuhaus e.V.",
-        "lsbNumber": "330067",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249283",
-          "name": "Kreisverband Süd"
-        }
-      },
-      {
         "id": "54611175",
         "name": "VfL Pfullingen",
         "lsbNumber": "16081",
@@ -68659,6 +68549,16 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
+        }
+      },
+      {
+        "id": "26818876",
+        "name": "SV Rennsteig Neuhaus e.V.",
+        "lsbNumber": "330067",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249283",
+          "name": "Kreisverband Süd"
         }
       },
       {
@@ -70452,16 +70352,6 @@
         }
       },
       {
-        "id": "37921634",
-        "name": "TSV Blankenheim e.V.",
-        "lsbNumber": "2402007",
-        "internalSportsclubId": "9026",
-        "association": {
-          "id": "33795239",
-          "name": "Euskirchen"
-        }
-      },
-      {
         "id": "82876977",
         "name": "VfL Emslage",
         "lsbNumber": "10623",
@@ -70559,6 +70449,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "37921634",
+        "name": "TSV Blankenheim e.V.",
+        "lsbNumber": "2402007",
+        "internalSportsclubId": "9026",
+        "association": {
+          "id": "33795239",
+          "name": "Euskirchen"
         }
       },
       {
@@ -71419,16 +71319,6 @@
         "association": {
           "id": "25465071",
           "name": "Kreis Osnabrück-Stadt"
-        }
-      },
-      {
-        "id": "82877174",
-        "name": "VSG Mannheim/Käfertal",
-        "lsbNumber": "609038",
-        "internalSportsclubId": "609038",
-        "association": {
-          "id": "7223",
-          "name": "Nordwestdeutscher Volleyball-Verband e.V."
         }
       },
       {
@@ -72412,6 +72302,16 @@
         }
       },
       {
+        "id": "37920802",
+        "name": "TV Wolbeck 1962 e.V.",
+        "lsbNumber": "3003011",
+        "internalSportsclubId": "2206",
+        "association": {
+          "id": "33797300",
+          "name": "Münster"
+        }
+      },
+      {
         "id": "82877398",
         "name": "SV Kürnach",
         "lsbNumber": "603033",
@@ -72429,6 +72329,16 @@
         "association": {
           "id": "25386581",
           "name": "Kreis Wolfenbüttel"
+        }
+      },
+      {
+        "id": "82877727",
+        "name": "SV Grün-Weiß Dersum",
+        "lsbNumber": "304410730",
+        "internalSportsclubId": "10627",
+        "association": {
+          "id": "25464691",
+          "name": "Kreis Emsland"
         }
       },
       {
@@ -72522,6 +72432,16 @@
         }
       },
       {
+        "id": "82877174",
+        "name": "VSG Mannheim/Käfertal",
+        "lsbNumber": "609038",
+        "internalSportsclubId": "609038",
+        "association": {
+          "id": "7223",
+          "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
         "id": "82877442",
         "name": "Dümptener TV",
         "lsbNumber": "617048",
@@ -72529,6 +72449,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "54611097",
+        "name": "TSV Burladingen",
+        "lsbNumber": "24033",
+        "internalSportsclubId": "455",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -72559,6 +72489,26 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "37921455",
+        "name": "SV Blau-Weiß Sande e.V.",
+        "lsbNumber": "4608035",
+        "internalSportsclubId": "9109",
+        "association": {
+          "id": "33797722",
+          "name": "Paderborn"
+        }
+      },
+      {
+        "id": "37921767",
+        "name": "RSV Hertha Strauch 1921 e.V.",
+        "lsbNumber": "2107002",
+        "internalSportsclubId": "1204",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
@@ -72602,6 +72552,16 @@
         }
       },
       {
+        "id": "26819221",
+        "name": "SV Eintracht Wolfersdorf e.V.",
+        "lsbNumber": null,
+        "internalSportsclubId": "80065",
+        "association": {
+          "id": "26249243",
+          "name": "Kreisverband Nord-Ost"
+        }
+      },
+      {
         "id": "82877456",
         "name": "DJK Delbrück",
         "lsbNumber": "617238",
@@ -72622,6 +72582,26 @@
         }
       },
       {
+        "id": "82880240",
+        "name": "Norder TV",
+        "lsbNumber": "304370118",
+        "internalSportsclubId": "10206",
+        "association": {
+          "id": "25465107",
+          "name": "Kreis Aurich"
+        }
+      },
+      {
+        "id": "26819333",
+        "name": "Power-Fight-Club Ilmenau 90 e.V.",
+        "lsbNumber": "430093",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249329",
+          "name": "Kreisverband Süd-West"
+        }
+      },
+      {
         "id": "82877461",
         "name": "TSV Ottenstein",
         "lsbNumber": "30618",
@@ -72629,6 +72609,16 @@
         "association": {
           "id": "25464139",
           "name": "Kreis Holzminden"
+        }
+      },
+      {
+        "id": "37948624",
+        "name": "TSG GutsMuths 1860 Quedlinburg e.V.",
+        "lsbNumber": "50130",
+        "internalSportsclubId": "50130",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -72659,6 +72649,16 @@
         "association": {
           "id": "25386437",
           "name": "Kreis Braunschweig"
+        }
+      },
+      {
+        "id": "37921731",
+        "name": "SV Lövenich/Widdersdorf 1986/27 e.V.",
+        "lsbNumber": "2003341",
+        "internalSportsclubId": "10148",
+        "association": {
+          "id": "33795261",
+          "name": "Köln"
         }
       },
       {
