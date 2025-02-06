@@ -1,5 +1,5 @@
 {
-    "date": "2025-02-02T09:20:22.701Z",
+    "date": "2025-02-06T02:48:02.997Z",
     "players": [
         {
             "lastname": "Haas",
@@ -13,6 +13,22 @@
             "lastname": "Bubalo",
             "firstname": "Ognjen",
             "nationality": "HR",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Komorowski",
+            "firstname": "Jaroslaw",
+            "nationality": "PL",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Rah Anjam Nokande",
+            "firstname": "Mohammad",
+            "nationality": "IR",
             "number": "",
             "height": "",
             "function": ""
@@ -37,14 +53,6 @@
             "lastname": "Shyrokorad",
             "firstname": "Yefym",
             "nationality": "UA",
-            "number": "",
-            "height": "",
-            "function": ""
-        },
-        {
-            "lastname": "Komorowski",
-            "firstname": "Jaroslaw",
-            "nationality": "PL",
             "number": "",
             "height": "",
             "function": ""
@@ -82,19 +90,19 @@
             "function": ""
         },
         {
+            "lastname": "Nafz",
+            "firstname": "Philipp",
+            "nationality": "DE",
+            "number": "",
+            "height": 190,
+            "function": ""
+        },
+        {
             "lastname": "Seywald",
             "firstname": "Thomas",
             "nationality": "DE",
             "number": 21,
             "height": 180,
-            "function": ""
-        },
-        {
-            "lastname": "Rah Anjam Nokande",
-            "firstname": "Mohammad",
-            "nationality": "IR",
-            "number": "",
-            "height": "",
             "function": ""
         }
     ]

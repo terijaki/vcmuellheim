@@ -1,5 +1,5 @@
 {
-    "date": "2025-02-02T09:20:22.811Z",
+    "date": "2025-02-06T02:48:03.175Z",
     "players": [
         {
             "lastname": "Lindemann",
@@ -15,6 +15,14 @@
             "nationality": "DE",
             "number": "",
             "height": 180,
+            "function": ""
+        },
+        {
+            "lastname": "Letin",
+            "firstname": "Artem",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
             "function": ""
         },
         {
@@ -151,14 +159,6 @@
             "nationality": "DE",
             "number": "",
             "height": "",
-            "function": ""
-        },
-        {
-            "lastname": "Nafz",
-            "firstname": "Philipp",
-            "nationality": "DE",
-            "number": "",
-            "height": 190,
             "function": ""
         }
     ]
