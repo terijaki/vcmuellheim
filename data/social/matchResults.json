@@ -1,32 +1,6 @@
 {
   "entries": [
     {
-      "uuid": "f6330b5a-4129-4234-8e66-68a7e10909b6",
-      "date": "2024-12-07T13:00:00.000Z",
-      "league": "Landesliga West Herren",
-      "team": [
-        "Bad Säckinger Wölfe",
-        "VC Müllheim 1"
-      ],
-      "winner": 2,
-      "score": "0:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113611994588457087"
-    },
-    {
-      "uuid": "47457a15-d624-419e-9dc0-9a23ad974d22",
-      "date": "2024-12-07T13:00:00.000Z",
-      "league": "Bezirksliga Herren Süd",
-      "team": [
-        "TSV Alemannia Freiburg-Zähringen 2",
-        "VC Müllheim 2"
-      ],
-      "winner": 1,
-      "score": "3:0",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113611994621483318"
-    },
-    {
       "uuid": "38c2ffcd-6ad3-453f-943d-f2c48a84a3b5",
       "date": "2024-12-14T13:00:00.000Z",
       "league": "Landesliga West Herren",
@@ -335,7 +309,8 @@
       ],
       "winner": 1,
       "score": "3:1",
-      "mastodon": "new"
+      "mastodon": "published",
+      "mastodonUrl": "https://freiburg.social/@VCM/113968954760274146"
     }
   ]
 }
