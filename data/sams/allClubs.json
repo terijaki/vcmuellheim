@@ -24622,16 +24622,6 @@
         }
       },
       {
-        "id": "37921990",
-        "name": "Arbeitersportverein  Oetinghausen e.V.",
-        "lsbNumber": "4204026",
-        "internalSportsclubId": "1030",
-        "association": {
-          "id": "33797702",
-          "name": "Minden-Ravensberg"
-        }
-      },
-      {
         "id": "37920808",
         "name": "TuS Weserstrand von 1912 Wasserstraße e.V.",
         "lsbNumber": "4507025",
@@ -42672,16 +42662,6 @@
         }
       },
       {
-        "id": "37948350",
-        "name": "PSV Halle e.V.",
-        "lsbNumber": "140043",
-        "internalSportsclubId": "140043",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "50622013",
         "name": "SV Koweg Görlitz e. V.",
         "lsbNumber": "450269",
@@ -44659,16 +44639,6 @@
         "association": {
           "id": "24908890",
           "name": "Stadt Leipzig"
-        }
-      },
-      {
-        "id": "50621971",
-        "name": "SG Pristäblich e.V.",
-        "lsbNumber": "490170",
-        "internalSportsclubId": "33",
-        "association": {
-          "id": "24908869",
-          "name": "Landkreis Nordsachsen"
         }
       },
       {
@@ -46742,16 +46712,6 @@
         }
       },
       {
-        "id": "26818713",
-        "name": "1. SV - Kraftverkehr 1963 Heiligenstadt e.V.",
-        "lsbNumber": "150031",
-        "internalSportsclubId": "15063",
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
-        }
-      },
-      {
         "id": "26818812",
         "name": "VfL Weimar 90",
         "lsbNumber": "400012",
@@ -46852,6 +46812,16 @@
         }
       },
       {
+        "id": "54610980",
+        "name": "ASV Bellenberg",
+        "lsbNumber": "30012345",
+        "internalSportsclubId": "332",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
+        }
+      },
+      {
         "id": "54610973",
         "name": "SV Waltershofen",
         "lsbNumber": "14137",
@@ -46879,16 +46849,6 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
-        }
-      },
-      {
-        "id": "54610980",
-        "name": "ASV Bellenberg",
-        "lsbNumber": "30012345",
-        "internalSportsclubId": "332",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
         }
       },
       {
@@ -51412,16 +51372,6 @@
         }
       },
       {
-        "id": "82877810",
-        "name": "SV Heemsen",
-        "lsbNumber": "302230590",
-        "internalSportsclubId": "30714",
-        "association": {
-          "id": "25463897",
-          "name": "Kreis Nienburg"
-        }
-      },
-      {
         "id": "51836317",
         "name": "TV 1920 Kindenheim",
         "lsbNumber": "116",
@@ -51459,6 +51409,16 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
+        "id": "82877810",
+        "name": "SV Heemsen",
+        "lsbNumber": "302230590",
+        "internalSportsclubId": "30714",
+        "association": {
+          "id": "25463897",
+          "name": "Kreis Nienburg"
         }
       },
       {
@@ -60702,16 +60662,6 @@
         }
       },
       {
-        "id": "65037149",
-        "name": "TV Sulzfeld",
-        "lsbNumber": "40475",
-        "internalSportsclubId": "40475",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "26819067",
         "name": "SV - Wartburgstadt Eisenach",
         "lsbNumber": "470031",
@@ -68252,16 +68202,6 @@
         }
       },
       {
-        "id": "37921327",
-        "name": "SC Arminia Ochtrup e.V.",
-        "lsbNumber": "3517010",
-        "internalSportsclubId": "785",
-        "association": {
-          "id": "33797208",
-          "name": "Steinfurt"
-        }
-      },
-      {
         "id": "12490343",
         "name": "TuS 1920 Mondorf e.V.",
         "lsbNumber": "2811010",
@@ -68369,6 +68309,16 @@
         "association": {
           "id": "33795221",
           "name": "Rhein-Erft"
+        }
+      },
+      {
+        "id": "37921327",
+        "name": "SC Arminia Ochtrup e.V.",
+        "lsbNumber": "3517010",
+        "internalSportsclubId": "785",
+        "association": {
+          "id": "33797208",
+          "name": "Steinfurt"
         }
       },
       {
@@ -69322,16 +69272,6 @@
         }
       },
       {
-        "id": "86606684",
-        "name": "Deutsch-Afgahn.-Kulturverein Ariana e.V.",
-        "lsbNumber": "1111111110000075",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "33299092",
-          "name": "Düsseldorf"
-        }
-      },
-      {
         "id": "82876759",
         "name": "Reichenberger SV",
         "lsbNumber": "605025",
@@ -69339,6 +69279,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "86606684",
+        "name": "Deutsch-Afgahn.-Kulturverein Ariana e.V.",
+        "lsbNumber": "1001454",
+        "internalSportsclubId": "1111111110000075",
+        "association": {
+          "id": "33299092",
+          "name": "Düsseldorf"
         }
       },
       {
@@ -71222,16 +71172,6 @@
         }
       },
       {
-        "id": "37920710",
-        "name": "Schulsportver. Willy-Brandt-Gesamtschule",
-        "lsbNumber": "5001383",
-        "internalSportsclubId": "9227",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
         "id": "82877160",
         "name": "TV Fischbek",
         "lsbNumber": "606029",
@@ -71239,6 +71179,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "37920710",
+        "name": "Schulsportver. Willy-Brandt-Gesamtschule",
+        "lsbNumber": "5001383",
+        "internalSportsclubId": "9227",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
         }
       },
       {
@@ -72182,16 +72132,6 @@
         }
       },
       {
-        "id": "6502",
-        "name": "TSV 1847 Speyer",
-        "lsbNumber": "1088",
-        "internalSportsclubId": "32-59-01",
-        "association": {
-          "id": "25383414",
-          "name": "Volleyball-Verband Pfalz"
-        }
-      },
-      {
         "id": "26819265",
         "name": "Stadtsportverein Jena e.V.",
         "lsbNumber": "190119",
@@ -72662,6 +72602,16 @@
         }
       },
       {
+        "id": "6502",
+        "name": "TSV 1847 Speyer",
+        "lsbNumber": "1088",
+        "internalSportsclubId": "32-59-01",
+        "association": {
+          "id": "25383414",
+          "name": "Volleyball-Verband Pfalz"
+        }
+      },
+      {
         "id": "82877478",
         "name": "SpVg Niedermark",
         "lsbNumber": "11242",
@@ -72782,6 +72732,16 @@
         }
       },
       {
+        "id": "50621971",
+        "name": "SG Pristäblich e.V.",
+        "lsbNumber": "490170",
+        "internalSportsclubId": "33",
+        "association": {
+          "id": "24908869",
+          "name": "Landkreis Nordsachsen"
+        }
+      },
+      {
         "id": "82877520",
         "name": "TuS Holtenau",
         "lsbNumber": "614023",
@@ -72799,6 +72759,16 @@
         "association": {
           "id": "25465181",
           "name": "Kreis Leer"
+        }
+      },
+      {
+        "id": "87797943",
+        "name": "Ballspielverein Gladbeck Rentfort 1919/46 e.V.",
+        "lsbNumber": null,
+        "internalSportsclubId": "1111111110000081",
+        "association": {
+          "id": "33797282",
+          "name": "Vest"
         }
       },
       {
@@ -72832,6 +72802,16 @@
         }
       },
       {
+        "id": "26818713",
+        "name": "1. SV - Kraftverkehr 1963 Heiligenstadt e.V.",
+        "lsbNumber": "150031",
+        "internalSportsclubId": "15063",
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
+        }
+      },
+      {
         "id": "82877529",
         "name": "VC Dierdorf",
         "lsbNumber": "617104",
@@ -72839,6 +72819,46 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "87818156",
+        "name": "Paradise Fusion e.V.",
+        "lsbNumber": "1111111110000081",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249243",
+          "name": "Kreisverband Nord-Ost"
+        }
+      },
+      {
+        "id": "65037149",
+        "name": "TV Sulzfeld",
+        "lsbNumber": "40475",
+        "internalSportsclubId": "40475",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "37921990",
+        "name": "Arbeitersportverein  Oetinghausen e.V.",
+        "lsbNumber": "4204026",
+        "internalSportsclubId": "1030",
+        "association": {
+          "id": "33797702",
+          "name": "Minden-Ravensberg"
+        }
+      },
+      {
+        "id": "37948350",
+        "name": "PSV Halle e.V.",
+        "lsbNumber": "140043",
+        "internalSportsclubId": "140043",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
