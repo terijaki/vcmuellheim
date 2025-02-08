@@ -324,6 +324,18 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113934742099163674"
+    },
+    {
+      "uuid": "6c7836ec-9337-46b2-9a09-7ab757bcecf6",
+      "date": "2025-02-08T13:00:00.000Z",
+      "league": "Landesliga West Herren",
+      "team": [
+        "VC Müllheim 1",
+        "SG BEG United 2"
+      ],
+      "winner": 1,
+      "score": "3:1",
+      "mastodon": "new"
     }
   ]
 }
