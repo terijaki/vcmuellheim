@@ -27442,16 +27442,6 @@
         }
       },
       {
-        "id": "82876825",
-        "name": "TuS Berge",
-        "lsbNumber": "304470440",
-        "internalSportsclubId": "11241",
-        "association": {
-          "id": "25465051",
-          "name": "Kreis Osnabrück-Land"
-        }
-      },
-      {
         "id": "37921593",
         "name": "DJK TV Arminia 03 Erwitte e.V.",
         "lsbNumber": "5604008",
@@ -27629,6 +27619,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "82876825",
+        "name": "TuS Berge",
+        "lsbNumber": "304470440",
+        "internalSportsclubId": "11241",
+        "association": {
+          "id": "25465051",
+          "name": "Kreis Osnabrück-Land"
         }
       },
       {
