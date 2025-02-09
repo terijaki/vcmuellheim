@@ -376,6 +376,18 @@
       "score": "2:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113974379505207015"
+    },
+    {
+      "uuid": "58e3b31d-8909-413f-8816-dfd3df3447e7",
+      "date": "2025-02-09T10:00:00.000Z",
+      "league": "Bezirksliga Herren Süd",
+      "team": [
+        "TV Freiburg-St.Georgen 1",
+        "VC Müllheim 2"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
     }
   ]
 }
