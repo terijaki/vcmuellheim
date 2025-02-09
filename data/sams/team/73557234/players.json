@@ -1,5 +1,5 @@
 {
-    "date": "2025-02-06T02:48:03.349Z",
+    "date": "2025-02-09T09:20:38.224Z",
     "players": [
         {
             "lastname": "Konop",
@@ -46,6 +46,14 @@
             "firstname": "Elina",
             "nationality": "DE",
             "number": 1,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Smaili",
+            "firstname": "Merite",
+            "nationality": "DE",
+            "number": 8,
             "height": "",
             "function": ""
         },
