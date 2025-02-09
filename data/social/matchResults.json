@@ -389,6 +389,18 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113974618463283350"
+    },
+    {
+      "uuid": "281948f5-6ba8-483b-80a0-0177cbd0425f",
+      "date": "2025-02-09T10:00:00.000Z",
+      "league": "Bezirksklasse Damen Süd",
+      "team": [
+        "TV Hartheim",
+        "VC Müllheim 1"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
     }
   ]
 }
