@@ -337,6 +337,18 @@
       "score": "3:2",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113973916929585587"
+    },
+    {
+      "uuid": "53b32a99-ccae-4a44-b573-4aa63ff51028",
+      "date": "2025-02-09T10:00:00.000Z",
+      "league": "Bezirksliga Herren Süd",
+      "team": [
+        "TV Staufen 1",
+        "VC Müllheim 2"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
     }
   ]
 }
