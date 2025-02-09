@@ -20982,16 +20982,6 @@
         }
       },
       {
-        "id": "26925423",
-        "name": "TuS Eintracht Wiesbaden 1846",
-        "lsbNumber": "38147",
-        "internalSportsclubId": "6701",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "37921387",
         "name": "TVG Holsterhausen 1893 e.V.",
         "lsbNumber": "1003310",
@@ -72819,6 +72809,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "26925423",
+        "name": "TuS Eintracht Wiesbaden 1846",
+        "lsbNumber": "38147",
+        "internalSportsclubId": "6701",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       },
       {
