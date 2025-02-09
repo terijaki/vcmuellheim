@@ -350,6 +350,18 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113974147962551424"
+    },
+    {
+      "uuid": "791ed480-60be-4d15-ac26-c9470c7615dd",
+      "date": "2025-02-09T09:30:00.000Z",
+      "league": "Kreisliga Damen Süd",
+      "team": [
+        "VC Müllheim 2",
+        "Spvgg Märkt-Eimeldingen"
+      ],
+      "winner": 1,
+      "score": "3:0",
+      "mastodon": "new"
     }
   ]
 }
