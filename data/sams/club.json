@@ -138,9 +138,9 @@
             "name": "Bezirksliga Herren Süd",
             "shortName": "bzl s h",
             "type": "League",
-            "updated": "2025-02-05 16:39:50.666",
+            "updated": "2025-02-09 12:15:25.103",
             "structureUpdated": "2025-02-05 16:39:50.666",
-            "resultsUpdated": "2025-02-03 10:02:26.316",
+            "resultsUpdated": "2025-02-09 12:15:25.103",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -223,9 +223,9 @@
             "name": "Bezirksklasse Damen Süd",
             "shortName": "bzk s d",
             "type": "League",
-            "updated": "2025-02-08 19:48:21.654",
+            "updated": "2025-02-09 11:57:15.535",
             "structureUpdated": "2025-02-08 12:14:48.188",
-            "resultsUpdated": "2025-02-08 19:48:21.654",
+            "resultsUpdated": "2025-02-09 11:57:15.535",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
