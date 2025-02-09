@@ -44982,16 +44982,6 @@
         }
       },
       {
-        "id": "54610729",
-        "name": "TSV Kleinsachsenheim",
-        "lsbNumber": "12187",
-        "internalSportsclubId": "67",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
         "id": "51549864",
         "name": "SG Pfaffengrün",
         "lsbNumber": "1111111110000012",
@@ -59362,16 +59352,6 @@
         }
       },
       {
-        "id": "65036889",
-        "name": "SV Langensteinbach",
-        "lsbNumber": "81571",
-        "internalSportsclubId": "81571",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "61007017",
         "name": "Volleyball Club Berlin Tiny Titans e.V.",
         "lsbNumber": "15222",
@@ -72742,6 +72722,16 @@
         }
       },
       {
+        "id": "65036889",
+        "name": "SV Langensteinbach",
+        "lsbNumber": "81571",
+        "internalSportsclubId": "81571",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "82877520",
         "name": "TuS Holtenau",
         "lsbNumber": "614023",
@@ -72749,6 +72739,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "54610729",
+        "name": "TSV Kleinsachsenheim",
+        "lsbNumber": "12187",
+        "internalSportsclubId": "67",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
         }
       },
       {
