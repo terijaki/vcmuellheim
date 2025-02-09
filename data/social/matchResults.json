@@ -363,6 +363,18 @@
       "score": "3:0",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113974246732563405"
+    },
+    {
+      "uuid": "b06e8d0d-0eb2-4077-ba94-1b9072d608cb",
+      "date": "2025-02-09T10:00:00.000Z",
+      "league": "Bezirksklasse Damen Süd",
+      "team": [
+        "TV Bad Säckingen 2",
+        "VC Müllheim 1"
+      ],
+      "winner": 2,
+      "score": "2:3",
+      "mastodon": "new"
     }
   ]
 }
