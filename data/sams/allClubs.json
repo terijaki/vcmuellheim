@@ -9252,6 +9252,16 @@
         }
       },
       {
+        "id": "45859065",
+        "name": "Post- und Telekom Sportverein Essen e.V.",
+        "lsbNumber": "1003082",
+        "internalSportsclubId": "1111111110000002",
+        "association": {
+          "id": "33299056",
+          "name": "Essen"
+        }
+      },
+      {
         "id": "37948415",
         "name": "TVC 99 Eisleben e.V.",
         "lsbNumber": "90124",
@@ -9329,16 +9339,6 @@
         "association": {
           "id": "26249261",
           "name": "Kreisverband Ost"
-        }
-      },
-      {
-        "id": "45859065",
-        "name": "Post- und Telekom Sportverein Essen e.V.",
-        "lsbNumber": "1003082",
-        "internalSportsclubId": "1111111110000002",
-        "association": {
-          "id": "33299056",
-          "name": "Essen"
         }
       },
       {
@@ -14392,16 +14392,6 @@
         }
       },
       {
-        "id": "37920907",
-        "name": "TG von 1881 Düsseldorf e.V.",
-        "lsbNumber": "1001119",
-        "internalSportsclubId": "494",
-        "association": {
-          "id": "33299092",
-          "name": "Düsseldorf"
-        }
-      },
-      {
         "id": "37920690",
         "name": "BSG Stadtwerke Duisburg AG",
         "lsbNumber": "1002823",
@@ -16742,16 +16732,6 @@
         }
       },
       {
-        "id": "26925324",
-        "name": "FC Wacker 74 Offenbach e.V.",
-        "lsbNumber": "29172",
-        "internalSportsclubId": "2401",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "26925313",
         "name": "Clean-Sports Sindlingen",
         "lsbNumber": "24567",
@@ -17582,16 +17562,6 @@
         }
       },
       {
-        "id": "26925414",
-        "name": "SV 1891 Ruppertshain e.V.",
-        "lsbNumber": "30124",
-        "internalSportsclubId": "3012",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "26925415",
         "name": "TV Bad Vilbel 1881 e.V.",
         "lsbNumber": "25025",
@@ -18202,6 +18172,16 @@
         }
       },
       {
+        "id": "26925499",
+        "name": "TV 1909 Werdorf e.V.",
+        "lsbNumber": "13174",
+        "internalSportsclubId": "6602",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
         "id": "26925481",
         "name": "TV 1868 e.V. Bad Orb",
         "lsbNumber": "27014",
@@ -18239,6 +18219,16 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "26925461",
+        "name": "SG Aumenau/Villmar",
+        "lsbNumber": "-5",
+        "internalSportsclubId": "5905",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -18329,26 +18319,6 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
-        "id": "26925461",
-        "name": "SG Aumenau/Villmar",
-        "lsbNumber": "-5",
-        "internalSportsclubId": "5905",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
-        "id": "26925499",
-        "name": "TV 1909 Werdorf e.V.",
-        "lsbNumber": "13174",
-        "internalSportsclubId": "6602",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
         }
       },
       {
@@ -18589,16 +18559,6 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
-        "id": "26925527",
-        "name": "TUS Mensfelden 1894 e.V.",
-        "lsbNumber": "14131",
-        "internalSportsclubId": "1418",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -19722,16 +19682,6 @@
         }
       },
       {
-        "id": "26925632",
-        "name": "TSV 1864 e.V. Sachsenhausen",
-        "lsbNumber": "47125",
-        "internalSportsclubId": "4712",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "26925660",
         "name": "SG Concordia 1958 Eschersheim e.V.",
         "lsbNumber": "24013",
@@ -20759,16 +20709,6 @@
         "association": {
           "id": "25461385",
           "name": "Kreis Harburg"
-        }
-      },
-      {
-        "id": "26925786",
-        "name": "TV 1905 Oberndorf",
-        "lsbNumber": "13136",
-        "internalSportsclubId": "6612",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
         }
       },
       {
@@ -25939,16 +25879,6 @@
         "association": {
           "id": "33797844",
           "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
-        "id": "26925696",
-        "name": "TV 1878 Groß-Umstadt e.V.",
-        "lsbNumber": "34040",
-        "internalSportsclubId": "1602",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -46762,16 +46692,6 @@
         }
       },
       {
-        "id": "54610962",
-        "name": "TSV Wernau",
-        "lsbNumber": "6186",
-        "internalSportsclubId": "313",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "82879784",
         "name": "RSV Hannover",
         "lsbNumber": "302205104",
@@ -46819,6 +46739,16 @@
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
+        }
+      },
+      {
+        "id": "54610962",
+        "name": "TSV Wernau",
+        "lsbNumber": "6186",
+        "internalSportsclubId": "313",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       },
       {
@@ -57812,6 +57742,16 @@
         }
       },
       {
+        "id": "26925699",
+        "name": "EOSC 1896 e.V. Offenbach",
+        "lsbNumber": "29166",
+        "internalSportsclubId": "2403",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
         "id": "50622010",
         "name": "SV Pama Freiberg e.V.",
         "lsbNumber": "480314",
@@ -57859,16 +57799,6 @@
         "association": {
           "id": "24908926",
           "name": "Landkreis Bautzen"
-        }
-      },
-      {
-        "id": "26925699",
-        "name": "EOSC 1896 e.V. Offenbach",
-        "lsbNumber": "29166",
-        "internalSportsclubId": "2403",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -72872,6 +72802,16 @@
         }
       },
       {
+        "id": "37920907",
+        "name": "TG von 1881 Düsseldorf e.V.",
+        "lsbNumber": "1001119",
+        "internalSportsclubId": "494",
+        "association": {
+          "id": "33299092",
+          "name": "Düsseldorf"
+        }
+      },
+      {
         "id": "82877541",
         "name": "Blankeneser MTV",
         "lsbNumber": "606088",
@@ -72899,6 +72839,46 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "26925324",
+        "name": "FC Wacker 74 Offenbach e.V.",
+        "lsbNumber": "29172",
+        "internalSportsclubId": "2401",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "26925632",
+        "name": "TSV 1864 e.V. Sachsenhausen",
+        "lsbNumber": "47125",
+        "internalSportsclubId": "4712",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "26925414",
+        "name": "SV 1891 Ruppertshain e.V.",
+        "lsbNumber": "30124",
+        "internalSportsclubId": "3012",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
+        }
+      },
+      {
+        "id": "26925527",
+        "name": "TUS Mensfelden 1894 e.V.",
+        "lsbNumber": "14131",
+        "internalSportsclubId": "1418",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -73029,6 +73009,26 @@
         "association": {
           "id": "25461303",
           "name": "Kreis Verden"
+        }
+      },
+      {
+        "id": "26925786",
+        "name": "TV 1905 Oberndorf",
+        "lsbNumber": "13136",
+        "internalSportsclubId": "6612",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "26925696",
+        "name": "TV 1878 Groß-Umstadt e.V.",
+        "lsbNumber": "34040",
+        "internalSportsclubId": "1602",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
