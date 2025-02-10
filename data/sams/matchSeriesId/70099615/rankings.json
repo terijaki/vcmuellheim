@@ -7,9 +7,9 @@
       "name": "Bezirksklasse Damen Süd",
       "shortName": "bzk s d",
       "type": "League",
-      "updated": "2025-02-09 16:47:32.334",
+      "updated": "2025-02-10 17:49:40.729",
       "structureUpdated": "2025-02-08 12:14:48.188",
-      "resultsUpdated": "2025-02-09 16:47:32.334",
+      "resultsUpdated": "2025-02-10 17:49:40.729",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -193,25 +193,25 @@
           }
         },
         "place": "3",
-        "matchesPlayed": "13",
-        "wins": "9",
+        "matchesPlayed": "14",
+        "wins": "10",
         "losses": "4",
-        "points": "28",
-        "setPoints": "34:18",
-        "setWinScore": "34",
+        "points": "31",
+        "setPoints": "37:18",
+        "setWinScore": "37",
         "setLoseScore": "18",
-        "setPointDifference": "16",
-        "setQuotient": "1,889\n            ",
-        "ballPoints": "1151:1003",
-        "ballWinScore": "1151",
+        "setPointDifference": "19",
+        "setQuotient": "2,056\n            ",
+        "ballPoints": "1226:1003",
+        "ballWinScore": "1226",
         "ballLoseScore": "1003",
-        "ballPointDifference": "148",
-        "ballQuotient": "1,148\n            ",
+        "ballPointDifference": "223",
+        "ballQuotient": "1,222\n            ",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "5"
+              "count": "6"
             },
             {
               "result": "3:1",
@@ -406,62 +406,6 @@
       },
       {
         "team": {
-          "id": "73557218",
-          "uuid": "62ee23f7-989e-4d5d-b75f-69ecf555d6c2",
-          "name": "TV Todtnau",
-          "shortName": "Silberberglöwen Todtnau",
-          "clubCode": null,
-          "club": {
-            "name": "TV Todtnau",
-            "shortName": null
-          }
-        },
-        "place": "7",
-        "matchesPlayed": "12",
-        "wins": "4",
-        "losses": "8",
-        "points": "11",
-        "setPoints": "13:27",
-        "setWinScore": "13",
-        "setLoseScore": "27",
-        "setPointDifference": "-14",
-        "setQuotient": "0,481\n            ",
-        "ballPoints": "780:916",
-        "ballWinScore": "780",
-        "ballLoseScore": "916",
-        "ballPointDifference": "-136",
-        "ballQuotient": "0,852\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "2"
-            },
-            {
-              "result": "3:1",
-              "count": "1"
-            },
-            {
-              "result": "3:2",
-              "count": "1"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "1"
-            },
-            {
-              "result": "0:3",
-              "count": "7"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "73557230",
           "uuid": "3ca8a197-7717-441d-b32b-19aaefbae5de",
           "name": "TV Merdingen 2",
@@ -472,26 +416,26 @@
             "shortName": null
           }
         },
-        "place": "8",
-        "matchesPlayed": "13",
-        "wins": "3",
+        "place": "7",
+        "matchesPlayed": "14",
+        "wins": "4",
         "losses": "10",
-        "points": "10",
-        "setPoints": "16:32",
-        "setWinScore": "16",
+        "points": "13",
+        "setPoints": "19:32",
+        "setWinScore": "19",
         "setLoseScore": "32",
-        "setPointDifference": "-16",
-        "setQuotient": "0,500\n            ",
-        "ballPoints": "949:1083",
-        "ballWinScore": "949",
+        "setPointDifference": "-13",
+        "setQuotient": "0,594\n            ",
+        "ballPoints": "1024:1083",
+        "ballWinScore": "1024",
         "ballLoseScore": "1083",
-        "ballPointDifference": "-134",
-        "ballQuotient": "0,876\n            ",
+        "ballPointDifference": "-59",
+        "ballQuotient": "0,946\n            ",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "3:1",
@@ -512,6 +456,62 @@
             {
               "result": "0:3",
               "count": "5"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73557218",
+          "uuid": "62ee23f7-989e-4d5d-b75f-69ecf555d6c2",
+          "name": "TV Todtnau",
+          "shortName": "Silberberglöwen Todtnau",
+          "clubCode": null,
+          "club": {
+            "name": "TV Todtnau",
+            "shortName": null
+          }
+        },
+        "place": "8",
+        "matchesPlayed": "14",
+        "wins": "4",
+        "losses": "10",
+        "points": "11",
+        "setPoints": "13:33",
+        "setWinScore": "13",
+        "setLoseScore": "33",
+        "setPointDifference": "-20",
+        "setQuotient": "0,394\n            ",
+        "ballPoints": "780:1066",
+        "ballWinScore": "780",
+        "ballLoseScore": "1066",
+        "ballPointDifference": "-286",
+        "ballQuotient": "0,732\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "2"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "9"
             }
           ]
         }
