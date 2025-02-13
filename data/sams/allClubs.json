@@ -2152,16 +2152,6 @@
         }
       },
       {
-        "id": "26925449",
-        "name": "SV Aschenberg United",
-        "lsbNumber": "18325",
-        "internalSportsclubId": "1828",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "16664971",
         "name": "SSV Fortschritt Lichtenstein e.V.",
         "lsbNumber": "520225",
@@ -3082,16 +3072,6 @@
         }
       },
       {
-        "id": "26818728",
-        "name": "SV Sömmerda",
-        "lsbNumber": "310008",
-        "internalSportsclubId": "31092",
-        "association": {
-          "id": "26249165",
-          "name": "Kreisverband Mitte"
-        }
-      },
-      {
         "id": "26818746",
         "name": "SSG Wechmar",
         "lsbNumber": "130021",
@@ -3269,16 +3249,6 @@
         "association": {
           "id": "26272888",
           "name": "tbc TVV 40"
-        }
-      },
-      {
-        "id": "26818786",
-        "name": "VC Blau-Weiß 72 Oldisleben e.V.",
-        "lsbNumber": "320112",
-        "internalSportsclubId": "04013",
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
         }
       },
       {
@@ -4619,16 +4589,6 @@
         "association": {
           "id": "26249243",
           "name": "Kreisverband Nord-Ost"
-        }
-      },
-      {
-        "id": "26818962",
-        "name": "SV Ollendorf  1927 e.V.",
-        "lsbNumber": "310086",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
         }
       },
       {
@@ -9512,16 +9472,6 @@
         }
       },
       {
-        "id": "26818861",
-        "name": "SVV Weimar",
-        "lsbNumber": "1000000000",
-        "internalSportsclubId": "11-602",
-        "association": {
-          "id": "26249243",
-          "name": "Kreisverband Nord-Ost"
-        }
-      },
-      {
         "id": "26819183",
         "name": "TSV 1885 Schkölen/Thür. e.V.",
         "lsbNumber": "480005",
@@ -11552,16 +11502,6 @@
         }
       },
       {
-        "id": "26846607",
-        "name": "VolleyTeam Berlin e. V.",
-        "lsbNumber": "5241",
-        "internalSportsclubId": "14-11-211",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "26846554",
         "name": "Sportverein Tex-Color Berlin e.V.",
         "lsbNumber": "4103",
@@ -12182,6 +12122,16 @@
         }
       },
       {
+        "id": "26819149",
+        "name": "Volleyballverein Rückersdorf",
+        "lsbNumber": "140079",
+        "internalSportsclubId": "12166",
+        "association": {
+          "id": "26249261",
+          "name": "Kreisverband Ost"
+        }
+      },
+      {
         "id": "37921057",
         "name": "Turnverein Bruckhausen 1921 e.V.",
         "lsbNumber": "1504005",
@@ -12199,16 +12149,6 @@
         "association": {
           "id": "33795566",
           "name": "Rhein-Sieg"
-        }
-      },
-      {
-        "id": "26819149",
-        "name": "Volleyballverein Rückersdorf",
-        "lsbNumber": "140079",
-        "internalSportsclubId": "12166",
-        "association": {
-          "id": "26249261",
-          "name": "Kreisverband Ost"
         }
       },
       {
@@ -19822,16 +19762,6 @@
         }
       },
       {
-        "id": "26925676",
-        "name": "TSV 1898 Ober-Erlenbach e.V.",
-        "lsbNumber": "31099",
-        "internalSportsclubId": "6110",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "26925678",
         "name": "TV Treis 1959 e.V.",
         "lsbNumber": "12200",
@@ -20922,6 +20852,16 @@
         }
       },
       {
+        "id": "26925802",
+        "name": "TSV 1913  e.V. Wichmannshausen",
+        "lsbNumber": "43102",
+        "internalSportsclubId": "4507",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
         "id": "37921387",
         "name": "TVG Holsterhausen 1893 e.V.",
         "lsbNumber": "1003310",
@@ -21079,16 +21019,6 @@
         "association": {
           "id": "33299056",
           "name": "Essen"
-        }
-      },
-      {
-        "id": "26925802",
-        "name": "TSV 1913  e.V. Wichmannshausen",
-        "lsbNumber": "43102",
-        "internalSportsclubId": "4507",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -27519,16 +27449,6 @@
         "association": {
           "id": "33797208",
           "name": "Steinfurt"
-        }
-      },
-      {
-        "id": "16610301",
-        "name": "USV Halle e.V.",
-        "lsbNumber": "140059",
-        "internalSportsclubId": "140059",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -43662,16 +43582,6 @@
         }
       },
       {
-        "id": "82878544",
-        "name": "SV Adler Hämelerwald",
-        "lsbNumber": "302192865",
-        "internalSportsclubId": "30370",
-        "association": {
-          "id": "25463961",
-          "name": "Kreis Hannover-Land"
-        }
-      },
-      {
         "id": "82877950",
         "name": "Wilhelmshavener SSV",
         "lsbNumber": "304515900",
@@ -43699,6 +43609,16 @@
         "association": {
           "id": "24908890",
           "name": "Stadt Leipzig"
+        }
+      },
+      {
+        "id": "82878544",
+        "name": "SV Adler Hämelerwald",
+        "lsbNumber": "302192865",
+        "internalSportsclubId": "30370",
+        "association": {
+          "id": "25463961",
+          "name": "Kreis Hannover-Land"
         }
       },
       {
@@ -49512,6 +49432,16 @@
         }
       },
       {
+        "id": "26846517",
+        "name": "Ball Spiel Gemeinschaft Kunst e.V.",
+        "lsbNumber": "328",
+        "internalSportsclubId": "14-11-117",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
         "id": "16604464",
         "name": "SSC Vellmar 1973",
         "lsbNumber": "41178",
@@ -49529,16 +49459,6 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
-        "id": "26846517",
-        "name": "Ball Spiel Gemeinschaft Kunst e.V.",
-        "lsbNumber": "328",
-        "internalSportsclubId": "14-11-117",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -55902,16 +55822,6 @@
         }
       },
       {
-        "id": "54611202",
-        "name": "SV Tuningen",
-        "lsbNumber": null,
-        "internalSportsclubId": "4922",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "54611232",
         "name": "KSG Eislingen 1946 e.V.",
         "lsbNumber": "8042",
@@ -57242,16 +57152,6 @@
         }
       },
       {
-        "id": "37921122",
-        "name": "BSV Roleber 1919 e.V.",
-        "lsbNumber": "2002191",
-        "internalSportsclubId": "8214",
-        "association": {
-          "id": "33795281",
-          "name": "Bonn"
-        }
-      },
-      {
         "id": "37920708",
         "name": "TV Königswinter v. 1885 e.V.",
         "lsbNumber": "2806007",
@@ -57742,16 +57642,6 @@
         }
       },
       {
-        "id": "26925699",
-        "name": "EOSC 1896 e.V. Offenbach",
-        "lsbNumber": "29166",
-        "internalSportsclubId": "2403",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "50622010",
         "name": "SV Pama Freiberg e.V.",
         "lsbNumber": "480314",
@@ -57789,6 +57679,16 @@
         "association": {
           "id": "25461644",
           "name": "Kreis Lüneburg"
+        }
+      },
+      {
+        "id": "26925699",
+        "name": "EOSC 1896 e.V. Offenbach",
+        "lsbNumber": "29166",
+        "internalSportsclubId": "2403",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -59272,6 +59172,16 @@
         }
       },
       {
+        "id": "82877637",
+        "name": "TSG Hatten-Sandkrug",
+        "lsbNumber": "304452350",
+        "internalSportsclubId": "11012",
+        "association": {
+          "id": "25464851",
+          "name": "Kreis Oldenburg-Land"
+        }
+      },
+      {
         "id": "61007017",
         "name": "Volleyball Club Berlin Tiny Titans e.V.",
         "lsbNumber": "15222",
@@ -59359,16 +59269,6 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
-        "id": "82877637",
-        "name": "TSG Hatten-Sandkrug",
-        "lsbNumber": "304452350",
-        "internalSportsclubId": "11012",
-        "association": {
-          "id": "25464851",
-          "name": "Kreis Oldenburg-Land"
         }
       },
       {
@@ -60912,16 +60812,6 @@
         }
       },
       {
-        "id": "26925693",
-        "name": "TSV 1882 Raunheim e.V.",
-        "lsbNumber": "37104",
-        "internalSportsclubId": "3705",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "65037224",
         "name": "DJK Unterbalbach",
         "lsbNumber": "10082",
@@ -60969,6 +60859,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26925693",
+        "name": "TSV 1882 Raunheim e.V.",
+        "lsbNumber": "37104",
+        "internalSportsclubId": "3705",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -63202,16 +63102,6 @@
         }
       },
       {
-        "id": "65036715",
-        "name": "TB Sinzheim",
-        "lsbNumber": "472720",
-        "internalSportsclubId": "01012",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037195",
         "name": "VC KAMMACHI Bühl",
         "lsbNumber": "480620",
@@ -63232,13 +63122,13 @@
         }
       },
       {
-        "id": "65037370",
-        "name": "VC Bötzingen e.V.",
-        "lsbNumber": "480010",
-        "internalSportsclubId": "3543",
+        "id": "65036715",
+        "name": "TB Sinzheim",
+        "lsbNumber": "472720",
+        "internalSportsclubId": "01012",
         "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -63249,16 +63139,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65037468",
-        "name": "SG Stern Gaggenau",
-        "lsbNumber": "474350",
-        "internalSportsclubId": "01024",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -63336,6 +63216,26 @@
         "name": "TV Zunsweier 1912 e.V.",
         "lsbNumber": "473430",
         "internalSportsclubId": "5118",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037468",
+        "name": "SG Stern Gaggenau",
+        "lsbNumber": "474350",
+        "internalSportsclubId": "01024",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037370",
+        "name": "VC Bötzingen e.V.",
+        "lsbNumber": "480010",
+        "internalSportsclubId": "3543",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -64272,16 +64172,6 @@
         }
       },
       {
-        "id": "65036759",
-        "name": "TV Donaueschingen",
-        "lsbNumber": "470600",
-        "internalSportsclubId": "3305",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036757",
         "name": "Heidelberger Sport-Club",
         "lsbNumber": "50610",
@@ -64289,6 +64179,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65036759",
+        "name": "TV Donaueschingen",
+        "lsbNumber": "470600",
+        "internalSportsclubId": "3305",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -68402,16 +68302,6 @@
         }
       },
       {
-        "id": "26818876",
-        "name": "SV Rennsteig Neuhaus e.V.",
-        "lsbNumber": "330067",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249283",
-          "name": "Kreisverband Süd"
-        }
-      },
-      {
         "id": "53066275",
         "name": "TV 1846 Bretten e.V.",
         "lsbNumber": "81393",
@@ -70682,16 +70572,6 @@
         }
       },
       {
-        "id": "26818775",
-        "name": "HSV Weimar",
-        "lsbNumber": "400001",
-        "internalSportsclubId": "37106",
-        "association": {
-          "id": "26249243",
-          "name": "Kreisverband Nord-Ost"
-        }
-      },
-      {
         "id": "82877078",
         "name": "ETV Hamburg",
         "lsbNumber": "606085",
@@ -70789,6 +70669,16 @@
         "association": {
           "id": "25464381",
           "name": "Region Emsland"
+        }
+      },
+      {
+        "id": "26818775",
+        "name": "HSV Weimar",
+        "lsbNumber": "400001",
+        "internalSportsclubId": "37106",
+        "association": {
+          "id": "26249243",
+          "name": "Kreisverband Nord-Ost"
         }
       },
       {
@@ -73012,16 +72902,6 @@
         }
       },
       {
-        "id": "26925786",
-        "name": "TV 1905 Oberndorf",
-        "lsbNumber": "13136",
-        "internalSportsclubId": "6612",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
         "id": "26925696",
         "name": "TV 1878 Groß-Umstadt e.V.",
         "lsbNumber": "34040",
@@ -73039,6 +72919,16 @@
         "association": {
           "id": "25463841",
           "name": "Regionsverbund Hannover"
+        }
+      },
+      {
+        "id": "37921122",
+        "name": "BSV Roleber 1919 e.V.",
+        "lsbNumber": "2002191",
+        "internalSportsclubId": "8214",
+        "association": {
+          "id": "33795281",
+          "name": "Bonn"
         }
       },
       {
@@ -73072,6 +72962,26 @@
         }
       },
       {
+        "id": "26846607",
+        "name": "VolleyTeam Berlin e. V.",
+        "lsbNumber": "5241",
+        "internalSportsclubId": "14-11-211",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "26818876",
+        "name": "SV Rennsteig Neuhaus e.V.",
+        "lsbNumber": "330067",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249283",
+          "name": "Kreisverband Süd"
+        }
+      },
+      {
         "id": "82877600",
         "name": "Post-SV Gera",
         "lsbNumber": "616009",
@@ -73082,6 +72992,16 @@
         }
       },
       {
+        "id": "26818861",
+        "name": "SVV Weimar",
+        "lsbNumber": "1000000000",
+        "internalSportsclubId": "11-602",
+        "association": {
+          "id": "26249243",
+          "name": "Kreisverband Nord-Ost"
+        }
+      },
+      {
         "id": "82877602",
         "name": "Gehörlosen-SV Hannover",
         "lsbNumber": "30409",
@@ -73089,6 +73009,46 @@
         "association": {
           "id": "25463979",
           "name": "Kreis Hannover-Stadt"
+        }
+      },
+      {
+        "id": "26925449",
+        "name": "SV Aschenberg United",
+        "lsbNumber": "18325",
+        "internalSportsclubId": "1828",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "26925676",
+        "name": "TSV 1898 Ober-Erlenbach e.V.",
+        "lsbNumber": "31099",
+        "internalSportsclubId": "6110",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
+        }
+      },
+      {
+        "id": "26925786",
+        "name": "TV 1905 Oberndorf",
+        "lsbNumber": "13136",
+        "internalSportsclubId": "6612",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "88166741",
+        "name": "Sportgemeinschaft 1910 Marbach e.V.",
+        "lsbNumber": "18116",
+        "internalSportsclubId": "1829",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -73122,6 +73082,26 @@
         }
       },
       {
+        "id": "26818728",
+        "name": "SV Sömmerda",
+        "lsbNumber": "310008",
+        "internalSportsclubId": "31092",
+        "association": {
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
+        }
+      },
+      {
+        "id": "88167127",
+        "name": "KSG Dahlheim 1978",
+        "lsbNumber": "13040",
+        "internalSportsclubId": "6606",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
         "id": "82877616",
         "name": "Kaltenkirchener TS",
         "lsbNumber": "614065",
@@ -73149,6 +73129,46 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "88167277",
+        "name": "TV 1846 Erbenheim e.V.",
+        "lsbNumber": "38040",
+        "internalSportsclubId": "6713",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
+        }
+      },
+      {
+        "id": "26818962",
+        "name": "SV Ollendorf  1927 e.V.",
+        "lsbNumber": "310086",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
+        }
+      },
+      {
+        "id": "54611202",
+        "name": "SV Tuningen",
+        "lsbNumber": null,
+        "internalSportsclubId": "4922",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26818786",
+        "name": "VC Blau-Weiß 72 Oldisleben e.V.",
+        "lsbNumber": "320112",
+        "internalSportsclubId": "04013",
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
         }
       },
       {
@@ -73299,6 +73319,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "16610301",
+        "name": "USV Halle e.V.",
+        "lsbNumber": "140059",
+        "internalSportsclubId": "140059",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -85902,16 +85932,6 @@
         }
       },
       {
-        "id": "11595912",
-        "name": "SC Potsdam",
-        "lsbNumber": "540081",
-        "internalSportsclubId": "540081",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "85434236",
         "name": "TuS Ebersdorf e.V.",
         "lsbNumber": "400181",
@@ -85919,6 +85939,16 @@
         "association": {
           "id": "24908708",
           "name": "Stadt Chemnitz"
+        }
+      },
+      {
+        "id": "11595912",
+        "name": "SC Potsdam",
+        "lsbNumber": "540081",
+        "internalSportsclubId": "540081",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       }
     ]
