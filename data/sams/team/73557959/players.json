@@ -1,5 +1,5 @@
 {
-    "date": "2025-02-09T09:20:38.351Z",
+    "date": "2025-02-13T02:47:15.333Z",
     "players": [
         {
             "lastname": "Albrecht",
@@ -90,9 +90,25 @@
             "function": ""
         },
         {
+            "lastname": "Koppe",
+            "firstname": "Katja",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
             "lastname": "Peters",
             "firstname": "Alessia",
             "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Pommeranz",
+            "firstname": "Jessika Alice",
+            "nationality": "CH",
             "number": "",
             "height": "",
             "function": ""

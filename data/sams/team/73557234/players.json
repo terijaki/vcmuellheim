@@ -1,5 +1,5 @@
 {
-    "date": "2025-02-09T09:20:38.224Z",
+    "date": "2025-02-13T02:47:15.224Z",
     "players": [
         {
             "lastname": "Konop",
@@ -14,22 +14,6 @@
             "firstname": "Suanita",
             "nationality": "DE",
             "number": 7,
-            "height": "",
-            "function": ""
-        },
-        {
-            "lastname": "Pommeranz",
-            "firstname": "Jessika Alice",
-            "nationality": "CH",
-            "number": "",
-            "height": "",
-            "function": ""
-        },
-        {
-            "lastname": "Koppe",
-            "firstname": "Katja",
-            "nationality": "DE",
-            "number": "",
             "height": "",
             "function": ""
         },
@@ -50,26 +34,18 @@
             "function": ""
         },
         {
-            "lastname": "Smaili",
-            "firstname": "Merite",
-            "nationality": "DE",
-            "number": 8,
-            "height": "",
-            "function": ""
-        },
-        {
-            "lastname": "Smaili",
-            "firstname": "Lorena",
-            "nationality": "DE",
-            "number": 9,
-            "height": "",
-            "function": ""
-        },
-        {
             "lastname": "Schoester",
             "firstname": "Marlene",
             "nationality": "DE",
             "number": 15,
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Smaili",
+            "firstname": "Merite",
+            "nationality": "DE",
+            "number": 8,
             "height": "",
             "function": ""
         },
@@ -112,6 +88,14 @@
             "number": "",
             "height": 181,
             "function": "Trainer"
+        },
+        {
+            "lastname": "Smaili",
+            "firstname": "Lorena",
+            "nationality": "DE",
+            "number": 9,
+            "height": "",
+            "function": ""
         }
     ]
 }
