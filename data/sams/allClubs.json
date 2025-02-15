@@ -5262,6 +5262,16 @@
         }
       },
       {
+        "id": "26819051",
+        "name": "TSV 1914 Berlstedt / Neumark e.V.",
+        "lsbNumber": "370046",
+        "internalSportsclubId": "626",
+        "association": {
+          "id": "26249243",
+          "name": "Kreisverband Nord-Ost"
+        }
+      },
+      {
         "id": "26819056",
         "name": "TSV 1883 Benshausen e.V.",
         "lsbNumber": "210167",
@@ -5339,16 +5349,6 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "26819051",
-        "name": "TSV 1914 Berlstedt / Neumark e.V.",
-        "lsbNumber": "370046",
-        "internalSportsclubId": "626",
-        "association": {
-          "id": "26249243",
-          "name": "Kreisverband Nord-Ost"
         }
       },
       {
@@ -8762,6 +8762,16 @@
         }
       },
       {
+        "id": "26846580",
+        "name": "F´haine Leute e.V.",
+        "lsbNumber": "11238",
+        "internalSportsclubId": "14-11-183",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
         "id": "26846591",
         "name": "Verein für Bewegunsförderung und Sport Movimienttos Berlin e.V.",
         "lsbNumber": "5083",
@@ -8889,16 +8899,6 @@
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
-        }
-      },
-      {
-        "id": "26846580",
-        "name": "F´haine Leute e.V.",
-        "lsbNumber": "1238",
-        "internalSportsclubId": "14-11-183",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -54152,16 +54152,6 @@
         }
       },
       {
-        "id": "54611106",
-        "name": "VfL Dettenhausen",
-        "lsbNumber": "22016",
-        "internalSportsclubId": "464",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "54611115",
         "name": "TGV Entringen",
         "lsbNumber": "22002",
@@ -63712,16 +63702,6 @@
         }
       },
       {
-        "id": "65037154",
-        "name": "VV Vörstetten",
-        "lsbNumber": null,
-        "internalSportsclubId": "100066",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65037020",
         "name": "VG Lahr-Reichenbach",
         "lsbNumber": "480380",
@@ -63876,6 +63856,16 @@
         "name": "TV Niederschopfheim",
         "lsbNumber": "472100",
         "internalSportsclubId": "5117",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "65037154",
+        "name": "VV Vörstetten",
+        "lsbNumber": null,
+        "internalSportsclubId": "100066",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -67972,16 +67962,6 @@
         }
       },
       {
-        "id": "37920965",
-        "name": "SV Höxter e.V.",
-        "lsbNumber": "4305054",
-        "internalSportsclubId": "773",
-        "association": {
-          "id": "33797762",
-          "name": "Höxter"
-        }
-      },
-      {
         "id": "37921789",
         "name": "TV Kapellen 1919 e.V.",
         "lsbNumber": "1506040",
@@ -68092,16 +68072,6 @@
         }
       },
       {
-        "id": "16816038",
-        "name": "SG Coesfeld 06 e.V.",
-        "lsbNumber": "3203012",
-        "internalSportsclubId": "1601",
-        "association": {
-          "id": "33797226",
-          "name": "Coesfeld"
-        }
-      },
-      {
         "id": "14902312",
         "name": "Brühler TV 1879 e.V.",
         "lsbNumber": "2303024",
@@ -68119,6 +68089,26 @@
         "association": {
           "id": "33797208",
           "name": "Steinfurt"
+        }
+      },
+      {
+        "id": "37920965",
+        "name": "SV Höxter e.V.",
+        "lsbNumber": "4305054",
+        "internalSportsclubId": "773",
+        "association": {
+          "id": "33797762",
+          "name": "Höxter"
+        }
+      },
+      {
+        "id": "16816038",
+        "name": "SG Coesfeld 06 e.V.",
+        "lsbNumber": "3203012",
+        "internalSportsclubId": "1601",
+        "association": {
+          "id": "33797226",
+          "name": "Coesfeld"
         }
       },
       {
@@ -68332,16 +68322,6 @@
         }
       },
       {
-        "id": "36966179",
-        "name": "FT 1844 Freiburg",
-        "lsbNumber": "473460",
-        "internalSportsclubId": "3501",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "37921021",
         "name": "TSV Handorf 1926/64 e.V.",
         "lsbNumber": "3003006",
@@ -68459,6 +68439,16 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "36966179",
+        "name": "FT 1844 Freiburg",
+        "lsbNumber": "473460",
+        "internalSportsclubId": "3501",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -72572,16 +72562,6 @@
         }
       },
       {
-        "id": "87797943",
-        "name": "Ballspielverein Gladbeck Rentfort 1919/46 e.V.",
-        "lsbNumber": null,
-        "internalSportsclubId": "1111111110000081",
-        "association": {
-          "id": "33797282",
-          "name": "Vest"
-        }
-      },
-      {
         "id": "82877524",
         "name": "TSV Kreuzriehe-Helsinghausen",
         "lsbNumber": "3033249518",
@@ -73342,6 +73322,26 @@
         }
       },
       {
+        "id": "82880201",
+        "name": "ETSV Wolfsburg",
+        "lsbNumber": "301161680",
+        "internalSportsclubId": "40235",
+        "association": {
+          "id": "25386455",
+          "name": "Kreis Gifhorn"
+        }
+      },
+      {
+        "id": "87797943",
+        "name": "Ballspielverein Gladbeck Rentfort 1919/46 e.V.",
+        "lsbNumber": "3410025",
+        "internalSportsclubId": "1111111110000081",
+        "association": {
+          "id": "33797282",
+          "name": "Vest"
+        }
+      },
+      {
         "id": "82877667",
         "name": "PSV BG Frankfurt",
         "lsbNumber": "607021",
@@ -73359,6 +73359,16 @@
         "association": {
           "id": "25465149",
           "name": "Kreis Emden"
+        }
+      },
+      {
+        "id": "54611106",
+        "name": "VfL Dettenhausen",
+        "lsbNumber": "22016",
+        "internalSportsclubId": "464",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -83322,6 +83332,16 @@
         }
       },
       {
+        "id": "82880416",
+        "name": "TSV Borstel",
+        "lsbNumber": "303351050",
+        "internalSportsclubId": "21111",
+        "association": {
+          "id": "25461303",
+          "name": "Kreis Verden"
+        }
+      },
+      {
         "id": "82880599",
         "name": "Schule Lehre",
         "lsbNumber": "401005",
@@ -83432,16 +83452,6 @@
         }
       },
       {
-        "id": "82880416",
-        "name": "TSV Borstel",
-        "lsbNumber": "303351050",
-        "internalSportsclubId": "21111",
-        "association": {
-          "id": "25461303",
-          "name": "Kreis Verden"
-        }
-      },
-      {
         "id": "82877126",
         "name": "TSV Schwiegershausen",
         "lsbNumber": "301124700",
@@ -83496,16 +83506,6 @@
         "name": "MTV Vollbüttel",
         "lsbNumber": "301062920",
         "internalSportsclubId": "40208",
-        "association": {
-          "id": "25386455",
-          "name": "Kreis Gifhorn"
-        }
-      },
-      {
-        "id": "82880201",
-        "name": "Eisenbahn-Sportverein Wolfsburg",
-        "lsbNumber": "301161240",
-        "internalSportsclubId": "40235",
         "association": {
           "id": "25386455",
           "name": "Kreis Gifhorn"
@@ -85882,16 +85882,6 @@
         }
       },
       {
-        "id": "82877014",
-        "name": "BTSV Eintracht von 1895 e.V.",
-        "lsbNumber": "3033249555",
-        "internalSportsclubId": "40525",
-        "association": {
-          "id": "25386437",
-          "name": "Kreis Braunschweig"
-        }
-      },
-      {
         "id": "82879622",
         "name": "VG Bremen-Ost",
         "lsbNumber": "50132",
@@ -85949,6 +85939,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "82877014",
+        "name": "BTSV Eintracht von 1895 e.V.",
+        "lsbNumber": "3033249555",
+        "internalSportsclubId": "40525",
+        "association": {
+          "id": "25386437",
+          "name": "Kreis Braunschweig"
         }
       }
     ]
