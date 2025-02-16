@@ -7,9 +7,9 @@
       "name": "Kreisliga Damen Süd",
       "shortName": "kl s d",
       "type": "League",
-      "updated": "2025-02-16 12:11:28.61",
+      "updated": "2025-02-16 14:21:53.375",
       "structureUpdated": "2025-02-13 13:07:45.315",
-      "resultsUpdated": "2025-02-16 12:11:28.61",
+      "resultsUpdated": "2025-02-16 14:21:53.375",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -143,25 +143,25 @@
           }
         },
         "place": "2",
-        "matchesPlayed": "13",
-        "wins": "9",
+        "matchesPlayed": "14",
+        "wins": "10",
         "losses": "4",
-        "points": "31",
-        "setPoints": "35:14",
-        "setWinScore": "35",
+        "points": "34",
+        "setPoints": "38:14",
+        "setWinScore": "38",
         "setLoseScore": "14",
-        "setPointDifference": "21",
-        "setQuotient": "2,500\n            ",
-        "ballPoints": "1129:892",
-        "ballWinScore": "1129",
-        "ballLoseScore": "892",
-        "ballPointDifference": "237",
+        "setPointDifference": "24",
+        "setQuotient": "2,714\n            ",
+        "ballPoints": "1204:951",
+        "ballWinScore": "1204",
+        "ballLoseScore": "951",
+        "ballPointDifference": "253",
         "ballQuotient": "1,266\n            ",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "7"
+              "count": "8"
             },
             {
               "result": "3:1",
@@ -479,20 +479,20 @@
           }
         },
         "place": "8",
-        "matchesPlayed": "12",
+        "matchesPlayed": "13",
         "wins": "2",
-        "losses": "10",
+        "losses": "11",
         "points": "8",
-        "setPoints": "13:30",
+        "setPoints": "13:33",
         "setWinScore": "13",
-        "setLoseScore": "30",
-        "setPointDifference": "-17",
-        "setQuotient": "0,433\n            ",
-        "ballPoints": "796:914",
-        "ballWinScore": "796",
-        "ballLoseScore": "914",
-        "ballPointDifference": "-118",
-        "ballQuotient": "0,871\n            ",
+        "setLoseScore": "33",
+        "setPointDifference": "-20",
+        "setQuotient": "0,394\n            ",
+        "ballPoints": "855:989",
+        "ballWinScore": "855",
+        "ballLoseScore": "989",
+        "ballPointDifference": "-134",
+        "ballQuotient": "0,865\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -517,7 +517,7 @@
             },
             {
               "result": "0:3",
-              "count": "5"
+              "count": "6"
             }
           ]
         }
