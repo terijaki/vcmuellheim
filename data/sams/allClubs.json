@@ -30412,16 +30412,6 @@
         }
       },
       {
-        "id": "82879811",
-        "name": "TuS Bothfeld 04",
-        "lsbNumber": "302205115",
-        "internalSportsclubId": "30404",
-        "association": {
-          "id": "25463979",
-          "name": "Kreis Hannover-Stadt"
-        }
-      },
-      {
         "id": "82878844",
         "name": "TSV Kirchbrak",
         "lsbNumber": "302221450",
@@ -73389,6 +73379,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "82879811",
+        "name": "TuS Bothfeld 04",
+        "lsbNumber": "302205115",
+        "internalSportsclubId": "30404",
+        "association": {
+          "id": "25463979",
+          "name": "Kreis Hannover-Stadt"
         }
       },
       {
