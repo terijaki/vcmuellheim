@@ -502,16 +502,6 @@
         }
       },
       {
-        "id": "26819126",
-        "name": "SV Concordia Großengottern e.V.",
-        "lsbNumber": "220034",
-        "internalSportsclubId": "22272",
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
-        }
-      },
-      {
         "id": "83486101",
         "name": "Christlicher Verein Junger Menschen Jena e.V.",
         "lsbNumber": "190094",
@@ -569,6 +559,16 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "26819126",
+        "name": "SV Concordia Großengottern e.V.",
+        "lsbNumber": "220034",
+        "internalSportsclubId": "22272",
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
         }
       },
       {
@@ -25782,16 +25782,6 @@
         }
       },
       {
-        "id": "37922039",
-        "name": "DJK Kleinenbroich 1951 e.V.",
-        "lsbNumber": "1305005",
-        "internalSportsclubId": "9297",
-        "association": {
-          "id": "33299112",
-          "name": "Neuss-Grevenbroich"
-        }
-      },
-      {
         "id": "37921802",
         "name": "TV Oberbantenberg 05 e.V.",
         "lsbNumber": "2612010",
@@ -35132,16 +35122,6 @@
         }
       },
       {
-        "id": "37921267",
-        "name": "SCB Horrem e.V.",
-        "lsbNumber": "2308002",
-        "internalSportsclubId": "305",
-        "association": {
-          "id": "33795221",
-          "name": "Rhein-Erft"
-        }
-      },
-      {
         "id": "54611195",
         "name": "TSV Simmozheim",
         "lsbNumber": "5094",
@@ -37629,16 +37609,6 @@
         "association": {
           "id": "7215",
           "name": "Bayerischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "82880198",
-        "name": "TV Scheeßel",
-        "lsbNumber": "303315650",
-        "internalSportsclubId": "20708",
-        "association": {
-          "id": "25461757",
-          "name": "Kreis Rotenburg"
         }
       },
       {
@@ -43602,16 +43572,6 @@
         }
       },
       {
-        "id": "82878544",
-        "name": "SV Adler Hämelerwald",
-        "lsbNumber": "302192865",
-        "internalSportsclubId": "30370",
-        "association": {
-          "id": "25463961",
-          "name": "Kreis Hannover-Land"
-        }
-      },
-      {
         "id": "50621891",
         "name": "SV Blau-Weiss Blumberg e.V.",
         "lsbNumber": "490202",
@@ -46772,16 +46732,6 @@
         }
       },
       {
-        "id": "82879845",
-        "name": "MTV Herrenhausen",
-        "lsbNumber": "302205802",
-        "internalSportsclubId": "30417",
-        "association": {
-          "id": "25463979",
-          "name": "Kreis Hannover-Stadt"
-        }
-      },
-      {
         "id": "51836133",
         "name": "TuS Heimersheim",
         "lsbNumber": "347",
@@ -46839,6 +46789,16 @@
         "association": {
           "id": "51583412",
           "name": "Bezirk Süd"
+        }
+      },
+      {
+        "id": "82879845",
+        "name": "MTV Herrenhausen",
+        "lsbNumber": "302205802",
+        "internalSportsclubId": "30417",
+        "association": {
+          "id": "25463979",
+          "name": "Kreis Hannover-Stadt"
         }
       },
       {
@@ -65812,16 +65772,6 @@
         }
       },
       {
-        "id": "6530",
-        "name": "VC Dresden e.V.",
-        "lsbNumber": "410331",
-        "internalSportsclubId": "203",
-        "association": {
-          "id": "24908815",
-          "name": "Stadt Dresden"
-        }
-      },
-      {
         "id": "50621768",
         "name": "SV Liebertwolkwitz e.V.",
         "lsbNumber": "420361",
@@ -71252,16 +71202,6 @@
         }
       },
       {
-        "id": "51836378",
-        "name": "TV 1905 Mülheim e.V.",
-        "lsbNumber": "1152",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
         "id": "82877229",
         "name": "VfR Weddel",
         "lsbNumber": "41107",
@@ -73402,6 +73342,16 @@
         }
       },
       {
+        "id": "37922039",
+        "name": "DJK Kleinenbroich 1951 e.V.",
+        "lsbNumber": "1305005",
+        "internalSportsclubId": "9297",
+        "association": {
+          "id": "33299112",
+          "name": "Neuss-Grevenbroich"
+        }
+      },
+      {
         "id": "82877681",
         "name": "VC Bad Dürrenberg/Sperrgau",
         "lsbNumber": "613011",
@@ -73422,6 +73372,46 @@
         }
       },
       {
+        "id": "82878544",
+        "name": "SV Adler Hämelerwald",
+        "lsbNumber": "302192865",
+        "internalSportsclubId": "30370",
+        "association": {
+          "id": "25463961",
+          "name": "Kreis Hannover-Land"
+        }
+      },
+      {
+        "id": "51836378",
+        "name": "TV 1905 Mülheim e.V.",
+        "lsbNumber": "1152",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
+        "id": "82880198",
+        "name": "TV Scheeßel",
+        "lsbNumber": "303315650",
+        "internalSportsclubId": "20708",
+        "association": {
+          "id": "25461757",
+          "name": "Kreis Rotenburg"
+        }
+      },
+      {
+        "id": "6530",
+        "name": "VC Dresden e.V.",
+        "lsbNumber": "410331",
+        "internalSportsclubId": "203",
+        "association": {
+          "id": "24908815",
+          "name": "Stadt Dresden"
+        }
+      },
+      {
         "id": "82877690",
         "name": "TSV Wedding",
         "lsbNumber": "604003",
@@ -73429,6 +73419,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "37921267",
+        "name": "SCB Horrem e.V.",
+        "lsbNumber": "2308002",
+        "internalSportsclubId": "305",
+        "association": {
+          "id": "33795221",
+          "name": "Rhein-Erft"
         }
       },
       {
