@@ -1122,16 +1122,6 @@
         }
       },
       {
-        "id": "37920834",
-        "name": "TV 1875 Paderborn e.V.",
-        "lsbNumber": "4608014",
-        "internalSportsclubId": "4302",
-        "association": {
-          "id": "33797722",
-          "name": "Paderborn"
-        }
-      },
-      {
         "id": "82876941",
         "name": "SV Holtland",
         "lsbNumber": "10925",
@@ -6592,16 +6582,6 @@
         }
       },
       {
-        "id": "26819258",
-        "name": "FSV Blau-Weiß Günterode e.V.",
-        "lsbNumber": "150036",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
-        }
-      },
-      {
         "id": "26819256",
         "name": "DJK SV Elfrieda 1920 Kallmerode e.V.",
         "lsbNumber": "150110",
@@ -6799,6 +6779,16 @@
         "association": {
           "id": "26272888",
           "name": "tbc TVV 40"
+        }
+      },
+      {
+        "id": "26819258",
+        "name": "FSV Blau-Weiß Günterode e.V.",
+        "lsbNumber": "150036",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
         }
       },
       {
@@ -12389,16 +12379,6 @@
         "association": {
           "id": "7220",
           "name": "Hessischer Volleyballverband"
-        }
-      },
-      {
-        "id": "26818908",
-        "name": "SV 90 Eisenach e.V.",
-        "lsbNumber": "470018",
-        "internalSportsclubId": "616",
-        "association": {
-          "id": "26249309",
-          "name": "Kreisverband West"
         }
       },
       {
@@ -19219,16 +19199,6 @@
         "association": {
           "id": "26196856",
           "name": "HVV | Bezirk West"
-        }
-      },
-      {
-        "id": "54611170",
-        "name": "TSV Ofterdingen",
-        "lsbNumber": "22049",
-        "internalSportsclubId": "529",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
         }
       },
       {
@@ -28712,16 +28682,6 @@
         }
       },
       {
-        "id": "37948243",
-        "name": "SG Turbine Vockerode e.V.",
-        "lsbNumber": "80190",
-        "internalSportsclubId": "80190",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37948268",
         "name": "Sportverein Engersen e.V.",
         "lsbNumber": "10025",
@@ -36932,16 +36892,6 @@
         }
       },
       {
-        "id": "48819599",
-        "name": "SG 1955 Lüttgenrode e.V.",
-        "lsbNumber": "50036",
-        "internalSportsclubId": "50036",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "26866515",
         "name": "Lerchesflur SG 88",
         "lsbNumber": "87061",
@@ -36989,6 +36939,16 @@
         "association": {
           "id": "25464763",
           "name": "Kreis Ammerland"
+        }
+      },
+      {
+        "id": "48819599",
+        "name": "SG 1955 Lüttgenrode e.V.",
+        "lsbNumber": "50036",
+        "internalSportsclubId": "50036",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -37996,16 +37956,6 @@
         "name": "SV Empor Grün/Rot Wittenberge 1990 e.V.",
         "lsbNumber": "700007",
         "internalSportsclubId": "700007",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
-        "id": "49504392",
-        "name": "VSV Tempo Welzow e.V.",
-        "lsbNumber": "710137",
-        "internalSportsclubId": "710137",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -59212,16 +59162,6 @@
         }
       },
       {
-        "id": "65036916",
-        "name": "TV Eberbach",
-        "lsbNumber": "50585",
-        "internalSportsclubId": "50585",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "26866432",
         "name": "TV Dillingen",
         "lsbNumber": "81044",
@@ -62112,16 +62052,6 @@
         }
       },
       {
-        "id": "82879193",
-        "name": "MTV Immensen",
-        "lsbNumber": "302192880",
-        "internalSportsclubId": "30329",
-        "association": {
-          "id": "25463961",
-          "name": "Kreis Hannover-Land"
-        }
-      },
-      {
         "id": "54611200",
         "name": "TB Tailfingen",
         "lsbNumber": "24141",
@@ -62836,16 +62766,6 @@
         "name": "TUS Bonndorf",
         "lsbNumber": "180700",
         "internalSportsclubId": "5106",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "53359026",
-        "name": "TV Überlingen",
-        "lsbNumber": "473100",
-        "internalSportsclubId": "3919",
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
@@ -65942,16 +65862,6 @@
         }
       },
       {
-        "id": "54610840",
-        "name": "SV 1845 Esslingen",
-        "lsbNumber": "6395",
-        "internalSportsclubId": "183",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "37948383",
         "name": "SV Hötensleben e.V.",
         "lsbNumber": "30035",
@@ -65979,6 +65889,16 @@
         "association": {
           "id": "24908690",
           "name": "Landkreis Zwickau/Erzgebirge"
+        }
+      },
+      {
+        "id": "54610840",
+        "name": "SV 1845 Esslingen",
+        "lsbNumber": "6395",
+        "internalSportsclubId": "183",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       },
       {
@@ -67862,16 +67782,6 @@
         }
       },
       {
-        "id": "37920859",
-        "name": "SC Falke Saerbeck 1924 e.V.",
-        "lsbNumber": "3520002",
-        "internalSportsclubId": "473",
-        "association": {
-          "id": "33797208",
-          "name": "Steinfurt"
-        }
-      },
-      {
         "id": "37921723",
         "name": "CVJM Lübbecke e.V.",
         "lsbNumber": "4505009",
@@ -67879,6 +67789,16 @@
         "association": {
           "id": "33797702",
           "name": "Minden-Ravensberg"
+        }
+      },
+      {
+        "id": "37920859",
+        "name": "SC Falke Saerbeck 1924 e.V.",
+        "lsbNumber": "3520002",
+        "internalSportsclubId": "473",
+        "association": {
+          "id": "33797208",
+          "name": "Steinfurt"
         }
       },
       {
@@ -73432,6 +73352,26 @@
         }
       },
       {
+        "id": "37920834",
+        "name": "TV 1875 Paderborn e.V.",
+        "lsbNumber": "4608014",
+        "internalSportsclubId": "4302",
+        "association": {
+          "id": "33797722",
+          "name": "Paderborn"
+        }
+      },
+      {
+        "id": "54611170",
+        "name": "TSV Ofterdingen",
+        "lsbNumber": "22049",
+        "internalSportsclubId": "529",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
         "id": "82877700",
         "name": "TB Wülfrath",
         "lsbNumber": "617079",
@@ -73512,6 +73452,26 @@
         }
       },
       {
+        "id": "53359026",
+        "name": "TV Überlingen",
+        "lsbNumber": "473100",
+        "internalSportsclubId": "3919",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26818908",
+        "name": "SV 90 Eisenach e.V.",
+        "lsbNumber": "470018",
+        "internalSportsclubId": "616",
+        "association": {
+          "id": "26249309",
+          "name": "Kreisverband West"
+        }
+      },
+      {
         "id": "82877742",
         "name": "TuS Glarum",
         "lsbNumber": "10705",
@@ -73532,6 +73492,16 @@
         }
       },
       {
+        "id": "37948243",
+        "name": "SG Turbine Vockerode e.V.",
+        "lsbNumber": "80190",
+        "internalSportsclubId": "80190",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "82877746",
         "name": "HSV Rheydt",
         "lsbNumber": "617356",
@@ -73539,6 +73509,36 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "49504392",
+        "name": "VSV Tempo Welzow e.V.",
+        "lsbNumber": "710137",
+        "internalSportsclubId": "710137",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "65036916",
+        "name": "TV Eberbach",
+        "lsbNumber": "50585",
+        "internalSportsclubId": "50585",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "82879193",
+        "name": "MTV Immensen",
+        "lsbNumber": "302192880",
+        "internalSportsclubId": "30329",
+        "association": {
+          "id": "25463961",
+          "name": "Kreis Hannover-Land"
         }
       },
       {
