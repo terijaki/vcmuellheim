@@ -902,16 +902,6 @@
         }
       },
       {
-        "id": "26818743",
-        "name": "Sportverein 1910 Kahla e.V.",
-        "lsbNumber": "480033",
-        "internalSportsclubId": "18112",
-        "association": {
-          "id": "26249243",
-          "name": "Kreisverband Nord-Ost"
-        }
-      },
-      {
         "id": "26819012",
         "name": "SV Eintracht Ifta e.V.",
         "lsbNumber": "470047",
@@ -919,6 +909,16 @@
         "association": {
           "id": "26249309",
           "name": "Kreisverband West"
+        }
+      },
+      {
+        "id": "26818743",
+        "name": "Sportverein 1910 Kahla e.V.",
+        "lsbNumber": "480033",
+        "internalSportsclubId": "18112",
+        "association": {
+          "id": "26249243",
+          "name": "Kreisverband Nord-Ost"
         }
       },
       {
@@ -11772,16 +11772,6 @@
         }
       },
       {
-        "id": "37315118",
-        "name": "SV Winnenden",
-        "lsbNumber": "15204",
-        "internalSportsclubId": "138",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
         "id": "26846420",
         "name": "Sportclub Siemensstadt Berlin e.V.",
         "lsbNumber": "3452",
@@ -13382,16 +13372,6 @@
         }
       },
       {
-        "id": "82876808",
-        "name": "BC Cuxhaven",
-        "lsbNumber": "303260183",
-        "internalSportsclubId": "20213",
-        "association": {
-          "id": "25461267",
-          "name": "Kreis Cuxhaven"
-        }
-      },
-      {
         "id": "37921649",
         "name": "SV Adler Weseke e.V.",
         "lsbNumber": "3103018",
@@ -14812,16 +14792,6 @@
         }
       },
       {
-        "id": "48622505",
-        "name": "SC Mutterstadt",
-        "lsbNumber": "1111111110000004",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "25383414",
-          "name": "Volleyball-Verband Pfalz"
-        }
-      },
-      {
         "id": "26925079",
         "name": "Hofheimer Volleyballclub",
         "lsbNumber": "30060",
@@ -14849,6 +14819,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "48622505",
+        "name": "loeschen",
+        "lsbNumber": "1111111110000004",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "25383414",
+          "name": "Volleyball-Verband Pfalz"
         }
       },
       {
@@ -36372,16 +36352,6 @@
         }
       },
       {
-        "id": "26925375",
-        "name": "KSV Baunatal e.V.",
-        "lsbNumber": "41002",
-        "internalSportsclubId": "3804",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "37920857",
         "name": "Turn- und Spielverein Müschede 07 e.V.",
         "lsbNumber": "5201065",
@@ -40039,16 +40009,6 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
-        "id": "54611313",
-        "name": "SSC Tübingen",
-        "lsbNumber": "22163",
-        "internalSportsclubId": "693",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
         }
       },
       {
@@ -45492,16 +45452,6 @@
         }
       },
       {
-        "id": "54610870",
-        "name": "TSV Jesingen",
-        "lsbNumber": "6086",
-        "internalSportsclubId": "216",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "82877701",
         "name": "TSV Schneeren",
         "lsbNumber": "302193190",
@@ -46092,6 +46042,16 @@
         }
       },
       {
+        "id": "51836080",
+        "name": "PSV Neustadt",
+        "lsbNumber": "370",
+        "internalSportsclubId": "32-54-02",
+        "association": {
+          "id": "25383414",
+          "name": "Volleyball-Verband Pfalz"
+        }
+      },
+      {
         "id": "54610928",
         "name": "SpVgg Stetten",
         "lsbNumber": "6166",
@@ -46256,16 +46216,6 @@
         "name": "PTSV Neustadt",
         "lsbNumber": "101",
         "internalSportsclubId": "99-1008",
-        "association": {
-          "id": "25383414",
-          "name": "Volleyball-Verband Pfalz"
-        }
-      },
-      {
-        "id": "51836080",
-        "name": "PSV Neustadt",
-        "lsbNumber": "370",
-        "internalSportsclubId": "32-54-02",
         "association": {
           "id": "25383414",
           "name": "Volleyball-Verband Pfalz"
@@ -48522,16 +48472,6 @@
         }
       },
       {
-        "id": "82880452",
-        "name": "TSV Luthe",
-        "lsbNumber": "302195270",
-        "internalSportsclubId": "30358",
-        "association": {
-          "id": "25463961",
-          "name": "Kreis Hannover-Land"
-        }
-      },
-      {
         "id": "50621676",
         "name": "SV Cottaer Fische e.V.",
         "lsbNumber": "410256",
@@ -48599,6 +48539,16 @@
         "association": {
           "id": "24908851",
           "name": "Landkreis Leipzig"
+        }
+      },
+      {
+        "id": "82880452",
+        "name": "TSV Luthe",
+        "lsbNumber": "302195270",
+        "internalSportsclubId": "30358",
+        "association": {
+          "id": "25463961",
+          "name": "Kreis Hannover-Land"
         }
       },
       {
@@ -51702,6 +51652,16 @@
         }
       },
       {
+        "id": "82880170",
+        "name": "MTV Liebenau",
+        "lsbNumber": "302230910",
+        "internalSportsclubId": "30718",
+        "association": {
+          "id": "25463897",
+          "name": "Kreis Nienburg"
+        }
+      },
+      {
         "id": "54611078",
         "name": "SCC Altensteig",
         "lsbNumber": "5007",
@@ -51739,16 +51699,6 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
-        "id": "82880170",
-        "name": "MTV Liebenau",
-        "lsbNumber": "302230910",
-        "internalSportsclubId": "30718",
-        "association": {
-          "id": "25463897",
-          "name": "Kreis Nienburg"
         }
       },
       {
@@ -52522,6 +52472,16 @@
         }
       },
       {
+        "id": "26818791",
+        "name": "SV Concordia Erfurt e.V.",
+        "lsbNumber": "100019",
+        "internalSportsclubId": "09027",
+        "association": {
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
+        }
+      },
+      {
         "id": "51836491",
         "name": "TuS Kirchberg",
         "lsbNumber": "1000358",
@@ -52609,16 +52569,6 @@
         "association": {
           "id": null,
           "name": null
-        }
-      },
-      {
-        "id": "26818791",
-        "name": "SV Concordia Erfurt e.V.",
-        "lsbNumber": "100019",
-        "internalSportsclubId": "09027",
-        "association": {
-          "id": "26249165",
-          "name": "Kreisverband Mitte"
         }
       },
       {
@@ -53249,16 +53199,6 @@
         "association": {
           "id": "25386527",
           "name": "Kreis Goslar"
-        }
-      },
-      {
-        "id": "82879127",
-        "name": "TV Jahn Wolfsburg",
-        "lsbNumber": "301161720",
-        "internalSportsclubId": "40201",
-        "association": {
-          "id": "25386491",
-          "name": "Kreis Wolfsburg"
         }
       },
       {
@@ -54352,16 +54292,6 @@
         }
       },
       {
-        "id": "54611375",
-        "name": "TV Altenstadt",
-        "lsbNumber": "8067",
-        "internalSportsclubId": "812",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "54611374",
         "name": "TV 1849 Bingen",
         "lsbNumber": "19003",
@@ -54442,13 +54372,13 @@
         }
       },
       {
-        "id": "54610704",
-        "name": "VC Freudental",
-        "lsbNumber": "12337",
-        "internalSportsclubId": "41",
+        "id": "54611375",
+        "name": "TV Altenstadt",
+        "lsbNumber": "8067",
+        "internalSportsclubId": "812",
         "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       },
       {
@@ -66162,16 +66092,6 @@
         }
       },
       {
-        "id": "13899375",
-        "name": "1. VC Essen-Borbeck e.V.",
-        "lsbNumber": "1003432",
-        "internalSportsclubId": "211",
-        "association": {
-          "id": "33299056",
-          "name": "Essen"
-        }
-      },
-      {
         "id": "37921089",
         "name": "TuS Stemwede 1974 e.V.",
         "lsbNumber": "4511010",
@@ -66239,6 +66159,16 @@
         "association": {
           "id": "33795281",
           "name": "Bonn"
+        }
+      },
+      {
+        "id": "13899375",
+        "name": "1. VC Essen-Borbeck e.V.",
+        "lsbNumber": "1003432",
+        "internalSportsclubId": "211",
+        "association": {
+          "id": "33299056",
+          "name": "Essen"
         }
       },
       {
@@ -68242,16 +68172,6 @@
         }
       },
       {
-        "id": "26925093",
-        "name": "TG 1875 Darmstadt",
-        "lsbNumber": "33063",
-        "internalSportsclubId": "1407",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "26846477",
         "name": "TSV GutsMuths 1861 e.V.",
         "lsbNumber": "4916",
@@ -68309,6 +68229,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26925093",
+        "name": "TG 1875 Darmstadt",
+        "lsbNumber": "33063",
+        "internalSportsclubId": "1407",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -70432,16 +70362,6 @@
         }
       },
       {
-        "id": "86979869",
-        "name": "SV Wippingen 1948",
-        "lsbNumber": "1111111110000076",
-        "internalSportsclubId": "829",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "51836272",
         "name": "VC Eintracht 1996 Mendig",
         "lsbNumber": "1004564",
@@ -70539,6 +70459,16 @@
         "association": {
           "id": "25463961",
           "name": "Kreis Hannover-Land"
+        }
+      },
+      {
+        "id": "86979869",
+        "name": "SV Wippingen 1948",
+        "lsbNumber": "1111111110000076",
+        "internalSportsclubId": "829",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
@@ -73542,6 +73472,16 @@
         }
       },
       {
+        "id": "54611313",
+        "name": "SSC Tübingen",
+        "lsbNumber": "22163",
+        "internalSportsclubId": "693",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
         "id": "82877752",
         "name": "TuS Friedrichsdorf",
         "lsbNumber": "617369",
@@ -73549,6 +73489,26 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "82879127",
+        "name": "TV Jahn Wolfsburg",
+        "lsbNumber": "301161720",
+        "internalSportsclubId": "40201",
+        "association": {
+          "id": "25386491",
+          "name": "Kreis Wolfsburg"
+        }
+      },
+      {
+        "id": "54610870",
+        "name": "TSV Jesingen",
+        "lsbNumber": "6086",
+        "internalSportsclubId": "216",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       },
       {
@@ -73582,6 +73542,16 @@
         }
       },
       {
+        "id": "37315118",
+        "name": "SV Winnenden",
+        "lsbNumber": "15204",
+        "internalSportsclubId": "138",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
+        }
+      },
+      {
         "id": "82877759",
         "name": "VfL Goldstein 1953",
         "lsbNumber": "607084",
@@ -73602,6 +73572,16 @@
         }
       },
       {
+        "id": "54610704",
+        "name": "VC Freudental",
+        "lsbNumber": "12337",
+        "internalSportsclubId": "41",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
+        }
+      },
+      {
         "id": "82877763",
         "name": "SG Bösel/Friesoythe",
         "lsbNumber": "10310",
@@ -73609,6 +73589,16 @@
         "association": {
           "id": "25464783",
           "name": "Kreis Cloppenburg"
+        }
+      },
+      {
+        "id": "82876808",
+        "name": "BC Cuxhaven",
+        "lsbNumber": "303260183",
+        "internalSportsclubId": "20213",
+        "association": {
+          "id": "25461267",
+          "name": "Kreis Cuxhaven"
         }
       },
       {
@@ -73742,6 +73732,26 @@
         }
       },
       {
+        "id": "26925375",
+        "name": "KSV Baunatal e.V.",
+        "lsbNumber": "41002",
+        "internalSportsclubId": "3804",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "82879182",
+        "name": "SV Falke Wehrbleck",
+        "lsbNumber": "302174920",
+        "internalSportsclubId": "30103",
+        "association": {
+          "id": "25463879",
+          "name": "Kreis Diepholz"
+        }
+      },
+      {
         "id": "82877814",
         "name": "BSC Hastedt Bremen",
         "lsbNumber": "50158",
@@ -73749,6 +73759,26 @@
         "association": {
           "id": "25461249",
           "name": "Region Bremen e.V."
+        }
+      },
+      {
+        "id": "37920796",
+        "name": "TV Jahn Rheine 1885 e.V.",
+        "lsbNumber": "3519024",
+        "internalSportsclubId": "2501",
+        "association": {
+          "id": "33797208",
+          "name": "Steinfurt"
+        }
+      },
+      {
+        "id": "88639945",
+        "name": "Horninger Sportfreunde e.V.",
+        "lsbNumber": "1111111110000082",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
         }
       },
       {
@@ -73769,6 +73799,26 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "88640147",
+        "name": "Hörninger Sportfreunde e.V.",
+        "lsbNumber": "1111111110000083",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
+        }
+      },
+      {
+        "id": "88644030",
+        "name": "Turn- und Sportfreunde 1901/20 Bracht e.V.",
+        "lsbNumber": "1111111110000084",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "33299148",
+          "name": "Krefeld-Viersen"
         }
       },
       {
@@ -84772,16 +84822,6 @@
         }
       },
       {
-        "id": "82879182",
-        "name": "SV Falke Wehrbleck",
-        "lsbNumber": "302174920",
-        "internalSportsclubId": "30103",
-        "association": {
-          "id": "25463879",
-          "name": "Kreis Diepholz"
-        }
-      },
-      {
         "id": "82878561",
         "name": "SV Heerde-Kuppendorf",
         "lsbNumber": "302171920",
@@ -85479,16 +85519,6 @@
         "association": {
           "id": "25463915",
           "name": "Kreis Schaumburg"
-        }
-      },
-      {
-        "id": "37920796",
-        "name": "TV Jahn Rheine 1885 e.V.",
-        "lsbNumber": "3519024",
-        "internalSportsclubId": "2501",
-        "association": {
-          "id": "33797208",
-          "name": "Steinfurt"
         }
       },
       {
