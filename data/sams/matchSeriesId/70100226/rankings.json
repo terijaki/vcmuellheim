@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2025-02-22 16:21:04.886",
+      "updated": "2025-02-22 17:51:24.501",
       "structureUpdated": "2025-02-20 12:33:21.278",
-      "resultsUpdated": "2025-02-22 16:21:04.886",
+      "resultsUpdated": "2025-02-22 17:51:24.501",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -282,6 +282,62 @@
       },
       {
         "team": {
+          "id": "73349539",
+          "uuid": "c5acdb80-aaab-4e7d-9f0d-0447b6ba37d0",
+          "name": "TV Kollnau-Gutach 1",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Kollnau-Gutach",
+            "shortName": null
+          }
+        },
+        "place": "5",
+        "matchesPlayed": "14",
+        "wins": "7",
+        "losses": "7",
+        "points": "19",
+        "setPoints": "28:30",
+        "setWinScore": "28",
+        "setLoseScore": "30",
+        "setPointDifference": "-2",
+        "setQuotient": "0,933\n            ",
+        "ballPoints": "1249:1237",
+        "ballWinScore": "1249",
+        "ballLoseScore": "1237",
+        "ballPointDifference": "12",
+        "ballQuotient": "1,010\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "2"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "4"
+            },
+            {
+              "result": "2:3",
+              "count": "2"
+            },
+            {
+              "result": "1:3",
+              "count": "3"
+            },
+            {
+              "result": "0:3",
+              "count": "2"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73349554",
           "uuid": "05640b90-239f-4738-aade-96c68a7f1e86",
           "name": "Südbaden-Auswahl",
@@ -292,7 +348,7 @@
             "shortName": null
           }
         },
-        "place": "5",
+        "place": "6",
         "matchesPlayed": "15",
         "wins": "6",
         "losses": "9",
@@ -348,7 +404,7 @@
             "shortName": null
           }
         },
-        "place": "6",
+        "place": "7",
         "matchesPlayed": "13",
         "wins": "6",
         "losses": "7",
@@ -394,62 +450,6 @@
       },
       {
         "team": {
-          "id": "73349539",
-          "uuid": "c5acdb80-aaab-4e7d-9f0d-0447b6ba37d0",
-          "name": "TV Kollnau-Gutach 1",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Kollnau-Gutach",
-            "shortName": null
-          }
-        },
-        "place": "7",
-        "matchesPlayed": "13",
-        "wins": "6",
-        "losses": "7",
-        "points": "16",
-        "setPoints": "25:29",
-        "setWinScore": "25",
-        "setLoseScore": "29",
-        "setPointDifference": "-4",
-        "setQuotient": "0,862\n            ",
-        "ballPoints": "1148:1146",
-        "ballWinScore": "1148",
-        "ballLoseScore": "1146",
-        "ballPointDifference": "2",
-        "ballQuotient": "1,002\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "2"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "4"
-            },
-            {
-              "result": "2:3",
-              "count": "2"
-            },
-            {
-              "result": "1:3",
-              "count": "3"
-            },
-            {
-              "result": "0:3",
-              "count": "2"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "73349557",
           "uuid": "3d6b9adf-0dc2-49dc-876c-4a005f416b0a",
           "name": "Bad Säckinger Wölfe",
@@ -461,20 +461,20 @@
           }
         },
         "place": "8",
-        "matchesPlayed": "13",
+        "matchesPlayed": "14",
         "wins": "6",
-        "losses": "7",
+        "losses": "8",
         "points": "15",
-        "setPoints": "19:30",
-        "setWinScore": "19",
-        "setLoseScore": "30",
-        "setPointDifference": "-11",
-        "setQuotient": "0,633\n            ",
-        "ballPoints": "1050:1114",
-        "ballWinScore": "1050",
-        "ballLoseScore": "1114",
-        "ballPointDifference": "-64",
-        "ballQuotient": "0,943\n            ",
+        "setPoints": "20:33",
+        "setWinScore": "20",
+        "setLoseScore": "33",
+        "setPointDifference": "-13",
+        "setQuotient": "0,606\n            ",
+        "ballPoints": "1141:1215",
+        "ballWinScore": "1141",
+        "ballLoseScore": "1215",
+        "ballPointDifference": "-74",
+        "ballQuotient": "0,939\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -495,7 +495,7 @@
             },
             {
               "result": "1:3",
-              "count": "1"
+              "count": "2"
             },
             {
               "result": "0:3",
