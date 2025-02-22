@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2025-02-22 16:11:44.975",
+      "updated": "2025-02-22 16:21:04.886",
       "structureUpdated": "2025-02-20 12:33:21.278",
-      "resultsUpdated": "2025-02-22 16:11:44.975",
+      "resultsUpdated": "2025-02-22 16:21:04.886",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -237,20 +237,20 @@
           }
         },
         "place": "4",
-        "matchesPlayed": "12",
+        "matchesPlayed": "13",
         "wins": "7",
-        "losses": "5",
+        "losses": "6",
         "points": "23",
-        "setPoints": "28:21",
-        "setWinScore": "28",
-        "setLoseScore": "21",
-        "setPointDifference": "7",
-        "setQuotient": "1,333\n            ",
-        "ballPoints": "1072:1065",
-        "ballWinScore": "1072",
-        "ballLoseScore": "1065",
-        "ballPointDifference": "7",
-        "ballQuotient": "1,007\n            ",
+        "setPoints": "29:24",
+        "setWinScore": "29",
+        "setLoseScore": "24",
+        "setPointDifference": "5",
+        "setQuotient": "1,208\n            ",
+        "ballPoints": "1159:1162",
+        "ballWinScore": "1159",
+        "ballLoseScore": "1162",
+        "ballPointDifference": "-3",
+        "ballQuotient": "0,997\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -271,7 +271,7 @@
             },
             {
               "result": "1:3",
-              "count": "1"
+              "count": "2"
             },
             {
               "result": "0:3",
@@ -338,6 +338,62 @@
       },
       {
         "team": {
+          "id": "73349535",
+          "uuid": "d749145f-4492-4ae4-867e-39689506efb9",
+          "name": "VC Weil 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VC Weil am Rhein",
+            "shortName": null
+          }
+        },
+        "place": "6",
+        "matchesPlayed": "13",
+        "wins": "6",
+        "losses": "7",
+        "points": "17",
+        "setPoints": "23:29",
+        "setWinScore": "23",
+        "setLoseScore": "29",
+        "setPointDifference": "-6",
+        "setQuotient": "0,793\n            ",
+        "ballPoints": "1129:1072",
+        "ballWinScore": "1129",
+        "ballLoseScore": "1072",
+        "ballPointDifference": "57",
+        "ballQuotient": "1,053\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "1"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "3"
+            },
+            {
+              "result": "2:3",
+              "count": "2"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "4"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73349539",
           "uuid": "c5acdb80-aaab-4e7d-9f0d-0447b6ba37d0",
           "name": "TV Kollnau-Gutach 1",
@@ -348,7 +404,7 @@
             "shortName": null
           }
         },
-        "place": "6",
+        "place": "7",
         "matchesPlayed": "13",
         "wins": "6",
         "losses": "7",
@@ -404,7 +460,7 @@
             "shortName": null
           }
         },
-        "place": "7",
+        "place": "8",
         "matchesPlayed": "13",
         "wins": "6",
         "losses": "7",
@@ -460,7 +516,7 @@
             "shortName": null
           }
         },
-        "place": "8",
+        "place": "9",
         "matchesPlayed": "12",
         "wins": "5",
         "losses": "7",
@@ -500,62 +556,6 @@
             {
               "result": "0:3",
               "count": "3"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73349535",
-          "uuid": "d749145f-4492-4ae4-867e-39689506efb9",
-          "name": "VC Weil 2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "VC Weil am Rhein",
-            "shortName": null
-          }
-        },
-        "place": "9",
-        "matchesPlayed": "12",
-        "wins": "5",
-        "losses": "7",
-        "points": "14",
-        "setPoints": "20:28",
-        "setWinScore": "20",
-        "setLoseScore": "28",
-        "setPointDifference": "-8",
-        "setQuotient": "0,714\n            ",
-        "ballPoints": "1032:985",
-        "ballWinScore": "1032",
-        "ballLoseScore": "985",
-        "ballPointDifference": "47",
-        "ballQuotient": "1,048\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "1"
-            },
-            {
-              "result": "3:1",
-              "count": "1"
-            },
-            {
-              "result": "3:2",
-              "count": "3"
-            },
-            {
-              "result": "2:3",
-              "count": "2"
-            },
-            {
-              "result": "1:3",
-              "count": "1"
-            },
-            {
-              "result": "0:3",
-              "count": "4"
             }
           ]
         }
