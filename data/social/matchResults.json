@@ -402,6 +402,18 @@
       "score": "0:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/113974854841107934"
+    },
+    {
+      "uuid": "81009c2a-9ede-41dd-8aaa-3ec0061d82db",
+      "date": "2025-02-22T13:00:00.000Z",
+      "league": "Landesliga West Herren",
+      "team": [
+        "Südbaden-Auswahl",
+        "VC Müllheim 1"
+      ],
+      "winner": 2,
+      "score": "2:3",
+      "mastodon": "new"
     }
   ]
 }
