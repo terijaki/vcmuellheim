@@ -59,8 +59,8 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2025-02-16 21:15:54.957",
-            "structureUpdated": "2025-02-06 13:11:43.001",
+            "updated": "2025-02-20 12:33:21.278",
+            "structureUpdated": "2025-02-20 12:33:21.278",
             "resultsUpdated": "2025-02-16 21:15:54.957",
             "season": {
               "id": "70098350",
@@ -314,8 +314,8 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2025-02-16 17:34:32.433",
-            "structureUpdated": "2025-02-13 13:07:45.315",
+            "updated": "2025-02-21 16:50:53.209",
+            "structureUpdated": "2025-02-21 16:50:53.209",
             "resultsUpdated": "2025-02-16 17:34:32.433",
             "season": {
               "id": "70098350",
@@ -563,7 +563,7 @@
             "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
             "shortName": "sbvv-u20w",
             "type": "Competition",
-            "updated": "2025-02-18 09:57:57.935",
+            "updated": "2025-02-20 16:59:51.002",
             "structureUpdated": "2025-02-18 09:57:57.935",
             "resultsUpdated": "2024-03-25 11:45:13.959",
             "season": {
@@ -636,8 +636,8 @@
             "name": "U16 weiblich - Vor-Quali 1 am 9.11.24 in Breisach",
             "shortName": "VQ1_U16_w",
             "type": "Competition",
-            "updated": "2025-02-19 16:40:56.866",
-            "structureUpdated": "2025-02-19 16:40:56.866",
+            "updated": "2025-02-22 10:13:03.262",
+            "structureUpdated": "2025-02-22 10:13:03.262",
             "resultsUpdated": "2024-11-09 16:55:56.518",
             "season": {
               "id": "70098350",
