@@ -1,84 +1,6 @@
 {
   "entries": [
     {
-      "uuid": "38c2ffcd-6ad3-453f-943d-f2c48a84a3b5",
-      "date": "2024-12-14T13:00:00.000Z",
-      "league": "Landesliga West Herren",
-      "team": [
-        "VC Müllheim 1",
-        "TV Kappelrodeck 2"
-      ],
-      "winner": 2,
-      "score": "2:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113651866519669002"
-    },
-    {
-      "uuid": "1cb0d796-76c2-42bf-b27d-520364bcafac",
-      "date": "2024-12-14T13:00:00.000Z",
-      "league": "Kreisliga Damen Süd",
-      "team": [
-        "Spvgg Märkt-Eimeldingen",
-        "VC Müllheim 2"
-      ],
-      "winner": 2,
-      "score": "1:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113651866548625698"
-    },
-    {
-      "uuid": "787fa414-bff3-4510-bee6-5ac1c21e06d8",
-      "date": "2024-12-14T13:00:00.000Z",
-      "league": "Landesliga West Herren",
-      "team": [
-        "VC Müllheim 1",
-        "TV Kollnau-Gutach 1"
-      ],
-      "winner": 1,
-      "score": "3:0",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113652336539584081"
-    },
-    {
-      "uuid": "b07fccbe-fb76-4e0d-a038-f050d8c5b35a",
-      "date": "2024-12-14T13:00:00.000Z",
-      "league": "Kreisliga Damen Süd",
-      "team": [
-        "VC Müllheim 2",
-        "TV Bad Säckingen 3"
-      ],
-      "winner": 1,
-      "score": "3:1",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113652802737675123"
-    },
-    {
-      "uuid": "13e478ad-6179-4b64-b5a4-27c038e1b148",
-      "date": "2024-12-15T09:30:00.000Z",
-      "league": "Bezirksklasse Damen Süd",
-      "team": [
-        "VC Müllheim 1",
-        "TV Bad Säckingen 2"
-      ],
-      "winner": 2,
-      "score": "1:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113656685657345213"
-    },
-    {
-      "uuid": "84f59919-43e4-40cc-8f5e-80cdc4c2dc50",
-      "date": "2024-12-15T09:30:00.000Z",
-      "league": "Bezirksklasse Damen Süd",
-      "team": [
-        "VC Müllheim 1",
-        "VfR Merzhausen 2"
-      ],
-      "winner": 2,
-      "score": "0:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113657062218866337"
-    },
-    {
       "uuid": "0c484a1e-2d62-4989-b772-42a4985d18b7",
       "date": "2025-01-11T13:00:00.000Z",
       "league": "Bezirksliga Herren Süd",
@@ -413,7 +335,8 @@
       ],
       "winner": 2,
       "score": "2:3",
-      "mastodon": "new"
+      "mastodon": "published",
+      "mastodonUrl": "https://freiburg.social/@VCM/114048226212684100"
     }
   ]
 }
