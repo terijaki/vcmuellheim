@@ -59,9 +59,9 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2025-02-22 17:51:24.501",
+            "updated": "2025-02-22 18:28:03.34",
             "structureUpdated": "2025-02-20 12:33:21.278",
-            "resultsUpdated": "2025-02-22 17:51:24.501",
+            "resultsUpdated": "2025-02-22 18:28:03.34",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -484,8 +484,8 @@
             "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
             "shortName": "Q1_U20_w",
             "type": "Competition",
-            "updated": "2025-02-22 17:32:27.084",
-            "structureUpdated": "2025-02-22 17:32:27.084",
+            "updated": "2025-02-22 18:22:19.832",
+            "structureUpdated": "2025-02-22 18:22:19.832",
             "resultsUpdated": "2024-11-10 15:49:53.669",
             "season": {
               "id": "70098350",
@@ -563,7 +563,7 @@
             "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
             "shortName": "sbvv-u20w",
             "type": "Competition",
-            "updated": "2025-02-22 17:33:50.982",
+            "updated": "2025-02-22 18:22:19.832",
             "structureUpdated": "2025-02-18 09:57:57.935",
             "resultsUpdated": "2024-03-25 11:45:13.959",
             "season": {
