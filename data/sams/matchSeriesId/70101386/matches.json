@@ -52,9 +52,9 @@
           "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
           "shortName": "sbvv-u20w",
           "type": "Competition",
-          "updated": "2025-02-23 13:12:22.766",
+          "updated": "2025-02-23 13:52:28.539",
           "structureUpdated": "2025-02-18 09:57:57.935",
-          "resultsUpdated": "2025-02-23 13:12:22.766",
+          "resultsUpdated": "2025-02-23 13:52:28.539",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -182,9 +182,9 @@
           "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
           "shortName": "sbvv-u20w",
           "type": "Competition",
-          "updated": "2025-02-23 13:12:22.766",
+          "updated": "2025-02-23 13:52:28.539",
           "structureUpdated": "2025-02-18 09:57:57.935",
-          "resultsUpdated": "2025-02-23 13:12:22.766",
+          "resultsUpdated": "2025-02-23 13:52:28.539",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -312,9 +312,9 @@
           "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
           "shortName": "sbvv-u20w",
           "type": "Competition",
-          "updated": "2025-02-23 13:12:22.766",
+          "updated": "2025-02-23 13:52:28.539",
           "structureUpdated": "2025-02-18 09:57:57.935",
-          "resultsUpdated": "2025-02-23 13:12:22.766",
+          "resultsUpdated": "2025-02-23 13:52:28.539",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -442,9 +442,9 @@
           "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
           "shortName": "sbvv-u20w",
           "type": "Competition",
-          "updated": "2025-02-23 13:12:22.766",
+          "updated": "2025-02-23 13:52:28.539",
           "structureUpdated": "2025-02-18 09:57:57.935",
-          "resultsUpdated": "2025-02-23 13:12:22.766",
+          "resultsUpdated": "2025-02-23 13:52:28.539",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -572,9 +572,9 @@
           "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
           "shortName": "sbvv-u20w",
           "type": "Competition",
-          "updated": "2025-02-23 13:12:22.766",
+          "updated": "2025-02-23 13:52:28.539",
           "structureUpdated": "2025-02-18 09:57:57.935",
-          "resultsUpdated": "2025-02-23 13:12:22.766",
+          "resultsUpdated": "2025-02-23 13:52:28.539",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -678,9 +678,9 @@
           "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
           "shortName": "sbvv-u20w",
           "type": "Competition",
-          "updated": "2025-02-23 13:12:22.766",
+          "updated": "2025-02-23 13:52:28.539",
           "structureUpdated": "2025-02-18 09:57:57.935",
-          "resultsUpdated": "2025-02-23 13:12:22.766",
+          "resultsUpdated": "2025-02-23 13:52:28.539",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -730,6 +730,30 @@
           "note": "-"
         },
         "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:17",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:9",
+                "winner": "TEAM1",
+                "duration": "0"
+              },
+              {
+                "number": "2",
+                "points": "25:8",
+                "winner": "TEAM1",
+                "duration": "14"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "10",
+        "netDuration": "14",
         "dateObject": "2025-02-23T12:30:00.000Z",
         "dateIso": "2025-02-23T12:30:00.000Z"
       },
@@ -765,14 +789,14 @@
           },
           {
             "number": "2",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
+            "id": "80826159",
+            "uuid": "1079b1e5-c3e5-442c-a659-a031726d7b6a",
+            "seasonTeamId": "80826159",
+            "name": "TSV Mimmenhausen 2",
             "shortName": null,
             "clubCode": null,
             "club": {
-              "name": null,
+              "name": "TSV Mimmenhausen",
               "shortName": null
             }
           }
@@ -784,9 +808,9 @@
           "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
           "shortName": "sbvv-u20w",
           "type": "Competition",
-          "updated": "2025-02-23 13:12:22.766",
+          "updated": "2025-02-23 13:52:28.539",
           "structureUpdated": "2025-02-18 09:57:57.935",
-          "resultsUpdated": "2025-02-23 13:12:22.766",
+          "resultsUpdated": "2025-02-23 13:52:28.539",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -858,14 +882,14 @@
         "team": [
           {
             "number": "1",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
+            "id": "80826103",
+            "uuid": "d583d5c5-5fbe-40bc-8133-63427eb15172",
+            "seasonTeamId": "80826103",
+            "name": "FT 1844 Freiburg 2",
             "shortName": null,
             "clubCode": null,
             "club": {
-              "name": null,
+              "name": "FT 1844 Freiburg",
               "shortName": null
             }
           },
@@ -890,9 +914,9 @@
           "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
           "shortName": "sbvv-u20w",
           "type": "Competition",
-          "updated": "2025-02-23 13:12:22.766",
+          "updated": "2025-02-23 13:52:28.539",
           "structureUpdated": "2025-02-18 09:57:57.935",
-          "resultsUpdated": "2025-02-23 13:12:22.766",
+          "resultsUpdated": "2025-02-23 13:52:28.539",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -977,14 +1001,14 @@
           },
           {
             "number": "2",
-            "id": null,
-            "uuid": null,
-            "seasonTeamId": null,
-            "name": null,
+            "id": "80826130",
+            "uuid": "104a8621-8957-4883-9e54-035cdde71037",
+            "seasonTeamId": "80826130",
+            "name": "VC Müllheim",
             "shortName": null,
             "clubCode": null,
             "club": {
-              "name": null,
+              "name": "VC Müllheim",
               "shortName": null
             }
           }
@@ -996,9 +1020,9 @@
           "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
           "shortName": "sbvv-u20w",
           "type": "Competition",
-          "updated": "2025-02-23 13:12:22.766",
+          "updated": "2025-02-23 13:52:28.539",
           "structureUpdated": "2025-02-18 09:57:57.935",
-          "resultsUpdated": "2025-02-23 13:12:22.766",
+          "resultsUpdated": "2025-02-23 13:52:28.539",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1102,9 +1126,9 @@
           "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
           "shortName": "sbvv-u20w",
           "type": "Competition",
-          "updated": "2025-02-23 13:12:22.766",
+          "updated": "2025-02-23 13:52:28.539",
           "structureUpdated": "2025-02-18 09:57:57.935",
-          "resultsUpdated": "2025-02-23 13:12:22.766",
+          "resultsUpdated": "2025-02-23 13:52:28.539",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -1208,9 +1232,9 @@
           "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
           "shortName": "sbvv-u20w",
           "type": "Competition",
-          "updated": "2025-02-23 13:12:22.766",
+          "updated": "2025-02-23 13:52:28.539",
           "structureUpdated": "2025-02-18 09:57:57.935",
-          "resultsUpdated": "2025-02-23 13:12:22.766",
+          "resultsUpdated": "2025-02-23 13:52:28.539",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
