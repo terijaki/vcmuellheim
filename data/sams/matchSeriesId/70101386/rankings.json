@@ -7,9 +7,9 @@
       "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
       "shortName": "sbvv-u20w",
       "type": "Competition",
-      "updated": "2025-02-18 09:57:57.935",
+      "updated": "2025-02-23 12:06:39.816",
       "structureUpdated": "2025-02-18 09:57:57.935",
-      "resultsUpdated": "2024-03-25 11:45:13.959",
+      "resultsUpdated": "2025-02-23 12:06:39.816",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -48,62 +48,6 @@
         "name": "Südbadischer Volleyball-Verband",
         "shortName": "SBVV"
       }
-    },
-    "ranking": [
-      {
-        "place": null,
-        "team": {
-          "id": "80826074",
-          "uuid": "bd89935e-6521-496f-b84a-f14d47be205e",
-          "name": "FT 1844 Freiburg 1",
-          "club": "FT 1844 Freiburg"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "80826130",
-          "uuid": "104a8621-8957-4883-9e54-035cdde71037",
-          "name": "VC Müllheim",
-          "club": "VC Müllheim"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "80826103",
-          "uuid": "d583d5c5-5fbe-40bc-8133-63427eb15172",
-          "name": "FT 1844 Freiburg 2",
-          "club": "FT 1844 Freiburg"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "88544332",
-          "uuid": "73ac0306-b5a8-4e18-9f72-c98e8b60d3c0",
-          "name": "VC Weil",
-          "club": "VC Weil am Rhein"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "80826159",
-          "uuid": "1079b1e5-c3e5-442c-a659-a031726d7b6a",
-          "name": "TSV Mimmenhausen 2",
-          "club": "TSV Mimmenhausen"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "80826149",
-          "uuid": "2d9a4f5d-0e02-46ba-a751-ea7bfee0cdab",
-          "name": "USC Konstanz",
-          "club": "USC Konstanz"
-        }
-      }
-    ]
+    }
   }
 }
