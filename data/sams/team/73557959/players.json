@@ -1,5 +1,5 @@
 {
-    "date": "2025-02-20T02:47:15.266Z",
+    "date": "2025-02-23T09:21:13.118Z",
     "players": [
         {
             "lastname": "Albrecht",
@@ -74,6 +74,14 @@
             "function": ""
         },
         {
+            "lastname": "Meyer",
+            "firstname": "Naja",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
             "lastname": "Peters",
             "firstname": "Marina",
             "nationality": "DE",
@@ -100,6 +108,14 @@
         {
             "lastname": "Peters",
             "firstname": "Alessia",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Aktürk",
+            "firstname": "Iclal Azra",
             "nationality": "DE",
             "number": "",
             "height": "",
