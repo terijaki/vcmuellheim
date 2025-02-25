@@ -25152,16 +25152,6 @@
         }
       },
       {
-        "id": "37921017",
-        "name": "TuS Hiltrup 1930 e.V.",
-        "lsbNumber": "3003003",
-        "internalSportsclubId": "2202",
-        "association": {
-          "id": "33797300",
-          "name": "Münster"
-        }
-      },
-      {
         "id": "65036815",
         "name": "TV Kleingemünd",
         "lsbNumber": "50708",
@@ -25176,6 +25166,16 @@
         "name": "Förderverein Jugend - Volleyball Hiltrup e.V.",
         "lsbNumber": "3003229",
         "internalSportsclubId": "9144",
+        "association": {
+          "id": "33797300",
+          "name": "Münster"
+        }
+      },
+      {
+        "id": "37921017",
+        "name": "TuS Hiltrup 1930 e.V.",
+        "lsbNumber": "3003003",
+        "internalSportsclubId": "2202",
         "association": {
           "id": "33797300",
           "name": "Münster"
@@ -35302,6 +35302,16 @@
         }
       },
       {
+        "id": "14902327",
+        "name": "VC 73 Freudenberg e.V.",
+        "lsbNumber": "5504010",
+        "internalSportsclubId": "9053",
+        "association": {
+          "id": "33798087",
+          "name": "Siegen-Olpe"
+        }
+      },
+      {
         "id": "37948391",
         "name": "TSV Keramik Reuden",
         "lsbNumber": "110088",
@@ -35429,16 +35439,6 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "14902327",
-        "name": "VC 73 Freudenberg e.V.",
-        "lsbNumber": "5504010",
-        "internalSportsclubId": "9053",
-        "association": {
-          "id": "33798087",
-          "name": "Siegen-Olpe"
         }
       },
       {
@@ -49879,16 +49879,6 @@
         "association": {
           "id": "25383414",
           "name": "Volleyball-Verband Pfalz"
-        }
-      },
-      {
-        "id": "50621983",
-        "name": "SV Germania Hormersdorf e.V.",
-        "lsbNumber": "440372",
-        "internalSportsclubId": "523",
-        "association": {
-          "id": "24908672",
-          "name": "Landkreis Mittelsachsen"
         }
       },
       {
@@ -65352,16 +65342,6 @@
         }
       },
       {
-        "id": "16946996",
-        "name": "MTV Ludwigsburg",
-        "lsbNumber": "12112",
-        "internalSportsclubId": "81",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
         "id": "65036750",
         "name": "TB Neckarsteinach",
         "lsbNumber": "50712",
@@ -66092,16 +66072,6 @@
         }
       },
       {
-        "id": "37921089",
-        "name": "TuS Stemwede 1974 e.V.",
-        "lsbNumber": "4511010",
-        "internalSportsclubId": "461",
-        "association": {
-          "id": "33797702",
-          "name": "Minden-Ravensberg"
-        }
-      },
-      {
         "id": "11618290",
         "name": "BSV Ostbevern 1923 e.V.",
         "lsbNumber": "3308003",
@@ -66169,6 +66139,16 @@
         "association": {
           "id": "33299056",
           "name": "Essen"
+        }
+      },
+      {
+        "id": "37921089",
+        "name": "TuS Stemwede 1974 e.V.",
+        "lsbNumber": "4511010",
+        "internalSportsclubId": "461",
+        "association": {
+          "id": "33797702",
+          "name": "Minden-Ravensberg"
         }
       },
       {
@@ -73732,6 +73712,16 @@
         }
       },
       {
+        "id": "50621983",
+        "name": "SV Germania Hormersdorf e.V.",
+        "lsbNumber": "440372",
+        "internalSportsclubId": "523",
+        "association": {
+          "id": "24908672",
+          "name": "Landkreis Mittelsachsen"
+        }
+      },
+      {
         "id": "26925375",
         "name": "KSV Baunatal e.V.",
         "lsbNumber": "41002",
@@ -73879,6 +73869,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "16946996",
+        "name": "MTV Ludwigsburg",
+        "lsbNumber": "12112",
+        "internalSportsclubId": "81",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
         }
       },
       {
