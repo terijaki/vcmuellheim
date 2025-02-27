@@ -6052,16 +6052,6 @@
         }
       },
       {
-        "id": "26819191",
-        "name": "WSV Bad Lobenstein e.V.",
-        "lsbNumber": "280063",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
-        }
-      },
-      {
         "id": "26819180",
         "name": "SV Blankenberg e.V.",
         "lsbNumber": "280177",
@@ -6875,16 +6865,6 @@
         "id": "26819294",
         "name": "Triebeser Handballverein e.V.",
         "lsbNumber": "140107",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
-        }
-      },
-      {
-        "id": "26819295",
-        "name": "TSV 08 Gleichamberg e.V.",
-        "lsbNumber": "160045",
         "internalSportsclubId": null,
         "association": {
           "id": "26272888",
@@ -11632,6 +11612,16 @@
         }
       },
       {
+        "id": "54610913",
+        "name": "SportKultur Stuttgart",
+        "lsbNumber": "20183",
+        "internalSportsclubId": "259",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
         "id": "26846479",
         "name": "Sportgemeinschaft DE-Consult e.V.",
         "lsbNumber": "3634",
@@ -11729,16 +11719,6 @@
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
-        "id": "54610913",
-        "name": "SportKultur Stuttgart",
-        "lsbNumber": "20183",
-        "internalSportsclubId": "259",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
         }
       },
       {
@@ -22422,16 +22402,6 @@
         }
       },
       {
-        "id": "54610706",
-        "name": "TSV Gaildorf",
-        "lsbNumber": "18035",
-        "internalSportsclubId": "43",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
         "id": "37921692",
         "name": "TV Goch 1883 e.V.",
         "lsbNumber": "1104003",
@@ -32672,6 +32642,16 @@
         }
       },
       {
+        "id": "65036764",
+        "name": "VSG Mundingen",
+        "lsbNumber": "480310",
+        "internalSportsclubId": "3403",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "37922018",
         "name": "DJK Brachelen e.V.",
         "lsbNumber": "2505026",
@@ -32799,16 +32779,6 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "65036764",
-        "name": "VSG Mundingen",
-        "lsbNumber": "480310",
-        "internalSportsclubId": "3403",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -35212,6 +35182,16 @@
         }
       },
       {
+        "id": "37948563",
+        "name": "SV Feuerwehr Halle e.V.",
+        "lsbNumber": "140142",
+        "internalSportsclubId": "140142",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "37921233",
         "name": "ISD Sportverein e.V.",
         "lsbNumber": "1001469",
@@ -35239,16 +35219,6 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
-        "id": "37948563",
-        "name": "SV Feuerwehr Halle e.V.",
-        "lsbNumber": "140142",
-        "internalSportsclubId": "140142",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -41159,16 +41129,6 @@
         "association": {
           "id": "24908672",
           "name": "Landkreis Mittelsachsen"
-        }
-      },
-      {
-        "id": "26866487",
-        "name": "TuS Ormesheim",
-        "lsbNumber": "85661",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
         }
       },
       {
@@ -51922,16 +51882,6 @@
         }
       },
       {
-        "id": "54611081",
-        "name": "SV Auingen",
-        "lsbNumber": "16072",
-        "internalSportsclubId": "439",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "82878008",
         "name": "MTV Bücken",
         "lsbNumber": "302230180",
@@ -52109,6 +52059,16 @@
         "association": {
           "id": "25383414",
           "name": "Volleyball-Verband Pfalz"
+        }
+      },
+      {
+        "id": "54611081",
+        "name": "SV Auingen",
+        "lsbNumber": "16072",
+        "internalSportsclubId": "439",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -65492,16 +65452,6 @@
         }
       },
       {
-        "id": "54610835",
-        "name": "TSG Eislingen",
-        "lsbNumber": "8045",
-        "internalSportsclubId": "178",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "26925716",
         "name": "TuS Griesheim 1899",
         "lsbNumber": "33092",
@@ -65639,6 +65589,16 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "54610835",
+        "name": "TSG Eislingen",
+        "lsbNumber": "8045",
+        "internalSportsclubId": "178",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       },
       {
@@ -67162,16 +67122,6 @@
         }
       },
       {
-        "id": "4465199",
-        "name": "TuS Durmersheim",
-        "lsbNumber": "470620",
-        "internalSportsclubId": "01007",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "37921682",
         "name": "Post Telekom SV Mönchengladbach e.V.",
         "lsbNumber": "1005051",
@@ -68479,16 +68429,6 @@
         "association": {
           "id": "25464727",
           "name": "Kreis Grafschaft Bentheim"
-        }
-      },
-      {
-        "id": "37948645",
-        "name": "WSG Cracau Magdeburg e.V.",
-        "lsbNumber": "120030",
-        "internalSportsclubId": "120030",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -73742,6 +73682,16 @@
         }
       },
       {
+        "id": "54610706",
+        "name": "TSV Gaildorf",
+        "lsbNumber": "18035",
+        "internalSportsclubId": "43",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
+        }
+      },
+      {
         "id": "82877814",
         "name": "BSC Hastedt Bremen",
         "lsbNumber": "50158",
@@ -73879,6 +73829,66 @@
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
+        }
+      },
+      {
+        "id": "26819295",
+        "name": "TSV 08 Gleichamberg e.V.",
+        "lsbNumber": "160045",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249283",
+          "name": "Kreisverband Süd"
+        }
+      },
+      {
+        "id": "26819191",
+        "name": "WSV Bad Lobenstein e.V.",
+        "lsbNumber": "280063",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249283",
+          "name": "Kreisverband Süd"
+        }
+      },
+      {
+        "id": "88995846",
+        "name": "VfL 09 Jünkerath e.V.",
+        "lsbNumber": "292",
+        "internalSportsclubId": "292",
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
+        "id": "37948645",
+        "name": "WSG Cracau Magdeburg e.V.",
+        "lsbNumber": "120030",
+        "internalSportsclubId": "120030",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "4465199",
+        "name": "TuS Durmersheim",
+        "lsbNumber": "470620",
+        "internalSportsclubId": "01007",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26866487",
+        "name": "TuS Ormesheim",
+        "lsbNumber": "85661",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
         }
       },
       {
