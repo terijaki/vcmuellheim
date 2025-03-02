@@ -3692,16 +3692,6 @@
         }
       },
       {
-        "id": "26818834",
-        "name": "Sportvereinigung Peuschen e.V.",
-        "lsbNumber": "280101",
-        "internalSportsclubId": "08499",
-        "association": {
-          "id": "26249261",
-          "name": "Kreisverband Ost"
-        }
-      },
-      {
         "id": "26818849",
         "name": "Sportfreunde Suhl e.V.",
         "lsbNumber": "360020",
@@ -74059,6 +74049,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "26818834",
+        "name": "Sportvereinigung Peuschen e.V.",
+        "lsbNumber": "280101",
+        "internalSportsclubId": "08499",
+        "association": {
+          "id": "26249261",
+          "name": "Kreisverband Ost"
         }
       },
       {
