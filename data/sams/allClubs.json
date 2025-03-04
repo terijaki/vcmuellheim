@@ -30042,16 +30042,6 @@
         }
       },
       {
-        "id": "26818992",
-        "name": "Radfahrer-Verein 1921 Leinefelde",
-        "lsbNumber": "150142",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
-        }
-      },
-      {
         "id": "37948470",
         "name": "SG Aufbau-Elbe e.V. Magdeburg",
         "lsbNumber": "120018",
@@ -71862,16 +71852,6 @@
         }
       },
       {
-        "id": "82877451",
-        "name": "TSV Brüggen 1908 e.V.",
-        "lsbNumber": "3033249524",
-        "internalSportsclubId": "30553",
-        "association": {
-          "id": "25464082",
-          "name": "Kreis Hildesheim"
-        }
-      },
-      {
         "id": "82877452",
         "name": "Langenberger SG",
         "lsbNumber": "617453",
@@ -71999,6 +71979,16 @@
         "association": {
           "id": "33795261",
           "name": "Köln"
+        }
+      },
+      {
+        "id": "82877451",
+        "name": "TSV Brüggen 1908 e.V.",
+        "lsbNumber": "3033249524",
+        "internalSportsclubId": "30553",
+        "association": {
+          "id": "25464082",
+          "name": "Kreis Hildesheim"
         }
       },
       {
@@ -74059,6 +74049,16 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "26818992",
+        "name": "Radfahrer-Verein 1921 Leinefelde",
+        "lsbNumber": "150142",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
         }
       },
       {
