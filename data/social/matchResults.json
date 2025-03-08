@@ -337,6 +337,18 @@
       "score": "2:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/114048226212684100"
+    },
+    {
+      "uuid": "43f2f89b-fd2b-44e5-984d-8972e589cc7d",
+      "date": "2025-03-08T14:00:00.000Z",
+      "league": "Landesliga West Herren",
+      "team": [
+        "TSV Al. Zähringen 1",
+        "VC Müllheim 1"
+      ],
+      "winner": 2,
+      "score": "2:3",
+      "mastodon": "new"
     }
   ]
 }
