@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2025-03-08 15:52:27.061",
+      "updated": "2025-03-08 17:12:59.361",
       "structureUpdated": "2025-03-05 21:01:51.488",
-      "resultsUpdated": "2025-03-08 15:52:27.061",
+      "resultsUpdated": "2025-03-08 17:12:59.361",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -125,20 +125,20 @@
           }
         },
         "place": "2",
-        "matchesPlayed": "16",
-        "wins": "10",
+        "matchesPlayed": "17",
+        "wins": "11",
         "losses": "6",
-        "points": "31",
-        "setPoints": "36:22",
-        "setWinScore": "36",
-        "setLoseScore": "22",
-        "setPointDifference": "14",
-        "setQuotient": "1,636\n            ",
-        "ballPoints": "1339:1242",
-        "ballWinScore": "1339",
-        "ballLoseScore": "1242",
-        "ballPointDifference": "97",
-        "ballQuotient": "1,078\n            ",
+        "points": "33",
+        "setPoints": "39:24",
+        "setWinScore": "39",
+        "setLoseScore": "24",
+        "setPointDifference": "15",
+        "setQuotient": "1,625\n            ",
+        "ballPoints": "1442:1336",
+        "ballWinScore": "1442",
+        "ballLoseScore": "1336",
+        "ballPointDifference": "106",
+        "ballQuotient": "1,079\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -151,7 +151,7 @@
             },
             {
               "result": "3:2",
-              "count": "1"
+              "count": "2"
             },
             {
               "result": "2:3",
@@ -394,6 +394,62 @@
       },
       {
         "team": {
+          "id": "73349547",
+          "uuid": "447ad96d-f886-4b5b-bee4-ed76c5c2962a",
+          "name": "TSV Al. Zähringen 1",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TSV Alemannia Freiburg-Zähringen",
+            "shortName": null
+          }
+        },
+        "place": "7",
+        "matchesPlayed": "14",
+        "wins": "6",
+        "losses": "8",
+        "points": "19",
+        "setPoints": "26:29",
+        "setWinScore": "26",
+        "setLoseScore": "29",
+        "setPointDifference": "-3",
+        "setQuotient": "0,897\n            ",
+        "ballPoints": "1206:1221",
+        "ballWinScore": "1206",
+        "ballLoseScore": "1221",
+        "ballPointDifference": "-15",
+        "ballQuotient": "0,988\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "3"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "3"
+            },
+            {
+              "result": "1:3",
+              "count": "2"
+            },
+            {
+              "result": "0:3",
+              "count": "3"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73349554",
           "uuid": "05640b90-239f-4738-aade-96c68a7f1e86",
           "name": "Südbaden-Auswahl",
@@ -404,7 +460,7 @@
             "shortName": null
           }
         },
-        "place": "7",
+        "place": "8",
         "matchesPlayed": "16",
         "wins": "6",
         "losses": "10",
@@ -440,62 +496,6 @@
             {
               "result": "1:3",
               "count": "4"
-            },
-            {
-              "result": "0:3",
-              "count": "3"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73349547",
-          "uuid": "447ad96d-f886-4b5b-bee4-ed76c5c2962a",
-          "name": "TSV Al. Zähringen 1",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TSV Alemannia Freiburg-Zähringen",
-            "shortName": null
-          }
-        },
-        "place": "8",
-        "matchesPlayed": "13",
-        "wins": "6",
-        "losses": "7",
-        "points": "18",
-        "setPoints": "24:26",
-        "setWinScore": "24",
-        "setLoseScore": "26",
-        "setPointDifference": "-2",
-        "setQuotient": "0,923\n            ",
-        "ballPoints": "1112:1118",
-        "ballWinScore": "1112",
-        "ballLoseScore": "1118",
-        "ballPointDifference": "-6",
-        "ballQuotient": "0,995\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "3"
-            },
-            {
-              "result": "3:1",
-              "count": "1"
-            },
-            {
-              "result": "3:2",
-              "count": "2"
-            },
-            {
-              "result": "2:3",
-              "count": "2"
-            },
-            {
-              "result": "1:3",
-              "count": "2"
             },
             {
               "result": "0:3",
