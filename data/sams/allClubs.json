@@ -42132,16 +42132,6 @@
         }
       },
       {
-        "id": "54610739",
-        "name": "TV Lienzingen",
-        "lsbNumber": "12245",
-        "internalSportsclubId": "77",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
         "id": "50621811",
         "name": "VSC Klingenthal e.V.",
         "lsbNumber": "510333",
@@ -42179,6 +42169,16 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "54610739",
+        "name": "TV Lienzingen",
+        "lsbNumber": "12245",
+        "internalSportsclubId": "77",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
         }
       },
       {
