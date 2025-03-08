@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2025-03-08 17:12:59.361",
+      "updated": "2025-03-08 19:31:50.428",
       "structureUpdated": "2025-03-05 21:01:51.488",
-      "resultsUpdated": "2025-03-08 17:12:59.361",
+      "resultsUpdated": "2025-03-08 19:31:50.428",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -69,20 +69,20 @@
           }
         },
         "place": "1",
-        "matchesPlayed": "16",
-        "wins": "11",
+        "matchesPlayed": "17",
+        "wins": "12",
         "losses": "5",
-        "points": "34",
-        "setPoints": "37:17",
-        "setWinScore": "37",
-        "setLoseScore": "17",
-        "setPointDifference": "20",
-        "setQuotient": "2,176\n            ",
-        "ballPoints": "1147:1083",
-        "ballWinScore": "1147",
-        "ballLoseScore": "1083",
-        "ballPointDifference": "64",
-        "ballQuotient": "1,059\n            ",
+        "points": "36",
+        "setPoints": "40:19",
+        "setWinScore": "40",
+        "setLoseScore": "19",
+        "setPointDifference": "21",
+        "setQuotient": "2,105\n            ",
+        "ballPoints": "1254:1182",
+        "ballWinScore": "1254",
+        "ballLoseScore": "1182",
+        "ballPointDifference": "72",
+        "ballQuotient": "1,061\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -95,7 +95,7 @@
             },
             {
               "result": "3:2",
-              "count": "0"
+              "count": "1"
             },
             {
               "result": "2:3",
@@ -181,20 +181,20 @@
           }
         },
         "place": "3",
-        "matchesPlayed": "14",
+        "matchesPlayed": "15",
         "wins": "10",
-        "losses": "4",
+        "losses": "5",
         "points": "30",
-        "setPoints": "35:19",
+        "setPoints": "35:22",
         "setWinScore": "35",
-        "setLoseScore": "19",
-        "setPointDifference": "16",
-        "setQuotient": "1,842\n            ",
-        "ballPoints": "1237:1118",
-        "ballWinScore": "1237",
-        "ballLoseScore": "1118",
-        "ballPointDifference": "119",
-        "ballQuotient": "1,106\n            ",
+        "setLoseScore": "22",
+        "setPointDifference": "13",
+        "setQuotient": "1,591\n            ",
+        "ballPoints": "1294:1195",
+        "ballWinScore": "1294",
+        "ballLoseScore": "1195",
+        "ballPointDifference": "99",
+        "ballQuotient": "1,083\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -219,7 +219,7 @@
             },
             {
               "result": "0:3",
-              "count": "1"
+              "count": "2"
             }
           ]
         }
@@ -237,25 +237,25 @@
           }
         },
         "place": "4",
-        "matchesPlayed": "14",
-        "wins": "8",
+        "matchesPlayed": "15",
+        "wins": "9",
         "losses": "6",
-        "points": "26",
-        "setPoints": "32:25",
-        "setWinScore": "32",
+        "points": "29",
+        "setPoints": "35:25",
+        "setWinScore": "35",
         "setLoseScore": "25",
-        "setPointDifference": "7",
-        "setQuotient": "1,280\n            ",
-        "ballPoints": "1260:1249",
-        "ballWinScore": "1260",
-        "ballLoseScore": "1249",
-        "ballPointDifference": "11",
-        "ballQuotient": "1,009\n            ",
+        "setPointDifference": "10",
+        "setQuotient": "1,400\n            ",
+        "ballPoints": "1337:1306",
+        "ballWinScore": "1337",
+        "ballLoseScore": "1306",
+        "ballPointDifference": "31",
+        "ballQuotient": "1,024\n            ",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "3:1",
@@ -282,6 +282,62 @@
       },
       {
         "team": {
+          "id": "73349547",
+          "uuid": "447ad96d-f886-4b5b-bee4-ed76c5c2962a",
+          "name": "TSV Al. Zähringen 1",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TSV Alemannia Freiburg-Zähringen",
+            "shortName": null
+          }
+        },
+        "place": "5",
+        "matchesPlayed": "15",
+        "wins": "7",
+        "losses": "8",
+        "points": "22",
+        "setPoints": "29:30",
+        "setWinScore": "29",
+        "setLoseScore": "30",
+        "setPointDifference": "-1",
+        "setQuotient": "0,967\n            ",
+        "ballPoints": "1302:1308",
+        "ballWinScore": "1302",
+        "ballLoseScore": "1308",
+        "ballPointDifference": "-6",
+        "ballQuotient": "0,995\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "3"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "3"
+            },
+            {
+              "result": "1:3",
+              "count": "2"
+            },
+            {
+              "result": "0:3",
+              "count": "3"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73349535",
           "uuid": "d749145f-4492-4ae4-867e-39689506efb9",
           "name": "VC Weil 2",
@@ -292,21 +348,21 @@
             "shortName": null
           }
         },
-        "place": "5",
-        "matchesPlayed": "14",
+        "place": "6",
+        "matchesPlayed": "15",
         "wins": "7",
-        "losses": "7",
-        "points": "20",
-        "setPoints": "26:29",
-        "setWinScore": "26",
-        "setLoseScore": "29",
-        "setPointDifference": "-3",
-        "setQuotient": "0,897\n            ",
-        "ballPoints": "1204:1118",
-        "ballWinScore": "1204",
-        "ballLoseScore": "1118",
-        "ballPointDifference": "86",
-        "ballQuotient": "1,077\n            ",
+        "losses": "8",
+        "points": "21",
+        "setPoints": "28:32",
+        "setWinScore": "28",
+        "setLoseScore": "32",
+        "setPointDifference": "-4",
+        "setQuotient": "0,875\n            ",
+        "ballPoints": "1303:1225",
+        "ballWinScore": "1303",
+        "ballLoseScore": "1225",
+        "ballPointDifference": "78",
+        "ballQuotient": "1,064\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -323,7 +379,7 @@
             },
             {
               "result": "2:3",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "1:3",
@@ -348,7 +404,7 @@
             "shortName": null
           }
         },
-        "place": "6",
+        "place": "7",
         "matchesPlayed": "15",
         "wins": "7",
         "losses": "8",
@@ -388,62 +444,6 @@
             {
               "result": "0:3",
               "count": "2"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73349547",
-          "uuid": "447ad96d-f886-4b5b-bee4-ed76c5c2962a",
-          "name": "TSV Al. Zähringen 1",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TSV Alemannia Freiburg-Zähringen",
-            "shortName": null
-          }
-        },
-        "place": "7",
-        "matchesPlayed": "14",
-        "wins": "6",
-        "losses": "8",
-        "points": "19",
-        "setPoints": "26:29",
-        "setWinScore": "26",
-        "setLoseScore": "29",
-        "setPointDifference": "-3",
-        "setQuotient": "0,897\n            ",
-        "ballPoints": "1206:1221",
-        "ballWinScore": "1206",
-        "ballLoseScore": "1221",
-        "ballPointDifference": "-15",
-        "ballQuotient": "0,988\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "3"
-            },
-            {
-              "result": "3:1",
-              "count": "1"
-            },
-            {
-              "result": "3:2",
-              "count": "2"
-            },
-            {
-              "result": "2:3",
-              "count": "3"
-            },
-            {
-              "result": "1:3",
-              "count": "2"
-            },
-            {
-              "result": "0:3",
-              "count": "3"
             }
           ]
         }
@@ -517,20 +517,20 @@
           }
         },
         "place": "9",
-        "matchesPlayed": "14",
+        "matchesPlayed": "15",
         "wins": "6",
-        "losses": "8",
+        "losses": "9",
         "points": "15",
-        "setPoints": "20:33",
-        "setWinScore": "20",
-        "setLoseScore": "33",
-        "setPointDifference": "-13",
-        "setQuotient": "0,606\n            ",
-        "ballPoints": "1141:1215",
-        "ballWinScore": "1141",
-        "ballLoseScore": "1215",
-        "ballPointDifference": "-74",
-        "ballQuotient": "0,939\n            ",
+        "setPoints": "21:36",
+        "setWinScore": "21",
+        "setLoseScore": "36",
+        "setPointDifference": "-15",
+        "setQuotient": "0,583\n            ",
+        "ballPoints": "1228:1311",
+        "ballWinScore": "1228",
+        "ballLoseScore": "1311",
+        "ballPointDifference": "-83",
+        "ballQuotient": "0,937\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -551,7 +551,7 @@
             },
             {
               "result": "1:3",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "0:3",
