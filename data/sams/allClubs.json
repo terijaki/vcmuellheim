@@ -98192,16 +98192,6 @@
         }
       },
       {
-        "id": "37921262",
-        "name": "Oberaußemer VV 1975 e.V.",
-        "lsbNumber": "2302004",
-        "internalSportsclubId": "8105",
-        "association": {
-          "id": "33795221",
-          "name": "Rhein-Erft"
-        }
-      },
-      {
         "id": "26846532",
         "name": "Sportclub Baume e.V.",
         "lsbNumber": "13331",
@@ -98209,6 +98199,16 @@
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "37921262",
+        "name": "Oberaußemer VV 1975 e.V.",
+        "lsbNumber": "2302004",
+        "internalSportsclubId": "8105",
+        "association": {
+          "id": "33795221",
+          "name": "Rhein-Erft"
         }
       }
     ]
