@@ -11452,16 +11452,6 @@
         }
       },
       {
-        "id": "29841463",
-        "name": "TV Schwarzenholz",
-        "lsbNumber": "87575",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
         "id": "13899405",
         "name": "TSV Giesen GRIZZLYS",
         "lsbNumber": "302212340",
@@ -11469,16 +11459,6 @@
         "association": {
           "id": "25464082",
           "name": "Kreis Hildesheim"
-        }
-      },
-      {
-        "id": "29841575",
-        "name": "TV Schaffhausen",
-        "lsbNumber": "87509",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
         }
       },
       {
@@ -11529,6 +11509,16 @@
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "29841575",
+        "name": "TV Schaffhausen",
+        "lsbNumber": "87509",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
         }
       },
       {
@@ -11619,6 +11609,16 @@
         "association": {
           "id": "26249283",
           "name": "Kreisverband Süd"
+        }
+      },
+      {
+        "id": "29841463",
+        "name": "TV Schwarzenholz",
+        "lsbNumber": "87575",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
         }
       },
       {
@@ -33852,16 +33852,6 @@
         }
       },
       {
-        "id": "52623512",
-        "name": "Luckenwalder Volleyball-Club e.V.",
-        "lsbNumber": "720004",
-        "internalSportsclubId": "720004",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "82878372",
         "name": "TSV Engensen",
         "lsbNumber": "302191420",
@@ -37032,16 +37022,6 @@
         }
       },
       {
-        "id": "49504349",
-        "name": "BSV \"Funkstadt\"  Nauen",
-        "lsbNumber": "630079",
-        "internalSportsclubId": "630079",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "49504363",
         "name": "SV Preußen Frankfurt (Oder)",
         "lsbNumber": "530021",
@@ -37102,6 +37082,16 @@
         }
       },
       {
+        "id": "49504369",
+        "name": "SG Concordia Buckow 1861/Waldsieversdorf",
+        "lsbNumber": "640009",
+        "internalSportsclubId": "640009",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "49504347",
         "name": "Belziger SG Einheit",
         "lsbNumber": "690037",
@@ -37132,16 +37122,6 @@
         }
       },
       {
-        "id": "49504369",
-        "name": "SG Concordia Buckow 1861/Waldsieversdorf",
-        "lsbNumber": "640009",
-        "internalSportsclubId": "640009",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "37948339",
         "name": "LSG Klobikau-Milzau 1899 e.V.",
         "lsbNumber": "100026",
@@ -37149,6 +37129,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "49504349",
+        "name": "BSV \"Funkstadt\"  Nauen",
+        "lsbNumber": "630079",
+        "internalSportsclubId": "630079",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -37362,6 +37352,16 @@
         }
       },
       {
+        "id": "49504419",
+        "name": "TuS 1896 Dallmin e.V.",
+        "lsbNumber": "700030",
+        "internalSportsclubId": "700030",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "82878881",
         "name": "TSV Eystrup",
         "lsbNumber": "302230420",
@@ -37502,16 +37502,6 @@
         }
       },
       {
-        "id": "49504419",
-        "name": "TuS 1896 Dallmin e.V.",
-        "lsbNumber": "700030",
-        "internalSportsclubId": "700030",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "54611262",
         "name": "SV Unter/Oberschmeien",
         "lsbNumber": "0",
@@ -37582,6 +37572,16 @@
         }
       },
       {
+        "id": "49504458",
+        "name": "SG Blau Weiß Beelitz 1912/90",
+        "lsbNumber": "690032",
+        "internalSportsclubId": "690032",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "49504449",
         "name": "BFS Mannschaften (BVV)",
         "lsbNumber": "730201",
@@ -37626,16 +37626,6 @@
         "name": "SV Döbern e.V.",
         "lsbNumber": "710030",
         "internalSportsclubId": "710030",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
-        "id": "49504458",
-        "name": "SG Blau Weiß Beelitz 1912/90",
-        "lsbNumber": "690032",
-        "internalSportsclubId": "690032",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -39832,16 +39822,6 @@
         }
       },
       {
-        "id": "54610678",
-        "name": "SpVgg Besigheim",
-        "lsbNumber": "12015",
-        "internalSportsclubId": "14",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
-        }
-      },
-      {
         "id": "50621583",
         "name": "SSV Chemnitz e.V.",
         "lsbNumber": "400133",
@@ -39919,6 +39899,16 @@
         "association": {
           "id": "24908869",
           "name": "Landkreis Nordsachsen"
+        }
+      },
+      {
+        "id": "54610678",
+        "name": "SpVgg Besigheim",
+        "lsbNumber": "12015",
+        "internalSportsclubId": "14",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
         }
       },
       {
@@ -66472,16 +66462,6 @@
         }
       },
       {
-        "id": "26866424",
-        "name": "SSG Schwarzenholz-Griesborn",
-        "lsbNumber": "12348",
-        "internalSportsclubId": "12",
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
         "id": "26866453",
         "name": "TV Walpershofen",
         "lsbNumber": "89049",
@@ -66516,6 +66496,16 @@
         "name": "TV Kirkel",
         "lsbNumber": "84015",
         "internalSportsclubId": "Saar",
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
+        }
+      },
+      {
+        "id": "26866424",
+        "name": "SSG Schwarzenholz-Griesborn",
+        "lsbNumber": "12348",
+        "internalSportsclubId": "12",
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
@@ -67289,16 +67279,6 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
-        "id": "4465201",
-        "name": "USC Konstanz",
-        "lsbNumber": "480130",
-        "internalSportsclubId": "3915",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -73332,6 +73312,26 @@
         }
       },
       {
+        "id": "91941082",
+        "name": "Kiez Sportverein Roter Traktor e.V.",
+        "lsbNumber": null,
+        "internalSportsclubId": "14-11-243",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "88995846",
+        "name": "VfL 09 Jünkerath e.V.",
+        "lsbNumber": "292",
+        "internalSportsclubId": "292",
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
+        }
+      },
+      {
         "id": "26925696",
         "name": "TV 1878 Groß-Umstadt e.V.",
         "lsbNumber": "34040",
@@ -74969,16 +74969,6 @@
         "association": {
           "id": "26249283",
           "name": "Kreisverband Süd"
-        }
-      },
-      {
-        "id": "88995846",
-        "name": "VfL 09 Jünkerath e.V.",
-        "lsbNumber": "292",
-        "internalSportsclubId": "292",
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
         }
       },
       {
@@ -98209,6 +98199,36 @@
         "association": {
           "id": "33795221",
           "name": "Rhein-Erft"
+        }
+      },
+      {
+        "id": "52623512",
+        "name": "Luckenwalder Volleyball-Club e.V.",
+        "lsbNumber": "720004",
+        "internalSportsclubId": "720004",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "4465201",
+        "name": "USC Konstanz",
+        "lsbNumber": "480130",
+        "internalSportsclubId": "3915",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "92117815",
+        "name": "Gemeinde- und Missionsverein Arche e.V.",
+        "lsbNumber": "1111111110000091",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband e.V."
         }
       }
     ]
