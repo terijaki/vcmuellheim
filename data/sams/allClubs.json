@@ -1202,16 +1202,6 @@
         }
       },
       {
-        "id": "6460",
-        "name": "VV Humann Essen e.V.",
-        "lsbNumber": "1003093",
-        "internalSportsclubId": "5504",
-        "association": {
-          "id": "33299056",
-          "name": "Essen"
-        }
-      },
-      {
         "id": "26925221",
         "name": "Sport Klub 1990 Driedorf e.V.",
         "lsbNumber": "15214",
@@ -3422,16 +3412,6 @@
         }
       },
       {
-        "id": "26818826",
-        "name": "SSV 91 Kleingeschwenda e.V.",
-        "lsbNumber": "270029",
-        "internalSportsclubId": "27269",
-        "association": {
-          "id": "26249283",
-          "name": "Kreisverband Süd"
-        }
-      },
-      {
         "id": "26818829",
         "name": "Sportverein Lauscha e.V.",
         "lsbNumber": "330064",
@@ -3962,6 +3942,16 @@
         }
       },
       {
+        "id": "26818901",
+        "name": "Sportakrobatikclub Suhl e.V.",
+        "lsbNumber": "360084",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249329",
+          "name": "Kreisverband Süd-West"
+        }
+      },
+      {
         "id": "26818870",
         "name": "Montagssportverein Heiligenstadt e.V.",
         "lsbNumber": "150048",
@@ -4029,16 +4019,6 @@
         "association": {
           "id": "26249283",
           "name": "Kreisverband Süd"
-        }
-      },
-      {
-        "id": "26818901",
-        "name": "Sportakrobatikclub Suhl e.V.",
-        "lsbNumber": "360084",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249329",
-          "name": "Kreisverband Süd-West"
         }
       },
       {
@@ -4196,16 +4176,6 @@
         "name": "Sportverein Erfurt West 90 e.V.",
         "lsbNumber": "100040",
         "internalSportsclubId": "09033",
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
-        }
-      },
-      {
-        "id": "26818920",
-        "name": "Lauf-und Triathlon-Verein Erfurt e.V.",
-        "lsbNumber": "100181",
-        "internalSportsclubId": null,
         "association": {
           "id": "26272888",
           "name": "tbc TVV 40"
@@ -6482,16 +6452,6 @@
         }
       },
       {
-        "id": "26819254",
-        "name": "SV Gehren 1911 e.V.",
-        "lsbNumber": "430097",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26272888",
-          "name": "tbc TVV 40"
-        }
-      },
-      {
         "id": "26819241",
         "name": "SG Finanzamt Gera e.V.",
         "lsbNumber": "120138",
@@ -6719,6 +6679,16 @@
         "association": {
           "id": "26249225",
           "name": "Kreisverband Nord"
+        }
+      },
+      {
+        "id": "26819254",
+        "name": "SV Gehren 1911 e.V.",
+        "lsbNumber": "430097",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249329",
+          "name": "Kreisverband Süd-West"
         }
       },
       {
@@ -9162,16 +9132,6 @@
         }
       },
       {
-        "id": "26818987",
-        "name": "Bergbausportverein Meuselwitz e.V.",
-        "lsbNumber": "410019",
-        "internalSportsclubId": "01186",
-        "association": {
-          "id": "26249261",
-          "name": "Kreisverband Ost"
-        }
-      },
-      {
         "id": "49504340",
         "name": "SV Empor Brandenburg",
         "lsbNumber": "510003",
@@ -9219,6 +9179,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "26818987",
+        "name": "Bergbausportverein Meuselwitz e.V.",
+        "lsbNumber": "410019",
+        "internalSportsclubId": "01186",
+        "association": {
+          "id": "26249261",
+          "name": "Kreisverband Ost"
         }
       },
       {
@@ -33372,16 +33342,6 @@
         }
       },
       {
-        "id": "49504408",
-        "name": "Beachsport Brandenburg & Berlin",
-        "lsbNumber": "650000",
-        "internalSportsclubId": "650000",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "82878742",
         "name": "Emder RV",
         "lsbNumber": "304400300",
@@ -33469,6 +33429,16 @@
         "association": {
           "id": "26196837",
           "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
+        "id": "49504408",
+        "name": "Beachsport Brandenburg & Berlin",
+        "lsbNumber": "650000",
+        "internalSportsclubId": "650000",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -35622,16 +35592,6 @@
         }
       },
       {
-        "id": "82877391",
-        "name": "Blau-Weiß Lorup",
-        "lsbNumber": "304411920",
-        "internalSportsclubId": "10607",
-        "association": {
-          "id": "25464691",
-          "name": "Kreis Emsland"
-        }
-      },
-      {
         "id": "65036712",
         "name": "SG Blaue Jungs St.Georgen",
         "lsbNumber": "8144281621",
@@ -35719,6 +35679,16 @@
         "association": {
           "id": "7211",
           "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "82877391",
+        "name": "Blau-Weiß Lorup",
+        "lsbNumber": "304411920",
+        "internalSportsclubId": "10607",
+        "association": {
+          "id": "25464691",
+          "name": "Kreis Emsland"
         }
       },
       {
@@ -47409,16 +47379,6 @@
         "association": {
           "id": "24908726",
           "name": "Vogtlandkreis"
-        }
-      },
-      {
-        "id": "54611011",
-        "name": "BSG Immenstaad",
-        "lsbNumber": "200366",
-        "internalSportsclubId": "366",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
         }
       },
       {
@@ -68312,6 +68272,16 @@
         }
       },
       {
+        "id": "92184249",
+        "name": "Sparkle Squad (Mixed)",
+        "lsbNumber": "1111111110000092",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband e.V."
+        }
+      },
+      {
         "id": "16604810",
         "name": "VSG Saarlouis",
         "lsbNumber": "12345",
@@ -70702,16 +70672,6 @@
         }
       },
       {
-        "id": "26818998",
-        "name": "VC Blau-Weiß Gebesee e.V.",
-        "lsbNumber": "310175",
-        "internalSportsclubId": "09191",
-        "association": {
-          "id": "26249165",
-          "name": "Kreisverband Mitte"
-        }
-      },
-      {
         "id": "82877146",
         "name": "AMTV Hamburg",
         "lsbNumber": "606009",
@@ -70899,6 +70859,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "26818998",
+        "name": "VC Blau-Weiß Gebesee e.V.",
+        "lsbNumber": "310175",
+        "internalSportsclubId": "09191",
+        "association": {
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
         }
       },
       {
@@ -74874,7 +74844,7 @@
       {
         "id": "88640147",
         "name": "Hörninger Sportfreunde e.V.",
-        "lsbNumber": "1111111110000083",
+        "lsbNumber": "240190",
         "internalSportsclubId": null,
         "association": {
           "id": "26249225",
@@ -86302,16 +86272,6 @@
         }
       },
       {
-        "id": "82879581",
-        "name": "Ettlinger SV",
-        "lsbNumber": "609010",
-        "internalSportsclubId": "609010",
-        "association": {
-          "id": "7223",
-          "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
         "id": "89443536",
         "name": "ETSV Weiche",
         "lsbNumber": "70086",
@@ -86499,6 +86459,16 @@
         "association": {
           "id": "2765",
           "name": "Regionalbereich Nord"
+        }
+      },
+      {
+        "id": "82879581",
+        "name": "Ettlinger SV",
+        "lsbNumber": null,
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -89902,6 +89872,16 @@
         }
       },
       {
+        "id": "26818826",
+        "name": "SSV 91 Kleingeschwenda e.V.",
+        "lsbNumber": "270029",
+        "internalSportsclubId": "27269",
+        "association": {
+          "id": "26249283",
+          "name": "Kreisverband Süd"
+        }
+      },
+      {
         "id": "82880117",
         "name": "Neuseeland",
         "lsbNumber": "990012",
@@ -92049,6 +92029,16 @@
         "association": {
           "id": "25461775",
           "name": "Kreis Stade"
+        }
+      },
+      {
+        "id": "54611011",
+        "name": "BSG Immenstaad",
+        "lsbNumber": "200366",
+        "internalSportsclubId": "366",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
@@ -96632,6 +96622,16 @@
         }
       },
       {
+        "id": "26818920",
+        "name": "Lauf-und Triathlon-Verein Erfurt e.V.",
+        "lsbNumber": "100181",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
+        }
+      },
+      {
         "id": "89444470",
         "name": "TSV Stadum",
         "lsbNumber": "70484",
@@ -98229,6 +98229,16 @@
         "association": {
           "id": "7208",
           "name": "Hamburger Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "6460",
+        "name": "VV Humann Essen e.V.",
+        "lsbNumber": "1003093",
+        "internalSportsclubId": "5504",
+        "association": {
+          "id": "33299056",
+          "name": "Essen"
         }
       }
     ]
