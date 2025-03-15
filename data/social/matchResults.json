@@ -1,84 +1,6 @@
 {
   "entries": [
     {
-      "uuid": "0c484a1e-2d62-4989-b772-42a4985d18b7",
-      "date": "2025-01-11T13:00:00.000Z",
-      "league": "Bezirksliga Herren Süd",
-      "team": [
-        "VC Müllheim 2",
-        "TSV Alemannia Freiburg-Zähringen 2"
-      ],
-      "winner": 2,
-      "score": "0:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113810172169713040"
-    },
-    {
-      "uuid": "f5fe90b6-2467-464e-83c2-b0cd4c6664d1",
-      "date": "2025-01-11T13:00:00.000Z",
-      "league": "Bezirksklasse Damen Süd",
-      "team": [
-        "VfR Merzhausen 2",
-        "VC Müllheim 1"
-      ],
-      "winner": 1,
-      "score": "3:0",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113810172191148265"
-    },
-    {
-      "uuid": "872e76f2-f316-493c-b56f-cf4f5b69a5db",
-      "date": "2025-01-11T13:00:00.000Z",
-      "league": "Bezirksliga Herren Süd",
-      "team": [
-        "VC Müllheim 2",
-        "TV Todtnau"
-      ],
-      "winner": 2,
-      "score": "1:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113810748297153451"
-    },
-    {
-      "uuid": "cc144b27-1c7d-4f61-8e06-396e044b113e",
-      "date": "2025-01-11T13:00:00.000Z",
-      "league": "Bezirksklasse Damen Süd",
-      "team": [
-        "VC Müllheim 1",
-        "VC Offenburg 4"
-      ],
-      "winner": 2,
-      "score": "0:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113811345669657050"
-    },
-    {
-      "uuid": "25d37e3f-d012-4b3b-94a5-97c2f67523c7",
-      "date": "2025-01-12T09:30:00.000Z",
-      "league": "Kreisliga Damen Süd",
-      "team": [
-        "VC Müllheim 2",
-        "VC Weil 3"
-      ],
-      "winner": 1,
-      "score": "3:0",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113815123922428908"
-    },
-    {
-      "uuid": "b2a3e12e-28a0-442e-ba28-e7c598c04ad0",
-      "date": "2025-01-12T09:30:00.000Z",
-      "league": "Kreisliga Damen Süd",
-      "team": [
-        "VC Müllheim 2",
-        "TV Neuenburg"
-      ],
-      "winner": 1,
-      "score": "3:2",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113815938535252130"
-    },
-    {
       "uuid": "e802c742-8b79-46b0-8f8d-d1e2615f41ff",
       "date": "2025-01-25T13:00:00.000Z",
       "league": "Bezirksliga Herren Süd",
@@ -361,7 +283,8 @@
       ],
       "winner": 2,
       "score": "0:3",
-      "mastodon": "new"
+      "mastodon": "published",
+      "mastodonUrl": "https://freiburg.social/@VCM/114166902199979342"
     }
   ]
 }
