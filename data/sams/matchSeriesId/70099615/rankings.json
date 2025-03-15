@@ -7,9 +7,9 @@
       "name": "Bezirksklasse Damen Süd",
       "shortName": "bzk s d",
       "type": "League",
-      "updated": "2025-03-15 15:17:31.525",
+      "updated": "2025-03-15 17:08:09.998",
       "structureUpdated": "2025-03-14 07:13:23.035",
-      "resultsUpdated": "2025-03-15 15:17:31.525",
+      "resultsUpdated": "2025-03-15 17:08:09.998",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -137,25 +137,25 @@
           }
         },
         "place": "2",
-        "matchesPlayed": "14",
-        "wins": "11",
+        "matchesPlayed": "15",
+        "wins": "12",
         "losses": "3",
-        "points": "34",
-        "setPoints": "38:13",
-        "setWinScore": "38",
+        "points": "37",
+        "setPoints": "41:13",
+        "setWinScore": "41",
         "setLoseScore": "13",
-        "setPointDifference": "25",
-        "setQuotient": "2,923\n            ",
-        "ballPoints": "1174:923",
-        "ballWinScore": "1174",
-        "ballLoseScore": "923",
-        "ballPointDifference": "251",
-        "ballQuotient": "1,272\n            ",
+        "setPointDifference": "28",
+        "setQuotient": "3,154\n            ",
+        "ballPoints": "1249:969",
+        "ballWinScore": "1249",
+        "ballLoseScore": "969",
+        "ballPointDifference": "280",
+        "ballQuotient": "1,289\n            ",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "8"
+              "count": "9"
             },
             {
               "result": "3:1",
@@ -350,62 +350,6 @@
       },
       {
         "team": {
-          "id": "73557242",
-          "uuid": "c880249d-f6e3-46bf-8fb4-8debf82f1359",
-          "name": "TV Hartheim",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Hartheim",
-            "shortName": null
-          }
-        },
-        "place": "6",
-        "matchesPlayed": "15",
-        "wins": "4",
-        "losses": "11",
-        "points": "14",
-        "setPoints": "17:35",
-        "setWinScore": "17",
-        "setLoseScore": "35",
-        "setPointDifference": "-18",
-        "setQuotient": "0,486\n            ",
-        "ballPoints": "921:1195",
-        "ballWinScore": "921",
-        "ballLoseScore": "1195",
-        "ballPointDifference": "-274",
-        "ballQuotient": "0,771\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "2"
-            },
-            {
-              "result": "3:1",
-              "count": "2"
-            },
-            {
-              "result": "3:2",
-              "count": "0"
-            },
-            {
-              "result": "2:3",
-              "count": "2"
-            },
-            {
-              "result": "1:3",
-              "count": "1"
-            },
-            {
-              "result": "0:3",
-              "count": "8"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "73557230",
           "uuid": "3ca8a197-7717-441d-b32b-19aaefbae5de",
           "name": "TV Merdingen 2",
@@ -416,26 +360,26 @@
             "shortName": null
           }
         },
-        "place": "7",
-        "matchesPlayed": "15",
-        "wins": "4",
+        "place": "6",
+        "matchesPlayed": "16",
+        "wins": "5",
         "losses": "11",
-        "points": "13",
-        "setPoints": "19:35",
-        "setWinScore": "19",
+        "points": "16",
+        "setPoints": "22:35",
+        "setWinScore": "22",
         "setLoseScore": "35",
-        "setPointDifference": "-16",
-        "setQuotient": "0,543\n            ",
-        "ballPoints": "1077:1164",
-        "ballWinScore": "1077",
-        "ballLoseScore": "1164",
-        "ballPointDifference": "-87",
-        "ballQuotient": "0,925\n            ",
+        "setPointDifference": "-13",
+        "setQuotient": "0,629\n            ",
+        "ballPoints": "1152:1217",
+        "ballWinScore": "1152",
+        "ballLoseScore": "1217",
+        "ballPointDifference": "-65",
+        "ballQuotient": "0,947\n            ",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "3"
+              "count": "4"
             },
             {
               "result": "3:1",
@@ -462,6 +406,62 @@
       },
       {
         "team": {
+          "id": "73557242",
+          "uuid": "c880249d-f6e3-46bf-8fb4-8debf82f1359",
+          "name": "TV Hartheim",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Hartheim",
+            "shortName": null
+          }
+        },
+        "place": "7",
+        "matchesPlayed": "16",
+        "wins": "4",
+        "losses": "12",
+        "points": "14",
+        "setPoints": "17:38",
+        "setWinScore": "17",
+        "setLoseScore": "38",
+        "setPointDifference": "-21",
+        "setQuotient": "0,447\n            ",
+        "ballPoints": "974:1270",
+        "ballWinScore": "974",
+        "ballLoseScore": "1270",
+        "ballPointDifference": "-296",
+        "ballQuotient": "0,767\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "2"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "2"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "9"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73557218",
           "uuid": "62ee23f7-989e-4d5d-b75f-69ecf555d6c2",
           "name": "TV Todtnau",
@@ -473,20 +473,20 @@
           }
         },
         "place": "8",
-        "matchesPlayed": "15",
+        "matchesPlayed": "16",
         "wins": "4",
-        "losses": "11",
+        "losses": "12",
         "points": "11",
-        "setPoints": "13:36",
+        "setPoints": "13:39",
         "setWinScore": "13",
-        "setLoseScore": "36",
-        "setPointDifference": "-23",
-        "setQuotient": "0,361\n            ",
-        "ballPoints": "831:1142",
-        "ballWinScore": "831",
-        "ballLoseScore": "1142",
-        "ballPointDifference": "-311",
-        "ballQuotient": "0,728\n            ",
+        "setLoseScore": "39",
+        "setPointDifference": "-26",
+        "setQuotient": "0,333\n            ",
+        "ballPoints": "877:1217",
+        "ballWinScore": "877",
+        "ballLoseScore": "1217",
+        "ballPointDifference": "-340",
+        "ballQuotient": "0,721\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -511,7 +511,7 @@
             },
             {
               "result": "0:3",
-              "count": "10"
+              "count": "11"
             }
           ]
         }
