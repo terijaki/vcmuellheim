@@ -59,9 +59,9 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2025-03-13 19:00:45.206",
+            "updated": "2025-03-15 15:55:47.534",
             "structureUpdated": "2025-03-13 19:00:45.206",
-            "resultsUpdated": "2025-03-11 09:08:15.342",
+            "resultsUpdated": "2025-03-15 15:55:47.534",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -314,9 +314,9 @@
             "name": "Kreisliga Damen Süd",
             "shortName": "kl s d",
             "type": "League",
-            "updated": "2025-03-15 15:44:52.074",
+            "updated": "2025-03-15 15:56:20.718",
             "structureUpdated": "2025-02-21 16:50:53.209",
-            "resultsUpdated": "2025-03-15 15:44:52.074",
+            "resultsUpdated": "2025-03-15 15:56:20.718",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
