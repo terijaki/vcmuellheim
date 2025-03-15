@@ -350,6 +350,18 @@
       "score": "2:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/114127737153620896"
+    },
+    {
+      "uuid": "34653952-3a3e-44c9-bf09-56aee1ce16f2",
+      "date": "2025-03-15T13:00:00.000Z",
+      "league": "Bezirksklasse Damen Süd",
+      "team": [
+        "TV Todtnau",
+        "VC Müllheim 1"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
     }
   ]
 }
