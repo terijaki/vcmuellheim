@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2025-03-15 17:23:41.217",
+      "updated": "2025-03-15 18:42:55.795",
       "structureUpdated": "2025-03-13 19:00:45.206",
-      "resultsUpdated": "2025-03-15 17:23:41.217",
+      "resultsUpdated": "2025-03-15 18:42:55.795",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -181,20 +181,20 @@
           }
         },
         "place": "3",
-        "matchesPlayed": "16",
-        "wins": "10",
+        "matchesPlayed": "17",
+        "wins": "11",
         "losses": "6",
-        "points": "30",
-        "setPoints": "35:25",
-        "setWinScore": "35",
-        "setLoseScore": "25",
-        "setPointDifference": "10",
-        "setQuotient": "1,400\n            ",
-        "ballPoints": "1360:1276",
-        "ballWinScore": "1360",
-        "ballLoseScore": "1276",
-        "ballPointDifference": "84",
-        "ballQuotient": "1,066\n            ",
+        "points": "32",
+        "setPoints": "38:27",
+        "setWinScore": "38",
+        "setLoseScore": "27",
+        "setPointDifference": "11",
+        "setQuotient": "1,407\n            ",
+        "ballPoints": "1461:1381",
+        "ballWinScore": "1461",
+        "ballLoseScore": "1381",
+        "ballPointDifference": "80",
+        "ballQuotient": "1,058\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -207,7 +207,7 @@
             },
             {
               "result": "3:2",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "2:3",
@@ -237,20 +237,20 @@
           }
         },
         "place": "4",
-        "matchesPlayed": "15",
-        "wins": "9",
+        "matchesPlayed": "16",
+        "wins": "10",
         "losses": "6",
-        "points": "29",
-        "setPoints": "35:25",
-        "setWinScore": "35",
-        "setLoseScore": "25",
-        "setPointDifference": "10",
-        "setQuotient": "1,400\n            ",
-        "ballPoints": "1337:1306",
-        "ballWinScore": "1337",
-        "ballLoseScore": "1306",
-        "ballPointDifference": "31",
-        "ballQuotient": "1,024\n            ",
+        "points": "32",
+        "setPoints": "38:26",
+        "setWinScore": "38",
+        "setLoseScore": "26",
+        "setPointDifference": "12",
+        "setQuotient": "1,462\n            ",
+        "ballPoints": "1436:1399",
+        "ballWinScore": "1436",
+        "ballLoseScore": "1399",
+        "ballPointDifference": "37",
+        "ballQuotient": "1,026\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -259,7 +259,7 @@
             },
             {
               "result": "3:1",
-              "count": "5"
+              "count": "6"
             },
             {
               "result": "3:2",
@@ -394,6 +394,62 @@
       },
       {
         "team": {
+          "id": "73349554",
+          "uuid": "05640b90-239f-4738-aade-96c68a7f1e86",
+          "name": "Südbaden-Auswahl",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "Südbadenauswahl",
+            "shortName": null
+          }
+        },
+        "place": "7",
+        "matchesPlayed": "17",
+        "wins": "6",
+        "losses": "11",
+        "points": "20",
+        "setPoints": "30:39",
+        "setWinScore": "30",
+        "setLoseScore": "39",
+        "setPointDifference": "-9",
+        "setQuotient": "0,769\n            ",
+        "ballPoints": "1478:1544",
+        "ballWinScore": "1478",
+        "ballLoseScore": "1544",
+        "ballPointDifference": "-66",
+        "ballQuotient": "0,957\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "2"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "4"
+            },
+            {
+              "result": "1:3",
+              "count": "4"
+            },
+            {
+              "result": "0:3",
+              "count": "3"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73349539",
           "uuid": "c5acdb80-aaab-4e7d-9f0d-0447b6ba37d0",
           "name": "TV Kollnau-Gutach 1",
@@ -404,7 +460,7 @@
             "shortName": null
           }
         },
-        "place": "7",
+        "place": "8",
         "matchesPlayed": "15",
         "wins": "7",
         "losses": "8",
@@ -450,62 +506,6 @@
       },
       {
         "team": {
-          "id": "73349554",
-          "uuid": "05640b90-239f-4738-aade-96c68a7f1e86",
-          "name": "Südbaden-Auswahl",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "Südbadenauswahl",
-            "shortName": null
-          }
-        },
-        "place": "8",
-        "matchesPlayed": "16",
-        "wins": "6",
-        "losses": "10",
-        "points": "19",
-        "setPoints": "28:36",
-        "setWinScore": "28",
-        "setLoseScore": "36",
-        "setPointDifference": "-8",
-        "setQuotient": "0,778\n            ",
-        "ballPoints": "1373:1443",
-        "ballWinScore": "1373",
-        "ballLoseScore": "1443",
-        "ballPointDifference": "-70",
-        "ballQuotient": "0,951\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "2"
-            },
-            {
-              "result": "3:1",
-              "count": "2"
-            },
-            {
-              "result": "3:2",
-              "count": "2"
-            },
-            {
-              "result": "2:3",
-              "count": "3"
-            },
-            {
-              "result": "1:3",
-              "count": "4"
-            },
-            {
-              "result": "0:3",
-              "count": "3"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "73349557",
           "uuid": "3d6b9adf-0dc2-49dc-876c-4a005f416b0a",
           "name": "Bad Säckinger Wölfe",
@@ -517,20 +517,20 @@
           }
         },
         "place": "9",
-        "matchesPlayed": "16",
+        "matchesPlayed": "17",
         "wins": "6",
-        "losses": "10",
+        "losses": "11",
         "points": "15",
-        "setPoints": "22:39",
-        "setWinScore": "22",
-        "setLoseScore": "39",
-        "setPointDifference": "-17",
-        "setQuotient": "0,564\n            ",
-        "ballPoints": "1307:1411",
-        "ballWinScore": "1307",
-        "ballLoseScore": "1411",
-        "ballPointDifference": "-104",
-        "ballQuotient": "0,926\n            ",
+        "setPoints": "23:42",
+        "setWinScore": "23",
+        "setLoseScore": "42",
+        "setPointDifference": "-19",
+        "setQuotient": "0,548\n            ",
+        "ballPoints": "1400:1510",
+        "ballWinScore": "1400",
+        "ballLoseScore": "1510",
+        "ballPointDifference": "-110",
+        "ballQuotient": "0,927\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -551,7 +551,7 @@
             },
             {
               "result": "1:3",
-              "count": "4"
+              "count": "5"
             },
             {
               "result": "0:3",
