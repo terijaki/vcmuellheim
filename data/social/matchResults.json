@@ -298,6 +298,18 @@
       "score": "1:3",
       "mastodon": "published",
       "mastodonUrl": "https://freiburg.social/@VCM/114167607771038400"
+    },
+    {
+      "uuid": "6ed3cda4-32cd-40c3-a94c-fcc6175f0b07",
+      "date": "2025-03-15T13:00:00.000Z",
+      "league": "Bezirksklasse Damen Süd",
+      "team": [
+        "VC Müllheim 1",
+        "SV Waltershofen 2"
+      ],
+      "winner": 2,
+      "score": "0:3",
+      "mastodon": "new"
     }
   ]
 }
