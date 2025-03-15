@@ -40852,16 +40852,6 @@
         }
       },
       {
-        "id": "50621684",
-        "name": "SV Trossiner Biber e.V.",
-        "lsbNumber": "490181",
-        "internalSportsclubId": "76",
-        "association": {
-          "id": "24908869",
-          "name": "Landkreis Nordsachsen"
-        }
-      },
-      {
         "id": "50621679",
         "name": "Hartmannsdorfer SV 05 e.V.",
         "lsbNumber": "480092",
@@ -98219,6 +98209,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "50621684",
+        "name": "SV Trossiner Biber e.V.",
+        "lsbNumber": "490181",
+        "internalSportsclubId": "76",
+        "association": {
+          "id": "24908869",
+          "name": "Landkreis Nordsachsen"
         }
       },
       {
