@@ -7,9 +7,9 @@
       "name": "Bezirksliga Herren Süd",
       "shortName": "bzl s h",
       "type": "League",
-      "updated": "2025-03-16 12:22:34.077",
+      "updated": "2025-03-16 13:46:44.772",
       "structureUpdated": "2025-02-05 16:39:50.666",
-      "resultsUpdated": "2025-03-16 12:22:34.077",
+      "resultsUpdated": "2025-03-16 13:46:44.772",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -64,6 +64,62 @@
     "ranking": [
       {
         "team": {
+          "id": "73550114",
+          "uuid": "097b62bb-ec20-40f6-b957-bf968c3423f0",
+          "name": "TSV Alemannia Freiburg-Zähringen 2",
+          "shortName": "TSV Al. Zähringen 2",
+          "clubCode": null,
+          "club": {
+            "name": "TSV Alemannia Freiburg-Zähringen",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "13",
+        "wins": "12",
+        "losses": "1",
+        "points": "33",
+        "setPoints": "37:12",
+        "setWinScore": "37",
+        "setLoseScore": "12",
+        "setPointDifference": "25",
+        "setQuotient": "3,083\n            ",
+        "ballPoints": "1130:936",
+        "ballWinScore": "1130",
+        "ballLoseScore": "936",
+        "ballPointDifference": "194",
+        "ballQuotient": "1,207\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "6"
+            },
+            {
+              "result": "3:1",
+              "count": "3"
+            },
+            {
+              "result": "3:2",
+              "count": "3"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73550100",
           "uuid": "1ecf2c5f-6d29-4307-a32f-422cc6a3c94d",
           "name": "Sport vor Ort Rieselfeld 1",
@@ -74,7 +130,7 @@
             "shortName": null
           }
         },
-        "place": "1",
+        "place": "2",
         "matchesPlayed": "14",
         "wins": "11",
         "losses": "3",
@@ -114,62 +170,6 @@
             {
               "result": "0:3",
               "count": "1"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73550114",
-          "uuid": "097b62bb-ec20-40f6-b957-bf968c3423f0",
-          "name": "TSV Alemannia Freiburg-Zähringen 2",
-          "shortName": "TSV Al. Zähringen 2",
-          "clubCode": null,
-          "club": {
-            "name": "TSV Alemannia Freiburg-Zähringen",
-            "shortName": null
-          }
-        },
-        "place": "2",
-        "matchesPlayed": "12",
-        "wins": "11",
-        "losses": "1",
-        "points": "30",
-        "setPoints": "34:11",
-        "setWinScore": "34",
-        "setLoseScore": "11",
-        "setPointDifference": "23",
-        "setQuotient": "3,091\n            ",
-        "ballPoints": "1032:858",
-        "ballWinScore": "1032",
-        "ballLoseScore": "858",
-        "ballPointDifference": "174",
-        "ballQuotient": "1,203\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "6"
-            },
-            {
-              "result": "3:1",
-              "count": "2"
-            },
-            {
-              "result": "3:2",
-              "count": "3"
-            },
-            {
-              "result": "2:3",
-              "count": "0"
-            },
-            {
-              "result": "1:3",
-              "count": "1"
-            },
-            {
-              "result": "0:3",
-              "count": "0"
             }
           ]
         }
@@ -299,20 +299,20 @@
           }
         },
         "place": "5",
-        "matchesPlayed": "12",
+        "matchesPlayed": "13",
         "wins": "5",
-        "losses": "7",
+        "losses": "8",
         "points": "15",
-        "setPoints": "20:26",
-        "setWinScore": "20",
-        "setLoseScore": "26",
-        "setPointDifference": "-6",
-        "setQuotient": "0,769\n            ",
-        "ballPoints": "947:1022",
-        "ballWinScore": "947",
-        "ballLoseScore": "1022",
-        "ballPointDifference": "-75",
-        "ballQuotient": "0,927\n            ",
+        "setPoints": "21:29",
+        "setWinScore": "21",
+        "setLoseScore": "29",
+        "setPointDifference": "-8",
+        "setQuotient": "0,724\n            ",
+        "ballPoints": "1025:1120",
+        "ballWinScore": "1025",
+        "ballLoseScore": "1120",
+        "ballPointDifference": "-95",
+        "ballQuotient": "0,915\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -333,7 +333,7 @@
             },
             {
               "result": "1:3",
-              "count": "3"
+              "count": "4"
             },
             {
               "result": "0:3",
