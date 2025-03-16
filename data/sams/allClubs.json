@@ -12642,16 +12642,6 @@
         }
       },
       {
-        "id": "37921380",
-        "name": "SV Langendreer 04 Volleyball e.V.",
-        "lsbNumber": "5001200",
-        "internalSportsclubId": "350",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
         "id": "37921446",
         "name": "Herner Turn-Club 1880 e.V.",
         "lsbNumber": "5005038",
@@ -98279,6 +98269,16 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "37921380",
+        "name": "SV Langendreer 04 Volleyball e.V.",
+        "lsbNumber": "5001200",
+        "internalSportsclubId": "350",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
         }
       }
     ]
