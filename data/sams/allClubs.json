@@ -33162,16 +33162,6 @@
         }
       },
       {
-        "id": "50621573",
-        "name": "LSV Langenberg/Falken e.V.",
-        "lsbNumber": "520111",
-        "internalSportsclubId": "485",
-        "association": {
-          "id": "24908690",
-          "name": "Landkreis Zwickau/Erzgebirge"
-        }
-      },
-      {
         "id": "54611190",
         "name": "SKV Rutesheim",
         "lsbNumber": "3095",
@@ -98219,6 +98209,16 @@
         "association": {
           "id": "24908869",
           "name": "Landkreis Nordsachsen"
+        }
+      },
+      {
+        "id": "50621573",
+        "name": "LSV Langenberg/Falken e.V.",
+        "lsbNumber": "520111",
+        "internalSportsclubId": "485",
+        "association": {
+          "id": "24908690",
+          "name": "Landkreis Zwickau/Erzgebirge"
         }
       },
       {
