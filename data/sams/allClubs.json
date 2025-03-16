@@ -66312,16 +66312,6 @@
         }
       },
       {
-        "id": "4465152",
-        "name": "TV Bliesen",
-        "lsbNumber": "80612",
-        "internalSportsclubId": "611006",
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
         "id": "50621661",
         "name": "ESV Lok Pirna e.V.",
         "lsbNumber": "500032",
@@ -66379,6 +66369,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "4465152",
+        "name": "TV Bliesen",
+        "lsbNumber": "80612",
+        "internalSportsclubId": "611006",
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
         }
       },
       {
