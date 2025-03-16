@@ -7,9 +7,9 @@
       "name": "Bezirksliga Herren Süd",
       "shortName": "bzl s h",
       "type": "League",
-      "updated": "2025-03-16 13:46:44.772",
+      "updated": "2025-03-16 15:05:17.058",
       "structureUpdated": "2025-02-05 16:39:50.666",
-      "resultsUpdated": "2025-03-16 13:46:44.772",
+      "resultsUpdated": "2025-03-16 15:05:17.058",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -187,20 +187,20 @@
           }
         },
         "place": "3",
-        "matchesPlayed": "13",
-        "wins": "9",
+        "matchesPlayed": "14",
+        "wins": "10",
         "losses": "4",
-        "points": "28",
-        "setPoints": "34:19",
-        "setWinScore": "34",
-        "setLoseScore": "19",
-        "setPointDifference": "15",
-        "setQuotient": "1,789\n            ",
-        "ballPoints": "1181:991",
-        "ballWinScore": "1181",
-        "ballLoseScore": "991",
-        "ballPointDifference": "190",
-        "ballQuotient": "1,192\n            ",
+        "points": "30",
+        "setPoints": "37:21",
+        "setWinScore": "37",
+        "setLoseScore": "21",
+        "setPointDifference": "16",
+        "setQuotient": "1,762\n            ",
+        "ballPoints": "1299:1088",
+        "ballWinScore": "1299",
+        "ballLoseScore": "1088",
+        "ballPointDifference": "211",
+        "ballQuotient": "1,194\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -213,7 +213,7 @@
             },
             {
               "result": "3:2",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "2:3",
@@ -288,6 +288,62 @@
       },
       {
         "team": {
+          "id": "73550093",
+          "uuid": "0f2933ef-9a6e-4887-aa78-aea2fb309df6",
+          "name": "VC Minseln 1",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VC Minseln",
+            "shortName": null
+          }
+        },
+        "place": "5",
+        "matchesPlayed": "13",
+        "wins": "5",
+        "losses": "8",
+        "points": "15",
+        "setPoints": "23:29",
+        "setWinScore": "23",
+        "setLoseScore": "29",
+        "setPointDifference": "-6",
+        "setQuotient": "0,793\n            ",
+        "ballPoints": "1066:1121",
+        "ballWinScore": "1066",
+        "ballLoseScore": "1121",
+        "ballPointDifference": "-55",
+        "ballQuotient": "0,951\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "2"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "2"
+            },
+            {
+              "result": "1:3",
+              "count": "4"
+            },
+            {
+              "result": "0:3",
+              "count": "2"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73550096",
           "uuid": "bdb65493-9cd7-435c-afeb-1fecf18ac926",
           "name": "SG BEG United 5",
@@ -298,7 +354,7 @@
             "shortName": null
           }
         },
-        "place": "5",
+        "place": "6",
         "matchesPlayed": "13",
         "wins": "5",
         "losses": "8",
@@ -338,62 +394,6 @@
             {
               "result": "0:3",
               "count": "3"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73550093",
-          "uuid": "0f2933ef-9a6e-4887-aa78-aea2fb309df6",
-          "name": "VC Minseln 1",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "VC Minseln",
-            "shortName": null
-          }
-        },
-        "place": "6",
-        "matchesPlayed": "12",
-        "wins": "5",
-        "losses": "7",
-        "points": "14",
-        "setPoints": "21:26",
-        "setWinScore": "21",
-        "setLoseScore": "26",
-        "setPointDifference": "-5",
-        "setQuotient": "0,808\n            ",
-        "ballPoints": "969:1003",
-        "ballWinScore": "969",
-        "ballLoseScore": "1003",
-        "ballPointDifference": "-34",
-        "ballQuotient": "0,966\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "2"
-            },
-            {
-              "result": "3:1",
-              "count": "1"
-            },
-            {
-              "result": "3:2",
-              "count": "2"
-            },
-            {
-              "result": "2:3",
-              "count": "1"
-            },
-            {
-              "result": "1:3",
-              "count": "4"
-            },
-            {
-              "result": "0:3",
-              "count": "2"
             }
           ]
         }
