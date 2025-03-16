@@ -43982,16 +43982,6 @@
         }
       },
       {
-        "id": "37920811",
-        "name": "Turn- u. Sportvereinigung Bönen 01 e.V.",
-        "lsbNumber": "5702005",
-        "internalSportsclubId": "551",
-        "association": {
-          "id": "33797802",
-          "name": "Unna"
-        }
-      },
-      {
         "id": "54610791",
         "name": "TSG Waldenburg",
         "lsbNumber": "11053",
@@ -44009,6 +43999,16 @@
         "association": {
           "id": "25461775",
           "name": "Kreis Stade"
+        }
+      },
+      {
+        "id": "37920811",
+        "name": "Turn- u. Sportvereinigung Bönen 01 e.V.",
+        "lsbNumber": "5702005",
+        "internalSportsclubId": "551",
+        "association": {
+          "id": "33797802",
+          "name": "Unna"
         }
       },
       {
@@ -64052,6 +64052,16 @@
         }
       },
       {
+        "id": "26925532",
+        "name": "VC Ober-Roden",
+        "lsbNumber": "29153",
+        "internalSportsclubId": "1604",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
+        }
+      },
+      {
         "id": "54610730",
         "name": "TSV Knittlingen",
         "lsbNumber": null,
@@ -64079,16 +64089,6 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "26925532",
-        "name": "VC Ober-Roden e.V.",
-        "lsbNumber": "29153",
-        "internalSportsclubId": "1604",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
         }
       },
       {
