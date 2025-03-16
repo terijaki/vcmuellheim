@@ -12282,16 +12282,6 @@
         }
       },
       {
-        "id": "37920780",
-        "name": "Allgemeiner TV 1927 Geilenkirchen e.V.",
-        "lsbNumber": "2503013",
-        "internalSportsclubId": "1804",
-        "association": {
-          "id": "33795203",
-          "name": "Aachen-Düren-Heinsberg"
-        }
-      },
-      {
         "id": "37921474",
         "name": "Jülicher TV 1885 e.V.",
         "lsbNumber": "2206025",
@@ -12419,6 +12409,16 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "37920780",
+        "name": "Allgemeiner TV 1927 Geilenkirchen e.V.",
+        "lsbNumber": "2503013",
+        "internalSportsclubId": "1804",
+        "association": {
+          "id": "33795203",
+          "name": "Aachen-Düren-Heinsberg"
         }
       },
       {
