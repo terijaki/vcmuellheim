@@ -8202,16 +8202,6 @@
         }
       },
       {
-        "id": "26846522",
-        "name": "Sportgemeinschaft Aufbau Alex e.V.",
-        "lsbNumber": "3590",
-        "internalSportsclubId": "14-11-122",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "26846526",
         "name": "Sportverein Turbine Berlin e.V.",
         "lsbNumber": null,
@@ -8399,6 +8389,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "26846522",
+        "name": "Sportgemeinschaft Aufbau Alex e.V.",
+        "lsbNumber": "3590",
+        "internalSportsclubId": "14-11-122",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -10909,16 +10909,6 @@
         "association": {
           "id": "26272888",
           "name": "tbc TVV 40"
-        }
-      },
-      {
-        "id": "26846423",
-        "name": "Concordia Berlin Basketball-Club e.V.",
-        "lsbNumber": "1030",
-        "internalSportsclubId": "14-11-013",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -14679,16 +14669,6 @@
         "association": {
           "id": "25383457",
           "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
-        "id": "89444463",
-        "name": "FLENS Beach-Tour | Großenbrode | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -24532,16 +24512,6 @@
         }
       },
       {
-        "id": "89444465",
-        "name": "FLENS Beach-Tour | Wyk auf Föhr | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "37921745",
         "name": "Turnverein Rheindahlen 1883 e.V.",
         "lsbNumber": "1005124",
@@ -26352,16 +26322,6 @@
         }
       },
       {
-        "id": "26819069",
-        "name": "SG 1960 Bittstädt e.V.",
-        "lsbNumber": "430039",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249165",
-          "name": "Kreisverband Mitte"
-        }
-      },
-      {
         "id": "82878511",
         "name": "VT Rinteln",
         "lsbNumber": "302241730",
@@ -26399,6 +26359,16 @@
         "association": {
           "id": "25465181",
           "name": "Kreis Leer"
+        }
+      },
+      {
+        "id": "26819069",
+        "name": "SG 1960 Bittstädt e.V.",
+        "lsbNumber": "430039",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249165",
+          "name": "Kreisverband Mitte"
         }
       },
       {
@@ -37362,16 +37332,6 @@
         }
       },
       {
-        "id": "49504424",
-        "name": "HSG HFF Potsdam e.V.",
-        "lsbNumber": "540200",
-        "internalSportsclubId": "540200",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
-        }
-      },
-      {
         "id": "49504426",
         "name": "SG Töplitz 1922",
         "lsbNumber": "690005",
@@ -37486,6 +37446,16 @@
         "name": "RSV Mellensee 08 e.V.",
         "lsbNumber": "720011",
         "internalSportsclubId": "720011",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "49504424",
+        "name": "HSG Hochschule für Film und Fernsehen e.V.",
+        "lsbNumber": "540200",
+        "internalSportsclubId": "540200",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -51492,16 +51462,6 @@
         }
       },
       {
-        "id": "54611092",
-        "name": "SV Böblingen",
-        "lsbNumber": "3006",
-        "internalSportsclubId": "450",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "51836461",
         "name": "SV Landau West",
         "lsbNumber": "353",
@@ -51666,6 +51626,16 @@
         "name": "SVE Bleichstetten",
         "lsbNumber": "16005",
         "internalSportsclubId": "448",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "54611092",
+        "name": "SV Böblingen",
+        "lsbNumber": "3006",
+        "internalSportsclubId": "450",
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
@@ -53352,16 +53322,6 @@
         }
       },
       {
-        "id": "54611332",
-        "name": "ASV Schlichten",
-        "lsbNumber": "15114",
-        "internalSportsclubId": "719",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "82879887",
         "name": "MTV Rosdorf",
         "lsbNumber": "301083400",
@@ -53489,6 +53449,16 @@
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
+        }
+      },
+      {
+        "id": "54611332",
+        "name": "ASV Schlichten",
+        "lsbNumber": "15114",
+        "internalSportsclubId": "719",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       },
       {
@@ -59859,16 +59829,6 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
-        "id": "89444038",
-        "name": "Beach me e.V  - B Tournament",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -67642,16 +67602,6 @@
         }
       },
       {
-        "id": "89444044",
-        "name": "FLENS Beach-Tour | Wyk auf Föhr | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89444045",
         "name": "SSV Ziethen",
         "lsbNumber": "70236",
@@ -67669,16 +67619,6 @@
         "association": {
           "id": "33299092",
           "name": "Düsseldorf"
-        }
-      },
-      {
-        "id": "89444047",
-        "name": "Beach me C - Tournament",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -67814,16 +67754,6 @@
       {
         "id": "89444060",
         "name": "LM U19 | weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89444061",
-        "name": "INASKA Beach Cup VT Hamburg C",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -68132,16 +68062,6 @@
         }
       },
       {
-        "id": "89444068",
-        "name": "#WeBeach GWE U15 Mädchen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89444069",
         "name": "B-Turnier Challenge Cup OSP Altenholz | Männer",
         "lsbNumber": null,
@@ -68249,6 +68169,16 @@
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "92752379",
+        "name": "Grund- und Gemeinschaftsschule Sandesneben mit Oberstufe",
+        "lsbNumber": "1111111110000097",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband e.V."
         }
       },
       {
@@ -68379,6 +68309,16 @@
         "association": {
           "id": "33797867",
           "name": "Hagen"
+        }
+      },
+      {
+        "id": "92753783",
+        "name": "Itz-e-hoe (Mixed)",
+        "lsbNumber": "1111111110000098",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband e.V."
         }
       },
       {
@@ -68559,16 +68499,6 @@
         "association": {
           "id": "7208",
           "name": "Hamburger Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89444077",
-        "name": "Beach me e.V. - Fun Turnier",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -69012,16 +68942,6 @@
         }
       },
       {
-        "id": "89444091",
-        "name": "Jugend Beach HM U16 weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89444092",
         "name": "B-Turnier Lübeck | Frauen",
         "lsbNumber": null,
@@ -69189,16 +69109,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89444104",
-        "name": "Beach-Festival Frauen B",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -69452,16 +69362,6 @@
         }
       },
       {
-        "id": "89444105",
-        "name": "Beach me - A Tournament",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "51836433",
         "name": "TG Trier 1880",
         "lsbNumber": "1001238",
@@ -69639,16 +69539,6 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89444116",
-        "name": "#WeBeach U15 | TSV Russee | weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -70082,16 +69972,6 @@
         }
       },
       {
-        "id": "89444124",
-        "name": "FLENS Beach-Tour | Kiel-Schilksee | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82877033",
         "name": "DSHS Köln",
         "lsbNumber": "617636",
@@ -70119,16 +69999,6 @@
         "association": {
           "id": "2765",
           "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89444127",
-        "name": "Startschuss - Queer Sport Hamburg e.V.",
-        "lsbNumber": null,
-        "internalSportsclubId": "121267",
-        "association": {
-          "id": "7208",
-          "name": "Hamburger Volleyball-Verband e.V."
         }
       },
       {
@@ -70162,6 +70032,16 @@
         }
       },
       {
+        "id": "89444127",
+        "name": "Startschuss - Queer Sport Hamburg e.V.",
+        "lsbNumber": null,
+        "internalSportsclubId": "121267",
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband e.V."
+        }
+      },
+      {
         "id": "82877042",
         "name": "SV Ingolstadt",
         "lsbNumber": "603051",
@@ -70169,6 +70049,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "92755681",
+        "name": "Airbus SG Hamburg",
+        "lsbNumber": "1111111110000099",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband e.V."
         }
       },
       {
@@ -70872,26 +70762,6 @@
         }
       },
       {
-        "id": "89444142",
-        "name": "FLENS Beach-Tour | Ostseebad Eckernförde | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89444143",
-        "name": "INASKA Beach Cup VT Hamburg A",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82877184",
         "name": "TSV Seulingen",
         "lsbNumber": "301083660",
@@ -71074,16 +70944,6 @@
       {
         "id": "89444158",
         "name": "LM U 16 m",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89444159",
-        "name": "Beach me B-Turnier OSP Altenholz | Männer",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -72152,16 +72012,6 @@
         }
       },
       {
-        "id": "89444186",
-        "name": "FLENS Beach-Tour | Ostseebad Grömitz | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89444187",
         "name": "LM U16 | weiblich",
         "lsbNumber": null,
@@ -72262,16 +72112,6 @@
         }
       },
       {
-        "id": "89444199",
-        "name": "Jugend Beach HM U17 weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82877437",
         "name": "VCE Geldern",
         "lsbNumber": "617363",
@@ -72279,16 +72119,6 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89444200",
-        "name": "INASKA Beach Cup A VT Hamburg",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -72649,16 +72479,6 @@
         "association": {
           "id": "25464763",
           "name": "Kreis Ammerland"
-        }
-      },
-      {
-        "id": "89444212",
-        "name": "FLENS Beach-Tour | Großenbrode | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -73062,16 +72882,6 @@
         }
       },
       {
-        "id": "89444224",
-        "name": "Beach me B-Turnier OSP Altenholz | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89444225",
         "name": "SV Grün-Weiß Mestlin",
         "lsbNumber": null,
@@ -73122,16 +72932,6 @@
         }
       },
       {
-        "id": "89444229",
-        "name": "Beach me B-Turnier OSP Altenholz | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82877568",
         "name": "FCA Darmstadt",
         "lsbNumber": "607100",
@@ -73144,16 +72944,6 @@
       {
         "id": "89444232",
         "name": "Frauen C Turnier Bundesstraße",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89444234",
-        "name": "FLENS Beach-Tour | Holstenplatz | Frauen",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -74012,16 +73802,6 @@
         }
       },
       {
-        "id": "89444249",
-        "name": "Beach me B-Turnier OSP Altenholz | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82877700",
         "name": "TB Wülfrath",
         "lsbNumber": "617079",
@@ -74039,16 +73819,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89444251",
-        "name": "FLENS Beach-Tour | Ostseebad Eckernförde | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -74452,16 +74222,6 @@
         }
       },
       {
-        "id": "89444469",
-        "name": "INASKA Beachcup VT Hamburg",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82876808",
         "name": "BC Cuxhaven",
         "lsbNumber": "303260183",
@@ -74664,16 +74424,6 @@
       {
         "id": "89444277",
         "name": "LM U19 | weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89444278",
-        "name": "SHVV | Stützpunktvergleich Beach Jungen",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -76482,16 +76232,6 @@
         }
       },
       {
-        "id": "89442899",
-        "name": "#WeBeach U18 | Eckernförde | weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89442903",
         "name": "Höruper SC",
         "lsbNumber": "71497",
@@ -76509,16 +76249,6 @@
         "association": {
           "id": "25465181",
           "name": "Kreis Leer"
-        }
-      },
-      {
-        "id": "89442904",
-        "name": "Beach me B-Turnier OSP Altenholz | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -76682,16 +76412,6 @@
         }
       },
       {
-        "id": "89442918",
-        "name": "LEAB Beach-Cup, Schleswig | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82878169",
         "name": "TSV Schwaförden",
         "lsbNumber": "30111",
@@ -76749,26 +76469,6 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89442922",
-        "name": "#WeBeach U18 VT Hamburg",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89442924",
-        "name": "INASKA Beach Cup VT Hamburg A",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -77162,16 +76862,6 @@
         }
       },
       {
-        "id": "89442951",
-        "name": "#WeBeach U15 VT Hamburg",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82878255",
         "name": "CVJM Arzberg",
         "lsbNumber": "612049",
@@ -77372,26 +77062,6 @@
         }
       },
       {
-        "id": "89442969",
-        "name": "Beach me  B - Tournament",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89442971",
-        "name": "HaithaBeach B-Turnier Schleswig | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82878290",
         "name": "TuS Wöllstein",
         "lsbNumber": "610035",
@@ -77479,16 +77149,6 @@
         "association": {
           "id": "25463979",
           "name": "Kreis Hannover-Stadt"
-        }
-      },
-      {
-        "id": "89442977",
-        "name": "#WeBeach Turnier U18 w GWE",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -78322,16 +77982,6 @@
         }
       },
       {
-        "id": "89443028",
-        "name": "HaithaBeach B-Turnier Schleswig | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443029",
         "name": "B-Turnier Kiel | Frauen",
         "lsbNumber": null,
@@ -78372,26 +78022,6 @@
         }
       },
       {
-        "id": "89443034",
-        "name": "LEAB Beach-Cup, Schleswig | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443035",
-        "name": "Jugend Beach HM U16 weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82878439",
         "name": "CVJM Nord Hannover",
         "lsbNumber": "30436",
@@ -78404,16 +78034,6 @@
       {
         "id": "89443036",
         "name": "B-Turnier OSP Altenholz | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443037",
-        "name": "Beach-Festival Frauen C",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -78462,26 +78082,6 @@
         }
       },
       {
-        "id": "89443041",
-        "name": "INASKA Beach Cup VT Hamburg C",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443042",
-        "name": "#WeBeach GWE U18 Mädchen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82878451",
         "name": "VSG Bremerhaven",
         "lsbNumber": "50204",
@@ -78489,16 +78089,6 @@
         "association": {
           "id": "25461249",
           "name": "Region Bremen e.V."
-        }
-      },
-      {
-        "id": "89443046",
-        "name": "Seniorinnen Beach-LM Ü37",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -78742,16 +78332,6 @@
         }
       },
       {
-        "id": "89443067",
-        "name": "FLENS Beach-Tour | Großenbrode | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82878496",
         "name": "LT Lübeck",
         "lsbNumber": "614028",
@@ -78889,16 +78469,6 @@
         "association": {
           "id": "7209",
           "name": "Volleyballverband Mecklenburg-Vorpommern e.V."
-        }
-      },
-      {
-        "id": "89443076",
-        "name": "#WeBeach U15 | TuS Busdorf | weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -79192,26 +78762,6 @@
         }
       },
       {
-        "id": "89443097",
-        "name": "#WeBeach GWE U18 Jungen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443098",
-        "name": "Beach-Festival Frauen C",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82878565",
         "name": "DTG Dortmund",
         "lsbNumber": "617535",
@@ -79469,36 +79019,6 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443113",
-        "name": "Beach me B-Turnier OSP Altenholz | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443114",
-        "name": "HaithaBeach B-Turnier Schleswig | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89444335",
-        "name": "Beach me  - C Tournament",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -79832,16 +79352,6 @@
         }
       },
       {
-        "id": "89443137",
-        "name": "FLENS Beach-Tour | Ostseebad Eckernförde | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443138",
         "name": "D-Turniere Lübeck (weibl. Jugend)",
         "lsbNumber": null,
@@ -79909,16 +79419,6 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443147",
-        "name": "#WeBeach Hamburg weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -80222,16 +79722,6 @@
         }
       },
       {
-        "id": "89443165",
-        "name": "#WeBeach VT Hamburg U13",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82878723",
         "name": "TuS Zülpich",
         "lsbNumber": "617498",
@@ -80239,16 +79729,6 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443166",
-        "name": "Beach-Festival Männer C",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -80324,16 +79804,6 @@
       {
         "id": "89443175",
         "name": "B-Turnier Kiel | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443176",
-        "name": "Beach me B-Turnier OSP Altenholz | Frauen",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -80592,16 +80062,6 @@
         }
       },
       {
-        "id": "89443192",
-        "name": "#WeBeach U18 VT Hamburg",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82878770",
         "name": "SG Arenshorst-Schwagstorf",
         "lsbNumber": "11217",
@@ -80809,16 +80269,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443201",
-        "name": "Beach me - A Tournament",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -81292,16 +80742,6 @@
         }
       },
       {
-        "id": "89443222",
-        "name": "#WeBeach GWE U15 Jungen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82878882",
         "name": "VC Augsburg",
         "lsbNumber": "603065",
@@ -81412,16 +80852,6 @@
         }
       },
       {
-        "id": "89443228",
-        "name": "FLENS Beach-Tour | Großenbrode | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443230",
         "name": "B-Turnier Eckernförde/Südstrand  | Männer",
         "lsbNumber": null,
@@ -81529,16 +80959,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443242",
-        "name": "Young Beach U15 GWE-Strand",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -81732,16 +81152,6 @@
         }
       },
       {
-        "id": "89443257",
-        "name": "#WeBeach VT Hamburg U13",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443258",
         "name": "Müritzsportclub Waren",
         "lsbNumber": "710784",
@@ -81899,16 +81309,6 @@
         "association": {
           "id": "7209",
           "name": "Volleyballverband Mecklenburg-Vorpommern e.V."
-        }
-      },
-      {
-        "id": "89443267",
-        "name": "Beach me - A Tournament",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -82352,16 +81752,6 @@
         }
       },
       {
-        "id": "89443297",
-        "name": "Jugend Beach HM U18 weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82879021",
         "name": "VfB Lübeck",
         "lsbNumber": "614049",
@@ -82542,16 +81932,6 @@
         }
       },
       {
-        "id": "89443310",
-        "name": "FLENS Beach-Tour | Holstenplatz | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82879045",
         "name": "SG Grasdorf/Pattensen",
         "lsbNumber": "30371",
@@ -82564,16 +81944,6 @@
       {
         "id": "89443311",
         "name": "LM U14 | weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443312",
-        "name": "Senioren Beach-LM Ü53",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -82659,16 +82029,6 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443317",
-        "name": "#WeBeach U15 VT Hamburg",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -83092,16 +82452,6 @@
         }
       },
       {
-        "id": "89443341",
-        "name": "Seniorinnen Beach-LM Ü31",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82879122",
         "name": "VC Schwerte 02",
         "lsbNumber": "617110",
@@ -83374,16 +82724,6 @@
       {
         "id": "89443365",
         "name": "Grün-Weiß-Eimsbüttel",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443366",
-        "name": "FLENS Beach-Tour | Ostseebad Eckernförde | Männer",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -84032,16 +83372,6 @@
         }
       },
       {
-        "id": "89443403",
-        "name": "FLENS Beach-Tour | Grömitz | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82879252",
         "name": "SSV Merten",
         "lsbNumber": "617428",
@@ -84214,16 +83544,6 @@
       {
         "id": "89443414",
         "name": "»Unser Norden« Damp | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443415",
-        "name": "Jugend Beach HM U18 weiblich",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -84422,16 +83742,6 @@
         }
       },
       {
-        "id": "89443426",
-        "name": "FLENS Beach-Tour | Großenbrode | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82879312",
         "name": "TSV Siedenburg",
         "lsbNumber": "30117",
@@ -84612,16 +83922,6 @@
         }
       },
       {
-        "id": "89443433",
-        "name": "FLENS Beach-Tour | Kiel-Schilksee | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82879339",
         "name": "RSV Braunschweig",
         "lsbNumber": "40123",
@@ -84669,16 +83969,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443437",
-        "name": "FLENS Beach-Tour | Wyk auf Föhr | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -84739,16 +84029,6 @@
         "association": {
           "id": "7209",
           "name": "Volleyballverband Mecklenburg-Vorpommern e.V."
-        }
-      },
-      {
-        "id": "89443444",
-        "name": "Beach me B-Turnier OSP Altenholz | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -84934,16 +84214,6 @@
       {
         "id": "89443457",
         "name": "Hamburger Jugendmeisterschaft U19m",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443458",
-        "name": "Beach-Festival Männer C",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -85282,16 +84552,6 @@
         }
       },
       {
-        "id": "89443472",
-        "name": "Seniorinnen Beach-LM Ü43",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82879446",
         "name": "TSV Westerkappeln",
         "lsbNumber": "112001",
@@ -85324,16 +84584,6 @@
       {
         "id": "89443473",
         "name": "B-Turnier Kiel | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443475",
-        "name": "Beach me C-Turnier OSP Altenholz | Männer",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -85452,16 +84702,6 @@
         }
       },
       {
-        "id": "89443485",
-        "name": "Beach me B-Turnier OSP Altenholz | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443486",
         "name": "SV Schmalensee",
         "lsbNumber": "71179",
@@ -85522,16 +84762,6 @@
         }
       },
       {
-        "id": "89443489",
-        "name": "HaithaBeach B-Turnier Schleswig | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82879484",
         "name": "TvdB Bremen",
         "lsbNumber": "50102",
@@ -85539,16 +84769,6 @@
         "association": {
           "id": "25461249",
           "name": "Region Bremen e.V."
-        }
-      },
-      {
-        "id": "89443490",
-        "name": "FLENS Beach-Tour | Damp | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -85712,16 +84932,6 @@
         }
       },
       {
-        "id": "89443503",
-        "name": "Beach-Festival Frauen C",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443504",
         "name": "Sport-Club Vier- und Marschlande von 1899 e.V.",
         "lsbNumber": null,
@@ -85882,16 +85092,6 @@
         }
       },
       {
-        "id": "89443513",
-        "name": "#WeBeach Hamburg weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443514",
         "name": "Lübecker RG",
         "lsbNumber": "0",
@@ -86022,16 +85222,6 @@
         }
       },
       {
-        "id": "89443523",
-        "name": "Young Beach U15 GWE-Strand",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82879552",
         "name": "LSB Bielefeld",
         "lsbNumber": "617307",
@@ -86149,16 +85339,6 @@
         "association": {
           "id": "25465107",
           "name": "Kreis Aurich"
-        }
-      },
-      {
-        "id": "89443533",
-        "name": "Beach me B-Turnier OSP Altenholz | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -86332,16 +85512,6 @@
         }
       },
       {
-        "id": "89443544",
-        "name": "#WeBeach Turnier U18mGWE",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82879598",
         "name": "SV Steinhorst",
         "lsbNumber": "40231",
@@ -86399,16 +85569,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443549",
-        "name": "Beach me B-Turnier OSP Altenholz | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -86529,16 +85689,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443557",
-        "name": "FLENS Beach-Tour | Großenbrode | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -86702,16 +85852,6 @@
         }
       },
       {
-        "id": "89443565",
-        "name": "FLENS Beach-Tour | Holstenplatz | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82879645",
         "name": "SG Heber/Wolterdingen",
         "lsbNumber": "20819",
@@ -86832,16 +85972,6 @@
         }
       },
       {
-        "id": "89443576",
-        "name": "#WeBeach U18 | TSV Russee | weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443577",
         "name": "RSV 1919 Ribnitz",
         "lsbNumber": "730498",
@@ -86914,16 +86044,6 @@
       {
         "id": "89443580",
         "name": "B-Turnier Kiel | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443581",
-        "name": "Beach me B-Turnier OSP Altenholz | Frauen",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -87352,16 +86472,6 @@
         }
       },
       {
-        "id": "89443615",
-        "name": "Beach me e.V. - C Tournament",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89444447",
         "name": "TSV Quellenhaupt Bornhöved",
         "lsbNumber": "71147",
@@ -87442,16 +86552,6 @@
         }
       },
       {
-        "id": "89443620",
-        "name": "FLENS Beach-Tour | Laboe | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443621",
         "name": "Bargfelder SV",
         "lsbNumber": "0",
@@ -87499,16 +86599,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443626",
-        "name": "Beach-Festival Männer C",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -87672,16 +86762,6 @@
         }
       },
       {
-        "id": "89443637",
-        "name": "Jugend Beach HM U19 weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82879791",
         "name": "SSG Hamm",
         "lsbNumber": "617088",
@@ -87839,16 +86919,6 @@
         "association": {
           "id": "7208",
           "name": "Hamburger Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89444448",
-        "name": "HaithaBeach B-Turnier Schleswig | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -88112,16 +87182,6 @@
         }
       },
       {
-        "id": "89443671",
-        "name": "Beach me e.V  - B Tournament",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82879857",
         "name": "Jenaer TVV",
         "lsbNumber": "616015",
@@ -88129,16 +87189,6 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443672",
-        "name": "Beach-Festival Frauen B",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -88159,16 +87209,6 @@
         "association": {
           "id": "7208",
           "name": "Hamburger Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443677",
-        "name": "Beach-Festival Männer C",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -88262,16 +87302,6 @@
         }
       },
       {
-        "id": "89443679",
-        "name": "#WeBeach VT Hamburg U13",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82879884",
         "name": "BSG Sparkasse Essen",
         "lsbNumber": "617003",
@@ -88284,26 +87314,6 @@
       {
         "id": "89443680",
         "name": "B-Turnier Eckernförde/Südstrand  | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443681",
-        "name": "FLENS Beach-Tour | Holstenplatz | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443682",
-        "name": "Beach me B-Turnier OSP Altenholz | Frauen",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -88359,16 +87369,6 @@
         "association": {
           "id": "25461385",
           "name": "Kreis Harburg"
-        }
-      },
-      {
-        "id": "89443687",
-        "name": "Beach me B-Turnier OSP Altenholz | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -88509,16 +87509,6 @@
         "association": {
           "id": "25464082",
           "name": "Kreis Hildesheim"
-        }
-      },
-      {
-        "id": "89443697",
-        "name": "HaithaBeach B-Turnier Schleswig | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -88694,26 +87684,6 @@
       {
         "id": "89443707",
         "name": "B-Turnier Eckernförde/Südstrand  | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443708",
-        "name": "FLENS Beach-Tour | Holstenplatz | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443710",
-        "name": "Beach-Festival Männer C",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -89282,16 +88252,6 @@
         }
       },
       {
-        "id": "89443741",
-        "name": "#WeBeach U18 | Kieler TV | weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443742",
         "name": "B-Turnier Lübeck | Männer",
         "lsbNumber": null,
@@ -89792,16 +88752,6 @@
         }
       },
       {
-        "id": "89443778",
-        "name": "Beach-Festival Männer B",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443779",
         "name": "B-Turnier Eckernförde/Südstrand  | Frauen",
         "lsbNumber": null,
@@ -89814,16 +88764,6 @@
       {
         "id": "89443780",
         "name": "B-Turnier Lübeck | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443781",
-        "name": "FLENS Beach-Tour | Holstenplatz | Frauen",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -89912,16 +88852,6 @@
         }
       },
       {
-        "id": "89443787",
-        "name": "FLENS Beach-Tour | Wyk auf Föhr | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443788",
         "name": "TSV Aukrug",
         "lsbNumber": "70916",
@@ -89959,16 +88889,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443792",
-        "name": "FLENS Beach-Tour | Damp | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -90162,26 +89082,6 @@
         }
       },
       {
-        "id": "89443803",
-        "name": "Beach me  C - Tournament",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443804",
-        "name": "FLENS Beach-Tour | Ostseebad Grömitz | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443805",
         "name": "TSV Hattstedt",
         "lsbNumber": "70420",
@@ -90352,16 +89252,6 @@
         }
       },
       {
-        "id": "89443815",
-        "name": "Seniorinnen Beach-LM Ü37",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82880200",
         "name": "TSG Bad Harzburg",
         "lsbNumber": "40516",
@@ -90409,16 +89299,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443823",
-        "name": "Senioren Beach-LM Ü41",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -90509,16 +89389,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443834",
-        "name": "HaithaBeach B-Turnier Schleswig | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -90972,16 +89842,6 @@
         }
       },
       {
-        "id": "89443871",
-        "name": "Beach me - C Tournament",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443872",
         "name": "C-Turnier | Lübeck | Männer",
         "lsbNumber": null,
@@ -91102,28 +89962,8 @@
         }
       },
       {
-        "id": "89443881",
-        "name": "HaithaBeach B-Turnier Schleswig | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443882",
         "name": "B-Turnier Kiel | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443884",
-        "name": "FLENS Beach-Tour | Ostseebad Grömitz | Frauen",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -91149,16 +89989,6 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443885",
-        "name": "Seniorinnen Beach-LM Ü31",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -91202,16 +90032,6 @@
         }
       },
       {
-        "id": "89443888",
-        "name": "Beach me  B - Tournament",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82880327",
         "name": "VG MTV/SF Bad Gandersheim",
         "lsbNumber": "407002",
@@ -91239,16 +90059,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443891",
-        "name": "Beach me - C Tournament",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -91449,16 +90259,6 @@
         "association": {
           "id": "25461682",
           "name": "Region Rotenburg/Stade"
-        }
-      },
-      {
-        "id": "89443909",
-        "name": "Jugend Beach HM U19 weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -91702,16 +90502,6 @@
         }
       },
       {
-        "id": "89443926",
-        "name": "Beach-Festival Frauen C",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443927",
         "name": "LM U16 | weiblich",
         "lsbNumber": null,
@@ -91844,16 +90634,6 @@
       {
         "id": "89443941",
         "name": "YOUNG BEACH Niendorf | weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89443942",
-        "name": "VT Hamburg C Beach Cup",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -92122,16 +90902,6 @@
         }
       },
       {
-        "id": "89443952",
-        "name": "#WeBeach Turnier U18 m GWE",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443953",
         "name": "B-Turnier Lübeck | Frauen",
         "lsbNumber": null,
@@ -92352,16 +91122,6 @@
         }
       },
       {
-        "id": "89443968",
-        "name": "FLENS Beach-Tour | Ostseebad Grömitz | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89443969",
         "name": "Turn- und Sportverein Germania Schnelsen von 1921 e.V.",
         "lsbNumber": null,
@@ -92482,16 +91242,6 @@
         }
       },
       {
-        "id": "89443980",
-        "name": "Beach-Festival Frauen C",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82880513",
         "name": "ATV Hamburg",
         "lsbNumber": "606017",
@@ -92522,16 +91272,6 @@
         }
       },
       {
-        "id": "89443982",
-        "name": "FLENS Beach-Tour | Grömitz | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "82880524",
         "name": "JC Achternmeer-Hundsmühlen",
         "lsbNumber": "11005",
@@ -92539,16 +91279,6 @@
         "association": {
           "id": "25464851",
           "name": "Kreis Oldenburg-Land"
-        }
-      },
-      {
-        "id": "89443983",
-        "name": "Beach me C - Tournament",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -92619,16 +91349,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89443990",
-        "name": "Beach-Festival Männer C",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -92759,16 +91479,6 @@
         "association": {
           "id": "25463961",
           "name": "Kreis Hannover-Land"
-        }
-      },
-      {
-        "id": "89444003",
-        "name": "Seniorinnen Beach-LM Ü43",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -93079,16 +91789,6 @@
         "association": {
           "id": "25465051",
           "name": "Kreis Osnabrück-Land"
-        }
-      },
-      {
-        "id": "89444016",
-        "name": "FLENS Beach-Tour | Großenbrode | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -95552,26 +94252,6 @@
         }
       },
       {
-        "id": "89444023",
-        "name": "SHVV | Stützpunktvergleich Beach Mädchen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89444024",
-        "name": "#WeBeach U18 | TSV Russee | weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89444025",
         "name": "SG Motor Boizenburg",
         "lsbNumber": "760234",
@@ -95642,16 +94322,6 @@
         }
       },
       {
-        "id": "89444306",
-        "name": "FLENS Beach-Tour | Laboe | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89444309",
         "name": "Turnverein Lokstedt von 1892 e.V.",
         "lsbNumber": null,
@@ -95692,28 +94362,8 @@
         }
       },
       {
-        "id": "89444315",
-        "name": "Beach me B-Turnier OSP Altenholz | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89444317",
         "name": "B-Turnier Lübeck | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89444318",
-        "name": "FLENS Beach-Tour | Wyk auf Föhr | Männer",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -95739,16 +94389,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89444321",
-        "name": "HaithaBeach B-Turnier Schleswig | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -95922,16 +94562,6 @@
         }
       },
       {
-        "id": "89444354",
-        "name": "Beach-Festival Männer B",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89444355",
         "name": "B-Turnier Eckernförde/Südstrand  | Frauen",
         "lsbNumber": null,
@@ -96012,16 +94642,6 @@
         }
       },
       {
-        "id": "89444371",
-        "name": "INASKA Beach Cup A VT Hamburg",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89444372",
         "name": "B-Turnier Kiel | Männer",
         "lsbNumber": null,
@@ -96059,16 +94679,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89444377",
-        "name": "Beach-Festival Männer C",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -96212,16 +94822,6 @@
         }
       },
       {
-        "id": "89444398",
-        "name": "#WeBeach U18 | Kieler TV | weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89444400",
         "name": "TSV Bollingstedt-Gammellund",
         "lsbNumber": "0",
@@ -96229,16 +94829,6 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89444401",
-        "name": "Beach me  C - Tournament",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -96264,16 +94854,6 @@
       {
         "id": "89444407",
         "name": "LM U14 | weiblich",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89444408",
-        "name": "Jugend Beach HM U17 weiblich",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -96382,16 +94962,6 @@
         }
       },
       {
-        "id": "89444419",
-        "name": "FLENS Beach-Tour | Großenbrode | Männer",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
         "id": "89444420",
         "name": "TSV Altenholz / Kronshagen",
         "lsbNumber": "7095701",
@@ -96494,16 +95064,6 @@
       {
         "id": "89444433",
         "name": "B-Turnier Kiel | Frauen",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
-        }
-      },
-      {
-        "id": "89444435",
-        "name": "Beach me - C Tournament",
         "lsbNumber": null,
         "internalSportsclubId": null,
         "association": {
@@ -96629,16 +95189,6 @@
         "association": {
           "id": "7208",
           "name": "Hamburger Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89444475",
-        "name": "VT Hamburg C Beach Cup",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "2765",
-          "name": "Regionalbereich Nord"
         }
       },
       {
@@ -98279,6 +96829,16 @@
         "association": {
           "id": "33797844",
           "name": "Bochum - Ennepe-Ruhr - Herne"
+        }
+      },
+      {
+        "id": "26846423",
+        "name": "Concordia Berlin Basketball-Club e.V.",
+        "lsbNumber": "1030",
+        "internalSportsclubId": "14-11-013",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
         }
       }
     ]
