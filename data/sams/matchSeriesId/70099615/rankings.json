@@ -7,9 +7,9 @@
       "name": "Bezirksklasse Damen Süd",
       "shortName": "bzk s d",
       "type": "League",
-      "updated": "2025-03-15 20:22:39.179",
-      "structureUpdated": "2025-03-14 07:13:23.035",
-      "resultsUpdated": "2025-03-15 20:22:39.179",
+      "updated": "2025-03-17 19:20:01.588",
+      "structureUpdated": "2025-03-17 19:05:15.318",
+      "resultsUpdated": "2025-03-17 19:20:01.588",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -146,11 +146,11 @@
         "setLoseScore": "13",
         "setPointDifference": "31",
         "setQuotient": "3,385\n            ",
-        "ballPoints": "1325:1027",
-        "ballWinScore": "1325",
-        "ballLoseScore": "1027",
-        "ballPointDifference": "298",
-        "ballQuotient": "1,290\n            ",
+        "ballPoints": "1324:969",
+        "ballWinScore": "1324",
+        "ballLoseScore": "969",
+        "ballPointDifference": "355",
+        "ballQuotient": "1,366\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -314,11 +314,11 @@
         "setLoseScore": "31",
         "setPointDifference": "-8",
         "setQuotient": "0,742\n            ",
-        "ballPoints": "1151:1175",
-        "ballWinScore": "1151",
-        "ballLoseScore": "1175",
-        "ballPointDifference": "-24",
-        "ballQuotient": "0,980\n            ",
+        "ballPoints": "1093:1174",
+        "ballWinScore": "1093",
+        "ballLoseScore": "1174",
+        "ballPointDifference": "-81",
+        "ballQuotient": "0,931\n            ",
         "resultTypes": {
           "matchResult": [
             {
