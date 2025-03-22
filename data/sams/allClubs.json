@@ -28402,16 +28402,6 @@
         }
       },
       {
-        "id": "37948301",
-        "name": "SV Rot-Weiß Groß Rosenburg e.V.",
-        "lsbNumber": "60234",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37948274",
         "name": "BSV \"Heide 90\" e.V.",
         "lsbNumber": "70008",
@@ -28456,6 +28446,16 @@
         "name": "SC Empor Laucha e.V.",
         "lsbNumber": "110015",
         "internalSportsclubId": "110015",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "37948301",
+        "name": "SV Rot-Weiß Groß Rosenburg e.V.",
+        "lsbNumber": "60234",
+        "internalSportsclubId": "60234",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -30702,6 +30702,16 @@
         }
       },
       {
+        "id": "37948635",
+        "name": "Volleyball-Club Hessen e.V.",
+        "lsbNumber": "50074",
+        "internalSportsclubId": "50074",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "37921174",
         "name": "VfL Gladbeck 1921 e.V.",
         "lsbNumber": "3410005",
@@ -30766,16 +30776,6 @@
         "name": "TuS Apenburg e.V.",
         "lsbNumber": "10003",
         "internalSportsclubId": "10003",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "37948635",
-        "name": "Volleyballclub Hessen e.V.",
-        "lsbNumber": "50074",
-        "internalSportsclubId": "50074",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -33002,16 +33002,6 @@
         }
       },
       {
-        "id": "37948468",
-        "name": "TuS Dessau-Kochstedt e.V.",
-        "lsbNumber": "130002",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37921172",
         "name": "Turnerbund Osterfeld 1911e.V.",
         "lsbNumber": "1007033",
@@ -33079,6 +33069,16 @@
         "association": {
           "id": "33797844",
           "name": "Bochum - Ennepe-Ruhr - Herne"
+        }
+      },
+      {
+        "id": "37948468",
+        "name": "TuS Kochstedt e.V.",
+        "lsbNumber": "130002",
+        "internalSportsclubId": "130002",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -35022,16 +35022,6 @@
         }
       },
       {
-        "id": "37921677",
-        "name": "VfL Kommern e.V.",
-        "lsbNumber": "2407008",
-        "internalSportsclubId": "837",
-        "association": {
-          "id": "33795239",
-          "name": "Euskirchen"
-        }
-      },
-      {
         "id": "37948595",
         "name": "SV Teutonia 1920 Siersleben e.V.",
         "lsbNumber": "90029",
@@ -35039,6 +35029,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "37921677",
+        "name": "VfL Kommern e.V.",
+        "lsbNumber": "2407008",
+        "internalSportsclubId": "837",
+        "association": {
+          "id": "33795239",
+          "name": "Euskirchen"
         }
       },
       {
@@ -36472,16 +36472,6 @@
         }
       },
       {
-        "id": "82877472",
-        "name": "TV Verden",
-        "lsbNumber": "303354900",
-        "internalSportsclubId": "21105",
-        "association": {
-          "id": "25461303",
-          "name": "Kreis Verden"
-        }
-      },
-      {
         "id": "54611031",
         "name": "TV Wurmlingen",
         "lsbNumber": "23095",
@@ -36569,6 +36559,16 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "82877472",
+        "name": "TV Verden",
+        "lsbNumber": "303354900",
+        "internalSportsclubId": "21105",
+        "association": {
+          "id": "25461303",
+          "name": "Kreis Verden"
         }
       },
       {
@@ -47142,6 +47142,16 @@
         }
       },
       {
+        "id": "50621718",
+        "name": "Görlitzer Turnverein 1847 e.V.",
+        "lsbNumber": "450080",
+        "internalSportsclubId": "377",
+        "association": {
+          "id": "24908944",
+          "name": "Landkreis Görlitz"
+        }
+      },
+      {
         "id": "50621623",
         "name": "Jacober Volleyballverein e.V.",
         "lsbNumber": "520085",
@@ -47249,16 +47259,6 @@
         "association": {
           "id": "24908815",
           "name": "Stadt Dresden"
-        }
-      },
-      {
-        "id": "50621718",
-        "name": "Görlitzer Turnverein 1847 e.V.",
-        "lsbNumber": "450080",
-        "internalSportsclubId": "377",
-        "association": {
-          "id": "24908944",
-          "name": "Landkreis Görlitz"
         }
       },
       {
@@ -66122,16 +66122,6 @@
         }
       },
       {
-        "id": "26925630",
-        "name": "TV Jahn Kassel 1883",
-        "lsbNumber": "41108",
-        "internalSportsclubId": "3910",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
-        }
-      },
-      {
         "id": "26925723",
         "name": "TSG 1890 Köppern",
         "lsbNumber": "31073",
@@ -66179,6 +66169,16 @@
         "association": {
           "id": "7208",
           "name": "Hamburger Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "26925630",
+        "name": "TV Jahn Kassel 1883",
+        "lsbNumber": "41108",
+        "internalSportsclubId": "3910",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -66962,16 +66962,6 @@
         }
       },
       {
-        "id": "37922061",
-        "name": "DJK Blau-Weiß Annen e.V.",
-        "lsbNumber": "5109047",
-        "internalSportsclubId": "134",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
         "id": "37921950",
         "name": "DJK Eintracht Stadtlohn 19/20 e.V.",
         "lsbNumber": "3114009",
@@ -67009,6 +66999,16 @@
         "association": {
           "id": "33797190",
           "name": "Borken"
+        }
+      },
+      {
+        "id": "37922061",
+        "name": "DJK Blau-Weiß Annen e.V.",
+        "lsbNumber": "5109047",
+        "internalSportsclubId": "134",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
         }
       },
       {
@@ -67919,16 +67919,6 @@
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
-        }
-      },
-      {
-        "id": "37921674",
-        "name": "SV Bechen 1930 e.V.",
-        "lsbNumber": "2703012",
-        "internalSportsclubId": "1279",
-        "association": {
-          "id": "33795544",
-          "name": "Leverkusen-Rhein-Berg"
         }
       },
       {
@@ -72842,6 +72832,16 @@
         }
       },
       {
+        "id": "92912023",
+        "name": "SV Belleben 1911 e.V.",
+        "lsbNumber": "60155",
+        "internalSportsclubId": "60155",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "26925527",
         "name": "TUS Mensfelden 1894 e.V.",
         "lsbNumber": "14131",
@@ -73309,6 +73309,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "92912459",
+        "name": "SV Eintracht Grabow e.V.",
+        "lsbNumber": "40072",
+        "internalSportsclubId": "40072",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -75112,6 +75122,26 @@
         }
       },
       {
+        "id": "92913079",
+        "name": "SV Schwarz-Gelb Radegast e.V",
+        "lsbNumber": "70136",
+        "internalSportsclubId": "70136",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "92938452",
+        "name": "TSV \"Germania\" Salzmünde e.V.",
+        "lsbNumber": "100194",
+        "internalSportsclubId": "100194",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "26846432",
         "name": "Berliner Sport-Club e.V.",
         "lsbNumber": "71171",
@@ -75842,16 +75872,6 @@
         }
       },
       {
-        "id": "1065723",
-        "name": "Sportverein Grün-Weiß Eimsbüttel von 1901 e.V.",
-        "lsbNumber": null,
-        "internalSportsclubId": "121223",
-        "association": {
-          "id": "7208",
-          "name": "Hamburger Volleyball-Verband e.V."
-        }
-      },
-      {
         "id": "82878058",
         "name": "Hansa Simmerath",
         "lsbNumber": "617394",
@@ -75919,6 +75939,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "1065723",
+        "name": "Sportverein Grün-Weiß Eimsbüttel von 1901 e.V.",
+        "lsbNumber": null,
+        "internalSportsclubId": "121223",
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband e.V."
         }
       },
       {
@@ -76572,16 +76602,6 @@
         }
       },
       {
-        "id": "89442930",
-        "name": "Schwaaner SV e.V.",
-        "lsbNumber": "720058",
-        "internalSportsclubId": "720058",
-        "association": {
-          "id": "7209",
-          "name": "Volleyballverband Mecklenburg-Vorpommern e.V."
-        }
-      },
-      {
         "id": "82878205",
         "name": "FC Ohmstede",
         "lsbNumber": "50156",
@@ -76669,6 +76689,16 @@
         "association": {
           "id": "2765",
           "name": "Regionalbereich Nord"
+        }
+      },
+      {
+        "id": "89442930",
+        "name": "Schwaaner SV e.V.",
+        "lsbNumber": "720058",
+        "internalSportsclubId": "720058",
+        "association": {
+          "id": "7209",
+          "name": "Volleyballverband Mecklenburg-Vorpommern e.V."
         }
       },
       {
@@ -83822,6 +83852,16 @@
         }
       },
       {
+        "id": "92939120",
+        "name": "TV Jahn 1889 Roßlau e.V.",
+        "lsbNumber": "130021",
+        "internalSportsclubId": "130021",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "82879328",
         "name": "TSV Verden",
         "lsbNumber": "21103",
@@ -84219,6 +84259,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "92940003",
+        "name": "SG Grün-Weiß Beesenlaublingen e.V.",
+        "lsbNumber": "60133",
+        "internalSportsclubId": "60133",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -84872,16 +84922,6 @@
         }
       },
       {
-        "id": "89443501",
-        "name": "TSV Einheit Tessin v. 1928",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7209",
-          "name": "Volleyballverband Mecklenburg-Vorpommern e.V."
-        }
-      },
-      {
         "id": "82879504",
         "name": "SV Bildchen",
         "lsbNumber": "617386",
@@ -84909,6 +84949,16 @@
         "association": {
           "id": "25461644",
           "name": "Kreis Lüneburg"
+        }
+      },
+      {
+        "id": "89443501",
+        "name": "TSV Einheit Tessin v. 1863",
+        "lsbNumber": "720534",
+        "internalSportsclubId": "720534",
+        "association": {
+          "id": "7209",
+          "name": "Volleyballverband Mecklenburg-Vorpommern e.V."
         }
       },
       {
@@ -96889,6 +96939,16 @@
         "association": {
           "id": "7214",
           "name": "Thüringer Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "37921674",
+        "name": "SV Bechen 1930 e.V.",
+        "lsbNumber": "2703012",
+        "internalSportsclubId": "1279",
+        "association": {
+          "id": "33795544",
+          "name": "Leverkusen-Rhein-Berg"
         }
       }
     ]
