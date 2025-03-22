@@ -66182,16 +66182,6 @@
         }
       },
       {
-        "id": "65037528",
-        "name": "TSG Wiesloch",
-        "lsbNumber": "50783",
-        "internalSportsclubId": "50783",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036860",
         "name": "USC Heidelberg",
         "lsbNumber": "50635",
@@ -66339,6 +66329,16 @@
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
+        }
+      },
+      {
+        "id": "65037528",
+        "name": "TSG Wiesloch",
+        "lsbNumber": "50783",
+        "internalSportsclubId": "50783",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
