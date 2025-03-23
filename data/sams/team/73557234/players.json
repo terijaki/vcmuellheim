@@ -1,5 +1,5 @@
 {
-    "date": "2025-03-20T02:50:13.627Z",
+    "date": "2025-03-23T09:20:50.664Z",
     "players": [
         {
             "lastname": "Konop",
@@ -29,7 +29,7 @@
             "lastname": "Zimmermann",
             "firstname": "Louisa",
             "nationality": "DE",
-            "number": "",
+            "number": 4,
             "height": "",
             "function": ""
         },
@@ -61,7 +61,7 @@
             "lastname": "Koppe",
             "firstname": "Katja",
             "nationality": "DE",
-            "number": "",
+            "number": 18,
             "height": "",
             "function": ""
         },
@@ -93,7 +93,7 @@
             "lastname": "Beck",
             "firstname": "Hanna",
             "nationality": "DE",
-            "number": "",
+            "number": 2,
             "height": "",
             "function": ""
         },
