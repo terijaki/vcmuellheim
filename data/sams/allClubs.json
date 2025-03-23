@@ -65662,16 +65662,6 @@
         }
       },
       {
-        "id": "37921223",
-        "name": "SuS 27 Olfen e.V.",
-        "lsbNumber": "3209003",
-        "internalSportsclubId": "65",
-        "association": {
-          "id": "33797226",
-          "name": "Coesfeld"
-        }
-      },
-      {
         "id": "37921424",
         "name": "TuS Saxonia Münster 1883 e.V.",
         "lsbNumber": "3003035",
@@ -96949,6 +96939,16 @@
         "association": {
           "id": "33795544",
           "name": "Leverkusen-Rhein-Berg"
+        }
+      },
+      {
+        "id": "37921223",
+        "name": "SuS 27 Olfen e.V.",
+        "lsbNumber": "3209003",
+        "internalSportsclubId": "65",
+        "association": {
+          "id": "33797226",
+          "name": "Coesfeld"
         }
       }
     ]
