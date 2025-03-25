@@ -4172,16 +4172,6 @@
         }
       },
       {
-        "id": "26818912",
-        "name": "Sportverein Hermsdorf e.V.",
-        "lsbNumber": "480049",
-        "internalSportsclubId": "34113",
-        "association": {
-          "id": "26249243",
-          "name": "Kreisverband Nord-Ost"
-        }
-      },
-      {
         "id": "26818923",
         "name": "Volleyball-Club Jechaburg e.V.",
         "lsbNumber": "320212",
@@ -4189,6 +4179,16 @@
         "association": {
           "id": "26249225",
           "name": "Kreisverband Nord"
+        }
+      },
+      {
+        "id": "26818912",
+        "name": "Sportverein Hermsdorf e.V.",
+        "lsbNumber": "480049",
+        "internalSportsclubId": "34113",
+        "association": {
+          "id": "26249243",
+          "name": "Kreisverband Nord-Ost"
         }
       },
       {
@@ -11329,16 +11329,6 @@
         "association": {
           "id": "7209",
           "name": "Volleyballverband Mecklenburg-Vorpommern e.V."
-        }
-      },
-      {
-        "id": "26846520",
-        "name": "Sportclub Borussia 1920 Friedrichsfelde e.V.",
-        "lsbNumber": "3360",
-        "internalSportsclubId": "14-11-120",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -37432,20 +37422,20 @@
         }
       },
       {
-        "id": "49504440",
-        "name": "VV Märkische Adler Kirchmöser",
-        "lsbNumber": "510055",
-        "internalSportsclubId": "510055",
+        "id": "49504422",
+        "name": "RSV Mellensee 08 e.V.",
+        "lsbNumber": "720011",
+        "internalSportsclubId": "720011",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
-        "id": "49504422",
-        "name": "RSV Mellensee 08 e.V.",
-        "lsbNumber": "720011",
-        "internalSportsclubId": "720011",
+        "id": "49504440",
+        "name": "VV Märkische Adler Kirchmöser",
+        "lsbNumber": "510055",
+        "internalSportsclubId": "510055",
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
@@ -52312,16 +52302,6 @@
         }
       },
       {
-        "id": "50621674",
-        "name": "SV Automation 61 Leipzig e.V.",
-        "lsbNumber": "420200",
-        "internalSportsclubId": "15",
-        "association": {
-          "id": "24908890",
-          "name": "Stadt Leipzig"
-        }
-      },
-      {
         "id": "51836363",
         "name": "AC Mallendar",
         "lsbNumber": "1002302",
@@ -52339,6 +52319,16 @@
         "association": {
           "id": "25383438",
           "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
+        "id": "50621674",
+        "name": "SV Automation 61 Leipzig e.V.",
+        "lsbNumber": "420200",
+        "internalSportsclubId": "15",
+        "association": {
+          "id": "24908890",
+          "name": "Stadt Leipzig"
         }
       },
       {
@@ -56912,6 +56902,16 @@
         }
       },
       {
+        "id": "59388817",
+        "name": "Beach Verein Mainz e.V.",
+        "lsbNumber": "3001432",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
+        }
+      },
+      {
         "id": "65036542",
         "name": "Albert-Magnus-Gymnasium RW",
         "lsbNumber": null,
@@ -56939,16 +56939,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "59388817",
-        "name": "Beachraum Mainz e.V.",
-        "lsbNumber": "3001432",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -66732,16 +66722,6 @@
         }
       },
       {
-        "id": "37920951",
-        "name": "VfL Sassenberg 1926 e.V.",
-        "lsbNumber": "3309001",
-        "internalSportsclubId": "2707",
-        "association": {
-          "id": "33797364",
-          "name": "Warendorf"
-        }
-      },
-      {
         "id": "37921510",
         "name": "Spvg. Steinhagen",
         "lsbNumber": "4110004",
@@ -67882,16 +67862,6 @@
         }
       },
       {
-        "id": "37921658",
-        "name": "SC Rot-Weiß Verne 1920 e.V.",
-        "lsbNumber": "4609004",
-        "internalSportsclubId": "329",
-        "association": {
-          "id": "33797722",
-          "name": "Paderborn"
-        }
-      },
-      {
         "id": "54610755",
         "name": "TSV Neudenau",
         "lsbNumber": "30313",
@@ -67909,6 +67879,16 @@
         "association": {
           "id": "51583229",
           "name": "Bezirk Nord"
+        }
+      },
+      {
+        "id": "37921658",
+        "name": "SC Rot-Weiß Verne 1920 e.V.",
+        "lsbNumber": "4609004",
+        "internalSportsclubId": "329",
+        "association": {
+          "id": "33797722",
+          "name": "Paderborn"
         }
       },
       {
@@ -84282,6 +84262,16 @@
         }
       },
       {
+        "id": "93189905",
+        "name": "Sportverein SV Jeetze Salzwedel e.V.",
+        "lsbNumber": "10196",
+        "internalSportsclubId": "10196",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "82879405",
         "name": "SG Neustädter Land",
         "lsbNumber": "3033249533",
@@ -96949,6 +96939,36 @@
         "association": {
           "id": "33797226",
           "name": "Coesfeld"
+        }
+      },
+      {
+        "id": "26846520",
+        "name": "Sportclub Borussia 1920 Friedrichsfelde e.V.",
+        "lsbNumber": "13360",
+        "internalSportsclubId": "14-11-120",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "93189235",
+        "name": "Sportverein Schraplauer Volleybulls e.V.",
+        "lsbNumber": "100308",
+        "internalSportsclubId": "100308",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "37920951",
+        "name": "VfL Sassenberg 1926 e.V.",
+        "lsbNumber": "3309001",
+        "internalSportsclubId": "2707",
+        "association": {
+          "id": "33797364",
+          "name": "Warendorf"
         }
       }
     ]
