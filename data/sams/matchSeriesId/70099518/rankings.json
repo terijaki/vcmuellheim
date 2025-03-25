@@ -7,9 +7,9 @@
       "name": "Kreisliga Damen Süd",
       "shortName": "kl s d",
       "type": "League",
-      "updated": "2025-03-18 09:54:01.146",
+      "updated": "2025-03-24 21:41:00.542",
       "structureUpdated": "2025-03-18 09:54:01.146",
-      "resultsUpdated": "2025-03-17 12:14:17.602",
+      "resultsUpdated": "2025-03-24 21:41:00.542",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -311,25 +311,25 @@
           }
         },
         "place": "5",
-        "matchesPlayed": "15",
-        "wins": "6",
+        "matchesPlayed": "16",
+        "wins": "7",
         "losses": "9",
-        "points": "20",
-        "setPoints": "24:32",
-        "setWinScore": "24",
+        "points": "23",
+        "setPoints": "27:32",
+        "setWinScore": "27",
         "setLoseScore": "32",
-        "setPointDifference": "-8",
-        "setQuotient": "0,750\n            ",
-        "ballPoints": "1124:1188",
-        "ballWinScore": "1124",
+        "setPointDifference": "-5",
+        "setQuotient": "0,844\n            ",
+        "ballPoints": "1199:1188",
+        "ballWinScore": "1199",
         "ballLoseScore": "1188",
-        "ballPointDifference": "-64",
-        "ballQuotient": "0,946\n            ",
+        "ballPointDifference": "11",
+        "ballQuotient": "1,009\n            ",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "3:1",
@@ -412,6 +412,62 @@
       },
       {
         "team": {
+          "id": "73557968",
+          "uuid": "8fdee211-fe64-4216-b879-3c3d9951c7c6",
+          "name": "Spvgg Märkt-Eimeldingen",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "Spvgg Märkt-Eimeldingen",
+            "shortName": null
+          }
+        },
+        "place": "7",
+        "matchesPlayed": "16",
+        "wins": "6",
+        "losses": "10",
+        "points": "14",
+        "setPoints": "24:40",
+        "setWinScore": "24",
+        "setLoseScore": "40",
+        "setPointDifference": "-16",
+        "setQuotient": "0,600\n            ",
+        "ballPoints": "1138:1326",
+        "ballWinScore": "1138",
+        "ballLoseScore": "1326",
+        "ballPointDifference": "-188",
+        "ballQuotient": "0,858\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "1"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "5"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "4"
+            },
+            {
+              "result": "0:3",
+              "count": "3"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73557962",
           "uuid": "cd89563f-3f94-4e95-b5b7-1c6ec86f750b",
           "name": "TV Bad Säckingen 3",
@@ -422,7 +478,7 @@
             "shortName": null
           }
         },
-        "place": "7",
+        "place": "8",
         "matchesPlayed": "16",
         "wins": "4",
         "losses": "12",
@@ -468,62 +524,6 @@
       },
       {
         "team": {
-          "id": "73557968",
-          "uuid": "8fdee211-fe64-4216-b879-3c3d9951c7c6",
-          "name": "Spvgg Märkt-Eimeldingen",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "Spvgg Märkt-Eimeldingen",
-            "shortName": null
-          }
-        },
-        "place": "8",
-        "matchesPlayed": "15",
-        "wins": "5",
-        "losses": "10",
-        "points": "11",
-        "setPoints": "21:40",
-        "setWinScore": "21",
-        "setLoseScore": "40",
-        "setPointDifference": "-19",
-        "setQuotient": "0,525\n            ",
-        "ballPoints": "1063:1326",
-        "ballWinScore": "1063",
-        "ballLoseScore": "1326",
-        "ballPointDifference": "-263",
-        "ballQuotient": "0,802\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "0"
-            },
-            {
-              "result": "3:1",
-              "count": "0"
-            },
-            {
-              "result": "3:2",
-              "count": "5"
-            },
-            {
-              "result": "2:3",
-              "count": "1"
-            },
-            {
-              "result": "1:3",
-              "count": "4"
-            },
-            {
-              "result": "0:3",
-              "count": "3"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "73557970",
           "uuid": "c8f6d8c7-1b8e-41e8-b2c0-62359a523c91",
           "name": "TV Wehr",
@@ -535,20 +535,20 @@
           }
         },
         "place": "9",
-        "matchesPlayed": "14",
+        "matchesPlayed": "16",
         "wins": "1",
-        "losses": "13",
+        "losses": "15",
         "points": "3",
-        "setPoints": "5:41",
+        "setPoints": "5:47",
         "setWinScore": "5",
-        "setLoseScore": "41",
-        "setPointDifference": "-36",
-        "setQuotient": "0,122\n            ",
-        "ballPoints": "597:1113",
+        "setLoseScore": "47",
+        "setPointDifference": "-42",
+        "setQuotient": "0,106\n            ",
+        "ballPoints": "597:1263",
         "ballWinScore": "597",
-        "ballLoseScore": "1113",
-        "ballPointDifference": "-516",
-        "ballQuotient": "0,536\n            ",
+        "ballLoseScore": "1263",
+        "ballPointDifference": "-666",
+        "ballQuotient": "0,473\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -573,7 +573,7 @@
             },
             {
               "result": "0:3",
-              "count": "12"
+              "count": "14"
             }
           ]
         }
