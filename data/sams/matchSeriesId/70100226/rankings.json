@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2025-03-19 19:39:11.802",
+      "updated": "2025-03-29 15:45:25.345",
       "structureUpdated": "2025-03-19 19:39:11.802",
-      "resultsUpdated": "2025-03-18 15:59:55.223",
+      "resultsUpdated": "2025-03-29 15:45:25.345",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -282,6 +282,62 @@
       },
       {
         "team": {
+          "id": "73349535",
+          "uuid": "d749145f-4492-4ae4-867e-39689506efb9",
+          "name": "VC Weil 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VC Weil am Rhein",
+            "shortName": null
+          }
+        },
+        "place": "5",
+        "matchesPlayed": "17",
+        "wins": "8",
+        "losses": "9",
+        "points": "25",
+        "setPoints": "33:35",
+        "setWinScore": "33",
+        "setLoseScore": "35",
+        "setPointDifference": "-2",
+        "setQuotient": "0,943\n            ",
+        "ballPoints": "1487:1380",
+        "ballWinScore": "1487",
+        "ballLoseScore": "1380",
+        "ballPointDifference": "107",
+        "ballQuotient": "1,078\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "3"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "3"
+            },
+            {
+              "result": "2:3",
+              "count": "4"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "4"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
           "id": "73349547",
           "uuid": "447ad96d-f886-4b5b-bee4-ed76c5c2962a",
           "name": "TSV Al. Zähringen 1",
@@ -292,7 +348,7 @@
             "shortName": null
           }
         },
-        "place": "5",
+        "place": "6",
         "matchesPlayed": "17",
         "wins": "8",
         "losses": "9",
@@ -348,7 +404,7 @@
             "shortName": null
           }
         },
-        "place": "6",
+        "place": "7",
         "matchesPlayed": "16",
         "wins": "8",
         "losses": "8",
@@ -388,62 +444,6 @@
             {
               "result": "0:3",
               "count": "2"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73349535",
-          "uuid": "d749145f-4492-4ae4-867e-39689506efb9",
-          "name": "VC Weil 2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "VC Weil am Rhein",
-            "shortName": null
-          }
-        },
-        "place": "7",
-        "matchesPlayed": "16",
-        "wins": "7",
-        "losses": "9",
-        "points": "22",
-        "setPoints": "30:35",
-        "setWinScore": "30",
-        "setLoseScore": "35",
-        "setPointDifference": "-5",
-        "setQuotient": "0,857\n            ",
-        "ballPoints": "1412:1335",
-        "ballWinScore": "1412",
-        "ballLoseScore": "1335",
-        "ballPointDifference": "77",
-        "ballQuotient": "1,058\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "2"
-            },
-            {
-              "result": "3:1",
-              "count": "2"
-            },
-            {
-              "result": "3:2",
-              "count": "3"
-            },
-            {
-              "result": "2:3",
-              "count": "4"
-            },
-            {
-              "result": "1:3",
-              "count": "1"
-            },
-            {
-              "result": "0:3",
-              "count": "4"
             }
           ]
         }
@@ -517,20 +517,20 @@
           }
         },
         "place": "9",
-        "matchesPlayed": "17",
+        "matchesPlayed": "18",
         "wins": "6",
-        "losses": "11",
+        "losses": "12",
         "points": "15",
-        "setPoints": "23:42",
+        "setPoints": "23:45",
         "setWinScore": "23",
-        "setLoseScore": "42",
-        "setPointDifference": "-19",
-        "setQuotient": "0,548\n            ",
-        "ballPoints": "1400:1510",
-        "ballWinScore": "1400",
-        "ballLoseScore": "1510",
-        "ballPointDifference": "-110",
-        "ballQuotient": "0,927\n            ",
+        "setLoseScore": "45",
+        "setPointDifference": "-22",
+        "setQuotient": "0,511\n            ",
+        "ballPoints": "1445:1585",
+        "ballWinScore": "1445",
+        "ballLoseScore": "1585",
+        "ballPointDifference": "-140",
+        "ballQuotient": "0,912\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -555,7 +555,7 @@
             },
             {
               "result": "0:3",
-              "count": "6"
+              "count": "7"
             }
           ]
         }
