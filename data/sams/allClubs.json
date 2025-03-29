@@ -5652,16 +5652,6 @@
         }
       },
       {
-        "id": "26819144",
-        "name": "Volleyballverein Ammern 1961 e.V.",
-        "lsbNumber": "220152",
-        "internalSportsclubId": "22232",
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
-        }
-      },
-      {
         "id": "26819150",
         "name": "SV Robotron Weimar e.V.",
         "lsbNumber": "400024",
@@ -5829,6 +5819,16 @@
         "association": {
           "id": "26249261",
           "name": "Kreisverband Ost"
+        }
+      },
+      {
+        "id": "26819144",
+        "name": "Volleyballverein Ammern 1961 e.V.",
+        "lsbNumber": "220152",
+        "internalSportsclubId": "22232",
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
         }
       },
       {
