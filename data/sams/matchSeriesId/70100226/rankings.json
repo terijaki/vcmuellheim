@@ -7,9 +7,9 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2025-03-29 16:17:57.279",
+      "updated": "2025-03-29 18:46:12.051",
       "structureUpdated": "2025-03-19 19:39:11.802",
-      "resultsUpdated": "2025-03-29 16:17:57.279",
+      "resultsUpdated": "2025-03-29 18:46:12.051",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -125,25 +125,25 @@
           }
         },
         "place": "2",
-        "matchesPlayed": "17",
-        "wins": "11",
+        "matchesPlayed": "18",
+        "wins": "12",
         "losses": "6",
-        "points": "33",
-        "setPoints": "39:24",
-        "setWinScore": "39",
+        "points": "36",
+        "setPoints": "42:24",
+        "setWinScore": "42",
         "setLoseScore": "24",
-        "setPointDifference": "15",
-        "setQuotient": "1,625\n            ",
-        "ballPoints": "1442:1336",
-        "ballWinScore": "1442",
-        "ballLoseScore": "1336",
-        "ballPointDifference": "106",
-        "ballQuotient": "1,079\n            ",
+        "setPointDifference": "18",
+        "setQuotient": "1,750\n            ",
+        "ballPoints": "1517:1394",
+        "ballWinScore": "1517",
+        "ballLoseScore": "1394",
+        "ballPointDifference": "123",
+        "ballQuotient": "1,088\n            ",
         "resultTypes": {
           "matchResult": [
             {
               "result": "3:0",
-              "count": "7"
+              "count": "8"
             },
             {
               "result": "3:1",
@@ -156,6 +156,62 @@
             {
               "result": "2:3",
               "count": "2"
+            },
+            {
+              "result": "1:3",
+              "count": "2"
+            },
+            {
+              "result": "0:3",
+              "count": "2"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73349531",
+          "uuid": "33b47143-b56d-4cb1-94d1-54f6d6c415c7",
+          "name": "TV Kappelrodeck 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Kappelrodeck",
+            "shortName": null
+          }
+        },
+        "place": "3",
+        "matchesPlayed": "18",
+        "wins": "11",
+        "losses": "7",
+        "points": "34",
+        "setPoints": "41:31",
+        "setWinScore": "41",
+        "setLoseScore": "31",
+        "setPointDifference": "10",
+        "setQuotient": "1,323\n            ",
+        "ballPoints": "1606:1582",
+        "ballWinScore": "1606",
+        "ballLoseScore": "1582",
+        "ballPointDifference": "24",
+        "ballQuotient": "1,015\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "3"
+            },
+            {
+              "result": "3:1",
+              "count": "6"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "3"
             },
             {
               "result": "1:3",
@@ -180,21 +236,21 @@
             "shortName": null
           }
         },
-        "place": "3",
-        "matchesPlayed": "17",
+        "place": "4",
+        "matchesPlayed": "18",
         "wins": "11",
-        "losses": "6",
-        "points": "32",
-        "setPoints": "38:27",
-        "setWinScore": "38",
-        "setLoseScore": "27",
-        "setPointDifference": "11",
-        "setQuotient": "1,407\n            ",
-        "ballPoints": "1461:1381",
-        "ballWinScore": "1461",
-        "ballLoseScore": "1381",
-        "ballPointDifference": "80",
-        "ballQuotient": "1,058\n            ",
+        "losses": "7",
+        "points": "33",
+        "setPoints": "40:30",
+        "setWinScore": "40",
+        "setLoseScore": "30",
+        "setPointDifference": "10",
+        "setQuotient": "1,333\n            ",
+        "ballPoints": "1555:1489",
+        "ballWinScore": "1555",
+        "ballLoseScore": "1489",
+        "ballPointDifference": "66",
+        "ballQuotient": "1,044\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -211,7 +267,7 @@
             },
             {
               "result": "2:3",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "1:3",
@@ -220,62 +276,6 @@
             {
               "result": "0:3",
               "count": "3"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
-          "id": "73349531",
-          "uuid": "33b47143-b56d-4cb1-94d1-54f6d6c415c7",
-          "name": "TV Kappelrodeck 2",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TV Kappelrodeck",
-            "shortName": null
-          }
-        },
-        "place": "4",
-        "matchesPlayed": "16",
-        "wins": "10",
-        "losses": "6",
-        "points": "32",
-        "setPoints": "38:26",
-        "setWinScore": "38",
-        "setLoseScore": "26",
-        "setPointDifference": "12",
-        "setQuotient": "1,462\n            ",
-        "ballPoints": "1436:1399",
-        "ballWinScore": "1436",
-        "ballLoseScore": "1399",
-        "ballPointDifference": "37",
-        "ballQuotient": "1,026\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "3"
-            },
-            {
-              "result": "3:1",
-              "count": "6"
-            },
-            {
-              "result": "3:2",
-              "count": "1"
-            },
-            {
-              "result": "2:3",
-              "count": "3"
-            },
-            {
-              "result": "1:3",
-              "count": "2"
-            },
-            {
-              "result": "0:3",
-              "count": "1"
             }
           ]
         }
@@ -293,20 +293,20 @@
           }
         },
         "place": "5",
-        "matchesPlayed": "17",
-        "wins": "8",
+        "matchesPlayed": "18",
+        "wins": "9",
         "losses": "9",
-        "points": "25",
-        "setPoints": "33:35",
-        "setWinScore": "33",
-        "setLoseScore": "35",
-        "setPointDifference": "-2",
-        "setQuotient": "0,943\n            ",
-        "ballPoints": "1487:1380",
-        "ballWinScore": "1487",
-        "ballLoseScore": "1380",
-        "ballPointDifference": "107",
-        "ballQuotient": "1,078\n            ",
+        "points": "27",
+        "setPoints": "36:37",
+        "setWinScore": "36",
+        "setLoseScore": "37",
+        "setPointDifference": "-1",
+        "setQuotient": "0,973\n            ",
+        "ballPoints": "1595:1474",
+        "ballWinScore": "1595",
+        "ballLoseScore": "1474",
+        "ballPointDifference": "121",
+        "ballQuotient": "1,082\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -319,7 +319,7 @@
             },
             {
               "result": "3:2",
-              "count": "3"
+              "count": "4"
             },
             {
               "result": "2:3",
@@ -338,62 +338,6 @@
       },
       {
         "team": {
-          "id": "73349547",
-          "uuid": "447ad96d-f886-4b5b-bee4-ed76c5c2962a",
-          "name": "TSV Al. Zähringen 1",
-          "shortName": null,
-          "clubCode": null,
-          "club": {
-            "name": "TSV Alemannia Freiburg-Zähringen",
-            "shortName": null
-          }
-        },
-        "place": "6",
-        "matchesPlayed": "17",
-        "wins": "8",
-        "losses": "9",
-        "points": "24",
-        "setPoints": "33:35",
-        "setWinScore": "33",
-        "setLoseScore": "35",
-        "setPointDifference": "-2",
-        "setQuotient": "0,943\n            ",
-        "ballPoints": "1507:1520",
-        "ballWinScore": "1507",
-        "ballLoseScore": "1520",
-        "ballPointDifference": "-13",
-        "ballQuotient": "0,991\n            ",
-        "resultTypes": {
-          "matchResult": [
-            {
-              "result": "3:0",
-              "count": "3"
-            },
-            {
-              "result": "3:1",
-              "count": "2"
-            },
-            {
-              "result": "3:2",
-              "count": "3"
-            },
-            {
-              "result": "2:3",
-              "count": "3"
-            },
-            {
-              "result": "1:3",
-              "count": "3"
-            },
-            {
-              "result": "0:3",
-              "count": "3"
-            }
-          ]
-        }
-      },
-      {
-        "team": {
           "id": "73349539",
           "uuid": "c5acdb80-aaab-4e7d-9f0d-0447b6ba37d0",
           "name": "TV Kollnau-Gutach 1",
@@ -404,21 +348,21 @@
             "shortName": null
           }
         },
-        "place": "7",
-        "matchesPlayed": "17",
-        "wins": "8",
+        "place": "6",
+        "matchesPlayed": "18",
+        "wins": "9",
         "losses": "9",
-        "points": "23",
-        "setPoints": "34:37",
-        "setWinScore": "34",
-        "setLoseScore": "37",
-        "setPointDifference": "-3",
-        "setQuotient": "0,919\n            ",
-        "ballPoints": "1524:1527",
-        "ballWinScore": "1524",
-        "ballLoseScore": "1527",
-        "ballPointDifference": "-3",
-        "ballQuotient": "0,998\n            ",
+        "points": "26",
+        "setPoints": "37:38",
+        "setWinScore": "37",
+        "setLoseScore": "38",
+        "setPointDifference": "-1",
+        "setQuotient": "0,974\n            ",
+        "ballPoints": "1622:1598",
+        "ballWinScore": "1622",
+        "ballLoseScore": "1598",
+        "ballPointDifference": "24",
+        "ballQuotient": "1,015\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -427,7 +371,7 @@
             },
             {
               "result": "3:1",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "3:2",
@@ -444,6 +388,62 @@
             {
               "result": "0:3",
               "count": "2"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73349547",
+          "uuid": "447ad96d-f886-4b5b-bee4-ed76c5c2962a",
+          "name": "TSV Al. Zähringen 1",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TSV Alemannia Freiburg-Zähringen",
+            "shortName": null
+          }
+        },
+        "place": "7",
+        "matchesPlayed": "18",
+        "wins": "8",
+        "losses": "10",
+        "points": "25",
+        "setPoints": "35:38",
+        "setWinScore": "35",
+        "setLoseScore": "38",
+        "setPointDifference": "-3",
+        "setQuotient": "0,921\n            ",
+        "ballPoints": "1615:1632",
+        "ballWinScore": "1615",
+        "ballLoseScore": "1632",
+        "ballPointDifference": "-17",
+        "ballQuotient": "0,990\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "3"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "3"
+            },
+            {
+              "result": "2:3",
+              "count": "4"
+            },
+            {
+              "result": "1:3",
+              "count": "3"
+            },
+            {
+              "result": "0:3",
+              "count": "3"
             }
           ]
         }
@@ -573,20 +573,20 @@
           }
         },
         "place": "10",
-        "matchesPlayed": "17",
+        "matchesPlayed": "18",
         "wins": "4",
-        "losses": "13",
+        "losses": "14",
         "points": "13",
-        "setPoints": "20:45",
-        "setWinScore": "20",
-        "setLoseScore": "45",
-        "setPointDifference": "-25",
-        "setQuotient": "0,444\n            ",
-        "ballPoints": "1314:1510",
-        "ballWinScore": "1314",
-        "ballLoseScore": "1510",
-        "ballPointDifference": "-196",
-        "ballQuotient": "0,870\n            ",
+        "setPoints": "21:48",
+        "setWinScore": "21",
+        "setLoseScore": "48",
+        "setPointDifference": "-27",
+        "setQuotient": "0,438\n            ",
+        "ballPoints": "1385:1608",
+        "ballWinScore": "1385",
+        "ballLoseScore": "1608",
+        "ballPointDifference": "-223",
+        "ballQuotient": "0,861\n            ",
         "resultTypes": {
           "matchResult": [
             {
@@ -607,7 +607,7 @@
             },
             {
               "result": "1:3",
-              "count": "2"
+              "count": "3"
             },
             {
               "result": "0:3",
