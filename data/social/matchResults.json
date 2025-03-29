@@ -1,110 +1,6 @@
 {
   "entries": [
     {
-      "uuid": "e802c742-8b79-46b0-8f8d-d1e2615f41ff",
-      "date": "2025-01-25T13:00:00.000Z",
-      "league": "Bezirksliga Herren Süd",
-      "team": [
-        "VC Minseln 1",
-        "VC Müllheim 2"
-      ],
-      "winner": 1,
-      "score": "3:0",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113889314710763616"
-    },
-    {
-      "uuid": "c965e6f4-da3f-4928-91d5-3defc241f3ca",
-      "date": "2025-01-25T13:00:00.000Z",
-      "league": "Landesliga West Herren",
-      "team": [
-        "VC Müllheim 1",
-        "VC Weil 2"
-      ],
-      "winner": 1,
-      "score": "3:0",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113889548995410633"
-    },
-    {
-      "uuid": "fbee2b4e-5faa-46aa-8550-ba77dfaefc98",
-      "date": "2025-01-25T13:00:00.000Z",
-      "league": "Kreisliga Damen Süd",
-      "team": [
-        "SG Breisach - Gündlingen 2",
-        "VC Müllheim 2"
-      ],
-      "winner": 2,
-      "score": "1:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113889549023441176"
-    },
-    {
-      "uuid": "29fb5d75-45e3-4fa2-b096-0c4e59260b26",
-      "date": "2025-01-25T13:00:00.000Z",
-      "league": "Landesliga West Herren",
-      "team": [
-        "VC Müllheim 1",
-        "TB Bad Krozingen"
-      ],
-      "winner": 1,
-      "score": "3:0",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113889922530009464"
-    },
-    {
-      "uuid": "74ebe1b8-20b4-4371-8ae3-31c42febf125",
-      "date": "2025-01-25T13:00:00.000Z",
-      "league": "Bezirksliga Herren Süd",
-      "team": [
-        "VC Müllheim 2",
-        "SG BEG United 5"
-      ],
-      "winner": 2,
-      "score": "1:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113375124812913958"
-    },
-    {
-      "uuid": "1179003f-d6fd-44a6-8885-9124557c7d2c",
-      "date": "2025-01-25T13:00:00.000Z",
-      "league": "Kreisliga Damen Süd",
-      "team": [
-        "VC Müllheim 2",
-        "TV Wehr"
-      ],
-      "winner": 1,
-      "score": "3:0",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113890257282825591"
-    },
-    {
-      "uuid": "a87ae0e7-c571-4a7b-aaf0-cbaf23e9af26",
-      "date": "2025-01-26T09:30:00.000Z",
-      "league": "Bezirksklasse Damen Süd",
-      "team": [
-        "VC Müllheim 1",
-        "TV Staufen 2"
-      ],
-      "winner": 1,
-      "score": "3:1",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113894392527948335"
-    },
-    {
-      "uuid": "78922372-3e5a-4239-a7ac-fa76a9ca8216",
-      "date": "2025-01-26T09:30:00.000Z",
-      "league": "Bezirksklasse Damen Süd",
-      "team": [
-        "VC Müllheim 1",
-        "TV Merdingen 2"
-      ],
-      "winner": 2,
-      "score": "0:3",
-      "mastodon": "published",
-      "mastodonUrl": "https://freiburg.social/@VCM/113894874829648497"
-    },
-    {
       "uuid": "256ae3cf-bdfc-45c3-bda9-c32241a3088c",
       "date": "2025-02-01T13:00:00.000Z",
       "league": "Landesliga West Herren",
@@ -335,7 +231,8 @@
       ],
       "winner": 2,
       "score": "0:3",
-      "mastodon": "new"
+      "mastodon": "published",
+      "mastodonUrl": "https://freiburg.social/@VCM/114246981705732866"
     }
   ]
 }
