@@ -66052,16 +66052,6 @@
         }
       },
       {
-        "id": "4450240",
-        "name": "TSG HD-Rohrbach",
-        "lsbNumber": "50659",
-        "internalSportsclubId": "50659",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "51836038",
         "name": "TV 1965 Rodenbach",
         "lsbNumber": "41",
@@ -66196,6 +66186,16 @@
         "name": "TSG Wiesloch",
         "lsbNumber": "50783",
         "internalSportsclubId": "50783",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "4450240",
+        "name": "TSG HD-Rohrbach",
+        "lsbNumber": "50659",
+        "internalSportsclubId": "50659",
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
