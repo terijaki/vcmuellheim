@@ -51062,16 +51062,6 @@
         }
       },
       {
-        "id": "65036476",
-        "name": "TTC Siegelsbach",
-        "lsbNumber": "40507",
-        "internalSportsclubId": "40507",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "51836438",
         "name": "TC Dierdorf",
         "lsbNumber": "1002602",
@@ -51289,6 +51279,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "65036476",
+        "name": "TTC Siegelsbach",
+        "lsbNumber": "40507",
+        "internalSportsclubId": "40507",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
