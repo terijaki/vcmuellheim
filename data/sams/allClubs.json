@@ -5822,16 +5822,6 @@
         }
       },
       {
-        "id": "26819144",
-        "name": "Volleyballverein Ammern 1961 e.V.",
-        "lsbNumber": "220152",
-        "internalSportsclubId": "22232",
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
-        }
-      },
-      {
         "id": "82879623",
         "name": "TSV Mechtersen-Vögelsen",
         "lsbNumber": "303290572",
@@ -5839,6 +5829,16 @@
         "association": {
           "id": "25461644",
           "name": "Kreis Lüneburg"
+        }
+      },
+      {
+        "id": "26819144",
+        "name": "Volleyballverein Ammern 1961 e.V.",
+        "lsbNumber": "220152",
+        "internalSportsclubId": "22232",
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
         }
       },
       {
