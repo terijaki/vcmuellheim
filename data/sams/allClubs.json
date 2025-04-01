@@ -18782,16 +18782,6 @@
         }
       },
       {
-        "id": "26925593",
-        "name": "SC Königstein",
-        "lsbNumber": "31345",
-        "internalSportsclubId": "3113",
-        "association": {
-          "id": "26196856",
-          "name": "HVV | Bezirk West"
-        }
-      },
-      {
         "id": "6416",
         "name": "GfL Hannover",
         "lsbNumber": "302205130",
@@ -18869,6 +18859,16 @@
         "association": {
           "id": "26196796",
           "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
+        "id": "26925593",
+        "name": "SC Königstein",
+        "lsbNumber": "31345",
+        "internalSportsclubId": "3113",
+        "association": {
+          "id": "26196856",
+          "name": "HVV | Bezirk West"
         }
       },
       {
@@ -31722,16 +31722,6 @@
         }
       },
       {
-        "id": "82880377",
-        "name": "Bürgerfelder TB",
-        "lsbNumber": "304460500",
-        "internalSportsclubId": "11109",
-        "association": {
-          "id": "25464869",
-          "name": "Kreis Oldenburg-Stadt"
-        }
-      },
-      {
         "id": "82878986",
         "name": "SG Emden/Hinte",
         "lsbNumber": "10511",
@@ -33262,6 +33252,16 @@
         }
       },
       {
+        "id": "49504409",
+        "name": "Sacrower SV",
+        "lsbNumber": "540133",
+        "internalSportsclubId": "540133",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "82878742",
         "name": "Emder RV",
         "lsbNumber": "304400300",
@@ -33329,16 +33329,6 @@
         "association": {
           "id": "26249261",
           "name": "Kreisverband Ost"
-        }
-      },
-      {
-        "id": "49504409",
-        "name": "Sacrower SV",
-        "lsbNumber": "540133",
-        "internalSportsclubId": "540133",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -44572,16 +44562,6 @@
         }
       },
       {
-        "id": "54610862",
-        "name": "SSV Hermaringen",
-        "lsbNumber": "9075",
-        "internalSportsclubId": "208",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "54610865",
         "name": "TSV Heumaden",
         "lsbNumber": "20162",
@@ -44716,6 +44696,16 @@
         "name": "TV Hochdorf",
         "lsbNumber": "6082",
         "internalSportsclubId": "212",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
+        }
+      },
+      {
+        "id": "54610862",
+        "name": "SSV Hermaringen",
+        "lsbNumber": "9075",
+        "internalSportsclubId": "208",
         "association": {
           "id": "51583389",
           "name": "Bezirk Ost"
@@ -53176,16 +53166,6 @@
         "name": "TGV Entringen",
         "lsbNumber": "22002",
         "internalSportsclubId": "473",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
-        "id": "54611113",
-        "name": "SV Leonberg/Eltingen",
-        "lsbNumber": "3069",
-        "internalSportsclubId": "471",
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
@@ -72492,16 +72472,6 @@
         }
       },
       {
-        "id": "37948350",
-        "name": "Polizeisportverein Halle e.V.",
-        "lsbNumber": "140043",
-        "internalSportsclubId": "140043",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "82877524",
         "name": "TSV Kreuzriehe-Helsinghausen",
         "lsbNumber": "3033249518",
@@ -88922,16 +88892,6 @@
         }
       },
       {
-        "id": "93321404",
-        "name": "Rhein-Sieg Ladies Buisdorf & Hennef & Seelscheid",
-        "lsbNumber": "1111111110000102",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "33795566",
-          "name": "Rhein-Sieg"
-        }
-      },
-      {
         "id": "93335282",
         "name": "Volleyball- und Sportverein Rote Milane Uder e.V.",
         "lsbNumber": "1111111110000103",
@@ -88939,6 +88899,16 @@
         "association": {
           "id": "7214",
           "name": "Thüringer Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "93321404",
+        "name": "Rhein-Sieg Ladies Buisdorf & Hennef & Seelscheid",
+        "lsbNumber": "1111111110000102",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "33795566",
+          "name": "Rhein-Sieg"
         }
       },
       {
@@ -92972,6 +92942,16 @@
         }
       },
       {
+        "id": "93675723",
+        "name": "Universität Hamburg (Mixed)",
+        "lsbNumber": "1111111110000104",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband e.V."
+        }
+      },
+      {
         "id": "82877533",
         "name": "Sportgemeinschaft Rodenberg e.V.",
         "lsbNumber": "302241780",
@@ -95582,16 +95562,6 @@
         }
       },
       {
-        "id": "82876975",
-        "name": "TSV Winsen/Luhe",
-        "lsbNumber": "303278200",
-        "internalSportsclubId": "20308",
-        "association": {
-          "id": "25461385",
-          "name": "Kreis Harburg"
-        }
-      },
-      {
         "id": "82877309",
         "name": "ESV Büchen",
         "lsbNumber": "70274",
@@ -96972,10 +96942,10 @@
         }
       },
       {
-        "id": "37948459",
-        "name": "Sportverein Halle e.V.",
-        "lsbNumber": "140050",
-        "internalSportsclubId": "140050",
+        "id": "37948350",
+        "name": "Polizeisportverein Halle e.V.",
+        "lsbNumber": "140043",
+        "internalSportsclubId": "140043",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -96989,6 +96959,46 @@
         "association": {
           "id": "24908926",
           "name": "Landkreis Bautzen"
+        }
+      },
+      {
+        "id": "82880377",
+        "name": "Bürgerfelder TB",
+        "lsbNumber": "304460500",
+        "internalSportsclubId": "11109",
+        "association": {
+          "id": "25464869",
+          "name": "Kreis Oldenburg-Stadt"
+        }
+      },
+      {
+        "id": "82876975",
+        "name": "TSV Winsen/Luhe",
+        "lsbNumber": "303278200",
+        "internalSportsclubId": "20308",
+        "association": {
+          "id": "25461385",
+          "name": "Kreis Harburg"
+        }
+      },
+      {
+        "id": "54611113",
+        "name": "SV Leonberg/Eltingen",
+        "lsbNumber": "3069",
+        "internalSportsclubId": "471",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "37948459",
+        "name": "Sportverein Halle e.V.",
+        "lsbNumber": "140050",
+        "internalSportsclubId": "140050",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       }
     ]
