@@ -21662,16 +21662,6 @@
         }
       },
       {
-        "id": "37921352",
-        "name": "SV Westfalia Rhynern 1935 e.V.",
-        "lsbNumber": "5004068",
-        "internalSportsclubId": "9061",
-        "association": {
-          "id": "33797781",
-          "name": "Hamm"
-        }
-      },
-      {
         "id": "54611174",
         "name": "TSV Pfronstetten",
         "lsbNumber": "16077",
@@ -28942,16 +28932,6 @@
         }
       },
       {
-        "id": "37948380",
-        "name": "Wolmirstedter Sportverein 1931 e.V.",
-        "lsbNumber": "110022",
-        "internalSportsclubId": "110022",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37948373",
         "name": "FSV Eintracht Badersleben 1920 e.V.",
         "lsbNumber": "50025",
@@ -29016,6 +28996,16 @@
         "name": "LüVV 2010 - Lübser Volleyball Verein 2010 e.V.",
         "lsbNumber": "40152",
         "internalSportsclubId": "40152",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "37948380",
+        "name": "Wohlmirstedter Sportverein 1931 e.V.",
+        "lsbNumber": "110022",
+        "internalSportsclubId": "110022",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -31442,6 +31432,16 @@
         }
       },
       {
+        "id": "37921229",
+        "name": "SG Chateau 1983 Bonn e.V.",
+        "lsbNumber": "2002896",
+        "internalSportsclubId": "1088",
+        "association": {
+          "id": "33795281",
+          "name": "Bonn"
+        }
+      },
+      {
         "id": "37920781",
         "name": "Hansa Gemeinschaft 1921 e.V. Simmerath",
         "lsbNumber": "2107013",
@@ -31619,16 +31619,6 @@
         "association": {
           "id": "33797844",
           "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
-        "id": "37921229",
-        "name": "SG Chateau 1983 Bonn e.V.",
-        "lsbNumber": "2002896",
-        "internalSportsclubId": "1088",
-        "association": {
-          "id": "33795281",
-          "name": "Bonn"
         }
       },
       {
@@ -34972,6 +34962,16 @@
         }
       },
       {
+        "id": "26925053",
+        "name": "TSV Hessen 1848 Frankenberg",
+        "lsbNumber": "17036",
+        "internalSportsclubId": "3201",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
+        }
+      },
+      {
         "id": "50621678",
         "name": "SV Reuth e.V.",
         "lsbNumber": "510250",
@@ -34999,16 +34999,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "26925053",
-        "name": "TSV Hessen 1848 Frankenberg",
-        "lsbNumber": "17036",
-        "internalSportsclubId": "3201",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -35109,16 +35099,6 @@
         "association": {
           "id": "33298901",
           "name": "Wesel"
-        }
-      },
-      {
-        "id": "82878318",
-        "name": "SC Melle 03",
-        "lsbNumber": "304472695",
-        "internalSportsclubId": "11209",
-        "association": {
-          "id": "25465051",
-          "name": "Kreis Osnabrück-Land"
         }
       },
       {
@@ -38502,6 +38482,16 @@
         }
       },
       {
+        "id": "37948295",
+        "name": "SV Motor Zeitz e.V.",
+        "lsbNumber": "110105",
+        "internalSportsclubId": "110105",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "54611319",
         "name": "Sport- und Freizeitclub Stuttgart",
         "lsbNumber": "0",
@@ -38599,16 +38589,6 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "37948295",
-        "name": "SV Motor Zeitz e.V.",
-        "lsbNumber": "110105",
-        "internalSportsclubId": "110105",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -39042,16 +39022,6 @@
         }
       },
       {
-        "id": "53311671",
-        "name": "TG Bad Waldsee",
-        "lsbNumber": "14028",
-        "internalSportsclubId": "324",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "50621483",
         "name": "SV Sankt Marienstern e.V.",
         "lsbNumber": "430328",
@@ -39109,6 +39079,16 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
+        }
+      },
+      {
+        "id": "53311671",
+        "name": "TG Bad Waldsee",
+        "lsbNumber": "14028",
+        "internalSportsclubId": "324",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
@@ -48882,16 +48862,6 @@
         }
       },
       {
-        "id": "37920761",
-        "name": "Turnverein Ratingen 1865 e.V.",
-        "lsbNumber": "1207035",
-        "internalSportsclubId": "5315",
-        "association": {
-          "id": "33299074",
-          "name": "Wupper-Mettmann"
-        }
-      },
-      {
         "id": "54611044",
         "name": "TSV Scheer",
         "lsbNumber": "19063",
@@ -56542,6 +56512,16 @@
         }
       },
       {
+        "id": "54611024",
+        "name": "TSG Leutkirch",
+        "lsbNumber": "14087",
+        "internalSportsclubId": "380",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
+        }
+      },
+      {
         "id": "50622010",
         "name": "SV Pama Freiberg e.V.",
         "lsbNumber": "480314",
@@ -56599,16 +56579,6 @@
         "association": {
           "id": "24908926",
           "name": "Landkreis Bautzen"
-        }
-      },
-      {
-        "id": "54611024",
-        "name": "TSG Leutkirch",
-        "lsbNumber": "14087",
-        "internalSportsclubId": "380",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
         }
       },
       {
@@ -58292,6 +58262,16 @@
         }
       },
       {
+        "id": "65036957",
+        "name": "TSV Stahringen",
+        "lsbNumber": "472890",
+        "internalSportsclubId": "100009",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "51836372",
         "name": "VSG Edigheim",
         "lsbNumber": "53",
@@ -58379,16 +58359,6 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
-        "id": "65036957",
-        "name": "TSV Stahringen",
-        "lsbNumber": "472890",
-        "internalSportsclubId": "100009",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -64922,16 +64892,6 @@
         }
       },
       {
-        "id": "16932565",
-        "name": "VC Offenburg",
-        "lsbNumber": "480200",
-        "internalSportsclubId": "4423",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "65036872",
         "name": "VC Kuppenheim",
         "lsbNumber": "480150",
@@ -64979,6 +64939,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "16932565",
+        "name": "VC Offenburg",
+        "lsbNumber": "480200",
+        "internalSportsclubId": "4423",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -70769,16 +70739,6 @@
         "association": {
           "id": "33795203",
           "name": "Aachen-Düren-Heinsberg"
-        }
-      },
-      {
-        "id": "82877741",
-        "name": "Polizei-Sportverein Hannover",
-        "lsbNumber": "302205109",
-        "internalSportsclubId": "30425",
-        "association": {
-          "id": "25463979",
-          "name": "Kreis Hannover-Stadt"
         }
       },
       {
@@ -88812,6 +88772,16 @@
         }
       },
       {
+        "id": "93321404",
+        "name": "Rhein-Sieg Ladies Buisdorf & Hennef & Seelscheid",
+        "lsbNumber": "2809020",
+        "internalSportsclubId": "1111111110000102",
+        "association": {
+          "id": "33795566",
+          "name": "Rhein-Sieg"
+        }
+      },
+      {
         "id": "93335282",
         "name": "Volleyball- und Sportverein Rote Milane Uder e.V.",
         "lsbNumber": "1111111110000103",
@@ -88819,16 +88789,6 @@
         "association": {
           "id": "7214",
           "name": "Thüringer Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "93321404",
-        "name": "Rhein-Sieg Ladies Buisdorf & Hennef & Seelscheid",
-        "lsbNumber": "1111111110000102",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "33795566",
-          "name": "Rhein-Sieg"
         }
       },
       {
@@ -95902,16 +95862,6 @@
         }
       },
       {
-        "id": "89443299",
-        "name": "1. Beachclub Kiel",
-        "lsbNumber": "73739",
-        "internalSportsclubId": "11-18-38",
-        "association": {
-          "id": "7207",
-          "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
-        }
-      },
-      {
         "id": "89443303",
         "name": "TSV Trittau",
         "lsbNumber": "71294",
@@ -95956,6 +95906,16 @@
         "name": "SV Wahlstedt von 1928 e.V.",
         "lsbNumber": "71529",
         "internalSportsclubId": "11-29-04",
+        "association": {
+          "id": "7207",
+          "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "89443299",
+        "name": "1. Beachclub Kiel",
+        "lsbNumber": "73739",
+        "internalSportsclubId": "11-18-38",
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
@@ -96672,6 +96632,16 @@
         }
       },
       {
+        "id": "93849676",
+        "name": "BSV-Bonn",
+        "lsbNumber": "1111111110000105",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "33795281",
+          "name": "Bonn"
+        }
+      },
+      {
         "id": "37948344",
         "name": "SSV Eintracht Loitsche-Zielitz e.V.",
         "lsbNumber": "30177",
@@ -96999,6 +96969,46 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "82878318",
+        "name": "SC Melle 03",
+        "lsbNumber": "304472695",
+        "internalSportsclubId": "11209",
+        "association": {
+          "id": "25465051",
+          "name": "Kreis Osnabrück-Land"
+        }
+      },
+      {
+        "id": "82877741",
+        "name": "Polizei-Sportverein Hannover",
+        "lsbNumber": "302205109",
+        "internalSportsclubId": "30425",
+        "association": {
+          "id": "25463979",
+          "name": "Kreis Hannover-Stadt"
+        }
+      },
+      {
+        "id": "37920761",
+        "name": "Turnverein Ratingen 1865 e.V.",
+        "lsbNumber": "1207035",
+        "internalSportsclubId": "5315",
+        "association": {
+          "id": "33299074",
+          "name": "Wupper-Mettmann"
+        }
+      },
+      {
+        "id": "37921352",
+        "name": "SV Westfalia Rhynern 1935 e.V.",
+        "lsbNumber": "5004068",
+        "internalSportsclubId": "9061",
+        "association": {
+          "id": "33797781",
+          "name": "Hamm"
         }
       }
     ]
