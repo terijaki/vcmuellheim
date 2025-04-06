@@ -33962,16 +33962,6 @@
         }
       },
       {
-        "id": "37921163",
-        "name": "TuS Schieder-Schwalenberg e.V.",
-        "lsbNumber": "4415002",
-        "internalSportsclubId": "10076",
-        "association": {
-          "id": "33797741",
-          "name": "Lippe"
-        }
-      },
-      {
         "id": "80022553",
         "name": "BSV Mahlsdorfer Waschbären \"Raccoons\" e.V.",
         "lsbNumber": "10898",
@@ -97009,6 +96999,16 @@
         "association": {
           "id": "33797781",
           "name": "Hamm"
+        }
+      },
+      {
+        "id": "37921163",
+        "name": "TuS Schieder-Schwalenberg e.V.",
+        "lsbNumber": "4415002",
+        "internalSportsclubId": "10076",
+        "association": {
+          "id": "33797741",
+          "name": "Lippe"
         }
       }
     ]
