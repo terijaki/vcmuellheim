@@ -2262,16 +2262,6 @@
         }
       },
       {
-        "id": "82876787",
-        "name": "TSV Westerhausen",
-        "lsbNumber": "304476500",
-        "internalSportsclubId": "11221",
-        "association": {
-          "id": "25465051",
-          "name": "Kreis Osnabrück-Land"
-        }
-      },
-      {
         "id": "26925516",
         "name": "TV Jahn 1909 Hermannstein e.V.",
         "lsbNumber": "13074",
@@ -2359,6 +2349,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "82876787",
+        "name": "TSV Westerhausen",
+        "lsbNumber": "304476500",
+        "internalSportsclubId": "11221",
+        "association": {
+          "id": "25465051",
+          "name": "Kreis Osnabrück-Land"
         }
       },
       {
@@ -5099,16 +5099,6 @@
         "association": {
           "id": "26272888",
           "name": "tbc TVV 40"
-        }
-      },
-      {
-        "id": "11619351",
-        "name": "SG STV/MTV Salzgitter",
-        "lsbNumber": "41006",
-        "internalSportsclubId": "41006",
-        "association": {
-          "id": "25386563",
-          "name": "Kreis Salzgitter"
         }
       },
       {
@@ -9052,16 +9042,6 @@
         }
       },
       {
-        "id": "82876893",
-        "name": "Vareler TB",
-        "lsbNumber": "304426600",
-        "internalSportsclubId": "10702",
-        "association": {
-          "id": "25464833",
-          "name": "Kreis Friesland"
-        }
-      },
-      {
         "id": "26866417",
         "name": "DJK Pellingen/Oberleuken",
         "lsbNumber": null,
@@ -9189,6 +9169,16 @@
         "association": {
           "id": "26249261",
           "name": "Kreisverband Ost"
+        }
+      },
+      {
+        "id": "82876893",
+        "name": "Vareler TB",
+        "lsbNumber": "304426600",
+        "internalSportsclubId": "10702",
+        "association": {
+          "id": "25464833",
+          "name": "Kreis Friesland"
         }
       },
       {
@@ -21049,16 +21039,6 @@
         "association": {
           "id": "33795239",
           "name": "Euskirchen"
-        }
-      },
-      {
-        "id": "37921282",
-        "name": "TuS Quelle e.V.",
-        "lsbNumber": "4001041",
-        "internalSportsclubId": "826",
-        "association": {
-          "id": "33797382",
-          "name": "Gütersloh-Bielefeld"
         }
       },
       {
@@ -81232,16 +81212,6 @@
         }
       },
       {
-        "id": "89443284",
-        "name": "Turn- und Sportclub Wellingsbüttel von 1937 e.V.",
-        "lsbNumber": null,
-        "internalSportsclubId": "121191",
-        "association": {
-          "id": "7208",
-          "name": "Hamburger Volleyball-Verband e.V."
-        }
-      },
-      {
         "id": "82878996",
         "name": "Österreich",
         "lsbNumber": "990008",
@@ -81469,6 +81439,16 @@
         "association": {
           "id": "7207",
           "name": "Schleswig-Holsteinischer Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "89443284",
+        "name": "Turn- und Sportclub Wellingsbüttel von 1937 e.V.",
+        "lsbNumber": null,
+        "internalSportsclubId": "121191",
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband e.V."
         }
       },
       {
@@ -93712,16 +93692,6 @@
         }
       },
       {
-        "id": "82878597",
-        "name": "VSG Melle/Westerhausen",
-        "lsbNumber": "3033249541",
-        "internalSportsclubId": "11263",
-        "association": {
-          "id": "25465051",
-          "name": "Kreis Osnabrück-Land"
-        }
-      },
-      {
         "id": "82880601",
         "name": "VG Hollage/Lechtingen",
         "lsbNumber": null,
@@ -97009,6 +96979,36 @@
         "association": {
           "id": "33797741",
           "name": "Lippe"
+        }
+      },
+      {
+        "id": "11619351",
+        "name": "SG STV/MTV Salzgitter",
+        "lsbNumber": "41006",
+        "internalSportsclubId": "41006",
+        "association": {
+          "id": "25386563",
+          "name": "Kreis Salzgitter"
+        }
+      },
+      {
+        "id": "82878597",
+        "name": "VSG Melle/Westerhausen",
+        "lsbNumber": "3033249541",
+        "internalSportsclubId": "11263",
+        "association": {
+          "id": "25465051",
+          "name": "Kreis Osnabrück-Land"
+        }
+      },
+      {
+        "id": "37921282",
+        "name": "TuS Quelle e.V.",
+        "lsbNumber": "4001041",
+        "internalSportsclubId": "826",
+        "association": {
+          "id": "33797382",
+          "name": "Gütersloh-Bielefeld"
         }
       }
     ]
