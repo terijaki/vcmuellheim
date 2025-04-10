@@ -9562,16 +9562,6 @@
         }
       },
       {
-        "id": "26846616",
-        "name": "Ausdauerfreunde e.V.",
-        "lsbNumber": "290",
-        "internalSportsclubId": "14-11-220",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "21607512",
         "name": "VfB 91 Suhl e.V.",
         "lsbNumber": "360023",
@@ -11282,16 +11272,6 @@
         }
       },
       {
-        "id": "89444456",
-        "name": "Turn- und Sportverein Finkenwerder von 1893 e.V.",
-        "lsbNumber": null,
-        "internalSportsclubId": "121171",
-        "association": {
-          "id": "7208",
-          "name": "Hamburger Volleyball-Verband e.V."
-        }
-      },
-      {
         "id": "89444457",
         "name": "B-Turnier Eckernförde/Südstrand  | Männer",
         "lsbNumber": null,
@@ -11309,6 +11289,16 @@
         "association": {
           "id": "7209",
           "name": "Volleyballverband Mecklenburg-Vorpommern e.V."
+        }
+      },
+      {
+        "id": "89444456",
+        "name": "Turn- und Sportverein Finkenwerder von 1893 e.V.",
+        "lsbNumber": null,
+        "internalSportsclubId": "121171",
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband e.V."
         }
       },
       {
@@ -11642,6 +11632,16 @@
         }
       },
       {
+        "id": "53065906",
+        "name": "TSV 1898 Penzberg e.V.",
+        "lsbNumber": "11272",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7215",
+          "name": "Bayerischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "30150665",
         "name": "TSG Backnang 1846",
         "lsbNumber": "15027",
@@ -11709,16 +11709,6 @@
         "association": {
           "id": "242",
           "name": "Deutscher Volleyball-Verband"
-        }
-      },
-      {
-        "id": "53065906",
-        "name": "TSV 1898 Penzberg e.V.",
-        "lsbNumber": "11272",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7215",
-          "name": "Bayerischer Volleyball-Verband"
         }
       },
       {
@@ -20119,6 +20109,16 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "94238751",
+        "name": "Hetlinger MTV von 1903 e.V.",
+        "lsbNumber": "1111111110000106",
+        "internalSportsclubId": "121144",
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband e.V."
         }
       },
       {
@@ -37049,16 +37049,6 @@
         "association": {
           "id": "26249225",
           "name": "Kreisverband Nord"
-        }
-      },
-      {
-        "id": "49504381",
-        "name": "SV Empor Grün/Rot Wittenberge 1990 e.V.",
-        "lsbNumber": "700007",
-        "internalSportsclubId": "700007",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
@@ -60982,16 +60972,6 @@
         }
       },
       {
-        "id": "26925235",
-        "name": "SC 1953 Steinberg",
-        "lsbNumber": "29234",
-        "internalSportsclubId": "2902",
-        "association": {
-          "id": "26196837",
-          "name": "HVV | Bezirk Süd"
-        }
-      },
-      {
         "id": "65037478",
         "name": "TV Immendingen",
         "lsbNumber": "3917",
@@ -61009,6 +60989,16 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "26925235",
+        "name": "SC 1953 Steinberg",
+        "lsbNumber": "29234",
+        "internalSportsclubId": "2902",
+        "association": {
+          "id": "26196837",
+          "name": "HVV | Bezirk Süd"
         }
       },
       {
@@ -63532,6 +63522,16 @@
         }
       },
       {
+        "id": "37921215",
+        "name": "Freie Schwimmer Rheinkamp 1927 e.V.",
+        "lsbNumber": "1506001",
+        "internalSportsclubId": "10243",
+        "association": {
+          "id": "33298901",
+          "name": "Wesel"
+        }
+      },
+      {
         "id": "69518466",
         "name": "SC Schwarz-Weiß Friesheim e.V.",
         "lsbNumber": "1111111110000044",
@@ -63559,16 +63559,6 @@
         "association": {
           "id": "33795261",
           "name": "Köln"
-        }
-      },
-      {
-        "id": "37921215",
-        "name": "Freie Schwimmer Rheinkamp 1927 e.V.",
-        "lsbNumber": "1506001",
-        "internalSportsclubId": "10243",
-        "association": {
-          "id": "33298901",
-          "name": "Wesel"
         }
       },
       {
@@ -94992,16 +94982,6 @@
         }
       },
       {
-        "id": "37948587",
-        "name": "Blankenburger Volleyballfreunde 1991 e.V.",
-        "lsbNumber": "50321",
-        "internalSportsclubId": "50321",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37948560",
         "name": "Dessauer Volleyball-Club 1991 e.V.",
         "lsbNumber": "130032",
@@ -95079,6 +95059,16 @@
         "association": {
           "id": "7208",
           "name": "Hamburger Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "37948587",
+        "name": "Blankenburger Volleyballfreunde 1991 e.V.",
+        "lsbNumber": "50321",
+        "internalSportsclubId": "50321",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -97009,6 +96999,26 @@
         "association": {
           "id": "33797382",
           "name": "Gütersloh-Bielefeld"
+        }
+      },
+      {
+        "id": "26846616",
+        "name": "Ausdauerfreunde e.V.",
+        "lsbNumber": "290",
+        "internalSportsclubId": "14-11-220",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
+        }
+      },
+      {
+        "id": "49504381",
+        "name": "SV Empor Grün/Rot Wittenberge 1990 e.V.",
+        "lsbNumber": "700007",
+        "internalSportsclubId": "700007",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
         }
       }
     ]
