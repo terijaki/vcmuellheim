@@ -46962,6 +46962,16 @@
         }
       },
       {
+        "id": "49504388",
+        "name": "SV Leonardo da Vinci Nauen",
+        "lsbNumber": "630159",
+        "internalSportsclubId": "630159",
+        "association": {
+          "id": "7210",
+          "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
         "id": "50621664",
         "name": "SVV 1990 Glashütte-Schlottwitz e.V.",
         "lsbNumber": "500256",
@@ -46979,16 +46989,6 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
-        "id": "49504388",
-        "name": "SV Leonardo da Vinci Nauen",
-        "lsbNumber": "630159",
-        "internalSportsclubId": "630159",
-        "association": {
-          "id": "7210",
-          "name": "Brandenburgischer Volleyball Verband"
         }
       },
       {
