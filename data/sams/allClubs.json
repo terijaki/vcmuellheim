@@ -3532,16 +3532,6 @@
         }
       },
       {
-        "id": "54611095",
-        "name": "TSG Bodelshausen",
-        "lsbNumber": "22012",
-        "internalSportsclubId": "453",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "26818836",
         "name": "SG GutsMuths Schnepfenthal e.V.",
         "lsbNumber": "130009",
@@ -10782,9 +10772,9 @@
         }
       },
       {
-        "id": "26866474",
-        "name": "TV St. Wendel",
-        "lsbNumber": "88077",
+        "id": "26866457",
+        "name": "TSG Differten / Schaffhausen / Bous",
+        "lsbNumber": "12347",
         "internalSportsclubId": null,
         "association": {
           "id": "7219",
@@ -10792,9 +10782,9 @@
         }
       },
       {
-        "id": "26866457",
-        "name": "TSG Differten / Schaffhausen / Bous",
-        "lsbNumber": "12347",
+        "id": "26866474",
+        "name": "TV St. Wendel",
+        "lsbNumber": "88077",
         "internalSportsclubId": null,
         "association": {
           "id": "7219",
@@ -23642,6 +23632,16 @@
         }
       },
       {
+        "id": "37921765",
+        "name": "TuS Asemissen",
+        "lsbNumber": "4412005",
+        "internalSportsclubId": "3901",
+        "association": {
+          "id": "33797741",
+          "name": "Lippe"
+        }
+      },
+      {
         "id": "37921568",
         "name": "VfL Lieme e.V.",
         "lsbNumber": "4411021",
@@ -23666,16 +23666,6 @@
         "name": "Sportfreunde Oesterholz-Kohlstädt e.V.",
         "lsbNumber": "4416019",
         "internalSportsclubId": "9252",
-        "association": {
-          "id": "33797741",
-          "name": "Lippe"
-        }
-      },
-      {
-        "id": "37921765",
-        "name": "TuS Asemissen",
-        "lsbNumber": "4412005",
-        "internalSportsclubId": "3901",
         "association": {
           "id": "33797741",
           "name": "Lippe"
@@ -28332,20 +28322,20 @@
         }
       },
       {
-        "id": "37948283",
-        "name": "Diesdorfer SV 1873 e.V.",
-        "lsbNumber": "10021",
-        "internalSportsclubId": "10021",
+        "id": "37948296",
+        "name": "Kanu Raguhn e.V.",
+        "lsbNumber": "70064",
+        "internalSportsclubId": "70064",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
-        "id": "37948296",
-        "name": "Kanu Raguhn e.V.",
-        "lsbNumber": "70064",
-        "internalSportsclubId": "70064",
+        "id": "37948283",
+        "name": "Diesdorfer SV 1873 e.V.",
+        "lsbNumber": "10021",
+        "internalSportsclubId": "10021",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -30392,16 +30382,6 @@
         }
       },
       {
-        "id": "37922005",
-        "name": "Grafschafter Spielverein 1910 Moers e.V.",
-        "lsbNumber": "1506030",
-        "internalSportsclubId": "16",
-        "association": {
-          "id": "33298901",
-          "name": "Wesel"
-        }
-      },
-      {
         "id": "37948628",
         "name": "Halberstädter Volleyballfreunde 1977 e.V.",
         "lsbNumber": "50483",
@@ -30419,6 +30399,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "37922005",
+        "name": "Grafschafter Spielverein 1910 Moers e.V.",
+        "lsbNumber": "1506030",
+        "internalSportsclubId": "16",
+        "association": {
+          "id": "33298901",
+          "name": "Wesel"
         }
       },
       {
@@ -34072,16 +34062,6 @@
         }
       },
       {
-        "id": "26818967",
-        "name": "Volleyballverein Mühlhausen e.V.",
-        "lsbNumber": "220041",
-        "internalSportsclubId": "22200",
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
-        }
-      },
-      {
         "id": "37920871",
         "name": "TuS 1919 Wewelsburg e.V.",
         "lsbNumber": "4604015",
@@ -34089,6 +34069,16 @@
         "association": {
           "id": "33797722",
           "name": "Paderborn"
+        }
+      },
+      {
+        "id": "26818967",
+        "name": "Volleyballverein Mühlhausen e.V.",
+        "lsbNumber": "220041",
+        "internalSportsclubId": "22200",
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
         }
       },
       {
@@ -34942,6 +34932,16 @@
         }
       },
       {
+        "id": "54611201",
+        "name": "TG Trossingen",
+        "lsbNumber": null,
+        "internalSportsclubId": "4915",
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "50621678",
         "name": "SV Reuth e.V.",
         "lsbNumber": "510250",
@@ -34959,16 +34959,6 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "54611201",
-        "name": "TG Trossingen",
-        "lsbNumber": null,
-        "internalSportsclubId": "4915",
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -42219,16 +42209,6 @@
         "association": {
           "id": "7213",
           "name": "Sächsischer Sportverband Volleyball e.V."
-        }
-      },
-      {
-        "id": "54610747",
-        "name": "SpVgg Möckmühl",
-        "lsbNumber": "10119",
-        "internalSportsclubId": "86",
-        "association": {
-          "id": "51583229",
-          "name": "Bezirk Nord"
         }
       },
       {
@@ -65642,16 +65622,6 @@
         }
       },
       {
-        "id": "54611142",
-        "name": "TSV Höpfingen",
-        "lsbNumber": "20174",
-        "internalSportsclubId": "20174",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "13899585",
         "name": "SV Mauerstetten",
         "lsbNumber": "304495529",
@@ -65709,6 +65679,16 @@
         "association": {
           "id": "7215",
           "name": "Bayerischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "54611142",
+        "name": "TSV Höpfingen",
+        "lsbNumber": "20174",
+        "internalSportsclubId": "20174",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -66432,16 +66412,6 @@
         }
       },
       {
-        "id": "37921510",
-        "name": "Spvg. Steinhagen",
-        "lsbNumber": "4110004",
-        "internalSportsclubId": "3505",
-        "association": {
-          "id": "33797382",
-          "name": "Gütersloh-Bielefeld"
-        }
-      },
-      {
         "id": "37921715",
         "name": "Letmather TV 1877 e.V.",
         "lsbNumber": "5306025",
@@ -66559,6 +66529,16 @@
         "association": {
           "id": "33797208",
           "name": "Steinfurt"
+        }
+      },
+      {
+        "id": "37921510",
+        "name": "Spvg. Steinhagen",
+        "lsbNumber": "4110004",
+        "internalSportsclubId": "3505",
+        "association": {
+          "id": "33797382",
+          "name": "Gütersloh-Bielefeld"
         }
       },
       {
@@ -66862,16 +66842,6 @@
         }
       },
       {
-        "id": "6462",
-        "name": "TG Biberach",
-        "lsbNumber": "2032",
-        "internalSportsclubId": "335",
-        "association": {
-          "id": "51583412",
-          "name": "Bezirk Süd"
-        }
-      },
-      {
         "id": "37921595",
         "name": "TSV Bösingfeld e.V.",
         "lsbNumber": "4407012",
@@ -66909,6 +66879,16 @@
         "association": {
           "id": "26249261",
           "name": "Kreisverband Ost"
+        }
+      },
+      {
+        "id": "6462",
+        "name": "TG Biberach",
+        "lsbNumber": "2032",
+        "internalSportsclubId": "335",
+        "association": {
+          "id": "51583412",
+          "name": "Bezirk Süd"
         }
       },
       {
@@ -78172,16 +78152,6 @@
         }
       },
       {
-        "id": "89443079",
-        "name": "Komet Blankenese",
-        "lsbNumber": null,
-        "internalSportsclubId": "121106",
-        "association": {
-          "id": "7208",
-          "name": "Hamburger Volleyball-Verband e.V."
-        }
-      },
-      {
         "id": "82878520",
         "name": "VfL Rötgesbüttel",
         "lsbNumber": "402001",
@@ -78286,6 +78256,16 @@
         "name": "Sportverein Bergstedt von 1948 e.V.",
         "lsbNumber": null,
         "internalSportsclubId": "121152",
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband e.V."
+        }
+      },
+      {
+        "id": "89443079",
+        "name": "Komet Blankenese",
+        "lsbNumber": null,
+        "internalSportsclubId": "121106",
         "association": {
           "id": "7208",
           "name": "Hamburger Volleyball-Verband e.V."
@@ -95202,16 +95182,6 @@
         }
       },
       {
-        "id": "37948572",
-        "name": "SV Fortuna 90 Ballenstedt  e.V.",
-        "lsbNumber": "50138",
-        "internalSportsclubId": "50138",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37948346",
         "name": "Tangermünder Leichtathletikverein 1994 e.V.",
         "lsbNumber": "20130",
@@ -95226,6 +95196,16 @@
         "name": "Volleyballclub 97 Staßfurt e.V.",
         "lsbNumber": "60106",
         "internalSportsclubId": "60106",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "37948572",
+        "name": "SV Fortuna 90 Ballenstedt  e.V.",
+        "lsbNumber": "50138",
+        "internalSportsclubId": "50138",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -97019,6 +96999,26 @@
         "association": {
           "id": "7210",
           "name": "Brandenburgischer Volleyball Verband"
+        }
+      },
+      {
+        "id": "54611095",
+        "name": "TSG Bodelshausen",
+        "lsbNumber": "22012",
+        "internalSportsclubId": "453",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "54610747",
+        "name": "SpVgg Möckmühl",
+        "lsbNumber": "10119",
+        "internalSportsclubId": "86",
+        "association": {
+          "id": "51583229",
+          "name": "Bezirk Nord"
         }
       }
     ]
