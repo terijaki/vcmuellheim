@@ -30072,6 +30072,16 @@
         }
       },
       {
+        "id": "37948575",
+        "name": "ESV Lok Stendal e.V.",
+        "lsbNumber": "20058",
+        "internalSportsclubId": "20058",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
         "id": "37948566",
         "name": "TSV Stahl Rothenburg e.V.",
         "lsbNumber": "100192",
@@ -30156,16 +30166,6 @@
         "name": "Eckartsbergaer Volleyballclub 1968 e.V.",
         "lsbNumber": "110307",
         "internalSportsclubId": "110307",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "37948575",
-        "name": "ESV Lok Stendal e.V.",
-        "lsbNumber": "20058",
-        "internalSportsclubId": "20058",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
