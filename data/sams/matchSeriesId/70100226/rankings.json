@@ -7,8 +7,8 @@
       "name": "Landesliga West Herren",
       "shortName": "LL w h",
       "type": "League",
-      "updated": "2025-04-09 09:41:56.978",
-      "structureUpdated": "2025-04-09 09:41:56.978",
+      "updated": "2025-04-14 11:09:24.876",
+      "structureUpdated": "2025-04-14 11:09:24.876",
       "resultsUpdated": "2025-03-30 13:16:07.42",
       "season": {
         "id": "70098350",
@@ -396,7 +396,7 @@
         "team": {
           "id": "73349547",
           "uuid": "447ad96d-f886-4b5b-bee4-ed76c5c2962a",
-          "name": "TSV Al. Zähringen 1",
+          "name": "TSV Alemannia Freiburg-Zähringen 1",
           "shortName": null,
           "clubCode": null,
           "club": {
