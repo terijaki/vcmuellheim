@@ -59,8 +59,8 @@
             "name": "Landesliga West Herren",
             "shortName": "LL w h",
             "type": "League",
-            "updated": "2025-04-09 09:41:56.978",
-            "structureUpdated": "2025-04-09 09:41:56.978",
+            "updated": "2025-04-14 11:09:24.876",
+            "structureUpdated": "2025-04-14 11:09:24.876",
             "resultsUpdated": "2025-03-30 13:16:07.42",
             "season": {
               "id": "70098350",
@@ -105,6 +105,79 @@
             "association": {
               "name": null,
               "shortName": null
+            }
+          }
+        },
+        {
+          "id": "94426084",
+          "uuid": "6551ef88-a0cc-4df1-8b91-5c2958f032ef",
+          "seasonTeamId": "94426084",
+          "placeCipher": "1",
+          "name": "VC Müllheim 1",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "65036648",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "70100461",
+            "uuid": "e70a674b-6cec-436a-9c2c-5a54f235089a",
+            "allSeasonId": "1a199a7c-f0e6-4b78-8b61-dbabb5f00bed",
+            "name": "Relegation Verbandsliga Herren 2025",
+            "shortName": "Rel_VL_Herren",
+            "type": "Competition",
+            "updated": "2025-04-14 12:38:54.19",
+            "structureUpdated": "2025-04-14 12:38:54.19",
+            "resultsUpdated": "2024-04-28 19:12:06.278",
+            "season": {
+              "id": "70098350",
+              "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+              "name": "2024/25"
+            },
+            "hierarchy": {
+              "id": "70100460",
+              "uuid": "1b4058c9-ec8f-486f-a925-7c57b582f8ab",
+              "name": "Relegationen SBVV",
+              "shortName": "Rel-SBVV",
+              "hierarchyLevel": "2"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "70100460",
+                  "name": "Relegationen SBVV",
+                  "shortName": "Rel-SBVV",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "70099119",
+                  "name": "Erwachsenenspielbetrieb SBVV",
+                  "shortName": "SBVV Erw.",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "70098566",
+                  "name": "Südbadischer Volleyball-Verband (SBVV)",
+                  "shortName": "SBVV",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
             }
           }
         },
