@@ -5,7 +5,6 @@ export default function socialList() {
 		{ name: "Mastodon", href: "https://freiburg.social/@VCM", icon: <IconMastodon />, target: "_blank", rel: "noreferrer" },
 		{ name: "Instagram", href: "https://www.instagram.com/vcmuellheim", icon: <IconInstagram />, target: "_blank", rel: "noreferrer" },
 		{ name: "Facebook", href: "https://www.facebook.com/VCMuellheim/", icon: <IconFacebook />, target: "_blank", rel: "noreferrer" },
-		{ name: "WhatsApp", href: "https://whatsapp.com/channel/0029VaE5QwVGJP8GijYi1N36", icon: <IconWhatsApp />, target: "_blank", rel: "noreferrer" },
 	];
 	return socials;
 }
