@@ -1092,16 +1092,6 @@
         }
       },
       {
-        "id": "26925399",
-        "name": "TG 1882 e.V. Dörnigheim",
-        "lsbNumber": "28026",
-        "internalSportsclubId": "2409",
-        "association": {
-          "id": "26196814",
-          "name": "HVV | Bezirk Mitte"
-        }
-      },
-      {
         "id": "26925088",
         "name": "Turnerbund Wiesbaden J.P.",
         "lsbNumber": "38148",
@@ -3162,16 +3152,6 @@
         }
       },
       {
-        "id": "26818793",
-        "name": "DJK SG St. Josef Dingelstädt 2003 e.V.",
-        "lsbNumber": "150201",
-        "internalSportsclubId": "38320",
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
-        }
-      },
-      {
         "id": "26818777",
         "name": "VfB Artern e.V.",
         "lsbNumber": "320101",
@@ -3259,6 +3239,16 @@
         "association": {
           "id": "26249283",
           "name": "Kreisverband Süd"
+        }
+      },
+      {
+        "id": "26818793",
+        "name": "DJK SG St. Josef Dingelstädt 2003 e.V.",
+        "lsbNumber": "150201",
+        "internalSportsclubId": "38320",
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
         }
       },
       {
@@ -9032,16 +9022,6 @@
         }
       },
       {
-        "id": "26819074",
-        "name": "SV Eintracht Berka/Werra e.V.",
-        "lsbNumber": "470075",
-        "internalSportsclubId": "644",
-        "association": {
-          "id": "26249309",
-          "name": "Kreisverband West"
-        }
-      },
-      {
         "id": "37921000",
         "name": "TuS Makkabi Dortmund e.V.",
         "lsbNumber": "5002227",
@@ -9149,6 +9129,16 @@
         "association": {
           "id": "25464833",
           "name": "Kreis Friesland"
+        }
+      },
+      {
+        "id": "26819074",
+        "name": "SV Eintracht Berka/Werra e.V.",
+        "lsbNumber": "470075",
+        "internalSportsclubId": "644",
+        "association": {
+          "id": "26249309",
+          "name": "Kreisverband West"
         }
       },
       {
@@ -9379,16 +9369,6 @@
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
-        "id": "26819214",
-        "name": "SV Rot-Weiß Sondershausen e.V.",
-        "lsbNumber": "320041",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
         }
       },
       {
@@ -12462,6 +12442,16 @@
         }
       },
       {
+        "id": "37920818",
+        "name": "Baukauer TC 1879 e.V.",
+        "lsbNumber": "5005036",
+        "internalSportsclubId": "398",
+        "association": {
+          "id": "33797844",
+          "name": "Bochum - Ennepe-Ruhr - Herne"
+        }
+      },
+      {
         "id": "37921110",
         "name": "Indischer Kultur-Verein Schwelm e.V.",
         "lsbNumber": "5106018",
@@ -12526,16 +12516,6 @@
         "name": "VfL Gevelsberg Volleyball e.V.",
         "lsbNumber": "5103008",
         "internalSportsclubId": "162",
-        "association": {
-          "id": "33797844",
-          "name": "Bochum - Ennepe-Ruhr - Herne"
-        }
-      },
-      {
-        "id": "37920818",
-        "name": "Baukauer TC 1879 e.V.",
-        "lsbNumber": "5005036",
-        "internalSportsclubId": "398",
         "association": {
           "id": "33797844",
           "name": "Bochum - Ennepe-Ruhr - Herne"
@@ -33122,16 +33102,6 @@
         }
       },
       {
-        "id": "54611191",
-        "name": "TSV Schafhausen",
-        "lsbNumber": "3096",
-        "internalSportsclubId": "551",
-        "association": {
-          "id": "51583432",
-          "name": "Bezirk West"
-        }
-      },
-      {
         "id": "37921559",
         "name": "Sportgemeinschaft Kaarst 1912/35 e.V.",
         "lsbNumber": "1304006",
@@ -33139,6 +33109,16 @@
         "association": {
           "id": "33299112",
           "name": "Neuss-Grevenbroich"
+        }
+      },
+      {
+        "id": "54611191",
+        "name": "TSV Schafhausen",
+        "lsbNumber": "3096",
+        "internalSportsclubId": "551",
+        "association": {
+          "id": "51583432",
+          "name": "Bezirk West"
         }
       },
       {
@@ -56652,16 +56632,6 @@
         }
       },
       {
-        "id": "65036542",
-        "name": "Albert-Magnus-Gymnasium RW",
-        "lsbNumber": null,
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7217",
-          "name": "Südbadischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "26818856",
         "name": "SV Langenleuba-Niederhain 1949 e.V.",
         "lsbNumber": "410029",
@@ -56669,6 +56639,16 @@
         "association": {
           "id": "26249261",
           "name": "Kreisverband Ost"
+        }
+      },
+      {
+        "id": "65036542",
+        "name": "Albert-Magnus-Gymnasium RW",
+        "lsbNumber": null,
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7217",
+          "name": "Südbadischer Volleyball-Verband"
         }
       },
       {
@@ -62362,16 +62342,6 @@
         }
       },
       {
-        "id": "82879683",
-        "name": "SV Hansa Friesoythe",
-        "lsbNumber": "304386100",
-        "internalSportsclubId": "10304",
-        "association": {
-          "id": "25464783",
-          "name": "Kreis Cloppenburg"
-        }
-      },
-      {
         "id": "37948243",
         "name": "SG \"Turbine\" Vockerode e.V.",
         "lsbNumber": "80190",
@@ -63102,16 +63072,6 @@
         }
       },
       {
-        "id": "28521605",
-        "name": "Rodeberger-Volleyball-Club e.V.",
-        "lsbNumber": "150256",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "26249225",
-          "name": "Kreisverband Nord"
-        }
-      },
-      {
         "id": "961583",
         "name": "SG Spfr. 69 Marmagen/Nettersheim e.V.",
         "lsbNumber": "2408004",
@@ -63239,6 +63199,16 @@
         "association": {
           "id": "25463979",
           "name": "Kreis Hannover-Stadt"
+        }
+      },
+      {
+        "id": "28521605",
+        "name": "Rodeberger-Volleyball-Club e.V.",
+        "lsbNumber": "150256",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
         }
       },
       {
@@ -63789,16 +63759,6 @@
         "association": {
           "id": "24908690",
           "name": "Landkreis Zwickau/Erzgebirge"
-        }
-      },
-      {
-        "id": "65036748",
-        "name": "SV Schlierstadt",
-        "lsbNumber": "20197",
-        "internalSportsclubId": "20197",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -66532,16 +66492,6 @@
         }
       },
       {
-        "id": "37921898",
-        "name": "TV Stotzheim 1893 e.V.",
-        "lsbNumber": "2404047",
-        "internalSportsclubId": "283",
-        "association": {
-          "id": "33795239",
-          "name": "Euskirchen"
-        }
-      },
-      {
         "id": "37921789",
         "name": "TV Kapellen 1919 e.V.",
         "lsbNumber": "1506040",
@@ -66689,6 +66639,16 @@
         "association": {
           "id": "33797226",
           "name": "Coesfeld"
+        }
+      },
+      {
+        "id": "37921898",
+        "name": "TV Stotzheim 1893 e.V.",
+        "lsbNumber": "2404047",
+        "internalSportsclubId": "283",
+        "association": {
+          "id": "33795239",
+          "name": "Euskirchen"
         }
       },
       {
@@ -69952,16 +69912,6 @@
         }
       },
       {
-        "id": "89444134",
-        "name": "SC Condor von 1956 e. V.",
-        "lsbNumber": "10000000031",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7208",
-          "name": "Hamburger Volleyball-Verband e.V."
-        }
-      },
-      {
         "id": "82877116",
         "name": "Uni Essen",
         "lsbNumber": "617484",
@@ -70059,6 +70009,16 @@
         "association": {
           "id": "2765",
           "name": "Regionalbereich Nord"
+        }
+      },
+      {
+        "id": "89444134",
+        "name": "SC Condor von 1956 e. V.",
+        "lsbNumber": "10000000031",
+        "internalSportsclubId": "12-11-49",
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband e.V."
         }
       },
       {
@@ -83892,16 +83852,6 @@
         }
       },
       {
-        "id": "93189905",
-        "name": "Sportverein SV Jeetze Salzwedel e.V.",
-        "lsbNumber": "10196",
-        "internalSportsclubId": "10196",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "82879405",
         "name": "SG Neustädter Land",
         "lsbNumber": "3033249533",
@@ -83909,6 +83859,16 @@
         "association": {
           "id": "25463961",
           "name": "Kreis Hannover-Land"
+        }
+      },
+      {
+        "id": "93189905",
+        "name": "Sportverein SV Jeetze Salzwedel e.V.",
+        "lsbNumber": "10196",
+        "internalSportsclubId": "10196",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -93692,16 +93652,6 @@
         }
       },
       {
-        "id": "82878625",
-        "name": "Grasdorf/Rethen Volleys",
-        "lsbNumber": "3033249544",
-        "internalSportsclubId": "30383",
-        "association": {
-          "id": "25463961",
-          "name": "Kreis Hannover-Land"
-        }
-      },
-      {
         "id": "82880285",
         "name": "VG Ostfriesland Süd",
         "lsbNumber": null,
@@ -94962,16 +94912,6 @@
         }
       },
       {
-        "id": "37921346",
-        "name": "TSV Schwarz-Weiß Radevormwald e.V.",
-        "lsbNumber": "2609006",
-        "internalSportsclubId": "10159",
-        "association": {
-          "id": "33795588",
-          "name": "Oberberg"
-        }
-      },
-      {
         "id": "37948196",
         "name": "Krumpaer SV Lützkendorf 1948 e.V.",
         "lsbNumber": "100009",
@@ -95009,6 +94949,16 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "37921346",
+        "name": "TSV Schwarz-Weiß Radevormwald e.V.",
+        "lsbNumber": "2609006",
+        "internalSportsclubId": "10159",
+        "association": {
+          "id": "33795588",
+          "name": "Oberberg"
         }
       },
       {
@@ -96962,6 +96912,16 @@
         }
       },
       {
+        "id": "26819214",
+        "name": "SV Rot-Weiß Sondershausen e.V.",
+        "lsbNumber": "320041",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "26249225",
+          "name": "Kreisverband Nord"
+        }
+      },
+      {
         "id": "89442900",
         "name": "TSV Klausdorf",
         "lsbNumber": "70812",
@@ -97039,6 +96999,46 @@
         "association": {
           "id": "26196814",
           "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "82879683",
+        "name": "SV Hansa Friesoythe",
+        "lsbNumber": "304386100",
+        "internalSportsclubId": "10304",
+        "association": {
+          "id": "25464783",
+          "name": "Kreis Cloppenburg"
+        }
+      },
+      {
+        "id": "82878625",
+        "name": "Grasdorf/Rethen Volleys",
+        "lsbNumber": "3033249544",
+        "internalSportsclubId": "30383",
+        "association": {
+          "id": "25463961",
+          "name": "Kreis Hannover-Land"
+        }
+      },
+      {
+        "id": "26925399",
+        "name": "TG 1882 e.V. Dörnigheim",
+        "lsbNumber": "28026",
+        "internalSportsclubId": "2409",
+        "association": {
+          "id": "26196814",
+          "name": "HVV | Bezirk Mitte"
+        }
+      },
+      {
+        "id": "65036748",
+        "name": "SV Schlierstadt",
+        "lsbNumber": "20197",
+        "internalSportsclubId": "20197",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
         }
       }
     ]
