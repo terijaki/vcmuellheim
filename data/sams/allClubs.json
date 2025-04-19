@@ -5382,16 +5382,6 @@
         }
       },
       {
-        "id": "26819104",
-        "name": "Hainberger SV Greiz e.V.",
-        "lsbNumber": "140027",
-        "internalSportsclubId": "09-609",
-        "association": {
-          "id": "26249261",
-          "name": "Kreisverband Ost"
-        }
-      },
-      {
         "id": "26819097",
         "name": "Niederwillinger Freizeitsport e.V.",
         "lsbNumber": "430233",
@@ -5459,6 +5449,16 @@
         "association": {
           "id": "26272888",
           "name": "tbc TVV 40"
+        }
+      },
+      {
+        "id": "26819104",
+        "name": "Hainberger SV Greiz e.V.",
+        "lsbNumber": "140027",
+        "internalSportsclubId": "09-609",
+        "association": {
+          "id": "26249261",
+          "name": "Kreisverband Ost"
         }
       },
       {
