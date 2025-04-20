@@ -27162,16 +27162,6 @@
         }
       },
       {
-        "id": "37921740",
-        "name": "SC Hörstel 1921 e.V.",
-        "lsbNumber": "3504004",
-        "internalSportsclubId": "2605",
-        "association": {
-          "id": "33797208",
-          "name": "Steinfurt"
-        }
-      },
-      {
         "id": "37921403",
         "name": "TV Ibbenbüren 1860 e.V.",
         "lsbNumber": "3507009",
@@ -27246,6 +27236,16 @@
         "name": "Sport-Club Halen 58 e.V.",
         "lsbNumber": "3512004",
         "internalSportsclubId": "9264",
+        "association": {
+          "id": "33797208",
+          "name": "Steinfurt"
+        }
+      },
+      {
+        "id": "37921740",
+        "name": "SC Hörstel 1921 e.V.",
+        "lsbNumber": "3504004",
+        "internalSportsclubId": "2605",
         "association": {
           "id": "33797208",
           "name": "Steinfurt"
