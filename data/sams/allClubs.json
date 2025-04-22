@@ -3742,16 +3742,6 @@
         }
       },
       {
-        "id": "26818824",
-        "name": "ZSG Grün - Weiß Waltershausen",
-        "lsbNumber": "130065",
-        "internalSportsclubId": "13055",
-        "association": {
-          "id": "26249207",
-          "name": "Kreisverband Mitte-West"
-        }
-      },
-      {
         "id": "54611158",
         "name": "VC Mönsheim",
         "lsbNumber": "3279",
@@ -3759,6 +3749,16 @@
         "association": {
           "id": "51583432",
           "name": "Bezirk West"
+        }
+      },
+      {
+        "id": "26818824",
+        "name": "ZSG Grün - Weiß Waltershausen",
+        "lsbNumber": "130065",
+        "internalSportsclubId": "13055",
+        "association": {
+          "id": "26249207",
+          "name": "Kreisverband Mitte-West"
         }
       },
       {
@@ -60812,6 +60812,16 @@
         }
       },
       {
+        "id": "65037461",
+        "name": "VBC Östringen",
+        "lsbNumber": "72464",
+        "internalSportsclubId": "72464",
+        "association": {
+          "id": "7218",
+          "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "65037466",
         "name": "TV Weissach im Tal",
         "lsbNumber": null,
@@ -60969,16 +60979,6 @@
         "association": {
           "id": "33797702",
           "name": "Minden-Ravensberg"
-        }
-      },
-      {
-        "id": "65037461",
-        "name": "VBC Östringen",
-        "lsbNumber": "72464",
-        "internalSportsclubId": "72464",
-        "association": {
-          "id": "7218",
-          "name": "Nordbadischer Volleyball-Verband"
         }
       },
       {
@@ -63302,16 +63302,6 @@
         }
       },
       {
-        "id": "26846548",
-        "name": "Volleyballclub Preußen Berlin e.V.",
-        "lsbNumber": "5215",
-        "internalSportsclubId": "14-11-148",
-        "association": {
-          "id": "7211",
-          "name": "Volleyball-Verband Berlin"
-        }
-      },
-      {
         "id": "51836072",
         "name": "TSV Flörsheim-Dalsheim",
         "lsbNumber": "476",
@@ -63409,6 +63399,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "26846548",
+        "name": "Volleyballclub Preußen Berlin e.V.",
+        "lsbNumber": "5215",
+        "internalSportsclubId": "14-11-148",
+        "association": {
+          "id": "7211",
+          "name": "Volleyball-Verband Berlin"
         }
       },
       {
@@ -66312,16 +66312,6 @@
         }
       },
       {
-        "id": "9242748",
-        "name": "TV Gladbeck 1912 e.V.",
-        "lsbNumber": "3410027",
-        "internalSportsclubId": "1802",
-        "association": {
-          "id": "33797282",
-          "name": "Vest"
-        }
-      },
-      {
         "id": "6438",
         "name": "Allgemeiner Rather TV",
         "lsbNumber": "1001138",
@@ -66479,6 +66469,16 @@
         "association": {
           "id": "33797382",
           "name": "Gütersloh-Bielefeld"
+        }
+      },
+      {
+        "id": "9242748",
+        "name": "TV Gladbeck 1912 e.V.",
+        "lsbNumber": "3410027",
+        "internalSportsclubId": "1802",
+        "association": {
+          "id": "33797282",
+          "name": "Vest"
         }
       },
       {
