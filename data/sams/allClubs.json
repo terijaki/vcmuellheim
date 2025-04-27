@@ -30232,16 +30232,6 @@
         }
       },
       {
-        "id": "37948618",
-        "name": "Merseburger Ballistiker e.V.",
-        "lsbNumber": "100116",
-        "internalSportsclubId": null,
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "37948619",
         "name": "SG Neuborna 62 e.V.",
         "lsbNumber": "60140",
@@ -30379,6 +30369,16 @@
         "association": {
           "id": "33298901",
           "name": "Wesel"
+        }
+      },
+      {
+        "id": "37948618",
+        "name": "Merseburger Ballistiker e.V.",
+        "lsbNumber": "100116",
+        "internalSportsclubId": null,
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -43309,16 +43309,6 @@
         "association": {
           "id": "33797762",
           "name": "Höxter"
-        }
-      },
-      {
-        "id": "37948427",
-        "name": "Sportverein der Franckeschen Stiftungen 2008 e.V.",
-        "lsbNumber": "140187",
-        "internalSportsclubId": "140187",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       },
       {
@@ -97049,6 +97039,16 @@
         "association": {
           "id": "33795203",
           "name": "Aachen-Düren-Heinsberg"
+        }
+      },
+      {
+        "id": "37948427",
+        "name": "Sportverein der Franckeschen Stiftungen 2008 e.V.",
+        "lsbNumber": "140187",
+        "internalSportsclubId": "140187",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
         }
       }
     ]
