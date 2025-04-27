@@ -23712,6 +23712,16 @@
         }
       },
       {
+        "id": "37921081",
+        "name": "Heiligenhauser Sportverein e.V.",
+        "lsbNumber": "2706010",
+        "internalSportsclubId": "5326",
+        "association": {
+          "id": "33795544",
+          "name": "Leverkusen-Rhein-Berg"
+        }
+      },
+      {
         "id": "37921619",
         "name": "SC Plettenberg 1889 e. V.",
         "lsbNumber": "5313011",
@@ -23789,16 +23799,6 @@
         "association": {
           "id": "33299034",
           "name": "Mühlheim-Oberhausen"
-        }
-      },
-      {
-        "id": "37921081",
-        "name": "Heiligenhauser Sportverein e.V.",
-        "lsbNumber": "2706010",
-        "internalSportsclubId": "5326",
-        "association": {
-          "id": "33795544",
-          "name": "Leverkusen-Rhein-Berg"
         }
       },
       {
