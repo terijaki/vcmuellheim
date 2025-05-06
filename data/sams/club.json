@@ -138,9 +138,9 @@
             "name": "Relegation Verbandsliga Herren 2025",
             "shortName": "Rel_VL_Herren",
             "type": "Competition",
-            "updated": "2025-04-14 12:38:54.19",
+            "updated": "2025-05-04 17:02:21.986",
             "structureUpdated": "2025-04-14 12:38:54.19",
-            "resultsUpdated": "2024-04-28 19:12:06.278",
+            "resultsUpdated": "2025-05-04 17:02:21.986",
             "season": {
               "id": "70098350",
               "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -455,6 +455,91 @@
           }
         },
         {
+          "id": "95402215",
+          "uuid": "896b1160-7805-4e4f-8c91-edc8cf1c0b73",
+          "seasonTeamId": "95402215",
+          "placeCipher": "0",
+          "name": "VC Müllheim 2",
+          "shortName": null,
+          "clubCode": null,
+          "status": "ACTIVE",
+          "www": "http://vcmuellheim.de",
+          "logo": {
+            "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+          },
+          "club": {
+            "name": "VC Müllheim",
+            "id": "65036648",
+            "shortName": null,
+            "logo": {
+              "url": "https://www.volleyball-baden.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+            },
+            "www": "http://vcmuellheim.de",
+            "wwwDepartment": null
+          },
+          "matchSeries": {
+            "id": "70099455",
+            "uuid": "e660406d-379c-4cf9-baf4-78145f3236f5",
+            "allSeasonId": "51f48c5a-b485-2133-419c-d1d76dc6c690",
+            "name": "Bezirk West: Abmeldungen Herren-25/26",
+            "shortName": "AbmBezWestHerren",
+            "type": "League",
+            "updated": "2025-05-05 08:56:55.041",
+            "structureUpdated": "2025-05-05 08:56:55.041",
+            "resultsUpdated": null,
+            "season": {
+              "id": "70098350",
+              "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+              "name": "2024/25"
+            },
+            "hierarchy": {
+              "id": "70099122",
+              "uuid": "d348735f-6018-42aa-925c-ec915e60ce24",
+              "name": "Rueckmeldungen Bezirk West",
+              "shortName": "RueckmBezWest",
+              "hierarchyLevel": "4"
+            },
+            "fullHierarchy": {
+              "hierarchy": [
+                {
+                  "id": "70099122",
+                  "name": "Rueckmeldungen Bezirk West",
+                  "shortName": "RueckmBezWest",
+                  "hierarchyLevel": "4"
+                },
+                {
+                  "id": "70099121",
+                  "name": "Region West",
+                  "shortName": "bw",
+                  "hierarchyLevel": "3"
+                },
+                {
+                  "id": "70099120",
+                  "name": "SBVV Bezirke",
+                  "shortName": "SBVV Bezirke",
+                  "hierarchyLevel": "2"
+                },
+                {
+                  "id": "70099119",
+                  "name": "Erwachsenenspielbetrieb SBVV",
+                  "shortName": "SBVV Erw.",
+                  "hierarchyLevel": "1"
+                },
+                {
+                  "id": "70098566",
+                  "name": "Südbadischer Volleyball-Verband (SBVV)",
+                  "shortName": "SBVV",
+                  "hierarchyLevel": "0"
+                }
+              ]
+            },
+            "association": {
+              "name": "Südbadischer Volleyball-Verband",
+              "shortName": "SBVV"
+            }
+          }
+        },
+        {
           "id": "94551575",
           "uuid": "e2593fc3-4360-406d-902e-da1fb6810fc5",
           "seasonTeamId": "94551575",
@@ -569,8 +654,8 @@
             "name": "Bezirk West: Neuanmeldung Damen-25/26",
             "shortName": "NeuanmBezWestDamen",
             "type": "League",
-            "updated": "2025-04-29 08:39:27.918",
-            "structureUpdated": "2025-04-29 08:39:27.918",
+            "updated": "2025-05-05 11:17:59.147",
+            "structureUpdated": "2025-05-05 11:17:59.147",
             "resultsUpdated": null,
             "season": {
               "id": "70098350",
@@ -654,8 +739,8 @@
             "name": "Bezirk West: Rückmeldung Damen Bezirksklasse-25/26",
             "shortName": "RueckBezKlDamen",
             "type": "League",
-            "updated": "2025-04-30 09:05:18.278",
-            "structureUpdated": "2025-04-30 09:05:18.278",
+            "updated": "2025-05-02 13:20:37.084",
+            "structureUpdated": "2025-05-02 13:20:37.084",
             "resultsUpdated": null,
             "season": {
               "id": "70098350",
