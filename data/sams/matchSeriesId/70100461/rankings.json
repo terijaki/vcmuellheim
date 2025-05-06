@@ -7,9 +7,9 @@
       "name": "Relegation Verbandsliga Herren 2025",
       "shortName": "Rel_VL_Herren",
       "type": "Competition",
-      "updated": "2025-04-14 12:38:54.19",
+      "updated": "2025-05-04 17:02:21.986",
       "structureUpdated": "2025-04-14 12:38:54.19",
-      "resultsUpdated": "2024-04-28 19:12:06.278",
+      "resultsUpdated": "2025-05-04 17:02:21.986",
       "season": {
         "id": "70098350",
         "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -51,7 +51,16 @@
     },
     "ranking": [
       {
-        "place": null,
+        "place": "1",
+        "team": {
+          "id": "94426084",
+          "uuid": "6551ef88-a0cc-4df1-8b91-5c2958f032ef",
+          "name": "VC Müllheim 1",
+          "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": "2",
         "team": {
           "id": "94434031",
           "uuid": "32d3af43-53d3-41bd-98a0-6b9cf41d2c66",
@@ -60,21 +69,12 @@
         }
       },
       {
-        "place": null,
+        "place": "3",
         "team": {
           "id": "93325670",
           "uuid": "48e18dfc-5ab6-44b8-a5ab-ff8ced5e3de4",
           "name": "TV Neustadt",
           "club": "TV Neustadt"
-        }
-      },
-      {
-        "place": null,
-        "team": {
-          "id": "94426084",
-          "uuid": "6551ef88-a0cc-4df1-8b91-5c2958f032ef",
-          "name": "VC Müllheim 1",
-          "club": "VC Müllheim"
         }
       }
     ]

@@ -52,9 +52,9 @@
           "name": "Relegation Verbandsliga Herren 2025",
           "shortName": "Rel_VL_Herren",
           "type": "Competition",
-          "updated": "2025-04-14 12:38:54.19",
+          "updated": "2025-05-04 17:02:21.986",
           "structureUpdated": "2025-04-14 12:38:54.19",
-          "resultsUpdated": "2024-04-28 19:12:06.278",
+          "resultsUpdated": "2025-05-04 17:02:21.986",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -104,6 +104,36 @@
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
         "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "3:0",
+          "ballPoints": "75:43",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:15",
+                "winner": "TEAM1",
+                "duration": "19"
+              },
+              {
+                "number": "2",
+                "points": "25:11",
+                "winner": "TEAM1",
+                "duration": "17"
+              },
+              {
+                "number": "3",
+                "points": "25:17",
+                "winner": "TEAM1",
+                "duration": "20"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "15",
+        "netDuration": "56",
         "dateObject": "2025-05-04T09:00:00.000Z",
         "dateIso": "2025-05-04T09:00:00.000Z"
       },
@@ -158,9 +188,9 @@
           "name": "Relegation Verbandsliga Herren 2025",
           "shortName": "Rel_VL_Herren",
           "type": "Competition",
-          "updated": "2025-04-14 12:38:54.19",
+          "updated": "2025-05-04 17:02:21.986",
           "structureUpdated": "2025-04-14 12:38:54.19",
-          "resultsUpdated": "2024-04-28 19:12:06.278",
+          "resultsUpdated": "2025-05-04 17:02:21.986",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -210,6 +240,48 @@
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
         "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "3:2",
+          "ballPoints": "107:111",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "20:25",
+                "winner": "TEAM2",
+                "duration": "22"
+              },
+              {
+                "number": "2",
+                "points": "25:21",
+                "winner": "TEAM1",
+                "duration": "27"
+              },
+              {
+                "number": "3",
+                "points": "26:24",
+                "winner": "TEAM1",
+                "duration": "28"
+              },
+              {
+                "number": "4",
+                "points": "18:25",
+                "winner": "TEAM2",
+                "duration": "25"
+              },
+              {
+                "number": "5",
+                "points": "18:16",
+                "winner": "TEAM1",
+                "duration": "25"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "20",
+        "netDuration": "127",
         "dateObject": "2025-05-04T09:00:00.000Z",
         "dateIso": "2025-05-04T09:00:00.000Z"
       },
@@ -264,9 +336,9 @@
           "name": "Relegation Verbandsliga Herren 2025",
           "shortName": "Rel_VL_Herren",
           "type": "Competition",
-          "updated": "2025-04-14 12:38:54.19",
+          "updated": "2025-05-04 17:02:21.986",
           "structureUpdated": "2025-04-14 12:38:54.19",
-          "resultsUpdated": "2024-04-28 19:12:06.278",
+          "resultsUpdated": "2025-05-04 17:02:21.986",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -316,6 +388,36 @@
           "note": "Anzahl Spielfelder 3 - Zulassung bis BL - Zulassung am 37489 - Ausnahme"
         },
         "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:3",
+          "ballPoints": "46:75",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "15:25",
+                "winner": "TEAM2",
+                "duration": "17"
+              },
+              {
+                "number": "2",
+                "points": "14:25",
+                "winner": "TEAM2",
+                "duration": "19"
+              },
+              {
+                "number": "3",
+                "points": "17:25",
+                "winner": "TEAM2",
+                "duration": "21"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "25",
+        "netDuration": "57",
         "dateObject": "2025-05-04T09:00:00.000Z",
         "dateIso": "2025-05-04T09:00:00.000Z"
       }
