@@ -52,9 +52,9 @@
           "name": "Relegation Verbandsliga Herren 2025",
           "shortName": "Rel_VL_Herren",
           "type": "Competition",
-          "updated": "2025-05-04 17:02:21.986",
+          "updated": "2025-05-06 15:04:33.138",
           "structureUpdated": "2025-04-14 12:38:54.19",
-          "resultsUpdated": "2025-05-04 17:02:21.986",
+          "resultsUpdated": "2025-05-06 15:04:33.138",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -130,7 +130,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "15",
         "netDuration": "56",
@@ -188,9 +188,9 @@
           "name": "Relegation Verbandsliga Herren 2025",
           "shortName": "Rel_VL_Herren",
           "type": "Competition",
-          "updated": "2025-05-04 17:02:21.986",
+          "updated": "2025-05-06 15:04:33.138",
           "structureUpdated": "2025-04-14 12:38:54.19",
-          "resultsUpdated": "2025-05-04 17:02:21.986",
+          "resultsUpdated": "2025-05-06 15:04:33.138",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -278,7 +278,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "20",
         "netDuration": "127",
@@ -336,9 +336,9 @@
           "name": "Relegation Verbandsliga Herren 2025",
           "shortName": "Rel_VL_Herren",
           "type": "Competition",
-          "updated": "2025-05-04 17:02:21.986",
+          "updated": "2025-05-06 15:04:33.138",
           "structureUpdated": "2025-04-14 12:38:54.19",
-          "resultsUpdated": "2025-05-04 17:02:21.986",
+          "resultsUpdated": "2025-05-06 15:04:33.138",
           "season": {
             "id": "70098350",
             "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
@@ -414,7 +414,7 @@
               }
             ]
           },
-          "verified": "false"
+          "verified": "true"
         },
         "spectators": "25",
         "netDuration": "57",
