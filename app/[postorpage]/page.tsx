@@ -51,9 +51,13 @@ export async function generateStaticParams(): Promise<{ postorpage: string }[]> 
 }
 
 // dynamic metadata such as title and open graph
-export async function generateMetadata({ params }: { params: { postorpage: string } }, parent: ResolvingMetadata): Promise<Metadata | void> {
-	let customMeta = { title: null, thumbnail: null, description: "" };
-	toStaticGenerate.map((target) => {
+export async function generateMetadata(
+    props: { params: Promise<{ postorpage: string }> },
+    parent: ResolvingMetadata
+): Promise<Metadata | void> {
+    const params = await props.params;
+    let customMeta = { title: null, thumbnail: null, description: "" };
+    toStaticGenerate.map((target) => {
 		target.format.map((ext) => {
 			const targetFile = path.join(target.folder, params.postorpage) + ext;
 			if (fs.existsSync(targetFile)) {
@@ -73,7 +77,7 @@ export async function generateMetadata({ params }: { params: { postorpage: strin
 		});
 	});
 
-	if (customMeta.title && customMeta.thumbnail) {
+    if (customMeta.title && customMeta.thumbnail) {
 		return {
 			title: customMeta.title,
 			openGraph: {
@@ -92,12 +96,13 @@ export async function generateMetadata({ params }: { params: { postorpage: strin
 }
 
 // display the content of the current [params]
-export default async function postDisplay({ params }: { params: { postorpage: string } }) {
-	let readTarget: null | string = null;
-	let isPost: boolean = false;
+export default async function postDisplay(props: { params: Promise<{ postorpage: string }> }) {
+    const params = await props.params;
+    let readTarget: null | string = null;
+    let isPost: boolean = false;
 
-	// step 1: read the possible folder + extension combinations from toStaticGenerate
-	toStaticGenerate.map((target) => {
+    // step 1: read the possible folder + extension combinations from toStaticGenerate
+    toStaticGenerate.map((target) => {
 		target.format.map((ext) => {
 			const testTarget = path.join(target.folder, params.postorpage) + ext;
 			// step 2: check if the file exists
@@ -111,8 +116,8 @@ export default async function postDisplay({ params }: { params: { postorpage: st
 		});
 	});
 
-	// step 4: render the file
-	if (readTarget) {
+    // step 4: render the file
+    if (readTarget) {
 		const { data: frontmatter, content: content } = matter.read(readTarget);
 		// if there is a thumbnail but not a gallery, make the thumbnail a gallery item
 		if (!frontmatter.gallery && frontmatter.thumbnail) {

@@ -34,11 +34,12 @@ import { getTeamPlayers } from "@/app/utils/sams/players";
 // 	}));
 // }
 
-export default async function TeamPage({ params }: { params: { slug: string } }) {
-	// pre-render setup
-	// removes the array and just returns the team object
-	const team = getTeams(undefined, params.slug)[0];
-	if (team.sbvvId) {
+export default async function TeamPage(props: { params: Promise<{ slug: string }> }) {
+    const params = await props.params;
+    // pre-render setup
+    // removes the array and just returns the team object
+    const team = getTeams(undefined, params.slug)[0];
+    if (team.sbvvId) {
 		// get the name of the league from the club data
 		let ligaName = getLeagueName(team.sbvvId);
 		// initiate ICS file generation
