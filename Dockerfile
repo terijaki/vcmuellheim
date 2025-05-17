@@ -19,7 +19,7 @@ COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 # use local variables as production (needed when testing locally)
-RUN mv -n .env.local .env.production || true
+RUN mv -n .env.development.local .env.production || true
 RUN bun --bun run build
 
 # STAGE 3. RUN

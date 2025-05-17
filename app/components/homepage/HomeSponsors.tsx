@@ -1,16 +1,13 @@
 import Sponsors from "@/app/components/homepage/Sponsor";
-import { getActiveSponsors } from "@/app/utils/getSponsors";
 import SectionHeading from "@/app/components/layout/SectionHeading";
+import { getActiveSponsors } from "@/app/utils/getSponsors";
 import Image from "next/image";
 
 export default function HomeSponsors() {
 	if (getActiveSponsors().length >= 1) {
 		return (
 			<section className="col-full-content text-white bg-gradient-overlay pb-3">
-				<a
-					id="sponsors"
-					className="scroll-anchor"
-				></a>
+				<div id="sponsors" className="scroll-anchor" />
 				<Image
 					src="/images/backgrounds/sponsors.jpg"
 					loading="lazy"
@@ -19,7 +16,7 @@ export default function HomeSponsors() {
 					className="absolute w-full h-full z-[-10] object-cover"
 				/>
 				<SectionHeading
-					text={getActiveSponsors().length == 1 ? "Sponsor" : "Sponsoren"}
+					text={getActiveSponsors().length === 1 ? "Sponsor" : "Sponsoren"}
 					classes="text-white border-white"
 				/>
 				<Sponsors />

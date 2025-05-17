@@ -1,15 +1,14 @@
-import { Metadata, ResolvingMetadata } from "next";
-import path from "path";
-import fs from "fs";
-import matter from "gray-matter";
-import Link from "next/link";
-import Image from "next/image";
 import PageHeading from "@/app/components/layout/PageHeading";
 import SharingButon from "@/app/components/ui/SharingButton";
-import Markdown from "markdown-to-jsx";
 import rssFeed from "@/app/utils/blog/rssFeed";
+import fs from "fs";
+import matter from "gray-matter";
+import Markdown from "markdown-to-jsx";
+import type { Metadata, ResolvingMetadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import path from "path";
 import { slugify } from "../utils/slugify";
-import { getPlaiceholder } from "plaiceholder";
 
 // TODO
 // - do not generate static file if name is identical to a page OR replace markdown pages with jsx
@@ -27,8 +26,10 @@ const toStaticGenerate = [
 ];
 
 // generate static routes for each markdown post
-export async function generateStaticParams(): Promise<{ postorpage: string }[]> {
-	let filesToGenerate: string[] = [];
+export async function generateStaticParams(): Promise<
+	{ postorpage: string }[]
+> {
+	const filesToGenerate: string[] = [];
 	toStaticGenerate.map((target) => {
 		target.format.map((ext) => {
 			const files = fs.readdirSync(target.folder);
@@ -40,7 +41,7 @@ export async function generateStaticParams(): Promise<{ postorpage: string }[]> 
 		});
 	});
 
-	if (process.env.NODE_ENV == "production") {
+	if (process.env.NODE_ENV === "production") {
 		// generate the rss feed containing the blog posts
 		rssFeed();
 	}
@@ -52,12 +53,12 @@ export async function generateStaticParams(): Promise<{ postorpage: string }[]> 
 
 // dynamic metadata such as title and open graph
 export async function generateMetadata(
-    props: { params: Promise<{ postorpage: string }> },
-    parent: ResolvingMetadata
-): Promise<Metadata | void> {
-    const params = await props.params;
-    let customMeta = { title: null, thumbnail: null, description: "" };
-    toStaticGenerate.map((target) => {
+	props: { params: Promise<{ postorpage: string }> },
+	parent: ResolvingMetadata,
+): Promise<Metadata | undefined> {
+	const params = await props.params;
+	const customMeta = { title: null, thumbnail: null, description: "" };
+	toStaticGenerate.map((target) => {
 		target.format.map((ext) => {
 			const targetFile = path.join(target.folder, params.postorpage) + ext;
 			if (fs.existsSync(targetFile)) {
@@ -71,13 +72,16 @@ export async function generateMetadata(
 				}
 				// use the date as description
 				if (postContent.data.date) {
-					customMeta.description = postContent.data.date.toLocaleString("de-DE", { dateStyle: "long", timeStyle: "short" });
+					customMeta.description = postContent.data.date.toLocaleString(
+						"de-DE",
+						{ dateStyle: "long", timeStyle: "short" },
+					);
 				}
 			}
 		});
 	});
 
-    if (customMeta.title && customMeta.thumbnail) {
+	if (customMeta.title && customMeta.thumbnail) {
 		return {
 			title: customMeta.title,
 			openGraph: {
@@ -86,23 +90,25 @@ export async function generateMetadata(
 				description: customMeta.description,
 			},
 		};
-	} else {
-		if (customMeta.title) {
-			return {
-				title: customMeta.title,
-			};
-		}
+	}
+
+	if (customMeta.title) {
+		return {
+			title: customMeta.title,
+		};
 	}
 }
 
 // display the content of the current [params]
-export default async function postDisplay(props: { params: Promise<{ postorpage: string }> }) {
-    const params = await props.params;
-    let readTarget: null | string = null;
-    let isPost: boolean = false;
+export default async function postDisplay(props: {
+	params: Promise<{ postorpage: string }>;
+}) {
+	const params = await props.params;
+	let readTarget: null | string = null;
+	let isPost = false;
 
-    // step 1: read the possible folder + extension combinations from toStaticGenerate
-    toStaticGenerate.map((target) => {
+	// step 1: read the possible folder + extension combinations from toStaticGenerate
+	toStaticGenerate.map((target) => {
 		target.format.map((ext) => {
 			const testTarget = path.join(target.folder, params.postorpage) + ext;
 			// step 2: check if the file exists
@@ -116,22 +122,26 @@ export default async function postDisplay(props: { params: Promise<{ postorpage:
 		});
 	});
 
-    // step 4: render the file
-    if (readTarget) {
-		const { data: frontmatter, content: content } = matter.read(readTarget);
+	// step 4: render the file
+	if (readTarget) {
+		const { data: frontmatter, content } = matter.read(readTarget);
 		// if there is a thumbnail but not a gallery, make the thumbnail a gallery item
 		if (!frontmatter.gallery && frontmatter.thumbnail) {
 			frontmatter.gallery = [frontmatter.thumbnail];
 		}
 		// if the gallery does not include the thumbnail, add it
-		if (frontmatter.gallery && frontmatter.thumbnail && !frontmatter.gallery.includes(frontmatter.thumbnail)) {
+		if (
+			frontmatter.gallery &&
+			frontmatter.thumbnail &&
+			!frontmatter.gallery.includes(frontmatter.thumbnail)
+		) {
 			frontmatter.gallery.push(frontmatter.thumbnail);
 		}
 		return (
 			<>
 				<PageHeading
 					title={frontmatter.title}
-					subtitle={frontmatter.date && frontmatter.date.toString()}
+					subtitle={frontmatter.date?.toString()}
 					subtitleDate={true}
 				/>
 				<div className="col-full-content sm:col-center-content">
@@ -139,12 +149,7 @@ export default async function postDisplay(props: { params: Promise<{ postorpage:
 						<Markdown>{content}</Markdown>
 						{frontmatter.gallery && (await galleryDisplay(frontmatter.gallery))}
 					</article>
-					{isPost && (
-						<SharingButon
-							label={"Beitrag teilen"}
-							wrapper={true}
-						/>
-					)}
+					{isPost && <SharingButon label={"Beitrag teilen"} wrapper={true} />}
 				</div>
 			</>
 		);
@@ -157,19 +162,9 @@ async function galleryDisplay(gallery: string[]) {
 	return (
 		<div className="grid gap-3 mt-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
 			{shuffledGallery.map(async (galleryItem: string, index) => {
-				let plaiceholderImage;
-				// try {
-				// 	console.log("Generate Plaiceholder for " + galleryItem);
-				// 	const file = fs.readFileSync("public" + galleryItem);
-				// 	const { base64 } = await getPlaiceholder(file, { format: ["webp"] });
-				// 	plaiceholderImage = base64;
-				// } catch (err) {
-				// 	console.log("Unable to create plaiceholder image for " + galleryItem);
-				// }
-
 				return (
 					<Link
-						key={"Gallerybild" + index}
+						key={`Gallerybild ${galleryItem}`}
 						href={galleryItem}
 						target="_blank"
 						className="relative group hover:cursor-zoom-in rounded-md overflow-hidden after:opacity-0 hover:after:opacity-100 after:absolute after:inset-0 after:h-full after:w-full after:pointer-events-none hover:after:z-10 after:border-[0.4rem] after:border-dashed after:border-white after:duration-300 bg-blumine/25"
@@ -179,10 +174,8 @@ async function galleryDisplay(gallery: string[]) {
 								src={path.join(galleryItem)}
 								width={540}
 								height={310}
-								alt={"Foto:" + galleryItem}
+								alt={`Foto:${galleryItem}`}
 								className="object-cover h-full w-full m-0 p-0"
-								placeholder={plaiceholderImage ? "blur" : undefined}
-								blurDataURL={plaiceholderImage}
 							/>
 						</div>
 					</Link>

@@ -1,6 +1,6 @@
-import fs from "fs";
 import matter from "gray-matter";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import { shuffleArray } from "./shuffleArray";
 
 const MEMBERS_FOLDER = "data/members";
@@ -22,19 +22,19 @@ export function getMembers(memberType?: "board" | "trainers", random?: false | t
 	folders.map((folder) => {
 		const files = fs.readdirSync(path.join(folder.path, folder.name));
 		// turn every file into an Object & add it to the membersMatter array
-		files.forEach((file) => {
+		for (const file of files) {
 			const { data: frontmatter } = matter.read(path.join(folder.path, folder.name, file));
 			if (!frontmatter.sortorder) {
 				frontmatter.sortorder = 9999;
 			}
 			frontmatter.memberType = folder.name;
 			membersMatter.push(frontmatter);
-		});
+		}
 	});
 
 	// filter if there is a memberType specified
 	if (memberType) {
-		membersMatter = membersMatter.filter((member) => member.memberType == memberType);
+		membersMatter = membersMatter.filter((member) => member.memberType === memberType);
 	}
 
 	// sort members if random is set to false

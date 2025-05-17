@@ -1,15 +1,17 @@
-import HomeIntro from "@/app/components/homepage/HomeIntro";
-import HomeNews from "@/app/components/homepage/HomeNews";
-import HomeHeimspiele from "@/app/components/homepage/HomeHeimspiele";
-import HomeTeams from "@/app/components/homepage/HomeTeams";
-import HomeSponsors from "@/app/components/homepage/HomeSponsors";
-import HomeMembers from "@/app/components/homepage/HomeMembers";
+
 import HomeFotos from "@/app/components/homepage/HomeFotos";
-import HomeKontakt from "@/app/components/homepage/HomeKontakt";
+import HomeHeimspiele from "@/app/components/homepage/HomeHeimspiele";
 import HomeHeimturnier from "@/app/components/homepage/HomeHeimturnier";
+import HomeIntro from "@/app/components/homepage/HomeIntro";
+import HomeKontakt from "@/app/components/homepage/HomeKontakt";
+import HomeMembers from "@/app/components/homepage/HomeMembers";
+import HomeNews from "@/app/components/homepage/HomeNews";
+import HomeSponsors from "@/app/components/homepage/HomeSponsors";
+import HomeTeams from "@/app/components/homepage/HomeTeams";
 import { Suspense } from "react";
 
-export default function Page() {
+
+export default async function Page() {
 	return (
 		<>
 			<HomeIntro />

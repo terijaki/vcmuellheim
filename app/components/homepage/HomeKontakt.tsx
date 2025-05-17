@@ -1,22 +1,27 @@
 import SectionHeading from "@/app/components/layout/SectionHeading";
 import Link from "next/link";
-import { FaEnvelope as IconEmail, FaFileExcel as IconExcel, FaArrowUpRightFromSquare as IconExtern } from "react-icons/fa6";
+import {
+	FaEnvelope as IconEmail,
+	FaFileExcel as IconExcel,
+	FaArrowUpRightFromSquare as IconExtern,
+} from "react-icons/fa6";
 
 export default function HomeKontakt() {
 	return (
 		<section className="col-center-content mb-8">
-			<a
-				id="kontakt"
-				className="scroll-anchor"
-			></a>
+			<div id="kontakt" className="scroll-anchor" />
 			<SectionHeading text="Kontakt" />
-			<p className="mb-4 text-center text-balance">Zögere bitte nicht. Solltest du Fragen an uns haben, oder Interesse mit uns zu trainieren, dann melde dich bei uns!</p>
+			<p className="mb-4 text-center text-balance">
+				Zögere bitte nicht. Solltest du Fragen an uns haben, oder Interesse mit uns zu trainieren, dann melde dich bei
+				uns!
+			</p>
 
 			<div className="Q+A grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-4 prose-h3:font-bold prose-a:text-turquoise text-center text-balance">
 				<div className="frage">
 					<h3>Hast du Interesse an einem Probetrainung?</h3>
 					<span>
-						Melde dich bitte beim jeweiligen Trainer oder Ansprechperson der Mannschaft (<a href="#mannschaften">siehe oben</a>)
+						Melde dich bitte beim jeweiligen Trainer oder Ansprechperson der Mannschaft (
+						<a href="#mannschaften">siehe oben</a>)
 					</span>
 				</div>
 
@@ -24,10 +29,7 @@ export default function HomeKontakt() {
 					<h3>Möchtest du dem Verein beitreten?</h3>
 					<span>
 						Hier gehts zur{" "}
-						<Link
-							className="inline-block"
-							href="/beitragsordnung/"
-						>
+						<Link className="inline-block" href="/beitragsordnung/">
 							Beitragsordnung
 						</Link>{" "}
 						und hier zum{" "}
@@ -99,10 +101,7 @@ export default function HomeKontakt() {
 					<h3>Hast du Fragen zu unserem Branding?</h3>
 					<span>
 						Farben und Logo Dateien findest du im{" "}
-						<Link
-							className="inline-block"
-							href="/brand"
-						>
+						<Link className="inline-block" href="/brand">
 							Brand Guide
 						</Link>
 					</span>
@@ -112,11 +111,7 @@ export default function HomeKontakt() {
 					<h3>Für alle weiteren Anliegen:</h3>
 					<span>
 						Nutze gerne unseren Mailverteiler{" "}
-						<Link
-							className="inline-block"
-							href="mailto:info@vcmuellheim.de"
-							target="_blank"
-						>
+						<Link className="inline-block" href="mailto:info@vcmuellheim.de" target="_blank">
 							<IconEmail className="inline-block" /> info@vcmuellheim.de
 						</Link>
 					</span>

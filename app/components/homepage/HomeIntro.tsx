@@ -1,18 +1,18 @@
-import Image from "next/image";
+"use client";
 import { navbarLinks } from "@/app/utils/navbarLinks";
-import { FaAnglesDown as IconDown } from "react-icons/fa6";
+import Image from "next/image";
 import Link from "next/link";
+import { FaAnglesDown as IconDown } from "react-icons/fa6";
 
-import "/public/images/logo/logo-weiss.png";
-import "/public/images/backgrounds/intro1.jpg";
-import "/public/images/backgrounds/intro2.jpg";
-import "/public/images/backgrounds/intro3.jpg";
-import "/public/images/backgrounds/intro4.jpg";
-
-const backgroundImages = ["/images/backgrounds/intro1.jpg", "/images/backgrounds/intro2.jpg", "/images/backgrounds/intro3.jpg", "/images/backgrounds/intro3.jpg"];
+const backgroundImages = [
+	"/images/backgrounds/intro1.jpg",
+	"/images/backgrounds/intro2.jpg",
+	"/images/backgrounds/intro3.jpg",
+	"/images/backgrounds/intro3.jpg",
+];
 
 export default function HomeIntro() {
-	var backgroundImageRandom = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
+	const backgroundImageRandom = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
 
 	return (
 		<section
@@ -20,10 +20,7 @@ export default function HomeIntro() {
 				"col-full-content relative group min-h-[calc(80svh-3rem)] text-white justify-items-center grid grid-cols-main-grid bg-cover bg-no-repeat bg-center before:content-[''] before:absolute before:inset-0 before:block before:z-[-5] before:bg-gradient-to-bl before:to-onyx before:from-blumine before:opacity-80"
 			}
 		>
-			<a
-				id="intro"
-				className="scroll-anchor"
-			></a>
+			<div id="intro" className="scroll-anchor" />
 			<Image
 				fill
 				priority
@@ -46,11 +43,7 @@ export default function HomeIntro() {
 				<div className="links text-center inline-flex md:hidden gap-x-2 gap-y-2 w-10/12 flex-wrap place-content-center pb-6">
 					{navbarLinks.map((link) => {
 						return (
-							<Link
-								key={link.name}
-								{...link}
-								className="button-transparent bg-onyx inline"
-							>
+							<Link key={link.name} {...link} className="button-transparent bg-onyx inline">
 								{link.name}
 							</Link>
 						);

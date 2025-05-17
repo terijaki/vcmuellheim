@@ -1,10 +1,11 @@
 export default function convertDate(date: string, time?: string): Date {
+	let safeTime = time;
 	// add a time
 	if (!time) {
-		time = "00:00";
+		safeTime = "00:00";
 	}
 	// construct the date from 14.03.1980 to 1980-03-14
-	const dateInput: string = date.substring(6, 10) + "-" + date.substring(3, 5) + "-" + date.substring(0, 2);
+	const dateInput: string = `${date.substring(6, 10)}-${date.substring(3, 5)}-${date.substring(0, 2)}`;
 
 	// adjust the timezone since we are dealing with the date and hours but sams does not deliver TZ information
 	let timezone = "+01:00"; // UTC+1, CET, winter time in Germany
@@ -14,7 +15,7 @@ export default function convertDate(date: string, time?: string): Date {
 	}
 
 	// add time and timezone
-	const dateObject = new Date(dateInput + "T" + time + timezone);
+	const dateObject = new Date(`${dateInput}T${time}${timezone}`);
 
 	return dateObject;
 }

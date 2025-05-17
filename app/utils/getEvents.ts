@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 
 export const EVENTS_FOLDER = "data/events";
 
@@ -21,14 +21,14 @@ export type eventObject = {
 
 export default function getEvents(daysInPast = 0, daysInFuture = 90): eventObject[] {
 	const today = new Date();
-	let minDate = new Date(today.setDate(today.getDate() - daysInPast)); // # days in the past
-	let maxDate = new Date(today.setDate(today.getDate() + daysInFuture)); // # days in the future
+	const minDate = new Date(today.setDate(today.getDate() - daysInPast)); // # days in the past
+	const maxDate = new Date(today.setDate(today.getDate() + daysInFuture)); // # days in the future
 
 	if (fs.existsSync(EVENTS_FOLDER)) {
 		const eventFiles = fs.readdirSync(EVENTS_FOLDER);
 		const eventObjects = eventFiles.map((event) => {
 			const eventFile = fs.readFileSync(path.join(EVENTS_FOLDER, event));
-			let eventObject = JSON.parse(eventFile.toString());
+			const eventObject = JSON.parse(eventFile.toString());
 			if (eventObject.start) {
 				eventObject.start = new Date(eventObject.start);
 			}
@@ -40,11 +40,12 @@ export default function getEvents(daysInPast = 0, daysInFuture = 90): eventObjec
 
 		// remove events outside the specified range, relative to today
 		const filteredEvents = eventObjects.filter(
-			(event) => (minDate < event.start.getTime() && maxDate > event.start.getTime()) || (event.end && minDate < event.end.getTime() && maxDate > event.end.getTime())
+			(event) =>
+				(minDate < event.start.getTime() && maxDate > event.start.getTime()) ||
+				(event.end && minDate < event.end.getTime() && maxDate > event.end.getTime()),
 		);
 
 		return filteredEvents;
-	} else {
-		return [];
 	}
+	return [];
 }

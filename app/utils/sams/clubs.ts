@@ -13,89 +13,29 @@
 // benötiger Parameter:
 // sportsclubId - Id eines vorhandenen Vereins (Bsp.: sportsclubId=12345)
 import { SAMS } from "@/project.config";
-import { unstable_cache } from "next/cache";
-import { env } from "process";
+import {
+	unstable_cacheLife as cacheLife,
+	unstable_cacheTag as cacheTag,
+} from "next/cache";
 import { makeArrayUnique } from "../makeArrayUnique";
+import { samsSportsclubs } from "./sams-server-actions";
 
-const SAMS_API = env.SAMS_API,
-	SAMS_URL = SAMS.url,
-	SAMS_CACHE = env.SAMS_CACHE || ".temp/sams";
+const SAMS_API = process.env.SAMS_API;
+const SAMS_URL = SAMS.url;
+const SAMS_CACHE = process.env.SAMS_CACHE || ".temp/sams";
 
 /** Returns a array of basic club data for each club. No input required. */
 export async function getAllClubs() {
-	//#region caching since the response is likely to be larger than 2MB
-	// const cacheFile = Bun.file(path.join(SAMS_CACHE, "allClubs.json"), { type: "application/json" });
-	// if (await cacheFile.exists()) {
-	// 	const cacheAge = (new Date().getTime() - cacheFile.lastModified) / (1000 * 60 * 60 * 24); // in days
-	// 	if (cacheAge < 7) {
-	// 		const cacheData = await cacheFile.json();
-	// 		return cacheData;
-	// 	}
-	// }
-	//#endregion caching
 
-	if (!SAMS_API) {
-		console.error("🚨 SAMS API KEY MISSING IN FETCH ALL CLUBS CONTEXT");
-		return false;
-	}
-	const samsJson = unstable_cache(
-		async () => {
-			const apiURL = SAMS_URL + "/xml/sportsclubList.xhtml?apiKey=" + SAMS_API;
+	const allClubs = await samsSportsclubs();
 
-			try {
-				const samsRequest = await fetch(apiURL, { method: "POST", cache: "force-cache" });
-				console.log(samsRequest);
-				// make the server request and check its status
-				if (!samsRequest.status || samsRequest.status != 200) {
-					console.error("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR ALL CLUBS! 🚨 ERROR: " + samsRequest.status);
-					return false;
-				}
-				// read the XML response
-				const samsXMLResponseText = await samsRequest.text(); // this is the XML response
-				if (!samsXMLResponseText) {
-					console.error("🚨 EMPTY RESPONSE RECEIVED FOR ALL CLUBS! 🚨");
-					return false;
-				} else if (samsXMLResponseText.includes("<error>")) {
-					console.error("🚨 RECEIVED ERROR MESSAGE FOR ALL CLUBS! 🚨");
-					console.error(samsXMLResponseText);
-					return false;
-				}
-
-				// turn the XML string into an Object
-				let allClubs: false | ClubSimple[] = false;
-				const parseString = require("xml2js").parseString;
-				await parseString(samsXMLResponseText, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
-					if (!err) {
-						// console.log("✅ Data for all clubs converted from XML to JSON.");
-						// console.log(result);
-						allClubs = result.sportsclubs.sportsclub;
-						if (allClubs) {
-							// Bun.write(cacheFile, JSON.stringify(allClubs));
-							return allClubs;
-						}
-					} else {
-						console.error("🚨 COULD NOT CONVERT CLUBS XML TO JSON! 🚨");
-						console.error(err);
-						return false;
-					}
-				});
-				if (allClubs) return allClubs;
-				console.error("🚨 SOMETHING WENT WRONT WHILE RETRIEVING ALL CLUBS! 🚨");
-			} catch (error) {
-				console.error("🚨 SOMETHING WENT WRONG FETCHING ALL CLUBS! 🚨", error);
-			}
-		},
-		["sams-all-clubs"],
-		{ revalidate: 60 * 60 }
-	);
-
-	return samsJson;
-
-	return false;
+	return allClubs;
 }
 
 /** Returns the full club information for the club ID provides. */
-export async function getClubData(clubId: number | string): Promise<Club | false> {
+export async function getClubData(
+	clubId: number | string,
+): Promise<Club | false> {
 	//#region caching since the response is likely to be larger than 2MB
 	// const cacheFile = Bun.file(path.join(SAMS_CACHE, "club", clubId + ".json"), { type: "application/json" });
 	// if (await cacheFile.exists()) {
@@ -112,13 +52,25 @@ export async function getClubData(clubId: number | string): Promise<Club | false
 		return false;
 	}
 
-	const apiURL = SAMS_URL + "/xml/sportsclub.xhtml?apiKey=" + SAMS_API + "&sportsclubId=" + clubId;
+	const apiURL =
+		SAMS_URL +
+		"/xml/sportsclub.xhtml?apiKey=" +
+		SAMS_API +
+		"&sportsclubId=" +
+		clubId;
 
-	const samsRequest = await fetch(apiURL, { next: { revalidate: 3600, tags: ["sams", "club", clubId.toString()] } });
+	const samsRequest = await fetch(apiURL, {
+		next: { revalidate: 3600, tags: ["sams", "club", clubId.toString()] },
+	});
 
 	// make the server request and check its status
 	if (samsRequest.status != 200) {
-		console.log("🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR CLUB " + clubId + "! 🚨 ERROR: " + samsRequest.status);
+		console.log(
+			"🚨 DID NOT RECEIVE A HTTP 200 RESPONSE FOR CLUB " +
+				clubId +
+				"! 🚨 ERROR: " +
+				samsRequest.status,
+		);
 		return false;
 	}
 	// read the XML response
@@ -136,18 +88,22 @@ export async function getClubData(clubId: number | string): Promise<Club | false
 	// turn the XML string into an Object
 	let thisClub: false | Club = false;
 	const parseString = require("xml2js").parseString;
-	await parseString(samsXMLResponseText, { explicitArray: false, ignoreAttrs: true, emptyTag: null }, function (err: any, result: any) {
-		if (!err) {
-			// console.log("✅ Data for all clubs retrieved. Looks good.");
-			// console.log(result);
-			thisClub = result.sportsclub;
-			// Bun.write(cacheFile, JSON.stringify(thisClub));
-		} else {
-			console.log("🚨 COULD NOT CONVERT CLUBS XML TO JSON! 🚨");
-			console.log(err);
-			return false;
-		}
-	});
+	await parseString(
+		samsXMLResponseText,
+		{ explicitArray: false, ignoreAttrs: true, emptyTag: null },
+		function (err: any, result: any) {
+			if (!err) {
+				// console.log("✅ Data for all clubs retrieved. Looks good.");
+				// console.log(result);
+				thisClub = result.sportsclub;
+				// Bun.write(cacheFile, JSON.stringify(thisClub));
+			} else {
+				console.log("🚨 COULD NOT CONVERT CLUBS XML TO JSON! 🚨");
+				console.log(err);
+				return false;
+			}
+		},
+	);
 
 	if (thisClub) return thisClub;
 	console.log("🚨 SOMETHING WENT WRONT WHILE RETRIEVING ALL CLUBS! 🚨");
@@ -155,15 +111,19 @@ export async function getClubData(clubId: number | string): Promise<Club | false
 }
 
 /** Get a club's ID by it's name. */
-export async function getClubId(clubName: string): Promise<(number | string) | false> {
+export async function getClubId(
+	clubName: string,
+): Promise<(number | string) | false> {
 	try {
 		if (!clubName) return false;
 		const allClubs = await getAllClubs();
 		if (!allClubs) return false;
-		const filteredAllClubs = allClubs.filter((club: { name: string }) => club.name == clubName);
+		const filteredAllClubs = allClubs.filter(
+			(club: { name: string }) => club.name === clubName,
+		);
 		return filteredAllClubs[0].id || false;
 	} catch (error) {
-		console.log("Unable to get Club ID for " + clubName);
+		console.log(`Unable to get Club ID for ${clubName}`);
 		console.log(error);
 		return false;
 	}
@@ -172,13 +132,18 @@ export async function getClubId(clubName: string): Promise<(number | string) | f
 /** In 2024 SAMS united across federal states and since then this is the "internalSportsclubId" and no longer the "clubId"
  * @param sportsclubId (4 digits)
  * @returns **clubId** (8 digits) */
-export async function getClubIdBySportsclubId(sportsClubId: number | string): Promise<number | false> {
+export async function getClubIdBySportsclubId(
+	sportsClubId: number | string,
+): Promise<number | false> {
 	try {
 		if (!sportsClubId) return false;
 		const allClubs = await getAllClubs();
 		if (!allClubs) return false;
 
-		const filteredAllClubs = allClubs.filter((club: { internalSportsclubId: string }) => club.internalSportsclubId == sportsClubId.toString());
+		const filteredAllClubs = allClubs.filter(
+			(club: { internalSportsclubId: string }) =>
+				club.internalSportsclubId == sportsClubId.toString(),
+		);
 		if (!filteredAllClubs || !filteredAllClubs[0].id) return false;
 		return Number(filteredAllClubs[0].id) || false;
 	} catch (error) {
@@ -188,7 +153,9 @@ export async function getClubIdBySportsclubId(sportsClubId: number | string): Pr
 }
 
 /** Retrieve a club's logo by its name. This is useful for ranking displays since the ranking data does not contain this data unfortunately. */
-export async function getClubLogoByName(clubName: string): Promise<string | false> {
+export async function getClubLogoByName(
+	clubName: string,
+): Promise<string | false> {
 	try {
 		const clubId = await getClubId(clubName);
 		if (!clubId) return false;
@@ -207,9 +174,19 @@ export async function getClubLogoByName(clubName: string): Promise<string | fals
 
 /** Get the club details and isolate the TeamIds from each team.
  * Results can be filtered to include all teams or only league teams, to filter out championships (one off tournaments).*/
-export async function getClubsTeamIds(idType: "id" | "uuid" | "seasonTeamId" | "matchSeriesId" | "matchSeriesAllSeasonId" = "id", leagueOnly: boolean = true, clubId?: number | string): Promise<(string | number)[] | false> {
+export async function getClubsTeamIds(
+	idType:
+		| "id"
+		| "uuid"
+		| "seasonTeamId"
+		| "matchSeriesId"
+		| "matchSeriesAllSeasonId" = "id",
+	leagueOnly = true,
+	clubId?: number | string,
+): Promise<(string | number)[] | false> {
 	try {
-		const idToUse = clubId || (await getClubIdBySportsclubId(SAMS.vereinsnummer)); // either use the clubId prop if present or fallback to the project config
+		const idToUse =
+			clubId || (await getClubIdBySportsclubId(SAMS.vereinsnummer)); // either use the clubId prop if present or fallback to the project config
 		if (!idToUse) return false;
 
 		const clubData = await getClubData(idToUse);

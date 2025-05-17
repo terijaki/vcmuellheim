@@ -1,9 +1,8 @@
-import "@/app/globals.css";
-import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
-import type { Metadata } from "next";
-import type { Viewport } from "next";
+import Header from "@/app/components/layout/Header";
+import "@/app/globals.css";
 import { Club } from "@/project.config";
+import type { Metadata, Viewport } from "next";
 
 export const viewport: Viewport = {
 	themeColor: "#363b40", // onyx
@@ -13,12 +12,13 @@ export const viewport: Viewport = {
 	maximumScale: 1,
 };
 export const metadata: Metadata = {
-	metadataBase: new URL("https://" + Club.domain),
+	metadataBase: new URL(`https://${Club.domain}`),
 	title: {
 		template: "VCM: %s",
 		default: "Volleyballclub Müllheim",
 	},
-	description: "In Müllheim geh es in Sachen Volleyball richtig ab! Von Freizeit Team bis zur Amateurliga. Hier findest du alle Infos und Neuigkeiten des Vereins.",
+	description:
+		"In Müllheim geh es in Sachen Volleyball richtig ab! Von Freizeit Team bis zur Amateurliga. Hier findest du alle Infos und Neuigkeiten des Vereins.",
 	icons: {
 		icon: "/images/icons/favicon.png",
 		shortcut: "/images/icons/favicon.png",

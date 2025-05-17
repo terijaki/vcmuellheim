@@ -1,38 +1,25 @@
-import ClubLogo from "./ClubLogo";
-import Link from "next/link";
-import { getTeams } from "@/app/utils/getTeams";
-import { Rankings } from "@/app/utils/sams/rankings";
-import { getClubLogoByName, getClubsTeamIds } from "@/app/utils/sams/clubs";
+import type { samsClubData } from "@/app/utils/sams/sams-server-actions";
 import { Suspense } from "react";
+import type { Rankings } from "sams-rpc";
+import ClubLogo, { ClubLogoFallback } from "./ClubLogo";
 
 type RankingTable = Rankings & {
 	exclusive?: string | number;
 	linkToTeamPage?: boolean;
+	clubData?: Awaited<ReturnType<typeof samsClubData>>;
 };
 
-export default async function RankingTable(props: RankingTable) {
+export default function RankingTable(props: RankingTable) {
 	// prepare date formatting
 	const dateInput = new Date(props.matchSeries.updated);
 	const dateFormat = new Intl.DateTimeFormat("de-DE", { day: "numeric", month: "2-digit", year: "2-digit" });
 	const dateTimeFormat = new Intl.DateTimeFormat("de-DE", { hour: "2-digit", minute: "2-digit" });
 	const dateDisplay = dateFormat.format(dateInput).toString();
 	const dateTimeDisplay = dateTimeFormat.format(dateInput).toString();
-	// check club data to identify our team IDs
-	let clubTeamIds: any[] = [];
-	if (props.exclusive) {
-		clubTeamIds.push(props.exclusive);
-	} else {
-		clubTeamIds = (await getClubsTeamIds("id", true)) || [];
-	}
 
-	// check if placenumber is busted
-	let placeNumbers = new Set();
-	props.ranking.forEach((ranking) => {
-		placeNumbers.add(ranking.place);
-	});
-	const placeOk = placeNumbers.size > 1;
+	const ranking = props.ranking;
 
-	if (props.ranking) {
+	if (ranking) {
 		return (
 			<div className="card-narrow">
 				<h2 className="card-heading">{props.matchSeries.name}</h2>
@@ -56,72 +43,79 @@ export default async function RankingTable(props: RankingTable) {
 					<div className="tabelle pb-3">
 						<table className="w-full prose-td:px-2 prose-td:h-full prise-td:items-center">
 							<thead className="font-bold text-slate-600 *:text-center">
-								<td>
-									{placeOk && (
-										<>
-											<span className="sm:hidden lg:inline xl:hidden">Nr</span>
-											<span className="hidden sm:inline lg:hidden xl:inline">Platz</span>
-										</>
-									)}
-								</td>
-								<td className="!text-left">Mannschaft</td>
-								<td>Siege</td>
-								<td className="hidden sm:block">Sätze</td>
-								<td>
-									<span className="sm:hidden lg:inline xl:hidden">Pkt</span>
-									<span className="hidden sm:inline lg:hidden xl:inline">Punkte</span>
-								</td>
+								<tr>
+									<td>
+										<span className="sm:hidden lg:inline xl:hidden">Nr</span>
+										<span className="hidden sm:inline lg:hidden xl:inline">Platz</span>
+									</td>
+									<td className="!text-left">Mannschaft</td>
+									<td>Siege</td>
+									<td className="hidden sm:block">Sätze</td>
+									<td>
+										<span className="sm:hidden lg:inline xl:hidden">Pkt</span>
+										<span className="hidden sm:inline lg:hidden xl:inline">Punkte</span>
+									</td>
+								</tr>
 							</thead>
-							{props.ranking.map(async (team: any) => {
-								const isClubTeam = clubTeamIds.includes(team.team.id);
-								const clubLogo = (await getClubLogoByName(team.team.club.name)) || undefined;
-								return (
-									<>
-										<tr
-											key={team.team.id}
-											className={
-												"hover:bg-blumine hover:text-white " +
-												(props.ranking.length % 2 == 0 ? "even:bg-black/5" : "odd:bg-black/5") +
-												(isClubTeam != false ? " odd:bg-onyx even:bg-onyx text-white" : "")
-											}
-											data-team-id={team.team.id}
-											data-team-name={team.team.name}
-										>
-											<td className="text-center justify-center items-center">{placeOk && team.place}</td>
-											<td className="truncate justify-left items-center p-0.5 w-full h-full">
-												{isClubTeam && props.linkToTeamPage && getTeams(team.team.id).length == 1 ? (
+							<tbody>
+								{ranking.map(async (team) => {
+									const clubName = team.team.club.name;
+									const isClubTeam = props.clubData?.id === team.team.id || false;
+
+									return (
+										<>
+											<tr
+												key={team.team.id}
+												className={`hover:bg-blumine hover:text-white ${ranking.length % 2 === 0 ? "even:bg-black/5" : "odd:bg-black/5"}${isClubTeam ? " odd:bg-onyx even:bg-onyx text-white" : ""}`}
+												data-team-id={team.team.id}
+												data-team-name={team.team.name}
+											>
+												<td className="text-center justify-center items-center">{team.place}</td>
+												<td className="truncate justify-left items-center p-0.5 w-full h-full">
+													{/* //TODO link to team page if its a club team
+												{isClubTeam && props.linkToTeamPage && getTeams(team.team.id).length === 1 ? (
 													<Link
-														href={"teams/" + getTeams(team.team.id)[0].slug}
+														href={`teams/${getTeams(team.team.id)[0].slug}`} 
 														className="w-full flex justify-start items-center"
 													>
 														<ClubLogo
-															clubName={team.team.club.name}
+															clubName={clubName}
 															logo={clubLogo}
-															className={"mr-1 " + (isClubTeam && "saturate-0 brightness-0 invert")}
+															className={`mr-1 ${isClubTeam && "saturate-0 brightness-0 invert"}`}
 														/>
 														<div>{team.team.name}</div>
 													</Link>
 												) : (
 													<div className="w-full flex justify-start items-center">
 														<ClubLogo
-															clubName={team.team.club.name}
+															clubName={clubName}
 															logo={clubLogo}
-															className={"mr-1 " + (clubTeamIds.includes(team.team.id) && "saturate-0 brightness-0 invert")}
+															className={`mr-1 ${isClubTeam && "saturate-0 brightness-0 invert"}`}
 														/>
 														<div>{team.team.name}</div>
 													</div>
-												)}
-											</td>
-											<td className="text-center text-sm gap-1.5 infline-flex">
-												{team.wins}/{team.matchesPlayed}
-												<p className="text-xs sm:hidden italic opacity-50">{team.setPoints}</p>
-											</td>
-											<td className="text-xs hidden sm:inline-flex w-full justify-center">{team.setPoints}</td>
-											<td className="text-center text-sm">{team.points}</td>
-										</tr>
-									</>
-								);
-							})}
+												)} */}
+													<div className="w-full flex justify-start items-center">
+														<Suspense fallback={<ClubLogoFallback className="mr-1" />}>
+															<ClubLogo
+																clubName={clubName}
+																className={`mr-1 ${isClubTeam && "saturate-0 brightness-0 invert"}`}
+															/>
+														</Suspense>
+														<div>{team.team.name}</div>
+													</div>
+												</td>
+												<td className="text-center text-sm gap-1.5 infline-flex">
+													{team.wins}/{team.matchesPlayed}
+													<p className="text-xs sm:hidden italic opacity-50">{team.setPoints}</p>
+												</td>
+												<td className="text-xs hidden sm:inline-flex w-full justify-center">{team.setPoints}</td>
+												<td className="text-center text-sm">{team.points}</td>
+											</tr>
+										</>
+									);
+								})}
+							</tbody>
 						</table>
 					</div>
 				</Suspense>

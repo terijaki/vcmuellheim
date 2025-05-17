@@ -1,14 +1,27 @@
+import type { teamObject } from "@/app/utils/getTeams";
+import { getLeagueName } from "@/app/utils/sams/cachedGetClubData";
 import Link from "next/link";
 import { Fragment } from "react";
-import { teamObject } from "@/app/utils/getTeams";
-import { FaChevronUp as IconCollapse, FaCalendarDays as IconCalendar, FaUser as IconPerson, FaUserGroup as IconPersons, FaClock as IconClock } from "react-icons/fa6";
-import { getLeagueName } from "@/app/utils/sams/cachedGetClubData";
+import {
+	FaCalendarDays as IconCalendar,
+	FaClock as IconClock,
+	FaChevronUp as IconCollapse,
+	FaUser as IconPerson,
+	FaUserGroup as IconPersons,
+} from "react-icons/fa6";
 import Markdown from "react-markdown";
 
 export default function TeamCard(props: teamObject) {
-	let liga;
+	let liga: string | undefined = undefined;
 	if (props.sbvvId && getLeagueName(props.sbvvId)) {
-		liga = getLeagueName(props.sbvvId).toString().replace("Herren", "").replace("Damen", "").replace("Nord", "").replace("Ost", "").replace("Süd", "").replace("West", "");
+		liga = getLeagueName(props.sbvvId)
+			.toString()
+			.replace("Herren", "")
+			.replace("Damen", "")
+			.replace("Nord", "")
+			.replace("Ost", "")
+			.replace("Süd", "")
+			.replace("West", "");
 	}
 
 	return (
@@ -16,7 +29,7 @@ export default function TeamCard(props: teamObject) {
 			<summary className="select-none hover:cursor-pointer group-open:hover:cursor-auto p-3 text-center md:text-left relative">
 				<div className="font-bold text-xl text-blumine font-humanist group-hover:text-turquoise group-open:group-hover:text-blumine group-open:hover:cursor-pointer">
 					{props.title}
-					{liga && " - " + liga}
+					{liga && ` - ${liga}`}
 					{/* fetch Liga name via sbvv_id */}
 					<span className="absolute right-0 pt-1 pr-3 transition-opacity duration-200 text-slate-400 group-open:text-onyx">
 						<IconCollapse className="duration-200 group-open:-rotate-180 group-open:group-hover:animate-pulse" />
@@ -27,10 +40,7 @@ export default function TeamCard(props: teamObject) {
 				</div>
 				<div className="hidden group-open:block font-normal text-left text-base hover:text-onyx *:mt-3 last:*:mb-1">
 					{props.alter && (
-						<div
-							className="leading-tight"
-							key="alter"
-						>
+						<div className="leading-tight" key="alter">
 							{/* <p className="font-bold">Alter:</p> */}
 							{props.alter}
 						</div>
@@ -41,12 +51,12 @@ export default function TeamCard(props: teamObject) {
 								<IconClock className="text-xs" />
 								Trainingszeiten:
 							</p>
-							{props.training?.map((training) => {
+							{props.training?.map((training, index) => {
 								return (
-									<Fragment key="trainingszeiten">
+									<Fragment key={training.zeit}>
 										<p>{training.zeit}</p>
 										<Link
-											href={"" + training.map}
+											href={`${training.map}`}
 											target="_blank"
 											scroll={false}
 										>
@@ -58,23 +68,21 @@ export default function TeamCard(props: teamObject) {
 						</div>
 					)}
 					{props.trainer && props.trainer.length >= 1 && (
-						<div
-							className="leading-tight"
-							key="trainers"
-						>
+						<div className="leading-tight">
 							<p className="font-bold flex gap-x-1 items-baseline">
-								{props.trainer.length == 1 ? <IconPerson className="text-xs" /> : <IconPersons className="text-xs" />}
+								{props.trainer.length === 1 ? (
+									<IconPerson className="text-xs" />
+								) : (
+									<IconPersons className="text-xs" />
+								)}
 								Trainer:
 							</p>
 							{props.trainer?.map((trainer, index) => {
 								return (
-									<Fragment key="trainer">
-										{index != 0 && " & "}
+									<Fragment key={trainer.name}>
+										{index !== 0 && " & "}
 										{trainer.email ? (
-											<Link
-												href={"mailto:" + trainer.email}
-												scroll={false}
-											>
+											<Link href={`mailto:${trainer.email}`} scroll={false}>
 												{trainer.name}
 											</Link>
 										) : (
@@ -86,19 +94,22 @@ export default function TeamCard(props: teamObject) {
 						</div>
 					)}
 					{props.ansprechperson && (
-						<div
-							className="leading-tight"
-							key="ansprechpersonen"
-						>
+						<div className="leading-tight" key="ansprechpersonen">
 							<p className="font-bold flex gap-x-1 items-baseline">
-								{props.ansprechperson.length == 1 ? <IconPerson className="text-xs" /> : <IconPersons className="text-xs" />}
+								{props.ansprechperson.length === 1 ? (
+									<IconPerson className="text-xs" />
+								) : (
+									<IconPersons className="text-xs" />
+								)}
 								Ansprechperson:
 							</p>
 							{props.ansprechperson?.map((ansprechperson, index) => {
 								return (
-									<Fragment key="ansprechperson">
-										{index != 0 && " & "}
-										<Link href={"mailto:" + ansprechperson.email}>{ansprechperson.name}</Link>
+									<Fragment key={ansprechperson.name}>
+										{index !== 0 && " & "}
+										<Link href={`mailto:${ansprechperson.email}`}>
+											{ansprechperson.name}
+										</Link>
 									</Fragment>
 								);
 							})}
@@ -106,10 +117,7 @@ export default function TeamCard(props: teamObject) {
 					)}
 
 					{props.kommentar && (
-						<div
-							className="leading-tight"
-							key="kommentar"
-						>
+						<div className="leading-tight" key="kommentar">
 							<Markdown>{props.kommentar}</Markdown>
 						</div>
 					)}
@@ -120,7 +128,7 @@ export default function TeamCard(props: teamObject) {
 								Saisoninfo:
 							</p>
 							<Link
-								href={"/teams/" + props.slug}
+								href={`/teams/${props.slug}`}
 								className="inline-flex gap-x-1 items-baseline"
 							>
 								Spielplan, Tabelle & Kader

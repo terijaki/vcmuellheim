@@ -1,9 +1,8 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "nod:path";
 import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
-import { cachedGetTeamIds } from "@/app/utils/sams/cachedGetClubData";
 import getEvents from "./getEvents";
-import crypto from "crypto";
+import crypto from "node:crypto";
 import { Club } from "@/project.config";
 import { getClubsTeamIds } from "./sams/clubs";
 

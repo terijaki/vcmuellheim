@@ -1,5 +1,6 @@
-import fs from "fs";
-import path from "path";
+"use server";
+import fs from "node:fs";
+import path from "node:path";
 import { shuffleArray } from "./shuffleArray";
 
 const TEAMS_FOLDER = "data/teams";
@@ -10,7 +11,7 @@ export type teamObject = {
 	slug?: string;
 	sorting?: number;
 	liga?: boolean;
-	sbvvId?: any;
+	sbvvId?: string | number | undefined;
 	alter?: number;
 	training?: [{ zeit?: string; ort?: string; map?: string }];
 	trainer?: [{ name?: string; email?: string; avatar?: string }];
@@ -20,7 +21,7 @@ export type teamObject = {
 	pictures?: string[];
 };
 
-export function getTeams(sbvvId?: number, slug?: string): teamObject[] {
+export async function getTeams(sbvvId?: number, slug?: string): Promise<teamObject[]> {
 	const targetFolder = TEAMS_FOLDER;
 	const teamFiles = fs.readdirSync(targetFolder);
 	// read the data
@@ -46,8 +47,8 @@ export function getTeams(sbvvId?: number, slug?: string): teamObject[] {
 		return a.sorting - b.sorting;
 	});
 	// filter based on props
-	const filterSbvvId = teamsSorted.filter((team) => !sbvvId || sbvvId == team.sbvvId);
-	const filterSlug = filterSbvvId.filter((team) => !slug || slug == team.slug);
+	const filterSbvvId = teamsSorted.filter((team) => !sbvvId || sbvvId === team.sbvvId);
+	const filterSlug = filterSbvvId.filter((team) => !slug || slug === team.slug);
 
 	return filterSlug;
 }

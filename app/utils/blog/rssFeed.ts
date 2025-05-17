@@ -1,12 +1,12 @@
-import { Feed } from "feed";
 import { Club } from "@/project.config";
-import fs from "fs";
-import path from "path";
+import { Feed } from "feed";
 import matter from "gray-matter";
+import fs from "node:fs";
+import path from "node:path";
 
-let HOMEPAGE = Club.url,
-	NAME = Club.name,
-	EMAIL = Club.email;
+let HOMEPAGE = Club.url;
+const NAME = Club.name;
+const EMAIL = Club.email;
 
 const POSTS_FOLDER = "data/posts";
 
@@ -20,9 +20,9 @@ type postData = {
 };
 
 export default function rssFeed() {
-	if (HOMEPAGE && HOMEPAGE.includes("http")) {
-		if (HOMEPAGE.slice(0, -1) != "/") {
-			HOMEPAGE = HOMEPAGE + "/";
+	if (HOMEPAGE?.includes("http")) {
+		if (HOMEPAGE.slice(0, -1) !== "/") {
+			HOMEPAGE = `${HOMEPAGE}/`;
 		}
 
 		const feed = new Feed({
@@ -31,13 +31,13 @@ export default function rssFeed() {
 			id: HOMEPAGE,
 			link: HOMEPAGE,
 			language: "de",
-			image: HOMEPAGE + "images/logo/variant2.png",
-			favicon: HOMEPAGE + "images/icons/favicon.ico",
-			copyright: "Volleyballclub Müllheim e.V. " + new Date().getFullYear(),
+			image: `${HOMEPAGE}images/logo/variant2.png`,
+			favicon: `${HOMEPAGE}images/icons/favicon.ico`,
+			copyright: `Volleyballclub Müllheim e.V. ${new Date().getFullYear()}`,
 			generator: "jpmonette/feed",
 			feedLinks: {
-				json: HOMEPAGE + "json",
-				atom: HOMEPAGE + "atom",
+				json: `${HOMEPAGE}json`,
+				atom: `${HOMEPAGE}atom`,
 			},
 			author: {
 				name: NAME,
@@ -47,14 +47,14 @@ export default function rssFeed() {
 
 		const postFiles = fs.readdirSync(POSTS_FOLDER);
 
-		postFiles.forEach((filename) => {
-			const { data: frontmatter, content: content } = matter.read(path.join(POSTS_FOLDER, filename));
-			let thumbnail: string = "";
+		for (const filename of postFiles) {
+			const { data: frontmatter, content } = matter.read(path.join(POSTS_FOLDER, filename));
+			let thumbnail = "";
 			if (frontmatter.gallery) {
 				const shuffledGallery = frontmatter.gallery.sort(() => 0.5 - Math.random());
 				thumbnail = HOMEPAGE + shuffledGallery[0];
 			}
-			if (path.parse(filename).ext == ".md" || path.parse(filename).ext == ".mdx") {
+			if (path.parse(filename).ext === ".md" || path.parse(filename).ext === ".mdx") {
 				const slug = path.parse(filename).name;
 				// transform the Markdown to HTML
 				const showdown = require("showdown");
@@ -71,9 +71,9 @@ export default function rssFeed() {
 					image: thumbnail,
 				});
 			} else {
-				console.log(filename + " was skipped during RSS feed generation");
+				console.log(`${filename} was skipped during RSS feed generation`);
 			}
-		});
+		}
 
 		feed.addCategory("Sports");
 

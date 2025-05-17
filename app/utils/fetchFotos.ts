@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import { shuffleArray } from "./shuffleArray";
 
 export async function fetchFotos(limit?: number): Promise<string[]> {
@@ -12,19 +12,17 @@ export async function fetchFotos(limit?: number): Promise<string[]> {
 		const files = fs.readdirSync(folder, { recursive: true, withFileTypes: true });
 		const filesFiltered = files.filter((file) => {
 			path.resolve();
-			return path.extname(file.name) == ".jpg";
+			return path.extname(file.name) === ".jpg";
 		});
 		const filesShuffled = shuffleArray(filesFiltered);
-		let imageArray = new Array<string>();
+		const imageArray = new Array<string>();
 		filesShuffled.map((image) => {
 			imageArray.push(path.join(image.path.replace(folderPrefix, ""), image.name));
 		});
 
-		if (limit) {
-			return imageArray.slice(0, limit);
-		} else {
-			return imageArray;
-		}
+		if (limit) return imageArray.slice(0, limit);
+
+		return imageArray;
 	} catch (error) {
 		console.log(error);
 		return []; // return empty array

@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "node:fs";
 
 const GITHUB_SUMMARY_FILE = "github_summary.md";
 
@@ -10,5 +10,5 @@ export function writeToSummary(text: string, forced = false) {
 	if (!fs.existsSync(GITHUB_SUMMARY_FILE)) {
 		fs.writeFileSync(GITHUB_SUMMARY_FILE, " ");
 	}
-	fs.appendFileSync(GITHUB_SUMMARY_FILE, text + "\n");
+	fs.appendFileSync(GITHUB_SUMMARY_FILE, `${text}\n`);
 }
