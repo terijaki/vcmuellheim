@@ -1,13 +1,14 @@
+"use server";
 import PageHeading from "@/app/components/layout/PageHeading";
 import SharingButon from "@/app/components/ui/SharingButton";
 import rssFeed from "@/app/utils/blog/rssFeed";
-import fs from "fs";
 import matter from "gray-matter";
 import Markdown from "markdown-to-jsx";
 import type { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import { slugify } from "../utils/slugify";
 
 // TODO
@@ -26,9 +27,7 @@ const toStaticGenerate = [
 ];
 
 // generate static routes for each markdown post
-export async function generateStaticParams(): Promise<
-	{ postorpage: string }[]
-> {
+export async function generateStaticParams(): Promise<{ postorpage: string }[]> {
 	const filesToGenerate: string[] = [];
 	toStaticGenerate.map((target) => {
 		target.format.map((ext) => {
@@ -72,10 +71,10 @@ export async function generateMetadata(
 				}
 				// use the date as description
 				if (postContent.data.date) {
-					customMeta.description = postContent.data.date.toLocaleString(
-						"de-DE",
-						{ dateStyle: "long", timeStyle: "short" },
-					);
+					customMeta.description = postContent.data.date.toLocaleString("de-DE", {
+						dateStyle: "long",
+						timeStyle: "short",
+					});
 				}
 			}
 		});
@@ -130,20 +129,12 @@ export default async function postDisplay(props: {
 			frontmatter.gallery = [frontmatter.thumbnail];
 		}
 		// if the gallery does not include the thumbnail, add it
-		if (
-			frontmatter.gallery &&
-			frontmatter.thumbnail &&
-			!frontmatter.gallery.includes(frontmatter.thumbnail)
-		) {
+		if (frontmatter.gallery && frontmatter.thumbnail && !frontmatter.gallery.includes(frontmatter.thumbnail)) {
 			frontmatter.gallery.push(frontmatter.thumbnail);
 		}
 		return (
 			<>
-				<PageHeading
-					title={frontmatter.title}
-					subtitle={frontmatter.date?.toString()}
-					subtitleDate={true}
-				/>
+				<PageHeading title={frontmatter.title} subtitle={frontmatter.date?.toString()} subtitleDate={true} />
 				<div className="col-full-content sm:col-center-content">
 					<article className="card my-8 prose max-w-full leading-normal prose-headings:m-0 prose-li:m-auto hyphens-auto lg:hyphens-none">
 						<Markdown>{content}</Markdown>

@@ -1,3 +1,4 @@
+"use server";
 import matter from "gray-matter";
 import fs from "node:fs";
 import path from "node:path";
@@ -7,7 +8,7 @@ const SPONSOR_DURATION: number = 12; // in months
 const SPONSORS_FOLDER: string = "data/sponsors";
 const TODAY: Date = new Date();
 
-export function getActiveSponsors() {
+export async function getActiveSponsors() {
 	const targetFolder = SPONSORS_FOLDER;
 	const sponsorsFiles = fs.readdirSync(targetFolder);
 	const sponsorsMatter = sponsorsFiles.map((sponsor) => {

@@ -1,9 +1,10 @@
+"use server";
 import fs from "node:fs";
 import path from "node:path";
 
-export const EVENTS_FOLDER = "data/events";
+const EVENTS_FOLDER = "data/events";
 
-export type eventObject = {
+type eventObject = {
 	title: string;
 	start: Date;
 	end?: Date;
@@ -19,7 +20,7 @@ export type eventObject = {
 	};
 };
 
-export default function getEvents(daysInPast = 0, daysInFuture = 90): eventObject[] {
+export default async function getEvents(daysInPast = 0, daysInFuture = 90): Promise<eventObject[]> {
 	const today = new Date();
 	const minDate = new Date(today.setDate(today.getDate() - daysInPast)); // # days in the past
 	const maxDate = new Date(today.setDate(today.getDate() + daysInFuture)); // # days in the future

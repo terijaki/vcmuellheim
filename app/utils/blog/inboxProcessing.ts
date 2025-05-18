@@ -26,7 +26,7 @@ export function inboxProcessing() {
 		});
 
 		// identify images, rename & move them and note them down as reference
-		let images = new Set<string[]>();
+		const images = new Set<string[]>();
 		files.forEach((file) => {
 			const thisExtension = file.split(".").pop() + "";
 			if (IMAGE_EXTENSIONS.includes(thisExtension.toLowerCase())) {
@@ -50,7 +50,7 @@ export function inboxProcessing() {
 
 				// read the document
 				const thisExtension = document.split(".").pop() + "";
-				let content: string = "";
+				let content = "";
 				if (thisExtension.toLowerCase() == "txt") {
 					content = fs.readFileSync(path.join(INBOX_FOLDER, document)).toString();
 				} else if (thisExtension.toLowerCase() == "docx" || thisExtension.toLowerCase() == "doc") {

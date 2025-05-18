@@ -1,27 +1,26 @@
 import PageHeading from "@/app/components/layout/PageHeading";
 import Matches from "@/app/components/sams/Matches";
-import Events from "@/app/components/ui/Events";
-import getEvents, { type eventObject } from "@/app/utils/getEvents";
-import { icsAllGeneration } from "@/app/utils/icsGeneration";
+import Event from "@/app/components/ui/Event";
+import getEvents from "@/app/utils/getEvents";
 import { Club } from "@/project.config";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import { samsClubMatches, samsSeasons } from "../utils/sams/sams-server-actions";
 
-export const revalidate = 120;
-export const metadata: Metadata = {
-	title: "Termine",
-};
+export const metadata: Metadata = { title: "Termine" };
+
+export const dynamic = "force-dynamic";
 
 let EVENT_RANGE = 40; // days to look in the future for custom events
 
 export default async function Termine() {
-	icsAllGeneration(); // triggers the generation of the all.ics file
+	// icsAllGeneration(); // TODO move to route //triggers the generation of the all.ics file
 
 	// load custom events
-	let events: eventObject[] = getEvents(0, EVENT_RANGE);
+	let events = await getEvents(0, EVENT_RANGE);
 	let eventCount = events.length;
 	const futureMatches = await samsClubMatches({ future: true });
 	const matchCount = futureMatches?.filter((m) => m.matchSeries.type.toLowerCase() === "league").length || 0;
@@ -29,7 +28,7 @@ export default async function Termine() {
 
 	if (matchCount + eventCount <= 3) {
 		EVENT_RANGE = EVENT_RANGE * 2; // doubles the days if there is not much to show
-		events = getEvents(0, EVENT_RANGE);
+		events = await getEvents(0, EVENT_RANGE);
 		eventCount = events.length;
 	}
 	// dates
@@ -37,6 +36,12 @@ export default async function Termine() {
 	const seasonMonth = !!(currentMonth >= 5 && currentMonth <= 9);
 	const seasons = await samsSeasons();
 	const pastTwoSeasons = seasons?.slice(0, 2) || [];
+
+
+	// webcal link
+	const headersList = await headers();
+	const host = process.env.NODE_ENV === "development" && headersList.get("host");
+	const webcalLink = `webcal://${host || Club.domain}/ics/all.ics`;
 
 	return (
 		<>
@@ -47,7 +52,7 @@ export default async function Termine() {
 				<div className="col-full-content sm:col-center-content card mb-6 first-of-type:mt-6">
 					<h2 className="card-heading">Veranstaltungen</h2>
 					{events.map((event) => {
-						return <Events {...event} totalSiblings={events.length} key={event.title + event.start} />;
+						return <Event {...event} totalSiblings={events.length} key={event.title + event.start} />;
 					})}
 				</div>
 			)}
@@ -58,7 +63,7 @@ export default async function Termine() {
 					<div className="col-full-content sm:col-center-content card mb-6 first-of-type:mt-6">
 						<h2 className="card-heading">Vereinskalender</h2>
 						<p className="my-3 text-pretty">
-							<Link href={`webcal://${Club.domain}/ics/all.ics`} className="gap-1 hyperlink group">
+							<Link href={webcalLink} className="gap-1 hyperlink group">
 								<IconSubscribe className="inline align-baseline" /> Abboniere unseren Vereinskalender
 							</Link>
 							, um neue Termine saisonübergreifend automatisch in deiner <span className="font-bold">Kalender-App</span>{" "}
@@ -88,7 +93,7 @@ export default async function Termine() {
 							</p>
 						)}
 						<p className="text-pretty">
-							<Link href={`webcal://${Club.domain}/ics/all.ics`} className="gap-1 hyperlink group">
+							<Link href={webcalLink} className="gap-1 hyperlink group">
 								<IconSubscribe className="inline align-baseline" /> Abboniere unseren Kalender
 							</Link>
 							, um neue Termine saisonübergreifend automatisch in deiner <span className="font-bold">Kalender-App</span>{" "}

@@ -1,11 +1,13 @@
-import getEvents, { type eventObject } from "@/app/utils/getEvents";
-import { cachedGetMatches } from "@/app/utils/sams/cachedGetMatches";
-import { getClubsTeamIds } from "@/app/utils/sams/clubs";
-import type { matchType } from "@/app/utils/sams/typeMatches";
+import getEvents from "@/app/utils/getEvents";
+import { samsClubMatches } from "@/app/utils/sams/sams-server-actions";
+import { SAMS } from "@/project.config";
+import dayjs from "dayjs";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
 import { FaAngleLeft as IconLeft, FaLocationDot as IconLocation, FaAngleRight as IconRight } from "react-icons/fa6";
+import type { Match } from "sams-rpc";
 import HeimspieleEvents from "./HeimspieleEvents";
 
 const TIME_RANGE: number = 14; // controls the display matches taking place # days in the future
@@ -14,44 +16,41 @@ const MIN_GAMES: number = 2;
 const MAX_GAMES: number = 4;
 
 export default async function HomeHeimspiele() {
+	"use cache";
+	cacheLife("hours");
+
 	testMinRange();
-	let eventsToDisplay: eventObject[] = [];
-	let matchesToDisplay: matchType[] = [];
-	let loopCount = 0;
 
-	while (eventsToDisplay.length === 0 && matchesToDisplay.length === 0 && TIME_RANGE_MAX_MULTIPLIER > loopCount) {
-		// CUSTOM EVENTS
-		eventsToDisplay = getEvents(0, TIME_RANGE * (1 + loopCount));
+	// get events // filter by max range
+	// get matches // filter my home games // filter by max range
+	// combine matches by unique home game combination
 
-		// MATCHES
+	// CUSTOM EVENTS
+	const eventsToDisplay = await getEvents(0);
 
-		// construct the cut off date. dates after this value are excluded
-		const todayPlusRange = new Date();
-		todayPlusRange.setDate(todayPlusRange.getDate() + TIME_RANGE * (1 + loopCount));
-		// get future matches from our teams
-		const allMatches = cachedGetMatches((await getClubsTeamIds("id")) || [], "future"); //TODO add support for turnaments (official SBVV self-hosted only)
-		// filter reduce to matches we are hosting
-		const homeGames = allMatches.filter((match) => match.host?.club?.includes("VC Müllheim"));
-		// sort by date
-		const homeGamesSorted = homeGames.sort((b, a) => Number(a.dateIso) - Number(b.dateIso));
-		// count unique combination of date, location, league
-		const uniqueHosts: string[] = [];
-		for (const match of homeGamesSorted) {
-			const dateLocationCombi: string = match.date + match.matchSeries.name + match.location?.id; // this is used below and needs to be identical!
-			if (!uniqueHosts.includes(dateLocationCombi) && uniqueHosts.length < MAX_GAMES) {
-				if (uniqueHosts.length < MIN_GAMES || match.dateObject <= todayPlusRange) {
-					uniqueHosts.push(dateLocationCombi);
-				}
-			}
+	// MATCHES
+	// get future matches from our teams
+	const allMatches = await samsClubMatches({ future: true });
+	// filter reduce to matches we are hosting
+	const homeGames = allMatches?.filter((match) => match.host?.club?.includes(SAMS.name));
+	// sort by date
+	const homeGamesSorted = homeGames?.sort(
+		(b, a) => Number(new Date(a.date).getTime()) - Number(new Date(b.date).getTime()),
+	);
+	// count unique combination of date, location, league
+	const uniqueHostsStrings: string[] = [];
+	const matchesToDisplay: Match[] = [];
+	homeGamesSorted?.map((m) => {
+		const dateLocationCombi: string = m.date + m.matchSeries.name + m.location.id; // string to avoid duplicates if two teams are in the same league
+		if (
+			dayjs(m.date).isAfter(dayjs().add(TIME_RANGE, "days")) &&
+			uniqueHostsStrings.length >= MAX_GAMES &&
+			!uniqueHostsStrings.includes(dateLocationCombi)
+		) {
+			uniqueHostsStrings.push(dateLocationCombi);
+			matchesToDisplay.push(m);
 		}
-		const homeGamesReduced = homeGamesSorted.filter((match) =>
-			uniqueHosts.includes(match.date + match.matchSeries.name + match.location?.id),
-		); // this includes condition needs to be identical to the above "dateLocationCombi"
-		matchesToDisplay = homeGamesReduced;
-
-		// LOOP COUNTER
-		loopCount = loopCount + 1;
-	}
+	});
 
 	// if there is at least one home game, display the matches
 	if (eventsToDisplay.length >= 1 || matchesToDisplay.length >= 1) {
@@ -101,7 +100,7 @@ export default async function HomeHeimspiele() {
 												key={match.uuid}
 											>
 												<div>
-													<time dateTime={match.dateIso} className="text-lion mr-1">
+													<time dateTime={match.date} className="text-lion mr-1">
 														{match.date}
 													</time>
 													<Link
@@ -159,8 +158,8 @@ export default async function HomeHeimspiele() {
 																										{teamGuest.name}
 																										{matchGuest.team?.map((teamCheckTwo, index, array) => {
 																											if (
-																												array[0].club?.name === matchGuest.host?.club &&
-																												array[1].club?.name === matchGuest.host?.club &&
+																												array[0].club === matchGuest.host?.club &&
+																												array[1].club === matchGuest.host?.club &&
 																												teamCheckTwo.name !== matchGuest.host?.club
 																											) {
 																												if (teamCheckTwo.name === matchGuest.host?.name) {
@@ -207,7 +206,7 @@ export default async function HomeHeimspiele() {
 		);
 	}
 
-	return <NoMatches />;
+	return <NoMatches matchCount={allMatches?.length} />;
 }
 
 // tests
@@ -217,18 +216,18 @@ function testMinRange() {
 	}
 }
 
-async function NoMatches() {
+async function NoMatches({ matchCount = 0 }: { matchCount?: number }) {
 	// check how many matches we have in total
-	const allMatchesCount = cachedGetMatches((await getClubsTeamIds("id")) || [], "future").length;
+
 	// check how many events we have in total
-	const allEventsCount = getEvents(0, 365).length;
+	const allEventsCount = (await getEvents(0, 365)).length;
 	// prepare to display them as words
 	const numToWordsDe = require("num-words-de");
-	let allMatchesCountWord = numToWordsDe.numToWord(allMatchesCount, {
+	let allMatchesCountWord = numToWordsDe.numToWord(matchCount, {
 		uppercase: true,
 	});
-	if (allMatchesCount > 12) {
-		allMatchesCountWord = allMatchesCount; // shows higher numbers as integer
+	if (matchCount > 12) {
+		allMatchesCountWord = matchCount; // shows higher numbers as integer
 	}
 	let allEventsCountWord = numToWordsDe.numToWord(allEventsCount, {
 		uppercase: true,
@@ -249,16 +248,16 @@ async function NoMatches() {
 			/>
 			<div className="col-center-content py-8 sm:py-12">
 				<h2 className="text-center md:text-left text-white font-bold text-3xl">
-					{allEventsCount >= 1 && allMatchesCount === 0 && "Zunächst keine Veranstaltungen"}
-					{allEventsCount === 0 && allMatchesCount === 0 && "Zunächst keine Heimspiele"}
+					{allEventsCount >= 1 && matchCount === 0 && "Zunächst keine Veranstaltungen"}
+					{allEventsCount === 0 && matchCount === 0 && "Zunächst keine Heimspiele"}
 				</h2>
 				<p className="text-center md:text-left text-white py-2 text-balance">
 					In den kommenden{" "}
 					{numToWordsDe.numToWord(((TIME_RANGE * TIME_RANGE_MAX_MULTIPLIER) / 7).toFixed(0), { uppercase: false })}{" "}
 					Wochen stehen keine
-					{allEventsCount >= 1 && allMatchesCount === 0 ? " Veranstaltungen " : " Spiele in Müllheim "}
+					{allEventsCount >= 1 && matchCount === 0 ? " Veranstaltungen " : " Spiele in Müllheim "}
 					an.
-					{allEventsCount >= 1 && allMatchesCount === 0 && (
+					{allEventsCount >= 1 && matchCount === 0 && (
 						<span className="ml-1 sm:ml-0 sm:block *:inline *:align-text-center">
 							{allEventsCount === 1
 								? "Einen weiteren Termin zu einem späteren Zeitpunkt findest du"
@@ -272,24 +271,24 @@ async function NoMatches() {
 							<IconLeft className="animate-pulse text-sm mb-1" />
 						</span>
 					)}
-					{allMatchesCount >= 1 && (
-						<p className="text-center md:text-left mt-3 text-white  text-balance">
-							Auswärtsspiele findest du im Spielplan der jeweiligen Mannschaft.
-							<span className="ml-1 sm:ml-0 sm:block *:inline *:align-text-center">
-								{allMatchesCount === 1
-									? "Einen weiteren Termin findest du"
-									: `${allMatchesCountWord} weitere Termine unserer Mannschaften findest du`}
-								<IconRight className="animate-pulse text-sm mb-1" />
-								<IconRight className="-ml-2.5 animate-pulse mb-1" />
-								<Link href="termine" className="gap-1 font-bold group">
-									hier
-								</Link>
-								<IconLeft className="-mr-2.5 animate-pulse mb-1" />
-								<IconLeft className="animate-pulse text-sm mb-1" />
-							</span>
-						</p>
-					)}
 				</p>
+				{matchCount >= 1 && (
+					<p className="text-center md:text-left mt-3 text-white  text-balance">
+						Auswärtsspiele findest du im Spielplan der jeweiligen Mannschaft.
+						<span className="ml-1 sm:ml-0 sm:block *:inline *:align-text-center">
+							{matchCount === 1
+								? "Einen weiteren Termin findest du"
+								: `${allMatchesCountWord} weitere Termine unserer Mannschaften findest du`}
+							<IconRight className="animate-pulse text-sm mb-1" />
+							<IconRight className="-ml-2.5 animate-pulse mb-1" />
+							<Link href="termine" className="gap-1 font-bold group">
+								hier
+							</Link>
+							<IconLeft className="-mr-2.5 animate-pulse mb-1" />
+							<IconLeft className="animate-pulse text-sm mb-1" />
+						</span>
+					</p>
+				)}
 			</div>
 		</section>
 	);

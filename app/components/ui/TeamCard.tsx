@@ -1,5 +1,6 @@
-import type { teamObject } from "@/app/utils/getTeams";
-import { getLeagueName } from "@/app/utils/sams/cachedGetClubData";
+import type { getTeams } from "@/app/utils/getTeams";
+import { samsClubData } from "@/app/utils/sams/sams-server-actions";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 import Link from "next/link";
 import { Fragment } from "react";
 import {
@@ -11,26 +12,27 @@ import {
 } from "react-icons/fa6";
 import Markdown from "react-markdown";
 
-export default function TeamCard(props: teamObject) {
-	let liga: string | undefined = undefined;
-	if (props.sbvvId && getLeagueName(props.sbvvId)) {
-		liga = getLeagueName(props.sbvvId)
-			.toString()
-			.replace("Herren", "")
-			.replace("Damen", "")
-			.replace("Nord", "")
-			.replace("Ost", "")
-			.replace("Süd", "")
-			.replace("West", "");
-	}
+export default async function TeamCard(props: Awaited<ReturnType<typeof getTeams>>[number]) {
+	"use cache";
+	cacheLife("hours");
+
+
+	const clubData = await samsClubData();
+	const leagueName = clubData?.teams?.team
+		.find((t) => t.id === props.sbvvId)
+		?.matchSeries?.name.replace("Herren", "")
+		.replace("Damen", "")
+		.replace("Nord", "")
+		.replace("Ost", "")
+		.replace("Süd", "")
+		.replace("West", "");
 
 	return (
 		<details className="group bg-white text-onyx rounded-sm inline-grid w-full grid-flow-row gap-2 prose-a:text-turquoise break-inside-avoid mb-4">
 			<summary className="select-none hover:cursor-pointer group-open:hover:cursor-auto p-3 text-center md:text-left relative">
 				<div className="font-bold text-xl text-blumine font-humanist group-hover:text-turquoise group-open:group-hover:text-blumine group-open:hover:cursor-pointer">
 					{props.title}
-					{liga && ` - ${liga}`}
-					{/* fetch Liga name via sbvv_id */}
+					{leagueName && ` - ${leagueName}`}
 					<span className="absolute right-0 pt-1 pr-3 transition-opacity duration-200 text-slate-400 group-open:text-onyx">
 						<IconCollapse className="duration-200 group-open:-rotate-180 group-open:group-hover:animate-pulse" />
 					</span>
@@ -55,11 +57,7 @@ export default function TeamCard(props: teamObject) {
 								return (
 									<Fragment key={training.zeit}>
 										<p>{training.zeit}</p>
-										<Link
-											href={`${training.map}`}
-											target="_blank"
-											scroll={false}
-										>
+										<Link href={`${training.map}`} target="_blank" scroll={false}>
 											{training.ort}
 										</Link>
 									</Fragment>
@@ -70,11 +68,7 @@ export default function TeamCard(props: teamObject) {
 					{props.trainer && props.trainer.length >= 1 && (
 						<div className="leading-tight">
 							<p className="font-bold flex gap-x-1 items-baseline">
-								{props.trainer.length === 1 ? (
-									<IconPerson className="text-xs" />
-								) : (
-									<IconPersons className="text-xs" />
-								)}
+								{props.trainer.length === 1 ? <IconPerson className="text-xs" /> : <IconPersons className="text-xs" />}
 								Trainer:
 							</p>
 							{props.trainer?.map((trainer, index) => {
@@ -107,9 +101,7 @@ export default function TeamCard(props: teamObject) {
 								return (
 									<Fragment key={ansprechperson.name}>
 										{index !== 0 && " & "}
-										<Link href={`mailto:${ansprechperson.email}`}>
-											{ansprechperson.name}
-										</Link>
+										<Link href={`mailto:${ansprechperson.email}`}>{ansprechperson.name}</Link>
 									</Fragment>
 								);
 							})}
@@ -121,16 +113,13 @@ export default function TeamCard(props: teamObject) {
 							<Markdown>{props.kommentar}</Markdown>
 						</div>
 					)}
-					{liga && (
+					{leagueName && (
 						<div key="saisoninfo">
 							<p className="font-bold flex gap-x-1 items-baseline">
 								<IconCalendar className="text-xs" />
 								Saisoninfo:
 							</p>
-							<Link
-								href={`/teams/${props.slug}`}
-								className="inline-flex gap-x-1 items-baseline"
-							>
+							<Link href={`/teams/${props.slug}`} className="inline-flex gap-x-1 items-baseline">
 								Spielplan, Tabelle & Kader
 							</Link>
 						</div>

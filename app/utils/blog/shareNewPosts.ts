@@ -29,7 +29,7 @@ export function shareNewPosts() {
 		// fetch all blog posts
 		const files = fs.readdirSync(POST_PATH);
 		// create a Set of relevant posts. e.g. exclude all posts who have already been shared or are too old
-		let newPosts = new Set<postFrontmatter>();
+		const newPosts = new Set<postFrontmatter>();
 		files.forEach((file) => {
 			const content: postFrontmatter = matter.read(path.join(POST_PATH, file));
 			const today = new Date();
@@ -65,7 +65,7 @@ export function shareNewPosts() {
 					checkStatusExistance.response.map((response) => {
 						// do not post duplicate if a status is found
 						if (response.created_at) {
-							let consoleNote =
+							const consoleNote =
 								"🚨 Message has already been shared on " + new Date(response.created_at).toLocaleString("en-GB", { dateStyle: "short" }) + " (" + response.url + "). Marking post as published.";
 							console.log(consoleNote);
 							writeToSummary(consoleNote);
@@ -81,14 +81,14 @@ export function shareNewPosts() {
 						const postStatus = await mastodonPostStatus(message); // this will post the message
 
 						if (postStatus.status == 200) {
-							let consoleNote = "✅ Post shared successfully: " + postStatus.response.url;
+							const consoleNote = "✅ Post shared successfully: " + postStatus.response.url;
 							console.log(consoleNote);
 							writeToSummary(consoleNote);
 							// set frontmatter to published
 							content.data.mastodon = "published";
 							content.data.mastodonUrl = postStatus.response.url;
 						} else {
-							let consoleNote = "🚨 Post (" + content.data.title + ") could not be shared! " + postStatus.status;
+							const consoleNote = "🚨 Post (" + content.data.title + ") could not be shared! " + postStatus.status;
 							console.log(consoleNote);
 							writeToSummary(consoleNote);
 							throw consoleNote;

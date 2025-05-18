@@ -1,8 +1,8 @@
 "use server";
+import { SAMS } from "@/project.config";
 import dayjs from "dayjs";
 import { unstable_cacheLife as cacheLife } from "next/cache";
-// biome-ignore lint/style/useImportType: <explanation>
-import { Match, type Rankings, Season, type SimpleSportsClub, type Sportsclub, sams } from "sams-rpc";
+import { type Match, type Rankings, type Season, type SimpleSportsClub, type Sportsclub, sams } from "sams-rpc";
 
 // base functions
 export async function samsSportsclubs(): Promise<SimpleSportsClub[] | undefined> {
@@ -123,7 +123,7 @@ export async function samsClubData() {
 	try {
 		// get all clubs to find the club ID
 		const allClubs = await sams.sportsclubList();
-		const clubId = allClubs.find((club) => club.name.includes("VC Müllheim"))?.id;
+		const clubId = allClubs.find((club) => club.name.includes(SAMS.name))?.id;
 		if (!clubId) {
 			throw new Error("Club ID not found");
 		}

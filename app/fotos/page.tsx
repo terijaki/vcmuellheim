@@ -1,24 +1,16 @@
+"use cache";
 import PageHeading from "@/app/components/layout/PageHeading";
 import { fetchFotos } from "@/app/utils/fetchFotos";
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
-import path from "path";
 import { Suspense } from "react";
 
-// generate a custom title
-export async function generateMetadata(
-	{},
-	parent: ResolvingMetadata,
-): Promise<Metadata> {
-	return {
-		title: "Fotogalerie",
-	};
-}
-
-export const dynamic = "force-static"; // ensures the gallery is rendered at build time
+export const metadata: Metadata = { title: "Fotogalerie" };
 
 export default async function FotosDisplay() {
+	cacheLife("weeks");
 	const fotos = await fetchFotos();
 
 	return (
@@ -40,7 +32,7 @@ export default async function FotosDisplay() {
 								target="_blank"
 							>
 								<Image
-									src={path.join(image)}
+									src={image}
 									className="object-cover w-full h-full aspect-video sm:aspect-[3/2] m-0 p-0 group-hover:scale-105 transition-transform duration-700"
 									width={264}
 									height={176}

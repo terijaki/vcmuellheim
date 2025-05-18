@@ -1,7 +1,6 @@
-import fs from "fs";
-import path from "path";
-import { matchesType } from "./typeMatches";
-import { socialMatchesCache, socialMatchesEntry } from "../social/typeCache";
+import fs from "node:fs";
+import path from "node:path";
+import type { socialMatchesCache, socialMatchesEntry } from "../social/typeCache";
 import { getClubsTeamIds } from "./clubs";
 
 // prepare a list of matches that should be shared on social media
@@ -17,7 +16,13 @@ export async function identifyNewMatchResults(matchData: string) {
 	const todayMinusRange = new Date();
 	todayMinusRange.setDate(todayMinusRange.getDate() - SOCIAL_TIME_RANGE);
 	const teamIds = await getClubsTeamIds("id");
-	const filteredMatches = matches.filter((match) => match.results && new Date(match.dateObject) >= todayMinusRange && (teamIds && (teamIds.includes(match.team[0].id) || teamIds.includes(match.team[1].id))));
+	const filteredMatches = matches.filter(
+		(match) =>
+			match.results &&
+			new Date(match.dateObject) >= todayMinusRange &&
+			teamIds &&
+			(teamIds.includes(match.team[0].id) || teamIds.includes(match.team[1].id)),
+	);
 	// check if the social cache file exists
 	if (!fs.existsSync(path.join(SOCIAL_CACHE_FOLDER, SOCIAL_CACHE_FILE))) {
 		fs.mkdirSync(SOCIAL_CACHE_FOLDER, { recursive: true });

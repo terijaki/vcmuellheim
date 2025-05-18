@@ -1,4 +1,3 @@
-
 import HomeFotos from "@/app/components/homepage/HomeFotos";
 import HomeHeimspiele from "@/app/components/homepage/HomeHeimspiele";
 import HomeHeimturnier from "@/app/components/homepage/HomeHeimturnier";
@@ -9,7 +8,6 @@ import HomeNews from "@/app/components/homepage/HomeNews";
 import HomeSponsors from "@/app/components/homepage/HomeSponsors";
 import HomeTeams from "@/app/components/homepage/HomeTeams";
 import { Suspense } from "react";
-
 
 export default async function Page() {
 	return (
@@ -25,8 +23,12 @@ export default async function Page() {
 			<Suspense>
 				<HomeTeams />
 			</Suspense>
-			<HomeSponsors />
-			<HomeMembers />
+			<Suspense>
+				<HomeSponsors />
+			</Suspense>
+			<Suspense>
+				<HomeMembers />
+			</Suspense>
 			<Suspense>
 				<HomeFotos />
 			</Suspense>

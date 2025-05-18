@@ -1,46 +1,59 @@
-FROM oven/bun AS base
+FROM oven/bun:1.2-alpine AS base
+RUN apk update && apk add curl --no-cache
 
-ARG SAMS_CACHE=/.temp/sams
-ENV SAMS_CACHE=$SAMS_CACHE
-
-# STAGE 1. PACKAGES
-#Install dependencies only when needed
+# STEP 1: install dependenceis
+# - define the step
+# - set the working directory
+# - copy the package.json and lockfile
+# - install the dependencies
 FROM base AS dependencies
 WORKDIR /app
 # Install dependencies
-COPY package.json bun.lockb ./
+COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 
-# STAGE 2. BUILD
-# Rebuild the source code only when needed
+# STEP 2: build the application
+# - define the step
+# - set the working directory
+# - copy the dependencies from the previous step
+# - merge env files (this is used in dev only because in production they are set as secrets)
 FROM base AS builder
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
-ENV NEXT_TELEMETRY_DISABLED 1
-# use local variables as production (needed when testing locally)
-RUN mv -n .env.development.local .env.production || true
-RUN bun --bun run build
+ENV NODE_ENV=production
+ENV TZ=Europe/Berlin
+RUN cat .env.development.local >> .env || true
+RUN bun run build
 
-# STAGE 3. RUN
-# Production image, copy all the files and run next
+# STEP 3: run the application
+# - define the step
+# - set the working directory
+# - set the enviroment to production (so NextJs uses minification and etc.)
+# - create a group and a user for it
+# - set the correct permission for prerender cache
+# - copy the files from the previous step and grand the user permission
+# - copy the public files (e.g. images)
+# - merge env files (only used for dev)
+# - set the username, ports, hostname and finally run the app
 FROM base AS runner
 WORKDIR /app
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.next ./.next
+ENV NODE_ENV=production
+ENV TZ=Europe/Berlin
+RUN addgroup -S vcmuellheim && adduser -S -G vcmuellheim spieler
+RUN mkdir -p .next/cache
+RUN chown -R spieler:vcmuellheim .next
+COPY --from=builder --chown=spieler:vcmuellheim /app/.next/standalone ./
+COPY --from=builder --chown=spieler:vcmuellheim /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/data ./data
-COPY --from=builder $SAMS_CACHE $SAMS_CACHE
-# RUN mkdir .next
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+RUN cat .env.development.local >> .env || true
 
+USER spieler
 EXPOSE 3080
-ENV PORT 3080
-ENV HOSTNAME "0.0.0.0"
+ENV PORT=3080
+ENV HOSTNAME="0.0.0.0"
 
-HEALTHCHECK NONE
-
-CMD ["bun", "server.js"]
+HEALTHCHECK --start-period=5s --interval=2m --timeout=3s \
+    CMD curl -f http://localhost/ || exit 1
+CMD ["bun", "--env-file", ".env", "deploy"]

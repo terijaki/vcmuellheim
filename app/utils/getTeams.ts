@@ -5,7 +5,7 @@ import { shuffleArray } from "./shuffleArray";
 
 const TEAMS_FOLDER = "data/teams";
 
-export type teamObject = {
+type teamObject = {
 	index?: number;
 	title?: string;
 	slug?: string;

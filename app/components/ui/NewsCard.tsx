@@ -1,3 +1,4 @@
+import { unstable_cacheLife as cacheLife } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import Markdown from "react-markdown";
@@ -11,21 +12,26 @@ interface NewsCardProps {
 }
 
 export default async function NewsCard(props: NewsCardProps) {
+	"use cache";
+	cacheLife("days");
+
 	// check if this post has a thumbnail  TODO: move this all to a {props.thumbnail && "class stuff"}
 	let thumbnail = props.thumbnail;
-	const thumbnailHeadingClass = "line-clamp-2";
-	const thumbnailExperptClass = "line-clamp-5";
+	let thumbnailHeadingClass = "line-clamp-2";
+	let thumbnailExperptClass = "line-clamp-5";
 	if (!props.thumbnail && props.gallery) {
 		const randomIndex = Math.floor(Math.random() * props.gallery.length);
 		thumbnail = props.gallery[randomIndex];
 	}
 
+	if (thumbnail) {
+		// add a class to the heading when a thumbnail is present
+		thumbnailHeadingClass = "line-clamp-2 py-1 text-white bg-black/50 row-start-1 row-end-3 place-self-end";
+		thumbnailExperptClass = "line-clamp-2 row-start-3 row-end-3";
+	}
+
 	return (
-		<Link
-			key={encodeURI(props.slug)}
-			href={`/${encodeURI(props.slug)}`}
-			className="card-narrow overflow-clip select-none grid grid-flow-row group"
-		>
+		<Link href={`/${encodeURI(props.slug)}`} className="card-narrow overflow-clip select-none grid grid-flow-row group">
 			{thumbnail && (
 				<Image
 					width={600}
@@ -59,8 +65,9 @@ export default async function NewsCard(props: NewsCardProps) {
 							return <span className="before:content-['-_']" {...rest} />;
 						},
 						a(props) {
-							const { node, ...rest } = props;
-							return <span className="pointer-events-none" {...rest} />;
+							const { node, href, ...rest } = props;
+							const modifiedProps = href === "" ? { ...rest, href: null } : { ...rest, href };
+							return <span className="pointer-events-none" {...modifiedProps} />;
 						},
 					}}
 					className={`px-3 pt-2 font-normal text-gray-700 text-sm prose max-w-full prose-strong:font-normal prose-i:font-normal prose-img:hidden prose-video:hidden prose-div:hidden prose-p:inline prose-p:mr-1 prose-ul:m-0 prose-ol:m-0 prose-li:m-0 ${thumbnailExperptClass}`}

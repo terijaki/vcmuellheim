@@ -1,15 +1,9 @@
-import React from "react";
 import PageHeading from "@/app/components/layout/PageHeading";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-// generate a custom title
-import { Metadata, ResolvingMetadata } from "next";
-export async function generateMetadata({}, parent: ResolvingMetadata): Promise<Metadata | void> {
-	return {
-		title: "Brand Guide",
-	};
-}
+export const metadata: Metadata = { title: "Brand Guide" };
 
 export default function StyleGuidePage() {
 	return (
@@ -17,7 +11,10 @@ export default function StyleGuidePage() {
 			<PageHeading title="Vereinsfarben & Logo Dateien" />
 			{/* colors */}
 			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-6 *:overflow-hidden">
-				<p>Unsere Vereinsfarben werden hier auf der Webseite verwendet und sollten wenn möglich auch in anderem Kontext verwendet werden.</p>
+				<p>
+					Unsere Vereinsfarben werden hier auf der Webseite verwendet und sollten wenn möglich auch in anderem Kontext
+					verwendet werden.
+				</p>
 
 				<div className="text-white grid grid-cols-2 sm:grid-cols-3 sm:gap-2 rounded sm:*:rounded *:p-2  text-center sm:text-left">
 					<span className="bg-blumine col-span-2 sm:col-span-1 text-bold">Blumine</span>
@@ -35,7 +32,10 @@ export default function StyleGuidePage() {
 			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-6 *:overflow-hidden">
 				<div key="vektor">
 					<h2>Vektorgrafik</h2>
-					<p>Vektorgrafiken skalieren dynamisch und eigenen sich daher perfekt für den Druck oder die Beflockung von Trikots.</p>
+					<p>
+						Vektorgrafiken skalieren dynamisch und eigenen sich daher perfekt für den Druck oder die Beflockung von
+						Trikots.
+					</p>
 					<div className="flex flex-col items-center">
 						<Image
 							src="images/logo/logo.svg"
@@ -46,18 +46,10 @@ export default function StyleGuidePage() {
 							className="w-full max-w-lg object-contain inline-block"
 						/>
 						<div className="flex gap-3">
-							<Link
-								href={"images/logo/logo.svg"}
-								className="button-slim rounded-md"
-								download
-							>
+							<Link href={"images/logo/logo.svg"} className="button-slim rounded-md" download>
 								Download SVG
 							</Link>
-							<Link
-								href={"images/logo/logo.pdf"}
-								className="button-slim rounded-md"
-								download
-							>
+							<Link href={"images/logo/logo.pdf"} className="button-slim rounded-md" download>
 								Download PDF
 							</Link>
 						</div>
@@ -66,8 +58,8 @@ export default function StyleGuidePage() {
 				<div key="raster">
 					<h2>Rastergrafik</h2>
 					<p>
-						Rastergrafiken haben eine feste Auflösung und das Dateiformat PNG hat eine hohe Kompatibilität. Diese Dateien eignen sich daher für die meisten digitalen Zwecke. Die Auflösung beträgt
-						5050x2880 Pixel.
+						Rastergrafiken haben eine feste Auflösung und das Dateiformat PNG hat eine hohe Kompatibilität. Diese
+						Dateien eignen sich daher für die meisten digitalen Zwecke. Die Auflösung beträgt 5050x2880 Pixel.
 					</p>
 					<div className="grid gap-3 items-center grid-cols-2 lg:grid-flow-col auto-cols-fr *:inline-flex *:flex-col *:items-center">
 						<div key="black">
@@ -79,11 +71,7 @@ export default function StyleGuidePage() {
 								unoptimized
 								className="w-full max-w-lg mb-3"
 							/>
-							<Link
-								href={"images/logo/logo-schwarz.png"}
-								className="button-slim rounded-md"
-								download
-							>
+							<Link href={"images/logo/logo-schwarz.png"} className="button-slim rounded-md" download>
 								Download <br className="sm:hidden" />
 								(Schwarz)
 							</Link>
@@ -97,11 +85,7 @@ export default function StyleGuidePage() {
 								unoptimized
 								className="w-full max-w-lg mb-3 rounded-sm bg-onyx/20"
 							/>
-							<Link
-								href={"images/logo/logo-weiss.png"}
-								className="button-slim rounded-md"
-								download
-							>
+							<Link href={"images/logo/logo-weiss.png"} className="button-slim rounded-md" download>
 								Download <br className="sm:hidden" />
 								(Weiß)
 							</Link>
@@ -115,11 +99,7 @@ export default function StyleGuidePage() {
 								unoptimized
 								className="w-full max-w-lg mb-3"
 							/>
-							<Link
-								href={"images/logo/logo-363B40-01A29A.png"}
-								className="button-slim rounded-md"
-								download
-							>
+							<Link href={"images/logo/logo-363B40-01A29A.png"} className="button-slim rounded-md" download>
 								Download <br className="sm:hidden" />
 								(Türkis)
 							</Link>
@@ -133,11 +113,7 @@ export default function StyleGuidePage() {
 								unoptimized
 								className="w-full max-w-lg mb-3"
 							/>
-							<Link
-								href={"images/logo/logo-363B40-366273.png"}
-								className="button-slim rounded-md"
-								download
-							>
+							<Link href={"images/logo/logo-363B40-366273.png"} className="button-slim rounded-md" download>
 								Download <br className="sm:hidden" />
 								(Blumine)
 							</Link>
@@ -157,11 +133,7 @@ export default function StyleGuidePage() {
 								unoptimized
 								className="w-full max-w-lg mb-3"
 							/>
-							<Link
-								href={"images/logo/logo-366273.png"}
-								className="button-slim rounded-md"
-								download
-							>
+							<Link href={"images/logo/logo-366273.png"} className="button-slim rounded-md" download>
 								Download (Blumine)
 							</Link>
 						</div>
@@ -174,11 +146,7 @@ export default function StyleGuidePage() {
 								unoptimized
 								className="w-full max-w-lg mb-3 rounded-sm"
 							/>
-							<Link
-								href={"images/logo/logo-363B40.png"}
-								className="button-slim rounded-md"
-								download
-							>
+							<Link href={"images/logo/logo-363B40.png"} className="button-slim rounded-md" download>
 								Download (Onyx)
 							</Link>
 						</div>
@@ -191,11 +159,7 @@ export default function StyleGuidePage() {
 								unoptimized
 								className="w-full max-w-lg mb-3"
 							/>
-							<Link
-								href={"images/logo/logo-01A29A.png"}
-								className="button-slim rounded-md"
-								download
-							>
+							<Link href={"images/logo/logo-01A29A.png"} className="button-slim rounded-md" download>
 								Download (Türkis)
 							</Link>
 						</div>
@@ -206,8 +170,10 @@ export default function StyleGuidePage() {
 			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl *:overflow-hidden prose-p:text-balance">
 				<h2>Trikots</h2>
 				<p className="mb-3">
-					<span className="font-bold">Farbe:</span> Damit wir Mannschafts- und Jahrgangsübergreifend geschlossen als Verein auftreten können, sollten Trikots in einer Farbe bestellt werden, die der
-					Vereinsfarbe <span className="bg-blumine text-white px-1">Blumine</span> ähnelnt. Navy oder Royal Blau sind beispielsweise Farben die von Sportartikelherstellern oft angeboten werden.
+					<span className="font-bold">Farbe:</span> Damit wir Mannschafts- und Jahrgangsübergreifend geschlossen als
+					Verein auftreten können, sollten Trikots in einer Farbe bestellt werden, die der Vereinsfarbe{" "}
+					<span className="bg-blumine text-white px-1">Blumine</span> ähnelnt. Navy oder Royal Blau sind beispielsweise
+					Farben die von Sportartikelherstellern oft angeboten werden.
 				</p>
 				<p className="mb-3">
 					<span className="font-bold">Marke:</span> ERIMA wird bevorzugt.
@@ -217,18 +183,8 @@ export default function StyleGuidePage() {
 					<span className="font-bold">Beispiele:</span>
 				</p>
 				<div className="grid sm:grid-cols-2 rounded-lg mb-3 *:w-full *:object-cover *:aspect-video">
-					<Image
-						width={600}
-						height={400}
-						src="images/blog/2023/09/28/hasslachpokal11.jpg"
-						alt={""}
-					/>
-					<Image
-						width={600}
-						height={400}
-						src="images/blog/2023/12/04/20231203-wa0046.jpg"
-						alt={""}
-					/>
+					<Image width={600} height={400} src="images/blog/2023/09/28/hasslachpokal11.jpg" alt={""} />
+					<Image width={600} height={400} src="images/blog/2023/12/04/20231203-wa0046.jpg" alt={""} />
 				</div>
 				<p>
 					Trikots können bequem in unserem{" "}
@@ -241,7 +197,8 @@ export default function StyleGuidePage() {
 					>
 						Vereinsshop
 					</Link>{" "}
-					bestellt werden. Das richtige Vereinslogo ist dort bereits hinterlegt und muss bei der Bestellung nicht bereitgestellt werden.
+					bestellt werden. Das richtige Vereinslogo ist dort bereits hinterlegt und muss bei der Bestellung nicht
+					bereitgestellt werden.
 				</p>
 			</div>
 		</>

@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { SOCIAL_CACHE_FOLDER, SOCIAL_CACHE_FILE } from "./identifyNewMatchResults";
-import { socialMatchesCache } from "../social/typeCache";
+import type { socialMatchesCache } from "../social/typeCache";
 import { mastodonPostStatus, mastodonSearchStatus } from "../social/mastodon";
 import { writeToSummary } from "../github/actionSummary";
 
@@ -20,9 +20,9 @@ if (fs.existsSync(CACHE_FILE)) {
 	}
 
 	// Mastodon posting
-	const mastodonQueue = async function () {
+	const mastodonQueue = async () => {
 		// looping through each entry in the cache file
-		for (let entry of matches.entries) {
+		for (const entry of matches.entries) {
 			// start the process and mark the entry
 
 			if (entry.mastodon != "published") {
@@ -41,7 +41,7 @@ if (fs.existsSync(CACHE_FILE)) {
 					checkStatusExistance.response.map((response) => {
 						// exclude old statuses as the same message may happen in the first/second half of the season or even years later
 						if (new Date(response.created_at) > checkDateRange) {
-							let consoleNote =
+							const consoleNote =
 								"🚨 Message has already been shared on " + new Date(response.created_at).toLocaleString("en-GB", { dateStyle: "short" }) + "(" + response.url + "). Marking cache entry as published.";
 
 							console.log(consoleNote);
@@ -60,7 +60,7 @@ if (fs.existsSync(CACHE_FILE)) {
 						const postStatus = await mastodonPostStatus(message); // this will post the message
 
 						if (postStatus.status == 200) {
-							let consoleNote = "✅ Post shared successfully: " + postStatus.response.url;
+							const consoleNote = "✅ Post shared successfully: " + postStatus.response.url;
 							console.log(consoleNote);
 							writeToSummary(consoleNote);
 							matches.entries.map(() => {
@@ -68,7 +68,7 @@ if (fs.existsSync(CACHE_FILE)) {
 								entry.mastodonUrl = postStatus.response.url;
 							});
 						} else {
-							let consoleNote = "🚨 Match " + entry.uuid + " could not be shared! " + postStatus.status;
+							const consoleNote = "🚨 Match " + entry.uuid + " could not be shared! " + postStatus.status;
 							console.log(consoleNote);
 							writeToSummary(consoleNote);
 							throw consoleNote;
@@ -83,7 +83,7 @@ if (fs.existsSync(CACHE_FILE)) {
 		}
 	};
 	// call the mastodonQueue sequentially
-	const mastodonProcess = async function () {
+	const mastodonProcess = async () => {
 		await mastodonQueue();
 		fs.writeFileSync(CACHE_FILE, JSON.stringify(matches, null, 2));
 	};

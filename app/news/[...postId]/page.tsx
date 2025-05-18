@@ -1,8 +1,9 @@
 import NewsList from "@/app/components/homepage/NewsList";
-import Link from "next/link";
-import fs from "fs";
-import { redirect } from "next/navigation";
 import PageHeading from "@/app/components/layout/PageHeading";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import fs from "node:fs";
 
 const newsFolder = "data/posts";
 const newsPerPage = 12;
@@ -10,38 +11,30 @@ const newsPostsTotal: number = newsCount();
 const newsPagesTotal: number = newsPagesCount();
 
 // generate a custom title
-import { Metadata, ResolvingMetadata } from "next";
-export async function generateMetadata({}, parent: ResolvingMetadata): Promise<Metadata> {
-	return {
-		title: "News",
-	};
-}
+export const metadata: Metadata = { title: "News" };
 
 export async function generateStaticParams() {
-	const toGenerate = Array.from(new Array(newsPagesTotal).keys()).map((x) => ++x);
+	const toGenerate = Array.from(new Array(newsPagesTotal).keys()).map((x) => x + 1);
 	return toGenerate.map((news) => ({
 		postId: [news.toString()],
 	}));
 }
 
 export default async function newsDisplay(props: { params: Promise<{ postId?: string }> }) {
-    const params = await props.params;
-    // redirect if no valid page is targeted
-    let newsPageId = Number(params.postId);
-    if (!params.postId || newsPageId > newsPagesTotal || Number.isNaN(newsPageId)) {
+	const params = await props.params;
+	// redirect if no valid page is targeted
+	const newsPageId = Number(params.postId);
+	if (!params.postId || newsPageId > newsPagesTotal || Number.isNaN(newsPageId)) {
 		redirect("/news/1");
 	}
 
-    let newsPostStart: number = (newsPageId - 1) * newsPerPage + 1;
-    let newsPostEnd: number = newsPageId * newsPerPage;
-    return (
+	const newsPostStart: number = (newsPageId - 1) * newsPerPage + 1;
+	const newsPostEnd: number = newsPageId * newsPerPage;
+	return (
 		<>
 			<PageHeading title={"Neuigkeiten des Volleyballclub Müllheim"} />
 			<div className="col-center-content mt-6 grid grid-cols-1 md:grid-cols-2 gap-5 py-3 flex-wrap">
-				<NewsList
-					pageStart={newsPostStart - 1}
-					pageEnd={newsPostEnd}
-				/>
+				<NewsList pageStart={newsPostStart - 1} pageEnd={newsPostEnd} />
 			</div>
 			{paginator(newsPageId)}
 		</>
@@ -59,25 +52,25 @@ function newsPagesCount(): number {
 }
 
 function paginator(currentPage: number) {
-	let displayedPages = [1, newsPagesTotal, currentPage];
-	let currentOffsetMinusTwo;
-	let currentOffsetMinusOne;
-	let currentOffsetPlusOne;
-	let currentOffsetPlusTwo;
+	const displayedPages = [1, newsPagesTotal, currentPage];
+	let currentOffsetMinusTwo: React.ReactNode;
+	let currentOffsetMinusOne: React.ReactNode;
+	let currentOffsetPlusOne: React.ReactNode;
+	let currentOffsetPlusTwo: React.ReactNode;
 	if (!displayedPages.includes(Math.max(1, currentPage - 1))) {
-		let page = currentPage - 1;
+		const page = currentPage - 1;
 		currentOffsetMinusOne = <Link href={page.toString()}>{page}</Link>;
 	}
 	if (!displayedPages.includes(Math.max(1, currentPage - 2))) {
-		let page = currentPage - 2;
+		const page = currentPage - 2;
 		currentOffsetMinusTwo = <Link href={page.toString()}>{page}</Link>;
 	}
 	if (!displayedPages.includes(Math.min(newsPagesTotal, currentPage + 1))) {
-		let page = currentPage + 1;
+		const page = currentPage + 1;
 		currentOffsetPlusOne = <Link href={page.toString()}>{page}</Link>;
 	}
 	if (!displayedPages.includes(Math.min(newsPagesTotal, currentPage + 2))) {
-		let page = currentPage + 2;
+		const page = currentPage + 2;
 		currentOffsetPlusTwo = <Link href={page.toString()}>{page}</Link>;
 	}
 	return (
@@ -87,10 +80,7 @@ function paginator(currentPage: number) {
 				{currentPage > 4 && <p>...</p>}
 				{currentOffsetMinusTwo}
 				{currentOffsetMinusOne}
-				<Link
-					href={currentPage.toString()}
-					className="!bg-onyx !text-white"
-				>
+				<Link href={currentPage.toString()} className="!bg-onyx !text-white">
 					{currentPage.toString()}
 				</Link>
 				{currentOffsetPlusOne}

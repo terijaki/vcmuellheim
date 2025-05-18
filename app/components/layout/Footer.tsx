@@ -1,6 +1,5 @@
-import Link from "next/link";
-import React from "react";
 import Socials from "@/app/components/layout/Socials";
+import Link from "next/link";
 
 const legals = [
 	{ name: "Satzung", url: "/satzung" },
@@ -16,10 +15,7 @@ export default function Footer() {
 				<ul className="justify-self-start grid grid-flow-row gap-x-2 md:grid-flow-col gap-y-0">
 					{legals.map((legal) => (
 						<li key={legal.name}>
-							<Link
-								href={legal.url}
-								className="items-center flex hover:text-turquoise"
-							>
+							<Link href={legal.url} className="items-center flex hover:text-turquoise">
 								{legal.name}
 							</Link>
 						</li>
@@ -28,12 +24,9 @@ export default function Footer() {
 				<ul className="justify-self-end grid grid-flow-row gap-x-2 md:grid-flow-col gap-y-0">
 					{Socials().map((social) => (
 						<li key={social.name}>
-							<a
-								{...social}
-								className="items-center flex hover:text-turquoise"
-							>
+							<a {...social} className="items-center flex hover:text-turquoise">
 								{social.icon}
-								<span className="mr-1"></span>
+								<span className="mr-1" />
 								{social.name}
 							</a>
 						</li>

@@ -2,16 +2,11 @@ import PageHeading from "@/app/components/layout/PageHeading";
 import MembersCard from "@/app/components/ui/MemberCard";
 import { shuffleArray } from "@/app/utils/shuffleArray";
 import matter from "gray-matter";
-
-// generate a custom title
-import { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-export async function generateMetadata({}, parent: ResolvingMetadata): Promise<Metadata | void> {
-	return {
-		title: "Jugendturnier 2024",
-	};
-}
+
+export const metadata: Metadata = { title: "Jugendturnier 2024" };
 
 // reference of past tournaments
 const pastTournamentPosts = [
@@ -21,28 +16,40 @@ const pastTournamentPosts = [
 
 // contact people for this event
 const people = [
-	{ name: "Thomas Seywald", email: "thomas@vcmuellheim.de", role: "Turnierleitung", picture: "/images/members/thomasseywald.jpg" },
-	{ name: "Björn Kohnen", email: "bjoern@vcmuellheim.de", role: "Vorstand", picture: "/images/members/bjoernkohnen.jpg" },
+	{
+		name: "Thomas Seywald",
+		email: "thomas@vcmuellheim.de",
+		role: "Turnierleitung",
+		picture: "/images/members/thomasseywald.jpg",
+	},
+	{
+		name: "Björn Kohnen",
+		email: "bjoern@vcmuellheim.de",
+		role: "Vorstand",
+		picture: "/images/members/bjoernkohnen.jpg",
+	},
 ];
 
 export default function JugendturnierPage() {
-	let pastImages: string[] = [];
-	pastTournamentPosts.forEach((event) => {
+	const pastImages: string[] = [];
+	for (const event of pastTournamentPosts) {
 		const { data: frontmatter } = matter.read(event[0]);
-		frontmatter.gallery.forEach((image: string) => pastImages.push(image));
-	});
+		for (const image of frontmatter.gallery) {
+			pastImages.push(image);
+		}
+	}
 	const shuffledPastImages = shuffleArray(pastImages, 12);
 
 	return (
 		<>
-			<PageHeading
-				subtitle="Jugendturnier 2024"
-				title="3. Markgräfler Taxi Cup"
-			/>
+			<PageHeading subtitle="Jugendturnier 2024" title="3. Markgräfler Taxi Cup" />
 
 			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-3 *:overflow-hidden">
 				<h2>Sei dabei!</h2>
-				<p>Der Volleyball Club Müllheim veranstaltet dieses Jahr erneut ein internationales Jugendturnier und du bist herzlich eingeladen!</p>
+				<p>
+					Der Volleyball Club Müllheim veranstaltet dieses Jahr erneut ein internationales Jugendturnier und du bist
+					herzlich eingeladen!
+				</p>
 			</div>
 
 			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-3 *:overflow-hidden">
@@ -86,14 +93,16 @@ export default function JugendturnierPage() {
 					>
 						Markgräfler Taxi
 					</Link>
-					) erheben wir keine Anmeldegebühr und können die Unkosten für dieses Turnier decken. Spenden werden jedoch gerne angenommen und fließen in die Mannschaftskassen unserer Helfer:innen.
+					) erheben wir keine Anmeldegebühr und können die Unkosten für dieses Turnier decken. Spenden werden jedoch
+					gerne angenommen und fließen in die Mannschaftskassen unserer Helfer:innen.
 				</p>
 
 				<h2>Was muss ich mitbringen?</h2>
 				<p>
 					Alle Teilnehmer:innen <span className="italic font-bold">müssen</span> Hallenschuhe tragen!
 					<br />
-					Wir bitten darum, Essen & Trinken selbst mitzubringen und Abfälle auch selbst wieder mitzunehmen. Kaffee, Kuchen und ein paar Kleinigkeiten werden auf Spendenbasis als Buffet angeboten.
+					Wir bitten darum, Essen & Trinken selbst mitzubringen und Abfälle auch selbst wieder mitzunehmen. Kaffee,
+					Kuchen und ein paar Kleinigkeiten werden auf Spendenbasis als Buffet angeboten.
 				</p>
 
 				<h2>Wie kann ich uns anmelden?</h2>
@@ -110,8 +119,8 @@ export default function JugendturnierPage() {
 					Der Anmeldeschluss ist der <b>31.05.2024</b>.
 				</p>
 				<p>
-					Sollten wir zu viele Anmeldungen erhalten, verteilen wir fair anhand der Anmeldezeiten und teilen zunächst 1 Mannschaft pro Verein ein. Meldet euch aber trotzdem gerne mit allen Mannschaften
-					an, die teilnehmen möchten.
+					Sollten wir zu viele Anmeldungen erhalten, verteilen wir fair anhand der Anmeldezeiten und teilen zunächst 1
+					Mannschaft pro Verein ein. Meldet euch aber trotzdem gerne mit allen Mannschaften an, die teilnehmen möchten.
 				</p>
 			</div>
 
@@ -191,7 +200,7 @@ export default function JugendturnierPage() {
 							function={person.role}
 							email={person.email}
 							avatar={person.picture}
-						></MembersCard>
+						/>
 					))}
 				</div>
 			</div>

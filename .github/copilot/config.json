@@ -1,0 +1,29 @@
+{
+	"projectContext": {
+		"projectType": "Next.js",
+		"framework": "Next.js",
+		"styling": "Tailwind CSS",
+		"tooling": {
+			"formatter": "Biome",
+			"linter": "Biome",
+			"packageManager": "Bun",
+			"buildTool": "Next.js",
+			"dateLibrary": "dayjs"
+		},
+		"preferences": {
+			"codeStyle": {
+				"quotes": "double",
+				"semicolons": true,
+				"indentation": 2
+			},
+			"architecture": {
+				"pageRouting": "App Router",
+				"dataFetching": "Server Components"
+			},
+			"development": {
+				"avoidNewDependencies": true
+			}
+		},
+		"notes": "This project is using Biome for both formatting and linting instead of ESLint/Prettier. Make sure to follow Biome rules when generating code. The project is built with Next.js and uses Bun as the package manager. Use dayjs for all date operations instead of native Date or other date libraries. Avoid suggesting installation of new libraries and prefer solutions using existing dependencies."
+	}
+}

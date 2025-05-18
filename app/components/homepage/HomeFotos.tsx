@@ -1,9 +1,13 @@
 import SectionHeading from "@/app/components/layout/SectionHeading";
 import { fetchFotos } from "@/app/utils/fetchFotos";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function HomeFotos() {
+	"use cache";
+	cacheLife("days");
+
 	const fotos = await fetchFotos(5);
 
 	return (

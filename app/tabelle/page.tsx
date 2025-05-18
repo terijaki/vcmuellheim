@@ -7,9 +7,7 @@ import { samsClubData, samsClubMatches, samsClubRankings } from "../utils/sams/s
 
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
 
-export const metadata: Metadata = {
-	title: "Tabelle",
-};
+export const metadata: Metadata = { title: "Tabelle" };
 
 export default async function Tabelle() {
 	const clubData = await samsClubData();

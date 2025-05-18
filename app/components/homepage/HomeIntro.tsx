@@ -1,5 +1,5 @@
-"use client";
 import { navbarLinks } from "@/app/utils/navbarLinks";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { FaAnglesDown as IconDown } from "react-icons/fa6";
@@ -11,7 +11,10 @@ const backgroundImages = [
 	"/images/backgrounds/intro3.jpg",
 ];
 
-export default function HomeIntro() {
+export default async function HomeIntro() {
+	"use cache";
+	cacheLife("hours");
+
 	const backgroundImageRandom = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
 
 	return (

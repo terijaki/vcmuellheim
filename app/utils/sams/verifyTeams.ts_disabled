@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { env } from "process";
 import { writeToSummary } from "../github/actionSummary";
-import { teamObject } from "../getTeams";
+import type { teamObject } from "../getTeams";
 
 const TEAMS_FOLDER = "data/teams",
 	CLUB_CACHE_FILE = "data/sams/club.json";
@@ -14,9 +14,9 @@ export default function verifyTeams() {
 	// read the cache file
 	const clubData = fs.readFileSync(CLUB_CACHE_FILE).toString();
 	// create a new set for invalid IDs to loop through later
-	let teamsWithMissingIds = new Set<teamSetItem>();
+	const teamsWithMissingIds = new Set<teamSetItem>();
 	// create a new set for the github summary
-	let summaryList = new Set<string>();
+	const summaryList = new Set<string>();
 	// read all team files and loop through them
 	const files = fs.readdirSync(TEAMS_FOLDER);
 	files.forEach((file) => {
@@ -27,22 +27,22 @@ export default function verifyTeams() {
 		if (teamJson.title) {
 			if (typeof teamJson.sbvvId === "number") {
 				if (clubData.includes(teamJson.sbvvId.toString())) {
-					let consoleNote = "✅ " + teamJson.title + " SBVV-ID (" + teamJson.sbvvId + ") found in the club data.";
+					const consoleNote = "✅ " + teamJson.title + " SBVV-ID (" + teamJson.sbvvId + ") found in the club data.";
 					console.log(consoleNote);
 					summaryList.add(consoleNote);
 				} else {
-					let consoleNote = "🚨 " + teamJson.title + " SBVV-ID (" + teamJson.sbvvId + ") was not found in the club data.";
+					const consoleNote = "🚨 " + teamJson.title + " SBVV-ID (" + teamJson.sbvvId + ") was not found in the club data.";
 					console.log(consoleNote);
 					summaryList.add(consoleNote);
 					teamsWithMissingIds.add({ filename: file, title: teamJson.title, sbvvId: teamJson.sbvvId });
 				}
 			} else if (teamJson.sbvvId) {
-				let consoleNote = "🚨 " + teamJson.title + " has no valid SBVV-ID: " + teamJson.sbvvId;
+				const consoleNote = "🚨 " + teamJson.title + " has no valid SBVV-ID: " + teamJson.sbvvId;
 				console.log(consoleNote);
 				summaryList.add(consoleNote);
 				teamsWithMissingIds.add({ filename: file, title: teamJson.title, sbvvId: teamJson.sbvvId });
 			} else {
-				let consoleNote = "✅ " + teamJson.title + " has no SBVV-ID on record.";
+				const consoleNote = "✅ " + teamJson.title + " has no SBVV-ID on record.";
 				console.log(consoleNote);
 				summaryList.add(consoleNote);
 			}
@@ -57,7 +57,7 @@ export default function verifyTeams() {
 			await removeSbvvIdFromTeam(team);
 		});
 	} else {
-		let consoleNote = "✅ SBVV-IDs are all up to date.";
+		const consoleNote = "✅ SBVV-IDs are all up to date.";
 		writeToSummary(consoleNote);
 	}
 }
@@ -103,7 +103,7 @@ async function createTicketForInvalidTeam(newteam: teamSetItem) {
 			body: bodyMessage,
 			labels: ["action required"],
 		});
-		let consoleNote = "Issue created for " + newteam.title + ": " + data.html_url;
+		const consoleNote = "Issue created for " + newteam.title + ": " + data.html_url;
 		console.log(consoleNote);
 		writeToSummary(consoleNote);
 	} else if (env.GITHUB_TOKEN) {
@@ -120,7 +120,7 @@ async function createTicketForInvalidTeam(newteam: teamSetItem) {
 				"X-GitHub-Api-Version": "2022-11-28",
 			},
 		});
-		let consoleNote = "Issue created for " + newteam.title + ": " + data.html_url;
+		const consoleNote = "Issue created for " + newteam.title + ": " + data.html_url;
 		console.log(consoleNote);
 		writeToSummary(consoleNote);
 	}

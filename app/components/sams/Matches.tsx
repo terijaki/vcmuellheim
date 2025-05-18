@@ -19,7 +19,7 @@ export default function Matches({
 		return (
 			<div key="past matches">
 				<p className="text-right text-sm italic text-gray-400 py-1 px-3" data-match-type="past">
-					Stand: <time dateTime={matches[0].matchSeries?.updated}>{dateDisplay}</time>
+					Stand: <time dateTime={matches[0].matchSeries.updated || undefined}>{dateDisplay}</time>
 				</p>
 				{matches.map((match) => {
 					// determine if this is a win for the club/team
@@ -110,7 +110,7 @@ export default function Matches({
 		return (
 			<div key="future matches">
 				<p className="text-right text-sm italic text-gray-400 py-1 px-3" data-match-type="future">
-					Stand: <time dateTime={matches[0].matchSeries?.updated}>{dateDisplay}</time>
+					Stand: <time dateTime={matches[0].matchSeries.updated || undefined}>{dateDisplay}</time>
 				</p>
 				{matches.map((match) => {
 					return (
