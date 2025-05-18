@@ -40,7 +40,7 @@ export default function HomeKontakt() {
 							download={true}
 							prefetch={false}
 						>
-							<IconExtern className="inline-block" /> Anmeldeformular
+							<IconExtern className="inline-block whitespace-nowrap" /> Anmeldeformular
 						</Link>{" "}
 						auf unserer Verwaltungssoftware KURABU.
 					</span>
