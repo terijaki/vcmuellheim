@@ -6,7 +6,7 @@ export default function myImageLoader({ src, width, quality }) {
 
   const imageOptimizationApi = "https://nit.terijaki.eu";
   // Your NextJS application URL
-  const baseUrl = process.env.COOLIFY_URL;
+  const baseUrl = `https://${process.env.COOLIFY_URL}`; // this is the domain configured in coolify
 
   const fullSrc = `${baseUrl}${src}`;
 

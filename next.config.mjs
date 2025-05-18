@@ -7,8 +7,8 @@ import withPlaiceholder from "@plaiceholder/next";
 const nextConfig = {
   output: "standalone",
   images: {
-    loader: 'custom',
-    loaderFile: './loader.js',
+    loader: process.env.COOLIFY_URL ? "custom" : undefined,
+    loaderFile: process.env.COOLIFY_URL ? "./loader.js" : undefined,
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 36000,
     remotePatterns: [
