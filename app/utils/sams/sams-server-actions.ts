@@ -4,6 +4,9 @@ import dayjs from "dayjs";
 import { unstable_cacheLife as cacheLife } from "next/cache";
 import { type Match, type Rankings, type Season, type SimpleSportsClub, type Sportsclub, sams } from "sams-rpc";
 
+// API KEY and SERVER URL should be set via env variables
+const SAMS_CLUB_NAME = SAMS.name; // the exact name of the club in SAMS
+
 // base functions
 export async function samsSportsclubs(): Promise<SimpleSportsClub[] | undefined> {
 	"use cache";
@@ -123,7 +126,7 @@ export async function samsClubData() {
 	try {
 		// get all clubs to find the club ID
 		const allClubs = await sams.sportsclubList();
-		const clubId = allClubs.find((club) => club.name.includes(SAMS.name))?.id;
+		const clubId = allClubs.find((club) => club.name.includes(SAMS_CLUB_NAME))?.id;
 		if (!clubId) {
 			throw new Error("Club ID not found");
 		}
