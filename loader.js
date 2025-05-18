@@ -4,6 +4,7 @@ const COOLIFY_URL = process.env.COOLIFY_URL;
 
 export default function myImageLoader({ src, width, quality }) {
   if (!COOLIFY_URL) return src;
+  
   const isLocal = !src.startsWith("http");
   const query = new URLSearchParams();
 
