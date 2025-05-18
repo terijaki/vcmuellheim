@@ -10,7 +10,7 @@ export default async function ClubLogo({
 	"use cache";
 	cacheLife("days");
 
-	if (clubName) {
+	if (!process.env.DOCKER_BUILD && clubName) {
 		const clubData = await samsClubDataByClubName(clubName);
 		if (clubData?.logo?.url)
 			return (

@@ -22,6 +22,7 @@ WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 ENV NODE_ENV=production
+ENV DOCKER_BUILD=true
 ENV TZ=Europe/Berlin
 RUN cat .env.development.local >> .env || true
 RUN bun run build
