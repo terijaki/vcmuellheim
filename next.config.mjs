@@ -7,6 +7,8 @@ import withPlaiceholder from "@plaiceholder/next";
 const nextConfig = {
   output: "standalone",
   images: {
+    loader: 'custom',
+    loaderFile: './loader.js',
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 36000,
     remotePatterns: [
