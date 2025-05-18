@@ -1,10 +1,10 @@
 // Fisher–Yates Shuffle
 // https://bost.ocks.org/mike/shuffle/
 
-export function shuffleArray(array: any[], cap?: number): any[] {
-	var m = array.length,
-		t,
-		i;
+export function shuffleArray<T>(array: T[], cap?: number): T[] {
+	let m = array.length;
+	let t: T;
+	let i: number;
 
 	// While there remain elements to shuffle…
 	while (m) {

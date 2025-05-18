@@ -7,7 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": ["node_modules", "out", "build", ".next", ".temp"]
+		"ignore": ["node_modules", "out", "build", ".next", ".temp", ".vscode"]
 	},
 	"formatter": {
 		"enabled": true,
