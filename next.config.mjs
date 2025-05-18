@@ -10,7 +10,7 @@ const nextConfig = {
     loader: process.env.COOLIFY_URL ? "custom" : undefined,
     loaderFile: process.env.COOLIFY_URL ? "./loader.js" : undefined,
     formats: ["image/avif", "image/webp"],
-    minimumCacheTTL: 36000,
+    minimumCacheTTL: 1209600, // 14 days
     remotePatterns: [
       {
         protocol: "https",
@@ -25,6 +25,26 @@ const nextConfig = {
         pathname: "/uploads/**",
       },
     ],
+  },
+  rewrites: async () => {
+    return [
+      {
+        source: "/rss",
+        destination: "/rss/xml",
+      },
+      {
+        source: "/rss.xml",
+        destination: "/rss/xml",
+      },
+      {
+        source: "/atom.xml",
+        destination: "/rss/atom",
+      },
+      {
+        source: "/rss.json",
+        destination: "/rss/json",
+      },
+    ];
   },
   experimental: {
     useCache: true,

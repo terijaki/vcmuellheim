@@ -18,7 +18,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 		let matches: Awaited<ReturnType<typeof samsMatches>> = [];
 		let calendarTitle = Club.shortName;
 
-		if (sanitisedTeam === "all") {
+		if (!sanitisedTeam || sanitisedTeam === "all") {
 			// get all club matches - future and past matches
 			matches = await samsClubMatches({});
 			calendarTitle = `${calendarTitle} - Vereinskalender`;

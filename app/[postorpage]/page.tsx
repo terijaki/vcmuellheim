@@ -1,7 +1,6 @@
 "use server";
 import PageHeading from "@/app/components/layout/PageHeading";
 import SharingButon from "@/app/components/ui/SharingButton";
-import rssFeed from "@/app/utils/blog/rssFeed";
 import matter from "gray-matter";
 import Markdown from "markdown-to-jsx";
 import type { Metadata, ResolvingMetadata } from "next";
@@ -39,11 +38,6 @@ export async function generateStaticParams(): Promise<{ postorpage: string }[]> 
 			});
 		});
 	});
-
-	if (process.env.NODE_ENV === "production") {
-		// generate the rss feed containing the blog posts
-		rssFeed();
-	}
 
 	return filesToGenerate.map((param) => ({
 		postorpage: param,
