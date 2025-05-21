@@ -1,0 +1,44 @@
+import SectionHeading from "@/components/layout/SectionHeading";
+import { getPictures } from "@/data/pictures";
+import { unstable_cacheLife as cacheLife } from "next/cache";
+import Image from "next/image";
+import Link from "next/link";
+
+export default async function HomeFotos() {
+	"use cache";
+	cacheLife("days");
+
+	const data = await getPictures(5);
+	const pictures = data?.docs;
+
+	return (
+		<section className="col-full-content grid-cols-main-grid bg-gradient-overlay overflow-hidden">
+			<div id="fotos" className="scroll-anchor" />
+			<div className="col-center-content text-white text-center px-4">
+				<SectionHeading text="Fotos" classes="text-white border-white" />
+				<p className="text-balance">
+					Eindrücke aus unserem Vereinsleben, von Spieltagen, Turnieren und unseren Mitgliedern findest du in unserer:
+				</p>
+				<div className="my-6">
+					<Link href="/fotos" className="button border-white">
+						Fotogalerie
+					</Link>
+				</div>
+			</div>
+
+			<div className="absolute inset-0 grid grid-flow-col z-[-10]">
+				{pictures?.map((image, index) => {
+					if (!image.url) return null;
+					return (
+						<div
+							key={image.url}
+							className={`relative${index === 1 ? " hidden sm:block" : ""}${index === 2 ? " hidden lg:block" : ""}${index === 3 ? " hidden xl:block" : ""}${index > 3 ? " hidden 2xl:block" : ""}`}
+						>
+							<Image src={image.url} fill className="object-cover" alt="" loading="lazy" />
+						</div>
+					);
+				})}
+			</div>
+		</section>
+	);
+}

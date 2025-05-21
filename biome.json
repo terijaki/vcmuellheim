@@ -7,7 +7,16 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": ["node_modules", "out", "build", ".next", ".temp", ".vscode"]
+		"ignore": [
+			"node_modules",
+			".next",
+			".vscode",
+			"out",
+			"build",
+			"app/(payload)",
+			"data/payload-types.ts",
+			"data/migrations"
+		]
 	},
 	"formatter": {
 		"enabled": true,

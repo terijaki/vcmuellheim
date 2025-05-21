@@ -6,9 +6,9 @@ on:
     branches: ["main"]
     paths-ignore:
       - ".github/**"
-  schedule: # times in in UTC
-    - cron: 30 2 * * TUE,THU # At 02:30 on Tuesday and Thursday
-    - cron: 15,45 09-21 * JAN-APR,OCT-DEC 0,6 # At minute 15 & 45 past every hour, from 9 AM to 9 PM on Sunday & Saturday, from October through April
+  # schedule: # times in in UTC
+  # - cron: 30 2 * * TUE,THU # At 02:30 on Tuesday and Thursday
+  # - cron: 15,45 09-21 * JAN-APR,OCT-DEC 0,6 # At minute 15 & 45 past every hour, from 9 AM to 9 PM on Sunday & Saturday, from October through April
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:

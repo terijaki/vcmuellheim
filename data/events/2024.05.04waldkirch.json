@@ -2,5 +2,10 @@
 	"title": "Jugendturnier (Mädchen)",
 	"start": "2024-05-04T10:30+0200",
 	"description": "50 Jahre SV Waldkirch Volleyball",
-	"location": { "city": "Waldkirch", "postalCode": "79183", "street": "Freiburger Straße 16", "name": "Kastelberghalle" }
+	"location": {
+		"city": "Waldkirch",
+		"postalCode": "79183",
+		"street": "Freiburger Straße 16",
+		"name": "Kastelberghalle"
+	}
 }

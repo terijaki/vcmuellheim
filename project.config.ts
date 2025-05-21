@@ -8,6 +8,8 @@ export const Club = {
 	name: "Volleyballclub Müllheim e.V.",
 	shortName: "VC Müllheim",
 	email: "info@vcmuellheim.de",
+	city: "Müllheim",
+	postalCode: 79379,
 };
 /** The clubs details on the SAMS platform. */
 export const SAMS = {

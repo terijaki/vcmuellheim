@@ -6,7 +6,9 @@
 - **Styling:** Tailwind CSS
 - **Package Manager:** Bun
 - **Formatting/Linting:** Biome
+- **CMS:** Payload CMS
 - **Date Library:** dayjs
+- **Deployment:** Coolify
 
 ## Code Style Guidelines
 
