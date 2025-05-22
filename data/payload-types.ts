@@ -312,11 +312,29 @@ export interface Sponsor {
 export interface Team {
   id: string;
   name: string;
+  /**
+   * Automatisch generiert vom Namen
+   */
+  slug?: string | null;
   gender: 'men' | 'woman' | 'mixed';
   /**
-   * Diese Mannschaft nimmt am Ligabetrieb teil.
+   * Für Mannschaften die nicht am Ligabetrieb teilnehmen, lasse das Feld frei.
    */
-  league?: boolean | null;
+  league?:
+    | (
+        | '1. Bundesliga'
+        | '2. Bundesliga'
+        | 'Dritte Liga'
+        | 'Regionalliga'
+        | 'Oberliga'
+        | 'Verbandsliga'
+        | 'Landesliga'
+        | 'Bezirksklasse'
+        | 'Bezirksliga'
+        | 'Kreisliga'
+        | 'Kreisklasse'
+      )
+    | null;
   description?: string | null;
   age?: number | null;
   people?: {
@@ -331,7 +349,7 @@ export interface Team {
   };
   schedule?:
     | {
-        day: ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday')[];
+        day: ('montags' | 'dienstags' | 'mittwochs' | 'donnerstags' | 'freitags' | 'samstags' | 'sonntags')[];
         time: {
           startTime: string;
           endTime: string;
@@ -545,6 +563,7 @@ export interface MembersSelect<T extends boolean = true> {
  */
 export interface TeamsSelect<T extends boolean = true> {
   name?: T;
+  slug?: T;
   gender?: T;
   league?: T;
   description?: T;

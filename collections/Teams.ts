@@ -1,4 +1,5 @@
 import { isModerator } from "@/data/payload-access";
+import { slugify } from "@/utils/slugify";
 import type { CollectionConfig } from "payload";
 
 export const Teams: CollectionConfig = {
@@ -9,7 +10,7 @@ export const Teams: CollectionConfig = {
 		useAsTitle: "name",
 		group: "Personen",
 		defaultColumns: ["name", "category", "coach", "schedule"],
-		preview: ({ id }) => `/${Teams.slug}/${id}`,
+		preview: ({ slug }) => `/${Teams.slug}/${slug}`,
 	},
 	access: {
 		read: () => true,
@@ -17,12 +18,30 @@ export const Teams: CollectionConfig = {
 		update: isModerator, // TODO allow coaches/poc to edit
 		delete: isModerator,
 	},
+	hooks: {
+		beforeChange: [
+			({ data }) => {
+				if (data.name) data.slug = slugify(data.name, true);
+				return data;
+			},
+		],
+	},
 	fields: [
 		{
 			name: "name",
 			label: "Name",
 			type: "text",
 			required: true,
+			unique: true,
+		},
+		{
+			name: "slug",
+			type: "text",
+			admin: {
+				description: "Automatisch generiert vom Namen",
+				readOnly: true,
+				hidden: true,
+			},
 		},
 		{
 			name: "gender",
@@ -35,13 +54,25 @@ export const Teams: CollectionConfig = {
 			],
 			required: true,
 		},
-
 		{
 			name: "league",
 			label: "Ligabetrieb",
-			type: "checkbox",
+			type: "select",
+			options: [
+				{ label: "1. Bundesliga", value: "1. Bundesliga" },
+				{ label: "2. Bundesliga", value: "2. Bundesliga" },
+				{ label: "Dritte Liga", value: "Dritte Liga" },
+				{ label: "Regionalliga", value: "Regionalliga" },
+				{ label: "Oberliga", value: "Oberliga" },
+				{ label: "Verbandsliga", value: "Verbandsliga" },
+				{ label: "Landesliga", value: "Landesliga" },
+				{ label: "Bezirksklasse", value: "Bezirksklasse" },
+				{ label: "Bezirksliga", value: "Bezirksliga" },
+				{ label: "Kreisliga", value: "Kreisliga" },
+				{ label: "Kreisklasse", value: "Kreisklasse" },
+			],
 			admin: {
-				description: "Diese Mannschaft nimmt am Ligabetrieb teil.",
+				description: "Für Mannschaften die nicht am Ligabetrieb teilnehmen, lasse das Feld frei.",
 			},
 		},
 		{
@@ -53,6 +84,7 @@ export const Teams: CollectionConfig = {
 			name: "age",
 			label: "Mindestalter",
 			type: "number",
+			min: 1,
 		},
 		{
 			name: "people",
@@ -100,13 +132,13 @@ export const Teams: CollectionConfig = {
 					type: "select",
 					hasMany: true,
 					options: [
-						{ label: "Montags", value: "monday" },
-						{ label: "Dienstags", value: "tuesday" },
-						{ label: "Mittwochs", value: "wednesday" },
-						{ label: "Donnerstags", value: "thursday" },
-						{ label: "Freitags", value: "friday" },
-						{ label: "Samstags", value: "saturday" },
-						{ label: "Sonntags", value: "sunday" },
+						{ label: "montags", value: "montags" },
+						{ label: "dienstags", value: "dienstags" },
+						{ label: "mittwochs", value: "mittwochs" },
+						{ label: "donnerstags", value: "donnerstags" },
+						{ label: "freitags", value: "freitags" },
+						{ label: "samstags", value: "samstags" },
+						{ label: "sonntags", value: "sonntags" },
 					],
 					required: true,
 				},

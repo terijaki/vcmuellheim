@@ -34,7 +34,7 @@ export default function HomeKontakt() {
 						</Link>{" "}
 						und hier zum{" "}
 						<Link
-							className="inline-block"
+							className="inline-flex gap-1"
 							href="https://vcm.kurabu.com/de/join/"
 							target="_blank"
 							download={true}
@@ -51,7 +51,7 @@ export default function HomeKontakt() {
 					<span>
 						Melde dich bitte direkt bei Paul Morawietz{" "}
 						<Link
-							className="inline-block"
+							className="inline-flex gap-1"
 							href="mailto:mitgliedschaft@vcmuellheim.de?subject=Volleyball Club Müllheim"
 							target="_blank"
 						>
@@ -65,7 +65,7 @@ export default function HomeKontakt() {
 					<span>
 						Melde dich bitte direkt bei Peter Müssig{" "}
 						<Link
-							className="inline-block"
+							className="inline-flex gap-1"
 							href="mailto:kassier@vcmuellheim.de?subject=Volleyball Club Müllheim"
 							target="_blank"
 						>
@@ -79,7 +79,7 @@ export default function HomeKontakt() {
 					<span>
 						Hier findest du die{" "}
 						<Link
-							className="inline-block"
+							className="inline-flex gap-1"
 							href="https://vcmuellheim.de/docs/spesenabrechnung.xlsx"
 							download={true}
 							prefetch={false}
@@ -88,7 +88,7 @@ export default function HomeKontakt() {
 						</Link>{" "}
 						und{" "}
 						<Link
-							className="inline-block"
+							className="inline-flex gap-1"
 							href="https://vcmuellheim.de/docs/trainerverguetung.xlsx"
 							download={true}
 							prefetch={false}
@@ -111,7 +111,7 @@ export default function HomeKontakt() {
 					<h3>Für alle weiteren Anliegen:</h3>
 					<span>
 						Nutze gerne unseren Mailverteiler{" "}
-						<Link className="inline-block" href="mailto:info@vcmuellheim.de" target="_blank">
+						<Link className="inline-flex gap-1" href="mailto:info@vcmuellheim.de" target="_blank">
 							<IconEmail className="inline-block" /> info@vcmuellheim.de
 						</Link>
 					</span>

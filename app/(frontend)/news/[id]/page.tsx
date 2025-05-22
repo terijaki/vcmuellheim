@@ -1,12 +1,24 @@
 import PageHeading from "@/components/layout/PageHeading";
 import SharingButon from "@/components/ui/SharingButton";
 import { getNewsItem } from "@/data/news";
+import { Club } from "@/project.config";
 import { RichText } from "@payloadcms/richtext-lexical/react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function NewsPage({ params }: { params: { id: string } }) {
-	const data = await getNewsItem(params.id);
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+	const { id } = await params;
+	const data = await getNewsItem(id);
+
+	return {
+		title: data?.title || Club.shortName,
+	};
+}
+
+export default async function NewsPage({ params }: { params: Promise<{ id: string }> }) {
+	const { id } = await params;
+	const data = await getNewsItem(id);
 	if (!data) return null; // TODO better error 404 handling
 
 	// filter out the thumbnail urls

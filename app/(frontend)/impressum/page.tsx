@@ -4,83 +4,75 @@ import Link from "next/link";
 export default function Impressum() {
 	return (
 		<>
-			<PageHeading title="Beitragsordnung" />
+			<PageHeading title="Impressum" />
 			<div className="col-full-content sm:col-center-content">
 				<article className="card my-8 prose max-w-full leading-normal prose-headings:m-0 prose-li:m-auto hyphens-auto lg:hyphens-none">
-					<h2>§ 1 Geschäftsjahr und Fälligkeit</h2>
-					<ol>
-						<li>Das Geschäftsjahr des Vereins ist das Kalenderjahr.</li>
-						<li>
-							Der Mitgliedsbeitrag wird am letzten Bankarbeitstag im Januar jeden Jahres eingezogen. Bei einem späteren
-							Vereinseintritt wird der Vereinsbeitrag sofort fällig und innerhalb von 14 Tagen eingezogen.
-						</li>
-					</ol>
+					<h2>Angaben gemäß § 5 TMG</h2>
 
-					<h2>§ 2 Höhe des Mitgliedbeitrages</h2>
-					<ol>
-						<li>Die Höhe des Mitgliedbeitrags wird durch die Mitgliederversammlung des Vereins festgelegt.</li>
-						<li>
-							Der Mitgliederbeitrag für Kinder und Jugendliche bis zur Vollendung des 16. Lebensjahres beträgt 60,00
-							Euro.
-						</li>
-						<li>Der Beitrag für Jugendliche ab 16 Jahren und Erwachsene beträgt 110,00 Euro.</li>
-						<li>Der Beitrag für Familien, unabhängig von der Anzahl der Familienmitglieder, beträgt 165,00 Euro.</li>
-						<li>Der Beitrag für passive Mitglieder beträgt 25,00 Euro.</li>
-						<li>Bei einem Eintritt ab dem 01.07. eines Jahres wird nur die Hälfte des Jahresbeitrags fällig.</li>
-					</ol>
+					<p>
+						Volleyballclub Müllheim e.V.
+						<br />
+						Lettenstr. 48
+						<br />
+						79424 Auggen
+						<br />
+						Vereinsregister: VR 300158
+						<br />
+						Registergericht: Amtsgericht Freiburg
+					</p>
 
-					<h2>§3 Reduzierungen</h2>
-					<ol>
-						<li>
-							Der Beitrag für Jugendliche ab 16 Jahren, und Erwachsene wird bei Vorlage einer entsprechenden
-							Bescheinigung auf 60,00 Euro reduziert, wenn das Mitglied sich noch in der Schule, in einer
-							Berufsausbildung oder einem Studium befindet. Die Bescheinigung ist dem Kassenwart bis zum 31.12. eines
-							Jahres für das folgende Kalenderjahr vorzulegen.
-						</li>
-						<li>
-							Der Vorstand kann in begründeten Einzelfällen Beiträge ganz oder teilweise stunden oder erlassen (siehe §5
-							(2) der <Link href="/satzung">Vereinssatzung</Link>).
-						</li>
-					</ol>
+					<h4>Vertreten durch:</h4>
+					<p>Lothar Voigt</p>
 
-					<h2>§ 4 Rechte und Pflichten der Mitglieder</h2>
-					<ol>
-						<li>Wird der fällige Mitgliedsbeitrag nicht bezahlt, ruht das Stimmrecht des Mitglieds.</li>
-						<li>
-							Gemäß §4 Vereinssatzung sind die Mitglieder verpflichtet, den Verein über Änderungen in ihren persönlichen
-							Verhältnissen schriftlich zu informieren. Dazu gehört insbesondere:
-							<ul>
-								<li>die Mitteilung von Anschriftenänderungen</li>
-								<li>Änderung der Bankverbindung bei der Teilnahme am Einzugsverfahren</li>
-								<li>
-									Mitteilung von persönlichen Veränderungen, die für das Beitragswesen relevant sind (z.B. Beendigung
-									der Schulausbildung, etc.).
-								</li>
-							</ul>
-						</li>
-						<li>
-							Nachteile, die dem Mitglied dadurch entstehen, dass es dem Verein die erforderlichen Änderungen nach Abs.
-							4 nicht mitgeteilt hat (z.B. Bankgebühren für Rücklastschriften), gehen nicht zu Lasten des Vereins und
-							können diesem nicht entgegengehalten werden. Entsteht dem Verein dadurch ein Schaden, ist das Mitglied zum
-							Ausgleich verpflichtet.
-						</li>
-					</ol>
+					<h2>Kontakt</h2>
+					<p>
+						Telefon: 07631 2472
+						<br />
+						E-Mail: <Link href="mailto:info@vcmuellheim.de">info@vcmuellheim.de</Link>
+					</p>
 
-					<h2>§ 5 Beendigung der Mitgliedschaft</h2>
-					<ol>
-						<li>
-							In §6 der <Link href="/satzung">Vereinssatzung</Link> ist das Procedere bei rückständiger Beitragszahlung
-							geregelt. Dies kann zu einer Streichung von der Mitgliederliste des Vereins führen. Verpflichtungen dem
-							Verein gegenüber sind bis zum Ablauf des laufenden Geschäftsjahres zu erfüllen.
-						</li>
-						<li>
-							Der freiwillige Austritt hat in Textform gegenüber einem Mitglied des Vorstands oder der
-							Vereinsgeschäftsstelle erfolgen. Er ist frühestens zum Ende des dem Eintritt folgenden Kalenderjahres
-							unter Einhaltung einer Kündigungsfrist von einem Monat zulässig.
-						</li>
-					</ol>
+					<h2>Redaktionell Verantwortlicher</h2>
+					<p>
+						Björn Kohnen
+						<br />
+						E-Mail: <Link href="mailto:bjoern@vcmuellheim.de">bjoern@vcmuellheim.de</Link>
+					</p>
 
-					<p className="text-right my-xl italic">Stand 26.11.2023</p>
+					<h2>Haftung für Inhalte</h2>
+					<p>
+						Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen
+						Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet,
+						übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf
+						eine rechtswidrige Tätigkeit hinweisen.
+					</p>
+					<p>
+						Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen
+						bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer
+						konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese
+						Inhalte umgehend entfernen.
+					</p>
+
+					<h2>Haftung für Links</h2>
+					<p>
+						Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben.
+						Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten
+						Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten
+						wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum
+						Zeitpunkt der Verlinkung nicht erkennbar.
+					</p>
+					<p>
+						Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer
+						Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links
+						umgehend entfernen.
+					</p>
+
+					<h2>Urheberrecht</h2>
+					<p>
+						Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter
+						beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine
+						Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von
+						Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.
+					</p>
 				</article>
 			</div>
 		</>
