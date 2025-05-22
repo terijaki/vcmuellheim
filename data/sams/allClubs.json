@@ -1822,16 +1822,6 @@
         }
       },
       {
-        "id": "82878238",
-        "name": "SV Union Lohne",
-        "lsbNumber": "304432700",
-        "internalSportsclubId": "10810",
-        "association": {
-          "id": "25464727",
-          "name": "Kreis Grafschaft Bentheim"
-        }
-      },
-      {
         "id": "82879382",
         "name": "Osnabrücker TB",
         "lsbNumber": "304483200",
@@ -1889,6 +1879,16 @@
         "association": {
           "id": "7218",
           "name": "Nordbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "82878238",
+        "name": "SV Union Lohne",
+        "lsbNumber": "304432700",
+        "internalSportsclubId": "10810",
+        "association": {
+          "id": "25464727",
+          "name": "Kreis Grafschaft Bentheim"
         }
       },
       {
@@ -9026,16 +9026,6 @@
         "name": "SV Saar 05",
         "lsbNumber": "87094",
         "internalSportsclubId": null,
-        "association": {
-          "id": "7219",
-          "name": "Saarländischer Volleyballverband"
-        }
-      },
-      {
-        "id": "26866444",
-        "name": "SV Sitterswald",
-        "lsbNumber": "87198",
-        "internalSportsclubId": "2500",
         "association": {
           "id": "7219",
           "name": "Saarländischer Volleyballverband"
@@ -32902,16 +32892,6 @@
         }
       },
       {
-        "id": "37921390",
-        "name": "TSV Jahn 05 Düsseldorf-Oberkassel e.V.",
-        "lsbNumber": "1001161",
-        "internalSportsclubId": "1285",
-        "association": {
-          "id": "33299092",
-          "name": "Düsseldorf"
-        }
-      },
-      {
         "id": "37948400",
         "name": "SV 90 Havelberg e.V.",
         "lsbNumber": "20004",
@@ -33029,16 +33009,6 @@
         "association": {
           "id": "25386581",
           "name": "Kreis Wolfenbüttel"
-        }
-      },
-      {
-        "id": "26925320",
-        "name": "SC 1975 Steinatal e.V.",
-        "lsbNumber": "46054",
-        "internalSportsclubId": "4903",
-        "association": {
-          "id": "26196796",
-          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -34149,16 +34119,6 @@
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
-        "id": "82878560",
-        "name": "TSG Emmerthal",
-        "lsbNumber": "302181020",
-        "internalSportsclubId": "30203",
-        "association": {
-          "id": "25464120",
-          "name": "Kreis Hameln-Pyrmont"
         }
       },
       {
@@ -47752,6 +47712,16 @@
         }
       },
       {
+        "id": "37921390",
+        "name": "TSV Jahn 05 Düsseldorf-Oberkassel e.V.",
+        "lsbNumber": "1001161",
+        "internalSportsclubId": "1285",
+        "association": {
+          "id": "33299092",
+          "name": "Düsseldorf"
+        }
+      },
+      {
         "id": "26925539",
         "name": "TV 1892 Großen-Linden",
         "lsbNumber": "12092",
@@ -50972,16 +50942,6 @@
         }
       },
       {
-        "id": "51836496",
-        "name": "Trimmelter SV Trier",
-        "lsbNumber": "1003749",
-        "internalSportsclubId": "32-76-06",
-        "association": {
-          "id": "25383457",
-          "name": "Volleyball-Verband Rheinland"
-        }
-      },
-      {
         "id": "51836497",
         "name": "SFG Bernkastel-Kues",
         "lsbNumber": "1002045",
@@ -51492,16 +51452,6 @@
         }
       },
       {
-        "id": "51836008",
-        "name": "TuS 1884/1919 Alsenz e.V.",
-        "lsbNumber": "26",
-        "internalSportsclubId": "32-43-02",
-        "association": {
-          "id": "25383438",
-          "name": "Volleyball-Verband Rheinhessen e.V."
-        }
-      },
-      {
         "id": "50621674",
         "name": "SV Automation 61 Leipzig e.V.",
         "lsbNumber": "420200",
@@ -51639,6 +51589,16 @@
         "association": {
           "id": "25386527",
           "name": "Kreis Goslar"
+        }
+      },
+      {
+        "id": "51836008",
+        "name": "TuS 1884/1919 Alsenz e.V.",
+        "lsbNumber": "26",
+        "internalSportsclubId": "32-43-02",
+        "association": {
+          "id": "25383438",
+          "name": "Volleyball-Verband Rheinhessen e.V."
         }
       },
       {
@@ -51969,6 +51929,16 @@
         "association": {
           "id": "25386437",
           "name": "Kreis Braunschweig"
+        }
+      },
+      {
+        "id": "51836496",
+        "name": "Trimmelter SV Trier",
+        "lsbNumber": "1003749",
+        "internalSportsclubId": "32-76-06",
+        "association": {
+          "id": "25383457",
+          "name": "Volleyball-Verband Rheinland"
         }
       },
       {
@@ -52532,6 +52502,16 @@
         }
       },
       {
+        "id": "82878560",
+        "name": "TSG Emmerthal",
+        "lsbNumber": "302181020",
+        "internalSportsclubId": "30203",
+        "association": {
+          "id": "25464120",
+          "name": "Kreis Hameln-Pyrmont"
+        }
+      },
+      {
         "id": "26866505",
         "name": "ATSV Saarbrücken",
         "lsbNumber": "87010",
@@ -52969,6 +52949,16 @@
         "association": {
           "id": "25386491",
           "name": "Kreis Wolfsburg"
+        }
+      },
+      {
+        "id": "89444389",
+        "name": "FC St. Pauli",
+        "lsbNumber": null,
+        "internalSportsclubId": "121198",
+        "association": {
+          "id": "7208",
+          "name": "Hamburger Volleyball-Verband e.V."
         }
       },
       {
@@ -54732,6 +54722,16 @@
         }
       },
       {
+        "id": "9315284",
+        "name": "TSV 1861 Zirndorf",
+        "lsbNumber": "304472585",
+        "internalSportsclubId": "603073",
+        "association": {
+          "id": "7215",
+          "name": "Bayerischer Volleyball-Verband"
+        }
+      },
+      {
         "id": "65036512",
         "name": "TSG Ziegelhausen",
         "lsbNumber": "50668",
@@ -56062,6 +56062,16 @@
         }
       },
       {
+        "id": "26866444",
+        "name": "SV Sitterswald",
+        "lsbNumber": "87198",
+        "internalSportsclubId": "2500",
+        "association": {
+          "id": "7219",
+          "name": "Saarländischer Volleyballverband"
+        }
+      },
+      {
         "id": "82880292",
         "name": "SC Wietzenbruch",
         "lsbNumber": "303257250",
@@ -56439,6 +56449,16 @@
         "association": {
           "id": "25461385",
           "name": "Kreis Harburg"
+        }
+      },
+      {
+        "id": "26925320",
+        "name": "SC 1975 Steinatal e.V.",
+        "lsbNumber": "46054",
+        "internalSportsclubId": "4903",
+        "association": {
+          "id": "26196796",
+          "name": "HVV | Bezirk Nord"
         }
       },
       {
@@ -57329,6 +57349,16 @@
         "association": {
           "id": "25464851",
           "name": "Kreis Oldenburg-Land"
+        }
+      },
+      {
+        "id": "89444113",
+        "name": "PSV Rostock",
+        "lsbNumber": "31273",
+        "internalSportsclubId": "31273",
+        "association": {
+          "id": "7209",
+          "name": "Volleyballverband Mecklenburg-Vorpommern e.V."
         }
       },
       {
@@ -59269,6 +59299,16 @@
         "association": {
           "id": "7217",
           "name": "Südbadischer Volleyball-Verband"
+        }
+      },
+      {
+        "id": "54610880",
+        "name": "TSV Leinfelden",
+        "lsbNumber": "6227",
+        "internalSportsclubId": "226",
+        "association": {
+          "id": "51583389",
+          "name": "Bezirk Ost"
         }
       },
       {
@@ -64762,16 +64802,6 @@
         }
       },
       {
-        "id": "9315284",
-        "name": "TSV 1861 Zirndorf",
-        "lsbNumber": "304472585",
-        "internalSportsclubId": "603073",
-        "association": {
-          "id": "7215",
-          "name": "Bayerischer Volleyball-Verband"
-        }
-      },
-      {
         "id": "6518",
         "name": "TV Planegg-Krailling",
         "lsbNumber": "72",
@@ -66582,16 +66612,6 @@
         }
       },
       {
-        "id": "54610880",
-        "name": "TSV Leinfelden",
-        "lsbNumber": "6227",
-        "internalSportsclubId": "226",
-        "association": {
-          "id": "51583389",
-          "name": "Bezirk Ost"
-        }
-      },
-      {
         "id": "6464",
         "name": "TV Rottenburg",
         "lsbNumber": "22058",
@@ -68089,16 +68109,6 @@
         "association": {
           "id": "7223",
           "name": "Nordwestdeutscher Volleyball-Verband e.V."
-        }
-      },
-      {
-        "id": "89444113",
-        "name": "PSV Rostock",
-        "lsbNumber": "31273",
-        "internalSportsclubId": "31273",
-        "association": {
-          "id": "7209",
-          "name": "Volleyballverband Mecklenburg-Vorpommern e.V."
         }
       },
       {
@@ -93882,16 +93892,6 @@
         }
       },
       {
-        "id": "37948576",
-        "name": "Volleyballclub WSG 78 Wolfen e.V.",
-        "lsbNumber": "70056",
-        "internalSportsclubId": "70056",
-        "association": {
-          "id": "7212",
-          "name": "Volleyball-Verband Sachsen-Anhalt"
-        }
-      },
-      {
         "id": "90275043",
         "name": "SC im-Puls Erfurt",
         "lsbNumber": "100186",
@@ -93926,6 +93926,16 @@
         "name": "Turn- und Sportverein 1874 Barleben e.V.",
         "lsbNumber": "30294",
         "internalSportsclubId": "30294",
+        "association": {
+          "id": "7212",
+          "name": "Volleyball-Verband Sachsen-Anhalt"
+        }
+      },
+      {
+        "id": "37948576",
+        "name": "Volleyballclub WSG 78 Wolfen e.V.",
+        "lsbNumber": "70056",
+        "internalSportsclubId": "70056",
         "association": {
           "id": "7212",
           "name": "Volleyball-Verband Sachsen-Anhalt"
@@ -96479,16 +96489,6 @@
         "association": {
           "id": "33299130",
           "name": "Mönchengladbach"
-        }
-      },
-      {
-        "id": "89444389",
-        "name": "Fußball-Club St. Pauli von 1910 e.V.",
-        "lsbNumber": null,
-        "internalSportsclubId": "121198",
-        "association": {
-          "id": "7208",
-          "name": "Hamburger Volleyball-Verband e.V."
         }
       },
       {
