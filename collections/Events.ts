@@ -7,7 +7,7 @@ export const Events: CollectionConfig = {
 	admin: {
 		useAsTitle: "title",
 		group: "Inhalte",
-		preview: ({ id }) => `/${Events.slug}/${id}`,
+		preview: ({ id }) => `/termine/${id}`,
 		// description: "Offizielle SBVV Termine werden automatisch synchronisiert und brauchen hier nicht manuell eingetragen werden.",
 	},
 	access: {
@@ -44,6 +44,9 @@ export const Events: CollectionConfig = {
 							admin: {
 								date: {
 									pickerAppearance: "dayAndTime",
+									displayFormat: "eeee dd.MM.yyyy HH:mm",
+									timeFormat: "HH:mm",
+									timeIntervals: 15,
 								},
 							},
 						},
@@ -54,6 +57,9 @@ export const Events: CollectionConfig = {
 							admin: {
 								date: {
 									pickerAppearance: "dayAndTime",
+									displayFormat: "eeee dd.MM.yyyy HH:mm",
+									timeFormat: "HH:mm",
+									timeIntervals: 15,
 								},
 							},
 						},
@@ -62,15 +68,45 @@ export const Events: CollectionConfig = {
 			],
 		},
 		{
-			name: "location",
-			label: "Ort",
-			type: "text",
+			name: "address",
+			label: "Adresse",
+			type: "group",
+			fields: [
+				{
+					name: "name",
+					label: "Name",
+					type: "text",
+				},
+				{
+					name: "street",
+					label: "Straße",
+					type: "text",
+				},
+				{
+					type: "row",
+					fields: [
+						{
+							name: "postalCode",
+							label: "PLZ",
+							type: "number",
+							min: 1000,
+							max: 99999,
+						},
+						{
+							name: "city",
+							label: "Stadt",
+							type: "text",
+						},
+					],
+				},
+			],
 		},
 		{
-			name: "image",
-			label: "Bild",
+			name: "images",
+			label: "Bilder",
 			type: "upload",
 			relationTo: "media",
+			hasMany: true,
 		},
 		{
 			name: "authors",

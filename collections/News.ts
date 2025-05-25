@@ -39,7 +39,7 @@ export const News: CollectionConfig = {
 				// Generate excerpt from content if it exists
 				if (data.content) {
 					const plainText = extractTextFromRichText(data.content.root.children).trim();
-					const excerpt = plainText.substring(0, 200); // (first ~200 characters)
+					const excerpt = plainText.substring(0, 500); // (first ~500 characters)
 					data.excerpt = excerpt.length < plainText.length ? `${excerpt}...` : excerpt; // elipsis if truncated
 				}
 				return data;

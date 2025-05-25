@@ -3,7 +3,7 @@
 ## Development Stack
 
 - **Framework:** Next.js with App Router
-- **Styling:** Tailwind CSS
+- **UI Library:** Mantine (components and styling)
 - **Package Manager:** Bun
 - **Formatting/Linting:** Biome
 - **CMS:** Payload CMS
@@ -21,6 +21,8 @@
 - Prefer for...of statement instead of Array.forEach
 - Avoid else block when the if block breaks early
 - Promote the use of import type for types
+- Use Mantine components instead of custom UI components when possible
+- Follow Mantine's theming and styling patterns
 
 ## Development Preferences
 
@@ -28,6 +30,7 @@
 - Prefer solutions using existing project dependencies
 - Use dayjs for all date operations instead of native Date or other date libraries
 - When generating components, follow the project's established patterns
+- Prefer Mantine components and hooks over custom implementations
 
 ## Architecture
 

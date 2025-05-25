@@ -1,6 +1,7 @@
-import PageHeading from "@/components/layout/PageHeading";
-import NewsCard from "@/components/ui/NewsCard";
+import NewsCard from "@/components/NewsCard";
+import PageWithHeading from "@/components/layout/PageWithHeading";
 import { getNews } from "@/data/news";
+import { Container, SimpleGrid } from "@mantine/core";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -17,29 +18,33 @@ export default async function NewsListPage({
 	// verify if page is a number, if not set to 1
 	const parsedPage = typeof page === "string" && !Number.isNaN(Number(page)) ? Number(page) : 1;
 	const data = await getNews(undefined, parsedPage);
-	// filter out the thumbnail urls
-	const thumbnails = data?.docs[0].images
-		?.map((i) => (typeof i === "string" ? i : i.url))
-		.filter((i) => typeof i === "string");
+	const events = data?.docs;
 
 	return (
-		<>
-			<PageHeading title={"Neuigkeiten des Volleyballclub Müllheim"} />
-			<div className="col-center-content mt-6 grid grid-cols-1 md:grid-cols-2 gap-5 py-3 flex-wrap">
-				<Suspense fallback={"Lade News..."}>
-					{data?.docs.map((post) => (
-						<NewsCard
-							key={post.id}
-							id={post.id}
-							title={post.title}
-							thumbnails={thumbnails}
-							excerpt={post.excerpt || ""}
-						/>
-					))}
-				</Suspense>
-			</div>
-			{data && <Paginator total={data.totalPages} current={data.page || 1} />}
-		</>
+		<PageWithHeading title={"Neuigkeiten des Volleyballclub Müllheim"}>
+			<Suspense fallback={"Lade News..."}>
+				<Container size="xl">
+					<SimpleGrid cols={{ base: 1, sm: 2 }}>
+						{events?.map((post) => {
+							// filter out the thumbnail urls
+							const thumbnails = post.images
+								?.map((i) => (typeof i === "string" ? i : i.url))
+								.filter((i) => typeof i === "string");
+							return (
+								<NewsCard
+									key={post.id}
+									id={post.id}
+									title={post.title}
+									thumbnails={thumbnails}
+									excerpt={post.excerpt || ""}
+								/>
+							);
+						})}
+					</SimpleGrid>
+					{data && <Paginator total={data.totalPages} current={data.page || 1} />}
+				</Container>
+			</Suspense>
+		</PageWithHeading>
 	);
 }
 

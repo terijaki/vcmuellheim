@@ -47,7 +47,7 @@ export const Media: CollectionConfig = {
 			type: "join",
 			name: "events",
 			collection: "events",
-			on: "image",
+			on: "images",
 			admin: {
 				allowCreate: false,
 				condition: (data, siblingData) => Boolean(siblingData?.events?.docs?.length > 0),

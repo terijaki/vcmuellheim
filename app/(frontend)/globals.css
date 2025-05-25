@@ -3,117 +3,113 @@
 @tailwind utilities;
 
 :root {
-	--color-blumine: #366273;
-	--color-turquoise: #01a29a;
-	--color-onyx: #363b40;
-	--color-aquahaze: #eff5f5;
-	--color-lion: #bfa084;
-	--color-gamboge: #f09e1a;
-	--page-x-space: 1.5rem; /* This is the minimum page spacing left & right */
-	--page-content-max-width: 1200px; /* Maximum width of the content area */
-	--page-grid-content-area: min((100% - (var(--page-x-space) * 2)), var(--page-content-max-width));
+  --color-blumine: #366273;
+  --color-turquoise: #01a29a;
+  --color-onyx: #363b40;
+  --color-aquahaze: #eff5f5;
+  --color-lion: #bfa084;
+  --color-gamboge: #f09e1a;
+  --page-x-space: 1.5rem; /* This is the minimum page spacing left & right */
+  --page-content-max-width: 1200px; /* Maximum width of the content area */
+  --page-grid-content-area: min(
+    (100% - (var(--page-x-space) * 2)),
+    var(--page-content-max-width)
+  );
 }
 
 @layer components {
-	.bg-gradient-overlay {
-		@apply relative before:absolute before:inset-0 before:block before:z-[-5]
+  .bg-gradient-overlay {
+    @apply relative before:absolute before:inset-0 before:block before:z-[-5]
 		before:bg-gradient-to-b before:from-onyx before:to-blumine before:opacity-95;
-	}
-	.bg-gradient-overlay-double {
-		@apply relative after:absolute after:inset-0 after:block after:z-[-5]
+  }
+  .bg-gradient-overlay-double {
+    @apply relative after:absolute after:inset-0 after:block after:z-[-5]
 		after:bg-gradient-to-b after:from-onyx after:to-transparent after:opacity-40;
-	}
-	.section-bg-gradient {
-		@apply relative after:absolute after:-inset-0 after:block after:z-[-5]
+  }
+  .section-bg-gradient {
+    @apply relative after:absolute after:-inset-0 after:block after:z-[-5]
 		after:bg-gradient-to-b after:from-onyx after:to-blumine after:opacity-100;
-	}
-	.card {
-		@apply bg-white rounded-lg text-onyx px-6 py-4 shadow;
-	}
-	.card-narrow {
-		@apply bg-white rounded text-onyx p-0 shadow;
-	}
-	.card-heading {
-		@apply font-bold text-2xl text-blumine font-humanist;
-	}
-	.card-narrow .card-heading {
-		@apply px-6 pt-4;
-	}
-	.card-narrow-flex {
-		@apply card-narrow lg:card;
-	}
-	.card-narrow-flex .card-heading {
-		@apply px-6 pt-4 lg:p-0;
-	}
-	.col-full-content.card,
-	.col-full-content.card-narrow,
-	.col-full-content > .card,
-	.col-full-content > .card-narrow {
-		@apply rounded-none;
-	}
-	.button {
-		@apply font-humanist bg-blumine hover:bg-turquoise text-white hover:text-white px-4 py-2 rounded-full border-2 border-white hover:border-white duration-200 tracking-wider select-none break-inside-avoid whitespace-nowrap inline-flex justify-center items-center text-center;
-	}
-	.button-transparent {
-		@apply button bg-transparent border-white;
-	}
-	.button-slim {
-		@apply button py-1 px-2;
-	}
-	.hyperlink {
-		@apply text-turquoise hover:text-lion hover:cursor-pointer;
-	}
-	.scroll-anchor {
-		/* offset to account for the navigation bar */
-		@apply absolute -top-12;
-	}
-	:has(> .scroll-anchor) {
-		@apply relative;
-	}
+  }
+  .card {
+    @apply bg-white rounded-lg text-onyx px-6 py-4 shadow;
+  }
+  .card-narrow {
+    @apply bg-white rounded text-onyx p-0 shadow;
+  }
+  .card-heading {
+    @apply font-bold text-2xl text-blumine font-humanist;
+  }
+  .card-narrow .card-heading {
+    @apply px-6 pt-4;
+  }
+  .card-narrow-flex {
+    @apply card-narrow lg:card;
+  }
+  .card-narrow-flex .card-heading {
+    @apply px-6 pt-4 lg:p-0;
+  }
+  .col-full-content.card,
+  .col-full-content.card-narrow,
+  .col-full-content > .card,
+  .col-full-content > .card-narrow {
+    @apply rounded-none;
+  }
+  .button {
+    @apply font-humanist bg-blumine hover:bg-turquoise text-white hover:text-white px-4 py-2 rounded-full border-2 border-white hover:border-white duration-200 tracking-wider select-none break-inside-avoid whitespace-nowrap inline-flex justify-center items-center text-center;
+  }
+  .button-transparent {
+    @apply button bg-transparent border-white;
+  }
+  .button-slim {
+    @apply button py-1 px-2;
+  }
+  .hyperlink {
+    @apply text-turquoise hover:text-lion hover:cursor-pointer;
+  }
 }
 
 /* ------ Selection ------ */
 ::selection {
-	@apply text-white bg-blumine;
+  @apply text-white bg-blumine;
 }
 
 /* ------ Scrollbar ------ */
 
 ::-webkit-scrollbar {
-	@apply w-2 h-2;
+  @apply w-2 h-2;
 }
 ::-webkit-scrollbar-button {
-	@apply w-0 h-0;
+  @apply w-0 h-0;
 }
 ::-webkit-scrollbar-thumb {
-	@apply bg-lion border-none;
+  @apply bg-lion border-none;
 }
 ::-webkit-scrollbar-thumb:hover {
-	@apply bg-turquoise;
+  @apply bg-turquoise;
 }
 ::-webkit-scrollbar-thumb:active {
-	@apply bg-turquoise;
+  @apply bg-turquoise;
 }
 ::-webkit-scrollbar-track {
-	/* border-radius: 0px; */
-	@apply bg-onyx border-none;
+  /* border-radius: 0px; */
+  @apply bg-onyx border-none;
 }
 ::-webkit-scrollbar-track:hover {
-	@apply bg-onyx;
+  @apply bg-onyx;
 }
 ::-webkit-scrollbar-track:active {
-	@apply bg-onyx;
+  @apply bg-onyx;
 }
 ::-webkit-scrollbar-corner {
-	@apply bg-transparent;
+  @apply bg-transparent;
 }
 
 /* ------ Summary ------ */
 summary::-webkit-details-marker,
 summary::marker {
-	/* hides the default arrow */
-	display: none;
-	content: none;
+  /* hides the default arrow */
+  display: none;
+  content: none;
 }
 
 /* ------ Member Arrangement ------ */
@@ -121,14 +117,17 @@ summary::marker {
 without => row one: 5 childen & row two: 1 child
 with => row one: 3 childen & row two: 3 childen
 */
-.member-list:has(:nth-child(5)):not(:has(:nth-child(6))) .member-card:nth-child(3n + 1) {
-	@apply md:col-start-1;
+.member-list:has(:nth-child(5)):not(:has(:nth-child(6)))
+  .member-card:nth-child(3n + 1) {
+  @apply md:col-start-1;
 }
-.member-list:has(:nth-child(6)):not(:has(:nth-child(8))) .member-card:nth-child(3n + 1) {
-	@apply md:col-start-1;
+.member-list:has(:nth-child(6)):not(:has(:nth-child(8)))
+  .member-card:nth-child(3n + 1) {
+  @apply md:col-start-1;
 }
-.member-list:has(:nth-child(8)):not(:has(:nth-child(9))) .member-card:nth-child(4n + 1) {
-	@apply lg:col-start-1;
+.member-list:has(:nth-child(8)):not(:has(:nth-child(9)))
+  .member-card:nth-child(4n + 1) {
+  @apply lg:col-start-1;
 }
 /* group-has-[:nth-of-type(6),:not(div)]:md:[&:nth-child(4)]:col-start-1 */
 

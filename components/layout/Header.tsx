@@ -1,84 +1,93 @@
 "use client";
 import Socials from "@/components/layout/Socials";
+import { Club } from "@/project.config";
 import { navbarLinks } from "@/utils/navbarLinks";
+import { AppShell, Burger, Collapse, Container, Group, Stack, Title, UnstyledButton } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
-import { Fragment, useState } from "react";
-import { FaBars as Bars, FaVolleyball as Logo, FaXmark as Xmark } from "react-icons/fa6";
-
-function navbarLinksRender() {
-	const navLinks = navbarLinks.map((item, index) => {
-		return (
-			<Fragment key={item.name}>
-				{index !== 0 && <li className="hidden md:block opacity-30">&#x2022;</li>}
-				<li>
-					<Link {...item} className="hover:text-lion font-medium tracking-normal p-1 md:p-0 block text-lg md:text-base">
-						{item.name}
-					</Link>
-				</li>
-			</Fragment>
-		);
-	});
-	return navLinks;
-}
+import { FaVolleyball as Logo } from "react-icons/fa6";
 
 export default function Header() {
-	const [isMobileNavCollapsed, setIsMobileNavCollapsed] = useState(true);
+	const [opened, { toggle, close }] = useDisclosure();
+
 	return (
-		<>
-			<header
-				id="navigation"
-				className="sticky top-0 z-50 grid grid-cols-main-grid py-2 bg-onyx text-white overflow-hidden antialiased select-none"
-			>
-				<div className="grid grid-cols-[max-content_1fr] align-items-center col-center-content">
-					{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-					<p
-						className="mr-4 flex items-center text-3xl uppercase font-industrial font-medium tracking-widest md:tracking-wide lg:tracking-widest"
-						onClick={() => setIsMobileNavCollapsed(true)}
-					>
-						<Link href="/" className="flex">
-							<Logo className="mr-2" /> VC Müllheim
-						</Link>
-					</p>
-					<div className="place-self-center justify-self-end md:hidden">
-						<div
-							className={`grid [grid-template-areas:'stack'] items-center text-2xl duration-100${isMobileNavCollapsed ? " hover:text-turquoise" : ""}`}
-						>
-							<Bars
-								className={`[grid-area:stack] cursor-pointer duration-500 ${isMobileNavCollapsed ? "" : "opacity-0 rotate-[360deg] -z-1 blur-sm"}`}
-								onClick={() => setIsMobileNavCollapsed(!isMobileNavCollapsed)}
-							/>
-							<Xmark
-								className={`[grid-area:stack] cursor-pointer duration-500 ${isMobileNavCollapsed ? "opacity-0 rotate-[-360deg] -z-1 blur-sm" : ""}`}
-								onClick={() => setIsMobileNavCollapsed(!isMobileNavCollapsed)}
-							/>
-						</div>
-					</div>
-					<div
-						className={`${isMobileNavCollapsed ? "max-h-0 overflow-hidden " : "max-h-screen my-2 duration-500 "} md:max-h-full w-full md:w-auto grid grid-flow-col gap-x-4 md:gap-x-0 col-span-2 md:col-span-1 justify-self-center md:justify-self-end justify-around md:m-0 font-systemui`}
-					>
-						{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-						<ul
-							className={`${isMobileNavCollapsed ? "" : "grid-flow-row "} md:max-h-full md:grid md:grid-flow-col gap-x-1 place-self-center`}
-							onClick={() => setIsMobileNavCollapsed(true)}
-						>
-							{navbarLinksRender()}
-						</ul>
-						<ul>
-							{Socials().map((socialItem) => (
-								<li key={socialItem.name}>
-									<Link
-										{...socialItem}
-										className={`hover:text-lion text-lg font-medium tracking-normal flex gap-x-1 items-center p-1 md:hidden ${isMobileNavCollapsed ? " hidden " : ""}`}
-									>
-										{socialItem.icon}
-										{socialItem.name}
-									</Link>
-								</li>
-							))}
-						</ul>
-					</div>
-				</div>
-			</header>
-		</>
+		<AppShell.Header c="white" bg="onyx">
+			<Container size="xl" p="sm">
+				<Group justify="space-between" h="100%">
+					<UnstyledButton component={Link} href="/" onClick={close}>
+						<Group gap="xs">
+							<Logo size={24} />
+							<Title order={1} size="h2" fw={500} tt="uppercase" style={{ letterSpacing: "0.1em" }}>
+								{Club.shortName}
+							</Title>
+						</Group>
+					</UnstyledButton>
+					<Group gap="md" visibleFrom="sm">
+						{navbarLinks.map((item) => (
+							<UnstyledButton
+								key={item.name}
+								component={Link}
+								{...item}
+								c="white"
+								fw={500}
+								style={{
+									"&:hover": {
+										color: "var(--mantine-color-lion-6)",
+									},
+								}}
+							>
+								{item.name}
+							</UnstyledButton>
+						))}
+					</Group>
+					<Burger opened={opened} onClick={toggle} hiddenFrom="sm" color="white" />
+				</Group>
+			</Container>
+			<Collapse in={opened} hiddenFrom="sm" bg="onyx" p="md">
+				<Group justify="space-between" align="flex-start" pt="lg">
+					<Stack gap="xs">
+						{navbarLinks.map((item) => (
+							<UnstyledButton
+								key={item.name}
+								component={Link}
+								{...item}
+								onClick={close}
+								w="100%"
+								style={{
+									borderRadius: "var(--mantine-radius-sm)",
+									"&:hover": {
+										backgroundColor: "var(--mantine-color-gray-1)",
+									},
+								}}
+							>
+								{item.name}
+							</UnstyledButton>
+						))}
+					</Stack>
+					<Stack gap="xs">
+						{Socials().map((socialItem) => (
+							<UnstyledButton
+								key={socialItem.name}
+								component={Link}
+								{...socialItem}
+								onClick={close}
+								w="100%"
+								style={{
+									borderRadius: "var(--mantine-radius-sm)",
+									"&:hover": {
+										backgroundColor: "var(--mantine-color-gray-1)",
+									},
+								}}
+							>
+								<Group gap="xs">
+									{socialItem.icon}
+									{socialItem.name}
+								</Group>
+							</UnstyledButton>
+						))}
+					</Stack>
+				</Group>
+			</Collapse>
+		</AppShell.Header>
 	);
 }

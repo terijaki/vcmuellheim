@@ -30,6 +30,8 @@
 		"docker:dev": "bun run docker:build && bun run docker:watch"
 	},
 	"dependencies": {
+		"@mantine/core": "^8.0.1",
+		"@mantine/hooks": "^8.0.1",
 		"@octokit/action": "^6.1.0",
 		"@octokit/request": "^9.2.3",
 		"@payloadcms/db-postgres": "3.38.0",
@@ -78,7 +80,6 @@
 		"autoprefixer": "^10.4.21",
 		"eslint": "^8.57.1",
 		"eslint-config-next": "15.3.2",
-		"postcss": "^8.5.3",
 		"tailwindcss": "^3.4.17",
 		"typescript": "^5.8.3"
 	},

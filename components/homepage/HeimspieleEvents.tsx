@@ -1,10 +1,13 @@
-import type getEvents from "@/utils/getEvents";
+
+import type { Event } from "@/data/payload-types";
 import Link from "next/link";
 import { FaCircleInfo as IconInfo, FaLocationDot as IconLocation } from "react-icons/fa6";
 
-type EventProps = Awaited<ReturnType<typeof getEvents>>[number];
 
-export default function HeimspieleEvents(props: EventProps & { totalSiblings?: number }) {
+
+export default function HeimspieleEvent(props: Event[] & { totalSiblings?: number }) {
+
+	return null
 	return (
 		<div className="card bg-onyx text-white inline-block w-full break-inside-avoid mb-3" key={props.title}>
 			<div>

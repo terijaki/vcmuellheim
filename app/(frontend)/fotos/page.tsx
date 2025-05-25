@@ -1,54 +1,40 @@
 "use cache";
-import PageHeading from "@/components/layout/PageHeading";
+import PageWithHeading from "@/components/layout/PageWithHeading";
 import { getPictures } from "@/data/pictures";
 import { shuffleArray } from "@/utils/shuffleArray";
+import { AspectRatio, Card, CardSection, Group, Image } from "@mantine/core";
 import type { Metadata } from "next";
-import { unstable_cacheLife as cacheLife } from "next/cache";
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
 export const metadata: Metadata = { title: "Fotogalerie" };
 
 export default async function PicturesPage() {
-	cacheLife("days");
-
 	const data = await getPictures();
 	const pictures = data?.docs;
 
 	return (
-		<>
-			<PageHeading
-				title="Fotogalerie"
-				subtitle="Eindrücke aus unserem Vereinsleben, von Spieltagen, Turnieren und unseren Mitgliedern. (zufällige Reihenfolge)"
-			/>
-			<div className="col-center-content md:col-full-content my-5 md:mx-6 grid gap-3 auto-cols-auto grid-cols-2 md:grid-cols-[repeat(auto-fit,minmax(250px,1fr))] ">
-				<Suspense fallback={"Lade Fotos..."}>
+		<PageWithHeading
+			title="Fotogalerie"
+			subtitle="Eindrücke aus unserem Vereinsleben, von Spieltagen, Turnieren und unseren Mitgliedern. (zufällige Reihenfolge)"
+		>
+			<Suspense fallback={"Lade Fotos..."}>
+				<Group gap="xs" justify="center" preventGrowOverflow={false}>
 					{pictures &&
-						shuffleArray(pictures)?.map(async (image, index) => {
-							const isAmongFirstImages = index < 12;
+						shuffleArray(pictures)?.map(async (image) => {
 							if (!image.url) return null;
-
 							return (
-								<Link
-									key={`picture-${image.id}`}
-									href={image.url}
-									className="relative group shadow-xs hover:cursor-zoom-in rounded-md overflow-hidden after:opacity-0 hover:after:opacity-100 after:absolute after:inset-0 after:h-full after:w-full after:pointer-events-none hover:after:z-10 after:border-4 after:border-dashed after:border-white after:duration-300 bg-white/50"
-									target="_blank"
-								>
-									<Image
-										src={image.url}
-										className="object-cover w-full h-full aspect-video sm:aspect-[3/2] m-0 p-0 group-hover:scale-105 transition-transform duration-700"
-										width={264}
-										height={176}
-										priority={isAmongFirstImages}
-										alt="zufälliges Foto"
-									/>
-								</Link>
+								<Card shadow="sm" component={Link} key={`picture-${image.id}`} href={image.url} target="_blank">
+									<CardSection>
+										<AspectRatio ratio={16 / 9} maw={{ base: "100%", xs: 264 }}>
+											<Image src={image.url} className="transition-transform duration-700 hover:scale-105" />
+										</AspectRatio>
+									</CardSection>
+								</Card>
 							);
 						})}
-				</Suspense>
-			</div>
-		</>
+				</Group>
+			</Suspense>
+		</PageWithHeading>
 	);
 }

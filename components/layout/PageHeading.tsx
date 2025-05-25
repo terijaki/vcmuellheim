@@ -7,6 +7,9 @@ export default function PageHeading(props: {
 }) {
 	// grid info: seaction is placed the in "full-content" grid area to take up the maximum post width
 	// background & gradient info: the image is the bg of the section, the section:before adds the first layer and section:after the final gradient layer
+
+	// <Title textWrap="balance"></Title>
+
 	return (
 		<section
 			className="col-full-content

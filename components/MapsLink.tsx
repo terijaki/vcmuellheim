@@ -1,13 +1,30 @@
 "use client";
-import type { Location } from "@/data/payload-types";
+
+import { Anchor, Group } from "@mantine/core";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { FaLocationDot as IconLocation } from "react-icons/fa6";
 
-export default function MapsLink({ location }: { location: Location }) {
+type MapsLinkLocation = {
+	name?: string | null;
+	address?: {
+		street?: string | null;
+		postalCode?: number | null;
+		city?: string | null;
+	};
+};
+
+export default function MapsLink({ location }: { location: MapsLinkLocation }) {
 	const [mapsUrl, setMapsUrl] = useState<string | null>(null);
 
+	if (!location) return null;
+	const displayName = location.name || location.address?.city;
+	if (!displayName) return null;
+
 	useEffect(() => {
-		if (location.address) {
+		if (typeof location === "string") {
+			setMapsUrl(location);
+		} else if (location.address) {
 			let addressString = "";
 			if (typeof location.address !== "object") return;
 			const { street, postalCode, city } = location.address;
@@ -33,14 +50,16 @@ export default function MapsLink({ location }: { location: Location }) {
 		}
 	}, [location]);
 
-	if (typeof location !== "object") return null;
-
+	if (!mapsUrl) return null;
 	// Before the effect runs, just show the name without a link
-	if (!mapsUrl) return <>{location.name}</>;
+	if (!mapsUrl) return <>{displayName}</>;
 
 	return (
-		<Link href={mapsUrl} target="_blank">
-			{location.name}
-		</Link>
+		<Anchor component={Link} href={mapsUrl} c="turquoise" target="_blank">
+			<Group gap="xs">
+				<IconLocation />
+				{displayName}
+			</Group>
+		</Anchor>
 	);
 }

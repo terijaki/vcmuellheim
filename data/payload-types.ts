@@ -283,8 +283,13 @@ export interface Event {
     startDate: string;
     endDate?: string | null;
   };
-  location?: string | null;
-  image?: (string | null) | Media;
+  address?: {
+    name?: string | null;
+    street?: string | null;
+    postalCode?: number | null;
+    city?: string | null;
+  };
+  images?: (string | Media)[] | null;
   authors?: (string | User)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -514,8 +519,15 @@ export interface EventsSelect<T extends boolean = true> {
         startDate?: T;
         endDate?: T;
       };
-  location?: T;
-  image?: T;
+  address?:
+    | T
+    | {
+        name?: T;
+        street?: T;
+        postalCode?: T;
+        city?: T;
+      };
+  images?: T;
   authors?: T;
   updatedAt?: T;
   createdAt?: T;

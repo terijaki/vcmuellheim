@@ -1,6 +1,8 @@
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import { Club } from "@/project.config";
+import { AppShell, AppShellMain, MantineProvider, Stack, colorsTuple, createTheme } from "@mantine/core";
+import "@mantine/core/styles.css";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
@@ -52,16 +54,43 @@ export const metadata: Metadata = {
 	referrer: "same-origin",
 };
 
+const theme = createTheme({
+	colors: {
+		blumine: colorsTuple("#366273"),
+		turquoise: colorsTuple("#01a29a"),
+		onyx: colorsTuple("#363b40"),
+		lion: colorsTuple("#bfa084"),
+		aquahaze: colorsTuple("#eff5f5"),
+		gamboge: colorsTuple("#f09e1a"),
+	},
+	primaryColor: "blumine",
+	fontFamily: "Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, system-ui, sans-serif",
+	components: {
+		Anchor: {
+			defaultProps: {
+				c: "turquoise",
+			},
+		},
+	},
+});
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="de">
-			<body
-				className="min-h-screen grid grid-rows-[max-content_1fr_max-content] grid-cols-main-grid overflow-y-scroll overflow-x-hidden bg-aquahaze text-black font-geohumanist cursor-default *:col-full-content *:w-full"
-				data-build-time={Date.now()}
-			>
-				<Header />
-				<main className="col-full-content grid grid-cols-main-grid auto-rows-max">{children}</main>
-				<Footer />
+			<body data-build-time={Date.now()}>
+				<MantineProvider theme={theme}>
+					<AppShell header={{ height: 60, offset: true }} withBorder={false} bg="aquahaze">
+						<Header />
+
+						<AppShellMain>
+							<Stack justify="space-between" style={{ minHeight: "calc(100vh - 60px)" }}>
+								{children}
+
+								<Footer />
+							</Stack>
+						</AppShellMain>
+					</AppShell>
+				</MantineProvider>
 			</body>
 		</html>
 	);

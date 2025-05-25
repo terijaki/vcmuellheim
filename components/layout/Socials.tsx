@@ -1,9 +1,4 @@
-import {
-	FaFacebook as IconFacebook,
-	FaInstagram as IconInstagram,
-	FaMastodon as IconMastodon,
-	FaWhatsapp as IconWhatsApp,
-} from "react-icons/fa6";
+import { FaFacebook as IconFacebook, FaInstagram as IconInstagram, FaMastodon as IconMastodon } from "react-icons/fa6";
 
 export default function socialList() {
 	const socials = [
@@ -25,13 +20,6 @@ export default function socialList() {
 			name: "Facebook",
 			href: "https://www.facebook.com/VCMuellheim/",
 			icon: <IconFacebook />,
-			target: "_blank",
-			rel: "noreferrer",
-		},
-		{
-			name: "WhatsApp",
-			href: "https://whatsapp.com/channel/0029VaE5QwVGJP8GijYi1N36",
-			icon: <IconWhatsApp />,
 			target: "_blank",
 			rel: "noreferrer",
 		},

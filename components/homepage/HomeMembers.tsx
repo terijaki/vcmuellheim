@@ -2,6 +2,11 @@ import SectionHeading from "@/components/layout/SectionHeading";
 import { getMembers } from "@/data/members";
 import type { Member, Role } from "@/data/payload-types";
 import { shuffleArray } from "@/utils/shuffleArray";
+import { Card, Center, Container, Group, Stack, Text } from "@mantine/core";
+import Image from "next/image";
+import Link from "next/link";
+import { FaUser as IconAvatar } from "react-icons/fa6";
+import ScrollAnchor from "./ScrollAnchor";
 
 export default async function HomeMembers() {
 	// get the data
@@ -32,45 +37,43 @@ export default async function HomeMembers() {
 		.filter((member) => member.roles && member.roles.length > 0);
 
 	return (
-		<section className="col-full-content sm:col-center-content pb-12">
-			<div id="verein" className="scroll-anchor" />
-			{boardMembers.length > 0 && (
-				<>
-					<SectionHeading text="Vorstand" />
-					<MemberList members={boardMembers} />
-				</>
-			)}
-			{trainers.length > 0 && (
-				<>
-					<SectionHeading text="Trainer & Betreuer" classes="mt-8" />
-					<MemberList members={shuffleArray(trainers)} />
-				</>
-			)}
-			{otherMembers.length > 0 && (
-				<>
-					<SectionHeading text="Sonstige Funktionäre" classes="mt-8" />
-					<MemberList members={otherMembers} />
-				</>
-			)}
-		</section>
+		<Container size="xl">
+			<ScrollAnchor name="verein" />
+			<Stack>
+				{boardMembers.length > 0 && (
+					<Stack>
+						<SectionHeading text="Vorstand" />
+						<MemberList members={boardMembers} showRole />
+					</Stack>
+				)}
+				{trainers.length > 0 && (
+					<Stack>
+						<SectionHeading text="Trainer & Betreuer" />
+						<MemberList members={shuffleArray(trainers)} />
+					</Stack>
+				)}
+				{otherMembers.length > 0 && (
+					<Stack>
+						<SectionHeading text="Sonstige Funktionäre" />
+						<MemberList members={otherMembers} showRole />
+					</Stack>
+				)}
+			</Stack>
+		</Container>
 	);
 }
 
-function MemberList({ members }: { members: Member[] }) {
+function MemberList({ members, showRole }: { members: Member[]; showRole?: boolean }) {
 	return (
-		<div className="member-list grid gap-4 grid-cols-[repeat(auto-fit,minmax(160px,min-content))] sm:grid-cols-[repeat(auto-fit,minmax(200px,min-content))] justify-center">
+		<Group justify="center">
 			{members?.map((member) => {
-				return <MemberCard key={member.id} member={member} />;
+				return <MemberCard key={member.id} member={member} showRole={showRole} />;
 			})}
-		</div>
+		</Group>
 	);
 }
 
-import Image from "next/image";
-import Link from "next/link";
-import { FaUser as IconAvatar } from "react-icons/fa6";
-
-async function MemberCard({ member }: { member: Member }) {
+async function MemberCard({ member, showRole }: { member: Member; showRole?: boolean }) {
 	const { id, name, email, avatar, roles } = member;
 
 	const emailClass = !email ? " hover:cursor-default" : "";
@@ -78,27 +81,26 @@ async function MemberCard({ member }: { member: Member }) {
 	const avatarUrl = avatar && typeof avatar === "object" ? avatar.url : avatar;
 
 	return (
-		<Link
-			data-member-id={id}
-			className={`member-card grid grid-cols-[4rem,1fr] sm:grid-cols-[5rem,1fr] justify-items-start place-items-center bg-white rounded-2xl shadow overflow-hidden group text-sm sm:text-base select-none${emailClass}`}
-			href={email ? `mailto:${email}` : ""}
-			scroll={false}
-		>
-			<div className="overflow-hidden w-full h-full aspect-square group bg-lion *:h-full *:w-full *:group-hover:scale-105 *:duration-300">
-				{avatarUrl ? (
-					<Image width={96} height={96} src={avatarUrl} alt={name} className="object-cover" />
-				) : (
-					<IconAvatar className="text-white mt-3" />
+		<Card component={Link} data-member-id={id} href={email ? `mailto:${email}` : ""} scroll={false} p={0}>
+			<Stack gap={0}>
+				<Group gap={0}>
+					<Stack bg="lion" w={58} h={64} c="white" pos="relative" align="center" justify="center">
+						{avatarUrl ? (
+							<Image fill src={avatarUrl} alt={name} objectFit="cover" />
+						) : (
+							<IconAvatar width={"100%"} height={"100%"} />
+						)}
+					</Stack>
+					<Text w={150} p="xs" lineClamp={2} lh="xs">
+						{name}
+					</Text>
+				</Group>
+				{showRole && roles && (
+					<Center p={2} c="white" bg="blumine">
+						<Text size="xs">{roleNames?.join(", ")}</Text>
+					</Center>
 				)}
-			</div>
-			<div className="grid grid-cols-1 overflow-hidden w-full px-2">
-				<div className="">{name}</div>
-			</div>
-			{roles && (
-				<div className="bg-blumine text-white w-full h-full hyphens-auto text-xs text-center col-span-2">
-					{roleNames?.join(", ")}
-				</div>
-			)}
-		</Link>
+			</Stack>
+		</Card>
 	);
 }

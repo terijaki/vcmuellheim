@@ -1,14 +1,28 @@
+import { getEvents } from "@/data/events";
+import type { Event } from "@/data/payload-types";
 import { SAMS } from "@/project.config";
-import getEvents from "@/utils/getEvents";
 import { samsClubMatches } from "@/utils/sams/sams-server-actions";
+import {
+	Anchor,
+	BackgroundImage,
+	Box,
+	Card,
+	Container,
+	Group,
+	Overlay,
+	SimpleGrid,
+	Stack,
+	Text,
+	Title,
+} from "@mantine/core";
 import dayjs from "dayjs";
-import { unstable_cacheLife as cacheLife } from "next/cache";
-import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
-import { FaAngleLeft as IconLeft, FaLocationDot as IconLocation, FaAngleRight as IconRight } from "react-icons/fa6";
+import { FaAngleLeft as IconLeft, FaAngleRight as IconRight } from "react-icons/fa6";
 import type { Match } from "sams-rpc";
-import HeimspieleEvents from "./HeimspieleEvents";
+import EventCard from "../EventCard";
+import MapsLink from "../MapsLink";
+import ScrollAnchor from "./ScrollAnchor";
 
 const TIME_RANGE: number = 14; // controls the display matches taking place # days in the future
 const TIME_RANGE_MAX_MULTIPLIER: number = 3;
@@ -16,31 +30,23 @@ const MIN_GAMES: number = 2;
 const MAX_GAMES: number = 4;
 
 export default async function HomeHeimspiele() {
-	"use cache";
-	cacheLife("hours");
-
-	testMinRange();
-
-	// get events // filter by max range
-	// get matches // filter my home games // filter by max range
-	// combine matches by unique home game combination
-
-	// CUSTOM EVENTS
-	const eventsToDisplay = await getEvents(0);
+	// EVENTS
+	const eventData = await getEvents();
+	const events = eventData?.docs;
 
 	// MATCHES
 	// get future matches from our teams
-	const allMatches = await samsClubMatches({ future: true });
-	// filter reduce to matches we are hosting
-	const homeGames = allMatches?.filter((match) => match.host?.club?.includes(SAMS.name));
+	const matchesAll = await samsClubMatches({ future: true });
+	// filter to only matches we are hosting
+	const matchesHomeGames = matchesAll?.filter((match) => match.host?.club?.includes(SAMS.name));
 	// sort by date
-	const homeGamesSorted = homeGames?.sort(
+	const matchesHomeGamesSorted = matchesHomeGames?.sort(
 		(b, a) => Number(new Date(a.date).getTime()) - Number(new Date(b.date).getTime()),
 	);
 	// count unique combination of date, location, league
 	const uniqueHostsStrings: string[] = [];
-	const matchesToDisplay: Match[] = [];
-	homeGamesSorted?.map((m) => {
+	const homeMatchesToDisplay: Match[] = [];
+	matchesHomeGamesSorted?.map((m) => {
 		const dateLocationCombi: string = m.date + m.matchSeries.name + m.location.id; // string to avoid duplicates if two teams are in the same league
 		if (
 			dayjs(m.date).isAfter(dayjs().add(TIME_RANGE, "days")) &&
@@ -48,179 +54,164 @@ export default async function HomeHeimspiele() {
 			!uniqueHostsStrings.includes(dateLocationCombi)
 		) {
 			uniqueHostsStrings.push(dateLocationCombi);
-			matchesToDisplay.push(m);
+			homeMatchesToDisplay.push(m);
 		}
 	});
 
-	// if there is at least one home game, display the matches
-	if (eventsToDisplay.length >= 1 || matchesToDisplay.length >= 1) {
-		// arrays to sort and fill throghout the following process
-		const matchBuffer: string[] = [];
-		return (
-			<section className="col-full-content grid grid-cols-main-grid section-bg-gradient after:opacity-95">
-				<div id="heimspiele" className="scroll-anchor" />
-				<Image
-					width={948}
-					height={639}
-					alt=""
-					loading="lazy"
-					src="/images/backgrounds/pageheading.jpg"
-					className="absolute w-full h-full z-[-10] object-cover"
-				/>
-				<div className="col-center-content py-8 sm:py-12">
-					{/* HEADING */}
-					<h2 className="text-center md:text-left text-white font-bold text-3xl">
-						{eventsToDisplay.length < 1 ? "Wir laden ein zum Heimspiel!" : "bevorstehende Veranstaltungen"}
-					</h2>
-					{/* EVENTS */}
-					{eventsToDisplay.length > 0 && (
-						<div className="col-center-content columns-1 sm:has-[>:nth-of-type(2)]:columns-2 md:columns-2 lg:has-[>:nth-of-type(5)]:columns-3 gap-4 mt-3">
-							{eventsToDisplay.map((event) => (
-								<HeimspieleEvents {...event} key={event.title + event.start} />
-							))}
-						</div>
-					)}
-					{/* MATCHES */}
-					{matchesToDisplay.length > 0 && (
-						<>
-							<p className="text-center md:text-left text-balance text-white py-2">
-								In den kommenden Tagen spielen wir in Müllheim und freuen uns über jeden Zuschauer!
-							</p>
-							<div className="col-center-content columns-1 sm:has-[>:nth-of-type(2)]:columns-2 md:columns-2 lg:has-[>:nth-of-type(5)]:columns-3 gap-4 mt-3">
-								{matchesToDisplay.map((match) => {
-									// group games together
-									const dateLocationCombi: string = `dlc${match.date}${match.location?.id}`; // this is used to group games together
-									const groupFilterOne = !matchBuffer.includes(match.uuid) && !matchBuffer.includes(dateLocationCombi);
-									if (groupFilterOne) {
-										matchBuffer.push(match.uuid); // makes sure the specific match is already rendered, this avoids duplicates if two of our teams play against each other
-										matchBuffer.push(dateLocationCombi); // this groups games together if date and location match
-										return (
-											<div
-												className="card bg-onyx text-white inline-block w-full break-inside-avoid mb-3"
-												key={match.uuid}
-											>
-												<div>
-													<time dateTime={match.date} className="text-lion mr-1">
-														{match.date}
-													</time>
-													<Link
-														href={`https://www.google.com/maps/search/?api=1&query=${match.location?.street},${match.location?.postalCode},${match.location?.city},${match.location?.name}`}
-														target="_blank"
-														rel="noopener noreferrer"
-														className="text-turquoise"
-													>
-														<IconLocation className="inline align-baseline" />
-														{match.location?.name}
-														<span className="hidden xl:inline">, {match.location?.street}</span>
-													</Link>
+	return (
+		<Box bg="blumine">
+			<ScrollAnchor name="heimspiele" />
+			<BackgroundImage src="/images/backgrounds/pageheading.jpg" py="md" style={{ zIndex: 0 }} pos="relative">
+				<Container size="xl" py="md">
+					<Stack>
+						<Title order={2} c="white">
+							{homeMatchesToDisplay.length > 0 ? "Wir laden ein zum Heimspiel!" : "bevorstehende Veranstaltungen"}
+						</Title>
+						{/* EVENTS */}
+						<EventsList events={events} />
 
-													{/* dateTimeLeagueLocationCombi */}
-													{matchesToDisplay.map((matchLeagueTime, index) => {
-														const dateTimeLeagueLocationCombi: string = `dtllc${match.date}${matchLeagueTime.time}${matchLeagueTime.matchSeries?.name}${match.location?.name}`; // this is used to group games
-														const groupFilterTwo = groupFilterOne && !matchBuffer.includes(dateTimeLeagueLocationCombi);
-														if (
-															groupFilterTwo &&
-															match.date === matchLeagueTime.date &&
-															match.location?.id === matchLeagueTime.location?.id
-														) {
-															matchBuffer.push(dateTimeLeagueLocationCombi); // this groups games together if date and location match
-															return (
-																<Fragment key={`League Name and Time ${matchLeagueTime.uuid}`}>
-																	{/* League Name and Time */}
-																	<p className="font-bold flex gap-1">
-																		<span>
-																			{matchLeagueTime.matchSeries?.name
-																				?.replace("Nord", "")
-																				.replace("Ost", "")
-																				.replace("Süd", "")
-																				.replace("West", "")}
-																		</span>
-																		<span>ab {matchLeagueTime.time} Uhr</span>
-																	</p>
-																	{/* fetch the guest for this date, time, league and location combination */}
-																	<ul>
-																		{matchesToDisplay.map((matchGuest) => {
+						{/* MATCHES */}
+						<HomeMatchesList homeMatches={matchesHomeGamesSorted} />
+					</Stack>
+				</Container>
+
+				<NoMatchesNoEvents matchCount={matchesHomeGames?.length} eventCount={events?.length} />
+
+				<Overlay backgroundOpacity={0.9} color="var(--mantine-color-blumine-filled)" blur={2} zIndex={-1} />
+			</BackgroundImage>
+		</Box>
+	);
+}
+
+function EventsList({ events }: { events?: Event[] }) {
+	if (!events || events.length === 0) return null;
+	return (
+		<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
+			{events.map((event) => (
+				<EventCard {...event} key={event.id} />
+			))}
+		</SimpleGrid>
+	);
+}
+
+function HomeMatchesList({ homeMatches }: { homeMatches?: Match[] }) {
+	if (!homeMatches || homeMatches.length === 0) return null;
+
+	// arrays to sort and fill throghout the following process
+	const matchBuffer: string[] = [];
+
+	return (
+		<Stack>
+			<Text c="white">In den kommenden Tagen spielen wir in Müllheim und freuen uns über jeden Zuschauer!</Text>
+			<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
+				{homeMatches.map((match) => {
+					// group games together
+					const dateLocationCombi: string = `dlc${match.date}${match.location?.id}`; // this is used to group games together
+					const groupFilterOne = !matchBuffer.includes(match.uuid) && !matchBuffer.includes(dateLocationCombi);
+					if (groupFilterOne) {
+						matchBuffer.push(match.uuid); // makes sure the specific match is already rendered, this avoids duplicates if two of our teams play against each other
+						matchBuffer.push(dateLocationCombi); // this groups games together if date and location match
+						return (
+							<Card bg="onyx" key={match.uuid}>
+								<Stack>
+									<time dateTime={match.date}>
+										<Text c="lion">{match.date}</Text>
+									</time>
+									<MapsLink
+										location={{
+											name: match.location.name,
+											address: {
+												postalCode: match.location.postalCode,
+												city: match.location.city,
+												street: match.location.street,
+											},
+										}}
+									/>
+
+									{/* dateTimeLeagueLocationCombi */}
+									{homeMatches.map((matchLeagueTime) => {
+										const dateTimeLeagueLocationCombi: string = `dtllc${match.date}${matchLeagueTime.time}${matchLeagueTime.matchSeries?.name}${match.location?.name}`; // this is used to group games
+										const groupFilterTwo = groupFilterOne && !matchBuffer.includes(dateTimeLeagueLocationCombi);
+										if (
+											groupFilterTwo &&
+											match.date === matchLeagueTime.date &&
+											match.location?.id === matchLeagueTime.location?.id
+										) {
+											matchBuffer.push(dateTimeLeagueLocationCombi); // this groups games together if date and location match
+											return (
+												<Fragment key={`League Name and Time ${matchLeagueTime.uuid}`}>
+													{/* League Name and Time */}
+													<p className="font-bold flex gap-1">
+														<span>
+															{matchLeagueTime.matchSeries?.name
+																?.replace("Nord", "")
+																.replace("Ost", "")
+																.replace("Süd", "")
+																.replace("West", "")}
+														</span>
+														<span>ab {matchLeagueTime.time} Uhr</span>
+													</p>
+													{/* fetch the guest for this date, time, league and location combination */}
+													<ul>
+														{homeMatches.map((matchGuest) => {
+															if (
+																matchLeagueTime.location?.id === matchGuest.location?.id &&
+																match.date === matchGuest.date &&
+																matchLeagueTime.matchSeries?.uuid === matchGuest.matchSeries?.uuid
+															) {
+																return (
+																	<Fragment key={`Guests${matchGuest.uuid}`}>
+																		{matchGuest.team?.map((teamGuest) => {
 																			if (
-																				matchLeagueTime.location?.id === matchGuest.location?.id &&
-																				match.date === matchGuest.date &&
-																				matchLeagueTime.matchSeries?.uuid === matchGuest.matchSeries?.uuid
+																				teamGuest.id !== matchGuest.host?.id &&
+																				!matchBuffer.includes(teamGuest.id + dateLocationCombi)
 																			) {
+																				matchBuffer.push(teamGuest.id + dateLocationCombi);
 																				return (
-																					<Fragment key={`Guests${matchGuest.uuid}`}>
-																						{matchGuest.team?.map((teamGuest) => {
+																					<li key={teamGuest.id} className="pl-4 opacity-75">
+																						{teamGuest.name}
+																						{matchGuest.team?.map((teamCheckTwo, index, array) => {
 																							if (
-																								teamGuest.id !== matchGuest.host?.id &&
-																								!matchBuffer.includes(teamGuest.id + dateLocationCombi)
+																								array[0].club === matchGuest.host?.club &&
+																								array[1].club === matchGuest.host?.club &&
+																								teamCheckTwo.name !== matchGuest.host?.club
 																							) {
-																								matchBuffer.push(teamGuest.id + dateLocationCombi);
-																								return (
-																									<li key={teamGuest.id} className="pl-4 opacity-75">
-																										{teamGuest.name}
-																										{matchGuest.team?.map((teamCheckTwo, index, array) => {
-																											if (
-																												array[0].club === matchGuest.host?.club &&
-																												array[1].club === matchGuest.host?.club &&
-																												teamCheckTwo.name !== matchGuest.host?.club
-																											) {
-																												if (teamCheckTwo.name === matchGuest.host?.name) {
-																													return ` : ${teamCheckTwo.name}`;
-																												}
-																											}
-																										})}
-																									</li>
-																								);
+																								if (teamCheckTwo.name === matchGuest.host?.name) {
+																									return ` : ${teamCheckTwo.name}`;
+																								}
 																							}
 																						})}
-																					</Fragment>
+																					</li>
 																				);
 																			}
 																		})}
-																	</ul>
-																</Fragment>
-															);
-														}
-													})}
-												</div>
-											</div>
-										);
-									}
-								})}
-							</div>
-							<p className="mt-3 text-white text-balance text-center sm:text-left">
-								Auswärtsspiele findest du im Spielplan der jeweiligen Mannschaft.
-								<span className="ml-1 sm:ml-0 sm:block *:inline *:align-text-center">
-									Alle offiziellen Termine unserer Mannschaften findest du
-									<IconRight className="animate-pulse text-sm mb-1" />
-									<IconRight className="-ml-2.5 animate-pulse mb-1" />
-									<Link href="termine" className="gap-1 font-bold group">
-										hier
-									</Link>
-									<IconLeft className="-mr-2.5 animate-pulse mb-1" />
-									<IconLeft className="animate-pulse text-sm mb-1" />
-								</span>
-							</p>
-						</>
-					)}
-				</div>
-			</section>
-		);
-	}
-
-	return <NoMatches matchCount={allMatches?.length} />;
+																	</Fragment>
+																);
+															}
+														})}
+													</ul>
+												</Fragment>
+											);
+										}
+									})}
+								</Stack>
+							</Card>
+						);
+					}
+				})}
+			</SimpleGrid>
+			<Text>
+				Auswärtsspiele findest du im Spielplan der jeweiligen Mannschaft.
+				<LinkToEventsPage />
+			</Text>
+		</Stack>
+	);
 }
 
-// tests
-function testMinRange() {
-	if (Number(((TIME_RANGE * TIME_RANGE_MAX_MULTIPLIER) / 7).toFixed(0)) < 2) {
-		throw "Time range for Home Games too short. Min 2 weeks required or else the number as word display is messed up. (Also it makes no sense to have it such a short range).";
-	}
-}
+function NoMatchesNoEvents({ matchCount, eventCount }: { matchCount?: number; eventCount?: number }) {
+	if (!eventCount || eventCount > 0) return null;
+	if (!matchCount) return null;
 
-async function NoMatches({ matchCount = 0 }: { matchCount?: number }) {
-	// check how many matches we have in total
-
-	// check how many events we have in total
-	const allEventsCount = (await getEvents(0, 365)).length;
 	// prepare to display them as words
 	const numToWordsDe = require("num-words-de");
 	let allMatchesCountWord = numToWordsDe.numToWord(matchCount, {
@@ -229,37 +220,28 @@ async function NoMatches({ matchCount = 0 }: { matchCount?: number }) {
 	if (matchCount > 12) {
 		allMatchesCountWord = matchCount; // shows higher numbers as integer
 	}
-	let allEventsCountWord = numToWordsDe.numToWord(allEventsCount, {
+	let allEventsCountWord = numToWordsDe.numToWord(matchCount, {
 		uppercase: true,
 	});
-	if (allEventsCount > 12) {
-		allEventsCountWord = allEventsCount; // shows higher numbers as integer
+	if (matchCount > 12) {
+		allEventsCountWord = matchCount; // shows higher numbers as integer
 	}
 	return (
-		<section className="col-full-content grid grid-cols-main-grid section-bg-gradient after:opacity-95">
-			<div id="heimspiele" className="scroll-anchor" />
-			<Image
-				width={948}
-				height={639}
-				alt=""
-				loading="lazy"
-				src="/images/backgrounds/pageheading.jpg"
-				className="absolute w-full h-full z-[-10] object-cover"
-			/>
-			<div className="col-center-content py-8 sm:py-12">
-				<h2 className="text-center md:text-left text-white font-bold text-3xl">
-					{allEventsCount >= 1 && matchCount === 0 && "Zunächst keine Veranstaltungen"}
-					{allEventsCount === 0 && matchCount === 0 && "Zunächst keine Heimspiele"}
-				</h2>
-				<p className="text-center md:text-left text-white py-2 text-balance">
+		<Container py="md">
+			<Stack c="white" gap={0}>
+				<Title order={2} c="white">
+					{eventCount >= 1 && matchCount === 0 && "Zunächst keine Veranstaltungen"}
+					{eventCount === 0 && matchCount === 0 && "Zunächst keine Heimspiele"}
+				</Title>
+				<Text>
 					In den kommenden{" "}
 					{numToWordsDe.numToWord(((TIME_RANGE * TIME_RANGE_MAX_MULTIPLIER) / 7).toFixed(0), { uppercase: false })}{" "}
 					Wochen stehen keine
-					{allEventsCount >= 1 && matchCount === 0 ? " Veranstaltungen " : " Spiele in Müllheim "}
+					{matchCount >= 1 ? " Veranstaltungen " : " Spiele in Müllheim "}
 					an.
-					{allEventsCount >= 1 && matchCount === 0 && (
-						<span className="ml-1 sm:ml-0 sm:block *:inline *:align-text-center">
-							{allEventsCount === 1
+					{matchCount >= 1 && (
+						<Text span>
+							{matchCount === 1
 								? "Einen weiteren Termin zu einem späteren Zeitpunkt findest du"
 								: `${allEventsCountWord} weitere Termine zu einem späteren Zeitpunkt findest du`}
 							<IconRight className="animate-pulse text-sm mb-1" />
@@ -269,27 +251,38 @@ async function NoMatches({ matchCount = 0 }: { matchCount?: number }) {
 							</Link>
 							<IconLeft className="-mr-2.5 animate-pulse mb-1" />
 							<IconLeft className="animate-pulse text-sm mb-1" />
-						</span>
+						</Text>
 					)}
-				</p>
+				</Text>
+
 				{matchCount >= 1 && (
-					<p className="text-center md:text-left mt-3 text-white  text-balance">
+					<Text>
 						Auswärtsspiele findest du im Spielplan der jeweiligen Mannschaft.
-						<span className="ml-1 sm:ml-0 sm:block *:inline *:align-text-center">
+						<Text span>
 							{matchCount === 1
 								? "Einen weiteren Termin findest du"
 								: `${allMatchesCountWord} weitere Termine unserer Mannschaften findest du`}
-							<IconRight className="animate-pulse text-sm mb-1" />
-							<IconRight className="-ml-2.5 animate-pulse mb-1" />
-							<Link href="termine" className="gap-1 font-bold group">
-								hier
-							</Link>
-							<IconLeft className="-mr-2.5 animate-pulse mb-1" />
-							<IconLeft className="animate-pulse text-sm mb-1" />
-						</span>
-					</p>
+						</Text>
+						<LinkToEventsPage />
+					</Text>
 				)}
-			</div>
-		</section>
+			</Stack>
+		</Container>
+	);
+}
+
+function LinkToEventsPage() {
+	return (
+		<Text span>
+			<Group gap={0}>
+				<IconRight className="animate-pulse text-sm mb-1" />
+				<IconRight className="-ml-2.5 animate-pulse mb-1" />
+				<Anchor href="termine" fw="bold" c="white">
+					hier
+				</Anchor>
+				<IconLeft className="-mr-2.5 animate-pulse mb-1" />
+				<IconLeft className="animate-pulse text-sm mb-1" />
+			</Group>
+		</Text>
 	);
 }

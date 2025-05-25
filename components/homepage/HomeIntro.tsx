@@ -1,6 +1,6 @@
 import { navbarLinks } from "@/utils/navbarLinks";
+import { BackgroundImage, Box, Button, Container, Group, Image, Overlay, Stack, Text } from "@mantine/core";
 import { unstable_cacheLife as cacheLife } from "next/cache";
-import Image from "next/image";
 import Link from "next/link";
 import { FaAnglesDown as IconDown } from "react-icons/fa6";
 
@@ -18,42 +18,55 @@ export default async function HomeIntro() {
 	const backgroundImageRandom = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
 
 	return (
-		<section
-			className={
-				"col-full-content relative group min-h-[calc(80svh-3rem)] text-white justify-items-center grid grid-cols-main-grid bg-cover bg-no-repeat bg-center before:content-[''] before:absolute before:inset-0 before:block before:z-[-5] before:bg-gradient-to-bl before:to-onyx before:from-blumine before:opacity-80"
-			}
-		>
-			<div id="intro" className="scroll-anchor" />
-			<Image
-				fill
-				priority
-				alt=""
-				src={backgroundImageRandom}
-				className="absolute w-full h-full z-[-10] object-cover"
-				quality={75}
-			/>
-			<div className="col-center-content w-full mt-6 flex flex-col items-center justify-center">
-				<p className="font-black text-2xl">Willkommen beim</p>
-				<div className="inline-block relative -mt-4 mb-4 mx-6 w-10/12 max-w-xl aspect-video">
-					<Image
-						priority
-						fill
-						src="/images/logo/logo-weiss.png"
-						alt="Vereinslogo"
-						className="object-contain border-0"
-					/>
-				</div>
-				<div className="links text-center inline-flex md:hidden gap-x-2 gap-y-2 w-10/12 flex-wrap place-content-center pb-6">
-					{navbarLinks.map((link) => {
-						return (
-							<Link key={link.name} {...link} className="button-transparent bg-onyx inline">
-								{link.name}
-							</Link>
-						);
-					})}
-				</div>
-			</div>
-			<IconDown className="scroll-indicator absolute right-5 bottom-5 text-2xl animate-pulse opacity-0" />
-		</section>
+		<Box bg="oynx" c="white">
+			<BackgroundImage src={backgroundImageRandom} style={{ zIndex: 0 }} pos="relative">
+				<Stack gap="xl" align="center" justify="space-between" mih="70vh" p="xl">
+					<Stack gap={0} align="center">
+						<Text fw="bolder" size="xl" mt="xl">
+							Willkommen beim
+						</Text>
+						<Image
+							fit="contain"
+							w={{ base: "100%", xs: "80%", sm: "70%", md: "60%", lg: "50%" }}
+							mah="40vh"
+							src="/images/logo/logo-weiss.png"
+							alt="Vereinslogo"
+						/>
+					</Stack>
+					<Container size="xs" pt="xl" mt="xl" hiddenFrom="sm">
+						<Group gap="xs" justify="center">
+							{navbarLinks.map((link) => {
+								return (
+									<Button
+										key={link.name}
+										component={Link}
+										{...link}
+										bg="onyx"
+										radius="xl"
+										bd="1px white solid"
+										c="white"
+									>
+										{link.name}
+									</Button>
+								);
+							})}
+						</Group>
+					</Container>
+				</Stack>
+
+				<IconDown
+					style={{
+						position: "absolute",
+						right: "1.25rem",
+						bottom: "1.25rem",
+						fontSize: "1.5rem",
+						animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+						opacity: 0,
+					}}
+				/>
+
+				<Overlay backgroundOpacity={0.8} color="var(--mantine-color-onyx-filled)" blur={1} zIndex={-1} />
+			</BackgroundImage>
+		</Box>
 	);
 }

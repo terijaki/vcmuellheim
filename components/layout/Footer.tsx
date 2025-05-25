@@ -1,4 +1,5 @@
 import Socials from "@/components/layout/Socials";
+import { Container, Flex, Group, Text } from "@mantine/core";
 import Link from "next/link";
 
 const legals = [
@@ -10,29 +11,28 @@ const legals = [
 
 export default function Footer() {
 	return (
-		<footer className="grid grid-cols-main-grid bg-white text-oynx py-2 text-sm text-gray-700 md:text-xs lg:text-sm antialiased select-none">
-			<div className="col-center-content grid grid-flow-col md:py-3">
-				<ul className="justify-self-start grid grid-flow-row gap-x-2 md:grid-flow-col gap-y-0">
-					{legals.map((legal) => (
-						<li key={legal.name}>
-							<Link href={legal.url} className="items-center flex hover:text-turquoise">
-								{legal.name}
+		<Container fluid bg="white" m={0} c="dimmed">
+			<Container size="xl">
+				<Group justify="space-between" wrap="nowrap" py="sm">
+					<Flex columnGap="sm" wrap="wrap" direction={{ base: "column", sm: "row" }}>
+						{legals.map((legal) => (
+							<Link key={legal.name} href={legal.url} className=" hover:text-turquoise">
+								<Text size="sm">{legal.name}</Text>
 							</Link>
-						</li>
-					))}
-				</ul>
-				<ul className="justify-self-end grid grid-flow-row gap-x-2 md:grid-flow-col gap-y-0">
-					{Socials().map((social) => (
-						<li key={social.name}>
-							<a {...social} className="items-center flex hover:text-turquoise">
-								{social.icon}
-								<span className="mr-1" />
-								{social.name}
-							</a>
-						</li>
-					))}
-				</ul>
-			</div>
-		</footer>
+						))}
+					</Flex>
+					<Flex columnGap="sm" wrap="wrap" direction={{ base: "column", sm: "row" }}>
+						{Socials().map((social) => (
+							<Link key={social.name} {...social} className=" hover:text-turquoise">
+								<Group>
+									{social.icon}
+									<Text size="sm">{social.name}</Text>
+								</Group>
+							</Link>
+						))}
+					</Flex>
+				</Group>
+			</Container>
+		</Container>
 	);
 }

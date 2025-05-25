@@ -1,13 +1,12 @@
-import React from "react";
+import { Center, Divider, type MantineColor, Stack, Title } from "@mantine/core";
 
-export default function SectionHeading(props: { text: string; classes?: string }) {
+export default function SectionHeading({ text, color = "blumine" }: { text: string; color?: MantineColor }) {
 	return (
-		<div className="flex justify-center">
-			<h2
-				className={`text-onyx text-2xl tracking-wider font-thin p-0 m-6 inline-block text-center border-b-2 border-onyx before:-m-2 after:-m-2 whitespace-nowrap ${props.classes}`}
-			>
-				{props.text}
-			</h2>
-		</div>
+		<Center c={color} pb="xs">
+			<Stack gap={0}>
+				<Title order={3}>{text}</Title>
+				<Divider mx="xs" size="sm" color={color} opacity={0.3} />
+			</Stack>
+		</Center>
 	);
 }
