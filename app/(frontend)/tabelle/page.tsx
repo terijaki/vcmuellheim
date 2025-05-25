@@ -1,10 +1,9 @@
 import CardTitle from "@/components/CardTitle";
-import PageHeading from "@/components/layout/PageHeading";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import Matches from "@/components/sams/Matches";
 import RankingTable from "@/components/sams/RankingTable";
 import { samsClubData, samsClubMatches, samsClubRankings } from "@/utils/sams/sams-server-actions";
-import { Card, CardSection, SimpleGrid, Stack } from "@mantine/core";
+import { Card, CardSection, SimpleGrid, Stack, Text } from "@mantine/core";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -67,28 +66,24 @@ export default async function Tabelle() {
 function NoRankingsData() {
 	const currentMonth = new Date().getMonth() + 1;
 	return (
-		<>
-			<PageHeading title="Tabelle" />
-
-			<div className="col-center-content card my-6">
-				<h2 className="card-heading">Keine Daten gefunden</h2>
-				<p>
+		<PageWithHeading title="Tabelle">
+			<Card>
+				<CardTitle>Keine Daten gefunden</CardTitle>
+				<Text>
 					Tablleninformationen stehen aktuell nicht zur Verfügung. Eventuell liegt ein technisches Problem vor, oder es
 					ist einfach der falsche Zeitpunkt.
-				</p>
-			</div>
-			{currentMonth >= 4 && currentMonth <= 9 ? (
-				<div className="col-center-content card mb-6">
-					<h2 className="card-heading">Außerhalb der Saison?</h2>
-					<p className="mt-3">
+				</Text>
+			</Card>
+			{currentMonth >= 4 && currentMonth <= 9 && (
+				<Card>
+					<CardTitle>Außerhalb der Saison?</CardTitle>
+					<Text>
 						Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt. Dazwischen
 						und kurz vor Saisonbeginn, wurden die neusten Informationen vom Südbadischen Volleyballverband ggf. noch
 						nicht veröffentlicht.
-					</p>
-				</div>
-			) : (
-				""
+					</Text>
+				</Card>
 			)}
-		</>
+		</PageWithHeading>
 	);
 }
