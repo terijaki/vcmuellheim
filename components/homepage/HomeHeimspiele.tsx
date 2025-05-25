@@ -88,7 +88,7 @@ function EventsList({ events }: { events?: Event[] }) {
 	return (
 		<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
 			{events.map((event) => (
-				<EventCard {...event} key={event.id} />
+				<EventCard {...event} key={event.id} dark />
 			))}
 		</SimpleGrid>
 	);

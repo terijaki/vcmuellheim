@@ -24,3 +24,25 @@ export async function getPictures(limit?: number) {
 		console.error("Error fetching pictures:", error);
 	}
 }
+
+export async function getTeamPictures(slug:string, limit?: number) {
+	"use cache";
+	cacheLife("days");
+
+	const payload = await getPayload({ config });
+
+	try {
+		const pictures = await payload.find({
+			collection: "media",
+			depth: 1,
+			where: {
+				"teams.images": { exists: true },
+			},
+			limit: Math.min(limit || 100, 100),
+		});
+
+		if (pictures) return pictures;
+	} catch (error) {
+		console.error("Error fetching pictures:", error);
+	}
+}

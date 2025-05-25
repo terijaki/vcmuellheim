@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import MapsLink from "./MapsLink";
 
-export default function EventCard(props: Event) {
+export default function EventCard(props: Event & { dark?: boolean }) {
 	const { id, title, date, address } = props;
 
 	let dateDisplay = dayjs(date.startDate).format("DD.MM.YYYY HH:mm [Uhr]");
@@ -18,7 +18,14 @@ export default function EventCard(props: Event) {
 	}
 
 	return (
-		<Card key={id} bg="onyx" c="white" component={Link} href={`/termine/${id}`}>
+		<Card
+			key={id}
+			bg={props.dark ? "onyx" : "gray.0"}
+			c={props.dark ? "white" : undefined}
+			component={Link}
+			href={`/termine/${id}`}
+			withBorder={!props.dark}
+		>
 			<time data-label="datetime" dateTime={date.startDate}>
 				<Text fw="bold">{dateDisplay}</Text>
 			</time>

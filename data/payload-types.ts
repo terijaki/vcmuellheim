@@ -76,6 +76,7 @@ export interface Config {
     teams: Team;
     locations: Location;
     sponsors: Sponsor;
+    'sams-teams': SamsTeam;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -98,6 +99,7 @@ export interface Config {
     teams: TeamsSelect<false> | TeamsSelect<true>;
     locations: LocationsSelect<false> | LocationsSelect<true>;
     sponsors: SponsorsSelect<false> | SponsorsSelect<true>;
+    'sams-teams': SamsTeamsSelect<false> | SamsTeamsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -340,19 +342,23 @@ export interface Team {
         | 'Kreisklasse'
       )
     | null;
+  /**
+   * Verknüpfung zu einem Team im SBVV-System. Wird für den Spielplan und die Ergebnisse benötigt.
+   */
+  sbvvTeam?: (string | null) | SamsTeam;
   description?: string | null;
   age?: number | null;
   people?: {
     /**
      * Alle Trainer werden auf der Mannschaftskarte angezeigt; auch Co-Trainer.
      */
-    coach?: (string | Member)[] | null;
+    coaches?: (string | Member)[] | null;
     /**
      * Kontaktpersonen zusätzlich oder alternativ zu den Trainern. Diese werden auf der Mannschaftskarte angezeigt.
      */
-    contactPerson?: (string | Member)[] | null;
+    contactPeople?: (string | Member)[] | null;
   };
-  schedule?:
+  schedules?:
     | {
         day: ('montags' | 'dienstags' | 'mittwochs' | 'donnerstags' | 'freitags' | 'samstags' | 'sonntags')[];
         time: {
@@ -363,6 +369,26 @@ export interface Team {
         id?: string | null;
       }[]
     | null;
+  images?: (string | Media)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sams-teams".
+ */
+export interface SamsTeam {
+  id: string;
+  fullName?: string | null;
+  name: string;
+  uuid: string;
+  seasonTeamId?: string | null;
+  season?: string | null;
+  matchSeries_Name?: string | null;
+  matchSeries_Id?: string | null;
+  matchSeries_Uuid?: string | null;
+  matchSeries_AllSeasonId?: string | null;
+  matchSeries_Type?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -424,6 +450,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'sponsors';
         value: string | Sponsor;
+      } | null)
+    | ({
+        relationTo: 'sams-teams';
+        value: string | SamsTeam;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -578,15 +608,16 @@ export interface TeamsSelect<T extends boolean = true> {
   slug?: T;
   gender?: T;
   league?: T;
+  sbvvTeam?: T;
   description?: T;
   age?: T;
   people?:
     | T
     | {
-        coach?: T;
-        contactPerson?: T;
+        coaches?: T;
+        contactPeople?: T;
       };
-  schedule?:
+  schedules?:
     | T
     | {
         day?: T;
@@ -599,6 +630,7 @@ export interface TeamsSelect<T extends boolean = true> {
         location?: T;
         id?: T;
       };
+  images?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -628,6 +660,24 @@ export interface SponsorsSelect<T extends boolean = true> {
   website?: T;
   logo?: T;
   expiryDate?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sams-teams_select".
+ */
+export interface SamsTeamsSelect<T extends boolean = true> {
+  fullName?: T;
+  name?: T;
+  uuid?: T;
+  seasonTeamId?: T;
+  season?: T;
+  matchSeries_Name?: T;
+  matchSeries_Id?: T;
+  matchSeries_Uuid?: T;
+  matchSeries_AllSeasonId?: T;
+  matchSeries_Type?: T;
   updatedAt?: T;
   createdAt?: T;
 }

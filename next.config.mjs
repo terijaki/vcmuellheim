@@ -45,6 +45,10 @@ const nextConfig = {
         source: "/rss.json",
         destination: "/rss/json",
       },
+      {
+        source: "/logo",
+        destination: "/brand",
+      },
     ];
   },
   experimental: {

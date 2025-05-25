@@ -15,6 +15,7 @@ import { Media } from "./collections/Media";
 import { Members } from "./collections/Members";
 import { News } from "./collections/News";
 import { Roles } from "./collections/Roles";
+import { SamsTeams } from "./collections/SamsTeams";
 import { Sponsors } from "./collections/Sponsors";
 import { Teams } from "./collections/Teams";
 import { Users } from "./collections/Users";
@@ -53,7 +54,7 @@ export default buildConfig({
 		timezones: { defaultTimezone: "Europe/Berlin" },
 		autoLogin: autoLoginConfig,
 	},
-	collections: [Users, Media, Events, News, Roles, Members, Teams, Locations, Sponsors],
+	collections: [Users, Media, Events, News, Roles, Members, Teams, Locations, Sponsors, SamsTeams],
 	editor: lexicalEditor(),
 	typescript: {
 		outputFile: path.resolve(dirname, "data/payload-types.ts"),

@@ -1,7 +1,10 @@
+import CardTitle from "@/components/CardTitle";
 import PageHeading from "@/components/layout/PageHeading";
+import PageWithHeading from "@/components/layout/PageWithHeading";
 import Matches from "@/components/sams/Matches";
 import RankingTable from "@/components/sams/RankingTable";
 import { samsClubData, samsClubMatches, samsClubRankings } from "@/utils/sams/sams-server-actions";
+import { Card, CardSection, SimpleGrid, Stack } from "@mantine/core";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -24,37 +27,40 @@ export default async function Tabelle() {
 
 	const matchSeriesDisplayed: string[] = []; //placeholder to avoid duplicate league displays
 	return (
-		<>
-			<PageHeading title={"Tabelle"} />
-			<div className="col-full-content sm:col-center-content grid gap-y-8 md:gap-4 my-4 sm:grid-cols-1 lg:grid-cols-2 prose-h2:text-2xl">
-				{clubRankings == null && <div>Lade Tabellendaten...</div>}
-				<Suspense>
-					{clubRankings?.map((rankings) => {
-						if (!matchSeriesDisplayed.includes(rankings.matchSeries.uuid)) {
-							matchSeriesDisplayed.push(rankings.matchSeries.uuid);
-							return (
-								<Suspense
-									fallback={
-										<div className="card-narrow p-6 flex justify-center place-items-center">
-											lade {rankings.matchSeries.name}..
-										</div>
-									}
-									key={rankings.matchSeries.id}
-								>
-									<RankingTable {...rankings} linkToTeamPage={true} clubData={clubData} />
-								</Suspense>
-							);
-						}
-					})}
-				</Suspense>
-			</div>
-			{recentMatches && recentMatches.length > 0 && (
-				<div className="col-full-content sm:col-center-content card-narrow-flex my-4 mb-8">
-					<h2 className="card-heading">Unsere letzten {lastResultWord} Spiele</h2>
-					<Matches matches={recentMatches} type="past" />
-				</div>
-			)}
-		</>
+		<PageWithHeading title={"Tabelle"}>
+			<Stack>
+				<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
+					{clubRankings == null && <div>Lade Tabellendaten...</div>}
+					<Suspense>
+						{clubRankings?.map((rankings) => {
+							if (!matchSeriesDisplayed.includes(rankings.matchSeries.uuid)) {
+								matchSeriesDisplayed.push(rankings.matchSeries.uuid);
+								return (
+									<Suspense
+										fallback={
+											<div className="card-narrow p-6 flex justify-center place-items-center">
+												lade {rankings.matchSeries.name}..
+											</div>
+										}
+										key={rankings.matchSeries.id}
+									>
+										<RankingTable {...rankings} linkToTeamPage={true} clubData={clubData} />
+									</Suspense>
+								);
+							}
+						})}
+					</Suspense>
+				</SimpleGrid>
+				{recentMatches && recentMatches.length > 0 && (
+					<Card>
+						<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
+						<CardSection>
+							<Matches matches={recentMatches} type="past" />
+						</CardSection>
+					</Card>
+				)}
+			</Stack>
+		</PageWithHeading>
 	);
 }
 

@@ -1,9 +1,11 @@
+import CardTitle from "@/components/CardTitle";
 import ImageGallery from "@/components/ImageGallery";
+import MapsLink from "@/components/MapsLink";
 import SharingButton from "@/components/SharingButton";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import { getEventItem } from "@/data/events";
 import { Club } from "@/project.config";
-import { Card, Center, Stack, Text, Title, TypographyStylesProvider } from "@mantine/core";
+import { Card, Center, Grid, GridCol, Stack, Text, TypographyStylesProvider } from "@mantine/core";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
@@ -21,7 +23,7 @@ export default async function EventPage({ params }: { params: Promise<{ id: stri
 	const event = await getEventItem(id);
 	if (!event) return null; // TODO better error 404 handling
 
-	const { title, date, description, location, images } = event;
+	const { title, date, description, address, images } = event;
 
 	// filter out the thumbnail urls
 	const thumbnails = images?.map((i) => (typeof i === "string" ? i : i.url)).filter((i) => typeof i === "string");
@@ -36,28 +38,51 @@ export default async function EventPage({ params }: { params: Promise<{ id: stri
 		}
 	}
 
+	const hasAddress = address && (address.name || address.street || address.postalCode || address.city);
+
 	return (
 		<PageWithHeading title={title} subtitle={date.startDate} subtitleDate={true}>
-			<Stack>
+			<Stack gap="lg">
 				<Card>
-					<Title order={2}>Zeit</Title>
-					<Text>{dateDisplay}</Text>
-					{location && (
-						<>
-							<Title order={2}>Ort</Title>
-							<Text>{location}</Text>
-						</>
-					)}
-					{description && (
-						<>
-							<Title order={2}>Beschreibung</Title>
-							<TypographyStylesProvider>
-								<RichText data={description} />
-							</TypographyStylesProvider>
-						</>
-					)}
-					<ImageGallery images={thumbnails} />
+					<Grid gutter="lg">
+						<GridCol span={{ base: 12, sm: 5, md: 4 }}>
+							<Stack>
+								<Stack gap={0}>
+									<CardTitle>Zeit</CardTitle>
+									<Text>{dateDisplay}</Text>
+								</Stack>
+								{hasAddress && (
+									<Stack gap={0}>
+										<CardTitle>Ort</CardTitle>
+										<MapsLink location={address} />
+										<Stack gap={0}>
+											<Text>{address?.name}</Text>
+											<Text>{address?.street}</Text>
+											<Text>{address?.city}</Text>
+											<Text>{address?.postalCode}</Text>
+										</Stack>
+									</Stack>
+								)}
+							</Stack>
+						</GridCol>
+						<GridCol span={{ base: 12, sm: 7, md: 8 }}>
+							{description && description.root.children.length > 0 && (
+								<Stack gap={0}>
+									<CardTitle>Beschreibung</CardTitle>
+									<TypographyStylesProvider>
+										<RichText data={description} />
+									</TypographyStylesProvider>
+								</Stack>
+							)}
+						</GridCol>
+					</Grid>
 				</Card>
+				{thumbnails && (
+					<Card>
+						<CardTitle>Fotos</CardTitle>
+						<ImageGallery images={thumbnails} />
+					</Card>
+				)}
 				<Center>
 					<SharingButton label={"Termin teilen"} />
 				</Center>

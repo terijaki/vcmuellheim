@@ -31,9 +31,6 @@ export default async function HomeTeams() {
 					{teams.map((team) => (
 						<TeamCard {...team} key={team.id} />
 					))}
-					{teams.slice(0, 2).map((team) => (
-						<TeamCard {...team} key={`${team.id}222222222222222222222`} />
-					))}
 				</Group>
 			</Container>
 		</Box>

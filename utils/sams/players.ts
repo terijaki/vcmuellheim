@@ -1,9 +1,9 @@
-import { unstable_cacheLife as cacheLife } from "next/cache";
+// import { unstable_cacheLife as cacheLife } from "next/cache";
 
 const SAMS_PLAYER_URL = "https://www.sbvv-online.de/servlet/sportsclub/TeamMemberCsvExport?teamId=";
 
 export type Player = {
-	fistName: string;
+	firstName: string;
 	lastName: string;
 	nationality?: string;
 	number?: number;
@@ -12,10 +12,9 @@ export type Player = {
 };
 export type TeamPlayers = { date: Date; players?: Player[] };
 
-// TODO descriütion
 export async function samsPlayers(teamId: number | string): Promise<TeamPlayers | undefined> {
-	"use cache";
-	cacheLife("days");
+	// "use cache";
+	// cacheLife("days");
 
 	try {
 		if (!teamId) throw "No teamId provided to fetch player data";
@@ -31,6 +30,8 @@ export async function samsPlayers(teamId: number | string): Promise<TeamPlayers 
 		const decoder = new TextDecoder("iso-8859-1"); // this is needed to deal with german Umlauts
 		const csvString = decoder.decode(await data.arrayBuffer());
 		if (!csvString) throw `🚨 CSV player data for team ${teamId} could not be decoded`;
+
+		if (csvString.includes("Error")) throw `🚨 CSV player data for team ${teamId} could not be retrieved: ${csvString}`;
 
 		// convert it to json
 		const dumbcsv = require("dumb-csv");

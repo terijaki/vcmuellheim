@@ -1,6 +1,7 @@
 "use client";
 
-import { Anchor, Group } from "@mantine/core";
+import type { AnchorProps } from "@mantine/core";
+import { Anchor, Group, Text } from "@mantine/core";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaLocationDot as IconLocation } from "react-icons/fa6";
@@ -14,7 +15,11 @@ type MapsLinkLocation = {
 	};
 };
 
-export default function MapsLink({ location }: { location: MapsLinkLocation }) {
+interface MapsLinkProps extends Omit<AnchorProps, "href" | "component" | "target"> {
+	location: MapsLinkLocation;
+}
+
+export default function MapsLink({ location, ...anchorProps }: MapsLinkProps) {
 	const [mapsUrl, setMapsUrl] = useState<string | null>(null);
 
 	if (!location) return null;
@@ -55,10 +60,10 @@ export default function MapsLink({ location }: { location: MapsLinkLocation }) {
 	if (!mapsUrl) return <>{displayName}</>;
 
 	return (
-		<Anchor component={Link} href={mapsUrl} c="turquoise" target="_blank">
-			<Group gap="xs">
+		<Anchor component={Link} href={mapsUrl} c="turquoise" target="_blank" {...anchorProps}>
+			<Group gap={2} wrap="nowrap">
 				<IconLocation />
-				{displayName}
+				<Text truncate>{displayName}</Text>
 			</Group>
 		</Anchor>
 	);

@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa6";
 import MapsLink from "./MapsLink";
 
-export default function TeamCard({ id, slug, name, league, age, description, schedule, people }: Team) {
+export default function TeamCard({ id, slug, name, league, age, description, schedules, people }: Team) {
 	const [opened, { toggle }] = useDisclosure(false);
 
 	return (
@@ -36,35 +36,35 @@ export default function TeamCard({ id, slug, name, league, age, description, sch
 							<Text>ab {age} Jahre</Text>
 						</Group>
 					)}
-					{schedule && (
+					{schedules && (
 						<Stack gap={0}>
 							<Group gap="xs" fw="bold">
 								<IconClock className="text-xs" />
 								Trainingszeiten:
 							</Group>
-							{schedule?.map((training) => {
-								const separator = training.day.length > 2 ? ", " : " & ";
+							{schedules?.map((schedule) => {
+								const separator = schedule.day.length > 2 ? ", " : " & ";
 
 								return (
-									<Fragment key={training.id}>
+									<Fragment key={schedule.id}>
 										<Text>
-											{training.day.join(separator)} {dayjs(training.time.startTime).format("HH:mm")} -{" "}
-											{dayjs(training.time.endTime).format("HH:mm")} Uhr
+											{schedule.day.join(separator)} {dayjs(schedule.time.startTime).format("HH:mm")} -{" "}
+											{dayjs(schedule.time.endTime).format("HH:mm")} Uhr
 										</Text>
-										{typeof training.location === "object" && <MapsLink location={training.location} />}
+										{typeof schedule.location === "object" && <MapsLink location={schedule.location} />}
 									</Fragment>
 								);
 							})}
 						</Stack>
 					)}
-					{people?.coach && people.coach.length >= 1 && (
+					{people?.coaches && people.coaches.length >= 1 && (
 						<Stack gap={0}>
 							<Group gap="xs" fw="bold">
-								{people.coach.length === 1 ? <IconPerson className="text-xs" /> : <IconPersons className="text-xs" />}
+								{people.coaches.length === 1 ? <IconPerson className="text-xs" /> : <IconPersons className="text-xs" />}
 								Trainer:
 							</Group>
 							<Box>
-								{people.coach?.map((trainer, index) => {
+								{people.coaches?.map((trainer, index) => {
 									if (typeof trainer !== "object") return null;
 									return (
 										<Fragment key={trainer.name}>
@@ -82,10 +82,10 @@ export default function TeamCard({ id, slug, name, league, age, description, sch
 							</Box>
 						</Stack>
 					)}
-					{people?.contactPerson && people.contactPerson && (
+					{people?.contactPeople && people.contactPeople && (
 						<Stack gap={0}>
 							<Group gap="xs" fw="bold">
-								{people.contactPerson.length === 1 ? (
+								{people.contactPeople.length === 1 ? (
 									<IconPerson className="text-xs" />
 								) : (
 									<IconPersons className="text-xs" />
@@ -93,7 +93,7 @@ export default function TeamCard({ id, slug, name, league, age, description, sch
 								Ansprechperson:
 							</Group>
 							<Box>
-								{people.contactPerson?.map((person, index) => {
+								{people.contactPeople?.map((person, index) => {
 									if (typeof person !== "object") return null;
 									return (
 										<Fragment key={person.name}>

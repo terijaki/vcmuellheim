@@ -17,7 +17,7 @@ export default async function NewsListPage({
 	const { page = 1 } = await searchParams;
 	// verify if page is a number, if not set to 1
 	const parsedPage = typeof page === "string" && !Number.isNaN(Number(page)) ? Number(page) : 1;
-	const data = await getNews(undefined, parsedPage);
+	const data = await getNews(24, parsedPage);
 	const events = data?.docs;
 
 	return (
@@ -73,11 +73,11 @@ function Paginator({ total, current }: { total: number; current: number }) {
 	return (
 		<div className="col-center-content py-3 flex justify-center mb-3">
 			<div className="text-oynx grid grid-flow-col border border-onyx divide-x divide-onyx rounded prose-a:py-1 prose-a:px-3 prose-p:px-2 prose-p:m-0 prose-a:text-onyx hover:prose-a:bg-blumine hover:prose-p:bg-blumine hover:prose-a:text-white hover:prose-p:text-white">
-				{current > 1 && <Link href="1">1</Link>}
+				{current > 1 && <Link href="?page=1">1</Link>}
 				{current > 4 && <p>...</p>}
 				{currentOffsetMinusTwo}
 				{currentOffsetMinusOne}
-				<Link href={current.toString()} className="!bg-onyx !text-white">
+				<Link href={`?page=${current.toString()}`} className="!bg-onyx !text-white">
 					{current.toString()}
 				</Link>
 				{currentOffsetPlusOne}

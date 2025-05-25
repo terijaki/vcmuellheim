@@ -10,7 +10,7 @@ export async function getNews(limit?: number, page?: number) {
 		const news = await payload.find({
 			collection: "news",
 			limit: Math.min(limit || 50, 50),
-			sort: "publishedDate",
+			sort: "-publishedDate",
 			page: page || 1,
 			select: {
 				id: true,

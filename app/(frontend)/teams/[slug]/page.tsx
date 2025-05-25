@@ -1,246 +1,343 @@
-import PageHeading from "@/components/layout/PageHeading";
+import CardTitle from "@/components/CardTitle";
+import ImageGallery from "@/components/ImageGallery";
+import MapsLink from "@/components/MapsLink";
+import MemberCard from "@/components/MemberCard";
+import PageWithHeading from "@/components/layout/PageWithHeading";
 import Matches from "@/components/sams/Matches";
 import RankingTable from "@/components/sams/RankingTable";
-import MembersCard from "@/components/ui/MemberCard";
-import { getMembers } from "@/data/members";
+import type { Member, Team } from "@/data/payload-types";
+import { getTeams } from "@/data/teams";
 import { Club } from "@/project.config";
-import { getTeams } from "@/utils/getTeams";
 import { samsPlayers } from "@/utils/sams/players";
-import { samsClubData, samsMatches, samsRanking, samsSeasons } from "@/utils/sams/sams-server-actions";
-import { headers } from "next/headers";
-import Image from "next/image";
-import Link from "next/link";
-import { Fragment } from "react";
+import { samsClubData, samsMatches, samsRanking } from "@/utils/sams/sams-server-actions";
 import {
-	FaClock as IconClock,
-	FaEnvelope as IconEmail,
-	FaUser as IconPerson,
-	FaUserGroup as IconPersons,
-	FaBullhorn as IconSubscribe,
-} from "react-icons/fa6";
+	Anchor,
+	AspectRatio,
+	Button,
+	Card,
+	CardSection,
+	Center,
+	Flex,
+	Group,
+	Loader,
+	SimpleGrid,
+	Stack,
+	Text,
+} from "@mantine/core";
+import dayjs from "dayjs";
+import type { Metadata } from "next";
+import { headers } from "next/headers";
+import Link from "next/link";
+import { Suspense } from "react";
+import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import Flag from "react-world-flags";
-import type { Match, Rankings } from "sams-rpc";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+	const { slug } = await params;
+	const data = await getTeams(false, slug);
+	return {
+		title: data?.docs?.[0]?.name || Club.shortName,
+	};
+}
 
 export default async function TeamPage(props: { params: Promise<{ slug: string }> }) {
-	const params = await props.params;
+	const { slug } = await props.params;
 
-	const team = (await getTeams(undefined, params.slug))[0];
+	const teams = await getTeams(false, slug);
+	const team = teams?.docs?.[0];
 
-	if (!team.sbvvId) return null;
-
+	// sbvv identifier
+	if (!team?.sbvvTeam || typeof team.sbvvTeam === "string") return null;
+	const samsTeam = team.sbvvTeam;
+	const sbvvId = samsTeam.seasonTeamId;
 	const clubData = await samsClubData();
-	const teamData = clubData?.teams?.team.find((t) => t.id === team.sbvvId);
+	const teamData = clubData?.teams?.team.find((t) => t.uuid === samsTeam.uuid);
 	const allSeasonMatchSeriesId = teamData?.matchSeries.allSeasonId;
-	const leagueName = teamData?.matchSeries?.name;
 
-	let ranking: Rankings | undefined = undefined;
-	let futureMatches: Match[] | undefined = undefined;
-	let pastMatches: Match[] | undefined = undefined;
+	// team images
+	const imageUrls =
+		team.images
+			?.filter((media): media is NonNullable<typeof media> & { url: string } =>
+				Boolean(typeof media === "object" && media?.url),
+			)
+			.map((image) => image.url) || [];
 
-	if (allSeasonMatchSeriesId) {
-		ranking = await samsRanking({ allSeasonMatchSeriesId });
-		futureMatches = await samsMatches({ allSeasonMatchSeriesId, future: true });
-		pastMatches = await samsMatches({ allSeasonMatchSeriesId, past: true });
-	}
+	const CenteredLoader = () => (
+		<Center p="md">
+			<Loader color="onyx" />
+		</Center>
+	);
+	return (
+		<PageWithHeading title={team.name} subtitle={team.league || undefined}>
+			{/* {team.name && leagueName && <PageHeading title={team.name} subtitle={leagueName} />} */}
+			<Stack>
+				{/* display players */}
+				<Suspense fallback={<CenteredLoader />}>
+					<TeamPlayers sbvvId={sbvvId} />
+				</Suspense>
+				<Suspense fallback={<CenteredLoader />}>
+					<TeamMatches allSeasonMatchSeriesId={allSeasonMatchSeriesId} sbvvId={sbvvId} slug={slug} />
+				</Suspense>
+				<Suspense fallback={<CenteredLoader />}>
+					<TeamRanking allSeasonMatchSeriesId={allSeasonMatchSeriesId} />
+				</Suspense>
+				<Suspense fallback={<CenteredLoader />}>
+					<TeamSchedule schedules={team.schedules} />
+				</Suspense>
+				<Suspense fallback={<CenteredLoader />}>
+					<TeamTrainers people={team.people} />
+				</Suspense>
+				<Suspense fallback={<CenteredLoader />}>
+					<TeamPictures images={imageUrls} />
+				</Suspense>
+				<Center>
+					<Button component={Link} href="/#mannschaften">
+						zu den anderen Mannschaften
+					</Button>
+				</Center>
+			</Stack>
+		</PageWithHeading>
+	);
+}
 
-	const seasons = await samsSeasons();
-	const latestSeason = seasons ? seasons[0] : undefined;
+async function TeamPlayers({ sbvvId }: { sbvvId?: string | number | null }) {
+	if (!sbvvId) return null;
+	// retrive players
+	const teamPlayers = await samsPlayers(sbvvId);
+	const players = teamPlayers?.players;
+	if (!players || players.length === 0) return null;
+
+	const playersWithoutNumber = players.filter((player) => !player.number || player.number === 0);
+
+	// sort players by numbers if every player has a number. otherwise sort by lastname
+	players.sort((a, b) => {
+		if (playersWithoutNumber.length === 0) return (a.number || 0) - (b.number || 0);
+		return a.lastName.localeCompare(b.lastName);
+	});
+
+	return (
+		<Card data-section="players">
+			<CardTitle>Spieler</CardTitle>
+			<SimpleGrid cols={{ base: 1, xs: 2, md: 3, lg: 4 }}>
+				{players.map((player, index) => {
+					return (
+						<Group key={`${player.lastName}${player.firstName}${index}`} gap="xs" wrap="nowrap">
+							<Text w={16} miw={16} ta="center">
+								{player.number}
+							</Text>
+							<Card p={0} shadow="xs" radius="xs" miw={32}>
+								<AspectRatio ratio={8 / 6} w={32}>
+									<Flag code={player.nationality} />
+								</AspectRatio>
+							</Card>
+
+							<Text lineClamp={2} style={{ textWrap: "balance" }}>
+								{player.firstName} {player.lastName}
+							</Text>
+						</Group>
+					);
+				})}
+			</SimpleGrid>
+		</Card>
+	);
+}
+
+async function TeamMatches({
+	allSeasonMatchSeriesId,
+	sbvvId,
+	slug,
+}: { allSeasonMatchSeriesId?: string; sbvvId?: string | number | null; slug: string }) {
+	if (!allSeasonMatchSeriesId) return null;
+
+	const futureMatches = await samsMatches({ allSeasonMatchSeriesId, future: true });
+	const pastMatches = await samsMatches({ allSeasonMatchSeriesId, past: true });
+
 	// check if its currently a month outside of the season
 	const currentMonth = new Date().getMonth() + 1;
 	const seasonMonth = !!(currentMonth >= 5 && currentMonth <= 9);
-	// retrive players
-	const teamPlayers = await samsPlayers(team.sbvvId);
 
 	// webcal link
 	const headersList = await headers();
 	const host = process.env.NODE_ENV === "development" && headersList.get("host");
-	const webcalLink = `webcal://${host || Club.domain}/ics/${params.slug}.ics`;
+	const webcalLink = `webcal://${host || Club.domain}/ics/${slug}.ics`;
+
+	if (!futureMatches && !pastMatches)
+		return (
+			<Card>
+				<CardTitle>Keine Spieltermine gefunden</CardTitle>
+				{seasonMonth && (
+					<Text>Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.</Text>
+				)}
+				<Text>
+					<Anchor href={webcalLink} style={{ display: "inline-flex", gap: 4, alignItems: "baseline" }}>
+						<IconSubscribe /> Abboniere unseren Kalender
+					</Anchor>
+					, um neue Termine saisonübergreifend automatisch in deiner Kalender-App zu empfangen.
+				</Text>
+			</Card>
+		);
 
 	return (
 		<>
-			{team.title && leagueName && <PageHeading title={team.title} subtitle={leagueName} />}
-
-			<div className="col-full-content md:col-center-content *:mb-10 mt-6">
-				{/* display players */}
-				{teamPlayers?.players && teamPlayers.players?.length > 0 && (
-					<div className="card *:mb-3" data-section="players">
-						<h2 className="card-heading">Spieler</h2>
-						<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
-							{teamPlayers.players.map((player) => {
-								return (
-									<Fragment key={JSON.stringify(player)}>
-										<div className="odd:bg-blac1k/5 inline-flex gap-1">
-											<div className="flex justify-center items-center h-6 w-8 shrink-0">{player.number}</div>
-											<div className="flex justify-center items-center h-6 w-8 shrink-0">
-												<Flag
-													code={player.nationality}
-													className="h-full w-full object-cover border-onyx/10 border-[1px] shadow"
-												/>
-											</div>
-											<div className="ml-1 col-span-2 text-balance">
-												{player.fistName} {player.lastName}
-											</div>
-										</div>
-									</Fragment>
-								);
-							})}
-						</div>
-						<p className="text-right text-sm italic text-gray-400 py-1 px-3" data-match-type="past">
-							Saison {latestSeason?.name}
-						</p>
-					</div>
-				)}
-
-				{/* matches */}
-				{futureMatches || pastMatches ? (
-					<>
-						<div className="card" data-section="calendar">
-							<h2 className="card-heading">Mannschaftskalender</h2>
-							<p className="my-3 text-pretty">
-								<Link href={webcalLink} className="gap-1 hyperlink group">
-									<IconSubscribe className="inline align-baseline" /> Abboniere unseren Kalender
-								</Link>
-								, um neue Termine saisonübergreifend automatisch in deiner Kalender-App zu empfangen.
-							</p>
-						</div>
-						{pastMatches && (
-							<div className="card-narrow-flex" data-section="match results">
-								<h2 className="card-heading">Ergebnisse</h2>
-								<Matches type="past" matches={pastMatches} highlightTeamId={team.sbvvId.toString()} />
-							</div>
-						)}
-						{futureMatches ? (
-							<div className="card-narrow-flex" data-section="future matches">
-								<h2 className="card-heading">Spielplan</h2>
-								<Matches type="future" matches={futureMatches} highlightTeamId={team.sbvvId.toString()} />
-							</div>
-						) : (
-							<div className="card" data-section="empty future matches">
-								<h2 className="card-heading">Spielplan</h2>
-								<p>Aktuell konnten keine Spieltermine gefunden werden.</p>
-								{!seasonMonth && (
-									<p>
-										Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.
-									</p>
-								)}
-							</div>
-						)}
-					</>
-				) : (
-					<div className="card-narrow-flex">
-						<h2 className="card-heading">Keine Spieltermine gefunden</h2>
-						{seasonMonth && (
-							<p className="mb-6">
-								Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.
-							</p>
-						)}
-
-						<p className="my-3 text-pretty">
-							<Link href={webcalLink} className="gap-1 hyperlink group">
-								<IconSubscribe className="inline align-baseline" /> Abboniere unseren Kalender
-							</Link>
-							, um neue Termine saisonübergreifend automatisch in deiner Kalender-App zu empfangen.
-						</p>
-					</div>
-				)}
-				{/* ranking */}
-				{ranking && (
-					<div className="*:card-narrow-flex" data-section="ranking">
-						<RankingTable {...ranking} key={ranking.matchSeries.id} />
-					</div>
-				)}
-				{/* training */}
-				<div className="card *:mb-3" data-section="training">
-					<h2 className="card-heading">Training</h2>
-					{team.training && (
-						<div className="leading-tight">
-							<h3 className="font-bold flex gap-x-1 items-baseline">
-								<IconClock className="text-xs" />
-								Trainingszeiten:
-							</h3>
-							{team.training?.map((training) => {
-								return (
-									<Fragment key={JSON.stringify(training)}>
-										<p>{training.zeit}</p>
-										<Link href={training.map || ""} target="_blank" scroll={false} className="text-turquoise">
-											{training.ort}
-										</Link>
-									</Fragment>
-								);
-							})}
-						</div>
+			<Card>
+				<CardTitle>Mannschaftskalender</CardTitle>
+				<Text>
+					<Anchor href={webcalLink} style={{ display: "inline-flex", gap: 4, alignItems: "baseline" }}>
+						<IconSubscribe /> Abboniere unseren Kalender
+					</Anchor>
+					, um neue Termine saisonübergreifend automatisch in deiner Kalender-App zu empfangen.
+				</Text>
+			</Card>
+			{pastMatches && (
+				<Card>
+					<CardTitle>Ergebnisse</CardTitle>
+					<CardSection>
+						<Matches type="past" matches={pastMatches} highlightTeamId={sbvvId?.toString()} />
+					</CardSection>
+				</Card>
+			)}
+			{futureMatches ? (
+				<Card>
+					<CardTitle>Spielplan</CardTitle>
+					<CardSection>
+						<Matches type="future" matches={futureMatches} highlightTeamId={sbvvId?.toString()} />
+					</CardSection>
+				</Card>
+			) : (
+				<Card>
+					<CardTitle>Spielplan</CardTitle>
+					<Text>Aktuell konnten keine Spieltermine gefunden werden.</Text>
+					{!seasonMonth && (
+						<Text>
+							Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.
+						</Text>
 					)}
-					{team.trainer && team.trainer?.length >= 1 && (
-						<div className="trainers" data-section="trainers">
-							<h3 className="font-bold flex gap-x-1 items-baseline">
-								{team.trainer?.length === 1 ? <IconPerson className="text-xs" /> : <IconPersons className="text-xs" />}
-								Trainer:
-							</h3>
-							<div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(180px,max-content))] md:grid-cols-[repeat(auto-fit,minmax(250px,max-content))]">
-								{team.trainer?.map((trainer) => {
-									// check if this trainer is in the member list and has an avatar
-									const trainerList = getMembers();
-									const filteredTrainers = trainerList.filter((thisTrainer) => thisTrainer.name === trainer.name);
-									return (
-										<div key={JSON.stringify(trainer)}>
-											{filteredTrainers[0]?.avatar ? (
-												<MembersCard {...trainer} avatar={filteredTrainers[0].avatar} />
-											) : (
-												<MembersCard {...trainer} />
-											)}
-										</div>
-									);
-								})}
-							</div>
-						</div>
-					)}
-					{team.trainer && team.trainer?.length < 1 && (
-						<div className="trainers">
-							<h3 className="font-bold flex gap-x-1 items-baseline">
-								<IconEmail className="text-xs" />
-								Kontakt:
-							</h3>
-							Bei Fragen und Interesse zu dieser Mannschaft, wende dich bitte an info@vcmuellheim.de
-						</div>
-					)}
-				</div>
-
-				{/* pictures */}
-				{team.pictures && team.pictures.length >= 1 && (
-					<div className="card *:mb-3" data-section="pictures">
-						<h2 className="card-heading">Foto{team.pictures.length > 1 && "s"}</h2>
-
-						<div className="grid gap-3 mt-3 grid-cols-[repeat(auto-fit,minmax(250px,1fr))]">
-							{team.pictures.map((picture) => {
-								return (
-									<Link
-										key={picture}
-										href={picture}
-										target="_blank"
-										className="relative group hover:cursor-zoom-in rounded-md overflow-hidden after:opacity-0 hover:after:opacity-100 after:absolute after:inset-0 after:h-full after:w-full after:pointer-events-none hover:after:z-10 after:border-[0.4rem] after:border-dashed after:border-white after:duration-300"
-									>
-										<div className="realtive object-cover aspect-video sm:aspect-[3/2] xl:aspect-[4/3] m-0 p-0 group-hover:scale-105 transition-transform duration-700">
-											<Image
-												src={picture}
-												width={540}
-												height={310}
-												alt={"Mannschaftsfoto"}
-												className="object-cover h-full w-full m-0 p-0"
-											/>
-										</div>
-									</Link>
-								);
-							})}
-						</div>
-					</div>
-				)}
-
-				<div className="text-center">
-					<Link href="/#mannschaften" className="button">
-						zu den anderen Mannschaften
-					</Link>
-				</div>
-			</div>
+				</Card>
+			)}
 		</>
+	);
+}
+
+async function TeamRanking({ allSeasonMatchSeriesId }: { allSeasonMatchSeriesId?: string }) {
+	if (!allSeasonMatchSeriesId) return null;
+
+	const ranking = await samsRanking({ allSeasonMatchSeriesId });
+	if (!ranking) return null;
+
+	return <RankingTable {...ranking} key={ranking.matchSeries.id} />;
+}
+
+function TeamSchedule({ schedules }: { schedules?: Team["schedules"] }) {
+	if (!schedules || schedules.length === 0) return null;
+
+	return (
+		<Card>
+			<CardTitle>Trainingszeiten</CardTitle>
+			<Flex columnGap="xl" rowGap="md" wrap="wrap">
+				{schedules.map((schedule) => {
+					const separator = schedule.day.length > 2 ? ", " : " & ";
+					return (
+						<Stack key={schedule.id} gap={0}>
+							<Text>
+								{schedule.day.join(separator)} {dayjs(schedule.time.startTime).format("HH:mm")} -{" "}
+								{dayjs(schedule.time.endTime).format("HH:mm")} Uhr
+							</Text>
+							{typeof schedule.location === "object" && <MapsLink location={schedule.location} />}
+						</Stack>
+					);
+				})}
+			</Flex>
+		</Card>
+	);
+}
+
+function TeamTrainers({ people }: { people?: Team["people"] }) {
+	if (!people) {
+		return (
+			<Card>
+				<Text>
+					Bei Fragen und Interesse zu dieser Mannschaft, wende dich bitte an{" "}
+					<Anchor href={"mailto:info@vcmuellheim.de"}>info@vcmuellheim.de</Anchor>
+				</Text>
+			</Card>
+		);
+	}
+	let peopleCount = 0;
+	if (people.coaches) peopleCount += people.coaches.length;
+	if (people.contactPeople) peopleCount += people.contactPeople.length;
+	if (peopleCount === 0) return null;
+
+	function MemberList({ title, member }: { title: string; member: (string | Member)[] }) {
+		if (!member || member.length === 0 || typeof member === "string") return null;
+
+		return (
+			<Stack gap="xs">
+				<CardTitle>{title}</CardTitle>
+				<Flex wrap="wrap" gap="md">
+					{member?.map((coach) => {
+						if (typeof coach !== "object") return null;
+						return <MemberCard key={coach.id} member={coach} dark />;
+					})}
+				</Flex>
+			</Stack>
+		);
+	}
+
+	return (
+		<Card>
+			<Flex wrap="wrap" columnGap="xl" rowGap="md">
+				<MemberList title="Trainer" member={people.coaches || []} />
+				<MemberList
+					title={people.contactPeople && people.contactPeople.length > 0 ? "Ansprechpersonen" : "Ansprechperson"}
+					member={people.contactPeople || []}
+				/>
+			</Flex>
+		</Card>
+	);
+
+	// return <div className="card *:mb-3" data-section="training">
+	// 	{team.trainer && team.trainer?.length >= 1 && (
+	// 		<div className="trainers" data-section="trainers">
+	// 			<h3 className="font-bold flex gap-x-1 items-baseline">
+	// 				{team.trainer?.length === 1 ? <IconPerson className="text-xs" /> : <IconPersons className="text-xs" />}
+	// 				Trainer:
+	// 			</h3>
+	// 			<div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(180px,max-content))] md:grid-cols-[repeat(auto-fit,minmax(250px,max-content))]">
+	// 				{team.trainer?.map((trainer) => {
+	// 					// check if this trainer is in the member list and has an avatar
+	// 					const trainerList = getMembers();
+	// 					const filteredTrainers = trainerList.filter((thisTrainer) => thisTrainer.name === trainer.name);
+	// 					return (
+	// 						<div key={JSON.stringify(trainer)}>
+	// 							{filteredTrainers[0]?.avatar ? (
+	// 								<MembersCard {...trainer} avatar={filteredTrainers[0].avatar} />
+	// 							) : (
+	// 								<MembersCard {...trainer} />
+	// 							)}
+	// 						</div>
+	// 					);
+	// 				})}
+	// 			</div>
+	// 		</div>
+	// 	)}
+	// 	{team.trainer && team.trainer?.length < 1 && (
+	// 		<div className="trainers">
+	// 			<h3 className="font-bold flex gap-x-1 items-baseline">
+	// 				<IconEmail className="text-xs" />
+	// 				Kontakt:
+	// 			</h3>
+	// 			Bei Fragen und Interesse zu dieser Mannschaft, wende dich bitte an info@vcmuellheim.de
+	// 		</div>
+	// 	)}
+	// </div>,
+}
+
+function TeamPictures({ images }: { images?: string[] }) {
+	if (!images || images.length === 0) return null;
+	return (
+		<Card>
+			<CardTitle>Team Fotos</CardTitle>
+			<ImageGallery images={images} />
+		</Card>
 	);
 }

@@ -8,6 +8,8 @@ import {
 import ScrollAnchor from "./ScrollAnchor";
 
 export default function HomeKontakt() {
+	//TODO load the names of the people kassier and mitgliedschaft from the database
+
 	return (
 		<Container size="xl" mx={{ base: undefined, xs: "xl" }}>
 			<ScrollAnchor name="kontakt" />
@@ -31,7 +33,7 @@ export default function HomeKontakt() {
 					<ContactItem title="Möchtest du dem Verein beitreten?">
 						<>
 							Hier gehts zur <Anchor href="/beitragsordnung/">Beitragsordnung</Anchor> und hier zum{" "}
-							<Anchor href="https://vcm.kurabu.com/de/join/" target="_blank">
+							<Anchor href="https://vcm.kurabu.com/de/join/" target="_blank" style={{ display: "inline-flex", gap: 4 }}>
 								<IconExtern className="inline-block whitespace-nowrap" /> Anmeldeformular
 							</Anchor>{" "}
 							auf unserer Verwaltungssoftware KURABU.
@@ -40,7 +42,11 @@ export default function HomeKontakt() {
 					<ContactItem title="Hast du Fragen zu deiner Mitgliedschaft?">
 						<>
 							Melde dich bitte direkt bei Paul Morawietz{" "}
-							<Anchor href="mailto:mitgliedschaft@vcmuellheim.de?subject=Volleyball Club Müllheim" target="_blank">
+							<Anchor
+								href="mailto:mitgliedschaft@vcmuellheim.de?subject=Volleyball Club Müllheim"
+								target="_blank"
+								style={{ display: "inline-flex", gap: 4 }}
+							>
 								<IconEmail className="inline-block whitespace-nowrap" /> mitgliedschaft@vcmuellheim.de
 							</Anchor>
 						</>
@@ -48,7 +54,11 @@ export default function HomeKontakt() {
 					<ContactItem title="Hast du Fragen zu deiner Beitragszahlung?">
 						<>
 							Melde dich bitte direkt bei Peter Müssig{" "}
-							<Anchor href="mailto:kassier@vcmuellheim.de?subject=Volleyball Club Müllheim" target="_blank">
+							<Anchor
+								href="mailto:kassier@vcmuellheim.de?subject=Volleyball Club Müllheim"
+								target="_blank"
+								style={{ display: "inline-flex", gap: 4 }}
+							>
 								<IconEmail className="inline-block" /> kassier@vcmuellheim.de
 							</Anchor>
 						</>
@@ -56,11 +66,17 @@ export default function HomeKontakt() {
 					<ContactItem title="Möchtest du Spesen abrechnen?">
 						<>
 							Hier findest du die{" "}
-							<Anchor href="https://vcmuellheim.de/docs/spesenabrechnung.xlsx">
+							<Anchor
+								href="https://vcmuellheim.de/docs/spesenabrechnung.xlsx"
+								style={{ display: "inline-flex", gap: 4 }}
+							>
 								<IconExcel className="inline-block" /> Spesenabrechnung
 							</Anchor>{" "}
 							und{" "}
-							<Anchor href="https://vcmuellheim.de/docs/trainerverguetung.xlsx">
+							<Anchor
+								href="https://vcmuellheim.de/docs/trainerverguetung.xlsx"
+								style={{ display: "inline-flex", gap: 4 }}
+							>
 								<IconExcel className="inline-block" /> Trainervergütung
 							</Anchor>
 						</>
@@ -73,7 +89,7 @@ export default function HomeKontakt() {
 					<ContactItem title="Für alle weiteren Anliegen:">
 						<Text>
 							Nutze gerne unseren Mailverteiler{" "}
-							<Anchor href="mailto:info@vcmuellheim.de" target="_blank">
+							<Anchor href="mailto:info@vcmuellheim.de" target="_blank" style={{ display: "inline-flex", gap: 4 }}>
 								<IconEmail className="inline-block" /> info@vcmuellheim.de
 							</Anchor>
 						</Text>

@@ -24,7 +24,7 @@ export default function Footer() {
 					<Flex columnGap="sm" wrap="wrap" direction={{ base: "column", sm: "row" }}>
 						{Socials().map((social) => (
 							<Link key={social.name} {...social} className=" hover:text-turquoise">
-								<Group>
+								<Group gap={4}>
 									{social.icon}
 									<Text size="sm">{social.name}</Text>
 								</Group>

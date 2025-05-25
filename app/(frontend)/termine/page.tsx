@@ -4,7 +4,7 @@ import Matches from "@/components/sams/Matches";
 import { getEvents } from "@/data/events";
 import { Club } from "@/project.config";
 import { samsClubMatches, samsSeasons } from "@/utils/sams/sams-server-actions";
-import { Card, Group, Stack, Text, Title } from "@mantine/core";
+import { Anchor, Card, CardSection, Group, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
@@ -46,9 +46,11 @@ export default async function Termine() {
 						<Title order={2} c="blumine">
 							Veranstaltungen
 						</Title>
-						{events.map((event) => {
-							return <EventCard {...event} totalSiblings={events.length} key={event.id} />;
-						})}
+						<SimpleGrid cols={{ base: 1, md: 2 }}>
+							{events.map((event) => {
+								return <EventCard {...event} key={event.id} />; //TODO create a new event card. THIS ONE IS ALSO USED ON THE HOMEPAGE. but it makes sense to have two separate design
+							})}
+						</SimpleGrid>
 					</Card>
 				)}
 				{/* MATCHES */}
@@ -59,13 +61,14 @@ export default async function Termine() {
 								Vereinskalender
 							</Title>
 							<Text>
-								<Link href={webcalLink} className="hyperlink">
-									<Group gap="xs">
-										<IconSubscribe /> Abboniere unseren Vereinskalender
-									</Group>
-								</Link>
-								, um neue Termine saisonübergreifend automatisch in deiner <Text fw="bold">Kalender-App</Text> zu
-								empfangen.
+								<Anchor href={webcalLink} style={{ display: "inline-flex", gap: 4 }}>
+									<IconSubscribe /> Abboniere unseren Vereinskalender
+								</Anchor>
+								, um neue Termine saisonübergreifend automatisch in deiner{" "}
+								<Text fw="bold" span>
+									Kalender-App
+								</Text>{" "}
+								zu empfangen.
 							</Text>
 						</Card>
 						<Card>
@@ -78,7 +81,9 @@ export default async function Termine() {
 									Ligaspiele & Turneire
 								</Title>
 							)}
-							<Matches matches={futureMatches} type="future" />
+							<CardSection>
+								<Matches matches={futureMatches} type="future" />
+							</CardSection>
 						</Card>
 					</Fragment>
 				)}

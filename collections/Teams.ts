@@ -9,7 +9,7 @@ export const Teams: CollectionConfig = {
 	admin: {
 		useAsTitle: "name",
 		group: "Personen",
-		defaultColumns: ["name", "category", "coach", "schedule"],
+		defaultColumns: ["name", "category", "coaches", "schedules"],
 		preview: ({ slug }) => `/${Teams.slug}/${slug}`,
 	},
 	access: {
@@ -76,6 +76,15 @@ export const Teams: CollectionConfig = {
 			},
 		},
 		{
+			name: "sbvvTeam",
+			type: "relationship",
+			relationTo: "sams-teams",
+			admin: {
+				condition: (data) => Boolean(data?.league),
+				description: "Verknüpfung zu einem Team im SBVV-System. Wird für den Spielplan und die Ergebnisse benötigt.",
+			},
+		},
+		{
 			name: "description",
 			label: "Beschreibung",
 			type: "textarea",
@@ -95,7 +104,7 @@ export const Teams: CollectionConfig = {
 					type: "row",
 					fields: [
 						{
-							name: "coach",
+							name: "coaches",
 							label: "Trainer",
 							type: "relationship",
 							relationTo: "members",
@@ -105,7 +114,7 @@ export const Teams: CollectionConfig = {
 							},
 						},
 						{
-							name: "contactPerson",
+							name: "contactPeople",
 							label: "Ansprechperson",
 							type: "relationship",
 							relationTo: "members",
@@ -120,7 +129,7 @@ export const Teams: CollectionConfig = {
 			],
 		},
 		{
-			name: "schedule",
+			name: "schedules",
 			label: "Trainingszeiten",
 			labels: { plural: "Trainingszeiten", singular: "Trainingszeit" },
 			type: "array",
@@ -180,6 +189,12 @@ export const Teams: CollectionConfig = {
 					required: true,
 				},
 			],
+		},
+		{
+			name: "images",
+			type: "upload",
+			relationTo: "media",
+			hasMany: true,
 		},
 	],
 };
