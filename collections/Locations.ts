@@ -9,6 +9,7 @@ export const Locations: CollectionConfig = {
 	admin: {
 		useAsTitle: "name",
 		group: "Resourcen",
+		pagination: { defaultLimit: 100 },
 		hidden(args) {
 			return !isRoleModerator(args.user?.role);
 		},

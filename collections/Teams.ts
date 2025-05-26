@@ -10,6 +10,7 @@ export const Teams: CollectionConfig = {
 		useAsTitle: "name",
 		group: "Personen",
 		defaultColumns: ["name", "category", "coaches", "schedules"],
+		pagination: { defaultLimit: 100 },
 		preview: ({ slug }) => `/${Teams.slug}/${slug}`,
 	},
 	access: {

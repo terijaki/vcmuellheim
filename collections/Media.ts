@@ -7,6 +7,7 @@ export const Media: CollectionConfig = {
 	admin: {
 		group: "System",
 		defaultColumns: ["filename", "size", "createdAt"],
+		pagination: { defaultLimit: 100 },
 	},
 	access: {
 		read: () => true,

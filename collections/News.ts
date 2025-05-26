@@ -25,6 +25,7 @@ export const News: CollectionConfig = {
 		useAsTitle: "title",
 		group: "Inhalte",
 		defaultColumns: ["title", "excerpt", "publishedDate", "isPublished"],
+		pagination: { defaultLimit: 100 },
 		preview: ({ id }) => `/${News.slug}/${id}`,
 	},
 	access: {
