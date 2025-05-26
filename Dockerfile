@@ -49,6 +49,8 @@ COPY --from=builder --chown=spieler:vcmuellheim /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/data ./data
 RUN cat .env.development.local >> .env || true
+## Copy custom scripts to be excecuted in the container
+COPY --from=builder /app/scripts ./scripts
 
 USER spieler
 EXPOSE 3080
