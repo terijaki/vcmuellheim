@@ -53,6 +53,7 @@ export default buildConfig({
 		importMap: { baseDir: path.resolve(dirname) },
 		timezones: { defaultTimezone: "Europe/Berlin" },
 		autoLogin: autoLoginConfig,
+		avatar: "default",
 	},
 	collections: [Users, Media, Events, News, Roles, Members, Teams, Locations, Sponsors, SamsTeams],
 	editor: lexicalEditor(),
