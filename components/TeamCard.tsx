@@ -57,7 +57,7 @@ export default function TeamCard({ id, slug, name, league, sbvvTeam, age, descri
 							})}
 						</Stack>
 					)}
-					{people?.coaches && people.coaches.length >= 1 && (
+					{people?.coaches && people.coaches.length > 0 && (
 						<Stack gap={0}>
 							<Group gap="xs" fw="bold">
 								{people.coaches.length === 1 ? <IconPerson className="text-xs" /> : <IconPersons className="text-xs" />}
@@ -82,7 +82,7 @@ export default function TeamCard({ id, slug, name, league, sbvvTeam, age, descri
 							</Box>
 						</Stack>
 					)}
-					{people?.contactPeople && people.contactPeople && (
+					{people?.contactPeople && people.contactPeople.length > 0 && (
 						<Stack gap={0}>
 							<Group gap="xs" fw="bold">
 								{people.contactPeople.length === 1 ? (
