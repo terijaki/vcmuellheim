@@ -208,9 +208,9 @@ function HomeMatchesList({ homeMatches }: { homeMatches?: Match[] }) {
 	);
 }
 
-function NoMatchesNoEvents({ matchCount, eventCount }: { matchCount?: number; eventCount?: number }) {
-	if (!eventCount || eventCount > 0) return null;
-	if (!matchCount) return null;
+function NoMatchesNoEvents({ matchCount = 0, eventCount = 0 }: { matchCount?: number; eventCount?: number }) {
+	if (eventCount > 0) return null;
+	if (matchCount > 0) return null;
 
 	// prepare to display them as words
 	const numToWordsDe = require("num-words-de");

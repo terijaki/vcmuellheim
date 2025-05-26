@@ -8,6 +8,7 @@ export default async function HomeTeams() {
 	const data = await getTeams();
 	const teams = data?.docs;
 	if (!teams) return null;
+	if (teams.length === 0) return null;
 
 	const numberOfTeams = teams.length;
 	// turn number to requivalent word, eg. 2 = zwei
