@@ -47,7 +47,7 @@ export default async function TeamPage(props: { params: Promise<{ slug: string }
 	const team = teams?.docs?.[0];
 
 	// sbvv identifier
-	if (!team?.sbvvTeam || typeof team.sbvvTeam === "string") return null;
+	if (!team?.sbvvTeam || typeof team.sbvvTeam === "string") return null; //TODO handle error or redirect to 404 page
 	const samsTeam = team.sbvvTeam;
 	const sbvvId = samsTeam.seasonTeamId;
 	const clubData = await samsClubData();

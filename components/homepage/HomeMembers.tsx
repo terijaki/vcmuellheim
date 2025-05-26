@@ -19,7 +19,13 @@ export default async function HomeMembers() {
 			...member,
 			roles: member.roles?.filter(isBoardMember),
 		}))
-		.filter((member) => member.roles && member.roles.length > 0);
+		.filter((member) => member.roles && member.roles.length > 0)
+		.sort((a, b) => {
+			if (a.roles && b.roles && typeof a.roles[0] === "object" && typeof b.roles[0] === "object") {
+				return a.roles[0].name.localeCompare(b.roles[0].name);
+			}
+			return 0;
+		});
 	const trainers = members?.docs
 		.map((member) => ({
 			...member,
