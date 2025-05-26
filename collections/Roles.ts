@@ -7,6 +7,7 @@ export const Roles: CollectionConfig = {
 	admin: {
 		useAsTitle: "name",
 		group: "Personen",
+		pagination: { defaultLimit: 100 },
 		hidden(args) {
 			return !isRoleModerator(args.user?.role);
 		},

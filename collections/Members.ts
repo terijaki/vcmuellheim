@@ -1,5 +1,4 @@
 import { isModerator, isModeratorOrSelf } from "@/data/payload-access";
-import { revalidateTag } from "next/cache";
 import type { CollectionConfig } from "payload";
 
 export const Members: CollectionConfig = {
@@ -8,6 +7,7 @@ export const Members: CollectionConfig = {
 	admin: {
 		useAsTitle: "name",
 		group: "Personen",
+		pagination: { defaultLimit: 100 },
 	},
 	access: {
 		read: () => true,
