@@ -7,7 +7,7 @@ import { FaCircleInfo as IconInfo, FaLocationDot as IconLocation } from "react-i
 
 export default function HeimspieleEvent(props: Event[] & { totalSiblings?: number }) {
 
-	return null
+
 	return (
 		<div className="card bg-onyx text-white inline-block w-full break-inside-avoid mb-3" key={props.title}>
 			<div>

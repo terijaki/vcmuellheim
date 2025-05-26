@@ -1,11 +1,7 @@
-import fs from "node:fs";
-import path from "node:path";
+import { getNews } from "@/data/news";
 import { Club } from "@/project.config";
 import { Feed } from "feed";
-import matter from "gray-matter";
 import { type NextRequest, NextResponse } from "next/server";
-
-const POSTS_FOLDER = "data/posts";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ ext: "json" | "xml" | "atom" }> }) {
 	try {
@@ -33,42 +29,38 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 				email: Club.email,
 			},
 		});
-		const postFiles = fs.readdirSync(POSTS_FOLDER);
-
-		for (const filename of postFiles) {
-			const { data: frontmatter, content } = matter.read(path.join(POSTS_FOLDER, filename));
-			let thumbnail = "";
-			if (frontmatter.gallery) {
-				const shuffledGallery = frontmatter.gallery.sort(() => 0.5 - Math.random());
-				thumbnail = baseUrl + shuffledGallery[0];
-			}
-			if (path.parse(filename).ext === ".md" || path.parse(filename).ext === ".mdx") {
-				const slug = path.parse(filename).name;
-				// transform the Markdown to HTML
-				const showdown = require("showdown");
-				showdown.setFlavor("github");
-				const converter = new showdown.Converter();
-				const contentFormatted = converter.makeHtml(content);
-				// add every blog post as feed item
-				feed.addItem({
-					title: frontmatter.title,
-					id: slug,
-					link: `${baseUrl}/${slug}`,
-					content: contentFormatted,
-					date: new Date(frontmatter.date),
-					image: thumbnail,
-				});
-			} else {
-				console.log(`${filename} was skipped during RSS feed generation`);
-			}
-		}
-
 		feed.addCategory("Sports");
-
 		feed.addContributor({
 			name: Club.shortName,
 			email: Club.email,
 		});
+
+		const newsData = await getNews(100);
+
+		if (newsData?.docs) {
+			for (const newsItem of newsData.docs) {
+				let thumbnail: undefined | string;
+				if (newsItem.images && newsItem.images.length > 0) {
+					const firstImage = newsItem.images[0];
+					if (typeof firstImage === "string") {
+						thumbnail = `${baseUrl}${firstImage}`;
+					} else {
+						thumbnail = `${baseUrl}${firstImage.url}`;
+					}
+				}
+
+				if (!newsItem.excerpt) continue;
+
+				feed.addItem({
+					title: newsItem.title,
+					id: newsItem.id,
+					link: `${baseUrl}/news/${newsItem.id}`,
+					content: newsItem.excerpt,
+					date: new Date(newsItem.publishedDate),
+					image: thumbnail,
+				});
+			}
+		}
 
 		// Determine the format to return based on the params
 		const { ext } = await params;

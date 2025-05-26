@@ -22,10 +22,6 @@ interface MapsLinkProps extends Omit<AnchorProps, "href" | "component" | "target
 export default function MapsLink({ location, ...anchorProps }: MapsLinkProps) {
 	const [mapsUrl, setMapsUrl] = useState<string | null>(null);
 
-	if (!location) return null;
-	const displayName = location.name || location.address?.city;
-	if (!displayName) return null;
-
 	useEffect(() => {
 		if (typeof location === "string") {
 			setMapsUrl(location);
@@ -54,6 +50,10 @@ export default function MapsLink({ location, ...anchorProps }: MapsLinkProps) {
 			}
 		}
 	}, [location]);
+
+	if (!location) return null;
+	const displayName = location.name || location.address?.city;
+	if (!displayName) return null;
 
 	if (!mapsUrl) return null;
 	// Before the effect runs, just show the name without a link

@@ -1,12 +1,13 @@
-import PageHeading from "@/components/layout/PageHeading";
+import CardTitle from "@/components/CardTitle";
+import PageWithHeading from "@/components/layout/PageWithHeading";
+import { Card, TypographyStylesProvider } from "@mantine/core";
 
 export default function Satzung() {
 	return (
-		<>
-			<PageHeading title="Satzung des Volleyballclubs Müllheim" />
-			<div className="col-full-content sm:col-center-content">
-				<article className="card my-8 prose max-w-full leading-normal prose-headings:m-0 prose-li:m-auto hyphens-auto lg:hyphens-none">
-					<h2>§ 1 Name, Sitz, Geschäftsjahr</h2>
+		<PageWithHeading title="Satzung des Volleyballclubs Müllheim">
+			<TypographyStylesProvider>
+				<Card>
+					<CardTitle>§ 1 Name, Sitz, Geschäftsjahr</CardTitle>
 					<ol>
 						<li>Der Verein trägt den Namen „Volleyballclub Müllheim e.V“.</li>
 						<li>
@@ -29,7 +30,7 @@ export default function Satzung() {
 						</li>
 					</ol>
 
-					<h2>§ 2 Zweck und Gemeinnützigkeit des Vereins</h2>
+					<CardTitle>§ 2 Zweck und Gemeinnützigkeit des Vereins</CardTitle>
 					<ol>
 						<li>
 							Vereinszweck ist die Pflege und Förderung des Sports, besonders des Sports für Kinder und Jugendliche. Der
@@ -38,7 +39,7 @@ export default function Satzung() {
 						</li>
 						<li>
 							Der Verein verfolgt ausschließlich und unmittelbar gemeinnützige Zwecke im Sinne des Abschnitts
-							"steuerbegünstigte Zwecke" der Abgabenordnung. Der Verein ist selbstlos tätig und verfolgt nicht in erster
+							&quot;steuerbegünstigte Zwecke&quot; der Abgabenordnung. Der Verein ist selbstlos tätig und verfolgt nicht in erster
 							Linie eigenwirtschaftliche Zwecke.
 						</li>
 						<li>
@@ -53,7 +54,7 @@ export default function Satzung() {
 						</li>
 					</ol>
 
-					<h2>§ 3 Mitgliedschaft</h2>
+					<CardTitle>§ 3 Mitgliedschaft</CardTitle>
 					<ol>
 						<li>
 							Mitglied des Vereins kann jede natürliche Person (ordentliche Mitglieder) oder juristische Person
@@ -75,7 +76,7 @@ export default function Satzung() {
 						</li>
 					</ol>
 
-					<h2>§ 4 Rechte und Pflichten der Mitglieder</h2>
+					<CardTitle>§ 4 Rechte und Pflichten der Mitglieder</CardTitle>
 					<ol>
 						<li>
 							Mit der Aufnahme in den Verein anerkennt das Mitglied die Satzung. Es verpflichtet sich, die
@@ -110,7 +111,7 @@ export default function Satzung() {
 						</li>
 					</ol>
 
-					<h2>§ 5 Mitgliedsbeiträge</h2>
+					<CardTitle>§ 5 Mitgliedsbeiträge</CardTitle>
 					<ol>
 						<li>
 							Die Mitglieder sind zur Entrichtung der durch die Mitgliederversammlung festgesetzten Beiträge, Umlagen
@@ -125,7 +126,7 @@ export default function Satzung() {
 						</li>
 					</ol>
 
-					<h2>§ 6 Beendigung der Mitgliedschaft</h2>
+					<CardTitle>§ 6 Beendigung der Mitgliedschaft</CardTitle>
 					<ol>
 						<li>
 							Die Mitgliedschaft erlischt durch Tod (bei jurist. Personen durch Erlöschen der Rechtsfähigkeit) – eine
@@ -169,7 +170,7 @@ export default function Satzung() {
 						</p>
 					</ol>
 
-					<h2>§ 7 Organe des Vereins</h2>
+					<CardTitle>§ 7 Organe des Vereins</CardTitle>
 					<ol>
 						<li>Organe des Vereins sind:</li>
 						<ul>
@@ -191,7 +192,7 @@ export default function Satzung() {
 						</li>
 					</ol>
 
-					<h2>§ 8 Mitgliederversammlung</h2>
+					<CardTitle>§ 8 Mitgliederversammlung</CardTitle>
 					<ol>
 						<li>
 							In jedem Kalenderjahr ist eine Mitgliederversammlung durchzuführen. Sie wird vom Vorstand unter Einhaltung
@@ -237,7 +238,7 @@ export default function Satzung() {
 						</li>
 					</ol>
 
-					<h2>§ 9 Zuständigkeit der Mitgliederversammlung</h2>
+					<CardTitle>§ 9 Zuständigkeit der Mitgliederversammlung</CardTitle>
 					<p>Die Mitgliederversammlung hat folgende Aufgaben:</p>
 					<ol>
 						<li>Entgegennahme der Jahresberichte des Vorstands</li>
@@ -256,7 +257,7 @@ export default function Satzung() {
 						<li>Bestätigung der von der Jugendversammlung beschlossenen Jugendordnung</li>
 					</ol>
 
-					<h2>§ 10 Vorstand</h2>
+					<CardTitle>§ 10 Vorstand</CardTitle>
 					<ol>
 						<li>
 							Der Vorstand des Vereins besteht aus:
@@ -325,7 +326,7 @@ export default function Satzung() {
 						</li>
 					</ol>
 
-					<h2>§ 11 Vereinsjugend</h2>
+					<CardTitle>§ 11 Vereinsjugend</CardTitle>
 					<ol>
 						<li>
 							Die Vereinsjugend ist die Jugendorganisation des Vereins. Ihr gehören alle jugendlichen Mitglieder bis zum
@@ -341,7 +342,7 @@ export default function Satzung() {
 						</li>
 					</ol>
 
-					<h2>§ 12 Kassenprüfer</h2>
+					<CardTitle>§ 12 Kassenprüfer</CardTitle>
 					<ol>
 						<li>
 							Die Mitgliederversammlung wählt aus dem Kreis der stimmberechtigten Mitglieder zwei Kassenprüfer, die
@@ -364,7 +365,7 @@ export default function Satzung() {
 						</li>
 					</ol>
 
-					<h2>§ 13 Haftung</h2>
+					<CardTitle>§ 13 Haftung</CardTitle>
 					<ol>
 						<li>
 							Alle für den Verein tätige Personen, deren Vergütung den Ehrenamtsfreibetrag gem. § 3 Nr. 26 a EstG im
@@ -383,7 +384,7 @@ export default function Satzung() {
 						</li>
 					</ol>
 
-					<h2>§ 14 Datenschutz im Verein</h2>
+					<CardTitle>§ 14 Datenschutz im Verein</CardTitle>
 					<ol>
 						<li>
 							Zur Erfüllung der Zwecke und Aufgaben des Vereins werden unter Beachtung der gesetzlichen Vorgaben der
@@ -403,7 +404,7 @@ export default function Satzung() {
 						</li>
 					</ol>
 
-					<h2>§ 15 Auflösung</h2>
+					<CardTitle>§ 15 Auflösung</CardTitle>
 					<ol>
 						<li>
 							Die Auflösung des Vereines kann nur in einer Mitgliederversammlung beschlossen werden, bei deren
@@ -420,7 +421,7 @@ export default function Satzung() {
 						</li>
 					</ol>
 
-					<h2>§ 16 In-Kraft-Treten</h2>
+					<CardTitle>§ 16 In-Kraft-Treten</CardTitle>
 					<ol>
 						<li>
 							Diese Satzung wurde in der ordentlichen Mitgliederversammlung vom 15.11.23 mit der erforderlichen Mehrheit
@@ -438,8 +439,8 @@ export default function Satzung() {
 							Kenntnis zu setzen.
 						</li>
 					</ol>
-				</article>
-			</div>
-		</>
+				</Card>
+			</TypographyStylesProvider>
+		</PageWithHeading>
 	);
 }

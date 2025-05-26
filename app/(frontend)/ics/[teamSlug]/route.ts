@@ -1,8 +1,8 @@
+import { getTeams } from "@/data/teams";
 import { Club } from "@/project.config";
 // "use cache";
 // cacheLife("minutes");
 // import { unstable_cacheLife as cacheLife } from "next/cache";
-import { getTeams } from "@/utils/getTeams";
 import { samsClubData, samsClubMatches, samsMatches } from "@/utils/sams/sams-server-actions";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -10,10 +10,10 @@ import { type NextRequest, NextResponse } from "next/server";
 import { type IcsCalendar, type IcsEvent, generateIcsCalendar } from "ts-ics";
 dayjs.extend(customParseFormat);
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ team: string }> }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ teamSlug: string }> }) {
 	try {
-		const { team } = await params;
-		const sanitisedTeam = team.replace(".ics", "").toLowerCase();
+		const { teamSlug } = await params;
+		const sanitisedTeam = teamSlug.replace(".ics", "").toLowerCase();
 
 		let matches: Awaited<ReturnType<typeof samsMatches>> = [];
 		let calendarTitle = Club.shortName;
@@ -24,18 +24,20 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 			calendarTitle = `${calendarTitle} - Vereinskalender`;
 		} else {
 			// check if the team slug is valid
-			const teams = await getTeams();
-			const desiredTeam = teams.find((team) => team.slug === sanitisedTeam);
-			const desiredSbvvId = desiredTeam?.sbvvId;
+			const teams = await getTeams(false, teamSlug);
+			const team = teams?.docs?.[0];
+			if (!team?.sbvvTeam || typeof team.sbvvTeam === "string") throw "Team not found";
+
+			const samsTeam = team?.sbvvTeam;
+			const sbvvId = samsTeam?.seasonTeamId;
 			// if the team has an sbvvId, get the matches for that team
-			if (desiredSbvvId) {
+			if (sbvvId) {
 				const clubData = await samsClubData();
-				const allSeasonMatchSeriesId = clubData?.teams?.team?.find(
-					(team) => team.id.toString() === desiredSbvvId.toString(),
-				)?.matchSeries.allSeasonId;
+				const allSeasonMatchSeriesId = clubData?.teams?.team?.find((team) => team.id.toString() === sbvvId.toString())
+					?.matchSeries.allSeasonId;
 				if (allSeasonMatchSeriesId) {
 					matches = await samsMatches({ allSeasonMatchSeriesId });
-					if (desiredTeam.title) calendarTitle = `${calendarTitle} - ${desiredTeam.title}`;
+					if (samsTeam.name) calendarTitle = `${calendarTitle} - ${samsTeam.name}`;
 				}
 			}
 		}
