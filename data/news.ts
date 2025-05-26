@@ -1,6 +1,5 @@
 "use server";
 import config from "@payload-config";
-import { unstable_cacheLife as cacheLife } from "next/cache";
 import { getPayload } from "payload";
 
 export async function getNews(limit?: number, page?: number) {
@@ -27,9 +26,6 @@ export async function getNews(limit?: number, page?: number) {
 	}
 }
 export async function getNewsItem(id: string) {
-	"use cache";
-	cacheLife("days");
-
 	const payload = await getPayload({ config });
 
 	try {
