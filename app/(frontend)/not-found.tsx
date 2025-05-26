@@ -1,18 +1,20 @@
+import PageWithHeading from "@/components/layout/PageWithHeading";
+import { Button, Center, Text } from "@mantine/core";
 import Link from "next/link";
 import { FaTriangleExclamation as IconError } from "react-icons/fa6";
 
 export default function NotFound() {
 	return (
-		<div className="col-center-content flex flex-col gap-4 my-6 justify-center items-center">
-			<p>
-				<IconError className="text-5xl text-onyx" />
-			</p>
-			<p>Der angefragte Bereich kann nicht gefunden werden.</p>
-			<p>
-				<Link href="/" className="button">
+		<PageWithHeading title="Seite nicht gefunden">
+			<Text size="xl" c="onyx">
+				<IconError />
+			</Text>
+			<Text>Der angefragte Bereich kann nicht gefunden werden.</Text>
+			<Center>
+				<Button component={Link} href="/">
 					zur Startsteite
-				</Link>
-			</p>
-		</div>
+				</Button>
+			</Center>
+		</PageWithHeading>
 	);
 }

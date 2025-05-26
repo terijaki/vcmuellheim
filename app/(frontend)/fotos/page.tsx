@@ -1,4 +1,3 @@
-"use cache";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import { getPictures } from "@/data/pictures";
 import { shuffleArray } from "@/utils/shuffleArray";
@@ -8,6 +7,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 export const metadata: Metadata = { title: "Fotogalerie" };
+
+export const dynamic = "force-dynamic";
 
 export default async function PicturesPage() {
 	const data = await getPictures();

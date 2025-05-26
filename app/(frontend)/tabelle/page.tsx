@@ -11,6 +11,8 @@ const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown
 
 export const metadata: Metadata = { title: "Tabelle" };
 
+export const dynamic = "force-dynamic";
+
 export default async function Tabelle() {
 	const clubData = await samsClubData();
 	if (!clubData) return <NoRankingsData />;
