@@ -22,13 +22,13 @@ const people = [
 		name: "Thomas Seywald",
 		email: "thomas@vcmuellheim.de",
 		role: "Turnierleitung",
-		picture: "/images/members/thomasseywald.jpg",
+		picture: undefined,
 	},
 	{
 		name: "Björn Kohnen",
 		email: "bjoern@vcmuellheim.de",
 		role: "Vorstand",
-		picture: "/images/members/bjoernkohnen.jpg",
+		picture: undefined,
 	},
 ];
 
