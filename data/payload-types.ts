@@ -336,8 +336,8 @@ export interface Team {
         | 'Oberliga'
         | 'Verbandsliga'
         | 'Landesliga'
-        | 'Bezirksklasse'
         | 'Bezirksliga'
+        | 'Bezirksklasse'
         | 'Kreisliga'
         | 'Kreisklasse'
       )
