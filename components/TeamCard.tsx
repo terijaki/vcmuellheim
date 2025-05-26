@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa6";
 import MapsLink from "./MapsLink";
 
-export default function TeamCard({ id, slug, name, league, age, description, schedules, people }: Team) {
+export default function TeamCard({ id, slug, name, league, sbvvTeam, age, description, schedules, people }: Team) {
 	const [opened, { toggle }] = useDisclosure(false);
 
 	return (
@@ -113,7 +113,7 @@ export default function TeamCard({ id, slug, name, league, age, description, sch
 					)}
 
 					{description && <Stack gap={0}>{description}</Stack>}
-					{league && (
+					{sbvvTeam && (
 						<Stack gap={0}>
 							<Group gap="xs" fw="bold">
 								<IconCalendar className="text-xs" />
