@@ -19,8 +19,8 @@ import { SamsTeams } from "./collections/SamsTeams";
 import { Sponsors } from "./collections/Sponsors";
 import { Teams } from "./collections/Teams";
 import { Users } from "./collections/Users";
+import { migrations } from "./data/migrations";
 import { Club } from "./project.config";
-// import { migrations } from './data/migrations' //TODO enable after first migration
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -63,7 +63,7 @@ export default buildConfig({
 		pool: { connectionString: process.env.DATABASE_URL || "" },
 		migrationDir: path.resolve(dirname, "data/migrations"),
 		idType: "uuid",
-		// prodMigrations: migrations //TODO enable after first migration
+		prodMigrations: migrations,
 	}),
 	sharp,
 	upload: {

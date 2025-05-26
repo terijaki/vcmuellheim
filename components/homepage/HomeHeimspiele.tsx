@@ -75,7 +75,7 @@ export default async function HomeHeimspiele() {
 					</Stack>
 				</Container>
 
-				<NoMatchesNoEvents matchCount={matchesHomeGames?.length} eventCount={events?.length} />
+				<NoMatchesNoEvents matchCount={homeMatchesToDisplay?.length} eventCount={events?.length} />
 
 				<Overlay backgroundOpacity={0.9} color="var(--mantine-color-blumine-filled)" blur={2} zIndex={-1} />
 			</BackgroundImage>
