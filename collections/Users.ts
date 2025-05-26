@@ -8,7 +8,7 @@ export const Users: CollectionConfig = {
 		useAsTitle: "name",
 		group: "System",
 		defaultColumns: ["email", "name", "role"],
-		pagination: { defaultLimit: 100 },
+		pagination: { defaultLimit: 50 },
 		hidden(args) {
 			return !isRoleAdmin(args.user?.role);
 		},

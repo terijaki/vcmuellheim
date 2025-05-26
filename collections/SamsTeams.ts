@@ -9,7 +9,7 @@ export const SamsTeams: CollectionConfig = {
 		useAsTitle: "fullName",
 		group: "SAMS",
 		defaultColumns: ["name", "matchSeries_Name", "seasonTeamId", "season"],
-		pagination: { defaultLimit: 100 },
+		pagination: { defaultLimit: 50 },
 	},
 	access: {
 		read: () => true,

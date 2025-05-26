@@ -8,6 +8,7 @@ export const Sponsors: CollectionConfig = {
 	admin: {
 		useAsTitle: "name",
 		group: "Inhalte",
+		pagination: { defaultLimit: 50 },
 	},
 	access: {
 		read: isModerator,

@@ -7,7 +7,7 @@ export const Events: CollectionConfig = {
 	admin: {
 		useAsTitle: "title",
 		group: "Inhalte",
-		pagination: { defaultLimit: 100 },
+		pagination: { defaultLimit: 50 },
 		preview: ({ id }) => `/termine/${id}`,
 		// description: "Offizielle SBVV Termine werden automatisch synchronisiert und brauchen hier nicht manuell eingetragen werden.",
 	},
