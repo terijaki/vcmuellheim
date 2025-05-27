@@ -1,4 +1,6 @@
-import PageHeading from "@/components/layout/PageHeading";
+import CardTitle from "@/components/CardTitle";
+import PageWithHeading from "@/components/layout/PageWithHeading";
+import { Anchor, AspectRatio, Box, Button, Card, Group, SimpleGrid, Stack, Text } from "@mantine/core";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,200 +9,193 @@ export const metadata: Metadata = { title: "Brand Guide" };
 
 export default function StyleGuidePage() {
 	return (
-		<>
-			<PageHeading title="Vereinsfarben & Logo Dateien" />
-			{/* colors */}
-			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-6 *:overflow-hidden">
-				<p>
-					Unsere Vereinsfarben werden hier auf der Webseite verwendet und sollten wenn möglich auch in anderem Kontext
-					verwendet werden.
-				</p>
+		<PageWithHeading title="Vereinsfarben & Logo Dateien">
+			<Stack>
+				{/* colors */}
+				<Card>
+					<Stack>
+						<Text>
+							Unsere Vereinsfarben werden hier auf der Webseite verwendet und sollten wenn möglich auch in anderem
+							Kontext verwendet werden.
+						</Text>
+						<SimpleGrid cols={3} c="white" spacing={{ base: 4, xs: "xs" }}>
+							<Text p="xs" bg="blumine" fw="bold">
+								Blumine
+							</Text>
+							<Text p="xs" bg="blumine">
+								#366273
+							</Text>
+							<Text p="xs" bg="blumine">
+								rgb(54,98,115)
+							</Text>
+							<Text p="xs" bg="onyx" fw="bold">
+								Onyx
+							</Text>
+							<Text p="xs" bg="onyx">
+								#363B40
+							</Text>
+							<Text p="xs" bg="onyx">
+								rgb(54,59,64)
+							</Text>
+							<Text p="xs" bg="turquoise" fw="bold">
+								Türkis
+							</Text>
+							<Text p="xs" bg="turquoise">
+								#01A29A
+							</Text>
+							<Text p="xs" bg="turquoise">
+								rgb(54,59,64)
+							</Text>
+						</SimpleGrid>
+					</Stack>
+				</Card>
+				{/* logos */}
+				<Card>
+					<Stack gap="xl">
+						<Stack>
+							<CardTitle>Vektorgrafik</CardTitle>
+							<Text>
+								Vektorgrafiken skalieren dynamisch und eigenen sich daher perfekt für den Druck oder die Beflockung von
+								Trikots.
+							</Text>
+							<Stack align="center">
+								<Image src="/images/logo/logo.svg" width={505} height={288} alt="Logo" unoptimized />
+								<Group>
+									<Button component={Link} href="/images/logo/logo.svg" download>
+										Download SVG
+									</Button>
+									<Button component={Link} href="/images/logo/logo.pdf" download>
+										Download PDF
+									</Button>
+								</Group>
+							</Stack>
+						</Stack>
+						<Stack>
+							<CardTitle>Rastergrafik</CardTitle>
+							<Text>
+								Rastergrafiken haben eine feste Auflösung und das Dateiformat PNG hat eine hohe Kompatibilität. Diese
+								Dateien eignen sich daher für die meisten digitalen Zwecke. Die Auflösung beträgt 5050x2880 Pixel.
+							</Text>
+							<SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="lg">
+								<Stack>
+									<Image src="/images/logo/logo-schwarz.png" width={505} height={288} alt="Logo Schwarz" unoptimized />
+									<Button component={Link} href="/images/logo/logo-schwarz.png" download mx="lg">
+										Download (Schwarz)
+									</Button>
+								</Stack>
+								<Stack>
+									<Box bg="gray">
+										<Image src="/images/logo/logo-weiss.png" width={505} height={288} alt="Logo Weiß" unoptimized />
+									</Box>
+									<Button component={Link} href="/images/logo/logo-weiss.png" download mx="lg">
+										Download (Weiß)
+									</Button>
+								</Stack>
+								<Stack>
+									<Image
+										src="/images/logo/logo-363B40-01A29A.png"
+										width={505}
+										height={288}
+										alt="Logo Türkis"
+										unoptimized
+									/>
+									<Button component={Link} href="/images/logo/logo-363B40-01A29A.png" download mx="lg">
+										Download (Türkis)
+									</Button>
+								</Stack>
+								<Stack>
+									<Image
+										src="/images/logo/logo-363B40-366273.png"
+										width={505}
+										height={288}
+										alt="Logo Blumine"
+										unoptimized
+									/>
+									<Button component={Link} href="/images/logo/logo-363B40-366273.png" download mx="lg">
+										Download (Blumine)
+									</Button>
+								</Stack>
+							</SimpleGrid>
+						</Stack>
+						<Stack>
+							<CardTitle>Rastergrafik mit Hintergrund</CardTitle>
+							<Text>Fertige Bilddateien mit weißem Logo auf farbigem Hintergrund.</Text>
+							<SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg">
+								<Stack>
+									<Image src="/images/logo/logo-366273.png" width={500} height={500} alt="Logo Blumine" unoptimized />
+									<Button component={Link} href="/images/logo/logo-366273.png" download>
+										Download (Blumine)
+									</Button>
+								</Stack>
+								<Stack>
+									<Image src="/images/logo/logo-363B40.png" width={500} height={500} alt="Logo Onyx" unoptimized />
+									<Button component={Link} href="/images/logo/logo-363B40.png" download>
+										Download (Onyx)
+									</Button>
+								</Stack>
+								<Stack>
+									<Image src="/images/logo/logo-01A29A.png" width={500} height={500} alt="Logo Türkis" unoptimized />
+									<Button component={Link} href="/images/logo/logo-01A29A.png" download>
+										Download (Türkis)
+									</Button>
+								</Stack>
+							</SimpleGrid>
+						</Stack>
+					</Stack>
+				</Card>
+				{/* jerseys */}
+				<Card>
+					<Stack>
+						<CardTitle>Trikots</CardTitle>
+						<Text>
+							<Text span fw="bold">
+								Farbe:{" "}
+							</Text>
+							Damit wir Mannschafts- und Jahrgangsübergreifend geschlossen als Verein auftreten können, sollten Trikots
+							in einer Farbe bestellt werden, die der Vereinsfarbe{" "}
+							<Text span bg="blumine" c="white">
+								Blumine
+							</Text>{" "}
+							ähnelnt. Navy oder Royal Blau sind beispielsweise Farben die von Sportartikelherstellern oft angeboten
+							werden.
+						</Text>
+						<Text>
+							<Text span fw="bold">
+								Marke:{" "}
+							</Text>{" "}
+							ERIMA wird bevorzugt.
+						</Text>
+						<Stack gap="xs">
+							<Text span fw="bold">
+								Beispiele:
+							</Text>
 
-				<div className="text-white grid grid-cols-2 sm:grid-cols-3 sm:gap-2 rounded sm:*:rounded *:p-2  text-center sm:text-left">
-					<span className="bg-blumine col-span-2 sm:col-span-1 text-bold">Blumine</span>
-					<span className="bg-blumine">#366273</span>
-					<span className="bg-blumine">rgb(54,98,115)</span>
-					<span className="bg-onyx col-span-2 sm:col-span-1 text-bold">Onyx</span>
-					<span className="bg-onyx">#363B40</span>
-					<span className="bg-onyx">rgb(54,59,64)</span>
-					<span className="bg-turquoise col-span-2 sm:col-span-1 text-bold">Türkis</span>
-					<span className="bg-turquoise">#01A29A</span>
-					<span className="bg-turquoise">rgb(54,59,64)</span>
-				</div>
-			</div>
-			{/* logos */}
-			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl gap-6 *:overflow-hidden">
-				<div key="vektor">
-					<h2>Vektorgrafik</h2>
-					<p>
-						Vektorgrafiken skalieren dynamisch und eigenen sich daher perfekt für den Druck oder die Beflockung von
-						Trikots.
-					</p>
-					<div className="flex flex-col items-center">
-						<Image
-							src="images/logo/logo.svg"
-							width={505}
-							height={288}
-							alt={""}
-							unoptimized
-							className="w-full max-w-lg object-contain inline-block"
-						/>
-						<div className="flex gap-3">
-							<Link href={"images/logo/logo.svg"} className="button-slim rounded-md" download>
-								Download SVG
-							</Link>
-							<Link href={"images/logo/logo.pdf"} className="button-slim rounded-md" download>
-								Download PDF
-							</Link>
-						</div>
-					</div>
-				</div>
-				<div key="raster">
-					<h2>Rastergrafik</h2>
-					<p>
-						Rastergrafiken haben eine feste Auflösung und das Dateiformat PNG hat eine hohe Kompatibilität. Diese
-						Dateien eignen sich daher für die meisten digitalen Zwecke. Die Auflösung beträgt 5050x2880 Pixel.
-					</p>
-					<div className="grid gap-3 items-center grid-cols-2 lg:grid-flow-col auto-cols-fr *:inline-flex *:flex-col *:items-center">
-						<div key="black">
-							<Image
-								src="images/logo/logo-schwarz.png"
-								width={505}
-								height={288}
-								alt={""}
-								unoptimized
-								className="w-full max-w-lg mb-3"
-							/>
-							<Link href={"images/logo/logo-schwarz.png"} className="button-slim rounded-md" download>
-								Download <br className="sm:hidden" />
-								(Schwarz)
-							</Link>
-						</div>
-						<div key="white">
-							<Image
-								src="images/logo/logo-weiss.png"
-								width={505}
-								height={288}
-								alt={""}
-								unoptimized
-								className="w-full max-w-lg mb-3 rounded-sm bg-onyx/20"
-							/>
-							<Link href={"images/logo/logo-weiss.png"} className="button-slim rounded-md" download>
-								Download <br className="sm:hidden" />
-								(Weiß)
-							</Link>
-						</div>
-						<div key="onyx turquoise">
-							<Image
-								src="images/logo/logo-363B40-01A29A.png"
-								width={505}
-								height={288}
-								alt={""}
-								unoptimized
-								className="w-full max-w-lg mb-3"
-							/>
-							<Link href={"images/logo/logo-363B40-01A29A.png"} className="button-slim rounded-md" download>
-								Download <br className="sm:hidden" />
-								(Türkis)
-							</Link>
-						</div>
-						<div key="onyx blumine">
-							<Image
-								src="images/logo/logo-363B40-366273.png"
-								width={505}
-								height={288}
-								alt={""}
-								unoptimized
-								className="w-full max-w-lg mb-3"
-							/>
-							<Link href={"images/logo/logo-363B40-366273.png"} className="button-slim rounded-md" download>
-								Download <br className="sm:hidden" />
-								(Blumine)
-							</Link>
-						</div>
-					</div>
-				</div>
-				<div key="raster with background">
-					<h2>Rastergrafik mit Hintergrund</h2>
-					<p>Fertige Bilddateien mit weißem Logo auf farbigem Hintergrund.</p>
-					<div className="grid gap-3 items-center sm:grid-flow-col auto-cols-fr *:inline-flex *:flex-col *:items-center">
-						<div key="blumine 366273">
-							<Image
-								src="images/logo/logo-366273.png"
-								width={500}
-								height={500}
-								alt={""}
-								unoptimized
-								className="w-full max-w-lg mb-3"
-							/>
-							<Link href={"images/logo/logo-366273.png"} className="button-slim rounded-md" download>
-								Download (Blumine)
-							</Link>
-						</div>
-						<div key="onyx 363B40">
-							<Image
-								src="images/logo/logo-363B40.png"
-								width={500}
-								height={500}
-								alt={""}
-								unoptimized
-								className="w-full max-w-lg mb-3 rounded-sm"
-							/>
-							<Link href={"images/logo/logo-363B40.png"} className="button-slim rounded-md" download>
-								Download (Onyx)
-							</Link>
-						</div>
-						<div key="turquoise 01A29A">
-							<Image
-								src="images/logo/logo-01A29A.png"
-								width={500}
-								height={500}
-								alt={""}
-								unoptimized
-								className="w-full max-w-lg mb-3"
-							/>
-							<Link href={"images/logo/logo-01A29A.png"} className="button-slim rounded-md" download>
-								Download (Türkis)
-							</Link>
-						</div>
-					</div>
-				</div>
-			</div>
-			{/* jerseys */}
-			<div className="col-full-content sm:col-center-content my-6 card grid grid-flow-row prose-h2:font-bold prose-h2:text-blumine prose-h2:text-2xl *:overflow-hidden prose-p:text-balance">
-				<h2>Trikots</h2>
-				<p className="mb-3">
-					<span className="font-bold">Farbe:</span> Damit wir Mannschafts- und Jahrgangsübergreifend geschlossen als
-					Verein auftreten können, sollten Trikots in einer Farbe bestellt werden, die der Vereinsfarbe{" "}
-					<span className="bg-blumine text-white px-1">Blumine</span> ähnelnt. Navy oder Royal Blau sind beispielsweise
-					Farben die von Sportartikelherstellern oft angeboten werden.
-				</p>
-				<p className="mb-3">
-					<span className="font-bold">Marke:</span> ERIMA wird bevorzugt.
-				</p>
-
-				<p className="mb-3">
-					<span className="font-bold">Beispiele:</span>
-				</p>
-				<div className="grid sm:grid-cols-2 rounded-lg mb-3 *:w-full *:object-cover *:aspect-video">
-					<Image width={600} height={400} src="images/blog/2023/09/28/hasslachpokal11.jpg" alt={""} />
-					<Image width={600} height={400} src="images/blog/2023/12/04/20231203-wa0046.jpg" alt={""} />
-				</div>
-				<p>
-					Trikots können bequem in unserem{" "}
-					<Link
-						href="https://vcmuellheim.fan12.de/kategorien/sportbedarf/oberteile/trikots/?filter_brand=erima"
-						className="text-turquoise"
-						target="_blank"
-						referrerPolicy="no-referrer"
-						rel="noreferrer"
-					>
-						Vereinsshop
-					</Link>{" "}
-					bestellt werden. Das richtige Vereinslogo ist dort bereits hinterlegt und muss bei der Bestellung nicht
-					bereitgestellt werden.
-				</p>
-			</div>
-		</>
+							<SimpleGrid spacing="xs" cols={{ base: 1, sm: 2 }}>
+								<AspectRatio ratio={6 / 4}>
+									<Image width={600} height={400} objectFit="cover" src="/images/brand/jersey1.jpg" alt="Logo" />
+								</AspectRatio>
+								<AspectRatio ratio={6 / 4}>
+									<Image width={600} height={400} objectPosition="cover" src="/images/brand/jersey2.jpg" alt="Logo" />
+								</AspectRatio>
+							</SimpleGrid>
+						</Stack>
+						<Text>
+							Trikots können bequem in unserem{" "}
+							<Anchor
+								component={Link}
+								href="https://vcmuellheim.fan12.de/kategorien/vereinskollektion/"
+								target="_blank"
+								referrerPolicy="no-referrer"
+								rel="noreferrer"
+							>
+								Vereinsshop
+							</Anchor>{" "}
+							bestellt werden. Das richtige Vereinslogo ist dort bereits hinterlegt und muss bei der Bestellung nicht
+							bereitgestellt werden.
+						</Text>
+					</Stack>
+				</Card>
+			</Stack>
+		</PageWithHeading>
 	);
 }
