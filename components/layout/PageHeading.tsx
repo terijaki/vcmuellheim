@@ -1,49 +1,43 @@
-import Image from "next/image";
+import { BackgroundImage, Overlay, Stack, Text, Title } from "@mantine/core";
 
 export default function PageHeading(props: {
 	title: string;
 	subtitle?: string;
-	subtitleDate?: boolean;
+	date?: Date;
 }) {
-	// grid info: seaction is placed the in "full-content" grid area to take up the maximum post width
-	// background & gradient info: the image is the bg of the section, the section:before adds the first layer and section:after the final gradient layer
-
-	// <Title textWrap="balance"></Title>
+	// #366273 is in rgb (54, 98, 115)
+	// #363b40 is in rgb (54, 59, 64)
 
 	return (
-		<section
-			className="col-full-content
-					overflow-hidden z-10
-					bg-cover bg-no-repeat bg-center
-					bg-gradient-overlay bg-gradient-overlay-double"
+		<BackgroundImage
+			src="/images/backgrounds/pageheading.jpg"
+			h={96 + 8 + 8 + 8}
+			w="100%"
+			pos="relative"
+			style={{ zIndex: 0 }}
 		>
-			<Image
-				width={948}
-				height={639}
-				alt=""
-				src={"/images/backgrounds/pageheading.jpg"}
-				className="absolute w-full h-full z-[-10] object-cover"
-			/>
-			{/* grid info: section now applies the main grid for its own children */}
-			<div className="grid grid-cols-main-grid py-6 *:text-balance *:text-center">
-				{/* grid info: children orient itself on the main grid (enforced by the parent) */}
-				{/* grid info: this can be simplified in the future once "subgrid" is properly supported */}
-				<h1 className="text-white text-2xl md:text-3xl font-montserrat font-semibold col-center-content">
+			<Stack justify="center" align="center" h="100%" gap={0} c="white">
+				<Title ta="center" textWrap="balance" order={1} lineClamp={2}>
 					{props.title}
-				</h1>
-				{props.subtitle && props.subtitleDate && (
-					<time className="col-center-content text-white text-sm font-thin mt-1" dateTime={props.subtitle}>
-						{new Date(props.subtitle).toLocaleString("de-DE", {
-							day: "numeric",
-							month: "short",
-							year: "numeric",
-						})}
+				</Title>
+
+				{props.subtitle && <Text ta="center">{props.subtitle}</Text>}
+				{!props.subtitle && props.date && (
+					<time dateTime={props.date.toISOString()}>
+						<Text ta="center">
+							{" "}
+							{props.date.toLocaleString("de-DE", {
+								day: "numeric",
+								month: "short",
+								year: "numeric",
+							})}
+						</Text>
 					</time>
 				)}
-				{props.subtitle && !props.subtitleDate && (
-					<p className="col-center-content text-white text-sm font-thin mt-1">{props.subtitle}</p>
-				)}
-			</div>
-		</section>
+			</Stack>
+			{/* <Overlay backgroundOpacity={0.95} color="var(--mantine-color-onyx-filled)" blur={2} zIndex={-1} /> */}
+
+			<Overlay gradient="linear-gradient(0deg, rgba(54, 98, 115, 0.9) 0%, rgba(54, 59, 64,0.98) 100%)" zIndex={-1} />
+		</BackgroundImage>
 	);
 }

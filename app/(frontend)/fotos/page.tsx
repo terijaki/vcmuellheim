@@ -25,10 +25,15 @@ export default async function PicturesPage() {
 						shuffleArray(pictures)?.map(async (image) => {
 							if (!image.url) return null;
 							return (
-								<Card shadow="sm" component={Link} key={`picture-${image.id}`} href={image.url} target="_blank">
+								<Card key={image.id} shadow="sm" component={Link} href={image.url} target="_blank">
 									<CardSection>
 										<AspectRatio ratio={16 / 9} maw={{ base: "100%", xs: 264 }}>
-											<Image src={image.url} className="transition-transform duration-700 hover:scale-105" alt="" />
+											<Image
+												src={image.url}
+												className="transition-transform duration-700 hover:scale-105"
+												alt=""
+												style={{ zIndex: 1 }}
+											/>
 										</AspectRatio>
 									</CardSection>
 								</Card>

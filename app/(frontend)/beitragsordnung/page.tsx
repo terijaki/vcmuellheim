@@ -1,13 +1,13 @@
-import PageHeading from "@/components/layout/PageHeading";
-import Link from "next/link";
+import CardTitle from "@/components/CardTitle";
+import PageWithHeading from "@/components/layout/PageWithHeading";
+import { Anchor, Card, Text, TypographyStylesProvider } from "@mantine/core";
 
 export default function Beitragsordnung() {
 	return (
-		<>
-			<PageHeading title="Beitragsordnung" />
-			<div className="col-full-content sm:col-center-content">
-				<article className="card my-8 prose max-w-full leading-normal prose-headings:m-0 prose-li:m-auto hyphens-auto lg:hyphens-none">
-					<h2>§ 1 Geschäftsjahr und Fälligkeit</h2>
+		<PageWithHeading title="Beitragsordnung">
+			<TypographyStylesProvider>
+				<Card>
+					<CardTitle>§ 1 Geschäftsjahr und Fälligkeit</CardTitle>
 					<ol>
 						<li>Das Geschäftsjahr des Vereins ist das Kalenderjahr.</li>
 						<li>
@@ -16,7 +16,7 @@ export default function Beitragsordnung() {
 						</li>
 					</ol>
 
-					<h2>§ 2 Höhe des Mitgliedbeitrages</h2>
+					<CardTitle>§ 2 Höhe des Mitgliedbeitrages</CardTitle>
 					<ol>
 						<li>Die Höhe des Mitgliedbeitrags wird durch die Mitgliederversammlung des Vereins festgelegt.</li>
 						<li>
@@ -29,7 +29,7 @@ export default function Beitragsordnung() {
 						<li>Bei einem Eintritt ab dem 01.07. eines Jahres wird nur die Hälfte des Jahresbeitrags fällig.</li>
 					</ol>
 
-					<h2>§3 Reduzierungen</h2>
+					<CardTitle>§3 Reduzierungen</CardTitle>
 					<ol>
 						<li>
 							Der Beitrag für Jugendliche ab 16 Jahren, und Erwachsene wird bei Vorlage einer entsprechenden
@@ -39,11 +39,11 @@ export default function Beitragsordnung() {
 						</li>
 						<li>
 							Der Vorstand kann in begründeten Einzelfällen Beiträge ganz oder teilweise stunden oder erlassen (siehe §5
-							(2) der <Link href="/satzung">Vereinssatzung</Link>).
+							(2) der <Anchor href="/satzung">Vereinssatzung</Anchor>).
 						</li>
 					</ol>
 
-					<h2>§ 4 Rechte und Pflichten der Mitglieder</h2>
+					<CardTitle>§ 4 Rechte und Pflichten der Mitglieder</CardTitle>
 					<ol>
 						<li>Wird der fällige Mitgliedsbeitrag nicht bezahlt, ruht das Stimmrecht des Mitglieds.</li>
 						<li>
@@ -66,12 +66,12 @@ export default function Beitragsordnung() {
 						</li>
 					</ol>
 
-					<h2>§ 5 Beendigung der Mitgliedschaft</h2>
+					<CardTitle>§ 5 Beendigung der Mitgliedschaft</CardTitle>
 					<ol>
 						<li>
-							In §6 der <Link href="/satzung">Vereinssatzung</Link> ist das Procedere bei rückständiger Beitragszahlung
-							geregelt. Dies kann zu einer Streichung von der Mitgliederliste des Vereins führen. Verpflichtungen dem
-							Verein gegenüber sind bis zum Ablauf des laufenden Geschäftsjahres zu erfüllen.
+							In §6 der <Anchor href="/satzung">Vereinssatzung</Anchor> ist das Procedere bei rückständiger
+							Beitragszahlung geregelt. Dies kann zu einer Streichung von der Mitgliederliste des Vereins führen.
+							Verpflichtungen dem Verein gegenüber sind bis zum Ablauf des laufenden Geschäftsjahres zu erfüllen.
 						</li>
 						<li>
 							Der freiwillige Austritt hat in Textform gegenüber einem Mitglied des Vorstands oder der
@@ -80,9 +80,11 @@ export default function Beitragsordnung() {
 						</li>
 					</ol>
 
-					<p className="text-right my-xl italic">Stand 26.11.2023</p>
-				</article>
-			</div>
-		</>
+					<Text c="dimmed" size="xs" ta="right">
+						Stand 26.11.2023
+					</Text>
+				</Card>
+			</TypographyStylesProvider>
+		</PageWithHeading>
 	);
 }

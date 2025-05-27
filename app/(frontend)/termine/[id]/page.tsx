@@ -41,7 +41,7 @@ export default async function EventPage({ params }: { params: Promise<{ id: stri
 	const hasAddress = address && (address.name || address.street || address.postalCode || address.city);
 
 	return (
-		<PageWithHeading title={title} subtitle={date.startDate} subtitleDate={true}>
+		<PageWithHeading title={title} date={new Date(date.startDate)}>
 			<Stack gap="lg">
 				<Card>
 					<Grid gutter="lg">

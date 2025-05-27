@@ -24,7 +24,7 @@ export default async function NewsPage({ params }: { params: Promise<{ id: strin
 	const thumbnails = data.images?.map((i) => (typeof i === "string" ? i : i.url)).filter((i) => typeof i === "string");
 
 	return (
-		<PageWithHeading title={data.title} subtitle={data.publishedDate} subtitleDate={true}>
+		<PageWithHeading title={data.title} date={new Date(data.publishedDate)}>
 			<Stack>
 				<Card>
 					<Stack>
