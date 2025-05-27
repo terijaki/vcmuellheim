@@ -16,9 +16,9 @@ export default async function HomeNews() {
 	return (
 		<Container size="xl" pb="xl">
 			<ScrollAnchor name="news" />
-			<SectionHeading text="News" />
-			<Suspense fallback={<Text>Lade Newsbeiträge</Text>}>
-				<Stack>
+			<Stack>
+				<SectionHeading text="News" />
+				<Suspense fallback={<Text>Lade Newsbeiträge</Text>}>
 					<SimpleGrid cols={{ base: 1, sm: 2 }}>
 						{data?.docs.map((post) => {
 							// filter out the thumbnail urls
@@ -41,8 +41,8 @@ export default async function HomeNews() {
 							alle Newsbeiträge
 						</Link>
 					</Center>
-				</Stack>
-			</Suspense>
+				</Suspense>
+			</Stack>
 		</Container>
 	);
 }

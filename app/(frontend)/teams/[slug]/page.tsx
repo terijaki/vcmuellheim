@@ -1,7 +1,6 @@
 import CardTitle from "@/components/CardTitle";
 import ImageGallery from "@/components/ImageGallery";
 import MapsLink from "@/components/MapsLink";
-import MemberCard from "@/components/MemberCard";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import Matches from "@/components/sams/Matches";
 import RankingTable from "@/components/sams/RankingTable";
@@ -13,6 +12,7 @@ import { samsClubData, samsMatches, samsRanking } from "@/utils/sams/sams-server
 import {
 	Anchor,
 	AspectRatio,
+	Avatar,
 	Button,
 	Card,
 	CardSection,
@@ -28,6 +28,7 @@ import dayjs from "dayjs";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import Flag from "react-world-flags";
@@ -47,7 +48,9 @@ export default async function TeamPage(props: { params: Promise<{ slug: string }
 	const team = teams?.docs?.[0];
 
 	// sbvv identifier
-	if (!team?.sbvvTeam || typeof team.sbvvTeam === "string") return null; //TODO handle error or redirect to 404 page
+	if (!team?.sbvvTeam || typeof team.sbvvTeam === "string") notFound();
+	// redirect to 404 page
+
 	const samsTeam = team.sbvvTeam;
 	const sbvvId = samsTeam.seasonTeamId;
 	const clubData = await samsClubData();
@@ -117,27 +120,28 @@ async function TeamPlayers({ sbvvId }: { sbvvId?: string | number | null }) {
 
 	return (
 		<Card data-section="players">
-			<CardTitle>Spieler</CardTitle>
-			<SimpleGrid cols={{ base: 1, xs: 2, md: 3, lg: 4 }}>
-				{players.map((player, index) => {
-					return (
-						<Group key={`${player.lastName}${player.firstName}${index}`} gap="xs" wrap="nowrap">
-							<Text w={16} miw={16} ta="center">
-								{player.number}
-							</Text>
-							<Card p={0} shadow="xs" radius="xs" miw={32}>
-								<AspectRatio ratio={8 / 6} w={32}>
-									<Flag code={player.nationality} />
-								</AspectRatio>
-							</Card>
-
-							<Text lineClamp={2} style={{ textWrap: "balance" }}>
-								{player.firstName} {player.lastName}
-							</Text>
-						</Group>
-					);
-				})}
-			</SimpleGrid>
+			<Stack>
+				<CardTitle>Spieler</CardTitle>
+				<SimpleGrid cols={{ base: 1, xs: 2, md: 3, lg: 4 }}>
+					{players.map((player, index) => {
+						return (
+							<Group key={`${player.lastName}${player.firstName}${index}`} gap="xs" wrap="nowrap">
+								<Text w={16} miw={16} ta="center">
+									{player.number}
+								</Text>
+								<Card p={0} shadow="xs" radius="xs" miw={32}>
+									<AspectRatio ratio={8 / 6} w={32}>
+										<Flag code={player.nationality} />
+									</AspectRatio>
+								</Card>
+								<Text lineClamp={2} style={{ textWrap: "balance" }}>
+									{player.firstName} {player.lastName}
+								</Text>
+							</Group>
+						);
+					})}
+				</SimpleGrid>
+			</Stack>
 		</Card>
 	);
 }
@@ -232,21 +236,23 @@ function TeamSchedule({ schedules }: { schedules?: Team["schedules"] }) {
 
 	return (
 		<Card>
-			<CardTitle>Trainingszeiten</CardTitle>
-			<Flex columnGap="xl" rowGap="md" wrap="wrap">
-				{schedules.map((schedule) => {
-					const separator = schedule.day.length > 2 ? ", " : " & ";
-					return (
-						<Stack key={schedule.id} gap={0}>
-							<Text>
-								{schedule.day.join(separator)} {dayjs(schedule.time.startTime).format("HH:mm")} -{" "}
-								{dayjs(schedule.time.endTime).format("HH:mm")} Uhr
-							</Text>
-							{typeof schedule.location === "object" && <MapsLink location={schedule.location} />}
-						</Stack>
-					);
-				})}
-			</Flex>
+			<Stack>
+				<CardTitle>Trainingszeiten</CardTitle>
+				<Flex columnGap="xl" rowGap="md" wrap="wrap">
+					{schedules.map((schedule) => {
+						const separator = schedule.day.length > 2 ? ", " : " & ";
+						return (
+							<Stack key={schedule.id} gap={0}>
+								<Text>
+									{schedule.day.join(separator)} {dayjs(schedule.time.startTime).format("HH:mm")} -{" "}
+									{dayjs(schedule.time.endTime).format("HH:mm")} Uhr
+								</Text>
+								{typeof schedule.location === "object" && <MapsLink location={schedule.location} />}
+							</Stack>
+						);
+					})}
+				</Flex>
+			</Stack>
 		</Card>
 	);
 }
@@ -271,12 +277,35 @@ function TeamTrainers({ people }: { people?: Team["people"] }) {
 		if (!member || member.length === 0 || typeof member === "string") return null;
 
 		return (
-			<Stack gap="xs">
+			<Stack>
 				<CardTitle>{title}</CardTitle>
-				<Flex wrap="wrap" gap="md">
+				<Flex wrap="wrap" gap="xl">
 					{member?.map((coach) => {
 						if (typeof coach !== "object") return null;
-						return <MemberCard key={coach.id} member={coach} dark />;
+						const avatarUrl = typeof coach.avatar === "object" && coach.avatar?.url ? coach.avatar.url : undefined;
+						const Person = () => (
+							<Group key={coach.id} align="center">
+								<Avatar src={avatarUrl} name={coach.name} />
+								<Stack gap={0}>
+									<Text fw="bold" c="turquoise">
+										{coach.name}
+									</Text>
+									{coach.email && (
+										<Text c="dimmed" size="xs">
+											{coach.email}
+										</Text>
+									)}
+								</Stack>
+							</Group>
+						);
+
+						if (coach.email)
+							return (
+								<Anchor key={coach.id} href={`mailto:${coach.email}`} underline="never">
+									<Person />
+								</Anchor>
+							);
+						return <Person key={coach.id} />;
 					})}
 				</Flex>
 			</Stack>
@@ -294,42 +323,6 @@ function TeamTrainers({ people }: { people?: Team["people"] }) {
 			</Flex>
 		</Card>
 	);
-
-	// return <div className="card *:mb-3" data-section="training">
-	// 	{team.trainer && team.trainer?.length >= 1 && (
-	// 		<div className="trainers" data-section="trainers">
-	// 			<h3 className="font-bold flex gap-x-1 items-baseline">
-	// 				{team.trainer?.length === 1 ? <IconPerson className="text-xs" /> : <IconPersons className="text-xs" />}
-	// 				Trainer:
-	// 			</h3>
-	// 			<div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(180px,max-content))] md:grid-cols-[repeat(auto-fit,minmax(250px,max-content))]">
-	// 				{team.trainer?.map((trainer) => {
-	// 					// check if this trainer is in the member list and has an avatar
-	// 					const trainerList = getMembers();
-	// 					const filteredTrainers = trainerList.filter((thisTrainer) => thisTrainer.name === trainer.name);
-	// 					return (
-	// 						<div key={JSON.stringify(trainer)}>
-	// 							{filteredTrainers[0]?.avatar ? (
-	// 								<MembersCard {...trainer} avatar={filteredTrainers[0].avatar} />
-	// 							) : (
-	// 								<MembersCard {...trainer} />
-	// 							)}
-	// 						</div>
-	// 					);
-	// 				})}
-	// 			</div>
-	// 		</div>
-	// 	)}
-	// 	{team.trainer && team.trainer?.length < 1 && (
-	// 		<div className="trainers">
-	// 			<h3 className="font-bold flex gap-x-1 items-baseline">
-	// 				<IconEmail className="text-xs" />
-	// 				Kontakt:
-	// 			</h3>
-	// 			Bei Fragen und Interesse zu dieser Mannschaft, wende dich bitte an info@vcmuellheim.de
-	// 		</div>
-	// 	)}
-	// </div>,
 }
 
 function TeamPictures({ images }: { images?: string[] }) {
