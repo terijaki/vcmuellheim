@@ -123,6 +123,7 @@ export async function samsMatches(props: Parameters<typeof sams.matches>[0]): Pr
 export async function samsClubData() {
 	"use cache";
 	cacheLife("hours");
+
 	try {
 		// get all clubs to find the club ID
 		const allClubs = await sams.sportsclubList();
