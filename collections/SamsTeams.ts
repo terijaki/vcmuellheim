@@ -6,7 +6,7 @@ export const SamsTeams: CollectionConfig = {
 	labels: { plural: "Teams", singular: "Team" },
 	defaultSort: "category",
 	admin: {
-		useAsTitle: "fullName",
+		useAsTitle: "nameWithSeries",
 		group: "SAMS",
 		defaultColumns: ["name", "matchSeries_Name", "seasonTeamId", "season"],
 		pagination: { defaultLimit: 50 },
@@ -20,14 +20,14 @@ export const SamsTeams: CollectionConfig = {
 	hooks: {
 		beforeChange: [
 			({ data }) => {
-				data.fullName = `${data.name} (${data.matchSeries_Name})`;
+				data.nameWithSeries = `${data.name} (${data.matchSeries_Name})`;
 				return data;
 			},
 		],
 	},
 	fields: [
 		{
-			name: "fullName",
+			name: "nameWithSeries",
 			type: "text",
 			admin: { readOnly: true, hidden: true },
 		},

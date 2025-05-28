@@ -1,39 +1,38 @@
 import { samsClubDataByClubName } from "@/utils/sams/sams-server-actions";
+import { Box } from "@mantine/core";
 import { unstable_cacheLife as cacheLife } from "next/cache";
 import Image from "next/image";
 import { FaVolleyball as Ball } from "react-icons/fa6";
 
-export default async function ClubLogo({
-	clubName,
-	className,
-}: { clubName?: string | null; className?: string | null }) {
+export default async function ClubLogo({ clubName }: { clubName?: string | null }) {
 	"use cache";
 	cacheLife("days");
 
 	if (!process.env.DOCKER_BUILD && clubName) {
 		const clubData = await samsClubDataByClubName(clubName);
-		if (clubData?.logo?.url)
+		if (clubData?.logo)
 			return (
-				<div className={`inline-block relative h-5 w-5 ${className}`}>
+				<Box pos="relative" w={24} h={24}>
 					<Image
-						src={clubData.logo.url}
+						src={clubData.logo}
 						fill
 						loading="lazy"
 						placeholder="empty"
 						alt={`Logo: ${clubName}`}
-						className="object-contain mix-blend-multiply"
+						objectFit="contain"
+						style={{ mixBlendMode: "multiply" }}
 					/>
-				</div>
+				</Box>
 			);
 	}
 
-	return <ClubLogoFallback className={className} />;
+	return <ClubLogoFallback />;
 }
 
 export function ClubLogoFallback({ className }: { className?: string | null }) {
 	return (
-		<div className={`inline-flex h-5 w-5 text-lion items-center justify-center ${className}`}>
-			<Ball className="p-0.3 opacity-50" />
-		</div>
+		<Box pos="relative" w={24} h={24}>
+			<Ball className="opacity-50" />
+		</Box>
 	);
 }

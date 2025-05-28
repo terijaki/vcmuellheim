@@ -3,11 +3,11 @@ import config from "@payload-config";
 import { unstable_cacheLife as cacheLife } from "next/cache";
 import { getPayload } from "payload";
 
+const payload = await getPayload({ config });
+
 export async function getPictures(limit?: number) {
 	"use cache";
 	cacheLife("days");
-
-	const payload = await getPayload({ config });
 
 	try {
 		const pictures = await payload.find({
@@ -25,11 +25,9 @@ export async function getPictures(limit?: number) {
 	}
 }
 
-export async function getTeamPictures(slug:string, limit?: number) {
+export async function getTeamPictures(slug: string, limit?: number) {
 	"use cache";
 	cacheLife("days");
-
-	const payload = await getPayload({ config });
 
 	try {
 		const pictures = await payload.find({

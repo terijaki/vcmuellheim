@@ -5,7 +5,7 @@ export const Media: CollectionConfig = {
 	slug: "media",
 	labels: { plural: "Dateien", singular: "Datei" },
 	admin: {
-		group: "System",
+		group: "Inhalte",
 		defaultColumns: ["filename", "size", "createdAt"],
 		pagination: { defaultLimit: 50 },
 	},

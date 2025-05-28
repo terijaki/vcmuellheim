@@ -2,9 +2,9 @@
 import config from "@payload-config";
 import { getPayload } from "payload";
 
-export async function getEvents(limit?: number, page?: number) {
-	const payload = await getPayload({ config });
+const payload = await getPayload({ config });
 
+export async function getEvents(limit?: number, page?: number) {
 	try {
 		const events = await payload.find({
 			collection: "events",
@@ -18,7 +18,6 @@ export async function getEvents(limit?: number, page?: number) {
 				},
 			},
 			select: {
-				id: true,
 				title: true,
 				date: true,
 				location: true,
@@ -30,9 +29,8 @@ export async function getEvents(limit?: number, page?: number) {
 		console.error("Error fetching events:", error);
 	}
 }
-export async function getEventItem(id: string) {
-	const payload = await getPayload({ config });
 
+export async function getEventItem(id: string) {
 	try {
 		const eventsItem = await payload.findByID({
 			collection: "events",

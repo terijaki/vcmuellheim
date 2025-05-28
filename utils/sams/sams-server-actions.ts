@@ -1,8 +1,13 @@
 "use server";
+import type { SamsClub } from "@/data/payload-types";
 import { SAMS } from "@/project.config";
+import config from "@payload-config";
 import dayjs from "dayjs";
 import { unstable_cacheLife as cacheLife } from "next/cache";
-import { type Match, type Rankings, type Season, type SimpleSportsClub, type Sportsclub, sams } from "sams-rpc";
+import { getPayload } from "payload";
+import { type Match, type Rankings, type Season, type SimpleSportsClub, sams } from "sams-rpc";
+
+const payload = await getPayload({ config });
 
 // API KEY and SERVER URL should be set via env variables
 const SAMS_CLUB_NAME = SAMS.name; // the exact name of the club in SAMS
@@ -31,24 +36,47 @@ export async function samsSportsclubs(): Promise<SimpleSportsClub[] | undefined>
 	}
 }
 
-export async function samsSportsclub(sportsclubId: number | string): Promise<Sportsclub | undefined> {
+export async function samsSportsclub(sportsclubId: number | string): Promise<SamsClub | undefined> {
 	"use cache";
 	cacheLife("days");
 
 	try {
-		// during development, we use a static example from the library
-		if (process.env.NODE_ENV === "development") {
-			const example = await fetch(
-				"https://raw.githubusercontent.com/terijaki/sams-rpc/refs/heads/main/examples/sportsclub.json",
-			);
-			const exampleJson: Sportsclub = await example.json();
-			return exampleJson;
-		}
-
-		console.log(`☝️ Fetching club by ID ${sportsclubId}`);
+		// check if we have fresh data in our database
+		const cachedClubs = await payload.find({
+			collection: "sams-clubs",
+			where: {
+				sportsclubId: { equals: sportsclubId },
+			},
+		});
+		const cachedClub = cachedClubs?.docs[0] as SamsClub | undefined;
+		// get the club data by using the club ID
 		const club = await sams.sportsclub({ sportsclubId });
+		if (!club) throw new Error("Club data not found");
 
-		return club;
+		// build clubData object
+		const clubData = {
+			name: club.name,
+			sportsclubId: club.id,
+			lsbNumber: club.lsbNumber || null,
+			internalSportsclubId: club.internalSportsclubId || null,
+			logo: club.logo?.url,
+			homepage: club.matchOperationCompany.homepage,
+		};
+
+		// update or create the club data in our database
+		if (cachedClub?.id) {
+			const updatedClub = await payload.update({
+				collection: "sams-clubs",
+				id: cachedClub.id,
+				data: clubData,
+			});
+			return updatedClub;
+		}
+		const storeClub = await payload.create({
+			collection: "sams-clubs",
+			data: clubData,
+		});
+		return storeClub;
 	} catch (error) {
 		console.error("🚨 Error fetching club:", error);
 	}
@@ -118,48 +146,63 @@ export async function samsMatches(props: Parameters<typeof sams.matches>[0]): Pr
 	}
 }
 
-/* region OUR CLUB */
-// returns our club's data
-export async function samsClubData() {
+// return the club data by club name
+export async function samsClubDataByClubName(clubName: string, maxAge = 90): Promise<SamsClub | undefined> {
 	"use cache";
 	cacheLife("hours");
-
 	try {
-		// get all clubs to find the club ID
-		const allClubs = await sams.sportsclubList();
-		const clubId = allClubs.find((club) => club.name.includes(SAMS_CLUB_NAME))?.id;
-		if (!clubId) {
-			throw new Error("Club ID not found");
-		}
-		// get the club data by using the club ID
-		const club = await sams.sportsclub({ sportsclubId: clubId });
-		return club;
+		// check if we have fresh data in our database
+		const cachedClubsByName = await payload.find({
+			collection: "sams-clubs",
+			where: {
+				name: { equals: clubName },
+			},
+		});
+		const cachedClubByName = cachedClubsByName?.docs[0] as SamsClub | undefined;
+		// if we have a cached club, return it
+		if (cachedClubByName?.updatedAt && dayjs(cachedClubByName.updatedAt).isAfter(dayjs().subtract(maxAge, "day")))
+			return cachedClubByName;
+
+		// otherwise get fresh data, store it, and return it
+		const allClubs = await samsSportsclubs();
+
+		const clubId = allClubs?.find((club) => club.name.includes(clubName))?.id;
+		if (!clubId) throw new Error("Club ID not found");
+
+		const cachedClub = await samsSportsclub(clubId);
+		return cachedClub;
 	} catch (error) {
 		console.error("🚨 Error fetching our club data:", error);
 	}
 }
-// return the unique allSeasonMatchSeriesIds for the club
-export async function samsClubAllSeasonMatchSeriesIds(leagueOnly = false) {
-	try {
-		// get the club data by using the club ID
-		const club = await samsClubData();
-		if (!club) throw new Error("Club data not found");
 
-		// extract the unqiue match series from the teams
-		const clubTeams = club?.teams?.team;
-		const clubLeagueTeams = !leagueOnly // if leagueOnly is false, return all teams
-			? clubTeams
-			: clubTeams?.filter(
-					(team) => team.status.toLowerCase() === "active" && team.matchSeries.type.toLowerCase() === "league",
-				);
-		const matchSeriesIds = clubLeagueTeams?.map((team) => team.matchSeries.allSeasonId);
-		const unqiueMatchSeriesIds = Array.from(new Set(matchSeriesIds));
-		return unqiueMatchSeriesIds;
+/* region OUR CLUB */
+// returns our club's data
+export async function samsClubData(maxAge = 7): Promise<SamsClub | undefined> {
+	return await samsClubDataByClubName(SAMS_CLUB_NAME, maxAge);
+}
+// return the unique allSeasonMatchSeriesIds for the club
+export async function samsClubAllSeasonMatchSeriesIds(leagueOnly = false): Promise<string[] | undefined> {
+	try {
+		// get sams teams from the database
+		const teamsCollection = await payload.find({
+			collection: "sams-teams",
+		});
+		const teams = teamsCollection.docs || [];
+
+		const unqiueMatchSeriesIds = new Set<string>(); // to store unique match series IDs
+		// loop through the teams to get the allSeasonIds. respecting the leagueOnly filter
+		teams.map((team) => {
+			if (team.matchSeries_AllSeasonId && (!leagueOnly || team.matchSeries_Type?.toLowerCase() === "league"))
+				unqiueMatchSeriesIds.add(team.matchSeries_AllSeasonId);
+		});
+
+		const data: string[] = Array.from(unqiueMatchSeriesIds);
+		return data;
 	} catch (error) {
 		console.error("🚨 Error fetching club match series IDs:", error);
 	}
 }
-
 // returns only the unique rankings for the club
 export async function samsClubRankings() {
 	"use cache";
@@ -193,6 +236,7 @@ export async function samsClubMatches({
 	"use cache";
 	cacheLife("minutes");
 	try {
+		// throw "Club Matches disabled temporarily 🦋";
 		const unqiueMatchSeriesIds = await samsClubAllSeasonMatchSeriesIds(false);
 		if (!unqiueMatchSeriesIds) throw "No match series IDs found";
 
@@ -216,24 +260,6 @@ export async function samsClubMatches({
 		return clubMatches;
 	} catch (error) {
 		console.error("🚨 Error fetching club rankings:", error);
-	}
-}
-/* endregion */
-
-/* region WORKAROUNDS */
-// return the club data by club name
-export async function samsClubDataByClubName(name: string) {
-	try {
-		const allClubs = await sams.sportsclubList();
-
-		const desiredClub = allClubs.find((club) => club.name?.toLowerCase().trim() === name.toLowerCase().trim());
-		if (!desiredClub) throw "Club not found";
-
-		const desiredClubData = await samsSportsclub(desiredClub.id);
-
-		return desiredClubData;
-	} catch (error) {
-		console.log(`🚨 Error fetching club data by name (${name})`, error);
 	}
 }
 /* endregion */

@@ -2,18 +2,16 @@
 import config from "@payload-config";
 import { getPayload } from "payload";
 
-export async function getNews(limit?: number, page?: number) {
-	const payload = await getPayload({ config });
+const payload = await getPayload({ config });
 
+export async function getNews(limit?: number, page?: number) {
 	try {
 		const news = await payload.find({
 			collection: "news",
 			limit: Math.min(limit || 50, 50),
 			sort: "-publishedDate",
 			page: page || 1,
-
 			select: {
-				id: true,
 				title: true,
 				excerpt: true,
 				publishedDate: true,
@@ -27,8 +25,6 @@ export async function getNews(limit?: number, page?: number) {
 	}
 }
 export async function getNewsItem(id: string, draft = false) {
-	const payload = await getPayload({ config });
-
 	try {
 		const newsItem = await payload.findByID({
 			collection: "news",

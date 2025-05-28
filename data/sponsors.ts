@@ -2,9 +2,9 @@
 import config from "@payload-config";
 import { getPayload } from "payload";
 
-export async function getSponsors() {
-	const payload = await getPayload({ config });
+const payload = await getPayload({ config });
 
+export async function getSponsors() {
 	try {
 		const sponsors = await payload.find({
 			collection: "sponsors",

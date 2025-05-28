@@ -8,7 +8,7 @@ import type { Member, Team } from "@/data/payload-types";
 import { getTeams } from "@/data/teams";
 import { Club } from "@/project.config";
 import { samsPlayers } from "@/utils/sams/players";
-import { samsClubData, samsMatches, samsRanking } from "@/utils/sams/sams-server-actions";
+import { samsMatches, samsRanking } from "@/utils/sams/sams-server-actions";
 import {
 	Anchor,
 	AspectRatio,
@@ -35,7 +35,7 @@ import Flag from "react-world-flags";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
 	const { slug } = await params;
-	const data = await getTeams(false, slug);
+	const data = await getTeams(slug);
 	return {
 		title: data?.docs?.[0]?.name || Club.shortName,
 	};
@@ -44,18 +44,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function TeamPage(props: { params: Promise<{ slug: string }> }) {
 	const { slug } = await props.params;
 
-	const teams = await getTeams(false, slug);
+	const teams = await getTeams(slug);
 	const team = teams?.docs?.[0];
 
 	// sbvv identifier
-	if (!team?.sbvvTeam || typeof team.sbvvTeam === "string") notFound();
-	// redirect to 404 page
+	if (!team?.sbvvTeam || typeof team.sbvvTeam === "string") notFound(); // redirect to 404 page
 
 	const samsTeam = team.sbvvTeam;
 	const sbvvId = samsTeam.seasonTeamId;
-	const clubData = await samsClubData();
-	const teamData = clubData?.teams?.team.find((t) => t.uuid === samsTeam.uuid);
-	const allSeasonMatchSeriesId = teamData?.matchSeries.allSeasonId;
+	const allSeasonMatchSeriesId = samsTeam.matchSeries_AllSeasonId;
 
 	// team images
 	const imageUrls =
@@ -82,7 +79,7 @@ export default async function TeamPage(props: { params: Promise<{ slug: string }
 					<TeamMatches allSeasonMatchSeriesId={allSeasonMatchSeriesId} sbvvId={sbvvId} slug={slug} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader />}>
-					<TeamRanking allSeasonMatchSeriesId={allSeasonMatchSeriesId} />
+					<TeamRanking allSeasonMatchSeriesId={allSeasonMatchSeriesId} seasonTeamId={team.sbvvTeam.seasonTeamId} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader />}>
 					<TeamSchedule schedules={team.schedules} />
@@ -150,7 +147,7 @@ async function TeamMatches({
 	allSeasonMatchSeriesId,
 	sbvvId,
 	slug,
-}: { allSeasonMatchSeriesId?: string; sbvvId?: string | number | null; slug: string }) {
+}: { allSeasonMatchSeriesId?: string | null; sbvvId?: string | number | null; slug: string }) {
 	if (!allSeasonMatchSeriesId) return null;
 
 	const futureMatches = await samsMatches({ allSeasonMatchSeriesId, future: true });
@@ -222,13 +219,16 @@ async function TeamMatches({
 	);
 }
 
-async function TeamRanking({ allSeasonMatchSeriesId }: { allSeasonMatchSeriesId?: string }) {
+async function TeamRanking({
+	allSeasonMatchSeriesId,
+	seasonTeamId,
+}: { allSeasonMatchSeriesId?: string | null; seasonTeamId?: string | null }) {
 	if (!allSeasonMatchSeriesId) return null;
 
 	const ranking = await samsRanking({ allSeasonMatchSeriesId });
 	if (!ranking) return null;
 
-	return <RankingTable {...ranking} key={ranking.matchSeries.id} />;
+	return <RankingTable {...ranking} key={ranking.matchSeries.id} seasonTeamId={seasonTeamId} />;
 }
 
 function TeamSchedule({ schedules }: { schedules?: Team["schedules"] }) {

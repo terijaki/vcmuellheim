@@ -2,7 +2,8 @@ import CardTitle from "@/components/CardTitle";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import Matches from "@/components/sams/Matches";
 import RankingTable from "@/components/sams/RankingTable";
-import { samsClubData, samsClubMatches, samsClubRankings } from "@/utils/sams/sams-server-actions";
+import { getTeams } from "@/data/teams";
+import { samsClubMatches, samsClubRankings } from "@/utils/sams/sams-server-actions";
 import { Card, CardSection, SimpleGrid, Stack, Text } from "@mantine/core";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -14,18 +15,18 @@ export const metadata: Metadata = { title: "Tabelle" };
 export const dynamic = "force-dynamic";
 
 export default async function Tabelle() {
-	const clubData = await samsClubData();
-	if (!clubData) return <NoRankingsData />;
 	const clubRankings = await samsClubRankings();
 	if (!clubRankings || clubRankings.length === 0) return <NoRankingsData />;
 
-	const teamSize = clubData?.teams?.team.length || 0;
+	const teams = await getTeams(undefined, true); // fetch all teams with league information
+	const teamSize = teams?.docs.length || 0;
+
 	const lastResultCap = Math.min(20, Number((teamSize * GAMES_PER_TEAM).toFixed(0))); // calculate the total number of games
 	const numToWordsDe = require("num-words-de");
 	const recentMatches = await samsClubMatches({ past: true, limit: lastResultCap });
 	const lastResultWord =
 		recentMatches && recentMatches.length > 1 && numToWordsDe.numToWord(recentMatches.length, { uppercase: false });
-
+	// return <NoRankingsData />;
 	const matchSeriesDisplayed: string[] = []; //placeholder to avoid duplicate league displays
 	return (
 		<PageWithHeading title={"Tabelle"}>
@@ -45,7 +46,7 @@ export default async function Tabelle() {
 										}
 										key={rankings.matchSeries.id}
 									>
-										<RankingTable {...rankings} linkToTeamPage={true} clubData={clubData} />
+										<RankingTable {...rankings} linkToTeamPage={true} />
 									</Suspense>
 								);
 							}

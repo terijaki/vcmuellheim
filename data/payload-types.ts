@@ -77,6 +77,7 @@ export interface Config {
     locations: Location;
     sponsors: Sponsor;
     'sams-teams': SamsTeam;
+    'sams-clubs': SamsClub;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -100,6 +101,7 @@ export interface Config {
     locations: LocationsSelect<false> | LocationsSelect<true>;
     sponsors: SponsorsSelect<false> | SponsorsSelect<true>;
     'sams-teams': SamsTeamsSelect<false> | SamsTeamsSelect<true>;
+    'sams-clubs': SamsClubsSelect<false> | SamsClubsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -234,6 +236,7 @@ export interface News {
   excerpt?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -379,7 +382,7 @@ export interface Team {
  */
 export interface SamsTeam {
   id: string;
-  fullName?: string | null;
+  nameWithSeries?: string | null;
   name: string;
   uuid: string;
   seasonTeamId?: string | null;
@@ -405,6 +408,21 @@ export interface Location {
     postalCode?: number | null;
     city?: string | null;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sams-clubs".
+ */
+export interface SamsClub {
+  id: string;
+  name: string;
+  sportsclubId: string;
+  lsbNumber?: string | null;
+  internalSportsclubId?: string | null;
+  logo?: string | null;
+  homepage?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -454,6 +472,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'sams-teams';
         value: string | SamsTeam;
+      } | null)
+    | ({
+        relationTo: 'sams-clubs';
+        value: string | SamsClub;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -576,6 +598,7 @@ export interface NewsSelect<T extends boolean = true> {
   excerpt?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -668,7 +691,7 @@ export interface SponsorsSelect<T extends boolean = true> {
  * via the `definition` "sams-teams_select".
  */
 export interface SamsTeamsSelect<T extends boolean = true> {
-  fullName?: T;
+  nameWithSeries?: T;
   name?: T;
   uuid?: T;
   seasonTeamId?: T;
@@ -678,6 +701,20 @@ export interface SamsTeamsSelect<T extends boolean = true> {
   matchSeries_Uuid?: T;
   matchSeries_AllSeasonId?: T;
   matchSeries_Type?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sams-clubs_select".
+ */
+export interface SamsClubsSelect<T extends boolean = true> {
+  name?: T;
+  sportsclubId?: T;
+  lsbNumber?: T;
+  internalSportsclubId?: T;
+  logo?: T;
+  homepage?: T;
   updatedAt?: T;
   createdAt?: T;
 }

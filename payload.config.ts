@@ -10,11 +10,13 @@ import { fileURLToPath } from "node:url";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { Events } from "./collections/Events";
+import { Jobs } from "./collections/Jobs";
 import { Locations } from "./collections/Locations";
 import { Media } from "./collections/Media";
 import { Members } from "./collections/Members";
 import { News } from "./collections/News";
 import { Roles } from "./collections/Roles";
+import { SamsClubs } from "./collections/SamsClubs";
 import { SamsTeams } from "./collections/SamsTeams";
 import { Sponsors } from "./collections/Sponsors";
 import { Teams } from "./collections/Teams";
@@ -54,8 +56,11 @@ export default buildConfig({
 		timezones: { defaultTimezone: "Europe/Berlin" },
 		autoLogin: autoLoginConfig,
 		avatar: "default",
+		meta: {
+			icons: [{ rel: "icon", type: "image/png", url: "/images/logo.png" }],
+		},
 	},
-	collections: [Users, Media, Events, News, Roles, Members, Teams, Locations, Sponsors, SamsTeams],
+	collections: [Users, Media, Events, News, Roles, Members, Teams, Locations, Sponsors, SamsTeams, SamsClubs],
 	editor: lexicalEditor(),
 	typescript: {
 		outputFile: path.resolve(dirname, "data/payload-types.ts"),
@@ -94,4 +99,5 @@ export default buildConfig({
 		fallbackLanguage: "de",
 	},
 	cookiePrefix: "vcmuellheim-cms",
+	jobs: Jobs,
 });
