@@ -11,6 +11,7 @@ export async function getNews(limit?: number, page?: number) {
 			limit: Math.min(limit || 50, 50),
 			sort: "-publishedDate",
 			page: page || 1,
+
 			select: {
 				id: true,
 				title: true,
@@ -25,13 +26,14 @@ export async function getNews(limit?: number, page?: number) {
 		console.error("Error fetching news:", error);
 	}
 }
-export async function getNewsItem(id: string) {
+export async function getNewsItem(id: string, draft = false) {
 	const payload = await getPayload({ config });
 
 	try {
 		const newsItem = await payload.findByID({
 			collection: "news",
 			id: id,
+			draft: draft,
 			select: {
 				title: true,
 				content: true,
@@ -39,7 +41,7 @@ export async function getNewsItem(id: string) {
 				images: true,
 			},
 		});
-
+		console.log(newsItem);
 		if (newsItem) return newsItem;
 	} catch (error) {
 		console.error(`Error fetching newsItem: ${id}`, error);

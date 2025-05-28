@@ -14,6 +14,7 @@
         "@payloadcms/db-postgres": "3.38.0",
         "@payloadcms/db-sqlite": "3.38.0",
         "@payloadcms/email-resend": "3.38.0",
+        "@payloadcms/live-preview-react": "^3.39.1",
         "@payloadcms/next": "3.38.0",
         "@payloadcms/payload-cloud": "3.38.0",
         "@payloadcms/richtext-lexical": "3.38.0",
@@ -545,6 +546,10 @@
     "@payloadcms/email-resend": ["@payloadcms/email-resend@3.38.0", "", { "peerDependencies": { "payload": "3.38.0" } }, "sha512-Y17tNHAYsP1W4DXdm+PZJV+FVja0qGkH+5e0RJFlWPzlHVpOMV3zkvVUwYTIUxgCHnsXr6CRPxjeFa/eGQPSyQ=="],
 
     "@payloadcms/graphql": ["@payloadcms/graphql@3.38.0", "", { "dependencies": { "graphql-scalars": "1.22.2", "pluralize": "8.0.0", "ts-essentials": "10.0.3", "tsx": "4.19.2" }, "peerDependencies": { "graphql": "^16.8.1", "payload": "3.38.0" }, "bin": { "payload-graphql": "bin.js" } }, "sha512-PoONFWb/5WyBTuJegO2HMwExDBE6bZHPrJGRtKEm+xDGe7f3hPT403qBaXm6WgKIhkM3J7QblBHmcpBqvASFGA=="],
+
+    "@payloadcms/live-preview": ["@payloadcms/live-preview@3.39.1", "", {}, "sha512-G84XrzV8kETXSbsKFjouNjopwux/43PoEgwjqYeX8gLfPYNyCFQWXlwEpNfTJepsKF30WnEskPBSIiHC868qtg=="],
+
+    "@payloadcms/live-preview-react": ["@payloadcms/live-preview-react@3.39.1", "", { "dependencies": { "@payloadcms/live-preview": "3.39.1" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020", "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020" } }, "sha512-9vY8X3QEtVZNuHmjzIxQUcqvtGfx3D/uMdAm40s/zkY8NGWE1Eq/UMs6SsKEKHIJhbPpMYyxOQAjjfetdRBNxQ=="],
 
     "@payloadcms/next": ["@payloadcms/next@3.38.0", "", { "dependencies": { "@dnd-kit/core": "6.0.8", "@payloadcms/graphql": "3.38.0", "@payloadcms/translations": "3.38.0", "@payloadcms/ui": "3.38.0", "busboy": "^1.6.0", "dequal": "2.0.3", "file-type": "19.3.0", "graphql-http": "^1.22.0", "graphql-playground-html": "1.6.30", "http-status": "2.1.0", "path-to-regexp": "6.3.0", "qs-esm": "7.0.2", "react-diff-viewer-continued": "4.0.5", "sass": "1.77.4", "uuid": "10.0.0" }, "peerDependencies": { "graphql": "^16.8.1", "next": "^15.2.3", "payload": "3.38.0" } }, "sha512-Ta1ib7NizG343cKDUsRIEczJk2EYqkn52q6zjNTTyotPy2QKzPyWqcgZaYhCWswPAVk0wcfDJQTzlPBd2lakLA=="],
 

@@ -27,6 +27,9 @@ export const News: CollectionConfig = {
 		defaultColumns: ["title", "excerpt", "publishedDate", "isPublished"],
 		pagination: { defaultLimit: 50 },
 		preview: ({ id }) => `/${News.slug}/${id}`,
+		livePreview: {
+			url: ({ data, req }) => `${req.protocol}//${req.host}/news/${data.id}?preview=true`,
+		},
 	},
 	access: {
 		read: () => true,
@@ -46,6 +49,15 @@ export const News: CollectionConfig = {
 				return data;
 			},
 		],
+	},
+	versions: {
+		drafts: {
+			autosave: {
+				interval: 375,
+			},
+			schedulePublish: false,
+		},
+		maxPerDoc: 5,
 	},
 	fields: [
 		{
