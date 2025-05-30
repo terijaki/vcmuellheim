@@ -4,7 +4,7 @@ import RankingTable from "@/components/RankingTable";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import { getTeams } from "@/data/teams";
 import { samsClubMatches, samsClubRankings } from "@/utils/sams/sams-server-actions";
-import { Card, CardSection, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Card, SimpleGrid, Stack, Text } from "@mantine/core";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -28,12 +28,14 @@ export default async function Tabelle() {
 		recentMatches && recentMatches.length > 1 && numToWordsDe.numToWord(recentMatches.length, { uppercase: false });
 	// return <NoRankingsData />;
 	const matchSeriesDisplayed: string[] = []; //placeholder to avoid duplicate league displays
+
+	// console.log("Tabelle: clubRankings", clubRankings);
 	return (
 		<PageWithHeading title={"Tabelle"}>
 			<Stack>
 				<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
 					<Suspense fallback={<Card>Lade Tabellendaten...</Card>}>
-						{clubRankings?.map((rankings) => {
+						{clubRankings?.map((rankings, index) => {
 							if (!matchSeriesDisplayed.includes(rankings.matchSeries.allSeasonId)) {
 								matchSeriesDisplayed.push(rankings.matchSeries.allSeasonId);
 								return (
@@ -49,9 +51,8 @@ export default async function Tabelle() {
 					{recentMatches && recentMatches.length > 0 && (
 						<Card>
 							<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
-							<CardSection>
-								<Matches matches={recentMatches} type="past" />
-							</CardSection>
+
+							<Matches matches={recentMatches} type="past" />
 						</Card>
 					)}
 				</Suspense>

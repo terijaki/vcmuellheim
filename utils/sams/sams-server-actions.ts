@@ -212,12 +212,10 @@ export async function samsClubRankings() {
 		if (!unqiueMatchSeriesIds) throw "No match series IDs found";
 		// collect rankings for all match series
 		const rankings: Rankings[] = [];
-		await Promise.all(
-			unqiueMatchSeriesIds.map(async (allSeasonMatchSeriesId) => {
-				const ranking = await samsRanking({ allSeasonMatchSeriesId });
-				if (ranking?.ranking) rankings.push(ranking); // ranking?.ranking excludes empty rankings. e.g. for next-season-signups
-			}),
-		);
+		for (const allSeasonMatchSeriesId of unqiueMatchSeriesIds) {
+			const ranking = await samsRanking({ allSeasonMatchSeriesId });
+			if (ranking?.ranking) rankings.push(ranking); // ranking?.ranking excludes empty rankings. e.g. for next-season-signups
+		}
 
 		return rankings;
 	} catch (error) {
