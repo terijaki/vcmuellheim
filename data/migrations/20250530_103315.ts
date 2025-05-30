@@ -55,7 +55,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "news" ALTER COLUMN "title" DROP NOT NULL;
   ALTER TABLE "news" ALTER COLUMN "content" DROP NOT NULL;
   ALTER TABLE "news" ALTER COLUMN "published_date" DROP NOT NULL;
-  ALTER TABLE "news" ADD COLUMN "_status" "enum_news_status" DEFAULT 'draft';
+  DO $$ BEGIN
+    ALTER TABLE "news" ADD COLUMN "_status" "enum_news_status" DEFAULT 'draft';
+  EXCEPTION
+    WHEN duplicate_column THEN null;
+  END $$;
   ALTER TABLE "sams_teams" ADD COLUMN "name_with_series" varchar;
   ALTER TABLE "payload_locked_documents_rels" ADD COLUMN "sams_clubs_id" uuid;
   DO $$ BEGIN
