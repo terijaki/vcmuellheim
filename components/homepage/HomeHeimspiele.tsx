@@ -62,11 +62,8 @@ export default async function HomeHeimspiele() {
 		<Box bg="blumine">
 			<ScrollAnchor name="heimspiele" />
 			<BackgroundImage src="/images/backgrounds/pageheading.jpg" py="md" style={{ zIndex: 0 }} pos="relative">
-				<Container size="xl" py="md">
+				<Container size="xl">
 					<Stack>
-						<Title order={2} c="white">
-							{homeMatchesToDisplay.length > 0 ? "Wir laden ein zum Heimspiel!" : "bevorstehende Veranstaltungen"}
-						</Title>
 						{/* EVENTS */}
 						<EventsList events={events} />
 
@@ -102,6 +99,9 @@ function HomeMatchesList({ homeMatches }: { homeMatches?: Match[] }) {
 
 	return (
 		<Stack>
+			<Title order={2} c="white">
+				{homeMatches.length > 0 ? "Wir laden ein zum Heimspiel!" : "bevorstehende Veranstaltungen"}
+			</Title>
 			<Text c="white">In den kommenden Tagen spielen wir in Müllheim und freuen uns über jeden Zuschauer!</Text>
 			<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
 				{homeMatches.map((match) => {

@@ -1,6 +1,6 @@
 import SectionHeading from "@/components/layout/SectionHeading";
 import { getNews } from "@/data/news";
-import { Center, Container, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Button, Center, Container, SimpleGrid, Stack, Text } from "@mantine/core";
 import { unstable_cacheLife as cacheLife } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -14,7 +14,7 @@ export default async function HomeNews() {
 	const data = await getNews(4, undefined);
 
 	return (
-		<Container size="xl" pb="xl">
+		<Container size="xl" py="md">
 			<ScrollAnchor name="news" />
 			<Stack>
 				<SectionHeading text="News" />
@@ -37,9 +37,9 @@ export default async function HomeNews() {
 						})}
 					</SimpleGrid>
 					<Center p="md">
-						<Link href="/news" className="button">
+						<Button component={Link} href="/news">
 							alle Newsbeiträge
-						</Link>
+						</Button>
 					</Center>
 				</Suspense>
 			</Stack>
