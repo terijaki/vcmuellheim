@@ -19,7 +19,7 @@ import { useTeamContext } from "./homepage/HomeTeamContext";
 
 export default function TeamCard(props: Team) {
 	const { id, slug, name, league, sbvvTeam, age, description, schedules, people, gender } = props;
-	
+
 	const [opened, { toggle, open, close }] = useDisclosure(false);
 	const teamContext = useTeamContext();
 	const isMatching = Boolean(teamContext.gender === gender && (!teamContext.leagueParticipation || Boolean(sbvvTeam)));
@@ -141,19 +141,14 @@ export default function TeamCard(props: Team) {
 								component={Link}
 								href={`mailto:${Array.from(emailAddresses.values()).join(",")}?subject=${name} (${Club.shortName})`}
 								color="turquoise"
+								leftSection={<IconMail />}
 							>
-								<Group gap="xs" fw="bold">
-									<IconMail />
-									Kontaktieren
-								</Group>
+								Kontaktieren
 							</Button>
 						)}
 						{sbvvTeam && (
-							<Button component={Link} href={`/teams/${slug}`}>
-								<Group gap="xs" fw="bold">
-									<IconCalendar />
-									Spielplan, Tabelle & Kader
-								</Group>
+							<Button component={Link} href={`/teams/${slug}`} leftSection={<IconCalendar />}>
+								Spielplan, Tabelle & Kader
 							</Button>
 						)}
 					</Stack>

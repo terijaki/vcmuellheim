@@ -27,11 +27,10 @@ export default function SharingButton(props: { label: string }) {
 					title: pageTitle,
 					url: pageURL,
 				})
-				.then(() => console.log(`Sharing Dialog opened with: ${pageTitle} & ${pageURL}`))
-				.catch((error) => console.log("Sharing wasn't completed"));
+				.catch((error) => console.error("Sharing wasn't completed", error));
 		} else {
 			// Fallback for browsers that don't support Web Share API
-			console.log("Native sharing not supported on this browser");
+			console.info("Native sharing not supported on this browser");
 			// Could implement clipboard copy or other fallback here
 		}
 	};
@@ -39,7 +38,7 @@ export default function SharingButton(props: { label: string }) {
 	if (!isNativeShare) return null;
 
 	return (
-		<Button leftSection={<IconShare className="inline mr-1" />} onClick={handleShare}>
+		<Button leftSection={<IconShare />} onClick={handleShare}>
 			{props.label}
 		</Button>
 	);

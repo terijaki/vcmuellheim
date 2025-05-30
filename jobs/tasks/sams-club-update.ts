@@ -14,7 +14,7 @@ export const samsClubUpdate = new Cron(
 			const updateTask = await samsTeamsUpdate();
 			if (!updateTask) throw "No data returned from samsTeamsUpdate().";
 
-			console.log("🟢 Sams Club Update completed successfully.", updateTask);
+			console.info("🟢 Sams Club Update completed successfully.", updateTask);
 		} catch (error) {
 			console.error("🟠 Error during Sams Club Update:", error);
 		}

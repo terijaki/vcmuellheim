@@ -29,7 +29,6 @@ export default async function Tabelle() {
 	// return <NoRankingsData />;
 	const matchSeriesDisplayed: string[] = []; //placeholder to avoid duplicate league displays
 
-	// console.log("Tabelle: clubRankings", clubRankings);
 	return (
 		<PageWithHeading title={"Tabelle"}>
 			<Stack>

@@ -37,7 +37,6 @@ export async function getNewsItem(id: string, draft = false) {
 				images: true,
 			},
 		});
-		console.log(newsItem);
 		if (newsItem) return newsItem;
 	} catch (error) {
 		console.error(`Error fetching newsItem: ${id}`, error);
