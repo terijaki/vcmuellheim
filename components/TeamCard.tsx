@@ -22,24 +22,32 @@ export default function TeamCard(props: Team) {
 
 	const [opened, { toggle, open, close }] = useDisclosure(false);
 	const teamContext = useTeamContext();
-	const isMatching = Boolean(teamContext.gender === gender && (!teamContext.leagueParticipation || Boolean(sbvvTeam)));
+	const isMatchingLeague = Boolean(!teamContext.leagueParticipation || Boolean(league));
+	const isEmptyGender = !teamContext.gender;
+	const isMatchingGender = Boolean(isEmptyGender || teamContext.gender === gender);
+	const isMatching = Boolean(isMatchingLeague && isMatchingGender);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		if (opened && !isMatching) close();
-		if (!opened && isMatching) open();
+		if (opened && (!isMatching || isEmptyGender)) close();
+		if (!isEmptyGender && !opened && isMatching) open();
 	}, [teamContext]);
 
 	const emailAddresses = new Map<string, string>();
 
 	return (
-		<Card data-team-id={id} bg="white" style={{ opacity: isMatching || opened ? 1 : 0.85 }}>
+		<Card data-team-id={id} bg="white" style={{ opacity: isMatching || opened ? 1 : 0.75 }}>
 			<Group onClick={toggle} style={{ cursor: "pointer" }} wrap="nowrap" justify="space-between" align="flex-start">
-				<Title order={3} c="blumine" className=" hover:text-turquoise">
+				<Title order={3} c="blumine">
 					{league ? `${name} - ${league}` : name}
 				</Title>
 				<ActionIcon variant="transparent">
-					<IconCollapse className={`duration-200 ${opened ? "-rotate-180" : ""} hover:animate-pulse`} />
+					<IconCollapse
+						style={{
+							transform: opened ? "rotate(-180deg)" : "rotate(0deg)",
+							transition: "transform 200ms",
+						}}
+					/>
 				</ActionIcon>
 			</Group>
 
@@ -54,13 +62,13 @@ export default function TeamCard(props: Team) {
 					{description && (
 						<Stack gap={0}>
 							<Text fw="bold">Info:</Text>
-							<Text>{description}</Text>
+							<Text size="sm">{description}</Text>
 						</Stack>
 					)}
 					{schedules && schedules.length > 0 && (
 						<Stack gap={0}>
 							<Group gap="xs" fw="bold">
-								<IconClock className="text-xs" />
+								<IconClock />
 								Trainingszeiten:
 							</Group>
 							{schedules.map((schedule) => {
@@ -81,7 +89,7 @@ export default function TeamCard(props: Team) {
 					{people?.coaches && people.coaches.length > 0 && (
 						<Stack gap={0}>
 							<Group gap="xs" fw="bold">
-								{people.coaches.length === 1 ? <IconPerson className="text-xs" /> : <IconPersons className="text-xs" />}
+								{people.coaches.length === 1 ? <IconPerson /> : <IconPersons />}
 								Trainer:
 							</Group>
 							<Box>
@@ -92,7 +100,7 @@ export default function TeamCard(props: Team) {
 										<Fragment key={trainer.name}>
 											{index !== 0 && " & "}
 											{trainer.email ? (
-												<Anchor component={Link} href={`mailto:${trainer.email}`} c="turquoise" scroll={false}>
+												<Anchor component={Link} href={`mailto:${trainer.email}`} underline="never" scroll={false}>
 													{trainer.name}
 												</Anchor>
 											) : (
@@ -107,11 +115,7 @@ export default function TeamCard(props: Team) {
 					{people?.contactPeople && people.contactPeople.length > 0 && (
 						<Stack gap={0}>
 							<Group gap="xs" fw="bold">
-								{people.contactPeople.length === 1 ? (
-									<IconPerson className="text-xs" />
-								) : (
-									<IconPersons className="text-xs" />
-								)}
+								{people.contactPeople.length === 1 ? <IconPerson /> : <IconPersons />}
 								{people.contactPeople.length === 1 ? "Ansprechperson" : "Ansprechpersonen"}:
 							</Group>
 							<Box>
@@ -122,7 +126,7 @@ export default function TeamCard(props: Team) {
 										<Fragment key={person.name}>
 											{index !== 0 && " & "}
 											{person.email ? (
-												<Anchor component={Link} href={`mailto:${person.email}`} c="turquoise" scroll={false}>
+												<Anchor component={Link} href={`mailto:${person.email}`} underline="never" scroll={false}>
 													{person.name}
 												</Anchor>
 											) : (

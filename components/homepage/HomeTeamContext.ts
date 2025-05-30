@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 
-export const TeamContext = createContext<{ gender: string | null; leagueParticipation: boolean }>({
-	gender: null,
+export const TeamContext = createContext<{ gender: string; leagueParticipation: boolean }>({
+	gender: "",
 	leagueParticipation: false,
 });
 

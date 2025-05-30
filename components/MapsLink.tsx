@@ -60,7 +60,7 @@ export default function MapsLink({ location, ...anchorProps }: MapsLinkProps) {
 	if (!mapsUrl) return <>{displayName}</>;
 
 	return (
-		<Anchor component={Link} href={mapsUrl} c="turquoise" target="_blank" {...anchorProps}>
+		<Anchor component={Link} href={mapsUrl} underline="never" target="_blank" {...anchorProps}>
 			<Group gap={2} wrap="nowrap">
 				<IconLocation />
 				<Text truncate>{displayName}</Text>

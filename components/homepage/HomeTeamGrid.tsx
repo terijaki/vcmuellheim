@@ -1,6 +1,6 @@
 "use client";
 import type { Team } from "@/data/payload-types";
-import { Checkbox, Grid, Group, SegmentedControl, Stack, Text } from "@mantine/core";
+import { Checkbox, Flex, Grid, Group, SegmentedControl, Stack, Text } from "@mantine/core";
 import { Fragment, useState } from "react";
 import TeamCard from "../TeamCard";
 import { TeamContext } from "./HomeTeamContext";
@@ -9,38 +9,46 @@ export default function HomeTeamGrid({ teams }: { teams: Team[] }) {
 	const [gender, setGender] = useState<string>("");
 	const [leagueParticipation, setLeagueParticipation] = useState(false);
 
-	const teamsSorted = gender
-		? teams.sort((a, b) => {
-				// sort by gender and league
-				if (a.gender === gender && b.gender !== gender && (!leagueParticipation || a.league)) return -1;
-				if (b.gender === gender && a.gender !== gender && (!leagueParticipation || b.league)) return 1;
-				return 0;
-			})
-		: teams;
+	const teamsSorted = teams.sort((a, b) => {
+		// sort by gender, league and name
+		const aMatchesLeague = !leagueParticipation || Boolean(a.league);
+		const bMatchesLeague = !leagueParticipation || Boolean(b.league);
+		const aMatchesGender = gender === "" || gender === a.gender;
+		const bMatchesGender = gender === "" || gender === b.gender;
+		const aMatch = aMatchesLeague && aMatchesGender;
+		const bMatch = bMatchesLeague && bMatchesGender;
+		if (aMatch && !bMatch) return -1;
+		if (!aMatch && bMatch) return 1;
+		if (aMatch && bMatch) return a.name.localeCompare(b.name);
+		return 0;
+	});
 
 	return (
 		<TeamContext value={{ gender, leagueParticipation }}>
-			<Stack gap="xs" justify="center">
-				<Group justify="center">
-					<Text size="sm" fw="bold">
+			<Stack gap="md" justify="center">
+				<Group justify="center" align="center">
+					<Text size="sm" fw="bold" visibleFrom="sm">
 						Filter:
 					</Text>
-					<SegmentedControl
-						onChange={(value) => setGender(value)}
-						value={gender}
-						data={[
-							{ label: "Männlich", value: "men" },
-							{ label: "Weiblich", value: "woman" },
-							{ label: "Gemischt", value: "mixed" },
-						]}
-						color="blumine"
-						bg="white"
-					/>
-					<Checkbox
-						label="Nur Ligabetrieb"
-						checked={leagueParticipation}
-						onChange={() => setLeagueParticipation(!leagueParticipation)}
-					/>
+					<Flex gap="sm" wrap="wrap" justify="center" align="center">
+						<SegmentedControl
+							onChange={(value) => setGender(value)}
+							value={gender}
+							data={[
+								{ label: "Keine", value: "" },
+								{ label: "Weiblich", value: "woman" },
+								{ label: "Männlich", value: "men" },
+								{ label: "Gemischt", value: "mixed" },
+							]}
+							color="blumine"
+							bg="white"
+						/>
+						<Checkbox
+							label="Nur Ligabetrieb"
+							checked={leagueParticipation}
+							onChange={() => setLeagueParticipation(!leagueParticipation)}
+						/>
+					</Flex>
 				</Group>
 				<Grid gutter="md">
 					{teamsSorted.map((team, index, array) => {

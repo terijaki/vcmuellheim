@@ -12,6 +12,9 @@ export const Teams: CollectionConfig = {
 		defaultColumns: ["name", "category", "coaches", "schedules"],
 		pagination: { defaultLimit: 50 },
 		preview: ({ slug }) => `/${Teams.slug}/${slug}`,
+		livePreview: {
+			url: ({ data, req }) => `${req.protocol}//${req.host}/teams/${data.slug}?preview=true`,
+		},
 	},
 	access: {
 		read: () => true,

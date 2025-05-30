@@ -4,7 +4,7 @@ import { getPayload } from "payload";
 
 const payload = await getPayload({ config });
 
-export async function getTeams(slug?: string, league?: boolean) {
+export async function getTeams(slug?: string, league?: boolean, draft = false) {
 	try {
 		const slugFilter = slug ? { slug: { equals: slug } } : null;
 		const leagueFilter = league ? { "sbvvTeam.matchSeries_Type": { exists: true } } : null;
@@ -12,7 +12,8 @@ export async function getTeams(slug?: string, league?: boolean) {
 		const teams = await payload.find({
 			collection: "teams",
 			limit: 50,
-			sort: "league",
+			sort: ["league", "name"],
+			draft,
 			where: {
 				...slugFilter,
 				...leagueFilter,

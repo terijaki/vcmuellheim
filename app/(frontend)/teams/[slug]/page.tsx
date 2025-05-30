@@ -41,10 +41,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 	};
 }
 
-export default async function TeamPage(props: { params: Promise<{ slug: string }> }) {
+export default async function TeamPage(props: {
+	params: Promise<{ slug: string }>;
+	searchParams: Promise<{ preview: "true" | "false" | undefined }>;
+}) {
 	const { slug } = await props.params;
+	const searchParams = await props.searchParams;
+	const preview = searchParams.preview === "true";
 
-	const teams = await getTeams(slug);
+	const teams = await getTeams(slug, undefined,preview);
 	const team = teams?.docs?.[0];
 	if (!team) notFound(); // redirect to 404 page
 
