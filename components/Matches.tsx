@@ -184,20 +184,18 @@ export default function Matches({
 
 							{match.location && (
 								<GridCol span={{ base: 12, sm: 3 }}>
-									<Text truncate>
-										<MapsLink
-											location={{
-												name: match.location.name,
-												address: {
-													street: match.location.street,
-													postalCode: match.location.postalCode,
-													city: match.location.city,
-												},
-											}}
-											size="sm"
-											maw={{ base: "100%", sm: 160 }}
-										/>
-									</Text>
+									<MapsLink
+										location={{
+											name: match.location.name,
+											address: {
+												street: match.location.street,
+												postalCode: match.location.postalCode,
+												city: match.location.city,
+											},
+										}}
+										size="sm"
+										maw={{ base: "100%", sm: 160 }}
+									/>
 								</GridCol>
 							)}
 						</Grid>

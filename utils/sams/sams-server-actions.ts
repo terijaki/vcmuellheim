@@ -16,7 +16,6 @@ const SAMS_CLUB_NAME = SAMS.name; // the exact name of the club in SAMS
 export async function samsSportsclubs(): Promise<SimpleSportsClub[] | undefined> {
 	"use cache";
 	cacheLife("weeks");
-
 	try {
 		// during development, we use a static example from the library
 		if (process.env.NODE_ENV === "development") {
@@ -263,6 +262,7 @@ export async function samsClubMatches({
 }
 /* endregion */
 
+// Cron funciton to update Sams Teams in the payload database
 export async function samsTeamsUpdate() {
 	try {
 		// get the club id from sams/payload
