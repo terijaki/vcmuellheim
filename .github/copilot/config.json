@@ -2,7 +2,7 @@
 	"projectContext": {
 		"projectType": "Next.js",
 		"framework": "Next.js",
-		"styling": "Tailwind CSS",
+		"uiComponents": "Mantine",
 		"tooling": {
 			"formatter": "Biome",
 			"linter": "Biome",

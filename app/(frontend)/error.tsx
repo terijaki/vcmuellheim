@@ -1,6 +1,7 @@
 "use client"; // Error components must be Client Components
 
-import PageHeading from "@/components/layout/PageHeading";
+import PageWithHeading from "@/components/layout/PageWithHeading";
+import { Button, Card, Center, Group, Text } from "@mantine/core";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
@@ -11,31 +12,27 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
 	}, [error]);
 
 	return (
-		<>
-			<PageHeading title="Hoppala! 🫢" />
-			<div className="col-full-content sm:col-center-content card mb-6 first-of-type:mt-6">
-				<div>
+		<PageWithHeading title="Hoppala! 🫢">
+			<Card>
+				<Text>
 					Etwas ist schief gelaufen. Der Server konnte dir diesen Bereich ({usePathname()}) nicht fehlerfrei darstellen.
-				</div>
-				<div>Bitte versuche es zu einem späteren Zeitpunkt noch einmal.</div>
-			</div>
-			<div className="col-full-content text-center pb-6">
-				<div className="col-span-2 gap-3">
-					<button
-						className="button"
-						type="button"
+				</Text>
+				<Text>Bitte versuche es zu einem späteren Zeitpunkt noch einmal.</Text>
+			</Card>
+			<Center>
+				<Group>
+					<Button
 						onClick={
-							// Attempt to recover by trying to re-render the segment
-							() => reset()
+							() => reset() // Attempt to recover by trying to re-render the segment
 						}
 					>
 						Seite neu laden
-					</button>
-					<Link className="button" href="/">
+					</Button>
+					<Button component={Link} href="/">
 						Zurück zur Startseite
-					</Link>
-				</div>
-			</div>
-		</>
+					</Button>
+				</Group>
+			</Center>
+		</PageWithHeading>
 	);
 }

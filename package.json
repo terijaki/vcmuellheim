@@ -36,7 +36,6 @@
 		"@payloadcms/storage-s3": "3.40.0",
 		"@payloadcms/translations": "3.40.0",
 		"@plaiceholder/next": "^3.0.0",
-		"@tailwindcss/postcss": "^4.1.8",
 		"bun-types": "^1.2.15",
 		"croner": "^9.0.0",
 		"dayjs": "^1.11.13",
@@ -58,7 +57,6 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@tailwindcss/typography": "^0.5.16",
 		"@types/node": "^22.15.27",
 		"@types/react": "19.1.4",
 		"@types/react-dom": "19.1.5",
@@ -66,7 +64,6 @@
 		"autoprefixer": "^10.4.21",
 		"eslint": "^9.27.0",
 		"eslint-config-next": "15.3.3",
-		"tailwindcss": "^4.1.8",
 		"typescript": "^5.8.3"
 	},
 	"overrides": {

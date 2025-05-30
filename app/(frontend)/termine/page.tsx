@@ -4,11 +4,10 @@ import PageWithHeading from "@/components/layout/PageWithHeading";
 import { getEvents } from "@/data/events";
 import { Club } from "@/project.config";
 import { samsClubMatches, samsSeasons } from "@/utils/sams/sams-server-actions";
-import { Anchor, Card, CardSection, Group, SimpleGrid, Stack, Text, Title } from "@mantine/core";
+import { Anchor, Card, CardSection, List, ListItem, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import Link from "next/link";
 import { Fragment } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 
@@ -100,12 +99,10 @@ export default async function Termine() {
 									Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.
 								</Text>
 							)}
-							<Text span>
-								<Link href={webcalLink} className="hyperlink">
-									<Group gap="xs">
-										<IconSubscribe /> Abboniere unseren Kalender
-									</Group>
-								</Link>
+							<Text>
+								<Anchor href={webcalLink} style={{ display: "inline-flex", gap: 4 }}>
+									<IconSubscribe /> Abboniere unseren Vereinskalender
+								</Anchor>
 								, um neue Termine saisonübergreifend automatisch in deiner{" "}
 								<Text fw="bold" span>
 									Kalender-App
@@ -124,16 +121,18 @@ export default async function Termine() {
 									Volleyballverband wurden ggf. noch nicht veröffentlicht.
 								</Text>
 								{pastTwoSeasons.length === 2 && (
-									<>
-										<p className="mt-3">Offizielle Zeitspanne der letzten zwei Saisons:</p>
-										{pastTwoSeasons.map((season) => (
-											<ul key={season.id}>
-												<li className="list-disc ml-6">
-													{`${dayjs(season.begin).format("YYYY-MM-DD")} bis ${dayjs(season.end).format("YYYY-MM-DD")}`}
-												</li>
-											</ul>
-										))}
-									</>
+									<Stack>
+										<Text>Offizielle Zeitspanne der letzten zwei Saisons:</Text>
+										<Stack gap={0}>
+											{pastTwoSeasons.map((season) => (
+												<List key={season.id}>
+													<ListItem>
+														{`${dayjs(season.begin).format("YYYY-MM-DD")} bis ${dayjs(season.end).format("YYYY-MM-DD")}`}
+													</ListItem>
+												</List>
+											))}
+										</Stack>
+									</Stack>
 								)}
 							</Card>
 						)}

@@ -1,7 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+/* ------ Global Styles ------ */
 :root {
   --color-blumine: #366273;
   --color-turquoise: #01a29a;
@@ -13,38 +10,42 @@
 
 /* ------ Selection ------ */
 ::selection {
-  @apply text-white bg-blumine;
+  color: #ffffff;
+  background-color: var(--color-blumine);
 }
 
 /* ------ Scrollbar ------ */
 
 ::-webkit-scrollbar {
-  @apply w-2 h-2;
+  width: 0.5rem;
+  height: 0.5rem;
 }
 ::-webkit-scrollbar-button {
-  @apply w-0 h-0;
+  width: 0;
+  height: 0;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-lion border-none;
+  background-color: var(--color-lion);
+  border: none;
 }
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-turquoise;
+  background-color: var(--color-turquoise);
 }
 ::-webkit-scrollbar-thumb:active {
-  @apply bg-turquoise;
+  background-color: var(--color-turquoise);
 }
 ::-webkit-scrollbar-track {
-  /* border-radius: 0px; */
-  @apply bg-onyx border-none;
+  background-color: var(--color-onyx);
+  border: none;
 }
 ::-webkit-scrollbar-track:hover {
-  @apply bg-onyx;
+  background-color: var(--color-onyx);
 }
 ::-webkit-scrollbar-track:active {
-  @apply bg-onyx;
+  background-color: var(--color-onyx);
 }
 ::-webkit-scrollbar-corner {
-  @apply bg-transparent;
+  background-color: transparent;
 }
 
 /* ------ Summary ------ */
