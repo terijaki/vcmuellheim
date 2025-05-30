@@ -46,17 +46,15 @@ export default async function TeamPage(props: { params: Promise<{ slug: string }
 
 	const teams = await getTeams(slug);
 	const team = teams?.docs?.[0];
+	if (!team) notFound(); // redirect to 404 page
 
-	// sbvv identifier
-	if (!team?.sbvvTeam || typeof team.sbvvTeam === "string") notFound(); // redirect to 404 page
-
-	const samsTeam = team.sbvvTeam;
-	const sbvvId = samsTeam.seasonTeamId;
-	const allSeasonMatchSeriesId = samsTeam.matchSeries_AllSeasonId;
+	const samsTeam = team?.sbvvTeam;
+	const seasonTeamId = typeof samsTeam === "object" ? samsTeam?.seasonTeamId : undefined;
+	const allSeasonMatchSeriesId = typeof samsTeam === "object" ? samsTeam?.matchSeries_AllSeasonId : undefined;
 
 	// team images
 	const imageUrls =
-		team.images
+		team?.images
 			?.filter((media): media is NonNullable<typeof media> & { url: string } =>
 				Boolean(typeof media === "object" && media?.url),
 			)
@@ -73,13 +71,13 @@ export default async function TeamPage(props: { params: Promise<{ slug: string }
 			<Stack>
 				{/* display players */}
 				<Suspense fallback={<CenteredLoader />}>
-					<TeamPlayers sbvvId={sbvvId} />
+					<TeamPlayers seasonTeamId={seasonTeamId} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader />}>
-					<TeamMatches allSeasonMatchSeriesId={allSeasonMatchSeriesId} sbvvId={sbvvId} slug={slug} />
+					<TeamMatches allSeasonMatchSeriesId={allSeasonMatchSeriesId} seasonTeamId={seasonTeamId} slug={slug} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader />}>
-					<TeamRanking allSeasonMatchSeriesId={allSeasonMatchSeriesId} seasonTeamId={team.sbvvTeam.seasonTeamId} />
+					<TeamRanking allSeasonMatchSeriesId={allSeasonMatchSeriesId} seasonTeamId={seasonTeamId} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader />}>
 					<TeamSchedule schedules={team.schedules} />
@@ -100,10 +98,10 @@ export default async function TeamPage(props: { params: Promise<{ slug: string }
 	);
 }
 
-async function TeamPlayers({ sbvvId }: { sbvvId?: string | number | null }) {
-	if (!sbvvId) return null;
+async function TeamPlayers({ seasonTeamId }: { seasonTeamId?: string | number | null }) {
+	if (!seasonTeamId) return null;
 	// retrive players
-	const teamPlayers = await samsPlayers(sbvvId);
+	const teamPlayers = await samsPlayers(seasonTeamId);
 	const players = teamPlayers?.players;
 	if (!players || players.length === 0) return null;
 
@@ -145,9 +143,9 @@ async function TeamPlayers({ sbvvId }: { sbvvId?: string | number | null }) {
 
 async function TeamMatches({
 	allSeasonMatchSeriesId,
-	sbvvId,
+	seasonTeamId,
 	slug,
-}: { allSeasonMatchSeriesId?: string | null; sbvvId?: string | number | null; slug: string }) {
+}: { allSeasonMatchSeriesId?: string | null; seasonTeamId?: string | number | null; slug: string }) {
 	if (!allSeasonMatchSeriesId) return null;
 
 	const futureMatches = await samsMatches({ allSeasonMatchSeriesId, future: true });
@@ -192,16 +190,24 @@ async function TeamMatches({
 			{pastMatches && (
 				<Card>
 					<CardTitle>Ergebnisse</CardTitle>
-					<CardSection>
-						<Matches type="past" matches={pastMatches} highlightTeamId={sbvvId?.toString()} />
+					<CardSection p={{ base: undefined, sm: "sm" }}>
+						<Matches
+							type="past"
+							matches={pastMatches}
+							highlightTeamId={seasonTeamId ? seasonTeamId.toString() : undefined}
+						/>
 					</CardSection>
 				</Card>
 			)}
 			{futureMatches ? (
 				<Card>
 					<CardTitle>Spielplan</CardTitle>
-					<CardSection>
-						<Matches type="future" matches={futureMatches} highlightTeamId={sbvvId?.toString()} />
+					<CardSection p={{ base: undefined, sm: "sm" }}>
+						<Matches
+							type="future"
+							matches={futureMatches}
+							highlightTeamId={seasonTeamId ? seasonTeamId.toString() : undefined}
+						/>
 					</CardSection>
 				</Card>
 			) : (

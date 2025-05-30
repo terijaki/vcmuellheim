@@ -1,7 +1,7 @@
 import SectionHeading from "@/components/layout/SectionHeading";
 import { getTeams } from "@/data/teams";
-import { Box, Center, Container, Group, Text } from "@mantine/core";
-import TeamCard from "../TeamCard";
+import { Box, Center, Container, Stack, Text } from "@mantine/core";
+import HomeTeamGrid from "./HomeTeamGrid";
 import ScrollAnchor from "./ScrollAnchor";
 
 export default async function HomeTeams() {
@@ -21,18 +21,18 @@ export default async function HomeTeams() {
 	return (
 		<Box bg="aquahaze">
 			<ScrollAnchor name="mannschaften" />
-			<Container size="xl">
-				<SectionHeading text="Mannschaften" />
-				<Center>
-					<Text>
-						Zurzeit umfasst unser Verein {teamNumber} {numberOfTeams > 1 ? "Mannschaften" : "Mannschaft"}:
-					</Text>
-				</Center>
-				<Group gap="md" py="xl" grow wrap="wrap" align="flex-start" justify="center">
-					{teams.map((team) => (
-						<TeamCard {...team} key={team.id} />
-					))}
-				</Group>
+			<Container size="xl" pb="xl">
+				<Stack>
+					<Stack gap={0}>
+						<SectionHeading text="Mannschaften" />
+						<Center>
+							<Text>
+								Zurzeit umfasst unser Verein {teamNumber} {numberOfTeams > 1 ? "Mannschaften" : "Mannschaft"}:
+							</Text>
+						</Center>
+					</Stack>
+					<HomeTeamGrid teams={teams} />
+				</Stack>
 			</Container>
 		</Box>
 	);

@@ -49,8 +49,8 @@ export const Teams: CollectionConfig = {
 			label: "Geschlecht",
 			type: "select",
 			options: [
-				{ label: "Herren", value: "men" },
-				{ label: "Damen", value: "woman" },
+				{ label: "Männlich", value: "men" },
+				{ label: "Weiblich", value: "woman" },
 				{ label: "Gemischt", value: "mixed" },
 			],
 			required: true,

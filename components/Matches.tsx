@@ -22,7 +22,7 @@ export default function Matches({
 	if (type === "past") {
 		return (
 			<Box>
-				<Text c="dimmed" size="xs" ta="right">
+				<Text c="dimmed" size="xs" ta="right" pr="sm" pb="xs">
 					Stand: <time dateTime={matches[0].matchSeries.updated || undefined}>{dateDisplay}</time>
 				</Text>
 				<Stack gap={0}>
@@ -127,7 +127,7 @@ export default function Matches({
 	if (type === "future") {
 		return (
 			<Box>
-				<Text c="dimmed" size="xs" ta="right">
+				<Text c="dimmed" size="xs" ta="right" pr="sm" pb="xs">
 					Stand: <time dateTime={matches[0].matchSeries.updated || undefined}>{dateDisplay}</time>
 				</Text>
 				{matches.map((match, index) => {

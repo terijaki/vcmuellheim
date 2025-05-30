@@ -4,7 +4,7 @@ import RankingTable from "@/components/RankingTable";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import { getTeams } from "@/data/teams";
 import { samsClubMatches, samsClubRankings } from "@/utils/sams/sams-server-actions";
-import { Card, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Card, CardSection, SimpleGrid, Stack, Text } from "@mantine/core";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -52,7 +52,9 @@ export default async function Tabelle() {
 						<Card>
 							<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
 
-							<Matches matches={recentMatches} type="past" />
+							<CardSection p={{ base: undefined, sm: "sm" }}>
+								<Matches matches={recentMatches} type="past" />
+							</CardSection>
 						</Card>
 					)}
 				</Suspense>

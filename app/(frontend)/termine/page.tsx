@@ -81,7 +81,7 @@ export default async function Termine() {
 									Ligaspiele & Turneire
 								</Title>
 							)}
-							<CardSection>
+							<CardSection p={{ base: undefined, sm: "xl" }}>
 								<Matches matches={futureMatches} type="future" />
 							</CardSection>
 						</Card>

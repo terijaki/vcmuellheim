@@ -77,7 +77,7 @@ const theme = createTheme({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="de">
-			<body data-build-time={Date.now()}>
+			<body data-build-time={Date.now()} style={{ cursor: "default" }}>
 				<MantineProvider theme={theme}>
 					<AppShell header={{ height: 60, offset: true }} withBorder={false} bg="aquahaze">
 						<Header />

@@ -1,24 +1,39 @@
 "use client";
 import type { Team } from "@/data/payload-types";
-import { ActionIcon, Anchor, Box, Card, Collapse, Group, Stack, Text, Title } from "@mantine/core";
+import { Club } from "@/project.config";
+import { ActionIcon, Anchor, Box, Button, Card, Collapse, Group, Stack, Text, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import dayjs from "dayjs";
 import Link from "next/link";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import {
 	FaCalendarDays as IconCalendar,
 	FaClock as IconClock,
 	FaChevronUp as IconCollapse,
+	FaEnvelope as IconMail,
 	FaUser as IconPerson,
 	FaUserGroup as IconPersons,
 } from "react-icons/fa6";
 import MapsLink from "./MapsLink";
+import { useTeamContext } from "./homepage/HomeTeamContext";
 
-export default function TeamCard({ id, slug, name, league, sbvvTeam, age, description, schedules, people }: Team) {
-	const [opened, { toggle }] = useDisclosure(false);
+export default function TeamCard(props: Team) {
+	const { id, slug, name, league, sbvvTeam, age, description, schedules, people, gender } = props;
+	
+	const [opened, { toggle, open, close }] = useDisclosure(false);
+	const teamContext = useTeamContext();
+	const isMatching = Boolean(teamContext.gender === gender && (!teamContext.leagueParticipation || Boolean(sbvvTeam)));
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		if (opened && !isMatching) close();
+		if (!opened && isMatching) open();
+	}, [teamContext]);
+
+	const emailAddresses = new Map<string, string>();
 
 	return (
-		<Card data-team-id={id} bg="white" miw={380} maw="98vw">
+		<Card data-team-id={id} bg="white" style={{ opacity: isMatching || opened ? 1 : 0.85 }}>
 			<Group onClick={toggle} style={{ cursor: "pointer" }} wrap="nowrap" justify="space-between" align="flex-start">
 				<Title order={3} c="blumine" className=" hover:text-turquoise">
 					{league ? `${name} - ${league}` : name}
@@ -36,13 +51,19 @@ export default function TeamCard({ id, slug, name, league, sbvvTeam, age, descri
 							<Text>ab {age} Jahre</Text>
 						</Group>
 					)}
-					{schedules && (
+					{description && (
+						<Stack gap={0}>
+							<Text fw="bold">Info:</Text>
+							<Text>{description}</Text>
+						</Stack>
+					)}
+					{schedules && schedules.length > 0 && (
 						<Stack gap={0}>
 							<Group gap="xs" fw="bold">
 								<IconClock className="text-xs" />
 								Trainingszeiten:
 							</Group>
-							{schedules?.map((schedule) => {
+							{schedules.map((schedule) => {
 								const separator = schedule.day.length > 2 ? ", " : " & ";
 
 								return (
@@ -66,6 +87,7 @@ export default function TeamCard({ id, slug, name, league, sbvvTeam, age, descri
 							<Box>
 								{people.coaches?.map((trainer, index) => {
 									if (typeof trainer !== "object") return null;
+									if (trainer.email) emailAddresses.set(trainer.email, trainer.email);
 									return (
 										<Fragment key={trainer.name}>
 											{index !== 0 && " & "}
@@ -90,11 +112,12 @@ export default function TeamCard({ id, slug, name, league, sbvvTeam, age, descri
 								) : (
 									<IconPersons className="text-xs" />
 								)}
-								Ansprechperson:
+								{people.contactPeople.length === 1 ? "Ansprechperson" : "Ansprechpersonen"}:
 							</Group>
 							<Box>
 								{people.contactPeople?.map((person, index) => {
 									if (typeof person !== "object") return null;
+									if (person.email) emailAddresses.set(person.email, person.email);
 									return (
 										<Fragment key={person.name}>
 											{index !== 0 && " & "}
@@ -112,18 +135,28 @@ export default function TeamCard({ id, slug, name, league, sbvvTeam, age, descri
 						</Stack>
 					)}
 
-					{description && <Stack gap={0}>{description}</Stack>}
-					{sbvvTeam && (
-						<Stack gap={0}>
-							<Group gap="xs" fw="bold">
-								<IconCalendar className="text-xs" />
-								Saisoninfo:
-							</Group>
-							<Anchor component={Link} href={`/teams/${slug}`} c="turquoise">
-								Spielplan, Tabelle & Kader
-							</Anchor>
-						</Stack>
-					)}
+					<Stack gap="xs" mt="xs">
+						{emailAddresses.size > 0 && (
+							<Button
+								component={Link}
+								href={`mailto:${Array.from(emailAddresses.values()).join(",")}?subject=${name} (${Club.shortName})`}
+								color="turquoise"
+							>
+								<Group gap="xs" fw="bold">
+									<IconMail />
+									Kontaktieren
+								</Group>
+							</Button>
+						)}
+						{sbvvTeam && (
+							<Button component={Link} href={`/teams/${slug}`}>
+								<Group gap="xs" fw="bold">
+									<IconCalendar />
+									Spielplan, Tabelle & Kader
+								</Group>
+							</Button>
+						)}
+					</Stack>
 				</Stack>
 			</Collapse>
 		</Card>
