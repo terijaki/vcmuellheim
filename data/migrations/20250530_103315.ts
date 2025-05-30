@@ -42,11 +42,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
   
-  ALTER TABLE "sams_teams" RENAME COLUMN "full_name" TO "name_with_series";
   ALTER TABLE "news" ALTER COLUMN "title" DROP NOT NULL;
   ALTER TABLE "news" ALTER COLUMN "content" DROP NOT NULL;
   ALTER TABLE "news" ALTER COLUMN "published_date" DROP NOT NULL;
   ALTER TABLE "news" ADD COLUMN "_status" "enum_news_status" DEFAULT 'draft';
+  ALTER TABLE "sams_teams" ADD COLUMN "name_with_series" varchar;
   ALTER TABLE "payload_locked_documents_rels" ADD COLUMN "sams_clubs_id" uuid;
   DO $$ BEGIN
    ALTER TABLE "_news_v" ADD CONSTRAINT "_news_v_parent_id_news_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."news"("id") ON DELETE set null ON UPDATE no action;
@@ -96,6 +96,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   CREATE INDEX IF NOT EXISTS "news__status_idx" ON "news" USING btree ("_status");
   CREATE INDEX IF NOT EXISTS "payload_locked_documents_rels_sams_clubs_id_idx" ON "payload_locked_documents_rels" USING btree ("sams_clubs_id");
+  ALTER TABLE "sams_teams" DROP COLUMN IF EXISTS "full_name";
   ALTER TABLE "public"."teams" ALTER COLUMN "league" SET DATA TYPE text;
   DROP TYPE "public"."enum_teams_league";
   CREATE TYPE "public"."enum_teams_league" AS ENUM('1. Bundesliga', '2. Bundesliga', 'Dritte Liga', 'Regionalliga', 'Oberliga', 'Verbandsliga', 'Landesliga', 'Bezirksliga', 'Bezirksklasse', 'Kreisliga', 'Kreisklasse');
@@ -110,7 +111,6 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "_news_v" CASCADE;
   DROP TABLE "_news_v_rels" CASCADE;
   DROP TABLE "sams_clubs" CASCADE;
-  ALTER TABLE "sams_teams" RENAME COLUMN "name_with_series" TO "full_name";
   ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_sams_clubs_fk";
   
   DROP INDEX IF EXISTS "news__status_idx";
@@ -118,7 +118,9 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   ALTER TABLE "news" ALTER COLUMN "title" SET NOT NULL;
   ALTER TABLE "news" ALTER COLUMN "content" SET NOT NULL;
   ALTER TABLE "news" ALTER COLUMN "published_date" SET NOT NULL;
+  ALTER TABLE "sams_teams" ADD COLUMN "full_name" varchar;
   ALTER TABLE "news" DROP COLUMN IF EXISTS "_status";
+  ALTER TABLE "sams_teams" DROP COLUMN IF EXISTS "name_with_series";
   ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "sams_clubs_id";
   ALTER TABLE "public"."teams" ALTER COLUMN "league" SET DATA TYPE text;
   DROP TYPE "public"."enum_teams_league";
