@@ -127,7 +127,7 @@ export default async function Termine() {
 											{pastTwoSeasons.map((season) => (
 												<List key={season.id}>
 													<ListItem>
-														{`${dayjs(season.begin).format("YYYY-MM-DD")} bis ${dayjs(season.end).format("YYYY-MM-DD")}`}
+														{`${dayjs(season.begin).format("DD.MM.YYYY")} bis ${dayjs(season.end).format("DD.MM.YYYY")}`}
 													</ListItem>
 												</List>
 											))}
