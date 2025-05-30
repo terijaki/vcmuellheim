@@ -1,5 +1,6 @@
 import SectionHeading from "@/components/layout/SectionHeading";
-import { Anchor, Center, Container, SimpleGrid, Space, Stack, Text, Title } from "@mantine/core";
+import { getMembersByRole } from "@/data/members";
+import { Anchor, Card, Center, Container, SimpleGrid, Space, Stack, Text, Title } from "@mantine/core";
 import {
 	FaEnvelope as IconEmail,
 	FaFileExcel as IconExcel,
@@ -7,14 +8,17 @@ import {
 } from "react-icons/fa6";
 import ScrollAnchor from "./ScrollAnchor";
 
-export default function HomeKontakt() {
-	//TODO load the names of the people kassier and mitgliedschaft from the database
+export default async function HomeKontakt() {
+	const treasurerData = await getMembersByRole(["Kassier", "Schatzmeister:in"]);
+	const treasurer = treasurerData?.docs[0];
+	const membershipManagerData = await getMembersByRole(["Mitgliederverwaltung"]);
+	const membershipManager = membershipManagerData?.docs[0];
 
 	return (
 		<Center>
 			<Container size="xl" mx={{ base: undefined, xs: "xl" }}>
 				<ScrollAnchor name="kontakt" />
-				<Stack>
+				<Stack gap="xl">
 					<Stack gap={0}>
 						<SectionHeading text="Kontakt" color="onyx" />
 						<Center>
@@ -46,7 +50,7 @@ export default function HomeKontakt() {
 						</ContactItem>
 						<ContactItem title="Hast du Fragen zu deiner Mitgliedschaft?">
 							<>
-								Melde dich bitte direkt bei Paul Morawietz{" "}
+								Melde dich bitte direkt bei {membershipManager?.name}{" "}
 								<Anchor
 									href="mailto:mitgliedschaft@vcmuellheim.de?subject=Volleyball Club Müllheim"
 									target="_blank"
@@ -58,7 +62,7 @@ export default function HomeKontakt() {
 						</ContactItem>
 						<ContactItem title="Hast du Fragen zu deiner Beitragszahlung?">
 							<>
-								Melde dich bitte direkt bei Peter Müssig{" "}
+								Melde dich bitte direkt bei {treasurer?.name}{" "}
 								<Anchor
 									href="mailto:kassier@vcmuellheim.de?subject=Volleyball Club Müllheim"
 									target="_blank"
@@ -109,9 +113,11 @@ export default function HomeKontakt() {
 
 function ContactItem({ title, children }: { title: string; children: React.ReactNode }) {
 	return (
-		<Stack gap={0}>
-			<Title order={6}>{title}</Title>
-			<Text size="sm">{children}</Text>
-		</Stack>
+		<Card>
+			<Stack gap={0}>
+				<Title order={5}>{title}</Title>
+				<Text size="sm">{children}</Text>
+			</Stack>
+		</Card>
 	);
 }
