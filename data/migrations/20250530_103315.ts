@@ -1,9 +1,19 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
-   CREATE TYPE "public"."enum_news_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum__news_v_version_status" AS ENUM('draft', 'published');
+   DO $$ BEGIN
+     CREATE TYPE "public"."enum_news_status" AS ENUM('draft', 'published');
+   EXCEPTION
+     WHEN duplicate_object THEN null;
+   END $$;
+   
+   DO $$ BEGIN
+     CREATE TYPE "public"."enum__news_v_version_status" AS ENUM('draft', 'published');
+   EXCEPTION
+     WHEN duplicate_object THEN null;
+   END $$;
+   
   CREATE TABLE IF NOT EXISTS "_news_v" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"parent_id" uuid,
@@ -123,9 +133,9 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   ALTER TABLE "sams_teams" DROP COLUMN IF EXISTS "name_with_series";
   ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "sams_clubs_id";
   ALTER TABLE "public"."teams" ALTER COLUMN "league" SET DATA TYPE text;
-  DROP TYPE "public"."enum_teams_league";
+  DROP TYPE IF EXISTS "public"."enum_teams_league";
   CREATE TYPE "public"."enum_teams_league" AS ENUM('1. Bundesliga', '2. Bundesliga', 'Dritte Liga', 'Regionalliga', 'Oberliga', 'Verbandsliga', 'Landesliga', 'Bezirksklasse', 'Bezirksliga', 'Kreisliga', 'Kreisklasse');
   ALTER TABLE "public"."teams" ALTER COLUMN "league" SET DATA TYPE "public"."enum_teams_league" USING "league"::"public"."enum_teams_league";
-  DROP TYPE "public"."enum_news_status";
-  DROP TYPE "public"."enum__news_v_version_status";`)
+  DROP TYPE IF EXISTS "public"."enum_news_status";
+  DROP TYPE IF EXISTS "public"."enum__news_v_version_status";`)
 }
