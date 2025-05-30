@@ -8,8 +8,6 @@ import { Suspense } from "react";
 
 export const metadata: Metadata = { title: "Fotogalerie" };
 
-export const dynamic = "force-dynamic";
-
 export default async function PicturesPage() {
 	const data = await getPictures();
 	const pictures = data?.docs;

@@ -1,6 +1,5 @@
 import Socials from "@/components/layout/Socials";
-import { Container, Flex, Group, Text } from "@mantine/core";
-import Link from "next/link";
+import { Anchor, Container, Flex, Group, Text } from "@mantine/core";
 
 const legals = [
 	{ name: "Satzung", url: "/satzung" },
@@ -11,24 +10,24 @@ const legals = [
 
 export default function Footer() {
 	return (
-		<Container fluid bg="white" m={0} c="dimmed">
+		<Container fluid bg="white" m={0}>
 			<Container size="xl">
 				<Group justify="space-between" wrap="nowrap" py="sm">
 					<Flex columnGap="sm" wrap="wrap" direction={{ base: "column", sm: "row" }}>
 						{legals.map((legal) => (
-							<Link key={legal.name} href={legal.url} className=" hover:text-turquoise">
-								<Text size="sm">{legal.name}</Text>
-							</Link>
+							<Anchor key={legal.name} href={legal.url} size="xs" c="dimmed" underline="never">
+								{legal.name}
+							</Anchor>
 						))}
 					</Flex>
 					<Flex columnGap="sm" wrap="wrap" direction={{ base: "column", sm: "row" }}>
 						{Socials().map((social) => (
-							<Link key={social.name} {...social} className=" hover:text-turquoise">
+							<Anchor key={social.name} {...social} size="xs" c="dimmed" underline="never">
 								<Group gap={4}>
 									{social.icon}
-									<Text size="sm">{social.name}</Text>
+									<Text>{social.name}</Text>
 								</Group>
-							</Link>
+							</Anchor>
 						))}
 					</Flex>
 				</Group>

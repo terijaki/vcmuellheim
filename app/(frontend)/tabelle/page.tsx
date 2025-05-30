@@ -1,7 +1,7 @@
 import CardTitle from "@/components/CardTitle";
+import Matches from "@/components/Matches";
+import RankingTable from "@/components/RankingTable";
 import PageWithHeading from "@/components/layout/PageWithHeading";
-import Matches from "@/components/sams/Matches";
-import RankingTable from "@/components/sams/RankingTable";
 import { getTeams } from "@/data/teams";
 import { samsClubMatches, samsClubRankings } from "@/utils/sams/sams-server-actions";
 import { Card, CardSection, SimpleGrid, Stack, Text } from "@mantine/core";
@@ -38,14 +38,7 @@ export default async function Tabelle() {
 							if (!matchSeriesDisplayed.includes(rankings.matchSeries.uuid)) {
 								matchSeriesDisplayed.push(rankings.matchSeries.uuid);
 								return (
-									<Suspense
-										fallback={
-											<div className="card-narrow p-6 flex justify-center place-items-center">
-												lade {rankings.matchSeries.name}..
-											</div>
-										}
-										key={rankings.matchSeries.id}
-									>
+									<Suspense key={rankings.matchSeries.id} fallback={<Card>lade {rankings.matchSeries.name}..</Card>}>
 										<RankingTable {...rankings} linkToTeamPage={true} />
 									</Suspense>
 								);

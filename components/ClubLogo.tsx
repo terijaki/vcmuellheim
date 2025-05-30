@@ -1,5 +1,5 @@
 import { samsClubDataByClubName } from "@/utils/sams/sams-server-actions";
-import { Box } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import { unstable_cacheLife as cacheLife } from "next/cache";
 import Image from "next/image";
 import { FaVolleyball as Ball } from "react-icons/fa6";
@@ -12,17 +12,16 @@ export default async function ClubLogo({ clubName }: { clubName?: string | null 
 		const clubData = await samsClubDataByClubName(clubName);
 		if (clubData?.logo)
 			return (
-				<Box pos="relative" w={24} h={24}>
+				<Flex pos="relative" justify="center" align="center" w={24} h={24}>
 					<Image
 						src={clubData.logo}
 						fill
 						loading="lazy"
 						placeholder="empty"
 						alt={`Logo: ${clubName}`}
-						objectFit="contain"
-						style={{ mixBlendMode: "multiply" }}
+						style={{ mixBlendMode: "multiply", objectFit: "contain", borderRadius: 8 }}
 					/>
-				</Box>
+				</Flex>
 			);
 	}
 
@@ -31,8 +30,8 @@ export default async function ClubLogo({ clubName }: { clubName?: string | null 
 
 export function ClubLogoFallback({ className }: { className?: string | null }) {
 	return (
-		<Box pos="relative" w={24} h={24}>
-			<Ball className="opacity-50" />
-		</Box>
+		<Flex pos="relative" justify="center" align="center" w={24} h={24} c="lion">
+			<Ball />
+		</Flex>
 	);
 }

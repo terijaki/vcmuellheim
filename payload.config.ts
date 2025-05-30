@@ -10,7 +10,6 @@ import { fileURLToPath } from "node:url";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { Events } from "./collections/Events";
-import { Jobs } from "./collections/Jobs";
 import { Locations } from "./collections/Locations";
 import { Media } from "./collections/Media";
 import { Members } from "./collections/Members";
@@ -99,5 +98,4 @@ export default buildConfig({
 		fallbackLanguage: "de",
 	},
 	cookiePrefix: "vcmuellheim-cms",
-	jobs: Jobs,
 });

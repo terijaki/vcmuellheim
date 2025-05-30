@@ -3,7 +3,7 @@ import { Club } from "@/project.config";
 // "use cache";
 // cacheLife("minutes");
 // import { unstable_cacheLife as cacheLife } from "next/cache";
-import { samsClubData, samsClubMatches, samsMatches } from "@/utils/sams/sams-server-actions";
+import { samsClubMatches, samsMatches } from "@/utils/sams/sams-server-actions";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { type NextRequest, NextResponse } from "next/server";
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 			calendarTitle = `${calendarTitle} - Vereinskalender`;
 		} else {
 			// check if the team slug is valid
-			const teams = await getTeams(false, teamSlug);
+			const teams = await getTeams(teamSlug);
 			const team = teams?.docs?.[0];
 			if (!team?.sbvvTeam || typeof team.sbvvTeam === "string") throw "Team not found";
 
@@ -32,9 +32,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 			const sbvvId = samsTeam?.seasonTeamId;
 			// if the team has an sbvvId, get the matches for that team
 			if (sbvvId) {
-				const clubData = await samsClubData();
-				const allSeasonMatchSeriesId = clubData?.teams?.team?.find((team) => team.id.toString() === sbvvId.toString())
-					?.matchSeries.allSeasonId;
+				const allSeasonMatchSeriesId = team.sbvvTeam?.matchSeries_AllSeasonId;
 				if (allSeasonMatchSeriesId) {
 					matches = await samsMatches({ allSeasonMatchSeriesId });
 					if (samsTeam.name) calendarTitle = `${calendarTitle} - ${samsTeam.name}`;

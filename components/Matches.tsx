@@ -2,7 +2,7 @@ import { Club } from "@/project.config";
 import { Box, Flex, Grid, GridCol, Group, Stack, Text } from "@mantine/core";
 import { FaSquarePollVertical as IconResult } from "react-icons/fa6";
 import type { Match } from "sams-rpc";
-import MapsLink from "../MapsLink";
+import MapsLink from "./MapsLink";
 
 export default function Matches({
 	matches,

@@ -1,9 +1,9 @@
 import CardTitle from "@/components/CardTitle";
 import ImageGallery from "@/components/ImageGallery";
 import MapsLink from "@/components/MapsLink";
+import Matches from "@/components/Matches";
+import RankingTable from "@/components/RankingTable";
 import PageWithHeading from "@/components/layout/PageWithHeading";
-import Matches from "@/components/sams/Matches";
-import RankingTable from "@/components/sams/RankingTable";
 import type { Member, Team } from "@/data/payload-types";
 import { getTeams } from "@/data/teams";
 import { Club } from "@/project.config";

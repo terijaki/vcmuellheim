@@ -16,6 +16,7 @@
         "@plaiceholder/next": "^3.0.0",
         "@tailwindcss/postcss": "^4.1.8",
         "bun-types": "^1.2.14",
+        "croner": "^9.0.0",
         "dayjs": "^1.11.13",
         "dumb-csv": "^1.1.2",
         "feed": "^5.1.0",

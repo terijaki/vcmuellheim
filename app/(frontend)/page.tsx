@@ -6,8 +6,11 @@ import HomeMembers from "@/components/homepage/HomeMembers";
 import HomeNews from "@/components/homepage/HomeNews";
 import HomeSponsors from "@/components/homepage/HomeSponsors";
 import HomeTeams from "@/components/homepage/HomeTeams";
+import { samsClubUpdate } from "@/jobs/tasks/sams-club-update";
 import { Center, Loader } from "@mantine/core";
 import { Suspense } from "react";
+
+samsClubUpdate.resume(); // Start the job
 
 export default async function Page() {
 	const CenteredLoader = () => (

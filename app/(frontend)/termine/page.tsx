@@ -1,6 +1,6 @@
 import EventCard from "@/components/EventCard";
+import Matches from "@/components/Matches";
 import PageWithHeading from "@/components/layout/PageWithHeading";
-import Matches from "@/components/sams/Matches";
 import { getEvents } from "@/data/events";
 import { Club } from "@/project.config";
 import { samsClubMatches, samsSeasons } from "@/utils/sams/sams-server-actions";

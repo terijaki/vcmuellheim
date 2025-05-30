@@ -3,8 +3,8 @@ import { Card, Group, Table, TableTbody, TableTd, TableTh, TableThead, TableTr, 
 import dayjs from "dayjs";
 import { Suspense } from "react";
 import type { Rankings } from "sams-rpc";
-import CardTitle from "../CardTitle";
-import ClubLogo, { ClubLogoFallback } from "../ClubLogo";
+import CardTitle from "./CardTitle";
+import ClubLogo, { ClubLogoFallback } from "./ClubLogo";
 
 type RankingTable = Rankings & {
 	linkToTeamPage?: boolean;
