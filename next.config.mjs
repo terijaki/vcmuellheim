@@ -49,6 +49,14 @@ const nextConfig = {
         source: "/logo",
         destination: "/brand",
       },
+      {
+        source: "/login",
+        destination: "/admin",
+      },
+      {
+        source: "/edit",
+        destination: "/admin",
+      },
     ];
   },
   experimental: {
