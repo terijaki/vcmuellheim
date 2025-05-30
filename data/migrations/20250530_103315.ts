@@ -60,7 +60,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   EXCEPTION
     WHEN duplicate_column THEN null;
   END $$;
-  ALTER TABLE "sams_teams" ADD COLUMN "name_with_series" varchar;
+  DO $$ BEGIN
+    ALTER TABLE "sams_teams" ADD COLUMN "name_with_series" varchar;
+  EXCEPTION
+    WHEN duplicate_column THEN null;
+  END $$;
   ALTER TABLE "payload_locked_documents_rels" ADD COLUMN "sams_clubs_id" uuid;
   DO $$ BEGIN
    ALTER TABLE "_news_v" ADD CONSTRAINT "_news_v_parent_id_news_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."news"("id") ON DELETE set null ON UPDATE no action;
