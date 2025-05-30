@@ -10,7 +10,7 @@ import { samsClubUpdate } from "@/jobs/tasks/sams-club-update";
 import { Center, Loader } from "@mantine/core";
 import { Suspense } from "react";
 
-samsClubUpdate.resume(); // Start the job
+if (!samsClubUpdate.currentRun()) samsClubUpdate.resume(); // Resume the job if it is paused
 
 export default async function Page() {
 	const CenteredLoader = () => (
@@ -26,9 +26,6 @@ export default async function Page() {
 			<Suspense fallback={<CenteredLoader />}>
 				<HomeHeimspiele />
 			</Suspense>
-			{/* <Suspense fallback={<CenteredLoader />}>
-				<HomeHeimturnier />
-			</Suspense> */}
 			<Suspense fallback={<CenteredLoader />}>
 				<HomeTeams />
 			</Suspense>

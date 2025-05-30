@@ -1,7 +1,7 @@
 import SectionHeading from "@/components/layout/SectionHeading";
 import type { Sponsor } from "@/data/payload-types";
 import { getSponsors } from "@/data/sponsors";
-import { BackgroundImage, Box, Container, Group, Overlay, Stack, Text } from "@mantine/core";
+import { BackgroundImage, Box, Container, Flex, Group, Overlay, Stack, Text } from "@mantine/core";
 import Image from "next/image";
 import Link from "next/link";
 import Marquee from "react-fast-marquee";
@@ -36,25 +36,9 @@ async function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
 			<Stack align="center">
 				<Text>Wir bedanken uns herzlich bei unseren Sponsoren!</Text>
 				<Marquee pauseOnHover={true} speed={5}>
-					{sponsors.map((sponsor) => {
-						if (sponsor.name && sponsor.logo) {
-							return (
-								<div key={sponsor.name} className="h-20 w-36 mx-6">
-									<SponsorCard {...sponsor} />
-								</div>
-							);
-						}
-						if (sponsor.name) {
-							return (
-								<div
-									key={sponsor.name}
-									className="flex justify-center items-center text-center font-bold text-2xl md:text-4xl lg:text-5xl text-balance font-industrial"
-								>
-									{sponsor.name}
-								</div>
-							);
-						}
-					})}
+					{sponsors.map((sponsor) => (
+						<SponsorCard {...sponsor} key={sponsor.name} />
+					))}
 				</Marquee>
 			</Stack>
 		);
@@ -74,11 +58,23 @@ async function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
 function SponsorCard({ name, logo, website }: Sponsor) {
 	const logoUrl = logo && typeof logo === "object" ? logo.url : false;
 
-	if (!logoUrl) return null;
+	if (logoUrl && !website)
+		return (
+			<Flex w={180} h={80} maw={"50vw"} pos="relative" align="center" justify="center">
+				<Image fill loading="lazy" src={logoUrl} alt={`${name}`} style={{ objectFit: "contain" }} />
+			</Flex>
+		);
 
-	return (
-		<Box component={website ? Link : undefined} href={website || ""} w={180} h={80} maw={"50vw"} pos="relative">
-			<Image fill loading="lazy" src={logoUrl} objectFit="contain" alt={`${name}`} />
-		</Box>
-	);
+	if (website && name)
+		return (
+			<Flex component={Link} href={website} w={180} h={80} maw={"50vw"} pos="relative" align="center" justify="center">
+				{logoUrl ? (
+					<Image fill loading="lazy" src={logoUrl} alt={`${name}`} style={{ objectFit: "contain" }} />
+				) : (
+					<Text size="xl" c="white" fw="bolder">
+						{name}
+					</Text>
+				)}
+			</Flex>
+		);
 }

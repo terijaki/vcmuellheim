@@ -1,4 +1,3 @@
-"use client";
 import { BackgroundImage, Card, CardSection, Space, Text, Title } from "@mantine/core";
 import Link from "next/link";
 

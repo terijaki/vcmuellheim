@@ -2,7 +2,6 @@ import CardTitle from "@/components/CardTitle";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import { shuffleArray } from "@/utils/shuffleArray";
 import { Card, Center, Divider, Group, Stack, Text } from "@mantine/core";
-import matter from "gray-matter";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,12 +33,7 @@ const people = [
 
 export default function JugendturnierPage() {
 	const pastImages: string[] = [];
-	for (const event of pastTournamentPosts) {
-		const { data: frontmatter } = matter.read(event[0]);
-		for (const image of frontmatter.gallery) {
-			pastImages.push(image);
-		}
-	}
+
 	const shuffledPastImages = shuffleArray(pastImages, 12);
 
 	return (
@@ -200,7 +194,7 @@ export default function JugendturnierPage() {
 										<Group gap={0}>
 											<Stack w={58} h={64} c="white" pos="relative" align="center" justify="center">
 												{person.picture ? (
-													<Image fill src={person.picture} alt={person.name} objectFit="cover" />
+													<Image fill src={person.picture} alt={person.name} style={{ objectFit: "cover" }} />
 												) : (
 													<IconAvatar width={"100%"} height={"100%"} />
 												)}

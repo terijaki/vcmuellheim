@@ -172,10 +172,22 @@ export default function StyleGuidePage() {
 
 							<SimpleGrid spacing="xs" cols={{ base: 1, sm: 2 }}>
 								<AspectRatio ratio={6 / 4}>
-									<Image width={600} height={400} objectFit="cover" src="/images/brand/jersey1.jpg" alt="Logo" />
+									<Image
+										width={600}
+										height={400}
+										src="/images/brand/jersey1.jpg"
+										alt="Logo"
+										style={{ objectFit: "cover" }}
+									/>
 								</AspectRatio>
 								<AspectRatio ratio={6 / 4}>
-									<Image width={600} height={400} objectPosition="cover" src="/images/brand/jersey2.jpg" alt="Logo" />
+									<Image
+										width={600}
+										height={400}
+										src="/images/brand/jersey2.jpg"
+										alt="Logo"
+										style={{ objectFit: "cover" }}
+									/>
 								</AspectRatio>
 							</SimpleGrid>
 						</Stack>

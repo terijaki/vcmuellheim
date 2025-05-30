@@ -21,7 +21,7 @@ export default async function Tabelle() {
 	const teams = await getTeams(undefined, true); // fetch all teams with league information
 	const teamSize = teams?.docs.length || 0;
 
-	const lastResultCap = Math.min(20, Number((teamSize * GAMES_PER_TEAM).toFixed(0))); // calculate the total number of games
+	const lastResultCap = Math.max(6, Math.min(20, Number((teamSize * GAMES_PER_TEAM).toFixed(0)))); // calculate the total number of games
 	const numToWordsDe = require("num-words-de");
 	const recentMatches = await samsClubMatches({ past: true, limit: lastResultCap });
 	const lastResultWord =
@@ -32,11 +32,10 @@ export default async function Tabelle() {
 		<PageWithHeading title={"Tabelle"}>
 			<Stack>
 				<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-					{clubRankings == null && <div>Lade Tabellendaten...</div>}
-					<Suspense>
+					<Suspense fallback={<Card>Lade Tabellendaten...</Card>}>
 						{clubRankings?.map((rankings) => {
-							if (!matchSeriesDisplayed.includes(rankings.matchSeries.uuid)) {
-								matchSeriesDisplayed.push(rankings.matchSeries.uuid);
+							if (!matchSeriesDisplayed.includes(rankings.matchSeries.allSeasonId)) {
+								matchSeriesDisplayed.push(rankings.matchSeries.allSeasonId);
 								return (
 									<Suspense key={rankings.matchSeries.id} fallback={<Card>lade {rankings.matchSeries.name}..</Card>}>
 										<RankingTable {...rankings} linkToTeamPage={true} />
@@ -46,14 +45,16 @@ export default async function Tabelle() {
 						})}
 					</Suspense>
 				</SimpleGrid>
-				{recentMatches && recentMatches.length > 0 && (
-					<Card>
-						<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
-						<CardSection>
-							<Matches matches={recentMatches} type="past" />
-						</CardSection>
-					</Card>
-				)}
+				<Suspense>
+					{recentMatches && recentMatches.length > 0 && (
+						<Card>
+							<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
+							<CardSection>
+								<Matches matches={recentMatches} type="past" />
+							</CardSection>
+						</Card>
+					)}
+				</Suspense>
 			</Stack>
 		</PageWithHeading>
 	);

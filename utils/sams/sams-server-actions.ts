@@ -210,7 +210,6 @@ export async function samsClubRankings() {
 	try {
 		const unqiueMatchSeriesIds = await samsClubAllSeasonMatchSeriesIds(true);
 		if (!unqiueMatchSeriesIds) throw "No match series IDs found";
-
 		// collect rankings for all match series
 		const rankings: Rankings[] = [];
 		await Promise.all(
@@ -252,7 +251,9 @@ export async function samsClubMatches({
 					after: after ? dayjs(after).format("DD.MM.YYYY") : undefined,
 					before: before ? dayjs(before).format("DD.MM.YYYY") : undefined,
 				});
-				matches?.map((m) => clubMatchesMap.set(m.matchSeries.uuid, m)); // add the matches to the map
+				matches?.map((m) => {
+					if (m.team.some((t) => t.club === SAMS_CLUB_NAME)) clubMatchesMap.set(m.matchSeries.uuid, m);
+				}); // add the matches to the map
 			}),
 		);
 
@@ -263,3 +264,81 @@ export async function samsClubMatches({
 	}
 }
 /* endregion */
+
+export async function samsTeamsUpdate() {
+	try {
+		// get the club id from sams/payload
+		const clubData = await samsClubData();
+		if (!clubData?.sportsclubId) throw "🚨 No sportsclubId found in clubData";
+		// get the club data from sams
+		const freshClubData = await sams.sportsclub({ sportsclubId: clubData.sportsclubId });
+		if (!freshClubData) throw new Error("🚨 Club data could not be retrieved");
+		const freshTeamsData = freshClubData.teams?.team || [];
+		// filter out virtual teams which occur end of season in prep for the next seasons
+		const validFreshData = freshTeamsData.filter((team) => !team.matchSeries.hierarchy.name.includes("Rueckmeldungen"));
+		// deconstruct the teams to match the SamsTeams collection structure
+		const freshTeams = validFreshData.map((team) => {
+			return {
+				name: team.name,
+				uuid: team.uuid,
+				seasonTeamId: team.seasonTeamId,
+				season: team.matchSeries.season.name,
+				matchSeries_Name: team.matchSeries.name,
+				matchSeries_Id: team.matchSeries.id,
+				matchSeries_Uuid: team.matchSeries.uuid,
+				matchSeries_AllSeasonId: team.matchSeries.allSeasonId,
+				matchSeries_Type: team.matchSeries.type,
+			};
+		});
+
+		// read the existing data in the sams-teams collection to determine which teams to update, delete, or create
+		const storedData = await payload.find({
+			collection: "sams-teams",
+			limit: 1000, // just to make sure we get all teams
+			select: { uuid: true }, // we only need the id and uuid for comparison
+		});
+		const storedTeams = storedData.docs || [];
+
+		// prepare arrays to store the results of the update
+		const teamsDeleted = [];
+		const teamsUpdated = [];
+		const teamsToCreate = [];
+
+		// handle update and deletion of existing teams
+		for (const storedTeam of storedTeams) {
+			const freshTeam = freshTeams.find((t) => t.uuid === storedTeam.uuid);
+			if (freshTeam) {
+				// update the team if it exists
+				await payload.update({
+					collection: "sams-teams",
+					where: { id: { equals: storedTeam.id } },
+					data: freshTeam,
+				});
+				teamsUpdated.push(storedTeam.id);
+			} else {
+				// delete the team if it does not exist in the fresh data
+				await payload.delete({
+					collection: "sams-teams",
+					id: storedTeam.id,
+				});
+				teamsDeleted.push(storedTeam.id);
+			}
+		}
+
+		// handle creation of new teams
+		for (const freshTeam of freshTeams) {
+			const isNewTeam = !storedTeams.some((t) => t.uuid === freshTeam.uuid);
+			if (isNewTeam) {
+				await payload.create({
+					collection: "sams-teams",
+					data: freshTeam,
+				});
+				teamsToCreate.push(freshTeam.uuid);
+			}
+		}
+
+		return { created: teamsToCreate.length, updated: teamsUpdated.length, deleted: teamsDeleted.length };
+	} catch (error) {
+		console.error("🚨 Error updating Sams Teams:", error);
+	}
+}

@@ -16,7 +16,7 @@ export default async function HomeIntro() {
 	cacheLife("hours");
 
 	const backgroundImageRandom = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
-
+	if (!backgroundImageRandom) return null;
 	return (
 		<Box bg="oynx" c="white">
 			<BackgroundImage src={backgroundImageRandom} style={{ zIndex: 0 }} pos="relative">

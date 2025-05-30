@@ -51,7 +51,6 @@ export const SamsTeams: CollectionConfig = {
 			name: "season",
 			type: "text",
 		},
-
 		{
 			name: "matchSeries_Name",
 			type: "text",

@@ -28,7 +28,7 @@ export default async function MemberCard({
 				<Group gap={0}>
 					<Stack bg={dark ? "blumine" : "lion"} w={58} h={64} c="white" pos="relative" align="center" justify="center">
 						{avatarUrl ? (
-							<Image fill src={avatarUrl} alt={name} objectFit="cover" />
+							<Image fill src={avatarUrl} alt={name} style={{ objectFit: "cover" }} />
 						) : (
 							<IconAvatar width={"100%"} height={"100%"} />
 						)}
