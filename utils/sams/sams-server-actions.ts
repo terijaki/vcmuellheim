@@ -286,7 +286,10 @@ export async function samsTeamsUpdate() {
 		if (!freshClubData) throw new Error("🚨 Club data could not be retrieved");
 		const freshTeamsData = freshClubData.teams?.team || [];
 		// filter out virtual teams which occur end of season in prep for the next seasons
-		const validFreshData = freshTeamsData.filter((team) => !team.matchSeries.hierarchy.name.includes("Rueckmeldungen"));
+		const validFreshData = freshTeamsData.filter(
+			(team) =>
+				!team.matchSeries.hierarchy.name.includes("Rueckmeldungen") && team.matchSeries.type.toLowerCase() === "league",
+		);
 		// deconstruct the teams to match the SamsTeams collection structure
 		const freshTeams = validFreshData.map((team) => {
 			return {
