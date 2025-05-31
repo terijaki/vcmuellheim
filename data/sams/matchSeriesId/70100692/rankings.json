@@ -1,0 +1,109 @@
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "70100692",
+      "uuid": "e551986d-e57b-4188-9706-a0c50bfc2d4f",
+      "allSeasonId": "bc7345dc-21ee-4892-9364-653244622509",
+      "name": "Herren Pokal-Finale 2024 (OL und höher)",
+      "shortName": "hp_top",
+      "type": "Competition",
+      "updated": "2024-09-30 08:53:41.076",
+      "structureUpdated": "2024-09-30 08:50:35.908",
+      "resultsUpdated": "2024-09-30 08:53:41.076",
+      "season": {
+        "id": "70098350",
+        "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+        "name": "2024/25"
+      },
+      "hierarchy": {
+        "id": "70100640",
+        "uuid": "5f3c9b05-b0d3-44da-a7f2-1bb66e11b59e",
+        "name": "Verbandspokal 2023/2024",
+        "shortName": "vp",
+        "hierarchyLevel": "2"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "70100640",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "70100639",
+            "name": "Pokalwettbewerbe",
+            "shortName": "P",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "70098566",
+            "name": "Südbadischer Volleyball-Verband (SBVV)",
+            "shortName": "SBVV",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": "Südbadischer Volleyball-Verband",
+        "shortName": "SBVV"
+      }
+    },
+    "ranking": [
+      {
+        "place": "1",
+        "team": {
+          "id": "74192321",
+          "uuid": "1353cf84-b5ef-4eb3-afee-2e2c19349be0",
+          "name": "FT 1844 Freiburg 2",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": "2",
+        "team": {
+          "id": "74192328",
+          "uuid": "1c218ce2-1473-4e4f-a649-da0e205a1ff9",
+          "name": "TG Schwenningen",
+          "club": "TG Schwenningen"
+        }
+      },
+      {
+        "place": "3",
+        "team": {
+          "id": "74192336",
+          "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        }
+      },
+      {
+        "place": "4",
+        "team": {
+          "id": "74192333",
+          "uuid": "ed47b4be-d704-4426-89e9-4c39414999bb",
+          "name": "VC Weil",
+          "club": "VC Weil am Rhein"
+        }
+      },
+      {
+        "place": "5",
+        "team": {
+          "id": "74192324",
+          "uuid": "8e4f5448-e86e-4f6d-8cf2-4124a0cca5a7",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": "6",
+        "team": {
+          "id": "74192382",
+          "uuid": "d713b890-911e-44fa-b580-a0289fdb6413",
+          "name": "SV Litzelstetten",
+          "club": "SV Litzelstetten"
+        }
+      }
+    ]
+  }
+}

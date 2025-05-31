@@ -1,0 +1,1454 @@
+{
+  "matches": {
+    "match": [
+      {
+        "id": "75287891",
+        "uuid": "0cbb739b-dbf6-44a1-a312-549cb8f7336a",
+        "number": "1",
+        "date": "29.09.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "74192336",
+          "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "74192328",
+            "uuid": "1c218ce2-1473-4e4f-a649-da0e205a1ff9",
+            "seasonTeamId": "74192328",
+            "name": "TG Schwenningen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TG Schwenningen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "74192333",
+            "uuid": "ed47b4be-d704-4426-89e9-4c39414999bb",
+            "seasonTeamId": "74192333",
+            "name": "VC Weil",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Weil am Rhein",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70100692",
+          "uuid": "e551986d-e57b-4188-9706-a0c50bfc2d4f",
+          "allSeasonId": "bc7345dc-21ee-4892-9364-653244622509",
+          "name": "Herren Pokal-Finale 2024 (OL und höher)",
+          "shortName": "hp_top",
+          "type": "Competition",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100640",
+            "uuid": "5f3c9b05-b0d3-44da-a7f2-1bb66e11b59e",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100640",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100639",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 9",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:35",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:17",
+                "winner": "TEAM1",
+                "duration": "22"
+              },
+              {
+                "number": "1",
+                "points": "25:18",
+                "winner": "TEAM1",
+                "duration": "18"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "42",
+        "netDuration": "40",
+        "dateObject": "2024-09-29T09:00:00.000Z",
+        "dateIso": "2024-09-29T09:00:00.000Z"
+      },
+      {
+        "id": "75287892",
+        "uuid": "fe09f76c-4b68-4ed2-8651-3f39080791b9",
+        "number": "2",
+        "date": "29.09.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "74192336",
+          "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "74192328",
+            "uuid": "1c218ce2-1473-4e4f-a649-da0e205a1ff9",
+            "seasonTeamId": "74192328",
+            "name": "TG Schwenningen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TG Schwenningen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "74192382",
+            "uuid": "d713b890-911e-44fa-b580-a0289fdb6413",
+            "seasonTeamId": "74192382",
+            "name": "SV Litzelstetten",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "SV Litzelstetten",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70100692",
+          "uuid": "e551986d-e57b-4188-9706-a0c50bfc2d4f",
+          "allSeasonId": "bc7345dc-21ee-4892-9364-653244622509",
+          "name": "Herren Pokal-Finale 2024 (OL und höher)",
+          "shortName": "hp_top",
+          "type": "Competition",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100640",
+            "uuid": "5f3c9b05-b0d3-44da-a7f2-1bb66e11b59e",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100640",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100639",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 9",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:28",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:18",
+                "winner": "TEAM1",
+                "duration": "25"
+              },
+              {
+                "number": "1",
+                "points": "25:10",
+                "winner": "TEAM1",
+                "duration": "17"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "20",
+        "netDuration": "42",
+        "dateObject": "2024-09-29T09:00:00.000Z",
+        "dateIso": "2024-09-29T09:00:00.000Z"
+      },
+      {
+        "id": "75287893",
+        "uuid": "d4921b2f-794d-4663-8add-483b97a45a0f",
+        "number": "3",
+        "date": "29.09.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "74192336",
+          "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "74192333",
+            "uuid": "ed47b4be-d704-4426-89e9-4c39414999bb",
+            "seasonTeamId": "74192333",
+            "name": "VC Weil",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Weil am Rhein",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "74192382",
+            "uuid": "d713b890-911e-44fa-b580-a0289fdb6413",
+            "seasonTeamId": "74192382",
+            "name": "SV Litzelstetten",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "SV Litzelstetten",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70100692",
+          "uuid": "e551986d-e57b-4188-9706-a0c50bfc2d4f",
+          "allSeasonId": "bc7345dc-21ee-4892-9364-653244622509",
+          "name": "Herren Pokal-Finale 2024 (OL und höher)",
+          "shortName": "hp_top",
+          "type": "Competition",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100640",
+            "uuid": "5f3c9b05-b0d3-44da-a7f2-1bb66e11b59e",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100640",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100639",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 9",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:40",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:23",
+                "winner": "TEAM1",
+                "duration": "0"
+              },
+              {
+                "number": "1",
+                "points": "25:17",
+                "winner": "TEAM1",
+                "duration": "22"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "1",
+        "netDuration": "22",
+        "dateObject": "2024-09-29T09:00:00.000Z",
+        "dateIso": "2024-09-29T09:00:00.000Z"
+      },
+      {
+        "id": "75287899",
+        "uuid": "4f706de7-2717-4049-b450-725f95c5ba11",
+        "number": "7",
+        "date": "29.09.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "74192336",
+          "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "74192328",
+            "uuid": "1c218ce2-1473-4e4f-a649-da0e205a1ff9",
+            "seasonTeamId": "74192328",
+            "name": "TG Schwenningen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TG Schwenningen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "74192336",
+            "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+            "seasonTeamId": "74192336",
+            "name": "VC Offenburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Offenburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70100692",
+          "uuid": "e551986d-e57b-4188-9706-a0c50bfc2d4f",
+          "allSeasonId": "bc7345dc-21ee-4892-9364-653244622509",
+          "name": "Herren Pokal-Finale 2024 (OL und höher)",
+          "shortName": "hp_top",
+          "type": "Competition",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100640",
+            "uuid": "5f3c9b05-b0d3-44da-a7f2-1bb66e11b59e",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100640",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100639",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 9",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:38",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:16",
+                "winner": "TEAM1",
+                "duration": "24"
+              },
+              {
+                "number": "1",
+                "points": "25:22",
+                "winner": "TEAM1",
+                "duration": "22"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "69",
+        "netDuration": "46",
+        "dateObject": "2024-09-29T09:00:00.000Z",
+        "dateIso": "2024-09-29T09:00:00.000Z"
+      },
+      {
+        "id": "75287902",
+        "uuid": "a4de6b26-a41a-4e0d-a7bd-ba4d9815fa16",
+        "number": "9",
+        "date": "29.09.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "74192336",
+          "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "74192382",
+            "uuid": "d713b890-911e-44fa-b580-a0289fdb6413",
+            "seasonTeamId": "74192382",
+            "name": "SV Litzelstetten",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "SV Litzelstetten",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "74192324",
+            "uuid": "8e4f5448-e86e-4f6d-8cf2-4124a0cca5a7",
+            "seasonTeamId": "74192324",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70100692",
+          "uuid": "e551986d-e57b-4188-9706-a0c50bfc2d4f",
+          "allSeasonId": "bc7345dc-21ee-4892-9364-653244622509",
+          "name": "Herren Pokal-Finale 2024 (OL und höher)",
+          "shortName": "hp_top",
+          "type": "Competition",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100640",
+            "uuid": "5f3c9b05-b0d3-44da-a7f2-1bb66e11b59e",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100640",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100639",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 9",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "37:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "18:25",
+                "winner": "TEAM2",
+                "duration": "40"
+              },
+              {
+                "number": "1",
+                "points": "19:25",
+                "winner": "TEAM2",
+                "duration": "20"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "7",
+        "netDuration": "60",
+        "dateObject": "2024-09-29T09:00:00.000Z",
+        "dateIso": "2024-09-29T09:00:00.000Z"
+      },
+      {
+        "id": "75287906",
+        "uuid": "b7b492e2-2779-42de-b148-2f5af8b16b38",
+        "number": "11",
+        "date": "29.09.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "74192336",
+          "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "74192328",
+            "uuid": "1c218ce2-1473-4e4f-a649-da0e205a1ff9",
+            "seasonTeamId": "74192328",
+            "name": "TG Schwenningen",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "TG Schwenningen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "74192321",
+            "uuid": "1353cf84-b5ef-4eb3-afee-2e2c19349be0",
+            "seasonTeamId": "74192321",
+            "name": "FT 1844 Freiburg 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70100692",
+          "uuid": "e551986d-e57b-4188-9706-a0c50bfc2d4f",
+          "allSeasonId": "bc7345dc-21ee-4892-9364-653244622509",
+          "name": "Herren Pokal-Finale 2024 (OL und höher)",
+          "shortName": "hp_top",
+          "type": "Competition",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100640",
+            "uuid": "5f3c9b05-b0d3-44da-a7f2-1bb66e11b59e",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100640",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100639",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 9",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "1:2",
+          "ballPoints": "57:58",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "21:25",
+                "winner": "TEAM2",
+                "duration": "-"
+              },
+              {
+                "number": "1",
+                "points": "25:18",
+                "winner": "TEAM1",
+                "duration": "-"
+              },
+              {
+                "number": "1",
+                "points": "11:15",
+                "winner": "TEAM2",
+                "duration": "-"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "-",
+        "netDuration": "-",
+        "dateObject": "2024-09-29T09:00:00.000Z",
+        "dateIso": "2024-09-29T09:00:00.000Z"
+      },
+      {
+        "id": "75287895",
+        "uuid": "6d8f8c54-b24f-4de1-a26c-9b38362f9055",
+        "number": "4",
+        "date": "29.09.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "74192336",
+          "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "74192321",
+            "uuid": "1353cf84-b5ef-4eb3-afee-2e2c19349be0",
+            "seasonTeamId": "74192321",
+            "name": "FT 1844 Freiburg 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "74192336",
+            "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+            "seasonTeamId": "74192336",
+            "name": "VC Offenburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Offenburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70100692",
+          "uuid": "e551986d-e57b-4188-9706-a0c50bfc2d4f",
+          "allSeasonId": "bc7345dc-21ee-4892-9364-653244622509",
+          "name": "Herren Pokal-Finale 2024 (OL und höher)",
+          "shortName": "hp_top",
+          "type": "Competition",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100640",
+            "uuid": "5f3c9b05-b0d3-44da-a7f2-1bb66e11b59e",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100640",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100639",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 9",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:38",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:20",
+                "winner": "TEAM1",
+                "duration": "20"
+              },
+              {
+                "number": "1",
+                "points": "25:18",
+                "winner": "TEAM1",
+                "duration": "22"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "20",
+        "netDuration": "42",
+        "dateObject": "2024-09-29T09:00:00.000Z",
+        "dateIso": "2024-09-29T09:00:00.000Z"
+      },
+      {
+        "id": "75287896",
+        "uuid": "545b004c-8854-4349-86d6-11b8d6470935",
+        "number": "5",
+        "date": "29.09.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "74192336",
+          "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "74192321",
+            "uuid": "1353cf84-b5ef-4eb3-afee-2e2c19349be0",
+            "seasonTeamId": "74192321",
+            "name": "FT 1844 Freiburg 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "74192324",
+            "uuid": "8e4f5448-e86e-4f6d-8cf2-4124a0cca5a7",
+            "seasonTeamId": "74192324",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70100692",
+          "uuid": "e551986d-e57b-4188-9706-a0c50bfc2d4f",
+          "allSeasonId": "bc7345dc-21ee-4892-9364-653244622509",
+          "name": "Herren Pokal-Finale 2024 (OL und höher)",
+          "shortName": "hp_top",
+          "type": "Competition",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100640",
+            "uuid": "5f3c9b05-b0d3-44da-a7f2-1bb66e11b59e",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100640",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100639",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 9",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:31",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:12",
+                "winner": "TEAM1",
+                "duration": "17"
+              },
+              {
+                "number": "1",
+                "points": "25:19",
+                "winner": "TEAM1",
+                "duration": "23"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "20",
+        "netDuration": "40",
+        "dateObject": "2024-09-29T09:00:00.000Z",
+        "dateIso": "2024-09-29T09:00:00.000Z"
+      },
+      {
+        "id": "75287897",
+        "uuid": "887e5ed5-a1c4-4c51-8018-4ad09afdddfa",
+        "number": "6",
+        "date": "29.09.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "74192336",
+          "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "74192336",
+            "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+            "seasonTeamId": "74192336",
+            "name": "VC Offenburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Offenburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "74192324",
+            "uuid": "8e4f5448-e86e-4f6d-8cf2-4124a0cca5a7",
+            "seasonTeamId": "74192324",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70100692",
+          "uuid": "e551986d-e57b-4188-9706-a0c50bfc2d4f",
+          "allSeasonId": "bc7345dc-21ee-4892-9364-653244622509",
+          "name": "Herren Pokal-Finale 2024 (OL und höher)",
+          "shortName": "hp_top",
+          "type": "Competition",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100640",
+            "uuid": "5f3c9b05-b0d3-44da-a7f2-1bb66e11b59e",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100640",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100639",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 9",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:1",
+          "ballPoints": "63:45",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "23:25",
+                "winner": "TEAM2",
+                "duration": "184"
+              },
+              {
+                "number": "1",
+                "points": "25:12",
+                "winner": "TEAM1",
+                "duration": "16"
+              },
+              {
+                "number": "1",
+                "points": "15:8",
+                "winner": "TEAM1",
+                "duration": "11"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "50",
+        "netDuration": "211",
+        "dateObject": "2024-09-29T09:00:00.000Z",
+        "dateIso": "2024-09-29T09:00:00.000Z"
+      },
+      {
+        "id": "75287900",
+        "uuid": "386395a5-961f-451f-b5ff-5093e1e78aeb",
+        "number": "8",
+        "date": "29.09.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "74192336",
+          "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "74192321",
+            "uuid": "1353cf84-b5ef-4eb3-afee-2e2c19349be0",
+            "seasonTeamId": "74192321",
+            "name": "FT 1844 Freiburg 2",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "74192333",
+            "uuid": "ed47b4be-d704-4426-89e9-4c39414999bb",
+            "seasonTeamId": "74192333",
+            "name": "VC Weil",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Weil am Rhein",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70100692",
+          "uuid": "e551986d-e57b-4188-9706-a0c50bfc2d4f",
+          "allSeasonId": "bc7345dc-21ee-4892-9364-653244622509",
+          "name": "Herren Pokal-Finale 2024 (OL und höher)",
+          "shortName": "hp_top",
+          "type": "Competition",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100640",
+            "uuid": "5f3c9b05-b0d3-44da-a7f2-1bb66e11b59e",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100640",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100639",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 9",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:18",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:8",
+                "winner": "TEAM1",
+                "duration": "264"
+              },
+              {
+                "number": "1",
+                "points": "25:10",
+                "winner": "TEAM1",
+                "duration": "16"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "45",
+        "netDuration": "280",
+        "dateObject": "2024-09-29T09:00:00.000Z",
+        "dateIso": "2024-09-29T09:00:00.000Z"
+      },
+      {
+        "id": "75287904",
+        "uuid": "637b5212-d81c-46fa-bcb3-48f474cc3d7a",
+        "number": "10",
+        "date": "29.09.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "74192336",
+          "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+          "name": "VC Offenburg 1",
+          "club": "VC Offenburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "74192336",
+            "uuid": "ec36ae06-6a5e-4b1a-95f3-80593f4f66a5",
+            "seasonTeamId": "74192336",
+            "name": "VC Offenburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Offenburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "74192333",
+            "uuid": "ed47b4be-d704-4426-89e9-4c39414999bb",
+            "seasonTeamId": "74192333",
+            "name": "VC Weil",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Weil am Rhein",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "70100692",
+          "uuid": "e551986d-e57b-4188-9706-a0c50bfc2d4f",
+          "allSeasonId": "bc7345dc-21ee-4892-9364-653244622509",
+          "name": "Herren Pokal-Finale 2024 (OL und höher)",
+          "shortName": "hp_top",
+          "type": "Competition",
+          "updated": "2024-09-30 08:53:41.076",
+          "structureUpdated": "2024-09-30 08:50:35.908",
+          "resultsUpdated": "2024-09-30 08:53:41.076",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70100640",
+            "uuid": "5f3c9b05-b0d3-44da-a7f2-1bb66e11b59e",
+            "name": "Verbandspokal 2023/2024",
+            "shortName": "vp",
+            "hierarchyLevel": "2"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70100640",
+                "name": "Verbandspokal 2023/2024",
+                "shortName": "vp",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100639",
+                "name": "Pokalwettbewerbe",
+                "shortName": "P",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13906446",
+          "name": "Sporthalle Nord-West",
+          "street": "Otto-Hahn-Str. 9",
+          "extraField": "-",
+          "postalCode": "77656",
+          "city": "Offenburg",
+          "note": "-"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:1",
+          "ballPoints": "63:45",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:13",
+                "winner": "TEAM1",
+                "duration": "346"
+              },
+              {
+                "number": "1",
+                "points": "23:25",
+                "winner": "TEAM2",
+                "duration": "22"
+              },
+              {
+                "number": "1",
+                "points": "15:7",
+                "winner": "TEAM1",
+                "duration": "10"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "10",
+        "netDuration": "378",
+        "dateObject": "2024-09-29T09:00:00.000Z",
+        "dateIso": "2024-09-29T09:00:00.000Z"
+      }
+    ]
+  }
+}

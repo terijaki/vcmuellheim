@@ -1,0 +1,583 @@
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "70099518",
+      "uuid": "24066d81-d513-497b-894f-45e9e14beaab",
+      "allSeasonId": "955f1d4d-bc60-8f21-1003-fcc2a85bd10a",
+      "name": "Kreisliga Damen Süd",
+      "shortName": "kl s d",
+      "type": "League",
+      "updated": "2025-03-24 21:41:00.542",
+      "structureUpdated": "2025-03-18 09:54:01.146",
+      "resultsUpdated": "2025-03-24 21:41:00.542",
+      "season": {
+        "id": "70098350",
+        "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+        "name": "2024/25"
+      },
+      "hierarchy": {
+        "id": "70099465",
+        "uuid": "0a1735d1-9487-4bd6-bb10-1895ced9f372",
+        "name": "Kreisligen",
+        "shortName": "kl w",
+        "hierarchyLevel": "6"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "70099465",
+            "name": "Kreisligen",
+            "shortName": "kl w",
+            "hierarchyLevel": "6"
+          },
+          {
+            "id": "70099464",
+            "name": "Bezirksklassen",
+            "shortName": "bzk w",
+            "hierarchyLevel": "5"
+          },
+          {
+            "id": "70099463",
+            "name": "Bezirksligen",
+            "shortName": "bzl w",
+            "hierarchyLevel": "4"
+          },
+          {
+            "id": "70099121",
+            "name": "Region West",
+            "shortName": "bw",
+            "hierarchyLevel": "3"
+          },
+          {
+            "id": "70099120",
+            "name": "SBVV Bezirke",
+            "shortName": "SBVV Bezirke",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "70099119",
+            "name": "Erwachsenenspielbetrieb SBVV",
+            "shortName": "SBVV Erw.",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "70098566",
+            "name": "Südbadischer Volleyball-Verband (SBVV)",
+            "shortName": "SBVV",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": null,
+        "shortName": null
+      }
+    },
+    "ranking": [
+      {
+        "team": {
+          "id": "73557959",
+          "uuid": "0c25a7ca-9173-4809-b276-00da66502e21",
+          "name": "VC Müllheim 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VC Müllheim",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "16",
+        "wins": "16",
+        "losses": "0",
+        "points": "45",
+        "setPoints": "48:10",
+        "setWinScore": "48",
+        "setLoseScore": "10",
+        "setPointDifference": "38",
+        "setQuotient": "4,800\n            ",
+        "ballPoints": "1391:934",
+        "ballWinScore": "1391",
+        "ballLoseScore": "934",
+        "ballPointDifference": "457",
+        "ballQuotient": "1,489\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "9"
+            },
+            {
+              "result": "3:1",
+              "count": "4"
+            },
+            {
+              "result": "3:2",
+              "count": "3"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73557972",
+          "uuid": "dba63df0-226d-4a14-8179-1e699ebbb562",
+          "name": "TV Neuenburg",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Neuenburg",
+            "shortName": null
+          }
+        },
+        "place": "2",
+        "matchesPlayed": "16",
+        "wins": "13",
+        "losses": "3",
+        "points": "36",
+        "setPoints": "41:19",
+        "setWinScore": "41",
+        "setLoseScore": "19",
+        "setPointDifference": "22",
+        "setQuotient": "2,158\n            ",
+        "ballPoints": "1333:1056",
+        "ballWinScore": "1333",
+        "ballLoseScore": "1056",
+        "ballPointDifference": "277",
+        "ballQuotient": "1,262\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "7"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "4"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "2"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73557953",
+          "uuid": "a521c2e7-63b1-498d-bd10-759a0b51dbe6",
+          "name": "VBG Efringen-Kirchen 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VBG Efringen-Kirchen",
+            "shortName": null
+          }
+        },
+        "place": "3",
+        "matchesPlayed": "16",
+        "wins": "11",
+        "losses": "5",
+        "points": "36",
+        "setPoints": "42:19",
+        "setWinScore": "42",
+        "setLoseScore": "19",
+        "setPointDifference": "23",
+        "setQuotient": "2,211\n            ",
+        "ballPoints": "1389:1127",
+        "ballWinScore": "1389",
+        "ballLoseScore": "1127",
+        "ballPointDifference": "262",
+        "ballQuotient": "1,232\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "8"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "4"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73557956",
+          "uuid": "a4b8f3d2-ec9d-4644-b2a1-cc89b0435ca4",
+          "name": "SG Breisach - Gündlingen 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "SG Breisach-Gündlingen",
+            "shortName": null
+          }
+        },
+        "place": "4",
+        "matchesPlayed": "16",
+        "wins": "9",
+        "losses": "7",
+        "points": "28",
+        "setPoints": "34:26",
+        "setWinScore": "34",
+        "setLoseScore": "26",
+        "setPointDifference": "8",
+        "setQuotient": "1,308\n            ",
+        "ballPoints": "1226:1187",
+        "ballWinScore": "1226",
+        "ballLoseScore": "1187",
+        "ballPointDifference": "39",
+        "ballQuotient": "1,033\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "6"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "3"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "3"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73557965",
+          "uuid": "a56d8018-ed05-4bc4-84ef-1005c7f80ae5",
+          "name": "VC Weil 3",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VC Weil am Rhein",
+            "shortName": null
+          }
+        },
+        "place": "5",
+        "matchesPlayed": "16",
+        "wins": "7",
+        "losses": "9",
+        "points": "23",
+        "setPoints": "27:32",
+        "setWinScore": "27",
+        "setLoseScore": "32",
+        "setPointDifference": "-5",
+        "setQuotient": "0,844\n            ",
+        "ballPoints": "1199:1188",
+        "ballWinScore": "1199",
+        "ballLoseScore": "1188",
+        "ballPointDifference": "11",
+        "ballQuotient": "1,009\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "3"
+            },
+            {
+              "result": "3:1",
+              "count": "3"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "3"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "6"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73557949",
+          "uuid": "e92b401d-0449-42fe-a914-6a2ef5d1d524",
+          "name": "VC Minseln 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VC Minseln",
+            "shortName": null
+          }
+        },
+        "place": "6",
+        "matchesPlayed": "16",
+        "wins": "5",
+        "losses": "11",
+        "points": "18",
+        "setPoints": "26:35",
+        "setWinScore": "26",
+        "setLoseScore": "35",
+        "setPointDifference": "-9",
+        "setQuotient": "0,743\n            ",
+        "ballPoints": "1246:1285",
+        "ballWinScore": "1246",
+        "ballLoseScore": "1285",
+        "ballPointDifference": "-39",
+        "ballQuotient": "0,970\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "3"
+            },
+            {
+              "result": "3:1",
+              "count": "2"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "3"
+            },
+            {
+              "result": "1:3",
+              "count": "5"
+            },
+            {
+              "result": "0:3",
+              "count": "3"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73557968",
+          "uuid": "8fdee211-fe64-4216-b879-3c3d9951c7c6",
+          "name": "Spvgg Märkt-Eimeldingen",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "Spvgg Märkt-Eimeldingen",
+            "shortName": null
+          }
+        },
+        "place": "7",
+        "matchesPlayed": "16",
+        "wins": "6",
+        "losses": "10",
+        "points": "14",
+        "setPoints": "24:40",
+        "setWinScore": "24",
+        "setLoseScore": "40",
+        "setPointDifference": "-16",
+        "setQuotient": "0,600\n            ",
+        "ballPoints": "1138:1326",
+        "ballWinScore": "1138",
+        "ballLoseScore": "1326",
+        "ballPointDifference": "-188",
+        "ballQuotient": "0,858\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "1"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "5"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "4"
+            },
+            {
+              "result": "0:3",
+              "count": "3"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73557962",
+          "uuid": "cd89563f-3f94-4e95-b5b7-1c6ec86f750b",
+          "name": "TV Bad Säckingen 3",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Bad Säckingen",
+            "shortName": null
+          }
+        },
+        "place": "8",
+        "matchesPlayed": "16",
+        "wins": "4",
+        "losses": "12",
+        "points": "13",
+        "setPoints": "20:39",
+        "setWinScore": "20",
+        "setLoseScore": "39",
+        "setPointDifference": "-19",
+        "setQuotient": "0,513\n            ",
+        "ballPoints": "1118:1271",
+        "ballWinScore": "1118",
+        "ballLoseScore": "1271",
+        "ballPointDifference": "-153",
+        "ballQuotient": "0,880\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "2"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "2"
+            },
+            {
+              "result": "1:3",
+              "count": "4"
+            },
+            {
+              "result": "0:3",
+              "count": "6"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73557970",
+          "uuid": "c8f6d8c7-1b8e-41e8-b2c0-62359a523c91",
+          "name": "TV Wehr",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Wehr 1885 e.V.",
+            "shortName": null
+          }
+        },
+        "place": "9",
+        "matchesPlayed": "16",
+        "wins": "1",
+        "losses": "15",
+        "points": "3",
+        "setPoints": "5:47",
+        "setWinScore": "5",
+        "setLoseScore": "47",
+        "setPointDifference": "-42",
+        "setQuotient": "0,106\n            ",
+        "ballPoints": "597:1263",
+        "ballWinScore": "597",
+        "ballLoseScore": "1263",
+        "ballPointDifference": "-666",
+        "ballQuotient": "0,473\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "0"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "14"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

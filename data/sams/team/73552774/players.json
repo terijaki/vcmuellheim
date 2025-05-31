@@ -1,0 +1,165 @@
+{
+    "date": "2025-05-20T03:01:34.832Z",
+    "players": [
+        {
+            "lastname": "Lindemann",
+            "firstname": "Tim-Luca",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Radloff",
+            "firstname": "Jan",
+            "nationality": "DE",
+            "number": "",
+            "height": 180,
+            "function": ""
+        },
+        {
+            "lastname": "Letin",
+            "firstname": "Artem",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Rotthaus",
+            "firstname": "Jonas",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Vöster",
+            "firstname": "Jan",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Joly",
+            "firstname": "Laurent",
+            "nationality": "FR",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Czak-Lindemann",
+            "firstname": "Claudio",
+            "nationality": "AT",
+            "number": "",
+            "height": "",
+            "function": "Trainer"
+        },
+        {
+            "lastname": "Albrecht",
+            "firstname": "Andreas",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Kohnen",
+            "firstname": "Björn",
+            "nationality": "DE",
+            "number": "",
+            "height": 181,
+            "function": ""
+        },
+        {
+            "lastname": "Knobloch",
+            "firstname": "Markus",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Barkowski",
+            "firstname": "Rico",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Gasser",
+            "firstname": "Christophe",
+            "nationality": "FR",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Lacher",
+            "firstname": "Lucas",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Rastenis",
+            "firstname": "Edgaras",
+            "nationality": "LT",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Albrecht",
+            "firstname": "Andreas",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": "Kontaktperson Spieltag"
+        },
+        {
+            "lastname": "Peters",
+            "firstname": "Paul",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Schmidt",
+            "firstname": "Sebastian",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Vöster",
+            "firstname": "Malte",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Schwer",
+            "firstname": "Simon",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        },
+        {
+            "lastname": "Nikonov",
+            "firstname": "Wladimir",
+            "nationality": "DE",
+            "number": "",
+            "height": "",
+            "function": ""
+        }
+    ]
+}

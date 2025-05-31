@@ -1,0 +1,515 @@
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "70099681",
+      "uuid": "93da5f47-9d78-47f1-b429-81e398c17007",
+      "allSeasonId": "408a4e24-d730-4b5d-8ade-5b08a2958e0c",
+      "name": "Bezirksliga Herren Süd",
+      "shortName": "bzl s h",
+      "type": "League",
+      "updated": "2025-05-06 15:27:24.802",
+      "structureUpdated": "2025-03-18 17:17:31.121",
+      "resultsUpdated": "2025-05-06 15:27:24.802",
+      "season": {
+        "id": "70098350",
+        "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+        "name": "2024/25"
+      },
+      "hierarchy": {
+        "id": "70099463",
+        "uuid": "c6b590b3-39b3-4533-875b-5459eced0e29",
+        "name": "Bezirksligen",
+        "shortName": "bzl w",
+        "hierarchyLevel": "4"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "70099463",
+            "name": "Bezirksligen",
+            "shortName": "bzl w",
+            "hierarchyLevel": "4"
+          },
+          {
+            "id": "70099121",
+            "name": "Region West",
+            "shortName": "bw",
+            "hierarchyLevel": "3"
+          },
+          {
+            "id": "70099120",
+            "name": "SBVV Bezirke",
+            "shortName": "SBVV Bezirke",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "70099119",
+            "name": "Erwachsenenspielbetrieb SBVV",
+            "shortName": "SBVV Erw.",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "70098566",
+            "name": "Südbadischer Volleyball-Verband (SBVV)",
+            "shortName": "SBVV",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": null,
+        "shortName": null
+      }
+    },
+    "ranking": [
+      {
+        "team": {
+          "id": "73550114",
+          "uuid": "097b62bb-ec20-40f6-b957-bf968c3423f0",
+          "name": "TSV Alemannia Freiburg-Zähringen 2",
+          "shortName": "TSV Al. Zähringen 2",
+          "clubCode": null,
+          "club": {
+            "name": "TSV Alemannia Freiburg-Zähringen",
+            "shortName": null
+          }
+        },
+        "place": "1",
+        "matchesPlayed": "14",
+        "wins": "12",
+        "losses": "2",
+        "points": "33",
+        "setPoints": "38:15",
+        "setWinScore": "38",
+        "setLoseScore": "15",
+        "setPointDifference": "23",
+        "setQuotient": "2,533\n            ",
+        "ballPoints": "1215:1033",
+        "ballWinScore": "1215",
+        "ballLoseScore": "1033",
+        "ballPointDifference": "182",
+        "ballQuotient": "1,176\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "6"
+            },
+            {
+              "result": "3:1",
+              "count": "3"
+            },
+            {
+              "result": "3:2",
+              "count": "3"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "2"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73550100",
+          "uuid": "1ecf2c5f-6d29-4307-a32f-422cc6a3c94d",
+          "name": "Sport vor Ort Rieselfeld 1",
+          "shortName": "SvO Rieselfeld 1",
+          "clubCode": null,
+          "club": {
+            "name": "Sport vor Ort Rieselfeld e.V.",
+            "shortName": null
+          }
+        },
+        "place": "2",
+        "matchesPlayed": "14",
+        "wins": "11",
+        "losses": "3",
+        "points": "32",
+        "setPoints": "36:17",
+        "setWinScore": "36",
+        "setLoseScore": "17",
+        "setPointDifference": "19",
+        "setQuotient": "2,118\n            ",
+        "ballPoints": "1199:986",
+        "ballWinScore": "1199",
+        "ballLoseScore": "986",
+        "ballPointDifference": "213",
+        "ballQuotient": "1,216\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "5"
+            },
+            {
+              "result": "3:1",
+              "count": "4"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "1"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73550103",
+          "uuid": "06936cd0-fb0e-4bcd-97ec-f4a5fd48e8dc",
+          "name": "TV Freiburg-St.Georgen 1",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Freiburg-St.Georgen",
+            "shortName": null
+          }
+        },
+        "place": "3",
+        "matchesPlayed": "14",
+        "wins": "10",
+        "losses": "4",
+        "points": "30",
+        "setPoints": "37:21",
+        "setWinScore": "37",
+        "setLoseScore": "21",
+        "setPointDifference": "16",
+        "setQuotient": "1,762\n            ",
+        "ballPoints": "1299:1088",
+        "ballWinScore": "1299",
+        "ballLoseScore": "1088",
+        "ballPointDifference": "211",
+        "ballQuotient": "1,194\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "4"
+            },
+            {
+              "result": "3:1",
+              "count": "3"
+            },
+            {
+              "result": "3:2",
+              "count": "3"
+            },
+            {
+              "result": "2:3",
+              "count": "3"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "0"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73550107",
+          "uuid": "0729efeb-2043-4424-a0bd-8744136ebb14",
+          "name": "TV Staufen 1",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TV Staufen",
+            "shortName": null
+          }
+        },
+        "place": "4",
+        "matchesPlayed": "14",
+        "wins": "8",
+        "losses": "6",
+        "points": "26",
+        "setPoints": "32:25",
+        "setWinScore": "32",
+        "setLoseScore": "25",
+        "setPointDifference": "7",
+        "setQuotient": "1,280\n            ",
+        "ballPoints": "1233:1170",
+        "ballWinScore": "1233",
+        "ballLoseScore": "1170",
+        "ballPointDifference": "63",
+        "ballQuotient": "1,054\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "3"
+            },
+            {
+              "result": "3:1",
+              "count": "3"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "4"
+            },
+            {
+              "result": "1:3",
+              "count": "0"
+            },
+            {
+              "result": "0:3",
+              "count": "2"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73550093",
+          "uuid": "0f2933ef-9a6e-4887-aa78-aea2fb309df6",
+          "name": "VC Minseln 1",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VC Minseln",
+            "shortName": null
+          }
+        },
+        "place": "5",
+        "matchesPlayed": "14",
+        "wins": "6",
+        "losses": "8",
+        "points": "17",
+        "setPoints": "26:31",
+        "setWinScore": "26",
+        "setLoseScore": "31",
+        "setPointDifference": "-5",
+        "setQuotient": "0,839\n            ",
+        "ballPoints": "1163:1217",
+        "ballWinScore": "1163",
+        "ballLoseScore": "1217",
+        "ballPointDifference": "-54",
+        "ballQuotient": "0,956\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "2"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "3"
+            },
+            {
+              "result": "2:3",
+              "count": "2"
+            },
+            {
+              "result": "1:3",
+              "count": "4"
+            },
+            {
+              "result": "0:3",
+              "count": "2"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73550096",
+          "uuid": "bdb65493-9cd7-435c-afeb-1fecf18ac926",
+          "name": "SG BEG United 5",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "TB Emmendingen",
+            "shortName": null
+          }
+        },
+        "place": "6",
+        "matchesPlayed": "14",
+        "wins": "6",
+        "losses": "8",
+        "points": "17",
+        "setPoints": "24:31",
+        "setWinScore": "24",
+        "setLoseScore": "31",
+        "setPointDifference": "-7",
+        "setQuotient": "0,774\n            ",
+        "ballPoints": "1132:1218",
+        "ballWinScore": "1132",
+        "ballLoseScore": "1218",
+        "ballPointDifference": "-86",
+        "ballQuotient": "0,929\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "1"
+            },
+            {
+              "result": "3:1",
+              "count": "3"
+            },
+            {
+              "result": "3:2",
+              "count": "2"
+            },
+            {
+              "result": "2:3",
+              "count": "1"
+            },
+            {
+              "result": "1:3",
+              "count": "4"
+            },
+            {
+              "result": "0:3",
+              "count": "3"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73550110",
+          "uuid": "cc5caf6b-b159-4f28-933e-8cfb948149a8",
+          "name": "TV Todtnau",
+          "shortName": "Silberberglöwen Todtnau",
+          "clubCode": null,
+          "club": {
+            "name": "TV Todtnau",
+            "shortName": null
+          }
+        },
+        "place": "7",
+        "matchesPlayed": "14",
+        "wins": "3",
+        "losses": "11",
+        "points": "13",
+        "setPoints": "20:36",
+        "setWinScore": "20",
+        "setLoseScore": "36",
+        "setPointDifference": "-16",
+        "setQuotient": "0,556\n            ",
+        "ballPoints": "1076:1238",
+        "ballWinScore": "1076",
+        "ballLoseScore": "1238",
+        "ballPointDifference": "-162",
+        "ballQuotient": "0,869\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "1"
+            },
+            {
+              "result": "3:1",
+              "count": "1"
+            },
+            {
+              "result": "3:2",
+              "count": "1"
+            },
+            {
+              "result": "2:3",
+              "count": "5"
+            },
+            {
+              "result": "1:3",
+              "count": "1"
+            },
+            {
+              "result": "0:3",
+              "count": "5"
+            }
+          ]
+        }
+      },
+      {
+        "team": {
+          "id": "73552774",
+          "uuid": "1043862e-a30c-4c51-8fdd-97cb6166cdcc",
+          "name": "VC Müllheim 2",
+          "shortName": null,
+          "clubCode": null,
+          "club": {
+            "name": "VC Müllheim",
+            "shortName": null
+          }
+        },
+        "place": "8",
+        "matchesPlayed": "14",
+        "wins": "0",
+        "losses": "14",
+        "points": "0",
+        "setPoints": "5:42",
+        "setWinScore": "5",
+        "setLoseScore": "42",
+        "setPointDifference": "-37",
+        "setQuotient": "0,119\n            ",
+        "ballPoints": "796:1163",
+        "ballWinScore": "796",
+        "ballLoseScore": "1163",
+        "ballPointDifference": "-367",
+        "ballQuotient": "0,684\n            ",
+        "resultTypes": {
+          "matchResult": [
+            {
+              "result": "3:0",
+              "count": "0"
+            },
+            {
+              "result": "3:1",
+              "count": "0"
+            },
+            {
+              "result": "3:2",
+              "count": "0"
+            },
+            {
+              "result": "2:3",
+              "count": "0"
+            },
+            {
+              "result": "1:3",
+              "count": "5"
+            },
+            {
+              "result": "0:3",
+              "count": "9"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

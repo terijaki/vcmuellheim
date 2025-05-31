@@ -1,0 +1,82 @@
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "70100461",
+      "uuid": "e70a674b-6cec-436a-9c2c-5a54f235089a",
+      "allSeasonId": "1a199a7c-f0e6-4b78-8b61-dbabb5f00bed",
+      "name": "Relegation Verbandsliga Herren 2025",
+      "shortName": "Rel_VL_Herren",
+      "type": "Competition",
+      "updated": "2025-05-06 15:04:33.138",
+      "structureUpdated": "2025-04-14 12:38:54.19",
+      "resultsUpdated": "2025-05-06 15:04:33.138",
+      "season": {
+        "id": "70098350",
+        "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+        "name": "2024/25"
+      },
+      "hierarchy": {
+        "id": "70100460",
+        "uuid": "1b4058c9-ec8f-486f-a925-7c57b582f8ab",
+        "name": "Relegationen SBVV",
+        "shortName": "Rel-SBVV",
+        "hierarchyLevel": "2"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "70100460",
+            "name": "Relegationen SBVV",
+            "shortName": "Rel-SBVV",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "70099119",
+            "name": "Erwachsenenspielbetrieb SBVV",
+            "shortName": "SBVV Erw.",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "70098566",
+            "name": "Südbadischer Volleyball-Verband (SBVV)",
+            "shortName": "SBVV",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": "Südbadischer Volleyball-Verband",
+        "shortName": "SBVV"
+      }
+    },
+    "ranking": [
+      {
+        "place": "1",
+        "team": {
+          "id": "94426084",
+          "uuid": "6551ef88-a0cc-4df1-8b91-5c2958f032ef",
+          "name": "VC Müllheim 1",
+          "club": "VC Müllheim"
+        }
+      },
+      {
+        "place": "2",
+        "team": {
+          "id": "94434031",
+          "uuid": "32d3af43-53d3-41bd-98a0-6b9cf41d2c66",
+          "name": "USC Konstanz 2",
+          "club": "USC Konstanz"
+        }
+      },
+      {
+        "place": "3",
+        "team": {
+          "id": "93325670",
+          "uuid": "48e18dfc-5ab6-44b8-a5ab-ff8ced5e3de4",
+          "name": "TV Neustadt",
+          "club": "TV Neustadt"
+        }
+      }
+    ]
+  }
+}

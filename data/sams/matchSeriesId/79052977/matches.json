@@ -1,0 +1,1372 @@
+{
+  "matches": {
+    "match": [
+      {
+        "id": "79702299",
+        "uuid": "f351f178-06b7-4f17-aa3b-d9a78a9d3fe5",
+        "number": "1",
+        "date": "10.11.2024",
+        "time": "10:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "79319199",
+          "uuid": "a3479a52-49ce-4806-b97d-d85c30cf8683",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "79319199",
+            "uuid": "a3479a52-49ce-4806-b97d-d85c30cf8683",
+            "seasonTeamId": "79319199",
+            "name": "FT 1844 Freiburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "79319203",
+            "uuid": "c6acbb52-911d-4e16-8402-e1586d44486b",
+            "seasonTeamId": "79319203",
+            "name": "TV Freiburg-St.Georgen",
+            "shortName": "TV FR-St.Georgen",
+            "clubCode": null,
+            "club": {
+              "name": "TV Freiburg-St.Georgen",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "79052977",
+          "uuid": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "allSeasonId": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
+          "shortName": "Q1_U20_w",
+          "type": "Competition",
+          "updated": "2025-04-05 22:03:50.031",
+          "structureUpdated": "2025-04-05 22:03:50.031",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70101070",
+            "uuid": "e389ba27-2145-4506-967b-68d06a0c8c76",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70101070",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905738",
+          "name": "Sporthalle Rotteck-Gymnasium",
+          "street": "Lessingstr. 16",
+          "extraField": "-",
+          "postalCode": "79100",
+          "city": "Freiburg",
+          "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:5",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:0",
+                "winner": "TEAM1",
+                "duration": "19"
+              },
+              {
+                "number": "2",
+                "points": "25:5",
+                "winner": "TEAM1",
+                "duration": "15"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "10",
+        "netDuration": "34",
+        "dateObject": "2024-11-10T09:00:00.000Z",
+        "dateIso": "2024-11-10T09:00:00.000Z"
+      },
+      {
+        "id": "79702300",
+        "uuid": "5a2aeb56-256c-4709-9082-b071fb317859",
+        "number": "2",
+        "date": "10.11.2024",
+        "time": "10:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "79319199",
+          "uuid": "a3479a52-49ce-4806-b97d-d85c30cf8683",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "79319220",
+            "uuid": "b9fe22da-2f19-4aa3-8cdf-10ac8ab4b141",
+            "seasonTeamId": "79319220",
+            "name": "USC Freiburg",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "USC Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "79319229",
+            "uuid": "684d5c13-22e8-4c34-8446-1f5097c82b85",
+            "seasonTeamId": "79319229",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "79052977",
+          "uuid": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "allSeasonId": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
+          "shortName": "Q1_U20_w",
+          "type": "Competition",
+          "updated": "2025-04-05 22:03:50.031",
+          "structureUpdated": "2025-04-05 22:03:50.031",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70101070",
+            "uuid": "e389ba27-2145-4506-967b-68d06a0c8c76",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70101070",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905738",
+          "name": "Sporthalle Rotteck-Gymnasium",
+          "street": "Lessingstr. 16",
+          "extraField": "-",
+          "postalCode": "79100",
+          "city": "Freiburg",
+          "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "22:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "8:25",
+                "winner": "TEAM2",
+                "duration": "19"
+              },
+              {
+                "number": "2",
+                "points": "14:25",
+                "winner": "TEAM2",
+                "duration": "18"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "1",
+        "netDuration": "37",
+        "dateObject": "2024-11-10T09:00:00.000Z",
+        "dateIso": "2024-11-10T09:00:00.000Z"
+      },
+      {
+        "id": "79702301",
+        "uuid": "48a6de88-34d1-4633-a248-3f893b470a83",
+        "number": "3",
+        "date": "10.11.2024",
+        "time": "11:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "79319199",
+          "uuid": "a3479a52-49ce-4806-b97d-d85c30cf8683",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "79319199",
+            "uuid": "a3479a52-49ce-4806-b97d-d85c30cf8683",
+            "seasonTeamId": "79319199",
+            "name": "FT 1844 Freiburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "79319237",
+            "uuid": "499ed2ab-e7cc-4d8b-b015-1520a367ff91",
+            "seasonTeamId": "79319237",
+            "name": "VSG KiLa",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VSG KiLa",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "79052977",
+          "uuid": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "allSeasonId": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
+          "shortName": "Q1_U20_w",
+          "type": "Competition",
+          "updated": "2025-04-05 22:03:50.031",
+          "structureUpdated": "2025-04-05 22:03:50.031",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70101070",
+            "uuid": "e389ba27-2145-4506-967b-68d06a0c8c76",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70101070",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905738",
+          "name": "Sporthalle Rotteck-Gymnasium",
+          "street": "Lessingstr. 16",
+          "extraField": "-",
+          "postalCode": "79100",
+          "city": "Freiburg",
+          "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:14",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:3",
+                "winner": "TEAM1",
+                "duration": "17"
+              },
+              {
+                "number": "2",
+                "points": "25:11",
+                "winner": "TEAM1",
+                "duration": "18"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "30",
+        "netDuration": "35",
+        "dateObject": "2024-11-10T10:00:00.000Z",
+        "dateIso": "2024-11-10T10:00:00.000Z"
+      },
+      {
+        "id": "79702302",
+        "uuid": "1a271b89-2add-47f2-a1ba-49da7a26a132",
+        "number": "4",
+        "date": "10.11.2024",
+        "time": "12:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "79319199",
+          "uuid": "a3479a52-49ce-4806-b97d-d85c30cf8683",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "79319203",
+            "uuid": "c6acbb52-911d-4e16-8402-e1586d44486b",
+            "seasonTeamId": "79319203",
+            "name": "TV Freiburg-St.Georgen",
+            "shortName": "TV FR-St.Georgen",
+            "clubCode": null,
+            "club": {
+              "name": "TV Freiburg-St.Georgen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "79319220",
+            "uuid": "b9fe22da-2f19-4aa3-8cdf-10ac8ab4b141",
+            "seasonTeamId": "79319220",
+            "name": "USC Freiburg",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "USC Freiburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "79052977",
+          "uuid": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "allSeasonId": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
+          "shortName": "Q1_U20_w",
+          "type": "Competition",
+          "updated": "2025-04-05 22:03:50.031",
+          "structureUpdated": "2025-04-05 22:03:50.031",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70101070",
+            "uuid": "e389ba27-2145-4506-967b-68d06a0c8c76",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70101070",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905738",
+          "name": "Sporthalle Rotteck-Gymnasium",
+          "street": "Lessingstr. 16",
+          "extraField": "-",
+          "postalCode": "79100",
+          "city": "Freiburg",
+          "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:26",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:9",
+                "winner": "TEAM1",
+                "duration": "0"
+              },
+              {
+                "number": "2",
+                "points": "25:17",
+                "winner": "TEAM1",
+                "duration": "22"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "3",
+        "netDuration": "22",
+        "dateObject": "2024-11-10T11:00:00.000Z",
+        "dateIso": "2024-11-10T11:00:00.000Z"
+      },
+      {
+        "id": "79702303",
+        "uuid": "692abd89-3f98-4316-96e8-edb8fc476aee",
+        "number": "5",
+        "date": "10.11.2024",
+        "time": "12:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "79319199",
+          "uuid": "a3479a52-49ce-4806-b97d-d85c30cf8683",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "79319199",
+            "uuid": "a3479a52-49ce-4806-b97d-d85c30cf8683",
+            "seasonTeamId": "79319199",
+            "name": "FT 1844 Freiburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "79319229",
+            "uuid": "684d5c13-22e8-4c34-8446-1f5097c82b85",
+            "seasonTeamId": "79319229",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "79052977",
+          "uuid": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "allSeasonId": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
+          "shortName": "Q1_U20_w",
+          "type": "Competition",
+          "updated": "2025-04-05 22:03:50.031",
+          "structureUpdated": "2025-04-05 22:03:50.031",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70101070",
+            "uuid": "e389ba27-2145-4506-967b-68d06a0c8c76",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70101070",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905738",
+          "name": "Sporthalle Rotteck-Gymnasium",
+          "street": "Lessingstr. 16",
+          "extraField": "-",
+          "postalCode": "79100",
+          "city": "Freiburg",
+          "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:16",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:6",
+                "winner": "TEAM1",
+                "duration": "11"
+              },
+              {
+                "number": "2",
+                "points": "25:10",
+                "winner": "TEAM1",
+                "duration": "17"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "10",
+        "netDuration": "28",
+        "dateObject": "2024-11-10T11:00:00.000Z",
+        "dateIso": "2024-11-10T11:00:00.000Z"
+      },
+      {
+        "id": "79702304",
+        "uuid": "e542ddd0-970c-4d27-b906-3c6b89494081",
+        "number": "6",
+        "date": "10.11.2024",
+        "time": "13:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "79319199",
+          "uuid": "a3479a52-49ce-4806-b97d-d85c30cf8683",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "79319203",
+            "uuid": "c6acbb52-911d-4e16-8402-e1586d44486b",
+            "seasonTeamId": "79319203",
+            "name": "TV Freiburg-St.Georgen",
+            "shortName": "TV FR-St.Georgen",
+            "clubCode": null,
+            "club": {
+              "name": "TV Freiburg-St.Georgen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "79319237",
+            "uuid": "499ed2ab-e7cc-4d8b-b015-1520a367ff91",
+            "seasonTeamId": "79319237",
+            "name": "VSG KiLa",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VSG KiLa",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "79052977",
+          "uuid": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "allSeasonId": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
+          "shortName": "Q1_U20_w",
+          "type": "Competition",
+          "updated": "2025-04-05 22:03:50.031",
+          "structureUpdated": "2025-04-05 22:03:50.031",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70101070",
+            "uuid": "e389ba27-2145-4506-967b-68d06a0c8c76",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70101070",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905738",
+          "name": "Sporthalle Rotteck-Gymnasium",
+          "street": "Lessingstr. 16",
+          "extraField": "-",
+          "postalCode": "79100",
+          "city": "Freiburg",
+          "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "51:45",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:21",
+                "winner": "TEAM1",
+                "duration": "0"
+              },
+              {
+                "number": "2",
+                "points": "26:24",
+                "winner": "TEAM1",
+                "duration": "29"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "5",
+        "netDuration": "29",
+        "dateObject": "2024-11-10T12:00:00.000Z",
+        "dateIso": "2024-11-10T12:00:00.000Z"
+      },
+      {
+        "id": "79702305",
+        "uuid": "386bf8b4-4ea0-4d79-9078-308ad9a0b91d",
+        "number": "7",
+        "date": "10.11.2024",
+        "time": "14:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "79319199",
+          "uuid": "a3479a52-49ce-4806-b97d-d85c30cf8683",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "79319199",
+            "uuid": "a3479a52-49ce-4806-b97d-d85c30cf8683",
+            "seasonTeamId": "79319199",
+            "name": "FT 1844 Freiburg 1",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "FT 1844 Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "79319220",
+            "uuid": "b9fe22da-2f19-4aa3-8cdf-10ac8ab4b141",
+            "seasonTeamId": "79319220",
+            "name": "USC Freiburg",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "USC Freiburg",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "79052977",
+          "uuid": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "allSeasonId": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
+          "shortName": "Q1_U20_w",
+          "type": "Competition",
+          "updated": "2025-04-05 22:03:50.031",
+          "structureUpdated": "2025-04-05 22:03:50.031",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70101070",
+            "uuid": "e389ba27-2145-4506-967b-68d06a0c8c76",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70101070",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905738",
+          "name": "Sporthalle Rotteck-Gymnasium",
+          "street": "Lessingstr. 16",
+          "extraField": "-",
+          "postalCode": "79100",
+          "city": "Freiburg",
+          "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:10",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:5",
+                "winner": "TEAM1",
+                "duration": "11"
+              },
+              {
+                "number": "2",
+                "points": "25:5",
+                "winner": "TEAM1",
+                "duration": "15"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "-",
+        "netDuration": "26",
+        "dateObject": "2024-11-10T13:00:00.000Z",
+        "dateIso": "2024-11-10T13:00:00.000Z"
+      },
+      {
+        "id": "79702306",
+        "uuid": "00151328-33dc-48cf-8c09-5df4e82a9da3",
+        "number": "8",
+        "date": "10.11.2024",
+        "time": "14:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "79319199",
+          "uuid": "a3479a52-49ce-4806-b97d-d85c30cf8683",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "79319229",
+            "uuid": "684d5c13-22e8-4c34-8446-1f5097c82b85",
+            "seasonTeamId": "79319229",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "79319237",
+            "uuid": "499ed2ab-e7cc-4d8b-b015-1520a367ff91",
+            "seasonTeamId": "79319237",
+            "name": "VSG KiLa",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VSG KiLa",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "79052977",
+          "uuid": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "allSeasonId": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
+          "shortName": "Q1_U20_w",
+          "type": "Competition",
+          "updated": "2025-04-05 22:03:50.031",
+          "structureUpdated": "2025-04-05 22:03:50.031",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70101070",
+            "uuid": "e389ba27-2145-4506-967b-68d06a0c8c76",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70101070",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905738",
+          "name": "Sporthalle Rotteck-Gymnasium",
+          "street": "Lessingstr. 16",
+          "extraField": "-",
+          "postalCode": "79100",
+          "city": "Freiburg",
+          "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:0",
+          "ballPoints": "50:35",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:14",
+                "winner": "TEAM1",
+                "duration": "3"
+              },
+              {
+                "number": "2",
+                "points": "25:21",
+                "winner": "TEAM1",
+                "duration": "21"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "3",
+        "netDuration": "24",
+        "dateObject": "2024-11-10T13:00:00.000Z",
+        "dateIso": "2024-11-10T13:00:00.000Z"
+      },
+      {
+        "id": "79702307",
+        "uuid": "51dae02f-1d6f-4cd0-9956-c54e274919cd",
+        "number": "9",
+        "date": "10.11.2024",
+        "time": "15:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "79319199",
+          "uuid": "a3479a52-49ce-4806-b97d-d85c30cf8683",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "79319203",
+            "uuid": "c6acbb52-911d-4e16-8402-e1586d44486b",
+            "seasonTeamId": "79319203",
+            "name": "TV Freiburg-St.Georgen",
+            "shortName": "TV FR-St.Georgen",
+            "clubCode": null,
+            "club": {
+              "name": "TV Freiburg-St.Georgen",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "79319229",
+            "uuid": "684d5c13-22e8-4c34-8446-1f5097c82b85",
+            "seasonTeamId": "79319229",
+            "name": "VC Müllheim",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VC Müllheim",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "79052977",
+          "uuid": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "allSeasonId": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
+          "shortName": "Q1_U20_w",
+          "type": "Competition",
+          "updated": "2025-04-05 22:03:50.031",
+          "structureUpdated": "2025-04-05 22:03:50.031",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70101070",
+            "uuid": "e389ba27-2145-4506-967b-68d06a0c8c76",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70101070",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905738",
+          "name": "Sporthalle Rotteck-Gymnasium",
+          "street": "Lessingstr. 16",
+          "extraField": "-",
+          "postalCode": "79100",
+          "city": "Freiburg",
+          "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
+        },
+        "referees": null,
+        "results": {
+          "winner": "2",
+          "setPoints": "0:2",
+          "ballPoints": "38:50",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "20:25",
+                "winner": "TEAM2",
+                "duration": "41"
+              },
+              {
+                "number": "2",
+                "points": "18:25",
+                "winner": "TEAM2",
+                "duration": "0"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "10",
+        "netDuration": "41",
+        "dateObject": "2024-11-10T14:00:00.000Z",
+        "dateIso": "2024-11-10T14:00:00.000Z"
+      },
+      {
+        "id": "79702308",
+        "uuid": "8ec7b5ae-a8fd-4516-838a-50705ea47ddc",
+        "number": "10",
+        "date": "10.11.2024",
+        "time": "16:00",
+        "delayPossible": "false",
+        "decidingMatch": "false",
+        "indefinitelyRescheduled": "false",
+        "gameReassessed": "false",
+        "host": {
+          "id": "79319199",
+          "uuid": "a3479a52-49ce-4806-b97d-d85c30cf8683",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        },
+        "team": [
+          {
+            "number": "1",
+            "id": "79319220",
+            "uuid": "b9fe22da-2f19-4aa3-8cdf-10ac8ab4b141",
+            "seasonTeamId": "79319220",
+            "name": "USC Freiburg",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "USC Freiburg",
+              "shortName": null
+            }
+          },
+          {
+            "number": "2",
+            "id": "79319237",
+            "uuid": "499ed2ab-e7cc-4d8b-b015-1520a367ff91",
+            "seasonTeamId": "79319237",
+            "name": "VSG KiLa",
+            "shortName": null,
+            "clubCode": null,
+            "club": {
+              "name": "VSG KiLa",
+              "shortName": null
+            }
+          }
+        ],
+        "matchSeries": {
+          "id": "79052977",
+          "uuid": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "allSeasonId": "2add32c1-fb6d-404c-b6c2-7feed3509613",
+          "name": "U20 weiblich - Quali 1 am 10.11.24 in Freiburg",
+          "shortName": "Q1_U20_w",
+          "type": "Competition",
+          "updated": "2025-04-05 22:03:50.031",
+          "structureUpdated": "2025-04-05 22:03:50.031",
+          "resultsUpdated": "2024-11-10 15:49:53.669",
+          "season": {
+            "id": "70098350",
+            "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+            "name": "2024/25"
+          },
+          "hierarchy": {
+            "id": "70101070",
+            "uuid": "e389ba27-2145-4506-967b-68d06a0c8c76",
+            "name": "Quali-Turniere Jugendmeisterschaften",
+            "shortName": "Quali",
+            "hierarchyLevel": "3"
+          },
+          "fullHierarchy": {
+            "hierarchy": [
+              {
+                "id": "70101070",
+                "name": "Quali-Turniere Jugendmeisterschaften",
+                "shortName": "Quali",
+                "hierarchyLevel": "3"
+              },
+              {
+                "id": "70100789",
+                "name": "SBVV-Jugendmeisterschaften",
+                "shortName": "sbvv_jm",
+                "hierarchyLevel": "2"
+              },
+              {
+                "id": "70100788",
+                "name": "Jugendspielbetrieb",
+                "shortName": "JUG",
+                "hierarchyLevel": "1"
+              },
+              {
+                "id": "70098566",
+                "name": "Südbadischer Volleyball-Verband (SBVV)",
+                "shortName": "SBVV",
+                "hierarchyLevel": "0"
+              }
+            ]
+          },
+          "association": {
+            "name": "Südbadischer Volleyball-Verband",
+            "shortName": "SBVV"
+          }
+        },
+        "location": {
+          "id": "13905738",
+          "name": "Sporthalle Rotteck-Gymnasium",
+          "street": "Lessingstr. 16",
+          "extraField": "-",
+          "postalCode": "79100",
+          "city": "Freiburg",
+          "note": "https://www.dvv-ligen.de/cms/files/Downloads/Dritte_Ligen/DL_Sued/Maenner/Freiburg.pdf"
+        },
+        "referees": null,
+        "results": {
+          "winner": "1",
+          "setPoints": "2:1",
+          "ballPoints": "55:56",
+          "sets": {
+            "set": [
+              {
+                "number": "1",
+                "points": "25:18",
+                "winner": "TEAM1",
+                "duration": "0"
+              },
+              {
+                "number": "2",
+                "points": "15:25",
+                "winner": "TEAM2",
+                "duration": "21"
+              },
+              {
+                "number": "3",
+                "points": "15:13",
+                "winner": "TEAM1",
+                "duration": "16"
+              }
+            ]
+          },
+          "verified": "false"
+        },
+        "spectators": "-",
+        "netDuration": "37",
+        "dateObject": "2024-11-10T15:00:00.000Z",
+        "dateIso": "2024-11-10T15:00:00.000Z"
+      }
+    ]
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "rankings": {
+    "matchSeries": {
+      "id": "70101386",
+      "uuid": "610d875b-07d5-4238-846d-36a4c31bf9d6",
+      "allSeasonId": "7c40e20c-cf99-9a7d-b121-b612389e0948",
+      "name": "SBVV - U20 weiblich am 23.2.2025 in Konstanz",
+      "shortName": "sbvv-u20w",
+      "type": "Competition",
+      "updated": "2025-02-23 19:24:48.869",
+      "structureUpdated": "2025-02-18 09:57:57.935",
+      "resultsUpdated": "2025-02-23 19:24:48.869",
+      "season": {
+        "id": "70098350",
+        "uuid": "d68be217-1d72-4895-9a85-4be09715258d",
+        "name": "2024/25"
+      },
+      "hierarchy": {
+        "id": "70100789",
+        "uuid": "3f1a4aae-d0e4-40d0-86a7-df950e885dd1",
+        "name": "SBVV-Jugendmeisterschaften",
+        "shortName": "sbvv_jm",
+        "hierarchyLevel": "2"
+      },
+      "fullHierarchy": {
+        "hierarchy": [
+          {
+            "id": "70100789",
+            "name": "SBVV-Jugendmeisterschaften",
+            "shortName": "sbvv_jm",
+            "hierarchyLevel": "2"
+          },
+          {
+            "id": "70100788",
+            "name": "Jugendspielbetrieb",
+            "shortName": "JUG",
+            "hierarchyLevel": "1"
+          },
+          {
+            "id": "70098566",
+            "name": "Südbadischer Volleyball-Verband (SBVV)",
+            "shortName": "SBVV",
+            "hierarchyLevel": "0"
+          }
+        ]
+      },
+      "association": {
+        "name": "Südbadischer Volleyball-Verband",
+        "shortName": "SBVV"
+      }
+    },
+    "ranking": [
+      {
+        "place": "1",
+        "team": {
+          "id": "80826074",
+          "uuid": "bd89935e-6521-496f-b84a-f14d47be205e",
+          "name": "FT 1844 Freiburg 1",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": "2",
+        "team": {
+          "id": "80826103",
+          "uuid": "d583d5c5-5fbe-40bc-8133-63427eb15172",
+          "name": "FT 1844 Freiburg 2",
+          "club": "FT 1844 Freiburg"
+        }
+      },
+      {
+        "place": "3",
+        "team": {
+          "id": "80826149",
+          "uuid": "2d9a4f5d-0e02-46ba-a751-ea7bfee0cdab",
+          "name": "USC Konstanz",
+          "club": "USC Konstanz"
+        }
+      },
+      {
+        "place": "4",
+        "team": {
+          "id": "80826159",
+          "uuid": "1079b1e5-c3e5-442c-a659-a031726d7b6a",
+          "name": "TSV Mimmenhausen 2",
+          "club": "TSV Mimmenhausen"
+        }
+      },
+      {
+        "place": "5",
+        "team": {
+          "id": "88544332",
+          "uuid": "73ac0306-b5a8-4e18-9f72-c98e8b60d3c0",
+          "name": "VC Weil",
+          "club": "VC Weil am Rhein"
+        }
+      },
+      {
+        "place": "6",
+        "team": {
+          "id": "80826130",
+          "uuid": "104a8621-8957-4883-9e54-035cdde71037",
+          "name": "VC Müllheim",
+          "club": "VC Müllheim"
+        }
+      }
+    ]
+  }
+}
