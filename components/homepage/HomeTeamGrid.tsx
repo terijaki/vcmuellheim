@@ -53,8 +53,8 @@ export default function HomeTeamGrid({ teams }: { teams: Team[] }) {
 				<Grid gutter="md">
 					{teamsSorted.map((team, index, array) => {
 						const gridColSpan = { base: 12, sm: 12 / 2, lg: 12 / 3 };
-						const matchingLeagueParticipation = leagueParticipation ? Boolean(team.sbvvTeam) : true;
-						const matchingGender = team.gender === gender;
+						const matchingLeagueParticipation = leagueParticipation ? Boolean(team.league) : true;
+						const matchingGender = gender === "" || team.gender === gender;
 						const lastSelectedTeam = Boolean(
 							matchingLeagueParticipation && matchingGender && array[index + 1].gender !== gender,
 						);
