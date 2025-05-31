@@ -4,13 +4,13 @@ import { getPayload } from "payload";
 
 const payload = await getPayload({ config });
 
-export async function getNews(limit?: number, page?: number) {
+export async function getNews(limit = 50, page = 1) {
 	try {
 		const news = await payload.find({
 			collection: "news",
-			limit: Math.min(limit || 50, 50),
+			limit,
 			sort: "-publishedDate",
-			page: page || 1,
+			page,
 			select: {
 				title: true,
 				excerpt: true,

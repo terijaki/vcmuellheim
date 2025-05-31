@@ -5,7 +5,7 @@ import { getPayload } from "payload";
 
 const payload = await getPayload({ config });
 
-export async function getPictures(limit?: number) {
+export async function getPictures(limit = 100, page = 1) {
 	"use cache";
 	cacheLife("days");
 
@@ -13,10 +13,11 @@ export async function getPictures(limit?: number) {
 		const pictures = await payload.find({
 			collection: "media",
 			depth: 1,
+			page,
 			where: {
 				"news.images": { exists: true },
 			},
-			limit: Math.min(limit || 100, 100),
+			limit,
 		});
 
 		if (pictures) return pictures;
@@ -25,7 +26,7 @@ export async function getPictures(limit?: number) {
 	}
 }
 
-export async function getTeamPictures(slug: string, limit?: number) {
+export async function getTeamPictures(slug: string, limit = 100) {
 	"use cache";
 	cacheLife("days");
 
@@ -36,7 +37,7 @@ export async function getTeamPictures(slug: string, limit?: number) {
 			where: {
 				"teams.images": { exists: true },
 			},
-			limit: Math.min(limit || 100, 100),
+			limit,
 		});
 
 		if (pictures) return pictures;
