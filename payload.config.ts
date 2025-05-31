@@ -63,7 +63,7 @@ export default buildConfig({
 	db: vercelPostgresAdapter({
 		pool: {
 			connectionString: process.env.DATABASE_URL || "",
-			ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+			ssl: false,
 		},
 		migrationDir: "./src/db/migrations",
 		idType: "uuid",
