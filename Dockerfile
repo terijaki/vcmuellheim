@@ -47,7 +47,7 @@ RUN chown -R spieler:vcmuellheim .next
 COPY --from=builder --chown=spieler:vcmuellheim /app/.next/standalone ./
 COPY --from=builder --chown=spieler:vcmuellheim /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/data ./data
+COPY --from=builder /app/data/migrations ./data/migrations
 RUN cat .env.development.local >> .env || true
 
 USER spieler
