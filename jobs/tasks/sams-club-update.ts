@@ -2,7 +2,7 @@ import { samsTeamsUpdate } from "@/utils/sams/sams-server-actions";
 import { Cron } from "croner";
 
 export const samsClubUpdate = new Cron(
-	"0 3 * * *", // every day at 3 AM
+	"* * * * *", // every day at 3 AM
 	{
 		name: "Sams Club Update",
 		paused: true,
