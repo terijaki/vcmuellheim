@@ -78,6 +78,7 @@ export interface Config {
     sponsors: Sponsor;
     'sams-teams': SamsTeam;
     'sams-clubs': SamsClub;
+    'bus-bookings': BusBooking;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -102,6 +103,7 @@ export interface Config {
     sponsors: SponsorsSelect<false> | SponsorsSelect<true>;
     'sams-teams': SamsTeamsSelect<false> | SamsTeamsSelect<true>;
     'sams-clubs': SamsClubsSelect<false> | SamsClubsSelect<true>;
+    'bus-bookings': BusBookingsSelect<false> | BusBookingsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -428,6 +430,22 @@ export interface SamsClub {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bus-bookings".
+ */
+export interface BusBooking {
+  id: string;
+  traveler?: string | null;
+  comment?: string | null;
+  schedule: {
+    start: string;
+    end: string;
+  };
+  booker: string | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -476,6 +494,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'sams-clubs';
         value: string | SamsClub;
+      } | null)
+    | ({
+        relationTo: 'bus-bookings';
+        value: string | BusBooking;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -715,6 +737,23 @@ export interface SamsClubsSelect<T extends boolean = true> {
   internalSportsclubId?: T;
   logo?: T;
   homepage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bus-bookings_select".
+ */
+export interface BusBookingsSelect<T extends boolean = true> {
+  traveler?: T;
+  comment?: T;
+  schedule?:
+    | T
+    | {
+        start?: T;
+        end?: T;
+      };
+  booker?: T;
   updatedAt?: T;
   createdAt?: T;
 }

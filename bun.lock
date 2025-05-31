@@ -5,6 +5,7 @@
       "name": "vcmuellheim.de",
       "dependencies": {
         "@mantine/core": "^8.0.2",
+        "@mantine/dates": "^8.0.2",
         "@mantine/hooks": "^8.0.2",
         "@payloadcms/db-postgres": "^3.40.0",
         "@payloadcms/email-resend": "3.40.0",
@@ -408,6 +409,8 @@
     "@lexical/yjs": ["@lexical/yjs@0.28.0", "", { "dependencies": { "@lexical/offset": "0.28.0", "@lexical/selection": "0.28.0", "lexical": "0.28.0" }, "peerDependencies": { "yjs": ">=13.5.22" } }, "sha512-rKHpUEd3nrvMY7ghmOC0AeGSYT7YIviba+JViaOzrCX4/Wtv5C/3Sl7Io12Z9k+s1BKmy7C28bOdQHvRWaD7vQ=="],
 
     "@mantine/core": ["@mantine/core@8.0.2", "", { "dependencies": { "@floating-ui/react": "^0.26.28", "clsx": "^2.1.1", "react-number-format": "^5.4.3", "react-remove-scroll": "^2.6.2", "react-textarea-autosize": "8.5.9", "type-fest": "^4.27.0" }, "peerDependencies": { "@mantine/hooks": "8.0.2", "react": "^18.x || ^19.x", "react-dom": "^18.x || ^19.x" } }, "sha512-2Ps7bRTeTbRwAKTCL9xdflPz0pwOlTq6ohyTbDZMCADqecf09GHI7GiX+HJatqbPZ2t8jK0fN1b48YhjJaxTqg=="],
+
+    "@mantine/dates": ["@mantine/dates@8.0.2", "", { "dependencies": { "clsx": "^2.1.1" }, "peerDependencies": { "@mantine/core": "8.0.2", "@mantine/hooks": "8.0.2", "dayjs": ">=1.0.0", "react": "^18.x || ^19.x", "react-dom": "^18.x || ^19.x" } }, "sha512-V1xU00gECfykA4UFln8ulPsPHvaTncsg9zUbzCwqwEAYlZFG3Nnj5eBzzpV3IN1LNDPEVGb1gAOM6jZ+fi2uRQ=="],
 
     "@mantine/hooks": ["@mantine/hooks@8.0.2", "", { "peerDependencies": { "react": "^18.x || ^19.x" } }, "sha512-0jpEdC0KIAZ54D5kd9rJudrEm6vkvnrL9yYHnkuNbxokXSzDdYA/wpHnKR5WW+u6fW4JF6A6A7gN1vXKeC9MSw=="],
 

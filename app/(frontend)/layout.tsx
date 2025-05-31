@@ -1,3 +1,4 @@
+import DatesDEProvider from "@/components/DatesDEProvider";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import { Club } from "@/project.config";
@@ -79,17 +80,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang="de">
 			<body data-build-time={Date.now()} style={{ cursor: "default" }}>
 				<MantineProvider theme={theme}>
-					<AppShell header={{ height: 60, offset: true }} withBorder={false} bg="aquahaze">
-						<Header />
+					<DatesDEProvider>
+						<AppShell header={{ height: 60, offset: true }} withBorder={false} bg="aquahaze">
+							<Header />
 
-						<AppShellMain>
-							<Stack justify="space-between" style={{ minHeight: "calc(100vh - 60px)" }}>
-								{children}
+							<AppShellMain>
+								<Stack justify="space-between" style={{ minHeight: "calc(100vh - 60px)" }}>
+									{children}
 
-								<Footer />
-							</Stack>
-						</AppShellMain>
-					</AppShell>
+									<Footer />
+								</Stack>
+							</AppShellMain>
+						</AppShell>
+					</DatesDEProvider>
 				</MantineProvider>
 			</body>
 		</html>

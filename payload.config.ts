@@ -8,6 +8,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildConfig } from "payload";
 import sharp from "sharp";
+import { BusBookings } from "./collections/BusBookings";
 import { Events } from "./collections/Events";
 import { Locations } from "./collections/Locations";
 import { Media } from "./collections/Media";
@@ -63,7 +64,20 @@ export default buildConfig({
 			},
 		},
 	},
-	collections: [Users, Media, Events, News, Roles, Members, Teams, Locations, Sponsors, SamsTeams, SamsClubs],
+	collections: [
+		Users,
+		Media,
+		Events,
+		News,
+		Roles,
+		Members,
+		Teams,
+		Locations,
+		Sponsors,
+		SamsTeams,
+		SamsClubs,
+		BusBookings,
+	],
 	editor: lexicalEditor(),
 	typescript: {
 		outputFile: "./data/payload-types.ts",

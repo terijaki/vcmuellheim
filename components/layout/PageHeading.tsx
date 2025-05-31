@@ -1,4 +1,4 @@
-import { BackgroundImage, Overlay, Stack, Text, Title } from "@mantine/core";
+import { BackgroundImage, Container, Overlay, Stack, Text, Title } from "@mantine/core";
 
 export default function PageHeading(props: {
 	title: string;
@@ -21,19 +21,21 @@ export default function PageHeading(props: {
 					{props.title}
 				</Title>
 
-				{props.subtitle && <Text ta="center">{props.subtitle}</Text>}
-				{!props.subtitle && props.date && (
-					<time dateTime={props.date.toISOString()}>
-						<Text ta="center">
-							{" "}
-							{props.date.toLocaleString("de-DE", {
-								day: "numeric",
-								month: "short",
-								year: "numeric",
-							})}
-						</Text>
-					</time>
-				)}
+				<Container size="md">
+					{props.subtitle && <Text ta="center">{props.subtitle}</Text>}
+					{!props.subtitle && props.date && (
+						<time dateTime={props.date.toISOString()}>
+							<Text ta="center">
+								{" "}
+								{props.date.toLocaleString("de-DE", {
+									day: "numeric",
+									month: "short",
+									year: "numeric",
+								})}
+							</Text>
+						</time>
+					)}
+				</Container>
 			</Stack>
 			{/* <Overlay backgroundOpacity={0.95} color="var(--mantine-color-onyx-filled)" blur={2} zIndex={-1} /> */}
 

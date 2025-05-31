@@ -101,3 +101,14 @@ export const isFieldModerator: FieldAccess = ({ req: { user } }) => {
 export const isFieldOfficial: FieldAccess = ({ req: { user } }) => {
 	return isRoleOfficial(user?.role);
 };
+
+export const isModeratorOrBooker: Access = ({ req: { user }, data }) => {
+	if (isRoleModerator(user?.role)) return true;
+	if (user)
+		return {
+			booker: {
+				equals: user.id,
+			},
+		};
+	return false;
+};
