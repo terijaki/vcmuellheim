@@ -11,7 +11,6 @@ import { samsPlayers } from "@/utils/sams/players";
 import { samsMatches, samsRanking } from "@/utils/sams/sams-server-actions";
 import {
 	Anchor,
-	AspectRatio,
 	Avatar,
 	Button,
 	Card,
@@ -49,7 +48,7 @@ export default async function TeamPage(props: {
 	const searchParams = await props.searchParams;
 	const preview = searchParams.preview === "true";
 
-	const teams = await getTeams(slug, undefined,preview);
+	const teams = await getTeams(slug, undefined, preview);
 	const team = teams?.docs?.[0];
 	if (!team) notFound(); // redirect to 404 page
 
@@ -129,11 +128,11 @@ async function TeamPlayers({ seasonTeamId }: { seasonTeamId?: string | number | 
 								<Text w={16} miw={16} ta="center">
 									{player.number}
 								</Text>
+
 								<Card p={0} shadow="xs" radius="xs" miw={32}>
-									<AspectRatio ratio={8 / 6} w={32}>
-										<Flag code={player.nationality} />
-									</AspectRatio>
+									<Flag code={player.nationality} />
 								</Card>
+
 								<Text lineClamp={2} style={{ textWrap: "balance" }}>
 									{player.firstName} {player.lastName}
 								</Text>
@@ -239,7 +238,7 @@ async function TeamRanking({
 	const ranking = await samsRanking({ allSeasonMatchSeriesId });
 	if (!ranking) return null;
 
-	return <RankingTable {...ranking} key={ranking.matchSeries.id} seasonTeamId={seasonTeamId} />;
+	return <RankingTable {...ranking} key={ranking.matchSeries.id} teams={[{ seasonTeamId }]} />;
 }
 
 function TeamSchedule({ schedules }: { schedules?: Team["schedules"] }) {

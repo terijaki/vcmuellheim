@@ -3,7 +3,7 @@ import type { Team } from "@/data/payload-types";
 import { Checkbox, Divider, Flex, Grid, Group, SegmentedControl, Stack, Text } from "@mantine/core";
 import { Fragment, useState } from "react";
 import TeamCard from "../TeamCard";
-import { TeamContext } from "./HomeTeamContext";
+import { TeamContext } from "../context/HomeTeamContext";
 
 export default function HomeTeamGrid({ teams }: { teams: Team[] }) {
 	const [gender, setGender] = useState<string>("");

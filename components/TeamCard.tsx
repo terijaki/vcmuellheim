@@ -15,7 +15,7 @@ import {
 	FaUserGroup as IconPersons,
 } from "react-icons/fa6";
 import MapsLink from "./MapsLink";
-import { useTeamContext } from "./homepage/HomeTeamContext";
+import { useTeamContext } from "./context/HomeTeamContext";
 
 export default function TeamCard(props: Team) {
 	const { id, slug, name, league, sbvvTeam, age, description, schedules, people, gender } = props;

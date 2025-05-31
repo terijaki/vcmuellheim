@@ -1,14 +1,15 @@
 import { Club } from "@/project.config";
-import { Card, Group, Table, TableTbody, TableTd, TableTh, TableThead, TableTr, Text } from "@mantine/core";
+import { Card, Group, Table, TableTbody, TableTh, TableThead, TableTr, Text } from "@mantine/core";
 import dayjs from "dayjs";
 import { Suspense } from "react";
 import type { Rankings } from "sams-rpc";
 import CardTitle from "./CardTitle";
 import ClubLogo, { ClubLogoFallback } from "./ClubLogo";
+import RankingTableItem from "./RankingTableItem";
 
 type RankingTable = Rankings & {
 	linkToTeamPage?: boolean;
-	seasonTeamId?: string | null;
+	teams?: { seasonTeamId?: string | null; slug?: string | null }[];
 };
 
 export default function RankingTable(props: RankingTable) {
@@ -61,34 +62,23 @@ export default function RankingTable(props: RankingTable) {
 					{ranking.map(async (team) => {
 						const clubName = team.team.club;
 						const isClubTeam = clubName === Club.shortName || false;
-						//TODO link to team page if its a club team
-						// if seasonTeamId then only this specific
+						const teamInContext = props.teams?.find((t) => t.seasonTeamId === team.team.id);
 
-						// href={`/teams/${team.team.id}`}
+						const isHighlighted = Boolean(teamInContext?.seasonTeamId) || Boolean(isClubTeam && props.linkToTeamPage);
+						const teamLink = teamInContext?.slug ? `/teams/${teamInContext.slug}` : null;
 
 						return (
-							<TableTr key={team.team.id} data-team-id={team.team.id} data-team-name={team.team.name}>
-								<TableTd ta="center">{team.place}</TableTd>
-								<TableTd>
-									<Group wrap="nowrap" gap={4}>
-										<Suspense fallback={<ClubLogoFallback className="mr-1" />}>
-											<ClubLogo clubName={clubName} />
-										</Suspense>
-										<Text lineClamp={1}>{team.team.name}</Text>
-									</Group>
-								</TableTd>
-								<TableTd ta="center">
-									<Text size="sm">
-										{team.wins}/{team.matchesPlayed}
-									</Text>
-								</TableTd>
-								<TableTd ta="center" visibleFrom="sm">
-									<Text size="sm">{team.setPoints}</Text>
-								</TableTd>
-								<TableTd ta="center">
-									<Text size="sm">{team.points}</Text>
-								</TableTd>
-							</TableTr>
+							<RankingTableItem
+								key={team.team.id}
+								ranking={team}
+								isHighlighted={isHighlighted}
+								teamLink={teamLink}
+								clubLogo={
+									<Suspense fallback={<ClubLogoFallback className="mr-1" />}>
+										<ClubLogo clubName={clubName} light={isHighlighted} />
+									</Suspense>
+								}
+							/>
 						);
 					})}
 				</TableTbody>

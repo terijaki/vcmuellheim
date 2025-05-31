@@ -20,6 +20,10 @@ export default async function Tabelle() {
 
 	const teams = await getTeams(undefined, true); // fetch all teams with league information
 	const teamSize = teams?.docs.length || 0;
+	const teamContext = teams?.docs?.map((t) => {
+		const seasonTeamId = typeof t.sbvvTeam === "object" ? t.sbvvTeam?.seasonTeamId : null;
+		return { seasonTeamId, slug: t.slug };
+	});
 
 	const lastResultCap = Math.max(6, Math.min(20, Number((teamSize * GAMES_PER_TEAM).toFixed(0)))); // calculate the total number of games
 	const numToWordsDe = require("num-words-de");
@@ -34,12 +38,12 @@ export default async function Tabelle() {
 			<Stack>
 				<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
 					<Suspense fallback={<Card>Lade Tabellendaten...</Card>}>
-						{clubRankings?.map((rankings, index) => {
+						{clubRankings?.map((rankings) => {
 							if (!matchSeriesDisplayed.includes(rankings.matchSeries.allSeasonId)) {
 								matchSeriesDisplayed.push(rankings.matchSeries.allSeasonId);
 								return (
 									<Suspense key={rankings.matchSeries.id} fallback={<Card>lade {rankings.matchSeries.name}..</Card>}>
-										<RankingTable {...rankings} linkToTeamPage={true} />
+										<RankingTable {...rankings} linkToTeamPage={true} teams={teamContext} />
 									</Suspense>
 								);
 							}
@@ -50,7 +54,6 @@ export default async function Tabelle() {
 					{recentMatches && recentMatches.length > 0 && (
 						<Card>
 							<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
-
 							<CardSection p={{ base: undefined, sm: "sm" }}>
 								<Matches matches={recentMatches} type="past" />
 							</CardSection>

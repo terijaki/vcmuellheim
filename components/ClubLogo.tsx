@@ -4,7 +4,7 @@ import { unstable_cacheLife as cacheLife } from "next/cache";
 import Image from "next/image";
 import { FaVolleyball as Ball } from "react-icons/fa6";
 
-export default async function ClubLogo({ clubName }: { clubName?: string | null }) {
+export default async function ClubLogo({ clubName, light }: { clubName?: string | null; light?: boolean }) {
 	"use cache";
 	cacheLife("days");
 
@@ -19,7 +19,12 @@ export default async function ClubLogo({ clubName }: { clubName?: string | null 
 						loading="lazy"
 						placeholder="empty"
 						alt={`Logo: ${clubName}`}
-						style={{ mixBlendMode: "multiply", objectFit: "contain", borderRadius: 8 }}
+						style={{
+							objectFit: "contain",
+							borderRadius: 8,
+							filter: light ? "saturate(0) brightness(0) invert(1)" : undefined,
+							mixBlendMode: light ? undefined : "multiply",
+						}}
 					/>
 				</Flex>
 			);
