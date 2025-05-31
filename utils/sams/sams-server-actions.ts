@@ -255,6 +255,15 @@ export async function samsClubMatches({
 		);
 
 		const clubMatches = Array.from(clubMatchesMap.values()); // convert the map to an array
+		// sort the matches by date
+		clubMatches.sort((a, b) => {
+			const dateA = dayjs(a.date);
+			const dateB = dayjs(b.date);
+			if (dateA.isSame(dateB)) {
+				return (a.number || 0) - (b.number || 0);
+			}
+			return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
+		});
 		return clubMatches;
 	} catch (error) {
 		console.error("🚨 Error fetching club rankings:", error);
