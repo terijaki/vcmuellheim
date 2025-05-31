@@ -28,7 +28,7 @@
 	"dependencies": {
 		"@mantine/core": "^8.0.2",
 		"@mantine/hooks": "^8.0.2",
-		"@payloadcms/db-postgres": "3.40.0",
+		"@payloadcms/db-vercel-postgres": "3.40.0",
 		"@payloadcms/email-resend": "3.40.0",
 		"@payloadcms/live-preview-react": "3.40.0",
 		"@payloadcms/next": "3.40.0",
