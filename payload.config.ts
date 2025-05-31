@@ -52,7 +52,15 @@ export default buildConfig({
 		autoLogin: autoLoginConfig,
 		avatar: "default",
 		meta: {
-			icons: [{ rel: "icon", type: "image/png", url: "/images/logo.png" }],
+			icons: [{ rel: "icon", type: "image/png", url: "/images/icons/favicon.png" }],
+			title: Club.shortName,
+			titleSuffix: " - CMS",
+		},
+		components: {
+			graphics: {
+				Logo: "/components/payload/PayloadLogo",
+				Icon: "/components/payload/PayloadIcon",
+			},
 		},
 	},
 	collections: [Users, Media, Events, News, Roles, Members, Teams, Locations, Sponsors, SamsTeams, SamsClubs],
