@@ -14,7 +14,7 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
 	return (
 		<PageWithHeading title="Hoppala! 🫢">
 			<Container size="sm">
-				<Stack>
+				<Stack gap="xl">
 					<Card>
 						<Text>
 							Etwas ist schief gelaufen. Der Server konnte dir diesen Bereich ({usePathname()}) nicht fehlerfrei

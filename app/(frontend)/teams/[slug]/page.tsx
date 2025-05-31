@@ -236,7 +236,7 @@ async function TeamRanking({
 	if (!allSeasonMatchSeriesId) return null;
 
 	const ranking = await samsRanking({ allSeasonMatchSeriesId });
-	if (!ranking) return null;
+	if (!ranking || !ranking.matchSeries) return null;
 
 	return <RankingTable {...ranking} key={ranking.matchSeries.id} teams={[{ seasonTeamId }]} />;
 }
