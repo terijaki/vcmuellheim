@@ -1,8 +1,5 @@
 "use server";
-import config from "@payload-config";
-import { getPayload } from "payload";
-
-const payload = await getPayload({ config });
+import { payload } from "./payload-client";
 
 export async function getTeams(slug?: string, league?: boolean, draft = false) {
 	try {

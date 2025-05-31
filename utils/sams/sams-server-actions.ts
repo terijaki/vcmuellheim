@@ -1,13 +1,10 @@
 "use server";
+import { payload } from "@/data/payload-client";
 import type { SamsClub } from "@/data/payload-types";
 import { SAMS } from "@/project.config";
-import config from "@payload-config";
 import dayjs from "dayjs";
 import { unstable_cacheLife as cacheLife } from "next/cache";
-import { getPayload } from "payload";
 import { type Match, type Rankings, type Season, type SimpleSportsClub, sams } from "sams-rpc";
-
-const payload = await getPayload({ config });
 
 // API KEY and SERVER URL should be set via env variables
 const SAMS_CLUB_NAME = SAMS.name; // the exact name of the club in SAMS

@@ -1,9 +1,6 @@
 "use server";
-import config from "@payload-config";
 import { unstable_cacheLife as cacheLife } from "next/cache";
-import { getPayload } from "payload";
-
-const payload = await getPayload({ config });
+import { payload } from "./payload-client";
 
 export async function getPictures(limit = 100, page = 1) {
 	"use cache";

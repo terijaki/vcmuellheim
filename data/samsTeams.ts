@@ -1,9 +1,6 @@
 "use server";
-import config from "@payload-config";
-import { getPayload } from "payload";
+import { payload } from "./payload-client";
 import type { SamsTeam } from "./payload-types";
-
-const payload = await getPayload({ config });
 
 export async function getSamsTeamBySamsUuid(uuid: string): Promise<SamsTeam | undefined> {
 	try {
