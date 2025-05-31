@@ -216,6 +216,13 @@ export async function samsClubRankings() {
 			if (ranking?.ranking) rankings.push(ranking); // ranking?.ranking excludes empty rankings. e.g. for next-season-signups
 		}
 
+		// sort rankings by hierarchyLevel
+		rankings.sort((a, b) => {
+			const hierarchyLevelA = a.matchSeries.hierarchy?.hierarchyLevel || 999;
+			const hierarchyLevelB = b.matchSeries.hierarchy?.hierarchyLevel || 999;
+			return hierarchyLevelA - hierarchyLevelB;
+		});
+
 		return rankings;
 	} catch (error) {
 		console.error("🚨 Error fetching club rankings:", error);
