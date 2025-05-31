@@ -5,15 +5,17 @@ import type { Match } from "sams-rpc";
 import MapsLink from "./MapsLink";
 
 export default function Matches({
-	matches,
+	matches = [],
 	type,
 	highlightTeamId,
 }: { matches: Match[]; type: "future" | "past"; highlightTeamId?: string }) {
+	if (!matches || matches.length === 0) return null;
+
 	// define how dates should be displayed
 	const dateFormat = new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "short" });
 	// structure the last update date
 	let dateDisplay = "";
-	if (matches[0].matchSeries?.updated) {
+	if (matches[0]?.matchSeries?.updated) {
 		const dateInput = new Date(matches[0].matchSeries?.updated);
 		dateDisplay = `${dateFormat.format(dateInput).toString()} Uhr`;
 	}
@@ -23,7 +25,7 @@ export default function Matches({
 		return (
 			<Box>
 				<Text c="dimmed" size="xs" ta="right" pr="sm" pb="xs">
-					Stand: <time dateTime={matches[0].matchSeries.updated || undefined}>{dateDisplay}</time>
+					Stand: <time dateTime={matches[0]?.matchSeries.updated || undefined}>{dateDisplay}</time>
 				</Text>
 				<Stack gap={0}>
 					{matches.map((match, index) => {
