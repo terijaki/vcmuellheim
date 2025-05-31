@@ -152,8 +152,8 @@ async function TeamMatches({
 }: { allSeasonMatchSeriesId?: string | null; seasonTeamId?: string | number | null; slug: string }) {
 	if (!allSeasonMatchSeriesId) return null;
 
-	const futureMatches = await samsMatches({ allSeasonMatchSeriesId, future: true });
-	const pastMatches = await samsMatches({ allSeasonMatchSeriesId, past: true });
+	const futureMatches = await samsMatches({ allSeasonMatchSeriesId, future: true, teamId: seasonTeamId || undefined });
+	const pastMatches = await samsMatches({ allSeasonMatchSeriesId, past: true, teamId: seasonTeamId || undefined });
 
 	// check if its currently a month outside of the season
 	const currentMonth = new Date().getMonth() + 1;

@@ -236,7 +236,6 @@ export async function samsClubMatches({
 	"use cache";
 	cacheLife("minutes");
 	try {
-		// throw "Club Matches disabled temporarily 🦋";
 		const unqiueMatchSeriesIds = await samsClubAllSeasonMatchSeriesIds(false);
 		if (!unqiueMatchSeriesIds) throw "No match series IDs found";
 
@@ -251,6 +250,7 @@ export async function samsClubMatches({
 					limit,
 					after: after ? dayjs(after).format("DD.MM.YYYY") : undefined,
 					before: before ? dayjs(before).format("DD.MM.YYYY") : undefined,
+					// teamId:undefined, // team filtering would be here but we don't want a single team filtered. otherwise there would be conflict when two teams play in the same season
 				});
 				matches?.map((m) => {
 					if (m.team.some((t) => t.club === SAMS_CLUB_NAME)) clubMatchesMap.set(m.matchSeries.uuid, m);
@@ -266,6 +266,14 @@ export async function samsClubMatches({
 			if (dateA.isSame(dateB)) {
 				return (a.number || 0) - (b.number || 0);
 			}
+			// Sort ascending for future matches, descending for past matches
+			if (future && !past) {
+				return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
+			}
+			if (past && !future) {
+				return dateA.isAfter(dateB) ? -1 : dateA.isBefore(dateB) ? 1 : 0;
+			}
+			// Default to ascending when both or neither are specified
 			return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
 		});
 		return clubMatches;
