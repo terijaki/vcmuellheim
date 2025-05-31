@@ -1,6 +1,6 @@
 "use client";
 import type { Team } from "@/data/payload-types";
-import { Checkbox, Flex, Grid, Group, SegmentedControl, Stack, Text } from "@mantine/core";
+import { Checkbox, Divider, Flex, Grid, Group, SegmentedControl, Stack, Text } from "@mantine/core";
 import { Fragment, useState } from "react";
 import TeamCard from "../TeamCard";
 import { TeamContext } from "./HomeTeamContext";
@@ -52,19 +52,26 @@ export default function HomeTeamGrid({ teams }: { teams: Team[] }) {
 				</Group>
 				<Grid gutter="md">
 					{teamsSorted.map((team, index, array) => {
-						const gridColSpan = { base: 12, sm: 12 / 2, lg: 12 / 3 };
-						const matchingLeagueParticipation = leagueParticipation ? Boolean(team.league) : true;
-						const matchingGender = gender === "" || team.gender === gender;
-						const lastSelectedTeam = Boolean(
-							matchingLeagueParticipation && matchingGender && array[index + 1].gender !== gender,
-						);
+						const isMatchingLeagueParticipation = leagueParticipation ? Boolean(team.league) : true;
+						const isMatchingGender = team.gender === gender || gender === "";
+						const isMatching = isMatchingLeagueParticipation && isMatchingGender;
+						const nextTeam = array[index + 1];
+						const nextIsMatchingLeagueParticipation = leagueParticipation ? Boolean(nextTeam?.league) : true;
+						const nextIsMatchingGender = nextTeam?.gender === gender || gender === "";
+						const nextIsMatching = nextIsMatchingLeagueParticipation && nextIsMatchingGender;
+
+						const lastSelectedTeam = Boolean(isMatching && !nextIsMatching);
 
 						return (
 							<Fragment key={team.id}>
-								<Grid.Col span={gridColSpan}>
+								<Grid.Col span={{ base: 12, sm: 12 / 2, lg: 12 / 3 }}>
 									<TeamCard {...team} />
 								</Grid.Col>
-								{lastSelectedTeam && <Grid.Col span={12} />}
+								{lastSelectedTeam && (
+									<Grid.Col span={12}>
+										<Divider size="sm" />
+									</Grid.Col>
+								)}
 							</Fragment>
 						);
 					})}
