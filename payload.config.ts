@@ -61,7 +61,10 @@ export default buildConfig({
 		outputFile: "./data/payload-types.ts",
 	},
 	db: vercelPostgresAdapter({
-		pool: { connectionString: process.env.DATABASE_URL || "" },
+		pool: {
+			connectionString: process.env.DATABASE_URL || "",
+			ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+		},
 		migrationDir: "./src/db/migrations",
 		idType: "uuid",
 		// prodMigrations: migrations,
