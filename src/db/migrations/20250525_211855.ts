@@ -1,7 +1,7 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { type MigrateDownArgs, type MigrateUpArgs, sql } from "@payloadcms/db-vercel-postgres";
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    ALTER TYPE "public"."enum_teams_schedule_day" RENAME TO "enum_teams_schedules_day";
   CREATE TABLE IF NOT EXISTS "sams_teams" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
@@ -81,11 +81,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "teams_schedules_location_idx" ON "teams_schedules" USING btree ("location_id");
   CREATE INDEX IF NOT EXISTS "teams_sbvv_team_idx" ON "teams" USING btree ("sbvv_team_id");
   CREATE INDEX IF NOT EXISTS "teams_rels_media_id_idx" ON "teams_rels" USING btree ("media_id");
-  CREATE INDEX IF NOT EXISTS "payload_locked_documents_rels_sams_teams_id_idx" ON "payload_locked_documents_rels" USING btree ("sams_teams_id");`)
+  CREATE INDEX IF NOT EXISTS "payload_locked_documents_rels_sams_teams_id_idx" ON "payload_locked_documents_rels" USING btree ("sams_teams_id");`);
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    ALTER TYPE "public"."enum_teams_schedules_day" RENAME TO "enum_teams_schedule_day";
   ALTER TABLE "sams_teams" DISABLE ROW LEVEL SECURITY;
   DROP TABLE "sams_teams" CASCADE;
@@ -136,5 +136,5 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   CREATE INDEX IF NOT EXISTS "teams_schedule_location_idx" ON "teams_schedule" USING btree ("location_id");
   ALTER TABLE "teams" DROP COLUMN IF EXISTS "sbvv_team_id";
   ALTER TABLE "teams_rels" DROP COLUMN IF EXISTS "media_id";
-  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "sams_teams_id";`)
+  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "sams_teams_id";`);
 }

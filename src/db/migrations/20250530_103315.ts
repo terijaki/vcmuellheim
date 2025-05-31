@@ -1,7 +1,7 @@
-import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-postgres'
+import { type MigrateDownArgs, type MigrateUpArgs, sql } from "@payloadcms/db-vercel-postgres";
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    DO $$ BEGIN
      CREATE TYPE "public"."enum_news_status" AS ENUM('draft', 'published');
    EXCEPTION
@@ -122,11 +122,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "public"."teams" ALTER COLUMN "league" SET DATA TYPE text;
   DROP TYPE "public"."enum_teams_league";
   CREATE TYPE "public"."enum_teams_league" AS ENUM('1. Bundesliga', '2. Bundesliga', 'Dritte Liga', 'Regionalliga', 'Oberliga', 'Verbandsliga', 'Landesliga', 'Bezirksliga', 'Bezirksklasse', 'Kreisliga', 'Kreisklasse');
-  ALTER TABLE "public"."teams" ALTER COLUMN "league" SET DATA TYPE "public"."enum_teams_league" USING "league"::"public"."enum_teams_league";`)
+  ALTER TABLE "public"."teams" ALTER COLUMN "league" SET DATA TYPE "public"."enum_teams_league" USING "league"::"public"."enum_teams_league";`);
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    ALTER TABLE "_news_v" DISABLE ROW LEVEL SECURITY;
   ALTER TABLE "_news_v_rels" DISABLE ROW LEVEL SECURITY;
   ALTER TABLE "sams_clubs" DISABLE ROW LEVEL SECURITY;
@@ -149,5 +149,5 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   CREATE TYPE "public"."enum_teams_league" AS ENUM('1. Bundesliga', '2. Bundesliga', 'Dritte Liga', 'Regionalliga', 'Oberliga', 'Verbandsliga', 'Landesliga', 'Bezirksklasse', 'Bezirksliga', 'Kreisliga', 'Kreisklasse');
   ALTER TABLE "public"."teams" ALTER COLUMN "league" SET DATA TYPE "public"."enum_teams_league" USING "league"::"public"."enum_teams_league";
   DROP TYPE IF EXISTS "public"."enum_news_status";
-  DROP TYPE IF EXISTS "public"."enum__news_v_version_status";`)
+  DROP TYPE IF EXISTS "public"."enum__news_v_version_status";`);
 }
