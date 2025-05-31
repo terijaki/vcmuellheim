@@ -3,6 +3,7 @@
 		"projectType": "Next.js",
 		"framework": "Next.js",
 		"uiComponents": "Mantine",
+		"deployment": "Vercel",
 		"tooling": {
 			"formatter": "Biome",
 			"linter": "Biome",

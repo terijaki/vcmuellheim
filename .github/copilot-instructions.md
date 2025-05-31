@@ -8,7 +8,7 @@
 - **Formatting/Linting:** Biome
 - **CMS:** Payload CMS
 - **Date Library:** dayjs
-- **Deployment:** Coolify
+- **Deployment:** Vercel
 
 ## Code Style Guidelines
 

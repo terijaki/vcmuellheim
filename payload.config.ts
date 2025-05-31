@@ -4,7 +4,6 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { s3Storage } from "@payloadcms/storage-s3";
 import { de } from "@payloadcms/translations/languages/de";
 import { en } from "@payloadcms/translations/languages/en";
-import { mkdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildConfig } from "payload";
@@ -20,14 +19,11 @@ import { SamsTeams } from "./collections/SamsTeams";
 import { Sponsors } from "./collections/Sponsors";
 import { Teams } from "./collections/Teams";
 import { Users } from "./collections/Users";
-import { migrations } from "./data/migrations";
 import { Club } from "./project.config";
+// import { migrations } from "./src/db/migrations";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
-
-// Create required directories if they don't exist
-mkdirSync(path.join(dirname, "data/migrations"), { recursive: true });
 
 // #region Email Configuration
 // (if env api key is set)
@@ -62,13 +58,13 @@ export default buildConfig({
 	collections: [Users, Media, Events, News, Roles, Members, Teams, Locations, Sponsors, SamsTeams, SamsClubs],
 	editor: lexicalEditor(),
 	typescript: {
-		outputFile: path.resolve(dirname, "data/payload-types.ts"),
+		outputFile: "./data/payload-types.ts",
 	},
 	db: postgresAdapter({
 		pool: { connectionString: process.env.DATABASE_URL || "" },
-		migrationDir: path.resolve(dirname, "data/migrations"),
+		migrationDir: "./src/db/migrations",
 		idType: "uuid",
-		prodMigrations: migrations,
+		// prodMigrations: migrations,
 	}),
 	sharp,
 	upload: {
