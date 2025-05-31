@@ -1,4 +1,4 @@
-import { postgresAdapter } from '@payloadcms/db-postgres'
+import { postgresAdapter } from "@payloadcms/db-postgres";
 import { resendAdapter } from "@payloadcms/email-resend";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { s3Storage } from "@payloadcms/storage-s3";
@@ -63,6 +63,9 @@ export default buildConfig({
 	db: postgresAdapter({
 		pool: {
 			connectionString: process.env.DATABASE_URL || "",
+			max: 5, // maximum number of connections in the pool
+			idleTimeoutMillis: 20000, // 20 seconds
+			connectionTimeoutMillis: 10000, // 10 seconds
 		},
 		migrationDir: "./src/db/migrations",
 		idType: "uuid",
