@@ -2,34 +2,18 @@
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
-.yarn/install-state.gz
-
-# testing
-/coverage
-/test.*
 
 # next.js
-/.next/
-/out/
-
-# production
+/.next
+/out
 /build
 
-# calendar files
-/public/ics/*.ics
-!/public/ics/template.ics
+# cache
+.temp/
 
 # misc
 .DS_Store
 *.pem
-dev-notes.md
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
 # local env files
 .env*.local
@@ -38,19 +22,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# image optimisation
-/public/images/**/optimized
-/public/optimized
-/remoteImagesForOptimization
-
-# rss
-/public/rss.json
-/public/rss.xml
-/public/atom.xml
-
-# sams
-/data/sams/matchSeries.json
-/.temp
-
-# github actions
-github_summary.md
+# payload
+media

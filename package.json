@@ -1,65 +1,73 @@
 {
-  "name": "vcmuellheim.de",
-  "version": "0.1.0",
-  "private": true,
-  "homepage": "https://vcmuellheim.de",
-  "bugs": {
-    "url": "https://github.com/terijaki/vcmuellheim/issues"
-  },
-  "author": {
-    "name": "Björn Kohnen",
-    "email": "bjoern@vcmuellheim.de"
-  },
-  "scripts": {
-    "dev": "bun update && next dev --turbopack",
-    "build": "next build && next-image-export-optimizer",
-    "start": "next start",
-    "lint": "next lint",
-    "sams-update": "bun app/utils/sams/updateTasks.ts",
-    "sams-new-results": "bun app/utils/sams/processNewMatchResults.ts",
-    "sams-all-clubs": "bun app/utils/sams/getAllClubs.ts",
-    "inbox": "bun app/utils/blog/inboxProcessing.ts",
-    "blog-new-posts": "bun app/utils/blog/shareNewPosts.ts"
-  },
-  "dependencies": {
-    "@octokit/action": "^6.1.0",
-    "@octokit/request": "^9.2.3",
-    "bun-types": "^1.2.10",
-    "dumb-csv": "^1.1.2",
-    "feed": "^4.2.2",
-    "gray-matter": "^4.0.3",
-    "is-dst": "^1.0.0",
-    "markdown-to-jsx": "^7.7.4",
-    "next": "15.2.4",
-    "next-image-export-optimizer": "^1.18.0",
-    "num-words-de": "^1.1.0",
-    "octokit": "^4.1.3",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "react-fast-marquee": "^1.6.5",
-    "react-icons": "^5.5.0",
-    "react-markdown": "^9.1.0",
-    "react-world-flags": "^1.6.0",
-    "remark-gfm": "^4.0.1",
-    "showdown": "^2.1.0",
-    "word-extractor": "^1.0.4",
-    "xml2js": "^0.6.2"
-  },
-  "devDependencies": {
-    "@tailwindcss/typography": "^0.5.16",
-    "@types/node": "^20.17.30",
-    "@types/react": "19.0.1",
-    "@types/react-dom": "19.0.2",
-    "@types/react-world-flags": "^1.6.0",
-    "autoprefixer": "^10.4.21",
-    "eslint": "^8.57.1",
-    "eslint-config-next": "15.1.0",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^3.4.17",
-    "typescript": "^5.8.3"
-  },
-  "overrides": {
-    "@types/react": "19.0.1",
-    "@types/react-dom": "19.0.2"
-  }
+	"name": "vcmuellheim.de",
+	"version": "2.0.0",
+	"private": true,
+	"type": "module",
+	"homepage": "https://vcmuellheim.de",
+	"bugs": {
+		"url": "https://github.com/terijaki/vcmuellheim/issues"
+	},
+	"author": {
+		"name": "Björn Kohnen",
+		"email": "bjoern@vcmuellheim.de"
+	},
+	"scripts": {
+		"dev": "next dev -p 3080",
+		"build": "next build",
+		"deploy": "node server.js",
+		"biome": "biome check --write",
+		"lint": "biome lint --write",
+		"next-lint": "next lint",
+		"payload-migrate": "bunx payload migrate:create",
+		"docker:build": "docker build -t vcmuellheim .",
+		"docker:watch": "docker run -p 3080:3080 -v $(pwd):/app -w /app vcmuellheim",
+		"docker:run": "docker run -p 3080:3080 vcmuellheim",
+		"docker": "bun run docker:build && bun run docker:run",
+		"docker:dev": "bun run docker:build && bun run docker:watch"
+	},
+	"dependencies": {
+		"@mantine/core": "^8.0.2",
+		"@mantine/hooks": "^8.0.2",
+		"@payloadcms/db-postgres": "3.40.0",
+		"@payloadcms/email-resend": "3.40.0",
+		"@payloadcms/live-preview-react": "3.40.0",
+		"@payloadcms/next": "3.40.0",
+		"@payloadcms/richtext-lexical": "3.40.0",
+		"@payloadcms/storage-s3": "3.40.0",
+		"@payloadcms/translations": "3.40.0",
+		"@plaiceholder/next": "^3.0.0",
+		"bun-types": "^1.2.15",
+		"croner": "^9.0.0",
+		"dayjs": "^1.11.13",
+		"dumb-csv": "^1.1.2",
+		"feed": "^5.1.0",
+		"graphql": "^16.11.0",
+		"next": "15.3.3",
+		"num-words-de": "^1.1.0",
+		"payload": "3.40.0",
+		"plaiceholder": "^3.0.0",
+		"react": "19.1.0",
+		"react-dom": "19.1.0",
+		"react-fast-marquee": "^1.6.5",
+		"react-icons": "^5.5.0",
+		"react-world-flags": "^1.6.0",
+		"sams-rpc": "^2.3.1",
+		"sharp": "^0.34.2",
+		"ts-ics": "^2.1.3"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@types/node": "^22.15.27",
+		"@types/react": "19.1.4",
+		"@types/react-dom": "19.1.5",
+		"@types/react-world-flags": "^1.6.0",
+		"autoprefixer": "^10.4.21",
+		"eslint": "^9.27.0",
+		"eslint-config-next": "15.3.3",
+		"typescript": "^5.8.3"
+	},
+	"overrides": {
+		"@types/react": "19.1.4",
+		"@types/react-dom": "19.1.5"
+	}
 }

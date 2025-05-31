@@ -1,10 +1,4 @@
 {
-    "files.associations": {
-        "*.css": "tailwindcss"
-    },
-    "indentRainbow.indicatorStyle": "light",
-    "indentRainbow.lightIndicatorStyleLineWidth": 8,
-    "github-actions.workflows.pinned.workflows": [
-        ".github/workflows/nextjs.yml"
-    ],
+	"indentRainbow.indicatorStyle": "light",
+	"indentRainbow.lightIndicatorStyleLineWidth": 8
 }

@@ -1,58 +1,60 @@
-FROM oven/bun AS base
+FROM oven/bun:1.2-alpine AS base
+RUN apk update && apk add curl --no-cache
 
-# Install dependencies only when needed
-FROM base AS deps
-
+# STEP 1: install dependenceis
+# - define the step
+# - set the working directory
+# - copy the package.json and lockfile
+# - install the dependencies
+FROM base AS dependencies
 WORKDIR /app
-
 # Install dependencies
-COPY package.json bun.lockb ./
+COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 
-# Rebuild the source code only when needed
+# STEP 2: build the application
+# - define the step
+# - set the working directory
+# - copy the dependencies from the previous step
+# - merge env files (this is used in dev only because in production they are set as secrets)
 FROM base AS builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
-
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Disable telemetry during the build
-ENV NEXT_TELEMETRY_DISABLED 1
-
+ENV NODE_ENV=production
+ENV DOCKER_BUILD=true
+ENV TZ=Europe/Berlin
+RUN cat .env.development.local >> .env || true
 RUN bun run build
 
-# Production image, copy all the files and run next
+# STEP 3: run the application
+# - define the step
+# - set the working directory
+# - set the enviroment to production (so NextJs uses minification and etc.)
+# - create a group and a user for it
+# - set the correct permission for prerender cache
+# - copy the files from the previous step and grand the user permission
+# - copy the public files (e.g. images)
+# - merge env files (only used for dev)
+# - set the username, ports, hostname and finally run the app
 FROM base AS runner
 WORKDIR /app
-
-ENV NODE_ENV production
-
-# Disable telemetry
-ENV NEXT_TELEMETRY_DISABLED 1
-
-RUN adduser --system --uid 1001 nextjs
-
+ENV NODE_ENV=production
+ENV TZ=Europe/Berlin
+RUN addgroup -S vcmuellheim && adduser -S -G vcmuellheim spieler
+RUN mkdir -p .next/cache
+RUN chown -R spieler:vcmuellheim .next
+COPY --from=builder --chown=spieler:vcmuellheim /app/.next/standalone ./
+COPY --from=builder --chown=spieler:vcmuellheim /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/data ./data
+RUN cat .env.development.local >> .env || true
 
-# Set the correct permission for prerender cache
-RUN mkdir .next
-RUN chown nextjs:bun .next
+USER spieler
+EXPOSE 3080
+ENV PORT=3080
+ENV HOSTNAME="0.0.0.0"
 
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:bun /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:bun /app/.next/static ./.next/static
-
-USER nextjs
-
-EXPOSE 3000
-
-ENV PORT 3000
-
-# Set hostname to localhost
-ENV HOSTNAME "0.0.0.0"
-
-HEALTHCHECK NONE
-
-CMD ["bun", "server.js"]
+HEALTHCHECK --start-period=5s --interval=2m --timeout=3s \
+    CMD curl -f http://localhost:3080/ || exit 1
+CMD ["bun", "--env-file", ".env", "deploy"]
