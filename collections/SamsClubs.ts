@@ -1,15 +1,17 @@
-import { isAdmin } from "@/data/payload-access";
+import { isAdmin, isRoleAdmin } from "@/data/payload-access";
 import type { CollectionConfig } from "payload";
 
 export const SamsClubs: CollectionConfig = {
 	slug: "sams-clubs",
 	labels: { plural: "Clubs", singular: "Club" },
-	defaultSort: "category",
 	admin: {
 		useAsTitle: "name",
 		group: "SAMS",
 		defaultColumns: ["name", "internalSportsclubId", "lsbNumber", "updatedAt"],
 		pagination: { defaultLimit: 50 },
+		hidden(args) {
+			return !isRoleAdmin(args.user?.role);
+		},
 	},
 	access: {
 		read: () => true,
