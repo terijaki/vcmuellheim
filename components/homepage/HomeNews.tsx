@@ -1,9 +1,11 @@
 import SectionHeading from "@/components/layout/SectionHeading";
 import { getNews } from "@/data/news";
+import { getRecentInstagramPosts } from "@/utils/social/instagram";
 import { Button, Center, Container, SimpleGrid, Stack, Text } from "@mantine/core";
 import { unstable_cacheLife as cacheLife } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
+import InstagramCard from "../InstagramCard";
 import NewsCard from "../NewsCard";
 import ScrollAnchor from "./ScrollAnchor";
 
@@ -11,7 +13,9 @@ export default async function HomeNews() {
 	"use cache";
 	cacheLife("minutes");
 
-	const data = await getNews(4, undefined);
+	const news = await getNews(4, undefined);
+
+	const instagrams = await getRecentInstagramPosts();
 
 	return (
 		<Container size="xl" py="md">
@@ -20,7 +24,7 @@ export default async function HomeNews() {
 				<SectionHeading text="News" />
 				<Suspense fallback={<Text>Lade Newsbeiträge</Text>}>
 					<SimpleGrid cols={{ base: 1, sm: 2 }}>
-						{data?.docs.map((post) => {
+						{news?.docs.map((post) => {
 							// filter out the thumbnail urls
 							const thumbnails = post.images
 								?.map((i) => (typeof i === "string" ? i : i.url))
@@ -38,9 +42,19 @@ export default async function HomeNews() {
 					</SimpleGrid>
 					<Center p="md">
 						<Button component={Link} href="/news">
-							alle Newsbeiträge
+							News-Archiv
 						</Button>
 					</Center>
+				</Suspense>
+				<Suspense>
+					<Stack>
+						<SectionHeading text="Instagram" />
+						<SimpleGrid cols={{ base: 1, md: 2 }}>
+							{instagrams.map((post) => {
+								return <InstagramCard key={post.id} {...post} />;
+							})}
+						</SimpleGrid>
+					</Stack>
 				</Suspense>
 			</Stack>
 		</Container>

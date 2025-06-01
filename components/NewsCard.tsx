@@ -1,5 +1,8 @@
-import { BackgroundImage, Card, CardSection, Space, Text, Title } from "@mantine/core";
+"use client";
+import { Box, Card, CardSection, Space, Text, Title } from "@mantine/core";
+import Image from "next/image";
 import Link from "next/link";
+import { useMemo, useState } from "react";
 
 interface NewsCardProps {
 	id: string;
@@ -9,36 +12,62 @@ interface NewsCardProps {
 }
 
 export default function NewsCard(props: NewsCardProps) {
-	// check if this post has a thumbnail
-	let thumbnail = props.thumbnails ? props.thumbnails[0] : undefined;
+	const [isHovered, setIsHovered] = useState(false);
 
-	if (thumbnail) {
-		// if there are multiple thumbnails, pick a random one
-		if (props.thumbnails && props.thumbnails.length > 1) {
-			const randomIndex = Math.floor(Math.random() * props.thumbnails.length);
-			thumbnail = props.thumbnails[randomIndex];
+	// check if this post has a thumbnail
+	const thumbnail = useMemo(() => {
+		if (!props.thumbnails || props.thumbnails.length === 0) {
+			return undefined;
 		}
-	}
+		// if there are multiple thumbnails, pick a random one and memorize it
+		if (props.thumbnails.length > 1) {
+			const randomIndex = Math.floor(Math.random() * props.thumbnails.length);
+			return props.thumbnails[randomIndex];
+		}
+		return props.thumbnails[0];
+	}, [props.thumbnails]);
 
 	return (
-		<Card component={Link} href={`/news/${props.id}`} prefetch shadow="sm" radius="md" maw={{ base: "100%", sm: 620 }}>
+		<Card
+			component={Link}
+			href={`/news/${props.id}`}
+			prefetch
+			radius="md"
+			shadow="sm"
+			maw={{ base: "100%", sm: 620 }}
+			onMouseEnter={() => setIsHovered(true)}
+			onMouseLeave={() => setIsHovered(false)}
+		>
 			<CardSection bg={thumbnail ? "lion" : undefined} mb="xs">
 				{thumbnail ? (
-					<BackgroundImage src={thumbnail} pt="xl">
-						<Space h="xl" />
-						<Space h="xl" />
-						<Title
-							order={4}
-							fw="bold"
-							px="sm"
-							py="xs"
-							c="white"
-							lineClamp={2}
-							style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
-						>
-							{props.title}
-						</Title>
-					</BackgroundImage>
+					<Box pt="xl" style={{ overflow: "hidden" }} pos="relative">
+						<Box style={{ zIndex: 2 }} pos="relative">
+							<Space h="xl" />
+							<Space h="xl" />
+							<Title
+								order={4}
+								fw="bold"
+								px="sm"
+								py="xs"
+								c="white"
+								lineClamp={2}
+								style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+							>
+								{props.title}
+							</Title>
+						</Box>
+						<Image
+							src={thumbnail}
+							fill
+							style={{
+								objectFit: "cover",
+								transition: "transform 0.5s ease",
+								transform: isHovered ? "scale(1.03)" : undefined,
+								zIndex: 1,
+							}}
+							alt={""}
+						/>
+					</Box>
 				) : (
 					<Title order={4} fw="bold" p="sm">
 						{props.title}

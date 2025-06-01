@@ -1,6 +1,7 @@
 import SectionHeading from "@/components/layout/SectionHeading";
 import { getMembersByRole } from "@/data/members";
-import { Anchor, Card, Center, Container, SimpleGrid, Space, Stack, Text, Title } from "@mantine/core";
+import { Anchor, Box, Card, Center, Container, Group, SimpleGrid, Space, Stack, Text, Title } from "@mantine/core";
+import type { HTMLAttributeAnchorTarget } from "react";
 import {
 	FaEnvelope as IconEmail,
 	FaFileExcel as IconExcel,
@@ -30,77 +31,75 @@ export default async function HomeKontakt() {
 					</Stack>
 					<SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} spacing="lg" verticalSpacing="lg">
 						<ContactItem title="Hast du Interesse an einem Probetrainung?">
-							<>
+							<Text size="sm">
 								Melde dich bitte beim jeweiligen Trainer oder Ansprechperson der Mannschaft{" "}
-								<Anchor href="#mannschaften">siehe oben</Anchor>
-							</>
+								<ContactLink href="#mannschaften" label="siehe oben" />
+							</Text>
 						</ContactItem>
 						<ContactItem title="Möchtest du dem Verein beitreten?">
-							<>
-								Hier gehts zur <Anchor href="/beitragsordnung/">Beitragsordnung</Anchor> und hier zum{" "}
-								<Anchor
+							<Text size="sm">
+								Hier gehts zur <ContactLink href="/beitragsordnung/" label="Beitragsordnung" /> und hier zum{" "}
+								<ContactLink
 									href="https://vcm.kurabu.com/de/join/"
 									target="_blank"
-									style={{ display: "inline-flex", gap: 4 }}
-								>
-									<IconExtern className="inline-block whitespace-nowrap" /> Anmeldeformular
-								</Anchor>{" "}
+									label="Anmeldeformular"
+									icon={<IconExtern />}
+								/>{" "}
 								auf unserer Verwaltungssoftware KURABU.
-							</>
+							</Text>
 						</ContactItem>
 						<ContactItem title="Hast du Fragen zu deiner Mitgliedschaft?">
-							<>
+							<Text size="sm">
 								Melde dich bitte direkt bei {membershipManager?.name}{" "}
-								<Anchor
+								<ContactLink
 									href="mailto:mitgliedschaft@vcmuellheim.de?subject=Volleyball Club Müllheim"
 									target="_blank"
-									style={{ display: "inline-flex", gap: 4 }}
-								>
-									<IconEmail className="inline-block whitespace-nowrap" /> mitgliedschaft@vcmuellheim.de
-								</Anchor>
-							</>
+									label="mitgliedschaft@vcmuellheim.de"
+									icon={<IconEmail />}
+								/>
+							</Text>
 						</ContactItem>
 						<ContactItem title="Hast du Fragen zu deiner Beitragszahlung?">
-							<>
+							<Text size="sm">
 								Melde dich bitte direkt bei {treasurer?.name}{" "}
-								<Anchor
+								<ContactLink
 									href="mailto:kassier@vcmuellheim.de?subject=Volleyball Club Müllheim"
 									target="_blank"
-									style={{ display: "inline-flex", gap: 4 }}
-								>
-									<IconEmail className="inline-block" /> kassier@vcmuellheim.de
-								</Anchor>
-							</>
+									label="kassier@vcmuellheim.de"
+									icon={<IconEmail />}
+								/>
+							</Text>
 						</ContactItem>
 						<ContactItem title="Möchtest du Spesen abrechnen?">
-							<>
+							<Text size="sm">
 								Hier findest du die{" "}
-								<Anchor
+								<ContactLink
 									href="https://vcmuellheim.de/docs/spesenabrechnung.xlsx"
-									style={{ display: "inline-flex", gap: 4 }}
-								>
-									<IconExcel className="inline-block" /> Spesenabrechnung
-								</Anchor>{" "}
+									label="Spesenabrechnung"
+									icon={<IconExcel />}
+								/>{" "}
 								und{" "}
-								<Anchor
+								<ContactLink
 									href="https://vcmuellheim.de/docs/trainerverguetung.xlsx"
-									style={{ display: "inline-flex", gap: 4 }}
-								>
-									<IconExcel className="inline-block" /> Trainervergütung
-								</Anchor>
-							</>
+									label="Trainervergütung"
+									icon={<IconExcel />}
+								/>
+							</Text>
 						</ContactItem>
 						<ContactItem title="Hast du Fragen zu unserem Branding?">
-							<>
-								Farben und Logo Dateien findest du im <Anchor href="/brand">Brand Guide</Anchor>
-							</>
+							<Text size="sm">
+								Farben und Logo Dateien findest du im <ContactLink href="/brand" label="Brand Guide" />
+							</Text>
 						</ContactItem>
 						<ContactItem title="Für alle weiteren Anliegen:">
-							<Text>
+							<Text size="sm">
 								Nutze gerne unseren Mailverteiler{" "}
-								<Anchor href="mailto:info@vcmuellheim.de" target="_blank" style={{ display: "inline-flex", gap: 4 }}>
-									<IconEmail className="inline-block" /> info@vcmuellheim.de
-								</Anchor>
+								<ContactLink
+									href={"mailto:info@vcmuellheim.de"}
+									target={"_blank"}
+									label={"info@vcmuellheim.de"}
+									icon={<IconEmail />}
+								/>
 							</Text>
 						</ContactItem>
 					</SimpleGrid>
@@ -116,8 +115,24 @@ function ContactItem({ title, children }: { title: string; children: React.React
 		<Card>
 			<Stack gap={0}>
 				<Title order={5}>{title}</Title>
-				<Text size="sm">{children}</Text>
+				<Box>{children}</Box>
 			</Stack>
 		</Card>
+	);
+}
+
+function ContactLink({
+	href,
+	target,
+	label,
+	icon,
+}: { href: string; target?: HTMLAttributeAnchorTarget; label: string; icon?: React.ReactNode }) {
+	return (
+		<Anchor href={href} target={target} display="inline-block" underline="never">
+			<Group gap={4} align="baseline">
+				{icon}
+				<Text>{label}</Text>
+			</Group>
+		</Anchor>
 	);
 }

@@ -1,16 +1,16 @@
+"use cache";
 import { getTeams } from "@/data/teams";
 import { Club } from "@/project.config";
-// "use cache";
-// cacheLife("minutes");
-// import { unstable_cacheLife as cacheLife } from "next/cache";
 import { samsClubMatches, samsMatches } from "@/utils/sams/sams-server-actions";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 import { type IcsCalendar, type IcsEvent, generateIcsCalendar } from "ts-ics";
 dayjs.extend(customParseFormat);
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ teamSlug: string }> }) {
+	cacheLife("minutes");
 	try {
 		const { teamSlug } = await params;
 		const sanitisedTeam = teamSlug.replace(".ics", "").toLowerCase();

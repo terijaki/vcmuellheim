@@ -1,4 +1,4 @@
-"use server";
+"server-only"
 import { payload } from "./payload-client";
 
 export async function getNews(limit = 50, page = 1) {

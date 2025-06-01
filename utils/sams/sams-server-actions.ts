@@ -1,4 +1,4 @@
-"use server";
+"server-only";
 import { payload } from "@/data/payload-client";
 import type { SamsClub } from "@/data/payload-types";
 import { SAMS } from "@/project.config";

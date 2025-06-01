@@ -1,3 +1,4 @@
+"server-only";
 import { Mastodon } from "@/project.config";
 
 const INSTANCE: string = Mastodon.instance;
