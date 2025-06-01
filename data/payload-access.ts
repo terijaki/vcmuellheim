@@ -22,8 +22,6 @@ export const isAdmin: Access = ({ req: { user } }) => {
 };
 
 export const isModerator: Access = ({ req: { user } }) => {
-	// if (user?.role === "admin") return true;
-	// if (user?.role === "moderator") return true;
 	if (isRoleModerator(user?.role)) return true;
 	return false;
 };
