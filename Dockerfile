@@ -24,6 +24,10 @@ COPY . .
 ENV NODE_ENV=production
 ENV DOCKER_BUILD=true
 ENV TZ=Europe/Berlin
+ARG PAYLOAD_SECRET
+ENV PAYLOAD_SECRET=$PAYLOAD_SECRET
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
 RUN cat .env.development.local >> .env || true
 RUN bun run build
 
