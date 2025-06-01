@@ -2,10 +2,9 @@
 import type { Team } from "@/data/payload-types";
 import { Club } from "@/project.config";
 import { ActionIcon, Anchor, Box, Button, Card, Collapse, Group, Stack, Text, Title } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import dayjs from "dayjs";
 import Link from "next/link";
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
 	FaCalendarDays as IconCalendar,
 	FaClock as IconClock,
@@ -20,37 +19,48 @@ import { useTeamContext } from "./context/HomeTeamContext";
 export default function TeamCard(props: Team) {
 	const { id, slug, name, league, sbvvTeam, age, description, schedules, people, gender } = props;
 
-	const [opened, { toggle, open, close }] = useDisclosure(false);
 	const teamContext = useTeamContext();
-	const isMatchingLeague = Boolean(!teamContext.leagueParticipation || Boolean(league));
+
+	const isEmptyLeague = !teamContext.leagueParticipation;
+	const isMatchingLeague = Boolean(isEmptyLeague || Boolean(league));
 	const isEmptyGender = !teamContext.gender;
 	const isMatchingGender = Boolean(isEmptyGender || teamContext.gender === gender);
-	const isMatching = Boolean(isMatchingLeague && isMatchingGender);
+	const isEmptyBoth = isEmptyLeague && isEmptyGender;
+	const isMatching = Boolean(!isEmptyBoth && isMatchingLeague && isMatchingGender);
+
+	const [isOpen, setIsOpen] = useState(isMatching);
 
 	useEffect(() => {
-		if (opened && (!isMatching || isEmptyGender)) close();
-		if (!isEmptyGender && !opened && isMatching) open();
-	}, [isEmptyGender, isMatching, opened, close, open]);
+		setIsOpen(isMatching);
+	}, [isMatching]);
 
 	const emailAddresses = new Map<string, string>();
 
+	const fullOpacity = isOpen || isMatching || isEmptyBoth;
+
 	return (
-		<Card data-team-id={id} bg="white" style={{ opacity: isMatching || opened ? 1 : 0.75 }}>
-			<Group onClick={toggle} style={{ cursor: "pointer" }} wrap="nowrap" justify="space-between" align="flex-start">
+		<Card data-team-id={id} bg="white" style={{ opacity: fullOpacity ? 1 : 0.75 }}>
+			<Group
+				onClick={() => setIsOpen(!isOpen)}
+				style={{ cursor: "pointer" }}
+				wrap="nowrap"
+				justify="space-between"
+				align="flex-start"
+			>
 				<Title order={3} c="blumine">
 					{league ? `${name} - ${league}` : name}
 				</Title>
 				<ActionIcon variant="transparent">
 					<IconCollapse
 						style={{
-							transform: opened ? "rotate(-180deg)" : "rotate(0deg)",
+							transform: isOpen ? "rotate(-180deg)" : "rotate(0deg)",
 							transition: "transform 200ms",
 						}}
 					/>
 				</ActionIcon>
 			</Group>
 
-			<Collapse in={opened}>
+			<Collapse in={isOpen}>
 				<Stack>
 					{age && (
 						<Group gap="xs">
