@@ -32,8 +32,9 @@ jobs:
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           secrets: |
-              PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}
-              DATABASE_URL=${{ secrets.DATABASE_URL }}
+            PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+            SAMS_API_KEY=${{ secrets.SAMS_API_KEY }}
 
       - name: Deploy to Coolify
         run: |
