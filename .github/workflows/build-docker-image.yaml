@@ -35,6 +35,7 @@ jobs:
             PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             SAMS_API_KEY=${{ secrets.SAMS_API_KEY }}
+            SAMS_SERVER=${{ vars.SAMS_SERVER }}
 
       - name: Deploy to Coolify
         run: |
