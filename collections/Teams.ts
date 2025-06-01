@@ -220,7 +220,7 @@ export const Teams: CollectionConfig = {
 			label: "Instagram",
 			type: "text",
 			admin: {
-				description: `Instagram-Handle der Mannschaft, ohne @-Zeichen (e.g. "tagesschau"). Wird auf der Mannschaftskarte angezeigt und Beiträge der letzten ${Instagram.recentPostTimeframe} Tage werden automatisch eingebunden.`,
+				description: `Instagram-Handle der Mannschaft, ohne @-Zeichen (e.g. "tagesschau"). Wird auf der Mannschaftskarte angezeigt und Beiträge der letzten ${Instagram.recentPostTimeframe} Tage werden automatisch eingebunden. Die Synchronisierung kann bis zu 24 Stunden dauern.`,
 			},
 		},
 	],
