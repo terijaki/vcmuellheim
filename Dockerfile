@@ -29,8 +29,8 @@ RUN cat .env.development.local >> .env || true
 RUN --mount=type=secret,id=PAYLOAD_SECRET \
     --mount=type=secret,id=DATABASE_URL \
     export PAYLOAD_SECRET=$(cat /run/secrets/PAYLOAD_SECRET) && \
-    export DATABASE_URL=$(cat /run/secrets/DATABASE_URL)
-RUN bun run build
+    export DATABASE_URL=$(cat /run/secrets/DATABASE_URL) && \
+    bun run build
 
 # STEP 3: run the application
 # - define the step
