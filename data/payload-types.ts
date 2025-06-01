@@ -377,7 +377,7 @@ export interface Team {
     | null;
   images?: (string | Media)[] | null;
   /**
-   * Instagram-Handle der Mannschaft, ohne @-Zeichen (e.g. "tagesschau"). Wird auf der Mannschaftskarte angezeigt und Beiträge der letzten 30 Tage werden automatisch eingebunden.
+   * Instagram-Handle der Mannschaft, ohne @-Zeichen (e.g. "tagesschau"). Wird auf der Mannschaftskarte angezeigt und Beiträge der letzten 30 Tage werden automatisch eingebunden. Die Synchronisierung kann bis zu 24 Stunden dauern.
    */
   instagram?: string | null;
   updatedAt: string;
