@@ -5,8 +5,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: "terijaki/vcmuellheim-website"
-  PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
-  DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
 jobs:
   build-push-deploy:
@@ -33,12 +31,9 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          secret-envs: |
-            PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}
-            DATABASE_URL=${{ secrets.DATABASE_URL }}
           secrets: |
-            PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}
-            DATABASE_URL=${{ secrets.DATABASE_URL }}
+              PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}
+              DATABASE_URL=${{ secrets.DATABASE_URL }}
 
       - name: Deploy to Coolify
         run: |

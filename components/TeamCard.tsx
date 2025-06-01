@@ -27,11 +27,10 @@ export default function TeamCard(props: Team) {
 	const isMatchingGender = Boolean(isEmptyGender || teamContext.gender === gender);
 	const isMatching = Boolean(isMatchingLeague && isMatchingGender);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		if (opened && (!isMatching || isEmptyGender)) close();
 		if (!isEmptyGender && !opened && isMatching) open();
-	}, [teamContext]);
+	}, [isEmptyGender, isMatching, opened, close, open]);
 
 	const emailAddresses = new Map<string, string>();
 

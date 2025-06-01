@@ -3,7 +3,7 @@ import { Center, Loader } from "@mantine/core";
 
 export default function Loading() {
 	return (
-		<PageWithHeading title=" ">
+		<PageWithHeading title="Lade..">
 			<Center p="xl">
 				<Loader />
 			</Center>

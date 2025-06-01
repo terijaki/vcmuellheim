@@ -24,11 +24,12 @@ COPY . .
 ENV NODE_ENV=production
 ENV DOCKER_BUILD=true
 ENV TZ=Europe/Berlin
-ARG PAYLOAD_SECRET
-ENV PAYLOAD_SECRET=$PAYLOAD_SECRET
-ARG DATABASE_URL
-ENV DATABASE_URL=$DATABASE_URL
 RUN cat .env.development.local >> .env || true
+# Mount secrets as environment variables
+RUN --mount=type=secret,id=PAYLOAD_SECRET \
+    --mount=type=secret,id=DATABASE_URL \
+    export PAYLOAD_SECRET=$(cat /run/secrets/PAYLOAD_SECRET) && \
+    export DATABASE_URL=$(cat /run/secrets/DATABASE_URL)
 RUN bun run build
 
 # STEP 3: run the application
