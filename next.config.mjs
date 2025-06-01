@@ -21,19 +21,19 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "www.volleyball-baden.de",
+        hostname: "**.volleyball-baden.de",
         port: "",
         pathname: "/uploads/**",
       },
       {
         protocol: "https",
-        hostname: "*.cdninstagram.com",
+        hostname: "**.cdninstagram.com",
         port: "",
         pathname: "/**",
       },
       {
         protocol: "https",
-        hostname: "*.fbcdn.net",
+        hostname: "**.fbcdn.net",
         port: "",
         pathname: "/**",
       },

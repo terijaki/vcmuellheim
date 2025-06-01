@@ -34,7 +34,23 @@ export const Members: CollectionConfig = {
 		},
 		{
 			name: "email",
+			label: "E-Mail",
 			type: "email",
+		},
+		{
+			name: "phone",
+			label: "Telefon",
+			type: "text",
+		},
+		{
+			name: "roles",
+			label: "Rolle",
+			type: "relationship",
+			relationTo: "roles",
+			hasMany: true,
+			admin: {
+				sortOptions: "name",
+			},
 		},
 		{
 			name: "avatar",
@@ -44,13 +60,6 @@ export const Members: CollectionConfig = {
 			filterOptions: {
 				mimeType: { contains: "image" },
 			},
-		},
-		{
-			name: "roles",
-			label: "Rolle",
-			type: "relationship",
-			relationTo: "roles",
-			hasMany: true,
 		},
 	],
 };

@@ -1,6 +1,6 @@
 import SectionHeading from "@/components/layout/SectionHeading";
 import { getMembersByRole } from "@/data/members";
-import { Anchor, Box, Card, Center, Container, Group, SimpleGrid, Space, Stack, Text, Title } from "@mantine/core";
+import { Anchor, Box, Card, Center, Container, Group, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import type { HTMLAttributeAnchorTarget } from "react";
 import {
 	FaEnvelope as IconEmail,
@@ -17,7 +17,7 @@ export default async function HomeKontakt() {
 
 	return (
 		<Center>
-			<Container size="xl" mx={{ base: undefined, xs: "xl" }}>
+			<Container size="xl" mx={{ base: undefined, xs: "xl" }} py="xl">
 				<ScrollAnchor name="kontakt" />
 				<Stack gap="xl">
 					<Stack gap={0}>
@@ -97,13 +97,12 @@ export default async function HomeKontakt() {
 								<ContactLink
 									href={"mailto:info@vcmuellheim.de"}
 									target={"_blank"}
-									label={"info@vcmuellheim.de"}
+									label="info@vcmuellheim.de"
 									icon={<IconEmail />}
 								/>
 							</Text>
 						</ContactItem>
 					</SimpleGrid>
-					<Space h="xl" />
 				</Stack>
 			</Container>
 		</Center>

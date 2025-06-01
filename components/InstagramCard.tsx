@@ -26,7 +26,7 @@ export default function InstagramCard(post: InstagramPost) {
 		videoUrl,
 	} = post;
 
-	// fetch data dynamicalls based on instagram url in our teams
+	// fetch data dynamicallys based on instagram url in our teams
 
 	return (
 		<Card

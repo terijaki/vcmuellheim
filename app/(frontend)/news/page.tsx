@@ -1,10 +1,10 @@
 import NewsCard from "@/components/NewsCard";
+import Paginator from "@/components/Paginator";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import { getNews } from "@/data/news";
 import { Center, Container, SimpleGrid, Stack } from "@mantine/core";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import Paginator from "./Paginator";
 
 export const metadata: Metadata = { title: "News" };
 

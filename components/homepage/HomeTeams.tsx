@@ -21,7 +21,7 @@ export default async function HomeTeams() {
 	return (
 		<Box bg="aquahaze">
 			<ScrollAnchor name="mannschaften" />
-			<Container size="xl" pb="xl">
+			<Container size="xl" py="xl">
 				<Stack>
 					<Stack gap={0}>
 						<SectionHeading text="Mannschaften" />

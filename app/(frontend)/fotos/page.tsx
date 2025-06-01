@@ -1,3 +1,4 @@
+import Paginator from "@/components/Paginator";
 import PictureCard from "@/components/PictureCard";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import { getPictures } from "@/data/pictures";
@@ -6,7 +7,6 @@ import { Center, Group } from "@mantine/core";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import Paginator from "../news/Paginator";
 
 export const metadata: Metadata = { title: "Fotogalerie" };
 

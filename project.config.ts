@@ -22,3 +22,8 @@ export const Mastodon = {
 	name: "VCM",
 	clientId: "109553572668731614",
 };
+/** The clubs Instagram settings. */
+export const Instagram = {
+	recentPostTimeframe: 30, // days
+	mainAccount: "vcmuellheim",
+};

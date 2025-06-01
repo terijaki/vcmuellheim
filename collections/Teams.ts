@@ -1,4 +1,5 @@
 import { isModerator } from "@/data/payload-access";
+import { Instagram } from "@/project.config";
 import { slugify } from "@/utils/slugify";
 import type { CollectionConfig } from "payload";
 
@@ -26,6 +27,7 @@ export const Teams: CollectionConfig = {
 		beforeChange: [
 			({ data }) => {
 				if (data.name) data.slug = slugify(data.name, true);
+				if (data.instagram) data.instagram = data.instagram.toLowerCase().trim();
 				return data;
 			},
 		],
@@ -39,6 +41,34 @@ export const Teams: CollectionConfig = {
 			unique: true,
 		},
 		{
+			type: "row",
+			fields: [
+				{
+					name: "gender",
+					label: "Geschlecht",
+					type: "select",
+					options: [
+						{ label: "Männlich", value: "men" },
+						{ label: "Weiblich", value: "woman" },
+						{ label: "Gemischt", value: "mixed" },
+					],
+					required: true,
+					admin: {
+						width: "66%",
+					},
+				},
+				{
+					name: "age",
+					label: "Mindestalter",
+					type: "number",
+					min: 1,
+					admin: {
+						width: "33%",
+					},
+				},
+			],
+		},
+		{
 			name: "slug",
 			type: "text",
 			admin: {
@@ -46,17 +76,6 @@ export const Teams: CollectionConfig = {
 				readOnly: true,
 				hidden: true,
 			},
-		},
-		{
-			name: "gender",
-			label: "Geschlecht",
-			type: "select",
-			options: [
-				{ label: "Männlich", value: "men" },
-				{ label: "Weiblich", value: "woman" },
-				{ label: "Gemischt", value: "mixed" },
-			],
-			required: true,
 		},
 		{
 			name: "league",
@@ -86,6 +105,7 @@ export const Teams: CollectionConfig = {
 			admin: {
 				condition: (data) => Boolean(data?.league),
 				description: "Verknüpfung zu einem Team im SBVV-System. Wird für den Spielplan und die Ergebnisse benötigt.",
+				sortOptions: "nameWithSeries",
 			},
 		},
 		{
@@ -93,12 +113,7 @@ export const Teams: CollectionConfig = {
 			label: "Beschreibung",
 			type: "textarea",
 		},
-		{
-			name: "age",
-			label: "Mindestalter",
-			type: "number",
-			min: 1,
-		},
+
 		{
 			name: "people",
 			label: "Personen",
@@ -199,6 +214,14 @@ export const Teams: CollectionConfig = {
 			type: "upload",
 			relationTo: "media",
 			hasMany: true,
+		},
+		{
+			name: "instagram",
+			label: "Instagram",
+			type: "text",
+			admin: {
+				description: `Instagram-Handle der Mannschaft, ohne @-Zeichen (e.g. "tagesschau"). Wird auf der Mannschaftskarte angezeigt und Beiträge der letzten ${Instagram.recentPostTimeframe} Tage werden automatisch eingebunden.`,
+			},
 		},
 	],
 };

@@ -1,11 +1,10 @@
 import SectionHeading from "@/components/layout/SectionHeading";
 import { getNews } from "@/data/news";
-import { getRecentInstagramPosts } from "@/utils/social/instagram";
 import { Button, Center, Container, SimpleGrid, Stack, Text } from "@mantine/core";
+import dayjs from "dayjs";
 import { unstable_cacheLife as cacheLife } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
-import InstagramCard from "../InstagramCard";
 import NewsCard from "../NewsCard";
 import ScrollAnchor from "./ScrollAnchor";
 
@@ -13,9 +12,15 @@ export default async function HomeNews() {
 	"use cache";
 	cacheLife("minutes");
 
-	const news = await getNews(4, undefined);
+	const newsData = await getNews(4, undefined);
+	let news = newsData?.docs;
 
-	const instagrams = await getRecentInstagramPosts();
+	// if the 3 and 4th news are older than 3 months, exclude them
+	if (news && news.length > 2) {
+		const threeMonthsAgo = dayjs().subtract(3, "month");
+		const thirdIsOld = dayjs(news[2].publishedDate).isBefore(threeMonthsAgo);
+		if (thirdIsOld) news = news.splice(2, 2);
+	}
 
 	return (
 		<Container size="xl" py="md">
@@ -24,7 +29,7 @@ export default async function HomeNews() {
 				<SectionHeading text="News" />
 				<Suspense fallback={<Text>Lade Newsbeiträge</Text>}>
 					<SimpleGrid cols={{ base: 1, sm: 2 }}>
-						{news?.docs.map((post) => {
+						{news?.map((post) => {
 							// filter out the thumbnail urls
 							const thumbnails = post.images
 								?.map((i) => (typeof i === "string" ? i : i.url))
@@ -45,16 +50,6 @@ export default async function HomeNews() {
 							News-Archiv
 						</Button>
 					</Center>
-				</Suspense>
-				<Suspense>
-					<Stack>
-						<SectionHeading text="Instagram" />
-						<SimpleGrid cols={{ base: 1, md: 2 }}>
-							{instagrams.map((post) => {
-								return <InstagramCard key={post.id} {...post} />;
-							})}
-						</SimpleGrid>
-					</Stack>
 				</Suspense>
 			</Stack>
 		</Container>

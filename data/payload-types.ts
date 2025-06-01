@@ -248,8 +248,9 @@ export interface Member {
   id: string;
   name: string;
   email?: string | null;
-  avatar?: (string | null) | Media;
+  phone?: string | null;
   roles?: (string | Role)[] | null;
+  avatar?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -324,11 +325,12 @@ export interface Sponsor {
 export interface Team {
   id: string;
   name: string;
+  gender: 'men' | 'woman' | 'mixed';
+  age?: number | null;
   /**
    * Automatisch generiert vom Namen
    */
   slug?: string | null;
-  gender: 'men' | 'woman' | 'mixed';
   /**
    * Für Mannschaften die nicht am Ligabetrieb teilnehmen, lasse das Feld frei.
    */
@@ -352,7 +354,6 @@ export interface Team {
    */
   sbvvTeam?: (string | null) | SamsTeam;
   description?: string | null;
-  age?: number | null;
   people?: {
     /**
      * Alle Trainer werden auf der Mannschaftskarte angezeigt; auch Co-Trainer.
@@ -375,6 +376,10 @@ export interface Team {
       }[]
     | null;
   images?: (string | Media)[] | null;
+  /**
+   * Instagram-Handle der Mannschaft, ohne @-Zeichen (e.g. "tagesschau"). Wird auf der Mannschaftskarte angezeigt und Beiträge der letzten 30 Tage werden automatisch eingebunden.
+   */
+  instagram?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -639,8 +644,9 @@ export interface RolesSelect<T extends boolean = true> {
 export interface MembersSelect<T extends boolean = true> {
   name?: T;
   email?: T;
-  avatar?: T;
+  phone?: T;
   roles?: T;
+  avatar?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -650,12 +656,12 @@ export interface MembersSelect<T extends boolean = true> {
  */
 export interface TeamsSelect<T extends boolean = true> {
   name?: T;
-  slug?: T;
   gender?: T;
+  age?: T;
+  slug?: T;
   league?: T;
   sbvvTeam?: T;
   description?: T;
-  age?: T;
   people?:
     | T
     | {
@@ -676,6 +682,7 @@ export interface TeamsSelect<T extends boolean = true> {
         id?: T;
       };
   images?: T;
+  instagram?: T;
   updatedAt?: T;
   createdAt?: T;
 }

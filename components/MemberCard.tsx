@@ -6,10 +6,10 @@ import { FaUser as IconAvatar } from "react-icons/fa6";
 
 export default async function MemberCard({
 	member,
-	showRole,
+	show,
 	dark,
-}: { member: Member; showRole?: boolean; dark?: boolean }) {
-	const { id, name, email, avatar, roles } = member;
+}: { member: Member; show?: "roles" | "email" | "phone"; dark?: boolean }) {
+	const { id, name, email, phone, avatar, roles } = member;
 
 	const roleNames = roles?.map((role) => (typeof role === "object" ? role.name : role));
 	const avatarUrl = avatar && typeof avatar === "object" ? avatar.url : avatar;
@@ -37,9 +37,19 @@ export default async function MemberCard({
 						{name}
 					</Text>
 				</Group>
-				{showRole && roles && (
+				{show === "roles" && roles && (
 					<Center p={2} c="white" bg="blumine">
 						<Text size="xs">{roleNames?.join(", ")}</Text>
+					</Center>
+				)}
+				{show === "phone" && phone && (
+					<Center p={2} c="white" bg="blumine">
+						<Text size="xs">{phone}</Text>
+					</Center>
+				)}
+				{show === "email" && email && (
+					<Center p={2} c="white" bg="blumine">
+						<Text size="xs">{email}</Text>
 					</Center>
 				)}
 			</Stack>

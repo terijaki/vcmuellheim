@@ -1,3 +1,4 @@
+import { Instagram } from "@/project.config";
 import { FaFacebook as IconFacebook, FaInstagram as IconInstagram, FaMastodon as IconMastodon } from "react-icons/fa6";
 
 export default function socialList() {
@@ -11,7 +12,7 @@ export default function socialList() {
 		},
 		{
 			name: "Instagram",
-			href: "https://www.instagram.com/vcmuellheim",
+			href: `https://www.instagram.com/${Instagram.mainAccount}`,
 			icon: <IconInstagram />,
 			target: "_blank",
 			rel: "noreferrer",

@@ -41,7 +41,7 @@ export default async function HomeMembers() {
 		.filter((member) => member.roles && member.roles.length > 0);
 
 	return (
-		<Container size="md">
+		<Container size="md" py="xl">
 			<ScrollAnchor name="verein" />
 			<Stack>
 				{boardMembers.length > 0 && (
@@ -71,7 +71,7 @@ function MemberList({ members, showRole }: { members: Member[]; showRole?: boole
 	return (
 		<Group justify="center">
 			{members?.map((member) => {
-				return <MemberCard key={member.id} member={member} showRole={showRole} />;
+				return <MemberCard key={member.id} member={member} show={showRole ? "roles" : undefined} />;
 			})}
 		</Group>
 	);

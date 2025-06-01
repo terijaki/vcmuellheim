@@ -1,5 +1,6 @@
 import HomeFotos from "@/components/homepage/HomeFotos";
 import HomeHeimspiele from "@/components/homepage/HomeHeimspiele";
+import HomeInstagram from "@/components/homepage/HomeInstagram";
 import HomeIntro from "@/components/homepage/HomeIntro";
 import HomeKontakt from "@/components/homepage/HomeKontakt";
 import HomeMembers from "@/components/homepage/HomeMembers";
@@ -7,7 +8,7 @@ import HomeNews from "@/components/homepage/HomeNews";
 import HomeSponsors from "@/components/homepage/HomeSponsors";
 import HomeTeams from "@/components/homepage/HomeTeams";
 import { samsClubUpdate } from "@/jobs/tasks/sams-club-update";
-import { Center, Loader } from "@mantine/core";
+import { Center, Loader, Stack } from "@mantine/core";
 import { Suspense } from "react";
 
 if (!samsClubUpdate.currentRun()) samsClubUpdate.resume(); // Resume the job if it is paused
@@ -20,9 +21,12 @@ export default async function Page() {
 	);
 
 	return (
-		<>
+		<Stack gap={0}>
 			<HomeIntro />
 			<HomeNews />
+			<Suspense fallback={<CenteredLoader />}>
+				<HomeInstagram />
+			</Suspense>
 			<Suspense fallback={<CenteredLoader />}>
 				<HomeHeimspiele />
 			</Suspense>
@@ -39,6 +43,6 @@ export default async function Page() {
 				<HomeFotos />
 			</Suspense>
 			<HomeKontakt />
-		</>
+		</Stack>
 	);
 }
