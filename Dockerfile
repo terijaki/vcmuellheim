@@ -28,8 +28,10 @@ RUN cat .env.development.local >> .env || true
 # Mount secrets as environment variables
 RUN --mount=type=secret,id=PAYLOAD_SECRET \
     --mount=type=secret,id=DATABASE_URL \
+    --mount=type=secret,id=SAMS_API_KEY \
     export PAYLOAD_SECRET=$(cat /run/secrets/PAYLOAD_SECRET) && \
     export DATABASE_URL=$(cat /run/secrets/DATABASE_URL) && \
+    export SAMS_API_KEY=$(cat /run/secrets/SAMS_API_KEY) && \
     bun run build
 
 # STEP 3: run the application
