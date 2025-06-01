@@ -4,11 +4,11 @@ import type { CollectionConfig } from "payload";
 
 export const BusBookings: CollectionConfig = {
 	slug: "bus-bookings",
-	labels: { plural: "Buchungen", singular: "Buchung" },
+	labels: { plural: "Bus Buchungen", singular: "Bus Buchung" },
 	defaultSort: "category",
 	admin: {
 		useAsTitle: "id",
-		group: "Bus Planung",
+		group: "Resourcen",
 		defaultColumns: ["schedule-start", "schedule-end", "traveler", "comment", "booker"],
 		pagination: { defaultLimit: 50 },
 		livePreview: {
