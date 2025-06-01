@@ -5,6 +5,8 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: "terijaki/vcmuellheim-website"
+  PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
 jobs:
   build-push-deploy:
