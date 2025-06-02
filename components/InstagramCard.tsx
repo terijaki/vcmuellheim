@@ -86,6 +86,7 @@ export default function InstagramCard(post: InstagramPost) {
 								transition: "transform 0.5s ease",
 								transform: isHovered ? "scale(1.03)" : undefined,
 							}}
+							unoptimized
 						/>
 					</GridCol>
 					<GridCol span={8}>
