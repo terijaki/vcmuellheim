@@ -1,6 +1,7 @@
 import { withPayload } from "@payloadcms/next/withPayload";
 // @ts-check
 import withPlaiceholder from "@plaiceholder/next";
+import { withSentryConfig } from "@sentry/nextjs";
 
 /**
  * @type {import('next').NextConfig}
@@ -76,4 +77,8 @@ const nextConfig = {
     optimizePackageImports: ["@mantine/core"],
   },
 };
-export default withPayload(withPlaiceholder(nextConfig));
+export default withSentryConfig(withPayload(withPlaiceholder(nextConfig)), {
+  org: "volleyballclub-mullheim-ev",
+  project: "volleyball-website",
+  disableLogger: true,
+});
