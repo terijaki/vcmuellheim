@@ -1,6 +1,5 @@
 import { withPayload } from "@payloadcms/next/withPayload";
 import withPlaiceholder from "@plaiceholder/next";
-import { withSentryConfig } from "@sentry/nextjs";
 
 /**
  * @type {import('next').NextConfig}
@@ -76,15 +75,4 @@ const nextConfig = {
     optimizePackageImports: ["@mantine/core"],
   },
 };
-export default withSentryConfig(withPayload(withPlaiceholder(nextConfig)), {
-  org: "volleyballclub-mullheim-ev",
-  project: "volleyball-website",
-  disableLogger: true,
-  silent: true,
-  telemetry: false,
-  hideSourceMaps: true,
-  sourcemaps: {
-    disable: process.env.DOCKER_BUILD === "true",
-  },
-  release: process.env.DOCKER_BUILD === "true" ? undefined : { create: true },
-});
+export default withPayload(withPlaiceholder(nextConfig));

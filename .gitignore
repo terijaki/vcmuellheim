@@ -24,6 +24,3 @@ next-env.d.ts
 
 # payload
 media
-
-# Sentry Config File
-.env.sentry-build-plugin
