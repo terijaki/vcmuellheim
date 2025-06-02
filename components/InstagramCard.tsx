@@ -26,6 +26,8 @@ export default function InstagramCard(post: InstagramPost) {
 		videoUrl,
 	} = post;
 
+	const proxyImageUrl = displayUrl ? `/pimg?url=${encodeURIComponent(displayUrl)}` : "";
+
 	// fetch data dynamicallys based on instagram url in our teams
 
 	return (
@@ -52,7 +54,7 @@ export default function InstagramCard(post: InstagramPost) {
 								muted
 								loop
 								playsInline
-								poster={displayUrl}
+								poster={proxyImageUrl}
 								controls={false}
 								onTimeUpdate={(e) => {
 									const video = e.target as HTMLVideoElement;
@@ -77,7 +79,7 @@ export default function InstagramCard(post: InstagramPost) {
 							/>
 						)}
 						<Image
-							src={displayUrl}
+							src={proxyImageUrl}
 							fill
 							//  width={dimensionsWidth} height={dimensionsHeight}
 							alt={""}
@@ -86,7 +88,6 @@ export default function InstagramCard(post: InstagramPost) {
 								transition: "transform 0.5s ease",
 								transform: isHovered ? "scale(1.03)" : undefined,
 							}}
-							unoptimized
 						/>
 					</GridCol>
 					<GridCol span={8}>
