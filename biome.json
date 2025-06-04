@@ -32,6 +32,18 @@
 			"recommended": true
 		}
 	},
+	"overrides": [
+		{
+			"include": ["data/sams/client.ts"],
+			"linter": {
+				"rules": {
+					"style": {
+						"noUnusedTemplateLiteral": "off"
+					}
+				}
+			}
+		}
+	],
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double"
