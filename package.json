@@ -14,16 +14,17 @@
 	"scripts": {
 		"dev": "next dev -p 3080",
 		"build": "next build",
-		"deploy": "node server.js",
+		"start": "node server.js",
+		"deploy": "bash scripts/deploy.sh",
 		"biome": "biome check --write",
 		"lint": "biome lint --write",
 		"next-lint": "next lint",
 		"payload-migrate": "bunx payload migrate:create",
-		"docker:build": "docker build -t vcmuellheim .",
-		"docker:watch": "docker run -p 3080:3080 -v $(pwd):/app -w /app vcmuellheim",
-		"docker:run": "docker run -p 3080:3080 vcmuellheim",
-		"docker": "bun run docker:build && bun run docker:run",
-		"docker:dev": "bun run docker:build && bun run docker:watch"
+		"container:build": "podman build -t vcmuellheim .",
+		"container:watch": "podman run -p 3080:3080 -v $(pwd):/app -w /app vcmuellheim",
+		"container:run": "podman run -p 3080:3080 vcmuellheim",
+		"container": "bun run podman:build && bun run podman:run",
+		"container:dev": "bun run podman:build && bun run podman:watch"
 	},
 	"dependencies": {
 		"@mantine/core": "^8.0.2",

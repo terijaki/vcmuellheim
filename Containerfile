@@ -19,12 +19,13 @@ RUN bun install --frozen-lockfile
 # - merge env files (this is used in dev only because in production they are set as secrets)
 FROM base AS builder
 WORKDIR /app
-COPY --from=dependencies /app/node_modules ./node_modules
-COPY . .
+ENV TZ=Europe/Berlin
 ENV NODE_ENV=production
 ENV DOCKER_BUILD=true
-ENV TZ=Europe/Berlin
-RUN cat .env.development.local >> .env || true
+ENV SENTRY_ENVIRONMENT=production
+ENV NEXT_TELEMETRY_DISABLED=1
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY . .
 RUN bun run build
 
 # STEP 3: run the application
@@ -39,8 +40,9 @@ RUN bun run build
 # - set the username, ports, hostname and finally run the app
 FROM base AS runner
 WORKDIR /app
-ENV NODE_ENV=production
 ENV TZ=Europe/Berlin
+ENV NODE_ENV=production
+ENV SENTRY_ENVIRONMENT=production
 RUN addgroup -S vcmuellheim && adduser -S -G vcmuellheim spieler
 RUN mkdir -p .next/cache
 RUN chown -R spieler:vcmuellheim .next
@@ -48,7 +50,6 @@ COPY --from=builder --chown=spieler:vcmuellheim /app/.next/standalone ./
 COPY --from=builder --chown=spieler:vcmuellheim /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/data/migrations ./data/migrations
-RUN cat .env.development.local >> .env || true
 
 USER spieler
 EXPOSE 3080
@@ -58,4 +59,6 @@ ENV HOSTNAME="0.0.0.0"
 HEALTHCHECK --start-period=5s --interval=2m --timeout=3s \
     CMD curl -f http://localhost:3080/ || exit 1
 
-CMD ["bun", "--env-file", ".env", "deploy"]
+CMD ["bun", "--env-file", ".env", "start"]
+
+LABEL org.opencontainers.image.source=https://github.com/terijaki/vcmuellheim
