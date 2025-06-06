@@ -8,7 +8,6 @@ import { type IcsCalendar, type IcsEvent, generateIcsCalendar } from "ts-ics";
 dayjs.extend(customParseFormat);
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ teamSlug: string }> }) {
-
 	try {
 		const { teamSlug } = await params;
 		const sanitisedTeamSlug = teamSlug.replace(".ics", "").toLowerCase();
@@ -94,6 +93,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 			headers: {
 				"Content-Type": "text/calendar; charset=utf-8",
 				"Content-Disposition": 'attachment; filename="all.ics"',
+				"Cache-Control": "public, max-age=1800, s-maxage=1800",
 			},
 		});
 	} catch (error) {
@@ -102,6 +102,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 			status: 500,
 			headers: {
 				"Content-Type": "text/plain",
+				"Cache-Control": "public, max-age=3600, s-maxage=3600",
 			},
 		});
 	}
