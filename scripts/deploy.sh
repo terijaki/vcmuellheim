@@ -43,7 +43,7 @@ echo "🏗️ Building Container image..."
 
 # Build with secrets
 podman build \
-    --memory=4g \
+    --memory=6g \
     -t ${IMAGE_NAME}:${TAG} .
 
 # Tag as latest if not already
