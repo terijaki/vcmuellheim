@@ -56,7 +56,8 @@
 		"react-icons": "^5.5.0",
 		"react-world-flags": "^1.6.0",
 		"sharp": "^0.34.2",
-		"ts-ics": "^2.1.6"
+		"ts-ics": "^2.1.6",
+		"zod": "^3.25.53"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
