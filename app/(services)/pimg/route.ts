@@ -4,7 +4,7 @@ function isValidInstagramUrl(url: string): boolean {
 	try {
 		const urlObj = new URL(url);
 		const hostname = urlObj.hostname.toLowerCase();
-		
+
 		// Check if hostname ends with allowed Instagram domains
 		return hostname.endsWith(".cdninstagram.com") || hostname.endsWith(".fbcdn.net");
 	} catch {

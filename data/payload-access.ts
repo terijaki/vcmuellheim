@@ -79,7 +79,8 @@ export const isModeratorOrSelf: Access = ({ req: { user } }) => {
 
 export const isModeratorOrAuthor: Access = ({ req: { user }, data }) => {
 	if (isRoleModerator(user?.role)) return true;
-	if (user) // TODO this does not work since the authors are not in the jwt
+	if (user)
+		// TODO this does not work since the authors are not in the jwt
 		return {
 			authors: {
 				contains: user.id,

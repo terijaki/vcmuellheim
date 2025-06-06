@@ -39,8 +39,8 @@ export default function Satzung() {
 						</li>
 						<li>
 							Der Verein verfolgt ausschließlich und unmittelbar gemeinnützige Zwecke im Sinne des Abschnitts
-							&quot;steuerbegünstigte Zwecke&quot; der Abgabenordnung. Der Verein ist selbstlos tätig und verfolgt nicht in erster
-							Linie eigenwirtschaftliche Zwecke.
+							&quot;steuerbegünstigte Zwecke&quot; der Abgabenordnung. Der Verein ist selbstlos tätig und verfolgt nicht
+							in erster Linie eigenwirtschaftliche Zwecke.
 						</li>
 						<li>
 							Mittel des Vereins dürfen nur für die satzungsgemäßen Zwecke verwendet werden. Die Mitglieder erhalten in

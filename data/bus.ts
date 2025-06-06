@@ -1,4 +1,4 @@
-"server-only"
+"server-only";
 import type { Where } from "payload";
 import { payload } from "./payload-client";
 

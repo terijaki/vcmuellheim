@@ -1,4 +1,4 @@
-"server-only"
+"server-only";
 import { payload } from "./payload-client";
 
 export async function getEvents(limit?: number, page?: number) {
