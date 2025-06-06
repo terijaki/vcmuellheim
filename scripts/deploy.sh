@@ -60,7 +60,6 @@ if [ "$TAG" != "latest" ]; then
 fi
 
 echo "✅ Successfully deployed ${IMAGE_NAME}:${TAG}"
-echo "📋 Image URL: ${IMAGE_NAME}:${TAG}"
 
 # Trigger Coolify deployment
 echo "🔄 Triggering Coolify deployment..."
@@ -85,7 +84,7 @@ TOTAL_TIME=$((END_TIME - START_TIME))
 MINUTES=$((TOTAL_TIME / 60))
 SECONDS=$((TOTAL_TIME % 60))
 
-echo "⏱️  Total deployment time: ${MINUTES}m ${SECONDS}s"
 echo ""
+echo "⏱️  Total deployment time: ${MINUTES}m ${SECONDS}s"
 echo "https://vcmuellheim.de"
 echo ""
