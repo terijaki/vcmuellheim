@@ -1,16 +1,14 @@
-"use cache";
 import { samsLeagueMatches } from "@/data/sams/sams-server-actions";
 import { getTeams } from "@/data/teams";
 import { Club } from "@/project.config";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { unstable_cacheLife as cacheLife } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 import { type IcsCalendar, type IcsEvent, generateIcsCalendar } from "ts-ics";
 dayjs.extend(customParseFormat);
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ teamSlug: string }> }) {
-	cacheLife("minutes");
+
 	try {
 		const { teamSlug } = await params;
 		const sanitisedTeamSlug = teamSlug.replace(".ics", "").toLowerCase();
@@ -35,11 +33,12 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
 		const leagueMatches = await samsLeagueMatches({ team: teamSamsUuid }); // if we found a team ID in the previous step it is used here. otherwise the function return club matches
 		const matches = leagueMatches?.matches;
-		const timestamp = leagueMatches?.timestamp || new Date();
+		const timestamp = new Date(leagueMatches?.timestamp || new Date());
 
 		// Convert matches to iCalendar events
 		const events = matches?.map((match) => {
-			const startTime = dayjs(`${match.date} ${match.time}`, "DD.MM.YYYY HH:mm").toDate();
+			const startTime = dayjs(`${match.date} ${match.time}`, "YYYY-MM-DD HH:mm");
+			if (!startTime.isValid()) console.warn(`Invalid date for match ${match.uuid}: ${match.date} ${match.time}`);
 
 			const teams = [];
 			const team1 = match._embedded?.team1;
@@ -68,7 +67,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 			if (score) description = `Ergebnis: ${score}, ${baseDescription}`;
 
 			const eventData: IcsEvent = {
-				start: { date: startTime, type: "DATE-TIME" },
+				start: { date: startTime.toDate(), type: "DATE-TIME" },
 				duration: { hours: 3 },
 				stamp: { date: timestamp, type: "DATE-TIME" },
 				uid: match.uuid,
@@ -83,7 +82,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 		const icsCalendar: IcsCalendar = {
 			prodId: Club.shortName,
 			version: "2.0",
-			events: events,
+			events: events?.filter(Boolean) || [], // Filter out null values from invalid dates
 			name: calendarTitle,
 		};
 

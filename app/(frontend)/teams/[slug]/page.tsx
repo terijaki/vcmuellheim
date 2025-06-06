@@ -78,12 +78,6 @@ export default async function TeamPage(props: {
 					<TeamPlayers seasonTeamId={seasonTeamId} />
 				</Suspense> */}
 				<Suspense fallback={<CenteredLoader />}>
-					<TeamMatches leagueUuid={leagueUuid} teamUuid={samsTeamUuid} slug={slug} />
-				</Suspense>
-				<Suspense fallback={<CenteredLoader />}>
-					<TeamRanking leagueUuid={leagueUuid} teamUuid={samsTeamUuid} />
-				</Suspense>
-				<Suspense fallback={<CenteredLoader />}>
 					<TeamSchedule schedules={team.schedules} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader />}>
@@ -91,6 +85,12 @@ export default async function TeamPage(props: {
 				</Suspense>
 				<Suspense fallback={<CenteredLoader />}>
 					<TeamPictures images={imageUrls} />
+				</Suspense>
+				<Suspense fallback={<CenteredLoader />}>
+					<TeamRanking leagueUuid={leagueUuid} teamUuid={samsTeamUuid} />
+				</Suspense>
+				<Suspense fallback={<CenteredLoader />}>
+					<TeamMatches leagueUuid={leagueUuid} teamUuid={samsTeamUuid} slug={slug} />
 				</Suspense>
 				<Center>
 					<Button component={Link} href="/#mannschaften">
@@ -157,9 +157,9 @@ async function TeamMatches({
 	const futureMatches = matches?.matches.filter((m) => m.results?.winner === null);
 	const pastMatches = matches?.matches.filter((m) => m.results?.winner !== null);
 
-	// check if its currently a month outside of the season
-	const currentMonth = new Date().getMonth() + 1;
-	const seasonMonth = !!(currentMonth >= 5 && currentMonth <= 9);
+	// check if its currently a month outside of the season (september to April)
+	const currentMonth = dayjs().month() + 1;
+	const isOffSeason = currentMonth >= 5 && currentMonth <= 9;
 
 	// webcal link
 	const headersList = await headers();
@@ -170,7 +170,7 @@ async function TeamMatches({
 		return (
 			<Card>
 				<CardTitle>Keine Spieltermine gefunden</CardTitle>
-				{seasonMonth && (
+				{isOffSeason && (
 					<Text>Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.</Text>
 				)}
 				<Text>
@@ -216,8 +216,8 @@ async function TeamMatches({
 			) : (
 				<Card>
 					<CardTitle>Spielplan</CardTitle>
-					<Text>Aktuell konnten keine Spieltermine gefunden werden.</Text>
-					{!seasonMonth && (
+					<Text>Aktuell stehen keine weiteren Spieltermine für diese Saison an.</Text>
+					{isOffSeason && (
 						<Text>
 							Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.
 						</Text>
