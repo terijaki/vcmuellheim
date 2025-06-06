@@ -101,9 +101,6 @@ export async function updateInstagamSchedule() {
 			}),
 		});
 		if (request.status !== 200) throw `Failed to update schedule for Instagram API. ${request.statusText}`;
-
-		const data = await request.json();
-		console.log("💚", data, "💚");
 	} catch (error) {
 		console.error("Error fetching Instagram posts: ", error);
 	}
