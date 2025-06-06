@@ -1,14 +1,19 @@
 import { getEvents } from "@/data/events";
 import type { Event } from "@/data/payload-types";
 import { type LeagueMatches, samsLeagueMatches } from "@/data/sams/sams-server-actions";
+import { getOurClubsSamsTeams } from "@/data/samsTeams";
 import { SAMS } from "@/project.config";
 import {
 	Anchor,
 	BackgroundImage,
 	Box,
 	Card,
+	Center,
 	Container,
+	Flex,
 	Group,
+	List,
+	ListItem,
 	Overlay,
 	SimpleGrid,
 	Stack,
@@ -16,16 +21,15 @@ import {
 	Title,
 } from "@mantine/core";
 import dayjs from "dayjs";
-import Link from "next/link";
-import { Fragment } from "react";
-import { FaAngleLeft as IconLeft, FaAngleRight as IconRight } from "react-icons/fa6";
+import "dayjs/locale/de";
 import EventCard from "../EventCard";
 import MapsLink from "../MapsLink";
 import ScrollAnchor from "./ScrollAnchor";
 
+dayjs.locale("de");
+
 const TIME_RANGE: number = 14; // controls the display matches taking place # days in the future
 const TIME_RANGE_MAX_MULTIPLIER: number = 3;
-const MIN_GAMES: number = 2;
 const MAX_GAMES: number = 4;
 
 export default async function HomeHeimspiele() {
@@ -35,7 +39,7 @@ export default async function HomeHeimspiele() {
 
 	// MATCHES
 	// get future matches from our teams
-	const leagueMatches = await samsLeagueMatches({});
+	const leagueMatches = await samsLeagueMatches({ range: "future" });
 	const matchesAll = leagueMatches?.matches || [];
 	// filter to only matches we are hosting
 	const matchesHomeGames = matchesAll?.filter((match) => {
@@ -44,21 +48,20 @@ export default async function HomeHeimspiele() {
 		if (teams.some((t) => t?.uuid === hostUuid && t?.name.includes(SAMS.name))) return true;
 	});
 	// sort by date
-	const matchesHomeGamesSorted = matchesHomeGames?.sort((b, a) => {
+	const matchesHomeGamesSorted = matchesHomeGames?.sort((a, b) => {
 		if (!a.date || !b.date) return 0;
 		return dayjs(a.date).valueOf() - dayjs(b.date).valueOf();
 	});
 	// count unique combination of date, location, league
-	const uniqueHostsStrings: string[] = [];
+	const uniqueHostsStrings = new Set<string>();
 	const homeMatchesToDisplay: LeagueMatches["matches"] = [];
 	matchesHomeGamesSorted?.map((m) => {
-		const dateLocationCombi: string = `${m.date}${m.leagueUuid}${m.location?.uuid}`; // string to avoid duplicates if two teams are in the same league
+		const dateLocationCombi: string = `${m.date}${m.location?.uuid}`;
 		if (
 			dayjs(m.date).isAfter(dayjs().add(TIME_RANGE, "days")) &&
-			uniqueHostsStrings.length >= MAX_GAMES &&
-			!uniqueHostsStrings.includes(dateLocationCombi)
+			(uniqueHostsStrings.size < MAX_GAMES || uniqueHostsStrings.has(dateLocationCombi))
 		) {
-			uniqueHostsStrings.push(dateLocationCombi);
+			uniqueHostsStrings.add(dateLocationCombi);
 			homeMatchesToDisplay.push(m);
 		}
 	});
@@ -67,13 +70,13 @@ export default async function HomeHeimspiele() {
 		<Box bg="blumine">
 			<ScrollAnchor name="heimspiele" />
 			<BackgroundImage src="/images/backgrounds/pageheading.jpg" py="md" style={{ zIndex: 0 }} pos="relative">
-				<Container size="xl">
+				<Container size="xl" px={{ base: "lg", md: "xl" }}>
 					<Stack>
 						{/* EVENTS */}
 						<EventsList events={events} />
 
 						{/* MATCHES */}
-						<HomeMatchesList homeMatches={matchesHomeGamesSorted} />
+						<HomeMatchesList homeMatches={homeMatchesToDisplay} />
 					</Stack>
 				</Container>
 
@@ -96,120 +99,115 @@ function EventsList({ events }: { events?: Event[] }) {
 	);
 }
 
-function HomeMatchesList({ homeMatches }: { homeMatches?: LeagueMatches["matches"] }) {
+async function HomeMatchesList({ homeMatches }: { homeMatches?: LeagueMatches["matches"] }) {
 	if (!homeMatches || homeMatches.length === 0) return null;
 
-	// arrays to sort and fill throghout the following process
-	const matchBuffer: string[] = [];
+	// league date so that we can get the league name from the league id
+	const ourTeams = await getOurClubsSamsTeams();
+	const leagues = new Map<string, string>();
+	for (const team of ourTeams || []) {
+		if (team.leagueUuid && team.leagueName) {
+			const cleanLeagueName = team.leagueName
+				.replace("Nord", "")
+				.replace("Ost", "")
+				.replace("Süd", "")
+				.replace("West", "");
+			leagues.set(team.leagueUuid, cleanLeagueName);
+		}
+	}
+	// Group by date and locationUuid, then by leagueUuid
+	const groupedMatches = homeMatches.reduce(
+		(acc, match) => {
+			const dateFormatted = dayjs(match.date).format("YYYY-MM-DD");
+			const locationUuid = match.location?.uuid || "unknown_location";
+			const primaryKey = `${dateFormatted}_${locationUuid}`;
+			const secondaryKey = match.leagueUuid || "unknown_league";
+			if (!acc[primaryKey]) acc[primaryKey] = {}; // create primary key
+			if (!acc[primaryKey][secondaryKey]) acc[primaryKey][secondaryKey] = []; // create secondary key
+			acc[primaryKey][secondaryKey].push(match);
+			return acc;
+		},
+		{} as Record<string, Record<string, typeof homeMatches>>,
+	);
 
 	return (
 		<Stack>
-			<Title order={2} c="white">
-				{homeMatches.length > 0 ? "Wir laden ein zum Heimspiel!" : "bevorstehende Veranstaltungen"}
-			</Title>
-			<Text c="white">In den kommenden Tagen spielen wir in Müllheim und freuen uns über jeden Zuschauer!</Text>
+			<Stack gap={0}>
+				<Title order={2} c="white">
+					{homeMatches.length > 0 ? "Wir laden ein zum Heimspiel!" : "bevorstehende Veranstaltungen"}
+				</Title>
+				<Text c="white">In den kommenden Tagen spielen wir in Müllheim und freuen uns über jeden Zuschauer!</Text>
+			</Stack>
 			<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-				{homeMatches.map((match) => {
-					// group games together
-					const dateLocationCombi: string = `dlc${match.date}${match.location?.uuid}`; // this is used to group games together
-					const groupFilterOne = !matchBuffer.includes(match.uuid) && !matchBuffer.includes(dateLocationCombi);
-					if (groupFilterOne) {
-						matchBuffer.push(match.uuid); // makes sure the specific match is already rendered, this avoids duplicates if two of our teams play against each other
-						matchBuffer.push(dateLocationCombi); // this groups games together if date and location match
-						return (
-							<Card bg="onyx" key={match.uuid}>
-								<Stack>
-									<time dateTime={match.date}>
-										<Text c="lion">{match.date}</Text>
+				{Object.entries(groupedMatches).map(([dateLocationKey, leagueGroups]) => {
+					const [date, locationUuid] = dateLocationKey.split("_");
+					const location = Object.entries(leagueGroups)[0][1][0]?.location;
+					// NEW CARD PER DATE AND LOCATION COMBO
+					return (
+						<Card bg="onyx" c="white" key={dateLocationKey}>
+							<Stack>
+								<Flex
+									direction={{ base: "column", sm: "row" }}
+									justify="space-between"
+									align={{ base: "flex-start", sm: "center" }}
+									columnGap="sm"
+								>
+									<time dateTime={date}>
+										<Text c="lion" fw="bold">
+											{dayjs(date).format("dddd, D MMMM YY")}
+										</Text>
 									</time>
 									<MapsLink
 										location={{
-											name: match.location?.name,
+											name: location?.name,
 											address: {
-												postalCode: match.location?.address?.postcode,
-												city: match.location?.address?.city,
-												street: match.location?.address?.street,
+												postalCode: location?.address?.postcode,
+												city: location?.address?.city,
+												street: location?.address?.street,
 											},
 										}}
 									/>
-
-									{/* dateTimeLeagueLocationCombi */}
-									{homeMatches.map((matchLeagueTime) => {
-										const dateTimeLeagueLocationCombi: string = `dtllc${match.date}${matchLeagueTime.time}${matchLeagueTime.leagueUuid}${match.location?.name}`; // this is used to group games
-										const groupFilterTwo = groupFilterOne && !matchBuffer.includes(dateTimeLeagueLocationCombi);
-										if (
-											groupFilterTwo &&
-											match.date === matchLeagueTime.date &&
-											match.location?.uuid === matchLeagueTime.location?.uuid
-										) {
-											matchBuffer.push(dateTimeLeagueLocationCombi); // this groups games together if date and location match
-											return (
-												<Fragment key={`League Name and Time ${matchLeagueTime.uuid}`}>
-													{/* League Name and Time */}
-													<p className="font-bold flex gap-1">
-														{/* <span> //TODO see if we can get the league name
-															{matchLeagueTime.matchSeries?.name
-																?.replace("Nord", "")
-																.replace("Ost", "")
-																.replace("Süd", "")
-																.replace("West", "")}
-														</span> */}
-														<span>ab {matchLeagueTime.time} Uhr</span>
-													</p>
-													{/* fetch the guest for this date, time, league and location combination */}
-													<ul>
-														{homeMatches.map((matchGuest) => {
-															if (
-																matchLeagueTime.location?.uuid === matchGuest.location?.uuid &&
-																match.date === matchGuest.date &&
-																matchLeagueTime.leagueUuid === matchGuest.leagueUuid
-															) {
-																const guestTeams = [matchGuest._embedded?.team1, matchGuest._embedded?.team2];
-																return (
-																	<Fragment key={`Guests${matchGuest.uuid}`}>
-																		{guestTeams?.map((t) => {
-																			if (
-																				t?.uuid !== matchGuest.host &&
-																				!matchBuffer.includes(t?.uuid + dateLocationCombi)
-																			) {
-																				matchBuffer.push(t?.uuid + dateLocationCombi);
-																				return (
-																					<li key={t?.uuid} className="pl-4 opacity-75">
-																						{t?.name}
-																						{/* {guestTeams?.map((teamCheckTwo, index, array) => {
-																							if ( // FIX this display
-																								array[0].club === matchGuest.host?.club &&
-																								array[1].club === matchGuest.host?.club &&
-																								teamCheckTwo.name !== matchGuest.host?.club
-																							) {
-																								if (teamCheckTwo.name === matchGuest.host?.name) {
-																									return ` : ${teamCheckTwo.name}`;
-																								}
-																							}
-																						})} */}
-																					</li>
-																				);
-																			}
-																		})}
-																	</Fragment>
-																);
-															}
-														})}
-													</ul>
-												</Fragment>
-											);
-										}
-									})}
-								</Stack>
-							</Card>
-						);
-					}
+								</Flex>
+								{Object.entries(leagueGroups).map(([leagueUuid, matches]) => {
+									const leagueName = leagues.get(leagueUuid);
+									const earliestStartTime = matches.reduce((earliest, match) => {
+										const currentTime = dayjs(match.time, "HH:mm");
+										return currentTime.isBefore(dayjs(earliest, "HH:mm")) ? match.time : earliest;
+									}, matches[0].time);
+									// NEW STACK PER LEAGUE (INSIDE THE DATE AND LOCATION CARD)
+									return (
+										<Stack key={leagueUuid} gap={0}>
+											{/* LEAGUE NAME AND TIME */}
+											<Group gap="xs">
+												{leagueName && <Text fw="bold">{leagueName}</Text>}
+												{earliestStartTime && <Text>ab {earliestStartTime} Uhr</Text>}
+											</Group>
+											{/* GUESTS LIST */}
+											<List spacing={0} withPadding listStyleType="none">
+												{matches.map((match) => {
+													const matchTeams = [match._embedded?.team1, match._embedded?.team2];
+													const guests = matchTeams.filter((t) => t?.uuid !== match.host);
+													// display the the guest team
+													return (
+														<ListItem key={guests[0]?.uuid} opacity={0.8}>
+															{guests[0]?.name}
+														</ListItem>
+													);
+												})}
+											</List>
+										</Stack>
+									);
+								})}
+							</Stack>
+						</Card>
+					);
 				})}
 			</SimpleGrid>
-			<Text>
-				Auswärtsspiele findest du im Spielplan der jeweiligen Mannschaft.
-				<LinkToEventsPage />
-			</Text>
+			<Center>
+				<Text c="white">
+					Auswärtsspiele findest du im Spielplan der jeweiligen Mannschaft. <LinkToEventsPage />
+				</Text>
+			</Center>
 		</Stack>
 	);
 }
@@ -250,13 +248,7 @@ function NoMatchesNoEvents({ matchCount = 0, eventCount = 0 }: { matchCount?: nu
 							{matchCount === 1
 								? "Einen weiteren Termin zu einem späteren Zeitpunkt findest du"
 								: `${allEventsCountWord} weitere Termine zu einem späteren Zeitpunkt findest du`}
-							<IconRight className="animate-pulse text-sm mb-1" />
-							<IconRight className="-ml-2.5 animate-pulse mb-1" />
-							<Link href="termine" className="gap-1 font-bold group">
-								hier
-							</Link>
-							<IconLeft className="-mr-2.5 animate-pulse mb-1" />
-							<IconLeft className="animate-pulse text-sm mb-1" />
+							<LinkToEventsPage />
 						</Text>
 					)}
 				</Text>
@@ -280,15 +272,11 @@ function NoMatchesNoEvents({ matchCount = 0, eventCount = 0 }: { matchCount?: nu
 function LinkToEventsPage() {
 	return (
 		<Text span>
-			<Group gap={0}>
-				<IconRight className="animate-pulse text-sm mb-1" />
-				<IconRight className="-ml-2.5 animate-pulse mb-1" />
-				<Anchor href="termine" fw="bold" c="white">
-					hier
-				</Anchor>
-				<IconLeft className="-mr-2.5 animate-pulse mb-1" />
-				<IconLeft className="animate-pulse text-sm mb-1" />
-			</Group>
+			<Text span>» </Text>
+			<Anchor href="termine" fw="bold" c="white">
+				hier
+			</Anchor>
+			<Text span> «</Text>
 		</Text>
 	);
 }

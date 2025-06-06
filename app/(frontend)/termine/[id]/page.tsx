@@ -77,7 +77,7 @@ export default async function EventPage({ params }: { params: Promise<{ id: stri
 						</GridCol>
 					</Grid>
 				</Card>
-				{thumbnails && (
+				{thumbnails && thumbnails.length > 0 && (
 					<Card>
 						<CardTitle>Fotos</CardTitle>
 						<ImageGallery images={thumbnails} />

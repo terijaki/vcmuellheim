@@ -16,7 +16,7 @@ export default async function HomeInstagram() {
 	return (
 		<Box bg="onyx">
 			<BackgroundImage src={"/images/backgrounds/pageheading.jpg"} py="md" style={{ zIndex: 0 }} pos="relative">
-				<Container size="xl" py="md">
+				<Container size="xl" py="md" px={{ base: "lg", md: "xl" }}>
 					<ScrollAnchor name="instagram" />
 					<Stack>
 						<Suspense fallback={<Loader />}>

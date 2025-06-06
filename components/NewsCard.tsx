@@ -59,6 +59,7 @@ export default function NewsCard(props: NewsCardProps) {
 						<Image
 							src={thumbnail}
 							fill
+							priority
 							style={{
 								objectFit: "cover",
 								transition: "transform 0.5s ease",

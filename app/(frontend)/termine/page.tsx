@@ -1,22 +1,11 @@
+import CardTitle from "@/components/CardTitle";
 import EventCard from "@/components/EventCard";
 import Matches from "@/components/Matches";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import { getEvents } from "@/data/events";
 import { samsLeagueMatches, samsSeasons } from "@/data/sams/sams-server-actions";
 import { Club } from "@/project.config";
-import {
-	Anchor,
-	Card,
-	CardSection,
-	SimpleGrid,
-	Stack,
-	Table,
-	TableTbody,
-	TableTd,
-	TableTr,
-	Text,
-	Title,
-} from "@mantine/core";
+import { Anchor, Card, CardSection, Group, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
@@ -33,14 +22,14 @@ export default async function Termine() {
 	const events = eventData?.docs;
 
 	// get sams matches
-	const leagueMatches = await samsLeagueMatches({});
+	const leagueMatches = await samsLeagueMatches({ range: "future" });
 	const futureMatches = leagueMatches?.matches.filter((m) => m.results?.winner === null);
 	const matchCount = futureMatches?.length || 0;
 	// TODO include tournament matches (separate sams query)
 	// dates
 	const seasons = await samsSeasons();
-	const currentMonth = new Date().getMonth() + 1;
-	const seasonMonth = !!(currentMonth >= 5 && currentMonth <= 9);
+	const currentMonth = dayjs().month() + 1;
+	const isOffSeason = currentMonth >= 5 && currentMonth <= 9;
 
 	// webcal link
 	const headersList = await headers();
@@ -96,15 +85,8 @@ export default async function Termine() {
 				{matchCount === 0 && (
 					<Fragment>
 						<Card>
-							<Title order={2} c="blumine">
-								Keine Ligaspiele
-							</Title>
+							<CardTitle>Keine Ligaspiele</CardTitle>
 							<Text>Derzeit stehen keine weiteren Spieltermine an.</Text>
-							{seasonMonth && (
-								<Text>
-									Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.
-								</Text>
-							)}
 							<Text>
 								<Anchor href={webcalLink} style={{ display: "inline-flex", gap: 4 }}>
 									<IconSubscribe /> Abboniere unseren Vereinskalender
@@ -116,41 +98,39 @@ export default async function Termine() {
 								zu empfangen.
 							</Text>
 						</Card>
-						{currentMonth >= 4 && currentMonth <= 9 && (
+						{isOffSeason && (
 							<Card>
-								<Title order={2} c="blumine">
-									Außerhalb der Saison?
-								</Title>
-								<Text>
-									Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.
-									Dazwischen wird die nächste Saison vorbereitet und die neusten Informationen vom Südbadischen
-									Volleyballverband wurden ggf. noch nicht veröffentlicht.
-								</Text>
-								{seasons && (
-									<Stack>
-										<Text>Offizielle Zeitspanne der letzten zwei Saisons:</Text>
-										<Stack gap={0}>
-											<Table withRowBorders={false}>
-												<TableTbody>
-													<TableTr fw="bold">
-														<TableTd>Aktuelle Saison</TableTd>
-														<TableTd>
-															{`${dayjs(seasons.current.startDate).format("DD.MM.YYYY")} bis ${dayjs(seasons.current.endDate).format("DD.MM.YYYY")}`}
-														</TableTd>
-													</TableTr>
-													{seasons.next && (
-														<TableTr>
-															<TableTd>Nächste Saison</TableTd>
-															<TableTd>
-																{`${dayjs(seasons.next.startDate).format("DD.MM.YYYY")} bis ${dayjs(seasons.next.endDate).format("DD.MM.YYYY")}`}
-															</TableTd>
-														</TableTr>
-													)}
-												</TableTbody>
-											</Table>
-										</Stack>
+								<Stack>
+									<Stack gap={0}>
+										<CardTitle>Außerhalb der Saison?</CardTitle>
+										<Text>
+											Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.
+											Dazwischen wird die nächste Saison vorbereitet und die neusten Informationen vom Südbadischen
+											Volleyballverband wurden ggf. noch nicht veröffentlicht.
+										</Text>
 									</Stack>
-								)}
+									{seasons && (
+										<Stack gap="xs">
+											<Text>Offizielle Zeitspanne der letzten zwei Saisons:</Text>
+											<Stack gap={0}>
+												<Group>
+													<Text fw="bold">Aktuelle Saison</Text>
+													<Text fw="bold">
+														{`${dayjs(seasons.current.startDate).format("DD.MM.YYYY")} bis ${dayjs(seasons.current.endDate).format("DD.MM.YYYY")}`}
+													</Text>
+												</Group>
+												{seasons.next && (
+													<Group>
+														<Text>Nächste Saison</Text>
+														<Text>
+															{`${dayjs(seasons.next.startDate).format("DD.MM.YYYY")} bis ${dayjs(seasons.next.endDate).format("DD.MM.YYYY")}`}
+														</Text>
+													</Group>
+												)}
+											</Stack>
+										</Stack>
+									)}
+								</Stack>
 							</Card>
 						)}
 					</Fragment>

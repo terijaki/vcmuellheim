@@ -5,5 +5,5 @@ import type { ComponentProps } from "react";
 
 export default function Paginator(props: ComponentProps<typeof Pagination>) {
 	const router = useRouter();
-	return <Pagination {...props} onChange={(value) => router.push(`?page=${value}`)} />;
+	return <Pagination {...props} onChange={(value) => router.push(`?page=${value}`)} hideWithOnePage />;
 }

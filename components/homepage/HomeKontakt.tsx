@@ -17,7 +17,7 @@ export default async function HomeKontakt() {
 
 	return (
 		<Center>
-			<Container size="xl" mx={{ base: undefined, xs: "xl" }} py="xl">
+			<Container size="xl" px={{ base: "lg", md: "xl" }} py="xl">
 				<ScrollAnchor name="kontakt" />
 				<Stack gap="xl">
 					<Stack gap={0}>

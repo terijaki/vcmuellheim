@@ -10,7 +10,9 @@ export default function PageWithHeading({
 			<PageHeading {...props} />
 
 			<Group grow>
-				<Container size="xl">{children}</Container>
+				<Container size="xl" px={{ base: "lg", md: "xl" }}>
+					{children}
+				</Container>
 			</Group>
 		</Stack>
 	);

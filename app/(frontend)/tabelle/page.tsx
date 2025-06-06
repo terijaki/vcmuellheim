@@ -27,8 +27,7 @@ export default async function Tabelle() {
 
 	const lastResultCap = Math.max(6, Math.min(20, Number((teamSize * GAMES_PER_TEAM).toFixed(0)))); // calculate the total number of games to display based on the number of teams
 	const numToWordsDe = require("num-words-de");
-	// const recentMatches = await samsClubMatches({ past: true, limit: lastResultCap });
-	const leagueMatches = await samsLeagueMatches({ limit: lastResultCap });
+	const leagueMatches = await samsLeagueMatches({ limit: lastResultCap, range: "past" });
 	const recentMatches = leagueMatches?.matches || [];
 	const lastResultWord = recentMatches.length > 1 && numToWordsDe.numToWord(recentMatches.length, { uppercase: false });
 

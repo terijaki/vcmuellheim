@@ -15,7 +15,6 @@ export default async function ImageGallery({ images }: { images?: string[] }) {
 								<Image
 									src={imageUrl}
 									alt={`Foto ${index}`}
-									className="transition-transform duration-700 hover:scale-105"
 								/>
 							</AspectRatio>
 						</CardSection>

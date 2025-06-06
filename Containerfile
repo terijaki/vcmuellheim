@@ -57,7 +57,7 @@ ENV PORT=3080
 ENV HOSTNAME="0.0.0.0"
 
 HEALTHCHECK --start-period=5s --interval=2m --timeout=3s \
-    CMD curl -f http://localhost:3080/ || exit 1
+    CMD curl -f http://localhost:3080
 
 CMD ["bun", "--env-file", ".env", "start"]
 

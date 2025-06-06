@@ -32,7 +32,7 @@ export default function RankingTable(props: RankingTable) {
 			<Table striped highlightOnHover withRowBorders={false} horizontalSpacing="xs" verticalSpacing={0}>
 				<TableThead>
 					<TableTr>
-						<TableTh>
+						<TableTh ta="center">
 							<Text fw="bold" hiddenFrom="sm">
 								Nr
 							</Text>

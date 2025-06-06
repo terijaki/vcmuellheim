@@ -28,7 +28,7 @@ export default async function ClubLogo({
 
 		if (clubLogoUrl)
 			return (
-				<Flex pos="relative" justify="center" align="center" w={24} h={24}>
+				<Flex pos="relative" justify="center" align="center" w={24} h={24} style={{ flexShrink: 0 }}>
 					<Image
 						src={clubLogoUrl}
 						fill
@@ -37,7 +37,7 @@ export default async function ClubLogo({
 						alt={`Logo: ${logoName}`}
 						style={{
 							objectFit: "contain",
-							borderRadius: 8,
+							borderRadius: "50%",
 							filter: light ? "saturate(0) brightness(0) invert(1)" : undefined,
 							mixBlendMode: light ? undefined : "multiply",
 						}}

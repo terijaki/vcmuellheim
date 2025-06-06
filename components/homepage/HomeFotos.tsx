@@ -16,7 +16,7 @@ export default async function HomeFotos() {
 				style={{ zIndex: 0 }}
 				pos="relative"
 			>
-				<Container size="xs" py="md" c="white">
+				<Container size="xs" py="md" c="white" px={{ base: "lg", md: "xl" }}>
 					<Stack>
 						<Text>
 							Eindrücke aus unserem Vereinsleben, von Spieltagen, Turnieren und unseren Mitgliedern findest du in

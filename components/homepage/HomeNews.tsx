@@ -23,7 +23,7 @@ export default async function HomeNews() {
 	}
 
 	return (
-		<Container size="xl" py="md">
+		<Container size="xl" py="md" px={{ base: "lg", md: "xl" }}>
 			<ScrollAnchor name="news" />
 			<Stack>
 				<SectionHeading text="News" />

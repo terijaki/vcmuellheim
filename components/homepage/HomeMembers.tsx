@@ -41,7 +41,7 @@ export default async function HomeMembers() {
 		.filter((member) => member.roles && member.roles.length > 0);
 
 	return (
-		<Container size="md" py="xl">
+		<Container size="md" py="xl" px={{ base: "lg", md: "xl" }}>
 			<ScrollAnchor name="verein" />
 			<Stack>
 				{boardMembers.length > 0 && (

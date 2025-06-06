@@ -2,7 +2,6 @@ import Paginator from "@/components/Paginator";
 import PictureCard from "@/components/PictureCard";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import { getPictures } from "@/data/pictures";
-import { shuffleArray } from "@/utils/shuffleArray";
 import { Center, Group } from "@mantine/core";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -26,15 +25,14 @@ export default async function PicturesPage({
 	return (
 		<PageWithHeading
 			title="Fotogalerie"
-			subtitle="Eindrücke aus unserem Vereinsleben, von Spieltagen, Turnieren und unseren Mitgliedern. (zufällige Reihenfolge)"
+			subtitle="Eindrücke aus unserem Vereinsleben, von Spieltagen, Turnieren und unseren Mitgliedern."
 		>
 			<Suspense fallback={"Lade Fotos..."}>
-				<Group gap="xs" justify="center" preventGrowOverflow={false}>
-					{pictures &&
-						shuffleArray(pictures)?.map(async (image) => {
-							if (!image.url) return null;
-							return <PictureCard key={image.id} url={image.url} />;
-						})}
+				<Group gap="xs" justify="center" preventGrowOverflow={false} key={parsedPage}>
+					{pictures?.map(async (image) => {
+						if (!image.url) return null;
+						return <PictureCard key={image.id} url={image.url} />;
+					})}
 				</Group>
 				{data?.totalPages && (
 					<Center py="xl">

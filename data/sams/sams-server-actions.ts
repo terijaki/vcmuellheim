@@ -120,6 +120,7 @@ export async function samsLeagueMatches(props: {
 	sportsclub?: string;
 	team?: string;
 	limit?: number; // limit the number of matches to fetch, default is 100. disables pagination
+	range?: "future" | "past";
 }): Promise<LeagueMatches | undefined> {
 	"use cache";
 	cacheLife("minutes");
@@ -174,7 +175,18 @@ export async function samsLeagueMatches(props: {
 
 			if (data.last === true || props.limit) hasMorePages = false;
 		}
-		return { matches: allMatches, timestamp: new Date() };
+
+		let filteredMatches = allMatches;
+
+		if (props.range === "future") {
+			// filter matches by future dates
+			filteredMatches = allMatches.filter((m) => dayjs(m.date).isAfter(dayjs()));
+		} else if (props.range === "past") {
+			// filter matches by past dates
+			filteredMatches = allMatches.filter((m) => dayjs(m.date).isBefore(dayjs()));
+		}
+
+		return { matches: filteredMatches, timestamp: new Date() };
 	} catch (error) {
 		console.error("🚨 Error fetching league matches", error);
 	}
