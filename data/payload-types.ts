@@ -392,13 +392,12 @@ export interface SamsTeam {
   nameWithSeries?: string | null;
   name: string;
   uuid: string;
-  seasonTeamId?: string | null;
-  season?: string | null;
-  matchSeries_Name?: string | null;
-  matchSeries_Id?: string | null;
-  matchSeries_Uuid?: string | null;
-  matchSeries_AllSeasonId?: string | null;
-  matchSeries_Type?: string | null;
+  associationUuid?: string | null;
+  sportsclubUuid?: string | null;
+  leagueUuid?: string | null;
+  leagueName?: string | null;
+  seasonUuid?: string | null;
+  seasonName?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -425,11 +424,9 @@ export interface Location {
 export interface SamsClub {
   id: string;
   name: string;
-  sportsclubId: string;
-  lsbNumber?: string | null;
-  internalSportsclubId?: string | null;
+  sportsclubUuid: string;
   logo?: string | null;
-  homepage?: string | null;
+  associationUuid?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -723,13 +720,12 @@ export interface SamsTeamsSelect<T extends boolean = true> {
   nameWithSeries?: T;
   name?: T;
   uuid?: T;
-  seasonTeamId?: T;
-  season?: T;
-  matchSeries_Name?: T;
-  matchSeries_Id?: T;
-  matchSeries_Uuid?: T;
-  matchSeries_AllSeasonId?: T;
-  matchSeries_Type?: T;
+  associationUuid?: T;
+  sportsclubUuid?: T;
+  leagueUuid?: T;
+  leagueName?: T;
+  seasonUuid?: T;
+  seasonName?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -739,11 +735,9 @@ export interface SamsTeamsSelect<T extends boolean = true> {
  */
 export interface SamsClubsSelect<T extends boolean = true> {
   name?: T;
-  sportsclubId?: T;
-  lsbNumber?: T;
-  internalSportsclubId?: T;
+  sportsclubUuid?: T;
   logo?: T;
-  homepage?: T;
+  associationUuid?: T;
   updatedAt?: T;
   createdAt?: T;
 }

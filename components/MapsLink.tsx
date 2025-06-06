@@ -10,7 +10,7 @@ type MapsLinkLocation = {
 	name?: string | null;
 	address?: {
 		street?: string | null;
-		postalCode?: number | null;
+		postalCode?: string | number | null;
 		city?: string | null;
 	};
 };

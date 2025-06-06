@@ -1,15 +1,16 @@
-import { Club } from "@/project.config";
+import type { Ranking } from "@/data/sams/sams-server-actions";
+import { SAMS } from "@/project.config";
 import { Card, Group, Table, TableTbody, TableTh, TableThead, TableTr, Text } from "@mantine/core";
 import dayjs from "dayjs";
-import { Suspense } from "react";
-import type { Rankings } from "sams-rpc";
 import CardTitle from "./CardTitle";
 import ClubLogo, { ClubLogoFallback } from "./ClubLogo";
 import RankingTableItem from "./RankingTableItem";
+import { Suspense } from "react";
 
-type RankingTable = Rankings & {
+type RankingTable = {
+	ranking: Ranking;
 	linkToTeamPage?: boolean;
-	teams?: { seasonTeamId?: string | null; slug?: string | null }[];
+	teams?: { teamUuid?: string | null; slug?: string | null }[];
 };
 
 export default function RankingTable(props: RankingTable) {
@@ -19,12 +20,12 @@ export default function RankingTable(props: RankingTable) {
 
 	return (
 		<Card>
-			<CardTitle>{props.matchSeries.name}</CardTitle>
+			{props.ranking.leagueName && <CardTitle>{props.ranking.leagueName}</CardTitle>}
 			<Group c="dimmed" justify="space-between">
-				<Text size="xs">Saison {props.matchSeries.season.name}</Text>
-				{props.matchSeries.updated && (
+				{props.ranking.seasonName && <Text size="xs">Saison {props.ranking.seasonName}</Text>}
+				{ranking.timestamp && (
 					<Text size="xs">
-						<LastUpdate date={props.matchSeries.updated} />
+						<LastUpdate date={ranking.timestamp.toISOString()} />
 					</Text>
 				)}
 			</Group>
@@ -59,23 +60,22 @@ export default function RankingTable(props: RankingTable) {
 					</TableTr>
 				</TableThead>
 				<TableTbody>
-					{ranking.map(async (team) => {
-						const clubName = team.team.club;
-						const isClubTeam = clubName === Club.shortName || false;
-						const teamInContext = props.teams?.find((t) => t.seasonTeamId === team.team.id);
+					{ranking.teams?.map(async (team) => {
+						const isClubTeam = Boolean(team.teamName?.includes(SAMS.name));
+						const teamInContext = props.teams?.find((t) => t.teamUuid === team.uuid);
 
-						const isHighlighted = Boolean(teamInContext?.seasonTeamId) || Boolean(isClubTeam && props.linkToTeamPage);
+						const isHighlighted = Boolean(teamInContext?.teamUuid) || Boolean(isClubTeam && props.linkToTeamPage);
 						const teamLink = teamInContext?.slug ? `/teams/${teamInContext.slug}` : null;
 
 						return (
 							<RankingTableItem
-								key={team.team.id}
-								ranking={team}
+								key={team.uuid}
+								team={team}
 								isHighlighted={isHighlighted}
 								teamLink={teamLink}
 								clubLogo={
-									<Suspense fallback={<ClubLogoFallback className="mr-1" />}>
-										<ClubLogo clubName={clubName} light={isHighlighted} />
+									<Suspense fallback={<ClubLogoFallback />}>
+										<ClubLogo teamName={team.teamName} light={isHighlighted} />
 									</Suspense>
 								}
 							/>

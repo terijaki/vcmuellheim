@@ -1,23 +1,23 @@
 "use client";
+import type { Ranking } from "@/data/sams/sams-server-actions";
 import { Group, TableTd, TableTr, Text } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
-import type { Rankings } from "sams-rpc";
 
 type RankingTableItem = {
-	ranking: NonNullable<Rankings["ranking"]>[number];
+	team: NonNullable<Ranking["teams"]>[number];
 	isHighlighted?: boolean;
 	teamLink?: string | null;
 	clubLogo: ReactNode;
 };
 
-export default function RankingTableItem({ ranking, isHighlighted, teamLink, clubLogo }: RankingTableItem) {
+export default function RankingTableItem({ team, isHighlighted, teamLink, clubLogo }: RankingTableItem) {
 	const router = useRouter();
 
 	return (
 		<TableTr
-			data-team-id={ranking.team.id}
-			data-team-name={ranking.team.name}
+			data-team-uuid={team.uuid}
+			data-team-name={team.teamName}
 			bg={isHighlighted ? "onyx" : undefined}
 			c={isHighlighted ? "white" : undefined}
 			style={{ cursor: teamLink ? "pointer" : undefined }}
@@ -25,23 +25,25 @@ export default function RankingTableItem({ ranking, isHighlighted, teamLink, clu
 				if (teamLink) router.push(teamLink);
 			}}
 		>
-			<TableTd ta="center">{ranking.place}</TableTd>
+			<TableTd ta="center">{team.rank}</TableTd>
 			<TableTd>
 				<Group wrap="nowrap" gap={4}>
 					{clubLogo}
-					<Text lineClamp={1}>{ranking.team.name}</Text>
+					<Text lineClamp={1}>{team.teamName}</Text>
 				</Group>
 			</TableTd>
 			<TableTd ta="center">
 				<Text size="sm">
-					{ranking.wins}/{ranking.matchesPlayed}
+					{team.wins}/{team.matchesPlayed}
 				</Text>
 			</TableTd>
 			<TableTd ta="center" visibleFrom="sm">
-				<Text size="sm">{ranking.setPoints}</Text>
+				<Text size="sm">
+					{team.setWins}:{team.setLosses}
+				</Text>
 			</TableTd>
 			<TableTd ta="center">
-				<Text size="sm">{ranking.points}</Text>
+				<Text size="sm">{team.points}</Text>
 			</TableTd>
 		</TableTr>
 	);

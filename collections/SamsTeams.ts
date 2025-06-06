@@ -7,7 +7,7 @@ export const SamsTeams: CollectionConfig = {
 	admin: {
 		useAsTitle: "nameWithSeries",
 		group: "SAMS",
-		defaultColumns: ["name", "matchSeries_Name", "seasonTeamId", "season"],
+		defaultColumns: ["nameWithSeries", "uuid", "leagueUuid", "updatedAt"],
 		pagination: { defaultLimit: 50 },
 		hidden(args) {
 			return !isRoleAdmin(args.user?.role);
@@ -22,7 +22,7 @@ export const SamsTeams: CollectionConfig = {
 	hooks: {
 		beforeChange: [
 			({ data }) => {
-				data.nameWithSeries = `${data.name} (${data.matchSeries_Name})`;
+				data.nameWithSeries = `${data.name} (${data.leagueName})`;
 				return data;
 			},
 		],
@@ -46,31 +46,27 @@ export const SamsTeams: CollectionConfig = {
 			unique: true,
 		},
 		{
-			name: "seasonTeamId",
+			name: "associationUuid",
 			type: "text",
 		},
 		{
-			name: "season",
+			name: "sportsclubUuid",
 			type: "text",
 		},
 		{
-			name: "matchSeries_Name",
+			name: "leagueUuid",
 			type: "text",
 		},
 		{
-			name: "matchSeries_Id",
+			name: "leagueName",
 			type: "text",
 		},
 		{
-			name: "matchSeries_Uuid",
+			name: "seasonUuid",
 			type: "text",
 		},
 		{
-			name: "matchSeries_AllSeasonId",
-			type: "text",
-		},
-		{
-			name: "matchSeries_Type",
+			name: "seasonName",
 			type: "text",
 		},
 	],

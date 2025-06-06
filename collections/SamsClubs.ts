@@ -7,7 +7,7 @@ export const SamsClubs: CollectionConfig = {
 	admin: {
 		useAsTitle: "name",
 		group: "SAMS",
-		defaultColumns: ["name", "internalSportsclubId", "lsbNumber", "updatedAt"],
+		defaultColumns: ["name", "sportsclubUuid", "updatedAt"],
 		pagination: { defaultLimit: 50 },
 		hidden(args) {
 			return !isRoleAdmin(args.user?.role);
@@ -28,25 +28,17 @@ export const SamsClubs: CollectionConfig = {
 			required: true,
 		},
 		{
-			name: "sportsclubId",
+			name: "sportsclubUuid",
 			type: "text",
 			required: true,
 			unique: true,
-		},
-		{
-			name: "lsbNumber",
-			type: "text",
-		},
-		{
-			name: "internalSportsclubId",
-			type: "text",
 		},
 		{
 			name: "logo",
 			type: "text",
 		},
 		{
-			name: "homepage",
+			name: "associationUuid",
 			type: "text",
 		},
 	],

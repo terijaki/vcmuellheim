@@ -2,9 +2,21 @@ import EventCard from "@/components/EventCard";
 import Matches from "@/components/Matches";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import { getEvents } from "@/data/events";
+import { samsLeagueMatches, samsSeasons } from "@/data/sams/sams-server-actions";
 import { Club } from "@/project.config";
-import { samsClubMatches, samsSeasons } from "@/utils/sams/sams-server-actions";
-import { Anchor, Card, CardSection, List, ListItem, SimpleGrid, Stack, Text, Title } from "@mantine/core";
+import {
+	Anchor,
+	Card,
+	CardSection,
+	SimpleGrid,
+	Stack,
+	Table,
+	TableTbody,
+	TableTd,
+	TableTr,
+	Text,
+	Title,
+} from "@mantine/core";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
@@ -21,15 +33,14 @@ export default async function Termine() {
 	const events = eventData?.docs;
 
 	// get sams matches
-	const futureMatches = await samsClubMatches({ future: true });
-	const matchCount = futureMatches?.filter((m) => m.matchSeries.type.toLowerCase() === "league").length || 0;
-	const turnamentCount = futureMatches?.filter((m) => m.matchSeries.type.toLowerCase() === "competition").length || 0;
-
+	const leagueMatches = await samsLeagueMatches({});
+	const futureMatches = leagueMatches?.matches.filter((m) => m.results?.winner === null);
+	const matchCount = futureMatches?.length || 0;
+	// TODO include tournament matches (separate sams query)
 	// dates
+	const seasons = await samsSeasons();
 	const currentMonth = new Date().getMonth() + 1;
 	const seasonMonth = !!(currentMonth >= 5 && currentMonth <= 9);
-	const seasons = await samsSeasons();
-	const pastTwoSeasons = seasons?.slice(0, 2) || [];
 
 	// webcal link
 	const headersList = await headers();
@@ -71,17 +82,12 @@ export default async function Termine() {
 							</Text>
 						</Card>
 						<Card>
-							{turnamentCount === 0 ? (
-								<Title order={2} c="blumine">
-									Ligaspiele
-								</Title>
-							) : (
-								<Title order={2} c="blumine">
-									Ligaspiele & Turneire
-								</Title>
-							)}
+							<Title order={2} c="blumine">
+								Ligaspiele
+							</Title>
+
 							<CardSection p={{ base: undefined, sm: "xl" }}>
-								<Matches matches={futureMatches} type="future" />
+								<Matches matches={futureMatches} timestamp={leagueMatches?.timestamp} type="future" />
 							</CardSection>
 						</Card>
 					</Fragment>
@@ -120,17 +126,28 @@ export default async function Termine() {
 									Dazwischen wird die nächste Saison vorbereitet und die neusten Informationen vom Südbadischen
 									Volleyballverband wurden ggf. noch nicht veröffentlicht.
 								</Text>
-								{pastTwoSeasons.length === 2 && (
+								{seasons && (
 									<Stack>
 										<Text>Offizielle Zeitspanne der letzten zwei Saisons:</Text>
 										<Stack gap={0}>
-											{pastTwoSeasons.map((season) => (
-												<List key={season.id}>
-													<ListItem>
-														{`${dayjs(season.begin).format("DD.MM.YYYY")} bis ${dayjs(season.end).format("DD.MM.YYYY")}`}
-													</ListItem>
-												</List>
-											))}
+											<Table withRowBorders={false}>
+												<TableTbody>
+													<TableTr fw="bold">
+														<TableTd>Aktuelle Saison</TableTd>
+														<TableTd>
+															{`${dayjs(seasons.current.startDate).format("DD.MM.YYYY")} bis ${dayjs(seasons.current.endDate).format("DD.MM.YYYY")}`}
+														</TableTd>
+													</TableTr>
+													{seasons.next && (
+														<TableTr>
+															<TableTd>Nächste Saison</TableTd>
+															<TableTd>
+																{`${dayjs(seasons.next.startDate).format("DD.MM.YYYY")} bis ${dayjs(seasons.next.endDate).format("DD.MM.YYYY")}`}
+															</TableTd>
+														</TableTr>
+													)}
+												</TableTbody>
+											</Table>
 										</Stack>
 									</Stack>
 								)}

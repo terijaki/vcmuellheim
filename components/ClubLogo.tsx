@@ -1,24 +1,40 @@
-import { samsClubDataByClubName } from "@/utils/sams/sams-server-actions";
+import { getSamsClubByName, getSamsClubBySamsUuid } from "@/data/samsClubs";
 import { Flex } from "@mantine/core";
 import { unstable_cacheLife as cacheLife } from "next/cache";
 import Image from "next/image";
 import { FaVolleyball as Ball } from "react-icons/fa6";
 
-export default async function ClubLogo({ clubName, light }: { clubName?: string | null; light?: boolean }) {
+export default async function ClubLogo({
+	clubUuid,
+	teamName,
+	light,
+}: { clubUuid?: string | null; teamName?: string | null; light?: boolean }) {
 	"use cache";
-	cacheLife("days");
+	cacheLife("max");
 
-	if (!process.env.DOCKER_BUILD && clubName) {
-		const clubData = await samsClubDataByClubName(clubName);
-		if (clubData?.logo)
+	if (clubUuid || teamName) {
+		let clubLogoUrl: string | undefined = undefined;
+		let logoName = "";
+
+		if (clubUuid) {
+			const clubData = await getSamsClubBySamsUuid(clubUuid);
+			if (clubData?.logo) clubLogoUrl = clubData.logo;
+			if (clubData?.name) logoName = clubData.name;
+		} else if (teamName) {
+			const clubData = await getSamsClubByName(teamName.slice(0, -3));
+			if (clubData?.logo) clubLogoUrl = clubData.logo;
+			if (clubData?.name) logoName = clubData.name;
+		}
+
+		if (clubLogoUrl)
 			return (
 				<Flex pos="relative" justify="center" align="center" w={24} h={24}>
 					<Image
-						src={clubData.logo}
+						src={clubLogoUrl}
 						fill
 						loading="lazy"
 						placeholder="empty"
-						alt={`Logo: ${clubName}`}
+						alt={`Logo: ${logoName}`}
 						style={{
 							objectFit: "contain",
 							borderRadius: 8,
@@ -33,7 +49,7 @@ export default async function ClubLogo({ clubName, light }: { clubName?: string 
 	return <ClubLogoFallback />;
 }
 
-export function ClubLogoFallback({ className }: { className?: string | null }) {
+export function ClubLogoFallback() {
 	return (
 		<Flex pos="relative" justify="center" align="center" w={24} h={24} c="lion">
 			<Ball />

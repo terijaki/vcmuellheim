@@ -7,11 +7,13 @@ import HomeMembers from "@/components/homepage/HomeMembers";
 import HomeNews from "@/components/homepage/HomeNews";
 import HomeSponsors from "@/components/homepage/HomeSponsors";
 import HomeTeams from "@/components/homepage/HomeTeams";
-import { samsClubUpdate } from "@/jobs/tasks/sams-club-update";
+import { samsClubsUpdateTask } from "@/jobs/tasks/sams-clubs-update";
+import { samsTeamsUpdateTask } from "@/jobs/tasks/sams-teams-update";
 import { Center, Loader, Stack } from "@mantine/core";
 import { Suspense } from "react";
 
-if (!samsClubUpdate.currentRun()) samsClubUpdate.resume(); // Resume the job if it is paused
+if (!samsTeamsUpdateTask.currentRun()) samsTeamsUpdateTask.resume(); // Resume the job if it is paused
+if (!samsClubsUpdateTask.currentRun()) samsClubsUpdateTask.resume(); // Resume the job if it is paused
 
 export default async function Page() {
 	const CenteredLoader = () => (

@@ -15,6 +15,7 @@ export const Club = {
 export const SAMS = {
 	name: "VC Müllheim",
 	server: process.env.SAMS_SERVER,
+	association: { name: "Südbadischer Volleyball-Verband", shortName: "SBVV" },
 };
 /** The clubs identity/account on the fediverse. */
 export const Mastodon = {

@@ -1,7 +1,7 @@
 import { getEvents } from "@/data/events";
 import type { Event } from "@/data/payload-types";
+import { type LeagueMatches, samsLeagueMatches } from "@/data/sams/sams-server-actions";
 import { SAMS } from "@/project.config";
-import { samsClubMatches } from "@/utils/sams/sams-server-actions";
 import {
 	Anchor,
 	BackgroundImage,
@@ -19,7 +19,6 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { Fragment } from "react";
 import { FaAngleLeft as IconLeft, FaAngleRight as IconRight } from "react-icons/fa6";
-import type { Match } from "sams-rpc";
 import EventCard from "../EventCard";
 import MapsLink from "../MapsLink";
 import ScrollAnchor from "./ScrollAnchor";
@@ -36,18 +35,24 @@ export default async function HomeHeimspiele() {
 
 	// MATCHES
 	// get future matches from our teams
-	const matchesAll = await samsClubMatches({ future: true });
+	const leagueMatches = await samsLeagueMatches({});
+	const matchesAll = leagueMatches?.matches || [];
 	// filter to only matches we are hosting
-	const matchesHomeGames = matchesAll?.filter((match) => match.host?.club?.includes(SAMS.name));
+	const matchesHomeGames = matchesAll?.filter((match) => {
+		const hostUuid = match.host;
+		const teams = [match._embedded?.team1, match._embedded?.team2];
+		if (teams.some((t) => t?.uuid === hostUuid && t?.name.includes(SAMS.name))) return true;
+	});
 	// sort by date
-	const matchesHomeGamesSorted = matchesHomeGames?.sort(
-		(b, a) => Number(new Date(a.date).getTime()) - Number(new Date(b.date).getTime()),
-	);
+	const matchesHomeGamesSorted = matchesHomeGames?.sort((b, a) => {
+		if (!a.date || !b.date) return 0;
+		return dayjs(a.date).valueOf() - dayjs(b.date).valueOf();
+	});
 	// count unique combination of date, location, league
 	const uniqueHostsStrings: string[] = [];
-	const homeMatchesToDisplay: Match[] = [];
+	const homeMatchesToDisplay: LeagueMatches["matches"] = [];
 	matchesHomeGamesSorted?.map((m) => {
-		const dateLocationCombi: string = m.date + m.matchSeries.name + m.location.id; // string to avoid duplicates if two teams are in the same league
+		const dateLocationCombi: string = `${m.date}${m.leagueUuid}${m.location?.uuid}`; // string to avoid duplicates if two teams are in the same league
 		if (
 			dayjs(m.date).isAfter(dayjs().add(TIME_RANGE, "days")) &&
 			uniqueHostsStrings.length >= MAX_GAMES &&
@@ -91,7 +96,7 @@ function EventsList({ events }: { events?: Event[] }) {
 	);
 }
 
-function HomeMatchesList({ homeMatches }: { homeMatches?: Match[] }) {
+function HomeMatchesList({ homeMatches }: { homeMatches?: LeagueMatches["matches"] }) {
 	if (!homeMatches || homeMatches.length === 0) return null;
 
 	// arrays to sort and fill throghout the following process
@@ -106,7 +111,7 @@ function HomeMatchesList({ homeMatches }: { homeMatches?: Match[] }) {
 			<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
 				{homeMatches.map((match) => {
 					// group games together
-					const dateLocationCombi: string = `dlc${match.date}${match.location?.id}`; // this is used to group games together
+					const dateLocationCombi: string = `dlc${match.date}${match.location?.uuid}`; // this is used to group games together
 					const groupFilterOne = !matchBuffer.includes(match.uuid) && !matchBuffer.includes(dateLocationCombi);
 					if (groupFilterOne) {
 						matchBuffer.push(match.uuid); // makes sure the specific match is already rendered, this avoids duplicates if two of our teams play against each other
@@ -119,59 +124,60 @@ function HomeMatchesList({ homeMatches }: { homeMatches?: Match[] }) {
 									</time>
 									<MapsLink
 										location={{
-											name: match.location.name,
+											name: match.location?.name,
 											address: {
-												postalCode: match.location.postalCode,
-												city: match.location.city,
-												street: match.location.street,
+												postalCode: match.location?.address?.postcode,
+												city: match.location?.address?.city,
+												street: match.location?.address?.street,
 											},
 										}}
 									/>
 
 									{/* dateTimeLeagueLocationCombi */}
 									{homeMatches.map((matchLeagueTime) => {
-										const dateTimeLeagueLocationCombi: string = `dtllc${match.date}${matchLeagueTime.time}${matchLeagueTime.matchSeries?.name}${match.location?.name}`; // this is used to group games
+										const dateTimeLeagueLocationCombi: string = `dtllc${match.date}${matchLeagueTime.time}${matchLeagueTime.leagueUuid}${match.location?.name}`; // this is used to group games
 										const groupFilterTwo = groupFilterOne && !matchBuffer.includes(dateTimeLeagueLocationCombi);
 										if (
 											groupFilterTwo &&
 											match.date === matchLeagueTime.date &&
-											match.location?.id === matchLeagueTime.location?.id
+											match.location?.uuid === matchLeagueTime.location?.uuid
 										) {
 											matchBuffer.push(dateTimeLeagueLocationCombi); // this groups games together if date and location match
 											return (
 												<Fragment key={`League Name and Time ${matchLeagueTime.uuid}`}>
 													{/* League Name and Time */}
 													<p className="font-bold flex gap-1">
-														<span>
+														{/* <span> //TODO see if we can get the league name
 															{matchLeagueTime.matchSeries?.name
 																?.replace("Nord", "")
 																.replace("Ost", "")
 																.replace("Süd", "")
 																.replace("West", "")}
-														</span>
+														</span> */}
 														<span>ab {matchLeagueTime.time} Uhr</span>
 													</p>
 													{/* fetch the guest for this date, time, league and location combination */}
 													<ul>
 														{homeMatches.map((matchGuest) => {
 															if (
-																matchLeagueTime.location?.id === matchGuest.location?.id &&
+																matchLeagueTime.location?.uuid === matchGuest.location?.uuid &&
 																match.date === matchGuest.date &&
-																matchLeagueTime.matchSeries?.uuid === matchGuest.matchSeries?.uuid
+																matchLeagueTime.leagueUuid === matchGuest.leagueUuid
 															) {
+																const guestTeams = [matchGuest._embedded?.team1, matchGuest._embedded?.team2];
 																return (
 																	<Fragment key={`Guests${matchGuest.uuid}`}>
-																		{matchGuest.team?.map((teamGuest) => {
+																		{guestTeams?.map((t) => {
 																			if (
-																				teamGuest.id !== matchGuest.host?.id &&
-																				!matchBuffer.includes(teamGuest.id + dateLocationCombi)
+																				t?.uuid !== matchGuest.host &&
+																				!matchBuffer.includes(t?.uuid + dateLocationCombi)
 																			) {
-																				matchBuffer.push(teamGuest.id + dateLocationCombi);
+																				matchBuffer.push(t?.uuid + dateLocationCombi);
 																				return (
-																					<li key={teamGuest.id} className="pl-4 opacity-75">
-																						{teamGuest.name}
-																						{matchGuest.team?.map((teamCheckTwo, index, array) => {
-																							if (
+																					<li key={t?.uuid} className="pl-4 opacity-75">
+																						{t?.name}
+																						{/* {guestTeams?.map((teamCheckTwo, index, array) => {
+																							if ( // FIX this display
 																								array[0].club === matchGuest.host?.club &&
 																								array[1].club === matchGuest.host?.club &&
 																								teamCheckTwo.name !== matchGuest.host?.club
@@ -180,7 +186,7 @@ function HomeMatchesList({ homeMatches }: { homeMatches?: Match[] }) {
 																									return ` : ${teamCheckTwo.name}`;
 																								}
 																							}
-																						})}
+																						})} */}
 																					</li>
 																				);
 																			}

@@ -4,7 +4,7 @@ import { payload } from "./payload-client";
 export async function getTeams(slug?: string, league?: boolean, draft = false) {
 	try {
 		const slugFilter = slug ? { slug: { equals: slug } } : null;
-		const leagueFilter = league ? { "sbvvTeam.matchSeries_Type": { exists: true } } : null;
+		const leagueFilter = league ? { "sbvvTeam.leagueUuid": { exists: true } } : null;
 
 		const teams = await payload.find({
 			collection: "teams",

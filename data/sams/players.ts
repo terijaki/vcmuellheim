@@ -1,4 +1,4 @@
-// import { unstable_cacheLife as cacheLife } from "next/cache";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 
 const SAMS_PLAYER_URL = "https://www.sbvv-online.de/servlet/sportsclub/TeamMemberCsvExport?teamId=";
 
@@ -13,8 +13,8 @@ export type Player = {
 export type TeamPlayers = { date: Date; players?: Player[] };
 
 export async function samsPlayers(teamId: number | string): Promise<TeamPlayers | undefined> {
-	// "use cache";
-	// cacheLife("days");
+	"use cache";
+	cacheLife("days");
 
 	try {
 		if (!teamId) throw "No teamId provided to fetch player data";

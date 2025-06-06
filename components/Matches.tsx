@@ -1,22 +1,22 @@
-import { Club } from "@/project.config";
+import type { LeagueMatches } from "@/data/sams/sams-server-actions";
+import { SAMS } from "@/project.config";
 import { Box, Flex, Grid, GridCol, Group, Stack, Text } from "@mantine/core";
 import { FaSquarePollVertical as IconResult } from "react-icons/fa6";
-import type { Match } from "sams-rpc";
 import MapsLink from "./MapsLink";
 
 export default function Matches({
 	matches = [],
+	timestamp,
 	type,
-	highlightTeamId,
-}: { matches: Match[]; type: "future" | "past"; highlightTeamId?: string }) {
+	highlightTeamUuid,
+}: { matches: LeagueMatches["matches"]; timestamp?: Date; type: "future" | "past"; highlightTeamUuid?: string }) {
 	if (!matches || matches.length === 0) return null;
-
 	// define how dates should be displayed
 	const dateFormat = new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "short" });
 	// structure the last update date
 	let dateDisplay = "";
-	if (matches[0]?.matchSeries?.updated) {
-		const dateInput = new Date(matches[0].matchSeries?.updated);
+	if (timestamp) {
+		const dateInput = new Date(timestamp);
 		dateDisplay = `${dateFormat.format(dateInput).toString()} Uhr`;
 	}
 	const isOddMatches = Boolean(matches.length % 2 === 0);
@@ -25,26 +25,24 @@ export default function Matches({
 		return (
 			<Box>
 				<Text c="dimmed" size="xs" ta="right" pr="sm" pb="xs">
-					Stand: <time dateTime={matches[0]?.matchSeries.updated || undefined}>{dateDisplay}</time>
+					Stand: <time dateTime={timestamp?.toISOString()}>{dateDisplay}</time>
 				</Text>
 				<Stack gap={0}>
 					{matches.map((match, index) => {
+						const winnerId = match.results?.winner;
+						const winnerName = match.results?.winnerName;
 						// determine if this is a win for the club/team
-						let winForClubOrTeam = false;
-						const winner = match.results && match.team[Number(match.results.winner) - 1];
-						if (highlightTeamId) {
-							const winnerId = winner?.id;
-							winForClubOrTeam = Boolean(winnerId && winnerId === highlightTeamId);
-						} else {
-							winForClubOrTeam = Boolean(winner && winner.club === Club.shortName);
-						}
+						let winForClubOrTeam = Boolean(winnerId && winnerId === highlightTeamUuid);
+						if (!highlightTeamUuid) winForClubOrTeam = Boolean(winnerName?.includes(SAMS.name));
 						// determine if the index is odd or even for alternating background colors
 						const oddIndex = Boolean((isOddMatches ? index : index + 1) % 2 === 0);
+						const team1 = match._embedded?.team1;
+						const team2 = match._embedded?.team2;
+
 						return (
 							<Grid
 								key={match.uuid}
-								data-match-number={match.number}
-								data-match-id={match.id}
+								data-match-number={match.matchNumber}
 								data-match-uuid={match.uuid}
 								bg={oddIndex ? "gray.1" : undefined}
 								p="xs"
@@ -69,9 +67,9 @@ export default function Matches({
 												location={{
 													name: match.location.name,
 													address: {
-														street: match.location.street,
-														postalCode: match.location.postalCode,
-														city: match.location.city,
+														street: match.location.address?.street,
+														postalCode: match.location.address?.postcode,
+														city: match.location.address?.city,
 													},
 												}}
 												size="sm"
@@ -84,39 +82,55 @@ export default function Matches({
 								<GridCol span={{ base: 12, sm: 7 }}>
 									<Stack gap={0}>
 										<Text lineClamp={2}>
-											{match.team?.map((team, index) => {
-												return (
-													<Text key={team.id} span fw="bold" data-team-id={team.id} data-team-name={team.name}>
-														{index > 0 && " : "}
-														{team.name}
-													</Text>
-												);
-											})}
-										</Text>
-										{match.matchSeries?.name && (
-											<Text c="lion" size="sm">
-												{match.matchSeries?.name}
+											<Text
+												span
+												fw={!team1?.name.includes(SAMS.name) ? "bold" : undefined}
+												data-team1-uuid={team1?.uuid}
+												data-team1-name={team1?.name}
+											>
+												{team1?.name}
 											</Text>
-										)}
+											{team1 && team2 && " : "}
+											<Text
+												span
+												fw={!team2?.name.includes(SAMS.name) ? "bold" : undefined}
+												data-team2-uuid={team2?.uuid}
+												data-team2-name={team2?.name}
+											>
+												{team2?.name}
+											</Text>
+										</Text>
+										{/* {match.leagueUuid && (
+											<Text c="lion" size="sm">
+												{match.leagueUuid} // TODO replace with league name, which is not in the payload 🙄
+											</Text>
+										)} */}
 									</Stack>
 								</GridCol>
 								{/* score*/}
 								{match.results && (
 									<GridCol span={{ base: 12, sm: 2 }}>
-										<Group gap={4} c={winForClubOrTeam ? "turquoise" : undefined}>
-											<IconResult />
-											<Text span size="sm" fw="bold" hiddenFrom="sm">
-												{match.results.setPoints}
-											</Text>
-											<Text span size="lg" fw="bold" visibleFrom="sm">
-												{match.results.setPoints}
-											</Text>
-											{/* {match.results.ballPoints && (
-												<Text span c="dimmed" size="xs">
-													({match.results.ballPoints})
+										<Flex
+											columnGap="xs"
+											rowGap={0}
+											direction={{ base: "row", sm: "column" }}
+											align={{ base: "center", sm: "flex-start" }}
+										>
+											<Group gap={4} c={winForClubOrTeam ? "turquoise" : undefined}>
+												<IconResult />
+												<Text span size="sm" fw="bold" hiddenFrom="sm">
+													{match.results.setPoints}
 												</Text>
-											)} */}
-										</Group>
+												<Text span size="lg" fw="bold" visibleFrom="sm">
+													{match.results.setPoints}
+												</Text>
+											</Group>
+											{match.results.sets && match.results.sets.length > 0 && (
+												<Text span c="dimmed" size="xs">
+													({match.results.sets?.map((set) => set.ballPoints).join(", ")})
+												</Text>
+											)}
+										</Flex>
 									</GridCol>
 								)}
 							</Grid>
@@ -130,16 +144,18 @@ export default function Matches({
 		return (
 			<Box>
 				<Text c="dimmed" size="xs" ta="right" pr="sm" pb="xs">
-					Stand: <time dateTime={matches[0].matchSeries.updated || undefined}>{dateDisplay}</time>
+					Stand: <time dateTime={timestamp?.toISOString()}>{dateDisplay}</time>
 				</Text>
 				{matches.map((match, index) => {
 					// determine if the index is odd or even for alternating background colors
 					const oddIndex = Boolean((isOddMatches ? index : index + 1) % 2 === 0);
+					const team1 = match._embedded?.team1;
+					const team2 = match._embedded?.team2;
+
 					return (
 						<Grid
 							key={match.uuid}
-							data-match-number={match.number}
-							data-match-id={match.id}
+							data-match-number={match.matchNumber}
 							data-match-uuid={match.uuid}
 							bg={oddIndex ? "gray.1" : undefined}
 							p="xs"
@@ -166,21 +182,29 @@ export default function Matches({
 								<Stack gap={0}>
 									{/* League or Competition */}
 									<Text lineClamp={2}>
-										{match.matchSeries.type?.toLowerCase() === "league" &&
-											match.team?.map((team, index) => {
-												if (team.id && (highlightTeamId || highlightTeamId !== team.id.toString())) {
-													return (
-														<Text key={team.name} span fw="bold" data-team-id={team.id} data-team-name={team.name}>
-															{index > 0 && highlightTeamId && " : "}
-															{team.name}
-														</Text>
-													);
-												}
-											})}
+										<Text
+											span
+											fw={team1?.name.includes(SAMS.name) ? "bold" : undefined}
+											data-team1-uuid={team1?.uuid}
+											data-team1-name={team1?.name}
+										>
+											{team1?.name}
+										</Text>
+										{team1 && team2 && " : "}
+										<Text
+											span
+											fw={team2?.name.includes(SAMS.name) ? "bold" : undefined}
+											data-team2-uuid={team2?.uuid}
+											data-team2-name={team2?.name}
+										>
+											{team2?.name}
+										</Text>
 									</Text>
-									<Text c="lion" size="xs">
-										{match.matchSeries?.name || match.matchSeries?.hierarchy?.name}
-									</Text>
+									{/* {match.leagueUuid && (
+											<Text c="lion" size="sm">
+												{match.leagueUuid} // TODO replace with league name, which is not in the payload 🙄
+											</Text>
+										)} */}
 								</Stack>
 							</GridCol>
 
@@ -190,9 +214,9 @@ export default function Matches({
 										location={{
 											name: match.location.name,
 											address: {
-												street: match.location.street,
-												postalCode: match.location.postalCode,
-												city: match.location.city,
+												street: match.location.address?.street,
+												postalCode: match.location.address?.postcode,
+												city: match.location.address?.city,
 											},
 										}}
 										size="sm"

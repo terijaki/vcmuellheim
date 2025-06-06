@@ -20,9 +20,7 @@
 		"lint": "biome lint --write",
 		"next-lint": "next lint",
 		"payload-migrate": "bunx payload migrate:create",
-		"sams:swagger": "curl -s 'https://www.volleyball-baden.de/api/v2/swagger.json' | sed 's/application\\/hal+json/application\\/json/g' | jq '.' > './data/sams/swagger.json'",
-		"sams:generate": "bunx openapi-zod-client './data/sams/swagger.json' -o './data/sams/client.ts' --base-url='https://www.volleyball-baden.de/api/v2/' --api-client-name='sams' --export-schemas --export-types",
-		"sams:update": "bun run sams:swagger && bun run sams:generate",
+		"sams:update": "openapi-ts --file='sams-api.config.ts'",
 		"container:build": "podman build -t vcmuellheim .",
 		"container:watch": "podman run -p 3080:3080 -v $(pwd):/app -w /app vcmuellheim",
 		"container:run": "podman run -p 3080:3080 vcmuellheim",
@@ -30,6 +28,7 @@
 		"container:dev": "bun run podman:build && bun run podman:watch"
 	},
 	"dependencies": {
+		"@hey-api/client-next": "^0.4.0",
 		"@mantine/core": "^8.0.2",
 		"@mantine/dates": "^8.0.2",
 		"@mantine/hooks": "^8.0.2",
@@ -41,7 +40,6 @@
 		"@payloadcms/storage-s3": "3.40.0",
 		"@payloadcms/translations": "3.40.0",
 		"@plaiceholder/next": "^3.0.0",
-		"@zodios/core": "^10.9.6",
 		"bun-types": "^1.2.15",
 		"croner": "^9.0.0",
 		"dayjs": "^1.11.13",
@@ -57,18 +55,18 @@
 		"react-fast-marquee": "^1.6.5",
 		"react-icons": "^5.5.0",
 		"react-world-flags": "^1.6.0",
-		"sams-rpc": "^2.3.1",
 		"sharp": "^0.34.2",
-		"ts-ics": "^2.1.3"
+		"ts-ics": "^2.1.6"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@types/node": "^22.15.27",
+		"@hey-api/openapi-ts": "^0.71.0",
+		"@types/node": "^22.15.29",
 		"@types/react": "19.1.4",
 		"@types/react-dom": "19.1.5",
 		"@types/react-world-flags": "^1.6.0",
 		"autoprefixer": "^10.4.21",
-		"eslint": "^9.27.0",
+		"eslint": "^9.28.0",
 		"eslint-config-next": "15.3.3",
 		"typescript": "^5.8.3"
 	},

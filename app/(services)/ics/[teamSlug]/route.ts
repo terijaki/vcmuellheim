@@ -1,7 +1,7 @@
 "use cache";
+import { samsLeagueMatches } from "@/data/sams/sams-server-actions";
 import { getTeams } from "@/data/teams";
 import { Club } from "@/project.config";
-import { samsClubMatches, samsMatches } from "@/utils/sams/sams-server-actions";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { unstable_cacheLife as cacheLife } from "next/cache";
@@ -13,50 +13,52 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 	cacheLife("minutes");
 	try {
 		const { teamSlug } = await params;
-		const sanitisedTeam = teamSlug.replace(".ics", "").toLowerCase();
+		const sanitisedTeamSlug = teamSlug.replace(".ics", "").toLowerCase();
 
-		let matches: Awaited<ReturnType<typeof samsMatches>> = [];
+		let teamSamsUuid: string | undefined;
+
 		let calendarTitle = Club.shortName;
 
-		if (!sanitisedTeam || sanitisedTeam === "all") {
+		if (!sanitisedTeamSlug || sanitisedTeamSlug === "all") {
 			// get all club matches - future and past matches
-			matches = await samsClubMatches({});
 			calendarTitle = `${calendarTitle} - Vereinskalender`;
 		} else {
 			// check if the team slug is valid
-			const teams = await getTeams(teamSlug);
+			const teams = await getTeams(sanitisedTeamSlug);
 			const team = teams?.docs?.[0];
-			if (!team?.sbvvTeam || typeof team.sbvvTeam === "string") throw "Team not found";
+			if (!team) throw "Team not found";
+			if (team.name) calendarTitle = `${calendarTitle} - ${team.name}`;
 
-			const samsTeam = team?.sbvvTeam;
-			const sbvvId = samsTeam?.seasonTeamId;
-			// if the team has an sbvvId, get the matches for that team
-			if (sbvvId) {
-				const allSeasonMatchSeriesId = team.sbvvTeam?.matchSeries_AllSeasonId;
-				if (allSeasonMatchSeriesId) {
-					matches = await samsMatches({ allSeasonMatchSeriesId });
-					if (samsTeam.name) calendarTitle = `${calendarTitle} - ${samsTeam.name}`;
-				}
-			}
+			const samsTeam = typeof team.sbvvTeam === "object" ? team.sbvvTeam : undefined;
+			teamSamsUuid = samsTeam?.uuid;
 		}
+
+		const leagueMatches = await samsLeagueMatches({ team: teamSamsUuid }); // if we found a team ID in the previous step it is used here. otherwise the function return club matches
+		const matches = leagueMatches?.matches;
+		const timestamp = leagueMatches?.timestamp || new Date();
 
 		// Convert matches to iCalendar events
 		const events = matches?.map((match) => {
 			const startTime = dayjs(`${match.date} ${match.time}`, "DD.MM.YYYY HH:mm").toDate();
-			const updatedTime = dayjs(match.matchSeries.resultsUpdated).toDate();
 
-			const homeTeam = match.host.name;
-			const guestTeam = match.team.filter((team) => team.uuid !== match.host.uuid)[0].name;
-			const league = match.matchSeries.name;
+			const teams = [];
+			const team1 = match._embedded?.team1;
+			const team2 = match._embedded?.team2;
+			if (team1) teams.push(team1);
+			if (team2) teams.push(team2);
+
+			const homeTeam = teams.find((t) => t.uuid === match.host)?.name;
+			const guestTeam = teams.find((t) => t.uuid !== match.host)?.name;
+			const league = ""; // TODO get league name (somehow)
 
 			const location = [];
-			if (match.location.name) location.push(match.location.name);
-			if (match.location.street) location.push(match.location.street);
-			if (match.location.postalCode || match.location.city) {
+			if (match.location?.name) location.push(match.location.name);
+			if (match.location?.address?.street) location.push(match.location?.address?.street);
+			if (match.location?.address?.postcode || match.location?.address?.city) {
 				// Merge postal code and city if they exist
 				const postalAndCity = [];
-				if (match.location.postalCode) postalAndCity.push(match.location.postalCode);
-				if (match.location.city) postalAndCity.push(match.location.city);
+				if (match.location?.address?.postcode) postalAndCity.push(match.location?.address?.postcode);
+				if (match.location?.address?.city) postalAndCity.push(match.location?.address?.city);
 				location.push(postalAndCity.join(" "));
 			}
 
@@ -68,9 +70,9 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 			const eventData: IcsEvent = {
 				start: { date: startTime, type: "DATE-TIME" },
 				duration: { hours: 3 },
-				stamp: { date: updatedTime, type: "DATE-TIME" },
+				stamp: { date: timestamp, type: "DATE-TIME" },
 				uid: match.uuid,
-				summary: `${match.team[0].name} vs ${match.team[1].name}`,
+				summary: `${team1?.name} vs ${team2?.name}`,
 				description: description,
 				location: location.join(", "),
 			};

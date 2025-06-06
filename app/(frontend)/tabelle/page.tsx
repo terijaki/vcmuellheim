@@ -2,8 +2,8 @@ import CardTitle from "@/components/CardTitle";
 import Matches from "@/components/Matches";
 import RankingTable from "@/components/RankingTable";
 import PageWithHeading from "@/components/layout/PageWithHeading";
+import { samsClubRankings, samsLeagueMatches } from "@/data/sams/sams-server-actions";
 import { getTeams } from "@/data/teams";
-import { samsClubMatches, samsClubRankings } from "@/utils/sams/sams-server-actions";
 import { Card, CardSection, SimpleGrid, Stack, Text } from "@mantine/core";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -21,32 +21,28 @@ export default async function Tabelle() {
 	const teams = await getTeams(undefined, true); // fetch all teams with league information
 	const teamSize = teams?.docs.length || 0;
 	const teamContext = teams?.docs?.map((t) => {
-		const seasonTeamId = typeof t.sbvvTeam === "object" ? t.sbvvTeam?.seasonTeamId : null;
-		return { seasonTeamId, slug: t.slug };
+		const teamUuid = typeof t.sbvvTeam === "object" ? t.sbvvTeam?.uuid : null;
+		return { teamUuid, slug: t.slug };
 	});
 
-	const lastResultCap = Math.max(6, Math.min(20, Number((teamSize * GAMES_PER_TEAM).toFixed(0)))); // calculate the total number of games
+	const lastResultCap = Math.max(6, Math.min(20, Number((teamSize * GAMES_PER_TEAM).toFixed(0)))); // calculate the total number of games to display based on the number of teams
 	const numToWordsDe = require("num-words-de");
-	const recentMatches = await samsClubMatches({ past: true, limit: lastResultCap });
-	const lastResultWord =
-		recentMatches && recentMatches.length > 1 && numToWordsDe.numToWord(recentMatches.length, { uppercase: false });
-	// return <NoRankingsData />;
-	const matchSeriesDisplayed: string[] = []; //placeholder to avoid duplicate league displays
+	// const recentMatches = await samsClubMatches({ past: true, limit: lastResultCap });
+	const leagueMatches = await samsLeagueMatches({ limit: lastResultCap });
+	const recentMatches = leagueMatches?.matches || [];
+	const lastResultWord = recentMatches.length > 1 && numToWordsDe.numToWord(recentMatches.length, { uppercase: false });
 
 	return (
 		<PageWithHeading title={"Tabelle"}>
 			<Stack>
 				<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
 					<Suspense fallback={<Card>Lade Tabellendaten...</Card>}>
-						{clubRankings?.map((rankings) => {
-							if (!matchSeriesDisplayed.includes(rankings.matchSeries.allSeasonId)) {
-								matchSeriesDisplayed.push(rankings.matchSeries.allSeasonId);
-								return (
-									<Suspense key={rankings.matchSeries.id} fallback={<Card>lade {rankings.matchSeries.name}..</Card>}>
-										<RankingTable {...rankings} linkToTeamPage={true} teams={teamContext} />
-									</Suspense>
-								);
-							}
+						{clubRankings?.map((ranking) => {
+							return (
+								<Suspense key={ranking.leagueUuid} fallback={<Card>lade Tabelle..</Card>}>
+									<RankingTable ranking={ranking} linkToTeamPage={true} teams={teamContext} />
+								</Suspense>
+							);
 						})}
 					</Suspense>
 				</SimpleGrid>

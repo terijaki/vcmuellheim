@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
 		remotePatterns: [
 			{
 				protocol: "https",
+				hostname: "dvv.sams-server.de",
+				port: "",
+				pathname: "/uploads/**",
+			},
+			{
+				protocol: "https",
 				hostname: "volleyball-baden.de",
 				port: "",
 				pathname: "/uploads/**",

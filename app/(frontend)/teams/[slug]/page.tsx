@@ -5,10 +5,10 @@ import Matches from "@/components/Matches";
 import RankingTable from "@/components/RankingTable";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import type { Member, Team } from "@/data/payload-types";
+import { samsPlayers } from "@/data/sams/players";
+import { samsLeagueMatches, samsLeagueRanking } from "@/data/sams/sams-server-actions";
 import { getTeams } from "@/data/teams";
 import { Club } from "@/project.config";
-import { samsPlayers } from "@/utils/sams/players";
-import { samsMatches, samsRanking } from "@/utils/sams/sams-server-actions";
 import {
 	Anchor,
 	Avatar,
@@ -52,9 +52,9 @@ export default async function TeamPage(props: {
 	const team = teams?.docs?.[0];
 	if (!team) notFound(); // redirect to 404 page
 
-	const samsTeam = team?.sbvvTeam;
-	const seasonTeamId = typeof samsTeam === "object" ? samsTeam?.seasonTeamId : undefined;
-	const allSeasonMatchSeriesId = typeof samsTeam === "object" ? samsTeam?.matchSeries_AllSeasonId : undefined;
+	const samsTeam = typeof team.sbvvTeam === "object" ? team.sbvvTeam : undefined;
+	const samsTeamUuid = samsTeam?.uuid;
+	const leagueUuid = samsTeam?.leagueUuid;
 
 	// team images
 	const imageUrls =
@@ -74,14 +74,14 @@ export default async function TeamPage(props: {
 			{/* {team.name && leagueName && <PageHeading title={team.name} subtitle={leagueName} />} */}
 			<Stack>
 				{/* display players */}
-				<Suspense fallback={<CenteredLoader />}>
+				{/* <Suspense fallback={<CenteredLoader />}>
 					<TeamPlayers seasonTeamId={seasonTeamId} />
+				</Suspense> */}
+				<Suspense fallback={<CenteredLoader />}>
+					<TeamMatches leagueUuid={leagueUuid} teamUuid={samsTeamUuid} slug={slug} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader />}>
-					<TeamMatches allSeasonMatchSeriesId={allSeasonMatchSeriesId} seasonTeamId={seasonTeamId} slug={slug} />
-				</Suspense>
-				<Suspense fallback={<CenteredLoader />}>
-					<TeamRanking allSeasonMatchSeriesId={allSeasonMatchSeriesId} seasonTeamId={seasonTeamId} />
+					<TeamRanking leagueUuid={leagueUuid} teamUuid={samsTeamUuid} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader />}>
 					<TeamSchedule schedules={team.schedules} />
@@ -146,14 +146,16 @@ async function TeamPlayers({ seasonTeamId }: { seasonTeamId?: string | number | 
 }
 
 async function TeamMatches({
-	allSeasonMatchSeriesId,
-	seasonTeamId,
+	leagueUuid,
+	teamUuid,
 	slug,
-}: { allSeasonMatchSeriesId?: string | null; seasonTeamId?: string | number | null; slug: string }) {
-	if (!allSeasonMatchSeriesId) return null;
+}: { leagueUuid?: string | null; teamUuid?: string | null; slug: string }) {
+	if (!leagueUuid || !teamUuid) return null;
 
-	const futureMatches = await samsMatches({ allSeasonMatchSeriesId, future: true, teamId: seasonTeamId || undefined });
-	const pastMatches = await samsMatches({ allSeasonMatchSeriesId, past: true, teamId: seasonTeamId || undefined });
+	const matches = await samsLeagueMatches({ team: teamUuid, league: leagueUuid });
+
+	const futureMatches = matches?.matches.filter((m) => m.results?.winner === null);
+	const pastMatches = matches?.matches.filter((m) => m.results?.winner !== null);
 
 	// check if its currently a month outside of the season
 	const currentMonth = new Date().getMonth() + 1;
@@ -191,26 +193,23 @@ async function TeamMatches({
 					, um neue Termine saisonübergreifend automatisch in deiner Kalender-App zu empfangen.
 				</Text>
 			</Card>
-			{pastMatches && (
+			{pastMatches && pastMatches.length > 0 && (
 				<Card>
 					<CardTitle>Ergebnisse</CardTitle>
 					<CardSection p={{ base: undefined, sm: "sm" }}>
-						<Matches
-							type="past"
-							matches={pastMatches}
-							highlightTeamId={seasonTeamId ? seasonTeamId.toString() : undefined}
-						/>
+						<Matches type="past" matches={pastMatches} timestamp={matches?.timestamp} highlightTeamUuid={teamUuid} />
 					</CardSection>
 				</Card>
 			)}
-			{futureMatches ? (
+			{futureMatches && futureMatches.length > 0 ? (
 				<Card>
 					<CardTitle>Spielplan</CardTitle>
 					<CardSection p={{ base: undefined, sm: "sm" }}>
 						<Matches
 							type="future"
 							matches={futureMatches}
-							highlightTeamId={seasonTeamId ? seasonTeamId.toString() : undefined}
+							timestamp={matches?.timestamp}
+							highlightTeamUuid={teamUuid}
 						/>
 					</CardSection>
 				</Card>
@@ -229,16 +228,13 @@ async function TeamMatches({
 	);
 }
 
-async function TeamRanking({
-	allSeasonMatchSeriesId,
-	seasonTeamId,
-}: { allSeasonMatchSeriesId?: string | null; seasonTeamId?: string | null }) {
-	if (!allSeasonMatchSeriesId) return null;
+async function TeamRanking({ leagueUuid, teamUuid }: { leagueUuid?: string | null; teamUuid?: string | null }) {
+	if (!leagueUuid) return null;
 
-	const ranking = await samsRanking({ allSeasonMatchSeriesId });
-	if (!ranking || !ranking.matchSeries) return null;
+	const ranking = await samsLeagueRanking(leagueUuid);
+	if (!ranking) return null;
 
-	return <RankingTable {...ranking} key={ranking.matchSeries.id} teams={[{ seasonTeamId }]} />;
+	return <RankingTable ranking={ranking} teams={[{ teamUuid }]} />;
 }
 
 function TeamSchedule({ schedules }: { schedules?: Team["schedules"] }) {
