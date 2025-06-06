@@ -9,8 +9,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "sams_teams" ADD COLUMN "sportsclub_uuid" varchar;
   ALTER TABLE "sams_teams" ADD COLUMN "league_uuid" varchar;
   ALTER TABLE "sams_teams" ADD COLUMN "season_uuid" varchar;
-  ALTER TABLE "sams_clubs" ADD COLUMN "sportsclub_uuid" varchar NOT NULL;
+  ALTER TABLE "sams_clubs" ADD COLUMN "sportsclub_uuid" varchar;
   ALTER TABLE "sams_clubs" ADD COLUMN "association_uuid" varchar;
+  
+  -- Migrate data from old column to new column
+  UPDATE "sams_clubs" SET "sportsclub_uuid" = "sportsclub_id" WHERE "sportsclub_id" IS NOT NULL;
+  
+  -- Now add NOT NULL constraint
+  ALTER TABLE "sams_clubs" ALTER COLUMN "sportsclub_uuid" SET NOT NULL;
+  
   CREATE UNIQUE INDEX IF NOT EXISTS "sams_clubs_sportsclub_uuid_idx" ON "sams_clubs" USING btree ("sportsclub_uuid");
   ALTER TABLE "sams_teams" DROP COLUMN IF EXISTS "season_team_id";
   ALTER TABLE "sams_teams" DROP COLUMN IF EXISTS "matchseries_id";
@@ -33,10 +40,17 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   ALTER TABLE "sams_teams" ADD COLUMN "matchseries_uuid" varchar;
   ALTER TABLE "sams_teams" ADD COLUMN "matchseries_allseasonid" varchar;
   ALTER TABLE "sams_teams" ADD COLUMN "matchseries_type" varchar;
-  ALTER TABLE "sams_clubs" ADD COLUMN "sportsclub_id" varchar NOT NULL;
+  ALTER TABLE "sams_clubs" ADD COLUMN "sportsclub_id" varchar;
   ALTER TABLE "sams_clubs" ADD COLUMN "lsb_number" varchar;
   ALTER TABLE "sams_clubs" ADD COLUMN "internal_sportsclub_id" varchar;
   ALTER TABLE "sams_clubs" ADD COLUMN "homepage" varchar;
+  
+  -- Migrate data back from new column to old column
+  UPDATE "sams_clubs" SET "sportsclub_id" = "sportsclub_uuid" WHERE "sportsclub_uuid" IS NOT NULL;
+  
+  -- Now add NOT NULL constraint to old column
+  ALTER TABLE "sams_clubs" ALTER COLUMN "sportsclub_id" SET NOT NULL;
+  
   CREATE UNIQUE INDEX IF NOT EXISTS "sams_clubs_sportsclub_id_idx" ON "sams_clubs" USING btree ("sportsclub_id");
   ALTER TABLE "sams_teams" DROP COLUMN IF EXISTS "association_uuid";
   ALTER TABLE "sams_teams" DROP COLUMN IF EXISTS "sportsclub_uuid";
