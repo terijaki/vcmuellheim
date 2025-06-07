@@ -1,5 +1,6 @@
 import { withPayload } from "@payloadcms/next/withPayload";
 import withPlaiceholder from "@plaiceholder/next";
+import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -79,4 +80,10 @@ const nextConfig: NextConfig = {
 		optimizePackageImports: ["@mantine/core"],
 	},
 };
-export default withPayload(withPlaiceholder(nextConfig));
+export default withSentryConfig(withPayload(withPlaiceholder(nextConfig)), {
+	org: "volleyballclub-mullheim-ev",
+	project: "volleyball-website",
+	telemetry: false,
+	widenClientFileUpload: true, // Upload a larger set of source maps for prettier stack traces (increases build time)
+	disableLogger: true, // Automatically tree-shake Sentry logger statements to reduce bundle size
+});

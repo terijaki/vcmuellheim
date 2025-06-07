@@ -40,6 +40,7 @@
 		"@payloadcms/storage-s3": "3.40.0",
 		"@payloadcms/translations": "3.40.0",
 		"@plaiceholder/next": "^3.0.0",
+		"@sentry/nextjs": "^9.27.0",
 		"bun-types": "^1.2.15",
 		"croner": "^9.0.0",
 		"dayjs": "^1.11.13",
