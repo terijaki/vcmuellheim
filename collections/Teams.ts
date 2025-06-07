@@ -1,6 +1,7 @@
 import { isModerator } from "@/data/payload-access";
 import { Instagram } from "@/project.config";
 import { slugify } from "@/utils/slugify";
+import { revalidateTag } from "next/cache";
 import type { CollectionConfig } from "payload";
 
 export const Teams: CollectionConfig = {
@@ -29,6 +30,12 @@ export const Teams: CollectionConfig = {
 				if (data.name) data.slug = slugify(data.name, true);
 				if (data.instagram) data.instagram = data.instagram.toLowerCase().trim();
 				return data;
+			},
+		],
+		afterChange: [
+			async ({ doc }) => {
+				if (doc._status === "published") revalidateTag("teams");
+				return doc;
 			},
 		],
 	},

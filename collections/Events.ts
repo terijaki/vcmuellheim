@@ -1,4 +1,5 @@
 import { isModeratorOrAuthor, isOfficial } from "@/data/payload-access";
+import { revalidateTag } from "next/cache";
 import type { CollectionConfig } from "payload";
 
 export const Events: CollectionConfig = {
@@ -16,6 +17,14 @@ export const Events: CollectionConfig = {
 		create: isOfficial,
 		update: isModeratorOrAuthor,
 		delete: isModeratorOrAuthor,
+	},
+	hooks: {
+		afterChange: [
+			async ({ doc }) => {
+				if (doc._status === "published") revalidateTag("events");
+				return doc;
+			},
+		],
 	},
 	fields: [
 		{

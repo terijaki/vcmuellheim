@@ -1,4 +1,5 @@
 import CardTitle from "@/components/CardTitle";
+import CenteredLoader from "@/components/CenteredLoader";
 import ImageGallery from "@/components/ImageGallery";
 import MapsLink from "@/components/MapsLink";
 import Matches from "@/components/Matches";
@@ -9,22 +10,10 @@ import { samsPlayers } from "@/data/sams/players";
 import { samsLeagueMatches, samsLeagueRanking } from "@/data/sams/sams-server-actions";
 import { getTeams } from "@/data/teams";
 import { Club } from "@/project.config";
-import {
-	Anchor,
-	Avatar,
-	Button,
-	Card,
-	CardSection,
-	Center,
-	Flex,
-	Group,
-	Loader,
-	SimpleGrid,
-	Stack,
-	Text,
-} from "@mantine/core";
+import { Anchor, Avatar, Button, Card, CardSection, Center, Flex, Group, SimpleGrid, Stack, Text } from "@mantine/core";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
+import { unstable_cacheTag as cacheTag } from "next/cache";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -64,11 +53,6 @@ export default async function TeamPage(props: {
 			)
 			.map((image) => image.url) || [];
 
-	const CenteredLoader = () => (
-		<Center p="md">
-			<Loader color="onyx" />
-		</Center>
-	);
 	return (
 		<PageWithHeading title={team.name} subtitle={team.league || undefined}>
 			{/* {team.name && leagueName && <PageHeading title={team.name} subtitle={leagueName} />} */}
@@ -103,6 +87,9 @@ export default async function TeamPage(props: {
 }
 
 async function TeamPlayers({ seasonTeamId }: { seasonTeamId?: string | number | null }) {
+	"use cache";
+	cacheTag("teams");
+
 	if (!seasonTeamId) return null;
 	// retrive players
 	const teamPlayers = await samsPlayers(seasonTeamId);
@@ -150,6 +137,7 @@ async function TeamMatches({
 	teamUuid,
 	slug,
 }: { leagueUuid?: string | null; teamUuid?: string | null; slug: string }) {
+	"use cache";
 	if (!leagueUuid || !teamUuid) return null;
 
 	const matches = await samsLeagueMatches({ team: teamUuid, league: leagueUuid });
@@ -229,6 +217,7 @@ async function TeamMatches({
 }
 
 async function TeamRanking({ leagueUuid, teamUuid }: { leagueUuid?: string | null; teamUuid?: string | null }) {
+	"use cache";
 	if (!leagueUuid) return null;
 
 	const ranking = await samsLeagueRanking(leagueUuid);
@@ -238,6 +227,9 @@ async function TeamRanking({ leagueUuid, teamUuid }: { leagueUuid?: string | nul
 }
 
 function TeamSchedule({ schedules }: { schedules?: Team["schedules"] }) {
+	"use cache";
+	cacheTag("teams");
+
 	if (!schedules || schedules.length === 0) return null;
 
 	return (
@@ -264,6 +256,9 @@ function TeamSchedule({ schedules }: { schedules?: Team["schedules"] }) {
 }
 
 function TeamTrainers({ people }: { people?: Team["people"] }) {
+	"use cache";
+	cacheTag("teams");
+
 	if (!people) {
 		return (
 			<Card>
@@ -332,6 +327,9 @@ function TeamTrainers({ people }: { people?: Team["people"] }) {
 }
 
 function TeamPictures({ images }: { images?: string[] }) {
+	"use cache";
+	cacheTag("teams", "media");
+	
 	if (!images || images.length === 0) return null;
 	return (
 		<Card>

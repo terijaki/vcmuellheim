@@ -1,4 +1,5 @@
 import { isModerator, isModeratorOrSelf } from "@/data/payload-access";
+import { revalidateTag } from "next/cache";
 import type { CollectionConfig } from "payload";
 
 export const Members: CollectionConfig = {
@@ -22,6 +23,12 @@ export const Members: CollectionConfig = {
 					data.email = data.email.toLowerCase();
 				}
 				return data;
+			},
+		],
+		afterChange: [
+			async ({ doc }) => {
+				if (doc._status === "published") revalidateTag("members");
+				return doc;
 			},
 		],
 	},

@@ -1,4 +1,6 @@
+"use cache";
 import CardTitle from "@/components/CardTitle";
+import CenteredLoader from "@/components/CenteredLoader";
 import Matches from "@/components/Matches";
 import RankingTable from "@/components/RankingTable";
 import PageWithHeading from "@/components/layout/PageWithHeading";
@@ -12,9 +14,17 @@ const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown
 
 export const metadata: Metadata = { title: "Tabelle" };
 
-export const dynamic = "force-dynamic";
+export default async function RankingPage() {
+	return (
+		<PageWithHeading title={"Tabelle"}>
+			<Suspense fallback={<CenteredLoader text="Lade Tabellendaten..." />}>
+				<RankingContent />
+			</Suspense>
+		</PageWithHeading>
+	);
+}
 
-export default async function Tabelle() {
+async function RankingContent() {
 	const clubRankings = await samsClubRankings();
 	if (!clubRankings || clubRankings.length === 0) return <NoRankingsData />;
 
@@ -32,38 +42,32 @@ export default async function Tabelle() {
 	const lastResultWord = recentMatches.length > 1 && numToWordsDe.numToWord(recentMatches.length, { uppercase: false });
 
 	return (
-		<PageWithHeading title={"Tabelle"}>
-			<Stack>
-				<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-					<Suspense fallback={<Card>Lade Tabellendaten...</Card>}>
-						{clubRankings?.map((ranking) => {
-							return (
-								<Suspense key={ranking.leagueUuid} fallback={<Card>lade Tabelle..</Card>}>
-									<RankingTable ranking={ranking} linkToTeamPage={true} teams={teamContext} />
-								</Suspense>
-							);
-						})}
-					</Suspense>
-				</SimpleGrid>
-				<Suspense>
-					{recentMatches && recentMatches.length > 0 && (
-						<Card>
-							<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
-							<CardSection p={{ base: undefined, sm: "sm" }}>
-								<Matches matches={recentMatches} type="past" />
-							</CardSection>
-						</Card>
-					)}
-				</Suspense>
-			</Stack>
-		</PageWithHeading>
+		<Stack>
+			<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
+				{clubRankings?.map((ranking) => {
+					return (
+						<Suspense key={ranking.leagueUuid} fallback={<Card>lade Tabelle..</Card>}>
+							<RankingTable ranking={ranking} linkToTeamPage={true} teams={teamContext} />
+						</Suspense>
+					);
+				})}
+			</SimpleGrid>
+			{recentMatches && recentMatches.length > 0 && (
+				<Card>
+					<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
+					<CardSection p={{ base: undefined, sm: "sm" }}>
+						<Matches matches={recentMatches} type="past" />
+					</CardSection>
+				</Card>
+			)}
+		</Stack>
 	);
 }
 
 function NoRankingsData() {
 	const currentMonth = new Date().getMonth() + 1;
 	return (
-		<PageWithHeading title="Tabelle">
+		<>
 			<Card>
 				<CardTitle>Keine Daten gefunden</CardTitle>
 				<Text>
@@ -81,6 +85,6 @@ function NoRankingsData() {
 					</Text>
 				</Card>
 			)}
-		</PageWithHeading>
+		</>
 	);
 }

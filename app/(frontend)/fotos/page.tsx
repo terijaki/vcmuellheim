@@ -1,9 +1,11 @@
+import CenteredLoader from "@/components/CenteredLoader";
 import Paginator from "@/components/Paginator";
 import PictureCard from "@/components/PictureCard";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import { getPictures } from "@/data/pictures";
 import { Center, Group } from "@mantine/core";
 import type { Metadata } from "next";
+import { unstable_cacheTag as cacheTag } from "next/cache";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
@@ -18,28 +20,38 @@ export default async function PicturesPage({
 	const { page = 1 } = await searchParams;
 	// verify if page is a number, if not set to 1
 	const parsedPage = typeof page === "string" && !Number.isNaN(Number(page)) ? Number(page) : 1;
-	const data = await getPictures(60, parsedPage);
-	const pictures = data?.docs;
-	if (pictures?.length === 0) notFound();
-
 	return (
 		<PageWithHeading
 			title="Fotogalerie"
 			subtitle="Eindrücke aus unserem Vereinsleben, von Spieltagen, Turnieren und unseren Mitgliedern."
 		>
-			<Suspense fallback={"Lade Fotos..."}>
-				<Group gap="xs" justify="center" preventGrowOverflow={false} key={parsedPage}>
-					{pictures?.map(async (image) => {
-						if (!image.url) return null;
-						return <PictureCard key={image.id} url={image.url} />;
-					})}
-				</Group>
-				{data?.totalPages && (
-					<Center py="xl">
-						<Paginator total={data.totalPages} value={parsedPage} />
-					</Center>
-				)}
+			<Suspense fallback={<CenteredLoader text="Lade Fotos..." />}>
+				<PictureGrid page={parsedPage} />
 			</Suspense>
 		</PageWithHeading>
+	);
+}
+
+async function PictureGrid({ page }: { page: number }) {
+	"use cache";
+	cacheTag("media");
+	const data = await getPictures(60, page);
+	const pictures = data?.docs;
+	if (pictures?.length === 0) notFound();
+
+	return (
+		<>
+			<Group gap="xs" justify="center" preventGrowOverflow={false} key={page}>
+				{pictures?.map(async (image) => {
+					if (!image.url) return null;
+					return <PictureCard key={image.id} url={image.url} />;
+				})}
+			</Group>
+			{data?.totalPages && (
+				<Center py="xl">
+					<Paginator total={data.totalPages} value={page} />
+				</Center>
+			)}
+		</>
 	);
 }

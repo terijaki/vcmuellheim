@@ -1,5 +1,6 @@
 import { isModeratorOrBooker, isUser } from "@/data/payload-access";
 import dayjs from "dayjs";
+import { revalidateTag } from "next/cache";
 import type { CollectionConfig } from "payload";
 
 export const BusBookings: CollectionConfig = {
@@ -21,6 +22,14 @@ export const BusBookings: CollectionConfig = {
 		create: isUser,
 		update: isModeratorOrBooker,
 		delete: isModeratorOrBooker,
+	},
+	hooks: {
+		afterChange: [
+			async ({ doc }) => {
+				if (doc._status === "published") revalidateTag("bus");
+				return doc;
+			},
+		],
 	},
 	fields: [
 		{

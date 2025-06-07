@@ -36,6 +36,11 @@ export default async function HomeKontakt() {
 								<ContactLink href="#mannschaften" label="siehe oben" />
 							</Text>
 						</ContactItem>
+						<ContactItem title="Hast du Fragen zu unserem Branding?">
+							<Text size="sm">
+								Farben und Logo Dateien findest du im <ContactLink href="/brand" label="Brand Guide" />
+							</Text>
+						</ContactItem>
 						<ContactItem title="Möchtest du dem Verein beitreten?">
 							<Text size="sm">
 								Hier gehts zur <ContactLink href="/beitragsordnung/" label="Beitragsordnung" /> und hier zum{" "}
@@ -84,11 +89,6 @@ export default async function HomeKontakt() {
 									label="Trainervergütung"
 									icon={<IconExcel />}
 								/>
-							</Text>
-						</ContactItem>
-						<ContactItem title="Hast du Fragen zu unserem Branding?">
-							<Text size="sm">
-								Farben und Logo Dateien findest du im <ContactLink href="/brand" label="Brand Guide" />
 							</Text>
 						</ContactItem>
 						<ContactItem title="Für alle weiteren Anliegen:">

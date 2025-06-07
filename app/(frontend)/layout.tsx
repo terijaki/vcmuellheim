@@ -72,6 +72,12 @@ const theme = createTheme({
 				c: "turquoise",
 			},
 		},
+		Loader: {
+			defaultProps: {
+				type: "dots",
+				size: "lg",
+			},
+		},
 	},
 });
 

@@ -180,7 +180,9 @@ export async function samsLeagueMatches(props: {
 
 		if (props.range === "future") {
 			// filter matches by future dates
-			filteredMatches = allMatches.filter((m) => dayjs(m.date).isAfter(dayjs()));
+			// filteredMatches = allMatches.filter((m) => dayjs(m.date).isAfter(dayjs()));
+			// filter matches by absent winner
+			filteredMatches = allMatches.filter((m) => m.results?.winner === null);
 		} else if (props.range === "past") {
 			// filter matches by past dates
 			filteredMatches = allMatches.filter((m) => dayjs(m.date).isBefore(dayjs()));

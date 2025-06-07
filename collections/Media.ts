@@ -1,4 +1,5 @@
 import { isModerator, isOfficial } from "@/data/payload-access";
+import { revalidateTag } from "next/cache";
 import type { CollectionConfig } from "payload";
 
 export const Media: CollectionConfig = {
@@ -76,6 +77,12 @@ export const Media: CollectionConfig = {
 					const uniqueFilename = `${crypto.randomUUID()}.${extension}`;
 					req.file.name = uniqueFilename;
 				}
+			},
+		],
+		afterChange: [
+			async ({ doc }) => {
+				revalidateTag("media");
+				return doc;
 			},
 		],
 	},

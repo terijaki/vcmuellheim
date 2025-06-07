@@ -1,4 +1,5 @@
 import { isModeratorOrAuthor, isOfficial } from "@/data/payload-access";
+import { revalidateTag } from "next/cache";
 import type { CollectionConfig } from "payload";
 
 type RichTextNode = {
@@ -47,6 +48,12 @@ export const News: CollectionConfig = {
 					data.excerpt = excerpt.length < plainText.length ? `${excerpt}...` : excerpt; // elipsis if truncated
 				}
 				return data;
+			},
+		],
+		afterChange: [
+			async ({ doc }) => {
+				if (doc._status === "published") revalidateTag("news");
+				return doc;
 			},
 		],
 	},
