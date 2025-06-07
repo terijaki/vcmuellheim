@@ -8,7 +8,7 @@ const backgroundImages = [
 	"/images/backgrounds/intro1.jpg",
 	"/images/backgrounds/intro2.jpg",
 	"/images/backgrounds/intro3.jpg",
-	"/images/backgrounds/intro3.jpg",
+	"/images/backgrounds/intro4.jpg",
 ];
 
 export default async function HomeIntro() {
