@@ -44,7 +44,7 @@ ENV TZ=Europe/Berlin
 ENV NODE_ENV=production
 ENV SENTRY_ENVIRONMENT=production
 RUN addgroup -S vcmuellheim && adduser -S -G vcmuellheim spieler
-RUN mkdir -p .next/cache
+RUN mkdir -p .next/cache/images
 RUN chown -R spieler:vcmuellheim .next
 COPY --from=builder --chown=spieler:vcmuellheim /app/.next/standalone ./
 COPY --from=builder --chown=spieler:vcmuellheim /app/.next/static ./.next/static
