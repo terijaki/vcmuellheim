@@ -19,7 +19,7 @@ export default async function HomeNews() {
 	if (news && news.length > 2) {
 		const threeMonthsAgo = dayjs().subtract(3, "month");
 		const thirdIsOld = dayjs(news[2].publishedDate).isBefore(threeMonthsAgo);
-		if (thirdIsOld) news = news.splice(2, 2);
+		if (thirdIsOld) news = news.splice(2);
 	}
 
 	return (
