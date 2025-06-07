@@ -45,7 +45,7 @@ export default function Datenschutz() {
 							Zur Sicherstellung der Stabilität, Funktionalität und zur fortlaufenden Verbesserung der Performance
 							unserer Webseite/Anwendung nutzen wir den Dienst Sentry.io (https://sentry.io/), einen Fehler- und
 							Performance-Monitoring-Dienst, bereitgestellt von Functional Software, Inc., dba Sentry, 132 Hawthorne St,
-							San Francisco, CA 94107, USA ("Sentry").
+							San Francisco, CA 94107, USA (&quot;Sentry&quot;).
 						</Text>
 						<CardTitle>Zweck der Verarbeitung:</CardTitle>
 						<Text>

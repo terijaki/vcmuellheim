@@ -12,10 +12,7 @@ export default async function ImageGallery({ images }: { images?: string[] }) {
 					<Card shadow="sm" component={Link} key={`Gallerybild ${imageUrl}`} href={imageUrl} target="_blank">
 						<CardSection>
 							<AspectRatio ratio={16 / 9} maw={{ base: "100%", sm: 296 }}>
-								<Image
-									src={imageUrl}
-									alt={`Foto ${index}`}
-								/>
+								<Image src={imageUrl} alt={`Foto ${index}`} />
 							</AspectRatio>
 						</CardSection>
 					</Card>
