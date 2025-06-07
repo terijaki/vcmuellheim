@@ -43,6 +43,8 @@ export default async function TeamPage(props: {
 	const samsTeam = typeof team.sbvvTeam === "object" ? team.sbvvTeam : undefined;
 	const samsTeamUuid = samsTeam?.uuid;
 	const leagueUuid = samsTeam?.leagueUuid;
+	const leagueName = samsTeam?.leagueName; // injected in the ranking query
+	const seasonName = samsTeam?.seasonName; // injected in the ranking query
 
 	// team images
 	const imageUrls =
@@ -70,7 +72,12 @@ export default async function TeamPage(props: {
 					<TeamPictures images={imageUrls} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader />}>
-					<TeamRanking leagueUuid={leagueUuid} teamUuid={samsTeamUuid} />
+					<TeamRanking
+						leagueUuid={leagueUuid}
+						leagueName={leagueName}
+						seasonName={seasonName}
+						teamUuid={samsTeamUuid}
+					/>
 				</Suspense>
 				<Suspense fallback={<CenteredLoader />}>
 					<TeamMatches leagueUuid={leagueUuid} teamUuid={samsTeamUuid} slug={slug} />
@@ -213,10 +220,15 @@ async function TeamMatches({
 	);
 }
 
-async function TeamRanking({ leagueUuid, teamUuid }: { leagueUuid?: string | null; teamUuid?: string | null }) {
+async function TeamRanking({
+	leagueUuid,
+	leagueName,
+	seasonName,
+	teamUuid,
+}: { leagueUuid?: string | null; leagueName?: string | null; seasonName?: string | null; teamUuid?: string | null }) {
 	if (!leagueUuid) return null;
 
-	const ranking = await samsLeagueRanking(leagueUuid);
+	const ranking = await samsLeagueRanking(leagueUuid, leagueName, seasonName); //league/season names injected to be passed along with its response object
 	if (!ranking) return null;
 
 	return <RankingTable ranking={ranking} teams={[{ teamUuid }]} />;
