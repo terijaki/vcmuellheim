@@ -2,7 +2,7 @@ import SectionHeading from "@/components/layout/SectionHeading";
 import { getNews } from "@/data/news";
 import { Button, Center, Container, SimpleGrid, Stack, Text } from "@mantine/core";
 import dayjs from "dayjs";
-import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from "next/cache";
+import { unstable_cacheTag as cacheTag } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
 import NewsCard from "../NewsCard";
@@ -10,7 +10,6 @@ import ScrollAnchor from "./ScrollAnchor";
 
 export default async function HomeNews() {
 	"use cache";
-	cacheLife("minutes");
 	cacheTag("news");
 
 	const newsData = await getNews(4, undefined);
