@@ -29,7 +29,10 @@ export const News: CollectionConfig = {
 		pagination: { defaultLimit: 50 },
 		preview: ({ id }) => `/${News.slug}/${id}`,
 		livePreview: {
-			url: ({ data, req }) => `${req.protocol}//${req.host}/news/${data.id}?preview=true`,
+			url: ({ data, req }) => {
+				const protocol = process.env.NODE_ENV === "development" ? req.protocol : req.protocol.replace("http", "https");
+				return `${protocol}//${req.host}/news/${data.id}?preview=true`;
+			},
 		},
 	},
 	access: {

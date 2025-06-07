@@ -15,7 +15,10 @@ export const Teams: CollectionConfig = {
 		pagination: { defaultLimit: 50 },
 		preview: ({ slug }) => `/${Teams.slug}/${slug}`,
 		livePreview: {
-			url: ({ data, req }) => `${req.protocol}//${req.host}/teams/${data.slug}?preview=true`,
+			url: ({ data, req }) => {
+				const protocol = process.env.NODE_ENV === "development" ? req.protocol : req.protocol.replace("http", "https");
+				return `${protocol}//${req.host}/teams/${data.slug}?preview=true`;
+			},
 		},
 	},
 	access: {

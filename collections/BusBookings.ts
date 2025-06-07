@@ -13,8 +13,10 @@ export const BusBookings: CollectionConfig = {
 		defaultColumns: ["schedule-start", "schedule-end", "traveler", "comment", "booker"],
 		pagination: { defaultLimit: 50 },
 		livePreview: {
-			url: ({ data, req }) =>
-				`${req.protocol}//${req.host}/bus/?preview=true&date=${data.schedule.start}&date=${data.schedule.end}`,
+			url: ({ data, req }) => {
+				const protocol = process.env.NODE_ENV === "development" ? req.protocol : req.protocol.replace("http", "https");
+				return `${protocol}//${req.host}/bus/?preview=true&date=${data.schedule.start}&date=${data.schedule.end}`;
+			},
 		},
 	},
 	access: {
