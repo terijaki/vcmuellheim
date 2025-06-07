@@ -135,7 +135,6 @@ async function TeamMatches({
 	teamUuid,
 	slug,
 }: { leagueUuid?: string | null; teamUuid?: string | null; slug: string }) {
-	"use cache";
 	if (!leagueUuid || !teamUuid) return null;
 
 	const matches = await samsLeagueMatches({ team: teamUuid, league: leagueUuid });
@@ -215,7 +214,6 @@ async function TeamMatches({
 }
 
 async function TeamRanking({ leagueUuid, teamUuid }: { leagueUuid?: string | null; teamUuid?: string | null }) {
-	"use cache";
 	if (!leagueUuid) return null;
 
 	const ranking = await samsLeagueRanking(leagueUuid);
