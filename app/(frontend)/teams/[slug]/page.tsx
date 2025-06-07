@@ -13,7 +13,6 @@ import { Club } from "@/project.config";
 import { Anchor, Avatar, Button, Card, CardSection, Center, Flex, Group, SimpleGrid, Stack, Text } from "@mantine/core";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
-import { unstable_cacheTag as cacheTag } from "next/cache";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -88,7 +87,6 @@ export default async function TeamPage(props: {
 
 async function TeamPlayers({ seasonTeamId }: { seasonTeamId?: string | number | null }) {
 	"use cache";
-	cacheTag("teams");
 
 	if (!seasonTeamId) return null;
 	// retrive players
@@ -227,9 +225,6 @@ async function TeamRanking({ leagueUuid, teamUuid }: { leagueUuid?: string | nul
 }
 
 function TeamSchedule({ schedules }: { schedules?: Team["schedules"] }) {
-	"use cache";
-	cacheTag("teams");
-
 	if (!schedules || schedules.length === 0) return null;
 
 	return (
@@ -256,9 +251,6 @@ function TeamSchedule({ schedules }: { schedules?: Team["schedules"] }) {
 }
 
 function TeamTrainers({ people }: { people?: Team["people"] }) {
-	"use cache";
-	cacheTag("teams");
-
 	if (!people) {
 		return (
 			<Card>
@@ -327,9 +319,6 @@ function TeamTrainers({ people }: { people?: Team["people"] }) {
 }
 
 function TeamPictures({ images }: { images?: string[] }) {
-	"use cache";
-	cacheTag("teams", "media");
-	
 	if (!images || images.length === 0) return null;
 	return (
 		<Card>
