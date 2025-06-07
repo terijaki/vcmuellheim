@@ -86,4 +86,7 @@ export default withSentryConfig(withPayload(withPlaiceholder(nextConfig)), {
 	telemetry: false,
 	widenClientFileUpload: true, // Upload a larger set of source maps for prettier stack traces (increases build time)
 	disableLogger: true, // Automatically tree-shake Sentry logger statements to reduce bundle size
+	sourcemaps: {
+		deleteSourcemapsAfterUpload: true, // Automatically delete the sourcemaps after they are uploaded to Sentry
+	},
 });
