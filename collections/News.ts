@@ -25,7 +25,7 @@ export const News: CollectionConfig = {
 	admin: {
 		useAsTitle: "title",
 		group: "Inhalte",
-		defaultColumns: ["title", "excerpt", "publishedDate", "isPublished"],
+		defaultColumns: ["title", "excerpt", "publishedDate", "status"],
 		pagination: { defaultLimit: 50 },
 		preview: ({ id }) => `/${News.slug}/${id}`,
 		livePreview: {
@@ -81,15 +81,6 @@ export const News: CollectionConfig = {
 			label: "Inhalt",
 			type: "richText",
 			required: true,
-		},
-		{
-			name: "isPublished",
-			label: "Veröffentlicht",
-			type: "checkbox",
-			defaultValue: true,
-			admin: {
-				position: "sidebar",
-			},
 		},
 		{
 			name: "publishedDate",

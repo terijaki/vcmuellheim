@@ -12,14 +12,14 @@ export default async function HomeNews() {
 	"use cache";
 	cacheTag("news");
 
-	const newsData = await getNews(4, undefined);
+	const newsData = await getNews(4);
 	let news = newsData?.docs;
 
 	// if the 3 and 4th news are older than 3 months, exclude them
 	if (news && news.length > 2) {
 		const threeMonthsAgo = dayjs().subtract(3, "month");
 		const thirdIsOld = dayjs(news[2].publishedDate).isBefore(threeMonthsAgo);
-		if (thirdIsOld) news = news.splice(2);
+		if (thirdIsOld) news = news.slice(0, 2);
 	}
 
 	return (

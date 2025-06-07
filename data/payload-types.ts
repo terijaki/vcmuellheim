@@ -228,7 +228,6 @@ export interface News {
     };
     [k: string]: unknown;
   };
-  isPublished?: boolean | null;
   publishedDate: string;
   authors?: (string | User)[] | null;
   images?: (string | Media)[] | null;
@@ -615,7 +614,6 @@ export interface EventsSelect<T extends boolean = true> {
 export interface NewsSelect<T extends boolean = true> {
   title?: T;
   content?: T;
-  isPublished?: T;
   publishedDate?: T;
   authors?: T;
   images?: T;

@@ -17,13 +17,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 	};
 }
 
-export default async function NewsPage({
-	params,
-	searchParams,
-}: { params: Promise<{ id: string }>; searchParams: Promise<{ preview: "true" | "false" | undefined }> }) {
+export default async function NewsPage({ params }: { params: Promise<{ id: string }> }) {
 	const { id } = await params;
-	const preview = (await searchParams).preview === "true";
-	const data = await getNewsItem(id, preview);
+	const data = await getNewsItem(id);
 	if (!data) notFound();
 
 	// filter out the thumbnail urls
