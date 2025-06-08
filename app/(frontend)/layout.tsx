@@ -84,13 +84,13 @@ const theme = createTheme({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="de">
-			<body data-build-time={Date.now()} style={{ cursor: "default" }}>
+			<body style={{ cursor: "default" }}>
 				<MantineProvider theme={theme}>
 					<DatesDEProvider>
-						<AppShell header={{ height: 60, offset: true }} withBorder={false} bg="aquahaze">
+						<AppShell header={{ height: 60, offset: true }} withBorder={false} bg="onyx">
 							<Header />
 
-							<AppShellMain>
+							<AppShellMain bg="aquahaze">
 								<Stack justify="space-between" style={{ minHeight: "calc(100vh - 60px)" }}>
 									{children}
 

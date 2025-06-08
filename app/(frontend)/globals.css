@@ -20,30 +20,38 @@
 	width: 0.5rem;
 	height: 0.5rem;
 }
+
 ::-webkit-scrollbar-button {
 	width: 0;
 	height: 0;
 }
+
 ::-webkit-scrollbar-thumb {
 	background-color: var(--color-lion);
 	border: none;
 }
+
 ::-webkit-scrollbar-thumb:hover {
 	background-color: var(--color-turquoise);
 }
+
 ::-webkit-scrollbar-thumb:active {
 	background-color: var(--color-turquoise);
 }
+
 ::-webkit-scrollbar-track {
 	background-color: var(--color-onyx);
 	border: none;
 }
+
 ::-webkit-scrollbar-track:hover {
 	background-color: var(--color-onyx);
 }
+
 ::-webkit-scrollbar-track:active {
 	background-color: var(--color-onyx);
 }
+
 ::-webkit-scrollbar-corner {
 	background-color: transparent;
 }
@@ -54,4 +62,22 @@ summary::marker {
 	/* hides the default arrow */
 	display: none;
 	content: none;
+}
+
+/* ------ Animations ------ */
+@keyframes pulse {
+	0% {
+		transform: scale(0.9);
+		opacity: 0.2;
+	}
+
+	50% {
+		transform: scale(1.05);
+		opacity: 1;
+	}
+
+	100% {
+		transform: scale(0.9);
+		opacity: 0.2;
+	}
 }
