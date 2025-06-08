@@ -56,8 +56,8 @@ EXPOSE 3080
 ENV PORT=3080
 ENV HOSTNAME="0.0.0.0"
 
-HEALTHCHECK --start-period=5s --interval=2m --timeout=3s \
-    CMD curl -f http://localhost:3080
+HEALTHCHECK --start-period=30s --interval=30s --timeout=10s --retries=3 \
+    CMD curl -f http://localhost:3080/health | grep -q "Liebe Grüße vom VCM Müllheim"
 
 CMD ["bun", "--env-file", ".env", "start"]
 
