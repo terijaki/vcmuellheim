@@ -575,6 +575,7 @@ export async function cronSamsClubsUpdate() {
 	try {
 		// get our assiciation ID from Sams
 		const association = await samsAssociation(SAMS.association.name);
+		if (!association?.uuid) throw `🚨 Association UUID for ${SAMS.association.name} not found on SAMS.`;
 
 		// Default parameters for the API calls
 		const defaultParams = {
