@@ -230,6 +230,7 @@ export async function samsClubRankings(): Promise<Ranking[] | undefined> {
 
 		// sort rankings by hierarchyLevel
 		// TODO fix this. it is no longer possible since the ranking do not have any league info
+		rankings.reverse(); // workaround for the missing hierarchyLevel in the rankings. not very accurate but assumes the highest team is added first
 		// rankings.sort((a, b) => {
 		// 	const hierarchyLevelA = a.matchSeries.hierarchy?.hierarchyLevel || 999;
 		// 	const hierarchyLevelB = b.matchSeries.hierarchy?.hierarchyLevel || 999;
