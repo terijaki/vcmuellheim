@@ -37,7 +37,11 @@ export async function samsLeagueRanking(
 	seasonName?: string | null,
 ): Promise<Ranking | undefined> {
 	"use cache";
-	cacheLife("minutes");
+	cacheLife({
+		stale: 300, // 5 minutes
+		revalidate: 60, // 1 minute
+		expire: 3600 * 3, // 3 hours
+	});
 
 	try {
 		const { data } = await getRankingsForLeague({
@@ -123,7 +127,12 @@ export async function samsLeagueMatches(props: {
 	range?: "future" | "past";
 }): Promise<LeagueMatches | undefined> {
 	"use cache";
-	cacheLife("minutes");
+	cacheLife({
+		stale: 300, // 5 minutes
+		revalidate: 60, // 1 minute
+		expire: 3600 * 3, // 3 hours
+	});
+
 	try {
 		// Default parameters for the API calls
 		const defaultQueryParams = {
