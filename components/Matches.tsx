@@ -73,10 +73,10 @@ export default async function Matches({
 										{match.date && (
 											<time dateTime={match.date}>
 												<Text size="sm" hiddenFrom="sm">
-													{dayjs(match.date).format("D MMMM YY")}
+													{dayjs(match.date).format("D MMMM YYYY")}
 												</Text>
 												<Text size="md" visibleFrom="sm">
-													{dayjs(match.date).format("D MMMM YY")}
+													{dayjs(match.date).format("D MMMM YYYY")}
 												</Text>
 											</time>
 										)}
@@ -185,7 +185,7 @@ export default async function Matches({
 									{match.date && (
 										<time dateTime={match.date}>
 											<Text size="sm" fw="bold">
-												{dayjs(match.date).format("D MMMM YY")}
+												{dayjs(match.date).format("D MMMM YYYY")}
 											</Text>
 										</time>
 									)}
