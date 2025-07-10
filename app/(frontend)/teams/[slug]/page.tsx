@@ -146,8 +146,8 @@ async function TeamMatches({
 
 	const matches = await samsLeagueMatches({ team: teamUuid, league: leagueUuid });
 
-	const futureMatches = matches?.matches.filter((m) => m.results?.winner === null);
-	const pastMatches = matches?.matches.filter((m) => m.results?.winner !== null);
+	const futureMatches = matches?.matches.filter((m) => !m.results?.winner);
+	const pastMatches = matches?.matches.filter((m) => !!m.results?.winner);
 
 	// check if its currently a month outside of the season (september to April)
 	const currentMonth = dayjs().month() + 1;
