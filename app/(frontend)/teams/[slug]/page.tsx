@@ -71,7 +71,7 @@ export default async function TeamPage(props: {
 				<Suspense fallback={<CenteredLoader />}>
 					<TeamPictures images={imageUrls} />
 				</Suspense>
-				<Suspense fallback={<CenteredLoader />}>
+				<Suspense fallback={<CenteredLoader text="Lade Tabelle..." />}>
 					<TeamRanking
 						leagueUuid={leagueUuid}
 						leagueName={leagueName}
@@ -79,7 +79,7 @@ export default async function TeamPage(props: {
 						teamUuid={samsTeamUuid}
 					/>
 				</Suspense>
-				<Suspense fallback={<CenteredLoader />}>
+				<Suspense fallback={<CenteredLoader text="Lade Spielplan..." />}>
 					<TeamMatches leagueUuid={leagueUuid} teamUuid={samsTeamUuid} slug={slug} />
 				</Suspense>
 				<Center>
@@ -185,6 +185,7 @@ async function TeamMatches({
 					, um neue Termine saisonübergreifend automatisch in deiner Kalender-App zu empfangen.
 				</Text>
 			</Card>
+
 			{pastMatches && pastMatches.length > 0 && (
 				<Card>
 					<CardTitle>Ergebnisse</CardTitle>
