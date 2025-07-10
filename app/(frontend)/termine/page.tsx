@@ -75,8 +75,8 @@ async function EventsContent() {
 }
 
 async function MatchesContent() {
-	"use cache";
-	cacheTag("sams-league-matches");
+	// "use cache";
+	// cacheTag("sams-league-matches");
 	// get sams matches
 	const leagueMatches = await samsLeagueMatches({ range: "future" });
 	// TODO include tournament matches (separate sams query)

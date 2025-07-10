@@ -196,6 +196,11 @@ export async function samsLeagueMatches(props: {
 			filteredMatches = allMatches.filter((m) => dayjs(m.date).isBefore(dayjs()));
 		}
 
+		// sort matches by date (default sorting is by game number but does not take into account reschedules)
+		filteredMatches.sort((a, b) => {
+			return dayjs(a.date).diff(dayjs(b.date));
+		});
+
 		return { matches: filteredMatches, timestamp: new Date() };
 	} catch (error) {
 		console.error("🚨 Error fetching league matches", error);

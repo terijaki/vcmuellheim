@@ -1,15 +1,26 @@
 import type { LeagueMatches } from "@/data/sams/sams-server-actions";
+import { getOurClubsSamsTeams } from "@/data/samsTeams";
 import { SAMS } from "@/project.config";
 import { Box, Flex, Grid, GridCol, Group, Stack, Text } from "@mantine/core";
+import dayjs from "dayjs";
+import "dayjs/locale/de";
 import { FaSquarePollVertical as IconResult } from "react-icons/fa6";
 import MapsLink from "./MapsLink";
+dayjs.locale("de");
 
-export default function Matches({
+export default async function Matches({
 	matches = [],
 	timestamp,
 	type,
 	highlightTeamUuid,
-}: { matches: LeagueMatches["matches"]; timestamp?: Date; type: "future" | "past"; highlightTeamUuid?: string }) {
+	uniqueLeague = false,
+}: {
+	matches: LeagueMatches["matches"];
+	timestamp?: Date;
+	type: "future" | "past";
+	highlightTeamUuid?: string;
+	uniqueLeague?: boolean;
+}) {
 	if (!matches || matches.length === 0) return null;
 	// define how dates should be displayed
 	const dateFormat = new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "short" });
@@ -20,6 +31,13 @@ export default function Matches({
 		dateDisplay = `${dateFormat.format(dateInput).toString()} Uhr`;
 	}
 	const isOddMatches = Boolean(matches.length % 2 === 0);
+
+	// league data so that we can get the league name from the league id
+	const ourTeams = await getOurClubsSamsTeams();
+	const leagues = new Map<string, string>();
+	for (const team of ourTeams || []) {
+		if (team.leagueUuid && team.leagueName) leagues.set(team.leagueUuid, team.leagueName);
+	}
 
 	if (type === "past") {
 		return (
@@ -38,7 +56,7 @@ export default function Matches({
 						const oddIndex = Boolean((isOddMatches ? index : index + 1) % 2 === 0);
 						const team1 = match._embedded?.team1;
 						const team2 = match._embedded?.team2;
-
+						const leagueName = match.leagueUuid && leagues.get(match.leagueUuid);
 						return (
 							<Grid
 								key={match.uuid}
@@ -55,10 +73,10 @@ export default function Matches({
 										{match.date && (
 											<time dateTime={match.date}>
 												<Text size="sm" hiddenFrom="sm">
-													{match.date}
+													{dayjs(match.date).format("D MMMM YY")}
 												</Text>
 												<Text size="md" visibleFrom="sm">
-													{match.date}
+													{dayjs(match.date).format("D MMMM YY")}
 												</Text>
 											</time>
 										)}
@@ -100,11 +118,11 @@ export default function Matches({
 												{team2?.name}
 											</Text>
 										</Text>
-										{/* {match.leagueUuid && (
+										{!uniqueLeague && leagueName && (
 											<Text c="lion" size="sm">
-												{match.leagueUuid} // TODO replace with league name, which is not in the payload 🙄
+												{leagueName}
 											</Text>
-										)} */}
+										)}
 									</Stack>
 								</GridCol>
 								{/* score*/}
@@ -151,7 +169,7 @@ export default function Matches({
 					const oddIndex = Boolean((isOddMatches ? index : index + 1) % 2 === 0);
 					const team1 = match._embedded?.team1;
 					const team2 = match._embedded?.team2;
-
+					const leagueName = match.leagueUuid && leagues.get(match.leagueUuid);
 					return (
 						<Grid
 							key={match.uuid}
@@ -167,7 +185,7 @@ export default function Matches({
 									{match.date && (
 										<time dateTime={match.date}>
 											<Text size="sm" fw="bold">
-												{match.date}
+												{dayjs(match.date).format("D MMMM YY")}
 											</Text>
 										</time>
 									)}
@@ -200,11 +218,11 @@ export default function Matches({
 											{team2?.name}
 										</Text>
 									</Text>
-									{/* {match.leagueUuid && (
-											<Text c="lion" size="sm">
-												{match.leagueUuid} // TODO replace with league name, which is not in the payload 🙄
-											</Text>
-										)} */}
+									{!uniqueLeague && leagueName && (
+										<Text c="lion" size="sm">
+											{leagueName}
+										</Text>
+									)}
 								</Stack>
 							</GridCol>
 

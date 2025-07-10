@@ -189,7 +189,13 @@ async function TeamMatches({
 				<Card>
 					<CardTitle>Ergebnisse</CardTitle>
 					<CardSection p={{ base: undefined, sm: "sm" }}>
-						<Matches type="past" matches={pastMatches} timestamp={matches?.timestamp} highlightTeamUuid={teamUuid} />
+						<Matches
+							type="past"
+							matches={pastMatches}
+							timestamp={matches?.timestamp}
+							highlightTeamUuid={teamUuid}
+							uniqueLeague
+						/>
 					</CardSection>
 				</Card>
 			)}

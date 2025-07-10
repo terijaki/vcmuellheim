@@ -102,16 +102,17 @@ function EventsList({ events }: { events?: Event[] }) {
 async function HomeMatchesList({ homeMatches }: { homeMatches?: LeagueMatches["matches"] }) {
 	if (!homeMatches || homeMatches.length === 0) return null;
 
-	// league date so that we can get the league name from the league id
+	// league data so that we can get the league name from the league id
 	const ourTeams = await getOurClubsSamsTeams();
 	const leagues = new Map<string, string>();
 	for (const team of ourTeams || []) {
 		if (team.leagueUuid && team.leagueName) {
-			const cleanLeagueName = team.leagueName
-				.replace("Nord", "")
-				.replace("Ost", "")
-				.replace("Süd", "")
-				.replace("West", "");
+			const cleanLeagueName = team.leagueName;
+			// .replace("Nord", "")
+			// .replace("Ost", "")
+			// .replace("Süd", "")
+			// .replace("West", "")
+			// .replace("Mitte", "")
 			leagues.set(team.leagueUuid, cleanLeagueName);
 		}
 	}
@@ -180,7 +181,11 @@ async function HomeMatchesList({ homeMatches }: { homeMatches?: LeagueMatches["m
 											{/* LEAGUE NAME AND TIME */}
 											<Group gap="xs">
 												{leagueName && <Text fw="bold">{leagueName}</Text>}
-												{earliestStartTime && <Text>ab {earliestStartTime} Uhr</Text>}
+												{earliestStartTime && earliestStartTime === "00:00" ? (
+													"(Uhrzeit folgt)"
+												) : (
+													<Text>ab {earliestStartTime} Uhr</Text>
+												)}
 											</Group>
 											{/* GUESTS LIST */}
 											<List spacing={0} withPadding listStyleType="none">
