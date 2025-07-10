@@ -169,12 +169,12 @@ export const zLeagueHierarchyPage = z.object({
  * A location comprises the location's name, its address, and its geographical coordinates if available
  */
 export const zLocation = z.object({
-	uuid: z.string().optional(),
+	uuid: z.union([z.string(), z.null()]).optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
-	name: z.string().optional(),
-	longitude: z.number().optional(),
-	latitude: z.number().optional(),
+	name: z.union([z.string(), z.null()]).optional(),
+	longitude: z.union([z.number(), z.null()]).optional(),
+	latitude: z.union([z.number(), z.null()]).optional(),
 	address: zAddress.optional(),
 });
 
@@ -234,11 +234,11 @@ export const zLeagueRankingsEntryDto = z.object({
 	setWins: z.union([z.number().int(), z.null()]).optional(),
 	setLosses: z.union([z.number().int(), z.null()]).optional(),
 	setDifference: z.union([z.number().int(), z.null()]).optional(),
-	setRatio: z.union([z.number(), z.null()]).optional(),
+	setRatio: z.union([z.number(), z.string(), z.null()]).optional(),
 	ballWins: z.union([z.number().int(), z.null()]).optional(),
 	ballLosses: z.union([z.number().int(), z.null()]).optional(),
 	ballDifference: z.union([z.number().int(), z.null()]).optional(),
-	ballRatio: z.union([z.number(), z.null()]).optional(),
+	ballRatio: z.union([z.number(), z.string(), z.null()]).optional(),
 	resultTypes: z.union([z.array(zMatchResultTypeCount), z.null()]).optional(),
 });
 
@@ -289,9 +289,9 @@ export const zTeamPage = z.object({
 });
 
 export const zRefereeTeamDto = z.object({
-	firstReferee: z.string().optional(),
-	secondReferee: z.string().optional(),
-	challengeReferee: z.string().optional(),
+	firstReferee: z.union([z.string(), z.null()]).optional(),
+	secondReferee: z.union([z.string(), z.null()]).optional(),
+	challengeReferee: z.union([z.string(), z.null()]).optional(),
 });
 
 export const zVolleyballMatchSetRestDto = z.object({
@@ -303,35 +303,55 @@ export const zVolleyballMatchSetRestDto = z.object({
 });
 
 export const zVolleyballMatchResultsDto = z.object({
-	winner: z.string().optional(),
-	winnerName: z.string().optional(),
-	setPoints: z.string().optional(),
-	ballPoints: z.string().optional(),
-	sets: z.array(zVolleyballMatchSetRestDto).optional(),
+	winner: z.union([z.string(), z.null()]).optional(),
+	winnerName: z.union([z.string(), z.null()]).optional(),
+	setPoints: z.union([z.string(), z.null()]).optional(),
+	ballPoints: z.union([z.string(), z.null()]).optional(),
+	sets: z.union([z.array(zVolleyballMatchSetRestDto), z.null()]).optional(),
 });
 
 export const zCompetitionMatchDto = z.object({
-	uuid: z.string().optional(),
+	uuid: z.string(),
 	_links: zLinks.optional(),
-	_embedded: zEmbedded.optional(),
-	date: z.string().datetime().optional(),
-	time: z.string().optional(),
-	matchNumber: z.number().int().optional(),
-	decidingMatch: z.boolean().optional(),
-	gameReassessed: z.boolean().optional(),
-	host: z.string().optional(),
-	referees: zRefereeTeamDto.optional(),
-	spectators: z.number().int().optional(),
-	netDuration: z.number().int().optional(),
-	verified: z.boolean().optional(),
-	location: zLocation.optional(),
-	seasonUuid: z.string().optional(),
-	associationUuid: z.string().optional(),
-	results: zVolleyballMatchResultsDto.optional(),
-	matchGroupUuid: z.string().optional(),
-	competitionUuid: z.string().optional(),
-	indefinitelyRescheduled: z.boolean().optional(),
-	delayPossible: z.boolean().optional(),
+	_embedded: z
+		.union([
+			z.object({
+				team1: z
+					.object({
+						uuid: z.string(),
+						name: z.string(),
+						sportsclubUuid: z.string(),
+					})
+					.optional(),
+				team2: z
+					.object({
+						uuid: z.string(),
+						name: z.string(),
+						sportsclubUuid: z.string(),
+					})
+					.optional(),
+			}),
+			z.null(),
+		])
+		.optional(),
+	date: z.union([z.string().date(), z.null()]).optional(),
+	time: z.union([z.string(), z.null()]).optional(),
+	matchNumber: z.union([z.number().int(), z.null()]).optional(),
+	decidingMatch: z.union([z.boolean(), z.null()]).optional(),
+	gameReassessed: z.union([z.boolean(), z.null()]).optional(),
+	host: z.union([z.string(), z.null()]).optional(),
+	referees: zRefereeTeamDto.optional().nullable(),
+	spectators: z.union([z.number().int(), z.null()]).optional(),
+	netDuration: z.union([z.number().int(), z.null()]).optional(),
+	verified: z.union([z.boolean(), z.null()]).optional(),
+	location: zLocation.optional().nullable(),
+	seasonUuid: z.union([z.string(), z.null()]).optional(),
+	associationUuid: z.union([z.string(), z.null()]).optional(),
+	results: zVolleyballMatchResultsDto.optional().nullable(),
+	matchGroupUuid: z.union([z.string(), z.null()]).optional(),
+	competitionUuid: z.union([z.string(), z.null()]).optional(),
+	delayPossible: z.union([z.boolean(), z.null()]).optional(),
+	indefinitelyRescheduled: z.union([z.boolean(), z.null()]).optional(),
 });
 
 export const zCompetitionMatchPage = z.object({
@@ -409,41 +429,44 @@ export const zLeagueMatchDto = z.object({
 	uuid: z.string(),
 	_links: zLinks.optional(),
 	_embedded: z
-		.object({
-			team1: z
-				.object({
-					uuid: z.string(),
-					name: z.string(),
-					sportsclubUuid: z.string(),
-				})
-				.optional(),
-			team2: z
-				.object({
-					uuid: z.string(),
-					name: z.string(),
-					sportsclubUuid: z.string(),
-				})
-				.optional(),
-		})
+		.union([
+			z.object({
+				team1: z
+					.object({
+						uuid: z.string(),
+						name: z.string(),
+						sportsclubUuid: z.string(),
+					})
+					.optional(),
+				team2: z
+					.object({
+						uuid: z.string(),
+						name: z.string(),
+						sportsclubUuid: z.string(),
+					})
+					.optional(),
+			}),
+			z.null(),
+		])
 		.optional(),
-	date: z.string().date().optional(),
-	time: z.string().optional(),
-	matchNumber: z.number().int().optional(),
-	decidingMatch: z.boolean().optional(),
-	gameReassessed: z.boolean().optional(),
-	host: z.string().optional(),
-	referees: z.unknown().optional(),
-	spectators: z.number().int().optional(),
-	netDuration: z.number().int().optional(),
-	verified: z.boolean().optional(),
-	location: zLocation.optional(),
-	seasonUuid: z.string().optional(),
-	associationUuid: z.string().optional(),
-	results: zVolleyballMatchResultsDto.optional(),
-	matchDayUuid: z.string().optional(),
-	leagueUuid: z.string().optional(),
-	indefinitelyRescheduled: z.boolean().optional(),
-	delayPossible: z.boolean().optional(),
+	date: z.union([z.string().date(), z.null()]).optional(),
+	time: z.union([z.string(), z.null()]).optional(),
+	matchNumber: z.union([z.number().int(), z.null()]).optional(),
+	decidingMatch: z.union([z.boolean(), z.null()]).optional(),
+	gameReassessed: z.union([z.boolean(), z.null()]).optional(),
+	host: z.union([z.string(), z.null()]).optional(),
+	referees: zRefereeTeamDto.optional().nullable(),
+	spectators: z.union([z.number().int(), z.null()]).optional(),
+	netDuration: z.union([z.number().int(), z.null()]).optional(),
+	verified: z.union([z.boolean(), z.null()]).optional(),
+	location: zLocation.optional().nullable(),
+	seasonUuid: z.union([z.string(), z.null()]).optional(),
+	associationUuid: z.union([z.string(), z.null()]).optional(),
+	results: zVolleyballMatchResultsDto.optional().nullable(),
+	matchDayUuid: z.union([z.string(), z.null()]).optional(),
+	leagueUuid: z.union([z.string(), z.null()]).optional(),
+	delayPossible: z.union([z.boolean(), z.null()]).optional(),
+	indefinitelyRescheduled: z.union([z.boolean(), z.null()]).optional(),
 });
 
 export const zLeagueMatchPage = z.object({
@@ -578,915 +601,969 @@ export const zUserDetailsDto = z.object({
 	refsoftID: z.string().optional(),
 });
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetApiBaseLinksParameterXApiKey = z.string();
+export const zGetApiBaseLinksData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAssociationByUuidParameterXApiKey = z.string();
-
-/**
- * UUID of the requested association
- */
-export const zGetAssociationByUuidParameterUuid = z.string();
+export const zGetAssociationByUuidData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetAssociationByUuidResponse = zAssociation;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAssociationsParameterXApiKey = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetAssociationsParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetAssociationsParameterSize = z.number().int();
-
-/**
- * Filter for association using the given UUID. Defaults to no filtering.
- */
-export const zGetAssociationsParameterAssociation = z.string();
+export const zGetAssociationsData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+			association: z.string().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetAssociationsResponse = zAssociationResourcePage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetCommitteesForAssociationParameterXApiKey = z.string();
-
-/**
- * UUID of the association whose committees are requested
- */
-export const zGetCommitteesForAssociationParameterUuid = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetCommitteesForAssociationParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetCommitteesForAssociationParameterSize = z.number().int();
+export const zGetCommitteesForAssociationData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetCommitteesForAssociationResponse = zCommitteePage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetSportsclubsForAssociationParameterXApiKey = z.string();
-
-/**
- * UUID of the association whose committees are requested
- */
-export const zGetSportsclubsForAssociationParameterUuid = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetSportsclubsForAssociationParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetSportsclubsForAssociationParameterSize = z.number().int();
+export const zGetSportsclubsForAssociationData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetSportsclubsForAssociationResponse = zSportsclubPage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAllCommitteesParameterXApiKey = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetAllCommitteesParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetAllCommitteesParameterSize = z.number().int();
+export const zGetAllCommitteesData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetAllCommitteesResponse = zCommitteePage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetCommitteeParameterXApiKey = z.string();
-
-export const zGetCommitteeParameterUuid = z.string();
+export const zGetCommitteeData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetCommitteeResponse = zCommittee;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAllLeagueHierarchiesParameterXApiKey = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetAllLeagueHierarchiesParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetAllLeagueHierarchiesParameterSize = z.number().int();
-
-/**
- * Filter for the season. UUID of the season to which the league hierarchy belongs.
- */
-export const zGetAllLeagueHierarchiesParameterForSeason = z.string();
-
-/**
- * Filter for association using the given UUID. Defaults to no filtering.
- */
-export const zGetAllLeagueHierarchiesParameterAssociation = z.string();
+export const zGetAllLeagueHierarchiesData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+			"for-season": z.string().optional(),
+			association: z.string().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetAllLeagueHierarchiesResponse = zLeagueHierarchyPage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetCompetitionsByLeagueHierarchyParameterXApiKey = z.string();
+export const zGetCompetitionsByLeagueHierarchyData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
-export const zGetCompetitionsByLeagueHierarchyParameterUuid = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetCompetitionsByLeagueHierarchyParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetCompetitionsByLeagueHierarchyParameterSize = z.number().int();
-
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetLeagueHierarchyByUuidParameterXApiKey = z.string();
-
-export const zGetLeagueHierarchyByUuidParameterUuid = z.string();
+export const zGetLeagueHierarchyByUuidData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetLeagueHierarchyByUuidResponse = zLeagueHierarchyDto;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetLeaguesByLeagueHierarchyParameterXApiKey = z.string();
+export const zGetLeaguesByLeagueHierarchyData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
-export const zGetLeaguesByLeagueHierarchyParameterUuid = z.string();
+export const zGetSuperCompetitionsByLeagueHierarchyData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetLeaguesByLeagueHierarchyParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetLeaguesByLeagueHierarchyParameterSize = z.number().int();
-
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetSuperCompetitionsByLeagueHierarchyParameterXApiKey = z.string();
-
-export const zGetSuperCompetitionsByLeagueHierarchyParameterUuid = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetSuperCompetitionsByLeagueHierarchyParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetSuperCompetitionsByLeagueHierarchyParameterSize = z.number().int();
-
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAllLocationsParameterXApiKey = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetAllLocationsParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetAllLocationsParameterSize = z.number().int();
+export const zGetAllLocationsData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Success
  */
 export const zGetAllLocationsResponse = zLocationResourcePage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetLocationByUuidParameterXApiKey = z.string();
-
-export const zGetLocationByUuidParameterUuid = z.string();
+export const zGetLocationByUuidData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Success
  */
 export const zGetLocationByUuidResponse = zLocation;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAllCompetitionsParameterXApiKey = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetAllCompetitionsParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetAllCompetitionsParameterSize = z.number().int();
-
-/**
- * Filter for association using the given UUID. Defaults to no filtering.
- */
-export const zGetAllCompetitionsParameterAssociation = z.string();
+export const zGetAllCompetitionsData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+			association: z.string().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetAllCompetitionsResponse = zCompetitionPage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetCompetitionByUuidParameterXApiKey = z.string();
-
-export const zGetCompetitionByUuidParameterUuid = z.string();
+export const zGetCompetitionByUuidData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetCompetitionByUuidResponse = zCompetitionDto;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetMatchGroupsForCompetitionParameterXApiKey = z.string();
+export const zGetMatchGroupsForCompetitionData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
-export const zGetMatchGroupsForCompetitionParameterUuid = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetMatchGroupsForCompetitionParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetMatchGroupsForCompetitionParameterSize = z.number().int();
-
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetRankingsForCompetitionParameterXApiKey = z.string();
-
-export const zGetRankingsForCompetitionParameterUuid = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetRankingsForCompetitionParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetRankingsForCompetitionParameterSize = z.number().int();
+export const zGetRankingsForCompetitionData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetRankingsForCompetitionResponse = zCompetitionRankingsResourcePage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetTeamsForCompetitionParameterXApiKey = z.string();
-
-export const zGetTeamsForCompetitionParameterUuid = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetTeamsForCompetitionParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetTeamsForCompetitionParameterSize = z.number().int();
+export const zGetTeamsForCompetitionData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetTeamsForCompetitionResponse = zTeamPage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAllCompetitionMatchesWithFilterParameterXApiKey = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetAllCompetitionMatchesWithFilterParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetAllCompetitionMatchesWithFilterParameterSize = z.number().int();
-
-/**
- * Filter for association using the given UUID. Defaults to no filtering.
- */
-export const zGetAllCompetitionMatchesWithFilterParameterAssociation = z.string();
-
-/**
- * Filter by season UUID: Find all matches from a particular season.
- */
-export const zGetAllCompetitionMatchesWithFilterParameterForSeason = z.string();
-
-/**
- * Filter by competition UUID: Find all matches from a particular competition.
- */
-export const zGetAllCompetitionMatchesWithFilterParameterForCompetition = z.string();
-
-/**
- * Filter by sports club UUID: Find all matches for a particular sports club.
- */
-export const zGetAllCompetitionMatchesWithFilterParameterForSportsclub = z.string();
-
-/**
- * Filter by team UUID: Find all matches attended by a particular team.
- */
-export const zGetAllCompetitionMatchesWithFilterParameterForTeam = z.string();
+export const zGetAllCompetitionMatchesWithFilterData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+			association: z.string().optional(),
+			"for-season": z.string().optional(),
+			"for-competition": z.string().optional(),
+			"for-sportsclub": z.string().optional(),
+			"for-team": z.string().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetAllCompetitionMatchesWithFilterResponse = zCompetitionMatchPage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetCompetitionMatchByUuidParameterXApiKey = z.string();
-
-export const zGetCompetitionMatchByUuidParameterUuid = z.string();
+export const zGetCompetitionMatchByUuidData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetCompetitionMatchByUuidResponse = zCompetitionMatchDto;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAllMatchGroupsParameterXApiKey = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetAllMatchGroupsParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetAllMatchGroupsParameterSize = z.number().int();
-
-/**
- * Filter for association using the given UUID. Defaults to no filtering.
- */
-export const zGetAllMatchGroupsParameterAssociation = z.string();
+export const zGetAllMatchGroupsData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+			association: z.string().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetAllMatchGroupsResponse = zCompetitionMatchGroupPage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetMatchGroupByUuidParameterXApiKey = z.string();
-
-export const zGetMatchGroupByUuidParameterUuid = z.string();
+export const zGetMatchGroupByUuidData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetMatchGroupByUuidResponse = zCompetitionMatchGroupDto;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetMatchesByMatchGroupParameterXApiKey = z.string();
+export const zGetMatchesByMatchGroupData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
-export const zGetMatchesByMatchGroupParameterUuid = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetMatchesByMatchGroupParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetMatchesByMatchGroupParameterSize = z.number().int();
-
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAllLeaguesParameterXApiKey = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetAllLeaguesParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetAllLeaguesParameterSize = z.number().int();
-
-/**
- * Filter for association using the given UUID. Defaults to no filtering.
- */
-export const zGetAllLeaguesParameterAssociation = z.string();
+export const zGetAllLeaguesData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+			association: z.string().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetAllLeaguesResponse = zLeaguePage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetLeagueByUuidParameterXApiKey = z.string();
-
-export const zGetLeagueByUuidParameterUuid = z.string();
+export const zGetLeagueByUuidData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetLeagueByUuidResponse = zLeagueDto;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetMatchDaysForLeagueParameterXApiKey = z.string();
+export const zGetMatchDaysForLeagueData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
-export const zGetMatchDaysForLeagueParameterUuid = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetMatchDaysForLeagueParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetMatchDaysForLeagueParameterSize = z.number().int();
-
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetRankingsForLeagueParameterXApiKey = z.string();
-
-export const zGetRankingsForLeagueParameterUuid = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetRankingsForLeagueParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetRankingsForLeagueParameterSize = z.number().int();
+export const zGetRankingsForLeagueData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetRankingsForLeagueResponse = zLeagueRankingsResourcePage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetTeamsForLeagueParameterXApiKey = z.string();
-
-export const zGetTeamsForLeagueParameterUuid = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetTeamsForLeagueParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetTeamsForLeagueParameterSize = z.number().int();
+export const zGetTeamsForLeagueData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetTeamsForLeagueResponse = zTeamPage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAllLeagueMatchesParameterXApiKey = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetAllLeagueMatchesParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetAllLeagueMatchesParameterSize = z.number().int();
-
-/**
- * Filter for association using the given UUID. Defaults to no filtering.
- */
-export const zGetAllLeagueMatchesParameterAssociation = z.string();
-
-/**
- * Filter by season UUID: Find all matches from a particular season.
- */
-export const zGetAllLeagueMatchesParameterForSeason = z.string();
-
-/**
- * Filter by league UUID: Find all matches from a particular league.
- */
-export const zGetAllLeagueMatchesParameterForLeague = z.string();
-
-/**
- * Filter by sports club UUID: Find all matches for a particular sports club.
- */
-export const zGetAllLeagueMatchesParameterForSportsclub = z.string();
-
-/**
- * Filter by team UUID: Find all matches attended by a particular team.
- */
-export const zGetAllLeagueMatchesParameterForTeam = z.string();
+export const zGetAllLeagueMatchesData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+			association: z.string().optional(),
+			"for-season": z.string().optional(),
+			"for-league": z.string().optional(),
+			"for-sportsclub": z.string().optional(),
+			"for-team": z.string().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetAllLeagueMatchesResponse = zLeagueMatchPage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetLeagueMatchByUuidParameterXApiKey = z.string();
-
-export const zGetLeagueMatchByUuidParameterUuid = z.string();
+export const zGetLeagueMatchByUuidData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetLeagueMatchByUuidResponse = zLeagueMatchDto;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAllMatchDaysParameterXApiKey = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetAllMatchDaysParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetAllMatchDaysParameterSize = z.number().int();
-
-/**
- * Filter for association using the given UUID. Defaults to no filtering.
- */
-export const zGetAllMatchDaysParameterAssociation = z.string();
+export const zGetAllMatchDaysData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+			association: z.string().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetAllMatchDaysResponse = zLeagueMatchDayPage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetMatchDayByUuidParameterXApiKey = z.string();
-
-export const zGetMatchDayByUuidParameterUuid = z.string();
+export const zGetMatchDayByUuidData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetMatchDayByUuidResponse = zLeagueMatchDayDto;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetMatchesByMatchDayParameterXApiKey = z.string();
-
-export const zGetMatchesByMatchDayParameterUuid = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetMatchesByMatchDayParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetMatchesByMatchDayParameterSize = z.number().int();
+export const zGetMatchesByMatchDayData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetMatchesByMatchDayResponse = zLeagueMatchPage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAllSuperCompetitionsParameterXApiKey = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetAllSuperCompetitionsParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetAllSuperCompetitionsParameterSize = z.number().int();
-
-/**
- * Filter for association using the given UUID. Defaults to no filtering.
- */
-export const zGetAllSuperCompetitionsParameterAssociation = z.string();
+export const zGetAllSuperCompetitionsData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+			association: z.string().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetAllSuperCompetitionsResponse = zSuperCompetitionPage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetSuperCompetitionByUuidParameterXApiKey = z.string();
-
-export const zGetSuperCompetitionByUuidParameterUuid = z.string();
+export const zGetSuperCompetitionByUuidData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetSuperCompetitionByUuidResponse = zSuperCompetitionDto;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAllEventsParameterXApiKey = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetAllEventsParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetAllEventsParameterSize = z.number().int();
-
-/**
- * Filter for association using the given UUID. Defaults to no filtering.
- */
-export const zGetAllEventsParameterAssociation = z.string();
+export const zGetAllEventsData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+			association: z.string().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetAllEventsResponse = zEventPage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetEventByUuidParameterXApiKey = z.string();
-
-/**
- * UUID of the requested event
- */
-export const zGetEventByUuidParameterUuid = z.string();
+export const zGetEventByUuidData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetEventByUuidResponse = zEvent;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetEventTypeByUuidParameterXApiKey = z.string();
-
-/**
- * UUID of the requested event type
- */
-export const zGetEventTypeByUuidParameterUuid = z.string();
+export const zGetEventTypeByUuidData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetEventTypeByUuidResponse = zEventType;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetEventTypesParameterXApiKey = z.string();
-
-/**
- * Filter for association using the given UUID. Defaults to no filtering.
- */
-export const zGetEventTypesParameterAssociation = z.string();
+export const zGetEventTypesData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z
+		.object({
+			association: z.string().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetEventTypesResponse = zEventType;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAllSeasonsParameterXApiKey = z.string();
+export const zGetAllSeasonsData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetAllSeasonsResponse = zSeasonDto;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetLeagueHierarchiesForSeasonParameterXApiKey = z.string();
+export const zGetLeagueHierarchiesForSeasonData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
-export const zGetLeagueHierarchiesForSeasonParameterUuid = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetLeagueHierarchiesForSeasonParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetLeagueHierarchiesForSeasonParameterSize = z.number().int();
-
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetSeasonByUuidParameterXApiKey = z.string();
-
-export const zGetSeasonByUuidParameterUuid = z.string();
+export const zGetSeasonByUuidData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetSeasonByUuidResponse = zSeasonDto;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAllSportsclubsParameterXApiKey = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetAllSportsclubsParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetAllSportsclubsParameterSize = z.number().int();
-
-/**
- * Filter for association using the given UUID. Defaults to no filtering.
- */
-export const zGetAllSportsclubsParameterAssociation = z.string();
+export const zGetAllSportsclubsData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+			association: z.string().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetAllSportsclubsResponse = zSportsclubPage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetSportsclubParameterXApiKey = z.string();
-
-export const zGetSportsclubParameterUuid = z.string();
+export const zGetSportsclubData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetSportsclubResponse = zSportsclubDto;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetAllTeamsParameterXApiKey = z.string();
-
-/**
- * Requested page number. Defaults to the first page (i.e. page number 0).
- */
-export const zGetAllTeamsParameterPage = z.number().int();
-
-/**
- * Requested number of items per page. Defaults to 20. The maximum allowed value is 100
- */
-export const zGetAllTeamsParameterSize = z.number().int();
-
-/**
- * Filter for association using the given UUID. Defaults to no filtering.
- */
-export const zGetAllTeamsParameterAssociation = z.string();
+export const zGetAllTeamsData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z
+		.object({
+			page: z.number().int().optional(),
+			size: z.number().int().optional(),
+			association: z.string().optional(),
+		})
+		.optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetAllTeamsResponse = zTeamPage;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetTeamByUuidParameterXApiKey = z.string();
-
-export const zGetTeamByUuidParameterUuid = z.string();
+export const zGetTeamByUuidData = z.object({
+	body: z.never().optional(),
+	path: z.object({
+		uuid: z.string(),
+	}),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetTeamByUuidResponse = zTeamDto;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zGetCurrentUserParameterXApiKey = z.string();
+export const zGetCurrentUserData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation
  */
 export const zGetCurrentUserResponse = zUserDetailsDto;
 
-/**
- * A SAMS API key with permission to access this API.
- */
-export const zUserDetailsRootLinksParameterXApiKey = z.string();
+export const zUserDetailsRootLinksData = z.object({
+	body: z.never().optional(),
+	path: z.never().optional(),
+	query: z.never().optional(),
+	headers: z
+		.object({
+			"X-Api-Key": z.string().optional(),
+		})
+		.optional(),
+});
 
 /**
  * Successful operation

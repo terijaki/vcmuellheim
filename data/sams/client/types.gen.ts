@@ -191,12 +191,12 @@ export type Location = {
 	/**
 	 * Location unique identifier
 	 */
-	uuid?: string;
+	uuid?: string | null;
 	_links?: Links;
 	_embedded?: Embedded;
-	name?: string;
-	longitude?: number;
-	latitude?: number;
+	name?: string | null;
+	longitude?: number | null;
+	latitude?: number | null;
 	address?: Address;
 };
 
@@ -283,11 +283,11 @@ export type LeagueRankingsEntryDto = {
 	setWins?: number | null;
 	setLosses?: number | null;
 	setDifference?: number | null;
-	setRatio?: number | null;
+	setRatio?: number | string | null;
 	ballWins?: number | null;
 	ballLosses?: number | null;
 	ballDifference?: number | null;
-	ballRatio?: number | null;
+	ballRatio?: number | string | null;
 	resultTypes?: Array<MatchResultTypeCount> | null;
 };
 
@@ -329,27 +329,38 @@ export type CompetitionMatchDto = {
 	/**
 	 * Entity unique identifier
 	 */
-	uuid?: string;
+	uuid: string;
 	_links?: Links;
-	_embedded?: Embedded;
-	date?: string;
-	time?: string;
-	matchNumber?: number;
-	decidingMatch?: boolean;
-	gameReassessed?: boolean;
-	host?: string;
+	_embedded?: {
+		team1?: {
+			uuid: string;
+			name: string;
+			sportsclubUuid: string;
+		};
+		team2?: {
+			uuid: string;
+			name: string;
+			sportsclubUuid: string;
+		};
+	} | null;
+	date?: string | null;
+	time?: string | null;
+	matchNumber?: number | null;
+	decidingMatch?: boolean | null;
+	gameReassessed?: boolean | null;
+	host?: string | null;
 	referees?: RefereeTeamDto;
-	spectators?: number;
-	netDuration?: number;
-	verified?: boolean;
+	spectators?: number | null;
+	netDuration?: number | null;
+	verified?: boolean | null;
 	location?: Location;
-	seasonUuid?: string;
-	associationUuid?: string;
+	seasonUuid?: string | null;
+	associationUuid?: string | null;
 	results?: VolleyballMatchResultsDto;
-	matchGroupUuid?: string;
-	competitionUuid?: string;
-	indefinitelyRescheduled?: boolean;
-	delayPossible?: boolean;
+	matchGroupUuid?: string | null;
+	competitionUuid?: string | null;
+	delayPossible?: boolean | null;
+	indefinitelyRescheduled?: boolean | null;
 };
 
 export type CompetitionMatchPage = {
@@ -365,17 +376,17 @@ export type CompetitionMatchPage = {
 };
 
 export type RefereeTeamDto = {
-	firstReferee?: string;
-	secondReferee?: string;
-	challengeReferee?: string;
+	firstReferee?: string | null;
+	secondReferee?: string | null;
+	challengeReferee?: string | null;
 };
 
 export type VolleyballMatchResultsDto = {
-	winner?: string;
-	winnerName?: string;
-	setPoints?: string;
-	ballPoints?: string;
-	sets?: Array<VolleyballMatchSetRestDto>;
+	winner?: string | null;
+	winnerName?: string | null;
+	setPoints?: string | null;
+	ballPoints?: string | null;
+	sets?: Array<VolleyballMatchSetRestDto> | null;
 };
 
 export type VolleyballMatchSetRestDto = {
@@ -468,25 +479,25 @@ export type LeagueMatchDto = {
 			name: string;
 			sportsclubUuid: string;
 		};
-	};
-	date?: string;
-	time?: string;
-	matchNumber?: number;
-	decidingMatch?: boolean;
-	gameReassessed?: boolean;
-	host?: string;
-	referees?: unknown;
-	spectators?: number;
-	netDuration?: number;
-	verified?: boolean;
+	} | null;
+	date?: string | null;
+	time?: string | null;
+	matchNumber?: number | null;
+	decidingMatch?: boolean | null;
+	gameReassessed?: boolean | null;
+	host?: string | null;
+	referees?: RefereeTeamDto;
+	spectators?: number | null;
+	netDuration?: number | null;
+	verified?: boolean | null;
 	location?: Location;
-	seasonUuid?: string;
-	associationUuid?: string;
+	seasonUuid?: string | null;
+	associationUuid?: string | null;
 	results?: VolleyballMatchResultsDto;
-	matchDayUuid?: string;
-	leagueUuid?: string;
-	indefinitelyRescheduled?: boolean;
-	delayPossible?: boolean;
+	matchDayUuid?: string | null;
+	leagueUuid?: string | null;
+	delayPossible?: boolean | null;
+	indefinitelyRescheduled?: boolean | null;
 };
 
 export type LeagueMatchPage = {
