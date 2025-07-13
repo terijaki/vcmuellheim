@@ -21,7 +21,6 @@ FROM base AS builder
 WORKDIR /app
 ENV TZ=Europe/Berlin
 ENV NODE_ENV=production
-ENV DOCKER_BUILD=true
 ENV SENTRY_ENVIRONMENT=production
 ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=dependencies /app/node_modules ./node_modules

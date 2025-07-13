@@ -1,5 +1,6 @@
 .DS_Store
 .containerignore
+.dockerignore
 .editorconfig
 .env*.local
 !.env.production.local
@@ -10,6 +11,7 @@
 coverage*
 podman-compose*
 Containerfile*
+Dockerfile*
 LICENSE
 node_modules
 README.md

@@ -19,6 +19,10 @@ TAG=${1:-latest}
 COOLIFY_WEBHOOK="https://cool.terijaki.eu/api/v1/deploy?uuid=zws880wk8o8wcsgg88kckcoc&force=false"
 COOLIFY_TOKEN=${COOLIFY_TOKEN}
 
+# Start the Apple Container Service
+echo "▶️ Starting Apple Container Service..."
+container system start
+
 echo "🚀 Building and deploying ${REPO_NAME} to GitHub Container Registry"
 
 # Check if GitHub token is set
@@ -36,27 +40,28 @@ fi
 
 # Login to GitHub Container Registry
 echo "🔐 Logging in to GitHub Container Registry..."
-echo $GITHUB_TOKEN | podman login ghcr.io -u $GITHUB_USERNAME --password-stdin
+echo $GITHUB_TOKEN | container registry login ghcr.io -u $GITHUB_USERNAME --password-stdin
 
 # Build the Container image
 echo "🏗️ Building Container image..."
 
 # Build with secrets
-podman build \
+container build \
     --memory=6g \
-    -t ${IMAGE_NAME}:${TAG} .
+    -t ${IMAGE_NAME}:${TAG} . \
+    --file Containerfile
 
 # Tag as latest if not already
 if [ "$TAG" != "latest" ]; then
-    podman tag ${IMAGE_NAME}:${TAG} ${IMAGE_NAME}:latest
+    container image tag ${IMAGE_NAME}:${TAG} ${IMAGE_NAME}:latest
 fi
 
 # Push the image
 echo "📤 Pushing image to registry..."
-podman push ${IMAGE_NAME}:${TAG}
+container image push ${IMAGE_NAME}:${TAG}
 
 if [ "$TAG" != "latest" ]; then
-    podman push ${IMAGE_NAME}:latest
+    container image push ${IMAGE_NAME}:latest
 fi
 
 echo "✅ Successfully deployed ${IMAGE_NAME}:${TAG}"
