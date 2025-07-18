@@ -1,0 +1,23 @@
+*.js
+!jest.config.js
+*.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+# Parcel default cache directory
+.parcel-cache
+
+# npm
+package-lock.json
+
+# Yarn
+yarn.lock
+
+# Environment variables
+.env
+.env.local
+.env.production.local
+.env.development.local

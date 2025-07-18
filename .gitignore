@@ -24,3 +24,20 @@ next-env.d.ts
 
 # payload
 media
+
+# AWS CDK Infrastructure
+infrastructure/node_modules/
+infrastructure/cdk.out/
+infrastructure/*.js
+infrastructure/*.d.ts
+
+# Temporary files
+tmp/
+temp/
+.tmp*
+tmp*
+
+# IDE
+.idea/
+*.swp
+*.swo
