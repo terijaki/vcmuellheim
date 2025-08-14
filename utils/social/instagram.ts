@@ -1,8 +1,8 @@
 "use cache";
 "server-only";
-import { payload } from "@/data/payload-client";
 import { unstable_cacheLife as cacheLife } from "next/cache";
 import { z } from "zod";
+import { payload } from "@/data/payload-client";
 
 const API_TOKEN = process.env.APIFY_API_KEY;
 const scheduleId = "2QNPqeA1rum2087Xs"; // https://console.apify.com/schedules/2QNPqeA1rum2087Xs
@@ -30,10 +30,13 @@ const InstagramPostsSchema = z.array(InstagramPostSchema);
 
 export type InstagramPost = z.infer<typeof InstagramPostSchema>;
 
-export async function getRecentInstagramPosts(): Promise<InstagramPost[]> {
+export async function getRecentInstagramPosts(): Promise<InstagramPost[] | null> {
 	cacheLife("hours");
 	try {
-		if (!API_TOKEN) throw "APIFY_API_KEY is not set in environment variables";
+		if (!API_TOKEN) {
+			console.warn("APIFY_API_KEY is not set in environment variables, skipping Instagram posts");
+			return null;
+		}
 
 		if (process.env.NODE_ENV === "production") updateInstagamSchedule(); // Update the schedule to ensure we all team posts
 
@@ -43,7 +46,10 @@ export async function getRecentInstagramPosts(): Promise<InstagramPost[]> {
 				Authorization: `Bearer ${API_TOKEN}`,
 			},
 		});
-		if (request.status !== 200) throw `Failed to fetch data from Instagram API. ${request.statusText}`;
+		if (request.status !== 200) {
+			console.warn(`Failed to fetch data from Instagram API. Status: ${request.status}, ${request.statusText}`);
+			return null;
+		}
 
 		const data = await request.json();
 		const parsedData: InstagramPost[] = InstagramPostsSchema.parse(data);
@@ -51,15 +57,24 @@ export async function getRecentInstagramPosts(): Promise<InstagramPost[]> {
 		return parsedData;
 	} catch (error) {
 		console.error("Error fetching Instagram posts: ", error);
-		return [];
+		return null;
 	}
 }
 
 export async function updateInstagamSchedule() {
 	try {
-		if (!API_TOKEN) throw "APIFY_API_KEY is not set in environment variables";
-		if (!scheduleId) throw "APIFY Schedule ID is not set";
-		if (!scheduleActorID) throw "APIFY Schedule Actor ID is not set";
+		if (!API_TOKEN) {
+			console.warn("APIFY_API_KEY is not set in environment variables, skipping Instagram schedule update");
+			return;
+		}
+		if (!scheduleId) {
+			console.warn("APIFY Schedule ID is not set, skipping Instagram schedule update");
+			return;
+		}
+		if (!scheduleActorID) {
+			console.warn("APIFY Schedule Actor ID is not set, skipping Instagram schedule update");
+			return;
+		}
 
 		const teamData = await payload.find({
 			collection: "teams",
@@ -74,7 +89,10 @@ export async function updateInstagamSchedule() {
 		});
 		const teams = teamData?.docs || [];
 		const handles: string[] = teams.filter((t) => t.instagram).map((t) => t.instagram?.toLowerCase() as string);
-		if (!handles || handles.length === 0) throw "Instagram handle is required to update the schedule";
+		if (!handles || handles.length === 0) {
+			console.warn("No Instagram handles found, skipping Instagram schedule update");
+			return;
+		}
 
 		const request = await fetch(`https://api.apify.com/v2/schedules/${scheduleId}`, {
 			method: "PUT",
@@ -100,9 +118,12 @@ export async function updateInstagamSchedule() {
 				],
 			}),
 		});
-		if (request.status !== 200) throw `Failed to update schedule for Instagram API. ${request.statusText}`;
+		if (request.status !== 200) {
+			console.warn(`Failed to update schedule for Instagram API. Status: ${request.status}, ${request.statusText}`);
+			return;
+		}
 	} catch (error) {
-		console.error("Error fetching Instagram posts: ", error);
+		console.error("Error updating Instagram schedule: ", error);
 	}
 }
 
@@ -110,6 +131,10 @@ export async function getInstagramPostByHandle(handle: string): Promise<Instagra
 	cacheLife("hours");
 	try {
 		const allPosts = await getRecentInstagramPosts();
+		
+		if (!allPosts) {
+			return [];
+		}
 
 		const filteredPosts = allPosts.filter((post) => post.ownerUsername.toLowerCase() === handle.toLowerCase());
 
