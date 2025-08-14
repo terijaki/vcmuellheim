@@ -60,7 +60,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 				location.push(postalAndCity.join(" "));
 			}
 
-			const baseDescription = `${league}, Heim: ${homeTeam}, Gast: ${guestTeam}`;
+			const baseDescription = [league, `Heim: ${homeTeam}`, `Gast: ${guestTeam}`].filter(Boolean).join(", ");
 			let description = baseDescription;
 			const score = match.results?.setPoints;
 			if (score) description = `Ergebnis: ${score}, ${baseDescription}`;
@@ -92,7 +92,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 		return new NextResponse(icsContent, {
 			headers: {
 				"Content-Type": "text/calendar; charset=utf-8",
-				"Content-Disposition": 'attachment; filename="all.ics"',
+				"Content-Disposition": `attachment; filename="${sanitisedTeamSlug}.ics"`,
 				"Cache-Control": "public, max-age=1800, s-maxage=1800",
 			},
 		});
