@@ -13,6 +13,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 		const sanitisedTeamSlug = teamSlug.replace(".ics", "").toLowerCase();
 
 		let teamSamsUuid: string | undefined;
+		let teamLeagueName: string | undefined;
 
 		let calendarTitle = Club.shortName;
 
@@ -25,6 +26,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 			const team = teams?.docs?.[0];
 			if (!team) throw "Team not found";
 			if (team.name) calendarTitle = `${calendarTitle} - ${team.name}`;
+			if (team.league) teamLeagueName = team.league;
 
 			const samsTeam = typeof team.sbvvTeam === "object" ? team.sbvvTeam : undefined;
 			teamSamsUuid = samsTeam?.uuid;
@@ -47,7 +49,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
 			const homeTeam = teams.find((t) => t.uuid === match.host)?.name;
 			const guestTeam = teams.find((t) => t.uuid !== match.host)?.name;
-			const league = ""; // TODO get league name (somehow)
+			const league = teamLeagueName;
 
 			const location = [];
 			if (match.location?.name) location.push(match.location.name);
