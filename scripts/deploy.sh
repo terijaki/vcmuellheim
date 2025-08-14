@@ -83,6 +83,9 @@ fi
 # Clean up temporary file
 rm -f /tmp/coolify_response
 
+# Stop the Apple Container Service
+container system stop
+
 # Calculate and display total time
 END_TIME=$(date +%s)
 TOTAL_TIME=$((END_TIME - START_TIME))
