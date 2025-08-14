@@ -1,8 +1,3 @@
-import { getEvents } from "@/data/events";
-import type { Event } from "@/data/payload-types";
-import { type LeagueMatches, samsLeagueMatches } from "@/data/sams/sams-server-actions";
-import { getOurClubsSamsTeams } from "@/data/samsTeams";
-import { SAMS } from "@/project.config";
 import {
 	Anchor,
 	BackgroundImage,
@@ -21,6 +16,11 @@ import {
 	Title,
 } from "@mantine/core";
 import dayjs from "dayjs";
+import { getEvents } from "@/data/events";
+import type { Event } from "@/data/payload-types";
+import { type LeagueMatches, samsLeagueMatches } from "@/data/sams/sams-server-actions";
+import { getOurClubsSamsTeams } from "@/data/samsTeams";
+import { SAMS } from "@/project.config";
 import "dayjs/locale/de";
 import EventCard from "../EventCard";
 import MapsLink from "../MapsLink";
@@ -46,6 +46,7 @@ export default async function HomeHeimspiele() {
 		const hostUuid = match.host;
 		const teams = [match._embedded?.team1, match._embedded?.team2];
 		if (teams.some((t) => t?.uuid === hostUuid && t?.name.includes(SAMS.name))) return true;
+		return false;
 	});
 	// sort by date
 	const matchesHomeGamesSorted = matchesHomeGames?.sort((a, b) => {
@@ -141,7 +142,7 @@ async function HomeMatchesList({ homeMatches }: { homeMatches?: LeagueMatches["m
 			</Stack>
 			<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
 				{Object.entries(groupedMatches).map(([dateLocationKey, leagueGroups]) => {
-					const [date, locationUuid] = dateLocationKey.split("_");
+					const [date, _locationUuid] = dateLocationKey.split("_");
 					const location = Object.entries(leagueGroups)[0][1][0]?.location;
 					// NEW CARD PER DATE AND LOCATION COMBO
 					return (

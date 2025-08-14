@@ -106,7 +106,7 @@ export default defineConfig({
 				},
 				RefereeTeamDto: (schema) => {
 					if (schema.properties) {
-						for (const [key, property] of Object.entries(schema.properties)) {
+						for (const [_key, property] of Object.entries(schema.properties)) {
 							if (typeof property === "object" && property !== null) {
 								property.nullable = true;
 							}
@@ -115,7 +115,7 @@ export default defineConfig({
 				},
 				Location: (schema) => {
 					if (schema.properties) {
-						for (const [key, property] of Object.entries(schema.properties)) {
+						for (const [_key, property] of Object.entries(schema.properties)) {
 							if (typeof property === "object" && property !== null) {
 								property.nullable = true;
 							}
@@ -124,7 +124,7 @@ export default defineConfig({
 				},
 				VolleyballMatchResultsDto: (schema) => {
 					if (schema.properties) {
-						for (const [key, property] of Object.entries(schema.properties)) {
+						for (const [_key, property] of Object.entries(schema.properties)) {
 							if (typeof property === "object" && property !== null) {
 								property.nullable = true;
 							}
@@ -167,7 +167,7 @@ export default defineConfig({
 				},
 				Address: (schema) => {
 					if (schema.properties) {
-						for (const [key, property] of Object.entries(schema.properties)) {
+						for (const [_key, property] of Object.entries(schema.properties)) {
 							if (typeof property === "object" && property !== null) {
 								property.nullable = true;
 							}

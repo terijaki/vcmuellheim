@@ -1,13 +1,13 @@
 "use client";
-import CardTitle from "@/components/CardTitle";
-import type { BusBooking } from "@/data/payload-types";
-import { Club } from "@/project.config";
 import { Alert, Anchor, Button, Card, Center, Container, Group, Stack, Table } from "@mantine/core";
 import { Calendar, type CalendarProps, type DateStringValue } from "@mantine/dates";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+import CardTitle from "@/components/CardTitle";
+import type { BusBooking } from "@/data/payload-types";
+import { Club } from "@/project.config";
 
 export default function BusCalendars({ bookings = [] }: { bookings: BusBooking[] }) {
 	const searchParams = useSearchParams();
@@ -29,7 +29,7 @@ export default function BusCalendars({ bookings = [] }: { bookings: BusBooking[]
 			// date is a DateStringValue in "YYYY-MM-DD" format
 			const hasDate = dates.has(date);
 			const isToday = dayjs().isSame(date, "date");
-			let bgColor = undefined;
+			let bgColor;
 			if (hasDate) bgColor = "onyx";
 			if (isToday) bgColor = "lion";
 			if (hasDate && isToday) bgColor = "blumine";

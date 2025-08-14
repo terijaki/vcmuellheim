@@ -1,15 +1,3 @@
-import CardTitle from "@/components/CardTitle";
-import CenteredLoader from "@/components/CenteredLoader";
-import ImageGallery from "@/components/ImageGallery";
-import MapsLink from "@/components/MapsLink";
-import Matches from "@/components/Matches";
-import RankingTable from "@/components/RankingTable";
-import PageWithHeading from "@/components/layout/PageWithHeading";
-import type { Member, Team } from "@/data/payload-types";
-import { samsPlayers } from "@/data/sams/players";
-import { samsLeagueMatches, samsLeagueRanking } from "@/data/sams/sams-server-actions";
-import { getTeams } from "@/data/teams";
-import { Club } from "@/project.config";
 import { Anchor, Avatar, Button, Card, CardSection, Center, Flex, Group, SimpleGrid, Stack, Text } from "@mantine/core";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
@@ -19,6 +7,18 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import Flag from "react-world-flags";
+import CardTitle from "@/components/CardTitle";
+import CenteredLoader from "@/components/CenteredLoader";
+import ImageGallery from "@/components/ImageGallery";
+import PageWithHeading from "@/components/layout/PageWithHeading";
+import MapsLink from "@/components/MapsLink";
+import Matches from "@/components/Matches";
+import RankingTable from "@/components/RankingTable";
+import type { Member, Team } from "@/data/payload-types";
+import { samsPlayers } from "@/data/sams/players";
+import { samsLeagueMatches, samsLeagueRanking } from "@/data/sams/sams-server-actions";
+import { getTeams } from "@/data/teams";
+import { Club } from "@/project.config";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
 	const { slug } = await params;
@@ -92,7 +92,7 @@ export default async function TeamPage(props: {
 	);
 }
 
-async function TeamPlayers({ seasonTeamId }: { seasonTeamId?: string | number | null }) {
+async function _TeamPlayers({ seasonTeamId }: { seasonTeamId?: string | number | null }) {
 	"use cache";
 
 	if (!seasonTeamId) return null;
@@ -141,7 +141,11 @@ async function TeamMatches({
 	leagueUuid,
 	teamUuid,
 	slug,
-}: { leagueUuid?: string | null; teamUuid?: string | null; slug: string }) {
+}: {
+	leagueUuid?: string | null;
+	teamUuid?: string | null;
+	slug: string;
+}) {
 	if (!leagueUuid || !teamUuid) return null;
 
 	const matches = await samsLeagueMatches({ team: teamUuid, league: leagueUuid });
@@ -232,7 +236,12 @@ async function TeamRanking({
 	leagueName,
 	seasonName,
 	teamUuid,
-}: { leagueUuid?: string | null; leagueName?: string | null; seasonName?: string | null; teamUuid?: string | null }) {
+}: {
+	leagueUuid?: string | null;
+	leagueName?: string | null;
+	seasonName?: string | null;
+	teamUuid?: string | null;
+}) {
 	if (!leagueUuid) return null;
 
 	const ranking = await samsLeagueRanking(leagueUuid, leagueName, seasonName); //league/season names injected to be passed along with its response object

@@ -15,6 +15,7 @@
 			"build",
 			"app/(payload)",
 			"data/payload-types.ts",
+			"data/sams/client",
 			"data/migrations"
 		]
 	},
@@ -34,7 +35,9 @@
 	},
 	"overrides": [
 		{
-			"include": ["data/sams/client.ts"],
+			"include": [
+				"data/sams/client.ts"
+			],
 			"linter": {
 				"rules": {
 					"style": {

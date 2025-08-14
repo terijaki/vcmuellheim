@@ -23,7 +23,7 @@ export async function getPictures(limit = 100, page = 1) {
 	}
 }
 
-export async function getTeamPictures(slug: string, limit = 100) {
+export async function getTeamPictures(_slug: string, limit = 100) {
 	"use cache";
 	cacheLife("days");
 

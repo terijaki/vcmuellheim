@@ -1,11 +1,11 @@
 "use client";
-import type { InstagramPost } from "@/utils/social/instagram";
 import { Card, CardSection, Grid, GridCol, Group, Stack, Text } from "@mantine/core";
 import { useInViewport } from "@mantine/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FaComment as IconComment, FaHeart as IconLike } from "react-icons/fa6";
+import type { InstagramPost } from "@/utils/social/instagram";
 
 export default function InstagramCard(post: InstagramPost) {
 	const [isHovered, setIsHovered] = useState(false);

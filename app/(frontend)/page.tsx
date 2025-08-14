@@ -1,3 +1,5 @@
+import { Center, Loader, Stack } from "@mantine/core";
+import { Suspense } from "react";
 import HomeFotos from "@/components/homepage/HomeFotos";
 import HomeHeimspiele from "@/components/homepage/HomeHeimspiele";
 import HomeInstagram from "@/components/homepage/HomeInstagram";
@@ -9,8 +11,6 @@ import HomeSponsors from "@/components/homepage/HomeSponsors";
 import HomeTeams from "@/components/homepage/HomeTeams";
 import { samsClubsUpdateTask } from "@/jobs/tasks/sams-clubs-update";
 import { samsTeamsUpdateTask } from "@/jobs/tasks/sams-teams-update";
-import { Center, Loader, Stack } from "@mantine/core";
-import { Suspense } from "react";
 
 if (!samsTeamsUpdateTask.currentRun()) samsTeamsUpdateTask.resume(); // Resume the job if it is paused
 if (!samsClubsUpdateTask.currentRun()) samsClubsUpdateTask.resume(); // Resume the job if it is paused
