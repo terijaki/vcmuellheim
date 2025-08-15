@@ -62,7 +62,9 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 				location.push(postalAndCity.join(" "));
 			}
 
-			const baseDescription = [league, `Heim: ${homeTeam}`, `Gast: ${guestTeam}`].filter(Boolean).join(", ");
+			const baseDescription = [league, homeTeam ? `Heim: ${homeTeam}` : null, guestTeam ? `Gast: ${guestTeam}` : null]
+				.filter(Boolean)
+				.join(", ");
 			let description = baseDescription;
 			const score = match.results?.setPoints;
 			if (score) description = `Ergebnis: ${score}, ${baseDescription}`;
