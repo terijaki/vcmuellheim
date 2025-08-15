@@ -20,8 +20,7 @@ COOLIFY_WEBHOOK="https://cool.terijaki.eu/api/v1/deploy?uuid=zws880wk8o8wcsgg88k
 COOLIFY_TOKEN=${COOLIFY_TOKEN}
 
 # Start the Apple Container Service
-echo "▶️ Restarting Apple Container Service..."
-container system stop
+echo "▶️ Starting Apple Container Service..."
 container system start
 
 echo "🚀 Building and deploying ${REPO_NAME} to GitHub Container Registry"
@@ -48,7 +47,8 @@ echo "🏗️ Building Container image..."
 
 # Build with secrets
 container build \
-    --memory=6g \
+    --memory=12g \
+    --no-cache \
     -t ${IMAGE_NAME}:${TAG} . \
     --file Containerfile
 
@@ -84,7 +84,9 @@ fi
 # Clean up temporary file
 rm -f /tmp/coolify_response
 
-# Stop the Apple Container Service
+# Cleanup Images and stop the Apple Container Service
+container images prune
+container builder delete
 container system stop
 
 # Calculate and display total time
