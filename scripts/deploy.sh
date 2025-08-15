@@ -20,7 +20,8 @@ COOLIFY_WEBHOOK="https://cool.terijaki.eu/api/v1/deploy?uuid=zws880wk8o8wcsgg88k
 COOLIFY_TOKEN=${COOLIFY_TOKEN}
 
 # Start the Apple Container Service
-echo "▶️ Starting Apple Container Service..."
+echo "▶️ Restarting Apple Container Service..."
+container system stop
 container system start
 
 echo "🚀 Building and deploying ${REPO_NAME} to GitHub Container Registry"
