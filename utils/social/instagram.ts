@@ -26,9 +26,21 @@ const InstagramPostSchema = z.object({
 	commentsCount: z.number(),
 	hashtags: z.array(z.string()),
 });
-const InstagramPostsSchema = z.array(InstagramPostSchema);
-
 export type InstagramPost = z.infer<typeof InstagramPostSchema>;
+
+const InstagramErrorSchema = z.object({
+	url: z.string().url(),
+	requestErrorMessages: z.array(z.string()),
+	error: z.string(),
+	errorDescription: z.string(),
+});
+
+const InstagramResponseSchema = z.union([
+	z.array(InstagramPostSchema), // either a valid post array
+	z
+		.array(InstagramErrorSchema)
+		.transform(() => [] as InstagramPost[]), // or an error array that we transform to an empty array
+]);
 
 export async function getRecentInstagramPosts(): Promise<InstagramPost[] | null> {
 	cacheLife("hours");
@@ -52,7 +64,7 @@ export async function getRecentInstagramPosts(): Promise<InstagramPost[] | null>
 		}
 
 		const data = await request.json();
-		const parsedData: InstagramPost[] = InstagramPostsSchema.parse(data);
+		const parsedData: InstagramPost[] = InstagramResponseSchema.parse(data);
 
 		return parsedData;
 	} catch (error) {
@@ -131,7 +143,7 @@ export async function getInstagramPostByHandle(handle: string): Promise<Instagra
 	cacheLife("hours");
 	try {
 		const allPosts = await getRecentInstagramPosts();
-		
+
 		if (!allPosts) {
 			return [];
 		}
