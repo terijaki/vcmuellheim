@@ -80,6 +80,9 @@ export default async function TeamPage(props: {
 					/>
 				</Suspense>
 				<Suspense fallback={<CenteredLoader text="Lade Spielplan..." />}>
+					<TeamCalendar leagueUuid={leagueUuid} teamUuid={samsTeamUuid} slug={slug} />
+				</Suspense>
+				<Suspense fallback={<CenteredLoader text="Lade Spielplan..." />}>
 					<TeamMatches leagueUuid={leagueUuid} teamUuid={samsTeamUuid} slug={slug} />
 				</Suspense>
 				<Center>
@@ -137,6 +140,33 @@ async function _TeamPlayers({ seasonTeamId }: { seasonTeamId?: string | number |
 	);
 }
 
+async function TeamCalendar({
+	leagueUuid,
+	teamUuid,
+	slug,
+}: {
+	leagueUuid?: string | null;
+	teamUuid?: string | null;
+	slug: string;
+}) {
+	if (!leagueUuid || !teamUuid) return null;
+	// webcal link
+	const headersList = await headers();
+	const host = process.env.NODE_ENV === "development" && headersList.get("host");
+	const webcalLink = `webcal://${host || Club.domain}/ics/${slug}.ics`;
+	return (
+		<Card>
+			<CardTitle>Mannschaftskalender</CardTitle>
+			<Text>
+				<Anchor href={webcalLink} style={{ display: "inline-flex", gap: 4, alignItems: "baseline" }}>
+					<IconSubscribe /> Abboniere unseren Kalender
+				</Anchor>
+				, um neue Termine saisonübergreifend automatisch in deiner Kalender-App zu empfangen.
+			</Text>
+		</Card>
+	);
+}
+
 async function TeamMatches({
 	leagueUuid,
 	teamUuid,
@@ -158,9 +188,9 @@ async function TeamMatches({
 	const isOffSeason = currentMonth >= 5 && currentMonth <= 9;
 
 	// webcal link
-	const headersList = await headers();
-	const host = process.env.NODE_ENV === "development" && headersList.get("host");
-	const webcalLink = `webcal://${host || Club.domain}/ics/${slug}.ics`;
+	// const headersList = await headers();
+	// const host = process.env.NODE_ENV === "development" && headersList.get("host");
+	// const webcalLink = `webcal://${host || Club.domain}/ics/${slug}.ics`;
 
 	if (!futureMatches && !pastMatches)
 		return (
@@ -169,18 +199,18 @@ async function TeamMatches({
 				{isOffSeason && (
 					<Text>Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.</Text>
 				)}
-				<Text>
+				{/* <Text>
 					<Anchor href={webcalLink} style={{ display: "inline-flex", gap: 4, alignItems: "baseline" }}>
 						<IconSubscribe /> Abboniere unseren Kalender
 					</Anchor>
 					, um neue Termine saisonübergreifend automatisch in deiner Kalender-App zu empfangen.
-				</Text>
+				</Text> */}
 			</Card>
 		);
 
 	return (
 		<>
-			<Card>
+			{/* <Card>
 				<CardTitle>Mannschaftskalender</CardTitle>
 				<Text>
 					<Anchor href={webcalLink} style={{ display: "inline-flex", gap: 4, alignItems: "baseline" }}>
@@ -188,7 +218,7 @@ async function TeamMatches({
 					</Anchor>
 					, um neue Termine saisonübergreifend automatisch in deiner Kalender-App zu empfangen.
 				</Text>
-			</Card>
+			</Card> */}
 
 			{pastMatches && pastMatches.length > 0 && (
 				<Card>
