@@ -59,14 +59,18 @@ export default function NewsCard(props: NewsCardProps) {
 						<Image
 							src={thumbnail}
 							fill
-							priority
+							quality={70}
+							sizes="(max-width: 400px) 370px, (max-width: 700px) 580px, 700px"
 							style={{
 								objectFit: "cover",
 								transition: "transform 0.5s ease",
 								transform: isHovered ? "scale(1.03)" : undefined,
 								zIndex: 1,
+								aspectRatio: "700/142",
+								height: 142,
+								maxWidth: 700,
 							}}
-							alt={""}
+							alt={props.title}
 						/>
 					</Box>
 				) : (
