@@ -35,7 +35,7 @@
 		"@payloadcms/db-postgres": "3.42.0",
 		"@payloadcms/email-resend": "3.42.0",
 		"@payloadcms/live-preview-react": "3.42.0",
-		"@payloadcms/next": "3.42.0",
+		"@payloadcms/next": "3.44.0",
 		"@payloadcms/richtext-lexical": "3.42.0",
 		"@payloadcms/storage-s3": "3.42.0",
 		"@payloadcms/translations": "3.42.0",
