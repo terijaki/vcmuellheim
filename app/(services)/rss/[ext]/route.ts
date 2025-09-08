@@ -3,7 +3,7 @@ import { Club } from "@/project.config";
 import { Feed } from "feed";
 import { type NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ ext: "json" | "xml" | "atom" }> }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ ext: string }> }) {
 	try {
 		// Get base URL from the request
 		const origin = request.headers.get("host") || "localhost";

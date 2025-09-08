@@ -15,7 +15,9 @@ fi
 GITHUB_USERNAME="terijaki"
 REPO_NAME="vcmuellheim"
 IMAGE_NAME="ghcr.io/${GITHUB_USERNAME}/${REPO_NAME}"
-TAG=${1:-latest}
+# Get current commit SHA for unique tagging
+COMMIT_SHA=$(git rev-parse --short HEAD)
+TAG=${1:-$COMMIT_SHA}
 COOLIFY_WEBHOOK="https://cool.terijaki.eu/api/v1/deploy?uuid=zws880wk8o8wcsgg88kckcoc&force=false"
 COOLIFY_TOKEN=${COOLIFY_TOKEN}
 
@@ -53,17 +55,13 @@ container build \
     --file Containerfile
 
 # Tag as latest if not already
-if [ "$TAG" != "latest" ]; then
-    container image tag ${IMAGE_NAME}:${TAG} ${IMAGE_NAME}:latest
-fi
+echo "🏷️ Tagging image as latest..."
+container image tag ${IMAGE_NAME}:${TAG} ${IMAGE_NAME}:latest
 
 # Push the image
 echo "📤 Pushing image to registry..."
 container image push ${IMAGE_NAME}:${TAG}
-
-if [ "$TAG" != "latest" ]; then
-    container image push ${IMAGE_NAME}:latest
-fi
+container image push ${IMAGE_NAME}:latest
 
 echo "✅ Successfully deployed ${IMAGE_NAME}:${TAG}"
 
