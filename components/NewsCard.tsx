@@ -28,31 +28,14 @@ export default function NewsCard(props: NewsCardProps) {
 	}, [props.thumbnails]);
 
 	return (
-		<Card
-			component={Link}
-			href={`/news/${props.id}`}
-			prefetch
-			radius="md"
-			shadow="sm"
-			maw={{ base: "100%", sm: 620 }}
-			onMouseEnter={() => setIsHovered(true)}
-			onMouseLeave={() => setIsHovered(false)}
-		>
+		<Card component={Link} href={`/news/${props.id}`} prefetch radius="md" shadow="sm" maw={{ base: "100%", sm: 620 }} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
 			<CardSection bg={thumbnail ? "lion" : undefined} mb="xs">
 				{thumbnail ? (
 					<Box pt="xl" style={{ overflow: "hidden" }} pos="relative">
 						<Box style={{ zIndex: 2 }} pos="relative">
 							<Space h="xl" />
 							<Space h="xl" />
-							<Title
-								order={4}
-								fw="bold"
-								px="sm"
-								py="xs"
-								c="white"
-								lineClamp={2}
-								style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
-							>
+							<Title order={4} fw="bold" px="sm" py="xs" c="white" lineClamp={2} style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
 								{props.title}
 							</Title>
 						</Box>

@@ -40,9 +40,7 @@ const emailConfig = process.env.RESEND_API_KEY
 // #region AutoLogin Configuration
 // (if env credentials are set)
 const autoLoginConfig =
-	process.env.PAYLOAD_DEV_EMAIL && process.env.PAYLOAD_DEV_PASSWORD
-		? { prefillOnly: true, email: process.env.PAYLOAD_DEV_EMAIL, password: process.env.PAYLOAD_DEV_PASSWORD }
-		: undefined;
+	process.env.PAYLOAD_DEV_EMAIL && process.env.PAYLOAD_DEV_PASSWORD ? { prefillOnly: true, email: process.env.PAYLOAD_DEV_EMAIL, password: process.env.PAYLOAD_DEV_PASSWORD } : undefined;
 // #endregion
 
 export default buildConfig({
@@ -65,20 +63,7 @@ export default buildConfig({
 			},
 		},
 	},
-	collections: [
-		Users,
-		Media,
-		Events,
-		News,
-		Roles,
-		Members,
-		Teams,
-		Locations,
-		Sponsors,
-		SamsTeams,
-		SamsClubs,
-		BusBookings,
-	],
+	collections: [Users, Media, Events, News, Roles, Members, Teams, Locations, Sponsors, SamsTeams, SamsClubs, BusBookings],
 	editor: lexicalEditor(),
 	typescript: {
 		outputFile: "./data/payload-types.ts",

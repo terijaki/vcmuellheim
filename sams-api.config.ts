@@ -159,7 +159,7 @@ export default defineConfig({
 						schema.type = "array";
 						schema.items = {
 							type: "object",
-							// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+							// biome-ignore lint/suspicious/noExplicitAny: casting needed
 							properties: initalProperties as any,
 							required: ["uuid", "name", "startDate", "endDate", "currentSeason"],
 						};

@@ -1,11 +1,11 @@
 "use client";
-import Socials from "@/components/layout/Socials";
-import { Club } from "@/project.config";
-import { navbarLinks } from "@/utils/navbarLinks";
 import { AppShell, Burger, Collapse, Container, Group, Stack, Title, UnstyledButton } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
 import { FaVolleyball as Logo } from "react-icons/fa6";
+import Socials from "@/components/layout/Socials";
+import { Club } from "@/project.config";
+import { navbarLinks } from "@/utils/navbarLinks";
 
 export default function Header() {
 	const [opened, { toggle, close }] = useDisclosure();

@@ -1,21 +1,11 @@
 import { BackgroundImage, Container, Overlay, Stack, Text, Title } from "@mantine/core";
 
-export default function PageHeading(props: {
-	title: string;
-	subtitle?: string;
-	date?: Date;
-}) {
+export default function PageHeading(props: { title: string; subtitle?: string; date?: Date }) {
 	// #366273 is in rgb (54, 98, 115)
 	// #363b40 is in rgb (54, 59, 64)
 
 	return (
-		<BackgroundImage
-			src="/images/backgrounds/pageheading.jpg"
-			h={96 + 8 + 8 + 8}
-			w="100%"
-			pos="relative"
-			style={{ zIndex: 0 }}
-		>
+		<BackgroundImage src="/images/backgrounds/pageheading.jpg" h={96 + 8 + 8 + 8} w="100%" pos="relative" style={{ zIndex: 0 }}>
 			<Stack justify="center" align="center" h="100%" gap={0} c="white">
 				<Title ta="center" textWrap="balance" order={1} lineClamp={2}>
 					{props.title}

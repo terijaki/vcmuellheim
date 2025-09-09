@@ -1,5 +1,5 @@
-import { cronSamsTeamsViaLeaguesUpdate } from "@/data/sams/sams-server-actions";
 import { Cron } from "croner";
+import { cronSamsTeamsViaLeaguesUpdate } from "@/data/sams/sams-server-actions";
 
 export const samsTeamsUpdateTask = new Cron(
 	"0 3 * * *", // every day at 3 AM

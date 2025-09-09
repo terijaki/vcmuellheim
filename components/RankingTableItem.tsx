@@ -1,8 +1,8 @@
 "use client";
-import type { Ranking } from "@/data/sams/sams-server-actions";
 import { Group, TableTd, TableTr, Text } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
+import type { Ranking } from "@/data/sams/sams-server-actions";
 
 type RankingTableItem = {
 	team: NonNullable<Ranking["teams"]>[number];

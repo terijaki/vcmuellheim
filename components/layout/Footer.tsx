@@ -1,5 +1,5 @@
-import Socials from "@/components/layout/Socials";
 import { Anchor, Container, Flex, Group, Text } from "@mantine/core";
+import Socials from "@/components/layout/Socials";
 
 const legals = [
 	{ name: "Satzung", url: "/satzung" },

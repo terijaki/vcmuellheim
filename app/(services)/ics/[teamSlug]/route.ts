@@ -1,13 +1,14 @@
-import { samsLeagueMatches } from "@/data/sams/sams-server-actions";
-import { getTeams } from "@/data/teams";
-import { Club } from "@/project.config";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { type NextRequest, NextResponse } from "next/server";
-import { type IcsCalendar, type IcsEvent, generateIcsCalendar } from "ts-ics";
+import { generateIcsCalendar, type IcsCalendar, type IcsEvent } from "ts-ics";
+import { samsLeagueMatches } from "@/data/sams/sams-server-actions";
+import { getTeams } from "@/data/teams";
+import { Club } from "@/project.config";
+
 dayjs.extend(customParseFormat);
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ teamSlug: string }> }) {
+export async function GET(_request: NextRequest, { params }: { params: Promise<{ teamSlug: string }> }) {
 	try {
 		const { teamSlug } = await params;
 		const sanitisedTeamSlug = teamSlug.replace(".ics", "").toLowerCase();
@@ -62,9 +63,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 				location.push(postalAndCity.join(" "));
 			}
 
-			const baseDescription = [league, homeTeam ? `Heim: ${homeTeam}` : null, guestTeam ? `Gast: ${guestTeam}` : null]
-				.filter(Boolean)
-				.join(", ");
+			const baseDescription = [league, homeTeam ? `Heim: ${homeTeam}` : null, guestTeam ? `Gast: ${guestTeam}` : null].filter(Boolean).join(", ");
 			let description = baseDescription;
 			const score = match.results?.setPoints;
 			if (score) description = `Ergebnis: ${score}, ${baseDescription}`;

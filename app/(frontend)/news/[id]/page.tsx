@@ -1,13 +1,13 @@
-import ImageGallery from "@/components/ImageGallery";
-import SharingButton from "@/components/SharingButton";
-import PageWithHeading from "@/components/layout/PageWithHeading";
-import { RefreshRouteOnSave } from "@/components/payload/RefreshRouterOnSave";
-import { getNewsItem } from "@/data/news";
-import { Club } from "@/project.config";
 import { Card, Center, Stack, TypographyStylesProvider } from "@mantine/core";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import ImageGallery from "@/components/ImageGallery";
+import PageWithHeading from "@/components/layout/PageWithHeading";
+import { RefreshRouteOnSave } from "@/components/payload/RefreshRouterOnSave";
+import SharingButton from "@/components/SharingButton";
+import { getNewsItem } from "@/data/news";
+import { Club } from "@/project.config";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
 	const { id } = await params;

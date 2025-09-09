@@ -1,20 +1,4 @@
-import {
-	Anchor,
-	BackgroundImage,
-	Box,
-	Card,
-	Center,
-	Container,
-	Flex,
-	Group,
-	List,
-	ListItem,
-	Overlay,
-	SimpleGrid,
-	Stack,
-	Text,
-	Title,
-} from "@mantine/core";
+import { Anchor, BackgroundImage, Box, Card, Center, Container, Flex, Group, List, ListItem, Overlay, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
 import { getEvents } from "@/data/events";
 import type { Event } from "@/data/payload-types";
@@ -56,16 +40,13 @@ export default async function HomeHeimspiele() {
 	// count unique combination of date, location, league
 	const uniqueHostsStrings = new Set<string>();
 	const homeMatchesToDisplay: LeagueMatches["matches"] = [];
-	matchesHomeGamesSorted?.map((m) => {
+	for (const m of matchesHomeGamesSorted || []) {
 		const dateLocationCombi: string = `${m.date}${m.location?.uuid}`;
-		if (
-			dayjs(m.date).isAfter(dayjs().add(TIME_RANGE, "days")) &&
-			(uniqueHostsStrings.size < MAX_GAMES || uniqueHostsStrings.has(dateLocationCombi))
-		) {
+		if (dayjs(m.date).isAfter(dayjs().add(TIME_RANGE, "days")) && (uniqueHostsStrings.size < MAX_GAMES || uniqueHostsStrings.has(dateLocationCombi))) {
 			uniqueHostsStrings.add(dateLocationCombi);
 			homeMatchesToDisplay.push(m);
 		}
-	});
+	}
 
 	return (
 		<Box bg="blumine">
@@ -148,12 +129,7 @@ async function HomeMatchesList({ homeMatches }: { homeMatches?: LeagueMatches["m
 					return (
 						<Card bg="onyx" c="white" key={dateLocationKey}>
 							<Stack>
-								<Flex
-									direction={{ base: "column", sm: "row" }}
-									justify="space-between"
-									align={{ base: "flex-start", sm: "center" }}
-									columnGap="sm"
-								>
+								<Flex direction={{ base: "column", sm: "row" }} justify="space-between" align={{ base: "flex-start", sm: "center" }} columnGap="sm">
 									<time dateTime={date}>
 										<Text c="lion" fw="bold">
 											{dayjs(date).format("dddd, D MMMM YY")}
@@ -182,11 +158,7 @@ async function HomeMatchesList({ homeMatches }: { homeMatches?: LeagueMatches["m
 											{/* LEAGUE NAME AND TIME */}
 											<Group gap="xs">
 												{leagueName && <Text fw="bold">{leagueName}</Text>}
-												{earliestStartTime && earliestStartTime === "00:00" ? (
-													"(Uhrzeit folgt)"
-												) : (
-													<Text>ab {earliestStartTime} Uhr</Text>
-												)}
+												{earliestStartTime && earliestStartTime === "00:00" ? "(Uhrzeit folgt)" : <Text>ab {earliestStartTime} Uhr</Text>}
 											</Group>
 											{/* GUESTS LIST */}
 											<List spacing={0} withPadding listStyleType="none">
@@ -244,16 +216,12 @@ function NoMatchesNoEvents({ matchCount = 0, eventCount = 0 }: { matchCount?: nu
 					{eventCount === 0 && matchCount === 0 && "Zunächst keine Heimspiele"}
 				</Title>
 				<Text>
-					In den kommenden{" "}
-					{numToWordsDe.numToWord(((TIME_RANGE * TIME_RANGE_MAX_MULTIPLIER) / 7).toFixed(0), { uppercase: false })}{" "}
-					Wochen stehen keine
+					In den kommenden {numToWordsDe.numToWord(((TIME_RANGE * TIME_RANGE_MAX_MULTIPLIER) / 7).toFixed(0), { uppercase: false })} Wochen stehen keine
 					{matchCount >= 1 ? " Veranstaltungen " : " Spiele in Müllheim "}
 					an.
 					{matchCount >= 1 && (
 						<Text span>
-							{matchCount === 1
-								? "Einen weiteren Termin zu einem späteren Zeitpunkt findest du"
-								: `${allEventsCountWord} weitere Termine zu einem späteren Zeitpunkt findest du`}
+							{matchCount === 1 ? "Einen weiteren Termin zu einem späteren Zeitpunkt findest du" : `${allEventsCountWord} weitere Termine zu einem späteren Zeitpunkt findest du`}
 							<LinkToEventsPage />
 						</Text>
 					)}
@@ -262,11 +230,7 @@ function NoMatchesNoEvents({ matchCount = 0, eventCount = 0 }: { matchCount?: nu
 				{matchCount >= 1 && (
 					<Text>
 						Auswärtsspiele findest du im Spielplan der jeweiligen Mannschaft.
-						<Text span>
-							{matchCount === 1
-								? "Einen weiteren Termin findest du"
-								: `${allMatchesCountWord} weitere Termine unserer Mannschaften findest du`}
-						</Text>
+						<Text span>{matchCount === 1 ? "Einen weiteren Termin findest du" : `${allMatchesCountWord} weitere Termine unserer Mannschaften findest du`}</Text>
 						<LinkToEventsPage />
 					</Text>
 				)}

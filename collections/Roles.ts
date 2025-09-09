@@ -1,5 +1,5 @@
-import { isModerator, isRoleModerator, isUser } from "@/data/payload-access";
 import type { CollectionConfig } from "payload";
+import { isModerator, isRoleModerator, isUser } from "@/data/payload-access";
 
 export const Roles: CollectionConfig = {
 	slug: "roles",

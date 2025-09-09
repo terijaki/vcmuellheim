@@ -1,11 +1,3 @@
-import CardTitle from "@/components/CardTitle";
-import CenteredLoader from "@/components/CenteredLoader";
-import EventCard from "@/components/EventCard";
-import Matches from "@/components/Matches";
-import PageWithHeading from "@/components/layout/PageWithHeading";
-import { getEvents } from "@/data/events";
-import { samsLeagueMatches, samsSeasons } from "@/data/sams/sams-server-actions";
-import { Club } from "@/project.config";
 import { Anchor, Card, CardSection, Group, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
@@ -13,6 +5,14 @@ import { unstable_cacheTag as cacheTag } from "next/cache";
 import { headers } from "next/headers";
 import { Fragment, Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
+import CardTitle from "@/components/CardTitle";
+import CenteredLoader from "@/components/CenteredLoader";
+import EventCard from "@/components/EventCard";
+import PageWithHeading from "@/components/layout/PageWithHeading";
+import Matches from "@/components/Matches";
+import { getEvents } from "@/data/events";
+import { samsLeagueMatches, samsSeasons } from "@/data/sams/sams-server-actions";
+import { Club } from "@/project.config";
 
 export const metadata: Metadata = { title: "Termine" };
 
@@ -113,9 +113,8 @@ async function MatchesContent() {
 						<Stack gap={0}>
 							<CardTitle>Außerhalb der Saison?</CardTitle>
 							<Text>
-								Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.
-								Dazwischen wird die nächste Saison vorbereitet und die neusten Informationen vom Südbadischen
-								Volleyballverband wurden ggf. noch nicht veröffentlicht.
+								Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt. Dazwischen wird die nächste Saison vorbereitet und die neusten Informationen vom
+								Südbadischen Volleyballverband wurden ggf. noch nicht veröffentlicht.
 							</Text>
 						</Stack>
 						{seasons && (
@@ -124,16 +123,12 @@ async function MatchesContent() {
 								<Stack gap={0}>
 									<Group>
 										<Text fw="bold">Aktuelle Saison</Text>
-										<Text fw="bold">
-											{`${dayjs(seasons.current.startDate).format("YYYY")}/${dayjs(seasons.current.endDate).format("YY")}`}
-										</Text>
+										<Text fw="bold">{`${dayjs(seasons.current.startDate).format("YYYY")}/${dayjs(seasons.current.endDate).format("YY")}`}</Text>
 									</Group>
 									{seasons.next && (
 										<Group>
 											<Text>Nächste Saison</Text>
-											<Text>
-												{`${dayjs(seasons.next.startDate).format("YYYY")}/${dayjs(seasons.next.endDate).format("YY")}`}
-											</Text>
+											<Text>{`${dayjs(seasons.next.startDate).format("YYYY")}/${dayjs(seasons.next.endDate).format("YY")}`}</Text>
 										</Group>
 									)}
 								</Stack>

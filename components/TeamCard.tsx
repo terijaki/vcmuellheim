@@ -1,20 +1,13 @@
 "use client";
-import type { Team } from "@/data/payload-types";
-import { Club } from "@/project.config";
 import { ActionIcon, Anchor, Box, Button, Card, Collapse, Group, Stack, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { Fragment, useEffect, useState } from "react";
-import {
-	FaCalendarDays as IconCalendar,
-	FaClock as IconClock,
-	FaChevronUp as IconCollapse,
-	FaEnvelope as IconMail,
-	FaUser as IconPerson,
-	FaUserGroup as IconPersons,
-} from "react-icons/fa6";
-import MapsLink from "./MapsLink";
+import { FaCalendarDays as IconCalendar, FaClock as IconClock, FaChevronUp as IconCollapse, FaEnvelope as IconMail, FaUser as IconPerson, FaUserGroup as IconPersons } from "react-icons/fa6";
+import type { Team } from "@/data/payload-types";
+import { Club } from "@/project.config";
 import { useTeamContext } from "./context/HomeTeamContext";
+import MapsLink from "./MapsLink";
 
 export default function TeamCard(props: Team) {
 	const { id, slug, name, league, sbvvTeam, age, description, schedules, people, gender } = props;
@@ -40,13 +33,7 @@ export default function TeamCard(props: Team) {
 
 	return (
 		<Card data-team-id={id} bg="white" style={{ opacity: fullOpacity ? 1 : 0.75 }}>
-			<Group
-				onClick={() => setIsOpen(!isOpen)}
-				style={{ cursor: "pointer" }}
-				wrap="nowrap"
-				justify="space-between"
-				align="flex-start"
-			>
+			<Group onClick={() => setIsOpen(!isOpen)} style={{ cursor: "pointer" }} wrap="nowrap" justify="space-between" align="flex-start">
 				<Title order={3} c="blumine">
 					{league ? `${name} - ${league}` : name}
 				</Title>
@@ -86,8 +73,7 @@ export default function TeamCard(props: Team) {
 								return (
 									<Fragment key={schedule.id}>
 										<Text>
-											{schedule.day.join(separator)} {dayjs(schedule.time.startTime).format("HH:mm")} -{" "}
-											{dayjs(schedule.time.endTime).format("HH:mm")} Uhr
+											{schedule.day.join(separator)} {dayjs(schedule.time.startTime).format("HH:mm")} - {dayjs(schedule.time.endTime).format("HH:mm")} Uhr
 										</Text>
 										{typeof schedule.location === "object" && <MapsLink location={schedule.location} />}
 									</Fragment>
@@ -150,12 +136,7 @@ export default function TeamCard(props: Team) {
 
 					<Stack gap="xs" mt="xs">
 						{emailAddresses.size > 0 && (
-							<Button
-								component={Link}
-								href={`mailto:${Array.from(emailAddresses.values()).join(",")}?subject=${name} (${Club.shortName})`}
-								color="turquoise"
-								leftSection={<IconMail />}
-							>
+							<Button component={Link} href={`mailto:${Array.from(emailAddresses.values()).join(",")}?subject=${name} (${Club.shortName})`} color="turquoise" leftSection={<IconMail />}>
 								Kontaktieren
 							</Button>
 						)}

@@ -1,8 +1,8 @@
-import SectionHeading from "@/components/layout/SectionHeading";
-import { getRecentInstagramPosts } from "@/utils/social/instagram";
 import { BackgroundImage, Box, Container, Loader, Overlay, SimpleGrid, Stack } from "@mantine/core";
 import { unstable_cacheLife as cacheLife } from "next/cache";
 import { Suspense } from "react";
+import SectionHeading from "@/components/layout/SectionHeading";
+import { getRecentInstagramPosts } from "@/utils/social/instagram";
 import InstagramCard from "../InstagramCard";
 import ScrollAnchor from "./ScrollAnchor";
 

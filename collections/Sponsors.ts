@@ -1,6 +1,6 @@
-import { isModerator } from "@/data/payload-access";
 import dayjs from "dayjs";
 import type { CollectionConfig } from "payload";
+import { isModerator } from "@/data/payload-access";
 
 export const Sponsors: CollectionConfig = {
 	slug: "sponsors",

@@ -1,8 +1,8 @@
+import { AppShell, AppShellMain, colorsTuple, createTheme, MantineProvider, Stack } from "@mantine/core";
 import DatesDEProvider from "@/components/DatesDEProvider";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import { Club } from "@/project.config";
-import { AppShell, AppShellMain, MantineProvider, Stack, colorsTuple, createTheme } from "@mantine/core";
 import "@mantine/core/styles.css";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
@@ -20,8 +20,7 @@ export const metadata: Metadata = {
 		template: "VCM: %s",
 		default: "Volleyballclub Müllheim",
 	},
-	description:
-		"In Müllheim geh es in Sachen Volleyball richtig ab! Von Freizeit Team bis zur Amateurliga. Hier findest du alle Infos und Neuigkeiten des Vereins.",
+	description: "In Müllheim geh es in Sachen Volleyball richtig ab! Von Freizeit Team bis zur Amateurliga. Hier findest du alle Infos und Neuigkeiten des Vereins.",
 	icons: {
 		icon: "/images/icons/favicon.png",
 		shortcut: "/images/icons/favicon.png",

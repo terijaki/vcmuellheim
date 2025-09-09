@@ -1,19 +1,15 @@
-import { getSamsClubByName, getSamsClubBySamsUuid } from "@/data/samsClubs";
 import { Flex } from "@mantine/core";
 import { unstable_cacheLife as cacheLife } from "next/cache";
 import Image from "next/image";
 import { FaVolleyball as Ball } from "react-icons/fa6";
+import { getSamsClubByName, getSamsClubBySamsUuid } from "@/data/samsClubs";
 
-export default async function ClubLogo({
-	clubUuid,
-	teamName,
-	light,
-}: { clubUuid?: string | null; teamName?: string | null; light?: boolean }) {
+export default async function ClubLogo({ clubUuid, teamName, light }: { clubUuid?: string | null; teamName?: string | null; light?: boolean }) {
 	"use cache";
 	cacheLife("max");
 
 	if (clubUuid || teamName) {
-		let clubLogoUrl: string | undefined = undefined;
+		let clubLogoUrl: string | undefined;
 		let logoName = "";
 
 		if (clubUuid) {

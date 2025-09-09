@@ -1,14 +1,14 @@
-import CardTitle from "@/components/CardTitle";
-import ImageGallery from "@/components/ImageGallery";
-import MapsLink from "@/components/MapsLink";
-import SharingButton from "@/components/SharingButton";
-import PageWithHeading from "@/components/layout/PageWithHeading";
-import { getEventItem } from "@/data/events";
-import { Club } from "@/project.config";
 import { Card, Center, Grid, GridCol, Stack, Text, TypographyStylesProvider } from "@mantine/core";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
+import CardTitle from "@/components/CardTitle";
+import ImageGallery from "@/components/ImageGallery";
+import PageWithHeading from "@/components/layout/PageWithHeading";
+import MapsLink from "@/components/MapsLink";
+import SharingButton from "@/components/SharingButton";
+import { getEventItem } from "@/data/events";
+import { Club } from "@/project.config";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
 	const { id } = await params;

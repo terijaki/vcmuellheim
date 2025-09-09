@@ -29,7 +29,7 @@ export default function BusCalendars({ bookings = [] }: { bookings: BusBooking[]
 			// date is a DateStringValue in "YYYY-MM-DD" format
 			const hasDate = dates.has(date);
 			const isToday = dayjs().isSame(date, "date");
-			let bgColor;
+			let bgColor: string | undefined;
 			if (hasDate) bgColor = "onyx";
 			if (isToday) bgColor = "lion";
 			if (hasDate && isToday) bgColor = "blumine";
@@ -56,8 +56,7 @@ export default function BusCalendars({ bookings = [] }: { bookings: BusBooking[]
 		<Container size="md">
 			<Stack>
 				<Alert variant="white">
-					Die Verfügbarkeit des Vereinsbusses wird von mehreren Funktionären gemeinsam verwaltet. Bei Fragen wende dich
-					bitte an{" "}
+					Die Verfügbarkeit des Vereinsbusses wird von mehreren Funktionären gemeinsam verwaltet. Bei Fragen wende dich bitte an{" "}
 					<Anchor size="sm" href={`mailto:${Club.email}`} underline="never">
 						{Club.email}
 					</Anchor>
@@ -90,16 +89,8 @@ export default function BusCalendars({ bookings = [] }: { bookings: BusBooking[]
 											return start.isSame(dayjs(d), "date") || end.isSame(dayjs(d), "date");
 										});
 										return (
-											<Table.Tr
-												key={booking.id}
-												bg={isSelected ? "turquoise" : undefined}
-												c={isSelected ? "white" : undefined}
-											>
-												<Table.Td>
-													{start.isSame(end, "date")
-														? start.format("DD.MM.YYYY")
-														: `${start.format("DD.MM")} - ${end.format("DD.MM.YY")}`}
-												</Table.Td>
+											<Table.Tr key={booking.id} bg={isSelected ? "turquoise" : undefined} c={isSelected ? "white" : undefined}>
+												<Table.Td>{start.isSame(end, "date") ? start.format("DD.MM.YYYY") : `${start.format("DD.MM")} - ${end.format("DD.MM.YY")}`}</Table.Td>
 												<Table.Td>{booking.traveler}</Table.Td>
 												<Table.Td>{booking.comment}</Table.Td>
 											</Table.Tr>

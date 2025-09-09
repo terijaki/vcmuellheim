@@ -1,8 +1,8 @@
-import type { Ranking } from "@/data/sams/sams-server-actions";
-import { SAMS } from "@/project.config";
 import { Card, Group, Table, TableTbody, TableTh, TableThead, TableTr, Text } from "@mantine/core";
 import dayjs from "dayjs";
 import { Suspense } from "react";
+import type { Ranking } from "@/data/sams/sams-server-actions";
+import { SAMS } from "@/project.config";
 import CardTitle from "./CardTitle";
 import ClubLogo, { ClubLogoFallback } from "./ClubLogo";
 import RankingTableItem from "./RankingTableItem";

@@ -28,10 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 	};
 }
 
-export default async function TeamPage(props: {
-	params: Promise<{ slug: string }>;
-	searchParams: Promise<{ preview: "true" | "false" | undefined }>;
-}) {
+export default async function TeamPage(props: { params: Promise<{ slug: string }>; searchParams: Promise<{ preview: "true" | "false" | undefined }> }) {
 	const { slug } = await props.params;
 	const searchParams = await props.searchParams;
 	const preview = searchParams.preview === "true";
@@ -47,12 +44,7 @@ export default async function TeamPage(props: {
 	const seasonName = samsTeam?.seasonName; // injected in the ranking query
 
 	// team images
-	const imageUrls =
-		team?.images
-			?.filter((media): media is NonNullable<typeof media> & { url: string } =>
-				Boolean(typeof media === "object" && media?.url),
-			)
-			.map((image) => image.url) || [];
+	const imageUrls = team?.images?.filter((media): media is NonNullable<typeof media> & { url: string } => Boolean(typeof media === "object" && media?.url)).map((image) => image.url) || [];
 
 	return (
 		<PageWithHeading title={team.name} subtitle={team.league || undefined}>
@@ -72,18 +64,13 @@ export default async function TeamPage(props: {
 					<TeamPictures images={imageUrls} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader text="Lade Tabelle..." />}>
-					<TeamRanking
-						leagueUuid={leagueUuid}
-						leagueName={leagueName}
-						seasonName={seasonName}
-						teamUuid={samsTeamUuid}
-					/>
+					<TeamRanking leagueUuid={leagueUuid} leagueName={leagueName} seasonName={seasonName} teamUuid={samsTeamUuid} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader text="Lade Spielplan..." />}>
 					<TeamCalendar leagueUuid={leagueUuid} teamUuid={samsTeamUuid} slug={slug} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader text="Lade Spielplan..." />}>
-					<TeamMatches leagueUuid={leagueUuid} teamUuid={samsTeamUuid} slug={slug} />
+					<TeamMatches leagueUuid={leagueUuid} teamUuid={samsTeamUuid} />
 				</Suspense>
 				<Center>
 					<Button component={Link} href="/#mannschaften">
@@ -140,15 +127,7 @@ async function _TeamPlayers({ seasonTeamId }: { seasonTeamId?: string | number |
 	);
 }
 
-async function TeamCalendar({
-	leagueUuid,
-	teamUuid,
-	slug,
-}: {
-	leagueUuid?: string | null;
-	teamUuid?: string | null;
-	slug: string;
-}) {
+async function TeamCalendar({ leagueUuid, teamUuid, slug }: { leagueUuid?: string | null; teamUuid?: string | null; slug: string }) {
 	if (!leagueUuid || !teamUuid) return null;
 	// webcal link
 	const headersList = await headers();
@@ -167,15 +146,7 @@ async function TeamCalendar({
 	);
 }
 
-async function TeamMatches({
-	leagueUuid,
-	teamUuid,
-	slug,
-}: {
-	leagueUuid?: string | null;
-	teamUuid?: string | null;
-	slug: string;
-}) {
+async function TeamMatches({ leagueUuid, teamUuid }: { leagueUuid?: string | null; teamUuid?: string | null }) {
 	if (!leagueUuid || !teamUuid) return null;
 
 	const matches = await samsLeagueMatches({ team: teamUuid, league: leagueUuid });
@@ -196,9 +167,7 @@ async function TeamMatches({
 		return (
 			<Card>
 				<CardTitle>Keine Spieltermine gefunden</CardTitle>
-				{isOffSeason && (
-					<Text>Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.</Text>
-				)}
+				{isOffSeason && <Text>Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.</Text>}
 				{/* <Text>
 					<Anchor href={webcalLink} style={{ display: "inline-flex", gap: 4, alignItems: "baseline" }}>
 						<IconSubscribe /> Abboniere unseren Kalender
@@ -224,13 +193,7 @@ async function TeamMatches({
 				<Card>
 					<CardTitle>Ergebnisse</CardTitle>
 					<CardSection p={{ base: undefined, sm: "sm" }}>
-						<Matches
-							type="past"
-							matches={pastMatches}
-							timestamp={matches?.timestamp}
-							highlightTeamUuid={teamUuid}
-							uniqueLeague
-						/>
+						<Matches type="past" matches={pastMatches} timestamp={matches?.timestamp} highlightTeamUuid={teamUuid} uniqueLeague />
 					</CardSection>
 				</Card>
 			)}
@@ -238,40 +201,21 @@ async function TeamMatches({
 				<Card>
 					<CardTitle>Spielplan</CardTitle>
 					<CardSection p={{ base: undefined, sm: "sm" }}>
-						<Matches
-							type="future"
-							matches={futureMatches}
-							timestamp={matches?.timestamp}
-							highlightTeamUuid={teamUuid}
-						/>
+						<Matches type="future" matches={futureMatches} timestamp={matches?.timestamp} highlightTeamUuid={teamUuid} />
 					</CardSection>
 				</Card>
 			) : (
 				<Card>
 					<CardTitle>Spielplan</CardTitle>
 					<Text>Aktuell stehen keine weiteren Spieltermine für diese Saison an.</Text>
-					{isOffSeason && (
-						<Text>
-							Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.
-						</Text>
-					)}
+					{isOffSeason && <Text>Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.</Text>}
 				</Card>
 			)}
 		</>
 	);
 }
 
-async function TeamRanking({
-	leagueUuid,
-	leagueName,
-	seasonName,
-	teamUuid,
-}: {
-	leagueUuid?: string | null;
-	leagueName?: string | null;
-	seasonName?: string | null;
-	teamUuid?: string | null;
-}) {
+async function TeamRanking({ leagueUuid, leagueName, seasonName, teamUuid }: { leagueUuid?: string | null; leagueName?: string | null; seasonName?: string | null; teamUuid?: string | null }) {
 	if (!leagueUuid) return null;
 
 	const ranking = await samsLeagueRanking(leagueUuid, leagueName, seasonName); //league/season names injected to be passed along with its response object
@@ -293,8 +237,7 @@ function TeamSchedule({ schedules }: { schedules?: Team["schedules"] }) {
 						return (
 							<Stack key={schedule.id} gap={0}>
 								<Text>
-									{schedule.day.join(separator)} {dayjs(schedule.time.startTime).format("HH:mm")} -{" "}
-									{dayjs(schedule.time.endTime).format("HH:mm")} Uhr
+									{schedule.day.join(separator)} {dayjs(schedule.time.startTime).format("HH:mm")} - {dayjs(schedule.time.endTime).format("HH:mm")} Uhr
 								</Text>
 								{typeof schedule.location === "object" && <MapsLink location={schedule.location} />}
 							</Stack>
@@ -311,8 +254,7 @@ function TeamTrainers({ people }: { people?: Team["people"] }) {
 		return (
 			<Card>
 				<Text>
-					Bei Fragen und Interesse zu dieser Mannschaft, wende dich bitte an{" "}
-					<Anchor href={"mailto:info@vcmuellheim.de"}>info@vcmuellheim.de</Anchor>
+					Bei Fragen und Interesse zu dieser Mannschaft, wende dich bitte an <Anchor href={"mailto:info@vcmuellheim.de"}>info@vcmuellheim.de</Anchor>
 				</Text>
 			</Card>
 		);
@@ -365,10 +307,7 @@ function TeamTrainers({ people }: { people?: Team["people"] }) {
 		<Card>
 			<Flex wrap="wrap" columnGap="xl" rowGap="md">
 				<MemberList title="Trainer" member={people.coaches || []} />
-				<MemberList
-					title={people.contactPeople && people.contactPeople.length > 0 ? "Ansprechpersonen" : "Ansprechperson"}
-					member={people.contactPeople || []}
-				/>
+				<MemberList title={people.contactPeople && people.contactPeople.length > 0 ? "Ansprechpersonen" : "Ansprechperson"} member={people.contactPeople || []} />
 			</Flex>
 		</Card>
 	);

@@ -19,8 +19,8 @@ export default function InstagramCard(post: InstagramPost) {
 		commentsCount,
 		url,
 		displayUrl,
-		dimensionsHeight,
-		dimensionsWidth,
+		// dimensionsHeight,
+		// dimensionsWidth,
 		ownerUsername,
 		hashtags,
 		videoUrl,
@@ -31,17 +31,7 @@ export default function InstagramCard(post: InstagramPost) {
 	// fetch data dynamicallys based on instagram url in our teams
 
 	return (
-		<Card
-			ref={ref}
-			component={Link}
-			href={url || ""}
-			target="_blank"
-			radius="md"
-			shadow="sm"
-			onMouseEnter={() => setIsHovered(true)}
-			onMouseLeave={() => setIsHovered(false)}
-			data-post-id={id}
-		>
+		<Card ref={ref} component={Link} href={url || ""} target="_blank" radius="md" shadow="sm" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} data-post-id={id}>
 			<CardSection ref={ref}>
 				<Grid justify="space-between" align="stretch" gutter={0}>
 					<GridCol span={4} pos="relative" style={{ overflow: "hidden" }}>

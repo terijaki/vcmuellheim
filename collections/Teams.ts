@@ -1,8 +1,8 @@
+import { revalidateTag } from "next/cache";
+import type { CollectionConfig } from "payload";
 import { isModerator } from "@/data/payload-access";
 import { Instagram } from "@/project.config";
 import { slugify } from "@/utils/slugify";
-import { revalidateTag } from "next/cache";
-import type { CollectionConfig } from "payload";
 
 export const Teams: CollectionConfig = {
 	slug: "teams",
@@ -149,8 +149,7 @@ export const Teams: CollectionConfig = {
 							relationTo: "members",
 							hasMany: true,
 							admin: {
-								description:
-									"Kontaktpersonen zusätzlich oder alternativ zu den Trainern. Diese werden auf der Mannschaftskarte angezeigt.",
+								description: "Kontaktpersonen zusätzlich oder alternativ zu den Trainern. Diese werden auf der Mannschaftskarte angezeigt.",
 							},
 						},
 					],

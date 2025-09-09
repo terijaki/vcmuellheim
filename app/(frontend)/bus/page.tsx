@@ -1,7 +1,7 @@
 "use cache";
+import { unstable_cacheTag as cacheTag } from "next/cache";
 import PageWithHeading from "@/components/layout/PageWithHeading";
 import { getBusBookings } from "@/data/bus";
-import { unstable_cacheTag as cacheTag } from "next/cache";
 import BusCalendars from "./BusCalendars";
 
 export default async function BusPage() {

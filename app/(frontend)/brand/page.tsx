@@ -1,9 +1,9 @@
-import CardTitle from "@/components/CardTitle";
-import PageWithHeading from "@/components/layout/PageWithHeading";
 import { Anchor, AspectRatio, Box, Button, Card, Group, SimpleGrid, Stack, Text } from "@mantine/core";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import CardTitle from "@/components/CardTitle";
+import PageWithHeading from "@/components/layout/PageWithHeading";
 
 export const metadata: Metadata = { title: "Brand Guide" };
 
@@ -14,10 +14,7 @@ export default function StyleGuidePage() {
 				{/* colors */}
 				<Card>
 					<Stack>
-						<Text>
-							Unsere Vereinsfarben werden hier auf der Webseite verwendet und sollten wenn möglich auch in anderem
-							Kontext verwendet werden.
-						</Text>
+						<Text>Unsere Vereinsfarben werden hier auf der Webseite verwendet und sollten wenn möglich auch in anderem Kontext verwendet werden.</Text>
 						<SimpleGrid cols={3} c="white" spacing={{ base: 4, xs: "xs" }}>
 							<Text p="xs" bg="blumine" fw="bold">
 								Blumine
@@ -54,10 +51,7 @@ export default function StyleGuidePage() {
 					<Stack gap="xl">
 						<Stack>
 							<CardTitle>Vektorgrafik</CardTitle>
-							<Text>
-								Vektorgrafiken skalieren dynamisch und eigenen sich daher perfekt für den Druck oder die Beflockung von
-								Trikots.
-							</Text>
+							<Text>Vektorgrafiken skalieren dynamisch und eigenen sich daher perfekt für den Druck oder die Beflockung von Trikots.</Text>
 							<Stack align="center">
 								<Image src="/images/logo/logo.svg" width={505} height={288} alt="Logo" unoptimized />
 								<Group>
@@ -73,8 +67,8 @@ export default function StyleGuidePage() {
 						<Stack>
 							<CardTitle>Rastergrafik</CardTitle>
 							<Text>
-								Rastergrafiken haben eine feste Auflösung und das Dateiformat PNG hat eine hohe Kompatibilität. Diese
-								Dateien eignen sich daher für die meisten digitalen Zwecke. Die Auflösung beträgt 5050x2880 Pixel.
+								Rastergrafiken haben eine feste Auflösung und das Dateiformat PNG hat eine hohe Kompatibilität. Diese Dateien eignen sich daher für die meisten digitalen Zwecke. Die Auflösung beträgt
+								5050x2880 Pixel.
 							</Text>
 							<SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="lg">
 								<Stack>
@@ -92,25 +86,13 @@ export default function StyleGuidePage() {
 									</Button>
 								</Stack>
 								<Stack>
-									<Image
-										src="/images/logo/logo-363B40-01A29A.png"
-										width={505}
-										height={288}
-										alt="Logo Türkis"
-										unoptimized
-									/>
+									<Image src="/images/logo/logo-363B40-01A29A.png" width={505} height={288} alt="Logo Türkis" unoptimized />
 									<Button component={Link} href="/images/logo/logo-363B40-01A29A.png" download mx="lg">
 										Download (Türkis)
 									</Button>
 								</Stack>
 								<Stack>
-									<Image
-										src="/images/logo/logo-363B40-366273.png"
-										width={505}
-										height={288}
-										alt="Logo Blumine"
-										unoptimized
-									/>
+									<Image src="/images/logo/logo-363B40-366273.png" width={505} height={288} alt="Logo Blumine" unoptimized />
 									<Button component={Link} href="/images/logo/logo-363B40-366273.png" download mx="lg">
 										Download (Blumine)
 									</Button>
@@ -151,13 +133,11 @@ export default function StyleGuidePage() {
 							<Text span fw="bold">
 								Farbe:{" "}
 							</Text>
-							Damit wir Mannschafts- und Jahrgangsübergreifend geschlossen als Verein auftreten können, sollten Trikots
-							in einer Farbe bestellt werden, die der Vereinsfarbe{" "}
+							Damit wir Mannschafts- und Jahrgangsübergreifend geschlossen als Verein auftreten können, sollten Trikots in einer Farbe bestellt werden, die der Vereinsfarbe{" "}
 							<Text span bg="blumine" c="white">
 								Blumine
 							</Text>{" "}
-							ähnelnt. Navy oder Royal Blau sind beispielsweise Farben die von Sportartikelherstellern oft angeboten
-							werden.
+							ähnelnt. Navy oder Royal Blau sind beispielsweise Farben die von Sportartikelherstellern oft angeboten werden.
 						</Text>
 						<Text>
 							<Text span fw="bold">
@@ -172,38 +152,19 @@ export default function StyleGuidePage() {
 
 							<SimpleGrid spacing="xs" cols={{ base: 1, sm: 2 }}>
 								<AspectRatio ratio={6 / 4}>
-									<Image
-										width={600}
-										height={400}
-										src="/images/brand/jersey1.jpg"
-										alt="Logo"
-										style={{ objectFit: "cover" }}
-									/>
+									<Image width={600} height={400} src="/images/brand/jersey1.jpg" alt="Logo" style={{ objectFit: "cover" }} />
 								</AspectRatio>
 								<AspectRatio ratio={6 / 4}>
-									<Image
-										width={600}
-										height={400}
-										src="/images/brand/jersey2.jpg"
-										alt="Logo"
-										style={{ objectFit: "cover" }}
-									/>
+									<Image width={600} height={400} src="/images/brand/jersey2.jpg" alt="Logo" style={{ objectFit: "cover" }} />
 								</AspectRatio>
 							</SimpleGrid>
 						</Stack>
 						<Text>
 							Trikots können bequem in unserem{" "}
-							<Anchor
-								component={Link}
-								href="https://vcmuellheim.fan12.de/kategorien/vereinskollektion/"
-								target="_blank"
-								referrerPolicy="no-referrer"
-								rel="noreferrer"
-							>
+							<Anchor component={Link} href="https://vcmuellheim.fan12.de/kategorien/vereinskollektion/" target="_blank" referrerPolicy="no-referrer" rel="noreferrer">
 								Vereinsshop
 							</Anchor>{" "}
-							bestellt werden. Das richtige Vereinslogo ist dort bereits hinterlegt und muss bei der Bestellung nicht
-							bereitgestellt werden.
+							bestellt werden. Das richtige Vereinslogo ist dort bereits hinterlegt und muss bei der Bestellung nicht bereitgestellt werden.
 						</Text>
 					</Stack>
 				</Card>

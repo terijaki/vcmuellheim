@@ -1,6 +1,6 @@
-import { isModerator, isOfficial } from "@/data/payload-access";
 import { revalidateTag } from "next/cache";
 import type { CollectionConfig } from "payload";
+import { isModerator, isOfficial } from "@/data/payload-access";
 
 export const Media: CollectionConfig = {
 	slug: "media",
@@ -30,7 +30,7 @@ export const Media: CollectionConfig = {
 			on: "images",
 			admin: {
 				allowCreate: false,
-				condition: (data, siblingData) => Boolean(siblingData?.news?.docs?.length > 0),
+				condition: (_data, siblingData) => Boolean(siblingData?.news?.docs?.length > 0),
 				defaultColumns: ["title", "publishedDate", "author"],
 			},
 		},
@@ -41,7 +41,7 @@ export const Media: CollectionConfig = {
 			on: "avatar",
 			admin: {
 				allowCreate: false,
-				condition: (data, siblingData) => Boolean(siblingData?.members?.docs?.length > 0),
+				condition: (_data, siblingData) => Boolean(siblingData?.members?.docs?.length > 0),
 				defaultColumns: ["name", "email", "roles"],
 			},
 		},
@@ -52,7 +52,7 @@ export const Media: CollectionConfig = {
 			on: "images",
 			admin: {
 				allowCreate: false,
-				condition: (data, siblingData) => Boolean(siblingData?.events?.docs?.length > 0),
+				condition: (_data, siblingData) => Boolean(siblingData?.events?.docs?.length > 0),
 				defaultColumns: ["title", "date"],
 			},
 		},
@@ -63,7 +63,7 @@ export const Media: CollectionConfig = {
 			on: "logo",
 			admin: {
 				allowCreate: false,
-				condition: (data, siblingData) => Boolean(siblingData?.sponsors?.docs?.length > 0),
+				condition: (_data, siblingData) => Boolean(siblingData?.sponsors?.docs?.length > 0),
 				defaultColumns: ["title", "expiryDate"],
 			},
 		},

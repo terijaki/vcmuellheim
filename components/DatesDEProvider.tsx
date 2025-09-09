@@ -5,7 +5,5 @@ import "@mantine/dates/styles.css";
 import "dayjs/locale/de";
 
 export default function DatesDEProvider({ children }: { children: React.ReactNode }) {
-	return (
-		<DatesProvider settings={{ locale: "de", firstDayOfWeek: 1, consistentWeeks: true }}>{children}</DatesProvider>
-	);
+	return <DatesProvider settings={{ locale: "de", firstDayOfWeek: 1, consistentWeeks: true }}>{children}</DatesProvider>;
 }

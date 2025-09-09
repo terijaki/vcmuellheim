@@ -1,5 +1,5 @@
-import { Instagram } from "@/project.config";
 import { FaFacebook as IconFacebook, FaInstagram as IconInstagram, FaMastodon as IconMastodon } from "react-icons/fa6";
+import { Instagram } from "@/project.config";
 
 export default function socialList() {
 	const socials = [

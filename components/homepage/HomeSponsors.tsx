@@ -1,11 +1,11 @@
-import SectionHeading from "@/components/layout/SectionHeading";
-import type { Sponsor } from "@/data/payload-types";
-import { getSponsors } from "@/data/sponsors";
-import { Club } from "@/project.config";
 import { BackgroundImage, Box, Button, Container, Flex, Group, Overlay, Stack, Text } from "@mantine/core";
 import Image from "next/image";
 import Link from "next/link";
 import Marquee from "react-fast-marquee";
+import SectionHeading from "@/components/layout/SectionHeading";
+import type { Sponsor } from "@/data/payload-types";
+import { getSponsors } from "@/data/sponsors";
+import { Club } from "@/project.config";
 import ScrollAnchor from "./ScrollAnchor";
 
 export default async function HomeSponsors() {
@@ -21,10 +21,7 @@ export default async function HomeSponsors() {
 			<BackgroundImage src="/images/backgrounds/sponsors.jpg" py="md" style={{ zIndex: 0 }} pos="relative">
 				<Container size="xl" py="md" c="white">
 					<Stack gap="xs">
-						<SectionHeading
-							text={sponsors.length === 0 ? "Sponsoring" : sponsors.length === 1 ? "Sponsor" : "Sponsoren"}
-							color="white"
-						/>
+						<SectionHeading text={sponsors.length === 0 ? "Sponsoring" : sponsors.length === 1 ? "Sponsor" : "Sponsoren"} color="white" />
 						<Sponsors sponsors={sponsors} />
 					</Stack>
 				</Container>
@@ -41,15 +38,10 @@ async function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
 			<Container size="sm">
 				<Stack justify="center" align="center">
 					<Text style={{ textWrap: "balance" }}>
-						Um möglichst viele gemeinnützige Aktivitäten für alle Altersbereiche durchführen zu können, suchen wir
-						Sponsoring Partnerschaften. Informieren Sie sich über unsere Werbemöglichkeiten.
+						Um möglichst viele gemeinnützige Aktivitäten für alle Altersbereiche durchführen zu können, suchen wir Sponsoring Partnerschaften. Informieren Sie sich über unsere Werbemöglichkeiten.
 					</Text>
 					<Box>
-						<Button
-							component={Link}
-							href={`mailto:philipp@vcmuellheim.de?subject=Sponsoring ${Club.shortName}`}
-							variant="white"
-						>
+						<Button component={Link} href={`mailto:philipp@vcmuellheim.de?subject=Sponsoring ${Club.shortName}`} variant="white">
 							Förderverein kontaktieren
 						</Button>
 					</Box>

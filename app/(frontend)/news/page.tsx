@@ -1,20 +1,16 @@
-import CenteredLoader from "@/components/CenteredLoader";
-import NewsCard from "@/components/NewsCard";
-import Paginator from "@/components/Paginator";
-import PageWithHeading from "@/components/layout/PageWithHeading";
-import { getNews } from "@/data/news";
 import { Center, Container, SimpleGrid, Stack } from "@mantine/core";
 import type { Metadata } from "next";
 import { unstable_cacheTag as cacheTag } from "next/cache";
 import { Suspense } from "react";
+import CenteredLoader from "@/components/CenteredLoader";
+import PageWithHeading from "@/components/layout/PageWithHeading";
+import NewsCard from "@/components/NewsCard";
+import Paginator from "@/components/Paginator";
+import { getNews } from "@/data/news";
 
 export const metadata: Metadata = { title: "News" };
 
-export default async function NewsPage({
-	searchParams,
-}: {
-	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default async function NewsPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
 	// read search params to know which page to fetch
 	const { page = 1 } = await searchParams;
 	// verify if page is a number, if not set to 1
@@ -42,18 +38,8 @@ async function NewsGrid({ page }: { page: number }) {
 				<SimpleGrid cols={{ base: 1, sm: 2 }}>
 					{events?.map((post) => {
 						// filter out the thumbnail urls
-						const thumbnails = post.images
-							?.map((i) => (typeof i === "string" ? i : i.url))
-							.filter((i) => typeof i === "string");
-						return (
-							<NewsCard
-								key={post.id}
-								id={post.id}
-								title={post.title}
-								thumbnails={thumbnails}
-								excerpt={post.excerpt || ""}
-							/>
-						);
+						const thumbnails = post.images?.map((i) => (typeof i === "string" ? i : i.url)).filter((i) => typeof i === "string");
+						return <NewsCard key={post.id} id={post.id} title={post.title} thumbnails={thumbnails} excerpt={post.excerpt || ""} />;
 					})}
 				</SimpleGrid>
 				{data?.totalPages && (

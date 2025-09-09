@@ -16,9 +16,9 @@
 		"build": "next build",
 		"start": "node server.js",
 		"deploy": "bash scripts/deploy.sh",
-		"biome": "biome check --write",
+		"biome": "biome check",
 		"lint": "biome lint --write",
-		"next-lint": "next lint",
+		"next-lint": "eslint .",
 		"payload-migrate": "bunx payload migrate:create",
 		"sams:update": "openapi-ts --file='sams-api.config.ts'",
 		"container:build": "podman build -t vcmuellheim .",
@@ -61,7 +61,8 @@
 		"zod": "^3.25.64"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
+		"@biomejs/biome": "2.2.3",
+		"@eslint/eslintrc": "^3",
 		"@hey-api/openapi-ts": "^0.78.3",
 		"@types/node": "^24.3.1",
 		"@types/react": "^19.1.12",

@@ -1,5 +1,5 @@
-import { isAdmin, isRoleAdmin } from "@/data/payload-access";
 import type { CollectionConfig } from "payload";
+import { isAdmin, isRoleAdmin } from "@/data/payload-access";
 
 export const SamsTeams: CollectionConfig = {
 	slug: "sams-teams",

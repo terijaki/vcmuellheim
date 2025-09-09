@@ -1,7 +1,7 @@
-import type { Event } from "@/data/payload-types";
 import { Card, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
 import Link from "next/link";
+import type { Event } from "@/data/payload-types";
 import MapsLink from "./MapsLink";
 
 export default function EventCard(props: Event & { dark?: boolean }) {
@@ -18,14 +18,7 @@ export default function EventCard(props: Event & { dark?: boolean }) {
 	}
 
 	return (
-		<Card
-			key={id}
-			bg={props.dark ? "onyx" : "gray.0"}
-			c={props.dark ? "white" : undefined}
-			component={Link}
-			href={`/termine/${id}`}
-			withBorder={!props.dark}
-		>
+		<Card key={id} bg={props.dark ? "onyx" : "gray.0"} c={props.dark ? "white" : undefined} component={Link} href={`/termine/${id}`} withBorder={!props.dark}>
 			<time data-label="datetime" dateTime={date.startDate}>
 				<Text fw="bold">{dateDisplay}</Text>
 			</time>

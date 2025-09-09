@@ -14,9 +14,7 @@ type mastodonStatusResponse = {
 };
 
 // search if the status already exists
-export async function mastodonSearchStatus(
-	searchTerm: string,
-): Promise<{ status: number; response: [mastodonStatusResponse] }> {
+export async function mastodonSearchStatus(searchTerm: string): Promise<{ status: number; response: [mastodonStatusResponse] }> {
 	return new Promise((resolve, reject) => {
 		const searchStatusHeader = {
 			Accept: "*/*",
@@ -39,9 +37,7 @@ export async function mastodonSearchStatus(
 }
 
 // post a status on mastodon
-export async function mastodonPostStatus(
-	statusMessage: string,
-): Promise<{ status: number; response: mastodonStatusResponse }> {
+export async function mastodonPostStatus(statusMessage: string): Promise<{ status: number; response: mastodonStatusResponse }> {
 	return new Promise((resolve, reject) => {
 		const postStatusHeader = {
 			Accept: "*/*",

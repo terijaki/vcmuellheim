@@ -1,6 +1,6 @@
+import type { CollectionConfig } from "payload";
 import { isModerator, isRoleModerator } from "@/data/payload-access";
 import { Club } from "@/project.config";
-import type { CollectionConfig } from "payload";
 
 export const Locations: CollectionConfig = {
 	slug: "locations",

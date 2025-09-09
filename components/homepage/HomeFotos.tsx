@@ -1,6 +1,6 @@
-import { getPictures } from "@/data/pictures";
 import { BackgroundImage, Box, Button, Center, Container, Overlay, Stack, Text } from "@mantine/core";
 import Link from "next/link";
+import { getPictures } from "@/data/pictures";
 import ScrollAnchor from "./ScrollAnchor";
 
 export default async function HomeFotos() {
@@ -10,18 +10,10 @@ export default async function HomeFotos() {
 	return (
 		<Box bg="blumine">
 			<ScrollAnchor name="fotos" />
-			<BackgroundImage
-				src={pictures?.[0]?.url || "/images/backgrounds/pageheading.jpg"}
-				py="md"
-				style={{ zIndex: 0 }}
-				pos="relative"
-			>
+			<BackgroundImage src={pictures?.[0]?.url || "/images/backgrounds/pageheading.jpg"} py="md" style={{ zIndex: 0 }} pos="relative">
 				<Container size="xs" py="md" c="white" px={{ base: "lg", md: "xl" }}>
 					<Stack>
-						<Text>
-							Eindrücke aus unserem Vereinsleben, von Spieltagen, Turnieren und unseren Mitgliedern findest du in
-							unserer:
-						</Text>
+						<Text>Eindrücke aus unserem Vereinsleben, von Spieltagen, Turnieren und unseren Mitgliedern findest du in unserer:</Text>
 						<Center>
 							<Button component={Link} href="/fotos">
 								Fotogalerie

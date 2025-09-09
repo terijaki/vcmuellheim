@@ -1,6 +1,6 @@
-import { isModeratorOrAuthor, isOfficial } from "@/data/payload-access";
 import { revalidateTag } from "next/cache";
 import type { CollectionConfig } from "payload";
+import { isModeratorOrAuthor, isOfficial } from "@/data/payload-access";
 
 export const Events: CollectionConfig = {
 	slug: "events",

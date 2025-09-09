@@ -1,6 +1,6 @@
+import { Box, Center, Container, Stack, Text } from "@mantine/core";
 import SectionHeading from "@/components/layout/SectionHeading";
 import { getTeams } from "@/data/teams";
-import { Box, Center, Container, Stack, Text } from "@mantine/core";
 import HomeTeamGrid from "./HomeTeamGrid";
 import ScrollAnchor from "./ScrollAnchor";
 

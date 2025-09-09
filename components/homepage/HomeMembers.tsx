@@ -1,8 +1,8 @@
+import { Container, Group, Stack } from "@mantine/core";
 import SectionHeading from "@/components/layout/SectionHeading";
 import { getMembers } from "@/data/members";
 import type { Member, Role } from "@/data/payload-types";
 import { shuffleArray } from "@/utils/shuffleArray";
-import { Container, Group, Stack } from "@mantine/core";
 import MemberCard from "../MemberCard";
 import ScrollAnchor from "./ScrollAnchor";
 

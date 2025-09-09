@@ -1,7 +1,7 @@
-import { isModeratorOrBooker, isUser } from "@/data/payload-access";
 import dayjs from "dayjs";
 import { revalidateTag } from "next/cache";
 import type { CollectionConfig } from "payload";
+import { isModeratorOrBooker, isUser } from "@/data/payload-access";
 
 export const BusBookings: CollectionConfig = {
 	slug: "bus-bookings",

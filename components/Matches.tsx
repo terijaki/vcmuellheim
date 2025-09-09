@@ -1,11 +1,12 @@
+import { Box, Flex, Grid, GridCol, Group, Stack, Text } from "@mantine/core";
+import dayjs from "dayjs";
 import type { LeagueMatches } from "@/data/sams/sams-server-actions";
 import { getOurClubsSamsTeams } from "@/data/samsTeams";
 import { SAMS } from "@/project.config";
-import { Box, Flex, Grid, GridCol, Group, Stack, Text } from "@mantine/core";
-import dayjs from "dayjs";
 import "dayjs/locale/de";
 import { FaSquarePollVertical as IconResult } from "react-icons/fa6";
 import MapsLink from "./MapsLink";
+
 dayjs.locale("de");
 
 export default async function Matches({
@@ -58,15 +59,7 @@ export default async function Matches({
 						const team2 = match._embedded?.team2;
 						const leagueName = match.leagueUuid && leagues.get(match.leagueUuid);
 						return (
-							<Grid
-								key={match.uuid}
-								data-match-number={match.matchNumber}
-								data-match-uuid={match.uuid}
-								bg={oddIndex ? "gray.1" : undefined}
-								p="xs"
-								gutter={{ base: 0, sm: "xs" }}
-								align="center"
-							>
+							<Grid key={match.uuid} data-match-number={match.matchNumber} data-match-uuid={match.uuid} bg={oddIndex ? "gray.1" : undefined} p="xs" gutter={{ base: 0, sm: "xs" }} align="center">
 								{/* date and location */}
 								<GridCol span={{ base: 12, sm: 3 }}>
 									<Flex direction={{ base: "row", sm: "column" }} columnGap="xs" rowGap={0} align="center">
@@ -100,21 +93,11 @@ export default async function Matches({
 								<GridCol span={{ base: 12, sm: 7 }}>
 									<Stack gap={0}>
 										<Text lineClamp={2}>
-											<Text
-												span
-												fw={!team1?.name.includes(SAMS.name) ? "bold" : undefined}
-												data-team1-uuid={team1?.uuid}
-												data-team1-name={team1?.name}
-											>
+											<Text span fw={!team1?.name.includes(SAMS.name) ? "bold" : undefined} data-team1-uuid={team1?.uuid} data-team1-name={team1?.name}>
 												{team1?.name}
 											</Text>
 											{team1 && team2 && " : "}
-											<Text
-												span
-												fw={!team2?.name.includes(SAMS.name) ? "bold" : undefined}
-												data-team2-uuid={team2?.uuid}
-												data-team2-name={team2?.name}
-											>
+											<Text span fw={!team2?.name.includes(SAMS.name) ? "bold" : undefined} data-team2-uuid={team2?.uuid} data-team2-name={team2?.name}>
 												{team2?.name}
 											</Text>
 										</Text>
@@ -128,12 +111,7 @@ export default async function Matches({
 								{/* score*/}
 								{match.results && (
 									<GridCol span={{ base: 12, sm: 2 }}>
-										<Flex
-											columnGap="xs"
-											rowGap={0}
-											direction={{ base: "row", sm: "column" }}
-											align={{ base: "center", sm: "flex-start" }}
-										>
+										<Flex columnGap="xs" rowGap={0} direction={{ base: "row", sm: "column" }} align={{ base: "center", sm: "flex-start" }}>
 											<Group gap={4} c={winForClubOrTeam ? "turquoise" : undefined}>
 												<IconResult />
 												<Text span size="sm" fw="bold" hiddenFrom="sm">
@@ -171,15 +149,7 @@ export default async function Matches({
 					const team2 = match._embedded?.team2;
 					const leagueName = match.leagueUuid && leagues.get(match.leagueUuid);
 					return (
-						<Grid
-							key={match.uuid}
-							data-match-number={match.matchNumber}
-							data-match-uuid={match.uuid}
-							bg={oddIndex ? "gray.1" : undefined}
-							p="xs"
-							gutter={{ base: 0, sm: "xs" }}
-							align="center"
-						>
+						<Grid key={match.uuid} data-match-number={match.matchNumber} data-match-uuid={match.uuid} bg={oddIndex ? "gray.1" : undefined} p="xs" gutter={{ base: 0, sm: "xs" }} align="center">
 							<GridCol span={{ base: 12, sm: 3 }}>
 								<Flex columnGap="xs" rowGap={0} align="center" direction={{ base: "row", sm: "column" }} c="onyx">
 									{match.date && (
@@ -200,21 +170,11 @@ export default async function Matches({
 								<Stack gap={0}>
 									{/* League or Competition */}
 									<Text lineClamp={2}>
-										<Text
-											span
-											fw={team1?.name.includes(SAMS.name) ? "bold" : undefined}
-											data-team1-uuid={team1?.uuid}
-											data-team1-name={team1?.name}
-										>
+										<Text span fw={team1?.name.includes(SAMS.name) ? "bold" : undefined} data-team1-uuid={team1?.uuid} data-team1-name={team1?.name}>
 											{team1?.name}
 										</Text>
 										{team1 && team2 && " : "}
-										<Text
-											span
-											fw={team2?.name.includes(SAMS.name) ? "bold" : undefined}
-											data-team2-uuid={team2?.uuid}
-											data-team2-name={team2?.name}
-										>
+										<Text span fw={team2?.name.includes(SAMS.name) ? "bold" : undefined} data-team2-uuid={team2?.uuid} data-team2-name={team2?.name}>
 											{team2?.name}
 										</Text>
 									</Text>

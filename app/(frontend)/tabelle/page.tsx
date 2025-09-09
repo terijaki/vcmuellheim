@@ -1,14 +1,14 @@
 "use cache";
-import CardTitle from "@/components/CardTitle";
-import CenteredLoader from "@/components/CenteredLoader";
-import Matches from "@/components/Matches";
-import RankingTable from "@/components/RankingTable";
-import PageWithHeading from "@/components/layout/PageWithHeading";
-import { samsClubRankings, samsLeagueMatches } from "@/data/sams/sams-server-actions";
-import { getTeams } from "@/data/teams";
 import { Card, CardSection, SimpleGrid, Stack, Text } from "@mantine/core";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import CardTitle from "@/components/CardTitle";
+import CenteredLoader from "@/components/CenteredLoader";
+import PageWithHeading from "@/components/layout/PageWithHeading";
+import Matches from "@/components/Matches";
+import RankingTable from "@/components/RankingTable";
+import { samsClubRankings, samsLeagueMatches } from "@/data/sams/sams-server-actions";
+import { getTeams } from "@/data/teams";
 
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
 
@@ -70,18 +70,14 @@ function NoRankingsData() {
 		<>
 			<Card>
 				<CardTitle>Keine Daten gefunden</CardTitle>
-				<Text>
-					Tablleninformationen stehen aktuell nicht zur Verfügung. Eventuell liegt ein technisches Problem vor, oder es
-					ist einfach der falsche Zeitpunkt.
-				</Text>
+				<Text>Tablleninformationen stehen aktuell nicht zur Verfügung. Eventuell liegt ein technisches Problem vor, oder es ist einfach der falsche Zeitpunkt.</Text>
 			</Card>
 			{currentMonth >= 4 && currentMonth <= 9 && (
 				<Card>
 					<CardTitle>Außerhalb der Saison?</CardTitle>
 					<Text>
-						Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt. Dazwischen
-						und kurz vor Saisonbeginn, wurden die neusten Informationen vom Südbadischen Volleyballverband ggf. noch
-						nicht veröffentlicht.
+						Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt. Dazwischen und kurz vor Saisonbeginn, wurden die neusten Informationen vom Südbadischen
+						Volleyballverband ggf. noch nicht veröffentlicht.
 					</Text>
 				</Card>
 			)}

@@ -1,10 +1,7 @@
 import { Container, Group, Stack } from "@mantine/core";
 import PageHeading from "./PageHeading";
 
-export default function PageWithHeading({
-	children,
-	...props
-}: Parameters<typeof PageHeading>[0] & { children: React.ReactNode }) {
+export default function PageWithHeading({ children, ...props }: Parameters<typeof PageHeading>[0] & { children: React.ReactNode }) {
 	return (
 		<Stack pb="md" bg="aquahaze" align="stretch">
 			<PageHeading {...props} />

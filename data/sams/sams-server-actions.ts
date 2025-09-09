@@ -1,24 +1,23 @@
 "server-only";
+import dayjs from "dayjs";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 import { payload } from "@/data/payload-client";
 import type { SamsClub, SamsTeam } from "@/data/payload-types";
 import {
 	type Association,
-	type LeagueDto,
-	type LeagueMatchDto,
-	type LeagueRankingsResourcePage,
-	type SeasonDto,
 	getAllLeagueMatches,
 	getAllLeagues,
 	getAllSeasons,
 	getAllSportsclubs,
-	getAllTeams,
 	getAssociations,
 	getRankingsForLeague,
 	getTeamsForLeague,
+	type LeagueDto,
+	type LeagueMatchDto,
+	type LeagueRankingsResourcePage,
+	type SeasonDto,
 } from "@/data/sams/client";
 import { SAMS } from "@/project.config";
-import dayjs from "dayjs";
-import { unstable_cacheLife as cacheLife } from "next/cache";
 import { getSamsClubByName } from "../samsClubs";
 import { getOurClubsSamsTeams } from "../samsTeams";
 
@@ -31,11 +30,7 @@ export type Ranking = {
 	leagueName?: string | null;
 	seasonName?: string | null;
 };
-export async function samsLeagueRanking(
-	leagueUuid: string,
-	leagueName?: string | null,
-	seasonName?: string | null,
-): Promise<Ranking | undefined> {
+export async function samsLeagueRanking(leagueUuid: string, leagueName?: string | null, seasonName?: string | null): Promise<Ranking | undefined> {
 	"use cache";
 	cacheLife({
 		stale: 300, // 5 minutes
@@ -370,9 +365,7 @@ export async function cronSamsTeamsViaLeaguesUpdate() {
 				}
 				if (data.last === true) teamsHasMorePages = false;
 				// Wait an arbitrary second before continuing to next page to avoid rate limiting
-				console.info(
-					`📄 Fetched ${league.name}'s teams page ${teamsCurrentPage} of ${data.totalPages}, continuing to next page or league...`,
-				);
+				console.info(`📄 Fetched ${league.name}'s teams page ${teamsCurrentPage} of ${data.totalPages}, continuing to next page or league...`);
 				await new Promise((resolve) => setTimeout(resolve, 500));
 			}
 		}
@@ -446,144 +439,144 @@ export async function cronSamsTeamsViaLeaguesUpdate() {
 	}
 }
 // Cron funciton to update Sams Teams in the payload database
-async function cronSamsTeamsUpdate() {
-	// As of 06.06.2025 the teams object does not contain league informations. So we have to loop through each league and while doing so we can memorize the league and season information.
-	try {
-		// get the club id from payload
-		const clubData = await getSamsClubByName(SAMS.name);
-		const { sportsclubUuid, associationUuid } = clubData || {};
-		if (!sportsclubUuid || !associationUuid) throw "🚨 No sportsclubUuid found in clubData";
+// async function cronSamsTeamsUpdate() {
+// 	// As of 06.06.2025 the teams object does not contain league informations. So we have to loop through each league and while doing so we can memorize the league and season information.
+// 	try {
+// 		// get the club id from payload
+// 		const clubData = await getSamsClubByName(SAMS.name);
+// 		const { sportsclubUuid, associationUuid } = clubData || {};
+// 		if (!sportsclubUuid || !associationUuid) throw "🚨 No sportsclubUuid found in clubData";
 
-		// Default parameters for the API calls
-		const defaultParams = {
-			query: {
-				association: associationUuid,
-				page: 0,
-				size: 100,
-			},
-			headers: {
-				"X-API-Key": process.env.SAMS_API_KEY || "",
-			},
-		};
+// 		// Default parameters for the API calls
+// 		const defaultParams = {
+// 			query: {
+// 				association: associationUuid,
+// 				page: 0,
+// 				size: 100,
+// 			},
+// 			headers: {
+// 				"X-API-Key": process.env.SAMS_API_KEY || "",
+// 			},
+// 		};
 
-		// Define the type for the team data without the pagination
-		type Team = {
-			uuid?: string;
-			name?: string;
-			leagueUuid?: string | null;
-			sportsclubUuid?: string | null;
-			associationUuid?: string | null;
-		};
+// 		// Define the type for the team data without the pagination
+// 		type Team = {
+// 			uuid?: string;
+// 			name?: string;
+// 			leagueUuid?: string | null;
+// 			sportsclubUuid?: string | null;
+// 			associationUuid?: string | null;
+// 		};
 
-		// Array to hold all fetched teams
-		const allData: Team[] = [];
-		let currentPage = 0;
-		let hasMorePages = true;
+// 		// Array to hold all fetched teams
+// 		const allData: Team[] = [];
+// 		let currentPage = 0;
+// 		let hasMorePages = true;
 
-		// Continue fetching until no more pages
-		while (hasMorePages) {
-			const {
-				data: pageData,
-				error: pageError,
-				response: pageResponse,
-			} = await getAllTeams({
-				...defaultParams,
-				query: { ...defaultParams.query, page: currentPage },
-			});
+// 		// Continue fetching until no more pages
+// 		while (hasMorePages) {
+// 			const {
+// 				data: pageData,
+// 				error: pageError,
+// 				response: pageResponse,
+// 			} = await getAllTeams({
+// 				...defaultParams,
+// 				query: { ...defaultParams.query, page: currentPage },
+// 			});
 
-			if (pageError) {
-				throw new Error(`Warning: Error ${pageResponse.status} fetching team page ${currentPage}: ${pageError}`);
-			}
+// 			if (pageError) {
+// 				throw new Error(`Warning: Error ${pageResponse.status} fetching team page ${currentPage}: ${pageError}`);
+// 			}
 
-			if (pageData.content) {
-				const filteredTeams = pageData.content.filter((t) => t.sportsclubUuid === sportsclubUuid);
-				const teams = filteredTeams.map((t) => {
-					return {
-						name: t.name,
-						uuid: t.uuid,
-						leagueUuid: undefined, // TODO include once SAMS enhanced their API
-						sportsclubUuid: t.sportsclubUuid,
-						associationUuid: t.associationUuid,
-					};
-				});
-				allData.push(...teams);
-				currentPage++;
-			}
+// 			if (pageData.content) {
+// 				const filteredTeams = pageData.content.filter((t) => t.sportsclubUuid === sportsclubUuid);
+// 				const teams = filteredTeams.map((t) => {
+// 					return {
+// 						name: t.name,
+// 						uuid: t.uuid,
+// 						leagueUuid: undefined, // TODO include once SAMS enhanced their API
+// 						sportsclubUuid: t.sportsclubUuid,
+// 						associationUuid: t.associationUuid,
+// 					};
+// 				});
+// 				allData.push(...teams);
+// 				currentPage++;
+// 			}
 
-			if (pageData.last === true) hasMorePages = false;
-			// Wait an arbitrary second before continuing to next page
-			console.info(`📄 Fetched teams page ${currentPage} of ${pageData.totalPages}, continuing to next page...`);
-			await new Promise((resolve) => setTimeout(resolve, 500));
-		}
+// 			if (pageData.last === true) hasMorePages = false;
+// 			// Wait an arbitrary second before continuing to next page
+// 			console.info(`📄 Fetched teams page ${currentPage} of ${pageData.totalPages}, continuing to next page...`);
+// 			await new Promise((resolve) => setTimeout(resolve, 500));
+// 		}
 
-		// prepare arrays to store the results of the update
-		let teamsDeleted = 0;
-		let teamsUpdated = 0;
-		let teamsCreated = 0;
+// 		// prepare arrays to store the results of the update
+// 		let teamsDeleted = 0;
+// 		let teamsUpdated = 0;
+// 		let teamsCreated = 0;
 
-		// loop through all teams and update or create them in the database
-		for (const team of allData) {
-			// skip if name or id is missing
-			if (!team.name || !team.uuid) continue;
+// 		// loop through all teams and update or create them in the database
+// 		for (const team of allData) {
+// 			// skip if name or id is missing
+// 			if (!team.name || !team.uuid) continue;
 
-			// build the payload object
-			const payloadObject = {
-				name: team.name,
-				uuid: team.uuid,
-				leagueUuid: team.leagueUuid,
-				associationUuid: team.associationUuid,
-				sportsclubUuid: team.sportsclubUuid,
-			};
+// 			// build the payload object
+// 			const payloadObject = {
+// 				name: team.name,
+// 				uuid: team.uuid,
+// 				leagueUuid: team.leagueUuid,
+// 				associationUuid: team.associationUuid,
+// 				sportsclubUuid: team.sportsclubUuid,
+// 			};
 
-			// check if we have the team stored to determine if we need to update or create
-			const cachedData = await payload.find({
-				collection: "sams-teams",
-				where: {
-					uuid: {
-						equals: team.uuid,
-					},
-				},
-				select: { uuid: true }, // we only need the uuid for comparison
-			});
-			const cachedTeam = cachedData?.docs[0] as SamsTeam | undefined;
+// 			// check if we have the team stored to determine if we need to update or create
+// 			const cachedData = await payload.find({
+// 				collection: "sams-teams",
+// 				where: {
+// 					uuid: {
+// 						equals: team.uuid,
+// 					},
+// 				},
+// 				select: { uuid: true }, // we only need the uuid for comparison
+// 			});
+// 			const cachedTeam = cachedData?.docs[0] as SamsTeam | undefined;
 
-			// if we have the cached team, then update it, otherwise create it
-			if (cachedTeam) {
-				console.info(`🔄 Updating team: ${team.uuid} (${team.name})`);
-				await payload.update({
-					collection: "sams-teams",
-					id: cachedTeam.id,
-					data: payloadObject,
-				});
-				teamsUpdated++;
-			} else {
-				console.info(`🌱 Creating team: ${team.uuid} (${team.name})`);
-				await payload.create({
-					collection: "sams-teams",
-					data: payloadObject,
-				});
-				teamsCreated++;
-			}
-		}
+// 			// if we have the cached team, then update it, otherwise create it
+// 			if (cachedTeam) {
+// 				console.info(`🔄 Updating team: ${team.uuid} (${team.name})`);
+// 				await payload.update({
+// 					collection: "sams-teams",
+// 					id: cachedTeam.id,
+// 					data: payloadObject,
+// 				});
+// 				teamsUpdated++;
+// 			} else {
+// 				console.info(`🌱 Creating team: ${team.uuid} (${team.name})`);
+// 				await payload.create({
+// 					collection: "sams-teams",
+// 					data: payloadObject,
+// 				});
+// 				teamsCreated++;
+// 			}
+// 		}
 
-		const deletedTeams = await payload.delete({
-			collection: "sams-teams",
-			where: {
-				updatedAt: {
-					less_than: new Date(Date.now() - 1000 * 60 * 60), // delete teams that were not updated in the last 60 minutes
-				},
-			},
-		});
-		for (const team of deletedTeams.docs) {
-			console.info(`🗑️ Deleted ${team.name} because they were no longer on SAMS`);
-			teamsDeleted++;
-		}
+// 		const deletedTeams = await payload.delete({
+// 			collection: "sams-teams",
+// 			where: {
+// 				updatedAt: {
+// 					less_than: new Date(Date.now() - 1000 * 60 * 60), // delete teams that were not updated in the last 60 minutes
+// 				},
+// 			},
+// 		});
+// 		for (const team of deletedTeams.docs) {
+// 			console.info(`🗑️ Deleted ${team.name} because they were no longer on SAMS`);
+// 			teamsDeleted++;
+// 		}
 
-		return { created: teamsCreated, updated: teamsUpdated, deleted: teamsDeleted };
-	} catch (error) {
-		console.error("🚨 Error updating Sams Teams:", error);
-	}
-}
+// 		return { created: teamsCreated, updated: teamsUpdated, deleted: teamsDeleted };
+// 	} catch (error) {
+// 		console.error("🚨 Error updating Sams Teams:", error);
+// 	}
+// }
 // Cron funciton to update Sams Clubs in the payload database
 export async function cronSamsClubsUpdate() {
 	try {

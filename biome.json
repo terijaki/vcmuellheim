@@ -1,52 +1,57 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.2.3/schema.json",
 	"vcs": {
-		"enabled": false,
+		"enabled": true,
 		"clientKind": "git",
-		"useIgnoreFile": false
+		"useIgnoreFile": true
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": [
-			"node_modules",
-			".next",
-			".vscode",
-			"out",
-			"build",
-			"app/(payload)",
-			"data/payload-types.ts",
-			"data/sams/client",
-			"data/migrations"
+		"includes": [
+			"**",
+			"!**/node_modules",
+			"!**/.next",
+			"!**/.vscode",
+			"!**/out",
+			"!**/build",
+			"!**/app/(payload)",
+			"!**/data/payload-types.ts",
+			"!**/data/sams/client",
+			"!**/data/migrations",
+			"!**/data/sams/swagger.json"
 		]
 	},
 	"formatter": {
 		"enabled": true,
+		"formatWithErrors": false,
 		"indentStyle": "tab",
-		"lineWidth": 120
+		"indentWidth": 2,
+		"lineEnding": "lf",
+		"lineWidth": 200
 	},
-	"organizeImports": {
-		"enabled": true
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
 	},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
-		}
-	},
-	"overrides": [
-		{
-			"include": [
-				"data/sams/client.ts"
-			],
-			"linter": {
-				"rules": {
-					"style": {
-						"noUnusedTemplateLiteral": "off"
-					}
+			"recommended": true,
+			"correctness": {
+				"noUnusedImports": {
+					"level": "info",
+					"fix": "safe",
+					"options": {}
 				}
 			}
+		},
+		"domains": {
+			"next": "recommended"
 		}
-	],
+	},
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double"

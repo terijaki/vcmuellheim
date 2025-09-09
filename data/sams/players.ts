@@ -59,6 +59,6 @@ export async function samsPlayers(teamId: number | string): Promise<TeamPlayers 
 		// return the player data
 		return jsonData;
 	} catch (error) {
-		console.warn(`🚨 CSV player data for team ${teamId} could not be retrieved`);
+		console.warn(`🚨 CSV player data for team ${teamId} could not be retrieved: ${error}`);
 	}
 }

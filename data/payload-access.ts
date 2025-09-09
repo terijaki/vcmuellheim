@@ -77,7 +77,7 @@ export const isModeratorOrSelf: Access = ({ req: { user } }) => {
 	return false;
 };
 
-export const isModeratorOrAuthor: Access = ({ req: { user }, data }) => {
+export const isModeratorOrAuthor: Access = ({ req: { user } }) => {
 	if (isRoleModerator(user?.role)) return true;
 	if (user)
 		// TODO this does not work since the authors are not in the jwt
@@ -89,7 +89,7 @@ export const isModeratorOrAuthor: Access = ({ req: { user }, data }) => {
 	return false;
 };
 
-export const isFieldAdmin: FieldAccess = ({ req: { user, data } }) => {
+export const isFieldAdmin: FieldAccess = ({ req: { user } }) => {
 	return isRoleAdmin(user?.role);
 };
 
@@ -101,7 +101,7 @@ export const isFieldOfficial: FieldAccess = ({ req: { user } }) => {
 	return isRoleOfficial(user?.role);
 };
 
-export const isModeratorOrBooker: Access = ({ req: { user }, data }) => {
+export const isModeratorOrBooker: Access = ({ req: { user } }) => {
 	if (isRoleModerator(user?.role)) return true;
 	if (user)
 		return {

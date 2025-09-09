@@ -1,7 +1,7 @@
-import PageWithHeading from "@/components/layout/PageWithHeading";
 import { Alert, Button, Center, Container, Stack } from "@mantine/core";
 import Link from "next/link";
 import { FaTriangleExclamation as IconError } from "react-icons/fa6";
+import PageWithHeading from "@/components/layout/PageWithHeading";
 
 export default function NotFound() {
 	return (

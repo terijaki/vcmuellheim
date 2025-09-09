@@ -37,11 +37,7 @@ export default function MapsLink({ location, ...anchorProps }: MapsLinkProps) {
 			if (city) addressString += `${city}`;
 
 			// Check for iOS/macOS
-			const isAppleDevice =
-				navigator.platform.includes("iPhone") ||
-				navigator.platform.includes("iPad") ||
-				navigator.platform.includes("iPod") ||
-				navigator.platform === "MacIntel";
+			const isAppleDevice = navigator.platform.includes("iPhone") || navigator.platform.includes("iPad") || navigator.platform.includes("iPod") || navigator.platform === "MacIntel";
 
 			if (isAppleDevice) {
 				setMapsUrl(`https://maps.apple.com/?q=${encodeURIComponent(addressString)}`);

@@ -1,16 +1,11 @@
-import { navbarLinks } from "@/utils/navbarLinks";
 import { Box, Button, Container, Group, Image, Overlay, Stack, Text } from "@mantine/core";
 import { unstable_cacheLife as cacheLife } from "next/cache";
 import NextImage from "next/image";
 import Link from "next/link";
 import { FaAnglesDown as IconDown } from "react-icons/fa6";
+import { navbarLinks } from "@/utils/navbarLinks";
 
-const backgroundImages = [
-	"/images/backgrounds/intro1.jpg",
-	"/images/backgrounds/intro2.jpg",
-	"/images/backgrounds/intro3.jpg",
-	"/images/backgrounds/intro4.jpg",
-];
+const backgroundImages = ["/images/backgrounds/intro1.jpg", "/images/backgrounds/intro2.jpg", "/images/backgrounds/intro3.jpg", "/images/backgrounds/intro4.jpg"];
 
 export default async function HomeIntro() {
 	"use cache";
@@ -20,26 +15,13 @@ export default async function HomeIntro() {
 	if (!backgroundImageRandom) return null;
 	return (
 		<Box bg="oynx" c="white" style={{ zIndex: 0 }} pos="relative">
-			<NextImage
-				src={backgroundImageRandom}
-				priority
-				loading="eager"
-				fill
-				style={{ objectFit: "cover", opacity: 1, zIndex: -1 }}
-				alt="Hinergrundbild"
-			/>
+			<NextImage src={backgroundImageRandom} priority loading="eager" fill style={{ objectFit: "cover", opacity: 1, zIndex: -1 }} alt="Hinergrundbild" />
 			<Stack gap="xl" align="center" justify="space-between" mih="70vh" p="xl">
 				<Stack gap={0} align="center">
 					<Text fw="bolder" size="xl" mt="xl">
 						Willkommen beim
 					</Text>
-					<Image
-						fit="contain"
-						w={{ base: "100%", xs: "80%", sm: "70%", md: "60%", lg: "50%" }}
-						mah="40vh"
-						src="/images/logo/logo-weiss.png"
-						alt="Vereinslogo"
-					/>
+					<Image fit="contain" w={{ base: "100%", xs: "80%", sm: "70%", md: "60%", lg: "50%" }} mah="40vh" src="/images/logo/logo-weiss.png" alt="Vereinslogo" />
 				</Stack>
 				<Container size="xs" pt="xl" mt="xl" hiddenFrom="sm">
 					<Group gap="xs" justify="center">

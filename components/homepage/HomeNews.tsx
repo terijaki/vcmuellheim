@@ -1,10 +1,10 @@
-import SectionHeading from "@/components/layout/SectionHeading";
-import { getNews } from "@/data/news";
 import { Button, Center, Container, SimpleGrid, Stack, Text } from "@mantine/core";
 import dayjs from "dayjs";
 import { unstable_cacheTag as cacheTag } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
+import SectionHeading from "@/components/layout/SectionHeading";
+import { getNews } from "@/data/news";
 import NewsCard from "../NewsCard";
 import ScrollAnchor from "./ScrollAnchor";
 
@@ -31,18 +31,8 @@ export default async function HomeNews() {
 					<SimpleGrid cols={{ base: 1, sm: 2 }}>
 						{news?.map((post) => {
 							// filter out the thumbnail urls
-							const thumbnails = post.images
-								?.map((i) => (typeof i === "string" ? i : i.url))
-								.filter((i) => typeof i === "string");
-							return (
-								<NewsCard
-									key={post.id}
-									id={post.id}
-									title={post.title}
-									thumbnails={thumbnails}
-									excerpt={post.excerpt || ""}
-								/>
-							);
+							const thumbnails = post.images?.map((i) => (typeof i === "string" ? i : i.url)).filter((i) => typeof i === "string");
+							return <NewsCard key={post.id} id={post.id} title={post.title} thumbnails={thumbnails} excerpt={post.excerpt || ""} />;
 						})}
 					</SimpleGrid>
 					<Center p="md">

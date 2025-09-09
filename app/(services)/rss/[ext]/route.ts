@@ -1,7 +1,7 @@
-import { getNews } from "@/data/news";
-import { Club } from "@/project.config";
 import { Feed } from "feed";
 import { type NextRequest, NextResponse } from "next/server";
+import { getNews } from "@/data/news";
+import { Club } from "@/project.config";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ ext: string }> }) {
 	try {
