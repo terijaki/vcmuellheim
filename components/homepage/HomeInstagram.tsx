@@ -24,6 +24,7 @@ export default async function HomeInstagram() {
 								<SectionHeading text="Instagram" color="white" />
 								<SimpleGrid cols={{ base: 1, md: 2 }}>
 									{instagrams.map((post) => {
+										if (!post) return null; // skip null posts (errors)
 										return <InstagramCard key={post.id} {...post} />;
 									})}
 								</SimpleGrid>

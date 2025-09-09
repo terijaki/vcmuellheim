@@ -12,35 +12,34 @@ const InstagramPostSchema = z.object({
 	id: z.string(),
 	timestamp: z.string(),
 	type: z.enum(["Image", "Video"]),
-	url: z.string().url(),
+	url: z.string().url().nullish(),
 	ownerFullName: z.string(),
 	ownerUsername: z.string(),
 	inputUrl: z.string(),
 	caption: z.string(),
-	displayUrl: z.string().url(),
-	videoUrl: z.string().url().optional(),
+	displayUrl: z.string().url().nullish(),
+	videoUrl: z.string().url().nullish(),
 	dimensionsHeight: z.number(),
 	dimensionsWidth: z.number(),
-	images: z.array(z.unknown()).optional(),
+	images: z.array(z.unknown()).nullish(),
 	likesCount: z.number(),
 	commentsCount: z.number(),
-	hashtags: z.array(z.string()),
+	hashtags: z.array(z.string()).nullish(),
 });
 export type InstagramPost = z.infer<typeof InstagramPostSchema>;
 
-const InstagramErrorSchema = z.object({
-	url: z.string().url(),
-	requestErrorMessages: z.array(z.string()),
-	error: z.string(),
-	errorDescription: z.string(),
-});
+const InstagramErrorSchema = z
+	.object({
+		url: z.string().url(),
+		requestErrorMessages: z.array(z.string()).nullish(),
+		error: z.string(),
+		errorDescription: z.string(),
+	})
+	.transform(() => null); // transform to null on error
 
-const InstagramResponseSchema = z.union([
-	z.array(InstagramPostSchema), // either a valid post array
-	z
-		.array(InstagramErrorSchema)
-		.transform(() => [] as InstagramPost[]), // or an error array that we transform to an empty array
-]);
+const InstagramResponseSchema = z
+	.array(InstagramPostSchema.or(InstagramErrorSchema))
+	.transform((arr) => arr.filter((item): item is InstagramPost => !!item && typeof item === "object" && "id" in item)); // either a valid post array
 
 export async function getRecentInstagramPosts(): Promise<InstagramPost[] | null> {
 	cacheLife("hours");
@@ -58,12 +57,14 @@ export async function getRecentInstagramPosts(): Promise<InstagramPost[] | null>
 				Authorization: `Bearer ${API_TOKEN}`,
 			},
 		});
+
 		if (request.status !== 200) {
 			console.warn(`Failed to fetch data from Instagram API. Status: ${request.status}, ${request.statusText}`);
 			return null;
 		}
 
 		const data = await request.json();
+		console.log("Instagram API response status: ", request.status, data);
 		const parsedData: InstagramPost[] = InstagramResponseSchema.parse(data);
 
 		return parsedData;

@@ -34,7 +34,7 @@ export default function InstagramCard(post: InstagramPost) {
 		<Card
 			ref={ref}
 			component={Link}
-			href={url}
+			href={url || ""}
 			target="_blank"
 			radius="md"
 			shadow="sm"
@@ -93,7 +93,7 @@ export default function InstagramCard(post: InstagramPost) {
 					<GridCol span={8}>
 						<Stack justify="space-between" p="sm">
 							<Text lineClamp={6}>{caption}</Text>
-							{hashtags?.length > 0 && (
+							{hashtags && hashtags.length > 0 && (
 								<Text size="xs" fw="bold">
 									{hashtags.map((h) => `#${h}`).join(" ")}
 								</Text>

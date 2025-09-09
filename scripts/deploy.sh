@@ -55,7 +55,7 @@ container build \
     --file Containerfile
 
 # Tag as latest if not already
-echo "🏷️ Tagging image as latest..."
+echo "🏷️ Tagging image as ${TAG} and latest..."
 container image tag ${IMAGE_NAME}:${TAG} ${IMAGE_NAME}:latest
 
 # Push the image
