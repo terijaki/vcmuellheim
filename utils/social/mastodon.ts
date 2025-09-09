@@ -32,7 +32,7 @@ export async function mastodonSearchStatus(
 				resolve({ status: 200, response: response.statuses });
 			})
 			.catch((error) => {
-				console.log(error);
+				console.warn(error);
 				reject(error);
 			});
 	});
@@ -58,7 +58,7 @@ export async function mastodonPostStatus(
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				console.warn(error);
 				reject(error);
 			});
 	});

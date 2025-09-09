@@ -64,7 +64,6 @@ export async function getRecentInstagramPosts(): Promise<InstagramPost[] | null>
 		}
 
 		const data = await request.json();
-		console.log("Instagram API response status: ", request.status, data);
 		const parsedData: InstagramPost[] = InstagramResponseSchema.parse(data);
 
 		return parsedData;
