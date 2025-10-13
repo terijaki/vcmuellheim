@@ -135,16 +135,18 @@ export async function samsLeagueMatches(props: {
 			"for-season": props.season,
 			"for-sportsclub": props.sportsclub,
 			"for-team": props.team,
-			size: Math.min(props.limit || 100, 100),
+			// size: Math.min(props.limit || 100, 100),
 		};
 		if (defaultQueryParams["for-sportsclub"] === undefined) {
 			const sportsClubResponse = await getSamsClubByName(SAMS.name);
 			defaultQueryParams["for-sportsclub"] = sportsClubResponse?.sportsclubUuid;
 		}
-		if (defaultQueryParams["for-season"] === undefined) {
-			const seasons = await samsSeasons();
-			defaultQueryParams["for-season"] = seasons?.current.uuid;
-		}
+
+		// COMMENTING OUT BELOW BECAUSE THIS BREAKS THE LOGIC FOR FETCHING ALL MATCHES
+		// if (defaultQueryParams["for-season"] === undefined) {
+		// 	const seasons = await samsSeasons();
+		// 	defaultQueryParams["for-season"] = seasons?.current.uuid;
+		// }
 
 		// Array to hold all fetched sports clubs
 		const allMatches: LeagueMatches["matches"] = [];
@@ -177,7 +179,7 @@ export async function samsLeagueMatches(props: {
 				currentPage++;
 			}
 
-			if (data.last === true || props.limit) hasMorePages = false;
+			if (data.last === true || (props.limit && allMatches.length >= props.limit)) hasMorePages = false;
 		}
 
 		let filteredMatches = allMatches;
@@ -192,9 +194,21 @@ export async function samsLeagueMatches(props: {
 		}
 
 		// sort matches by date (default sorting is by game number but does not take into account reschedules)
-		filteredMatches.sort((a, b) => {
-			return dayjs(a.date).diff(dayjs(b.date));
-		});
+		if (props.range === "future") {
+			filteredMatches.sort((a, b) => {
+				return dayjs(a.date).diff(dayjs(b.date));
+			});
+		}
+		if (props.range === "past") {
+			filteredMatches.sort((a, b) => {
+				return dayjs(b.date).diff(dayjs(a.date));
+			});
+		}
+
+		// limit the number of matches to the specified limit
+		if (props.limit) {
+			filteredMatches = filteredMatches.slice(0, props.limit);
+		}
 
 		return { matches: filteredMatches, timestamp: new Date() };
 	} catch (error) {
