@@ -76,7 +76,7 @@ export default async function Matches({
 										{match.location && (
 											<MapsLink
 												location={{
-													name: match.location.name,
+													name: match.location.address?.city || match.location.name,
 													address: {
 														street: match.location.address?.street,
 														postalCode: match.location.address?.postcode,
@@ -93,11 +93,11 @@ export default async function Matches({
 								<GridCol span={{ base: 12, sm: 7 }}>
 									<Stack gap={0}>
 										<Text lineClamp={2}>
-											<Text span fw={!team1?.name.includes(SAMS.name) ? "bold" : undefined} data-team1-uuid={team1?.uuid} data-team1-name={team1?.name}>
+											<Text span fw={!team1?.name.includes(SAMS.name) ? undefined : undefined} data-team1-uuid={team1?.uuid} data-team1-name={team1?.name}>
 												{team1?.name}
 											</Text>
 											{team1 && team2 && " : "}
-											<Text span fw={!team2?.name.includes(SAMS.name) ? "bold" : undefined} data-team2-uuid={team2?.uuid} data-team2-name={team2?.name}>
+											<Text span fw={!team2?.name.includes(SAMS.name) ? undefined : undefined} data-team2-uuid={team2?.uuid} data-team2-name={team2?.name}>
 												{team2?.name}
 											</Text>
 										</Text>
@@ -120,6 +120,7 @@ export default async function Matches({
 												<Text span size="lg" fw="bold" visibleFrom="sm">
 													{match.results.setPoints}
 												</Text>
+												{winForClubOrTeam && <Text span>🏆</Text>}
 											</Group>
 											{match.results.sets && match.results.sets.length > 0 && (
 												<Text span c="dimmed" size="xs">
@@ -170,11 +171,11 @@ export default async function Matches({
 								<Stack gap={0}>
 									{/* League or Competition */}
 									<Text lineClamp={2}>
-										<Text span fw={team1?.name.includes(SAMS.name) ? "bold" : undefined} data-team1-uuid={team1?.uuid} data-team1-name={team1?.name}>
+										<Text span fw={team1?.name.includes(SAMS.name) ? undefined : undefined} data-team1-uuid={team1?.uuid} data-team1-name={team1?.name}>
 											{team1?.name}
 										</Text>
 										{team1 && team2 && " : "}
-										<Text span fw={team2?.name.includes(SAMS.name) ? "bold" : undefined} data-team2-uuid={team2?.uuid} data-team2-name={team2?.name}>
+										<Text span fw={team2?.name.includes(SAMS.name) ? undefined : undefined} data-team2-uuid={team2?.uuid} data-team2-name={team2?.name}>
 											{team2?.name}
 										</Text>
 									</Text>
@@ -190,7 +191,7 @@ export default async function Matches({
 								<GridCol span={{ base: 12, sm: 3 }}>
 									<MapsLink
 										location={{
-											name: match.location.name,
+											name: `${match.location.address?.city ? `${match.location.address.city}, ${match.location.name}` : match.location.name}`,
 											address: {
 												street: match.location.address?.street,
 												postalCode: match.location.address?.postcode,

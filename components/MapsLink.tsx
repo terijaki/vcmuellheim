@@ -57,9 +57,9 @@ export default function MapsLink({ location, ...anchorProps }: MapsLinkProps) {
 
 	return (
 		<Anchor component={Link} href={mapsUrl} underline="never" target="_blank" {...anchorProps}>
-			<Group gap={2} wrap="nowrap">
+			<Group gap={4} wrap="nowrap" align="baseline">
 				<IconLocation />
-				<Text truncate>{displayName}</Text>
+				<Text lineClamp={2}>{displayName}</Text>
 			</Group>
 		</Anchor>
 	);
