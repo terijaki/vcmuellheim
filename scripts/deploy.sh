@@ -84,7 +84,7 @@ rm -f /tmp/coolify_response
 
 # Cleanup Images and stop the Apple Container Service
 container builder delete --force
-container images prune
+container image prune
 container system stop
 
 # Calculate and display total time
