@@ -153,6 +153,12 @@ async function TeamMatches({ leagueUuid, teamUuid }: { leagueUuid?: string | nul
 
 	const futureMatches = matches?.matches.filter((m) => !m.results?.winner);
 	const pastMatches = matches?.matches.filter((m) => !!m.results?.winner);
+	futureMatches?.sort((a, b) => {
+		return dayjs(a.date).diff(dayjs(b.date));
+	});
+	pastMatches?.sort((a, b) => {
+		return dayjs(b.date).diff(dayjs(a.date));
+	});
 
 	// check if its currently a month outside of the season (september to April)
 	const currentMonth = dayjs().month() + 1;
