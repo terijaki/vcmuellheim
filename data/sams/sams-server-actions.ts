@@ -141,12 +141,10 @@ export async function samsLeagueMatches(props: {
 			const sportsClubResponse = await getSamsClubByName(SAMS.name);
 			defaultQueryParams["for-sportsclub"] = sportsClubResponse?.sportsclubUuid;
 		}
-
-		// COMMENTING OUT BELOW BECAUSE THIS BREAKS THE LOGIC FOR FETCHING ALL MATCHES
-		// if (defaultQueryParams["for-season"] === undefined) {
-		// 	const seasons = await samsSeasons();
-		// 	defaultQueryParams["for-season"] = seasons?.current.uuid;
-		// }
+		if (defaultQueryParams["for-season"] === undefined) {
+			const seasons = await samsSeasons();
+			defaultQueryParams["for-season"] = seasons?.current.uuid;
+		}
 
 		// Array to hold all fetched sports clubs
 		const allMatches: LeagueMatches["matches"] = [];
