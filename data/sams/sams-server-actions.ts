@@ -135,7 +135,6 @@ export async function samsLeagueMatches(props: {
 			"for-season": props.season,
 			"for-sportsclub": props.sportsclub,
 			"for-team": props.team,
-			// size: Math.min(props.limit || 100, 100),
 		};
 		if (defaultQueryParams["for-sportsclub"] === undefined) {
 			const sportsClubResponse = await getSamsClubByName(SAMS.name);
