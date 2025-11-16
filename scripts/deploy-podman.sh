@@ -23,13 +23,14 @@ COOLIFY_WEBHOOK="https://cool.terijaki.eu/api/v1/deploy?uuid=zws880wk8o8wcsgg88k
 COOLIFY_TOKEN=${COOLIFY_TOKEN}
 
 # Check if Podman machine exists, create if it doesn't
-if ! podman machine list --format "{{.Name}}" | grep -q "^${PODMAN_MACHINE_NAME}$"; then
+if ! podman machine list 2>/dev/null | grep -q "${PODMAN_MACHINE_NAME}"; then
     echo "🔧 Creating Podman machine '${PODMAN_MACHINE_NAME}'..."
     podman machine init ${PODMAN_MACHINE_NAME} --memory=10240 --cpus=4 --disk-size=50
 fi
 
 # Start Podman machine (if not already running)
-if ! podman machine list --format "{{.Name}} {{.Running}}" | grep "^${PODMAN_MACHINE_NAME}" | grep -q "true"; then
+MACHINE_STATUS=$(podman machine list --format "{{.Name}} {{.Running}}" 2>/dev/null | grep "${PODMAN_MACHINE_NAME}" || echo "")
+if [[ "$MACHINE_STATUS" != *"true"* ]]; then
     echo "▶️ Starting Podman machine '${PODMAN_MACHINE_NAME}'..."
     podman machine start ${PODMAN_MACHINE_NAME}
 else
