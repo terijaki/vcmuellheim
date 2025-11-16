@@ -53,7 +53,9 @@ export default function StyleGuidePage() {
 							<CardTitle>Vektorgrafik</CardTitle>
 							<Text>Vektorgrafiken skalieren dynamisch und eigenen sich daher perfekt für den Druck oder die Beflockung von Trikots.</Text>
 							<Stack align="center">
-								<Image src="/images/logo/logo.svg" width={505} height={288} alt="Logo" unoptimized />
+								<Box pos="relative" w="100%" maw={505} style={{ aspectRatio: "505 / 288" }}>
+									<Image src="/images/logo/logo.svg" fill alt="Logo" unoptimized />
+								</Box>
 								<Group>
 									<Button component={Link} href="/images/logo/logo.svg" download>
 										Download SVG
@@ -72,27 +74,33 @@ export default function StyleGuidePage() {
 							</Text>
 							<SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="lg">
 								<Stack>
-									<Image src="/images/logo/logo-schwarz.png" width={505} height={288} alt="Logo Schwarz" unoptimized />
+									<Box pos="relative" w="100%" style={{ aspectRatio: "505 / 288" }}>
+										<Image src="/images/logo/logo-schwarz.png" fill alt="Logo Schwarz" unoptimized />
+									</Box>
 									<Button component={Link} href="/images/logo/logo-schwarz.png" download mx="lg">
 										Download (Schwarz)
 									</Button>
 								</Stack>
 								<Stack>
-									<Box bg="gray">
-										<Image src="/images/logo/logo-weiss.png" width={505} height={288} alt="Logo Weiß" unoptimized />
+									<Box pos="relative" w="100%" bg="gray" style={{ aspectRatio: "505 / 288" }}>
+										<Image src="/images/logo/logo-weiss.png" fill alt="Logo Weiß" unoptimized />
 									</Box>
 									<Button component={Link} href="/images/logo/logo-weiss.png" download mx="lg">
 										Download (Weiß)
 									</Button>
 								</Stack>
 								<Stack>
-									<Image src="/images/logo/logo-363B40-01A29A.png" width={505} height={288} alt="Logo Türkis" unoptimized />
+									<Box pos="relative" w="100%" style={{ aspectRatio: "505 / 288" }}>
+										<Image src="/images/logo/logo-363B40-01A29A.png" fill alt="Logo Türkis" unoptimized />
+									</Box>
 									<Button component={Link} href="/images/logo/logo-363B40-01A29A.png" download mx="lg">
 										Download (Türkis)
 									</Button>
 								</Stack>
 								<Stack>
-									<Image src="/images/logo/logo-363B40-366273.png" width={505} height={288} alt="Logo Blumine" unoptimized />
+									<Box pos="relative" w="100%" style={{ aspectRatio: "505 / 288" }}>
+										<Image src="/images/logo/logo-363B40-366273.png" fill alt="Logo Blumine" unoptimized />
+									</Box>
 									<Button component={Link} href="/images/logo/logo-363B40-366273.png" download mx="lg">
 										Download (Blumine)
 									</Button>
@@ -104,19 +112,25 @@ export default function StyleGuidePage() {
 							<Text>Fertige Bilddateien mit weißem Logo auf farbigem Hintergrund.</Text>
 							<SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg">
 								<Stack>
-									<Image src="/images/logo/logo-366273.png" width={500} height={500} alt="Logo Blumine" unoptimized />
+									<Box pos="relative" w="100%" style={{ aspectRatio: "1 / 1" }}>
+										<Image src="/images/logo/logo-366273.png" fill alt="Logo Blumine" unoptimized />
+									</Box>
 									<Button component={Link} href="/images/logo/logo-366273.png" download>
 										Download (Blumine)
 									</Button>
 								</Stack>
 								<Stack>
-									<Image src="/images/logo/logo-363B40.png" width={500} height={500} alt="Logo Onyx" unoptimized />
+									<Box pos="relative" w="100%" style={{ aspectRatio: "1 / 1" }}>
+										<Image src="/images/logo/logo-363B40.png" fill alt="Logo Onyx" unoptimized />
+									</Box>
 									<Button component={Link} href="/images/logo/logo-363B40.png" download>
 										Download (Onyx)
 									</Button>
 								</Stack>
 								<Stack>
-									<Image src="/images/logo/logo-01A29A.png" width={500} height={500} alt="Logo Türkis" unoptimized />
+									<Box pos="relative" w="100%" style={{ aspectRatio: "1 / 1" }}>
+										<Image src="/images/logo/logo-01A29A.png" fill alt="Logo Türkis" unoptimized />
+									</Box>
 									<Button component={Link} href="/images/logo/logo-01A29A.png" download>
 										Download (Türkis)
 									</Button>
