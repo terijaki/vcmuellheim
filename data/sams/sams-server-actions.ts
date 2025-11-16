@@ -184,7 +184,7 @@ export async function samsLeagueMatches(props: {
 				currentPage++;
 			}
 
-			if (data.last === true || (props.limit && allMatches.length >= props.limit)) hasMorePages = false;
+			if (data.last === true) hasMorePages = false;
 		}
 
 		let filteredMatches = allMatches;
