@@ -23,6 +23,19 @@ import { getOurClubsSamsTeams } from "../samsTeams";
 
 // API KEY and SERVER URL should be set via env variables!!
 
+/** Cache settings for real-time data such as league **rankings** and **match results** */
+const REALTIME_CACHE = {
+	stale: 300, // 5 minutes
+	revalidate: 60, // 1 minute
+	expire: 60, // 1 minute
+};
+/** Cache settings for non-real-time data such as league **associations** */
+const NON_REALTIME_CACHE = {
+	stale: 60 * 60, // 1 hour
+	revalidate: 60 * 15, // 15 minutes
+	expire: 60 * 60 * 12, // 12 hours
+};
+
 export type Ranking = {
 	teams: LeagueRankingsResourcePage["content"];
 	timestamp: Date;
@@ -32,11 +45,7 @@ export type Ranking = {
 };
 export async function samsLeagueRanking(leagueUuid: string, leagueName?: string | null, seasonName?: string | null): Promise<Ranking | undefined> {
 	"use cache";
-	cacheLife({
-		stale: 300, // 5 minutes
-		revalidate: 60, // 1 minute
-		expire: 3600 * 3, // 3 hours
-	});
+	cacheLife(REALTIME_CACHE);
 
 	try {
 		const { data } = await getRankingsForLeague({
@@ -59,8 +68,8 @@ type SeasonsResponse = {
 	previous: SeasonDto[number] | undefined;
 };
 export async function samsSeasons(): Promise<SeasonsResponse | undefined> {
-	// "use cache";
-	// cacheLife("max");
+	"use cache";
+	cacheLife(NON_REALTIME_CACHE);
 
 	try {
 		const { data: seasons } = await getAllSeasons({ throwOnError: true });
@@ -80,6 +89,9 @@ export async function samsSeasons(): Promise<SeasonsResponse | undefined> {
 }
 
 export async function samsAssociation(name: string): Promise<Association | undefined> {
+	"use cache";
+	cacheLife(NON_REALTIME_CACHE);
+
 	try {
 		const allAssociations: Association[] = [];
 		let currentPage = 0;
@@ -122,11 +134,7 @@ export async function samsLeagueMatches(props: {
 	range?: "future" | "past";
 }): Promise<LeagueMatches | undefined> {
 	"use cache";
-	cacheLife({
-		stale: 300, // 5 minutes
-		revalidate: 60, // 1 minute
-		expire: 3600 * 3, // 3 hours
-	});
+	cacheLife(REALTIME_CACHE);
 
 	try {
 		// Default parameters for the API calls
@@ -217,7 +225,7 @@ export async function samsLeagueMatches(props: {
 /** returns the unique rankings for the club */
 export async function samsClubRankings(): Promise<Ranking[] | undefined> {
 	"use cache";
-	cacheLife("minutes");
+	cacheLife(REALTIME_CACHE);
 	try {
 		type teamData = {
 			leagueUuid?: string;
@@ -265,6 +273,8 @@ export async function samsClubRankings(): Promise<Ranking[] | undefined> {
 
 // Cron funciton to update Sams Teams in the payload database
 export async function cronSamsTeamsViaLeaguesUpdate() {
+	"use cache";
+	cacheLife(NON_REALTIME_CACHE);
 	// THIS IS A WORKAROUND
 	// As of 06.06.2025 the teams object does not contain league informations. So we have to loop through each league and while doing so we can memorize the league and season information.
 
@@ -590,6 +600,8 @@ export async function cronSamsTeamsViaLeaguesUpdate() {
 // }
 // Cron funciton to update Sams Clubs in the payload database
 export async function cronSamsClubsUpdate() {
+	"use cache";
+	cacheLife(NON_REALTIME_CACHE);
 	try {
 		// get our assiciation ID from Sams
 		const association = await samsAssociation(SAMS.association.name);

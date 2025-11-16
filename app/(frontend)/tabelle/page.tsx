@@ -1,4 +1,3 @@
-"use cache";
 import { Card, CardSection, SimpleGrid, Stack, Text } from "@mantine/core";
 import type { Metadata } from "next";
 import { Suspense } from "react";

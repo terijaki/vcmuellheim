@@ -1,8 +1,13 @@
 "server-only";
+import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from "next/cache";
 import type { Where } from "payload";
 import { payload } from "./payload-client";
 
 export async function getBusBookings(includePast = false) {
+	"use cache";
+	cacheTag("bus");
+	cacheLife("days");
+
 	try {
 		const whereFilter: Where = !includePast
 			? {
