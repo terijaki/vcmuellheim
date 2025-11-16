@@ -43,9 +43,11 @@ export default async function Matches({
 	if (type === "past") {
 		return (
 			<Box>
-				<Text c="dimmed" size="xs" ta="right" pr="sm" pb="xs">
-					Stand: <time dateTime={timestamp?.toISOString()}>{dateDisplay}</time>
-				</Text>
+				{timestamp && (
+					<Text c="dimmed" size="xs" ta="right" pr="sm" pb="xs">
+						Stand: <time dateTime={timestamp?.toISOString()}>{dateDisplay}</time>
+					</Text>
+				)}
 				<Stack gap={0}>
 					{matches.map((match, index) => {
 						const winnerId = match.results?.winner;
@@ -140,9 +142,11 @@ export default async function Matches({
 	if (type === "future") {
 		return (
 			<Box>
-				<Text c="dimmed" size="xs" ta="right" pr="sm" pb="xs">
-					Stand: <time dateTime={timestamp?.toISOString()}>{dateDisplay}</time>
-				</Text>
+				{timestamp && (
+					<Text c="dimmed" size="xs" ta="right" pr="sm" pb="xs">
+						Stand: <time dateTime={timestamp?.toISOString()}>{dateDisplay}</time>
+					</Text>
+				)}
 				{matches.map((match, index) => {
 					// determine if the index is odd or even for alternating background colors
 					const oddIndex = Boolean((isOddMatches ? index : index + 1) % 2 === 0);
