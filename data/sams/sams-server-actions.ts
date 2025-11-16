@@ -25,7 +25,7 @@ import { getOurClubsSamsTeams } from "../samsTeams";
 
 /** Cache settings for real-time data such as league **rankings** and **match results** */
 const REALTIME_CACHE = {
-	stale: 300, // 5 minutes
+	stale: 30, // 30 seconds
 	revalidate: 60, // 1 minute
 	expire: 60, // 1 minute
 };
