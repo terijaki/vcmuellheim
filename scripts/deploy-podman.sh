@@ -28,9 +28,16 @@ if ! podman machine list --format "{{.Name}}" | grep -q "^${PODMAN_MACHINE_NAME}
     podman machine init ${PODMAN_MACHINE_NAME} --memory=10240 --cpus=4 --disk-size=50
 fi
 
-# Start Podman machine
-echo "▶️ Starting Podman machine '${PODMAN_MACHINE_NAME}'..."
-podman machine start ${PODMAN_MACHINE_NAME}
+# Start Podman machine (if not already running)
+if ! podman machine list --format "{{.Name}} {{.Running}}" | grep "^${PODMAN_MACHINE_NAME}" | grep -q "true"; then
+    echo "▶️ Starting Podman machine '${PODMAN_MACHINE_NAME}'..."
+    podman machine start ${PODMAN_MACHINE_NAME}
+else
+    echo "✓ Podman machine '${PODMAN_MACHINE_NAME}' is already running"
+fi
+
+# Set the active connection to the machine
+podman system connection default ${PODMAN_MACHINE_NAME}
 
 echo "🚀 Building and deploying ${REPO_NAME} to GitHub Container Registry"
 
