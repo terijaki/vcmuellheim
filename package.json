@@ -16,6 +16,7 @@
 		"build": "next build",
 		"start": "node server.js",
 		"deploy": "bash scripts/deploy.sh",
+		"deploy-podman": "bash scripts/deploy-podman.sh",
 		"biome": "biome check",
 		"lint": "biome lint --write",
 		"next-lint": "eslint .",
