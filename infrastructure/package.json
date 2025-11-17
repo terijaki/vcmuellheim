@@ -1,34 +1,34 @@
 {
-  "name": "vcmuellheim-infrastructure",
-  "version": "1.0.0",
-  "description": "AWS CDK infrastructure for vcmuellheim.de",
-  "type": "commonjs",
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "cdk": "cdk",
-    "deploy": "cdk deploy --all",
-    "deploy:dev": "cdk deploy --all --context environment=dev",
-    "deploy:staging": "cdk deploy --all --context environment=staging",
-    "deploy:prod": "cdk deploy --all --context environment=prod",
-    "synth": "cdk synth",
-    "diff": "cdk diff",
-    "destroy": "cdk destroy --all"
-  },
-  "keywords": [],
-  "author": {
-    "name": "Björn Kohnen",
-    "email": "bjoern@vcmuellheim.de"
-  },
-  "license": "ISC",
-  "dependencies": {
-    "aws-cdk-lib": "^2.225.0",
-    "constructs": "^10.4.3",
-    "source-map-support": "^0.5.21"
-  },
-  "devDependencies": {
-    "@types/node": "^24.10.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
-  }
+	"name": "vcmuellheim-infrastructure",
+	"version": "1.0.0",
+	"description": "AWS CDK infrastructure for vcmuellheim.de",
+	"type": "commonjs",
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"cdk": "cdk",
+		"deploy": "cdk deploy --all",
+		"deploy:dev": "cdk deploy --all --context environment=dev",
+		"deploy:staging": "cdk deploy --all --context environment=staging",
+		"deploy:prod": "cdk deploy --all --context environment=prod",
+		"synth": "cdk synth",
+		"diff": "cdk diff",
+		"destroy": "cdk destroy --all"
+	},
+	"keywords": [],
+	"author": {
+		"name": "Björn Kohnen",
+		"email": "bjoern@vcmuellheim.de"
+	},
+	"license": "ISC",
+	"dependencies": {
+		"aws-cdk-lib": "^2.225.0",
+		"constructs": "^10.4.3",
+		"source-map-support": "^0.5.21"
+	},
+	"devDependencies": {
+		"@types/node": "^24.10.1",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.9.3"
+	}
 }

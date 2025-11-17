@@ -1,0 +1,116 @@
+# Docker Compose for Local Development
+# This configuration maintains compatibility with local development while
+# the application is deployed to AWS
+
+services:
+  # PostgreSQL database for local development
+  postgres:
+    image: postgres:15-alpine
+    container_name: vcmuellheim-db
+    environment:
+      POSTGRES_DB: vcmuellheim
+      POSTGRES_USER: vcmuellheim
+      POSTGRES_PASSWORD: vcmuellheim_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vcmuellheim"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Next.js application
+  app:
+    build:
+      context: .
+      dockerfile: Containerfile
+      target: runner
+    container_name: vcmuellheim-app
+    ports:
+      - "3080:3080"
+    environment:
+      # Database
+      DATABASE_URL: postgresql://vcmuellheim:vcmuellheim_dev_password@postgres:5432/vcmuellheim
+      
+      # Payload CMS
+      PAYLOAD_SECRET: dev-secret-change-in-production
+      PAYLOAD_CONFIG_PATH: ./payload.config.ts
+      
+      # S3 Storage (use local minio or AWS S3)
+      S3_BUCKET: ${S3_BUCKET:-vcmuellheim-dev}
+      S3_REGION: ${S3_REGION:-eu-central-1}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-minioadmin}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-minioadmin}
+      S3_ENDPOINT: ${S3_ENDPOINT:-http://minio:9000}
+      
+      # Application
+      NODE_ENV: production
+      NEXT_TELEMETRY_DISABLED: 1
+      TZ: Europe/Berlin
+      PORT: 3080
+      HOSTNAME: 0.0.0.0
+      
+      # SAMS Integration
+      SAMS_SERVER: https://www.volleyball-baden.de
+      
+      # Development auto-login
+      PAYLOAD_DEV_EMAIL: ${PAYLOAD_DEV_EMAIL:-admin@example.com}
+      PAYLOAD_DEV_PASSWORD: ${PAYLOAD_DEV_PASSWORD:-admin}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    volumes:
+      - ./media:/app/media
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # MinIO for local S3-compatible storage
+  minio:
+    image: minio/minio:latest
+    container_name: vcmuellheim-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # MinIO client to create bucket
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set myminio http://minio:9000 minioadmin minioadmin;
+      mc mb myminio/vcmuellheim-dev --ignore-existing;
+      mc anonymous set download myminio/vcmuellheim-dev;
+      exit 0;
+      "
+
+volumes:
+  postgres_data:
+    name: vcmuellheim_postgres_data
+  minio_data:
+    name: vcmuellheim_minio_data
+
+networks:
+  default:
+    name: vcmuellheim_network
