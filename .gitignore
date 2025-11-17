@@ -24,3 +24,11 @@ next-env.d.ts
 
 # payload
 media
+
+# AWS CDK
+infrastructure/node_modules
+infrastructure/cdk.out
+infrastructure/*.js
+infrastructure/*.d.ts
+infrastructure/outputs-*.json
+!infrastructure/jest.config.js
