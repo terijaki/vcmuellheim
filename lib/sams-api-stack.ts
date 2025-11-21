@@ -3,6 +3,9 @@ import * as cdk from "aws-cdk-lib";
 import * as apigateway from "aws-cdk-lib/aws-apigateway";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
+import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
+import * as events from "aws-cdk-lib/aws-events";
+import * as targets from "aws-cdk-lib/aws-events-targets";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as nodejs from "aws-cdk-lib/aws-lambda-nodejs";
 import type { Construct } from "constructs";
@@ -32,18 +35,44 @@ export class SamsApiStack extends cdk.Stack {
 		// Environment variables for all Lambda functions
 		const samsApiKey = process.env.SAMS_API_KEY;
 		const samsServer = process.env.SAMS_SERVER;
-
-		if (!samsApiKey) {
-			throw new Error("❌ SAMS_API_KEY environment variable is required");
-		}
-		if (!samsServer) {
-			throw new Error("❌ SAMS_SERVER environment variable is required");
-		}
+		if (!samsApiKey) throw new Error("❌ SAMS_API_KEY environment variable is required");
+		if (!samsServer) throw new Error("❌ SAMS_SERVER environment variable is required");
+		 
 
 		const commonEnvironment = {
 			SAMS_API_KEY: samsApiKey,
 			SAMS_SERVER: samsServer,
 		};
+
+		// Create DynamoDB table for storing SAMS clubs
+		const clubsTable = new dynamodb.Table(this, "SamsClubsTable", {
+			tableName: "sams-clubs",
+			partitionKey: {
+				name: "sportsclubUuid",
+				type: dynamodb.AttributeType.STRING,
+			},
+			billingMode: dynamodb.BillingMode.PAY_PER_REQUEST, // On-demand pricing
+			removalPolicy: cdk.RemovalPolicy.DESTROY, // Delete table when stack is deleted
+			timeToLiveAttribute: "ttl", // Auto-delete stale records
+		});
+
+		// Add GSI for querying by association
+		clubsTable.addGlobalSecondaryIndex({
+			indexName: "associationUuid-index",
+			partitionKey: {
+				name: "associationUuid",
+				type: dynamodb.AttributeType.STRING,
+			},
+		});
+
+		// Add GSI for querying by name
+		clubsTable.addGlobalSecondaryIndex({
+			indexName: "name-index",
+			partitionKey: {
+				name: "name",
+				type: dynamodb.AttributeType.STRING,
+			},
+		});
 
 		// Create Lambda function for league matches (main endpoint you use)
 		const samsLeagueMatches = new nodejs.NodejsFunction(this, "SamsLeagueMatches", {
@@ -109,6 +138,41 @@ export class SamsApiStack extends cdk.Stack {
 			},
 		});
 
+		// Create Lambda function for nightly clubs sync
+		const samsClubsSync = new nodejs.NodejsFunction(this, "SamsClubsSync", {
+			functionName: "sams-clubs-sync",
+			runtime: lambda.Runtime.NODEJS_20_X,
+			handler: "handler",
+			entry: path.join(__dirname, "../lambda/sams-clubs-sync.ts"),
+			environment: {
+				...commonEnvironment,
+				CLUBS_TABLE_NAME: clubsTable.tableName,
+			},
+			timeout: cdk.Duration.minutes(10), // Longer timeout for paginated sync
+			memorySize: 512,
+			bundling: {
+				externalModules: [],
+				minify: true,
+				sourceMap: true,
+			},
+		});
+
+		// Grant DynamoDB permissions to sync Lambda
+		clubsTable.grantReadWriteData(samsClubsSync);
+
+		// Create EventBridge rule to trigger sync Lambda nightly at 2 AM UTC
+		const syncRule = new events.Rule(this, "SamsClubsSyncRule", {
+			ruleName: "sams-clubs-nightly-sync",
+			description: "Trigger SAMS clubs sync every night at 2 AM UTC",
+			schedule: events.Schedule.cron({
+				hour: "2",
+				minute: "0",
+			}),
+		});
+
+		// Add Lambda as target for EventBridge rule
+		syncRule.addTarget(new targets.LambdaFunction(samsClubsSync));
+
 		// Create API Gateway resources
 		const samsResource = api.root.addResource("sams");
 
@@ -173,6 +237,16 @@ export class SamsApiStack extends cdk.Stack {
 		new cdk.CfnOutput(this, "ApiId", {
 			value: api.restApiId,
 			description: "API Gateway ID",
+		});
+
+		new cdk.CfnOutput(this, "ClubsTableName", {
+			value: clubsTable.tableName,
+			description: "DynamoDB table name for clubs",
+		});
+
+		new cdk.CfnOutput(this, "SyncRuleName", {
+			value: syncRule.ruleName,
+			description: "EventBridge rule name for nightly sync",
 		});
 	}
 }

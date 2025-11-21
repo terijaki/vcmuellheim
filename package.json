@@ -35,6 +35,8 @@
 		"cdk:bootstrap": "cdk bootstrap --profile vcmuellheim"
 	},
 	"dependencies": {
+		"@aws-sdk/client-dynamodb": "^3.936.0",
+		"@aws-sdk/lib-dynamodb": "^3.936.0",
 		"@hey-api/client-next": "^0.5.1",
 		"@mantine/core": "^8.3.0",
 		"@mantine/dates": "^8.3.0",
