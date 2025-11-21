@@ -24,3 +24,7 @@ next-env.d.ts
 
 # payload
 media
+
+# aws
+cdk.out
+cdk.context.json

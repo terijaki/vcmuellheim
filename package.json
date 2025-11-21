@@ -26,7 +26,13 @@
 		"container:watch": "podman run -p 3080:3080 -v $(pwd):/app -w /app vcmuellheim",
 		"container:run": "podman run -p 3080:3080 vcmuellheim",
 		"container": "bun run podman:build && bun run podman:run",
-		"container:dev": "bun run podman:build && bun run podman:watch"
+		"container:dev": "bun run podman:build && bun run podman:watch",
+		"cdk": "cdk --profile vcmuellheim",
+		"cdk:deploy": "cdk deploy --profile vcmuellheim",
+		"cdk:synth": "cdk synth --profile vcmuellheim",
+		"cdk:diff": "cdk diff --profile vcmuellheim",
+		"cdk:destroy": "cdk destroy --profile vcmuellheim",
+		"cdk:bootstrap": "cdk bootstrap --profile vcmuellheim"
 	},
 	"dependencies": {
 		"@hey-api/client-next": "^0.5.1",
@@ -62,14 +68,19 @@
 		"zod": "^3.25.64"
 	},
 	"devDependencies": {
+		"@aws-cdk/aws-lambda-nodejs": "^1.204.0",
 		"@biomejs/biome": "2.2.3",
 		"@eslint/eslintrc": "^3",
 		"@hey-api/openapi-ts": "^0.78.3",
+		"@types/aws-lambda": "^8.10.159",
 		"@types/node": "^24.3.1",
 		"@types/react": "^19.1.12",
 		"@types/react-dom": "^19.1.9",
 		"@types/react-world-flags": "^1.6.0",
 		"autoprefixer": "^10.4.21",
+		"aws-cdk-lib": "^2.227.0",
+		"constructs": "^10.4.3",
+		"dotenv": "^17.2.3",
 		"eslint": "^9.35.0",
 		"eslint-config-next": "15.5.2",
 		"typescript": "^5.8.3"
