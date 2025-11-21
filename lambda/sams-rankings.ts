@@ -38,7 +38,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			};
 		}
 
-		// Use the shared SAMS client (matches pattern from sams-server-actions.ts)
 		const { data } = await getRankingsForLeague({
 			path: { uuid: leagueUuid },
 			query: { page: 0, size: 100 },

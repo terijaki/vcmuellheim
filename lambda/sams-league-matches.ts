@@ -35,9 +35,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 		const allMatches: Omit<LeagueMatchDto, "_links">[] = [];
 		let currentPage = 0;
 		let hasMorePages = true;
-
 		while (hasMorePages) {
-			// Use the shared SAMS client (matches pattern from sams-server-actions.ts)
 			const { data } = await getAllLeagueMatches({
 				query: {
 					...defaultQueryParams,

@@ -93,6 +93,22 @@ export class SamsApiStack extends cdk.Stack {
 			},
 		});
 
+		// Create Lambda function for associations
+		const samsAssociations = new nodejs.NodejsFunction(this, "SamsAssociations", {
+			functionName: "sams-associations",
+			runtime: lambda.Runtime.NODEJS_20_X,
+			handler: "handler",
+			entry: path.join(__dirname, "../lambda/sams-associations.ts"),
+			environment: commonEnvironment,
+			timeout: cdk.Duration.seconds(60), // Longer timeout for pagination
+			memorySize: 256,
+			bundling: {
+				externalModules: [],
+				minify: true,
+				sourceMap: true,
+			},
+		});
+
 		// Create API Gateway resources
 		const samsResource = api.root.addResource("sams");
 
@@ -117,6 +133,13 @@ export class SamsApiStack extends cdk.Stack {
 		const rankingsResource = samsResource.addResource("rankings");
 		const rankingsByLeague = rankingsResource.addResource("{leagueUuid}");
 		rankingsByLeague.addMethod("GET", new apigateway.LambdaIntegration(samsRankings));
+
+		// GET /sams/associations and GET /sams/associations/{name}
+		const associationsResource = samsResource.addResource("associations");
+		associationsResource.addMethod("GET", new apigateway.LambdaIntegration(samsAssociations));
+
+		const associationsByName = associationsResource.addResource("{name}");
+		associationsByName.addMethod("GET", new apigateway.LambdaIntegration(samsAssociations));
 
 		// Create CloudFront distribution for caching
 		const distribution = new cloudfront.Distribution(this, "SamsApiDistribution", {
