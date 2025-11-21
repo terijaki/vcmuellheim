@@ -2,6 +2,9 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { BatchWriteCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import type { EventBridgeEvent } from "aws-lambda";
 import { getAllSportsclubs, getAssociations } from "@/data/sams/client";
+import { SAMS } from "@/project.config";
+import { slugify } from "@/utils/slugify";
+import type { ClubItem } from "./types";
 
 // Initialize DynamoDB client
 const dynamoClient = new DynamoDBClient({});
@@ -9,17 +12,7 @@ const docClient = DynamoDBDocumentClient.from(dynamoClient);
 
 const TABLE_NAME = process.env.CLUBS_TABLE_NAME;
 const SAMS_API_KEY = process.env.SAMS_API_KEY;
-const ASSOCIATION_NAME = "Südbadischer Volleyball-Verband"; // SBVV
-
-interface ClubItem {
-	sportsclubUuid: string;
-	name: string;
-	associationUuid?: string | null;
-	associationName?: string;
-	logoImageLink?: string | null;
-	updatedAt: string;
-	ttl: number; // Unix timestamp for auto-deletion (30 days from now)
-}
+const ASSOCIATION_NAME = SAMS.association.name; // SBVV
 
 export const handler = async (event: EventBridgeEvent<string, unknown>) => {
 	console.log("🚀 Starting SAMS clubs sync job", { event });
@@ -99,6 +92,7 @@ export const handler = async (event: EventBridgeEvent<string, unknown>) => {
 						return {
 							sportsclubUuid: c.uuid,
 							name: c.name,
+							nameSlug: slugify(c.name),
 							associationUuid: c.associationUuid,
 							associationName: ASSOCIATION_NAME,
 							logoImageLink: c.logoImageLink,
@@ -106,7 +100,6 @@ export const handler = async (event: EventBridgeEvent<string, unknown>) => {
 							ttl,
 						};
 					});
-
 				allClubs.push(...clubs);
 				console.log(`📄 Fetched page ${currentPage + 1}/${data.totalPages} (${clubs.length} clubs)`);
 				currentPage++;

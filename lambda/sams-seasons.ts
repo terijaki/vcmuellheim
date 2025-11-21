@@ -1,12 +1,7 @@
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
-import { getAllSeasons, type SeasonDto } from "@/data/sams/client";
 import dayjs from "dayjs";
-
-type SeasonsResponse = {
-	current: SeasonDto[number];
-	next: SeasonDto[number] | undefined;
-	previous: SeasonDto[number] | undefined;
-};
+import { getAllSeasons } from "@/data/sams/client";
+import { SeasonsResponseSchema } from "./types";
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
 	try {
@@ -54,13 +49,13 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			};
 		}
 		const nextSeason = seasons.find((s) => dayjs(s.startDate).subtract(1, "day").isSame(currentSeason.endDate));
-        const previousSeason = seasons.find((s) => dayjs(s.endDate).add(1, "day").isSame(currentSeason.startDate));
+		const previousSeason = seasons.find((s) => dayjs(s.endDate).add(1, "day").isSame(currentSeason.startDate));
 
-		const result: SeasonsResponse = {
+		const result = SeasonsResponseSchema.parse({
 			current: currentSeason,
 			next: nextSeason,
 			previous: previousSeason,
-		};
+		});
 
 		return {
 			statusCode: 200,

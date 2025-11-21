@@ -1,7 +1,7 @@
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
+import dayjs from "dayjs";
 import { getAllLeagueMatches, type LeagueMatchDto } from "../data/sams/client";
-
-type LeagueMatches = { matches: Omit<LeagueMatchDto, "_links">[]; timestamp: Date };
+import { LeagueMatchesSchema } from "./types";
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
 	try {
@@ -68,25 +68,23 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			filteredMatches = allMatches.filter((m) => !m.results?.winner);
 		} else if (range === "past") {
 			// Filter by past dates
-			filteredMatches = allMatches.filter((m) => (m.date ? new Date(m.date) < new Date() : false));
+			filteredMatches = allMatches.filter((m) => (m.date ? dayjs(m.date).isBefore(dayjs()) : false));
 		}
 
 		// Sort matches by date
 		if (range === "future") {
 			filteredMatches.sort((a, b) => {
-				const dateA = a.date ? new Date(a.date) : new Date(0);
-				const dateB = b.date ? new Date(b.date) : new Date(0);
-				return dateA.getTime() - dateB.getTime();
+				if (!a.date) return 1; 
+				if (!b.date) return -1;
+				return dayjs(a.date).isBefore(dayjs(b.date)) ? -1 : 1;
 			});
 		} else if (range === "past") {
 			filteredMatches.sort((a, b) => {
-				const dateA = a.date ? new Date(a.date) : new Date(0);
-				const dateB = b.date ? new Date(b.date) : new Date(0);
-				return dateB.getTime() - dateA.getTime();
+				if (!a.date) return 1; 
+				if (!b.date) return -1;
+				return dayjs(a.date).isAfter(dayjs(b.date)) ? -1 : 1;
 			});
-		}
-
-		// Apply limit if specified
+		} // Apply limit if specified
 		if (limit) {
 			const limitNum = parseInt(limit, 10);
 			if (!Number.isNaN(limitNum)) {
@@ -94,10 +92,10 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			}
 		}
 
-		const result: LeagueMatches = {
+		const result = LeagueMatchesSchema.parse({
 			matches: filteredMatches,
 			timestamp: new Date(),
-		};
+		});
 
 		return {
 			statusCode: 200,

@@ -37,7 +37,6 @@ export class SamsApiStack extends cdk.Stack {
 		const samsServer = process.env.SAMS_SERVER;
 		if (!samsApiKey) throw new Error("❌ SAMS_API_KEY environment variable is required");
 		if (!samsServer) throw new Error("❌ SAMS_SERVER environment variable is required");
-		 
 
 		const commonEnvironment = {
 			SAMS_API_KEY: samsApiKey,
@@ -65,11 +64,20 @@ export class SamsApiStack extends cdk.Stack {
 			},
 		});
 
-		// Add GSI for querying by name
+		// Add GSI for querying by name (exact match, case-sensitive)
 		clubsTable.addGlobalSecondaryIndex({
 			indexName: "name-index",
 			partitionKey: {
 				name: "name",
+				type: dynamodb.AttributeType.STRING,
+			},
+		});
+
+		// Add GSI for querying by nameSlug (case-insensitive search)
+		clubsTable.addGlobalSecondaryIndex({
+			indexName: "nameSlug-index",
+			partitionKey: {
+				name: "nameSlug",
 				type: dynamodb.AttributeType.STRING,
 			},
 		});
@@ -160,6 +168,27 @@ export class SamsApiStack extends cdk.Stack {
 		// Grant DynamoDB permissions to sync Lambda
 		clubsTable.grantReadWriteData(samsClubsSync);
 
+		// Create Lambda function for clubs query (read from DynamoDB)
+		const samsClubs = new nodejs.NodejsFunction(this, "SamsClubs", {
+			functionName: "sams-clubs",
+			runtime: lambda.Runtime.NODEJS_20_X,
+			handler: "handler",
+			entry: path.join(__dirname, "../lambda/sams-clubs.ts"),
+			environment: {
+				CLUBS_TABLE_NAME: clubsTable.tableName,
+			},
+			timeout: cdk.Duration.seconds(30),
+			memorySize: 256,
+			bundling: {
+				externalModules: [],
+				minify: true,
+				sourceMap: true,
+			},
+		});
+
+		// Grant DynamoDB read permissions to clubs query Lambda
+		clubsTable.grantReadData(samsClubs);
+
 		// Create EventBridge rule to trigger sync Lambda nightly at 2 AM UTC
 		const syncRule = new events.Rule(this, "SamsClubsSyncRule", {
 			ruleName: "sams-clubs-nightly-sync",
@@ -204,6 +233,18 @@ export class SamsApiStack extends cdk.Stack {
 
 		const associationsByName = associationsResource.addResource("{name}");
 		associationsByName.addMethod("GET", new apigateway.LambdaIntegration(samsAssociations));
+
+		// GET /sams/clubs and GET /sams/clubs/{uuid}
+		const clubsResource = samsResource.addResource("clubs");
+		clubsResource.addMethod("GET", new apigateway.LambdaIntegration(samsClubs), {
+			requestParameters: {
+				"method.request.querystring.name": false,
+				"method.request.querystring.association": false,
+			},
+		});
+
+		const clubsByUuid = clubsResource.addResource("{uuid}");
+		clubsByUuid.addMethod("GET", new apigateway.LambdaIntegration(samsClubs));
 
 		// Create CloudFront distribution for caching
 		const distribution = new cloudfront.Distribution(this, "SamsApiDistribution", {
