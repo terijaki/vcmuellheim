@@ -69,25 +69,40 @@ jobs:
                   SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
               run: bunx cdk deploy --require-approval never
 
-            - name: Comment deployment info
-              if: github.event_name == 'push' && steps.env.outputs.is_main == 'false'
-              uses: actions/github-script@v7
-              with:
-                  script: |
-                      const branch = context.ref.replace('refs/heads/', '');
-                      const sanitizedBranch = branch.replace(/[^a-zA-Z0-9-]/g, '-').replace(/--+/g, '-').substring(0, 20);
-                      const stackName = `SamsApiStack-Dev-${sanitizedBranch}`;
+            - name: Add deployment summary
+              if: always()
+              run: |
+                  BRANCH="${{ github.ref_name }}"
+                  SANITIZED=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9-]/-/g' | sed 's/--*/-/g' | cut -c1-20)
 
-                      github.rest.repos.createCommitComment({
-                        owner: context.repo.owner,
-                        repo: context.repo.repo,
-                        commit_sha: context.sha,
-                        body: `✅ **CDK Deployment Successful**\n\n` +
-                              `**Environment:** dev\n` +
-                              `**Branch:** ${branch}\n` +
-                              `**Stack Name:** \`${stackName}\`\n\n` +
-                              `💡 Remember to destroy this stack when done:\n` +
-                              `\`\`\`bash\n` +
-                              `bun run cdk destroy ${stackName}\n` +
-                              `\`\`\``
-                      });
+                  if [ "${{ steps.env.outputs.is_main }}" == "true" ]; then
+                    STACK_NAME="SamsApiStack-Prod"
+                    ENV_ICON="🚀"
+                    ENV_NAME="Production"
+                  else
+                    STACK_NAME="SamsApiStack-Dev-${SANITIZED}"
+                    ENV_ICON="🔧"
+                    ENV_NAME="Development"
+                  fi
+
+                  echo "## ${ENV_ICON} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
+                  echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
+                  echo "| **Environment** | ${ENV_NAME} |" >> $GITHUB_STEP_SUMMARY
+                  echo "| **Branch** | \`${BRANCH}\` |" >> $GITHUB_STEP_SUMMARY
+                  echo "| **Stack Name** | \`${STACK_NAME}\` |" >> $GITHUB_STEP_SUMMARY
+                  echo "| **Region** | ${{ secrets.AWS_REGION || 'eu-central-1' }} |" >> $GITHUB_STEP_SUMMARY
+                  echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+
+                  if [ "${{ steps.env.outputs.is_main }}" == "false" ]; then
+                    echo "" >> $GITHUB_STEP_SUMMARY
+                    echo "### 💡 Cleanup" >> $GITHUB_STEP_SUMMARY
+                    echo "" >> $GITHUB_STEP_SUMMARY
+                    echo "This stack will be automatically destroyed when the branch is deleted or PR is closed." >> $GITHUB_STEP_SUMMARY
+                    echo "" >> $GITHUB_STEP_SUMMARY
+                    echo "To manually destroy this stack:" >> $GITHUB_STEP_SUMMARY
+                    echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+                    echo "bunx cdk destroy ${STACK_NAME}" >> $GITHUB_STEP_SUMMARY
+                    echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+                  fi

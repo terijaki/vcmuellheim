@@ -4,8 +4,6 @@ on:
     pull_request:
         types: [closed]
     delete:
-        branches:
-            - "**"
 
 permissions:
     id-token: write # Required for AWS OIDC
@@ -77,21 +75,23 @@ jobs:
                   echo "Destroying stack: ${{ steps.branch.outputs.stack_name }}"
                   bunx cdk destroy "${{ steps.branch.outputs.stack_name }}" --force
 
-            - name: Comment on PR
-              if: github.event_name == 'pull_request' && steps.stack_check.outputs.exists == 'true'
-              uses: actions/github-script@v7
-              with:
-                  script: |
-                      github.rest.issues.createComment({
-                        owner: context.repo.owner,
-                        repo: context.repo.repo,
-                        issue_number: context.payload.pull_request.number,
-                        body: `🗑️ **CDK Stack Destroyed**\n\n` +
-                              `Stack \`${{ steps.branch.outputs.stack_name }}\` has been destroyed.\n` +
-                              `All AWS resources for branch \`${{ steps.branch.outputs.branch }}\` have been cleaned up.`
-                      });
-
-            - name: Skip message
-              if: steps.stack_check.outputs.exists == 'false'
+            - name: Add destroy summary
+              if: always()
               run: |
-                  echo "Stack ${{ steps.branch.outputs.stack_name }} does not exist, skipping destroy"
+                  if [ "${{ steps.stack_check.outputs.exists }}" == "true" ]; then
+                    echo "## 🗑️ CDK Stack Destroyed" >> $GITHUB_STEP_SUMMARY
+                    echo "" >> $GITHUB_STEP_SUMMARY
+                    echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
+                    echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
+                    echo "| **Stack Name** | \`${{ steps.branch.outputs.stack_name }}\` |" >> $GITHUB_STEP_SUMMARY
+                    echo "| **Branch** | \`${{ steps.branch.outputs.branch }}\` |" >> $GITHUB_STEP_SUMMARY
+                    echo "| **Region** | ${{ secrets.AWS_REGION || 'eu-central-1' }} |" >> $GITHUB_STEP_SUMMARY
+                    echo "" >> $GITHUB_STEP_SUMMARY
+                    echo "✅ All AWS resources for this branch have been cleaned up." >> $GITHUB_STEP_SUMMARY
+                  else
+                    echo "## ℹ️ No Stack to Destroy" >> $GITHUB_STEP_SUMMARY
+                    echo "" >> $GITHUB_STEP_SUMMARY
+                    echo "Stack \`${{ steps.branch.outputs.stack_name }}\` does not exist." >> $GITHUB_STEP_SUMMARY
+                    echo "" >> $GITHUB_STEP_SUMMARY
+                    echo "No cleanup necessary." >> $GITHUB_STEP_SUMMARY
+                  fi
