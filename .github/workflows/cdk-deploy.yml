@@ -15,7 +15,7 @@ on:
 
 permissions:
     id-token: write # Required for AWS OIDC
-    contents: read
+    contents: write # Required for commenting on commits
 
 jobs:
     deploy:
