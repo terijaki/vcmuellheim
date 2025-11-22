@@ -51,6 +51,9 @@ jobs:
                     echo "is_main=false" >> $GITHUB_OUTPUT
                   fi
 
+            - name: Lint check
+              run: bun run lint
+
             - name: CDK Diff
               env:
                   CDK_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
@@ -67,22 +70,34 @@ jobs:
                   CDK_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
                   SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
                   SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
-              run: bunx cdk deploy --require-approval never
+              run: |
+                  bunx cdk deploy --require-approval never --outputs-file cdk-outputs.json
 
             - name: Add deployment summary
               if: always()
               run: |
                   BRANCH="${{ github.ref_name }}"
-                  SANITIZED=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9-]/-/g' | sed 's/--*/-/g' | cut -c1-20)
 
+                  # Determine environment for display
                   if [ "${{ steps.env.outputs.is_main }}" == "true" ]; then
-                    STACK_NAME="SamsApiStack-Prod"
                     ENV_ICON="🚀"
                     ENV_NAME="Production"
                   else
-                    STACK_NAME="SamsApiStack-Dev-${SANITIZED}"
                     ENV_ICON="🔧"
                     ENV_NAME="Development"
+                  fi
+
+                  # Extract stack name and outputs from CDK deployment
+                  if [ -f "cdk-outputs.json" ]; then
+                    STACK_NAME=$(cat cdk-outputs.json | grep -o '^[^{]*' | tr -d ':" ' | head -1)
+                  else
+                    # Fallback if outputs file doesn't exist
+                    SANITIZED=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9-]/-/g' | sed 's/--*/-/g' | cut -c1-20)
+                    if [ "${{ steps.env.outputs.is_main }}" == "true" ]; then
+                      STACK_NAME="SamsApiStack-Prod"
+                    else
+                      STACK_NAME="SamsApiStack-Dev-${SANITIZED}"
+                    fi
                   fi
 
                   echo "## ${ENV_ICON} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
@@ -94,6 +109,26 @@ jobs:
                   echo "| **Stack Name** | \`${STACK_NAME}\` |" >> $GITHUB_STEP_SUMMARY
                   echo "| **Region** | ${{ secrets.AWS_REGION || 'eu-central-1' }} |" >> $GITHUB_STEP_SUMMARY
                   echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+
+                  # Extract and display CDK outputs if available
+                  if [ -f "cdk-outputs.json" ]; then
+                    API_URL=$(cat cdk-outputs.json | grep -o '"ApiGatewayUrl"[^"]*"[^"]*"' | sed 's/.*: "\(.*\)"/\1/' || echo "")
+                    CLOUDFRONT_URL=$(cat cdk-outputs.json | grep -o '"CloudFrontUrl"[^"]*"[^"]*"' | sed 's/.*: "\(.*\)"/\1/' || echo "")
+                    
+                    if [ -n "$API_URL" ] || [ -n "$CLOUDFRONT_URL" ]; then
+                      echo "" >> $GITHUB_STEP_SUMMARY
+                      echo "### 🔗 Endpoints" >> $GITHUB_STEP_SUMMARY
+                      echo "" >> $GITHUB_STEP_SUMMARY
+                      
+                      if [ -n "$API_URL" ]; then
+                        echo "- **API Gateway:** ${API_URL}" >> $GITHUB_STEP_SUMMARY
+                      fi
+                      
+                      if [ -n "$CLOUDFRONT_URL" ]; then
+                        echo "- **CloudFront:** ${CLOUDFRONT_URL}" >> $GITHUB_STEP_SUMMARY
+                      fi
+                    fi
+                  fi
 
                   if [ "${{ steps.env.outputs.is_main }}" == "false" ]; then
                     echo "" >> $GITHUB_STEP_SUMMARY
