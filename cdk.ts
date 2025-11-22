@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { execSync } from "node:child_process";
 import * as cdk from "aws-cdk-lib";
+import { ApiStack } from "./lib/api-stack";
 import { ContentDbStack } from "./lib/content-db-stack";
 import { SamsApiStack } from "./lib/sams-api-stack";
 import { SocialMediaStack } from "./lib/social-media-stack";
@@ -35,6 +36,7 @@ const branchSuffix = branch ? `-${branch}` : "";
 
 // Environment-specific configuration
 const contentDbStackName = isProd ? `ContentDbStack-Prod${branchSuffix}` : `ContentDbStack-Dev${branchSuffix}`;
+const apiStackName = isProd ? `ApiStack-Prod${branchSuffix}` : `ApiStack-Dev${branchSuffix}`;
 const samsStackName = isProd ? `SamsApiStack-Prod${branchSuffix}` : `SamsApiStack-Dev${branchSuffix}`;
 const socialMediaStackName = isProd ? `SocialMediaStack-Prod${branchSuffix}` : `SocialMediaStack-Dev${branchSuffix}`;
 const awsRegion = process.env.CDK_REGION || "eu-central-1";
@@ -55,9 +57,22 @@ const commonStackProps = {
 	},
 };
 
-new ContentDbStack(app, contentDbStackName, {
+const contentDbStack = new ContentDbStack(app, contentDbStackName, {
 	...commonStackProps,
 	description: `Content Database Tables (${environment}${branchSuffix})`,
+});
+
+new ApiStack(app, apiStackName, {
+	...commonStackProps,
+	description: `tRPC API & Cognito (${environment}${branchSuffix})`,
+	contentDbStack: {
+		newsTable: contentDbStack.newsTable,
+		eventsTable: contentDbStack.eventsTable,
+		teamsTable: contentDbStack.teamsTable,
+		membersTable: contentDbStack.membersTable,
+		mediaTable: contentDbStack.mediaTable,
+		sponsorsTable: contentDbStack.sponsorsTable,
+	},
 });
 
 new SamsApiStack(app, samsStackName, {

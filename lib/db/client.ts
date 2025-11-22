@@ -4,25 +4,23 @@
 
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
+import { TABLES, tableEnvVar } from "./env";
 
-/** Environment-based table name prefix */
-const getTablePrefix = () => {
-	const branch = process.env.GITHUB_REF_NAME || "dev";
-	return `vcm-${branch}`;
-};
-
-/** Table names for all entities */
-export const TABLE_NAMES = {
-	NEWS: `${getTablePrefix()}-news`,
-	EVENTS: `${getTablePrefix()}-events`,
-	TEAMS: `${getTablePrefix()}-teams`,
-	MEMBERS: `${getTablePrefix()}-members`,
-	MEDIA: `${getTablePrefix()}-media`,
-	SPONSORS: `${getTablePrefix()}-sponsors`,
-} as const;
+/** Table names for all entities - provided by CDK as environment variables */
+export const TABLE_NAMES = Object.fromEntries(
+	TABLES.map((entity) => {
+		const envVar = tableEnvVar(entity);
+		const tableName = process.env[envVar];
+		if (!tableName) {
+			throw new Error(`Missing required environment variable: ${envVar}`);
+		}
+		return [entity, tableName];
+	}),
+) as Record<(typeof TABLES)[number], string>;
 
 /** DynamoDB client instance */
 const client = new DynamoDBClient({
+	// AWS_REGION is automatically set by Lambda runtime
 	region: process.env.AWS_REGION || "eu-central-1",
 });
 
