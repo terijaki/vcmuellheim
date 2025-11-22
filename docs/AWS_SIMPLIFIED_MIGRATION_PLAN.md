@@ -34,26 +34,21 @@
 
 ### Tasks:
 
-1. [ ] **Design DynamoDB Schema**
-   - Map existing Payload collections to DynamoDB tables
-   - Collections to migrate:
-     - News (title, slug, content, publishedAt, coverImage, etc.)
-     - Events (title, date, location, description, etc.)
-     - Teams (name, league, players, etc.)
-     - Members (name, role, photo, etc.)
-     - Media (filename, url, alt, metadata)
-     - Sponsors (name, logo, url, tier)
-     - Users (admin access for CMS)
-   - Determine partition keys and sort keys
-   - Plan GSIs for common queries (e.g., query by publishedAt, by slug, by status)
-   - Consider single-table design vs multiple tables
+1. [x] **Design DynamoDB Schema**
+   - ✅ Map existing Payload collections to DynamoDB tables
+   - ✅ Multi-table design (6 tables: News, Events, Teams, Members, Media, Sponsors)
+   - ✅ Removed Users table (Cognito handles authentication)
+   - ✅ Removed Roles table (role fields on Member entity)
+   - ✅ Partition keys and sort keys determined
+   - ✅ GSIs planned for common queries (publishedAt, slug, status, SAMS team mapping)
 
-2. [ ] **Create DynamoDB Tables via CDK**
-   - Add table definitions to CDK stack
-   - Configure capacity (on-demand vs provisioned)
-   - Set up GSIs for efficient queries
-   - Enable Point-in-Time Recovery (PITR) for backups
-   - Add TTL if needed for auto-cleanup
+2. [x] **Create DynamoDB Tables via CDK**
+   - ✅ Created ContentDbStack in lib/content-db-stack.ts
+   - ✅ On-demand billing mode configured
+   - ✅ Strategic GSIs set up (News: PublishedDate + Slug, Events: StartDate, Teams: Slug + Status + SamsTeam)
+   - ✅ Point-in-Time Recovery (PITR) enabled
+   - ✅ TTL configured on Sponsors table (expiryTimestamp)
+   - ✅ Successfully deployed to AWS
 
 3. [ ] **Migration Script**
    - Extract data from current Payload Postgres database
@@ -61,11 +56,29 @@
    - Batch write to new tables
    - Validate data integrity
 
-4. [ ] **Create Data Access Layer**
-   - TypeScript interfaces for each entity
-   - CRUD helper functions using AWS SDK v3
-   - Query builders for common operations
-   - Validation layer (Zod schemas)
+4. [x] **Create Data Access Layer**
+   - ✅ Zod v4 validation schemas (lib/db/schemas.ts)
+   - ✅ TypeScript types inferred from Zod (lib/db/types.ts)
+   - ✅ Generic Repository class with full CRUD (lib/db/repository.ts)
+   - ✅ Repository instances for all 6 entities (lib/db/repositories.ts)
+   - ✅ Domain-specific query helpers (getPublishedNews, getUpcomingEvents, etc.)
+   - ✅ DynamoDB client configuration (lib/db/client.ts)
+
+5. [ ] **Set up S3 Media Cleanup (DynamoDB Streams)**
+   - ✅ Streams enabled on all tables (NEW_AND_OLD_IMAGES)
+   - ⏳ Create Lambda function triggered on REMOVE events (deferred)
+   - ⏳ Lambda deletes S3 object when media item deleted
+   - ⏳ Lambda deletes logoId from Media when sponsor expires (TTL)
+   - ⏳ Cascading: Sponsor TTL → Delete Media → Delete S3 object
+
+6. [x] **Set up tRPC for Type-Safe APIs**
+   - ✅ Installed tRPC dependencies (@trpc/server, @trpc/client, @trpc/react-query)
+   - ✅ Created tRPC context with Cognito auth support (lib/trpc/context.ts)
+   - ✅ Base procedures configured (publicProcedure, protectedProcedure)
+   - ✅ All 6 entity routers created (news, events, teams, members, media, sponsors)
+   - ✅ Lambda handler for API Gateway (lambda/trpc/handler.ts)
+   - ✅ React client setup (lib/trpc/client.ts)
+   - ✅ Complete documentation (docs/TRPC_SETUP.md)
 
 ---
 
