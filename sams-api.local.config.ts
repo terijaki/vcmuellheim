@@ -233,7 +233,7 @@ export default defineConfig({
 		"zod",
 		{
 			name: "@hey-api/client-next",
-			runtimeConfigPath: "./data/sams/hey-api.ts",
+			runtimeConfigPath: "../hey-api",
 		},
 		{
 			name: "@hey-api/sdk",
