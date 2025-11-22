@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { LeagueMatchDto, LeagueRankingsResourcePage, SeasonDto } from "@/data/sams/client";
+import { zLeagueMatchDto, zLeagueRankingsEntryDto, zSeasonDto } from "@/data/sams/client";
 
 // ============================================================================
 // Club Schemas & Types
@@ -111,9 +111,9 @@ export type TeamsResponse = z.infer<typeof TeamsResponseSchema>;
  * Response containing current, next, and previous seasons
  */
 export const SeasonsResponseSchema = z.object({
-	current: z.custom<SeasonDto>(),
-	next: z.custom<SeasonDto>().nullish(),
-	previous: z.custom<SeasonDto>().nullish(),
+	current: zSeasonDto,
+	next: zSeasonDto.nullish(),
+	previous: zSeasonDto.nullish(),
 });
 
 export type SeasonsResponse = z.infer<typeof SeasonsResponseSchema>;
@@ -126,7 +126,8 @@ export type SeasonsResponse = z.infer<typeof SeasonsResponseSchema>;
  * League rankings response
  */
 export const RankingSchema = z.object({
-	teams: z.custom<LeagueRankingsResourcePage["content"]>(),
+	// reuse generated entry schema for ranking items
+	teams: z.optional(z.array(zLeagueRankingsEntryDto)),
 	timestamp: z.date(),
 	leagueUuid: z.string(),
 	leagueName: z.string().nullish(),
@@ -143,7 +144,8 @@ export type Ranking = z.infer<typeof RankingSchema>;
  * League matches response (without HAL links)
  */
 export const LeagueMatchesSchema = z.object({
-	matches: z.custom<Omit<LeagueMatchDto, "_links">[]>(),
+	// use generated league match schema but remove _links for the public response
+	matches: z.array(zLeagueMatchDto.omit({ _links: true })),
 	timestamp: z.date(),
 });
 

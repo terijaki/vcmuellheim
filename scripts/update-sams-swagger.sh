@@ -1,13 +1,20 @@
 #!/bin/bash
 
 # Script to download and patch the SAMS swagger file
-# This adds a missing "Object" schema that the volleyball-baden.de API references but doesn't define
+# Fix invalid $ref to missing Object schema in _embedded and _links properties
+# Replace with inline type definition to avoid generation errors
 
 set -e
 
 echo "Downloading swagger.json from volleyball-baden.de..."
 curl -s https://www.volleyball-baden.de/api/v2/swagger.json | \
-  jq '.components.schemas.Object = {"type": "object", "additionalProperties": true}' > \
+  jq 'walk(
+    if type == "object" and has("additionalProperties") and 
+       .additionalProperties == {"$ref": "#/components/schemas/Object"} 
+    then .additionalProperties = {} 
+    else . 
+    end
+  )' > \
   data/sams/swagger.json
 
 echo "✅ swagger.json updated successfully"

@@ -7,6 +7,28 @@ export default defineConfig({
 		lint: "biome",
 	},
 	input: "data/sams/swagger.json",
+	plugins: [
+		{
+			name: "zod",
+			dates: {
+				local: true, // Allow datetimes without timezone offset
+				offset: true, // Allow datetimes with timezone offset like +00:00
+			},
+			metadata: true,
+			types: {
+				infer: false, // Must use infer: false due to Zod's type inference limitations. This is partially related to the fix we are applying via update-sams-swagger.sh script.
+			},
+			exportFromIndex: true,
+		},
+		{
+			name: "@hey-api/client-fetch",
+			runtimeConfigPath: "@/data/sams/hey-api",
+		},
+		{
+			name: "@hey-api/sdk",
+			validator: true,
+		},
+	],
 	parser: {
 		patch: {
 			schemas: {
@@ -215,26 +237,4 @@ export default defineConfig({
 			},
 		},
 	},
-	plugins: [
-		{
-			name: "zod",
-			dates: {
-				local: true, // Allow datetimes without timezone offset
-				offset: true, // Allow datetimes with timezone offset like +00:00
-			},
-			metadata: true, 
-			types: {
-				infer: true
-			},
-			exportFromIndex: true,
-		},
-		{
-			name: "@hey-api/client-fetch",
-			runtimeConfigPath: "@/data/sams/hey-api",
-		},
-		{
-			name: "@hey-api/sdk",
-			validator: true, // Disable validation - SAMS API returns datetimes in non-standard format
-		},
-	],
 });

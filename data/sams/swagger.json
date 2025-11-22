@@ -4515,9 +4515,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "name": {
             "type": "string"
@@ -4581,9 +4579,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -4648,9 +4644,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "associationUuid": {
             "type": "string",
@@ -4756,9 +4750,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -4796,9 +4788,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "name": {
             "type": "string"
@@ -4838,9 +4828,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -4878,9 +4866,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "name": {
             "type": "string"
@@ -4922,9 +4908,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -4962,9 +4946,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "name": {
             "type": "string"
@@ -5025,9 +5007,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -5065,9 +5045,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "name": {
             "type": "string"
@@ -5124,9 +5102,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -5164,9 +5140,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "name": {
             "type": "string"
@@ -5227,9 +5201,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -5267,9 +5239,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "name": {
             "type": "string"
@@ -5307,9 +5277,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -5347,9 +5315,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "name": {
             "type": "string"
@@ -5388,9 +5354,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -5428,9 +5392,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "matchGroupName": {
             "type": "string"
@@ -5462,9 +5424,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -5502,9 +5462,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "teamName": {
             "type": "string"
@@ -5599,9 +5557,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "masterTeamUuid": {
             "type": "string"
@@ -5654,9 +5610,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -5694,9 +5648,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "date": {
             "type": "string",
@@ -5783,9 +5735,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -5885,9 +5835,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "name": {
             "type": "string"
@@ -5926,9 +5874,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -5970,9 +5916,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -6010,9 +5954,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "date": {
             "type": "string",
@@ -6099,9 +6041,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -6139,9 +6079,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "name": {
             "type": "string"
@@ -6225,9 +6163,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "content": {
             "type": "array",
@@ -6265,9 +6201,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "name": {
             "type": "string"
@@ -6299,9 +6233,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "name": {
             "type": "string"
@@ -6332,9 +6264,7 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Object"
-            }
+            "additionalProperties": {}
           },
           "firstName": {
             "type": "string"
@@ -6373,10 +6303,6 @@
             "type": "string"
           }
         }
-      },
-      "Object": {
-        "type": "object",
-        "additionalProperties": true
       }
     }
   }

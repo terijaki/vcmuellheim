@@ -10,45 +10,31 @@ export const zConstraintViolation = z.object({
     message: z.optional(z.string())
 });
 
-export type ConstraintViolationZodType = z.infer<typeof zConstraintViolation>;
-
 export const zValidationError = z.object({
     violations: z.optional(z.array(zConstraintViolation))
 });
 
-export type ValidationErrorZodType = z.infer<typeof zValidationError>;
-
 export const zResponseExceptionMessage = z.object({
     message: z.optional(z.string())
 });
-
-export type ResponseExceptionMessageZodType = z.infer<typeof zResponseExceptionMessage>;
 
 export const zResponseException = z.object({
     exception: z.optional(z.string()),
     message: z.optional(z.string())
 });
 
-export type ResponseExceptionZodType = z.infer<typeof zResponseException>;
-
 export const zEmbedded = z.object({
     empty: z.optional(z.boolean())
 });
-
-export type EmbeddedZodType = z.infer<typeof zEmbedded>;
 
 export const zLinks = z.object({
     empty: z.optional(z.boolean())
 });
 
-export type LinksZodType = z.infer<typeof zLinks>;
-
 export const zHalRepresentation = z.object({
     _links: z.optional(zLinks),
     _embedded: z.optional(zEmbedded)
 });
-
-export type HalRepresentationZodType = z.infer<typeof zHalRepresentation>;
 
 /**
  * Address for a location or a person. An address object may be null if no address data is available. For persons this might be the case if the address visibility has been set to private.
@@ -86,8 +72,6 @@ export const zAddress = z.object({
     description: 'Address for a location or a person. An address object may be null if no address data is available. For persons this might be the case if the address visibility has been set to private.'
 });
 
-export type AddressZodType = z.infer<typeof zAddress>;
-
 /**
  * A member of a committee. Personal data may be null if its visibility has been restricted.
  */
@@ -114,14 +98,10 @@ export const zCommitteeMember = z.object({
     description: 'A member of a committee. Personal data may be null if its visibility has been restricted.'
 });
 
-export type CommitteeMemberZodType = z.infer<typeof zCommitteeMember>;
-
 export const zMatchResultTypeCount = z.object({
     result: z.optional(z.string()),
     count: z.optional(z.int())
 });
-
-export type MatchResultTypeCountZodType = z.infer<typeof zMatchResultTypeCount>;
 
 export const zRefereeTeamDto = z.object({
     firstReferee: z.optional(z.union([
@@ -142,8 +122,6 @@ export const zRefereeTeamDto = z.object({
     ]))
 });
 
-export type RefereeTeamDtoZodType = z.infer<typeof zRefereeTeamDto>;
-
 export const zVolleyballMatchSetRestDto = z.object({
     number: z.optional(z.int()),
     ballPoints: z.optional(z.string()),
@@ -151,8 +129,6 @@ export const zVolleyballMatchSetRestDto = z.object({
     winnerName: z.optional(z.string()),
     duration: z.optional(z.int())
 });
-
-export type VolleyballMatchSetRestDtoZodType = z.infer<typeof zVolleyballMatchSetRestDto>;
 
 export const zVolleyballMatchResultsDto = z.object({
     winner: z.optional(z.union([
@@ -177,17 +153,9 @@ export const zVolleyballMatchResultsDto = z.object({
     ]))
 });
 
-export type VolleyballMatchResultsDtoZodType = z.infer<typeof zVolleyballMatchResultsDto>;
-
 export const zLinkDto = z.object({
     href: z.optional(z.string())
 });
-
-export type LinkDtoZodType = z.infer<typeof zLinkDto>;
-
-export const zObject = z.record(z.string(), z.unknown());
-
-export type ObjectZodType = z.infer<typeof zObject>;
 
 export const zAssociation = z.object({
     uuid: z.string().register(z.globalRegistry, {
@@ -198,7 +166,7 @@ export const zAssociation = z.object({
         z.null()
     ])),
     _embedded: z.optional(z.union([
-        z.record(z.string(), zObject),
+        z.record(z.string(), z.unknown()),
         z.null()
     ])),
     name: z.string(),
@@ -216,13 +184,11 @@ export const zAssociation = z.object({
     ]))
 });
 
-export type AssociationZodType = z.infer<typeof zAssociation>;
-
 export const zAssociationResourcePage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zAssociation)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
@@ -230,14 +196,12 @@ export const zAssociationResourcePage = z.object({
     last: z.optional(z.boolean())
 });
 
-export type AssociationResourcePageZodType = z.infer<typeof zAssociationResourcePage>;
-
 export const zCommittee = z.object({
     uuid: z.optional(z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
     })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     associationUuid: z.optional(z.string().register(z.globalRegistry, {
         description: 'Reference to the association this entity belongs to'
     })),
@@ -249,21 +213,17 @@ export const zCommittee = z.object({
     imageLink: z.optional(z.string())
 });
 
-export type CommitteeZodType = z.infer<typeof zCommittee>;
-
 export const zCommitteePage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zCommittee)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
     first: z.optional(z.boolean()),
     last: z.optional(z.boolean())
 });
-
-export type CommitteePageZodType = z.infer<typeof zCommitteePage>;
 
 export const zSportsclubDto = z.object({
     uuid: z.string().register(z.globalRegistry, {
@@ -274,7 +234,7 @@ export const zSportsclubDto = z.object({
         z.null()
     ])),
     _embedded: z.optional(z.union([
-        z.record(z.string(), zObject),
+        z.record(z.string(), z.unknown()),
         z.null()
     ])),
     name: z.string(),
@@ -296,13 +256,11 @@ export const zSportsclubDto = z.object({
     ]))
 });
 
-export type SportsclubDtoZodType = z.infer<typeof zSportsclubDto>;
-
 export const zSportsclubPage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zSportsclubDto)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
@@ -310,14 +268,12 @@ export const zSportsclubPage = z.object({
     last: z.optional(z.boolean())
 });
 
-export type SportsclubPageZodType = z.infer<typeof zSportsclubPage>;
-
 export const zLeagueHierarchyDto = z.object({
     uuid: z.optional(z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
     })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     name: z.optional(z.string()),
     shortName: z.optional(z.string()),
     seasonUuid: z.optional(z.string()),
@@ -326,13 +282,11 @@ export const zLeagueHierarchyDto = z.object({
     parentLeagueHierarchyUuid: z.optional(z.string())
 });
 
-export type LeagueHierarchyDtoZodType = z.infer<typeof zLeagueHierarchyDto>;
-
 export const zLeagueHierarchyPage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zLeagueHierarchyDto)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
@@ -340,14 +294,12 @@ export const zLeagueHierarchyPage = z.object({
     last: z.optional(z.boolean())
 });
 
-export type LeagueHierarchyPageZodType = z.infer<typeof zLeagueHierarchyPage>;
-
 export const zCompetitionDto = z.object({
     uuid: z.optional(z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
     })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     name: z.optional(z.string()),
     shortName: z.optional(z.string()),
     gender: z.optional(z.enum([
@@ -366,13 +318,11 @@ export const zCompetitionDto = z.object({
     }))
 });
 
-export type CompetitionDtoZodType = z.infer<typeof zCompetitionDto>;
-
 export const zCompetitionPage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zCompetitionDto)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
@@ -380,14 +330,12 @@ export const zCompetitionPage = z.object({
     last: z.optional(z.boolean())
 });
 
-export type CompetitionPageZodType = z.infer<typeof zCompetitionPage>;
-
 export const zLeagueDto = z.object({
     uuid: z.optional(z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
     })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     name: z.optional(z.string()),
     shortName: z.optional(z.string()),
     gender: z.optional(z.enum([
@@ -403,13 +351,11 @@ export const zLeagueDto = z.object({
     scoreTableCalculationMode: z.optional(z.string())
 });
 
-export type LeagueDtoZodType = z.infer<typeof zLeagueDto>;
-
 export const zLeaguePage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zLeagueDto)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
@@ -417,14 +363,12 @@ export const zLeaguePage = z.object({
     last: z.optional(z.boolean())
 });
 
-export type LeaguePageZodType = z.infer<typeof zLeaguePage>;
-
 export const zSuperCompetitionDto = z.object({
     uuid: z.optional(z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
     })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     name: z.optional(z.string()),
     shortName: z.optional(z.string()),
     gender: z.optional(z.enum([
@@ -443,21 +387,17 @@ export const zSuperCompetitionDto = z.object({
     }))
 });
 
-export type SuperCompetitionDtoZodType = z.infer<typeof zSuperCompetitionDto>;
-
 export const zSuperCompetitionPage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zSuperCompetitionDto)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
     first: z.optional(z.boolean()),
     last: z.optional(z.boolean())
 });
-
-export type SuperCompetitionPageZodType = z.infer<typeof zSuperCompetitionPage>;
 
 /**
  * A location comprises the location's name, its address, and its geographical coordinates if available
@@ -472,7 +412,7 @@ export const zLocation = z.object({
         z.null()
     ])),
     _embedded: z.optional(z.union([
-        z.record(z.string(), zObject),
+        z.record(z.string(), z.unknown()),
         z.null()
     ])),
     name: z.optional(z.union([
@@ -492,13 +432,11 @@ export const zLocation = z.object({
     description: 'A location comprises the location\'s name, its address, and its geographical coordinates if available'
 });
 
-export type LocationZodType = z.infer<typeof zLocation>;
-
 export const zLocationResourcePage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zLocation)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
@@ -506,14 +444,12 @@ export const zLocationResourcePage = z.object({
     last: z.optional(z.boolean())
 });
 
-export type LocationResourcePageZodType = z.infer<typeof zLocationResourcePage>;
-
 export const zCompetitionMatchGroupDto = z.object({
     uuid: z.optional(z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
     })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     name: z.optional(z.string()),
     tourneyLevel: z.optional(z.int()),
     seasonUuid: z.optional(z.string()),
@@ -521,21 +457,17 @@ export const zCompetitionMatchGroupDto = z.object({
     associationUuid: z.optional(z.string())
 });
 
-export type CompetitionMatchGroupDtoZodType = z.infer<typeof zCompetitionMatchGroupDto>;
-
 export const zCompetitionMatchGroupPage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zCompetitionMatchGroupDto)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
     first: z.optional(z.boolean()),
     last: z.optional(z.boolean())
 });
-
-export type CompetitionMatchGroupPageZodType = z.infer<typeof zCompetitionMatchGroupPage>;
 
 export const zLeagueRankingsEntryDto = z.object({
     uuid: z.optional(z.string().register(z.globalRegistry, {
@@ -546,7 +478,7 @@ export const zLeagueRankingsEntryDto = z.object({
         z.null()
     ])),
     _embedded: z.optional(z.union([
-        z.record(z.string(), zObject),
+        z.record(z.string(), z.unknown()),
         z.null()
     ])),
     teamName: z.optional(z.union([
@@ -614,33 +546,27 @@ export const zLeagueRankingsEntryDto = z.object({
     ]))
 });
 
-export type LeagueRankingsEntryDtoZodType = z.infer<typeof zLeagueRankingsEntryDto>;
-
 export const zCompetitionMatchGroupRankingsDto = z.object({
     uuid: z.optional(z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
     })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     matchGroupName: z.optional(z.string()),
     rankings: z.optional(z.array(zLeagueRankingsEntryDto))
 });
-
-export type CompetitionMatchGroupRankingsDtoZodType = z.infer<typeof zCompetitionMatchGroupRankingsDto>;
 
 export const zCompetitionRankingsResourcePage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zCompetitionMatchGroupRankingsDto)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
     first: z.optional(z.boolean()),
     last: z.optional(z.boolean())
 });
-
-export type CompetitionRankingsResourcePageZodType = z.infer<typeof zCompetitionRankingsResourcePage>;
 
 export const zTeamDto = z.object({
     uuid: z.optional(z.string().register(z.globalRegistry, {
@@ -651,7 +577,7 @@ export const zTeamDto = z.object({
         z.null()
     ])),
     _embedded: z.optional(z.union([
-        z.record(z.string(), zObject),
+        z.record(z.string(), z.unknown()),
         z.null()
     ])),
     masterTeamUuid: z.optional(z.union([
@@ -689,21 +615,17 @@ export const zTeamDto = z.object({
     ]))
 });
 
-export type TeamDtoZodType = z.infer<typeof zTeamDto>;
-
 export const zTeamPage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zTeamDto)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
     first: z.optional(z.boolean()),
     last: z.optional(z.boolean())
 });
-
-export type TeamPageZodType = z.infer<typeof zTeamPage>;
 
 export const zCompetitionMatchDto = z.object({
     uuid: z.string().register(z.globalRegistry, {
@@ -801,13 +723,11 @@ export const zCompetitionMatchDto = z.object({
     ]))
 });
 
-export type CompetitionMatchDtoZodType = z.infer<typeof zCompetitionMatchDto>;
-
 export const zCompetitionMatchPage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zCompetitionMatchDto)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
@@ -815,14 +735,12 @@ export const zCompetitionMatchPage = z.object({
     last: z.optional(z.boolean())
 });
 
-export type CompetitionMatchPageZodType = z.infer<typeof zCompetitionMatchPage>;
-
 export const zLeagueMatchDayDto = z.object({
     uuid: z.optional(z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
     })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     name: z.optional(z.string()),
     matchdate: z.optional(z.iso.datetime({ offset: true, local: true })),
     seasonUuid: z.optional(z.string()),
@@ -830,13 +748,11 @@ export const zLeagueMatchDayDto = z.object({
     associationUuid: z.optional(z.string())
 });
 
-export type LeagueMatchDayDtoZodType = z.infer<typeof zLeagueMatchDayDto>;
-
 export const zLeagueMatchDayPage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zLeagueMatchDayDto)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
@@ -844,21 +760,17 @@ export const zLeagueMatchDayPage = z.object({
     last: z.optional(z.boolean())
 });
 
-export type LeagueMatchDayPageZodType = z.infer<typeof zLeagueMatchDayPage>;
-
 export const zLeagueRankingsResourcePage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zLeagueRankingsEntryDto)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
     first: z.optional(z.boolean()),
     last: z.optional(z.boolean())
 });
-
-export type LeagueRankingsResourcePageZodType = z.infer<typeof zLeagueRankingsResourcePage>;
 
 export const zLeagueMatchDto = z.object({
     uuid: z.string().register(z.globalRegistry, {
@@ -956,13 +868,11 @@ export const zLeagueMatchDto = z.object({
     ]))
 });
 
-export type LeagueMatchDtoZodType = z.infer<typeof zLeagueMatchDto>;
-
 export const zLeagueMatchPage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zLeagueMatchDto)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
@@ -970,14 +880,12 @@ export const zLeagueMatchPage = z.object({
     last: z.optional(z.boolean())
 });
 
-export type LeagueMatchPageZodType = z.infer<typeof zLeagueMatchPage>;
-
 export const zEvent = z.object({
     uuid: z.optional(z.string().register(z.globalRegistry, {
         description: 'Event unique identifier'
     })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     name: z.optional(z.string()),
     shortname: z.optional(z.string()),
     eventNumber: z.optional(z.int()),
@@ -1006,21 +914,17 @@ export const zEvent = z.object({
     }))
 });
 
-export type EventZodType = z.infer<typeof zEvent>;
-
 export const zEventPage = z.object({
     totalElements: z.optional(z.int()),
     numberOfElements: z.optional(z.int()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     content: z.optional(z.array(zEvent)),
     empty: z.optional(z.boolean()),
     totalPages: z.optional(z.int()),
     first: z.optional(z.boolean()),
     last: z.optional(z.boolean())
 });
-
-export type EventPageZodType = z.infer<typeof zEventPage>;
 
 /**
  * Type of an event.
@@ -1030,7 +934,7 @@ export const zEventType = z.object({
         description: 'Entity unique identifier'
     })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     name: z.optional(z.string()),
     description: z.optional(z.string()),
     category: z.optional(z.string()),
@@ -1039,28 +943,24 @@ export const zEventType = z.object({
     description: 'Type of an event.'
 });
 
-export type EventTypeZodType = z.infer<typeof zEventType>;
-
 export const zSeasonDto = z.object({
     uuid: z.optional(z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
     })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     name: z.optional(z.string()),
     startDate: z.optional(z.string()),
     endDate: z.optional(z.string()),
     currentSeason: z.optional(z.boolean())
 });
 
-export type SeasonDtoZodType = z.infer<typeof zSeasonDto>;
-
 export const zUserDetailsDto = z.object({
     uuid: z.optional(z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
     })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), zObject)),
+    _embedded: z.optional(z.record(z.string(), z.unknown())),
     firstName: z.optional(z.string()),
     lastName: z.optional(z.string()),
     dateOfBirth: z.optional(z.iso.datetime({ offset: true, local: true })),
@@ -1075,8 +975,6 @@ export const zUserDetailsDto = z.object({
     refsoftID: z.optional(z.string())
 });
 
-export type UserDetailsDtoZodType = z.infer<typeof zUserDetailsDto>;
-
 export const zGetApiBaseLinksData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
@@ -1087,8 +985,6 @@ export const zGetApiBaseLinksData = z.object({
         }))
     }))
 });
-
-export type GetApiBaseLinksDataZodType = z.infer<typeof zGetApiBaseLinksData>;
 
 export const zGetAssociationByUuidData = z.object({
     body: z.optional(z.never()),
@@ -1105,14 +1001,10 @@ export const zGetAssociationByUuidData = z.object({
     }))
 });
 
-export type GetAssociationByUuidDataZodType = z.infer<typeof zGetAssociationByUuidData>;
-
 /**
  * Successful operation
  */
 export const zGetAssociationByUuidResponse = zAssociation;
-
-export type GetAssociationByUuidResponseZodType = z.infer<typeof zGetAssociationByUuidResponse>;
 
 export const zGetAssociationsData = z.object({
     body: z.optional(z.never()),
@@ -1135,14 +1027,10 @@ export const zGetAssociationsData = z.object({
     }))
 });
 
-export type GetAssociationsDataZodType = z.infer<typeof zGetAssociationsData>;
-
 /**
  * Successful operation
  */
 export const zGetAssociationsResponse = zAssociationResourcePage;
-
-export type GetAssociationsResponseZodType = z.infer<typeof zGetAssociationsResponse>;
 
 export const zGetCommitteesForAssociationData = z.object({
     body: z.optional(z.never()),
@@ -1166,14 +1054,10 @@ export const zGetCommitteesForAssociationData = z.object({
     }))
 });
 
-export type GetCommitteesForAssociationDataZodType = z.infer<typeof zGetCommitteesForAssociationData>;
-
 /**
  * Successful operation
  */
 export const zGetCommitteesForAssociationResponse = zCommitteePage;
-
-export type GetCommitteesForAssociationResponseZodType = z.infer<typeof zGetCommitteesForAssociationResponse>;
 
 export const zGetSportsclubsForAssociationData = z.object({
     body: z.optional(z.never()),
@@ -1197,14 +1081,10 @@ export const zGetSportsclubsForAssociationData = z.object({
     }))
 });
 
-export type GetSportsclubsForAssociationDataZodType = z.infer<typeof zGetSportsclubsForAssociationData>;
-
 /**
  * Successful operation
  */
 export const zGetSportsclubsForAssociationResponse = zSportsclubPage;
-
-export type GetSportsclubsForAssociationResponseZodType = z.infer<typeof zGetSportsclubsForAssociationResponse>;
 
 export const zGetAllCommitteesData = z.object({
     body: z.optional(z.never()),
@@ -1224,14 +1104,10 @@ export const zGetAllCommitteesData = z.object({
     }))
 });
 
-export type GetAllCommitteesDataZodType = z.infer<typeof zGetAllCommitteesData>;
-
 /**
  * Successful operation
  */
 export const zGetAllCommitteesResponse = zCommitteePage;
-
-export type GetAllCommitteesResponseZodType = z.infer<typeof zGetAllCommitteesResponse>;
 
 export const zGetCommitteeData = z.object({
     body: z.optional(z.never()),
@@ -1246,14 +1122,10 @@ export const zGetCommitteeData = z.object({
     }))
 });
 
-export type GetCommitteeDataZodType = z.infer<typeof zGetCommitteeData>;
-
 /**
  * Successful operation
  */
 export const zGetCommitteeResponse = zCommittee;
-
-export type GetCommitteeResponseZodType = z.infer<typeof zGetCommitteeResponse>;
 
 export const zGetAllLeagueHierarchiesData = z.object({
     body: z.optional(z.never()),
@@ -1279,14 +1151,10 @@ export const zGetAllLeagueHierarchiesData = z.object({
     }))
 });
 
-export type GetAllLeagueHierarchiesDataZodType = z.infer<typeof zGetAllLeagueHierarchiesData>;
-
 /**
  * Successful operation
  */
 export const zGetAllLeagueHierarchiesResponse = zLeagueHierarchyPage;
-
-export type GetAllLeagueHierarchiesResponseZodType = z.infer<typeof zGetAllLeagueHierarchiesResponse>;
 
 export const zGetCompetitionsByLeagueHierarchyData = z.object({
     body: z.optional(z.never()),
@@ -1308,14 +1176,10 @@ export const zGetCompetitionsByLeagueHierarchyData = z.object({
     }))
 });
 
-export type GetCompetitionsByLeagueHierarchyDataZodType = z.infer<typeof zGetCompetitionsByLeagueHierarchyData>;
-
 /**
  * Successful operation
  */
 export const zGetCompetitionsByLeagueHierarchyResponse = zCompetitionPage;
-
-export type GetCompetitionsByLeagueHierarchyResponseZodType = z.infer<typeof zGetCompetitionsByLeagueHierarchyResponse>;
 
 export const zGetLeagueHierarchyByUuidData = z.object({
     body: z.optional(z.never()),
@@ -1330,14 +1194,10 @@ export const zGetLeagueHierarchyByUuidData = z.object({
     }))
 });
 
-export type GetLeagueHierarchyByUuidDataZodType = z.infer<typeof zGetLeagueHierarchyByUuidData>;
-
 /**
  * Successful operation
  */
 export const zGetLeagueHierarchyByUuidResponse = zLeagueHierarchyDto;
-
-export type GetLeagueHierarchyByUuidResponseZodType = z.infer<typeof zGetLeagueHierarchyByUuidResponse>;
 
 export const zGetLeaguesByLeagueHierarchyData = z.object({
     body: z.optional(z.never()),
@@ -1359,14 +1219,10 @@ export const zGetLeaguesByLeagueHierarchyData = z.object({
     }))
 });
 
-export type GetLeaguesByLeagueHierarchyDataZodType = z.infer<typeof zGetLeaguesByLeagueHierarchyData>;
-
 /**
  * Successful operation
  */
 export const zGetLeaguesByLeagueHierarchyResponse = zLeaguePage;
-
-export type GetLeaguesByLeagueHierarchyResponseZodType = z.infer<typeof zGetLeaguesByLeagueHierarchyResponse>;
 
 export const zGetSuperCompetitionsByLeagueHierarchyData = z.object({
     body: z.optional(z.never()),
@@ -1388,14 +1244,10 @@ export const zGetSuperCompetitionsByLeagueHierarchyData = z.object({
     }))
 });
 
-export type GetSuperCompetitionsByLeagueHierarchyDataZodType = z.infer<typeof zGetSuperCompetitionsByLeagueHierarchyData>;
-
 /**
  * Successful operation
  */
 export const zGetSuperCompetitionsByLeagueHierarchyResponse = zSuperCompetitionPage;
-
-export type GetSuperCompetitionsByLeagueHierarchyResponseZodType = z.infer<typeof zGetSuperCompetitionsByLeagueHierarchyResponse>;
 
 export const zGetAllLocationsData = z.object({
     body: z.optional(z.never()),
@@ -1415,14 +1267,10 @@ export const zGetAllLocationsData = z.object({
     }))
 });
 
-export type GetAllLocationsDataZodType = z.infer<typeof zGetAllLocationsData>;
-
 /**
  * Successful operation
  */
 export const zGetAllLocationsResponse = zLocationResourcePage;
-
-export type GetAllLocationsResponseZodType = z.infer<typeof zGetAllLocationsResponse>;
 
 export const zGetLocationByUuidData = z.object({
     body: z.optional(z.never()),
@@ -1437,14 +1285,10 @@ export const zGetLocationByUuidData = z.object({
     }))
 });
 
-export type GetLocationByUuidDataZodType = z.infer<typeof zGetLocationByUuidData>;
-
 /**
  * Successful operation
  */
 export const zGetLocationByUuidResponse = zLocation;
-
-export type GetLocationByUuidResponseZodType = z.infer<typeof zGetLocationByUuidResponse>;
 
 export const zGetAllCompetitionsData = z.object({
     body: z.optional(z.never()),
@@ -1470,14 +1314,10 @@ export const zGetAllCompetitionsData = z.object({
     }))
 });
 
-export type GetAllCompetitionsDataZodType = z.infer<typeof zGetAllCompetitionsData>;
-
 /**
  * Successful operation
  */
 export const zGetAllCompetitionsResponse = zCompetitionPage;
-
-export type GetAllCompetitionsResponseZodType = z.infer<typeof zGetAllCompetitionsResponse>;
 
 export const zGetCompetitionByUuidData = z.object({
     body: z.optional(z.never()),
@@ -1492,14 +1332,10 @@ export const zGetCompetitionByUuidData = z.object({
     }))
 });
 
-export type GetCompetitionByUuidDataZodType = z.infer<typeof zGetCompetitionByUuidData>;
-
 /**
  * Successful operation
  */
 export const zGetCompetitionByUuidResponse = zCompetitionDto;
-
-export type GetCompetitionByUuidResponseZodType = z.infer<typeof zGetCompetitionByUuidResponse>;
 
 export const zGetMatchGroupsForCompetitionData = z.object({
     body: z.optional(z.never()),
@@ -1521,14 +1357,10 @@ export const zGetMatchGroupsForCompetitionData = z.object({
     }))
 });
 
-export type GetMatchGroupsForCompetitionDataZodType = z.infer<typeof zGetMatchGroupsForCompetitionData>;
-
 /**
  * Successful operation
  */
 export const zGetMatchGroupsForCompetitionResponse = zCompetitionMatchGroupPage;
-
-export type GetMatchGroupsForCompetitionResponseZodType = z.infer<typeof zGetMatchGroupsForCompetitionResponse>;
 
 export const zGetRankingsForCompetitionData = z.object({
     body: z.optional(z.never()),
@@ -1550,14 +1382,10 @@ export const zGetRankingsForCompetitionData = z.object({
     }))
 });
 
-export type GetRankingsForCompetitionDataZodType = z.infer<typeof zGetRankingsForCompetitionData>;
-
 /**
  * Successful operation
  */
 export const zGetRankingsForCompetitionResponse = zCompetitionRankingsResourcePage;
-
-export type GetRankingsForCompetitionResponseZodType = z.infer<typeof zGetRankingsForCompetitionResponse>;
 
 export const zGetTeamsForCompetitionData = z.object({
     body: z.optional(z.never()),
@@ -1579,14 +1407,10 @@ export const zGetTeamsForCompetitionData = z.object({
     }))
 });
 
-export type GetTeamsForCompetitionDataZodType = z.infer<typeof zGetTeamsForCompetitionData>;
-
 /**
  * Successful operation
  */
 export const zGetTeamsForCompetitionResponse = zTeamPage;
-
-export type GetTeamsForCompetitionResponseZodType = z.infer<typeof zGetTeamsForCompetitionResponse>;
 
 export const zGetAllCompetitionMatchesWithFilterData = z.object({
     body: z.optional(z.never()),
@@ -1621,14 +1445,10 @@ export const zGetAllCompetitionMatchesWithFilterData = z.object({
     }))
 });
 
-export type GetAllCompetitionMatchesWithFilterDataZodType = z.infer<typeof zGetAllCompetitionMatchesWithFilterData>;
-
 /**
  * Successful operation
  */
 export const zGetAllCompetitionMatchesWithFilterResponse = zCompetitionMatchPage;
-
-export type GetAllCompetitionMatchesWithFilterResponseZodType = z.infer<typeof zGetAllCompetitionMatchesWithFilterResponse>;
 
 export const zGetCompetitionMatchByUuidData = z.object({
     body: z.optional(z.never()),
@@ -1643,14 +1463,10 @@ export const zGetCompetitionMatchByUuidData = z.object({
     }))
 });
 
-export type GetCompetitionMatchByUuidDataZodType = z.infer<typeof zGetCompetitionMatchByUuidData>;
-
 /**
  * Successful operation
  */
 export const zGetCompetitionMatchByUuidResponse = zCompetitionMatchDto;
-
-export type GetCompetitionMatchByUuidResponseZodType = z.infer<typeof zGetCompetitionMatchByUuidResponse>;
 
 export const zGetAllMatchGroupsData = z.object({
     body: z.optional(z.never()),
@@ -1673,14 +1489,10 @@ export const zGetAllMatchGroupsData = z.object({
     }))
 });
 
-export type GetAllMatchGroupsDataZodType = z.infer<typeof zGetAllMatchGroupsData>;
-
 /**
  * Successful operation
  */
 export const zGetAllMatchGroupsResponse = zCompetitionMatchGroupPage;
-
-export type GetAllMatchGroupsResponseZodType = z.infer<typeof zGetAllMatchGroupsResponse>;
 
 export const zGetMatchGroupByUuidData = z.object({
     body: z.optional(z.never()),
@@ -1695,14 +1507,10 @@ export const zGetMatchGroupByUuidData = z.object({
     }))
 });
 
-export type GetMatchGroupByUuidDataZodType = z.infer<typeof zGetMatchGroupByUuidData>;
-
 /**
  * Successful operation
  */
 export const zGetMatchGroupByUuidResponse = zCompetitionMatchGroupDto;
-
-export type GetMatchGroupByUuidResponseZodType = z.infer<typeof zGetMatchGroupByUuidResponse>;
 
 export const zGetMatchesByMatchGroupData = z.object({
     body: z.optional(z.never()),
@@ -1724,14 +1532,10 @@ export const zGetMatchesByMatchGroupData = z.object({
     }))
 });
 
-export type GetMatchesByMatchGroupDataZodType = z.infer<typeof zGetMatchesByMatchGroupData>;
-
 /**
  * Successful operation
  */
 export const zGetMatchesByMatchGroupResponse = zCompetitionMatchPage;
-
-export type GetMatchesByMatchGroupResponseZodType = z.infer<typeof zGetMatchesByMatchGroupResponse>;
 
 export const zGetAllLeaguesData = z.object({
     body: z.optional(z.never()),
@@ -1757,14 +1561,10 @@ export const zGetAllLeaguesData = z.object({
     }))
 });
 
-export type GetAllLeaguesDataZodType = z.infer<typeof zGetAllLeaguesData>;
-
 /**
  * Successful operation
  */
 export const zGetAllLeaguesResponse = zLeaguePage;
-
-export type GetAllLeaguesResponseZodType = z.infer<typeof zGetAllLeaguesResponse>;
 
 export const zGetLeagueByUuidData = z.object({
     body: z.optional(z.never()),
@@ -1779,14 +1579,10 @@ export const zGetLeagueByUuidData = z.object({
     }))
 });
 
-export type GetLeagueByUuidDataZodType = z.infer<typeof zGetLeagueByUuidData>;
-
 /**
  * Successful operation
  */
 export const zGetLeagueByUuidResponse = zLeagueDto;
-
-export type GetLeagueByUuidResponseZodType = z.infer<typeof zGetLeagueByUuidResponse>;
 
 export const zGetMatchDaysForLeagueData = z.object({
     body: z.optional(z.never()),
@@ -1808,14 +1604,10 @@ export const zGetMatchDaysForLeagueData = z.object({
     }))
 });
 
-export type GetMatchDaysForLeagueDataZodType = z.infer<typeof zGetMatchDaysForLeagueData>;
-
 /**
  * Successful operation
  */
 export const zGetMatchDaysForLeagueResponse = zLeagueMatchDayPage;
-
-export type GetMatchDaysForLeagueResponseZodType = z.infer<typeof zGetMatchDaysForLeagueResponse>;
 
 export const zGetRankingsForLeagueData = z.object({
     body: z.optional(z.never()),
@@ -1837,14 +1629,10 @@ export const zGetRankingsForLeagueData = z.object({
     }))
 });
 
-export type GetRankingsForLeagueDataZodType = z.infer<typeof zGetRankingsForLeagueData>;
-
 /**
  * Successful operation
  */
 export const zGetRankingsForLeagueResponse = zLeagueRankingsResourcePage;
-
-export type GetRankingsForLeagueResponseZodType = z.infer<typeof zGetRankingsForLeagueResponse>;
 
 export const zGetTeamsForLeagueData = z.object({
     body: z.optional(z.never()),
@@ -1866,14 +1654,10 @@ export const zGetTeamsForLeagueData = z.object({
     }))
 });
 
-export type GetTeamsForLeagueDataZodType = z.infer<typeof zGetTeamsForLeagueData>;
-
 /**
  * Successful operation
  */
 export const zGetTeamsForLeagueResponse = zTeamPage;
-
-export type GetTeamsForLeagueResponseZodType = z.infer<typeof zGetTeamsForLeagueResponse>;
 
 export const zGetAllLeagueMatchesData = z.object({
     body: z.optional(z.never()),
@@ -1908,14 +1692,10 @@ export const zGetAllLeagueMatchesData = z.object({
     }))
 });
 
-export type GetAllLeagueMatchesDataZodType = z.infer<typeof zGetAllLeagueMatchesData>;
-
 /**
  * Successful operation
  */
 export const zGetAllLeagueMatchesResponse = zLeagueMatchPage;
-
-export type GetAllLeagueMatchesResponseZodType = z.infer<typeof zGetAllLeagueMatchesResponse>;
 
 export const zGetLeagueMatchByUuidData = z.object({
     body: z.optional(z.never()),
@@ -1930,14 +1710,10 @@ export const zGetLeagueMatchByUuidData = z.object({
     }))
 });
 
-export type GetLeagueMatchByUuidDataZodType = z.infer<typeof zGetLeagueMatchByUuidData>;
-
 /**
  * Successful operation
  */
 export const zGetLeagueMatchByUuidResponse = zLeagueMatchDto;
-
-export type GetLeagueMatchByUuidResponseZodType = z.infer<typeof zGetLeagueMatchByUuidResponse>;
 
 export const zGetAllMatchDaysData = z.object({
     body: z.optional(z.never()),
@@ -1960,14 +1736,10 @@ export const zGetAllMatchDaysData = z.object({
     }))
 });
 
-export type GetAllMatchDaysDataZodType = z.infer<typeof zGetAllMatchDaysData>;
-
 /**
  * Successful operation
  */
 export const zGetAllMatchDaysResponse = zLeagueMatchDayPage;
-
-export type GetAllMatchDaysResponseZodType = z.infer<typeof zGetAllMatchDaysResponse>;
 
 export const zGetMatchDayByUuidData = z.object({
     body: z.optional(z.never()),
@@ -1982,14 +1754,10 @@ export const zGetMatchDayByUuidData = z.object({
     }))
 });
 
-export type GetMatchDayByUuidDataZodType = z.infer<typeof zGetMatchDayByUuidData>;
-
 /**
  * Successful operation
  */
 export const zGetMatchDayByUuidResponse = zLeagueMatchDayDto;
-
-export type GetMatchDayByUuidResponseZodType = z.infer<typeof zGetMatchDayByUuidResponse>;
 
 export const zGetMatchesByMatchDayData = z.object({
     body: z.optional(z.never()),
@@ -2011,14 +1779,10 @@ export const zGetMatchesByMatchDayData = z.object({
     }))
 });
 
-export type GetMatchesByMatchDayDataZodType = z.infer<typeof zGetMatchesByMatchDayData>;
-
 /**
  * Successful operation
  */
 export const zGetMatchesByMatchDayResponse = zLeagueMatchPage;
-
-export type GetMatchesByMatchDayResponseZodType = z.infer<typeof zGetMatchesByMatchDayResponse>;
 
 export const zGetAllSuperCompetitionsData = z.object({
     body: z.optional(z.never()),
@@ -2044,14 +1808,10 @@ export const zGetAllSuperCompetitionsData = z.object({
     }))
 });
 
-export type GetAllSuperCompetitionsDataZodType = z.infer<typeof zGetAllSuperCompetitionsData>;
-
 /**
  * Successful operation
  */
 export const zGetAllSuperCompetitionsResponse = zSuperCompetitionPage;
-
-export type GetAllSuperCompetitionsResponseZodType = z.infer<typeof zGetAllSuperCompetitionsResponse>;
 
 export const zGetSuperCompetitionByUuidData = z.object({
     body: z.optional(z.never()),
@@ -2066,14 +1826,10 @@ export const zGetSuperCompetitionByUuidData = z.object({
     }))
 });
 
-export type GetSuperCompetitionByUuidDataZodType = z.infer<typeof zGetSuperCompetitionByUuidData>;
-
 /**
  * Successful operation
  */
 export const zGetSuperCompetitionByUuidResponse = zSuperCompetitionDto;
-
-export type GetSuperCompetitionByUuidResponseZodType = z.infer<typeof zGetSuperCompetitionByUuidResponse>;
 
 export const zGetAllEventsData = z.object({
     body: z.optional(z.never()),
@@ -2096,14 +1852,10 @@ export const zGetAllEventsData = z.object({
     }))
 });
 
-export type GetAllEventsDataZodType = z.infer<typeof zGetAllEventsData>;
-
 /**
  * Successful operation
  */
 export const zGetAllEventsResponse = zEventPage;
-
-export type GetAllEventsResponseZodType = z.infer<typeof zGetAllEventsResponse>;
 
 export const zGetEventByUuidData = z.object({
     body: z.optional(z.never()),
@@ -2120,14 +1872,10 @@ export const zGetEventByUuidData = z.object({
     }))
 });
 
-export type GetEventByUuidDataZodType = z.infer<typeof zGetEventByUuidData>;
-
 /**
  * Successful operation
  */
 export const zGetEventByUuidResponse = zEvent;
-
-export type GetEventByUuidResponseZodType = z.infer<typeof zGetEventByUuidResponse>;
 
 export const zGetEventTypeByUuidData = z.object({
     body: z.optional(z.never()),
@@ -2144,14 +1892,10 @@ export const zGetEventTypeByUuidData = z.object({
     }))
 });
 
-export type GetEventTypeByUuidDataZodType = z.infer<typeof zGetEventTypeByUuidData>;
-
 /**
  * Successful operation
  */
 export const zGetEventTypeByUuidResponse = zEventType;
-
-export type GetEventTypeByUuidResponseZodType = z.infer<typeof zGetEventTypeByUuidResponse>;
 
 export const zGetEventTypesData = z.object({
     body: z.optional(z.never()),
@@ -2168,14 +1912,10 @@ export const zGetEventTypesData = z.object({
     }))
 });
 
-export type GetEventTypesDataZodType = z.infer<typeof zGetEventTypesData>;
-
 /**
  * Successful operation
  */
 export const zGetEventTypesResponse = zEventType;
-
-export type GetEventTypesResponseZodType = z.infer<typeof zGetEventTypesResponse>;
 
 export const zGetAllSeasonsData = z.object({
     body: z.optional(z.never()),
@@ -2188,16 +1928,12 @@ export const zGetAllSeasonsData = z.object({
     }))
 });
 
-export type GetAllSeasonsDataZodType = z.infer<typeof zGetAllSeasonsData>;
-
 /**
  * Successful operation
  */
 export const zGetAllSeasonsResponse = z.array(zSeasonDto).register(z.globalRegistry, {
     description: 'Successful operation'
 });
-
-export type GetAllSeasonsResponseZodType = z.infer<typeof zGetAllSeasonsResponse>;
 
 export const zGetLeagueHierarchiesForSeasonData = z.object({
     body: z.optional(z.never()),
@@ -2219,14 +1955,10 @@ export const zGetLeagueHierarchiesForSeasonData = z.object({
     }))
 });
 
-export type GetLeagueHierarchiesForSeasonDataZodType = z.infer<typeof zGetLeagueHierarchiesForSeasonData>;
-
 /**
  * Successful operation
  */
 export const zGetLeagueHierarchiesForSeasonResponse = zLeagueHierarchyPage;
-
-export type GetLeagueHierarchiesForSeasonResponseZodType = z.infer<typeof zGetLeagueHierarchiesForSeasonResponse>;
 
 export const zGetSeasonByUuidData = z.object({
     body: z.optional(z.never()),
@@ -2241,14 +1973,10 @@ export const zGetSeasonByUuidData = z.object({
     }))
 });
 
-export type GetSeasonByUuidDataZodType = z.infer<typeof zGetSeasonByUuidData>;
-
 /**
  * Successful operation
  */
 export const zGetSeasonByUuidResponse = zSeasonDto;
-
-export type GetSeasonByUuidResponseZodType = z.infer<typeof zGetSeasonByUuidResponse>;
 
 export const zGetAllSportsclubsData = z.object({
     body: z.optional(z.never()),
@@ -2271,14 +1999,10 @@ export const zGetAllSportsclubsData = z.object({
     }))
 });
 
-export type GetAllSportsclubsDataZodType = z.infer<typeof zGetAllSportsclubsData>;
-
 /**
  * Successful operation
  */
 export const zGetAllSportsclubsResponse = zSportsclubPage;
-
-export type GetAllSportsclubsResponseZodType = z.infer<typeof zGetAllSportsclubsResponse>;
 
 export const zGetSportsclubData = z.object({
     body: z.optional(z.never()),
@@ -2293,14 +2017,10 @@ export const zGetSportsclubData = z.object({
     }))
 });
 
-export type GetSportsclubDataZodType = z.infer<typeof zGetSportsclubData>;
-
 /**
  * Successful operation
  */
 export const zGetSportsclubResponse = zSportsclubDto;
-
-export type GetSportsclubResponseZodType = z.infer<typeof zGetSportsclubResponse>;
 
 export const zGetAllTeamsData = z.object({
     body: z.optional(z.never()),
@@ -2323,14 +2043,10 @@ export const zGetAllTeamsData = z.object({
     }))
 });
 
-export type GetAllTeamsDataZodType = z.infer<typeof zGetAllTeamsData>;
-
 /**
  * Successful operation
  */
 export const zGetAllTeamsResponse = zTeamPage;
-
-export type GetAllTeamsResponseZodType = z.infer<typeof zGetAllTeamsResponse>;
 
 export const zGetTeamByUuidData = z.object({
     body: z.optional(z.never()),
@@ -2345,14 +2061,10 @@ export const zGetTeamByUuidData = z.object({
     }))
 });
 
-export type GetTeamByUuidDataZodType = z.infer<typeof zGetTeamByUuidData>;
-
 /**
  * Successful operation
  */
 export const zGetTeamByUuidResponse = zTeamDto;
-
-export type GetTeamByUuidResponseZodType = z.infer<typeof zGetTeamByUuidResponse>;
 
 export const zGetCurrentUserData = z.object({
     body: z.optional(z.never()),
@@ -2365,14 +2077,10 @@ export const zGetCurrentUserData = z.object({
     }))
 });
 
-export type GetCurrentUserDataZodType = z.infer<typeof zGetCurrentUserData>;
-
 /**
  * Successful operation
  */
 export const zGetCurrentUserResponse = zUserDetailsDto;
-
-export type GetCurrentUserResponseZodType = z.infer<typeof zGetCurrentUserResponse>;
 
 export const zUserDetailsRootLinksData = z.object({
     body: z.optional(z.never()),
@@ -2385,11 +2093,7 @@ export const zUserDetailsRootLinksData = z.object({
     }))
 });
 
-export type UserDetailsRootLinksDataZodType = z.infer<typeof zUserDetailsRootLinksData>;
-
 /**
  * Successful operation
  */
 export const zUserDetailsRootLinksResponse = zHalRepresentation;
-
-export type UserDetailsRootLinksResponseZodType = z.infer<typeof zUserDetailsRootLinksResponse>;
