@@ -51,11 +51,11 @@ jobs:
                     echo "is_main=false" >> $GITHUB_OUTPUT
                   fi
 
-            - name: Run tests
-              run: bun run test
-
             - name: Lint check
               run: bun run lint
+
+            - name: Run tests
+              run: bun run test
 
             - name: CDK Diff
               env:

@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeAll } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 import { slugify } from "@/utils/slugify";
 
 // Set environment variables before tests

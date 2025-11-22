@@ -1,6 +1,6 @@
 import { App } from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
-import { describe, it, beforeAll } from "vitest";
+import { beforeAll, describe, it } from "vitest";
 import { SamsApiStack } from "./sams-api-stack";
 
 // Set required environment variables before tests
@@ -181,11 +181,7 @@ describe("SamsApiStack", () => {
 			// Clubs table should have 3 GSIs
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
 				TableName: "dev-sams-clubs",
-				GlobalSecondaryIndexes: [
-					{ IndexName: "associationUuid-index" },
-					{ IndexName: "name-index" },
-					{ IndexName: "nameSlug-index" },
-				],
+				GlobalSecondaryIndexes: [{ IndexName: "associationUuid-index" }, { IndexName: "name-index" }, { IndexName: "nameSlug-index" }],
 			});
 		});
 
@@ -203,11 +199,7 @@ describe("SamsApiStack", () => {
 			// Teams table should have 3 GSIs
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
 				TableName: "dev-sams-teams",
-				GlobalSecondaryIndexes: [
-					{ IndexName: "sportsclubUuid-index" },
-					{ IndexName: "leagueUuid-index" },
-					{ IndexName: "nameSlug-index" },
-				],
+				GlobalSecondaryIndexes: [{ IndexName: "sportsclubUuid-index" }, { IndexName: "leagueUuid-index" }, { IndexName: "nameSlug-index" }],
 			});
 		});
 

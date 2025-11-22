@@ -19,7 +19,6 @@
 		"deploy-podman": "bash scripts/deploy-podman.sh",
 		"biome": "biome check",
 		"lint": "biome lint --write",
-		"next-lint": "eslint .",
 		"test": "vitest run",
 		"test:watch": "vitest watch",
 		"test:ui": "vitest --ui",

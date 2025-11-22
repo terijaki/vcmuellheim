@@ -35,7 +35,7 @@ describe("slugify", () => {
 			expect(slugify("")).toBe("");
 			expect(slugify("   ")).toBe("");
 			expect(slugify("---")).toBe("");
-            expect(slugify("   !@?   ", true)).toBe("");
+			expect(slugify("   !@?   ", true)).toBe("");
 		});
 	});
 });
