@@ -4,7 +4,7 @@ import type { EventBridgeEvent } from "aws-lambda";
 import { getAllSportsclubs, getAssociations } from "@/data/sams/client";
 import { SAMS } from "@/project.config";
 import { slugify } from "@/utils/slugify";
-import type { ClubItem } from "./types";
+import { type ClubItem, ClubItemSchema } from "./types";
 
 // Initialize DynamoDB client
 const dynamoClient = new DynamoDBClient({});
@@ -83,13 +83,11 @@ export const handler = async (event: EventBridgeEvent<string, unknown>) => {
 				const now = new Date().toISOString();
 				const ttl = Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60; // 30 days from now
 
+				// Transform clubs using Zod schema to strip undefined values
 				const clubs = data.content
 					.filter((c) => c.uuid && c.name) // Only clubs with uuid and name
-					.map((c): ClubItem => {
-						if (!c.uuid || !c.name) {
-							throw new Error("Club missing required fields");
-						}
-						return {
+					.map((c) =>
+						ClubItemSchema.parse({
 							sportsclubUuid: c.uuid,
 							name: c.name,
 							nameSlug: slugify(c.name),
@@ -98,8 +96,8 @@ export const handler = async (event: EventBridgeEvent<string, unknown>) => {
 							logoImageLink: c.logoImageLink,
 							updatedAt: now,
 							ttl,
-						};
-					});
+						}),
+					);
 				allClubs.push(...clubs);
 				console.log(`📄 Fetched page ${currentPage + 1}/${data.totalPages} (${clubs.length} clubs)`);
 				currentPage++;

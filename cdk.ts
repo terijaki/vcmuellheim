@@ -2,6 +2,7 @@ import "dotenv/config";
 import { execSync } from "node:child_process";
 import * as cdk from "aws-cdk-lib";
 import { SamsApiStack } from "./lib/sams-api-stack";
+import { SocialMediaStack } from "./lib/social-media-stack";
 
 const app = new cdk.App();
 
@@ -32,23 +33,32 @@ const branch = !isMainBranch ? sanitizeBranchName(currentBranch) : "";
 const branchSuffix = branch ? `-${branch}` : "";
 
 // Environment-specific configuration
-const stackName = isProd ? `SamsApiStack-Prod${branchSuffix}` : `SamsApiStack-Dev${branchSuffix}`;
+const samsStackName = isProd ? `SamsApiStack-Prod${branchSuffix}` : `SamsApiStack-Dev${branchSuffix}`;
+const socialMediaStackName = isProd ? `SocialMediaStack-Prod${branchSuffix}` : `SocialMediaStack-Dev${branchSuffix}`;
 const awsRegion = process.env.CDK_REGION || "eu-central-1";
 
-new SamsApiStack(app, stackName, {
+const commonStackProps = {
 	env: {
 		account: process.env.CDK_ACCOUNT,
 		region: awsRegion,
 	},
-	description: `SAMS API Services (${environment}${branchSuffix})`,
 	tags: {
 		Environment: environment,
 		ManagedBy: "AWS CDK",
 		Branch: currentBranch,
 	},
-	// Pass environment to stack for conditional resource configuration
 	stackProps: {
 		environment,
 		branch,
 	},
+};
+
+new SamsApiStack(app, samsStackName, {
+	...commonStackProps,
+	description: `SAMS API Services (${environment}${branchSuffix})`,
+});
+
+new SocialMediaStack(app, socialMediaStackName, {
+	...commonStackProps,
+	description: `Social Media API Services (${environment}${branchSuffix})`,
 });

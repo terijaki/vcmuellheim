@@ -3,6 +3,7 @@ import { DeleteCommand, DynamoDBDocumentClient, PutCommand, ScanCommand } from "
 import type { APIGatewayProxyHandler } from "aws-lambda";
 import { getAllLeagues, getAllSeasons, getTeamsForLeague } from "../data/sams/client";
 import { slugify } from "../utils/slugify";
+import { TeamItemSchema } from "./types";
 
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
@@ -112,27 +113,29 @@ export const handler: APIGatewayProxyHandler = async () => {
 
 				if (teamData?.content) {
 					// Filter: only our club's teams, no sub-teams (masterTeamUuid)
+					// Transform using Zod schema to strip undefined values
 					const ourTeams = teamData.content
 						.filter((t) => !t.masterTeamUuid)
 						.filter((t) => t.sportsclubUuid === sportsclubUuid)
-						.map((t) => ({
-							uuid: t.uuid,
-							name: t.name,
-							nameSlug: slugify(t.name || ""),
-							sportsclubUuid: t.sportsclubUuid,
-							associationUuid: t.associationUuid,
-							leagueUuid: league.uuid,
-							leagueName: league.name,
-							seasonUuid: currentSeason.uuid,
-							seasonName: currentSeason.name,
-							updatedAt: new Date().toISOString(),
-							ttl: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 365, // 1 year TTL
-						}));
+						.map((t) =>
+							TeamItemSchema.parse({
+								uuid: t.uuid,
+								name: t.name,
+								nameSlug: slugify(t.name || ""),
+								sportsclubUuid: t.sportsclubUuid,
+								associationUuid: t.associationUuid,
+								leagueUuid: league.uuid,
+								leagueName: league.name,
+								seasonUuid: currentSeason.uuid,
+								seasonName: currentSeason.name,
+								updatedAt: new Date().toISOString(),
+								ttl: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 365, // 1 year TTL
+							}),
+						);
 
 					allTeams.push(...ourTeams);
 					teamPage++;
 				}
-
 				if (teamData?.last === true) {
 					hasMoreTeams = false;
 				}
