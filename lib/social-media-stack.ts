@@ -71,7 +71,7 @@ export class SocialMediaStack extends cdk.Stack {
 			functionName: `${environment}${branchSuffix}-instagram-sync`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
-			entry: path.join(__dirname, "../lambda/instagram-sync.ts"),
+			entry: path.join(__dirname, "../lambda/social/instagram-sync.ts"),
 			environment: {
 				INSTAGRAM_TABLE_NAME: instagramTable.tableName,
 				APIFY_API_KEY: apifyApiKey || "",
@@ -95,7 +95,7 @@ export class SocialMediaStack extends cdk.Stack {
 			functionName: `${environment}${branchSuffix}-instagram-posts`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
-			entry: path.join(__dirname, "../lambda/instagram-posts.ts"),
+			entry: path.join(__dirname, "../lambda/social/instagram-posts.ts"),
 			environment: {
 				INSTAGRAM_TABLE_NAME: instagramTable.tableName,
 			},
