@@ -10,14 +10,24 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as nodejs from "aws-cdk-lib/aws-lambda-nodejs";
 import type { Construct } from "constructs";
 
+interface SamsApiStackProps extends cdk.StackProps {
+	stackProps?: {
+		environment: string;
+		isProd: boolean;
+	};
+}
+
 export class SamsApiStack extends cdk.Stack {
-	constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+	constructor(scope: Construct, id: string, props?: SamsApiStackProps) {
 		super(scope, id, props);
+
+		const environment = props?.stackProps?.environment || "dev";
+		const isProd = props?.stackProps?.isProd || false;
 
 		// Create API Gateway
 		const api = new apigateway.RestApi(this, "SamsApi", {
-			restApiName: "SAMS API Proxy",
-			description: "API proxy for SAMS volleyball data",
+			restApiName: `SAMS API Proxy (${environment})`,
+			description: `API proxy for SAMS volleyball data - ${environment}`,
 			defaultCorsPreflightOptions: {
 				allowOrigins: apigateway.Cors.ALL_ORIGINS,
 				allowMethods: apigateway.Cors.ALL_METHODS,
@@ -42,13 +52,13 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create DynamoDB table for storing SAMS clubs
 		const clubsTable = new dynamodb.Table(this, "SamsClubsTable", {
-			tableName: "sams-clubs",
+			tableName: `${environment}-sams-clubs`,
 			partitionKey: {
 				name: "sportsclubUuid",
 				type: dynamodb.AttributeType.STRING,
 			},
 			billingMode: dynamodb.BillingMode.PAY_PER_REQUEST, // On-demand pricing
-			removalPolicy: cdk.RemovalPolicy.DESTROY, // Delete table when stack is deleted
+			removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
 			timeToLiveAttribute: "ttl", // Auto-delete stale records
 		});
 
@@ -81,13 +91,13 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create DynamoDB table for storing SAMS teams
 		const teamsTable = new dynamodb.Table(this, "SamsTeamsTable", {
-			tableName: "sams-teams",
+			tableName: `${environment}-sams-teams`,
 			partitionKey: {
 				name: "uuid",
 				type: dynamodb.AttributeType.STRING,
 			},
 			billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-			removalPolicy: cdk.RemovalPolicy.DESTROY,
+			removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
 			timeToLiveAttribute: "ttl",
 		});
 
@@ -120,7 +130,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for league matches (main endpoint you use)
 		const samsLeagueMatches = new nodejs.NodejsFunction(this, "SamsLeagueMatches", {
-			functionName: "sams-league-matches",
+			functionName: `${environment}-sams-league-matches`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams-league-matches.ts"),
@@ -136,7 +146,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for seasons
 		const samsSeasons = new nodejs.NodejsFunction(this, "SamsSeasons", {
-			functionName: "sams-seasons",
+			functionName: `${environment}-sams-seasons`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams-seasons.ts"),
@@ -152,7 +162,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for rankings
 		const samsRankings = new nodejs.NodejsFunction(this, "SamsRankings", {
-			functionName: "sams-rankings",
+			functionName: `${environment}-sams-rankings`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams-rankings.ts"),
@@ -168,7 +178,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for associations
 		const samsAssociations = new nodejs.NodejsFunction(this, "SamsAssociations", {
-			functionName: "sams-associations",
+			functionName: `${environment}-sams-associations`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams-associations.ts"),
@@ -184,7 +194,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for nightly clubs sync
 		const samsClubsSync = new nodejs.NodejsFunction(this, "SamsClubsSync", {
-			functionName: "sams-clubs-sync",
+			functionName: `${environment}-sams-clubs-sync`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams-clubs-sync.ts"),
@@ -206,7 +216,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for nightly teams sync
 		const samsTeamsSync = new nodejs.NodejsFunction(this, "SamsTeamsSync", {
-			functionName: "sams-teams-sync",
+			functionName: `${environment}-sams-teams-sync`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams-teams-sync.ts"),
@@ -230,7 +240,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for clubs query (read from DynamoDB)
 		const samsClubs = new nodejs.NodejsFunction(this, "SamsClubs", {
-			functionName: "sams-clubs",
+			functionName: `${environment}-sams-clubs`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams-clubs.ts"),
@@ -251,7 +261,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for teams query (read from DynamoDB)
 		const samsTeams = new nodejs.NodejsFunction(this, "SamsTeams", {
-			functionName: "sams-teams",
+			functionName: `${environment}-sams-teams`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams-teams.ts"),
@@ -272,8 +282,8 @@ export class SamsApiStack extends cdk.Stack {
 
 	// Create EventBridge rule to trigger sync Lambda weekly on Wednesday at 2 AM UTC
 	const syncRule = new events.Rule(this, "SamsClubsSyncRule", {
-		ruleName: "sams-clubs-weekly-sync",
-		description: "Trigger SAMS clubs sync every Wednesday at 2 AM UTC",
+		ruleName: `${environment}-sams-clubs-weekly-sync`,
+		description: `Trigger SAMS clubs sync every Wednesday at 2 AM UTC (${environment})`,
 		schedule: events.Schedule.cron({
 			weekDay: "WED",
 			hour: "2",
@@ -284,8 +294,8 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create EventBridge rule to trigger teams sync nightly at 3 AM UTC
 		const teamsSyncRule = new events.Rule(this, "SamsTeamsSyncRule", {
-			ruleName: "sams-teams-nightly-sync",
-			description: "Trigger SAMS teams sync every night at 3 AM UTC (after clubs sync)",
+			ruleName: `${environment}-sams-teams-nightly-sync`,
+			description: `Trigger SAMS teams sync every night at 3 AM UTC - after clubs sync (${environment})`,
 			schedule: events.Schedule.cron({
 				hour: "3",
 				minute: "0",
@@ -463,7 +473,7 @@ export class SamsApiStack extends cdk.Stack {
 				origin: new origins.RestApiOrigin(api),
 				viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
 				cachePolicy: new cloudfront.CachePolicy(this, "SamsApiCachePolicy", {
-					cachePolicyName: "SamsApiCachePolicy",
+					cachePolicyName: `${environment}-sams-api-cache-policy`,
 					defaultTtl: cdk.Duration.minutes(5), // Default for live data (matches, rankings)
 					maxTtl: cdk.Duration.days(7), // Max 7 days for static data (clubs synced weekly)
 					minTtl: cdk.Duration.seconds(0),
@@ -472,7 +482,7 @@ export class SamsApiStack extends cdk.Stack {
 				}),
 			},
 			priceClass: cloudfront.PriceClass.PRICE_CLASS_100, // Only US, Canada, Europe
-			comment: "SAMS API CloudFront Distribution",
+			comment: `SAMS API CloudFront Distribution (${environment})`,
 		});
 
 		// Outputs

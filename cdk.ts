@@ -5,13 +5,35 @@ import { SamsApiStack } from "./lib/sams-api-stack";
 
 const app = new cdk.App();
 
-new SamsApiStack(app, "VCMuellheimSamsApiStack", {
+// Determine environment from CDK_ENVIRONMENT (defaults to dev)
+const environment = process.env.CDK_ENVIRONMENT || "dev";
+const isProd = environment === "prod";
+
+// Validate production deployment requirements
+if (isProd) {
+	if (!process.env.PROD_AWS_ACCOUNT) {
+		throw new Error("❌ PROD_AWS_ACCOUNT environment variable is required for production deployment");
+	}
+}
+
+// Environment-specific configuration
+const stackName = isProd ? "SamsApiStack-Prod" : "SamsApiStack-Dev";
+const awsAccount = isProd ? process.env.PROD_AWS_ACCOUNT : process.env.CDK_DEFAULT_ACCOUNT;
+const awsRegion = process.env.CDK_DEFAULT_REGION || "eu-central-1";
+
+new SamsApiStack(app, stackName, {
 	env: {
-		account: process.env.CDK_DEFAULT_ACCOUNT,
-		region: process.env.CDK_DEFAULT_REGION || "eu-central-1",
+		account: awsAccount,
+		region: awsRegion,
 	},
-	description: "SAMS API Services",
+	description: `SAMS API Services (${environment})`,
 	tags: {
-		Environment: "production",
+		Environment: environment,
+		ManagedBy: "AWS CDK",
+	},
+	// Pass environment to stack for conditional resource configuration
+	stackProps: {
+		environment,
+		isProd,
 	},
 });
