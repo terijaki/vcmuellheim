@@ -44,6 +44,50 @@ export const ClubsResponseSchema = z.object({
 export type ClubsResponse = z.infer<typeof ClubsResponseSchema>;
 
 // ============================================================================
+// Team Schemas & Types
+// ============================================================================
+
+/**
+ * Internal DynamoDB representation of a team
+ * Includes fields used for querying and TTL
+ */
+export const TeamItemSchema = z.object({
+	uuid: z.string(),
+	name: z.string(),
+	nameSlug: z.string(), // Used for case-insensitive queries
+	sportsclubUuid: z.string(),
+	associationUuid: z.string(),
+	leagueUuid: z.string(),
+	leagueName: z.string(),
+	seasonUuid: z.string(),
+	seasonName: z.string(),
+	updatedAt: z.string(),
+	ttl: z.number(), // DynamoDB TTL field
+});
+
+export type TeamItem = z.infer<typeof TeamItemSchema>;
+
+/**
+ * Public API response for a team
+ * Excludes internal fields (nameSlug, ttl)
+ */
+export const TeamResponseSchema = TeamItemSchema.omit({
+	nameSlug: true,
+	ttl: true,
+});
+
+export type TeamResponse = z.infer<typeof TeamResponseSchema>;
+
+/**
+ * Response for multiple teams
+ */
+export const TeamsResponseSchema = z.object({
+	teams: z.array(TeamResponseSchema),
+});
+
+export type TeamsResponse = z.infer<typeof TeamsResponseSchema>;
+
+// ============================================================================
 // Seasons Schemas & Types
 // ============================================================================
 

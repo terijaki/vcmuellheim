@@ -57,7 +57,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Origin": "*",
-					"Cache-Control": "public, max-age=86400", // 24 hours cache (data updates nightly)
+					"Cache-Control": "public, max-age=604800", // 7 days cache (data synced weekly)
 				},
 				body: JSON.stringify(ClubResponseSchema.parse(result.Item)),
 			};
@@ -99,7 +99,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Origin": "*",
-					"Cache-Control": "public, max-age=86400", // 24 hours cache
+					"Cache-Control": "public, max-age=604800", // 7 days cache (data synced weekly)
 				},
 				body: JSON.stringify(ClubResponseSchema.parse(result.Items[0])),
 			};
@@ -126,7 +126,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Origin": "*",
-					"Cache-Control": "public, max-age=86400", // 24 hours cache
+					"Cache-Control": "public, max-age=604800", // 7 days cache (data synced weekly)
 				},
 				body: JSON.stringify(
 					ClubsResponseSchema.parse({
@@ -151,7 +151,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 			headers: {
 				"Content-Type": "application/json",
 				"Access-Control-Allow-Origin": "*",
-				"Cache-Control": "public, max-age=86400", // 24 hours cache
+				"Cache-Control": "public, max-age=604800", // 7 days cache (data synced weekly)
 			},
 			body: JSON.stringify(
 				ClubsResponseSchema.parse({

@@ -25,10 +25,7 @@ export class SamsApiStack extends cdk.Stack {
 			},
 			deployOptions: {
 				stageName: "v1",
-				cachingEnabled: true,
-				cacheClusterEnabled: true,
-				cacheClusterSize: "0.5",
-				cacheTtl: cdk.Duration.seconds(300), // 5 minutes default cache
+				// No API Gateway caching - CloudFront handles all caching based on Lambda Cache-Control headers
 			},
 		});
 
@@ -252,6 +249,27 @@ export class SamsApiStack extends cdk.Stack {
 		// Grant DynamoDB read permissions to clubs query Lambda
 		clubsTable.grantReadData(samsClubs);
 
+		// Create Lambda function for teams query (read from DynamoDB)
+		const samsTeams = new nodejs.NodejsFunction(this, "SamsTeams", {
+			functionName: "sams-teams",
+			runtime: lambda.Runtime.NODEJS_LATEST,
+			handler: "handler",
+			entry: path.join(__dirname, "../lambda/sams-teams.ts"),
+			environment: {
+				TEAMS_TABLE_NAME: teamsTable.tableName,
+			},
+			timeout: cdk.Duration.seconds(30),
+			memorySize: 256,
+			bundling: {
+				externalModules: [],
+				minify: true,
+				sourceMap: true,
+			},
+		});
+
+		// Grant DynamoDB read permissions to teams query Lambda
+		teamsTable.grantReadData(samsTeams);
+
 	// Create EventBridge rule to trigger sync Lambda weekly on Wednesday at 2 AM UTC
 	const syncRule = new events.Rule(this, "SamsClubsSyncRule", {
 		ruleName: "sams-clubs-weekly-sync",
@@ -282,25 +300,72 @@ export class SamsApiStack extends cdk.Stack {
 
 		// GET /sams/matches
 		const matchesResource = samsResource.addResource("matches");
-		matchesResource.addMethod("GET", new apigateway.LambdaIntegration(samsLeagueMatches), {
-			requestParameters: {
-				"method.request.querystring.league": false,
-				"method.request.querystring.season": false,
-				"method.request.querystring.sportsclub": false,
-				"method.request.querystring.team": false,
-				"method.request.querystring.limit": false,
-				"method.request.querystring.range": false,
+		matchesResource.addMethod(
+			"GET",
+			new apigateway.LambdaIntegration(samsLeagueMatches, {
+				cacheKeyParameters: [
+					"method.request.querystring.league",
+					"method.request.querystring.season",
+					"method.request.querystring.sportsclub",
+					"method.request.querystring.team",
+					"method.request.querystring.limit",
+					"method.request.querystring.range",
+				],
+			}),
+			{
+				requestParameters: {
+					"method.request.querystring.league": false,
+					"method.request.querystring.season": false,
+					"method.request.querystring.sportsclub": false,
+					"method.request.querystring.team": false,
+					"method.request.querystring.limit": false,
+					"method.request.querystring.range": false,
+				},
+				methodResponses: [
+					{
+						statusCode: "200",
+						responseParameters: {
+							"method.response.header.Cache-Control": true,
+						},
+					},
+				],
 			},
-		});
+		);
 
 		// GET /sams/seasons
 		const seasonsResource = samsResource.addResource("seasons");
-		seasonsResource.addMethod("GET", new apigateway.LambdaIntegration(samsSeasons));
+		seasonsResource.addMethod(
+			"GET",
+			new apigateway.LambdaIntegration(samsSeasons),
+			{
+				methodResponses: [
+					{
+						statusCode: "200",
+						responseParameters: {
+							"method.response.header.Cache-Control": true,
+						},
+					},
+				],
+			},
+		);
 
 		// GET /sams/rankings/{leagueUuid}
 		const rankingsResource = samsResource.addResource("rankings");
 		const rankingsByLeague = rankingsResource.addResource("{leagueUuid}");
-		rankingsByLeague.addMethod("GET", new apigateway.LambdaIntegration(samsRankings));
+		rankingsByLeague.addMethod(
+			"GET",
+			new apigateway.LambdaIntegration(samsRankings),
+			{
+				methodResponses: [
+					{
+						statusCode: "200",
+						responseParameters: {
+							"method.response.header.Cache-Control": true,
+						},
+					},
+				],
+			},
+		);
 
 		// GET /sams/associations and GET /sams/associations/{name}
 		const associationsResource = samsResource.addResource("associations");
@@ -311,15 +376,86 @@ export class SamsApiStack extends cdk.Stack {
 
 		// GET /sams/clubs and GET /sams/clubs/{uuid}
 		const clubsResource = samsResource.addResource("clubs");
-		clubsResource.addMethod("GET", new apigateway.LambdaIntegration(samsClubs), {
-			requestParameters: {
-				"method.request.querystring.name": false,
-				"method.request.querystring.association": false,
+		clubsResource.addMethod(
+			"GET",
+			new apigateway.LambdaIntegration(samsClubs, {
+				cacheKeyParameters: ["method.request.querystring.name", "method.request.querystring.association"],
+			}),
+			{
+				requestParameters: {
+					"method.request.querystring.name": false,
+					"method.request.querystring.association": false,
+				},
+				methodResponses: [
+					{
+						statusCode: "200",
+						responseParameters: {
+							"method.response.header.Cache-Control": true,
+						},
+					},
+				],
 			},
-		});
+		);
 
 		const clubsByUuid = clubsResource.addResource("{uuid}");
-		clubsByUuid.addMethod("GET", new apigateway.LambdaIntegration(samsClubs));
+		clubsByUuid.addMethod(
+			"GET",
+			new apigateway.LambdaIntegration(samsClubs),
+			{
+				methodResponses: [
+					{
+						statusCode: "200",
+						responseParameters: {
+							"method.response.header.Cache-Control": true,
+						},
+					},
+				],
+			},
+		);
+
+		// GET /sams/teams and GET /sams/teams/{uuid}
+		const teamsResource = samsResource.addResource("teams");
+		teamsResource.addMethod(
+			"GET",
+			new apigateway.LambdaIntegration(samsTeams, {
+				cacheKeyParameters: [
+					"method.request.querystring.name",
+					"method.request.querystring.sportsclub",
+					"method.request.querystring.league",
+				],
+			}),
+			{
+				requestParameters: {
+					"method.request.querystring.name": false,
+					"method.request.querystring.sportsclub": false,
+					"method.request.querystring.league": false,
+				},
+				methodResponses: [
+					{
+						statusCode: "200",
+						responseParameters: {
+							"method.response.header.Cache-Control": true,
+						},
+					},
+				],
+			},
+		);
+
+		const teamsByUuid = teamsResource.addResource("{uuid}");
+		teamsByUuid.addMethod(
+			"GET",
+			new apigateway.LambdaIntegration(samsTeams),
+			{
+				methodResponses: [
+					{
+						statusCode: "200",
+						responseParameters: {
+							"method.response.header.Cache-Control": true,
+						},
+					},
+				],
+			},
+		);
 
 		// Create CloudFront distribution for caching
 		const distribution = new cloudfront.Distribution(this, "SamsApiDistribution", {
@@ -328,8 +464,8 @@ export class SamsApiStack extends cdk.Stack {
 				viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
 				cachePolicy: new cloudfront.CachePolicy(this, "SamsApiCachePolicy", {
 					cachePolicyName: "SamsApiCachePolicy",
-					defaultTtl: cdk.Duration.minutes(5),
-					maxTtl: cdk.Duration.hours(1),
+					defaultTtl: cdk.Duration.minutes(5), // Default for live data (matches, rankings)
+					maxTtl: cdk.Duration.days(7), // Max 7 days for static data (clubs synced weekly)
 					minTtl: cdk.Duration.seconds(0),
 					queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
 					headerBehavior: cloudfront.CacheHeaderBehavior.allowList("Authorization", "X-Api-Key"),

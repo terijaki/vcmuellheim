@@ -14,6 +14,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Origin": "*",
+					"Cache-Control": "no-cache", // Don't cache errors
 				},
 				body: JSON.stringify({ error: "SAMS API key not configured" }),
 			};
@@ -26,6 +27,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Origin": "*",
+					"Cache-Control": "no-cache", // Don't cache errors
 				},
 				body: JSON.stringify({ error: "League UUID is required" }),
 			};
@@ -45,6 +47,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Origin": "*",
+					"Cache-Control": "public, max-age=300", // Cache 404s briefly (5 minutes)
 				},
 				body: JSON.stringify({ error: "No rankings found for this league" }),
 			};
@@ -61,6 +64,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			headers: {
 				"Content-Type": "application/json",
 				"Access-Control-Allow-Origin": "*",
+				"Cache-Control": "public, max-age=300", // 5 minutes cache (live SAMS data)
 			},
 			body: JSON.stringify(result),
 		};
@@ -71,6 +75,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			headers: {
 				"Content-Type": "application/json",
 				"Access-Control-Allow-Origin": "*",
+				"Cache-Control": "no-cache", // Don't cache errors
 			},
 			body: JSON.stringify({ error: "Internal server error" }),
 		};

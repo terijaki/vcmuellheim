@@ -15,6 +15,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Origin": "*",
+					"Cache-Control": "no-cache", // Don't cache errors
 				},
 				body: JSON.stringify({ error: "SAMS API key not configured" }),
 			};
@@ -39,6 +40,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 					headers: {
 						"Content-Type": "application/json",
 						"Access-Control-Allow-Origin": "*",
+						"Cache-Control": "no-cache", // Don't cache errors
 					},
 					body: JSON.stringify({ error: "Unable to determine season automatically. Please specify a season." }),
 				};
@@ -119,6 +121,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			headers: {
 				"Content-Type": "application/json",
 				"Access-Control-Allow-Origin": "*",
+				"Cache-Control": "public, max-age=300", // 5 minutes cache (live SAMS data)
 			},
 			body: JSON.stringify(result),
 		};
@@ -129,6 +132,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			headers: {
 				"Content-Type": "application/json",
 				"Access-Control-Allow-Origin": "*",
+				"Cache-Control": "no-cache", // Don't cache errors
 			},
 			body: JSON.stringify({ error: "Internal server error" }),
 		};
