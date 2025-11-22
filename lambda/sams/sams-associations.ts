@@ -1,5 +1,5 @@
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from "aws-lambda";
-import { type Association, getAssociations } from "../data/sams/client";
+import { type Association, getAssociations } from "../../data/sams/client";
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 	try {

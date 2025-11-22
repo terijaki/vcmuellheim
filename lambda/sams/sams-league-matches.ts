@@ -1,6 +1,6 @@
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import dayjs from "dayjs";
-import { getAllLeagueMatches, type LeagueMatchDto } from "../data/sams/client";
+import { getAllLeagueMatches, type LeagueMatchDto } from "../../data/sams/client";
 import { LeagueMatchesSchema } from "./types";
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
