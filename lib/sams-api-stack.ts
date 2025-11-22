@@ -82,10 +82,49 @@ export class SamsApiStack extends cdk.Stack {
 			},
 		});
 
+		// Create DynamoDB table for storing SAMS teams
+		const teamsTable = new dynamodb.Table(this, "SamsTeamsTable", {
+			tableName: "sams-teams",
+			partitionKey: {
+				name: "uuid",
+				type: dynamodb.AttributeType.STRING,
+			},
+			billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+			removalPolicy: cdk.RemovalPolicy.DESTROY,
+			timeToLiveAttribute: "ttl",
+		});
+
+		// Add GSI for querying teams by sportsclub
+		teamsTable.addGlobalSecondaryIndex({
+			indexName: "sportsclubUuid-index",
+			partitionKey: {
+				name: "sportsclubUuid",
+				type: dynamodb.AttributeType.STRING,
+			},
+		});
+
+		// Add GSI for querying teams by league
+		teamsTable.addGlobalSecondaryIndex({
+			indexName: "leagueUuid-index",
+			partitionKey: {
+				name: "leagueUuid",
+				type: dynamodb.AttributeType.STRING,
+			},
+		});
+
+		// Add GSI for case-insensitive team name search
+		teamsTable.addGlobalSecondaryIndex({
+			indexName: "nameSlug-index",
+			partitionKey: {
+				name: "nameSlug",
+				type: dynamodb.AttributeType.STRING,
+			},
+		});
+
 		// Create Lambda function for league matches (main endpoint you use)
 		const samsLeagueMatches = new nodejs.NodejsFunction(this, "SamsLeagueMatches", {
 			functionName: "sams-league-matches",
-			runtime: lambda.Runtime.NODEJS_20_X,
+			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams-league-matches.ts"),
 			environment: commonEnvironment,
@@ -101,7 +140,7 @@ export class SamsApiStack extends cdk.Stack {
 		// Create Lambda function for seasons
 		const samsSeasons = new nodejs.NodejsFunction(this, "SamsSeasons", {
 			functionName: "sams-seasons",
-			runtime: lambda.Runtime.NODEJS_20_X,
+			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams-seasons.ts"),
 			environment: commonEnvironment,
@@ -117,7 +156,7 @@ export class SamsApiStack extends cdk.Stack {
 		// Create Lambda function for rankings
 		const samsRankings = new nodejs.NodejsFunction(this, "SamsRankings", {
 			functionName: "sams-rankings",
-			runtime: lambda.Runtime.NODEJS_20_X,
+			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams-rankings.ts"),
 			environment: commonEnvironment,
@@ -133,7 +172,7 @@ export class SamsApiStack extends cdk.Stack {
 		// Create Lambda function for associations
 		const samsAssociations = new nodejs.NodejsFunction(this, "SamsAssociations", {
 			functionName: "sams-associations",
-			runtime: lambda.Runtime.NODEJS_20_X,
+			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams-associations.ts"),
 			environment: commonEnvironment,
@@ -149,7 +188,7 @@ export class SamsApiStack extends cdk.Stack {
 		// Create Lambda function for nightly clubs sync
 		const samsClubsSync = new nodejs.NodejsFunction(this, "SamsClubsSync", {
 			functionName: "sams-clubs-sync",
-			runtime: lambda.Runtime.NODEJS_20_X,
+			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams-clubs-sync.ts"),
 			environment: {
@@ -168,10 +207,34 @@ export class SamsApiStack extends cdk.Stack {
 		// Grant DynamoDB permissions to sync Lambda
 		clubsTable.grantReadWriteData(samsClubsSync);
 
+		// Create Lambda function for nightly teams sync
+		const samsTeamsSync = new nodejs.NodejsFunction(this, "SamsTeamsSync", {
+			functionName: "sams-teams-sync",
+			runtime: lambda.Runtime.NODEJS_LATEST,
+			handler: "handler",
+			entry: path.join(__dirname, "../lambda/sams-teams-sync.ts"),
+			environment: {
+				...commonEnvironment,
+				CLUBS_TABLE_NAME: clubsTable.tableName,
+				TEAMS_TABLE_NAME: teamsTable.tableName,
+			},
+			timeout: cdk.Duration.minutes(10),
+			memorySize: 512,
+			bundling: {
+				externalModules: [],
+				minify: true,
+				sourceMap: true,
+			},
+		});
+
+		// Grant DynamoDB permissions to teams sync Lambda
+		clubsTable.grantReadData(samsTeamsSync);
+		teamsTable.grantReadWriteData(samsTeamsSync);
+
 		// Create Lambda function for clubs query (read from DynamoDB)
 		const samsClubs = new nodejs.NodejsFunction(this, "SamsClubs", {
 			functionName: "sams-clubs",
-			runtime: lambda.Runtime.NODEJS_20_X,
+			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams-clubs.ts"),
 			environment: {
@@ -189,18 +252,30 @@ export class SamsApiStack extends cdk.Stack {
 		// Grant DynamoDB read permissions to clubs query Lambda
 		clubsTable.grantReadData(samsClubs);
 
-		// Create EventBridge rule to trigger sync Lambda nightly at 2 AM UTC
-		const syncRule = new events.Rule(this, "SamsClubsSyncRule", {
-			ruleName: "sams-clubs-nightly-sync",
-			description: "Trigger SAMS clubs sync every night at 2 AM UTC",
+	// Create EventBridge rule to trigger sync Lambda weekly on Wednesday at 2 AM UTC
+	const syncRule = new events.Rule(this, "SamsClubsSyncRule", {
+		ruleName: "sams-clubs-weekly-sync",
+		description: "Trigger SAMS clubs sync every Wednesday at 2 AM UTC",
+		schedule: events.Schedule.cron({
+			weekDay: "WED",
+			hour: "2",
+			minute: "0",
+		}),
+	});		// Add Lambda as target for EventBridge rule
+		syncRule.addTarget(new targets.LambdaFunction(samsClubsSync));
+
+		// Create EventBridge rule to trigger teams sync nightly at 3 AM UTC
+		const teamsSyncRule = new events.Rule(this, "SamsTeamsSyncRule", {
+			ruleName: "sams-teams-nightly-sync",
+			description: "Trigger SAMS teams sync every night at 3 AM UTC (after clubs sync)",
 			schedule: events.Schedule.cron({
-				hour: "2",
+				hour: "3",
 				minute: "0",
 			}),
 		});
 
-		// Add Lambda as target for EventBridge rule
-		syncRule.addTarget(new targets.LambdaFunction(samsClubsSync));
+		// Add teams Lambda as target for EventBridge rule
+		teamsSyncRule.addTarget(new targets.LambdaFunction(samsTeamsSync));
 
 		// Create API Gateway resources
 		const samsResource = api.root.addResource("sams");
@@ -285,9 +360,19 @@ export class SamsApiStack extends cdk.Stack {
 			description: "DynamoDB table name for clubs",
 		});
 
+		new cdk.CfnOutput(this, "TeamsTableName", {
+			value: teamsTable.tableName,
+			description: "DynamoDB table name for teams",
+		});
+
 		new cdk.CfnOutput(this, "SyncRuleName", {
 			value: syncRule.ruleName,
-			description: "EventBridge rule name for nightly sync",
+			description: "EventBridge rule name for nightly clubs sync",
+		});
+
+		new cdk.CfnOutput(this, "TeamsSyncRuleName", {
+			value: teamsSyncRule.ruleName,
+			description: "EventBridge rule name for nightly teams sync",
 		});
 	}
 }
