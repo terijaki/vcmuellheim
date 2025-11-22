@@ -88,18 +88,30 @@
 
 ### Tasks:
 
-1. [ ] **Vite + React Admin App Setup**
+1. [x] **Deploy AWS Infrastructure (API Stack)**
+   - ✅ Created ApiStack with Cognito User Pool, tRPC Lambda, API Gateway
+   - ✅ Cognito configured: email auth, optional TOTP MFA, device tracking
+   - ✅ Lambda function with tRPC handler deployed (Node.js 20, 512MB, 30s timeout)
+   - ✅ HTTP API Gateway with CORS configured for prod/dev
+   - ✅ Type-safe environment variable mapping (lib/db/env.ts)
+   - ✅ IAM permissions: Lambda can read/write all 6 DynamoDB tables
+   - ✅ Successfully deployed to AWS (Exit Code: 0)
+
+2. [ ] **Create First Admin User in Cognito**
+   - Use AWS Console or CLI to create admin user
+   - Configure MFA for admin accounts
+   - Test authentication flow
+
+3. [ ] **Vite + React Admin App Setup**
    - Create new Vite project (`admin/`)
    - Use TanStack Router for navigation
    - Use Mantine UI library (already in use for main site)
    - Set up authentication with AWS Cognito
 
-2. [ ] **Authentication (AWS Cognito)**
-   - Create Cognito User Pool via CDK
-   - Free tier covers up to 50k MAUs (more than enough for <15 admins)
-   - Pre-create admin user accounts
+4. [ ] **Authentication Integration**
    - Integrate Cognito with React app (AWS Amplify UI or custom)
-   - Lambda authorizer for API Gateway using Cognito JWT tokens
+   - Implement Cognito JWT extraction in Lambda context (lambda/trpc/handler.ts)
+   - Protected tRPC procedures using context.userId
    - Implement login/logout flow
    - Protected routes in admin app
 
@@ -111,16 +123,8 @@
    - Members management
    - Media library (upload to S3, manage metadata in DynamoDB)
    - Sponsors management
-   - User management (admin accounts)
 
-4. [ ] **CMS API (Lambda + API Gateway)**
-   - CRUD endpoints for each entity
-   - File upload endpoint (presigned S3 URLs or direct upload)
-   - Image optimization/resizing (Lambda or S3 + CloudFront)
-   - Authorization middleware (Cognito or custom)
-   - Input validation
-
-5. [ ] **Rich Text Editor**
+4. [ ] **Rich Text Editor**
    - Use **@mantine/tiptap** (official Mantine integration with Tiptap)
    - Perfect integration with Mantine theme system
    - Extensions: StarterKit, Image, Link, Table, CodeBlock
@@ -128,7 +132,7 @@
    - Save as JSON (Tiptap's native format) in DynamoDB
    - Render on frontend using same Tiptap extensions (read-only mode)
 
-6. [ ] **Deploy Admin App**
+5. [ ] **Deploy Admin App**
    - Build Vite app to static files
    - Upload to S3 bucket
    - Serve via CloudFront distribution
