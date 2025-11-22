@@ -223,6 +223,10 @@ export default defineConfig({
 				offset: true, // Allow datetimes with timezone offset like +00:00
 			},
 			metadata: true, 
+			types: {
+				infer: true
+			},
+			exportFromIndex: true,
 		},
 		{
 			name: "@hey-api/client-fetch",
@@ -230,7 +234,7 @@ export default defineConfig({
 		},
 		{
 			name: "@hey-api/sdk",
-			validator: false, // Disable validation - SAMS API returns datetimes in non-standard format
+			validator: true, // Disable validation - SAMS API returns datetimes in non-standard format
 		},
 	],
 });
