@@ -78,12 +78,15 @@
 1. [ ] **Vite + React Admin App Setup**
    - Create new Vite project (`admin/`)
    - Use TanStack Router for navigation
-   - Choose UI library (Mantine)
-   - Set up authentication (AWS Cognito or custom JWT)
+   - Use Mantine UI library (already in use for main site)
+   - Set up authentication with AWS Cognito
 
-2. [ ] **Authentication**
-   - Option A: AWS Cognito User Pool (recommended)
-   - Option B: Custom JWT with Lambda authorizer
+2. [ ] **Authentication (AWS Cognito)**
+   - Create Cognito User Pool via CDK
+   - Free tier covers up to 50k MAUs (more than enough for <15 admins)
+   - Pre-create admin user accounts
+   - Integrate Cognito with React app (AWS Amplify UI or custom)
+   - Lambda authorizer for API Gateway using Cognito JWT tokens
    - Implement login/logout flow
    - Protected routes in admin app
 
@@ -105,10 +108,12 @@
    - Input validation
 
 5. [ ] **Rich Text Editor**
-   - Choose editor (TipTap, Slate, Quill, or keep Lexical if preferred)
-   - Integrate with admin forms
-   - Image upload within editor
-   - Save as JSON or HTML in DynamoDB
+   - Use **@mantine/tiptap** (official Mantine integration with Tiptap)
+   - Perfect integration with Mantine theme system
+   - Extensions: StarterKit, Image, Link, Table, CodeBlock
+   - Image upload within editor (presigned S3 URLs)
+   - Save as JSON (Tiptap's native format) in DynamoDB
+   - Render on frontend using same Tiptap extensions (read-only mode)
 
 6. [ ] **Deploy Admin App**
    - Build Vite app to static files
