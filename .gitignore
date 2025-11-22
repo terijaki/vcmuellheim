@@ -29,3 +29,6 @@ media
 cdk.out
 cdk-outputs.json
 cdk.context.json
+
+# openapi-ts error logs
+openapi-ts-error-*.log
