@@ -95,3 +95,13 @@ bun run sams:update
 - [HeyAPI Migration Guide](https://heyapi.dev/openapi-ts/migrating)
 - [HeyAPI Configuration Docs](https://heyapi.dev/openapi-ts/configuration)
 - [HeyAPI OpenAPI-TS Docs](https://heyapi.dev/openapi-ts/)
+
+## Known Issues
+
+### Lambda Function Imports
+
+The lambda functions in `lambda/sams/` directory currently have incorrect import paths:
+- They use `../data/sams/client` which should be `../../data/sams/client`  
+- They use `../utils/slugify` which should be `../../utils/slugify`
+
+These lambda functions are excluded from the Next.js build and will need to be fixed separately when they are deployed or tested.

@@ -41,7 +41,7 @@ export default defineConfig({
 									case "uuid":
 										property.nullable = false;
 										break;
-									case "resuls":
+									case "results":
 									case "referees":
 										property.nullable = true; // this is not working because the field is a reference
 										property.additionalProperties = true;
@@ -88,7 +88,7 @@ export default defineConfig({
 									case "uuid":
 										property.nullable = false;
 										break;
-									case "resuls":
+									case "results":
 									case "referees":
 										property.nullable = true; // this is not working because the field is a reference
 										property.additionalProperties = true;
