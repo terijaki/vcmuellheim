@@ -6,7 +6,8 @@ import type * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import type { Construct } from "constructs";
-import { TABLES, tableEnvVar, type TableEntity } from "./db/env";
+import { Club } from "@/project.config";
+import { TABLES, type TableEntity, tableEnvVar } from "./db/env";
 
 interface ApiStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -27,11 +28,14 @@ export class ApiStack extends cdk.Stack {
 		const environment = props.stackProps?.environment || "dev";
 		const branch = props.stackProps?.branch || "";
 		const branchSuffix = branch ? `-${branch}` : "";
-
+		const isProd = environment === "prod";
+		
 		// 1. Cognito User Pool for admin authentication
 		this.userPool = new cognito.UserPool(this, "AdminUserPool", {
 			userPoolName: `vcm-admin-${environment}${branchSuffix}`,
+			featurePlan: cognito.FeaturePlan.ESSENTIALS,
 			selfSignUpEnabled: false, // Only admins can create accounts
+			signInCaseSensitive: false,		
 			signInAliases: {
 				email: true,
 				username: false,
@@ -53,8 +57,11 @@ export class ApiStack extends cdk.Stack {
 					mutable: true,
 				},
 			},
+			passkeyUserVerification: cognito.PasskeyUserVerification.PREFERRED,
+			passkeyRelyingPartyId: isProd ? Club.domain : undefined,	
+			email: cognito.UserPoolEmail.withCognito(),
 			passwordPolicy: {
-				minLength: 12,
+				minLength: 8,
 				requireLowercase: true,
 				requireUppercase: true,
 				requireDigits: true,
@@ -62,6 +69,7 @@ export class ApiStack extends cdk.Stack {
 				tempPasswordValidity: cdk.Duration.days(30),
 			},
 			accountRecovery: cognito.AccountRecovery.EMAIL_ONLY,
+			mfaMessage: `Dein Verifizierungscode für ${Club.shortName} ist {####}`,
 			mfa: cognito.Mfa.OPTIONAL,
 			mfaSecondFactor: {
 				sms: false,
@@ -71,7 +79,7 @@ export class ApiStack extends cdk.Stack {
 				challengeRequiredOnNewDevice: true,
 				deviceOnlyRememberedOnUserPrompt: true,
 			},
-			removalPolicy: environment === "prod" ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
+			removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
 		});
 
 		// User Pool Client for admin app
@@ -123,7 +131,7 @@ export class ApiStack extends cdk.Stack {
 			apiName: `vcm-trpc-api-${environment}${branchSuffix}`,
 			description: "tRPC API for VCM admin and public endpoints",
 			corsPreflight: {
-				allowOrigins: environment === "prod" ? ["https://vcmuellheim.de", "https://admin.vcmuellheim.de"] : ["*"],
+				allowOrigins: isProd ? ["https://vcmuellheim.de", "https://admin.vcmuellheim.de"] : ["*"],
 				allowMethods: [apigatewayv2.CorsHttpMethod.GET, apigatewayv2.CorsHttpMethod.POST, apigatewayv2.CorsHttpMethod.OPTIONS],
 				allowHeaders: ["content-type", "authorization"],
 				maxAge: cdk.Duration.hours(1),
