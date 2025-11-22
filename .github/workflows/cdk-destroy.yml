@@ -75,7 +75,7 @@ jobs:
                   SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
               run: |
                   echo "Destroying stack: ${{ steps.branch.outputs.stack_name }}"
-                  bun run cdk destroy "${{ steps.branch.outputs.stack_name }}" --force
+                  bunx cdk destroy "${{ steps.branch.outputs.stack_name }}" --force
 
             - name: Comment on PR
               if: github.event_name == 'pull_request' && steps.stack_check.outputs.exists == 'true'

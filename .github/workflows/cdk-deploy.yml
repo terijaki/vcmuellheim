@@ -58,7 +58,7 @@ jobs:
                   CDK_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
                   SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
                   SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
-              run: bun run cdk diff
+              run: bunx cdk diff
 
             - name: CDK Deploy
               env:
@@ -67,7 +67,7 @@ jobs:
                   CDK_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
                   SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
                   SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
-              run: bun run cdk deploy --require-approval never
+              run: bunx cdk deploy --require-approval never
 
             - name: Comment deployment info
               if: github.event_name == 'push' && steps.env.outputs.is_main == 'false'
