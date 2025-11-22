@@ -1,97 +1,129 @@
 name: CDK Destroy on Branch Close
 
 on:
-    pull_request:
-        types: [closed]
-    delete:
+  pull_request:
+    types: [closed]
+  delete:
 
 permissions:
-    id-token: write # Required for AWS OIDC
-    contents: read
+  id-token: write # Required for AWS OIDC
+  contents: read
 
 jobs:
-    destroy:
-        name: Destroy Feature Branch Stack
-        runs-on: ubuntu-latest
-        # Only run for non-main branches
-        if: github.event.ref != 'refs/heads/main' && github.event.pull_request.base.ref != 'main'
+  destroy:
+    name: Destroy Feature Branch Stack
+    runs-on: ubuntu-latest
+    # Only run for non-main branches
+    if: github.event.ref != 'refs/heads/main' && github.event.pull_request.base.ref != 'main'
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
-              with:
-                  ref: main # Checkout main to get CDK code
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main # Checkout main to get CDK code
 
-            - name: Setup Bun
-              uses: oven-sh/setup-bun@v1
-              with:
-                  bun-version: latest
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
 
-            - name: Install dependencies
-              run: bun install
+      - name: Install dependencies
+        run: bun install
 
-            - name: Configure AWS credentials
-              uses: aws-actions/configure-aws-credentials@v4
-              with:
-                  role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-                  aws-region: ${{ secrets.AWS_REGION || 'eu-central-1' }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION || 'eu-central-1' }}
 
-            - name: Determine branch and stack name
-              id: branch
-              run: |
-                  if [ "${{ github.event_name }}" == "delete" ]; then
-                    BRANCH="${{ github.event.ref }}"
-                  else
-                    BRANCH="${{ github.event.pull_request.head.ref }}"
-                  fi
+      - name: Determine branch and stack names
+        id: branch
+        run: |
+          if [ "${{ github.event_name }}" == "delete" ]; then
+            BRANCH="${{ github.event.ref }}"
+          else
+            BRANCH="${{ github.event.pull_request.head.ref }}"
+          fi
 
-                  # Sanitize branch name same way as cdk.ts does
-                  SANITIZED=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9-]/-/g' | sed 's/--*/-/g' | cut -c1-20)
-                  STACK_NAME="SamsApiStack-Dev-${SANITIZED}"
+          # Sanitize branch name same way as cdk.ts does
+          SANITIZED=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9-]/-/g' | sed 's/--*/-/g' | cut -c1-20)
+          SAMS_STACK="SamsApiStack-Dev-${SANITIZED}"
+          SOCIAL_STACK="SocialMediaStack-Dev-${SANITIZED}"
 
-                  echo "branch=${BRANCH}" >> $GITHUB_OUTPUT
-                  echo "stack_name=${STACK_NAME}" >> $GITHUB_OUTPUT
+          echo "branch=${BRANCH}" >> $GITHUB_OUTPUT
+          echo "sams_stack=${SAMS_STACK}" >> $GITHUB_OUTPUT
+          echo "social_stack=${SOCIAL_STACK}" >> $GITHUB_OUTPUT
 
-            - name: Check if stack exists
-              id: stack_check
-              env:
-                  AWS_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
-              run: |
-                  if aws cloudformation describe-stacks --stack-name "${{ steps.branch.outputs.stack_name }}" 2>/dev/null; then
-                    echo "exists=true" >> $GITHUB_OUTPUT
-                  else
-                    echo "exists=false" >> $GITHUB_OUTPUT
-                  fi
+      - name: Check if stacks exist
+        id: stack_check
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
+        run: |
+          SAMS_EXISTS=false
+          SOCIAL_EXISTS=false
 
-            - name: Destroy CDK Stack
-              if: steps.stack_check.outputs.exists == 'true'
-              env:
-                  CDK_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
-                  CDK_ENVIRONMENT: dev
-                  CDK_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
-                  SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
-                  SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
-              run: |
-                  echo "Destroying stack: ${{ steps.branch.outputs.stack_name }}"
-                  bunx cdk destroy "${{ steps.branch.outputs.stack_name }}" --force
+          if aws cloudformation describe-stacks --stack-name "${{ steps.branch.outputs.sams_stack }}" 2>/dev/null; then
+            SAMS_EXISTS=true
+          fi
 
-            - name: Add destroy summary
-              if: always()
-              run: |
-                  if [ "${{ steps.stack_check.outputs.exists }}" == "true" ]; then
-                    echo "## 🗑️ CDK Stack Destroyed" >> $GITHUB_STEP_SUMMARY
-                    echo "" >> $GITHUB_STEP_SUMMARY
-                    echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
-                    echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-                    echo "| **Stack Name** | \`${{ steps.branch.outputs.stack_name }}\` |" >> $GITHUB_STEP_SUMMARY
-                    echo "| **Branch** | \`${{ steps.branch.outputs.branch }}\` |" >> $GITHUB_STEP_SUMMARY
-                    echo "| **Region** | ${{ secrets.AWS_REGION || 'eu-central-1' }} |" >> $GITHUB_STEP_SUMMARY
-                    echo "" >> $GITHUB_STEP_SUMMARY
-                    echo "✅ All AWS resources for this branch have been cleaned up." >> $GITHUB_STEP_SUMMARY
-                  else
-                    echo "## ℹ️ No Stack to Destroy" >> $GITHUB_STEP_SUMMARY
-                    echo "" >> $GITHUB_STEP_SUMMARY
-                    echo "Stack \`${{ steps.branch.outputs.stack_name }}\` does not exist." >> $GITHUB_STEP_SUMMARY
-                    echo "" >> $GITHUB_STEP_SUMMARY
-                    echo "No cleanup necessary." >> $GITHUB_STEP_SUMMARY
-                  fi
+          if aws cloudformation describe-stacks --stack-name "${{ steps.branch.outputs.social_stack }}" 2>/dev/null; then
+            SOCIAL_EXISTS=true
+          fi
+
+          echo "sams_exists=${SAMS_EXISTS}" >> $GITHUB_OUTPUT
+          echo "social_exists=${SOCIAL_EXISTS}" >> $GITHUB_OUTPUT
+
+          # Set exists=true if at least one stack exists
+          if [ "${SAMS_EXISTS}" == "true" ] || [ "${SOCIAL_EXISTS}" == "true" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Destroy CDK Stacks
+        if: steps.stack_check.outputs.exists == 'true'
+        env:
+          CDK_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
+          CDK_ENVIRONMENT: dev
+          CDK_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
+          SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
+          SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
+        run: |
+          echo "Destroying stacks for branch: ${{ steps.branch.outputs.branch }}"
+
+          # Destroy both stacks (CDK will handle dependencies)
+          if [ "${{ steps.stack_check.outputs.sams_exists }}" == "true" ] || [ "${{ steps.stack_check.outputs.social_exists }}" == "true" ]; then
+            bunx cdk destroy --all --force
+          fi
+
+      - name: Add destroy summary
+        if: always()
+        run: |
+          if [ "${{ steps.stack_check.outputs.exists }}" == "true" ]; then
+            echo "## 🗑️ CDK Stacks Destroyed" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
+            echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
+            echo "| **Branch** | \`${{ steps.branch.outputs.branch }}\` |" >> $GITHUB_STEP_SUMMARY
+            echo "| **Region** | ${{ secrets.AWS_REGION || 'eu-central-1' }} |" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Destroyed Stacks:" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            
+            if [ "${{ steps.stack_check.outputs.sams_exists }}" == "true" ]; then
+              echo "- ✅ \`${{ steps.branch.outputs.sams_stack }}\`" >> $GITHUB_STEP_SUMMARY
+            fi
+            
+            if [ "${{ steps.stack_check.outputs.social_exists }}" == "true" ]; then
+              echo "- ✅ \`${{ steps.branch.outputs.social_stack }}\`" >> $GITHUB_STEP_SUMMARY
+            fi
+            
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "All AWS resources for this branch have been cleaned up." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## ℹ️ No Stacks to Destroy" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "No stacks found for branch \`${{ steps.branch.outputs.branch }}\`." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "No cleanup necessary." >> $GITHUB_STEP_SUMMARY
+          fi

@@ -1,146 +1,138 @@
 name: CDK Deploy
 
 on:
-    push:
-        branches:
-            - main
-            - "**" # All branches
-        paths:
-            - "lib/**"
-            - "lambda/**"
-            - "cdk.ts"
-            - "cdk.json"
-            - "package.json"
-            - ".github/workflows/cdk-deploy.yml"
+  push:
+    branches:
+      - main
+      - "**" # All branches
+    paths:
+      - "lib/**"
+      - "lambda/**"
+      - "cdk.ts"
+      - "cdk.json"
+      - "package.json"
+      - ".github/workflows/cdk-deploy.yml"
 
 permissions:
-    id-token: write # Required for AWS OIDC
-    contents: write # Required for commenting on commits
+  id-token: write # Required for AWS OIDC
+  contents: write # Required for commenting on commits
 
 jobs:
-    deploy:
-        name: Deploy CDK Stack
-        runs-on: ubuntu-latest
+  deploy:
+    name: Deploy CDK Stack
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: Setup Bun
-              uses: oven-sh/setup-bun@v1
-              with:
-                  bun-version: latest
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
 
-            - name: Install dependencies
-              run: bun install
+      - name: Install dependencies
+        run: bun install
 
-            - name: Configure AWS credentials
-              uses: aws-actions/configure-aws-credentials@v4
-              with:
-                  role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-                  aws-region: ${{ secrets.AWS_REGION || 'eu-central-1' }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION || 'eu-central-1' }}
 
-            - name: Determine environment
-              id: env
-              run: |
-                  if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-                    echo "environment=prod" >> $GITHUB_OUTPUT
-                    echo "is_main=true" >> $GITHUB_OUTPUT
-                  else
-                    echo "environment=dev" >> $GITHUB_OUTPUT
-                    echo "is_main=false" >> $GITHUB_OUTPUT
-                  fi
+      - name: Determine environment
+        id: env
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "environment=prod" >> $GITHUB_OUTPUT
+            echo "is_main=true" >> $GITHUB_OUTPUT
+          else
+            echo "environment=dev" >> $GITHUB_OUTPUT
+            echo "is_main=false" >> $GITHUB_OUTPUT
+          fi
 
-            - name: Lint check
-              run: bun run lint
+      - name: Lint check
+        run: bun run lint
 
-            - name: Run tests
-              run: bun run test
+      - name: Run tests
+        run: bun run test
 
-            - name: CDK Diff
-              env:
-                  CDK_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
-                  CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
-                  CDK_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
-                  SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
-                  SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
-              run: bunx cdk diff
+      - name: CDK Diff
+        env:
+          CDK_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
+          CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
+          CDK_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
+          SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
+          SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
+        run: bunx cdk diff --all
 
-            - name: CDK Deploy
-              env:
-                  CDK_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
-                  CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
-                  CDK_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
-                  SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
-                  SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
-              run: |
-                  bunx cdk deploy --require-approval never --outputs-file cdk-outputs.json
+      - name: CDK Deploy
+        env:
+          CDK_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
+          CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
+          CDK_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
+          SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
+          SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
+        run: |
+          bunx cdk deploy --require-approval never --all --outputs-file cdk-outputs.json
 
-            - name: Add deployment summary
-              if: always()
-              run: |
-                  BRANCH="${{ github.ref_name }}"
+      - name: Add deployment summary
+        if: always()
+        run: |
+          BRANCH="${{ github.ref_name }}"
 
-                  # Determine environment for display
-                  if [ "${{ steps.env.outputs.is_main }}" == "true" ]; then
-                    ENV_ICON="🚀"
-                    ENV_NAME="Production"
-                  else
-                    ENV_ICON="🔧"
-                    ENV_NAME="Development"
-                  fi
+          # Determine environment for display
+          if [ "${{ steps.env.outputs.is_main }}" == "true" ]; then
+            ENV_ICON="🚀"
+            ENV_NAME="Production"
+          else
+            ENV_ICON="🔧"
+            ENV_NAME="Development"
+          fi
 
-                  # Extract stack name and outputs from CDK deployment
-                  if [ -f "cdk-outputs.json" ]; then
-                    STACK_NAME=$(cat cdk-outputs.json | grep -o '^[^{]*' | tr -d ':" ' | head -1)
-                  else
-                    # Fallback if outputs file doesn't exist
-                    SANITIZED=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9-]/-/g' | sed 's/--*/-/g' | cut -c1-20)
-                    if [ "${{ steps.env.outputs.is_main }}" == "true" ]; then
-                      STACK_NAME="SamsApiStack-Prod"
-                    else
-                      STACK_NAME="SamsApiStack-Dev-${SANITIZED}"
-                    fi
-                  fi
+          # Determine stack names
+          SANITIZED=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9-]/-/g' | sed 's/--*/-/g' | cut -c1-20)
+          if [ "${{ steps.env.outputs.is_main }}" == "true" ]; then
+            SAMS_STACK="SamsApiStack-Prod"
+            SOCIAL_STACK="SocialMediaStack-Prod"
+          else
+            SAMS_STACK="SamsApiStack-Dev-${SANITIZED}"
+            SOCIAL_STACK="SocialMediaStack-Dev-${SANITIZED}"
+          fi
 
-                  echo "## ${ENV_ICON} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
-                  echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
-                  echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-                  echo "| **Environment** | ${ENV_NAME} |" >> $GITHUB_STEP_SUMMARY
-                  echo "| **Branch** | \`${BRANCH}\` |" >> $GITHUB_STEP_SUMMARY
-                  echo "| **Stack Name** | \`${STACK_NAME}\` |" >> $GITHUB_STEP_SUMMARY
-                  echo "| **Region** | ${{ secrets.AWS_REGION || 'eu-central-1' }} |" >> $GITHUB_STEP_SUMMARY
-                  echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "## ${ENV_ICON} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Environment** | ${ENV_NAME} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Branch** | \`${BRANCH}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **SAMS Stack** | \`${SAMS_STACK}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Social Media Stack** | \`${SOCIAL_STACK}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Region** | ${{ secrets.AWS_REGION || 'eu-central-1' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
 
-                  # Extract and display CDK outputs if available
-                  if [ -f "cdk-outputs.json" ]; then
-                    API_URL=$(cat cdk-outputs.json | grep -o '"ApiGatewayUrl"[^"]*"[^"]*"' | sed 's/.*: "\(.*\)"/\1/' || echo "")
-                    CLOUDFRONT_URL=$(cat cdk-outputs.json | grep -o '"CloudFrontUrl"[^"]*"[^"]*"' | sed 's/.*: "\(.*\)"/\1/' || echo "")
-                    
-                    if [ -n "$API_URL" ] || [ -n "$CLOUDFRONT_URL" ]; then
-                      echo "" >> $GITHUB_STEP_SUMMARY
-                      echo "### 🔗 Endpoints" >> $GITHUB_STEP_SUMMARY
-                      echo "" >> $GITHUB_STEP_SUMMARY
-                      
-                      if [ -n "$API_URL" ]; then
-                        echo "- **API Gateway:** ${API_URL}" >> $GITHUB_STEP_SUMMARY
-                      fi
-                      
-                      if [ -n "$CLOUDFRONT_URL" ]; then
-                        echo "- **CloudFront:** ${CLOUDFRONT_URL}" >> $GITHUB_STEP_SUMMARY
-                      fi
-                    fi
-                  fi
+          # Extract and display CDK outputs if available
+          if [ -f "cdk-outputs.json" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 🔗 Endpoints" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            
+            # Display outputs from both stacks
+            cat cdk-outputs.json | grep -o '"[^"]*Url"[^"]*"[^"]*"' | while read -r line; do
+              KEY=$(echo "$line" | sed 's/"\([^"]*\)".*/\1/')
+              VALUE=$(echo "$line" | sed 's/.*: "\(.*\)"/\1/')
+              echo "- **${KEY}:** ${VALUE}" >> $GITHUB_STEP_SUMMARY
+            done || true
+          fi
 
-                  if [ "${{ steps.env.outputs.is_main }}" == "false" ]; then
-                    echo "" >> $GITHUB_STEP_SUMMARY
-                    echo "### 💡 Cleanup" >> $GITHUB_STEP_SUMMARY
-                    echo "" >> $GITHUB_STEP_SUMMARY
-                    echo "This stack will be automatically destroyed when the branch is deleted or PR is closed." >> $GITHUB_STEP_SUMMARY
-                    echo "" >> $GITHUB_STEP_SUMMARY
-                    echo "To manually destroy this stack:" >> $GITHUB_STEP_SUMMARY
-                    echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-                    echo "bunx cdk destroy ${STACK_NAME}" >> $GITHUB_STEP_SUMMARY
-                    echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-                  fi
+          if [ "${{ steps.env.outputs.is_main }}" == "false" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 💡 Cleanup" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "These stacks will be automatically destroyed when the branch is deleted or PR is closed." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "To manually destroy these stacks:" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+            echo "bunx cdk destroy --all" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          fi
