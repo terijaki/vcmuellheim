@@ -68,6 +68,8 @@ export const zAddress = z.object({
         z.string(),
         z.null()
     ]))
+}).register(z.globalRegistry, {
+    description: 'Address for a location or a person. An address object may be null if no address data is available. For persons this might be the case if the address visibility has been set to private.'
 });
 
 /**
@@ -75,7 +77,9 @@ export const zAddress = z.object({
  */
 export const zCommitteeMember = z.object({
     uuid: z.optional(z.string()),
-    committeeUuid: z.optional(z.string()),
+    committeeUuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Reference to the committee'
+    })),
     additionalTitle: z.optional(z.string()),
     sourceFunction: z.optional(z.string()),
     description: z.optional(z.string()),
@@ -90,6 +94,8 @@ export const zCommitteeMember = z.object({
     faxWork: z.optional(z.string()),
     phoneMobileWork: z.optional(z.string()),
     portraitPhotoLink: z.optional(z.string())
+}).register(z.globalRegistry, {
+    description: 'A member of a committee. Personal data may be null if its visibility has been restricted.'
 });
 
 export const zMatchResultTypeCount = z.object({
@@ -154,7 +160,9 @@ export const zLinkDto = z.object({
 export const zObject = z.record(z.string(), z.unknown());
 
 export const zAssociation = z.object({
-    uuid: z.string(),
+    uuid: z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    }),
     _links: z.optional(z.union([
         z.record(z.string(), zLinkDto),
         z.null()
@@ -191,10 +199,14 @@ export const zAssociationResourcePage = z.object({
 });
 
 export const zCommittee = z.object({
-    uuid: z.optional(z.string()),
+    uuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
     _embedded: z.optional(z.record(z.string(), zObject)),
-    associationUuid: z.optional(z.string()),
+    associationUuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Reference to the association this entity belongs to'
+    })),
     members: z.optional(z.array(zCommitteeMember)),
     name: z.optional(z.string()),
     shortname: z.optional(z.string()),
@@ -216,7 +228,9 @@ export const zCommitteePage = z.object({
 });
 
 export const zSportsclubDto = z.object({
-    uuid: z.string(),
+    uuid: z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    }),
     _links: z.optional(z.union([
         z.record(z.string(), zLinkDto),
         z.null()
@@ -257,7 +271,9 @@ export const zSportsclubPage = z.object({
 });
 
 export const zLeagueHierarchyDto = z.object({
-    uuid: z.optional(z.string()),
+    uuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
     _embedded: z.optional(z.record(z.string(), zObject)),
     name: z.optional(z.string()),
@@ -281,7 +297,9 @@ export const zLeagueHierarchyPage = z.object({
 });
 
 export const zCompetitionDto = z.object({
-    uuid: z.optional(z.string()),
+    uuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
     _embedded: z.optional(z.record(z.string(), zObject)),
     name: z.optional(z.string()),
@@ -297,7 +315,9 @@ export const zCompetitionDto = z.object({
     latestResultUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
     latestStructuralUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
     scoreTableCalculationMode: z.optional(z.string()),
-    superCompetitionUuid: z.optional(z.string())
+    superCompetitionUuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'If this competition is the sub-competition of a super competition then this UUID points to this super competition.'
+    }))
 });
 
 export const zCompetitionPage = z.object({
@@ -313,7 +333,9 @@ export const zCompetitionPage = z.object({
 });
 
 export const zLeagueDto = z.object({
-    uuid: z.optional(z.string()),
+    uuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
     _embedded: z.optional(z.record(z.string(), zObject)),
     name: z.optional(z.string()),
@@ -344,7 +366,9 @@ export const zLeaguePage = z.object({
 });
 
 export const zSuperCompetitionDto = z.object({
-    uuid: z.optional(z.string()),
+    uuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
     _embedded: z.optional(z.record(z.string(), zObject)),
     name: z.optional(z.string()),
@@ -360,7 +384,9 @@ export const zSuperCompetitionDto = z.object({
     latestResultUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
     latestStructuralUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
     scoreTableCalculationMode: z.optional(z.string()),
-    superCompetitionUuid: z.optional(z.string())
+    superCompetitionUuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'If this competition is the sub-competition of a super competition then this UUID points to this super competition.'
+    }))
 });
 
 export const zSuperCompetitionPage = z.object({
@@ -404,6 +430,8 @@ export const zLocation = z.object({
         z.null()
     ])),
     address: z.optional(zAddress)
+}).register(z.globalRegistry, {
+    description: 'A location comprises the location\'s name, its address, and its geographical coordinates if available'
 });
 
 export const zLocationResourcePage = z.object({
@@ -419,7 +447,9 @@ export const zLocationResourcePage = z.object({
 });
 
 export const zCompetitionMatchGroupDto = z.object({
-    uuid: z.optional(z.string()),
+    uuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
     _embedded: z.optional(z.record(z.string(), zObject)),
     name: z.optional(z.string()),
@@ -442,7 +472,9 @@ export const zCompetitionMatchGroupPage = z.object({
 });
 
 export const zLeagueRankingsEntryDto = z.object({
-    uuid: z.optional(z.string()),
+    uuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    })),
     _links: z.optional(z.union([
         z.record(z.string(), zLinkDto),
         z.null()
@@ -517,7 +549,9 @@ export const zLeagueRankingsEntryDto = z.object({
 });
 
 export const zCompetitionMatchGroupRankingsDto = z.object({
-    uuid: z.optional(z.string()),
+    uuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
     _embedded: z.optional(z.record(z.string(), zObject)),
     matchGroupName: z.optional(z.string()),
@@ -537,7 +571,9 @@ export const zCompetitionRankingsResourcePage = z.object({
 });
 
 export const zTeamDto = z.object({
-    uuid: z.optional(z.string()),
+    uuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    })),
     _links: z.optional(z.union([
         z.record(z.string(), zLinkDto),
         z.null()
@@ -594,7 +630,9 @@ export const zTeamPage = z.object({
 });
 
 export const zCompetitionMatchDto = z.object({
-    uuid: z.string(),
+    uuid: z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    }),
     _links: z.optional(z.union([
         z.record(z.string(), zLinkDto),
         z.null()
@@ -700,7 +738,9 @@ export const zCompetitionMatchPage = z.object({
 });
 
 export const zLeagueMatchDayDto = z.object({
-    uuid: z.optional(z.string()),
+    uuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
     _embedded: z.optional(z.record(z.string(), zObject)),
     name: z.optional(z.string()),
@@ -735,7 +775,9 @@ export const zLeagueRankingsResourcePage = z.object({
 });
 
 export const zLeagueMatchDto = z.object({
-    uuid: z.string(),
+    uuid: z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    }),
     _links: z.optional(z.union([
         z.record(z.string(), zLinkDto),
         z.null()
@@ -841,25 +883,37 @@ export const zLeagueMatchPage = z.object({
 });
 
 export const zEvent = z.object({
-    uuid: z.optional(z.string()),
+    uuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Event unique identifier'
+    })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
     _embedded: z.optional(z.record(z.string(), zObject)),
     name: z.optional(z.string()),
     shortname: z.optional(z.string()),
     eventNumber: z.optional(z.int()),
     overridingEventNumber: z.optional(z.string()),
-    dateNotYetKnown: z.optional(z.boolean()),
+    dateNotYetKnown: z.optional(z.boolean().register(z.globalRegistry, {
+        description: 'True if no start and end date has been set yet'
+    })),
     endsAt: z.optional(z.iso.datetime({ offset: true, local: true })),
-    beginsAt: z.optional(z.iso.datetime({ offset: true, local: true })),
+    beginsAt: z.optional(z.iso.datetime({ offset: true, local: true }).register(z.globalRegistry, {
+        description: 'Start date for an event. Is null if dateNotYetKnown is true'
+    })),
     registrationDeadline: z.optional(z.iso.datetime({ offset: true, local: true })),
     associationUuid: z.optional(z.string()),
-    canceled: z.optional(z.boolean()),
+    canceled: z.optional(z.boolean().register(z.globalRegistry, {
+        description: 'True if the event has been canceled'
+    })),
     minimumNumberOfParticipants: z.optional(z.int()),
     maximumNumberOfParticipants: z.optional(z.int()),
-    usedCapacity: z.optional(z.int()),
+    usedCapacity: z.optional(z.int().register(z.globalRegistry, {
+        description: 'Number of registered participants for an event. If this event is a subordinate event, i.e. there is a higher level event, then this value is calculated as the sum of all participants of the higher level event and all participants of this higher level event\'s subordinate event. If this event has subordinate events, then this value is calculated as the sum of participants of this event and all its subordinate events.'
+    })),
     registrationUri: z.optional(z.url()),
     location: z.optional(zLocation),
-    eventTypeUuid: z.optional(z.string())
+    eventTypeUuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Reference to the type details for this event'
+    }))
 });
 
 export const zEventPage = z.object({
@@ -878,17 +932,23 @@ export const zEventPage = z.object({
  * Type of an event.
  */
 export const zEventType = z.object({
-    uuid: z.optional(z.string()),
+    uuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
     _embedded: z.optional(z.record(z.string(), zObject)),
     name: z.optional(z.string()),
     description: z.optional(z.string()),
     category: z.optional(z.string()),
     associationUuid: z.optional(z.string())
+}).register(z.globalRegistry, {
+    description: 'Type of an event.'
 });
 
 export const zSeasonDto = z.object({
-    uuid: z.optional(z.string()),
+    uuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
     _embedded: z.optional(z.record(z.string(), zObject)),
     name: z.optional(z.string()),
@@ -898,7 +958,9 @@ export const zSeasonDto = z.object({
 });
 
 export const zUserDetailsDto = z.object({
-    uuid: z.optional(z.string()),
+    uuid: z.optional(z.string().register(z.globalRegistry, {
+        description: 'Entity unique identifier'
+    })),
     _links: z.optional(z.record(z.string(), zLinkDto)),
     _embedded: z.optional(z.record(z.string(), zObject)),
     firstName: z.optional(z.string()),
@@ -920,18 +982,24 @@ export const zGetApiBaseLinksData = z.object({
     path: z.optional(z.never()),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
 export const zGetAssociationByUuidData = z.object({
     body: z.optional(z.never()),
     path: z.object({
-        uuid: z.string()
+        uuid: z.string().register(z.globalRegistry, {
+            description: 'UUID of the requested association'
+        })
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -944,12 +1012,20 @@ export const zGetAssociationsData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int()),
-        association: z.optional(z.string())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        })),
+        association: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for association using the given UUID. Defaults to no filtering.'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -961,14 +1037,22 @@ export const zGetAssociationsResponse = zAssociationResourcePage;
 export const zGetCommitteesForAssociationData = z.object({
     body: z.optional(z.never()),
     path: z.object({
-        uuid: z.string()
+        uuid: z.string().register(z.globalRegistry, {
+            description: 'UUID of the association whose committees are requested'
+        })
     }),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -980,14 +1064,22 @@ export const zGetCommitteesForAssociationResponse = zCommitteePage;
 export const zGetSportsclubsForAssociationData = z.object({
     body: z.optional(z.never()),
     path: z.object({
-        uuid: z.string()
+        uuid: z.string().register(z.globalRegistry, {
+            description: 'UUID of the association whose committees are requested'
+        })
     }),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1000,11 +1092,17 @@ export const zGetAllCommitteesData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1020,7 +1118,9 @@ export const zGetCommitteeData = z.object({
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1033,13 +1133,23 @@ export const zGetAllLeagueHierarchiesData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int()),
-        'for-season': z.optional(z.string()),
-        association: z.optional(z.string())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        })),
+        'for-season': z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for the season. UUID of the season to which the league hierarchy belongs.'
+        })),
+        association: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for association using the given UUID. Defaults to no filtering.'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1054,11 +1164,17 @@ export const zGetCompetitionsByLeagueHierarchyData = z.object({
         uuid: z.string()
     }),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1074,7 +1190,9 @@ export const zGetLeagueHierarchyByUuidData = z.object({
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1089,11 +1207,17 @@ export const zGetLeaguesByLeagueHierarchyData = z.object({
         uuid: z.string()
     }),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1108,11 +1232,17 @@ export const zGetSuperCompetitionsByLeagueHierarchyData = z.object({
         uuid: z.string()
     }),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1125,11 +1255,17 @@ export const zGetAllLocationsData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1145,7 +1281,9 @@ export const zGetLocationByUuidData = z.object({
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1158,13 +1296,23 @@ export const zGetAllCompetitionsData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int()),
-        association: z.optional(z.string()),
-        season: z.optional(z.string())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        })),
+        association: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for association using the given UUID. Defaults to no filtering.'
+        })),
+        season: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for season using the given UUID. Defaults to no filtering.'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1180,7 +1328,9 @@ export const zGetCompetitionByUuidData = z.object({
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1195,11 +1345,17 @@ export const zGetMatchGroupsForCompetitionData = z.object({
         uuid: z.string()
     }),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1214,11 +1370,17 @@ export const zGetRankingsForCompetitionData = z.object({
         uuid: z.string()
     }),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1233,11 +1395,17 @@ export const zGetTeamsForCompetitionData = z.object({
         uuid: z.string()
     }),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1250,16 +1418,32 @@ export const zGetAllCompetitionMatchesWithFilterData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int()),
-        association: z.optional(z.string()),
-        'for-season': z.optional(z.string()),
-        'for-competition': z.optional(z.string()),
-        'for-sportsclub': z.optional(z.string()),
-        'for-team': z.optional(z.string())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        })),
+        association: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for association using the given UUID. Defaults to no filtering.'
+        })),
+        'for-season': z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter by season UUID: Find all matches from a particular season.'
+        })),
+        'for-competition': z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter by competition UUID: Find all matches from a particular competition.'
+        })),
+        'for-sportsclub': z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter by sports club UUID: Find all matches for a particular sports club.'
+        })),
+        'for-team': z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter by team UUID: Find all matches attended by a particular team.'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1275,7 +1459,9 @@ export const zGetCompetitionMatchByUuidData = z.object({
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1288,12 +1474,20 @@ export const zGetAllMatchGroupsData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int()),
-        association: z.optional(z.string())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        })),
+        association: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for association using the given UUID. Defaults to no filtering.'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1309,7 +1503,9 @@ export const zGetMatchGroupByUuidData = z.object({
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1324,11 +1520,17 @@ export const zGetMatchesByMatchGroupData = z.object({
         uuid: z.string()
     }),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1341,13 +1543,23 @@ export const zGetAllLeaguesData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int()),
-        association: z.optional(z.string()),
-        season: z.optional(z.string())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        })),
+        association: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for association using the given UUID. Defaults to no filtering.'
+        })),
+        season: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for season using the given UUID. Defaults to no filtering.'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1363,7 +1575,9 @@ export const zGetLeagueByUuidData = z.object({
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1378,11 +1592,17 @@ export const zGetMatchDaysForLeagueData = z.object({
         uuid: z.string()
     }),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1397,11 +1617,17 @@ export const zGetRankingsForLeagueData = z.object({
         uuid: z.string()
     }),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1416,11 +1642,17 @@ export const zGetTeamsForLeagueData = z.object({
         uuid: z.string()
     }),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1433,16 +1665,32 @@ export const zGetAllLeagueMatchesData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int()),
-        association: z.optional(z.string()),
-        'for-season': z.optional(z.string()),
-        'for-league': z.optional(z.string()),
-        'for-sportsclub': z.optional(z.string()),
-        'for-team': z.optional(z.string())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        })),
+        association: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for association using the given UUID. Defaults to no filtering.'
+        })),
+        'for-season': z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter by season UUID: Find all matches from a particular season.'
+        })),
+        'for-league': z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter by league UUID: Find all matches from a particular league.'
+        })),
+        'for-sportsclub': z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter by sports club UUID: Find all matches for a particular sports club.'
+        })),
+        'for-team': z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter by team UUID: Find all matches attended by a particular team.'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1458,7 +1706,9 @@ export const zGetLeagueMatchByUuidData = z.object({
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1471,12 +1721,20 @@ export const zGetAllMatchDaysData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int()),
-        association: z.optional(z.string())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        })),
+        association: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for association using the given UUID. Defaults to no filtering.'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1492,7 +1750,9 @@ export const zGetMatchDayByUuidData = z.object({
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1507,11 +1767,17 @@ export const zGetMatchesByMatchDayData = z.object({
         uuid: z.string()
     }),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1524,13 +1790,23 @@ export const zGetAllSuperCompetitionsData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int()),
-        association: z.optional(z.string()),
-        season: z.optional(z.string())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        })),
+        association: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for association using the given UUID. Defaults to no filtering.'
+        })),
+        season: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for season using the given UUID. Defaults to no filtering.'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1546,7 +1822,9 @@ export const zGetSuperCompetitionByUuidData = z.object({
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1559,12 +1837,20 @@ export const zGetAllEventsData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int()),
-        association: z.optional(z.string())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        })),
+        association: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for association using the given UUID. Defaults to no filtering.'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1576,11 +1862,15 @@ export const zGetAllEventsResponse = zEventPage;
 export const zGetEventByUuidData = z.object({
     body: z.optional(z.never()),
     path: z.object({
-        uuid: z.string()
+        uuid: z.string().register(z.globalRegistry, {
+            description: 'UUID of the requested event'
+        })
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1592,11 +1882,15 @@ export const zGetEventByUuidResponse = zEvent;
 export const zGetEventTypeByUuidData = z.object({
     body: z.optional(z.never()),
     path: z.object({
-        uuid: z.string()
+        uuid: z.string().register(z.globalRegistry, {
+            description: 'UUID of the requested event type'
+        })
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1609,10 +1903,14 @@ export const zGetEventTypesData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.object({
-        association: z.optional(z.string())
+        association: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for association using the given UUID. Defaults to no filtering.'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1626,14 +1924,18 @@ export const zGetAllSeasonsData = z.object({
     path: z.optional(z.never()),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
 /**
  * Successful operation
  */
-export const zGetAllSeasonsResponse = z.array(zSeasonDto);
+export const zGetAllSeasonsResponse = z.array(zSeasonDto).register(z.globalRegistry, {
+    description: 'Successful operation'
+});
 
 export const zGetLeagueHierarchiesForSeasonData = z.object({
     body: z.optional(z.never()),
@@ -1641,11 +1943,17 @@ export const zGetLeagueHierarchiesForSeasonData = z.object({
         uuid: z.string()
     }),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1661,7 +1969,9 @@ export const zGetSeasonByUuidData = z.object({
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1674,12 +1984,20 @@ export const zGetAllSportsclubsData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int()),
-        association: z.optional(z.string())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        })),
+        association: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for association using the given UUID. Defaults to no filtering.'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1695,7 +2013,9 @@ export const zGetSportsclubData = z.object({
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1708,12 +2028,20 @@ export const zGetAllTeamsData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.object({
-        page: z.optional(z.int()),
-        size: z.optional(z.int()),
-        association: z.optional(z.string())
+        page: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
+        })),
+        size: z.optional(z.int().register(z.globalRegistry, {
+            description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
+        })),
+        association: z.optional(z.string().register(z.globalRegistry, {
+            description: 'Filter for association using the given UUID. Defaults to no filtering.'
+        }))
     })),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1729,7 +2057,9 @@ export const zGetTeamByUuidData = z.object({
     }),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1743,7 +2073,9 @@ export const zGetCurrentUserData = z.object({
     path: z.optional(z.never()),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 
@@ -1757,7 +2089,9 @@ export const zUserDetailsRootLinksData = z.object({
     path: z.optional(z.never()),
     query: z.optional(z.never()),
     headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string())
+        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+            description: 'A SAMS API key with permission to access this API.'
+        }))
     }))
 });
 

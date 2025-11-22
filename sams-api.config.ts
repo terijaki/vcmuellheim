@@ -222,6 +222,7 @@ export default defineConfig({
 				local: true, // Allow datetimes without timezone offset
 				offset: true, // Allow datetimes with timezone offset like +00:00
 			},
+			metadata: true, 
 		},
 		{
 			name: "@hey-api/client-fetch",
