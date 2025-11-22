@@ -1,8 +1,0 @@
-{
-	"SamsApiStack": {
-		"ApiGatewayUrl": "https://9rofqeqr8l.execute-api.eu-central-1.amazonaws.com/v1/",
-		"CloudFrontUrl": "https://d3gsjd3qyhi7f4.cloudfront.net",
-		"SamsApiEndpointFBC7A37D": "https://9rofqeqr8l.execute-api.eu-central-1.amazonaws.com/v1/",
-		"ApiId": "9rofqeqr8l"
-	}
-}

@@ -20,6 +20,10 @@
 		"biome": "biome check",
 		"lint": "biome lint --write",
 		"next-lint": "eslint .",
+		"test": "vitest run",
+		"test:watch": "vitest watch",
+		"test:ui": "vitest --ui",
+		"test:coverage": "vitest run --coverage",
 		"payload-migrate": "bunx payload migrate:create",
 		"sams:update": "openapi-ts --file='sams-api.config.ts'",
 		"container:build": "podman build -t vcmuellheim .",
@@ -83,13 +87,16 @@
 		"@types/react": "^19.1.12",
 		"@types/react-dom": "^19.1.9",
 		"@types/react-world-flags": "^1.6.0",
+		"@vitest/ui": "^4.0.13",
 		"autoprefixer": "^10.4.21",
 		"aws-cdk-lib": "^2.227.0",
+		"aws-sdk-client-mock": "^4.1.0",
 		"constructs": "^10.4.3",
 		"dotenv": "^17.2.3",
 		"eslint": "^9.35.0",
 		"eslint-config-next": "15.5.2",
-		"typescript": "^5.8.3"
+		"typescript": "^5.8.3",
+		"vitest": "^4.0.13"
 	},
 	"overrides": {
 		"@types/react": "^19.1.4",

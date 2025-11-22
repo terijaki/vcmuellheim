@@ -27,4 +27,5 @@ media
 
 # aws
 cdk.out
+cdk-outputs.json
 cdk.context.json
