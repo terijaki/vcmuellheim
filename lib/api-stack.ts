@@ -74,6 +74,7 @@ export class ApiStack extends cdk.Stack {
 			mfaSecondFactor: {
 				sms: false,
 				otp: true,
+				email:false,
 			},
 			deviceTracking: {
 				challengeRequiredOnNewDevice: true,
