@@ -6,7 +6,7 @@ export default defineConfig({
 		format: "biome",
 		lint: "biome",
 	},
-	input: "https://www.volleyball-baden.de/api/v2/swagger.json",
+	input: "data/sams/swagger.json",
 	parser: {
 		patch: {
 			schemas: {
