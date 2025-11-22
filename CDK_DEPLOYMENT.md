@@ -2,6 +2,8 @@
 
 This project supports separate **dev** and **prod** environments for the SAMS API infrastructure, with automatic **branch-based isolation** for feature development.
 
+> 🤖 **Automated Deployments:** See [GitHub Actions Setup Guide](.github/GITHUB_ACTIONS_SETUP.md) for automated CI/CD deployment configuration.
+
 ## Branch-Based Deployments
 
 When deploying from a **non-main branch**, all resources are automatically namespaced with the branch name. This allows multiple developers to work on different features simultaneously without conflicts.
@@ -185,3 +187,5 @@ bun run cdk destroy SamsApiStack-Dev-feature-branch-name
 - Each feature branch deployment creates a full set of resources (DynamoDB tables, Lambda functions, CloudFront distribution, etc.)
 - Remember to destroy feature branch stacks when no longer needed
 - EventBridge rules will continue to trigger sync jobs for all deployed branches
+
+> 💡 **Tip:** Use the [GitHub Actions workflows](.github/GITHUB_ACTIONS_SETUP.md) to automatically deploy and destroy stacks based on branch lifecycle.

@@ -282,16 +282,16 @@ export class SamsApiStack extends cdk.Stack {
 		// Grant DynamoDB read permissions to teams query Lambda
 		teamsTable.grantReadData(samsTeams);
 
-	// Create EventBridge rule to trigger sync Lambda weekly on Wednesday at 2 AM UTC
-	const syncRule = new events.Rule(this, "SamsClubsSyncRule", {
-		ruleName: `${environment}${branchSuffix}-sams-clubs-weekly-sync`,
-		description: `Trigger SAMS clubs sync every Wednesday at 2 AM UTC (${environment}${branchSuffix})`,
-		schedule: events.Schedule.cron({
-			weekDay: "WED",
-			hour: "2",
-			minute: "0",
-		}),
-	});		// Add Lambda as target for EventBridge rule
+		// Create EventBridge rule to trigger sync Lambda weekly on Wednesday at 2 AM UTC
+		const syncRule = new events.Rule(this, "SamsClubsSyncRule", {
+			ruleName: `${environment}${branchSuffix}-sams-clubs-weekly-sync`,
+			description: `Trigger SAMS clubs sync every Wednesday at 2 AM UTC (${environment}${branchSuffix})`,
+			schedule: events.Schedule.cron({
+				weekDay: "WED",
+				hour: "2",
+				minute: "0",
+			}),
+		}); // Add Lambda as target for EventBridge rule
 		syncRule.addTarget(new targets.LambdaFunction(samsClubsSync));
 
 		// Create EventBridge rule to trigger teams sync nightly at 3 AM UTC
@@ -346,38 +346,30 @@ export class SamsApiStack extends cdk.Stack {
 
 		// GET /sams/seasons
 		const seasonsResource = samsResource.addResource("seasons");
-		seasonsResource.addMethod(
-			"GET",
-			new apigateway.LambdaIntegration(samsSeasons),
-			{
-				methodResponses: [
-					{
-						statusCode: "200",
-						responseParameters: {
-							"method.response.header.Cache-Control": true,
-						},
+		seasonsResource.addMethod("GET", new apigateway.LambdaIntegration(samsSeasons), {
+			methodResponses: [
+				{
+					statusCode: "200",
+					responseParameters: {
+						"method.response.header.Cache-Control": true,
 					},
-				],
-			},
-		);
+				},
+			],
+		});
 
 		// GET /sams/rankings/{leagueUuid}
 		const rankingsResource = samsResource.addResource("rankings");
 		const rankingsByLeague = rankingsResource.addResource("{leagueUuid}");
-		rankingsByLeague.addMethod(
-			"GET",
-			new apigateway.LambdaIntegration(samsRankings),
-			{
-				methodResponses: [
-					{
-						statusCode: "200",
-						responseParameters: {
-							"method.response.header.Cache-Control": true,
-						},
+		rankingsByLeague.addMethod("GET", new apigateway.LambdaIntegration(samsRankings), {
+			methodResponses: [
+				{
+					statusCode: "200",
+					responseParameters: {
+						"method.response.header.Cache-Control": true,
 					},
-				],
-			},
-		);
+				},
+			],
+		});
 
 		// GET /sams/associations and GET /sams/associations/{name}
 		const associationsResource = samsResource.addResource("associations");
@@ -410,31 +402,23 @@ export class SamsApiStack extends cdk.Stack {
 		);
 
 		const clubsByUuid = clubsResource.addResource("{uuid}");
-		clubsByUuid.addMethod(
-			"GET",
-			new apigateway.LambdaIntegration(samsClubs),
-			{
-				methodResponses: [
-					{
-						statusCode: "200",
-						responseParameters: {
-							"method.response.header.Cache-Control": true,
-						},
+		clubsByUuid.addMethod("GET", new apigateway.LambdaIntegration(samsClubs), {
+			methodResponses: [
+				{
+					statusCode: "200",
+					responseParameters: {
+						"method.response.header.Cache-Control": true,
 					},
-				],
-			},
-		);
+				},
+			],
+		});
 
 		// GET /sams/teams and GET /sams/teams/{uuid}
 		const teamsResource = samsResource.addResource("teams");
 		teamsResource.addMethod(
 			"GET",
 			new apigateway.LambdaIntegration(samsTeams, {
-				cacheKeyParameters: [
-					"method.request.querystring.name",
-					"method.request.querystring.sportsclub",
-					"method.request.querystring.league",
-				],
+				cacheKeyParameters: ["method.request.querystring.name", "method.request.querystring.sportsclub", "method.request.querystring.league"],
 			}),
 			{
 				requestParameters: {
@@ -454,20 +438,16 @@ export class SamsApiStack extends cdk.Stack {
 		);
 
 		const teamsByUuid = teamsResource.addResource("{uuid}");
-		teamsByUuid.addMethod(
-			"GET",
-			new apigateway.LambdaIntegration(samsTeams),
-			{
-				methodResponses: [
-					{
-						statusCode: "200",
-						responseParameters: {
-							"method.response.header.Cache-Control": true,
-						},
+		teamsByUuid.addMethod("GET", new apigateway.LambdaIntegration(samsTeams), {
+			methodResponses: [
+				{
+					statusCode: "200",
+					responseParameters: {
+						"method.response.header.Cache-Control": true,
 					},
-				],
-			},
-		);
+				},
+			],
+		});
 
 		// Create CloudFront distribution for caching
 		const distribution = new cloudfront.Distribution(this, "SamsApiDistribution", {
