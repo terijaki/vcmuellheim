@@ -88,6 +88,7 @@ export class ApiStack extends cdk.Stack {
 			authFlows: {
 				userPassword: true,
 				userSrp: true,
+				user:true
 			},
 			oAuth: {
 				flows: {
