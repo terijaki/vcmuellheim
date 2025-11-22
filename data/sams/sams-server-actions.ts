@@ -63,9 +63,9 @@ export async function samsLeagueRanking(leagueUuid: string, leagueName?: string 
 }
 
 type SeasonsResponse = {
-	current: SeasonDto[number];
-	next: SeasonDto[number] | undefined;
-	previous: SeasonDto[number] | undefined;
+	current: SeasonDto;
+	next: SeasonDto | undefined;
+	previous: SeasonDto | undefined;
 };
 export async function samsSeasons(): Promise<SeasonsResponse | undefined> {
 	"use cache";

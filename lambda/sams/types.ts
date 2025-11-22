@@ -12,9 +12,9 @@ const BaseClubItemSchema = z.object({
 	sportsclubUuid: z.string(),
 	name: z.string(),
 	nameSlug: z.string(), // Used for case-insensitive queries
-	associationUuid: z.string().optional(),
-	associationName: z.string().optional(),
-	logoImageLink: z.string().optional(),
+	associationUuid: z.string().nullish(),
+	associationName: z.string().nullish(),
+	logoImageLink: z.string().nullish(),
 	updatedAt: z.string(),
 	ttl: z.number(), // DynamoDB TTL field
 });
@@ -111,9 +111,9 @@ export type TeamsResponse = z.infer<typeof TeamsResponseSchema>;
  * Response containing current, next, and previous seasons
  */
 export const SeasonsResponseSchema = z.object({
-	current: z.custom<SeasonDto[number]>(),
-	next: z.custom<SeasonDto[number]>().optional(),
-	previous: z.custom<SeasonDto[number]>().optional(),
+	current: z.custom<SeasonDto>(),
+	next: z.custom<SeasonDto>().nullish(),
+	previous: z.custom<SeasonDto>().nullish(),
 });
 
 export type SeasonsResponse = z.infer<typeof SeasonsResponseSchema>;

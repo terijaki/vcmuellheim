@@ -153,18 +153,6 @@ export default defineConfig({
 						}
 					}
 				},
-				SeasonDto: (schema) => {
-					const { properties: initalProperties } = schema;
-					if (initalProperties) {
-						schema.type = "array";
-						schema.items = {
-							type: "object",
-							// biome-ignore lint/suspicious/noExplicitAny: casting needed
-							properties: initalProperties as any,
-							required: ["uuid", "name", "startDate", "endDate", "currentSeason"],
-						};
-					}
-				},
 				Address: (schema) => {
 					if (schema.properties) {
 						for (const [_key, property] of Object.entries(schema.properties)) {
@@ -228,14 +216,20 @@ export default defineConfig({
 		},
 	},
 	plugins: [
-		"zod",
 		{
-			name: "@hey-api/client-next",
+			name: "zod",
+			dates: {
+				local: true, // Allow datetimes without timezone offset
+				offset: true, // Allow datetimes with timezone offset like +00:00
+			},
+		},
+		{
+			name: "@hey-api/client-fetch",
 			runtimeConfigPath: "@/data/sams/hey-api",
 		},
 		{
 			name: "@hey-api/sdk",
-			validator: true,
+			validator: false, // Disable validation - SAMS API returns datetimes in non-standard format
 		},
 	],
 });

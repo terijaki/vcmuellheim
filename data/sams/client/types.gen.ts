@@ -784,22 +784,22 @@ export type EventType = {
     associationUuid?: string;
 };
 
-export type SeasonDto = Array<{
+export type SeasonDto = {
     /**
      * Entity unique identifier
      */
-    uuid: string;
+    uuid?: string;
     _links?: {
         [key: string]: LinkDto;
     };
     _embedded?: {
         [key: string]: _Object;
     };
-    name: string;
-    startDate: string;
-    endDate: string;
-    currentSeason: boolean;
-}>;
+    name?: string;
+    startDate?: string;
+    endDate?: string;
+    currentSeason?: boolean;
+};
 
 export type UserDetailsDto = {
     /**

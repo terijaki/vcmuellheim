@@ -294,8 +294,8 @@ export const zCompetitionDto = z.object({
     leagueHierarchyUuid: z.optional(z.string()),
     seasonUuid: z.optional(z.string()),
     associationUuid: z.optional(z.string()),
-    latestResultUpdate: z.optional(z.iso.datetime()),
-    latestStructuralUpdate: z.optional(z.iso.datetime()),
+    latestResultUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
+    latestStructuralUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
     scoreTableCalculationMode: z.optional(z.string()),
     superCompetitionUuid: z.optional(z.string())
 });
@@ -326,8 +326,8 @@ export const zLeagueDto = z.object({
     leagueHierarchyUuid: z.optional(z.string()),
     seasonUuid: z.optional(z.string()),
     associationUuid: z.optional(z.string()),
-    latestResultUpdate: z.optional(z.iso.datetime()),
-    latestStructuralUpdate: z.optional(z.iso.datetime()),
+    latestResultUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
+    latestStructuralUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
     scoreTableCalculationMode: z.optional(z.string())
 });
 
@@ -357,8 +357,8 @@ export const zSuperCompetitionDto = z.object({
     leagueHierarchyUuid: z.optional(z.string()),
     seasonUuid: z.optional(z.string()),
     associationUuid: z.optional(z.string()),
-    latestResultUpdate: z.optional(z.iso.datetime()),
-    latestStructuralUpdate: z.optional(z.iso.datetime()),
+    latestResultUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
+    latestStructuralUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
     scoreTableCalculationMode: z.optional(z.string()),
     superCompetitionUuid: z.optional(z.string())
 });
@@ -704,7 +704,7 @@ export const zLeagueMatchDayDto = z.object({
     _links: z.optional(z.record(z.string(), zLinkDto)),
     _embedded: z.optional(z.record(z.string(), zObject)),
     name: z.optional(z.string()),
-    matchdate: z.optional(z.iso.datetime()),
+    matchdate: z.optional(z.iso.datetime({ offset: true, local: true })),
     seasonUuid: z.optional(z.string()),
     leagueUuid: z.optional(z.string()),
     associationUuid: z.optional(z.string())
@@ -849,9 +849,9 @@ export const zEvent = z.object({
     eventNumber: z.optional(z.int()),
     overridingEventNumber: z.optional(z.string()),
     dateNotYetKnown: z.optional(z.boolean()),
-    endsAt: z.optional(z.iso.datetime()),
-    beginsAt: z.optional(z.iso.datetime()),
-    registrationDeadline: z.optional(z.iso.datetime()),
+    endsAt: z.optional(z.iso.datetime({ offset: true, local: true })),
+    beginsAt: z.optional(z.iso.datetime({ offset: true, local: true })),
+    registrationDeadline: z.optional(z.iso.datetime({ offset: true, local: true })),
     associationUuid: z.optional(z.string()),
     canceled: z.optional(z.boolean()),
     minimumNumberOfParticipants: z.optional(z.int()),
@@ -887,15 +887,15 @@ export const zEventType = z.object({
     associationUuid: z.optional(z.string())
 });
 
-export const zSeasonDto = z.array(z.object({
-    uuid: z.string(),
+export const zSeasonDto = z.object({
+    uuid: z.optional(z.string()),
     _links: z.optional(z.record(z.string(), zLinkDto)),
     _embedded: z.optional(z.record(z.string(), zObject)),
-    name: z.string(),
-    startDate: z.string(),
-    endDate: z.string(),
-    currentSeason: z.boolean()
-}));
+    name: z.optional(z.string()),
+    startDate: z.optional(z.string()),
+    endDate: z.optional(z.string()),
+    currentSeason: z.optional(z.boolean())
+});
 
 export const zUserDetailsDto = z.object({
     uuid: z.optional(z.string()),
@@ -903,7 +903,7 @@ export const zUserDetailsDto = z.object({
     _embedded: z.optional(z.record(z.string(), zObject)),
     firstName: z.optional(z.string()),
     lastName: z.optional(z.string()),
-    dateOfBirth: z.optional(z.iso.datetime()),
+    dateOfBirth: z.optional(z.iso.datetime({ offset: true, local: true })),
     gender: z.optional(z.enum([
         'UNDEFINED',
         'MALE',
