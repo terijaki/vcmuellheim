@@ -3,28 +3,28 @@
 //
 /** General information about the club. */
 export const Club = {
-	domain: "vcmuellheim.de",
-	url: "https://vcmuellheim.de",
-	name: "Volleyballclub Müllheim e.V.",
-	shortName: "VC Müllheim",
-	email: "info@vcmuellheim.de",
-	city: "Müllheim",
-	postalCode: 79379,
+	domain: "vcmuellheim.de" as const,
+	url: "https://vcmuellheim.de" as const,
+	name: "Volleyballclub Müllheim e.V." as const,
+	shortName: "VC Müllheim" as const,
+	email: "info@vcmuellheim.de" as const,
+	city: "Müllheim" as const,
+	postalCode: 79379 as const,
 };
 /** The clubs details on the SAMS platform. */
 export const SAMS = {
-	name: "VC Müllheim",
-	server: process.env.SAMS_SERVER,
-	association: { name: "Südbadischer Volleyball-Verband", shortName: "SBVV" },
+	name: "VC Müllheim" as const,
+	server: process.env.SAMS_SERVER as string,
+	association: { name: "Südbadischer Volleyball-Verband" as const, shortName: "SBVV" as const },
 };
 /** The clubs identity/account on the fediverse. */
 export const Mastodon = {
-	instance: "freiburg.social",
-	name: "VCM",
-	clientId: "109553572668731614",
+	instance: "freiburg.social" as const,
+	name: "VCM" as const,
+	clientId: "109553572668731614" as const,
 };
 /** The clubs Instagram settings. */
 export const Instagram = {
-	recentPostTimeframe: 30, // days
-	mainAccount: "vcmuellheim",
+	recentPostTimeframe: 30 as const, // days
+	mainAccount: "vcmuellheim" as const,
 };

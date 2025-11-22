@@ -16,7 +16,7 @@ export async function GET(_request: NextRequest, { params }: { params: Promise<{
 		let teamSamsUuid: string | undefined;
 		let teamLeagueName: string | undefined;
 
-		let calendarTitle = Club.shortName;
+		let calendarTitle: string = Club.shortName;
 
 		if (!sanitisedTeamSlug || sanitisedTeamSlug === "all") {
 			// get all club matches - future and past matches
