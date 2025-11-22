@@ -74,7 +74,7 @@
 		"react-world-flags": "^1.6.0",
 		"sharp": "^0.34.2",
 		"ts-ics": "^2.1.7",
-		"zod": "^3.25.64"
+		"zod": "^4.0.0"
 	},
 	"devDependencies": {
 		"@aws-cdk/aws-lambda-nodejs": "^1.204.0",

@@ -12,13 +12,13 @@ const InstagramPostSchema = z.object({
 	id: z.string(),
 	timestamp: z.string(),
 	type: z.enum(["Image", "Video"]),
-	url: z.string().url().nullish(),
+	url: z.url().nullish(),
 	ownerFullName: z.string(),
 	ownerUsername: z.string(),
 	inputUrl: z.string(),
 	caption: z.string(),
-	displayUrl: z.string().url().nullish(),
-	videoUrl: z.string().url().nullish(),
+	displayUrl: z.url().nullish(),
+	videoUrl: z.url().nullish(),
 	dimensionsHeight: z.number(),
 	dimensionsWidth: z.number(),
 	images: z.array(z.unknown()).nullish(),
@@ -30,7 +30,7 @@ export type InstagramPost = z.infer<typeof InstagramPostSchema>;
 
 const InstagramErrorSchema = z
 	.object({
-		url: z.string().url(),
+		url: z.url(),
 		requestErrorMessages: z.array(z.string()).nullish(),
 		error: z.string(),
 		errorDescription: z.string(),

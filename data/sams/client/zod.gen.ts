@@ -38,7 +38,7 @@ export const zAssociation = z.object({
 	name: z.string(),
 	shortname: z.union([z.string(), z.null()]).optional(),
 	parentUuid: z.union([z.string(), z.null()]).optional(),
-	level: z.union([z.number().int(), z.null()]).optional(),
+	level: z.union([z.int(), z.null()]).optional(),
 });
 
 export const zHalRepresentation = z.object({
@@ -47,13 +47,13 @@ export const zHalRepresentation = z.object({
 });
 
 export const zAssociationResourcePage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zAssociation).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
@@ -83,7 +83,7 @@ export const zCommitteeMember = z.object({
 	firstName: z.string().optional(),
 	lastName: z.string().optional(),
 	email: z.string().optional(),
-	priority: z.number().int().optional(),
+	priority: z.int().optional(),
 	address: zAddress.optional(),
 	phoneMobile: z.string().optional(),
 	fax: z.string().optional(),
@@ -107,13 +107,13 @@ export const zCommittee = z.object({
 });
 
 export const zCommitteePage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zCommittee).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
@@ -130,13 +130,13 @@ export const zSportsclubDto = z.object({
 });
 
 export const zSportsclubPage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zSportsclubDto).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
@@ -149,18 +149,18 @@ export const zLeagueHierarchyDto = z.object({
 	shortName: z.string().optional(),
 	seasonUuid: z.string().optional(),
 	associationUuid: z.string().optional(),
-	level: z.number().int().optional(),
+	level: z.int().optional(),
 	parentLeagueHierarchyUuid: z.string().optional(),
 });
 
 export const zLeagueHierarchyPage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zLeagueHierarchyDto).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
@@ -179,13 +179,13 @@ export const zLocation = z.object({
 });
 
 export const zLocationResourcePage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zLocation).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
@@ -204,20 +204,20 @@ export const zCompetitionDto = z.object({
 });
 
 export const zCompetitionPage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zCompetitionDto).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
 
 export const zMatchResultTypeCount = z.object({
 	result: z.string().optional(),
-	count: z.number().int().optional(),
+	count: z.int().optional(),
 });
 
 export const zLeagueRankingsEntryDto = z.object({
@@ -225,19 +225,19 @@ export const zLeagueRankingsEntryDto = z.object({
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	teamName: z.union([z.string(), z.null()]).optional(),
-	rank: z.number().int().optional(),
-	matchesPlayed: z.union([z.number().int(), z.null()]).optional(),
-	points: z.union([z.number().int(), z.null()]).optional(),
+	rank: z.int().optional(),
+	matchesPlayed: z.union([z.int(), z.null()]).optional(),
+	points: z.union([z.int(), z.null()]).optional(),
 	scoreIncludingLosses: z.union([z.string(), z.null()]).optional(),
-	wins: z.union([z.number().int(), z.null()]).optional(),
-	losses: z.union([z.number().int(), z.null()]).optional(),
-	setWins: z.union([z.number().int(), z.null()]).optional(),
-	setLosses: z.union([z.number().int(), z.null()]).optional(),
-	setDifference: z.union([z.number().int(), z.null()]).optional(),
+	wins: z.union([z.int(), z.null()]).optional(),
+	losses: z.union([z.int(), z.null()]).optional(),
+	setWins: z.union([z.int(), z.null()]).optional(),
+	setLosses: z.union([z.int(), z.null()]).optional(),
+	setDifference: z.union([z.int(), z.null()]).optional(),
 	setRatio: z.union([z.number(), z.string(), z.null()]).optional(),
-	ballWins: z.union([z.number().int(), z.null()]).optional(),
-	ballLosses: z.union([z.number().int(), z.null()]).optional(),
-	ballDifference: z.union([z.number().int(), z.null()]).optional(),
+	ballWins: z.union([z.int(), z.null()]).optional(),
+	ballLosses: z.union([z.int(), z.null()]).optional(),
+	ballDifference: z.union([z.int(), z.null()]).optional(),
 	ballRatio: z.union([z.number(), z.string(), z.null()]).optional(),
 	resultTypes: z.union([z.array(zMatchResultTypeCount), z.null()]).optional(),
 });
@@ -251,13 +251,13 @@ export const zCompetitionMatchGroupRankingsDto = z.object({
 });
 
 export const zCompetitionRankingsResourcePage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zCompetitionMatchGroupRankingsDto).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
@@ -269,7 +269,7 @@ export const zTeamDto = z.object({
 	masterTeamUuid: z.union([z.string(), z.null()]).optional(),
 	name: z.string().optional(),
 	shortName: z.union([z.string(), z.null()]).optional(),
-	teamNumber: z.union([z.number().int(), z.null()]).optional(),
+	teamNumber: z.union([z.int(), z.null()]).optional(),
 	clubCode: z.union([z.string(), z.null()]).optional(),
 	logoImageLink: z.union([z.string(), z.null()]).optional(),
 	sportsclubUuid: z.union([z.string(), z.null()]).optional(),
@@ -277,13 +277,13 @@ export const zTeamDto = z.object({
 });
 
 export const zTeamPage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zTeamDto).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
@@ -295,11 +295,11 @@ export const zRefereeTeamDto = z.object({
 });
 
 export const zVolleyballMatchSetRestDto = z.object({
-	number: z.number().int().optional(),
+	number: z.int().optional(),
 	ballPoints: z.string().optional(),
 	winner: z.string().optional(),
 	winnerName: z.string().optional(),
-	duration: z.number().int().optional(),
+	duration: z.int().optional(),
 });
 
 export const zVolleyballMatchResultsDto = z.object({
@@ -334,15 +334,15 @@ export const zCompetitionMatchDto = z.object({
 			z.null(),
 		])
 		.optional(),
-	date: z.union([z.string().date(), z.null()]).optional(),
+	date: z.union([z.iso.date(), z.null()]).optional(),
 	time: z.union([z.string(), z.null()]).optional(),
-	matchNumber: z.union([z.number().int(), z.null()]).optional(),
+	matchNumber: z.union([z.int(), z.null()]).optional(),
 	decidingMatch: z.union([z.boolean(), z.null()]).optional(),
 	gameReassessed: z.union([z.boolean(), z.null()]).optional(),
 	host: z.union([z.string(), z.null()]).optional(),
 	referees: zRefereeTeamDto.optional().nullable(),
-	spectators: z.union([z.number().int(), z.null()]).optional(),
-	netDuration: z.union([z.number().int(), z.null()]).optional(),
+	spectators: z.union([z.int(), z.null()]).optional(),
+	netDuration: z.union([z.int(), z.null()]).optional(),
 	verified: z.union([z.boolean(), z.null()]).optional(),
 	location: zLocation.optional().nullable(),
 	seasonUuid: z.union([z.string(), z.null()]).optional(),
@@ -355,13 +355,13 @@ export const zCompetitionMatchDto = z.object({
 });
 
 export const zCompetitionMatchPage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zCompetitionMatchDto).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
@@ -371,20 +371,20 @@ export const zCompetitionMatchGroupDto = z.object({
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	name: z.string().optional(),
-	tourneyLevel: z.number().int().optional(),
+	tourneyLevel: z.int().optional(),
 	seasonUuid: z.string().optional(),
 	competitionUuid: z.string().optional(),
 	associationUuid: z.string().optional(),
 });
 
 export const zCompetitionMatchGroupPage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zCompetitionMatchGroupDto).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
@@ -402,25 +402,25 @@ export const zLeagueDto = z.object({
 });
 
 export const zLeaguePage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zLeagueDto).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
 
 export const zLeagueRankingsResourcePage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zLeagueRankingsEntryDto).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
@@ -449,15 +449,15 @@ export const zLeagueMatchDto = z.object({
 			z.null(),
 		])
 		.optional(),
-	date: z.union([z.string().date(), z.null()]).optional(),
+	date: z.union([z.iso.date(), z.null()]).optional(),
 	time: z.union([z.string(), z.null()]).optional(),
-	matchNumber: z.union([z.number().int(), z.null()]).optional(),
+	matchNumber: z.union([z.int(), z.null()]).optional(),
 	decidingMatch: z.union([z.boolean(), z.null()]).optional(),
 	gameReassessed: z.union([z.boolean(), z.null()]).optional(),
 	host: z.union([z.string(), z.null()]).optional(),
 	referees: zRefereeTeamDto.optional().nullable(),
-	spectators: z.union([z.number().int(), z.null()]).optional(),
-	netDuration: z.union([z.number().int(), z.null()]).optional(),
+	spectators: z.union([z.int(), z.null()]).optional(),
+	netDuration: z.union([z.int(), z.null()]).optional(),
 	verified: z.union([z.boolean(), z.null()]).optional(),
 	location: zLocation.optional().nullable(),
 	seasonUuid: z.union([z.string(), z.null()]).optional(),
@@ -470,13 +470,13 @@ export const zLeagueMatchDto = z.object({
 });
 
 export const zLeagueMatchPage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zLeagueMatchDto).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
@@ -486,20 +486,20 @@ export const zLeagueMatchDayDto = z.object({
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	name: z.string().optional(),
-	matchdate: z.string().datetime().optional(),
+	matchdate: z.iso.datetime().optional(),
 	seasonUuid: z.string().optional(),
 	leagueUuid: z.string().optional(),
 	associationUuid: z.string().optional(),
 });
 
 export const zLeagueMatchDayPage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zLeagueMatchDayDto).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
@@ -518,13 +518,13 @@ export const zSuperCompetitionDto = z.object({
 });
 
 export const zSuperCompetitionPage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zSuperCompetitionDto).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
@@ -535,30 +535,30 @@ export const zEvent = z.object({
 	_embedded: zEmbedded.optional(),
 	name: z.string().optional(),
 	shortname: z.string().optional(),
-	eventNumber: z.number().int().optional(),
+	eventNumber: z.int().optional(),
 	overridingEventNumber: z.string().optional(),
 	dateNotYetKnown: z.boolean().optional(),
-	endsAt: z.string().datetime().optional(),
-	beginsAt: z.string().datetime().optional(),
-	registrationDeadline: z.string().datetime().optional(),
+	endsAt: z.iso.datetime().optional(),
+	beginsAt: z.iso.datetime().optional(),
+	registrationDeadline: z.iso.datetime().optional(),
 	associationUuid: z.string().optional(),
 	canceled: z.boolean().optional(),
-	minimumNumberOfParticipants: z.number().int().optional(),
-	maximumNumberOfParticipants: z.number().int().optional(),
-	usedCapacity: z.number().int().optional(),
-	registrationUri: z.string().url().optional(),
+	minimumNumberOfParticipants: z.int().optional(),
+	maximumNumberOfParticipants: z.int().optional(),
+	usedCapacity: z.int().optional(),
+	registrationUri: z.url().optional(),
 	location: zLocation.optional(),
 	eventTypeUuid: z.string().optional(),
 });
 
 export const zEventPage = z.object({
-	totalElements: z.number().int().optional(),
-	numberOfElements: z.number().int().optional(),
+	totalElements: z.int().optional(),
+	numberOfElements: z.int().optional(),
 	_links: zLinks.optional(),
 	_embedded: zEmbedded.optional(),
 	content: z.array(zEvent).optional(),
 	empty: z.boolean().optional(),
-	totalPages: z.number().int().optional(),
+	totalPages: z.int().optional(),
 	first: z.boolean().optional(),
 	last: z.boolean().optional(),
 });
@@ -594,7 +594,7 @@ export const zUserDetailsDto = z.object({
 	_embedded: zEmbedded.optional(),
 	firstName: z.string().optional(),
 	lastName: z.string().optional(),
-	dateOfBirth: z.string().datetime().optional(),
+	dateOfBirth: z.iso.datetime().optional(),
 	gender: z.enum(["UNDEFINED", "MALE", "FEMALE", "DIVERS"]).optional(),
 	emailAddress: z.string().optional(),
 	samsInstance: z.string().optional(),
@@ -635,8 +635,8 @@ export const zGetAssociationsData = z.object({
 	path: z.never().optional(),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 			association: z.string().optional(),
 		})
 		.optional(),
@@ -659,8 +659,8 @@ export const zGetCommitteesForAssociationData = z.object({
 	}),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -682,8 +682,8 @@ export const zGetSportsclubsForAssociationData = z.object({
 	}),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -703,8 +703,8 @@ export const zGetAllCommitteesData = z.object({
 	path: z.never().optional(),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -742,8 +742,8 @@ export const zGetAllLeagueHierarchiesData = z.object({
 	path: z.never().optional(),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 			"for-season": z.string().optional(),
 			association: z.string().optional(),
 		})
@@ -767,8 +767,8 @@ export const zGetCompetitionsByLeagueHierarchyData = z.object({
 	}),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -803,8 +803,8 @@ export const zGetLeaguesByLeagueHierarchyData = z.object({
 	}),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -821,8 +821,8 @@ export const zGetSuperCompetitionsByLeagueHierarchyData = z.object({
 	}),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -837,8 +837,8 @@ export const zGetAllLocationsData = z.object({
 	path: z.never().optional(),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -876,8 +876,8 @@ export const zGetAllCompetitionsData = z.object({
 	path: z.never().optional(),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 			association: z.string().optional(),
 		})
 		.optional(),
@@ -918,8 +918,8 @@ export const zGetMatchGroupsForCompetitionData = z.object({
 	}),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -936,8 +936,8 @@ export const zGetRankingsForCompetitionData = z.object({
 	}),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -959,8 +959,8 @@ export const zGetTeamsForCompetitionData = z.object({
 	}),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -980,8 +980,8 @@ export const zGetAllCompetitionMatchesWithFilterData = z.object({
 	path: z.never().optional(),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 			association: z.string().optional(),
 			"for-season": z.string().optional(),
 			"for-competition": z.string().optional(),
@@ -1024,8 +1024,8 @@ export const zGetAllMatchGroupsData = z.object({
 	path: z.never().optional(),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 			association: z.string().optional(),
 		})
 		.optional(),
@@ -1066,8 +1066,8 @@ export const zGetMatchesByMatchGroupData = z.object({
 	}),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -1082,8 +1082,8 @@ export const zGetAllLeaguesData = z.object({
 	path: z.never().optional(),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 			association: z.string().optional(),
 		})
 		.optional(),
@@ -1124,8 +1124,8 @@ export const zGetMatchDaysForLeagueData = z.object({
 	}),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -1142,8 +1142,8 @@ export const zGetRankingsForLeagueData = z.object({
 	}),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -1165,8 +1165,8 @@ export const zGetTeamsForLeagueData = z.object({
 	}),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -1186,8 +1186,8 @@ export const zGetAllLeagueMatchesData = z.object({
 	path: z.never().optional(),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 			association: z.string().optional(),
 			"for-season": z.string().optional(),
 			"for-league": z.string().optional(),
@@ -1230,8 +1230,8 @@ export const zGetAllMatchDaysData = z.object({
 	path: z.never().optional(),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 			association: z.string().optional(),
 		})
 		.optional(),
@@ -1272,8 +1272,8 @@ export const zGetMatchesByMatchDayData = z.object({
 	}),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -1293,8 +1293,8 @@ export const zGetAllSuperCompetitionsData = z.object({
 	path: z.never().optional(),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 			association: z.string().optional(),
 		})
 		.optional(),
@@ -1333,8 +1333,8 @@ export const zGetAllEventsData = z.object({
 	path: z.never().optional(),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 			association: z.string().optional(),
 		})
 		.optional(),
@@ -1429,8 +1429,8 @@ export const zGetLeagueHierarchiesForSeasonData = z.object({
 	}),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 		})
 		.optional(),
 	headers: z
@@ -1463,8 +1463,8 @@ export const zGetAllSportsclubsData = z.object({
 	path: z.never().optional(),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 			association: z.string().optional(),
 		})
 		.optional(),
@@ -1503,8 +1503,8 @@ export const zGetAllTeamsData = z.object({
 	path: z.never().optional(),
 	query: z
 		.object({
-			page: z.number().int().optional(),
-			size: z.number().int().optional(),
+			page: z.int().optional(),
+			size: z.int().optional(),
 			association: z.string().optional(),
 		})
 		.optional(),

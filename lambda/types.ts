@@ -129,8 +129,8 @@ export const RankingSchema = z.object({
 	teams: z.custom<LeagueRankingsResourcePage["content"]>(),
 	timestamp: z.date(),
 	leagueUuid: z.string(),
-	leagueName: z.string().nullable().optional(),
-	seasonName: z.string().nullable().optional(),
+	leagueName: z.string().nullish(),
+	seasonName: z.string().nullish(),
 });
 
 export type Ranking = z.infer<typeof RankingSchema>;
