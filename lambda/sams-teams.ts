@@ -1,11 +1,4 @@
-import { DynamoDBClient } from "@aws-sdk/			return {
-				statusCode: 200,
-				headers: { 
-					"Content-Type": "application/json",
-					"Cache-Control": "public, max-age=43200", // 12 hours cache (synced every 24h at 3 AM)
-				},
-				body: JSON.stringify(responseTeam),
-			};ynamodb";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { slugify } from "@/utils/slugify";
@@ -50,7 +43,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 				statusCode: 200,
 				headers: {
 					"Content-Type": "application/json",
-					"Cache-Control": "public, max-age=86400", // 24 hours cache (data synced nightly)
+					"Cache-Control": "public, max-age=43200", // 12 hours cache (synced every 24h at 3 AM, max 12h stale)
 				},
 				body: JSON.stringify(responseTeam),
 			};
@@ -100,7 +93,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 			const result = await docClient.send(command);
 			teams = result.Items || [];
 		} else {
-			// No filters provided - return all teams (since we only store VC Müllheim teams)
+			// No filters provided - return all teams (since we only store our club's teams)
 			const command = new ScanCommand({
 				TableName: TEAMS_TABLE_NAME,
 			});
@@ -116,7 +109,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 			statusCode: 200,
 			headers: {
 				"Content-Type": "application/json",
-				"Cache-Control": "public, max-age=86400", // 24 hours cache (data synced nightly)
+				"Cache-Control": "public, max-age=43200", // 12 hours cache (synced every 24h at 3 AM, max 12h stale)
 			},
 			body: JSON.stringify(response),
 		};

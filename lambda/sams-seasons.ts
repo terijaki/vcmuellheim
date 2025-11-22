@@ -65,7 +65,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			headers: {
 				"Content-Type": "application/json",
 				"Access-Control-Allow-Origin": "*",
-				"Cache-Control": "public, max-age=86400", // 24 hours cache (seasons rarely change)
+				"Cache-Control": "public, max-age=43200", // 12 hours cache (seasons rarely change)
 			},
 			body: JSON.stringify(result),
 		};

@@ -485,30 +485,5 @@ export class SamsApiStack extends cdk.Stack {
 			value: `https://${distribution.distributionDomainName}`,
 			description: "CloudFront Distribution URL",
 		});
-
-		new cdk.CfnOutput(this, "ApiId", {
-			value: api.restApiId,
-			description: "API Gateway ID",
-		});
-
-		new cdk.CfnOutput(this, "ClubsTableName", {
-			value: clubsTable.tableName,
-			description: "DynamoDB table name for clubs",
-		});
-
-		new cdk.CfnOutput(this, "TeamsTableName", {
-			value: teamsTable.tableName,
-			description: "DynamoDB table name for teams",
-		});
-
-		new cdk.CfnOutput(this, "SyncRuleName", {
-			value: syncRule.ruleName,
-			description: "EventBridge rule name for nightly clubs sync",
-		});
-
-		new cdk.CfnOutput(this, "TeamsSyncRuleName", {
-			value: teamsSyncRule.ruleName,
-			description: "EventBridge rule name for nightly teams sync",
-		});
 	}
 }
