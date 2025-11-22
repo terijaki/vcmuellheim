@@ -9,7 +9,7 @@ This project supports separate **dev** and **prod** environments for the SAMS AP
 - **Resources:** All resources are prefixed with `dev-` (e.g., `dev-sams-clubs`, `dev-sams-league-matches`)
 - **DynamoDB Tables:** Auto-deleted when stack is destroyed (`RemovalPolicy.DESTROY`)
 - **Required Env Vars:**
-  - `CDK_DEFAULT_ACCOUNT` - Your AWS account ID
+  - `CDK_ACCOUNT` - AWS account ID
   - `SAMS_API_KEY` - SAMS API key
   - `SAMS_SERVER` - SAMS server URL
 
@@ -18,7 +18,8 @@ This project supports separate **dev** and **prod** environments for the SAMS AP
 - **Resources:** All resources are prefixed with `prod-` (e.g., `prod-sams-clubs`, `prod-sams-league-matches`)
 - **DynamoDB Tables:** Retained when stack is destroyed (`RemovalPolicy.RETAIN`)
 - **Required Env Vars:**
-  - `PROD_AWS_ACCOUNT` - Your production AWS account ID (REQUIRED)
+  - `CDK_ACCOUNT` - AWS account ID
+  - `CDK_ENVIRONMENT` - set to `prod` ☝️
   - `SAMS_API_KEY` - SAMS API key
   - `SAMS_SERVER` - SAMS server URL
 
@@ -70,13 +71,14 @@ bun cdk:bootstrap
 2. **Fill in your environment variables:**
    ```bash
    # For dev deployment
-   CDK_DEFAULT_ACCOUNT=123456789012
-   CDK_DEFAULT_REGION=eu-central-1
-   SAMS_API_KEY=your-key
+   CDK_ACCOUNT=123456789012
+   CDK_ENVIRONMENT=dev #(optional)
+   CDK_REGION=eu-central-1
+   SAMS_API_KEY=secret-key
    SAMS_SERVER=https://sams-server.example.com
 
    # For prod deployment (add this line)
-   PROD_AWS_ACCOUNT=987654321098
+   CDK_ENVIRONMENT=prod
    ```
 
 3. **Bootstrap your AWS account (first-time only):**
@@ -111,7 +113,6 @@ All AWS resources are automatically named with the environment prefix:
 |---------|-----|------|
 | DynamoDB Deletion Policy | `DESTROY` (deleted on stack destroy) | `RETAIN` (kept on stack destroy) |
 | Stack Name | `SamsApiStack-Dev` | `SamsApiStack-Prod` |
-| AWS Account | Uses `CDK_DEFAULT_ACCOUNT` | Uses `PROD_AWS_ACCOUNT` |
 | Resource Prefix | `dev-` | `prod-` |
 
 ## Outputs
