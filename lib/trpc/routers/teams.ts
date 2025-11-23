@@ -42,6 +42,12 @@ export const teamsRouter = router({
 
 	/** Create team (admin only) */
 	create: protectedProcedure.input(teamSchema.omit({ id: true, createdAt: true, updatedAt: true })).mutation(async ({ input }) => {
+		// Check if team with this slug already exists
+		const existingTeam = await getTeamBySlug(input.slug);
+		if (existingTeam) {
+			throw new Error("Eine Mannschaft mit diesem Namen existiert bereits");
+		}
+
 		const id = crypto.randomUUID();
 		return teamsRepository.create({ ...input, id } as never);
 	}),
@@ -55,6 +61,14 @@ export const teamsRouter = router({
 			}),
 		)
 		.mutation(async ({ input }) => {
+			// If updating slug, check it's not already used by another team
+			if (input.data.slug) {
+				const existingTeam = await getTeamBySlug(input.data.slug);
+				if (existingTeam && existingTeam.id !== input.id) {
+					throw new Error("Eine Mannschaft mit diesem Namen existiert bereits");
+				}
+			}
+
 			return teamsRepository.update(input.id, input.data);
 		}),
 
