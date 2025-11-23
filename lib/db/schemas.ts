@@ -50,7 +50,7 @@ export const teamSchema = z.object({
 	ageGroup: z.string().optional(),
 	gender: z.enum(["male", "female", "mixed"]),
 	league: z.string().optional(),
-	coachId: z.uuid().optional(),
+	trainerIds: z.array(z.string()).optional(), // Array of member IDs who are trainers
 	pictureS3Keys: z.array(z.string()).optional(),
 });
 

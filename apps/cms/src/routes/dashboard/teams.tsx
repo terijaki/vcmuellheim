@@ -1,5 +1,5 @@
 import type { TeamInput } from "@lib/db/schemas";
-import { ActionIcon, Badge, Box, Button, Card, Group, Image, Modal, Paper, Select, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Avatar, Badge, Box, Button, Card, Group, Image, Modal, MultiSelect, Paper, Select, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title, Tooltip } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
@@ -8,6 +8,16 @@ import { slugify } from "@utils/slugify";
 import { Trash2, Upload, X } from "lucide-react";
 import { useState } from "react";
 import { trpc } from "../../lib/trpc";
+
+function TrainerAvatar({ avatarS3Key, name }: { avatarS3Key?: string; name: string }) {
+	const { data: avatarUrl } = trpc.upload.getFileUrl.useQuery({ s3Key: avatarS3Key || "" }, { enabled: !!avatarS3Key });
+	
+	return (
+		<Tooltip label={name} withArrow>
+			<Avatar src={avatarUrl || null} alt={name} radius="xl" />
+		</Tooltip>
+	);
+}
 
 function TeamPicturesManager({
 	pictureS3Keys,
@@ -139,11 +149,13 @@ function TeamsPage() {
 		ageGroup: "",
 		gender: undefined,
 		league: "",
+		trainerIds: [],
 		pictureS3Keys: [],
 	});
 
 	const { data: teams, isLoading, refetch } = trpc.teams.list.useQuery();
 	const { data: samsTeams } = trpc.samsTeams.list.useQuery();
+	const { data: trainers } = trpc.members.trainers.useQuery();
 	const uploadMutation = trpc.upload.getPresignedUrl.useMutation();
 	const createMutation = trpc.teams.create.useMutation({
 		onSuccess: () => {
@@ -211,6 +223,7 @@ function TeamsPage() {
 			ageGroup: "",
 			gender: undefined,
 			league: "",
+			trainerIds: [],
 			pictureS3Keys: [],
 		});
 		setPictureFiles([]);
@@ -284,6 +297,7 @@ function TeamsPage() {
 			ageGroup: team.ageGroup || "",
 			gender: team.gender,
 			league: team.league || "",
+			trainerIds: team.trainerIds || [],
 			pictureS3Keys: team.pictureS3Keys || [],
 		});
 		setPictureFiles([]);
@@ -344,12 +358,27 @@ function TeamsPage() {
 								searchable
 								clearable
 							/>
-						</Stack>
-					</Group>
-						<Textarea label="Beschreibung" placeholder="Optionale Beschreibung..." value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} minRows={3} />
+					</Stack>
+				</Group>
+				<Textarea label="Beschreibung" placeholder="Optionale Beschreibung..." value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} minRows={3} />
 
+				<MultiSelect
+					label="Trainer"
+					placeholder="Trainer auswählen..."
+					value={formData.trainerIds || []}
+					onChange={(value) => setFormData({ ...formData, trainerIds: value })}
+					data={
+						trainers?.items.map((trainer) => ({
+							value: trainer.id,
+							label: trainer.name,
+						})) || []
+					}
+					description="Mehrere Trainer können ausgewählt werden"
+					searchable
+					clearable
+				/>
 
-					<TeamPicturesManager
+				<TeamPicturesManager
 						pictureS3Keys={formData.pictureS3Keys || []}
 						pictureFiles={pictureFiles}
 						deletePictureKeys={deletePictureKeys}
@@ -379,28 +408,41 @@ function TeamsPage() {
 					<Text>Laden...</Text>
 				) : teams && teams.items.length > 0 ? (
 					<Table striped highlightOnHover>
-						<Table.Thead>
-							<Table.Tr>
-								<Table.Th>Name</Table.Th>
-								<Table.Th>Liga</Table.Th>
-								<Table.Th>Mindestalter</Table.Th>
-								<Table.Th>Geschlecht</Table.Th>
-								<Table.Th>Bilder</Table.Th>
-								<Table.Th>SAMS Team</Table.Th>
-								<Table.Th>Aktionen</Table.Th>
-							</Table.Tr>
-						</Table.Thead>
-						<Table.Tbody>
-							{teams.items.map((team) => {
-								const samsTeam = samsTeams?.find((st) => st.uuid === team.sbvvTeamId);
-								const pictureCount = team.pictureS3Keys?.length || 0;
-								return (
-									<Table.Tr key={team.id}>
-										<Table.Td>{team.name}</Table.Td>
-										<Table.Td>{team.league || "-"}</Table.Td>
-										<Table.Td>{team.ageGroup || "-"}</Table.Td>
-										<Table.Td>{team.gender === "male" ? "Männlich" : team.gender === "female" ? "Weiblich" : team.gender === "mixed" ? "Gemischt" : "-"}</Table.Td>
-										<Table.Td>
+					<Table.Thead>
+						<Table.Tr>
+							<Table.Th>Name</Table.Th>
+							<Table.Th>Liga</Table.Th>
+							<Table.Th>Mindestalter</Table.Th>
+							<Table.Th>Geschlecht</Table.Th>
+							<Table.Th>Trainer</Table.Th>
+							<Table.Th>Bilder</Table.Th>
+							<Table.Th>SAMS Team</Table.Th>
+							<Table.Th>Aktionen</Table.Th>
+						</Table.Tr>
+					</Table.Thead>
+					<Table.Tbody>
+						{teams.items.map((team) => {
+							const samsTeam = samsTeams?.find((st) => st.uuid === team.sbvvTeamId);
+							const pictureCount = team.pictureS3Keys?.length || 0;
+							const teamTrainers = trainers?.items.filter((t) => team.trainerIds?.includes(t.id)) || [];
+							return (
+								<Table.Tr key={team.id}>
+									<Table.Td>{team.name}</Table.Td>
+									<Table.Td>{team.league || "-"}</Table.Td>
+									<Table.Td>{team.ageGroup || "-"}</Table.Td>
+									<Table.Td>{team.gender === "male" ? "Männlich" : team.gender === "female" ? "Weiblich" : team.gender === "mixed" ? "Gemischt" : "-"}</Table.Td>
+								<Table.Td>
+									{teamTrainers.length > 0 ? (
+										<Avatar.Group>
+											{teamTrainers.map((trainer) => (
+												<TrainerAvatar key={trainer.id} avatarS3Key={trainer.avatarS3Key} name={trainer.name} />
+											))}
+										</Avatar.Group>
+									) : (
+										"-"
+									)}
+								</Table.Td>
+									<Table.Td>
 											{pictureCount > 0 ? (
 												<Badge size="sm" variant="light">
 													{pictureCount}
