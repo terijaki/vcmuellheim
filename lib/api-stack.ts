@@ -29,13 +29,13 @@ export class ApiStack extends cdk.Stack {
 		const branch = props.stackProps?.branch || "";
 		const branchSuffix = branch ? `-${branch}` : "";
 		const isProd = environment === "prod";
-		
+
 		// 1. Cognito User Pool for admin authentication
 		this.userPool = new cognito.UserPool(this, "AdminUserPool", {
 			userPoolName: `vcm-admin-${environment}${branchSuffix}`,
 			featurePlan: cognito.FeaturePlan.ESSENTIALS,
 			selfSignUpEnabled: false, // Only admins can create accounts
-			signInCaseSensitive: false,		
+			signInCaseSensitive: false,
 			signInAliases: {
 				email: true,
 				username: false,
@@ -58,7 +58,7 @@ export class ApiStack extends cdk.Stack {
 				},
 			},
 			passkeyUserVerification: cognito.PasskeyUserVerification.PREFERRED,
-			passkeyRelyingPartyId: isProd ? Club.domain : undefined,	
+			passkeyRelyingPartyId: isProd ? Club.domain : undefined,
 			email: cognito.UserPoolEmail.withCognito(),
 			passwordPolicy: {
 				minLength: 8,
@@ -74,7 +74,7 @@ export class ApiStack extends cdk.Stack {
 			mfaSecondFactor: {
 				sms: false,
 				otp: true,
-				email:false,
+				email: false,
 			},
 			deviceTracking: {
 				challengeRequiredOnNewDevice: true,
@@ -88,7 +88,7 @@ export class ApiStack extends cdk.Stack {
 			authFlows: {
 				userPassword: true,
 				userSrp: true,
-				user:true
+				user: true,
 			},
 			oAuth: {
 				flows: {
@@ -111,7 +111,7 @@ export class ApiStack extends cdk.Stack {
 
 		this.trpcLambda = new NodejsFunction(this, "TrpcApiLambda", {
 			functionName: `vcm-trpc-api-${environment}${branchSuffix}`,
-			entry: "lambda/trpc/handler.ts",
+			entry: "lambda/content/handler.ts",
 			handler: "handler",
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			timeout: cdk.Duration.seconds(30),
@@ -144,9 +144,9 @@ export class ApiStack extends cdk.Stack {
 		// Lambda integration
 		const lambdaIntegration = new HttpLambdaIntegration("TrpcLambdaIntegration", this.trpcLambda);
 
-		// Route all /trpc/* requests to Lambda
+		// Route all /api/* requests to Lambda
 		this.api.addRoutes({
-			path: "/trpc/{proxy+}",
+			path: "/api/{proxy+}",
 			methods: [apigatewayv2.HttpMethod.ANY],
 			integration: lambdaIntegration,
 		});

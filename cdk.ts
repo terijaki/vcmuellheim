@@ -72,6 +72,7 @@ new ApiStack(app, apiStackName, {
 		membersTable: contentDbStack.membersTable,
 		mediaTable: contentDbStack.mediaTable,
 		sponsorsTable: contentDbStack.sponsorsTable,
+		busTable: contentDbStack.busTable,
 	},
 });
 

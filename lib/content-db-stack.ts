@@ -16,7 +16,7 @@ export class ContentDbStack extends cdk.Stack {
 	public readonly membersTable: dynamodb.Table;
 	public readonly mediaTable: dynamodb.Table;
 	public readonly sponsorsTable: dynamodb.Table;
- 	public readonly busTable: dynamodb.Table;
+	public readonly busTable: dynamodb.Table;
 
 	constructor(scope: Construct, id: string, props?: ContentDbStackProps) {
 		super(scope, id, props);

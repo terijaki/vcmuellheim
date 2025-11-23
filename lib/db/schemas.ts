@@ -1,5 +1,3 @@
-
-
 /**
  * Zod validation schemas for DynamoDB entities
  * Using Zod v4 top-level string formats for optimal performance
@@ -94,7 +92,6 @@ export const sponsorSchema = z.object({
 	logoId: z.uuid().optional(),
 	expiryTimestamp: z.number().int().positive().optional(),
 });
-
 
 /** Bus Booking schema */
 export const busSchema = z.object({

@@ -6,7 +6,7 @@
  */
 
 import type { z } from "zod";
-import type { eventSchema, mediaSchema, memberSchema, newsSchema, sponsorSchema, teamSchema, busSchema } from "./schemas";
+import type { busSchema, eventSchema, mediaSchema, memberSchema, newsSchema, sponsorSchema, teamSchema } from "./schemas";
 
 /** Inferred types from Zod schemas */
 export type News = z.infer<typeof newsSchema>;
