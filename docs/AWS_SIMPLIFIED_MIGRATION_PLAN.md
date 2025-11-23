@@ -36,19 +36,21 @@
 
 1. [x] **Design DynamoDB Schema**
    - ✅ Map existing Payload collections to DynamoDB tables
-   - ✅ Multi-table design (6 tables: News, Events, Teams, Members, Media, Sponsors)
+   - ✅ Multi-table design (7 tables: News, Events, Teams, Members, Media, Sponsors, Bus)
    - ✅ Removed Users table (Cognito handles authentication)
    - ✅ Removed Roles table (role fields on Member entity)
    - ✅ Partition keys and sort keys determined
    - ✅ GSIs planned for common queries (publishedAt, slug, status, SAMS team mapping)
+   - ✅ TTL configured for auto-expiration (Sponsors, Bus bookings)
 
 2. [x] **Create DynamoDB Tables via CDK**
    - ✅ Created ContentDbStack in lib/content-db-stack.ts
    - ✅ On-demand billing mode configured
    - ✅ Strategic GSIs set up (News: PublishedDate + Slug, Events: StartDate, Teams: Slug + Status + SamsTeam)
    - ✅ Point-in-Time Recovery (PITR) enabled
-   - ✅ TTL configured on Sponsors table (expiryTimestamp)
+   - ✅ TTL configured on Sponsors table (expiryTimestamp) and Bus table (ttl)
    - ✅ Successfully deployed to AWS
+   - ✅ 7 tables created: News, Events, Teams, Members, Media, Sponsors, Bus
 
 3. [ ] **Migration Script**
    - Extract data from current Payload Postgres database
@@ -60,7 +62,7 @@
    - ✅ Zod v4 validation schemas (lib/db/schemas.ts)
    - ✅ TypeScript types inferred from Zod (lib/db/types.ts)
    - ✅ Generic Repository class with full CRUD (lib/db/repository.ts)
-   - ✅ Repository instances for all 6 entities (lib/db/repositories.ts)
+   - ✅ Repository instances for all 7 entities (lib/db/repositories.ts)
    - ✅ Domain-specific query helpers (getPublishedNews, getUpcomingEvents, etc.)
    - ✅ DynamoDB client configuration (lib/db/client.ts)
 
@@ -75,8 +77,8 @@
    - ✅ Installed tRPC dependencies (@trpc/server, @trpc/client, @trpc/react-query)
    - ✅ Created tRPC context with Cognito auth support (lib/trpc/context.ts)
    - ✅ Base procedures configured (publicProcedure, protectedProcedure)
-   - ✅ All 6 entity routers created (news, events, teams, members, media, sponsors)
-   - ✅ Lambda handler for API Gateway (lambda/trpc/handler.ts)
+   - ✅ All 7 entity routers created (news, events, teams, members, media, sponsors, bus)
+   - ✅ Lambda handler for API Gateway (lambda/content/handler.ts)
    - ✅ React client setup (lib/trpc/client.ts)
    - ✅ Complete documentation (docs/TRPC_SETUP.md)
 
@@ -94,7 +96,7 @@
    - ✅ Lambda function with tRPC handler deployed (Node.js 20, 512MB, 30s timeout)
    - ✅ HTTP API Gateway with CORS configured for prod/dev
    - ✅ Type-safe environment variable mapping (lib/db/env.ts)
-   - ✅ IAM permissions: Lambda can read/write all 6 DynamoDB tables
+   - ✅ IAM permissions: Lambda can read/write all 7 DynamoDB tables
    - ✅ Successfully deployed to AWS (Exit Code: 0)
 
 2. [ ] **Create First Admin User in Cognito**
@@ -110,7 +112,7 @@
 
 4. [ ] **Authentication Integration**
    - Integrate Cognito with React app (AWS Amplify UI or custom)
-   - Implement Cognito JWT extraction in Lambda context (lambda/trpc/handler.ts)
+   - Implement Cognito JWT extraction in Lambda context (lambda/content/handler.ts)
    - Protected tRPC procedures using context.userId
    - Implement login/logout flow
    - Protected routes in admin app
@@ -207,6 +209,7 @@
    - `GET /api/members` - List members
    - `GET /api/sponsors` - List sponsors
    - `GET /api/photos` - List photo gallery
+   - `GET /api/bus` - List bus bookings (filtered by date range)
    - Consider pagination, filtering, sorting
 
 2. [ ] **Existing Lambda Functions** (already done)
@@ -370,6 +373,7 @@
       │  - Members               │
       │  - Media                 │
       │  - Sponsors              │
+      │  - Bus                   │
       └──────────────────────────┘
                    │
       ┌────────────┴─────────────┐

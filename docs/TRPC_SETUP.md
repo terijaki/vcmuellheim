@@ -16,7 +16,8 @@ Zod Schemas → DynamoDB Repository → tRPC Procedures → React Frontend
 
 The tRPC API is deployed as a Lambda function behind API Gateway:
 
-- **Handler**: `lambda/trpc/handler.ts`
+- **Handler**: `lambda/content/handler.ts`
+- **Route**: `/api/{proxy+}` (all requests to `/api/*` are handled by tRPC)
 - **Routers**: `lib/trpc/routers/*.ts` (one per entity)
 - **Main Router**: `lib/trpc/index.ts` (combines all routers)
 

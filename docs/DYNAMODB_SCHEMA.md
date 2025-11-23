@@ -21,7 +21,7 @@
 4. **vcm-members** - Club members (coaches, contacts, etc.)
 5. **vcm-media** - Media file metadata (actual files in S3)
 6. **vcm-sponsors** - Sponsor information
-7. **vcm-roles** - Member roles (e.g., "Trainer", "Vorstand")
+7. **vcm-bus** - Bus bookings (with automatic expiration via TTL)
 
 **Note:** Authentication is handled by AWS Cognito, so no Users table is needed.
 
@@ -270,6 +270,45 @@ None - Scan all sponsors and filter client-side for non-expired
 
 ---
 
+## 7. Bus Bookings Table (`vcm-bus`)
+
+**Current Payload Fields:**
+- driver, comment, from, to
+
+**DynamoDB Schema:**
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| **PK** | `id` (String) | UUID |
+| **SK** | `id` (String) | Same as PK |
+| driver | String | Name of the driver |
+| comment | String | Optional notes/comments |
+| from | String | ISO 8601 timestamp (booking start) |
+| to | String | ISO 8601 timestamp (booking end) |
+| ttl | Number | Unix timestamp (when booking expires and for TTL auto-deletion) |
+| createdAt | String | ISO 8601 timestamp |
+| updatedAt | String | ISO 8601 timestamp |
+
+**TTL Configuration:**
+- Attribute: `ttl`
+- DynamoDB automatically deletes expired bookings (no manual cleanup needed)
+- TTL is set to `to` date + 30 days to keep recent history
+
+**Global Secondary Indexes:**
+
+None - Scan all bookings and filter client-side by date range
+
+**Access Patterns:**
+- Get booking by ID: `GetItem(PK=id)`
+- List all bookings: `Scan` (small dataset, filter by date range client-side)
+- Expired bookings: Automatically deleted by DynamoDB TTL
+
+**DynamoDB Stream Configuration:**
+- Stream enabled: `NEW_AND_OLD_IMAGES` (already configured in CDK)
+- No cleanup Lambda needed (bus bookings don't reference other entities)
+
+---
+
 ## Additional Tables (from existing CDK)
 
 ### 8. SAMS Clubs (`vcm-sams-clubs`)
@@ -280,22 +319,7 @@ None - Scan all sponsors and filter client-side for non-expired
 - Already exists in CDK
 - Contains volleyball team data from SAMS API
 
-### 10. Roles Table (`vcm-roles`)
 
-**Schema:**
-
-| Attribute | Type | Description |
-|-----------|------|-------------|
-| **PK** | `id` (String) | UUID |
-| **SK** | `id` (String) | Same as PK |
-| name | String | Role name |
-| createdAt | String | ISO 8601 timestamp |
-
-**Access Patterns:**
-- Get role by ID: `GetItem(PK=id)`
-- List all roles: `Scan` (small dataset)
-
----
 
 ## Common Patterns
 
