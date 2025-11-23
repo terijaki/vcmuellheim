@@ -14,8 +14,9 @@
 		"@mantine/core": "catalog:",
 		"@mantine/dates": "catalog:",
 		"@mantine/hooks": "catalog:",
+		"@mantine/notifications": "catalog:",
 		"@tanstack/react-query": "catalog:",
-		"@tanstack/react-router": "^1.139.3",
+		"@tanstack/react-router": "catalog:",
 		"@trpc/client": "catalog:",
 		"@trpc/react-query": "catalog:",
 		"dayjs": "catalog:",
@@ -24,14 +25,14 @@
 		"superjson": "catalog:"
 	},
 	"devDependencies": {
-		"@tanstack/router-plugin": "^1.139.3",
+		"@tanstack/router-plugin": "catalog:",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
-		"@vitejs/plugin-react": "^5.1.1",
-		"postcss": "^8.4.49",
-		"postcss-preset-mantine": "^1.17.0",
-		"postcss-simple-vars": "^7.0.1",
+		"@vitejs/plugin-react": "catalog:",
+		"postcss": "catalog:",
+		"postcss-preset-mantine": "catalog:",
+		"postcss-simple-vars": "catalog:",
 		"typescript": "catalog:",
-		"vite": "^7.2.4"
+		"vite": "catalog:"
 	}
 }

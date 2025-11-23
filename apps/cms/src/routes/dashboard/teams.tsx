@@ -1,5 +1,6 @@
 import { Button, Group, Modal, Paper, Select, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import type { TeamInput } from "../../../../../lib/db/schemas";
@@ -25,6 +26,18 @@ function TeamsPage() {
 			refetch();
 			close();
 			resetForm();
+			notifications.show({
+				title: "Erfolg",
+				message: "Mannschaft wurde erfolgreich erstellt",
+				color: "green",
+			});
+		},
+		onError: (error) => {
+			notifications.show({
+				title: "Fehler",
+				message: error.message || "Mannschaft konnte nicht erstellt werden",
+				color: "red",
+			});
 		},
 	});
 	const updateMutation = trpc.teams.update.useMutation({
@@ -32,11 +45,35 @@ function TeamsPage() {
 			refetch();
 			close();
 			resetForm();
+			notifications.show({
+				title: "Erfolg",
+				message: "Mannschaft wurde erfolgreich aktualisiert",
+				color: "green",
+			});
+		},
+		onError: (error) => {
+			notifications.show({
+				title: "Fehler",
+				message: error.message || "Mannschaft konnte nicht aktualisiert werden",
+				color: "red",
+			});
 		},
 	});
 	const deleteMutation = trpc.teams.delete.useMutation({
 		onSuccess: () => {
 			refetch();
+			notifications.show({
+				title: "Erfolg",
+				message: "Mannschaft wurde erfolgreich gelöscht",
+				color: "green",
+			});
+		},
+		onError: (error) => {
+			notifications.show({
+				title: "Fehler",
+				message: error.message || "Mannschaft konnte nicht gelöscht werden",
+				color: "red",
+			});
 		},
 	});
 
