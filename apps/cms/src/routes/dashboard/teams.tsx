@@ -3,8 +3,8 @@ import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import type { TeamInput } from "../../../../../lib/db/schemas";
-import { slugify } from "../../../../../utils/slugify";
+import type { TeamInput } from "@lib/db/schemas";
+import { slugify } from "@utils/slugify";
 import { trpc } from "../../lib/trpc";
 
 function TeamsPage() {

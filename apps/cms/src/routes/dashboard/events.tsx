@@ -5,7 +5,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { useMemo, useState } from "react";
 import "dayjs/locale/de";
-import type { EventInput } from "../../../../../lib/db/schemas";
+import type { EventInput } from "@lib/db/schemas";
 import { trpc } from "../../lib/trpc";
 
 dayjs.locale("de");

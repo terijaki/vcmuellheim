@@ -122,17 +122,9 @@ export async function getAllTeams() {
 	return teamsRepository.scan();
 }
 
-/** Get active sponsors */
-export async function getActiveSponsors() {
-	return sponsorsRepository.scan({
-		filterExpression: "#status = :status",
-		expressionAttributeNames: {
-			"#status": "status",
-		},
-		expressionAttributeValues: {
-			":status": "active",
-		},
-	});
+/** Get all sponsors (active and expired are handled by TTL) */
+export async function getAllSponsors() {
+	return sponsorsRepository.scan();
 }
 
 /** Get all members (small dataset, scan is acceptable) */

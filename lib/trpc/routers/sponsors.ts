@@ -3,14 +3,14 @@
  */
 
 import { z } from "zod";
-import { getActiveSponsors, sponsorsRepository } from "../../db/repositories";
+import { getAllSponsors, sponsorsRepository } from "../../db/repositories";
 import { sponsorSchema } from "../../db/schemas";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const sponsorsRouter = router({
-	/** Get all active sponsors */
+	/** Get all sponsors */
 	list: publicProcedure.query(async () => {
-		return getActiveSponsors();
+		return getAllSponsors();
 	}),
 
 	/** Get sponsor by ID */

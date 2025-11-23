@@ -18,7 +18,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { useState, useMemo } from "react";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
-import type { BusInput } from "../../../../../lib/db/schemas";
+import type { BusInput } from "@lib/db/schemas";
 import { trpc } from "../../lib/trpc";
 
 dayjs.locale("de");
