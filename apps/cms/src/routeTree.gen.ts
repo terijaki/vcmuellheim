@@ -13,6 +13,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as DashboardEventsRouteImport } from './routes/dashboard/events'
 import { Route as DashboardBusRouteImport } from './routes/dashboard/bus'
 
 const LoginRoute = LoginRouteImport.update({
@@ -35,6 +36,11 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardEventsRoute = DashboardEventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardBusRoute = DashboardBusRouteImport.update({
   id: '/bus',
   path: '/bus',
@@ -46,12 +52,14 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
   '/dashboard/bus': typeof DashboardBusRoute
+  '/dashboard/events': typeof DashboardEventsRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/dashboard/bus': typeof DashboardBusRoute
+  '/dashboard/events': typeof DashboardEventsRoute
   '/dashboard': typeof DashboardIndexRoute
 }
 export interface FileRoutesById {
@@ -60,19 +68,27 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
   '/dashboard/bus': typeof DashboardBusRoute
+  '/dashboard/events': typeof DashboardEventsRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/login' | '/dashboard/bus' | '/dashboard/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/login'
+    | '/dashboard/bus'
+    | '/dashboard/events'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/dashboard/bus' | '/dashboard'
+  to: '/' | '/login' | '/dashboard/bus' | '/dashboard/events' | '/dashboard'
   id:
     | '__root__'
     | '/'
     | '/dashboard'
     | '/login'
     | '/dashboard/bus'
+    | '/dashboard/events'
     | '/dashboard/'
   fileRoutesById: FileRoutesById
 }
@@ -112,6 +128,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/events': {
+      id: '/dashboard/events'
+      path: '/events'
+      fullPath: '/dashboard/events'
+      preLoaderRoute: typeof DashboardEventsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/bus': {
       id: '/dashboard/bus'
       path: '/bus'
@@ -124,11 +147,13 @@ declare module '@tanstack/react-router' {
 
 interface DashboardRouteChildren {
   DashboardBusRoute: typeof DashboardBusRoute
+  DashboardEventsRoute: typeof DashboardEventsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardBusRoute: DashboardBusRoute,
+  DashboardEventsRoute: DashboardEventsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 

@@ -77,9 +77,9 @@ export class Repository<T extends BaseEntity> {
 	 */
 	async update(id: string, updates: Partial<Omit<T, "id" | "createdAt">>): Promise<T> {
 		const now = new Date().toISOString();
-		const updateExpressions: string[] = ["updatedAt = :updatedAt"];
+		const updateExpressions: string[] = ["#updatedAt = :updatedAt"];
 		const expressionAttributeValues: Record<string, unknown> = { ":updatedAt": now };
-		const expressionAttributeNames: Record<string, string> = {};
+		const expressionAttributeNames: Record<string, string> = { "#updatedAt": "updatedAt" };
 
 		// Build update expression from provided fields
 		Object.entries(updates).forEach(([key, value]) => {

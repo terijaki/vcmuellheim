@@ -76,18 +76,19 @@ export async function getNewsBySlug(slug: string) {
 
 /** Get upcoming events, sorted by start date */
 export async function getUpcomingEvents(limit = 20) {
-	return eventsRepository.query({
-		indexName: "GSI-StartDate",
-		keyConditionExpression: "#status = :status",
-		expressionAttributeNames: {
-			"#status": "status",
-		},
-		expressionAttributeValues: {
-			":status": "upcoming",
-		},
-		scanIndexForward: true, // Ascending order (earliest first)
-		limit,
-	});
+	const now = new Date().toISOString();
+	const result = await eventsRepository.scan({ limit: 100 }); // Get more to filter
+
+	// Filter and sort events that haven't started yet
+	const upcomingEvents = result.items
+		.filter((event) => event.startDate >= now)
+		.sort((a, b) => a.startDate.localeCompare(b.startDate))
+		.slice(0, limit);
+
+	return {
+		items: upcomingEvents,
+		lastEvaluatedKey: result.lastEvaluatedKey,
+	};
 }
 
 /** Get team by slug */

@@ -34,8 +34,7 @@ export const eventSchema = z.object({
 	startDate: z.iso.datetime(),
 	endDate: z.iso.datetime().optional(),
 	location: z.string().optional(),
-	status: z.enum(["upcoming", "past", "cancelled"]),
-	type: z.enum(["match", "training", "meeting", "social", "other"]),
+	type: z.string().optional(),
 	teamId: z.uuid().optional(),
 	relatedSamsMatchId: z.string().optional(),
 });

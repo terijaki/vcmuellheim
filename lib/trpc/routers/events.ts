@@ -8,6 +8,19 @@ import { eventSchema } from "../../db/schemas";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const eventsRouter = router({
+	/** List all events (admin only) */
+	list: protectedProcedure
+		.input(
+			z
+				.object({
+					limit: z.number().min(1).max(100).optional().default(50),
+				})
+				.optional(),
+		)
+		.query(async ({ input }) => {
+			return eventsRepository.scan({ limit: input?.limit });
+		}),
+
 	/** Get upcoming events */
 	upcoming: publicProcedure
 		.input(
