@@ -140,6 +140,12 @@
    - ✅ Dynamic API URL computation (hostname-based + Git branch detection)
    - ✅ Dynamic Cognito config fetching from API
    - ✅ tRPC provider with auth token injection
+   - [ ] **Switch to Cognito Hosted UI** (Managed Login Pages)
+     - Configure Cognito domain in ApiStack
+     - Add OAuth flows to User Pool Client
+     - Update CMS to use OAuth authorization code flow
+     - Remove custom login form (apps/cms/src/auth/AuthContext.tsx)
+     - Implement OAuth callback handler
 
 4. [x] **Authentication Integration**
    - ✅ JWT verification implemented (lib/trpc/context.ts)
@@ -521,17 +527,26 @@
   - Easier to maintain long-term
   - Better cost efficiency for low/medium traffic
   
-- **Trade-offs:**
-  - Need to build custom admin UI (but more tailored to needs)
-  - DynamoDB learning curve (but worth it for serverless)
-  - SEO requires extra work for SPA (but solvable with prerendering or Lambda@Edge)
+**Trade-offs:**
+- Need to build custom admin UI (but more tailored to needs)
+- DynamoDB learning curve (but worth it for serverless)
+- SEO requires extra work for SPA (but solvable with prerendering or Lambda@Edge)
+- ~~Custom login form maintenance~~ Using Cognito Hosted UI (AWS-managed)
 
-- **Why remove Payload:**
-  - Payload is great but overkill for a small club website
-  - Postgres requirement adds complexity and cost
-  - Custom CMS can be simpler and exactly what you need
+**Why remove Payload:**
+- Payload is great but overkill for a small club website
+- Postgres requirement adds complexity and cost
+- Custom CMS can be simpler and exactly what you need
+- Cognito Hosted UI eliminates need for custom auth UI
   
-- **Why remove Next.js:**
-  - Not using SSR, ISR, or server actions meaningfully
-  - Vite + React is faster, simpler, and more flexible
-  - Can always add Lambda@Edge SSR for specific pages if needed later
+**Why remove Next.js:**
+- Not using SSR, ISR, or server actions meaningfully
+- Vite + React is faster, simpler, and more flexible
+- Can always add Lambda@Edge SSR for specific pages if needed later
+
+**Authentication Strategy:**
+- Using Cognito Hosted UI (Managed Login Pages)
+- OAuth 2.0 authorization code flow
+- AWS handles all auth UI, security, MFA, password reset
+- CMS redirects to Cognito domain for login
+- Zero custom auth code to maintain
