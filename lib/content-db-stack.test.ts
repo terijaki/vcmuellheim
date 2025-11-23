@@ -1,6 +1,6 @@
+import { describe, it } from "bun:test";
 import { App } from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
-import { describe, it } from "vitest";
 import { ContentDbStack } from "./content-db-stack";
 
 describe("ContentDbStack", () => {

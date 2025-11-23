@@ -1,6 +1,6 @@
+import { beforeAll, describe, it } from "bun:test";
 import { App } from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
-import { beforeAll, describe, it } from "vitest";
 import { SamsApiStack } from "./sams-api-stack";
 
 // Set required environment variables before tests

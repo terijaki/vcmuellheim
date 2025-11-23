@@ -1,7 +1,7 @@
+import { describe, it } from "bun:test";
 import { App, Stack } from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
-import { describe, it } from "vitest";
 import { ApiStack } from "./api-stack";
 
 // Helper to create mock DynamoDB tables in the same stack
