@@ -61,6 +61,7 @@ jobs:
         env:
           CDK_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
           CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
+          VITE_CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
           CDK_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
           SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
           SAMS_SERVER: ${{ secrets.SAMS_SERVER }}

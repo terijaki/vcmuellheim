@@ -3,16 +3,22 @@
  */
 
 import * as cdk from "aws-cdk-lib";
+import type * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
+import * as route53 from "aws-cdk-lib/aws-route53";
+import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
+import { Club } from "@/project.config";
 
 export interface MediaStackProps extends cdk.StackProps {
 	stackProps?: {
 		environment?: string;
 		branch?: string;
 	};
+	hostedZone?: route53.IHostedZone;
+	cloudFrontCertificate?: acm.ICertificate; // Must be from us-east-1
 }
 
 export class MediaStack extends cdk.Stack {
@@ -23,7 +29,12 @@ export class MediaStack extends cdk.Stack {
 	constructor(scope: Construct, id: string, props?: MediaStackProps) {
 		super(scope, id, props);
 
-		const isProd = props?.stackProps?.environment === "prod";
+		const environment = props?.stackProps?.environment || "dev";
+		const branch = props?.stackProps?.branch || "";
+		const branchSuffix = branch ? `-${branch}` : "";
+		const isProd = environment === "prod";
+		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
+		const mediaDomain = `${envPrefix}media.new.${Club.domain}`;
 
 		// S3 Bucket for media storage
 		this.bucket = new s3.Bucket(this, "MediaBucket", {
@@ -69,9 +80,26 @@ export class MediaStack extends cdk.Stack {
 			},
 			priceClass: cloudfront.PriceClass.PRICE_CLASS_100, // Use only North America and Europe
 			comment: isProd ? "VCM Media Distribution (Prod)" : "VCM Media Distribution (Dev)",
+			...(props?.cloudFrontCertificate && props?.hostedZone
+				? {
+						domainNames: [mediaDomain],
+						certificate: props.cloudFrontCertificate,
+					}
+				: {}),
 		});
 
-		this.cloudFrontUrl = `https://${this.distribution.distributionDomainName}`;
+		// Create A record for media subdomain if hosted zone provided
+		if (props?.hostedZone && props?.cloudFrontCertificate) {
+			new route53.ARecord(this, "MediaARecord", {
+				zone: props.hostedZone,
+				recordName: mediaDomain,
+				target: route53.RecordTarget.fromAlias(new route53Targets.CloudFrontTarget(this.distribution)),
+			});
+
+			this.cloudFrontUrl = `https://${mediaDomain}`;
+		} else {
+			this.cloudFrontUrl = `https://${this.distribution.distributionDomainName}`;
+		}
 
 		// Outputs
 		new cdk.CfnOutput(this, "MediaBucketName", {

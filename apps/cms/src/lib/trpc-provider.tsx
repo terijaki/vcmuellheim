@@ -5,7 +5,35 @@ import superjson from "superjson";
 import { useAuth } from "../auth/AuthContext";
 import { trpc } from "./trpc";
 
-const API_URL = import.meta.env.VITE_API_URL ||"";
+// Compute API URL based on current hostname
+// Examples:
+// - dev-aws-migration-admin.new.vcmuellheim.de -> dev-aws-migration-api.new.vcmuellheim.de
+// - dev-admin.new.vcmuellheim.de -> dev-api.new.vcmuellheim.de
+// - admin.new.vcmuellheim.de -> api.new.vcmuellheim.de
+// - localhost -> computed from VITE_CDK_ENVIRONMENT and Git branch (injected at build time)
+function getApiUrl(): string {
+	if (typeof window === "undefined") return "";
+	
+	const hostname = window.location.hostname;
+	
+	// Local development: compute URL from environment and Git branch
+	if (hostname === "localhost" || hostname === "127.0.0.1") {
+		const environment = import.meta.env.VITE_CDK_ENVIRONMENT || "dev";
+		const gitBranch = import.meta.env.VITE_GIT_BRANCH || ""; // Injected at build time from Git
+		const isProd = environment === "prod";
+		const isMainBranch = gitBranch === "main" || gitBranch === "";
+		const branch = !isMainBranch ? gitBranch : "";
+		const branchSuffix = branch ? `-${branch}` : "";
+		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
+		return `https://${envPrefix}api.new.vcmuellheim.de/api`;
+	}
+	
+	// Production/staging: replace admin -> api in hostname
+	const apiHostname = hostname.replace("-admin.", "-api.").replace("admin.", "api.");
+	return `https://${apiHostname}/api`;
+}
+
+const API_URL = getApiUrl();
 
 export function TRPCProvider({ children }: { children: ReactNode }) {
 	const { idToken } = useAuth();

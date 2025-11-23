@@ -1,10 +1,13 @@
 import * as cdk from "aws-cdk-lib";
 import * as apigatewayv2 from "aws-cdk-lib/aws-apigatewayv2";
 import { HttpLambdaIntegration } from "aws-cdk-lib/aws-apigatewayv2-integrations";
+import type * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import type * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import * as route53 from "aws-cdk-lib/aws-route53";
+import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import type * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import { Club } from "@/project.config";
@@ -19,6 +22,8 @@ interface ApiStackProps extends cdk.StackProps {
 	mediaBucket?: s3.Bucket;
 	cloudFrontUrl?: string;
 	samsApiUrl?: string;
+	hostedZone?: route53.IHostedZone;
+	certificate?: acm.ICertificate;
 }
 
 export class ApiStack extends cdk.Stack {
@@ -26,6 +31,8 @@ export class ApiStack extends cdk.Stack {
 	public readonly userPool: cognito.UserPool;
 	public readonly userPoolClient: cognito.UserPoolClient;
 	public readonly trpcLambda: lambda.Function;
+	public readonly apiDomainName?: apigatewayv2.DomainName;
+	public readonly apiUrl: string;
 
 	constructor(scope: Construct, id: string, props: ApiStackProps) {
 		super(scope, id, props);
@@ -34,6 +41,8 @@ export class ApiStack extends cdk.Stack {
 		const branch = props.stackProps?.branch || "";
 		const branchSuffix = branch ? `-${branch}` : "";
 		const isProd = environment === "prod";
+		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
+		const apiDomain = `${envPrefix}api.new.${Club.domain}`;
 
 		// 1. Cognito User Pool for admin authentication
 		this.userPool = new cognito.UserPool(this, "AdminUserPool", {
@@ -124,7 +133,10 @@ export class ApiStack extends cdk.Stack {
 			memorySize: 512,
 			environment: {
 				...Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
+				AWS_REGION: this.region,
+				CDK_ENVIRONMENT: environment,
 				COGNITO_USER_POOL_ID: this.userPool.userPoolId,
+				COGNITO_USER_POOL_CLIENT_ID: this.userPoolClient.userPoolClientId,
 				...(props.samsApiUrl ? { SAMS_API_URL: props.samsApiUrl } : {}),
 				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
 				...(props.cloudFrontUrl ? { CLOUDFRONT_URL: props.cloudFrontUrl } : {}),
@@ -147,19 +159,55 @@ export class ApiStack extends cdk.Stack {
 			props.mediaBucket.grantRead(this.trpcLambda);
 		}
 
-		// 3. HTTP API Gateway
-		this.api = new apigatewayv2.HttpApi(this, "TrpcHttpApi", {
-			apiName: `vcm-trpc-api-${environment}${branchSuffix}`,
-			description: "tRPC API for VCM admin and public endpoints",
-			corsPreflight: {
-				allowOrigins: isProd ? [Club.url, "https://admin.vcmuellheim.de"] : ["*"],
-				allowMethods: [apigatewayv2.CorsHttpMethod.GET, apigatewayv2.CorsHttpMethod.POST, apigatewayv2.CorsHttpMethod.OPTIONS],
-				allowHeaders: isProd ? ["content-type", "authorization", "x-trpc-source"] : ["content-type", "authorization", "x-trpc-source", "*"],
-				exposeHeaders: ["content-type"],
-				allowCredentials: false,
-				maxAge: cdk.Duration.hours(1),
-			},
-		});
+		// 3. HTTP API Gateway with custom domain
+		if (props.hostedZone && props.certificate) {
+			// Custom domain for API
+			this.apiDomainName = new apigatewayv2.DomainName(this, "ApiDomainName", {
+				domainName: apiDomain,
+				certificate: props.certificate,
+			});
+
+			this.api = new apigatewayv2.HttpApi(this, "TrpcHttpApi", {
+				apiName: `vcm-trpc-api-${environment}${branchSuffix}`,
+				description: "tRPC API for VCM admin and public endpoints",
+				defaultDomainMapping: {
+					domainName: this.apiDomainName,
+				},
+					corsPreflight: {
+						allowOrigins: isProd ? [Club.url, `https://${envPrefix}admin.new.${Club.domain}`] : ["*"],
+					allowMethods: [apigatewayv2.CorsHttpMethod.GET, apigatewayv2.CorsHttpMethod.POST, apigatewayv2.CorsHttpMethod.OPTIONS],
+					allowHeaders: isProd ? ["content-type", "authorization", "x-trpc-source"] : ["content-type", "authorization", "x-trpc-source", "*"],
+					exposeHeaders: ["content-type"],
+					allowCredentials: false,
+					maxAge: cdk.Duration.hours(1),
+				},
+			});
+
+			// Create A record pointing to API Gateway
+			new route53.ARecord(this, "ApiARecord", {
+				zone: props.hostedZone,
+				recordName: apiDomain,
+				target: route53.RecordTarget.fromAlias(new route53Targets.ApiGatewayv2DomainProperties(this.apiDomainName.regionalDomainName, this.apiDomainName.regionalHostedZoneId)),
+			});
+
+			this.apiUrl = `https://${apiDomain}`;
+		} else {
+			// Fallback without custom domain
+			this.api = new apigatewayv2.HttpApi(this, "TrpcHttpApi", {
+				apiName: `vcm-trpc-api-${environment}${branchSuffix}`,
+				description: "tRPC API for VCM admin and public endpoints",
+				corsPreflight: {
+					allowOrigins: isProd ? [Club.url, `https://admin.${Club.domain}`] : ["*"],
+					allowMethods: [apigatewayv2.CorsHttpMethod.GET, apigatewayv2.CorsHttpMethod.POST, apigatewayv2.CorsHttpMethod.OPTIONS],
+					allowHeaders: isProd ? ["content-type", "authorization", "x-trpc-source"] : ["content-type", "authorization", "x-trpc-source", "*"],
+					exposeHeaders: ["content-type"],
+					allowCredentials: false,
+					maxAge: cdk.Duration.hours(1),
+				},
+			});
+
+			this.apiUrl = this.api.apiEndpoint;
+		}
 
 		// Lambda integration
 		const lambdaIntegration = new HttpLambdaIntegration("TrpcLambdaIntegration", this.trpcLambda);
@@ -173,7 +221,7 @@ export class ApiStack extends cdk.Stack {
 
 		// Outputs
 		new cdk.CfnOutput(this, "ApiUrl", {
-			value: this.api.apiEndpoint,
+			value: this.apiUrl,
 			description: "tRPC API URL",
 			exportName: `vcm-trpc-api-url-${environment}${branchSuffix}`,
 		});

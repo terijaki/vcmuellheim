@@ -3,6 +3,7 @@
  */
 
 import { busRouter } from "./routers/bus";
+import { configRouter } from "./routers/config";
 import { eventsRouter } from "./routers/events";
 import { locationsRouter } from "./routers/locations";
 import { mediaRouter } from "./routers/media";
@@ -15,6 +16,7 @@ import { uploadRouter } from "./routers/upload";
 import { router } from "./trpc";
 
 export const appRouter = router({
+	config: configRouter,
 	news: newsRouter,
 	events: eventsRouter,
 	teams: teamsRouter,

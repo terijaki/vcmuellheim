@@ -1,9 +1,41 @@
 import { type AuthFlowType, CognitoIdentityProviderClient, InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { createContext, useContext, useEffect, useState } from "react";
 
-// Cognito configuration from environment variables
-const COGNITO_REGION = import.meta.env.VITE_COGNITO_REGION || "eu-central-1";
-const COGNITO_CLIENT_ID = import.meta.env.VITE_COGNITO_CLIENT_ID;
+// Fetch Cognito config from API
+async function fetchCognitoConfig(): Promise<{ region: string; clientId: string }> {
+	// Compute API URL based on environment and branch (same pattern as CDK)
+	const hostname = typeof window !== "undefined" ? window.location.hostname : "";
+	let apiUrl = "";
+	
+	if (hostname === "localhost" || hostname === "127.0.0.1") {
+		// Local development: compute URL from environment and Git branch
+		const environment = import.meta.env.VITE_CDK_ENVIRONMENT || "dev";
+		const gitBranch = import.meta.env.VITE_GIT_BRANCH || ""; // Injected at build time from Git
+		const isProd = environment === "prod";
+		const isMainBranch = gitBranch === "main" || gitBranch === "";
+		const branch = !isMainBranch ? gitBranch : "";
+		const branchSuffix = branch ? `-${branch}` : "";
+		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
+		apiUrl = `https://${envPrefix}api.new.vcmuellheim.de/api`;
+	} else {
+		// Deployed: replace admin -> api in hostname
+		const apiHostname = hostname.replace("-admin.", "-api.").replace("admin.", "api.");
+		apiUrl = `https://${apiHostname}/api`;
+	}
+	
+	const response = await fetch(`${apiUrl}/config.cognito`);
+	if (!response.ok) throw new Error("Failed to fetch Cognito config from API");
+	
+	const data = await response.json();
+	if (!data.result?.data?.region || !data.result?.data?.clientId) {
+		throw new Error("Invalid Cognito config received from API");
+	}
+	
+	return {
+		region: data.result.data.region,
+		clientId: data.result.data.clientId,
+	};
+}
 
 interface AuthUser {
 	username: string;
@@ -25,19 +57,36 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const cognitoClient = new CognitoIdentityProviderClient({
-	region: COGNITO_REGION,
-});
-
 const AUTH_STORAGE_KEY = "vcm-auth";
+
+let cognitoClient: CognitoIdentityProviderClient | null = null;
+let cognitoClientId = "";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const [user, setUser] = useState<AuthUser | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const [configLoaded, setConfigLoaded] = useState(false);
 
-	// Restore session from localStorage on mount
+	// Fetch Cognito config on mount
 	useEffect(() => {
+		fetchCognitoConfig()
+			.then((config) => {
+				cognitoClient = new CognitoIdentityProviderClient({ region: config.region });
+				cognitoClientId = config.clientId;
+				setConfigLoaded(true);
+			})
+			.catch((err) => {
+				console.error("Failed to load Cognito config:", err);
+				setError("Failed to load authentication configuration");
+				setIsLoading(false);
+			});
+	}, []);
+
+	// Restore session from localStorage once config is loaded
+	useEffect(() => {
+		if (!configLoaded) return;
+		
 		const storedAuth = localStorage.getItem(AUTH_STORAGE_KEY);
 		if (storedAuth) {
 			try {
@@ -48,16 +97,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			}
 		}
 		setIsLoading(false);
-	}, []);
+	}, [configLoaded]);
 
 	const login = async (username: string, password: string) => {
+		if (!cognitoClient || !cognitoClientId) {
+			setError("Authentication not initialized");
+			return;
+		}
+
 		setIsLoading(true);
 		setError(null);
 
 		try {
 			const command = new InitiateAuthCommand({
 				AuthFlow: "USER_PASSWORD_AUTH" as AuthFlowType,
-				ClientId: COGNITO_CLIENT_ID,
+				ClientId: cognitoClientId,
 				AuthParameters: {
 					USERNAME: username,
 					PASSWORD: password,
