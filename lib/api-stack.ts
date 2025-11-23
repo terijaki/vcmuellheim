@@ -106,6 +106,7 @@ export class ApiStack extends cdk.Stack {
 			MEMBERS: props.contentDbStack.membersTable,
 			MEDIA: props.contentDbStack.mediaTable,
 			SPONSORS: props.contentDbStack.sponsorsTable,
+			BUS: props.contentDbStack.busTable,
 		} satisfies Record<TableEntity, dynamodb.Table>;
 
 		this.trpcLambda = new NodejsFunction(this, "TrpcApiLambda", {

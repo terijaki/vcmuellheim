@@ -1,3 +1,5 @@
+
+
 /**
  * Zod validation schemas for DynamoDB entities
  * Using Zod v4 top-level string formats for optimal performance
@@ -90,9 +92,20 @@ export const sponsorSchema = z.object({
 	description: z.string().optional(),
 	websiteUrl: z.url().optional(),
 	logoId: z.uuid().optional(),
-	tier: z.enum(["platinum", "gold", "silver", "bronze"]),
-	status: z.enum(["active", "inactive"]),
 	expiryTimestamp: z.number().int().positive().optional(),
+});
+
+
+/** Bus Booking schema */
+export const busSchema = z.object({
+	id: z.uuid(),
+	driver: z.string().min(1),
+	comment: z.string().optional(),
+	from: z.iso.datetime(),
+	to: z.iso.datetime(),
+	ttl: z.number().int().positive(), // Unix timestamp for TTL
+	createdAt: z.iso.datetime(),
+	updatedAt: z.iso.datetime(),
 });
 
 /** Export types inferred from schemas */
@@ -102,3 +115,4 @@ export type TeamInput = z.infer<typeof teamSchema>;
 export type MemberInput = z.infer<typeof memberSchema>;
 export type MediaInput = z.infer<typeof mediaSchema>;
 export type SponsorInput = z.infer<typeof sponsorSchema>;
+export type BusInput = z.infer<typeof busSchema>;

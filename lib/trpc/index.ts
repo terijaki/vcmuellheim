@@ -8,6 +8,7 @@ import { membersRouter } from "./routers/members";
 import { newsRouter } from "./routers/news";
 import { sponsorsRouter } from "./routers/sponsors";
 import { teamsRouter } from "./routers/teams";
+import { busRouter } from "./routers/bus";
 import { router } from "./trpc";
 
 export const appRouter = router({
@@ -17,6 +18,7 @@ export const appRouter = router({
 	members: membersRouter,
 	media: mediaRouter,
 	sponsors: sponsorsRouter,
+  bus: busRouter,
 });
 
 export type AppRouter = typeof appRouter;

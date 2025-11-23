@@ -6,7 +6,7 @@
  */
 
 import type { z } from "zod";
-import type { eventSchema, mediaSchema, memberSchema, newsSchema, sponsorSchema, teamSchema } from "./schemas";
+import type { eventSchema, mediaSchema, memberSchema, newsSchema, sponsorSchema, teamSchema, busSchema } from "./schemas";
 
 /** Inferred types from Zod schemas */
 export type News = z.infer<typeof newsSchema>;
@@ -15,6 +15,7 @@ export type Team = z.infer<typeof teamSchema>;
 export type Member = z.infer<typeof memberSchema>;
 export type Media = z.infer<typeof mediaSchema>;
 export type Sponsor = z.infer<typeof sponsorSchema>;
+export type Bus = z.infer<typeof busSchema>;
 
 /** Base entity type (all entities extend this) */
 export type BaseEntity = {

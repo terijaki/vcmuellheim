@@ -16,6 +16,7 @@ export class ContentDbStack extends cdk.Stack {
 	public readonly membersTable: dynamodb.Table;
 	public readonly mediaTable: dynamodb.Table;
 	public readonly sponsorsTable: dynamodb.Table;
+ 	public readonly busTable: dynamodb.Table;
 
 	constructor(scope: Construct, id: string, props?: ContentDbStackProps) {
 		super(scope, id, props);
@@ -130,6 +131,16 @@ export class ContentDbStack extends cdk.Stack {
 		});
 		// TTL handles cleanup automatically
 
+		// 7. Bus Bookings Table
+		this.busTable = new dynamodb.Table(this, "BusBookingsTable", {
+			...commonTableProps,
+			tableName: `vcm-bus-${environment}${branchSuffix}`,
+			partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+			timeToLiveAttribute: "ttl", // TTL attribute for auto-delete
+		});
+
+		// Outputs for easy reference
+
 		// TODO: DynamoDB Stream on REMOVE event
 		// When sponsor expires (TTL deletion), trigger Lambda to delete logoId from Media table
 		// Media table stream will then handle S3 object deletion
@@ -163,6 +174,11 @@ export class ContentDbStack extends cdk.Stack {
 		new cdk.CfnOutput(this, "SponsorsTableName", {
 			value: this.sponsorsTable.tableName,
 			description: "Sponsors table name",
+		});
+
+		new cdk.CfnOutput(this, "BusTableName", {
+			value: this.busTable.tableName,
+			description: "Bus bookings table name",
 		});
 	}
 }

@@ -4,7 +4,7 @@
 
 import { TABLE_NAMES } from "./client";
 import { Repository } from "./repository";
-import type { Event, Media, Member, News, Sponsor, Team } from "./types";
+import type { Event, Media, Member, News, Sponsor, Team, Bus } from "./types";
 
 /** News repository */
 export const newsRepository = new Repository<News>({
@@ -34,6 +34,11 @@ export const mediaRepository = new Repository<Media>({
 /** Sponsors repository */
 export const sponsorsRepository = new Repository<Sponsor>({
 	tableName: TABLE_NAMES.SPONSORS,
+});
+
+/** Bus bookings repository */
+export const busRepository = new Repository<Bus>({
+	tableName: TABLE_NAMES.BUS,
 });
 
 /**
