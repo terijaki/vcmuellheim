@@ -54,9 +54,12 @@ export const busRepository = new Repository<Bus>({
 export async function getAllNews(limit = 100) {
 	return newsRepository.query({
 		indexName: "GSI-NewsQueries",
-		keyConditionExpression: "PK = :pk",
+		keyConditionExpression: "#type = :type",
+		expressionAttributeNames: {
+			"#type": "type",
+		},
 		expressionAttributeValues: {
-			":pk": "NEWS",
+			":type": "article",
 		},
 		scanIndexForward: false, // Descending order (newest first)
 		limit,
@@ -67,12 +70,13 @@ export async function getAllNews(limit = 100) {
 export async function getPublishedNews(limit = 10) {
 	return newsRepository.query({
 		indexName: "GSI-NewsQueries",
-		keyConditionExpression: "PK = :pk AND #status = :status",
+		keyConditionExpression: "#type = :type AND #status = :status",
 		expressionAttributeNames: {
+			"#type": "type",
 			"#status": "status",
 		},
 		expressionAttributeValues: {
-			":pk": "NEWS",
+			":type": "article",
 			":status": "published",
 		},
 		scanIndexForward: false, // Descending order (newest first)
@@ -84,9 +88,12 @@ export async function getPublishedNews(limit = 10) {
 export async function getNewsBySlug(slug: string) {
 	const result = await newsRepository.query({
 		indexName: "GSI-NewsQueries",
-		keyConditionExpression: "PK = :pk AND slug = :slug",
+		keyConditionExpression: "#type = :type AND slug = :slug",
+		expressionAttributeNames: {
+			"#type": "type",
+		},
 		expressionAttributeValues: {
-			":pk": "NEWS",
+			":type": "article",
 			":slug": slug,
 		},
 		limit: 1,

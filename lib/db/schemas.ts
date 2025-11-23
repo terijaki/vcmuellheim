@@ -15,6 +15,7 @@ const baseEntityFields = {
 /** News article schema */
 export const newsSchema = z.object({
 	...baseEntityFields,
+	type: z.literal("article").describe("Entity type for GSI queries"),
 	title: z.string().min(1).max(200),
 	slug: z.string().min(1).max(200),
 	content: z.string().min(1),
