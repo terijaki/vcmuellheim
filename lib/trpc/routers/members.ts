@@ -3,7 +3,7 @@
  */
 
 import { z } from "zod";
-import { getAllMembers, getBoardMembers, getTrainers, membersRepository } from "../../db/repositories";
+import { getAllMembers, getAllTeams, getBoardMembers, getTrainers, membersRepository, teamsRepository } from "../../db/repositories";
 import { memberSchema } from "../../db/schemas";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
@@ -52,6 +52,17 @@ export const membersRouter = router({
 
 	/** Delete member (admin only) */
 	delete: protectedProcedure.input(z.object({ id: z.uuid() })).mutation(async ({ input }) => {
+		// First, remove this member from all teams' trainerIds
+		const teams = await getAllTeams();
+		const teamsToUpdate = teams.items.filter((team) => team.trainerIds?.includes(input.id));
+
+		// Update each team by removing the member ID from trainerIds
+		for (const team of teamsToUpdate) {
+			const updatedTrainerIds = team.trainerIds?.filter((id) => id !== input.id);
+			await teamsRepository.update(team.id, { trainerIds: updatedTrainerIds });
+		}
+
+		// Then delete the member
 		await membersRepository.delete(input.id);
 		return { success: true };
 	}),
