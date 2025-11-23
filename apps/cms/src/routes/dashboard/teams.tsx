@@ -7,12 +7,6 @@ import { slugify } from "@utils/slugify";
 import { useState } from "react";
 import { trpc } from "../../lib/trpc";
 
-interface SamsTeam {
-	uuid: string;
-	name: string;
-	leagueName?: string;
-}
-
 function TeamsPage() {
 	const [opened, { open, close }] = useDisclosure(false);
 	const [editingId, setEditingId] = useState<string | null>(null);
@@ -210,7 +204,7 @@ function TeamsPage() {
 						</Table.Thead>
 						<Table.Tbody>
 							{teams.items.map((team) => {
-								const samsTeam = samsTeams?.find((st: SamsTeam) => st.uuid === team.sbvvTeamId);
+								const samsTeam = samsTeams?.find((st) => st.uuid === team.sbvvTeamId);
 								return (
 									<Table.Tr key={team.id}>
 										<Table.Td>{team.name}</Table.Td>
