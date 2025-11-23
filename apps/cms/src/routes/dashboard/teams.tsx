@@ -32,11 +32,11 @@ function TeamPicturesManager({
 
 			{/* Existing pictures */}
 			{pictureS3Keys.length > 0 && (
-				<SimpleGrid cols={{ base: 2, sm: 3, md: 4 }} spacing="sm" mb="md">
+				<Group gap="sm" mb="md">
 					{pictureS3Keys.map((s3Key) => (
 						<PictureCard key={s3Key} s3Key={s3Key} isDeleted={deletePictureKeys.includes(s3Key)} onDeleteToggle={() => onDeleteToggle(s3Key)} />
 					))}
-				</SimpleGrid>
+				</Group>
 			)}
 
 			{/* New picture files */}
