@@ -4,6 +4,7 @@
 
 import { GetObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
@@ -22,7 +23,13 @@ export const uploadRouter = router({
 			}),
 		)
 		.mutation(async ({ input }) => {
-			const key = `${input.folder}/${Date.now()}-${input.filename}`;
+			// Extract file extension from original filename
+			const fileExtension = input.filename.split(".").pop() || "";
+			const sanitizedExtension = fileExtension.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+			// Generate anonymized filename with UUID
+			const uuid = randomUUID();
+			const key = sanitizedExtension ? `${input.folder}/${uuid}.${sanitizedExtension}` : `${input.folder}/${uuid}`;
 
 			const command = new PutObjectCommand({
 				Bucket: BUCKET_NAME,
