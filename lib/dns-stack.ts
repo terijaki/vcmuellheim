@@ -13,13 +13,13 @@ export interface DnsStackProps extends cdk.StackProps {
 
 /**
  * DNS Stack - References manually created Route53 and ACM resources
- * 
+ *
  * These resources are shared across all environments (prod, dev, dev-feature)
  * and should be created manually in the AWS Console:
- * 
+ *
  * 1. Route53 Hosted Zone: new.vcmuellheim.de
  * 2. ACM Certificate: *.new.vcmuellheim.de (with SAN: new.vcmuellheim.de)
- * 
+ *
  * This prevents accidental deletion and ensures stable nameservers.
  */
 export class DnsStack extends cdk.Stack {
@@ -37,20 +37,10 @@ export class DnsStack extends cdk.Stack {
 		});
 
 		// Import existing ACM certificate for API Gateway (eu-central-1)
-		this.certificate = acm.Certificate.fromCertificateArn(
-			this,
-			"Certificate",
-			props.certificateArn,
-		);
+		this.certificate = acm.Certificate.fromCertificateArn(this, "Certificate", props.certificateArn);
 
 		// Import CloudFront certificate if provided (must be in us-east-1)
-		this.cloudFrontCertificate = props.cloudFrontCertificateArn
-			? acm.Certificate.fromCertificateArn(
-					this,
-					"CloudFrontCertificate",
-					props.cloudFrontCertificateArn,
-				)
-			: undefined;
+		this.cloudFrontCertificate = props.cloudFrontCertificateArn ? acm.Certificate.fromCertificateArn(this, "CloudFrontCertificate", props.cloudFrontCertificateArn) : undefined;
 
 		// Outputs for reference
 		new cdk.CfnOutput(this, "HostedZoneId", {

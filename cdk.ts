@@ -1,7 +1,7 @@
 import "dotenv/config";
+import { getSanitizedBranch } from "@utils/git";
 import * as cdk from "aws-cdk-lib";
 import { DNS } from "@/project.config";
-import { getSanitizedBranch } from "@utils/git";
 import { ApiStack } from "./lib/api-stack";
 import { ContentDbStack } from "./lib/content-db-stack";
 import { DnsStack } from "./lib/dns-stack";

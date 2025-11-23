@@ -13,9 +13,9 @@ import { trpc } from "./trpc";
 // - localhost -> computed from VITE_CDK_ENVIRONMENT and Git branch (injected at build time)
 function getApiUrl(): string {
 	if (typeof window === "undefined") return "";
-	
+
 	const hostname = window.location.hostname;
-	
+
 	// Local development: compute URL from environment and Git branch
 	if (hostname === "localhost" || hostname === "127.0.0.1") {
 		const environment = import.meta.env.VITE_CDK_ENVIRONMENT || "dev";
@@ -27,7 +27,7 @@ function getApiUrl(): string {
 		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
 		return `https://${envPrefix}api.new.vcmuellheim.de/api`;
 	}
-	
+
 	// Production/staging: replace admin -> api in hostname
 	const apiHostname = hostname.replace("-admin.", "-api.").replace("admin.", "api.");
 	return `https://${apiHostname}/api`;

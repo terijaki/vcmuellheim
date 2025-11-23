@@ -6,7 +6,7 @@ async function fetchCognitoConfig(): Promise<{ region: string; clientId: string 
 	// Compute API URL based on environment and branch (same pattern as CDK)
 	const hostname = typeof window !== "undefined" ? window.location.hostname : "";
 	let apiUrl = "";
-	
+
 	if (hostname === "localhost" || hostname === "127.0.0.1") {
 		// Local development: compute URL from environment and Git branch
 		const environment = import.meta.env.VITE_CDK_ENVIRONMENT || "dev";
@@ -22,23 +22,23 @@ async function fetchCognitoConfig(): Promise<{ region: string; clientId: string 
 		const apiHostname = hostname.replace("-admin.", "-api.").replace("admin.", "api.");
 		apiUrl = `https://${apiHostname}/api`;
 	}
-	
+
 	console.log("Fetching Cognito config from:", `${apiUrl}/config.cognito`);
 	const response = await fetch(`${apiUrl}/config.cognito`);
 	if (!response.ok) {
 		console.error("Failed to fetch config:", response.status, response.statusText);
 		throw new Error(`Failed to fetch Cognito config from API: ${response.status}`);
 	}
-	
+
 	const data = await response.json();
 	console.log("Received config data:", data);
-	
+
 	const cognitoData = data.result?.data?.json;
 	if (!cognitoData?.region || !cognitoData?.clientId) {
 		console.error("Invalid Cognito config structure:", data);
 		throw new Error("Invalid Cognito config received from API");
 	}
-	
+
 	return {
 		region: cognitoData.region,
 		clientId: cognitoData.clientId,
@@ -94,7 +94,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	// Restore session from localStorage once config is loaded
 	useEffect(() => {
 		if (!configLoaded) return;
-		
+
 		const storedAuth = localStorage.getItem(AUTH_STORAGE_KEY);
 		if (storedAuth) {
 			try {
