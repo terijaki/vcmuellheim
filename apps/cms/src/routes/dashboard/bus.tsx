@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
 	Button,
+	Center,
 	Group,
 	Modal,
 	Paper,
@@ -11,7 +12,8 @@ import {
 	Textarea,
 	Title,
 } from "@mantine/core";
-import { DatePickerInput } from "@mantine/dates";
+import { DatePickerInput, Calendar } from "@mantine/dates";
+import { useMediaQuery } from "@mantine/hooks";
 import { useDisclosure } from "@mantine/hooks";
 import { useState, useMemo } from "react";
 import dayjs from "dayjs";
@@ -32,6 +34,7 @@ function BusSchedulesPage() {
 
 	const utils = trpc.useUtils();
 	const { data: schedules, isLoading } = trpc.bus.list.useQuery();
+	const isMobile = useMediaQuery("(max-width: 768px)");
 	
 	// Create a set of all booked dates (excluding the one being edited)
 	const bookedDates = useMemo(() => {
@@ -142,6 +145,27 @@ function BusSchedulesPage() {
 			</Group>
 
 			<Paper withBorder p="md">
+				<Title order={3} mb="md">Kalenderübersicht</Title>
+				<Center>
+					<Calendar
+						numberOfColumns={isMobile ? 1 : 2}
+						getDayProps={(date) => {
+							const dateStr = dayjs(date).format("YYYY-MM-DD");
+							if (bookedDates.has(dateStr)) {
+								return {
+									style: {
+										backgroundColor: "var(--mantine-color-turquoise-2)",
+										border: "1px solid var(--mantine-color-turquoise-6)",
+									},
+								};
+							}
+							return {};
+						}}
+					/>
+				</Center>
+			</Paper>
+
+			<Paper withBorder p="md">
 				{isLoading ? (
 					<Text>Laden...</Text>
 				) : schedules && schedules.items.length > 0 ? (
@@ -205,6 +229,7 @@ function BusSchedulesPage() {
 						/>
 					<DatePickerInput
 						type="range"
+                        allowSingleDateInRange
 						label="Zeitraum"
 						placeholder="Von - Bis auswählen"
 						value={formData.dateRange}

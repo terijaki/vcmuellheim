@@ -41,13 +41,12 @@ export const busRouter = router({
 			}),
 		)
 		.mutation(async ({ input }) => {
-			const now = new Date();
 			let ttl: number | undefined;
 			if (input.data.to) {
 				const toDate = new Date(input.data.to);
 				ttl = Math.floor((toDate.getTime() + 30 * 24 * 60 * 60 * 1000) / 1000);
 			}
-			return busRepository.update(input.id, { ...input.data, updatedAt: now.toISOString(), ...(ttl ? { ttl } : {}) });
+			return busRepository.update(input.id, { ...input.data, ...(ttl ? { ttl } : {}) });
 		}),
 
 	/** Delete bus booking (admin only) */

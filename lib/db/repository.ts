@@ -74,6 +74,7 @@ export class Repository<T extends BaseEntity> {
 
 	/**
 	 * Update existing item
+	 * Uses ExpressionAttributeNames for all fields to avoid DynamoDB reserved word conflicts
 	 */
 	async update(id: string, updates: Partial<Omit<T, "id" | "createdAt">>): Promise<T> {
 		const now = new Date().toISOString();
@@ -81,9 +82,9 @@ export class Repository<T extends BaseEntity> {
 		const expressionAttributeValues: Record<string, unknown> = { ":updatedAt": now };
 		const expressionAttributeNames: Record<string, string> = { "#updatedAt": "updatedAt" };
 
-		// Build update expression from provided fields
+		// Build update expression from provided fields (skip undefined values)
 		Object.entries(updates).forEach(([key, value]) => {
-			if (key !== "id" && key !== "createdAt") {
+			if (key !== "id" && key !== "createdAt" && value !== undefined) {
 				const placeholder = `:${key}`;
 				const attributeName = `#${key}`;
 				updateExpressions.push(`${attributeName} = ${placeholder}`);

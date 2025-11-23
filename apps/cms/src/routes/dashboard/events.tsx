@@ -1,9 +1,9 @@
-import { Button, Group, Modal, Paper, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
-import { DateTimePicker } from "@mantine/dates";
-import { useDisclosure } from "@mantine/hooks";
+import { Button, Center, Group, Modal, Paper, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { Calendar, DateTimePicker } from "@mantine/dates";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import "dayjs/locale/de";
 import type { EventInput } from "../../../../../lib/db/schemas";
 import { trpc } from "../../lib/trpc";
@@ -27,6 +27,29 @@ function EventsPage() {
 	const utils = trpc.useUtils();
 	const { data: eventsData, isLoading } = trpc.events.list.useQuery({ limit: 100 });
 	const events = eventsData?.items || [];
+	const isMobile = useMediaQuery("(max-width: 768px)");
+
+	// Create a set of all dates with events (excluding the one being edited)
+	const eventDates = useMemo(() => {
+		if (!events) return new Set<string>();
+
+		const dates = new Set<string>();
+		for (const event of events) {
+			// Skip the event being edited
+			if (editingId && event.id === editingId) continue;
+
+			const start = dayjs(event.startDate);
+			const end = event.endDate ? dayjs(event.endDate) : start;
+
+			// Add all dates in the range
+			let current = start;
+			while (current.isBefore(end, "day") || current.isSame(end, "day")) {
+				dates.add(current.format("YYYY-MM-DD"));
+				current = current.add(1, "day");
+			}
+		}
+		return dates;
+	}, [events, editingId]);
 	const createMutation = trpc.events.create.useMutation({
 		onSuccess: () => {
 			utils.events.list.invalidate();
@@ -120,7 +143,28 @@ function EventsPage() {
 					Hinzufügen
 				</Button>
 			</Group>
-
+			<Paper withBorder p="md">
+				<Title order={3} mb="md">
+					Kalenderübersicht
+				</Title>
+				<Center>
+					<Calendar
+						numberOfColumns={isMobile ? 1 : 2}
+						getDayProps={(date) => {
+							const dateStr = dayjs(date).format("YYYY-MM-DD");
+							if (eventDates.has(dateStr)) {
+								return {
+									style: {
+										backgroundColor: "var(--mantine-color-turquoise-4)",
+										border: "1px solid var(--mantine-color-turquoise-6)",
+									},
+								};
+							}
+							return {};
+						}}
+					/>
+				</Center>
+			</Paper>{" "}
 			<Paper withBorder p="md">
 				{isLoading ? (
 					<Text>Laden...</Text>
@@ -162,7 +206,6 @@ function EventsPage() {
 					<Text c="dimmed">Noch keine Termine vorhanden. Erstellen Sie einen neuen Eintrag.</Text>
 				)}
 			</Paper>
-
 			<Modal
 				opened={opened}
 				onClose={() => {
@@ -184,7 +227,23 @@ function EventsPage() {
 							value={formData.startDate}
 							onChange={(date) => setFormData({ ...formData, startDate: date ? new Date(date) : null })}
 							valueFormat="D MMMM YYYY - HH:mm [Uhr]"
+							getDayProps={(date) => {
+								const dateStr = dayjs(date).format("YYYY-MM-DD");
+								if (eventDates.has(dateStr)) {
+									return {
+										style: {
+											backgroundColor: "var(--mantine-color-turquoise-4)",
+											border: "1px solid var(--mantine-color-turquoise-6)",
+										},
+									};
+								}
+								return {};
+							}}
 							required
+							timePickerProps={{
+								withDropdown: true,
+								format: "24h",
+							}}
 						/>
 
 						<DateTimePicker
@@ -193,6 +252,22 @@ function EventsPage() {
 							value={formData.endDate}
 							onChange={(date) => setFormData({ ...formData, endDate: date ? new Date(date) : null })}
 							valueFormat="D MMMM YYYY - HH:mm [Uhr]"
+							getDayProps={(date) => {
+								const dateStr = dayjs(date).format("YYYY-MM-DD");
+								if (eventDates.has(dateStr)) {
+									return {
+										style: {
+											backgroundColor: "var(--mantine-color-turquoise-4)",
+											border: "1px solid var(--mantine-color-turquoise-6)",
+										},
+									};
+								}
+								return {};
+							}}
+							timePickerProps={{
+								withDropdown: true,
+								format: "24h",
+							}}
 						/>
 
 						<TextInput label="Ort (optional)" placeholder="z.B. Sporthalle Müllheim" value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })} />
