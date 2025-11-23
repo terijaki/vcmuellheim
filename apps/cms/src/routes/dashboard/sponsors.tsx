@@ -1,16 +1,131 @@
 import type { SponsorInput } from "@lib/db/schemas";
-import { ActionIcon, Anchor, Button, Card, FileInput, Group, Image, Modal, SimpleGrid, Stack, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Anchor, Box, Button, Card, FileInput, Group, Image, Modal, SimpleGrid, Stack, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { createFileRoute } from "@tanstack/react-router";
-import { Globe, Pencil, Trash2 } from "lucide-react";
+import { Globe, Pencil, Trash2, Upload, X } from "lucide-react";
 import { useState } from "react";
 import { trpc } from "../../lib/trpc";
+
+function CurrentLogoDisplay({
+	logoS3Key,
+	logoFile,
+	deleteLogo,
+	onFileChange,
+	onDeleteToggle,
+}: {
+	logoS3Key?: string;
+	logoFile: File | null;
+	deleteLogo: boolean;
+	onFileChange: (file: File | null) => void;
+	onDeleteToggle: () => void;
+}) {
+	const { data: logoUrl } = trpc.upload.getFileUrl.useQuery({ s3Key: logoS3Key || "" }, { enabled: !!logoS3Key && !deleteLogo });
+
+	// Show new file preview if selected
+	if (logoFile) {
+		const previewUrl = URL.createObjectURL(logoFile);
+		return (
+			<Box>
+				<Group justify="space-between" mb="xs">
+					<Text size="sm" fw={500}>
+						Logo
+					</Text>
+					<Button size="xs" variant="subtle" color="red" leftSection={<X size={14} />} onClick={() => onFileChange(null)}>
+						Abbrechen
+					</Button>
+				</Group>
+				<Card withBorder p="md">
+					<Image src={previewUrl} height={120} fit="contain" alt="Neue Logo-Vorschau" />
+					<Text size="xs" c="dimmed" mt="xs" ta="center">
+						Neues Logo: {logoFile.name}
+					</Text>
+				</Card>
+			</Box>
+		);
+	}
+
+	// Show current logo with actions if exists
+	if (logoS3Key && !deleteLogo) {
+		return (
+			<Box>
+				<Group justify="space-between" mb="xs">
+					<Text size="sm" fw={500}>
+						Aktuelles Logo
+					</Text>
+					<Group gap="xs">
+						<Button size="xs" variant="light" leftSection={<Upload size={14} />} onClick={() => document.getElementById("logo-file-input")?.click()}>
+							Ersetzen
+						</Button>
+						<Button size="xs" variant="light" color="red" leftSection={<X size={14} />} onClick={onDeleteToggle}>
+							Löschen
+						</Button>
+					</Group>
+				</Group>
+				<Card withBorder p="md">
+					{logoUrl ? (
+						<Image src={logoUrl} height={120} fit="contain" alt="Aktuelles Logo" />
+					) : (
+						<div style={{ height: 120, display: "flex", alignItems: "center", justifyContent: "center" }}>
+							<Text c="dimmed">Laden...</Text>
+						</div>
+					)}
+				</Card>
+				<input
+					id="logo-file-input"
+					type="file"
+					accept="image/*"
+					style={{ display: "none" }}
+					onChange={(e) => {
+						const file = e.target.files?.[0];
+						if (file) onFileChange(file);
+					}}
+				/>
+			</Box>
+		);
+	}
+
+	// Show deletion message if logo was deleted
+	if (deleteLogo && logoS3Key) {
+		return (
+			<Box>
+				<Group justify="space-between" mb="xs">
+					<Text size="sm" fw={500}>
+						Logo
+					</Text>
+					<Button size="xs" variant="subtle" onClick={onDeleteToggle}>
+						Rückgängig
+					</Button>
+				</Group>
+				<Card withBorder p="md" bg="red.0">
+					<Text size="sm" c="red" ta="center">
+						Logo wird beim Speichern entfernt
+					</Text>
+				</Card>
+			</Box>
+		);
+	}
+
+	// Show file input for new logo
+	return (
+		<FileInput
+			label="Logo"
+			placeholder="Logo hochladen..."
+			value={logoFile}
+			onChange={onFileChange}
+			accept="image/*"
+			description="PNG, JPG oder SVG"
+			leftSection={<Upload size={16} />}
+		/>
+	);
+}
+
 
 function SponsorsPage() {
 	const [opened, { open, close }] = useDisclosure(false);
 	const [editingId, setEditingId] = useState<string | null>(null);
 	const [logoFile, setLogoFile] = useState<File | null>(null);
+	const [deleteLogo, setDeleteLogo] = useState(false);
 	const [uploading, setUploading] = useState(false);
 	const [formData, setFormData] = useState<Partial<SponsorInput>>({
 		name: "",
@@ -88,6 +203,7 @@ function SponsorsPage() {
 			logoS3Key: undefined,
 		});
 		setLogoFile(null);
+		setDeleteLogo(false);
 		setEditingId(null);
 	};
 
@@ -98,8 +214,12 @@ function SponsorsPage() {
 		try {
 			let logoS3Key = formData.logoS3Key;
 
-			// Upload logo if a file was selected
-			if (logoFile) {
+			// Handle logo deletion
+			if (deleteLogo) {
+				logoS3Key = undefined;
+			}
+			// Upload new logo if a file was selected
+			else if (logoFile) {
 				const { uploadUrl, key } = await uploadMutation.mutateAsync({
 					filename: logoFile.name,
 					contentType: logoFile.type,
@@ -151,6 +271,8 @@ function SponsorsPage() {
 			logoS3Key: sponsor.logoS3Key,
 		});
 		setEditingId(sponsor.id);
+		setDeleteLogo(false);
+		setLogoFile(null);
 		open();
 	};
 
@@ -180,14 +302,15 @@ function SponsorsPage() {
 
 					<TextInput label="Website" placeholder="https://..." value={formData.websiteUrl} onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })} />
 
-					<FileInput
-						label="Logo"
-						placeholder="Logo hochladen..."
-						value={logoFile}
-						onChange={setLogoFile}
-						accept="image/*"
-						description={formData.logoS3Key && !logoFile ? `Aktuelles Logo: ${formData.logoS3Key}` : "PNG, JPG oder SVG"}
-						clearable
+					<CurrentLogoDisplay
+						logoS3Key={formData.logoS3Key}
+						logoFile={logoFile}
+						deleteLogo={deleteLogo}
+						onFileChange={setLogoFile}
+						onDeleteToggle={() => {
+							setDeleteLogo(!deleteLogo);
+							setLogoFile(null);
+						}}
 					/>
 
 					<Group justify="flex-end" mt="md">
