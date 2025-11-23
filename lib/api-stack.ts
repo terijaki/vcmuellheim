@@ -139,7 +139,11 @@ export class ApiStack extends cdk.Stack {
 			corsPreflight: {
 				allowOrigins: isProd ? [Club.url, "https://admin.vcmuellheim.de"] : ["*"],
 				allowMethods: [apigatewayv2.CorsHttpMethod.GET, apigatewayv2.CorsHttpMethod.POST, apigatewayv2.CorsHttpMethod.OPTIONS],
-				allowHeaders: ["content-type", "authorization"],
+				allowHeaders: isProd 
+					? ["content-type", "authorization", "x-trpc-source"]
+					: ["content-type", "authorization", "x-trpc-source", "*"],
+				exposeHeaders: ["content-type"],
+				allowCredentials: false,
 				maxAge: cdk.Duration.hours(1),
 			},
 		});
@@ -147,10 +151,10 @@ export class ApiStack extends cdk.Stack {
 		// Lambda integration
 		const lambdaIntegration = new HttpLambdaIntegration("TrpcLambdaIntegration", this.trpcLambda);
 
-		// Route all /api/* requests to Lambda
+		// Route all /api/* requests to Lambda (excluding OPTIONS which is handled by CORS preflight)
 		this.api.addRoutes({
 			path: "/api/{proxy+}",
-			methods: [apigatewayv2.HttpMethod.ANY],
+			methods: [apigatewayv2.HttpMethod.GET, apigatewayv2.HttpMethod.POST],
 			integration: lambdaIntegration,
 		});
 
