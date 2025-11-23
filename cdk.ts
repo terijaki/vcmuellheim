@@ -3,6 +3,7 @@ import { execSync } from "node:child_process";
 import * as cdk from "aws-cdk-lib";
 import { ApiStack } from "./lib/api-stack";
 import { ContentDbStack } from "./lib/content-db-stack";
+import { MediaStack } from "./lib/media-stack";
 import { SamsApiStack } from "./lib/sams-api-stack";
 import { SocialMediaStack } from "./lib/social-media-stack";
 
@@ -36,6 +37,7 @@ const branchSuffix = branch ? `-${branch}` : "";
 
 // Environment-specific configuration
 const contentDbStackName = isProd ? `ContentDbStack-Prod${branchSuffix}` : `ContentDbStack-Dev${branchSuffix}`;
+const mediaStackName = isProd ? `MediaStack-Prod${branchSuffix}` : `MediaStack-Dev${branchSuffix}`;
 const apiStackName = isProd ? `ApiStack-Prod${branchSuffix}` : `ApiStack-Dev${branchSuffix}`;
 const samsStackName = isProd ? `SamsApiStack-Prod${branchSuffix}` : `SamsApiStack-Dev${branchSuffix}`;
 const socialMediaStackName = isProd ? `SocialMediaStack-Prod${branchSuffix}` : `SocialMediaStack-Dev${branchSuffix}`;
@@ -62,6 +64,11 @@ const contentDbStack = new ContentDbStack(app, contentDbStackName, {
 	description: `Content Database Tables (${environment}${branchSuffix})`,
 });
 
+const mediaStack = new MediaStack(app, mediaStackName, {
+	...commonStackProps,
+	description: `Media Storage (S3) (${environment}${branchSuffix})`,
+});
+
 const samsApiStack = new SamsApiStack(app, samsStackName, {
 	...commonStackProps,
 	description: `SAMS API Services (${environment}${branchSuffix})`,
@@ -79,6 +86,7 @@ new ApiStack(app, apiStackName, {
 		sponsorsTable: contentDbStack.sponsorsTable,
 		busTable: contentDbStack.busTable,
 	},
+	mediaBucket: mediaStack.bucket,
 	samsApiUrl: samsApiStack.cloudFrontUrl,
 });
 

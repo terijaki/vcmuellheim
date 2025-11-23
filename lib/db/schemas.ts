@@ -88,7 +88,7 @@ export const sponsorSchema = z.object({
 	name: z.string().min(1).max(200),
 	description: z.string().optional(),
 	websiteUrl: z.url().optional(),
-	logoId: z.uuid().optional(),
+	logoS3Key: z.string().optional(), // S3 key for the logo file (e.g., "sponsors/123456789-logo.png")
 	expiryTimestamp: z.number().int().positive().optional(),
 });
 

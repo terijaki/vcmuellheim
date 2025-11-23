@@ -5,6 +5,7 @@ import * as cognito from "aws-cdk-lib/aws-cognito";
 import type * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import type * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import { Club } from "@/project.config";
 import { TABLES, type TableEntity, tableEnvVar } from "./db/env";
@@ -15,6 +16,7 @@ interface ApiStackProps extends cdk.StackProps {
 		branch: string;
 	};
 	contentDbStack: Record<`${Lowercase<TableEntity>}Table`, dynamodb.Table>;
+	mediaBucket?: s3.Bucket;
 	samsApiUrl?: string;
 }
 
@@ -121,17 +123,24 @@ export class ApiStack extends cdk.Stack {
 				...Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
 				COGNITO_USER_POOL_ID: this.userPool.userPoolId,
 				...(props.samsApiUrl ? { SAMS_API_URL: props.samsApiUrl } : {}),
+				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
 			},
 			bundling: {
 				minify: true,
 				sourceMap: true,
-				externalModules: ["@aws-sdk/client-dynamodb", "@aws-sdk/lib-dynamodb"],
+				externalModules: ["@aws-sdk/client-dynamodb", "@aws-sdk/lib-dynamodb", "@aws-sdk/client-s3", "@aws-sdk/s3-request-presigner"],
 			},
 		});
 
 		// Grant Lambda access to DynamoDB tables
 		for (const table of Object.values(tables)) {
 			table.grantReadWriteData(this.trpcLambda);
+		}
+
+		// Grant Lambda access to S3 bucket for uploads
+		if (props.mediaBucket) {
+			props.mediaBucket.grantPut(this.trpcLambda);
+			props.mediaBucket.grantRead(this.trpcLambda);
 		}
 
 		// 3. HTTP API Gateway
