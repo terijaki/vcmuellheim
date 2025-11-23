@@ -32,3 +32,6 @@ cdk.context.json
 
 # hey-api
 openapi-ts-error-*.log
+
+# tanstack
+.tanstack

@@ -22,6 +22,7 @@
 		"superjson": "catalog:"
 	},
 	"devDependencies": {
+		"@tanstack/router-plugin": "^1.139.3",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
 		"@vitejs/plugin-react": "^5.1.1",
