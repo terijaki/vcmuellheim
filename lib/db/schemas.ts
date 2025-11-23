@@ -51,7 +51,7 @@ export const teamSchema = z.object({
 	gender: z.enum(["male", "female", "mixed"]),
 	league: z.string().optional(),
 	coachId: z.uuid().optional(),
-	imageId: z.uuid().optional(),
+	pictureS3Keys: z.array(z.string()).optional(), // Array of S3 keys for team pictures
 });
 
 /** Member schema */

@@ -1,5 +1,6 @@
 import type { SponsorInput } from "@lib/db/schemas";
-import { ActionIcon, Anchor, Box, Button, Card, FileInput, Group, Image, Modal, SimpleGrid, Stack, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Anchor, Box, Button, Card, Group, Image, Modal, SimpleGrid, Stack, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { createFileRoute } from "@tanstack/react-router";
@@ -106,17 +107,40 @@ function CurrentLogoDisplay({
 		);
 	}
 
-	// Show file input for new logo
+	// Show Dropzone for new logo
 	return (
-		<FileInput
-			label="Logo"
-			placeholder="Logo hochladen..."
-			value={logoFile}
-			onChange={onFileChange}
-			accept="image/*"
-			description="PNG, JPG oder SVG"
-			leftSection={<Upload size={16} />}
-		/>
+		<Box>
+			<Text size="sm" fw={500} mb="xs">
+				Logo
+			</Text>
+			<Dropzone
+				onDrop={(files: File[]) => files.length > 0 && onFileChange(files[0])}
+				accept={IMAGE_MIME_TYPE}
+				maxSize={5 * 1024 * 1024}
+				maxFiles={1}
+			>
+				<Group justify="center" gap="xl" style={{ minHeight: 120, pointerEvents: "none" }}>
+					<Dropzone.Accept>
+						<Upload size={50} style={{ color: "var(--mantine-color-blue-6)" }} />
+					</Dropzone.Accept>
+					<Dropzone.Reject>
+						<X size={50} style={{ color: "var(--mantine-color-red-6)" }} />
+					</Dropzone.Reject>
+					<Dropzone.Idle>
+						<Upload size={50} style={{ color: "var(--mantine-color-dimmed)" }} />
+					</Dropzone.Idle>
+
+					<div>
+						<Text size="xl" inline>
+							Logo hierher ziehen oder klicken zum Auswählen
+						</Text>
+						<Text size="sm" c="dimmed" inline mt={7}>
+							PNG, JPG oder SVG, max. 5MB
+						</Text>
+					</div>
+				</Group>
+			</Dropzone>
+		</Box>
 	);
 }
 

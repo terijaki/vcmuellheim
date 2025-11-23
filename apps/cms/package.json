@@ -15,6 +15,7 @@
 		"@mantine/dates": "catalog:",
 		"@mantine/hooks": "catalog:",
 		"@mantine/notifications": "catalog:",
+		"@mantine/dropzone": "catalog:",
 		"@tanstack/react-query": "catalog:",
 		"@tanstack/react-router": "catalog:",
 		"@trpc/client": "catalog:",
