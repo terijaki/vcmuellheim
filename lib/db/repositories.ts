@@ -135,9 +135,9 @@ export async function getAllMembers() {
 /** Get board members (Vorstand) */
 export async function getBoardMembers() {
 	return membersRepository.scan({
-		filterExpression: "isVorstand = :isVorstand",
+		filterExpression: "isBoardMember = :isBoardMember",
 		expressionAttributeValues: {
-			":isVorstand": true,
+			":isBoardMember": true,
 		},
 	});
 }

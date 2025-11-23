@@ -51,7 +51,7 @@ export const teamSchema = z.object({
 	gender: z.enum(["male", "female", "mixed"]),
 	league: z.string().optional(),
 	coachId: z.uuid().optional(),
-	pictureS3Keys: z.array(z.string()).optional(), // Array of S3 keys for team pictures
+	pictureS3Keys: z.array(z.string()).optional(),
 });
 
 /** Member schema */
@@ -60,10 +60,10 @@ export const memberSchema = z.object({
 	name: z.string().min(1).max(200),
 	email: z.email().optional(),
 	phone: z.string().optional(),
-	isVorstand: z.boolean().optional(),
+	isBoardMember: z.boolean().optional(),
 	isTrainer: z.boolean().optional(),
 	roleTitle: z.string().max(100).optional(),
-	avatarId: z.uuid().optional(),
+	avatarS3Key: z.string().optional(), 
 });
 
 /** Media schema */
@@ -88,7 +88,7 @@ export const sponsorSchema = z.object({
 	name: z.string().min(1).max(200),
 	description: z.string().optional(),
 	websiteUrl: z.url().optional(),
-	logoS3Key: z.string().optional(), // S3 key for the logo file (e.g., "sponsors/123456789-logo.png")
+	logoS3Key: z.string().optional(), 
 	expiryTimestamp: z.number().int().positive().optional(),
 });
 
@@ -99,7 +99,7 @@ export const busSchema = z.object({
 	comment: z.string().optional(),
 	from: z.iso.datetime(),
 	to: z.iso.datetime(),
-	ttl: z.number().int().positive(), // Unix timestamp for TTL
+	ttl: z.number().int().positive().describe("Unix timestamp for TTL"),
 	createdAt: z.iso.datetime(),
 	updatedAt: z.iso.datetime(),
 });
