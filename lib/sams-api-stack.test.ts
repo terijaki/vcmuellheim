@@ -55,7 +55,7 @@ describe("SamsApiStack", () => {
 
 			// Dev tables should have DESTROY removal policy
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "dev-sams-clubs",
+				TableName: "sams-clubs-dev",
 			});
 		});
 
@@ -72,12 +72,12 @@ describe("SamsApiStack", () => {
 
 			// Check Lambda function names include branch suffix
 			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "dev-feature-xyz-sams-league-matches",
+				FunctionName: "sams-league-matches-dev-feature-xyz",
 			});
 
 			// Check DynamoDB table names include branch suffix
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "dev-feature-xyz-sams-clubs",
+				TableName: "sams-clubs-dev-feature-xyz",
 			});
 		});
 	});
@@ -96,7 +96,7 @@ describe("SamsApiStack", () => {
 
 			// Prod tables should have RETAIN removal policy
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "prod-sams-clubs",
+				TableName: "sams-clubs-prod",
 			});
 		});
 
@@ -113,7 +113,7 @@ describe("SamsApiStack", () => {
 
 			// Prod function names should not have branch suffix
 			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "prod-sams-league-matches",
+				FunctionName: "sams-league-matches-prod",
 			});
 		});
 	});
@@ -132,13 +132,13 @@ describe("SamsApiStack", () => {
 
 			// Sync functions should have 10 minute timeout
 			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "dev-sams-clubs-sync",
+				FunctionName: "sams-clubs-sync-dev",
 				Timeout: 600, // 10 minutes
 			});
 
 			// Regular API functions should have shorter timeouts
 			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "dev-sams-seasons",
+				FunctionName: "sams-seasons-dev",
 				Timeout: 30,
 			});
 		});
@@ -180,7 +180,7 @@ describe("SamsApiStack", () => {
 
 			// Clubs table should have 3 GSIs
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "dev-sams-clubs",
+				TableName: "sams-clubs-dev",
 				GlobalSecondaryIndexes: [{ IndexName: "associationUuid-index" }, { IndexName: "name-index" }, { IndexName: "nameSlug-index" }],
 			});
 		});
@@ -198,7 +198,7 @@ describe("SamsApiStack", () => {
 
 			// Teams table should have 3 GSIs
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "dev-sams-teams",
+				TableName: "sams-teams-dev",
 				GlobalSecondaryIndexes: [{ IndexName: "sportsclubUuid-index" }, { IndexName: "leagueUuid-index" }, { IndexName: "nameSlug-index" }],
 			});
 		});
