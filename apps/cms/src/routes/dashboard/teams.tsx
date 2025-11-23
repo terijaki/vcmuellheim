@@ -1,17 +1,40 @@
-import type { TeamInput } from "@lib/db/schemas";
-import { ActionIcon, Avatar, Badge, Box, Button, Card, Group, Image, Modal, MultiSelect, Paper, Select, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title, Tooltip } from "@mantine/core";
+import type { TeamInput, TrainingScheduleInput } from "@lib/db/schemas";
+import {
+	ActionIcon,
+	Avatar,
+	Badge,
+	Box,
+	Button,
+	Card,
+	Divider,
+	Group,
+	Image,
+	Modal,
+	MultiSelect,
+	Paper,
+	Select,
+	SimpleGrid,
+	Stack,
+	Table,
+	Text,
+	Textarea,
+	TextInput,
+	Title,
+	Tooltip,
+} from "@mantine/core";
+import { TimeInput } from "@mantine/dates";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { createFileRoute } from "@tanstack/react-router";
 import { slugify } from "@utils/slugify";
-import { Trash2, Upload, X } from "lucide-react";
+import { Plus, Trash2, Upload, X } from "lucide-react";
 import { useState } from "react";
 import { trpc } from "../../lib/trpc";
 
 function TrainerAvatar({ avatarS3Key, name }: { avatarS3Key?: string; name: string }) {
 	const { data: avatarUrl } = trpc.upload.getFileUrl.useQuery({ s3Key: avatarS3Key || "" }, { enabled: !!avatarS3Key });
-	
+
 	return (
 		<Tooltip label={name} withArrow>
 			<Avatar src={avatarUrl || null} alt={name} radius="xl" />
@@ -70,11 +93,7 @@ function TeamPicturesManager({
 			)}
 
 			{/* Dropzone for adding pictures */}
-			<Dropzone
-				onDrop={onFilesAdd}
-				accept={IMAGE_MIME_TYPE}
-				maxSize={5 * 1024 * 1024}
-			>
+			<Dropzone onDrop={onFilesAdd} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024}>
 				<Group justify="center" gap="xl" style={{ minHeight: 120, pointerEvents: "none" }}>
 					<Dropzone.Accept>
 						<Upload size={50} style={{ color: "var(--mantine-color-blue-6)" }} />
@@ -129,11 +148,116 @@ function PictureCard({ s3Key, isDeleted, onDeleteToggle }: { s3Key: string; isDe
 			<ActionIcon pos="absolute" top={4} right={4} size="sm" variant="filled" color="red" onClick={onDeleteToggle} style={{ zIndex: 1 }}>
 				<Trash2 size={14} />
 			</ActionIcon>
-			{pictureUrl ? <Image src={pictureUrl} height={100} fit="cover" alt="Team Bild" radius="sm" /> : <Box h={100} bg="gray.1" style={{ display: "flex", alignItems: "center", justifyContent: "center" }} />}
+			{pictureUrl ? (
+				<Image src={pictureUrl} height={100} fit="cover" alt="Team Bild" radius="sm" />
+			) : (
+				<Box h={100} bg="gray.1" style={{ display: "flex", alignItems: "center", justifyContent: "center" }} />
+			)}
 		</Card>
 	);
 }
 
+const WEEKDAYS = [
+	{ value: "1", label: "Montag" },
+	{ value: "2", label: "Dienstag" },
+	{ value: "3", label: "Mittwoch" },
+	{ value: "4", label: "Donnerstag" },
+	{ value: "5", label: "Freitag" },
+	{ value: "6", label: "Samstag" },
+	{ value: "0", label: "Sonntag" },
+];
+
+function TrainingScheduleManager({
+	schedules,
+	onSchedulesChange,
+	locations,
+}: {
+	schedules: TrainingScheduleInput[];
+	onSchedulesChange: (schedules: TrainingScheduleInput[]) => void;
+	locations: Array<{ id: string; name: string }>;
+}) {
+	const addSchedule = () => {
+		onSchedulesChange([
+			...schedules,
+			{
+				days: [],
+				startTime: "18:00",
+				endTime: "20:00",
+				locationId: "",
+			},
+		]);
+	};
+
+	const removeSchedule = (index: number) => {
+		onSchedulesChange(schedules.filter((_, i) => i !== index));
+	};
+
+	const updateSchedule = (index: number, updates: Partial<TrainingScheduleInput>) => {
+		const updated = [...schedules];
+		updated[index] = { ...updated[index], ...updates };
+		onSchedulesChange(updated);
+	};
+
+	return (
+		<Box>
+			<Group justify="space-between" mb="xs">
+				<Text size="sm" fw={500}>
+					Trainingszeiten
+				</Text>
+				<Button size="xs" variant="subtle" leftSection={<Plus size={16} />} onClick={addSchedule}>
+					Training hinzufügen
+				</Button>
+			</Group>
+
+			<Stack gap="md">
+				{schedules.map((schedule, index) => (
+					<Card key={`${schedule.locationId}-${schedule.startTime}-${index}`} withBorder p="md">
+						<Group justify="space-between" mb="md">
+							<Text size="sm" fw={500}>
+								Training {index + 1}
+							</Text>
+							<ActionIcon size="sm" color="red" variant="subtle" onClick={() => removeSchedule(index)}>
+								<Trash2 size={16} />
+							</ActionIcon>
+						</Group>
+
+						<Stack gap="md">
+							<MultiSelect
+								label="Wochentage"
+								placeholder="Tage auswählen..."
+								value={schedule.days.map(String)}
+								onChange={(value) => updateSchedule(index, { days: value.map(Number) })}
+								data={WEEKDAYS}
+								required
+							/>
+
+							<Group grow>
+								<TimeInput label="Startzeit" value={schedule.startTime} onChange={(e) => updateSchedule(index, { startTime: e.target.value })} required />
+								<TimeInput label="Endzeit" value={schedule.endTime} onChange={(e) => updateSchedule(index, { endTime: e.target.value })} required />
+							</Group>
+
+							<Select
+								label="Ort"
+								placeholder="Ort auswählen..."
+								value={schedule.locationId}
+								onChange={(value) => updateSchedule(index, { locationId: value || "" })}
+								data={locations.map((loc) => ({ value: loc.id, label: loc.name }))}
+								required
+								searchable
+							/>
+						</Stack>
+					</Card>
+				))}
+
+				{schedules.length === 0 && (
+					<Text size="sm" c="dimmed" ta="center" py="md">
+						Keine Trainingszeiten konfiguriert
+					</Text>
+				)}
+			</Stack>
+		</Box>
+	);
+}
 
 function TeamsPage() {
 	const [opened, { open, close }] = useDisclosure(false);
@@ -151,11 +275,13 @@ function TeamsPage() {
 		league: "",
 		trainerIds: [],
 		pictureS3Keys: [],
+		trainingSchedules: [],
 	});
 
 	const { data: teams, isLoading, refetch } = trpc.teams.list.useQuery();
 	const { data: samsTeams } = trpc.samsTeams.list.useQuery();
 	const { data: trainers } = trpc.members.trainers.useQuery();
+	const { data: locations } = trpc.locations.list.useQuery();
 	const uploadMutation = trpc.upload.getPresignedUrl.useMutation();
 	const createMutation = trpc.teams.create.useMutation({
 		onSuccess: () => {
@@ -225,6 +351,7 @@ function TeamsPage() {
 			league: "",
 			trainerIds: [],
 			pictureS3Keys: [],
+			trainingSchedules: [],
 		});
 		setPictureFiles([]);
 		setDeletePictureKeys([]);
@@ -299,6 +426,7 @@ function TeamsPage() {
 			league: team.league || "",
 			trainerIds: team.trainerIds || [],
 			pictureS3Keys: team.pictureS3Keys || [],
+			trainingSchedules: team.trainingSchedules || [],
 		});
 		setPictureFiles([]);
 		setDeletePictureKeys([]);
@@ -358,27 +486,33 @@ function TeamsPage() {
 								searchable
 								clearable
 							/>
-					</Stack>
-				</Group>
-				<Textarea label="Beschreibung" placeholder="Optionale Beschreibung..." value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} minRows={3} />
+						</Stack>
+					</Group>
+					<Textarea label="Beschreibung" placeholder="Optionale Beschreibung..." value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} minRows={3} />
 
-				<MultiSelect
-					label="Trainer"
-					placeholder="Trainer auswählen..."
-					value={formData.trainerIds || []}
-					onChange={(value) => setFormData({ ...formData, trainerIds: value })}
-					data={
-						trainers?.items.map((trainer) => ({
-							value: trainer.id,
-							label: trainer.name,
-						})) || []
-					}
-					description="Mehrere Trainer können ausgewählt werden"
-					searchable
-					clearable
-				/>
+					<MultiSelect
+						label="Trainer"
+						placeholder="Trainer auswählen..."
+						value={formData.trainerIds || []}
+						onChange={(value) => setFormData({ ...formData, trainerIds: value })}
+						data={
+							trainers?.items.map((trainer) => ({
+								value: trainer.id,
+								label: trainer.name,
+							})) || []
+						}
+						description="Mehrere Trainer können ausgewählt werden"
+						searchable
+						clearable
+					/>
 
-				<TeamPicturesManager
+					<TrainingScheduleManager
+						schedules={formData.trainingSchedules || []}
+						onSchedulesChange={(schedules) => setFormData({ ...formData, trainingSchedules: schedules })}
+						locations={locations?.items || []}
+					/>
+					<Divider />
+					<TeamPicturesManager
 						pictureS3Keys={formData.pictureS3Keys || []}
 						pictureFiles={pictureFiles}
 						deletePictureKeys={deletePictureKeys}
@@ -408,41 +542,69 @@ function TeamsPage() {
 					<Text>Laden...</Text>
 				) : teams && teams.items.length > 0 ? (
 					<Table striped highlightOnHover>
-					<Table.Thead>
-						<Table.Tr>
-							<Table.Th>Name</Table.Th>
-							<Table.Th>Liga</Table.Th>
-							<Table.Th>Mindestalter</Table.Th>
-							<Table.Th>Geschlecht</Table.Th>
-							<Table.Th>Trainer</Table.Th>
-							<Table.Th>Bilder</Table.Th>
-							<Table.Th>SAMS Team</Table.Th>
-							<Table.Th>Aktionen</Table.Th>
-						</Table.Tr>
-					</Table.Thead>
-					<Table.Tbody>
-						{teams.items.map((team) => {
-							const samsTeam = samsTeams?.find((st) => st.uuid === team.sbvvTeamId);
-							const pictureCount = team.pictureS3Keys?.length || 0;
-							const teamTrainers = trainers?.items.filter((t) => team.trainerIds?.includes(t.id)) || [];
-							return (
-								<Table.Tr key={team.id}>
-									<Table.Td>{team.name}</Table.Td>
-									<Table.Td>{team.league || "-"}</Table.Td>
-									<Table.Td>{team.ageGroup || "-"}</Table.Td>
-									<Table.Td>{team.gender === "male" ? "Männlich" : team.gender === "female" ? "Weiblich" : team.gender === "mixed" ? "Gemischt" : "-"}</Table.Td>
-								<Table.Td>
-									{teamTrainers.length > 0 ? (
-										<Avatar.Group>
-											{teamTrainers.map((trainer) => (
-												<TrainerAvatar key={trainer.id} avatarS3Key={trainer.avatarS3Key} name={trainer.name} />
-											))}
-										</Avatar.Group>
-									) : (
-										"-"
-									)}
-								</Table.Td>
-									<Table.Td>
+						<Table.Thead>
+							<Table.Tr>
+								<Table.Th>Name</Table.Th>
+								<Table.Th>Liga</Table.Th>
+								<Table.Th>Mindestalter</Table.Th>
+								<Table.Th>Geschlecht</Table.Th>
+								<Table.Th>Trainer</Table.Th>
+								<Table.Th>Trainingszeiten</Table.Th>
+								<Table.Th>Bilder</Table.Th>
+								<Table.Th>SAMS Team</Table.Th>
+								<Table.Th>Aktionen</Table.Th>
+							</Table.Tr>
+						</Table.Thead>
+						<Table.Tbody>
+							{teams.items.map((team) => {
+								const samsTeam = samsTeams?.find((st) => st.uuid === team.sbvvTeamId);
+								const pictureCount = team.pictureS3Keys?.length || 0;
+								const teamTrainers = trainers?.items.filter((t) => team.trainerIds?.includes(t.id)) || [];
+								const trainingCount = team.trainingSchedules?.length || 0;
+								return (
+									<Table.Tr key={team.id}>
+										<Table.Td>{team.name}</Table.Td>
+										<Table.Td>{team.league || "-"}</Table.Td>
+										<Table.Td>{team.ageGroup || "-"}</Table.Td>
+										<Table.Td>{team.gender === "male" ? "Männlich" : team.gender === "female" ? "Weiblich" : team.gender === "mixed" ? "Gemischt" : "-"}</Table.Td>
+										<Table.Td>
+											{teamTrainers.length > 0 ? (
+												<Avatar.Group>
+													{teamTrainers.map((trainer) => (
+														<TrainerAvatar key={trainer.id} avatarS3Key={trainer.avatarS3Key} name={trainer.name} />
+													))}
+												</Avatar.Group>
+											) : (
+												"-"
+											)}
+										</Table.Td>
+										<Table.Td>
+											{trainingCount > 0 ? (
+												<Tooltip
+													label={
+														<Stack gap={4}>
+															{team.trainingSchedules?.map((schedule, idx) => {
+																const location = locations?.items.find((loc) => loc.id === schedule.locationId);
+																const dayLabels = schedule.days.map((d) => WEEKDAYS.find((wd) => wd.value === String(d))?.label).join(", ");
+																return (
+																	<Text key={`${schedule.locationId}-${schedule.startTime}-${idx}`} size="xs">
+																		{dayLabels}: {schedule.startTime}-{schedule.endTime} ({location?.name || "Unbekannt"})
+																	</Text>
+																);
+															})}
+														</Stack>
+													}
+													withArrow
+												>
+													<Badge size="sm" variant="light">
+														{trainingCount}
+													</Badge>
+												</Tooltip>
+											) : (
+												"-"
+											)}
+										</Table.Td>
+										<Table.Td>
 											{pictureCount > 0 ? (
 												<Badge size="sm" variant="light">
 													{pictureCount}

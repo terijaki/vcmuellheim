@@ -85,6 +85,7 @@ new ApiStack(app, apiStackName, {
 		mediaTable: contentDbStack.mediaTable,
 		sponsorsTable: contentDbStack.sponsorsTable,
 		busTable: contentDbStack.busTable,
+		locationsTable: contentDbStack.locationsTable,
 	},
 	mediaBucket: mediaStack.bucket,
 	samsApiUrl: samsApiStack.cloudFrontUrl,

@@ -39,6 +39,20 @@ export const eventSchema = z.object({
 	relatedSamsMatchId: z.string().optional(),
 });
 
+/** Training schedule schema */
+export const trainingScheduleSchema = z.object({
+	days: z.array(z.number().int().min(0).max(6)).describe("0 = Sunday, 1 = Monday, ..., 6 = Saturday (matches dayjs)"),
+	startTime: z
+		.string()
+		.regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)
+		.describe("HH:MM format"),
+	endTime: z
+		.string()
+		.regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)
+		.describe("HH:MM format"),
+	locationId: z.uuid(),
+});
+
 /** Team schema */
 export const teamSchema = z.object({
 	...baseEntityFields,
@@ -50,8 +64,9 @@ export const teamSchema = z.object({
 	ageGroup: z.string().optional(),
 	gender: z.enum(["male", "female", "mixed"]),
 	league: z.string().optional(),
-	trainerIds: z.array(z.string()).optional(), // Array of member IDs who are trainers
+	trainerIds: z.array(z.string()).optional(),
 	pictureS3Keys: z.array(z.string()).optional(),
+	trainingSchedules: z.array(trainingScheduleSchema).optional(),
 });
 
 /** Member schema */
@@ -63,7 +78,7 @@ export const memberSchema = z.object({
 	isBoardMember: z.boolean().optional(),
 	isTrainer: z.boolean().optional(),
 	roleTitle: z.string().max(100).optional(),
-	avatarS3Key: z.string().optional(), 
+	avatarS3Key: z.string().optional(),
 });
 
 /** Media schema */
@@ -88,8 +103,18 @@ export const sponsorSchema = z.object({
 	name: z.string().min(1).max(200),
 	description: z.string().optional(),
 	websiteUrl: z.url().optional(),
-	logoS3Key: z.string().optional(), 
+	logoS3Key: z.string().optional(),
 	expiryTimestamp: z.number().int().positive().optional(),
+});
+
+/** Location schema */
+export const locationSchema = z.object({
+	...baseEntityFields,
+	name: z.string().min(1).max(200),
+	description: z.string().optional(),
+	street: z.string().min(1).max(200),
+	postal: z.string().min(1).max(20),
+	city: z.string().min(1).max(100),
 });
 
 /** Bus Booking schema */
@@ -111,4 +136,6 @@ export type TeamInput = z.infer<typeof teamSchema>;
 export type MemberInput = z.infer<typeof memberSchema>;
 export type MediaInput = z.infer<typeof mediaSchema>;
 export type SponsorInput = z.infer<typeof sponsorSchema>;
+export type LocationInput = z.infer<typeof locationSchema>;
 export type BusInput = z.infer<typeof busSchema>;
+export type TrainingScheduleInput = z.infer<typeof trainingScheduleSchema>;

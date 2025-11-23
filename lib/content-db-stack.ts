@@ -16,6 +16,7 @@ export class ContentDbStack extends cdk.Stack {
 	public readonly membersTable: dynamodb.Table;
 	public readonly mediaTable: dynamodb.Table;
 	public readonly sponsorsTable: dynamodb.Table;
+	public readonly locationsTable: dynamodb.Table;
 	public readonly busTable: dynamodb.Table;
 
 	constructor(scope: Construct, id: string, props?: ContentDbStackProps) {
@@ -131,7 +132,14 @@ export class ContentDbStack extends cdk.Stack {
 		});
 		// TTL handles cleanup automatically
 
-		// 7. Bus Bookings Table
+		// 7. Locations Table
+		this.locationsTable = new dynamodb.Table(this, "LocationsTable", {
+			...commonTableProps,
+			tableName: `vcm-locations-${environment}${branchSuffix}`,
+			partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+		});
+
+		// 8. Bus Bookings Table
 		this.busTable = new dynamodb.Table(this, "BusBookingsTable", {
 			...commonTableProps,
 			tableName: `vcm-bus-${environment}${branchSuffix}`,
@@ -174,6 +182,11 @@ export class ContentDbStack extends cdk.Stack {
 		new cdk.CfnOutput(this, "SponsorsTableName", {
 			value: this.sponsorsTable.tableName,
 			description: "Sponsors table name",
+		});
+
+		new cdk.CfnOutput(this, "LocationsTableName", {
+			value: this.locationsTable.tableName,
+			description: "Locations table name",
 		});
 
 		new cdk.CfnOutput(this, "BusTableName", {

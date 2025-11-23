@@ -113,12 +113,7 @@ function CurrentLogoDisplay({
 			<Text size="sm" fw={500} mb="xs">
 				Logo
 			</Text>
-			<Dropzone
-				onDrop={(files: File[]) => files.length > 0 && onFileChange(files[0])}
-				accept={IMAGE_MIME_TYPE}
-				maxSize={5 * 1024 * 1024}
-				maxFiles={1}
-			>
+			<Dropzone onDrop={(files: File[]) => files.length > 0 && onFileChange(files[0])} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024} maxFiles={1}>
 				<Group justify="center" gap="xl" style={{ minHeight: 120, pointerEvents: "none" }}>
 					<Dropzone.Accept>
 						<Upload size={50} style={{ color: "var(--mantine-color-blue-6)" }} />
@@ -143,7 +138,6 @@ function CurrentLogoDisplay({
 		</Box>
 	);
 }
-
 
 function SponsorsPage() {
 	const [opened, { open, close }] = useDisclosure(false);
@@ -423,11 +417,11 @@ function SponsorCard({
 
 				{sponsor.websiteUrl && (
 					<Anchor href={sponsor.websiteUrl} target="_blank" rel="noopener noreferrer" size="sm" fw={500}>
-							<Group gap="xs">
-						<Globe size={14} style={{ color: "var(--mantine-color-turquoise-2)" }} />
+						<Group gap="xs">
+							<Globe size={14} style={{ color: "var(--mantine-color-turquoise-2)" }} />
 							{getDomainFromUrl(sponsor.websiteUrl)}
-					</Group>
-						</Anchor>
+						</Group>
+					</Anchor>
 				)}
 			</Stack>
 		</Card>

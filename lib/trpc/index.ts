@@ -4,6 +4,7 @@
 
 import { busRouter } from "./routers/bus";
 import { eventsRouter } from "./routers/events";
+import { locationsRouter } from "./routers/locations";
 import { mediaRouter } from "./routers/media";
 import { membersRouter } from "./routers/members";
 import { newsRouter } from "./routers/news";
@@ -20,6 +21,7 @@ export const appRouter = router({
 	members: membersRouter,
 	media: mediaRouter,
 	sponsors: sponsorsRouter,
+	locations: locationsRouter,
 	bus: busRouter,
 	samsTeams: samsTeamsRouter,
 	upload: uploadRouter,

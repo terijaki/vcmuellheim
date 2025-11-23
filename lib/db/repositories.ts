@@ -4,7 +4,7 @@
 
 import { TABLE_NAMES } from "./client";
 import { Repository } from "./repository";
-import type { Bus, Event, Media, Member, News, Sponsor, Team } from "./types";
+import type { Bus, Event, Location, Media, Member, News, Sponsor, Team } from "./types";
 
 /** News repository */
 export const newsRepository = new Repository<News>({
@@ -34,6 +34,11 @@ export const mediaRepository = new Repository<Media>({
 /** Sponsors repository */
 export const sponsorsRepository = new Repository<Sponsor>({
 	tableName: TABLE_NAMES.SPONSORS,
+});
+
+/** Locations repository */
+export const locationsRepository = new Repository<Location>({
+	tableName: TABLE_NAMES.LOCATIONS,
 });
 
 /** Bus bookings repository */
@@ -125,6 +130,11 @@ export async function getAllTeams() {
 /** Get all sponsors (active and expired are handled by TTL) */
 export async function getAllSponsors() {
 	return sponsorsRepository.scan();
+}
+
+/** Get all locations */
+export async function getAllLocations() {
+	return locationsRepository.scan();
 }
 
 /** Get all members (small dataset, scan is acceptable) */

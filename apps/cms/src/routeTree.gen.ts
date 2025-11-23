@@ -18,6 +18,7 @@ import { Route as DashboardSponsorsRouteImport } from './routes/dashboard/sponso
 import { Route as DashboardNewsRouteImport } from './routes/dashboard/news'
 import { Route as DashboardMembersRouteImport } from './routes/dashboard/members'
 import { Route as DashboardMediaRouteImport } from './routes/dashboard/media'
+import { Route as DashboardLocationsRouteImport } from './routes/dashboard/locations'
 import { Route as DashboardEventsRouteImport } from './routes/dashboard/events'
 import { Route as DashboardBusRouteImport } from './routes/dashboard/bus'
 
@@ -66,6 +67,11 @@ const DashboardMediaRoute = DashboardMediaRouteImport.update({
   path: '/media',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardLocationsRoute = DashboardLocationsRouteImport.update({
+  id: '/locations',
+  path: '/locations',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardEventsRoute = DashboardEventsRouteImport.update({
   id: '/events',
   path: '/events',
@@ -83,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/dashboard/bus': typeof DashboardBusRoute
   '/dashboard/events': typeof DashboardEventsRoute
+  '/dashboard/locations': typeof DashboardLocationsRoute
   '/dashboard/media': typeof DashboardMediaRoute
   '/dashboard/members': typeof DashboardMembersRoute
   '/dashboard/news': typeof DashboardNewsRoute
@@ -95,6 +102,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/dashboard/bus': typeof DashboardBusRoute
   '/dashboard/events': typeof DashboardEventsRoute
+  '/dashboard/locations': typeof DashboardLocationsRoute
   '/dashboard/media': typeof DashboardMediaRoute
   '/dashboard/members': typeof DashboardMembersRoute
   '/dashboard/news': typeof DashboardNewsRoute
@@ -109,6 +117,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/dashboard/bus': typeof DashboardBusRoute
   '/dashboard/events': typeof DashboardEventsRoute
+  '/dashboard/locations': typeof DashboardLocationsRoute
   '/dashboard/media': typeof DashboardMediaRoute
   '/dashboard/members': typeof DashboardMembersRoute
   '/dashboard/news': typeof DashboardNewsRoute
@@ -124,6 +133,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/dashboard/bus'
     | '/dashboard/events'
+    | '/dashboard/locations'
     | '/dashboard/media'
     | '/dashboard/members'
     | '/dashboard/news'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/dashboard/bus'
     | '/dashboard/events'
+    | '/dashboard/locations'
     | '/dashboard/media'
     | '/dashboard/members'
     | '/dashboard/news'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/dashboard/bus'
     | '/dashboard/events'
+    | '/dashboard/locations'
     | '/dashboard/media'
     | '/dashboard/members'
     | '/dashboard/news'
@@ -228,6 +240,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardMediaRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/locations': {
+      id: '/dashboard/locations'
+      path: '/locations'
+      fullPath: '/dashboard/locations'
+      preLoaderRoute: typeof DashboardLocationsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/events': {
       id: '/dashboard/events'
       path: '/events'
@@ -248,6 +267,7 @@ declare module '@tanstack/react-router' {
 interface DashboardRouteChildren {
   DashboardBusRoute: typeof DashboardBusRoute
   DashboardEventsRoute: typeof DashboardEventsRoute
+  DashboardLocationsRoute: typeof DashboardLocationsRoute
   DashboardMediaRoute: typeof DashboardMediaRoute
   DashboardMembersRoute: typeof DashboardMembersRoute
   DashboardNewsRoute: typeof DashboardNewsRoute
@@ -259,6 +279,7 @@ interface DashboardRouteChildren {
 const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardBusRoute: DashboardBusRoute,
   DashboardEventsRoute: DashboardEventsRoute,
+  DashboardLocationsRoute: DashboardLocationsRoute,
   DashboardMediaRoute: DashboardMediaRoute,
   DashboardMembersRoute: DashboardMembersRoute,
   DashboardNewsRoute: DashboardNewsRoute,

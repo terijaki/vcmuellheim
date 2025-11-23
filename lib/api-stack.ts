@@ -110,6 +110,7 @@ export class ApiStack extends cdk.Stack {
 			MEMBERS: props.contentDbStack.membersTable,
 			MEDIA: props.contentDbStack.mediaTable,
 			SPONSORS: props.contentDbStack.sponsorsTable,
+			LOCATIONS: props.contentDbStack.locationsTable,
 			BUS: props.contentDbStack.busTable,
 		} satisfies Record<TableEntity, dynamodb.Table>;
 
