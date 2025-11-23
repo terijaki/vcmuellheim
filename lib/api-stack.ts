@@ -116,7 +116,10 @@ export class ApiStack extends cdk.Stack {
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 512,
-			environment: Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
+			environment: {
+				...Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
+				COGNITO_USER_POOL_ID: this.userPool.userPoolId,
+			},
 			bundling: {
 				minify: true,
 				sourceMap: true,
@@ -134,7 +137,7 @@ export class ApiStack extends cdk.Stack {
 			apiName: `vcm-trpc-api-${environment}${branchSuffix}`,
 			description: "tRPC API for VCM admin and public endpoints",
 			corsPreflight: {
-				allowOrigins: isProd ? ["https://vcmuellheim.de", "https://admin.vcmuellheim.de"] : ["*"],
+				allowOrigins: isProd ? [Club.url, "https://admin.vcmuellheim.de"] : ["*"],
 				allowMethods: [apigatewayv2.CorsHttpMethod.GET, apigatewayv2.CorsHttpMethod.POST, apigatewayv2.CorsHttpMethod.OPTIONS],
 				allowHeaders: ["content-type", "authorization"],
 				maxAge: cdk.Duration.hours(1),

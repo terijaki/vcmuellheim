@@ -3,6 +3,9 @@
 	"version": "2.0.0",
 	"private": true,
 	"type": "module",
+	"workspaces": [
+		"apps/cms"
+	],
 	"homepage": "https://vcmuellheim.de",
 	"bugs": {
 		"url": "https://github.com/terijaki/vcmuellheim/issues"
@@ -13,7 +16,9 @@
 	},
 	"scripts": {
 		"dev": "next dev -p 3080",
+		"dev:cms": "bun --filter @vcmuellheim/cms dev",
 		"build": "next build",
+		"build:cms": "bun --filter @vcmuellheim/cms build",
 		"start": "node server.js",
 		"deploy": "bash scripts/deploy.sh",
 		"deploy-podman": "bash scripts/deploy-podman.sh",
@@ -25,6 +30,7 @@
 		"test:watch": "vitest watch",
 		"test:ui": "vitest --ui",
 		"test:coverage": "vitest run --coverage",
+		"test:auth": "bun run scripts/test-auth.ts",
 		"check:all": "bun run biome --fix && bun run typecheck && bun run test",
 		"payload-migrate": "bunx payload migrate:create",
 		"sams:update": "bash scripts/update-sams-swagger.sh && openapi-ts --file='sams-api.config.ts'",
@@ -45,6 +51,7 @@
 		"cdk:bootstrap": "cdk bootstrap --profile vcmuellheim"
 	},
 	"dependencies": {
+		"@aws-sdk/client-cognito-identity-provider": "^3.936.0",
 		"@aws-sdk/client-dynamodb": "^3.936.0",
 		"@aws-sdk/lib-dynamodb": "^3.936.0",
 		"@hey-api/client-next": "^0.5.1",
@@ -70,6 +77,8 @@
 		"dumb-csv": "^1.1.2",
 		"feed": "^5.1.0",
 		"graphql": "^16.11.0",
+		"jsonwebtoken": "^9.0.2",
+		"jwks-rsa": "^3.2.0",
 		"next": "15.5.2",
 		"num-words-de": "^1.1.0",
 		"payload": "3.54.0",
@@ -90,6 +99,7 @@
 		"@eslint/eslintrc": "^3",
 		"@hey-api/openapi-ts": "^0.88.0",
 		"@types/aws-lambda": "^8.10.159",
+		"@types/jsonwebtoken": "^9.0.10",
 		"@types/node": "^24.3.1",
 		"@types/react": "^19.1.12",
 		"@types/react-dom": "^19.1.9",

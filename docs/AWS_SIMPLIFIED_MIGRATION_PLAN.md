@@ -99,25 +99,27 @@
    - ✅ IAM permissions: Lambda can read/write all 7 DynamoDB tables
    - ✅ Successfully deployed to AWS (Exit Code: 0)
 
-2. [ ] **Create First Admin User in Cognito**
-   - Use AWS Console or CLI to create admin user
+2. [x] **Create First Admin User in Cognito**
+   - ✅ Created admin user via AWS Console
    - Configure MFA for admin accounts
    - Test authentication flow
 
-3. [ ] **Vite + React Admin App Setup**
-   - Create new Vite project (`admin/`)
-   - Use TanStack Router for navigation
-   - Use Mantine UI library (already in use for main site)
-   - Set up authentication with AWS Cognito
+3. [x] **Vite + React CMS App Setup**
+   - ✅ Created new Vite project (`apps/cms/`)
+   - ✅ Configured Bun workspace for monorepo support
+   - ✅ TanStack Router for navigation (ready to configure)
+   - ✅ Mantine UI library installed
+   - [ ] Set up authentication with AWS Cognito
 
-4. [ ] **Authentication Integration**
-   - Integrate Cognito with React app (AWS Amplify UI or custom)
-   - Implement Cognito JWT extraction in Lambda context (lambda/content/handler.ts)
-   - Protected tRPC procedures using context.userId
-   - Implement login/logout flow
-   - Protected routes in admin app
+4. [x] **Authentication Integration**
+   - ✅ JWT verification implemented (lib/trpc/context.ts)
+   - ✅ Lambda handler extracts Authorization header (lambda/content/handler.ts)
+   - ✅ Protected tRPC procedures using context.userId
+   - ✅ Dependencies installed (jsonwebtoken, jwks-rsa)
+   - ✅ Successfully deployed to AWS
+   - ✅ Authentication tested and working (scripts/test-auth.ts)
 
-3. [ ] **Admin UI Pages**
+3. [ ] **CMS UI Pages**
    - Dashboard (overview, recent activity)
    - News management (list, create, edit, delete)
    - Events management
@@ -134,11 +136,11 @@
    - Save as JSON (Tiptap's native format) in DynamoDB
    - Render on frontend using same Tiptap extensions (read-only mode)
 
-5. [ ] **Deploy Admin App**
+5. [ ] **Deploy CMS App**
    - Build Vite app to static files
    - Upload to S3 bucket
    - Serve via CloudFront distribution
-   - Optional: Custom domain for admin (e.g., admin.vcmuellheim.de)
+   - Optional: Custom domain for CMS (e.g., cms.vcmuellheim.de)
    - SSL/TLS certificate via ACM
 
 ---

@@ -8,11 +8,19 @@ import type { APIGatewayProxyEventV2 } from "aws-lambda";
 import { appRouter } from "../../lib/trpc";
 import { createContext } from "../../lib/trpc/context";
 
+// Environment variables for Cognito verification
+const USER_POOL_ID = process.env.COGNITO_USER_POOL_ID;
+const REGION = process.env.AWS_REGION || "eu-central-1";
+
 export const handler = awsLambdaRequestHandler({
 	router: appRouter,
-	createContext: async (_opts: { event: APIGatewayProxyEventV2 }) => {
-		// TODO: Extract userId from Cognito authorizer claims
-		// event.requestContext.authorizer?.jwt?.claims?.sub
-		return createContext();
+	createContext: async (opts: { event: APIGatewayProxyEventV2 }) => {
+		const authorizationHeader = opts.event.headers.authorization || opts.event.headers.Authorization;
+
+		return createContext({
+			authorizationHeader,
+			userPoolId: USER_POOL_ID,
+			region: REGION,
+		});
 	},
 });
