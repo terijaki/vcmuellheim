@@ -36,7 +36,7 @@
 
 1. [x] **Design DynamoDB Schema**
    - ✅ Map existing Payload collections to DynamoDB tables
-   - ✅ Multi-table design (7 tables: News, Events, Teams, Members, Media, Sponsors, Bus)
+   - ✅ Multi-table design (8 tables: News, Events, Teams, Members, Media, Sponsors, Locations, Bus)
    - ✅ Removed Users table (Cognito handles authentication)
    - ✅ Removed Roles table (role fields on Member entity)
    - ✅ Partition keys and sort keys determined
@@ -50,7 +50,7 @@
    - ✅ Point-in-Time Recovery (PITR) enabled
    - ✅ TTL configured on Sponsors table (expiryTimestamp) and Bus table (ttl)
    - ✅ Successfully deployed to AWS
-   - ✅ 7 tables created: News, Events, Teams, Members, Media, Sponsors, Bus
+   - ✅ 8 tables created: News, Events, Teams, Members, Media, Sponsors, Locations, Bus
 
 3. [ ] **Migration Script**
    - Extract data from current Payload Postgres database
@@ -62,7 +62,7 @@
    - ✅ Zod v4 validation schemas (lib/db/schemas.ts)
    - ✅ TypeScript types inferred from Zod (lib/db/types.ts)
    - ✅ Generic Repository class with full CRUD (lib/db/repository.ts)
-   - ✅ Repository instances for all 7 entities (lib/db/repositories.ts)
+   - ✅ Repository instances for all 8 entities (lib/db/repositories.ts)
    - ✅ Domain-specific query helpers (getPublishedNews, getUpcomingEvents, etc.)
    - ✅ DynamoDB client configuration (lib/db/client.ts)
 
@@ -77,10 +77,35 @@
    - ✅ Installed tRPC dependencies (@trpc/server, @trpc/client, @trpc/react-query)
    - ✅ Created tRPC context with Cognito auth support (lib/trpc/context.ts)
    - ✅ Base procedures configured (publicProcedure, protectedProcedure)
-   - ✅ All 7 entity routers created (news, events, teams, members, media, sponsors, bus)
+   - ✅ All 8 entity routers created (news, events, teams, members, media, sponsors, locations, bus)
+   - ✅ Config router for dynamic Cognito configuration (lib/trpc/routers/config.ts)
    - ✅ Lambda handler for API Gateway (lambda/content/handler.ts)
    - ✅ React client setup (lib/trpc/client.ts)
    - ✅ Complete documentation (docs/TRPC_SETUP.md)
+
+7. [x] **DNS & Custom Domains Setup**
+   - ✅ Route53 Hosted Zone created manually: new.vcmuellheim.de
+   - ✅ ACM Certificate (eu-central-1) for API Gateway
+   - ✅ ACM Certificate (us-east-1) for CloudFront
+   - ✅ DNS delegation configured in Hetzner
+   - ✅ DnsStack imports existing resources (lib/dns-stack.ts)
+   - ✅ Domain pattern: {env}-{branch}-{service}.new.vcmuellheim.de
+   - ✅ Configuration in project.config.ts (version controlled)
+
+8. [x] **S3 & CloudFront Media Distribution**
+   - ✅ S3 bucket with CORS configuration
+   - ✅ CloudFront distribution with Origin Access Control (OAC)
+   - ✅ Custom domain support (certificates from us-east-1)
+   - ✅ Environment-specific cache policies (short TTL for dev)
+   - ✅ Auto-delete S3 objects on dev stack destruction
+   - ✅ MediaStack deployed (lib/media-stack.ts)
+
+9. [x] **Git-Based Configuration Management**
+   - ✅ Shared utility for branch detection (utils/git.ts)
+   - ✅ Used by both CDK and Vite build process
+   - ✅ Automatic branch sanitization for AWS naming
+   - ✅ VITE_GIT_BRANCH injected at build time
+   - ✅ Zero-config URL computation in CMS
 
 ---
 
@@ -95,9 +120,11 @@
    - ✅ Cognito configured: email auth, optional TOTP MFA, device tracking
    - ✅ Lambda function with tRPC handler deployed (Node.js 20, 512MB, 30s timeout)
    - ✅ HTTP API Gateway with CORS configured for prod/dev
+   - ✅ Custom domain configuration (API Gateway DomainName + Route53 A record)
    - ✅ Type-safe environment variable mapping (lib/db/env.ts)
-   - ✅ IAM permissions: Lambda can read/write all 7 DynamoDB tables
-   - ✅ Successfully deployed to AWS (Exit Code: 0)
+   - ✅ IAM permissions: Lambda can read/write all 8 DynamoDB tables
+   - ✅ Per-branch User Pools (allows stack destruction)
+   - ⏳ Deploying custom domain: dev-aws-migration-api.new.vcmuellheim.de
 
 2. [x] **Create First Admin User in Cognito**
    - ✅ Created admin user via AWS Console
@@ -107,9 +134,12 @@
 3. [x] **Vite + React CMS App Setup**
    - ✅ Created new Vite project (`apps/cms/`)
    - ✅ Configured Bun workspace for monorepo support
-   - ✅ TanStack Router for navigation (ready to configure)
+   - ✅ TanStack Router for navigation
    - ✅ Mantine UI library installed
-   - [ ] Set up authentication with AWS Cognito
+   - ✅ Authentication context with Cognito (apps/cms/src/auth/AuthContext.tsx)
+   - ✅ Dynamic API URL computation (hostname-based + Git branch detection)
+   - ✅ Dynamic Cognito config fetching from API
+   - ✅ tRPC provider with auth token injection
 
 4. [x] **Authentication Integration**
    - ✅ JWT verification implemented (lib/trpc/context.ts)
@@ -375,6 +405,7 @@
       │  - Members               │
       │  - Media                 │
       │  - Sponsors              │
+      │  - Locations             │
       │  - Bus                   │
       └──────────────────────────┘
                    │
@@ -472,11 +503,12 @@
 
 ## Next Steps (Immediate)
 
-1. **Design DynamoDB schema** - Map out tables, keys, GSIs
-2. **Create new CDK stack** for DynamoDB tables
-3. **Build proof-of-concept** admin page (one entity, e.g., News)
-4. **Test data migration** from Payload to DynamoDB
-5. **Start building custom CMS admin UI** (basic CRUD for News)
+1. ✅ **Design DynamoDB schema** - Map out tables, keys, GSIs
+2. ✅ **Create new CDK stack** for DynamoDB tables
+3. ⏳ **Finish deployment** - Custom domains for API and Media currently deploying
+4. [ ] **Build proof-of-concept** admin page (one entity, e.g., News)
+5. [ ] **Test data migration** from Payload to DynamoDB
+6. [ ] **Start building custom CMS admin UI** (basic CRUD for News)
 
 ---
 
