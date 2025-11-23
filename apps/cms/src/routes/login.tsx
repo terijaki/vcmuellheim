@@ -23,43 +23,41 @@ function LoginPage() {
 		}
 	};
 
-	return (
-		<Container size="xs" style={{ marginTop: "5rem" }}>
-			<Paper withBorder shadow="md" p={30} radius="md">
-				<Title order={2} mb="lg">
-					CMS Login
-				</Title>
-				{error && (
-					<Alert color="red" mb="md">
-						{error}
-					</Alert>
-				)}
-				<form onSubmit={handleLogin}>
-					<TextInput
-						label="Email"
-						placeholder="your@email.com"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-						required
-						mb="md"
-					/>
-					<PasswordInput
-						label="Password"
-						placeholder="Your password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						required
-						mb="md"
-					/>
-					<Button type="submit" fullWidth loading={isLoading}>
-						Login
-					</Button>
-				</form>
-			</Paper>
-		</Container>
-	);
-}
-
-export const Route = createFileRoute("/login")({
+		return (
+			<Container size="xs" style={{ marginTop: "5rem" }}>
+				<Paper withBorder shadow="md" p={30} radius="md">
+					<Title order={2} mb="lg">
+						CMS Anmeldung
+					</Title>
+					{error && (
+						<Alert color="red" mb="md">
+							{error}
+						</Alert>
+					)}
+					<form onSubmit={handleLogin}>
+						<TextInput
+							label="E-Mail"
+							placeholder="ihre@email.de"
+							value={username}
+							onChange={(e) => setUsername(e.target.value)}
+							required
+							mb="md"
+						/>
+						<PasswordInput
+							label="Passwort"
+							placeholder="Ihr Passwort"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							required
+							mb="md"
+						/>
+						<Button type="submit" fullWidth loading={isLoading}>
+							Anmelden
+						</Button>
+					</form>
+				</Paper>
+			</Container>
+		);
+	}export const Route = createFileRoute("/login")({
 	component: LoginPage,
 });

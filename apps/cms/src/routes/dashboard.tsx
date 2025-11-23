@@ -28,21 +28,21 @@ function DashboardLayout() {
 					<Group>
 						<Text size="sm">{user?.email}</Text>
 						<Button variant="subtle" onClick={logout} size="sm">
-							Logout
+							Abmelden
 						</Button>
 					</Group>
 				</Group>
 			</AppShell.Header>
 
 			<AppShell.Navbar p="md">
-				<NavLink label="Dashboard" component={Link} to="/dashboard" />
+				<NavLink label="Übersicht" component={Link} to="/dashboard" />
 				<NavLink label="News" component={Link} to="/dashboard/news" />
-				<NavLink label="Events" component={Link} to="/dashboard/events" />
+				<NavLink label="Termine" component={Link} to="/dashboard/events" />
 				<NavLink label="Teams" component={Link} to="/dashboard/teams" />
-				<NavLink label="Members" component={Link} to="/dashboard/members" />
-				<NavLink label="Media" component={Link} to="/dashboard/media" />
-				<NavLink label="Sponsors" component={Link} to="/dashboard/sponsors" />
-				<NavLink label="Bus Schedules" component={Link} to="/dashboard/bus" />
+				<NavLink label="Mitglieder" component={Link} to="/dashboard/members" />
+				<NavLink label="Medien" component={Link} to="/dashboard/media" />
+				<NavLink label="Sponsoren" component={Link} to="/dashboard/sponsors" />
+				<NavLink label="Bus Buchungen" component={Link} to="/dashboard/bus" />
 			</AppShell.Navbar>
 
 			<AppShell.Main>

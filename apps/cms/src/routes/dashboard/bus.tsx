@@ -11,28 +11,23 @@ import {
 	Textarea,
 	Title,
 } from "@mantine/core";
+import { DateTimePicker } from "@mantine/dates";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
+import dayjs from "dayjs";
+import "dayjs/locale/de";
+import type { BusInput } from "../../../../../lib/db/schemas";
 import { trpc } from "../../lib/trpc";
 
-interface BusSchedule {
-	id: string;
-	driver: string;
-	from: string;
-	to: string;
-	comment?: string;
-	ttl: number;
-	createdAt: string;
-	updatedAt: string;
-}
+dayjs.locale("de");
 
 function BusSchedulesPage() {
 	const [opened, { open, close }] = useDisclosure(false);
 	const [editingId, setEditingId] = useState<string | null>(null);
 	const [formData, setFormData] = useState({
 		driver: "",
-		from: "",
-		to: "",
+		from: null as Date | null,
+		to: null as Date | null,
 		comment: "",
 	});
 
@@ -59,16 +54,19 @@ function BusSchedulesPage() {
 	});
 
 	const resetForm = () => {
-		setFormData({ driver: "", from: "", to: "", comment: "" });
+		setFormData({ driver: "", from: null, to: null, comment: "" });
 		setEditingId(null);
 	};
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
-		// Convert datetime-local format to ISO string
-		const fromISO = new Date(formData.from).toISOString();
-		const toISO = new Date(formData.to).toISOString();
+		if (!formData.from || !formData.to) {
+			return;
+		}
+
+		const fromISO = formData.from.toISOString();
+		const toISO = formData.to.toISOString();
 
 		if (editingId) {
 			updateMutation.mutate({
@@ -90,22 +88,19 @@ function BusSchedulesPage() {
 		}
 	};
 
-	const handleEdit = (schedule: BusSchedule) => {
+	const handleEdit = (schedule: BusInput) => {
 		setEditingId(schedule.id);
-		// Convert ISO datetime to datetime-local format (YYYY-MM-DDTHH:mm)
-		const fromLocal = new Date(schedule.from).toISOString().slice(0, 16);
-		const toLocal = new Date(schedule.to).toISOString().slice(0, 16);
 		setFormData({
 			driver: schedule.driver,
-			from: fromLocal,
-			to: toLocal,
+			from: new Date(schedule.from),
+			to: new Date(schedule.to),
 			comment: schedule.comment || "",
 		});
 		open();
 	};
 
 	const handleDelete = (id: string) => {
-		if (confirm("Are you sure you want to delete this schedule?")) {
+		if (confirm("Möchten Sie diese Bus Buchung wirklich löschen?")) {
 			deleteMutation.mutate({ id });
 		}
 	};
@@ -113,42 +108,42 @@ function BusSchedulesPage() {
 	return (
 		<Stack>
 			<Group justify="space-between">
-				<Title order={2}>Bus Schedules</Title>
+				<Title order={2}>Bus Buchungen</Title>
 				<Button
 					onClick={() => {
 						resetForm();
 						open();
 					}}
 				>
-					Add Schedule
+					Hinzufügen
 				</Button>
 			</Group>
 
 			<Paper withBorder p="md">
 				{isLoading ? (
-					<Text>Loading...</Text>
+					<Text>Laden...</Text>
 				) : schedules && schedules.items.length > 0 ? (
 					<Table striped highlightOnHover>
 						<Table.Thead>
 							<Table.Tr>
-								<Table.Th>Driver</Table.Th>
-								<Table.Th>From</Table.Th>
-								<Table.Th>To</Table.Th>
-								<Table.Th>Comment</Table.Th>
-								<Table.Th>Actions</Table.Th>
+								<Table.Th>Fahrer</Table.Th>
+								<Table.Th>Von</Table.Th>
+								<Table.Th>Bis</Table.Th>
+								<Table.Th>Kommentar</Table.Th>
+								<Table.Th>Aktionen</Table.Th>
 							</Table.Tr>
 						</Table.Thead>
 						<Table.Tbody>
 							{schedules.items.map((schedule) => (
 								<Table.Tr key={schedule.id}>
 									<Table.Td>{schedule.driver}</Table.Td>
-									<Table.Td>{new Date(schedule.from).toLocaleString()}</Table.Td>
-									<Table.Td>{new Date(schedule.to).toLocaleString()}</Table.Td>
+									<Table.Td>{dayjs(schedule.from).format("DD.MM.YYYY HH:mm")}</Table.Td>
+									<Table.Td>{dayjs(schedule.to).format("DD.MM.YYYY HH:mm")}</Table.Td>
 									<Table.Td>{schedule.comment || "-"}</Table.Td>
 									<Table.Td>
 										<Group gap="xs">
 											<Button size="xs" onClick={() => handleEdit(schedule)}>
-												Edit
+												Bearbeiten
 											</Button>
 											<Button
 												size="xs"
@@ -156,7 +151,7 @@ function BusSchedulesPage() {
 												onClick={() => handleDelete(schedule.id)}
 												loading={deleteMutation.isPending}
 											>
-												Delete
+												Löschen
 											</Button>
 										</Group>
 									</Table.Td>
@@ -165,7 +160,7 @@ function BusSchedulesPage() {
 						</Table.Tbody>
 					</Table>
 				) : (
-					<Text c="dimmed">No bus schedules yet. Create one to get started.</Text>
+					<Text c="dimmed">Noch keine Bus Buchungen vorhanden. Erstellen Sie einen neuen Eintrag.</Text>
 				)}
 			</Paper>
 
@@ -175,47 +170,47 @@ function BusSchedulesPage() {
 					close();
 					resetForm();
 				}}
-				title={editingId ? "Edit Bus Schedule" : "Add Bus Schedule"}
+				title={editingId ? "Bus Buchung bearbeiten" : "Bus Buchung hinzufügen"}
 			>
 				<form onSubmit={handleSubmit}>
 					<Stack>
 						<TextInput
-							label="Driver Name"
-							placeholder="e.g., John Doe"
+							label="Fahrer"
+							placeholder="z.B. Max Mustermann"
 							value={formData.driver}
 							onChange={(e) => setFormData({ ...formData, driver: e.target.value })}
 							required
 						/>
-						<TextInput
-							label="From (Date & Time)"
-							type="datetime-local"
-							value={formData.from}
-							onChange={(e) => setFormData({ ...formData, from: e.target.value })}
-							required
-						/>
-						<TextInput
-							label="To (Date & Time)"
-							type="datetime-local"
-							value={formData.to}
-							onChange={(e) => setFormData({ ...formData, to: e.target.value })}
-							required
-						/>
+					<DateTimePicker
+						label="Von (Datum & Uhrzeit)"
+						placeholder="Abfahrt wählen"
+						value={formData.from}
+						onChange={(date) => setFormData({ ...formData, from: date ? new Date(date) : null })}
+						required
+					/>
+					<DateTimePicker
+						label="Bis (Datum & Uhrzeit)"
+						placeholder="Rückkehr wählen"
+						value={formData.to}
+						onChange={(date) => setFormData({ ...formData, to: date ? new Date(date) : null })}
+						required
+					/>
 						<Textarea
-							label="Comment"
-							placeholder="Additional information..."
+							label="Kommentar"
+							placeholder="Zusätzliche Informationen..."
 							value={formData.comment}
 							onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
 							minRows={3}
 						/>
 						<Group justify="flex-end" mt="md">
 							<Button variant="subtle" onClick={close}>
-								Cancel
+								Abbrechen
 							</Button>
 							<Button
 								type="submit"
 								loading={createMutation.isPending || updateMutation.isPending}
 							>
-								{editingId ? "Update" : "Create"}
+								{editingId ? "Aktualisieren" : "Erstellen"}
 							</Button>
 						</Group>
 					</Stack>

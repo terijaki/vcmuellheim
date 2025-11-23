@@ -76,11 +76,13 @@
       "dependencies": {
         "@aws-sdk/client-cognito-identity-provider": "catalog:",
         "@mantine/core": "catalog:",
+        "@mantine/dates": "catalog:",
         "@mantine/hooks": "catalog:",
         "@tanstack/react-query": "catalog:",
         "@tanstack/react-router": "^1.139.3",
         "@trpc/client": "catalog:",
         "@trpc/react-query": "catalog:",
+        "dayjs": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",
         "superjson": "catalog:",
