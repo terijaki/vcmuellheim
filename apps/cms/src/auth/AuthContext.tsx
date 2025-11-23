@@ -23,17 +23,25 @@ async function fetchCognitoConfig(): Promise<{ region: string; clientId: string 
 		apiUrl = `https://${apiHostname}/api`;
 	}
 	
+	console.log("Fetching Cognito config from:", `${apiUrl}/config.cognito`);
 	const response = await fetch(`${apiUrl}/config.cognito`);
-	if (!response.ok) throw new Error("Failed to fetch Cognito config from API");
+	if (!response.ok) {
+		console.error("Failed to fetch config:", response.status, response.statusText);
+		throw new Error(`Failed to fetch Cognito config from API: ${response.status}`);
+	}
 	
 	const data = await response.json();
-	if (!data.result?.data?.region || !data.result?.data?.clientId) {
+	console.log("Received config data:", data);
+	
+	const cognitoData = data.result?.data?.json;
+	if (!cognitoData?.region || !cognitoData?.clientId) {
+		console.error("Invalid Cognito config structure:", data);
 		throw new Error("Invalid Cognito config received from API");
 	}
 	
 	return {
-		region: data.result.data.region,
-		clientId: data.result.data.clientId,
+		region: cognitoData.region,
+		clientId: cognitoData.clientId,
 	};
 }
 
