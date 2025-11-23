@@ -5,7 +5,7 @@ import superjson from "superjson";
 import { useAuth } from "../auth/AuthContext";
 import { trpc } from "./trpc";
 
-const API_URL = "https://96emgymync.execute-api.eu-central-1.amazonaws.com/api";
+const API_URL = import.meta.env.VITE_API_URL ||"";
 
 export function TRPCProvider({ children }: { children: ReactNode }) {
 	const { idToken } = useAuth();

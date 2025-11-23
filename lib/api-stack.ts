@@ -24,6 +24,7 @@ interface ApiStackProps extends cdk.StackProps {
 export class ApiStack extends cdk.Stack {
 	public readonly api: apigatewayv2.HttpApi;
 	public readonly userPool: cognito.UserPool;
+	public readonly userPoolClient: cognito.UserPoolClient;
 	public readonly trpcLambda: lambda.Function;
 
 	constructor(scope: Construct, id: string, props: ApiStackProps) {
@@ -88,7 +89,7 @@ export class ApiStack extends cdk.Stack {
 		});
 
 		// User Pool Client for admin app
-		const userPoolClient = this.userPool.addClient("AdminAppClient", {
+		this.userPoolClient = this.userPool.addClient("AdminAppClient", {
 			authFlows: {
 				userPassword: true,
 				userSrp: true,
@@ -184,7 +185,7 @@ export class ApiStack extends cdk.Stack {
 		});
 
 		new cdk.CfnOutput(this, "UserPoolClientId", {
-			value: userPoolClient.userPoolClientId,
+			value: this.userPoolClient.userPoolClientId,
 			description: "Cognito User Pool Client ID",
 			exportName: `vcm-user-pool-client-id-${environment}${branchSuffix}`,
 		});

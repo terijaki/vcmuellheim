@@ -1,9 +1,9 @@
 import { type AuthFlowType, CognitoIdentityProviderClient, InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { createContext, useContext, useEffect, useState } from "react";
 
-// Cognito configuration from CDK outputs
-const COGNITO_REGION = "eu-central-1";
-const COGNITO_CLIENT_ID = "54j8lkkhoqroscf5f99jcv87qu";
+// Cognito configuration from environment variables
+const COGNITO_REGION = import.meta.env.VITE_COGNITO_REGION || "eu-central-1";
+const COGNITO_CLIENT_ID = import.meta.env.VITE_COGNITO_CLIENT_ID;
 
 interface AuthUser {
 	username: string;
