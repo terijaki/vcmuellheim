@@ -104,6 +104,19 @@ export const busSchema = z.object({
 	updatedAt: z.iso.datetime(),
 });
 
+/** SAMS Team schema (external data from SAMS API) */
+export const samsTeamSchema = z.object({
+	uuid: z.string(),
+	name: z.string(),
+	sportsclubUuid: z.string(),
+	associationUuid: z.string(),
+	leagueUuid: z.string(),
+	leagueName: z.string(),
+	seasonUuid: z.string(),
+	seasonName: z.string(),
+	updatedAt: z.string(),
+});
+
 /** Export types inferred from schemas */
 export type NewsInput = z.infer<typeof newsSchema>;
 export type EventInput = z.infer<typeof eventSchema>;
@@ -112,3 +125,4 @@ export type MemberInput = z.infer<typeof memberSchema>;
 export type MediaInput = z.infer<typeof mediaSchema>;
 export type SponsorInput = z.infer<typeof sponsorSchema>;
 export type BusInput = z.infer<typeof busSchema>;
+export type SamsTeam = z.infer<typeof samsTeamSchema>;

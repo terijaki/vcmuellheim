@@ -1,11 +1,17 @@
+import type { TeamInput } from "@lib/db/schemas";
 import { Button, Group, Modal, Paper, Select, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import type { TeamInput } from "@lib/db/schemas";
 import { slugify } from "@utils/slugify";
+import { useState } from "react";
 import { trpc } from "../../lib/trpc";
+
+interface SamsTeam {
+	uuid: string;
+	name: string;
+	leagueName?: string;
+}
 
 function TeamsPage() {
 	const [opened, { open, close }] = useDisclosure(false);
@@ -167,7 +173,7 @@ function TeamsPage() {
 						value={formData.sbvvTeamId}
 						onChange={(value) => setFormData({ ...formData, sbvvTeamId: value || "" })}
 						data={
-							samsTeams?.map((team: any) => ({
+							samsTeams?.map((team: SamsTeam) => ({
 								value: team.uuid,
 								label: `${team.name} (${team.leagueName || "Keine Liga"})`,
 							})) || []
@@ -204,7 +210,7 @@ function TeamsPage() {
 						</Table.Thead>
 						<Table.Tbody>
 							{teams.items.map((team) => {
-								const samsTeam = samsTeams?.find((st: any) => st.uuid === team.sbvvTeamId);
+								const samsTeam = samsTeams?.find((st: SamsTeam) => st.uuid === team.sbvvTeamId);
 								return (
 									<Table.Tr key={team.id}>
 										<Table.Td>{team.name}</Table.Td>

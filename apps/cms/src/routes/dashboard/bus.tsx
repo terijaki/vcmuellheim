@@ -1,22 +1,9 @@
+import { Button, Center, Group, Modal, Paper, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { Calendar, DatePickerInput } from "@mantine/dates";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
-import {
-	Button,
-	Center,
-	Group,
-	Modal,
-	Paper,
-	Stack,
-	Table,
-	Text,
-	TextInput,
-	Textarea,
-	Title,
-} from "@mantine/core";
-import { DatePickerInput, Calendar } from "@mantine/dates";
-import { useMediaQuery } from "@mantine/hooks";
-import { useDisclosure } from "@mantine/hooks";
-import { useState, useMemo } from "react";
 import dayjs from "dayjs";
+import { useMemo, useState } from "react";
 import "dayjs/locale/de";
 import type { BusInput } from "@lib/db/schemas";
 import { trpc } from "../../lib/trpc";
@@ -35,29 +22,29 @@ function BusSchedulesPage() {
 	const utils = trpc.useUtils();
 	const { data: schedules, isLoading } = trpc.bus.list.useQuery();
 	const isMobile = useMediaQuery("(max-width: 768px)");
-	
+
 	// Create a set of all booked dates (excluding the one being edited)
 	const bookedDates = useMemo(() => {
 		if (!schedules?.items) return new Set<string>();
-		
+
 		const dates = new Set<string>();
 		for (const schedule of schedules.items) {
 			// Skip the schedule being edited
 			if (editingId && schedule.id === editingId) continue;
-			
+
 			const start = dayjs(schedule.from);
 			const end = dayjs(schedule.to);
-			
+
 			// Add all dates in the range
 			let current = start;
-			while (current.isBefore(end) || current.isSame(end, 'day')) {
-				dates.add(current.format('YYYY-MM-DD'));
-				current = current.add(1, 'day');
+			while (current.isBefore(end) || current.isSame(end, "day")) {
+				dates.add(current.format("YYYY-MM-DD"));
+				current = current.add(1, "day");
 			}
 		}
 		return dates;
 	}, [schedules, editingId]);
-	
+
 	const createMutation = trpc.bus.create.useMutation({
 		onSuccess: () => {
 			utils.bus.list.invalidate();
@@ -145,7 +132,9 @@ function BusSchedulesPage() {
 			</Group>
 
 			<Paper withBorder p="md">
-				<Title order={3} mb="md">Kalenderübersicht</Title>
+				<Title order={3} mb="md">
+					Kalenderübersicht
+				</Title>
 				<Center>
 					<Calendar
 						numberOfColumns={isMobile ? 1 : 2}
@@ -191,12 +180,7 @@ function BusSchedulesPage() {
 											<Button size="xs" onClick={() => handleEdit(schedule)}>
 												Bearbeiten
 											</Button>
-											<Button
-												size="xs"
-												color="red"
-												onClick={() => handleDelete(schedule.id)}
-												loading={deleteMutation.isPending}
-											>
+											<Button size="xs" color="red" onClick={() => handleDelete(schedule.id)} loading={deleteMutation.isPending}>
 												Löschen
 											</Button>
 										</Group>
@@ -220,56 +204,41 @@ function BusSchedulesPage() {
 			>
 				<form onSubmit={handleSubmit}>
 					<Stack>
-						<TextInput
-							label="Fahrer"
-							placeholder="z.B. Max Mustermann"
-							value={formData.driver}
-							onChange={(e) => setFormData({ ...formData, driver: e.target.value })}
+						<TextInput label="Fahrer" placeholder="z.B. Max Mustermann" value={formData.driver} onChange={(e) => setFormData({ ...formData, driver: e.target.value })} required />
+						<DatePickerInput
+							type="range"
+							allowSingleDateInRange
+							label="Zeitraum"
+							placeholder="Von - Bis auswählen"
+							value={formData.dateRange}
+							onChange={(value) => {
+								const [start, end] = value || [null, null];
+								setFormData({
+									...formData,
+									dateRange: [start ? new Date(start) : null, end ? new Date(end) : null],
+								});
+							}}
+							getDayProps={(date) => {
+								const dateStr = dayjs(date).format("YYYY-MM-DD");
+								if (bookedDates.has(dateStr)) {
+									return {
+										style: {
+											backgroundColor: "var(--mantine-color-turquoise-4)",
+											border: "1px solid var(--mantine-color-turquoise-6)",
+										},
+									};
+								}
+								return {};
+							}}
+							valueFormat="D MMM YYYY"
 							required
 						/>
-					<DatePickerInput
-						type="range"
-                        allowSingleDateInRange
-						label="Zeitraum"
-						placeholder="Von - Bis auswählen"
-						value={formData.dateRange}
-						onChange={(value) => {
-							const [start, end] = value || [null, null];
-							setFormData({
-								...formData,
-								dateRange: [start ? new Date(start) : null, end ? new Date(end) : null],
-							});
-						}}
-						getDayProps={(date) => {
-							const dateStr = dayjs(date).format('YYYY-MM-DD');
-							if (bookedDates.has(dateStr)) {
-								return {
-									style: {
-										backgroundColor: 'var(--mantine-color-turquoise-4)',
-										border: '1px solid var(--mantine-color-turquoise-6)',
-									},
-								};
-							}
-							return {};
-						}}
-						valueFormat="D MMM YYYY"
-						required
-					/>
-						<Textarea
-							label="Kommentar"
-							placeholder="Zusätzliche Informationen..."
-							value={formData.comment}
-							onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
-							minRows={3}
-						/>
+						<Textarea label="Kommentar" placeholder="Zusätzliche Informationen..." value={formData.comment} onChange={(e) => setFormData({ ...formData, comment: e.target.value })} minRows={3} />
 						<Group justify="flex-end" mt="md">
 							<Button variant="subtle" onClick={close}>
 								Abbrechen
 							</Button>
-							<Button
-								type="submit"
-								loading={createMutation.isPending || updateMutation.isPending}
-							>
+							<Button type="submit" loading={createMutation.isPending || updateMutation.isPending}>
 								{editingId ? "Aktualisieren" : "Erstellen"}
 							</Button>
 						</Group>

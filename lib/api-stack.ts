@@ -141,9 +141,7 @@ export class ApiStack extends cdk.Stack {
 			corsPreflight: {
 				allowOrigins: isProd ? [Club.url, "https://admin.vcmuellheim.de"] : ["*"],
 				allowMethods: [apigatewayv2.CorsHttpMethod.GET, apigatewayv2.CorsHttpMethod.POST, apigatewayv2.CorsHttpMethod.OPTIONS],
-				allowHeaders: isProd 
-					? ["content-type", "authorization", "x-trpc-source"]
-					: ["content-type", "authorization", "x-trpc-source", "*"],
+				allowHeaders: isProd ? ["content-type", "authorization", "x-trpc-source"] : ["content-type", "authorization", "x-trpc-source", "*"],
 				exposeHeaders: ["content-type"],
 				allowCredentials: false,
 				maxAge: cdk.Duration.hours(1),

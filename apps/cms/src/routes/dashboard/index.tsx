@@ -1,5 +1,5 @@
+import { Stack, Text, Title } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
-import { Title, Text, Stack } from "@mantine/core";
 
 export const Route = createFileRoute("/dashboard/")({
 	component: RouteComponent,

@@ -16,7 +16,10 @@
 		"plugins": [{ "name": "next" }],
 		"paths": {
 			"@/*": ["./*"],
-			"@payload-config": ["./payload.config.ts"]
+			"@payload-config": ["./payload.config.ts"],
+			"@lib/*": ["./lib/*"],
+			"@utils/*": ["./utils/*"],
+			"@data/*": ["./data/*"]
 		},
 		"types": ["bun-types"]
 	},

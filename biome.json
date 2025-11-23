@@ -18,7 +18,8 @@
 			"!**/data/payload-types.ts",
 			"!**/data/sams/client",
 			"!**/data/migrations",
-			"!**/data/sams/swagger.json"
+			"!**/data/sams/swagger.json",
+			"!**/routeTree.gen.ts"
 		]
 	},
 	"formatter": {

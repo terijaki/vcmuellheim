@@ -1,6 +1,6 @@
-import { createFileRoute, Navigate, Outlet, Link } from "@tanstack/react-router";
-import { AppShell, Burger, Group, NavLink, Text, Button } from "@mantine/core";
+import { AppShell, Burger, Button, Group, NavLink, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { createFileRoute, Link, Navigate, Outlet } from "@tanstack/react-router";
 import { useAuth } from "../auth/AuthContext";
 
 function DashboardLayout() {
@@ -12,11 +12,7 @@ function DashboardLayout() {
 	}
 
 	return (
-		<AppShell
-			header={{ height: 60 }}
-			navbar={{ width: 250, breakpoint: "sm", collapsed: { mobile: !opened } }}
-			padding="md"
-		>
+		<AppShell header={{ height: 60 }} navbar={{ width: 250, breakpoint: "sm", collapsed: { mobile: !opened } }} padding="md">
 			<AppShell.Header>
 				<Group h="100%" px="md" justify="space-between">
 					<Group>
@@ -35,11 +31,11 @@ function DashboardLayout() {
 			</AppShell.Header>
 
 			<AppShell.Navbar p="md">
-			<NavLink label="Übersicht" component={Link} to="/dashboard" />
-			<NavLink label="News" component={Link} to="/dashboard/news" />
-			<NavLink label="Termine" component={Link} to="/dashboard/events" />
-			<NavLink label="Mannschaften" component={Link} to="/dashboard/teams" />
-			<NavLink label="Mitglieder" component={Link} to="/dashboard/members" />
+				<NavLink label="Übersicht" component={Link} to="/dashboard" />
+				<NavLink label="News" component={Link} to="/dashboard/news" />
+				<NavLink label="Termine" component={Link} to="/dashboard/events" />
+				<NavLink label="Mannschaften" component={Link} to="/dashboard/teams" />
+				<NavLink label="Mitglieder" component={Link} to="/dashboard/members" />
 				<NavLink label="Medien" component={Link} to="/dashboard/media" />
 				<NavLink label="Sponsoren" component={Link} to="/dashboard/sponsors" />
 				<NavLink label="Bus Buchungen" component={Link} to="/dashboard/bus" />

@@ -1,5 +1,5 @@
 import type { SponsorInput } from "@lib/db/schemas";
-import { Button, Group, Modal, Paper, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { Anchor, Button, Group, Modal, Paper, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { createFileRoute } from "@tanstack/react-router";
@@ -164,9 +164,9 @@ function SponsorsPage() {
 									<Table.Td>{sponsor.name}</Table.Td>
 									<Table.Td>
 										{sponsor.websiteUrl ? (
-											<a href={sponsor.websiteUrl} target="_blank" rel="noopener noreferrer">
-												Link
-											</a>
+											<Anchor href={sponsor.websiteUrl} target="_blank" rel="noopener noreferrer">
+												{sponsor.websiteUrl}
+											</Anchor>
 										) : (
 											"-"
 										)}
