@@ -88,6 +88,7 @@ new ApiStack(app, apiStackName, {
 	},
 	mediaBucket: mediaStack.bucket,
 	samsApiUrl: samsApiStack.cloudFrontUrl,
+	cloudFrontUrl: mediaStack.cloudFrontUrl,
 });
 
 new SocialMediaStack(app, socialMediaStackName, {

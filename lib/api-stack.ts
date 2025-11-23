@@ -17,6 +17,7 @@ interface ApiStackProps extends cdk.StackProps {
 	};
 	contentDbStack: Record<`${Lowercase<TableEntity>}Table`, dynamodb.Table>;
 	mediaBucket?: s3.Bucket;
+	cloudFrontUrl?: string;
 	samsApiUrl?: string;
 }
 
@@ -124,6 +125,7 @@ export class ApiStack extends cdk.Stack {
 				COGNITO_USER_POOL_ID: this.userPool.userPoolId,
 				...(props.samsApiUrl ? { SAMS_API_URL: props.samsApiUrl } : {}),
 				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
+				...(props.cloudFrontUrl ? { CLOUDFRONT_URL: props.cloudFrontUrl } : {}),
 			},
 			bundling: {
 				minify: true,

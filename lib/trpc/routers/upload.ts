@@ -9,6 +9,7 @@ import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 const s3Client = new S3Client({ region: process.env.AWS_REGION || "eu-central-1" });
 const BUCKET_NAME = process.env.MEDIA_BUCKET_NAME || "";
+const CLOUDFRONT_URL = process.env.CLOUDFRONT_URL || "";
 
 export const uploadRouter = router({
 	/** Generate presigned URL for upload */
@@ -40,7 +41,7 @@ export const uploadRouter = router({
 			};
 		}),
 
-	/** Generate presigned URL for viewing/downloading a file */
+	/** Get CloudFront URL for viewing a file */
 	getFileUrl: publicProcedure
 		.input(
 			z.object({
@@ -52,6 +53,12 @@ export const uploadRouter = router({
 				return null;
 			}
 
+			// Return CloudFront URL for public access
+			if (CLOUDFRONT_URL) {
+				return `${CLOUDFRONT_URL}/${input.s3Key}`;
+			}
+
+			// Fallback to presigned URL if CloudFront is not configured
 			const command = new GetObjectCommand({
 				Bucket: BUCKET_NAME,
 				Key: input.s3Key,
