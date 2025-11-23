@@ -15,6 +15,7 @@ interface ApiStackProps extends cdk.StackProps {
 		branch: string;
 	};
 	contentDbStack: Record<`${Lowercase<TableEntity>}Table`, dynamodb.Table>;
+	samsApiUrl?: string;
 }
 
 export class ApiStack extends cdk.Stack {
@@ -119,6 +120,7 @@ export class ApiStack extends cdk.Stack {
 			environment: {
 				...Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
 				COGNITO_USER_POOL_ID: this.userPool.userPoolId,
+				...(props.samsApiUrl ? { SAMS_API_URL: props.samsApiUrl } : {}),
 			},
 			bundling: {
 				minify: true,

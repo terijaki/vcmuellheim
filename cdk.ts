@@ -62,6 +62,11 @@ const contentDbStack = new ContentDbStack(app, contentDbStackName, {
 	description: `Content Database Tables (${environment}${branchSuffix})`,
 });
 
+const samsApiStack = new SamsApiStack(app, samsStackName, {
+	...commonStackProps,
+	description: `SAMS API Services (${environment}${branchSuffix})`,
+});
+
 new ApiStack(app, apiStackName, {
 	...commonStackProps,
 	description: `tRPC API & Cognito (${environment}${branchSuffix})`,
@@ -74,11 +79,7 @@ new ApiStack(app, apiStackName, {
 		sponsorsTable: contentDbStack.sponsorsTable,
 		busTable: contentDbStack.busTable,
 	},
-});
-
-new SamsApiStack(app, samsStackName, {
-	...commonStackProps,
-	description: `SAMS API Services (${environment}${branchSuffix})`,
+	samsApiUrl: samsApiStack.cloudFrontUrl,
 });
 
 new SocialMediaStack(app, socialMediaStackName, {

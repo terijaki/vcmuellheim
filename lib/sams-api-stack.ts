@@ -18,6 +18,8 @@ interface SamsApiStackProps extends cdk.StackProps {
 }
 
 export class SamsApiStack extends cdk.Stack {
+	public readonly cloudFrontUrl: string;
+
 	constructor(scope: Construct, id: string, props?: SamsApiStackProps) {
 		super(scope, id, props);
 
@@ -466,6 +468,9 @@ export class SamsApiStack extends cdk.Stack {
 			priceClass: cloudfront.PriceClass.PRICE_CLASS_100, // Only US, Canada, Europe
 			comment: `SAMS API CloudFront Distribution (${environment}${branchSuffix})`,
 		});
+
+		// Store CloudFront URL for cross-stack reference
+		this.cloudFrontUrl = `https://${distribution.distributionDomainName}`;
 
 		// Outputs
 		new cdk.CfnOutput(this, "ApiGatewayUrl", {

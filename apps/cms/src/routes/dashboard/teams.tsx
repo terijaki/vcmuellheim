@@ -21,6 +21,7 @@ function TeamsPage() {
 	});
 
 	const { data: teams, isLoading, refetch } = trpc.teams.list.useQuery();
+	const { data: samsTeams } = trpc.samsTeams.list.useQuery();
 	const createMutation = trpc.teams.create.useMutation({
 		onSuccess: () => {
 			refetch();
@@ -46,8 +47,7 @@ function TeamsPage() {
 			close();
 			resetForm();
 			notifications.show({
-				title: "Erfolg",
-				message: "Mannschaft wurde erfolgreich aktualisiert",
+				message: "Mannschaftsänderung wurde gespeichert",
 				color: "green",
 			});
 		},
@@ -161,12 +161,20 @@ function TeamsPage() {
 
 					<TextInput label="Liga" placeholder="z.B. Landesliga" value={formData.league} onChange={(e) => setFormData({ ...formData, league: e.target.value })} />
 
-					<TextInput
+					<Select
 						label="SBVV Team ID"
-						placeholder="z.B. 123456"
+						placeholder="Wählen..."
 						value={formData.sbvvTeamId}
-						onChange={(e) => setFormData({ ...formData, sbvvTeamId: e.target.value })}
+						onChange={(value) => setFormData({ ...formData, sbvvTeamId: value || "" })}
+						data={
+							samsTeams?.map((team: any) => ({
+								value: team.uuid,
+								label: `${team.name} (${team.leagueName || "Keine Liga"})`,
+							})) || []
+						}
 						description="SAMS/SBVV Team-ID für Spielpläne"
+						searchable
+						clearable
 					/>
 
 					<Group justify="flex-end" mt="md">
@@ -187,35 +195,36 @@ function TeamsPage() {
 						<Table.Thead>
 							<Table.Tr>
 								<Table.Th>Name</Table.Th>
-								<Table.Th>Slug</Table.Th>
-								<Table.Th>Status</Table.Th>
 								<Table.Th>Liga</Table.Th>
 								<Table.Th>Mindestalter</Table.Th>
 								<Table.Th>Geschlecht</Table.Th>
+								<Table.Th>SAMS Team</Table.Th>
 								<Table.Th>Aktionen</Table.Th>
 							</Table.Tr>
 						</Table.Thead>
 						<Table.Tbody>
-							{teams.items.map((team) => (
-								<Table.Tr key={team.id}>
-									<Table.Td>{team.name}</Table.Td>
-									<Table.Td>{team.slug}</Table.Td>
-									<Table.Td>{team.status === "active" ? "Aktiv" : "Inaktiv"}</Table.Td>
-									<Table.Td>{team.league || "-"}</Table.Td>
-									<Table.Td>{team.ageGroup || "-"}</Table.Td>
-									<Table.Td>{team.gender === "male" ? "Männlich" : team.gender === "female" ? "Weiblich" : team.gender === "mixed" ? "Gemischt" : "-"}</Table.Td>
-									<Table.Td>
-										<Group gap="xs">
-											<Button size="xs" onClick={() => handleEdit(team)}>
-												Bearbeiten
-											</Button>
-											<Button size="xs" color="red" onClick={() => handleDelete(team.id)} loading={deleteMutation.isPending}>
-												Löschen
-											</Button>
-										</Group>
-									</Table.Td>
-								</Table.Tr>
-							))}
+							{teams.items.map((team) => {
+								const samsTeam = samsTeams?.find((st: any) => st.uuid === team.sbvvTeamId);
+								return (
+									<Table.Tr key={team.id}>
+										<Table.Td>{team.name}</Table.Td>
+										<Table.Td>{team.league || "-"}</Table.Td>
+										<Table.Td>{team.ageGroup || "-"}</Table.Td>
+										<Table.Td>{team.gender === "male" ? "Männlich" : team.gender === "female" ? "Weiblich" : team.gender === "mixed" ? "Gemischt" : "-"}</Table.Td>
+										<Table.Td>{samsTeam ? `${samsTeam.name} (${samsTeam.leagueName})` : "-"}</Table.Td>
+										<Table.Td>
+											<Group gap="xs">
+												<Button size="xs" onClick={() => handleEdit(team)}>
+													Bearbeiten
+												</Button>
+												<Button size="xs" color="red" onClick={() => handleDelete(team.id)} loading={deleteMutation.isPending}>
+													Löschen
+												</Button>
+											</Group>
+										</Table.Td>
+									</Table.Tr>
+								);
+							})}
 						</Table.Tbody>
 					</Table>
 				) : (
