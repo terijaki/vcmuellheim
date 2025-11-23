@@ -133,7 +133,6 @@ export class ApiStack extends cdk.Stack {
 			memorySize: 512,
 			environment: {
 				...Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
-				AWS_REGION: this.region,
 				CDK_ENVIRONMENT: environment,
 				COGNITO_USER_POOL_ID: this.userPool.userPoolId,
 				COGNITO_USER_POOL_CLIENT_ID: this.userPoolClient.userPoolClientId,
