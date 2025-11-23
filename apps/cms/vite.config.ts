@@ -7,7 +7,6 @@ export default defineConfig({
 	plugins: [tanstackRouter(), react()],
 	resolve: {
 		alias: {
-			"@": path.resolve(__dirname, "./src"),
 			"@lib": path.resolve(__dirname, "../../lib"),
 			"@utils": path.resolve(__dirname, "../../utils"),
 			"@data": path.resolve(__dirname, "../../data"),

@@ -173,7 +173,7 @@ function TeamsPage() {
 						value={formData.sbvvTeamId}
 						onChange={(value) => setFormData({ ...formData, sbvvTeamId: value || "" })}
 						data={
-							samsTeams?.map((team: SamsTeam) => ({
+							samsTeams?.map((team) => ({
 								value: team.uuid,
 								label: `${team.name} (${team.leagueName || "Keine Liga"})`,
 							})) || []

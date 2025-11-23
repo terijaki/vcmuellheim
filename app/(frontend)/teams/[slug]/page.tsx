@@ -1,4 +1,4 @@
-import { Anchor, Avatar, Button, Card, CardSection, Center, Flex, Group, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Anchor, Avatar, Button, Card, CardSection, Center, Flex, Group, Stack, Text } from "@mantine/core";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
@@ -6,7 +6,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
-import Flag from "react-world-flags";
 import CardTitle from "@/components/CardTitle";
 import CenteredLoader from "@/components/CenteredLoader";
 import ImageGallery from "@/components/ImageGallery";
@@ -15,7 +14,6 @@ import MapsLink from "@/components/MapsLink";
 import Matches from "@/components/Matches";
 import RankingTable from "@/components/RankingTable";
 import type { Member, Team } from "@/data/payload-types";
-import { samsPlayers } from "@/data/sams/players";
 import { samsLeagueMatches, samsLeagueRanking } from "@/data/sams/sams-server-actions";
 import { getTeams } from "@/data/teams";
 import { Club } from "@/project.config";
@@ -79,51 +77,6 @@ export default async function TeamPage(props: { params: Promise<{ slug: string }
 				</Center>
 			</Stack>
 		</PageWithHeading>
-	);
-}
-
-async function _TeamPlayers({ seasonTeamId }: { seasonTeamId?: string | number | null }) {
-	"use cache";
-
-	if (!seasonTeamId) return null;
-	// retrive players
-	const teamPlayers = await samsPlayers(seasonTeamId);
-	const players = teamPlayers?.players;
-	if (!players || players.length === 0) return null;
-
-	const playersWithoutNumber = players.filter((player) => !player.number || player.number === 0);
-
-	// sort players by numbers if every player has a number. otherwise sort by lastname
-	players.sort((a, b) => {
-		if (playersWithoutNumber.length === 0) return (a.number || 0) - (b.number || 0);
-		return a.lastName.localeCompare(b.lastName);
-	});
-
-	return (
-		<Card data-section="players">
-			<Stack>
-				<CardTitle>Spieler</CardTitle>
-				<SimpleGrid cols={{ base: 1, xs: 2, md: 3, lg: 4 }}>
-					{players.map((player, index) => {
-						return (
-							<Group key={`${player.lastName}${player.firstName}${index}`} gap="xs" wrap="nowrap">
-								<Text w={16} miw={16} ta="center">
-									{player.number}
-								</Text>
-
-								<Card p={0} shadow="xs" radius="xs" miw={32}>
-									<Flag code={player.nationality} />
-								</Card>
-
-								<Text lineClamp={2} style={{ textWrap: "balance" }}>
-									{player.firstName} {player.lastName}
-								</Text>
-							</Group>
-						);
-					})}
-				</SimpleGrid>
-			</Stack>
-		</Card>
 	);
 }
 

@@ -35,3 +35,6 @@ openapi-ts-error-*.log
 
 # tanstack
 .tanstack
+
+# vite
+apps/**/dist
