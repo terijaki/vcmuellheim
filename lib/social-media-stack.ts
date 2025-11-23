@@ -52,7 +52,7 @@ export class SocialMediaStack extends cdk.Stack {
 		// Create DynamoDB table for storing Instagram posts
 		// Uses a constant partition key for all posts to enable simple time-based queries
 		const instagramTable = new dynamodb.Table(this, "InstagramPostsTable", {
-			tableName: `${environment}${branchSuffix}-instagram-posts`,
+			tableName: `instagram-posts-${environment}${branchSuffix}`,
 			partitionKey: {
 				name: "entityType",
 				type: dynamodb.AttributeType.STRING,
@@ -68,7 +68,7 @@ export class SocialMediaStack extends cdk.Stack {
 
 		// Create Lambda function for Instagram sync
 		const instagramSync = new nodejs.NodejsFunction(this, "InstagramSync", {
-			functionName: `${environment}${branchSuffix}-instagram-sync`,
+			functionName: `instagram-sync-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/social/instagram-sync.ts"),
@@ -92,7 +92,7 @@ export class SocialMediaStack extends cdk.Stack {
 
 		// Create Lambda function for Instagram posts API
 		const instagramPosts = new nodejs.NodejsFunction(this, "InstagramPosts", {
-			functionName: `${environment}${branchSuffix}-instagram-posts`,
+			functionName: `instagram-posts-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/social/instagram-posts.ts"),
@@ -113,7 +113,7 @@ export class SocialMediaStack extends cdk.Stack {
 
 		// Create EventBridge rule to trigger sync daily at 4 AM UTC
 		const syncRule = new events.Rule(this, "InstagramSyncRule", {
-			ruleName: `${environment}${branchSuffix}-instagram-daily-sync`,
+			ruleName: `instagram-daily-sync-${environment}${branchSuffix}`,
 			description: `Trigger Instagram sync every day at 4 AM UTC (${environment}${branchSuffix})`,
 			schedule: events.Schedule.cron({
 				hour: "4",
@@ -154,7 +154,7 @@ export class SocialMediaStack extends cdk.Stack {
 				origin: new origins.RestApiOrigin(api),
 				viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
 				cachePolicy: new cloudfront.CachePolicy(this, "SocialMediaCachePolicy", {
-					cachePolicyName: `${environment}${branchSuffix}-social-media-cache-policy`,
+					cachePolicyName: `social-media-cache-policy-${environment}${branchSuffix}`,
 					defaultTtl: cdk.Duration.hours(1), // 1 hour default
 					maxTtl: cdk.Duration.days(1), // Max 1 day
 					minTtl: cdk.Duration.seconds(0),

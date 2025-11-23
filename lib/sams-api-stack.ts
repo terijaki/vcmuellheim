@@ -56,7 +56,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create DynamoDB table for storing SAMS clubs
 		const clubsTable = new dynamodb.Table(this, "SamsClubsTable", {
-			tableName: `${environment}${branchSuffix}-sams-clubs`,
+			tableName: `sams-clubs-${environment}${branchSuffix}`,
 			partitionKey: {
 				name: "sportsclubUuid",
 				type: dynamodb.AttributeType.STRING,
@@ -95,7 +95,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create DynamoDB table for storing SAMS teams
 		const teamsTable = new dynamodb.Table(this, "SamsTeamsTable", {
-			tableName: `${environment}${branchSuffix}-sams-teams`,
+			tableName: `sams-teams-${environment}${branchSuffix}`,
 			partitionKey: {
 				name: "uuid",
 				type: dynamodb.AttributeType.STRING,
@@ -134,7 +134,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for league matches (main endpoint you use)
 		const samsLeagueMatches = new nodejs.NodejsFunction(this, "SamsLeagueMatches", {
-			functionName: `${environment}${branchSuffix}-sams-league-matches`,
+			functionName: `sams-league-matches-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-league-matches.ts"),
@@ -150,7 +150,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for seasons
 		const samsSeasons = new nodejs.NodejsFunction(this, "SamsSeasons", {
-			functionName: `${environment}${branchSuffix}-sams-seasons`,
+			functionName: `sams-seasons-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-seasons.ts"),
@@ -166,7 +166,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for rankings
 		const samsRankings = new nodejs.NodejsFunction(this, "SamsRankings", {
-			functionName: `${environment}${branchSuffix}-sams-rankings`,
+			functionName: `sams-rankings-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-rankings.ts"),
@@ -182,7 +182,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for associations
 		const samsAssociations = new nodejs.NodejsFunction(this, "SamsAssociations", {
-			functionName: `${environment}${branchSuffix}-sams-associations`,
+			functionName: `sams-associations-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-associations.ts"),
@@ -198,7 +198,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for nightly clubs sync
 		const samsClubsSync = new nodejs.NodejsFunction(this, "SamsClubsSync", {
-			functionName: `${environment}${branchSuffix}-sams-clubs-sync`,
+			functionName: `sams-clubs-sync-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-clubs-sync.ts"),
@@ -220,7 +220,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for nightly teams sync
 		const samsTeamsSync = new nodejs.NodejsFunction(this, "SamsTeamsSync", {
-			functionName: `${environment}${branchSuffix}-sams-teams-sync`,
+			functionName: `sams-teams-sync-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-teams-sync.ts"),
@@ -244,7 +244,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for clubs query (read from DynamoDB)
 		const samsClubs = new nodejs.NodejsFunction(this, "SamsClubs", {
-			functionName: `${environment}${branchSuffix}-sams-clubs`,
+			functionName: `sams-clubs-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-clubs.ts"),
@@ -265,7 +265,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create Lambda function for teams query (read from DynamoDB)
 		const samsTeams = new nodejs.NodejsFunction(this, "SamsTeams", {
-			functionName: `${environment}${branchSuffix}-sams-teams`,
+			functionName: `sams-teams-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-teams.ts"),
@@ -286,7 +286,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create EventBridge rule to trigger sync Lambda weekly on Wednesday at 2 AM UTC
 		const syncRule = new events.Rule(this, "SamsClubsSyncRule", {
-			ruleName: `${environment}${branchSuffix}-sams-clubs-weekly-sync`,
+			ruleName: `sams-clubs-weekly-sync-${environment}${branchSuffix}`,
 			description: `Trigger SAMS clubs sync every Wednesday at 2 AM UTC (${environment}${branchSuffix})`,
 			schedule: events.Schedule.cron({
 				weekDay: "WED",
@@ -298,7 +298,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create EventBridge rule to trigger teams sync nightly at 3 AM UTC
 		const teamsSyncRule = new events.Rule(this, "SamsTeamsSyncRule", {
-			ruleName: `${environment}${branchSuffix}-sams-teams-nightly-sync`,
+			ruleName: `sams-teams-nightly-sync-${environment}${branchSuffix}`,
 			description: `Trigger SAMS teams sync every night at 3 AM UTC - after clubs sync (${environment}${branchSuffix})`,
 			schedule: events.Schedule.cron({
 				hour: "3",
@@ -457,7 +457,7 @@ export class SamsApiStack extends cdk.Stack {
 				origin: new origins.RestApiOrigin(api),
 				viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
 				cachePolicy: new cloudfront.CachePolicy(this, "SamsApiCachePolicy", {
-					cachePolicyName: `${environment}${branchSuffix}-sams-api-cache-policy`,
+					cachePolicyName: `sams-api-cache-policy-${environment}${branchSuffix}`,
 					defaultTtl: cdk.Duration.minutes(5), // Default for live data (matches, rankings)
 					maxTtl: cdk.Duration.days(7), // Max 7 days for static data (clubs synced weekly)
 					minTtl: cdk.Duration.seconds(0),

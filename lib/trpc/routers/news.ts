@@ -3,13 +3,26 @@
  */
 
 import { z } from "zod";
-import { getNewsBySlug, getPublishedNews, newsRepository } from "../../db/repositories";
+import { getAllNews, getNewsBySlug, getPublishedNews, newsRepository } from "../../db/repositories";
 import { newsSchema } from "../../db/schemas";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const newsRouter = router({
-	/** Get all published news articles */
-	list: publicProcedure
+	/** Get all news articles (admin only) */
+	list: protectedProcedure
+		.input(
+			z
+				.object({
+					limit: z.number().min(1).max(100).optional().default(100),
+				})
+				.optional(),
+		)
+		.query(async ({ input }) => {
+			return getAllNews(input?.limit);
+		}),
+
+	/** Get published news articles (public) */
+	published: publicProcedure
 		.input(
 			z
 				.object({

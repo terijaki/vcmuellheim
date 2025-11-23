@@ -21,8 +21,7 @@ export const newsSchema = z.object({
 	excerpt: z.string().max(500).optional(),
 	publishedDate: z.iso.datetime(),
 	status: z.enum(["draft", "published", "archived"]),
-	authorId: z.string(),
-	featuredImageId: z.uuid().optional(),
+	imageS3Key: z.string().optional(),
 	tags: z.array(z.string()).optional(),
 });
 

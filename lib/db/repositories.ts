@@ -50,15 +50,29 @@ export const busRepository = new Repository<Bus>({
  * Domain-specific query helpers
  */
 
+/** Get all news articles (for admin), sorted by date descending */
+export async function getAllNews(limit = 100) {
+	return newsRepository.query({
+		indexName: "GSI-NewsQueries",
+		keyConditionExpression: "PK = :pk",
+		expressionAttributeValues: {
+			":pk": "NEWS",
+		},
+		scanIndexForward: false, // Descending order (newest first)
+		limit,
+	});
+}
+
 /** Get published news articles, sorted by date descending */
 export async function getPublishedNews(limit = 10) {
 	return newsRepository.query({
-		indexName: "GSI-PublishedDate",
-		keyConditionExpression: "#status = :status",
+		indexName: "GSI-NewsQueries",
+		keyConditionExpression: "PK = :pk AND #status = :status",
 		expressionAttributeNames: {
 			"#status": "status",
 		},
 		expressionAttributeValues: {
+			":pk": "NEWS",
 			":status": "published",
 		},
 		scanIndexForward: false, // Descending order (newest first)
@@ -69,9 +83,10 @@ export async function getPublishedNews(limit = 10) {
 /** Get news article by slug */
 export async function getNewsBySlug(slug: string) {
 	const result = await newsRepository.query({
-		indexName: "GSI-Slug",
-		keyConditionExpression: "slug = :slug",
+		indexName: "GSI-NewsQueries",
+		keyConditionExpression: "PK = :pk AND slug = :slug",
 		expressionAttributeValues: {
+			":pk": "NEWS",
 			":slug": slug,
 		},
 		limit: 1,
