@@ -13,6 +13,11 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as DashboardTeamsRouteImport } from './routes/dashboard/teams'
+import { Route as DashboardSponsorsRouteImport } from './routes/dashboard/sponsors'
+import { Route as DashboardNewsRouteImport } from './routes/dashboard/news'
+import { Route as DashboardMembersRouteImport } from './routes/dashboard/members'
+import { Route as DashboardMediaRouteImport } from './routes/dashboard/media'
 import { Route as DashboardEventsRouteImport } from './routes/dashboard/events'
 import { Route as DashboardBusRouteImport } from './routes/dashboard/bus'
 
@@ -36,6 +41,31 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardTeamsRoute = DashboardTeamsRouteImport.update({
+  id: '/teams',
+  path: '/teams',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSponsorsRoute = DashboardSponsorsRouteImport.update({
+  id: '/sponsors',
+  path: '/sponsors',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardNewsRoute = DashboardNewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardMembersRoute = DashboardMembersRouteImport.update({
+  id: '/members',
+  path: '/members',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardMediaRoute = DashboardMediaRouteImport.update({
+  id: '/media',
+  path: '/media',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardEventsRoute = DashboardEventsRouteImport.update({
   id: '/events',
   path: '/events',
@@ -53,6 +83,11 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/dashboard/bus': typeof DashboardBusRoute
   '/dashboard/events': typeof DashboardEventsRoute
+  '/dashboard/media': typeof DashboardMediaRoute
+  '/dashboard/members': typeof DashboardMembersRoute
+  '/dashboard/news': typeof DashboardNewsRoute
+  '/dashboard/sponsors': typeof DashboardSponsorsRoute
+  '/dashboard/teams': typeof DashboardTeamsRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
@@ -60,6 +95,11 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/dashboard/bus': typeof DashboardBusRoute
   '/dashboard/events': typeof DashboardEventsRoute
+  '/dashboard/media': typeof DashboardMediaRoute
+  '/dashboard/members': typeof DashboardMembersRoute
+  '/dashboard/news': typeof DashboardNewsRoute
+  '/dashboard/sponsors': typeof DashboardSponsorsRoute
+  '/dashboard/teams': typeof DashboardTeamsRoute
   '/dashboard': typeof DashboardIndexRoute
 }
 export interface FileRoutesById {
@@ -69,6 +109,11 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/dashboard/bus': typeof DashboardBusRoute
   '/dashboard/events': typeof DashboardEventsRoute
+  '/dashboard/media': typeof DashboardMediaRoute
+  '/dashboard/members': typeof DashboardMembersRoute
+  '/dashboard/news': typeof DashboardNewsRoute
+  '/dashboard/sponsors': typeof DashboardSponsorsRoute
+  '/dashboard/teams': typeof DashboardTeamsRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
@@ -79,9 +124,24 @@ export interface FileRouteTypes {
     | '/login'
     | '/dashboard/bus'
     | '/dashboard/events'
+    | '/dashboard/media'
+    | '/dashboard/members'
+    | '/dashboard/news'
+    | '/dashboard/sponsors'
+    | '/dashboard/teams'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/dashboard/bus' | '/dashboard/events' | '/dashboard'
+  to:
+    | '/'
+    | '/login'
+    | '/dashboard/bus'
+    | '/dashboard/events'
+    | '/dashboard/media'
+    | '/dashboard/members'
+    | '/dashboard/news'
+    | '/dashboard/sponsors'
+    | '/dashboard/teams'
+    | '/dashboard'
   id:
     | '__root__'
     | '/'
@@ -89,6 +149,11 @@ export interface FileRouteTypes {
     | '/login'
     | '/dashboard/bus'
     | '/dashboard/events'
+    | '/dashboard/media'
+    | '/dashboard/members'
+    | '/dashboard/news'
+    | '/dashboard/sponsors'
+    | '/dashboard/teams'
     | '/dashboard/'
   fileRoutesById: FileRoutesById
 }
@@ -128,6 +193,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/teams': {
+      id: '/dashboard/teams'
+      path: '/teams'
+      fullPath: '/dashboard/teams'
+      preLoaderRoute: typeof DashboardTeamsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/sponsors': {
+      id: '/dashboard/sponsors'
+      path: '/sponsors'
+      fullPath: '/dashboard/sponsors'
+      preLoaderRoute: typeof DashboardSponsorsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/news': {
+      id: '/dashboard/news'
+      path: '/news'
+      fullPath: '/dashboard/news'
+      preLoaderRoute: typeof DashboardNewsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/members': {
+      id: '/dashboard/members'
+      path: '/members'
+      fullPath: '/dashboard/members'
+      preLoaderRoute: typeof DashboardMembersRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/media': {
+      id: '/dashboard/media'
+      path: '/media'
+      fullPath: '/dashboard/media'
+      preLoaderRoute: typeof DashboardMediaRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/events': {
       id: '/dashboard/events'
       path: '/events'
@@ -148,12 +248,22 @@ declare module '@tanstack/react-router' {
 interface DashboardRouteChildren {
   DashboardBusRoute: typeof DashboardBusRoute
   DashboardEventsRoute: typeof DashboardEventsRoute
+  DashboardMediaRoute: typeof DashboardMediaRoute
+  DashboardMembersRoute: typeof DashboardMembersRoute
+  DashboardNewsRoute: typeof DashboardNewsRoute
+  DashboardSponsorsRoute: typeof DashboardSponsorsRoute
+  DashboardTeamsRoute: typeof DashboardTeamsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardBusRoute: DashboardBusRoute,
   DashboardEventsRoute: DashboardEventsRoute,
+  DashboardMediaRoute: DashboardMediaRoute,
+  DashboardMembersRoute: DashboardMembersRoute,
+  DashboardNewsRoute: DashboardNewsRoute,
+  DashboardSponsorsRoute: DashboardSponsorsRoute,
+  DashboardTeamsRoute: DashboardTeamsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 

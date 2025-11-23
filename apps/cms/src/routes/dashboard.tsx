@@ -35,11 +35,11 @@ function DashboardLayout() {
 			</AppShell.Header>
 
 			<AppShell.Navbar p="md">
-				<NavLink label="Übersicht" component={Link} to="/dashboard" />
-				<NavLink label="News" component={Link} to="/dashboard/news" />
-				<NavLink label="Termine" component={Link} to="/dashboard/events" />
-				<NavLink label="Teams" component={Link} to="/dashboard/teams" />
-				<NavLink label="Mitglieder" component={Link} to="/dashboard/members" />
+			<NavLink label="Übersicht" component={Link} to="/dashboard" />
+			<NavLink label="News" component={Link} to="/dashboard/news" />
+			<NavLink label="Termine" component={Link} to="/dashboard/events" />
+			<NavLink label="Mannschaften" component={Link} to="/dashboard/teams" />
+			<NavLink label="Mitglieder" component={Link} to="/dashboard/members" />
 				<NavLink label="Medien" component={Link} to="/dashboard/media" />
 				<NavLink label="Sponsoren" component={Link} to="/dashboard/sponsors" />
 				<NavLink label="Bus Buchungen" component={Link} to="/dashboard/bus" />

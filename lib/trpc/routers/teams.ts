@@ -3,14 +3,14 @@
  */
 
 import { z } from "zod";
-import { getActiveTeams, getTeamBySamsId, getTeamBySlug, teamsRepository } from "../../db/repositories";
+import { getAllTeams, getTeamBySamsId, getTeamBySlug, teamsRepository } from "../../db/repositories";
 import { teamSchema } from "../../db/schemas";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const teamsRouter = router({
-	/** Get all active teams */
+	/** Get all teams (for admin) */
 	list: publicProcedure.query(async () => {
-		return getActiveTeams();
+		return getAllTeams();
 	}),
 
 	/** Get team by ID */

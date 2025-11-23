@@ -104,21 +104,6 @@ export async function getTeamBySlug(slug: string) {
 	return result.items[0] || null;
 }
 
-/** Get active teams, sorted by name */
-export async function getActiveTeams() {
-	return teamsRepository.query({
-		indexName: "GSI-Status",
-		keyConditionExpression: "#status = :status",
-		expressionAttributeNames: {
-			"#status": "status",
-		},
-		expressionAttributeValues: {
-			":status": "active",
-		},
-		scanIndexForward: true, // Ascending order by name
-	});
-}
-
 /** Get team by SAMS/SBVV team ID */
 export async function getTeamBySamsId(sbvvTeamId: string) {
 	const result = await teamsRepository.query({
@@ -130,6 +115,11 @@ export async function getTeamBySamsId(sbvvTeamId: string) {
 		limit: 1,
 	});
 	return result.items[0] || null;
+}
+
+/** Get all teams */
+export async function getAllTeams() {
+	return teamsRepository.scan();
 }
 
 /** Get active sponsors */
