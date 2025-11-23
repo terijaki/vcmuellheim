@@ -79,6 +79,7 @@
    - ✅ Base procedures configured (publicProcedure, protectedProcedure)
    - ✅ All 8 entity routers created (news, events, teams, members, media, sponsors, locations, bus)
    - ✅ Config router for dynamic Cognito configuration (lib/trpc/routers/config.ts)
+   - ✅ Upload router for S3 presigned URLs (lib/trpc/routers/upload.ts)
    - ✅ Lambda handler for API Gateway (lambda/content/handler.ts)
    - ✅ React client setup (lib/trpc/client.ts)
    - ✅ Complete documentation (docs/TRPC_SETUP.md)
@@ -164,13 +165,14 @@
    - Media library (upload to S3, manage metadata in DynamoDB)
    - Sponsors management
 
-4. [ ] **Rich Text Editor**
-   - Use **@mantine/tiptap** (official Mantine integration with Tiptap)
-   - Perfect integration with Mantine theme system
-   - Extensions: StarterKit, Image, Link, Table, CodeBlock
-   - Image upload within editor (presigned S3 URLs)
-   - Save as JSON (Tiptap's native format) in DynamoDB
-   - Render on frontend using same Tiptap extensions (read-only mode)
+4. [x] **Rich Text Editor**
+   - ✅ Using @mantine/tiptap (official Mantine integration)
+   - ✅ Extensions: StarterKit, Link, Image
+   - ✅ Integrated into News editor
+   - ✅ Save as HTML string in DynamoDB (content field)
+   - ✅ Auto-generate excerpt from content
+   - [ ] Add Table, CodeBlock extensions if needed
+   - [ ] Render on frontend using same Tiptap extensions (read-only mode)
 
 5. [ ] **Deploy CMS App**
    - Build Vite app to static files
@@ -511,10 +513,11 @@
 
 1. ✅ **Design DynamoDB schema** - Map out tables, keys, GSIs
 2. ✅ **Create new CDK stack** for DynamoDB tables
-3. ⏳ **Finish deployment** - Custom domains for API and Media currently deploying
+3. ✅ **Deploy infrastructure** - Custom domains for API and Media deployed
 4. [ ] **Build proof-of-concept** admin page (one entity, e.g., News)
 5. [ ] **Test data migration** from Payload to DynamoDB
-6. [ ] **Start building custom CMS admin UI** (basic CRUD for News)
+6. [ ] **Expand CMS** - Add Events, Teams, Members, Sponsors management
+7. [ ] **Frontend data consumption** - Connect public site to new API
 
 ---
 

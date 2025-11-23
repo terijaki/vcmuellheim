@@ -99,8 +99,9 @@ Pre-configured repositories for all entities:
 - `sponsorsRepository`
 
 **Domain-Specific Query Helpers:**
-- `getPublishedNews(limit)` - Published articles by date (descending)
-- `getNewsBySlug(slug)` - Find article by slug
+- `getAllNews(limit)` - All news articles by date (descending) - uses GSI with `type = "article"`
+- `getPublishedNews(limit)` - Published articles by date (descending) - uses GSI with `type = "article"` and `status = "published"`
+- `getNewsBySlug(slug)` - Find article by slug - uses GSI with `type = "article"`
 - `getUpcomingEvents(limit)` - Future events by date (ascending)
 - `getTeamBySlug(slug)` - Find team by slug
 - `getActiveTeams()` - All active teams sorted by name
@@ -131,11 +132,12 @@ Single entry point exporting:
 Complete CRUD + domain queries for all 6 entities:
 
 **News Router:**
-- `list({ limit })` - Published news (public)
+- `list({ limit })` - All news articles (admin only)
+- `published({ limit })` - Published news (public)
 - `getById({ id })` - Single article (public)
 - `getBySlug({ slug })` - Article by slug (public)
-- `create(data)` - Create article (protected)
-- `update({ id, data })` - Update article (protected)
+- `create(data)` - Create article (protected, auto-sets `type: "article"`)
+- `update({ id, data })` - Update article (protected, auto-sets `type: "article"`)
 - `delete({ id })` - Delete article (protected)
 
 **Events Router:**
@@ -214,7 +216,30 @@ Complete CRUD + domain queries for all 6 entities:
 - API URL auto-computed from hostname (admin → api replacement)
 - Supports localhost with `VITE_CDK_ENVIRONMENT` + Git branch detection
 
-### 8. CMS Zero-Config Architecture
+### 8. CMS Admin Panel (Deployed)
+
+**Admin CMS Architecture:**
+- Vite + React + Mantine UI
+- tRPC integration with type-safe API calls
+- Deployed via Vite build with dynamic configuration
+- News CRUD operations fully functional
+
+**CMS Features:**
+- ✅ News article management (create, read, update, delete)
+- ✅ Rich text editor (TinyMCE/Tiptap)
+- ✅ Image upload with S3 presigned URLs
+- ✅ Draft/published/archived status management
+- ✅ Automatic slug generation from title
+- ✅ Real-time list view with status badges
+- ✅ Type-safe forms with Zod validation
+
+**Known Issues Fixed:**
+- ✅ News items now use `type: "article"` attribute for DynamoDB GSI queries
+- ✅ Repository pattern cleaned up - removed unnecessary custom NewsRepository class
+- ✅ Type safety improved - removed `as never` assertion by updating repository signatures
+- ✅ tRPC input schemas exclude auto-generated fields (`type`, `createdAt`, `updatedAt`)
+
+### 9. CMS Zero-Config Architecture
 
 **Dynamic URL Computation:**
 - API URL: Computed from hostname or Git branch + environment
@@ -326,8 +351,10 @@ The data layer is complete and ready for:
 5. **Domain helpers** - Common queries pre-built for convenience
 6. **Zod validation** - Runtime safety for data integrity
 7. **DynamoDB Streams** - Prepared for S3 cleanup (implementation deferred)
-8. **Manual DNS resources** - Shared hosted zone and certificates prevent accidental deletion and ensure stable nameservers
-9. **Per-branch User Pools** - Complete environment isolation, allows stack destruction without losing production users
-10. **Dynamic configuration** - CMS auto-discovers API endpoint and fetches Cognito config at runtime (zero-config deployments)
-11. **Dual ACM certificates** - eu-central-1 for API Gateway (regional), us-east-1 for CloudFront (global service requirement)
-12. **Git-based URL computation** - Shared utility ensures CDK and Vite use identical branch detection and sanitization logic
+9. **Manual DNS resources** - Shared hosted zone and certificates prevent accidental deletion and ensure stable nameservers
+10. **Per-branch User Pools** - Complete environment isolation, allows stack destruction without losing production users
+11. **Dynamic configuration** - CMS auto-discovers API endpoint and fetches Cognito config at runtime (zero-config deployments)
+12. **Dual ACM certificates** - eu-central-1 for API Gateway (regional), us-east-1 for CloudFront (global service requirement)
+13. **Git-based URL computation** - Shared utility ensures CDK and Vite use identical branch detection and sanitization logic
+14. **Type attribute for News** - Generic `type: "article"` field enables GSI queries without special repository handling
+15. **Repository type safety** - `create()` method accepts items without timestamps (added automatically)

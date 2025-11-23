@@ -48,7 +48,7 @@ export class ApiStack extends cdk.Stack {
 		this.userPool = new cognito.UserPool(this, "AdminUserPool", {
 			userPoolName: `vcm-admin-${environment}${branchSuffix}`,
 			featurePlan: cognito.FeaturePlan.ESSENTIALS,
-			selfSignUpEnabled: false, // Only admins can create accounts
+			selfSignUpEnabled: !isProd, // Only admins can create accounts
 			signInCaseSensitive: false,
 			signInAliases: {
 				email: true,
@@ -76,10 +76,10 @@ export class ApiStack extends cdk.Stack {
 			email: cognito.UserPoolEmail.withCognito(),
 			passwordPolicy: {
 				minLength: 8,
-				requireLowercase: true,
-				requireUppercase: true,
-				requireDigits: true,
-				requireSymbols: true,
+				requireLowercase: isProd,
+				requireUppercase: isProd,
+				requireDigits: isProd,
+				requireSymbols: isProd,
 				tempPasswordValidity: cdk.Duration.days(30),
 			},
 			accountRecovery: cognito.AccountRecovery.EMAIL_ONLY,
@@ -172,8 +172,8 @@ export class ApiStack extends cdk.Stack {
 				defaultDomainMapping: {
 					domainName: this.apiDomainName,
 				},
-					corsPreflight: {
-						allowOrigins: isProd ? [Club.url, `https://${envPrefix}admin.new.${Club.domain}`] : ["*"],
+				corsPreflight: {
+					allowOrigins: isProd ? [Club.url, `https://${envPrefix}admin.new.${Club.domain}`] : ["*"],
 					allowMethods: [apigatewayv2.CorsHttpMethod.GET, apigatewayv2.CorsHttpMethod.POST, apigatewayv2.CorsHttpMethod.OPTIONS],
 					allowHeaders: isProd ? ["content-type", "authorization", "x-trpc-source"] : ["content-type", "authorization", "x-trpc-source", "*"],
 					exposeHeaders: ["content-type"],

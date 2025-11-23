@@ -53,13 +53,13 @@ export class Repository<T extends BaseEntity> {
 	/**
 	 * Create new item
 	 */
-	async create(item: T): Promise<T> {
+	async create(item: Omit<T, "createdAt" | "updatedAt">): Promise<T> {
 		const now = new Date().toISOString();
 		const itemWithTimestamps = {
 			...item,
 			createdAt: now,
 			updatedAt: now,
-		};
+		} as T;
 
 		await docClient.send(
 			new PutCommand({
