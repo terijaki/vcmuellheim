@@ -1,0 +1,14 @@
+[console]
+depth = 3
+
+[test]
+coverage = true
+coverageSkipTestFiles = true
+randomize = true
+onlyFailures = true
+
+[install]
+linker = "hoisted"
+auto = "disable"
+# Only install package versions published at least 5 days ago
+minimumReleaseAge = 432000
