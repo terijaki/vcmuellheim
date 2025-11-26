@@ -3,6 +3,7 @@ import { getSanitizedBranch } from "@utils/git";
 import * as cdk from "aws-cdk-lib";
 import { DNS } from "@/project.config";
 import { ApiStack } from "./lib/api-stack";
+import { BudgetStack } from "./lib/budget-stack";
 import { CmsStack } from "./lib/cms-stack";
 import { ContentDbStack } from "./lib/content-db-stack";
 import { DnsStack } from "./lib/dns-stack";
@@ -26,6 +27,7 @@ const apiStackName = isProd ? `ApiStack-Prod${branchSuffix}` : `ApiStack-Dev${br
 const samsStackName = isProd ? `SamsApiStack-Prod${branchSuffix}` : `SamsApiStack-Dev${branchSuffix}`;
 const socialMediaStackName = isProd ? `SocialMediaStack-Prod${branchSuffix}` : `SocialMediaStack-Dev${branchSuffix}`;
 const dnsStackName = isProd ? `DnsStack-Prod${branchSuffix}` : `DnsStack-Dev${branchSuffix}`;
+const budgetStackName = isProd ? `BudgetStack-Prod${branchSuffix}` : `BudgetStack-Dev${branchSuffix}`;
 const awsRegion = process.env.CDK_REGION || "eu-central-1";
 
 const commonStackProps = {
@@ -101,3 +103,16 @@ new SocialMediaStack(app, socialMediaStackName, {
 	...commonStackProps,
 	description: `Social Media API Services (${environment}${branchSuffix})`,
 });
+
+// Budget monitoring - requires email for alerts
+const budgetEmail = process.env.CDK_BUDGET_ALERT_EMAIL;
+if (budgetEmail) {
+	new BudgetStack(app, budgetStackName, {
+		...commonStackProps,
+		description: `Cost Budget & Alerts (${environment}${branchSuffix})`,
+		alertEmail: budgetEmail,
+	});
+} else {
+	console.warn("⚠️  CDK_BUDGET_ALERT_EMAIL not set - skipping budget stack.");
+	console.warn("    Set CDK_BUDGET_ALERT_EMAIL in .env to enable cost alerts.");
+}
