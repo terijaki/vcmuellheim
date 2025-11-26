@@ -1,15 +1,27 @@
 import { Alert, Container, Loader, Paper, Text } from "@mantine/core";
 import { createFileRoute, Navigate, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 
 function CallbackPage() {
-	const { handleCallback, isAuthenticated } = useAuth();
+	const { handleCallback, isAuthenticated, configLoaded } = useAuth();
 	const navigate = useNavigate();
 	const [error, setError] = useState<string | null>(null);
 	const [isProcessing, setIsProcessing] = useState(true);
+	const hasProcessed = useRef(false);
 
 	useEffect(() => {
+		// Wait for config to load before processing callback
+		if (!configLoaded) {
+			return;
+		}
+
+		// Prevent double processing in React strict mode
+		if (hasProcessed.current) {
+			return;
+		}
+		hasProcessed.current = true;
+
 		const processCallback = async () => {
 			// Get code and state from URL
 			const params = new URLSearchParams(window.location.search);
@@ -37,20 +49,18 @@ function CallbackPage() {
 
 			try {
 				await handleCallback(code, state);
-				setIsProcessing(false);
-				// Small delay to ensure auth state has propagated
-				setTimeout(() => {
-					navigate({ to: "/dashboard" });
-				}, 100);
+				// Success - navigate to dashboard
+				navigate({ to: "/dashboard" });
 			} catch (err) {
 				const errorMessage = err instanceof Error ? err.message : "Authentication failed";
 				setError(errorMessage);
+			} finally {
 				setIsProcessing(false);
 			}
 		};
 
 		processCallback();
-	}, [handleCallback, navigate]);
+	}, [configLoaded, handleCallback, navigate]);
 
 	// If already authenticated, redirect to dashboard
 	if (isAuthenticated && !isProcessing) {

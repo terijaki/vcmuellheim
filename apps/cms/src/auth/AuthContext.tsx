@@ -94,6 +94,7 @@ interface AuthContextType {
 	isLoading: boolean;
 	isAuthenticated: boolean;
 	idToken: string | null;
+	configLoaded: boolean;
 	redirectToLogin: () => void;
 	logout: () => void;
 	handleCallback: (code: string, state: string) => Promise<void>;
@@ -237,8 +238,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			sessionStorage.removeItem(PKCE_VERIFIER_KEY);
 			sessionStorage.removeItem(OAUTH_STATE_KEY);
 		} catch (err) {
-			const errorMessage = err instanceof Error ? err.message : "Authentication failed";
-			setError(errorMessage);
+			// Don't set error in context state - let the callback page handle it
 			throw err;
 		} finally {
 			setIsLoading(false);
@@ -266,6 +266,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				isLoading,
 				isAuthenticated: !!user,
 				idToken: user?.idToken ?? null,
+				configLoaded,
 				redirectToLogin,
 				logout,
 				handleCallback,
