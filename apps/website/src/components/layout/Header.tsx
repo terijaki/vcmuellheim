@@ -1,6 +1,6 @@
 import { AppShell, Burger, Collapse, Container, Group, Stack, Title, UnstyledButton } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Club } from "@project-config";
+import { Club } from "../../../../../project.config";
 import { Link } from "@tanstack/react-router";
 import { FaVolleyball as Logo } from "react-icons/fa6";
 import { navbarLinks } from "../../utils/navbarLinks";

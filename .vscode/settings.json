@@ -7,5 +7,6 @@
 		"source.fixAll.biome": "explicit",
 	},
 	"files.insertFinalNewline": true,
-	"files.trimFinalNewlines": false
+	"files.trimFinalNewlines": false,
+	"typescript.tsdk": "node_modules/typescript/lib"
 }

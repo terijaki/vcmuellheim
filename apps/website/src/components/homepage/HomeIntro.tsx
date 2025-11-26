@@ -13,7 +13,6 @@ const backgroundImages = [background1, background2, background3, background4];
 
 export default function HomeIntro() {
 	const backgroundImageRandom = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
-	if (!backgroundImageRandom) return null;
 
 	const HEIGHT = `calc(90vh - ${HEADER_HEIGHT}px)`;
 	return (

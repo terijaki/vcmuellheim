@@ -15,10 +15,8 @@
 		"incremental": true,
 		"forceConsistentCasingInFileNames": true,
 		"baseUrl": ".",
-		"plugins": [{ "name": "next" }],
 		"paths": {
 			"@/*": ["./*"],
-			"@project-config": ["./project.config.ts"],
 			"@payload-config": ["./payload.config.ts"],
 			"@lib/*": ["./lib/*"],
 			"@lambda/*": ["./lambda/*"],
@@ -27,6 +25,10 @@
 		},
 		"types": ["bun-types"]
 	},
-	"include": ["**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-	"exclude": ["node_modules", "data/migrations"]
+	"include": ["**/*.ts", "**/*.tsx"],
+	"exclude": [
+		"node_modules",
+		"data/migrations",
+		"apps/*/src/**" // required to avoid TS errors between different app tsconfigs
+	]
 }
