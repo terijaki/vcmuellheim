@@ -1,4 +1,4 @@
-import { Button, Center, Group, Modal, Paper, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Button, Center, Group, Modal, Paper, SegmentedControl, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { Calendar, DatePickerInput } from "@mantine/dates";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { useMemo, useState } from "react";
 import "dayjs/locale/de";
 import type { BusInput } from "@lib/db/schemas";
+import { Trash2 } from "lucide-react";
 import { trpc } from "../../lib/trpc";
 
 dayjs.locale("de");
@@ -13,6 +14,7 @@ dayjs.locale("de");
 function BusSchedulesPage() {
 	const [opened, { open, close }] = useDisclosure(false);
 	const [editingId, setEditingId] = useState<string | null>(null);
+	const [timeFilter, setTimeFilter] = useState<"upcoming" | "past">("upcoming");
 	const [formData, setFormData] = useState({
 		driver: "",
 		dateRange: [null, null] as [Date | null, Date | null],
@@ -117,6 +119,26 @@ function BusSchedulesPage() {
 		}
 	};
 
+	// Filter bookings based on time filter
+	const filteredSchedules = useMemo(() => {
+		if (!schedules?.items) return [];
+
+		const now = dayjs();
+		const filtered = schedules.items.filter((schedule) => {
+			const scheduleEnd = dayjs(schedule.to);
+			if (timeFilter === "upcoming") {
+				return scheduleEnd.isAfter(now) || scheduleEnd.isSame(now, "day");
+			}
+			return scheduleEnd.isBefore(now);
+		});
+
+		// Sort: upcoming by start date ascending, past by start date descending
+		return filtered.sort((a, b) => {
+			const comparison = dayjs(a.from).unix() - dayjs(b.from).unix();
+			return timeFilter === "upcoming" ? comparison : -comparison;
+		});
+	}, [schedules?.items, timeFilter]);
+
 	return (
 		<Stack>
 			<Group justify="space-between">
@@ -154,43 +176,59 @@ function BusSchedulesPage() {
 				</Center>
 			</Paper>
 
+			<SegmentedControl
+				value={timeFilter}
+				onChange={(value) => setTimeFilter(value as typeof timeFilter)}
+				data={[
+					{ label: "Bevorstehend", value: "upcoming" },
+					{ label: "Vergangene", value: "past" },
+				]}
+			/>
+
 			<Paper withBorder p="md">
 				{isLoading ? (
 					<Text>Laden...</Text>
-				) : schedules && schedules.items.length > 0 ? (
-					<Table striped highlightOnHover>
-						<Table.Thead>
-							<Table.Tr>
-								<Table.Th>Fahrer</Table.Th>
-								<Table.Th>Von</Table.Th>
-								<Table.Th>Bis</Table.Th>
-								<Table.Th>Kommentar</Table.Th>
-								<Table.Th>Aktionen</Table.Th>
-							</Table.Tr>
-						</Table.Thead>
-						<Table.Tbody>
-							{schedules.items.map((schedule) => (
-								<Table.Tr key={schedule.id}>
-									<Table.Td>{schedule.driver}</Table.Td>
-									<Table.Td>{dayjs(schedule.from).format("DD.MM.YYYY")}</Table.Td>
-									<Table.Td>{dayjs(schedule.to).format("DD.MM.YYYY")}</Table.Td>
-									<Table.Td>{schedule.comment || "-"}</Table.Td>
-									<Table.Td>
-										<Group gap="xs">
-											<Button size="xs" onClick={() => handleEdit(schedule)}>
-												Bearbeiten
-											</Button>
-											<Button size="xs" color="red" onClick={() => handleDelete(schedule.id)} loading={deleteMutation.isPending}>
-												Löschen
-											</Button>
-										</Group>
-									</Table.Td>
+				) : filteredSchedules.length > 0 ? (
+					<>
+						<Table striped highlightOnHover>
+							<Table.Thead>
+								<Table.Tr>
+									<Table.Th>Fahrer</Table.Th>
+									<Table.Th>Von</Table.Th>
+									<Table.Th>Bis</Table.Th>
+									<Table.Th>Kommentar</Table.Th>
+									<Table.Th>Aktionen</Table.Th>
 								</Table.Tr>
-							))}
-						</Table.Tbody>
-					</Table>
+							</Table.Thead>
+							<Table.Tbody>
+								{filteredSchedules.map((schedule) => (
+									<Table.Tr key={schedule.id}>
+										<Table.Td>{schedule.driver}</Table.Td>
+										<Table.Td>{dayjs(schedule.from).format("DD.MM.YYYY")}</Table.Td>
+										<Table.Td>{dayjs(schedule.to).format("DD.MM.YYYY")}</Table.Td>
+										<Table.Td>{schedule.comment || "-"}</Table.Td>
+										<Table.Td>
+											<Group gap="xs">
+												<Button size="xs" onClick={() => handleEdit(schedule)}>
+													Bearbeiten
+												</Button>
+												<ActionIcon variant="light" radius="xl" color="red" onClick={() => handleDelete(schedule.id)} loading={deleteMutation.isPending}>
+													<Trash2 size={16} />
+												</ActionIcon>
+											</Group>
+										</Table.Td>
+									</Table.Tr>
+								))}
+							</Table.Tbody>
+						</Table>
+						<Text size="sm" c="dimmed" mt="md">
+							{filteredSchedules.length} {timeFilter === "upcoming" ? "bevorstehende" : "vergangene"} Buchung{filteredSchedules.length !== 1 ? "en" : ""}
+						</Text>
+					</>
 				) : (
-					<Text c="dimmed">Noch keine Bus Buchungen vorhanden. Erstellen Sie einen neuen Eintrag.</Text>
+					<Text c="dimmed" ta="center" py="xl">
+						{timeFilter === "upcoming" ? "Keine bevorstehenden Buchungen" : "Keine vergangenen Buchungen"}
+					</Text>
 				)}
 			</Paper>
 

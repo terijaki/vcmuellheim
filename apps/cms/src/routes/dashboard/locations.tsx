@@ -1,8 +1,9 @@
 import type { LocationInput } from "@lib/db/schemas";
-import { Button, Group, Modal, Paper, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Button, Group, Modal, Paper, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { createFileRoute } from "@tanstack/react-router";
+import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { trpc } from "../../lib/trpc";
 
@@ -194,9 +195,9 @@ function LocationsPage() {
 											<Button size="xs" onClick={() => handleEdit(location)}>
 												Bearbeiten
 											</Button>
-											<Button size="xs" color="red" onClick={() => handleDelete(location.id)} loading={deleteMutation.isPending}>
-												Löschen
-											</Button>
+											<ActionIcon variant="light" radius="xl" color="red" onClick={() => handleDelete(location.id)} loading={deleteMutation.isPending}>
+												<Trash2 size={16} />
+											</ActionIcon>
 										</Group>
 									</Table.Td>
 								</Table.Tr>

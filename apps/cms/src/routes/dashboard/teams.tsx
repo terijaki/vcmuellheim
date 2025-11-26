@@ -444,6 +444,8 @@ function TeamsPage() {
 		open();
 	};
 
+	teams?.items.sort((a, b) => a.name.localeCompare(b.name));
+
 	return (
 		<Stack gap="md">
 			<Group justify="space-between">
@@ -619,9 +621,9 @@ function TeamsPage() {
 												<Button size="xs" onClick={() => handleEdit(team)}>
 													Bearbeiten
 												</Button>
-												<Button size="xs" color="red" onClick={() => handleDelete(team.id)} loading={deleteMutation.isPending}>
-													Löschen
-												</Button>
+												<ActionIcon variant="light" radius="xl" color="red" onClick={() => handleDelete(team.id)} loading={deleteMutation.isPending}>
+													<Trash2 size={16} />
+												</ActionIcon>
 											</Group>
 										</Table.Td>
 									</Table.Tr>

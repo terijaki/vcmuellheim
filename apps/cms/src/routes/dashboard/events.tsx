@@ -1,4 +1,4 @@
-import { Button, Center, Group, Modal, Paper, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Button, Center, Group, Modal, Paper, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { Calendar, DateTimePicker } from "@mantine/dates";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { useMemo, useState } from "react";
 import "dayjs/locale/de";
 import type { EventInput } from "@lib/db/schemas";
+import { Trash2 } from "lucide-react";
 import { trpc } from "../../lib/trpc";
 
 dayjs.locale("de");
@@ -193,9 +194,9 @@ function EventsPage() {
 											<Button size="xs" onClick={() => handleEdit(event)}>
 												Bearbeiten
 											</Button>
-											<Button size="xs" color="red" onClick={() => handleDelete(event.id)} loading={deleteMutation.isPending}>
-												Löschen
-											</Button>
+											<ActionIcon variant="light" radius="xl" color="red" onClick={() => handleDelete(event.id)} loading={deleteMutation.isPending}>
+												<Trash2 size={16} />
+											</ActionIcon>
 										</Group>
 									</Table.Td>
 								</Table.Tr>
