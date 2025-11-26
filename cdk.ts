@@ -3,6 +3,7 @@ import { getSanitizedBranch } from "@utils/git";
 import * as cdk from "aws-cdk-lib";
 import { DNS } from "@/project.config";
 import { ApiStack } from "./lib/api-stack";
+import { CmsStack } from "./lib/cms-stack";
 import { ContentDbStack } from "./lib/content-db-stack";
 import { DnsStack } from "./lib/dns-stack";
 import { MediaStack } from "./lib/media-stack";
@@ -20,6 +21,7 @@ const branchSuffix = branch ? `-${branch}` : "";
 // Environment-specific configuration
 const contentDbStackName = isProd ? `ContentDbStack-Prod${branchSuffix}` : `ContentDbStack-Dev${branchSuffix}`;
 const mediaStackName = isProd ? `MediaStack-Prod${branchSuffix}` : `MediaStack-Dev${branchSuffix}`;
+const cmsStackName = isProd ? `CmsStack-Prod${branchSuffix}` : `CmsStack-Dev${branchSuffix}`;
 const apiStackName = isProd ? `ApiStack-Prod${branchSuffix}` : `ApiStack-Dev${branchSuffix}`;
 const samsStackName = isProd ? `SamsApiStack-Prod${branchSuffix}` : `SamsApiStack-Dev${branchSuffix}`;
 const socialMediaStackName = isProd ? `SocialMediaStack-Prod${branchSuffix}` : `SocialMediaStack-Dev${branchSuffix}`;
@@ -59,6 +61,13 @@ const contentDbStack = new ContentDbStack(app, contentDbStackName, {
 const mediaStack = new MediaStack(app, mediaStackName, {
 	...commonStackProps,
 	description: `Media Storage (S3) (${environment}${branchSuffix})`,
+	hostedZone: dnsStack.hostedZone,
+	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
+});
+
+const cmsStack = new CmsStack(app, cmsStackName, {
+	...commonStackProps,
+	description: `Admin CMS (S3 + CloudFront) (${environment}${branchSuffix})`,
 	hostedZone: dnsStack.hostedZone,
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
 });

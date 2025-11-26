@@ -24,13 +24,9 @@
 - Simple, maintainable, cost-effective
 - Full control over data models and admin UI
 
-**Timeline:** 4-8 weeks
-
 ---
 
 ## Phase 1: Data Model Design & DynamoDB Setup
-
-**Duration:** 1-2 weeks
 
 ### Tasks:
 
@@ -110,9 +106,7 @@
 
 ---
 
-## Phase 2: Custom CMS Admin Interface
-
-**Duration:** 2-3 weeks
+## Phase 2: Custom CMS Admin Interface ✅ COMPLETE
 
 ### Tasks:
 
@@ -177,19 +171,19 @@
    - [ ] Add Table, CodeBlock extensions if needed
    - [ ] Render on frontend using same Tiptap extensions (read-only mode)
 
-5. [ ] **Deploy CMS App**
-   - Create CmsStack in CDK (S3 + CloudFront + custom domain)
-   - Build Vite app to static files
-   - Upload to S3 bucket via CDK deployment
-   - Serve via CloudFront distribution
-   - Custom domain: {env}-{branch}-admin.new.vcmuellheim.de
-   - SSL/TLS certificate from DnsStack (CloudFront cert in us-east-1)
+5. [x] **Deploy CMS App**
+   - ✅ Create CmsStack in CDK (S3 + CloudFront + custom domain)
+   - ✅ Build Vite app to static files
+   - ✅ Upload to S3 bucket via CDK deployment
+   - ✅ Serve via CloudFront distribution
+   - ✅ Custom domain: dev-aws-migration-admin.new.vcmuellheim.de
+   - ✅ SSL/TLS certificate from DnsStack (CloudFront cert in us-east-1)
+   - ✅ SPA routing with CloudFront error handling (404 → index.html)
+   - ✅ Automatic CloudFront cache invalidation on deployment
 
 ---
 
 ## Phase 3: Frontend Migration (Next.js → Vite + React)
-
-**Duration:** 2-3 weeks
 
 ### Tasks:
 
@@ -241,8 +235,6 @@
 
 ## Phase 4: API & Lambda Functions
 
-**Duration:** 1-2 weeks
-
 ### Tasks:
 
 1. [ ] **Public API Endpoints** (for frontend consumption)
@@ -282,8 +274,6 @@
 
 ## Phase 5: Background Jobs & Scheduled Tasks
 
-**Duration:** 1 week
-
 ### Tasks:
 
 1. [ ] **Migrate Existing Jobs**
@@ -305,8 +295,6 @@
 ---
 
 ## Phase 6: DNS & Final Cutover
-
-**Duration:** 1 week
 
 ### Tasks:
 
@@ -336,8 +324,6 @@
 ---
 
 ## Phase 7: Monitoring & Optimization
-
-**Duration:** Ongoing
 
 ### Tasks:
 

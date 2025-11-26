@@ -1,5 +1,6 @@
 /**
- * CDK Stack for Media Storage (S3) and CloudFront Distribution
+ * CDK Stack for CMS Admin Panel (S3 + CloudFront)
+ * Builds Vite app and deploys to S3 with CloudFront distribution
  */
 
 import * as cdk from "aws-cdk-lib";
@@ -9,10 +10,11 @@ import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import * as s3 from "aws-cdk-lib/aws-s3";
+import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
 import type { Construct } from "constructs";
 import { Club } from "@/project.config";
 
-export interface MediaStackProps extends cdk.StackProps {
+export interface CmsStackProps extends cdk.StackProps {
 	stackProps?: {
 		environment?: string;
 		branch?: string;
@@ -21,12 +23,12 @@ export interface MediaStackProps extends cdk.StackProps {
 	cloudFrontCertificate?: acm.ICertificate; // Must be from us-east-1
 }
 
-export class MediaStack extends cdk.Stack {
+export class CmsStack extends cdk.Stack {
 	public readonly bucket: s3.Bucket;
 	public readonly distribution: cloudfront.Distribution;
-	public readonly cloudFrontUrl: string;
+	public readonly cmsUrl: string;
 
-	constructor(scope: Construct, id: string, props?: MediaStackProps) {
+	constructor(scope: Construct, id: string, props?: CmsStackProps) {
 		super(scope, id, props);
 
 		const environment = props?.stackProps?.environment || "dev";
@@ -34,42 +36,29 @@ export class MediaStack extends cdk.Stack {
 		const branchSuffix = branch ? `-${branch}` : "";
 		const isProd = environment === "prod";
 		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
-		const mediaDomain = `${envPrefix}media.new.${Club.domain}`;
+		const cmsDomain = `${envPrefix}admin.new.${Club.domain}`;
 
-		// S3 Bucket for media storage
-		this.bucket = new s3.Bucket(this, "MediaBucket", {
-			bucketName: `vcm-media-${environment}${branchSuffix}`,
+		// S3 Bucket for CMS static files
+		this.bucket = new s3.Bucket(this, "CmsBucket", {
+			bucketName: `vcm-cms-${environment}${branchSuffix}`,
 			encryption: s3.BucketEncryption.S3_MANAGED,
-			cors: [
-				{
-					allowedMethods: [s3.HttpMethods.GET, s3.HttpMethods.PUT, s3.HttpMethods.POST],
-					allowedOrigins: ["*"], // For presigned upload URLs
-					allowedHeaders: ["*"],
-					maxAge: 3000,
-				},
-			],
-			lifecycleRules: [
-				{
-					abortIncompleteMultipartUploadAfter: cdk.Duration.days(7),
-				},
-			],
 			blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
 			removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
-			autoDeleteObjects: !isProd, // Auto-delete objects on stack deletion in dev
+			autoDeleteObjects: !isProd,
 		});
 
-		// CloudFront Distribution with OAC for public read access
-		// Dev environment uses shorter cache TTL for faster iteration
+		// CloudFront Distribution with OAC for SPA
+		// SPA needs special error handling for client-side routing
 		const cachePolicy = isProd
 			? cloudfront.CachePolicy.CACHING_OPTIMIZED
 			: new cloudfront.CachePolicy(this, "DevCachePolicy", {
 					defaultTtl: cdk.Duration.minutes(5),
 					minTtl: cdk.Duration.seconds(0),
 					maxTtl: cdk.Duration.minutes(10),
-					comment: "Dev cache policy with short TTL",
+					comment: "Dev cache policy with short TTL for CMS",
 				});
 
-		this.distribution = new cloudfront.Distribution(this, "MediaDistribution", {
+		this.distribution = new cloudfront.Distribution(this, "CmsDistribution", {
 			defaultBehavior: {
 				origin: origins.S3BucketOrigin.withOriginAccessControl(this.bucket),
 				viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
@@ -78,43 +67,68 @@ export class MediaStack extends cdk.Stack {
 				cachePolicy,
 				compress: true,
 			},
+			defaultRootObject: "index.html",
+			errorResponses: [
+				{
+					// SPA routing: redirect all 404s to index.html
+					httpStatus: 404,
+					responseHttpStatus: 200,
+					responsePagePath: "/index.html",
+					ttl: cdk.Duration.minutes(0),
+				},
+				{
+					httpStatus: 403,
+					responseHttpStatus: 200,
+					responsePagePath: "/index.html",
+					ttl: cdk.Duration.minutes(0),
+				},
+			],
 			priceClass: cloudfront.PriceClass.PRICE_CLASS_100, // Use only North America and Europe
-			comment: isProd ? "VCM Media Distribution (Prod)" : "VCM Media Distribution (Dev)",
+			comment: isProd ? "VCM Admin CMS (Prod)" : "VCM Admin CMS (Dev)",
 			...(props?.cloudFrontCertificate && props?.hostedZone
 				? {
-						domainNames: [mediaDomain],
+						domainNames: [cmsDomain],
 						certificate: props.cloudFrontCertificate,
 					}
 				: {}),
 		});
 
-		// Create A record for media subdomain if hosted zone provided
+		// Create A record for admin subdomain if hosted zone provided
 		if (props?.hostedZone && props?.cloudFrontCertificate) {
-			new route53.ARecord(this, "MediaARecord", {
+			new route53.ARecord(this, "CmsARecord", {
 				zone: props.hostedZone,
-				recordName: mediaDomain,
+				recordName: cmsDomain,
 				target: route53.RecordTarget.fromAlias(new route53Targets.CloudFrontTarget(this.distribution)),
 			});
 
-			this.cloudFrontUrl = `https://${mediaDomain}`;
+			this.cmsUrl = `https://${cmsDomain}`;
 		} else {
-			this.cloudFrontUrl = `https://${this.distribution.distributionDomainName}`;
+			this.cmsUrl = `https://${this.distribution.distributionDomainName}`;
 		}
 
-		// Outputs
-		new cdk.CfnOutput(this, "MediaBucketName", {
-			value: this.bucket.bucketName,
-			description: "S3 Bucket for media storage",
+		// Deploy Vite build output to S3
+		new s3deploy.BucketDeployment(this, "CmsDeployment", {
+			sources: [s3deploy.Source.asset("./apps/cms/dist")],
+			destinationBucket: this.bucket,
+			distribution: this.distribution,
+			distributionPaths: ["/*"], // Invalidate all files on deployment
+			prune: true, // Remove old files not in new deployment
 		});
 
-		new cdk.CfnOutput(this, "CloudFrontUrl", {
-			value: this.cloudFrontUrl,
-			description: "CloudFront URL for media distribution",
+		// Outputs
+		new cdk.CfnOutput(this, "CmsBucketName", {
+			value: this.bucket.bucketName,
+			description: "S3 Bucket for CMS static files",
+		});
+
+		new cdk.CfnOutput(this, "CmsUrl", {
+			value: this.cmsUrl,
+			description: "CMS Admin Panel URL",
 		});
 
 		new cdk.CfnOutput(this, "CloudFrontDistributionId", {
 			value: this.distribution.distributionId,
-			description: "CloudFront Distribution ID",
+			description: "CloudFront Distribution ID for CMS",
 		});
 	}
 }
