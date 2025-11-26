@@ -1,0 +1,37 @@
+{
+	"name": "@vcmuellheim/website",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite --port 3080",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@aws-sdk/client-cognito-identity-provider": "catalog:",
+		"@mantine/core": "catalog:",
+		"@mantine/dates": "catalog:",
+		"@mantine/hooks": "catalog:",
+		"@tanstack/react-query": "catalog:",
+		"@tanstack/react-router": "catalog:",
+		"@trpc/client": "catalog:",
+		"@trpc/react-query": "catalog:",
+		"dayjs": "catalog:",
+		"react": "catalog:",
+		"react-dom": "catalog:",
+		"superjson": "catalog:"
+	},
+	"devDependencies": {
+		"@tanstack/router-plugin": "catalog:",
+		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
+		"@vitejs/plugin-react": "catalog:",
+		"postcss": "catalog:",
+		"postcss-preset-mantine": "catalog:",
+		"postcss-simple-vars": "catalog:",
+		"typescript": "catalog:",
+		"vite": "catalog:"
+	}
+}

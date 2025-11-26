@@ -14,7 +14,7 @@ export const Club = {
 /** The clubs details on the SAMS platform. */
 export const SAMS = {
 	name: "VC Müllheim" as const,
-	server: process.env.SAMS_SERVER as string,
+	server: "https://www.volleyball-baden.de" as const,
 	association: { name: "Südbadischer Volleyball-Verband" as const, shortName: "SBVV" as const },
 };
 /** The clubs identity/account on the fediverse. */

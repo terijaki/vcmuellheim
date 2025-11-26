@@ -107,6 +107,35 @@
         "vite": "catalog:",
       },
     },
+    "apps/website": {
+      "name": "@vcmuellheim/website",
+      "version": "1.0.0",
+      "dependencies": {
+        "@aws-sdk/client-cognito-identity-provider": "catalog:",
+        "@mantine/core": "catalog:",
+        "@mantine/dates": "catalog:",
+        "@mantine/hooks": "catalog:",
+        "@tanstack/react-query": "catalog:",
+        "@tanstack/react-router": "catalog:",
+        "@trpc/client": "catalog:",
+        "@trpc/react-query": "catalog:",
+        "dayjs": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+        "superjson": "catalog:",
+      },
+      "devDependencies": {
+        "@tanstack/router-plugin": "catalog:",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "@vitejs/plugin-react": "catalog:",
+        "postcss": "catalog:",
+        "postcss-preset-mantine": "catalog:",
+        "postcss-simple-vars": "catalog:",
+        "typescript": "catalog:",
+        "vite": "catalog:",
+      },
+    },
   },
   "catalog": {
     "@aws-sdk/client-cognito-identity-provider": "^3.936.0",
@@ -1237,6 +1266,8 @@
     "@unrs/resolver-binding-win32-x64-msvc": ["@unrs/resolver-binding-win32-x64-msvc@1.11.1", "", { "os": "win32", "cpu": "x64" }, "sha512-lrW200hZdbfRtztbygyaq/6jP6AKE8qQN2KvPcJ+x7wiD038YtnYtZ82IMNJ69GJibV7bwL3y9FgK+5w/pYt6g=="],
 
     "@vcmuellheim/cms": ["@vcmuellheim/cms@workspace:apps/cms"],
+
+    "@vcmuellheim/website": ["@vcmuellheim/website@workspace:apps/website"],
 
     "@vitejs/plugin-react": ["@vitejs/plugin-react@5.1.1", "", { "dependencies": { "@babel/core": "^7.28.5", "@babel/plugin-transform-react-jsx-self": "^7.27.1", "@babel/plugin-transform-react-jsx-source": "^7.27.1", "@rolldown/pluginutils": "1.0.0-beta.47", "@types/babel__core": "^7.20.5", "react-refresh": "^0.18.0" }, "peerDependencies": { "vite": "^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0" } }, "sha512-WQfkSw0QbQ5aJ2CHYw23ZGkqnRwqKHD/KYsMeTkZzPT4Jcf0DcBxBtwMJxnu6E7oxw5+JC6ZAiePgh28uJ1HBA=="],
 

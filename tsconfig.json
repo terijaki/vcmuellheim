@@ -18,6 +18,7 @@
 		"plugins": [{ "name": "next" }],
 		"paths": {
 			"@/*": ["./*"],
+			"@project-config": ["./project.config.ts"],
 			"@payload-config": ["./payload.config.ts"],
 			"@lib/*": ["./lib/*"],
 			"@lambda/*": ["./lambda/*"],
