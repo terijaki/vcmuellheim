@@ -196,7 +196,7 @@
 ### Tasks:
 
 1. [ ] **Create Vite + React App**
-   - Initialize new Vite project (`src/website/`)
+   - Initialize new Vite project (`apps/website/`)
    - Set up TanStack Router for client-side routing
    - Migrate existing components (already have many reusable ones)
    - Keep Mantine UI library
