@@ -391,7 +391,7 @@ function TeamsPage() {
 				pictureS3Keys.push(key);
 			}
 
-			const slug = slugify(formData.name);
+			const slug = slugify(formData.name, true);
 			const cleanedData = Object.fromEntries(
 				Object.entries({ ...formData, slug, pictureS3Keys: pictureS3Keys.length > 0 ? pictureS3Keys : undefined }).filter(([_, value]) => value !== "" && value !== undefined),
 			);
