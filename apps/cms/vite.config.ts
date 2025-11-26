@@ -17,6 +17,7 @@ export default defineConfig({
 			"@lib": path.resolve(__dirname, "../../lib"),
 			"@utils": path.resolve(__dirname, "../../utils"),
 			"@data": path.resolve(__dirname, "../../data"),
+			"@/project.config": path.resolve(__dirname, "../../project.config.ts"),
 		},
 	},
 	server: {

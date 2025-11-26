@@ -310,37 +310,62 @@ const article = await getNewsBySlug("vcm-wins-championship");
 await newsRepository.delete(newArticle.id);
 ```
 
-## 🔄 Currently Deploying
+## ✅ Phase 2 Progress - CMS Admin Interface
 
-### API Gateway Custom Domains
-- API Gateway DomainName with Route53 A record
-- API endpoint: `dev-aws-migration-api.new.vcmuellheim.de`
-- Certificate: eu-central-1 (API Gateway regional endpoint)
+### CMS Entity Pages (7/8 Complete)
 
-### CloudFront Custom Domain
-- CloudFront distribution with custom domain
-- Media endpoint: `dev-aws-migration-media.new.vcmuellheim.de`
-- Certificate: us-east-1 (CloudFront global service requirement)
+**✅ Completed Pages:**
+1. **News** - Full CRUD with TipTap rich text editor, image upload, slug generation, status management
+2. **Events** - Calendar view with visual date booking, conflict detection, location linking
+3. **Teams** - Complete management with logo upload, trainer avatars, training schedule builder
+4. **Members** - Avatar management, board member toggle, trainer toggle, role titles
+5. **Sponsors** - Logo upload, tier management, website links
+6. **Locations** - Full CRUD for event venues (name, address, description)
+7. **Bus Bookings** - Calendar view with date range selection, conflict detection
 
-## 🔄 Next Steps (Phase 1 Remaining)
+**⏳ Pending:**
+8. **Media Library** - Standalone media management UI (currently placeholder)
 
-### S3 Cleanup Lambda (Deferred)
+**CMS Features Implemented:**
+- ✅ Image upload with S3 presigned URLs
+- ✅ Form validation with Zod schemas
+- ✅ Optimistic UI updates with TanStack Query
+- ✅ Mantine UI components throughout
+- ✅ Responsive design (mobile & desktop)
+- ✅ Calendar visualizations for date conflicts
+- ✅ File preview before upload
+- ✅ Delete confirmations
+- ✅ Loading states and error handling
+- ✅ Notifications for success/error feedback
 
-Still TODO:
-1. Create Lambda function to handle DynamoDB Stream events
-2. Delete S3 objects when Media items are removed
-3. Add Lambda to ContentDbStack CDK
-4. Deploy and test
+## 🔄 Next Steps (Phase 2 Remaining)
 
-**Why deferred:** Not blocking for admin CMS development. Can implement when needed.
+### 1. Complete Media Library UI
+- Standalone media management page
+- Grid view of all uploaded media
+- Upload multiple files
+- Edit metadata (title, alt text)
+- Delete media (triggers S3 cleanup via Stream)
 
-## 🎯 Ready for Phase 2
+### 2. Deploy CMS to CloudFront
+- Create CmsStack in CDK
+- S3 bucket for static CMS build
+- CloudFront distribution with OAC
+- Custom domain: `dev-aws-migration-admin.new.vcmuellheim.de`
+- Automatic Vite build and S3 upload via CDK
 
-The data layer is complete and ready for:
-- Custom admin CMS interface (Vite + React + Mantine)
-- Cognito authentication setup
-- Admin CRUD operations using the repositories
-- Frontend data consumption via API routes
+### 3. Data Migration Script
+- Extract data from Payload Postgres
+- Transform to DynamoDB format
+- Batch write to all 8 tables
+- Validation and reporting
+
+## 🎯 Ready for Phase 3
+
+With CMS nearly complete, next phase is:
+- Frontend migration (Next.js → Vite + React SPA)
+- Public API endpoints for frontend consumption
+- SEO strategy (prerendering or Lambda@Edge)
 
 ## 📝 Design Decisions
 

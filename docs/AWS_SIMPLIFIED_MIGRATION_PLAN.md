@@ -157,14 +157,16 @@
    - ✅ Successfully deployed to AWS
    - ✅ Authentication tested and working (scripts/test-auth.ts)
 
-3. [ ] **CMS UI Pages**
-   - Dashboard (overview, recent activity)
-   - News management (list, create, edit, delete)
-   - Events management
-   - Teams management
-   - Members management
-   - Media library (upload to S3, manage metadata in DynamoDB)
-   - Sponsors management
+3. [x] **CMS UI Pages**
+   - ✅ Dashboard (overview, recent activity)
+   - ✅ News management (list, create, edit, delete) - Full CRUD with rich text editor, image upload
+   - ✅ Events management - Calendar view with date conflict detection
+   - ✅ Teams management - Complete with logo upload, trainer avatars, training schedules
+   - ✅ Members management - Avatar upload, board member & trainer role toggles
+   - ⏳ Media library (upload to S3, manage metadata in DynamoDB) - Placeholder exists, needs implementation
+   - ✅ Sponsors management - Logo upload and tier management
+   - ✅ Locations management - Full CRUD for event locations
+   - ✅ Bus bookings management - Calendar view with booking conflict detection
 
 4. [x] **Rich Text Editor**
    - ✅ Using @mantine/tiptap (official Mantine integration)
@@ -176,11 +178,12 @@
    - [ ] Render on frontend using same Tiptap extensions (read-only mode)
 
 5. [ ] **Deploy CMS App**
+   - Create CmsStack in CDK (S3 + CloudFront + custom domain)
    - Build Vite app to static files
-   - Upload to S3 bucket
+   - Upload to S3 bucket via CDK deployment
    - Serve via CloudFront distribution
-   - Optional: Custom domain for CMS (e.g., cms.vcmuellheim.de)
-   - SSL/TLS certificate via ACM
+   - Custom domain: {env}-{branch}-admin.new.vcmuellheim.de
+   - SSL/TLS certificate from DnsStack (CloudFront cert in us-east-1)
 
 ---
 
@@ -515,10 +518,12 @@
 1. ✅ **Design DynamoDB schema** - Map out tables, keys, GSIs
 2. ✅ **Create new CDK stack** for DynamoDB tables
 3. ✅ **Deploy infrastructure** - Custom domains for API and Media deployed
-4. [ ] **Build proof-of-concept** admin page (one entity, e.g., News)
-5. [ ] **Test data migration** from Payload to DynamoDB
-6. [ ] **Expand CMS** - Add Events, Teams, Members, Sponsors management
-7. [ ] **Frontend data consumption** - Connect public site to new API
+4. ✅ **Build proof-of-concept** admin page (one entity, e.g., News)
+5. ✅ **Expand CMS** - All 8 entities built (7/8 complete, Media library pending)
+6. [ ] **Complete Media Library UI** - Standalone media management page
+7. [ ] **Create CmsStack CDK** - Deploy admin panel to CloudFront
+8. [ ] **Test data migration** from Payload to DynamoDB
+9. [ ] **Frontend data consumption** - Connect public site to new API
 
 ---
 

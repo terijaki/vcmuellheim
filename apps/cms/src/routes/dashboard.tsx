@@ -2,6 +2,7 @@ import { AppShell, Burger, Button, Group, NavLink, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { createFileRoute, Link, Navigate, Outlet } from "@tanstack/react-router";
 import { useAuth } from "../auth/AuthContext";
+import { Club} from "@/project.config"
 
 function DashboardLayout() {
 	const { isAuthenticated, user, logout } = useAuth();
@@ -18,7 +19,7 @@ function DashboardLayout() {
 					<Group>
 						<Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
 						<Text size="lg" fw={700}>
-							VCM CMS
+							{Club.name}
 						</Text>
 					</Group>
 					<Group>
