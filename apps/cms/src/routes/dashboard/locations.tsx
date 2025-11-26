@@ -131,6 +131,8 @@ function LocationsPage() {
 		open();
 	};
 
+	locations?.items.sort((a, b) => a.name.localeCompare(b.name));
+
 	return (
 		<Stack gap="md">
 			<Group justify="space-between">
