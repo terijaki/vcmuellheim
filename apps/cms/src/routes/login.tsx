@@ -6,17 +6,17 @@ import { useAuth } from "../auth/AuthContext";
 function LoginPage() {
 	const { redirectToLogin, isAuthenticated, configLoaded, error } = useAuth();
 
-	// Redirect authenticated users to dashboard
-	if (isAuthenticated) {
-		return <Navigate to="/dashboard" />;
-	}
-
 	// Auto-redirect to Cognito login once config is loaded
 	useEffect(() => {
 		if (configLoaded && !isAuthenticated) {
 			redirectToLogin();
 		}
 	}, [configLoaded, isAuthenticated, redirectToLogin]);
+
+	// Redirect authenticated users to dashboard
+	if (isAuthenticated) {
+		return <Navigate to="/dashboard" />;
+	}
 
 	return (
 		<Container size="xs" style={{ marginTop: "5rem" }}>

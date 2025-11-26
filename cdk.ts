@@ -67,7 +67,7 @@ const mediaStack = new MediaStack(app, mediaStackName, {
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
 });
 
-const cmsStack = new CmsStack(app, cmsStackName, {
+new CmsStack(app, cmsStackName, {
 	...commonStackProps,
 	description: `Admin CMS (S3 + CloudFront) (${environment}${branchSuffix})`,
 	hostedZone: dnsStack.hostedZone,

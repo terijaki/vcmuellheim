@@ -237,9 +237,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			// Clear PKCE data
 			sessionStorage.removeItem(PKCE_VERIFIER_KEY);
 			sessionStorage.removeItem(OAUTH_STATE_KEY);
-		} catch (err) {
-			// Don't set error in context state - let the callback page handle it
-			throw err;
 		} finally {
 			setIsLoading(false);
 		}

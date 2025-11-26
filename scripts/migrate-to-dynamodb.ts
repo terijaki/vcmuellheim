@@ -22,6 +22,40 @@ import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { busSchema, locationSchema, memberSchema, newsSchema, teamSchema } from "@lib/db/schemas";
 import dotenv from "dotenv";
 
+// Type definitions for backup data and Lexical content
+interface MediaItem {
+	id: string;
+	filename: string;
+	[key: string]: unknown;
+}
+
+interface BackupData {
+	media?: MediaItem[];
+	events?: Record<string, unknown>[];
+	members?: Record<string, unknown>[];
+	teams?: Record<string, unknown>[];
+	news?: Record<string, unknown>[];
+	locations?: Record<string, unknown>[];
+	busBookings?: Record<string, unknown>[];
+	[key: string]: unknown;
+}
+
+interface LexicalNode {
+	text?: string;
+	format?: number;
+	children?: LexicalNode[];
+	type?: string;
+	listType?: string;
+	tag?: string;
+	url?: string;
+}
+
+interface LexicalData {
+	root?: {
+		children?: LexicalNode[];
+	};
+}
+
 // Load .env.production.local for old S3 credentials
 dotenv.config({ path: resolve(process.cwd(), ".env.production.local"), override: true });
 
@@ -47,7 +81,7 @@ if (!backupFile) {
 }
 
 // Load backup data
-let backupData: any;
+let backupData: BackupData;
 try {
 	const fileContent = readFileSync(backupFile, "utf-8");
 	backupData = JSON.parse(fileContent);
@@ -101,7 +135,7 @@ if (OLD_S3_BUCKET && OLD_S3_ACCESS_KEY && OLD_S3_SECRET_KEY) {
 /**
  * Copy a file from old S3 bucket to new S3 bucket
  */
-async function copyS3File(oldKey: string, newKey: string, mediaId: string, filename: string): Promise<string | null> {
+async function copyS3File(oldKey: string, newKey: string, _mediaId: string, filename: string): Promise<string | null> {
 	if (!oldS3Client || !newS3Client) {
 		return null; // S3 migration disabled
 	}
@@ -117,7 +151,7 @@ async function copyS3File(oldKey: string, newKey: string, mediaId: string, filen
 			);
 			// File exists, skip upload
 			return `${MEDIA_CDN_URL}/${newKey}`;
-		} catch (headError) {
+		} catch (_headError) {
 			// File doesn't exist, continue with download/upload
 		}
 
@@ -172,7 +206,7 @@ async function copyS3File(oldKey: string, newKey: string, mediaId: string, filen
  * @returns The S3 key (path) if successful, null otherwise
  */
 async function migrateMediaFile(mediaId: string, entityType: string, entityId: string): Promise<string | null> {
-	const mediaItem = backupData.media?.find((m: any) => m.id === mediaId);
+	const mediaItem = backupData.media?.find((m) => m.id === mediaId);
 	if (!mediaItem) {
 		console.log(`  ⚠️  Media ${mediaId} not found in backup`);
 		return null;
@@ -210,12 +244,12 @@ const getTableName = (entity: string): string => {
  * Convert Lexical JSON to HTML
  * Simplified converter - extracts text and basic formatting
  */
-function lexicalToHtml(lexicalData: any): string {
+function lexicalToHtml(lexicalData: LexicalData): string {
 	if (!lexicalData?.root?.children) {
 		return "";
 	}
 
-	const convertNode = (node: any): string => {
+	const convertNode = (node: LexicalNode): string => {
 		// Text node
 		if (node.text !== undefined) {
 			let text = node.text;
@@ -254,12 +288,12 @@ function lexicalToHtml(lexicalData: any): string {
 /**
  * Extract plain text from Lexical for excerpt generation
  */
-function lexicalToPlainText(lexicalData: any): string {
+function lexicalToPlainText(lexicalData: LexicalData): string {
 	if (!lexicalData?.root?.children) {
 		return "";
 	}
 
-	const extractText = (node: any): string => {
+	const extractText = (node: LexicalNode): string => {
 		if (node.text !== undefined) {
 			return node.text;
 		}
@@ -278,7 +312,8 @@ function lexicalToPlainText(lexicalData: any): string {
 async function migrateNews(dryRun: boolean): Promise<void> {
 	console.log("\n📰 Migrating News...");
 
-	const rows = backupData.news || [];
+	// biome-ignore lint/suspicious/noExplicitAny: Migration script working with dynamic JSON data
+	const rows = (backupData.news || []) as any[];
 	console.log(`Found ${rows.length} news articles`);
 
 	let migrated = 0;
@@ -287,20 +322,12 @@ async function migrateNews(dryRun: boolean): Promise<void> {
 	for (const row of rows) {
 		try {
 			console.log(`\n📄 [${migrated + 1}/${rows.length}] ${row.title.substring(0, 60)}...`);
-			
+
 			// Use fallback date if timestamps are null (common with Payload CMS)
 			const fallbackDate = new Date("2024-01-01T00:00:00Z").toISOString();
-			const createdAt = row.createdAt
-				? new Date(row.createdAt).toISOString()
-				: fallbackDate;
-			const updatedAt = row.updatedAt
-				? new Date(row.updatedAt).toISOString()
-				: fallbackDate;
-			const publishedDate = row.publishedDate
-				? new Date(row.publishedDate).toISOString()
-				: row.createdAt
-					? new Date(row.createdAt).toISOString()
-					: fallbackDate;
+			const createdAt = row.createdAt ? new Date(row.createdAt).toISOString() : fallbackDate;
+			const updatedAt = row.updatedAt ? new Date(row.updatedAt).toISOString() : fallbackDate;
+			const publishedDate = row.publishedDate ? new Date(row.publishedDate).toISOString() : row.createdAt ? new Date(row.createdAt).toISOString() : fallbackDate;
 
 			// Convert Lexical to HTML
 			const htmlContent = lexicalToHtml(row.content);
@@ -324,9 +351,7 @@ async function migrateNews(dryRun: boolean): Promise<void> {
 					const batchNum = Math.floor(i / batchSize) + 1;
 					const totalBatches = Math.ceil(row.imageIds.length / batchSize);
 					console.log(`      Batch ${batchNum}/${totalBatches}: uploading ${batch.length} images...`);
-					const results = await Promise.all(
-						batch.map((imageId: string) => migrateMediaFile(imageId, "news", row.id)),
-					);
+					const results = await Promise.all(batch.map((imageId: string) => migrateMediaFile(imageId, "news", row.id)));
 					// Add successful uploads to the array
 					for (const s3Key of results) {
 						if (s3Key) {
@@ -376,7 +401,9 @@ async function migrateNews(dryRun: boolean): Promise<void> {
 	console.log(`✅ News migration complete: ${migrated}/${rows.length} successful`);
 	if (errors.length > 0) {
 		console.log(`❌ Errors: ${errors.length}`);
-		errors.forEach((e) => console.log(`  - ${e.id}: ${e.error}`));
+		for (const e of errors) {
+			console.log(`  - ${e.id}: ${e.error}`);
+		}
 	}
 }
 
@@ -386,7 +413,8 @@ async function migrateNews(dryRun: boolean): Promise<void> {
 async function migrateEvents(dryRun: boolean): Promise<void> {
 	console.log("\n📅 Migrating Events...");
 
-	const rows = backupData.events || [];
+	// biome-ignore lint/suspicious/noExplicitAny: Migration script working with dynamic JSON data
+	const rows = (backupData.events || []) as any[];
 	console.log(`Found ${rows.length} events`);
 
 	let migrated = 0;
@@ -438,7 +466,8 @@ async function migrateEvents(dryRun: boolean): Promise<void> {
 async function migrateMembers(dryRun: boolean): Promise<void> {
 	console.log("\n👥 Migrating Members...");
 
-	const rows = backupData.members || [];
+	// biome-ignore lint/suspicious/noExplicitAny: Migration script working with dynamic JSON data
+	const rows = (backupData.members || []) as any[];
 	console.log(`Found ${rows.length} members`);
 
 	let migrated = 0;
@@ -453,7 +482,7 @@ async function migrateMembers(dryRun: boolean): Promise<void> {
 			// Upload avatar to S3 with entity-specific path
 			let avatarS3Key: string | undefined;
 			if (row.avatarS3Key && oldS3Client && newS3Client) {
-				const s3Key = await migrateMediaFile(row.avatarS3Key, 'members', row.id);
+				const s3Key = await migrateMediaFile(row.avatarS3Key, "members", row.id);
 				if (s3Key) {
 					avatarS3Key = s3Key;
 				}
@@ -493,7 +522,9 @@ async function migrateMembers(dryRun: boolean): Promise<void> {
 	console.log(`✅ Members migration complete: ${migrated}/${rows.length} successful`);
 	if (errors.length > 0) {
 		console.log(`❌ Errors: ${errors.length}`);
-		errors.forEach((e) => console.log(`  - ${e.id}: ${e.error}`));
+		for (const e of errors) {
+			console.log(`  - ${e.id}: ${e.error}`);
+		}
 	}
 }
 
@@ -503,7 +534,8 @@ async function migrateMembers(dryRun: boolean): Promise<void> {
 async function migrateTeams(dryRun: boolean): Promise<void> {
 	console.log("\n🏐 Migrating Teams...");
 
-	const rows = backupData.teams || [];
+	// biome-ignore lint/suspicious/noExplicitAny: Migration script working with dynamic JSON data
+	const rows = (backupData.teams || []) as any[];
 	console.log(`Found ${rows.length} teams`);
 
 	let migrated = 0;
@@ -528,7 +560,7 @@ async function migrateTeams(dryRun: boolean): Promise<void> {
 				const uploadedKeys: string[] = [];
 				for (const imageId of row.imageIds) {
 					if (imageId) {
-						const s3Key = await migrateMediaFile(imageId, 'teams', row.id);
+						const s3Key = await migrateMediaFile(imageId, "teams", row.id);
 						if (s3Key) {
 							uploadedKeys.push(s3Key);
 						}
@@ -577,7 +609,9 @@ async function migrateTeams(dryRun: boolean): Promise<void> {
 	console.log(`✅ Teams migration complete: ${migrated}/${rows.length} successful`);
 	if (errors.length > 0) {
 		console.log(`❌ Errors: ${errors.length}`);
-		errors.forEach((e) => console.log(`  - ${e.id}: ${e.error}`));
+		for (const e of errors) {
+			console.log(`  - ${e.id}: ${e.error}`);
+		}
 	}
 }
 
@@ -587,7 +621,8 @@ async function migrateTeams(dryRun: boolean): Promise<void> {
 async function migrateLocations(dryRun: boolean): Promise<void> {
 	console.log("\n📍 Migrating Locations...");
 
-	const rows = backupData.locations || [];
+	// biome-ignore lint/suspicious/noExplicitAny: Migration script working with dynamic JSON data
+	const rows = (backupData.locations || []) as any[];
 	console.log(`Found ${rows.length} locations`);
 
 	let migrated = 0;
@@ -631,7 +666,9 @@ async function migrateLocations(dryRun: boolean): Promise<void> {
 	console.log(`✅ Locations migration complete: ${migrated}/${rows.length} successful`);
 	if (errors.length > 0) {
 		console.log(`❌ Errors: ${errors.length}`);
-		errors.forEach((e) => console.log(`  - ${e.id}: ${e.error}`));
+		for (const e of errors) {
+			console.log(`  - ${e.id}: ${e.error}`);
+		}
 	}
 }
 
@@ -641,7 +678,8 @@ async function migrateLocations(dryRun: boolean): Promise<void> {
 async function migrateBusBookings(dryRun: boolean): Promise<void> {
 	console.log("\n🚌 Migrating Bus Bookings...");
 
-	const rows = backupData.busBookings || [];
+	// biome-ignore lint/suspicious/noExplicitAny: Migration script working with dynamic JSON data
+	const rows = (backupData.busBookings || []) as any[];
 	console.log(`Found ${rows.length} bus bookings`);
 
 	let migrated = 0;
@@ -691,7 +729,9 @@ async function migrateBusBookings(dryRun: boolean): Promise<void> {
 	console.log(`✅ Bus Bookings migration complete: ${migrated}/${rows.length} successful`);
 	if (errors.length > 0) {
 		console.log(`❌ Errors: ${errors.length}`);
-		errors.forEach((e) => console.log(`  - ${e.id}: ${e.error}`));
+		for (const e of errors) {
+			console.log(`  - ${e.id}: ${e.error}`);
+		}
 	}
 }
 
@@ -703,7 +743,7 @@ async function main() {
 	console.log(`Environment: ${ENVIRONMENT}`);
 	console.log(`Branch: ${BRANCH}`);
 	console.log(`Mode: ${isDryRun ? "DRY RUN" : "LIVE"}`);
-	
+
 	if (migrateAll) {
 		console.log("Collections: ALL (locations, busBookings, members, teams, news, events)");
 	} else if (collection) {

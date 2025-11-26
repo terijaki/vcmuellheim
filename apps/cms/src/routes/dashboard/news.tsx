@@ -1,5 +1,5 @@
 import type { NewsInput } from "@lib/db/schemas";
-import { ActionIcon, Badge, Box, Button, Card, Group, Image, Modal, Paper, SegmentedControl, Select, Stack, Table, Text, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Badge, Box, Button, Card, Group, Image, Modal, Paper, Pill, SegmentedControl, Select, Stack, Table, Text, TextInput, Title } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure } from "@mantine/hooks";
@@ -427,16 +427,18 @@ function NewsPage() {
 											)}
 										</Table.Td>
 										<Table.Td>
-											<Badge color={article.status === "published" ? "green" : article.status === "draft" ? "yellow" : "gray"} variant="light">
+											<Pill color={article.status === "published" ? "green" : article.status === "draft" ? "yellow" : "gray"}>
 												{article.status === "published" ? "Veröffentlicht" : article.status === "draft" ? "Entwurf" : "Archiviert"}
+											</Pill>
+										</Table.Td>
+										<Table.Td>{dayjs(article.publishedDate).format("DD.MM.YYYY")}</Table.Td>
+										<Table.Td align="center">
+											<Badge size="md" variant="light">
+												{article.imageS3Keys?.length || 0}
 											</Badge>
 										</Table.Td>
-										<Table.Td>{dayjs(article.publishedDate).format("DD.MM.YYYY HH:mm")}</Table.Td>
-										<Table.Td>
-											<Badge size="sm">{article.imageS3Keys?.length || 0}</Badge>
-										</Table.Td>
-										<Table.Td>
-											<Group gap="xs">
+										<Table.Td style={{ whiteSpace: "nowrap" }}>
+											<Group gap="xs" wrap="nowrap">
 												<Button size="xs" onClick={() => handleEdit(article)}>
 													Bearbeiten
 												</Button>
