@@ -254,7 +254,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		// Redirect to Cognito logout URL
 		if (cognitoConfig?.hostedUi) {
 			const logoutUrl = `${window.location.origin}/login`;
-			const cognitoLogoutUrl = `${cognitoConfig.hostedUi.baseUrl}/logout?client_id=${cognitoConfig.clientId}&logout_uri=${encodeURIComponent(logoutUrl)}`;
+			const cognitoLogoutUrl = `${cognitoConfig.hostedUi.baseUrl}/logout?client_id=${cognitoConfig.clientId}&logout_uri=${encodeURIComponent(logoutUrl)}&lang=de`;
 			window.location.href = cognitoLogoutUrl;
 		}
 	};
