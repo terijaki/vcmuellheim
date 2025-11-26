@@ -1,27 +1,14 @@
-import { Alert, Button, Container, Paper, PasswordInput, TextInput, Title } from "@mantine/core";
+import { Alert, Button, Container, Paper, Text, Title } from "@mantine/core";
 import { createFileRoute, Navigate } from "@tanstack/react-router";
-import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 
 function LoginPage() {
-	const { login, isAuthenticated, error } = useAuth();
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
-	const [isLoading, setIsLoading] = useState(false);
+	const { redirectToLogin, isAuthenticated, error } = useAuth();
 
+	// Redirect authenticated users to dashboard
 	if (isAuthenticated) {
 		return <Navigate to="/dashboard" />;
 	}
-
-	const handleLogin = async (e: React.FormEvent) => {
-		e.preventDefault();
-		setIsLoading(true);
-		try {
-			await login(username, password);
-		} finally {
-			setIsLoading(false);
-		}
-	};
 
 	return (
 		<Container size="xs" style={{ marginTop: "5rem" }}>
@@ -34,17 +21,17 @@ function LoginPage() {
 						{error}
 					</Alert>
 				)}
-				<form onSubmit={handleLogin}>
-					<TextInput label="E-Mail" placeholder="ihre@email.de" value={username} onChange={(e) => setUsername(e.target.value)} required mb="md" />
-					<PasswordInput label="Passwort" placeholder="Ihr Passwort" value={password} onChange={(e) => setPassword(e.target.value)} required mb="md" />
-					<Button type="submit" fullWidth loading={isLoading}>
-						Anmelden
-					</Button>
-				</form>
+				<Text mb="md" ta="center">
+					Melden Sie sich mit Ihrem AWS Cognito-Konto an.
+				</Text>
+				<Button onClick={redirectToLogin} fullWidth>
+					Mit Cognito anmelden
+				</Button>
 			</Paper>
 		</Container>
 	);
 }
+
 export const Route = createFileRoute("/login")({
 	component: LoginPage,
 });

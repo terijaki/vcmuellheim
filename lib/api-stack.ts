@@ -30,9 +30,12 @@ export class ApiStack extends cdk.Stack {
 	public readonly api: apigatewayv2.HttpApi;
 	public readonly userPool: cognito.UserPool;
 	public readonly userPoolClient: cognito.UserPoolClient;
+	public readonly userPoolDomain: cognito.UserPoolDomain;
 	public readonly trpcLambda: lambda.Function;
 	public readonly apiDomainName?: apigatewayv2.DomainName;
 	public readonly apiUrl: string;
+	public readonly cmsCallbackUrl: string;
+	public readonly cognitoHostedUiUrl: string;
 
 	constructor(scope: Construct, id: string, props: ApiStackProps) {
 		super(scope, id, props);
@@ -43,6 +46,10 @@ export class ApiStack extends cdk.Stack {
 		const isProd = environment === "prod";
 		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
 		const apiDomain = `${envPrefix}api.new.${Club.domain}`;
+		const cmsDomain = `${envPrefix}admin.new.${Club.domain}`;
+
+		// CMS callback URL for OAuth2
+		this.cmsCallbackUrl = `https://${cmsDomain}/auth/callback`;
 
 		// 1. Cognito User Pool for admin authentication
 		this.userPool = new cognito.UserPool(this, "AdminUserPool", {
@@ -109,8 +116,36 @@ export class ApiStack extends cdk.Stack {
 					authorizationCodeGrant: true,
 				},
 				scopes: [cognito.OAuthScope.EMAIL, cognito.OAuthScope.OPENID, cognito.OAuthScope.PROFILE],
+				callbackUrls: [
+					this.cmsCallbackUrl,
+					// Add localhost for development
+					"http://localhost:3081/auth/callback",
+				],
+				logoutUrls: [
+					`https://${cmsDomain}/login`,
+					// Add localhost for development
+					"http://localhost:3081/login",
+				],
+			},
+			preventUserExistenceErrors: true,
+			supportedIdentityProviders: [cognito.UserPoolClientIdentityProvider.COGNITO],
+		});
+
+		// Add Cognito Domain for Hosted UI
+		// Sanitize branch name: lowercase, replace non-alphanumeric with hyphens, max length
+		// Note: Cannot use reserved words like 'aws' in domain name
+		const sanitizedBranch = branch
+			? `-${branch.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/aws/g, "").substring(0, 20)}`
+			: "";
+		const cognitoDomainPrefix = `vcmuellheim-cms-${environment}${sanitizedBranch}`;
+		this.userPoolDomain = this.userPool.addDomain("CognitoDomain", {
+			cognitoDomain: {
+				domainPrefix: cognitoDomainPrefix,
 			},
 		});
+
+		// Construct Hosted UI URL
+		this.cognitoHostedUiUrl = `https://${cognitoDomainPrefix}.auth.${cdk.Stack.of(this).region}.amazoncognito.com`;
 
 		// 2. tRPC Lambda Function
 		const tables = {
@@ -136,6 +171,8 @@ export class ApiStack extends cdk.Stack {
 				CDK_ENVIRONMENT: environment,
 				COGNITO_USER_POOL_ID: this.userPool.userPoolId,
 				COGNITO_USER_POOL_CLIENT_ID: this.userPoolClient.userPoolClientId,
+				COGNITO_HOSTED_UI_URL: this.cognitoHostedUiUrl,
+				CMS_CALLBACK_URL: this.cmsCallbackUrl,
 				...(props.samsApiUrl ? { SAMS_API_URL: props.samsApiUrl } : {}),
 				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
 				...(props.cloudFrontUrl ? { CLOUDFRONT_URL: props.cloudFrontUrl } : {}),
@@ -235,6 +272,18 @@ export class ApiStack extends cdk.Stack {
 			value: this.userPoolClient.userPoolClientId,
 			description: "Cognito User Pool Client ID",
 			exportName: `vcm-user-pool-client-id-${environment}${branchSuffix}`,
+		});
+
+		new cdk.CfnOutput(this, "CognitoHostedUiUrl", {
+			value: this.cognitoHostedUiUrl,
+			description: "Cognito Hosted UI URL",
+			exportName: `vcm-cognito-hosted-ui-url-${environment}${branchSuffix}`,
+		});
+
+		new cdk.CfnOutput(this, "CmsCallbackUrl", {
+			value: this.cmsCallbackUrl,
+			description: "CMS OAuth2 Callback URL",
+			exportName: `vcm-cms-callback-url-${environment}${branchSuffix}`,
 		});
 	}
 }

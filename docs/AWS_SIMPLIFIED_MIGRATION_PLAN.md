@@ -141,12 +141,13 @@
    - ✅ Dynamic API URL computation (hostname-based + Git branch detection)
    - ✅ Dynamic Cognito config fetching from API
    - ✅ tRPC provider with auth token injection
-   - [ ] **Switch to Cognito Hosted UI** (Managed Login Pages)
-     - Configure Cognito domain in ApiStack
-     - Add OAuth flows to User Pool Client
-     - Update CMS to use OAuth authorization code flow
-     - Remove custom login form (apps/cms/src/auth/AuthContext.tsx)
-     - Implement OAuth callback handler
+   - [x] **Switch to Cognito Hosted UI** (Managed Login Pages)
+     - ✅ Configure Cognito domain in ApiStack
+     - ✅ Add OAuth flows to User Pool Client with callback URLs
+     - ✅ Update CMS to use OAuth authorization code flow with PKCE
+     - ✅ Remove custom login form (apps/cms/src/auth/AuthContext.tsx)
+     - ✅ Implement OAuth callback handler (apps/cms/src/routes/callback.tsx)
+     - ✅ Expose Hosted UI URLs via tRPC config endpoint
 
 4. [x] **Authentication Integration**
    - ✅ JWT verification implemented (lib/trpc/context.ts)

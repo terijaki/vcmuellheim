@@ -1,8 +1,45 @@
-import { type AuthFlowType, CognitoIdentityProviderClient, InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { createContext, useContext, useEffect, useState } from "react";
 
+// PKCE helper functions
+function generateRandomString(length: number): string {
+	const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
+	const randomValues = new Uint8Array(length);
+	crypto.getRandomValues(randomValues);
+	return Array.from(randomValues)
+		.map((v) => charset[v % charset.length])
+		.join("");
+}
+
+async function sha256(plain: string): Promise<ArrayBuffer> {
+	const encoder = new TextEncoder();
+	const data = encoder.encode(plain);
+	return crypto.subtle.digest("SHA-256", data);
+}
+
+function base64UrlEncode(arrayBuffer: ArrayBuffer): string {
+	const bytes = new Uint8Array(arrayBuffer);
+	let binary = "";
+	for (let i = 0; i < bytes.byteLength; i++) {
+		binary += String.fromCharCode(bytes[i]);
+	}
+	return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+}
+
+async function generatePKCEChallenge(verifier: string): Promise<string> {
+	const hashed = await sha256(verifier);
+	return base64UrlEncode(hashed);
+}
+
 // Fetch Cognito config from API
-async function fetchCognitoConfig(): Promise<{ region: string; clientId: string }> {
+async function fetchCognitoConfig(): Promise<{
+	region: string;
+	clientId: string;
+	hostedUi?: {
+		baseUrl: string;
+		loginUrl: string;
+		logoutUrl: string;
+	};
+}> {
 	// Compute API URL based on environment and branch (same pattern as CDK)
 	const hostname = typeof window !== "undefined" ? window.location.hostname : "";
 	let apiUrl = "";
@@ -42,6 +79,7 @@ async function fetchCognitoConfig(): Promise<{ region: string; clientId: string 
 	return {
 		region: cognitoData.region,
 		clientId: cognitoData.clientId,
+		hostedUi: cognitoData.hostedUi,
 	};
 }
 
@@ -58,31 +96,42 @@ interface AuthContextType {
 	isLoading: boolean;
 	isAuthenticated: boolean;
 	idToken: string | null;
-	login: (username: string, password: string) => Promise<void>;
+	loginUrl: string | null;
+	logoutUrl: string | null;
+	redirectToLogin: () => void;
 	logout: () => void;
+	handleCallback: (code: string, state: string) => Promise<void>;
 	error: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const AUTH_STORAGE_KEY = "vcm-auth";
+const PKCE_VERIFIER_KEY = "vcm-pkce-verifier";
+const OAUTH_STATE_KEY = "vcm-oauth-state";
 
-let cognitoClient: CognitoIdentityProviderClient | null = null;
-let cognitoClientId = "";
+let cognitoConfig: Awaited<ReturnType<typeof fetchCognitoConfig>> | null = null;
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const [user, setUser] = useState<AuthUser | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [configLoaded, setConfigLoaded] = useState(false);
+	const [loginUrl, setLoginUrl] = useState<string | null>(null);
+	const [logoutUrl, setLogoutUrl] = useState<string | null>(null);
 
 	// Fetch Cognito config on mount
 	useEffect(() => {
 		fetchCognitoConfig()
 			.then((config) => {
-				cognitoClient = new CognitoIdentityProviderClient({ region: config.region });
-				cognitoClientId = config.clientId;
+				cognitoConfig = config;
 				setConfigLoaded(true);
+
+				// Set login and logout URLs from config
+				if (config.hostedUi) {
+					setLoginUrl(config.hostedUi.loginUrl);
+					setLogoutUrl(config.hostedUi.logoutUrl);
+				}
 			})
 			.catch((err) => {
 				console.error("Failed to load Cognito config:", err);
@@ -107,9 +156,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		setIsLoading(false);
 	}, [configLoaded]);
 
-	const login = async (username: string, password: string) => {
-		if (!cognitoClient || !cognitoClientId) {
-			setError("Authentication not initialized");
+	const redirectToLogin = async () => {
+		if (!cognitoConfig?.hostedUi) {
+			setError("Hosted UI not configured");
+			return;
+		}
+
+		// Generate PKCE verifier and challenge
+		const verifier = generateRandomString(128);
+		const challenge = await generatePKCEChallenge(verifier);
+		const state = generateRandomString(32);
+
+		// Store verifier and state for callback
+		sessionStorage.setItem(PKCE_VERIFIER_KEY, verifier);
+		sessionStorage.setItem(OAUTH_STATE_KEY, state);
+
+		// Build login URL with PKCE
+		const callbackUrl = `${window.location.origin}/auth/callback`;
+		const loginUrl = `${cognitoConfig.hostedUi.baseUrl}/login?client_id=${cognitoConfig.clientId}&response_type=code&scope=email+openid+profile&redirect_uri=${encodeURIComponent(callbackUrl)}&code_challenge=${challenge}&code_challenge_method=S256&state=${state}`;
+
+		// Redirect to Cognito Hosted UI
+		window.location.href = loginUrl;
+	};
+
+	const handleCallback = async (code: string, state: string) => {
+		if (!cognitoConfig?.hostedUi) {
+			setError("Hosted UI not configured");
 			return;
 		}
 
@@ -117,42 +189,67 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		setError(null);
 
 		try {
-			const command = new InitiateAuthCommand({
-				AuthFlow: "USER_PASSWORD_AUTH" as AuthFlowType,
-				ClientId: cognitoClientId,
-				AuthParameters: {
-					USERNAME: username,
-					PASSWORD: password,
-				},
-			});
-
-			const response = await cognitoClient.send(command);
-
-			if (!response.AuthenticationResult) {
-				throw new Error("Authentication failed - no tokens received");
+			// Verify state
+			const storedState = sessionStorage.getItem(OAUTH_STATE_KEY);
+			if (state !== storedState) {
+				throw new Error("Invalid state parameter - possible CSRF attack");
 			}
 
-			const { IdToken, AccessToken, RefreshToken } = response.AuthenticationResult;
+			// Get PKCE verifier
+			const verifier = sessionStorage.getItem(PKCE_VERIFIER_KEY);
+			if (!verifier) {
+				throw new Error("PKCE verifier not found");
+			}
 
-			if (!IdToken || !AccessToken) {
-				throw new Error("Invalid authentication response");
+			// Exchange code for tokens
+			const callbackUrl = `${window.location.origin}/auth/callback`;
+			const tokenUrl = `${cognitoConfig.hostedUi.baseUrl}/oauth2/token`;
+
+			const tokenResponse = await fetch(tokenUrl, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded",
+				},
+				body: new URLSearchParams({
+					grant_type: "authorization_code",
+					client_id: cognitoConfig.clientId,
+					code,
+					redirect_uri: callbackUrl,
+					code_verifier: verifier,
+				}),
+			});
+
+			if (!tokenResponse.ok) {
+				const errorText = await tokenResponse.text();
+				console.error("Token exchange failed:", errorText);
+				throw new Error(`Token exchange failed: ${tokenResponse.status}`);
+			}
+
+			const tokens = await tokenResponse.json();
+
+			if (!tokens.id_token || !tokens.access_token) {
+				throw new Error("Invalid token response");
 			}
 
 			// Decode JWT to get user info (basic decode, no verification needed here)
-			const payload = JSON.parse(atob(IdToken.split(".")[1]));
+			const payload = JSON.parse(atob(tokens.id_token.split(".")[1]));
 
 			const authUser: AuthUser = {
-				username,
+				username: payload["cognito:username"] || payload.email,
 				email: payload.email,
-				idToken: IdToken,
-				accessToken: AccessToken,
-				refreshToken: RefreshToken,
+				idToken: tokens.id_token,
+				accessToken: tokens.access_token,
+				refreshToken: tokens.refresh_token,
 			};
 
 			setUser(authUser);
 			localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authUser));
+
+			// Clear PKCE data
+			sessionStorage.removeItem(PKCE_VERIFIER_KEY);
+			sessionStorage.removeItem(OAUTH_STATE_KEY);
 		} catch (err) {
-			const errorMessage = err instanceof Error ? err.message : "Login failed";
+			const errorMessage = err instanceof Error ? err.message : "Authentication failed";
 			setError(errorMessage);
 			throw err;
 		} finally {
@@ -163,6 +260,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const logout = () => {
 		setUser(null);
 		localStorage.removeItem(AUTH_STORAGE_KEY);
+		sessionStorage.removeItem(PKCE_VERIFIER_KEY);
+		sessionStorage.removeItem(OAUTH_STATE_KEY);
+
+		// Redirect to Cognito logout URL
+		if (cognitoConfig?.hostedUi?.logoutUrl) {
+			window.location.href = cognitoConfig.hostedUi.logoutUrl;
+		}
 	};
 
 	return (
@@ -172,8 +276,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				isLoading,
 				isAuthenticated: !!user,
 				idToken: user?.idToken ?? null,
-				login,
+				loginUrl,
+				logoutUrl,
+				redirectToLogin,
 				logout,
+				handleCallback,
 				error,
 			}}
 		>
