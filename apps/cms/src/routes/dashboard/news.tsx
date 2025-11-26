@@ -247,7 +247,6 @@ function NewsPage() {
 				<Title order={2}>News</Title>
 				<Button onClick={handleOpenNew}>Neuer Artikel</Button>
 			</Group>
-
 			<Group>
 				<TextInput placeholder="Artikel suchen..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} style={{ flex: 1 }} />
 				<SegmentedControl

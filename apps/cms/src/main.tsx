@@ -2,7 +2,7 @@ import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import "@mantine/notifications/styles.css";
 import "@mantine/tiptap/styles.css";
-import { colorsTuple, createTheme, MantineProvider } from "@mantine/core";
+import { ColorSchemeScript, colorsTuple, createTheme, MantineProvider } from "@mantine/core";
 import { DatesProvider } from "@mantine/dates";
 import { Notifications } from "@mantine/notifications";
 import { RouterProvider } from "@tanstack/react-router";
@@ -46,7 +46,8 @@ createRoot(rootElement).render(
 	<StrictMode>
 		<AuthProvider>
 			<TRPCProvider>
-				<MantineProvider theme={theme}>
+				<ColorSchemeScript defaultColorScheme="auto" />
+				<MantineProvider theme={theme} defaultColorScheme="auto">
 					<Notifications position="top-right" />
 					<DatesProvider settings={{ locale: "de" }}>
 						<RouterProvider router={router} />
