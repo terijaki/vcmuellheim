@@ -196,14 +196,14 @@
 ### Tasks:
 
 1. [ ] **Create Vite + React App**
-   - Initialize new Vite project (`frontend/` or convert existing `app/`)
+   - Initialize new Vite project (`src/website/`)
    - Set up TanStack Router for client-side routing
    - Migrate existing components (already have many reusable ones)
    - Keep Mantine UI library
 
 2. [ ] **Data Fetching**
    - Replace Next.js server components with client-side fetching
-   - Use TanStack Query (React Query) for caching and state management
+   - Use TanStack Query (React Query) for caching and state management (inside TanStack Router loader?)
    - Create API client for Lambda/API Gateway endpoints
    - Consider ISR alternative: CloudFront cache with Lambda@Edge for dynamic data
 

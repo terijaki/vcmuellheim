@@ -21,7 +21,10 @@
 		"dayjs": "catalog:",
 		"react": "catalog:",
 		"react-dom": "catalog:",
-		"superjson": "catalog:"
+		"superjson": "catalog:",
+		"react-icons": "^5.5.0",
+		"react-world-flags": "^1.6.0",
+		"num-words-de": "^1.1.0"
 	},
 	"devDependencies": {
 		"@tanstack/router-plugin": "catalog:",
