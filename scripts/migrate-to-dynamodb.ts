@@ -62,7 +62,7 @@ dotenv.config({ path: resolve(process.cwd(), ".env.production.local"), override:
 // Configuration
 const AWS_REGION = process.env.CDK_REGION || "eu-central-1";
 const ENVIRONMENT = process.env.CDK_ENVIRONMENT || "dev";
-const BRANCH = process.env.GIT_BRANCH || "aws-migration";
+const BRANCH = ENVIRONMENT === "prod" ? "" : process.env.GIT_BRANCH || "aws-migration";
 
 // Parse command line arguments
 const args = process.argv.slice(2);
