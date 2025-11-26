@@ -46,7 +46,10 @@ export class SocialMediaStack extends cdk.Stack {
 		const apifyActorId = process.env.APIFY_ACTOR_ID || "nH2AHrwxeTRJoN5hX";
 
 		if (!apifyApiKey) {
-			console.warn("⚠️ APIFY_API_KEY not set - Instagram sync will not work");
+			const isCdkDestroy = process.argv.some((a) => /destroy/i.test(a));
+			if (!isCdkDestroy) {
+				throw new Error("❌ APIFY_API_KEY environment variable is required");
+			}
 		}
 
 		// Create DynamoDB table for storing Instagram posts
