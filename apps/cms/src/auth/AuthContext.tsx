@@ -36,8 +36,6 @@ async function fetchCognitoConfig(): Promise<{
 	clientId: string;
 	hostedUi?: {
 		baseUrl: string;
-		loginUrl: string;
-		logoutUrl: string;
 	};
 }> {
 	// Compute API URL based on environment and branch (same pattern as CDK)
@@ -96,8 +94,6 @@ interface AuthContextType {
 	isLoading: boolean;
 	isAuthenticated: boolean;
 	idToken: string | null;
-	loginUrl: string | null;
-	logoutUrl: string | null;
 	redirectToLogin: () => void;
 	logout: () => void;
 	handleCallback: (code: string, state: string) => Promise<void>;
@@ -117,8 +113,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [configLoaded, setConfigLoaded] = useState(false);
-	const [loginUrl, setLoginUrl] = useState<string | null>(null);
-	const [logoutUrl, setLogoutUrl] = useState<string | null>(null);
 
 	// Fetch Cognito config on mount
 	useEffect(() => {
@@ -126,12 +120,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			.then((config) => {
 				cognitoConfig = config;
 				setConfigLoaded(true);
-
-				// Set login and logout URLs from config
-				if (config.hostedUi) {
-					setLoginUrl(config.hostedUi.loginUrl);
-					setLogoutUrl(config.hostedUi.logoutUrl);
-				}
 			})
 			.catch((err) => {
 				console.error("Failed to load Cognito config:", err);
@@ -264,8 +252,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		sessionStorage.removeItem(OAUTH_STATE_KEY);
 
 		// Redirect to Cognito logout URL
-		if (cognitoConfig?.hostedUi?.logoutUrl) {
-			window.location.href = cognitoConfig.hostedUi.logoutUrl;
+		if (cognitoConfig?.hostedUi) {
+			const logoutUrl = `${window.location.origin}/login`;
+			const cognitoLogoutUrl = `${cognitoConfig.hostedUi.baseUrl}/logout?client_id=${cognitoConfig.clientId}&logout_uri=${encodeURIComponent(logoutUrl)}`;
+			window.location.href = cognitoLogoutUrl;
 		}
 	};
 
@@ -276,8 +266,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				isLoading,
 				isAuthenticated: !!user,
 				idToken: user?.idToken ?? null,
-				loginUrl,
-				logoutUrl,
 				redirectToLogin,
 				logout,
 				handleCallback,

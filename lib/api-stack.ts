@@ -30,7 +30,7 @@ export class ApiStack extends cdk.Stack {
 	public readonly api: apigatewayv2.HttpApi;
 	public readonly userPool: cognito.UserPool;
 	public readonly userPoolClient: cognito.UserPoolClient;
-	public readonly userPoolDomain: cognito.UserPoolDomain;
+	public readonly userPoolDomain: cognito.CfnUserPoolDomain;
 	public readonly trpcLambda: lambda.Function;
 	public readonly apiDomainName?: apigatewayv2.DomainName;
 	public readonly apiUrl: string;
@@ -118,34 +118,63 @@ export class ApiStack extends cdk.Stack {
 				scopes: [cognito.OAuthScope.EMAIL, cognito.OAuthScope.OPENID, cognito.OAuthScope.PROFILE],
 				callbackUrls: [
 					this.cmsCallbackUrl,
-					// Add localhost for development
-					"http://localhost:3081/auth/callback",
+					// Add localhost for development only
+					...(!isProd ? ["http://localhost:3081/auth/callback"] : []),
 				],
 				logoutUrls: [
 					`https://${cmsDomain}/login`,
-					// Add localhost for development
-					"http://localhost:3081/login",
+					// Add localhost for development only
+					...(!isProd ? ["http://localhost:3081/login"] : []),
 				],
 			},
 			preventUserExistenceErrors: true,
 			supportedIdentityProviders: [cognito.UserPoolClientIdentityProvider.COGNITO],
 		});
 
-		// Add Cognito Domain for Hosted UI
-		// Sanitize branch name: lowercase, replace non-alphanumeric with hyphens, max length
-		// Note: Cannot use reserved words like 'aws' in domain name
-		const sanitizedBranch = branch
-			? `-${branch.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/aws/g, "").substring(0, 20)}`
-			: "";
-		const cognitoDomainPrefix = `vcmuellheim-cms-${environment}${sanitizedBranch}`;
-		this.userPoolDomain = this.userPool.addDomain("CognitoDomain", {
-			cognitoDomain: {
-				domainPrefix: cognitoDomainPrefix,
-			},
+		// Add Cognito Domain with Managed Login v2 (prefix domain)
+		// Remove reserved words (aws, amazon, cognito) from branch name
+		const cognitoDomainPrefix = String(`${envPrefix}vcmuellheim-cms`).toLowerCase().replace(/aws|amazon|cognito/g, "");
+		this.userPoolDomain = new cognito.CfnUserPoolDomain(this, "CognitoDomain", {
+			userPoolId: this.userPool.userPoolId,
+			domain: cognitoDomainPrefix,
+			managedLoginVersion: 2,
 		});
 
-		// Construct Hosted UI URL
 		this.cognitoHostedUiUrl = `https://${cognitoDomainPrefix}.auth.${cdk.Stack.of(this).region}.amazoncognito.com`;
+
+		// Managed Login Branding (required for Managed Login v2 to work)
+		const managedLoginBranding = new cognito.CfnManagedLoginBranding(this, "ManagedLoginBranding", {
+			userPoolId: this.userPool.userPoolId,
+			clientId: this.userPoolClient.userPoolClientId,
+			useCognitoProvidedValues: false,
+			settings: {
+				components: {
+					primaryButton: {
+						lightMode: {
+							defaults: {
+								backgroundColor: "366273ff", // blumine
+								textColor: "ffffffff",
+							},
+							hover: {
+								backgroundColor: "2d4f5eff", // darker blumine
+								textColor: "ffffffff",
+							},
+						},
+					},
+				},
+				componentClasses: {
+					link: {
+						lightMode: {
+							defaults: {
+								textColor: "01a29aff", // turquoise
+							},
+						},
+					},
+				},
+			},
+		});
+		// Ensure branding is created after the client
+		managedLoginBranding.addDependency(this.userPoolClient.node.defaultChild as cognito.CfnUserPoolClient);
 
 		// 2. tRPC Lambda Function
 		const tables = {
@@ -276,7 +305,7 @@ export class ApiStack extends cdk.Stack {
 
 		new cdk.CfnOutput(this, "CognitoHostedUiUrl", {
 			value: this.cognitoHostedUiUrl,
-			description: "Cognito Hosted UI URL",
+			description: "Cognito Managed Login URL",
 			exportName: `vcm-cognito-hosted-ui-url-${environment}${branchSuffix}`,
 		});
 
