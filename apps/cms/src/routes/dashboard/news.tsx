@@ -285,7 +285,7 @@ function NewsPage() {
 						</Text>
 
 						{/* Existing image */}
-						{formData.imageS3Key && !deleteImage && !imageFile && <ExistingImage s3Key={formData.imageS3Key} onDelete={() => setDeleteImage(true)} />}
+						{formData.imageS3Keys && !deleteImage && !imageFile && <ExistingImage s3Key={formData.imageS3Key} onDelete={() => setDeleteImage(true)} />}
 
 						{/* Deleted image state */}
 						{deleteImage && !imageFile && (
@@ -322,7 +322,7 @@ function NewsPage() {
 						)}
 
 						{/* Dropzone */}
-						{!imageFile && (!formData.imageS3Key || deleteImage) && (
+						{!imageFile && (!formData.imageS3Keys || deleteImage) && (
 							<Dropzone onDrop={(files) => setImageFile(files[0])} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024} maxFiles={1}>
 								<Group justify="center" gap="xl" style={{ minHeight: 120, pointerEvents: "none" }}>
 									<Dropzone.Accept>
@@ -389,7 +389,9 @@ function NewsPage() {
 										</Badge>
 									</Table.Td>
 									<Table.Td>{dayjs(article.publishedDate).format("DD.MM.YYYY HH:mm")}</Table.Td>
-									<Table.Td>{article.imageS3Key ? <Badge size="sm">✓</Badge> : "-"}</Table.Td>
+									<Table.Td>
+										<Badge size="sm">{article.imageS3Keys?.length || 0}</Badge>
+									</Table.Td>
 									<Table.Td>
 										<Group gap="xs">
 											<Button size="xs" onClick={() => handleEdit(article)}>

@@ -1,8 +1,8 @@
 import { AppShell, Burger, Button, Group, NavLink, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { createFileRoute, Link, Navigate, Outlet } from "@tanstack/react-router";
+import { BadgeEuro, Bus, CalendarDays, Contact, Image, MapPinned, Newspaper, Users } from "lucide-react";
 import { useAuth } from "../auth/AuthContext";
-import { Club} from "@/project.config"
 
 function DashboardLayout() {
 	const { isAuthenticated, user, logout } = useAuth();
@@ -19,7 +19,7 @@ function DashboardLayout() {
 					<Group>
 						<Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
 						<Text size="lg" fw={700}>
-							{Club.name}
+							Volleyballclub Müllheim e.V.
 						</Text>
 					</Group>
 					<Group>
@@ -32,15 +32,14 @@ function DashboardLayout() {
 			</AppShell.Header>
 
 			<AppShell.Navbar p="md">
-				<NavLink label="Übersicht" component={Link} to="/dashboard" />
-				<NavLink label="News" component={Link} to="/dashboard/news" />
-				<NavLink label="Termine" component={Link} to="/dashboard/events" />
-				<NavLink label="Mannschaften" component={Link} to="/dashboard/teams" />
-				<NavLink label="Mitglieder" component={Link} to="/dashboard/members" />
-				<NavLink label="Orte" component={Link} to="/dashboard/locations" />
-				<NavLink label="Medien" component={Link} to="/dashboard/media" />
-				<NavLink label="Sponsoren" component={Link} to="/dashboard/sponsors" />
-				<NavLink label="Bus Buchungen" component={Link} to="/dashboard/bus" />
+				<NavLink label="News" leftSection={<Newspaper />} component={Link} to="/dashboard/news" />
+				<NavLink label="Termine" leftSection={<CalendarDays />} component={Link} to="/dashboard/events" />
+				<NavLink label="Mannschaften" leftSection={<Users />} component={Link} to="/dashboard/teams" />
+				<NavLink label="Mitglieder" leftSection={<Contact />} component={Link} to="/dashboard/members" />
+				<NavLink label="Orte" leftSection={<MapPinned />} component={Link} to="/dashboard/locations" />
+				<NavLink label="Medien" leftSection={<Image />} component={Link} to="/dashboard/media" />
+				<NavLink label="Sponsoren" leftSection={<BadgeEuro />} component={Link} to="/dashboard/sponsors" />
+				<NavLink label="Bus Buchungen" leftSection={<Bus />} component={Link} to="/dashboard/bus" />
 			</AppShell.Navbar>
 
 			<AppShell.Main>

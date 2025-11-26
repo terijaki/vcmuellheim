@@ -22,7 +22,7 @@ export const newsSchema = z.object({
 	excerpt: z.string().max(500).optional(),
 	publishedDate: z.iso.datetime(),
 	status: z.enum(["draft", "published", "archived"]),
-	imageS3Key: z.string().optional(),
+	imageS3Keys: z.array(z.string()).optional().describe("Array of S3 keys for image gallery"),
 	tags: z.array(z.string()).optional(),
 });
 

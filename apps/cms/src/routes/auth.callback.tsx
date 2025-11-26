@@ -87,7 +87,7 @@ function CallbackPage() {
 				) : null}
 			</Paper>
 		</Container>
-	)
+	);
 }
 
 export const Route = createFileRoute("/auth/callback")({

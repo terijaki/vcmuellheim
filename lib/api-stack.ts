@@ -133,7 +133,9 @@ export class ApiStack extends cdk.Stack {
 
 		// Add Cognito Domain with Managed Login v2 (prefix domain)
 		// Remove reserved words (aws, amazon, cognito) from branch name
-		const cognitoDomainPrefix = String(`${envPrefix}vcmuellheim-cms`).toLowerCase().replace(/aws|amazon|cognito/g, "");
+		const cognitoDomainPrefix = String(`${envPrefix}vcmuellheim-cms`)
+			.toLowerCase()
+			.replace(/aws|amazon|cognito/g, "");
 		this.userPoolDomain = new cognito.CfnUserPoolDomain(this, "CognitoDomain", {
 			userPoolId: this.userPool.userPoolId,
 			domain: cognitoDomainPrefix,

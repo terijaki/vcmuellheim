@@ -21,12 +21,12 @@ export const configRouter = router({
 			hostedUi: hostedUiUrl
 				? {
 						baseUrl: hostedUiUrl,
-				  }
+					}
 				: undefined,
 		};
-	}),	/**
+	}) /**
 	 * Get API metadata
-	 */
+	 */,
 	info: publicProcedure.query(async () => {
 		return {
 			environment: process.env.CDK_ENVIRONMENT || "dev",

@@ -48,11 +48,18 @@
    - ✅ Successfully deployed to AWS
    - ✅ 8 tables created: News, Events, Teams, Members, Media, Sponsors, Locations, Bus
 
-3. [ ] **Migration Script**
-   - Extract data from current Payload Postgres database
-   - Transform to DynamoDB format
-   - Batch write to new tables
-   - Validate data integrity
+3. [x] **Migration Script**
+   - ✅ Extract data from Payload Postgres database (pg_restore + SQL queries)
+   - ✅ Transform to JSON format (scripts/convert-dump-to-json.sh)
+   - ✅ Zod validation for all entities
+   - ✅ Batch write to DynamoDB with parallel processing
+   - ✅ S3 migration with entity-specific paths (news/{id}/{file}, teams/{id}/{file}, members/{id}/{file})
+   - ✅ Lexical to HTML conversion for news content
+   - ✅ Image gallery support (imageS3Keys arrays)
+   - ✅ HeadObjectCommand optimization (skip already-uploaded files)
+   - ✅ Parallel image uploads (batches of 5)
+   - ✅ All 6 collections migrated: locations (6), busBookings (25), members (14), teams (9), news (159), events (0)
+   - ✅ Total: 213 entities + 834 images migrated
 
 4. [x] **Create Data Access Layer**
    - ✅ Zod v4 validation schemas (lib/db/schemas.ts)
