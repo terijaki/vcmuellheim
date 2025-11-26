@@ -107,8 +107,37 @@ export class CmsStack extends cdk.Stack {
 		}
 
 		// Deploy Vite build output to S3
+		// Build CMS during deployment using local bundling
 		new s3deploy.BucketDeployment(this, "CmsDeployment", {
-			sources: [s3deploy.Source.asset("./apps/cms/dist")],
+			sources: [
+				s3deploy.Source.asset("./apps/cms", {
+					bundling: {
+						image: cdk.DockerImage.fromRegistry("oven/bun:latest"),
+						local: {
+							tryBundle(outputDir: string) {
+								const { execSync } = require("node:child_process");
+								const path = require("node:path");
+								try {
+									// Build the CMS
+									execSync(`VITE_CDK_ENVIRONMENT=${environment} bun run build`, {
+										cwd: path.join(process.cwd(), "apps/cms"),
+										stdio: "inherit",
+									});
+									// Copy build output to CDK output directory
+									const distPath = path.join(process.cwd(), "apps/cms/dist");
+									execSync(`cp -r ${distPath}/* ${outputDir}/`, {
+										stdio: "inherit",
+									});
+									return true;
+								} catch (error) {
+									console.error("Local bundling failed:", error);
+									return false;
+								}
+							},
+						},
+					},
+				}),
+			],
 			destinationBucket: this.bucket,
 			distribution: this.distribution,
 			distributionPaths: ["/*"], // Invalidate all files on deployment
