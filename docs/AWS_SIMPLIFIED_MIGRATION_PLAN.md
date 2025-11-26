@@ -165,6 +165,7 @@
    - ✅ Teams management - Complete with logo upload, trainer avatars, training schedules
    - ✅ Members management - Avatar upload, board member & trainer role toggles
    - ⏳ Media library (upload to S3, manage metadata in DynamoDB) - Placeholder exists, needs implementation
+   - ⏳ User management - Add more users to the Cognito user pool. Roles (Admin, Moderator).
    - ✅ Sponsors management - Logo upload and tier management
    - ✅ Locations management - Full CRUD for event locations
    - ✅ Bus bookings management - Calendar view with booking conflict detection
@@ -215,6 +216,7 @@
      - `/termine` → Events
      - `/fotos` → Photo gallery
      - etc.
+   - IMPORTANT: Handle the ICS endpoints. e.g. webcal://vcmuellheim.de/ics/all.ics, webcal://vcmuellheim.de/ics/herren1.ics
 
 4. [ ] **Build & Optimization**
    - Code splitting with React.lazy

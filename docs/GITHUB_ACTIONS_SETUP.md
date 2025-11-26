@@ -183,7 +183,7 @@ bun run cdk:deploy:prod
 - Only when these files change:
   - `lib/**`
   - `lambda/**`
-  - `cdk.ts`
+  - `bin/cdk.ts`
   - `cdk.json`
   - `package.json`
   - `.github/workflows/cdk-deploy.yml`

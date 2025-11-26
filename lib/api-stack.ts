@@ -55,7 +55,7 @@ export class ApiStack extends cdk.Stack {
 		this.userPool = new cognito.UserPool(this, "AdminUserPool", {
 			userPoolName: `vcm-admin-${environment}${branchSuffix}`,
 			featurePlan: cognito.FeaturePlan.ESSENTIALS,
-			selfSignUpEnabled: !isProd, // Only admins can create accounts
+			selfSignUpEnabled: !isProd,
 			signInCaseSensitive: false,
 			signInAliases: {
 				email: true,

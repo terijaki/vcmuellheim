@@ -8,7 +8,7 @@ on:
     paths:
       - "lib/**"
       - "lambda/**"
-      - "cdk.ts"
+      - "bin/cdk.ts"
       - "cdk.json"
       - "package.json"
       - ".github/workflows/cdk-deploy.yml"

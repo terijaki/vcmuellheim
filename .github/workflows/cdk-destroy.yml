@@ -45,7 +45,7 @@ jobs:
             BRANCH="${{ github.event.pull_request.head.ref }}"
           fi
 
-          # Sanitize branch name same way as cdk.ts does
+          # Sanitize branch name same way as bin/cdk.ts does
           SANITIZED=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9-]/-/g' | sed 's/--*/-/g' | cut -c1-20)
           SAMS_STACK="SamsApiStack-Dev-${SANITIZED}"
           SOCIAL_STACK="SocialMediaStack-Dev-${SANITIZED}"

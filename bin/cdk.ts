@@ -2,14 +2,14 @@ import "dotenv/config";
 import { getSanitizedBranch } from "@utils/git";
 import * as cdk from "aws-cdk-lib";
 import { DNS } from "@/project.config";
-import { ApiStack } from "./lib/api-stack";
-import { BudgetStack } from "./lib/budget-stack";
-import { CmsStack } from "./lib/cms-stack";
-import { ContentDbStack } from "./lib/content-db-stack";
-import { DnsStack } from "./lib/dns-stack";
-import { MediaStack } from "./lib/media-stack";
-import { SamsApiStack } from "./lib/sams-api-stack";
-import { SocialMediaStack } from "./lib/social-media-stack";
+import { ApiStack } from "../lib/api-stack";
+import { BudgetStack } from "../lib/budget-stack";
+import { CmsStack } from "../lib/cms-stack";
+import { ContentDbStack } from "../lib/content-db-stack";
+import { DnsStack } from "../lib/dns-stack";
+import { MediaStack } from "../lib/media-stack";
+import { SamsApiStack } from "../lib/sams-api-stack";
+import { SocialMediaStack } from "../lib/social-media-stack";
 
 const app = new cdk.App();
 

@@ -1,5 +1,5 @@
 {
-	"app": "bun run cdk.ts",
+	"app": "bun run bin/cdk.ts",
 	"watch": {
 		"include": ["**"],
 		"exclude": ["README.md", "cdk*.json", "**/*.d.ts", "**/*.js", "tsconfig.json", "package*.json", "bun.lock", "node_modules", "test", ".git"]
