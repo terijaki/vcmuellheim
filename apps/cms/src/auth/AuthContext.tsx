@@ -160,9 +160,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		sessionStorage.setItem(PKCE_VERIFIER_KEY, verifier);
 		sessionStorage.setItem(OAUTH_STATE_KEY, state);
 
-		// Build login URL with PKCE
+		// Build login URL with PKCE and German locale
 		const callbackUrl = `${window.location.origin}/auth/callback`;
-		const loginUrl = `${cognitoConfig.hostedUi.baseUrl}/login?client_id=${cognitoConfig.clientId}&response_type=code&scope=email+openid+profile&redirect_uri=${encodeURIComponent(callbackUrl)}&code_challenge=${challenge}&code_challenge_method=S256&state=${state}`;
+		const loginUrl = `${cognitoConfig.hostedUi.baseUrl}/login?lang=de&client_id=${cognitoConfig.clientId}&response_type=code&scope=email+openid+profile&redirect_uri=${encodeURIComponent(callbackUrl)}&code_challenge=${challenge}&code_challenge_method=S256&state=${state}`;
 
 		// Redirect to Cognito Hosted UI
 		window.location.href = loginUrl;

@@ -148,7 +148,33 @@ export class ApiStack extends cdk.Stack {
 			clientId: this.userPoolClient.userPoolClientId,
 			useCognitoProvidedValues: false,
 			settings: {
+				categories: {
+					global: {
+						colorSchemeMode: "LIGHT", // Use LIGHT mode by default (users can switch)
+					},
+				},
 				components: {
+					pageBackground: {
+						image: {
+							enabled: false, // Disable default background image
+						},
+						lightMode: {
+							color: "eff5f5ff", // aquahaze
+						},
+						darkMode: {
+							color: "363b40ff", // onyx
+						},
+					},
+					form: {
+						lightMode: {
+							backgroundColor: "ffffffff",
+							borderColor: "366273ff", // blumine
+						},
+						darkMode: {
+							backgroundColor: "363b40ff", // onyx
+							borderColor: "366273ff", // blumine
+						},
+					},
 					primaryButton: {
 						lightMode: {
 							defaults: {
@@ -160,6 +186,16 @@ export class ApiStack extends cdk.Stack {
 								textColor: "ffffffff",
 							},
 						},
+						darkMode: {
+							defaults: {
+								backgroundColor: "366273ff", // blumine
+								textColor: "ffffffff",
+							},
+							hover: {
+								backgroundColor: "539fe5ff", // lighter blue for dark mode
+								textColor: "ffffffff",
+							},
+						},
 					},
 				},
 				componentClasses: {
@@ -167,6 +203,17 @@ export class ApiStack extends cdk.Stack {
 						lightMode: {
 							defaults: {
 								textColor: "01a29aff", // turquoise
+							},
+							hover: {
+								textColor: "008580ff", // darker turquoise
+							},
+						},
+						darkMode: {
+							defaults: {
+								textColor: "01a29aff", // turquoise
+							},
+							hover: {
+								textColor: "33beb6ff", // lighter turquoise
 							},
 						},
 					},
