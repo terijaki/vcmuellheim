@@ -10,9 +10,7 @@ export const Route = createRootRoute({
 		<AppShell header={{ height: HEADER_HEIGHT, offset: true }} withBorder={false} bg="onyx">
 			<Header />
 			<AppShellMain bg="aquahaze">
-				<Stack justify="space-between" 
-				style={{ minHeight: `calc(100vh - ${HEADER_HEIGHT}px)` }}
-				>
+				<Stack justify="space-between" style={{ minHeight: `calc(100vh - ${HEADER_HEIGHT}px)` }}>
 					<Outlet />
 					<Footer />
 				</Stack>
