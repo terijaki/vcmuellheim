@@ -1,6 +1,5 @@
 import { AppShell, Burger, Collapse, Container, Group, Stack, Title, UnstyledButton } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Link } from "@tanstack/react-router";
 import { FaVolleyball as Logo } from "react-icons/fa6";
 import { Club } from "../../../../../project.config";
 import { navbarLinks } from "../../utils/navbarLinks";
@@ -15,7 +14,7 @@ export default function Header() {
 		<AppShell.Header c="white" bg="onyx">
 			<Container size="xl" p="sm">
 				<Group justify="space-between" h="100%">
-					<UnstyledButton component={Link} href="/" onClick={close}>
+					<UnstyledButton component="a" href="/" onClick={close}>
 						<Group gap="xs">
 							<Logo size={24} />
 							<Title order={1} size="h2" fw={500} tt="uppercase" style={{ letterSpacing: "0.1em" }}>
@@ -27,7 +26,7 @@ export default function Header() {
 						{navbarLinks.map((item) => (
 							<UnstyledButton
 								key={item.name}
-								component={Link}
+								component="a"
 								{...item}
 								c="white"
 								fw={500}
@@ -50,7 +49,7 @@ export default function Header() {
 						{navbarLinks.map((item) => (
 							<UnstyledButton
 								key={item.name}
-								component={Link}
+								component="a"
 								{...item}
 								onClick={close}
 								w="100%"
@@ -69,7 +68,7 @@ export default function Header() {
 						{Socials().map((socialItem) => (
 							<UnstyledButton
 								key={socialItem.name}
-								component={Link}
+								component="a"
 								{...socialItem}
 								onClick={close}
 								w="100%"

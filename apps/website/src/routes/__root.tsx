@@ -12,23 +12,21 @@ export const Route = createRootRoute({
 		</MainLayout>
 	),
 	notFoundComponent: () => (
-		<MainLayout>
-			<PageWithHeading title="Seite nicht gefunden! 🫤">
-				<Container size="sm">
-					<Stack gap="xl">
-						<Card>
-							<Text>Die angeforderte Seite konnte nicht gefunden werden. Bitte überprüfe die URL ({window.location.pathname}) auf Tippfehler.</Text>
-							<Text>Falls du denkst, dass dies ein Fehler ist, kontaktiere uns gerne.</Text>
-						</Card>
-						<Center>
-							<Button component={Link} href="/">
-								Zurück zur Startseite
-							</Button>
-						</Center>
-					</Stack>
-				</Container>
-			</PageWithHeading>
-		</MainLayout>
+		<PageWithHeading title="Seite nicht gefunden! 🫤">
+			<Container size="sm">
+				<Stack gap="xl">
+					<Card>
+						<Text>Die angeforderte Seite konnte nicht gefunden werden. Bitte überprüfe die URL ({window.location.pathname}) auf Tippfehler.</Text>
+						<Text>Falls du denkst, dass dies ein Fehler ist, kontaktiere uns gerne.</Text>
+					</Card>
+					<Center>
+						<Button component={Link} href="/">
+							Zurück zur Startseite
+						</Button>
+					</Center>
+				</Stack>
+			</Container>
+		</PageWithHeading>
 	),
 	pendingComponent: () => (
 		<PageWithHeading title="">

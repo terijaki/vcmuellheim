@@ -1,14 +1,15 @@
 import { Container, Group, Stack } from "@mantine/core";
+import CenteredLoader from "../CenteredLoader";
 import PageHeading from "./PageHeading";
 
-export default function PageWithHeading({ children, ...props }: Parameters<typeof PageHeading>[0] & { children: React.ReactNode }) {
+export default function PageWithHeading({ children, isLoading, ...props }: Parameters<typeof PageHeading>[0] & { isLoading?: boolean } & { children: React.ReactNode }) {
 	return (
 		<Stack pb="md" bg="aquahaze" align="stretch">
 			<PageHeading {...props} />
 
 			<Group grow>
 				<Container size="xl" px={{ base: "lg", md: "xl" }}>
-					{children}
+					{isLoading ? <CenteredLoader text="Lade Buchungen..." /> : children}
 				</Container>
 			</Group>
 		</Stack>

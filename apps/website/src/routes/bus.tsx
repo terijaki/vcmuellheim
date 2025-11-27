@@ -14,6 +14,7 @@ export const Route = createFileRoute("/bus")({
 
 function RouteComponent() {
 	const { data, isLoading, error } = useBusBookings();
+	if (error) throw error;
 
 	const bookings = (data?.items || [])?.sort((a, b) => dayjs(a.from).unix() - dayjs(b.from).unix());
 	const bookingsFuture = bookings.filter((b) => dayjs(b.to).isAfter(dayjs()));
@@ -58,7 +59,7 @@ function RouteComponent() {
 	};
 
 	return (
-		<PageWithHeading title="Vereinsbus">
+		<PageWithHeading title="Vereinsbus" isLoading={isLoading}>
 			<Container size="md">
 				<Stack>
 					<Alert variant="white">
