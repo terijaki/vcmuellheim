@@ -65,56 +65,62 @@ psql "$TEMP_DB" -t -A -c "
     )) FROM news n WHERE n._status = 'published'),
     'events', (SELECT json_agg(row_to_json(t)) FROM (
       SELECT id, title, description, 
-             date_start_date as \"startDate\", 
-             date_end_date as \"endDate\",
-             address_name as \"addressName\",
-             address_street as \"addressStreet\",
-             address_postal_code as \"addressPostalCode\",
-             address_city as \"addressCity\",
-             created_at as \"createdAt\", updated_at as \"updatedAt\"
+             date_start_date as "startDate", 
+             date_end_date as "endDate",
+             address_name as "addressName",
+             address_street as "addressStreet",
+             address_postal_code as "addressPostalCode",
+             address_city as "addressCity",
+             created_at as "createdAt", updated_at as "updatedAt"
       FROM events
     ) t),
     'members', (SELECT json_agg(row_to_json(t)) FROM (
-      SELECT id, name, email, phone, avatar_id as \"avatarS3Key\",
-             created_at as \"createdAt\", updated_at as \"updatedAt\"
-      FROM members
+      SELECT m.id, m.name, m.email, m.phone, m.avatar_id as "avatarS3Key",
+             m.created_at as "createdAt", m.updated_at as "updatedAt",
+             (
+               SELECT json_agg(r.name)
+               FROM members_rels mr
+               JOIN roles r ON mr.roles_id = r.id
+               WHERE mr.parent_id = m.id AND mr.path = 'roles'
+             ) as roles
+      FROM members m
     ) t),
     'teams', (SELECT json_agg(row_to_json(t)) FROM (
       SELECT 
         t.id, t.name, t.slug, t.description, t.gender, t.league, t.age, t.instagram,
-        t.sbvv_team_id as \"sbvvTeamId\",
+        t.sbvv_team_id as "sbvvTeamId",
         (
           SELECT json_agg(tr.media_id)
           FROM teams_rels tr
           WHERE tr.parent_id = t.id AND tr.path = 'images'
-        ) as \"imageIds\",
-        t.created_at as \"createdAt\", t.updated_at as \"updatedAt\"
+        ) as "imageIds",
+        t.created_at as "createdAt", t.updated_at as "updatedAt"
       FROM teams t
     ) t),
     'sponsors', (SELECT json_agg(row_to_json(t)) FROM (
-      SELECT id, name, website, logo_id as \"logoS3Key\", expiry_date as \"expiryDate\",
-             created_at as \"createdAt\", updated_at as \"updatedAt\"
+      SELECT id, name, website, logo_id as "logoS3Key", expiry_date as "expiryDate",
+             created_at as "createdAt", updated_at as "updatedAt"
       FROM sponsors
     ) t),
     'media', (SELECT json_agg(row_to_json(t)) FROM (
-      SELECT id, filename, url, mime_type as \"mimeType\", alt, width, height, filesize,
-             created_at as \"createdAt\", updated_at as \"updatedAt\"
+      SELECT id, filename, url, mime_type as "mimeType", alt, width, height, filesize,
+             created_at as "createdAt", updated_at as "updatedAt"
       FROM media
     ) t),
     'locations', (SELECT json_agg(row_to_json(t)) FROM (
       SELECT id, name, description, 
-             address_street as \"addressStreet\",
-             address_postal_code as \"addressPostalCode\", 
-             address_city as \"addressCity\",
-             created_at as \"createdAt\", updated_at as \"updatedAt\"
+             address_street as "addressStreet",
+             address_postal_code as "addressPostalCode", 
+             address_city as "addressCity",
+             created_at as "createdAt", updated_at as "updatedAt"
       FROM locations
     ) t),
     'busBookings', (SELECT json_agg(row_to_json(t)) FROM (
       SELECT id, comment, traveler,
-             schedule_start as \"scheduleStart\",
-             schedule_end as \"scheduleEnd\",
-             booker_id as \"bookerId\",
-             created_at as \"createdAt\", updated_at as \"updatedAt\"
+             schedule_start as "scheduleStart",
+             schedule_end as "scheduleEnd",
+             booker_id as "bookerId",
+             created_at as "createdAt", updated_at as "updatedAt"
       FROM bus_bookings
     ) t)
   );
