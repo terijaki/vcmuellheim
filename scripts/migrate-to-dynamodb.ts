@@ -475,15 +475,12 @@ async function migrateMembers(dryRun: boolean): Promise<void> {
 
 	for (const row of rows) {
 		try {
-			const fallbackDate = new Date("2024-01-01T00:00:00Z").toISOString();
-			// Accept both 'createdat'/'updatedat' and 'createdAt'/'updatedAt'
-			const createdAtRaw = row.createdat || row.createdAt;
-			const updatedAtRaw = row.updatedat || row.updatedAt;
-			const createdAt = createdAtRaw ? new Date(createdAtRaw).toISOString() : fallbackDate;
-			const updatedAt = updatedAtRaw ? new Date(updatedAtRaw).toISOString() : fallbackDate;
+			const createdAt = new Date(row.createdAt).toISOString();
+			const updatedAt = new Date(row.updatedAt).toISOString();
 
 			// Upload avatar to S3 with entity-specific path
 			let avatarS3Key: string | undefined;
+			console.log(`  [${row.id}] avatarS3Key:`, row.avatarS3Key);
 			if (row.avatarS3Key && oldS3Client && newS3Client) {
 				const s3Key = await migrateMediaFile(row.avatarS3Key, "members", row.id);
 				if (s3Key) {

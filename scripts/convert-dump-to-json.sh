@@ -74,17 +74,21 @@ psql "$TEMP_DB" -t -A -c "
              created_at as "createdAt", updated_at as "updatedAt"
       FROM events
     ) t),
-    'members', (SELECT json_agg(row_to_json(t)) FROM (
-      SELECT m.id, m.name, m.email, m.phone, m.avatar_id as "avatarS3Key",
-             m.created_at as "createdAt", m.updated_at as "updatedAt",
-             (
-               SELECT json_agg(r.name)
-               FROM members_rels mr
-               JOIN roles r ON mr.roles_id = r.id
-               WHERE mr.parent_id = m.id AND mr.path = 'roles'
-             ) as roles
-      FROM members m
-    ) t),
+    'members', (SELECT json_agg(json_build_object(
+      'id', m.id,
+      'name', m.name,
+      'email', m.email,
+      'phone', m.phone,
+      'avatarS3Key', m.avatar_id,
+      'createdAt', m.created_at,
+      'updatedAt', m.updated_at,
+      'roles', (
+        SELECT json_agg(r.name)
+        FROM members_rels mr
+        JOIN roles r ON mr.roles_id = r.id
+        WHERE mr.parent_id = m.id AND mr.path = 'roles'
+      )
+    )) FROM members m),
     'teams', (SELECT json_agg(row_to_json(t)) FROM (
       SELECT 
         t.id, t.name, t.slug, t.description, t.gender, t.league, t.age, t.instagram,
