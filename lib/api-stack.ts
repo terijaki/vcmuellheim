@@ -21,9 +21,10 @@ interface ApiStackProps extends cdk.StackProps {
 	contentDbStack: Record<`${Lowercase<TableEntity>}Table`, dynamodb.Table>;
 	mediaBucket?: s3.Bucket;
 	cloudFrontUrl?: string;
+	cmsUrl?: string;
 	samsApiUrl?: string;
-	hostedZone?: route53.IHostedZone;
-	certificate?: acm.ICertificate;
+	hostedZone: route53.IHostedZone;
+	certificate: acm.ICertificate;
 }
 
 export class ApiStack extends cdk.Stack {
@@ -274,54 +275,57 @@ export class ApiStack extends cdk.Stack {
 		}
 
 		// 3. HTTP API Gateway with custom domain
-		if (props.hostedZone && props.certificate) {
-			// Custom domain for API
-			this.apiDomainName = new apigatewayv2.DomainName(this, "ApiDomainName", {
-				domainName: apiDomain,
-				certificate: props.certificate,
-			});
+		// Custom domain for API
+		this.apiDomainName = new apigatewayv2.DomainName(this, "ApiDomainName", {
+			domainName: apiDomain,
+			certificate: props.certificate,
+		});
 
-			this.api = new apigatewayv2.HttpApi(this, "TrpcHttpApi", {
-				apiName: `vcm-trpc-api-${environment}${branchSuffix}`,
-				description: "tRPC API for VCM admin and public endpoints",
-				defaultDomainMapping: {
-					domainName: this.apiDomainName,
-				},
-				corsPreflight: {
-					allowOrigins: isProd ? [Club.url, `https://${envPrefix}admin.new.${Club.domain}`] : ["*"],
-					allowMethods: [apigatewayv2.CorsHttpMethod.GET, apigatewayv2.CorsHttpMethod.POST, apigatewayv2.CorsHttpMethod.OPTIONS],
-					allowHeaders: isProd ? ["content-type", "authorization", "x-trpc-source"] : ["content-type", "authorization", "x-trpc-source", "*"],
-					exposeHeaders: ["content-type"],
-					allowCredentials: false,
-					maxAge: cdk.Duration.hours(1),
-				},
-			});
-
-			// Create A record pointing to API Gateway
-			new route53.ARecord(this, "ApiARecord", {
-				zone: props.hostedZone,
-				recordName: apiDomain,
-				target: route53.RecordTarget.fromAlias(new route53Targets.ApiGatewayv2DomainProperties(this.apiDomainName.regionalDomainName, this.apiDomainName.regionalHostedZoneId)),
-			});
-
-			this.apiUrl = `https://${apiDomain}`;
-		} else {
-			// Fallback without custom domain
-			this.api = new apigatewayv2.HttpApi(this, "TrpcHttpApi", {
-				apiName: `vcm-trpc-api-${environment}${branchSuffix}`,
-				description: "tRPC API for VCM admin and public endpoints",
-				corsPreflight: {
-					allowOrigins: isProd ? [Club.url, `https://admin.${Club.domain}`] : ["*"],
-					allowMethods: [apigatewayv2.CorsHttpMethod.GET, apigatewayv2.CorsHttpMethod.POST, apigatewayv2.CorsHttpMethod.OPTIONS],
-					allowHeaders: isProd ? ["content-type", "authorization", "x-trpc-source"] : ["content-type", "authorization", "x-trpc-source", "*"],
-					exposeHeaders: ["content-type"],
-					allowCredentials: false,
-					maxAge: cdk.Duration.hours(1),
-				},
-			});
-
-			this.apiUrl = this.api.apiEndpoint;
+		// Build explicit allowed origins for CORS. When `allowCredentials` is
+		// enabled, `Access-Control-Allow-Origin` must not be `*` so we use a
+		// whitelist that includes localhost (dev), the admin domain and any
+		// provided CloudFront or CMS URLs.
+		const allowedOriginsSet = new Set<string>();
+		allowedOriginsSet.add(Club.url);
+		allowedOriginsSet.add(`https://${envPrefix}admin.new.${Club.domain}`);
+		if (!isProd) {
+			allowedOriginsSet.add("http://localhost:3081");
 		}
+		if (props.cloudFrontUrl) {
+			const cloudFrontOrigin = props.cloudFrontUrl.startsWith("https://") ? props.cloudFrontUrl : `https://${props.cloudFrontUrl}`;
+			allowedOriginsSet.add(cloudFrontOrigin);
+		}
+		if (props.cmsUrl) {
+			const cmsOrigin = props.cmsUrl.startsWith("https://") ? props.cmsUrl : `https://${props.cmsUrl}`;
+			allowedOriginsSet.add(cmsOrigin);
+		}
+
+		const allowedOrigins = Array.from(allowedOriginsSet);
+
+		this.api = new apigatewayv2.HttpApi(this, "TrpcHttpApi", {
+			apiName: `vcm-trpc-api-${environment}${branchSuffix}`,
+			description: "tRPC API for VCM admin and public endpoints",
+			defaultDomainMapping: {
+				domainName: this.apiDomainName,
+			},
+			corsPreflight: {
+				allowOrigins: allowedOrigins,
+				allowMethods: [apigatewayv2.CorsHttpMethod.GET, apigatewayv2.CorsHttpMethod.POST, apigatewayv2.CorsHttpMethod.OPTIONS],
+				allowHeaders: isProd ? ["content-type", "authorization", "x-trpc-source"] : ["content-type", "authorization", "x-trpc-source", "*"],
+				exposeHeaders: ["content-type"],
+				allowCredentials: true, // Enable credentials for flows that require cookies (OAuth etc.)
+				maxAge: cdk.Duration.hours(1),
+			},
+		});
+
+		// Create A record pointing to API Gateway
+		new route53.ARecord(this, "ApiARecord", {
+			zone: props.hostedZone,
+			recordName: apiDomain,
+			target: route53.RecordTarget.fromAlias(new route53Targets.ApiGatewayv2DomainProperties(this.apiDomainName.regionalDomainName, this.apiDomainName.regionalHostedZoneId)),
+		});
+
+		this.apiUrl = `https://${apiDomain}`;
 
 		// Lambda integration
 		const lambdaIntegration = new HttpLambdaIntegration("TrpcLambdaIntegration", this.trpcLambda);
@@ -329,6 +333,15 @@ export class ApiStack extends cdk.Stack {
 		// Route all /api/* requests to Lambda (excluding OPTIONS which is handled by CORS preflight)
 		this.api.addRoutes({
 			path: "/api/{proxy+}",
+			methods: [apigatewayv2.HttpMethod.GET, apigatewayv2.HttpMethod.POST],
+			integration: lambdaIntegration,
+		});
+
+		// Also accept requests without the `/api` prefix so deployed frontends
+		// that call e.g. `/news.list` will reach the same Lambda and receive
+		// CORS headers from API Gateway.
+		this.api.addRoutes({
+			path: "/{proxy+}",
 			methods: [apigatewayv2.HttpMethod.GET, apigatewayv2.HttpMethod.POST],
 			integration: lambdaIntegration,
 		});
