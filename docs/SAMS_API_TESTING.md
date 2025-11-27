@@ -191,16 +191,23 @@ All endpoints should return valid data:
 If tables are empty, run the sync functions:
 
 ```bash
+# Sync associations
+aws lambda invoke \
+  --function-name sams-associations-sync-{environment}-{branchSlug} \
+  --profile vcmuellheim \
+  --region eu-central-1 \
+  /tmp/clubs-sync.json
+
 # Sync clubs
 aws lambda invoke \
-  --function-name {environment}-{branchSlug}-sams-clubs-sync \
+  --function-name sams-clubs-sync-{environment}-{branchSlug} \
   --profile vcmuellheim \
   --region eu-central-1 \
   /tmp/clubs-sync.json
 
 # Sync teams
 aws lambda invoke \
-  --function-name {environment}-{branchSlug}-sams-teams-sync \
+  --function-name sams-teams-sync-{environment}-{branchSlug} \
   --profile vcmuellheim \
   --region eu-central-1 \
   /tmp/teams-sync.json

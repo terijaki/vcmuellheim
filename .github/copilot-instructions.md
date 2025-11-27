@@ -2,13 +2,12 @@
 
 ## Development Stack
 
-- **Framework:** Next.js with App Router
+- **Framework:** AWS CDK, Vite, TanStack Router, TRPC
 - **UI Library:** Mantine (components and styling)
 - **Package Manager:** Bun
 - **Formatting/Linting:** Biome
-- **CMS:** Payload CMS
 - **Date Library:** dayjs
-- **Deployment:** Coolify
+- **Deployment:** AWS CDK
 
 ## Code Style Guidelines
 
@@ -34,5 +33,8 @@
 
 ## Architecture
 
-- Use App Router for page routing
-- Prefer Server Components for data fetching when possible
+- AWS Serverless architecture using Lambda functions
+- API Gateway for REST endpoints
+- DynamoDB for data storage
+- EventBridge for scheduling sync tasks
+- CDK for infrastructure as code
