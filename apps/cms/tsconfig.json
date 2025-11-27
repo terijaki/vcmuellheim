@@ -35,6 +35,6 @@
 		"types": ["vite/client"]
 	},
 	"include": ["src"],
-	"exclude": ["@codegen/**"],
+	"exclude": ["@codegen/**", "../../codegen/**"],
 	"references": [{ "path": "./tsconfig.node.json" }]
 }

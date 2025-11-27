@@ -1,6 +1,6 @@
 import type { Sponsor } from "@lib/db/types";
 import { BackgroundImage, Box, Button, Container, Flex, Group, Image, Overlay, Stack, Text } from "@mantine/core";
-import { Club } from "@project-config";
+import { Club } from "@project.config";
 import Marquee from "react-fast-marquee";
 import { useFileUrl, useSponsors } from "../../lib/hooks";
 import SectionHeading from "../layout/SectionHeading";

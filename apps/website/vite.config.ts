@@ -14,10 +14,14 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: {
+			"@": path.resolve(__dirname, "../../"),
 			"@lib": path.resolve(__dirname, "../../lib"),
+			"@lambda": path.resolve(__dirname, "../../lambda"),
 			"@utils": path.resolve(__dirname, "../../utils"),
 			"@data": path.resolve(__dirname, "../../data"),
-			"@project-config": path.resolve(__dirname, "../../project.config.ts"),
+			"@codegen": path.resolve(__dirname, "../../codegen"),
+			"@project.config": path.resolve(__dirname, "../../project.config.ts"),
+			"@apps/shared": path.resolve(__dirname, "../shared"),
 		},
 	},
 	server: {
