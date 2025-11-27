@@ -492,10 +492,13 @@ async function migrateMembers(dryRun: boolean): Promise<void> {
 			}
 
 			// Enhanced role handling
+			let isBoardMember = false;
 			let isTrainer = false;
 			let roleTitle: string | undefined;
 			if (Array.isArray(row.roles) && row.roles.length > 0) {
 				isTrainer = row.roles.includes("Trainer");
+				isBoardMember =
+					row.roles.includes("Vorsitzender") || row.roles.includes("Beisitzer") || row.roles.includes("Kassierer") || row.roles.includes("Mitgliederverwaltung") || row.roles.includes("Schatzmeister");
 				// Find the first non-Trainer role
 				roleTitle = row.roles.find((r: string) => r !== "Trainer");
 			}
@@ -507,7 +510,7 @@ async function migrateMembers(dryRun: boolean): Promise<void> {
 				phone: row.phone || undefined,
 				avatarS3Key,
 				roleTitle,
-				isBoardMember: row.isVorstand || false,
+				isBoardMember,
 				isTrainer,
 				createdAt,
 				updatedAt,
