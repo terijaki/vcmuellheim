@@ -259,6 +259,8 @@ export class ApiStack extends cdk.Stack {
 				...(props.samsApiUrl ? { SAMS_API_URL: props.samsApiUrl } : {}),
 				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
 				...(props.cloudFrontUrl ? { CLOUDFRONT_URL: props.cloudFrontUrl } : {}),
+				...(props.samsApiStack?.samsClubsTable ? { SAMS_CLUBS_TABLE_NAME: props.samsApiStack.samsClubsTable.tableName } : {}),
+				...(props.samsApiStack?.samsTeamsTable ? { SAMS_TEAMS_TABLE_NAME: props.samsApiStack.samsTeamsTable.tableName } : {}),
 			},
 			bundling: {
 				minify: true,
@@ -275,14 +277,10 @@ export class ApiStack extends cdk.Stack {
 		// Grant DynamoDB access to SAMS tables
 		if (props.samsApiStack?.samsTeamsTable) {
 			props.samsApiStack.samsTeamsTable.grantReadWriteData(this.trpcLambda);
-		} else {
-			console.warn("Warning: No SAMS Teams table provided to API Stack - SAMS team data will not be accessible");
-		}
+		} 
 		if (props.samsApiStack?.samsClubsTable) {
 			props.samsApiStack.samsClubsTable.grantReadWriteData(this.trpcLambda);
-		} else {
-			console.warn("Warning: No SAMS Clubs table provided to API Stack - SAMS club data will not be accessible");
-		}
+		} 
 
 		// Grant Lambda access to S3 bucket for uploads
 		if (props.mediaBucket) {
