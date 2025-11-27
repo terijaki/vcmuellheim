@@ -17,7 +17,6 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./*"],
-			"@payload-config": ["./payload.config.ts"],
 			"@lib/*": ["./lib/*"],
 			"@lambda/*": ["./lambda/*"],
 			"@utils/*": ["./utils/*"],

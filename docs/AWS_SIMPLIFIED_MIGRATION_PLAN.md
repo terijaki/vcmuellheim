@@ -203,8 +203,8 @@
 
 2. [ ] **Data Fetching**
    - Replace Next.js server components with client-side fetching
-   - Use TanStack Query (React Query) for caching and state management (inside TanStack Router loader?)
-   - Create API client for Lambda/API Gateway endpoints
+   - ✅ Use TanStack Query (React Query) for caching and state management (inside TanStack Router loader?)
+   - ✅ Create API client for Lambda/API Gateway endpoints
    - Consider ISR alternative: CloudFront cache with Lambda@Edge for dynamic data
 
 3. [ ] **Routing Migration**

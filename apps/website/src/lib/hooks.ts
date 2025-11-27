@@ -76,6 +76,13 @@ export const useMediaByIds = (ids: string[]) => {
 };
 
 /**
+ * Hook to fetch a file URL by S3 key
+ */
+export const useFileUrl = (s3Key?: string) => {
+	return trpc.upload.getFileUrl.useQuery({ s3Key: s3Key || "" }, { enabled: !!s3Key });
+};
+
+/**
  * Hook to fetch bus bookings
  */
 export const useBusBookings = () => {

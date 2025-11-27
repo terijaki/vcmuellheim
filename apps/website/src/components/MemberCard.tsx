@@ -1,13 +1,11 @@
 import { Card, Center, Group, Image, Stack, Text } from "@mantine/core";
 import { FaUser as IconAvatar } from "react-icons/fa6";
-import type { Member } from "@/data/payload-types";
+import type { Member } from "../../../../lib/db/types";
+import { useFileUrl } from "../lib/hooks";
 
-export default async function MemberCard({ member, show, dark }: { member: Member; show?: "roles" | "email" | "phone"; dark?: boolean }) {
-	const { id, name, email, phone, avatar, roles } = member;
-
-	const roleNames = roles?.map((role) => (typeof role === "object" ? role.name : role));
-	const avatarUrl = avatar && typeof avatar === "object" ? avatar.url : avatar;
-
+export default function MemberCard({ member, show, dark }: { member: Member; show?: "roles" | "email" | "phone"; dark?: boolean }) {
+	const { id, name, email, phone, avatarS3Key, roleTitle } = member;
+	const { data: avatarUrl } = useFileUrl(avatarS3Key);
 	return (
 		<Card component="a" data-member-id={id} href={email ? `mailto:${email}` : ""} p={0} withBorder bg={dark ? "onyx" : undefined}>
 			<Stack gap={0}>
@@ -19,9 +17,9 @@ export default async function MemberCard({ member, show, dark }: { member: Membe
 						{name}
 					</Text>
 				</Group>
-				{show === "roles" && roles && (
+				{show === "roles" && roleTitle && (
 					<Center p={2} c="white" bg="blumine">
-						<Text size="xs">{roleNames?.join(", ")}</Text>
+						<Text size="xs">{roleTitle}</Text>
 					</Center>
 				)}
 				{show === "phone" && phone && (
