@@ -14,6 +14,7 @@
 			"!**/.vscode",
 			"!**/out",
 			"!**/build",
+			"!**/codegen/sams/generated",
 			"!**/app/(payload)",
 			"!**/data/payload-types.ts",
 			"!**/data/sams/client",
@@ -50,7 +51,7 @@
 			}
 		},
 		"domains": {
-			"next": "recommended"
+			"react": "recommended"
 		}
 	},
 	"javascript": {

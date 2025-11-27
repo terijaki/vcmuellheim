@@ -28,6 +28,7 @@
 	"include": ["**/*.ts", "**/*.tsx"],
 	"exclude": [
 		"node_modules",
+		"codegen/sams/generated/**",
 		"data/migrations",
 		"apps/*/src/**" // required to avoid TS errors between different app tsconfigs
 	]
