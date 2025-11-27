@@ -22,7 +22,7 @@ createClient({
 		},
 		{
 			name: "@hey-api/client-fetch",
-			runtimeConfigPath: "@codegen/sams/hey-api",
+			runtimeConfigPath: "../hey-api",
 		},
 		{
 			name: "@hey-api/sdk",
