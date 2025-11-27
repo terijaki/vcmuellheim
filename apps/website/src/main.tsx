@@ -7,6 +7,7 @@ import { RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "dayjs/locale/de";
+import "./globals.css";
 import { TRPCProvider } from "./lib/TrpcProvider";
 import { router } from "./router";
 
