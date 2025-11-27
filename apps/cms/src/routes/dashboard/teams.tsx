@@ -479,7 +479,7 @@ function TeamsPage() {
 								value={formData.sbvvTeamId}
 								onChange={(value) => setFormData({ ...formData, sbvvTeamId: value || "" })}
 								data={
-									samsTeams?.map((team) => ({
+									samsTeams?.items.map((team) => ({
 										value: team.uuid,
 										label: `${team.name} (${team.leagueName || "Keine Liga"})`,
 									})) || []
@@ -559,7 +559,7 @@ function TeamsPage() {
 						</Table.Thead>
 						<Table.Tbody>
 							{teams.items.map((team) => {
-								const samsTeam = samsTeams?.find((st) => st.uuid === team.sbvvTeamId);
+								const samsTeam = samsTeams?.items.find((st) => st.uuid === team.sbvvTeamId);
 								const pictureCount = team.pictureS3Keys?.length || 0;
 								const teamTrainers = trainers?.items.filter((t) => team.trainerIds?.includes(t.id)) || [];
 								const trainingCount = team.trainingSchedules?.length || 0;

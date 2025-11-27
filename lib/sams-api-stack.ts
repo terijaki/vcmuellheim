@@ -19,6 +19,8 @@ interface SamsApiStackProps extends cdk.StackProps {
 
 export class SamsApiStack extends cdk.Stack {
 	public readonly cloudFrontUrl: string;
+	public readonly samsClubsTable: dynamodb.Table;
+	public readonly samsTeamsTable: dynamodb.Table;
 
 	constructor(scope: Construct, id: string, props?: SamsApiStackProps) {
 		super(scope, id, props);
@@ -137,6 +139,10 @@ export class SamsApiStack extends cdk.Stack {
 				type: dynamodb.AttributeType.STRING,
 			},
 		});
+
+		// Expose tables for cross-stack reference
+		this.samsClubsTable = clubsTable;
+		this.samsTeamsTable = teamsTable;
 
 		// Create Lambda function for league matches (main endpoint you use)
 		const samsLeagueMatches = new nodejs.NodejsFunction(this, "SamsLeagueMatches", {

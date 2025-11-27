@@ -92,6 +92,10 @@ new ApiStack(app, apiStackName, {
 		busTable: contentDbStack.busTable,
 		locationsTable: contentDbStack.locationsTable,
 	},
+	samsApiStack: {
+		samsClubsTable: samsApiStack.samsClubsTable,
+		samsTeamsTable: samsApiStack.samsTeamsTable,
+	},
 	mediaBucket: mediaStack.bucket,
 	samsApiUrl: samsApiStack.cloudFrontUrl,
 	cloudFrontUrl: mediaStack.cloudFrontUrl,

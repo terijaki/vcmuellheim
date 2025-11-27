@@ -2,8 +2,9 @@
  * Repository instances for all content entities
  */
 
+import type { ClubResponse, TeamResponse } from "@/lambda/sams/types";
 import { TABLE_NAMES } from "./client";
-import { Repository } from "./repository";
+import { Repository, SamsRepository } from "./repository";
 import type { Bus, Event, Location, Media, Member, News, Sponsor, Team } from "./types";
 
 /** News repository */
@@ -44,6 +45,18 @@ export const locationsRepository = new Repository<Location>({
 /** Bus bookings repository */
 export const busRepository = new Repository<Bus>({
 	tableName: TABLE_NAMES.BUS,
+});
+
+/** Sams Clubs repository */
+export const samsClubsRepository = new SamsRepository<ClubResponse>({
+	tableName: "SamsClubsTable",
+	identifier: "sportsclubUuid",
+});
+
+/** Sams Teams repository */
+export const samsTeamsRepository = new SamsRepository<TeamResponse>({
+	tableName: "SamsTeamsTable",
+	identifier: "uuid",
 });
 
 /**
@@ -182,4 +195,21 @@ export async function getTrainers() {
 			":isTrainer": true,
 		},
 	});
+}
+
+/** Get Sams Clubs */
+export async function getAllSamsClubs() {
+	return samsClubsRepository.scan();
+}
+/** Get Sams Club by ID */
+export async function getSamsClubBySportsclubUuid(sportsclubUuid: string) {
+	return samsClubsRepository.get(sportsclubUuid);
+}
+/** Get Sams Teams */
+export async function getAllSamsTeams() {
+	return samsTeamsRepository.scan();
+}
+/** Get Sams Team by ID */
+export async function getSamsTeamByUuid(uuid: string) {
+	return samsTeamsRepository.get(uuid);
 }

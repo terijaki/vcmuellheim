@@ -9,6 +9,7 @@ import { locationsRouter } from "./routers/locations";
 import { mediaRouter } from "./routers/media";
 import { membersRouter } from "./routers/members";
 import { newsRouter } from "./routers/news";
+import { samsClubsRouter } from "./routers/samsClubs";
 import { samsTeamsRouter } from "./routers/samsTeams";
 import { sponsorsRouter } from "./routers/sponsors";
 import { teamsRouter } from "./routers/teams";
@@ -25,8 +26,9 @@ export const appRouter = router({
 	sponsors: sponsorsRouter,
 	locations: locationsRouter,
 	bus: busRouter,
-	samsTeams: samsTeamsRouter,
 	upload: uploadRouter,
+	samsTeams: samsTeamsRouter,
+	samsClubs: samsClubsRouter,
 });
 
 export type AppRouter = typeof appRouter;

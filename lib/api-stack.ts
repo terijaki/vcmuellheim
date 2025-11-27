@@ -19,6 +19,10 @@ interface ApiStackProps extends cdk.StackProps {
 		branch: string;
 	};
 	contentDbStack: Record<`${Lowercase<TableEntity>}Table`, dynamodb.Table>;
+	samsApiStack?: {
+		samsClubsTable: dynamodb.Table;
+		samsTeamsTable: dynamodb.Table;
+	};
 	mediaBucket?: s3.Bucket;
 	cloudFrontUrl?: string;
 	cmsUrl?: string;
@@ -266,6 +270,14 @@ export class ApiStack extends cdk.Stack {
 		// Grant Lambda access to DynamoDB tables
 		for (const table of Object.values(tables)) {
 			table.grantReadWriteData(this.trpcLambda);
+		}
+
+		// Grant DynamoDB access to SAMS tables
+		if (props.samsApiStack?.samsTeamsTable) {
+			props.samsApiStack.samsTeamsTable.grantReadWriteData(this.trpcLambda);
+		}
+		if (props.samsApiStack?.samsClubsTable) {
+			props.samsApiStack.samsClubsTable.grantReadWriteData(this.trpcLambda);
 		}
 
 		// Grant Lambda access to S3 bucket for uploads

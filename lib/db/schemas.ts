@@ -6,7 +6,7 @@
 import { z } from "zod";
 
 /** Base fields for all entities */
-const baseEntityFields = {
+export const baseEntityFields = {
 	id: z.uuid(),
 	createdAt: z.iso.datetime(),
 	updatedAt: z.iso.datetime(),
