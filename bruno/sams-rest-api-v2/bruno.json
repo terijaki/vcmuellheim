@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "sams-rest-api-v2",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

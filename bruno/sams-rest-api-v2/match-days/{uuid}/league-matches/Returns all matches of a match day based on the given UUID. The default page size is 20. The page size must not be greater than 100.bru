@@ -1,0 +1,416 @@
+meta {
+  name: Returns all matches of a match day based on the given UUID. The default page size is 20. The page size must not be greater than 100
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/match-days/:uuid/league-matches?page=-81938013&size=-81938013
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: -81938013
+  size: -81938013
+}
+
+params:path {
+  uuid: Lorem ad consequat
+}
+
+headers {
+  Accept: application/hal+json; charset=UTF-8
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: Successful operation
+  
+  request: {
+    url: {{baseUrl}}/match-days/:uuid/league-matches?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "totalElements": 98902884,
+          "numberOfElements": -57017542,
+          "_links": {
+            "empty": false
+          },
+          "_embedded": {
+            "empty": true
+          },
+          "content": [
+            {
+              "uuid": "dolor culpa",
+              "_links": {
+                "empty": false
+              },
+              "_embedded": {
+                "empty": false
+              },
+              "date": "1970-08-17T23:40:19.174Z",
+              "time": "incididunt dolore ad",
+              "matchNumber": 46603888,
+              "decidingMatch": true,
+              "gameReassessed": false,
+              "host": "Duis dolor",
+              "referees": {
+                "firstReferee": "enim Lorem culpa mollit",
+                "secondReferee": "non aliquip dolore",
+                "challengeReferee": "officia sed est"
+              },
+              "spectators": 1446489,
+              "netDuration": 1524319,
+              "verified": false,
+              "location": {
+                "uuid": "deserunt aliqua enim",
+                "_links": {
+                  "empty": false
+                },
+                "_embedded": {
+                  "empty": false
+                },
+                "name": "ipsum occaecat",
+                "longitude": -15044829.033352956,
+                "latitude": 32213192.892088756,
+                "address": {
+                  "street": "sint irure",
+                  "postcode": "id Ut par",
+                  "city": "occaecat",
+                  "country": "fugiat adipisicing",
+                  "extrafield": "do",
+                  "region": "sit dolore incididunt",
+                  "postbox": "fugiat magna"
+                }
+              },
+              "seasonUuid": "laborum ea occaecat non cupidatat",
+              "associationUuid": "esse sunt Duis dolore",
+              "results": {
+                "winner": "culpa",
+                "winnerName": "sit commodo labore",
+                "setPoints": "dolore est consequat",
+                "ballPoints": "Ut ea velit",
+                "sets": [
+                  {
+                    "number": 38121491,
+                    "ballPoints": "esse irure sint minim magna",
+                    "winner": "cillum",
+                    "winnerName": "cupidatat consequat",
+                    "duration": -93745049
+                  },
+                  {
+                    "number": 87353391,
+                    "ballPoints": "deserunt ea",
+                    "winner": "deserunt Lorem",
+                    "winnerName": "ad non ut consectetur",
+                    "duration": -24849028
+                  }
+                ]
+              },
+              "matchDayUuid": "nisi in",
+              "leagueUuid": "cillum",
+              "delayPossible": true,
+              "indefinitelyRescheduled": true
+            },
+            {
+              "uuid": "Ut proident",
+              "_links": {
+                "empty": true
+              },
+              "_embedded": {
+                "empty": true
+              },
+              "date": "1960-12-06T06:27:01.347Z",
+              "time": "aute quis Duis",
+              "matchNumber": 79547515,
+              "decidingMatch": true,
+              "gameReassessed": false,
+              "host": "in veniam pariatur culpa officia",
+              "referees": {
+                "firstReferee": "cillum",
+                "secondReferee": "eiusmod in",
+                "challengeReferee": "ut cillum in amet laboris"
+              },
+              "spectators": -3923424,
+              "netDuration": 81869229,
+              "verified": false,
+              "location": {
+                "uuid": "mollit do non elit quis",
+                "_links": {
+                  "empty": false
+                },
+                "_embedded": {
+                  "empty": false
+                },
+                "name": "cupidatat do ullamco",
+                "longitude": 67512005.3511281,
+                "latitude": 18368022.943909377,
+                "address": {
+                  "street": "labore sint ",
+                  "postcode": "et",
+                  "city": "nostrud",
+                  "country": "fugiat pariatur",
+                  "extrafield": "commodo adipisic",
+                  "region": "amet",
+                  "postbox": "do amet nulla officia"
+                }
+              },
+              "seasonUuid": "dolor",
+              "associationUuid": "Ut labore cillum",
+              "results": {
+                "winner": "irure pariatur anim ipsum",
+                "winnerName": "Duis irure",
+                "setPoints": "dolor proident consequat ea",
+                "ballPoints": "consequat irure",
+                "sets": [
+                  {
+                    "number": 12264546,
+                    "ballPoints": "deserunt labore",
+                    "winner": "ea sed in",
+                    "winnerName": "Excepteur et ipsum sed consectetur",
+                    "duration": 62270977
+                  },
+                  {
+                    "number": -78352700,
+                    "ballPoints": "laborum ad",
+                    "winner": "sed",
+                    "winnerName": "nisi",
+                    "duration": 48742949
+                  }
+                ]
+              },
+              "matchDayUuid": "sed incididunt",
+              "leagueUuid": "aliquip et reprehenderit quis",
+              "delayPossible": false,
+              "indefinitelyRescheduled": true
+            }
+          ],
+          "empty": false,
+          "totalPages": 97616451,
+          "first": false,
+          "last": false
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.
+  
+  request: {
+    url: {{baseUrl}}/match-days/:uuid/league-matches?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Bad Request
+      text: 400
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "violations": [
+            {
+              "constraint": "labore nisi magna ea",
+              "property": "voluptate Ut officia qui",
+              "entity": "ad nisi adipisicing consecte",
+              "invalidValue": "aliqua labore laboris ipsum",
+              "message": "incididunt aute commodo cillum"
+            },
+            {
+              "constraint": "tempor culpa",
+              "property": "magna sint sit",
+              "entity": "aute in ad",
+              "invalidValue": "do sit dolor ea id",
+              "message": "adipis"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: API authorization failed.
+  
+  request: {
+    url: {{baseUrl}}/match-days/:uuid/league-matches?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Forbidden
+      text: 403
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: The request could not be processed due to invalid request data. Check the response for more details.
+  
+  request: {
+    url: {{baseUrl}}/match-days/:uuid/league-matches?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Conflict
+      text: 409
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: An unexpected error occurred. Please contact support and supply the response data.
+  
+  request: {
+    url: {{baseUrl}}/match-days/:uuid/league-matches?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Internal Server Error
+      text: 500
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "exception": "deserunt ex Lorem dolore",
+          "message": "dolore minim"
+        }
+      '''
+    }
+  }
+}

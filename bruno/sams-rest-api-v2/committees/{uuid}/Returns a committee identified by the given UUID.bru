@@ -1,0 +1,299 @@
+meta {
+  name: Returns a committee identified by the given UUID
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/committees/:uuid
+  body: none
+  auth: inherit
+}
+
+params:path {
+  uuid: Lorem ad consequat
+}
+
+headers {
+  Accept: application/hal+json; charset=UTF-8
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Returns the requested committee if it belongs to the association which can be accessed with the used API key. The returned committee lists its respective members including the members' publicly available contact information.
+}
+
+example {
+  name: Successful operation
+  
+  request: {
+    url: {{baseUrl}}/committees/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "uuid": "occaecat dolor ad",
+          "_links": {
+            "empty": false
+          },
+          "_embedded": {
+            "empty": false
+          },
+          "associationUuid": "labore dolore cillum est",
+          "members": [
+            {
+              "uuid": "consectetur minim ut",
+              "committeeUuid": "fugiat in mollit officia",
+              "additionalTitle": "ex eu",
+              "sourceFunction": "ad reprehenderit eiusmod nisi",
+              "description": "magna pariatur exercitation fugiat",
+              "firstName": "id do",
+              "lastName": "do proident",
+              "email": "incididunt",
+              "priority": 66861933,
+              "address": {
+                "street": "aliqua",
+                "postcode": "aliqua reprehenderit dolor sunt Duis",
+                "city": "pariatur ad commodo nisi",
+                "country": "in aliquip fugiat",
+                "extrafield": "laborum anim",
+                "region": "officia in proident id",
+                "postbox": "voluptate cupidatat officia"
+              },
+              "phoneMobile": "esse in",
+              "fax": "fugiat voluptate commodo",
+              "phoneWork": "ea pariatur",
+              "faxWork": "Duis sunt sed minim",
+              "phoneMobileWork": "laborum labore",
+              "portraitPhotoLink": "voluptate est veniam eu"
+            },
+            {
+              "uuid": "nisi",
+              "committeeUuid": "aliqua",
+              "additionalTitle": "nisi incididunt aliqua aute proident",
+              "sourceFunction": "do tempor irure",
+              "description": "magna",
+              "firstName": "qui conseq",
+              "lastName": "magna sed",
+              "email": "cillum irure",
+              "priority": 72880939,
+              "address": {
+                "street": "in sed",
+                "postcode": "enim",
+                "city": "aliquip",
+                "country": "la",
+                "extrafield": "labore ",
+                "region": "anim dolore",
+                "postbox": "consectetur mollit"
+              },
+              "phoneMobile": "eu do",
+              "fax": "cillum occaecat",
+              "phoneWork": "do consequat laboris fugiat",
+              "faxWork": "dolor enim velit pariatur",
+              "phoneMobileWork": "anim nisi Excepteur sit nostrud",
+              "portraitPhotoLink": "consectetur velit fugiat officia"
+            }
+          ],
+          "name": "dolor elit",
+          "shortname": "labore occaecat ex ad",
+          "description": "culpa elit",
+          "type": "sit non dolore",
+          "imageLink": "est amet consequat"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.
+  
+  request: {
+    url: {{baseUrl}}/committees/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Bad Request
+      text: 400
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "violations": [
+            {
+              "constraint": "labore nisi magna ea",
+              "property": "voluptate Ut officia qui",
+              "entity": "ad nisi adipisicing consecte",
+              "invalidValue": "aliqua labore laboris ipsum",
+              "message": "incididunt aute commodo cillum"
+            },
+            {
+              "constraint": "tempor culpa",
+              "property": "magna sint sit",
+              "entity": "aute in ad",
+              "invalidValue": "do sit dolor ea id",
+              "message": "adipis"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: API authorization failed.
+  
+  request: {
+    url: {{baseUrl}}/committees/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Forbidden
+      text: 403
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: The request could not be processed due to invalid request data. Check the response for more details.
+  
+  request: {
+    url: {{baseUrl}}/committees/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Conflict
+      text: 409
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: An unexpected error occurred. Please contact support and supply the response data.
+  
+  request: {
+    url: {{baseUrl}}/committees/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Internal Server Error
+      text: 500
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "exception": "deserunt ex Lorem dolore",
+          "message": "dolore minim"
+        }
+      '''
+    }
+  }
+}

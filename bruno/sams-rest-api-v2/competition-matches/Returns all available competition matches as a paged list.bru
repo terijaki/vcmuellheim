@@ -1,0 +1,426 @@
+meta {
+  name: Returns all available competition matches as a paged list.
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/competition-matches?page=0&size=100&for-sportsclub=9c8b0252-c19b-4e83-a564-202e90d75c01&for-season=d68be217-1d72-4895-9a85-4be09715258d
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: 0
+  size: 100
+  for-sportsclub: 9c8b0252-c19b-4e83-a564-202e90d75c01
+  for-season: d68be217-1d72-4895-9a85-4be09715258d
+  ~association: Lorem ad consequat
+  ~for-competition: Lorem ad consequat
+  ~for-team: Lorem ad consequat
+}
+
+headers {
+  Accept: application/hal+json; charset=UTF-8
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  The default page size is 20. The page size must not be greater than 100. The result list can be filtered for a particular season, competition, sports club, or team by passing the UUID of the entity for which to filter as a filter query parameter. The filters will be combined with AND semantics.
+}
+
+example {
+  name: Successful operation
+  
+  request: {
+    url: {{baseUrl}}/competition-matches?page=-81938013&size=-81938013&association=Lorem ad consequat&for-season=Lorem ad consequat&for-competition=Lorem ad consequat&for-sportsclub=Lorem ad consequat&for-team=Lorem ad consequat
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+      association: Lorem ad consequat
+      for-season: Lorem ad consequat
+      for-competition: Lorem ad consequat
+      for-sportsclub: Lorem ad consequat
+      for-team: Lorem ad consequat
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "totalElements": 63691480,
+          "numberOfElements": 9802929,
+          "_links": {
+            "empty": true
+          },
+          "_embedded": {
+            "empty": false
+          },
+          "content": [
+            {
+              "uuid": "aliquip",
+              "_links": {
+                "empty": true
+              },
+              "_embedded": {
+                "empty": false
+              },
+              "date": "1974-06-29T10:24:48.209Z",
+              "time": "nulla ",
+              "matchNumber": 45021023,
+              "decidingMatch": true,
+              "gameReassessed": true,
+              "host": "eiusmod",
+              "referees": {
+                "firstReferee": "ut dolor in sint",
+                "secondReferee": "quis sunt",
+                "challengeReferee": "minim ad"
+              },
+              "spectators": 42989546,
+              "netDuration": 79004234,
+              "verified": false,
+              "location": {
+                "uuid": "mollit do ea labore aliqua",
+                "_links": {
+                  "empty": false
+                },
+                "_embedded": {
+                  "empty": true
+                },
+                "name": "officia adipisicing exercitation",
+                "longitude": 1562071.60086748,
+                "latitude": 65061962.55124515,
+                "address": {
+                  "street": "ex dolore",
+                  "postcode": "ex minim enim",
+                  "city": "Lorem",
+                  "country": "ullamco reprehenderit",
+                  "extrafield": "in velit proident",
+                  "region": "eiusmod quis exercitation",
+                  "postbox": "exercitation"
+                }
+              },
+              "seasonUuid": "sint sed tempor cillum",
+              "associationUuid": "tempor voluptate nostrud veniam",
+              "results": {
+                "winner": "non eiusmod Ut labori",
+                "winnerName": "in minim veniam ea",
+                "setPoints": "in laboris Excepteur laborum",
+                "ballPoints": "Excepteur ut",
+                "sets": [
+                  {
+                    "number": 53437905,
+                    "ballPoints": "enim dolor velit",
+                    "winner": "qui ex in veniam",
+                    "winnerName": "et aliqua commodo",
+                    "duration": -84154539
+                  },
+                  {
+                    "number": 40783049,
+                    "ballPoints": "Lorem ut non reprehenderit",
+                    "winner": "adipisicing qui ut velit",
+                    "winnerName": "incididunt sint eu consectetur dolore",
+                    "duration": -1400869
+                  }
+                ]
+              },
+              "matchGroupUuid": "veniam",
+              "competitionUuid": "cillum ad amet do",
+              "delayPossible": false,
+              "indefinitelyRescheduled": false
+            },
+            {
+              "uuid": "cupidatat Lorem ea",
+              "_links": {
+                "empty": true
+              },
+              "_embedded": {
+                "empty": true
+              },
+              "date": "1960-10-26T09:46:08.762Z",
+              "time": "enim nu",
+              "matchNumber": 30078373,
+              "decidingMatch": false,
+              "gameReassessed": true,
+              "host": "velit dolor",
+              "referees": {
+                "firstReferee": "aliqua sed officia",
+                "secondReferee": "in culpa",
+                "challengeReferee": "culpa officia in et eu"
+              },
+              "spectators": 8740532,
+              "netDuration": 8417422,
+              "verified": false,
+              "location": {
+                "uuid": "labore",
+                "_links": {
+                  "empty": false
+                },
+                "_embedded": {
+                  "empty": false
+                },
+                "name": "eiusmod dolore",
+                "longitude": 63722292.75103742,
+                "latitude": 9859862.178119674,
+                "address": {
+                  "street": "sit et ad ex in",
+                  "postcode": "anim magna mollit sunt",
+                  "city": "dolore",
+                  "country": "",
+                  "extrafield": "in et elit",
+                  "region": "veniam",
+                  "postbox": "nulla mollit ullamco dolor"
+                }
+              },
+              "seasonUuid": "magna culpa dolor elit",
+              "associationUuid": "laborum do",
+              "results": {
+                "winner": "qui labore commodo cupidatat",
+                "winnerName": "labore adipisicing incididunt enim officia",
+                "setPoints": "minim nulla lab",
+                "ballPoints": "occaecat enim pariatur nostrud",
+                "sets": [
+                  {
+                    "number": 60374196,
+                    "ballPoints": "occaecat ut",
+                    "winner": "officia ullamco et",
+                    "winnerName": "Lorem sint reprehenderit dolore",
+                    "duration": -91874101
+                  },
+                  {
+                    "number": -59213910,
+                    "ballPoints": "veniam nostrud",
+                    "winner": "laborum Lorem eiusmod",
+                    "winnerName": "no",
+                    "duration": -87402050
+                  }
+                ]
+              },
+              "matchGroupUuid": "aute",
+              "competitionUuid": "ex irure eu",
+              "delayPossible": true,
+              "indefinitelyRescheduled": true
+            }
+          ],
+          "empty": true,
+          "totalPages": 34785534,
+          "first": false,
+          "last": false
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.
+  
+  request: {
+    url: {{baseUrl}}/competition-matches?page=-81938013&size=-81938013&association=Lorem ad consequat&for-season=Lorem ad consequat&for-competition=Lorem ad consequat&for-sportsclub=Lorem ad consequat&for-team=Lorem ad consequat
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+      association: Lorem ad consequat
+      for-season: Lorem ad consequat
+      for-competition: Lorem ad consequat
+      for-sportsclub: Lorem ad consequat
+      for-team: Lorem ad consequat
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Bad Request
+      text: 400
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "violations": [
+            {
+              "constraint": "labore nisi magna ea",
+              "property": "voluptate Ut officia qui",
+              "entity": "ad nisi adipisicing consecte",
+              "invalidValue": "aliqua labore laboris ipsum",
+              "message": "incididunt aute commodo cillum"
+            },
+            {
+              "constraint": "tempor culpa",
+              "property": "magna sint sit",
+              "entity": "aute in ad",
+              "invalidValue": "do sit dolor ea id",
+              "message": "adipis"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: API authorization failed.
+  
+  request: {
+    url: {{baseUrl}}/competition-matches?page=-81938013&size=-81938013&association=Lorem ad consequat&for-season=Lorem ad consequat&for-competition=Lorem ad consequat&for-sportsclub=Lorem ad consequat&for-team=Lorem ad consequat
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+      association: Lorem ad consequat
+      for-season: Lorem ad consequat
+      for-competition: Lorem ad consequat
+      for-sportsclub: Lorem ad consequat
+      for-team: Lorem ad consequat
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Forbidden
+      text: 403
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: The request could not be processed due to invalid request data. Check the response for more details.
+  
+  request: {
+    url: {{baseUrl}}/competition-matches?page=-81938013&size=-81938013&association=Lorem ad consequat&for-season=Lorem ad consequat&for-competition=Lorem ad consequat&for-sportsclub=Lorem ad consequat&for-team=Lorem ad consequat
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+      association: Lorem ad consequat
+      for-season: Lorem ad consequat
+      for-competition: Lorem ad consequat
+      for-sportsclub: Lorem ad consequat
+      for-team: Lorem ad consequat
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Conflict
+      text: 409
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: An unexpected error occurred. Please contact support and supply the response data.
+  
+  request: {
+    url: {{baseUrl}}/competition-matches?page=-81938013&size=-81938013&association=Lorem ad consequat&for-season=Lorem ad consequat&for-competition=Lorem ad consequat&for-sportsclub=Lorem ad consequat&for-team=Lorem ad consequat
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+      association: Lorem ad consequat
+      for-season: Lorem ad consequat
+      for-competition: Lorem ad consequat
+      for-sportsclub: Lorem ad consequat
+      for-team: Lorem ad consequat
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Internal Server Error
+      text: 500
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "exception": "deserunt ex Lorem dolore",
+          "message": "dolore minim"
+        }
+      '''
+    }
+  }
+}

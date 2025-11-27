@@ -1,0 +1,344 @@
+meta {
+  name: Returns all available events as a paged list. The default page size is 20. The page size must not be greater than 100
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/events?page=0&size=100&association=2b7571b5-f985-c552-ea1c-f819ed3811c1
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: 0
+  size: 100
+  association: 2b7571b5-f985-c552-ea1c-f819ed3811c1
+}
+
+headers {
+  Accept: application/hal+json; charset=UTF-8
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: Successful operation
+  
+  request: {
+    url: {{baseUrl}}/events?page=-81938013&size=-81938013&association=Lorem ad consequat
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+      association: Lorem ad consequat
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "totalElements": 88938073,
+          "numberOfElements": -948900,
+          "_links": {
+            "empty": false
+          },
+          "_embedded": {
+            "empty": true
+          },
+          "content": [
+            {
+              "uuid": "nisi fugiat",
+              "_links": {
+                "empty": false
+              },
+              "_embedded": {
+                "empty": true
+              },
+              "name": "et dolore consequat mollit",
+              "shortname": "amet nostrud",
+              "eventNumber": 31519728,
+              "overridingEventNumber": "et",
+              "dateNotYetKnown": false,
+              "endsAt": "1997-02-26T01:16:54.906Z",
+              "beginsAt": "1969-07-10T03:08:15.746Z",
+              "registrationDeadline": "1963-09-28T22:18:02.127Z",
+              "associationUuid": "ut ex officia",
+              "canceled": true,
+              "minimumNumberOfParticipants": -66792375,
+              "maximumNumberOfParticipants": 24074131,
+              "usedCapacity": -96376644,
+              "registrationUri": "http://kDFtBvbnfenoxHkeoyclaGpxzcdQKdUp.xaerZo8Cuy1lZdEcVVU5vBABW6iPWvu0B8q+MGwoPZj7gGAUpw5MhP4RyEJUc-dN",
+              "location": {
+                "uuid": "sed dolore dolor",
+                "_links": {
+                  "empty": true
+                },
+                "_embedded": {
+                  "empty": false
+                },
+                "name": "pariatur reprehenderit velit",
+                "longitude": 9640560.542596787,
+                "latitude": 51856485.36303079,
+                "address": {
+                  "street": "nostrud Excepteur",
+                  "postcode": "ut velit",
+                  "city": "in irure qui commodo",
+                  "country": "ulla",
+                  "extrafield": "cupidatat irure",
+                  "region": "d",
+                  "postbox": "Duis"
+                }
+              },
+              "eventTypeUuid": "eiusmod officia ad"
+            },
+            {
+              "uuid": "ipsum officia irure",
+              "_links": {
+                "empty": false
+              },
+              "_embedded": {
+                "empty": true
+              },
+              "name": "ut anim Excepteur est",
+              "shortname": "ullamco qui",
+              "eventNumber": -36809628,
+              "overridingEventNumber": "in ipsum eiusmod",
+              "dateNotYetKnown": false,
+              "endsAt": "1968-02-22T21:37:49.724Z",
+              "beginsAt": "1961-06-28T22:04:29.632Z",
+              "registrationDeadline": "1949-11-09T14:24:42.263Z",
+              "associationUuid": "officia dolor",
+              "canceled": true,
+              "minimumNumberOfParticipants": -74278111,
+              "maximumNumberOfParticipants": -83621405,
+              "usedCapacity": -13881316,
+              "registrationUri": "http://YJlZrgmKdCfacKzsFDVFCBUMXSOFyVvv.melCw5Eycn07S-B4iULf.Z+g-iM9rCv0QvnFtDVK,-0oJxFXQK",
+              "location": {
+                "uuid": "labore",
+                "_links": {
+                  "empty": false
+                },
+                "_embedded": {
+                  "empty": false
+                },
+                "name": "exerci",
+                "longitude": 35896355.00331411,
+                "latitude": 87085938.96175799,
+                "address": {
+                  "street": "consectetur pariatur",
+                  "postcode": "velit cillum",
+                  "city": "elit sunt veniam labore",
+                  "country": "Lorem qui aute est adipisicing",
+                  "extrafield": "ad cillum qui sint voluptate",
+                  "region": "magna proident",
+                  "postbox": "id aliqua ea amet"
+                }
+              },
+              "eventTypeUuid": "est qui"
+            }
+          ],
+          "empty": false,
+          "totalPages": 6162628,
+          "first": true,
+          "last": true
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.
+  
+  request: {
+    url: {{baseUrl}}/events?page=-81938013&size=-81938013&association=Lorem ad consequat
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+      association: Lorem ad consequat
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Bad Request
+      text: 400
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "violations": [
+            {
+              "constraint": "labore nisi magna ea",
+              "property": "voluptate Ut officia qui",
+              "entity": "ad nisi adipisicing consecte",
+              "invalidValue": "aliqua labore laboris ipsum",
+              "message": "incididunt aute commodo cillum"
+            },
+            {
+              "constraint": "tempor culpa",
+              "property": "magna sint sit",
+              "entity": "aute in ad",
+              "invalidValue": "do sit dolor ea id",
+              "message": "adipis"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: API authorization failed.
+  
+  request: {
+    url: {{baseUrl}}/events?page=-81938013&size=-81938013&association=Lorem ad consequat
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+      association: Lorem ad consequat
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Forbidden
+      text: 403
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: The request could not be processed due to invalid request data. Check the response for more details.
+  
+  request: {
+    url: {{baseUrl}}/events?page=-81938013&size=-81938013&association=Lorem ad consequat
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+      association: Lorem ad consequat
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Conflict
+      text: 409
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: An unexpected error occurred. Please contact support and supply the response data.
+  
+  request: {
+    url: {{baseUrl}}/events?page=-81938013&size=-81938013&association=Lorem ad consequat
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+      association: Lorem ad consequat
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Internal Server Error
+      text: 500
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "exception": "deserunt ex Lorem dolore",
+          "message": "dolore minim"
+        }
+      '''
+    }
+  }
+}
