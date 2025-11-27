@@ -494,8 +494,7 @@ async function migrateMembers(dryRun: boolean): Promise<void> {
 			let roleTitle: string | undefined;
 			if (Array.isArray(row.roles) && row.roles.length > 0) {
 				isTrainer = row.roles.includes("Trainer");
-				isBoardMember =
-					row.roles.includes("Vorsitzender") || row.roles.includes("Beisitzer") || row.roles.includes("Kassierer") || row.roles.includes("Mitgliederverwaltung") || row.roles.includes("Schatzmeister");
+				isBoardMember = row.roles.some((role: string) => ["1. Vorsitzender", "2. Vorsitzender", "Beisitzer", "Kassier", "Mitgliederverwaltung", "Schatzmeister"].includes(role));
 				// Find the first non-Trainer role
 				roleTitle = row.roles.find((r: string) => r !== "Trainer");
 			}

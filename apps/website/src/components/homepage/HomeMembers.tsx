@@ -13,7 +13,7 @@ export default function HomeMembers() {
 
 	const boardMembers = members.filter((member) => member.isBoardMember);
 	const trainers = members.filter((member) => member.isTrainer);
-	const otherMembers = members.filter((member) => !member.isBoardMember && !member.isTrainer && member.roleTitle);
+	const otherMembers = members.filter((member) => !member.isBoardMember && member.roleTitle);
 
 	return (
 		<Container size="md" py="xl" px={{ base: "lg", md: "xl" }}>
