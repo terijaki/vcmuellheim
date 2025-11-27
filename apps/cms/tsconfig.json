@@ -17,7 +17,11 @@
 		/* Path aliases */
 		"baseUrl": ".",
 		"paths": {
-			"@apps/shared": ["../shared/lib/index.ts"]
+			"@lib/*": ["../../lib/*"],
+			"@utils/*": ["../../utils/*"],
+			"@data/*": ["../../data/*"],
+			"@project-config": ["../../project.config.ts"],
+			"@apps/shared": ["../shared/*"]
 		},
 
 		/* Linting */

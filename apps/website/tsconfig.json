@@ -21,7 +21,7 @@
 			"@utils/*": ["../../utils/*"],
 			"@data/*": ["../../data/*"],
 			"@project-config": ["../../project.config.ts"],
-			"@apps/shared": ["../shared/lib/index.ts"]
+			"@apps/shared": ["../shared/*"]
 		},
 
 		/* Linting */
