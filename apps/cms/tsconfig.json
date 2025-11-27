@@ -19,7 +19,7 @@
 		"paths": {
 			"@lib/*": ["../../lib/*"],
 			"@utils/*": ["../../utils/*"],
-			"@data/*": ["../../data/*"],
+			// "@data/*": ["../../data/*"],
 			"@project-config": ["../../project.config.ts"],
 			"@apps/shared": ["../shared/*"]
 		},

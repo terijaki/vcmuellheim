@@ -1,7 +1,7 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DeleteCommand, DynamoDBDocumentClient, PutCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import type { APIGatewayProxyHandler } from "aws-lambda";
-import { getAllLeagues, getAllSeasons, getTeamsForLeague } from "../../data/sams/client";
+import { getAllLeagues, getAllSeasons, getTeamsForLeague } from "../../codegen/sams/client";
 import { slugify } from "../../utils/slugify";
 import { TeamItemSchema } from "./types";
 

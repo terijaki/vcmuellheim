@@ -1,5 +1,5 @@
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
-import { getRankingsForLeague } from "@/data/sams/client";
+import { getRankingsForLeague } from "../../codegen/sams/client";
 import { RankingResponseSchema } from "./types";
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {

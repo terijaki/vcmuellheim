@@ -15,6 +15,6 @@ curl -s https://www.volleyball-baden.de/api/v2/swagger.json | \
     else . 
     end
   )' > \
-  data/sams/swagger.json
+  codegen/sams/swagger.json
 
 echo "✅ swagger.json updated successfully"

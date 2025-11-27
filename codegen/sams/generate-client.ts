@@ -1,6 +1,6 @@
-import { defineConfig } from "@hey-api/openapi-ts";
+import { createClient } from "@hey-api/openapi-ts";
 
-export default defineConfig({
+createClient({
 	output: {
 		path: "codegen/sams/client",
 		format: "biome",
@@ -22,7 +22,7 @@ export default defineConfig({
 		},
 		{
 			name: "@hey-api/client-fetch",
-			runtimeConfigPath: "@/data/sams/hey-api",
+			runtimeConfigPath: "../hey-api",
 		},
 		{
 			name: "@hey-api/sdk",

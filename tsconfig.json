@@ -20,7 +20,8 @@
 			"@lib/*": ["./lib/*"],
 			"@lambda/*": ["./lambda/*"],
 			"@utils/*": ["./utils/*"],
-			"@data/*": ["./data/*"]
+			"@data/*": ["./data/*"],
+			"@codegen/*": ["./codegen/*"]
 		},
 		"types": ["bun-types"]
 	},
