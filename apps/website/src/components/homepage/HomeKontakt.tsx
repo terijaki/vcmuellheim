@@ -49,7 +49,7 @@ export default function HomeKontakt() {
 						</ContactItem>
 						<ContactItem title="Hast du Fragen zu deiner Beitragszahlung?">
 							<Text size="sm">
-								Melde dich bitte direkt bei {treasurer?.name}{" "}
+								Melde dich bitte direkt bei {treasurer?.name ? `${treasurer.name} ` : " "}
 								<ContactLink href="mailto:kassier@vcmuellheim.de?subject=Volleyball Club Müllheim" target="_blank" label="kassier@vcmuellheim.de" icon={<IconEmail />} />
 							</Text>
 						</ContactItem>
