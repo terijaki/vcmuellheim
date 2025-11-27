@@ -107,6 +107,13 @@
         "vite": "catalog:",
       },
     },
+    "apps/shared": {
+      "name": "@apps/shared",
+      "version": "1.0.0",
+      "dependencies": {
+        "@tanstack/react-query": "catalog:",
+      },
+    },
     "apps/website": {
       "name": "@vcmuellheim/website",
       "version": "1.0.0",
@@ -120,8 +127,11 @@
         "@trpc/client": "catalog:",
         "@trpc/react-query": "catalog:",
         "dayjs": "catalog:",
+        "num-words-de": "^1.1.0",
         "react": "catalog:",
         "react-dom": "catalog:",
+        "react-icons": "^5.5.0",
+        "react-world-flags": "^1.6.0",
         "superjson": "catalog:",
       },
       "devDependencies": {
@@ -174,6 +184,8 @@
     "@apm-js-collab/code-transformer": ["@apm-js-collab/code-transformer@0.8.2", "", {}, "sha512-YRjJjNq5KFSjDUoqu5pFUWrrsvGOxl6c3bu+uMFc9HNNptZ2rNU/TI2nLw4jnhQNtka972Ee2m3uqbvDQtPeCA=="],
 
     "@apm-js-collab/tracing-hooks": ["@apm-js-collab/tracing-hooks@0.3.1", "", { "dependencies": { "@apm-js-collab/code-transformer": "^0.8.0", "debug": "^4.4.1", "module-details-from-path": "^1.0.4" } }, "sha512-Vu1CbmPURlN5fTboVuKMoJjbO5qcq9fA5YXpskx3dXe/zTBvjODFoerw+69rVBlRLrJpwPqSDqEuJDEKIrTldw=="],
+
+    "@apps/shared": ["@apps/shared@workspace:apps/shared"],
 
     "@aws-cdk/asset-awscli-v1": ["@aws-cdk/asset-awscli-v1@2.2.242", "", {}, "sha512-4c1bAy2ISzcdKXYS1k4HYZsNrgiwbiDzj36ybwFVxEWZXVAP0dimQTCaB9fxu7sWzEjw3d+eaw6Fon+QTfTIpQ=="],
 

@@ -5,6 +5,7 @@
 		"useDefineForClassFields": true,
 		"lib": ["ES2021", "DOM", "DOM.Iterable"],
 		"module": "ESNext",
+		"strictNullChecks": true,
 
 		/* Bundler mode */
 		"moduleResolution": "bundler",
@@ -12,6 +13,16 @@
 		"isolatedModules": true,
 		"noEmit": true,
 		"jsx": "react-jsx",
+
+		/* Path aliases */
+		"baseUrl": ".",
+		"paths": {
+			"@lib/*": ["../../lib/*"],
+			"@utils/*": ["../../utils/*"],
+			"@data/*": ["../../data/*"],
+			"@project-config": ["../../project.config.ts"],
+			"@apps/shared": ["../shared/lib/index.ts"]
+		},
 
 		/* Linting */
 		"noUnusedLocals": true,

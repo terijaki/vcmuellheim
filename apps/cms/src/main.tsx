@@ -10,7 +10,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "dayjs/locale/de";
 import { AuthProvider } from "./auth/AuthContext";
-import { TRPCProvider } from "./lib/trpc-provider";
+import { TRPCProvider } from "./lib/TrpcProvider";
 import { router } from "./router";
 
 const theme = createTheme({

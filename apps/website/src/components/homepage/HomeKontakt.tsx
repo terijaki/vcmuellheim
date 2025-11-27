@@ -1,15 +1,15 @@
 import { Anchor, Box, Card, Center, Container, Group, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import type { HTMLAttributeAnchorTarget } from "react";
 import { FaEnvelope as IconEmail, FaFileExcel as IconExcel, FaArrowUpRightFromSquare as IconExtern } from "react-icons/fa6";
-import { getMembersByRole } from "@/data/members";
+import { useMembers } from "../../lib/hooks";
 import SectionHeading from "../layout/SectionHeading";
 import ScrollAnchor from "./ScrollAnchor";
 
-export default async function HomeKontakt() {
-	const treasurerData = await getMembersByRole(["Kassier", "Schatzmeister:in"]);
-	const treasurer = treasurerData?.docs[0];
-	const membershipManagerData = await getMembersByRole(["Mitgliederverwaltung"]);
-	const membershipManager = membershipManagerData?.docs[0];
+export default function HomeKontakt() {
+	const { data: members } = useMembers();
+
+	const treasurer = members?.items.find((member) => member.roleTitle?.includes("Kassier") || member.roleTitle?.includes("Schatzmeister:in"));
+	const membershipManager = members?.items.find((member) => member.roleTitle?.includes("Mitgliederverwaltung"));
 
 	return (
 		<Center>

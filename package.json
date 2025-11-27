@@ -5,7 +5,8 @@
 	"type": "module",
 	"workspaces": [
 		"apps/cms",
-		"apps/website"
+		"apps/website",
+		"apps/shared"
 	],
 	"catalog": {
 		"react": "^19.2.0",
