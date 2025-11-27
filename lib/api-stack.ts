@@ -275,9 +275,13 @@ export class ApiStack extends cdk.Stack {
 		// Grant DynamoDB access to SAMS tables
 		if (props.samsApiStack?.samsTeamsTable) {
 			props.samsApiStack.samsTeamsTable.grantReadWriteData(this.trpcLambda);
+		} else {
+			console.warn("Warning: No SAMS Teams table provided to API Stack - SAMS team data will not be accessible");
 		}
 		if (props.samsApiStack?.samsClubsTable) {
 			props.samsApiStack.samsClubsTable.grantReadWriteData(this.trpcLambda);
+		} else {
+			console.warn("Warning: No SAMS Clubs table provided to API Stack - SAMS club data will not be accessible");
 		}
 
 		// Grant Lambda access to S3 bucket for uploads

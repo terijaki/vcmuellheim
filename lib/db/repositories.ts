@@ -197,6 +197,10 @@ export async function getTrainers() {
 	});
 }
 
+/**
+ * SAMS-specific queries
+ */
+
 /** Get Sams Clubs */
 export async function getAllSamsClubs() {
 	return samsClubsRepository.scan();
