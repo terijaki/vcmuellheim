@@ -1,6 +1,6 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { BatchWriteCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import { getAllSportsclubs, getAssociations } from "@codegen/sams/generated";
+import { getAllSportsclubs, getAssociationByUuid, getAssociations } from "@codegen/sams/generated";
 import type { EventBridgeEvent } from "aws-lambda";
 import { SAMS } from "@/project.config";
 import { slugify } from "@/utils/slugify";
@@ -17,6 +17,9 @@ const ASSOCIATION_NAME = SAMS.association.name; // SBVV
 export const handler = async (event: EventBridgeEvent<string, unknown>) => {
 	console.log("🚀 Starting SAMS clubs sync job", { event });
 
+	if (!SAMS_API_KEY) {
+		throw new Error("SAMS_API_KEY environment variable is required");
+	}
 	if (!TABLE_NAME) {
 		throw new Error("CLUBS_TABLE_NAME environment variable is not set");
 	}
@@ -46,11 +49,31 @@ export const handler = async (event: EventBridgeEvent<string, unknown>) => {
 					associationUuid = association.uuid;
 					console.log(`✅ Found association: ${ASSOCIATION_NAME} (${associationUuid})`);
 					break;
+				} else {
+					console.log(`ℹ️ Association not found on page ${currentPage} (${data.content.length} Associations: ${data.content.map((a) => a.name).join(", ")}), checking next page...`);
 				}
 				currentPage++;
 			}
 
 			if (data.last === true) hasMorePages = false;
+		}
+
+		// Workaround if association still not found. Issue reported on 27.11.2025
+		if (!associationUuid) {
+			const { data, error, response } = await getAssociationByUuid({
+				path: { uuid: "2b7571b5-f985-c552-ea1c-f819ed3811c1" },
+				headers: {
+					"X-API-Key": SAMS_API_KEY,
+				},
+			});
+			if (error) {
+				throw new Error(`Error ${response.status} fetching association by UUID workaround`);
+			}
+			console.log(`ℹ️ Workaround: Fetched association by known UUID: ${JSON.stringify(data)}`);
+			if (data && data.name === ASSOCIATION_NAME) {
+				associationUuid = data.uuid;
+				console.log(`✅ Found association via workaround: ${ASSOCIATION_NAME} (${associationUuid})`);
+			}
 		}
 
 		if (!associationUuid) {

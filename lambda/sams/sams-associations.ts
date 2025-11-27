@@ -1,12 +1,13 @@
 import { type Association, getAssociations } from "@codegen/sams/generated";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from "aws-lambda";
 
+const SAMS_API_KEY = process.env.SAMS_API_KEY;
+
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 	try {
 		console.log("Getting SAMS associations", { event: JSON.stringify(event) });
 
-		const apiKey = process.env.SAMS_API_KEY;
-		if (!apiKey) {
+		if (!SAMS_API_KEY) {
 			return {
 				statusCode: 500,
 				headers: {
@@ -27,7 +28,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			const { data, error, response } = await getAssociations({
 				query: { page: currentPage, size: 100 },
 				headers: {
-					"X-API-Key": apiKey,
+					"X-API-Key": SAMS_API_KEY,
 				},
 			});
 

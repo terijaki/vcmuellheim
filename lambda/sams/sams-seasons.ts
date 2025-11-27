@@ -3,13 +3,13 @@ import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import dayjs from "dayjs";
 import { SeasonsResponseSchema } from "./types";
 
+const SAMS_API_KEY = process.env.SAMS_API_KEY;
+
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
 	try {
 		console.log("Getting SAMS seasons", { event: JSON.stringify(event) });
 
-		const apiKey = process.env.SAMS_API_KEY;
-
-		if (!apiKey) {
+		if (!SAMS_API_KEY) {
 			return {
 				statusCode: 500,
 				headers: {
@@ -23,7 +23,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
 		const { data: seasons } = await getAllSeasons({
 			headers: {
-				"X-API-Key": apiKey,
+				"X-API-Key": SAMS_API_KEY,
 			},
 		});
 		if (!seasons || seasons.length === 0) {

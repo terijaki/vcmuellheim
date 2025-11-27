@@ -10,18 +10,17 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 const CLUBS_TABLE_NAME = process.env.CLUBS_TABLE_NAME || "";
 const TEAMS_TABLE_NAME = process.env.TEAMS_TABLE_NAME || "";
+const SAMS_API_KEY = process.env.SAMS_API_KEY;
+const SAMS_SERVER = process.env.SAMS_SERVER;
 
 export const handler: APIGatewayProxyHandler = async () => {
 	try {
 		console.log("Starting SAMS teams sync...");
 
-		const apiKey = process.env.SAMS_API_KEY;
-		const samsServer = process.env.SAMS_SERVER;
-
-		if (!apiKey) {
+		if (!SAMS_API_KEY) {
 			throw new Error("SAMS_API_KEY environment variable is required");
 		}
-		if (!samsServer) {
+		if (!SAMS_SERVER) {
 			throw new Error("SAMS_SERVER environment variable is required");
 		}
 
@@ -50,7 +49,7 @@ export const handler: APIGatewayProxyHandler = async () => {
 		console.log("Fetching current season...");
 		const { data: seasons } = await getAllSeasons({
 			headers: {
-				"X-API-Key": apiKey,
+				"X-API-Key": SAMS_API_KEY,
 			},
 		});
 
@@ -73,7 +72,7 @@ export const handler: APIGatewayProxyHandler = async () => {
 					page: leaguePage,
 				},
 				headers: {
-					"X-API-Key": apiKey,
+					"X-API-Key": SAMS_API_KEY,
 				},
 			});
 
@@ -107,7 +106,7 @@ export const handler: APIGatewayProxyHandler = async () => {
 					path: { uuid: league.uuid },
 					query: { page: teamPage, size: 100 },
 					headers: {
-						"X-API-Key": apiKey,
+						"X-API-Key": SAMS_API_KEY,
 					},
 				});
 

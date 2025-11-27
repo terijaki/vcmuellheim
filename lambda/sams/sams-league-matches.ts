@@ -3,13 +3,13 @@ import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import dayjs from "dayjs";
 import { LeagueMatchesResponseSchema } from "./types";
 
+const SAMS_API_KEY = process.env.SAMS_API_KEY;
+
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
 	try {
 		console.log("Getting SAMS league matches", { event: JSON.stringify(event) });
 
-		const apiKey = process.env.SAMS_API_KEY;
-
-		if (!apiKey) {
+		if (!SAMS_API_KEY) {
 			return {
 				statusCode: 500,
 				headers: {
@@ -63,7 +63,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 					page: currentPage,
 				},
 				headers: {
-					"X-API-Key": apiKey,
+					"X-API-Key": SAMS_API_KEY,
 				},
 			});
 
