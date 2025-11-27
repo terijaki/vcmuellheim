@@ -125,7 +125,7 @@ export type SeasonsResponse = z.infer<typeof SeasonsResponseSchema>;
 /**
  * League rankings response
  */
-export const RankingSchema = z.object({
+export const RankingResponseSchema = z.object({
 	// reuse generated entry schema for ranking items
 	teams: z.optional(z.array(zLeagueRankingsEntryDto)),
 	timestamp: z.date(),
@@ -134,7 +134,7 @@ export const RankingSchema = z.object({
 	seasonName: z.string().nullish(),
 });
 
-export type Ranking = z.infer<typeof RankingSchema>;
+export type RankingResponse = z.infer<typeof RankingResponseSchema>;
 
 // ============================================================================
 // League Matches Schemas & Types
@@ -143,10 +143,10 @@ export type Ranking = z.infer<typeof RankingSchema>;
 /**
  * League matches response (without HAL links)
  */
-export const LeagueMatchesSchema = z.object({
+export const LeagueMatchesResponseSchema = z.object({
 	// use generated league match schema but remove _links for the public response
 	matches: z.array(zLeagueMatchDto.omit({ _links: true })),
 	timestamp: z.date(),
 });
 
-export type LeagueMatches = z.infer<typeof LeagueMatchesSchema>;
+export type LeagueMatchesResponse = z.infer<typeof LeagueMatchesResponseSchema>;

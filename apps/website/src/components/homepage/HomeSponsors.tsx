@@ -1,17 +1,16 @@
+import type { Sponsor } from "@lib/db/types";
 import { BackgroundImage, Box, Button, Container, Flex, Group, Image, Overlay, Stack, Text } from "@mantine/core";
+import { Club } from "@project-config";
 import Marquee from "react-fast-marquee";
-import SectionHeading from "@/components/layout/SectionHeading";
-import type { Sponsor } from "@/data/payload-types";
-import { getSponsors } from "@/data/sponsors";
-import { Club } from "@/project.config";
+import { useFileUrl, useSponsors } from "../../lib/hooks";
+import SectionHeading from "../layout/SectionHeading";
 import ScrollAnchor from "./ScrollAnchor";
 
-export default async function HomeSponsors() {
-	const data = await getSponsors();
-	let sponsors = data?.docs || [];
+export default function HomeSponsors() {
+	const { data, isLoading } = useSponsors();
+	const sponsors = data?.items || [];
+	if (isLoading) return null;
 	if (sponsors.length === 0) return null;
-
-	sponsors = [];
 
 	return (
 		<Box bg="blumine">
@@ -19,18 +18,17 @@ export default async function HomeSponsors() {
 			<BackgroundImage src="/images/backgrounds/sponsors.jpg" py="md" style={{ zIndex: 0 }} pos="relative">
 				<Container size="xl" py="md" c="white">
 					<Stack gap="xs">
-						<SectionHeading text={sponsors.length === 0 ? "Sponsoring" : sponsors.length === 1 ? "Sponsor" : "Sponsoren"} color="white" />
+						<SectionHeading text={sponsors.length === 1 ? "Sponsor" : "Sponsoren"} color="white" />
 						<Sponsors sponsors={sponsors} />
 					</Stack>
 				</Container>
-
 				<Overlay backgroundOpacity={0.9} color="var(--mantine-color-blumine-filled)" blur={2} zIndex={-1} />
 			</BackgroundImage>
 		</Box>
 	);
 }
 
-async function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
+function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
 	if (!sponsors || sponsors.length === 0)
 		return (
 			<Container size="sm">
@@ -61,7 +59,7 @@ async function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
 	}
 	return (
 		<Stack align="center">
-			<Text>Wir bedanken uns herzlich bei {sponsors.length === 1 ? " unserem Sponsor" : "unseren Sponsoren"}!</Text>
+			<Text>Wir bedanken uns herzlich bei {sponsors.length === 1 ? "unserem Sponsor" : "unseren Sponsoren"}!</Text>
 			<Group gap="xl">
 				{sponsors.map((sponsor) => {
 					return <SponsorCard {...sponsor} key={sponsor.name} />;
@@ -71,19 +69,19 @@ async function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
 	);
 }
 
-function SponsorCard({ name, logo, website }: Sponsor) {
-	const logoUrl = logo && typeof logo === "object" ? logo.url : false;
+function SponsorCard({ name, logoS3Key, websiteUrl }: Sponsor) {
+	const logoUrl = useFileUrl(logoS3Key);
 
-	if (logoUrl && !website)
+	if (logoUrl && !websiteUrl)
 		return (
 			<Flex w={180} h={80} maw={"50vw"} align="center" justify="center">
 				<Image src={logoUrl} alt={`${name}`} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
 			</Flex>
 		);
 
-	if (website && name)
+	if (websiteUrl && name)
 		return (
-			<Flex component="a" href={website} target="_blank" rel="noopener noreferrer" w={180} h={80} maw={"50vw"} align="center" justify="center">
+			<Flex component="a" href={websiteUrl} target="_blank" rel="noopener noreferrer" w={180} h={80} maw={"50vw"} align="center" justify="center">
 				{logoUrl ? (
 					<Image src={logoUrl} alt={`${name}`} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
 				) : (
@@ -93,4 +91,6 @@ function SponsorCard({ name, logo, website }: Sponsor) {
 				)}
 			</Flex>
 		);
+
+	return null;
 }

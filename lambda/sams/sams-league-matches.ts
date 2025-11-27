@@ -1,7 +1,7 @@
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import dayjs from "dayjs";
 import { getAllLeagueMatches, type LeagueMatchDto } from "../../data/sams/client";
-import { LeagueMatchesSchema } from "./types";
+import { LeagueMatchesResponseSchema } from "./types";
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
 	try {
@@ -111,7 +111,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			}
 		}
 
-		const result = LeagueMatchesSchema.parse({
+		const result = LeagueMatchesResponseSchema.parse({
 			matches: filteredMatches,
 			timestamp: new Date(),
 		});

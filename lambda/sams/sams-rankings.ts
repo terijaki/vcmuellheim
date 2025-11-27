@@ -1,6 +1,6 @@
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import { getRankingsForLeague } from "@/data/sams/client";
-import { RankingSchema } from "./types";
+import { RankingResponseSchema } from "./types";
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
 	try {
@@ -53,7 +53,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			};
 		}
 
-		const result = RankingSchema.parse({
+		const result = RankingResponseSchema.parse({
 			teams: data.content,
 			timestamp: new Date(),
 			leagueUuid,
