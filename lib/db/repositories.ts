@@ -49,14 +49,14 @@ export const busRepository = new Repository<Bus>({
 
 /** Sams Clubs repository */
 export const samsClubsRepository = new SamsRepository<ClubResponse>({
-  tableName: process.env.SAMS_CLUBS_TABLE_NAME!,
-  identifier: "sportsclubUuid",
+	tableName: process.env.SAMS_CLUBS_TABLE_NAME || "",
+	identifier: "sportsclubUuid",
 });
 
 /** Sams Teams repository */
 export const samsTeamsRepository = new SamsRepository<TeamResponse>({
-  tableName: process.env.SAMS_TEAMS_TABLE_NAME!,
-  identifier: "uuid",
+	tableName: process.env.SAMS_TEAMS_TABLE_NAME || "",
+	identifier: "uuid",
 });
 
 /**

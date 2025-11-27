@@ -277,10 +277,10 @@ export class ApiStack extends cdk.Stack {
 		// Grant DynamoDB access to SAMS tables
 		if (props.samsApiStack?.samsTeamsTable) {
 			props.samsApiStack.samsTeamsTable.grantReadWriteData(this.trpcLambda);
-		} 
+		}
 		if (props.samsApiStack?.samsClubsTable) {
 			props.samsApiStack.samsClubsTable.grantReadWriteData(this.trpcLambda);
-		} 
+		}
 
 		// Grant Lambda access to S3 bucket for uploads
 		if (props.mediaBucket) {

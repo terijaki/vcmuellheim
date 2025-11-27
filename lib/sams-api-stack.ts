@@ -74,31 +74,12 @@ export class SamsApiStack extends cdk.Stack {
 			timeToLiveAttribute: "ttl", // Auto-delete stale records
 		});
 
-		// Add GSI for querying by association
+		// GSI for querying by slug
 		clubsTable.addGlobalSecondaryIndex({
-			indexName: "associationUuid-index",
-			partitionKey: {
-				name: "associationUuid",
-				type: dynamodb.AttributeType.STRING,
-			},
-		});
-
-		// Add GSI for querying by name (exact match, case-sensitive)
-		clubsTable.addGlobalSecondaryIndex({
-			indexName: "name-index",
-			partitionKey: {
-				name: "name",
-				type: dynamodb.AttributeType.STRING,
-			},
-		});
-
-		// Add GSI for querying by nameSlug (case-insensitive search)
-		clubsTable.addGlobalSecondaryIndex({
-			indexName: "nameSlug-index",
-			partitionKey: {
-				name: "nameSlug",
-				type: dynamodb.AttributeType.STRING,
-			},
+			indexName: "GSI-SamsClubQueries",
+			partitionKey: { name: "type", type: dynamodb.AttributeType.STRING },
+			sortKeys: [{ name: "nameSlug", type: dynamodb.AttributeType.STRING }],
+			projectionType: dynamodb.ProjectionType.ALL,
 		});
 
 		// Create DynamoDB table for storing SAMS teams
@@ -113,31 +94,12 @@ export class SamsApiStack extends cdk.Stack {
 			timeToLiveAttribute: "ttl",
 		});
 
-		// Add GSI for querying teams by sportsclub
+		// GSI for querying by slug (case-insensitive)
 		teamsTable.addGlobalSecondaryIndex({
-			indexName: "sportsclubUuid-index",
-			partitionKey: {
-				name: "sportsclubUuid",
-				type: dynamodb.AttributeType.STRING,
-			},
-		});
-
-		// Add GSI for querying teams by league
-		teamsTable.addGlobalSecondaryIndex({
-			indexName: "leagueUuid-index",
-			partitionKey: {
-				name: "leagueUuid",
-				type: dynamodb.AttributeType.STRING,
-			},
-		});
-
-		// Add GSI for case-insensitive team name search
-		teamsTable.addGlobalSecondaryIndex({
-			indexName: "nameSlug-index",
-			partitionKey: {
-				name: "nameSlug",
-				type: dynamodb.AttributeType.STRING,
-			},
+			indexName: "GSI-SamsTeamQueries",
+			partitionKey: { name: "type", type: dynamodb.AttributeType.STRING },
+			sortKeys: [{ name: "nameSlug", type: dynamodb.AttributeType.STRING }],
+			projectionType: dynamodb.ProjectionType.ALL,
 		});
 
 		// Expose tables for cross-stack reference
