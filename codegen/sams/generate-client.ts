@@ -2,7 +2,7 @@ import { createClient } from "@hey-api/openapi-ts";
 
 createClient({
 	output: {
-		path: "codegen/sams/client",
+		path: "codegen/sams/generated",
 		format: "biome",
 		lint: "biome",
 	},
@@ -22,7 +22,7 @@ createClient({
 		},
 		{
 			name: "@hey-api/client-fetch",
-			runtimeConfigPath: "../hey-api",
+			runtimeConfigPath: "@codegen/sams/hey-api",
 		},
 		{
 			name: "@hey-api/sdk",

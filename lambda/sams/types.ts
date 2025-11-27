@@ -1,5 +1,5 @@
+import { zLeagueMatchDto, zLeagueRankingsEntryDto, zSeasonDto } from "@codegen/sams/generated";
 import { z } from "zod";
-import { zLeagueMatchDto, zLeagueRankingsEntryDto, zSeasonDto } from "../../codegen/sams/client";
 
 // ============================================================================
 // Club Schemas & Types

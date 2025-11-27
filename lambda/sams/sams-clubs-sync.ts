@@ -1,9 +1,9 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { BatchWriteCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
+import { getAllSportsclubs, getAssociations } from "@codegen/sams/generated";
 import type { EventBridgeEvent } from "aws-lambda";
 import { SAMS } from "@/project.config";
 import { slugify } from "@/utils/slugify";
-import { getAllSportsclubs, getAssociations } from "../../codegen/sams/client";
 import { type ClubItem, ClubItemSchema } from "./types";
 
 // Initialize DynamoDB client

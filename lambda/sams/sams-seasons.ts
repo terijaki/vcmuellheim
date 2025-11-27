@@ -1,6 +1,6 @@
+import { getAllSeasons } from "@codegen/sams/generated";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import dayjs from "dayjs";
-import { getAllSeasons } from "../../codegen/sams/client";
 import { SeasonsResponseSchema } from "./types";
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {

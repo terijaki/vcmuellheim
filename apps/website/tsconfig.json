@@ -1,11 +1,12 @@
 {
-	// "extends": "../../tsconfig.json",
+	"extends": "../../tsconfig.json",
 	"compilerOptions": {
 		"target": "ES2020",
 		"useDefineForClassFields": true,
 		"lib": ["ES2021", "DOM", "DOM.Iterable"],
 		"module": "ESNext",
 		"strictNullChecks": true,
+		"skipLibCheck": true,
 
 		/* Bundler mode */
 		"moduleResolution": "bundler",
@@ -15,14 +16,7 @@
 		"jsx": "react-jsx",
 
 		/* Path aliases */
-		"baseUrl": ".",
-		"paths": {
-			"@lib/*": ["../../lib/*"],
-			"@utils/*": ["../../utils/*"],
-			// "@data/*": ["../../data/*"],
-			"@project-config": ["../../project.config.ts"],
-			"@apps/shared": ["../shared/*"]
-		},
+		"baseUrl": "../..",
 
 		/* Linting */
 		"noUnusedLocals": true,

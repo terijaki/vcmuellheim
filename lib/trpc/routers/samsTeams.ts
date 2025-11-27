@@ -2,8 +2,8 @@
  * tRPC router for SAMS Teams operations
  */
 
-import type { TeamResponse } from "../../../lambda/sams/types";
-import { TeamsResponseSchema } from "../../../lambda/sams/types";
+import type { TeamResponse } from "@lambda/sams/types";
+import { TeamsResponseSchema } from "@lambda/sams/types";
 import { publicProcedure, router } from "../trpc";
 
 const SAMS_API_URL = process.env.SAMS_API_URL || "";
