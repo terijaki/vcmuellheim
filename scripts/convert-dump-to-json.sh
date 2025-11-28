@@ -104,6 +104,32 @@ psql "$TEMP_DB" -t -A -c "
         FROM teams_rels tr
         WHERE tr.parent_id = t.id AND tr.path = 'images'
       ),
+      'trainingSchedules', (
+        SELECT json_agg(json_build_object(
+          'days', (
+            SELECT json_agg(
+              CASE tsd.value::text
+                WHEN 'sonntags' THEN 0
+                WHEN 'montags' THEN 1
+                WHEN 'dienstags' THEN 2
+                WHEN 'mittwochs' THEN 3
+                WHEN 'donnerstags' THEN 4
+                WHEN 'freitags' THEN 5
+                WHEN 'samstags' THEN 6
+                ELSE NULL
+              END
+              ORDER BY tsd.order
+            )
+            FROM teams_schedules_day tsd
+            WHERE tsd.parent_id = ts.id
+          ),
+          'startTime', to_char(ts.time_start_time, 'HH24:MI'),
+          'endTime', to_char(ts.time_end_time, 'HH24:MI'),
+          'locationId', ts.location_id
+        ))
+        FROM teams_schedules ts
+        WHERE ts._parent_id = t.id
+      ),
       'createdAt', t.created_at,
       'updatedAt', t.updated_at
     )) FROM teams t),
