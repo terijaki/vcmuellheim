@@ -28,11 +28,11 @@ import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { createFileRoute } from "@tanstack/react-router";
 import { slugify } from "@utils/slugify";
-import { Plus, Trash2, Upload, X } from "lucide-react";
+import { Check, Mars, Plus, SquarePen, Trash2, Upload, Venus, VenusAndMars, X } from "lucide-react";
 import { useState } from "react";
 import { trpc } from "../../lib/trpc";
 
-function TrainerAvatar({ avatarS3Key, name }: { avatarS3Key?: string; name: string }) {
+function PersonAvatar({ avatarS3Key, name }: { avatarS3Key?: string; name: string }) {
 	const { data: avatarUrl } = trpc.upload.getFileUrl.useQuery({ s3Key: avatarS3Key || "" }, { enabled: !!avatarS3Key });
 
 	return (
@@ -565,13 +565,17 @@ function TeamsPage() {
 						<Table.Thead>
 							<Table.Tr>
 								<Table.Th>Name</Table.Th>
-								<Table.Th>Liga</Table.Th>
-								<Table.Th>Mindestalter</Table.Th>
-								<Table.Th>Geschlecht</Table.Th>
+								<Table.Th visibleFrom="lg">Liga</Table.Th>
+								<Table.Th visibleFrom="lg">Mindestalter</Table.Th>
+								<Table.Th hiddenFrom="lg">Alter</Table.Th>
+								<Table.Th visibleFrom="lg">Geschlecht</Table.Th>
+								<Table.Th hiddenFrom="lg">Geschl.</Table.Th>
 								<Table.Th>Trainer</Table.Th>
-								<Table.Th>Trainingszeiten</Table.Th>
-								<Table.Th>Bilder</Table.Th>
-								<Table.Th>SAMS Team</Table.Th>
+								<Table.Th visibleFrom="xl">Trainingszeiten</Table.Th>
+								<Table.Th hiddenFrom="xl">Zeiten</Table.Th>
+								<Table.Th visibleFrom="lg">Bilder</Table.Th>
+								<Table.Th visibleFrom="lg">SAMS Team</Table.Th>
+								<Table.Th hiddenFrom="lg">SAMS</Table.Th>
 								<Table.Th>Aktionen</Table.Th>
 							</Table.Tr>
 						</Table.Thead>
@@ -580,26 +584,34 @@ function TeamsPage() {
 								const samsTeam = samsTeams?.items.find((st) => st.uuid === team.sbvvTeamId);
 								const pictureCount = team.pictureS3Keys?.length || 0;
 								const teamTrainers = trainers?.items.filter((t) => team.trainerIds?.includes(t.id)) || [];
+								const teamPointOfContacts = members?.items.filter((m) => team.pointOfContactIds?.includes(m.id)) || [];
 								const trainingCount = team.trainingSchedules?.length || 0;
 								return (
 									<Table.Tr key={team.id}>
-										<Table.Td>{team.name}</Table.Td>
-										<Table.Td>{team.league || "-"}</Table.Td>
-										<Table.Td>{team.ageGroup || "-"}</Table.Td>
-										<Table.Td>{team.gender === "male" ? "Männlich" : team.gender === "female" ? "Weiblich" : team.gender === "mixed" ? "Gemischt" : "-"}</Table.Td>
 										<Table.Td>
-											{teamTrainers.length > 0 ? (
+											{team.name}
+											{team.league && (
+												<Text hiddenFrom="lg" size="xs">
+													{team.league}
+												</Text>
+											)}
+										</Table.Td>
+										<Table.Td visibleFrom="lg">{team.league || ""}</Table.Td>
+										<Table.Td>{team.ageGroup || ""}</Table.Td>
+										<Table.Td c={team.gender === "male" ? "blue" : team.gender === "female" ? "pink" : "onyx"}>
+											{team.gender === "male" ? <Mars size={16} /> : team.gender === "female" ? <Venus size={16} /> : <VenusAndMars size={16} />}
+										</Table.Td>
+										<Table.Td>
+											{teamTrainers.length > 0 && (
 												<Avatar.Group>
-													{teamTrainers.map((trainer) => (
-														<TrainerAvatar key={trainer.id} avatarS3Key={trainer.avatarS3Key} name={trainer.name} />
+													{[...teamTrainers, ...teamPointOfContacts].map((person) => (
+														<PersonAvatar key={person.id} avatarS3Key={person.avatarS3Key} name={person.name} />
 													))}
 												</Avatar.Group>
-											) : (
-												"-"
 											)}
 										</Table.Td>
 										<Table.Td>
-											{trainingCount > 0 ? (
+											{trainingCount > 0 && (
 												<Tooltip
 													label={
 														<Stack gap={4}>
@@ -620,25 +632,39 @@ function TeamsPage() {
 														{trainingCount}
 													</Badge>
 												</Tooltip>
-											) : (
-												"-"
 											)}
 										</Table.Td>
-										<Table.Td>
-											{pictureCount > 0 ? (
+										<Table.Td visibleFrom="lg">
+											{pictureCount > 0 && (
 												<Badge size="sm" variant="light">
 													{pictureCount}
 												</Badge>
-											) : (
-												"-"
 											)}
 										</Table.Td>
-										<Table.Td>{samsTeam ? `${samsTeam.name} (${samsTeam.leagueName})` : "-"}</Table.Td>
 										<Table.Td>
-											<Group gap="xs">
-												<Button size="xs" onClick={() => handleEdit(team)}>
+											{samsTeam && (
+												<>
+													<Stack visibleFrom="lg" gap={0}>
+														<Text size="sm">{samsTeam.name}</Text>
+														<Text size="xs">{samsTeam.leagueName}</Text>
+													</Stack>
+													<Stack hiddenFrom="lg">
+														<Tooltip label={`${samsTeam.name} (${samsTeam.leagueName})`} withArrow hiddenFrom="lg">
+															<Check size={16} />
+														</Tooltip>
+													</Stack>
+												</>
+											)}
+										</Table.Td>
+
+										<Table.Td>
+											<Group gap="xs" wrap="nowrap">
+												<Button visibleFrom="xl" size="xs" onClick={() => handleEdit(team)}>
 													Bearbeiten
 												</Button>
+												<ActionIcon hiddenFrom="xl" variant="filled" radius="xl" onClick={() => handleEdit(team)}>
+													<SquarePen size={16} />
+												</ActionIcon>
 												<ActionIcon variant="light" radius="xl" color="red" onClick={() => handleDelete(team.id)} loading={deleteMutation.isPending}>
 													<Trash2 size={16} />
 												</ActionIcon>

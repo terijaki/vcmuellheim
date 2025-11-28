@@ -591,7 +591,7 @@ async function migrateTeams(dryRun: boolean): Promise<void> {
 				description: row.description || undefined,
 				sbvvTeamId: row.sbvvTeamId || undefined,
 				ageGroup: row.age ? String(row.age) : undefined,
-				gender: genderMap[row.gender] || "mixed",
+				gender: genderMap[row.gender],
 				league: row.league || undefined,
 				pointOfContactIds: undefined, // add manually after members migration
 				trainerIds: undefined, // add manually after members migration

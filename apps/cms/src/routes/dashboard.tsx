@@ -9,7 +9,7 @@ function DashboardLayout() {
 	const [opened, { toggle }] = useDisclosure();
 
 	return (
-		<AppShell header={{ height: 60 }} navbar={{ width: 250, breakpoint: "sm", collapsed: { mobile: !opened } }} padding="md">
+		<AppShell header={{ height: 60 }} navbar={{ width: 250, breakpoint: "md", collapsed: { mobile: !opened } }} padding="md">
 			<AppShell.Header>
 				<Group h="100%" px="md" justify="space-between">
 					<Group>
