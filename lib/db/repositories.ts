@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 /**
  * Repository instances for all content entities
  */
@@ -101,9 +103,10 @@ export async function getPublishedNews(limit = 10) {
 export async function getNewsBySlug(slug: string) {
 	const result = await newsRepository.query({
 		indexName: "GSI-NewsQueries",
-		keyConditionExpression: "#type = :type AND slug = :slug",
+		keyConditionExpression: "#type = :type AND #slug = :slug",
 		expressionAttributeNames: {
 			"#type": "type",
+			"#slug": "slug",
 		},
 		expressionAttributeValues: {
 			":type": "article",
@@ -114,29 +117,37 @@ export async function getNewsBySlug(slug: string) {
 	return result.items[0] || null;
 }
 
-/** Get upcoming events, sorted by start date */
+/** Get upcoming events, sorted by start date ascending */
 export async function getUpcomingEvents(limit = 20) {
-	const now = new Date().toISOString();
-	const result = await eventsRepository.scan({ limit: 100 }); // Get more to filter
-
-	// Filter and sort events that haven't started yet
-	const upcomingEvents = result.items
-		.filter((event) => event.startDate >= now)
-		.sort((a, b) => a.startDate.localeCompare(b.startDate))
-		.slice(0, limit);
-
-	return {
-		items: upcomingEvents,
-		lastEvaluatedKey: result.lastEvaluatedKey,
-	};
+	// Only return events with startDate >= now, sorted ascending (soonest first)
+	const now = dayjs().toISOString();
+	return eventsRepository.query({
+		indexName: "GSI-EventQueries",
+		keyConditionExpression: "#type = :type AND #startDate >= :now",
+		expressionAttributeNames: {
+			"#type": "type",
+			"#startDate": "startDate",
+		},
+		expressionAttributeValues: {
+			":type": "event",
+			":now": now,
+		},
+		scanIndexForward: true, // Ascending order (soonest first)
+		limit,
+	});
 }
 
 /** Get team by slug */
 export async function getTeamBySlug(slug: string) {
 	const result = await teamsRepository.query({
-		indexName: "GSI-Slug",
-		keyConditionExpression: "slug = :slug",
+		indexName: "GSI-TeamQueries",
+		keyConditionExpression: "#type = :type AND #slug = :slug",
+		expressionAttributeNames: {
+			"#type": "type",
+			"#slug": "slug",
+		},
 		expressionAttributeValues: {
+			":type": "team",
 			":slug": slug,
 		},
 		limit: 1,
@@ -147,9 +158,14 @@ export async function getTeamBySlug(slug: string) {
 /** Get team by SAMS/SBVV team ID */
 export async function getTeamBySamsId(sbvvTeamId: string) {
 	const result = await teamsRepository.query({
-		indexName: "GSI-SamsTeam",
-		keyConditionExpression: "sbvvTeamId = :sbvvTeamId",
+		indexName: "GSI-TeamQueries",
+		keyConditionExpression: "#type = :type AND #sbvvTeamId = :sbvvTeamId",
+		expressionAttributeNames: {
+			"#type": "type",
+			"#sbvvTeamId": "sbvvTeamId",
+		},
 		expressionAttributeValues: {
+			":type": "team",
 			":sbvvTeamId": sbvvTeamId,
 		},
 		limit: 1,

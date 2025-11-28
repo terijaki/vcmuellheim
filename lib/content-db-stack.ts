@@ -66,9 +66,9 @@ export class ContentDbStack extends cdk.Stack {
 
 		// GSI for querying by status and startDate
 		this.eventsTable.addGlobalSecondaryIndex({
-			indexName: "GSI-StartDate",
-			partitionKey: { name: "status", type: dynamodb.AttributeType.STRING },
-			sortKey: { name: "startDate", type: dynamodb.AttributeType.STRING },
+			indexName: "GSI-EventQueries",
+			partitionKey: { name: "type", type: dynamodb.AttributeType.STRING },
+			sortKeys: [{ name: "startDate", type: dynamodb.AttributeType.STRING }],
 			projectionType: dynamodb.ProjectionType.ALL,
 		});
 
@@ -80,25 +80,15 @@ export class ContentDbStack extends cdk.Stack {
 			// No sort key - use GSIs for queries
 		});
 
-		// GSI for querying by slug
+		// GSI for listing teams by slug, name or sbvvTeamId
 		this.teamsTable.addGlobalSecondaryIndex({
-			indexName: "GSI-Slug",
-			partitionKey: { name: "slug", type: dynamodb.AttributeType.STRING },
-			projectionType: dynamodb.ProjectionType.ALL,
-		});
-
-		// GSI for listing teams by status
-		this.teamsTable.addGlobalSecondaryIndex({
-			indexName: "GSI-Status",
-			partitionKey: { name: "status", type: dynamodb.AttributeType.STRING },
-			sortKey: { name: "name", type: dynamodb.AttributeType.STRING },
-			projectionType: dynamodb.ProjectionType.ALL,
-		});
-
-		// GSI for mapping to SAMS teams
-		this.teamsTable.addGlobalSecondaryIndex({
-			indexName: "GSI-SamsTeam",
-			partitionKey: { name: "sbvvTeamId", type: dynamodb.AttributeType.STRING },
+			indexName: "GSI-TeamQueries",
+			partitionKey: { name: "type", type: dynamodb.AttributeType.STRING },
+			sortKeys: [
+				{ name: "slug", type: dynamodb.AttributeType.STRING },
+				{ name: "name", type: dynamodb.AttributeType.STRING },
+				{ name: "sbvvTeamId", type: dynamodb.AttributeType.STRING },
+			],
 			projectionType: dynamodb.ProjectionType.ALL,
 		});
 
@@ -115,10 +105,6 @@ export class ContentDbStack extends cdk.Stack {
 			tableName: `vcm-media-${environment}${branchSuffix}`,
 			partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
 		});
-
-		// TODO: Add DynamoDB Stream + Lambda for S3 cleanup
-		// When media item is deleted, Lambda should delete corresponding S3 object
-		// This handles orphaned files when sponsors expire (TTL), news/events are deleted, etc.
 
 		// 6. Sponsors Table
 		this.sponsorsTable = new dynamodb.Table(this, "SponsorsTable", {

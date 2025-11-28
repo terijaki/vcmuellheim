@@ -29,12 +29,13 @@ export const newsSchema = z.object({
 /** Event schema */
 export const eventSchema = z.object({
 	...baseEntityFields,
+	type: z.literal("event").describe("Entity type for GSI queries"),
 	title: z.string().min(1).max(200),
 	description: z.string().optional(),
 	startDate: z.iso.datetime(),
 	endDate: z.iso.datetime().optional(),
 	location: z.string().optional(),
-	type: z.string().optional(),
+	variant: z.string().optional(), // FIXME: update cms to use variant, not type!
 	teamId: z.uuid().optional(),
 	relatedSamsMatchId: z.string().optional(),
 });
@@ -56,15 +57,16 @@ export const trainingScheduleSchema = z.object({
 /** Team schema */
 export const teamSchema = z.object({
 	...baseEntityFields,
+	type: z.literal("team").describe("Entity type for GSI queries"),
 	name: z.string().min(1).max(100),
 	slug: z.string().min(1).max(100),
 	description: z.string().optional(),
-	status: z.enum(["active", "inactive"]).optional(),
 	sbvvTeamId: z.string().optional(),
 	ageGroup: z.string().optional(),
 	gender: z.enum(["male", "female", "mixed"]),
 	league: z.string().optional(),
 	trainerIds: z.array(z.string()).optional(),
+	pointOfContactIds: z.array(z.string()).optional(),
 	pictureS3Keys: z.array(z.string()).optional(),
 	trainingSchedules: z.array(trainingScheduleSchema).optional(),
 });

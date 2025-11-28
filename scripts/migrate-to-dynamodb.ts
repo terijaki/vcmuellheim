@@ -423,13 +423,14 @@ async function migrateEvents(dryRun: boolean): Promise<void> {
 	for (const row of rows) {
 		try {
 			const item = {
+				type: "event",
 				id: row.id,
 				title: row.title,
 				description: row.description || "",
 				startDate: row.startDate,
 				endDate: row.endDate,
 				location: row.location,
-				type: row.type,
+				variant: row.type,
 				teamId: row.teamId,
 				relatedSamsMatchId: row.relatedSamsMatchId,
 				createdAt: row.createdAt,
@@ -583,16 +584,17 @@ async function migrateTeams(dryRun: boolean): Promise<void> {
 			}
 
 			const item = teamSchema.parse({
+				type: "team",
 				id: row.id,
 				name: row.name,
 				slug: row.slug,
 				description: row.description || undefined,
-				status: "active",
 				sbvvTeamId: row.sbvvTeamId || undefined,
 				ageGroup: row.age ? String(row.age) : undefined,
 				gender: genderMap[row.gender] || "mixed",
 				league: row.league || undefined,
-				trainerIds: undefined,
+				pointOfContactIds: undefined, // add manually after members migration
+				trainerIds: undefined, // add manually after members migration
 				pictureS3Keys,
 				trainingSchedules: undefined,
 				createdAt,
