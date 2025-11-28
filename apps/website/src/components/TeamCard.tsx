@@ -1,5 +1,4 @@
 import { ActionIcon, Anchor, Box, Button, Card, Collapse, Group, Stack, Text, Title } from "@mantine/core";
-import { Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import { Fragment, useEffect, useState } from "react";
@@ -7,6 +6,7 @@ import { FaCalendarDays as IconCalendar, FaClock as IconClock, FaChevronUp as Ic
 import type { Team } from "@/lib/db";
 import { Club } from "@/project.config";
 import { useLocations, useMembers } from "../lib/hooks";
+import { ButtonLink } from "./CustomLink";
 import { useTeamContext } from "./context/HomeTeamContext";
 import MapsLink from "./MapsLink";
 
@@ -153,10 +153,11 @@ export default function TeamCard(props: Team) {
 								Kontaktieren
 							</Button>
 						)}
+
 						{sbvvTeamId && (
-							<Button component={Link} to={`/teams/${slug}`} leftSection={<IconCalendar />}>
+							<ButtonLink to={"/teams/$slug"} params={{ slug }} leftSection={<IconCalendar />}>
 								Spielplan, Tabelle & Kader
-							</Button>
+							</ButtonLink>
 						)}
 					</Stack>
 				</Stack>

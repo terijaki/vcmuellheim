@@ -1,63 +1,60 @@
-import { Box, Card, CardSection, Image, Space, Text, Title } from "@mantine/core";
-import { Link } from "@tanstack/react-router";
+import { BackgroundImage, Box, CardSection, Stack, Text, Title } from "@mantine/core";
 import { useMemo, useState } from "react";
+import type { News } from "@/lib/db";
+import { useFileUrl } from "../lib/hooks";
+import { CardLink } from "./CustomLink";
 
-interface NewsCardProps {
-	id: string;
-	title: string;
-	excerpt: string;
-	thumbnails?: string[];
-}
+const CARD_HEIGHT = 140;
 
-export default function NewsCard(props: NewsCardProps) {
+export default function NewsCard(props: News) {
 	const [isHovered, setIsHovered] = useState(false);
+	const hasImage = props.imageS3Keys && props.imageS3Keys.length > 0;
 
-	// check if this post has a thumbnail
-	const thumbnail = useMemo(() => {
-		if (!props.thumbnails || props.thumbnails.length === 0) {
+	const thumbnailKey = useMemo(() => {
+		if (!props.imageS3Keys || props.imageS3Keys.length === 0) {
 			return undefined;
 		}
 		// if there are multiple thumbnails, pick a random one and memorize it
-		if (props.thumbnails.length > 1) {
-			const randomIndex = Math.floor(Math.random() * props.thumbnails.length);
-			return props.thumbnails[randomIndex];
+		if (props.imageS3Keys.length > 1) {
+			const randomIndex = Math.floor(Math.random() * props.imageS3Keys.length);
+			return props.imageS3Keys[randomIndex];
 		}
-		return props.thumbnails[0];
-	}, [props.thumbnails]);
+		return props.imageS3Keys[0];
+	}, [props.imageS3Keys]);
+	const { data: thumbnail } = useFileUrl(thumbnailKey);
 
+	// check if this post has a thumbnail
 	return (
-		<Card component={Link} to={`/news/${props.id}`} radius="md" shadow="sm" maw={{ base: "100%", sm: 620 }} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-			<CardSection bg={thumbnail ? "lion" : undefined} mb="xs">
+		<CardLink to={`/news/$id`} params={{ id: props.id }} radius="md" shadow="sm" maw={{ base: "100%", sm: 620 }} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+			<CardSection bg={!hasImage ? "lion" : undefined} mb="xs">
 				{thumbnail ? (
-					<Box pt="xl" style={{ overflow: "hidden" }} pos="relative">
-						<Box style={{ zIndex: 2 }} pos="relative">
-							<Space h="xl" />
-							<Space h="xl" />
+					<Box style={{ position: "relative", height: CARD_HEIGHT, overflow: "hidden" }}>
+						<BackgroundImage
+							src={thumbnail}
+							style={{
+								transition: "transform 0.5s ease",
+								transform: isHovered ? "scale(1.03)" : undefined,
+								position: "absolute",
+								top: 0,
+								left: 0,
+								width: "100%",
+								height: "100%",
+								zIndex: 1,
+							}}
+						/>
+						<Stack style={{ zIndex: 2, position: "relative", height: "100%" }} justify="flex-end" h={CARD_HEIGHT}>
 							<Title order={4} fw="bold" px="sm" py="xs" c="white" lineClamp={2} style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
 								{props.title}
 							</Title>
-						</Box>
-						<Image
-							src={thumbnail}
-							alt={props.title}
-							style={{
-								width: "100%",
-								height: 142,
-								objectFit: "cover",
-								transition: "transform 0.5s ease",
-								transform: isHovered ? "scale(1.03)" : undefined,
-								zIndex: 1,
-								maxWidth: 700,
-							}}
-						/>
+						</Stack>
 					</Box>
 				) : (
-					<Title order={4} fw="bold" p="sm">
+					<Title order={4} fw="bold" p="sm" h={CARD_HEIGHT}>
 						{props.title}
 					</Title>
 				)}
 			</CardSection>
-			<Text lineClamp={thumbnail ? 2 : 6}>{props.excerpt}</Text>
-		</Card>
+			<Text lineClamp={hasImage ? 2 : 6}>{props.excerpt}</Text>
+		</CardLink>
 	);
 }

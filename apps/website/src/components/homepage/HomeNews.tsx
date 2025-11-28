@@ -2,14 +2,14 @@ import { Button, Center, Container, SimpleGrid, Stack, Text } from "@mantine/cor
 import { Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { Suspense } from "react";
-import SectionHeading from "@/components/layout/SectionHeading";
-import { getNews } from "@/data/news";
+import { useNews } from "../../lib/hooks";
+import SectionHeading from "../layout/SectionHeading";
 import NewsCard from "../NewsCard";
 import ScrollAnchor from "./ScrollAnchor";
 
-export default async function HomeNews() {
-	const newsData = await getNews(4);
-	let news = newsData?.docs;
+export default function HomeNews() {
+	const { data } = useNews(); // FIXME: introduce limit in the hook
+	let news = data?.items;
 
 	// if the 3 and 4th news are older than 3 months, exclude them
 	if (news && news.length > 2) {
@@ -26,9 +26,7 @@ export default async function HomeNews() {
 				<Suspense fallback={<Text>Lade Newsbeiträge</Text>}>
 					<SimpleGrid cols={{ base: 1, sm: 2 }}>
 						{news?.map((post) => {
-							// filter out the thumbnail urls
-							const thumbnails = post.images?.map((i) => (typeof i === "string" ? i : i.url)).filter((i) => typeof i === "string");
-							return <NewsCard key={post.id} id={post.id} title={post.title} thumbnails={thumbnails} excerpt={post.excerpt || ""} />;
+							return <NewsCard key={post.id} {...post} />;
 						})}
 					</SimpleGrid>
 					<Center p="md">
