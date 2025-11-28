@@ -8,8 +8,8 @@ import { trpc } from "./trpc";
 /**
  * Hook to fetch all published news articles
  */
-export const useNews = () => {
-	return trpc.news.published.useQuery();
+export const useNews = ({ limit = 50, startKey }: { limit?: number; startKey?: Record<string, unknown> }) => {
+	return trpc.news.published.useQuery({ limit, startKey });
 };
 
 /**

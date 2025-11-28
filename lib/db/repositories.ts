@@ -65,9 +65,14 @@ export const samsTeamsRepository = new SamsRepository<TeamResponse>({
  * Domain-specific query helpers
  */
 
-/** Get all news articles (for admin), sorted by date descending */
-export async function getAllNews(limit = 100) {
-	return newsRepository.query({
+/**
+ * Get all news articles (for admin), sorted by date descending, with pagination support.
+ * @param {number} limit - Maximum number of items to return
+ * @param {object} [startKey] - Optional start key for pagination (DynamoDB LastEvaluatedKey)
+ * @returns {Promise<{ items: News[]; lastEvaluatedKey?: Record<string, unknown> }>} Items and pagination key
+ */
+export async function getAllNews(limit = 100, startKey?: Record<string, unknown>) {
+	const result = await newsRepository.query({
 		indexName: "GSI-NewsQueries",
 		keyConditionExpression: "#type = :type",
 		expressionAttributeNames: {
@@ -78,12 +83,19 @@ export async function getAllNews(limit = 100) {
 		},
 		scanIndexForward: false, // Descending order (newest first)
 		limit,
+		exclusiveStartKey: startKey,
 	});
+	return {
+		items: result.items,
+		lastEvaluatedKey: result.lastEvaluatedKey as Record<string, unknown> | undefined,
+	};
 }
 
-/** Get published news articles, sorted by date descending */
-export async function getPublishedNews(limit = 10) {
-	return newsRepository.query({
+/**
+ * Get published news articles, sorted by date descending, with pagination support.
+ */
+export async function getPublishedNews(limit = 10, startKey?: Record<string, unknown>) {
+	const result = await newsRepository.query({
 		indexName: "GSI-NewsQueries",
 		keyConditionExpression: "#type = :type AND #status = :status",
 		expressionAttributeNames: {
@@ -96,7 +108,12 @@ export async function getPublishedNews(limit = 10) {
 		},
 		scanIndexForward: false, // Descending order (newest first)
 		limit,
+		exclusiveStartKey: startKey,
 	});
+	return {
+		items: result.items,
+		lastEvaluatedKey: result.lastEvaluatedKey as Record<string, unknown> | undefined,
+	};
 }
 
 /** Get news article by slug */

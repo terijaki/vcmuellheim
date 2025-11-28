@@ -13,12 +13,14 @@ export const newsRouter = router({
 		.input(
 			z
 				.object({
-					limit: z.number().min(1).max(100).optional().default(100),
+					limit: z.number().min(1).max(100).optional().default(30),
+					startKey: z.record(z.string(), z.unknown()).optional(),
+
 				})
 				.optional(),
 		)
 		.query(async ({ input }) => {
-			return getAllNews(input?.limit);
+			return getAllNews(input?.limit, input?.startKey);
 		}),
 
 	/** Get published news articles (public) */
@@ -27,11 +29,12 @@ export const newsRouter = router({
 			z
 				.object({
 					limit: z.number().min(1).max(100).optional().default(10),
+					startKey: z.record(z.string(), z.unknown()).optional(),
 				})
 				.optional(),
 		)
 		.query(async ({ input }) => {
-			return getPublishedNews(input?.limit);
+			return getPublishedNews(input?.limit, input?.startKey);
 		}),
 
 	/** Get news article by ID */
