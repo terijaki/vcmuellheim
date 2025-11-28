@@ -10,7 +10,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "dayjs/locale/de";
 import { AuthProvider, useAuth } from "./auth/AuthContext";
-import { TRPCProvider } from "./lib/TrpcProvider";
+import { TrpcProvider } from "./lib/TrpcProvider";
 import { router } from "./router";
 
 const theme = createTheme({
@@ -63,9 +63,9 @@ createRoot(rootElement).render(
 	<StrictMode>
 		<ThemingProvider>
 			<AuthProvider>
-				<TRPCProvider>
+				<TrpcProvider>
 					<ProtectedApp />
-				</TRPCProvider>
+				</TrpcProvider>
 			</AuthProvider>
 		</ThemingProvider>
 	</StrictMode>,

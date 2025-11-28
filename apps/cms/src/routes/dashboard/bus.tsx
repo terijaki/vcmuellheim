@@ -6,8 +6,9 @@ import dayjs from "dayjs";
 import { useMemo, useState } from "react";
 import "dayjs/locale/de";
 import type { BusInput } from "@lib/db/schemas";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Plus, Trash2 } from "lucide-react";
-import { trpc } from "../../lib/trpc";
+import { useTRPC } from "@/apps/shared/lib/trpc-config";
 
 dayjs.locale("de");
 
@@ -21,8 +22,8 @@ function BusSchedulesPage() {
 		comment: "",
 	});
 
-	const utils = trpc.useUtils();
-	const { data: schedules, isLoading } = trpc.bus.list.useQuery();
+	const trpc = useTRPC();
+	const { data: schedules, isLoading } = useQuery(trpc.bus.list.queryOptions());
 	const isMobile = useMediaQuery("(max-width: 768px)");
 
 	// Create a set of all booked dates (excluding the one being edited)
@@ -47,25 +48,40 @@ function BusSchedulesPage() {
 		return dates;
 	}, [schedules, editingId]);
 
-	const createMutation = trpc.bus.create.useMutation({
-		onSuccess: () => {
-			utils.bus.list.invalidate();
-			close();
-			resetForm();
-		},
-	});
-	const updateMutation = trpc.bus.update.useMutation({
-		onSuccess: () => {
-			utils.bus.list.invalidate();
-			close();
-			resetForm();
-		},
-	});
-	const deleteMutation = trpc.bus.delete.useMutation({
-		onSuccess: () => {
-			utils.bus.list.invalidate();
-		},
-	});
+	const createMutation = useMutation(
+		trpc.bus.create.mutationOptions({
+			onSuccess: () => {
+				close();
+				resetForm();
+			},
+			onError: () => {
+				// Optionally show notification
+			},
+		}),
+	);
+
+	const updateMutation = useMutation(
+		trpc.bus.update.mutationOptions({
+			onSuccess: () => {
+				close();
+				resetForm();
+			},
+			onError: () => {
+				// Optionally show notification
+			},
+		}),
+	);
+
+	const deleteMutation = useMutation(
+		trpc.bus.delete.mutationOptions({
+			onSuccess: () => {
+				// Optionally show notification
+			},
+			onError: () => {
+				// Optionally show notification
+			},
+		}),
+	);
 
 	const resetForm = () => {
 		setFormData({ driver: "", dateRange: [null, null], comment: "" });

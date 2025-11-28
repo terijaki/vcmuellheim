@@ -3,88 +3,108 @@
  * These are type-safe wrappers around tRPC queries
  */
 
-import { trpc } from "./trpc";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useTRPC } from "../../../shared/lib/trpc-config";
 
 /**
- * Hook to fetch all published news articles
+ * Infinite query hook for published news articles
  */
-export const useNews = ({ limit = 50, startKey }: { limit?: number; startKey?: Record<string, unknown> }) => {
-	return trpc.news.published.useQuery({ limit, startKey });
+export const useNews = ({ limit = 50 }: { limit?: number }) => {
+	const trpc = useTRPC();
+	return useInfiniteQuery(
+		trpc.news.published.infiniteQueryOptions(
+			{ limit },
+			{
+				getNextPageParam: (lastPage) => lastPage.lastEvaluatedKey,
+			},
+		),
+	);
 };
 
 /**
  * Hook to fetch a single news article by slug
  */
 export const useNewsBySlug = (slug: string) => {
-	return trpc.news.getBySlug.useQuery({ slug }, { enabled: !!slug });
+	const trpc = useTRPC();
+	return useQuery(trpc.news.getBySlug.queryOptions({ slug }, { enabled: !!slug }));
 };
 
 /**
  * Hook to fetch all upcoming events
  */
 export const useEvents = () => {
-	return trpc.events.upcoming.useQuery();
+	const trpc = useTRPC();
+	return useQuery(trpc.events.upcoming.queryOptions());
 };
 
 /**
  * Hook to fetch a single event by ID
  */
 export const useEventById = (id: string) => {
-	return trpc.events.getById.useQuery({ id }, { enabled: !!id });
+	const trpc = useTRPC();
+	return useQuery(trpc.events.getById.queryOptions({ id }, { enabled: !!id }));
 };
 
 /**
  * Hook to fetch all teams
  */
 export const useTeams = () => {
-	return trpc.teams.list.useQuery();
+	const trpc = useTRPC();
+	return useQuery(trpc.teams.list.queryOptions());
 };
 
 /**
  * Hook to fetch a single team by slug
  */
 export const useTeamBySlug = (slug: string) => {
-	return trpc.teams.getBySlug.useQuery({ slug }, { enabled: !!slug });
+	const trpc = useTRPC();
+	return useQuery(trpc.teams.getBySlug.queryOptions({ slug }, { enabled: !!slug }));
 };
 
 /**
  * Hook to fetch all members
  */
 export const useMembers = () => {
-	return trpc.members.list.useQuery();
+	const trpc = useTRPC();
+	return useQuery(trpc.members.list.queryOptions());
 };
 
 /**
  * Hook to fetch all sponsors
  */
 export const useSponsors = () => {
-	return trpc.sponsors.list.useQuery();
+	const trpc = useTRPC();
+	return useQuery(trpc.sponsors.list.queryOptions());
 };
 
 /**
  * Hook to fetch all locations
  */
 export const useLocations = () => {
-	return trpc.locations.list.useQuery();
+	const trpc = useTRPC();
+	return useQuery(trpc.locations.list.queryOptions());
 };
 
 /**
  * Hook to fetch media items by IDs
  */
 export const useMediaByIds = (ids: string[]) => {
-	return trpc.media.getMany.useQuery({ ids }, { enabled: ids.length > 0 });
+	const trpc = useTRPC();
+	return useQuery(trpc.media.getMany.queryOptions({ ids }, { enabled: ids.length > 0 }));
 };
 
 /**
  * Hook to fetch a file URL by S3 key
  */
 export const useFileUrl = (s3Key?: string) => {
-	return trpc.upload.getFileUrl.useQuery({ s3Key: s3Key || "" }, { enabled: !!s3Key });
+	const trpc = useTRPC();
+	return useQuery(trpc.upload.getFileUrl.queryOptions({ s3Key: s3Key || "" }, { enabled: !!s3Key }));
 };
 
 /**
  * Hook to fetch bus bookings
  */
 export const useBusBookings = () => {
-	return trpc.bus.list.useQuery();
+	const trpc = useTRPC();
+	return useQuery(trpc.bus.list.queryOptions());
 };

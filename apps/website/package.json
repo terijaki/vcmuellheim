@@ -19,13 +19,13 @@
 		"@trpc/client": "catalog:",
 		"@trpc/tanstack-react-query": "catalog:",
 		"dayjs": "catalog:",
+		"lucide-react": "catalog:",
+		"num-words-de": "^1.1.0",
 		"react": "catalog:",
 		"react-dom": "catalog:",
-		"superjson": "catalog:",
 		"react-icons": "^5.5.0",
 		"react-world-flags": "^1.6.0",
-		"num-words-de": "^1.1.0",
-		"lucide-react": "catalog:"
+		"superjson": "catalog:"
 	},
 	"devDependencies": {
 		"@tanstack/router-plugin": "catalog:",

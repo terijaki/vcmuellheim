@@ -9,7 +9,7 @@ import { createRoot } from "react-dom/client";
 import "dayjs/locale/de";
 import "./globals.css";
 import dayjs from "dayjs";
-import { TRPCProvider } from "./lib/TrpcProvider";
+import { TrpcProvider } from "./lib/TrpcProvider";
 import { router } from "./router";
 
 dayjs.locale("de");
@@ -45,13 +45,13 @@ if (!rootElement) throw new Error("Root element not found");
 
 createRoot(rootElement).render(
 	<StrictMode>
-		<TRPCProvider>
+		<TrpcProvider>
 			<MantineProvider theme={theme}>
 				<Notifications position="top-right" />
 				<DatesProvider settings={{ locale: "de", firstDayOfWeek: 1, consistentWeeks: true }}>
 					<RouterProvider router={router} />
 				</DatesProvider>
 			</MantineProvider>
-		</TRPCProvider>
+		</TrpcProvider>
 	</StrictMode>,
 );

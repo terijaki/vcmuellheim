@@ -1,14 +1,15 @@
 import { Paper, Stack, Table, Text, Title, Tooltip } from "@mantine/core";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Info } from "lucide-react";
-import { trpc } from "../../lib/trpc";
+import { useTRPC } from "@/apps/shared/lib/trpc-config";
 
 function SamsDashboardPage() {
-	const { data: samsTeams, isLoading: teamsLoading } = trpc.samsTeams.list.useQuery();
-	const { data: samsClubs, isLoading: clubsLoading } = trpc.samsClubs.list.useQuery();
-
-	const teams = samsTeams?.items || [];
-	const clubs = samsClubs?.items || [];
+	const trpc = useTRPC();
+	const { data: samsTeamsData, isLoading: teamsLoading } = useQuery(trpc.samsTeams.list.queryOptions());
+	const { data: samsClubsData, isLoading: clubsLoading } = useQuery(trpc.samsClubs.list.queryOptions());
+	const teams = samsTeamsData?.items || [];
+	const clubs = samsClubsData?.items || [];
 
 	return (
 		<Stack gap="md">

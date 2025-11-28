@@ -1,14 +1,13 @@
-import { createQueryClient, getApiUrl, getCmsApiConfig } from "@apps/shared";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { httpBatchLink } from "@trpc/client";
+import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { type ReactNode, useRef, useState } from "react";
 import superjson from "superjson";
+import type { AppRouter } from "@/lib/trpc";
+import { createQueryClient, getApiUrl } from "../../../shared";
+import { TRPCProvider } from "../../../shared/lib/trpc-config";
 import { useAuth } from "../auth/AuthContext";
-import { trpc } from "./trpc";
 
-const API_URL = getApiUrl(getCmsApiConfig());
-
-export function TRPCProvider({ children }: { children: ReactNode }) {
+export function TrpcProvider({ children }: { children: ReactNode }) {
 	const { idToken } = useAuth();
 	const tokenRef = useRef(idToken);
 
@@ -17,10 +16,10 @@ export function TRPCProvider({ children }: { children: ReactNode }) {
 
 	const [queryClient] = useState(() => createQueryClient());
 	const [trpcClient] = useState(() =>
-		trpc.createClient({
+		createTRPCClient<AppRouter>({
 			links: [
 				httpBatchLink({
-					url: API_URL,
+					url: getApiUrl(),
 					transformer: superjson,
 					headers() {
 						return tokenRef.current ? { Authorization: `Bearer ${tokenRef.current}` } : {};
@@ -31,8 +30,8 @@ export function TRPCProvider({ children }: { children: ReactNode }) {
 	);
 
 	return (
-		<trpc.Provider client={trpcClient} queryClient={queryClient}>
+		<TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
 			<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-		</trpc.Provider>
+		</TRPCProvider>
 	);
 }

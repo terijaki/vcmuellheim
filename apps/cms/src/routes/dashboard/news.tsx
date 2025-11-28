@@ -5,6 +5,7 @@ import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { RichTextEditor } from "@mantine/tiptap";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Image as ImageExtension } from "@tiptap/extension-image";
 import { Link as LinkExtension } from "@tiptap/extension-link";
@@ -14,9 +15,10 @@ import { slugify } from "@utils/slugify";
 import dayjs from "dayjs";
 import { Plus, Trash2, Upload, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { trpc } from "../../lib/trpc";
+import { useTRPC } from "@/apps/shared/lib/trpc-config";
 
 function NewsPage() {
+	const trpc = useTRPC();
 	const [opened, { open, close }] = useDisclosure(false);
 	const [editingId, setEditingId] = useState<string | null>(null);
 	const [imageFiles, setImageFiles] = useState<File[]>([]);
@@ -56,66 +58,72 @@ function NewsPage() {
 		setFormData({ ...formData, publishedDate: value || new Date().toISOString() });
 	};
 
-	const { data: news, isLoading, refetch } = trpc.news.list.useQuery({ limit: 100 });
-	const uploadMutation = trpc.upload.getPresignedUrl.useMutation();
-	const createMutation = trpc.news.create.useMutation({
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			setUploading(false);
-			notifications.show({
-				title: "Erfolg",
-				message: "News-Artikel wurde erfolgreich erstellt",
-				color: "green",
-			});
-		},
-		onError: (error) => {
-			setUploading(false);
-			notifications.show({
-				title: "Fehler",
-				message: error.message || "News-Artikel konnte nicht erstellt werden",
-				color: "red",
-			});
-		},
-	});
-	const updateMutation = trpc.news.update.useMutation({
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			setUploading(false);
-			notifications.show({
-				message: "News-Artikel wurde aktualisiert",
-				color: "green",
-			});
-		},
-		onError: (error) => {
-			setUploading(false);
-			notifications.show({
-				title: "Fehler",
-				message: error.message || "News-Artikel konnte nicht aktualisiert werden",
-				color: "red",
-			});
-		},
-	});
-	const deleteMutation = trpc.news.delete.useMutation({
-		onSuccess: () => {
-			refetch();
-			notifications.show({
-				title: "Erfolg",
-				message: "News-Artikel wurde erfolgreich gelöscht",
-				color: "green",
-			});
-		},
-		onError: (error) => {
-			notifications.show({
-				title: "Fehler",
-				message: error.message || "News-Artikel konnte nicht gelöscht werden",
-				color: "red",
-			});
-		},
-	});
+	const { data: news, isLoading, refetch } = useQuery(trpc.news.list.queryOptions({ limit: 100 }));
+	const uploadMutation = useMutation(trpc.upload.getPresignedUrl.mutationOptions());
+	const createMutation = useMutation(
+		trpc.news.create.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				close();
+				resetForm();
+				setUploading(false);
+				notifications.show({
+					title: "Erfolg",
+					message: "News-Artikel wurde erfolgreich erstellt",
+					color: "green",
+				});
+			},
+			onError: (error) => {
+				setUploading(false);
+				notifications.show({
+					title: "Fehler",
+					message: error.message || "News-Artikel konnte nicht erstellt werden",
+					color: "red",
+				});
+			},
+		}),
+	);
+	const updateMutation = useMutation(
+		trpc.news.update.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				close();
+				resetForm();
+				setUploading(false);
+				notifications.show({
+					message: "News-Artikel wurde aktualisiert",
+					color: "green",
+				});
+			},
+			onError: (error) => {
+				setUploading(false);
+				notifications.show({
+					title: "Fehler",
+					message: error.message || "News-Artikel konnte nicht aktualisiert werden",
+					color: "red",
+				});
+			},
+		}),
+	);
+	const deleteMutation = useMutation(
+		trpc.news.delete.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				notifications.show({
+					title: "Erfolg",
+					message: "News-Artikel wurde erfolgreich gelöscht",
+					color: "green",
+				});
+			},
+			onError: (error) => {
+				notifications.show({
+					title: "Fehler",
+					message: error.message || "News-Artikel konnte nicht gelöscht werden",
+					color: "red",
+				});
+			},
+		}),
+	);
 
 	const resetForm = () => {
 		setFormData({
@@ -469,7 +477,8 @@ function NewsPage() {
 }
 
 function ExistingImage({ s3Key, isDeleted, onDelete, onRestore }: { s3Key: string; isDeleted: boolean; onDelete: () => void; onRestore: () => void }) {
-	const { data: imageUrl } = trpc.upload.getFileUrl.useQuery({ s3Key }, { enabled: !!s3Key && !isDeleted });
+	const trpc = useTRPC();
+	const { data: imageUrl } = useQuery(trpc.upload.getFileUrl.queryOptions({ s3Key }, { enabled: !!s3Key && !isDeleted }));
 
 	if (isDeleted) {
 		return (

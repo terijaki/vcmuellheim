@@ -3,10 +3,11 @@ import { ActionIcon, Badge, Box, Button, Card, Checkbox, Group, Image, Modal, Si
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Pencil, Plus, Trash2, Upload, User, X } from "lucide-react";
 import { useState } from "react";
-import { trpc } from "../../lib/trpc";
+import { useTRPC } from "@/apps/shared/lib/trpc-config";
 
 function CurrentAvatarDisplay({
 	avatarS3Key,
@@ -21,7 +22,8 @@ function CurrentAvatarDisplay({
 	onFileChange: (file: File | null) => void;
 	onDeleteToggle: () => void;
 }) {
-	const { data: avatarUrl } = trpc.upload.getFileUrl.useQuery({ s3Key: avatarS3Key || "" }, { enabled: !!avatarS3Key && !deleteAvatar });
+	const trpc = useTRPC();
+	const { data: avatarUrl } = useQuery(trpc.upload.getFileUrl.queryOptions({ s3Key: avatarS3Key || "" }, { enabled: !!avatarS3Key && !deleteAvatar }));
 
 	// Show new file preview if selected
 	if (avatarFile) {
@@ -155,66 +157,87 @@ function MembersPage() {
 		avatarS3Key: undefined,
 	});
 
-	const { data: members, isLoading, refetch } = trpc.members.list.useQuery();
-	const uploadMutation = trpc.upload.getPresignedUrl.useMutation();
-	const createMutation = trpc.members.create.useMutation({
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			setUploading(false);
-			notifications.show({
-				title: "Erfolg",
-				message: "Mitglied wurde erfolgreich erstellt",
-				color: "green",
-			});
-		},
-		onError: (error) => {
-			setUploading(false);
-			notifications.show({
-				title: "Fehler",
-				message: error.message || "Mitglied konnte nicht erstellt werden",
-				color: "red",
-			});
-		},
-	});
-	const updateMutation = trpc.members.update.useMutation({
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			setUploading(false);
-			notifications.show({
-				message: "Mitglied wurde aktualisiert",
-				color: "green",
-			});
-		},
-		onError: (error) => {
-			setUploading(false);
-			notifications.show({
-				title: "Fehler",
-				message: error.message || "Mitglied konnte nicht aktualisiert werden",
-				color: "red",
-			});
-		},
-	});
-	const deleteMutation = trpc.members.delete.useMutation({
-		onSuccess: () => {
-			refetch();
-			notifications.show({
-				title: "Erfolg",
-				message: "Mitglied wurde erfolgreich gelöscht",
-				color: "green",
-			});
-		},
-		onError: (error) => {
-			notifications.show({
-				title: "Fehler",
-				message: error.message || "Mitglied konnte nicht gelöscht werden",
-				color: "red",
-			});
-		},
-	});
+	const trpc = useTRPC();
+	const { data: members, isLoading, refetch } = useQuery(trpc.members.list.queryOptions());
+	const uploadMutation = useMutation(
+		trpc.upload.getPresignedUrl.mutationOptions({
+			onError: (error: unknown) => {
+				setUploading(false);
+				notifications.show({
+					title: "Fehler",
+					message: error instanceof Error ? error.message : "Upload fehlgeschlagen",
+					color: "red",
+				});
+			},
+		}),
+	);
+
+	const createMutation = useMutation(
+		trpc.members.create.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				close();
+				resetForm();
+				setUploading(false);
+				notifications.show({
+					title: "Erfolg",
+					message: "Mitglied wurde erfolgreich erstellt",
+					color: "green",
+				});
+			},
+			onError: (error: unknown) => {
+				setUploading(false);
+				notifications.show({
+					title: "Fehler",
+					message: error instanceof Error ? error.message : "Mitglied konnte nicht erstellt werden",
+					color: "red",
+				});
+			},
+		}),
+	);
+
+	const updateMutation = useMutation(
+		trpc.members.update.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				close();
+				resetForm();
+				setUploading(false);
+				notifications.show({
+					message: "Mitglied wurde aktualisiert",
+					color: "green",
+				});
+			},
+			onError: (error: unknown) => {
+				setUploading(false);
+				notifications.show({
+					title: "Fehler",
+					message: error instanceof Error ? error.message : "Mitglied konnte nicht aktualisiert werden",
+					color: "red",
+				});
+			},
+		}),
+	);
+
+	const deleteMutation = useMutation(
+		trpc.members.delete.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				notifications.show({
+					title: "Erfolg",
+					message: "Mitglied wurde erfolgreich gelöscht",
+					color: "green",
+				});
+			},
+			onError: (error: unknown) => {
+				notifications.show({
+					title: "Fehler",
+					message: error instanceof Error ? error.message : "Mitglied konnte nicht gelöscht werden",
+					color: "red",
+				});
+			},
+		}),
+	);
 
 	const resetForm = () => {
 		setFormData({
@@ -227,10 +250,7 @@ function MembersPage() {
 			avatarS3Key: undefined,
 		});
 		setAvatarFile(null);
-		setDeleteAvatar(false);
-		setEditingId(null);
 	};
-
 	const handleSubmit = async () => {
 		if (!formData.name) return;
 
@@ -382,7 +402,8 @@ function MemberCard({
 	onDelete: (id: string) => void;
 	isDeleting: boolean;
 }) {
-	const { data: avatarUrl } = trpc.upload.getFileUrl.useQuery({ s3Key: member.avatarS3Key || "" }, { enabled: !!member.avatarS3Key });
+	const trpc = useTRPC();
+	const { data: avatarUrl } = useQuery(trpc.upload.getFileUrl.queryOptions({ s3Key: member.avatarS3Key || "" }, { enabled: !!member.avatarS3Key }));
 
 	return (
 		<Card shadow="sm" padding="lg" radius="md" withBorder>

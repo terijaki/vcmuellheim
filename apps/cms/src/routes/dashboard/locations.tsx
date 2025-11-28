@@ -2,10 +2,11 @@ import type { LocationInput } from "@lib/db/schemas";
 import { ActionIcon, Button, Group, Modal, Paper, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
-import { trpc } from "../../lib/trpc";
+import { useTRPC } from "@/apps/shared/lib/trpc-config";
 
 function LocationsPage() {
 	const [opened, { open, close }] = useDisclosure(false);
@@ -18,65 +19,75 @@ function LocationsPage() {
 		city: "",
 	});
 
-	const { data: locations, isLoading, refetch } = trpc.locations.list.useQuery();
+	const trpc = useTRPC();
+	const { data: locations, isLoading, refetch } = useQuery(trpc.locations.list.queryOptions());
 
-	const createMutation = trpc.locations.create.useMutation({
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			notifications.show({
-				title: "Erfolg",
-				message: "Ort wurde erfolgreich erstellt",
-				color: "green",
-			});
-		},
-		onError: (error) => {
-			notifications.show({
-				title: "Fehler",
-				message: error.message || "Ort konnte nicht erstellt werden",
-				color: "red",
-			});
-		},
-	});
+	const createMutation = useMutation(
+		trpc.locations.create.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				close();
+				resetForm();
+				notifications.show({
+					title: "Erfolg",
+					message: "Ort wurde erfolgreich erstellt",
+					color: "green",
+				});
+			},
+			onError: (error: unknown) => {
+				const err = error as Error;
+				notifications.show({
+					title: "Fehler",
+					message: err.message || "Ort konnte nicht erstellt werden",
+					color: "red",
+				});
+			},
+		}),
+	);
 
-	const updateMutation = trpc.locations.update.useMutation({
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			notifications.show({
-				title: "Erfolg",
-				message: "Ort wurde erfolgreich aktualisiert",
-				color: "green",
-			});
-		},
-		onError: (error) => {
-			notifications.show({
-				title: "Fehler",
-				message: error.message || "Ort konnte nicht aktualisiert werden",
-				color: "red",
-			});
-		},
-	});
+	const updateMutation = useMutation(
+		trpc.locations.update.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				close();
+				resetForm();
+				notifications.show({
+					title: "Erfolg",
+					message: "Ort wurde erfolgreich aktualisiert",
+					color: "green",
+				});
+			},
+			onError: (error: unknown) => {
+				const err = error as Error;
+				notifications.show({
+					title: "Fehler",
+					message: err.message || "Ort konnte nicht aktualisiert werden",
+					color: "red",
+				});
+			},
+		}),
+	);
 
-	const deleteMutation = trpc.locations.delete.useMutation({
-		onSuccess: () => {
-			refetch();
-			notifications.show({
-				title: "Erfolg",
-				message: "Ort wurde erfolgreich gelöscht",
-				color: "green",
-			});
-		},
-		onError: (error) => {
-			notifications.show({
-				title: "Fehler",
-				message: error.message || "Ort konnte nicht gelöscht werden",
-				color: "red",
-			});
-		},
-	});
+	const deleteMutation = useMutation(
+		trpc.locations.delete.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				notifications.show({
+					title: "Erfolg",
+					message: "Ort wurde erfolgreich gelöscht",
+					color: "green",
+				});
+			},
+			onError: (error: unknown) => {
+				const err = error as Error;
+				notifications.show({
+					title: "Fehler",
+					message: err.message || "Ort konnte nicht gelöscht werden",
+					color: "red",
+				});
+			},
+		}),
+	);
 
 	const resetForm = () => {
 		setFormData({
@@ -132,7 +143,7 @@ function LocationsPage() {
 		open();
 	};
 
-	locations?.items.sort((a, b) => a.name.localeCompare(b.name));
+	locations?.items.sort((a: LocationInput, b: LocationInput) => a.name.localeCompare(b.name));
 
 	return (
 		<Stack gap="md">
@@ -183,7 +194,7 @@ function LocationsPage() {
 							</Table.Tr>
 						</Table.Thead>
 						<Table.Tbody>
-							{locations.items.map((location) => (
+							{locations.items.map((location: LocationInput) => (
 								<Table.Tr key={location.id}>
 									<Table.Td>{location.name}</Table.Td>
 									<Table.Td>

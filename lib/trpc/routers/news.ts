@@ -14,27 +14,26 @@ export const newsRouter = router({
 			z
 				.object({
 					limit: z.number().min(1).max(100).optional().default(30),
-					startKey: z.record(z.string(), z.unknown()).optional(),
-
+					lastEvaluatedKey: z.record(z.string(), z.unknown()).optional(),
 				})
 				.optional(),
 		)
 		.query(async ({ input }) => {
-			return getAllNews(input?.limit, input?.startKey);
+			return getAllNews(input?.limit, input?.lastEvaluatedKey);
 		}),
 
-	/** Get published news articles (public) */
+	/** Get published news articles (public, cursor-based for infinite queries) */
 	published: publicProcedure
 		.input(
 			z
 				.object({
 					limit: z.number().min(1).max(100).optional().default(10),
-					startKey: z.record(z.string(), z.unknown()).optional(),
+					cursor: z.record(z.string(), z.unknown()).optional(),
 				})
 				.optional(),
 		)
 		.query(async ({ input }) => {
-			return getPublishedNews(input?.limit, input?.startKey);
+			return getPublishedNews(input?.limit, input?.cursor);
 		}),
 
 	/** Get news article by ID */

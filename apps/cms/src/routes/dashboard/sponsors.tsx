@@ -3,10 +3,11 @@ import { ActionIcon, Anchor, Box, Button, Card, Group, Image, Modal, SimpleGrid,
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Globe, Pencil, Plus, Trash2, Upload, X } from "lucide-react";
 import { useState } from "react";
-import { trpc } from "../../lib/trpc";
+import { useTRPC } from "@/apps/shared/lib/trpc-config";
 
 function CurrentLogoDisplay({
 	logoS3Key,
@@ -21,7 +22,8 @@ function CurrentLogoDisplay({
 	onFileChange: (file: File | null) => void;
 	onDeleteToggle: () => void;
 }) {
-	const { data: logoUrl } = trpc.upload.getFileUrl.useQuery({ s3Key: logoS3Key || "" }, { enabled: !!logoS3Key && !deleteLogo });
+	const trpc = useTRPC();
+	const { data: logoUrl } = useQuery(trpc.upload.getFileUrl.queryOptions({ s3Key: logoS3Key || "" }, { enabled: !!logoS3Key && !deleteLogo }));
 
 	// Show new file preview if selected
 	if (logoFile) {
@@ -152,66 +154,73 @@ function SponsorsPage() {
 		logoS3Key: undefined,
 	});
 
-	const { data: sponsors, isLoading, refetch } = trpc.sponsors.list.useQuery();
-	const uploadMutation = trpc.upload.getPresignedUrl.useMutation();
-	const createMutation = trpc.sponsors.create.useMutation({
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			setUploading(false);
-			notifications.show({
-				title: "Erfolg",
-				message: "Sponsor wurde erfolgreich erstellt",
-				color: "green",
-			});
-		},
-		onError: (error) => {
-			setUploading(false);
-			notifications.show({
-				title: "Fehler",
-				message: error.message || "Sponsor konnte nicht erstellt werden",
-				color: "red",
-			});
-		},
-	});
-	const updateMutation = trpc.sponsors.update.useMutation({
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			setUploading(false);
-			notifications.show({
-				message: "Sponsoränderung wurde gespeichert",
-				color: "green",
-			});
-		},
-		onError: (error) => {
-			setUploading(false);
-			notifications.show({
-				title: "Fehler",
-				message: error.message || "Sponsor konnte nicht aktualisiert werden",
-				color: "red",
-			});
-		},
-	});
-	const deleteMutation = trpc.sponsors.delete.useMutation({
-		onSuccess: () => {
-			refetch();
-			notifications.show({
-				title: "Erfolg",
-				message: "Sponsor wurde erfolgreich gelöscht",
-				color: "green",
-			});
-		},
-		onError: (error) => {
-			notifications.show({
-				title: "Fehler",
-				message: error.message || "Sponsor konnte nicht gelöscht werden",
-				color: "red",
-			});
-		},
-	});
+	const trpc = useTRPC();
+	const { data: sponsors, isLoading, refetch } = useQuery(trpc.sponsors.list.queryOptions());
+	const uploadMutation = useMutation(trpc.upload.getPresignedUrl.mutationOptions());
+	const createMutation = useMutation(
+		trpc.sponsors.create.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				close();
+				resetForm();
+				setUploading(false);
+				notifications.show({
+					title: "Erfolg",
+					message: "Sponsor wurde erfolgreich erstellt",
+					color: "green",
+				});
+			},
+			onError: (error) => {
+				setUploading(false);
+				notifications.show({
+					title: "Fehler",
+					message: error.message || "Sponsor konnte nicht erstellt werden",
+					color: "red",
+				});
+			},
+		}),
+	);
+	const updateMutation = useMutation(
+		trpc.sponsors.update.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				close();
+				resetForm();
+				setUploading(false);
+				notifications.show({
+					message: "Sponsoränderung wurde gespeichert",
+					color: "green",
+				});
+			},
+			onError: (error) => {
+				setUploading(false);
+				notifications.show({
+					title: "Fehler",
+					message: error.message || "Sponsor konnte nicht aktualisiert werden",
+					color: "red",
+				});
+			},
+		}),
+	);
+	const deleteMutation = useMutation(
+		trpc.sponsors.delete.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				notifications.show({
+					title: "Erfolg",
+					message: "Sponsor wurde erfolgreich gelöscht",
+					color: "green",
+				});
+			},
+			onError: (error) => {
+				notifications.show({
+					title: "Fehler",
+					message: error.message || "Sponsor konnte nicht gelöscht werden",
+					color: "red",
+				});
+			},
+		}),
+	);
 
 	const resetForm = () => {
 		setFormData({
@@ -372,7 +381,8 @@ function SponsorCard({
 	onDelete: (id: string) => void;
 	isDeleting: boolean;
 }) {
-	const { data: logoUrl } = trpc.upload.getFileUrl.useQuery({ s3Key: sponsor.logoS3Key || "" }, { enabled: !!sponsor.logoS3Key });
+	const trpc = useTRPC();
+	const { data: logoUrl } = useQuery(trpc.upload.getFileUrl.queryOptions({ s3Key: sponsor.logoS3Key || "" }, { enabled: !!sponsor.logoS3Key }));
 
 	// Extract domain from URL for display
 	const getDomainFromUrl = (url: string) => {

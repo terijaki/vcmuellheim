@@ -28,15 +28,17 @@ import { TimeInput } from "@mantine/dates";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { slugify } from "@utils/slugify";
 import { Check, Mars, Plus, SquarePen, Trash2, Upload, Venus, VenusAndMars, X } from "lucide-react";
 import { useState } from "react";
+import { useTRPC } from "@/apps/shared/lib/trpc-config";
 import type { Member } from "@/lib/db";
-import { trpc } from "../../lib/trpc";
 
 function PersonAvatar({ avatarS3Key, name }: { avatarS3Key?: string; name: string }) {
-	const { data: avatarUrl } = trpc.upload.getFileUrl.useQuery({ s3Key: avatarS3Key || "" }, { enabled: !!avatarS3Key });
+	const trpc = useTRPC();
+	const { data: avatarUrl } = useQuery(trpc.upload.getFileUrl.queryOptions({ s3Key: avatarS3Key || "" }, { enabled: !!avatarS3Key }));
 
 	return (
 		<Tooltip label={name} withArrow>
@@ -126,7 +128,8 @@ function TeamPicturesManager({
 }
 
 function PictureCard({ s3Key, isDeleted, onDeleteToggle }: { s3Key: string; isDeleted: boolean; onDeleteToggle: () => void }) {
-	const { data: pictureUrl } = trpc.upload.getFileUrl.useQuery({ s3Key }, { enabled: !!s3Key && !isDeleted });
+	const trpc = useTRPC();
+	const { data: pictureUrl } = useQuery(trpc.upload.getFileUrl.queryOptions({ s3Key }, { enabled: !!s3Key && !isDeleted }));
 
 	if (isDeleted) {
 		return (
@@ -281,68 +284,90 @@ function TeamsPage() {
 		trainingSchedules: [],
 	});
 
-	const { data: teams, isLoading, refetch } = trpc.teams.list.useQuery();
-	const { data: samsTeams } = trpc.samsTeams.list.useQuery();
-	const { data: trainers } = trpc.members.trainers.useQuery();
-	const { data: members } = trpc.members.list.useQuery();
-	const { data: locations } = trpc.locations.list.useQuery();
-	const uploadMutation = trpc.upload.getPresignedUrl.useMutation();
-	const createMutation = trpc.teams.create.useMutation({
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			setUploading(false);
-			notifications.show({
-				title: "Erfolg",
-				message: "Mannschaft wurde erfolgreich erstellt",
-				color: "green",
-			});
-		},
-		onError: (error) => {
-			notifications.show({
-				title: "Fehler",
-				message: error.message || "Mannschaft konnte nicht erstellt werden",
-				color: "red",
-			});
-		},
-	});
-	const updateMutation = trpc.teams.update.useMutation({
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			setUploading(false);
-			notifications.show({
-				message: "Mannschaftsänderung wurde gespeichert",
-				color: "green",
-			});
-		},
-		onError: (error) => {
-			notifications.show({
-				title: "Fehler",
-				message: error.message || "Mannschaft konnte nicht aktualisiert werden",
-				color: "red",
-			});
-		},
-	});
-	const deleteMutation = trpc.teams.delete.useMutation({
-		onSuccess: () => {
-			refetch();
-			notifications.show({
-				title: "Erfolg",
-				message: "Mannschaft wurde erfolgreich gelöscht",
-				color: "green",
-			});
-		},
-		onError: (error) => {
-			notifications.show({
-				title: "Fehler",
-				message: error.message || "Mannschaft konnte nicht gelöscht werden",
-				color: "red",
-			});
-		},
-	});
+	const trpc = useTRPC();
+	const { data: teams, isLoading, refetch } = useQuery(trpc.teams.list.queryOptions());
+	const { data: samsTeams } = useQuery(trpc.samsTeams.list.queryOptions());
+	const { data: trainers } = useQuery(trpc.members.trainers.queryOptions());
+	const { data: members } = useQuery(trpc.members.list.queryOptions());
+	const { data: locations } = useQuery(trpc.locations.list.queryOptions());
+	const uploadMutation = useMutation(
+		trpc.upload.getPresignedUrl.mutationOptions({
+			onSuccess: () => setUploading(false),
+			onError: (error: unknown) => {
+				notifications.show({
+					title: "Fehler",
+					message: error instanceof Error ? error.message : "Upload fehlgeschlagen",
+					color: "red",
+				});
+				setUploading(false);
+			},
+		}),
+	);
+
+	const createMutation = useMutation(
+		trpc.teams.create.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				close();
+				resetForm();
+				setUploading(false);
+				notifications.show({
+					title: "Erfolg",
+					message: "Mannschaft wurde erfolgreich erstellt",
+					color: "green",
+				});
+			},
+			onError: (error: unknown) => {
+				notifications.show({
+					title: "Fehler",
+					message: error instanceof Error ? error.message : "Mannschaft konnte nicht erstellt werden",
+					color: "red",
+				});
+			},
+		}),
+	);
+
+	const updateMutation = useMutation(
+		trpc.teams.update.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				close();
+				resetForm();
+				setUploading(false);
+				notifications.show({
+					message: "Mannschaftsänderung wurde gespeichert",
+					color: "green",
+				});
+			},
+			onError: (error: unknown) => {
+				notifications.show({
+					title: "Fehler",
+					message: error instanceof Error ? error.message : "Mannschaft konnte nicht aktualisiert werden",
+					color: "red",
+				});
+			},
+		}),
+	);
+
+	const deleteMutation = useMutation(
+		trpc.teams.delete.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				notifications.show({
+					title: "Erfolg",
+					message: "Mannschaft wurde erfolgreich gelöscht",
+					color: "green",
+				});
+			},
+			onError: (error: unknown) => {
+				notifications.show({
+					title: "Fehler",
+					message: error instanceof Error ? error.message : "Mannschaft konnte nicht gelöscht werden",
+					color: "red",
+				});
+			},
+		}),
+	);
 
 	const resetForm = () => {
 		setFormData({

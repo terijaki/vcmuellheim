@@ -6,8 +6,9 @@ import dayjs from "dayjs";
 import { useMemo, useState } from "react";
 import "dayjs/locale/de";
 import type { EventInput } from "@lib/db/schemas";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Plus, Trash2 } from "lucide-react";
-import { trpc } from "../../lib/trpc";
+import { useTRPC } from "@/apps/shared/lib/trpc-config";
 
 dayjs.locale("de");
 
@@ -25,8 +26,9 @@ function EventsPage() {
 		relatedSamsMatchId: "",
 	});
 
-	const utils = trpc.useUtils();
-	const { data: eventsData, isLoading } = trpc.events.list.useQuery({ limit: 100 });
+	const trpc = useTRPC();
+	const { data: eventsData, isLoading } = useQuery(trpc.events.list.queryOptions({ limit: 100 }));
+
 	const events = eventsData?.items || [];
 	const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -51,25 +53,27 @@ function EventsPage() {
 		}
 		return dates;
 	}, [events, editingId]);
-	const createMutation = trpc.events.create.useMutation({
-		onSuccess: () => {
-			utils.events.list.invalidate();
-			close();
-			resetForm();
-		},
-	});
-	const updateMutation = trpc.events.update.useMutation({
-		onSuccess: () => {
-			utils.events.list.invalidate();
-			close();
-			resetForm();
-		},
-	});
-	const deleteMutation = trpc.events.delete.useMutation({
-		onSuccess: () => {
-			utils.events.list.invalidate();
-		},
-	});
+	const createMutation = useMutation(
+		trpc.events.create.mutationOptions({
+			onSuccess: () => {
+				close();
+				resetForm();
+			},
+		}),
+	);
+	const updateMutation = useMutation(
+		trpc.events.update.mutationOptions({
+			onSuccess: () => {
+				close();
+				resetForm();
+			},
+		}),
+	);
+	const deleteMutation = useMutation(
+		trpc.events.delete.mutationOptions({
+			onSuccess: () => {},
+		}),
+	);
 
 	const resetForm = () => {
 		setFormData({
