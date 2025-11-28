@@ -39,7 +39,7 @@ function RouteComponent() {
 							<NewsCard key={post.id} {...post} />
 						))}
 					</SimpleGrid>
-					<div ref={loaderRef} />
+					<div ref={loaderRef} style={{ marginTop: "-40vh" }} />
 					{isFetchingNextPage && (
 						<Center py="xl">
 							<Loader />

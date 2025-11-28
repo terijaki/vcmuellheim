@@ -25,7 +25,7 @@ export default function NewsCard(props: News) {
 
 	return (
 		<CardLink to={`/news/$id`} params={{ id: props.id }} radius="md" shadow="sm" maw={{ base: "100%", sm: 620 }} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-			<CardSection bg={!hasImage ? "lion" : undefined} mb="xs">
+			<CardSection bg={hasImage ? "lion" : undefined} mb="xs">
 				{thumbnail ? (
 					<Box style={{ position: "relative", height: CARD_HEIGHT, overflow: "hidden" }}>
 						<BackgroundImage
@@ -48,7 +48,7 @@ export default function NewsCard(props: News) {
 						</Stack>
 					</Box>
 				) : (
-					<Title order={4} fw="bold" p="sm" h={CARD_HEIGHT}>
+					<Title order={4} fw="bold" p="sm">
 						{props.title}
 					</Title>
 				)}
