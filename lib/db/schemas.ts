@@ -18,7 +18,7 @@ export const newsSchema = z.object({
 	type: z.literal("article").describe("Entity type for GSI queries"),
 	title: z.string().min(1).max(200),
 	slug: z.string().min(1).max(200),
-	content: z.string().min(1),
+	content: z.string().min(1).describe("Tiptap rich text content in HTML format"),
 	excerpt: z.string().max(500).optional(),
 	publishedDate: z.iso.datetime(),
 	status: z.enum(["draft", "published", "archived"]),

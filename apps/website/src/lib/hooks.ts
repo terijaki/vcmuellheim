@@ -22,6 +22,13 @@ export const useNews = ({ limit = 50 }: { limit?: number }) => {
 };
 
 /**
+ * Hook to fetch a single news article by ID
+ */
+export const useNewsById = (id: string) => {
+	const trpc = useTRPC();
+	return useQuery(trpc.news.getById.queryOptions({ id }, { enabled: !!id }));
+};
+/**
  * Hook to fetch a single news article by slug
  */
 export const useNewsBySlug = (slug: string) => {
@@ -99,6 +106,20 @@ export const useMediaByIds = (ids: string[]) => {
 export const useFileUrl = (s3Key?: string) => {
 	const trpc = useTRPC();
 	return useQuery(trpc.upload.getFileUrl.queryOptions({ s3Key: s3Key || "" }, { enabled: !!s3Key }));
+};
+/**
+ * Hook to fetch a file URL by S3 key
+ */
+export const useFileUrls = (s3Keys?: string[]) => {
+	const trpc = useTRPC();
+	return useQuery(trpc.upload.getFileUrls.queryOptions({ s3Keys }, { enabled: s3Keys && s3Keys.length > 0 }));
+};
+/**
+ * Hook to fetch a file URL by S3 key
+ */
+export const useFileUrlsMap = (s3Keys?: string[]) => {
+	const trpc = useTRPC();
+	return useQuery(trpc.upload.getFileUrlsMap.queryOptions({ s3Keys }, { enabled: s3Keys && s3Keys.length > 0 }));
 };
 
 /**

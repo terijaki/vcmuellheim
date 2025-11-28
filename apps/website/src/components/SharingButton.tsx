@@ -1,6 +1,6 @@
 import { Button } from "@mantine/core";
+import { Share } from "lucide-react";
 import { useEffect, useState } from "react";
-import { FaShare as IconShare } from "react-icons/fa6";
 
 export default function SharingButton(props: { label: string }) {
 	const [pageURL, setPageURL] = useState("");
@@ -37,7 +37,7 @@ export default function SharingButton(props: { label: string }) {
 	if (!isNativeShare) return null;
 
 	return (
-		<Button leftSection={<IconShare />} onClick={handleShare}>
+		<Button leftSection={<Share size={16} />} onClick={handleShare}>
 			{props.label}
 		</Button>
 	);

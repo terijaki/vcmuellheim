@@ -55,6 +55,7 @@ export const uploadRouter = router({
 				s3Key: z.string(),
 			}),
 		)
+		.output(z.string().nullable())
 		.query(async ({ input }) => {
 			if (!input.s3Key) {
 				return null;
@@ -76,5 +77,62 @@ export const uploadRouter = router({
 			});
 
 			return presignedUrl;
+		}),
+
+	/** Get URLs for (multiple) S3 keys */
+	getFileUrls: publicProcedure
+		.input(
+			z.object({
+				s3Keys: z.array(z.string()).optional().default([]),
+			}),
+		)
+		.output(z.array(z.string()))
+		.query(async ({ input }) => {
+			const result: string[] = [];
+			for (const s3Key of input.s3Keys) {
+				if (CLOUDFRONT_URL) {
+					result.push(`${CLOUDFRONT_URL}/${s3Key}`);
+				} else {
+					const command = new GetObjectCommand({
+						Bucket: BUCKET_NAME,
+						Key: s3Key,
+					});
+					const url = await getSignedUrl(s3Client, command, {
+						expiresIn: 3600,
+					});
+					result.push(url);
+				}
+			}
+			return result;
+		}),
+	/** Get URLs for (multiple) S3 keys as a Map */
+	getFileUrlsMap: publicProcedure
+		.input(
+			z.object({
+				s3Keys: z.array(z.string()).optional(),
+			}),
+		)
+		.output(z.record(z.string(), z.string()))
+		.query(async ({ input }) => {
+			const result: Record<string, string> = {};
+			const keys = input.s3Keys || [];
+			for (const s3Key of keys) {
+				if (!s3Key) {
+					result[s3Key] = "";
+					continue;
+				}
+				if (CLOUDFRONT_URL) {
+					result[s3Key] = `${CLOUDFRONT_URL}/${s3Key}`;
+				} else {
+					const command = new GetObjectCommand({
+						Bucket: BUCKET_NAME,
+						Key: s3Key,
+					});
+					result[s3Key] = await getSignedUrl(s3Client, command, {
+						expiresIn: 3600,
+					});
+				}
+			}
+			return result;
 		}),
 });
