@@ -1,18 +1,26 @@
-"use client";
 import { ActionIcon, Anchor, Box, Button, Card, Collapse, Group, Stack, Text, Title } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
+import weekday from "dayjs/plugin/weekday";
 import { Fragment, useEffect, useState } from "react";
 import { FaCalendarDays as IconCalendar, FaClock as IconClock, FaChevronUp as IconCollapse, FaEnvelope as IconMail, FaUser as IconPerson, FaUserGroup as IconPersons } from "react-icons/fa6";
-import type { Team } from "@/data/payload-types";
+import type { Team } from "@/lib/db";
 import { Club } from "@/project.config";
+import { useLocations, useMembers } from "../lib/hooks";
 import { useTeamContext } from "./context/HomeTeamContext";
 import MapsLink from "./MapsLink";
 
+dayjs.extend(weekday);
+
 export default function TeamCard(props: Team) {
-	const { id, slug, name, league, sbvvTeam, age, description, schedules, people, gender } = props;
+	const { id, slug, name, league, sbvvTeamId, ageGroup, description, trainingSchedules, gender, trainerIds, pointOfContactIds } = props;
 
 	const teamContext = useTeamContext();
+	const { data: members } = useMembers();
+	const { data: locations } = useLocations();
+
+	const coaches = members?.items.filter((member) => trainerIds?.includes(member.id));
+	const contactPeople = members?.items.filter((member) => pointOfContactIds?.includes(member.id));
 
 	const isEmptyLeague = !teamContext.leagueParticipation;
 	const isMatchingLeague = Boolean(isEmptyLeague || Boolean(league));
@@ -49,10 +57,10 @@ export default function TeamCard(props: Team) {
 
 			<Collapse in={isOpen}>
 				<Stack>
-					{age && (
+					{ageGroup && (
 						<Group gap="xs">
 							<Text fw="bold">Alter:</Text>
-							<Text>ab {age} Jahre</Text>
+							<Text>{ageGroup}</Text>
 						</Group>
 					)}
 					{description && (
@@ -61,34 +69,39 @@ export default function TeamCard(props: Team) {
 							<Text size="sm">{description}</Text>
 						</Stack>
 					)}
-					{schedules && schedules.length > 0 && (
+					{trainingSchedules && trainingSchedules.length > 0 && (
 						<Stack gap={0}>
 							<Group gap="xs" fw="bold">
 								<IconClock />
 								Trainingszeiten:
 							</Group>
-							{schedules.map((schedule) => {
-								const separator = schedule.day.length > 2 ? ", " : " & ";
-
+							{trainingSchedules.map((schedule) => {
+								const separator = schedule.days.length > 2 ? ", " : " & ";
+								const location = schedule.locationId ? null : locations?.items.find((loc) => loc.id === schedule.locationId);
+								const weekdayNames = schedule.days
+									.map((d) => {
+										return `${dayjs().weekday(d).format("dddd")}s`;
+									})
+									.join(separator);
 								return (
-									<Fragment key={schedule.id}>
+									<Fragment key={schedule.days.join("-")}>
 										<Text>
-											{schedule.day.join(separator)} {dayjs(schedule.time.startTime).format("HH:mm")} - {dayjs(schedule.time.endTime).format("HH:mm")} Uhr
+											{weekdayNames} {schedule.startTime} - {schedule.endTime} Uhr
 										</Text>
-										{typeof schedule.location === "object" && <MapsLink location={schedule.location} />}
+										{location && <MapsLink location={location} />}
 									</Fragment>
 								);
 							})}
 						</Stack>
 					)}
-					{people?.coaches && people.coaches.length > 0 && (
+					{coaches && coaches.length > 0 && (
 						<Stack gap={0}>
 							<Group gap="xs" fw="bold">
-								{people.coaches.length === 1 ? <IconPerson /> : <IconPersons />}
+								{coaches.length === 1 ? <IconPerson /> : <IconPersons />}
 								Trainer:
 							</Group>
 							<Box>
-								{people.coaches?.map((trainer, index) => {
+								{coaches?.map((trainer, index) => {
 									if (typeof trainer !== "object") return null;
 									if (trainer.email) emailAddresses.set(trainer.email, trainer.email);
 									return (
@@ -107,14 +120,14 @@ export default function TeamCard(props: Team) {
 							</Box>
 						</Stack>
 					)}
-					{people?.contactPeople && people.contactPeople.length > 0 && (
+					{contactPeople && contactPeople.length > 0 && (
 						<Stack gap={0}>
 							<Group gap="xs" fw="bold">
-								{people.contactPeople.length === 1 ? <IconPerson /> : <IconPersons />}
-								{people.contactPeople.length === 1 ? "Ansprechperson" : "Ansprechpersonen"}:
+								{contactPeople.length === 1 ? <IconPerson /> : <IconPersons />}
+								{contactPeople.length === 1 ? "Ansprechperson" : "Ansprechpersonen"}:
 							</Group>
 							<Box>
-								{people.contactPeople?.map((person, index) => {
+								{contactPeople?.map((person, index) => {
 									if (typeof person !== "object") return null;
 									if (person.email) emailAddresses.set(person.email, person.email);
 									return (
@@ -140,7 +153,7 @@ export default function TeamCard(props: Team) {
 								Kontaktieren
 							</Button>
 						)}
-						{sbvvTeam && (
+						{sbvvTeamId && (
 							<Button component={Link} to={`/teams/${slug}`} leftSection={<IconCalendar />}>
 								Spielplan, Tabelle & Kader
 							</Button>

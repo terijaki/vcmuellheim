@@ -1,4 +1,3 @@
-"use client";
 import { Pagination, type PaginationProps } from "@mantine/core";
 import type { ComponentProps } from "react";
 

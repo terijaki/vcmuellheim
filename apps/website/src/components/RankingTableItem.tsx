@@ -1,4 +1,3 @@
-"use client";
 import { Group, TableTd, TableTr, Text } from "@mantine/core";
 import { useNavigate } from "@tanstack/react-router";
 import type { ReactNode } from "react";

@@ -4,6 +4,7 @@ import HomeIntro from "../components/homepage/HomeIntro";
 import HomeKontakt from "../components/homepage/HomeKontakt";
 import HomeMembers from "../components/homepage/HomeMembers";
 import HomeSponsors from "../components/homepage/HomeSponsors";
+import HomeTeams from "../components/homepage/HomeTeams";
 
 export const Route = createFileRoute("/")({
 	component: HomePage,
@@ -15,7 +16,7 @@ function HomePage() {
 			<HomeIntro />
 			{/* <HomeInstagram /> */}
 			{/* <HomeHeimspiele /> */}
-			{/* <HomeTeams /> */}
+			<HomeTeams />
 			<HomeSponsors />
 			<HomeMembers />
 			{/* <HomeFotos /> */}

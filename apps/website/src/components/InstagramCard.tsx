@@ -1,4 +1,3 @@
-"use client";
 import { Card, CardSection, Grid, GridCol, Group, Image, Stack, Text } from "@mantine/core";
 import { useInViewport } from "@mantine/hooks";
 import { useState } from "react";

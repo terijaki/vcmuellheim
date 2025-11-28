@@ -1,4 +1,3 @@
-"use client";
 import { AspectRatio, Card, Image } from "@mantine/core";
 import type { MouseEvent } from "react";
 

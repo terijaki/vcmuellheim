@@ -8,8 +8,11 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "dayjs/locale/de";
 import "./globals.css";
+import dayjs from "dayjs";
 import { TRPCProvider } from "./lib/TrpcProvider";
 import { router } from "./router";
+
+dayjs.locale("de");
 
 const theme = createTheme({
 	colors: {

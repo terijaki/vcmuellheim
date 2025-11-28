@@ -1,18 +1,18 @@
 import { Box, Center, Container, Stack, Text } from "@mantine/core";
-import SectionHeading from "@/components/layout/SectionHeading";
-import { getTeams } from "@/data/teams";
+import * as numToWordsDe from "num-words-de";
+import { useTeams } from "../../lib/hooks";
+import SectionHeading from "../layout/SectionHeading";
 import HomeTeamGrid from "./HomeTeamGrid";
 import ScrollAnchor from "./ScrollAnchor";
 
-export default async function HomeTeams() {
-	const data = await getTeams();
-	const teams = data?.docs;
+export default function HomeTeams() {
+	const { data } = useTeams();
+	const teams = data?.items;
 	if (!teams) return null;
 	if (teams.length === 0) return null;
 
 	const numberOfTeams = teams.length;
-	// turn number to requivalent word, eg. 2 = zwei
-	const numToWordsDe = require("num-words-de");
+	// turn number to equivalent word, eg. 2 = zwei
 	const teamNumber = numToWordsDe.numToWord(numberOfTeams, {
 		uppercase: false,
 		indefinite_eine: true,

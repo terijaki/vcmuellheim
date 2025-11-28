@@ -1,12 +1,11 @@
-"use client";
 import { Checkbox, Divider, Flex, Grid, Group, SegmentedControl, Stack, Text } from "@mantine/core";
 import { Fragment, useState } from "react";
-import type { Team } from "@/data/payload-types";
+import type { Team } from "@/lib/db";
 import { TeamContext } from "../context/HomeTeamContext";
 import TeamCard from "../TeamCard";
 
 export default function HomeTeamGrid({ teams }: { teams: Team[] }) {
-	const [gender, setGender] = useState<string>("");
+	const [gender, setGender] = useState<Team["gender"] | "">("");
 	const [leagueParticipation, setLeagueParticipation] = useState(false);
 
 	const teamsSorted = teams.sort((a, b) => {
@@ -32,12 +31,16 @@ export default function HomeTeamGrid({ teams }: { teams: Team[] }) {
 					</Text>
 					<Flex gap="sm" wrap="wrap" justify="center" align="center">
 						<SegmentedControl
-							onChange={(value) => setGender(value)}
+							onChange={(value) => {
+								if (value === "" || value === "female" || value === "male" || value === "mixed") {
+									setGender(value);
+								}
+							}}
 							value={gender}
 							data={[
 								{ label: "Keine", value: "" },
-								{ label: "Weiblich", value: "woman" },
-								{ label: "Männlich", value: "men" },
+								{ label: "Weiblich", value: "female" },
+								{ label: "Männlich", value: "male" },
 								{ label: "Gemischt", value: "mixed" },
 							]}
 							color="blumine"
@@ -49,11 +52,11 @@ export default function HomeTeamGrid({ teams }: { teams: Team[] }) {
 				<Grid gutter="md">
 					{teamsSorted.map((team, index, array) => {
 						const isMatchingLeagueParticipation = leagueParticipation ? Boolean(team.league) : true;
-						const isMatchingGender = team.gender === gender || gender === "";
+						const isMatchingGender = gender === "" || team.gender === gender;
 						const isMatching = isMatchingLeagueParticipation && isMatchingGender;
 						const nextTeam = array[index + 1];
 						const nextIsMatchingLeagueParticipation = leagueParticipation ? Boolean(nextTeam?.league) : true;
-						const nextIsMatchingGender = nextTeam?.gender === gender || gender === "";
+						const nextIsMatchingGender = gender === "" || nextTeam?.gender === gender;
 						const nextIsMatching = nextIsMatchingLeagueParticipation && nextIsMatchingGender;
 
 						const lastSelectedTeam = Boolean(isMatching && !nextIsMatching);

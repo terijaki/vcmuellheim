@@ -1,4 +1,3 @@
-"use client";
 import { Box, Card, CardSection, Image, Space, Text, Title } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";

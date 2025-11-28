@@ -1,4 +1,3 @@
-"use client";
 import { Button } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { FaShare as IconShare } from "react-icons/fa6";
