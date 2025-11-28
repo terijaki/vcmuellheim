@@ -281,6 +281,7 @@ function TeamsPage() {
 	const { data: teams, isLoading, refetch } = trpc.teams.list.useQuery();
 	const { data: samsTeams } = trpc.samsTeams.list.useQuery();
 	const { data: trainers } = trpc.members.trainers.useQuery();
+	const { data: members } = trpc.members.list.useQuery();
 	const { data: locations } = trpc.locations.list.useQuery();
 	const uploadMutation = trpc.upload.getPresignedUrl.useMutation();
 	const createMutation = trpc.teams.create.useMutation({
@@ -419,12 +420,12 @@ function TeamsPage() {
 			name: team.name,
 			slug: team.slug,
 			description: team.description || "",
-			status: team.status,
 			sbvvTeamId: team.sbvvTeamId || "",
 			ageGroup: team.ageGroup || "",
 			gender: team.gender,
 			league: team.league || "",
 			trainerIds: team.trainerIds || [],
+			pointOfContactIds: team.pointOfContactIds || [],
 			pictureS3Keys: team.pictureS3Keys || [],
 			trainingSchedules: team.trainingSchedules || [],
 		});
@@ -450,7 +451,9 @@ function TeamsPage() {
 		<Stack gap="md">
 			<Group justify="space-between">
 				<Title order={2}>Mannschaften</Title>
-				<Button onClick={handleOpenNew}>Neue Mannschaft</Button>
+				<Button onClick={handleOpenNew} leftSection={<Plus />}>
+					Neue Mannschaft
+				</Button>
 			</Group>{" "}
 			<Modal opened={opened} onClose={close} title={editingId ? "Mannschaft bearbeiten" : "Neue Mannschaft"} size="xl">
 				<Stack gap="md">
@@ -504,6 +507,21 @@ function TeamsPage() {
 							})) || []
 						}
 						description="Mehrere Trainer können ausgewählt werden"
+						searchable
+						clearable
+					/>
+					<MultiSelect
+						label="Ansprechpersonen"
+						placeholder="Personen auswählen..."
+						value={formData.pointOfContactIds || []}
+						onChange={(value) => setFormData({ ...formData, pointOfContactIds: value })}
+						data={
+							members?.items.map((member) => ({
+								value: member.id,
+								label: member.name,
+							})) || []
+						}
+						description="Mehrere Personen können ausgewählt werden"
 						searchable
 						clearable
 					/>

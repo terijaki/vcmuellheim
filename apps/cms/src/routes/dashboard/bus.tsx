@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import { useMemo, useState } from "react";
 import "dayjs/locale/de";
 import type { BusInput } from "@lib/db/schemas";
-import { Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { trpc } from "../../lib/trpc";
 
 dayjs.locale("de");
@@ -148,8 +148,9 @@ function BusSchedulesPage() {
 						resetForm();
 						open();
 					}}
+					leftSection={<Plus />}
 				>
-					Hinzufügen
+					Neue Buchung
 				</Button>
 			</Group>
 

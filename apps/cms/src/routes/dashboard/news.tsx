@@ -12,7 +12,7 @@ import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { slugify } from "@utils/slugify";
 import dayjs from "dayjs";
-import { Trash2, Upload, X } from "lucide-react";
+import { Plus, Trash2, Upload, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { trpc } from "../../lib/trpc";
 
@@ -245,7 +245,9 @@ function NewsPage() {
 		<Stack gap="md">
 			<Group justify="space-between">
 				<Title order={2}>News</Title>
-				<Button onClick={handleOpenNew}>Neuer Artikel</Button>
+				<Button onClick={handleOpenNew} leftSection={<Plus />}>
+					Neuer Artikel
+				</Button>
 			</Group>
 			<Group>
 				<TextInput placeholder="Artikel suchen..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} style={{ flex: 1 }} />

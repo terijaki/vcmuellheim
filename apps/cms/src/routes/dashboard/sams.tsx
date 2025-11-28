@@ -1,5 +1,6 @@
-import { Paper, Stack, Table, Text, Title } from "@mantine/core";
+import { Paper, Stack, Table, Text, Title, Tooltip } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
+import { Info } from "lucide-react";
 import { trpc } from "../../lib/trpc";
 
 function SamsDashboardPage() {
@@ -20,22 +21,37 @@ function SamsDashboardPage() {
 						<Table.Thead>
 							<Table.Tr>
 								<Table.Th>Name</Table.Th>
-								<Table.Th>UUID</Table.Th>
+								<Table.Th>ID</Table.Th>
 								<Table.Th>League</Table.Th>
-								<Table.Th>Sportsclub UUID</Table.Th>
+								<Table.Th visibleFrom="md">Sportsclub ID</Table.Th>
+								<Table.Th hiddenFrom="md">Club</Table.Th>
 							</Table.Tr>
 						</Table.Thead>
 						<Table.Tbody>
 							{teams.map((team) => (
 								<Table.Tr key={team.uuid}>
-									<Table.Td>{team.name}</Table.Td>
-									<Table.Td>
+									<Table.Td style={{ whiteSpace: "nowrap" }}>{team.name}</Table.Td>
+									<Table.Td visibleFrom="md">
 										<Text size="xs" c="dimmed">
-											{team.uuid}
+											{team.uuid || "-"}
 										</Text>
 									</Table.Td>
-									<Table.Td>{team.leagueName || "-"}</Table.Td>
-									<Table.Td>{team.sportsclubUuid || "-"}</Table.Td>
+									<Table.Td hiddenFrom="md">
+										<Tooltip label={team.uuid}>
+											<Info size={16} />
+										</Tooltip>
+									</Table.Td>
+									<Table.Td style={{ whiteSpace: "nowrap" }}>{team.leagueName || "-"}</Table.Td>
+									<Table.Td visibleFrom="md">
+										<Text size="xs" c="dimmed">
+											{team.sportsclubUuid || "-"}
+										</Text>
+									</Table.Td>
+									<Table.Td hiddenFrom="md">
+										<Tooltip label={team.sportsclubUuid}>
+											<Info size={16} />
+										</Tooltip>
+									</Table.Td>
 								</Table.Tr>
 							))}
 						</Table.Tbody>
@@ -56,25 +72,37 @@ function SamsDashboardPage() {
 						<Table.Thead>
 							<Table.Tr>
 								<Table.Th>Name</Table.Th>
-								<Table.Th>UUID</Table.Th>
+								<Table.Th>ID</Table.Th>
 								<Table.Th>Verband</Table.Th>
-								<Table.Th>VerbandsUUID</Table.Th>
+								<Table.Th>Verbands-ID</Table.Th>
 							</Table.Tr>
 						</Table.Thead>
 						<Table.Tbody>
 							{clubs.map((club) => (
 								<Table.Tr key={club.sportsclubUuid}>
 									<Table.Td>{club.name}</Table.Td>
-									<Table.Td>
+									<Table.Td visibleFrom="md">
 										<Text size="xs" c="dimmed">
 											{club.sportsclubUuid}
 										</Text>
 									</Table.Td>
-									<Table.Td>{club.associationName || "-"}</Table.Td>
+									<Table.Td hiddenFrom="md">
+										<Tooltip label={club.sportsclubUuid}>
+											<Info size={16} />
+										</Tooltip>
+									</Table.Td>
 									<Table.Td>
-										<Text size="xs" c="dimmed">
+										<Text size="xs">{club.associationName || "-"}</Text>
+									</Table.Td>
+									<Table.Td visibleFrom="md">
+										<Text size={"xs"} c="dimmed">
 											{club.associationUuid || "-"}
 										</Text>
+									</Table.Td>
+									<Table.Td hiddenFrom="md">
+										<Tooltip label={club.associationUuid}>
+											<Info size={16} />
+										</Tooltip>
 									</Table.Td>
 								</Table.Tr>
 							))}

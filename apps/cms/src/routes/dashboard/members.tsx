@@ -4,7 +4,7 @@ import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { createFileRoute } from "@tanstack/react-router";
-import { Pencil, Trash2, Upload, User, X } from "lucide-react";
+import { Pencil, Plus, Trash2, Upload, User, X } from "lucide-react";
 import { useState } from "react";
 import { trpc } from "../../lib/trpc";
 
@@ -318,7 +318,9 @@ function MembersPage() {
 		<Stack gap="md">
 			<Group justify="space-between">
 				<Title order={2}>Mitglieder</Title>
-				<Button onClick={handleOpenNew}>Neues Mitglied</Button>
+				<Button onClick={handleOpenNew} leftSection={<Plus />}>
+					Neues Mitglied
+				</Button>
 			</Group>
 
 			<Modal opened={opened} onClose={close} title={editingId ? "Mitglied bearbeiten" : "Neues Mitglied"} size="lg">

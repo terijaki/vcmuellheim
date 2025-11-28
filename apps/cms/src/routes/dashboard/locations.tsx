@@ -3,7 +3,7 @@ import { ActionIcon, Button, Group, Modal, Paper, Stack, Table, Text, Textarea, 
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { createFileRoute } from "@tanstack/react-router";
-import { Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { trpc } from "../../lib/trpc";
 
@@ -138,7 +138,9 @@ function LocationsPage() {
 		<Stack gap="md">
 			<Group justify="space-between">
 				<Title order={2}>Orte</Title>
-				<Button onClick={handleOpenNew}>Neuer Ort</Button>
+				<Button onClick={handleOpenNew} leftSection={<Plus />}>
+					Neuer Ort
+				</Button>
 			</Group>
 
 			<Modal opened={opened} onClose={close} title={editingId ? "Ort bearbeiten" : "Neuer Ort"} size="lg">

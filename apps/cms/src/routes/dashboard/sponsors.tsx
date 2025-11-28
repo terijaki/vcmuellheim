@@ -4,7 +4,7 @@ import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { createFileRoute } from "@tanstack/react-router";
-import { Globe, Pencil, Trash2, Upload, X } from "lucide-react";
+import { Globe, Pencil, Plus, Trash2, Upload, X } from "lucide-react";
 import { useState } from "react";
 import { trpc } from "../../lib/trpc";
 
@@ -309,7 +309,9 @@ function SponsorsPage() {
 		<Stack gap="md">
 			<Group justify="space-between">
 				<Title order={2}>Sponsoren</Title>
-				<Button onClick={handleOpenNew}>Neuer Sponsor</Button>
+				<Button onClick={handleOpenNew} leftSection={<Plus />}>
+					Neuer Sponsor
+				</Button>
 			</Group>
 
 			<Modal opened={opened} onClose={close} title={editingId ? "Sponsor bearbeiten" : "Neuer Sponsor"} size="lg">

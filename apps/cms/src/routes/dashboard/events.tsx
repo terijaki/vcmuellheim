@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import { useMemo, useState } from "react";
 import "dayjs/locale/de";
 import type { EventInput } from "@lib/db/schemas";
-import { Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { trpc } from "../../lib/trpc";
 
 dayjs.locale("de");
@@ -20,7 +20,7 @@ function EventsPage() {
 		startDate: null as Date | null,
 		endDate: null as Date | null,
 		location: "",
-		type: "",
+		variant: "",
 		teamId: "",
 		relatedSamsMatchId: "",
 	});
@@ -78,7 +78,7 @@ function EventsPage() {
 			startDate: null,
 			endDate: null,
 			location: "",
-			type: "",
+			variant: "",
 			teamId: "",
 			relatedSamsMatchId: "",
 		});
@@ -93,12 +93,13 @@ function EventsPage() {
 		}
 
 		const data = {
+			type: "event" as const,
 			title: formData.title,
 			description: formData.description || undefined,
 			startDate: formData.startDate.toISOString(),
 			endDate: formData.endDate ? formData.endDate.toISOString() : undefined,
 			location: formData.location || undefined,
-			type: formData.type || undefined,
+			variant: formData.variant || undefined,
 			teamId: formData.teamId || undefined,
 			relatedSamsMatchId: formData.relatedSamsMatchId || undefined,
 		};
@@ -118,7 +119,7 @@ function EventsPage() {
 			startDate: new Date(event.startDate),
 			endDate: event.endDate ? new Date(event.endDate) : null,
 			location: event.location || "",
-			type: event.type || "",
+			variant: event.variant || "",
 			teamId: event.teamId || "",
 			relatedSamsMatchId: event.relatedSamsMatchId || "",
 		});
@@ -140,8 +141,9 @@ function EventsPage() {
 						resetForm();
 						open();
 					}}
+					leftSection={<Plus />}
 				>
-					Hinzufügen
+					Neuer Termin
 				</Button>
 			</Group>
 			<Paper withBorder p="md">
@@ -174,7 +176,7 @@ function EventsPage() {
 						<Table.Thead>
 							<Table.Tr>
 								<Table.Th>Titel</Table.Th>
-								<Table.Th>Typ</Table.Th>
+								<Table.Th>Terminart</Table.Th>
 								<Table.Th>Start</Table.Th>
 								<Table.Th>Ende</Table.Th>
 								<Table.Th>Ort</Table.Th>
@@ -185,7 +187,7 @@ function EventsPage() {
 							{events.map((event) => (
 								<Table.Tr key={event.id}>
 									<Table.Td>{event.title}</Table.Td>
-									<Table.Td>{event.type || "-"}</Table.Td>
+									<Table.Td>{event.variant || "-"}</Table.Td>
 									<Table.Td>{dayjs(event.startDate).format("DD.MM.YYYY HH:mm")}</Table.Td>
 									<Table.Td>{event.endDate ? dayjs(event.endDate).format("DD.MM.YYYY HH:mm") : "-"}</Table.Td>
 									<Table.Td>{event.location || "-"}</Table.Td>
@@ -220,7 +222,7 @@ function EventsPage() {
 					<Stack>
 						<TextInput label="Titel" placeholder="z.B. Heimspiel gegen Team X" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required />
 
-						<TextInput label="Typ (optional)" placeholder="z.B. Spiel, Training, Versammlung" value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })} />
+						<TextInput label="Terminart" placeholder="z.B. Spiel, Training, Versammlung" value={formData.variant} onChange={(e) => setFormData({ ...formData, variant: e.target.value })} />
 
 						<DateTimePicker
 							label="Startdatum & Uhrzeit"
@@ -248,7 +250,7 @@ function EventsPage() {
 						/>
 
 						<DateTimePicker
-							label="Enddatum & Uhrzeit (optional)"
+							label="Enddatum & Uhrzeit"
 							placeholder="Ende wählen"
 							value={formData.endDate}
 							onChange={(date) => setFormData({ ...formData, endDate: date ? new Date(date) : null })}
@@ -271,10 +273,10 @@ function EventsPage() {
 							}}
 						/>
 
-						<TextInput label="Ort (optional)" placeholder="z.B. Sporthalle Müllheim" value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })} />
+						<TextInput label="Ort" placeholder="z.B. Sporthalle Müllheim" value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })} />
 
 						<Textarea
-							label="Beschreibung (optional)"
+							label="Beschreibung"
 							placeholder="Zusätzliche Informationen..."
 							value={formData.description}
 							onChange={(e) => setFormData({ ...formData, description: e.target.value })}
