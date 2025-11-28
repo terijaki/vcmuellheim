@@ -38,14 +38,14 @@ function DashboardLayout() {
 			</AppShell.Header>
 
 			<AppShell.Navbar p="md">
-				<NavLink label="News" leftSection={<Newspaper />} component={Link} to="/dashboard/news" />
-				<NavLink label="Termine" leftSection={<CalendarDays />} component={Link} to="/dashboard/events" />
-				<NavLink label="Mannschaften" leftSection={<Users />} component={Link} to="/dashboard/teams" />
-				<NavLink label="Mitglieder" leftSection={<Contact />} component={Link} to="/dashboard/members" />
-				<NavLink label="Orte" leftSection={<MapPinned />} component={Link} to="/dashboard/locations" />
-				<NavLink label="Sponsoren" leftSection={<BadgeEuro />} component={Link} to="/dashboard/sponsors" />
-				<NavLink label="Bus Buchungen" leftSection={<Bus />} component={Link} to="/dashboard/bus" />
-				<NavLink label="SAMS" leftSection={<Building2 />} component={Link} to="/dashboard/sams" />
+				<NavLink label="News" leftSection={<Newspaper />} component={Link} to="/dashboard/news" onClick={toggle} />
+				<NavLink label="Termine" leftSection={<CalendarDays />} component={Link} to="/dashboard/events" onClick={toggle} />
+				<NavLink label="Mannschaften" leftSection={<Users />} component={Link} to="/dashboard/teams" onClick={toggle} />
+				<NavLink label="Mitglieder" leftSection={<Contact />} component={Link} to="/dashboard/members" onClick={toggle} />
+				<NavLink label="Orte" leftSection={<MapPinned />} component={Link} to="/dashboard/locations" onClick={toggle} />
+				<NavLink label="Sponsoren" leftSection={<BadgeEuro />} component={Link} to="/dashboard/sponsors" onClick={toggle} />
+				<NavLink label="Bus Buchungen" leftSection={<Bus />} component={Link} to="/dashboard/bus" onClick={toggle} />
+				<NavLink label="SAMS" leftSection={<Building2 />} component={Link} to="/dashboard/sams" onClick={toggle} />
 			</AppShell.Navbar>
 
 			<AppShell.Main>
