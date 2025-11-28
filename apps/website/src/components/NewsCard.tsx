@@ -1,12 +1,12 @@
 import { BackgroundImage, Box, CardSection, Stack, Text, Title } from "@mantine/core";
-import { useMemo, useState } from "react";
+import { forwardRef, useMemo, useState } from "react";
 import type { News } from "@/lib/db";
 import { useFileUrl } from "../lib/hooks";
 import { CardLink } from "./CustomLink";
 
 const CARD_HEIGHT = 140;
 
-export default function NewsCard(props: News) {
+const NewsCard = forwardRef<HTMLAnchorElement, News>((props, ref) => {
 	const [isHovered, setIsHovered] = useState(false);
 	const hasImage = props.imageS3Keys && props.imageS3Keys.length > 0;
 
@@ -24,7 +24,16 @@ export default function NewsCard(props: News) {
 	const { data: thumbnail } = useFileUrl(thumbnailKey);
 
 	return (
-		<CardLink to={`/news/$id`} params={{ id: props.id }} radius="md" shadow="sm" maw={{ base: "100%", sm: 620 }} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+		<CardLink
+			to={`/news/$id`}
+			params={{ id: props.id }}
+			radius="md"
+			shadow="sm"
+			maw={{ base: "100%", sm: 620 }}
+			onMouseEnter={() => setIsHovered(true)}
+			onMouseLeave={() => setIsHovered(false)}
+			ref={ref}
+		>
 			<CardSection bg={hasImage ? "lion" : undefined} mb="xs">
 				{thumbnail ? (
 					<Box style={{ position: "relative", height: CARD_HEIGHT, overflow: "hidden" }}>
@@ -56,4 +65,8 @@ export default function NewsCard(props: News) {
 			<Text lineClamp={hasImage ? 2 : 6}>{props.excerpt}</Text>
 		</CardLink>
 	);
-}
+});
+
+NewsCard.displayName = "NewsCard";
+
+export default NewsCard;

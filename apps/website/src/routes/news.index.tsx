@@ -1,6 +1,8 @@
-import { Center, Container, Loader, SimpleGrid, Stack } from "@mantine/core";
+import { Alert, Center, Container, Loader, SimpleGrid, Stack } from "@mantine/core";
+import { useInViewport } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
+import { ServerCrash } from "lucide-react";
+import { useEffect } from "react";
 import PageWithHeading from "../components/layout/PageWithHeading";
 import NewsCard from "../components/NewsCard";
 import { useNews } from "../lib/hooks";
@@ -9,50 +11,39 @@ export const Route = createFileRoute("/news/")({
 	component: RouteComponent,
 });
 
+const BATCH_SIZE = 8;
+
 function RouteComponent() {
-	const { data, hasNextPage, fetchNextPage, isFetchingNextPage, error } = useNews({ limit: 4 });
+	const { data, hasNextPage, fetchNextPage, isFetchingNextPage, error } = useNews({ limit: BATCH_SIZE });
 	const news = data?.pages.flatMap((page) => page.items) ?? [];
 
-	// Infinite scroll logic
-	const loaderRef = useRef<HTMLDivElement | null>(null);
+	// Infinite scroll logic using Mantine's useInViewport
+	const { inViewport, ref: loaderRef } = useInViewport<HTMLAnchorElement>();
 	useEffect(() => {
-		if (!hasNextPage || isFetchingNextPage) return;
-		const observer = new window.IntersectionObserver((entries) => {
-			if (entries[0].isIntersecting) {
-				fetchNextPage();
-			}
-		});
-		if (loaderRef.current) {
-			observer.observe(loaderRef.current);
+		if (inViewport && hasNextPage && !isFetchingNextPage) {
+			fetchNextPage();
 		}
-		return () => {
-			if (loaderRef.current) observer.unobserve(loaderRef.current);
-		};
-	}, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+	}, [inViewport, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
 	return (
 		<PageWithHeading title={"News Beiträge"}>
 			<Container size="xl">
 				<Stack>
 					<SimpleGrid cols={{ base: 1, sm: 2 }}>
-						{news.map((post) => (
-							<NewsCard key={post.id} {...post} />
+						{news.map((post, index) => (
+							<NewsCard key={post.id} {...post} ref={index <= news.length - BATCH_SIZE ? loaderRef : undefined} />
 						))}
 					</SimpleGrid>
-					<div ref={loaderRef} style={{ marginTop: "-40vh" }} />
 					{isFetchingNextPage && (
 						<Center py="xl">
-							<Loader />
+							<Loader size="xl" />
 						</Center>
 					)}
 					{error && (
-						<Center py="xl" c="red">
-							Fehler beim Laden der News: {error.message}
-						</Center>
-					)}
-					{!hasNextPage && !isFetchingNextPage && news.length > 0 && (
-						<Center py="xl" c="dimmed">
-							<span>Alle News geladen.</span>
+						<Center py="xl">
+							<Alert variant="light" color="red" radius="md" title="Fehler beim Laden der News" icon={<ServerCrash />}>
+								{error.message}
+							</Alert>
 						</Center>
 					)}
 				</Stack>
