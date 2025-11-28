@@ -14,16 +14,15 @@ export default function NewsCard(props: News) {
 		if (!props.imageS3Keys || props.imageS3Keys.length === 0) {
 			return undefined;
 		}
-		// if there are multiple thumbnails, pick a random one and memorize it
-		if (props.imageS3Keys.length > 1) {
-			const randomIndex = Math.floor(Math.random() * props.imageS3Keys.length);
-			return props.imageS3Keys[randomIndex];
+		if (props.imageS3Keys.length === 1) {
+			return props.imageS3Keys[0];
 		}
-		return props.imageS3Keys[0];
+		const randomIndex = Math.floor(Math.random() * props.imageS3Keys.length);
+		return props.imageS3Keys[randomIndex];
 	}, [props.imageS3Keys]);
+
 	const { data: thumbnail } = useFileUrl(thumbnailKey);
 
-	// check if this post has a thumbnail
 	return (
 		<CardLink to={`/news/$id`} params={{ id: props.id }} radius="md" shadow="sm" maw={{ base: "100%", sm: 620 }} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
 			<CardSection bg={!hasImage ? "lion" : undefined} mb="xs">
