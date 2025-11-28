@@ -74,9 +74,9 @@ const backupFile = args.find((arg) => arg.startsWith("--backup="))?.split("=")[1
 if (!backupFile) {
 	console.error("❌ Please specify --backup=<file.json>");
 	console.log("\nFirst, export your Payload data:");
-	console.log("  bun run scripts/export-payload-data.ts > payload-backup.json");
+	console.log("  bash scripts/convert-dump-to-json.sh .temp/pg-dump-postgres-1763852403.dmp");
 	console.log("\nThen run migration:");
-	console.log("  bun run scripts/migrate-to-dynamodb.ts --backup=payload-backup.json --all");
+	console.log("  bun run scripts/migrate-to-dynamodb.ts --backup=.temp/postgres-backup.json --all");
 	process.exit(1);
 }
 

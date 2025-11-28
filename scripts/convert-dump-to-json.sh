@@ -89,18 +89,24 @@ psql "$TEMP_DB" -t -A -c "
         WHERE mr.parent_id = m.id AND mr.path = 'roles'
       )
     )) FROM members m),
-    'teams', (SELECT json_agg(row_to_json(t)) FROM (
-      SELECT 
-        t.id, t.name, t.slug, t.description, t.gender, t.league, t.age, t.instagram,
-        t.sbvv_team_id as "sbvvTeamId",
-        (
-          SELECT json_agg(tr.media_id)
-          FROM teams_rels tr
-          WHERE tr.parent_id = t.id AND tr.path = 'images'
-        ) as "imageIds",
-        t.created_at as "createdAt", t.updated_at as "updatedAt"
-      FROM teams t
-    ) t),
+    'teams', (SELECT json_agg(json_build_object(
+      'id', t.id,
+      'name', t.name,
+      'slug', t.slug,
+      'description', t.description,
+      'gender', t.gender,
+      'league', t.league,
+      'age', t.age,
+      'instagram', t.instagram,
+      'sbvvTeamId', t.sbvv_team_id,
+      'imageIds', (
+        SELECT json_agg(tr.media_id)
+        FROM teams_rels tr
+        WHERE tr.parent_id = t.id AND tr.path = 'images'
+      ),
+      'createdAt', t.created_at,
+      'updatedAt', t.updated_at
+    )) FROM teams t),
     'sponsors', (SELECT json_agg(row_to_json(t)) FROM (
       SELECT id, name, website, logo_id as "logoS3Key", expiry_date as "expiryDate",
              created_at as "createdAt", updated_at as "updatedAt"
@@ -111,22 +117,26 @@ psql "$TEMP_DB" -t -A -c "
              created_at as "createdAt", updated_at as "updatedAt"
       FROM media
     ) t),
-    'locations', (SELECT json_agg(row_to_json(t)) FROM (
-      SELECT id, name, description, 
-             address_street as "addressStreet",
-             address_postal_code as "addressPostalCode", 
-             address_city as "addressCity",
-             created_at as "createdAt", updated_at as "updatedAt"
-      FROM locations
-    ) t),
-    'busBookings', (SELECT json_agg(row_to_json(t)) FROM (
-      SELECT id, comment, traveler,
-             schedule_start as "scheduleStart",
-             schedule_end as "scheduleEnd",
-             booker_id as "bookerId",
-             created_at as "createdAt", updated_at as "updatedAt"
-      FROM bus_bookings
-    ) t)
+    'locations', (SELECT json_agg(json_build_object(
+      'id', l.id,
+      'name', l.name,
+      'description', l.description,
+      'addressStreet', l.address_street,
+      'addressPostalCode', l.address_postal_code,
+      'addressCity', l.address_city,
+      'createdAt', l.created_at,
+      'updatedAt', l.updated_at
+    )) FROM locations l),
+    'busBookings', (SELECT json_agg(json_build_object(
+      'id', b.id,
+      'comment', b.comment,
+      'traveler', b.traveler,
+      'scheduleStart', b.schedule_start,
+      'scheduleEnd', b.schedule_end,
+      'bookerId', b.booker_id,
+      'createdAt', b.created_at,
+      'updatedAt', b.updated_at
+    )) FROM bus_bookings b)
   );
 " | jq '.' > "$OUTPUT_FILE" 2>&1
 
