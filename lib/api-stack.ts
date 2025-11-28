@@ -303,7 +303,8 @@ export class ApiStack extends cdk.Stack {
 		allowedOriginsSet.add(Club.url);
 		allowedOriginsSet.add(`https://${envPrefix}admin.new.${Club.domain}`);
 		if (!isProd) {
-			allowedOriginsSet.add("http://localhost:3081");
+			allowedOriginsSet.add("http://localhost:3081"); // CMS dev server
+			allowedOriginsSet.add("http://localhost:3080"); // Website dev server
 		}
 		if (props.cloudFrontUrl) {
 			const cloudFrontOrigin = props.cloudFrontUrl.startsWith("https://") ? props.cloudFrontUrl : `https://${props.cloudFrontUrl}`;
