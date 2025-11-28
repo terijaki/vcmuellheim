@@ -154,28 +154,23 @@ function BusSchedulesPage() {
 				</Button>
 			</Group>
 
-			<Paper withBorder p="md">
-				<Title order={3} mb="md">
-					Kalenderübersicht
-				</Title>
-				<Center>
-					<Calendar
-						numberOfColumns={isMobile ? 1 : 2}
-						getDayProps={(date) => {
-							const dateStr = dayjs(date).format("YYYY-MM-DD");
-							if (bookedDates.has(dateStr)) {
-								return {
-									style: {
-										backgroundColor: "var(--mantine-color-turquoise-2)",
-										border: "1px solid var(--mantine-color-turquoise-6)",
-									},
-								};
-							}
-							return {};
-						}}
-					/>
-				</Center>
-			</Paper>
+			<Center pb="md">
+				<Calendar
+					numberOfColumns={isMobile ? 1 : 2}
+					getDayProps={(date) => {
+						const dateStr = dayjs(date).format("YYYY-MM-DD");
+						if (bookedDates.has(dateStr)) {
+							return {
+								style: {
+									backgroundColor: "var(--mantine-color-turquoise-2)",
+									border: "1px solid var(--mantine-color-turquoise-6)",
+								},
+							};
+						}
+						return {};
+					}}
+				/>
+			</Center>
 
 			<SegmentedControl
 				value={timeFilter}

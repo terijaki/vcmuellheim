@@ -29,7 +29,7 @@ function DashboardLayout() {
 							<Menu.Label>{user?.name}</Menu.Label>
 							<Menu.Label>{user?.email}</Menu.Label>
 							<Menu.Divider />
-							<Menu.Item onClick={logout} leftSection={<LogOut />}>
+							<Menu.Item onClick={logout} leftSection={<LogOut size={16} />}>
 								Abmelden
 							</Menu.Item>
 						</Menu.Dropdown>

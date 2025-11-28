@@ -6,12 +6,14 @@ import {
 	Box,
 	Button,
 	Card,
+	Center,
 	Divider,
 	Group,
 	Image,
 	Modal,
 	MultiSelect,
 	Paper,
+	SegmentedControl,
 	Select,
 	SimpleGrid,
 	Stack,
@@ -30,6 +32,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { slugify } from "@utils/slugify";
 import { Check, Mars, Plus, SquarePen, Trash2, Upload, Venus, VenusAndMars, X } from "lucide-react";
 import { useState } from "react";
+import type { Member } from "@/lib/db";
 import { trpc } from "../../lib/trpc";
 
 function PersonAvatar({ avatarS3Key, name }: { avatarS3Key?: string; name: string }) {
@@ -460,17 +463,47 @@ function TeamsPage() {
 					<Group align="top" grow>
 						<Stack>
 							<TextInput label="Name" placeholder="z.B. 1. Herren" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
-							<Select
-								label="Geschlecht"
-								placeholder="Wählen..."
-								value={formData.gender}
-								onChange={(value) => setFormData({ ...formData, gender: value as "male" | "female" | "mixed" | undefined })}
+							<SegmentedControl
+								fullWidth
+								color={formData.gender === "male" ? "blue" : formData.gender === "female" ? "pink" : "onyx"}
 								data={[
-									{ value: "male", label: "Männlich" },
-									{ value: "female", label: "Weiblich" },
-									{ value: "mixed", label: "Gemischt" },
+									{
+										value: "male",
+										label: (
+											<Center style={{ gap: 10 }}>
+												<Mars size={16} />
+												<Text size="sm" visibleFrom="md">
+													Männlich
+												</Text>
+											</Center>
+										),
+									},
+									{
+										value: "female",
+										label: (
+											<Center style={{ gap: 10 }}>
+												<Venus size={16} />
+												<Text size="sm" visibleFrom="md">
+													Weiblich
+												</Text>
+											</Center>
+										),
+									},
+									{
+										value: "mixed",
+										label: (
+											<Center style={{ gap: 10 }}>
+												<VenusAndMars size={16} />
+												<Text size="sm" visibleFrom="md">
+													Gemischt
+												</Text>
+											</Center>
+										),
+									},
 								]}
-								required
+								value={formData.gender || ""}
+								onChange={(value: string) => setFormData({ ...formData, gender: value as "male" | "female" | "mixed" })}
+								aria-label="Geschlecht"
 							/>
 							<TextInput label="Mindestalter" placeholder="z.B. U19" value={formData.ageGroup} onChange={(e) => setFormData({ ...formData, ageGroup: e.target.value })} />
 						</Stack>
@@ -583,8 +616,12 @@ function TeamsPage() {
 							{teams.items.map((team) => {
 								const samsTeam = samsTeams?.items.find((st) => st.uuid === team.sbvvTeamId);
 								const pictureCount = team.pictureS3Keys?.length || 0;
-								const teamTrainers = trainers?.items.filter((t) => team.trainerIds?.includes(t.id)) || [];
-								const teamPointOfContacts = members?.items.filter((m) => team.pointOfContactIds?.includes(m.id)) || [];
+								const teamPeople = new Set<Member>();
+								members?.items.forEach((member) => {
+									if (team.trainerIds?.includes(member.id) || team.pointOfContactIds?.includes(member.id)) {
+										teamPeople.add(member);
+									}
+								});
 								const trainingCount = team.trainingSchedules?.length || 0;
 								return (
 									<Table.Tr key={team.id}>
@@ -602,9 +639,9 @@ function TeamsPage() {
 											{team.gender === "male" ? <Mars size={16} /> : team.gender === "female" ? <Venus size={16} /> : <VenusAndMars size={16} />}
 										</Table.Td>
 										<Table.Td>
-											{teamTrainers.length > 0 && (
+											{teamPeople.size > 0 && (
 												<Avatar.Group>
-													{[...teamTrainers, ...teamPointOfContacts].map((person) => (
+													{Array.from(teamPeople).map((person) => (
 														<PersonAvatar key={person.id} avatarS3Key={person.avatarS3Key} name={person.name} />
 													))}
 												</Avatar.Group>
