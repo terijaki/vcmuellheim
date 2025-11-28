@@ -14,7 +14,7 @@ export const Route = createFileRoute("/news/")({
 const BATCH_SIZE = 8;
 
 function RouteComponent() {
-	const { data, hasNextPage, fetchNextPage, isFetchingNextPage, error } = useNews({ limit: BATCH_SIZE });
+	const { data, hasNextPage, fetchNextPage, isFetchingNextPage, error, isLoading } = useNews({ limit: BATCH_SIZE });
 	const news = data?.pages.flatMap((page) => page.items) ?? [];
 
 	// Infinite scroll logic using Mantine's useInViewport
@@ -34,7 +34,7 @@ function RouteComponent() {
 							<NewsCard key={post.id} {...post} ref={index <= news.length - BATCH_SIZE ? loaderRef : undefined} />
 						))}
 					</SimpleGrid>
-					{isFetchingNextPage && (
+					{(isLoading || isFetchingNextPage) && (
 						<Center py="xl">
 							<Loader size="xl" />
 						</Center>

@@ -34,7 +34,7 @@ const NewsCard = forwardRef<HTMLAnchorElement, News>((props, ref) => {
 			onMouseLeave={() => setIsHovered(false)}
 			ref={ref}
 		>
-			<CardSection bg={hasImage ? "lion" : undefined} mb="xs">
+			<CardSection bg={hasImage && thumbnail ? "lion" : undefined} mb="xs">
 				{thumbnail ? (
 					<Box style={{ position: "relative", height: CARD_HEIGHT, overflow: "hidden" }}>
 						<BackgroundImage
