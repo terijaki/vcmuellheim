@@ -1,5 +1,5 @@
 import { Alert, Container, Loader, Paper, Text } from "@mantine/core";
-import { createFileRoute, Navigate, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, Navigate, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 
@@ -81,7 +81,7 @@ function CallbackPage() {
 							{error}
 						</Alert>
 						<Text ta="center">
-							<a href="/login">Zurück zur Anmeldung</a>
+							<Link to="/">Zurück zur Anmeldung</Link>
 						</Text>
 					</>
 				) : null}

@@ -84,12 +84,13 @@ async function fetchCognitoConfig(): Promise<{
 interface AuthUser {
 	username: string;
 	email?: string;
+	name?: string;
 	idToken: string;
 	accessToken: string;
 	refreshToken?: string;
 }
 
-interface AuthContextType {
+export interface AuthContext {
 	user: AuthUser | null;
 	isLoading: boolean;
 	isAuthenticated: boolean;
@@ -101,7 +102,7 @@ interface AuthContextType {
 	error: string | null;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContext | undefined>(undefined);
 
 const AUTH_STORAGE_KEY = "vcm-auth";
 const PKCE_VERIFIER_KEY = "vcm-pkce-verifier";
@@ -168,6 +169,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		window.location.href = loginUrl;
 	};
 
+	// Properly decode JWT payload with UTF-8 support
+	function decodeJwtPayload(token: string) {
+		const base64 = token.split(".")[1];
+		const base64Url = base64.replace(/-/g, "+").replace(/_/g, "/");
+		const jsonPayload = decodeURIComponent(
+			atob(base64Url)
+				.split("")
+				.map((c) => `%${("00" + c.charCodeAt(0).toString(16)).slice(-2)}`)
+				.join(""),
+		);
+		return JSON.parse(jsonPayload);
+	}
+
 	const handleCallback = async (code: string, state: string) => {
 		if (!cognitoConfig?.hostedUi) {
 			setError("Hosted UI not configured");
@@ -220,12 +234,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				throw new Error("Invalid token response");
 			}
 
-			// Decode JWT to get user info (basic decode, no verification needed here)
-			const payload = JSON.parse(atob(tokens.id_token.split(".")[1]));
+			// Decode JWT to get user info (with UTF-8 support)
+			const payload = decodeJwtPayload(tokens.id_token);
+			console.log("Decoded ID token payload:", payload);
 
 			const authUser: AuthUser = {
 				username: payload["cognito:username"] || payload.email,
 				email: payload.email,
+				name: `${payload.given_name || ""} ${payload.family_name || ""}`.trim(),
 				idToken: tokens.id_token,
 				accessToken: tokens.access_token,
 				refreshToken: tokens.refresh_token,
@@ -250,7 +266,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 		// Redirect to Cognito logout URL
 		if (cognitoConfig?.hostedUi) {
-			const logoutUrl = `${window.location.origin}/login`;
+			const logoutUrl = `${window.location.origin}/bye`;
 			const cognitoLogoutUrl = `${cognitoConfig.hostedUi.baseUrl}/logout?client_id=${cognitoConfig.clientId}&logout_uri=${encodeURIComponent(logoutUrl)}&lang=de`;
 			window.location.href = cognitoLogoutUrl;
 		}

@@ -9,7 +9,7 @@ import { RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "dayjs/locale/de";
-import { AuthProvider } from "./auth/AuthContext";
+import { AuthProvider, useAuth } from "./auth/AuthContext";
 import { TRPCProvider } from "./lib/TrpcProvider";
 import { router } from "./router";
 
@@ -39,21 +39,34 @@ const theme = createTheme({
 	},
 });
 
+function ThemingProvider({ children }: { children: React.ReactNode }) {
+	return (
+		<>
+			<ColorSchemeScript defaultColorScheme="auto" />
+			<MantineProvider theme={theme} defaultColorScheme="auto">
+				<Notifications position="top-right" />
+				<DatesProvider settings={{ locale: "de" }}>{children}</DatesProvider>
+			</MantineProvider>
+		</>
+	);
+}
+
+function ProtectedApp() {
+	const auth = useAuth();
+	return <RouterProvider router={router} context={{ auth }} />;
+}
+
 const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("Root element not found");
 
 createRoot(rootElement).render(
 	<StrictMode>
-		<AuthProvider>
-			<TRPCProvider>
-				<ColorSchemeScript defaultColorScheme="auto" />
-				<MantineProvider theme={theme} defaultColorScheme="auto">
-					<Notifications position="top-right" />
-					<DatesProvider settings={{ locale: "de" }}>
-						<RouterProvider router={router} />
-					</DatesProvider>
-				</MantineProvider>
-			</TRPCProvider>
-		</AuthProvider>
+		<ThemingProvider>
+			<AuthProvider>
+				<TRPCProvider>
+					<ProtectedApp />
+				</TRPCProvider>
+			</AuthProvider>
+		</ThemingProvider>
 	</StrictMode>,
 );

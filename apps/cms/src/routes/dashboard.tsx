@@ -1,16 +1,12 @@
-import { AppShell, Burger, Button, Group, NavLink, Text } from "@mantine/core";
+import { AppShell, Avatar, Burger, Group, Menu, NavLink, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { createFileRoute, Link, Navigate, Outlet } from "@tanstack/react-router";
-import { BadgeEuro, Building2, Bus, CalendarDays, Contact, MapPinned, Newspaper, Users } from "lucide-react";
+import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
+import { BadgeEuro, Building2, Bus, CalendarDays, Contact, LogOut, MapPinned, Newspaper, Users } from "lucide-react";
 import { useAuth } from "../auth/AuthContext";
 
 function DashboardLayout() {
-	const { isAuthenticated, user, logout } = useAuth();
+	const { user, logout } = useAuth();
 	const [opened, { toggle }] = useDisclosure();
-
-	if (!isAuthenticated) {
-		return <Navigate to="/login" />;
-	}
 
 	return (
 		<AppShell header={{ height: 60 }} navbar={{ width: 250, breakpoint: "sm", collapsed: { mobile: !opened } }} padding="md">
@@ -18,16 +14,26 @@ function DashboardLayout() {
 				<Group h="100%" px="md" justify="space-between">
 					<Group>
 						<Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-						<Text size="lg" fw={700}>
+						<Text size="lg" fw={700} visibleFrom="sm">
 							Volleyballclub Müllheim e.V.
 						</Text>
+						<Text size="lg" fw={700} hiddenFrom="sm">
+							VCM
+						</Text>
 					</Group>
-					<Group>
-						<Text size="sm">{user?.email}</Text>
-						<Button variant="subtle" onClick={logout} size="sm">
-							Abmelden
-						</Button>
-					</Group>
+					<Menu>
+						<Menu.Target>
+							<Avatar name={user?.name} color="blumine" variant="light" alt="User Avatar" />
+						</Menu.Target>
+						<Menu.Dropdown>
+							<Menu.Label>{user?.name}</Menu.Label>
+							<Menu.Label>{user?.email}</Menu.Label>
+							<Menu.Divider />
+							<Menu.Item onClick={logout} leftSection={<LogOut />}>
+								Abmelden
+							</Menu.Item>
+						</Menu.Dropdown>
+					</Menu>
 				</Group>
 			</AppShell.Header>
 
@@ -51,4 +57,9 @@ function DashboardLayout() {
 
 export const Route = createFileRoute("/dashboard")({
 	component: DashboardLayout,
+	beforeLoad: ({ context }) => {
+		if (!context.auth.isAuthenticated) {
+			context.auth.redirectToLogin();
+		}
+	},
 });

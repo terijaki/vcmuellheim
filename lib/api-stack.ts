@@ -127,9 +127,9 @@ export class ApiStack extends cdk.Stack {
 					...(!isProd ? ["http://localhost:3081/auth/callback"] : []),
 				],
 				logoutUrls: [
-					`https://${cmsDomain}/login`,
+					`https://${cmsDomain}/bye`,
 					// Add localhost for development only
-					...(!isProd ? ["http://localhost:3081/login"] : []),
+					...(!isProd ? ["http://localhost:3081/bye"] : []),
 				],
 			},
 			preventUserExistenceErrors: true,
