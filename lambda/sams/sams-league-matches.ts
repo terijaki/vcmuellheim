@@ -10,6 +10,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 		console.log("Getting SAMS league matches", { event: JSON.stringify(event) });
 
 		if (!SAMS_API_KEY) {
+			console.error("SAMS API key not configured");
 			return {
 				statusCode: 500,
 				headers: {
@@ -17,7 +18,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 					"Access-Control-Allow-Origin": "*",
 					"Cache-Control": "no-cache", // Don't cache errors
 				},
-				body: JSON.stringify({ error: "SAMS API key not configured" }),
+				body: JSON.stringify({ error: "Server configuration error." }),
 			};
 		}
 
@@ -113,7 +114,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
 		const result = LeagueMatchesResponseSchema.parse({
 			matches: filteredMatches,
-			timestamp: new Date(),
+			timestamp: new Date().toISOString(),
 		});
 
 		return {

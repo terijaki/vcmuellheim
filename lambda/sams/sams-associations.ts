@@ -1,4 +1,4 @@
-import { type Association, getAssociations } from "@codegen/sams/generated";
+import { type Association, getAssociationByUuid, getAssociations } from "@codegen/sams/generated/";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from "aws-lambda";
 
 const SAMS_API_KEY = process.env.SAMS_API_KEY;
@@ -8,19 +8,69 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 		console.log("Getting SAMS associations", { event: JSON.stringify(event) });
 
 		if (!SAMS_API_KEY) {
+			console.error("SAMS API key not configured");
 			return {
 				statusCode: 500,
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Origin": "*",
+					"Cache-Control": "no-cache", // Don't cache errors
 				},
-				body: JSON.stringify({ error: "SAMS API key not configured" }),
+				body: JSON.stringify({ error: "Server configuration error." }),
+			};
+		}
+
+		const { uuid } = event.pathParameters || {};
+		const { name } = event.queryStringParameters || {};
+
+		// Check if we're looking for a specific association by UUID
+		if (uuid) {
+			console.log(`🔍 Fetching association by UUID: ${uuid}`);
+			const { data, error, response } = await getAssociationByUuid({
+				path: { uuid },
+				headers: {
+					"X-API-Key": SAMS_API_KEY,
+				},
+			});
+			if (error) {
+				return {
+					statusCode: response.status,
+					headers: {
+						"Content-Type": "application/json",
+						"Access-Control-Allow-Origin": "*",
+					},
+					body: JSON.stringify({
+						error: `Error fetching association with UUID: ${uuid}`,
+						details: error,
+					}),
+				};
+			}
+			if (data) {
+				return {
+					statusCode: 200,
+					headers: {
+						"Content-Type": "application/json",
+						"Access-Control-Allow-Origin": "*",
+						"Cache-Control": "public, max-age=86400", // Cache for 24 hours (expensive external API)
+					},
+					body: JSON.stringify({
+						association: data,
+						timestamp: new Date().toISOString(),
+					}),
+				};
+			}
+
+			return {
+				statusCode: 404,
+				headers: {
+					"Content-Type": "application/json",
+					"Access-Control-Allow-Origin": "*",
+				},
+				body: JSON.stringify({ error: "Association not found" }),
 			};
 		}
 
 		// Check if we're looking for a specific association by name
-		const associationName = event.pathParameters?.name;
-
 		const allAssociations: Association[] = [];
 		let currentPage = 0;
 		let hasMorePages = true;
@@ -57,8 +107,8 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 		}
 
 		// If looking for a specific association by name
-		if (associationName) {
-			const desiredAssociation = allAssociations.find((a) => a.name?.toLowerCase() === associationName.toLowerCase());
+		if (name) {
+			const desiredAssociation = allAssociations.find((a) => a.name?.toLowerCase() === name.toLowerCase());
 
 			if (!desiredAssociation) {
 				return {
@@ -68,7 +118,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 						"Access-Control-Allow-Origin": "*",
 					},
 					body: JSON.stringify({
-						error: `Association with name '${associationName}' not found`,
+						error: `Association with name '${name}' not found`,
 					}),
 				};
 			}

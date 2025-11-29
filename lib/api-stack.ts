@@ -26,7 +26,6 @@ interface ApiStackProps extends cdk.StackProps {
 	mediaBucket?: s3.Bucket;
 	cloudFrontUrl?: string;
 	cmsUrl?: string;
-	samsApiUrl?: string;
 	hostedZone: route53.IHostedZone;
 	certificate: acm.ICertificate;
 }
@@ -256,7 +255,6 @@ export class ApiStack extends cdk.Stack {
 				COGNITO_USER_POOL_CLIENT_ID: this.userPoolClient.userPoolClientId,
 				COGNITO_HOSTED_UI_URL: this.cognitoHostedUiUrl,
 				CMS_CALLBACK_URL: this.cmsCallbackUrl,
-				...(props.samsApiUrl ? { SAMS_API_URL: props.samsApiUrl } : {}),
 				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
 				...(props.cloudFrontUrl ? { CLOUDFRONT_URL: props.cloudFrontUrl } : {}),
 				...(props.samsApiStack?.samsClubsTable ? { SAMS_CLUBS_TABLE_NAME: props.samsApiStack.samsClubsTable.tableName } : {}),

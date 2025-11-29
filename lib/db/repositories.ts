@@ -242,6 +242,23 @@ export async function getAllSamsClubs() {
 export async function getSamsClubBySportsclubUuid(sportsclubUuid: string) {
 	return samsClubsRepository.get(sportsclubUuid);
 }
+/** Get Sams Club by nameSlug */
+export async function getSamsClubByNameSlug(nameSlug: string) {
+	const result = await samsClubsRepository.query({
+		indexName: "GSI-SamsClubQueries",
+		keyConditionExpression: "#type = :type AND begins_with(#nameSlug, :nameSlug)",
+		expressionAttributeNames: {
+			"#type": "type",
+			"#nameSlug": "nameSlug",
+		},
+		expressionAttributeValues: {
+			":type": "club",
+			":nameSlug": nameSlug,
+		},
+		limit: 1,
+	});
+	return result.items[0] || null;
+}
 /** Get Sams Teams */
 export async function getAllSamsTeams() {
 	return samsTeamsRepository.scan();

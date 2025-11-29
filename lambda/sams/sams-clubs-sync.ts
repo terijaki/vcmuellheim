@@ -111,6 +111,7 @@ export const handler = async (event: EventBridgeEvent<string, unknown>) => {
 					.filter((c) => c.uuid && c.name) // Only clubs with uuid and name
 					.map((c) =>
 						ClubItemSchema.parse({
+							type: "club",
 							sportsclubUuid: c.uuid,
 							name: c.name,
 							nameSlug: slugify(c.name),

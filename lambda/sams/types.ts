@@ -1,4 +1,4 @@
-import { zLeagueMatchDto, zLeagueRankingsEntryDto, zSeasonDto } from "@codegen/sams/generated";
+import { zLeagueMatchDto, zLeagueRankingsEntryDto, zSeasonDto } from "@codegen/sams/generated/zod.gen";
 import { z } from "zod";
 
 // ============================================================================
@@ -9,6 +9,7 @@ import { z } from "zod";
  * Base club schema for DynamoDB
  */
 const BaseClubItemSchema = z.object({
+	type: z.literal("club").default("club").describe("GSI partition key type"),
 	sportsclubUuid: z.string(),
 	name: z.string(),
 	nameSlug: z.string(), // Used for case-insensitive queries
@@ -59,6 +60,7 @@ export type ClubsResponse = z.infer<typeof ClubsResponseSchema>;
  * Base team schema for DynamoDB
  */
 const BaseTeamItemSchema = z.object({
+	type: z.literal("team").default("team").describe("GSI partition key type"),
 	uuid: z.string(),
 	name: z.string(),
 	nameSlug: z.string(), // Used for case-insensitive queries
@@ -128,7 +130,7 @@ export type SeasonsResponse = z.infer<typeof SeasonsResponseSchema>;
 export const RankingResponseSchema = z.object({
 	// reuse generated entry schema for ranking items
 	teams: z.optional(z.array(zLeagueRankingsEntryDto)),
-	timestamp: z.date(),
+	timestamp: z.iso.datetime(),
 	leagueUuid: z.string(),
 	leagueName: z.string().nullish(),
 	seasonName: z.string().nullish(),
@@ -146,7 +148,7 @@ export type RankingResponse = z.infer<typeof RankingResponseSchema>;
 export const LeagueMatchesResponseSchema = z.object({
 	// use generated league match schema but remove _links for the public response
 	matches: z.array(zLeagueMatchDto.omit({ _links: true })),
-	timestamp: z.date(),
+	timestamp: z.iso.datetime(),
 });
 
 export type LeagueMatchesResponse = z.infer<typeof LeagueMatchesResponseSchema>;

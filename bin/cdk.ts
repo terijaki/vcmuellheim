@@ -77,6 +77,8 @@ const cmsStack = new CmsStack(app, cmsStackName, {
 const samsApiStack = new SamsApiStack(app, samsStackName, {
 	...commonStackProps,
 	description: `SAMS API Services (${environment}${branchSuffix})`,
+	hostedZone: dnsStack.hostedZone,
+	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
 });
 
 new ApiStack(app, apiStackName, {
@@ -97,7 +99,6 @@ new ApiStack(app, apiStackName, {
 		samsTeamsTable: samsApiStack.samsTeamsTable,
 	},
 	mediaBucket: mediaStack.bucket,
-	samsApiUrl: samsApiStack.cloudFrontUrl,
 	cloudFrontUrl: mediaStack.cloudFrontUrl,
 	cmsUrl: cmsStack.cmsUrl,
 	hostedZone: dnsStack.hostedZone,

@@ -1,6 +1,7 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { getTeamByUuid } from "@/codegen/sams/generated";
 import { slugify } from "@/utils/slugify";
 import { TeamItemSchema, TeamResponseSchema, TeamsResponseSchema } from "./types";
 
@@ -8,6 +9,7 @@ const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
 
 const TEAMS_TABLE_NAME = process.env.TEAMS_TABLE_NAME;
+const SAMS_API_KEY = process.env.SAMS_API_KEY;
 
 if (!TEAMS_TABLE_NAME) {
 	throw new Error("❌ TEAMS_TABLE_NAME environment variable is required");
@@ -15,8 +17,23 @@ if (!TEAMS_TABLE_NAME) {
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 	try {
+		console.log("Getting SAMS teams", { event: JSON.stringify(event) });
+
+		if (!SAMS_API_KEY) {
+			console.error("SAMS API key not configured");
+			return {
+				statusCode: 500,
+				headers: {
+					"Content-Type": "application/json",
+					"Access-Control-Allow-Origin": "*",
+					"Cache-Control": "no-cache", // Don't cache errors
+				},
+				body: JSON.stringify({ error: "Server configuration error." }),
+			};
+		}
+
 		const { uuid } = event.pathParameters || {};
-		const { name, sportsclub, league } = event.queryStringParameters || {};
+		const { name } = event.queryStringParameters || {};
 
 		// Case 1: Get team by UUID (path parameter)
 		if (uuid) {
@@ -28,6 +45,27 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 			const result = await docClient.send(command);
 
 			if (!result.Item) {
+				console.log(`🔍 Fetching team by UUID: ${uuid}`);
+				const { data } = await getTeamByUuid({
+					path: { uuid },
+					headers: {
+						"X-API-Key": SAMS_API_KEY,
+					},
+				});
+				if (data) {
+					// Parse with TeamItemSchema, then convert to response format
+					const freshTeam = TeamItemSchema.parse(data);
+					const responseTeam = TeamResponseSchema.parse(freshTeam);
+					return {
+						statusCode: 200,
+						headers: {
+							"Content-Type": "application/json",
+							"Cache-Control": "public, max-age=43200", // 12 hours cache
+						},
+						body: JSON.stringify(responseTeam),
+					};
+				}
+
 				return {
 					statusCode: 404,
 					headers: { "Content-Type": "application/json" },
@@ -53,40 +91,19 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 		let teams: unknown[] = [];
 
 		if (name) {
-			// Query by name slug (case-insensitive)
-			const nameSlug = slugify(name);
+			// Query by name using nameSlug GSI (case-insensitive)
+			const slugifiedName = slugify(name);
+			console.log(`🔍 Querying team by nameSlug: ${name} (slug: ${slugifiedName})`);
 			const command = new QueryCommand({
 				TableName: TEAMS_TABLE_NAME,
-				IndexName: "nameSlug-index",
-				KeyConditionExpression: "nameSlug = :nameSlug",
-				ExpressionAttributeValues: {
-					":nameSlug": nameSlug,
+				IndexName: "GSI-SamsTeamQueries",
+				KeyConditionExpression: "#type = :type AND nameSlug = :nameSlug",
+				ExpressionAttributeNames: {
+					"#type": "type",
 				},
-			});
-
-			const result = await docClient.send(command);
-			teams = result.Items || [];
-		} else if (sportsclub) {
-			// Query by sportsclub UUID
-			const command = new QueryCommand({
-				TableName: TEAMS_TABLE_NAME,
-				IndexName: "sportsclubUuid-index",
-				KeyConditionExpression: "sportsclubUuid = :sportsclubUuid",
 				ExpressionAttributeValues: {
-					":sportsclubUuid": sportsclub,
-				},
-			});
-
-			const result = await docClient.send(command);
-			teams = result.Items || [];
-		} else if (league) {
-			// Query by league UUID
-			const command = new QueryCommand({
-				TableName: TEAMS_TABLE_NAME,
-				IndexName: "leagueUuid-index",
-				KeyConditionExpression: "leagueUuid = :leagueUuid",
-				ExpressionAttributeValues: {
-					":leagueUuid": league,
+					":type": "club",
+					":nameSlug": slugifiedName,
 				},
 			});
 

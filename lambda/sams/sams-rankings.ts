@@ -55,7 +55,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
 		const result = RankingResponseSchema.parse({
 			teams: data.content,
-			timestamp: new Date(),
+			timestamp: new Date().toISOString(),
 			leagueUuid,
 		});
 

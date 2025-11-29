@@ -1,16 +1,17 @@
 import { Card, Group, Table, TableTbody, TableTh, TableThead, TableTr, Text } from "@mantine/core";
 import dayjs from "dayjs";
 import { Suspense } from "react";
-import type { Ranking } from "@/data/sams/sams-server-actions";
+import type { RankingResponse } from "@/lambda/sams/types";
+import type { Team } from "@/lib/db";
 import { SAMS } from "@/project.config";
 import CardTitle from "./CardTitle";
 import ClubLogo, { ClubLogoFallback } from "./ClubLogo";
 import RankingTableItem from "./RankingTableItem";
 
 type RankingTable = {
-	ranking: Ranking;
+	ranking: RankingResponse;
 	linkToTeamPage?: boolean;
-	teams?: { teamUuid?: string | null; slug?: string | null }[];
+	teams?: Team[];
 };
 
 export default function RankingTable(props: RankingTable) {
@@ -25,7 +26,7 @@ export default function RankingTable(props: RankingTable) {
 				{props.ranking.seasonName && <Text size="xs">Saison {props.ranking.seasonName}</Text>}
 				{ranking.timestamp && (
 					<Text size="xs">
-						<LastUpdate date={ranking.timestamp.toISOString()} />
+						<LastUpdate date={ranking.timestamp} />
 					</Text>
 				)}
 			</Group>
@@ -62,9 +63,9 @@ export default function RankingTable(props: RankingTable) {
 				<TableTbody>
 					{ranking.teams?.map(async (team) => {
 						const isClubTeam = Boolean(team.teamName?.includes(SAMS.name));
-						const teamInContext = props.teams?.find((t) => t.teamUuid === team.uuid);
+						const teamInContext = props.teams?.find((t) => t.sbvvTeamId === team.uuid);
 
-						const isHighlighted = Boolean(teamInContext?.teamUuid) || Boolean(isClubTeam && props.linkToTeamPage);
+						const isHighlighted = Boolean(teamInContext?.sbvvTeamId) || Boolean(isClubTeam && props.linkToTeamPage);
 						const teamLink = teamInContext?.slug ? `/teams/${teamInContext.slug}` : null;
 
 						return (

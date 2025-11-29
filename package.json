@@ -133,6 +133,7 @@
 	},
 	"devDependencies": {
 		"@aws-cdk/aws-lambda-nodejs": "^1.204.0",
+		"@aws-sdk/client-lambda": "^3.938.0",
 		"@biomejs/biome": "2.3.7",
 		"@eslint/eslintrc": "^3",
 		"@hey-api/openapi-ts": "^0.88.0",

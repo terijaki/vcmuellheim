@@ -118,6 +118,7 @@ export const handler: APIGatewayProxyHandler = async () => {
 						.filter((t) => t.sportsclubUuid === sportsclubUuid)
 						.map((t) =>
 							TeamItemSchema.parse({
+								type: "team",
 								uuid: t.uuid,
 								name: t.name,
 								nameSlug: slugify(t.name || ""),

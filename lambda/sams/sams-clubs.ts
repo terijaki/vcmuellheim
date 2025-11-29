@@ -13,6 +13,9 @@ const TABLE_NAME = process.env.CLUBS_TABLE_NAME;
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 	console.log("📋 Querying clubs from DynamoDB", { path: event.path, pathParameters: event.pathParameters });
 
+	const { uuid } = event.pathParameters || {};
+	const { name } = event.queryStringParameters || {};
+
 	if (!TABLE_NAME) {
 		return {
 			statusCode: 500,
@@ -26,17 +29,15 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
 	try {
 		// Check if this is a request for a specific club by UUID
-		const clubUuid = event.pathParameters?.uuid;
-
-		if (clubUuid) {
+		if (uuid) {
 			// Get specific club by UUID (primary key lookup)
-			console.log(`🔍 Fetching club by UUID: ${clubUuid}`);
+			console.log(`🔍 Fetching club by UUID: ${uuid}`);
 
 			const result = await docClient.send(
 				new GetCommand({
 					TableName: TABLE_NAME,
 					Key: {
-						sportsclubUuid: clubUuid,
+						sportsclubUuid: uuid,
 					},
 				}),
 			);
@@ -64,19 +65,21 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 		}
 
 		// Check if filtering by name query parameter
-		const nameFilter = event.queryStringParameters?.name;
-
-		if (nameFilter) {
+		if (name) {
 			// Query by name using nameSlug GSI (case-insensitive)
-			const slugifiedName = slugify(nameFilter);
-			console.log(`🔍 Querying club by name: ${nameFilter} (slug: ${slugifiedName})`);
+			const slugifiedName = slugify(name);
+			console.log(`🔍 Querying club by name: ${name} (slug: ${slugifiedName})`);
 
 			const result = await docClient.send(
 				new QueryCommand({
 					TableName: TABLE_NAME,
-					IndexName: "nameSlug-index",
-					KeyConditionExpression: "nameSlug = :nameSlug",
+					IndexName: "GSI-SamsClubQueries",
+					KeyConditionExpression: "#type = :type AND nameSlug = :nameSlug",
+					ExpressionAttributeNames: {
+						"#type": "type",
+					},
 					ExpressionAttributeValues: {
+						":type": "club",
 						":nameSlug": slugifiedName,
 					},
 				}),
@@ -102,38 +105,6 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 					"Cache-Control": "public, max-age=259200", // 3 days cache (synced weekly Wed 2 AM, max 3 days stale)
 				},
 				body: JSON.stringify(ClubResponseSchema.parse(result.Items[0])),
-			};
-		} // Check if filtering by association
-		const associationFilter = event.queryStringParameters?.association;
-
-		if (associationFilter) {
-			// Query by association using GSI
-			console.log(`🔍 Querying clubs by association: ${associationFilter}`);
-
-			const result = await docClient.send(
-				new QueryCommand({
-					TableName: TABLE_NAME,
-					IndexName: "associationUuid-index",
-					KeyConditionExpression: "associationUuid = :associationUuid",
-					ExpressionAttributeValues: {
-						":associationUuid": associationFilter,
-					},
-				}),
-			);
-
-			return {
-				statusCode: 200,
-				headers: {
-					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "*",
-					"Cache-Control": "public, max-age=259200", // 3 days cache (synced weekly Wed 2 AM, max 3 days stale)
-				},
-				body: JSON.stringify(
-					ClubsResponseSchema.parse({
-						clubs: result.Items?.map((item) => ClubResponseSchema.parse(item)) ?? [],
-						count: result.Items?.length ?? 0,
-					}),
-				),
 			};
 		}
 

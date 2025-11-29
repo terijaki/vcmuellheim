@@ -4,6 +4,8 @@
  */
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { getSamsApiUrl } from "@/apps/shared/lib/api-url";
+import { ClubResponseSchema, ClubsResponseSchema, type RankingResponse, RankingResponseSchema, TeamsResponseSchema } from "@/lambda/sams/types";
 import { useTRPC } from "../../../shared/lib/trpc-config";
 
 /**
@@ -128,4 +130,99 @@ export const useFileUrlsMap = (s3Keys?: string[]) => {
 export const useBusBookings = () => {
 	const trpc = useTRPC();
 	return useQuery(trpc.bus.list.queryOptions());
+};
+
+/**
+ * Hook to fetch SAMS teams
+ */
+export const useSamsTeams = () => {
+	return useQuery({
+		queryKey: ["samsTeams"],
+		queryFn: async () => {
+			const samsApiDomain = getSamsApiUrl();
+			const res = await fetch(`${samsApiDomain}/teams`);
+			if (!res.ok) {
+				throw new Error(`Failed to fetch SAMS teams`);
+			}
+			const json = await res.json();
+			return TeamsResponseSchema.parse(json);
+		},
+	});
+};
+/**
+ * Hook to fetch SAMS clubs
+ */
+export const useSamsClubs = () => {
+	return useQuery({
+		queryKey: ["samsClubs"],
+		queryFn: async () => {
+			const samsApiDomain = getSamsApiUrl();
+			const res = await fetch(`${samsApiDomain}/clubs`);
+			if (!res.ok) {
+				throw new Error(`Failed to fetch SAMS clubs`);
+			}
+			const json = await res.json();
+			return ClubsResponseSchema.parse(json);
+		},
+	});
+};
+/**
+ * Hook to fetch SAMS clubs by sportsclub UUID
+ */
+export const useSamsClubByUuid = (sportsclubUuid?: string) => {
+	return useQuery({
+		queryKey: ["samsClub", sportsclubUuid],
+		queryFn: async () => {
+			const samsApiDomain = getSamsApiUrl();
+			const res = await fetch(`${samsApiDomain}/clubs/${sportsclubUuid}`);
+			if (!res.ok) {
+				throw new Error(`Failed to fetch SAMS club by uuid: ${sportsclubUuid}`);
+			}
+			const json = await res.json();
+			return ClubResponseSchema.parse(json);
+		},
+		enabled: !!sportsclubUuid,
+	});
+};
+/**
+ * Hook to fetch SAMS clubs by nameSlug
+ */
+export const useSamsClubByNameSlug = (nameSlug?: string) => {
+	return useQuery({
+		queryKey: ["samsClub", nameSlug],
+		queryFn: async () => {
+			const samsApiDomain = getSamsApiUrl();
+			const res = await fetch(`${samsApiDomain}/clubs?name=${nameSlug}`);
+			if (!res.ok) {
+				throw new Error(`Failed to fetch SAMS club by slug: ${nameSlug}`);
+			}
+			const json = await res.json();
+			return ClubResponseSchema.parse(json);
+		},
+		enabled: !!nameSlug,
+	});
+};
+
+/**
+ * Hook to fetch multiple SAMS rankings by league UUID
+ */
+export const useSamsRankingsByLeagueUuid = (leagueUuids: string[]) => {
+	return useQuery({
+		queryKey: ["samsRankings", leagueUuids],
+		queryFn: async () => {
+			const samsApiDomain = getSamsApiUrl();
+			const results: RankingResponse[] = [];
+			for (const leagueUuid of leagueUuids) {
+				const res = await fetch(`${samsApiDomain}/rankings/${leagueUuid}`);
+				if (!res.ok) {
+					throw new Error(`Failed to fetch SAMS rankings for league ${leagueUuid}`);
+				}
+				const json = await res.json();
+				const parsedResult = RankingResponseSchema.parse(json);
+				results.push(parsedResult);
+			}
+			return results;
+		},
+		enabled: leagueUuids.length > 0,
+	});
 };
