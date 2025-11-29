@@ -10,13 +10,21 @@ const sanitizedBranch = getSanitizedBranch();
 export default defineConfig({
 	plugins: [
 		tanstackRouter(),
-		react(),
+		react({
+			babel: {
+				plugins: ["babel-plugin-react-compiler"],
+			},
+		}),
 		sentryVitePlugin({
 			org: "volleyballclub-mullheim-ev",
 			project: "volleyball-website",
+			disable: !process.env.SENTRY_AUTH_TOKEN,
 			authToken: process.env.SENTRY_AUTH_TOKEN,
 			telemetry: process.env.VITE_CDK_ENVIRONMENT === "prod",
 			silent: process.env.VITE_CDK_ENVIRONMENT !== "prod",
+			sourcemaps: {
+				disable: true,
+			},
 		}),
 	],
 	define: {
