@@ -66,7 +66,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 		// Get current season if not specified
 		if (!season) {
 			try {
-				const seasonsResponse = await fetch(`https://${event.requestContext.domainName}/v1/sams/seasons`);
+				const seasonsResponse = await fetch(`https://${event.requestContext.domainName}/seasons`);
 				if (seasonsResponse.ok) {
 					const seasonsData = await seasonsResponse.json();
 					season = SeasonsResponseSchema.parse(seasonsData).current.uuid;
