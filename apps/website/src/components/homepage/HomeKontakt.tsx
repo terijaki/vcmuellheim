@@ -55,8 +55,8 @@ export default function HomeKontakt() {
 						</ContactItem>
 						<ContactItem title="Möchtest du Spesen abrechnen?">
 							<Text component="div" size="sm">
-								Hier findest du die <ContactLink href="https://vcmuellheim.de/docs/spesenabrechnung.xlsx" label="Spesenabrechnung" icon={<IconExcel />} /> und{" "}
-								<ContactLink href="https://vcmuellheim.de/docs/trainerverguetung.xlsx" label="Trainervergütung" icon={<IconExcel />} />
+								Hier findest du die <ContactLink href="/docs/spesenabrechnung.xlsx" label="Spesenabrechnung" icon={<IconExcel />} /> und{" "}
+								<ContactLink href="/docs/trainerverguetung.xlsx" label="Trainervergütung" icon={<IconExcel />} />
 							</Text>
 						</ContactItem>
 						<ContactItem title="Für alle weiteren Anliegen:">
