@@ -19,7 +19,7 @@ function RouteComponent() {
 	const { data: samsTeams } = useSamsTeams();
 	const { data: teams } = useTeams();
 
-	const lastResultCap = Math.max(6, Math.min(20, Number(((teams?.items.length || 0) * GAMES_PER_TEAM).toFixed(0)))); // calculate the total number of games to display based on the number of teams
+	const lastResultCap = Math.max(6, Math.min(20, Number(((samsTeams?.teams.length || 0) * GAMES_PER_TEAM).toFixed(0)))); // calculate the total number of games to display based on the number of teams
 	const { data: matches } = useSamsMatches({ range: "past", limit: lastResultCap });
 	const recentMatches = matches?.matches || [];
 

@@ -12,7 +12,6 @@ export default function ClubLogo({ clubUuid, teamName, light }: { clubUuid?: str
 
 
 	if (clubLogoUrl) {
-		console.log("ClubLogo:", { clubUuid, teamName, clubLogoUrl, logoName });
 		return (
 			<Flex justify="center" align="center" w={24} h={24} style={{ flexShrink: 0 }}>
 				<Image

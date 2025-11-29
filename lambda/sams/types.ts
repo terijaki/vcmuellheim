@@ -140,7 +140,7 @@ export type RankingResponse = z.infer<typeof RankingResponseSchema>;
 
 // ============================================================================
 // League Matches Schemas & Types
-// ============================================================================ 
+// ============================================================================
 
 /**
  * League matches response (without HAL links)
