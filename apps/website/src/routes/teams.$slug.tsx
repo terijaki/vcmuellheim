@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
-import { Club } from "@/project.config";
+import { getIcsHostname } from "../../../shared/lib/api-url";
 import CardTitle from "../components/CardTitle";
 import CenteredLoader from "../components/CenteredLoader";
 import ImageGallery from "../components/ImageGallery";
@@ -77,8 +77,8 @@ function TeamCalendar({ slug, team }: { slug: string; team: NonNullable<ReturnTy
 
 	if (!samsTeam) return null;
 
-	const hostname = typeof window !== "undefined" ? window.location.hostname : Club.domain;
-	const webcalLink = `webcal://${hostname}/ics/${slug}.ics`;
+	const icsHostname = getIcsHostname();
+	const webcalLink = `webcal://${icsHostname}/ics/${slug}.ics`;
 
 	return (
 		<Card>
@@ -97,7 +97,7 @@ function TeamMatches({ team }: { team: NonNullable<ReturnType<typeof useTeamBySl
 	const { data: samsTeams } = useSamsTeams();
 	const samsTeam = samsTeams?.teams.find((t) => t.uuid === team.sbvvTeamId);
 
-	const { data: matches } = useSamsMatches({
+	const { data: matches, isLoading: isLoadingMatches } = useSamsMatches({
 		team: samsTeam?.uuid,
 		league: samsTeam?.leagueUuid,
 	});
@@ -105,7 +105,11 @@ function TeamMatches({ team }: { team: NonNullable<ReturnType<typeof useTeamBySl
 	const currentMonth = dayjs().month() + 1;
 	const isOffSeason = currentMonth >= 5 && currentMonth <= 9;
 
-	if (!samsTeam || !matches) {
+	if (isLoadingMatches) {
+		return <CenteredLoader text="Lade Spieltermine..." />;
+	}
+
+	if (!isLoadingMatches && (!samsTeam || !matches)) {
 		return (
 			<Card>
 				<CardTitle>Keine Spieltermine gefunden</CardTitle>
@@ -114,27 +118,27 @@ function TeamMatches({ team }: { team: NonNullable<ReturnType<typeof useTeamBySl
 		);
 	}
 
-	const futureMatches = matches.matches.filter((m) => !m.results?.winner);
-	const pastMatches = matches.matches.filter((m) => !!m.results?.winner);
+	const futureMatches = matches?.matches.filter((m) => !m.results?.winner);
+	const pastMatches = matches?.matches.filter((m) => !!m.results?.winner);
 
-	futureMatches.sort((a, b) => dayjs(a.date).diff(dayjs(b.date)));
-	pastMatches.sort((a, b) => dayjs(b.date).diff(dayjs(a.date)));
+	futureMatches?.sort((a, b) => dayjs(a.date).diff(dayjs(b.date)));
+	pastMatches?.sort((a, b) => dayjs(b.date).diff(dayjs(a.date)));
 
 	return (
 		<>
-			{pastMatches.length > 0 && (
+			{pastMatches && pastMatches.length > 0 && (
 				<Card>
 					<CardTitle>Ergebnisse</CardTitle>
 					<CardSection p={{ base: undefined, sm: "sm" }}>
-						<Matches type="past" matches={pastMatches} timestamp={matches.timestamp ? new Date(matches.timestamp) : undefined} highlightTeamUuid={samsTeam.uuid} uniqueLeague />
+						<Matches type="past" matches={pastMatches} timestamp={matches?.timestamp ? new Date(matches.timestamp) : undefined} highlightTeamUuid={samsTeam?.uuid} uniqueLeague />
 					</CardSection>
 				</Card>
 			)}
-			{futureMatches.length > 0 ? (
+			{futureMatches && futureMatches.length > 0 ? (
 				<Card>
 					<CardTitle>Spielplan</CardTitle>
 					<CardSection p={{ base: undefined, sm: "sm" }}>
-						<Matches type="future" matches={futureMatches} timestamp={matches.timestamp ? new Date(matches.timestamp) : undefined} highlightTeamUuid={samsTeam.uuid} />
+						<Matches type="future" matches={futureMatches} timestamp={matches?.timestamp ? new Date(matches.timestamp) : undefined} highlightTeamUuid={samsTeam?.uuid} />
 					</CardSection>
 				</Card>
 			) : (

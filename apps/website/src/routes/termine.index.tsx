@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { Fragment, Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
-import { Club } from "@/project.config";
+import { getIcsHostname } from "../../../shared/lib/api-url";
 import CardTitle from "../components/CardTitle";
 import CenteredLoader from "../components/CenteredLoader";
 import EventCard from "../components/EventCard";
@@ -16,9 +16,9 @@ export const Route = createFileRoute("/termine/")({
 });
 
 function RouteComponent() {
-	// Construct webcal link - in new architecture, determine hostname dynamically
-	const hostname = typeof window !== "undefined" ? window.location.hostname : Club.domain;
-	const webcalLink = `webcal://${hostname}/ics/all.ics`;
+	// Construct webcal link - use API domain where ICS routes are hosted
+	const icsHostname = getIcsHostname();
+	const webcalLink = `webcal://${icsHostname}/ics/all.ics`;
 
 	return (
 		<PageWithHeading title="Termine">
@@ -44,7 +44,7 @@ function RouteComponent() {
 				</Suspense>
 			</Stack>
 		</PageWithHeading>
-	)
+	);
 }
 
 function EventsContent() {
@@ -69,7 +69,7 @@ function EventsContent() {
 				})}
 			</SimpleGrid>
 		</Card>
-	)
+	);
 }
 
 function MatchesContent() {
@@ -92,7 +92,7 @@ function MatchesContent() {
 				<CardTitle>Fehler beim Laden der SBVV Ligaspiele</CardTitle>
 				<Text>Die Spieltermine konnten nicht geladen werden. Bitte versuche es später erneut.</Text>
 			</Card>
-		)
+		);
 	}
 
 	if (matches?.matches && matches.matches.length > 0) {
@@ -104,7 +104,7 @@ function MatchesContent() {
 				</Title>
 				<Matches matches={matches.matches} timestamp={timestampDate} type="future" />
 			</Card>
-		)
+		);
 	}
 
 	// Fallback when no matches
@@ -124,5 +124,5 @@ function MatchesContent() {
 				</Card>
 			)}
 		</Fragment>
-	)
+	);
 }

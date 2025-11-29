@@ -7,6 +7,7 @@ import { Club } from "@/project.config";
 import { slugify } from "../../utils/slugify";
 import { LeagueMatchesResponseSchema, SeasonsResponseSchema } from "./types";
 
+// DynamoDB client for caching
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
 
@@ -33,8 +34,8 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 		const queryParams = event.queryStringParameters || {};
 		let { league, season, sportsclub, team, limit, range } = queryParams;
 
-		// Default to Club Name if no sportsclub specified
-		if (!sportsclub) {
+		// Default to Club Name if no sportsclub, team or league specified
+		if (!sportsclub && !team && !league) {
 			try {
 				const clubSlug = slugify(Club.shortName);
 				const clubQuery = await docClient.send(
@@ -88,7 +89,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 		if (league) defaultQueryParams["for-league"] = league;
 		if (season) defaultQueryParams["for-season"] = season;
 		if (sportsclub) defaultQueryParams["for-sportsclub"] = sportsclub;
-		if (team) defaultQueryParams["for-team"] = team; // Fetch all matches with pagination
+		// Fetch all matches with pagination
 		const allMatches: Omit<LeagueMatchDto, "_links">[] = [];
 		let currentPage = 0;
 		let hasMorePages = true;

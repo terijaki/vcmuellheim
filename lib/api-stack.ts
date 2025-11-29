@@ -23,6 +23,7 @@ interface ApiStackProps extends cdk.StackProps {
 		samsClubsTable: dynamodb.Table;
 		samsTeamsTable: dynamodb.Table;
 	};
+	samsApiUrl?: string;
 	mediaBucket?: s3.Bucket;
 	cloudFrontUrl?: string;
 	cmsUrl?: string;
@@ -286,6 +287,28 @@ export class ApiStack extends cdk.Stack {
 			props.mediaBucket.grantRead(this.trpcLambda);
 		}
 
+		// ICS Calendar Lambda
+		const icsLambda = new NodejsFunction(this, "IcsCalendarLambda", {
+			functionName: `vcm-ics-calendar-${environment}${branchSuffix}`,
+			entry: "lambda/content/ics-calendar.ts",
+			handler: "handler",
+			runtime: lambda.Runtime.NODEJS_LATEST,
+			timeout: cdk.Duration.seconds(30),
+			memorySize: 512,
+			environment: {
+				TEAMS_TABLE_NAME: tables.TEAMS.tableName,
+				SAMS_API_URL: props.samsApiUrl || "",
+			},
+			bundling: {
+				minify: true,
+				sourceMap: true,
+				externalModules: ["@aws-sdk/client-dynamodb", "@aws-sdk/lib-dynamodb"],
+			},
+		});
+
+		// Grant ICS Lambda read access to Teams table
+		tables.TEAMS.grantReadData(icsLambda);
+
 		// 3. HTTP API Gateway with custom domain
 		// Custom domain for API
 		this.apiDomainName = new apigatewayv2.DomainName(this, "ApiDomainName", {
@@ -342,12 +365,20 @@ export class ApiStack extends cdk.Stack {
 
 		// Lambda integration
 		const lambdaIntegration = new HttpLambdaIntegration("TrpcLambdaIntegration", this.trpcLambda);
+		const icsIntegration = new HttpLambdaIntegration("IcsCalendarIntegration", icsLambda);
 
 		// Route all /api/* requests to Lambda (excluding OPTIONS which is handled by CORS preflight)
 		this.api.addRoutes({
 			path: "/api/{proxy+}",
 			methods: [apigatewayv2.HttpMethod.GET, apigatewayv2.HttpMethod.POST],
 			integration: lambdaIntegration,
+		});
+
+		// ICS Calendar routes
+		this.api.addRoutes({
+			path: "/ics/{teamSlug}",
+			methods: [apigatewayv2.HttpMethod.GET],
+			integration: icsIntegration,
 		});
 
 		// Also accept requests without the `/api` prefix so deployed frontends

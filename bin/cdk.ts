@@ -99,6 +99,7 @@ new ApiStack(app, apiStackName, {
 		samsClubsTable: samsApiStack.samsClubsTable,
 		samsTeamsTable: samsApiStack.samsTeamsTable,
 	},
+	samsApiUrl: samsApiStack.cloudFrontUrl,
 	mediaBucket: mediaStack.bucket,
 	cloudFrontUrl: mediaStack.cloudFrontUrl,
 	cmsUrl: cmsStack.cmsUrl,

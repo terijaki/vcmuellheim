@@ -3,7 +3,7 @@
 # Script to download and patch the SAMS swagger file
 # Fixes:
 # 1. Invalid $ref to missing Object schema in _embedded and _links properties
-# 2. Makes results and referees fields nullable (they can be null in the API)
+# 2. Makes results and referees fields nullable using anyOf pattern (they can be null in the API)
 
 set -e
 
@@ -16,22 +16,22 @@ curl -s https://www.volleyball-baden.de/api/v2/swagger.json | \
     else . 
     end
   ) | 
-  # Make results field nullable in LeagueMatchDto and CompetitionMatchDto
+  # Make results field nullable in LeagueMatchDto
   .components.schemas.LeagueMatchDto.properties.results = {
-    "$ref": "#/components/schemas/VolleyballMatchResultsDto",
+    "allOf": [{"$ref": "#/components/schemas/VolleyballMatchResultsDto"}],
     "nullable": true
   } |
   .components.schemas.CompetitionMatchDto.properties.results = {
-    "$ref": "#/components/schemas/VolleyballMatchResultsDto",
+    "allOf": [{"$ref": "#/components/schemas/VolleyballMatchResultsDto"}],
     "nullable": true
   } |
   # Make referees field nullable
   .components.schemas.LeagueMatchDto.properties.referees = {
-    "$ref": "#/components/schemas/RefereeTeamDto",
+    "allOf": [{"$ref": "#/components/schemas/RefereeTeamDto"}],
     "nullable": true
   } |
   .components.schemas.CompetitionMatchDto.properties.referees = {
-    "$ref": "#/components/schemas/RefereeTeamDto",
+    "allOf": [{"$ref": "#/components/schemas/RefereeTeamDto"}],
     "nullable": true
   }' > \
   codegen/sams/swagger.json

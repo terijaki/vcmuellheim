@@ -63,3 +63,28 @@ export function getSamsApiUrl(): string {
 	}
 	return `https://${samsApiHostname}`;
 }
+
+/**
+ * Get the hostname (without protocol) for ICS calendar feeds
+ * Returns the API domain where the /ics routes are hosted
+ */
+export function getIcsHostname(): string {
+	if (typeof window === "undefined") return "";
+
+	const hostname = window.location.hostname;
+	const envPrefix = getEnvPrefix();
+
+	// If running on localhost, use the deployed API domain
+	if (hostname === "localhost" || hostname === "127.0.0.1") {
+		return `${envPrefix}api.new.vcmuellheim.de`;
+	}
+
+	// Replace either -website. or -admin. with -api.
+	if (hostname.includes("-website.")) {
+		return hostname.replace("-website.", "-api.");
+	}
+	if (hostname.includes("-admin.")) {
+		return hostname.replace("-admin.", "-api.");
+	}
+	return hostname;
+}

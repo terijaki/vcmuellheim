@@ -144,14 +144,10 @@ export type RankingResponse = z.infer<typeof RankingResponseSchema>;
 
 /**
  * League matches response (without HAL links)
- * Note: results field is nullable for future matches that haven't been played yet
+ * Using generated schema - results field is properly typed as nullable
  */
 export const LeagueMatchesResponseSchema = z.object({
-	matches: z.array(
-		zLeagueMatchDto.omit({ _links: true }).extend({
-			results: zLeagueMatchDto.shape.results.nullable().optional(),
-		}),
-	),
+	matches: z.array(zLeagueMatchDto.omit({ _links: true })),
 	timestamp: z.iso.datetime(),
 });
 
