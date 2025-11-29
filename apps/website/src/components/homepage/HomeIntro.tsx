@@ -1,5 +1,7 @@
 import { BackgroundImage, Button, Container, Group, Overlay, Stack, Text } from "@mantine/core";
+import { useViewportSize } from "@mantine/hooks";
 import { Link } from "@tanstack/react-router";
+import { useMemo } from "react";
 import { FaAnglesDown as IconDown } from "react-icons/fa6";
 import background1 from "../../assets/backgrounds/intro1.jpg";
 import background2 from "../../assets/backgrounds/intro2.jpg";
@@ -12,8 +14,12 @@ import HomeIntroLogo from "./HomeIntroLogo";
 const backgroundImages = [background1, background2, background3, background4];
 
 export default function HomeIntro() {
-	const backgroundImageRandom = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
-
+	const backgroundImageRandom = useMemo(() => {
+		return backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
+	}, []);
+	const { height, width } = useViewportSize();
+	const isPortrait = height > width;
+	const isMobile = width < 768;
 	const HEIGHT = `calc(90vh - ${HEADER_HEIGHT}px)`;
 	return (
 		<BackgroundImage src={backgroundImageRandom} component={Stack} gap="xl" align="stretch" justify="space-between" mih={HEIGHT} p="xl" c="white" pos="relative">
@@ -23,17 +29,19 @@ export default function HomeIntro() {
 				</Text>
 				<HomeIntroLogo />
 			</Stack>
-			<Container size="xs" pt="xl" mt="xl" hiddenFrom="sm" style={{ zIndex: 2 }}>
-				<Group gap="xs" justify="center">
-					{navbarLinks.map((link) => {
-						return (
-							<Button key={link.name} component={Link} {...link} bg="onyx" radius="xl" bd="1px white solid" c="white">
-								{link.name}
-							</Button>
-						);
-					})}
-				</Group>
-			</Container>
+			{(isPortrait || isMobile) && (
+				<Container size="xs" pt="xl" mt="xl" style={{ zIndex: 2 }}>
+					<Group gap="xs" justify="center">
+						{navbarLinks.map((link) => {
+							return (
+								<Button key={link.name} component={Link} {...link} bg="onyx" radius="xl" bd="1px white solid" c="white">
+									{link.name}
+								</Button>
+							);
+						})}
+					</Group>
+				</Container>
+			)}
 
 			<IconDown
 				style={{
