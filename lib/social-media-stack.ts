@@ -1,42 +1,71 @@
 import * as path from "node:path";
 import * as cdk from "aws-cdk-lib";
-import * as apigateway from "aws-cdk-lib/aws-apigateway";
-import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
-import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
+import * as apigatewayv2 from "aws-cdk-lib/aws-apigatewayv2";
+import { HttpLambdaIntegration } from "aws-cdk-lib/aws-apigatewayv2-integrations";
+import type * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as nodejs from "aws-cdk-lib/aws-lambda-nodejs";
+import * as route53 from "aws-cdk-lib/aws-route53";
+import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import type { Construct } from "constructs";
+import { Club } from "@/project.config";
 
 interface SocialMediaStackProps extends cdk.StackProps {
 	stackProps?: {
 		environment: string;
 		branch: string;
 	};
+	hostedZone?: route53.IHostedZone;
+	regionalCertificate?: acm.ICertificate;
 }
 
 export class SocialMediaStack extends cdk.Stack {
-	constructor(scope: Construct, id: string, props?: SocialMediaStackProps) {
+	public readonly cloudFrontUrl: string;
+
+	constructor(scope: Construct, id: string, props: SocialMediaStackProps) {
 		super(scope, id, props);
 
 		const environment = props?.stackProps?.environment || "dev";
 		const isProd = environment === "prod";
 		const branch = props?.stackProps?.branch || "";
 		const branchSuffix = branch ? `-${branch}` : "";
+		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
+		const socialDomain = `${envPrefix}social.new.${Club.domain}`;
 
-		// Create API Gateway
-		const api = new apigateway.RestApi(this, "SocialMediaApi", {
-			restApiName: `Social Media API (${environment}${branchSuffix})`,
+		const allowedOriginsSet = new Set<string>();
+		allowedOriginsSet.add(Club.url);
+		allowedOriginsSet.add(`https://new.${Club.domain}`);
+		allowedOriginsSet.add(`https://${envPrefix}admin.new.${Club.domain}`);
+		if (!isProd) {
+			allowedOriginsSet.add("http://localhost:3081"); // CMS dev server
+			allowedOriginsSet.add("http://localhost:3080"); // Website dev server
+		}
+		const allowedOrigins = Array.from(allowedOriginsSet);
+
+		// Custom domain for API Gateway
+		const apiDomainName =
+			props?.hostedZone && props?.regionalCertificate
+				? new apigatewayv2.DomainName(this, "SocialApiDomainName", {
+						domainName: socialDomain,
+						certificate: props.regionalCertificate,
+					})
+				: undefined;
+
+		// Create HTTP API Gateway (V2)
+		const api = new apigatewayv2.HttpApi(this, "SocialMediaApi", {
+			apiName: `Social Media API (${environment}${branchSuffix})`,
 			description: `API for social media content aggregation - ${environment}${branchSuffix}`,
-			defaultCorsPreflightOptions: {
-				allowOrigins: apigateway.Cors.ALL_ORIGINS,
-				allowMethods: apigateway.Cors.ALL_METHODS,
-				allowHeaders: ["Content-Type", "X-Amz-Date", "Authorization", "X-Api-Key"],
-			},
-			deployOptions: {
-				stageName: "v1",
+			...(apiDomainName ? { defaultDomainMapping: { domainName: apiDomainName } } : {}),
+			corsPreflight: {
+				allowOrigins: allowedOrigins,
+				allowMethods: [apigatewayv2.CorsHttpMethod.GET, apigatewayv2.CorsHttpMethod.POST, apigatewayv2.CorsHttpMethod.OPTIONS],
+				allowHeaders: ["content-type", "x-api-key", "authorization"],
+				exposeHeaders: ["content-type"],
+				allowCredentials: false,
+				maxAge: cdk.Duration.hours(1),
 			},
 		});
 
@@ -127,61 +156,42 @@ export class SocialMediaStack extends cdk.Stack {
 		// Add Lambda as target for EventBridge rule
 		syncRule.addTarget(new targets.LambdaFunction(instagramSync));
 
-		// Create API Gateway resources
-		const instagramResource = api.root.addResource("instagram");
+		// Create Lambda integration for HTTP API
+		const instagramIntegration = new HttpLambdaIntegration("InstagramIntegration", instagramPosts);
 
-		// GET /instagram (all posts or filter by ?handle=username)
-		instagramResource.addMethod(
-			"GET",
-			new apigateway.LambdaIntegration(instagramPosts, {
-				cacheKeyParameters: ["method.request.querystring.handle"],
-			}),
-			{
-				requestParameters: {
-					"method.request.querystring.handle": false,
-				},
-				methodResponses: [
-					{
-						statusCode: "200",
-						responseParameters: {
-							"method.response.header.Cache-Control": true,
-						},
-					},
-				],
-			},
-		);
-
-		// Create CloudFront distribution for caching
-		const distribution = new cloudfront.Distribution(this, "SocialMediaApiDistribution", {
-			defaultBehavior: {
-				origin: new origins.RestApiOrigin(api),
-				viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-				cachePolicy: new cloudfront.CachePolicy(this, "SocialMediaCachePolicy", {
-					cachePolicyName: `social-media-cache-policy-${environment}${branchSuffix}`,
-					defaultTtl: cdk.Duration.hours(1), // 1 hour default
-					maxTtl: cdk.Duration.days(1), // Max 1 day
-					minTtl: cdk.Duration.seconds(0),
-					queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
-					headerBehavior: cloudfront.CacheHeaderBehavior.allowList("Authorization", "X-Api-Key"),
-				}),
-			},
-			priceClass: cloudfront.PriceClass.PRICE_CLASS_100, // Only US, Canada, Europe
-			comment: `Social Media API CloudFront Distribution (${environment}${branchSuffix})`,
+		// Add route: GET /instagram
+		api.addRoutes({
+			path: "/instagram",
+			methods: [apigatewayv2.HttpMethod.GET],
+			integration: instagramIntegration,
 		});
+
+		// Create Route53 A record for custom domain (if configured)
+		if (apiDomainName && props?.hostedZone) {
+			new route53.ARecord(this, "SocialMediaAliasRecord", {
+				zone: props.hostedZone,
+				recordName: socialDomain,
+				target: route53.RecordTarget.fromAlias(new route53Targets.ApiGatewayv2DomainProperties(apiDomainName.regionalDomainName, apiDomainName.regionalHostedZoneId)),
+				comment: `Social Media API (${environment}${branchSuffix})`,
+			});
+		}
+
+		// Use custom domain if available, otherwise fall back to default API Gateway URL
+		this.cloudFrontUrl = apiDomainName ? `https://${socialDomain}` : api.url || "";
 
 		// Outputs
 		new cdk.CfnOutput(this, "ApiGatewayUrl", {
-			value: api.url,
+			value: api.url || "",
 			description: "Social Media API Gateway URL",
 		});
 
 		new cdk.CfnOutput(this, "CloudFrontUrl", {
-			value: `https://${distribution.distributionDomainName}`,
+			value: this.cloudFrontUrl,
 			description: "Social Media CloudFront Distribution URL",
 		});
 
 		new cdk.CfnOutput(this, "InstagramEndpoint", {
-			value: `${api.url}instagram`,
+			value: `${this.cloudFrontUrl}/instagram`,
 			description: "Instagram Posts API Endpoint",
 		});
 	}

@@ -14,28 +14,14 @@ import { useTRPC } from "../../../shared/lib/trpc-config";
  */
 function getSocialApiUrl(): string {
 	if (typeof window === "undefined") return "";
-	const hostname = window.location.hostname;
+
 	const environment = import.meta.env.VITE_CDK_ENVIRONMENT || "dev";
 	const gitBranch = import.meta.env.VITE_GIT_BRANCH || "";
-	const isProd = environment === "prod";
 	const isMainBranch = gitBranch === "main" || gitBranch === "";
-	const branch = !isMainBranch ? gitBranch : "";
-	const branchSuffix = branch ? `-${branch}` : "";
-	const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
+	const branch = isMainBranch ? "" : gitBranch;
 
-	// If running on localhost, use the deployed domain
-	if (hostname === "localhost" || hostname === "127.0.0.1") {
-		return `https://${envPrefix}social.new.vcmuellheim.de`;
-	}
-
-	// Replace -website. or -admin. with -social.
-	let socialHostname = hostname;
-	if (hostname.includes("-website.")) {
-		socialHostname = hostname.replace("-website.", "-social.");
-	} else if (hostname.includes("-admin.")) {
-		socialHostname = hostname.replace("-admin.", "-social.");
-	}
-	return `https://${socialHostname}`;
+	const envPrefix = environment === "prod" ? "" : `${environment}${branch ? `-${branch}` : ""}-`;
+	return `https://${envPrefix}social.new.vcmuellheim.de`;
 }
 
 /**
@@ -202,7 +188,7 @@ export const useRecentInstagramPosts = ({ days = 30 }: { days?: number } = {}) =
 		queryKey: ["instagramPosts", days],
 		queryFn: async () => {
 			const socialApiUrl = getSocialApiUrl();
-			const res = await fetch(`${socialApiUrl}/v1/instagram`);
+			const res = await fetch(`${socialApiUrl}/instagram`);
 			if (!res.ok) {
 				throw new Error("Failed to fetch Instagram posts");
 			}

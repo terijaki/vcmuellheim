@@ -83,8 +83,9 @@ async function getRecentPosts(days: number): Promise<InstagramPost[]> {
 		ExpressionAttributeNames: {
 			"#ts": "timestamp", // "timestamp" is a DynamoDB reserved word
 			"#type": "type", // "type" is a DynamoDB reserved word
+			"#url": "url", // "url" is a DynamoDB reserved word
 		},
-		ProjectionExpression: "id, #ts, #type, url, ownerFullName, ownerUsername, inputUrl, caption, displayUrl, videoUrl, dimensionsHeight, dimensionsWidth, images, likesCount, commentsCount, hashtags",
+		ProjectionExpression: "id, #ts, #type, #url, ownerFullName, ownerUsername, inputUrl, caption, displayUrl, videoUrl, dimensionsHeight, dimensionsWidth, images, likesCount, commentsCount, hashtags",
 		ScanIndexForward: false, // Return newest posts first
 	});
 

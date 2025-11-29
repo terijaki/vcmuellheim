@@ -107,9 +107,11 @@ new ApiStack(app, apiStackName, {
 	regionalCertificate: dnsStack.regionalCertificate,
 });
 
-new SocialMediaStack(app, socialMediaStackName, {
+const socialMediaStack = new SocialMediaStack(app, socialMediaStackName, {
 	...commonStackProps,
 	description: `Social Media API Services (${environment}${branchSuffix})`,
+	hostedZone: dnsStack.hostedZone,
+	regionalCertificate: dnsStack.regionalCertificate,
 });
 
 // Budget monitoring - requires email for alerts
