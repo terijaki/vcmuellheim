@@ -27,6 +27,7 @@ interface ApiStackProps extends cdk.StackProps {
 	mediaBucket?: s3.Bucket;
 	cloudFrontUrl?: string;
 	cmsUrl?: string;
+	websiteUrl?: string;
 	hostedZone: route53.IHostedZone;
 	regionalCertificate: acm.ICertificate;
 }
@@ -335,9 +336,12 @@ export class ApiStack extends cdk.Stack {
 			const cmsOrigin = props.cmsUrl.startsWith("https://") ? props.cmsUrl : `https://${props.cmsUrl}`;
 			allowedOriginsSet.add(cmsOrigin);
 		}
+		if (props.websiteUrl) {
+			const websiteOrigin = props.websiteUrl.startsWith("https://") ? props.websiteUrl : `https://${props.websiteUrl}`;
+			allowedOriginsSet.add(websiteOrigin);
+		}
 
 		const allowedOrigins = Array.from(allowedOriginsSet);
-
 		this.api = new apigatewayv2.HttpApi(this, "TrpcHttpApi", {
 			apiName: `vcm-trpc-api-${environment}${branchSuffix}`,
 			description: "tRPC API for VCM admin and public endpoints",

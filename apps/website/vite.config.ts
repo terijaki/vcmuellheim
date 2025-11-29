@@ -15,6 +15,8 @@ export default defineConfig({
 			org: "volleyballclub-mullheim-ev",
 			project: "volleyball-website",
 			authToken: process.env.SENTRY_AUTH_TOKEN,
+			telemetry: process.env.VITE_CDK_ENVIRONMENT === "prod",
+			silent: process.env.VITE_CDK_ENVIRONMENT !== "prod",
 		}),
 	],
 	define: {
@@ -39,6 +41,7 @@ export default defineConfig({
 	build: {
 		outDir: "dist",
 		sourcemap: true,
+		assetsInlineLimit: 0,
 	},
-	publicDir: "src/public",
+	publicDir: "public",
 });
