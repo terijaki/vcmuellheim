@@ -1,37 +1,34 @@
 import { Card, Text, Title } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
-import type { Event } from "@/data/payload-types";
-import MapsLink from "./MapsLink";
+import type { Event } from "@/lib/db/types";
 
 export default function EventCard(props: Event & { dark?: boolean }) {
-	const { id, title, date, address } = props;
+	const { id, title, startDate, endDate, location } = props;
 
-	let dateDisplay = dayjs(date.startDate).format("DD.MM.YYYY HH:mm [Uhr]");
-	if (date.endDate) {
-		const isSameDay = dayjs(date.startDate).isSame(dayjs(date.endDate), "day");
+	let dateDisplay = dayjs(startDate).format("DD.MM.YYYY HH:mm [Uhr]");
+	if (endDate) {
+		const isSameDay = dayjs(startDate).isSame(dayjs(endDate), "day");
 		if (isSameDay) {
-			dateDisplay = `${dayjs(date.startDate).format("DD.MM.YYYY HH:mm")} bis ${dayjs(date.endDate).format("HH:mm [Uhr]")}`;
+			dateDisplay = `${dayjs(startDate).format("DD.MM.YYYY HH:mm")} bis ${dayjs(endDate).format("HH:mm [Uhr]")}`;
 		} else {
-			dateDisplay = `${dayjs(date.startDate).format("DD.MM.YYYY HH:mm [Uhr]")} - ${dayjs(date.endDate).format("DD.MM.YYYY HH:mm [Uhr]")}`;
+			dateDisplay = `${dayjs(startDate).format("DD.MM.YYYY HH:mm [Uhr]")} - ${dayjs(endDate).format("DD.MM.YYYY HH:mm [Uhr]")}`;
 		}
 	}
 
 	return (
 		<Card key={id} bg={props.dark ? "onyx" : "gray.0"} c={props.dark ? "white" : undefined} component={Link} to={`/termine/${id}`} withBorder={!props.dark}>
-			<time data-label="datetime" dateTime={date.startDate}>
+			<time data-label="datetime" dateTime={startDate}>
 				<Text fw="bold">{dateDisplay}</Text>
 			</time>
 			<Title order={4} c="lion">
-				{title} {(address?.name || address?.city) && `(${address.name || address.city})`}
+				{title}
 			</Title>
-
-			<MapsLink
-				location={{
-					name: address?.name,
-					address: { city: address?.city, postalCode: address?.postalCode, street: address?.street },
-				}}
-			/>
+			{location && (
+				<Text size="sm" c="dimmed">
+					{location}
+				</Text>
+			)}
 		</Card>
 	);
 }

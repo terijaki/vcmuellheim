@@ -23,6 +23,7 @@ import { Route as BrandRouteImport } from './routes/brand'
 import { Route as BeitragsordnungRouteImport } from './routes/beitragsordnung'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as NewsIndexRouteImport } from './routes/news.index'
+import { Route as TermineIdRouteImport } from './routes/termine.$id'
 import { Route as TeamsSlugRouteImport } from './routes/teams.$slug'
 import { Route as NewsIdRouteImport } from './routes/news.$id'
 
@@ -96,6 +97,11 @@ const NewsIndexRoute = NewsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => NewsRoute,
 } as any)
+const TermineIdRoute = TermineIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => TermineRoute,
+} as any)
 const TeamsSlugRoute = TeamsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -120,9 +126,10 @@ export interface FileRoutesByFullPath {
   '/satzung': typeof SatzungRoute
   '/tabelle': typeof TabelleRoute
   '/teams': typeof TeamsRouteWithChildren
-  '/termine': typeof TermineRoute
+  '/termine': typeof TermineRouteWithChildren
   '/news/$id': typeof NewsIdRoute
   '/teams/$slug': typeof TeamsSlugRoute
+  '/termine/$id': typeof TermineIdRoute
   '/news/': typeof NewsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -137,9 +144,10 @@ export interface FileRoutesByTo {
   '/satzung': typeof SatzungRoute
   '/tabelle': typeof TabelleRoute
   '/teams': typeof TeamsRouteWithChildren
-  '/termine': typeof TermineRoute
+  '/termine': typeof TermineRouteWithChildren
   '/news/$id': typeof NewsIdRoute
   '/teams/$slug': typeof TeamsSlugRoute
+  '/termine/$id': typeof TermineIdRoute
   '/news': typeof NewsIndexRoute
 }
 export interface FileRoutesById {
@@ -156,9 +164,10 @@ export interface FileRoutesById {
   '/satzung': typeof SatzungRoute
   '/tabelle': typeof TabelleRoute
   '/teams': typeof TeamsRouteWithChildren
-  '/termine': typeof TermineRoute
+  '/termine': typeof TermineRouteWithChildren
   '/news/$id': typeof NewsIdRoute
   '/teams/$slug': typeof TeamsSlugRoute
+  '/termine/$id': typeof TermineIdRoute
   '/news/': typeof NewsIndexRoute
 }
 export interface FileRouteTypes {
@@ -179,6 +188,7 @@ export interface FileRouteTypes {
     | '/termine'
     | '/news/$id'
     | '/teams/$slug'
+    | '/termine/$id'
     | '/news/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -196,6 +206,7 @@ export interface FileRouteTypes {
     | '/termine'
     | '/news/$id'
     | '/teams/$slug'
+    | '/termine/$id'
     | '/news'
   id:
     | '__root__'
@@ -214,6 +225,7 @@ export interface FileRouteTypes {
     | '/termine'
     | '/news/$id'
     | '/teams/$slug'
+    | '/termine/$id'
     | '/news/'
   fileRoutesById: FileRoutesById
 }
@@ -230,7 +242,7 @@ export interface RootRouteChildren {
   SatzungRoute: typeof SatzungRoute
   TabelleRoute: typeof TabelleRoute
   TeamsRoute: typeof TeamsRouteWithChildren
-  TermineRoute: typeof TermineRoute
+  TermineRoute: typeof TermineRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -333,6 +345,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewsIndexRouteImport
       parentRoute: typeof NewsRoute
     }
+    '/termine/$id': {
+      id: '/termine/$id'
+      path: '/$id'
+      fullPath: '/termine/$id'
+      preLoaderRoute: typeof TermineIdRouteImport
+      parentRoute: typeof TermineRoute
+    }
     '/teams/$slug': {
       id: '/teams/$slug'
       path: '/$slug'
@@ -372,6 +391,17 @@ const TeamsRouteChildren: TeamsRouteChildren = {
 
 const TeamsRouteWithChildren = TeamsRoute._addFileChildren(TeamsRouteChildren)
 
+interface TermineRouteChildren {
+  TermineIdRoute: typeof TermineIdRoute
+}
+
+const TermineRouteChildren: TermineRouteChildren = {
+  TermineIdRoute: TermineIdRoute,
+}
+
+const TermineRouteWithChildren =
+  TermineRoute._addFileChildren(TermineRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BeitragsordnungRoute: BeitragsordnungRoute,
@@ -385,7 +415,7 @@ const rootRouteChildren: RootRouteChildren = {
   SatzungRoute: SatzungRoute,
   TabelleRoute: TabelleRoute,
   TeamsRoute: TeamsRouteWithChildren,
-  TermineRoute: TermineRoute,
+  TermineRoute: TermineRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
