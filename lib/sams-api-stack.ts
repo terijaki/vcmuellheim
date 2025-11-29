@@ -141,7 +141,10 @@ export class SamsApiStack extends cdk.Stack {
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-league-matches.ts"),
-			environment: commonEnvironment,
+			environment: {
+				...commonEnvironment,
+				CLUBS_TABLE_NAME: clubsTable.tableName,
+			},
 			timeout: cdk.Duration.seconds(60),
 			memorySize: 512,
 			bundling: {
@@ -150,6 +153,9 @@ export class SamsApiStack extends cdk.Stack {
 				sourceMap: true,
 			},
 		});
+
+		// Grant league matches Lambda read access to clubs table
+		clubsTable.grantReadData(samsLeagueMatches);
 
 		// Create Lambda function for seasons
 		const samsSeasons = new nodejs.NodejsFunction(this, "SamsSeasons", {

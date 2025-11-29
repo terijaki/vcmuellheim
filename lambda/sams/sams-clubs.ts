@@ -46,6 +46,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 					statusCode: 404,
 					headers: {
 						"Content-Type": "application/json",
+						"Cache-Control": "public, max-age=259200", // 3 days
 					},
 					body: JSON.stringify({ error: "Club not found" }),
 				};
@@ -87,6 +88,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 					statusCode: 404,
 					headers: {
 						"Content-Type": "application/json",
+						"Cache-Control": "public, max-age=259200", // 3 days
 					},
 					body: JSON.stringify({ error: "Club not found" }),
 				};

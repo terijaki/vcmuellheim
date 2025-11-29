@@ -1,10 +1,10 @@
 import { Box, Flex, Grid, GridCol, Group, Stack, Text } from "@mantine/core";
 import dayjs from "dayjs";
-import type { LeagueMatches } from "@/data/sams/sams-server-actions";
-import { getOurClubsSamsTeams } from "@/data/samsTeams";
 import { SAMS } from "@/project.config";
 import "dayjs/locale/de";
 import { FaSquarePollVertical as IconResult } from "react-icons/fa6";
+import type { LeagueMatchesResponse } from "@/lambda/sams/types";
+import { useSamsTeams } from "../lib/hooks";
 import MapsLink from "./MapsLink";
 
 dayjs.locale("de");
@@ -16,12 +16,13 @@ export default async function Matches({
 	highlightTeamUuid,
 	uniqueLeague = false,
 }: {
-	matches: LeagueMatches["matches"];
+	matches: LeagueMatchesResponse["matches"];
 	timestamp?: Date;
 	type: "future" | "past";
 	highlightTeamUuid?: string;
 	uniqueLeague?: boolean;
 }) {
+	const { data: samsTeams } = useSamsTeams();
 	if (!matches || matches.length === 0) return null;
 	// define how dates should be displayed
 	const dateFormat = new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "short" });
@@ -34,7 +35,7 @@ export default async function Matches({
 	const isOddMatches = Boolean(matches.length % 2 === 0);
 
 	// league data so that we can get the league name from the league id
-	const ourTeams = await getOurClubsSamsTeams();
+	const ourTeams = samsTeams?.teams;
 	const leagues = new Map<string, string>();
 	for (const team of ourTeams || []) {
 		if (team.leagueUuid && team.leagueName) leagues.set(team.leagueUuid, team.leagueName);
@@ -75,20 +76,7 @@ export default async function Matches({
 												</Text>
 											</time>
 										)}
-										{match.location && (
-											<MapsLink
-												location={{
-													name: match.location.address?.city || match.location.name,
-													address: {
-														street: match.location.address?.street,
-														postalCode: match.location.address?.postcode,
-														city: match.location.address?.city,
-													},
-												}}
-												size="sm"
-												maw={{ base: "100%", sm: 160 }}
-											/>
-										)}
+										{match.location && <MapsLink {...match.location} size="sm" maw={{ base: "100%", sm: 160 }} />}
 									</Flex>
 								</GridCol>
 								{/* teams & league*/}
@@ -193,18 +181,7 @@ export default async function Matches({
 
 							{match.location && (
 								<GridCol span={{ base: 12, sm: 3 }}>
-									<MapsLink
-										location={{
-											name: `${match.location.address?.city ? `${match.location.address.city}, ${match.location.name}` : match.location.name}`,
-											address: {
-												street: match.location.address?.street,
-												postalCode: match.location.address?.postcode,
-												city: match.location.address?.city,
-											},
-										}}
-										size="sm"
-										maw={{ base: "100%", sm: 160 }}
-									/>
+									<MapsLink {...match.location} size="sm" maw={{ base: "100%", sm: 160 }} />
 								</GridCol>
 							)}
 						</Grid>

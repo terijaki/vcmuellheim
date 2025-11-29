@@ -76,7 +76,7 @@ export default function RankingTable(props: RankingTable) {
 								teamLink={teamLink}
 								clubLogo={
 									<Suspense fallback={<ClubLogoFallback />}>
-										<ClubLogo teamName={team.teamName} light={isHighlighted} />
+										<ClubLogo teamName={team.teamName ?? undefined} light={isHighlighted} />
 									</Suspense>
 								}
 							/>

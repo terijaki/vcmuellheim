@@ -2,19 +2,20 @@ import type { AnchorProps } from "@mantine/core";
 import { Anchor, Group, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { FaLocationDot as IconLocation } from "react-icons/fa6";
-import type { Location } from "@/lib/db";
 
 interface MapsLinkProps extends Omit<AnchorProps, "href" | "component" | "target"> {
-	location: Location;
+	street?: string | null;
+	postal?: string | null;
+	city?: string | null;
+	name?: string | null;
 }
 
-export default function MapsLink({ location, ...anchorProps }: MapsLinkProps) {
+export default function MapsLink({ street, postal, city, name, ...anchorProps }: MapsLinkProps) {
 	const [mapsUrl, setMapsUrl] = useState<string | null>(null);
 
 	useEffect(() => {
 		let addressString = "";
-		const { street, postal, city } = location;
-		if (location.name) addressString += `${location.name}, `;
+		if (name) addressString += `${name}, `;
 		if (street) addressString += street;
 		if (street && (postal || city)) addressString += ", ";
 		if (postal) addressString += `${postal}`;
@@ -36,9 +37,9 @@ export default function MapsLink({ location, ...anchorProps }: MapsLinkProps) {
 		} else {
 			setMapsUrl(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addressString)}`);
 		}
-	}, [location]);
+	}, [street, postal, city, name]);
 
-	const displayName = location.name || location.city;
+	const displayName = name || city;
 
 	// Before the effect runs, just show the name without a link
 	if (!mapsUrl) return <>{displayName}</>;

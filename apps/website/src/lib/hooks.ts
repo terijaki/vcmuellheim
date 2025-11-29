@@ -5,7 +5,7 @@
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getSamsApiUrl } from "@/apps/shared/lib/api-url";
-import { ClubResponseSchema, ClubsResponseSchema, type RankingResponse, RankingResponseSchema, TeamsResponseSchema } from "@/lambda/sams/types";
+import { ClubResponseSchema, ClubsResponseSchema, LeagueMatchesResponseSchema, type RankingResponse, RankingResponseSchema, TeamsResponseSchema } from "@/lambda/sams/types";
 import { useTRPC } from "../../../shared/lib/trpc-config";
 
 /**
@@ -224,5 +224,45 @@ export const useSamsRankingsByLeagueUuid = (leagueUuids: string[]) => {
 			return results;
 		},
 		enabled: leagueUuids.length > 0,
+	});
+};
+
+/**
+ * Hook to fetch SAMS matches by team UUID
+ */
+export const useSamsMatches = ({
+	league,
+	season,
+	sportsclub,
+	team,
+	limit,
+	range,
+}: {
+	league?: string;
+	season?: string;
+	sportsclub?: string;
+	team?: string;
+	limit?: number;
+	range?: "past" | "future";
+}) => {
+	return useQuery({
+		queryKey: ["samsMatches", league, season, sportsclub, team, limit, range],
+		queryFn: async () => {
+			const samsApiDomain = getSamsApiUrl();
+			const querys: string[] = [];
+			if (league) querys.push(`for-league=${league}`);
+			if (season) querys.push(`for-season=${season}`);
+			if (sportsclub) querys.push(`for-sportsclub=${sportsclub}`);
+			if (team) querys.push(`for-team=${team}`);
+			if (limit) querys.push(`limit=${limit}`);
+			if (range) querys.push(`range=${range}`);
+			const queryString = querys.length > 0 ? querys.join("&") : "";
+			const res = await fetch(`${samsApiDomain}/matches?${queryString}`);
+			if (!res.ok) {
+				throw new Error(`Failed to fetch SAMS teams`);
+			}
+			const json = await res.json();
+			return LeagueMatchesResponseSchema.parse(json);
+		},
 	});
 };

@@ -1,9 +1,17 @@
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { getAllLeagueMatches, type LeagueMatchDto } from "@codegen/sams/generated";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import dayjs from "dayjs";
-import { LeagueMatchesResponseSchema } from "./types";
+import { Club } from "@/project.config";
+import { slugify } from "../../utils/slugify";
+import { LeagueMatchesResponseSchema, SeasonsResponseSchema } from "./types";
+
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
 
 const SAMS_API_KEY = process.env.SAMS_API_KEY;
+const CLUBS_TABLE_NAME = process.env.CLUBS_TABLE_NAME || "";
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
 	try {
@@ -25,13 +33,42 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 		const queryParams = event.queryStringParameters || {};
 		let { league, season, sportsclub, team, limit, range } = queryParams;
 
+		// Default to Club Name if no sportsclub specified
+		if (!sportsclub) {
+			try {
+				const clubSlug = slugify(Club.shortName);
+				const clubQuery = await docClient.send(
+					new QueryCommand({
+						TableName: CLUBS_TABLE_NAME,
+						IndexName: "GSI-SamsClubQueries",
+						KeyConditionExpression: "#type = :type AND nameSlug = :slug",
+						ExpressionAttributeNames: {
+							"#type": "type",
+						},
+						ExpressionAttributeValues: {
+							":type": "club",
+							":slug": clubSlug,
+						},
+						Limit: 1,
+					}),
+				);
+				const club = clubQuery.Items?.[0];
+				if (club?.sportsclubUuid) {
+					sportsclub = club.sportsclubUuid;
+					console.log(`Using default club: ${club.name} (${sportsclub})`);
+				}
+			} catch (error) {
+				console.warn("Failed to fetch default club, proceeding without filter:", error);
+			}
+		}
+
 		// Get current season if not specified
 		if (!season) {
 			try {
 				const seasonsResponse = await fetch(`https://${event.requestContext.domainName}/v1/sams/seasons`);
 				if (seasonsResponse.ok) {
 					const seasonsData = await seasonsResponse.json();
-					season = seasonsData.current?.uuid;
+					season = SeasonsResponseSchema.parse(seasonsData).current.uuid;
 				}
 			} catch (error) {
 				console.warn("Failed to fetch current season, proceeding without default:", error);

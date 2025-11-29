@@ -1,4 +1,4 @@
-import { getRankingsForLeague } from "@codegen/sams/generated";
+import { getLeagueByUuid, getRankingsForLeague, getSeasonByUuid } from "@codegen/sams/generated";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import { RankingResponseSchema } from "./types";
 
@@ -50,10 +50,33 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			};
 		}
 
+		let leagueName:string|undefined
+		let seasonName:string|undefined
+
+		const {data: leagueData} = await getLeagueByUuid({
+			path: { uuid: leagueUuid },
+			headers: {
+				"X-API-Key": SAMS_API_KEY,
+			},
+		});
+		if(leagueData?.name) leagueName=leagueData.name
+
+		if(leagueData?.seasonUuid) {
+		const {data:seasonData} = await getSeasonByUuid({
+			path: { uuid: leagueData.seasonUuid},
+			headers: {
+				"X-API-Key": SAMS_API_KEY,
+			},
+		});
+		if(seasonData?.name) seasonName=seasonData.name
+	}
+
 		const result = RankingResponseSchema.parse({
 			teams: data.content,
 			timestamp: new Date().toISOString(),
 			leagueUuid,
+			leagueName,
+			seasonName,
 		});
 
 		return {

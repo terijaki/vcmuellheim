@@ -10,6 +10,7 @@ export default function ClubLogo({ clubUuid, teamName, light }: { clubUuid?: str
 	const clubLogoUrl = clubByName?.logoImageLink || clubById?.logoImageLink;
 	const logoName = clubByName?.name || clubById?.name || teamName || "Vereinlogo";
 
+
 	if (clubLogoUrl) {
 		console.log("ClubLogo:", { clubUuid, teamName, clubLogoUrl, logoName });
 		return (
@@ -31,7 +32,7 @@ export default function ClubLogo({ clubUuid, teamName, light }: { clubUuid?: str
 	}
 	// }
 
-	return <ClubLogoFallback />;
+	return <ClubLogoFallback  />;
 }
 
 export function ClubLogoFallback() {

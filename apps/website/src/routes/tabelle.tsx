@@ -1,13 +1,13 @@
-import { Card, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Card, CardSection, SimpleGrid, Stack, Text } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
+import { numToWord } from "num-words-de";
 import { Suspense } from "react";
 import CardTitle from "../components/CardTitle";
 import CenteredLoader from "../components/CenteredLoader";
 import PageWithHeading from "../components/layout/PageWithHeading";
+import Matches from "../components/Matches";
 import RankingTable from "../components/RankingTable";
-import { useSamsRankingsByLeagueUuid, useSamsTeams, useTeams } from "../lib/hooks";
-
-// import { numToWord } from "num-words-de";
+import { useSamsMatches, useSamsRankingsByLeagueUuid, useSamsTeams, useTeams } from "../lib/hooks";
 
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
 
@@ -19,6 +19,10 @@ function RouteComponent() {
 	const { data: samsTeams } = useSamsTeams();
 	const { data: teams } = useTeams();
 
+	const lastResultCap = Math.max(6, Math.min(20, Number(((teams?.items.length || 0) * GAMES_PER_TEAM).toFixed(0)))); // calculate the total number of games to display based on the number of teams
+	const { data: matches } = useSamsMatches({ range: "past", limit: lastResultCap });
+	const recentMatches = matches?.matches || [];
+
 	const sbvvTeamIds = new Set<string>();
 	samsTeams?.teams.forEach((team) => {
 		sbvvTeamIds.add(team.leagueUuid);
@@ -27,9 +31,8 @@ function RouteComponent() {
 	const { data, isLoading, error } = useSamsRankingsByLeagueUuid(Array.from(sbvvTeamIds));
 	if (error) throw error;
 
-	const lastResultCap = Math.max(6, Math.min(20, Number(((teams?.items.length || 0) * GAMES_PER_TEAM).toFixed(0)))); // calculate the total number of games to display based on the number of teams
 	// TODO fetch # recent matches where # is number of recent matches
-	// const lastResultWord = recentMatches.length > 1 && numToWords.numToWord(recentMatches.length, { uppercase: false });
+	const lastResultWord = recentMatches.length > 1 && numToWord(recentMatches.length, { uppercase: false });
 
 	return (
 		<PageWithHeading title={"Tabelle"}>
@@ -46,14 +49,14 @@ function RouteComponent() {
 							);
 						})}
 					</SimpleGrid>
-					{/* {recentMatches && recentMatches.length > 0 && (
-				<Card>
-					<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
-					<CardSection p={{ base: undefined, sm: "sm" }}>
-						<Matches matches={recentMatches} type="past" />
-					</CardSection>
-				</Card>
-			)} */}
+					{recentMatches && recentMatches.length > 0 && (
+						<Card>
+							<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
+							<CardSection p={{ base: undefined, sm: "sm" }}>
+								<Matches matches={recentMatches} type="past" />
+							</CardSection>
+						</Card>
+					)}
 				</Stack>
 			)}
 		</PageWithHeading>
