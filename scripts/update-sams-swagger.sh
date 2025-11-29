@@ -18,29 +18,21 @@ curl -s https://www.volleyball-baden.de/api/v2/swagger.json | \
   ) | 
   # Make results field nullable in LeagueMatchDto and CompetitionMatchDto
   .components.schemas.LeagueMatchDto.properties.results = {
-    "anyOf": [
-      {"$ref": "#/components/schemas/VolleyballMatchResultsDto"},
-      {"type": "null"}
-    ]
+    "$ref": "#/components/schemas/VolleyballMatchResultsDto",
+    "nullable": true
   } |
   .components.schemas.CompetitionMatchDto.properties.results = {
-    "anyOf": [
-      {"$ref": "#/components/schemas/VolleyballMatchResultsDto"},
-      {"type": "null"}
-    ]
+    "$ref": "#/components/schemas/VolleyballMatchResultsDto",
+    "nullable": true
   } |
   # Make referees field nullable
   .components.schemas.LeagueMatchDto.properties.referees = {
-    "anyOf": [
-      {"$ref": "#/components/schemas/RefereeTeamDto"},
-      {"type": "null"}
-    ]
+    "$ref": "#/components/schemas/RefereeTeamDto",
+    "nullable": true
   } |
   .components.schemas.CompetitionMatchDto.properties.referees = {
-    "anyOf": [
-      {"$ref": "#/components/schemas/RefereeTeamDto"},
-      {"type": "null"}
-    ]
+    "$ref": "#/components/schemas/RefereeTeamDto",
+    "nullable": true
   }' > \
   codegen/sams/swagger.json
 

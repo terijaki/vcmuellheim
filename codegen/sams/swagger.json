@@ -5671,14 +5671,8 @@
             "type": "string"
           },
           "referees": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/RefereeTeamDto"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "$ref": "#/components/schemas/RefereeTeamDto",
+            "nullable": true
           },
           "spectators": {
             "type": "integer",
@@ -5707,14 +5701,8 @@
             "type": "string"
           },
           "results": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/VolleyballMatchResultsDto"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "$ref": "#/components/schemas/VolleyballMatchResultsDto",
+            "nullable": true
           },
           "matchGroupUuid": {
             "type": "string"
@@ -5991,14 +5979,8 @@
             "type": "string"
           },
           "referees": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/RefereeTeamDto"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "$ref": "#/components/schemas/RefereeTeamDto",
+            "nullable": true
           },
           "spectators": {
             "type": "integer",
@@ -6027,14 +6009,8 @@
             "type": "string"
           },
           "results": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/VolleyballMatchResultsDto"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "$ref": "#/components/schemas/VolleyballMatchResultsDto",
+            "nullable": true
           },
           "matchDayUuid": {
             "type": "string"

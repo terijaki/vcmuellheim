@@ -674,11 +674,7 @@ export const zCompetitionMatchDto = z.object({
         z.string(),
         z.null()
     ])),
-    referees: z.optional(z.union([
-        zRefereeTeamDto,
-        z.unknown(),
-        z.null()
-    ])),
+    referees: z.optional(zRefereeTeamDto),
     spectators: z.optional(z.union([
         z.int(),
         z.null()
@@ -708,11 +704,7 @@ export const zCompetitionMatchDto = z.object({
         z.string(),
         z.null()
     ])),
-    results: z.optional(z.union([
-        zVolleyballMatchResultsDto,
-        z.unknown(),
-        z.null()
-    ])),
+    results: z.optional(zVolleyballMatchResultsDto),
     matchGroupUuid: z.optional(z.union([
         z.string(),
         z.null()
@@ -827,11 +819,7 @@ export const zLeagueMatchDto = z.object({
         z.string(),
         z.null()
     ])),
-    referees: z.optional(z.union([
-        zRefereeTeamDto,
-        z.unknown(),
-        z.null()
-    ])),
+    referees: z.optional(zRefereeTeamDto),
     spectators: z.optional(z.union([
         z.int(),
         z.null()
@@ -861,11 +849,7 @@ export const zLeagueMatchDto = z.object({
         z.string(),
         z.null()
     ])),
-    results: z.optional(z.union([
-        zVolleyballMatchResultsDto,
-        z.unknown(),
-        z.null()
-    ])),
+    results: z.optional(zVolleyballMatchResultsDto),
     matchDayUuid: z.optional(z.union([
         z.string(),
         z.null()

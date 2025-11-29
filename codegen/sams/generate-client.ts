@@ -6,7 +6,7 @@ createClient({
 		format: "biome",
 		lint: "biome",
 	},
-	input: "codegen/sams/swagger.json",
+	input: "codegen/sams/swagger.json", // some fixes are applied via scripts/update-sams-swagger.sh before generation
 	plugins: [
 		{
 			name: "zod",
@@ -63,10 +63,8 @@ createClient({
 									case "uuid":
 										property.nullable = false;
 										break;
-									case "resuls":
+									case "results":
 									case "referees":
-										property.nullable = true; // this is not working because the field is a reference
-										property.additionalProperties = true;
 										break;
 									default:
 										property.nullable = true;
@@ -110,10 +108,8 @@ createClient({
 									case "uuid":
 										property.nullable = false;
 										break;
-									case "resuls":
+									case "results":
 									case "referees":
-										property.nullable = true; // this is not working because the field is a reference
-										property.additionalProperties = true;
 										break;
 									default:
 										property.nullable = true;

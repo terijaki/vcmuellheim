@@ -125,7 +125,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			filteredMatches = allMatches.filter((m) => !m.results?.winner);
 		} else if (range === "past") {
 			// Filter by matches with a winner (already played)
-			filteredMatches = allMatches.filter((m) => m.results?.winner);
+			filteredMatches = allMatches.filter((m) => !!m.results?.winner);
 		} // Sort matches by date
 		if (range === "future") {
 			filteredMatches.sort((a, b) => {

@@ -541,7 +541,7 @@ export type CompetitionMatchDto = {
     decidingMatch?: boolean | null;
     gameReassessed?: boolean | null;
     host?: string | null;
-    referees?: RefereeTeamDto | unknown | null;
+    referees?: RefereeTeamDto;
     spectators?: number | null;
     netDuration?: number | null;
     verified?: boolean | null;
@@ -550,7 +550,7 @@ export type CompetitionMatchDto = {
     associationUuid?: string | null;
     team1Description?: string | null;
     team2Description?: string | null;
-    results?: VolleyballMatchResultsDto | unknown | null;
+    results?: VolleyballMatchResultsDto;
     matchGroupUuid?: string | null;
     competitionUuid?: string | null;
     indefinitelyRescheduled?: boolean | null;
@@ -672,7 +672,7 @@ export type LeagueMatchDto = {
     decidingMatch?: boolean | null;
     gameReassessed?: boolean | null;
     host?: string | null;
-    referees?: RefereeTeamDto | unknown | null;
+    referees?: RefereeTeamDto;
     spectators?: number | null;
     netDuration?: number | null;
     verified?: boolean | null;
@@ -681,7 +681,7 @@ export type LeagueMatchDto = {
     associationUuid?: string | null;
     team1Description?: string | null;
     team2Description?: string | null;
-    results?: VolleyballMatchResultsDto | unknown | null;
+    results?: VolleyballMatchResultsDto;
     matchDayUuid?: string | null;
     leagueUuid?: string | null;
     indefinitelyRescheduled?: boolean | null;
