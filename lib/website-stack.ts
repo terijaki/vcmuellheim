@@ -36,7 +36,7 @@ export class WebsiteStack extends cdk.Stack {
 		const branchSuffix = branch ? `-${branch}` : "";
 		const isProd = environment === "prod";
 		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
-		const websiteDomain = isProd ? Club.domain : `${envPrefix}${Club.domain}`;
+		const websiteDomain = isProd ? Club.domain : `${envPrefix ? `${envPrefix}.` : ""}new.${Club.domain}`;
 
 		// S3 Bucket for website static files
 		this.bucket = new s3.Bucket(this, "WebsiteBucket", {
