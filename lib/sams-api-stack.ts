@@ -4,7 +4,6 @@ import * as apigatewayv2 from "aws-cdk-lib/aws-apigatewayv2";
 import { HttpLambdaIntegration } from "aws-cdk-lib/aws-apigatewayv2-integrations";
 import type * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
-import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
@@ -327,33 +326,48 @@ export class SamsApiStack extends cdk.Stack {
 			});
 		};
 
-		// Helper to create origin request policy
-		const createOriginPolicy = (name: string) => {
-			return new cloudfront.OriginRequestPolicy(this, `SamsApi${name}OriginPolicy`, {
-				originRequestPolicyName: `sams-api-${name.toLowerCase()}-origin-${environment}${branchSuffix}`,
-				headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList("Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"),
-				queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(), // Always forward all to Lambda
-				cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
-			});
-		};
-
-		// Helper to create behavior for a path
-		const createBehavior = (name: string, queryParams: string[], ttl: { default: cdk.Duration; max: cdk.Duration }) => {
-			return {
-				// CloudFront origin should always be the API Gateway endpoint, not the custom domain
-				origin: new origins.HttpOrigin(api.apiEndpoint.replace(/^https?:\/\//, "")),
-				viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-				cachePolicy: createCachePolicy(name, queryParams, ttl),
-				allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
-				cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
-				originRequestPolicy: createOriginPolicy(name),
-				responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.CORS_ALLOW_ALL_ORIGINS_WITH_PREFLIGHT,
-			};
-		};
+		// Use a single shared origin request policy for all behaviors
+		const sharedOriginPolicy = new cloudfront.OriginRequestPolicy(this, "SamsApiSharedOriginPolicy", {
+			originRequestPolicyName: `sams-api-shared-origin-${environment}${branchSuffix}`,
+			headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList("Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"),
+			queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
+			cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
+		});
 
 		// TTL configurations
 		const LIVE_DATA_TTL = { default: cdk.Duration.minutes(5), max: cdk.Duration.hours(1) };
 		const STATIC_DATA_TTL = { default: cdk.Duration.hours(12), max: cdk.Duration.days(7) };
+
+		// Extract domain from API endpoint (removes https:// prefix)
+		// We need to do this in CloudFormation using Fn::Select and Fn::Split
+		const apiGatewayDomain = cdk.Fn.select(2, cdk.Fn.split("/", api.apiEndpoint));
+
+		// Use L1 construct to have full control over origin configuration
+		const apiGatewayOrigin: cloudfront.IOrigin = {
+			bind: (_scope: cdk.Stack, _options: cloudfront.OriginBindOptions): cloudfront.OriginBindConfig => {
+				return {
+					originProperty: {
+						id: `ApiGatewayOrigin-${environment}${branchSuffix}`,
+						domainName: apiGatewayDomain,
+						customOriginConfig: {
+							originProtocolPolicy: cloudfront.OriginProtocolPolicy.HTTPS_ONLY,
+							originSslProtocols: [cloudfront.OriginSslPolicy.TLS_V1_2],
+						},
+					},
+				};
+			},
+		}; // Helper to create behavior for a path
+		const createBehavior = (name: string, queryParams: string[], ttl: { default: cdk.Duration; max: cdk.Duration }) => {
+			return {
+				origin: apiGatewayOrigin, // Reuse the same origin for all behaviors
+				viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+				cachePolicy: createCachePolicy(name, queryParams, ttl),
+				allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+				cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
+				originRequestPolicy: sharedOriginPolicy, // Use shared policy for all behaviors
+				responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.CORS_ALLOW_ALL_ORIGINS_WITH_PREFLIGHT,
+			};
+		};
 
 		// Create HTTP API Gateway routes
 		// HTTP API V2 uses simple route definitions instead of resources + methods
