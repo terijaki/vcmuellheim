@@ -51,7 +51,7 @@ const dnsStack = new DnsStack(app, dnsStackName, {
 	description: `DNS & Route53 (${environment}${branchSuffix})`,
 	hostedZoneId: DNS.hostedZoneId,
 	hostedZoneName: DNS.hostedZoneName,
-	certificateArn: DNS.certificateArn,
+	regionalCertificateArn: DNS.certificateArn,
 	cloudFrontCertificateArn: DNS.cloudFrontCertificateArn,
 });
 
@@ -78,7 +78,8 @@ const samsApiStack = new SamsApiStack(app, samsStackName, {
 	...commonStackProps,
 	description: `SAMS API Services (${environment}${branchSuffix})`,
 	hostedZone: dnsStack.hostedZone,
-	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
+	regionalCertificate: dnsStack.regionalCertificate, // API Gateway cert (eu-central-1)
+	cloudFrontCertificate: dnsStack.cloudFrontCertificate, // CloudFront cert (us-east-1)
 });
 
 new ApiStack(app, apiStackName, {
@@ -102,7 +103,7 @@ new ApiStack(app, apiStackName, {
 	cloudFrontUrl: mediaStack.cloudFrontUrl,
 	cmsUrl: cmsStack.cmsUrl,
 	hostedZone: dnsStack.hostedZone,
-	certificate: dnsStack.certificate,
+	regionalCertificate: dnsStack.regionalCertificate,
 });
 
 new SocialMediaStack(app, socialMediaStackName, {

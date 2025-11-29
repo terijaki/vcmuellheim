@@ -27,7 +27,7 @@ interface ApiStackProps extends cdk.StackProps {
 	cloudFrontUrl?: string;
 	cmsUrl?: string;
 	hostedZone: route53.IHostedZone;
-	certificate: acm.ICertificate;
+	regionalCertificate: acm.ICertificate;
 }
 
 export class ApiStack extends cdk.Stack {
@@ -290,7 +290,7 @@ export class ApiStack extends cdk.Stack {
 		// Custom domain for API
 		this.apiDomainName = new apigatewayv2.DomainName(this, "ApiDomainName", {
 			domainName: apiDomain,
-			certificate: props.certificate,
+			certificate: props.regionalCertificate,
 		});
 
 		// Build explicit allowed origins for CORS. When `allowCredentials` is

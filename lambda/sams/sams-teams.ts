@@ -8,6 +8,12 @@ import { TeamItemSchema, TeamResponseSchema, TeamsResponseSchema } from "./types
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
 
+const corsHeaders = {
+	"Access-Control-Allow-Origin": "http://localhost:3080",
+	"Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-trpc-source",
+	"Access-Control-Allow-Methods": "GET,OPTIONS",
+};
+
 const TEAMS_TABLE_NAME = process.env.TEAMS_TABLE_NAME;
 const SAMS_API_KEY = process.env.SAMS_API_KEY;
 
@@ -24,8 +30,8 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 			return {
 				statusCode: 500,
 				headers: {
+					...corsHeaders,
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "*",
 					"Cache-Control": "no-cache", // Don't cache errors
 				},
 				body: JSON.stringify({ error: "Server configuration error." }),
@@ -59,6 +65,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 					return {
 						statusCode: 200,
 						headers: {
+							...corsHeaders,
 							"Content-Type": "application/json",
 							"Cache-Control": "public, max-age=43200", // 12 hours cache
 						},
@@ -68,7 +75,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
 				return {
 					statusCode: 404,
-					headers: { "Content-Type": "application/json" },
+					headers: { ...corsHeaders, "Content-Type": "application/json" },
 					body: JSON.stringify({ error: "Team not found" }),
 				};
 			}
@@ -80,6 +87,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 			return {
 				statusCode: 200,
 				headers: {
+					...corsHeaders,
 					"Content-Type": "application/json",
 					"Cache-Control": "public, max-age=43200", // 12 hours cache (synced every 24h at 3 AM, max 12h stale)
 				},
@@ -125,6 +133,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 		return {
 			statusCode: 200,
 			headers: {
+				...corsHeaders,
 				"Content-Type": "application/json",
 				"Cache-Control": "public, max-age=43200", // 12 hours cache (synced every 24h at 3 AM, max 12h stale)
 			},
@@ -134,7 +143,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 		console.error("Error querying teams:", error);
 		return {
 			statusCode: 500,
-			headers: { "Content-Type": "application/json" },
+			headers: { ...corsHeaders, "Content-Type": "application/json" },
 			body: JSON.stringify({ error: "Internal server error" }),
 		};
 	}

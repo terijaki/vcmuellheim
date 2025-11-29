@@ -1,6 +1,7 @@
 import * as path from "node:path";
 import * as cdk from "aws-cdk-lib";
-import * as apigateway from "aws-cdk-lib/aws-apigateway";
+import * as apigatewayv2 from "aws-cdk-lib/aws-apigatewayv2";
+import { HttpLambdaIntegration } from "aws-cdk-lib/aws-apigatewayv2-integrations";
 import type * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
@@ -12,6 +13,7 @@ import * as nodejs from "aws-cdk-lib/aws-lambda-nodejs";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import type { Construct } from "constructs";
+import { Club } from "@/project.config";
 
 interface SamsApiStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -19,10 +21,9 @@ interface SamsApiStackProps extends cdk.StackProps {
 		branch: string;
 	};
 	hostedZone?: route53.IHostedZone;
+	regionalCertificate?: acm.ICertificate;
 	cloudFrontCertificate?: acm.ICertificate;
 }
-
-// ...existing code...
 
 export class SamsApiStack extends cdk.Stack {
 	public readonly cloudFrontUrl: string;
@@ -38,18 +39,39 @@ export class SamsApiStack extends cdk.Stack {
 		const branchSuffix = branch ? `-${branch}` : "";
 		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
 
-		// Create API Gateway
-		const api = new apigateway.RestApi(this, "SamsApi", {
-			restApiName: `SAMS API Proxy (${environment}${branchSuffix})`,
+		const allowedOriginsSet = new Set<string>();
+		allowedOriginsSet.add(Club.url);
+		allowedOriginsSet.add(`https://new.${Club.domain}`);
+		allowedOriginsSet.add(`https://${envPrefix}admin.new.${Club.domain}`);
+		if (!isProd) {
+			allowedOriginsSet.add("http://localhost:3081"); // CMS dev server
+			allowedOriginsSet.add("http://localhost:3080"); // Website dev server
+		}
+		const allowedOrigins = Array.from(allowedOriginsSet);
+
+		// Custom domain for API Gateway
+		const samsDomain = `${envPrefix}sams.new.vcmuellheim.de`;
+
+		// Create HTTP API Gateway (V2) with custom domain
+		const apiDomainName =
+			props?.hostedZone && props?.regionalCertificate
+				? new apigatewayv2.DomainName(this, "SamsApiDomainName", {
+						domainName: samsDomain,
+						certificate: props.regionalCertificate,
+					})
+				: undefined;
+
+		const api = new apigatewayv2.HttpApi(this, "SamsHttpApi", {
+			apiName: `SAMS API Proxy (${environment}${branchSuffix})`,
 			description: `API proxy for SAMS volleyball data - ${environment}${branchSuffix}`,
-			defaultCorsPreflightOptions: {
-				allowOrigins: apigateway.Cors.ALL_ORIGINS,
-				allowMethods: apigateway.Cors.ALL_METHODS,
-				allowHeaders: ["Content-Type", "X-Amz-Date", "Authorization", "X-Api-Key", "x-trpc-source"],
-			},
-			deployOptions: {
-				stageName: "v1",
-				// No API Gateway caching - CloudFront handles all caching based on Lambda Cache-Control headers
+			...(apiDomainName ? { defaultDomainMapping: { domainName: apiDomainName } } : {}),
+			corsPreflight: {
+				allowOrigins: allowedOrigins,
+				allowMethods: [apigatewayv2.CorsHttpMethod.GET, apigatewayv2.CorsHttpMethod.POST, apigatewayv2.CorsHttpMethod.OPTIONS],
+				allowHeaders: ["content-type", "x-api-key", "authorization", "x-trpc-source"],
+				exposeHeaders: ["content-type"],
+				allowCredentials: false,
+				maxAge: cdk.Duration.hours(1),
 			},
 		});
 
@@ -293,233 +315,122 @@ export class SamsApiStack extends cdk.Stack {
 		// Add teams Lambda as target for EventBridge rule
 		teamsSyncRule.addTarget(new targets.LambdaFunction(samsTeamsSync));
 
-		// Create API Gateway resources
-		const samsResource = api.root;
-		// const samsResource = api.root.addResource("sams");
+		// Helper to create cache policy for SAMS API endpoints
+		const createCachePolicy = (name: string, queryParams: string[], ttl: { default: cdk.Duration; max: cdk.Duration }) => {
+			return new cloudfront.CachePolicy(this, `SamsApi${name}CachePolicy`, {
+				cachePolicyName: `sams-api-${name.toLowerCase()}-cache-${environment}${branchSuffix}`,
+				defaultTtl: ttl.default,
+				maxTtl: ttl.max,
+				minTtl: cdk.Duration.seconds(0),
+				queryStringBehavior: queryParams.length > 0 ? cloudfront.CacheQueryStringBehavior.allowList(...queryParams) : cloudfront.CacheQueryStringBehavior.none(),
+				headerBehavior: cloudfront.CacheHeaderBehavior.allowList("Authorization", "X-Api-Key", "Origin", "Access-Control-Request-Headers", "Access-Control-Request-Method"),
+			});
+		};
 
-		// GET /sams/matches
-		const matchesResource = samsResource.addResource("matches");
-		matchesResource.addMethod(
-			"GET",
-			new apigateway.LambdaIntegration(samsLeagueMatches, {
-				cacheKeyParameters: [
-					"method.request.querystring.league",
-					"method.request.querystring.season",
-					"method.request.querystring.sportsclub",
-					"method.request.querystring.team",
-					"method.request.querystring.limit",
-					"method.request.querystring.range",
-				],
-			}),
-			{
-				requestParameters: {
-					"method.request.querystring.league": false,
-					"method.request.querystring.season": false,
-					"method.request.querystring.sportsclub": false,
-					"method.request.querystring.team": false,
-					"method.request.querystring.limit": false,
-					"method.request.querystring.range": false,
-				},
-				methodResponses: [
-					{
-						statusCode: "200",
-						responseParameters: {
-							"method.response.header.Cache-Control": true,
-							"method.response.header.Access-Control-Allow-Origin": true,
-							"method.response.header.Access-Control-Allow-Headers": true,
-							"method.response.header.Access-Control-Allow-Methods": true,
-						},
-					},
-				],
-			},
-		);
+		// Helper to create origin request policy
+		const createOriginPolicy = (name: string) => {
+			return new cloudfront.OriginRequestPolicy(this, `SamsApi${name}OriginPolicy`, {
+				originRequestPolicyName: `sams-api-${name.toLowerCase()}-origin-${environment}${branchSuffix}`,
+				headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList("Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"),
+				queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(), // Always forward all to Lambda
+				cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
+			});
+		};
 
-		// GET /sams/seasons
-		const seasonsResource = samsResource.addResource("seasons");
-		seasonsResource.addMethod("GET", new apigateway.LambdaIntegration(samsSeasons), {
-			methodResponses: [
-				{
-					statusCode: "200",
-					responseParameters: {
-						"method.response.header.Cache-Control": true,
-						"method.response.header.Access-Control-Allow-Origin": true,
-						"method.response.header.Access-Control-Allow-Headers": true,
-						"method.response.header.Access-Control-Allow-Methods": true,
-					},
-				},
-			],
+		// Helper to create behavior for a path
+		const createBehavior = (name: string, queryParams: string[], ttl: { default: cdk.Duration; max: cdk.Duration }) => {
+			return {
+				// CloudFront origin should always be the API Gateway endpoint, not the custom domain
+				origin: new origins.HttpOrigin(api.apiEndpoint.replace(/^https?:\/\//, "")),
+				viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+				cachePolicy: createCachePolicy(name, queryParams, ttl),
+				allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+				cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
+				originRequestPolicy: createOriginPolicy(name),
+				responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.CORS_ALLOW_ALL_ORIGINS_WITH_PREFLIGHT,
+			};
+		};
+
+		// TTL configurations
+		const LIVE_DATA_TTL = { default: cdk.Duration.minutes(5), max: cdk.Duration.hours(1) };
+		const STATIC_DATA_TTL = { default: cdk.Duration.hours(12), max: cdk.Duration.days(7) };
+
+		// Create HTTP API Gateway routes
+		// HTTP API V2 uses simple route definitions instead of resources + methods
+
+		// GET /matches
+		api.addRoutes({
+			path: "/matches",
+			methods: [apigatewayv2.HttpMethod.GET],
+			integration: new HttpLambdaIntegration("MatchesIntegration", samsLeagueMatches),
 		});
 
-		// GET /sams/rankings/{leagueUuid}
-		const rankingsResource = samsResource.addResource("rankings");
-		const rankingsByLeague = rankingsResource.addResource("{leagueUuid}");
-		rankingsByLeague.addMethod("GET", new apigateway.LambdaIntegration(samsRankings), {
-			methodResponses: [
-				{
-					statusCode: "200",
-					responseParameters: {
-						"method.response.header.Cache-Control": true,
-						"method.response.header.Access-Control-Allow-Origin": true,
-						"method.response.header.Access-Control-Allow-Headers": true,
-						"method.response.header.Access-Control-Allow-Methods": true,
-					},
-				},
-			],
+		// GET /seasons
+		api.addRoutes({
+			path: "/seasons",
+			methods: [apigatewayv2.HttpMethod.GET],
+			integration: new HttpLambdaIntegration("SeasonsIntegration", samsSeasons),
 		});
 
-		// GET /sams/associations and GET /sams/associations/{uuid}
-		const associationsResource = samsResource.addResource("associations");
-		associationsResource.addMethod(
-			"GET",
-			new apigateway.LambdaIntegration(samsAssociations, {
-				cacheKeyParameters: ["method.request.querystring.name"],
-			}),
-			{
-				requestParameters: {
-					"method.request.querystring.name": false,
-				},
-				methodResponses: [
-					{
-						statusCode: "200",
-						responseParameters: {
-							"method.response.header.Access-Control-Allow-Origin": true,
-							"method.response.header.Access-Control-Allow-Headers": true,
-							"method.response.header.Access-Control-Allow-Methods": true,
-						},
-					},
-				],
-			},
-		);
-
-		const associationsByUuid = associationsResource.addResource("{uuid}");
-		associationsByUuid.addMethod("GET", new apigateway.LambdaIntegration(samsAssociations), {
-			methodResponses: [
-				{
-					statusCode: "200",
-					responseParameters: {
-						"method.response.header.Access-Control-Allow-Origin": true,
-						"method.response.header.Access-Control-Allow-Headers": true,
-						"method.response.header.Access-Control-Allow-Methods": true,
-					},
-				},
-			],
+		// GET /rankings/{leagueUuid}
+		api.addRoutes({
+			path: "/rankings/{leagueUuid}",
+			methods: [apigatewayv2.HttpMethod.GET],
+			integration: new HttpLambdaIntegration("RankingsIntegration", samsRankings),
 		});
 
-		// GET /sams/clubs and GET /sams/clubs/{uuid}
-		const clubsResource = samsResource.addResource("clubs");
-		clubsResource.addMethod(
-			"GET",
-			new apigateway.LambdaIntegration(samsClubs, {
-				cacheKeyParameters: ["method.request.querystring.name"],
-			}),
-			{
-				requestParameters: {
-					"method.request.querystring.name": false,
-				},
-				methodResponses: [
-					{
-						statusCode: "200",
-						responseParameters: {
-							"method.response.header.Cache-Control": true,
-							"method.response.header.Access-Control-Allow-Origin": true,
-							"method.response.header.Access-Control-Allow-Headers": true,
-							"method.response.header.Access-Control-Allow-Methods": true,
-						},
-					},
-				],
-			},
-		);
-
-		const clubsByUuid = clubsResource.addResource("{uuid}");
-		clubsByUuid.addMethod("GET", new apigateway.LambdaIntegration(samsClubs), {
-			methodResponses: [
-				{
-					statusCode: "200",
-					responseParameters: {
-						"method.response.header.Cache-Control": true,
-						"method.response.header.Access-Control-Allow-Origin": true,
-						"method.response.header.Access-Control-Allow-Headers": true,
-						"method.response.header.Access-Control-Allow-Methods": true,
-					},
-				},
-			],
+		// GET /associations and GET /associations/{uuid}
+		api.addRoutes({
+			path: "/associations",
+			methods: [apigatewayv2.HttpMethod.GET],
+			integration: new HttpLambdaIntegration("AssociationsListIntegration", samsAssociations),
 		});
 
-		// GET /sams/teams and GET /sams/teams/{uuid}
-		const teamsResource = samsResource.addResource("teams");
-		teamsResource.addMethod(
-			"GET",
-			new apigateway.LambdaIntegration(samsTeams, {
-				cacheKeyParameters: ["method.request.querystring.name"],
-			}),
-			{
-				requestParameters: {
-					"method.request.querystring.name": false,
-				},
-				methodResponses: [
-					{
-						statusCode: "200",
-						responseParameters: {
-							"method.response.header.Cache-Control": true,
-							"method.response.header.Access-Control-Allow-Origin": true,
-							"method.response.header.Access-Control-Allow-Headers": true,
-							"method.response.header.Access-Control-Allow-Methods": true,
-						},
-					},
-				],
-			},
-		);
-
-		const teamsByUuid = teamsResource.addResource("{uuid}");
-		teamsByUuid.addMethod("GET", new apigateway.LambdaIntegration(samsTeams), {
-			methodResponses: [
-				{
-					statusCode: "200",
-					responseParameters: {
-						"method.response.header.Cache-Control": true,
-						"method.response.header.Access-Control-Allow-Origin": true,
-						"method.response.header.Access-Control-Allow-Headers": true,
-						"method.response.header.Access-Control-Allow-Methods": true,
-					},
-				},
-			],
+		api.addRoutes({
+			path: "/associations/{uuid}",
+			methods: [apigatewayv2.HttpMethod.GET],
+			integration: new HttpLambdaIntegration("AssociationsDetailIntegration", samsAssociations),
 		});
 
-		// Custom domain for CloudFront
-		const samsDomain = `${envPrefix}sams.new.vcmuellheim.de`;
+		// GET /clubs and GET /clubs/{uuid}
+		api.addRoutes({
+			path: "/clubs",
+			methods: [apigatewayv2.HttpMethod.GET],
+			integration: new HttpLambdaIntegration("ClubsListIntegration", samsClubs),
+		});
+
+		api.addRoutes({
+			path: "/clubs/{uuid}",
+			methods: [apigatewayv2.HttpMethod.GET],
+			integration: new HttpLambdaIntegration("ClubsDetailIntegration", samsClubs),
+		});
+
+		// GET /teams and GET /teams/{uuid}
+		api.addRoutes({
+			path: "/teams",
+			methods: [apigatewayv2.HttpMethod.GET],
+			integration: new HttpLambdaIntegration("TeamsListIntegration", samsTeams),
+		});
+
+		api.addRoutes({
+			path: "/teams/{uuid}",
+			methods: [apigatewayv2.HttpMethod.GET],
+			integration: new HttpLambdaIntegration("TeamsDetailIntegration", samsTeams),
+		});
 
 		// Create CloudFront distribution for caching
 		const distribution = new cloudfront.Distribution(this, "SamsApiDistribution", {
-			defaultBehavior: {
-				origin: new origins.RestApiOrigin(api),
-				viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-				cachePolicy: new cloudfront.CachePolicy(this, "SamsApiCachePolicy", {
-					cachePolicyName: `sams-api-cache-policy-${environment}${branchSuffix}`,
-					defaultTtl: cdk.Duration.minutes(5), // Default for live data (matches, rankings)
-					maxTtl: cdk.Duration.days(7), // Max 7 days for static data (clubs synced weekly)
-					minTtl: cdk.Duration.seconds(0),
-					queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
-					headerBehavior: cloudfront.CacheHeaderBehavior.allowList(
-						"Authorization",
-						"X-Api-Key",
-						"Origin",
-						"Access-Control-Request-Headers",
-						"Access-Control-Request-Method"
-					),
-				}),
-				allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
-				cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
-				originRequestPolicy: new cloudfront.OriginRequestPolicy(this, "SamsApiOriginRequestPolicy", {
-					originRequestPolicyName: `sams-api-origin-policy-${environment}${branchSuffix}`,
-					comment: "Forward all headers and methods needed for CORS preflight",
-					headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
-						"Origin",
-						"Access-Control-Request-Method",
-						"Access-Control-Request-Headers"
-					),
-					queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
-					cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
-				}),
+			defaultBehavior: createBehavior("Default", [], STATIC_DATA_TTL),
+			// Path-specific cache behaviors for endpoints that use query parameters
+			additionalBehaviors: {
+				"/matches": createBehavior("Matches", ["league", "season", "sportsclub", "team", "limit", "range"], LIVE_DATA_TTL),
+				"/rankings/*": createBehavior("Rankings", [], LIVE_DATA_TTL),
+				"/clubs": createBehavior("Clubs", ["name", "slug"], STATIC_DATA_TTL),
+				"/clubs/*": createBehavior("ClubsDetail", [], STATIC_DATA_TTL),
+				"/teams": createBehavior("Teams", ["name", "slug"], STATIC_DATA_TTL),
+				"/teams/*": createBehavior("TeamsDetail", [], STATIC_DATA_TTL),
+				"/associations": createBehavior("Associations", ["name"], STATIC_DATA_TTL),
+				"/associations/*": createBehavior("AssociationsDetail", [], STATIC_DATA_TTL),
 			},
 			priceClass: cloudfront.PriceClass.PRICE_CLASS_100, // Only US, Canada, Europe
 			comment: `SAMS API CloudFront Distribution (${environment}${branchSuffix})`,
@@ -545,7 +456,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Outputs
 		new cdk.CfnOutput(this, "ApiGatewayUrl", {
-			value: api.url,
+			value: api.apiEndpoint,
 			description: "API Gateway URL",
 		});
 

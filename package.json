@@ -49,7 +49,6 @@
 		"dev": "next dev -p 3080",
 		"dev:website": "bun --filter @vcmuellheim/website dev",
 		"dev:cms": "bun --filter @vcmuellheim/cms dev",
-		"build": "next build",
 		"build:website": "bun --filter @vcmuellheim/website build",
 		"build:cms": "bun --filter @vcmuellheim/cms build",
 		"start": "node server.js",
