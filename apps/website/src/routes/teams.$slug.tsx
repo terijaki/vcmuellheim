@@ -99,7 +99,6 @@ function TeamMatches({ team }: { team: NonNullable<ReturnType<typeof useTeamBySl
 
 	const { data: matches, isLoading: isLoadingMatches } = useSamsMatches({
 		team: samsTeam?.uuid,
-		league: samsTeam?.leagueUuid,
 	});
 
 	const currentMonth = dayjs().month() + 1;

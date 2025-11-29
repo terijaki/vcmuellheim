@@ -50,26 +50,26 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			};
 		}
 
-		let leagueName:string|undefined
-		let seasonName:string|undefined
+		let leagueName: string | undefined;
+		let seasonName: string | undefined;
 
-		const {data: leagueData} = await getLeagueByUuid({
+		const { data: leagueData } = await getLeagueByUuid({
 			path: { uuid: leagueUuid },
 			headers: {
 				"X-API-Key": SAMS_API_KEY,
 			},
 		});
-		if(leagueData?.name) leagueName=leagueData.name
+		if (leagueData?.name) leagueName = leagueData.name;
 
-		if(leagueData?.seasonUuid) {
-		const {data:seasonData} = await getSeasonByUuid({
-			path: { uuid: leagueData.seasonUuid},
-			headers: {
-				"X-API-Key": SAMS_API_KEY,
-			},
-		});
-		if(seasonData?.name) seasonName=seasonData.name
-	}
+		if (leagueData?.seasonUuid) {
+			const { data: seasonData } = await getSeasonByUuid({
+				path: { uuid: leagueData.seasonUuid },
+				headers: {
+					"X-API-Key": SAMS_API_KEY,
+				},
+			});
+			if (seasonData?.name) seasonName = seasonData.name;
+		}
 
 		const result = RankingResponseSchema.parse({
 			teams: data.content,

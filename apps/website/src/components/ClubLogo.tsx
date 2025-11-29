@@ -10,7 +10,6 @@ export default function ClubLogo({ clubUuid, teamName, light }: { clubUuid?: str
 	const clubLogoUrl = clubByName?.logoImageLink || clubById?.logoImageLink;
 	const logoName = clubByName?.name || clubById?.name || teamName || "Vereinlogo";
 
-
 	if (clubLogoUrl) {
 		return (
 			<Flex justify="center" align="center" w={24} h={24} style={{ flexShrink: 0 }}>
@@ -31,7 +30,7 @@ export default function ClubLogo({ clubUuid, teamName, light }: { clubUuid?: str
 	}
 	// }
 
-	return <ClubLogoFallback  />;
+	return <ClubLogoFallback />;
 }
 
 export function ClubLogoFallback() {

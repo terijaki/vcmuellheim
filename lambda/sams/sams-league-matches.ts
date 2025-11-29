@@ -89,6 +89,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 		if (league) defaultQueryParams["for-league"] = league;
 		if (season) defaultQueryParams["for-season"] = season;
 		if (sportsclub) defaultQueryParams["for-sportsclub"] = sportsclub;
+		if (team) defaultQueryParams["for-team"] = team;
 		// Fetch all matches with pagination
 		const allMatches: Omit<LeagueMatchDto, "_links">[] = [];
 		let currentPage = 0;

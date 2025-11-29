@@ -67,7 +67,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
 		// Fetch matches from SAMS API
 		const queryParams: string[] = [];
-		if (teamSamsUuid) queryParams.push(`for-team=${teamSamsUuid}`);
+		if (teamSamsUuid) queryParams.push(`team=${teamSamsUuid}`);
 		const queryString = queryParams.length > 0 ? `?${queryParams.join("&")}` : "";
 
 		const response = await fetch(`${SAMS_API_URL}/matches${queryString}`);
