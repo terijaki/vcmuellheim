@@ -3,7 +3,7 @@ import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { type ReactNode, useRef, useState } from "react";
 import superjson from "superjson";
 import type { AppRouter } from "@/lib/trpc";
-import { createQueryClient, getApiUrl } from "../../../shared";
+import { buildServiceUrl, createQueryClient } from "../../../shared";
 import { TRPCProvider } from "../../../shared/lib/trpc-config";
 import { useAuth } from "../auth/AuthContext";
 
@@ -19,7 +19,7 @@ export function TrpcProvider({ children }: { children: ReactNode }) {
 		createTRPCClient<AppRouter>({
 			links: [
 				httpBatchLink({
-					url: getApiUrl(),
+					url: buildServiceUrl("api", "/api"),
 					transformer: superjson,
 					headers() {
 						return tokenRef.current ? { Authorization: `Bearer ${tokenRef.current}` } : {};
