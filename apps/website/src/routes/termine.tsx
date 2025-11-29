@@ -73,13 +73,26 @@ function EventsContent() {
 }
 
 function MatchesContent() {
-	const { data: matches, isLoading } = useSamsMatches({ range: "future" });
+	const { data: matches, isLoading, error } = useSamsMatches({ range: "future" });
 
 	const currentMonth = dayjs().month() + 1;
 	const isOffSeason = currentMonth >= 5 && currentMonth <= 9;
 
+	// Debug logging
+	console.log("MatchesContent:", { matches, isLoading, error, matchCount: matches?.matches?.length });
+
 	if (isLoading) {
 		return <CenteredLoader text="Lade Ligaspiele..." />;
+	}
+
+	if (error) {
+		console.error("Error loading matches:", error);
+		return (
+			<Card>
+				<CardTitle>Fehler beim Laden der SBVV Ligaspiele</CardTitle>
+				<Text>Die Spieltermine konnten nicht geladen werden. Bitte versuche es später erneut.</Text>
+			</Card>
+		);
 	}
 
 	if (matches?.matches && matches.matches.length > 0) {
