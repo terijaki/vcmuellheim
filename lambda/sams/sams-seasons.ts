@@ -15,8 +15,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 				statusCode: 500,
 				headers: {
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "*",
-					"Cache-Control": "no-cache", // Don't cache errors
+					"Cache-Control": "no-cache",
 				},
 				body: JSON.stringify({ error: "Server configuration error." }),
 			};
@@ -32,8 +31,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 				statusCode: 404,
 				headers: {
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "*",
-					"Cache-Control": "public, max-age=300", // Cache 404s briefly (5 minutes)
+					"Cache-Control": "public, max-age=300",
 				},
 				body: JSON.stringify({ error: "No seasons found" }),
 			};
@@ -46,8 +44,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 				statusCode: 404,
 				headers: {
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "*",
-					"Cache-Control": "public, max-age=300", // Cache 404s briefly (5 minutes)
+					"Cache-Control": "public, max-age=300",
 				},
 				body: JSON.stringify({ error: "No current season found" }),
 			};
@@ -65,8 +62,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			statusCode: 200,
 			headers: {
 				"Content-Type": "application/json",
-				"Access-Control-Allow-Origin": "*",
-				"Cache-Control": "public, max-age=43200", // 12 hours cache (seasons rarely change)
+				"Cache-Control": "public, max-age=43200",
 			},
 			body: JSON.stringify(result),
 		};
@@ -76,8 +72,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			statusCode: 500,
 			headers: {
 				"Content-Type": "application/json",
-				"Access-Control-Allow-Origin": "*",
-				"Cache-Control": "no-cache", // Don't cache errors
+				"Cache-Control": "no-cache",
 			},
 			body: JSON.stringify({ error: "Internal server error" }),
 		};

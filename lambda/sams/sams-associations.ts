@@ -13,8 +13,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 				statusCode: 500,
 				headers: {
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "*",
-					"Cache-Control": "no-cache", // Don't cache errors
+					"Cache-Control": "no-cache",
 				},
 				body: JSON.stringify({ error: "Server configuration error." }),
 			};
@@ -37,7 +36,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 					statusCode: response.status,
 					headers: {
 						"Content-Type": "application/json",
-						"Access-Control-Allow-Origin": "*",
 					},
 					body: JSON.stringify({
 						error: `Error fetching association with UUID: ${uuid}`,
@@ -50,8 +48,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 					statusCode: 200,
 					headers: {
 						"Content-Type": "application/json",
-						"Access-Control-Allow-Origin": "*",
-						"Cache-Control": "public, max-age=86400", // Cache for 24 hours (expensive external API)
+						"Cache-Control": "public, max-age=86400",
 					},
 					body: JSON.stringify({
 						association: data,
@@ -64,7 +61,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 				statusCode: 404,
 				headers: {
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "*",
 				},
 				body: JSON.stringify({ error: "Association not found" }),
 			};
@@ -87,7 +83,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 					statusCode: response.status,
 					headers: {
 						"Content-Type": "application/json",
-						"Access-Control-Allow-Origin": "*",
 					},
 					body: JSON.stringify({
 						error: `Error fetching associations page ${currentPage}`,
@@ -115,7 +110,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 					statusCode: 404,
 					headers: {
 						"Content-Type": "application/json",
-						"Access-Control-Allow-Origin": "*",
 					},
 					body: JSON.stringify({
 						error: `Association with name '${name}' not found`,
@@ -127,8 +121,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 				statusCode: 200,
 				headers: {
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "*",
-					"Cache-Control": "public, max-age=86400", // Cache for 24 hours (expensive external API)
+					"Cache-Control": "public, max-age=86400",
 				},
 				body: JSON.stringify({
 					association: desiredAssociation,
@@ -142,8 +135,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			statusCode: 200,
 			headers: {
 				"Content-Type": "application/json",
-				"Access-Control-Allow-Origin": "*",
-				"Cache-Control": "public, max-age=86400", // Cache for 24 hours (expensive external API)
+				"Cache-Control": "public, max-age=86400",
 			},
 			body: JSON.stringify({
 				associations: allAssociations,
@@ -158,7 +150,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			statusCode: 500,
 			headers: {
 				"Content-Type": "application/json",
-				"Access-Control-Allow-Origin": "*",
 			},
 			body: JSON.stringify({
 				error: "Failed to fetch associations",

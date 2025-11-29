@@ -21,7 +21,6 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 			statusCode: 500,
 			headers: {
 				"Content-Type": "application/json",
-				"Access-Control-Allow-Origin": "*",
 			},
 			body: JSON.stringify({ error: "CLUBS_TABLE_NAME environment variable is not set" }),
 		};
@@ -47,7 +46,6 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 					statusCode: 404,
 					headers: {
 						"Content-Type": "application/json",
-						"Access-Control-Allow-Origin": "*",
 					},
 					body: JSON.stringify({ error: "Club not found" }),
 				};
@@ -57,8 +55,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 				statusCode: 200,
 				headers: {
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "*",
-					"Cache-Control": "public, max-age=259200", // 3 days cache (synced weekly Wed 2 AM, max 3 days stale)
+					"Cache-Control": "public, max-age=259200",
 				},
 				body: JSON.stringify(ClubResponseSchema.parse(result.Item)),
 			};
@@ -66,15 +63,15 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
 		// Check if filtering by name query parameter
 		if (name) {
-			// Query by name using nameSlug GSI (case-insensitive)
+			// Query by name using nameSlug GSI with prefix matching (case-insensitive)
 			const slugifiedName = slugify(name);
-			console.log(`🔍 Querying club by name: ${name} (slug: ${slugifiedName})`);
+			console.log(`🔍 Querying club by name prefix: ${name} (slug: ${slugifiedName})`);
 
 			const result = await docClient.send(
 				new QueryCommand({
 					TableName: TABLE_NAME,
 					IndexName: "GSI-SamsClubQueries",
-					KeyConditionExpression: "#type = :type AND nameSlug = :nameSlug",
+					KeyConditionExpression: "#type = :type AND begins_with(nameSlug, :nameSlug)",
 					ExpressionAttributeNames: {
 						"#type": "type",
 					},
@@ -90,21 +87,37 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 					statusCode: 404,
 					headers: {
 						"Content-Type": "application/json",
-						"Access-Control-Allow-Origin": "*",
 					},
 					body: JSON.stringify({ error: "Club not found" }),
 				};
 			}
 
-			// Return first match (names should be unique)
+			// Return first match if exact match, otherwise all prefix matches
+			const exactMatch = result.Items.find((item) => item.nameSlug === slugifiedName);
+			if (exactMatch) {
+				return {
+					statusCode: 200,
+					headers: {
+						"Content-Type": "application/json",
+						"Cache-Control": "public, max-age=259200",
+					},
+					body: JSON.stringify(ClubResponseSchema.parse(exactMatch)),
+				};
+			}
+
+			// Return all prefix matches
 			return {
 				statusCode: 200,
 				headers: {
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "*",
-					"Cache-Control": "public, max-age=259200", // 3 days cache (synced weekly Wed 2 AM, max 3 days stale)
+					"Cache-Control": "public, max-age=259200",
 				},
-				body: JSON.stringify(ClubResponseSchema.parse(result.Items[0])),
+				body: JSON.stringify(
+					ClubsResponseSchema.parse({
+						clubs: result.Items.map((item) => ClubResponseSchema.parse(item)),
+						count: result.Items.length,
+					}),
+				),
 			};
 		}
 
@@ -121,8 +134,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 			statusCode: 200,
 			headers: {
 				"Content-Type": "application/json",
-				"Access-Control-Allow-Origin": "*",
-				"Cache-Control": "public, max-age=259200", // 3 days cache (synced weekly Wed 2 AM, max 3 days stale)
+				"Cache-Control": "public, max-age=259200",
 			},
 			body: JSON.stringify(
 				ClubsResponseSchema.parse({
@@ -137,7 +149,6 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 			statusCode: 500,
 			headers: {
 				"Content-Type": "application/json",
-				"Access-Control-Allow-Origin": "*",
 			},
 			body: JSON.stringify({
 				error: "Internal server error",

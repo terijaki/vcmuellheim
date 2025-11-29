@@ -4,7 +4,7 @@ import { slugify } from "../../../../utils/slugify";
 import { useSamsClubByNameSlug, useSamsClubByUuid } from "../lib/hooks";
 
 export default function ClubLogo({ clubUuid, teamName, light }: { clubUuid?: string; teamName?: string; light?: boolean }) {
-	const teamSlug = slugify(teamName || "").slice(0, -3);
+	const teamSlug = slugify(teamName?.replace(/\s+\d+$/, "") || "");
 	const { data: clubByName } = useSamsClubByNameSlug(teamSlug);
 	const { data: clubById } = useSamsClubByUuid(clubUuid);
 	const clubLogoUrl = clubByName?.logoImageLink || clubById?.logoImageLink;
