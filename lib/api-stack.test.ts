@@ -1,7 +1,9 @@
 import { describe, it } from "bun:test";
 import { App, Stack } from "aws-cdk-lib";
-import { Template } from "aws-cdk-lib/assertions";
+import { Match, Template } from "aws-cdk-lib/assertions";
+import * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
+import * as route53 from "aws-cdk-lib/aws-route53";
 import { ApiStack } from "./api-stack";
 
 // Helper to create mock DynamoDB tables in the same stack
@@ -58,6 +60,18 @@ function createMockTables(stack: Stack, env: string) {
 	};
 }
 
+// Helper to create mock DNS resources
+function createMockDnsResources(stack: Stack) {
+	const hostedZone = route53.HostedZone.fromHostedZoneAttributes(stack, "MockHostedZone", {
+		hostedZoneId: "Z1234567890ABC",
+		zoneName: "new.vcmuellheim.de",
+	});
+
+	const regionalCertificate = acm.Certificate.fromCertificateArn(stack, "MockRegionalCertificate", "arn:aws:acm:eu-central-1:123456789012:certificate/test-cert-id");
+
+	return { hostedZone, regionalCertificate };
+}
+
 describe("ApiStack", () => {
 	describe("Development environment", () => {
 		it("should create stack with correct resources", () => {
@@ -70,6 +84,7 @@ describe("ApiStack", () => {
 			});
 
 			const mockTables = createMockTables(stack, "dev");
+			const mockDns = createMockDnsResources(stack);
 
 			const apiStack = new ApiStack(app, "ApiTestStack", {
 				env: {
@@ -81,6 +96,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDns,
 			});
 
 			const template = Template.fromStack(apiStack);
@@ -91,20 +107,21 @@ describe("ApiStack", () => {
 			// Should have User Pool Client
 			template.resourceCountIs("AWS::Cognito::UserPoolClient", 1);
 
-			// Should have Lambda function
-			template.resourceCountIs("AWS::Lambda::Function", 1);
+			// Should have 2 Lambda functions (tRPC API + ICS calendar)
+			template.resourceCountIs("AWS::Lambda::Function", 2);
 
 			// Should have HTTP API
 			template.resourceCountIs("AWS::ApiGatewayV2::Api", 1);
 
 			// Should have API routes
-			template.resourceCountIs("AWS::ApiGatewayV2::Route", 2); // GET and POST
+			template.resourceCountIs("AWS::ApiGatewayV2::Route", 5); // 2 for /api/{proxy+}, 1 for /ics/{teamSlug}, 2 for /{proxy+}
 		});
 
 		it("should set correct removal policy for dev", () => {
 			const app = new App();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
+			const mockDns = createMockDnsResources(mockStack);
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -112,6 +129,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDns,
 			});
 
 			const template = Template.fromStack(stack);
@@ -126,6 +144,7 @@ describe("ApiStack", () => {
 			const app = new App();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev-feature-xyz");
+			const mockDns = createMockDnsResources(mockStack);
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -133,6 +152,7 @@ describe("ApiStack", () => {
 					branch: "feature-xyz",
 				},
 				contentDbStack: mockTables,
+				...mockDns,
 			});
 
 			const template = Template.fromStack(stack);
@@ -154,6 +174,7 @@ describe("ApiStack", () => {
 			const app = new App();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "prod");
+			const mockDns = createMockDnsResources(mockStack);
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -161,6 +182,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDns,
 			});
 
 			const template = Template.fromStack(stack);
@@ -175,6 +197,7 @@ describe("ApiStack", () => {
 			const app = new App();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "prod");
+			const mockDns = createMockDnsResources(mockStack);
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -182,6 +205,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDns,
 			});
 
 			const template = Template.fromStack(stack);
@@ -195,6 +219,7 @@ describe("ApiStack", () => {
 			const app = new App();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "prod");
+			const mockDns = createMockDnsResources(mockStack);
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -202,6 +227,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDns,
 			});
 
 			const template = Template.fromStack(stack);
@@ -225,6 +251,7 @@ describe("ApiStack", () => {
 			const app = new App();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
+			const mockDns = createMockDnsResources(mockStack);
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -232,6 +259,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDns,
 			});
 
 			const template = Template.fromStack(stack);
@@ -246,6 +274,7 @@ describe("ApiStack", () => {
 			const app = new App();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
+			const mockDns = createMockDnsResources(mockStack);
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -253,6 +282,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDns,
 			});
 
 			const template = Template.fromStack(stack);
@@ -268,6 +298,7 @@ describe("ApiStack", () => {
 			const app = new App();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
+			const mockDns = createMockDnsResources(mockStack);
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -275,6 +306,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDns,
 			});
 
 			const template = Template.fromStack(stack);
@@ -290,6 +322,7 @@ describe("ApiStack", () => {
 			const app = new App();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
+			const mockDns = createMockDnsResources(mockStack);
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -297,16 +330,18 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDns,
 			});
 
 			const template = Template.fromStack(stack);
 
 			// Check that environment variables exist (table names are references)
 			const lambdas = template.findResources("AWS::Lambda::Function");
-			const lambda = Object.values(lambdas)[0] as {
+			const trpcLambda = Object.values(lambdas).find((lambda) => (lambda as { Properties?: { FunctionName?: string } }).Properties?.FunctionName === "vcm-trpc-api-dev") as {
 				Properties: { Environment: { Variables: Record<string, unknown> } };
 			};
-			const env = lambda.Properties.Environment.Variables;
+
+			const env = trpcLambda.Properties.Environment.Variables;
 
 			// Verify all required environment variables are present
 			if (
@@ -333,6 +368,7 @@ describe("ApiStack", () => {
 			const app = new App();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
+			const mockDns = createMockDnsResources(mockStack);
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -340,6 +376,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDns,
 			});
 
 			const template = Template.fromStack(stack);
@@ -347,9 +384,9 @@ describe("ApiStack", () => {
 			template.hasResourceProperties("AWS::ApiGatewayV2::Api", {
 				Name: "vcm-trpc-api-dev",
 				CorsConfiguration: {
-					AllowOrigins: ["*"],
+					AllowOrigins: Match.arrayWith(["https://vcmuellheim.de"]),
 					AllowMethods: ["GET", "POST", "OPTIONS"],
-					AllowCredentials: false,
+					AllowCredentials: true,
 				},
 			});
 		});
@@ -358,6 +395,7 @@ describe("ApiStack", () => {
 			const app = new App();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
+			const mockDns = createMockDnsResources(mockStack);
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -365,6 +403,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDns,
 			});
 
 			const template = Template.fromStack(stack);

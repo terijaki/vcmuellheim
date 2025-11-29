@@ -195,28 +195,28 @@
 
 ### Tasks:
 
-1. [ ] **Create Vite + React App**
+1. [x] **Create Vite + React App**
    - ✅ Initialize new Vite project (`apps/website/`)
    - ✅ Set up TanStack Router for client-side routing
-   - ⏳ Migrate existing components (already have many reusable ones)
-   - Keep Mantine UI library
+   - ✅ Migrate existing components (already have many reusable ones)
+   - ✅ Keep Mantine UI library
 
-2. [ ] **Data Fetching**
-   - Replace Next.js server components with client-side fetching
+2. [x] **Data Fetching**
+   - ✅ Replace Next.js server components with client-side fetching
    - ✅ Use TanStack Query (React Query) for caching and state management (inside TanStack Router loader?)
    - ✅ Create API client for Lambda/API Gateway endpoints
-   - Consider ISR alternative: CloudFront cache with Lambda@Edge for dynamic data
+   - ✅ Consider ISR alternative: CloudFront cache with Lambda@Edge for dynamic data
 
-3. [ ] **Routing Migration**
-   - Map existing Next.js routes to React Router routes:
-     - `/` → Home
-     - `/news` → News list
-     - `/news/[slug]` → News detail
-     - `/teams` → Teams overview
-     - `/termine` → Events
-     - `/fotos` → Photo gallery
-     - etc.
-   - IMPORTANT: Handle the ICS endpoints. e.g. webcal://vcmuellheim.de/ics/all.ics, webcal://vcmuellheim.de/ics/herren1.ics
+3. [x] **Routing Migration**
+   - ✅ Map existing Next.js routes to React Router routes:
+     - ✅ `/` → Home
+     - ✅ `/news` → News list
+     - ✅ `/news/[slug]` → News detail
+     - ✅ `/teams` → Teams overview
+     - ✅ `/termine` → Events
+     - ✅ `/fotos` → Photo gallery
+     - ✅ etc.
+   - ✅ IMPORTANT: Handle the ICS endpoints. e.g. webcal://vcmuellheim.de/ics/all.ics, webcal://vcmuellheim.de/ics/herren1.ics
 
 4. [ ] **Build & Optimization**
    - Code splitting with React.lazy
@@ -233,11 +233,11 @@
      - robots.txt
 
 6. [ ] **Deploy Frontend**
-   - Build production bundle
-   - Upload to S3 bucket
-   - Configure CloudFront distribution
+   - ✅ Build production bundle
+   - ✅ Upload to S3 bucket
+   - ✅ Configure CloudFront distribution
    - Set up cache behaviors (long cache for assets, short for HTML)
-   - Custom domain (vcmuellheim.de)
+   - ⏳ Custom domain (vcmuellheim.de) (temporarily using new.vcmuellheim.de)
    - SSL certificate via ACM
 
 ---

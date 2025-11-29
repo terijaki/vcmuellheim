@@ -1,6 +1,6 @@
 import { beforeAll, describe, it } from "bun:test";
 import { App } from "aws-cdk-lib";
-import { Template } from "aws-cdk-lib/assertions";
+import { Match, Template } from "aws-cdk-lib/assertions";
 import { SocialMediaStack } from "./social-media-stack";
 
 // Set required environment variables before tests
@@ -25,17 +25,14 @@ describe("SocialMediaStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Should have API Gateway
-			template.resourceCountIs("AWS::ApiGateway::RestApi", 1);
+			// Should have HTTP API (ApiGatewayV2)
+			template.resourceCountIs("AWS::ApiGatewayV2::Api", 1);
 
 			// Should have 2 Lambda functions
 			template.resourceCountIs("AWS::Lambda::Function", 2);
 
 			// Should have 1 DynamoDB table
 			template.resourceCountIs("AWS::DynamoDB::Table", 1);
-
-			// Should have CloudFront distribution
-			template.resourceCountIs("AWS::CloudFront::Distribution", 1);
 
 			// Should have EventBridge rule for daily sync
 			template.resourceCountIs("AWS::Events::Rule", 1);
@@ -225,7 +222,7 @@ describe("SocialMediaStack", () => {
 		});
 	});
 
-	describe("API Gateway", () => {
+	describe("HTTP API Gateway", () => {
 		it("should configure CORS", () => {
 			const app = new App();
 			const stack = new SocialMediaStack(app, "TestStack", {
@@ -237,12 +234,17 @@ describe("SocialMediaStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			template.hasResourceProperties("AWS::ApiGateway::RestApi", {
+			template.hasResourceProperties("AWS::ApiGatewayV2::Api", {
 				Name: "Social Media API (dev)",
+				CorsConfiguration: {
+					AllowOrigins: Match.arrayWith(["https://vcmuellheim.de"]),
+					AllowMethods: ["GET", "POST", "OPTIONS"],
+					AllowCredentials: false,
+				},
 			});
 		});
 
-		it("should create instagram resource endpoint", () => {
+		it("should create instagram route", () => {
 			const app = new App();
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
@@ -253,53 +255,11 @@ describe("SocialMediaStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Should have resources (root + instagram)
-			template.resourceCountIs("AWS::ApiGateway::Resource", 1);
+			// Should have routes
+			template.resourceCountIs("AWS::ApiGatewayV2::Route", 1);
 
-			// Should have methods (GET + OPTIONS + ANY for CORS)
-			template.resourceCountIs("AWS::ApiGateway::Method", 3);
-		});
-	});
-
-	describe("CloudFront distribution", () => {
-		it("should create distribution with correct cache policy", () => {
-			const app = new App();
-			const stack = new SocialMediaStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			template.hasResourceProperties("AWS::CloudFront::CachePolicy", {
-				CachePolicyConfig: {
-					DefaultTTL: 3600, // 1 hour
-					MaxTTL: 86400, // 1 day
-					MinTTL: 0,
-				},
-			});
-		});
-
-		it("should redirect HTTP to HTTPS", () => {
-			const app = new App();
-			const stack = new SocialMediaStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			template.hasResourceProperties("AWS::CloudFront::Distribution", {
-				DistributionConfig: {
-					DefaultCacheBehavior: {
-						ViewerProtocolPolicy: "redirect-to-https",
-					},
-					PriceClass: "PriceClass_100",
-				},
+			template.hasResourceProperties("AWS::ApiGatewayV2::Route", {
+				RouteKey: "GET /instagram",
 			});
 		});
 	});

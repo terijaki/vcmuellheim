@@ -26,17 +26,14 @@ describe("SamsApiStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Should have API Gateway
-			template.resourceCountIs("AWS::ApiGateway::RestApi", 1);
+			// Should have HTTP API (ApiGatewayV2)
+			template.resourceCountIs("AWS::ApiGatewayV2::Api", 1);
 
 			// Should have 8 Lambda functions
 			template.resourceCountIs("AWS::Lambda::Function", 8);
 
 			// Should have 2 DynamoDB tables
 			template.resourceCountIs("AWS::DynamoDB::Table", 2);
-
-			// Should have CloudFront distribution
-			template.resourceCountIs("AWS::CloudFront::Distribution", 1);
 
 			// Should have 2 EventBridge rules (for nightly syncs)
 			template.resourceCountIs("AWS::Events::Rule", 2);
@@ -166,8 +163,8 @@ describe("SamsApiStack", () => {
 		});
 	});
 
-	describe("DynamoDB tables", () => {
-		it("should create clubs table with correct GSIs", () => {
+		describe("DynamoDB tables", () => {
+		it("should create clubs table with correct GSI", () => {
 			const app = new App();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {
@@ -178,14 +175,14 @@ describe("SamsApiStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Clubs table should have 3 GSIs
+			// Clubs table should have GSI-SamsClubQueries
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
 				TableName: "sams-clubs-dev",
-				GlobalSecondaryIndexes: [{ IndexName: "associationUuid-index" }, { IndexName: "name-index" }, { IndexName: "nameSlug-index" }],
+				GlobalSecondaryIndexes: [{ IndexName: "GSI-SamsClubQueries" }],
 			});
 		});
 
-		it("should create teams table with correct GSIs", () => {
+		it("should create teams table with correct GSI", () => {
 			const app = new App();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {
@@ -196,14 +193,12 @@ describe("SamsApiStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Teams table should have 3 GSIs
+			// Teams table should have GSI-SamsTeamQueries
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
 				TableName: "sams-teams-dev",
-				GlobalSecondaryIndexes: [{ IndexName: "sportsclubUuid-index" }, { IndexName: "leagueUuid-index" }, { IndexName: "nameSlug-index" }],
+				GlobalSecondaryIndexes: [{ IndexName: "GSI-SamsTeamQueries" }],
 			});
-		});
-
-		it("should enable TTL on both tables", () => {
+		});		it("should enable TTL on both tables", () => {
 			const app = new App();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {

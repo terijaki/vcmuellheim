@@ -1,4 +1,5 @@
 import path from "node:path";
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import tanstackRouter from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
@@ -7,7 +8,15 @@ import { getSanitizedBranch } from "../../utils/git";
 const sanitizedBranch = getSanitizedBranch();
 
 export default defineConfig({
-	plugins: [tanstackRouter(), react()],
+	plugins: [
+		tanstackRouter(),
+		react(),
+		sentryVitePlugin({
+			org: "volleyballclub-mullheim-ev",
+			project: "volleyball-website",
+			authToken: process.env.SENTRY_AUTH_TOKEN,
+		}),
+	],
 	define: {
 		// Inject Git branch at build time
 		"import.meta.env.VITE_GIT_BRANCH": JSON.stringify(sanitizedBranch),

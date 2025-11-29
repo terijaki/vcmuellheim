@@ -1,6 +1,6 @@
 import { describe, it } from "bun:test";
 import { App } from "aws-cdk-lib";
-import { Template } from "aws-cdk-lib/assertions";
+import { Match, Template } from "aws-cdk-lib/assertions";
 import { ContentDbStack } from "./content-db-stack";
 
 describe("ContentDbStack", () => {
@@ -213,10 +213,10 @@ describe("ContentDbStack", () => {
 				TableName: "vcm-events-dev",
 				GlobalSecondaryIndexes: [
 					{
-						IndexName: "GSI-StartDate",
+						IndexName: "GSI-EventQueries",
 						KeySchema: [
 							{
-								AttributeName: "status",
+								AttributeName: "type",
 								KeyType: "HASH",
 							},
 							{
@@ -231,7 +231,7 @@ describe("ContentDbStack", () => {
 	});
 
 	describe("Teams table", () => {
-		it("should have multiple GSIs", () => {
+		it("should have GSI for team queries", () => {
 			const app = new App();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: {
@@ -242,15 +242,18 @@ describe("ContentDbStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Teams table should have 3 GSIs
-			const tables = template.findResources("AWS::DynamoDB::Table");
-			const teamsTable = Object.values(tables).find((table) => (table as { Properties: { TableName: string } }).Properties.TableName === "vcm-teams-dev") as
-				| { Properties: { GlobalSecondaryIndexes?: unknown[] } }
-				| undefined;
-
-			if (!teamsTable || !teamsTable.Properties.GlobalSecondaryIndexes || teamsTable.Properties.GlobalSecondaryIndexes.length !== 3) {
-				throw new Error("Teams table should have 3 GSIs");
-			}
+			// Teams table should have GSI-TeamQueries with composite sort keys
+			template.hasResourceProperties("AWS::DynamoDB::Table", {
+				TableName: "vcm-teams-dev",
+				GlobalSecondaryIndexes: [
+					{
+						IndexName: "GSI-TeamQueries",
+						KeySchema: Match.arrayWith([
+							{ AttributeName: "type", KeyType: "HASH" },
+						]),
+					},
+				],
+			});
 		});
 	});
 

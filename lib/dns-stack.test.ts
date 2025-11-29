@@ -7,10 +7,10 @@ describe("DnsStack", () => {
 	const testProps = {
 		hostedZoneId: "Z1234567890ABC",
 		hostedZoneName: "new.vcmuellheim.de",
-		certificateArn: "arn:aws:acm:eu-central-1:123456789012:certificate/test-cert-id",
+		regionalCertificateArn: "arn:aws:acm:eu-central-1:123456789012:certificate/test-cert-id",
 	};
 
-	it("should create stack without any resources", () => {
+	it("should create stack without any new resources", () => {
 		const app = new App();
 		const stack = new DnsStack(app, "TestStack", testProps);
 
@@ -46,11 +46,11 @@ describe("DnsStack", () => {
 		const stack = new DnsStack(app, "TestStack", testProps);
 
 		// Access the imported certificate
-		const certificate = stack.certificate;
+		const certificate = stack.regionalCertificate;
 
 		// Verify certificate ARN
-		if (certificate.certificateArn !== testProps.certificateArn) {
-			throw new Error(`Expected certificate ARN ${testProps.certificateArn}, got ${certificate.certificateArn}`);
+		if (certificate.certificateArn !== testProps.regionalCertificateArn) {
+			throw new Error(`Expected certificate ARN ${testProps.regionalCertificateArn}, got ${certificate.certificateArn}`);
 		}
 	});
 
@@ -93,7 +93,7 @@ describe("DnsStack", () => {
 
 		const template = Template.fromStack(stack);
 
-		// Should have outputs for hosted zone, certificate, and CloudFront certificate
+		// Should have outputs for hosted zone, regional certificate, and CloudFront certificate
 		const outputs = template.findOutputs("*");
 		const outputKeys = Object.keys(outputs);
 
@@ -101,8 +101,8 @@ describe("DnsStack", () => {
 			throw new Error("Expected HostedZoneId output");
 		}
 
-		if (!outputKeys.includes("CertificateArn")) {
-			throw new Error("Expected CertificateArn output");
+		if (!outputKeys.includes("RegionalCertificateArn")) {
+			throw new Error("Expected RegionalCertificateArn output");
 		}
 
 		if (!outputKeys.includes("CloudFrontCertificateArn")) {
