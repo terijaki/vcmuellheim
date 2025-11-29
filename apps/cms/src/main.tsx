@@ -9,9 +9,21 @@ import { RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "dayjs/locale/de";
+import * as Sentry from "@sentry/react";
 import { AuthProvider, useAuth } from "./auth/AuthContext";
 import { TrpcProvider } from "./lib/TrpcProvider";
 import { router } from "./router";
+
+// Initialize Sentry
+Sentry.init({
+	dsn: "https://fa39728bab836eac8258598505b891fe@o4509428230979584.ingest.de.sentry.io/4509428234322000",
+	tracesSampleRate: 1,
+	debug: false,
+	environment: import.meta.env.VITE_CDK_ENVIRONMENT || "development",
+	integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration(), Sentry.tanstackRouterBrowserTracingIntegration(router)],
+	replaysSessionSampleRate: 0.1,
+	replaysOnErrorSampleRate: 1.0,
+});
 
 const theme = createTheme({
 	colors: {

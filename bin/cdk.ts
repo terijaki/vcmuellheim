@@ -10,6 +10,7 @@ import { DnsStack } from "../lib/dns-stack";
 import { MediaStack } from "../lib/media-stack";
 import { SamsApiStack } from "../lib/sams-api-stack";
 import { SocialMediaStack } from "../lib/social-media-stack";
+import { WebsiteStack } from "../lib/website-stack";
 
 const app = new cdk.App();
 
@@ -22,6 +23,7 @@ const branchSuffix = branch ? `-${branch}` : "";
 // Environment-specific configuration
 const contentDbStackName = isProd ? `ContentDbStack-Prod${branchSuffix}` : `ContentDbStack-Dev${branchSuffix}`;
 const mediaStackName = isProd ? `MediaStack-Prod${branchSuffix}` : `MediaStack-Dev${branchSuffix}`;
+const websiteStackName = isProd ? `WebsiteStack-Prod${branchSuffix}` : `WebsiteStack-Dev${branchSuffix}`;
 const cmsStackName = isProd ? `CmsStack-Prod${branchSuffix}` : `CmsStack-Dev${branchSuffix}`;
 const apiStackName = isProd ? `ApiStack-Prod${branchSuffix}` : `ApiStack-Dev${branchSuffix}`;
 const samsStackName = isProd ? `SamsApiStack-Prod${branchSuffix}` : `SamsApiStack-Dev${branchSuffix}`;
@@ -70,6 +72,13 @@ const mediaStack = new MediaStack(app, mediaStackName, {
 const cmsStack = new CmsStack(app, cmsStackName, {
 	...commonStackProps,
 	description: `Admin CMS (S3 + CloudFront) (${environment}${branchSuffix})`,
+	hostedZone: dnsStack.hostedZone,
+	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
+});
+
+const websiteStack = new WebsiteStack(app, websiteStackName, {
+	...commonStackProps,
+	description: `Public Website (S3 + CloudFront) (${environment}${branchSuffix})`,
 	hostedZone: dnsStack.hostedZone,
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
 });
