@@ -22,6 +22,7 @@ import { Route as BusRouteImport } from './routes/bus'
 import { Route as BrandRouteImport } from './routes/brand'
 import { Route as BeitragsordnungRouteImport } from './routes/beitragsordnung'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TermineIndexRouteImport } from './routes/termine.index'
 import { Route as NewsIndexRouteImport } from './routes/news.index'
 import { Route as TermineIdRouteImport } from './routes/termine.$id'
 import { Route as TeamsSlugRouteImport } from './routes/teams.$slug'
@@ -92,6 +93,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TermineIndexRoute = TermineIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TermineRoute,
+} as any)
 const NewsIndexRoute = NewsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -131,6 +137,7 @@ export interface FileRoutesByFullPath {
   '/teams/$slug': typeof TeamsSlugRoute
   '/termine/$id': typeof TermineIdRoute
   '/news/': typeof NewsIndexRoute
+  '/termine/': typeof TermineIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -144,11 +151,11 @@ export interface FileRoutesByTo {
   '/satzung': typeof SatzungRoute
   '/tabelle': typeof TabelleRoute
   '/teams': typeof TeamsRouteWithChildren
-  '/termine': typeof TermineRouteWithChildren
   '/news/$id': typeof NewsIdRoute
   '/teams/$slug': typeof TeamsSlugRoute
   '/termine/$id': typeof TermineIdRoute
   '/news': typeof NewsIndexRoute
+  '/termine': typeof TermineIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -169,6 +176,7 @@ export interface FileRoutesById {
   '/teams/$slug': typeof TeamsSlugRoute
   '/termine/$id': typeof TermineIdRoute
   '/news/': typeof NewsIndexRoute
+  '/termine/': typeof TermineIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -190,6 +198,7 @@ export interface FileRouteTypes {
     | '/teams/$slug'
     | '/termine/$id'
     | '/news/'
+    | '/termine/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -203,11 +212,11 @@ export interface FileRouteTypes {
     | '/satzung'
     | '/tabelle'
     | '/teams'
-    | '/termine'
     | '/news/$id'
     | '/teams/$slug'
     | '/termine/$id'
     | '/news'
+    | '/termine'
   id:
     | '__root__'
     | '/'
@@ -227,6 +236,7 @@ export interface FileRouteTypes {
     | '/teams/$slug'
     | '/termine/$id'
     | '/news/'
+    | '/termine/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -338,6 +348,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/termine/': {
+      id: '/termine/'
+      path: '/'
+      fullPath: '/termine/'
+      preLoaderRoute: typeof TermineIndexRouteImport
+      parentRoute: typeof TermineRoute
+    }
     '/news/': {
       id: '/news/'
       path: '/'
@@ -393,10 +410,12 @@ const TeamsRouteWithChildren = TeamsRoute._addFileChildren(TeamsRouteChildren)
 
 interface TermineRouteChildren {
   TermineIdRoute: typeof TermineIdRoute
+  TermineIndexRoute: typeof TermineIndexRoute
 }
 
 const TermineRouteChildren: TermineRouteChildren = {
   TermineIdRoute: TermineIdRoute,
+  TermineIndexRoute: TermineIndexRoute,
 }
 
 const TermineRouteWithChildren =
