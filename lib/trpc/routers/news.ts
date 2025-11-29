@@ -85,6 +85,7 @@ export const newsRouter = router({
 				.object({
 					limit: z.number().min(1).max(100).optional().default(20),
 					cursor: z.record(z.string(), z.unknown()).optional(),
+					shuffle: z.boolean().optional().default(true),
 				})
 				.optional(),
 		)
@@ -100,8 +101,20 @@ export const newsRouter = router({
 				}
 			}
 
+			// Shuffle if requested (default true)
+			let finalKeys = imageS3Keys;
+			if (input?.shuffle !== false) {
+				// Fisher-Yates shuffle
+				const shuffled = [...imageS3Keys];
+				for (let i = shuffled.length - 1; i > 0; i--) {
+					const j = Math.floor(Math.random() * (i + 1));
+					[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+				}
+				finalKeys = shuffled;
+			}
+
 			return {
-				imageS3Keys,
+				imageS3Keys: finalKeys,
 				nextCursor: result.lastEvaluatedKey,
 			};
 		}),
