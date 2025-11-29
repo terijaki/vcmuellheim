@@ -69,7 +69,7 @@ async function seedInstagramPosts() {
 		{
 			id: "C234567890",
 			entityType: "POST",
-			timestamp: dayjs().subtract(5, "days").toISOString(),
+			timestamp: dayjs().subtract(1, "days").toISOString(),
 			type: "Video",
 			ownerFullName: "VC Müllheim",
 			ownerUsername: "vcmuellheim",
@@ -88,7 +88,7 @@ async function seedInstagramPosts() {
 		{
 			id: "C345678901",
 			entityType: "POST",
-			timestamp: dayjs().subtract(8, "days").toISOString(),
+			timestamp: dayjs().subtract(3, "days").toISOString(),
 			type: "Image",
 			ownerFullName: "VC Müllheim",
 			ownerUsername: "vcmuellheim",
@@ -106,7 +106,7 @@ async function seedInstagramPosts() {
 		{
 			id: "C567890123",
 			entityType: "POST",
-			timestamp: dayjs().subtract(15, "days").toISOString(),
+			timestamp: dayjs().subtract(11, "days").toISOString(),
 			type: "Image",
 			ownerFullName: "VC Müllheim",
 			ownerUsername: "vcmuellheim",

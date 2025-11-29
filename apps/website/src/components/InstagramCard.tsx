@@ -1,13 +1,14 @@
 import { Card, CardSection, Grid, GridCol, Group, Image, Stack, Text } from "@mantine/core";
 import { useInViewport } from "@mantine/hooks";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaComment as IconComment, FaHeart as IconLike } from "react-icons/fa6";
 import type { InstagramPost } from "@/lambda/social/types";
 
 export default function InstagramCard(post: InstagramPost) {
 	const [isHovered, setIsHovered] = useState(false);
-	const { ref, inViewport } = useInViewport();
-	const [playCount, setPlayCount] = useState(0);
+	const { ref } = useInViewport();
+	const [videoLoaded, setVideoLoaded] = useState(false);
+	const videoRef = useRef<HTMLVideoElement>(null);
 
 	const {
 		id,
@@ -23,7 +24,51 @@ export default function InstagramCard(post: InstagramPost) {
 		videoUrl,
 	} = post;
 
-	const proxyImageUrl = displayUrl ? `/pimg?url=${encodeURIComponent(displayUrl)}` : "";
+	const shouldShowVideo = isHovered;
+
+	// Handle video playback on hover with user interaction requirement
+	const handleMouseEnter = () => {
+		setIsHovered(true);
+		// Try to play immediately on hover
+		if (videoRef.current && videoLoaded) {
+			videoRef.current.play().catch(() => {
+				// If autoplay fails, it will play on click instead
+			});
+		}
+	};
+
+	const handleVideoClick = (e: React.MouseEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+		if (videoRef.current) {
+			if (videoRef.current.paused) {
+				videoRef.current.play();
+			}
+		}
+	};
+
+	// Handle video playback state
+	useEffect(() => {
+		const video = videoRef.current;
+		if (!video) return;
+
+		if (!shouldShowVideo && !video.paused) {
+			video.pause();
+			video.currentTime = 0;
+		}
+	}, [shouldShowVideo]);
+
+	// Debug logging
+	useEffect(() => {
+		if (videoUrl && isHovered) {
+			console.log("Video state on hover:", {
+				id,
+				videoLoaded,
+				shouldShowVideo,
+				isHovered,
+			});
+		}
+	}, [videoUrl, videoLoaded, shouldShowVideo, isHovered, id]);
 
 	// fetch data dynamicallys based on instagram url in our teams
 
@@ -36,7 +81,7 @@ export default function InstagramCard(post: InstagramPost) {
 			rel="noopener noreferrer"
 			radius="md"
 			shadow="sm"
-			onMouseEnter={() => setIsHovered(true)}
+			onMouseEnter={handleMouseEnter}
 			onMouseLeave={() => setIsHovered(false)}
 			data-post-id={id}
 		>
@@ -45,22 +90,26 @@ export default function InstagramCard(post: InstagramPost) {
 					<GridCol span={4} pos="relative" style={{ overflow: "hidden" }}>
 						{videoUrl && (
 							<video
+								ref={videoRef}
 								src={videoUrl}
 								height="100%"
 								width="100%"
-								autoPlay
 								muted
 								loop
 								playsInline
-								poster={proxyImageUrl}
+								poster={displayUrl}
 								controls={false}
-								onTimeUpdate={(e) => {
-									const video = e.target as HTMLVideoElement;
-									if (video.currentTime === 0 && playCount > 0) {
-										setPlayCount(playCount + 1);
-									} else if (video.currentTime > 0 && playCount === 0) {
-										setPlayCount(1);
-									}
+								onClick={handleVideoClick}
+								onLoadedData={() => {
+									console.log("Video loaded successfully:", videoUrl);
+									setVideoLoaded(true);
+								}}
+								onError={(e) => {
+									console.error("Video failed to load:", videoUrl, e);
+									setVideoLoaded(false);
+								}}
+								onCanPlay={() => {
+									console.log("Video can play:", videoUrl);
 								}}
 								preload="auto"
 								style={{
@@ -71,13 +120,14 @@ export default function InstagramCard(post: InstagramPost) {
 									right: 0,
 									zIndex: 1,
 									objectFit: "cover",
-									opacity: playCount > 0 && (isHovered || (inViewport && playCount < 2)) ? 1 : 0,
+									opacity: shouldShowVideo && videoLoaded ? 1 : 0,
 									transition: "opacity 0.5s ease",
+									cursor: "pointer",
 								}}
 							/>
 						)}
 						<Image
-							src={proxyImageUrl}
+							src={displayUrl}
 							alt={""}
 							style={{
 								width: "100%",
@@ -85,6 +135,8 @@ export default function InstagramCard(post: InstagramPost) {
 								objectFit: "cover",
 								transition: "transform 0.5s ease",
 								transform: isHovered ? "scale(1.03)" : undefined,
+								position: "relative",
+								zIndex: 0,
 							}}
 						/>
 					</GridCol>

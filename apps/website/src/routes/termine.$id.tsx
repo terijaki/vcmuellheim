@@ -1,7 +1,7 @@
-import { Card, Center, Grid, GridCol, Stack, Text } from "@mantine/core";
+import { Badge, Card, Center, Container, Divider, Group, Stack, Text, ThemeIcon, Title } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
-import CardTitle from "../components/CardTitle";
+import { Calendar, Clock, Info, MapPin } from "lucide-react";
 import CenteredLoader from "../components/CenteredLoader";
 import PageWithHeading from "../components/layout/PageWithHeading";
 import SharingButton from "../components/SharingButton";
@@ -26,9 +26,16 @@ function RouteComponent() {
 	if (error || !event) {
 		return (
 			<PageWithHeading title="Veranstaltung nicht gefunden">
-				<Card>
-					<CardTitle>Veranstaltung nicht gefunden</CardTitle>
-					<Text>Diese Veranstaltung existiert nicht oder wurde entfernt.</Text>
+				<Card withBorder shadow="sm" p="xl">
+					<Center>
+						<Stack align="center" gap="md">
+							<ThemeIcon size={60} radius="xl" color="onyx" variant="light">
+								<Info size={36} />
+							</ThemeIcon>
+							<Title order={3}>Veranstaltung nicht gefunden</Title>
+							<Text c="dimmed">Diese Veranstaltung existiert nicht oder wurde entfernt.</Text>
+						</Stack>
+					</Center>
 				</Card>
 			</PageWithHeading>
 		);
@@ -37,49 +44,108 @@ function RouteComponent() {
 	const { title, startDate, endDate, description, location } = event;
 
 	// Format date display
-	let dateDisplay = dayjs(startDate).format("DD.MM.YYYY HH:mm [Uhr]");
-	if (endDate) {
-		const isSameDay = dayjs(startDate).isSame(dayjs(endDate), "day");
-		if (isSameDay) {
-			dateDisplay = `${dayjs(startDate).format("DD.MM.YYYY HH:mm")} bis ${dayjs(endDate).format("HH:mm [Uhr]")}`;
-		} else {
-			dateDisplay = `${dayjs(startDate).format("DD.MM.YYYY HH:mm [Uhr]")} - ${dayjs(endDate).format("DD.MM.YYYY HH:mm [Uhr]")}`;
-		}
-	}
+	const startDayjs = dayjs(startDate);
+	const endDayjs = endDate ? dayjs(endDate) : null;
+	const isSameDay = endDayjs ? startDayjs.isSame(endDayjs, "day") : true;
+
+	// Check if event is upcoming, ongoing, or past
+	const now = dayjs();
+	const isUpcoming = startDayjs.isAfter(now);
+	const isOngoing = endDayjs ? now.isAfter(startDayjs) && now.isBefore(endDayjs) : false;
+	const isPast = endDayjs ? endDayjs.isBefore(now) : startDayjs.isBefore(now);
 
 	return (
 		<PageWithHeading title={title} date={new Date(startDate)}>
-			<Stack gap="lg">
-				<Card>
-					<Grid gutter="lg">
-						<GridCol span={{ base: 12, sm: 5, md: 4 }}>
-							<Stack>
-								<Stack gap={0}>
-									<CardTitle>Zeit</CardTitle>
-									<Text>{dateDisplay}</Text>
+			<Container>
+				<Stack gap="lg">
+					<Card withBorder shadow="md" p="xl" radius="md">
+						<Stack gap="xl">
+							{/* Status Badge */}
+							<Group justify="space-between" align="flex-start">
+								<Group>
+									{isUpcoming && (
+										<Badge size="lg" variant="light" color="turquoise">
+											Bevorstehend
+										</Badge>
+									)}
+									{isOngoing && (
+										<Badge size="lg" variant="light" color="gamboge">
+											Läuft gerade
+										</Badge>
+									)}
+									{isPast && (
+										<Badge size="lg" variant="light" color="onyx">
+											Vergangen
+										</Badge>
+									)}
+								</Group>
+							</Group>
+							<Divider />
+							{/* Date and Time */}
+							<Group align="flex-start" wrap="nowrap">
+								<ThemeIcon size={42} radius="md" variant="light" color="blumine">
+									<Calendar size={24} />
+								</ThemeIcon>
+								<Stack gap={4} flex={1}>
+									<Text fw={600} size="sm" c="dimmed">
+										Datum & Uhrzeit
+									</Text>
+									<Text size="lg">{startDayjs.format("dddd, DD.MM.YYYY")}</Text>
+									<Group gap="xs">
+										<Clock size={16} style={{ opacity: 0.6 }} />
+										<Text size="md" c="dimmed">
+											{isSameDay && endDayjs
+												? `${startDayjs.format("HH:mm")} - ${endDayjs.format("HH:mm")} Uhr`
+												: endDayjs
+													? `${startDayjs.format("HH:mm")} Uhr - ${endDayjs.format("DD.MM.YYYY HH:mm")} Uhr`
+													: `${startDayjs.format("HH:mm")} Uhr`}
+										</Text>
+									</Group>
 								</Stack>
-								{location && (
-									<Stack gap={0}>
-										<CardTitle>Ort</CardTitle>
-										<Text>{location}</Text>
-									</Stack>
-								)}
-							</Stack>
-						</GridCol>
-						{description && (
-							<GridCol span={{ base: 12, sm: 7, md: 8 }}>
-								<Stack gap={0}>
-									<CardTitle>Beschreibung</CardTitle>
-									<Text style={{ whiteSpace: "pre-wrap" }}>{description}</Text>
-								</Stack>
-							</GridCol>
-						)}
-					</Grid>
-				</Card>
-				<Center>
-					<SharingButton label="Termin teilen" />
-				</Center>
-			</Stack>
+							</Group>
+							{/* Location */}
+							{location && (
+								<>
+									<Divider />
+									<Group align="flex-start" wrap="nowrap">
+										<ThemeIcon size={42} radius="md" variant="light" color="turquoise">
+											<MapPin size={24} />
+										</ThemeIcon>
+										<Stack gap={4} flex={1}>
+											<Text fw={600} size="sm" c="dimmed">
+												Veranstaltungsort
+											</Text>
+											<Text size="lg">{location}</Text>
+										</Stack>
+									</Group>
+								</>
+							)}
+							{/* Description */}
+							{description && (
+								<>
+									<Divider />
+									<Group align="flex-start" wrap="nowrap">
+										<ThemeIcon size={42} radius="md" variant="light" color="gamboge">
+											<Info size={24} />
+										</ThemeIcon>
+										<Stack gap={4} flex={1}>
+											<Text fw={600} size="sm" c="dimmed">
+												Beschreibung
+											</Text>
+											<Text size="md" style={{ whiteSpace: "pre-wrap" }}>
+												{description}
+											</Text>
+										</Stack>
+									</Group>
+								</>
+							)}
+						</Stack>
+					</Card>
+					<Center>
+						<SharingButton label="Termin teilen" />
+					</Center>
+				</Stack>
+			</Container>
 		</PageWithHeading>
 	);
 }
