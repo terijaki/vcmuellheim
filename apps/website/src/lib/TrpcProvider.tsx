@@ -3,7 +3,7 @@ import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { type ReactNode, useState } from "react";
 import superjson from "superjson";
 import type { AppRouter } from "@/lib/trpc";
-import { createQueryClient, getApiUrl, getAuthorizationHeader } from "../../../shared";
+import { buildServiceUrl, createQueryClient, getAuthorizationHeader } from "../../../shared";
 import { TRPCProvider } from "../../../shared/lib/trpc-config";
 
 export function TrpcProvider({ children }: { children: ReactNode }) {
@@ -12,7 +12,7 @@ export function TrpcProvider({ children }: { children: ReactNode }) {
 		createTRPCClient<AppRouter>({
 			links: [
 				httpBatchLink({
-					url: getApiUrl(),
+					url: buildServiceUrl("api", "/api"),
 					transformer: superjson,
 					headers() {
 						const token = localStorage.getItem("id_token");

@@ -76,7 +76,7 @@ const cmsStack = new CmsStack(app, cmsStackName, {
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
 });
 
-const websiteStack = new WebsiteStack(app, websiteStackName, {
+const _websiteStack = new WebsiteStack(app, websiteStackName, {
 	...commonStackProps,
 	description: `Public Website (S3 + CloudFront) (${environment}${branchSuffix})`,
 	hostedZone: dnsStack.hostedZone,
@@ -116,7 +116,7 @@ new ApiStack(app, apiStackName, {
 	regionalCertificate: dnsStack.regionalCertificate,
 });
 
-const socialMediaStack = new SocialMediaStack(app, socialMediaStackName, {
+const _socialMediaStack = new SocialMediaStack(app, socialMediaStackName, {
 	...commonStackProps,
 	description: `Social Media API Services (${environment}${branchSuffix})`,
 	hostedZone: dnsStack.hostedZone,

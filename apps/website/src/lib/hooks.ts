@@ -4,25 +4,10 @@
  */
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { getSamsApiUrl } from "@/apps/shared/lib/api-url";
+import { buildServiceUrl } from "@/apps/shared/lib/api-url";
 import { ClubResponseSchema, ClubsResponseSchema, LeagueMatchesResponseSchema, type RankingResponse, RankingResponseSchema, TeamsResponseSchema } from "@/lambda/sams/types";
 import type { InstagramPost } from "@/lambda/social/types";
 import { useTRPC } from "../../../shared/lib/trpc-config";
-
-/**
- * Get Social Media API URL based on environment
- */
-function getSocialApiUrl(): string {
-	if (typeof window === "undefined") return "";
-
-	const environment = import.meta.env.VITE_CDK_ENVIRONMENT || "dev";
-	const gitBranch = import.meta.env.VITE_GIT_BRANCH || "";
-	const isMainBranch = gitBranch === "main" || gitBranch === "";
-	const branch = isMainBranch ? "" : gitBranch;
-
-	const envPrefix = environment === "prod" ? "" : `${environment}${branch ? `-${branch}` : ""}-`;
-	return `https://${envPrefix}social.new.vcmuellheim.de`;
-}
 
 /**
  * Infinite query hook for published news articles
@@ -171,7 +156,7 @@ export const useRecentInstagramPosts = ({ days = 30 }: { days?: number } = {}) =
 	return useQuery({
 		queryKey: ["instagramPosts", days],
 		queryFn: async () => {
-			const socialApiUrl = getSocialApiUrl();
+			const socialApiUrl = buildServiceUrl("social");
 			const res = await fetch(`${socialApiUrl}/instagram`);
 			if (!res.ok) {
 				throw new Error("Failed to fetch Instagram posts");
@@ -190,7 +175,7 @@ export const useSamsTeams = () => {
 	return useQuery({
 		queryKey: ["samsTeams"],
 		queryFn: async () => {
-			const samsApiDomain = getSamsApiUrl();
+			const samsApiDomain = buildServiceUrl("sams");
 			const res = await fetch(`${samsApiDomain}/teams`);
 			if (!res.ok) {
 				throw new Error(`Failed to fetch SAMS teams`);
@@ -207,7 +192,7 @@ export const useSamsClubs = () => {
 	return useQuery({
 		queryKey: ["samsClubs"],
 		queryFn: async () => {
-			const samsApiDomain = getSamsApiUrl();
+			const samsApiDomain = buildServiceUrl("sams");
 			const res = await fetch(`${samsApiDomain}/clubs`);
 			if (!res.ok) {
 				throw new Error(`Failed to fetch SAMS clubs`);
@@ -224,7 +209,7 @@ export const useSamsClubByUuid = (sportsclubUuid?: string) => {
 	return useQuery({
 		queryKey: ["samsClub", sportsclubUuid],
 		queryFn: async () => {
-			const samsApiDomain = getSamsApiUrl();
+			const samsApiDomain = buildServiceUrl("sams");
 			const res = await fetch(`${samsApiDomain}/clubs/${sportsclubUuid}`);
 			if (!res.ok) {
 				throw new Error(`Failed to fetch SAMS club by uuid: ${sportsclubUuid}`);
@@ -242,7 +227,7 @@ export const useSamsClubByNameSlug = (nameSlug?: string) => {
 	return useQuery({
 		queryKey: ["samsClub", nameSlug],
 		queryFn: async () => {
-			const samsApiDomain = getSamsApiUrl();
+			const samsApiDomain = buildServiceUrl("sams");
 			const res = await fetch(`${samsApiDomain}/clubs?name=${nameSlug}`);
 			if (!res.ok) {
 				throw new Error(`Failed to fetch SAMS club by slug: ${nameSlug}`);
@@ -261,7 +246,7 @@ export const useSamsRankingsByLeagueUuid = (leagueUuids: string[]) => {
 	return useQuery({
 		queryKey: ["samsRankings", leagueUuids],
 		queryFn: async () => {
-			const samsApiDomain = getSamsApiUrl();
+			const samsApiDomain = buildServiceUrl("sams");
 			const results: RankingResponse[] = [];
 			for (const leagueUuid of leagueUuids) {
 				const res = await fetch(`${samsApiDomain}/rankings/${leagueUuid}`);
@@ -299,7 +284,7 @@ export const useSamsMatches = ({
 	return useQuery({
 		queryKey: ["samsMatches", league, season, sportsclub, team, limit, range],
 		queryFn: async () => {
-			const samsApiDomain = getSamsApiUrl();
+			const samsApiDomain = buildServiceUrl("sams");
 			const querys: string[] = [];
 			if (league) querys.push(`league=${league}`);
 			if (season) querys.push(`season=${season}`);

@@ -13,55 +13,54 @@ function getEnvPrefix(): string {
 }
 
 /**
- * API URL configuration for the CMS and Website application
- * Supports environment-aware local development via VITE_CDK_ENVIRONMENT and VITE_GIT_BRANCH
+ * Generic function to build API URLs for different services
+ * Handles hostname transformation from website/admin domains to service-specific domains
+ * @param service - The service subdomain (api, sams, social)
+ * @param pathSuffix - Optional path to append (e.g., "/api")
+ * @returns Full URL to the service
+ *
+ * @example
+ * ```ts
+ * // Get tRPC API URL
+ * const apiUrl = buildServiceUrl("api", "/api");
+ *
+ * // Get SAMS API URL
+ * const samsUrl = buildServiceUrl("sams");
+ *
+ * // Get Social Media API URL
+ * const socialUrl = buildServiceUrl("social");
+ * ```
  */
-export function getApiUrl(): string {
+export function buildServiceUrl(service: "api" | "sams" | "social", pathSuffix = ""): string {
 	if (typeof window === "undefined") return "";
 
 	const hostname = window.location.hostname;
 	const envPrefix = getEnvPrefix();
-	const baseApiUrl = `https://${envPrefix}api.new.vcmuellheim.de/api`;
+	const baseUrl = `https://${envPrefix}${service}.new.vcmuellheim.de${pathSuffix}`;
 
-	// If running on localhost, use the full apiUrl
+	// If running on localhost, use the deployed service URL
 	if (hostname === "localhost" || hostname === "127.0.0.1") {
-		return baseApiUrl;
+		return baseUrl;
 	}
 
-	// Replace either -website. or -admin. with -api.
-	let apiHostname = hostname;
+	// Transform hostname: replace -website/-admin with -service, or append -service
+	let serviceHostname: string;
 	if (hostname.includes("-website.")) {
-		apiHostname = hostname.replace("-website.", "-api.");
+		serviceHostname = hostname.replace("-website.", `-${service}.`);
 	} else if (hostname.includes("-admin.")) {
-		apiHostname = hostname.replace("-admin.", "-api.");
+		serviceHostname = hostname.replace("-admin.", `-${service}.`);
+	} else {
+		// If the domain doesn't have -website or -admin, append -service to the environment prefix
+		// Example: dev-aws-migration.new.vcmuellheim.de -> dev-aws-migration-api.new.vcmuellheim.de
+		const parts = hostname.split(".");
+		if (parts.length > 0 && parts[0] !== "new") {
+			parts[0] = `${parts[0]}-${service}`;
+			serviceHostname = parts.join(".");
+		} else {
+			serviceHostname = hostname.replace("new.", `${service}.new.`);
+		}
 	}
-	return `https://${apiHostname}`;
-}
-
-/**
- * SAMS API URL configuration for the SAMS API
- * Supports environment-aware local development via VITE_CDK_ENVIRONMENT and VITE_GIT_BRANCH
- */
-export function getSamsApiUrl(): string {
-	if (typeof window === "undefined") return "";
-
-	const hostname = window.location.hostname;
-	const envPrefix = getEnvPrefix();
-	const baseApiUrl = `https://${envPrefix}sams.new.vcmuellheim.de`;
-
-	// If running on localhost, use the full apiUrl
-	if (hostname === "localhost" || hostname === "127.0.0.1") {
-		return baseApiUrl;
-	}
-
-	// Replace either -website. or -admin. with -api.
-	let samsApiHostname = hostname;
-	if (hostname.includes("-website.")) {
-		samsApiHostname = hostname.replace("-website.", "-sams.");
-	} else if (hostname.includes("-admin.")) {
-		samsApiHostname = hostname.replace("-admin.", "-sams.");
-	}
-	return `https://${samsApiHostname}`;
+	return `https://${serviceHostname}${pathSuffix}`;
 }
 
 /**
@@ -79,12 +78,18 @@ export function getIcsHostname(): string {
 		return `${envPrefix}api.new.vcmuellheim.de`;
 	}
 
-	// Replace either -website. or -admin. with -api.
+	// Transform hostname to API domain
 	if (hostname.includes("-website.")) {
 		return hostname.replace("-website.", "-api.");
 	}
 	if (hostname.includes("-admin.")) {
 		return hostname.replace("-admin.", "-api.");
 	}
-	return hostname;
+	// If the domain doesn't have -website or -admin, append -api to the environment prefix
+	const parts = hostname.split(".");
+	if (parts.length > 0 && parts[0] !== "new") {
+		parts[0] = `${parts[0]}-api`;
+		return parts.join(".");
+	}
+	return hostname.replace("new.", "api.new.");
 }
