@@ -163,7 +163,7 @@ describe("SamsApiStack", () => {
 		});
 	});
 
-		describe("DynamoDB tables", () => {
+	describe("DynamoDB tables", () => {
 		it("should create clubs table with correct GSI", () => {
 			const app = new App();
 			const stack = new SamsApiStack(app, "TestStack", {
@@ -198,7 +198,8 @@ describe("SamsApiStack", () => {
 				TableName: "sams-teams-dev",
 				GlobalSecondaryIndexes: [{ IndexName: "GSI-SamsTeamQueries" }],
 			});
-		});		it("should enable TTL on both tables", () => {
+		});
+		it("should enable TTL on both tables", () => {
 			const app = new App();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {

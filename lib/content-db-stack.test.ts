@@ -248,9 +248,7 @@ describe("ContentDbStack", () => {
 				GlobalSecondaryIndexes: [
 					{
 						IndexName: "GSI-TeamQueries",
-						KeySchema: Match.arrayWith([
-							{ AttributeName: "type", KeyType: "HASH" },
-						]),
+						KeySchema: Match.arrayWith([{ AttributeName: "type", KeyType: "HASH" }]),
 					},
 				],
 			});
