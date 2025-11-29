@@ -3,7 +3,6 @@ import dayjs from "dayjs";
 import { Suspense } from "react";
 import type { RankingResponse } from "@/lambda/sams/types";
 import type { Team } from "@/lib/db";
-import { SAMS } from "@/project.config";
 import CardTitle from "./CardTitle";
 import ClubLogo, { ClubLogoFallback } from "./ClubLogo";
 import RankingTableItem from "./RankingTableItem";
@@ -11,7 +10,8 @@ import RankingTableItem from "./RankingTableItem";
 type RankingTable = {
 	ranking: RankingResponse;
 	linkToTeamPage?: boolean;
-	teams?: Team[];
+	clubsTeams?: Team[];
+	currentTeamId?: string; // When set, only highlight this specific team and disable links
 };
 
 export default function RankingTable(props: RankingTable) {
@@ -62,21 +62,22 @@ export default function RankingTable(props: RankingTable) {
 				</TableThead>
 				<TableTbody>
 					{ranking.teams?.map(async (team) => {
-						const isClubTeam = Boolean(team.teamName?.includes(SAMS.name));
-						const teamInContext = props.teams?.find((t) => t.sbvvTeamId === team.uuid);
+						const isClubsTeam = props.clubsTeams?.find((t) => t.sbvvTeamId === team.uuid);
 
-						const isHighlighted = Boolean(teamInContext?.sbvvTeamId) || Boolean(isClubTeam && props.linkToTeamPage);
-						const teamLink = teamInContext?.slug ? `/teams/${teamInContext.slug}` : null;
+						// If currentTeamId is set (eg. via team detail page), only highlight that specific team, other highlight all club teams
+						const shouldHighlight = props.currentTeamId ? team.uuid === props.currentTeamId : Boolean(isClubsTeam?.sbvvTeamId);
 
+						// Enable links only when linkToTeamPage is true (tabelle page) and team has a slug
+						const teamLink = props.linkToTeamPage && isClubsTeam?.slug ? `/teams/${isClubsTeam.slug}` : null;
 						return (
 							<RankingTableItem
 								key={team.uuid}
 								team={team}
-								isHighlighted={isHighlighted}
+								isHighlighted={shouldHighlight}
 								teamLink={teamLink}
 								clubLogo={
 									<Suspense fallback={<ClubLogoFallback />}>
-										<ClubLogo teamName={team.teamName ?? undefined} light={isHighlighted} />
+										<ClubLogo teamName={team.teamName ?? undefined} light={shouldHighlight} />
 									</Suspense>
 								}
 							/>

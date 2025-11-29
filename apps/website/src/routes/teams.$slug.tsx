@@ -11,7 +11,7 @@ import PageWithHeading from "../components/layout/PageWithHeading";
 import MapsLink from "../components/MapsLink";
 import Matches from "../components/Matches";
 import RankingTable from "../components/RankingTable";
-import { useFileUrls, useLocations, useMembers, useSamsMatches, useSamsRankingsByLeagueUuid, useSamsTeams, useTeamBySlug, useTeams } from "../lib/hooks";
+import { useFileUrls, useLocations, useMembers, useSamsMatches, useSamsRankingsByLeagueUuid, useSamsTeams, useTeamBySlug } from "../lib/hooks";
 
 export const Route = createFileRoute("/teams/$slug")({
 	component: RouteComponent,
@@ -153,7 +153,6 @@ function TeamMatches({ team }: { team: NonNullable<ReturnType<typeof useTeamBySl
 
 function TeamRanking({ team }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]> }) {
 	const { data: samsTeams } = useSamsTeams();
-	const { data: teams } = useTeams();
 	const samsTeam = samsTeams?.teams.find((t) => t.uuid === team.sbvvTeamId);
 
 	const { data: rankings } = useSamsRankingsByLeagueUuid(samsTeam?.leagueUuid ? [samsTeam.leagueUuid] : []);
@@ -162,7 +161,7 @@ function TeamRanking({ team }: { team: NonNullable<ReturnType<typeof useTeamBySl
 
 	const ranking = rankings[0];
 
-	return <RankingTable ranking={ranking} teams={teams?.items} />;
+	return <RankingTable ranking={ranking} currentTeamId={samsTeam.uuid} />;
 }
 
 function TeamSchedule({ team }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]> }) {

@@ -44,7 +44,7 @@ function RouteComponent() {
 						{data?.map((ranking) => {
 							return (
 								<Suspense key={ranking.leagueUuid} fallback={<Card>lade Tabelle..</Card>}>
-									<RankingTable ranking={ranking} linkToTeamPage={true} teams={teams?.items} />
+									<RankingTable ranking={ranking} linkToTeamPage={true} clubsTeams={teams?.items} />
 								</Suspense>
 							);
 						})}
