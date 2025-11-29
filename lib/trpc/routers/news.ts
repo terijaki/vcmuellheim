@@ -77,4 +77,32 @@ export const newsRouter = router({
 		await newsRepository.delete(input.id);
 		return { success: true };
 	}),
+
+	/** Get all image S3 keys from published news articles (for photo gallery) */
+	galleryImages: publicProcedure
+		.input(
+			z
+				.object({
+					limit: z.number().min(1).max(100).optional().default(20),
+					cursor: z.record(z.string(), z.unknown()).optional(),
+				})
+				.optional(),
+		)
+		.query(async ({ input }) => {
+			// Fetch published news articles
+			const result = await getPublishedNews(input?.limit, input?.cursor);
+
+			// Flatten all imageS3Keys from all articles
+			const imageS3Keys: string[] = [];
+			for (const article of result.items) {
+				if (article.imageS3Keys && article.imageS3Keys.length > 0) {
+					imageS3Keys.push(...article.imageS3Keys);
+				}
+			}
+
+			return {
+				imageS3Keys,
+				nextCursor: result.lastEvaluatedKey,
+			};
+		}),
 });

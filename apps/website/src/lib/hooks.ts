@@ -119,35 +119,19 @@ export const useMediaByIds = (ids: string[]) => {
 };
 
 /**
- * Hook to fetch gallery images (photos for photo gallery)
- * This uses the news imageS3Keys to get recent photos
+ * Infinite query hook for gallery images (all news article images)
+ * Returns flattened array of S3 keys with cursor-based pagination
  */
-export const useGalleryImages = (limit = 5) => {
-	const { data: newsData } = useNews({ limit: 20 });
-
-	return useQuery({
-		queryKey: ["galleryImages", limit],
-		queryFn: () => {
-			if (!newsData?.pages) return [];
-
-			const allImageKeys: string[] = [];
-
-			// Collect all image S3 keys from news articles
-			for (const page of newsData.pages) {
-				for (const article of page.items) {
-					if (article.imageS3Keys && article.imageS3Keys.length > 0) {
-						allImageKeys.push(...article.imageS3Keys);
-					}
-				}
-			}
-
-			// Return the first N unique images
-			const uniqueKeys = [...new Set(allImageKeys)].slice(0, limit);
-			return uniqueKeys;
-		},
-		enabled: !!newsData?.pages,
-		staleTime: 1000 * 60 * 30, // 30 minutes
-	});
+export const useGalleryImages = ({ limit = 20 }: { limit?: number } = {}) => {
+	const trpc = useTRPC();
+	return useInfiniteQuery(
+		trpc.news.galleryImages.infiniteQueryOptions(
+			{ limit },
+			{
+				getNextPageParam: (lastPage) => lastPage.nextCursor,
+			},
+		),
+	);
 };
 
 /**

@@ -4,8 +4,8 @@ import { useFileUrl, useGalleryImages } from "../../lib/hooks";
 import ScrollAnchor from "./ScrollAnchor";
 
 export default function HomeFotos() {
-	const { data: imageKeys } = useGalleryImages(5);
-	const firstImageKey = imageKeys?.[0];
+	const { data } = useGalleryImages({ limit: 10 });
+	const firstImageKey = data?.pages?.[0]?.imageS3Keys?.[0];
 	const { data: firstImageUrl } = useFileUrl(firstImageKey);
 
 	const backgroundImage = firstImageUrl || "/images/backgrounds/pageheading.jpg";
