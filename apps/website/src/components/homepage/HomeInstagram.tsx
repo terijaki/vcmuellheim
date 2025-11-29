@@ -1,4 +1,5 @@
 import { BackgroundImage, Box, Container, Overlay, SimpleGrid, Stack } from "@mantine/core";
+import { useRecentInstagramPosts } from "../../lib/hooks";
 import InstagramCard from "../InstagramCard";
 import SectionHeading from "../layout/SectionHeading";
 import ScrollAnchor from "./ScrollAnchor";
@@ -16,7 +17,7 @@ export default function HomeInstagram() {
 					<Stack>
 						<SectionHeading text="Instagram" color="white" />
 						<SimpleGrid cols={{ base: 1, md: 2 }}>
-							{data.map((post) => {
+							{data.slice(0, 4).map((post) => {
 								if (!post) return null;
 								return <InstagramCard key={post.id} {...post} />;
 							})}

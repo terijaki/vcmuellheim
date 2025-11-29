@@ -1,10 +1,10 @@
 import { Group, TableTd, TableTr, Text } from "@mantine/core";
 import { useNavigate } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import type { Ranking } from "@/data/sams/sams-server-actions";
+import type { RankingResponse } from "@/lambda/sams/types";
 
 type RankingTableItem = {
-	team: NonNullable<Ranking["teams"]>[number];
+	team: NonNullable<RankingResponse["teams"]>[number];
 	isHighlighted?: boolean;
 	teamLink?: string | null;
 	clubLogo: ReactNode;

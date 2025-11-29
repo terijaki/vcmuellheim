@@ -6,7 +6,37 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getSamsApiUrl } from "@/apps/shared/lib/api-url";
 import { ClubResponseSchema, ClubsResponseSchema, LeagueMatchesResponseSchema, type RankingResponse, RankingResponseSchema, TeamsResponseSchema } from "@/lambda/sams/types";
+import type { InstagramPost } from "@/lambda/social/types";
 import { useTRPC } from "../../../shared/lib/trpc-config";
+
+/**
+ * Get Social Media API URL based on environment
+ */
+function getSocialApiUrl(): string {
+	if (typeof window === "undefined") return "";
+	const hostname = window.location.hostname;
+	const environment = import.meta.env.VITE_CDK_ENVIRONMENT || "dev";
+	const gitBranch = import.meta.env.VITE_GIT_BRANCH || "";
+	const isProd = environment === "prod";
+	const isMainBranch = gitBranch === "main" || gitBranch === "";
+	const branch = !isMainBranch ? gitBranch : "";
+	const branchSuffix = branch ? `-${branch}` : "";
+	const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
+
+	// If running on localhost, use the deployed domain
+	if (hostname === "localhost" || hostname === "127.0.0.1") {
+		return `https://${envPrefix}social.new.vcmuellheim.de`;
+	}
+
+	// Replace -website. or -admin. with -social.
+	let socialHostname = hostname;
+	if (hostname.includes("-website.")) {
+		socialHostname = hostname.replace("-website.", "-social.");
+	} else if (hostname.includes("-admin.")) {
+		socialHostname = hostname.replace("-admin.", "-social.");
+	}
+	return `https://${socialHostname}`;
+}
 
 /**
  * Infinite query hook for published news articles
@@ -103,6 +133,38 @@ export const useMediaByIds = (ids: string[]) => {
 };
 
 /**
+ * Hook to fetch gallery images (photos for photo gallery)
+ * This uses the news imageS3Keys to get recent photos
+ */
+export const useGalleryImages = (limit = 5) => {
+	const { data: newsData } = useNews({ limit: 20 });
+
+	return useQuery({
+		queryKey: ["galleryImages", limit],
+		queryFn: () => {
+			if (!newsData?.pages) return [];
+
+			const allImageKeys: string[] = [];
+
+			// Collect all image S3 keys from news articles
+			for (const page of newsData.pages) {
+				for (const article of page.items) {
+					if (article.imageS3Keys && article.imageS3Keys.length > 0) {
+						allImageKeys.push(...article.imageS3Keys);
+					}
+				}
+			}
+
+			// Return the first N unique images
+			const uniqueKeys = [...new Set(allImageKeys)].slice(0, limit);
+			return uniqueKeys;
+		},
+		enabled: !!newsData?.pages,
+		staleTime: 1000 * 60 * 30, // 30 minutes
+	});
+};
+
+/**
  * Hook to fetch a file URL by S3 key
  */
 export const useFileUrl = (s3Key?: string) => {
@@ -130,6 +192,25 @@ export const useFileUrlsMap = (s3Keys?: string[]) => {
 export const useBusBookings = () => {
 	const trpc = useTRPC();
 	return useQuery(trpc.bus.list.queryOptions());
+};
+
+/**
+ * Hook to fetch recent Instagram posts
+ */
+export const useRecentInstagramPosts = ({ days = 30 }: { days?: number } = {}) => {
+	return useQuery({
+		queryKey: ["instagramPosts", days],
+		queryFn: async () => {
+			const socialApiUrl = getSocialApiUrl();
+			const res = await fetch(`${socialApiUrl}/v1/instagram`);
+			if (!res.ok) {
+				throw new Error("Failed to fetch Instagram posts");
+			}
+			const json = await res.json();
+			return json.posts as InstagramPost[];
+		},
+		staleTime: 1000 * 60 * 15, // 15 minutes
+	});
 };
 
 /**

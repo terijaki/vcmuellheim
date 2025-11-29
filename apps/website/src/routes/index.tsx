@@ -1,5 +1,8 @@
 import { Stack } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
+import HomeFotos from "../components/homepage/HomeFotos";
+import HomeHeimspiele from "../components/homepage/HomeHeimspiele";
+import HomeInstagram from "../components/homepage/HomeInstagram";
 import HomeIntro from "../components/homepage/HomeIntro";
 import HomeKontakt from "../components/homepage/HomeKontakt";
 import HomeMembers from "../components/homepage/HomeMembers";
@@ -15,13 +18,13 @@ function HomePage() {
 	return (
 		<Stack gap={0} align="stretch">
 			<HomeIntro />
-			{/* <HomeInstagram /> */}
+			<HomeInstagram />
 			<HomeNews />
-			{/* <HomeHeimspiele /> */}
+			<HomeHeimspiele />
 			<HomeTeams />
 			<HomeSponsors />
 			<HomeMembers />
-			{/* <HomeFotos /> */}
+			<HomeFotos />
 			<HomeKontakt />
 		</Stack>
 	);

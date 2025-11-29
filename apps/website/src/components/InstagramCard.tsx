@@ -2,7 +2,7 @@ import { Card, CardSection, Grid, GridCol, Group, Image, Stack, Text } from "@ma
 import { useInViewport } from "@mantine/hooks";
 import { useState } from "react";
 import { FaComment as IconComment, FaHeart as IconLike } from "react-icons/fa6";
-import type { InstagramPost } from "@/utils/social/instagram";
+import type { InstagramPost } from "@/lambda/social/types";
 
 export default function InstagramCard(post: InstagramPost) {
 	const [isHovered, setIsHovered] = useState(false);

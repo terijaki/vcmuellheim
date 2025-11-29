@@ -1,16 +1,19 @@
 import { BackgroundImage, Box, Button, Center, Container, Overlay, Stack, Text } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
-import { getPictures } from "@/data/pictures";
+import { useFileUrl, useGalleryImages } from "../../lib/hooks";
 import ScrollAnchor from "./ScrollAnchor";
 
-export default async function HomeFotos() {
-	const data = await getPictures(5);
-	const pictures = data?.docs;
+export default function HomeFotos() {
+	const { data: imageKeys } = useGalleryImages(5);
+	const firstImageKey = imageKeys?.[0];
+	const { data: firstImageUrl } = useFileUrl(firstImageKey);
+
+	const backgroundImage = firstImageUrl || "/images/backgrounds/pageheading.jpg";
 
 	return (
 		<Box bg="blumine">
 			<ScrollAnchor name="fotos" />
-			<BackgroundImage src={pictures?.[0]?.url || "/images/backgrounds/pageheading.jpg"} py="md" style={{ zIndex: 0 }} pos="relative">
+			<BackgroundImage src={backgroundImage} py="md" style={{ zIndex: 0 }} pos="relative">
 				<Container size="xs" py="md" c="white" px={{ base: "lg", md: "xl" }}>
 					<Stack>
 						<Text>Eindrücke aus unserem Vereinsleben, von Spieltagen, Turnieren und unseren Mitgliedern findest du in unserer:</Text>
