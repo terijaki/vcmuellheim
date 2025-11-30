@@ -63,6 +63,7 @@
 		"db:seed": "bun run scripts/db-seed.ts",
 		"db:seed:instagram": "bun run scripts/db-seed.ts --instagram",
 		"db:seed:events": "bun run scripts/db-seed.ts --events",
+		"db:seed:sams": "bun run scripts/data-trigger-syncs.ts",
 		"sams:update": "bash scripts/update-sams-swagger.sh && bun run codegen/sams/generate-client.ts",
 		"verify:all": "bun run biome check --fix && bun run typecheck && bun run test",
 		"cdk": "cdk --profile vcmuellheim",

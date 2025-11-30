@@ -37,7 +37,7 @@ export class SocialMediaStack extends cdk.Stack {
 
 		const allowedOriginsSet = new Set<string>();
 		allowedOriginsSet.add(Club.url);
-		allowedOriginsSet.add(`https://new.${Club.domain}`);
+		allowedOriginsSet.add(`https://${envPrefix.replace(/-$/, ".")}new.${Club.domain}`);
 		allowedOriginsSet.add(`https://${envPrefix}admin.new.${Club.domain}`);
 		if (!isProd) {
 			allowedOriginsSet.add("http://localhost:3081"); // CMS dev server
