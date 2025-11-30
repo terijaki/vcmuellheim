@@ -1,5 +1,5 @@
 import { BackgroundImage, Box, CardSection, Stack, Text, Title } from "@mantine/core";
-import { forwardRef, useMemo, useState } from "react";
+import { forwardRef, useState } from "react";
 import type { News } from "@/lib/db";
 import { useFileUrl } from "../lib/hooks";
 import { CardLink } from "./CustomLink";
@@ -7,10 +7,10 @@ import { CardLink } from "./CustomLink";
 const CARD_HEIGHT = 140;
 
 const NewsCard = forwardRef<HTMLAnchorElement, News>((props, ref) => {
-	const [isHovered, setIsHovered] = useState(false);
 	const hasImage = props.imageS3Keys && props.imageS3Keys.length > 0;
 
-	const thumbnailKey = useMemo(() => {
+	// Lock in the thumbnailKey for the lifetime of the component instance
+	const [thumbnailKey] = useState(() => {
 		if (!props.imageS3Keys || props.imageS3Keys.length === 0) {
 			return undefined;
 		}
@@ -19,10 +19,11 @@ const NewsCard = forwardRef<HTMLAnchorElement, News>((props, ref) => {
 		}
 		const randomIndex = Math.floor(Math.random() * props.imageS3Keys.length);
 		return props.imageS3Keys[randomIndex];
-	}, [props.imageS3Keys]);
+	});
 
 	const { data: thumbnail } = useFileUrl(thumbnailKey);
 
+	const [isHovered, setIsHovered] = useState(false);
 	return (
 		<CardLink
 			to={`/news/$id`}
