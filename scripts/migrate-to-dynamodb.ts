@@ -6,12 +6,12 @@
  *
  * Usage:
  *   1. Export Payload data to JSON:
- *      bun run scripts/export-payload-data.ts > payload-backup.json
+ *      bun run scripts/export-payload-data.ts > postgres-backup.json
  *
  *   2. Run migration:
- *      bun run scripts/migrate-to-dynamodb.ts --backup=payload-backup.json --dry-run
- *      bun run scripts/migrate-to-dynamodb.ts --backup=payload-backup.json --collection=news
- *      bun run scripts/migrate-to-dynamodb.ts --backup=payload-backup.json --all
+ *      bun run scripts/migrate-to-dynamodb.ts --backup=../.temp/postgres-backup.json --dry-run
+ *      bun run scripts/migrate-to-dynamodb.ts --backup=../.temp/postgres-backup.json --collection=news
+ *      bun run scripts/migrate-to-dynamodb.ts --backup=../.temp/postgres-backup.json --all
  */
 
 import { readFileSync } from "node:fs";
@@ -597,7 +597,7 @@ async function migrateTeams(dryRun: boolean): Promise<void> {
 				pointOfContactIds: undefined, // add manually after members migration
 				trainerIds: undefined, // add manually after members migration
 				pictureS3Keys,
-				trainingSchedules: undefined,
+				trainingSchedules: row.trainingSchedules,
 				createdAt,
 				updatedAt,
 			});

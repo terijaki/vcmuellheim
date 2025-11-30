@@ -94,7 +94,11 @@ psql "$TEMP_DB" -t -A -c "
       'name', t.name,
       'slug', t.slug,
       'description', t.description,
-      'gender', t.gender,
+      'gender', 
+        CASE 
+          WHEN t.gender = 'woman' THEN 'female'
+          ELSE t.gender::text
+        END,
       'league', t.league,
       'age', t.age,
       'instagram', t.instagram,
