@@ -6,12 +6,10 @@ on:
       - main
       - "**" # All branches
     paths:
-      - "lib/**"
-      - "lambda/**"
-      - "bin/cdk.ts"
-      - "cdk.json"
-      - "package.json"
-      - ".github/workflows/cdk-deploy.yml"
+      - "!**.md" # Ignore markdown files
+      - "!.github/copilot**" # Ignore copilot files
+      - "!.vscode/**" # Ignore VSCode settings
+      - "!bruno/**" # Ignore Bruno files
 
 permissions:
   id-token: write # Required for AWS OIDC
