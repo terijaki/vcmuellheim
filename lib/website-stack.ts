@@ -143,6 +143,7 @@ export class WebsiteStack extends cdk.Stack {
 			distributionPaths: ["/index.html"],
 			waitForDistributionInvalidation: !isProd,
 			prune: true, // Remove old files not in new deployment
+			memoryLimit: 512, // Higher memory for website build (default 128 MB is insufficient)
 		});
 
 		// Outputs
