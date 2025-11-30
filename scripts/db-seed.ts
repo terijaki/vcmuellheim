@@ -173,7 +173,7 @@ async function seedEventsData() {
 
 	const events: Event[] = [
 		{
-			id: "1",
+			id: crypto.randomUUID(),
 			type: "event",
 			title: "Heimspiel Herren 1 vs. VfB Friedrichshafen",
 			description: "Spannende Begegnung unserer ersten Herrenmannschaft gegen den VfB Friedrichshafen in der Landesliga.",
@@ -185,7 +185,7 @@ async function seedEventsData() {
 			updatedAt: dayjs().subtract(10, "days").toISOString(),
 		},
 		{
-			id: "2",
+			id: crypto.randomUUID(),
 			type: "event",
 			title: "Jugendtraining Special: Sprungkraft",
 			description: "Spezielles Trainingsprogramm für unsere Jugendmannschaften mit Fokus auf Sprungkraft und Technik.",
@@ -197,7 +197,7 @@ async function seedEventsData() {
 			updatedAt: dayjs().subtract(7, "days").toISOString(),
 		},
 		{
-			id: "3",
+			id: crypto.randomUUID(),
 			type: "event",
 			title: "Beach-Volleyball Turnier",
 			description: "Unser jährliches Beach-Volleyball Turnier! Anmeldung bis 31.05. Teams mit 2-4 Spielern willkommen.",
@@ -209,7 +209,7 @@ async function seedEventsData() {
 			updatedAt: dayjs().subtract(5, "days").toISOString(),
 		},
 		{
-			id: "4",
+			id: crypto.randomUUID(),
 			type: "event",
 			title: "Mitgliederversammlung 2025",
 			description: "Ordentliche Mitgliederversammlung mit Vorstandswahl und Bericht über das vergangene Vereinsjahr.",
@@ -221,7 +221,7 @@ async function seedEventsData() {
 			updatedAt: dayjs().subtract(30, "days").toISOString(),
 		},
 		{
-			id: "5",
+			id: crypto.randomUUID(),
 			type: "event",
 			title: "Schnuppertraining für Anfänger",
 			description: "Du wolltest schon immer Volleyball spielen? Komm vorbei zum kostenlosen Schnuppertraining! Keine Vorkenntnisse nötig.",
@@ -233,7 +233,7 @@ async function seedEventsData() {
 			updatedAt: dayjs().subtract(14, "days").toISOString(),
 		},
 		{
-			id: "6",
+			id: crypto.randomUUID(),
 			type: "event",
 			title: "Weihnachtsfeier 🎅",
 			description: "Gemütliche Weihnachtsfeier für alle Mitglieder, Freunde und Familie. Mit Wichteln, Glühwein und gutem Essen!",

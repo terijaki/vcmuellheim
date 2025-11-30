@@ -321,12 +321,12 @@ export class SamsApiStack extends cdk.Stack {
 		teamsSyncRule.addTarget(new targets.LambdaFunction(samsTeamsSync));
 
 		// Helper to create cache policy for SAMS API endpoints
-		const createCachePolicy = (name: string, queryParams: string[], ttl: { default: cdk.Duration; max: cdk.Duration }) => {
+		const createCachePolicy = (name: string, queryParams: string[], ttl: { default: cdk.Duration; max: cdk.Duration; min?: cdk.Duration }) => {
 			return new cloudfront.CachePolicy(this, `SamsApi${name}CachePolicy`, {
 				cachePolicyName: `sams-api-${name.toLowerCase()}-cache-${environment}${branchSuffix}`,
 				defaultTtl: ttl.default,
 				maxTtl: ttl.max,
-				minTtl: cdk.Duration.seconds(0),
+				minTtl: ttl.min ?? cdk.Duration.seconds(0),
 				queryStringBehavior: queryParams.length > 0 ? cloudfront.CacheQueryStringBehavior.allowList(...queryParams) : cloudfront.CacheQueryStringBehavior.none(),
 				headerBehavior: cloudfront.CacheHeaderBehavior.allowList("Authorization", "X-Api-Key", "Origin", "Access-Control-Request-Headers", "Access-Control-Request-Method"),
 			});
@@ -341,8 +341,8 @@ export class SamsApiStack extends cdk.Stack {
 		});
 
 		// TTL configurations
-		const LIVE_DATA_TTL = { default: cdk.Duration.minutes(5), max: cdk.Duration.hours(1) };
-		const STATIC_DATA_TTL = { default: cdk.Duration.hours(12), max: cdk.Duration.days(7) };
+		const LIVE_DATA_TTL = { default: cdk.Duration.minutes(5), max: cdk.Duration.hours(1), min: isProd ? cdk.Duration.seconds(15) : cdk.Duration.seconds(60) };
+		const STATIC_DATA_TTL = { default: cdk.Duration.hours(12), max: cdk.Duration.days(7), min: isProd ? cdk.Duration.hours(1) : cdk.Duration.minutes(5) };
 
 		// Extract domain from API endpoint (removes https:// prefix)
 		// We need to do this in CloudFormation using Fn::Select and Fn::Split

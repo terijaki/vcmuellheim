@@ -197,7 +197,7 @@ function EventsPage() {
 											<Button size="xs" onClick={() => handleEdit(event)}>
 												Bearbeiten
 											</Button>
-											<ActionIcon variant="light" radius="xl" color="red" onClick={() => handleDelete(event.id)} loading={deleteMutation.isPending}>
+											<ActionIcon variant="light" radius="xl" color="red" onClick={() => handleDelete(event.id)} loading={deleteMutation.isPending && deleteMutation.variables?.id === event.id}>
 												<Trash2 size={16} />
 											</ActionIcon>
 										</Group>

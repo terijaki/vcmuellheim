@@ -2,6 +2,7 @@
  * tRPC router for Events operations
  */
 
+import dayjs from "dayjs";
 import { z } from "zod";
 import { eventsRepository, getUpcomingEvents } from "../../db/repositories";
 import { eventSchema } from "../../db/schemas";
@@ -45,8 +46,13 @@ export const eventsRouter = router({
 
 	/** Create event (admin only) */
 	create: protectedProcedure.input(eventSchema.omit({ id: true, createdAt: true, updatedAt: true })).mutation(async ({ input }) => {
-		const id = crypto.randomUUID();
-		return eventsRepository.create({ ...input, id } as never);
+		return eventsRepository.create({
+			...input,
+			id: crypto.randomUUID(),
+			ttl: dayjs(input.endDate || input.startDate)
+				.add(90, "day")
+				.unix(),
+		} as never);
 	}),
 
 	/** Update event (admin only) */
@@ -58,7 +64,13 @@ export const eventsRouter = router({
 			}),
 		)
 		.mutation(async ({ input }) => {
-			return eventsRepository.update(input.id, input.data);
+			let ttl: number | undefined;
+			if (input.data.endDate || input.data.startDate) {
+				ttl = dayjs(input.data.endDate || input.data.startDate)
+					.add(90, "day")
+					.unix();
+			}
+			return eventsRepository.update(input.id, { ...input.data, ...(ttl ? { ttl } : {}) });
 		}),
 
 	/** Delete event (admin only) */

@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { z } from "zod";
 import { busRepository } from "../../db/repositories";
 import { busSchema } from "../../db/schemas";
@@ -18,17 +19,12 @@ export const busRouter = router({
 
 	/** Create bus booking (admin only) */
 	create: protectedProcedure.input(busSchema.omit({ id: true, createdAt: true, updatedAt: true, ttl: true })).mutation(async ({ input }) => {
-		const id = crypto.randomUUID();
-		const now = new Date();
-		const toDate = new Date(input.to);
-		// TTL: 30 days after 'to' date
-		const ttl = Math.floor((toDate.getTime() + 30 * 24 * 60 * 60 * 1000) / 1000);
 		return busRepository.create({
 			...input,
-			id,
-			createdAt: now.toISOString(),
-			updatedAt: now.toISOString(),
-			ttl,
+			id: crypto.randomUUID(),
+			createdAt: dayjs().toISOString(),
+			updatedAt: dayjs().toISOString(),
+			ttl: dayjs(input.to).add(30, "day").unix(),
 		} as never);
 	}),
 
@@ -36,15 +32,14 @@ export const busRouter = router({
 	update: protectedProcedure
 		.input(
 			z.object({
-				id: z.string().uuid(),
+				id: z.uuid(),
 				data: busSchema.omit({ id: true, createdAt: true, updatedAt: true, ttl: true }).partial(),
 			}),
 		)
 		.mutation(async ({ input }) => {
 			let ttl: number | undefined;
 			if (input.data.to) {
-				const toDate = new Date(input.data.to);
-				ttl = Math.floor((toDate.getTime() + 30 * 24 * 60 * 60 * 1000) / 1000);
+				ttl = dayjs(input.data.to).add(30, "day").unix();
 			}
 			return busRepository.update(input.id, { ...input.data, ...(ttl ? { ttl } : {}) });
 		}),

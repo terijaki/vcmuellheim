@@ -13,10 +13,18 @@ export const samsClubsRouter = router({
 	}),
 	/** Get SAMS Club by sportsclub UUID */
 	getById: publicProcedure.input(z.object({ sportsclubUuid: z.string() })).query(async ({ input }) => {
-		return getSamsClubBySportsclubUuid(input.sportsclubUuid);
+		const club = await getSamsClubBySportsclubUuid(input.sportsclubUuid);
+		if (!club) {
+			throw new Error("SAMS Club not found");
+		}
+		return club;
 	}),
 	/** Get SAMS Club by nameSlug */
 	getByNameSlug: publicProcedure.input(z.object({ nameSlug: z.string() })).query(async ({ input }) => {
-		return getSamsClubByNameSlug(input.nameSlug);
+		const club = await getSamsClubByNameSlug(input.nameSlug);
+		if (!club) {
+			throw new Error("SAMS Club not found");
+		}
+		return club;
 	}),
 });

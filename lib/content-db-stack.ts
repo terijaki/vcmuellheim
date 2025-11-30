@@ -62,6 +62,7 @@ export class ContentDbStack extends cdk.Stack {
 			tableName: `vcm-events-${environment}${branchSuffix}`,
 			partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
 			// No sort key - use GSI for queries
+			timeToLiveAttribute: "ttl", // TTL attribute for auto-delete
 		});
 
 		// GSI for querying by status and startDate
