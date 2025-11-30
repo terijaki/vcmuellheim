@@ -1,6 +1,6 @@
 import type { NewsInput } from "@lib/db/schemas";
 import { ActionIcon, Badge, Box, Button, Card, Group, Image, Modal, Paper, Pill, SegmentedControl, Select, Stack, Table, Text, TextInput, Title } from "@mantine/core";
-import { DateTimePicker } from "@mantine/dates";
+import { DateTimePicker, getTimeRange } from "@mantine/dates";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
@@ -324,7 +324,23 @@ function NewsPage() {
 							]}
 							required
 						/>
-						<DateTimePicker label="Veröffentlichungsdatum" value={formData.publishedDate ? new Date(formData.publishedDate) : null} onChange={handleDateChange} required />
+						<DateTimePicker
+							label="Veröffentlichungsdatum"
+							value={formData.publishedDate ? new Date(formData.publishedDate) : null}
+							onChange={handleDateChange}
+							required
+							highlightToday
+							timePickerProps={{
+								withDropdown: true,
+								format: "24h",
+								presets: getTimeRange({ startTime: "07:45:00", endTime: "18:45:00", interval: "01:00:00" }),
+							}}
+							presets={[
+								{ value: dayjs().add(1, "day").format("YYYY-MM-DD HH:mm:ss"), label: "Morgen" },
+								{ value: dayjs().add(1, "week").format("YYYY-MM-DD HH:mm:ss"), label: "Nächste Woche" },
+								{ value: dayjs().add(1, "month").format("YYYY-MM-DD HH:mm:ss"), label: "Nächster Monat" },
+							]}
+						/>
 					</Group>
 					{/* Image Gallery Upload */}
 					<Box>

@@ -1,5 +1,5 @@
 import { ActionIcon, Button, Center, Group, Modal, Paper, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
-import { Calendar, DateTimePicker } from "@mantine/dates";
+import { Calendar, DateTimePicker, getTimeRange } from "@mantine/dates";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
@@ -243,10 +243,17 @@ function EventsPage() {
 								return {};
 							}}
 							required
+							highlightToday
 							timePickerProps={{
 								withDropdown: true,
 								format: "24h",
+								presets: getTimeRange({ startTime: "09:00:00", endTime: "14:00:00", interval: "00:30:00" }),
 							}}
+							presets={[
+								{ value: dayjs().add(1, "day").format("YYYY-MM-DD HH:mm:ss"), label: "Morgen" },
+								{ value: dayjs().add(1, "week").format("YYYY-MM-DD HH:mm:ss"), label: "Nächste Woche" },
+								{ value: dayjs().add(1, "month").format("YYYY-MM-DD HH:mm:ss"), label: "Nächster Monat" },
+							]}
 						/>
 
 						<DateTimePicker
@@ -267,10 +274,17 @@ function EventsPage() {
 								}
 								return {};
 							}}
+							highlightToday
 							timePickerProps={{
 								withDropdown: true,
 								format: "24h",
+								presets: getTimeRange({ startTime: "16:00:00", endTime: "22:00:00", interval: "00:30:00" }),
 							}}
+							presets={[
+								{ value: dayjs().add(1, "day").format("YYYY-MM-DD HH:mm:ss"), label: "Morgen" },
+								{ value: dayjs().add(1, "week").format("YYYY-MM-DD HH:mm:ss"), label: "Nächste Woche" },
+								{ value: dayjs().add(1, "month").format("YYYY-MM-DD HH:mm:ss"), label: "Nächster Monat" },
+							]}
 						/>
 
 						<TextInput label="Ort" placeholder="z.B. Sporthalle Müllheim" value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })} />

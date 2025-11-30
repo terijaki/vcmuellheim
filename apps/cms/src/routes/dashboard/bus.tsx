@@ -282,6 +282,15 @@ function BusSchedulesPage() {
 							}}
 							valueFormat="D MMM YYYY"
 							required
+							presets={[
+								{ value: [dayjs().add(1, "day").format("YYYY-MM-DD"), dayjs().add(1, "day").format("YYYY-MM-DD")], label: "Morgen" },
+								{
+									value: [dayjs().endOf("week").subtract(1, "day").add(1, "week").format("YYYY-MM-DD"), dayjs().endOf("week").subtract(1, "day").add(1, "week").format("YYYY-MM-DD")],
+									label: "Nächsten Samstag",
+								},
+								{ value: [dayjs().endOf("week").subtract(1, "day").add(1, "week").format("YYYY-MM-DD"), dayjs().endOf("week").add(1, "week").format("YYYY-MM-DD")], label: "Nächstes Wochenende" },
+								{ value: [dayjs().endOf("month").add(1, "day").format("YYYY-MM-DD"), dayjs().endOf("month").add(1, "day").format("YYYY-MM-DD")], label: "Nächster Monat" },
+							]}
 						/>
 						<Textarea label="Kommentar" placeholder="Zusätzliche Informationen..." value={formData.comment} onChange={(e) => setFormData({ ...formData, comment: e.target.value })} minRows={3} />
 						<Group justify="flex-end" mt="md">
