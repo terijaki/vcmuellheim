@@ -180,6 +180,7 @@ function BusSchedulesPage() {
 								style: {
 									backgroundColor: "var(--mantine-color-turquoise-2)",
 									border: "1px solid var(--mantine-color-turquoise-6)",
+									color: "var(--mantine-color-white)",
 								},
 							};
 						}
@@ -275,6 +276,7 @@ function BusSchedulesPage() {
 										style: {
 											backgroundColor: "var(--mantine-color-turquoise-4)",
 											border: "1px solid var(--mantine-color-turquoise-6)",
+											color: "var(--mantine-color-white)",
 										},
 									};
 								}

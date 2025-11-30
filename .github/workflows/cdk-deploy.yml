@@ -1,4 +1,7 @@
 name: CDK Deploy
+concurrency:
+  group: cdk-deploy
+  cancel-in-progress: false
 
 on:
   push:

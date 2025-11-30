@@ -161,6 +161,7 @@ function EventsPage() {
 								style: {
 									backgroundColor: "var(--mantine-color-turquoise-4)",
 									border: "1px solid var(--mantine-color-turquoise-6)",
+									color: "var(--mantine-color-white)",
 								},
 							};
 						}
@@ -237,6 +238,7 @@ function EventsPage() {
 										style: {
 											backgroundColor: "var(--mantine-color-turquoise-4)",
 											border: "1px solid var(--mantine-color-turquoise-6)",
+											color: "var(--mantine-color-white)",
 										},
 									};
 								}
@@ -269,6 +271,7 @@ function EventsPage() {
 										style: {
 											backgroundColor: "var(--mantine-color-turquoise-4)",
 											border: "1px solid var(--mantine-color-turquoise-6)",
+											color: "var(--mantine-color-white)",
 										},
 									};
 								}
