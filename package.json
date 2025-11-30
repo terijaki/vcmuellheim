@@ -51,6 +51,8 @@
 		"dev:cms": "bun --filter @vcmuellheim/cms dev",
 		"build:website": "bun --filter @vcmuellheim/website build",
 		"build:cms": "bun --filter @vcmuellheim/cms build",
+		"preview:website": "bun --filter @vcmuellheim/website preview",
+		"preview:cms": "bun --filter @vcmuellheim/cms preview",
 		"lint": "biome lint",
 		"check": "biome check",
 		"check:fix": "biome check --fix",
