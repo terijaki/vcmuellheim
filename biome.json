@@ -7,16 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": [
-			"**",
-			"!**/node_modules",
-			"!**/.vscode",
-			"!**/out",
-			"!**/build",
-			"!**/codegen/sams/generated",
-			"!**/codegen/sams/swagger.json",
-			"!**/routeTree.gen.ts"
-		]
+		"includes": ["**", "!**/node_modules", "!**/.vscode", "!**/out", "!**/build", "!**/codegen/sams/generated", "!**/codegen/sams/swagger.json", "!**/routeTree.gen.ts"]
 	},
 	"formatter": {
 		"enabled": true,

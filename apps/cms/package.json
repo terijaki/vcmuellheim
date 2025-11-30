@@ -40,6 +40,7 @@
 		"postcss-preset-mantine": "catalog:",
 		"postcss-simple-vars": "catalog:",
 		"typescript": "catalog:",
-		"vite": "catalog:"
+		"vite": "catalog:",
+		"babel-plugin-react-compiler": "catalog:"
 	}
 }
