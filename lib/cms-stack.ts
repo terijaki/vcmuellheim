@@ -140,8 +140,7 @@ export class CmsStack extends cdk.Stack {
 			],
 			destinationBucket: this.bucket,
 			distribution: this.distribution,
-			distributionPaths: ["/index.html"],
-			waitForDistributionInvalidation: !isProd,
+			distributionPaths: ["/*"],
 			prune: true, // Remove old files not in new deployment
 			memoryLimit: 256, // Slightly higher memory for CMS build
 		});
