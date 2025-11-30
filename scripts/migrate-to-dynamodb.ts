@@ -560,13 +560,6 @@ async function migrateTeams(dryRun: boolean): Promise<void> {
 			const createdAt = new Date(row.createdAt).toISOString();
 			const updatedAt = new Date(row.updatedAt).toISOString();
 
-			// Map gender from Postgres enum to schema enum
-			const genderMap: Record<string, "male" | "female" | "mixed"> = {
-				men: "male",
-				women: "female",
-				mixed: "mixed",
-			};
-
 			// Upload team pictures to S3 with entity-specific paths
 			let pictureS3Keys: string[] | undefined;
 			if (row.imageIds && Array.isArray(row.imageIds) && oldS3Client && newS3Client) {
@@ -592,7 +585,7 @@ async function migrateTeams(dryRun: boolean): Promise<void> {
 				description: row.description || undefined,
 				sbvvTeamId: row.sbvvTeamId || undefined,
 				ageGroup: row.age ? String(row.age) : undefined,
-				gender: genderMap[row.gender],
+				gender: row.gender,
 				league: row.league || undefined,
 				pointOfContactIds: undefined, // add manually after members migration
 				trainerIds: undefined, // add manually after members migration

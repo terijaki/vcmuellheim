@@ -96,6 +96,7 @@ psql "$TEMP_DB" -t -A -c "
       'description', t.description,
       'gender', 
         CASE 
+          WHEN t.gender = 'men' THEN 'male'
           WHEN t.gender = 'woman' THEN 'female'
           ELSE t.gender::text
         END,
