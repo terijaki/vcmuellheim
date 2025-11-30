@@ -1,8 +1,9 @@
-import { Badge, Card, Center, Container, Divider, Group, Stack, Text, ThemeIcon, Title } from "@mantine/core";
+import { Badge, Card, Center, Container, Divider, Group, Stack, Text, ThemeIcon } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { Calendar, Clock, Info, MapPin } from "lucide-react";
 import CenteredLoader from "../components/CenteredLoader";
+import EntityNotFound from "../components/EntityNotFound";
 import PageWithHeading from "../components/layout/PageWithHeading";
 import SharingButton from "../components/SharingButton";
 import { useEventById } from "../lib/hooks";
@@ -24,21 +25,7 @@ function RouteComponent() {
 	}
 
 	if (error || !event) {
-		return (
-			<PageWithHeading title="Veranstaltung nicht gefunden">
-				<Card withBorder shadow="sm" p="xl">
-					<Center>
-						<Stack align="center" gap="md">
-							<ThemeIcon size={60} radius="xl" color="onyx" variant="light">
-								<Info size={36} />
-							</ThemeIcon>
-							<Title order={3}>Veranstaltung nicht gefunden</Title>
-							<Text c="dimmed">Diese Veranstaltung existiert nicht oder wurde entfernt.</Text>
-						</Stack>
-					</Center>
-				</Card>
-			</PageWithHeading>
-		);
+		return <EntityNotFound entityName="Veranstaltung" title="Veranstaltung nicht gefunden" description="Diese Veranstaltung existiert nicht oder wurde entfernt." />;
 	}
 
 	const { title, startDate, endDate, description, location } = event;

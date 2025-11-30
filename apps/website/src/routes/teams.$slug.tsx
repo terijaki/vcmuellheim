@@ -6,6 +6,7 @@ import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import { getIcsHostname } from "../../../shared/lib/api-url";
 import CardTitle from "../components/CardTitle";
 import CenteredLoader from "../components/CenteredLoader";
+import EntityNotFound from "../components/EntityNotFound";
 import ImageGallery from "../components/ImageGallery";
 import PageWithHeading from "../components/layout/PageWithHeading";
 import MapsLink from "../components/MapsLink";
@@ -30,14 +31,7 @@ function RouteComponent() {
 	}
 
 	if (error || !team) {
-		return (
-			<PageWithHeading title="Mannschaft nicht gefunden">
-				<Card>
-					<CardTitle>Mannschaft nicht gefunden</CardTitle>
-					<Text>Diese Mannschaft existiert nicht oder wurde entfernt.</Text>
-				</Card>
-			</PageWithHeading>
-		);
+		return <EntityNotFound entityName="Mannschaft" title="Mannschaft nicht gefunden" description="Diese Mannschaft existiert nicht oder wurde entfernt." />;
 	}
 
 	return (

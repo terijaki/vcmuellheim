@@ -3,6 +3,7 @@ import { useInViewport } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
 import { ServerCrash } from "lucide-react";
 import { useEffect } from "react";
+import EntityNotFound from "../components/EntityNotFound";
 import PageWithHeading from "../components/layout/PageWithHeading";
 import NewsCard from "../components/NewsCard";
 import { useNews } from "../lib/hooks";
@@ -25,8 +26,12 @@ function RouteComponent() {
 		}
 	}, [inViewport, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
+	if (news.length === 0) {
+		return <EntityNotFound entityName="News Beiträge" title="Ladefehler" description="Es konnten keine News geladen werden." />;
+	}
+
 	return (
-		<PageWithHeading title={"News Beiträge"}>
+		<PageWithHeading title="News Beiträge">
 			<Container size="xl">
 				<Stack>
 					<SimpleGrid cols={{ base: 1, sm: 2 }}>
