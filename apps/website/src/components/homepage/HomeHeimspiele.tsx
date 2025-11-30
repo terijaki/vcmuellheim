@@ -4,7 +4,6 @@ import "dayjs/locale/de";
 import { useMemo } from "react";
 import type { LeagueMatchesResponse } from "@/lambda/sams/types";
 import type { Event } from "@/lib/db/types";
-import backgroundImage from "../../assets/backgrounds/pageheading.jpg";
 import { useEvents, useSamsMatches, useSamsTeams } from "../../lib/hooks";
 import EventCard from "../EventCard";
 import MapsLink from "../MapsLink";
@@ -67,7 +66,7 @@ export default function HomeHeimspiele() {
 	return (
 		<Box bg="blumine">
 			<ScrollAnchor name="heimspiele" />
-			<BackgroundImage src={backgroundImage} py="md" style={{ zIndex: 0 }} pos="relative">
+			<BackgroundImage src="/backgrounds/pageheading.jpg" py="md" style={{ zIndex: 0 }} pos="relative">
 				<Container size="xl" px={{ base: "lg", md: "xl" }}>
 					<Stack>
 						{/* EVENTS */}

@@ -1,7 +1,5 @@
 import { Anchor, AspectRatio, Box, Button, Card, Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
-import brandJersey1 from "../assets/brand/jersey1.jpg";
-import brandJersey2 from "../assets/brand/jersey2.jpg";
 import CardTitle from "../components/CardTitle";
 import PageWithHeading from "../components/layout/PageWithHeading";
 
@@ -150,10 +148,10 @@ function RouteComponent() {
 
 							<SimpleGrid spacing="xs" cols={{ base: 1, sm: 2 }}>
 								<AspectRatio ratio={6 / 4}>
-									<Image width={600} height={400} src={brandJersey1} alt="Logo" style={{ objectFit: "cover" }} />
+									<Image width={600} height={400} src="/brand/jersey1.jpg" alt="Logo" style={{ objectFit: "cover" }} />
 								</AspectRatio>
 								<AspectRatio ratio={6 / 4}>
-									<Image width={600} height={400} src={brandJersey2} alt="Logo" style={{ objectFit: "cover" }} />
+									<Image width={600} height={400} src="/brand/jersey2.jpg" alt="Logo" style={{ objectFit: "cover" }} />
 								</AspectRatio>
 							</SimpleGrid>
 						</Stack>

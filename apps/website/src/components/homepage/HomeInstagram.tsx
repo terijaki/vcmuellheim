@@ -1,5 +1,4 @@
 import { BackgroundImage, Box, Container, Overlay, SimpleGrid, Stack } from "@mantine/core";
-import backgroundImage from "../../assets/backgrounds/pageheading.jpg";
 import { useRecentInstagramPosts } from "../../lib/hooks";
 import InstagramCard from "../InstagramCard";
 import SectionHeading from "../layout/SectionHeading";
@@ -12,7 +11,7 @@ export default function HomeInstagram() {
 
 	return (
 		<Box bg="onyx">
-			<BackgroundImage src={backgroundImage} py="md" style={{ zIndex: 0 }} pos="relative">
+			<BackgroundImage src="/backgrounds/pageheading.jpg" py="md" style={{ zIndex: 0 }} pos="relative">
 				<Container size="xl" py="md" px={{ base: "lg", md: "xl" }}>
 					<ScrollAnchor name="instagram" />
 					<Stack>

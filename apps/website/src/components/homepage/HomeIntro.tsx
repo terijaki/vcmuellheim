@@ -3,15 +3,11 @@ import { useViewportSize } from "@mantine/hooks";
 import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { FaAnglesDown as IconDown } from "react-icons/fa6";
-import background1 from "../../assets/backgrounds/intro1.jpg";
-import background2 from "../../assets/backgrounds/intro2.jpg";
-import background3 from "../../assets/backgrounds/intro3.jpg";
-import background4 from "../../assets/backgrounds/intro4.jpg";
 import { navbarLinks } from "../../utils/navbarLinks";
 import { HEADER_HEIGHT } from "../layout/Header";
 import HomeIntroLogo from "./HomeIntroLogo";
 
-const backgroundImages = [background1, background2, background3, background4];
+const backgroundImages = ["/backgrounds/intro1.jpg", "/backgrounds/intro2.jpg", "/backgrounds/intro3.jpg", "/backgrounds/intro4.jpg"];
 
 export default function HomeIntro() {
 	const backgroundImageRandom = useMemo(() => {
