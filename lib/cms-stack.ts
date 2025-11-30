@@ -141,6 +141,7 @@ export class CmsStack extends cdk.Stack {
 			destinationBucket: this.bucket,
 			distribution: this.distribution,
 			distributionPaths: ["/index.html"],
+			waitForDistributionInvalidation: !isProd,
 			prune: true, // Remove old files not in new deployment
 		});
 
