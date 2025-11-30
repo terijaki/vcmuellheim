@@ -21,6 +21,7 @@ import { GetObjectCommand, HeadObjectCommand, PutObjectCommand, S3Client } from 
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { busSchema, locationSchema, memberSchema, newsSchema, teamSchema } from "@lib/db/schemas";
 import dotenv from "dotenv";
+import { Club } from "@/project.config";
 
 // Type definitions for backup data and Lexical content
 interface MediaItem {
@@ -122,7 +123,7 @@ if (OLD_S3_BUCKET && OLD_S3_ACCESS_KEY && OLD_S3_SECRET_KEY) {
 	// New bucket uses eu-central-1 (same as CDK deployment)
 	newS3Client = new S3Client({ region: AWS_REGION });
 	const branchSuffix = BRANCH ? `-${BRANCH}` : "";
-	NEW_S3_BUCKET = `vcm-media-${ENVIRONMENT}${branchSuffix}`;
+	NEW_S3_BUCKET = `${Club.slug}-media-${ENVIRONMENT}${branchSuffix}`;
 	MEDIA_CDN_URL = `https://${ENVIRONMENT}${branchSuffix}-media.new.vcmuellheim.de`;
 	console.log("✅ S3 migration enabled");
 	console.log(`   Old bucket: ${OLD_S3_BUCKET}`);

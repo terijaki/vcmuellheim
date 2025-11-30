@@ -10,6 +10,7 @@ export const Club = {
 	email: "info@vcmuellheim.de" as const,
 	city: "Müllheim" as const,
 	postalCode: 79379 as const,
+	slug: "vcmuellheim" as const,
 };
 /** The clubs details on the SAMS platform. */
 export const SAMS = {

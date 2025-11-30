@@ -40,7 +40,7 @@ export class CmsStack extends cdk.Stack {
 
 		// S3 Bucket for CMS static files
 		this.bucket = new s3.Bucket(this, "CmsBucket", {
-			bucketName: `vcm-cms-${environment}${branchSuffix}`,
+			bucketName: `${Club.slug}-cms-${environment}${branchSuffix}`,
 			encryption: s3.BucketEncryption.S3_MANAGED,
 			blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
 			removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,

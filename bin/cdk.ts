@@ -117,7 +117,7 @@ new ApiStack(app, apiStackName, {
 	regionalCertificate: dnsStack.regionalCertificate,
 });
 
-const _socialMediaStack = new SocialMediaStack(app, socialMediaStackName, {
+new SocialMediaStack(app, socialMediaStackName, {
 	...commonStackProps,
 	description: `Social Media API Services (${environment}${branchSuffix})`,
 	hostedZone: dnsStack.hostedZone,

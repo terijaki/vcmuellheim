@@ -35,12 +35,12 @@ export class WebsiteStack extends cdk.Stack {
 		const branch = props?.stackProps?.branch || "";
 		const branchSuffix = branch ? `-${branch}` : "";
 		const isProd = environment === "prod";
-		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
-		const websiteDomain = isProd ? Club.domain : `${envPrefix ? `${envPrefix.replace(/-$/, "")}.` : ""}new.${Club.domain}`;
+		const envPrefix = isProd ? "" : `${environment}${branchSuffix}.`; // Note the dot for subdomain, for the website. Not a hyphen like for other resources.
+		const websiteDomain = `${envPrefix}new.${Club.domain}`;
 
 		// S3 Bucket for website static files
 		this.bucket = new s3.Bucket(this, "WebsiteBucket", {
-			bucketName: `vcm-website-${environment}${branchSuffix}`,
+			bucketName: `${Club.slug}-website-${environment}${branchSuffix}`,
 			encryption: s3.BucketEncryption.S3_MANAGED,
 			blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
 			removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,

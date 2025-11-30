@@ -1,3 +1,4 @@
+import { Club } from "@project.config";
 import { createContext, useContext, useEffect, useState } from "react";
 
 // PKCE helper functions
@@ -104,9 +105,9 @@ export interface AuthContext {
 
 const AuthContext = createContext<AuthContext | undefined>(undefined);
 
-const AUTH_STORAGE_KEY = "vcm-auth";
-const PKCE_VERIFIER_KEY = "vcm-pkce-verifier";
-const OAUTH_STATE_KEY = "vcm-oauth-state";
+const AUTH_STORAGE_KEY = `${Club.slug}-auth`;
+const PKCE_VERIFIER_KEY = `${Club.slug}-pkce-verifier`;
+const OAUTH_STATE_KEY = `${Club.slug}-oauth-state`;
 
 let cognitoConfig: Awaited<ReturnType<typeof fetchCognitoConfig>> | null = null;
 

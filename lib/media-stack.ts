@@ -38,7 +38,7 @@ export class MediaStack extends cdk.Stack {
 
 		// S3 Bucket for media storage
 		this.bucket = new s3.Bucket(this, "MediaBucket", {
-			bucketName: `vcm-media-${environment}${branchSuffix}`,
+			bucketName: `${Club.slug}-media-${environment}${branchSuffix}`,
 			encryption: s3.BucketEncryption.S3_MANAGED,
 			cors: [
 				{
