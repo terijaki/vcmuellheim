@@ -35,5 +35,4 @@
 	},
 	"include": ["src"],
 	"exclude": ["@codegen/**", "../../codegen/**"],
-	"references": [{ "path": "./tsconfig.node.json" }]
 }
