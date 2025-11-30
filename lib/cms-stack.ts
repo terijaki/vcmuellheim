@@ -140,7 +140,7 @@ export class CmsStack extends cdk.Stack {
 			],
 			destinationBucket: this.bucket,
 			distribution: this.distribution,
-			distributionPaths: ["/*"], // Invalidate all files on deployment
+			distributionPaths: ["/index.html"],
 			prune: true, // Remove old files not in new deployment
 		});
 
