@@ -84,7 +84,6 @@ jobs:
           bunx cdk deploy --require-approval never --all --outputs-file cdk-outputs.json
 
       - name: Add deployment summary
-        if: always()
         run: |
           BRANCH="${{ github.ref_name }}"
 
@@ -143,3 +142,19 @@ jobs:
             echo "bunx cdk destroy --all" >> $GITHUB_STEP_SUMMARY
             echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           fi
+
+  comment-on-deployment:
+    if: failure()
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment on deployment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.repos.createCommitComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: context.sha,
+              body: `🚨 **CDK Deployment Failed**\n\n`
+            });
