@@ -166,7 +166,7 @@ function HomeMatchesList({ homeMatches }: { homeMatches: LeagueMatchesResponse["
 									const earliestStartTime = matchesArray.reduce((earliest, match) => {
 										const currentTime = dayjs(match.time, "HH:mm");
 										return currentTime.isBefore(dayjs(earliest, "HH:mm")) ? match.time : earliest;
-									}, matchesArray[0]?.time || "00:00");
+									}, matchesArray[0]?.time);
 
 									// NEW STACK PER LEAGUE (INSIDE THE DATE AND LOCATION CARD)
 									return (
