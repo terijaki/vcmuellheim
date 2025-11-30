@@ -11,7 +11,7 @@ export default function HomeInstagram() {
 
 	return (
 		<Box bg="onyx">
-			<BackgroundImage src="/backgrounds/pageheading.jpg" py="md" style={{ zIndex: 0 }} pos="relative">
+			<BackgroundImage src="/assets/backgrounds/pageheading.jpg" py="md" style={{ zIndex: 0 }} pos="relative">
 				<Container size="xl" py="md" px={{ base: "lg", md: "xl" }}>
 					<ScrollAnchor name="instagram" />
 					<Stack>

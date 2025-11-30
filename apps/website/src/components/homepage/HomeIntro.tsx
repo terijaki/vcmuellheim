@@ -7,7 +7,7 @@ import { navbarLinks } from "../../utils/navbarLinks";
 import { HEADER_HEIGHT } from "../layout/Header";
 import HomeIntroLogo from "./HomeIntroLogo";
 
-const backgroundImages = ["/backgrounds/intro1.jpg", "/backgrounds/intro2.jpg", "/backgrounds/intro3.jpg", "/backgrounds/intro4.jpg"];
+const backgroundImages = ["/assets/backgrounds/intro1.jpg", "/assets/backgrounds/intro2.jpg", "/assets/backgrounds/intro3.jpg", "/assets/backgrounds/intro4.jpg"];
 
 export default function HomeIntro() {
 	const backgroundImageRandom = useMemo(() => {

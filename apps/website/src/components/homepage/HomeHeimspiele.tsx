@@ -66,7 +66,7 @@ export default function HomeHeimspiele() {
 	return (
 		<Box bg="blumine">
 			<ScrollAnchor name="heimspiele" />
-			<BackgroundImage src="/backgrounds/pageheading.jpg" py="md" style={{ zIndex: 0 }} pos="relative">
+			<BackgroundImage src="/assets/backgrounds/pageheading.jpg" py="md" style={{ zIndex: 0 }} pos="relative">
 				<Container size="xl" px={{ base: "lg", md: "xl" }}>
 					<Stack>
 						{/* EVENTS */}
