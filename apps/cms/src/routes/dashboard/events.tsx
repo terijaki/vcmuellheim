@@ -274,6 +274,7 @@ function EventsPage() {
 								}
 								return {};
 							}}
+							clearable
 							highlightToday
 							timePickerProps={{
 								withDropdown: true,

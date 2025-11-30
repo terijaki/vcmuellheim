@@ -109,6 +109,16 @@ psql "$TEMP_DB" -t -A -c "
         FROM teams_rels tr
         WHERE tr.parent_id = t.id AND tr.path = 'images'
       ),
+      'trainerIds', (
+        SELECT json_agg(tr.members_id)
+        FROM teams_rels tr
+        WHERE tr.parent_id = t.id AND tr.path = 'people.coaches'
+      ),
+      'pointOfContactIds', (
+        SELECT json_agg(tr.members_id)
+        FROM teams_rels tr
+        WHERE tr.parent_id = t.id AND tr.path = 'people.contactPeople'
+      ),
       'trainingSchedules', (
         SELECT json_agg(json_build_object(
           'days', (

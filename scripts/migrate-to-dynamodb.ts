@@ -587,8 +587,8 @@ async function migrateTeams(dryRun: boolean): Promise<void> {
 				ageGroup: row.age ? String(row.age) : undefined,
 				gender: row.gender,
 				league: row.league || undefined,
-				pointOfContactIds: undefined, // add manually after members migration
-				trainerIds: undefined, // add manually after members migration
+				pointOfContactIds: row.pointOfContactIds || undefined,
+				trainerIds: row.trainerIds || undefined,
 				pictureS3Keys,
 				trainingSchedules: row.trainingSchedules,
 				createdAt,
