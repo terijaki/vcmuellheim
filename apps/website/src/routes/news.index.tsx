@@ -26,7 +26,7 @@ function RouteComponent() {
 		}
 	}, [inViewport, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-	if (news.length === 0) {
+	if (data && news.length === 0) {
 		return <EntityNotFound entityName="News Beiträge" title="Ladefehler" description="Es konnten keine News geladen werden." />;
 	}
 
