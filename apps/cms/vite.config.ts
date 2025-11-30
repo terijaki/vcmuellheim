@@ -22,9 +22,6 @@ export default defineConfig({
 			authToken: process.env.SENTRY_AUTH_TOKEN,
 			telemetry: process.env.VITE_CDK_ENVIRONMENT === "prod",
 			silent: process.env.VITE_CDK_ENVIRONMENT !== "prod",
-			sourcemaps: {
-				disable: true,
-			},
 		}),
 	],
 	define: {
