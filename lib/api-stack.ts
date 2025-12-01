@@ -5,6 +5,7 @@ import type * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import type * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as lambda from "aws-cdk-lib/aws-lambda";
+import { DynamoEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
@@ -158,7 +159,7 @@ export class ApiStack extends cdk.Stack {
 			settings: {
 				categories: {
 					global: {
-						colorSchemeMode: "LIGHT", // Use LIGHT mode by default (users can switch)
+						colorSchemeMode: "LIGHT",
 					},
 				},
 				components: {
@@ -309,6 +310,42 @@ export class ApiStack extends cdk.Stack {
 
 		// Grant ICS Lambda read access to Teams table
 		tables.TEAMS.grantReadData(icsLambda);
+
+		// S3 Cleanup Lambda - triggered by DynamoDB Streams
+		const s3CleanupLambda = new NodejsFunction(this, "S3CleanupLambda", {
+			functionName: `vcm-s3-cleanup-${environment}${branchSuffix}`,
+			entry: "lambda/content/s3-cleanup.ts",
+			handler: "handler",
+			runtime: lambda.Runtime.NODEJS_LATEST,
+			timeout: cdk.Duration.seconds(60),
+			memorySize: 256,
+			environment: {
+				MEDIA_BUCKET_NAME: props.mediaBucket?.bucketName || "",
+			},
+			bundling: {
+				minify: true,
+				sourceMap: true,
+				externalModules: ["@aws-sdk/client-s3", "@aws-sdk/util-dynamodb"],
+			},
+		});
+		if (props.mediaBucket) {
+			props.mediaBucket.grantDelete(s3CleanupLambda);
+		}
+
+		// Attach DynamoDB stream event sources to S3 Cleanup Lambda
+		// Listen to REMOVE and MODIFY events on all content tables
+		const streamTables = [tables.NEWS, tables.TEAMS, tables.MEMBERS, tables.MEDIA, tables.SPONSORS];
+		for (const table of streamTables) {
+			table.grantStreamRead(s3CleanupLambda);
+			// Add DynamoDB stream event source
+			s3CleanupLambda.addEventSource(
+				new DynamoEventSource(table, {
+					startingPosition: lambda.StartingPosition.LATEST,
+					bisectBatchOnError: true,
+					retryAttempts: 2,
+				}),
+			);
+		}
 
 		// 3. HTTP API Gateway with custom domain
 		// Custom domain for API

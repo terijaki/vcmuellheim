@@ -84,10 +84,10 @@
 		"cdk:bootstrap": "cdk bootstrap --profile vcmuellheim"
 	},
 	"dependencies": {
-		"@aws-sdk/client-dynamodb": "^3.936.0",
-		"@aws-sdk/client-s3": "^3.937.0",
-		"@aws-sdk/lib-dynamodb": "^3.936.0",
-		"@aws-sdk/s3-request-presigner": "^3.937.0",
+		"@aws-sdk/client-dynamodb": "^3.940.0",
+		"@aws-sdk/client-s3": "^3.940.0",
+		"@aws-sdk/lib-dynamodb": "^3.940.0",
+		"@aws-sdk/s3-request-presigner": "^3.940.0",
 		"@mantine/core": "catalog:",
 		"@mantine/dates": "catalog:",
 		"@mantine/hooks": "catalog:",
@@ -110,7 +110,7 @@
 	},
 	"devDependencies": {
 		"@aws-cdk/aws-lambda-nodejs": "^1.204.0",
-		"@aws-sdk/client-lambda": "^3.938.0",
+		"@aws-sdk/client-lambda": "^3.940.0",
 		"@biomejs/biome": "2.3.8",
 		"@hey-api/openapi-ts": "^0.88.0",
 		"@sentry/vite-plugin": "^4.6.1",

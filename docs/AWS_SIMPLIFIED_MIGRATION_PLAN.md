@@ -69,12 +69,14 @@
    - ✅ Domain-specific query helpers (getPublishedNews, getUpcomingEvents, etc.)
    - ✅ DynamoDB client configuration (lib/db/client.ts)
 
-5. [ ] **Set up S3 Media Cleanup (DynamoDB Streams)**
+5. [x] **Set up S3 Media Cleanup (DynamoDB Streams)**
    - ✅ Streams enabled on all tables (NEW_AND_OLD_IMAGES)
-   - ⏳ Create Lambda function triggered on REMOVE events (deferred)
-   - ⏳ Lambda deletes S3 object when media item deleted
-   - ⏳ Lambda deletes logoId from Media when sponsor expires (TTL)
-   - ⏳ Cascading: Sponsor TTL → Delete Media → Delete S3 object
+   - ✅ Created S3 Cleanup Lambda (lambda/content/s3-cleanup.ts)
+   - ✅ Lambda handles both REMOVE and MODIFY events
+   - ✅ REMOVE: Deletes all S3 objects when entity deleted (News, Teams, Members, Media, Sponsors)
+   - ✅ MODIFY: Detects replaced S3 keys and only deletes old files (e.g., when uploading new avatar/logo)
+   - ✅ DynamoDB Event Source attached to News, Teams, Members, Media, Sponsors tables
+   - ✅ Cascade flow: Manual delete or TTL expiry → DynamoDB Stream → Lambda → S3 object deleted
 
 6. [x] **Set up tRPC for Type-Safe APIs**
    - ✅ Installed tRPC dependencies (@trpc/server, @trpc/client, @trpc/react-query)
@@ -164,20 +166,10 @@
    - ✅ Events management - Calendar view with date conflict detection
    - ✅ Teams management - Complete with logo upload, trainer avatars, training schedules
    - ✅ Members management - Avatar upload, board member & trainer role toggles
-   - ⏳ Media library (upload to S3, manage metadata in DynamoDB) - Placeholder exists, needs implementation
-   - ⏳ User management - Add more users to the Cognito user pool. Roles (Admin, Moderator).
    - ✅ Sponsors management - Logo upload and tier management
    - ✅ Locations management - Full CRUD for event locations
    - ✅ Bus bookings management - Calendar view with booking conflict detection
-
-4. [x] **Rich Text Editor**
-   - ✅ Using @mantine/tiptap (official Mantine integration)
-   - ✅ Extensions: StarterKit, Link, Image
-   - ✅ Integrated into News editor
-   - ✅ Save as HTML string in DynamoDB (content field)
-   - ✅ Auto-generate excerpt from content
-   - [ ] Add Table, CodeBlock extensions if needed
-   - [ ] Render on frontend using same Tiptap extensions (read-only mode)
+   - ⏳ User management - Add more users to the Cognito user pool. Roles (Admin, Moderator).
 
 5. [x] **Deploy CMS App**
    - ✅ Create CmsStack in CDK (S3 + CloudFront + custom domain)
@@ -215,8 +207,8 @@
      - ✅ `/teams` → Teams overview
      - ✅ `/termine` → Events
      - ✅ `/fotos` → Photo gallery
-     - ✅ etc.
-   - ✅ IMPORTANT: Handle the ICS endpoints. e.g. webcal://vcmuellheim.de/ics/all.ics, webcal://vcmuellheim.de/ics/herren1.ics
+     - etc.
+   - ✅ ICS endpoints: `/ics/all.ics` and `/ics/{teamSlug}.ics` (tested and working)
 
 4. [ ] **Build & Optimization**
    - Code splitting with React.lazy
@@ -247,15 +239,29 @@
 ### Tasks:
 
 1. [ ] **Public API Endpoints** (for frontend consumption)
-   - `GET /api/news` - List news articles
-   - `GET /api/news/:slug` - Get single article
-   - `GET /api/events` - List events
-   - `GET /api/teams` - List teams
-   - `GET /api/members` - List members
-   - `GET /api/sponsors` - List sponsors
-   - `GET /api/photos` - List photo gallery
-   - `GET /api/bus` - List bus bookings (filtered by date range)
-   - Consider pagination, filtering, sorting
+   - ✅ `GET /api/news` - List published news articles (news.published)
+   - ✅ `GET /api/news/:slug` - Get single article by slug (news.getBySlug)
+   - ✅ `GET /api/news/:id` - Get single article by ID (news.getById)
+   - ✅ `GET /api/news/gallery/images` - Gallery images from published articles (news.galleryImages)
+   - ✅ `GET /api/events` - List upcoming events (events.upcoming)
+   - ✅ `GET /api/events/:id` - Get event by ID (events.getById)
+   - ✅ `GET /api/teams` - List all teams (teams.list)
+   - ✅ `GET /api/teams/:slug` - Get team by slug (teams.getBySlug)
+   - ✅ `GET /api/teams/:id` - Get team by ID (teams.getById)
+   - ✅ `GET /api/members` - List all members (members.list)
+   - ✅ `GET /api/members/board` - List board members (members.board)
+   - ✅ `GET /api/members/trainers` - List trainers (members.trainers)
+   - ✅ `GET /api/members/:id` - Get member by ID (members.getById)
+   - ✅ `GET /api/sponsors` - List sponsors (sponsors.list)
+   - ✅ `GET /api/sponsors/:id` - Get sponsor by ID (sponsors.getById)
+   - ✅ `GET /api/locations` - List locations (locations.list)
+   - ✅ `GET /api/locations/:id` - Get location by ID (locations.getById)
+   - ✅ `GET /api/bus` - List bus bookings (bus.list)
+   - ✅ `GET /api/bus/:id` - Get bus booking by ID (bus.getById)
+   - ✅ `GET /api/config` - Get dynamic Cognito config (config router)
+   - ✅ `GET /ics/all.ics` - All matches calendar feed (ICS Lambda)
+   - ✅ `GET /ics/:teamSlug.ics` - Team-specific calendar feed (ICS Lambda)
+   - All endpoints tested and working ✅
 
 2. [ ] **Existing Lambda Functions** (already done)
    - ✅ SAMS API integration
@@ -514,11 +520,16 @@
 2. ✅ **Create new CDK stack** for DynamoDB tables
 3. ✅ **Deploy infrastructure** - Custom domains for API and Media deployed
 4. ✅ **Build proof-of-concept** admin page (one entity, e.g., News)
-5. ✅ **Expand CMS** - All 8 entities built (7/8 complete, Media library pending)
-6. [ ] **Complete Media Library UI** - Standalone media management page
-7. [ ] **Create CmsStack CDK** - Deploy admin panel to CloudFront
-8. [ ] **Test data migration** from Payload to DynamoDB
-9. [ ] **Frontend data consumption** - Connect public site to new API
+5. ✅ **Expand CMS** - All 8 entities built
+6. ✅ **Create CmsStack CDK** - Deploy admin panel to CloudFront
+7. [ ] **Test data migration** from Payload to DynamoDB
+8. [ ] **Frontend data consumption** - Connect public site to new API
+9. [ ] **Build & Deploy Frontend** - Complete Vite + React SPA
+10. [ ] **S3 Media Cleanup Lambda** - Delete S3 objects via DynamoDB Streams
+11. [ ] **SEO/Pre-rendering** - Lambda@Edge SSR or static prerendering
+12. [ ] **Performance optimization** - Lighthouse audit, bundle size
+13. [ ] **Parallel running** - Test new vs old side-by-side
+14. [ ] **DNS cutover** - Point production domains to new infrastructure
 
 ---
 
