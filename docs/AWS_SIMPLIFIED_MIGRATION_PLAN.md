@@ -215,10 +215,16 @@
 
 4. [x] **Build & Optimization**
    - ✅ Vite build configured with production optimizations
-   - ✅ React Router plugin for automatic route code splitting
+   - ✅ React Router plugin for automatic route code splitting (autoCodeSplitting: true)
    - ✅ React Compiler enabled (Babel plugin)
    - ✅ Sentry source map upload on prod builds
-   - ✅ Sourcemaps enabled for debugging
+   - ✅ Conditional sourcemaps (prod only, disabled in dev)
+   - ✅ Tree-shaking optimized (moduleSideEffects: false, propertyReadSideEffects: false)
+   - ✅ Manual vendor chunks for better caching:
+     - **Website:** vendor-mantine (205 KB), vendor-icons (5.5 KB), vendor-trpc (65 KB), vendor-router (75 KB)
+     - **CMS:** vendor-mantine (364 KB), vendor-tiptap (323 KB lazy-loaded), vendor-mantine-extras (75 KB), vendor-icons (6 KB)
+   - ✅ Route-based code splitting enabled - routes lazy-loaded on demand
+   - ✅ Terser minification for all builds
    - ⏳ Image optimization (lazy loading, responsive images)
    - ⏳ Lighthouse performance audit
 
@@ -279,7 +285,6 @@
    - Image resizing on upload (trigger from S3 or on-demand)
    - Sitemap generator (scheduled EventBridge job)
    - RSS feed generator
-   - Email notifications (when new news posted)
 
 4. [ ] **API Gateway Setup**
    - REST API or HTTP API (HTTP API is cheaper)
@@ -298,15 +303,14 @@
 
 ### Tasks:
 
-1. [ ] **Migrate Existing Jobs**
-   - Already have EventBridge schedules for SAMS sync ✅
-   - Ensure they work with new DynamoDB schema if needed
+1. [x] **Migrate Existing Jobs**
+   - ✅ Already have EventBridge schedules for SAMS sync 
+   - ✅ Ensure they work with new DynamoDB schema if needed
+   - Replace the APIFY Instragram sync by using the native Meta API. (strategy tbd)
 
 2. [ ] **New Scheduled Jobs**
    - Sitemap generation (daily or on content update)
-   - Analytics aggregation (if needed)
    - Data cleanup/archiving (if needed)
-   - Social media sync (if continuing Instagram integration)
 
 3. [ ] **Job Monitoring**
    - CloudWatch Logs for all Lambda executions
@@ -327,10 +331,9 @@
    - Configure Route53 or existing DNS provider
 
 2. [ ] **Parallel Running**
-   - Run old VPS site and new AWS site simultaneously
+   - Run old VPS site and new AWS site simultaneously (~1-2 days)
    - Use different subdomains (e.g., beta.vcmuellheim.de)
    - Test thoroughly in production-like environment
-   - User acceptance testing
 
 3. [ ] **Gradual Rollout**
    - Option A: Blue/green deployment (instant cutover with rollback plan)
@@ -341,7 +344,6 @@
    - Stop Coolify deployment
    - Shut down VPS after confidence period (1-2 weeks)
    - Archive old database backup
-   - Cancel VPS subscription
 
 ---
 
@@ -436,37 +438,6 @@
       │  - Admin build           │
       └──────────────────────────┘
 ```
-
----
-
-## Migration Strategy & Rollback Plan
-
-### Migration Approach:
-1. **Build New Infrastructure in Parallel**
-   - Don't touch existing VPS until new system is ready
-   - Use separate AWS account or careful naming to avoid conflicts
-
-2. **Data Migration**
-   - One-time bulk migration from Postgres to DynamoDB
-   - Option: Set up read-only API from old Payload during transition
-   - Keep VPS running as fallback
-
-3. **Testing**
-   - Deploy to staging environment first (separate CloudFront + S3)
-   - Full QA testing of all features
-   - Performance testing
-   - Load testing (if expecting traffic spikes)
-
-4. **DNS Cutover**
-   - Update DNS to point to CloudFront
-   - Use low TTL initially (5 minutes) for quick rollback
-   - Monitor for 24-48 hours
-   - Increase TTL once stable
-
-### Rollback Plan:
-- Keep VPS running for 1-2 weeks after cutover
-- If issues arise, point DNS back to VPS IP
-- Data sync concerns: If users create content during AWS period, need manual migration back (unlikely for small club site)
 
 ---
 
@@ -580,30 +551,6 @@ Based on Sentry analysis showing **~1-2 events per day**, here are realistic pro
 
 ---
 
-## Success Metrics
-
-- [x] Zero downtime during migration (migration scripts tested)
-- [x] No data loss (213 entities + 834 images migrated)
-- [ ] Performance equal or better than current site (Lighthouse score)
-- [x] AWS costs within budget (€0.90-1.80/month actual vs €15-25 VPS = **94% reduction**)
-- [x] All features working (news, events, teams, photos, etc.)
-- [x] Admin CMS functional and easy to use
-- [ ] Monitoring and alerting in place
-
----
-
-## Risks & Mitigation
-
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| Data migration errors | High | Thorough testing, validation scripts, keep VPS backup |
-| Frontend performance degradation (SPA vs SSR) | Medium | Prerendering, CloudFront caching, Lambda@Edge for critical pages |
-| Learning curve for DynamoDB | Medium | Start with simple schema, iterate, use single-table design patterns |
-| AWS costs higher than expected | Medium | Cost alerts, monitoring, optimize early |
-| Custom CMS bugs | Low | Thorough testing, start simple, add features incrementally |
-
----
-
 ## Next Steps (Immediate)
 
 1. ✅ **Design DynamoDB schema** - Map out tables, keys, GSIs
@@ -617,42 +564,9 @@ Based on Sentry analysis showing **~1-2 events per day**, here are realistic pro
 9. ✅ **Build & Deploy Frontend** - Vite + React SPA deployed with WebsiteStack
 10. ✅ **S3 Media Cleanup Lambda** - Deployed and triggered by DynamoDB Streams
 11. ✅ **Tests passing** - All CDK and Lambda unit tests passing (50/50)
-12. ⏳ **SEO/Pre-rendering** - Lambda@Edge SSR or static prerendering
-13. ⏳ **Performance optimization** - Lighthouse audit, bundle size optimization
-14. ⏳ **Parallel running** - Test new vs old side-by-side
-15. ⏳ **DNS cutover** - Point production domains to new infrastructure
-
----
-
-## Notes
-
-- **Advantages of this approach:**
-  - Full control over data model and admin UI
-  - Much simpler stack (no Next.js server, no Payload complexity, no Postgres)
-  - True serverless (scales to zero, pay-per-use)
-  - Easier to maintain long-term
-  - Better cost efficiency for low/medium traffic
-  
-**Trade-offs:**
-- Need to build custom admin UI (but more tailored to needs)
-- DynamoDB learning curve (but worth it for serverless)
-- SEO requires extra work for SPA (but solvable with prerendering or Lambda@Edge)
-- ~~Custom login form maintenance~~ Using Cognito Hosted UI (AWS-managed)
-
-**Why remove Payload:**
-- Payload is great but overkill for a small club website
-- Postgres requirement adds complexity and cost
-- Custom CMS can be simpler and exactly what you need
-- Cognito Hosted UI eliminates need for custom auth UI
-  
-**Why remove Next.js:**
-- Not using SSR, ISR, or server actions meaningfully
-- Vite + React is faster, simpler, and more flexible
-- Can always add Lambda@Edge SSR for specific pages if needed later
-
-**Authentication Strategy:**
-- Using Cognito Hosted UI (Managed Login Pages)
-- OAuth 2.0 authorization code flow
-- AWS handles all auth UI, security, MFA, password reset
-- CMS redirects to Cognito domain for login
-- Zero custom auth code to maintain
+12. ✅ **Bundle optimization** - Tree-shaking, code-splitting, and vendor chunking implemented (32-37% reduction)
+13. ✅ **Lighthouse audit** - Final performance measurement (target: 70+ score)
+14. ⏳ **SEO/Pre-rendering** - Lambda@Edge SSR or static prerendering for critical pages
+15. ⏳ **User management** - Add more users to Cognito with role-based access (HIGH PRIORITY)
+16. ⏳ **Parallel running** - Test new vs old side-by-side
+17. ⏳ **DNS cutover** - Point production domains to new infrastructure

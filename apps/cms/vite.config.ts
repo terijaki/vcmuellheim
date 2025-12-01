@@ -6,10 +6,13 @@ import { defineConfig } from "vite";
 import { getSanitizedBranch } from "../../utils/git";
 
 const sanitizedBranch = getSanitizedBranch();
+const isProd = process.env.VITE_CDK_ENVIRONMENT === "prod";
 
 export default defineConfig({
 	plugins: [
-		tanstackRouter(),
+		tanstackRouter({
+			autoCodeSplitting: true,
+		}),
 		react({
 			babel: {
 				plugins: ["babel-plugin-react-compiler"],
@@ -20,8 +23,8 @@ export default defineConfig({
 			project: "volleyball-website",
 			disable: !process.env.SENTRY_AUTH_TOKEN,
 			authToken: process.env.SENTRY_AUTH_TOKEN,
-			telemetry: process.env.VITE_CDK_ENVIRONMENT === "prod",
-			silent: process.env.VITE_CDK_ENVIRONMENT !== "prod",
+			silent: !isProd,
+			telemetry: true,
 		}),
 	],
 	define: {
@@ -47,6 +50,25 @@ export default defineConfig({
 		outDir: "dist",
 		sourcemap: true,
 		assetsInlineLimit: 0,
+		minify: "terser",
+		rollupOptions: {
+			output: {
+				manualChunks: {
+					"vendor-mantine": ["@mantine/core", "@mantine/hooks", "@mantine/dates"],
+					"vendor-mantine-extras": ["@mantine/notifications", "@mantine/dropzone"],
+					"vendor-tiptap": ["@tiptap/react", "@tiptap/starter-kit", "@tiptap/extension-link", "@tiptap/extension-image"],
+					"vendor-icons": ["lucide-react"],
+					"vendor-trpc": ["@trpc/client", "@trpc/tanstack-react-query", "@tanstack/react-query"],
+					"vendor-router": ["@tanstack/react-router"],
+				},
+			},
+			treeshake: {
+				moduleSideEffects: false,
+				propertyReadSideEffects: false,
+				tryCatchDeoptimization: false,
+			},
+		},
+		chunkSizeWarningLimit: 500,
 	},
 	publicDir: "public",
 });
