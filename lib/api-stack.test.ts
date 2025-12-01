@@ -8,44 +8,54 @@ import { ApiStack } from "./api-stack";
 
 // Helper to create mock DynamoDB tables in the same stack
 function createMockTables(stack: Stack, env: string) {
+	const streamConfig = { stream: dynamodb.StreamViewType.NEW_AND_OLD_IMAGES };
+
 	const newsTable = new dynamodb.Table(stack, "MockNewsTable", {
 		tableName: `vcm-news-${env}`,
 		partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+		...streamConfig,
 	});
 
 	const eventsTable = new dynamodb.Table(stack, "MockEventsTable", {
 		tableName: `vcm-events-${env}`,
 		partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+		...streamConfig,
 	});
 
 	const teamsTable = new dynamodb.Table(stack, "MockTeamsTable", {
 		tableName: `vcm-teams-${env}`,
 		partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+		...streamConfig,
 	});
 
 	const membersTable = new dynamodb.Table(stack, "MockMembersTable", {
 		tableName: `vcm-members-${env}`,
 		partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+		...streamConfig,
 	});
 
 	const mediaTable = new dynamodb.Table(stack, "MockMediaTable", {
 		tableName: `vcm-media-${env}`,
 		partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+		...streamConfig,
 	});
 
 	const sponsorsTable = new dynamodb.Table(stack, "MockSponsorsTable", {
 		tableName: `vcm-sponsors-${env}`,
 		partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+		...streamConfig,
 	});
 
 	const locationsTable = new dynamodb.Table(stack, "MockLocationsTable", {
 		tableName: `vcm-locations-${env}`,
 		partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+		...streamConfig,
 	});
 
 	const busTable = new dynamodb.Table(stack, "MockBusTable", {
 		tableName: `vcm-bus-${env}`,
 		partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+		...streamConfig,
 	});
 
 	return {
@@ -107,8 +117,8 @@ describe("ApiStack", () => {
 			// Should have User Pool Client
 			template.resourceCountIs("AWS::Cognito::UserPoolClient", 1);
 
-			// Should have 2 Lambda functions (tRPC API + ICS calendar)
-			template.resourceCountIs("AWS::Lambda::Function", 2);
+			// Should have 3 Lambda functions (tRPC API + ICS calendar + S3 Cleanup)
+			template.resourceCountIs("AWS::Lambda::Function", 3);
 
 			// Should have HTTP API
 			template.resourceCountIs("AWS::ApiGatewayV2::Api", 1);
