@@ -69,7 +69,7 @@
    - ✅ Domain-specific query helpers (getPublishedNews, getUpcomingEvents, etc.)
    - ✅ DynamoDB client configuration (lib/db/client.ts)
 
-5. [x] **Set up S3 Media Cleanup (DynamoDB Streams)**
+5. [x] **Set up S3 Media Cleanup (DynamoDB Streams)** ✅ COMPLETE
    - ✅ Streams enabled on all tables (NEW_AND_OLD_IMAGES)
    - ✅ Created S3 Cleanup Lambda (lambda/content/s3-cleanup.ts)
    - ✅ Lambda handles both REMOVE and MODIFY events
@@ -77,6 +77,8 @@
    - ✅ MODIFY: Detects replaced S3 keys and only deletes old files (e.g., when uploading new avatar/logo)
    - ✅ DynamoDB Event Source attached to News, Teams, Members, Media, Sponsors tables
    - ✅ Cascade flow: Manual delete or TTL expiry → DynamoDB Stream → Lambda → S3 object deleted
+   - ✅ Lambda deployed and tested with manual REMOVE event invocation
+   - ✅ CloudWatch logs verified showing successful S3 deletion (370ms execution, 112MB memory)
 
 6. [x] **Set up tRPC for Type-Safe APIs**
    - ✅ Installed tRPC dependencies (@trpc/server, @trpc/client, @trpc/react-query)
