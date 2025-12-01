@@ -26,7 +26,7 @@ import {
 } from "@mantine/core";
 import { TimeInput } from "@mantine/dates";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -265,6 +265,7 @@ function TrainingScheduleManager({
 }
 
 function TeamsPage() {
+	const isMobile = useMediaQuery("(max-width: 48em)");
 	const [opened, { open, close }] = useDisclosure(false);
 	const [editingId, setEditingId] = useState<string | null>(null);
 	const [pictureFiles, setPictureFiles] = useState<File[]>([]);
@@ -478,8 +479,8 @@ function TeamsPage() {
 					Neue Mannschaft
 				</Button>
 			</Group>{" "}
-			<Modal opened={opened} onClose={close} title={editingId ? "Mannschaft bearbeiten" : "Neue Mannschaft"} size="xl">
-				<Stack gap="md">
+			<Modal opened={opened} onClose={close} title={editingId ? "Mannschaft bearbeiten" : "Neue Mannschaft"} size={isMobile ? "100%" : "xl"} fullScreen={isMobile}>
+				<Stack gap="md" p={{ base: "md", sm: "sm" }}>
 					<Group align="top" grow>
 						<Stack>
 							<TextInput label="Name" placeholder="z.B. 1. Herren" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />

@@ -1,6 +1,6 @@
 import type { LocationInput } from "@lib/db/schemas";
 import { ActionIcon, Button, Group, Modal, Paper, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
 
 function LocationsPage() {
+	const isMobile = useMediaQuery("(max-width: 48em)");
 	const [opened, { open, close }] = useDisclosure(false);
 	const [editingId, setEditingId] = useState<string | null>(null);
 	const [formData, setFormData] = useState<Partial<LocationInput>>({
@@ -154,8 +155,8 @@ function LocationsPage() {
 				</Button>
 			</Group>
 
-			<Modal opened={opened} onClose={close} title={editingId ? "Ort bearbeiten" : "Neuer Ort"} size="lg">
-				<Stack gap="md">
+			<Modal opened={opened} onClose={close} title={editingId ? "Ort bearbeiten" : "Neuer Ort"} size={isMobile ? "100%" : "lg"} fullScreen={isMobile}>
+				<Stack gap="md" p={{ base: "md", sm: "sm" }}>
 					<TextInput label="Name" placeholder="z.B. Sporthalle Müllheim" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
 					<Textarea
 						label="Beschreibung"

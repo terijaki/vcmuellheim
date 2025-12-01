@@ -1,7 +1,7 @@
 import type { NewsInput } from "@lib/db/schemas";
 import { ActionIcon, Badge, Box, Button, Card, Group, Image, Modal, Paper, Pill, SegmentedControl, Stack, Table, Text, TextInput, Title } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { RichTextEditor } from "@mantine/tiptap";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -17,6 +17,7 @@ import { useTRPC } from "@/apps/shared/lib/trpc-config";
 
 function NewsPage() {
 	const trpc = useTRPC();
+	const isMobile = useMediaQuery("(max-width: 48em)");
 	const [opened, { open, close }] = useDisclosure(false);
 	const [editingId, setEditingId] = useState<string | null>(null);
 	const [imageFiles, setImageFiles] = useState<File[]>([]);
@@ -264,8 +265,8 @@ function NewsPage() {
 				/>
 			</Group>
 
-			<Modal opened={opened} onClose={close} title={editingId ? "News bearbeiten" : "News erstellen"} size="100%">
-				<Stack gap="md">
+			<Modal opened={opened} onClose={close} title={editingId ? "News bearbeiten" : "News erstellen"} size="100%" fullScreen={isMobile}>
+				<Stack gap="md" p={{ base: "md", sm: "sm" }}>
 					<TextInput label="Titel" placeholder="Artikeltitel" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required />
 					<Box>
 						<Text size="sm" fw={500} mb="xs">

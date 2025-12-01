@@ -1,7 +1,7 @@
 import type { SponsorInput } from "@lib/db/schemas";
 import { ActionIcon, Anchor, Box, Button, Card, Group, Image, Modal, SimpleGrid, Stack, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -142,6 +142,7 @@ function CurrentLogoDisplay({
 }
 
 function SponsorsPage() {
+	const isMobile = useMediaQuery("(max-width: 48em)");
 	const [opened, { open, close }] = useDisclosure(false);
 	const [editingId, setEditingId] = useState<string | null>(null);
 	const [logoFile, setLogoFile] = useState<File | null>(null);
@@ -323,8 +324,8 @@ function SponsorsPage() {
 				</Button>
 			</Group>
 
-			<Modal opened={opened} onClose={close} title={editingId ? "Sponsor bearbeiten" : "Neuer Sponsor"} size="lg">
-				<Stack gap="md">
+			<Modal opened={opened} onClose={close} title={editingId ? "Sponsor bearbeiten" : "Neuer Sponsor"} size={isMobile ? "100%" : "lg"} fullScreen={isMobile}>
+				<Stack gap="md" p={{ base: "md", sm: "sm" }}>
 					<TextInput label="Name" placeholder="z.B. Firma Mustermann" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
 
 					<Textarea label="Beschreibung" placeholder="Optionale Beschreibung..." value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} minRows={3} />

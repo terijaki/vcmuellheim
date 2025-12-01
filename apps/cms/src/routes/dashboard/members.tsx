@@ -1,7 +1,7 @@
 import type { MemberInput } from "@lib/db/schemas";
 import { ActionIcon, Badge, Box, Button, Card, Checkbox, Group, Image, Modal, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -142,6 +142,7 @@ function CurrentAvatarDisplay({
 }
 
 function MembersPage() {
+	const isMobile = useMediaQuery("(max-width: 48em)");
 	const [opened, { open, close }] = useDisclosure(false);
 	const [editingId, setEditingId] = useState<string | null>(null);
 	const [avatarFile, setAvatarFile] = useState<File | null>(null);
@@ -343,8 +344,8 @@ function MembersPage() {
 				</Button>
 			</Group>
 
-			<Modal opened={opened} onClose={close} title={editingId ? "Mitglied bearbeiten" : "Neues Mitglied"} size="lg">
-				<Stack gap="md">
+			<Modal opened={opened} onClose={close} title={editingId ? "Mitglied bearbeiten" : "Neues Mitglied"} size={isMobile ? "100%" : "lg"} fullScreen={isMobile}>
+				<Stack gap="md" p={{ base: "md", sm: "sm" }}>
 					<TextInput label="Name" placeholder="z.B. Max Mustermann" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
 					<TextInput label="E-Mail" placeholder="max@vcmuellheim.de" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
 					<TextInput label="Telefon" placeholder="+49 123 456789" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
