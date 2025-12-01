@@ -1,5 +1,5 @@
 import type { MemberInput } from "@lib/db/schemas";
-import { ActionIcon, Badge, Box, Button, Card, Checkbox, Group, Image, Modal, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Badge, Box, Button, Card, Checkbox, Flex, Grid, Group, Image, Modal, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
@@ -378,7 +378,7 @@ function MembersPage() {
 			{isLoading ? (
 				<Text>Laden...</Text>
 			) : members && members.items.length > 0 ? (
-				<SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing="md">
+				<SimpleGrid cols={{ base: 1, sm: 2, xl: 3 }} spacing="md">
 					{members.items.map((member) => (
 						<MemberCard key={member.id} member={member} onEdit={handleEdit} onDelete={handleDelete} isDeleting={deleteMutation.isPending} />
 					))}
@@ -407,65 +407,60 @@ function MemberCard({
 	const { data: avatarUrl } = useQuery(trpc.upload.getFileUrl.queryOptions({ s3Key: member.avatarS3Key || "" }, { enabled: !!member.avatarS3Key }));
 
 	return (
-		<Card shadow="sm" padding="lg" radius="md" withBorder>
-			<Card.Section withBorder>
-				{avatarUrl ? (
-					<Image src={avatarUrl} height={200} alt={member.name} fit="cover" />
-				) : (
-					<div style={{ height: 200, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--mantine-color-gray-1)" }}>
-						<User size={60} style={{ color: "var(--mantine-color-gray-5)" }} />
-					</div>
-				)}
-			</Card.Section>
+		<Card shadow="sm" p="0" radius="md" withBorder>
+			<Grid align="stretch" justify="stretch" gutter={0} style={{ display: "flex", height: "100%" }}>
+				<Grid.Col span={4} bg="blue">
+					{avatarUrl ? (
+						<Image src={avatarUrl} alt={member.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+					) : (
+						<Flex justify="center" align="center" bg="gray" h="100%">
+							<User size={60} style={{ color: "var(--mantine-color-gray-5)" }} />
+						</Flex>
+					)}
+				</Grid.Col>
+				<Grid.Col span="auto" style={{ display: "flex", height: "100%" }}>
+					<Stack gap="xs" p="lg" justify="space-between" style={{ flex: 1 }}>
+						<Group justify="space-between" align="flex-start">
+							<Title order={4} lineClamp={2} style={{ flex: 1 }}>
+								{member.name}
+							</Title>
+							<Group gap={8} wrap="nowrap">
+								<ActionIcon variant="light" radius="xl" onClick={() => onEdit(member)} aria-label="Bearbeiten">
+									<Pencil size={16} />
+								</ActionIcon>
+								<ActionIcon variant="light" radius="xl" color="red" onClick={() => onDelete(member.id)} loading={isDeleting} aria-label="Löschen">
+									<Trash2 size={16} />
+								</ActionIcon>
+							</Group>
+						</Group>
 
-			<Stack gap="xs" mt="md">
-				<Group justify="space-between" align="flex-start">
-					<Title order={4} lineClamp={1}>
-						{member.name}
-					</Title>
-					<Group gap={8}>
-						<ActionIcon variant="light" radius="xl" onClick={() => onEdit(member)} aria-label="Bearbeiten">
-							<Pencil size={16} />
-						</ActionIcon>
-						<ActionIcon variant="light" radius="xl" color="red" onClick={() => onDelete(member.id)} loading={isDeleting} aria-label="Löschen">
-							<Trash2 size={16} />
-						</ActionIcon>
-					</Group>
-				</Group>
+						<Stack justify="flex-end" style={{ flex: 1 }}>
+							<Text size="sm" fw={500} c="dimmed" lineClamp={1}>
+								{member.roleTitle}
+							</Text>
+							<Text size="sm" c="dimmed" lineClamp={1}>
+								{member.email}
+							</Text>
+							<Text size="sm" c="dimmed" lineClamp={1}>
+								{member.phone}
+							</Text>
+						</Stack>
 
-				{member.roleTitle && (
-					<Text size="sm" fw={500} c="dimmed">
-						{member.roleTitle}
-					</Text>
-				)}
-
-				{member.email && (
-					<Text size="sm" c="dimmed" lineClamp={1}>
-						{member.email}
-					</Text>
-				)}
-
-				{member.phone && (
-					<Text size="sm" c="dimmed">
-						{member.phone}
-					</Text>
-				)}
-
-				{(member.isBoardMember || member.isTrainer) && (
-					<Group gap="xs" mt="xs">
-						{member.isBoardMember && (
-							<Badge size="sm" variant="light" color="blue">
-								Board
-							</Badge>
-						)}
-						{member.isTrainer && (
-							<Badge size="sm" variant="light" color="green">
-								Trainer
-							</Badge>
-						)}
-					</Group>
-				)}
-			</Stack>
+						<Group gap="xs" mt="xs">
+							{member.isBoardMember && (
+								<Badge size="sm" variant="light" color="blue">
+									Board
+								</Badge>
+							)}
+							{member.isTrainer && (
+								<Badge size="sm" variant="light" color="green">
+									Trainer
+								</Badge>
+							)}
+						</Group>
+					</Stack>
+				</Grid.Col>
+			</Grid>
 		</Card>
 	);
 }
