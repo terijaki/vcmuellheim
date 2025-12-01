@@ -20,7 +20,6 @@ export const newsSchema = z.object({
 	slug: z.string().min(1).max(200),
 	content: z.string().min(1).describe("Tiptap rich text content in HTML format"),
 	excerpt: z.string().max(500).optional(),
-	publishedDate: z.iso.datetime(),
 	status: z.enum(["draft", "published", "archived"]),
 	imageS3Keys: z.array(z.string()).optional().describe("Array of S3 keys for image gallery"),
 	tags: z.array(z.string()).optional(),

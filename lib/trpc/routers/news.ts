@@ -2,6 +2,7 @@
  * tRPC router for News operations
  */
 
+import { slugify } from "@utils/slugify";
 import { z } from "zod";
 import { getAllNews, getNewsBySlug, getPublishedNews, newsRepository } from "../../db/repositories";
 import { newsSchema } from "../../db/schemas";
@@ -55,9 +56,10 @@ export const newsRouter = router({
 	}),
 
 	/** Create news article (admin only) */
-	create: protectedProcedure.input(newsSchema.omit({ id: true, createdAt: true, updatedAt: true, type: true })).mutation(async ({ input }) => {
+	create: protectedProcedure.input(newsSchema.omit({ id: true, createdAt: true, updatedAt: true, type: true, slug: true })).mutation(async ({ input }) => {
 		const id = crypto.randomUUID();
-		return newsRepository.create({ ...input, id, type: "article" });
+		const slug = slugify(input.title);
+		return newsRepository.create({ ...input, id, slug, type: "article" });
 	}),
 
 	/** Update news article (admin only) */
@@ -65,11 +67,13 @@ export const newsRouter = router({
 		.input(
 			z.object({
 				id: z.uuid(),
-				data: newsSchema.omit({ id: true, createdAt: true, updatedAt: true, type: true }).partial(),
+				data: newsSchema.omit({ id: true, createdAt: true, updatedAt: true, type: true, slug: true }).partial(),
 			}),
 		)
 		.mutation(async ({ input }) => {
-			return newsRepository.update(input.id, { ...input.data, type: "article" });
+			const baseUpdates = { ...input.data, type: "article" as const };
+			const updates = input.data.title ? { ...baseUpdates, slug: slugify(input.data.title) } : baseUpdates; // Update slug if title changes
+			return newsRepository.update(input.id, updates);
 		}),
 
 	/** Delete news article (admin only) */

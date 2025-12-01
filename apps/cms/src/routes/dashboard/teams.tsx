@@ -30,7 +30,6 @@ import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { slugify } from "@utils/slugify";
 import { Check, Mars, Plus, SquarePen, Trash2, Upload, Venus, VenusAndMars, X } from "lucide-react";
 import { useState } from "react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
@@ -273,7 +272,6 @@ function TeamsPage() {
 	const [uploading, setUploading] = useState(false);
 	const [formData, setFormData] = useState<Partial<TeamInput>>({
 		name: "",
-		slug: "",
 		description: "",
 		sbvvTeamId: "",
 		ageGroup: "",
@@ -372,7 +370,6 @@ function TeamsPage() {
 	const resetForm = () => {
 		setFormData({
 			name: "",
-			slug: "",
 			description: "",
 			sbvvTeamId: "",
 			ageGroup: "",
@@ -420,9 +417,8 @@ function TeamsPage() {
 				pictureS3Keys.push(key);
 			}
 
-			const slug = slugify(formData.name, true);
 			const cleanedData = Object.fromEntries(
-				Object.entries({ ...formData, slug, pictureS3Keys: pictureS3Keys.length > 0 ? pictureS3Keys : undefined }).filter(([_, value]) => value !== "" && value !== undefined),
+				Object.entries({ ...formData, pictureS3Keys: pictureS3Keys.length > 0 ? pictureS3Keys : undefined }).filter(([_, value]) => value !== "" && value !== undefined),
 			);
 
 			if (editingId) {
@@ -446,7 +442,6 @@ function TeamsPage() {
 	const handleEdit = (team: TeamInput & { id: string }) => {
 		setFormData({
 			name: team.name,
-			slug: team.slug,
 			description: team.description || "",
 			sbvvTeamId: team.sbvvTeamId || "",
 			ageGroup: team.ageGroup || "",

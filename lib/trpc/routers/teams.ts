@@ -2,6 +2,7 @@
  * tRPC router for Teams operations
  */
 
+import { slugify } from "@utils/slugify";
 import { z } from "zod";
 import { getAllTeams, getTeamBySamsId, getTeamBySlug, teamsRepository } from "../../db/repositories";
 import { teamSchema } from "../../db/schemas";
@@ -41,15 +42,9 @@ export const teamsRouter = router({
 	}),
 
 	/** Create team (admin only) */
-	create: protectedProcedure.input(teamSchema.omit({ id: true, createdAt: true, updatedAt: true })).mutation(async ({ input }) => {
-		// Check if team with this slug already exists
-		const existingTeam = await getTeamBySlug(input.slug);
-		if (existingTeam) {
-			throw new Error("Eine Mannschaft mit diesem Namen existiert bereits");
-		}
-
-		const id = crypto.randomUUID();
-		return teamsRepository.create({ ...input, id } as never);
+	create: protectedProcedure.input(teamSchema.omit({ id: true, createdAt: true, updatedAt: true, slug: true })).mutation(async ({ input }) => {
+		const slug = slugify(input.name);
+		return teamsRepository.create({ ...input, slug } as never);
 	}),
 
 	/** Update team (admin only) */
@@ -57,19 +52,14 @@ export const teamsRouter = router({
 		.input(
 			z.object({
 				id: z.uuid(),
-				data: teamSchema.omit({ id: true, createdAt: true, updatedAt: true }).partial(),
+				data: teamSchema.omit({ id: true, createdAt: true, updatedAt: true, slug: true }).partial(),
 			}),
 		)
 		.mutation(async ({ input }) => {
-			// If updating slug, check it's not already used by another team
-			if (input.data.slug) {
-				const existingTeam = await getTeamBySlug(input.data.slug);
-				if (existingTeam && existingTeam.id !== input.id) {
-					throw new Error("Eine Mannschaft mit diesem Namen existiert bereits");
-				}
-			}
-
-			return teamsRepository.update(input.id, input.data);
+			// Build updates with slug regeneration if name changes
+			const baseUpdates = { ...input.data };
+			const updates = input.data.name ? { ...baseUpdates, slug: slugify(input.data.name) } : baseUpdates;
+			return teamsRepository.update(input.id, updates);
 		}),
 
 	/** Delete team (admin only) */

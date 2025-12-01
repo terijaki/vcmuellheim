@@ -44,13 +44,13 @@ export class ContentDbStack extends cdk.Stack {
 			// No sort key - use GSIs for queries
 		});
 
-		// GSI for querying by type, status, publishedDate or slug
+		// GSI for querying by type, status, updatedAt or slug
 		this.newsTable.addGlobalSecondaryIndex({
 			indexName: "GSI-NewsQueries",
 			partitionKey: { name: "type", type: dynamodb.AttributeType.STRING },
 			sortKeys: [
 				{ name: "status", type: dynamodb.AttributeType.STRING },
-				{ name: "publishedDate", type: dynamodb.AttributeType.STRING },
+				{ name: "updatedAt", type: dynamodb.AttributeType.STRING },
 				{ name: "slug", type: dynamodb.AttributeType.STRING },
 			],
 			projectionType: dynamodb.ProjectionType.ALL,

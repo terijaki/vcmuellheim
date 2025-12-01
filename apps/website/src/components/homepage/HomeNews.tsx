@@ -15,7 +15,7 @@ export default function HomeNews() {
 	// if the 3 and 4th news are older than 3 months, exclude them
 	if (news && news.length > 2) {
 		const threeMonthsAgo = dayjs().subtract(3, "month");
-		const thirdIsOld = dayjs(news[2].publishedDate).isBefore(threeMonthsAgo);
+		const thirdIsOld = dayjs(news[2].updatedAt).isBefore(threeMonthsAgo);
 		if (thirdIsOld) news = news.slice(0, 2);
 	}
 

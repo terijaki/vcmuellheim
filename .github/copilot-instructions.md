@@ -30,6 +30,7 @@ This file tells AI coding agents how this repository is structured, which conven
 - **Formatting & linting:** Use Biome. Respect the existing `biome.json`/`bunfig.toml` configs.
 - **Strings & style:** double quotes, semicolons, 2 spaces indentation.
 - **Types:** prefer `import type` where applicable; keep `tsconfig.json` settings in mind when adding exports.
+  - **CRITICAL:** Never cast as `unknown` or `any` — instead, find proper type-safe patterns using TypeScript's type system. For Zod schemas, use `z.infer<>` to derive proper types, use object spreading with conditional properties, or build updates incrementally with proper intermediate types.
 - **Dates:** use `dayjs` (project-wide convention — do not introduce other date libraries).
 - **UI:** prefer Mantine components and theming (search `apps/*/src` for examples).
 - **Iteration patterns:** prefer `for...of` over `.forEach` in shared code.

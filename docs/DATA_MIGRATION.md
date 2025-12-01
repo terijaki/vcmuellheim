@@ -170,7 +170,6 @@ News articles require special handling:
   slug: string (max 200)
   content: string (HTML)
   excerpt?: string (max 500)
-  publishedDate: ISO datetime
   status: "draft" | "published" | "archived"
   imageS3Keys?: string[]  // S3 paths: news/{id}/{file}
   tags?: string[]

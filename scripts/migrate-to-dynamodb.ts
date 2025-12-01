@@ -327,8 +327,7 @@ async function migrateNews(dryRun: boolean): Promise<void> {
 			// Use fallback date if timestamps are null (common with Payload CMS)
 			const fallbackDate = new Date("2024-01-01T00:00:00Z").toISOString();
 			const createdAt = row.createdAt ? new Date(row.createdAt).toISOString() : fallbackDate;
-			const updatedAt = row.updatedAt ? new Date(row.updatedAt).toISOString() : fallbackDate;
-			const publishedDate = row.publishedDate ? new Date(row.publishedDate).toISOString() : row.createdAt ? new Date(row.createdAt).toISOString() : fallbackDate;
+			const updatedAt = row.publishedDate || row.updatedAt ? new Date(row.updatedAt).toISOString() : fallbackDate; // transition from publishedDate to updatedAt (on purpose, because this is our new sort key)
 
 			// Convert Lexical to HTML
 			const htmlContent = lexicalToHtml(row.content);
@@ -370,7 +369,6 @@ async function migrateNews(dryRun: boolean): Promise<void> {
 				slug,
 				content: htmlContent,
 				excerpt: excerpt.length < 500 ? excerpt : `${excerpt.substring(0, 497)}...`,
-				publishedDate,
 				status: "published",
 				imageS3Keys: imageS3Keys.length > 0 ? imageS3Keys : undefined,
 				tags: Array.isArray(row.tags) ? row.tags : undefined,

@@ -1,6 +1,5 @@
 import type { NewsInput } from "@lib/db/schemas";
-import { ActionIcon, Badge, Box, Button, Card, Group, Image, Modal, Paper, Pill, SegmentedControl, Select, Stack, Table, Text, TextInput, Title } from "@mantine/core";
-import { DateTimePicker, getTimeRange } from "@mantine/dates";
+import { ActionIcon, Badge, Box, Button, Card, Group, Image, Modal, Paper, Pill, SegmentedControl, Stack, Table, Text, TextInput, Title } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
@@ -11,7 +10,6 @@ import { Image as ImageExtension } from "@tiptap/extension-image";
 import { Link as LinkExtension } from "@tiptap/extension-link";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { slugify } from "@utils/slugify";
 import dayjs from "dayjs";
 import { Plus, Trash2, Upload, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -28,11 +26,9 @@ function NewsPage() {
 	const [statusFilter, setStatusFilter] = useState<"all" | "published" | "draft" | "archived">("all");
 	const [formData, setFormData] = useState<Partial<NewsInput>>({
 		title: "",
-		slug: "",
 		content: "",
 		excerpt: "",
-		publishedDate: new Date().toISOString(),
-		status: "draft",
+		status: undefined,
 		imageS3Keys: [],
 		tags: [],
 	});
@@ -53,10 +49,6 @@ function NewsPage() {
 			editor.commands.setContent(formData.content || "");
 		}
 	}, [formData.content, editor]);
-
-	const handleDateChange = (value: string | null) => {
-		setFormData({ ...formData, publishedDate: value || new Date().toISOString() });
-	};
 
 	const { data: news, isLoading, refetch } = useQuery(trpc.news.list.queryOptions({ limit: 100 }));
 	const uploadMutation = useMutation(trpc.upload.getPresignedUrl.mutationOptions());
@@ -128,11 +120,9 @@ function NewsPage() {
 	const resetForm = () => {
 		setFormData({
 			title: "",
-			slug: "",
 			content: "",
 			excerpt: "",
-			publishedDate: new Date().toISOString(),
-			status: "draft",
+			status: undefined,
 			imageS3Keys: [],
 			tags: [],
 		});
@@ -142,8 +132,9 @@ function NewsPage() {
 		setEditingId(null);
 	};
 
-	const handleSubmit = async () => {
-		if (!formData.title || !formData.content) return;
+	const handleSubmit = async (newStatus: "draft" | "published" | "archived") => {
+		const { title, content } = formData;
+		if (!title || !content) return;
 
 		setUploading(true);
 		try {
@@ -178,18 +169,22 @@ function NewsPage() {
 				imageS3Keys = [...imageS3Keys, ...newKeys];
 			}
 
-			const slug = slugify(formData.title);
-			const cleanedData = Object.fromEntries(
-				Object.entries({ ...formData, slug, imageS3Keys: imageS3Keys.length > 0 ? imageS3Keys : undefined }).filter(([_, value]) => value !== "" && value !== undefined),
-			);
+			const submitData = {
+				title,
+				content,
+				status: newStatus,
+				excerpt: formData.excerpt || undefined,
+				imageS3Keys: imageS3Keys.length > 0 ? imageS3Keys : undefined,
+				tags: formData.tags && formData.tags.length > 0 ? formData.tags : undefined,
+			};
 
 			if (editingId) {
 				updateMutation.mutate({
 					id: editingId,
-					data: cleanedData,
+					data: submitData,
 				});
 			} else {
-				createMutation.mutate(cleanedData as NewsInput);
+				createMutation.mutate(submitData);
 			}
 		} catch (error) {
 			notifications.show({
@@ -204,10 +199,8 @@ function NewsPage() {
 	const handleEdit = (article: NewsInput & { id: string }) => {
 		setFormData({
 			title: article.title,
-			slug: article.slug,
 			content: article.content,
 			excerpt: article.excerpt || "",
-			publishedDate: article.publishedDate,
 			status: article.status,
 			imageS3Keys: article.imageS3Keys || [],
 			tags: article.tags || [],
@@ -271,7 +264,7 @@ function NewsPage() {
 				/>
 			</Group>
 
-			<Modal opened={opened} onClose={close} title={editingId ? "News-Artikel bearbeiten" : "Neuer News-Artikel"} size="100%">
+			<Modal opened={opened} onClose={close} title={editingId ? "News bearbeiten" : "News erstellen"} size="100%">
 				<Stack gap="md">
 					<TextInput label="Titel" placeholder="Artikeltitel" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required />
 					<Box>
@@ -311,45 +304,20 @@ function NewsPage() {
 
 							<RichTextEditor.Content style={{ minHeight: 300 }} />
 						</RichTextEditor>
-					</Box>{" "}
-					<Group grow>
-						<Select
-							label="Status"
-							value={formData.status}
-							onChange={(value) => setFormData({ ...formData, status: value as "draft" | "published" | "archived" })}
-							data={[
-								{ value: "draft", label: "Entwurf" },
-								{ value: "published", label: "Veröffentlicht" },
-								{ value: "archived", label: "Archiviert" },
-							]}
-							required
-						/>
-						<DateTimePicker
-							label="Veröffentlichungsdatum"
-							value={formData.publishedDate ? new Date(formData.publishedDate) : null}
-							onChange={handleDateChange}
-							required
-							highlightToday
-							timePickerProps={{
-								withDropdown: true,
-								format: "24h",
-								presets: getTimeRange({ startTime: "07:45:00", endTime: "18:45:00", interval: "01:00:00" }),
-							}}
-							presets={[
-								{ value: dayjs().add(1, "day").format("YYYY-MM-DD HH:mm:ss"), label: "Morgen" },
-								{ value: dayjs().add(1, "week").format("YYYY-MM-DD HH:mm:ss"), label: "Nächste Woche" },
-								{ value: dayjs().add(1, "month").format("YYYY-MM-DD HH:mm:ss"), label: "Nächster Monat" },
-							]}
-						/>
-					</Group>
+					</Box>
+
 					{/* Image Gallery Upload */}
 					<Box>
-						<Text size="sm" fw={500} mb="xs">
-							Bildergalerie
-						</Text>
-						<Text size="xs" c="dimmed" mb="sm">
-							Ein zufälliges Bild wird als Vorschaubild auf der News-Seite verwendet.
-						</Text>
+						{formData.imageS3Keys && formData.imageS3Keys.length > 0 && (
+							<Stack gap={0}>
+								<Text size="sm" fw={500} mb="xs">
+									Bildergalerie
+								</Text>
+								<Text size="xs" c="dimmed" mb="sm">
+									Ein zufälliges Bild wird als Vorschaubild auf der News-Seite verwendet.
+								</Text>
+							</Stack>
+						)}
 
 						{/* Existing images */}
 						{formData.imageS3Keys && formData.imageS3Keys.length > 0 && (
@@ -414,12 +382,32 @@ function NewsPage() {
 							</Group>
 						</Dropzone>
 					</Box>
-					<Group justify="flex-end" mt="md">
-						<Button variant="subtle" onClick={close}>
-							Abbrechen
-						</Button>
-						<Button onClick={handleSubmit} loading={uploading || createMutation.isPending || updateMutation.isPending} disabled={!formData.title || !formData.content}>
-							{editingId ? "Aktualisieren" : "Erstellen"}
+
+					<Group gap="xs" justify="flex-end" align="flex-end" wrap="nowrap">
+						{(formData.status === "draft" || !formData.status) && (
+							<Button variant="light" onClick={() => handleSubmit("draft")} loading={uploading || createMutation.isPending || updateMutation.isPending} disabled={!formData.title || !formData.content}>
+								Speichern
+							</Button>
+						)}
+
+						{(formData.status === "draft" || formData.status === "published") && (
+							<Button
+								variant="light"
+								onClick={() => handleSubmit("archived")}
+								loading={uploading || createMutation.isPending || updateMutation.isPending}
+								disabled={!formData.title || !formData.content}
+							>
+								Archivieren
+							</Button>
+						)}
+
+						<Button
+							variant="filled"
+							onClick={() => handleSubmit("published")}
+							loading={uploading || createMutation.isPending || updateMutation.isPending}
+							disabled={!formData.title || !formData.content}
+						>
+							{formData.status !== "published" ? "Veröffentlichen" : "Aktualisieren"}
 						</Button>
 					</Group>
 				</Stack>
@@ -433,17 +421,17 @@ function NewsPage() {
 						<Table striped highlightOnHover>
 							<Table.Thead>
 								<Table.Tr>
-									<Table.Th>Titel</Table.Th>
-									<Table.Th>Status</Table.Th>
-									<Table.Th>Veröffentlicht</Table.Th>
-									<Table.Th>Bilder</Table.Th>
-									<Table.Th>Aktionen</Table.Th>
+									<Table.Th style={{ width: "100%" }}>Titel</Table.Th>
+									<Table.Th style={{ whiteSpace: "nowrap" }}>Status</Table.Th>
+									<Table.Th style={{ whiteSpace: "nowrap" }}>Aktualisiert</Table.Th>
+									<Table.Th style={{ whiteSpace: "nowrap" }}>Bilder</Table.Th>
+									<Table.Th style={{ whiteSpace: "nowrap" }}>Aktionen</Table.Th>
 								</Table.Tr>
 							</Table.Thead>
 							<Table.Tbody>
 								{filteredNews.map((article) => (
 									<Table.Tr key={article.id}>
-										<Table.Td>
+										<Table.Td style={{ width: "100%" }}>
 											<Text fw={500}>{article.title}</Text>
 											{article.excerpt && (
 												<Text size="sm" c="dimmed" lineClamp={1}>
@@ -451,13 +439,13 @@ function NewsPage() {
 												</Text>
 											)}
 										</Table.Td>
-										<Table.Td>
+										<Table.Td style={{ whiteSpace: "nowrap" }}>
 											<Pill color={article.status === "published" ? "green" : article.status === "draft" ? "yellow" : "gray"}>
 												{article.status === "published" ? "Veröffentlicht" : article.status === "draft" ? "Entwurf" : "Archiviert"}
 											</Pill>
 										</Table.Td>
-										<Table.Td>{dayjs(article.publishedDate).format("DD.MM.YYYY")}</Table.Td>
-										<Table.Td align="center">
+										<Table.Td style={{ whiteSpace: "nowrap" }}>{dayjs(article.updatedAt).format("DD.MM.YYYY")}</Table.Td>
+										<Table.Td align="center" style={{ whiteSpace: "nowrap" }}>
 											<Badge size="md" variant="light">
 												{article.imageS3Keys?.length || 0}
 											</Badge>
