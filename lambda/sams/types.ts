@@ -52,6 +52,13 @@ export const ClubsResponseSchema = z.object({
 
 export type ClubsResponse = z.infer<typeof ClubsResponseSchema>;
 
+/**
+ * Query options for getting a club's logo
+ */
+export const ClubLogoQueryParamsSchema = z.union([z.object({ clubUuid: z.uuid(), clubSlug: z.undefined() }).strict(), z.object({ clubSlug: z.string().min(3), clubUuid: z.undefined() }).strict()]);
+
+export type ClubLogoQueryParams = z.infer<typeof ClubLogoQueryParamsSchema>;
+
 // ============================================================================
 // Team Schemas & Types
 // ============================================================================

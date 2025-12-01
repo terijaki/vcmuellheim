@@ -295,6 +295,28 @@ export class SamsApiStack extends cdk.Stack {
 		// Grant DynamoDB read permissions to teams query Lambda
 		teamsTable.grantReadData(samsTeams);
 
+		// Create Lambda function for logo proxy (download and cache external images)
+		const samsLogoProxy = new nodejs.NodejsFunction(this, "SamsLogoProxy", {
+			functionName: `sams-logo-proxy-${environment}${branchSuffix}`,
+			runtime: lambda.Runtime.NODEJS_LATEST,
+			handler: "handler",
+			entry: path.join(__dirname, "../lambda/sams/sams-logo-proxy.ts"),
+			environment: {
+				CLUBS_TABLE_NAME: clubsTable.tableName,
+			},
+			timeout: cdk.Duration.seconds(30),
+			memorySize: 256,
+			bundling: {
+				externalModules: [],
+				minify: true,
+				sourceMap: true,
+			},
+		});
+
+		// Grant DynamoDB read permissions to logo proxy Lambda
+		teamsTable.grantReadData(samsLogoProxy);
+		clubsTable.grantReadData(samsLogoProxy);
+
 		// Create EventBridge rule to trigger sync Lambda weekly on Wednesday at 2 AM UTC
 		const syncRule = new events.Rule(this, "SamsClubsSyncRule", {
 			ruleName: `sams-clubs-weekly-sync-${environment}${branchSuffix}`,
@@ -343,6 +365,7 @@ export class SamsApiStack extends cdk.Stack {
 		// TTL configurations
 		const LIVE_DATA_TTL = { default: cdk.Duration.minutes(5), max: cdk.Duration.hours(1), min: isProd ? cdk.Duration.seconds(15) : cdk.Duration.seconds(60) };
 		const STATIC_DATA_TTL = { default: cdk.Duration.hours(12), max: cdk.Duration.days(7), min: isProd ? cdk.Duration.hours(1) : cdk.Duration.minutes(5) };
+		const LOGO_CACHE_TTL = { default: cdk.Duration.days(90), max: cdk.Duration.days(365), min: isProd ? cdk.Duration.days(7) : cdk.Duration.hours(1) };
 
 		// Extract domain from API endpoint (removes https:// prefix)
 		// We need to do this in CloudFormation using Fn::Select and Fn::Split
@@ -438,6 +461,13 @@ export class SamsApiStack extends cdk.Stack {
 			integration: new HttpLambdaIntegration("TeamsDetailIntegration", samsTeams),
 		});
 
+		// GET /logos - Download and proxy external logo images (accepts ?team={uuid} or ?club={uuid})
+		api.addRoutes({
+			path: "/logos",
+			methods: [apigatewayv2.HttpMethod.GET],
+			integration: new HttpLambdaIntegration("LogoProxyIntegration", samsLogoProxy),
+		});
+
 		// Create CloudFront distribution for caching
 		const distribution = new cloudfront.Distribution(this, "SamsApiDistribution", {
 			defaultBehavior: createBehavior("Default", [], STATIC_DATA_TTL),
@@ -451,6 +481,7 @@ export class SamsApiStack extends cdk.Stack {
 				"/teams/*": createBehavior("TeamsDetail", [], STATIC_DATA_TTL),
 				"/associations": createBehavior("Associations", ["name"], STATIC_DATA_TTL),
 				"/associations/*": createBehavior("AssociationsDetail", [], STATIC_DATA_TTL),
+				"/logos*": createBehavior("Logos", ["clubUuid", "clubSlug"], LOGO_CACHE_TTL),
 			},
 			priceClass: cloudfront.PriceClass.PRICE_CLASS_100, // Only US, Canada, Europe
 			comment: `SAMS API CloudFront Distribution (${environment}${branchSuffix})`,

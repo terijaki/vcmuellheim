@@ -9,7 +9,7 @@ import MapsLink from "./MapsLink";
 
 dayjs.locale("de");
 
-export default async function Matches({
+export default function Matches({
 	matches = [],
 	timestamp,
 	type,

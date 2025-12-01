@@ -13,22 +13,15 @@ function getEnvPrefix(): string {
 }
 
 /**
- * Generic function to build API URLs for different services
- * Handles hostname transformation from website/admin domains to service-specific domains
+ * Generic function to build API URLs for different services.
+ * Handles hostname transformation from website/admin domains to service-specific domains.
  * @param service - The service subdomain (api, sams, social)
  * @param pathSuffix - Optional path to append (e.g., "/api")
  * @returns Full URL to the service
- *
  * @example
  * ```ts
- * // Get tRPC API URL
- * const apiUrl = buildServiceUrl("api", "/api");
- *
- * // Get SAMS API URL
- * const samsUrl = buildServiceUrl("sams");
- *
- * // Get Social Media API URL
- * const socialUrl = buildServiceUrl("social");
+ * const apiUrl = buildServiceUrl("api", "/api"); // Get tRPC API URL
+ * const samsUrl = buildServiceUrl("sams"); // e.g. https://dev-new-feature-sams.vcmuellheim.de
  * ```
  */
 export function buildServiceUrl(service: "api" | "sams" | "social", pathSuffix = ""): string {

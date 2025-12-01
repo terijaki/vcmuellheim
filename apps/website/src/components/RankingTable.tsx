@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { Suspense } from "react";
 import type { RankingResponse } from "@/lambda/sams/types";
 import type { Team } from "@/lib/db";
+import { slugify } from "@/utils/slugify";
 import CardTitle from "./CardTitle";
 import ClubLogo, { ClubLogoFallback } from "./ClubLogo";
 import RankingTableItem from "./RankingTableItem";
@@ -77,7 +78,7 @@ export default function RankingTable(props: RankingTable) {
 								teamLink={teamLink}
 								clubLogo={
 									<Suspense fallback={<ClubLogoFallback />}>
-										<ClubLogo teamName={team.teamName ?? undefined} light={shouldHighlight} />
+										<ClubLogo clubSlug={slugify((team.teamName ?? "").replace(/\s+\d+$/, ""))} label={team.teamName ?? undefined} light={shouldHighlight} />
 									</Suspense>
 								}
 							/>
