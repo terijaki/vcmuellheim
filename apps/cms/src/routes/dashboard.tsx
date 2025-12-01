@@ -1,4 +1,4 @@
-import { AppShell, Avatar, Burger, Group, Menu, NavLink, Text } from "@mantine/core";
+import { AppShell, Avatar, Burger, Center, Group, Loader, Menu, NavLink, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { BadgeEuro, Building2, Bus, CalendarDays, Contact, LogOut, MapPinned, Newspaper, Users } from "lucide-react";
@@ -55,11 +55,33 @@ function DashboardLayout() {
 	);
 }
 
+function DashboardPage() {
+	const { isLoading, isAuthenticated, isLoggingOut, redirectToLogin } = useAuth();
+
+	// Still loading - show loader
+	if (isLoading) {
+		return (
+			<Center h="100vh">
+				<Loader />
+			</Center>
+		);
+	}
+
+	// Logging out - don't redirect, let Cognito handle the logout
+	if (isLoggingOut) {
+		return null;
+	}
+
+	// Not authenticated - redirect to login
+	if (!isAuthenticated) {
+		redirectToLogin();
+		return null;
+	}
+
+	// Authenticated - show dashboard
+	return <DashboardLayout />;
+}
+
 export const Route = createFileRoute("/dashboard")({
-	component: DashboardLayout,
-	beforeLoad: ({ context }) => {
-		if (!context.auth.isAuthenticated) {
-			context.auth.redirectToLogin();
-		}
-	},
+	component: DashboardPage,
 });

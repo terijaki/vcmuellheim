@@ -1,6 +1,6 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
-import { type ReactNode, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import superjson from "superjson";
 import type { AppRouter } from "@/lib/trpc";
 import { buildServiceUrl, createQueryClient } from "../../../shared";
@@ -10,6 +10,7 @@ import { useAuth } from "../auth/AuthContext";
 export function TrpcProvider({ children }: { children: ReactNode }) {
 	const { idToken } = useAuth();
 	const tokenRef = useRef(idToken);
+	const previousTokenRef = useRef(idToken);
 
 	// Update ref whenever token changes
 	tokenRef.current = idToken;
@@ -28,6 +29,15 @@ export function TrpcProvider({ children }: { children: ReactNode }) {
 			],
 		}),
 	);
+
+	// Invalidate all queries when token changes (e.g., after refresh or login)
+	useEffect(() => {
+		if (idToken && idToken !== previousTokenRef.current) {
+			console.log("Token changed, invalidating all queries");
+			queryClient.invalidateQueries();
+			previousTokenRef.current = idToken;
+		}
+	}, [idToken, queryClient]);
 
 	return (
 		<TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>

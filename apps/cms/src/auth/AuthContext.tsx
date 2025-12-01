@@ -101,6 +101,7 @@ export interface AuthContext {
 	logout: () => void;
 	handleCallback: (code: string, state: string) => Promise<void>;
 	error: string | null;
+	isLoggingOut: boolean;
 }
 
 const AuthContext = createContext<AuthContext | undefined>(undefined);
@@ -111,11 +112,38 @@ const OAUTH_STATE_KEY = `${Club.slug}-oauth-state`;
 
 let cognitoConfig: Awaited<ReturnType<typeof fetchCognitoConfig>> | null = null;
 
+// Check if token is expired
+function isTokenExpired(token: string): boolean {
+	try {
+		const base64 = token.split(".")[1];
+		const base64Url = base64.replace(/-/g, "+").replace(/_/g, "/");
+		const jsonPayload = decodeURIComponent(
+			atob(base64Url)
+				.split("")
+				.map((c) => `%${(`00${c.charCodeAt(0).toString(16)}`).slice(-2)}`)
+				.join(""),
+		);
+		const payload = JSON.parse(jsonPayload);
+		if (!payload.exp) return false;
+
+		// Check if token expires in the next 5 minutes
+		const expirationTime = payload.exp * 1000; // Convert to milliseconds
+		const currentTime = Date.now();
+		const bufferTime = 5 * 60 * 1000; // 5 minute buffer
+
+		return currentTime + bufferTime > expirationTime;
+	} catch {
+		// If we can't decode, consider it expired
+		return true;
+	}
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const [user, setUser] = useState<AuthUser | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [configLoaded, setConfigLoaded] = useState(false);
+	const [isLoggingOut, setIsLoggingOut] = useState(false);
 
 	// Fetch Cognito config on mount
 	useEffect(() => {
@@ -139,7 +167,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		if (storedAuth) {
 			try {
 				const authData = JSON.parse(storedAuth);
-				setUser(authData);
+				// Check if token is still valid (not expired)
+				if (authData.idToken && !isTokenExpired(authData.idToken)) {
+					setUser(authData);
+				} else {
+					// Token is expired, clear it
+					localStorage.removeItem(AUTH_STORAGE_KEY);
+					setUser(null);
+				}
 			} catch {
 				localStorage.removeItem(AUTH_STORAGE_KEY);
 			}
@@ -147,11 +182,80 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		setIsLoading(false);
 	}, [configLoaded]);
 
+	// Periodically check for token expiration and refresh if needed
+	useEffect(() => {
+		if (!user?.refreshToken) return;
+
+		const checkAndRefreshToken = async () => {
+			if (!user.idToken || !cognitoConfig?.hostedUi) return;
+
+			if (isTokenExpired(user.idToken)) {
+				try {
+					const tokenUrl = `${cognitoConfig.hostedUi.baseUrl}/oauth2/token`;
+
+					const tokenResponse = await fetch(tokenUrl, {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/x-www-form-urlencoded",
+						},
+						body: new URLSearchParams({
+							grant_type: "refresh_token",
+							client_id: cognitoConfig.clientId,
+							refresh_token: user.refreshToken || "",
+						}),
+					});
+
+					if (!tokenResponse.ok) {
+						console.warn("Token refresh failed, user needs to re-authenticate");
+						// Clear user and tokens
+						setUser(null);
+						localStorage.removeItem(AUTH_STORAGE_KEY);
+						return;
+					}
+
+					const tokens = await tokenResponse.json();
+
+					if (!tokens.id_token || !tokens.access_token) {
+						console.warn("Invalid token response from refresh");
+						setUser(null);
+						localStorage.removeItem(AUTH_STORAGE_KEY);
+						return;
+					}
+
+					// Update user with new tokens
+					const updatedUser: AuthUser = {
+						...user,
+						idToken: tokens.id_token,
+						accessToken: tokens.access_token,
+						refreshToken: tokens.refresh_token || user.refreshToken,
+					};
+
+					setUser(updatedUser);
+					localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(updatedUser));
+					console.log("Token successfully refreshed");
+				} catch (err) {
+					console.error("Error refreshing token:", err);
+					setUser(null);
+					localStorage.removeItem(AUTH_STORAGE_KEY);
+				}
+			}
+		};
+
+		// Check immediately on mount, then every minute
+		checkAndRefreshToken();
+		const interval = setInterval(checkAndRefreshToken, 60 * 1000);
+		return () => clearInterval(interval);
+	}, [user]);
+
 	const redirectToLogin = async () => {
 		if (!cognitoConfig?.hostedUi) {
 			setError("Hosted UI not configured");
 			return;
 		}
+
+		// Clear any old PKCE data first
+		sessionStorage.removeItem(PKCE_VERIFIER_KEY);
+		sessionStorage.removeItem(OAUTH_STATE_KEY);
 
 		// Generate PKCE verifier and challenge
 		const verifier = generateRandomString(128);
@@ -163,8 +267,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		sessionStorage.setItem(OAUTH_STATE_KEY, state);
 
 		// Build login URL with PKCE and German locale
+		// Use response_type=code to get authorization code (avoid confirmation screen)
 		const callbackUrl = `${window.location.origin}/auth/callback`;
-		const loginUrl = `${cognitoConfig.hostedUi.baseUrl}/login?lang=de&client_id=${cognitoConfig.clientId}&response_type=code&scope=email+openid+profile&redirect_uri=${encodeURIComponent(callbackUrl)}&code_challenge=${challenge}&code_challenge_method=S256&state=${state}`;
+		const loginUrl = `${cognitoConfig.hostedUi.baseUrl}/login?lang=de&client_id=${cognitoConfig.clientId}&response_type=code&scope=email+openid+profile&redirect_uri=${encodeURIComponent(callbackUrl)}&code_challenge=${challenge}&code_challenge_method=S256&state=${state}&prompt=login`;
 
 		// Redirect to Cognito Hosted UI
 		window.location.href = loginUrl;
@@ -195,19 +300,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		try {
 			// Verify state
 			const storedState = sessionStorage.getItem(OAUTH_STATE_KEY);
+			console.log("State verification:", { received: state, stored: storedState });
 			if (state !== storedState) {
 				throw new Error("Invalid state parameter - possible CSRF attack");
 			}
 
 			// Get PKCE verifier
 			const verifier = sessionStorage.getItem(PKCE_VERIFIER_KEY);
+			console.log("PKCE verifier check:", { verifierExists: !!verifier });
 			if (!verifier) {
-				throw new Error("PKCE verifier not found");
+				throw new Error("PKCE verifier not found - session may have expired. Please try logging in again.");
 			}
 
 			// Exchange code for tokens
 			const callbackUrl = `${window.location.origin}/auth/callback`;
 			const tokenUrl = `${cognitoConfig.hostedUi.baseUrl}/oauth2/token`;
+
+			console.log("Exchanging code for tokens", { callbackUrl, code: code.substring(0, 10) + "..." });
 
 			const tokenResponse = await fetch(tokenUrl, {
 				method: "POST",
@@ -226,7 +335,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			if (!tokenResponse.ok) {
 				const errorText = await tokenResponse.text();
 				console.error("Token exchange failed:", errorText);
-				throw new Error(`Token exchange failed: ${tokenResponse.status}`);
+				throw new Error(`Token exchange failed: ${tokenResponse.status} - ${errorText}`);
 			}
 
 			const tokens = await tokenResponse.json();
@@ -260,6 +369,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	};
 
 	const logout = () => {
+		setIsLoggingOut(true);
 		setUser(null);
 		localStorage.removeItem(AUTH_STORAGE_KEY);
 		sessionStorage.removeItem(PKCE_VERIFIER_KEY);
@@ -285,6 +395,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				logout,
 				handleCallback,
 				error,
+				isLoggingOut,
 			}}
 		>
 			{children}
