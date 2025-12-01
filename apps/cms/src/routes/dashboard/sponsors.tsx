@@ -1,10 +1,12 @@
 import type { SponsorInput } from "@lib/db/schemas";
 import { ActionIcon, Anchor, Box, Button, Card, Group, Image, Modal, SimpleGrid, Stack, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { DatePickerInput } from "@mantine/dates";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import dayjs from "dayjs";
 import { Globe, Pencil, Plus, Trash2, Upload, X } from "lucide-react";
 import { useState } from "react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
@@ -148,11 +150,13 @@ function SponsorsPage() {
 	const [logoFile, setLogoFile] = useState<File | null>(null);
 	const [deleteLogo, setDeleteLogo] = useState(false);
 	const [uploading, setUploading] = useState(false);
+	const [expiryDate, setExpiryDate] = useState<Date | null>(null);
 	const [formData, setFormData] = useState<Partial<SponsorInput>>({
 		name: "",
 		description: "",
 		websiteUrl: "",
 		logoS3Key: undefined,
+		expiryTimestamp: undefined,
 	});
 
 	const trpc = useTRPC();
@@ -229,10 +233,12 @@ function SponsorsPage() {
 			description: "",
 			websiteUrl: "",
 			logoS3Key: undefined,
+			expiryTimestamp: undefined,
 		});
 		setLogoFile(null);
 		setDeleteLogo(false);
 		setEditingId(null);
+		setExpiryDate(null);
 	};
 
 	const handleSubmit = async () => {
@@ -270,8 +276,11 @@ function SponsorsPage() {
 				logoS3Key = key;
 			}
 
+			// Convert expiryDate to Unix timestamp (in seconds)
+			const expiryTimestamp = expiryDate ? Math.floor(dayjs(expiryDate).unix()) : undefined;
+
 			// Filter out empty strings to avoid DynamoDB GSI errors
-			const cleanedData = Object.fromEntries(Object.entries({ ...formData, logoS3Key }).filter(([_, value]) => value !== "" && value !== undefined));
+			const cleanedData = Object.fromEntries(Object.entries({ ...formData, logoS3Key, expiryTimestamp }).filter(([_, value]) => value !== "" && value !== undefined));
 
 			if (editingId) {
 				updateMutation.mutate({
@@ -297,7 +306,10 @@ function SponsorsPage() {
 			description: sponsor.description || "",
 			websiteUrl: sponsor.websiteUrl || "",
 			logoS3Key: sponsor.logoS3Key,
+			expiryTimestamp: sponsor.expiryTimestamp,
 		});
+		// Convert Unix timestamp back to Date if it exists
+		setExpiryDate(sponsor.expiryTimestamp ? dayjs.unix(sponsor.expiryTimestamp).toDate() : null);
 		setEditingId(sponsor.id);
 		setDeleteLogo(false);
 		setLogoFile(null);
@@ -331,6 +343,19 @@ function SponsorsPage() {
 					<Textarea label="Beschreibung" placeholder="Optionale Beschreibung..." value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} minRows={3} />
 
 					<TextInput label="Website" placeholder="https://..." value={formData.websiteUrl} onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })} />
+
+					<DatePickerInput
+						label="Ablaufdatum"
+						placeholder="Optionales Ablaufdatum auswählen"
+						description="Wann dieser Sponsor automatisch gelöscht werden soll"
+						value={expiryDate}
+						onChange={(date) => {
+							if (date) setExpiryDate(dayjs(date).toDate());
+							else setExpiryDate(null);
+						}}
+						clearable
+						minDate={dayjs().add(1, "day").toDate()}
+					/>
 
 					<CurrentLogoDisplay
 						logoS3Key={formData.logoS3Key}
