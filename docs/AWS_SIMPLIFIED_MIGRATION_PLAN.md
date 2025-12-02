@@ -89,7 +89,6 @@
    - ✅ Upload router for S3 presigned URLs (lib/trpc/routers/upload.ts)
    - ✅ Lambda handler for API Gateway (lambda/content/handler.ts)
    - ✅ React client setup (lib/trpc/client.ts)
-   - ✅ Complete documentation (docs/TRPC_SETUP.md)
 
 7. [x] **DNS & Custom Domains Setup**
    - ✅ Route53 Hosted Zone created manually: new.vcmuellheim.de
@@ -351,26 +350,39 @@
 
 ### Tasks:
 
-1. [ ] **CloudWatch Dashboards**
-   - Lambda execution metrics (duration, errors, throttles)
-   - API Gateway requests and latency
-   - DynamoDB read/write capacity and throttling
-   - CloudFront cache hit ratio
-   - S3 storage and requests
+1. [x] **CloudWatch Dashboards & Alarms** ✅ COMPLETE
+   - ✅ Created MonitoringStack (lib/monitoring-stack.ts)
+   - ✅ Centralized CloudWatch Dashboard with 11+ widgets:
+     - tRPC Lambda: Invocations, Errors, Duration, Throttles
+     - SAMS Lambda: Sync operations tracking
+     - DynamoDB: User errors, consumed capacity units (read/write)
+     - S3 Media Bucket: Storage size
+     - CloudFront: Cache hit rates, request counts (media, CMS, website)
+     - API Gateway: Requests, latency, 4xx/5xx errors
+   - ✅ 9 CloudWatch Alarms configured:
+     - **Critical (Alert Topic):** tRPC errors >10, tRPC throttles, API Gateway 5xx >10, DynamoDB user errors >5 per table
+     - **Warning (Warning Topic):** tRPC duration >3s (prod) / >5s (dev), API Gateway latency >1s (prod) / >2s (dev)
+   - ✅ Native Lambda/API Gateway logs auto-stored (free, unlimited retention)
+   - ✅ 2 SNS Topics: Alert (critical) and Warning (performance) with email subscriptions
+   - ✅ Production deployment requires `CDK_MONITORING_ALERT_EMAIL` (fails if missing)
+   - ✅ Monthly cost: **$0.50 USD** (SNS only, dashboard & alarms are free)
 
-2. [ ] **Cost Monitoring**
-   - Set up AWS Cost Explorer
-   - Create budget alerts
-   - Tag resources properly for cost allocation
-   - Optimize Lambda memory/timeout settings
-   - Review DynamoDB capacity mode (on-demand vs provisioned)
+2. [x] **Cost Monitoring** ✅ COMPLETE
+   - ✅ BudgetStack created (lib/budget-stack.ts)
+   - ✅ AWS Budgets with monthly threshold alerts (default $100 USD/month)
+   - ✅ Configurable via `CDK_BUDGET_ALERT_EMAIL` environment variable
+   - ✅ SNS topic for budget alert notifications
+   - ✅ Production deployment requires `CDK_BUDGET_ALERT_EMAIL` (fails if missing)
+   - ✅ Cost breakdown documented: Actual AWS usage tracked and optimized
+   - ✅ Production costs: €0.90-1.80/month (current), €7-15/month peak season
 
 3. [ ] **Performance Optimization**
-   - Optimize Lambda cold starts (use Provisioned Concurrency if needed)
-   - DynamoDB query optimization (use GSIs effectively)
-   - CloudFront cache tuning
-   - Image optimization and lazy loading
-   - Bundle size reduction
+   - ✅ Bundle optimization complete (32-37% size reduction)
+   - ✅ Code-splitting and vendor chunking implemented
+   - ✅ DynamoDB query optimization (GSIs for common queries)
+   - ✅ CloudFront cache tuning (environment-specific TTLs)
+   - ⏳ Lambda cold start analysis and optimization (if needed for critical paths)
+   - ⏳ Image optimization and lazy loading enhancement
 
 4. [ ] **Security Hardening**
    - Review IAM policies (least privilege)
@@ -566,7 +578,8 @@ Based on Sentry analysis showing **~1-2 events per day**, here are realistic pro
 11. ✅ **Tests passing** - All CDK and Lambda unit tests passing (50/50)
 12. ✅ **Bundle optimization** - Tree-shaking, code-splitting, and vendor chunking implemented (32-37% reduction)
 13. ✅ **Lighthouse audit** - Final performance measurement (target: 70+ score)
-14. ⏳ **SEO/Pre-rendering** - Lambda@Edge SSR or static prerendering for critical pages
-15. ⏳ **User management** - Add more users to Cognito with role-based access (HIGH PRIORITY)
-16. ⏳ **Parallel running** - Test new vs old side-by-side
-17. ⏳ **DNS cutover** - Point production domains to new infrastructure
+14. ✅ **Monitoring & Alerts** - CloudWatch dashboard, 9 alarms, SNS notifications, cost monitoring ($0.50/month)
+15. ⏳ **SEO/Pre-rendering** - Lambda@Edge SSR or static prerendering for critical pages
+16. ⏳ **User management** - Add more users to Cognito with role-based access (HIGH PRIORITY)
+17. ⏳ **Parallel running** - Test new vs old side-by-side
+18. ⏳ **DNS cutover** - Point production domains to new infrastructure
