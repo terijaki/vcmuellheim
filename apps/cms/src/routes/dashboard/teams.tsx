@@ -71,7 +71,7 @@ function TeamPicturesManager({
 			{pictureS3Keys.length > 0 && (
 				<Group gap="sm" mb="md">
 					{pictureS3Keys.map((s3Key) => (
-						<PictureCard key={s3Key} s3Key={s3Key} isDeleted={deletePictureKeys.includes(s3Key)} onDeleteToggle={() => onDeleteToggle(s3Key)} />
+						<TeamPictureCard key={s3Key} s3Key={s3Key} isDeleted={deletePictureKeys.includes(s3Key)} onDeleteToggle={() => onDeleteToggle(s3Key)} />
 					))}
 				</Group>
 			)}
@@ -126,7 +126,7 @@ function TeamPicturesManager({
 	);
 }
 
-function PictureCard({ s3Key, isDeleted, onDeleteToggle }: { s3Key: string; isDeleted: boolean; onDeleteToggle: () => void }) {
+function TeamPictureCard({ s3Key, isDeleted, onDeleteToggle }: { s3Key: string; isDeleted: boolean; onDeleteToggle: () => void }) {
 	const trpc = useTRPC();
 	const { data: pictureUrl } = useQuery(trpc.upload.getFileUrl.queryOptions({ s3Key }, { enabled: !!s3Key && !isDeleted }));
 

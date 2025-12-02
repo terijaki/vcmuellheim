@@ -1,8 +1,9 @@
-import { AspectRatio, Box, Card, Image, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Box, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
 import { useInViewport } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo } from "react";
 import PageWithHeading from "../components/layout/PageWithHeading";
+import PictureCard from "../components/PictureCard";
 import { useGalleryImages } from "../lib/hooks";
 
 export const Route = createFileRoute("/fotos")({
@@ -74,7 +75,7 @@ function RouteComponent() {
 		<PageWithHeading title="Fotogalerie">
 			<SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 5 }} spacing="md" p="md">
 				{allImageUrls.map((imageUrl) => (
-					<PhotoCard key={imageUrl} imageUrl={imageUrl} />
+					<PictureCard key={imageUrl} url={imageUrl} />
 				))}
 			</SimpleGrid>
 
@@ -95,32 +96,5 @@ function RouteComponent() {
 				)}
 			</Box>
 		</PageWithHeading>
-	);
-}
-
-function PhotoCard({ imageUrl }: { imageUrl?: string }) {
-	if (!imageUrl) return null;
-
-	return (
-		<AspectRatio ratio={1}>
-			<Card shadow="sm" component="a" href={imageUrl} target="_blank" rel="noopener noreferrer" p={0} style={{ overflow: "hidden" }}>
-				<Image
-					src={imageUrl}
-					alt=""
-					style={{
-						width: "100%",
-						height: "100%",
-						objectFit: "cover",
-						transition: "transform 0.3s ease",
-					}}
-					onMouseEnter={(e) => {
-						e.currentTarget.style.transform = "scale(1.05)";
-					}}
-					onMouseLeave={(e) => {
-						e.currentTarget.style.transform = "scale(1)";
-					}}
-				/>
-			</Card>
-		</AspectRatio>
 	);
 }

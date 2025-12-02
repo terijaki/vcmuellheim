@@ -105,7 +105,7 @@ export const useMediaByIds = (ids: string[]) => {
 
 /**
  * Infinite query hook for gallery images (all news article images)
- * Returns flattened array of image URLs with cursor-based pagination
+ * Returns flattened array of image `URLs` or `S3Keys` with cursor-based pagination
  */
 export const useGalleryImages = ({ limit = 20, format = "urls", shuffle }: { limit?: number; format?: "urls" | "keys"; shuffle?: boolean } = {}) => {
 	const trpc = useTRPC();

@@ -1,10 +1,9 @@
 import { AspectRatio, Card, Image } from "@mantine/core";
-import type { MouseEvent } from "react";
 
-export default function PictureCard({ url }: { url: string }) {
+export default function PictureCard({ url, fixedHeight }: { url: string; fixedHeight?: number }) {
 	return (
-		<AspectRatio ratio={16 / 9} w={{ base: "100%", xs: 264 }} h={{ base: undefined, xs: (264 / 16) * 9 }}>
-			<Card shadow="sm" component="a" href={url} target="_blank" rel="noopener noreferrer">
+		<AspectRatio ratio={16 / 9} w={fixedHeight ? { base: "100%", xs: fixedHeight } : undefined} h={fixedHeight ? { base: undefined, xs: (fixedHeight / 16) * 9 } : undefined}>
+			<Card shadow="sm" component="a" href={url} target="_blank" rel="noopener noreferrer" p={0} radius="md">
 				<Image
 					src={url}
 					alt=""
@@ -12,17 +11,13 @@ export default function PictureCard({ url }: { url: string }) {
 						width: "100%",
 						height: "100%",
 						objectFit: "cover",
-						borderRadius: 8,
-						zIndex: 1,
-						transition: "transform 700ms",
+						transition: "transform 700ms ease",
 					}}
-					onMouseEnter={(e: MouseEvent<HTMLImageElement>) => {
-						const img = e.currentTarget as HTMLImageElement;
-						img.style.transform = "scale(1.05)";
+					onMouseEnter={(e) => {
+						e.currentTarget.style.transform = "scale(1.05)";
 					}}
-					onMouseLeave={(e: MouseEvent<HTMLImageElement>) => {
-						const img = e.currentTarget as HTMLImageElement;
-						img.style.transform = "scale(1)";
+					onMouseLeave={(e) => {
+						e.currentTarget.style.transform = "scale(1)";
 					}}
 				/>
 			</Card>

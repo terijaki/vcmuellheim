@@ -4,7 +4,7 @@ import { useGalleryImages } from "../../lib/hooks";
 import ScrollAnchor from "./ScrollAnchor";
 
 export default function HomeFotos() {
-	const { data } = useGalleryImages({ limit: 4, format: "urls", shuffle:true });
+	const { data } = useGalleryImages({ limit: 4, format: "urls", shuffle: true });
 	const firstImage = data?.pages?.flatMap((page) => page.images)[0];
 
 	const backgroundImage = firstImage || "/assets/backgrounds/pageheading.jpg";
