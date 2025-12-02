@@ -38,7 +38,7 @@ export default function HomeTeamGrid({ teams }: { teams: Team[] }) {
 							}}
 							value={gender}
 							data={[
-								{ label: "Keine", value: "" },
+								{ label: "Alle", value: "" },
 								{ label: "Weiblich", value: "female" },
 								{ label: "Männlich", value: "male" },
 								{ label: "Gemischt", value: "mixed" },

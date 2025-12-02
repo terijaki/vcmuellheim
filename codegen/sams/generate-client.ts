@@ -155,6 +155,8 @@ createClient({
 							if (typeof property === "object" && property !== null) {
 								switch (key) {
 									case "uuid":
+										property.nullable = false;
+										break;
 									case "rank":
 										property.nullable = false;
 										break;

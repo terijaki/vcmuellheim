@@ -3,14 +3,27 @@ import { useInViewport } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo } from "react";
 import PageWithHeading from "../components/layout/PageWithHeading";
-import { useFileUrl, useGalleryImages } from "../lib/hooks";
+import { useGalleryImages } from "../lib/hooks";
 
 export const Route = createFileRoute("/fotos")({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } = useGalleryImages({ limit: 20 });
+	const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } = useGalleryImages({ limit: 20, format: "urls" });
+
+	// Flatten all image URLs from all pages (already shuffled by server)
+	const allImageUrls = useMemo(() => {
+		if (!data?.pages) return [];
+
+		const urls: string[] = [];
+		for (const page of data.pages) {
+			urls.push(...page.images);
+		}
+
+		// Remove duplicates while preserving order
+		return [...new Set(urls)];
+	}, [data?.pages]);
 
 	// Infinite scroll logic using Mantine's useInViewport
 	const { inViewport, ref: loaderRef } = useInViewport<HTMLDivElement>();
@@ -19,19 +32,6 @@ function RouteComponent() {
 			fetchNextPage();
 		}
 	}, [inViewport, hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-	// Flatten all image S3 keys from all pages (already shuffled by server)
-	const allImageKeys = useMemo(() => {
-		if (!data?.pages) return [];
-
-		const keys: string[] = [];
-		for (const page of data.pages) {
-			keys.push(...page.imageS3Keys);
-		}
-
-		// Remove duplicates while preserving order
-		return [...new Set(keys)];
-	}, [data?.pages]);
 
 	if (isLoading) {
 		return (
@@ -58,7 +58,7 @@ function RouteComponent() {
 		);
 	}
 
-	if (allImageKeys.length === 0) {
+	if (allImageUrls.length === 0) {
 		return (
 			<PageWithHeading title="Fotogalerie">
 				<Box p="xl">
@@ -73,8 +73,8 @@ function RouteComponent() {
 	return (
 		<PageWithHeading title="Fotogalerie">
 			<SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 5 }} spacing="md" p="md">
-				{allImageKeys.map((s3Key) => (
-					<PhotoCard key={s3Key} s3Key={s3Key} />
+				{allImageUrls.map((imageUrl) => (
+					<PhotoCard key={imageUrl} imageUrl={imageUrl} />
 				))}
 			</SimpleGrid>
 
@@ -88,9 +88,9 @@ function RouteComponent() {
 						</Text>
 					</Stack>
 				)}
-				{!hasNextPage && allImageKeys.length > 0 && (
+				{!hasNextPage && allImageUrls.length > 0 && (
 					<Text c="dimmed" ta="center" size="sm">
-						Alle Fotos geladen ({allImageKeys.length} Bilder)
+						Alle Fotos geladen ({allImageUrls.length} Bilder)
 					</Text>
 				)}
 			</Box>
@@ -98,9 +98,7 @@ function RouteComponent() {
 	);
 }
 
-function PhotoCard({ s3Key }: { s3Key: string }) {
-	const { data: imageUrl } = useFileUrl(s3Key);
-
+function PhotoCard({ imageUrl }: { imageUrl?: string }) {
 	if (!imageUrl) return null;
 
 	return (

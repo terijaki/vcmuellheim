@@ -2,11 +2,17 @@
  * tRPC router for News operations
  */
 
+import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { slugify } from "@utils/slugify";
 import { z } from "zod";
 import { getAllNews, getNewsBySlug, getPublishedNews, newsRepository } from "../../db/repositories";
 import { newsSchema } from "../../db/schemas";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
+
+const s3Client = new S3Client({ region: process.env.AWS_REGION || "eu-central-1" });
+const BUCKET_NAME = process.env.MEDIA_BUCKET_NAME || "";
+const CLOUDFRONT_URL = process.env.CLOUDFRONT_URL || "";
 
 export const newsRouter = router({
 	/** Get all news articles (admin only) */
@@ -82,43 +88,71 @@ export const newsRouter = router({
 		return { success: true };
 	}),
 
-	/** Get all image S3 keys from published news articles (for photo gallery) */
+	/** Get all image URLs or S3 keys from published news articles (for photo gallery) */
 	galleryImages: publicProcedure
 		.input(
 			z
 				.object({
 					limit: z.number().min(1).max(100).optional().default(20),
+					format: z.enum(["urls", "keys"]).optional().default("urls"),
 					cursor: z.record(z.string(), z.unknown()).optional(),
-					shuffle: z.boolean().optional().default(true),
+					shuffle: z.boolean().optional(),
 				})
 				.optional(),
 		)
+		.output(
+			z.object({
+				images: z.array(z.string()),
+				nextCursor: z.record(z.string(), z.unknown()).optional(),
+			}),
+		)
 		.query(async ({ input }) => {
+			const format = input?.format ?? "urls";
+
 			// Fetch published news articles
 			const result = await getPublishedNews(input?.limit, input?.cursor);
 
 			// Flatten all imageS3Keys from all articles
-			const imageS3Keys: string[] = [];
+			const images: string[] = [];
 			for (const article of result.items) {
 				if (article.imageS3Keys && article.imageS3Keys.length > 0) {
-					imageS3Keys.push(...article.imageS3Keys);
+					for (const s3Key of article.imageS3Keys) {
+						if (format === "keys") {
+							// Return S3 keys as-is
+							images.push(s3Key);
+						} else {
+							// Convert S3 keys to URLs
+							if (CLOUDFRONT_URL) {
+								images.push(`${CLOUDFRONT_URL}/${s3Key}`);
+							} else {
+								const command = new GetObjectCommand({
+									Bucket: BUCKET_NAME,
+									Key: s3Key,
+								});
+								const presignedUrl = await getSignedUrl(s3Client, command, {
+									expiresIn: 3600,
+								});
+								images.push(presignedUrl);
+							}
+						}
+					}
 				}
 			}
 
 			// Shuffle if requested (default true)
-			let finalKeys = imageS3Keys;
-			if (input?.shuffle !== false) {
+			let finalImages = images;
+			if (input?.shuffle) {
 				// Fisher-Yates shuffle
-				const shuffled = [...imageS3Keys];
+				const shuffled = [...images];
 				for (let i = shuffled.length - 1; i > 0; i--) {
 					const j = Math.floor(Math.random() * (i + 1));
 					[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
 				}
-				finalKeys = shuffled;
+				finalImages = shuffled;
 			}
 
 			return {
-				imageS3Keys: finalKeys,
+				images: finalImages,
 				nextCursor: result.lastEvaluatedKey,
 			};
 		}),

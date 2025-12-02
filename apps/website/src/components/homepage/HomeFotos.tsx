@@ -1,14 +1,13 @@
 import { BackgroundImage, Box, Button, Center, Container, Overlay, Stack, Text } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
-import { useFileUrl, useGalleryImages } from "../../lib/hooks";
+import { useGalleryImages } from "../../lib/hooks";
 import ScrollAnchor from "./ScrollAnchor";
 
 export default function HomeFotos() {
-	const { data } = useGalleryImages({ limit: 10 });
-	const firstImageKey = data?.pages?.[0]?.imageS3Keys?.[0];
-	const { data: firstImageUrl } = useFileUrl(firstImageKey);
+	const { data } = useGalleryImages({ limit: 4, format: "urls", shuffle:true });
+	const firstImage = data?.pages?.flatMap((page) => page.images)[0];
 
-	const backgroundImage = firstImageUrl || "/images/backgrounds/pageheading.jpg";
+	const backgroundImage = firstImage || "/assets/backgrounds/pageheading.jpg";
 
 	return (
 		<Box bg="blumine">
