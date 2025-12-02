@@ -2,12 +2,12 @@ import type { MemberInput } from "@lib/db/schemas";
 import { ActionIcon, Badge, Box, Button, Card, Checkbox, Flex, Grid, Group, Image, Modal, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Pencil, Plus, Trash2, Upload, User, X } from "lucide-react";
 import { useState } from "react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
+import { useNotification } from "../../hooks/useNotification";
 
 function CurrentAvatarDisplay({
 	avatarS3Key,
@@ -159,15 +159,14 @@ function MembersPage() {
 	});
 
 	const trpc = useTRPC();
+	const notification = useNotification();
 	const { data: members, isLoading, refetch } = useQuery(trpc.members.list.queryOptions());
 	const uploadMutation = useMutation(
 		trpc.upload.getPresignedUrl.mutationOptions({
 			onError: (error: unknown) => {
 				setUploading(false);
-				notifications.show({
-					title: "Fehler",
+				notification.error({
 					message: error instanceof Error ? error.message : "Upload fehlgeschlagen",
-					color: "red",
 				});
 			},
 		}),
@@ -180,18 +179,12 @@ function MembersPage() {
 				close();
 				resetForm();
 				setUploading(false);
-				notifications.show({
-					title: "Erfolg",
-					message: "Mitglied wurde erfolgreich erstellt",
-					color: "green",
-				});
+				notification.success("Mitglied wurde erfolgreich erstellt");
 			},
 			onError: (error: unknown) => {
 				setUploading(false);
-				notifications.show({
-					title: "Fehler",
+				notification.error({
 					message: error instanceof Error ? error.message : "Mitglied konnte nicht erstellt werden",
-					color: "red",
 				});
 			},
 		}),
@@ -204,17 +197,12 @@ function MembersPage() {
 				close();
 				resetForm();
 				setUploading(false);
-				notifications.show({
-					message: "Mitglied wurde aktualisiert",
-					color: "green",
-				});
+				notification.success("Mitglied wurde aktualisiert");
 			},
 			onError: (error: unknown) => {
 				setUploading(false);
-				notifications.show({
-					title: "Fehler",
+				notification.error({
 					message: error instanceof Error ? error.message : "Mitglied konnte nicht aktualisiert werden",
-					color: "red",
 				});
 			},
 		}),
@@ -224,17 +212,11 @@ function MembersPage() {
 		trpc.members.delete.mutationOptions({
 			onSuccess: () => {
 				refetch();
-				notifications.show({
-					title: "Erfolg",
-					message: "Mitglied wurde erfolgreich gelöscht",
-					color: "green",
-				});
+				notification.success("Mitglied wurde erfolgreich gelöscht");
 			},
 			onError: (error: unknown) => {
-				notifications.show({
-					title: "Fehler",
+				notification.error({
 					message: error instanceof Error ? error.message : "Mitglied konnte nicht gelöscht werden",
-					color: "red",
 				});
 			},
 		}),
@@ -299,10 +281,8 @@ function MembersPage() {
 				createMutation.mutate(cleanedData as MemberInput);
 			}
 		} catch (error) {
-			notifications.show({
-				title: "Fehler",
+			notification.error({
 				message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten",
-				color: "red",
 			});
 			setUploading(false);
 		}

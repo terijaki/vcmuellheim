@@ -27,13 +27,13 @@ import {
 import { TimeInput } from "@mantine/dates";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, Mars, Plus, SquarePen, Trash2, Upload, Venus, VenusAndMars, X } from "lucide-react";
 import { useState } from "react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
 import type { Member } from "@/lib/db";
+import { useNotification } from "../../hooks/useNotification";
 
 function PersonAvatar({ avatarS3Key, name }: { avatarS3Key?: string; name: string }) {
 	const trpc = useTRPC();
@@ -284,6 +284,7 @@ function TeamsPage() {
 	});
 
 	const trpc = useTRPC();
+	const notification = useNotification();
 	const { data: teams, isLoading, refetch } = useQuery(trpc.teams.list.queryOptions());
 	const { data: samsTeams } = useQuery(trpc.samsTeams.list.queryOptions());
 	const { data: trainers } = useQuery(trpc.members.trainers.queryOptions());
@@ -293,11 +294,7 @@ function TeamsPage() {
 		trpc.upload.getPresignedUrl.mutationOptions({
 			onSuccess: () => setUploading(false),
 			onError: (error: unknown) => {
-				notifications.show({
-					title: "Fehler",
-					message: error instanceof Error ? error.message : "Upload fehlgeschlagen",
-					color: "red",
-				});
+				notification.error({ message: error instanceof Error ? error.message : "Upload des Fotos fehlgeschlagen" });
 				setUploading(false);
 			},
 		}),
@@ -310,18 +307,10 @@ function TeamsPage() {
 				close();
 				resetForm();
 				setUploading(false);
-				notifications.show({
-					title: "Erfolg",
-					message: "Mannschaft wurde erfolgreich erstellt",
-					color: "green",
-				});
+				notification.success("Mannschaft wurde erfolgreich erstellt");
 			},
 			onError: (error: unknown) => {
-				notifications.show({
-					title: "Fehler",
-					message: error instanceof Error ? error.message : "Mannschaft konnte nicht erstellt werden",
-					color: "red",
-				});
+				notification.error({ message: error instanceof Error ? error.message : "Mannschaft konnte nicht erstellt werden" });
 			},
 		}),
 	);
@@ -333,17 +322,10 @@ function TeamsPage() {
 				close();
 				resetForm();
 				setUploading(false);
-				notifications.show({
-					message: "Mannschaftsänderung wurde gespeichert",
-					color: "green",
-				});
+				notification.success("Mannschaftsänderung wurde gespeichert");
 			},
 			onError: (error: unknown) => {
-				notifications.show({
-					title: "Fehler",
-					message: error instanceof Error ? error.message : "Mannschaft konnte nicht aktualisiert werden",
-					color: "red",
-				});
+				notification.error({ message: error instanceof Error ? error.message : "Mannschaft konnte nicht aktualisiert werden" });
 			},
 		}),
 	);
@@ -352,18 +334,10 @@ function TeamsPage() {
 		trpc.teams.delete.mutationOptions({
 			onSuccess: () => {
 				refetch();
-				notifications.show({
-					title: "Erfolg",
-					message: "Mannschaft wurde erfolgreich gelöscht",
-					color: "green",
-				});
+				notification.success("Mannschaft wurde erfolgreich gelöscht");
 			},
 			onError: (error: unknown) => {
-				notifications.show({
-					title: "Fehler",
-					message: error instanceof Error ? error.message : "Mannschaft konnte nicht gelöscht werden",
-					color: "red",
-				});
+				notification.error({ message: error instanceof Error ? error.message : "Mannschaft konnte nicht gelöscht werden" });
 			},
 		}),
 	);
@@ -430,11 +404,7 @@ function TeamsPage() {
 				createMutation.mutate(cleanedData as TeamInput);
 			}
 		} catch (error) {
-			notifications.show({
-				title: "Fehler",
-				message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten",
-				color: "red",
-			});
+			notification.error({ message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
 			setUploading(false);
 		}
 	};

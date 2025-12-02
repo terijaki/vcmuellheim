@@ -2,7 +2,6 @@ import type { NewsInput } from "@lib/db/schemas";
 import { ActionIcon, Badge, Box, Button, Card, Group, Image, Modal, Paper, Pill, SegmentedControl, Stack, Table, Text, TextInput, Title } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-import { notifications } from "@mantine/notifications";
 import { RichTextEditor } from "@mantine/tiptap";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -14,9 +13,11 @@ import dayjs from "dayjs";
 import { Plus, Trash2, Upload, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
+import { useNotification } from "../../hooks/useNotification";
 
 function NewsPage() {
 	const trpc = useTRPC();
+	const notification = useNotification();
 	const isMobile = useMediaQuery("(max-width: 48em)");
 	const [opened, { open, close }] = useDisclosure(false);
 	const [editingId, setEditingId] = useState<string | null>(null);
@@ -60,19 +61,11 @@ function NewsPage() {
 				close();
 				resetForm();
 				setUploading(false);
-				notifications.show({
-					title: "Erfolg",
-					message: "News-Artikel wurde erfolgreich erstellt",
-					color: "green",
-				});
+				notification.success("News-Artikel wurde erfolgreich erstellt");
 			},
 			onError: (error) => {
 				setUploading(false);
-				notifications.show({
-					title: "Fehler",
-					message: error.message || "News-Artikel konnte nicht erstellt werden",
-					color: "red",
-				});
+				notification.error({ message: error.message || "News-Artikel konnte nicht erstellt werden" });
 			},
 		}),
 	);
@@ -83,18 +76,11 @@ function NewsPage() {
 				close();
 				resetForm();
 				setUploading(false);
-				notifications.show({
-					message: "News-Artikel wurde aktualisiert",
-					color: "green",
-				});
+				notification.success("News-Artikel wurde aktualisiert");
 			},
 			onError: (error) => {
 				setUploading(false);
-				notifications.show({
-					title: "Fehler",
-					message: error.message || "News-Artikel konnte nicht aktualisiert werden",
-					color: "red",
-				});
+				notification.error({ message: error.message || "News-Artikel konnte nicht aktualisiert werden" });
 			},
 		}),
 	);
@@ -102,18 +88,10 @@ function NewsPage() {
 		trpc.news.delete.mutationOptions({
 			onSuccess: () => {
 				refetch();
-				notifications.show({
-					title: "Erfolg",
-					message: "News-Artikel wurde erfolgreich gelöscht",
-					color: "green",
-				});
+				notification.success("News-Artikel wurde erfolgreich gelöscht");
 			},
 			onError: (error) => {
-				notifications.show({
-					title: "Fehler",
-					message: error.message || "News-Artikel konnte nicht gelöscht werden",
-					color: "red",
-				});
+				notification.error({ message: error.message || "News-Artikel konnte nicht gelöscht werden" });
 			},
 		}),
 	);
@@ -187,11 +165,7 @@ function NewsPage() {
 				createMutation.mutate(submitData);
 			}
 		} catch (error) {
-			notifications.show({
-				title: "Fehler",
-				message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten",
-				color: "red",
-			});
+			notification.error({ message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
 			setUploading(false);
 		}
 	};

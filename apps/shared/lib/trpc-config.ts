@@ -1,4 +1,4 @@
-import { QueryClient } from "@tanstack/react-query";
+import { MutationCache, QueryClient } from "@tanstack/react-query";
 import { createTRPCContext } from "@trpc/tanstack-react-query";
 import type { AppRouter } from "../../../lib/trpc";
 
@@ -17,6 +17,11 @@ export function createQueryClient(): QueryClient {
 				gcTime: 1000 * 60 * 10, // 10 minutes (formerly cacheTime)
 			},
 		},
+		mutationCache: new MutationCache({
+			onError: (error) => {
+				console.error("Mutation error:", error);
+			},
+		}),
 	});
 }
 

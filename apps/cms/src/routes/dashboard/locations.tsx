@@ -1,12 +1,12 @@
 import type { LocationInput } from "@lib/db/schemas";
 import { ActionIcon, Button, Group, Modal, Paper, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
+import { useNotification } from "../../hooks/useNotification";
 
 function LocationsPage() {
 	const isMobile = useMediaQuery("(max-width: 48em)");
@@ -21,6 +21,7 @@ function LocationsPage() {
 	});
 
 	const trpc = useTRPC();
+	const notification = useNotification();
 	const { data: locations, isLoading, refetch } = useQuery(trpc.locations.list.queryOptions());
 
 	const createMutation = useMutation(
@@ -29,18 +30,12 @@ function LocationsPage() {
 				refetch();
 				close();
 				resetForm();
-				notifications.show({
-					title: "Erfolg",
-					message: "Ort wurde erfolgreich erstellt",
-					color: "green",
-				});
+				notification.success("Ort wurde erfolgreich erstellt");
 			},
 			onError: (error: unknown) => {
 				const err = error as Error;
-				notifications.show({
-					title: "Fehler",
+				notification.error({
 					message: err.message || "Ort konnte nicht erstellt werden",
-					color: "red",
 				});
 			},
 		}),
@@ -52,18 +47,12 @@ function LocationsPage() {
 				refetch();
 				close();
 				resetForm();
-				notifications.show({
-					title: "Erfolg",
-					message: "Ort wurde erfolgreich aktualisiert",
-					color: "green",
-				});
+				notification.success("Ort wurde erfolgreich aktualisiert");
 			},
 			onError: (error: unknown) => {
 				const err = error as Error;
-				notifications.show({
-					title: "Fehler",
+				notification.error({
 					message: err.message || "Ort konnte nicht aktualisiert werden",
-					color: "red",
 				});
 			},
 		}),
@@ -73,18 +62,12 @@ function LocationsPage() {
 		trpc.locations.delete.mutationOptions({
 			onSuccess: () => {
 				refetch();
-				notifications.show({
-					title: "Erfolg",
-					message: "Ort wurde erfolgreich gelöscht",
-					color: "green",
-				});
+				notification.success("Ort wurde erfolgreich gelöscht");
 			},
 			onError: (error: unknown) => {
 				const err = error as Error;
-				notifications.show({
-					title: "Fehler",
+				notification.error({
 					message: err.message || "Ort konnte nicht gelöscht werden",
-					color: "red",
 				});
 			},
 		}),
@@ -103,10 +86,8 @@ function LocationsPage() {
 
 	const handleSubmit = () => {
 		if (!formData.name || !formData.street || !formData.postal || !formData.city) {
-			notifications.show({
-				title: "Fehler",
+			notification.error({
 				message: "Bitte füllen Sie alle Pflichtfelder aus",
-				color: "red",
 			});
 			return;
 		}

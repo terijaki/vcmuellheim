@@ -2,7 +2,6 @@ import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import { colorsTuple, createTheme, MantineProvider } from "@mantine/core";
 import { DatesProvider } from "@mantine/dates";
-import { Notifications } from "@mantine/notifications";
 import { RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
@@ -59,7 +58,6 @@ createRoot(rootElement).render(
 	<StrictMode>
 		<TrpcProvider>
 			<MantineProvider theme={theme}>
-				<Notifications position="top-right" />
 				<DatesProvider settings={{ locale: "de", firstDayOfWeek: 1, consistentWeeks: true }}>
 					<RouterProvider router={router} />
 				</DatesProvider>

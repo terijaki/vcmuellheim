@@ -3,13 +3,13 @@ import { ActionIcon, Anchor, Box, Button, Card, Group, Image, Modal, SimpleGrid,
 import { DatePickerInput } from "@mantine/dates";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { Globe, Pencil, Plus, Trash2, Upload, X } from "lucide-react";
 import { useState } from "react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
+import { useNotification } from "../../hooks/useNotification";
 
 function CurrentLogoDisplay({
 	logoS3Key,
@@ -160,6 +160,7 @@ function SponsorsPage() {
 	});
 
 	const trpc = useTRPC();
+	const notification = useNotification();
 	const { data: sponsors, isLoading, refetch } = useQuery(trpc.sponsors.list.queryOptions());
 	const uploadMutation = useMutation(trpc.upload.getPresignedUrl.mutationOptions());
 	const createMutation = useMutation(
@@ -169,19 +170,11 @@ function SponsorsPage() {
 				close();
 				resetForm();
 				setUploading(false);
-				notifications.show({
-					title: "Erfolg",
-					message: "Sponsor wurde erfolgreich erstellt",
-					color: "green",
-				});
+				notification.success("Sponsor wurde erfolgreich erstellt");
 			},
 			onError: (error) => {
 				setUploading(false);
-				notifications.show({
-					title: "Fehler",
-					message: error.message || "Sponsor konnte nicht erstellt werden",
-					color: "red",
-				});
+				notification.error({ message: error.message || "Sponsor konnte nicht erstellt werden" });
 			},
 		}),
 	);
@@ -192,18 +185,11 @@ function SponsorsPage() {
 				close();
 				resetForm();
 				setUploading(false);
-				notifications.show({
-					message: "Sponsoränderung wurde gespeichert",
-					color: "green",
-				});
+				notification.success("Sponsoränderung wurde gespeichert");
 			},
 			onError: (error) => {
 				setUploading(false);
-				notifications.show({
-					title: "Fehler",
-					message: error.message || "Sponsor konnte nicht aktualisiert werden",
-					color: "red",
-				});
+				notification.error({ message: error.message || "Sponsor konnte nicht aktualisiert werden" });
 			},
 		}),
 	);
@@ -211,18 +197,10 @@ function SponsorsPage() {
 		trpc.sponsors.delete.mutationOptions({
 			onSuccess: () => {
 				refetch();
-				notifications.show({
-					title: "Erfolg",
-					message: "Sponsor wurde erfolgreich gelöscht",
-					color: "green",
-				});
+				notification.success("Sponsor wurde erfolgreich gelöscht");
 			},
 			onError: (error) => {
-				notifications.show({
-					title: "Fehler",
-					message: error.message || "Sponsor konnte nicht gelöscht werden",
-					color: "red",
-				});
+				notification.error({ message: error.message || "Sponsor konnte nicht gelöscht werden" });
 			},
 		}),
 	);
@@ -291,11 +269,7 @@ function SponsorsPage() {
 				createMutation.mutate(cleanedData as SponsorInput);
 			}
 		} catch (error) {
-			notifications.show({
-				title: "Fehler",
-				message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten",
-				color: "red",
-			});
+			notification.error({ message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
 			setUploading(false);
 		}
 	};

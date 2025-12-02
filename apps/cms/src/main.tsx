@@ -56,7 +56,7 @@ function ThemingProvider({ children }: { children: React.ReactNode }) {
 		<>
 			<ColorSchemeScript defaultColorScheme="auto" />
 			<MantineProvider theme={theme} defaultColorScheme="auto">
-				<Notifications position="top-right" />
+				<Notifications position="bottom-right" limit={2} />
 				<DatesProvider settings={{ locale: "de" }}>{children}</DatesProvider>
 			</MantineProvider>
 		</>
