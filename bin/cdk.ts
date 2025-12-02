@@ -8,6 +8,7 @@ import { CmsStack } from "../lib/cms-stack";
 import { ContentDbStack } from "../lib/content-db-stack";
 import { DnsStack } from "../lib/dns-stack";
 import { MediaStack } from "../lib/media-stack";
+import { MonitoringStack } from "../lib/monitoring-stack";
 import { SamsApiStack } from "../lib/sams-api-stack";
 import { SocialMediaStack } from "../lib/social-media-stack";
 import { WebsiteStack } from "../lib/website-stack";
@@ -91,7 +92,7 @@ const samsApiStack = new SamsApiStack(app, samsStackName, {
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate, // CloudFront cert (us-east-1)
 });
 
-new ApiStack(app, apiStackName, {
+const apiStack = new ApiStack(app, apiStackName, {
 	...commonStackProps,
 	description: `tRPC API & Cognito (${environment}${branchSuffix})`,
 	contentDbStack: {
@@ -133,6 +134,47 @@ if (budgetEmail) {
 		alertEmail: budgetEmail,
 	});
 } else {
-	console.warn("⚠️  CDK_BUDGET_ALERT_EMAIL not set - skipping budget stack.");
-	console.warn("    Set CDK_BUDGET_ALERT_EMAIL in .env to enable cost alerts.");
+	const message = "❌ CDK_BUDGET_ALERT_EMAIL not set";
+	if (isProd) {
+		console.error(`🚨  ${message} - production deployment requires budget alerts.`);
+		process.exit(1);
+	} else {
+		console.warn(`⚠️  ${message} - skipping budget stack.`);
+		console.warn("    Set CDK_BUDGET_ALERT_EMAIL in .env to enable cost alerts.");
+	}
+}
+
+// Monitoring stack - setup alerts and dashboards
+const monitoringEmail = process.env.CDK_MONITORING_ALERT_EMAIL || budgetEmail;
+if (monitoringEmail) {
+	new MonitoringStack(app, `MonitoringStack${branchSuffix}`, {
+		...commonStackProps,
+		description: `Monitoring & Alerting (${environment}${branchSuffix})`,
+		alertEmail: monitoringEmail,
+		trpcLambda: apiStack.trpcLambda,
+		contentTables: {
+			news: contentDbStack.newsTable,
+			events: contentDbStack.eventsTable,
+			teams: contentDbStack.teamsTable,
+			members: contentDbStack.membersTable,
+			media: contentDbStack.mediaTable,
+			sponsors: contentDbStack.sponsorsTable,
+			bus: contentDbStack.busTable,
+			locations: contentDbStack.locationsTable,
+		},
+		api: apiStack.api,
+		mediaBucket: mediaStack.bucket,
+		mediaDistribution: mediaStack.distribution,
+		cmsDistribution: cmsStack.distribution,
+		websiteDistribution: websiteStack.distribution,
+	});
+} else {
+	const message = "❌ CDK_MONITORING_ALERT_EMAIL not set";
+	if (isProd) {
+		console.error(`🚨  ${message} - production deployment requires monitoring alerts.`);
+		process.exit(1);
+	} else {
+		console.warn(`⚠️  ${message} - skipping monitoring stack.`);
+		console.warn("    Set CDK_MONITORING_ALERT_EMAIL in .env to enable monitoring and alerts.");
+	}
 }
