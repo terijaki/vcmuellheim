@@ -224,7 +224,7 @@
      - **CMS:** vendor-mantine (364 KB), vendor-tiptap (323 KB lazy-loaded), vendor-mantine-extras (75 KB), vendor-icons (6 KB)
    - ✅ Route-based code splitting enabled - routes lazy-loaded on demand
    - ✅ Terser minification for all builds
-   - ⏳ Image optimization (lazy loading, responsive images)
+   - ✅ Image optimization (lazy loading, responsive images, mediaconvert lambda)
    - ⏳ Lighthouse performance audit
 
 5. [x] **SEO Considerations**

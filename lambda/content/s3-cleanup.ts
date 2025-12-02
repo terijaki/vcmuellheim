@@ -6,7 +6,7 @@
  * 2. MODIFY event: S3 key fields change (old files replaced with new ones)
  */
 
-import { DeleteObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand, ListObjectsV2Command, S3Client } from "@aws-sdk/client-s3";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
 import type { DynamoDBRecord, DynamoDBStreamEvent, DynamoDBStreamHandler } from "aws-lambda";
 import type { z } from "zod";
@@ -135,6 +135,41 @@ async function deleteS3Object(s3Key: string): Promise<void> {
 }
 
 /**
+ * Find all image files (original + variants) by prefix in S3.
+ * - For an image at: `entityType/entityId/imageId.jpg`
+ * - Finds all objects matching: `entityType/entityId/imageId*`
+ * - This includes: `imageId.jpg`, `imageId-480w.jpg`, `imageId-480w.webp`, `imageId-800w.jpg`, etc.
+ */
+async function findImageFilesByPrefix(bucket: string, imageKey: string): Promise<string[]> {
+	try {
+		// Extract the prefix: everything up to the filename without extension
+		const lastSlashIndex = imageKey.lastIndexOf("/");
+		const folder = imageKey.substring(0, lastSlashIndex); // e.g., "members/uuid"
+		const filename = imageKey.substring(lastSlashIndex + 1); // e.g., "avatar.jpg"
+		const baseFilename = filename.replace(/\.[^.]+$/, ""); // e.g., "avatar"
+		const prefix = `${folder}/${baseFilename}`; // e.g., "members/uuid/avatar"
+
+		console.log(`Searching S3 for objects with prefix: ${prefix}`);
+
+		const command = new ListObjectsV2Command({
+			Bucket: bucket,
+			Prefix: prefix,
+		});
+
+		const response = await s3Client.send(command);
+		const keys = response.Contents?.map((obj) => obj.Key || "").filter((key) => key !== "") || [];
+
+		console.log(`Found ${keys.length} objects with prefix ${prefix}:`, keys);
+		return keys;
+	} catch (error) {
+		const errorMessage = error instanceof Error ? error.message : String(error);
+		console.error(`Failed to list S3 objects with prefix from ${imageKey}: ${errorMessage}`);
+		// Return the original key as fallback - at least delete that
+		return [imageKey];
+	}
+}
+
+/**
  * Compare old and new S3 keys and return only the keys that were removed
  */
 function getDeletedS3Keys(oldKeys: string[], newKeys: string[]): string[] {
@@ -182,8 +217,19 @@ async function processRecord(record: DynamoDBRecord): Promise<void> {
 		}
 	}
 
-	// Delete all identified S3 objects
+	// For image files, dynamically find all related objects by prefix in S3
+	// This handles original + all variants (480w, 800w, 1200w, etc.) without hardcoding sizes
+	const allKeysToDelete = new Set<string>();
 	for (const s3Key of s3KeysToDelete) {
+		// Query S3 for all objects matching this image's prefix
+		const relatedKeys = await findImageFilesByPrefix(MEDIA_BUCKET, s3Key);
+		for (const key of relatedKeys) {
+			allKeysToDelete.add(key);
+		}
+	}
+
+	// Delete all identified S3 objects (originals + variants)
+	for (const s3Key of allKeysToDelete) {
 		await deleteS3Object(s3Key);
 	}
 }

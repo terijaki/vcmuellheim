@@ -6,9 +6,12 @@ import * as cdk from "aws-cdk-lib";
 import type * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import * as s3 from "aws-cdk-lib/aws-s3";
+import * as s3Notifications from "aws-cdk-lib/aws-s3-notifications";
 import type { Construct } from "constructs";
 import { Club } from "@/project.config";
 
@@ -101,6 +104,33 @@ export class MediaStack extends cdk.Stack {
 			this.cloudFrontUrl = `https://${this.distribution.distributionDomainName}`;
 		}
 
+		// === Image Processing Lambda ===
+		// Add ImageMagick Lambda layer for image processing
+		const imageMagickLayer = lambda.LayerVersion.fromLayerVersionArn(this, "ImageMagickLayer", "arn:aws:lambda:eu-central-1:041632640830:layer:image-magick:1");
+
+		// Create image processor Lambda function
+		const imageProcessorFunction = new NodejsFunction(this, "ImageProcessor", {
+			runtime: lambda.Runtime.NODEJS_LATEST,
+			handler: "handler",
+			entry: "lambda/content/image-processor.ts",
+			timeout: cdk.Duration.minutes(5),
+			memorySize: 512, // Need more memory for image processing
+			layers: [imageMagickLayer],
+		});
+
+		// Grant Lambda permission to read/write to S3 bucket
+		this.bucket.grantRead(imageProcessorFunction);
+		this.bucket.grantWrite(imageProcessorFunction);
+
+		// Trigger Lambda on S3 object creation for image files
+		const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
+		imageExtensions.forEach((ext) => {
+			this.bucket.addObjectCreatedNotification(new s3Notifications.LambdaDestination(imageProcessorFunction), {
+				prefix: "", // All folders
+				suffix: ext,
+			});
+		});
+
 		// Outputs
 		new cdk.CfnOutput(this, "MediaBucketName", {
 			value: this.bucket.bucketName,
@@ -110,11 +140,6 @@ export class MediaStack extends cdk.Stack {
 		new cdk.CfnOutput(this, "CloudFrontUrl", {
 			value: this.cloudFrontUrl,
 			description: "CloudFront URL for media distribution",
-		});
-
-		new cdk.CfnOutput(this, "CloudFrontDistributionId", {
-			value: this.distribution.distributionId,
-			description: "CloudFront Distribution ID",
 		});
 	}
 }

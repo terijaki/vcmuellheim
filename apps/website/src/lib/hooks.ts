@@ -5,6 +5,7 @@
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { buildServiceUrl } from "@/apps/shared/lib/api-url";
+import { IMAGE_VARIANTS } from "@/apps/shared/lib/image-config";
 import { ClubResponseSchema, ClubsResponseSchema, LeagueMatchesResponseSchema, type RankingResponse, RankingResponseSchema, TeamsResponseSchema } from "@/lambda/sams/types";
 import type { InstagramPost } from "@/lambda/social/types";
 import { useTRPC } from "../../../shared/lib/trpc-config";
@@ -96,6 +97,14 @@ export const useLocations = () => {
 };
 
 /**
+ * Hook to fetch bus bookings
+ */
+export const useBusBookings = () => {
+	const trpc = useTRPC();
+	return useQuery(trpc.bus.list.queryOptions());
+};
+
+/**
  * Hook to fetch media items by IDs
  */
 export const useMediaByIds = (ids: string[]) => {
@@ -142,11 +151,43 @@ export const useFileUrlsMap = (s3Keys?: string[]) => {
 };
 
 /**
- * Hook to fetch bus bookings
+ * Hook to get responsive image variant URLs from a base S3 key
+ * Generates URLs for responsive variants (480px, 800px, 1200px)
+ * Returns undefined if input is a URL or empty
  */
-export const useBusBookings = () => {
-	const trpc = useTRPC();
-	return useQuery(trpc.bus.list.queryOptions());
+export const useImageVariants = (baseS3Key?: string) => {
+	// Return undefined if no input OR if it's a URL (not an S3 key)
+	if (!baseS3Key || baseS3Key.startsWith("http")) {
+		return {
+			original: undefined,
+			sm: undefined, // 480px
+			md: undefined, // 800px
+			lg: undefined, // 1200px
+			webp: {
+				sm: undefined,
+				md: undefined,
+				lg: undefined,
+			},
+		};
+	}
+
+	// Extract base filename without size suffix (480w, 800w, 1200w)
+	const withoutSuffix = baseS3Key.replace(/-(480w|800w|1200w)(\.[^.]+)?$/i, "");
+	const fileExtension = baseS3Key.match(/\.[^.]+$/)?.[0] || ".jpg";
+	const folder = baseS3Key.substring(0, baseS3Key.lastIndexOf("/"));
+	const filename = withoutSuffix.split("/").pop();
+
+	return {
+		original: baseS3Key, // Full resolution image
+		sm: `${folder}/${filename}-${IMAGE_VARIANTS.sm}w${fileExtension}`, // 480px
+		md: `${folder}/${filename}-${IMAGE_VARIANTS.md}w${fileExtension}`, // 800px
+		lg: `${folder}/${filename}-${IMAGE_VARIANTS.lg}w${fileExtension}`, // 1200px
+		webp: {
+			sm: `${folder}/${filename}-${IMAGE_VARIANTS.sm}w.webp`,
+			md: `${folder}/${filename}-${IMAGE_VARIANTS.md}w.webp`,
+			lg: `${folder}/${filename}-${IMAGE_VARIANTS.lg}w.webp`,
+		},
+	};
 };
 
 /**

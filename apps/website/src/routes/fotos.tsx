@@ -3,7 +3,7 @@ import { useInViewport } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo } from "react";
 import PageWithHeading from "../components/layout/PageWithHeading";
-import PictureCard from "../components/PictureCard";
+import ResponsiveImage from "../components/ResponsiveImage";
 import { useGalleryImages } from "../lib/hooks";
 
 export const Route = createFileRoute("/fotos")({
@@ -74,8 +74,8 @@ function RouteComponent() {
 	return (
 		<PageWithHeading title="Fotogalerie">
 			<SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 5 }} spacing="md" p="md">
-				{allImageUrls.map((imageUrl) => (
-					<PictureCard key={imageUrl} url={imageUrl} />
+				{allImageUrls.map((imageUrl, index) => (
+					<ResponsiveImage key={imageUrl} source={imageUrl} alt={`Galleryfoto ${index + 1}`} />
 				))}
 			</SimpleGrid>
 

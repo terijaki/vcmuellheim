@@ -14,6 +14,7 @@
  *      bun run scripts/migrate-to-dynamodb.ts --backup=../.temp/postgres-backup.json --all
  */
 
+import { execSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
@@ -22,6 +23,17 @@ import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { busSchema, locationSchema, memberSchema, newsSchema, teamSchema } from "@lib/db/schemas";
 import dotenv from "dotenv";
 import { Club } from "@/project.config";
+
+// Check for active AWS session
+function checkAwsSession() {
+	try {
+		execSync("aws sts get-caller-identity", { stdio: "ignore" });
+	} catch (_err) {
+		console.error("❌ No active AWS session found. Please run 'aws login' or authenticate with AWS CLI.");
+		process.exit(1);
+	}
+}
+checkAwsSession();
 
 // Type definitions for backup data and Lexical content
 interface MediaItem {
