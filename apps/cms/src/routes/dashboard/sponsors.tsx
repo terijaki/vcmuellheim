@@ -40,9 +40,9 @@ function CurrentLogoDisplay({
 						Abbrechen
 					</Button>
 				</Group>
-				<Card withBorder p="md">
+				<Card withBorder p="md" bg="blumine" c="white">
 					<Image src={previewUrl} height={120} fit="contain" alt="Neue Logo-Vorschau" />
-					<Text size="xs" c="dimmed" mt="xs" ta="center">
+					<Text size="xs" mt="xs" ta="center" opacity={0.7}>
 						Neues Logo: {logoFile.name}
 					</Text>
 				</Card>
@@ -67,7 +67,7 @@ function CurrentLogoDisplay({
 						</Button>
 					</Group>
 				</Group>
-				<Card withBorder p="md">
+				<Card withBorder p="md" bg="blumine">
 					{logoUrl ? (
 						<Image src={logoUrl} height={120} fit="contain" alt="Aktuelles Logo" />
 					) : (
@@ -117,7 +117,7 @@ function CurrentLogoDisplay({
 			<Text size="sm" fw={500} mb="xs">
 				Logo
 			</Text>
-			<Dropzone onDrop={(files: File[]) => files.length > 0 && onFileChange(files[0])} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024} maxFiles={1}>
+			<Dropzone onDrop={(files: File[]) => files.length > 0 && onFileChange(files[0])} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024} maxFiles={1} bg="blumine" c="white">
 				<Group justify="center" gap="xl" style={{ minHeight: 120, pointerEvents: "none" }}>
 					<Dropzone.Accept>
 						<Upload size={50} style={{ color: "var(--mantine-color-blue-6)" }} />
@@ -126,17 +126,17 @@ function CurrentLogoDisplay({
 						<X size={50} style={{ color: "var(--mantine-color-red-6)" }} />
 					</Dropzone.Reject>
 					<Dropzone.Idle>
-						<Upload size={50} style={{ color: "var(--mantine-color-dimmed)" }} />
+						<Upload size={50} />
 					</Dropzone.Idle>
 
-					<div>
+					<Stack gap="xs">
 						<Text size="xl" inline>
 							Logo hierher ziehen oder klicken zum Auswählen
 						</Text>
-						<Text size="sm" c="dimmed" inline mt={7}>
+						<Text size="sm" opacity={0.7} inline mt={7}>
 							PNG, JPG oder SVG, max. 5MB
 						</Text>
-					</div>
+					</Stack>
 				</Group>
 			</Dropzone>
 		</Box>
@@ -422,7 +422,7 @@ function SponsorCard({
 
 	return (
 		<Card shadow="sm" padding="lg" radius="md" withBorder>
-			<Card.Section withBorder>
+			<Card.Section withBorder bg="blumine">
 				{logoUrl ? (
 					<Image src={logoUrl} height={160} alt={sponsor.name} fit="contain" p="md" />
 				) : (

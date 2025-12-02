@@ -1,5 +1,5 @@
 import type { Sponsor } from "@lib/db/types";
-import { BackgroundImage, Box, Button, Container, Flex, Group, Image, Overlay, Stack, Text } from "@mantine/core";
+import { BackgroundImage, Box, Button, Container, Flex, Group, Image, Loader, Overlay, Stack, Text } from "@mantine/core";
 import { Club } from "@project.config";
 import Marquee from "react-fast-marquee";
 import { useFileUrl, useSponsors } from "../../lib/hooks";
@@ -70,16 +70,24 @@ function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
 }
 
 function SponsorCard({ name, logoS3Key, websiteUrl }: Sponsor) {
-	const logoUrl = useFileUrl(logoS3Key);
+	const { data: logoUrl, isLoading } = useFileUrl(logoS3Key);
 
-	if (logoUrl && !websiteUrl)
+	if (isLoading) {
+		return (
+			<Flex w={180} h={80} maw={"50vw"} align="center" justify="center">
+				<Loader color="white" />
+			</Flex>
+		);
+	}
+
+	if (logoUrl && !websiteUrl) {
 		return (
 			<Flex w={180} h={80} maw={"50vw"} align="center" justify="center">
 				<Image src={logoUrl} alt={`${name}`} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
 			</Flex>
 		);
-
-	if (websiteUrl && name)
+	}
+	if (websiteUrl && name) {
 		return (
 			<Flex component="a" href={websiteUrl} target="_blank" rel="noopener noreferrer" w={180} h={80} maw={"50vw"} align="center" justify="center">
 				{logoUrl ? (
@@ -91,6 +99,7 @@ function SponsorCard({ name, logoS3Key, websiteUrl }: Sponsor) {
 				)}
 			</Flex>
 		);
+	}
 
 	return null;
 }
