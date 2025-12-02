@@ -170,7 +170,7 @@
    - ✅ Sponsors management - Logo upload and tier management
    - ✅ Locations management - Full CRUD for event locations
    - ✅ Bus bookings management - Calendar view with booking conflict detection
-   - ⏳ User management - Add more users to the Cognito user pool. Roles (Admin, Moderator).
+   - ✅ User management - Add more users to the Cognito user pool. Roles (Admin, Moderator).
 
 5. [x] **Deploy CMS App**
    - ✅ Create CmsStack in CDK (S3 + CloudFront + custom domain)
@@ -580,6 +580,6 @@ Based on Sentry analysis showing **~1-2 events per day**, here are realistic pro
 13. ✅ **Lighthouse audit** - Final performance measurement (target: 70+ score)
 14. ✅ **Monitoring & Alerts** - CloudWatch dashboard, 9 alarms, SNS notifications, cost monitoring ($0.50/month)
 15. ⏳ **SEO/Pre-rendering** - Lambda@Edge SSR or static prerendering for critical pages
-16. ⏳ **User management** - Add more users to Cognito with role-based access (HIGH PRIORITY)
+16. ✅ **User management** - Add more users to Cognito with role-based access (HIGH PRIORITY)
 17. ⏳ **Parallel running** - Test new vs old side-by-side
 18. ⏳ **DNS cutover** - Point production domains to new infrastructure
