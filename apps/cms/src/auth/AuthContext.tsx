@@ -316,7 +316,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			const callbackUrl = `${window.location.origin}/auth/callback`;
 			const tokenUrl = `${cognitoConfig.hostedUi.baseUrl}/oauth2/token`;
 
-			console.log("Exchanging code for tokens", { callbackUrl, code: code.substring(0, 10) + "..." });
+			console.log("Exchanging code for tokens", { callbackUrl, code: `${code.substring(0, 10)}...` });
 
 			const tokenResponse = await fetch(tokenUrl, {
 				method: "POST",
