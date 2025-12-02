@@ -1,4 +1,4 @@
-import { Box, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
+import { AspectRatio, Box, Card, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
 import { useInViewport } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo } from "react";
@@ -75,7 +75,11 @@ function RouteComponent() {
 		<PageWithHeading title="Fotogalerie">
 			<SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 5 }} spacing="md" p="md">
 				{allImageUrls.map((imageUrl, index) => (
-					<ResponsiveImage key={imageUrl} source={imageUrl} alt={`Galleryfoto ${index + 1}`} />
+					<AspectRatio key={imageUrl} ratio={4 / 3}>
+						<Card p={0} withBorder>
+							<ResponsiveImage source={imageUrl} alt={`Galleryfoto ${index + 1}`} />
+						</Card>
+					</AspectRatio>
 				))}
 			</SimpleGrid>
 

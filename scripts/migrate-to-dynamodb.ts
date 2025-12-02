@@ -218,7 +218,7 @@ async function copyS3File(oldKey: string, newKey: string, _mediaId: string, file
  * @param entityId - The entity ID that owns this image
  * @returns The S3 key (path) if successful, null otherwise
  */
-async function migrateMediaFile(mediaId: string, entityType: string, entityId: string): Promise<string | null> {
+async function migrateMediaFile(mediaId: string, entityType: string): Promise<string | null> {
 	const mediaItem = backupData.media?.find((m) => m.id === mediaId);
 	if (!mediaItem) {
 		console.log(`  ⚠️  Media ${mediaId} not found in backup`);
@@ -231,9 +231,9 @@ async function migrateMediaFile(mediaId: string, entityType: string, entityId: s
 		mediaItem.filename, // Just filename
 	];
 
-	// New S3 key follows pattern: {entityType}/{entityId}/{filename}
-	// This ensures each entity owns its images (duplicates if shared)
-	const newKey = `${entityType}/${entityId}/${mediaItem.filename}`;
+	// New S3 key follows pattern: {entityType}/{filename}
+	// Flat structure without entity ID nesting
+	const newKey = `${entityType}/${mediaItem.filename}`;
 
 	// Try each possible key pattern
 	for (const oldKey of possibleOldKeys) {
@@ -363,7 +363,7 @@ async function migrateNews(dryRun: boolean): Promise<void> {
 					const batchNum = Math.floor(i / batchSize) + 1;
 					const totalBatches = Math.ceil(row.imageIds.length / batchSize);
 					console.log(`      Batch ${batchNum}/${totalBatches}: uploading ${batch.length} images...`);
-					const results = await Promise.all(batch.map((imageId: string) => migrateMediaFile(imageId, "news", row.id)));
+					const results = await Promise.all(batch.map((imageId: string) => migrateMediaFile(imageId, "news")));
 					// Add successful uploads to the array
 					for (const s3Key of results) {
 						if (s3Key) {
@@ -494,13 +494,11 @@ async function migrateMembers(dryRun: boolean): Promise<void> {
 			let avatarS3Key: string | undefined;
 			console.log(`  [${row.id}] avatarS3Key:`, row.avatarS3Key);
 			if (row.avatarS3Key && oldS3Client && newS3Client) {
-				const s3Key = await migrateMediaFile(row.avatarS3Key, "members", row.id);
+				const s3Key = await migrateMediaFile(row.avatarS3Key, "members");
 				if (s3Key) {
 					avatarS3Key = s3Key;
 				}
-			}
-
-			// Enhanced role handling
+			} // Enhanced role handling
 			let isBoardMember = false;
 			let isTrainer = false;
 			let roleTitle: string | undefined;
@@ -576,7 +574,7 @@ async function migrateTeams(dryRun: boolean): Promise<void> {
 				const uploadedKeys: string[] = [];
 				for (const imageId of row.imageIds) {
 					if (imageId) {
-						const s3Key = await migrateMediaFile(imageId, "teams", row.id);
+						const s3Key = await migrateMediaFile(imageId, "teams");
 						if (s3Key) {
 							uploadedKeys.push(s3Key);
 						}
@@ -586,7 +584,6 @@ async function migrateTeams(dryRun: boolean): Promise<void> {
 					pictureS3Keys = uploadedKeys;
 				}
 			}
-
 			const item = teamSchema.parse({
 				type: "team",
 				id: row.id,

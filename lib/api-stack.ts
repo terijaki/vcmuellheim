@@ -330,6 +330,7 @@ export class ApiStack extends cdk.Stack {
 		});
 		if (props.mediaBucket) {
 			props.mediaBucket.grantDelete(s3CleanupLambda);
+			props.mediaBucket.grantRead(s3CleanupLambda); // find related keys from image transformations
 		}
 
 		// Attach DynamoDB stream event sources to S3 Cleanup Lambda

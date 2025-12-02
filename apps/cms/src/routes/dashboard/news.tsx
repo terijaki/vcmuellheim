@@ -150,7 +150,6 @@ function NewsPage() {
 						contentType: file.type,
 						folder: "news",
 					});
-
 					const uploadResponse = await fetch(uploadUrl, {
 						method: "PUT",
 						body: file,
@@ -431,7 +430,7 @@ function NewsPage() {
 							</Table.Thead>
 							<Table.Tbody>
 								{filteredNews.map((article) => (
-									<Table.Tr key={article.id}>
+									<Table.Tr key={article.id} data-news-id={article.id}>
 										<Table.Td style={{ width: "100%" }}>
 											<Text fw={500}>{article.title}</Text>
 											{article.excerpt && (

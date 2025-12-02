@@ -136,18 +136,18 @@ async function deleteS3Object(s3Key: string): Promise<void> {
 
 /**
  * Find all image files (original + variants) by prefix in S3.
- * - For an image at: `entityType/entityId/imageId.jpg`
- * - Finds all objects matching: `entityType/entityId/imageId*`
+ * - For an image at: `entityType/imageId.jpg`
+ * - Finds all objects matching: `entityType/imageId*`
  * - This includes: `imageId.jpg`, `imageId-480w.jpg`, `imageId-480w.webp`, `imageId-800w.jpg`, etc.
  */
 async function findImageFilesByPrefix(bucket: string, imageKey: string): Promise<string[]> {
 	try {
 		// Extract the prefix: everything up to the filename without extension
 		const lastSlashIndex = imageKey.lastIndexOf("/");
-		const folder = imageKey.substring(0, lastSlashIndex); // e.g., "members/uuid"
+		const folder = imageKey.substring(0, lastSlashIndex); // e.g., "members"
 		const filename = imageKey.substring(lastSlashIndex + 1); // e.g., "avatar.jpg"
 		const baseFilename = filename.replace(/\.[^.]+$/, ""); // e.g., "avatar"
-		const prefix = `${folder}/${baseFilename}`; // e.g., "members/uuid/avatar"
+		const prefix = `${folder}/${baseFilename}`; // e.g., "members/avatar"
 
 		console.log(`Searching S3 for objects with prefix: ${prefix}`);
 

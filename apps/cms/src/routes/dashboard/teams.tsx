@@ -402,7 +402,6 @@ function TeamsPage() {
 					contentType: file.type,
 					folder: "teams",
 				});
-
 				const uploadResponse = await fetch(uploadUrl, {
 					method: "PUT",
 					body: file,

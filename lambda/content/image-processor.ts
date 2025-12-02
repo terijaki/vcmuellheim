@@ -59,9 +59,9 @@ const processImage = async (bucket: string, originalKey: string): Promise<Record
 		const filename = keyParts[keyParts.length - 1];
 		const baseFilename = filename.replace(/\.[^.]+$/, "");
 
-		// Reconstruct output folder: preserve nested structure
-		// Path format: {entityType}/{entityId}/{imageId}.{ext}
-		// Example: members/550e8400-e29b-41d4-a716-446655440000/avatar-123.jpg
+		// Reconstruct output folder: preserve folder structure
+		// Path format: {entityType}/{imageId}.{ext}
+		// Example: members/avatar-123.jpg
 		const outputFolder = originalKey.substring(0, originalKey.lastIndexOf("/"));
 
 		// Save original to temp
@@ -72,7 +72,7 @@ const processImage = async (bucket: string, originalKey: string): Promise<Record
 			//  JPEG
 			try {
 				const jpegPath = `${tmpdir()}/output-${size}w-jpeg-${Date.now()}.jpg`;
-				await execAsync(`convert "${inputImagePath}" -resize ${size} -quality ${IMAGE_QUALITY} "${jpegPath}"`);
+				await execAsync(`convert "${inputImagePath}" -auto-orient -resize ${size} -quality ${IMAGE_QUALITY} -strip "${jpegPath}"`);
 
 				const jpegBuffer = readFileSync(jpegPath);
 				const jpegKey = `${outputFolder}/${baseFilename}-${size}w.jpg`;
@@ -87,7 +87,8 @@ const processImage = async (bucket: string, originalKey: string): Promise<Record
 			//  WebP
 			try {
 				const webpPath = `${tmpdir()}/output-${size}w-webp-${Date.now()}.webp`;
-				await execAsync(`convert "${inputImagePath}" -resize ${size} -quality ${IMAGE_QUALITY} -format webp "${webpPath}"`);
+				// Use -auto-orient to respect EXIF orientation, then strip metadata to prevent issues
+				await execAsync(`convert "${inputImagePath}" -auto-orient -resize ${size} -quality ${IMAGE_QUALITY} -format webp -strip "${webpPath}"`);
 
 				const webpBuffer = readFileSync(webpPath);
 				const webpKey = `${outputFolder}/${baseFilename}-${size}w.webp`;
