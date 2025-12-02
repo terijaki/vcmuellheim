@@ -1,7 +1,3 @@
-/**
- * tRPC router for Events operations
- */
-
 import dayjs from "dayjs";
 import { z } from "zod";
 import { eventsRepository, getUpcomingEvents } from "../../db/repositories";

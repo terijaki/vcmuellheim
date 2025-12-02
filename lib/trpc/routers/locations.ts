@@ -1,7 +1,3 @@
-/**
- * tRPC router for Locations operations
- */
-
 import { z } from "zod";
 import { getAllLocations, locationsRepository } from "../../db/repositories";
 import { locationSchema } from "../../db/schemas";

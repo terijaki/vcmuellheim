@@ -1,7 +1,3 @@
-/**
- * tRPC router for SAMS Teams operations
- */
-
 import { getAllSamsTeams } from "@/lib/db";
 import { publicProcedure, router } from "../trpc";
 

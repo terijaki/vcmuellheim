@@ -1,7 +1,3 @@
-/**
- * Public configuration endpoint
- * Returns environment-specific config needed by the CMS
- */
 import { publicProcedure, router } from "../trpc";
 
 export const configRouter = router({

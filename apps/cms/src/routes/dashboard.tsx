@@ -1,7 +1,7 @@
 import { AppShell, Avatar, Burger, Center, Group, Loader, Menu, NavLink, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { BadgeEuro, Building2, Bus, CalendarDays, Contact, LogOut, MapPinned, Newspaper, Users } from "lucide-react";
+import { BadgeEuro, Building2, Bus, CalendarDays, Contact, LogOut, MapPinned, Newspaper, UserCog, Users } from "lucide-react";
 import { useAuth } from "../auth/AuthContext";
 
 function DashboardLayout() {
@@ -45,6 +45,7 @@ function DashboardLayout() {
 				<NavLink label="Orte" leftSection={<MapPinned />} component={Link} to="/dashboard/locations" onClick={toggle} />
 				<NavLink label="Sponsoren" leftSection={<BadgeEuro />} component={Link} to="/dashboard/sponsors" onClick={toggle} />
 				<NavLink label="Bus Buchungen" leftSection={<Bus />} component={Link} to="/dashboard/bus" onClick={toggle} />
+				{user?.role === "Admin" && <NavLink label="Benutzer" leftSection={<UserCog />} component={Link} to="/dashboard/users" onClick={toggle} />}
 				<NavLink label="SAMS" leftSection={<Building2 />} component={Link} to="/dashboard/sams" onClick={toggle} />
 			</AppShell.Navbar>
 

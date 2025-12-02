@@ -1,7 +1,3 @@
-/**
- * tRPC router for Sponsors operations
- */
-
 import { z } from "zod";
 import { getAllSponsors, sponsorsRepository } from "../../db/repositories";
 import { sponsorSchema } from "../../db/schemas";

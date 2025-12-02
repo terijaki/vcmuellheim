@@ -12,6 +12,7 @@ import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import type * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import { Club } from "@/project.config";
+import { getCognitoEmailTemplates } from "./cognito-email-templates";
 import { TABLES, type TableEntity, tableEnvVar } from "./db/env";
 
 interface ApiStackProps extends cdk.StackProps {
@@ -58,6 +59,8 @@ export class ApiStack extends cdk.Stack {
 		// CMS callback URL for OAuth2
 		this.cmsCallbackUrl = `https://${cmsDomain}/auth/callback`;
 
+		const emailTemplates = getCognitoEmailTemplates(cmsDomain);
+
 		// 1. Cognito User Pool for admin authentication
 		this.userPool = new cognito.UserPool(this, "AdminUserPool", {
 			userPoolName: `vcm-admin-${environment}${branchSuffix}`,
@@ -88,6 +91,8 @@ export class ApiStack extends cdk.Stack {
 			passkeyUserVerification: cognito.PasskeyUserVerification.PREFERRED,
 			passkeyRelyingPartyId: isProd ? Club.domain : undefined,
 			email: cognito.UserPoolEmail.withCognito(),
+			...emailTemplates.userInvitation,
+			...emailTemplates.userVerification,
 			passwordPolicy: {
 				minLength: 8,
 				requireLowercase: isProd,
@@ -108,7 +113,30 @@ export class ApiStack extends cdk.Stack {
 				challengeRequiredOnNewDevice: true,
 				deviceOnlyRememberedOnUserPrompt: true,
 			},
+			customAttributes: {
+				role: new cognito.StringAttribute({
+					mutable: true,
+					minLen: 1,
+					maxLen: 20,
+				}),
+			},
 			removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
+		});
+
+		// Create Admin group
+		new cognito.CfnUserPoolGroup(this, "AdminGroup", {
+			userPoolId: this.userPool.userPoolId,
+			groupName: "Admin",
+			description: "Administrators with full access to all CMS features including user management",
+			precedence: 1,
+		});
+
+		// Create Moderator group
+		new cognito.CfnUserPoolGroup(this, "ModeratorGroup", {
+			userPoolId: this.userPool.userPoolId,
+			groupName: "Moderator",
+			description: "Moderators can manage content but cannot access user management",
+			precedence: 2,
 		});
 
 		// User Pool Client for admin app
@@ -288,6 +316,24 @@ export class ApiStack extends cdk.Stack {
 			props.mediaBucket.grantPut(this.trpcLambda);
 			props.mediaBucket.grantRead(this.trpcLambda);
 		}
+
+		// Grant Lambda permissions to manage Cognito users (for user management endpoints)
+		this.trpcLambda.addToRolePolicy(
+			new cdk.aws_iam.PolicyStatement({
+				effect: cdk.aws_iam.Effect.ALLOW,
+				actions: [
+					"cognito-idp:AdminCreateUser",
+					"cognito-idp:AdminDeleteUser",
+					"cognito-idp:AdminGetUser",
+					"cognito-idp:AdminUpdateUserAttributes",
+					"cognito-idp:AdminAddUserToGroup",
+					"cognito-idp:AdminRemoveUserFromGroup",
+					"cognito-idp:AdminListGroupsForUser",
+					"cognito-idp:ListUsers",
+				],
+				resources: [this.userPool.userPoolArn],
+			}),
+		);
 
 		// ICS Calendar Lambda
 		const icsLambda = new NodejsFunction(this, "IcsCalendarLambda", {

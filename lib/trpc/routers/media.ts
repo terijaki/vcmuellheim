@@ -1,7 +1,3 @@
-/**
- * tRPC router for Media operations
- */
-
 import { z } from "zod";
 import { mediaRepository } from "../../db/repositories";
 import { mediaSchema } from "../../db/schemas";

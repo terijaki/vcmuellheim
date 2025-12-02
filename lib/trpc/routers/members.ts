@@ -1,7 +1,3 @@
-/**
- * tRPC router for Members operations
- */
-
 import { z } from "zod";
 import { getAllMembers, getAllTeams, getBoardMembers, getTrainers, membersRepository, teamsRepository } from "../../db/repositories";
 import { memberSchema } from "../../db/schemas";

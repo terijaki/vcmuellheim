@@ -14,6 +14,7 @@ import { samsTeamsRouter } from "./routers/samsTeams";
 import { sponsorsRouter } from "./routers/sponsors";
 import { teamsRouter } from "./routers/teams";
 import { uploadRouter } from "./routers/upload";
+import { usersRouter } from "./routers/users";
 import { router } from "./trpc";
 
 export const appRouter = router({
@@ -27,6 +28,7 @@ export const appRouter = router({
 	locations: locationsRouter,
 	bus: busRouter,
 	upload: uploadRouter,
+	users: usersRouter,
 	samsTeams: samsTeamsRouter,
 	samsClubs: samsClubsRouter,
 });

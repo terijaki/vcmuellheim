@@ -5,8 +5,12 @@
 import { decode, verify } from "jsonwebtoken";
 import { JwksClient } from "jwks-rsa";
 
+export type UserRole = "Admin" | "Moderator";
+
 export interface Context {
 	userId?: string; // From Cognito when authenticated
+	userRole?: UserRole; // User's role from Cognito groups
+	userEmail?: string; // User's email
 }
 
 interface CreateContextOptions {
@@ -32,6 +36,7 @@ function getJwksClient(region: string, userPoolId: string): JwksClient {
 interface CognitoJwtPayload {
 	sub: string; // User ID
 	email?: string;
+	"cognito:groups"?: string[]; // Cognito groups
 	[key: string]: unknown;
 }
 
@@ -76,13 +81,19 @@ export async function createContext(opts: CreateContextOptions = {}): Promise<Co
 		return { userId: undefined };
 	}
 
-	// Verify JWT and extract userId
+	// Verify JWT and extract userId, role, and email
 	const payload = await verifyJwt(token, userPoolId, region);
 	if (!payload) {
-		return { userId: undefined };
+		return { userId: undefined, userRole: undefined, userEmail: undefined };
 	}
+
+	// Extract role from Cognito groups (first group takes precedence)
+	const groups = payload["cognito:groups"] || [];
+	const userRole: UserRole | undefined = groups.includes("Admin") ? "Admin" : groups.includes("Moderator") ? "Moderator" : undefined;
 
 	return {
 		userId: payload.sub,
+		userRole,
+		userEmail: payload.email,
 	};
 }

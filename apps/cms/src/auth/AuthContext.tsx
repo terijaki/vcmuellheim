@@ -89,6 +89,7 @@ interface AuthUser {
 	idToken: string;
 	accessToken: string;
 	refreshToken?: string;
+	role?: "Admin" | "Moderator";
 }
 
 export interface AuthContext {
@@ -348,6 +349,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			const payload = decodeJwtPayload(tokens.id_token);
 			console.log("Decoded ID token payload:", payload);
 
+			// Extract role from Cognito groups
+			const groups = (payload["cognito:groups"] as string[]) || [];
+			const userRole: "Admin" | "Moderator" | undefined = groups.includes("Admin") ? "Admin" : groups.includes("Moderator") ? "Moderator" : undefined;
+
 			const authUser: AuthUser = {
 				username: payload["cognito:username"] || payload.email,
 				email: payload.email,
@@ -355,6 +360,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				idToken: tokens.id_token,
 				accessToken: tokens.access_token,
 				refreshToken: tokens.refresh_token,
+				role: userRole,
 			};
 
 			setUser(authUser);

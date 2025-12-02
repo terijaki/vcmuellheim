@@ -13,6 +13,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ByeRouteImport } from './routes/bye'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as DashboardUsersRouteImport } from './routes/dashboard/users'
 import { Route as DashboardTeamsRouteImport } from './routes/dashboard/teams'
 import { Route as DashboardSponsorsRouteImport } from './routes/dashboard/sponsors'
 import { Route as DashboardSamsRouteImport } from './routes/dashboard/sams'
@@ -41,6 +42,11 @@ const IndexRoute = IndexRouteImport.update({
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardUsersRoute = DashboardUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
   getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardTeamsRoute = DashboardTeamsRouteImport.update({
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sams': typeof DashboardSamsRoute
   '/dashboard/sponsors': typeof DashboardSponsorsRoute
   '/dashboard/teams': typeof DashboardTeamsRoute
+  '/dashboard/users': typeof DashboardUsersRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/dashboard/sams': typeof DashboardSamsRoute
   '/dashboard/sponsors': typeof DashboardSponsorsRoute
   '/dashboard/teams': typeof DashboardTeamsRoute
+  '/dashboard/users': typeof DashboardUsersRoute
   '/dashboard': typeof DashboardIndexRoute
 }
 export interface FileRoutesById {
@@ -132,6 +140,7 @@ export interface FileRoutesById {
   '/dashboard/sams': typeof DashboardSamsRoute
   '/dashboard/sponsors': typeof DashboardSponsorsRoute
   '/dashboard/teams': typeof DashboardTeamsRoute
+  '/dashboard/users': typeof DashboardUsersRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
     | '/dashboard/sams'
     | '/dashboard/sponsors'
     | '/dashboard/teams'
+    | '/dashboard/users'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -163,6 +173,7 @@ export interface FileRouteTypes {
     | '/dashboard/sams'
     | '/dashboard/sponsors'
     | '/dashboard/teams'
+    | '/dashboard/users'
     | '/dashboard'
   id:
     | '__root__'
@@ -178,6 +189,7 @@ export interface FileRouteTypes {
     | '/dashboard/sams'
     | '/dashboard/sponsors'
     | '/dashboard/teams'
+    | '/dashboard/users'
     | '/dashboard/'
   fileRoutesById: FileRoutesById
 }
@@ -216,6 +228,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/dashboard/'
       preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/users': {
+      id: '/dashboard/users'
+      path: '/users'
+      fullPath: '/dashboard/users'
+      preLoaderRoute: typeof DashboardUsersRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/dashboard/teams': {
@@ -293,6 +312,7 @@ interface DashboardRouteChildren {
   DashboardSamsRoute: typeof DashboardSamsRoute
   DashboardSponsorsRoute: typeof DashboardSponsorsRoute
   DashboardTeamsRoute: typeof DashboardTeamsRoute
+  DashboardUsersRoute: typeof DashboardUsersRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
@@ -305,6 +325,7 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardSamsRoute: DashboardSamsRoute,
   DashboardSponsorsRoute: DashboardSponsorsRoute,
   DashboardTeamsRoute: DashboardTeamsRoute,
+  DashboardUsersRoute: DashboardUsersRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 

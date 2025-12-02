@@ -1,7 +1,3 @@
-/**
- * tRPC router for Teams operations
- */
-
 import { slugify } from "@utils/slugify";
 import { z } from "zod";
 import { getAllTeams, getTeamBySamsId, getTeamBySlug, teamsRepository } from "../../db/repositories";

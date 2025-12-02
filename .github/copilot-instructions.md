@@ -23,7 +23,7 @@ This file tells AI coding agents how this repository is structured, which conven
 	- `bun run check` / `bun run check:fix` (biome check)
 - **Tests:** `bun run test` (or `bun test <path/to/test>` for a single file).
 - **DB / scripts:** `bun run db:seed`
-- **CDK:** `bun run cdk:synth`, `bun run cdk:deploy`, `bun run cdk:deploy:prod` (scripts use AWS profile `vcmuellheim` and `CDK_ENVIRONMENT=prod` for prod).
+- **CDK:** `bun run cdk:deploy`, `bun run cdk:deploy {StackName}` `bun run cdk:deploy:all` (scripts use AWS profile `vcmuellheim`).
 
 ## Codebase conventions (follow these precisely)
 

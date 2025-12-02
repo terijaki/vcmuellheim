@@ -22,6 +22,26 @@ export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
 		ctx: {
 			...ctx,
 			userId: ctx.userId, // TypeScript knows userId is defined here
+			userRole: ctx.userRole,
+			userEmail: ctx.userEmail,
+		},
+	});
+});
+
+/** Admin-only procedure - requires Admin role */
+export const adminProcedure = t.procedure.use(({ ctx, next }) => {
+	if (!ctx.userId) {
+		throw new TRPCError({ code: "UNAUTHORIZED", message: "You must be logged in" });
+	}
+	if (ctx.userRole !== "Admin") {
+		throw new TRPCError({ code: "FORBIDDEN", message: "Admin access required" });
+	}
+	return next({
+		ctx: {
+			...ctx,
+			userId: ctx.userId,
+			userRole: ctx.userRole as "Admin",
+			userEmail: ctx.userEmail,
 		},
 	});
 });

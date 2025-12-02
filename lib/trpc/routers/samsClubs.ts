@@ -1,7 +1,3 @@
-/**
- * tRPC router for SAMS Clubs operations
- */
-
 import z from "zod";
 import { getAllSamsClubs, getSamsClubByNameSlug, getSamsClubBySportsclubUuid } from "@/lib/db";
 import { publicProcedure, router } from "../trpc";
