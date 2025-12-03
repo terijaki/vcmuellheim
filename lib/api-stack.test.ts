@@ -117,14 +117,14 @@ describe("ApiStack", () => {
 			// Should have User Pool Client
 			template.resourceCountIs("AWS::Cognito::UserPoolClient", 1);
 
-			// Should have 3 Lambda functions (tRPC API + ICS calendar + S3 Cleanup)
-			template.resourceCountIs("AWS::Lambda::Function", 3);
+			// Should have 4 Lambda functions (tRPC API + ICS calendar + Sitemap + S3 Cleanup)
+			template.resourceCountIs("AWS::Lambda::Function", 4);
 
 			// Should have HTTP API
 			template.resourceCountIs("AWS::ApiGatewayV2::Api", 1);
 
 			// Should have API routes
-			template.resourceCountIs("AWS::ApiGatewayV2::Route", 5); // 2 for /api/{proxy+}, 1 for /ics/{teamSlug}, 2 for /{proxy+}
+			template.resourceCountIs("AWS::ApiGatewayV2::Route", 6); // 2 for /api/{proxy+}, 1 for /ics/{teamSlug}, 1 for /sitemap.xml, 2 for /{proxy+}
 		});
 
 		it("should set correct removal policy for dev", () => {
