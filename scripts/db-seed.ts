@@ -5,20 +5,23 @@
  * Creates fake German data for DynamoDB tables with cross-references between members and teams
  *
  * Usage:
- *   bun run db:seed              # Seeds all entities
- *   bun run db:seed --cleanup    # Cleanup only (validates prod protection)
+ *   bun run db:seed                    # Seeds all entities
+ *   bun run db:seed --cleanup          # Cleanup only (validates prod protection)
  *   bun run db:seed --cleanup --members  # Cleanup + seed members
- *   bun run db:seed --events     # Seeds only events
- *   bun run db:seed --news       # Seeds only news articles
- *   bun run db:seed --members    # Seeds only members
- *   bun run db:seed --teams      # Seeds only teams
- *   bun run db:seed --locations  # Seeds only locations
- *   bun run db:seed --sponsors   # Seeds only sponsors
- *   bun run db:seed --bus        # Seeds only bus bookings
+ *   bun run db:seed --events           # Seeds only events
+ *   bun run db:seed --news             # Seeds only news articles
+ *   bun run db:seed --members          # Seeds only members
+ *   bun run db:seed --teams            # Seeds only teams
+ *   bun run db:seed --locations        # Seeds only locations
+ *   bun run db:seed --sponsors         # Seeds only sponsors
+ *   bun run db:seed --bus              # Seeds only bus bookings
+ *   bun run db:seed --user email@example.com|password  # Create a Cognito user
+ *   bun run db:seed --user email@example.com --password password  # Create a Cognito user (alt format)
  */
 
 import { execSync } from "node:child_process";
 import https from "node:https";
+import { AdminAddUserToGroupCommand, AdminCreateUserCommand, AdminSetUserPasswordCommand, CognitoIdentityProviderClient } from "@aws-sdk/client-cognito-identity-provider";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { BatchWriteCommand, DynamoDBDocumentClient, ScanCommand as ScanDocCommand } from "@aws-sdk/lib-dynamodb";
@@ -60,6 +63,11 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 // Initialize S3 client
 const s3Client = new S3Client({
+	region: process.env.AWS_REGION || "eu-central-1",
+});
+
+// Initialize Cognito client
+const cognitoClient = new CognitoIdentityProviderClient({
 	region: process.env.AWS_REGION || "eu-central-1",
 });
 
@@ -142,6 +150,137 @@ const seedTeams = args.length === 0 || args.includes("--teams");
 const seedLocations = args.length === 0 || args.includes("--locations");
 const seedSponsors = args.length === 0 || args.includes("--sponsors");
 const seedBus = args.length === 0 || args.includes("--bus");
+
+// Handle --user argument
+const userArgIndex = args.findIndex((arg) => arg === "--user");
+const shouldCreateUser = userArgIndex !== -1;
+let userEmail: string | undefined;
+let userPassword: string | undefined;
+
+if (shouldCreateUser) {
+	const userCredentials = args[userArgIndex + 1];
+
+	// Support two formats:
+	// 1. --user "email@example.com|password"
+	// 2. --user email@example.com --password password
+	if (userCredentials?.includes("|")) {
+		// Format: email|password
+		const [email, password] = userCredentials.split("|");
+		if (!email || !password) {
+			console.error("❌ Both email and password must be provided. Use: --user email@example.com|password");
+			process.exit(1);
+		}
+		userEmail = email;
+		userPassword = password;
+	} else if (userCredentials && !userCredentials.startsWith("--")) {
+		// Format: email with separate --password
+		userEmail = userCredentials;
+		const passwordArgIndex = args.findIndex((arg) => arg === "--password");
+		if (passwordArgIndex !== -1) {
+			userPassword = args[passwordArgIndex + 1];
+		}
+		if (!userEmail || !userPassword) {
+			console.error("❌ Invalid --user format. Use one of:");
+			console.error("   --user email@example.com|password");
+			console.error("   --user email@example.com --password password");
+			process.exit(1);
+		}
+	} else {
+		console.error("❌ Invalid --user format. Use one of:");
+		console.error("   --user email@example.com|password");
+		console.error("   --user email@example.com --password password");
+		process.exit(1);
+	}
+}
+
+/**
+ * Get the Cognito User Pool ID from CDK stack outputs
+ */
+function getCognitoUserPoolId(): string {
+	const userPoolIdEnv = process.env.COGNITO_USER_POOL_ID;
+	if (userPoolIdEnv) {
+		return userPoolIdEnv;
+	}
+
+	// Try to get from CloudFormation stack outputs
+	// Query all stacks for one with ApiStack in the name
+	try {
+		const stackName = execSync(`aws cloudformation describe-stacks --query "Stacks[?contains(StackName, 'ApiStack')].StackName | [0]" --output text`, { encoding: "utf-8" }).trim();
+
+		if (!stackName) {
+			throw new Error("No ApiStack found");
+		}
+
+		const output = execSync(`aws cloudformation describe-stacks --stack-name "${stackName}" --query "Stacks[0].Outputs[?OutputKey=='UserPoolId'].OutputValue" --output text`, {
+			encoding: "utf-8",
+		}).trim();
+
+		if (output) {
+			return output;
+		}
+	} catch (_error) {
+		// Stack might not exist or AWS CLI not configured
+	}
+
+	console.error("❌ COGNITO_USER_POOL_ID could not be determined automatically.");
+	console.error("   Set COGNITO_USER_POOL_ID environment variable or run 'bun run cdk:deploy' first.");
+	process.exit(1);
+}
+
+/**
+ * Create a Cognito user with email and password
+ */
+async function createCognitoUser(email: string, password: string): Promise<void> {
+	const userPoolId = getCognitoUserPoolId();
+
+	console.log(`\n👤 Creating Cognito user: ${email}...`);
+
+	try {
+		// Create user
+		await cognitoClient.send(
+			new AdminCreateUserCommand({
+				UserPoolId: userPoolId,
+				Username: email,
+				MessageAction: "SUPPRESS", // Don't send welcome email
+				TemporaryPassword: password,
+			}),
+		);
+
+		console.log(`  ✓ User created`);
+
+		// Set permanent password
+		await cognitoClient.send(
+			new AdminSetUserPasswordCommand({
+				UserPoolId: userPoolId,
+				Username: email,
+				Password: password,
+				Permanent: true,
+			}),
+		);
+
+		console.log(`  ✓ Password set`);
+
+		// Add user to admin group
+		await cognitoClient.send(
+			new AdminAddUserToGroupCommand({
+				UserPoolId: userPoolId,
+				Username: email,
+				GroupName: "Admin",
+			}),
+		);
+
+		console.log(`  ✓ Added to admin group`);
+		console.log(`✅ User ${email} created successfully`);
+	} catch (error) {
+		const errorMsg = (error as Error).message || "";
+		if (errorMsg.includes("UsernameExistsException")) {
+			console.error(`❌ User ${email} already exists`);
+		} else {
+			console.error(`❌ Failed to create user ${email}:`, error);
+		}
+		process.exit(1);
+	}
+}
 
 /**
  * Cleanup function - deletes all items from seeded tables
@@ -871,6 +1010,12 @@ async function seedBusData() {
 
 async function main() {
 	try {
+		// Handle user creation
+		if (shouldCreateUser && userEmail && userPassword) {
+			await createCognitoUser(userEmail, userPassword);
+			return;
+		}
+
 		// Handle cleanup-only mode
 		if (cleanupOnly) {
 			await cleanupDatabase();
