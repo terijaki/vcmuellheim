@@ -1,0 +1,35 @@
+import { Center, Container, Loader, Stack, Text } from "@mantine/core";
+import { createFileRoute } from "@tanstack/react-router";
+import HomeTeamGrid from "../components/homepage/HomeTeamGrid";
+import PageWithHeading from "../components/layout/PageWithHeading";
+import { useTeams } from "../lib/hooks";
+
+export const Route = createFileRoute("/teams/")({
+	component: RouteComponent,
+});
+
+function RouteComponent() {
+	const { data, isLoading, error } = useTeams();
+	const teams = data?.items || [];
+
+	if (error) {
+		throw error;
+	}
+	return (
+		<PageWithHeading title="Mannschaften">
+			{isLoading && <Loader />}
+			{teams && (
+				<Container size="xl" py="xl" px={{ base: "lg", md: "xl" }}>
+					<Stack>
+						<Center>
+							<Text>
+								Zurzeit umfasst unser Verein {teams.length} {teams.length > 1 ? "Mannschaften" : "Mannschaft"}:
+							</Text>
+						</Center>
+						{teams && <HomeTeamGrid teams={teams} />}
+					</Stack>
+				</Container>
+			)}
+		</PageWithHeading>
+	);
+}

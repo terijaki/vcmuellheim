@@ -357,6 +357,30 @@ export class ApiStack extends cdk.Stack {
 		// Grant ICS Lambda read access to Teams table
 		tables.TEAMS.grantReadData(icsLambda);
 
+		// Sitemap Lambda
+		const sitemapLambda = new NodejsFunction(this, "SitemapLambda", {
+			functionName: `vcm-sitemap-${environment}${branchSuffix}`,
+			entry: "lambda/content/sitemap.ts",
+			handler: "handler",
+			runtime: lambda.Runtime.NODEJS_LATEST,
+			timeout: cdk.Duration.seconds(30),
+			memorySize: 256,
+			environment: {
+				...Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
+				WEBSITE_URL: props.websiteUrl || `https://${Club.domain}`,
+			},
+			bundling: {
+				minify: true,
+				sourceMap: true,
+				externalModules: ["@aws-sdk/client-dynamodb", "@aws-sdk/lib-dynamodb"],
+			},
+		});
+
+		// Grant Sitemap Lambda read access to content tables
+		for (const table of Object.values(tables)) {
+			table.grantReadData(sitemapLambda);
+		}
+
 		// S3 Cleanup Lambda - triggered by DynamoDB Streams
 		const s3CleanupLambda = new NodejsFunction(this, "S3CleanupLambda", {
 			functionName: `vcm-s3-cleanup-${environment}${branchSuffix}`,
@@ -454,6 +478,7 @@ export class ApiStack extends cdk.Stack {
 		// Lambda integration
 		const lambdaIntegration = new HttpLambdaIntegration("TrpcLambdaIntegration", this.trpcLambda);
 		const icsIntegration = new HttpLambdaIntegration("IcsCalendarIntegration", icsLambda);
+		const sitemapIntegration = new HttpLambdaIntegration("SitemapIntegration", sitemapLambda);
 
 		// Route all /api/* requests to Lambda (excluding OPTIONS which is handled by CORS preflight)
 		this.api.addRoutes({
@@ -467,6 +492,13 @@ export class ApiStack extends cdk.Stack {
 			path: "/ics/{teamSlug}",
 			methods: [apigatewayv2.HttpMethod.GET],
 			integration: icsIntegration,
+		});
+
+		// Sitemap route
+		this.api.addRoutes({
+			path: "/sitemap.xml",
+			methods: [apigatewayv2.HttpMethod.GET],
+			integration: sitemapIntegration,
 		});
 
 		// Also accept requests without the `/api` prefix so deployed frontends
