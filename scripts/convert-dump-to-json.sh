@@ -1,6 +1,6 @@
 #!/bin/bash
 # Convert Postgres dump to JSON for migration
-# Usage: bash scripts/convert-dump-to-json.sh .temp/pg-dump-postgres-1763852403.dmp
+# Usage: bash scripts/convert-dump-to-json.sh .temp/pg-dump-postgres-1764457205.dmp
 
 set -e
 
