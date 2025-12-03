@@ -189,7 +189,7 @@ export const usersRouter = router({
 		}),
 
 	/**
-	 * Update user attributes
+	 * Update user attributes and role
 	 */
 	update: adminProcedure
 		.input(
@@ -197,9 +197,10 @@ export const usersRouter = router({
 				email: z.email(),
 				givenName: z.string().min(1).optional(),
 				familyName: z.string().min(1).optional(),
+				role: UserRole.optional(),
 			}),
 		)
-		.mutation(async ({ input }) => {
+		.mutation(async ({ input, ctx }) => {
 			try {
 				const attributes = [];
 
@@ -211,86 +212,65 @@ export const usersRouter = router({
 					attributes.push({ Name: "family_name", Value: input.familyName });
 				}
 
-				if (attributes.length === 0) {
-					return { success: true };
+				if (attributes.length > 0) {
+					const command = new AdminUpdateUserAttributesCommand({
+						UserPoolId: userPoolId,
+						Username: input.email,
+						UserAttributes: attributes,
+					});
+
+					await cognitoClient.send(command);
 				}
 
-				const command = new AdminUpdateUserAttributesCommand({
-					UserPoolId: userPoolId,
-					Username: input.email,
-					UserAttributes: attributes,
-				});
+				// Handle role change if provided
+				if (input.role) {
+					// Prevent users from changing their own role
+					if (ctx.userEmail === input.email) {
+						throw new TRPCError({
+							code: "FORBIDDEN",
+							message: "You cannot change your own role",
+						});
+					}
 
-				await cognitoClient.send(command);
+					// Get user's current groups
+					const groupsCommand = new AdminListGroupsForUserCommand({
+						UserPoolId: userPoolId,
+						Username: input.email,
+					});
+					const groupsResponse = await cognitoClient.send(groupsCommand);
+					const currentGroups = (groupsResponse.Groups || []).map((g) => g.GroupName || "").filter(Boolean);
+
+					// Remove from all current groups
+					for (const group of currentGroups) {
+						const removeCommand = new AdminRemoveUserFromGroupCommand({
+							UserPoolId: userPoolId,
+							Username: input.email,
+							GroupName: group,
+						});
+						await cognitoClient.send(removeCommand);
+					}
+
+					// Add to new group
+					const addCommand = new AdminAddUserToGroupCommand({
+						UserPoolId: userPoolId,
+						Username: input.email,
+						GroupName: input.role,
+					});
+
+					await cognitoClient.send(addCommand);
+				}
 
 				return { success: true };
 			} catch (error) {
 				console.error("Failed to update user:", error);
+
+				if (error instanceof TRPCError && error.code === "FORBIDDEN") {
+					throw error;
+				}
+
 				throw new TRPCError({
 					code: "INTERNAL_SERVER_ERROR",
 					message: "Failed to update user",
-				});
-			}
-		}),
-
-	/**
-	 * Change user's role (add to group)
-	 */
-	changeRole: adminProcedure
-		.input(
-			z.object({
-				email: z.email(),
-				role: UserRole,
-			}),
-		)
-		.mutation(async ({ input, ctx }) => {
-			try {
-				// Prevent users from changing their own role
-				if (ctx.userEmail === input.email) {
-					throw new TRPCError({
-						code: "FORBIDDEN",
-						message: "You cannot change your own role",
-					});
-				}
-
-				// Get user's current groups
-				const groupsCommand = new AdminListGroupsForUserCommand({
-					UserPoolId: userPoolId,
-					Username: input.email,
-				});
-				const groupsResponse = await cognitoClient.send(groupsCommand);
-				const currentGroups = (groupsResponse.Groups || []).map((g) => g.GroupName || "").filter(Boolean);
-
-				// Remove from all current groups
-				for (const group of currentGroups) {
-					const removeCommand = new AdminRemoveUserFromGroupCommand({
-						UserPoolId: userPoolId,
-						Username: input.email,
-						GroupName: group,
-					});
-					await cognitoClient.send(removeCommand);
-				}
-
-				// Add to new group
-				const addCommand = new AdminAddUserToGroupCommand({
-					UserPoolId: userPoolId,
-					Username: input.email,
-					GroupName: input.role,
-				});
-
-				await cognitoClient.send(addCommand);
-
-				return { success: true };
-			} catch (error) {
-				console.error("Failed to change user role:", error);
-
-				if (error instanceof TRPCError && error.code === "FORBIDDEN") {
-					throw error; // Re-throw our own FORBIDDEN errors
-				}
-
-				throw new TRPCError({
-					code: "INTERNAL_SERVER_ERROR",
-					message: "Failed to change user role",
 				});
 			}
 		}),

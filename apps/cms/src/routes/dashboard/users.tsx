@@ -1,4 +1,4 @@
-import { ActionIcon, Button, Card, Group, Modal, Radio, Select, SimpleGrid, Stack, Table, Text, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Badge, Button, Card, Group, Modal, Radio, SimpleGrid, Stack, Table, Text, TextInput, Title } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -35,11 +35,6 @@ function UsersPage() {
 			onSuccess: () => refetch(),
 		}),
 	);
-	const changeRoleMutation = useMutation(
-		trpc.users.changeRole.mutationOptions({
-			onSuccess: () => refetch(),
-		}),
-	);
 	const deleteMutation = useMutation(
 		trpc.users.delete.mutationOptions({
 			onSuccess: () => refetch(),
@@ -69,10 +64,11 @@ function UsersPage() {
 		}
 	};
 
-	const handleOpenEdit = (user: { email: string; givenName: string; familyName: string }) => {
+	const handleOpenEdit = (user: { email: string; givenName: string; familyName: string; groups: string[] }) => {
 		setEditingEmail(user.email);
 		setGivenName(user.givenName);
 		setFamilyName(user.familyName);
+		setRole((user.groups[0] || "Moderator") as "Admin" | "Moderator");
 		openEdit();
 	};
 
@@ -85,23 +81,16 @@ function UsersPage() {
 				email: editingEmail,
 				givenName,
 				familyName,
+				role,
 			});
 			notification.success("Benutzerdaten aktualisiert");
 			setEditingEmail("");
 			setGivenName("");
 			setFamilyName("");
+			setRole("Moderator");
 			closeEdit();
 		} catch (error) {
 			notification.error({ title: "Fehler beim Aktualisieren", message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
-		}
-	};
-
-	const handleChangeRole = async (email: string, newRole: "Admin" | "Moderator") => {
-		try {
-			await changeRoleMutation.mutateAsync({ email, role: newRole });
-			notification.success(`Benutzerrolle geändert zu ${newRole}`);
-		} catch (error) {
-			notification.error({ title: "Fehler beim Ändern der Rolle", message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
 		}
 	};
 
@@ -148,25 +137,15 @@ function UsersPage() {
 									{user.givenName} {user.familyName}
 								</Table.Td>
 								<Table.Td>
-									<Select
-										data={["Admin", "Moderator"]}
-										value={role}
-										onChange={(value) => value && handleChangeRole(user.email, value as "Admin" | "Moderator")}
-										disabled={changeRoleMutation.isPending}
-										size="xs"
-										w={120}
-									/>
+									<Badge size="md" variant="light" color={role === "Admin" ? "red" : "blumine"}>
+										{role}
+									</Badge>
 								</Table.Td>
 								<Table.Td>{new Date(user.created).toLocaleDateString("de-DE")}</Table.Td>
 								<Table.Td>
-									<Group gap="xs">
-										<ActionIcon color="blumine" variant="filled" onClick={() => handleOpenEdit(user)} title="Benutzer bearbeiten" radius="xl">
-											<Pencil size={16} />
-										</ActionIcon>
-										<ActionIcon color="red" variant="light" onClick={() => setDeleteTarget(user.email)} loading={deleteMutation.isPending} title="Benutzer dauerhaft löschen" radius="xl">
-											<Trash2 size={16} />
-										</ActionIcon>
-									</Group>
+									<Button visibleFrom="sm" size="xs" onClick={() => handleOpenEdit(user)}>
+										Bearbeiten
+									</Button>
 								</Table.Td>
 							</Table.Tr>
 						);
@@ -194,22 +173,9 @@ function UsersPage() {
 										<Pencil size={16} />
 									</ActionIcon>
 								</Group>
-								<div>
-									<Text size="xs" fw={500} c="dimmed">
-										Rolle
-									</Text>
-									<Select
-										data={["Admin", "Moderator"]}
-										value={role}
-										onChange={(value) => value && handleChangeRole(user.email, value as "Admin" | "Moderator")}
-										disabled={changeRoleMutation.isPending}
-										size="xs"
-										w={120}
-									/>
-								</div>
-								<Text size="xs" c="dimmed">
-									Erstellt: {new Date(user.created).toLocaleDateString("de-DE")}
-								</Text>
+								<Badge size="md" variant="light" color={role === "Admin" ? "red" : "blumine"}>
+									{role}
+								</Badge>
 							</Stack>
 						</Card>
 					);
