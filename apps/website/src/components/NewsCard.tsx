@@ -1,8 +1,9 @@
-import { BackgroundImage, Box, CardSection, Stack, Text, Title } from "@mantine/core";
+import { Box, CardSection, Stack, Text, Title } from "@mantine/core";
 import { forwardRef, useState } from "react";
 import type { News } from "@/lib/db";
 import { useFileUrl } from "../lib/hooks";
 import { CardLink } from "./CustomLink";
+import ResponsiveImage from "./ResponsiveImage";
 
 const CARD_HEIGHT = 140;
 
@@ -38,8 +39,9 @@ const NewsCard = forwardRef<HTMLAnchorElement, News>((props, ref) => {
 			<CardSection bg={hasImage && thumbnail ? "lion" : undefined} mb="xs">
 				{thumbnail ? (
 					<Box style={{ position: "relative", height: CARD_HEIGHT, overflow: "hidden" }}>
-						<BackgroundImage
-							src={thumbnail}
+						<ResponsiveImage
+							source={thumbnail}
+							alt={`Galleryfoto`}
 							style={{
 								transition: "transform 0.5s ease",
 								transform: isHovered ? "scale(1.03)" : undefined,

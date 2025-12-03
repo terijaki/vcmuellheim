@@ -560,6 +560,7 @@ async function seedNewsData() {
 			slug: "jahresrueckblick-2024",
 			content:
 				"<p>Ein ereignisreiches Jahr liegt hinter uns. Wir schauen zurück auf viele spannende Spiele, erfolgreiche Trainingsperioden und wunderbare Momente als Gemeinschaft.</p><p>Danke an alle Spieler, Trainer und Unterstützer!</p>",
+			excerpt: "Rückblick auf ein erfolgreiches Jahr 2024",
 			status: "published" as const,
 			imageS3Keys: [],
 			tags: ["rückblick", "danksagung", "gemeinschaft"],
