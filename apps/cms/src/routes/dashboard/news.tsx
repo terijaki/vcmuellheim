@@ -10,7 +10,7 @@ import { Link as LinkExtension } from "@tiptap/extension-link";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import dayjs from "dayjs";
-import { Plus, SquarePen, Trash2, Upload, X } from "lucide-react";
+import { Plus, Search, SquarePen, Trash2, Upload, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
 import { useNotification } from "../../hooks/useNotification";
@@ -26,6 +26,7 @@ function NewsPage() {
 	const [uploading, setUploading] = useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [statusFilter, setStatusFilter] = useState<"all" | "published" | "draft" | "archived">("all");
+	const [searchOpen, setSearchOpen] = useState(false);
 	const [formData, setFormData] = useState<Partial<NewsInput>>({
 		title: "",
 		content: "",
@@ -230,7 +231,33 @@ function NewsPage() {
 					<Plus size={20} />
 				</ActionIcon>
 			</Group>
-			<Group>
+			<Stack gap="xs" hiddenFrom="sm">
+				{searchOpen ? (
+					<Group>
+						<TextInput placeholder="Artikel suchen..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} style={{ flex: 1 }} autoFocus />
+						<ActionIcon variant="subtle" onClick={() => setSearchOpen(false)}>
+							<X size={20} />
+						</ActionIcon>
+					</Group>
+				) : (
+					<Group justify="space-between">
+						<ActionIcon variant="subtle" onClick={() => setSearchOpen(true)}>
+							<Search size={20} />
+						</ActionIcon>
+						<SegmentedControl
+							value={statusFilter}
+							onChange={(value) => setStatusFilter(value as typeof statusFilter)}
+							data={[
+								{ label: "Alle", value: "all" },
+								{ label: "Öffentlich", value: "published" },
+								{ label: "Entwurf", value: "draft" },
+								{ label: "Archiv", value: "archived" },
+							]}
+						/>
+					</Group>
+				)}
+			</Stack>
+			<Group visibleFrom="sm">
 				<TextInput placeholder="Artikel suchen..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} style={{ flex: 1 }} />
 				<SegmentedControl
 					value={statusFilter}
