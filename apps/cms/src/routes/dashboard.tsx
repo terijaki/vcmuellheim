@@ -1,13 +1,13 @@
-import { AppShell, Avatar, Burger, Center, Group, Loader, Menu, NavLink, Text } from "@mantine/core";
+import { AppShell, Avatar, Burger, Center, Group, Loader, Menu, NavLink, Stack, Text, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { BadgeEuro, Building2, Bus, CalendarDays, Contact, LogOut, MapPinned, Newspaper, UserCog, Users } from "lucide-react";
+import { useEffect } from "react";
 import { useAuth } from "../auth/AuthContext";
 
 function DashboardLayout() {
 	const { user, logout } = useAuth();
 	const [opened, { toggle }] = useDisclosure();
-
 	return (
 		<AppShell header={{ height: 60 }} navbar={{ width: 250, breakpoint: "md", collapsed: { mobile: !opened } }} padding="md">
 			<AppShell.Header>
@@ -57,7 +57,14 @@ function DashboardLayout() {
 }
 
 function DashboardPage() {
-	const { isLoading, isAuthenticated, isLoggingOut, redirectToLogin } = useAuth();
+	const { isLoading, isAuthenticated, isLoggingOut, redirectToLogin, error } = useAuth();
+
+	// Use effect to handle redirect outside of render cycle
+	useEffect(() => {
+		if (!isLoading && !isAuthenticated && !isLoggingOut) {
+			redirectToLogin();
+		}
+	}, [isLoading, isAuthenticated, isLoggingOut, redirectToLogin]);
 
 	// Still loading - show loader
 	if (isLoading) {
@@ -67,15 +74,15 @@ function DashboardPage() {
 			</Center>
 		);
 	}
+	if (error) throw error;
 
 	// Logging out - don't redirect, let Cognito handle the logout
 	if (isLoggingOut) {
 		return null;
 	}
 
-	// Not authenticated - redirect to login
+	// Not authenticated - show nothing while redirect is happening
 	if (!isAuthenticated) {
-		redirectToLogin();
 		return null;
 	}
 
@@ -85,4 +92,12 @@ function DashboardPage() {
 
 export const Route = createFileRoute("/dashboard")({
 	component: DashboardPage,
+	errorComponent: ({ error }) => {
+		return (
+			<Stack h="100vh" w="100vw" align="center" justify="center" gap="md">
+				<Title>Fehler</Title>
+				<Text>{String(error)}</Text>
+			</Stack>
+		);
+	},
 });
