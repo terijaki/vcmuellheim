@@ -1,0 +1,26 @@
+import z from "zod";
+import { getAllSamsClubs, getSamsClubByNameSlug, getSamsClubBySportsclubUuid } from "@/lib/db";
+import { publicProcedure, router } from "../trpc";
+
+export const samsClubsRouter = router({
+	/** Get all SAMS Clubs */
+	list: publicProcedure.query(async () => {
+		return getAllSamsClubs();
+	}),
+	/** Get SAMS Club by sportsclub UUID */
+	getById: publicProcedure.input(z.object({ sportsclubUuid: z.string() })).query(async ({ input }) => {
+		const club = await getSamsClubBySportsclubUuid(input.sportsclubUuid);
+		if (!club) {
+			throw new Error("SAMS Club not found");
+		}
+		return club;
+	}),
+	/** Get SAMS Club by nameSlug */
+	getByNameSlug: publicProcedure.input(z.object({ nameSlug: z.string() })).query(async ({ input }) => {
+		const club = await getSamsClubByNameSlug(input.nameSlug);
+		if (!club) {
+			throw new Error("SAMS Club not found");
+		}
+		return club;
+	}),
+});

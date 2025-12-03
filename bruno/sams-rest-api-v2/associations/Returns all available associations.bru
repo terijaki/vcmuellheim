@@ -1,0 +1,2278 @@
+meta {
+  name: Returns all available associations.
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/associations?page=1&size=100
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: 1
+  size: 100
+  ~association: f7ecd96f-28b4-44e9-b54c-69683f57c4d7
+}
+
+headers {
+  Accept: application/hal+json
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Returns all available association as a paged list. The default page size is 20. The page size must not be greater than 100
+}
+
+example {
+  name: Successful operation
+  
+  request: {
+    url: {{baseUrl}}/associations?page=-81938013&size=-81938013&association=Lorem ad consequat
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+      association: Lorem ad consequat
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "totalElements": 47394788,
+          "numberOfElements": -88038394,
+          "_links": {
+            "empty": false
+          },
+          "_embedded": {
+            "empty": true
+          },
+          "content": [
+            {
+              "uuid": "nisi ad sed",
+              "_links": {
+                "empty": true
+              },
+              "_embedded": {
+                "empty": false
+              },
+              "name": "ex adipisicing dolor in",
+              "shortname": "reprehenderit in sunt",
+              "parentUuid": "consectetur",
+              "level": 85572289
+            },
+            {
+              "uuid": "in adipisicing officia ut",
+              "_links": {
+                "empty": false
+              },
+              "_embedded": {
+                "empty": true
+              },
+              "name": "dolore deserunt",
+              "shortname": "labore pariatur ut",
+              "parentUuid": "sed",
+              "level": -61320596
+            }
+          ],
+          "empty": true,
+          "totalPages": 93655493,
+          "first": true,
+          "last": true
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.
+  
+  request: {
+    url: {{baseUrl}}/associations?page=-81938013&size=-81938013&association=Lorem ad consequat
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+      association: Lorem ad consequat
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json
+    }
+  
+    status: {
+      code: Bad Request
+      text: 400
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "violations": [
+            {
+              "constraint": "labore nisi magna ea",
+              "property": "voluptate Ut officia qui",
+              "entity": "ad nisi adipisicing consecte",
+              "invalidValue": "aliqua labore laboris ipsum",
+              "message": "incididunt aute commodo cillum"
+            },
+            {
+              "constraint": "tempor culpa",
+              "property": "magna sint sit",
+              "entity": "aute in ad",
+              "invalidValue": "do sit dolor ea id",
+              "message": "adipis"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: API authorization failed.
+  
+  request: {
+    url: {{baseUrl}}/associations?page=-81938013&size=-81938013&association=Lorem ad consequat
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+      association: Lorem ad consequat
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json
+    }
+  
+    status: {
+      code: Forbidden
+      text: 403
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: The request could not be processed due to invalid request data. Check the response for more details.
+  
+  request: {
+    url: {{baseUrl}}/associations?page=-81938013&size=-81938013&association=Lorem ad consequat
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+      association: Lorem ad consequat
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json
+    }
+  
+    status: {
+      code: Conflict
+      text: 409
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: An unexpected error occurred. Please contact support and supply the response data.
+  
+  request: {
+    url: {{baseUrl}}/associations?page=-81938013&size=-81938013&association=Lorem ad consequat
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+      association: Lorem ad consequat
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json
+    }
+  
+    status: {
+      code: Internal Server Error
+      text: 500
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "exception": "deserunt ex Lorem dolore",
+          "message": "dolore minim"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: EXAMPLE
+  
+  request: {
+    url: {{baseUrl}}/associations?page=0&size=100
+    method: GET
+    mode: none
+    params:query: {
+      page: 0
+      size: 100
+      ~association: 2b7571b5-f985-c552-ea1c-f819ed3811c1
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json
+    }
+  }
+  
+  response: {
+    headers: {
+      Server: nginx/1.22.1
+      Date: Wed, 04 Jun 2025 08:53:21 GMT
+      Content-Type: application/hal+json
+      Transfer-Encoding: chunked
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      X-Sams-Instance: SamsDvv
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+            "totalElements": 208,
+            "numberOfElements": 100,
+            "_links": {
+                "self": {
+                    "href": "https://www.volleyball-baden.de/api/v2/associations?page=0&size=100"
+                },
+                "next": {
+                    "href": "https://www.volleyball-baden.de/api/v2/associations?page=1&size=100"
+                }
+            },
+            "content": [
+                {
+                    "uuid": "e9ad1685-3ec6-46b1-b42a-65b00ecdadfa",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e9ad1685-3ec6-46b1-b42a-65b00ecdadfa"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e9ad1685-3ec6-46b1-b42a-65b00ecdadfa/sportsclubs"
+                        }
+                    },
+                    "name": "Volleyball Bundesliga",
+                    "shortname": "VBL",
+                    "parentUuid": null,
+                    "level": 0
+                },
+                {
+                    "uuid": "56a35b49-04e6-4028-a4d8-00fa15e3f522",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/56a35b49-04e6-4028-a4d8-00fa15e3f522"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/56a35b49-04e6-4028-a4d8-00fa15e3f522/sportsclubs"
+                        }
+                    },
+                    "name": "Region Braunschweig-Süd (löschen)",
+                    "shortname": "R-BS",
+                    "parentUuid": null,
+                    "level": 0
+                },
+                {
+                    "uuid": "45105faf-a4af-45b7-97fb-8c4260f5a36c",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/45105faf-a4af-45b7-97fb-8c4260f5a36c"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/45105faf-a4af-45b7-97fb-8c4260f5a36c/sportsclubs"
+                        }
+                    },
+                    "name": "Region Celle",
+                    "shortname": "R-CE",
+                    "parentUuid": null,
+                    "level": 0
+                },
+                {
+                    "uuid": "a76f77e2-7e8b-332f-048d-0e541bf14dfe",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a76f77e2-7e8b-332f-048d-0e541bf14dfe"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a76f77e2-7e8b-332f-048d-0e541bf14dfe/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a76f77e2-7e8b-332f-048d-0e541bf14dfe/sportsclubs"
+                        }
+                    },
+                    "name": "Deutscher Volleyball-Verband",
+                    "shortname": "DVV",
+                    "parentUuid": null,
+                    "level": 0
+                },
+                {
+                    "uuid": "08507ccd-a0c6-8ea8-d605-c056abb8a718",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/08507ccd-a0c6-8ea8-d605-c056abb8a718"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a76f77e2-7e8b-332f-048d-0e541bf14dfe"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/08507ccd-a0c6-8ea8-d605-c056abb8a718/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/08507ccd-a0c6-8ea8-d605-c056abb8a718/sportsclubs"
+                        }
+                    },
+                    "name": "Dritte Liga Nord",
+                    "shortname": "DL N",
+                    "parentUuid": "a76f77e2-7e8b-332f-048d-0e541bf14dfe",
+                    "level": 1
+                },
+                {
+                    "uuid": "92aa036f-a183-4134-9903-4ce6e0b68979",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/92aa036f-a183-4134-9903-4ce6e0b68979"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/45105faf-a4af-45b7-97fb-8c4260f5a36c"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/92aa036f-a183-4134-9903-4ce6e0b68979/sportsclubs"
+                        }
+                    },
+                    "name": "Kreis Celle",
+                    "shortname": "KVV CE",
+                    "parentUuid": "45105faf-a4af-45b7-97fb-8c4260f5a36c",
+                    "level": 1
+                },
+                {
+                    "uuid": "c9a3d4c5-91bc-cfca-b4f7-3e6032f48c28",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c9a3d4c5-91bc-cfca-b4f7-3e6032f48c28"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a76f77e2-7e8b-332f-048d-0e541bf14dfe"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c9a3d4c5-91bc-cfca-b4f7-3e6032f48c28/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c9a3d4c5-91bc-cfca-b4f7-3e6032f48c28/sportsclubs"
+                        }
+                    },
+                    "name": "Dritte Liga West",
+                    "shortname": "DL W",
+                    "parentUuid": "a76f77e2-7e8b-332f-048d-0e541bf14dfe",
+                    "level": 1
+                },
+                {
+                    "uuid": "8585cdfe-2500-4c2e-b804-3e5127e80177",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/8585cdfe-2500-4c2e-b804-3e5127e80177"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a76f77e2-7e8b-332f-048d-0e541bf14dfe"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/8585cdfe-2500-4c2e-b804-3e5127e80177/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/8585cdfe-2500-4c2e-b804-3e5127e80177/sportsclubs"
+                        }
+                    },
+                    "name": "Dritte Liga Ost",
+                    "shortname": "DL O",
+                    "parentUuid": "a76f77e2-7e8b-332f-048d-0e541bf14dfe",
+                    "level": 1
+                },
+                {
+                    "uuid": "dbef8be5-d2c8-b30f-f58f-6b8615ee8088",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/dbef8be5-d2c8-b30f-f58f-6b8615ee8088"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a76f77e2-7e8b-332f-048d-0e541bf14dfe"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/dbef8be5-d2c8-b30f-f58f-6b8615ee8088/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/dbef8be5-d2c8-b30f-f58f-6b8615ee8088/sportsclubs"
+                        }
+                    },
+                    "name": "Dritte Liga Süd",
+                    "shortname": "DL S",
+                    "parentUuid": "a76f77e2-7e8b-332f-048d-0e541bf14dfe",
+                    "level": 1
+                },
+                {
+                    "uuid": "db53bf42-d68f-6d50-6a5f-a54909af27ff",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/db53bf42-d68f-6d50-6a5f-a54909af27ff"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c9a3d4c5-91bc-cfca-b4f7-3e6032f48c28"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/db53bf42-d68f-6d50-6a5f-a54909af27ff/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/db53bf42-d68f-6d50-6a5f-a54909af27ff/sportsclubs"
+                        }
+                    },
+                    "name": "RSA Nordwest",
+                    "shortname": "RSA-NW",
+                    "parentUuid": "c9a3d4c5-91bc-cfca-b4f7-3e6032f48c28",
+                    "level": 2
+                },
+                {
+                    "uuid": "39318528-edf3-08fb-462c-a151d4ae894c",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/39318528-edf3-08fb-462c-a151d4ae894c"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/8585cdfe-2500-4c2e-b804-3e5127e80177"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/39318528-edf3-08fb-462c-a151d4ae894c/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/39318528-edf3-08fb-462c-a151d4ae894c/sportsclubs"
+                        }
+                    },
+                    "name": "Regionalbereich Ost",
+                    "shortname": "RB O",
+                    "parentUuid": "8585cdfe-2500-4c2e-b804-3e5127e80177",
+                    "level": 2
+                },
+                {
+                    "uuid": "e159a180-95b7-39fc-afc0-fda9455cabc8",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e159a180-95b7-39fc-afc0-fda9455cabc8"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/8585cdfe-2500-4c2e-b804-3e5127e80177"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e159a180-95b7-39fc-afc0-fda9455cabc8/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e159a180-95b7-39fc-afc0-fda9455cabc8/sportsclubs"
+                        }
+                    },
+                    "name": "Regionalbereich Südost",
+                    "shortname": "RB SO",
+                    "parentUuid": "8585cdfe-2500-4c2e-b804-3e5127e80177",
+                    "level": 2
+                },
+                {
+                    "uuid": "4a432b16-dd37-f852-c3ed-f6eba3a1403b",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/4a432b16-dd37-f852-c3ed-f6eba3a1403b"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c9a3d4c5-91bc-cfca-b4f7-3e6032f48c28"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/4a432b16-dd37-f852-c3ed-f6eba3a1403b/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/4a432b16-dd37-f852-c3ed-f6eba3a1403b/sportsclubs"
+                        }
+                    },
+                    "name": "Regionalbereich West",
+                    "shortname": "RB W",
+                    "parentUuid": "c9a3d4c5-91bc-cfca-b4f7-3e6032f48c28",
+                    "level": 2
+                },
+                {
+                    "uuid": "759c70d7-ec61-d574-5aaa-8853ee2bd07f",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/759c70d7-ec61-d574-5aaa-8853ee2bd07f"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/dbef8be5-d2c8-b30f-f58f-6b8615ee8088"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/759c70d7-ec61-d574-5aaa-8853ee2bd07f/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/759c70d7-ec61-d574-5aaa-8853ee2bd07f/sportsclubs"
+                        }
+                    },
+                    "name": "Regionalbereich Südwest",
+                    "shortname": "RbSW",
+                    "parentUuid": "dbef8be5-d2c8-b30f-f58f-6b8615ee8088",
+                    "level": 2
+                },
+                {
+                    "uuid": "b314475d-9f2a-a099-4a36-ac800c1f18e0",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/b314475d-9f2a-a099-4a36-ac800c1f18e0"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/dbef8be5-d2c8-b30f-f58f-6b8615ee8088"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/b314475d-9f2a-a099-4a36-ac800c1f18e0/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/b314475d-9f2a-a099-4a36-ac800c1f18e0/sportsclubs"
+                        }
+                    },
+                    "name": "Regionalbereich Süd",
+                    "shortname": "RB S",
+                    "parentUuid": "dbef8be5-d2c8-b30f-f58f-6b8615ee8088",
+                    "level": 2
+                },
+                {
+                    "uuid": "fd54191f-2af7-1680-426e-f33619e05b8b",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/fd54191f-2af7-1680-426e-f33619e05b8b"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/08507ccd-a0c6-8ea8-d605-c056abb8a718"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/fd54191f-2af7-1680-426e-f33619e05b8b/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/fd54191f-2af7-1680-426e-f33619e05b8b/sportsclubs"
+                        }
+                    },
+                    "name": "Regionalbereich Nord",
+                    "shortname": "RB N",
+                    "parentUuid": "08507ccd-a0c6-8ea8-d605-c056abb8a718",
+                    "level": 2
+                },
+                {
+                    "uuid": "79448705-f9e8-9445-6045-add23c61b0b8",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/79448705-f9e8-9445-6045-add23c61b0b8"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/08507ccd-a0c6-8ea8-d605-c056abb8a718"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/79448705-f9e8-9445-6045-add23c61b0b8/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/79448705-f9e8-9445-6045-add23c61b0b8/sportsclubs"
+                        }
+                    },
+                    "name": "Regionalbereich Nordost",
+                    "shortname": "RB NO",
+                    "parentUuid": "08507ccd-a0c6-8ea8-d605-c056abb8a718",
+                    "level": 2
+                },
+                {
+                    "uuid": "50ab2000-3689-9c76-71c3-fca4670dcea1",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/50ab2000-3689-9c76-71c3-fca4670dcea1"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e159a180-95b7-39fc-afc0-fda9455cabc8"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/50ab2000-3689-9c76-71c3-fca4670dcea1/sportsclubs"
+                        }
+                    },
+                    "name": "Bayerischer Volleyball-Verband",
+                    "shortname": "BVV",
+                    "parentUuid": "e159a180-95b7-39fc-afc0-fda9455cabc8",
+                    "level": 3
+                },
+                {
+                    "uuid": "3e7c6d1a-2ee5-3f8d-a63d-c80e0ba6e5f6",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/3e7c6d1a-2ee5-3f8d-a63d-c80e0ba6e5f6"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/79448705-f9e8-9445-6045-add23c61b0b8"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/3e7c6d1a-2ee5-3f8d-a63d-c80e0ba6e5f6/sportsclubs"
+                        }
+                    },
+                    "name": "Beachvolleyball in Berlin und Brandenburg",
+                    "shortname": "Beach BB",
+                    "parentUuid": "79448705-f9e8-9445-6045-add23c61b0b8",
+                    "level": 3
+                },
+                {
+                    "uuid": "0a025cb6-e962-0285-e75f-1f65ac5ec745",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/79448705-f9e8-9445-6045-add23c61b0b8"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745/sportsclubs"
+                        }
+                    },
+                    "name": "Volleyball-Verband Berlin",
+                    "shortname": "VVB",
+                    "parentUuid": "79448705-f9e8-9445-6045-add23c61b0b8",
+                    "level": 3
+                },
+                {
+                    "uuid": "e45f0586-4721-4f03-e413-de1ed86ddaa5",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e45f0586-4721-4f03-e413-de1ed86ddaa5"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/79448705-f9e8-9445-6045-add23c61b0b8"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e45f0586-4721-4f03-e413-de1ed86ddaa5/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e45f0586-4721-4f03-e413-de1ed86ddaa5/sportsclubs"
+                        }
+                    },
+                    "name": "Volleyball-Verband Sachsen-Anhalt",
+                    "shortname": "VVSA",
+                    "parentUuid": "79448705-f9e8-9445-6045-add23c61b0b8",
+                    "level": 3
+                },
+                {
+                    "uuid": "8e824407-6c46-4c5d-f62e-8f060e5c523d",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/8e824407-6c46-4c5d-f62e-8f060e5c523d"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/fd54191f-2af7-1680-426e-f33619e05b8b"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/8e824407-6c46-4c5d-f62e-8f060e5c523d/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/8e824407-6c46-4c5d-f62e-8f060e5c523d/sportsclubs"
+                        }
+                    },
+                    "name": "Hamburger Volleyball-Verband e.V.",
+                    "shortname": "HVbV",
+                    "parentUuid": "fd54191f-2af7-1680-426e-f33619e05b8b",
+                    "level": 3
+                },
+                {
+                    "uuid": "c6307784-5457-0360-45ed-59f8f6b0ce97",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c6307784-5457-0360-45ed-59f8f6b0ce97"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/fd54191f-2af7-1680-426e-f33619e05b8b"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c6307784-5457-0360-45ed-59f8f6b0ce97/sportsclubs"
+                        }
+                    },
+                    "name": "Volleyballverband Mecklenburg-Vorpommern e.V.",
+                    "shortname": "VMV",
+                    "parentUuid": "fd54191f-2af7-1680-426e-f33619e05b8b",
+                    "level": 3
+                },
+                {
+                    "uuid": "c861ad8d-008e-bd74-e8f1-3ed50371a4c2",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c861ad8d-008e-bd74-e8f1-3ed50371a4c2"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/4a432b16-dd37-f852-c3ed-f6eba3a1403b"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c861ad8d-008e-bd74-e8f1-3ed50371a4c2/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c861ad8d-008e-bd74-e8f1-3ed50371a4c2/sportsclubs"
+                        }
+                    },
+                    "name": "Westdeutscher Volleyball-Verband",
+                    "shortname": "WVV",
+                    "parentUuid": "4a432b16-dd37-f852-c3ed-f6eba3a1403b",
+                    "level": 3
+                },
+                {
+                    "uuid": "bc2d0434-beef-47bd-2f5a-af010f79537f",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bc2d0434-beef-47bd-2f5a-af010f79537f"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/39318528-edf3-08fb-462c-a151d4ae894c"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bc2d0434-beef-47bd-2f5a-af010f79537f/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bc2d0434-beef-47bd-2f5a-af010f79537f/sportsclubs"
+                        }
+                    },
+                    "name": "Thüringer Volleyball-Verband e.V.",
+                    "shortname": "TVV",
+                    "parentUuid": "39318528-edf3-08fb-462c-a151d4ae894c",
+                    "level": 3
+                },
+                {
+                    "uuid": "5e2f0845-30b1-4aa0-a298-a536f8776ce5",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/5e2f0845-30b1-4aa0-a298-a536f8776ce5"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/759c70d7-ec61-d574-5aaa-8853ee2bd07f"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/5e2f0845-30b1-4aa0-a298-a536f8776ce5/sportsclubs"
+                        }
+                    },
+                    "name": "Oberliga Rheinland-Pfalz | Saarland",
+                    "shortname": "RPS",
+                    "parentUuid": "759c70d7-ec61-d574-5aaa-8853ee2bd07f",
+                    "level": 3
+                },
+                {
+                    "uuid": "3d25a87d-5c9d-51d2-6280-ca452a855494",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/3d25a87d-5c9d-51d2-6280-ca452a855494"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/759c70d7-ec61-d574-5aaa-8853ee2bd07f"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/3d25a87d-5c9d-51d2-6280-ca452a855494/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/3d25a87d-5c9d-51d2-6280-ca452a855494/sportsclubs"
+                        }
+                    },
+                    "name": "Hessischer Volleyballverband",
+                    "shortname": "HVV",
+                    "parentUuid": "759c70d7-ec61-d574-5aaa-8853ee2bd07f",
+                    "level": 3
+                },
+                {
+                    "uuid": "77df82c5-9c29-ee01-6c62-745b92fad253",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/77df82c5-9c29-ee01-6c62-745b92fad253"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/39318528-edf3-08fb-462c-a151d4ae894c"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/77df82c5-9c29-ee01-6c62-745b92fad253/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/77df82c5-9c29-ee01-6c62-745b92fad253/sportsclubs"
+                        }
+                    },
+                    "name": "Sächsischer Sportverband Volleyball e.V.",
+                    "shortname": "SSVB",
+                    "parentUuid": "39318528-edf3-08fb-462c-a151d4ae894c",
+                    "level": 3
+                },
+                {
+                    "uuid": "e18b2960-6d3a-9688-3489-5bd1e80d1ec7",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e18b2960-6d3a-9688-3489-5bd1e80d1ec7"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/79448705-f9e8-9445-6045-add23c61b0b8"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e18b2960-6d3a-9688-3489-5bd1e80d1ec7/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e18b2960-6d3a-9688-3489-5bd1e80d1ec7/sportsclubs"
+                        }
+                    },
+                    "name": "Brandenburgischer Volleyball Verband",
+                    "shortname": "BbVV",
+                    "parentUuid": "79448705-f9e8-9445-6045-add23c61b0b8",
+                    "level": 3
+                },
+                {
+                    "uuid": "7073dea7-1be5-6d94-0735-4aba52676d07",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/7073dea7-1be5-6d94-0735-4aba52676d07"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/759c70d7-ec61-d574-5aaa-8853ee2bd07f"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/7073dea7-1be5-6d94-0735-4aba52676d07/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/7073dea7-1be5-6d94-0735-4aba52676d07/sportsclubs"
+                        }
+                    },
+                    "name": "Saarländischer Volleyballverband",
+                    "shortname": "SVV",
+                    "parentUuid": "759c70d7-ec61-d574-5aaa-8853ee2bd07f",
+                    "level": 3
+                },
+                {
+                    "uuid": "aeaac8cc-5a16-43c5-a6d1-c54b10493880",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/aeaac8cc-5a16-43c5-a6d1-c54b10493880"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/b314475d-9f2a-a099-4a36-ac800c1f18e0"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/aeaac8cc-5a16-43c5-a6d1-c54b10493880/sportsclubs"
+                        }
+                    },
+                    "name": "Beachvolleyball in Baden-Württemberg e.V.",
+                    "shortname": "BIBW",
+                    "parentUuid": "b314475d-9f2a-a099-4a36-ac800c1f18e0",
+                    "level": 3
+                },
+                {
+                    "uuid": "77ed47ce-f21d-6e58-b83e-7856c23f29cf",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/77ed47ce-f21d-6e58-b83e-7856c23f29cf"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/759c70d7-ec61-d574-5aaa-8853ee2bd07f"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/77ed47ce-f21d-6e58-b83e-7856c23f29cf/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/77ed47ce-f21d-6e58-b83e-7856c23f29cf/sportsclubs"
+                        }
+                    },
+                    "name": "Volleyball-Verband Rheinland-Pfalz",
+                    "shortname": "VVRP",
+                    "parentUuid": "759c70d7-ec61-d574-5aaa-8853ee2bd07f",
+                    "level": 3
+                },
+                {
+                    "uuid": "569d2ccc-8c75-7e4f-0491-e1fc032a5445",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/569d2ccc-8c75-7e4f-0491-e1fc032a5445"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/db53bf42-d68f-6d50-6a5f-a54909af27ff"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/569d2ccc-8c75-7e4f-0491-e1fc032a5445/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/569d2ccc-8c75-7e4f-0491-e1fc032a5445/sportsclubs"
+                        }
+                    },
+                    "name": "Nordwestdeutscher Volleyball-Verband e.V.",
+                    "shortname": "NWVV",
+                    "parentUuid": "db53bf42-d68f-6d50-6a5f-a54909af27ff",
+                    "level": 3
+                },
+                {
+                    "uuid": "6b750453-aa48-565b-28eb-e5e19aab556e",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/6b750453-aa48-565b-28eb-e5e19aab556e"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/fd54191f-2af7-1680-426e-f33619e05b8b"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/6b750453-aa48-565b-28eb-e5e19aab556e/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/6b750453-aa48-565b-28eb-e5e19aab556e/sportsclubs"
+                        }
+                    },
+                    "name": "Schleswig-Holsteinischer Volleyball-Verband e.V.",
+                    "shortname": "SHVV",
+                    "parentUuid": "fd54191f-2af7-1680-426e-f33619e05b8b",
+                    "level": 3
+                },
+                {
+                    "uuid": "00a1e847-a673-46cf-a8dd-61101995c5d8",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/00a1e847-a673-46cf-a8dd-61101995c5d8"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/6b750453-aa48-565b-28eb-e5e19aab556e"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/00a1e847-a673-46cf-a8dd-61101995c5d8/sportsclubs"
+                        }
+                    },
+                    "name": "VC Olympia Kiel",
+                    "shortname": "VCO Kiel",
+                    "parentUuid": "6b750453-aa48-565b-28eb-e5e19aab556e",
+                    "level": 4
+                },
+                {
+                    "uuid": "f7ecd96f-28b4-44e9-b54c-69683f57c4d7",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/f7ecd96f-28b4-44e9-b54c-69683f57c4d7"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/aeaac8cc-5a16-43c5-a6d1-c54b10493880"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/f7ecd96f-28b4-44e9-b54c-69683f57c4d7/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/f7ecd96f-28b4-44e9-b54c-69683f57c4d7/sportsclubs"
+                        }
+                    },
+                    "name": "Baden",
+                    "shortname": "BD",
+                    "parentUuid": "aeaac8cc-5a16-43c5-a6d1-c54b10493880",
+                    "level": 4
+                },
+                {
+                    "uuid": "9cdfada9-a4a3-4528-9d91-ad642a1c520e",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/9cdfada9-a4a3-4528-9d91-ad642a1c520e"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/3d25a87d-5c9d-51d2-6280-ca452a855494"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/9cdfada9-a4a3-4528-9d91-ad642a1c520e/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/9cdfada9-a4a3-4528-9d91-ad642a1c520e/sportsclubs"
+                        }
+                    },
+                    "name": "HVV | Bezirk Nord",
+                    "shortname": "HVV-Nord",
+                    "parentUuid": "3d25a87d-5c9d-51d2-6280-ca452a855494",
+                    "level": 4
+                },
+                {
+                    "uuid": "08109ba9-a4f6-40d3-b5e4-324b75534a04",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/08109ba9-a4f6-40d3-b5e4-324b75534a04"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/3d25a87d-5c9d-51d2-6280-ca452a855494"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/08109ba9-a4f6-40d3-b5e4-324b75534a04/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/08109ba9-a4f6-40d3-b5e4-324b75534a04/sportsclubs"
+                        }
+                    },
+                    "name": "HVV | Bezirk Süd",
+                    "shortname": "HVV-Süd",
+                    "parentUuid": "3d25a87d-5c9d-51d2-6280-ca452a855494",
+                    "level": 4
+                },
+                {
+                    "uuid": "b84ea884-6f19-4d5d-9c14-b4ddd96e6233",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/b84ea884-6f19-4d5d-9c14-b4ddd96e6233"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/3d25a87d-5c9d-51d2-6280-ca452a855494"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/b84ea884-6f19-4d5d-9c14-b4ddd96e6233/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/b84ea884-6f19-4d5d-9c14-b4ddd96e6233/sportsclubs"
+                        }
+                    },
+                    "name": "HVV | Bezirk West",
+                    "shortname": "HVV-West",
+                    "parentUuid": "3d25a87d-5c9d-51d2-6280-ca452a855494",
+                    "level": 4
+                },
+                {
+                    "uuid": "bdf31e6d-2e64-4c04-b821-e9df35808fa3",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bdf31e6d-2e64-4c04-b821-e9df35808fa3"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/3d25a87d-5c9d-51d2-6280-ca452a855494"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bdf31e6d-2e64-4c04-b821-e9df35808fa3/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bdf31e6d-2e64-4c04-b821-e9df35808fa3/sportsclubs"
+                        }
+                    },
+                    "name": "HVV | Bezirk Mitte",
+                    "shortname": "HVV-Mitte",
+                    "parentUuid": "3d25a87d-5c9d-51d2-6280-ca452a855494",
+                    "level": 4
+                },
+                {
+                    "uuid": "02aca691-6761-4ea4-93fe-ffae631ff63e",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/02aca691-6761-4ea4-93fe-ffae631ff63e"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/3d25a87d-5c9d-51d2-6280-ca452a855494"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/02aca691-6761-4ea4-93fe-ffae631ff63e/sportsclubs"
+                        }
+                    },
+                    "name": "tbc HVV 40",
+                    "shortname": "tbc HVV 40",
+                    "parentUuid": "3d25a87d-5c9d-51d2-6280-ca452a855494",
+                    "level": 4
+                },
+                {
+                    "uuid": "0c6c9079-2fee-440c-bf53-c172dd16df12",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0c6c9079-2fee-440c-bf53-c172dd16df12"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bc2d0434-beef-47bd-2f5a-af010f79537f"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0c6c9079-2fee-440c-bf53-c172dd16df12/sportsclubs"
+                        }
+                    },
+                    "name": "Kreisverband Mitte-West",
+                    "shortname": "KVA MW",
+                    "parentUuid": "bc2d0434-beef-47bd-2f5a-af010f79537f",
+                    "level": 4
+                },
+                {
+                    "uuid": "c592bf26-dd8d-40a3-a351-b174adf52b6f",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c592bf26-dd8d-40a3-a351-b174adf52b6f"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bc2d0434-beef-47bd-2f5a-af010f79537f"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c592bf26-dd8d-40a3-a351-b174adf52b6f/sportsclubs"
+                        }
+                    },
+                    "name": "Kreisverband Nord",
+                    "shortname": "KVA N",
+                    "parentUuid": "bc2d0434-beef-47bd-2f5a-af010f79537f",
+                    "level": 4
+                },
+                {
+                    "uuid": "a551c216-31c3-4f7f-8f6f-9c95fffbe5bc",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a551c216-31c3-4f7f-8f6f-9c95fffbe5bc"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bc2d0434-beef-47bd-2f5a-af010f79537f"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a551c216-31c3-4f7f-8f6f-9c95fffbe5bc/sportsclubs"
+                        }
+                    },
+                    "name": "Kreisverband Nord-Ost",
+                    "shortname": "KVA NO",
+                    "parentUuid": "bc2d0434-beef-47bd-2f5a-af010f79537f",
+                    "level": 4
+                },
+                {
+                    "uuid": "45eea2e8-b0a2-4c7f-87c5-5c730bb73fec",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/45eea2e8-b0a2-4c7f-87c5-5c730bb73fec"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bc2d0434-beef-47bd-2f5a-af010f79537f"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/45eea2e8-b0a2-4c7f-87c5-5c730bb73fec/sportsclubs"
+                        }
+                    },
+                    "name": "Kreisverband Ost",
+                    "shortname": "KVA O",
+                    "parentUuid": "bc2d0434-beef-47bd-2f5a-af010f79537f",
+                    "level": 4
+                },
+                {
+                    "uuid": "1f4753d7-b6a7-49dd-a9c9-f0f8d36c78fc",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/1f4753d7-b6a7-49dd-a9c9-f0f8d36c78fc"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bc2d0434-beef-47bd-2f5a-af010f79537f"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/1f4753d7-b6a7-49dd-a9c9-f0f8d36c78fc/sportsclubs"
+                        }
+                    },
+                    "name": "Kreisverband Süd",
+                    "shortname": "KVA S",
+                    "parentUuid": "bc2d0434-beef-47bd-2f5a-af010f79537f",
+                    "level": 4
+                },
+                {
+                    "uuid": "e09478cb-15d8-4a93-adfe-404b504e1cb3",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e09478cb-15d8-4a93-adfe-404b504e1cb3"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bc2d0434-beef-47bd-2f5a-af010f79537f"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e09478cb-15d8-4a93-adfe-404b504e1cb3/sportsclubs"
+                        }
+                    },
+                    "name": "Kreisverband West",
+                    "shortname": "KVA W",
+                    "parentUuid": "bc2d0434-beef-47bd-2f5a-af010f79537f",
+                    "level": 4
+                },
+                {
+                    "uuid": "a6e2c18f-5b9d-48be-adf5-31be28160565",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a6e2c18f-5b9d-48be-adf5-31be28160565"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bc2d0434-beef-47bd-2f5a-af010f79537f"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a6e2c18f-5b9d-48be-adf5-31be28160565/sportsclubs"
+                        }
+                    },
+                    "name": "Kreisverband Süd-West",
+                    "shortname": "KVA SW",
+                    "parentUuid": "bc2d0434-beef-47bd-2f5a-af010f79537f",
+                    "level": 4
+                },
+                {
+                    "uuid": "53cb3487-f5c0-4c05-9645-de3cc3bae466",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/53cb3487-f5c0-4c05-9645-de3cc3bae466"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/53cb3487-f5c0-4c05-9645-de3cc3bae466/sportsclubs"
+                        }
+                    },
+                    "name": "Neuköln",
+                    "shortname": "B NK",
+                    "parentUuid": "0a025cb6-e962-0285-e75f-1f65ac5ec745",
+                    "level": 4
+                },
+                {
+                    "uuid": "dc5e853a-2629-4aa2-8f5b-07d21ea176e1",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/dc5e853a-2629-4aa2-8f5b-07d21ea176e1"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/dc5e853a-2629-4aa2-8f5b-07d21ea176e1/sportsclubs"
+                        }
+                    },
+                    "name": "Tempelhof - Schöneberg",
+                    "shortname": "B TS",
+                    "parentUuid": "0a025cb6-e962-0285-e75f-1f65ac5ec745",
+                    "level": 4
+                },
+                {
+                    "uuid": "6f1bf656-49a5-488d-b44b-020c0617dfcc",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/6f1bf656-49a5-488d-b44b-020c0617dfcc"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/6f1bf656-49a5-488d-b44b-020c0617dfcc/sportsclubs"
+                        }
+                    },
+                    "name": "Spandau",
+                    "shortname": "B SPA",
+                    "parentUuid": "0a025cb6-e962-0285-e75f-1f65ac5ec745",
+                    "level": 4
+                },
+                {
+                    "uuid": "afaa3f1f-97be-4996-8ae7-ebfe0ae50542",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/afaa3f1f-97be-4996-8ae7-ebfe0ae50542"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/afaa3f1f-97be-4996-8ae7-ebfe0ae50542/sportsclubs"
+                        }
+                    },
+                    "name": "Treptow - Köpenick",
+                    "shortname": "B TK",
+                    "parentUuid": "0a025cb6-e962-0285-e75f-1f65ac5ec745",
+                    "level": 4
+                },
+                {
+                    "uuid": "155840fd-0c0e-462e-9557-0a1df54c6974",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/155840fd-0c0e-462e-9557-0a1df54c6974"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/155840fd-0c0e-462e-9557-0a1df54c6974/sportsclubs"
+                        }
+                    },
+                    "name": "Friedrichshain",
+                    "shortname": "B FH",
+                    "parentUuid": "0a025cb6-e962-0285-e75f-1f65ac5ec745",
+                    "level": 4
+                },
+                {
+                    "uuid": "1db56ce7-ddea-494f-bbe0-4bae5c380099",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/1db56ce7-ddea-494f-bbe0-4bae5c380099"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/1db56ce7-ddea-494f-bbe0-4bae5c380099/sportsclubs"
+                        }
+                    },
+                    "name": "Reinickendorf",
+                    "shortname": "B REI",
+                    "parentUuid": "0a025cb6-e962-0285-e75f-1f65ac5ec745",
+                    "level": 4
+                },
+                {
+                    "uuid": "df697456-4b6f-4c2c-aae7-2367a8ff50cf",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/df697456-4b6f-4c2c-aae7-2367a8ff50cf"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bc2d0434-beef-47bd-2f5a-af010f79537f"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/df697456-4b6f-4c2c-aae7-2367a8ff50cf/sportsclubs"
+                        }
+                    },
+                    "name": "Kreisverband Mitte",
+                    "shortname": "KVA M",
+                    "parentUuid": "bc2d0434-beef-47bd-2f5a-af010f79537f",
+                    "level": 4
+                },
+                {
+                    "uuid": "173bfac4-3ff1-4daf-a09f-b2b264353345",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/173bfac4-3ff1-4daf-a09f-b2b264353345"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/173bfac4-3ff1-4daf-a09f-b2b264353345/sportsclubs"
+                        }
+                    },
+                    "name": "Steglitz - Zehlendorf",
+                    "shortname": "B SZ",
+                    "parentUuid": "0a025cb6-e962-0285-e75f-1f65ac5ec745",
+                    "level": 4
+                },
+                {
+                    "uuid": "799ed4bc-7ed4-49bd-a438-4f2ccfe950b5",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/799ed4bc-7ed4-49bd-a438-4f2ccfe950b5"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/799ed4bc-7ed4-49bd-a438-4f2ccfe950b5/sportsclubs"
+                        }
+                    },
+                    "name": "Charlottenburg",
+                    "shortname": "B CHA",
+                    "parentUuid": "0a025cb6-e962-0285-e75f-1f65ac5ec745",
+                    "level": 4
+                },
+                {
+                    "uuid": "c39be761-a9d5-452f-b760-3830f1ea8a13",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c39be761-a9d5-452f-b760-3830f1ea8a13"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c39be761-a9d5-452f-b760-3830f1ea8a13/sportsclubs"
+                        }
+                    },
+                    "name": "Marzahn - Hellersdorf",
+                    "shortname": "B M-H",
+                    "parentUuid": "0a025cb6-e962-0285-e75f-1f65ac5ec745",
+                    "level": 4
+                },
+                {
+                    "uuid": "33c29884-e8d3-4025-8500-206ff1fff6c1",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/33c29884-e8d3-4025-8500-206ff1fff6c1"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/33c29884-e8d3-4025-8500-206ff1fff6c1/sportsclubs"
+                        }
+                    },
+                    "name": "Berliner Umland",
+                    "shortname": "B UM",
+                    "parentUuid": "0a025cb6-e962-0285-e75f-1f65ac5ec745",
+                    "level": 4
+                },
+                {
+                    "uuid": "8404a426-31c6-43a3-b5d2-4740456c7a0d",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/8404a426-31c6-43a3-b5d2-4740456c7a0d"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/8404a426-31c6-43a3-b5d2-4740456c7a0d/sportsclubs"
+                        }
+                    },
+                    "name": "Lichtenberg",
+                    "shortname": "B LIC",
+                    "parentUuid": "0a025cb6-e962-0285-e75f-1f65ac5ec745",
+                    "level": 4
+                },
+                {
+                    "uuid": "7496e326-b0ee-41b3-9213-fc4b966c08e7",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/7496e326-b0ee-41b3-9213-fc4b966c08e7"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/7496e326-b0ee-41b3-9213-fc4b966c08e7/sportsclubs"
+                        }
+                    },
+                    "name": "Mitte",
+                    "shortname": "B MI",
+                    "parentUuid": "0a025cb6-e962-0285-e75f-1f65ac5ec745",
+                    "level": 4
+                },
+                {
+                    "uuid": "0697a944-a51b-4bd5-b1a5-0da5abfd264a",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0697a944-a51b-4bd5-b1a5-0da5abfd264a"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0697a944-a51b-4bd5-b1a5-0da5abfd264a/sportsclubs"
+                        }
+                    },
+                    "name": "Pankow",
+                    "shortname": "B PAN",
+                    "parentUuid": "0a025cb6-e962-0285-e75f-1f65ac5ec745",
+                    "level": 4
+                },
+                {
+                    "uuid": "472650b3-e873-4982-a189-88c1da4acee6",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/472650b3-e873-4982-a189-88c1da4acee6"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0a025cb6-e962-0285-e75f-1f65ac5ec745"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/472650b3-e873-4982-a189-88c1da4acee6/sportsclubs"
+                        }
+                    },
+                    "name": "tbc VVB 40",
+                    "shortname": "tbc VVB 40",
+                    "parentUuid": "0a025cb6-e962-0285-e75f-1f65ac5ec745",
+                    "level": 4
+                },
+                {
+                    "uuid": "9212cb2f-8490-4376-b89d-ef48fd663d95",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/9212cb2f-8490-4376-b89d-ef48fd663d95"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bc2d0434-beef-47bd-2f5a-af010f79537f"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/9212cb2f-8490-4376-b89d-ef48fd663d95/sportsclubs"
+                        }
+                    },
+                    "name": "tbc TVV 40",
+                    "shortname": "tbc TVV 40",
+                    "parentUuid": "bc2d0434-beef-47bd-2f5a-af010f79537f",
+                    "level": 4
+                },
+                {
+                    "uuid": "532c4076-91f0-48f9-b4c9-c4fcfdc48642",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/532c4076-91f0-48f9-b4c9-c4fcfdc48642"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c861ad8d-008e-bd74-e8f1-3ed50371a4c2"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/532c4076-91f0-48f9-b4c9-c4fcfdc48642/sportsclubs"
+                        }
+                    },
+                    "name": "Rheinland",
+                    "shortname": "RHL",
+                    "parentUuid": "c861ad8d-008e-bd74-e8f1-3ed50371a4c2",
+                    "level": 4
+                },
+                {
+                    "uuid": "0e461452-1c46-4342-a5bb-4967d01b0caf",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0e461452-1c46-4342-a5bb-4967d01b0caf"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c861ad8d-008e-bd74-e8f1-3ed50371a4c2"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0e461452-1c46-4342-a5bb-4967d01b0caf/sportsclubs"
+                        }
+                    },
+                    "name": "Westfalen-Nord",
+                    "shortname": "WFN",
+                    "parentUuid": "c861ad8d-008e-bd74-e8f1-3ed50371a4c2",
+                    "level": 4
+                },
+                {
+                    "uuid": "e2f280fa-cd15-4095-a34c-1cfde596fb51",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e2f280fa-cd15-4095-a34c-1cfde596fb51"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c861ad8d-008e-bd74-e8f1-3ed50371a4c2"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e2f280fa-cd15-4095-a34c-1cfde596fb51/sportsclubs"
+                        }
+                    },
+                    "name": "Westfalen-Süd",
+                    "shortname": "WFS",
+                    "parentUuid": "c861ad8d-008e-bd74-e8f1-3ed50371a4c2",
+                    "level": 4
+                },
+                {
+                    "uuid": "67cc442a-2d1c-4809-b8e8-9e8243e38fc9",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/67cc442a-2d1c-4809-b8e8-9e8243e38fc9"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/77ed47ce-f21d-6e58-b83e-7856c23f29cf"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/67cc442a-2d1c-4809-b8e8-9e8243e38fc9/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/67cc442a-2d1c-4809-b8e8-9e8243e38fc9/sportsclubs"
+                        }
+                    },
+                    "name": "Volleyball-Verband Pfalz",
+                    "shortname": "VVP",
+                    "parentUuid": "77ed47ce-f21d-6e58-b83e-7856c23f29cf",
+                    "level": 4
+                },
+                {
+                    "uuid": "62d94923-db46-4d03-a790-1b5dbc6d8fe3",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/62d94923-db46-4d03-a790-1b5dbc6d8fe3"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c861ad8d-008e-bd74-e8f1-3ed50371a4c2"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/62d94923-db46-4d03-a790-1b5dbc6d8fe3/sportsclubs"
+                        }
+                    },
+                    "name": "Westdeutsche Volleyball-Jugend",
+                    "shortname": "WVJ",
+                    "parentUuid": "c861ad8d-008e-bd74-e8f1-3ed50371a4c2",
+                    "level": 4
+                },
+                {
+                    "uuid": "7ece54bf-3a16-4771-b4d2-c60e2e7bc426",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/7ece54bf-3a16-4771-b4d2-c60e2e7bc426"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/77df82c5-9c29-ee01-6c62-745b92fad253"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/7ece54bf-3a16-4771-b4d2-c60e2e7bc426/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/7ece54bf-3a16-4771-b4d2-c60e2e7bc426/sportsclubs"
+                        }
+                    },
+                    "name": "Bezirk Chemnitz",
+                    "shortname": "Bezirk C",
+                    "parentUuid": "77df82c5-9c29-ee01-6c62-745b92fad253",
+                    "level": 4
+                },
+                {
+                    "uuid": "d8e597e6-539f-4edc-a3be-aa30d5bc823d",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/d8e597e6-539f-4edc-a3be-aa30d5bc823d"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/77df82c5-9c29-ee01-6c62-745b92fad253"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/d8e597e6-539f-4edc-a3be-aa30d5bc823d/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/d8e597e6-539f-4edc-a3be-aa30d5bc823d/sportsclubs"
+                        }
+                    },
+                    "name": "Bezirk Dresden",
+                    "shortname": "Bezirk DD",
+                    "parentUuid": "77df82c5-9c29-ee01-6c62-745b92fad253",
+                    "level": 4
+                },
+                {
+                    "uuid": "64cf3ed6-f66d-4de6-8e4d-df8b079c613c",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/64cf3ed6-f66d-4de6-8e4d-df8b079c613c"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/77df82c5-9c29-ee01-6c62-745b92fad253"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/64cf3ed6-f66d-4de6-8e4d-df8b079c613c/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/64cf3ed6-f66d-4de6-8e4d-df8b079c613c/sportsclubs"
+                        }
+                    },
+                    "name": "Bezirk Leipzig",
+                    "shortname": "Bezirk L",
+                    "parentUuid": "77df82c5-9c29-ee01-6c62-745b92fad253",
+                    "level": 4
+                },
+                {
+                    "uuid": "df182d2d-808a-443f-a16d-eba79bd9356c",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/df182d2d-808a-443f-a16d-eba79bd9356c"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/77df82c5-9c29-ee01-6c62-745b92fad253"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/df182d2d-808a-443f-a16d-eba79bd9356c/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/df182d2d-808a-443f-a16d-eba79bd9356c/sportsclubs"
+                        }
+                    },
+                    "name": "Bezirk Ostsachsen",
+                    "shortname": "Bezirk OS",
+                    "parentUuid": "77df82c5-9c29-ee01-6c62-745b92fad253",
+                    "level": 4
+                },
+                {
+                    "uuid": "a8a89f88-420c-4480-b041-74d291a9d408",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a8a89f88-420c-4480-b041-74d291a9d408"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/569d2ccc-8c75-7e4f-0491-e1fc032a5445"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a8a89f88-420c-4480-b041-74d291a9d408/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a8a89f88-420c-4480-b041-74d291a9d408/sportsclubs"
+                        }
+                    },
+                    "name": "Regionsverbund Braunschweig",
+                    "shortname": "RegV BS",
+                    "parentUuid": "569d2ccc-8c75-7e4f-0491-e1fc032a5445",
+                    "level": 4
+                },
+                {
+                    "uuid": "74dcb758-aa25-4d61-a56d-6797e7d48904",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/74dcb758-aa25-4d61-a56d-6797e7d48904"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/77ed47ce-f21d-6e58-b83e-7856c23f29cf"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/74dcb758-aa25-4d61-a56d-6797e7d48904/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/74dcb758-aa25-4d61-a56d-6797e7d48904/sportsclubs"
+                        }
+                    },
+                    "name": "Volleyball-Verband Rheinhessen e.V.",
+                    "shortname": "VVRh",
+                    "parentUuid": "77ed47ce-f21d-6e58-b83e-7856c23f29cf",
+                    "level": 4
+                },
+                {
+                    "uuid": "0ab19f92-5940-4c7a-99f0-6f67e2280d18",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0ab19f92-5940-4c7a-99f0-6f67e2280d18"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/77ed47ce-f21d-6e58-b83e-7856c23f29cf"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0ab19f92-5940-4c7a-99f0-6f67e2280d18/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/0ab19f92-5940-4c7a-99f0-6f67e2280d18/sportsclubs"
+                        }
+                    },
+                    "name": "Volleyball-Verband Rheinland",
+                    "shortname": "VVR",
+                    "parentUuid": "77ed47ce-f21d-6e58-b83e-7856c23f29cf",
+                    "level": 4
+                },
+                {
+                    "uuid": "ad062793-3f4b-4fbf-a5ef-f53a9ddd146d",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/ad062793-3f4b-4fbf-a5ef-f53a9ddd146d"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/569d2ccc-8c75-7e4f-0491-e1fc032a5445"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/ad062793-3f4b-4fbf-a5ef-f53a9ddd146d/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/ad062793-3f4b-4fbf-a5ef-f53a9ddd146d/sportsclubs"
+                        }
+                    },
+                    "name": "Regionsverbund Bremen-Lüneburg",
+                    "shortname": "RegV Br-Lü",
+                    "parentUuid": "569d2ccc-8c75-7e4f-0491-e1fc032a5445",
+                    "level": 4
+                },
+                {
+                    "uuid": "de60ca9a-8d46-4098-8f39-2937ed9de9ce",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/de60ca9a-8d46-4098-8f39-2937ed9de9ce"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/569d2ccc-8c75-7e4f-0491-e1fc032a5445"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/de60ca9a-8d46-4098-8f39-2937ed9de9ce/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/de60ca9a-8d46-4098-8f39-2937ed9de9ce/sportsclubs"
+                        }
+                    },
+                    "name": "Regionsverbund Hannover",
+                    "shortname": "RegV H",
+                    "parentUuid": "569d2ccc-8c75-7e4f-0491-e1fc032a5445",
+                    "level": 4
+                },
+                {
+                    "uuid": "e751b9d1-5b87-4c78-9acf-1a661af51c66",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e751b9d1-5b87-4c78-9acf-1a661af51c66"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/569d2ccc-8c75-7e4f-0491-e1fc032a5445"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e751b9d1-5b87-4c78-9acf-1a661af51c66/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e751b9d1-5b87-4c78-9acf-1a661af51c66/sportsclubs"
+                        }
+                    },
+                    "name": "Regionsverbund Weser-Ems",
+                    "shortname": "RegV WE",
+                    "parentUuid": "569d2ccc-8c75-7e4f-0491-e1fc032a5445",
+                    "level": 4
+                },
+                {
+                    "uuid": "bd80ee61-1794-4f4b-4834-917bb58b349c",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bd80ee61-1794-4f4b-4834-917bb58b349c"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/aeaac8cc-5a16-43c5-a6d1-c54b10493880"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bd80ee61-1794-4f4b-4834-917bb58b349c/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/bd80ee61-1794-4f4b-4834-917bb58b349c/sportsclubs"
+                        }
+                    },
+                    "name": "Volleyball-Landesverband Württemberg",
+                    "shortname": "VLW",
+                    "parentUuid": "aeaac8cc-5a16-43c5-a6d1-c54b10493880",
+                    "level": 4
+                },
+                {
+                    "uuid": "e8d5e122-fc13-409c-8a9a-c28776763092",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e8d5e122-fc13-409c-8a9a-c28776763092"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c861ad8d-008e-bd74-e8f1-3ed50371a4c2"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e8d5e122-fc13-409c-8a9a-c28776763092/sportsclubs"
+                        }
+                    },
+                    "name": "Ruhr",
+                    "shortname": "RUH",
+                    "parentUuid": "c861ad8d-008e-bd74-e8f1-3ed50371a4c2",
+                    "level": 4
+                },
+                {
+                    "uuid": "50956e8e-84db-40a6-a5ea-a189027a8340",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/50956e8e-84db-40a6-a5ea-a189027a8340"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/c861ad8d-008e-bd74-e8f1-3ed50371a4c2"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/50956e8e-84db-40a6-a5ea-a189027a8340/sportsclubs"
+                        }
+                    },
+                    "name": "Westfalen-Ost",
+                    "shortname": "WFO",
+                    "parentUuid": "c861ad8d-008e-bd74-e8f1-3ed50371a4c2",
+                    "level": 4
+                },
+                {
+                    "uuid": "4f5804e2-9b76-4aa5-97cf-32364ae9cbd1",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/4f5804e2-9b76-4aa5-97cf-32364ae9cbd1"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/ad062793-3f4b-4fbf-a5ef-f53a9ddd146d"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/4f5804e2-9b76-4aa5-97cf-32364ae9cbd1/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/4f5804e2-9b76-4aa5-97cf-32364ae9cbd1/sportsclubs"
+                        }
+                    },
+                    "name": "Region Rotenburg/Stade",
+                    "shortname": "R-RO",
+                    "parentUuid": "ad062793-3f4b-4fbf-a5ef-f53a9ddd146d",
+                    "level": 5
+                },
+                {
+                    "uuid": "05133e64-739c-4188-a107-1445c94e356f",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/05133e64-739c-4188-a107-1445c94e356f"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e751b9d1-5b87-4c78-9acf-1a661af51c66"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/05133e64-739c-4188-a107-1445c94e356f/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/05133e64-739c-4188-a107-1445c94e356f/sportsclubs"
+                        }
+                    },
+                    "name": "Region Oldenburg",
+                    "shortname": "R-OL",
+                    "parentUuid": "e751b9d1-5b87-4c78-9acf-1a661af51c66",
+                    "level": 5
+                },
+                {
+                    "uuid": "fdba632c-cadb-47a3-a540-08970794f130",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/fdba632c-cadb-47a3-a540-08970794f130"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/de60ca9a-8d46-4098-8f39-2937ed9de9ce"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/fdba632c-cadb-47a3-a540-08970794f130/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/fdba632c-cadb-47a3-a540-08970794f130/sportsclubs"
+                        }
+                    },
+                    "name": "Region DNS",
+                    "shortname": "R-DN",
+                    "parentUuid": "de60ca9a-8d46-4098-8f39-2937ed9de9ce",
+                    "level": 5
+                },
+                {
+                    "uuid": "d4c4f8f7-1ecd-4475-8774-b73998d38040",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/d4c4f8f7-1ecd-4475-8774-b73998d38040"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e8d5e122-fc13-409c-8a9a-c28776763092"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/d4c4f8f7-1ecd-4475-8774-b73998d38040/sportsclubs"
+                        }
+                    },
+                    "name": "Neuss-Grevenbroich",
+                    "shortname": "VK NE/GV",
+                    "parentUuid": "e8d5e122-fc13-409c-8a9a-c28776763092",
+                    "level": 5
+                },
+                {
+                    "uuid": "69c31d33-6997-4c69-b859-8579800a8025",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/69c31d33-6997-4c69-b859-8579800a8025"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a8a89f88-420c-4480-b041-74d291a9d408"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/69c31d33-6997-4c69-b859-8579800a8025/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/69c31d33-6997-4c69-b859-8579800a8025/sportsclubs"
+                        }
+                    },
+                    "name": "Region Südniedersachsen",
+                    "shortname": "R-SN",
+                    "parentUuid": "a8a89f88-420c-4480-b041-74d291a9d408",
+                    "level": 5
+                },
+                {
+                    "uuid": "03f1cee9-e28b-4032-a66d-84d7ad66610e",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/03f1cee9-e28b-4032-a66d-84d7ad66610e"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e8d5e122-fc13-409c-8a9a-c28776763092"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/03f1cee9-e28b-4032-a66d-84d7ad66610e/sportsclubs"
+                        }
+                    },
+                    "name": "Wupper-Mettmann",
+                    "shortname": "VK WU/ME",
+                    "parentUuid": "e8d5e122-fc13-409c-8a9a-c28776763092",
+                    "level": 5
+                },
+                {
+                    "uuid": "68d45c75-39d9-4aa7-b961-b24498f8bc20",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/68d45c75-39d9-4aa7-b961-b24498f8bc20"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e8d5e122-fc13-409c-8a9a-c28776763092"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/68d45c75-39d9-4aa7-b961-b24498f8bc20/sportsclubs"
+                        }
+                    },
+                    "name": "Wesel",
+                    "shortname": "VK WES",
+                    "parentUuid": "e8d5e122-fc13-409c-8a9a-c28776763092",
+                    "level": 5
+                },
+                {
+                    "uuid": "9f787e77-4cd4-4b21-af64-9496bbd72b5c",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/9f787e77-4cd4-4b21-af64-9496bbd72b5c"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e8d5e122-fc13-409c-8a9a-c28776763092"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/9f787e77-4cd4-4b21-af64-9496bbd72b5c/sportsclubs"
+                        }
+                    },
+                    "name": "Duisburg",
+                    "shortname": "VK DU",
+                    "parentUuid": "e8d5e122-fc13-409c-8a9a-c28776763092",
+                    "level": 5
+                },
+                {
+                    "uuid": "d58ecbf0-78c4-4a6a-89c4-8df8c30e2563",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/d58ecbf0-78c4-4a6a-89c4-8df8c30e2563"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e8d5e122-fc13-409c-8a9a-c28776763092"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/d58ecbf0-78c4-4a6a-89c4-8df8c30e2563/sportsclubs"
+                        }
+                    },
+                    "name": "Mühlheim-Oberhausen",
+                    "shortname": "VK MH/OB",
+                    "parentUuid": "e8d5e122-fc13-409c-8a9a-c28776763092",
+                    "level": 5
+                },
+                {
+                    "uuid": "9b350a2f-8180-4c92-84e1-ce0781e9de90",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/9b350a2f-8180-4c92-84e1-ce0781e9de90"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a8a89f88-420c-4480-b041-74d291a9d408"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/9b350a2f-8180-4c92-84e1-ce0781e9de90/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/9b350a2f-8180-4c92-84e1-ce0781e9de90/sportsclubs"
+                        }
+                    },
+                    "name": "Region Braunschweig",
+                    "shortname": "R-BS",
+                    "parentUuid": "a8a89f88-420c-4480-b041-74d291a9d408",
+                    "level": 5
+                },
+                {
+                    "uuid": "a6198ffc-0b20-4083-b9bb-450edabe78ee",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a6198ffc-0b20-4083-b9bb-450edabe78ee"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e8d5e122-fc13-409c-8a9a-c28776763092"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/a6198ffc-0b20-4083-b9bb-450edabe78ee/sportsclubs"
+                        }
+                    },
+                    "name": "Essen",
+                    "shortname": "VK E",
+                    "parentUuid": "e8d5e122-fc13-409c-8a9a-c28776763092",
+                    "level": 5
+                },
+                {
+                    "uuid": "fc12823a-d124-4131-b809-9698aa4d6cd2",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/fc12823a-d124-4131-b809-9698aa4d6cd2"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/ad062793-3f4b-4fbf-a5ef-f53a9ddd146d"
+                        },
+                        "committees": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/fc12823a-d124-4131-b809-9698aa4d6cd2/committees"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/fc12823a-d124-4131-b809-9698aa4d6cd2/sportsclubs"
+                        }
+                    },
+                    "name": "Region Hohe Heide",
+                    "shortname": "R-HH",
+                    "parentUuid": "ad062793-3f4b-4fbf-a5ef-f53a9ddd146d",
+                    "level": 5
+                },
+                {
+                    "uuid": "149575de-9a56-4dec-9344-75fd3dd6369a",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/149575de-9a56-4dec-9344-75fd3dd6369a"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/e8d5e122-fc13-409c-8a9a-c28776763092"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/149575de-9a56-4dec-9344-75fd3dd6369a/sportsclubs"
+                        }
+                    },
+                    "name": "Krefeld-Viersen",
+                    "shortname": "VK KRE/VIE",
+                    "parentUuid": "e8d5e122-fc13-409c-8a9a-c28776763092",
+                    "level": 5
+                },
+                {
+                    "uuid": "f33c9880-b9c3-4fe3-bfa8-d809e07f5a08",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/f33c9880-b9c3-4fe3-bfa8-d809e07f5a08"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/532c4076-91f0-48f9-b4c9-c4fcfdc48642"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/f33c9880-b9c3-4fe3-bfa8-d809e07f5a08/sportsclubs"
+                        }
+                    },
+                    "name": "Leverkusen-Rhein-Berg",
+                    "shortname": "VK LEV",
+                    "parentUuid": "532c4076-91f0-48f9-b4c9-c4fcfdc48642",
+                    "level": 5
+                },
+                {
+                    "uuid": "4a883b54-28a3-4ab0-8e18-2b55d0d60aca",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/4a883b54-28a3-4ab0-8e18-2b55d0d60aca"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/02aca691-6761-4ea4-93fe-ffae631ff63e"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/4a883b54-28a3-4ab0-8e18-2b55d0d60aca/sportsclubs"
+                        }
+                    },
+                    "name": "tbc HVV 50",
+                    "shortname": "tbc HVV 50",
+                    "parentUuid": "02aca691-6761-4ea4-93fe-ffae631ff63e",
+                    "level": 5
+                },
+                {
+                    "uuid": "f29fe03e-ba94-466c-8b94-913ca11025a0",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/f29fe03e-ba94-466c-8b94-913ca11025a0"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/532c4076-91f0-48f9-b4c9-c4fcfdc48642"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/f29fe03e-ba94-466c-8b94-913ca11025a0/sportsclubs"
+                        }
+                    },
+                    "name": "Aachen-Düren-Heinsberg",
+                    "shortname": "VK ADH",
+                    "parentUuid": "532c4076-91f0-48f9-b4c9-c4fcfdc48642",
+                    "level": 5
+                },
+                {
+                    "uuid": "fcd6999e-32b1-49b1-a7bc-2ff59618153a",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/fcd6999e-32b1-49b1-a7bc-2ff59618153a"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/532c4076-91f0-48f9-b4c9-c4fcfdc48642"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/fcd6999e-32b1-49b1-a7bc-2ff59618153a/sportsclubs"
+                        }
+                    },
+                    "name": "Rhein-Sieg",
+                    "shortname": "VK RHS",
+                    "parentUuid": "532c4076-91f0-48f9-b4c9-c4fcfdc48642",
+                    "level": 5
+                },
+                {
+                    "uuid": "b92fa49e-2579-4a7a-b267-544c715276d2",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/b92fa49e-2579-4a7a-b267-544c715276d2"
+                        },
+                        "parent": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/532c4076-91f0-48f9-b4c9-c4fcfdc48642"
+                        },
+                        "sportsclubs": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/b92fa49e-2579-4a7a-b267-544c715276d2/sportsclubs"
+                        }
+                    },
+                    "name": "Rhein-Erft",
+                    "shortname": "VK RHE",
+                    "parentUuid": "532c4076-91f0-48f9-b4c9-c4fcfdc48642",
+                    "level": 5
+                }
+            ],
+            "empty": false,
+            "totalPages": 3,
+            "first": true,
+            "last": false
+        }
+      '''
+    }
+  }
+}

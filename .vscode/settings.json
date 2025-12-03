@@ -1,4 +1,12 @@
 {
 	"indentRainbow.indicatorStyle": "light",
-	"indentRainbow.lightIndicatorStyleLineWidth": 8
+	"indentRainbow.lightIndicatorStyleLineWidth": 8,
+	"window.title": "VC Müllheim - ${activeEditorShort}",
+	"editor.codeActionsOnSave": {
+		"source.organizeImports.biome": "explicit",
+		"source.fixAll.biome": "explicit",
+	},
+	"files.insertFinalNewline": true,
+	"files.trimFinalNewlines": false,
+	"typescript.tsdk": "node_modules/typescript/lib"
 }

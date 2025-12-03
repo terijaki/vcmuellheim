@@ -1,0 +1,97 @@
+name: Detect SAMS Swagger Drift
+
+on:
+  schedule:
+    # Run on the first Monday of every month at 6:00 AM UTC
+    - cron: "0 6 1-7 * 1"
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  check-drift:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run SAMS update
+        run: bun run sams:update
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No changes detected in SAMS swagger/codegen"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected!"
+            echo "## Changed files:" >> $GITHUB_STEP_SUMMARY
+            git diff --name-only >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "## Diff summary:" >> $GITHUB_STEP_SUMMARY
+            git diff --stat >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Create drift notification issue
+        if: steps.check_changes.outputs.has_changes == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const diff = require('child_process')
+              .execSync('git diff --stat')
+              .toString();
+
+            const changedFiles = require('child_process')
+              .execSync('git diff --name-only')
+              .toString()
+              .split('\n')
+              .filter(f => f.length > 0);
+
+            const body = `# 🚨 SAMS Swagger Schema Drift Detected
+
+            The monthly check detected changes in the SAMS API swagger schema or generated code.
+
+            ## Changed Files (${changedFiles.length})
+            ${changedFiles.map(f => \`- \\\`${f}\\\`\`).join('\\n')}
+
+            ## Diff Summary
+            \\\`\\\`\\\`
+            ${diff}
+            \\\`\\\`\\\`
+
+            ## Next Steps
+            1. Review the changes to understand what's new in the SAMS API
+            2. Test the updated types to ensure compatibility
+            3. Update any code that depends on the changed schemas
+            4. Run \\\`bun run sams:update\\\` locally and commit the changes
+
+            ## Workflow Run
+            [View workflow run](https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }})
+            `;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: \`[SAMS Drift] Schema changes detected on ${new Date().toISOString().split('T')[0]}\`,
+              body: body,
+              labels: ['sams', 'drift-detection', 'needs-review']
+            });
+
+      - name: Upload diff artifact
+        if: steps.check_changes.outputs.has_changes == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: sams-swagger-diff
+          path: |
+            codegen/sams/swagger.json
+            codegen/sams/generated/
+          retention-days: 90

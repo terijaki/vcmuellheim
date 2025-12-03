@@ -1,0 +1,2166 @@
+meta {
+  name: get Sportsclubs For Association
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/associations/:uuid/sportsclubs?page=2&size=100
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: 2
+  size: 100
+}
+
+params:path {
+  uuid: 2b7571b5-f985-c552-ea1c-f819ed3811c1
+}
+
+headers {
+  Accept: application/hal+json
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Returns the list of sportsclubs belonging to the association identified by the specified UUID as a paged list. The default page size is 20. The page size must not be greater than 100
+}
+
+example {
+  name: Successful operation
+  
+  request: {
+    url: {{baseUrl}}/associations/:uuid/sportsclubs?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "totalElements": -11674544,
+          "numberOfElements": -10873058,
+          "_links": {
+            "empty": false
+          },
+          "_embedded": {
+            "empty": true
+          },
+          "content": [
+            {
+              "uuid": "consectetur aliqua in non et",
+              "_links": {
+                "empty": false
+              },
+              "_embedded": {
+                "empty": true
+              },
+              "name": "eu esse officia",
+              "shortname": "ipsu",
+              "sportsclubNumber": 9831084,
+              "associationUuid": "sunt elit sint voluptate",
+              "logoImageLink": "est"
+            },
+            {
+              "uuid": "qui",
+              "_links": {
+                "empty": false
+              },
+              "_embedded": {
+                "empty": true
+              },
+              "name": "ea est tempor",
+              "shortname": "in esse consequat ",
+              "sportsclubNumber": 20591317,
+              "associationUuid": "consec",
+              "logoImageLink": "aliqua fugiat cupidatat reprehenderit"
+            }
+          ],
+          "empty": false,
+          "totalPages": 37425576,
+          "first": true,
+          "last": true
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.
+  
+  request: {
+    url: {{baseUrl}}/associations/:uuid/sportsclubs?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json
+    }
+  
+    status: {
+      code: Bad Request
+      text: 400
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "violations": [
+            {
+              "constraint": "labore nisi magna ea",
+              "property": "voluptate Ut officia qui",
+              "entity": "ad nisi adipisicing consecte",
+              "invalidValue": "aliqua labore laboris ipsum",
+              "message": "incididunt aute commodo cillum"
+            },
+            {
+              "constraint": "tempor culpa",
+              "property": "magna sint sit",
+              "entity": "aute in ad",
+              "invalidValue": "do sit dolor ea id",
+              "message": "adipis"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: API authorization failed.
+  
+  request: {
+    url: {{baseUrl}}/associations/:uuid/sportsclubs?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json
+    }
+  
+    status: {
+      code: Forbidden
+      text: 403
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: The request could not be processed due to invalid request data. Check the response for more details.
+  
+  request: {
+    url: {{baseUrl}}/associations/:uuid/sportsclubs?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json
+    }
+  
+    status: {
+      code: Conflict
+      text: 409
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: An unexpected error occurred. Please contact support and supply the response data.
+  
+  request: {
+    url: {{baseUrl}}/associations/:uuid/sportsclubs?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json
+    }
+  
+    status: {
+      code: Internal Server Error
+      text: 500
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "exception": "deserunt ex Lorem dolore",
+          "message": "dolore minim"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: Südbadischer Volleyball-Verband
+  
+  request: {
+    url: {{baseUrl}}/associations/:uuid/sportsclubs?page=2&size=100
+    method: GET
+    mode: none
+    params:query: {
+      page: 2
+      size: 100
+    }
+  
+    params:path: {
+      uuid: 2b7571b5-f985-c552-ea1c-f819ed3811c1
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json
+    }
+  }
+  
+  response: {
+    headers: {
+      Server: nginx/1.22.1
+      Date: Wed, 04 Jun 2025 08:51:15 GMT
+      Content-Type: application/hal+json
+      Transfer-Encoding: chunked
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      X-Sams-Instance: SamsDvv
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+            "totalElements": 313,
+            "numberOfElements": 100,
+            "_links": {
+                "self": {
+                    "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1/sportsclubs?page=2&size=100"
+                },
+                "prev": {
+                    "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1/sportsclubs?page=1&size=100"
+                },
+                "next": {
+                    "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1/sportsclubs?page=3&size=100"
+                }
+            },
+            "content": [
+                {
+                    "uuid": "0fa67b36-e491-ca9e-2707-2208026052c4",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/0fa67b36-e491-ca9e-2707-2208026052c4"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/89e80598-876e-07c0-b007-7150b3d2a905"
+                        }
+                    },
+                    "name": "TSV Mimmenhausen",
+                    "shortname": "",
+                    "sportsclubNumber": 210310,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/76c413d2-e3ea-4fc3-bf59-2cd5909f7320/2018-07-17_TSV-Logo-Schild+glossy+rgb.png"
+                },
+                {
+                    "uuid": "44e32aaf-f09e-4c43-b335-226971ee94b5",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/44e32aaf-f09e-4c43-b335-226971ee94b5"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/eecdb068-172f-5b96-6691-7914ac428228"
+                        }
+                    },
+                    "name": "Untersee Volleys Radolfzell",
+                    "shortname": "",
+                    "sportsclubNumber": 472450,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/eee8c005-ffca-41ac-a1c5-35c64518821f/USV_LOGO_Schriftzug.PNG"
+                },
+                {
+                    "uuid": "cc829a60-a8a2-42e1-a326-e85ebe920c3b",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/cc829a60-a8a2-42e1-a326-e85ebe920c3b"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "VfR Umkirch",
+                    "shortname": null,
+                    "sportsclubNumber": 186070,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "bd2c71d1-2c27-4954-b940-81d8620a9d1f",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/bd2c71d1-2c27-4954-b940-81d8620a9d1f"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/8bb042d6-aa02-3809-1b5f-a205731e14fd"
+                        }
+                    },
+                    "name": "TG Schwenningen",
+                    "shortname": "",
+                    "sportsclubNumber": null,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/1d9ed86f-8fa3-48a4-8df5-def990439025/Logo_TGS_freigestellt.jpg"
+                },
+                {
+                    "uuid": "a6f32657-7b89-4159-951d-a5ff209cbe4e",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/a6f32657-7b89-4159-951d-a5ff209cbe4e"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "TV Markdorf 1880 e.V.",
+                    "shortname": "",
+                    "sportsclubNumber": 471850,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "478175c6-034e-4cd1-be91-4d4ed3acde0a",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/478175c6-034e-4cd1-be91-4d4ed3acde0a"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "1. Randegger VC",
+                    "shortname": "",
+                    "sportsclubNumber": 480210,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "37be346b-807c-4c51-aa7f-dc35d902e64d",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/37be346b-807c-4c51-aa7f-dc35d902e64d"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "SG Aldingen-Tuningen",
+                    "shortname": "",
+                    "sportsclubNumber": 4921,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "52219be1-c824-4afd-a88f-ba9564c7c42d",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/52219be1-c824-4afd-a88f-ba9564c7c42d"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/cdff1304-2332-488e-fc2f-cc4a9a8aa0ef"
+                        }
+                    },
+                    "name": "SV Litzelstetten",
+                    "shortname": "",
+                    "sportsclubNumber": 183510,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/2a9e6359-7755-4b20-9027-597805836cf6/fupa_svl.png"
+                },
+                {
+                    "uuid": "9240f861-069b-4a52-8c58-74f33bc675d1",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/9240f861-069b-4a52-8c58-74f33bc675d1"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/0687baac-fe9c-b939-d224-ce21050387d3"
+                        }
+                    },
+                    "name": "TV Lauchringen",
+                    "shortname": "",
+                    "sportsclubNumber": 471700,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "6e2f91f1-abb4-45da-819b-dc8662991a2c",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/6e2f91f1-abb4-45da-819b-dc8662991a2c"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/02368dab-f005-093f-abf3-98da5e352fe4"
+                        }
+                    },
+                    "name": "TV Niederschopfheim",
+                    "shortname": "",
+                    "sportsclubNumber": 472100,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "c89b1860-85c1-4280-a097-2250ede24f11",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/c89b1860-85c1-4280-a097-2250ede24f11"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/f4264b2d-fdeb-590a-195c-b8bcaa3af66f"
+                        }
+                    },
+                    "name": "VC Geisingen",
+                    "shortname": "",
+                    "sportsclubNumber": 480410,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "234d9bb8-f0e8-41e6-9bc5-d678e73e9c64",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/234d9bb8-f0e8-41e6-9bc5-d678e73e9c64"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/117f2d6c-1658-baa0-4acd-5cc303f7e029"
+                        }
+                    },
+                    "name": "SG Breisach-Gündlingen",
+                    "shortname": "",
+                    "sportsclubNumber": null,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/b5003b7a-2699-41c1-9f9a-f7dad77268bc/delivermessagepart.jpg"
+                },
+                {
+                    "uuid": "4c73f45e-a0a9-41a7-9165-c00bf0824094",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/4c73f45e-a0a9-41a7-9165-c00bf0824094"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/50feebec-8fa5-4a2c-f451-1468950f2d35"
+                        }
+                    },
+                    "name": "TV Gundelfingen",
+                    "shortname": "",
+                    "sportsclubNumber": 471120,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "a3755894-5cc4-4f8e-995f-1074f0e00faa",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/a3755894-5cc4-4f8e-995f-1074f0e00faa"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "BSG Dornier/ TuS Immenstaad",
+                    "shortname": "",
+                    "sportsclubNumber": 182740,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "d5a7cfb0-9327-45da-b825-3fb14cf3fc8f",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/d5a7cfb0-9327-45da-b825-3fb14cf3fc8f"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/5f5403c2-5cb6-6072-8e40-a8ffeb2c944e"
+                        }
+                    },
+                    "name": "TV Köndringen",
+                    "shortname": "",
+                    "sportsclubNumber": 471630,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "0b8b9bd1-962f-4e56-a858-25913f35dd33",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/0b8b9bd1-962f-4e56-a858-25913f35dd33"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "Sportbund Sonnland e.V. Freiburg",
+                    "shortname": "",
+                    "sportsclubNumber": 470870,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/d6ad15ca-7fd8-4c49-8500-218366cc6481/Sonnland+Wappen.png"
+                },
+                {
+                    "uuid": "9c8b0252-c19b-4e83-a564-202e90d75c01",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/9c8b0252-c19b-4e83-a564-202e90d75c01"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/cd977e96-cb3e-4039-2187-8dc8e64407c9"
+                        }
+                    },
+                    "name": "VC Müllheim",
+                    "shortname": "",
+                    "sportsclubNumber": 480190,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+                },
+                {
+                    "uuid": "836cdc0e-a094-4f17-b53b-b760858bb410",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/836cdc0e-a094-4f17-b53b-b760858bb410"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/146237bb-001a-1055-24c3-0e1f0a78c8e4"
+                        }
+                    },
+                    "name": "VC 94 Haslach",
+                    "shortname": "",
+                    "sportsclubNumber": 480470,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/078ad765-4792-4edd-a13d-05ab46d540eb/logo.jpg"
+                },
+                {
+                    "uuid": "a2ca27f2-4aa1-4c43-9b93-23a96e042f3b",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/a2ca27f2-4aa1-4c43-9b93-23a96e042f3b"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/119f4e5d-50c6-994f-9256-987dc1cf115a"
+                        }
+                    },
+                    "name": "SV Waldkirch",
+                    "shortname": "",
+                    "sportsclubNumber": 186360,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "eb58e662-cb5d-4ede-ac01-7af083f09186",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/eb58e662-cb5d-4ede-ac01-7af083f09186"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/c7550119-45d4-c656-4d5d-74ec9b43d195"
+                        }
+                    },
+                    "name": "TV St.Georgen",
+                    "shortname": "",
+                    "sportsclubNumber": 472650,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/839873a6-6a86-43eb-82f9-fe5005347d53/TV+S.jpg"
+                },
+                {
+                    "uuid": "bbfeb1dd-666f-4a9e-8fac-56eb38b82704",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/bbfeb1dd-666f-4a9e-8fac-56eb38b82704"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/002e6513-f75e-491c-6b34-89f217333adf"
+                        }
+                    },
+                    "name": "SV Ballrechten-Dott.",
+                    "shortname": "",
+                    "sportsclubNumber": 180370,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "8f49badc-6095-44fd-ad6e-8245f0f22c4d",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/8f49badc-6095-44fd-ad6e-8245f0f22c4d"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/4f77bc00-4126-ca2e-9e9e-44b8dd075878"
+                        }
+                    },
+                    "name": "TB Bad Dürrheim",
+                    "shortname": "",
+                    "sportsclubNumber": 470230,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/33241173-1d36-4c74-b74f-9ae6b6c47d46/Logo-Quadrat-Farbe.jpg"
+                },
+                {
+                    "uuid": "1c71d352-b6dc-4d0c-96ca-1dc15aa99ed9",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/1c71d352-b6dc-4d0c-96ca-1dc15aa99ed9"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/c0074240-2c05-1384-5f6e-d7f1d3574b1a"
+                        }
+                    },
+                    "name": "TV Öhningen",
+                    "shortname": "",
+                    "sportsclubNumber": 472380,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "87aff732-945a-41bc-9bd5-6a218f916faa",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/87aff732-945a-41bc-9bd5-6a218f916faa"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/f2548133-0f36-4517-a529-f9907fb816f9"
+                        }
+                    },
+                    "name": "TV Freiburg-Tiengen 1928 e.V.",
+                    "shortname": "",
+                    "sportsclubNumber": 472990,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "25890bc9-2327-4cb6-bec3-5be74b0191f5",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/25890bc9-2327-4cb6-bec3-5be74b0191f5"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "VSG Herbolzheim",
+                    "shortname": "",
+                    "sportsclubNumber": 480090,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "5d4de799-50ca-44cf-bc44-ad1033e35b19",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/5d4de799-50ca-44cf-bc44-ad1033e35b19"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/a1cffeba-030a-7590-42db-642f6e91fe88"
+                        }
+                    },
+                    "name": "TV Staufen",
+                    "shortname": "",
+                    "sportsclubNumber": 472900,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/cadc7eea-d03a-4c28-ab1b-7bf936d722c9/Logo+TV+Staufen+Volleyball%5B6492%5D.jpg"
+                },
+                {
+                    "uuid": "7b0ea0bd-17a0-4be7-816d-b7e0b28f6f20",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/7b0ea0bd-17a0-4be7-816d-b7e0b28f6f20"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/9d185425-9341-7e22-e799-c545dd298412"
+                        }
+                    },
+                    "name": "TV Friesenheim",
+                    "shortname": "",
+                    "sportsclubNumber": 470980,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "663391e4-4699-426d-9e47-24368a9c70d4",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/663391e4-4699-426d-9e47-24368a9c70d4"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/117f2d6c-1658-baa0-4acd-5cc303f7e029"
+                        }
+                    },
+                    "name": "SV Gündlingen",
+                    "shortname": "",
+                    "sportsclubNumber": 182060,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "d6e0d57c-acd8-4637-b06c-312d07b43389",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/d6e0d57c-acd8-4637-b06c-312d07b43389"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/d5ffeb67-d291-5418-12d6-e0621038042c"
+                        }
+                    },
+                    "name": "RSV Oberhausen",
+                    "shortname": "",
+                    "sportsclubNumber": 300970,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "6080b115-d800-4490-a7ef-0819c04e8c60",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/6080b115-d800-4490-a7ef-0819c04e8c60"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/672fc4d9-54f9-9251-ffcb-754dcc129b83"
+                        }
+                    },
+                    "name": "SV Dingelsdorf",
+                    "shortname": "",
+                    "sportsclubNumber": 181000,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "dccf213c-90e0-4eef-88ca-98482cbb67ff",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/dccf213c-90e0-4eef-88ca-98482cbb67ff"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "RSV Eintracht Büsslingen",
+                    "shortname": "",
+                    "sportsclubNumber": 300200,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "db975e32-0bfc-4907-8fb7-6cca2e5e79e5",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/db975e32-0bfc-4907-8fb7-6cca2e5e79e5"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/9c382d2f-6128-f836-6dc7-e60fc19a4130"
+                        }
+                    },
+                    "name": "TV Merdingen",
+                    "shortname": "",
+                    "sportsclubNumber": 471910,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/4e27831a-19aa-4252-85b1-2d675b0686b1/Screenshot_20211006-122521_Chrome.jpeg"
+                },
+                {
+                    "uuid": "0e24db18-e97c-4fe6-9465-02403b42a211",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/0e24db18-e97c-4fe6-9465-02403b42a211"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/8924c844-87c2-8101-97ad-456a1340bb29"
+                        }
+                    },
+                    "name": "TV Donaueschingen",
+                    "shortname": "",
+                    "sportsclubNumber": 470600,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "f5406317-b4a0-4857-9551-baa95270c3b8",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/f5406317-b4a0-4857-9551-baa95270c3b8"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "SG Volley-Vous-Freiburg e.V.",
+                    "shortname": "",
+                    "sportsclubNumber": 480490,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "e3d9a099-4c75-4386-8bd7-7b839506cf3d",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/e3d9a099-4c75-4386-8bd7-7b839506cf3d"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/17d09409-35b7-25e3-2e74-d12e77145532"
+                        }
+                    },
+                    "name": "VBG Efringen-Kirchen",
+                    "shortname": "",
+                    "sportsclubNumber": 480030,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "8e9be21c-6cd1-4acb-8902-5513b1e0a0b6",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/8e9be21c-6cd1-4acb-8902-5513b1e0a0b6"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "TuS Lörrach-Stetten",
+                    "shortname": "",
+                    "sportsclubNumber": 471810,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "264ce2ce-d40f-4671-902b-00f2f67c1049",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/264ce2ce-d40f-4671-902b-00f2f67c1049"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/9398846b-4e54-190b-afd0-9783b7762f85"
+                        }
+                    },
+                    "name": "TV Opfingen",
+                    "shortname": "",
+                    "sportsclubNumber": 473800,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/b4d002dd-8ec5-4174-a16a-02f6daff0b6c/TVO-Logo.jpg"
+                },
+                {
+                    "uuid": "2d6d27ad-4054-4c4d-a362-5a98f74e97de",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/2d6d27ad-4054-4c4d-a362-5a98f74e97de"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/cebcb2e8-b00f-3f9b-c13d-75fb9dc535c6"
+                        }
+                    },
+                    "name": "TV Wyhl",
+                    "shortname": "",
+                    "sportsclubNumber": 473370,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/d1bfd4c8-0223-43ab-aa29-748e4d4265e0/Logo_TV-Wyhl_schwarz.png"
+                },
+                {
+                    "uuid": "0bc15357-a810-4251-ab9a-4fa3af9e4006",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/0bc15357-a810-4251-ab9a-4fa3af9e4006"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/3a1054c3-c18a-bb45-d021-79e411f2a9d3"
+                        }
+                    },
+                    "name": "TV Zell a.H.",
+                    "shortname": "",
+                    "sportsclubNumber": 473390,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/9b0b2f05-1b51-421a-802b-672cc92db863/28DA4B30-E463-4A94-9880-620E2A256D5F.jpeg"
+                },
+                {
+                    "uuid": "57f99911-e67a-45db-8d1a-8ab4fd2eabc0",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/57f99911-e67a-45db-8d1a-8ab4fd2eabc0"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/bfa29bd6-1ff4-0def-624e-c5b233c1d38e"
+                        }
+                    },
+                    "name": "TUS Bonndorf",
+                    "shortname": "",
+                    "sportsclubNumber": 180700,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/c5479311-b945-4d0c-9874-b40e9877d1f6/TuS+Bonndorf+Logo.png"
+                },
+                {
+                    "uuid": "03fb90d3-2ee2-41e9-bfdb-cb40779cbf27",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/03fb90d3-2ee2-41e9-bfdb-cb40779cbf27"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/6ffe7b0b-259c-6223-48e0-1fd520264c86"
+                        }
+                    },
+                    "name": "TV Hartheim",
+                    "shortname": "",
+                    "sportsclubNumber": 471190,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/14aa3f4d-368b-49c3-8659-a29c048fa352/tv-logo.jpg"
+                },
+                {
+                    "uuid": "780a3997-30e5-4c05-9c98-ddf119ba0b6f",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/780a3997-30e5-4c05-9c98-ddf119ba0b6f"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/32f17b75-4ad7-da78-9cdd-4a2dfa944c28"
+                        }
+                    },
+                    "name": "TV Denzlingen",
+                    "shortname": "",
+                    "sportsclubNumber": 470540,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "c6c21327-2dc0-4025-a5b4-d65d449036e2",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/c6c21327-2dc0-4025-a5b4-d65d449036e2"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/bb9a372c-8623-7a6e-de24-cdec24f6c2a4"
+                        }
+                    },
+                    "name": "TB Bad Krozingen",
+                    "shortname": "",
+                    "sportsclubNumber": 470220,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/f109e5a6-198c-432f-af42-aee23d1655ff/TBK_Logo.jpg"
+                },
+                {
+                    "uuid": "2350a38d-f302-4038-8cf7-174a513896fc",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/2350a38d-f302-4038-8cf7-174a513896fc"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "TV",
+                    "shortname": "",
+                    "sportsclubNumber": null,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "1e252e99-ecef-4841-ad3b-439c0ab2f06f",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/1e252e99-ecef-4841-ad3b-439c0ab2f06f"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "FV Doppelpunkt e.V. Denzlingen",
+                    "shortname": "",
+                    "sportsclubNumber": 480350,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "fc8da506-02b5-413a-b8f8-447041ba65e5",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/fc8da506-02b5-413a-b8f8-447041ba65e5"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "Verein für Freizeitsport Eschbach",
+                    "shortname": "",
+                    "sportsclubNumber": 371650,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "47235a6c-e5a5-4d9d-959e-ca433e575b66",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/47235a6c-e5a5-4d9d-959e-ca433e575b66"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/5a538abe-b8c7-5771-7270-2a3a15c648ca"
+                        }
+                    },
+                    "name": "TUS Badenweiler",
+                    "shortname": "",
+                    "sportsclubNumber": 470210,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "7b457386-fc87-4941-850f-cbf7280f8e35",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/7b457386-fc87-4941-850f-cbf7280f8e35"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/0c8621f6-0b76-ad62-d882-da29885e23f7"
+                        }
+                    },
+                    "name": "TV Furtwangen",
+                    "shortname": "",
+                    "sportsclubNumber": 470990,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "6083f15a-fe96-4612-9612-affe4edbfed6",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/6083f15a-fe96-4612-9612-affe4edbfed6"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/c056a26e-1b58-6eac-b524-197a70262ebd"
+                        }
+                    },
+                    "name": "TV Ortenberg",
+                    "shortname": "",
+                    "sportsclubNumber": 472340,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/1b7a6f56-7ca7-4a97-a3b1-64e8fdb19ac6/logo-TVO.png"
+                },
+                {
+                    "uuid": "79288aa1-6700-41b7-80a4-a63bbf32bb3f",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/79288aa1-6700-41b7-80a4-a63bbf32bb3f"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "VG Lahr-Reichenbach",
+                    "shortname": "",
+                    "sportsclubNumber": 480380,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "c62d77ed-83e9-4c82-be54-c069b454bd31",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/c62d77ed-83e9-4c82-be54-c069b454bd31"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/8e86586b-9984-75af-7a17-1b516f3c191b"
+                        }
+                    },
+                    "name": "TV Neustadt",
+                    "shortname": "",
+                    "sportsclubNumber": 472080,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/17513ce4-24e7-4825-bbd7-0a7f1d7cdf9d/Hirschlogo-2024-bunt.jpeg+%281%29.jpg"
+                },
+                {
+                    "uuid": "ff5acd6c-ed02-42ba-99c6-2fba79763e56",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/ff5acd6c-ed02-42ba-99c6-2fba79763e56"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/75cfe6eb-3b33-8ef2-3d60-a882cf51975b"
+                        }
+                    },
+                    "name": "TuS Mahlberg",
+                    "shortname": "",
+                    "sportsclubNumber": 183610,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "49943683-0a08-4216-870d-f1f2e9094645",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/49943683-0a08-4216-870d-f1f2e9094645"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/ead9fd99-0f48-7ca9-6178-96c92a4e8c7f"
+                        }
+                    },
+                    "name": "TV Kollnau-Gutach",
+                    "shortname": "",
+                    "sportsclubNumber": 471560,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/b25a52b5-13f0-47b8-a2f2-5474f4f2fe87/Logo_Volleyball_TVKG.jpg"
+                },
+                {
+                    "uuid": "59939933-ee0c-4fa9-a4fe-33a6cb252f2c",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/59939933-ee0c-4fa9-a4fe-33a6cb252f2c"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/aae2dbb7-f0a7-a038-1e6b-baa2f6b1e7fc"
+                        }
+                    },
+                    "name": "SV Waltershofen",
+                    "shortname": "",
+                    "sportsclubNumber": 186460,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/e44b0cf4-3020-46c6-848a-03eb301723ad/100_Jahre_SVW.png"
+                },
+                {
+                    "uuid": "c6d2800b-cf55-4db3-8f62-30cf0983c8ca",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/c6d2800b-cf55-4db3-8f62-30cf0983c8ca"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/b5a52c0e-ea8e-5fbd-28e9-6c9c802541ad"
+                        }
+                    },
+                    "name": "TG Stockach",
+                    "shortname": "",
+                    "sportsclubNumber": 472960,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "cc6cd32a-58e4-4589-b8d5-b2c6e77b0e5b",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/cc6cd32a-58e4-4589-b8d5-b2c6e77b0e5b"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/d96f62fb-16ae-5871-c244-e7a655adb3c5"
+                        }
+                    },
+                    "name": "VT Gottmadingen",
+                    "shortname": "",
+                    "sportsclubNumber": 480570,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/95a35d69-8e00-471f-be5c-fbb9801057e4/Logo.jpg"
+                },
+                {
+                    "uuid": "c848eb8a-be93-402a-aeb4-6a7f5a712b52",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/c848eb8a-be93-402a-aeb4-6a7f5a712b52"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/de59f5b1-f7fb-ccd1-91a2-87274a79137e"
+                        }
+                    },
+                    "name": "TV Kippenheim",
+                    "shortname": "",
+                    "sportsclubNumber": 471550,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/e8cf16b8-9537-431a-9e2d-c9dd62262791/Kobras.jpg"
+                },
+                {
+                    "uuid": "adc04b28-f879-40ef-9087-6529bf9b9698",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/adc04b28-f879-40ef-9087-6529bf9b9698"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/7e99ea90-3b15-e12e-e44d-39429cccb4e5"
+                        }
+                    },
+                    "name": "TSV March",
+                    "shortname": "",
+                    "sportsclubNumber": 473660,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/56d83f1a-4606-4f6f-adb1-d6760b49ded9/TSV+March+Logo+Volleyball.jpg"
+                },
+                {
+                    "uuid": "759769ef-a524-48f8-9378-11207faf000d",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/759769ef-a524-48f8-9378-11207faf000d"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/3bc3c420-6c92-8f6d-a370-953564b874bf"
+                        }
+                    },
+                    "name": "TV Zunsweier 1912 e.V.",
+                    "shortname": "",
+                    "sportsclubNumber": 473430,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "7f993239-a114-436b-90de-89730a5471f7",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/7f993239-a114-436b-90de-89730a5471f7"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "FSV Fiel Fergnügen Freiburg",
+                    "shortname": "",
+                    "sportsclubNumber": 480610,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "1d4ff939-d0a8-43e4-8917-c099b7ff6c29",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/1d4ff939-d0a8-43e4-8917-c099b7ff6c29"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "TG Baden-Baden",
+                    "shortname": "",
+                    "sportsclubNumber": 470200,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "3048aee2-6d78-4dad-9a6d-99d475e8c13c",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/3048aee2-6d78-4dad-9a6d-99d475e8c13c"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "VV Vörstetten",
+                    "shortname": "",
+                    "sportsclubNumber": null,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "cef24eb6-53be-4f2b-a13f-a3e79de9e70a",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/cef24eb6-53be-4f2b-a13f-a3e79de9e70a"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "Südbadenauswahl",
+                    "shortname": "",
+                    "sportsclubNumber": null,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "bd56bac8-53af-44a2-af84-86c536167fa3",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/bd56bac8-53af-44a2-af84-86c536167fa3"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/11c4bc57-1d2b-2735-8c6b-6e30fd781ae4"
+                        }
+                    },
+                    "name": "VC Minseln",
+                    "shortname": "",
+                    "sportsclubNumber": 480600,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/134f7a2a-0e4e-4323-a377-60cfca4d8ccb/IMG-20160421-WA0010.jpg"
+                },
+                {
+                    "uuid": "07255a6c-8ee6-4f7f-ac16-8d97757aa02f",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/07255a6c-8ee6-4f7f-ac16-8d97757aa02f"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/75aa4524-ac78-383e-bdcb-3e3c5793f328"
+                        }
+                    },
+                    "name": "TV Inzlingen",
+                    "shortname": "",
+                    "sportsclubNumber": 471460,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "985938db-14ce-4920-9a4d-afaadf74e146",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/985938db-14ce-4920-9a4d-afaadf74e146"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/a397bcbe-51a8-d0a9-d5f4-550a28e09170"
+                        }
+                    },
+                    "name": "VC KAMMACHI Bühl",
+                    "shortname": "",
+                    "sportsclubNumber": 480620,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "f4e9aa7a-1cef-411a-b4cf-3973cf13bc0e",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/f4e9aa7a-1cef-411a-b4cf-3973cf13bc0e"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/9931ced9-f399-3eaf-3f41-63f1ddc3e1ea"
+                        }
+                    },
+                    "name": "TUS Hüfingen",
+                    "shortname": "",
+                    "sportsclubNumber": 471380,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "a0ee8ffd-2b9e-453d-b3a8-c26d0ff31801",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/a0ee8ffd-2b9e-453d-b3a8-c26d0ff31801"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/9f198506-6343-2a02-fbf3-8a6069ebaee6"
+                        }
+                    },
+                    "name": "TSV Alemannia Freiburg-Zähringen",
+                    "shortname": null,
+                    "sportsclubNumber": 187860,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/7c4bda8d-9bdd-4a5e-817c-47061204dfe5/Vereinslogo.jpg"
+                },
+                {
+                    "uuid": "151fa4cf-91a1-4430-8de5-ffd5e5065c42",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/151fa4cf-91a1-4430-8de5-ffd5e5065c42"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/eaf22b48-02e1-0066-abf8-35606b8f1fe7"
+                        }
+                    },
+                    "name": "TV Bad Säckingen",
+                    "shortname": "",
+                    "sportsclubNumber": 470250,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/69210052-2b66-456a-80bb-e34d59b7c49f/Logo+Bad_S%C3%A4ckingen.jpg"
+                },
+                {
+                    "uuid": "0c05b5fb-91de-4b65-9635-40789e443813",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/0c05b5fb-91de-4b65-9635-40789e443813"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "TV Haagen 1881 e.V.",
+                    "shortname": "",
+                    "sportsclubNumber": 471160,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "1d295baf-0f4d-44f6-a32c-886840a1fd7d",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/1d295baf-0f4d-44f6-a32c-886840a1fd7d"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "TV Fahrnau 1882 e.V.",
+                    "shortname": "",
+                    "sportsclubNumber": 470780,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "9f14831f-3d26-47ea-b7c5-8a429fd13549",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/9f14831f-3d26-47ea-b7c5-8a429fd13549"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/95577e4b-4f50-50e5-e518-ddc61a03d23f"
+                        }
+                    },
+                    "name": "TV Zell-Weierbach",
+                    "shortname": "",
+                    "sportsclubNumber": 473400,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/ead931b3-41b2-477b-896c-98269c406870/Stempel+TVZ.png"
+                },
+                {
+                    "uuid": "f2999344-aaf4-4497-9f85-f0ff5f56d83f",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/f2999344-aaf4-4497-9f85-f0ff5f56d83f"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "TG Welschingen",
+                    "shortname": "",
+                    "sportsclubNumber": 473280,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "2b51bb8d-09c9-455d-ae70-d894e57c9827",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/2b51bb8d-09c9-455d-ae70-d894e57c9827"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/41c3fadb-b7e1-8abd-d0ee-a0e1c2ed3c70"
+                        }
+                    },
+                    "name": "DJK Singen",
+                    "shortname": "",
+                    "sportsclubNumber": 210260,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "edfa51d9-28dc-4d3c-a5bf-cc62b26a09ed",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/edfa51d9-28dc-4d3c-a5bf-cc62b26a09ed"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/c2945f7f-a2b5-497a-b543-c3b95bb506e2"
+                        }
+                    },
+                    "name": "TV Oberkirch",
+                    "shortname": "",
+                    "sportsclubNumber": 472180,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/92c8d261-7872-4a32-9fb4-b4a3558492c1/TVO-LOGO.jpg"
+                },
+                {
+                    "uuid": "da8ddc47-0e86-4862-95fb-1d4ea8e21430",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/da8ddc47-0e86-4862-95fb-1d4ea8e21430"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/45f864a6-a7ce-2997-532c-f0cf2129458a"
+                        }
+                    },
+                    "name": "TUS Oppenau",
+                    "shortname": "",
+                    "sportsclubNumber": 472330,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "40fd8850-3055-4f43-bbb4-0f3c76e2a943",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/40fd8850-3055-4f43-bbb4-0f3c76e2a943"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "TV Rheinweiler",
+                    "shortname": "",
+                    "sportsclubNumber": 100044,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "73d3f010-e65f-4ded-8e28-d11fb16ca4b7",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/73d3f010-e65f-4ded-8e28-d11fb16ca4b7"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "TV Bahlingen",
+                    "shortname": "",
+                    "sportsclubNumber": 474380,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "8086275c-4939-4bda-bd4e-3d16a405932b",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/8086275c-4939-4bda-bd4e-3d16a405932b"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/7983ad07-8867-854b-bcdf-27736854e6e3"
+                        }
+                    },
+                    "name": "TV Hausach",
+                    "shortname": "",
+                    "sportsclubNumber": 471230,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/fffbfee7-d706-4a1a-b50b-0a1b64e4a671/Logo.jpg"
+                },
+                {
+                    "uuid": "4f5ee6af-58fb-468f-a051-4677edec7a73",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/4f5ee6af-58fb-468f-a051-4677edec7a73"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/72afad69-e837-0984-29c5-9fbb268ede1f"
+                        }
+                    },
+                    "name": "VC Bötzingen e.V.",
+                    "shortname": "",
+                    "sportsclubNumber": 480010,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "f4a286fe-130f-44b2-a1c3-7790afe3d05c",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/f4a286fe-130f-44b2-a1c3-7790afe3d05c"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "VSG Sulzburg",
+                    "shortname": "",
+                    "sportsclubNumber": 480220,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "975c719b-d93d-498e-afef-6f2a7cb7f0da",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/975c719b-d93d-498e-afef-6f2a7cb7f0da"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/3250f8f4-b35e-c9db-5e29-ee3495925daf"
+                        }
+                    },
+                    "name": "TV Lahr",
+                    "shortname": "",
+                    "sportsclubNumber": 471660,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/a24880ae-af4e-468e-b557-98a7519009bb/TVLahr_logo_nobackgrond.png"
+                },
+                {
+                    "uuid": "742258dd-4fc7-4c82-8df5-97ead27e14c5",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/742258dd-4fc7-4c82-8df5-97ead27e14c5"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/89d1bda5-c601-7e20-c414-380811bd1824"
+                        }
+                    },
+                    "name": "VSG Fessenbach",
+                    "shortname": "",
+                    "sportsclubNumber": 480390,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "4a32e1d4-f395-48eb-b1a1-ed8e209c4437",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/4a32e1d4-f395-48eb-b1a1-ed8e209c4437"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/56159d05-6d4b-4ea7-3c21-fd785434b5e3"
+                        }
+                    },
+                    "name": "TV Lottstetten",
+                    "shortname": "",
+                    "sportsclubNumber": 471780,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "a8ee8a58-27bc-4c46-89aa-475a16a5f641",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/a8ee8a58-27bc-4c46-89aa-475a16a5f641"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "TV Waldshut",
+                    "shortname": "",
+                    "sportsclubNumber": 473170,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "1c0b270f-e400-4f2e-b3b2-07c3761afcd5",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/1c0b270f-e400-4f2e-b3b2-07c3761afcd5"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/61cb490f-3bad-f665-1cd8-64d299ee5b57"
+                        }
+                    },
+                    "name": "TTSF Hohberg",
+                    "shortname": "",
+                    "sportsclubNumber": 461310,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "00cf2fce-15f4-440b-8c63-5edac49af80e",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/00cf2fce-15f4-440b-8c63-5edac49af80e"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/e179b755-e241-b02a-fd03-432185b5c0f7"
+                        }
+                    },
+                    "name": "TV Appenweier",
+                    "shortname": "",
+                    "sportsclubNumber": 470080,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "35c129e1-c629-4350-933d-e848ef25923a",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/35c129e1-c629-4350-933d-e848ef25923a"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "TUS Ottenheim",
+                    "shortname": "",
+                    "sportsclubNumber": 472350,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "2a1a4352-11b2-46ac-b5a3-1351e48eb96b",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/2a1a4352-11b2-46ac-b5a3-1351e48eb96b"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "SV Schopfheim 1912 e.V.",
+                    "shortname": "",
+                    "sportsclubNumber": 185540,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "b8eef97f-43e1-4cf8-8b9c-4b84444fcc12",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/b8eef97f-43e1-4cf8-8b9c-4b84444fcc12"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "SV Hilzingen",
+                    "shortname": "",
+                    "sportsclubNumber": 471310,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "50c0c30b-a7e2-42d3-b6ef-861ce2712fba",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/50c0c30b-a7e2-42d3-b6ef-861ce2712fba"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "TV Riegel",
+                    "shortname": "",
+                    "sportsclubNumber": 472580,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "20e909ea-10ec-4857-a480-87c8a92a84a0",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/20e909ea-10ec-4857-a480-87c8a92a84a0"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/fa5264a6-e488-103b-8ee5-af9357e15b43"
+                        }
+                    },
+                    "name": "VBV Bohlsbach",
+                    "shortname": "",
+                    "sportsclubNumber": 480500,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "3d6ef907-51f8-4ccf-b32d-5922695d43fd",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/3d6ef907-51f8-4ccf-b32d-5922695d43fd"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/b36030fc-cbd8-bd5c-0263-3cc69032cabb"
+                        }
+                    },
+                    "name": "Sport vor Ort Rieselfeld e.V.",
+                    "shortname": "",
+                    "sportsclubNumber": 474130,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/2a49dd5d-ef5f-46e4-8a5c-f54bc5275221/11046894_951855944832353_6815509447174890273_n.png"
+                },
+                {
+                    "uuid": "21730372-8170-4709-afb5-bbac24f167e1",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/21730372-8170-4709-afb5-bbac24f167e1"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "Förderverein für J.u.L-Volleyball",
+                    "shortname": "",
+                    "sportsclubNumber": 8144281609,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "7cada204-f3ad-48a1-bb9c-9f4a85559382",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/7cada204-f3ad-48a1-bb9c-9f4a85559382"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "SF Eintracht Freiburg",
+                    "shortname": null,
+                    "sportsclubNumber": 188150,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "3eaa8b32-e61b-404d-bf00-c5b581522425",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/3eaa8b32-e61b-404d-bf00-c5b581522425"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        },
+                        "location": {
+                            "href": "https://www.volleyball-baden.de/api/v2/locations/7d5ab783-00ad-0551-c670-e3f3c2a61989"
+                        }
+                    },
+                    "name": "VC Löffingen",
+                    "shortname": "",
+                    "sportsclubNumber": 480170,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "9e72513b-83ba-409c-9b38-1c2f556a7804",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/9e72513b-83ba-409c-9b38-1c2f556a7804"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "SV Markelfingen 1925 e.V.",
+                    "shortname": "",
+                    "sportsclubNumber": 183670,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                },
+                {
+                    "uuid": "1e40cb92-5451-404c-bcc5-1ac84bb1eb8c",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/1e40cb92-5451-404c-bcc5-1ac84bb1eb8c"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "VSG Rebland",
+                    "shortname": "",
+                    "sportsclubNumber": null,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/68e8c91f-561a-4b68-94ca-1469c99201b6/Esel.JPG"
+                },
+                {
+                    "uuid": "52d2a3f0-c7a6-4b70-9e13-50ef6e0eda45",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/52d2a3f0-c7a6-4b70-9e13-50ef6e0eda45"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "TV Tiengen 1886 e.V.",
+                    "shortname": "",
+                    "sportsclubNumber": 473000,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": "https://dvv.sams-server.de/uploads/f1d00eca-34c1-4e37-8273-a9d814c8b10f/TVT.png"
+                },
+                {
+                    "uuid": "9a1649e7-fa5f-4a22-889a-daae31586e25",
+                    "_links": {
+                        "self": {
+                            "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/9a1649e7-fa5f-4a22-889a-daae31586e25"
+                        },
+                        "association": {
+                            "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                        }
+                    },
+                    "name": "SV BTL Rastatt e.V.",
+                    "shortname": "",
+                    "sportsclubNumber": 184870,
+                    "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+                    "logoImageLink": null
+                }
+            ],
+            "empty": false,
+            "totalPages": 4,
+            "first": false,
+            "last": false
+        }
+      '''
+    }
+  }
+}

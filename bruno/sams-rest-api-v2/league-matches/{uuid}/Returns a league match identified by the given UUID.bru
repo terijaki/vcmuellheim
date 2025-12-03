@@ -1,0 +1,298 @@
+meta {
+  name: Returns a league match identified by the given UUID
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/league-matches/:uuid
+  body: none
+  auth: inherit
+}
+
+params:path {
+  uuid: 18a4b22b-c584-4905-863d-0f06c6485435
+}
+
+headers {
+  Accept: application/hal+json; charset=UTF-8
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: Successful operation
+  
+  request: {
+    url: {{baseUrl}}/league-matches/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "uuid": "ullamco dolor",
+          "_links": {
+            "empty": false
+          },
+          "_embedded": {
+            "empty": true
+          },
+          "date": "2011-03-10T18:25:50.171Z",
+          "time": "pariatur nulla fugiat",
+          "matchNumber": 81374791,
+          "decidingMatch": false,
+          "gameReassessed": false,
+          "host": "Duis sunt adipisicing",
+          "referees": {
+            "firstReferee": "Excepteur labore mollit quis ad",
+            "secondReferee": "elit sit id",
+            "challengeReferee": "voluptate fugiat qui"
+          },
+          "spectators": 51651326,
+          "netDuration": 75100957,
+          "verified": false,
+          "location": {
+            "uuid": "adipisicing cillum",
+            "_links": {
+              "empty": false
+            },
+            "_embedded": {
+              "empty": false
+            },
+            "name": "elit incididunt anim Duis",
+            "longitude": 97472253.64308304,
+            "latitude": 60087210.558754,
+            "address": {
+              "street": "aliquip nisi",
+              "postcode": "do officia",
+              "city": "sunt ut",
+              "country": "ad dolore qui ea",
+              "extrafield": "enim deserunt in",
+              "region": "consequat proident esse in voluptate",
+              "postbox": "in laborum sint culpa Lorem"
+            }
+          },
+          "seasonUuid": "ad enim",
+          "associationUuid": "ut dolor amet",
+          "results": {
+            "winner": "anim nulla ipsum consecte",
+            "winnerName": "ea tempor",
+            "setPoints": "non aliquip mollit",
+            "ballPoints": "fugiat sint dolore",
+            "sets": [
+              {
+                "number": -70648283,
+                "ballPoints": "id",
+                "winner": "eiusmod labore ut",
+                "winnerName": "enim anim quis amet",
+                "duration": -38957933
+              },
+              {
+                "number": 81016265,
+                "ballPoints": "tempor aute mollit laborum consequat",
+                "winner": "labore mollit",
+                "winnerName": "amet labore laboris sit",
+                "duration": -91924892
+              }
+            ]
+          },
+          "matchDayUuid": "commodo",
+          "leagueUuid": "aliqua deserunt ex",
+          "delayPossible": false,
+          "indefinitelyRescheduled": false
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.
+  
+  request: {
+    url: {{baseUrl}}/league-matches/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Bad Request
+      text: 400
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "violations": [
+            {
+              "constraint": "labore nisi magna ea",
+              "property": "voluptate Ut officia qui",
+              "entity": "ad nisi adipisicing consecte",
+              "invalidValue": "aliqua labore laboris ipsum",
+              "message": "incididunt aute commodo cillum"
+            },
+            {
+              "constraint": "tempor culpa",
+              "property": "magna sint sit",
+              "entity": "aute in ad",
+              "invalidValue": "do sit dolor ea id",
+              "message": "adipis"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: API authorization failed.
+  
+  request: {
+    url: {{baseUrl}}/league-matches/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Forbidden
+      text: 403
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: The request could not be processed due to invalid request data. Check the response for more details.
+  
+  request: {
+    url: {{baseUrl}}/league-matches/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Conflict
+      text: 409
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: An unexpected error occurred. Please contact support and supply the response data.
+  
+  request: {
+    url: {{baseUrl}}/league-matches/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Internal Server Error
+      text: 500
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "exception": "deserunt ex Lorem dolore",
+          "message": "dolore minim"
+        }
+      '''
+    }
+  }
+}

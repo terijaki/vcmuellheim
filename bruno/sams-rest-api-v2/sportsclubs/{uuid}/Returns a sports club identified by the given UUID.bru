@@ -1,0 +1,301 @@
+meta {
+  name: Returns a sports club identified by the given UUID.
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/sportsclubs/:uuid
+  body: none
+  auth: inherit
+}
+
+params:path {
+  uuid: 9c8b0252-c19b-4e83-a564-202e90d75c01
+}
+
+headers {
+  Accept: application/hal+json; charset=UTF-8
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: Successful operation
+  
+  request: {
+    url: {{baseUrl}}/sportsclubs/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "uuid": "irure eiusmod consectetur",
+          "_links": {
+            "empty": false
+          },
+          "_embedded": {
+            "empty": true
+          },
+          "name": "dol",
+          "shortname": "aliqua repr",
+          "sportsclubNumber": 88027491,
+          "associationUuid": "in in ut culpa dolor",
+          "logoImageLink": "consectetur incididunt veniam laboris minim"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.
+  
+  request: {
+    url: {{baseUrl}}/sportsclubs/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Bad Request
+      text: 400
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "violations": [
+            {
+              "constraint": "labore nisi magna ea",
+              "property": "voluptate Ut officia qui",
+              "entity": "ad nisi adipisicing consecte",
+              "invalidValue": "aliqua labore laboris ipsum",
+              "message": "incididunt aute commodo cillum"
+            },
+            {
+              "constraint": "tempor culpa",
+              "property": "magna sint sit",
+              "entity": "aute in ad",
+              "invalidValue": "do sit dolor ea id",
+              "message": "adipis"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: API authorization failed.
+  
+  request: {
+    url: {{baseUrl}}/sportsclubs/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Forbidden
+      text: 403
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: The request could not be processed due to invalid request data. Check the response for more details.
+  
+  request: {
+    url: {{baseUrl}}/sportsclubs/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Conflict
+      text: 409
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: An unexpected error occurred. Please contact support and supply the response data.
+  
+  request: {
+    url: {{baseUrl}}/sportsclubs/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Internal Server Error
+      text: 500
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "exception": "deserunt ex Lorem dolore",
+          "message": "dolore minim"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: EXAMPLE VC Müllheim"
+  
+  request: {
+    url: {{baseUrl}}/sportsclubs/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 9c8b0252-c19b-4e83-a564-202e90d75c01
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Server: nginx/1.22.1
+      Date: Wed, 04 Jun 2025 08:50:56 GMT
+      Content-Type: application/hal+json;charset=UTF-8
+      Content-Length: 615
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      Set-Cookie: JSESSIONID=9QBfqC0sXptHL4EJ48QKH-n2M8J6d2bYW7D02bbx.sas03; path=/; secure; HttpOnly; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:00 GMT
+      X-Sams-Instance: SamsDvv
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+            "uuid": "9c8b0252-c19b-4e83-a564-202e90d75c01",
+            "_links": {
+                "self": {
+                    "href": "https://www.volleyball-baden.de/api/v2/sportsclubs/9c8b0252-c19b-4e83-a564-202e90d75c01"
+                },
+                "association": {
+                    "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                },
+                "location": {
+                    "href": "https://www.volleyball-baden.de/api/v2/locations/cd977e96-cb3e-4039-2187-8dc8e64407c9"
+                }
+            },
+            "name": "VC Müllheim",
+            "shortname": "",
+            "sportsclubNumber": 480190,
+            "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1",
+            "logoImageLink": "https://dvv.sams-server.de/uploads/a939d151-0490-455c-870d-417f5b40e906/muellheim_logo.png"
+        }
+      '''
+    }
+  }
+}

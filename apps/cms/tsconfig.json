@@ -1,0 +1,22 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		/* Types */
+		"types": ["vite/client"],
+
+		/* Path aliases */
+		"baseUrl": "../..",
+		"paths": {
+			"@/*": ["./*"],
+			"@lib/*": ["lib/*"],
+			"@lambda/*": ["lambda/*"],
+			"@utils/*": ["utils/*"],
+			"@data/*": ["data/*"],
+			"@codegen/*": ["codegen/*"],
+			"@project.config": ["project.config.ts"],
+			"@apps/shared": ["apps/shared/*"]
+		}
+	},
+	"include": ["src"],
+	"exclude": ["@codegen/**", "../../codegen/**"]
+}

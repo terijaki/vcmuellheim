@@ -1,0 +1,69 @@
+version: 2
+updates:
+  - package-ecosystem: "bun"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    cooldown:
+      default-days: 30
+      semver-major-days: 30
+      semver-minor-days: 14
+      semver-patch-days: 7
+  # Group AWS dependencies for unified update PRs
+  - package-ecosystem: "bun"
+    directory: "/"
+    groups:
+      aws:
+        patterns:
+          - "@aws-sdk/*"
+          - "aws-cdk*"
+          - "cdk-*"
+          - "aws-sdk-client-mock"
+          - "constructs"
+      mantine:
+        patterns:
+          - "*mantine*"
+          - "*postcss*"
+      tanstack:
+        patterns:
+          - "*tanstack*"
+      trpc:
+        patterns:
+          - "*trpc*"
+          - "superjson"
+      tiptap:
+        patterns:
+          - "*tiptap*"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+          - "babel-plugin-react-compiler"
+          - "lucide-react"
+          - "react-icons"
+          - "react-fast-marquee"
+          - "react-world-flags"
+      validation:
+        patterns:
+          - "zod"
+          - "@biomejs/biome"
+          - "typescript"
+          - "@types/*"
+      dates-and-times:
+        patterns:
+          - "dayjs"
+          - "num-words-de"
+          - "ts-ics"
+      vite:
+        patterns:
+          - "vite"
+          - "*vite*"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+    labels:
+      - "dependencies"

@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.2.3/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -7,19 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": [
-			"**",
-			"!**/node_modules",
-			"!**/.next",
-			"!**/.vscode",
-			"!**/out",
-			"!**/build",
-			"!**/app/(payload)",
-			"!**/data/payload-types.ts",
-			"!**/data/sams/client",
-			"!**/data/migrations",
-			"!**/data/sams/swagger.json"
-		]
+		"includes": ["**", "!**/node_modules", "!**/.vscode", "!**/out", "!**/build", "!**/codegen/sams/generated", "!**/codegen/sams/swagger.json", "!**/routeTree.gen.ts"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -49,7 +37,7 @@
 			}
 		},
 		"domains": {
-			"next": "recommended"
+			"react": "recommended"
 		}
 	},
 	"javascript": {

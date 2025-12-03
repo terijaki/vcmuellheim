@@ -1,0 +1,390 @@
+meta {
+  name: Returns the list of available committees as a paged list.
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/committees?page=-81938013&size=-81938013
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: -81938013
+  size: -81938013
+}
+
+headers {
+  Accept: application/hal+json; charset=UTF-8
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Returns all committees belonging to the association which can be accessed with the used API key. The returned committees list their respective members including the members' publicly available contact information. The default page size is 20. The page size must not be greater than 100
+}
+
+example {
+  name: Successful operation
+  
+  request: {
+    url: {{baseUrl}}/committees?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "totalElements": 18407807,
+          "numberOfElements": -56926669,
+          "_links": {
+            "empty": true
+          },
+          "_embedded": {
+            "empty": false
+          },
+          "content": [
+            {
+              "uuid": "veniam laboris aute",
+              "_links": {
+                "empty": false
+              },
+              "_embedded": {
+                "empty": false
+              },
+              "associationUuid": "eu minim sed",
+              "members": [
+                {
+                  "uuid": "elit",
+                  "committeeUuid": "et dolor ea fugiat",
+                  "additionalTitle": "velit occaecat commodo in",
+                  "sourceFunction": "velit incididunt sint",
+                  "description": "aute",
+                  "firstName": "anim tempor",
+                  "lastName": "dolore labore dolor",
+                  "email": "non Ex",
+                  "priority": -19348030,
+                  "address": {
+                    "street": "culpa quis laborum fugiat",
+                    "postcode": "culpa reprehenderit nisi",
+                    "city": "in",
+                    "country": "proident eiusmod dolor",
+                    "extrafield": "offic",
+                    "region": "ad quis",
+                    "postbox": "incididunt ad"
+                  },
+                  "phoneMobile": "cupidatat incididunt commodo",
+                  "fax": "proident ipsum",
+                  "phoneWork": "sed ullamco",
+                  "faxWork": "ad amet reprehenderit Duis",
+                  "phoneMobileWork": "et proident sint",
+                  "portraitPhotoLink": "sint"
+                },
+                {
+                  "uuid": "esse ut fugiat",
+                  "committeeUuid": "consequat ea cupidatat ullamco",
+                  "additionalTitle": "ex voluptate irure consequat Ut",
+                  "sourceFunction": "c",
+                  "description": "consequat mollit Ut",
+                  "firstName": "est incididunt eu quis consequat",
+                  "lastName": "enim reprehenderit",
+                  "email": "cupidatat",
+                  "priority": 35383909,
+                  "address": {
+                    "street": "fugiat aute",
+                    "postcode": "nisi",
+                    "city": "ad eu enim magna esse",
+                    "country": "aute commodo labore",
+                    "extrafield": "consequat mi",
+                    "region": "fugiat magna esse nisi",
+                    "postbox": "voluptate nisi"
+                  },
+                  "phoneMobile": "in velit",
+                  "fax": "aliquip e",
+                  "phoneWork": "labore enim ipsum",
+                  "faxWork": "Excepteur esse in nulla",
+                  "phoneMobileWork": "sint",
+                  "portraitPhotoLink": "aliqua sit tempor enim consequat"
+                }
+              ],
+              "name": "magna elit",
+              "shortname": "dolore nulla",
+              "description": "ex aute",
+              "type": "amet tempor",
+              "imageLink": "Duis est"
+            },
+            {
+              "uuid": "dolor Lorem dolore enim",
+              "_links": {
+                "empty": false
+              },
+              "_embedded": {
+                "empty": true
+              },
+              "associationUuid": "esse exercitation",
+              "members": [
+                {
+                  "uuid": "deserunt occaecat aliqua",
+                  "committeeUuid": "fugiat",
+                  "additionalTitle": "ullamco velit magna",
+                  "sourceFunction": "culpa fugiat est pariatur sit",
+                  "description": "culpa dolor ex",
+                  "firstName": "deserunt commodo",
+                  "lastName": "incididu",
+                  "email": "irure occaecat sed sunt",
+                  "priority": 32329778,
+                  "address": {
+                    "street": "exercitation consectetur",
+                    "postcode": "ipsum dolor",
+                    "city": "ex",
+                    "country": "dolor nulla eiusmod",
+                    "extrafield": "ullamco te",
+                    "region": "reprehenderit esse officia commodo aliqua",
+                    "postbox": "consectetur quis"
+                  },
+                  "phoneMobile": "reprehenderit tempor in voluptate commodo",
+                  "fax": "elit reprehenderi",
+                  "phoneWork": "enim",
+                  "faxWork": "est dolore eu sed",
+                  "phoneMobileWork": "tempor sit ea",
+                  "portraitPhotoLink": "exercitation enim incididunt"
+                },
+                {
+                  "uuid": "nulla anim et dolor",
+                  "committeeUuid": "ullamco commodo",
+                  "additionalTitle": "ullamco exercitation ci",
+                  "sourceFunction": "ad do ullamco cupidatat",
+                  "description": "ut nulla",
+                  "firstName": "dolor ullamco",
+                  "lastName": "in quis labore reprehenderit",
+                  "email": "Duis off",
+                  "priority": 26360594,
+                  "address": {
+                    "street": "reprehenderit cillum deserunt dolore",
+                    "postcode": "laboris magna",
+                    "city": "aliqua",
+                    "country": "quis fugiat ullamco dolore",
+                    "extrafield": "tempor ut esse eiusmod incididunt",
+                    "region": "consectetur dolor",
+                    "postbox": "Lorem nulla adipisicing"
+                  },
+                  "phoneMobile": "ullamco consectetur",
+                  "fax": "sit esse ipsum nisi",
+                  "phoneWork": "ipsum aute dolor consectetur",
+                  "faxWork": "ullamco",
+                  "phoneMobileWork": "id ullamco",
+                  "portraitPhotoLink": "dolore in"
+                }
+              ],
+              "name": "commodo eu",
+              "shortname": "dolor voluptate in sint",
+              "description": "amet dolor id",
+              "type": "commodo",
+              "imageLink": "est"
+            }
+          ],
+          "empty": false,
+          "totalPages": 84907327,
+          "first": true,
+          "last": false
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.
+  
+  request: {
+    url: {{baseUrl}}/committees?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Bad Request
+      text: 400
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "violations": [
+            {
+              "constraint": "labore nisi magna ea",
+              "property": "voluptate Ut officia qui",
+              "entity": "ad nisi adipisicing consecte",
+              "invalidValue": "aliqua labore laboris ipsum",
+              "message": "incididunt aute commodo cillum"
+            },
+            {
+              "constraint": "tempor culpa",
+              "property": "magna sint sit",
+              "entity": "aute in ad",
+              "invalidValue": "do sit dolor ea id",
+              "message": "adipis"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: API authorization failed.
+  
+  request: {
+    url: {{baseUrl}}/committees?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Forbidden
+      text: 403
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: The request could not be processed due to invalid request data. Check the response for more details.
+  
+  request: {
+    url: {{baseUrl}}/committees?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Conflict
+      text: 409
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: An unexpected error occurred. Please contact support and supply the response data.
+  
+  request: {
+    url: {{baseUrl}}/committees?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Internal Server Error
+      text: 500
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "exception": "deserunt ex Lorem dolore",
+          "message": "dolore minim"
+        }
+      '''
+    }
+  }
+}

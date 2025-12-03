@@ -1,0 +1,21 @@
+meta {
+  name: SAMS REST API v2
+}
+
+auth {
+  mode: apikey
+}
+
+auth:apikey {
+  key: X-Api-Key
+  value: {{apiKey}}
+  placement: header
+}
+vars:pre-request {
+  baseUrl: https://www.volleyball-baden.de/api/v2
+}
+
+docs {
+  The SAMS public REST API V2
+  https://wiki.sams-server.de/wiki/REST-API-Schnittstelle
+}

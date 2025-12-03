@@ -1,0 +1,147 @@
+name: CDK Deploy
+concurrency:
+  group: cdk-deploy
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - main
+      - "**" # All branches
+    paths-ignore:
+      - "**.md" # Ignore markdown files
+      - ".github/copilot**" # Ignore copilot files
+      - ".vscode/**" # Ignore VSCode settings
+      - "bruno/**" # Ignore Bruno files
+
+permissions:
+  id-token: write # Required for AWS OIDC
+  contents: write # Required for commenting on commits
+
+jobs:
+  deploy:
+    name: Deploy CDK Stack
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION || 'eu-central-1' }}
+
+      - name: Determine environment
+        id: env
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "environment=prod" >> $GITHUB_OUTPUT
+            echo "is_main=true" >> $GITHUB_OUTPUT
+          else
+            echo "environment=dev" >> $GITHUB_OUTPUT
+            echo "is_main=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Lint check
+        run: bun run lint
+
+      - name: Run tests
+        run: bun run test
+
+      - name: CDK Diff
+        env:
+          CDK_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
+          CDK_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
+          CDK_BUDGET_ALERT_EMAIL: ${{ secrets.CDK_BUDGET_ALERT_EMAIL }}
+          CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
+          VITE_CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
+          APIFY_API_KEY: ${{ secrets.APIFY_API_KEY }}
+          SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
+          SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
+        run: bunx cdk diff --all
+
+      - name: CDK Deploy
+        env:
+          CDK_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
+          CDK_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
+          CDK_BUDGET_ALERT_EMAIL: ${{ secrets.CDK_BUDGET_ALERT_EMAIL }}
+          CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
+          VITE_CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
+          APIFY_API_KEY: ${{ secrets.APIFY_API_KEY }}
+          SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
+          SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
+        run: |
+          bunx cdk deploy --require-approval never --all --outputs-file cdk-outputs.json
+
+      - name: Add deployment summary
+        run: |
+          BRANCH="${{ github.ref_name }}"
+
+          # Determine environment for display
+          if [ "${{ steps.env.outputs.is_main }}" == "true" ]; then
+            ENV_ICON="🚀"
+            ENV_NAME="Production"
+          else
+            ENV_ICON="🔧"
+            ENV_NAME="Development"
+          fi
+
+          echo "## ${ENV_ICON} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Environment** | ${ENV_NAME} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Branch** | \`${BRANCH}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+
+          # Extract and display CDK outputs if available
+          if [ -f "cdk-outputs.json" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 🔗 Endpoints" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            
+            # Display outputs from both stacks
+            cat cdk-outputs.json | grep -o '"[^"]*Url"[^"]*"[^"]*"' | while read -r line; do
+              KEY=$(echo "$line" | sed 's/"\([^"]*\)".*/\1/')
+              VALUE=$(echo "$line" | sed 's/.*: "\(.*\)"/\1/')
+              echo "- **${KEY}:** ${VALUE}" >> $GITHUB_STEP_SUMMARY
+            done || true
+          fi
+
+          if [ "${{ steps.env.outputs.is_main }}" == "false" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 💡 Cleanup" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "These stacks will be automatically destroyed when the branch is deleted or PR is closed." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "To manually destroy these stacks:" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+            echo "bunx cdk destroy --all" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          fi
+
+  comment-on-deployment:
+    if: failure()
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment on deployment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.repos.createCommitComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: context.sha,
+              body: `🚨 **CDK Deployment Failed**\n\n`
+            });

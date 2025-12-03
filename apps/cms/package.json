@@ -1,0 +1,46 @@
+{
+	"name": "@vcmuellheim/cms",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite --port 3081",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@aws-sdk/client-cognito-identity-provider": "catalog:",
+		"@mantine/core": "catalog:",
+		"@mantine/dates": "catalog:",
+		"@mantine/hooks": "catalog:",
+		"@mantine/notifications": "catalog:",
+		"@mantine/dropzone": "catalog:",
+		"@mantine/tiptap": "^8.3.9",
+		"@tiptap/react": "^2.10.4",
+		"@tiptap/starter-kit": "^2.10.4",
+		"@tiptap/extension-link": "^2.10.4",
+		"@tiptap/extension-image": "^2.10.4",
+		"@tanstack/react-query": "catalog:",
+		"@tanstack/react-router": "catalog:",
+		"@trpc/client": "catalog:",
+		"@trpc/tanstack-react-query": "catalog:",
+		"dayjs": "catalog:",
+		"lucide-react": "catalog:",
+		"react": "catalog:",
+		"react-dom": "catalog:",
+		"superjson": "catalog:"
+	},
+	"devDependencies": {
+		"@tanstack/router-plugin": "catalog:",
+		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
+		"@vitejs/plugin-react": "catalog:",
+		"postcss": "catalog:",
+		"postcss-preset-mantine": "catalog:",
+		"postcss-simple-vars": "catalog:",
+		"typescript": "catalog:",
+		"vite": "catalog:",
+		"babel-plugin-react-compiler": "catalog:"
+	}
+}

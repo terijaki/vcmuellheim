@@ -1,0 +1,27 @@
+# Robots.txt for VC Müllheim Website
+# Last updated: 2025-12-02
+
+# Allow all search engines to crawl and index
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /private
+Disallow: /callback
+Disallow: /*.json$
+Disallow: /*.map$
+
+# Specific rules for aggressive crawlers
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Crawl-delay: 10
+
+User-agent: DotBot
+Disallow: /
+
+# Sitemap location
+Sitemap: https://vcmuellheim.de/sitemap.xml

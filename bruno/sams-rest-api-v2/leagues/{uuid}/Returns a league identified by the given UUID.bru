@@ -1,0 +1,315 @@
+meta {
+  name: Returns a league identified by the given UUID
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/leagues/:uuid
+  body: none
+  auth: inherit
+}
+
+params:path {
+  uuid: ffe00b15-6f28-41df-8d18-31d5d068eac2
+}
+
+headers {
+  Accept: application/hal+json; charset=UTF-8
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: Successful operation
+  
+  request: {
+    url: {{baseUrl}}/leagues/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "uuid": "amet ex aliquip velit irure",
+          "_links": {
+            "empty": true
+          },
+          "_embedded": {
+            "empty": true
+          },
+          "name": "ipsum mollit",
+          "shortName": "fugiat reprehenderit minim ul",
+          "gender": "MIXED",
+          "leagueHierarchyUuid": "amet",
+          "seasonUuid": "mollit deserunt ut",
+          "associationUuid": "id "
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.
+  
+  request: {
+    url: {{baseUrl}}/leagues/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Bad Request
+      text: 400
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "violations": [
+            {
+              "constraint": "labore nisi magna ea",
+              "property": "voluptate Ut officia qui",
+              "entity": "ad nisi adipisicing consecte",
+              "invalidValue": "aliqua labore laboris ipsum",
+              "message": "incididunt aute commodo cillum"
+            },
+            {
+              "constraint": "tempor culpa",
+              "property": "magna sint sit",
+              "entity": "aute in ad",
+              "invalidValue": "do sit dolor ea id",
+              "message": "adipis"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: API authorization failed.
+  
+  request: {
+    url: {{baseUrl}}/leagues/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Forbidden
+      text: 403
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: The request could not be processed due to invalid request data. Check the response for more details.
+  
+  request: {
+    url: {{baseUrl}}/leagues/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Conflict
+      text: 409
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: An unexpected error occurred. Please contact support and supply the response data.
+  
+  request: {
+    url: {{baseUrl}}/leagues/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Internal Server Error
+      text: 500
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "exception": "deserunt ex Lorem dolore",
+          "message": "dolore minim"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: EXAMPLE Verbandsliga Herren
+  
+  request: {
+    url: {{baseUrl}}/leagues/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 3abdcc17-f841-4703-9aed-cd94ac79c128
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Server: nginx/1.22.1
+      Date: Wed, 04 Jun 2025 09:01:44 GMT
+      Content-Type: application/hal+json;charset=UTF-8
+      Content-Length: 1080
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      Set-Cookie: JSESSIONID=tJlJyV3CiELaSBfcaIQcnvP31wZ_t0Hr0ahNdLTD.sas03; path=/; secure; HttpOnly; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:00 GMT
+      X-Sams-Instance: SamsDvv
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+            "uuid": "3abdcc17-f841-4703-9aed-cd94ac79c128",
+            "_links": {
+                "self": {
+                    "href": "https://www.volleyball-baden.de/api/v2/leagues/3abdcc17-f841-4703-9aed-cd94ac79c128"
+                },
+                "association": {
+                    "href": "https://www.volleyball-baden.de/api/v2/associations/2b7571b5-f985-c552-ea1c-f819ed3811c1"
+                },
+                "season": {
+                    "href": "https://www.volleyball-baden.de/api/v2/seasons/dfcaac22-776e-4c3c-b3a8-0c34c5a51558"
+                },
+                "league_hierarchy": {
+                    "href": "https://www.volleyball-baden.de/api/v2/league-hierarchies/f2bf8007-c34b-4936-bbf2-039449de1aa2"
+                },
+                "match_days": {
+                    "href": "https://www.volleyball-baden.de/api/v2/leagues/3abdcc17-f841-4703-9aed-cd94ac79c128/match-days"
+                },
+                "teams": {
+                    "href": "https://www.volleyball-baden.de/api/v2/leagues/3abdcc17-f841-4703-9aed-cd94ac79c128/teams"
+                },
+                "rankings": {
+                    "href": "https://www.volleyball-baden.de/api/v2/leagues/3abdcc17-f841-4703-9aed-cd94ac79c128/rankings"
+                }
+            },
+            "name": "Verbandsliga Herren",
+            "shortName": "vl h",
+            "gender": "MALE",
+            "leagueHierarchyUuid": "f2bf8007-c34b-4936-bbf2-039449de1aa2",
+            "seasonUuid": "dfcaac22-776e-4c3c-b3a8-0c34c5a51558",
+            "associationUuid": "2b7571b5-f985-c552-ea1c-f819ed3811c1"
+        }
+      '''
+    }
+  }
+}

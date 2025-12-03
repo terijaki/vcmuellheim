@@ -1,0 +1,432 @@
+meta {
+  name: Returns the rankings of a competition identified by the given UUID.
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/competitions/:uuid/rankings?page=-81938013&size=-81938013
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: -81938013
+  size: -81938013
+}
+
+params:path {
+  uuid: Lorem ad consequat
+}
+
+headers {
+  Accept: application/hal+json; charset=UTF-8
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: Successful operation
+  
+  request: {
+    url: {{baseUrl}}/competitions/:uuid/rankings?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "totalElements": 67869045,
+          "numberOfElements": -65068339,
+          "_links": {
+            "empty": true
+          },
+          "_embedded": {
+            "empty": true
+          },
+          "content": [
+            {
+              "uuid": "aliqua",
+              "_links": {
+                "empty": false
+              },
+              "_embedded": {
+                "empty": true
+              },
+              "matchGroupName": "ut mollit deserunt",
+              "rankings": [
+                {
+                  "uuid": "tempor eiusmod exercitatio",
+                  "_links": {
+                    "empty": true
+                  },
+                  "_embedded": {
+                    "empty": false
+                  },
+                  "teamName": "et aliquip sunt elit",
+                  "rank": 66300722,
+                  "matchesPlayed": 97524656,
+                  "points": -90833226,
+                  "scoreIncludingLosses": "est dolor",
+                  "wins": -39424797,
+                  "losses": 74566158,
+                  "setWins": 42118894,
+                  "setLosses": 66664384,
+                  "setDifference": -83442532,
+                  "setRatio": 86836266.553507,
+                  "ballWins": -2553027,
+                  "ballLosses": -72231763,
+                  "ballDifference": -87024035,
+                  "ballRatio": -39194775.424505934,
+                  "resultTypes": [
+                    {
+                      "result": "irure voluptate ex",
+                      "count": 55814133
+                    },
+                    {
+                      "result": "mollit culpa nulla aliquip minim",
+                      "count": 41975350
+                    }
+                  ]
+                },
+                {
+                  "uuid": "consequat",
+                  "_links": {
+                    "empty": true
+                  },
+                  "_embedded": {
+                    "empty": false
+                  },
+                  "teamName": "laboris nisi enim",
+                  "rank": -11740379,
+                  "matchesPlayed": -67581690,
+                  "points": 82195895,
+                  "scoreIncludingLosses": "do laborum",
+                  "wins": -25742868,
+                  "losses": -73917990,
+                  "setWins": 16865609,
+                  "setLosses": 68737857,
+                  "setDifference": -97393044,
+                  "setRatio": 40117862.42854023,
+                  "ballWins": -79338257,
+                  "ballLosses": 42484333,
+                  "ballDifference": 3818800,
+                  "ballRatio": -6129860.2805983275,
+                  "resultTypes": [
+                    {
+                      "result": "",
+                      "count": -73044632
+                    },
+                    {
+                      "result": "veniam",
+                      "count": 81860123
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "uuid": "ullamco laborum",
+              "_links": {
+                "empty": false
+              },
+              "_embedded": {
+                "empty": false
+              },
+              "matchGroupName": "eu dolore anim",
+              "rankings": [
+                {
+                  "uuid": "deserunt est aute",
+                  "_links": {
+                    "empty": false
+                  },
+                  "_embedded": {
+                    "empty": false
+                  },
+                  "teamName": "magna",
+                  "rank": 6525050,
+                  "matchesPlayed": 93400649,
+                  "points": 24643052,
+                  "scoreIncludingLosses": "ad amet sit minim",
+                  "wins": 18126287,
+                  "losses": 27030081,
+                  "setWins": -91739722,
+                  "setLosses": 51223359,
+                  "setDifference": 67973672,
+                  "setRatio": 93042482.6038923,
+                  "ballWins": -44134659,
+                  "ballLosses": 38685798,
+                  "ballDifference": 96732680,
+                  "ballRatio": 88389287.21251538,
+                  "resultTypes": [
+                    {
+                      "result": "laborum veniam ad",
+                      "count": -15133152
+                    },
+                    {
+                      "result": "eu dolor Duis",
+                      "count": -67449868
+                    }
+                  ]
+                },
+                {
+                  "uuid": "irure nisi",
+                  "_links": {
+                    "empty": false
+                  },
+                  "_embedded": {
+                    "empty": false
+                  },
+                  "teamName": "do sed eiusmod",
+                  "rank": -30088913,
+                  "matchesPlayed": -22377431,
+                  "points": -16048700,
+                  "scoreIncludingLosses": "irure aliqua quis id",
+                  "wins": 21886547,
+                  "losses": 35792397,
+                  "setWins": 6244644,
+                  "setLosses": -28344435,
+                  "setDifference": 16922679,
+                  "setRatio": 53474953.329176724,
+                  "ballWins": 17797444,
+                  "ballLosses": -43634429,
+                  "ballDifference": 56556804,
+                  "ballRatio": 87975422.37796131,
+                  "resultTypes": [
+                    {
+                      "result": "Ut sit ad aliquip",
+                      "count": 83172994
+                    },
+                    {
+                      "result": "irure dolore magna",
+                      "count": 35932297
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "empty": false,
+          "totalPages": -99449865,
+          "first": true,
+          "last": true
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.
+  
+  request: {
+    url: {{baseUrl}}/competitions/:uuid/rankings?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Bad Request
+      text: 400
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "violations": [
+            {
+              "constraint": "labore nisi magna ea",
+              "property": "voluptate Ut officia qui",
+              "entity": "ad nisi adipisicing consecte",
+              "invalidValue": "aliqua labore laboris ipsum",
+              "message": "incididunt aute commodo cillum"
+            },
+            {
+              "constraint": "tempor culpa",
+              "property": "magna sint sit",
+              "entity": "aute in ad",
+              "invalidValue": "do sit dolor ea id",
+              "message": "adipis"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: API authorization failed.
+  
+  request: {
+    url: {{baseUrl}}/competitions/:uuid/rankings?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Forbidden
+      text: 403
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: The request could not be processed due to invalid request data. Check the response for more details.
+  
+  request: {
+    url: {{baseUrl}}/competitions/:uuid/rankings?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Conflict
+      text: 409
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: An unexpected error occurred. Please contact support and supply the response data.
+  
+  request: {
+    url: {{baseUrl}}/competitions/:uuid/rankings?page=-81938013&size=-81938013
+    method: GET
+    mode: none
+    params:query: {
+      page: -81938013
+      size: -81938013
+    }
+  
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Internal Server Error
+      text: 500
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "exception": "deserunt ex Lorem dolore",
+          "message": "dolore minim"
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,298 @@
+meta {
+  name: Returns a competition match identified by the given UUID
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/competition-matches/:uuid
+  body: none
+  auth: inherit
+}
+
+params:path {
+  uuid: Lorem ad consequat
+}
+
+headers {
+  Accept: application/hal+json; charset=UTF-8
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: Successful operation
+  
+  request: {
+    url: {{baseUrl}}/competition-matches/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "uuid": "et",
+          "_links": {
+            "empty": false
+          },
+          "_embedded": {
+            "empty": true
+          },
+          "date": "1964-03-21T16:13:23.352Z",
+          "time": "anim dolore irure Excepteur",
+          "matchNumber": -36452955,
+          "decidingMatch": true,
+          "gameReassessed": true,
+          "host": "cillum id",
+          "referees": {
+            "firstReferee": "Lorem nulla ullamco",
+            "secondReferee": "non Lorem consequat occaecat",
+            "challengeReferee": "ad adipisicing minim dolore reprehenderit"
+          },
+          "spectators": -39254398,
+          "netDuration": 74551749,
+          "verified": true,
+          "location": {
+            "uuid": "irure officia qui",
+            "_links": {
+              "empty": false
+            },
+            "_embedded": {
+              "empty": false
+            },
+            "name": "pariatur",
+            "longitude": -52117154.18136973,
+            "latitude": -17769517.716109335,
+            "address": {
+              "street": "mollit magna",
+              "postcode": "laborum sunt",
+              "city": "tempor",
+              "country": "amet dolor",
+              "extrafield": "cu",
+              "region": "id enim",
+              "postbox": "commodo quis e"
+            }
+          },
+          "seasonUuid": "ad voluptate commodo",
+          "associationUuid": "officia dolore",
+          "results": {
+            "winner": "ex irure",
+            "winnerName": "dolor ex Ut laborum",
+            "setPoints": "dolore tempor",
+            "ballPoints": "sit occaecat",
+            "sets": [
+              {
+                "number": -61597693,
+                "ballPoints": "ad",
+                "winner": "occaecat amet",
+                "winnerName": "sint proident elit reprehenderit",
+                "duration": 73486396
+              },
+              {
+                "number": 34162142,
+                "ballPoints": "irure",
+                "winner": "in eiusmod nulla eu incididu",
+                "winnerName": "laboris esse elit exerci",
+                "duration": -15608935
+              }
+            ]
+          },
+          "matchGroupUuid": "e",
+          "competitionUuid": "Duis do sit ullamco ipsum",
+          "delayPossible": false,
+          "indefinitelyRescheduled": false
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.
+  
+  request: {
+    url: {{baseUrl}}/competition-matches/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Bad Request
+      text: 400
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "violations": [
+            {
+              "constraint": "labore nisi magna ea",
+              "property": "voluptate Ut officia qui",
+              "entity": "ad nisi adipisicing consecte",
+              "invalidValue": "aliqua labore laboris ipsum",
+              "message": "incididunt aute commodo cillum"
+            },
+            {
+              "constraint": "tempor culpa",
+              "property": "magna sint sit",
+              "entity": "aute in ad",
+              "invalidValue": "do sit dolor ea id",
+              "message": "adipis"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: API authorization failed.
+  
+  request: {
+    url: {{baseUrl}}/competition-matches/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Forbidden
+      text: 403
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: The request could not be processed due to invalid request data. Check the response for more details.
+  
+  request: {
+    url: {{baseUrl}}/competition-matches/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Conflict
+      text: 409
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "proident culpa"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: An unexpected error occurred. Please contact support and supply the response data.
+  
+  request: {
+    url: {{baseUrl}}/competition-matches/:uuid
+    method: GET
+    mode: none
+    params:path: {
+      uuid: 
+    }
+  
+    headers: {
+      
+      Accept: application/hal+json; charset=UTF-8
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/hal+json; charset=UTF-8
+    }
+  
+    status: {
+      code: Internal Server Error
+      text: 500
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "exception": "deserunt ex Lorem dolore",
+          "message": "dolore minim"
+        }
+      '''
+    }
+  }
+}
