@@ -24,12 +24,14 @@ export const uploadRouter = router({
 			const sanitizedExtension = fileExtension.toLowerCase().replace(/[^a-z0-9]/g, "");
 
 			// Generate anonymized filename with UUID
+			// Use uploads/ prefix to trigger image processing Lambda
 			const uuid = randomUUID();
-			const key = sanitizedExtension ? `${input.folder}/${uuid}.${sanitizedExtension}` : `${input.folder}/${uuid}`;
+			const uploadKey = sanitizedExtension ? `uploads/${input.folder}/${uuid}.${sanitizedExtension}` : `uploads/${input.folder}/${uuid}`;
+			const finalKey = sanitizedExtension ? `${input.folder}/${uuid}.${sanitizedExtension}` : `${input.folder}/${uuid}`;
 
 			const command = new PutObjectCommand({
 				Bucket: BUCKET_NAME,
-				Key: key,
+				Key: uploadKey,
 				ContentType: input.contentType,
 			});
 
@@ -39,7 +41,7 @@ export const uploadRouter = router({
 
 			return {
 				uploadUrl: presignedUrl,
-				key,
+				key: finalKey, // Return final key (without uploads/) for DynamoDB
 				bucket: BUCKET_NAME,
 			};
 		}),

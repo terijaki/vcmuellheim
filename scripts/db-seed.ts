@@ -394,7 +394,7 @@ async function seedMembersData(): Promise<MemberInput[]> {
 		// Only upload for members with avatar key (those with avatarS3Key property defined)
 		if (i === 0 || i === 1 || i === 3 || i === 5) {
 			try {
-				const s3Key = `members/${member.id}-avatar.jpg`;
+				const s3Key = `uploads/members/${member.id}-avatar.jpg`;
 				await uploadImageToS3(avatarUrls[avatarIndex], s3Key);
 				member.avatarS3Key = s3Key;
 				avatarIndex++;
@@ -624,7 +624,7 @@ async function seedNewsData() {
 		const imageUrls = imageUrlSets[i] || [];
 		for (const imageUrl of imageUrls) {
 			try {
-				const s3Key = `news/${validatedArticles[i].id}-${imageUrls.indexOf(imageUrl)}.jpg`;
+				const s3Key = `uploads/news/${validatedArticles[i].id}-${imageUrls.indexOf(imageUrl)}.jpg`;
 				await uploadImageToS3(imageUrl, s3Key);
 				validatedArticles[i].imageS3Keys?.push(s3Key);
 			} catch (error) {
@@ -696,7 +696,7 @@ async function seedSponsorsData() {
 	console.log("  Downloading and uploading sponsor logos...");
 	for (let i = 0; i < validatedSponsors.length; i++) {
 		try {
-			const s3Key = `sponsors/${validatedSponsors[i].id}-logo.jpg`;
+			const s3Key = `uploads/sponsors/${validatedSponsors[i].id}-logo.jpg`;
 			await uploadImageToS3(logoUrls[i], s3Key);
 			validatedSponsors[i].logoS3Key = s3Key;
 		} catch (error) {

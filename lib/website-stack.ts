@@ -35,8 +35,9 @@ export class WebsiteStack extends cdk.Stack {
 		const branch = props?.stackProps?.branch || "";
 		const branchSuffix = branch ? `-${branch}` : "";
 		const isProd = environment === "prod";
+		const baseDomain = isProd ? Club.domain : `new.${Club.domain}`;
 		const envPrefix = isProd ? "" : `${environment}${branchSuffix}.`; // Note the dot for subdomain, for the website. Not a hyphen like for other resources.
-		const websiteDomain = `${envPrefix}new.${Club.domain}`;
+		const websiteDomain = isProd ? Club.domain : `${envPrefix}${baseDomain}`;
 
 		// S3 Bucket for website static files
 		this.bucket = new s3.Bucket(this, "WebsiteBucket", {
@@ -48,23 +49,13 @@ export class WebsiteStack extends cdk.Stack {
 		});
 
 		// CloudFront Distribution with OAC for SPA
-		// SPA needs special error handling for client-side routing
-		const cachePolicy = isProd
-			? cloudfront.CachePolicy.CACHING_OPTIMIZED
-			: new cloudfront.CachePolicy(this, "DevCachePolicy", {
-					defaultTtl: cdk.Duration.minutes(5),
-					minTtl: cdk.Duration.seconds(0),
-					maxTtl: cdk.Duration.minutes(10),
-					comment: "Dev cache policy with short TTL for website",
-				});
-
 		this.distribution = new cloudfront.Distribution(this, "WebsiteDistribution", {
 			defaultBehavior: {
 				origin: origins.S3BucketOrigin.withOriginAccessControl(this.bucket),
 				viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
 				allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
 				cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
-				cachePolicy,
+				cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
 				compress: true,
 			},
 			defaultRootObject: "index.html",

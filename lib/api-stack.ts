@@ -53,8 +53,9 @@ export class ApiStack extends cdk.Stack {
 		const branchSuffix = branch ? `-${branch}` : "";
 		const isProd = environment === "prod";
 		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
-		const apiDomain = `${envPrefix}api.new.${Club.domain}`;
-		const cmsDomain = `${envPrefix}admin.new.${Club.domain}`;
+		const baseDomain = isProd ? Club.domain : `new.${Club.domain}`;
+		const apiDomain = `${envPrefix}api.${baseDomain}`;
+		const cmsDomain = `${envPrefix}admin.${baseDomain}`;
 
 		// CMS callback URL for OAuth2
 		this.cmsCallbackUrl = `https://${cmsDomain}/auth/callback`;
@@ -91,8 +92,8 @@ export class ApiStack extends cdk.Stack {
 			passkeyUserVerification: cognito.PasskeyUserVerification.PREFERRED,
 			passkeyRelyingPartyId: isProd ? Club.domain : undefined,
 			email: cognito.UserPoolEmail.withCognito(),
-			...emailTemplates.userInvitation,
-			...emailTemplates.userVerification,
+			userInvitation: emailTemplates.userInvitation,
+			userVerification: emailTemplates.userVerification,
 			passwordPolicy: {
 				minLength: 8,
 				requireLowercase: isProd,
@@ -431,7 +432,7 @@ export class ApiStack extends cdk.Stack {
 		// provided CloudFront or CMS URLs.
 		const allowedOriginsSet = new Set<string>();
 		allowedOriginsSet.add(Club.url);
-		allowedOriginsSet.add(`https://${envPrefix}admin.new.${Club.domain}`);
+		allowedOriginsSet.add(`https://${envPrefix}admin.${baseDomain}`);
 		if (!isProd) {
 			allowedOriginsSet.add("http://localhost:3081"); // CMS dev server
 			allowedOriginsSet.add("http://localhost:3080"); // Website dev server

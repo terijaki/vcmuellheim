@@ -24,7 +24,7 @@ interface ProcessingJobResult {
 	error?: string;
 }
 
-const downloadImageFromS3 = async (bucket: string, key: string): Promise<Buffer> => {
+const downloadImageFromS3 = async (bucket: string, key: string): Promise<{ buffer: Buffer; metadata?: Record<string, string> }> => {
 	const command = new GetObjectCommand({ Bucket: bucket, Key: key });
 	const response = await s3Client.send(command);
 
@@ -37,34 +37,40 @@ const downloadImageFromS3 = async (bucket: string, key: string): Promise<Buffer>
 	for await (const chunk of response.Body as Readable) {
 		chunks.push(chunk);
 	}
-	return Buffer.concat(chunks);
+	return { buffer: Buffer.concat(chunks), metadata: response.Metadata };
 };
 
-const uploadImageToS3 = async (bucket: string, key: string, imageBuffer: Buffer, contentType: string): Promise<void> => {
+const uploadImageToS3 = async (bucket: string, key: string, imageBuffer: Buffer, contentType: string, metadata?: Record<string, string>): Promise<void> => {
 	const command = new PutObjectCommand({
 		Bucket: bucket,
 		Key: key,
 		Body: imageBuffer,
 		ContentType: contentType,
+		Metadata: metadata,
 	});
 	await s3Client.send(command);
 };
 
 /** Process image and generate variants using ImageMagick */
-const processImage = async (bucket: string, originalKey: string): Promise<Record<string, string>> => {
+const processImage = async (bucket: string, uploadKey: string): Promise<Record<string, string>> => {
 	const variants: Record<string, string> = {};
 	const tempFiles: string[] = [];
 
 	try {
-		const imageBuffer = await downloadImageFromS3(bucket, originalKey);
-		const keyParts = originalKey.split("/");
+		const { buffer: imageBuffer } = await downloadImageFromS3(bucket, uploadKey);
+
+		// Remove "uploads/" prefix to get final key
+		// uploadKey: uploads/news/uuid.jpg -> finalKey: news/uuid.jpg
+		const finalKey = uploadKey.replace(/^uploads\//, "");
+
+		const keyParts = finalKey.split("/");
 		const filename = keyParts[keyParts.length - 1];
 		const baseFilename = filename.replace(/\.[^.]+$/, "");
 
 		// Reconstruct output folder: preserve folder structure
 		// Path format: {entityType}/{imageId}.{ext}
 		// Example: members/avatar-123.jpg
-		const outputFolder = originalKey.substring(0, originalKey.lastIndexOf("/"));
+		const outputFolder = finalKey.substring(0, finalKey.lastIndexOf("/"));
 
 		// Save original to temp
 		const inputImagePath = `${tmpdir()}/input-${Date.now()}`;
@@ -103,10 +109,10 @@ const processImage = async (bucket: string, originalKey: string): Promise<Record
 				}
 			}
 
-			// Upload compressed original back to the same key
+			// Upload compressed original to final location (not uploads/)
 			const compressedBuffer = readFileSync(compressedOriginalPath);
-			await uploadImageToS3(bucket, originalKey, compressedBuffer, "image/jpeg");
-			console.log(`Uploaded compressed original back to ${originalKey}`);
+			await uploadImageToS3(bucket, finalKey, compressedBuffer, "image/jpeg");
+			console.log(`Uploaded compressed original to ${finalKey}`);
 		} catch (error) {
 			console.error("Failed to compress and overwrite original:", error);
 			throw error;

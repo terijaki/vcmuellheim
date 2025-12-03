@@ -37,7 +37,8 @@ export class MediaStack extends cdk.Stack {
 		const branchSuffix = branch ? `-${branch}` : "";
 		const isProd = environment === "prod";
 		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
-		const mediaDomain = `${envPrefix}media.new.${Club.domain}`;
+		const baseDomain = isProd ? Club.domain : `new.${Club.domain}`;
+		const mediaDomain = `${envPrefix}media.${baseDomain}`;
 
 		// S3 Bucket for media storage
 		this.bucket = new s3.Bucket(this, "MediaBucket", {
@@ -122,11 +123,12 @@ export class MediaStack extends cdk.Stack {
 		this.bucket.grantRead(imageProcessorFunction);
 		this.bucket.grantWrite(imageProcessorFunction);
 
-		// Trigger Lambda on S3 object creation for image files
+		// Trigger Lambda on S3 object creation for image files in uploads/ prefix only
+		// This prevents recursion when Lambda writes processed images back to the bucket
 		const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
 		imageExtensions.forEach((ext) => {
 			this.bucket.addObjectCreatedNotification(new s3Notifications.LambdaDestination(imageProcessorFunction), {
-				prefix: "", // All folders
+				prefix: "uploads/",
 				suffix: ext,
 			});
 		});

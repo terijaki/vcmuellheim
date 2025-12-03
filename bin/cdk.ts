@@ -52,10 +52,10 @@ const commonStackProps = {
 const dnsStack = new DnsStack(app, dnsStackName, {
 	...commonStackProps,
 	description: `DNS & Route53 (${environment}${branchSuffix})`,
-	hostedZoneId: DNS.hostedZoneId,
-	hostedZoneName: DNS.hostedZoneName,
-	regionalCertificateArn: DNS.certificateArn,
-	cloudFrontCertificateArn: DNS.cloudFrontCertificateArn,
+	hostedZoneId: isProd ? DNS.prod.hostedZoneId : DNS.dev.hostedZoneId,
+	hostedZoneName: isProd ? DNS.prod.hostedZoneName : DNS.dev.hostedZoneName,
+	regionalCertificateArn: isProd ? DNS.prod.certificateArn : DNS.dev.certificateArn,
+	cloudFrontCertificateArn: isProd ? DNS.prod.cloudFrontCertificateArn : DNS.dev.cloudFrontCertificateArn,
 });
 
 const contentDbStack = new ContentDbStack(app, contentDbStackName, {

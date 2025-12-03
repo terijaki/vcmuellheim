@@ -33,12 +33,13 @@ export class SocialMediaStack extends cdk.Stack {
 		const branch = props?.stackProps?.branch || "";
 		const branchSuffix = branch ? `-${branch}` : "";
 		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
-		const socialDomain = `${envPrefix}social.new.${Club.domain}`;
+		const baseDomain = isProd ? Club.domain : `new.${Club.domain}`;
+		const socialDomain = `${envPrefix}social.${baseDomain}`;
 
 		const allowedOriginsSet = new Set<string>();
 		allowedOriginsSet.add(Club.url);
-		allowedOriginsSet.add(`https://${envPrefix.replace(/-$/, ".")}new.${Club.domain}`);
-		allowedOriginsSet.add(`https://${envPrefix}admin.new.${Club.domain}`);
+		allowedOriginsSet.add(`https://${envPrefix.replace(/-$/, ".")}${baseDomain}`);
+		allowedOriginsSet.add(`https://${envPrefix}admin.${baseDomain}`);
 		if (!isProd) {
 			allowedOriginsSet.add("http://localhost:3081"); // CMS dev server
 			allowedOriginsSet.add("http://localhost:3080"); // Website dev server

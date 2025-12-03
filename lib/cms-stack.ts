@@ -36,7 +36,8 @@ export class CmsStack extends cdk.Stack {
 		const branchSuffix = branch ? `-${branch}` : "";
 		const isProd = environment === "prod";
 		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
-		const cmsDomain = `${envPrefix}admin.new.${Club.domain}`;
+		const baseDomain = isProd ? Club.domain : `new.${Club.domain}`;
+		const cmsDomain = `${envPrefix}admin.${baseDomain}`;
 
 		// S3 Bucket for CMS static files
 		this.bucket = new s3.Bucket(this, "CmsBucket", {

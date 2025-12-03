@@ -37,11 +37,12 @@ export class SamsApiStack extends cdk.Stack {
 		const branch = props?.stackProps?.branch || "";
 		const branchSuffix = branch ? `-${branch}` : "";
 		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
+		const baseDomain = isProd ? Club.domain : `new.${Club.domain}`;
 
 		const allowedOriginsSet = new Set<string>();
 		allowedOriginsSet.add(Club.url);
-		allowedOriginsSet.add(`https://${envPrefix.replace(/-$/, ".")}new.${Club.domain}`);
-		allowedOriginsSet.add(`https://${envPrefix}admin.new.${Club.domain}`);
+		allowedOriginsSet.add(`https://${envPrefix.replace(/-$/, ".")}${baseDomain}`);
+		allowedOriginsSet.add(`https://${envPrefix}admin.${baseDomain}`);
 		if (!isProd) {
 			allowedOriginsSet.add("http://localhost:3081"); // CMS dev server
 			allowedOriginsSet.add("http://localhost:3080"); // Website dev server
@@ -49,7 +50,7 @@ export class SamsApiStack extends cdk.Stack {
 		const allowedOrigins = Array.from(allowedOriginsSet);
 
 		// Custom domain for API Gateway
-		const samsDomain = `${envPrefix}sams.new.vcmuellheim.de`;
+		const samsDomain = `${envPrefix}sams.${baseDomain}`;
 
 		// Create HTTP API Gateway (V2) with custom domain
 		const apiDomainName =
@@ -342,18 +343,6 @@ export class SamsApiStack extends cdk.Stack {
 		// Add teams Lambda as target for EventBridge rule
 		teamsSyncRule.addTarget(new targets.LambdaFunction(samsTeamsSync));
 
-		// Helper to create cache policy for SAMS API endpoints
-		const createCachePolicy = (name: string, queryParams: string[], ttl: { default: cdk.Duration; max: cdk.Duration; min?: cdk.Duration }) => {
-			return new cloudfront.CachePolicy(this, `SamsApi${name}CachePolicy`, {
-				cachePolicyName: `sams-api-${name.toLowerCase()}-cache-${environment}${branchSuffix}`,
-				defaultTtl: ttl.default,
-				maxTtl: ttl.max,
-				minTtl: ttl.min ?? cdk.Duration.seconds(0),
-				queryStringBehavior: queryParams.length > 0 ? cloudfront.CacheQueryStringBehavior.allowList(...queryParams) : cloudfront.CacheQueryStringBehavior.none(),
-				headerBehavior: cloudfront.CacheHeaderBehavior.allowList("Authorization", "X-Api-Key", "Origin", "Access-Control-Request-Headers", "Access-Control-Request-Method"),
-			});
-		};
-
 		// Use a single shared origin request policy for all behaviors
 		const sharedOriginPolicy = new cloudfront.OriginRequestPolicy(this, "SamsApiSharedOriginPolicy", {
 			originRequestPolicyName: `sams-api-shared-origin-${environment}${branchSuffix}`,
@@ -361,11 +350,6 @@ export class SamsApiStack extends cdk.Stack {
 			queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
 			cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
 		});
-
-		// TTL configurations
-		const LIVE_DATA_TTL = { default: cdk.Duration.minutes(5), max: cdk.Duration.hours(1), min: isProd ? cdk.Duration.seconds(15) : cdk.Duration.seconds(60) };
-		const STATIC_DATA_TTL = { default: cdk.Duration.hours(12), max: cdk.Duration.days(7), min: isProd ? cdk.Duration.hours(1) : cdk.Duration.minutes(5) };
-		const LOGO_CACHE_TTL = { default: cdk.Duration.days(90), max: cdk.Duration.days(365), min: isProd ? cdk.Duration.days(7) : cdk.Duration.hours(1) };
 
 		// Extract domain from API endpoint (removes https:// prefix)
 		// We need to do this in CloudFormation using Fn::Select and Fn::Split
@@ -385,17 +369,18 @@ export class SamsApiStack extends cdk.Stack {
 					},
 				};
 			},
-		}; // Helper to create behavior for a path
-		const createBehavior = (name: string, queryParams: string[], ttl: { default: cdk.Duration; max: cdk.Duration }) => {
-			return {
-				origin: apiGatewayOrigin, // Reuse the same origin for all behaviors
-				viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-				cachePolicy: createCachePolicy(name, queryParams, ttl),
-				allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
-				cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
-				originRequestPolicy: sharedOriginPolicy, // Use shared policy for all behaviors
-				responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.CORS_ALLOW_ALL_ORIGINS_WITH_PREFLIGHT,
-			};
+		};
+
+		// Shared behavior configuration for all CloudFront paths
+		// Using AWS-managed policy that respects Lambda Cache-Control headers AND includes query strings
+		const sharedBehavior = {
+			origin: apiGatewayOrigin,
+			viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+			cachePolicy: cloudfront.CachePolicy.USE_ORIGIN_CACHE_CONTROL_HEADERS_QUERY_STRINGS,
+			allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+			cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
+			originRequestPolicy: sharedOriginPolicy,
+			responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.CORS_ALLOW_ALL_ORIGINS_WITH_PREFLIGHT,
 		};
 
 		// Create HTTP API Gateway routes
@@ -470,18 +455,17 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Create CloudFront distribution for caching
 		const distribution = new cloudfront.Distribution(this, "SamsApiDistribution", {
-			defaultBehavior: createBehavior("Default", [], STATIC_DATA_TTL),
-			// Path-specific cache behaviors for endpoints that use query parameters
+			defaultBehavior: sharedBehavior,
 			additionalBehaviors: {
-				"/matches": createBehavior("Matches", ["league", "season", "sportsclub", "team", "limit", "range"], LIVE_DATA_TTL),
-				"/rankings/*": createBehavior("Rankings", [], LIVE_DATA_TTL),
-				"/clubs": createBehavior("Clubs", ["name", "slug"], STATIC_DATA_TTL),
-				"/clubs/*": createBehavior("ClubsDetail", [], STATIC_DATA_TTL),
-				"/teams": createBehavior("Teams", ["name", "slug"], STATIC_DATA_TTL),
-				"/teams/*": createBehavior("TeamsDetail", [], STATIC_DATA_TTL),
-				"/associations": createBehavior("Associations", ["name"], STATIC_DATA_TTL),
-				"/associations/*": createBehavior("AssociationsDetail", [], STATIC_DATA_TTL),
-				"/logos*": createBehavior("Logos", ["clubUuid", "clubSlug"], LOGO_CACHE_TTL),
+				"/matches": sharedBehavior,
+				"/rankings/*": sharedBehavior,
+				"/clubs": sharedBehavior,
+				"/clubs/*": sharedBehavior,
+				"/teams": sharedBehavior,
+				"/teams/*": sharedBehavior,
+				"/associations": sharedBehavior,
+				"/associations/*": sharedBehavior,
+				"/logos*": sharedBehavior,
 			},
 			priceClass: cloudfront.PriceClass.PRICE_CLASS_100, // Only US, Canada, Europe
 			comment: `SAMS API CloudFront Distribution (${environment}${branchSuffix})`,

@@ -269,21 +269,23 @@ async function copyS3File(oldKey: string, newKey: string, _mediaId: string, file
 		console.log(`         ⧗ Converting...`);
 		const bodyBytes = await withTimeout(getResponse.Body.transformToByteArray(), 30000, `transformToByteArray ${filename}`);
 
-		// Upload to new bucket - 30s timeout
+		// Upload to new bucket with uploads/ prefix to trigger image processing Lambda
+		// Lambda will move to final location and create variants
 		console.log(`         ↑ Uploading...`);
 		progressTracker.reset();
 		const uploadStart = Date.now();
+		const uploadKey = `uploads/${newKey}`;
 		await withTimeout(
 			newS3Client.send(
 				new PutObjectCommand({
 					Bucket: NEW_S3_BUCKET,
-					Key: newKey,
+					Key: uploadKey,
 					Body: bodyBytes,
 					ContentType: getResponse.ContentType,
 				}),
 			),
 			30000,
-			`PutObject ${newKey}`,
+			`PutObject ${uploadKey}`,
 		);
 		const uploadTime = Date.now() - uploadStart;
 
