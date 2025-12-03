@@ -1,5 +1,5 @@
 import type { NewsInput } from "@lib/db/schemas";
-import { ActionIcon, Badge, Box, Button, Card, Group, Image, Modal, Paper, Pill, SegmentedControl, Stack, Table, Text, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Badge, Box, Button, Card, Flex, Group, Image, Modal, Paper, Pill, SegmentedControl, SimpleGrid, Stack, Table, Text, TextInput, Title } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { RichTextEditor } from "@mantine/tiptap";
@@ -10,7 +10,7 @@ import { Link as LinkExtension } from "@tiptap/extension-link";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import dayjs from "dayjs";
-import { Plus, Trash2, Upload, X } from "lucide-react";
+import { Plus, SquarePen, Trash2, Upload, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
 import { useNotification } from "../../hooks/useNotification";
@@ -88,7 +88,10 @@ function NewsPage() {
 		trpc.news.delete.mutationOptions({
 			onSuccess: () => {
 				refetch();
-				notification.success("News-Artikel wurde erfolgreich gelöscht");
+				close();
+				resetForm();
+				setEditingId(null);
+				notification.success("News wurde erfolgreich gelöscht");
 			},
 			onError: (error) => {
 				notification.error({ message: error.message || "News-Artikel konnte nicht gelöscht werden" });
@@ -220,9 +223,12 @@ function NewsPage() {
 		<Stack gap="md">
 			<Group justify="space-between">
 				<Title order={2}>News</Title>
-				<Button onClick={handleOpenNew} leftSection={<Plus />}>
+				<Button onClick={handleOpenNew} leftSection={<Plus />} visibleFrom="sm">
 					Neuer Artikel
 				</Button>
+				<ActionIcon onClick={handleOpenNew} hiddenFrom="sm" variant="filled" radius="xl">
+					<Plus size={20} />
+				</ActionIcon>
 			</Group>
 			<Group>
 				<TextInput placeholder="Artikel suchen..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} style={{ flex: 1 }} />
@@ -329,8 +335,8 @@ function NewsPage() {
 						)}
 
 						{/* Dropzone - always visible for adding more images */}
-						<Dropzone onDrop={(files) => setImageFiles([...imageFiles, ...files])} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024}>
-							<Group justify="center" gap="xl" style={{ minHeight: 120, pointerEvents: "none" }}>
+						<Dropzone onDrop={(files) => setImageFiles([...imageFiles, ...files])} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024} bd="1px dashed var(--mantine-color-dimmed)" p="xs">
+							<Flex direction={{ base: "row", md: "column" }} justify="center" rowGap="md" columnGap="md" mih={{ base: 80, md: 120 }} style={{ pointerEvents: "none" }}>
 								<Dropzone.Accept>
 									<Upload size={50} style={{ color: "var(--mantine-color-blue-6)" }} />
 								</Dropzone.Accept>
@@ -341,8 +347,8 @@ function NewsPage() {
 									<Upload size={50} style={{ color: "var(--mantine-color-dimmed)" }} />
 								</Dropzone.Idle>
 
-								<div>
-									<Text size="xl" inline>
+								<Stack gap="xs" align="center">
+									<Text size="lg" inline>
 										Bilder hierher ziehen oder klicken zum Auswählen
 									</Text>
 									<Text size="sm" c="dimmed" inline mt={7}>
@@ -352,37 +358,54 @@ function NewsPage() {
 										{(formData.imageS3Keys?.length || 0) - imagesToDelete.length + imageFiles.length} Bild
 										{(formData.imageS3Keys?.length || 0) - imagesToDelete.length + imageFiles.length !== 1 ? "er" : ""}
 									</Text>
-								</div>
-							</Group>
+								</Stack>
+							</Flex>
 						</Dropzone>
 					</Box>
 
-					<Group gap="xs" justify="flex-end" align="flex-end" wrap="nowrap">
-						{(formData.status === "draft" || !formData.status) && (
-							<Button variant="light" onClick={() => handleSubmit("draft")} loading={uploading || createMutation.isPending || updateMutation.isPending} disabled={!formData.title || !formData.content}>
-								Speichern
-							</Button>
+					<Group justify="space-between" align="flex-end" wrap="nowrap">
+						{editingId && (
+							<>
+								<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
+									<Trash2 />
+								</ActionIcon>
+								<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
+									Löschen
+								</Button>
+							</>
 						)}
+						<Group gap="xs" justify="flex-end" align="flex-end" wrap="nowrap">
+							{(formData.status === "draft" || !formData.status) && (
+								<Button
+									variant="light"
+									onClick={() => handleSubmit("draft")}
+									loading={uploading || createMutation.isPending || updateMutation.isPending}
+									disabled={!formData.title || !formData.content}
+								>
+									Speichern
+								</Button>
+							)}
 
-						{(formData.status === "draft" || formData.status === "published") && (
+							{(formData.status === "draft" || formData.status === "published") && (
+								<Button
+									variant="light"
+									onClick={() => handleSubmit("archived")}
+									loading={uploading || createMutation.isPending || updateMutation.isPending}
+									disabled={!formData.title || !formData.content}
+								>
+									Archivieren
+								</Button>
+							)}
+
 							<Button
-								variant="light"
-								onClick={() => handleSubmit("archived")}
+								variant="filled"
+								onClick={() => handleSubmit("published")}
 								loading={uploading || createMutation.isPending || updateMutation.isPending}
 								disabled={!formData.title || !formData.content}
 							>
-								Archivieren
+								{formData.status !== "published" ? "Veröffentlichen" : "Aktualisieren"}
 							</Button>
-						)}
-
-						<Button
-							variant="filled"
-							onClick={() => handleSubmit("published")}
-							loading={uploading || createMutation.isPending || updateMutation.isPending}
-							disabled={!formData.title || !formData.content}
-						>
-							{formData.status !== "published" ? "Veröffentlichen" : "Aktualisieren"}
-						</Button>
+						</Group>
 					</Group>
 				</Stack>
 			</Modal>
@@ -392,7 +415,7 @@ function NewsPage() {
 					<Text>Laden...</Text>
 				) : filteredNews.length > 0 ? (
 					<>
-						<Table striped highlightOnHover>
+						<Table striped highlightOnHover visibleFrom="sm">
 							<Table.Thead>
 								<Table.Tr>
 									<Table.Th style={{ width: "100%" }}>Titel</Table.Th>
@@ -425,19 +448,50 @@ function NewsPage() {
 											</Badge>
 										</Table.Td>
 										<Table.Td style={{ whiteSpace: "nowrap" }}>
-											<Group gap="xs" wrap="nowrap">
-												<Button size="xs" onClick={() => handleEdit(article)}>
-													Bearbeiten
-												</Button>
-												<ActionIcon variant="light" radius="xl" color="red" onClick={() => handleDelete(article.id)} loading={deleteMutation.isPending}>
-													<Trash2 size={16} />
-												</ActionIcon>
-											</Group>
+											<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(article)}>
+												Bearbeiten
+											</Button>
+											<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(article)}>
+												<SquarePen size={16} />
+											</ActionIcon>
 										</Table.Td>
 									</Table.Tr>
 								))}
 							</Table.Tbody>
 						</Table>
+
+						<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
+							{filteredNews.map((article) => (
+								<Card key={article.id} shadow="sm" p="md" radius="md" withBorder>
+									<Stack gap="xs">
+										<Group justify="space-between" align="flex-start">
+											<Stack gap={4} flex={1}>
+												<Title order={4}>{article.title}</Title>
+												{article.excerpt && (
+													<Text size="sm" c="dimmed" lineClamp={2}>
+														{article.excerpt}
+													</Text>
+												)}
+											</Stack>
+											<ActionIcon color="blumine" variant="filled" onClick={() => handleEdit(article)} radius="xl">
+												<SquarePen size={16} />
+											</ActionIcon>
+										</Group>
+										<Group justify="space-between">
+											<Pill color={article.status === "published" ? "green" : article.status === "draft" ? "yellow" : "gray"}>
+												{article.status === "published" ? "Veröffentlicht" : article.status === "draft" ? "Entwurf" : "Archiviert"}
+											</Pill>
+											{article.imageS3Keys && article.imageS3Keys?.length > 1 && (
+												<Badge size="md" variant="light">
+													{article.imageS3Keys.length} Bilder
+												</Badge>
+											)}
+										</Group>
+									</Stack>
+								</Card>
+							))}
+						</SimpleGrid>
+
 						{searchQuery || statusFilter !== "all" ? (
 							<Text size="sm" c="dimmed" mt="md">
 								{filteredNews.length} von {news?.items.length || 0} Artikel{filteredNews.length !== 1 ? "n" : ""}

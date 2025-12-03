@@ -1,5 +1,5 @@
 import type { SponsorInput } from "@lib/db/schemas";
-import { ActionIcon, Anchor, Box, Button, Card, Group, Image, Modal, SimpleGrid, Stack, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Anchor, Box, Button, Card, Flex, Group, Image, Modal, SimpleGrid, Stack, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
@@ -117,8 +117,17 @@ function CurrentLogoDisplay({
 			<Text size="sm" fw={500} mb="xs">
 				Logo
 			</Text>
-			<Dropzone onDrop={(files: File[]) => files.length > 0 && onFileChange(files[0])} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024} maxFiles={1} bg="blumine" c="white">
-				<Group justify="center" gap="xl" style={{ minHeight: 120, pointerEvents: "none" }}>
+			<Dropzone
+				onDrop={(files: File[]) => files.length > 0 && onFileChange(files[0])}
+				accept={IMAGE_MIME_TYPE}
+				maxSize={5 * 1024 * 1024}
+				maxFiles={1}
+				bg="blumine"
+				c="white"
+				bd="1px dashed var(--mantine-color-dimmed)"
+				p="xs"
+			>
+				<Flex direction={{ base: "row", md: "column" }} justify="center" rowGap="md" columnGap="md" mih={{ base: 80, md: 120 }} style={{ pointerEvents: "none" }}>
 					<Dropzone.Accept>
 						<Upload size={50} style={{ color: "var(--mantine-color-blue-6)" }} />
 					</Dropzone.Accept>
@@ -129,15 +138,15 @@ function CurrentLogoDisplay({
 						<Upload size={50} />
 					</Dropzone.Idle>
 
-					<Stack gap="xs">
-						<Text size="xl" inline>
+					<Stack gap="xs" align="center">
+						<Text size="lg" inline>
 							Logo hierher ziehen oder klicken zum Auswählen
 						</Text>
 						<Text size="sm" opacity={0.7} inline mt={7}>
 							PNG, JPG oder SVG, max. 5MB
 						</Text>
 					</Stack>
-				</Group>
+				</Flex>
 			</Dropzone>
 		</Box>
 	);
@@ -197,6 +206,9 @@ function SponsorsPage() {
 		trpc.sponsors.delete.mutationOptions({
 			onSuccess: () => {
 				refetch();
+				close();
+				resetForm();
+				setEditingId(null);
 				notification.success("Sponsor wurde erfolgreich gelöscht");
 			},
 			onError: (error) => {
@@ -305,9 +317,12 @@ function SponsorsPage() {
 		<Stack gap="md">
 			<Group justify="space-between">
 				<Title order={2}>Sponsoren</Title>
-				<Button onClick={handleOpenNew} leftSection={<Plus />}>
+				<Button onClick={handleOpenNew} leftSection={<Plus />} visibleFrom="sm">
 					Neuer Sponsor
 				</Button>
+				<ActionIcon onClick={handleOpenNew} hiddenFrom="sm" variant="filled" radius="xl">
+					<Plus size={20} />
+				</ActionIcon>
 			</Group>
 
 			<Modal opened={opened} onClose={close} title={editingId ? "Sponsor bearbeiten" : "Neuer Sponsor"} size={isMobile ? "100%" : "lg"} fullScreen={isMobile}>
@@ -342,13 +357,25 @@ function SponsorsPage() {
 						}}
 					/>
 
-					<Group justify="flex-end" mt="md">
-						<Button variant="subtle" onClick={close}>
-							Abbrechen
-						</Button>
-						<Button onClick={handleSubmit} loading={uploading || createMutation.isPending || updateMutation.isPending} disabled={!formData.name}>
-							{editingId ? "Aktualisieren" : "Erstellen"}
-						</Button>
+					<Group justify="space-between" mt="md">
+						{editingId && (
+							<>
+								<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
+									<Trash2 />
+								</ActionIcon>
+								<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
+									Löschen
+								</Button>
+							</>
+						)}
+						<Group gap="xs">
+							<Button variant="light" onClick={close}>
+								Abbrechen
+							</Button>
+							<Button variant="filled" onClick={handleSubmit} loading={uploading || createMutation.isPending || updateMutation.isPending} disabled={!formData.name}>
+								{editingId ? "Aktualisieren" : "Erstellen"}
+							</Button>
+						</Group>
 					</Group>
 				</Stack>
 			</Modal>
@@ -370,17 +397,7 @@ function SponsorsPage() {
 	);
 }
 
-function SponsorCard({
-	sponsor,
-	onEdit,
-	onDelete,
-	isDeleting,
-}: {
-	sponsor: SponsorInput & { id: string };
-	onEdit: (sponsor: SponsorInput & { id: string }) => void;
-	onDelete: (id: string) => void;
-	isDeleting: boolean;
-}) {
+function SponsorCard({ sponsor, onEdit }: { sponsor: SponsorInput & { id: string }; onEdit: (sponsor: SponsorInput & { id: string }) => void; onDelete: (id: string) => void; isDeleting: boolean }) {
 	const trpc = useTRPC();
 	const { data: logoUrl } = useQuery(trpc.upload.getFileUrl.queryOptions({ s3Key: sponsor.logoS3Key || "" }, { enabled: !!sponsor.logoS3Key }));
 
@@ -412,11 +429,11 @@ function SponsorCard({
 						{sponsor.name}
 					</Title>
 					<Group gap={8}>
-						<ActionIcon variant="light" radius="xl" onClick={() => onEdit(sponsor)} aria-label="Bearbeiten">
+						<ActionIcon variant="light" radius="xl" onClick={() => onEdit(sponsor)} aria-label="Bearbeiten" visibleFrom="sm">
 							<Pencil size={16} />
 						</ActionIcon>
-						<ActionIcon variant="light" radius="xl" color="red" onClick={() => onDelete(sponsor.id)} loading={isDeleting} aria-label="Löschen">
-							<Trash2 size={16} />
+						<ActionIcon variant="light" radius="xl" onClick={() => onEdit(sponsor)} aria-label="Bearbeiten" hiddenFrom="sm">
+							<Pencil size={16} />
 						</ActionIcon>
 					</Group>
 				</Group>

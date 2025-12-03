@@ -115,8 +115,15 @@ function CurrentAvatarDisplay({
 			<Text size="sm" fw={500} mb="xs">
 				Profilfoto
 			</Text>
-			<Dropzone onDrop={(files: File[]) => files.length > 0 && onFileChange(files[0])} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024} maxFiles={1}>
-				<Group justify="center" gap="xl" style={{ minHeight: 120, pointerEvents: "none" }}>
+			<Dropzone
+				onDrop={(files: File[]) => files.length > 0 && onFileChange(files[0])}
+				accept={IMAGE_MIME_TYPE}
+				maxSize={5 * 1024 * 1024}
+				maxFiles={1}
+				bd="1px dashed var(--mantine-color-dimmed)"
+				p="xs"
+			>
+				<Flex direction={{ base: "row", md: "column" }} justify="center" rowGap="md" columnGap="md" mih={{ base: 80, md: 120 }} style={{ pointerEvents: "none" }}>
 					<Dropzone.Accept>
 						<Upload size={50} style={{ color: "var(--mantine-color-blue-6)" }} />
 					</Dropzone.Accept>
@@ -127,15 +134,15 @@ function CurrentAvatarDisplay({
 						<Upload size={50} style={{ color: "var(--mantine-color-dimmed)" }} />
 					</Dropzone.Idle>
 
-					<div>
-						<Text size="xl" inline>
+					<Stack gap="xs" align="center">
+						<Text size="lg" inline>
 							Profilfoto hierher ziehen oder klicken zum Auswählen
 						</Text>
 						<Text size="sm" c="dimmed" inline mt={7}>
 							JPG oder PNG, max. 5MB
 						</Text>
-					</div>
-				</Group>
+					</Stack>
+				</Flex>
 			</Dropzone>
 		</Box>
 	);
@@ -212,6 +219,9 @@ function MembersPage() {
 		trpc.members.delete.mutationOptions({
 			onSuccess: () => {
 				refetch();
+				close();
+				resetForm();
+				setEditingId(null);
 				notification.success("Mitglied wurde erfolgreich gelöscht");
 			},
 			onError: (error: unknown) => {
@@ -319,9 +329,12 @@ function MembersPage() {
 		<Stack gap="md">
 			<Group justify="space-between">
 				<Title order={2}>Mitglieder</Title>
-				<Button onClick={handleOpenNew} leftSection={<Plus />}>
+				<Button onClick={handleOpenNew} leftSection={<Plus />} visibleFrom="sm">
 					Neues Mitglied
 				</Button>
+				<ActionIcon onClick={handleOpenNew} hiddenFrom="sm" variant="filled" radius="xl">
+					<Plus size={20} />
+				</ActionIcon>
 			</Group>
 
 			<Modal opened={opened} onClose={close} title={editingId ? "Mitglied bearbeiten" : "Neues Mitglied"} size={isMobile ? "100%" : "lg"} fullScreen={isMobile}>
@@ -344,13 +357,25 @@ function MembersPage() {
 							setAvatarFile(null);
 						}}
 					/>
-					<Group justify="flex-end" mt="md">
-						<Button variant="subtle" onClick={close}>
-							Abbrechen
-						</Button>
-						<Button onClick={handleSubmit} loading={uploading || createMutation.isPending || updateMutation.isPending} disabled={!formData.name}>
-							{editingId ? "Aktualisieren" : "Erstellen"}
-						</Button>
+					<Group justify="space-between" mt="md">
+						{editingId && (
+							<>
+								<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
+									<Trash2 />
+								</ActionIcon>
+								<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
+									Löschen
+								</Button>
+							</>
+						)}
+						<Group gap="xs">
+							<Button variant="light" onClick={close}>
+								Abbrechen
+							</Button>
+							<Button variant="filled" onClick={handleSubmit} loading={uploading || createMutation.isPending || updateMutation.isPending} disabled={!formData.name}>
+								{editingId ? "Aktualisieren" : "Erstellen"}
+							</Button>
+						</Group>
 					</Group>
 				</Stack>
 			</Modal>
@@ -372,17 +397,7 @@ function MembersPage() {
 	);
 }
 
-function MemberCard({
-	member,
-	onEdit,
-	onDelete,
-	isDeleting,
-}: {
-	member: MemberInput & { id: string };
-	onEdit: (member: MemberInput & { id: string }) => void;
-	onDelete: (id: string) => void;
-	isDeleting: boolean;
-}) {
+function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; onEdit: (member: MemberInput & { id: string }) => void; onDelete: (id: string) => void; isDeleting: boolean }) {
 	const trpc = useTRPC();
 	const { data: avatarUrl } = useQuery(trpc.upload.getFileUrl.queryOptions({ s3Key: member.avatarS3Key || "" }, { enabled: !!member.avatarS3Key }));
 
@@ -404,14 +419,10 @@ function MemberCard({
 							<Title order={4} lineClamp={2} style={{ flex: 1 }}>
 								{member.name}
 							</Title>
-							<Group gap={8} wrap="nowrap">
-								<ActionIcon variant="light" radius="xl" onClick={() => onEdit(member)} aria-label="Bearbeiten">
-									<Pencil size={16} />
-								</ActionIcon>
-								<ActionIcon variant="light" radius="xl" color="red" onClick={() => onDelete(member.id)} loading={isDeleting} aria-label="Löschen">
-									<Trash2 size={16} />
-								</ActionIcon>
-							</Group>
+
+							<ActionIcon variant="filled" radius="xl" onClick={() => onEdit(member)} aria-label="Bearbeiten">
+								<Pencil size={16} />
+							</ActionIcon>
 						</Group>
 
 						<Stack justify="flex-end" style={{ flex: 1 }}>

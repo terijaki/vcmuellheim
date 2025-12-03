@@ -48,6 +48,27 @@ const theme = createTheme({
 				size: "lg",
 			},
 		},
+		TextInput: {
+			styles: {
+				input: {
+					fontSize: "16px",
+				},
+			},
+		},
+		Textarea: {
+			styles: {
+				input: {
+					fontSize: "16px",
+				},
+			},
+		},
+		Select: {
+			styles: {
+				input: {
+					fontSize: "16px",
+				},
+			},
+		},
 	},
 });
 

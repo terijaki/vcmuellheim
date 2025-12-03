@@ -1,4 +1,4 @@
-import { ActionIcon, Button, Center, Group, Modal, Paper, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Button, Card, Center, Group, Modal, Paper, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { Calendar, DateTimePicker, getTimeRange } from "@mantine/dates";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
@@ -7,8 +7,9 @@ import { useMemo, useState } from "react";
 import "dayjs/locale/de";
 import type { EventInput } from "@lib/db/schemas";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, SquarePen } from "lucide-react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
+import { useNotification } from "../../hooks/useNotification";
 
 dayjs.locale("de");
 
@@ -27,7 +28,8 @@ function EventsPage() {
 	});
 
 	const trpc = useTRPC();
-	const { data: eventsData, isLoading } = useQuery(trpc.events.list.queryOptions({ limit: 100 }));
+	const notification = useNotification();
+	const { data: eventsData, isLoading, refetch } = useQuery(trpc.events.list.queryOptions({ limit: 100 }));
 
 	const events = eventsData?.items || [];
 	const isMobile = useMediaQuery("(max-width: 768px)");
@@ -56,22 +58,27 @@ function EventsPage() {
 	const createMutation = useMutation(
 		trpc.events.create.mutationOptions({
 			onSuccess: () => {
+				refetch();
 				close();
 				resetForm();
+				notification.success("Termin wurde erfolgreich erstellt");
+			},
+			onError: () => {
+				notification.error({ message: "Termin konnte nicht erstellt werden" });
 			},
 		}),
 	);
 	const updateMutation = useMutation(
 		trpc.events.update.mutationOptions({
 			onSuccess: () => {
+				refetch();
 				close();
 				resetForm();
+				notification.success("Termin wurde erfolgreich aktualisiert");
 			},
-		}),
-	);
-	const deleteMutation = useMutation(
-		trpc.events.delete.mutationOptions({
-			onSuccess: () => {},
+			onError: () => {
+				notification.error({ message: "Termin konnte nicht aktualisiert werden" });
+			},
 		}),
 	);
 
@@ -130,12 +137,6 @@ function EventsPage() {
 		open();
 	};
 
-	const handleDelete = (id: string) => {
-		if (confirm("Möchten Sie diesen Termin wirklich löschen?")) {
-			deleteMutation.mutate({ id });
-		}
-	};
-
 	return (
 		<Stack>
 			<Group justify="space-between">
@@ -146,9 +147,21 @@ function EventsPage() {
 						open();
 					}}
 					leftSection={<Plus />}
+					visibleFrom="sm"
 				>
 					Neuer Termin
 				</Button>
+				<ActionIcon
+					onClick={() => {
+						resetForm();
+						open();
+					}}
+					hiddenFrom="sm"
+					variant="filled"
+					radius="xl"
+				>
+					<Plus size={20} />
+				</ActionIcon>
 			</Group>
 
 			<Center p="md">
@@ -173,39 +186,84 @@ function EventsPage() {
 				{isLoading ? (
 					<Text>Laden...</Text>
 				) : events.length > 0 ? (
-					<Table striped highlightOnHover>
-						<Table.Thead>
-							<Table.Tr>
-								<Table.Th>Titel</Table.Th>
-								<Table.Th>Terminart</Table.Th>
-								<Table.Th>Start</Table.Th>
-								<Table.Th>Ende</Table.Th>
-								<Table.Th>Ort</Table.Th>
-								<Table.Th>Aktionen</Table.Th>
-							</Table.Tr>
-						</Table.Thead>
-						<Table.Tbody>
-							{events.map((event) => (
-								<Table.Tr key={event.id}>
-									<Table.Td>{event.title}</Table.Td>
-									<Table.Td>{event.variant || "-"}</Table.Td>
-									<Table.Td>{dayjs(event.startDate).format("DD.MM.YYYY HH:mm")}</Table.Td>
-									<Table.Td>{event.endDate ? dayjs(event.endDate).format("DD.MM.YYYY HH:mm") : "-"}</Table.Td>
-									<Table.Td>{event.location || "-"}</Table.Td>
-									<Table.Td>
-										<Group gap="xs">
-											<Button size="xs" onClick={() => handleEdit(event)}>
+					<>
+						<Table striped highlightOnHover visibleFrom="sm">
+							<Table.Thead>
+								<Table.Tr>
+									<Table.Th>Titel</Table.Th>
+									<Table.Th>Terminart</Table.Th>
+									<Table.Th>Start</Table.Th>
+									<Table.Th>Ende</Table.Th>
+									<Table.Th>Ort</Table.Th>
+									<Table.Th>Aktionen</Table.Th>
+								</Table.Tr>
+							</Table.Thead>
+							<Table.Tbody>
+								{events.map((event) => (
+									<Table.Tr key={event.id}>
+										<Table.Td>{event.title}</Table.Td>
+										<Table.Td>{event.variant || "-"}</Table.Td>
+										<Table.Td>{dayjs(event.startDate).format("DD.MM.YYYY HH:mm")}</Table.Td>
+										<Table.Td>{event.endDate ? dayjs(event.endDate).format("DD.MM.YYYY HH:mm") : "-"}</Table.Td>
+										<Table.Td>{event.location || "-"}</Table.Td>
+										<Table.Td>
+											<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(event)}>
 												Bearbeiten
 											</Button>
-											<ActionIcon variant="light" radius="xl" color="red" onClick={() => handleDelete(event.id)} loading={deleteMutation.isPending && deleteMutation.variables?.id === event.id}>
-												<Trash2 size={16} />
+											<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(event)}>
+												<SquarePen size={16} />
+											</ActionIcon>
+										</Table.Td>
+									</Table.Tr>
+								))}
+							</Table.Tbody>
+						</Table>
+
+						<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
+							{events.map((event) => (
+								<Card key={event.id} shadow="sm" p="md" radius="md" withBorder>
+									<Stack gap="xs">
+										<Group justify="space-between" align="flex-start">
+											<Title order={4}>{event.title}</Title>
+											<ActionIcon color="blumine" variant="filled" onClick={() => handleEdit(event)} radius="xl">
+												<SquarePen size={16} />
 											</ActionIcon>
 										</Group>
-									</Table.Td>
-								</Table.Tr>
+										<Stack gap="xs">
+											{event.variant && (
+												<div>
+													<Text size="xs" fw={500} c="dimmed">
+														Terminart
+													</Text>
+													<Text size="sm">{event.variant}</Text>
+												</div>
+											)}
+											<div>
+												<Text size="xs" fw={500} c="dimmed">
+													Zeitraum
+												</Text>
+												<Text size="sm">
+													{event.endDate && dayjs(event.startDate).isSame(dayjs(event.endDate), "day")
+														? `${dayjs(event.startDate).format("DD.MM.YYYY HH:mm")} - ${dayjs(event.endDate).format("HH:mm")}`
+														: event.endDate
+															? `${dayjs(event.startDate).format("DD.MM.YYYY HH:mm")} - ${dayjs(event.endDate).format("DD.MM.YYYY HH:mm")}`
+															: dayjs(event.startDate).format("DD.MM.YYYY HH:mm")}
+												</Text>
+											</div>
+											{event.location && (
+												<div>
+													<Text size="xs" fw={500} c="dimmed">
+														Ort
+													</Text>
+													<Text size="sm">{event.location}</Text>
+												</div>
+											)}
+										</Stack>
+									</Stack>
+								</Card>
 							))}
-						</Table.Tbody>
-					</Table>
+						</SimpleGrid>
+					</>
 				) : (
 					<Text c="dimmed">Noch keine Termine vorhanden. Erstellen Sie einen neuen Eintrag.</Text>
 				)}
@@ -217,7 +275,8 @@ function EventsPage() {
 					resetForm();
 				}}
 				title={editingId ? "Termin bearbeiten" : "Termin hinzufügen"}
-				size="lg"
+				size={isMobile ? "100%" : "lg"}
+				fullScreen={isMobile}
 			>
 				<form onSubmit={handleSubmit}>
 					<Stack>
@@ -302,10 +361,10 @@ function EventsPage() {
 						/>
 
 						<Group justify="flex-end" mt="md">
-							<Button variant="subtle" onClick={close}>
+							<Button variant="light" onClick={close}>
 								Abbrechen
 							</Button>
-							<Button type="submit" loading={createMutation.isPending || updateMutation.isPending}>
+							<Button variant="filled" type="submit" loading={createMutation.isPending || updateMutation.isPending}>
 								{editingId ? "Aktualisieren" : "Erstellen"}
 							</Button>
 						</Group>

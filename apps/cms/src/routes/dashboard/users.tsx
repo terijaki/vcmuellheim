@@ -1,5 +1,5 @@
-import { ActionIcon, Button, Group, Modal, Radio, Select, Stack, Table, Text, TextInput, Title } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { ActionIcon, Button, Card, Group, Modal, Radio, Select, SimpleGrid, Stack, Table, Text, TextInput, Title } from "@mantine/core";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Pencil, Plus, Trash2 } from "lucide-react";
@@ -12,6 +12,7 @@ export const Route = createFileRoute("/dashboard/users")({
 });
 
 function UsersPage() {
+	const isMobile = useMediaQuery("(max-width: 48em)");
 	const trpc = useTRPC();
 	const notification = useNotification();
 	const [createOpened, { open: openCreate, close: closeCreate }] = useDisclosure(false);
@@ -118,12 +119,15 @@ function UsersPage() {
 		<Stack gap="md">
 			<Group justify="space-between">
 				<Title order={2}>Benutzerverwaltung</Title>
-				<Button leftSection={<Plus size={16} />} onClick={openCreate}>
+				<Button leftSection={<Plus size={16} />} onClick={openCreate} visibleFrom="sm">
 					Benutzer erstellen
 				</Button>
+				<ActionIcon onClick={openCreate} hiddenFrom="sm" variant="filled" radius="xl">
+					<Plus size={20} />
+				</ActionIcon>
 			</Group>
 
-			<Table striped highlightOnHover>
+			<Table striped highlightOnHover visibleFrom="sm">
 				<Table.Thead>
 					<Table.Tr>
 						<Table.Th>E-Mail</Table.Th>
@@ -170,8 +174,50 @@ function UsersPage() {
 				</Table.Tbody>
 			</Table>
 
+			<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
+				{users.map((user) => {
+					const role = user.groups[0] || "Moderator";
+
+					return (
+						<Card key={user.email} shadow="sm" p="md" radius="md" withBorder>
+							<Stack gap="xs">
+								<Group justify="space-between" align="flex-start">
+									<Stack gap={4} flex={1}>
+										<Title order={4}>
+											{user.givenName} {user.familyName}
+										</Title>
+										<Text size="sm" c="dimmed">
+											{user.email}
+										</Text>
+									</Stack>
+									<ActionIcon color="blumine" variant="filled" onClick={() => handleOpenEdit(user)} title="Benutzer bearbeiten" radius="xl">
+										<Pencil size={16} />
+									</ActionIcon>
+								</Group>
+								<div>
+									<Text size="xs" fw={500} c="dimmed">
+										Rolle
+									</Text>
+									<Select
+										data={["Admin", "Moderator"]}
+										value={role}
+										onChange={(value) => value && handleChangeRole(user.email, value as "Admin" | "Moderator")}
+										disabled={changeRoleMutation.isPending}
+										size="xs"
+										w={120}
+									/>
+								</div>
+								<Text size="xs" c="dimmed">
+									Erstellt: {new Date(user.created).toLocaleDateString("de-DE")}
+								</Text>
+							</Stack>
+						</Card>
+					);
+				})}
+			</SimpleGrid>
+
 			{/* Create User Modal */}
-			<Modal opened={createOpened} onClose={closeCreate} title="Neuen Benutzer erstellen" size="md">
+			<Modal opened={createOpened} onClose={closeCreate} title="Neuen Benutzer erstellen" size={isMobile ? "100%" : "md"} fullScreen={isMobile}>
 				<form onSubmit={handleCreate}>
 					<Stack gap="md">
 						<TextInput label="E-Mail" placeholder={`person@example.com`} required value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
@@ -199,18 +245,25 @@ function UsersPage() {
 			</Modal>
 
 			{/* Edit User Modal */}
-			<Modal opened={editOpened} onClose={closeEdit} title="Benutzer bearbeiten" size="md">
+			<Modal opened={editOpened} onClose={closeEdit} title="Benutzer bearbeiten" size={isMobile ? "100%" : "md"} fullScreen={isMobile}>
 				<form onSubmit={handleUpdate}>
 					<Stack gap="md">
 						<TextInput label="Vorname" placeholder="Max" required value={givenName} onChange={(e) => setGivenName(e.currentTarget.value)} />
 						<TextInput label="Nachname" placeholder="Mustermann" required value={familyName} onChange={(e) => setFamilyName(e.currentTarget.value)} />
-						<Group justify="flex-end" gap="sm">
-							<Button variant="subtle" onClick={closeEdit}>
-								Abbrechen
-							</Button>
-							<Button type="submit" loading={updateMutation.isPending}>
-								Speichern
-							</Button>
+						<Group justify="space-between">
+							{editingEmail && (
+								<ActionIcon color="red" variant="light" onClick={() => setDeleteTarget(editingEmail)} loading={deleteMutation.isPending} title="Benutzer dauerhaft löschen" radius="xl" size="lg">
+									<Trash2 size={20} />
+								</ActionIcon>
+							)}
+							<Group gap="sm">
+								<Button variant="light" onClick={closeEdit}>
+									Abbrechen
+								</Button>
+								<Button variant="filled" type="submit" loading={updateMutation.isPending}>
+									Speichern
+								</Button>
+							</Group>
 						</Group>
 					</Stack>
 				</form>
@@ -221,10 +274,10 @@ function UsersPage() {
 				<Stack gap="md">
 					<Text>Möchten Sie diesen Benutzer wirklich dauerhaft löschen? Diese Aktion kann nicht rückgängig gemacht werden.</Text>
 					<Group justify="flex-end" gap="sm">
-						<Button variant="subtle" onClick={() => setDeleteTarget(null)}>
+						<Button variant="light" onClick={() => setDeleteTarget(null)}>
 							Abbrechen
 						</Button>
-						<Button color="red" onClick={() => deleteTarget && handleDelete(deleteTarget)} loading={deleteMutation.isPending}>
+						<Button color="red" variant="filled" onClick={() => deleteTarget && handleDelete(deleteTarget)} loading={deleteMutation.isPending}>
 							Löschen
 						</Button>
 					</Group>

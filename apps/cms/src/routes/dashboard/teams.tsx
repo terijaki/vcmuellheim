@@ -8,6 +8,7 @@ import {
 	Card,
 	Center,
 	Divider,
+	Flex,
 	Group,
 	Image,
 	Modal,
@@ -97,8 +98,8 @@ function TeamPicturesManager({
 			)}
 
 			{/* Dropzone for adding pictures */}
-			<Dropzone onDrop={onFilesAdd} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024}>
-				<Group justify="center" gap="xl" style={{ minHeight: 120, pointerEvents: "none" }}>
+			<Dropzone onDrop={onFilesAdd} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024} bd="1px dashed var(--mantine-color-dimmed)" p="xs">
+				<Flex direction={{ base: "row", md: "column" }} justify="center" rowGap="md" columnGap="md" mih={{ base: 80, md: 120 }} style={{ pointerEvents: "none" }}>
 					<Dropzone.Accept>
 						<Upload size={50} style={{ color: "var(--mantine-color-blue-6)" }} />
 					</Dropzone.Accept>
@@ -109,18 +110,15 @@ function TeamPicturesManager({
 						<Upload size={50} style={{ color: "var(--mantine-color-dimmed)" }} />
 					</Dropzone.Idle>
 
-					<div>
-						<Text size="xl" inline>
+					<Stack gap="xs" align="center">
+						<Text size="lg" inline>
 							Bilder hierher ziehen oder klicken zum Auswählen
 						</Text>
 						<Text size="sm" c="dimmed" inline mt={7}>
 							Mehrere Bilder möglich, max. 5MB pro Bild
 						</Text>
-						<Text size="xs" c="dimmed" mt="xs">
-							{pictureS3Keys.length + pictureFiles.length} Bild{pictureS3Keys.length + pictureFiles.length !== 1 ? "er" : ""}
-						</Text>
-					</div>
-				</Group>
+					</Stack>
+				</Flex>
 			</Dropzone>
 		</Box>
 	);
@@ -253,12 +251,6 @@ function TrainingScheduleManager({
 						</Stack>
 					</Card>
 				))}
-
-				{schedules.length === 0 && (
-					<Text size="sm" c="dimmed" ta="center" py="md">
-						Keine Trainingszeiten konfiguriert
-					</Text>
-				)}
 			</Stack>
 		</Box>
 	);
@@ -334,6 +326,9 @@ function TeamsPage() {
 		trpc.teams.delete.mutationOptions({
 			onSuccess: () => {
 				refetch();
+				close();
+				resetForm();
+				setEditingId(null);
 				notification.success("Mannschaft wurde erfolgreich gelöscht");
 			},
 			onError: (error: unknown) => {
@@ -444,9 +439,12 @@ function TeamsPage() {
 		<Stack gap="md">
 			<Group justify="space-between">
 				<Title order={2}>Mannschaften</Title>
-				<Button onClick={handleOpenNew} leftSection={<Plus />}>
+				<Button onClick={handleOpenNew} leftSection={<Plus />} visibleFrom="sm">
 					Neue Mannschaft
 				</Button>
+				<ActionIcon onClick={handleOpenNew} hiddenFrom="sm" variant="filled" radius="xl">
+					<Plus size={20} />
+				</ActionIcon>
 			</Group>{" "}
 			<Modal opened={opened} onClose={close} title={editingId ? "Mannschaft bearbeiten" : "Neue Mannschaft"} size={isMobile ? "100%" : "xl"} fullScreen={isMobile}>
 				<Stack gap="md" p={{ base: "md", sm: "sm" }}>
@@ -570,13 +568,25 @@ function TeamsPage() {
 						}}
 					/>
 
-					<Group justify="flex-end" mt="md">
-						<Button variant="subtle" onClick={close}>
-							Abbrechen
-						</Button>
-						<Button onClick={handleSubmit} loading={uploading || createMutation.isPending || updateMutation.isPending} disabled={!formData.name || !formData.gender}>
-							{editingId ? "Aktualisieren" : "Erstellen"}
-						</Button>
+					<Group justify="space-between" mt="md">
+						{editingId && (
+							<>
+								<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
+									<Trash2 />
+								</ActionIcon>
+								<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
+									Löschen
+								</Button>
+							</>
+						)}
+						<Group gap="xs">
+							<Button variant="light" onClick={close}>
+								Abbrechen
+							</Button>
+							<Button variant="filled" onClick={handleSubmit} loading={uploading || createMutation.isPending || updateMutation.isPending} disabled={!formData.name || !formData.gender}>
+								{editingId ? "Aktualisieren" : "Erstellen"}
+							</Button>
+						</Group>
 					</Group>
 				</Stack>
 			</Modal>
@@ -584,28 +594,124 @@ function TeamsPage() {
 				{isLoading ? (
 					<Text>Laden...</Text>
 				) : teams && teams.items.length > 0 ? (
-					<Table striped highlightOnHover>
-						<Table.Thead>
-							<Table.Tr>
-								<Table.Th>Name</Table.Th>
-								<Table.Th visibleFrom="lg">Liga</Table.Th>
-								<Table.Th visibleFrom="lg">Mindestalter</Table.Th>
-								<Table.Th hiddenFrom="lg">Alter</Table.Th>
-								<Table.Th visibleFrom="lg">Geschlecht</Table.Th>
-								<Table.Th hiddenFrom="lg">Geschl.</Table.Th>
-								<Table.Th>Trainer</Table.Th>
-								<Table.Th visibleFrom="xl">Trainingszeiten</Table.Th>
-								<Table.Th hiddenFrom="xl">Zeiten</Table.Th>
-								<Table.Th visibleFrom="lg">Bilder</Table.Th>
-								<Table.Th visibleFrom="lg">SAMS Team</Table.Th>
-								<Table.Th hiddenFrom="lg">SAMS</Table.Th>
-								<Table.Th>Aktionen</Table.Th>
-							</Table.Tr>
-						</Table.Thead>
-						<Table.Tbody>
+					<>
+						<Table striped highlightOnHover visibleFrom="sm">
+							<Table.Thead>
+								<Table.Tr>
+									<Table.Th>Name</Table.Th>
+									<Table.Th visibleFrom="lg">Liga</Table.Th>
+									<Table.Th visibleFrom="lg">Mindestalter</Table.Th>
+									<Table.Th hiddenFrom="lg">Alter</Table.Th>
+									<Table.Th visibleFrom="lg">Geschlecht</Table.Th>
+									<Table.Th hiddenFrom="lg">Geschl.</Table.Th>
+									<Table.Th>Trainer</Table.Th>
+									<Table.Th visibleFrom="xl">Trainingszeiten</Table.Th>
+									<Table.Th hiddenFrom="xl">Zeiten</Table.Th>
+									<Table.Th visibleFrom="lg">Bilder</Table.Th>
+									<Table.Th visibleFrom="lg">SAMS Team</Table.Th>
+									<Table.Th hiddenFrom="lg">SAMS</Table.Th>
+									<Table.Th>Aktionen</Table.Th>
+								</Table.Tr>
+							</Table.Thead>
+							<Table.Tbody>
+								{teams.items.map((team) => {
+									const samsTeam = samsTeams?.items.find((st) => st.uuid === team.sbvvTeamId);
+									const pictureCount = team.pictureS3Keys?.length || 0;
+									const teamPeople = new Set<Member>();
+									members?.items.forEach((member) => {
+										if (team.trainerIds?.includes(member.id) || team.pointOfContactIds?.includes(member.id)) {
+											teamPeople.add(member);
+										}
+									});
+									const trainingCount = team.trainingSchedules?.length || 0;
+									return (
+										<Table.Tr key={team.id}>
+											<Table.Td>
+												{team.name}
+												{team.league && (
+													<Text hiddenFrom="lg" size="xs">
+														{team.league}
+													</Text>
+												)}
+											</Table.Td>
+											<Table.Td visibleFrom="lg">{team.league || ""}</Table.Td>
+											<Table.Td>{team.ageGroup || ""}</Table.Td>
+											<Table.Td c={team.gender === "male" ? "blue" : team.gender === "female" ? "pink" : "onyx"}>
+												{team.gender === "male" ? <Mars size={16} /> : team.gender === "female" ? <Venus size={16} /> : <VenusAndMars size={16} />}
+											</Table.Td>
+											<Table.Td>
+												{teamPeople.size > 0 && (
+													<Avatar.Group>
+														{Array.from(teamPeople).map((person) => (
+															<PersonAvatar key={person.id} avatarS3Key={person.avatarS3Key} name={person.name} />
+														))}
+													</Avatar.Group>
+												)}
+											</Table.Td>
+											<Table.Td>
+												{trainingCount > 0 && (
+													<Tooltip
+														label={
+															<Stack gap={4}>
+																{team.trainingSchedules?.map((schedule, idx) => {
+																	const location = locations?.items.find((loc) => loc.id === schedule.locationId);
+																	const dayLabels = schedule.days.map((d) => WEEKDAYS.find((wd) => wd.value === String(d))?.label).join(", ");
+																	return (
+																		<Text key={`${schedule.locationId}-${schedule.startTime}-${idx}`} size="xs">
+																			{dayLabels}: {schedule.startTime}-{schedule.endTime} ({location?.name || "Unbekannt"})
+																		</Text>
+																	);
+																})}
+															</Stack>
+														}
+														withArrow
+													>
+														<Badge size="sm" variant="light">
+															{trainingCount}
+														</Badge>
+													</Tooltip>
+												)}
+											</Table.Td>
+											<Table.Td visibleFrom="lg">
+												{pictureCount > 0 && (
+													<Badge size="sm" variant="light">
+														{pictureCount}
+													</Badge>
+												)}
+											</Table.Td>
+											<Table.Td>
+												{samsTeam && (
+													<>
+														<Stack visibleFrom="lg" gap={0}>
+															<Text size="sm">{samsTeam.name}</Text>
+															<Text size="xs">{samsTeam.leagueName}</Text>
+														</Stack>
+														<Stack hiddenFrom="lg">
+															<Tooltip label={`${samsTeam.name} (${samsTeam.leagueName})`} withArrow hiddenFrom="lg">
+																<Check size={16} />
+															</Tooltip>
+														</Stack>
+													</>
+												)}
+											</Table.Td>
+
+											<Table.Td>
+												<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(team)}>
+													Bearbeiten
+												</Button>
+												<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(team)}>
+													<SquarePen size={16} />
+												</ActionIcon>
+											</Table.Td>
+										</Table.Tr>
+									);
+								})}
+							</Table.Tbody>
+						</Table>
+
+						<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
 							{teams.items.map((team) => {
 								const samsTeam = samsTeams?.items.find((st) => st.uuid === team.sbvvTeamId);
-								const pictureCount = team.pictureS3Keys?.length || 0;
 								const teamPeople = new Set<Member>();
 								members?.items.forEach((member) => {
 									if (team.trainerIds?.includes(member.id) || team.pointOfContactIds?.includes(member.id)) {
@@ -613,95 +719,91 @@ function TeamsPage() {
 									}
 								});
 								const trainingCount = team.trainingSchedules?.length || 0;
-								return (
-									<Table.Tr key={team.id}>
-										<Table.Td>
-											{team.name}
-											{team.league && (
-												<Text hiddenFrom="lg" size="xs">
-													{team.league}
-												</Text>
-											)}
-										</Table.Td>
-										<Table.Td visibleFrom="lg">{team.league || ""}</Table.Td>
-										<Table.Td>{team.ageGroup || ""}</Table.Td>
-										<Table.Td c={team.gender === "male" ? "blue" : team.gender === "female" ? "pink" : "onyx"}>
-											{team.gender === "male" ? <Mars size={16} /> : team.gender === "female" ? <Venus size={16} /> : <VenusAndMars size={16} />}
-										</Table.Td>
-										<Table.Td>
-											{teamPeople.size > 0 && (
-												<Avatar.Group>
-													{Array.from(teamPeople).map((person) => (
-														<PersonAvatar key={person.id} avatarS3Key={person.avatarS3Key} name={person.name} />
-													))}
-												</Avatar.Group>
-											)}
-										</Table.Td>
-										<Table.Td>
-											{trainingCount > 0 && (
-												<Tooltip
-													label={
-														<Stack gap={4}>
-															{team.trainingSchedules?.map((schedule, idx) => {
-																const location = locations?.items.find((loc) => loc.id === schedule.locationId);
-																const dayLabels = schedule.days.map((d) => WEEKDAYS.find((wd) => wd.value === String(d))?.label).join(", ");
-																return (
-																	<Text key={`${schedule.locationId}-${schedule.startTime}-${idx}`} size="xs">
-																		{dayLabels}: {schedule.startTime}-{schedule.endTime} ({location?.name || "Unbekannt"})
-																	</Text>
-																);
-															})}
-														</Stack>
-													}
-													withArrow
-												>
-													<Badge size="sm" variant="light">
-														{trainingCount}
-													</Badge>
-												</Tooltip>
-											)}
-										</Table.Td>
-										<Table.Td visibleFrom="lg">
-											{pictureCount > 0 && (
-												<Badge size="sm" variant="light">
-													{pictureCount}
-												</Badge>
-											)}
-										</Table.Td>
-										<Table.Td>
-											{samsTeam && (
-												<>
-													<Stack visibleFrom="lg" gap={0}>
-														<Text size="sm">{samsTeam.name}</Text>
-														<Text size="xs">{samsTeam.leagueName}</Text>
-													</Stack>
-													<Stack hiddenFrom="lg">
-														<Tooltip label={`${samsTeam.name} (${samsTeam.leagueName})`} withArrow hiddenFrom="lg">
-															<Check size={16} />
-														</Tooltip>
-													</Stack>
-												</>
-											)}
-										</Table.Td>
 
-										<Table.Td>
-											<Group gap="xs" wrap="nowrap">
-												<Button visibleFrom="xl" size="xs" onClick={() => handleEdit(team)}>
-													Bearbeiten
-												</Button>
-												<ActionIcon hiddenFrom="xl" variant="filled" radius="xl" onClick={() => handleEdit(team)}>
+								return (
+									<Card key={team.id} shadow="sm" p="md" radius="md" withBorder>
+										<Stack gap="xs">
+											<Group justify="space-between" align="flex-start">
+												<Stack gap={4} flex={1}>
+													<Title order={4}>{team.name}</Title>
+													{team.league && (
+														<Text size="sm" c="dimmed">
+															Liga: {team.league}
+														</Text>
+													)}
+												</Stack>
+												<ActionIcon color="blumine" variant="filled" onClick={() => handleEdit(team)} radius="xl">
 													<SquarePen size={16} />
 												</ActionIcon>
-												<ActionIcon variant="light" radius="xl" color="red" onClick={() => handleDelete(team.id)} loading={deleteMutation.isPending}>
-													<Trash2 size={16} />
-												</ActionIcon>
 											</Group>
-										</Table.Td>
-									</Table.Tr>
+
+											<Divider />
+
+											<Group justify="space-between">
+												<Stack gap={0}>
+													<Text size="xs" fw={500} c="dimmed">
+														Altersgruppe
+													</Text>
+													<Text size="sm">{team.ageGroup || "-"}</Text>
+												</Stack>
+
+												<Box c={team.gender === "male" ? "blue" : team.gender === "female" ? "pink" : "onyx"}>
+													{team.gender === "male" ? <Mars size={20} /> : team.gender === "female" ? <Venus size={20} /> : <VenusAndMars size={20} />}
+												</Box>
+											</Group>
+
+											{teamPeople.size > 0 && (
+												<Stack gap={0}>
+													<Text size="xs" fw={500} c="dimmed">
+														Trainer & Ansprechpartner
+													</Text>
+													<Avatar.Group>
+														{Array.from(teamPeople).map((person) => (
+															<PersonAvatar key={person.id} avatarS3Key={person.avatarS3Key} name={person.name} />
+														))}
+													</Avatar.Group>
+												</Stack>
+											)}
+
+											{trainingCount > 0 && (
+												<Stack gap="xs">
+													<Text size="xs" fw={500} c="dimmed">
+														Trainingszeiten ({trainingCount}):
+													</Text>
+													<Stack gap={0}>
+														{team.trainingSchedules?.map((schedule, idx) => {
+															const location = locations?.items.find((loc) => loc.id === schedule.locationId);
+															const dayLabels = schedule.days.map((d) => WEEKDAYS.find((wd) => wd.value === String(d))?.label).join(", ");
+															return (
+																<Text key={`${schedule.locationId}-${schedule.startTime}-${idx}`} size="xs">
+																	{dayLabels}: {schedule.startTime}-{schedule.endTime}
+																	<br />
+																	<Text component="span" size="xs" c="dimmed">
+																		{location?.name || "Unbekannt"}
+																	</Text>
+																</Text>
+															);
+														})}
+													</Stack>
+												</Stack>
+											)}
+
+											{samsTeam && (
+												<Group gap="xs">
+													<Text size="xs" fw={500} c="dimmed">
+														SAMS:
+													</Text>
+													<Text size="xs">
+														{samsTeam.name}, {samsTeam.leagueName}
+													</Text>
+												</Group>
+											)}
+										</Stack>
+									</Card>
 								);
 							})}
-						</Table.Tbody>
-					</Table>
+						</SimpleGrid>
+					</>
 				) : (
 					<Text>Keine Mannschaften vorhanden</Text>
 				)}

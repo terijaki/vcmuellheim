@@ -1,4 +1,4 @@
-import { ActionIcon, Button, Center, Group, Modal, Paper, SegmentedControl, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Button, Card, Center, Group, Modal, Paper, SegmentedControl, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { Calendar, DatePickerInput } from "@mantine/dates";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
@@ -7,12 +7,14 @@ import { useMemo, useState } from "react";
 import "dayjs/locale/de";
 import type { BusInput } from "@lib/db/schemas";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, SquarePen, Trash2 } from "lucide-react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
+import { useNotification } from "../../hooks/useNotification";
 
 dayjs.locale("de");
 
 function BusSchedulesPage() {
+	const notification = useNotification();
 	const [opened, { open, close }] = useDisclosure(false);
 	const [editingId, setEditingId] = useState<string | null>(null);
 	const [timeFilter, setTimeFilter] = useState<"upcoming" | "past">("upcoming");
@@ -23,7 +25,7 @@ function BusSchedulesPage() {
 	});
 
 	const trpc = useTRPC();
-	const { data: schedules, isLoading } = useQuery(trpc.bus.list.queryOptions());
+	const { data: schedules, isLoading, refetch } = useQuery(trpc.bus.list.queryOptions());
 	const isMobile = useMediaQuery("(max-width: 768px)");
 
 	// Create a set of all booked dates (excluding the one being edited)
@@ -51,11 +53,13 @@ function BusSchedulesPage() {
 	const createMutation = useMutation(
 		trpc.bus.create.mutationOptions({
 			onSuccess: () => {
+				refetch();
 				close();
 				resetForm();
+				notification.success("Fahrt wurde erfolgreich erstellt");
 			},
 			onError: () => {
-				// Optionally show notification
+				notification.error({ message: "Fahrt konnte nicht erstellt werden" });
 			},
 		}),
 	);
@@ -63,11 +67,13 @@ function BusSchedulesPage() {
 	const updateMutation = useMutation(
 		trpc.bus.update.mutationOptions({
 			onSuccess: () => {
+				refetch();
 				close();
 				resetForm();
+				notification.success("Fahrt wurde erfolgreich aktualisiert");
 			},
 			onError: () => {
-				// Optionally show notification
+				notification.error({ message: "Fahrt konnte nicht aktualisiert werden" });
 			},
 		}),
 	);
@@ -75,10 +81,14 @@ function BusSchedulesPage() {
 	const deleteMutation = useMutation(
 		trpc.bus.delete.mutationOptions({
 			onSuccess: () => {
-				// Optionally show notification
+				refetch();
+				close();
+				resetForm();
+				setEditingId(null);
+				notification.success("Fahrt wurde erfolgreich gelöscht");
 			},
 			onError: () => {
-				// Optionally show notification
+				notification.error({ message: "Fahrt konnte nicht gelöscht werden" });
 			},
 		}),
 	);
@@ -165,9 +175,21 @@ function BusSchedulesPage() {
 						open();
 					}}
 					leftSection={<Plus />}
+					visibleFrom="sm"
 				>
 					Neue Buchung
 				</Button>
+				<ActionIcon
+					onClick={() => {
+						resetForm();
+						open();
+					}}
+					hiddenFrom="sm"
+					variant="filled"
+					radius="xl"
+				>
+					<Plus size={20} />
+				</ActionIcon>
 			</Group>
 
 			<Center pb="md">
@@ -203,7 +225,7 @@ function BusSchedulesPage() {
 					<Text>Laden...</Text>
 				) : filteredSchedules.length > 0 ? (
 					<>
-						<Table striped highlightOnHover>
+						<Table striped highlightOnHover visibleFrom="sm">
 							<Table.Thead>
 								<Table.Tr>
 									<Table.Th>Fahrer</Table.Th>
@@ -221,19 +243,53 @@ function BusSchedulesPage() {
 										<Table.Td>{dayjs(schedule.to).format("DD.MM.YYYY")}</Table.Td>
 										<Table.Td>{schedule.comment || "-"}</Table.Td>
 										<Table.Td>
-											<Group gap="xs">
-												<Button size="xs" onClick={() => handleEdit(schedule)}>
-													Bearbeiten
-												</Button>
-												<ActionIcon variant="light" radius="xl" color="red" onClick={() => handleDelete(schedule.id)} loading={deleteMutation.isPending}>
-													<Trash2 size={16} />
-												</ActionIcon>
-											</Group>
+											<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(schedule)}>
+												Bearbeiten
+											</Button>
+											<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(schedule)}>
+												<SquarePen size={16} />
+											</ActionIcon>
 										</Table.Td>
 									</Table.Tr>
 								))}
 							</Table.Tbody>
 						</Table>
+
+						<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
+							{filteredSchedules.map((schedule) => (
+								<Card key={schedule.id} shadow="sm" p="md" radius="md" withBorder>
+									<Stack gap="xs">
+										<Group justify="space-between" align="flex-start">
+											<Title order={4}>{schedule.driver}</Title>
+											<ActionIcon color="blumine" variant="filled" onClick={() => handleEdit(schedule)} radius="xl">
+												<SquarePen size={16} />
+											</ActionIcon>
+										</Group>
+										<Stack gap="xs">
+											<div>
+												<Text size="xs" fw={500} c="dimmed">
+													Zeitraum
+												</Text>
+												<Text size="sm">
+													{dayjs(schedule.from).isSame(dayjs(schedule.to), "day")
+														? dayjs(schedule.from).format("DD.MM.YYYY")
+														: `${dayjs(schedule.from).format("DD.MM.YYYY")} - ${dayjs(schedule.to).format("DD.MM.YYYY")}`}
+												</Text>
+											</div>
+											{schedule.comment && (
+												<div>
+													<Text size="xs" fw={500} c="dimmed">
+														Kommentar
+													</Text>
+													<Text size="sm">{schedule.comment}</Text>
+												</div>
+											)}
+										</Stack>
+									</Stack>
+								</Card>
+							))}
+						</SimpleGrid>
+
 						<Text size="sm" c="dimmed" mt="md">
 							{filteredSchedules.length} {timeFilter === "upcoming" ? "bevorstehende" : "vergangene"} Buchung{filteredSchedules.length !== 1 ? "en" : ""}
 						</Text>
@@ -252,6 +308,8 @@ function BusSchedulesPage() {
 					resetForm();
 				}}
 				title={editingId ? "Bus Buchung bearbeiten" : "Bus Buchung hinzufügen"}
+				size={isMobile ? "100%" : "lg"}
+				fullScreen={isMobile}
 			>
 				<form onSubmit={handleSubmit}>
 					<Stack>
@@ -295,13 +353,25 @@ function BusSchedulesPage() {
 							]}
 						/>
 						<Textarea label="Kommentar" placeholder="Zusätzliche Informationen..." value={formData.comment} onChange={(e) => setFormData({ ...formData, comment: e.target.value })} minRows={3} />
-						<Group justify="flex-end" mt="md">
-							<Button variant="subtle" onClick={close}>
-								Abbrechen
-							</Button>
-							<Button type="submit" loading={createMutation.isPending || updateMutation.isPending}>
-								{editingId ? "Aktualisieren" : "Erstellen"}
-							</Button>
+						<Group justify="space-between" mt="md">
+							{editingId && (
+								<>
+									<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
+										<Trash2 />
+									</ActionIcon>
+									<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
+										Löschen
+									</Button>
+								</>
+							)}
+							<Group gap="xs">
+								<Button variant="light" onClick={close}>
+									Abbrechen
+								</Button>
+								<Button variant="filled" type="submit" loading={createMutation.isPending || updateMutation.isPending}>
+									{editingId ? "Aktualisieren" : "Erstellen"}
+								</Button>
+							</Group>
 						</Group>
 					</Stack>
 				</form>
