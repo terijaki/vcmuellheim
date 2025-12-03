@@ -86,8 +86,7 @@ jobs:
           CDK_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
           CDK_ENVIRONMENT: dev
           CDK_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
-          SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
-          SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
+          CDK_DESTROY: "true"
         run: |
           echo "Destroying stacks for branch: ${{ steps.branch.outputs.branch }}"
 
