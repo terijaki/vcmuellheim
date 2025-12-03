@@ -9,7 +9,6 @@
  *   bun run db:seed --cleanup    # Cleanup only (validates prod protection)
  *   bun run db:seed --cleanup --members  # Cleanup + seed members
  *   bun run db:seed --events     # Seeds only events
- *   bun run db:seed --instagram  # Seeds only Instagram posts
  *   bun run db:seed --news       # Seeds only news articles
  *   bun run db:seed --members    # Seeds only members
  *   bun run db:seed --teams      # Seeds only teams
@@ -24,7 +23,6 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { BatchWriteCommand, DynamoDBDocumentClient, ScanCommand as ScanDocCommand } from "@aws-sdk/lib-dynamodb";
 import dayjs from "dayjs";
-import type { InstagramPostItem } from "@/lambda/social/types";
 import { busSchema, eventSchema, locationSchema, type MemberInput, memberSchema, newsSchema, sponsorSchema, teamSchema } from "@/lib/db/schemas";
 import { Club } from "@/project.config";
 import { getSanitizedBranch } from "@/utils/git";
@@ -124,7 +122,6 @@ async function uploadImageToS3(imageUrl: string, s3Key: string): Promise<string>
 }
 
 // Table names
-const INSTAGRAM_TABLE = `instagram-posts-${CDK_ENVIRONMENT}${branchSuffix}`;
 const EVENTS_TABLE = `vcm-events-${CDK_ENVIRONMENT}${branchSuffix}`;
 const NEWS_TABLE = `vcm-news-${CDK_ENVIRONMENT}${branchSuffix}`;
 const MEMBERS_TABLE = `vcm-members-${CDK_ENVIRONMENT}${branchSuffix}`;
@@ -138,7 +135,6 @@ const args = process.argv.slice(2);
 const cleanupOnly = args.includes("--cleanup") && args.length === 1;
 const shouldCleanup = args.includes("--cleanup");
 
-const seedInstagram = args.length === 0 || args.includes("--instagram");
 const seedEvents = args.length === 0 || args.includes("--events");
 const seedNews = args.length === 0 || args.includes("--news");
 const seedMembers = args.length === 0 || args.includes("--members");
@@ -158,7 +154,7 @@ async function cleanupDatabase() {
 
 	console.log("\n🧹 Cleaning up database tables...");
 
-	const tables = [INSTAGRAM_TABLE, EVENTS_TABLE, NEWS_TABLE, MEMBERS_TABLE, TEAMS_TABLE, LOCATIONS_TABLE, SPONSORS_TABLE, BUS_TABLE];
+	const tables = [EVENTS_TABLE, NEWS_TABLE, MEMBERS_TABLE, TEAMS_TABLE, LOCATIONS_TABLE, SPONSORS_TABLE, BUS_TABLE];
 
 	for (const tableName of tables) {
 		try {
@@ -180,16 +176,8 @@ async function cleanupDatabase() {
 
 				// Delete items in batches - extract all key attributes from scanned items
 				const deleteRequests = result.Items.map((item: Record<string, unknown>) => {
-					// For Instagram table: use entityType and timestamp
-					// For other tables: use id
 					const key: Record<string, unknown> = {};
-
-					if (tableName === INSTAGRAM_TABLE) {
-						key.entityType = item.entityType;
-						key.timestamp = item.timestamp;
-					} else {
-						key.id = item.id;
-					}
+					key.id = item.id;
 
 					return {
 						DeleteRequest: {
@@ -728,128 +716,6 @@ async function seedSponsorsData() {
 }
 
 /**
- * Generate fake Instagram posts
- */
-async function seedInstagramPosts() {
-	console.log("\n📸 Seeding Instagram posts...");
-
-	const posts: InstagramPostItem[] = [
-		{
-			id: "C234567890",
-			entityType: "POST",
-			timestamp: dayjs().startOf("day").subtract(1, "days").toISOString(),
-			type: "Video",
-			ownerFullName: "VC Müllheim",
-			ownerUsername: "vcmuellheim",
-			inputUrl: "https://www.instagram.com/p/C234567890/",
-			displayUrl: "", // Will be set after upload
-			videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-			caption: "Trainingseindrücke von gestern Abend 🔥 Unsere Jugendmannschaft gibt alles! #nachwuchs #training #vcmuellheim",
-			dimensionsHeight: 1350,
-			dimensionsWidth: 1080,
-			likesCount: 89,
-			commentsCount: 12,
-			hashtags: ["nachwuchs", "training", "vcmuellheim"],
-			updatedAt: dayjs().startOf("day").subtract(5, "days").toISOString(),
-			ttl: Math.floor(dayjs().startOf("day").add(57, "days").valueOf() / 1000),
-		},
-		{
-			id: "C345678901",
-			entityType: "POST",
-			timestamp: dayjs().startOf("day").subtract(3, "days").toISOString(),
-			type: "Image",
-			ownerFullName: "VC Müllheim",
-			ownerUsername: "vcmuellheim",
-			inputUrl: "https://www.instagram.com/p/C345678901/",
-			displayUrl: "", // Will be set after upload
-			caption: "Beach-Volleyball Turnier am Wochenende! 🏖️☀️ Wer kommt vorbei? Samstag ab 10 Uhr an der Römerhalle. #beachvolleyball #turnier #müllheim",
-			dimensionsHeight: 1080,
-			dimensionsWidth: 1080,
-			likesCount: 156,
-			commentsCount: 24,
-			hashtags: ["beachvolleyball", "turnier", "müllheim"],
-			updatedAt: dayjs().startOf("day").subtract(8, "days").toISOString(),
-			ttl: Math.floor(dayjs().startOf("day").add(54, "days").valueOf() / 1000),
-		},
-		{
-			id: "C567890123",
-			entityType: "POST",
-			timestamp: dayjs().startOf("day").subtract(11, "days").toISOString(),
-			type: "Image",
-			ownerFullName: "VC Müllheim",
-			ownerUsername: "vcmuellheim",
-			inputUrl: "https://www.instagram.com/p/C567890123/",
-			displayUrl: "", // Will be set after upload
-			caption: "Trainingscamp in den Herbstferien war ein voller Erfolg! 🍂 Danke an alle Teilnehmer und Trainer! #herbstcamp #jugendtraining #vcm",
-			dimensionsHeight: 1080,
-			dimensionsWidth: 1080,
-			likesCount: 94,
-			commentsCount: 15,
-			hashtags: ["herbstcamp", "jugendtraining", "vcm"],
-			updatedAt: dayjs().startOf("day").subtract(15, "days").toISOString(),
-			ttl: Math.floor(dayjs().startOf("day").add(47, "days").valueOf() / 1000),
-		},
-		{
-			id: "C678901234",
-			entityType: "POST",
-			timestamp: dayjs().startOf("day").subtract(20, "days").toISOString(),
-			type: "Image",
-			ownerFullName: "VC Müllheim",
-			ownerUsername: "vcmuellheim",
-			inputUrl: "https://www.instagram.com/p/C678901234/",
-			displayUrl: "", // Will be set after upload
-			caption: "Neues Trikot-Design für die Saison 2025/26! 👕 Was sagt ihr dazu? #neuestrikots #teamkit #vcmuellheim #volleyball",
-			dimensionsHeight: 1080,
-			dimensionsWidth: 1080,
-			likesCount: 178,
-			commentsCount: 42,
-			hashtags: ["neuestrikots", "teamkit", "vcmuellheim", "volleyball"],
-			updatedAt: dayjs().startOf("day").subtract(20, "days").toISOString(),
-			ttl: Math.floor(dayjs().startOf("day").add(42, "days").valueOf() / 1000),
-		},
-	];
-
-	// Image URLs to download
-	const imageUrls = ["https://picsum.photos/1080/1350?random=2", "https://picsum.photos/1080/1080?random=3", "https://picsum.photos/1080/1080?random=5", "https://picsum.photos/1080/1080?random=6"];
-
-	// Download and upload images
-	console.log("  Downloading and uploading images...");
-	for (let i = 0; i < posts.length; i++) {
-		try {
-			const s3Key = `instagram/${posts[i].id}.jpg`;
-			await uploadImageToS3(imageUrls[i], s3Key);
-			posts[i].displayUrl = `https://${S3_BUCKET}.s3.${process.env.AWS_REGION || "eu-central-1"}.amazonaws.com/${s3Key}`;
-		} catch (error) {
-			console.warn(`  ⚠️  Failed to upload image for post ${posts[i].id}:`, error);
-			posts[i].displayUrl = imageUrls[i]; // Fall back to direct URL
-		}
-	}
-
-	// Batch write posts
-	const batchSize = 25; // DynamoDB batch write limit
-	for (let i = 0; i < posts.length; i += batchSize) {
-		const batch = posts.slice(i, i + batchSize);
-		const command = new BatchWriteCommand({
-			RequestItems: {
-				[INSTAGRAM_TABLE]: batch.map((post) => ({
-					PutRequest: { Item: post },
-				})),
-			},
-		});
-
-		try {
-			await docClient.send(command);
-			console.log(`  ✓ Seeded ${batch.length} Instagram posts`);
-		} catch (error) {
-			console.error(`  ✗ Error seeding Instagram posts:`, error);
-			throw error;
-		}
-	}
-
-	console.log(`✅ Seeded ${posts.length} Instagram posts to ${INSTAGRAM_TABLE}`);
-}
-
-/**
  * Generate fake Events
  */
 async function seedEventsData() {
@@ -1036,10 +902,6 @@ async function main() {
 
 		if (seedBus) {
 			await seedBusData();
-		}
-
-		if (seedInstagram) {
-			await seedInstagramPosts();
 		}
 
 		console.log("\n🎉 Database seeding completed successfully!\n");
