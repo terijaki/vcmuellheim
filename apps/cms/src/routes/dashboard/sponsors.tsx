@@ -8,6 +8,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { Globe, Pencil, Plus, Trash2, Upload, X } from "lucide-react";
 import { useState } from "react";
+import { bytesToMB, MAX_UPLOAD_SIZE } from "@/apps/shared/lib/image-config";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
 import { useNotification } from "../../hooks/useNotification";
 
@@ -17,12 +18,14 @@ function CurrentLogoDisplay({
 	deleteLogo,
 	onFileChange,
 	onDeleteToggle,
+	onFileSizeError,
 }: {
 	logoS3Key?: string;
 	logoFile: File | null;
 	deleteLogo: boolean;
 	onFileChange: (file: File | null) => void;
 	onDeleteToggle: () => void;
+	onFileSizeError: (message: string) => void;
 }) {
 	const trpc = useTRPC();
 	const { data: logoUrl } = useQuery(trpc.upload.getFileUrl.queryOptions({ s3Key: logoS3Key || "" }, { enabled: !!logoS3Key && !deleteLogo }));
@@ -83,7 +86,13 @@ function CurrentLogoDisplay({
 					style={{ display: "none" }}
 					onChange={(e) => {
 						const file = e.target.files?.[0];
-						if (file) onFileChange(file);
+						if (file) {
+							if (file.size > MAX_UPLOAD_SIZE) {
+								onFileSizeError(`${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`);
+								return;
+							}
+							onFileChange(file);
+						}
 					}}
 				/>
 			</Box>
@@ -118,9 +127,18 @@ function CurrentLogoDisplay({
 				Logo
 			</Text>
 			<Dropzone
-				onDrop={(files: File[]) => files.length > 0 && onFileChange(files[0])}
+				onDrop={(files: File[]) => {
+					if (files.length > 0) {
+						const file = files[0];
+						if (file.size > MAX_UPLOAD_SIZE) {
+							onFileSizeError(`${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`);
+							return;
+						}
+						onFileChange(file);
+					}
+				}}
 				accept={IMAGE_MIME_TYPE}
-				maxSize={5 * 1024 * 1024}
+				maxSize={MAX_UPLOAD_SIZE}
 				maxFiles={1}
 				bg="blumine"
 				c="white"
@@ -143,7 +161,7 @@ function CurrentLogoDisplay({
 							Logo hierher ziehen oder klicken zum Auswählen
 						</Text>
 						<Text size="sm" opacity={0.7} inline mt={7}>
-							PNG, JPG oder SVG, max. 5MB
+							PNG, JPG oder SVG, max. ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB
 						</Text>
 					</Stack>
 				</Flex>
@@ -328,11 +346,8 @@ function SponsorsPage() {
 			<Modal opened={opened} onClose={close} title={editingId ? "Sponsor bearbeiten" : "Neuer Sponsor"} size={isMobile ? "100%" : "lg"} fullScreen={isMobile}>
 				<Stack gap="md" p={{ base: "md", sm: "sm" }}>
 					<TextInput label="Name" placeholder="z.B. Firma Mustermann" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
-
 					<Textarea label="Beschreibung" placeholder="Optionale Beschreibung..." value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} minRows={3} />
-
 					<TextInput label="Website" placeholder="https://..." value={formData.websiteUrl} onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })} />
-
 					<DatePickerInput
 						label="Ablaufdatum"
 						placeholder="Optionales Ablaufdatum auswählen"
@@ -345,7 +360,6 @@ function SponsorsPage() {
 						clearable
 						minDate={dayjs().add(1, "day").toDate()}
 					/>
-
 					<CurrentLogoDisplay
 						logoS3Key={formData.logoS3Key}
 						logoFile={logoFile}
@@ -355,8 +369,10 @@ function SponsorsPage() {
 							setDeleteLogo(!deleteLogo);
 							setLogoFile(null);
 						}}
-					/>
-
+						onFileSizeError={(message) => {
+							notification.error({ message });
+						}}
+					/>{" "}
 					<Group justify="space-between" mt="md">
 						{editingId && (
 							<>

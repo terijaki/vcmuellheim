@@ -3,6 +3,12 @@
  * Used by both Lambda (image-processor) and frontend (ResponsiveImage, hooks)
  */
 
+/** Maximum file size for image uploads (25 MB) */
+export const MAX_UPLOAD_SIZE = 25 * 1024 * 1024;
+
+/** Maximum file size for compressed original image stored in S3 (5 MB) */
+export const MAX_ORIGINAL_SIZE = 5 * 1024 * 1024;
+
 /** Responsive image sizes in pixels */
 export const IMAGE_SIZES = [480, 800, 1200] as const;
 
@@ -49,3 +55,8 @@ export const buildSizesAttribute = (mobileView: "full" | "half" | "quarter" = "f
  * Get image sizes as a mutable array (useful for passing to functions that expect number[])
  */
 export const getImageSizesArray = (): number[] => [...IMAGE_SIZES];
+
+/** Convert bytes to MB with 1 decimal place */
+export const bytesToMB = (bytes: number, decimals: number = 1): string => {
+	return (bytes / 1024 / 1024).toFixed(decimals);
+};

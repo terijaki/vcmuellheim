@@ -12,6 +12,7 @@ import StarterKit from "@tiptap/starter-kit";
 import dayjs from "dayjs";
 import { Plus, Search, SquarePen, Trash2, Upload, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { bytesToMB, MAX_UPLOAD_SIZE } from "@/apps/shared/lib/image-config";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
 import { useNotification } from "../../hooks/useNotification";
 
@@ -362,7 +363,24 @@ function NewsPage() {
 						)}
 
 						{/* Dropzone - always visible for adding more images */}
-						<Dropzone onDrop={(files) => setImageFiles([...imageFiles, ...files])} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024} bd="1px dashed var(--mantine-color-dimmed)" p="xs">
+						<Dropzone
+							onDrop={(files) => {
+								const validFiles = files.filter((file) => {
+									if (file.size > MAX_UPLOAD_SIZE) {
+										notification.error({
+											message: `${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`,
+										});
+										return false;
+									}
+									return true;
+								});
+								setImageFiles([...imageFiles, ...validFiles]);
+							}}
+							accept={IMAGE_MIME_TYPE}
+							maxSize={MAX_UPLOAD_SIZE}
+							bd="1px dashed var(--mantine-color-dimmed)"
+							p="xs"
+						>
 							<Flex direction={{ base: "row", md: "column" }} justify="center" rowGap="md" columnGap="md" mih={{ base: 80, md: 120 }} style={{ pointerEvents: "none" }}>
 								<Dropzone.Accept>
 									<Upload size={50} style={{ color: "var(--mantine-color-blue-6)" }} />
@@ -379,7 +397,7 @@ function NewsPage() {
 										Bilder hierher ziehen oder klicken zum Auswählen
 									</Text>
 									<Text size="sm" c="dimmed" inline mt={7}>
-										Mehrere Bilder möglich, max. 5MB pro Bild
+										Mehrere Bilder möglich, max. ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB pro Bild
 									</Text>
 									<Text size="xs" c="dimmed" mt="xs">
 										{(formData.imageS3Keys?.length || 0) - imagesToDelete.length + imageFiles.length} Bild

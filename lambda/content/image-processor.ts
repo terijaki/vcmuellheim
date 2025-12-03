@@ -2,6 +2,7 @@
  * Lambda function to process uploaded images using ImageMagick
  * Triggered by S3 upload events
  * Generates responsive variants (480px, 800px, 1200px) in JPEG and WebP format
+ * Also compresses and overwrites the original image (capped at 5MB)
  */
 
 import { exec } from "node:child_process";
@@ -11,7 +12,7 @@ import type { Readable } from "node:stream";
 import { promisify } from "node:util";
 import { GetObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import type { S3Event } from "aws-lambda";
-import { IMAGE_QUALITY, IMAGE_SIZES } from "@/apps/shared/lib/image-config";
+import { bytesToMB, IMAGE_QUALITY, IMAGE_SIZES, MAX_ORIGINAL_SIZE } from "@/apps/shared/lib/image-config";
 
 const s3Client = new S3Client();
 const execAsync = promisify(exec);
@@ -52,6 +53,7 @@ const uploadImageToS3 = async (bucket: string, key: string, imageBuffer: Buffer,
 /** Process image and generate variants using ImageMagick */
 const processImage = async (bucket: string, originalKey: string): Promise<Record<string, string>> => {
 	const variants: Record<string, string> = {};
+	const tempFiles: string[] = [];
 
 	try {
 		const imageBuffer = await downloadImageFromS3(bucket, originalKey);
@@ -67,19 +69,61 @@ const processImage = async (bucket: string, originalKey: string): Promise<Record
 		// Save original to temp
 		const inputImagePath = `${tmpdir()}/input-${Date.now()}`;
 		writeFileSync(inputImagePath, imageBuffer);
+		tempFiles.push(inputImagePath);
 
+		// Compress and overwrite original (capped at 5MB)
+		try {
+			const compressedOriginalPath = `${tmpdir()}/original-compressed-${Date.now()}.jpg`;
+			tempFiles.push(compressedOriginalPath);
+
+			// Convert to JPEG with progressive encoding and quality adjusted to keep file size under 5MB
+			// Start with quality 85, and dynamically adjust if needed
+			let quality = 85;
+			let compressed = false;
+
+			while (quality >= 50 && !compressed) {
+				try {
+					await execAsync(`convert "${inputImagePath}" -auto-orient -resize 2400 -quality ${quality} -strip -interlace Plane "${compressedOriginalPath}"`);
+
+					const compressedSize = readFileSync(compressedOriginalPath).length;
+					if (compressedSize <= MAX_ORIGINAL_SIZE) {
+						// Successfully under limit
+						compressed = true;
+					} else if (quality > 50) {
+						// Try lower quality
+						quality -= 5;
+					} else {
+						// Even at quality 50, still too large - use it anyway but log warning
+						console.warn(`Original image still exceeds limit of ${bytesToMB(MAX_ORIGINAL_SIZE, 0)}MB at quality 50 (${compressedSize} bytes)`);
+						compressed = true;
+					}
+				} catch (error) {
+					console.error(`Error compressing at quality ${quality}:`, error);
+					quality -= 5;
+				}
+			}
+
+			// Upload compressed original back to the same key
+			const compressedBuffer = readFileSync(compressedOriginalPath);
+			await uploadImageToS3(bucket, originalKey, compressedBuffer, "image/jpeg");
+			console.log(`Uploaded compressed original back to ${originalKey}`);
+		} catch (error) {
+			console.error("Failed to compress and overwrite original:", error);
+			throw error;
+		}
+
+		// Generate variants
 		for (const size of IMAGE_SIZES) {
 			//  JPEG
 			try {
 				const jpegPath = `${tmpdir()}/output-${size}w-jpeg-${Date.now()}.jpg`;
+				tempFiles.push(jpegPath);
 				await execAsync(`convert "${inputImagePath}" -auto-orient -resize ${size} -quality ${IMAGE_QUALITY} -strip "${jpegPath}"`);
 
 				const jpegBuffer = readFileSync(jpegPath);
 				const jpegKey = `${outputFolder}/${baseFilename}-${size}w.jpg`;
 				await uploadImageToS3(bucket, jpegKey, jpegBuffer, "image/jpeg");
 				variants[`${size}w`] = jpegKey;
-
-				unlinkSync(jpegPath);
 			} catch (error) {
 				console.error(`Failed to generate JPEG variant ${size}w:`, error);
 			}
@@ -87,6 +131,7 @@ const processImage = async (bucket: string, originalKey: string): Promise<Record
 			//  WebP
 			try {
 				const webpPath = `${tmpdir()}/output-${size}w-webp-${Date.now()}.webp`;
+				tempFiles.push(webpPath);
 				// Use -auto-orient to respect EXIF orientation, then strip metadata to prevent issues
 				await execAsync(`convert "${inputImagePath}" -auto-orient -resize ${size} -quality ${IMAGE_QUALITY} -format webp -strip "${webpPath}"`);
 
@@ -94,8 +139,6 @@ const processImage = async (bucket: string, originalKey: string): Promise<Record
 				const webpKey = `${outputFolder}/${baseFilename}-${size}w.webp`;
 				await uploadImageToS3(bucket, webpKey, webpBuffer, "image/webp");
 				variants[`${size}w-webp`] = webpKey;
-
-				unlinkSync(webpPath);
 			} catch (error) {
 				console.error(`Failed to generate WebP variant ${size}w:`, error);
 			}
@@ -103,6 +146,15 @@ const processImage = async (bucket: string, originalKey: string): Promise<Record
 	} catch (error) {
 		console.error("Error processing image:", error);
 		throw error;
+	} finally {
+		// Clean up all temporary files
+		for (const filePath of tempFiles) {
+			try {
+				unlinkSync(filePath);
+			} catch (error) {
+				console.warn(`Failed to delete temp file ${filePath}:`, error);
+			}
+		}
 	}
 
 	return variants;

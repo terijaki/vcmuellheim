@@ -6,6 +6,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Pencil, Plus, Trash2, Upload, User, X } from "lucide-react";
 import { useState } from "react";
+import { bytesToMB, MAX_UPLOAD_SIZE } from "@/apps/shared/lib/image-config";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
 import { useNotification } from "../../hooks/useNotification";
 
@@ -15,12 +16,14 @@ function CurrentAvatarDisplay({
 	deleteAvatar,
 	onFileChange,
 	onDeleteToggle,
+	onFileSizeError,
 }: {
 	avatarS3Key?: string;
 	avatarFile: File | null;
 	deleteAvatar: boolean;
 	onFileChange: (file: File | null) => void;
 	onDeleteToggle: () => void;
+	onFileSizeError: (message: string) => void;
 }) {
 	const trpc = useTRPC();
 	const { data: avatarUrl } = useQuery(trpc.upload.getFileUrl.queryOptions({ s3Key: avatarS3Key || "" }, { enabled: !!avatarS3Key && !deleteAvatar }));
@@ -81,7 +84,13 @@ function CurrentAvatarDisplay({
 					style={{ display: "none" }}
 					onChange={(e) => {
 						const file = e.target.files?.[0];
-						if (file) onFileChange(file);
+						if (file) {
+							if (file.size > MAX_UPLOAD_SIZE) {
+								onFileSizeError(`${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`);
+								return;
+							}
+							onFileChange(file);
+						}
 					}}
 				/>
 			</Box>
@@ -116,9 +125,18 @@ function CurrentAvatarDisplay({
 				Profilfoto
 			</Text>
 			<Dropzone
-				onDrop={(files: File[]) => files.length > 0 && onFileChange(files[0])}
+				onDrop={(files: File[]) => {
+					if (files.length > 0) {
+						const file = files[0];
+						if (file.size > MAX_UPLOAD_SIZE) {
+							onFileSizeError(`${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`);
+							return;
+						}
+						onFileChange(file);
+					}
+				}}
 				accept={IMAGE_MIME_TYPE}
-				maxSize={5 * 1024 * 1024}
+				maxSize={MAX_UPLOAD_SIZE}
 				maxFiles={1}
 				bd="1px dashed var(--mantine-color-dimmed)"
 				p="xs"
@@ -139,7 +157,7 @@ function CurrentAvatarDisplay({
 							Profilfoto hierher ziehen oder klicken zum Auswählen
 						</Text>
 						<Text size="sm" c="dimmed" inline mt={7}>
-							JPG oder PNG, max. 5MB
+							JPG oder PNG, max. ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB
 						</Text>
 					</Stack>
 				</Flex>
@@ -346,7 +364,7 @@ function MembersPage() {
 					<Group gap="md">
 						<Checkbox label="Board Member" checked={formData.isBoardMember} onChange={(e) => setFormData({ ...formData, isBoardMember: e.currentTarget.checked })} />
 						<Checkbox label="Trainer" checked={formData.isTrainer} onChange={(e) => setFormData({ ...formData, isTrainer: e.currentTarget.checked })} />
-					</Group>{" "}
+					</Group>
 					<CurrentAvatarDisplay
 						avatarS3Key={formData.avatarS3Key}
 						avatarFile={avatarFile}
@@ -355,6 +373,9 @@ function MembersPage() {
 						onDeleteToggle={() => {
 							setDeleteAvatar(!deleteAvatar);
 							setAvatarFile(null);
+						}}
+						onFileSizeError={(message) => {
+							notification.error({ message });
 						}}
 					/>
 					<Group justify="space-between" mt="md">

@@ -32,6 +32,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, Mars, Plus, SquarePen, Trash2, Upload, Venus, VenusAndMars, X } from "lucide-react";
 import { useState } from "react";
+import { bytesToMB, MAX_UPLOAD_SIZE } from "@/apps/shared/lib/image-config";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
 import type { Member } from "@/lib/db";
 import { useNotification } from "../../hooks/useNotification";
@@ -54,6 +55,7 @@ function TeamPicturesManager({
 	onFilesAdd,
 	onFileRemove,
 	onDeleteToggle,
+	onFileSizeError,
 }: {
 	pictureS3Keys: string[];
 	pictureFiles: File[];
@@ -61,6 +63,7 @@ function TeamPicturesManager({
 	onFilesAdd: (files: File[]) => void;
 	onFileRemove: (index: number) => void;
 	onDeleteToggle: (key: string) => void;
+	onFileSizeError: (message: string) => void;
 }) {
 	return (
 		<Box>
@@ -98,7 +101,22 @@ function TeamPicturesManager({
 			)}
 
 			{/* Dropzone for adding pictures */}
-			<Dropzone onDrop={onFilesAdd} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024} bd="1px dashed var(--mantine-color-dimmed)" p="xs">
+			<Dropzone
+				onDrop={(files) => {
+					const validFiles = files.filter((file) => {
+						if (file.size > MAX_UPLOAD_SIZE) {
+							onFileSizeError(`${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`);
+							return false;
+						}
+						return true;
+					});
+					onFilesAdd(validFiles);
+				}}
+				accept={IMAGE_MIME_TYPE}
+				maxSize={MAX_UPLOAD_SIZE}
+				bd="1px dashed var(--mantine-color-dimmed)"
+				p="xs"
+			>
 				<Flex direction={{ base: "row", md: "column" }} justify="center" rowGap="md" columnGap="md" mih={{ base: 80, md: 120 }} style={{ pointerEvents: "none" }}>
 					<Dropzone.Accept>
 						<Upload size={50} style={{ color: "var(--mantine-color-blue-6)" }} />
@@ -115,7 +133,7 @@ function TeamPicturesManager({
 							Bilder hierher ziehen oder klicken zum Auswählen
 						</Text>
 						<Text size="sm" c="dimmed" inline mt={7}>
-							Mehrere Bilder möglich, max. 5MB pro Bild
+							Mehrere Bilder möglich, max. ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB pro Bild
 						</Text>
 					</Stack>
 				</Flex>
@@ -515,7 +533,6 @@ function TeamsPage() {
 						</Stack>
 					</Group>
 					<Textarea label="Beschreibung" placeholder="Optionale Beschreibung..." value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} minRows={3} />
-
 					<MultiSelect
 						label="Trainer"
 						placeholder="Trainer auswählen..."
@@ -546,7 +563,6 @@ function TeamsPage() {
 						searchable
 						clearable
 					/>
-
 					<TrainingScheduleManager
 						schedules={formData.trainingSchedules || []}
 						onSchedulesChange={(schedules) => setFormData({ ...formData, trainingSchedules: schedules })}
@@ -566,8 +582,10 @@ function TeamsPage() {
 								setDeletePictureKeys([...deletePictureKeys, key]);
 							}
 						}}
-					/>
-
+						onFileSizeError={(message) => {
+							notification.error({ message });
+						}}
+					/>{" "}
 					<Group justify="space-between" mt="md">
 						{editingId && (
 							<>
