@@ -117,8 +117,8 @@ describe("ApiStack", () => {
 			// Should have User Pool Client
 			template.resourceCountIs("AWS::Cognito::UserPoolClient", 1);
 
-			// Should have 4 Lambda functions (tRPC API + ICS calendar + Sitemap + S3 Cleanup)
-			template.resourceCountIs("AWS::Lambda::Function", 4);
+			// Should have 5 Lambda functions (tRPC API + ICS calendar + Sitemap + S3 Cleanup + custom resource for SES)
+			template.resourceCountIs("AWS::Lambda::Function", 5);
 
 			// Should have HTTP API
 			template.resourceCountIs("AWS::ApiGatewayV2::Api", 1);

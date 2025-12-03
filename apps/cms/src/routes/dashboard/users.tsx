@@ -210,7 +210,7 @@ function UsersPage() {
 				</form>
 			</Modal>
 
-			{/* Edit User Modal  */}
+			{/* Edit User Modal */}
 			<Modal opened={editOpened} onClose={closeEdit} title="Benutzer bearbeiten" size={isMobile ? "100%" : "md"} fullScreen={isMobile}>
 				<form onSubmit={handleUpdate}>
 					<Stack gap="md">
