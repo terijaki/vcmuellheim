@@ -24,7 +24,7 @@ const REGION = process.env.CDK_REGION || "eu-central-1";
 process.env.AWS_PROFILE = "vcmuellheim";
 
 /** List of SAMS sync Lambda functions to invoke */
-const lambdaNames = [`sams-clubs-sync`, `sams-teams-sync`].map((e) => `${e}-${ENVIRONMENT}-${BRANCH}`);
+const lambdaNames = [`sams-clubs-sync`, `sams-teams-sync`].map((name) => (BRANCH ? `${name}-${ENVIRONMENT}-${BRANCH}` : `${name}-${ENVIRONMENT}`));
 
 const client = new LambdaClient({ region: REGION });
 
