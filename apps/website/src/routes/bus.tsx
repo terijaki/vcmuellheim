@@ -112,7 +112,7 @@ function RouteComponent() {
 					)}
 
 					<Group justify="right">
-						<Button component="a" href={buildServiceUrl("admin")} target="_blank" variant="light">
+						<Button component="a" href={`${buildServiceUrl("admin")}/dashboard/bus`} target="_blank" variant="light">
 							Bearbeiten
 						</Button>
 					</Group>
