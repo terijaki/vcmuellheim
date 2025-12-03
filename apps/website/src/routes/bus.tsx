@@ -1,8 +1,9 @@
-import { Alert, Anchor, Card, Center, Container, Stack, Table } from "@mantine/core";
+import { Alert, Anchor, Button, Card, Center, Container, Group, Stack, Table } from "@mantine/core";
 import { Calendar, type CalendarProps, type DateStringValue } from "@mantine/dates";
 import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { useState } from "react";
+import { buildServiceUrl } from "@/apps/shared/lib";
 import { Club } from "@/project.config";
 import CardTitle from "../components/CardTitle";
 import PageWithHeading from "../components/layout/PageWithHeading";
@@ -14,6 +15,7 @@ export const Route = createFileRoute("/bus")({
 
 function RouteComponent() {
 	const { data, isLoading, error } = useBusBookings();
+
 	if (error) throw error;
 
 	const bookings = (data?.items || [])?.sort((a, b) => dayjs(a.from).unix() - dayjs(b.from).unix());
@@ -108,13 +110,12 @@ function RouteComponent() {
 							</Stack>
 						</Card>
 					)}
-					{/* {!searchPreview && (
-						<Group justify="right">
-							<Button component={Link} href="/admin/collections/bus-bookings" target="_blank" variant="light">
-								Bearbeiten
-							</Button>
-						</Group>
-					)} */}
+
+					<Group justify="right">
+						<Button component="a" href={buildServiceUrl("admin")} target="_blank" variant="light">
+							Bearbeiten
+						</Button>
+					</Group>
 				</Stack>
 			</Container>
 		</PageWithHeading>

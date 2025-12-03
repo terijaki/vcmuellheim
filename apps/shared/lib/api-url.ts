@@ -24,7 +24,7 @@ function getEnvPrefix(): string {
  * const samsUrl = buildServiceUrl("sams"); // e.g. https://dev-new-feature-sams.vcmuellheim.de
  * ```
  */
-export function buildServiceUrl(service: "api" | "sams" | "social", pathSuffix = ""): string {
+export function buildServiceUrl(service: "api" | "admin" | "sams" | "social", pathSuffix = ""): string {
 	if (typeof window === "undefined") return "";
 
 	const hostname = window.location.hostname;
