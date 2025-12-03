@@ -15,7 +15,7 @@
  */
 
 import { execSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { appendFileSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { GetObjectCommand, HeadObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
@@ -104,6 +104,79 @@ try {
 	process.exit(1);
 }
 
+// Setup error logging
+const ERROR_LOG_FILE = ".temp/migration-errors.txt";
+try {
+	writeFileSync(ERROR_LOG_FILE, `Migration Error Log - ${new Date().toISOString()}\n${"=".repeat(60)}\n`);
+} catch {
+	console.warn(`⚠️  Could not create error log file at ${ERROR_LOG_FILE}`);
+}
+
+function logError(message: string): void {
+	try {
+		appendFileSync(ERROR_LOG_FILE, `${message}\n`);
+	} catch {
+		// Silently fail if can't write to log
+	}
+}
+
+/**
+ * Throttle helper to add delay between operations
+ * Prevents Lambda throttling during migrations
+ */
+async function throttleDelay(ms: number = 150): Promise<void> {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Progress tracker to log activity every N seconds
+ * Prevents terminal timeout due to inactivity
+ */
+class ProgressTracker {
+	private lastLogTime = Date.now();
+	private readonly logIntervalMs = 30000; // Log every 30 seconds
+
+	logProgress(message: string): void {
+		const now = Date.now();
+		if (now - this.lastLogTime > this.logIntervalMs) {
+			console.log(`   ⏱️  [${new Date().toLocaleTimeString()}] ${message}`);
+			this.lastLogTime = now;
+		}
+	}
+
+	reset(): void {
+		this.lastLogTime = Date.now();
+	}
+}
+
+// Progress tracker used in S3 operations to keep terminal activity logging
+const progressTracker = new ProgressTracker();
+
+/**
+ * Timeout wrapper for async operations
+ */
+async function withTimeout<T>(promise: Promise<T>, timeoutMs: number, operationName: string): Promise<T> {
+	let timeoutHandle: NodeJS.Timeout | undefined;
+	const timeoutPromise = new Promise<T>((_, reject) => {
+		timeoutHandle = setTimeout(() => {
+			reject(new Error(`Timeout after ${timeoutMs}ms during: ${operationName}`));
+		}, timeoutMs);
+	});
+
+	try {
+		const result = await Promise.race([promise, timeoutPromise]);
+		if (timeoutHandle) {
+			clearTimeout(timeoutHandle);
+		}
+		return result;
+	} catch (error) {
+		if (timeoutHandle) {
+			clearTimeout(timeoutHandle);
+		}
+		throw error;
+	}
+}
+
 // Initialize DynamoDB client
 const dynamoClient = new DynamoDBClient({ region: AWS_REGION });
 const docClient = DynamoDBDocumentClient.from(dynamoClient, {
@@ -146,7 +219,7 @@ if (OLD_S3_BUCKET && OLD_S3_ACCESS_KEY && OLD_S3_SECRET_KEY) {
 }
 
 /**
- * Copy a file from old S3 bucket to new S3 bucket
+ * Copy a file from old S3 bucket to new S3 bucket with timeout
  */
 async function copyS3File(oldKey: string, newKey: string, _mediaId: string, filename: string): Promise<string | null> {
 	if (!oldS3Client || !newS3Client) {
@@ -154,46 +227,67 @@ async function copyS3File(oldKey: string, newKey: string, _mediaId: string, file
 	}
 
 	try {
-		// Check if file already exists in new bucket (skip re-upload)
+		// Check if file already exists in new bucket (skip re-upload) - 10s timeout
 		try {
-			await newS3Client.send(
-				new HeadObjectCommand({
-					Bucket: NEW_S3_BUCKET,
-					Key: newKey,
-				}),
+			await withTimeout(
+				newS3Client.send(
+					new HeadObjectCommand({
+						Bucket: NEW_S3_BUCKET,
+						Key: newKey,
+					}),
+				),
+				10000,
+				`HeadObject ${newKey}`,
 			);
 			// File exists, skip upload
 			return `${MEDIA_CDN_URL}/${newKey}`;
-		} catch (_headError) {
-			// File doesn't exist, continue with download/upload
+		} catch (headError) {
+			// File doesn't exist or timeout - continue with download/upload
+			if (headError instanceof Error && !headError.message.includes("Timeout")) {
+				// Expected NotFound, continue
+			}
 		}
 
-		// Download file from old bucket
-		const getResponse = await oldS3Client.send(
-			new GetObjectCommand({
-				Bucket: OLD_S3_BUCKET,
-				Key: oldKey,
-			}),
+		// Download file from old bucket - 30s timeout
+		console.log(`         ↓ Downloading: ${filename}`);
+		const getResponse = await withTimeout(
+			oldS3Client.send(
+				new GetObjectCommand({
+					Bucket: OLD_S3_BUCKET,
+					Key: oldKey,
+				}),
+			),
+			30000,
+			`GetObject ${oldKey}`,
 		);
 
 		if (!getResponse.Body) {
 			throw new Error("No file body received");
 		}
 
-		// Convert stream to buffer
-		const bodyBytes = await getResponse.Body.transformToByteArray();
+		// Convert stream to buffer - 30s timeout
+		console.log(`         ⧗ Converting...`);
+		const bodyBytes = await withTimeout(getResponse.Body.transformToByteArray(), 30000, `transformToByteArray ${filename}`);
 
-		// Upload to new bucket
-		await newS3Client.send(
-			new PutObjectCommand({
-				Bucket: NEW_S3_BUCKET,
-				Key: newKey,
-				Body: bodyBytes,
-				ContentType: getResponse.ContentType,
-			}),
+		// Upload to new bucket - 30s timeout
+		console.log(`         ↑ Uploading...`);
+		progressTracker.reset();
+		const uploadStart = Date.now();
+		await withTimeout(
+			newS3Client.send(
+				new PutObjectCommand({
+					Bucket: NEW_S3_BUCKET,
+					Key: newKey,
+					Body: bodyBytes,
+					ContentType: getResponse.ContentType,
+				}),
+			),
+			30000,
+			`PutObject ${newKey}`,
 		);
+		const uploadTime = Date.now() - uploadStart;
 
-		console.log(`         ✓ Uploaded: ${filename}`);
+		console.log(`         ✓ Uploaded: ${filename} (${uploadTime}ms)`);
 		return `${MEDIA_CDN_URL}/${newKey}`;
 	} catch (error) {
 		// Silently return null for NotFound/NoSuchKey errors (used when trying multiple key patterns)
@@ -202,6 +296,8 @@ async function copyS3File(oldKey: string, newKey: string, _mediaId: string, file
 		}
 		// Log other errors
 		console.error(`  ⚠️  Failed to copy S3 file ${oldKey}:`);
+		const errorMsg = `S3 Copy Error: ${oldKey} - ${error instanceof Error ? `${error.name}: ${error.message}` : String(error)}`;
+		logError(errorMsg);
 		if (error instanceof Error) {
 			console.error(`      Error: ${error.name} - ${error.message}`);
 		} else {
@@ -235,15 +331,29 @@ async function migrateMediaFile(mediaId: string, entityType: string): Promise<st
 	// Flat structure without entity ID nesting
 	const newKey = `${entityType}/${mediaItem.filename}`;
 
-	// Try each possible key pattern
+	// Try each possible key pattern with timeout handling
+	let lastError: Error | null = null;
 	for (const oldKey of possibleOldKeys) {
-		const result = await copyS3File(oldKey, newKey, mediaItem.id, mediaItem.filename);
-		if (result) {
-			return newKey; // Return the S3 key, not the CDN URL
+		try {
+			const result = await copyS3File(oldKey, newKey, mediaItem.id, mediaItem.filename);
+			if (result) {
+				return newKey; // Return the S3 key, not the CDN URL
+			}
+		} catch (error) {
+			lastError = error instanceof Error ? error : new Error(String(error));
+			console.log(`  ⚠️  Retry with next key pattern...`);
 		}
 	}
 
-	console.log(`  ⚠️  Media ${mediaItem.filename} not found in old S3 bucket (tried ${possibleOldKeys.length} patterns)`);
+	if (lastError?.message.includes("Timeout")) {
+		const timeoutMsg = `TIMEOUT: ${mediaItem.filename} - ${lastError.message}`;
+		console.log(`  ⚠️  ${timeoutMsg}`);
+		logError(timeoutMsg);
+	} else {
+		const notFoundMsg = `NOT FOUND: ${mediaItem.filename} (tried ${possibleOldKeys.length} patterns)`;
+		console.log(`  ⚠️  ${notFoundMsg}`);
+		logError(notFoundMsg);
+	}
 	return null;
 }
 
@@ -352,24 +462,27 @@ async function migrateNews(dryRun: boolean): Promise<void> {
 				.replace(/[^a-z0-9]+/g, "-")
 				.replace(/^-+|-+$/g, "");
 
-			// Upload all images to S3 with entity-specific paths (parallel)
+			// Upload all images to S3 with entity-specific paths (sequential to avoid throttling)
 			const imageS3Keys: string[] = [];
 			if (row.imageIds && Array.isArray(row.imageIds) && row.imageIds.length > 0 && oldS3Client && newS3Client) {
-				console.log(`   🖼️  Uploading ${row.imageIds.length} images in batches of 5...`);
-				// Upload images in parallel batches of 5
-				const batchSize = 5;
-				for (let i = 0; i < row.imageIds.length; i += batchSize) {
-					const batch = row.imageIds.slice(i, i + batchSize);
-					const batchNum = Math.floor(i / batchSize) + 1;
-					const totalBatches = Math.ceil(row.imageIds.length / batchSize);
-					console.log(`      Batch ${batchNum}/${totalBatches}: uploading ${batch.length} images...`);
-					const results = await Promise.all(batch.map((imageId: string) => migrateMediaFile(imageId, "news")));
-					// Add successful uploads to the array
-					for (const s3Key of results) {
+				console.log(`   🖼️  Uploading ${row.imageIds.length} images (throttle-safe sequential)...`);
+				progressTracker.reset();
+				// Upload images sequentially with throttle delays to avoid Lambda throttling
+				for (let imgIdx = 0; imgIdx < row.imageIds.length; imgIdx++) {
+					const imageId = row.imageIds[imgIdx];
+					progressTracker.logProgress(`Processing image ${imgIdx + 1}/${row.imageIds.length}...`);
+					try {
+						const s3Key = await migrateMediaFile(imageId, "news");
 						if (s3Key) {
 							imageS3Keys.push(s3Key);
 						}
+					} catch (imgError) {
+						const errMsg = `Article [${migrated + 1}/${rows.length}] ${row.title} - Image ${imgIdx + 1}/${row.imageIds.length}: ${imgError}`;
+						console.error(`      ❌ ${errMsg}`);
+						logError(errMsg);
 					}
+					// Add delay between uploads to prevent Lambda throttling (increased from 100ms)
+					await throttleDelay(200);
 				}
 				console.log(`   ✅ Uploaded ${imageS3Keys.length}/${row.imageIds.length} images`);
 			}
@@ -401,6 +514,8 @@ async function migrateNews(dryRun: boolean): Promise<void> {
 			if (migrated % 5 === 0) {
 				console.log(`  ✓ Migrated ${migrated}/${rows.length} articles`);
 			}
+			// Add delay between records to prevent Lambda throttling
+			await throttleDelay(50);
 		} catch (error) {
 			errors.push({
 				id: row.id,
@@ -464,6 +579,8 @@ async function migrateEvents(dryRun: boolean): Promise<void> {
 				error: error instanceof Error ? error.message : String(error),
 			});
 		}
+		// Add delay between records to prevent Lambda throttling (increased from 50ms)
+		await throttleDelay(150);
 	}
 
 	console.log(`✅ Events migration complete: ${migrated}/${rows.length} successful`);
@@ -538,6 +655,8 @@ async function migrateMembers(dryRun: boolean): Promise<void> {
 				error: error instanceof Error ? error.message : String(error),
 			});
 		}
+		// Add delay between records to prevent Lambda throttling (increased from 50ms)
+		await throttleDelay(150);
 	}
 
 	console.log(`✅ Members migration complete: ${migrated}/${rows.length} successful`);
@@ -578,6 +697,8 @@ async function migrateTeams(dryRun: boolean): Promise<void> {
 						if (s3Key) {
 							uploadedKeys.push(s3Key);
 						}
+						// Add delay between uploads to prevent Lambda throttling (increased from 100ms)
+						await throttleDelay(200);
 					}
 				}
 				if (uploadedKeys.length > 0) {
@@ -618,6 +739,8 @@ async function migrateTeams(dryRun: boolean): Promise<void> {
 				error: error instanceof Error ? error.message : String(error),
 			});
 		}
+		// Add delay between records to prevent Lambda throttling (increased from 50ms)
+		await throttleDelay(150);
 	}
 
 	console.log(`✅ Teams migration complete: ${migrated}/${rows.length} successful`);
@@ -675,6 +798,8 @@ async function migrateLocations(dryRun: boolean): Promise<void> {
 				error: error instanceof Error ? error.message : String(error),
 			});
 		}
+		// Add delay between records to prevent Lambda throttling (increased from 50ms)
+		await throttleDelay(150);
 	}
 
 	console.log(`✅ Locations migration complete: ${migrated}/${rows.length} successful`);
@@ -738,6 +863,8 @@ async function migrateBusBookings(dryRun: boolean): Promise<void> {
 				error: error instanceof Error ? error.message : String(error),
 			});
 		}
+		// Add delay between records to prevent Lambda throttling (increased from 50ms)
+		await throttleDelay(150);
 	}
 
 	console.log(`✅ Bus Bookings migration complete: ${migrated}/${rows.length} successful`);
