@@ -394,10 +394,13 @@ async function seedMembersData(): Promise<MemberInput[]> {
 		// Only upload for members with avatar key (those with avatarS3Key property defined)
 		if (i === 0 || i === 1 || i === 3 || i === 5) {
 			try {
-				const s3Key = `uploads/members/${member.id}-avatar.jpg`;
-				await uploadImageToS3(avatarUrls[avatarIndex], s3Key);
-				member.avatarS3Key = s3Key;
+				const uploadKey = `uploads/members/${member.id}-avatar.jpg`;
+				const finalKey = `members/${member.id}-avatar.jpg`;
+				await uploadImageToS3(avatarUrls[avatarIndex], uploadKey);
+				member.avatarS3Key = finalKey; // Store final key (Lambda will move from uploads/)
 				avatarIndex++;
+				// Delay to avoid overwhelming Lambda
+				await new Promise((resolve) => setTimeout(resolve, 200));
 			} catch (error) {
 				console.warn(`  ⚠️  Failed to upload avatar for member ${member.name}:`, error);
 				// Leave empty if upload fails
@@ -624,9 +627,12 @@ async function seedNewsData() {
 		const imageUrls = imageUrlSets[i] || [];
 		for (const imageUrl of imageUrls) {
 			try {
-				const s3Key = `uploads/news/${validatedArticles[i].id}-${imageUrls.indexOf(imageUrl)}.jpg`;
-				await uploadImageToS3(imageUrl, s3Key);
-				validatedArticles[i].imageS3Keys?.push(s3Key);
+				const uploadKey = `uploads/news/${validatedArticles[i].id}-${imageUrls.indexOf(imageUrl)}.jpg`;
+				const finalKey = `news/${validatedArticles[i].id}-${imageUrls.indexOf(imageUrl)}.jpg`;
+				await uploadImageToS3(imageUrl, uploadKey);
+				validatedArticles[i].imageS3Keys?.push(finalKey); // Store final key (Lambda will move from uploads/)
+				// Delay to avoid overwhelming Lambda
+				await new Promise((resolve) => setTimeout(resolve, 200));
 			} catch (error) {
 				console.warn(`  ⚠️  Failed to upload image for article ${validatedArticles[i].title}:`, error);
 				// Continue with next image
@@ -696,9 +702,12 @@ async function seedSponsorsData() {
 	console.log("  Downloading and uploading sponsor logos...");
 	for (let i = 0; i < validatedSponsors.length; i++) {
 		try {
-			const s3Key = `uploads/sponsors/${validatedSponsors[i].id}-logo.jpg`;
-			await uploadImageToS3(logoUrls[i], s3Key);
-			validatedSponsors[i].logoS3Key = s3Key;
+			const uploadKey = `uploads/sponsors/${validatedSponsors[i].id}-logo.jpg`;
+			const finalKey = `sponsors/${validatedSponsors[i].id}-logo.jpg`;
+			await uploadImageToS3(logoUrls[i], uploadKey);
+			validatedSponsors[i].logoS3Key = finalKey; // Store final key (Lambda will move from uploads/)
+			// Delay to avoid overwhelming Lambda
+			await new Promise((resolve) => setTimeout(resolve, 200));
 		} catch (error) {
 			console.warn(`  ⚠️  Failed to upload logo for ${validatedSponsors[i].name}:`, error);
 			// Continue without logo
