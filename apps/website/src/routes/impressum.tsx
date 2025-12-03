@@ -9,7 +9,7 @@ export const Route = createFileRoute("/impressum")({
 
 function RouteComponent() {
 	return (
-		<PageWithHeading title="Impressum">
+		<PageWithHeading title="Impressum" description="Impressum desVolleyballclub Müllheim e.V.">
 			<Typography>
 				<Card>
 					<CardTitle>Angaben gemäß § 5 TMG</CardTitle>

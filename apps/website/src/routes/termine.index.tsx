@@ -21,7 +21,7 @@ function RouteComponent() {
 	const webcalLink = `webcal://${icsHostname}/ics/all.ics`;
 
 	return (
-		<PageWithHeading title="Termine">
+		<PageWithHeading title="Termine" description="Alle Termine, Spieltage und Events von Volleyballclub Müllheim im Überblick">
 			<Stack>
 				<Card>
 					<Stack>

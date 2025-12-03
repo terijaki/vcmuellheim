@@ -5,6 +5,7 @@ import { DatesProvider } from "@mantine/dates";
 import { RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { HelmetProvider } from "react-helmet-async";
 import "dayjs/locale/de";
 import "./globals.css";
 import * as Sentry from "@sentry/react";
@@ -56,12 +57,14 @@ if (!rootElement) throw new Error("Root element not found");
 
 createRoot(rootElement).render(
 	<StrictMode>
-		<TrpcProvider>
-			<MantineProvider theme={theme}>
-				<DatesProvider settings={{ locale: "de", firstDayOfWeek: 1, consistentWeeks: true }}>
-					<RouterProvider router={router} />
-				</DatesProvider>
-			</MantineProvider>
-		</TrpcProvider>
+		<HelmetProvider>
+			<TrpcProvider>
+				<MantineProvider theme={theme}>
+					<DatesProvider settings={{ locale: "de", firstDayOfWeek: 1, consistentWeeks: true }}>
+						<RouterProvider router={router} />
+					</DatesProvider>
+				</MantineProvider>
+			</TrpcProvider>
+		</HelmetProvider>
 	</StrictMode>,
 );

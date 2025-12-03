@@ -8,8 +8,10 @@ export const Route = createFileRoute("/satzung")({
 });
 
 function RouteComponent() {
+	const versionDate = "15.11.2023";
+
 	return (
-		<PageWithHeading title="Satzung des Volleyballclubs Müllheim">
+		<PageWithHeading title="Satzung des Volleyballclubs Müllheim" updatedAt={versionDate}>
 			<Typography>
 				<Card>
 					<CardTitle>§ 1 Name, Sitz, Geschäftsjahr</CardTitle>

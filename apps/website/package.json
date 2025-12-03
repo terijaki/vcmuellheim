@@ -23,6 +23,7 @@
 		"num-words-de": "^1.1.0",
 		"react": "catalog:",
 		"react-dom": "catalog:",
+		"react-helmet-async": "^2.0.5",
 		"react-icons": "^5.5.0",
 		"react-world-flags": "^1.6.0",
 		"superjson": "catalog:"

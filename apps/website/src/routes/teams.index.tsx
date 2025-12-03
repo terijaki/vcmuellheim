@@ -16,7 +16,7 @@ function RouteComponent() {
 		throw error;
 	}
 	return (
-		<PageWithHeading title="Mannschaften">
+		<PageWithHeading title="Mannschaften" description="Erfahre mehr über unsere Volleyball-Teams und Mannschaften bei Volleyballclub Müllheim">
 			{isLoading && <Loader />}
 			{teams && (
 				<Container size="xl" py="xl" px={{ base: "lg", md: "xl" }}>

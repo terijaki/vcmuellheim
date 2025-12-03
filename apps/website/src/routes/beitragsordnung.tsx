@@ -8,8 +8,10 @@ export const Route = createFileRoute("/beitragsordnung")({
 });
 
 function RouteComponent() {
+	const versionDate = "26.11.2023";
+
 	return (
-		<PageWithHeading title="Beitragsordnung">
+		<PageWithHeading title="Beitragsordnung" updatedAt={versionDate}>
 			<Typography>
 				<Card>
 					<CardTitle>§ 1 Geschäftsjahr und Fälligkeit</CardTitle>
@@ -67,7 +69,7 @@ function RouteComponent() {
 						</li>
 					</ol>
 					<Text c="dimmed" size="xs" ta="right">
-						Stand 26.11.2023
+						{`Stand ${versionDate}`}
 					</Text>
 				</Card>
 			</Typography>

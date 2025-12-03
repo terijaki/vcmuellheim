@@ -225,14 +225,14 @@
    - ✅ Route-based code splitting enabled - routes lazy-loaded on demand
    - ✅ Terser minification for all builds
    - ✅ Image optimization (lazy loading, responsive images, mediaconvert lambda)
-   - ⏳ Lighthouse performance audit
+   - ✅ Lighthouse performance audit
 
 5. [x] **SEO Considerations**
    - ✅ Sentry error tracking integrated
    - ⏳ React Helmet for dynamic meta tags
    - ⏳ Prerendering for static pages
-   - ⏳ Sitemap generation (Lambda job)
-   - ⏳ robots.txt
+   - ✅ Sitemap generation (Lambda job)
+   - ✅ robots.txt
 
 6. [x] **Deploy Frontend**
    - ✅ Created WebsiteStack CDK (S3 + CloudFront) in lib/website-stack.ts

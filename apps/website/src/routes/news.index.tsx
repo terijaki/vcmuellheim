@@ -31,7 +31,7 @@ function RouteComponent() {
 	}
 
 	return (
-		<PageWithHeading title="News Beiträge">
+		<PageWithHeading title="News Beiträge" description="Lese die neuesten Nachrichten und Updates vom Volleyballclub Müllheim">
 			<Container size="xl">
 				<Stack>
 					<SimpleGrid cols={{ base: 1, sm: 2 }}>
