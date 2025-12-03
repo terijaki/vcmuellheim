@@ -29,7 +29,10 @@ export function buildServiceUrl(service: "api" | "sams" | "social", pathSuffix =
 
 	const hostname = window.location.hostname;
 	const envPrefix = getEnvPrefix();
-	const baseUrl = `https://${envPrefix}${service}.new.vcmuellheim.de${pathSuffix}`;
+	const environment = import.meta.env.VITE_CDK_ENVIRONMENT || "dev";
+	const isProd = environment === "prod";
+	const baseDomain = isProd ? "vcmuellheim.de" : "new.vcmuellheim.de";
+	const baseUrl = `https://${envPrefix}${service}.${baseDomain}${pathSuffix}`;
 
 	// If running on localhost, use the deployed service URL
 	if (hostname === "localhost" || hostname === "127.0.0.1") {
@@ -42,6 +45,12 @@ export function buildServiceUrl(service: "api" | "sams" | "social", pathSuffix =
 		serviceHostname = hostname.replace("-website.", `-${service}.`);
 	} else if (hostname.includes("-admin.")) {
 		serviceHostname = hostname.replace("-admin.", `-${service}.`);
+	} else if (hostname.startsWith("admin.") && !hostname.includes("new.")) {
+		// Production: admin.vcmuellheim.de -> api.vcmuellheim.de
+		serviceHostname = hostname.replace("admin.", `${service}.`);
+	} else if (hostname === "vcmuellheim.de") {
+		// Production root: vcmuellheim.de -> api.vcmuellheim.de
+		serviceHostname = `${service}.vcmuellheim.de`;
 	} else {
 		// If the domain doesn't have -website or -admin, append -service to the environment prefix
 		// Example: dev-aws-migration.new.vcmuellheim.de -> dev-aws-migration-api.new.vcmuellheim.de
@@ -65,10 +74,13 @@ export function getIcsHostname(): string {
 
 	const hostname = window.location.hostname;
 	const envPrefix = getEnvPrefix();
+	const environment = import.meta.env.VITE_CDK_ENVIRONMENT || "dev";
+	const isProd = environment === "prod";
+	const baseDomain = isProd ? "vcmuellheim.de" : "new.vcmuellheim.de";
 
 	// If running on localhost, use the deployed API domain
 	if (hostname === "localhost" || hostname === "127.0.0.1") {
-		return `${envPrefix}api.new.vcmuellheim.de`;
+		return `${envPrefix}api.${baseDomain}`;
 	}
 
 	// Transform hostname to API domain
@@ -77,6 +89,14 @@ export function getIcsHostname(): string {
 	}
 	if (hostname.includes("-admin.")) {
 		return hostname.replace("-admin.", "-api.");
+	}
+	if (hostname.startsWith("admin.") && !hostname.includes("new.")) {
+		// Production: admin.vcmuellheim.de -> api.vcmuellheim.de
+		return hostname.replace("admin.", "api.");
+	}
+	if (hostname === "vcmuellheim.de") {
+		// Production root: vcmuellheim.de -> api.vcmuellheim.de
+		return "api.vcmuellheim.de";
 	}
 	// If the domain doesn't have -website or -admin, append -api to the environment prefix
 	const parts = hostname.split(".");
