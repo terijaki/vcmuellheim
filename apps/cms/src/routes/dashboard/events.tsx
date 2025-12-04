@@ -7,7 +7,7 @@ import { useMemo, useState } from "react";
 import "dayjs/locale/de";
 import type { EventInput } from "@lib/db/schemas";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Plus, SquarePen } from "lucide-react";
+import { Plus, SquarePen, Trash2 } from "lucide-react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
 import { useNotification } from "../../hooks/useNotification";
 
@@ -81,6 +81,19 @@ function EventsPage() {
 			},
 		}),
 	);
+	const deleteMutation = useMutation(
+		trpc.events.delete.mutationOptions({
+			onSuccess: () => {
+				refetch();
+				close();
+				resetForm();
+				notification.success("Termin wurde erfolgreich gelöscht");
+			},
+			onError: () => {
+				notification.error({ message: "Termin konnte nicht gelöscht werden" });
+			},
+		}),
+	);
 
 	const resetForm = () => {
 		setFormData({
@@ -135,6 +148,12 @@ function EventsPage() {
 			relatedSamsMatchId: event.relatedSamsMatchId || "",
 		});
 		open();
+	};
+
+	const handleDelete = (id: string) => {
+		if (window.confirm("Möchten Sie diesen Termin wirklich löschen?")) {
+			deleteMutation.mutate({ id });
+		}
 	};
 
 	return (
@@ -360,13 +379,25 @@ function EventsPage() {
 							minRows={3}
 						/>
 
-						<Group justify="flex-end" mt="md">
-							<Button variant="light" onClick={close}>
-								Abbrechen
-							</Button>
-							<Button variant="filled" type="submit" loading={createMutation.isPending || updateMutation.isPending}>
-								{editingId ? "Aktualisieren" : "Erstellen"}
-							</Button>
+						<Group justify="space-between" mt="md">
+							{editingId && (
+								<>
+									<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
+										<Trash2 />
+									</ActionIcon>
+									<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
+										Löschen
+									</Button>
+								</>
+							)}
+							<Group gap="xs">
+								<Button variant="light" onClick={close}>
+									Abbrechen
+								</Button>
+								<Button variant="filled" type="submit" loading={createMutation.isPending || updateMutation.isPending}>
+									{editingId ? "Aktualisieren" : "Erstellen"}
+								</Button>
+							</Group>
 						</Group>
 					</Stack>
 				</form>
