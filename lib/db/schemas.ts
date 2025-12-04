@@ -34,8 +34,8 @@ export const eventSchema = z.object({
 	startDate: z.iso.datetime(),
 	endDate: z.iso.datetime().optional(),
 	location: z.string().optional(),
-	variant: z.string().optional(), // FIXME: update cms to use variant, not type!
-	teamId: z.uuid().optional(),
+	variant: z.string().optional(),
+	teamId: z.uuid().optional(), // TODO: Implement relation to team in CMS.
 	relatedSamsMatchId: z.string().optional(),
 });
 

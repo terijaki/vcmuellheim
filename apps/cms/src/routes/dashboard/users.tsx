@@ -99,6 +99,7 @@ function UsersPage() {
 			await deleteMutation.mutateAsync({ email });
 			notification.neutral({ title: email, message: "Das Benutzerkonto wurde gelöscht" });
 			setDeleteTarget(null);
+			closeEdit();
 		} catch (error) {
 			notification.error({ title: "Fehler beim Löschen", message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
 		}

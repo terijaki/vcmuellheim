@@ -10,6 +10,7 @@ import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import type * as s3 from "aws-cdk-lib/aws-s3";
+import * as ses from "aws-cdk-lib/aws-ses";
 import type { Construct } from "constructs";
 import { Club } from "@/project.config";
 import { getCognitoEmailTemplates } from "./cognito-email-templates";
@@ -62,6 +63,11 @@ export class ApiStack extends cdk.Stack {
 
 		const emailTemplates = getCognitoEmailTemplates(cmsDomain);
 
+		// Create SES Configuration Set for Cognito email sending
+		const sesConfigurationSet = new ses.ConfigurationSet(this, "CognitoConfigSet", {
+			configurationSetName: `vcm-cognito-${environment}${branchSuffix}`,
+		});
+
 		// 1. Cognito User Pool for admin authentication
 		this.userPool = new cognito.UserPool(this, "AdminUserPool", {
 			userPoolName: `vcm-admin-${environment}${branchSuffix}`,
@@ -96,6 +102,7 @@ export class ApiStack extends cdk.Stack {
 				fromEmail: "no-reply@vcmuellheim.de",
 				fromName: Club.shortName,
 				sesVerifiedDomain: "vcmuellheim.de",
+				configurationSetName: sesConfigurationSet.configurationSetName,
 			}),
 			userInvitation: emailTemplates.userInvitation,
 			userVerification: emailTemplates.userVerification,
@@ -398,6 +405,7 @@ export class ApiStack extends cdk.Stack {
 			memorySize: 512,
 			environment: {
 				TEAMS_TABLE_NAME: tables.TEAMS.tableName,
+				EVENTS_TABLE_NAME: tables.EVENTS.tableName,
 				SAMS_API_URL: props.samsApiUrl || "",
 			},
 			bundling: {
@@ -407,8 +415,9 @@ export class ApiStack extends cdk.Stack {
 			},
 		});
 
-		// Grant ICS Lambda read access to Teams table
+		// Grant ICS Lambda read access to Teams and Events tables
 		tables.TEAMS.grantReadData(icsLambda);
+		tables.EVENTS.grantReadData(icsLambda);
 
 		// Sitemap Lambda
 		const sitemapLambda = new NodejsFunction(this, "SitemapLambda", {
