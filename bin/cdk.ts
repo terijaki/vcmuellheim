@@ -17,6 +17,7 @@ const app = new cdk.App();
 
 const environment = process.env.CDK_ENVIRONMENT || "dev";
 const isProd = environment === "prod";
+const isDestroy = process.env.CDK_DESTROY === "true";
 
 const branch = getSanitizedBranch();
 const branchSuffix = branch ? `-${branch}` : "";
@@ -127,11 +128,11 @@ new SocialMediaStack(app, socialMediaStackName, {
 
 // Budget monitoring - requires email for alerts
 const budgetEmail = process.env.CDK_BUDGET_ALERT_EMAIL;
-if (budgetEmail) {
+if (budgetEmail || isDestroy) {
 	new BudgetStack(app, budgetStackName, {
 		...commonStackProps,
 		description: `Cost Budget & Alerts (${environment}${branchSuffix})`,
-		alertEmail: budgetEmail,
+		alertEmail: budgetEmail || "cleanup@example.com",
 	});
 } else {
 	const message = "❌ CDK_BUDGET_ALERT_EMAIL not set";
@@ -146,11 +147,11 @@ if (budgetEmail) {
 
 // Monitoring stack - setup alerts and dashboards
 const monitoringEmail = process.env.CDK_MONITORING_ALERT_EMAIL || budgetEmail;
-if (monitoringEmail) {
+if (monitoringEmail || isDestroy) {
 	new MonitoringStack(app, `MonitoringStack${branchSuffix}`, {
 		...commonStackProps,
 		description: `Monitoring & Alerting (${environment}${branchSuffix})`,
-		alertEmail: monitoringEmail,
+		alertEmail: monitoringEmail || "cleanup@example.com",
 		trpcLambda: apiStack.trpcLambda,
 		contentTables: {
 			news: contentDbStack.newsTable,
