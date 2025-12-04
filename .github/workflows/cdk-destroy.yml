@@ -97,7 +97,7 @@ jobs:
           CDK_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
           CDK_ENVIRONMENT: dev
           CDK_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
-          CDK_BRANCH_OVERRIDE: ${{ steps.branch.outputs.branch }}
+          CDK_BRANCH_OVERWRITE: ${{ steps.branch.outputs.branch }}
           CDK_DESTROY: "true"
         run: |
           echo "Destroying all stacks for branch: ${{ steps.branch.outputs.branch }}"
