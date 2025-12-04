@@ -112,17 +112,39 @@ describe("ICS Calendar Lambda", () => {
 		expect(result?.body).toBe("Team nicht gefunden");
 	});
 
-	it("should NOT include custom events in team-specific calendars", async () => {
-		// Mock team lookup
-		ddbMock.on(QueryCommand).resolvesOnce({
-			Items: [
-				{
-					id: "team-123",
-					slug: "damen-1",
-					name: "Damen 1",
-					sbvvTeamId: "sams-team-uuid",
-				},
-			],
+	it("should include custom events filtered by teamId in team-specific calendars", async () => {
+		// Reset mocks
+		ddbMock.reset();
+		
+		let callCount = 0;
+		ddbMock.on(QueryCommand).callsFake((_input) => {
+			callCount++;
+			if (callCount === 1) {
+				// First call: team lookup
+				return {
+					Items: [
+						{
+							id: "team-123",
+							slug: "damen-1",
+							name: "Damen 1",
+							sbvvTeamId: "sams-team-uuid",
+						},
+					],
+				};
+			}
+			// Second call: custom events
+			return {
+				Items: [
+					{
+						id: "event-456",
+						type: "event",
+						title: "Team Training",
+						startDate: "2025-12-18T19:00:00Z",
+						teamId: "team-123",
+						location: "Sporthalle",
+					},
+				],
+			};
 		});
 
 		const event = {
@@ -132,9 +154,9 @@ describe("ICS Calendar Lambda", () => {
 		const result = await handler(event, mockContext, () => {});
 
 		expect(result?.statusCode).toBe(200);
-		// Should only contain SAMS matches, not custom events
+		// Should contain both SAMS matches and team-specific custom events
 		expect(result?.body).toContain("Team A vs Team B");
-		// Custom events should NOT be in team-specific calendar
-		expect(result?.body).not.toContain("Vereinsfest");
+		expect(result?.body).toContain("Team Training");
+		expect(result?.body).toContain("Sporthalle");
 	});
 });
