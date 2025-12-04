@@ -398,6 +398,7 @@ export class ApiStack extends cdk.Stack {
 			memorySize: 512,
 			environment: {
 				TEAMS_TABLE_NAME: tables.TEAMS.tableName,
+				EVENTS_TABLE_NAME: tables.EVENTS.tableName,
 				SAMS_API_URL: props.samsApiUrl || "",
 			},
 			bundling: {
@@ -407,8 +408,9 @@ export class ApiStack extends cdk.Stack {
 			},
 		});
 
-		// Grant ICS Lambda read access to Teams table
+		// Grant ICS Lambda read access to Teams and Events tables
 		tables.TEAMS.grantReadData(icsLambda);
+		tables.EVENTS.grantReadData(icsLambda);
 
 		// Sitemap Lambda
 		const sitemapLambda = new NodejsFunction(this, "SitemapLambda", {

@@ -5,15 +5,85 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { generateIcsCalendar, type IcsCalendar, type IcsEvent } from "ts-ics";
 import { Club } from "@/project.config";
+import type { Event } from "@/lib/db/types";
 
 dayjs.extend(customParseFormat);
 
 const SAMS_API_URL = process.env.SAMS_API_URL || "";
 const TEAMS_TABLE_NAME = process.env.TEAMS_TABLE_NAME || "";
+const EVENTS_TABLE_NAME = process.env.EVENTS_TABLE_NAME || "";
 
 // Create DynamoDB client
 const dynamoClient = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(dynamoClient);
+
+/**
+ * Fetch custom events from DynamoDB
+ * Optionally filter by teamId if provided
+ */
+async function fetchCustomEvents(teamId?: string): Promise<Event[]> {
+	const now = dayjs().toISOString();
+	
+	// Build filter expression for team-specific events if needed
+	let filterExpression: string | undefined;
+	const expressionAttributeValues: Record<string, unknown> = {
+		":type": "event",
+		":now": now,
+	};
+	
+	if (teamId) {
+		filterExpression = "teamId = :teamId";
+		expressionAttributeValues[":teamId"] = teamId;
+	}
+	
+	const result = await docClient.send(
+		new QueryCommand({
+			TableName: EVENTS_TABLE_NAME,
+			IndexName: "GSI-EventQueries",
+			KeyConditionExpression: "#type = :type AND #startDate >= :now",
+			ExpressionAttributeNames: {
+				"#type": "type",
+				"#startDate": "startDate",
+			},
+			ExpressionAttributeValues: expressionAttributeValues,
+			FilterExpression: filterExpression,
+			ScanIndexForward: true, // Ascending order
+		}),
+	);
+	
+	return (result.Items as Event[]) || [];
+}
+
+/**
+ * Convert a custom event to ICS format
+ */
+function convertEventToIcs(event: Event, timestamp: Date): IcsEvent {
+	const startTime = dayjs(event.startDate);
+	const endTime = event.endDate ? dayjs(event.endDate) : undefined;
+	
+	// Calculate duration if endDate is provided, otherwise default to 2 hours
+	let duration: { hours: number } | { minutes: number } | undefined;
+	if (endTime?.isValid()) {
+		const durationMinutes = endTime.diff(startTime, "minute");
+		if (durationMinutes >= 60) {
+			duration = { hours: Math.floor(durationMinutes / 60) };
+		} else {
+			duration = { minutes: durationMinutes };
+		}
+	} else {
+		duration = { hours: 2 };
+	}
+	
+	return {
+		start: { date: startTime.toDate(), type: "DATE-TIME" },
+		duration,
+		stamp: { date: timestamp, type: "DATE-TIME" },
+		uid: event.id,
+		summary: event.title,
+		description: event.description || "",
+		location: event.location || "",
+	};
+}
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 	try {
@@ -23,6 +93,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 		const teamSlug = event.pathParameters?.teamSlug?.replace(".ics", "").toLowerCase();
 
 		let teamSamsUuid: string | undefined;
+		let teamId: string | undefined;
 		let teamLeagueName: string | undefined;
 		let calendarTitle: string = Club.shortName;
 
@@ -63,6 +134,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			if (foundTeam.name) calendarTitle = `${calendarTitle} - ${foundTeam.name}`;
 			if (foundTeam.league) teamLeagueName = foundTeam.league;
 			teamSamsUuid = foundTeam.sbvvTeamId;
+			teamId = foundTeam.id;
 		}
 
 		// Fetch matches from SAMS API
@@ -80,7 +152,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 		const timestamp = new Date(data.timestamp || new Date());
 
 		// Convert matches to iCalendar events
-		const events: IcsEvent[] = matches
+		const matchEvents: IcsEvent[] = matches
 			.map(
 				(match: {
 					uuid: string;
@@ -136,6 +208,13 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 				},
 			)
 			.filter(Boolean);
+
+		// Fetch custom events from DynamoDB
+		const customEvents = await fetchCustomEvents(teamId);
+		const customIcsEvents = customEvents.map((evt) => convertEventToIcs(evt, timestamp));
+
+		// Merge match events and custom events
+		const events: IcsEvent[] = [...matchEvents, ...customIcsEvents];
 
 		const icsCalendar: IcsCalendar = {
 			prodId: Club.shortName,
