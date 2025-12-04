@@ -111,4 +111,30 @@ describe("ICS Calendar Lambda", () => {
 		expect(result?.statusCode).toBe(404);
 		expect(result?.body).toBe("Team nicht gefunden");
 	});
+
+	it("should NOT include custom events in team-specific calendars", async () => {
+		// Mock team lookup
+		ddbMock.on(QueryCommand).resolvesOnce({
+			Items: [
+				{
+					id: "team-123",
+					slug: "damen-1",
+					name: "Damen 1",
+					sbvvTeamId: "sams-team-uuid",
+				},
+			],
+		});
+
+		const event = {
+			pathParameters: { teamSlug: "damen-1.ics" },
+		} as unknown as APIGatewayProxyEvent;
+
+		const result = await handler(event, mockContext, () => {});
+
+		expect(result?.statusCode).toBe(200);
+		// Should only contain SAMS matches, not custom events
+		expect(result?.body).toContain("Team A vs Team B");
+		// Custom events should NOT be in team-specific calendar
+		expect(result?.body).not.toContain("Vereinsfest");
+	});
 });

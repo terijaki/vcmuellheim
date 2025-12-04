@@ -19,34 +19,25 @@ const docClient = DynamoDBDocumentClient.from(dynamoClient);
 
 /**
  * Fetch custom events from DynamoDB
- * Optionally filter by teamId if provided
+ * Includes events from the past 14 days up to future events
  */
-async function fetchCustomEvents(teamId?: string): Promise<Event[]> {
-	const now = dayjs().toISOString();
-	
-	// Build filter expression for team-specific events if needed
-	let filterExpression: string | undefined;
-	const expressionAttributeValues: Record<string, unknown> = {
-		":type": "event",
-		":now": now,
-	};
-	
-	if (teamId) {
-		filterExpression = "teamId = :teamId";
-		expressionAttributeValues[":teamId"] = teamId;
-	}
+async function fetchCustomEvents(): Promise<Event[]> {
+	// Include events from the past 14 days
+	const fourteenDaysAgo = dayjs().subtract(14, "day").toISOString();
 	
 	const result = await docClient.send(
 		new QueryCommand({
 			TableName: EVENTS_TABLE_NAME,
 			IndexName: "GSI-EventQueries",
-			KeyConditionExpression: "#type = :type AND #startDate >= :now",
+			KeyConditionExpression: "#type = :type AND #startDate >= :fourteenDaysAgo",
 			ExpressionAttributeNames: {
 				"#type": "type",
 				"#startDate": "startDate",
 			},
-			ExpressionAttributeValues: expressionAttributeValues,
-			FilterExpression: filterExpression,
+			ExpressionAttributeValues: {
+				":type": "event",
+				":fourteenDaysAgo": fourteenDaysAgo,
+			},
 			ScanIndexForward: true, // Ascending order
 		}),
 	);
@@ -101,7 +92,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 		const teamSlug = event.pathParameters?.teamSlug?.replace(".ics", "").toLowerCase();
 
 		let teamSamsUuid: string | undefined;
-		let teamId: string | undefined;
 		let teamLeagueName: string | undefined;
 		let calendarTitle: string = Club.shortName;
 
@@ -142,7 +132,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			if (foundTeam.name) calendarTitle = `${calendarTitle} - ${foundTeam.name}`;
 			if (foundTeam.league) teamLeagueName = foundTeam.league;
 			teamSamsUuid = foundTeam.sbvvTeamId;
-			teamId = foundTeam.id;
 		}
 
 		// Fetch matches from SAMS API
@@ -217,9 +206,12 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			)
 			.filter(Boolean);
 
-		// Fetch custom events from DynamoDB
-		const customEvents = await fetchCustomEvents(teamId);
-		const customIcsEvents = customEvents.map((evt) => convertEventToIcs(evt, timestamp));
+		// Fetch custom events from DynamoDB only for "all" calendar
+		let customIcsEvents: IcsEvent[] = [];
+		if (!teamSlug || teamSlug === "all") {
+			const customEvents = await fetchCustomEvents();
+			customIcsEvents = customEvents.map((evt) => convertEventToIcs(evt, timestamp));
+		}
 
 		// Merge match events and custom events
 		const events: IcsEvent[] = [...matchEvents, ...customIcsEvents];
