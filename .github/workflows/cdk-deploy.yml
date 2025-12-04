@@ -47,9 +47,13 @@ jobs:
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
             echo "environment=prod" >> $GITHUB_OUTPUT
             echo "is_main=true" >> $GITHUB_OUTPUT
+            echo "env_name=Production" >> $GITHUB_OUTPUT
+            echo "env_icon=🚀" >> $GITHUB_OUTPUT
           else
             echo "environment=dev" >> $GITHUB_OUTPUT
             echo "is_main=false" >> $GITHUB_OUTPUT
+            echo "env_name=Development" >> $GITHUB_OUTPUT
+            echo "env_icon=🔧" >> $GITHUB_OUTPUT
           fi
 
       - name: Lint check
@@ -85,23 +89,12 @@ jobs:
 
       - name: Add deployment summary
         run: |
-          BRANCH="${{ github.ref_name }}"
-
-          # Determine environment for display
-          if [ "${{ steps.env.outputs.is_main }}" == "true" ]; then
-            ENV_ICON="🚀"
-            ENV_NAME="Production"
-          else
-            ENV_ICON="🔧"
-            ENV_NAME="Development"
-          fi
-
-          echo "## ${ENV_ICON} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## ${{ steps.env.outputs.env_icon }} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Environment** | ${ENV_NAME} |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Branch** | \`${BRANCH}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Environment** | ${{ steps.env.outputs.env_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Branch** | \`${{ github.ref_name }}\` |" >> $GITHUB_STEP_SUMMARY
           echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
 
           # Extract and display CDK outputs if available
@@ -135,14 +128,43 @@ jobs:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Get workflow logs
+        id: logs
+        run: |
+          # Get the last 50 lines of logs which typically contain the error
+          LOGS=$(gh run view ${{ github.run_id }} --log | tail -100)
+          # Escape newlines and special characters for JSON
+          LOGS_ESCAPED=$(echo "$LOGS" | jq -Rs .)
+          echo "error_logs=$LOGS_ESCAPED" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Comment on deployment
         uses: actions/github-script@v7
         with:
           script: |
             const workflowUrl = `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
+            const logs = ${{ steps.logs.outputs.error_logs }};
+
+            let errorSection = '';
+            if (logs && logs.trim()) {
+              // Get last 30 lines of logs and truncate if too long
+              const logLines = logs.split('\n').slice(-30).join('\n');
+              const truncatedLogs = logLines.length > 1500 ? logLines.substring(0, 1500) + '...' : logLines;
+              errorSection = `\n\n### 📋 Recent Logs\n\`\`\`\n${truncatedLogs}\n\`\`\``;
+            }
+
             github.rest.repos.createCommitComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               commit_sha: context.sha,
-              body: `🚨 **CDK Deployment Failed**\n\n[View workflow run](${workflowUrl})`
+              body: `🚨 **CDK Deployment Failed**\n\n[View workflow run](${workflowUrl})${errorSection}`
             });

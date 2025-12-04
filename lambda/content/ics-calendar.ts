@@ -4,8 +4,8 @@ import type { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResul
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { generateIcsCalendar, type IcsCalendar, type IcsEvent } from "ts-ics";
-import { Club } from "@/project.config";
 import type { Event } from "@/lib/db/types";
+import { Club } from "@/project.config";
 
 dayjs.extend(customParseFormat);
 
@@ -25,19 +25,19 @@ const docClient = DynamoDBDocumentClient.from(dynamoClient);
 async function fetchCustomEvents(teamId?: string): Promise<Event[]> {
 	// Include events from the past 14 days
 	const fourteenDaysAgo = dayjs().subtract(14, "day").toISOString();
-	
+
 	// Build filter expression for team-specific events if needed
 	let filterExpression: string | undefined;
 	const expressionAttributeValues: Record<string, unknown> = {
 		":type": "event",
 		":fourteenDaysAgo": fourteenDaysAgo,
 	};
-	
+
 	if (teamId) {
 		filterExpression = "teamId = :teamId";
 		expressionAttributeValues[":teamId"] = teamId;
 	}
-	
+
 	const result = await docClient.send(
 		new QueryCommand({
 			TableName: EVENTS_TABLE_NAME,
@@ -52,7 +52,7 @@ async function fetchCustomEvents(teamId?: string): Promise<Event[]> {
 			ScanIndexForward: true, // Ascending order
 		}),
 	);
-	
+
 	return (result.Items as Event[]) || [];
 }
 
@@ -62,7 +62,7 @@ async function fetchCustomEvents(teamId?: string): Promise<Event[]> {
 function convertEventToIcs(event: Event, timestamp: Date): IcsEvent {
 	const startTime = dayjs(event.startDate);
 	const endTime = event.endDate ? dayjs(event.endDate) : undefined;
-	
+
 	// Calculate duration if endDate is provided, otherwise default to 2 hours
 	let duration: { hours: number; minutes?: number } | { minutes: number } | undefined;
 	if (endTime?.isValid()) {
@@ -83,7 +83,7 @@ function convertEventToIcs(event: Event, timestamp: Date): IcsEvent {
 	} else {
 		duration = { hours: 2 };
 	}
-	
+
 	return {
 		start: { date: startTime.toDate(), type: "DATE-TIME" },
 		duration,
