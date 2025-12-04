@@ -1,4 +1,7 @@
 name: Detect SAMS Swagger Drift
+permissions:
+  contents: read
+  issues: write
 
 on:
   schedule:
