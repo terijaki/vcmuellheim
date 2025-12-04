@@ -3,6 +3,8 @@
  * Builds Vite app and deploys to S3 with CloudFront distribution
  */
 
+import { execFileSync } from "node:child_process";
+import path from "node:path";
 import * as cdk from "aws-cdk-lib";
 import type * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
@@ -116,17 +118,17 @@ export class CmsStack extends cdk.Stack {
 						image: cdk.DockerImage.fromRegistry("oven/bun:latest"),
 						local: {
 							tryBundle(outputDir: string) {
-								const { execSync } = require("node:child_process");
-								const path = require("node:path");
 								try {
 									// Build the CMS
-									execSync(`VITE_CDK_ENVIRONMENT=${environment} bun run build`, {
-										cwd: path.join(process.cwd(), "apps/cms"),
+									const cmsCwd = path.join(process.cwd(), "apps/cms");
+									execFileSync("bun", ["run", "build"], {
+										env: { ...process.env, VITE_CDK_ENVIRONMENT: environment },
+										cwd: cmsCwd,
 										stdio: "inherit",
 									});
 									// Copy build output to CDK output directory
 									const distPath = path.join(process.cwd(), "apps/cms/dist");
-									execSync(`cp -r ${distPath}/* ${outputDir}/`, {
+									execFileSync("cp", ["-r", path.join(distPath, "."), outputDir], {
 										stdio: "inherit",
 									});
 									return true;
