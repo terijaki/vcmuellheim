@@ -91,7 +91,12 @@ export class ApiStack extends cdk.Stack {
 			},
 			passkeyUserVerification: cognito.PasskeyUserVerification.PREFERRED,
 			passkeyRelyingPartyId: isProd ? Club.domain : undefined,
-			email: cognito.UserPoolEmail.withCognito(),
+			email: cognito.UserPoolEmail.withSES({
+				sesRegion: cdk.Stack.of(this).region,
+				fromEmail: "no-reply@vcmuellheim.de",
+				fromName: Club.shortName,
+				sesVerifiedDomain: "vcmuellheim.de",
+			}),
 			userInvitation: emailTemplates.userInvitation,
 			userVerification: emailTemplates.userVerification,
 			passwordPolicy: {
@@ -138,6 +143,53 @@ export class ApiStack extends cdk.Stack {
 			groupName: "Moderator",
 			description: "Moderators can manage content but cannot access user management",
 			precedence: 2,
+		});
+
+		// Add SES sending authorization policy to allow Cognito to send emails from the domain
+		// This grants the Cognito service permission to use the vcmuellheim.de domain for sending emails
+		new cdk.custom_resources.AwsCustomResource(this, "SesDomainIdentityPolicy", {
+			onCreate: {
+				service: "ses",
+				action: "putIdentityPolicy",
+				parameters: {
+					Identity: "vcmuellheim.de",
+					PolicyName: "CognitoSendingPolicy",
+					Policy: JSON.stringify({
+						Version: "2012-10-17",
+						Statement: [
+							{
+								Sid: "AllowCognitoEmailSending",
+								Effect: "Allow",
+								Principal: {
+									Service: "email.cognito-idp.amazonaws.com",
+								},
+								Action: ["SES:SendEmail", "SES:SendRawEmail"],
+								Resource: `arn:aws:ses:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:identity/vcmuellheim.de`,
+								Condition: {
+									StringEquals: {
+										"aws:SourceAccount": cdk.Stack.of(this).account,
+									},
+									ArnLike: {
+										"aws:SourceArn": this.userPool.userPoolArn,
+									},
+								},
+							},
+						],
+					}),
+				},
+				physicalResourceId: cdk.custom_resources.PhysicalResourceId.of("cognito-ses-policy"),
+			},
+			onDelete: {
+				service: "ses",
+				action: "deleteIdentityPolicy",
+				parameters: {
+					Identity: "vcmuellheim.de",
+					PolicyName: "CognitoSendingPolicy",
+				},
+			},
+			policy: cdk.custom_resources.AwsCustomResourcePolicy.fromSdkCalls({
+				resources: cdk.custom_resources.AwsCustomResourcePolicy.ANY_RESOURCE,
+			}),
 		});
 
 		// User Pool Client for admin app

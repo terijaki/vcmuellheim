@@ -56,32 +56,34 @@ jobs:
               .split('\n')
               .filter(f => f.length > 0);
 
+            const fileList = changedFiles.map(f => `- \`${f}\``).join('\n');
+
             const body = `# 🚨 SAMS Swagger Schema Drift Detected
 
             The monthly check detected changes in the SAMS API swagger schema or generated code.
 
             ## Changed Files (${changedFiles.length})
-            ${changedFiles.map(f => \`- \\\`${f}\\\`\`).join('\\n')}
+            ${fileList}
 
             ## Diff Summary
-            \\\`\\\`\\\`
+            \`\`\`
             ${diff}
-            \\\`\\\`\\\`
+            \`\`\`
 
             ## Next Steps
             1. Review the changes to understand what's new in the SAMS API
             2. Test the updated types to ensure compatibility
             3. Update any code that depends on the changed schemas
-            4. Run \\\`bun run sams:update\\\` locally and commit the changes
+            4. Run \`bun run sams:update\` locally and commit the changes
 
             ## Workflow Run
-            [View workflow run](https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }})
+            [View workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
             `;
 
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: \`[SAMS Drift] Schema changes detected on ${new Date().toISOString().split('T')[0]}\`,
+              title: `[SAMS Drift] Schema changes detected on ${new Date().toISOString().split('T')[0]}`,
               body: body,
               labels: ['sams', 'drift-detection', 'needs-review']
             });

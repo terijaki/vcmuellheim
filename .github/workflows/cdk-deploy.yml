@@ -139,9 +139,10 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const workflowUrl = `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
             github.rest.repos.createCommitComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               commit_sha: context.sha,
-              body: `🚨 **CDK Deployment Failed**\n\n`
+              body: `🚨 **CDK Deployment Failed**\n\n[View workflow run](${workflowUrl})`
             });

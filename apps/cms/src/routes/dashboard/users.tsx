@@ -216,6 +216,12 @@ function UsersPage() {
 					<Stack gap="md">
 						<TextInput label="Vorname" placeholder="Max" required value={givenName} onChange={(e) => setGivenName(e.currentTarget.value)} />
 						<TextInput label="Nachname" placeholder="Mustermann" required value={familyName} onChange={(e) => setFamilyName(e.currentTarget.value)} />
+						<Radio.Group label="Rolle" required value={role} onChange={(value) => setRole(value as "Admin" | "Moderator")}>
+							<Stack gap="xs">
+								<Radio value="Admin" label="Admin (voller Zugriff)" />
+								<Radio value="Moderator" label="Moderator (nur Inhalte)" />
+							</Stack>
+						</Radio.Group>
 						<Group justify="space-between">
 							{editingEmail && (
 								<ActionIcon color="red" variant="light" onClick={() => setDeleteTarget(editingEmail)} loading={deleteMutation.isPending} title="Benutzer dauerhaft löschen" radius="xl" size="lg">

@@ -1,5 +1,6 @@
 import { Club } from "@project.config";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNotification } from "../hooks/useNotification";
 
 // PKCE helper functions
 function generateRandomString(length: number): string {
@@ -145,6 +146,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const [error, setError] = useState<string | null>(null);
 	const [configLoaded, setConfigLoaded] = useState(false);
 	const [isLoggingOut, setIsLoggingOut] = useState(false);
+	const notification = useNotification();
 
 	// Fetch Cognito config on mount
 	useEffect(() => {
@@ -154,11 +156,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				setConfigLoaded(true);
 			})
 			.catch((err) => {
+				notification.error({
+					message: "Die Authentifizierungskonfiguration konnte nicht geladen werden. Bitte versuche es später erneut.",
+				});
 				console.error("Failed to load Cognito config:", err);
-				setError("Failed to load authentication configuration");
+				setError("Die Authentifizierungskonfiguration konnte nicht geladen werden.");
 				setIsLoading(false);
 			});
-	}, []);
+	}, [notification.error]);
 
 	// Restore session from localStorage once config is loaded
 	useEffect(() => {
@@ -236,6 +241,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 					console.log("Token successfully refreshed");
 				} catch (err) {
 					console.error("Error refreshing token:", err);
+					notification.error({
+						message: "Fehler beim Aktualisieren des Sitzungstokens. Bitte melde dich erneut an.",
+					});
 					setUser(null);
 					localStorage.removeItem(AUTH_STORAGE_KEY);
 				}
@@ -246,11 +254,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		checkAndRefreshToken();
 		const interval = setInterval(checkAndRefreshToken, 60 * 1000);
 		return () => clearInterval(interval);
-	}, [user]);
+	}, [user, notification.error]);
 
 	const redirectToLogin = async () => {
 		if (!cognitoConfig?.hostedUi) {
-			setError("Hosted UI not configured");
+			console.error("Hosted UI not configured");
+			setError("Das Login UI ist nicht konfiguriert.");
 			return;
 		}
 
@@ -291,7 +300,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 	const handleCallback = async (code: string, state: string) => {
 		if (!cognitoConfig?.hostedUi) {
-			setError("Hosted UI not configured");
+			console.error("Hosted UI not configured");
+			setError("Das Login UI ist nicht konfiguriert.");
 			return;
 		}
 
@@ -336,6 +346,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			if (!tokenResponse.ok) {
 				const errorText = await tokenResponse.text();
 				console.error("Token exchange failed:", errorText);
+				notification.error({
+					message: `Authentifizierungstoken konnte nicht abgerufen werden: ${tokenResponse.status} - ${errorText}`,
+				});
 				throw new Error(`Token exchange failed: ${tokenResponse.status} - ${errorText}`);
 			}
 

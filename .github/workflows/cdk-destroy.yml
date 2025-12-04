@@ -86,8 +86,7 @@ jobs:
           CDK_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
           CDK_ENVIRONMENT: dev
           CDK_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
-          SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
-          SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
+          CDK_DESTROY: "true"
         run: |
           echo "Destroying stacks for branch: ${{ steps.branch.outputs.branch }}"
 
@@ -97,7 +96,6 @@ jobs:
           fi
 
       - name: Add destroy summary
-        if: always()
         run: |
           if [ "${{ steps.stack_check.outputs.exists }}" == "true" ]; then
             echo "## 🗑️ CDK Stacks Destroyed" >> $GITHUB_STEP_SUMMARY
@@ -127,3 +125,20 @@ jobs:
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "No cleanup necessary." >> $GITHUB_STEP_SUMMARY
           fi
+
+  comment-on-deployment:
+    if: failure()
+    needs: destroy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment on deployment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const workflowUrl = `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
+            github.rest.repos.createCommitComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: context.sha,
+              body: `🚨 **CDK Destroy Failed**\n\n[View workflow run](${workflowUrl})`
+            });

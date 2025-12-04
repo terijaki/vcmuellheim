@@ -78,13 +78,11 @@ export class SamsApiStack extends cdk.Stack {
 		// Environment variables for all Lambda functions
 		const samsApiKey = process.env.SAMS_API_KEY;
 		const samsServer = process.env.SAMS_SERVER;
+		const isCdkDestroy = process.env.CDK_DESTROY === "true";
 
-		if (!samsApiKey || !samsServer) {
-			const isCdkDestroy = process.argv.some((a) => /destroy/i.test(a));
-			if (!isCdkDestroy) {
-				if (!samsApiKey) throw new Error("❌ SAMS_API_KEY environment variable is required");
-				if (!samsServer) throw new Error("❌ SAMS_SERVER environment variable is required");
-			}
+		if (!isCdkDestroy) {
+			if (!samsApiKey) throw new Error("❌ SAMS_API_KEY environment variable is required");
+			if (!samsServer) throw new Error("❌ SAMS_SERVER environment variable is required");
 		}
 
 		const commonEnvironment = {
