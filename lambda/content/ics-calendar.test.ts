@@ -1,7 +1,7 @@
-import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
-import { mockClient } from "aws-sdk-client-mock";
 import { beforeEach, describe, expect, it } from "bun:test";
+import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import type { APIGatewayProxyEvent, Context } from "aws-lambda";
+import { mockClient } from "aws-sdk-client-mock";
 import { handler } from "./ics-calendar";
 
 const ddbMock = mockClient(DynamoDBDocumentClient);
@@ -115,7 +115,7 @@ describe("ICS Calendar Lambda", () => {
 	it("should include custom events filtered by teamId in team-specific calendars", async () => {
 		// Reset mocks
 		ddbMock.reset();
-		
+
 		let callCount = 0;
 		ddbMock.on(QueryCommand).callsFake((_input) => {
 			callCount++;
