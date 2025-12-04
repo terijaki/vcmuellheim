@@ -96,6 +96,18 @@ export class CmsStack extends cdk.Stack {
 				: {}),
 		});
 
+		// Grant CloudFront distribution access to S3 bucket
+		// When using OAC with S3 origin, we need to add a bucket policy
+		this.bucket.addToResourcePolicy(
+			new cdk.aws_iam.PolicyStatement({
+				sid: "AllowCloudFrontOAC",
+				effect: cdk.aws_iam.Effect.ALLOW,
+				principals: [new cdk.aws_iam.ServicePrincipal("cloudfront.amazonaws.com")],
+				actions: ["s3:GetObject"],
+				resources: [this.bucket.arnForObjects("*")],
+			}),
+		);
+
 		// Create A record for admin subdomain if hosted zone provided
 		if (props?.hostedZone && props?.cloudFrontCertificate) {
 			new route53.ARecord(this, "CmsARecord", {
@@ -121,14 +133,9 @@ export class CmsStack extends cdk.Stack {
 								try {
 									// Build the CMS
 									const cmsCwd = path.join(process.cwd(), "apps/cms");
-									execFileSync("bun", ["run", "build"], {
+									execFileSync("bun", ["run", "build", "--outDir", outputDir], {
 										env: { ...process.env, VITE_CDK_ENVIRONMENT: environment },
 										cwd: cmsCwd,
-										stdio: "inherit",
-									});
-									// Copy build output to CDK output directory
-									const distPath = path.join(process.cwd(), "apps/cms/dist");
-									execFileSync("cp", ["-r", path.join(distPath, "."), outputDir], {
 										stdio: "inherit",
 									});
 									return true;
@@ -141,6 +148,7 @@ export class CmsStack extends cdk.Stack {
 					},
 				}),
 			],
+			destinationKeyPrefix: "", // Deploy to root of bucket, not in a subdirectory
 			destinationBucket: this.bucket,
 			distribution: this.distribution,
 			distributionPaths: ["/*"],

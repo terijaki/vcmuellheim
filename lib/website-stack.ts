@@ -125,14 +125,9 @@ export class WebsiteStack extends cdk.Stack {
 								try {
 									// Build the website
 									const websiteCwd = path.join(process.cwd(), "apps/website");
-									execFileSync("bun", ["run", "build"], {
+									execFileSync("bun", ["run", "build", "--outDir", outputDir], {
 										env: { ...process.env, VITE_CDK_ENVIRONMENT: environment },
 										cwd: websiteCwd,
-										stdio: "inherit",
-									});
-									// Copy build output to CDK output directory
-									const distPath = path.join(process.cwd(), "apps/website/dist");
-									execFileSync("cp", ["-r", path.join(distPath, "."), outputDir], {
 										stdio: "inherit",
 									});
 									return true;
