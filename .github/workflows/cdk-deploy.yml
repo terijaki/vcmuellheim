@@ -135,14 +135,43 @@ jobs:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Get workflow logs
+        id: logs
+        run: |
+          # Get the last 50 lines of logs which typically contain the error
+          LOGS=$(gh run view ${{ github.run_id }} --log | tail -100)
+          # Escape newlines and special characters for JSON
+          LOGS_ESCAPED=$(echo "$LOGS" | jq -Rs .)
+          echo "error_logs=$LOGS_ESCAPED" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Comment on deployment
         uses: actions/github-script@v7
         with:
           script: |
             const workflowUrl = `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
+            const logs = ${{ steps.logs.outputs.error_logs }};
+
+            let errorSection = '';
+            if (logs && logs.trim()) {
+              // Get last 30 lines of logs and truncate if too long
+              const logLines = logs.split('\n').slice(-30).join('\n');
+              const truncatedLogs = logLines.length > 1500 ? logLines.substring(0, 1500) + '...' : logLines;
+              errorSection = `\n\n### 📋 Recent Logs\n\`\`\`\n${truncatedLogs}\n\`\`\``;
+            }
+
             github.rest.repos.createCommitComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               commit_sha: context.sha,
-              body: `🚨 **CDK Deployment Failed**\n\n[View workflow run](${workflowUrl})`
+              body: `🚨 **CDK Deployment Failed**\n\n[View workflow run](${workflowUrl})${errorSection}`
             });
