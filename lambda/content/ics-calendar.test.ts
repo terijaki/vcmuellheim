@@ -1,13 +1,13 @@
 import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { mockClient } from "aws-sdk-client-mock";
 import { beforeEach, describe, expect, it } from "bun:test";
-import type { APIGatewayProxyEvent } from "aws-lambda";
+import type { APIGatewayProxyEvent, Context } from "aws-lambda";
 import { handler } from "./ics-calendar";
 
 const ddbMock = mockClient(DynamoDBDocumentClient);
 
 // Mock fetch globally
-global.fetch = async (url: string) => {
+(global as unknown as { fetch: unknown }).fetch = async (url: string) => {
 	if (typeof url === "string" && url.includes("/matches")) {
 		return {
 			ok: true,
@@ -39,6 +39,9 @@ global.fetch = async (url: string) => {
 	throw new Error("Unexpected fetch call");
 };
 
+// Mock context
+const mockContext = {} as Context;
+
 beforeEach(() => {
 	ddbMock.reset();
 	process.env.TEAMS_TABLE_NAME = "test-teams-table";
@@ -57,13 +60,13 @@ describe("ICS Calendar Lambda", () => {
 			pathParameters: { teamSlug: "all.ics" },
 		} as unknown as APIGatewayProxyEvent;
 
-		const result = await handler(event);
+		const result = await handler(event, mockContext, () => {});
 
-		expect(result.statusCode).toBe(200);
-		expect(result.headers?.["Content-Type"]).toBe("text/calendar; charset=utf-8");
-		expect(result.body).toContain("BEGIN:VCALENDAR");
-		expect(result.body).toContain("Team A vs Team B");
-		expect(result.body).toContain("END:VCALENDAR");
+		expect(result?.statusCode).toBe(200);
+		expect(result?.headers?.["Content-Type"]).toBe("text/calendar; charset=utf-8");
+		expect(result?.body).toContain("BEGIN:VCALENDAR");
+		expect(result?.body).toContain("Team A vs Team B");
+		expect(result?.body).toContain("END:VCALENDAR");
 	});
 
 	it("should include custom events from DynamoDB in 'all' calendar", async () => {
@@ -86,12 +89,12 @@ describe("ICS Calendar Lambda", () => {
 			pathParameters: { teamSlug: "all.ics" },
 		} as unknown as APIGatewayProxyEvent;
 
-		const result = await handler(event);
+		const result = await handler(event, mockContext, () => {});
 
-		expect(result.statusCode).toBe(200);
-		expect(result.body).toContain("Vereinsfest");
-		expect(result.body).toContain("Vereinsheim");
-		expect(result.body).toContain("Unser jährliches Vereinsfest");
+		expect(result?.statusCode).toBe(200);
+		expect(result?.body).toContain("Vereinsfest");
+		expect(result?.body).toContain("Vereinsheim");
+		expect(result?.body).toContain("Unser jährliches Vereinsfest");
 	});
 
 	it("should return 404 for non-existent team", async () => {
@@ -103,9 +106,9 @@ describe("ICS Calendar Lambda", () => {
 			pathParameters: { teamSlug: "non-existent.ics" },
 		} as unknown as APIGatewayProxyEvent;
 
-		const result = await handler(event);
+		const result = await handler(event, mockContext, () => {});
 
-		expect(result.statusCode).toBe(404);
-		expect(result.body).toBe("Team nicht gefunden");
+		expect(result?.statusCode).toBe(404);
+		expect(result?.body).toBe("Team nicht gefunden");
 	});
 });

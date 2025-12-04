@@ -62,13 +62,21 @@ function convertEventToIcs(event: Event, timestamp: Date): IcsEvent {
 	const endTime = event.endDate ? dayjs(event.endDate) : undefined;
 	
 	// Calculate duration if endDate is provided, otherwise default to 2 hours
-	let duration: { hours: number } | { minutes: number } | undefined;
+	let duration: { hours: number; minutes?: number } | { minutes: number } | undefined;
 	if (endTime?.isValid()) {
 		const durationMinutes = endTime.diff(startTime, "minute");
-		if (durationMinutes >= 60) {
-			duration = { hours: Math.floor(durationMinutes / 60) };
+		// Ensure duration is positive
+		if (durationMinutes > 0) {
+			if (durationMinutes >= 60) {
+				const hours = Math.floor(durationMinutes / 60);
+				const remainingMinutes = durationMinutes % 60;
+				duration = remainingMinutes > 0 ? { hours, minutes: remainingMinutes } : { hours };
+			} else {
+				duration = { minutes: durationMinutes };
+			}
 		} else {
-			duration = { minutes: durationMinutes };
+			// If endDate is before startDate, default to 2 hours
+			duration = { hours: 2 };
 		}
 	} else {
 		duration = { hours: 2 };
