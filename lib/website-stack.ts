@@ -40,6 +40,7 @@ export class WebsiteStack extends cdk.Stack {
 		const baseDomain = isProd ? Club.domain : `new.${Club.domain}`;
 		const envPrefix = isProd ? "" : `${environment}${branchSuffix}.`; // Note the dot for subdomain, for the website. Not a hyphen like for other resources.
 		const websiteDomain = isProd ? Club.domain : `${envPrefix}${baseDomain}`;
+		const apiDomain = isProd ? `api.${Club.domain}` : `${environment}${branchSuffix}-api.${baseDomain}`;
 
 		// S3 Bucket for website static files
 		this.bucket = new s3.Bucket(this, "WebsiteBucket", {
@@ -59,6 +60,19 @@ export class WebsiteStack extends cdk.Stack {
 				cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
 				cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
 				compress: true,
+			},
+			additionalBehaviors: {
+				"/ics/*": {
+					origin: new origins.HttpOrigin(apiDomain, {
+						protocolPolicy: cloudfront.OriginProtocolPolicy.HTTPS_ONLY,
+					}),
+					viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+					allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
+					cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD,
+					cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+					compress: true,
+					originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
+				},
 			},
 			defaultRootObject: "index.html",
 			errorResponses: [
