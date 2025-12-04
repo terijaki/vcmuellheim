@@ -96,6 +96,18 @@ export class CmsStack extends cdk.Stack {
 				: {}),
 		});
 
+		// Grant CloudFront distribution access to S3 bucket
+		// When using OAC with S3 origin, we need to add a bucket policy
+		this.bucket.addToResourcePolicy(
+			new cdk.aws_iam.PolicyStatement({
+				sid: "AllowCloudFrontOAC",
+				effect: cdk.aws_iam.Effect.ALLOW,
+				principals: [new cdk.aws_iam.ServicePrincipal("cloudfront.amazonaws.com")],
+				actions: ["s3:GetObject"],
+				resources: [this.bucket.arnForObjects("*")],
+			}),
+		);
+
 		// Create A record for admin subdomain if hosted zone provided
 		if (props?.hostedZone && props?.cloudFrontCertificate) {
 			new route53.ARecord(this, "CmsARecord", {
@@ -141,6 +153,7 @@ export class CmsStack extends cdk.Stack {
 					},
 				}),
 			],
+			destinationKeyPrefix: "", // Deploy to root of bucket, not in a subdirectory
 			destinationBucket: this.bucket,
 			distribution: this.distribution,
 			distributionPaths: ["/*"],
