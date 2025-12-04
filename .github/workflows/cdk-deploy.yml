@@ -47,9 +47,13 @@ jobs:
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
             echo "environment=prod" >> $GITHUB_OUTPUT
             echo "is_main=true" >> $GITHUB_OUTPUT
+            echo "env_name=Production" >> $GITHUB_OUTPUT
+            echo "env_icon=🚀" >> $GITHUB_OUTPUT
           else
             echo "environment=dev" >> $GITHUB_OUTPUT
             echo "is_main=false" >> $GITHUB_OUTPUT
+            echo "env_name=Development" >> $GITHUB_OUTPUT
+            echo "env_icon=🔧" >> $GITHUB_OUTPUT
           fi
 
       - name: Lint check
@@ -85,23 +89,12 @@ jobs:
 
       - name: Add deployment summary
         run: |
-          BRANCH="${{ github.ref_name }}"
-
-          # Determine environment for display
-          if [ "${{ steps.env.outputs.is_main }}" == "true" ]; then
-            ENV_ICON="🚀"
-            ENV_NAME="Production"
-          else
-            ENV_ICON="🔧"
-            ENV_NAME="Development"
-          fi
-
-          echo "## ${ENV_ICON} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## ${{ steps.env.outputs.env_icon }} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Environment** | ${ENV_NAME} |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Branch** | \`${BRANCH}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Environment** | ${{ steps.env.outputs.env_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Branch** | \`${{ github.ref_name }}\` |" >> $GITHUB_STEP_SUMMARY
           echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
 
           # Extract and display CDK outputs if available
