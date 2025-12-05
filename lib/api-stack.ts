@@ -13,7 +13,7 @@ import type * as s3 from "aws-cdk-lib/aws-s3";
 import * as ses from "aws-cdk-lib/aws-ses";
 import type { Construct } from "constructs";
 import { Club } from "@/project.config";
-import { getCognitoEmailTemplates } from "./cognito-email-templates";
+import { getCognitoEmailTemplates } from "./cognito-templates";
 import { TABLES, type TableEntity, tableEnvVar } from "./db/env";
 
 interface ApiStackProps extends cdk.StackProps {

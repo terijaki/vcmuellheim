@@ -566,7 +566,7 @@ async function seedTeamsData(members: MemberInput[]): Promise<void> {
 			slug: "herren-1",
 			description: "Erste Herrenmannschaft in der Landesliga",
 			gender: "male" as const,
-			ageGroup: "Herren",
+			ageGroup: "ab 16",
 			league: "Landesliga",
 			trainerIds: [members[0]?.id], // Max Müller
 			pointOfContactIds: [members[0]?.id],
@@ -589,7 +589,7 @@ async function seedTeamsData(members: MemberInput[]): Promise<void> {
 			slug: "damen-1",
 			description: "Erste Damenmannschaft in der Oberliga",
 			gender: "female" as const,
-			ageGroup: "Damen",
+			ageGroup: "18",
 			league: "Oberliga",
 			trainerIds: [members[1]?.id], // Sarah Schmidt
 			pointOfContactIds: [members[1]?.id],
@@ -612,7 +612,7 @@ async function seedTeamsData(members: MemberInput[]): Promise<void> {
 			slug: "jugend",
 			description: "Jugendmannschaft U18",
 			gender: "mixed" as const,
-			ageGroup: "U18",
+			ageGroup: "12-18 Jahre",
 			league: "Bezirksliga",
 			trainerIds: [members[3]?.id], // Julia Fischer
 			pointOfContactIds: [members[3]?.id],
@@ -634,7 +634,6 @@ async function seedTeamsData(members: MemberInput[]): Promise<void> {
 			slug: "damen-2",
 			description: "Zweite Damenmannschaft",
 			gender: "female" as const,
-			ageGroup: "Damen",
 			league: "Verbandsliga",
 			trainerIds: [members[5]?.id], // Anna Wagner
 			pointOfContactIds: [members[1]?.id, members[5]?.id],

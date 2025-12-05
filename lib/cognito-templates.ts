@@ -1,7 +1,7 @@
-import { VerificationEmailStyle } from "aws-cdk-lib/aws-cognito";
+import { type UserVerificationConfig, VerificationEmailStyle } from "aws-cdk-lib/aws-cognito";
 import { Club } from "../project.config";
 
-export function getCognitoEmailTemplates(cmsDomain: string) {
+export function getCognitoEmailTemplates(cmsDomain: string): { userInvitation: UserVerificationConfig; userVerification: UserVerificationConfig } {
 	const loginUrl = `https://${cmsDomain}`;
 
 	return {
