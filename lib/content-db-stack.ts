@@ -88,7 +88,7 @@ export class ContentDbStack extends cdk.Stack {
 			sortKeys: [
 				{ name: "slug", type: dynamodb.AttributeType.STRING },
 				{ name: "name", type: dynamodb.AttributeType.STRING },
-				// { name: "sbvvTeamId", type: dynamodb.AttributeType.STRING }, // Adding sbvvTeamId is not possible because it requires a valid string value. Thus would results that non SBVV teams would not be part of this index at all!
+				// NOTE: Adding 'sbvvTeamId' is not possible because the SK must be a non empty string. Thus would results that non SBVV teams would not be part of this index at all!
 			],
 			projectionType: dynamodb.ProjectionType.ALL,
 		});

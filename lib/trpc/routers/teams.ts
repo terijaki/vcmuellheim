@@ -1,6 +1,6 @@
 import { slugify } from "@utils/slugify";
 import { z } from "zod";
-import { getAllTeams, getTeamBySamsId, getTeamBySlug, teamsRepository } from "../../db/repositories";
+import { getAllTeams, getTeamBySlug, teamsRepository } from "../../db/repositories";
 import { teamSchema } from "../../db/schemas";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
@@ -22,15 +22,6 @@ export const teamsRouter = router({
 	/** Get team by slug */
 	getBySlug: publicProcedure.input(z.object({ slug: z.string() })).query(async ({ input }) => {
 		const team = await getTeamBySlug(input.slug);
-		if (!team) {
-			throw new Error("Team not found");
-		}
-		return team;
-	}),
-
-	/** Get team by SAMS/SBVV team ID */
-	getBySamsId: publicProcedure.input(z.object({ sbvvTeamId: z.string() })).query(async ({ input }) => {
-		const team = await getTeamBySamsId(input.sbvvTeamId);
 		if (!team) {
 			throw new Error("Team not found");
 		}
