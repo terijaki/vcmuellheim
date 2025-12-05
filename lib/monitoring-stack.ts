@@ -421,7 +421,7 @@ export class MonitoringStack extends cdk.Stack {
 					period: cdk.Duration.minutes(5),
 				}),
 				threshold: isProd ? 1000 : 2000,
-				evaluationPeriods: 2,
+				evaluationPeriods: 3,
 				alarmName: `vcm-api-high-latency-${environment}${branchSuffix}`,
 				alarmDescription: "Alert when API Gateway latency is high",
 				treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,

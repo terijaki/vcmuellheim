@@ -51,7 +51,6 @@ function UsersPage() {
 				givenName,
 				familyName,
 				role,
-				sendInvite: true,
 			});
 			notification.success(`${givenName} ${familyName} wurde eingeladen`);
 			setEmail("");
