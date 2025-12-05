@@ -31,7 +31,7 @@ export const teamsRouter = router({
 	/** Create team (admin only) */
 	create: protectedProcedure.input(teamSchema.omit({ id: true, createdAt: true, updatedAt: true, slug: true })).mutation(async ({ input }) => {
 		const id = crypto.randomUUID();
-		const slug = slugify(input.name);
+		const slug = slugify(input.name, true);
 		return teamsRepository.create({ ...input, id, slug } as never);
 	}),
 
