@@ -1,5 +1,5 @@
 import type { NewsInput } from "@lib/db/schemas";
-import { ActionIcon, Badge, Box, Button, Card, Flex, Group, Image, Modal, Paper, Pill, SegmentedControl, SimpleGrid, Stack, Table, Text, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Badge, Box, Button, Card, Flex, Group, Image, Modal, Pill, SegmentedControl, SimpleGrid, Stack, Table, Text, TextInput, Title } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { RichTextEditor } from "@mantine/tiptap";
@@ -455,100 +455,98 @@ function NewsPage() {
 				</Stack>
 			</Modal>
 
-			<Paper withBorder p="md">
-				{isLoading ? (
-					<Text>Laden...</Text>
-				) : filteredNews.length > 0 ? (
-					<>
-						<Table striped highlightOnHover visibleFrom="sm">
-							<Table.Thead>
-								<Table.Tr>
-									<Table.Th style={{ width: "100%" }}>Titel</Table.Th>
-									<Table.Th style={{ whiteSpace: "nowrap" }}>Status</Table.Th>
-									<Table.Th style={{ whiteSpace: "nowrap" }}>Aktualisiert</Table.Th>
-									<Table.Th style={{ whiteSpace: "nowrap" }}>Bilder</Table.Th>
-									<Table.Th style={{ whiteSpace: "nowrap" }}>Aktionen</Table.Th>
+			{isLoading ? (
+				<Text>Laden...</Text>
+			) : filteredNews.length > 0 ? (
+				<>
+					<Table striped highlightOnHover visibleFrom="sm">
+						<Table.Thead>
+							<Table.Tr>
+								<Table.Th style={{ width: "100%" }}>Titel</Table.Th>
+								<Table.Th style={{ whiteSpace: "nowrap" }}>Status</Table.Th>
+								<Table.Th style={{ whiteSpace: "nowrap" }}>Aktualisiert</Table.Th>
+								<Table.Th style={{ whiteSpace: "nowrap" }}>Bilder</Table.Th>
+								<Table.Th style={{ whiteSpace: "nowrap" }}>Aktionen</Table.Th>
+							</Table.Tr>
+						</Table.Thead>
+						<Table.Tbody>
+							{filteredNews.map((article) => (
+								<Table.Tr key={article.id} data-news-id={article.id}>
+									<Table.Td style={{ width: "100%" }}>
+										<Text fw={500}>{article.title}</Text>
+										{article.excerpt && (
+											<Text size="sm" c="dimmed" lineClamp={1}>
+												{article.excerpt}
+											</Text>
+										)}
+									</Table.Td>
+									<Table.Td style={{ whiteSpace: "nowrap" }}>
+										<Pill color={article.status === "published" ? "green" : article.status === "draft" ? "yellow" : "gray"}>
+											{article.status === "published" ? "Veröffentlicht" : article.status === "draft" ? "Entwurf" : "Archiviert"}
+										</Pill>
+									</Table.Td>
+									<Table.Td style={{ whiteSpace: "nowrap" }}>{dayjs(article.updatedAt).format("DD.MM.YYYY")}</Table.Td>
+									<Table.Td align="center" style={{ whiteSpace: "nowrap" }}>
+										<Badge size="md" variant="light">
+											{article.imageS3Keys?.length || 0}
+										</Badge>
+									</Table.Td>
+									<Table.Td style={{ whiteSpace: "nowrap" }}>
+										<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(article)}>
+											Bearbeiten
+										</Button>
+										<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(article)}>
+											<SquarePen size={16} />
+										</ActionIcon>
+									</Table.Td>
 								</Table.Tr>
-							</Table.Thead>
-							<Table.Tbody>
-								{filteredNews.map((article) => (
-									<Table.Tr key={article.id} data-news-id={article.id}>
-										<Table.Td style={{ width: "100%" }}>
-											<Text fw={500}>{article.title}</Text>
+							))}
+						</Table.Tbody>
+					</Table>
+
+					<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
+						{filteredNews.map((article) => (
+							<Card key={article.id} shadow="sm" p="md" radius="md" withBorder>
+								<Stack gap="xs">
+									<Group justify="space-between" align="flex-start">
+										<Stack gap={4} flex={1}>
+											<Title order={4}>{article.title}</Title>
 											{article.excerpt && (
-												<Text size="sm" c="dimmed" lineClamp={1}>
+												<Text size="sm" c="dimmed" lineClamp={2}>
 													{article.excerpt}
 												</Text>
 											)}
-										</Table.Td>
-										<Table.Td style={{ whiteSpace: "nowrap" }}>
-											<Pill color={article.status === "published" ? "green" : article.status === "draft" ? "yellow" : "gray"}>
-												{article.status === "published" ? "Veröffentlicht" : article.status === "draft" ? "Entwurf" : "Archiviert"}
-											</Pill>
-										</Table.Td>
-										<Table.Td style={{ whiteSpace: "nowrap" }}>{dayjs(article.updatedAt).format("DD.MM.YYYY")}</Table.Td>
-										<Table.Td align="center" style={{ whiteSpace: "nowrap" }}>
+										</Stack>
+										<ActionIcon color="blumine" variant="filled" onClick={() => handleEdit(article)} radius="xl">
+											<SquarePen size={16} />
+										</ActionIcon>
+									</Group>
+									<Group justify="space-between">
+										<Pill color={article.status === "published" ? "green" : article.status === "draft" ? "yellow" : "gray"}>
+											{article.status === "published" ? "Veröffentlicht" : article.status === "draft" ? "Entwurf" : "Archiviert"}
+										</Pill>
+										{article.imageS3Keys && article.imageS3Keys?.length > 1 && (
 											<Badge size="md" variant="light">
-												{article.imageS3Keys?.length || 0}
+												{article.imageS3Keys.length} Bilder
 											</Badge>
-										</Table.Td>
-										<Table.Td style={{ whiteSpace: "nowrap" }}>
-											<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(article)}>
-												Bearbeiten
-											</Button>
-											<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(article)}>
-												<SquarePen size={16} />
-											</ActionIcon>
-										</Table.Td>
-									</Table.Tr>
-								))}
-							</Table.Tbody>
-						</Table>
+										)}
+									</Group>
+								</Stack>
+							</Card>
+						))}
+					</SimpleGrid>
 
-						<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
-							{filteredNews.map((article) => (
-								<Card key={article.id} shadow="sm" p="md" radius="md" withBorder>
-									<Stack gap="xs">
-										<Group justify="space-between" align="flex-start">
-											<Stack gap={4} flex={1}>
-												<Title order={4}>{article.title}</Title>
-												{article.excerpt && (
-													<Text size="sm" c="dimmed" lineClamp={2}>
-														{article.excerpt}
-													</Text>
-												)}
-											</Stack>
-											<ActionIcon color="blumine" variant="filled" onClick={() => handleEdit(article)} radius="xl">
-												<SquarePen size={16} />
-											</ActionIcon>
-										</Group>
-										<Group justify="space-between">
-											<Pill color={article.status === "published" ? "green" : article.status === "draft" ? "yellow" : "gray"}>
-												{article.status === "published" ? "Veröffentlicht" : article.status === "draft" ? "Entwurf" : "Archiviert"}
-											</Pill>
-											{article.imageS3Keys && article.imageS3Keys?.length > 1 && (
-												<Badge size="md" variant="light">
-													{article.imageS3Keys.length} Bilder
-												</Badge>
-											)}
-										</Group>
-									</Stack>
-								</Card>
-							))}
-						</SimpleGrid>
-
-						{searchQuery || statusFilter !== "all" ? (
-							<Text size="sm" c="dimmed" mt="md">
-								{filteredNews.length} von {news?.items.length || 0} Artikel{filteredNews.length !== 1 ? "n" : ""}
-							</Text>
-						) : null}
-					</>
-				) : (
-					<Text c="dimmed" ta="center" py="xl">
-						{searchQuery || statusFilter !== "all" ? "Keine passenden Artikel gefunden" : "Keine News-Artikel vorhanden"}
-					</Text>
-				)}
-			</Paper>
+					{searchQuery || statusFilter !== "all" ? (
+						<Text size="sm" c="dimmed" mt="md">
+							{filteredNews.length} von {news?.items.length || 0} Artikel{filteredNews.length !== 1 ? "n" : ""}
+						</Text>
+					) : null}
+				</>
+			) : (
+				<Text c="dimmed" ta="center" py="xl">
+					{searchQuery || statusFilter !== "all" ? "Keine passenden Artikel gefunden" : "Keine News-Artikel vorhanden"}
+				</Text>
+			)}
 		</Stack>
 	);
 }

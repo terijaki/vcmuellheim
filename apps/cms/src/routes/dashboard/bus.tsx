@@ -1,4 +1,4 @@
-import { ActionIcon, Button, Card, Center, Group, Modal, Paper, SegmentedControl, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Button, Card, Center, Group, Modal, SegmentedControl, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { Calendar, DatePickerInput } from "@mantine/dates";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
@@ -220,86 +220,84 @@ function BusSchedulesPage() {
 				]}
 			/>
 
-			<Paper withBorder p="md">
-				{isLoading ? (
-					<Text>Laden...</Text>
-				) : filteredSchedules.length > 0 ? (
-					<>
-						<Table striped highlightOnHover visibleFrom="sm">
-							<Table.Thead>
-								<Table.Tr>
-									<Table.Th>Fahrer</Table.Th>
-									<Table.Th>Von</Table.Th>
-									<Table.Th>Bis</Table.Th>
-									<Table.Th>Kommentar</Table.Th>
-									<Table.Th>Aktionen</Table.Th>
-								</Table.Tr>
-							</Table.Thead>
-							<Table.Tbody>
-								{filteredSchedules.map((schedule) => (
-									<Table.Tr key={schedule.id}>
-										<Table.Td>{schedule.driver}</Table.Td>
-										<Table.Td>{dayjs(schedule.from).format("DD.MM.YYYY")}</Table.Td>
-										<Table.Td>{dayjs(schedule.to).format("DD.MM.YYYY")}</Table.Td>
-										<Table.Td>{schedule.comment || "-"}</Table.Td>
-										<Table.Td>
-											<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(schedule)}>
-												Bearbeiten
-											</Button>
-											<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(schedule)}>
-												<SquarePen size={16} />
-											</ActionIcon>
-										</Table.Td>
-									</Table.Tr>
-								))}
-							</Table.Tbody>
-						</Table>
-
-						<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
+			{isLoading ? (
+				<Text>Laden...</Text>
+			) : filteredSchedules.length > 0 ? (
+				<>
+					<Table striped highlightOnHover visibleFrom="sm">
+						<Table.Thead>
+							<Table.Tr>
+								<Table.Th>Fahrer</Table.Th>
+								<Table.Th>Von</Table.Th>
+								<Table.Th>Bis</Table.Th>
+								<Table.Th>Kommentar</Table.Th>
+								<Table.Th>Aktionen</Table.Th>
+							</Table.Tr>
+						</Table.Thead>
+						<Table.Tbody>
 							{filteredSchedules.map((schedule) => (
-								<Card key={schedule.id} shadow="sm" p="md" radius="md" withBorder>
+								<Table.Tr key={schedule.id}>
+									<Table.Td>{schedule.driver}</Table.Td>
+									<Table.Td>{dayjs(schedule.from).format("DD.MM.YYYY")}</Table.Td>
+									<Table.Td>{dayjs(schedule.to).format("DD.MM.YYYY")}</Table.Td>
+									<Table.Td>{schedule.comment || "-"}</Table.Td>
+									<Table.Td>
+										<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(schedule)}>
+											Bearbeiten
+										</Button>
+										<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(schedule)}>
+											<SquarePen size={16} />
+										</ActionIcon>
+									</Table.Td>
+								</Table.Tr>
+							))}
+						</Table.Tbody>
+					</Table>
+
+					<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
+						{filteredSchedules.map((schedule) => (
+							<Card key={schedule.id} shadow="sm" p="md" radius="md" withBorder>
+								<Stack gap="xs">
+									<Group justify="space-between" align="flex-start">
+										<Title order={4}>{schedule.driver}</Title>
+										<ActionIcon color="blumine" variant="filled" onClick={() => handleEdit(schedule)} radius="xl">
+											<SquarePen size={16} />
+										</ActionIcon>
+									</Group>
 									<Stack gap="xs">
-										<Group justify="space-between" align="flex-start">
-											<Title order={4}>{schedule.driver}</Title>
-											<ActionIcon color="blumine" variant="filled" onClick={() => handleEdit(schedule)} radius="xl">
-												<SquarePen size={16} />
-											</ActionIcon>
-										</Group>
-										<Stack gap="xs">
+										<div>
+											<Text size="xs" fw={500} c="dimmed">
+												Zeitraum
+											</Text>
+											<Text size="sm">
+												{dayjs(schedule.from).isSame(dayjs(schedule.to), "day")
+													? dayjs(schedule.from).format("DD.MM.YYYY")
+													: `${dayjs(schedule.from).format("DD.MM.YYYY")} - ${dayjs(schedule.to).format("DD.MM.YYYY")}`}
+											</Text>
+										</div>
+										{schedule.comment && (
 											<div>
 												<Text size="xs" fw={500} c="dimmed">
-													Zeitraum
+													Kommentar
 												</Text>
-												<Text size="sm">
-													{dayjs(schedule.from).isSame(dayjs(schedule.to), "day")
-														? dayjs(schedule.from).format("DD.MM.YYYY")
-														: `${dayjs(schedule.from).format("DD.MM.YYYY")} - ${dayjs(schedule.to).format("DD.MM.YYYY")}`}
-												</Text>
+												<Text size="sm">{schedule.comment}</Text>
 											</div>
-											{schedule.comment && (
-												<div>
-													<Text size="xs" fw={500} c="dimmed">
-														Kommentar
-													</Text>
-													<Text size="sm">{schedule.comment}</Text>
-												</div>
-											)}
-										</Stack>
+										)}
 									</Stack>
-								</Card>
-							))}
-						</SimpleGrid>
+								</Stack>
+							</Card>
+						))}
+					</SimpleGrid>
 
-						<Text size="sm" c="dimmed" mt="md">
-							{filteredSchedules.length} {timeFilter === "upcoming" ? "bevorstehende" : "vergangene"} Buchung{filteredSchedules.length !== 1 ? "en" : ""}
-						</Text>
-					</>
-				) : (
-					<Text c="dimmed" ta="center" py="xl">
-						{timeFilter === "upcoming" ? "Keine bevorstehenden Buchungen" : "Keine vergangenen Buchungen"}
+					<Text size="sm" c="dimmed" mt="md">
+						{filteredSchedules.length} {timeFilter === "upcoming" ? "bevorstehende" : "vergangene"} Buchung{filteredSchedules.length !== 1 ? "en" : ""}
 					</Text>
-				)}
-			</Paper>
+				</>
+			) : (
+				<Text c="dimmed" ta="center" py="xl">
+					{timeFilter === "upcoming" ? "Keine bevorstehenden Buchungen" : "Keine vergangenen Buchungen"}
+				</Text>
+			)}
 
 			<Modal
 				opened={opened}
@@ -316,6 +314,7 @@ function BusSchedulesPage() {
 						<TextInput label="Fahrer" placeholder="z.B. Max Mustermann" value={formData.driver} onChange={(e) => setFormData({ ...formData, driver: e.target.value })} required />
 						<DatePickerInput
 							type="range"
+							locale="de"
 							allowSingleDateInRange
 							label="Zeitraum"
 							placeholder="Von - Bis auswählen"
@@ -342,15 +341,22 @@ function BusSchedulesPage() {
 							}}
 							valueFormat="D MMM YYYY"
 							required
-							presets={[
-								{ value: [dayjs().add(1, "day").format("YYYY-MM-DD"), dayjs().add(1, "day").format("YYYY-MM-DD")], label: "Morgen" },
-								{
-									value: [dayjs().endOf("week").subtract(1, "day").add(1, "week").format("YYYY-MM-DD"), dayjs().endOf("week").subtract(1, "day").add(1, "week").format("YYYY-MM-DD")],
-									label: "Nächsten Samstag",
-								},
-								{ value: [dayjs().endOf("week").subtract(1, "day").add(1, "week").format("YYYY-MM-DD"), dayjs().endOf("week").add(1, "week").format("YYYY-MM-DD")], label: "Nächstes Wochenende" },
-								{ value: [dayjs().endOf("month").add(1, "day").format("YYYY-MM-DD"), dayjs().endOf("month").add(1, "day").format("YYYY-MM-DD")], label: "Nächster Monat" },
-							]}
+							presets={
+								isMobile
+									? undefined
+									: [
+											{ value: [dayjs().add(1, "day").format("YYYY-MM-DD"), dayjs().add(1, "day").format("YYYY-MM-DD")], label: "Morgen" },
+											{
+												value: [dayjs().endOf("week").subtract(1, "day").add(1, "week").format("YYYY-MM-DD"), dayjs().endOf("week").subtract(1, "day").add(1, "week").format("YYYY-MM-DD")],
+												label: "Nächsten Samstag",
+											},
+											{
+												value: [dayjs().endOf("week").subtract(1, "day").add(1, "week").format("YYYY-MM-DD"), dayjs().endOf("week").add(1, "week").format("YYYY-MM-DD")],
+												label: "Nächstes Wochenende",
+											},
+											{ value: [dayjs().endOf("month").add(1, "day").format("YYYY-MM-DD"), dayjs().endOf("month").add(1, "day").format("YYYY-MM-DD")], label: "Nächster Monat" },
+										]
+							}
 						/>
 						<Textarea label="Kommentar" placeholder="Zusätzliche Informationen..." value={formData.comment} onChange={(e) => setFormData({ ...formData, comment: e.target.value })} minRows={3} />
 						<Group justify="space-between" mt="md">
