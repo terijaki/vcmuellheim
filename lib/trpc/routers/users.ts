@@ -130,7 +130,6 @@ export const usersRouter = router({
 				givenName: z.string().min(1),
 				familyName: z.string().min(1),
 				role: UserRole,
-				sendInvite: z.boolean().default(true),
 			}),
 		)
 		.mutation(async ({ input }) => {
@@ -145,8 +144,8 @@ export const usersRouter = router({
 						{ Name: "given_name", Value: input.givenName },
 						{ Name: "family_name", Value: input.familyName },
 					],
-					DesiredDeliveryMediums: input.sendInvite ? ["EMAIL"] : undefined,
-					MessageAction: input.sendInvite ? undefined : "SUPPRESS",
+					DesiredDeliveryMediums: ["EMAIL"],
+					MessageAction: "RESEND",
 				});
 
 				const createResponse = await cognitoClient.send(command);
