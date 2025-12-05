@@ -29,6 +29,7 @@ import dayjs from "dayjs";
 import { busSchema, eventSchema, type LocationInput, locationSchema, type MemberInput, memberSchema, newsSchema, sponsorSchema, type TeamInput, teamSchema } from "@/lib/db/schemas";
 import { Club } from "@/project.config";
 import { getSanitizedBranch } from "@/utils/git";
+import { slugify } from "@/utils/slugify";
 
 // Check environment
 const CDK_ENVIRONMENT = process.env.CDK_ENVIRONMENT || "dev";
@@ -403,39 +404,39 @@ async function seedLocationsData() {
 
 	const locations = [
 		{
-			id: crypto.randomUUID(),
 			name: "Römerhalle Müllheim",
 			description: "Haupttrainingsstätte des VC Müllheim",
 			street: "Zum Sportplatz 1",
 			postal: "79379",
 			city: "Müllheim",
-			createdAt: dayjs().toISOString(),
-			updatedAt: dayjs().toISOString(),
 		},
 		{
-			id: crypto.randomUUID(),
 			name: "Vereinsheim VC Müllheim",
 			description: "Soziale Räume für Mitgliedertreffen und Events",
 			street: "Markgrafenstrasse 45",
 			postal: "79379",
 			city: "Müllheim",
-			createdAt: dayjs().toISOString(),
-			updatedAt: dayjs().toISOString(),
 		},
 		{
-			id: crypto.randomUUID(),
 			name: "Beach-Anlage Römerhalle",
 			description: "Outdoor Beach-Volleyball Plätze",
 			street: "Zum Sportplatz 2",
 			postal: "79379",
 			city: "Müllheim",
-			createdAt: dayjs().toISOString(),
-			updatedAt: dayjs().toISOString(),
 		},
 	];
 
+	// Add base metadata
+	const locationsWithBaseMeta = locations.map((loc) => ({
+		...loc,
+		id: crypto.randomUUID(),
+
+		createdAt: dayjs().toISOString(),
+		updatedAt: dayjs().toISOString(),
+	}));
+
 	// Validate against schema
-	const validatedLocations = locations.map((loc) => locationSchema.parse(loc));
+	const validatedLocations = locationsWithBaseMeta.map((loc) => locationSchema.parse(loc));
 
 	await batchWriteItems(LOCATIONS_TABLE, validatedLocations);
 	console.log(`✅ Seeded ${validatedLocations.length} locations to ${LOCATIONS_TABLE}`);
@@ -450,7 +451,6 @@ async function seedMembersData() {
 
 	const members = [
 		{
-			id: crypto.randomUUID(),
 			name: "Max Müller",
 			email: "max.mueller@example.com",
 			phone: "+49 7622 123456",
@@ -458,11 +458,8 @@ async function seedMembersData() {
 			isTrainer: true,
 			roleTitle: "Trainer Herren 1",
 			avatarS3Key: "",
-			createdAt: dayjs().toISOString(),
-			updatedAt: dayjs().toISOString(),
 		},
 		{
-			id: crypto.randomUUID(),
 			name: "Sarah Schmidt",
 			email: "sarah.schmidt@example.com",
 			phone: "+49 7622 234567",
@@ -470,55 +467,50 @@ async function seedMembersData() {
 			isTrainer: true,
 			roleTitle: "Trainerin Damen 1",
 			avatarS3Key: "",
-			createdAt: dayjs().toISOString(),
-			updatedAt: dayjs().toISOString(),
 		},
 		{
-			id: crypto.randomUUID(),
 			name: "Thomas Weber",
 			email: "thomas.weber@example.com",
 			phone: "+49 7622 345678",
 			isBoardMember: true,
 			roleTitle: "Vereinsvorsitzender",
 			createdAt: dayjs().subtract(2, "years").toISOString(),
-			updatedAt: dayjs().toISOString(),
 		},
 		{
-			id: crypto.randomUUID(),
 			name: "Julia Fischer",
 			email: "julia.fischer@example.com",
 			isBoardMember: false,
 			isTrainer: true,
 			roleTitle: "Trainerin Jugend",
 			avatarS3Key: "",
-			createdAt: dayjs().toISOString(),
-			updatedAt: dayjs().toISOString(),
 		},
 		{
-			id: crypto.randomUUID(),
 			name: "Klaus Hoffmann",
 			email: "klaus.hoffmann@example.com",
 			isBoardMember: false,
 			isTrainer: false,
 			roleTitle: "Schiedsrichter",
-			createdAt: dayjs().toISOString(),
-			updatedAt: dayjs().toISOString(),
 		},
 		{
-			id: crypto.randomUUID(),
 			name: "Anna Wagner",
 			email: "anna.wagner@example.com",
 			isBoardMember: false,
 			isTrainer: true,
 			roleTitle: "Co-Trainer Damen 2",
 			avatarS3Key: "",
-			createdAt: dayjs().toISOString(),
-			updatedAt: dayjs().toISOString(),
 		},
 	];
 
+	// Add base metadata
+	const membersWithBaseMeta = members.map((m) => ({
+		id: crypto.randomUUID(),
+		createdAt: dayjs().toISOString(),
+		updatedAt: dayjs().toISOString(),
+		...m, // after the above so dates can be overridden
+	}));
+
 	// Validate against schema
-	const validatedMembers = members.map((mem) => memberSchema.parse(mem));
+	const validatedMembers = membersWithBaseMeta.map((mem) => memberSchema.parse(mem));
 
 	// Avatar URLs to download (only for members with avatarS3Key)
 	const avatarUrls = [
@@ -566,10 +558,7 @@ async function seedTeamsData() {
 
 	const teams = [
 		{
-			id: crypto.randomUUID(),
-			type: "team" as const,
 			name: "Herren 1",
-			slug: "herren-1",
 			description: "Erste Herrenmannschaft in der Landesliga",
 			gender: "male" as const,
 			ageGroup: "ab 16",
@@ -585,14 +574,9 @@ async function seedTeamsData() {
 					locationId: (locationCache[0]?.id ?? crypto.randomUUID()) as string,
 				},
 			],
-			createdAt: dayjs().toISOString(),
-			updatedAt: dayjs().toISOString(),
 		},
 		{
-			id: crypto.randomUUID(),
-			type: "team" as const,
 			name: "Damen 1",
-			slug: "damen-1",
 			description: "Erste Damenmannschaft in der Oberliga",
 			gender: "female" as const,
 			ageGroup: "18",
@@ -608,14 +592,9 @@ async function seedTeamsData() {
 					locationId: (locationCache[1]?.id ?? crypto.randomUUID()) as string,
 				},
 			],
-			createdAt: dayjs().toISOString(),
-			updatedAt: dayjs().toISOString(),
 		},
 		{
-			id: crypto.randomUUID(),
-			type: "team" as const,
 			name: "Jugend",
-			slug: "jugend",
 			description: "Jugendmannschaft U18",
 			gender: "mixed" as const,
 			ageGroup: "12-18 Jahre",
@@ -628,14 +607,9 @@ async function seedTeamsData() {
 					locationId: (locationCache[2]?.id ?? crypto.randomUUID()) as string,
 				},
 			],
-			createdAt: dayjs().toISOString(),
-			updatedAt: dayjs().toISOString(),
 		},
 		{
-			id: crypto.randomUUID(),
-			type: "team" as const,
 			name: "Damen 2",
-			slug: "damen-2",
 			description: "Zweite Damenmannschaft",
 			gender: "female" as const,
 			league: "Verbandsliga",
@@ -648,13 +622,21 @@ async function seedTeamsData() {
 					locationId: (locationCache[0]?.id ?? crypto.randomUUID()) as string,
 				},
 			],
-			createdAt: dayjs().toISOString(),
-			updatedAt: dayjs().toISOString(),
 		},
 	];
 
+	// create team slugs from names and add dates
+	const teamsWithBaseMeta = teams.map((t) => ({
+		...t,
+		type: "team" as const,
+		id: crypto.randomUUID(),
+		createdAt: dayjs().toISOString(),
+		updatedAt: dayjs().toISOString(),
+		slug: slugify(t.name, true),
+	}));
+
 	// Validate against schema
-	const validatedTeams = teams.map((team) => teamSchema.parse(team));
+	const validatedTeams = teamsWithBaseMeta.map((team) => teamSchema.parse(team));
 
 	// Team picture URLs to download
 	const teamPictureUrls = [
@@ -914,7 +896,7 @@ async function seedEventsData() {
 			variant: "Heimspiel",
 			createdAt: dayjs().subtract(10, "days").toISOString(),
 			updatedAt: dayjs().subtract(10, "days").toISOString(),
-			teamIds: [teamCache[0]?.id],
+			teamIds: [teamCache[0]?.id].filter(Boolean),
 		},
 		{
 			id: crypto.randomUUID(),
@@ -927,7 +909,7 @@ async function seedEventsData() {
 			variant: "Training",
 			createdAt: dayjs().subtract(7, "days").toISOString(),
 			updatedAt: dayjs().subtract(7, "days").toISOString(),
-			teamIds: [teamCache[2]?.id],
+			teamIds: [teamCache[2]?.id].filter(Boolean),
 		},
 		{
 			id: crypto.randomUUID(),
