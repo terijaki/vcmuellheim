@@ -574,8 +574,8 @@ async function seedTeamsData() {
 			gender: "male" as const,
 			ageGroup: "ab 16",
 			league: "Landesliga",
-			trainerIds: [membersCache[0]?.id],
-			pointOfContactIds: [membersCache[0]?.id],
+			trainerIds: [membersCache[0]?.id, membersCache[1]?.id],
+			pointOfContactIds: [membersCache[3]?.id],
 			pictureS3Keys: [],
 			trainingSchedules: [
 				{
