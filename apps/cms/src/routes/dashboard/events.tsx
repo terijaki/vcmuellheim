@@ -303,6 +303,7 @@ function EventsPage() {
 						<DateTimePicker
 							label="Startdatum & Uhrzeit"
 							placeholder="Beginn wählen"
+							locale="de"
 							value={formData.startDate}
 							onChange={(date) => setFormData({ ...formData, startDate: date ? new Date(date) : null })}
 							valueFormat="D MMMM YYYY - HH:mm [Uhr]"
@@ -340,6 +341,7 @@ function EventsPage() {
 						<DateTimePicker
 							label="Enddatum & Uhrzeit"
 							placeholder="Ende wählen"
+							locale="de"
 							value={formData.endDate}
 							onChange={(date) => setFormData({ ...formData, endDate: date ? new Date(date) : undefined })}
 							valueFormat="D MMMM YYYY - HH:mm [Uhr]"

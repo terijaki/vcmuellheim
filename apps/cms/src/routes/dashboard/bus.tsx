@@ -314,6 +314,7 @@ function BusSchedulesPage() {
 						<TextInput label="Fahrer" placeholder="z.B. Max Mustermann" value={formData.driver} onChange={(e) => setFormData({ ...formData, driver: e.target.value })} required />
 						<DatePickerInput
 							type="range"
+							locale="de"
 							allowSingleDateInRange
 							label="Zeitraum"
 							placeholder="Von - Bis auswählen"
