@@ -34,7 +34,7 @@ async function fetchCustomEvents(teamId?: string): Promise<Event[]> {
 	};
 
 	if (teamId) {
-		filterExpression = "teamId = :teamId";
+		filterExpression = "contains(teamIds, :teamId)";
 		expressionAttributeValues[":teamId"] = teamId;
 	}
 

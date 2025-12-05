@@ -18,7 +18,7 @@ export function getCognitoEmailTemplates(cmsDomain: string) {
 <li>Du erhältst eine E-Mail zum Zurücksetzen deines Passworts</li>
 <li>Setze dein persönliches Passwort</li>
 </ol>
-<p>Alternativ kannst du auch das temporäre Passwort {####} verwenden und beim ersten Login ein neues Passwort festlegen.</p>
+<p>Alternativ kannst du auch das temporäre Passwort <b>{####}</b> verwenden und beim ersten Login ein neues Passwort festlegen.</p>
 <p>Bei Fragen wende dich bitte an den Administrator.</p>
 <p>Sportliche Grüße,<br>${Club.shortName}</p>`,
 		},

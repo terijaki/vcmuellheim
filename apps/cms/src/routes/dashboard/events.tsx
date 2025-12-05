@@ -1,4 +1,4 @@
-import { ActionIcon, Button, Card, Center, Group, Modal, Paper, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Button, Card, Center, Group, Modal, MultiSelect, Paper, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { Calendar, DateTimePicker, getTimeRange } from "@mantine/dates";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
@@ -20,16 +20,16 @@ function EventsPage() {
 		title: "",
 		description: "",
 		startDate: null as Date | null,
-		endDate: null as Date | null,
+		endDate: undefined as Date | undefined,
 		location: "",
 		variant: "",
-		teamId: "",
-		relatedSamsMatchId: "",
+		teamIds: [] as string[] | undefined,
 	});
 
 	const trpc = useTRPC();
 	const notification = useNotification();
 	const { data: eventsData, isLoading, refetch } = useQuery(trpc.events.list.queryOptions({ limit: 100 }));
+	const { data: teams } = useQuery(trpc.teams.list.queryOptions());
 
 	const events = eventsData?.items || [];
 	const isMobile = useMediaQuery("(max-width: 768px)");
@@ -100,11 +100,10 @@ function EventsPage() {
 			title: "",
 			description: "",
 			startDate: null,
-			endDate: null,
+			endDate: undefined,
 			location: "",
 			variant: "",
-			teamId: "",
-			relatedSamsMatchId: "",
+			teamIds: undefined,
 		});
 		setEditingId(null);
 	};
@@ -116,7 +115,7 @@ function EventsPage() {
 			return;
 		}
 
-		const data = {
+		const data: Omit<EventInput, "id" | "createdAt" | "updatedAt"> = {
 			type: "event" as const,
 			title: formData.title,
 			description: formData.description || undefined,
@@ -124,8 +123,7 @@ function EventsPage() {
 			endDate: formData.endDate ? formData.endDate.toISOString() : undefined,
 			location: formData.location || undefined,
 			variant: formData.variant || undefined,
-			teamId: formData.teamId || undefined,
-			relatedSamsMatchId: formData.relatedSamsMatchId || undefined,
+			teamIds: formData.teamIds || undefined,
 		};
 
 		if (editingId) {
@@ -141,11 +139,10 @@ function EventsPage() {
 			title: event.title,
 			description: event.description || "",
 			startDate: new Date(event.startDate),
-			endDate: event.endDate ? new Date(event.endDate) : null,
+			endDate: event.endDate ? new Date(event.endDate) : undefined,
 			location: event.location || "",
 			variant: event.variant || "",
-			teamId: event.teamId || "",
-			relatedSamsMatchId: event.relatedSamsMatchId || "",
+			teamIds: event.teamIds || [],
 		});
 		open();
 	};
@@ -340,7 +337,7 @@ function EventsPage() {
 							label="Enddatum & Uhrzeit"
 							placeholder="Ende wählen"
 							value={formData.endDate}
-							onChange={(date) => setFormData({ ...formData, endDate: date ? new Date(date) : null })}
+							onChange={(date) => setFormData({ ...formData, endDate: date ? new Date(date) : undefined })}
 							valueFormat="D MMMM YYYY - HH:mm [Uhr]"
 							getDayProps={(date) => {
 								const dateStr = dayjs(date).format("YYYY-MM-DD");
@@ -377,6 +374,16 @@ function EventsPage() {
 							value={formData.description}
 							onChange={(e) => setFormData({ ...formData, description: e.target.value })}
 							minRows={3}
+						/>
+
+						<MultiSelect
+							label="Team (optional)"
+							placeholder="Dazugehörige Teams auswählen"
+							data={teams ? teams.items.map((team) => ({ value: team.id, label: team.name })) : []}
+							value={formData.teamIds}
+							onChange={(value) => setFormData({ ...formData, teamIds: value || [] })}
+							clearable
+							hidePickedOptions
 						/>
 
 						<Group justify="space-between" mt="md">

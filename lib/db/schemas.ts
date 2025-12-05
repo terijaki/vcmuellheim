@@ -35,8 +35,7 @@ export const eventSchema = z.object({
 	endDate: z.iso.datetime().optional(),
 	location: z.string().optional(),
 	variant: z.string().optional(),
-	teamId: z.uuid().optional(), // TODO: Implement relation to team in CMS.
-	relatedSamsMatchId: z.string().optional(),
+	teamIds: z.array(z.uuid()).optional().describe("Associated team IDs, to filter events by teams"),
 });
 
 /** Training schedule schema */
