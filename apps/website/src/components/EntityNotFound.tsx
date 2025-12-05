@@ -32,7 +32,7 @@ export default function EntityNotFound({ entityName, title, description }: { ent
 
 	return (
 		<PageWithHeading title={entityName}>
-			<Container size="sm">
+			<Container>
 				<Stack gap="xl">
 					<Card ta="center">
 						<Title c="blumine">

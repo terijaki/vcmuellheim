@@ -1,6 +1,6 @@
 export const navbarLinks = [
 	{ name: "News", href: "/news" },
-	{ name: "Mannschaften", href: "/#mannschaften" },
+	{ name: "Mannschaften", href: "/teams" },
 	{ name: "Tabelle", href: "/tabelle" },
 	{ name: "Termine", href: "/termine" },
 	{ name: "Fotos", href: "/fotos" },

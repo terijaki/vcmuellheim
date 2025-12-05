@@ -1,12 +1,12 @@
 import { Badge, Card, Center, Container, Divider, Group, Stack, Text, ThemeIcon } from "@mantine/core";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { Calendar, Clock, Info, MapPin } from "lucide-react";
 import CenteredLoader from "../components/CenteredLoader";
 import EntityNotFound from "../components/EntityNotFound";
 import PageWithHeading from "../components/layout/PageWithHeading";
 import SharingButton from "../components/SharingButton";
-import { useEventById } from "../lib/hooks";
+import { useEventById, useTeams } from "../lib/hooks";
 
 export const Route = createFileRoute("/termine/$id")({
 	component: RouteComponent,
@@ -15,6 +15,8 @@ export const Route = createFileRoute("/termine/$id")({
 function RouteComponent() {
 	const { id } = Route.useParams();
 	const { data: event, isLoading, error } = useEventById(id);
+	const { data: teamsData } = useTeams();
+	const teamsList = (event?.teamIds && teamsData?.items.filter((team) => event.teamIds?.includes(team.id))) || [];
 
 	if (isLoading) {
 		return (
@@ -48,24 +50,31 @@ function RouteComponent() {
 					<Card withBorder shadow="md" p="xl" radius="md">
 						<Stack gap="xl">
 							{/* Status Badge */}
-							<Group justify="space-between" align="flex-start">
-								<Group>
-									{isUpcoming && (
-										<Badge size="lg" variant="light" color="turquoise">
-											Bevorstehend
-										</Badge>
-									)}
-									{isOngoing && (
-										<Badge size="lg" variant="light" color="gamboge">
-											Läuft gerade
-										</Badge>
-									)}
-									{isPast && (
-										<Badge size="lg" variant="light" color="onyx">
-											Vergangen
-										</Badge>
-									)}
-								</Group>
+							<Group align="flex-start">
+								{isUpcoming && (
+									<Badge size="lg" variant="light" color="turquoise">
+										Bevorstehend
+									</Badge>
+								)}
+								{isOngoing && (
+									<Badge size="lg" variant="light" color="gamboge">
+										Läuft gerade
+									</Badge>
+								)}
+								{isPast && (
+									<Badge size="lg" variant="light" color="onyx">
+										Vergangen
+									</Badge>
+								)}
+								{/* Teams */}
+								{teamsList.length > 0 &&
+									teamsList.map((team) => (
+										<Link to="/teams/$slug" params={{ slug: team.slug }} key={team.id}>
+											<Badge key={team.id} size="lg" variant="light" color="blumine">
+												{team.name}
+											</Badge>
+										</Link>
+									))}
 							</Group>
 							<Divider />
 							{/* Date and Time */}
@@ -107,6 +116,7 @@ function RouteComponent() {
 									</Group>
 								</>
 							)}
+
 							{/* Description */}
 							{description && (
 								<>

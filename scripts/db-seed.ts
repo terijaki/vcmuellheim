@@ -26,7 +26,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { BatchWriteCommand, DynamoDBDocumentClient, ScanCommand as ScanDocCommand } from "@aws-sdk/lib-dynamodb";
 import dayjs from "dayjs";
-import { busSchema, eventSchema, locationSchema, type MemberInput, memberSchema, newsSchema, sponsorSchema, teamSchema } from "@/lib/db/schemas";
+import { busSchema, eventSchema, type LocationInput, locationSchema, type MemberInput, memberSchema, newsSchema, sponsorSchema, type TeamInput, teamSchema } from "@/lib/db/schemas";
 import { Club } from "@/project.config";
 import { getSanitizedBranch } from "@/utils/git";
 
@@ -192,6 +192,10 @@ if (shouldCreateUser) {
 		process.exit(1);
 	}
 }
+
+const locationCache: LocationInput[] = [];
+const membersCache: MemberInput[] = [];
+const teamCache: TeamInput[] = [];
 
 /**
  * Get the Cognito User Pool ID from CDK stack outputs
@@ -435,12 +439,13 @@ async function seedLocationsData() {
 
 	await batchWriteItems(LOCATIONS_TABLE, validatedLocations);
 	console.log(`✅ Seeded ${validatedLocations.length} locations to ${LOCATIONS_TABLE}`);
+	locationCache.push(...validatedLocations);
 }
 
 /**
  * Generate fake Members with team references
  */
-async function seedMembersData(): Promise<MemberInput[]> {
+async function seedMembersData() {
 	console.log("\n👥 Seeding members...");
 
 	const members = [
@@ -549,13 +554,14 @@ async function seedMembersData(): Promise<MemberInput[]> {
 
 	await batchWriteItems(MEMBERS_TABLE, validatedMembers);
 	console.log(`✅ Seeded ${validatedMembers.length} members to ${MEMBERS_TABLE}`);
-	return validatedMembers;
+
+	membersCache.push(...validatedMembers);
 }
 
 /**
  * Generate fake Teams with member references
  */
-async function seedTeamsData(members: MemberInput[]): Promise<void> {
+async function seedTeamsData() {
 	console.log("\n🏐 Seeding teams...");
 
 	const teams = [
@@ -568,15 +574,15 @@ async function seedTeamsData(members: MemberInput[]): Promise<void> {
 			gender: "male" as const,
 			ageGroup: "ab 16",
 			league: "Landesliga",
-			trainerIds: [members[0]?.id], // Max Müller
-			pointOfContactIds: [members[0]?.id],
-			pictureS3Keys: ["teams/herren-1-photo.jpg"],
+			trainerIds: [membersCache[0]?.id],
+			pointOfContactIds: [membersCache[0]?.id],
+			pictureS3Keys: [],
 			trainingSchedules: [
 				{
 					days: [1, 3, 5], // Monday, Wednesday, Friday
 					startTime: "19:00",
 					endTime: "21:00",
-					locationId: (members[0]?.id ?? crypto.randomUUID()) as string,
+					locationId: (locationCache[0]?.id ?? crypto.randomUUID()) as string,
 				},
 			],
 			createdAt: dayjs().toISOString(),
@@ -591,15 +597,15 @@ async function seedTeamsData(members: MemberInput[]): Promise<void> {
 			gender: "female" as const,
 			ageGroup: "18",
 			league: "Oberliga",
-			trainerIds: [members[1]?.id], // Sarah Schmidt
-			pointOfContactIds: [members[1]?.id],
-			pictureS3Keys: ["teams/damen-1-photo.jpg"],
+			trainerIds: [membersCache[1]?.id], // Sarah Schmidt
+			pointOfContactIds: [membersCache[2]?.id],
+			pictureS3Keys: [],
 			trainingSchedules: [
 				{
 					days: [2, 4, 6], // Tuesday, Thursday, Saturday
 					startTime: "19:30",
 					endTime: "21:30",
-					locationId: (members[1]?.id ?? crypto.randomUUID()) as string,
+					locationId: (locationCache[1]?.id ?? crypto.randomUUID()) as string,
 				},
 			],
 			createdAt: dayjs().toISOString(),
@@ -614,14 +620,13 @@ async function seedTeamsData(members: MemberInput[]): Promise<void> {
 			gender: "mixed" as const,
 			ageGroup: "12-18 Jahre",
 			league: "Bezirksliga",
-			trainerIds: [members[3]?.id], // Julia Fischer
-			pointOfContactIds: [members[3]?.id],
+			pointOfContactIds: [membersCache[3]?.id],
 			trainingSchedules: [
 				{
 					days: [1, 4], // Monday, Thursday
 					startTime: "17:00",
 					endTime: "18:30",
-					locationId: (members[3]?.id ?? crypto.randomUUID()) as string,
+					locationId: (locationCache[2]?.id ?? crypto.randomUUID()) as string,
 				},
 			],
 			createdAt: dayjs().toISOString(),
@@ -635,14 +640,13 @@ async function seedTeamsData(members: MemberInput[]): Promise<void> {
 			description: "Zweite Damenmannschaft",
 			gender: "female" as const,
 			league: "Verbandsliga",
-			trainerIds: [members[5]?.id], // Anna Wagner
-			pointOfContactIds: [members[1]?.id, members[5]?.id],
+			trainerIds: [membersCache[5]?.id],
 			trainingSchedules: [
 				{
 					days: [2, 5], // Tuesday, Friday
 					startTime: "20:00",
 					endTime: "22:00",
-					locationId: (members[5]?.id ?? crypto.randomUUID()) as string,
+					locationId: (locationCache[0]?.id ?? crypto.randomUUID()) as string,
 				},
 			],
 			createdAt: dayjs().toISOString(),
@@ -653,8 +657,38 @@ async function seedTeamsData(members: MemberInput[]): Promise<void> {
 	// Validate against schema
 	const validatedTeams = teams.map((team) => teamSchema.parse(team));
 
+	// Team picture URLs to download
+	const teamPictureUrls = [
+		["https://picsum.photos/1200/800?random=40"], // Herren 1
+		["https://picsum.photos/1200/800?random=41"], // Damen 1
+		// Jugend - no pictures
+		// Damen 2 - no pictures
+	];
+
+	// Download and upload team pictures
+	console.log("  Downloading and uploading team pictures...");
+	for (let i = 0; i < validatedTeams.length; i++) {
+		const pictureUrls = teamPictureUrls[i] || [];
+		// Reset pictureS3Keys to empty array before adding uploaded images
+		validatedTeams[i].pictureS3Keys = [];
+		for (const pictureUrl of pictureUrls) {
+			try {
+				const uploadKey = `uploads/teams/${validatedTeams[i].id}-${pictureUrls.indexOf(pictureUrl)}.jpg`;
+				const finalKey = `teams/${validatedTeams[i].id}-${pictureUrls.indexOf(pictureUrl)}.jpg`;
+				await uploadImageToS3(pictureUrl, uploadKey);
+				validatedTeams[i].pictureS3Keys?.push(finalKey); // Store final key (Lambda will move from uploads/)
+				// Delay to avoid overwhelming Lambda
+				await new Promise((resolve) => setTimeout(resolve, 200));
+			} catch (error) {
+				console.warn(`  ⚠️  Failed to upload picture for team ${validatedTeams[i].name}:`, error);
+				// Continue with next image
+			}
+		}
+	}
+
 	await batchWriteItems(TEAMS_TABLE, validatedTeams);
 	console.log(`✅ Seeded ${validatedTeams.length} teams to ${TEAMS_TABLE}`);
+	teamCache.push(...validatedTeams);
 }
 
 /**
@@ -881,6 +915,7 @@ async function seedEventsData() {
 			variant: "Heimspiel",
 			createdAt: dayjs().subtract(10, "days").toISOString(),
 			updatedAt: dayjs().subtract(10, "days").toISOString(),
+			teamIds: [teamCache[0]?.id],
 		},
 		{
 			id: crypto.randomUUID(),
@@ -893,6 +928,7 @@ async function seedEventsData() {
 			variant: "Training",
 			createdAt: dayjs().subtract(7, "days").toISOString(),
 			updatedAt: dayjs().subtract(7, "days").toISOString(),
+			teamIds: [teamCache[2]?.id],
 		},
 		{
 			id: crypto.randomUUID(),
@@ -1031,15 +1067,12 @@ async function main() {
 			await seedLocationsData();
 		}
 
-		let members: MemberInput[] = [];
 		if (seedMembers) {
-			members = await seedMembersData();
+			await seedMembersData();
 		}
 
-		if (seedTeams && members.length > 0) {
-			await seedTeamsData(members);
-		} else if (seedTeams) {
-			console.warn("⚠️  Skipping teams seed: members data not available. Run with --members flag first.");
+		if (seedTeams) {
+			await seedTeamsData();
 		}
 
 		if (seedNews) {
