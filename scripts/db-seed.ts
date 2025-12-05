@@ -574,8 +574,8 @@ async function seedTeamsData() {
 			gender: "male" as const,
 			ageGroup: "ab 16",
 			league: "Landesliga",
-			trainerIds: [membersCache[0]?.id, membersCache[1]?.id],
-			pointOfContactIds: [membersCache[3]?.id],
+			trainerIds: [membersCache[0]?.id, membersCache[1]?.id].filter(Boolean),
+			pointOfContactIds: [membersCache[3]?.id].filter(Boolean),
 			pictureS3Keys: [],
 			trainingSchedules: [
 				{
@@ -597,8 +597,8 @@ async function seedTeamsData() {
 			gender: "female" as const,
 			ageGroup: "18",
 			league: "Oberliga",
-			trainerIds: [membersCache[1]?.id], // Sarah Schmidt
-			pointOfContactIds: [membersCache[2]?.id],
+			trainerIds: [membersCache[1]?.id].filter(Boolean),
+			pointOfContactIds: [membersCache[2]?.id].filter(Boolean),
 			pictureS3Keys: [],
 			trainingSchedules: [
 				{
@@ -619,7 +619,7 @@ async function seedTeamsData() {
 			description: "Jugendmannschaft U18",
 			gender: "mixed" as const,
 			ageGroup: "12-18 Jahre",
-			pointOfContactIds: [membersCache[3]?.id],
+			pointOfContactIds: [membersCache[3]?.id].filter(Boolean),
 			trainingSchedules: [
 				{
 					days: [1, 4], // Monday, Thursday
@@ -639,7 +639,7 @@ async function seedTeamsData() {
 			description: "Zweite Damenmannschaft",
 			gender: "female" as const,
 			league: "Verbandsliga",
-			trainerIds: [membersCache[5]?.id],
+			trainerIds: [membersCache[5]?.id].filter(Boolean),
 			trainingSchedules: [
 				{
 					days: [2, 5], // Tuesday, Friday
