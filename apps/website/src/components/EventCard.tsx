@@ -3,11 +3,14 @@ import dayjs from "dayjs";
 import { CalendarDays } from "lucide-react";
 import { useState } from "react";
 import type { Event } from "@/lib/db/types";
+import { useTeams } from "../lib/hooks";
 import { CardLink } from "./CustomLink";
 
 export default function EventCard(props: Event & { dark?: boolean }) {
-	const { id, title, startDate, endDate, location } = props;
+	const { id, title, startDate, endDate, location, teamIds } = props;
 	const [isHovering, setIsHovering] = useState(false);
+	const { data:teamsData } = useTeams();
+	const teamsList = (teamIds && teamsData?.items) || [];
 
 	let dateDisplay = dayjs(startDate).format("DD.MM.YYYY HH:mm [Uhr]");
 	if (endDate) {
@@ -41,6 +44,14 @@ export default function EventCard(props: Event & { dark?: boolean }) {
 					{location && (
 						<Text size="sm" c="dimmed">
 							{location}
+						</Text>
+					)}
+					{teamsList.length > 0 && (
+						<Text size="sm" c="dimmed">
+							{teamsList
+								.map((team) => (teamIds?.includes(team.id) ? team.name : null))
+								.filter(Boolean)
+								.join(", ")}
 						</Text>
 					)}
 				</Stack>

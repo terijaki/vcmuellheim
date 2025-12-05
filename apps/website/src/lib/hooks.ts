@@ -65,6 +65,14 @@ export const useTeams = () => {
 };
 
 /**
+ * Hook to fetch a single team by ID
+ */
+export const useTeamById = (id: string) => {
+	const trpc = useTRPC();
+	return useQuery(trpc.teams.getById.queryOptions({ id }, { enabled: !!id }));
+};
+
+/**
  * Hook to fetch a single team by slug
  */
 export const useTeamBySlug = (slug: string) => {

@@ -282,6 +282,7 @@ function TeamsPage() {
 	const [deletePictureKeys, setDeletePictureKeys] = useState<string[]>([]);
 	const [uploading, setUploading] = useState(false);
 	const [formData, setFormData] = useState<Partial<TeamInput>>({
+		type: "team",
 		name: "",
 		description: "",
 		sbvvTeamId: "",
@@ -357,6 +358,7 @@ function TeamsPage() {
 
 	const resetForm = () => {
 		setFormData({
+			type: "team",
 			name: "",
 			description: "",
 			sbvvTeamId: "",

@@ -112,7 +112,7 @@ describe("ICS Calendar Lambda", () => {
 		expect(result?.body).toBe("Team nicht gefunden");
 	});
 
-	it("should include custom events filtered by teamId in team-specific calendars", async () => {
+	it("should include custom events filtered by teamIds in team-specific calendars", async () => {
 		// Reset mocks
 		ddbMock.reset();
 
@@ -140,7 +140,7 @@ describe("ICS Calendar Lambda", () => {
 						type: "event",
 						title: "Team Training",
 						startDate: "2025-12-18T19:00:00Z",
-						teamId: "team-123",
+						teamIds: ["team-123"],
 						location: "Sporthalle",
 					},
 				],

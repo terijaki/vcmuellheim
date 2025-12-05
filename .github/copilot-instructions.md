@@ -24,6 +24,7 @@ This file tells AI coding agents how this repository is structured, which conven
 - **Tests:** `bun run test` (or `bun test <path/to/test>` for a single file).
 - **DB / scripts:** `bun run db:seed`
 - **CDK:** `bun run cdk:deploy`, `bun run cdk:deploy {StackName}` `bun run cdk:deploy:all` (scripts use AWS profile `vcmuellheim`).
+- **jq** when fetching data or using aws cli, prefer including `jq`. e.g. `aws route53 list-hosted-zones ... | jq`
 
 ## Codebase conventions (follow these precisely)
 

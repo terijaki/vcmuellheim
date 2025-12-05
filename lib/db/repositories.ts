@@ -172,24 +172,6 @@ export async function getTeamBySlug(slug: string) {
 	return result.items[0] || null;
 }
 
-/** Get team by SAMS/SBVV team ID */
-export async function getTeamBySamsId(sbvvTeamId: string) {
-	const result = await teamsRepository.query({
-		indexName: "GSI-TeamQueries",
-		keyConditionExpression: "#type = :type AND #sbvvTeamId = :sbvvTeamId",
-		expressionAttributeNames: {
-			"#type": "type",
-			"#sbvvTeamId": "sbvvTeamId",
-		},
-		expressionAttributeValues: {
-			":type": "team",
-			":sbvvTeamId": sbvvTeamId,
-		},
-		limit: 1,
-	});
-	return result.items[0] || null;
-}
-
 /** Get all teams */
 export async function getAllTeams() {
 	return teamsRepository.scan();

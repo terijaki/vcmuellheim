@@ -1,4 +1,4 @@
-import { Center, Container, Loader, Stack, Text } from "@mantine/core";
+import { Center, Loader, Text } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import HomeTeamGrid from "../components/homepage/HomeTeamGrid";
 import PageWithHeading from "../components/layout/PageWithHeading";
@@ -19,16 +19,14 @@ function RouteComponent() {
 		<PageWithHeading title="Mannschaften" description="Erfahre mehr über unsere Volleyball-Teams und Mannschaften bei Volleyballclub Müllheim">
 			{isLoading && <Loader />}
 			{teams && (
-				<Container size="xl" py="xl" px={{ base: "lg", md: "xl" }}>
-					<Stack>
-						<Center>
-							<Text>
-								Zurzeit umfasst unser Verein {teams.length} {teams.length > 1 ? "Mannschaften" : "Mannschaft"}:
-							</Text>
-						</Center>
-						{teams && <HomeTeamGrid teams={teams} />}
-					</Stack>
-				</Container>
+				<>
+					<Center>
+						<Text>
+							Zurzeit umfasst unser Verein {teams.length} {teams.length > 1 ? "Mannschaften" : "Mannschaft"}:
+						</Text>
+					</Center>
+					{teams && <HomeTeamGrid teams={teams} />}
+				</>
 			)}
 		</PageWithHeading>
 	);

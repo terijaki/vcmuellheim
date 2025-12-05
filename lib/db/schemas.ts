@@ -15,7 +15,7 @@ export const baseEntityFields = {
 /** News article schema */
 export const newsSchema = z.object({
 	...baseEntityFields,
-	type: z.literal("article").describe("Entity type for GSI queries"),
+	type: z.literal("article").describe("Entity type, primary key for GSI queries"),
 	title: z.string().min(1).max(200),
 	slug: z.string().min(1).max(200),
 	content: z.string().min(1).describe("Tiptap rich text content in HTML format"),
@@ -28,15 +28,14 @@ export const newsSchema = z.object({
 /** Event schema */
 export const eventSchema = z.object({
 	...baseEntityFields,
-	type: z.literal("event").describe("Entity type for GSI queries"),
+	type: z.literal("event").describe("Entity type, primary key for GSI queries"),
 	title: z.string().min(1).max(200),
 	description: z.string().optional(),
 	startDate: z.iso.datetime(),
 	endDate: z.iso.datetime().optional(),
 	location: z.string().optional(),
 	variant: z.string().optional(),
-	teamId: z.uuid().optional(), // TODO: Implement relation to team in CMS.
-	relatedSamsMatchId: z.string().optional(),
+	teamIds: z.array(z.uuid()).optional().describe("Associated team IDs, to filter events by teams"),
 });
 
 /** Training schedule schema */
@@ -56,7 +55,7 @@ export const trainingScheduleSchema = z.object({
 /** Team schema */
 export const teamSchema = z.object({
 	...baseEntityFields,
-	type: z.literal("team").describe("Entity type for GSI queries"),
+	type: z.literal("team").describe("Entity type, primary key for GSI queries"),
 	name: z.string().min(1).max(100),
 	slug: z.string().min(1).max(100),
 	description: z.string().optional(),
