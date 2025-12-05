@@ -619,7 +619,6 @@ async function seedTeamsData() {
 			description: "Jugendmannschaft U18",
 			gender: "mixed" as const,
 			ageGroup: "12-18 Jahre",
-			league: "Bezirksliga",
 			pointOfContactIds: [membersCache[3]?.id],
 			trainingSchedules: [
 				{
