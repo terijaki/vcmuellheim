@@ -1,5 +1,5 @@
 import type { LocationInput } from "@lib/db/schemas";
-import { ActionIcon, Button, Card, Group, Modal, Paper, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Button, Card, Group, Modal, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -185,82 +185,80 @@ function LocationsPage() {
 				</Stack>
 			</Modal>
 
-			<Paper withBorder p="md">
-				{isLoading ? (
-					<Text>Laden...</Text>
-				) : locations && locations.items.length > 0 ? (
-					<>
-						<Table striped highlightOnHover visibleFrom="sm">
-							<Table.Thead>
-								<Table.Tr>
-									<Table.Th>Name</Table.Th>
-									<Table.Th>Adresse</Table.Th>
-									<Table.Th>Beschreibung</Table.Th>
-									<Table.Th>Aktionen</Table.Th>
-								</Table.Tr>
-							</Table.Thead>
-							<Table.Tbody>
-								{locations.items.map((location: LocationInput) => (
-									<Table.Tr key={location.id}>
-										<Table.Td>{location.name}</Table.Td>
-										<Table.Td>
-											{location.street}
-											<br />
-											{location.postal} {location.city}
-										</Table.Td>
-										<Table.Td>{location.description || "-"}</Table.Td>
-										<Table.Td>
-											<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(location)}>
-												Bearbeiten
-											</Button>
-											<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(location)}>
-												<SquarePen size={16} />
-											</ActionIcon>
-										</Table.Td>
-									</Table.Tr>
-								))}
-							</Table.Tbody>
-						</Table>
-
-						<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
+			{isLoading ? (
+				<Text>Laden...</Text>
+			) : locations && locations.items.length > 0 ? (
+				<>
+					<Table striped highlightOnHover visibleFrom="sm">
+						<Table.Thead>
+							<Table.Tr>
+								<Table.Th>Name</Table.Th>
+								<Table.Th>Adresse</Table.Th>
+								<Table.Th>Beschreibung</Table.Th>
+								<Table.Th>Aktionen</Table.Th>
+							</Table.Tr>
+						</Table.Thead>
+						<Table.Tbody>
 							{locations.items.map((location: LocationInput) => (
-								<Card key={location.id} shadow="sm" p="md" radius="md" withBorder>
+								<Table.Tr key={location.id}>
+									<Table.Td>{location.name}</Table.Td>
+									<Table.Td>
+										{location.street}
+										<br />
+										{location.postal} {location.city}
+									</Table.Td>
+									<Table.Td>{location.description || "-"}</Table.Td>
+									<Table.Td>
+										<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(location)}>
+											Bearbeiten
+										</Button>
+										<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(location)}>
+											<SquarePen size={16} />
+										</ActionIcon>
+									</Table.Td>
+								</Table.Tr>
+							))}
+						</Table.Tbody>
+					</Table>
+
+					<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
+						{locations.items.map((location: LocationInput) => (
+							<Card key={location.id} shadow="sm" p="md" radius="md" withBorder>
+								<Stack gap="xs">
+									<Group justify="space-between" align="flex-start">
+										<Title order={4}>{location.name}</Title>
+										<ActionIcon color="blumine" variant="filled" onClick={() => handleEdit(location)} radius="xl">
+											<SquarePen size={16} />
+										</ActionIcon>
+									</Group>
 									<Stack gap="xs">
-										<Group justify="space-between" align="flex-start">
-											<Title order={4}>{location.name}</Title>
-											<ActionIcon color="blumine" variant="filled" onClick={() => handleEdit(location)} radius="xl">
-												<SquarePen size={16} />
-											</ActionIcon>
-										</Group>
-										<Stack gap="xs">
+										<div>
+											<Text size="xs" fw={500} c="dimmed">
+												Adresse
+											</Text>
+											<Text size="sm">
+												{location.street}
+												<br />
+												{location.postal} {location.city}
+											</Text>
+										</div>
+										{location.description && (
 											<div>
 												<Text size="xs" fw={500} c="dimmed">
-													Adresse
+													Beschreibung
 												</Text>
-												<Text size="sm">
-													{location.street}
-													<br />
-													{location.postal} {location.city}
-												</Text>
+												<Text size="sm">{location.description}</Text>
 											</div>
-											{location.description && (
-												<div>
-													<Text size="xs" fw={500} c="dimmed">
-														Beschreibung
-													</Text>
-													<Text size="sm">{location.description}</Text>
-												</div>
-											)}
-										</Stack>
+										)}
 									</Stack>
-								</Card>
-							))}
-						</SimpleGrid>
-					</>
-				) : (
-					<Text>Keine Orte vorhanden</Text>
-				)}
-			</Paper>
+								</Stack>
+							</Card>
+						))}
+					</SimpleGrid>
+				</>
+			) : (
+				<Text>Keine Orte vorhanden</Text>
+			)}
 		</Stack>
 	);
 }

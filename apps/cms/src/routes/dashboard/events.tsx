@@ -1,4 +1,4 @@
-import { ActionIcon, Button, Card, Center, Group, Modal, MultiSelect, Paper, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Button, Card, Center, Group, Modal, MultiSelect, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { Calendar, DateTimePicker, getTimeRange } from "@mantine/dates";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
@@ -198,92 +198,92 @@ function EventsPage() {
 					}}
 				/>
 			</Center>
-			<Paper withBorder p="md">
-				{isLoading ? (
-					<Text>Laden...</Text>
-				) : events.length > 0 ? (
-					<>
-						<Table striped highlightOnHover visibleFrom="sm">
-							<Table.Thead>
-								<Table.Tr>
-									<Table.Th>Titel</Table.Th>
-									<Table.Th>Terminart</Table.Th>
-									<Table.Th>Start</Table.Th>
-									<Table.Th>Ende</Table.Th>
-									<Table.Th>Ort</Table.Th>
-									<Table.Th>Aktionen</Table.Th>
-								</Table.Tr>
-							</Table.Thead>
-							<Table.Tbody>
-								{events.map((event) => (
-									<Table.Tr key={event.id}>
-										<Table.Td>{event.title}</Table.Td>
-										<Table.Td>{event.variant || "-"}</Table.Td>
-										<Table.Td>{dayjs(event.startDate).format("DD.MM.YYYY HH:mm")}</Table.Td>
-										<Table.Td>{event.endDate ? dayjs(event.endDate).format("DD.MM.YYYY HH:mm") : "-"}</Table.Td>
-										<Table.Td>{event.location || "-"}</Table.Td>
-										<Table.Td>
-											<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(event)}>
-												Bearbeiten
-											</Button>
-											<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(event)}>
-												<SquarePen size={16} />
-											</ActionIcon>
-										</Table.Td>
-									</Table.Tr>
-								))}
-							</Table.Tbody>
-						</Table>
 
-						<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
+			{isLoading ? (
+				<Text>Laden...</Text>
+			) : events.length > 0 ? (
+				<>
+					<Table striped highlightOnHover visibleFrom="sm">
+						<Table.Thead>
+							<Table.Tr>
+								<Table.Th>Titel</Table.Th>
+								<Table.Th>Terminart</Table.Th>
+								<Table.Th>Start</Table.Th>
+								<Table.Th>Ende</Table.Th>
+								<Table.Th>Ort</Table.Th>
+								<Table.Th>Aktionen</Table.Th>
+							</Table.Tr>
+						</Table.Thead>
+						<Table.Tbody>
 							{events.map((event) => (
-								<Card key={event.id} shadow="sm" p="md" radius="md" withBorder>
+								<Table.Tr key={event.id}>
+									<Table.Td>{event.title}</Table.Td>
+									<Table.Td>{event.variant || "-"}</Table.Td>
+									<Table.Td>{dayjs(event.startDate).format("DD.MM.YYYY HH:mm")}</Table.Td>
+									<Table.Td>{event.endDate ? dayjs(event.endDate).format("DD.MM.YYYY HH:mm") : "-"}</Table.Td>
+									<Table.Td>{event.location || "-"}</Table.Td>
+									<Table.Td>
+										<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(event)}>
+											Bearbeiten
+										</Button>
+										<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(event)}>
+											<SquarePen size={16} />
+										</ActionIcon>
+									</Table.Td>
+								</Table.Tr>
+							))}
+						</Table.Tbody>
+					</Table>
+
+					<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
+						{events.map((event) => (
+							<Card key={event.id} shadow="sm" p="md" radius="md" withBorder>
+								<Stack gap="xs">
+									<Group justify="space-between" align="flex-start">
+										<Title order={4}>{event.title}</Title>
+										<ActionIcon color="blumine" variant="filled" onClick={() => handleEdit(event)} radius="xl">
+											<SquarePen size={16} />
+										</ActionIcon>
+									</Group>
 									<Stack gap="xs">
-										<Group justify="space-between" align="flex-start">
-											<Title order={4}>{event.title}</Title>
-											<ActionIcon color="blumine" variant="filled" onClick={() => handleEdit(event)} radius="xl">
-												<SquarePen size={16} />
-											</ActionIcon>
-										</Group>
-										<Stack gap="xs">
-											{event.variant && (
-												<div>
-													<Text size="xs" fw={500} c="dimmed">
-														Terminart
-													</Text>
-													<Text size="sm">{event.variant}</Text>
-												</div>
-											)}
+										{event.variant && (
 											<div>
 												<Text size="xs" fw={500} c="dimmed">
-													Zeitraum
+													Terminart
 												</Text>
-												<Text size="sm">
-													{event.endDate && dayjs(event.startDate).isSame(dayjs(event.endDate), "day")
-														? `${dayjs(event.startDate).format("DD.MM.YYYY HH:mm")} - ${dayjs(event.endDate).format("HH:mm")}`
-														: event.endDate
-															? `${dayjs(event.startDate).format("DD.MM.YYYY HH:mm")} - ${dayjs(event.endDate).format("DD.MM.YYYY HH:mm")}`
-															: dayjs(event.startDate).format("DD.MM.YYYY HH:mm")}
-												</Text>
+												<Text size="sm">{event.variant}</Text>
 											</div>
-											{event.location && (
-												<div>
-													<Text size="xs" fw={500} c="dimmed">
-														Ort
-													</Text>
-													<Text size="sm">{event.location}</Text>
-												</div>
-											)}
-										</Stack>
+										)}
+										<div>
+											<Text size="xs" fw={500} c="dimmed">
+												Zeitraum
+											</Text>
+											<Text size="sm">
+												{event.endDate && dayjs(event.startDate).isSame(dayjs(event.endDate), "day")
+													? `${dayjs(event.startDate).format("DD.MM.YYYY HH:mm")} - ${dayjs(event.endDate).format("HH:mm")}`
+													: event.endDate
+														? `${dayjs(event.startDate).format("DD.MM.YYYY HH:mm")} - ${dayjs(event.endDate).format("DD.MM.YYYY HH:mm")}`
+														: dayjs(event.startDate).format("DD.MM.YYYY HH:mm")}
+											</Text>
+										</div>
+										{event.location && (
+											<div>
+												<Text size="xs" fw={500} c="dimmed">
+													Ort
+												</Text>
+												<Text size="sm">{event.location}</Text>
+											</div>
+										)}
 									</Stack>
-								</Card>
-							))}
-						</SimpleGrid>
-					</>
-				) : (
-					<Text c="dimmed">Noch keine Termine vorhanden. Erstellen Sie einen neuen Eintrag.</Text>
-				)}
-			</Paper>
+								</Stack>
+							</Card>
+						))}
+					</SimpleGrid>
+				</>
+			) : (
+				<Text c="dimmed">Noch keine Termine vorhanden. Erstellen Sie einen neuen Eintrag.</Text>
+			)}
+
 			<Modal
 				opened={opened}
 				onClose={() => {
@@ -326,11 +326,15 @@ function EventsPage() {
 								format: "24h",
 								presets: getTimeRange({ startTime: "09:00:00", endTime: "14:00:00", interval: "00:30:00" }),
 							}}
-							presets={[
-								{ value: dayjs().add(1, "day").format("YYYY-MM-DD HH:mm:ss"), label: "Morgen" },
-								{ value: dayjs().add(1, "week").format("YYYY-MM-DD HH:mm:ss"), label: "Nächste Woche" },
-								{ value: dayjs().add(1, "month").format("YYYY-MM-DD HH:mm:ss"), label: "Nächster Monat" },
-							]}
+							presets={
+								isMobile
+									? undefined
+									: [
+											{ value: dayjs().add(1, "day").format("YYYY-MM-DD HH:mm:ss"), label: "Morgen" },
+											{ value: dayjs().add(1, "week").format("YYYY-MM-DD HH:mm:ss"), label: "Nächste Woche" },
+											{ value: dayjs().add(1, "month").format("YYYY-MM-DD HH:mm:ss"), label: "Nächster Monat" },
+										]
+							}
 						/>
 
 						<DateTimePicker
@@ -359,11 +363,15 @@ function EventsPage() {
 								format: "24h",
 								presets: getTimeRange({ startTime: "16:00:00", endTime: "22:00:00", interval: "00:30:00" }),
 							}}
-							presets={[
-								{ value: dayjs().add(1, "day").format("YYYY-MM-DD HH:mm:ss"), label: "Morgen" },
-								{ value: dayjs().add(1, "week").format("YYYY-MM-DD HH:mm:ss"), label: "Nächste Woche" },
-								{ value: dayjs().add(1, "month").format("YYYY-MM-DD HH:mm:ss"), label: "Nächster Monat" },
-							]}
+							presets={
+								isMobile
+									? undefined
+									: [
+											{ value: dayjs().add(1, "day").format("YYYY-MM-DD HH:mm:ss"), label: "Morgen" },
+											{ value: dayjs().add(1, "week").format("YYYY-MM-DD HH:mm:ss"), label: "Nächste Woche" },
+											{ value: dayjs().add(1, "month").format("YYYY-MM-DD HH:mm:ss"), label: "Nächster Monat" },
+										]
+							}
 						/>
 
 						<TextInput label="Ort" placeholder="z.B. Sporthalle Müllheim" value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })} />

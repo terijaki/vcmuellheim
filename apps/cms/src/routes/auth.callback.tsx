@@ -1,4 +1,4 @@
-import { Alert, Container, Loader, Paper, Text } from "@mantine/core";
+import { Alert, Container, Loader, Text } from "@mantine/core";
 import { createFileRoute, Link, Navigate, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
@@ -69,23 +69,21 @@ function CallbackPage() {
 
 	return (
 		<Container size="xs" style={{ marginTop: "5rem" }}>
-			<Paper withBorder shadow="md" p={30} radius="md">
-				{isProcessing ? (
-					<>
-						<Loader mx="auto" mb="md" />
-						<Text ta="center">Authentifizierung läuft...</Text>
-					</>
-				) : error ? (
-					<>
-						<Alert color="red" mb="md">
-							{error}
-						</Alert>
-						<Text ta="center">
-							<Link to="/">Zurück zur Anmeldung</Link>
-						</Text>
-					</>
-				) : null}
-			</Paper>
+			{isProcessing ? (
+				<>
+					<Loader mx="auto" mb="md" />
+					<Text ta="center">Authentifizierung läuft...</Text>
+				</>
+			) : error ? (
+				<>
+					<Alert color="red" mb="md">
+						{error}
+					</Alert>
+					<Text ta="center">
+						<Link to="/">Zurück zur Anmeldung</Link>
+					</Text>
+				</>
+			) : null}
 		</Container>
 	);
 }
