@@ -133,6 +133,13 @@ export const usersRouter = router({
 			}),
 		)
 		.mutation(async ({ input }) => {
+			const randomDigits = Array.from({ length: 4 }, () => Math.floor(Math.random() * 10));
+			const chars = "ABCDEFGHJKLMPQRSTWXYZabcdefghkpqrstwxyz";
+			const randomLetters = Array.from({ length: 3 }, () => chars[Math.floor(Math.random() * chars.length)]);
+			const symbols = "!@#$%&*-_=+?";
+			const randomSymbols = Array.from({ length: 1 }, () => symbols[Math.floor(Math.random() * symbols.length)]);
+			const temporaryPassword = `${["V", "m", ...randomDigits, ...randomSymbols, ...randomLetters].sort(() => 0.5 - Math.random()).join("")}`;
+
 			try {
 				// Create user
 				const command = new AdminCreateUserCommand({
@@ -145,6 +152,7 @@ export const usersRouter = router({
 						{ Name: "family_name", Value: input.familyName },
 					],
 					DesiredDeliveryMediums: ["EMAIL"],
+					TemporaryPassword: temporaryPassword,
 				});
 
 				const createResponse = await cognitoClient.send(command);

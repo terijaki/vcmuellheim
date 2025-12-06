@@ -18,18 +18,21 @@ export function getCognitoEmailTemplates(cmsDomain: string): { userInvitation: U
 <li>Du erhältst eine E-Mail zum Zurücksetzen deines Passworts</li>
 <li>Setze dein persönliches Passwort</li>
 </ol>
-<p>Alternativ kannst du auch das temporäre Passwort <b>{####}</b> verwenden und beim ersten Login ein neues Passwort festlegen.</p>
+<p>Alternativ kannst du auch das dieses temporäre Passwort <b>{####}</b> verwenden und beim ersten Login ein neues Passwort festlegen.</p>
 <p>Bei Fragen wende dich bitte an den Administrator.</p>
 <p>Sportliche Grüße,<br>${Club.shortName}</p>`,
+			emailStyle: VerificationEmailStyle.LINK,
 		},
 		userVerification: {
 			emailSubject: `${Club.shortName} - E-Mail bestätigen`,
 			emailBody: `<p>Hallo 👋,</p>
-<p>vielen Dank für deine Registrierung beim ${Club.shortName} CMS.</p>
-<p>Bitte bestätige deine E-Mail-Adresse, indem du auf den folgenden Link klickst:<br>{##E-Mail bestätigen##}</p>
-<p>Falls du diese E-Mail nicht angefordert hast, kannst du sie ignorieren.</p>
-<p>Sportliche Grüße,<br>${Club.shortName}</p>`,
+	<p>vielen Dank für deine Registrierung beim ${Club.shortName} CMS.</p>
+	<p>Bitte bestätige deine E-Mail-Adresse, indem du auf den folgenden Link klickst:<br>{##E-Mail bestätigen##}</p>
+	<p>Falls du diese E-Mail nicht angefordert hast, kannst du sie ignorieren.</p>
+	<p>Sportliche Grüße,<br>${Club.shortName}</p>`,
 			emailStyle: VerificationEmailStyle.LINK,
 		},
 	};
 }
+
+// <p>Alternativ kannst du auch das temporäre Passwort <b>{####}</b> verwenden und beim ersten Login ein neues Passwort festlegen.</p>

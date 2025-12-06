@@ -1,10 +1,11 @@
-import { ActionIcon, Badge, Button, Card, Group, Modal, Radio, SimpleGrid, Stack, Table, Text, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Badge, Box, Button, Card, Group, Modal, Radio, SimpleGrid, Stack, Table, Text, TextInput, Title } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
+import { useAuth } from "../../auth/AuthContext";
 import { useNotification } from "../../hooks/useNotification";
 
 export const Route = createFileRoute("/dashboard/users")({
@@ -15,6 +16,7 @@ function UsersPage() {
 	const isMobile = useMediaQuery("(max-width: 48em)");
 	const trpc = useTRPC();
 	const notification = useNotification();
+	const { user: currentUser } = useAuth();
 	const [createOpened, { open: openCreate, close: closeCreate }] = useDisclosure(false);
 	const [editOpened, { open: openEdit, close: closeEdit }] = useDisclosure(false);
 	const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
@@ -223,10 +225,12 @@ function UsersPage() {
 							</Stack>
 						</Radio.Group>
 						<Group justify="space-between">
-							{editingEmail && (
+							{editingEmail && currentUser?.email !== editingEmail ? (
 								<ActionIcon color="red" variant="light" onClick={() => setDeleteTarget(editingEmail)} loading={deleteMutation.isPending} title="Benutzer dauerhaft löschen" radius="xl" size="lg">
 									<Trash2 size={20} />
 								</ActionIcon>
+							) : (
+								<Box />
 							)}
 							<Group gap="sm">
 								<Button variant="light" onClick={closeEdit}>
