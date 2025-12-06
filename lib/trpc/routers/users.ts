@@ -11,6 +11,7 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import crypto from "crypto";
 import { adminProcedure, router } from "../trpc";
 
 // Cognito client (singleton)
@@ -133,12 +134,24 @@ export const usersRouter = router({
 			}),
 		)
 		.mutation(async ({ input }) => {
-			const randomDigits = Array.from({ length: 4 }, () => Math.floor(Math.random() * 10));
+			// Generate 4 random digits (0-9)
+			const randomDigits = Array.from({ length: 4 }, () => crypto.randomInt(0, 10));
 			const chars = "ABCDEFGHJKLMPQRSTWXYZabcdefghkpqrstwxyz";
-			const randomLetters = Array.from({ length: 3 }, () => chars[Math.floor(Math.random() * chars.length)]);
+			// Generate 3 random letters
+			const randomLetters = Array.from({ length: 3 }, () => chars[crypto.randomInt(0, chars.length)]);
 			const symbols = "!@#$%&*-_=+?";
-			const randomSymbols = Array.from({ length: 1 }, () => symbols[Math.floor(Math.random() * symbols.length)]);
-			const temporaryPassword = `${["V", "m", ...randomDigits, ...randomSymbols, ...randomLetters].sort(() => 0.5 - Math.random()).join("")}`;
+			// Generate 1 random symbol
+			const randomSymbols = Array.from({ length: 1 }, () => symbols[crypto.randomInt(0, symbols.length)]);
+			const tempParts = ["V", "m", ...randomDigits, ...randomSymbols, ...randomLetters];
+			// Secure shuffle
+			const secureShuffle = (array: unknown[]) => {
+				for (let i = array.length - 1; i > 0; i--) {
+					const j = crypto.randomInt(0, i + 1);
+					[array[i], array[j]] = [array[j], array[i]];
+				}
+				return array;
+			};
+			const temporaryPassword = `${secureShuffle(tempParts).join("")}`;
 
 			try {
 				// Create user
