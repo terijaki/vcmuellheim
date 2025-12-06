@@ -145,7 +145,6 @@ export const usersRouter = router({
 						{ Name: "family_name", Value: input.familyName },
 					],
 					DesiredDeliveryMediums: ["EMAIL"],
-					MessageAction: "RESEND",
 				});
 
 				const createResponse = await cognitoClient.send(command);

@@ -1,9 +1,10 @@
 import { AppShell, Avatar, Burger, Center, Group, Loader, Menu, NavLink, Stack, Text, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { BadgeEuro, Building2, Bus, CalendarDays, Contact, LogOut, MapPinned, Newspaper, UserCog, Users } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { useEffect } from "react";
 import { useAuth } from "../auth/AuthContext";
+import { getDashboardRoutesWithLabels } from "../utils/nav-links";
 
 function DashboardLayout() {
 	const { user, logout } = useAuth();
@@ -12,13 +13,13 @@ function DashboardLayout() {
 		<AppShell header={{ height: 60 }} navbar={{ width: 250, breakpoint: "md", collapsed: { mobile: !opened } }} padding="md">
 			<AppShell.Header>
 				<Group h="100%" px="md" justify="space-between">
-					<Group>
+					<Group style={{ cursor: "pointer" }}>
 						<Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-						<Text size="lg" fw={700} visibleFrom="sm">
-							Volleyballclub Müllheim e.V.
-						</Text>
-						<Text size="lg" fw={700} hiddenFrom="sm">
+						<Text size="lg" fw={700} hiddenFrom="sm" component="a" onClick={toggle}>
 							VCM
+						</Text>
+						<Text size="lg" fw={700} visibleFrom="sm" component={Link} to="/dashboard">
+							Volleyballclub Müllheim e.V.
 						</Text>
 					</Group>
 					<Menu>
@@ -38,15 +39,9 @@ function DashboardLayout() {
 			</AppShell.Header>
 
 			<AppShell.Navbar p="md">
-				<NavLink label="News" leftSection={<Newspaper />} component={Link} to="/dashboard/news" onClick={toggle} />
-				<NavLink label="Termine" leftSection={<CalendarDays />} component={Link} to="/dashboard/events" onClick={toggle} />
-				<NavLink label="Mannschaften" leftSection={<Users />} component={Link} to="/dashboard/teams" onClick={toggle} />
-				<NavLink label="Mitglieder" leftSection={<Contact />} component={Link} to="/dashboard/members" onClick={toggle} />
-				<NavLink label="Orte" leftSection={<MapPinned />} component={Link} to="/dashboard/locations" onClick={toggle} />
-				<NavLink label="Sponsoren" leftSection={<BadgeEuro />} component={Link} to="/dashboard/sponsors" onClick={toggle} />
-				<NavLink label="Bus Buchungen" leftSection={<Bus />} component={Link} to="/dashboard/bus" onClick={toggle} />
-				{user?.role === "Admin" && <NavLink label="Benutzer" leftSection={<UserCog />} component={Link} to="/dashboard/users" onClick={toggle} />}
-				<NavLink label="SAMS" leftSection={<Building2 />} component={Link} to="/dashboard/sams" onClick={toggle} />
+				{getDashboardRoutesWithLabels(user?.role === "Admin").map(([{ to, label, icon }]) => (
+					<NavLink key={to} label={label} leftSection={icon} component={Link} to={to} onClick={toggle} style={{ fontWeight: 500 }} />
+				))}
 			</AppShell.Navbar>
 
 			<AppShell.Main>

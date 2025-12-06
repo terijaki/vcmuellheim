@@ -78,6 +78,14 @@ export class ApiStack extends cdk.Stack {
 				email: true,
 				username: false,
 			},
+			signInPolicy: {
+				allowedFirstAuthFactors: {
+					password: true,
+					passkey: true,
+					emailOtp: true,
+					smsOtp: false,
+				},
+			},
 			autoVerify: {
 				email: true,
 			},
