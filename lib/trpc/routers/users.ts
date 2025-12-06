@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import {
 	AdminAddUserToGroupCommand,
 	AdminCreateUserCommand,
@@ -11,7 +12,6 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import crypto from "crypto";
 import { adminProcedure, router } from "../trpc";
 
 // Cognito client (singleton)
