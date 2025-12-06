@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import {
 	AdminAddUserToGroupCommand,
 	AdminCreateUserCommand,
@@ -133,6 +134,25 @@ export const usersRouter = router({
 			}),
 		)
 		.mutation(async ({ input }) => {
+			// Generate 4 random digits (0-9)
+			const randomDigits = Array.from({ length: 4 }, () => crypto.randomInt(0, 10));
+			const chars = "ABCDEFGHJKLMPQRSTWXYZabcdefghkpqrstwxyz";
+			// Generate 3 random letters
+			const randomLetters = Array.from({ length: 3 }, () => chars[crypto.randomInt(0, chars.length)]);
+			const symbols = "!@#$%&*-_=+?";
+			// Generate 1 random symbol
+			const randomSymbols = Array.from({ length: 1 }, () => symbols[crypto.randomInt(0, symbols.length)]);
+			const tempParts = ["V", "m", ...randomDigits, ...randomSymbols, ...randomLetters];
+			// Secure shuffle
+			const secureShuffle = (array: unknown[]) => {
+				for (let i = array.length - 1; i > 0; i--) {
+					const j = crypto.randomInt(0, i + 1);
+					[array[i], array[j]] = [array[j], array[i]];
+				}
+				return array;
+			};
+			const temporaryPassword = `${secureShuffle(tempParts).join("")}`;
+
 			try {
 				// Create user
 				const command = new AdminCreateUserCommand({
@@ -145,7 +165,7 @@ export const usersRouter = router({
 						{ Name: "family_name", Value: input.familyName },
 					],
 					DesiredDeliveryMediums: ["EMAIL"],
-					MessageAction: "RESEND",
+					TemporaryPassword: temporaryPassword,
 				});
 
 				const createResponse = await cognitoClient.send(command);

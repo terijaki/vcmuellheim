@@ -288,10 +288,6 @@ function BusSchedulesPage() {
 							</Card>
 						))}
 					</SimpleGrid>
-
-					<Text size="sm" c="dimmed" mt="md">
-						{filteredSchedules.length} {timeFilter === "upcoming" ? "bevorstehende" : "vergangene"} Buchung{filteredSchedules.length !== 1 ? "en" : ""}
-					</Text>
 				</>
 			) : (
 				<Text c="dimmed" ta="center" py="xl">
