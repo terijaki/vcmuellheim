@@ -117,6 +117,7 @@ export class MediaStack extends cdk.Stack {
 			timeout: cdk.Duration.minutes(5),
 			memorySize: 512, // Need more memory for image processing
 			layers: [imageMagickLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 		});
 
 		// Grant Lambda permission to read/write to S3 bucket

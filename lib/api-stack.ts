@@ -351,6 +351,7 @@ export class ApiStack extends cdk.Stack {
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 512,
 			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			environment: {
 				...Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
 				CDK_ENVIRONMENT: environment,
@@ -423,6 +424,7 @@ export class ApiStack extends cdk.Stack {
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 512,
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			environment: {
 				TEAMS_TABLE_NAME: tables.TEAMS.tableName,
 				EVENTS_TABLE_NAME: tables.EVENTS.tableName,
@@ -447,6 +449,7 @@ export class ApiStack extends cdk.Stack {
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			environment: {
 				...Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
 				WEBSITE_URL: props.websiteUrl || `https://${Club.domain}`,
@@ -471,6 +474,7 @@ export class ApiStack extends cdk.Stack {
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			timeout: cdk.Duration.seconds(60),
 			memorySize: 256,
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			environment: {
 				MEDIA_BUCKET_NAME: props.mediaBucket?.bucketName || "",
 			},
