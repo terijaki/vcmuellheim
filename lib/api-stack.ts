@@ -340,6 +340,9 @@ export class ApiStack extends cdk.Stack {
 			BUS: props.contentDbStack.busTable,
 		} satisfies Record<TableEntity, dynamodb.Table>;
 
+		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
+		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
+
 		this.trpcLambda = new NodejsFunction(this, "TrpcApiLambda", {
 			functionName: `vcm-trpc-api-${environment}${branchSuffix}`,
 			entry: "lambda/content/handler.ts",
@@ -347,6 +350,7 @@ export class ApiStack extends cdk.Stack {
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 512,
+			layers: [powertoolsLayer],
 			environment: {
 				...Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
 				CDK_ENVIRONMENT: environment,
@@ -362,7 +366,15 @@ export class ApiStack extends cdk.Stack {
 			bundling: {
 				minify: true,
 				sourceMap: true,
-				externalModules: ["@aws-sdk/client-dynamodb", "@aws-sdk/lib-dynamodb", "@aws-sdk/client-s3", "@aws-sdk/s3-request-presigner"],
+				externalModules: [
+					"@aws-sdk/client-dynamodb",
+					"@aws-sdk/lib-dynamodb",
+					"@aws-sdk/client-s3",
+					"@aws-sdk/s3-request-presigner",
+					"@aws-lambda-powertools/logger",
+					"@aws-lambda-powertools/tracer",
+					"aws-xray-sdk-core",
+				],
 			},
 		});
 
