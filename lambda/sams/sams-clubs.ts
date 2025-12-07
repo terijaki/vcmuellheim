@@ -1,17 +1,27 @@
+import { Logger } from "@aws-lambda-powertools/logger";
+import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
+import { Tracer } from "@aws-lambda-powertools/tracer";
+import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
+import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { slugify } from "@/utils/slugify";
 import { ClubResponseSchema, ClubsResponseSchema } from "./types";
 
+// Initialize logger and tracer
+const logger = new Logger({ serviceName: "sams-clubs" });
+const tracer = new Tracer({ serviceName: "sams-clubs" });
+
 // Initialize DynamoDB client
 const dynamoClient = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(dynamoClient);
+const docClient = DynamoDBDocumentClient.from(tracer.captureAWSv3Client(dynamoClient));
 
 const TABLE_NAME = process.env.CLUBS_TABLE_NAME;
 
-export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-	console.log("📋 Querying clubs from DynamoDB", { path: event.path, pathParameters: event.pathParameters });
+const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+	logger.appendKeys({ path: event.path });
+	logger.info("📋 Querying clubs from DynamoDB", { pathParameters: event.pathParameters });
 
 	const { uuid } = event.pathParameters || {};
 	const { name } = event.queryStringParameters || {};
@@ -146,7 +156,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 			),
 		};
 	} catch (error) {
-		console.error("🚨 Error querying clubs:", error);
+		logger.error("🚨 Error querying clubs:", { error });
 		return {
 			statusCode: 500,
 			headers: {
@@ -159,3 +169,5 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 		};
 	}
 };
+
+export const handler = middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer));

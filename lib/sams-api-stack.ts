@@ -49,6 +49,9 @@ export class SamsApiStack extends cdk.Stack {
 		}
 		const allowedOrigins = Array.from(allowedOriginsSet);
 
+		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
+		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
+
 		// Custom domain for API Gateway
 		const samsDomain = `${envPrefix}sams.${baseDomain}`;
 
@@ -146,9 +149,10 @@ export class SamsApiStack extends cdk.Stack {
 			},
 			timeout: cdk.Duration.seconds(60),
 			memorySize: 512,
-			logRetention: cdk.aws_logs.RetentionDays.ONE_MONTH,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
@@ -166,9 +170,10 @@ export class SamsApiStack extends cdk.Stack {
 			environment: commonEnvironment,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
-			logRetention: cdk.aws_logs.RetentionDays.ONE_MONTH,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
@@ -183,9 +188,10 @@ export class SamsApiStack extends cdk.Stack {
 			environment: commonEnvironment,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 512,
-			logRetention: cdk.aws_logs.RetentionDays.ONE_MONTH,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
@@ -200,9 +206,10 @@ export class SamsApiStack extends cdk.Stack {
 			environment: commonEnvironment,
 			timeout: cdk.Duration.seconds(60), // Longer timeout for pagination
 			memorySize: 256,
-			logRetention: cdk.aws_logs.RetentionDays.ONE_MONTH,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
@@ -220,9 +227,10 @@ export class SamsApiStack extends cdk.Stack {
 			},
 			timeout: cdk.Duration.minutes(10), // Longer timeout for paginated sync
 			memorySize: 512,
-			logRetention: cdk.aws_logs.RetentionDays.ONE_MONTH,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
@@ -244,9 +252,10 @@ export class SamsApiStack extends cdk.Stack {
 			},
 			timeout: cdk.Duration.minutes(10),
 			memorySize: 512,
-			logRetention: cdk.aws_logs.RetentionDays.ONE_MONTH,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
@@ -268,9 +277,10 @@ export class SamsApiStack extends cdk.Stack {
 			},
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 512,
-			logRetention: cdk.aws_logs.RetentionDays.ONE_MONTH,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
@@ -291,9 +301,10 @@ export class SamsApiStack extends cdk.Stack {
 			},
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
-			logRetention: cdk.aws_logs.RetentionDays.ONE_MONTH,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
@@ -313,9 +324,10 @@ export class SamsApiStack extends cdk.Stack {
 			},
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
-			logRetention: cdk.aws_logs.RetentionDays.ONE_MONTH,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},

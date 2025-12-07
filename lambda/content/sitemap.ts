@@ -3,10 +3,26 @@
  * Triggered by HTTP GET request to /sitemap.xml
  */
 
+import { Logger } from "@aws-lambda-powertools/logger";
+import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
+import { Tracer } from "@aws-lambda-powertools/tracer";
+import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
+import middy from "@middy/core";
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { getAllTeams, getPublishedNews, getUpcomingEvents } from "../../lib/db/repositories";
 
 const BASE_URL = process.env.WEBSITE_URL || "https://vcmuellheim.de";
+
+// Initialize Logger and Tracer outside handler for reuse across invocations
+const logger = new Logger({
+	serviceName: "vcm-sitemap",
+	logLevel: (process.env.LOG_LEVEL || "INFO") as "DEBUG" | "INFO" | "WARN" | "ERROR",
+});
+
+const tracer = new Tracer({
+	serviceName: "vcm-sitemap",
+	enabled: process.env.POWERTOOLS_TRACE_ENABLED !== "false",
+});
 
 interface UrlEntry {
 	loc: string;
@@ -15,7 +31,12 @@ interface UrlEntry {
 	changefreq: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
 }
 
-export const handler: APIGatewayProxyHandlerV2 = async () => {
+const lambdaHandler: APIGatewayProxyHandlerV2 = async (event) => {
+	logger.appendKeys({
+		path: event.rawPath || "unknown",
+		method: event.requestContext?.http?.method || "unknown",
+	});
+
 	try {
 		const urls: UrlEntry[] = [];
 
@@ -84,7 +105,9 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
 			body: xml,
 		};
 	} catch (error) {
-		console.error("Sitemap generation failed:", error);
+		logger.error("Sitemap generation failed", {
+			error: { message: error instanceof Error ? error.message : String(error) },
+		});
 
 		// Return a minimal valid sitemap on error
 		const fallbackXml = generateSitemapXml([
@@ -101,8 +124,14 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
 			},
 			body: fallbackXml,
 		};
+	} finally {
+		logger.resetKeys();
 	}
 };
+
+export const handler = middy(lambdaHandler)
+	.use(captureLambdaHandler(tracer, { captureResponse: false }))
+	.use(injectLambdaContext(logger));
 
 /**
  * Generate sitemap XML from URL entries

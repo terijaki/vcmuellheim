@@ -1,6 +1,11 @@
+import { Logger } from "@aws-lambda-powertools/logger";
+import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
+import { Tracer } from "@aws-lambda-powertools/tracer";
+import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
-import type { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from "aws-lambda";
+import middy from "@middy/core";
+import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { generateIcsCalendar, type IcsCalendar, type IcsEvent } from "ts-ics";
@@ -13,8 +18,20 @@ const SAMS_API_URL = process.env.SAMS_API_URL || "";
 const TEAMS_TABLE_NAME = process.env.TEAMS_TABLE_NAME || "";
 const EVENTS_TABLE_NAME = process.env.EVENTS_TABLE_NAME || "";
 
-// Create DynamoDB client
+// Initialize Logger and Tracer outside handler for reuse across invocations
+const logger = new Logger({
+	serviceName: "vcm-ics-calendar",
+	logLevel: (process.env.LOG_LEVEL || "INFO") as "DEBUG" | "INFO" | "WARN" | "ERROR",
+});
+
+const tracer = new Tracer({
+	serviceName: "vcm-ics-calendar",
+	enabled: process.env.POWERTOOLS_TRACE_ENABLED !== "false",
+});
+
+// Create DynamoDB client and trace it
 const dynamoClient = new DynamoDBClient({});
+tracer.captureAWSv3Client(dynamoClient);
 const docClient = DynamoDBDocumentClient.from(dynamoClient);
 
 /**
@@ -95,10 +112,12 @@ function convertEventToIcs(event: Event, timestamp: Date): IcsEvent {
 	};
 }
 
-export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-	try {
-		console.log("Generating ICS calendar", { event: JSON.stringify(event) });
+const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+	logger.appendKeys({
+		path: event.path || "unknown",
+	});
 
+	try {
 		// Get team slug from path parameters
 		const teamSlug = event.pathParameters?.teamSlug?.replace(".ics", "").toLowerCase();
 
@@ -246,7 +265,9 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			body: icsContent,
 		};
 	} catch (error) {
-		console.error("Error generating calendar:", error);
+		logger.error("Error generating calendar", {
+			error: { message: error instanceof Error ? error.message : String(error) },
+		});
 		return {
 			statusCode: 500,
 			headers: {
@@ -255,5 +276,11 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			},
 			body: "Es gab ein Problem beim Erzeugen des Kalenders",
 		};
+	} finally {
+		logger.resetKeys();
 	}
 };
+
+export const handler = middy(lambdaHandler)
+	.use(captureLambdaHandler(tracer, { captureResponse: false }))
+	.use(injectLambdaContext(logger));

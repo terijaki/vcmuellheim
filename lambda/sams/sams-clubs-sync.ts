@@ -1,21 +1,29 @@
+import { Logger } from "@aws-lambda-powertools/logger";
+import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
+import { Tracer } from "@aws-lambda-powertools/tracer";
+import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { BatchWriteCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { getAllSportsclubs, getAssociationByUuid, getAssociations } from "@codegen/sams/generated";
+import middy from "@middy/core";
 import type { EventBridgeEvent } from "aws-lambda";
 import { SAMS } from "@/project.config";
 import { slugify } from "@/utils/slugify";
 import { type ClubItem, ClubItemSchema } from "./types";
 
+const logger = new Logger({ serviceName: "sams-clubs-sync" });
+const tracer = new Tracer({ serviceName: "sams-clubs-sync" });
+
 // Initialize DynamoDB client
 const dynamoClient = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(dynamoClient);
+const docClient = DynamoDBDocumentClient.from(tracer.captureAWSv3Client(dynamoClient));
 
 const TABLE_NAME = process.env.CLUBS_TABLE_NAME;
 const SAMS_API_KEY = process.env.SAMS_API_KEY;
 const ASSOCIATION_NAME = SAMS.association.name; // SBVV
 
-export const handler = async (event: EventBridgeEvent<string, unknown>) => {
-	console.log("🚀 Starting SAMS clubs sync job", { event });
+const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
+	logger.info("🚀 Starting SAMS clubs sync job", { event });
 
 	if (!SAMS_API_KEY) {
 		throw new Error("SAMS_API_KEY environment variable is required");
@@ -179,7 +187,9 @@ export const handler = async (event: EventBridgeEvent<string, unknown>) => {
 			}),
 		};
 	} catch (error) {
-		console.error("🚨 Error syncing clubs:", error);
+		logger.error("🚨 Error syncing clubs:", { error });
 		throw error;
 	}
 };
+
+export const handler = middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer));

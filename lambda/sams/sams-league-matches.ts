@@ -1,23 +1,31 @@
+import { Logger } from "@aws-lambda-powertools/logger";
+import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
+import { Tracer } from "@aws-lambda-powertools/tracer";
+import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { getAllLeagueMatches, type LeagueMatchDto } from "@codegen/sams/generated";
+import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import dayjs from "dayjs";
 import { Club } from "@/project.config";
 import { slugify } from "../../utils/slugify";
 import { LeagueMatchesResponseSchema, SeasonsResponseSchema } from "./types";
 
+const logger = new Logger({ serviceName: "sams-league-matches" });
+const tracer = new Tracer({ serviceName: "sams-league-matches" });
+
 // DynamoDB client for caching
 const client = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(client);
+const docClient = DynamoDBDocumentClient.from(tracer.captureAWSv3Client(client));
 
 const SAMS_API_KEY = process.env.SAMS_API_KEY;
 const CLUBS_TABLE_NAME = process.env.CLUBS_TABLE_NAME || "";
 
-export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
+const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
+	logger.appendKeys({ path: event.path });
+	logger.info("Getting SAMS league matches", { pathParameters: event.pathParameters });
 	try {
-		console.log("Getting SAMS league matches", { event: JSON.stringify(event) });
-
 		if (!SAMS_API_KEY) {
 			console.error("SAMS API key not configured");
 			return {
@@ -163,7 +171,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 			body: JSON.stringify(result),
 		};
 	} catch (error) {
-		console.error("Error fetching league matches:", error);
+		logger.error("Error fetching league matches:", { error });
 		return {
 			statusCode: 500,
 			headers: {
@@ -174,3 +182,5 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 		};
 	}
 };
+
+export const handler = middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer));

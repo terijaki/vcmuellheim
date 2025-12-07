@@ -1,11 +1,19 @@
+import { Logger } from "@aws-lambda-powertools/logger";
+import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
+import { Tracer } from "@aws-lambda-powertools/tracer";
+import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
+import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { type ClubLogoQueryParams, ClubLogoQueryParamsSchema, type ClubResponse, ClubResponseSchema } from "./types";
 
+const logger = new Logger({ serviceName: "sams-logo-proxy" });
+const tracer = new Tracer({ serviceName: "sams-logo-proxy" });
+
 // Initialize DynamoDB client
 const dynamoClient = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(dynamoClient);
+const docClient = DynamoDBDocumentClient.from(tracer.captureAWSv3Client(dynamoClient));
 
 const CLUBS_TABLE_NAME = process.env.CLUBS_TABLE_NAME;
 
@@ -87,8 +95,9 @@ function noContentResponse(statusCode = 204): APIGatewayProxyResult {
 	};
 }
 
-export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-	console.log("📷 Logo proxy request", { path: event.path, queryStringParameters: event.queryStringParameters });
+export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+	logger.appendKeys({ path: event.path });
+	logger.info("📷 Logo proxy request", { queryStringParameters: event.queryStringParameters });
 
 	// Parse and validate query parameters using schema
 	const queryParams = event.queryStringParameters || {};
@@ -186,6 +195,9 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 		const statusCode = isTimeout ? 504 : 500;
 		const errorMessage = isTimeout ? "Logo fetch timeout" : "Internal server error";
 
+		logger.error("Error in logo proxy handler", { error, isTimeout });
 		return errorResponse(statusCode, errorMessage);
 	}
 };
+
+export const handler = middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer));

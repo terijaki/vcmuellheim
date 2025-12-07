@@ -1,12 +1,20 @@
+import { Logger } from "@aws-lambda-powertools/logger";
+import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
+import { Tracer } from "@aws-lambda-powertools/tracer";
+import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { type Association, getAssociationByUuid, getAssociations } from "@codegen/sams/generated/";
+import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from "aws-lambda";
+
+const logger = new Logger({ serviceName: "sams-associations" });
+const tracer = new Tracer({ serviceName: "sams-associations" });
 
 const SAMS_API_KEY = process.env.SAMS_API_KEY;
 
-export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+	logger.appendKeys({ path: event.path });
+	logger.info("Getting SAMS associations", { pathParameters: event.pathParameters });
 	try {
-		console.log("Getting SAMS associations", { event: JSON.stringify(event) });
-
 		if (!SAMS_API_KEY) {
 			console.error("SAMS API key not configured");
 			return {
@@ -159,3 +167,5 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 		};
 	}
 };
+
+export const handler = middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer));

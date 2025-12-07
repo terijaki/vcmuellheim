@@ -46,6 +46,9 @@ export class SocialMediaStack extends cdk.Stack {
 		}
 		const allowedOrigins = Array.from(allowedOriginsSet);
 
+		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
+		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
+
 		// Custom domain for API Gateway
 		const apiDomainName =
 			props?.hostedZone && props?.regionalCertificate
@@ -111,9 +114,10 @@ export class SocialMediaStack extends cdk.Stack {
 			},
 			timeout: cdk.Duration.minutes(5),
 			memorySize: 512,
-			logRetention: cdk.aws_logs.RetentionDays.ONE_MONTH,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
@@ -133,9 +137,10 @@ export class SocialMediaStack extends cdk.Stack {
 			},
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
-			logRetention: cdk.aws_logs.RetentionDays.ONE_MONTH,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
