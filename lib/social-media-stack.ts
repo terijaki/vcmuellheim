@@ -7,7 +7,7 @@ import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
 import * as lambda from "aws-cdk-lib/aws-lambda";
-import * as nodejs from "aws-cdk-lib/aws-lambda-nodejs";
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import type { Construct } from "constructs";
@@ -45,6 +45,9 @@ export class SocialMediaStack extends cdk.Stack {
 			allowedOriginsSet.add("http://localhost:3080"); // Website dev server
 		}
 		const allowedOrigins = Array.from(allowedOriginsSet);
+
+		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
+		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
 
 		// Custom domain for API Gateway
 		const apiDomainName =
@@ -98,7 +101,7 @@ export class SocialMediaStack extends cdk.Stack {
 		});
 
 		// Create Lambda function for Instagram sync
-		const instagramSync = new nodejs.NodejsFunction(this, "InstagramSync", {
+		const instagramSync = new NodejsFunction(this, "InstagramSync", {
 			functionName: `instagram-sync-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
@@ -111,8 +114,10 @@ export class SocialMediaStack extends cdk.Stack {
 			},
 			timeout: cdk.Duration.minutes(5),
 			memorySize: 512,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
@@ -122,7 +127,7 @@ export class SocialMediaStack extends cdk.Stack {
 		instagramTable.grantReadWriteData(instagramSync);
 
 		// Create Lambda function for Instagram posts API
-		const instagramPosts = new nodejs.NodejsFunction(this, "InstagramPosts", {
+		const instagramPosts = new NodejsFunction(this, "InstagramPosts", {
 			functionName: `instagram-posts-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
@@ -132,8 +137,10 @@ export class SocialMediaStack extends cdk.Stack {
 			},
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},

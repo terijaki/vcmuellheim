@@ -109,6 +109,9 @@ export class MediaStack extends cdk.Stack {
 		// Add ImageMagick Lambda layer for image processing
 		const imageMagickLayer = lambda.LayerVersion.fromLayerVersionArn(this, "ImageMagickLayer", "arn:aws:lambda:eu-central-1:041632640830:layer:image-magick:1");
 
+		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
+		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
+
 		// Create image processor Lambda function
 		const imageProcessorFunction = new NodejsFunction(this, "ImageProcessor", {
 			runtime: lambda.Runtime.NODEJS_LATEST,
@@ -116,7 +119,13 @@ export class MediaStack extends cdk.Stack {
 			entry: "lambda/content/image-processor.ts",
 			timeout: cdk.Duration.minutes(5),
 			memorySize: 512, // Need more memory for image processing
-			layers: [imageMagickLayer],
+			layers: [imageMagickLayer, powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			bundling: {
+				minify: true,
+				sourceMap: true,
+				externalModules: ["@aws-sdk/client-s3", "@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
+			},
 		});
 
 		// Grant Lambda permission to read/write to S3 bucket

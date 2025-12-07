@@ -1,22 +1,29 @@
+import { Logger } from "@aws-lambda-powertools/logger";
+import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
+import { Tracer } from "@aws-lambda-powertools/tracer";
+import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DeleteCommand, DynamoDBDocumentClient, PutCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { getAllLeagues, getAllSeasons, getTeamsForLeague } from "@codegen/sams/generated";
+import middy from "@middy/core";
 import type { APIGatewayProxyHandler } from "aws-lambda";
 import { slugify } from "../../utils/slugify";
 import { TeamItemSchema } from "./types";
 
+const logger = new Logger({ serviceName: "sams-teams-sync" });
+const tracer = new Tracer({ serviceName: "sams-teams-sync" });
+
 const client = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(client);
+const docClient = DynamoDBDocumentClient.from(tracer.captureAWSv3Client(client));
 
 const CLUBS_TABLE_NAME = process.env.CLUBS_TABLE_NAME || "";
 const TEAMS_TABLE_NAME = process.env.TEAMS_TABLE_NAME || "";
 const SAMS_API_KEY = process.env.SAMS_API_KEY;
 const SAMS_SERVER = process.env.SAMS_SERVER;
 
-export const handler: APIGatewayProxyHandler = async () => {
+const lambdaHandler: APIGatewayProxyHandler = async () => {
+	logger.info("Starting SAMS teams sync...");
 	try {
-		console.log("Starting SAMS teams sync...");
-
 		if (!SAMS_API_KEY) {
 			throw new Error("SAMS_API_KEY environment variable is required");
 		}
@@ -211,3 +218,5 @@ export const handler: APIGatewayProxyHandler = async () => {
 		};
 	}
 };
+
+export const handler = middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer));

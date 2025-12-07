@@ -9,7 +9,7 @@ import { CardLink } from "./CustomLink";
 export default function EventCard(props: Event & { dark?: boolean }) {
 	const { id, title, startDate, endDate, location, teamIds } = props;
 	const [isHovering, setIsHovering] = useState(false);
-	const { data:teamsData } = useTeams();
+	const { data: teamsData } = useTeams();
 	const teamsList = (teamIds && teamsData?.items) || [];
 
 	let dateDisplay = dayjs(startDate).format("DD.MM.YYYY HH:mm [Uhr]");

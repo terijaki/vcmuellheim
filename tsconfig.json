@@ -12,6 +12,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"incremental": false,
 		"jsx": "react-jsx",
+		"experimentalDecorators": true,
 
 		/* Bundler mode */
 		"moduleResolution": "bundler",

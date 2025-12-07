@@ -8,7 +8,7 @@ import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
 import * as lambda from "aws-cdk-lib/aws-lambda";
-import * as nodejs from "aws-cdk-lib/aws-lambda-nodejs";
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import type { Construct } from "constructs";
@@ -48,6 +48,9 @@ export class SamsApiStack extends cdk.Stack {
 			allowedOriginsSet.add("http://localhost:3080"); // Website dev server
 		}
 		const allowedOrigins = Array.from(allowedOriginsSet);
+
+		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
+		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
 
 		// Custom domain for API Gateway
 		const samsDomain = `${envPrefix}sams.${baseDomain}`;
@@ -135,7 +138,7 @@ export class SamsApiStack extends cdk.Stack {
 		this.samsTeamsTable = teamsTable;
 
 		// Create Lambda function for league matches (main endpoint you use)
-		const samsLeagueMatches = new nodejs.NodejsFunction(this, "SamsLeagueMatches", {
+		const samsLeagueMatches = new NodejsFunction(this, "SamsLeagueMatches", {
 			functionName: `sams-league-matches-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
@@ -146,8 +149,10 @@ export class SamsApiStack extends cdk.Stack {
 			},
 			timeout: cdk.Duration.seconds(60),
 			memorySize: 512,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
@@ -157,7 +162,7 @@ export class SamsApiStack extends cdk.Stack {
 		clubsTable.grantReadData(samsLeagueMatches);
 
 		// Create Lambda function for seasons
-		const samsSeasons = new nodejs.NodejsFunction(this, "SamsSeasons", {
+		const samsSeasons = new NodejsFunction(this, "SamsSeasons", {
 			functionName: `sams-seasons-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
@@ -165,31 +170,35 @@ export class SamsApiStack extends cdk.Stack {
 			environment: commonEnvironment,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
 		});
 
 		// Create Lambda function for rankings
-		const samsRankings = new nodejs.NodejsFunction(this, "SamsRankings", {
+		const samsRankings = new NodejsFunction(this, "SamsRankings", {
 			functionName: `sams-rankings-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-rankings.ts"),
 			environment: commonEnvironment,
 			timeout: cdk.Duration.seconds(30),
-			memorySize: 256,
+			memorySize: 512,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
 		});
 
 		// Create Lambda function for associations
-		const samsAssociations = new nodejs.NodejsFunction(this, "SamsAssociations", {
+		const samsAssociations = new NodejsFunction(this, "SamsAssociations", {
 			functionName: `sams-associations-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
@@ -197,15 +206,17 @@ export class SamsApiStack extends cdk.Stack {
 			environment: commonEnvironment,
 			timeout: cdk.Duration.seconds(60), // Longer timeout for pagination
 			memorySize: 256,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
 		});
 
 		// Create Lambda function for nightly clubs sync
-		const samsClubsSync = new nodejs.NodejsFunction(this, "SamsClubsSync", {
+		const samsClubsSync = new NodejsFunction(this, "SamsClubsSync", {
 			functionName: `sams-clubs-sync-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
@@ -216,8 +227,10 @@ export class SamsApiStack extends cdk.Stack {
 			},
 			timeout: cdk.Duration.minutes(10), // Longer timeout for paginated sync
 			memorySize: 512,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
@@ -227,7 +240,7 @@ export class SamsApiStack extends cdk.Stack {
 		clubsTable.grantReadWriteData(samsClubsSync);
 
 		// Create Lambda function for nightly teams sync
-		const samsTeamsSync = new nodejs.NodejsFunction(this, "SamsTeamsSync", {
+		const samsTeamsSync = new NodejsFunction(this, "SamsTeamsSync", {
 			functionName: `sams-teams-sync-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
@@ -239,8 +252,10 @@ export class SamsApiStack extends cdk.Stack {
 			},
 			timeout: cdk.Duration.minutes(10),
 			memorySize: 512,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
@@ -251,7 +266,7 @@ export class SamsApiStack extends cdk.Stack {
 		teamsTable.grantReadWriteData(samsTeamsSync);
 
 		// Create Lambda function for clubs query (read from DynamoDB)
-		const samsClubs = new nodejs.NodejsFunction(this, "SamsClubs", {
+		const samsClubs = new NodejsFunction(this, "SamsClubs", {
 			functionName: `sams-clubs-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
@@ -261,9 +276,11 @@ export class SamsApiStack extends cdk.Stack {
 				CLUBS_TABLE_NAME: clubsTable.tableName,
 			},
 			timeout: cdk.Duration.seconds(30),
-			memorySize: 256,
+			memorySize: 512,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
@@ -273,7 +290,7 @@ export class SamsApiStack extends cdk.Stack {
 		clubsTable.grantReadData(samsClubs);
 
 		// Create Lambda function for teams query (read from DynamoDB)
-		const samsTeams = new nodejs.NodejsFunction(this, "SamsTeams", {
+		const samsTeams = new NodejsFunction(this, "SamsTeams", {
 			functionName: `sams-teams-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
@@ -284,8 +301,10 @@ export class SamsApiStack extends cdk.Stack {
 			},
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
@@ -295,7 +314,7 @@ export class SamsApiStack extends cdk.Stack {
 		teamsTable.grantReadData(samsTeams);
 
 		// Create Lambda function for logo proxy (download and cache external images)
-		const samsLogoProxy = new nodejs.NodejsFunction(this, "SamsLogoProxy", {
+		const samsLogoProxy = new NodejsFunction(this, "SamsLogoProxy", {
 			functionName: `sams-logo-proxy-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
@@ -305,8 +324,10 @@ export class SamsApiStack extends cdk.Stack {
 			},
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
+			layers: [powertoolsLayer],
+			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: [],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
 				sourceMap: true,
 			},
