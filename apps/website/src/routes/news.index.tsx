@@ -1,4 +1,4 @@
-import { Alert, Center, Container, Loader, SimpleGrid, Stack } from "@mantine/core";
+import { Alert, Center, Container, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
 import { useInViewport } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
 import { ServerCrash } from "lucide-react";
@@ -40,9 +40,10 @@ function RouteComponent() {
 						))}
 					</SimpleGrid>
 					{(isLoading || isFetchingNextPage) && (
-						<Center py="xl">
+						<Stack align="center" gap="md">
 							<Loader size="xl" />
-						</Center>
+							<Text c="dimmed">Lade News...</Text>
+						</Stack>
 					)}
 					{error && (
 						<Center py="xl">

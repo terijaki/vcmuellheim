@@ -1,14 +1,13 @@
-import { Button, Center, Container, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Button, Center, Container, SimpleGrid, Skeleton, Stack, Text } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
-import { Suspense } from "react";
 import { useNews } from "../../lib/hooks";
 import SectionHeading from "../layout/SectionHeading";
 import NewsCard from "../NewsCard";
 import ScrollAnchor from "./ScrollAnchor";
 
 export default function HomeNews() {
-	const { data } = useNews({ limit: 4 }); // request the past 4 news articles, but we might not show all of them
+	const { data, isLoading } = useNews({ limit: 4 }); // request the past 4 news articles, but we might not show all of them
 
 	let news = data?.pages?.flatMap((page) => page.items) || []; // Extract news from paginated response
 
@@ -20,22 +19,31 @@ export default function HomeNews() {
 	}
 
 	return (
-		<Container size="xl" py="md" px={{ base: "lg", md: "xl" }}>
+		<Container size="xl" w="100%" py="md" px={{ base: "lg", md: "xl" }}>
 			<ScrollAnchor name="news" />
 			<Stack>
 				<SectionHeading text="News" />
-				<Suspense fallback={<Text>Lade Newsbeiträge</Text>}>
-					<SimpleGrid cols={{ base: 1, sm: 2 }}>
-						{news?.map((post) => {
-							return <NewsCard key={post.id} {...post} />;
-						})}
-					</SimpleGrid>
-					<Center p="md">
-						<Button component={Link} to="/news">
+				<SimpleGrid cols={{ base: 1, sm: 2 }}>
+					{isLoading && (
+						<>
+							<Skeleton height={140} maw={620} />
+							<Skeleton height={140} maw={620} />
+						</>
+					)}
+
+					{news?.map((post) => {
+						return <NewsCard key={post.id} {...post} />;
+					})}
+				</SimpleGrid>
+				<Center p="md">
+					{news.length === 0 && !isLoading ? (
+						<Text ta="center">News-Beiträge konnten nicht geladen werden.</Text>
+					) : (
+						<Button component={Link} to="/news" style={{ opacity: isLoading ? 0.1 : 1 }}>
 							News-Archiv
 						</Button>
-					</Center>
-				</Suspense>
+					)}
+				</Center>
 			</Stack>
 		</Container>
 	);
