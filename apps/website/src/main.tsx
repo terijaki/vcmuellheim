@@ -49,6 +49,11 @@ const theme = createTheme({
 				size: "lg",
 			},
 		},
+		Skeleton: {
+			defaultProps: {
+				radius: "md",
+			},
+		},
 	},
 });
 
