@@ -1,4 +1,4 @@
-import { Box, Center, Container, Skeleton, Stack, Text } from "@mantine/core";
+import { Box, Center, Container, Group, Skeleton, Stack, Text } from "@mantine/core";
 import * as numToWordsDe from "num-words-de";
 import { useTeams } from "../../lib/hooks";
 import SectionHeading from "../layout/SectionHeading";
@@ -26,11 +26,12 @@ export default function HomeTeams() {
 					<Stack gap={0}>
 						<SectionHeading text="Mannschaften" />
 						{isLoading && (
-							<Stack>
-								<Skeleton visible height={120} />
-								<Skeleton visible height={80} />
-								<Skeleton visible height={80} />
-							</Stack>
+							<Group gap="md">
+								<Skeleton visible height={80} maw={320} />
+								<Skeleton visible height={80} maw={320} />
+								<Skeleton visible height={80} maw={320} />
+								<Skeleton visible height={80} maw={320} />
+							</Group>
 						)}
 
 						{hasTeamResults && (
