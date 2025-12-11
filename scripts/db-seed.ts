@@ -153,7 +153,7 @@ const seedSponsors = args.length === 0 || args.includes("--sponsors");
 const seedBus = args.length === 0 || args.includes("--bus");
 
 // Handle --user argument
-const userArgIndex = args.findIndex((arg) => arg === "--user");
+const userArgIndex = args.indexOf("--user");
 const shouldCreateUser = userArgIndex !== -1;
 let userEmail: string | undefined;
 let userPassword: string | undefined;
@@ -176,7 +176,7 @@ if (shouldCreateUser) {
 	} else if (userCredentials && !userCredentials.startsWith("--")) {
 		// Format: email with separate --password
 		userEmail = userCredentials;
-		const passwordArgIndex = args.findIndex((arg) => arg === "--password");
+		const passwordArgIndex = args.indexOf("--password");
 		if (passwordArgIndex !== -1) {
 			userPassword = args[passwordArgIndex + 1];
 		}
