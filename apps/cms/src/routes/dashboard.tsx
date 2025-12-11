@@ -95,4 +95,12 @@ export const Route = createFileRoute("/dashboard")({
 			</Stack>
 		);
 	},
+	notFoundComponent: () => {
+		return (
+			<Stack align="center" justify="center" gap="md" m="xl">
+				<Title>404</Title>
+				<Text>Seite nicht gefunden</Text>
+			</Stack>
+		);
+	},
 });

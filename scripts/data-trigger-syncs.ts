@@ -58,8 +58,8 @@ async function main() {
 	for (const [i, name] of lambdaNames.entries()) {
 		await invokeSync(name);
 		if (i < lambdaNames.length - 1) {
-			console.log("Waiting 10 seconds before next sync...");
-			await sleep(10000);
+			console.log("Waiting 5 seconds before next sync...");
+			await sleep(5000);
 		}
 	}
 	console.log("\n=== All syncs triggered ===");

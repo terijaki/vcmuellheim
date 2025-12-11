@@ -82,7 +82,7 @@ export class ApiStack extends cdk.Stack {
 				allowedFirstAuthFactors: {
 					password: true,
 					passkey: true,
-					emailOtp: true,
+					emailOtp: false,
 					smsOtp: false,
 				},
 			},

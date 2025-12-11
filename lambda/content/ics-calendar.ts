@@ -8,11 +8,15 @@ import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 import { generateIcsCalendar, type IcsCalendar, type IcsEvent } from "ts-ics";
 import type { Event } from "@/lib/db/types";
 import { Club } from "@/project.config";
 
 dayjs.extend(customParseFormat);
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const SAMS_API_URL = process.env.SAMS_API_URL || "";
 const TEAMS_TABLE_NAME = process.env.TEAMS_TABLE_NAME || "";
@@ -192,7 +196,7 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 					location?: { name?: string; address?: { street?: string; postcode?: string; city?: string } };
 					results?: { setPoints?: string };
 				}) => {
-					const startTime = dayjs(`${match.date} ${match.time}`, "YYYY-MM-DD HH:mm");
+					const startTime = dayjs.tz(`${match.date} ${match.time}`, "YYYY-MM-DD HH:mm", "Europe/Berlin").utc();
 					if (!startTime.isValid()) {
 						console.warn(`Invalid date for match ${match.uuid}: ${match.date} ${match.time}`);
 						return null;
