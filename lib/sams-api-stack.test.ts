@@ -29,8 +29,8 @@ describe("SamsApiStack", () => {
 			// Should have HTTP API (ApiGatewayV2)
 			template.resourceCountIs("AWS::ApiGatewayV2::Api", 1);
 
-			// Should have 10 Lambda functions (9 SAMS + custom resource for layer)
-			template.resourceCountIs("AWS::Lambda::Function", 10); // Should have 2 DynamoDB tables
+			// Should have 9 Lambda functions (8 SAMS API lambdas + custom resource for layer)
+			template.resourceCountIs("AWS::Lambda::Function", 9); // Should have 2 DynamoDB tables
 			template.resourceCountIs("AWS::DynamoDB::Table", 2);
 
 			// Should have 2 EventBridge rules (for nightly syncs)

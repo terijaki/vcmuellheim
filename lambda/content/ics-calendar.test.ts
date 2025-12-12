@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "bun:test";
+import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import type { APIGatewayProxyEvent, Context } from "aws-lambda";
 import { mockClient } from "aws-sdk-client-mock";
@@ -6,8 +6,8 @@ import { handler } from "./ics-calendar";
 
 const ddbMock = mockClient(DynamoDBDocumentClient);
 
-// Mock fetch globally
-(global as unknown as { fetch: unknown }).fetch = async (url: string) => {
+// Default mock fetch
+const defaultMockFetch = async (url: string) => {
 	if (typeof url === "string" && url.includes("/matches")) {
 		return {
 			ok: true,
@@ -39,14 +39,24 @@ const ddbMock = mockClient(DynamoDBDocumentClient);
 	throw new Error("Unexpected fetch call");
 };
 
+// Mock fetch globally
+(global as unknown as { fetch: unknown }).fetch = defaultMockFetch;
+
 // Mock context
 const mockContext = {} as Context;
 
 beforeEach(() => {
 	ddbMock.reset();
+	// Reset fetch to default
+	(global as unknown as { fetch: unknown }).fetch = defaultMockFetch;
 	process.env.TEAMS_TABLE_NAME = "test-teams-table";
 	process.env.EVENTS_TABLE_NAME = "test-events-table";
 	process.env.SAMS_API_URL = "https://api.example.com";
+});
+
+afterEach(() => {
+	// Ensure fetch is reset after each test
+	(global as unknown as { fetch: unknown }).fetch = defaultMockFetch;
 });
 
 describe("ICS Calendar Lambda", () => {
@@ -158,5 +168,158 @@ describe("ICS Calendar Lambda", () => {
 		expect(result?.body).toContain("Team A vs Team B");
 		expect(result?.body).toContain("Team Training");
 		expect(result?.body).toContain("Sporthalle");
+	});
+
+	it("should handle fetch errors from SAMS API gracefully", async () => {
+		// Replace global fetch to simulate error
+		(global as unknown as { fetch: unknown }).fetch = async () => {
+			return {
+				ok: false,
+				statusText: "Internal Server Error",
+				status: 500,
+			} as Response;
+		};
+
+		ddbMock.reset();
+		ddbMock.on(QueryCommand).resolves({ Items: [] });
+
+		const event = {
+			pathParameters: { teamSlug: "all.ics" },
+		} as unknown as APIGatewayProxyEvent;
+
+		const result = await handler(event, mockContext);
+
+		expect(result?.statusCode).toBe(500);
+		expect(result?.body).toContain("Problem beim Erzeugen");
+	});
+
+	it("should handle invalid date/time combinations and skip them", async () => {
+		(global as unknown as { fetch: unknown }).fetch = async (url: string) => {
+			if (typeof url === "string" && url.includes("/matches")) {
+				return {
+					ok: true,
+					json: async () => ({
+						matches: [
+							{
+								uuid: "match-valid",
+								date: "2025-12-15",
+								time: "19:00",
+								_embedded: {
+									team1: { uuid: "team1", name: "Team A" },
+									team2: { uuid: "team2", name: "Team B" },
+								},
+								host: "team1",
+							},
+						],
+						timestamp: new Date().toISOString(),
+					}),
+				} as Response;
+			}
+			throw new Error("Unexpected fetch call");
+		};
+
+		ddbMock.reset();
+		ddbMock.on(QueryCommand).resolves({ Items: [] });
+
+		const event = {
+			pathParameters: { teamSlug: "all.ics" },
+		} as unknown as APIGatewayProxyEvent;
+
+		const result = await handler(event, mockContext);
+
+		expect(result?.statusCode).toBe(200);
+		expect(result?.body).toContain("BEGIN:VCALENDAR");
+		// Should create a valid calendar
+	});
+
+	it("should handle matches without embedded team information", async () => {
+		(global as unknown as { fetch: unknown }).fetch = async (url: string) => {
+			if (typeof url === "string" && url.includes("/matches")) {
+				return {
+					ok: true,
+					json: async () => ({
+						matches: [
+							{
+								uuid: "match-123",
+								date: "2025-12-15",
+								time: "19:00",
+								// No _embedded field
+								host: "team1-uuid",
+								location: {
+									name: "Sporthalle",
+								},
+							},
+						],
+						timestamp: new Date().toISOString(),
+					}),
+				} as Response;
+			}
+			throw new Error("Unexpected fetch call");
+		};
+
+		ddbMock.reset();
+		ddbMock.on(QueryCommand).resolves({ Items: [] });
+
+		const event = {
+			pathParameters: { teamSlug: "all.ics" },
+		} as unknown as APIGatewayProxyEvent;
+
+		const result = await handler(event, mockContext);
+
+		expect(result?.statusCode).toBe(200);
+		expect(result?.body).toContain("BEGIN:VCALENDAR");
+	});
+
+	it("should handle matches with missing location details", async () => {
+		(global as unknown as { fetch: unknown }).fetch = async (url: string) => {
+			if (typeof url === "string" && url.includes("/matches")) {
+				return {
+					ok: true,
+					json: async () => ({
+						matches: [
+							{
+								uuid: "match-minimal",
+								date: "2025-12-15",
+								time: "19:00",
+								_embedded: {
+									team1: { uuid: "team1", name: "Team A" },
+									team2: { uuid: "team2", name: "Team B" },
+								},
+								// No host or location
+							},
+						],
+						timestamp: new Date().toISOString(),
+					}),
+				} as Response;
+			}
+			throw new Error("Unexpected fetch call");
+		};
+
+		ddbMock.reset();
+		ddbMock.on(QueryCommand).resolves({ Items: [] });
+
+		const event = {
+			pathParameters: { teamSlug: "all.ics" },
+		} as unknown as APIGatewayProxyEvent;
+
+		const result = await handler(event, mockContext);
+
+		expect(result?.statusCode).toBe(200);
+		expect(result?.body).toContain("Team A vs Team B");
+	});
+
+	it("should cache calendar with proper headers", async () => {
+		ddbMock.reset();
+		ddbMock.on(QueryCommand).resolves({ Items: [] });
+
+		const event = {
+			pathParameters: { teamSlug: "all.ics" },
+		} as unknown as APIGatewayProxyEvent;
+
+		const result = await handler(event, mockContext);
+
+		expect(result?.headers?.["Cache-Control"]).toContain("max-age");
+		expect(result?.headers?.["Cache-Control"]).toContain("s-maxage");
+		expect(result?.statusCode).toBe(200);
 	});
 });
