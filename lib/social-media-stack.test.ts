@@ -28,8 +28,9 @@ describe("SocialMediaStack", () => {
 			// Should have HTTP API (ApiGatewayV2)
 			template.resourceCountIs("AWS::ApiGatewayV2::Api", 1);
 
-			// Should have 3 Lambda functions (2 Instagram + custom resource for layer)
-			template.resourceCountIs("AWS::Lambda::Function", 3);
+			// Should have 4 Lambda functions (2 Instagram + 1 Mastodon + custom resource for layer)
+			// Note: Mastodon stream handler is only created when newsTable is provided
+			template.resourceCountIs("AWS::Lambda::Function", 4);
 
 			// Should have 1 DynamoDB table
 			template.resourceCountIs("AWS::DynamoDB::Table", 1);
