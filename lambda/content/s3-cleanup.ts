@@ -31,7 +31,6 @@ const sponsorS3Schema = sponsorSchema.pick({ logoS3Key: true });
  * but they represent the same runtime value. We cast to bypass the type conflict and then
  * immediately validate with Zod schemas for runtime safety.
  */
-// biome-ignore lint/suspicious/noExplicitAny: Necessary bridge between incompatible aws-lambda and @aws-sdk types
 const safeUnmarshall = (item: any) => unmarshall(item) as Record<string, unknown>;
 
 /**

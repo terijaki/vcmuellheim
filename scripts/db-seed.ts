@@ -305,7 +305,6 @@ async function cleanupDatabase() {
 			let scannedItems = 0;
 			let lastEvaluatedKey: Record<string, unknown> | undefined;
 
-			// eslint-disable-next-line no-constant-condition
 			while (true) {
 				const result = await docClient.send(
 					new ScanDocCommand({

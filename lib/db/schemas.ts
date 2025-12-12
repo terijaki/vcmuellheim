@@ -23,6 +23,7 @@ export const newsSchema = z.object({
 	status: z.enum(["draft", "published", "archived"]),
 	imageS3Keys: z.array(z.string()).optional().describe("Array of S3 keys for image gallery"),
 	tags: z.array(z.string()).optional(),
+	sharedToMastodon: z.boolean().optional().describe("Whether this news article has been shared to Mastodon"),
 });
 
 /** Event schema */

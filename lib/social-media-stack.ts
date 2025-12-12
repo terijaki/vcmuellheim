@@ -7,9 +7,11 @@ import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
 import * as lambda from "aws-cdk-lib/aws-lambda";
+import { DynamoEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
+import type * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import { Club } from "@/project.config";
 
@@ -20,10 +22,15 @@ interface SocialMediaStackProps extends cdk.StackProps {
 	};
 	hostedZone?: route53.IHostedZone;
 	regionalCertificate?: acm.ICertificate;
+	newsTable?: dynamodb.ITable;
+	websiteUrl?: string;
+	mediaBucket?: s3.IBucket;
+	cloudFrontUrl?: string;
 }
 
 export class SocialMediaStack extends cdk.Stack {
 	public readonly cloudFrontUrl: string;
+	public readonly mastodonLambda: lambda.IFunction;
 
 	constructor(scope: Construct, id: string, props: SocialMediaStackProps) {
 		super(scope, id, props);
@@ -115,7 +122,10 @@ export class SocialMediaStack extends cdk.Stack {
 			timeout: cdk.Duration.minutes(5),
 			memorySize: 512,
 			layers: [powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: new cdk.aws_logs.LogGroup(this, "InstagramSyncLogGroup", {
+				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			}),
 			bundling: {
 				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
@@ -138,7 +148,10 @@ export class SocialMediaStack extends cdk.Stack {
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
 			layers: [powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: new cdk.aws_logs.LogGroup(this, "InstagramPostsLogGroup", {
+				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			}),
 			bundling: {
 				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
@@ -172,6 +185,89 @@ export class SocialMediaStack extends cdk.Stack {
 			integration: instagramIntegration,
 		});
 
+		// Environment variables for Mastodon
+		const mastodonAccessToken = process.env.MASTODON_ACCESS_TOKEN;
+
+		if (!mastodonAccessToken && !isCdkDestroy && isProd) {
+			console.warn("⚠️  MASTODON_ACCESS_TOKEN not set - Mastodon sharing will be disabled in production");
+		}
+
+		// Create Lambda function for Mastodon sharing
+		const mastodonShare = new NodejsFunction(this, "MastodonShare", {
+			functionName: `mastodon-share-${environment}${branchSuffix}`,
+			runtime: lambda.Runtime.NODEJS_LATEST,
+			handler: "handler",
+			entry: path.join(__dirname, "../lambda/social/mastodon-share.ts"),
+			environment: {
+				MASTODON_ACCESS_TOKEN: mastodonAccessToken || "",
+				...(props.cloudFrontUrl ? { CLOUDFRONT_URL: props.cloudFrontUrl } : {}),
+				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
+			},
+			timeout: cdk.Duration.seconds(60), // Increased timeout for image uploads
+			memorySize: 512, // Increased memory for image processing
+			layers: [powertoolsLayer],
+			logGroup: new cdk.aws_logs.LogGroup(this, "MastodonShareLogGroup", {
+				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			}),
+			bundling: {
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core", "@aws-sdk/client-s3"],
+				minify: true,
+				sourceMap: true,
+			},
+		});
+
+		// Grant S3 read permissions to Mastodon Lambda for image uploads
+		if (props.mediaBucket) {
+			props.mediaBucket.grantRead(mastodonShare);
+		}
+
+		// Create Lambda function for Mastodon stream handler (DynamoDB streams)
+		if (props.newsTable && props.websiteUrl) {
+			const mastodonStreamHandler = new NodejsFunction(this, "MastodonStreamHandler", {
+				functionName: `mastodon-stream-handler-${environment}${branchSuffix}`,
+				runtime: lambda.Runtime.NODEJS_LATEST,
+				handler: "handler",
+				entry: path.join(__dirname, "../lambda/social/mastodon-stream-handler.ts"),
+				environment: {
+					MASTODON_LAMBDA_NAME: mastodonShare.functionName,
+					ENVIRONMENT: environment,
+					WEBSITE_URL: props.websiteUrl,
+					NEWS_TABLE_NAME: props.newsTable.tableName,
+				},
+				timeout: cdk.Duration.seconds(30),
+				memorySize: 256,
+				layers: [powertoolsLayer],
+				logGroup: new cdk.aws_logs.LogGroup(this, "MastodonStreamHandlerLogGroup2", {
+					retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+					removalPolicy: cdk.RemovalPolicy.DESTROY,
+				}),
+				bundling: {
+					externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core", "@aws-sdk/client-dynamodb", "@aws-sdk/lib-dynamodb", "@aws-sdk/client-lambda"],
+					minify: true,
+					sourceMap: true,
+				},
+			});
+
+			// Grant permissions
+			props.newsTable.grantStreamRead(mastodonStreamHandler);
+			props.newsTable.grantReadWriteData(mastodonStreamHandler);
+			mastodonShare.grantInvoke(mastodonStreamHandler);
+
+			// Attach DynamoDB stream event source
+			mastodonStreamHandler.addEventSource(
+				new DynamoEventSource(props.newsTable, {
+					startingPosition: lambda.StartingPosition.LATEST,
+					bisectBatchOnError: true,
+					retryAttempts: 2,
+				}),
+			);
+
+			console.log("✅ Mastodon stream handler configured for news table");
+		} else {
+			console.log("⏭️ Skipping Mastodon stream handler - news table or website URL not provided");
+		}
+
 		// Create Route53 A record for custom domain (if configured)
 		if (apiDomainName && props?.hostedZone) {
 			new route53.ARecord(this, "SocialMediaAliasRecord", {
@@ -184,6 +280,9 @@ export class SocialMediaStack extends cdk.Stack {
 
 		// Use custom domain if available, otherwise fall back to default API Gateway URL
 		this.cloudFrontUrl = apiDomainName ? `https://${socialDomain}` : api.url || "";
+
+		// Export Mastodon Lambda for use in other stacks
+		this.mastodonLambda = mastodonShare;
 
 		// Outputs
 		new cdk.CfnOutput(this, "ApiGatewayUrl", {
@@ -199,6 +298,11 @@ export class SocialMediaStack extends cdk.Stack {
 		new cdk.CfnOutput(this, "InstagramEndpoint", {
 			value: `${this.cloudFrontUrl}/instagram`,
 			description: "Instagram Posts API Endpoint",
+		});
+
+		new cdk.CfnOutput(this, "MastodonLambdaArn", {
+			value: mastodonShare.functionArn,
+			description: "Mastodon Sharing Lambda ARN",
 		});
 	}
 }
