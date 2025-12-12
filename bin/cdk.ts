@@ -93,6 +93,16 @@ const samsApiStack = new SamsApiStack(app, samsStackName, {
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate, // CloudFront cert (us-east-1)
 });
 
+// Social Media Stack with Instagram and Mastodon integration
+new SocialMediaStack(app, socialMediaStackName, {
+	...commonStackProps,
+	description: `Social Media API Services (${environment}${branchSuffix})`,
+	hostedZone: dnsStack.hostedZone,
+	regionalCertificate: dnsStack.regionalCertificate,
+	newsTable: contentDbStack.newsTable,
+	websiteUrl: websiteStack.websiteUrl,
+});
+
 const apiStack = new ApiStack(app, apiStackName, {
 	...commonStackProps,
 	description: `tRPC API & Cognito (${environment}${branchSuffix})`,
@@ -115,13 +125,6 @@ const apiStack = new ApiStack(app, apiStackName, {
 	cloudFrontUrl: mediaStack.cloudFrontUrl,
 	cmsUrl: cmsStack.cmsUrl,
 	websiteUrl: websiteStack.websiteUrl,
-	hostedZone: dnsStack.hostedZone,
-	regionalCertificate: dnsStack.regionalCertificate,
-});
-
-new SocialMediaStack(app, socialMediaStackName, {
-	...commonStackProps,
-	description: `Social Media API Services (${environment}${branchSuffix})`,
 	hostedZone: dnsStack.hostedZone,
 	regionalCertificate: dnsStack.regionalCertificate,
 });
