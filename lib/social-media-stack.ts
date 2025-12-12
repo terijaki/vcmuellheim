@@ -122,7 +122,11 @@ export class SocialMediaStack extends cdk.Stack {
 			timeout: cdk.Duration.minutes(5),
 			memorySize: 512,
 			layers: [powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: new cdk.aws_logs.LogGroup(this, "InstagramSyncLogGroup", {
+				logGroupName: `/aws/lambda/instagram-sync-${environment}${branchSuffix}`,
+				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			}),
 			bundling: {
 				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
@@ -145,7 +149,11 @@ export class SocialMediaStack extends cdk.Stack {
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
 			layers: [powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: new cdk.aws_logs.LogGroup(this, "InstagramPostsLogGroup", {
+				logGroupName: `/aws/lambda/instagram-posts-${environment}${branchSuffix}`,
+				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			}),
 			bundling: {
 				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
@@ -200,7 +208,11 @@ export class SocialMediaStack extends cdk.Stack {
 			timeout: cdk.Duration.seconds(60), // Increased timeout for image uploads
 			memorySize: 512, // Increased memory for image processing
 			layers: [powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: new cdk.aws_logs.LogGroup(this, "MastodonShareLogGroup", {
+				logGroupName: `/aws/lambda/mastodon-share-${environment}${branchSuffix}`,
+				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			}),
 			bundling: {
 				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core", "@aws-sdk/client-s3"],
 				minify: true,
@@ -229,7 +241,11 @@ export class SocialMediaStack extends cdk.Stack {
 				timeout: cdk.Duration.seconds(30),
 				memorySize: 256,
 				layers: [powertoolsLayer],
-				logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				logGroup: new cdk.aws_logs.LogGroup(this, "MastodonStreamHandlerLogGroup2", {
+					logGroupName: `/aws/lambda/mastodon-stream-handler-${environment}${branchSuffix}`,
+					retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+					removalPolicy: cdk.RemovalPolicy.DESTROY,
+				}),
 				bundling: {
 					externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core", "@aws-sdk/client-dynamodb", "@aws-sdk/lib-dynamodb", "@aws-sdk/client-lambda"],
 					minify: true,

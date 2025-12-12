@@ -150,7 +150,11 @@ export class SamsApiStack extends cdk.Stack {
 			timeout: cdk.Duration.seconds(60),
 			memorySize: 512,
 			layers: [powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: new cdk.aws_logs.LogGroup(this, "SamsLeagueMatchesLogGroup", {
+				logGroupName: `/aws/lambda/sams-league-matches-${environment}${branchSuffix}`,
+				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			}),
 			bundling: {
 				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
@@ -171,7 +175,11 @@ export class SamsApiStack extends cdk.Stack {
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
 			layers: [powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: new cdk.aws_logs.LogGroup(this, "SamsSeasonsLogGroup", {
+				logGroupName: `/aws/lambda/sams-seasons-${environment}${branchSuffix}`,
+				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			}),
 			bundling: {
 				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
@@ -189,7 +197,11 @@ export class SamsApiStack extends cdk.Stack {
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 512,
 			layers: [powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: new cdk.aws_logs.LogGroup(this, "SamsRankingsLogGroup", {
+				logGroupName: `/aws/lambda/sams-rankings-${environment}${branchSuffix}`,
+				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			}),
 			bundling: {
 				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
@@ -207,7 +219,11 @@ export class SamsApiStack extends cdk.Stack {
 			timeout: cdk.Duration.seconds(60), // Longer timeout for pagination
 			memorySize: 256,
 			layers: [powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: new cdk.aws_logs.LogGroup(this, "SamsAssociationsLogGroup", {
+				logGroupName: `/aws/lambda/sams-associations-${environment}${branchSuffix}`,
+				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			}),
 			bundling: {
 				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
@@ -228,7 +244,11 @@ export class SamsApiStack extends cdk.Stack {
 			timeout: cdk.Duration.minutes(10), // Longer timeout for paginated sync
 			memorySize: 512,
 			layers: [powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: new cdk.aws_logs.LogGroup(this, "SamsClubsSyncLogGroup", {
+				logGroupName: `/aws/lambda/sams-clubs-sync-${environment}${branchSuffix}`,
+				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			}),
 			bundling: {
 				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
@@ -253,7 +273,11 @@ export class SamsApiStack extends cdk.Stack {
 			timeout: cdk.Duration.minutes(10),
 			memorySize: 512,
 			layers: [powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: new cdk.aws_logs.LogGroup(this, "SamsTeamsSyncLogGroup", {
+				logGroupName: `/aws/lambda/sams-teams-sync-${environment}${branchSuffix}`,
+				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			}),
 			bundling: {
 				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
@@ -278,7 +302,11 @@ export class SamsApiStack extends cdk.Stack {
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 512,
 			layers: [powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: new cdk.aws_logs.LogGroup(this, "SamsClubsLogGroup", {
+				logGroupName: `/aws/lambda/sams-clubs-${environment}${branchSuffix}`,
+				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			}),
 			bundling: {
 				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
@@ -302,7 +330,11 @@ export class SamsApiStack extends cdk.Stack {
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
 			layers: [powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: new cdk.aws_logs.LogGroup(this, "SamsTeamsLogGroup", {
+				logGroupName: `/aws/lambda/sams-teams-${environment}${branchSuffix}`,
+				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			}),
 			bundling: {
 				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,
@@ -325,7 +357,11 @@ export class SamsApiStack extends cdk.Stack {
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
 			layers: [powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: new cdk.aws_logs.LogGroup(this, "SamsLogoProxyLogGroup", {
+				logGroupName: `/aws/lambda/sams-logo-proxy-${environment}${branchSuffix}`,
+				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			}),
 			bundling: {
 				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
 				minify: true,

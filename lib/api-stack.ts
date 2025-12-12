@@ -343,6 +343,12 @@ export class ApiStack extends cdk.Stack {
 		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
 		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
 
+		const trpcLogGroup = new cdk.aws_logs.LogGroup(this, "TrpcLogGroup", {
+			logGroupName: `/aws/lambda/vcm-trpc-api-${environment}${branchSuffix}`,
+			retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			removalPolicy: cdk.RemovalPolicy.DESTROY,
+		});
+
 		this.trpcLambda = new NodejsFunction(this, "TrpcApiLambda", {
 			functionName: `vcm-trpc-api-${environment}${branchSuffix}`,
 			entry: "lambda/content/handler.ts",
@@ -351,7 +357,7 @@ export class ApiStack extends cdk.Stack {
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 512,
 			layers: [powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: trpcLogGroup,
 			environment: {
 				...Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
 				CDK_ENVIRONMENT: environment,
@@ -417,6 +423,12 @@ export class ApiStack extends cdk.Stack {
 		);
 
 		// ICS Calendar Lambda
+		const icsLogGroup = new cdk.aws_logs.LogGroup(this, "IcsLogGroup", {
+			logGroupName: `/aws/lambda/vcm-ics-calendar-${environment}${branchSuffix}`,
+			retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			removalPolicy: cdk.RemovalPolicy.DESTROY,
+		});
+
 		const icsLambda = new NodejsFunction(this, "IcsCalendarLambda", {
 			functionName: `vcm-ics-calendar-${environment}${branchSuffix}`,
 			entry: "lambda/content/ics-calendar.ts",
@@ -424,7 +436,7 @@ export class ApiStack extends cdk.Stack {
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 512,
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: icsLogGroup,
 			environment: {
 				TEAMS_TABLE_NAME: tables.TEAMS.tableName,
 				EVENTS_TABLE_NAME: tables.EVENTS.tableName,
@@ -442,6 +454,12 @@ export class ApiStack extends cdk.Stack {
 		tables.EVENTS.grantReadData(icsLambda);
 
 		// Sitemap Lambda
+		const sitemapLogGroup = new cdk.aws_logs.LogGroup(this, "SitemapLogGroup", {
+			logGroupName: `/aws/lambda/vcm-sitemap-${environment}${branchSuffix}`,
+			retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			removalPolicy: cdk.RemovalPolicy.DESTROY,
+		});
+
 		const sitemapLambda = new NodejsFunction(this, "SitemapLambda", {
 			functionName: `vcm-sitemap-${environment}${branchSuffix}`,
 			entry: "lambda/content/sitemap.ts",
@@ -449,7 +467,7 @@ export class ApiStack extends cdk.Stack {
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: sitemapLogGroup,
 			environment: {
 				...Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
 				WEBSITE_URL: props.websiteUrl || `https://${Club.domain}`,
@@ -467,6 +485,12 @@ export class ApiStack extends cdk.Stack {
 		}
 
 		// S3 Cleanup Lambda - triggered by DynamoDB Streams
+		const s3CleanupLogGroup = new cdk.aws_logs.LogGroup(this, "S3CleanupLogGroup", {
+			logGroupName: `/aws/lambda/vcm-s3-cleanup-${environment}${branchSuffix}`,
+			retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			removalPolicy: cdk.RemovalPolicy.DESTROY,
+		});
+
 		const s3CleanupLambda = new NodejsFunction(this, "S3CleanupLambda", {
 			functionName: `vcm-s3-cleanup-${environment}${branchSuffix}`,
 			entry: "lambda/content/s3-cleanup.ts",
@@ -474,7 +498,7 @@ export class ApiStack extends cdk.Stack {
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			timeout: cdk.Duration.seconds(60),
 			memorySize: 256,
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: s3CleanupLogGroup,
 			environment: {
 				MEDIA_BUCKET_NAME: props.mediaBucket?.bucketName || "",
 			},

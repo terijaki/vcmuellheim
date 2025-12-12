@@ -113,6 +113,12 @@ export class MediaStack extends cdk.Stack {
 		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
 
 		// Create image processor Lambda function
+		const imageProcessorLogGroup = new cdk.aws_logs.LogGroup(this, "ImageProcessorLogGroup", {
+			logGroupName: "/aws/lambda/image-processor",
+			retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			removalPolicy: cdk.RemovalPolicy.DESTROY,
+		});
+
 		const imageProcessorFunction = new NodejsFunction(this, "ImageProcessor", {
 			runtime: lambda.Runtime.NODEJS_LATEST,
 			handler: "handler",
@@ -120,7 +126,7 @@ export class MediaStack extends cdk.Stack {
 			timeout: cdk.Duration.minutes(5),
 			memorySize: 512, // Need more memory for image processing
 			layers: [imageMagickLayer, powertoolsLayer],
-			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+			logGroup: imageProcessorLogGroup,
 			bundling: {
 				minify: true,
 				sourceMap: true,
