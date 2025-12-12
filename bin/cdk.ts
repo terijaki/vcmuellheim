@@ -101,6 +101,8 @@ new SocialMediaStack(app, socialMediaStackName, {
 	regionalCertificate: dnsStack.regionalCertificate,
 	newsTable: contentDbStack.newsTable,
 	websiteUrl: websiteStack.websiteUrl,
+	mediaBucket: mediaStack.bucket,
+	cloudFrontUrl: mediaStack.cloudFrontUrl,
 });
 
 const apiStack = new ApiStack(app, apiStackName, {

@@ -138,4 +138,52 @@ describe("Mastodon Share Lambda", () => {
 		const headers = calls[0][1]?.headers as Record<string, string>;
 		expect(headers.Authorization).toBe("Bearer test-token");
 	});
+
+	test("should include idempotency key based on article ID", async () => {
+		const { shareToMastodon } = await import("./mastodon-share");
+
+		const newsArticle: News = {
+			id: "unique-article-id",
+			type: "article",
+			title: "Test Article",
+			slug: "test-article",
+			content: "<p>Test content</p>",
+			status: "published",
+			createdAt: "2024-01-01T00:00:00.000Z",
+			updatedAt: "2024-01-01T00:00:00.000Z",
+		};
+
+		await shareToMastodon({
+			newsArticle,
+			websiteUrl: "https://vcmuellheim.de",
+		});
+
+		const calls = mockFetch.mock.calls as Array<[string, RequestInit?]>;
+		const headers = calls[0][1]?.headers as Record<string, string>;
+		expect(headers["Idempotency-Key"]).toBe("news-unique-article-id");
+	});
+
+	test("should set language to German", async () => {
+		const { shareToMastodon } = await import("./mastodon-share");
+
+		const newsArticle: News = {
+			id: "test-id",
+			type: "article",
+			title: "Test Article",
+			slug: "test-article",
+			content: "<p>Test content</p>",
+			status: "published",
+			createdAt: "2024-01-01T00:00:00.000Z",
+			updatedAt: "2024-01-01T00:00:00.000Z",
+		};
+
+		await shareToMastodon({
+			newsArticle,
+			websiteUrl: "https://vcmuellheim.de",
+		});
+
+		const calls = mockFetch.mock.calls as Array<[string, RequestInit?]>;
+		const body = JSON.parse(calls[0][1]?.body as string);
+		expect(body.language).toBe("de");
+	});
 });

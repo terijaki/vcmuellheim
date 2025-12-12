@@ -11,6 +11,7 @@ import { DynamoEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
+import type * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import { Club } from "@/project.config";
 
@@ -23,6 +24,8 @@ interface SocialMediaStackProps extends cdk.StackProps {
 	regionalCertificate?: acm.ICertificate;
 	newsTable?: dynamodb.ITable;
 	websiteUrl?: string;
+	mediaBucket?: s3.IBucket;
+	cloudFrontUrl?: string;
 }
 
 export class SocialMediaStack extends cdk.Stack {
@@ -191,17 +194,24 @@ export class SocialMediaStack extends cdk.Stack {
 			entry: path.join(__dirname, "../lambda/social/mastodon-share.ts"),
 			environment: {
 				MASTODON_ACCESS_TOKEN: mastodonAccessToken || "",
+				...(props.cloudFrontUrl ? { CLOUDFRONT_URL: props.cloudFrontUrl } : {}),
+				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
 			},
-			timeout: cdk.Duration.seconds(30),
-			memorySize: 256,
+			timeout: cdk.Duration.seconds(60), // Increased timeout for image uploads
+			memorySize: 512, // Increased memory for image processing
 			layers: [powertoolsLayer],
 			logRetention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			bundling: {
-				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
+				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core", "@aws-sdk/client-s3"],
 				minify: true,
 				sourceMap: true,
 			},
 		});
+
+		// Grant S3 read permissions to Mastodon Lambda for image uploads
+		if (props.mediaBucket) {
+			props.mediaBucket.grantRead(mastodonShare);
+		}
 
 		// Create Lambda function for Mastodon stream handler (DynamoDB streams)
 		if (props.newsTable && props.websiteUrl) {
