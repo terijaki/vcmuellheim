@@ -82,7 +82,7 @@ export default function TeamCard(props: Team) {
 								const location = schedule.locationId ? null : locations?.items.find((loc) => loc.id === schedule.locationId);
 								const weekdayNames = schedule.days
 									.map((d) => {
-										return `${dayjs().weekday(d).format("dddd")}s `;
+										return `${dayjs().weekday(d).format("dddd")}s`;
 									})
 									.join(separator);
 								return (
