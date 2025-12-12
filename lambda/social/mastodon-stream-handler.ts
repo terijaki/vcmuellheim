@@ -41,27 +41,31 @@ export async function handler(event: DynamoDBStreamEvent): Promise<void> {
 
 	for (const record of event.Records) {
 		try {
-			// Only process MODIFY events (when a news article is updated)
-			if (record.eventName !== "MODIFY") {
-				continue;
-			}
-
-			// Get old and new images
-			const oldImage = record.dynamodb?.OldImage;
 			const newImage = record.dynamodb?.NewImage;
 
-			if (!oldImage || !newImage) {
-				console.log("⏭️ Skipping record - missing old or new image");
+			if (!newImage) {
+				console.log("⏭️ Skipping record - missing new image");
 				continue;
 			}
 
-			// Unmarshall DynamoDB records to plain objects
-			const oldNews = unmarshall(oldImage as Record<string, AttributeValue>) as News;
+			// Unmarshall new DynamoDB record
 			const newNews = unmarshall(newImage as Record<string, AttributeValue>) as News;
+			const notYetShared = !newNews.sharedToMastodon;
 
 			// Check if this is a news article being published
-			const isBeingPublished = oldNews.status !== "published" && newNews.status === "published";
-			const notYetShared = !newNews.sharedToMastodon;
+			let isBeingPublished = false;
+
+			if (record.eventName === "MODIFY") {
+				// Status transition to published (e.g., draft → published, archived → published)
+				const oldImage = record.dynamodb?.OldImage;
+				if (oldImage) {
+					const oldNews = unmarshall(oldImage as Record<string, AttributeValue>) as News;
+					isBeingPublished = oldNews.status !== "published" && newNews.status === "published";
+				}
+			} else if (record.eventName === "INSERT") {
+				// New article created directly with published status
+				isBeingPublished = newNews.status === "published";
+			}
 
 			if (isBeingPublished && notYetShared) {
 				console.log("📤 News article being published - triggering Mastodon share", {

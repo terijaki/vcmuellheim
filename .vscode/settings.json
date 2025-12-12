@@ -1,12 +1,27 @@
 {
-	"indentRainbow.indicatorStyle": "light",
-	"indentRainbow.lightIndicatorStyleLineWidth": 8,
 	"window.title": "VC Müllheim - ${activeEditorShort}",
+	"editor.defaultFormatter": "biomejs.biome",
+	"[css]": {
+		"editor.defaultFormatter": "vscode.css-language-features"
+	},
+	"[html]": {
+		"editor.defaultFormatter": "vscode.html-language-features"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	},
 	"editor.codeActionsOnSave": {
 		"source.organizeImports.biome": "explicit",
 		"source.fixAll.biome": "explicit",
 	},
 	"files.insertFinalNewline": true,
 	"files.trimFinalNewlines": false,
-	"typescript.tsdk": "node_modules/typescript/lib"
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"vs-browser.favourites.list": {
+		"localhost (website)": "http://localhost:3080",
+		"localhost (cms)": "http://localhost:3081"
+	},
 }
