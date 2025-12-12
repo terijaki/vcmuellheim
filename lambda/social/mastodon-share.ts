@@ -30,7 +30,7 @@ interface MastodonMediaResponse {
 }
 
 /**
- * Upload image to Mastodon media API
+ * Upload image to Mastodon media API v2
  */
 async function uploadMediaToMastodon(s3Key: string): Promise<string | null> {
 	try {
@@ -53,13 +53,13 @@ async function uploadMediaToMastodon(s3Key: string): Promise<string | null> {
 		}
 		const buffer = Buffer.concat(chunks);
 
-		// Create form data for Mastodon media upload
+		// Create form data for Mastodon media upload (v2 API)
 		const formData = new FormData();
 		const blob = new Blob([buffer], { type: s3Response.ContentType || "image/jpeg" });
 		formData.append("file", blob, s3Key.split("/").pop() || "image.jpg");
 
-		// Upload to Mastodon
-		const response = await fetch(`${MASTODON_BASE_URL}/media`, {
+		// Upload to Mastodon using v2 API
+		const response = await fetch(`https://freiburg.social/api/v2/media`, {
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${MASTODON_ACCESS_TOKEN}`,
