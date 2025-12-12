@@ -68,7 +68,7 @@ export default function TeamCard(props: Team) {
 					{description && (
 						<Stack gap={0}>
 							<Text fw="bold">Info:</Text>
-							<Text size="sm">{description}</Text>
+							<Text>{description}</Text>
 						</Stack>
 					)}
 					{trainingSchedules && trainingSchedules.length > 0 && (
@@ -79,7 +79,7 @@ export default function TeamCard(props: Team) {
 							</Group>
 							{trainingSchedules.map((schedule) => {
 								const separator = schedule.days.length > 2 ? ", " : " & ";
-								const location = schedule.locationId ? null : locations?.items.find((loc) => loc.id === schedule.locationId);
+								const location = locations?.items.find((loc) => loc.id === schedule.locationId);
 								const weekdayNames = schedule.days
 									.map((d) => {
 										return `${dayjs().weekday(d).format("dddd")}s`;
