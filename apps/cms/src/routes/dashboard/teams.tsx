@@ -29,12 +29,18 @@ import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import dayjs from "dayjs";
+import de from "dayjs/locale/de";
+import weekday from "dayjs/plugin/weekday";
 import { Check, Mars, Plus, SquarePen, Trash2, Upload, Venus, VenusAndMars, X } from "lucide-react";
 import { useState } from "react";
 import { bytesToMB, MAX_UPLOAD_SIZE } from "@/apps/shared/lib/image-config";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
 import type { Member } from "@/lib/db";
 import { useNotification } from "../../hooks/useNotification";
+
+dayjs.locale(de);
+dayjs.extend(weekday);
 
 function PersonAvatar({ avatarS3Key, name }: { avatarS3Key?: string; name: string }) {
 	const trpc = useTRPC();
@@ -177,15 +183,10 @@ function TeamPictureCard({ s3Key, isDeleted, onDeleteToggle }: { s3Key: string; 
 	);
 }
 
-const WEEKDAYS = [
-	{ value: "1", label: "Montag" },
-	{ value: "2", label: "Dienstag" },
-	{ value: "3", label: "Mittwoch" },
-	{ value: "4", label: "Donnerstag" },
-	{ value: "5", label: "Freitag" },
-	{ value: "6", label: "Samstag" },
-	{ value: "0", label: "Sonntag" },
-];
+const weekdays = Array.from({ length: 7 }, (_, i) => ({
+	value: String(i),
+	label: dayjs().weekday(i).format("dddd"),
+}));
 
 function TrainingScheduleManager({
 	schedules,
@@ -247,15 +248,13 @@ function TrainingScheduleManager({
 								placeholder="Tage auswählen..."
 								value={schedule.days.map(String)}
 								onChange={(value) => updateSchedule(index, { days: value.map(Number) })}
-								data={WEEKDAYS}
+								data={weekdays}
 								required
-							/>
-
+							/>{" "}
 							<Group grow>
 								<TimeInput label="Startzeit" value={schedule.startTime} onChange={(e) => updateSchedule(index, { startTime: e.target.value })} required />
 								<TimeInput label="Endzeit" value={schedule.endTime} onChange={(e) => updateSchedule(index, { endTime: e.target.value })} required />
 							</Group>
-
 							<Select
 								label="Ort"
 								placeholder="Ort auswählen..."
@@ -673,7 +672,7 @@ function TeamsPage() {
 														<Stack gap={4}>
 															{team.trainingSchedules?.map((schedule, idx) => {
 																const location = locations?.items.find((loc) => loc.id === schedule.locationId);
-																const dayLabels = schedule.days.map((d) => WEEKDAYS.find((wd) => wd.value === String(d))?.label).join(", ");
+																const dayLabels = schedule.days.map((d) => weekdays[d]?.label).join(", ");
 																return (
 																	<Text key={`${schedule.locationId}-${schedule.startTime}-${idx}`} size="xs">
 																		{dayLabels}: {schedule.startTime}-{schedule.endTime} ({location?.name || "Unbekannt"})
@@ -791,7 +790,7 @@ function TeamsPage() {
 												<Stack gap={0}>
 													{team.trainingSchedules?.map((schedule, idx) => {
 														const location = locations?.items.find((loc) => loc.id === schedule.locationId);
-														const dayLabels = schedule.days.map((d) => WEEKDAYS.find((wd) => wd.value === String(d))?.label).join(", ");
+														const dayLabels = schedule.days.map((d) => weekdays[d]?.label).join(", ");
 														return (
 															<Text key={`${schedule.locationId}-${schedule.startTime}-${idx}`} size="xs">
 																{dayLabels}: {schedule.startTime}-{schedule.endTime}
