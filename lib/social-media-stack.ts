@@ -123,7 +123,6 @@ export class SocialMediaStack extends cdk.Stack {
 			memorySize: 512,
 			layers: [powertoolsLayer],
 			logGroup: new cdk.aws_logs.LogGroup(this, "InstagramSyncLogGroup", {
-				logGroupName: `/aws/lambda/instagram-sync-${environment}${branchSuffix}`,
 				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 				removalPolicy: cdk.RemovalPolicy.DESTROY,
 			}),
@@ -150,7 +149,6 @@ export class SocialMediaStack extends cdk.Stack {
 			memorySize: 256,
 			layers: [powertoolsLayer],
 			logGroup: new cdk.aws_logs.LogGroup(this, "InstagramPostsLogGroup", {
-				logGroupName: `/aws/lambda/instagram-posts-${environment}${branchSuffix}`,
 				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 				removalPolicy: cdk.RemovalPolicy.DESTROY,
 			}),
@@ -209,7 +207,6 @@ export class SocialMediaStack extends cdk.Stack {
 			memorySize: 512, // Increased memory for image processing
 			layers: [powertoolsLayer],
 			logGroup: new cdk.aws_logs.LogGroup(this, "MastodonShareLogGroup", {
-				logGroupName: `/aws/lambda/mastodon-share-${environment}${branchSuffix}`,
 				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 				removalPolicy: cdk.RemovalPolicy.DESTROY,
 			}),
@@ -242,7 +239,6 @@ export class SocialMediaStack extends cdk.Stack {
 				memorySize: 256,
 				layers: [powertoolsLayer],
 				logGroup: new cdk.aws_logs.LogGroup(this, "MastodonStreamHandlerLogGroup2", {
-					logGroupName: `/aws/lambda/mastodon-stream-handler-${environment}${branchSuffix}`,
 					retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 					removalPolicy: cdk.RemovalPolicy.DESTROY,
 				}),

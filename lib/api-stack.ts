@@ -344,7 +344,6 @@ export class ApiStack extends cdk.Stack {
 		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
 
 		const trpcLogGroup = new cdk.aws_logs.LogGroup(this, "TrpcLogGroup", {
-			logGroupName: `/aws/lambda/vcm-trpc-api-${environment}${branchSuffix}`,
 			retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			removalPolicy: cdk.RemovalPolicy.DESTROY,
 		});
@@ -424,7 +423,6 @@ export class ApiStack extends cdk.Stack {
 
 		// ICS Calendar Lambda
 		const icsLogGroup = new cdk.aws_logs.LogGroup(this, "IcsLogGroup", {
-			logGroupName: `/aws/lambda/vcm-ics-calendar-${environment}${branchSuffix}`,
 			retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			removalPolicy: cdk.RemovalPolicy.DESTROY,
 		});
@@ -455,7 +453,6 @@ export class ApiStack extends cdk.Stack {
 
 		// Sitemap Lambda
 		const sitemapLogGroup = new cdk.aws_logs.LogGroup(this, "SitemapLogGroup", {
-			logGroupName: `/aws/lambda/vcm-sitemap-${environment}${branchSuffix}`,
 			retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			removalPolicy: cdk.RemovalPolicy.DESTROY,
 		});
@@ -486,7 +483,6 @@ export class ApiStack extends cdk.Stack {
 
 		// S3 Cleanup Lambda - triggered by DynamoDB Streams
 		const s3CleanupLogGroup = new cdk.aws_logs.LogGroup(this, "S3CleanupLogGroup", {
-			logGroupName: `/aws/lambda/vcm-s3-cleanup-${environment}${branchSuffix}`,
 			retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			removalPolicy: cdk.RemovalPolicy.DESTROY,
 		});

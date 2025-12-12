@@ -151,7 +151,6 @@ export class SamsApiStack extends cdk.Stack {
 			memorySize: 512,
 			layers: [powertoolsLayer],
 			logGroup: new cdk.aws_logs.LogGroup(this, "SamsLeagueMatchesLogGroup", {
-				logGroupName: `/aws/lambda/sams-league-matches-${environment}${branchSuffix}`,
 				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 				removalPolicy: cdk.RemovalPolicy.DESTROY,
 			}),
@@ -176,7 +175,6 @@ export class SamsApiStack extends cdk.Stack {
 			memorySize: 256,
 			layers: [powertoolsLayer],
 			logGroup: new cdk.aws_logs.LogGroup(this, "SamsSeasonsLogGroup", {
-				logGroupName: `/aws/lambda/sams-seasons-${environment}${branchSuffix}`,
 				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 				removalPolicy: cdk.RemovalPolicy.DESTROY,
 			}),
@@ -198,7 +196,6 @@ export class SamsApiStack extends cdk.Stack {
 			memorySize: 512,
 			layers: [powertoolsLayer],
 			logGroup: new cdk.aws_logs.LogGroup(this, "SamsRankingsLogGroup", {
-				logGroupName: `/aws/lambda/sams-rankings-${environment}${branchSuffix}`,
 				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 				removalPolicy: cdk.RemovalPolicy.DESTROY,
 			}),
@@ -220,7 +217,6 @@ export class SamsApiStack extends cdk.Stack {
 			memorySize: 256,
 			layers: [powertoolsLayer],
 			logGroup: new cdk.aws_logs.LogGroup(this, "SamsAssociationsLogGroup", {
-				logGroupName: `/aws/lambda/sams-associations-${environment}${branchSuffix}`,
 				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 				removalPolicy: cdk.RemovalPolicy.DESTROY,
 			}),
@@ -245,7 +241,6 @@ export class SamsApiStack extends cdk.Stack {
 			memorySize: 512,
 			layers: [powertoolsLayer],
 			logGroup: new cdk.aws_logs.LogGroup(this, "SamsClubsSyncLogGroup", {
-				logGroupName: `/aws/lambda/sams-clubs-sync-${environment}${branchSuffix}`,
 				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 				removalPolicy: cdk.RemovalPolicy.DESTROY,
 			}),
@@ -274,7 +269,6 @@ export class SamsApiStack extends cdk.Stack {
 			memorySize: 512,
 			layers: [powertoolsLayer],
 			logGroup: new cdk.aws_logs.LogGroup(this, "SamsTeamsSyncLogGroup", {
-				logGroupName: `/aws/lambda/sams-teams-sync-${environment}${branchSuffix}`,
 				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 				removalPolicy: cdk.RemovalPolicy.DESTROY,
 			}),
@@ -303,7 +297,6 @@ export class SamsApiStack extends cdk.Stack {
 			memorySize: 512,
 			layers: [powertoolsLayer],
 			logGroup: new cdk.aws_logs.LogGroup(this, "SamsClubsLogGroup", {
-				logGroupName: `/aws/lambda/sams-clubs-${environment}${branchSuffix}`,
 				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 				removalPolicy: cdk.RemovalPolicy.DESTROY,
 			}),
@@ -331,7 +324,6 @@ export class SamsApiStack extends cdk.Stack {
 			memorySize: 256,
 			layers: [powertoolsLayer],
 			logGroup: new cdk.aws_logs.LogGroup(this, "SamsTeamsLogGroup", {
-				logGroupName: `/aws/lambda/sams-teams-${environment}${branchSuffix}`,
 				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 				removalPolicy: cdk.RemovalPolicy.DESTROY,
 			}),
@@ -358,7 +350,6 @@ export class SamsApiStack extends cdk.Stack {
 			memorySize: 256,
 			layers: [powertoolsLayer],
 			logGroup: new cdk.aws_logs.LogGroup(this, "SamsLogoProxyLogGroup", {
-				logGroupName: `/aws/lambda/sams-logo-proxy-${environment}${branchSuffix}`,
 				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 				removalPolicy: cdk.RemovalPolicy.DESTROY,
 			}),

@@ -114,7 +114,6 @@ export class MediaStack extends cdk.Stack {
 
 		// Create image processor Lambda function
 		const imageProcessorLogGroup = new cdk.aws_logs.LogGroup(this, "ImageProcessorLogGroup", {
-			logGroupName: "/aws/lambda/image-processor",
 			retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			removalPolicy: cdk.RemovalPolicy.DESTROY,
 		});
