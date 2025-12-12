@@ -51,7 +51,7 @@ describe("Mastodon Share Lambda", () => {
 		const body = JSON.parse(calls[0][1]?.body as string);
 		expect(body.status).toContain("Test News Article");
 		expect(body.status).toContain("This is a test excerpt for the article");
-		expect(body.status).toContain("https://vcmuellheim.de/news/test-news-article");
+		expect(body.status).toContain("https://vcmuellheim.de/news/test-id");
 		expect(body.visibility).toBe("public");
 	});
 
@@ -76,13 +76,13 @@ describe("Mastodon Share Lambda", () => {
 
 		const calls = mockFetch.mock.calls as Array<[string, RequestInit?]>;
 		const body = JSON.parse(calls[0][1]?.body as string);
-		expect(body.status).toBe("Test Article Without Excerpt\n\nhttps://vcmuellheim.de/news/test-article-without-excerpt");
+		expect(body.status).toBe("Test Article Without Excerpt\n\nhttps://vcmuellheim.de/news/test-id");
 	});
 
 	test("should truncate long excerpt to fit 500 character limit", async () => {
 		const { shareToMastodon } = await import("./mastodon-share");
 
-		const longExcerpt = "A".repeat(450);
+		const longExcerpt = "A".repeat(460); // Increased to trigger truncation with shorter ID URL
 		const newsArticle: News = {
 			id: "test-id",
 			type: "article",

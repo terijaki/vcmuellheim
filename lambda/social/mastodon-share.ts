@@ -30,7 +30,7 @@ export async function shareToMastodon(request: MastodonShareRequest): Promise<Ma
 	const { newsArticle, websiteUrl } = request;
 
 	// Build post content
-	const articleUrl = `${websiteUrl}/news/${newsArticle.slug}`;
+	const articleUrl = `${websiteUrl}/news/${newsArticle.id}`;
 	const status = buildMastodonStatus(newsArticle, articleUrl);
 
 	console.log("📤 Sharing to Mastodon:", { title: newsArticle.title, url: articleUrl });
