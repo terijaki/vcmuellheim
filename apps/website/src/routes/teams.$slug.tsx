@@ -1,6 +1,8 @@
 import { Anchor, Avatar, Button, Card, CardSection, Center, Flex, Group, Stack, Text } from "@mantine/core";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
+import de from "dayjs/locale/de";
+import weekday from "dayjs/plugin/weekday";
 import { Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import { getIcsHostname } from "../../../shared/lib/api-url";
@@ -13,6 +15,9 @@ import MapsLink from "../components/MapsLink";
 import Matches from "../components/Matches";
 import RankingTable from "../components/RankingTable";
 import { useFileUrls, useLocations, useMembers, useSamsMatches, useSamsRankingsByLeagueUuid, useSamsTeams, useTeamBySlug } from "../lib/hooks";
+
+dayjs.locale(de);
+dayjs.extend(weekday);
 
 export const Route = createFileRoute("/teams/$slug")({
 	component: RouteComponent,
@@ -163,8 +168,6 @@ function TeamSchedule({ team }: { team: NonNullable<ReturnType<typeof useTeamByS
 
 	if (!team.trainingSchedules || team.trainingSchedules.length === 0) return null;
 
-	const daysOfWeek = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
-
 	return (
 		<Card>
 			<Stack>
@@ -172,7 +175,7 @@ function TeamSchedule({ team }: { team: NonNullable<ReturnType<typeof useTeamByS
 				<Flex columnGap="xl" rowGap="md" wrap="wrap">
 					{team.trainingSchedules.map((schedule) => {
 						const location = locations?.items.find((loc) => loc.id === schedule.locationId);
-						const dayNames = schedule.days.map((day) => daysOfWeek[day]);
+						const dayNames = schedule.days.map((d) => `${dayjs().weekday(d).format("dddd")}s`);
 						const separator = dayNames.length > 2 ? ", " : " & ";
 						const scheduleKey = `${schedule.days.join("-")}-${schedule.startTime}-${schedule.endTime}`;
 
