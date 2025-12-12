@@ -25,8 +25,8 @@ function RouteComponent() {
 					<CardTitle>§ 2 Höhe des Mitgliedbeitrages</CardTitle>
 					<ol>
 						<li>Die Höhe des Mitgliedbeitrags wird durch die Mitgliederversammlung des Vereins festgelegt.</li>
-						<li>Der Mitgliederbeitrag für Kinder und Jugendliche bis zur Vollendung des 16. Lebensjahres beträgt 60,00 Euro.</li>
-						<li>Der Beitrag für Jugendliche ab 16 Jahren und Erwachsene beträgt 110,00 Euro.</li>
+						<li>Der Mitgliederbeitrag für Kinder und Jugendliche bis zur Vollendung des 18. Lebensjahres beträgt 60,00 Euro.</li>
+						<li>Der Beitrag für Jugendliche ab 18 Jahren und Erwachsene beträgt 110,00 Euro.</li>
 						<li>Der Beitrag für Familien, unabhängig von der Anzahl der Familienmitglieder, beträgt 165,00 Euro.</li>
 						<li>Der Beitrag für passive Mitglieder beträgt 25,00 Euro.</li>
 						<li>Bei einem Eintritt ab dem 01.07. eines Jahres wird nur die Hälfte des Jahresbeitrags fällig.</li>
@@ -34,7 +34,7 @@ function RouteComponent() {
 					<CardTitle>§3 Reduzierungen</CardTitle>
 					<ol>
 						<li>
-							Der Beitrag für Jugendliche ab 16 Jahren, und Erwachsene wird bei Vorlage einer entsprechenden Bescheinigung auf 60,00 Euro reduziert, wenn das Mitglied sich noch in der Schule, in einer
+							Der Beitrag für Jugendliche ab 18 Jahren, und Erwachsene wird bei Vorlage einer entsprechenden Bescheinigung auf 60,00 Euro reduziert, wenn das Mitglied sich noch in der Schule, in einer
 							Berufsausbildung oder einem Studium befindet. Die Bescheinigung ist dem Kassenwart bis zum 31.12. eines Jahres für das folgende Kalenderjahr vorzulegen.
 						</li>
 						<li>
