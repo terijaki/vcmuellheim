@@ -178,7 +178,6 @@ export class SocialMediaStack extends cdk.Stack {
 
 		// Environment variables for Mastodon
 		const mastodonAccessToken = process.env.MASTODON_ACCESS_TOKEN;
-		const mastodonClientId = process.env.MASTODON_CLIENT_ID;
 
 		if (!mastodonAccessToken && !isCdkDestroy && isProd) {
 			console.warn("⚠️  MASTODON_ACCESS_TOKEN not set - Mastodon sharing will be disabled in production");
@@ -192,7 +191,6 @@ export class SocialMediaStack extends cdk.Stack {
 			entry: path.join(__dirname, "../lambda/social/mastodon-share.ts"),
 			environment: {
 				MASTODON_ACCESS_TOKEN: mastodonAccessToken || "",
-				MASTODON_CLIENT_ID: mastodonClientId || "",
 			},
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
