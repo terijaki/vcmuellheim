@@ -46,7 +46,7 @@ export const teamsRouter = router({
 		.mutation(async ({ input }) => {
 			// Build updates with slug regeneration if name changes
 			const baseUpdates = { ...input.data };
-			const updates = input.data.name ? { ...baseUpdates, slug: slugify(input.data.name) } : baseUpdates;
+			const updates = input.data.name ? { ...baseUpdates, slug: slugify(input.data.name, true) } : baseUpdates;
 			return teamsRepository.update(input.id, updates);
 		}),
 
