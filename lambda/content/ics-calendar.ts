@@ -119,11 +119,37 @@ function convertEventToIcs(event: Event, timestamp: Date): IcsEvent {
 const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 	logger.appendKeys({
 		path: event.path || "unknown",
+		pathParameters: event.pathParameters,
+		headers: {
+			host: event.headers?.host,
+			origin: event.headers?.origin,
+			"cloudfront-viewer-country": event.headers?.["cloudfront-viewer-country"],
+		},
 	});
 
 	try {
 		// Get team slug from path parameters
-		const teamSlug = event.pathParameters?.teamSlug?.replace(".ics", "").toLowerCase();
+		// Handle both /ics/{teamSlug} route and fallback from /{proxy+} route
+		let rawTeamSlug = event.pathParameters?.teamSlug;
+
+		// Fallback: if teamSlug is not set, check if this came through the /{proxy+} route
+		if (!rawTeamSlug && event.pathParameters?.proxy) {
+			const proxyPath = event.pathParameters.proxy;
+			// Extract team slug from paths like "ics/herren1.ics"
+			const match = proxyPath.match(/^ics\/(.+)$/);
+			if (match) {
+				rawTeamSlug = match[1];
+			}
+		}
+
+		const teamSlug = rawTeamSlug?.replace(".ics", "").toLowerCase();
+
+		logger.info("Processing ICS calendar request", {
+			teamSlug,
+			rawTeamSlug,
+			fullPath: event.path,
+			proxyParam: event.pathParameters?.proxy,
+		});
 
 		let teamSamsUuid: string | undefined;
 		let teamId: string | undefined;
