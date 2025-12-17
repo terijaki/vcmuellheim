@@ -14,11 +14,9 @@ export function getCognitoEmailTemplates(cmsDomain: string): { userInvitation: U
 <ol>
 <li>Öffne die Login-Seite: ${loginUrl}</li>
 <li>Gib deine E-Mail-Adresse ein: {username}</li>
-<li>Klicke auf "Passwort vergessen?"</li>
-<li>Du erhältst eine E-Mail zum Zurücksetzen deines Passworts</li>
-<li>Setze dein persönliches Passwort</li>
+<li>Logge dich mit diesem temporären Passwort ein: <b>{####}</b></li>
+<li>Du wirst beim ersten Login aufgefordert, dein Passwort zu ändern.</li>
 </ol>
-<p>Alternativ kannst du auch das dieses temporäre Passwort <b>{####}</b> verwenden und beim ersten Login ein neues Passwort festlegen.</p>
 <p>Bei Fragen wende dich bitte an den Administrator.</p>
 <p>Sportliche Grüße,<br>${Club.shortName}</p>`,
 			emailStyle: VerificationEmailStyle.LINK,
