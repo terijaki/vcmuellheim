@@ -1,4 +1,4 @@
-# News Creation Fix - DynamoDB GSI Schema Correction
+# News Creation Fix - DynamoDB GSI Query Pattern Mismatch
 
 ## Problem Summary
 
@@ -9,18 +9,38 @@ News creation was flaky, particularly for drafts and archived posts:
 
 ## Root Cause
 
-The DynamoDB Global Secondary Index (GSI) configuration was invalid:
+The DynamoDB Global Secondary Index (GSI) configuration used multi-attribute composite keys (a new DynamoDB feature from late 2025), but the query patterns didn't match the composite key ordering rules.
 
-1. **Invalid CDK Parameter**: Used `sortKeys` (plural, array) instead of `sortKey` (singular, object)
-2. **Multiple Sort Keys**: Attempted to define multiple sort keys in a single GSI:
-   - `status`
-   - `updatedAt`
-   - `slug`
-3. **DynamoDB Limitation**: GSIs only support ONE partition key and ONE optional sort key
+**Original GSI Configuration**:
+```typescript
+sortKeys: [
+  { name: "status", type: dynamodb.AttributeType.STRING },
+  { name: "updatedAt", type: dynamodb.AttributeType.STRING },
+  { name: "slug", type: dynamodb.AttributeType.STRING },
+]
+```
 
-This caused the GSI to be created incorrectly or with only partial attributes, making queries fail when trying to filter by `status` or `slug` in the `KeyConditionExpression`.
+**The Problem**: With multi-attribute composite keys, you can only query attributes **left-to-right** in order. You cannot skip attributes.
+
+- ✅ `getAllNews()`: Queries only `type` (partition key) - Works
+- ✅ `getPublishedNews()`: Queries `type AND status` - Works (first sort key)
+- ❌ **`getNewsBySlug()`**: Queries `type AND slug` - **FAILS** because it skips `status` and `updatedAt`
+
+The `getNewsBySlug` function violates DynamoDB's left-to-right composite key rule, causing slug-based queries to fail.
 
 ## Solution
+
+### Understanding Multi-Attribute Composite Keys
+
+DynamoDB added multi-attribute composite key support in late 2025. This allows GSIs to have:
+- Up to 4 attributes for the partition key
+- Up to 4 attributes for the sort key
+
+However, queries must follow the **left-to-right rule**: you can only query attributes in order, without skipping.
+
+### The Fix: Split Into Two GSIs
+
+Since `getNewsBySlug` needs to query by `slug` without specifying `status` or `updatedAt`, we need a separate GSI.
 
 ### 1. News Table - Two GSIs
 
@@ -40,22 +60,27 @@ This caused the GSI to be created incorrectly or with only partial attributes, m
 - Queries `GSI-NewsQueries` with only `type = "article"`
 - Returns ALL statuses (draft, published, archived)
 - Sorted by `updatedAt` descending
+- **Changed from**: Previously couldn't filter properly due to composite key mismatch
 
 **getPublishedNews**:
 - Queries `GSI-NewsQueries` with `type = "article"`
 - Uses `FilterExpression` to filter `status = "published"` after the query
 - Sorted by `updatedAt` descending
+- **Changed from**: Previously tried to use composite sort key `type AND status` which didn't work with the new simpler GSI
 
 **getNewsBySlug**:
 - Queries `GSI-NewsBySlug` with `type = "article" AND slug = :slug`
 - Returns single item by slug
+- **Changed from**: Previously failed because it tried to query `slug` while skipping other composite key attributes
 
 ### 3. Teams and SAMS Tables
 
-Fixed the same issue in:
-- **Teams Table**: Changed from `sortKeys` array to `sortKey` with `slug`
-- **SAMS Clubs Table**: Changed from `sortKeys` array to `sortKey` with `nameSlug`
-- **SAMS Teams Table**: Changed from `sortKeys` array to `sortKey` with `nameSlug`
+Fixed the same composite key ordering issue in:
+- **Teams Table**: Simplified from multi-attribute composite key `[slug, name]` to single `slug` sort key
+- **SAMS Clubs Table**: Simplified from array `[nameSlug]` to single `nameSlug` sort key  
+- **SAMS Teams Table**: Simplified from array `[nameSlug]` to single `nameSlug` sort key
+
+These changes ensure queries don't violate the left-to-right composite key rule.
 
 ## Deployment Instructions
 
