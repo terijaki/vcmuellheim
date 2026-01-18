@@ -109,7 +109,7 @@ export class SamsApiStack extends cdk.Stack {
 		clubsTable.addGlobalSecondaryIndex({
 			indexName: "GSI-SamsClubQueries",
 			partitionKey: { name: "type", type: dynamodb.AttributeType.STRING },
-			sortKeys: [{ name: "nameSlug", type: dynamodb.AttributeType.STRING }],
+			sortKey: { name: "nameSlug", type: dynamodb.AttributeType.STRING },
 			projectionType: dynamodb.ProjectionType.ALL,
 		});
 
@@ -129,7 +129,7 @@ export class SamsApiStack extends cdk.Stack {
 		teamsTable.addGlobalSecondaryIndex({
 			indexName: "GSI-SamsTeamQueries",
 			partitionKey: { name: "type", type: dynamodb.AttributeType.STRING },
-			sortKeys: [{ name: "nameSlug", type: dynamodb.AttributeType.STRING }],
+			sortKey: { name: "nameSlug", type: dynamodb.AttributeType.STRING },
 			projectionType: dynamodb.ProjectionType.ALL,
 		});
 

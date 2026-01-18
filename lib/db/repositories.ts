@@ -97,7 +97,8 @@ export async function getAllNews(limit = 100, startKey?: Record<string, unknown>
 export async function getPublishedNews(limit = 10, startKey?: Record<string, unknown>) {
 	const result = await newsRepository.query({
 		indexName: "GSI-NewsQueries",
-		keyConditionExpression: "#type = :type AND #status = :status",
+		keyConditionExpression: "#type = :type",
+		filterExpression: "#status = :status",
 		expressionAttributeNames: {
 			"#type": "type",
 			"#status": "status",
@@ -119,7 +120,7 @@ export async function getPublishedNews(limit = 10, startKey?: Record<string, unk
 /** Get news article by slug */
 export async function getNewsBySlug(slug: string) {
 	const result = await newsRepository.query({
-		indexName: "GSI-NewsQueries",
+		indexName: "GSI-NewsBySlug",
 		keyConditionExpression: "#type = :type AND #slug = :slug",
 		expressionAttributeNames: {
 			"#type": "type",
