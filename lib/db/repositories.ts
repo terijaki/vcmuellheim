@@ -73,15 +73,17 @@ export const samsTeamsRepository = new SamsRepository<TeamResponse>({
  */
 export async function getAllNews(limit = 100, startKey?: Record<string, unknown>) {
 	const result = await newsRepository.query({
-		indexName: "GSI-NewsQueries",
-		keyConditionExpression: "#type = :type",
+		indexName: "GSI-NewsByType",
+		keyConditionExpression: "#type = :type AND #updatedAt > :minDate",
 		expressionAttributeNames: {
 			"#type": "type",
+			"#updatedAt": "updatedAt",
 		},
 		expressionAttributeValues: {
 			":type": "article",
+			":minDate": "2000-01-01T00:00:00.000Z",
 		},
-		scanIndexForward: false, // Descending order (newest first)
+		scanIndexForward: false,
 		limit,
 		exclusiveStartKey: startKey,
 	});
@@ -96,16 +98,15 @@ export async function getAllNews(limit = 100, startKey?: Record<string, unknown>
  */
 export async function getPublishedNews(limit = 10, startKey?: Record<string, unknown>) {
 	const result = await newsRepository.query({
-		indexName: "GSI-NewsQueries",
-		keyConditionExpression: "#type = :type",
-		filterExpression: "#status = :status",
+		indexName: "GSI-NewsByStatus",
+		keyConditionExpression: "#status = :status AND #updatedAt > :minDate",
 		expressionAttributeNames: {
-			"#type": "type",
 			"#status": "status",
+			"#updatedAt": "updatedAt",
 		},
 		expressionAttributeValues: {
-			":type": "article",
 			":status": "published",
+			":minDate": "2000-01-01T00:00:00.000Z", // Include all published articles
 		},
 		scanIndexForward: false, // Descending order (newest first)
 		limit,
@@ -121,13 +122,11 @@ export async function getPublishedNews(limit = 10, startKey?: Record<string, unk
 export async function getNewsBySlug(slug: string) {
 	const result = await newsRepository.query({
 		indexName: "GSI-NewsBySlug",
-		keyConditionExpression: "#type = :type AND #slug = :slug",
+		keyConditionExpression: "#slug = :slug",
 		expressionAttributeNames: {
-			"#type": "type",
 			"#slug": "slug",
 		},
 		expressionAttributeValues: {
-			":type": "article",
 			":slug": slug,
 		},
 		limit: 1,

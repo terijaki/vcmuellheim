@@ -183,12 +183,12 @@ describe("ContentDbStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// News table should have two GSIs
+			// News table should have three GSIs
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
 				TableName: "vcm-news-dev",
 				GlobalSecondaryIndexes: Match.arrayWith([
 					{
-						IndexName: "GSI-NewsQueries",
+						IndexName: "GSI-NewsByType",
 						KeySchema: [
 							{
 								AttributeName: "type",
@@ -204,15 +204,27 @@ describe("ContentDbStack", () => {
 						},
 					},
 					{
-						IndexName: "GSI-NewsBySlug",
+						IndexName: "GSI-NewsByStatus",
 						KeySchema: [
 							{
-								AttributeName: "type",
+								AttributeName: "status",
 								KeyType: "HASH",
 							},
 							{
-								AttributeName: "slug",
+								AttributeName: "updatedAt",
 								KeyType: "RANGE",
+							},
+						],
+						Projection: {
+							ProjectionType: "ALL",
+						},
+					},
+					{
+						IndexName: "GSI-NewsBySlug",
+						KeySchema: [
+							{
+								AttributeName: "slug",
+								KeyType: "HASH",
 							},
 						],
 						Projection: {
