@@ -1,12 +1,28 @@
-import { describe, expect, it, beforeEach, mock } from "bun:test";
-import { mockClient } from "aws-sdk-client-mock";
+import { beforeAll, beforeEach, describe, expect, it } from "bun:test";
 import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
-import { getAllNews, getPublishedNews, getNewsBySlug } from "./repositories";
+import { mockClient } from "aws-sdk-client-mock";
+import { TABLES } from "./env";
 
 // Create mock DynamoDB client
 const ddbMock = mockClient(DynamoDBDocumentClient);
 
+let getAllNews: typeof import("./repositories").getAllNews;
+let getPublishedNews: typeof import("./repositories").getPublishedNews;
+let getNewsBySlug: typeof import("./repositories").getNewsBySlug;
+
 describe("News Repository", () => {
+	beforeAll(async () => {
+		// Set up required environment variables for table names
+		for (const table of TABLES) {
+			process.env[`${table}_TABLE_NAME`] = `test-${table.toLowerCase()}-table`;
+		}
+		// Dynamically import after env vars are set
+		const repos = await import("./repositories");
+		getAllNews = repos.getAllNews;
+		getPublishedNews = repos.getPublishedNews;
+		getNewsBySlug = repos.getNewsBySlug;
+	});
+
 	beforeEach(() => {
 		ddbMock.reset();
 	});
