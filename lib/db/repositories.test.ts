@@ -28,7 +28,7 @@ describe("News Repository", () => {
 	});
 
 	describe("getAllNews", () => {
-		it("should query GSI-NewsQueries with type=article and sort by updatedAt descending", async () => {
+		it("should query GSI-NewsByType with type=article and updatedAt range, sorted descending", async () => {
 			const mockNews = [
 				{
 					id: "1",
@@ -66,13 +66,15 @@ describe("News Repository", () => {
 			const calls = ddbMock.commandCalls(QueryCommand);
 			expect(calls).toHaveLength(1);
 			expect(calls[0].args[0].input).toMatchObject({
-				IndexName: "GSI-NewsQueries",
-				KeyConditionExpression: "#type = :type",
+				IndexName: "GSI-NewsByType",
+				KeyConditionExpression: "#type = :type AND #updatedAt > :minDate",
 				ExpressionAttributeNames: {
 					"#type": "type",
+					"#updatedAt": "updatedAt",
 				},
 				ExpressionAttributeValues: {
 					":type": "article",
+					":minDate": "2000-01-01T00:00:00.000Z",
 				},
 				ScanIndexForward: false, // Descending order
 				Limit: 10,
@@ -125,7 +127,7 @@ describe("News Repository", () => {
 	});
 
 	describe("getPublishedNews", () => {
-		it("should query GSI-NewsQueries with FilterExpression for status=published", async () => {
+		it("should query GSI-NewsByStatus with status=published and updatedAt range", async () => {
 			const mockPublishedNews = [
 				{
 					id: "1",
@@ -148,20 +150,19 @@ describe("News Repository", () => {
 			expect(result.items).toHaveLength(1);
 			expect(result.items[0].status).toBe("published");
 
-			// Verify the query uses FilterExpression for status
+			// Verify the query uses GSI-NewsByStatus
 			const calls = ddbMock.commandCalls(QueryCommand);
 			expect(calls).toHaveLength(1);
 			expect(calls[0].args[0].input).toMatchObject({
-				IndexName: "GSI-NewsQueries",
-				KeyConditionExpression: "#type = :type",
-				FilterExpression: "#status = :status",
+				IndexName: "GSI-NewsByStatus",
+				KeyConditionExpression: "#status = :status AND #updatedAt > :minDate",
 				ExpressionAttributeNames: {
-					"#type": "type",
 					"#status": "status",
+					"#updatedAt": "updatedAt",
 				},
 				ExpressionAttributeValues: {
-					":type": "article",
 					":status": "published",
+					":minDate": "2000-01-01T00:00:00.000Z",
 				},
 				ScanIndexForward: false,
 				Limit: 10,
@@ -195,7 +196,7 @@ describe("News Repository", () => {
 	});
 
 	describe("getNewsBySlug", () => {
-		it("should query GSI-NewsBySlug with type and slug", async () => {
+		it("should query GSI-NewsBySlug with slug only", async () => {
 			const mockNews = {
 				id: "1",
 				type: "article",
@@ -216,18 +217,16 @@ describe("News Repository", () => {
 			expect(result).not.toBeNull();
 			expect(result?.slug).toBe("test-news");
 
-			// Verify the query uses the new GSI-NewsBySlug index
+			// Verify the query uses the GSI-NewsBySlug index with only slug
 			const calls = ddbMock.commandCalls(QueryCommand);
 			expect(calls).toHaveLength(1);
 			expect(calls[0].args[0].input).toMatchObject({
 				IndexName: "GSI-NewsBySlug",
-				KeyConditionExpression: "#type = :type AND #slug = :slug",
+				KeyConditionExpression: "#slug = :slug",
 				ExpressionAttributeNames: {
-					"#type": "type",
 					"#slug": "slug",
 				},
 				ExpressionAttributeValues: {
-					":type": "article",
 					":slug": "test-news",
 				},
 				Limit: 1,
