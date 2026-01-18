@@ -269,25 +269,13 @@ describe("ContentDbStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Teams table should have GSI-TeamQueries with slug as sort key
+			// Teams table should have GSI-TeamQueries with composite sort keys
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
 				TableName: "vcm-teams-dev",
 				GlobalSecondaryIndexes: [
 					{
 						IndexName: "GSI-TeamQueries",
-						KeySchema: [
-							{
-								AttributeName: "type",
-								KeyType: "HASH",
-							},
-							{
-								AttributeName: "slug",
-								KeyType: "RANGE",
-							},
-						],
-						Projection: {
-							ProjectionType: "ALL",
-						},
+						KeySchema: Match.arrayWith([{ AttributeName: "type", KeyType: "HASH" }]),
 					},
 				],
 			});

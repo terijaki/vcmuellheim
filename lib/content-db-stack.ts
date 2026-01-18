@@ -85,11 +85,15 @@ export class ContentDbStack extends cdk.Stack {
 			// No sort key - use GSIs for queries
 		});
 
-		// GSI for querying teams by slug
+		// GSI for listing teams by slug or name
 		this.teamsTable.addGlobalSecondaryIndex({
 			indexName: "GSI-TeamQueries",
 			partitionKey: { name: "type", type: dynamodb.AttributeType.STRING },
-			sortKey: { name: "slug", type: dynamodb.AttributeType.STRING },
+			sortKeys: [
+				{ name: "slug", type: dynamodb.AttributeType.STRING },
+				{ name: "name", type: dynamodb.AttributeType.STRING },
+				// NOTE: Adding 'sbvvTeamId' is not possible because the SK must be a non empty string. Thus would results that non SBVV teams would not be part of this index at all!
+			],
 			projectionType: dynamodb.ProjectionType.ALL,
 		});
 
