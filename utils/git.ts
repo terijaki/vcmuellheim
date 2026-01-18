@@ -16,11 +16,15 @@ export function getSanitizedBranch(includeMain = false): string {
 			return "";
 		}
 
-		// Sanitize: alphanumeric and hyphens only, max 20 chars
+		// Sanitize: alphanumeric and hyphens only, max 20 chars, no leading/trailing hyphens
 		return branch
-			.replace(/[^a-zA-Z0-9-]/g, "-")
-			.replace(/--+/g, "-")
-			.substring(0, 20);
+			.toLowerCase()
+			.replace(/[^a-z0-9-]/g, "-")
+			.replace(/-+/g, "-")
+			.replace(/^-+/, "")
+			.replace(/-+$/, "")
+			.substring(0, 20)
+			.replace(/-+$/, ""); // Remove trailing hyphen if substring created one
 	} catch {
 		return "";
 	}
