@@ -8,16 +8,26 @@ import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { TABLES, tableEnvVar } from "./env";
 
 /** Table names for all entities - provided by CDK as environment variables */
-export const TABLE_NAMES = Object.fromEntries(
-	TABLES.map((entity) => {
-		const envVar = tableEnvVar(entity);
-		const tableName = process.env[envVar];
-		if (!tableName) {
-			throw new Error(`Missing required environment variable: ${envVar}`);
+let _tableNamesCache: Record<(typeof TABLES)[number], string> | null = null;
+
+export const TABLE_NAMES = new Proxy({} as Record<(typeof TABLES)[number], string>, {
+	get(target, prop: string) {
+		// Lazy initialization - only construct table names when first accessed
+		if (!_tableNamesCache) {
+			_tableNamesCache = Object.fromEntries(
+				TABLES.map((entity) => {
+					const envVar = tableEnvVar(entity);
+					const tableName = process.env[envVar];
+					if (!tableName) {
+						throw new Error(`Missing required environment variable: ${envVar}`);
+					}
+					return [entity, tableName];
+				}),
+			) as Record<(typeof TABLES)[number], string>;
 		}
-		return [entity, tableName];
-	}),
-) as Record<(typeof TABLES)[number], string>;
+		return _tableNamesCache[prop as (typeof TABLES)[number]];
+	},
+});
 
 /** DynamoDB client instance with X-Ray tracing */
 const dynamoDBClient = new DynamoDBClient({
