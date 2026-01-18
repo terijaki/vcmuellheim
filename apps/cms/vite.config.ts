@@ -50,7 +50,6 @@ export default defineConfig({
 		outDir: "dist",
 		sourcemap: true,
 		assetsInlineLimit: 0,
-		minify: "terser",
 		rollupOptions: {
 			output: {
 				manualChunks: {
