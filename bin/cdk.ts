@@ -1,4 +1,3 @@
-import "dotenv/config";
 import { getSanitizedBranch } from "@utils/git";
 import * as cdk from "aws-cdk-lib";
 import { DNS } from "@/project.config";

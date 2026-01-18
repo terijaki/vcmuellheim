@@ -19,6 +19,15 @@
 	},
 	"files.insertFinalNewline": true,
 	"files.trimFinalNewlines": false,
+	"files.watcherExclude": {
+		"**/routeTree.gen.ts": true
+	},
+	"search.exclude": {
+		"**/routeTree.gen.ts": true
+	},
+	"files.readonlyInclude": {
+		"**/routeTree.gen.ts": true
+	},
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"vs-browser.favourites.list": {
 		"localhost (website)": "http://localhost:3080",

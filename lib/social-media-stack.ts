@@ -110,7 +110,7 @@ export class SocialMediaStack extends cdk.Stack {
 		// Create Lambda function for Instagram sync
 		const instagramSync = new NodejsFunction(this, "InstagramSync", {
 			functionName: `instagram-sync-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_LATEST,
+			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/social/instagram-sync.ts"),
 			environment: {
@@ -139,7 +139,7 @@ export class SocialMediaStack extends cdk.Stack {
 		// Create Lambda function for Instagram posts API
 		const instagramPosts = new NodejsFunction(this, "InstagramPosts", {
 			functionName: `instagram-posts-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_LATEST,
+			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/social/instagram-posts.ts"),
 			environment: {
@@ -195,7 +195,7 @@ export class SocialMediaStack extends cdk.Stack {
 		// Create Lambda function for Mastodon sharing
 		const mastodonShare = new NodejsFunction(this, "MastodonShare", {
 			functionName: `mastodon-share-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_LATEST,
+			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/social/mastodon-share.ts"),
 			environment: {
@@ -226,7 +226,7 @@ export class SocialMediaStack extends cdk.Stack {
 		if (props.newsTable && props.websiteUrl) {
 			const mastodonStreamHandler = new NodejsFunction(this, "MastodonStreamHandler", {
 				functionName: `mastodon-stream-handler-${environment}${branchSuffix}`,
-				runtime: lambda.Runtime.NODEJS_LATEST,
+				runtime: lambda.Runtime.NODEJS_24_X,
 				handler: "handler",
 				entry: path.join(__dirname, "../lambda/social/mastodon-stream-handler.ts"),
 				environment: {

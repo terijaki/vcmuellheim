@@ -119,7 +119,7 @@ export class MediaStack extends cdk.Stack {
 		});
 
 		const imageProcessorFunction = new NodejsFunction(this, "ImageProcessor", {
-			runtime: lambda.Runtime.NODEJS_LATEST,
+			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: "lambda/content/image-processor.ts",
 			timeout: cdk.Duration.minutes(5),
