@@ -5,19 +5,31 @@
 import { Tracer } from "@aws-lambda-powertools/tracer";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import { TABLES, tableEnvVar } from "./env";
+import { TABLES, type TableEntity, tableEnvVar } from "./env";
 
 /** Table names for all entities - provided by CDK as environment variables */
 export const TABLE_NAMES = Object.fromEntries(
 	TABLES.map((entity) => {
 		const envVar = tableEnvVar(entity);
 		const tableName = process.env[envVar];
+		// Only validate table names that are actually set
+		// Lambdas may only need access to subset of tables
 		if (!tableName) {
-			throw new Error(`Missing required environment variable: ${envVar}`);
+			return [entity, undefined];
 		}
 		return [entity, tableName];
 	}),
-) as Record<(typeof TABLES)[number], string>;
+) as Record<TableEntity, string | undefined>;
+
+/** Get table name for an entity, throwing if not configured */
+export function getTableName(entity: TableEntity): string {
+	const tableName = TABLE_NAMES[entity];
+	if (!tableName) {
+		const envVar = tableEnvVar(entity);
+		throw new Error(`Table ${entity} not configured. Missing environment variable: ${envVar}`);
+	}
+	return tableName;
+}
 
 /** DynamoDB client instance with X-Ray tracing */
 const dynamoDBClient = new DynamoDBClient({
