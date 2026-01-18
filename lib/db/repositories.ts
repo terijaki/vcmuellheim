@@ -5,48 +5,48 @@ import dayjs from "dayjs";
  */
 
 import type { ClubResponse, TeamResponse } from "@/lambda/sams/types";
-import { TABLE_NAMES } from "./client";
+import { getTableName } from "./client";
 import { Repository, SamsRepository } from "./repository";
 import type { Bus, Event, Location, Media, Member, News, Sponsor, Team } from "./types";
 
 /** News repository */
 export const newsRepository = new Repository<News>({
-	tableName: TABLE_NAMES.NEWS,
+	tableName: getTableName("NEWS"),
 });
 
 /** Events repository */
 export const eventsRepository = new Repository<Event>({
-	tableName: TABLE_NAMES.EVENTS,
+	tableName: getTableName("EVENTS"),
 });
 
 /** Teams repository */
 export const teamsRepository = new Repository<Team>({
-	tableName: TABLE_NAMES.TEAMS,
+	tableName: getTableName("TEAMS"),
 });
 
 /** Members repository */
 export const membersRepository = new Repository<Member>({
-	tableName: TABLE_NAMES.MEMBERS,
+	tableName: getTableName("MEMBERS"),
 });
 
 /** Media repository */
 export const mediaRepository = new Repository<Media>({
-	tableName: TABLE_NAMES.MEDIA,
+	tableName: getTableName("MEDIA"),
 });
 
 /** Sponsors repository */
 export const sponsorsRepository = new Repository<Sponsor>({
-	tableName: TABLE_NAMES.SPONSORS,
+	tableName: getTableName("SPONSORS"),
 });
 
 /** Locations repository */
 export const locationsRepository = new Repository<Location>({
-	tableName: TABLE_NAMES.LOCATIONS,
+	tableName: getTableName("LOCATIONS"),
 });
 
 /** Bus bookings repository */
 export const busRepository = new Repository<Bus>({
-	tableName: TABLE_NAMES.BUS,
+	tableName: getTableName("BUS"),
 });
 
 /** Sams Clubs repository */

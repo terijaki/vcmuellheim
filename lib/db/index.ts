@@ -3,7 +3,7 @@
  */
 
 // Client
-export { docClient, dynamoDBClient, TABLE_NAMES } from "./client";
+export { docClient, dynamoDBClient, getTableName, TABLE_NAMES } from "./client";
 // Repository instances and query helpers
 export * from "./repositories";
 export type { QueryOptions, RepositoryConfig, ScanOptions } from "./repository";
