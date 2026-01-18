@@ -140,7 +140,7 @@ export class SamsApiStack extends cdk.Stack {
 		// Create Lambda function for league matches (main endpoint you use)
 		const samsLeagueMatches = new NodejsFunction(this, "SamsLeagueMatches", {
 			functionName: `sams-league-matches-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_LATEST,
+			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-league-matches.ts"),
 			environment: {
@@ -167,7 +167,7 @@ export class SamsApiStack extends cdk.Stack {
 		// Create Lambda function for seasons
 		const samsSeasons = new NodejsFunction(this, "SamsSeasons", {
 			functionName: `sams-seasons-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_LATEST,
+			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-seasons.ts"),
 			environment: commonEnvironment,
@@ -188,7 +188,7 @@ export class SamsApiStack extends cdk.Stack {
 		// Create Lambda function for rankings
 		const samsRankings = new NodejsFunction(this, "SamsRankings", {
 			functionName: `sams-rankings-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_LATEST,
+			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-rankings.ts"),
 			environment: commonEnvironment,
@@ -209,7 +209,7 @@ export class SamsApiStack extends cdk.Stack {
 		// Create Lambda function for associations
 		const samsAssociations = new NodejsFunction(this, "SamsAssociations", {
 			functionName: `sams-associations-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_LATEST,
+			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-associations.ts"),
 			environment: commonEnvironment,
@@ -230,7 +230,7 @@ export class SamsApiStack extends cdk.Stack {
 		// Create Lambda function for nightly clubs sync
 		const samsClubsSync = new NodejsFunction(this, "SamsClubsSync", {
 			functionName: `sams-clubs-sync-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_LATEST,
+			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-clubs-sync.ts"),
 			environment: {
@@ -257,7 +257,7 @@ export class SamsApiStack extends cdk.Stack {
 		// Create Lambda function for nightly teams sync
 		const samsTeamsSync = new NodejsFunction(this, "SamsTeamsSync", {
 			functionName: `sams-teams-sync-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_LATEST,
+			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-teams-sync.ts"),
 			environment: {
@@ -286,7 +286,7 @@ export class SamsApiStack extends cdk.Stack {
 		// Create Lambda function for clubs query (read from DynamoDB)
 		const samsClubs = new NodejsFunction(this, "SamsClubs", {
 			functionName: `sams-clubs-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_LATEST,
+			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-clubs.ts"),
 			environment: {
@@ -313,7 +313,7 @@ export class SamsApiStack extends cdk.Stack {
 		// Create Lambda function for teams query (read from DynamoDB)
 		const samsTeams = new NodejsFunction(this, "SamsTeams", {
 			functionName: `sams-teams-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_LATEST,
+			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-teams.ts"),
 			environment: {
@@ -340,7 +340,7 @@ export class SamsApiStack extends cdk.Stack {
 		// Create Lambda function for logo proxy (download and cache external images)
 		const samsLogoProxy = new NodejsFunction(this, "SamsLogoProxy", {
 			functionName: `sams-logo-proxy-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_LATEST,
+			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-logo-proxy.ts"),
 			environment: {

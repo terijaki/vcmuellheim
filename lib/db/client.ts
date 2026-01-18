@@ -11,7 +11,7 @@ import { TABLES, tableEnvVar } from "./env";
 let _tableNamesCache: Record<(typeof TABLES)[number], string> | null = null;
 
 export const TABLE_NAMES = new Proxy({} as Record<(typeof TABLES)[number], string>, {
-	get(target, prop: string) {
+	get(_target, prop: string) {
 		// Lazy initialization - only construct table names when first accessed
 		if (!_tableNamesCache) {
 			_tableNamesCache = Object.fromEntries(
