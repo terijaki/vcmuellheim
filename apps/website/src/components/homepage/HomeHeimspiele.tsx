@@ -54,7 +54,7 @@ export default function HomeHeimspiele() {
 
 		for (const m of matchesHomeGamesSorted) {
 			const dateLocationCombi = `${m.date}${m.location?.uuid}`;
-			if (dayjs(m.date).isAfter(dayjs().add(TIME_RANGE, "days")) && (uniqueHostsStrings.size < MAX_GAMES || uniqueHostsStrings.has(dateLocationCombi))) {
+			if (dayjs(m.date).isBefore(dayjs().add(TIME_RANGE, "days")) && (uniqueHostsStrings.size < MAX_GAMES || uniqueHostsStrings.has(dateLocationCombi))) {
 				uniqueHostsStrings.add(dateLocationCombi);
 				result.push(m);
 			}
