@@ -30,7 +30,19 @@ export default function HomeIntro() {
 					<Group gap="xs" justify="center">
 						{navbarLinks.map((link) => {
 							return (
-								<Button key={link.name} component={Link} {...link} bg="onyx" radius="xl" bd="1px white solid" c="white">
+								<Button
+									key={link.name}
+									bg="onyx"
+									radius="xl"
+									bd="1px white solid"
+									c="white"
+									renderRoot={(props) => {
+										if (link.href.includes("https://")) {
+											return <a {...props} {...link} />;
+										}
+										return <Link {...props} {...link} />;
+									}}
+								>
 									{link.name}
 								</Button>
 							);

@@ -8,6 +8,7 @@ import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { getTeamByUuid } from "@/codegen/sams/generated";
 import { slugify } from "@/utils/slugify";
+import { Sentry } from "../utils/sentry";
 import { TeamItemSchema, TeamResponseSchema, TeamsResponseSchema } from "./types";
 
 const logger = new Logger({ serviceName: "sams-teams" });
@@ -147,4 +148,4 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 	}
 };
 
-export const handler = middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer));
+export const handler = Sentry.wrapHandler(middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer)));

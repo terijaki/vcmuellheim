@@ -11,6 +11,7 @@ import { unmarshall } from "@aws-sdk/util-dynamodb";
 import type { DynamoDBRecord, DynamoDBStreamEvent, DynamoDBStreamHandler } from "aws-lambda";
 import type { z } from "zod";
 import { mediaSchema, memberSchema, newsSchema, sponsorSchema, teamSchema } from "../../lib/db/schemas";
+import { Sentry } from "../utils/sentry";
 
 const s3Client = new S3Client({});
 const MEDIA_BUCKET = process.env.MEDIA_BUCKET_NAME || "";
@@ -31,7 +32,8 @@ const sponsorS3Schema = sponsorSchema.pick({ logoS3Key: true });
  * but they represent the same runtime value. We cast to bypass the type conflict and then
  * immediately validate with Zod schemas for runtime safety.
  */
-const safeUnmarshall = (item: any) => unmarshall(item) as Record<string, unknown>;
+const safeUnmarshall = (item: Record<string, unknown>) =>
+	unmarshall(item as Parameters<typeof unmarshall>[0]) as Record<string, unknown>;
 
 /**
  * Entity-specific extractor configurations using Zod schemas
@@ -233,7 +235,7 @@ async function processRecord(record: DynamoDBRecord): Promise<void> {
 	}
 }
 
-export const handler: DynamoDBStreamHandler = async (event: DynamoDBStreamEvent) => {
+const lambdaHandler: DynamoDBStreamHandler = async (event: DynamoDBStreamEvent) => {
 	console.log("S3 Cleanup Lambda triggered", { recordCount: event.Records.length });
 
 	try {
@@ -247,3 +249,5 @@ export const handler: DynamoDBStreamHandler = async (event: DynamoDBStreamEvent)
 		throw error;
 	}
 };
+
+export const handler = Sentry.wrapHandler(lambdaHandler);

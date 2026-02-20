@@ -2,6 +2,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import dayjs from "dayjs";
+import { Sentry } from "../utils/sentry";
 import type { InstagramPost } from "./types";
 
 // Initialize DynamoDB client
@@ -10,7 +11,7 @@ const docClient = DynamoDBDocumentClient.from(dynamoClient);
 
 const TABLE_NAME = process.env.INSTAGRAM_TABLE_NAME;
 
-export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 	console.log("📸 Instagram posts request", { path: event.path, queryParams: event.queryStringParameters });
 
 	if (!TABLE_NAME) {
@@ -66,6 +67,8 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 		};
 	}
 };
+
+export const handler = Sentry.wrapHandler(lambdaHandler);
 
 /**
  * Get recent posts from all handles using the main table

@@ -459,8 +459,8 @@ async function seedMembersData() {
 			avatarS3Key: "",
 		},
 		{
-			name: "Sarah Schmidt",
-			email: "sarah.schmidt@example.com",
+			name: "Sarah Hubertschmidt",
+			email: "sarah.hubertschmidt@example.com",
 			phone: "+49 7622 234567",
 			isBoardMember: true,
 			isTrainer: true,
@@ -491,8 +491,8 @@ async function seedMembersData() {
 			roleTitle: "Schiedsrichter",
 		},
 		{
-			name: "Anna Wagner",
-			email: "anna.wagner@example.com",
+			name: "Anna-Maria Sofie Wagner",
+			email: "anna.maria.sofie.wagner@example.com",
 			isBoardMember: false,
 			isTrainer: true,
 			roleTitle: "Co-Trainer Damen 2",

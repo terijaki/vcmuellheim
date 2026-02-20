@@ -6,6 +6,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { Sentry } from "../utils/sentry";
 import { type ClubLogoQueryParams, ClubLogoQueryParamsSchema, type ClubResponse, ClubResponseSchema } from "./types";
 
 const logger = new Logger({ serviceName: "sams-logo-proxy" });
@@ -200,4 +201,4 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
 	}
 };
 
-export const handler = middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer));
+export const handler = Sentry.wrapHandler(middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer)));

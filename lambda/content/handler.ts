@@ -12,6 +12,7 @@ import { awsLambdaRequestHandler } from "@trpc/server/adapters/aws-lambda";
 import type { APIGatewayProxyEventV2, Context } from "aws-lambda";
 import { appRouter } from "../../lib/trpc";
 import { createContext } from "../../lib/trpc/context";
+import { Sentry } from "../utils/sentry";
 
 // Environment variables for Cognito verification
 const USER_POOL_ID = process.env.COGNITO_USER_POOL_ID;
@@ -81,6 +82,8 @@ const lambdaHandler = async (event: APIGatewayProxyEventV2, context: Context) =>
 };
 
 // Export handler wrapped with Powertools middleware for logging and tracing
-export const handler = middy(lambdaHandler)
-	.use(captureLambdaHandler(tracer, { captureResponse: false }))
-	.use(injectLambdaContext(logger));
+export const handler = Sentry.wrapHandler(
+	middy(lambdaHandler)
+		.use(captureLambdaHandler(tracer, { captureResponse: false }))
+		.use(injectLambdaContext(logger)),
+);

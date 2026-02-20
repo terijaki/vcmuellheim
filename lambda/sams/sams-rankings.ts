@@ -5,6 +5,7 @@ import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { getLeagueByUuid, getRankingsForLeague, getSeasonByUuid } from "@codegen/sams/generated";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
+import { Sentry } from "../utils/sentry";
 import { RankingResponseSchema } from "./types";
 
 const logger = new Logger({ serviceName: "sams-rankings" });
@@ -108,4 +109,4 @@ const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent
 	}
 };
 
-export const handler = middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer));
+export const handler = Sentry.wrapHandler(middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer)));

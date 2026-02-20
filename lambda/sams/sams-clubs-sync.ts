@@ -9,6 +9,7 @@ import middy from "@middy/core";
 import type { EventBridgeEvent } from "aws-lambda";
 import { SAMS } from "@/project.config";
 import { slugify } from "@/utils/slugify";
+import { Sentry } from "../utils/sentry";
 import { type ClubItem, ClubItemSchema } from "./types";
 
 const logger = new Logger({ serviceName: "sams-clubs-sync" });
@@ -24,6 +25,7 @@ const ASSOCIATION_NAME = SAMS.association.name; // SBVV
 
 const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 	logger.info("🚀 Starting SAMS clubs sync job", { event });
+	Sentry.addBreadcrumb({ category: "sync", message: "Starting SAMS clubs sync", level: "info" });
 
 	if (!SAMS_API_KEY) {
 		throw new Error("SAMS_API_KEY environment variable is required");
@@ -144,6 +146,8 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 		}
 
 		console.log(`✅ Total clubs fetched: ${allClubs.length}`);
+		Sentry.addBreadcrumb({ category: "sync", message: `Total clubs fetched: ${allClubs.length}`, level: "info", data: { clubsFetched: allClubs.length } });
+		Sentry.setMeasurement("sams_clubs_sync.clubs_fetched", allClubs.length, "none");
 
 		// Step 3: Batch write to DynamoDB (max 25 items per batch)
 		console.log("💾 Writing clubs to DynamoDB...");
@@ -177,6 +181,8 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 		}
 
 		console.log(`✅ Successfully synced ${totalWritten} clubs to DynamoDB`);
+		Sentry.setMeasurement("sams_clubs_sync.clubs_written", totalWritten, "none");
+		Sentry.addBreadcrumb({ category: "sync", message: "Clubs sync completed", level: "info", data: { clubsWritten: totalWritten, associationUuid } });
 
 		return {
 			statusCode: 200,
@@ -188,8 +194,9 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 		};
 	} catch (error) {
 		logger.error("🚨 Error syncing clubs:", { error });
+		Sentry.captureException(error);
 		throw error;
 	}
 };
 
-export const handler = middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer));
+export const handler = Sentry.wrapHandler(middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer)));

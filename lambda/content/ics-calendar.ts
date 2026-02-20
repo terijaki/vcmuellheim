@@ -13,6 +13,7 @@ import utc from "dayjs/plugin/utc";
 import { generateIcsCalendar, type IcsCalendar, type IcsEvent } from "ts-ics";
 import type { Event } from "@/lib/db/types";
 import { Club } from "@/project.config";
+import { Sentry } from "../utils/sentry";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
@@ -311,6 +312,8 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 	}
 };
 
-export const handler = middy(lambdaHandler)
-	.use(captureLambdaHandler(tracer, { captureResponse: false }))
-	.use(injectLambdaContext(logger));
+export const handler = Sentry.wrapHandler(
+	middy(lambdaHandler)
+		.use(captureLambdaHandler(tracer, { captureResponse: false }))
+		.use(injectLambdaContext(logger)),
+);

@@ -7,6 +7,7 @@ import { DynamoDBDocumentClient, GetCommand, QueryCommand, ScanCommand } from "@
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { slugify } from "@/utils/slugify";
+import { Sentry } from "../utils/sentry";
 import { ClubResponseSchema, ClubsResponseSchema } from "./types";
 
 // Initialize logger and tracer
@@ -170,4 +171,4 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 	}
 };
 
-export const handler = middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer));
+export const handler = Sentry.wrapHandler(middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer)));
