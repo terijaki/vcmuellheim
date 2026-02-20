@@ -6,6 +6,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DeleteCommand, DynamoDBDocumentClient, PutCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { getAllLeagues, getAllSeasons, getTeamsForLeague } from "@codegen/sams/generated";
 import middy from "@middy/core";
+import { Sentry } from "../utils/sentry";
 import type { APIGatewayProxyHandler } from "aws-lambda";
 import { slugify } from "../../utils/slugify";
 import { TeamItemSchema } from "./types";
@@ -219,4 +220,4 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 	}
 };
 
-export const handler = middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer));
+export const handler = Sentry.wrapHandler(middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer)));

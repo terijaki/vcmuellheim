@@ -4,6 +4,7 @@ import { Tracer } from "@aws-lambda-powertools/tracer";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { type Association, getAssociationByUuid, getAssociations } from "@codegen/sams/generated/";
 import middy from "@middy/core";
+import { Sentry } from "../utils/sentry";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from "aws-lambda";
 
 const logger = new Logger({ serviceName: "sams-associations" });
@@ -168,4 +169,4 @@ const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent
 	}
 };
 
-export const handler = middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer));
+export const handler = Sentry.wrapHandler(middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer)));

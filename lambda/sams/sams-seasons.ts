@@ -4,6 +4,7 @@ import { Tracer } from "@aws-lambda-powertools/tracer";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { getAllSeasons } from "@codegen/sams/generated";
 import middy from "@middy/core";
+import { Sentry } from "../utils/sentry";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import dayjs from "dayjs";
 import { SeasonsResponseSchema } from "./types";
@@ -87,4 +88,4 @@ const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent
 	}
 };
 
-export const handler = middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer));
+export const handler = Sentry.wrapHandler(middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer)));

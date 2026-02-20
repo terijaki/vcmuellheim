@@ -70,7 +70,7 @@ describe("ICS Calendar Lambda", () => {
 			pathParameters: { teamSlug: "all.ics" },
 		} as unknown as APIGatewayProxyEvent;
 
-		const result = await handler(event, mockContext);
+		const result = await handler(event, mockContext, () => { /* no-op callback */ });
 
 		expect(result?.statusCode).toBe(200);
 		expect(result?.headers?.["Content-Type"]).toBe("text/calendar; charset=utf-8");
@@ -99,7 +99,7 @@ describe("ICS Calendar Lambda", () => {
 			pathParameters: { teamSlug: "all.ics" },
 		} as unknown as APIGatewayProxyEvent;
 
-		const result = await handler(event, mockContext);
+		const result = await handler(event, mockContext, () => { /* no-op callback */ });
 
 		expect(result?.statusCode).toBe(200);
 		expect(result?.body).toContain("Vereinsfest");
@@ -116,7 +116,7 @@ describe("ICS Calendar Lambda", () => {
 			pathParameters: { teamSlug: "non-existent.ics" },
 		} as unknown as APIGatewayProxyEvent;
 
-		const result = await handler(event, mockContext);
+		const result = await handler(event, mockContext, () => { /* no-op callback */ });
 
 		expect(result?.statusCode).toBe(404);
 		expect(result?.body).toBe("Team nicht gefunden");
@@ -161,7 +161,7 @@ describe("ICS Calendar Lambda", () => {
 			pathParameters: { teamSlug: "damen-1.ics" },
 		} as unknown as APIGatewayProxyEvent;
 
-		const result = await handler(event, mockContext);
+		const result = await handler(event, mockContext, () => { /* no-op callback */ });
 
 		expect(result?.statusCode).toBe(200);
 		// Should contain both SAMS matches and team-specific custom events
@@ -187,7 +187,7 @@ describe("ICS Calendar Lambda", () => {
 			pathParameters: { teamSlug: "all.ics" },
 		} as unknown as APIGatewayProxyEvent;
 
-		const result = await handler(event, mockContext);
+		const result = await handler(event, mockContext, () => { /* no-op callback */ });
 
 		expect(result?.statusCode).toBe(500);
 		expect(result?.body).toContain("Problem beim Erzeugen");
@@ -225,7 +225,7 @@ describe("ICS Calendar Lambda", () => {
 			pathParameters: { teamSlug: "all.ics" },
 		} as unknown as APIGatewayProxyEvent;
 
-		const result = await handler(event, mockContext);
+		const result = await handler(event, mockContext, () => { /* no-op callback */ });
 
 		expect(result?.statusCode).toBe(200);
 		expect(result?.body).toContain("BEGIN:VCALENDAR");
@@ -264,7 +264,7 @@ describe("ICS Calendar Lambda", () => {
 			pathParameters: { teamSlug: "all.ics" },
 		} as unknown as APIGatewayProxyEvent;
 
-		const result = await handler(event, mockContext);
+		const result = await handler(event, mockContext, () => { /* no-op callback */ });
 
 		expect(result?.statusCode).toBe(200);
 		expect(result?.body).toContain("BEGIN:VCALENDAR");
@@ -302,7 +302,7 @@ describe("ICS Calendar Lambda", () => {
 			pathParameters: { teamSlug: "all.ics" },
 		} as unknown as APIGatewayProxyEvent;
 
-		const result = await handler(event, mockContext);
+		const result = await handler(event, mockContext, () => { /* no-op callback */ });
 
 		expect(result?.statusCode).toBe(200);
 		expect(result?.body).toContain("Team A vs Team B");
@@ -316,7 +316,7 @@ describe("ICS Calendar Lambda", () => {
 			pathParameters: { teamSlug: "all.ics" },
 		} as unknown as APIGatewayProxyEvent;
 
-		const result = await handler(event, mockContext);
+		const result = await handler(event, mockContext, () => { /* no-op callback */ });
 
 		expect(result?.headers?.["Cache-Control"]).toContain("max-age");
 		expect(result?.headers?.["Cache-Control"]).toContain("s-maxage");

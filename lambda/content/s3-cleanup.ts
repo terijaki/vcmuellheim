@@ -11,6 +11,7 @@ import { unmarshall } from "@aws-sdk/util-dynamodb";
 import type { DynamoDBRecord, DynamoDBStreamEvent, DynamoDBStreamHandler } from "aws-lambda";
 import type { z } from "zod";
 import { mediaSchema, memberSchema, newsSchema, sponsorSchema, teamSchema } from "../../lib/db/schemas";
+import { Sentry } from "../utils/sentry";
 
 const s3Client = new S3Client({});
 const MEDIA_BUCKET = process.env.MEDIA_BUCKET_NAME || "";
@@ -233,7 +234,7 @@ async function processRecord(record: DynamoDBRecord): Promise<void> {
 	}
 }
 
-export const handler: DynamoDBStreamHandler = async (event: DynamoDBStreamEvent) => {
+const lambdaHandler: DynamoDBStreamHandler = async (event: DynamoDBStreamEvent) => {
 	console.log("S3 Cleanup Lambda triggered", { recordCount: event.Records.length });
 
 	try {
@@ -247,3 +248,5 @@ export const handler: DynamoDBStreamHandler = async (event: DynamoDBStreamEvent)
 		throw error;
 	}
 };
+
+export const handler = Sentry.wrapHandler(lambdaHandler);

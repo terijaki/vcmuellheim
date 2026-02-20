@@ -5,6 +5,7 @@ import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import middy from "@middy/core";
+import { Sentry } from "../utils/sentry";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -311,6 +312,6 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 	}
 };
 
-export const handler = middy(lambdaHandler)
+export const handler = Sentry.wrapHandler(middy(lambdaHandler)
 	.use(captureLambdaHandler(tracer, { captureResponse: false }))
-	.use(injectLambdaContext(logger));
+	.use(injectLambdaContext(logger)));

@@ -13,6 +13,7 @@ import { promisify } from "node:util";
 import { GetObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import type { S3Event } from "aws-lambda";
 import { bytesToMB, IMAGE_QUALITY, IMAGE_SIZES, MAX_ORIGINAL_SIZE } from "@/apps/shared/lib/image-config";
+import { Sentry } from "../utils/sentry";
 
 const s3Client = new S3Client();
 const execAsync = promisify(exec);
@@ -169,7 +170,7 @@ const processImage = async (bucket: string, uploadKey: string): Promise<Record<s
 /**
  * Main Lambda handler
  */
-export const handler = async (event: S3Event): Promise<ProcessingJobResult[]> => {
+const lambdaHandler = async (event: S3Event): Promise<ProcessingJobResult[]> => {
 	const results: ProcessingJobResult[] = [];
 
 	for (const record of event.Records) {
@@ -219,3 +220,5 @@ export const handler = async (event: S3Event): Promise<ProcessingJobResult[]> =>
 
 	return results;
 };
+
+export const handler = Sentry.wrapHandler(lambdaHandler);

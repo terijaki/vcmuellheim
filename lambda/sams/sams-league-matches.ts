@@ -6,6 +6,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { getAllLeagueMatches, type LeagueMatchDto } from "@codegen/sams/generated";
 import middy from "@middy/core";
+import { Sentry } from "../utils/sentry";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import dayjs from "dayjs";
 import { Club } from "@/project.config";
@@ -183,4 +184,4 @@ const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent
 	}
 };
 
-export const handler = middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer));
+export const handler = Sentry.wrapHandler(middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer)));

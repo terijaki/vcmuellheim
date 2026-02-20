@@ -2,6 +2,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { BatchWriteCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import type { EventBridgeEvent } from "aws-lambda";
 import { type InstagramPost, InstagramPostItemSchema } from "./types";
+import { Sentry } from "../utils/sentry";
 
 // Initialize DynamoDB client
 const dynamoClient = new DynamoDBClient({});
@@ -15,7 +16,7 @@ const APIFY_ACTOR_ID = process.env.APIFY_ACTOR_ID;
 // Hardcoded Instagram handles to scrape
 const INSTAGRAM_HANDLES = ["vcmuellheim", "vcm_damen101"];
 
-export const handler = async (event: EventBridgeEvent<string, unknown>) => {
+const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 	console.log("🚀 Starting Instagram sync job", { event });
 
 	if (!TABLE_NAME) {
@@ -76,6 +77,8 @@ export const handler = async (event: EventBridgeEvent<string, unknown>) => {
 		throw error;
 	}
 };
+
+export const handler = Sentry.wrapHandler(lambdaHandler);
 
 /**
  * Update Apify schedule with current Instagram handles
