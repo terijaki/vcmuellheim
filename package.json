@@ -17,12 +17,12 @@
 		"apps/shared"
 	],
 	"scripts": {
-		"dev:website": "bun --filter @vcmuellheim/website dev",
-		"dev:cms": "bun --filter @vcmuellheim/cms dev",
-		"build:website": "bun --filter @vcmuellheim/website build",
-		"build:cms": "bun --filter @vcmuellheim/cms build",
-		"preview:website": "bun --filter @vcmuellheim/website preview",
-		"preview:cms": "bun --filter @vcmuellheim/cms preview",
+		"dev:website": "bun --cwd apps/website dev",
+		"dev:cms": "bun --cwd apps/cms dev",
+		"build:website": "bun --cwd apps/website build",
+		"build:cms": "bun --cwd apps/cms build",
+		"preview:website": "bun --cwd apps/website preview",
+		"preview:cms": "bun --cwd apps/cms preview",
 		"lint": "biome lint",
 		"check": "biome check",
 		"check:fix": "biome check --fix",
