@@ -8,9 +8,9 @@ import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { Tracer } from "@aws-lambda-powertools/tracer";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import middy from "@middy/core";
-import { Sentry } from "../utils/sentry";
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { getAllTeams, getPublishedNews, getUpcomingEvents } from "../../lib/db/repositories";
+import { Sentry } from "../utils/sentry";
 
 const BASE_URL = process.env.WEBSITE_URL || "https://vcmuellheim.de";
 
@@ -130,9 +130,11 @@ const lambdaHandler: APIGatewayProxyHandlerV2 = async (event) => {
 	}
 };
 
-export const handler = Sentry.wrapHandler(middy(lambdaHandler)
-	.use(captureLambdaHandler(tracer, { captureResponse: false }))
-	.use(injectLambdaContext(logger)));
+export const handler = Sentry.wrapHandler(
+	middy(lambdaHandler)
+		.use(captureLambdaHandler(tracer, { captureResponse: false }))
+		.use(injectLambdaContext(logger)),
+);
 
 /**
  * Generate sitemap XML from URL entries

@@ -5,8 +5,8 @@ import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import middy from "@middy/core";
-import { Sentry } from "../utils/sentry";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { Sentry } from "../utils/sentry";
 import { type ClubLogoQueryParams, ClubLogoQueryParamsSchema, type ClubResponse, ClubResponseSchema } from "./types";
 
 const logger = new Logger({ serviceName: "sams-logo-proxy" });

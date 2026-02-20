@@ -2,8 +2,8 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import dayjs from "dayjs";
-import type { InstagramPost } from "./types";
 import { Sentry } from "../utils/sentry";
+import type { InstagramPost } from "./types";
 
 // Initialize DynamoDB client
 const dynamoClient = new DynamoDBClient({});

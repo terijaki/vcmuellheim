@@ -4,9 +4,9 @@ import { Tracer } from "@aws-lambda-powertools/tracer";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { getAllSeasons } from "@codegen/sams/generated";
 import middy from "@middy/core";
-import { Sentry } from "../utils/sentry";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import dayjs from "dayjs";
+import { Sentry } from "../utils/sentry";
 import { SeasonsResponseSchema } from "./types";
 
 const logger = new Logger({ serviceName: "sams-seasons" });

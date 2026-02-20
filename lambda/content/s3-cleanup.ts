@@ -32,7 +32,8 @@ const sponsorS3Schema = sponsorSchema.pick({ logoS3Key: true });
  * but they represent the same runtime value. We cast to bypass the type conflict and then
  * immediately validate with Zod schemas for runtime safety.
  */
-const safeUnmarshall = (item: any) => unmarshall(item) as Record<string, unknown>;
+const safeUnmarshall = (item: Record<string, unknown>) =>
+	unmarshall(item as Parameters<typeof unmarshall>[0]) as Record<string, unknown>;
 
 /**
  * Entity-specific extractor configurations using Zod schemas

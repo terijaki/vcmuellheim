@@ -5,9 +5,9 @@ import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import middy from "@middy/core";
-import { Sentry } from "../utils/sentry";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { slugify } from "@/utils/slugify";
+import { Sentry } from "../utils/sentry";
 import { ClubResponseSchema, ClubsResponseSchema } from "./types";
 
 // Initialize logger and tracer

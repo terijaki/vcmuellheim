@@ -1,8 +1,8 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { BatchWriteCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import type { EventBridgeEvent } from "aws-lambda";
-import { type InstagramPost, InstagramPostItemSchema } from "./types";
 import { Sentry } from "../utils/sentry";
+import { type InstagramPost, InstagramPostItemSchema } from "./types";
 
 // Initialize DynamoDB client
 const dynamoClient = new DynamoDBClient({});

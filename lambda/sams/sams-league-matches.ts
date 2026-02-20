@@ -6,11 +6,11 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { getAllLeagueMatches, type LeagueMatchDto } from "@codegen/sams/generated";
 import middy from "@middy/core";
-import { Sentry } from "../utils/sentry";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import dayjs from "dayjs";
 import { Club } from "@/project.config";
 import { slugify } from "../../utils/slugify";
+import { Sentry } from "../utils/sentry";
 import { LeagueMatchesResponseSchema, SeasonsResponseSchema } from "./types";
 
 const logger = new Logger({ serviceName: "sams-league-matches" });

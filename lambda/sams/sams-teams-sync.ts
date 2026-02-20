@@ -6,9 +6,9 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DeleteCommand, DynamoDBDocumentClient, PutCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { getAllLeagues, getAllSeasons, getTeamsForLeague } from "@codegen/sams/generated";
 import middy from "@middy/core";
-import { Sentry } from "../utils/sentry";
 import type { APIGatewayProxyHandler } from "aws-lambda";
 import { slugify } from "../../utils/slugify";
+import { Sentry } from "../utils/sentry";
 import { TeamItemSchema } from "./types";
 
 const logger = new Logger({ serviceName: "sams-teams-sync" });
