@@ -29,6 +29,14 @@ export default function HomeIntro() {
 				<Container size="xs" pt="xl" mt="xl" style={{ zIndex: 2 }}>
 					<Group gap="xs" justify="center">
 						{navbarLinks.map((link) => {
+							if (link.href.includes("https://")) {
+								return (
+									<Button key={link.name} component="a" {...link} bg="onyx" radius="xl" bd="1px white solid" c="white" target="_blank" rel="noreferrer">
+										{link.name}
+									</Button>
+								);
+							}
+
 							return (
 								<Button key={link.name} component={Link} {...link} bg="onyx" radius="xl" bd="1px white solid" c="white">
 									{link.name}
