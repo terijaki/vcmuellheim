@@ -44,7 +44,7 @@ export default function HomeMembers() {
 
 function MemberList({ members, showRole }: { members: Member[]; showRole?: boolean }) {
 	return (
-		<Group justify="center">
+		<Group justify="center" align="stretch">
 			{members?.map((member) => (
 				<MemberCard key={member.id} member={member} show={showRole ? "roles" : undefined} />
 			))}

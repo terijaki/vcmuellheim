@@ -7,18 +7,27 @@ export default function MemberCard({ member, show, dark }: { member: Member; sho
 	const { id, name, email, phone, avatarS3Key, roleTitle } = member;
 	const { data: avatarUrl } = useFileUrl(avatarS3Key);
 	return (
-		<Card component="a" data-member-id={id} href={email ? `mailto:${email}` : ""} p={0} withBorder bg={dark ? "onyx" : undefined}>
-			<Stack gap={0}>
-				<Group gap={0}>
-					<Stack bg={dark ? "blumine" : "lion"} w={58} h={64} c="white" pos="relative" align="center" justify="center">
-						{avatarUrl ? <Image src={avatarUrl} alt={name} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <IconAvatar width={"100%"} height={"100%"} />}
+		<Card component="a" data-member-id={id} href={email ? `mailto:${email}` : ""} p={0} withBorder bg={dark ? "onyx" : undefined} w={{ base: "100%", xs: 208 }}>
+			<Stack gap={0} h="100%">
+				<Group gap={0} align="stretch" h="100%">
+					<Stack bg={dark ? "blumine" : "lion"} w={{ base: 72, xs: 56 }} c="white" align="center" justify="center">
+						{avatarUrl ? <Image src={avatarUrl} alt={name} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <IconAvatar width={"100%"} height={"100%"} size={32} />}
 					</Stack>
-					<Text w={150} p="xs" lineClamp={2} lh="xs" c={dark ? "white" : undefined} fw={dark ? "bold" : undefined}>
-						{name}
-					</Text>
+					<Stack flex={1} gap={0} justify="space-around">
+						<Stack flex={1} justify="center" p="xs">
+							<Text lineClamp={2} c={dark ? "white" : undefined} fw={dark ? "bold" : undefined}>
+								{name}
+							</Text>
+						</Stack>
+						{show === "roles" && roleTitle && (
+							<Center p={2} c="white" bg="blumine" display={{ base: "flex", xs: "none" }}>
+								<Text size="xs">{roleTitle}</Text>
+							</Center>
+						)}
+					</Stack>
 				</Group>
 				{show === "roles" && roleTitle && (
-					<Center p={2} c="white" bg="blumine">
+					<Center p={2} c="white" bg="blumine" display={{ base: "none", xs: "flex" }}>
 						<Text size="xs">{roleTitle}</Text>
 					</Center>
 				)}
