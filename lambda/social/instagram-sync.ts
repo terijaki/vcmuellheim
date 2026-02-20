@@ -18,6 +18,7 @@ const INSTAGRAM_HANDLES = ["vcmuellheim", "vcm_damen101"];
 
 const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 	console.log("🚀 Starting Instagram sync job", { event });
+	Sentry.addBreadcrumb({ category: "sync", message: "Starting Instagram sync", level: "info" });
 
 	if (!TABLE_NAME) {
 		throw new Error("INSTAGRAM_TABLE_NAME environment variable is not set");
@@ -57,12 +58,17 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 		}
 
 		console.log(`✅ Found ${posts.length} Instagram posts`);
+		Sentry.addBreadcrumb({ category: "sync", message: `Found ${posts.length} Instagram posts`, level: "info", data: { postsFound: posts.length } });
+		Sentry.setMeasurement("instagram_sync.posts_found", posts.length, "none");
 
 		// Step 4: Store posts in DynamoDB
 		console.log("💾 Storing posts in DynamoDB");
 		await storePosts(posts);
 
 		console.log("✅ Instagram sync completed successfully");
+		Sentry.setMeasurement("instagram_sync.handles_synced", handles.length, "none");
+		Sentry.setMeasurement("instagram_sync.posts_stored", posts.length, "none");
+		Sentry.addBreadcrumb({ category: "sync", message: "Instagram sync completed", level: "info", data: { handlesCount: handles.length, postsCount: posts.length } });
 
 		return {
 			statusCode: 200,
@@ -74,6 +80,7 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 		};
 	} catch (error) {
 		console.error("❌ Error during Instagram sync:", error);
+		Sentry.captureException(error);
 		throw error;
 	}
 };

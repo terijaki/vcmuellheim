@@ -24,6 +24,7 @@ const SAMS_SERVER = process.env.SAMS_SERVER;
 
 const lambdaHandler: APIGatewayProxyHandler = async () => {
 	logger.info("Starting SAMS teams sync...");
+	Sentry.addBreadcrumb({ category: "sync", message: "Starting SAMS teams sync", level: "info" });
 	try {
 		if (!SAMS_API_KEY) {
 			throw new Error("SAMS_API_KEY environment variable is required");
@@ -52,6 +53,7 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 
 		const { sportsclubUuid, associationUuid } = club;
 		console.log(`Found club: ${club.name} (${sportsclubUuid})`);
+		Sentry.addBreadcrumb({ category: "sync", message: `Found club: ${club.name} (${sportsclubUuid})`, level: "info" });
 
 		// Step 2: Get current season
 		console.log("Fetching current season...");
@@ -99,6 +101,8 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 		}
 
 		console.log(`Found ${allLeagues.length} leagues for current season`);
+		Sentry.addBreadcrumb({ category: "sync", message: `Found ${allLeagues.length} leagues for current season`, level: "info", data: { leaguesFound: allLeagues.length } });
+		Sentry.setMeasurement("sams_teams_sync.leagues_found", allLeagues.length, "none");
 
 		// Step 4: Get teams from each league
 		const allTeams = [];
@@ -153,6 +157,8 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 		}
 
 		console.log(`Found ${allTeams.length} teams for VC Müllheim`);
+		Sentry.addBreadcrumb({ category: "sync", message: `Found ${allTeams.length} teams for VC Müllheim`, level: "info", data: { teamsFound: allTeams.length } });
+		Sentry.setMeasurement("sams_teams_sync.teams_found", allTeams.length, "none");
 
 		// Step 5: Store teams in DynamoDB
 		let teamsProcessed = 0;
@@ -197,6 +203,9 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 		};
 
 		console.log("Teams sync completed:", result);
+		Sentry.setMeasurement("sams_teams_sync.teams_processed", teamsProcessed, "none");
+		Sentry.setMeasurement("sams_teams_sync.teams_deleted", teamsDeleted, "none");
+		Sentry.addBreadcrumb({ category: "sync", message: "Teams sync completed", level: "info", data: result });
 
 		return {
 			statusCode: 200,
@@ -207,6 +216,7 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 		};
 	} catch (error) {
 		console.error("Error syncing teams:", error);
+		Sentry.captureException(error);
 		return {
 			statusCode: 500,
 			headers: {
