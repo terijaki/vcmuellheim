@@ -36,10 +36,10 @@ GET /seasons
 GET /seasons/{uuid}
 ```
 
-Returns all competition periods. The current season is identified by `currentSeason: true` (not `isCurrent`). Always resolve the current season UUID first — it is required as a filter for leagues.
+Returns all competition periods as a **bare array** (not a paginated envelope). The current season is identified by `currentSeason: true` (not `isCurrent`). Always resolve the current season UUID first — it is required as a filter for leagues.
 
 ```bash
-sams.ts seasons | jq '.content[] | select(.currentSeason == true)'
+sams.ts seasons | jq '.[] | select(.currentSeason == true)'
 ```
 
 ### Associations
@@ -91,10 +91,11 @@ A Team object has:
   "uuid": "...",
   "name": "VC Müllheim 1",
   "sportsclubUuid": "9c8b0252-c19b-4e83-a564-202e90d75c01",
-  "masterTeamUuid": null,   // null = primary team; non-null = sub-team
-  "leagueUuid": "..."
+  "masterTeamUuid": null   // null = primary team; non-null = sub-team
 }
 ```
+
+> **Note:** `leagueUuid` is **not** a field on `TeamDto` — it is not returned even when fetching via `leagues/{uuid}/teams`. Retain the league UUID from the request URL.
 
 Filter primary teams with `select(.masterTeamUuid == null)`.
 
@@ -108,16 +109,21 @@ Returns a ranked list of teams in the league. Useful fields:
 
 ```json
 {
+  "uuid": "c2ddea7c-b7ec-4172-aa85-4d9c47aba362",
   "rank": 5,
   "teamName": "VC Müllheim 1",
-  "teamUuid": "c2ddea7c-b7ec-4172-aa85-4d9c47aba362",
   "points": 21,
-  "matchesWon": 6,
-  "matchesLost": 9,
-  "setsWon": 27,
-  "setsLost": 31
+  "wins": 6,
+  "losses": 9,
+  "setWins": 27,
+  "setLosses": 31,
+  "matchesPlayed": 15,
+  "ballWins": 100,
+  "ballLosses": 92
 }
 ```
+
+> **Note:** The team identifier field is `uuid` (not `teamUuid`). Stats use `wins`/`losses`/`setWins`/`setLosses` — not `matchesWon`/`matchesLost`/`setsWon`/`setsLost`.
 
 ### Match-days & League-matches
 
@@ -126,7 +132,7 @@ GET /leagues/{uuid}/match-days
 GET /match-days/{uuid}/league-matches
 ```
 
-**Match-days** are the ordered rounds of a league (e.g. "5. Spieltag"). Their `date` field is always `null` — dates live only on the individual match entries.
+**Match-days** are the ordered rounds of a league (e.g. "5. Spieltag"). The date field is named `matchdate` (per `LeagueMatchDayDto`) and is populated with the round date. Individual match entries also carry their own `date` and `time` fields.
 
 **League-matches** are the actual games. Each match object has:
 
@@ -136,7 +142,7 @@ GET /match-days/{uuid}/league-matches
   "time": "14:00",
   "team1Description": "TV Merdingen 2",
   "team2Description": "VC Müllheim 1",
-  "result": null,
+  "results": null,
   "_embedded": {
     "team1": { "uuid": "..." },
     "team2": { "uuid": "f41dd752-07b0-42e8-afe2-4662a81eadf9" }
@@ -144,7 +150,9 @@ GET /match-days/{uuid}/league-matches
 }
 ```
 
-> **Known issue:** The top-level `GET /league-matches` endpoint accepts a `leagueUuid` query parameter but does **not** effectively filter results — it ignores `seasonUuid` entirely and returns 200k+ historical matches. Never use it for league-scoped queries. Use `leagues/{uuid}/match-days` → `match-days/{md-uuid}/league-matches` instead.
+For played matches, `results` is an object with `winner`, `winnerName`, `setPoints`, `ballPoints`, and a `sets` array. For future matches it is `null`.
+
+> **Note:** The top-level `GET /league-matches` endpoint supports filtering via `for-league`, `for-season`, `for-sportsclub`, and `for-team` query parameters (not `leagueUuid`). For league-scoped queries the `leagues/{uuid}/match-days` → `match-days/{md-uuid}/league-matches` path is still preferable as it avoids paginating through the full historical dataset.
 
 Pattern for upcoming matches for a specific team:
 
@@ -163,7 +171,7 @@ done
 
 ## Pagination Pattern
 
-All list endpoints return a paginated envelope (not a bare array):
+Most list endpoints return a paginated envelope:
 
 ```json
 {
@@ -177,7 +185,9 @@ All list endpoints return a paginated envelope (not a bare array):
 
 Control with `--query size=100 --query page=0` (zero-indexed). Keep incrementing `page` until `last == true`.
 
-**jq tip:** always access items with `.content[]`, never `.[]`.
+**Exception:** `GET /seasons` returns a **bare array** — use `.[]` not `.content[]`.
+
+**jq tip:** for all paged endpoints access items with `.content[]`, never `.[]`.
 
 ---
 
@@ -217,8 +227,11 @@ Use `Accept: */*` when making requests — `Accept: application/json` causes HTT
 | Issue | Detail |
 |---|---|
 | SBVV missing from `/associations` list | Confirmed upstream API bug. Use UUID directly. |
-| Match-day `date` is always `null` | Dates are on individual match entries, not on the match-day wrapper. |
-| `/league-matches?leagueUuid=` is broken | Returns 200k+ results regardless. Use match-days per-league instead. |
+| Match-day date field is `matchdate` | Named `matchdate` (not `date`) per `LeagueMatchDayDto`. |
+| `/league-matches` filter params | Use `for-league`, `for-season`, `for-sportsclub`, `for-team` — not `leagueUuid`. |
+| `GET /seasons` returns a bare array | Use `.[]` not `.content[]` — no pagination envelope. |
+| Rankings team identifier is `uuid` | Not `teamUuid` — stat fields are `wins`/`losses`/`setWins`/`setLosses`. |
+| Match results field is `results` | Plural — `results` is an object for played matches, `null` for future ones. |
 | `Accept: application/json` → HTTP 406 | API returns `hal+json`. Use `Accept: */*`. |
 | Sub-teams have `masterTeamUuid` set | Filter with `select(.masterTeamUuid == null)` for primary teams only. |
 | Current season field is `currentSeason` | Not `isCurrent` or `isActive`. |
