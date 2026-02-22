@@ -34,4 +34,15 @@
 		"localhost (cms)": "http://localhost:3081"
 	},
 	"chat.useNestedAgentsMdFiles": true,
+	"chat.tools.terminal.autoApprove": {
+		"/^bun tsc --noEmit/": {
+			"approve": true,
+			"matchCommandLine": true
+		},
+		"/\\.github\\/skills\\/sams-api\\/sams\\.ts/": {
+			"approve": true,
+			"matchCommandLine": true
+		},
+		"/\\| jq/": true 
+	}
 }
