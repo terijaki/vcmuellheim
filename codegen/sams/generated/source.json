@@ -39,8 +39,8 @@
               }
             }
           },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+          "403": {
+            "description": "API authorization failed.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
@@ -49,8 +49,8 @@
               }
             }
           },
-          "403": {
-            "description": "API authorization failed.",
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
@@ -99,22 +99,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Association"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -129,22 +129,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Association"
                 }
               }
             }
@@ -197,22 +197,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssociationResourcePage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -227,22 +227,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AssociationResourcePage"
                 }
               }
             }
@@ -296,22 +296,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommitteePage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -326,22 +326,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CommitteePage"
                 }
               }
             }
@@ -394,22 +394,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SportsclubPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -424,22 +424,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SportsclubPage"
                 }
               }
             }
@@ -484,22 +484,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommitteePage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -514,22 +514,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/CommitteePage"
                 }
               }
             }
@@ -564,22 +564,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/Committee"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -594,22 +594,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/Committee"
                 }
               }
             }
@@ -670,22 +670,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueHierarchyPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -700,22 +700,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/LeagueHierarchyPage"
                 }
               }
             }
@@ -767,22 +767,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompetitionPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -797,22 +797,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompetitionPage"
                 }
               }
             }
@@ -846,22 +846,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueHierarchyDto"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -876,22 +876,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/LeagueHierarchyDto"
                 }
               }
             }
@@ -943,22 +943,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeaguePage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -973,22 +973,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/LeaguePage"
                 }
               }
             }
@@ -1040,22 +1040,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuperCompetitionPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -1070,22 +1070,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuperCompetitionPage"
                 }
               }
             }
@@ -1130,22 +1130,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationResourcePage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -1160,22 +1160,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/LocationResourcePage"
                 }
               }
             }
@@ -1210,22 +1210,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/Location"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -1240,22 +1240,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/Location"
                 }
               }
             }
@@ -1316,22 +1316,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompetitionPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -1346,22 +1346,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompetitionPage"
                 }
               }
             }
@@ -1395,22 +1395,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompetitionDto"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -1425,22 +1425,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompetitionDto"
                 }
               }
             }
@@ -1492,22 +1492,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompetitionMatchGroupPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -1522,22 +1522,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompetitionMatchGroupPage"
                 }
               }
             }
@@ -1589,22 +1589,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompetitionRankingsResourcePage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -1619,22 +1619,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompetitionRankingsResourcePage"
                 }
               }
             }
@@ -1687,22 +1687,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -1717,22 +1717,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/TeamPage"
                 }
               }
             }
@@ -1817,22 +1817,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompetitionMatchPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -1847,22 +1847,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompetitionMatchPage"
                 }
               }
             }
@@ -1896,22 +1896,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompetitionMatchDto"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -1926,22 +1926,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompetitionMatchDto"
                 }
               }
             }
@@ -1993,22 +1993,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompetitionMatchGroupPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -2023,22 +2023,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompetitionMatchGroupPage"
                 }
               }
             }
@@ -2072,22 +2072,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompetitionMatchGroupDto"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -2102,22 +2102,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompetitionMatchGroupDto"
                 }
               }
             }
@@ -2169,22 +2169,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompetitionMatchPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -2199,22 +2199,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompetitionMatchPage"
                 }
               }
             }
@@ -2274,22 +2274,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeaguePage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -2304,22 +2304,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/LeaguePage"
                 }
               }
             }
@@ -2353,22 +2353,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueDto"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -2383,22 +2383,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/LeagueDto"
                 }
               }
             }
@@ -2450,22 +2450,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueMatchDayPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -2480,22 +2480,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/LeagueMatchDayPage"
                 }
               }
             }
@@ -2547,22 +2547,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueRankingsResourcePage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -2577,22 +2577,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/LeagueRankingsResourcePage"
                 }
               }
             }
@@ -2644,22 +2644,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -2674,22 +2674,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/TeamPage"
                 }
               }
             }
@@ -2774,22 +2774,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueMatchPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -2804,22 +2804,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/LeagueMatchPage"
                 }
               }
             }
@@ -2853,22 +2853,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueMatchDto"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -2883,22 +2883,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/LeagueMatchDto"
                 }
               }
             }
@@ -2951,22 +2951,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueMatchDayPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -2981,22 +2981,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/LeagueMatchDayPage"
                 }
               }
             }
@@ -3030,22 +3030,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueMatchDayDto"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -3060,22 +3060,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/LeagueMatchDayDto"
                 }
               }
             }
@@ -3127,22 +3127,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueMatchPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -3157,22 +3157,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/LeagueMatchPage"
                 }
               }
             }
@@ -3233,22 +3233,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuperCompetitionPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -3263,22 +3263,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuperCompetitionPage"
                 }
               }
             }
@@ -3312,22 +3312,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuperCompetitionDto"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -3342,22 +3342,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuperCompetitionDto"
                 }
               }
             }
@@ -3409,22 +3409,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -3439,22 +3439,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/EventPage"
                 }
               }
             }
@@ -3489,22 +3489,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -3519,22 +3519,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/Event"
                 }
               }
             }
@@ -3569,22 +3569,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventType"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -3599,22 +3599,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/EventType"
                 }
               }
             }
@@ -3648,22 +3648,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventType"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -3678,22 +3678,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/EventType"
                 }
               }
             }
@@ -3719,22 +3719,25 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SeasonDto"
+                  }
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -3749,25 +3752,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SeasonDto"
-                  }
                 }
               }
             }
@@ -3819,22 +3819,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueHierarchyPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -3849,22 +3849,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/LeagueHierarchyPage"
                 }
               }
             }
@@ -3898,22 +3898,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeasonDto"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -3928,22 +3928,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/SeasonDto"
                 }
               }
             }
@@ -3996,22 +3996,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/SportsclubPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -4026,22 +4026,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/SportsclubPage"
                 }
               }
             }
@@ -4075,22 +4075,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/SportsclubDto"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -4105,22 +4105,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/SportsclubDto"
                 }
               }
             }
@@ -4173,22 +4173,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamPage"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -4203,22 +4203,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/TeamPage"
                 }
               }
             }
@@ -4252,22 +4252,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamDto"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -4282,22 +4282,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/TeamDto"
                 }
               }
             }
@@ -4323,22 +4323,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetailsDto"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -4353,22 +4353,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserDetailsDto"
                 }
               }
             }
@@ -4394,22 +4394,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/HalRepresentation"
+                }
+              }
+            }
+          },
           "400": {
             "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseExceptionMessage"
                 }
               }
             }
@@ -4424,22 +4424,22 @@
               }
             }
           },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
           "500": {
             "description": "An unexpected error occurred. Please contact support and supply the response data.",
             "content": {
               "application/hal+json; charset=UTF-8": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseException"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/hal+json; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/HalRepresentation"
                 }
               }
             }
@@ -4505,33 +4505,46 @@
         "properties": {
           "uuid": {
             "type": "string",
-            "description": "Entity unique identifier"
+            "description": "Entity unique identifier",
+            "nullable": false
           },
           "_links": {
             "type": "object",
             "additionalProperties": {
               "$ref": "#/components/schemas/LinkDto"
-            }
+            },
+            "nullable": true
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            },
+            "nullable": true
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "nullable": false
           },
           "shortname": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "parentUuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "level": {
             "type": "integer",
             "description": "Zero-based hierarchy level for the association. For top-level associations, the level is 0.",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           }
-        }
+        },
+        "required": [
+          "uuid",
+          "name"
+        ]
       },
       "Embedded": {
         "type": "object",
@@ -4579,7 +4592,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -4606,25 +4621,32 @@
         "type": "object",
         "properties": {
           "street": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "postcode": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "city": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "country": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "extrafield": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "region": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "postbox": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         },
         "description": "Address for a location or a person. An address object may be null if no address data is available. For persons this might be the case if the address visibility has been set to private."
@@ -4644,7 +4666,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "associationUuid": {
             "type": "string",
@@ -4750,7 +4774,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -4778,36 +4804,50 @@
         "properties": {
           "uuid": {
             "type": "string",
-            "description": "Entity unique identifier"
+            "description": "Entity unique identifier",
+            "nullable": false
           },
           "_links": {
             "type": "object",
             "additionalProperties": {
               "$ref": "#/components/schemas/LinkDto"
-            }
+            },
+            "nullable": true
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            },
+            "nullable": true
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "nullable": false
           },
           "shortname": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "sportsclubNumber": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "associationUuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "logoImageLink": {
             "type": "string",
-            "format": "url"
+            "format": "url",
+            "nullable": true
           }
-        }
+        },
+        "required": [
+          "uuid",
+          "name"
+        ]
       },
       "SportsclubPage": {
         "type": "object",
@@ -4828,7 +4868,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -4866,7 +4908,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "name": {
             "type": "string"
@@ -4908,7 +4952,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -4946,7 +4992,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "name": {
             "type": "string"
@@ -5007,7 +5055,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -5045,7 +5095,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "name": {
             "type": "string"
@@ -5102,7 +5154,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -5140,7 +5194,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "name": {
             "type": "string"
@@ -5201,7 +5257,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -5229,31 +5287,40 @@
         "properties": {
           "uuid": {
             "type": "string",
-            "description": "Location unique identifier"
+            "description": "Location unique identifier",
+            "nullable": true
           },
           "_links": {
             "type": "object",
             "additionalProperties": {
               "$ref": "#/components/schemas/LinkDto"
-            }
+            },
+            "nullable": true
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            },
+            "nullable": true
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "longitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "latitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "address": {
-            "$ref": "#/components/schemas/Address"
+            "$ref": "#/components/schemas/Address",
+            "nullable": true
           }
         },
         "description": "A location comprises the location's name, its address, and its geographical coordinates if available"
@@ -5277,7 +5344,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -5315,7 +5384,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "name": {
             "type": "string"
@@ -5354,7 +5425,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -5392,7 +5465,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "matchGroupName": {
             "type": "string"
@@ -5424,7 +5499,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -5452,81 +5529,120 @@
         "properties": {
           "uuid": {
             "type": "string",
-            "description": "Entity unique identifier"
+            "description": "Entity unique identifier",
+            "nullable": false
           },
           "_links": {
             "type": "object",
             "additionalProperties": {
               "$ref": "#/components/schemas/LinkDto"
-            }
+            },
+            "nullable": true
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            },
+            "nullable": true
           },
           "teamName": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "rank": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": false
           },
           "matchesPlayed": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "points": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "scoreIncludingLosses": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "wins": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "losses": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "setWins": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "setLosses": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "setDifference": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "setRatio": {
             "type": "number",
-            "format": "float"
+            "format": "float",
+            "nullable": true,
+            "additionalProperties": true,
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "ballWins": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "ballLosses": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "ballDifference": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "ballRatio": {
             "type": "number",
-            "format": "float"
+            "format": "float",
+            "nullable": true,
+            "additionalProperties": true,
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "resultTypes": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MatchResultTypeCount"
-            }
+            },
+            "nullable": true
           }
         }
       },
@@ -5547,47 +5663,61 @@
         "properties": {
           "uuid": {
             "type": "string",
-            "description": "Entity unique identifier"
+            "description": "Entity unique identifier",
+            "nullable": false
           },
           "_links": {
             "type": "object",
             "additionalProperties": {
               "$ref": "#/components/schemas/LinkDto"
-            }
+            },
+            "nullable": true
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            },
+            "nullable": true
           },
           "masterTeamUuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "nullable": false
           },
           "shortName": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "teamNumber": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "clubCode": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "logoImageLink": {
             "type": "string",
-            "format": "url"
+            "format": "url",
+            "nullable": true
           },
           "logoImageForScreenOutputLink": {
             "type": "string",
-            "format": "url"
+            "format": "url",
+            "nullable": true
           },
           "sportsclubUuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "associationUuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -5610,7 +5740,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -5638,93 +5770,148 @@
         "properties": {
           "uuid": {
             "type": "string",
-            "description": "Entity unique identifier"
+            "description": "Entity unique identifier",
+            "nullable": false
           },
           "_links": {
             "type": "object",
             "additionalProperties": {
               "$ref": "#/components/schemas/LinkDto"
-            }
+            },
+            "nullable": true
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "properties": {
+              "team1": {
+                "type": "object",
+                "properties": {
+                  "uuid": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "sportsclubUuid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "uuid",
+                  "name",
+                  "sportsclubUuid"
+                ]
+              },
+              "team2": {
+                "type": "object",
+                "properties": {
+                  "uuid": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "sportsclubUuid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "uuid",
+                  "name",
+                  "sportsclubUuid"
+                ]
+              }
+            },
+            "nullable": true
           },
           "date": {
             "type": "string",
-            "format": "date-time"
+            "format": "date",
+            "nullable": true
           },
           "time": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "matchNumber": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "decidingMatch": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
           "gameReassessed": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
           "host": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "referees": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/RefereeTeamDto"
-              }
-            ],
+            "$ref": "#/components/schemas/RefereeTeamDto",
             "nullable": true
           },
           "spectators": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "netDuration": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "verified": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
           "location": {
-            "$ref": "#/components/schemas/Location"
+            "$ref": "#/components/schemas/Location",
+            "nullable": true
           },
           "seasonUuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "associationUuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "team1Description": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "team2Description": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "results": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/VolleyballMatchResultsDto"
-              }
-            ],
+            "$ref": "#/components/schemas/VolleyballMatchResultsDto",
             "nullable": true
           },
           "matchGroupUuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "competitionUuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "indefinitelyRescheduled": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
           "delayPossible": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           }
-        }
+        },
+        "required": [
+          "uuid"
+        ]
       },
       "CompetitionMatchPage": {
         "type": "object",
@@ -5745,7 +5932,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -5772,16 +5961,20 @@
         "type": "object",
         "properties": {
           "firstReferee": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "secondReferee": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "thirdReferee": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "challengeReferee": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -5789,22 +5982,27 @@
         "type": "object",
         "properties": {
           "winner": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "winnerName": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "setPoints": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "ballPoints": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "sets": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/VolleyballMatchSetRestDto"
-            }
+            },
+            "nullable": true
           }
         }
       },
@@ -5845,7 +6043,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "name": {
             "type": "string"
@@ -5884,7 +6084,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -5926,7 +6128,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -5954,93 +6158,148 @@
         "properties": {
           "uuid": {
             "type": "string",
-            "description": "Entity unique identifier"
+            "description": "Entity unique identifier",
+            "nullable": false
           },
           "_links": {
             "type": "object",
             "additionalProperties": {
               "$ref": "#/components/schemas/LinkDto"
-            }
+            },
+            "nullable": true
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "properties": {
+              "team1": {
+                "type": "object",
+                "properties": {
+                  "uuid": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "sportsclubUuid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "uuid",
+                  "name",
+                  "sportsclubUuid"
+                ]
+              },
+              "team2": {
+                "type": "object",
+                "properties": {
+                  "uuid": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "sportsclubUuid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "uuid",
+                  "name",
+                  "sportsclubUuid"
+                ]
+              }
+            },
+            "nullable": true
           },
           "date": {
             "type": "string",
-            "format": "date-time"
+            "format": "date",
+            "nullable": true
           },
           "time": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "matchNumber": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "decidingMatch": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
           "gameReassessed": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
           "host": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "referees": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/RefereeTeamDto"
-              }
-            ],
+            "$ref": "#/components/schemas/RefereeTeamDto",
             "nullable": true
           },
           "spectators": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "netDuration": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "verified": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
           "location": {
-            "$ref": "#/components/schemas/Location"
+            "$ref": "#/components/schemas/Location",
+            "nullable": true
           },
           "seasonUuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "associationUuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "team1Description": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "team2Description": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "results": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/VolleyballMatchResultsDto"
-              }
-            ],
+            "$ref": "#/components/schemas/VolleyballMatchResultsDto",
             "nullable": true
           },
           "matchDayUuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "leagueUuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "indefinitelyRescheduled": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
           "delayPossible": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           }
-        }
+        },
+        "required": [
+          "uuid"
+        ]
       },
       "LeagueMatchPage": {
         "type": "object",
@@ -6061,7 +6320,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -6089,7 +6350,7 @@
         "properties": {
           "uuid": {
             "type": "string",
-            "description": "Event unique identifier"
+            "description": "Entity unique identifier"
           },
           "_links": {
             "type": "object",
@@ -6099,7 +6360,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "name": {
             "type": "string"
@@ -6183,7 +6446,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "content": {
             "type": "array",
@@ -6221,7 +6486,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "name": {
             "type": "string"
@@ -6253,7 +6520,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "name": {
             "type": "string"
@@ -6284,7 +6553,9 @@
           },
           "_embedded": {
             "type": "object",
-            "additionalProperties": {}
+            "additionalProperties": {
+              "type": "object"
+            }
           },
           "firstName": {
             "type": "string"
