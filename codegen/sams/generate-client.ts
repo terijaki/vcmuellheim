@@ -4,7 +4,7 @@ createClient({
 	output: {
 		path: "codegen/sams/generated",
 		postProcess: ["biome:format", "biome:lint"],
-		preferExportAll: true, // preserve export * behaviour (changed in v0.89)
+		preferExportAll: true,
 		source: true,
 	},
 	input: "https://www.volleyball-baden.de/api/v2/swagger.json",
