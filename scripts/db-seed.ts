@@ -498,6 +498,12 @@ async function seedMembersData() {
 			roleTitle: "Co-Trainer Damen 2",
 			avatarS3Key: "",
 		},
+		{
+			name: "Peter Lustig",
+			email: "peter.lustig@example.com",
+			isBoardMember: false,
+			isTrainer: true,
+		},
 	];
 
 	// Add base metadata
