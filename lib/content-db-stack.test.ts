@@ -1,12 +1,12 @@
 import { describe, it } from "bun:test";
-import { App } from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import { ContentDbStack } from "./content-db-stack";
+import { createTestApp } from "./test-helpers";
 
 describe("ContentDbStack", () => {
 	describe("Development environment", () => {
 		it("should create stack with all tables", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				env: {
 					account: "123456789012",
@@ -25,7 +25,7 @@ describe("ContentDbStack", () => {
 		});
 
 		it("should set DESTROY removal policy for dev", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -42,7 +42,7 @@ describe("ContentDbStack", () => {
 		});
 
 		it("should include branch suffix in table names", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -61,7 +61,7 @@ describe("ContentDbStack", () => {
 
 	describe("Production environment", () => {
 		it("should set RETAIN removal policy for prod tables", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: {
 					environment: "prod",
@@ -80,7 +80,7 @@ describe("ContentDbStack", () => {
 
 	describe("Table configuration", () => {
 		it("should use PAY_PER_REQUEST billing for all tables", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -104,7 +104,7 @@ describe("ContentDbStack", () => {
 		});
 
 		it("should enable streams on all tables", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -126,7 +126,7 @@ describe("ContentDbStack", () => {
 		});
 
 		it("should enable point-in-time recovery", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -151,7 +151,7 @@ describe("ContentDbStack", () => {
 
 	describe("News table", () => {
 		it("should have correct schema", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -173,7 +173,7 @@ describe("ContentDbStack", () => {
 		});
 
 		it("should have GSI for queries", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -238,7 +238,7 @@ describe("ContentDbStack", () => {
 
 	describe("Events table", () => {
 		it("should have GSI for startDate queries", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -271,7 +271,7 @@ describe("ContentDbStack", () => {
 
 	describe("Teams table", () => {
 		it("should have GSI for team queries", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -296,7 +296,7 @@ describe("ContentDbStack", () => {
 
 	describe("Sponsors table", () => {
 		it("should enable TTL", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -318,7 +318,7 @@ describe("ContentDbStack", () => {
 
 	describe("Bus table", () => {
 		it("should enable TTL", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",

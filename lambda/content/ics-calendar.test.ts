@@ -43,7 +43,7 @@ const defaultMockFetch = async (url: string) => {
 (global as unknown as { fetch: unknown }).fetch = defaultMockFetch;
 
 // Mock context
-const mockContext = {} as Context;
+const mockContext = { getRemainingTimeInMillis: () => 30000 } as unknown as Context;
 
 beforeEach(() => {
 	ddbMock.reset();

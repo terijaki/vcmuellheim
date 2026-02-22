@@ -1,7 +1,7 @@
 import { beforeAll, describe, it } from "bun:test";
-import { App } from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import { SocialMediaStack } from "./social-media-stack";
+import { createTestApp } from "./test-helpers";
 
 // Set required environment variables before tests
 beforeAll(() => {
@@ -11,7 +11,7 @@ beforeAll(() => {
 describe("SocialMediaStack", () => {
 	describe("Development environment", () => {
 		it("should create stack with correct resources", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SocialMediaStack(app, "TestStack", {
 				env: {
 					account: "123456789012",
@@ -40,7 +40,7 @@ describe("SocialMediaStack", () => {
 		});
 
 		it("should set correct removal policy for dev", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -57,7 +57,7 @@ describe("SocialMediaStack", () => {
 		});
 
 		it("should include branch suffix in resource names", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -81,7 +81,7 @@ describe("SocialMediaStack", () => {
 
 	describe("Production environment", () => {
 		it("should set RETAIN removal policy for prod tables", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "prod",
@@ -100,7 +100,7 @@ describe("SocialMediaStack", () => {
 
 	describe("Lambda functions", () => {
 		it("should configure sync function with correct timeout", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -118,7 +118,7 @@ describe("SocialMediaStack", () => {
 		});
 
 		it("should configure posts function with correct timeout", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -136,7 +136,7 @@ describe("SocialMediaStack", () => {
 		});
 
 		it("should set environment variables for sync Lambda", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -159,7 +159,7 @@ describe("SocialMediaStack", () => {
 
 	describe("DynamoDB table", () => {
 		it("should create Instagram posts table with correct schema", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -186,7 +186,7 @@ describe("SocialMediaStack", () => {
 		});
 
 		it("should enable TTL on table", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -207,7 +207,7 @@ describe("SocialMediaStack", () => {
 
 	describe("EventBridge schedule", () => {
 		it("should create daily sync schedule at 4 AM UTC", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -225,7 +225,7 @@ describe("SocialMediaStack", () => {
 
 	describe("HTTP API Gateway", () => {
 		it("should configure CORS", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -246,7 +246,7 @@ describe("SocialMediaStack", () => {
 		});
 
 		it("should create instagram route", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",

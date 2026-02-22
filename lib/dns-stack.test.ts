@@ -1,7 +1,7 @@
 import { describe, it } from "bun:test";
-import { App } from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
 import { DnsStack } from "./dns-stack";
+import { createTestApp } from "./test-helpers";
 
 describe("DnsStack", () => {
 	const testProps = {
@@ -11,7 +11,7 @@ describe("DnsStack", () => {
 	};
 
 	it("should create stack without any new resources", () => {
-		const app = new App();
+		const app = createTestApp();
 		const stack = new DnsStack(app, "TestStack", testProps);
 
 		const template = Template.fromStack(stack);
@@ -25,7 +25,7 @@ describe("DnsStack", () => {
 	});
 
 	it("should import hosted zone correctly", () => {
-		const app = new App();
+		const app = createTestApp();
 		const stack = new DnsStack(app, "TestStack", testProps);
 
 		// Access the imported hosted zone
@@ -42,7 +42,7 @@ describe("DnsStack", () => {
 	});
 
 	it("should import certificate correctly", () => {
-		const app = new App();
+		const app = createTestApp();
 		const stack = new DnsStack(app, "TestStack", testProps);
 
 		// Access the imported certificate
@@ -55,7 +55,7 @@ describe("DnsStack", () => {
 	});
 
 	it("should import CloudFront certificate when provided", () => {
-		const app = new App();
+		const app = createTestApp();
 		const cloudFrontCertArn = "arn:aws:acm:us-east-1:123456789012:certificate/cloudfront-cert-id";
 		const stack = new DnsStack(app, "TestStack", {
 			...testProps,
@@ -75,7 +75,7 @@ describe("DnsStack", () => {
 	});
 
 	it("should not import CloudFront certificate when not provided", () => {
-		const app = new App();
+		const app = createTestApp();
 		const stack = new DnsStack(app, "TestStack", testProps);
 
 		// CloudFront certificate should be undefined
@@ -85,7 +85,7 @@ describe("DnsStack", () => {
 	});
 
 	it("should create correct outputs", () => {
-		const app = new App();
+		const app = createTestApp();
 		const stack = new DnsStack(app, "TestStack", {
 			...testProps,
 			cloudFrontCertificateArn: "arn:aws:acm:us-east-1:123456789012:certificate/cloudfront-cert-id",
@@ -111,7 +111,7 @@ describe("DnsStack", () => {
 	});
 
 	it("should not create CloudFront certificate output when not provided", () => {
-		const app = new App();
+		const app = createTestApp();
 		const stack = new DnsStack(app, "TestStack", testProps);
 
 		const template = Template.fromStack(stack);

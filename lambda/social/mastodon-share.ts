@@ -2,8 +2,11 @@
  * Lambda function for sharing news articles to Mastodon
  */
 
+import { Logger } from "@aws-lambda-powertools/logger";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import type { News } from "@/lib/db/types";
+
+const logger = new Logger({ serviceName: "mastodon-share" });
 
 const MASTODON_ACCESS_TOKEN = process.env.MASTODON_ACCESS_TOKEN;
 const MASTODON_INSTANCE = "https://freiburg.social";
@@ -42,7 +45,7 @@ async function uploadMediaToMastodon(s3Key: string): Promise<string | null> {
 		const s3Response = await s3Client.send(command);
 
 		if (!s3Response.Body) {
-			console.warn(`⚠️ No body in S3 response for key: ${s3Key}`);
+			logger.warn("No body in S3 response", { s3Key });
 			return null;
 		}
 
@@ -69,15 +72,15 @@ async function uploadMediaToMastodon(s3Key: string): Promise<string | null> {
 
 		if (!response.ok) {
 			const errorText = await response.text();
-			console.warn(`⚠️ Failed to upload media to Mastodon: ${response.status} - ${errorText}`);
+			logger.warn("Failed to upload media to Mastodon", { status: response.status, errorText });
 			return null;
 		}
 
 		const result = (await response.json()) as MastodonMediaResponse;
-		console.log(`✅ Uploaded media to Mastodon: ${result.id}`);
+		logger.info("Uploaded media to Mastodon", { mediaId: result.id });
 		return result.id;
 	} catch (error) {
-		console.error(`❌ Error uploading media to Mastodon:`, error);
+		logger.error("Error uploading media to Mastodon", { error });
 		return null;
 	}
 }
@@ -99,14 +102,14 @@ export async function shareToMastodon(request: MastodonShareRequest): Promise<Ma
 	// Generate idempotency key based on article ID (stable across retries)
 	const idempotencyKey = `news-${newsArticle.id}`;
 
-	console.log("📤 Sharing to Mastodon:", { title: newsArticle.title, url: articleUrl, idempotencyKey });
+	logger.info("Sharing to Mastodon", { title: newsArticle.title, url: articleUrl, idempotencyKey });
 
 	// Upload images to Mastodon (if any)
 	const mediaIds: string[] = [];
 	if (newsArticle.imageS3Keys && newsArticle.imageS3Keys.length > 0 && MEDIA_BUCKET_NAME) {
 		// Mastodon allows up to 4 images per post
 		const imagesToUpload = newsArticle.imageS3Keys.slice(0, 4);
-		console.log(`📸 Uploading ${imagesToUpload.length} image(s) to Mastodon`);
+		logger.info("Uploading images to Mastodon", { count: imagesToUpload.length });
 
 		for (const s3Key of imagesToUpload) {
 			const mediaId = await uploadMediaToMastodon(s3Key);
@@ -115,7 +118,7 @@ export async function shareToMastodon(request: MastodonShareRequest): Promise<Ma
 			}
 		}
 
-		console.log(`✅ Uploaded ${mediaIds.length}/${imagesToUpload.length} images successfully`);
+		logger.info("Images uploaded", { uploaded: mediaIds.length, total: imagesToUpload.length });
 	}
 
 	// Post to Mastodon
@@ -140,7 +143,7 @@ export async function shareToMastodon(request: MastodonShareRequest): Promise<Ma
 	}
 
 	const result = (await response.json()) as MastodonStatusResponse;
-	console.log("✅ Successfully shared to Mastodon:", { id: result.id, url: result.url });
+	logger.info("Successfully shared to Mastodon", { id: result.id, url: result.url });
 
 	return result;
 }
@@ -180,13 +183,13 @@ function buildMastodonStatus(newsArticle: News, articleUrl: string): string {
  * Lambda handler for direct invocation
  */
 export async function handler(event: MastodonShareRequest): Promise<MastodonStatusResponse> {
-	console.log("🚀 Mastodon sharing Lambda triggered", { event });
+	logger.info("Mastodon sharing Lambda triggered", { event });
 
 	try {
 		const result = await shareToMastodon(event);
 		return result;
 	} catch (error) {
-		console.error("❌ Error sharing to Mastodon:", error);
+		logger.error("Error sharing to Mastodon", { error });
 		throw error;
 	}
 }

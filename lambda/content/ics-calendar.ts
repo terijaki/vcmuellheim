@@ -26,7 +26,6 @@ const EVENTS_TABLE_NAME = process.env.EVENTS_TABLE_NAME || "";
 // Initialize Logger and Tracer outside handler for reuse across invocations
 const logger = new Logger({
 	serviceName: "vcm-ics-calendar",
-	logLevel: (process.env.LOG_LEVEL || "INFO") as "DEBUG" | "INFO" | "WARN" | "ERROR",
 });
 
 const tracer = new Tracer({
