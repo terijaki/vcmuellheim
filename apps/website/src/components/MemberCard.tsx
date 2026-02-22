@@ -7,7 +7,7 @@ export default function MemberCard({ member, show, dark }: { member: Member; sho
 	const { id, name, email, phone, avatarS3Key, roleTitle } = member;
 	const { data: avatarUrl } = useFileUrl(avatarS3Key);
 	return (
-		<Card component="a" data-member-id={id} href={email ? `mailto:${email}` : ""} p={0} withBorder bg={dark ? "onyx" : undefined} w={{ base: "100%", xs: 208 }}>
+		<Card component="a" data-member-id={id} href={email ? `mailto:${email}` : ""} p={0} withBorder bg={dark ? "onyx" : undefined} w={{ base: "100%", xs: 208 }} maw={280} mih={72}>
 			<Stack gap={0} h="100%">
 				<Group gap={0} align="stretch" h="100%">
 					<Stack bg={dark ? "blumine" : "lion"} w={{ base: 72, xs: 56 }} c="white" align="center" justify="center">

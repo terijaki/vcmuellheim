@@ -76,7 +76,7 @@ function RouteComponent() {
 			<SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 5 }} spacing="md" p="md">
 				{allImageUrls.map((imageUrl, index) => (
 					<AspectRatio key={imageUrl} ratio={4 / 3}>
-						<Card p={0} withBorder>
+						<Card p={0} withBorder component="a" href={imageUrl} target="_blank">
 							<ResponsiveImage source={imageUrl} alt={`Galleryfoto ${index + 1}`} />
 						</Card>
 					</AspectRatio>

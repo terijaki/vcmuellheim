@@ -26,7 +26,7 @@ export default function HomeTeams() {
 					<Stack gap={0}>
 						<SectionHeading text="Mannschaften" />
 						{isLoading && (
-							<Group gap="md">
+							<Group gap="md" justify="center">
 								<Skeleton visible height={80} maw={320} />
 								<Skeleton visible height={80} maw={320} />
 								<Skeleton visible height={80} maw={320} />
