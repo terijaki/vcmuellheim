@@ -1,10 +1,11 @@
 import { describe, it } from "bun:test";
-import { App, Stack } from "aws-cdk-lib";
+import { Stack } from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import { ApiStack } from "./api-stack";
+import { createTestApp } from "./test-helpers";
 
 // Helper to create mock DynamoDB tables in the same stack
 function createMockTables(stack: Stack, env: string) {
@@ -85,7 +86,7 @@ function createMockDnsResources(stack: Stack) {
 describe("ApiStack", () => {
 	describe("Development environment", () => {
 		it("should create stack with correct resources", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new Stack(app, "TestStack", {
 				env: {
 					account: "123456789012",
@@ -128,7 +129,7 @@ describe("ApiStack", () => {
 		});
 
 		it("should set correct removal policy for dev", () => {
-			const app = new App();
+			const app = createTestApp();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
@@ -151,7 +152,7 @@ describe("ApiStack", () => {
 		});
 
 		it("should include branch suffix in resource names", () => {
-			const app = new App();
+			const app = createTestApp();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev-feature-xyz");
 			const mockDns = createMockDnsResources(mockStack);
@@ -181,7 +182,7 @@ describe("ApiStack", () => {
 
 	describe("Production environment", () => {
 		it("should set RETAIN removal policy for prod", () => {
-			const app = new App();
+			const app = createTestApp();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "prod");
 			const mockDns = createMockDnsResources(mockStack);
@@ -204,7 +205,7 @@ describe("ApiStack", () => {
 		});
 
 		it("should disable self sign-up in prod", () => {
-			const app = new App();
+			const app = createTestApp();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "prod");
 			const mockDns = createMockDnsResources(mockStack);
@@ -226,7 +227,7 @@ describe("ApiStack", () => {
 		});
 
 		it("should enforce strong password policy in prod", () => {
-			const app = new App();
+			const app = createTestApp();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "prod");
 			const mockDns = createMockDnsResources(mockStack);
@@ -258,7 +259,7 @@ describe("ApiStack", () => {
 
 	describe("Cognito User Pool", () => {
 		it("should configure email sign-in", () => {
-			const app = new App();
+			const app = createTestApp();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
@@ -281,7 +282,7 @@ describe("ApiStack", () => {
 		});
 
 		it("should enable optional MFA", () => {
-			const app = new App();
+			const app = createTestApp();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
@@ -305,7 +306,7 @@ describe("ApiStack", () => {
 
 	describe("Lambda function", () => {
 		it("should configure correct timeout and memory", () => {
-			const app = new App();
+			const app = createTestApp();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
@@ -329,7 +330,7 @@ describe("ApiStack", () => {
 		});
 
 		it("should set environment variables for DynamoDB tables", () => {
-			const app = new App();
+			const app = createTestApp();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
@@ -375,7 +376,7 @@ describe("ApiStack", () => {
 
 	describe("HTTP API Gateway", () => {
 		it("should configure CORS for dev", () => {
-			const app = new App();
+			const app = createTestApp();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
@@ -402,7 +403,7 @@ describe("ApiStack", () => {
 		});
 
 		it("should create routes for tRPC", () => {
-			const app = new App();
+			const app = createTestApp();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);

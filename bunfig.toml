@@ -2,10 +2,9 @@
 depth = 3
 
 [test]
-coverage = true
-coverageSkipTestFiles = true
 randomize = true
 onlyFailures = true
+preload = ["./test-setup.ts"]
 
 [install]
 linker = "hoisted"

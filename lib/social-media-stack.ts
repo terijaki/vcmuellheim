@@ -264,8 +264,6 @@ export class SocialMediaStack extends cdk.Stack {
 			);
 
 			console.log("✅ Mastodon stream handler configured for news table");
-		} else {
-			console.log("⏭️ Skipping Mastodon stream handler - news table or website URL not provided");
 		}
 
 		// Create Route53 A record for custom domain (if configured)

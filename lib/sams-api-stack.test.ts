@@ -1,7 +1,7 @@
 import { beforeAll, describe, it } from "bun:test";
-import { App } from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
 import { SamsApiStack } from "./sams-api-stack";
+import { createTestApp } from "./test-helpers";
 
 // Set required environment variables before tests
 beforeAll(() => {
@@ -12,7 +12,7 @@ beforeAll(() => {
 describe("SamsApiStack", () => {
 	describe("Development environment", () => {
 		it("should create stack with correct resources", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SamsApiStack(app, "TestStack", {
 				env: {
 					account: "123456789012",
@@ -38,7 +38,7 @@ describe("SamsApiStack", () => {
 		});
 
 		it("should set correct removal policy for dev", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -55,7 +55,7 @@ describe("SamsApiStack", () => {
 		});
 
 		it("should include branch suffix in resource names", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -79,7 +79,7 @@ describe("SamsApiStack", () => {
 
 	describe("Production environment", () => {
 		it("should set RETAIN removal policy for prod tables", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {
 					environment: "prod",
@@ -96,7 +96,7 @@ describe("SamsApiStack", () => {
 		});
 
 		it("should not include branch suffix in prod", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {
 					environment: "prod",
@@ -115,7 +115,7 @@ describe("SamsApiStack", () => {
 
 	describe("Lambda function configuration", () => {
 		it("should configure Lambda timeouts correctly", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -139,7 +139,7 @@ describe("SamsApiStack", () => {
 		});
 
 		it("should set environment variables for all Lambdas", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -163,7 +163,7 @@ describe("SamsApiStack", () => {
 
 	describe("DynamoDB tables", () => {
 		it("should create clubs table with correct GSI", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -181,7 +181,7 @@ describe("SamsApiStack", () => {
 		});
 
 		it("should create teams table with correct GSI", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -198,7 +198,7 @@ describe("SamsApiStack", () => {
 			});
 		});
 		it("should enable TTL on both tables", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -220,7 +220,7 @@ describe("SamsApiStack", () => {
 
 	describe("EventBridge schedules", () => {
 		it("should create nightly sync schedules", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",

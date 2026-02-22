@@ -3,6 +3,7 @@
  * Triggers Mastodon sharing when a news article is published
  */
 
+import { Logger } from "@aws-lambda-powertools/logger";
 import type { AttributeValue } from "@aws-sdk/client-dynamodb";
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import { UpdateCommand } from "@aws-sdk/lib-dynamodb";
@@ -11,6 +12,7 @@ import type { DynamoDBStreamEvent } from "aws-lambda";
 import { docClient } from "@/lib/db/client";
 import type { News } from "@/lib/db/types";
 
+const logger = new Logger({ serviceName: "mastodon-stream-handler" });
 const lambdaClient = new LambdaClient({ region: process.env.AWS_REGION || "eu-central-1" });
 const MASTODON_LAMBDA_NAME = process.env.MASTODON_LAMBDA_NAME || "";
 const ENVIRONMENT = process.env.ENVIRONMENT || "dev";
@@ -26,16 +28,16 @@ interface MastodonShareRequest {
  * Process DynamoDB stream records and trigger Mastodon sharing for newly published articles
  */
 export async function handler(event: DynamoDBStreamEvent): Promise<void> {
-	console.log("📥 Processing DynamoDB stream event", { recordCount: event.Records.length });
+	logger.info("Processing DynamoDB stream event", { recordCount: event.Records.length });
 
 	// Only process in production
 	if (ENVIRONMENT !== "prod") {
-		console.log("⏭️ Skipping Mastodon sharing - not in production environment");
+		logger.info("Skipping Mastodon sharing - not in production environment");
 		return;
 	}
 
 	if (!MASTODON_LAMBDA_NAME || !WEBSITE_URL || !NEWS_TABLE_NAME) {
-		console.warn("⚠️ Missing required environment variables for Mastodon sharing");
+		logger.warn("Missing required environment variables for Mastodon sharing");
 		return;
 	}
 
@@ -44,7 +46,7 @@ export async function handler(event: DynamoDBStreamEvent): Promise<void> {
 			const newImage = record.dynamodb?.NewImage;
 
 			if (!newImage) {
-				console.log("⏭️ Skipping record - missing new image");
+				logger.info("Skipping record - missing new image");
 				continue;
 			}
 
@@ -68,7 +70,7 @@ export async function handler(event: DynamoDBStreamEvent): Promise<void> {
 			}
 
 			if (isBeingPublished && notYetShared) {
-				console.log("📤 News article being published - triggering Mastodon share", {
+				logger.info("News article being published - triggering Mastodon share", {
 					id: newNews.id,
 					title: newNews.title,
 					slug: newNews.slug,
@@ -89,7 +91,7 @@ export async function handler(event: DynamoDBStreamEvent): Promise<void> {
 					}),
 				);
 
-				console.log("✅ Mastodon share triggered successfully");
+				logger.info("Mastodon share triggered successfully");
 
 				// Update the news article to mark it as shared
 				await docClient.send(
@@ -108,13 +110,13 @@ export async function handler(event: DynamoDBStreamEvent): Promise<void> {
 					}),
 				);
 
-				console.log("✅ News article marked as shared to Mastodon");
+				logger.info("News article marked as shared to Mastodon");
 			}
 		} catch (error) {
-			console.error("❌ Error processing stream record:", error);
+			logger.error("Error processing stream record", { error });
 			// Don't throw - we want to continue processing other records
 		}
 	}
 
-	console.log("✅ Finished processing DynamoDB stream event");
+	logger.info("Finished processing DynamoDB stream event");
 }

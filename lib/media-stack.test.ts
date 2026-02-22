@@ -1,12 +1,12 @@
 import { describe, it } from "bun:test";
-import { App } from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
 import { MediaStack } from "./media-stack";
+import { createTestApp } from "./test-helpers";
 
 describe("MediaStack", () => {
 	describe("Development environment", () => {
 		it("should create stack with correct resources", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new MediaStack(app, "TestStack", {
 				env: {
 					account: "123456789012",
@@ -31,7 +31,7 @@ describe("MediaStack", () => {
 		});
 
 		it("should set DESTROY removal policy for dev bucket", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new MediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -46,7 +46,7 @@ describe("MediaStack", () => {
 		});
 
 		it("should configure CORS for bucket", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new MediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -72,7 +72,7 @@ describe("MediaStack", () => {
 		});
 
 		it("should use short cache TTL for dev environment", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new MediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -96,7 +96,7 @@ describe("MediaStack", () => {
 
 	describe("Production environment", () => {
 		it("should set RETAIN removal policy for prod bucket", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new MediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "prod",
@@ -111,7 +111,7 @@ describe("MediaStack", () => {
 		});
 
 		it("should not create custom cache policy in prod", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new MediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "prod",
@@ -128,7 +128,7 @@ describe("MediaStack", () => {
 
 	describe("CloudFront distribution", () => {
 		it("should configure distribution with OAC", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new MediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -143,7 +143,7 @@ describe("MediaStack", () => {
 		});
 
 		it("should redirect HTTP to HTTPS", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new MediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -169,7 +169,7 @@ describe("MediaStack", () => {
 
 	describe("S3 bucket configuration", () => {
 		it("should enable encryption", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new MediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -193,7 +193,7 @@ describe("MediaStack", () => {
 		});
 
 		it("should block all public access", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new MediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
@@ -214,7 +214,7 @@ describe("MediaStack", () => {
 		});
 
 		it("should configure lifecycle rules", () => {
-			const app = new App();
+			const app = createTestApp();
 			const stack = new MediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
