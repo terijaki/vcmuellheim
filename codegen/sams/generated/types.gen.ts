@@ -34,7 +34,9 @@ export type Association = {
         [key: string]: LinkDto;
     } | null;
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     } | null;
     name: string;
     shortname?: string | null;
@@ -65,7 +67,9 @@ export type AssociationResourcePage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<Association>;
     empty?: boolean;
@@ -96,7 +100,9 @@ export type Committee = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     /**
      * Reference to the association this entity belongs to
@@ -142,7 +148,9 @@ export type CommitteePage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<Committee>;
     empty?: boolean;
@@ -160,7 +168,9 @@ export type SportsclubDto = {
         [key: string]: LinkDto;
     } | null;
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     } | null;
     name: string;
     shortname?: string | null;
@@ -176,7 +186,9 @@ export type SportsclubPage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<SportsclubDto>;
     empty?: boolean;
@@ -194,7 +206,9 @@ export type LeagueHierarchyDto = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     name?: string;
     shortName?: string;
@@ -211,7 +225,9 @@ export type LeagueHierarchyPage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<LeagueHierarchyDto>;
     empty?: boolean;
@@ -229,7 +245,9 @@ export type CompetitionDto = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     name?: string;
     shortName?: string;
@@ -253,7 +271,9 @@ export type CompetitionPage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<CompetitionDto>;
     empty?: boolean;
@@ -271,7 +291,9 @@ export type LeagueDto = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     name?: string;
     shortName?: string;
@@ -291,7 +313,9 @@ export type LeaguePage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<LeagueDto>;
     empty?: boolean;
@@ -309,7 +333,9 @@ export type SuperCompetitionDto = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     name?: string;
     shortName?: string;
@@ -333,7 +359,9 @@ export type SuperCompetitionPage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<SuperCompetitionDto>;
     empty?: boolean;
@@ -354,7 +382,9 @@ export type Location = {
         [key: string]: LinkDto;
     } | null;
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     } | null;
     name?: string | null;
     longitude?: number | null;
@@ -369,7 +399,9 @@ export type LocationResourcePage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<Location>;
     empty?: boolean;
@@ -387,7 +419,9 @@ export type CompetitionMatchGroupDto = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     name?: string;
     tourneyLevel?: number;
@@ -403,7 +437,9 @@ export type CompetitionMatchGroupPage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<CompetitionMatchGroupDto>;
     empty?: boolean;
@@ -421,7 +457,9 @@ export type CompetitionMatchGroupRankingsDto = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     matchGroupName?: string;
     rankings?: Array<LeagueRankingsEntryDto>;
@@ -434,7 +472,9 @@ export type CompetitionRankingsResourcePage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<CompetitionMatchGroupRankingsDto>;
     empty?: boolean;
@@ -452,7 +492,9 @@ export type LeagueRankingsEntryDto = {
         [key: string]: LinkDto;
     } | null;
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     } | null;
     teamName?: string | null;
     rank?: number;
@@ -486,7 +528,9 @@ export type TeamDto = {
         [key: string]: LinkDto;
     } | null;
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     } | null;
     masterTeamUuid?: string | null;
     name?: string;
@@ -506,7 +550,9 @@ export type TeamPage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<TeamDto>;
     empty?: boolean;
@@ -541,7 +587,7 @@ export type CompetitionMatchDto = {
     decidingMatch?: boolean | null;
     gameReassessed?: boolean | null;
     host?: string | null;
-    referees?: RefereeTeamDto | null;
+    referees?: RefereeTeamDto;
     spectators?: number | null;
     netDuration?: number | null;
     verified?: boolean | null;
@@ -550,7 +596,7 @@ export type CompetitionMatchDto = {
     associationUuid?: string | null;
     team1Description?: string | null;
     team2Description?: string | null;
-    results?: VolleyballMatchResultsDto | null;
+    results?: VolleyballMatchResultsDto;
     matchGroupUuid?: string | null;
     competitionUuid?: string | null;
     indefinitelyRescheduled?: boolean | null;
@@ -564,7 +610,9 @@ export type CompetitionMatchPage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<CompetitionMatchDto>;
     empty?: boolean;
@@ -605,7 +653,9 @@ export type LeagueMatchDayDto = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     name?: string;
     matchdate?: string;
@@ -621,7 +671,9 @@ export type LeagueMatchDayPage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<LeagueMatchDayDto>;
     empty?: boolean;
@@ -637,7 +689,9 @@ export type LeagueRankingsResourcePage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<LeagueRankingsEntryDto>;
     empty?: boolean;
@@ -672,7 +726,7 @@ export type LeagueMatchDto = {
     decidingMatch?: boolean | null;
     gameReassessed?: boolean | null;
     host?: string | null;
-    referees?: RefereeTeamDto | null;
+    referees?: RefereeTeamDto;
     spectators?: number | null;
     netDuration?: number | null;
     verified?: boolean | null;
@@ -681,7 +735,7 @@ export type LeagueMatchDto = {
     associationUuid?: string | null;
     team1Description?: string | null;
     team2Description?: string | null;
-    results?: VolleyballMatchResultsDto | null;
+    results?: VolleyballMatchResultsDto;
     matchDayUuid?: string | null;
     leagueUuid?: string | null;
     indefinitelyRescheduled?: boolean | null;
@@ -695,7 +749,9 @@ export type LeagueMatchPage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<LeagueMatchDto>;
     empty?: boolean;
@@ -706,14 +762,16 @@ export type LeagueMatchPage = {
 
 export type Event = {
     /**
-     * Event unique identifier
+     * Entity unique identifier
      */
     uuid?: string;
     _links?: {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     name?: string;
     shortname?: string;
@@ -755,7 +813,9 @@ export type EventPage = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     content?: Array<Event>;
     empty?: boolean;
@@ -776,7 +836,9 @@ export type EventType = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     name?: string;
     description?: string;
@@ -793,7 +855,9 @@ export type SeasonDto = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     name?: string;
     startDate?: string;
@@ -810,7 +874,9 @@ export type UserDetailsDto = {
         [key: string]: LinkDto;
     };
     _embedded?: {
-        [key: string]: unknown;
+        [key: string]: {
+            [key: string]: unknown;
+        };
     };
     firstName?: string;
     lastName?: string;

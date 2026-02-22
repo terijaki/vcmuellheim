@@ -3,10 +3,11 @@ import { createClient } from "@hey-api/openapi-ts";
 createClient({
 	output: {
 		path: "codegen/sams/generated",
-		format: "biome",
-		lint: "biome",
+		postProcess: ["biome:format", "biome:lint"],
+		preferExportAll: true, // preserve export * behaviour (changed in v0.89)
+		source: true,
 	},
-	input: "codegen/sams/swagger.json", // some fixes are applied via scripts/update-sams-swagger.sh before generation
+	input: "https://www.volleyball-baden.de/api/v2/swagger.json",
 	plugins: [
 		{
 			name: "zod",
@@ -16,7 +17,7 @@ createClient({
 			},
 			metadata: true,
 			types: {
-				infer: false, // Must use infer: false due to Zod's type inference limitations. This is partially related to the fix we are applying via update-sams-swagger.sh script.
+				infer: false, // Must use infer: false due to Zod's type inference limitations with deeply-patched schemas.
 			},
 			exportFromIndex: true,
 		},
@@ -32,6 +33,9 @@ createClient({
 	parser: {
 		patch: {
 			schemas: {
+				// _embedded (team1/team2) is not in the upstream spec — injected here based on actual API responses.
+				// results: null when no match has been played; referees: null when none assigned. Upstream spec omits nullable.
+				// date.format corrected to "date" (upstream uses "date-time" which generates wrong Zod type).
 				CompetitionMatchDto: (schema) => {
 					if (schema.properties) {
 						schema.properties._embedded = {
@@ -65,6 +69,7 @@ createClient({
 										break;
 									case "results":
 									case "referees":
+										property.nullable = true; // API returns null; upstream spec omits nullable
 										break;
 									default:
 										property.nullable = true;
@@ -110,6 +115,7 @@ createClient({
 										break;
 									case "results":
 									case "referees":
+										property.nullable = true; // API returns null; upstream spec omits nullable
 										break;
 									default:
 										property.nullable = true;

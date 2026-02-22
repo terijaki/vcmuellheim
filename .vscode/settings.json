@@ -37,6 +37,10 @@
 	"chat.tools.terminal.autoApprove": {
 		"/^bun tsc --noEmit/": true,
 		"/\\.github\\/skills\\/sams-api\\/sams\\.ts/": true,
-		"jq": true
+		"jq": true,
+		"/^bun run sams:update 2>&1$/": {
+			"approve": true,
+			"matchCommandLine": true
+		}
 	}
 }
