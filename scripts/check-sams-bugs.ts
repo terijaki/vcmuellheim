@@ -148,6 +148,39 @@ async function checkBug5(apiKey: string): Promise<BugResult> {
 	}
 }
 
+// Bug #6 — date field declared as format:date-time but returns a date-only string (YYYY-MM-DD)
+// Spec says date-time; actual value is e.g. "2025-10-04". The separate `time` field confirms the intent.
+async function checkBug6(apiKey: string): Promise<BugResult> {
+	const id = 6;
+	const summary = "`date` field declared as `date-time` but API returns a date-only string (YYYY-MM-DD)";
+	try {
+		// Fetch the first match-day of Verbandsliga Herren, then its matches
+		const mdRes = await samsGet(`/leagues/${VERBANDSLIGA_HERREN_UUID}/match-days?size=1`, apiKey);
+		if (!mdRes.ok) {
+			return { id, summary, status: "check_failed", detail: `HTTP ${mdRes.status} fetching match-days` };
+		}
+		const mdData = (await mdRes.json()) as { content?: Array<{ uuid: string }> };
+		const matchDayUuid = mdData.content?.[0]?.uuid;
+		if (!matchDayUuid) {
+			return { id, summary, status: "check_failed", detail: "No match-day found" };
+		}
+		const matchRes = await samsGet(`/match-days/${matchDayUuid}/league-matches?size=1`, apiKey);
+		if (!matchRes.ok) {
+			return { id, summary, status: "check_failed", detail: `HTTP ${matchRes.status} fetching matches` };
+		}
+		const matchData = (await matchRes.json()) as { content?: Array<{ date?: string }> };
+		const date = matchData.content?.[0]?.date;
+		if (!date) {
+			return { id, summary, status: "check_failed", detail: "No match found" };
+		}
+		// A date-time string contains 'T'; a date-only string does not
+		const bugPresent = !date.includes("T");
+		return { id, summary, status: bugPresent ? "still_present" : "fixed" };
+	} catch (e) {
+		return { id, summary, status: "check_failed", detail: String(e) };
+	}
+}
+
 async function main(): Promise<void> {
 	const apiKey = process.env.SAMS_API_KEY;
 	if (!apiKey) {
@@ -155,10 +188,10 @@ async function main(): Promise<void> {
 		process.exit(1);
 	}
 
-	const [bug1, bug2, bug3, bug4, bug5] = await Promise.all([checkBug1(apiKey), checkBug2(apiKey), checkBug3(apiKey), checkBug4(), checkBug5(apiKey)]);
+	const [bug1, bug2, bug3, bug4, bug5, bug6] = await Promise.all([checkBug1(apiKey), checkBug2(apiKey), checkBug3(apiKey), checkBug4(), checkBug5(apiKey), checkBug6(apiKey)]);
 
 	const result: CheckResult = {
-		bugs: [bug1, bug2, bug3, bug4, bug5],
+		bugs: [bug1, bug2, bug3, bug4, bug5, bug6],
 		checkedAt: new Date().toISOString(),
 	};
 

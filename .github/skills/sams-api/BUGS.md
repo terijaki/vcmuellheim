@@ -15,6 +15,7 @@ All issues are upstream API defects.
 | 3 | `GET /leagues/{uuid}/rankings` | Low | `scoreIncludingLosses` always `null` |
 | 4 | Any endpoint | Low | `Accept: application/json` returns HTTP 406 — only `application/hal+json` is served |
 | 5 | `GET /teams/{uuid}` | Low | `shortName` and `clubCode` return `""` for unset values instead of `null` |
+| 6 | `GET /match-days/{uuid}/league-matches`, `GET /league-matches` | Low | `date` field declared as `format: date-time` but API returns a date-only string (`YYYY-MM-DD`) |
 
 ---
 
@@ -75,3 +76,18 @@ All issues are upstream API defects.
 ```
 
 Callers must guard against both `null` and `""` to detect a missing value.
+
+---
+
+### Bug 6 — `date` field declared as `date-time` but returns a date-only string
+
+**Endpoints:** `GET /match-days/{uuid}/league-matches`, `GET /league-matches`  
+**Spec (`LeagueMatchDto`, `CompetitionMatchDto`):** The `date` property is defined as `type: string, format: date-time`.  
+**Actual:** The API returns a plain date string — `YYYY-MM-DD` — with no time component.
+
+```json
+{ "date": "2025-10-04", "time": "14:00" }
+```
+
+Note that the `time` is a separate string field (`HH:mm`), confirming the intent is a date-only `date` field. The `date-time` format in the spec is wrong — it should be `date`.  
+**Workaround:** Override `date.format` to `"date"` in `parser.patch.schemas` for both DTOs (see `codegen/sams/generate-client.ts`).

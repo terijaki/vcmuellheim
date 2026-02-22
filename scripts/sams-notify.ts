@@ -41,9 +41,10 @@ const bugDescriptions: Record<number, string> = {
 	3: "`scoreIncludingLosses` always `null` in `GET /leagues/{uuid}/rankings`",
 	4: "`Accept: application/json` returns HTTP 406 instead of 200",
 	5: '`shortName`/`clubCode` return `""` instead of `null` on `GET /teams/{uuid}`',
+	6: "`date` field declared as `date-time` but API returns a date-only string (`YYYY-MM-DD`)",
 };
 
-const allBugIds = [1, 2, 3, 4, 5];
+const allBugIds = [1, 2, 3, 4, 5, 6];
 const fixedSet = new Set(fixedBugIds);
 const failedSet = new Set(checkFailedIds);
 const rows = allBugIds.map((id) => {
