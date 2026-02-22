@@ -33,4 +33,5 @@
 		"localhost (website)": "http://localhost:3080",
 		"localhost (cms)": "http://localhost:3081"
 	},
+	"chat.useNestedAgentsMdFiles": true,
 }
