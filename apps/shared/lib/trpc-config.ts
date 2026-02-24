@@ -1,4 +1,4 @@
-import { MutationCache, QueryClient } from "@tanstack/react-query";
+import { MutationCache, QueryCache, QueryClient } from "@tanstack/react-query";
 import { createTRPCContext } from "@trpc/tanstack-react-query";
 import type { AppRouter } from "../../../lib/trpc";
 
@@ -7,8 +7,9 @@ export const { TRPCProvider, useTRPC, useTRPCClient } = createTRPCContext<AppRou
 /**
  * Default QueryClient configuration for tRPC
  * Used by both CMS and website applications
+ * @param onQueryError - Optional callback invoked on every query error (e.g. Sentry.captureException)
  */
-export function createQueryClient(): QueryClient {
+export function createQueryClient(onQueryError?: (error: Error) => void): QueryClient {
 	return new QueryClient({
 		defaultOptions: {
 			queries: {
@@ -17,9 +18,16 @@ export function createQueryClient(): QueryClient {
 				gcTime: 1000 * 60 * 10, // 10 minutes (formerly cacheTime)
 			},
 		},
+		queryCache: new QueryCache({
+			onError: (error) => {
+				console.error("Query error:", error);
+				onQueryError?.(error);
+			},
+		}),
 		mutationCache: new MutationCache({
 			onError: (error) => {
 				console.error("Mutation error:", error);
+				onQueryError?.(error);
 			},
 		}),
 	});

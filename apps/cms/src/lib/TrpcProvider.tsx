@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { type ReactNode, useEffect, useRef, useState } from "react";
@@ -15,7 +16,7 @@ export function TrpcProvider({ children }: { children: ReactNode }) {
 	// Update ref whenever token changes
 	tokenRef.current = idToken;
 
-	const [queryClient] = useState(() => createQueryClient());
+	const [queryClient] = useState(() => createQueryClient(Sentry.captureException));
 	const [trpcClient] = useState(() =>
 		createTRPCClient<AppRouter>({
 			links: [

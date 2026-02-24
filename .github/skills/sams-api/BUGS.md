@@ -2,7 +2,7 @@
 
 Tested against `https://www.volleyball-baden.de/api/v2` on **2026-02-22**.  
 All findings are verified against the remote Swagger spec at `https://www.volleyball-baden.de/api/v2/swagger.json`.  
-All issues are upstream API defects.
+All issues are upstream API defects, unless noted otherwise.
 
 ---
 
@@ -16,6 +16,7 @@ All issues are upstream API defects.
 | 4 | Any endpoint | Low | `Accept: application/json` returns HTTP 406 — only `application/hal+json` is served |
 | 5 | `GET /teams/{uuid}` | Low | `shortName` and `clubCode` return `""` for unset values instead of `null` |
 | 6 | `GET /match-days/{uuid}/league-matches`, `GET /league-matches` | Low | `date` field declared as `format: date-time` but API returns a date-only string (`YYYY-MM-DD`) |
+| 7 | `GET /match-days/{uuid}/league-matches`, `GET /league-matches` | High | `referees` and `results` fields use `$ref + nullable: true` — invalid per OpenAPI 3.0; breaks code generators |
 
 ---
 
@@ -91,3 +92,29 @@ Callers must guard against both `null` and `""` to detect a missing value.
 
 Note that the `time` is a separate string field (`HH:mm`), confirming the intent is a date-only `date` field. The `date-time` format in the spec is wrong — it should be `date`.  
 **Workaround:** Override `date.format` to `"date"` in `parser.patch.schemas` for both DTOs (see `codegen/sams/generate-client.ts`).
+
+---
+
+### Bug 7 — `referees` / `results` use `$ref + nullable: true` — invalid OpenAPI 3.0 syntax
+
+**Endpoints:** `GET /match-days/{uuid}/league-matches`, `GET /league-matches`  
+**Spec (`LeagueMatchDto`, `CompetitionMatchDto`):** Both `referees` and `results` are defined as `$ref` fields with a `nullable: true` sibling key:
+
+```json
+{
+  "referees": { "$ref": "#/components/schemas/RefereeTeamDto", "nullable": true },
+  "results":  { "$ref": "#/components/schemas/VolleyballMatchResultsDto", "nullable": true }
+}
+```
+
+**Why it's wrong:** OpenAPI 3.0 forbids adding `nullable: true` (or any other keyword) next to a `$ref` — a `$ref` replaces its containing object entirely. The correct pattern is `allOf: [{ $ref: "..." }]` at the same level as `nullable: true`. Because of this, spec-compliant code generators may silently discard the `nullable: true` and generate non-nullable schemas.
+
+**Actual API behaviour:** Both fields return `null` when no data is available — `referees: null` when no referees are assigned; `results: null` for unplayed matches.
+
+```json
+{ "referees": null, "results": null }
+```
+
+**Impact:** After updating `@hey-api/openapi-ts` (≥ v0.92.x), the generated Zod validator for `getAllLeagueMatches` started rejecting responses where `referees` or `results` is `null`. The SDK `responseValidator` threw synchronously, bypassing the lambda's error handling and causing a silent 500 with no Sentry report.  
+**Workaround:** In `parser.patch.schemas` (`codegen/sams/generate-client.ts`) replace both properties with `{ allOf: [property], nullable: true }` — wrapping the `$ref` in an `allOf` moves `nullable: true` to a non-`$ref` schema object, which the generator correctly converts to `z.union([zType, z.null()])` and TypeScript `Type | null`.
+

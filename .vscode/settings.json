@@ -35,12 +35,7 @@
 	},
 	"chat.useNestedAgentsMdFiles": true,
 	"chat.tools.terminal.autoApprove": {
-		"/^bun tsc --noEmit/": true,
+		"/^bun (run )(test|typecheck|lint|check(:fix)|verify(:all)|cdk:synth(:all)|tsc(--noEmit)|deps-check)(\\s+[\\w./\\-:*=]+)*(\\s+2>&1)?(\\s*\\|\\s*(head|tail|cat|grep|wc)(\\s+[\\w./\\-*=]+)*)?$/": true,
 		"/\\.github\\/skills\\/sams-api\\/sams\\.ts/": true,
-		"jq": true,
-		"/^bun run sams:update 2>&1$/": {
-			"approve": true,
-			"matchCommandLine": true
-		}
 	}
 }

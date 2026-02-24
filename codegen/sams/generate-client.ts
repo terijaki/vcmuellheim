@@ -34,7 +34,8 @@ createClient({
 		patch: {
 			schemas: {
 				// _embedded (team1/team2) is not in the upstream spec — injected here based on actual API responses.
-				// results: null when no match has been played; referees: null when none assigned. Upstream spec omits nullable.
+				// results: null when no match has been played; referees: null when none assigned.
+				//   NOTE: hey-api no longer respects nullable:true on $ref fields — must use explicit anyOf with null instead.
 				// date.format corrected to "date" (upstream uses "date-time" which generates wrong Zod type).
 				CompetitionMatchDto: (schema) => {
 					if (schema.properties) {
@@ -69,7 +70,10 @@ createClient({
 										break;
 									case "results":
 									case "referees":
-										property.nullable = true; // API returns null; upstream spec omits nullable
+										// hey-api silently drops nullable:true when paired with $ref — wrap in allOf
+										// so nullable:true is on a schema object (not a $ref), which the generator
+										// correctly converts to z.union([zType, z.null()]).
+										schema.properties[key] = { allOf: [property], nullable: true };
 										break;
 									default:
 										property.nullable = true;
@@ -115,7 +119,10 @@ createClient({
 										break;
 									case "results":
 									case "referees":
-										property.nullable = true; // API returns null; upstream spec omits nullable
+										// hey-api silently drops nullable:true when paired with $ref — wrap in allOf
+										// so nullable:true is on a schema object (not a $ref), which the generator
+										// correctly converts to z.union([zType, z.null()]).
+										schema.properties[key] = { allOf: [property], nullable: true };
 										break;
 									default:
 										property.nullable = true;

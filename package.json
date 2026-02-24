@@ -45,7 +45,8 @@
 		"cdk:destroy": "cdk destroy --profile vcmuellheim --require-approval=never",
 		"cdk:destroy:all": "cdk destroy --all --profile vcmuellheim --require-approval=never",
 		"cdk:destroy:prod": "CDK_ENVIRONMENT=prod cdk destroy --all --profile vcmuellheim",
-		"cdk:bootstrap": "cdk bootstrap --profile vcmuellheim"
+		"cdk:bootstrap": "cdk bootstrap --profile vcmuellheim",
+		"deps-check": "bun outdated --recursive"
 	},
 	"catalog": {
 		"react": "^19.2.0",

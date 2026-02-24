@@ -674,7 +674,10 @@ export const zCompetitionMatchDto = z.object({
         z.string(),
         z.null()
     ])),
-    referees: z.optional(zRefereeTeamDto),
+    referees: z.optional(z.union([
+        zRefereeTeamDto,
+        z.null()
+    ])),
     spectators: z.optional(z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.null()
@@ -704,7 +707,10 @@ export const zCompetitionMatchDto = z.object({
         z.string(),
         z.null()
     ])),
-    results: z.optional(zVolleyballMatchResultsDto),
+    results: z.optional(z.union([
+        zVolleyballMatchResultsDto,
+        z.null()
+    ])),
     matchGroupUuid: z.optional(z.union([
         z.string(),
         z.null()
@@ -713,11 +719,11 @@ export const zCompetitionMatchDto = z.object({
         z.string(),
         z.null()
     ])),
-    indefinitelyRescheduled: z.optional(z.union([
+    delayPossible: z.optional(z.union([
         z.boolean(),
         z.null()
     ])),
-    delayPossible: z.optional(z.union([
+    indefinitelyRescheduled: z.optional(z.union([
         z.boolean(),
         z.null()
     ]))
@@ -819,7 +825,10 @@ export const zLeagueMatchDto = z.object({
         z.string(),
         z.null()
     ])),
-    referees: z.optional(zRefereeTeamDto),
+    referees: z.optional(z.union([
+        zRefereeTeamDto,
+        z.null()
+    ])),
     spectators: z.optional(z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.null()
@@ -849,7 +858,10 @@ export const zLeagueMatchDto = z.object({
         z.string(),
         z.null()
     ])),
-    results: z.optional(zVolleyballMatchResultsDto),
+    results: z.optional(z.union([
+        zVolleyballMatchResultsDto,
+        z.null()
+    ])),
     matchDayUuid: z.optional(z.union([
         z.string(),
         z.null()
@@ -858,11 +870,11 @@ export const zLeagueMatchDto = z.object({
         z.string(),
         z.null()
     ])),
-    indefinitelyRescheduled: z.optional(z.union([
+    delayPossible: z.optional(z.union([
         z.boolean(),
         z.null()
     ])),
-    delayPossible: z.optional(z.union([
+    indefinitelyRescheduled: z.optional(z.union([
         z.boolean(),
         z.null()
     ]))
