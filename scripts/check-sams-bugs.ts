@@ -202,7 +202,7 @@ async function checkBug7(apiKey: string): Promise<BugResult> {
 		};
 		const refereesSpec = spec.components?.schemas?.LeagueMatchDto?.properties?.referees;
 		// Fixed = spec uses allOf wrapper instead of bare $ref
-		const specFixed = !refereesSpec?.["$ref"] && refereesSpec?.allOf !== undefined;
+		const specFixed = !refereesSpec?.$ref && refereesSpec?.allOf !== undefined;
 
 		// Part (b): fetch a page of league matches and look for null referees or results
 		const matchRes = await samsGet(`/league-matches?size=20&for-league=${VERBANDSLIGA_HERREN_UUID}`, apiKey);
