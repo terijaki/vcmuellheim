@@ -181,6 +181,46 @@ async function checkBug6(apiKey: string): Promise<BugResult> {
 	}
 }
 
+// Bug #7 — referees/results use $ref + nullable: true — invalid OpenAPI 3.0 syntax
+// The spec places nullable: true directly next to a $ref (invalid; $ref replaces its object).
+// The effect: code generators may silently drop the null union, causing runtime validation failures
+// when the API returns referees: null (no assigned referee) or results: null (unplayed match).
+// Two-part check:
+//   a) Spec: LeagueMatchDto.referees still uses bare $ref + nullable rather than allOf wrapping.
+//   b) API:  at least one match in the current season has referees: null or results: null.
+async function checkBug7(apiKey: string): Promise<BugResult> {
+	const id = 7;
+	const summary = "`referees`/`results` use `$ref + nullable: true` — invalid OpenAPI 3.0; breaks code generators";
+	try {
+		// Part (a): check the live spec
+		const specRes = await fetch(`${BASE_URL}/swagger.json`, { headers: { Accept: "*/*" } });
+		if (!specRes.ok) {
+			return { id, summary, status: "check_failed", detail: `HTTP ${specRes.status} fetching swagger.json` };
+		}
+		const spec = (await specRes.json()) as {
+			components?: { schemas?: { LeagueMatchDto?: { properties?: { referees?: { $ref?: string; allOf?: unknown } } } } };
+		};
+		const refereesSpec = spec.components?.schemas?.LeagueMatchDto?.properties?.referees;
+		// Fixed = spec uses allOf wrapper instead of bare $ref
+		const specFixed = !refereesSpec?.["$ref"] && refereesSpec?.allOf !== undefined;
+
+		// Part (b): fetch a page of league matches and look for null referees or results
+		const matchRes = await samsGet(`/league-matches?size=20&for-league=${VERBANDSLIGA_HERREN_UUID}`, apiKey);
+		if (!matchRes.ok) {
+			return { id, summary, status: "check_failed", detail: `HTTP ${matchRes.status} fetching league matches` };
+		}
+		const matchData = (await matchRes.json()) as { content?: Array<{ referees?: unknown; results?: unknown }> };
+		const hasNullField = matchData.content?.some((m) => m.referees === null || m.results === null) ?? false;
+
+		// Bug is still present if either the spec is still invalid OR the API still returns null values
+		const bugPresent = !specFixed || hasNullField;
+		const detail = [!specFixed ? "spec still uses bare $ref + nullable" : null, hasNullField ? "API returns null for referees/results" : null].filter(Boolean).join("; ");
+		return { id, summary, status: bugPresent ? "still_present" : "fixed", detail: detail || undefined };
+	} catch (e) {
+		return { id, summary, status: "check_failed", detail: String(e) };
+	}
+}
+
 async function main(): Promise<void> {
 	const apiKey = process.env.SAMS_API_KEY;
 	if (!apiKey) {
@@ -188,10 +228,10 @@ async function main(): Promise<void> {
 		process.exit(1);
 	}
 
-	const [bug1, bug2, bug3, bug4, bug5, bug6] = await Promise.all([checkBug1(apiKey), checkBug2(apiKey), checkBug3(apiKey), checkBug4(), checkBug5(apiKey), checkBug6(apiKey)]);
+	const [bug1, bug2, bug3, bug4, bug5, bug6, bug7] = await Promise.all([checkBug1(apiKey), checkBug2(apiKey), checkBug3(apiKey), checkBug4(), checkBug5(apiKey), checkBug6(apiKey), checkBug7(apiKey)]);
 
 	const result: CheckResult = {
-		bugs: [bug1, bug2, bug3, bug4, bug5, bug6],
+		bugs: [bug1, bug2, bug3, bug4, bug5, bug6, bug7],
 		checkedAt: new Date().toISOString(),
 	};
 

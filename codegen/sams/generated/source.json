@@ -5851,7 +5851,11 @@
             "nullable": true
           },
           "referees": {
-            "$ref": "#/components/schemas/RefereeTeamDto",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RefereeTeamDto"
+              }
+            ],
             "nullable": true
           },
           "spectators": {
@@ -5889,7 +5893,11 @@
             "nullable": true
           },
           "results": {
-            "$ref": "#/components/schemas/VolleyballMatchResultsDto",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/VolleyballMatchResultsDto"
+              }
+            ],
             "nullable": true
           },
           "matchGroupUuid": {
@@ -5900,11 +5908,11 @@
             "type": "string",
             "nullable": true
           },
-          "indefinitelyRescheduled": {
+          "delayPossible": {
             "type": "boolean",
             "nullable": true
           },
-          "delayPossible": {
+          "indefinitelyRescheduled": {
             "type": "boolean",
             "nullable": true
           }
@@ -6239,7 +6247,11 @@
             "nullable": true
           },
           "referees": {
-            "$ref": "#/components/schemas/RefereeTeamDto",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RefereeTeamDto"
+              }
+            ],
             "nullable": true
           },
           "spectators": {
@@ -6277,7 +6289,11 @@
             "nullable": true
           },
           "results": {
-            "$ref": "#/components/schemas/VolleyballMatchResultsDto",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/VolleyballMatchResultsDto"
+              }
+            ],
             "nullable": true
           },
           "matchDayUuid": {
@@ -6288,11 +6304,11 @@
             "type": "string",
             "nullable": true
           },
-          "indefinitelyRescheduled": {
+          "delayPossible": {
             "type": "boolean",
             "nullable": true
           },
-          "delayPossible": {
+          "indefinitelyRescheduled": {
             "type": "boolean",
             "nullable": true
           }

@@ -173,6 +173,7 @@ const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent
 		};
 	} catch (error) {
 		logger.error("Error fetching league matches:", { error });
+		Sentry.captureException(error);
 		return {
 			statusCode: 500,
 			headers: {
