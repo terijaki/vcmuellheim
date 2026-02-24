@@ -114,7 +114,11 @@ const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent
 				},
 			});
 
-			if (data?.content) {
+			if (!data) {
+				throw new Error(`SAMS API returned no data on page ${currentPage}`);
+			}
+
+			if (data.content) {
 				const matches = data.content.map((m) => {
 					// Drop _links properties
 					const { _links, ...match } = m;
@@ -124,7 +128,7 @@ const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent
 				currentPage++;
 			}
 
-			if (data?.last === true) {
+			if (data.last === true) {
 				hasMorePages = false;
 			}
 		}
