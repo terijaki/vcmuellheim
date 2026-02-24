@@ -18,6 +18,8 @@ export default function ClubLogo({ clubUuid, clubSlug, label, light }: ClubLogoP
 		isError,
 	} = useQuery({
 		queryKey: ["clubLogo", identifier],
+		staleTime: 1000 * 60 * 60 * 24 * 90,
+		gcTime: 1000 * 60 * 60 * 24 * 90,
 		queryFn: async () => {
 			const response = await fetch(`${buildServiceUrl("sams")}/logos?${paramName}=${identifier}`, {
 				method: "GET",
