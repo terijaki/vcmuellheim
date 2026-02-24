@@ -1,11 +1,10 @@
 import { Card, Group, Table, TableTbody, TableTh, TableThead, TableTr, Text } from "@mantine/core";
 import dayjs from "dayjs";
-import { Suspense } from "react";
 import type { RankingResponse } from "@/lambda/sams/types";
 import type { Team } from "@/lib/db";
 import { slugify } from "@/utils/slugify";
 import CardTitle from "./CardTitle";
-import ClubLogo, { ClubLogoFallback } from "./ClubLogo";
+import ClubLogo from "./ClubLogo";
 import RankingTableItem from "./RankingTableItem";
 
 type RankingTable = {
@@ -62,7 +61,7 @@ export default function RankingTable(props: RankingTable) {
 					</TableTr>
 				</TableThead>
 				<TableTbody>
-					{ranking.teams?.map(async (team) => {
+					{ranking.teams?.map((team) => {
 						const isClubsTeam = props.clubsTeams?.find((t) => t.sbvvTeamId === team.uuid);
 
 						// If currentTeamId is set (eg. via team detail page), only highlight that specific team, other highlight all club teams
@@ -76,11 +75,7 @@ export default function RankingTable(props: RankingTable) {
 								team={team}
 								isHighlighted={shouldHighlight}
 								teamLink={teamLink}
-								clubLogo={
-									<Suspense fallback={<ClubLogoFallback />}>
-										<ClubLogo clubSlug={slugify((team.teamName ?? "").replace(/\s+\d+$/, ""))} label={team.teamName ?? undefined} light={shouldHighlight} />
-									</Suspense>
-								}
+								clubLogo={<ClubLogo clubSlug={slugify((team.teamName ?? "").replace(/\s+\d+$/, ""))} label={team.teamName ?? undefined} light={shouldHighlight} />}
 							/>
 						);
 					})}
