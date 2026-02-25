@@ -25,14 +25,14 @@ export default function HomeKontakt() {
 						</Center>
 					</Stack>
 					<SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} spacing="lg" verticalSpacing="lg">
+						<ContactItem title="Jugendschutz und Minderjährige">
+							<Text component="div" size="sm">
+								<ContactLink href="/jugendschutz" label="Hier" /> findest du alle Informationen zum Jugendschutz.
+							</Text>
+						</ContactItem>
 						<ContactItem title="Hast du Interesse an einem Probetrainung?">
 							<Text component="div" size="sm">
 								Melde dich bitte beim jeweiligen Trainer oder Ansprechperson der Mannschaft <ContactLink href="#mannschaften" label="siehe oben" />
-							</Text>
-						</ContactItem>
-						<ContactItem title="Hast du Fragen zu unserem Branding?">
-							<Text component="div" size="sm">
-								Farben und Logo Dateien findest du im <ContactLink href="/brand" label="Brand Guide" />
 							</Text>
 						</ContactItem>
 						<ContactItem title="Möchtest du dem Verein beitreten?">
@@ -51,6 +51,11 @@ export default function HomeKontakt() {
 							<Text component="div" size="sm">
 								Melde dich bitte direkt bei {treasurer?.name ? `${treasurer.name} ` : " "}
 								<ContactLink href="mailto:kassier@vcmuellheim.de?subject=Volleyball Club Müllheim" target="_blank" label="kassier@vcmuellheim.de" icon={<IconEmail />} />
+							</Text>
+						</ContactItem>
+						<ContactItem title="Hast du Fragen zu unserem Branding?">
+							<Text component="div" size="sm">
+								Farben und Logo Dateien findest du im <ContactLink href="/brand" label="Brand Guide" />
 							</Text>
 						</ContactItem>
 						<ContactItem title="Möchtest du Spesen abrechnen?">
