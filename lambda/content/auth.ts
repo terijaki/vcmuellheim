@@ -3,7 +3,7 @@
  * - Passwordless email OTP login
  * - Stateless JWE session cookies with relaxed caching (30-day cookie cache, 90-day session lifetime)
  * - User whitelist enforced via DynamoDB
- * - Trusted origins limited to vcmuellheim.de and *.vcmuellheim.de
+ * - Trusted origins limited to vcmuellheim.de and known subdomains (wildcard support requires better-auth ≥ 1.5)
  */
 
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
@@ -20,7 +20,7 @@ const sesClient = new SESClient({
 export const auth = betterAuth({
 	// baseURL is intentionally omitted — better-auth infers it from the incoming request
 	secret: process.env.BETTER_AUTH_SECRET || "",
-	trustedOrigins: ["https://vcmuellheim.de", "https://*.vcmuellheim.de"],
+	trustedOrigins: ["https://vcmuellheim.de", "https://admin.vcmuellheim.de", "https://new.vcmuellheim.de"],
 	database: dynamoDBAdapter,
 	session: {
 		cookieCache: {
