@@ -4,10 +4,11 @@ import dayjs from "dayjs";
  * Repository instances for all content entities
  */
 
+import { PutCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import type { ClubResponse, TeamResponse } from "@/lambda/sams/types";
-import { getTableName } from "./client";
+import { docClient, getTableName } from "./client";
 import { Repository, SamsRepository } from "./repository";
-import type { Bus, Event, Location, Media, Member, News, Sponsor, Team } from "./types";
+import type { AuthVerification, Bus, CmsUser, Event, Location, Media, Member, News, Sponsor, Team } from "./types";
 
 /** News repository */
 export const newsRepository = new Repository<News>({
@@ -47,6 +48,16 @@ export const locationsRepository = new Repository<Location>({
 /** Bus bookings repository */
 export const busRepository = new Repository<Bus>({
 	tableName: getTableName("BUS"),
+});
+
+/** CMS users repository (admin users allowed to log in) */
+export const cmsUsersRepository = new Repository<CmsUser>({
+	tableName: getTableName("USERS"),
+});
+
+/** Auth verifications repository (OTP codes) */
+export const authVerificationsRepository = new Repository<AuthVerification>({
+	tableName: getTableName("AUTH_VERIFICATIONS"),
 });
 
 /** Sams Clubs repository */
@@ -248,4 +259,71 @@ export async function getAllSamsTeams() {
 /** Get Sams Team by ID */
 export async function getSamsTeamByUuid(uuid: string) {
 	return samsTeamsRepository.get(uuid);
+}
+
+/**
+ * CMS User queries
+ */
+
+/** Get CMS user by email using GSI */
+export async function getCmsUserByEmail(email: string): Promise<CmsUser | null> {
+	const tableName = getTableName("USERS");
+	const result = await docClient.send(
+		new QueryCommand({
+			TableName: tableName,
+			IndexName: "GSI-UsersByEmail",
+			KeyConditionExpression: "#email = :email",
+			ExpressionAttributeNames: { "#email": "email" },
+			ExpressionAttributeValues: { ":email": email },
+			Limit: 1,
+		}),
+	);
+	return (result.Items?.[0] as CmsUser) || null;
+}
+
+/** Get all CMS users */
+export async function getAllCmsUsers(): Promise<CmsUser[]> {
+	const tableName = getTableName("USERS");
+	const result = await docClient.send(
+		new ScanCommand({
+			TableName: tableName,
+		}),
+	);
+	return (result.Items as CmsUser[]) || [];
+}
+
+/**
+ * Auth verification queries (OTP codes)
+ */
+
+/** Find verification by identifier (email) and type using GSI */
+export async function getAuthVerificationByIdentifier(identifier: string): Promise<AuthVerification | null> {
+	const tableName = getTableName("AUTH_VERIFICATIONS");
+	const result = await docClient.send(
+		new QueryCommand({
+			TableName: tableName,
+			IndexName: "GSI-VerificationsByIdentifier",
+			KeyConditionExpression: "#identifier = :identifier",
+			ExpressionAttributeNames: { "#identifier": "identifier" },
+			ExpressionAttributeValues: { ":identifier": identifier },
+			Limit: 1,
+		}),
+	);
+	return (result.Items?.[0] as AuthVerification) || null;
+}
+
+/** Create a new auth verification record */
+export async function createAuthVerification(data: AuthVerification): Promise<void> {
+	const tableName = getTableName("AUTH_VERIFICATIONS");
+	await docClient.send(
+		new PutCommand({
+			TableName: tableName,
+			Item: data,
+		}),
+	);
+}
+
+/** Get auth verification by id */
+export async function getAuthVerificationById(id: string): Promise<AuthVerification | null> {
+	return authVerificationsRepository.get(id);
 }

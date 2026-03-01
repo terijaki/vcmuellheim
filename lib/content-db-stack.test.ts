@@ -20,8 +20,8 @@ describe("ContentDbStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Should have 8 DynamoDB tables
-			template.resourceCountIs("AWS::DynamoDB::Table", 8);
+			// Should have 10 DynamoDB tables (8 content + users + auth_verifications)
+			template.resourceCountIs("AWS::DynamoDB::Table", 10);
 		});
 
 		it("should set DESTROY removal policy for dev", () => {
@@ -97,9 +97,9 @@ describe("ContentDbStack", () => {
 			// Count how many tables have PAY_PER_REQUEST
 			const payPerRequestCount = Object.values(tables).filter((table) => (table as { Properties: { BillingMode: string } }).Properties.BillingMode === "PAY_PER_REQUEST").length;
 
-			// All 8 tables should have PAY_PER_REQUEST
-			if (tableCount !== 8 || payPerRequestCount !== 8) {
-				throw new Error(`Expected 8 tables with PAY_PER_REQUEST, got ${payPerRequestCount} out of ${tableCount}`);
+			// All 10 tables should have PAY_PER_REQUEST
+			if (tableCount !== 10 || payPerRequestCount !== 10) {
+				throw new Error(`Expected 10 tables with PAY_PER_REQUEST, got ${payPerRequestCount} out of ${tableCount}`);
 			}
 		});
 
@@ -120,8 +120,9 @@ describe("ContentDbStack", () => {
 				(table) => (table as { Properties: { StreamSpecification?: { StreamViewType: string } } }).Properties.StreamSpecification?.StreamViewType === "NEW_AND_OLD_IMAGES",
 			).length;
 
-			if (streamCount !== 8) {
-				throw new Error(`Expected 8 tables with streams, got ${streamCount}`);
+			// All 10 tables should have streams
+			if (streamCount !== 10) {
+				throw new Error(`Expected 10 tables with streams, got ${streamCount}`);
 			}
 		});
 
@@ -143,8 +144,8 @@ describe("ContentDbStack", () => {
 					(table as { Properties: { PointInTimeRecoverySpecification?: { PointInTimeRecoveryEnabled: boolean } } }).Properties.PointInTimeRecoverySpecification?.PointInTimeRecoveryEnabled === true,
 			).length;
 
-			if (pitrCount !== 8) {
-				throw new Error(`Expected 8 tables with PITR, got ${pitrCount}`);
+			if (pitrCount !== 10) {
+				throw new Error(`Expected 10 tables with PITR, got ${pitrCount}`);
 			}
 		});
 	});

@@ -1,106 +1,70 @@
 /**
  * tRPC context - available to all procedures
- * LAZY JWT VERIFICATION: Token verification is deferred to protected procedures for performance
+ * LAZY SESSION VERIFICATION: Session verification is deferred to protected procedures for performance
  */
 
 import { Logger } from "@aws-lambda-powertools/logger";
-import { decode, verify } from "jsonwebtoken";
-import { JwksClient } from "jwks-rsa";
+import { auth } from "@/lambda/content/auth";
 
 export type UserRole = "Admin" | "Moderator";
 
 export interface Context {
-	// Lazy-loaded: Only populated after JWT verification in protected procedures
-	userId?: string; // From Cognito when authenticated
-	userRole?: UserRole; // User's role from Cognito groups
-	userEmail?: string; // User's email
+	// Lazy-loaded: Only populated after session verification in protected procedures
+	userId?: string;
+	userRole?: UserRole;
+	userEmail?: string;
 
-	// Raw auth data: Used for lazy JWT verification in protected procedures
-	authorizationHeader?: string;
-	userPoolId?: string;
-	region?: string;
+	// Raw request headers for lazy session verification in protected procedures
+	headers?: Headers;
 }
 
 interface CreateContextOptions {
-	authorizationHeader?: string;
-	userPoolId?: string;
-	region?: string;
+	headers?: Headers;
 }
 
-const logger = new Logger({ serviceName: "vcm-jwt" });
-
-// Cache JWKS client
-let jwksClient: JwksClient | null = null;
-
-function getJwksClient(region: string, userPoolId: string): JwksClient {
-	if (!jwksClient) {
-		jwksClient = new JwksClient({
-			jwksUri: `https://cognito-idp.${region}.amazonaws.com/${userPoolId}/.well-known/jwks.json`,
-			cache: true,
-			cacheMaxAge: 600000, // 10 minutes
-		});
-	}
-	return jwksClient;
-}
-
-interface CognitoJwtPayload {
-	sub: string; // User ID
-	email?: string;
-	"cognito:groups"?: string[]; // Cognito groups
-	[key: string]: unknown;
-}
+const logger = new Logger({ serviceName: "vcm-session" });
 
 /**
- * Verify JWT token with JWKS lookup
- * Called lazily only for protected/admin procedures to avoid unnecessary Cognito calls
- * @param token JWT token string
- * @param userPoolId Cognito user pool ID
- * @param region AWS region
- * @returns Decoded JWT payload or null if verification fails
+ * Verify better-auth session from request headers
+ * Called lazily only for protected/admin procedures to avoid unnecessary DB calls
+ * @param headers Request headers containing session cookie
+ * @returns Session user data or null if verification fails
  */
-export async function verifyJwt(token: string, userPoolId: string, region: string): Promise<CognitoJwtPayload | null> {
+export async function verifySession(headers: Headers): Promise<{ userId: string; email: string; role: UserRole } | null> {
 	try {
-		const client = getJwksClient(region, userPoolId);
-
-		// Decode token header to get kid (key ID) without verification
-		const decoded = decode(token, { complete: true });
-		if (!decoded || typeof decoded === "string" || !decoded.header.kid) {
-			logger.warn("Failed to decode JWT header");
+		const session = await auth.api.getSession({ headers });
+		if (!session?.user) {
 			return null;
 		}
-		const kid = decoded.header.kid;
 
-		// Get signing key from JWKS
-		const key = await client.getSigningKey(kid);
-		const signingKey = key.getPublicKey();
+		const role = (session.user as { role?: string }).role as UserRole | undefined;
+		if (!role || (role !== "Admin" && role !== "Moderator")) {
+			logger.warn("Session user has no valid role", { userId: session.user.id });
+			return null;
+		}
 
-		// Verify token signature and claims
-		const payload = verify(token, signingKey, {
-			algorithms: ["RS256"],
-			issuer: `https://cognito-idp.${region}.amazonaws.com/${userPoolId}`,
-		}) as CognitoJwtPayload;
-
-		logger.debug("JWT verification successful");
-		return payload;
+		logger.debug("Session verification successful");
+		return {
+			userId: session.user.id,
+			email: session.user.email,
+			role,
+		};
 	} catch (error) {
-		logger.error("JWT verification failed", { error: String(error) });
+		logger.error("Session verification failed", { error: String(error) });
 		return null;
 	}
 }
 
 export async function createContext(opts: CreateContextOptions = {}): Promise<Context> {
-	const { authorizationHeader, userPoolId, region } = opts;
+	const { headers } = opts;
 
-	// LAZY JWT VERIFICATION:
-	// Simply return context with raw auth data
-	// Token verification happens in protectedProcedure/adminProcedure middleware only
+	// LAZY SESSION VERIFICATION:
+	// Simply return context with raw headers
+	// Session verification happens in protectedProcedure/adminProcedure middleware only
 	// This saves latency on every public route request that doesn't need auth
 
 	return {
-		// Raw auth data for lazy verification in protected procedures
-		authorizationHeader,
-		userPoolId,
-		region,
+		headers,
 		// Unauthenticated by default (no userId)
 		userId: undefined,
 	};

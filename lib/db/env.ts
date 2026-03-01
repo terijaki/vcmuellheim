@@ -4,7 +4,7 @@
  */
 
 /** All table entities in the system */
-export const TABLES = ["NEWS", "EVENTS", "TEAMS", "MEMBERS", "MEDIA", "SPONSORS", "LOCATIONS", "BUS"] as const;
+export const TABLES = ["NEWS", "EVENTS", "TEAMS", "MEMBERS", "MEDIA", "SPONSORS", "LOCATIONS", "BUS", "USERS", "AUTH_VERIFICATIONS"] as const;
 
 export type TableEntity = (typeof TABLES)[number];
 

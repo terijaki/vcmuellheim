@@ -1,14 +1,11 @@
 import { Button, Card, Center, SimpleGrid, Text } from "@mantine/core";
-import { createFileRoute } from "@tanstack/react-router";
-import { useAuth } from "../auth/AuthContext";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/bye")({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	const { redirectToLogin } = useAuth();
-
 	return (
 		<Center m="xl" p="xl">
 			<Card withBorder>
@@ -17,7 +14,9 @@ function RouteComponent() {
 					<Button component="a" href="https://vcmuellheim.de" variant="light">
 						Zur Website
 					</Button>
-					<Button onClick={() => redirectToLogin()}>Zur Anmeldung</Button>
+					<Button component={Link} to="/dashboard">
+						Zur Anmeldung
+					</Button>
 				</SimpleGrid>
 			</Card>
 		</Center>

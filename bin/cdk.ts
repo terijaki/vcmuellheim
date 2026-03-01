@@ -106,7 +106,7 @@ new SocialMediaStack(app, socialMediaStackName, {
 
 const apiStack = new ApiStack(app, apiStackName, {
 	...commonStackProps,
-	description: `tRPC API & Cognito (${environment}${branchSuffix})`,
+	description: `tRPC API & Auth (${environment}${branchSuffix})`,
 	contentDbStack: {
 		newsTable: contentDbStack.newsTable,
 		eventsTable: contentDbStack.eventsTable,
@@ -116,6 +116,8 @@ const apiStack = new ApiStack(app, apiStackName, {
 		sponsorsTable: contentDbStack.sponsorsTable,
 		busTable: contentDbStack.busTable,
 		locationsTable: contentDbStack.locationsTable,
+		usersTable: contentDbStack.usersTable,
+		auth_verificationsTable: contentDbStack.authVerificationsTable,
 	},
 	samsApiStack: {
 		samsClubsTable: samsApiStack.samsClubsTable,

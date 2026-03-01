@@ -10,7 +10,6 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@aws-sdk/client-cognito-identity-provider": "catalog:",
 		"@mantine/core": "catalog:",
 		"@mantine/dates": "catalog:",
 		"@mantine/hooks": "catalog:",
@@ -25,6 +24,7 @@
 		"@tanstack/react-router": "catalog:",
 		"@trpc/client": "catalog:",
 		"@trpc/tanstack-react-query": "catalog:",
+		"better-auth": "1.4.19",
 		"dayjs": "catalog:",
 		"lucide-react": "catalog:",
 		"react": "catalog:",

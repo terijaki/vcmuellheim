@@ -130,6 +130,28 @@ export const busSchema = z.object({
 	updatedAt: z.iso.datetime(),
 });
 
+/** CMS User schema (admin users allowed to log in) */
+export const cmsUserSchema = z.object({
+	id: z.uuid(),
+	email: z.email(),
+	name: z.string().min(1).max(200),
+	emailVerified: z.boolean().default(false),
+	role: z.enum(["Admin", "Moderator"]),
+	createdAt: z.iso.datetime(),
+	updatedAt: z.iso.datetime(),
+});
+
+/** Auth verification schema (OTP codes stored temporarily) */
+export const authVerificationSchema = z.object({
+	id: z.uuid(),
+	identifier: z.string().min(1).describe("Email address"),
+	value: z.string().min(1).describe("OTP code (hashed)"),
+	expiresAt: z.iso.datetime(),
+	createdAt: z.iso.datetime(),
+	updatedAt: z.iso.datetime(),
+	ttl: z.number().int().positive().describe("Unix timestamp for DynamoDB TTL"),
+});
+
 /** Export types inferred from schemas */
 export type NewsInput = z.infer<typeof newsSchema>;
 export type EventInput = z.infer<typeof eventSchema>;

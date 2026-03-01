@@ -1,10 +1,107 @@
-import { AppShell, Avatar, Burger, Center, Group, Loader, Menu, NavLink, Stack, Text, Title } from "@mantine/core";
+import { Alert, AppShell, Avatar, Burger, Button, Center, Group, Loader, Menu, NavLink, PinInput, Stack, Text, TextInput, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { LogOut } from "lucide-react";
-import { useEffect } from "react";
+import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { getDashboardRoutesWithLabels } from "../utils/nav-links";
+
+function LoginForm() {
+	const { sendOtp, verifyOtp, otpSent, otpEmail, error, isLoading } = useAuth();
+	const [email, setEmail] = useState("");
+	const [otp, setOtp] = useState("");
+	const [submitting, setSubmitting] = useState(false);
+	const [localError, setLocalError] = useState<string | null>(null);
+
+	const handleSendOtp = async () => {
+		if (!email.trim()) return;
+		setSubmitting(true);
+		setLocalError(null);
+		try {
+			await sendOtp(email.trim());
+		} catch (err) {
+			setLocalError(err instanceof Error ? err.message : "Fehler beim Senden des Codes");
+		} finally {
+			setSubmitting(false);
+		}
+	};
+
+	const handleVerifyOtp = async () => {
+		if (!otpEmail || otp.length < 6) return;
+		setSubmitting(true);
+		setLocalError(null);
+		try {
+			await verifyOtp(otpEmail, otp);
+		} catch (err) {
+			setLocalError(err instanceof Error ? err.message : "Ungültiger Code");
+		} finally {
+			setSubmitting(false);
+		}
+	};
+
+	const displayError = localError || error;
+
+	return (
+		<Center h="100vh">
+			<Stack gap="md" w={360} p="xl">
+				<Title order={2} ta="center">
+					CMS Anmeldung
+				</Title>
+
+				{displayError && (
+					<Alert color="red" variant="light">
+						{displayError}
+					</Alert>
+				)}
+
+				{!otpSent ? (
+					<>
+						<Text c="dimmed" ta="center" size="sm">
+							Gib deine E-Mail-Adresse ein, um einen Anmeldecode zu erhalten.
+						</Text>
+						<TextInput
+							label="E-Mail-Adresse"
+							placeholder="name@vcmuellheim.de"
+							value={email}
+							onChange={(e) => setEmail(e.currentTarget.value)}
+							onKeyDown={(e) => e.key === "Enter" && handleSendOtp()}
+							type="email"
+							disabled={submitting || isLoading}
+							autoFocus
+						/>
+						<Button onClick={handleSendOtp} loading={submitting || isLoading} disabled={!email.trim()} fullWidth>
+							Anmeldecode senden
+						</Button>
+					</>
+				) : (
+					<>
+						<Text c="dimmed" ta="center" size="sm">
+							Ein Anmeldecode wurde an <strong>{otpEmail}</strong> gesendet. Bitte den 6-stelligen Code eingeben.
+						</Text>
+						<Stack align="center" gap="md">
+							<PinInput length={6} type="number" value={otp} onChange={setOtp} onComplete={handleVerifyOtp} disabled={submitting} autoFocus />
+						</Stack>
+						<Button onClick={handleVerifyOtp} loading={submitting} disabled={otp.length < 6} fullWidth>
+							Anmelden
+						</Button>
+						<Button
+							variant="subtle"
+							onClick={async () => {
+								if (otpEmail) {
+									setOtp("");
+									await sendOtp(otpEmail);
+								}
+							}}
+							disabled={submitting}
+						>
+							Code erneut senden
+						</Button>
+					</>
+				)}
+			</Stack>
+		</Center>
+	);
+}
 
 function DashboardLayout() {
 	const { user, logout } = useAuth();
@@ -30,7 +127,7 @@ function DashboardLayout() {
 							<Menu.Label>{user?.name}</Menu.Label>
 							<Menu.Label>{user?.email}</Menu.Label>
 							<Menu.Divider />
-							<Menu.Item onClick={logout} leftSection={<LogOut size={16} />}>
+							<Menu.Item onClick={() => logout()} leftSection={<LogOut size={16} />}>
 								Abmelden
 							</Menu.Item>
 						</Menu.Dropdown>
@@ -52,14 +149,7 @@ function DashboardLayout() {
 }
 
 function DashboardPage() {
-	const { isLoading, isAuthenticated, isLoggingOut, redirectToLogin, error } = useAuth();
-
-	// Use effect to handle redirect outside of render cycle
-	useEffect(() => {
-		if (!isLoading && !isAuthenticated && !isLoggingOut) {
-			redirectToLogin();
-		}
-	}, [isLoading, isAuthenticated, isLoggingOut, redirectToLogin]);
+	const { isLoading, isAuthenticated, isLoggingOut } = useAuth();
 
 	// Still loading - show loader
 	if (isLoading) {
@@ -69,16 +159,19 @@ function DashboardPage() {
 			</Center>
 		);
 	}
-	if (error) throw error;
 
-	// Logging out - don't redirect, let Cognito handle the logout
+	// Logging out
 	if (isLoggingOut) {
-		return null;
+		return (
+			<Center h="100vh">
+				<Loader />
+			</Center>
+		);
 	}
 
-	// Not authenticated - show nothing while redirect is happening
+	// Not authenticated - show inline login form
 	if (!isAuthenticated) {
-		return null;
+		return <LoginForm />;
 	}
 
 	// Authenticated - show dashboard

@@ -2,7 +2,6 @@ import * as cdk from "aws-cdk-lib";
 import * as apigatewayv2 from "aws-cdk-lib/aws-apigatewayv2";
 import { HttpLambdaIntegration } from "aws-cdk-lib/aws-apigatewayv2-integrations";
 import type * as acm from "aws-cdk-lib/aws-certificatemanager";
-import * as cognito from "aws-cdk-lib/aws-cognito";
 import type * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import { DynamoEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
@@ -10,10 +9,8 @@ import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import type * as s3 from "aws-cdk-lib/aws-s3";
-import * as ses from "aws-cdk-lib/aws-ses";
 import type { Construct } from "constructs";
 import { Club } from "@/project.config";
-import { getCognitoEmailTemplates } from "./cognito-templates";
 import { TABLES, type TableEntity, tableEnvVar } from "./db/env";
 
 interface ApiStackProps extends cdk.StackProps {
@@ -37,14 +34,9 @@ interface ApiStackProps extends cdk.StackProps {
 
 export class ApiStack extends cdk.Stack {
 	public readonly api: apigatewayv2.HttpApi;
-	public readonly userPool: cognito.UserPool;
-	public readonly userPoolClient: cognito.UserPoolClient;
-	public readonly userPoolDomain: cognito.CfnUserPoolDomain;
 	public readonly trpcLambda: lambda.Function;
 	public readonly apiDomainName?: apigatewayv2.DomainName;
 	public readonly apiUrl: string;
-	public readonly cmsCallbackUrl: string;
-	public readonly cognitoHostedUiUrl: string;
 
 	constructor(scope: Construct, id: string, props: ApiStackProps) {
 		super(scope, id, props);
@@ -58,277 +50,7 @@ export class ApiStack extends cdk.Stack {
 		const apiDomain = `${envPrefix}api.${baseDomain}`;
 		const cmsDomain = `${envPrefix}admin.${baseDomain}`;
 
-		// CMS callback URL for OAuth2
-		this.cmsCallbackUrl = `https://${cmsDomain}/auth/callback`;
-
-		const emailTemplates = getCognitoEmailTemplates(cmsDomain);
-
-		// Create SES Configuration Set for Cognito email sending
-		const sesConfigurationSet = new ses.ConfigurationSet(this, "CognitoConfigSet", {
-			configurationSetName: `vcm-cognito-${environment}${branchSuffix}`,
-		});
-
-		// 1. Cognito User Pool for admin authentication
-		this.userPool = new cognito.UserPool(this, "AdminUserPool", {
-			userPoolName: `vcm-admin-${environment}${branchSuffix}`,
-			featurePlan: cognito.FeaturePlan.ESSENTIALS,
-			selfSignUpEnabled: false,
-			signInCaseSensitive: false,
-			signInAliases: {
-				email: true,
-				username: false,
-			},
-			signInPolicy: {
-				allowedFirstAuthFactors: {
-					password: true,
-					passkey: true,
-					emailOtp: false,
-					smsOtp: false,
-				},
-			},
-			autoVerify: {
-				email: true,
-			},
-			standardAttributes: {
-				email: {
-					required: true,
-					mutable: true,
-				},
-				givenName: {
-					required: true,
-					mutable: true,
-				},
-				familyName: {
-					required: true,
-					mutable: true,
-				},
-			},
-			passkeyUserVerification: cognito.PasskeyUserVerification.PREFERRED,
-			passkeyRelyingPartyId: isProd ? Club.domain : undefined,
-			email: cognito.UserPoolEmail.withSES({
-				sesRegion: cdk.Stack.of(this).region,
-				fromEmail: "no-reply@vcmuellheim.de",
-				fromName: Club.shortName,
-				sesVerifiedDomain: "vcmuellheim.de",
-				configurationSetName: sesConfigurationSet.configurationSetName,
-			}),
-			userInvitation: emailTemplates.userInvitation,
-			userVerification: emailTemplates.userVerification,
-			passwordPolicy: {
-				minLength: 8,
-				requireLowercase: isProd,
-				requireUppercase: isProd,
-				requireDigits: isProd,
-				requireSymbols: isProd,
-				tempPasswordValidity: cdk.Duration.days(30),
-			},
-			accountRecovery: cognito.AccountRecovery.EMAIL_ONLY,
-			mfaMessage: `Dein Verifizierungscode für ${Club.shortName} ist {####}`,
-			mfa: cognito.Mfa.OPTIONAL,
-			mfaSecondFactor: {
-				sms: false,
-				otp: true,
-				email: false,
-			},
-			deviceTracking: {
-				challengeRequiredOnNewDevice: true,
-				deviceOnlyRememberedOnUserPrompt: true,
-			},
-			customAttributes: {
-				role: new cognito.StringAttribute({
-					mutable: true,
-					minLen: 1,
-					maxLen: 20,
-				}),
-			},
-			removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
-		});
-
-		// Create Admin group
-		new cognito.CfnUserPoolGroup(this, "AdminGroup", {
-			userPoolId: this.userPool.userPoolId,
-			groupName: "Admin",
-			description: "Administrators with full access to all CMS features including user management",
-			precedence: 1,
-		});
-
-		// Create Moderator group
-		new cognito.CfnUserPoolGroup(this, "ModeratorGroup", {
-			userPoolId: this.userPool.userPoolId,
-			groupName: "Moderator",
-			description: "Moderators can manage content but cannot access user management",
-			precedence: 2,
-		});
-
-		// Add SES sending authorization policy to allow Cognito to send emails from the domain
-		// This grants the Cognito service permission to use the vcmuellheim.de domain for sending emails
-		new cdk.custom_resources.AwsCustomResource(this, "SesDomainIdentityPolicy", {
-			onCreate: {
-				service: "ses",
-				action: "putIdentityPolicy",
-				parameters: {
-					Identity: "vcmuellheim.de",
-					PolicyName: "CognitoSendingPolicy",
-					Policy: JSON.stringify({
-						Version: "2012-10-17",
-						Statement: [
-							{
-								Sid: "AllowCognitoEmailSending",
-								Effect: "Allow",
-								Principal: {
-									Service: "email.cognito-idp.amazonaws.com",
-								},
-								Action: ["SES:SendEmail", "SES:SendRawEmail"],
-								Resource: `arn:aws:ses:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:identity/vcmuellheim.de`,
-								Condition: {
-									StringEquals: {
-										"aws:SourceAccount": cdk.Stack.of(this).account,
-									},
-									ArnLike: {
-										"aws:SourceArn": this.userPool.userPoolArn,
-									},
-								},
-							},
-						],
-					}),
-				},
-				physicalResourceId: cdk.custom_resources.PhysicalResourceId.of("cognito-ses-policy"),
-			},
-			onDelete: {
-				service: "ses",
-				action: "deleteIdentityPolicy",
-				parameters: {
-					Identity: "vcmuellheim.de",
-					PolicyName: "CognitoSendingPolicy",
-				},
-			},
-			policy: cdk.custom_resources.AwsCustomResourcePolicy.fromSdkCalls({
-				resources: cdk.custom_resources.AwsCustomResourcePolicy.ANY_RESOURCE,
-			}),
-		});
-
-		// User Pool Client for admin app
-		this.userPoolClient = this.userPool.addClient("AdminAppClient", {
-			authFlows: {
-				userPassword: true,
-				userSrp: true,
-				user: true,
-			},
-			oAuth: {
-				flows: {
-					authorizationCodeGrant: true,
-				},
-				scopes: [cognito.OAuthScope.EMAIL, cognito.OAuthScope.OPENID, cognito.OAuthScope.PROFILE],
-				callbackUrls: [
-					this.cmsCallbackUrl,
-					// Add localhost for development only
-					...(!isProd ? ["http://localhost:3081/auth/callback"] : []),
-				],
-				logoutUrls: [
-					`https://${cmsDomain}/bye`,
-					// Add localhost for development only
-					...(!isProd ? ["http://localhost:3081/bye"] : []),
-				],
-			},
-			preventUserExistenceErrors: true,
-			supportedIdentityProviders: [cognito.UserPoolClientIdentityProvider.COGNITO],
-		});
-
-		// Add Cognito Domain with Managed Login v2 (prefix domain)
-		// Remove reserved words (aws, amazon, cognito) from branch name
-		const cognitoDomainPrefix = String(`${envPrefix}vcmuellheim-cms`)
-			.toLowerCase()
-			.replace(/aws|amazon|cognito/g, "");
-		this.userPoolDomain = new cognito.CfnUserPoolDomain(this, "CognitoDomain", {
-			userPoolId: this.userPool.userPoolId,
-			domain: cognitoDomainPrefix,
-			managedLoginVersion: 2,
-		});
-
-		this.cognitoHostedUiUrl = `https://${cognitoDomainPrefix}.auth.${cdk.Stack.of(this).region}.amazoncognito.com`;
-
-		// Managed Login Branding (required for Managed Login v2 to work)
-		const managedLoginBranding = new cognito.CfnManagedLoginBranding(this, "ManagedLoginBranding", {
-			userPoolId: this.userPool.userPoolId,
-			clientId: this.userPoolClient.userPoolClientId,
-			useCognitoProvidedValues: false,
-			settings: {
-				categories: {
-					global: {
-						colorSchemeMode: "LIGHT",
-					},
-				},
-				components: {
-					pageBackground: {
-						image: {
-							enabled: false, // Disable default background image
-						},
-						lightMode: {
-							color: "eff5f5ff", // aquahaze
-						},
-						darkMode: {
-							color: "363b40ff", // onyx
-						},
-					},
-					form: {
-						lightMode: {
-							backgroundColor: "ffffffff",
-							borderColor: "366273ff", // blumine
-						},
-						darkMode: {
-							backgroundColor: "363b40ff", // onyx
-							borderColor: "366273ff", // blumine
-						},
-					},
-					primaryButton: {
-						lightMode: {
-							defaults: {
-								backgroundColor: "366273ff", // blumine
-								textColor: "ffffffff",
-							},
-							hover: {
-								backgroundColor: "2d4f5eff", // darker blumine
-								textColor: "ffffffff",
-							},
-						},
-						darkMode: {
-							defaults: {
-								backgroundColor: "366273ff", // blumine
-								textColor: "ffffffff",
-							},
-							hover: {
-								backgroundColor: "539fe5ff", // lighter blue for dark mode
-								textColor: "ffffffff",
-							},
-						},
-					},
-				},
-				componentClasses: {
-					link: {
-						lightMode: {
-							defaults: {
-								textColor: "01a29aff", // turquoise
-							},
-							hover: {
-								textColor: "008580ff", // darker turquoise
-							},
-						},
-						darkMode: {
-							defaults: {
-								textColor: "01a29aff", // turquoise
-							},
-							hover: {
-								textColor: "33beb6ff", // lighter turquoise
-							},
-						},
-					},
-				},
-			},
-		});
-		// Ensure branding is created after the client
-		managedLoginBranding.addDependency(this.userPoolClient.node.defaultChild as cognito.CfnUserPoolClient);
-
-		// 2. tRPC Lambda Function
+		// 1. tRPC Lambda Function
 		const tables = {
 			NEWS: props.contentDbStack.newsTable,
 			EVENTS: props.contentDbStack.eventsTable,
@@ -338,6 +60,8 @@ export class ApiStack extends cdk.Stack {
 			SPONSORS: props.contentDbStack.sponsorsTable,
 			LOCATIONS: props.contentDbStack.locationsTable,
 			BUS: props.contentDbStack.busTable,
+			USERS: props.contentDbStack.usersTable,
+			AUTH_VERIFICATIONS: props.contentDbStack.auth_verificationsTable,
 		} satisfies Record<TableEntity, dynamodb.Table>;
 
 		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
@@ -360,10 +84,11 @@ export class ApiStack extends cdk.Stack {
 			environment: {
 				...Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
 				CDK_ENVIRONMENT: environment,
-				COGNITO_USER_POOL_ID: this.userPool.userPoolId,
-				COGNITO_USER_POOL_CLIENT_ID: this.userPoolClient.userPoolClientId,
-				COGNITO_HOSTED_UI_URL: this.cognitoHostedUiUrl,
-				CMS_CALLBACK_URL: this.cmsCallbackUrl,
+				BETTER_AUTH_URL: `https://${apiDomain}/api/auth`,
+				// CloudFormation dynamic reference — resolved at deploy time by CloudFormation,
+				// NOT stored as plaintext in the template. The secret must exist in Secrets Manager
+				// before deploying: aws secretsmanager create-secret --name vcm-better-auth-secret-<env> --secret-string "<random-value>"
+				BETTER_AUTH_SECRET: `{{resolve:secretsmanager:vcm-better-auth-secret-${environment}:SecretString}}`,
 				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
 				...(props.cloudFrontUrl ? { CLOUDFRONT_URL: props.cloudFrontUrl } : {}),
 				...(props.samsApiStack?.samsClubsTable ? { SAMS_CLUBS_TABLE_NAME: props.samsApiStack.samsClubsTable.tableName } : {}),
@@ -376,6 +101,7 @@ export class ApiStack extends cdk.Stack {
 					"@aws-sdk/client-dynamodb",
 					"@aws-sdk/lib-dynamodb",
 					"@aws-sdk/client-s3",
+					"@aws-sdk/client-ses",
 					"@aws-sdk/s3-request-presigner",
 					"@aws-lambda-powertools/logger",
 					"@aws-lambda-powertools/tracer",
@@ -384,7 +110,7 @@ export class ApiStack extends cdk.Stack {
 			},
 		});
 
-		// Grant Lambda access to DynamoDB tables
+		// Grant Lambda access to DynamoDB tables (including USERS and AUTH_VERIFICATIONS)
 		for (const table of Object.values(tables)) {
 			table.grantReadWriteData(this.trpcLambda);
 		}
@@ -403,21 +129,12 @@ export class ApiStack extends cdk.Stack {
 			props.mediaBucket.grantRead(this.trpcLambda);
 		}
 
-		// Grant Lambda permissions to manage Cognito users (for user management endpoints)
+		// Grant Lambda permission to send emails via SES (for OTP emails)
 		this.trpcLambda.addToRolePolicy(
 			new cdk.aws_iam.PolicyStatement({
 				effect: cdk.aws_iam.Effect.ALLOW,
-				actions: [
-					"cognito-idp:AdminCreateUser",
-					"cognito-idp:AdminDeleteUser",
-					"cognito-idp:AdminGetUser",
-					"cognito-idp:AdminUpdateUserAttributes",
-					"cognito-idp:AdminAddUserToGroup",
-					"cognito-idp:AdminRemoveUserFromGroup",
-					"cognito-idp:AdminListGroupsForUser",
-					"cognito-idp:ListUsers",
-				],
-				resources: [this.userPool.userPoolArn],
+				actions: ["ses:SendEmail", "ses:SendRawEmail"],
+				resources: [`arn:aws:ses:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:identity/vcmuellheim.de`],
 			}),
 		);
 
@@ -524,7 +241,7 @@ export class ApiStack extends cdk.Stack {
 			);
 		}
 
-		// 3. HTTP API Gateway with custom domain
+		// 2. HTTP API Gateway with custom domain
 		// Custom domain for API
 		this.apiDomainName = new apigatewayv2.DomainName(this, "ApiDomainName", {
 			domainName: apiDomain,
@@ -565,9 +282,9 @@ export class ApiStack extends cdk.Stack {
 			corsPreflight: {
 				allowOrigins: allowedOrigins,
 				allowMethods: [apigatewayv2.CorsHttpMethod.GET, apigatewayv2.CorsHttpMethod.POST, apigatewayv2.CorsHttpMethod.OPTIONS],
-				allowHeaders: isProd ? ["content-type", "authorization", "x-trpc-source"] : ["content-type", "authorization", "x-trpc-source", "*"],
-				exposeHeaders: ["content-type"],
-				allowCredentials: true, // Enable credentials for flows that require cookies (OAuth etc.)
+				allowHeaders: isProd ? ["content-type", "authorization", "x-trpc-source", "cookie"] : ["content-type", "authorization", "x-trpc-source", "cookie", "*"],
+				exposeHeaders: ["content-type", "set-cookie"],
+				allowCredentials: true, // Required for session cookies
 				maxAge: cdk.Duration.hours(1),
 			},
 		});
@@ -623,28 +340,16 @@ export class ApiStack extends cdk.Stack {
 			exportName: `vcm-trpc-api-url-${environment}${branchSuffix}`,
 		});
 
-		new cdk.CfnOutput(this, "UserPoolId", {
-			value: this.userPool.userPoolId,
-			description: "Cognito User Pool ID",
-			exportName: `vcm-user-pool-id-${environment}${branchSuffix}`,
+		new cdk.CfnOutput(this, "AuthUrl", {
+			value: `${this.apiUrl}/api/auth`,
+			description: "better-auth URL",
+			exportName: `vcm-auth-url-${environment}${branchSuffix}`,
 		});
 
-		new cdk.CfnOutput(this, "UserPoolClientId", {
-			value: this.userPoolClient.userPoolClientId,
-			description: "Cognito User Pool Client ID",
-			exportName: `vcm-user-pool-client-id-${environment}${branchSuffix}`,
-		});
-
-		new cdk.CfnOutput(this, "CognitoHostedUiUrl", {
-			value: this.cognitoHostedUiUrl,
-			description: "Cognito Managed Login URL",
-			exportName: `vcm-cognito-hosted-ui-url-${environment}${branchSuffix}`,
-		});
-
-		new cdk.CfnOutput(this, "CmsCallbackUrl", {
-			value: this.cmsCallbackUrl,
-			description: "CMS OAuth2 Callback URL",
-			exportName: `vcm-cms-callback-url-${environment}${branchSuffix}`,
+		new cdk.CfnOutput(this, "CmsDomain", {
+			value: `https://${cmsDomain}`,
+			description: "CMS admin URL",
+			exportName: `vcm-cms-url-${environment}${branchSuffix}`,
 		});
 	}
 }

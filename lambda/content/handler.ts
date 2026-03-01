@@ -9,14 +9,11 @@ import { Tracer } from "@aws-lambda-powertools/tracer";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import middy from "@middy/core";
 import { awsLambdaRequestHandler } from "@trpc/server/adapters/aws-lambda";
-import type { APIGatewayProxyEventV2, Context } from "aws-lambda";
+import type { APIGatewayProxyEventV2, APIGatewayProxyResultV2, Context } from "aws-lambda";
 import { appRouter } from "../../lib/trpc";
 import { createContext } from "../../lib/trpc/context";
 import { Sentry } from "../utils/sentry";
-
-// Environment variables for Cognito verification
-const USER_POOL_ID = process.env.COGNITO_USER_POOL_ID;
-const REGION = process.env.AWS_REGION || "eu-central-1";
+import { auth } from "./auth";
 
 // Initialize Logger and Tracer outside handler for reuse across invocations
 const logger = new Logger({
@@ -32,18 +29,69 @@ const tracer = new Tracer({
 const baseTrpcHandler = awsLambdaRequestHandler({
 	router: appRouter,
 	createContext: async (opts: { event: APIGatewayProxyEventV2 }) => {
-		const authorizationHeader = opts.event.headers.authorization || opts.event.headers.Authorization;
-
-		return createContext({
-			authorizationHeader,
-			userPoolId: USER_POOL_ID,
-			region: REGION,
-		});
+		return createContext({ headers: buildHeaders(opts.event) });
 	},
 });
 
+/** Convert API Gateway V2 event headers to a Web API Headers object */
+function buildHeaders(event: APIGatewayProxyEventV2): Headers {
+	const headers = new Headers();
+	for (const [key, value] of Object.entries(event.headers || {})) {
+		if (value) headers.set(key, value);
+	}
+	return headers;
+}
+
+/** Convert API Gateway V2 event to a Fetch API Request for better-auth */
+function toFetchRequest(event: APIGatewayProxyEventV2): Request {
+	const scheme = "https";
+	const host = event.headers?.host || "localhost";
+	const url = `${scheme}://${host}${event.rawPath}${event.rawQueryString ? `?${event.rawQueryString}` : ""}`;
+
+	return new Request(url, {
+		method: event.requestContext.http.method,
+		headers: buildHeaders(event),
+		body: event.body ? (event.isBase64Encoded ? Buffer.from(event.body, "base64") : event.body) : null,
+	});
+}
+
+/** Convert a Fetch API Response to an API Gateway V2 response */
+async function fromFetchResponse(response: Response): Promise<APIGatewayProxyResultV2> {
+	const headers: Record<string, string> = {};
+	response.headers.forEach((value, key) => {
+		// Combine multiple Set-Cookie headers (comma-separated is OK for most headers,
+		// but Set-Cookie needs special handling — API GW V2 supports multi-value headers)
+		if (key.toLowerCase() !== "set-cookie") {
+			headers[key] = value;
+		}
+	});
+
+	// Handle Set-Cookie headers separately (push each value directly — do NOT split,
+	// as cookie values can contain ", " in Expires dates)
+	const setCookieValues: string[] = [];
+	response.headers.forEach((value, key) => {
+		if (key.toLowerCase() === "set-cookie") {
+			setCookieValues.push(value);
+		}
+	});
+
+	const body = await response.text();
+
+	const result: APIGatewayProxyResultV2 & { cookies?: string[] } = {
+		statusCode: response.status,
+		headers,
+		body,
+	};
+
+	if (setCookieValues.length > 0) {
+		result.cookies = setCookieValues;
+	}
+
+	return result;
+}
+
 // Lambda handler wrapped with Powertools middleware
-const lambdaHandler = async (event: APIGatewayProxyEventV2, context: Context) => {
+const lambdaHandler = async (event: APIGatewayProxyEventV2, context: Context): Promise<APIGatewayProxyResultV2> => {
 	// Add request metadata to all logs for this invocation
 	logger.appendKeys({
 		path: event.rawPath || event.requestContext?.http?.path || "unknown",
@@ -51,17 +99,23 @@ const lambdaHandler = async (event: APIGatewayProxyEventV2, context: Context) =>
 	});
 
 	try {
-		// Execute tRPC handler
+		// Route /api/auth/* requests to better-auth
+		const path = event.rawPath || "";
+		if (path.startsWith("/api/auth/") || path === "/api/auth") {
+			const request = toFetchRequest(event);
+			const response = await auth.handler(request);
+			return fromFetchResponse(response);
+		}
+
+		// Route everything else to tRPC
 		const result = await baseTrpcHandler(event, context);
 
-		// Log successful response
 		logger.info("Request completed successfully", {
 			statusCode: result.statusCode,
 		});
 
 		return result;
 	} catch (error) {
-		// Log error - Powertools will capture the error automatically via middleware
 		if (error instanceof Error) {
 			logger.error("Request failed", {
 				error: {
@@ -76,7 +130,6 @@ const lambdaHandler = async (event: APIGatewayProxyEventV2, context: Context) =>
 
 		throw error;
 	} finally {
-		// Reset temporary keys after request
 		logger.resetKeys();
 	}
 };
