@@ -256,11 +256,14 @@ describe("ApiStack", () => {
 			}
 		});
 
-		it("should have BETTER_AUTH_URL environment variable", () => {
+		it("should have BETTER_AUTH_SECRET environment variable", () => {
 			const app = createTestApp();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
+
+			// Provide BETTER_AUTH_SECRET env var (required by ApiStack)
+			process.env.BETTER_AUTH_SECRET = "test-secret";
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -279,8 +282,8 @@ describe("ApiStack", () => {
 			};
 
 			const env = trpcLambda.Properties.Environment.Variables;
-			if (!env.BETTER_AUTH_URL) {
-				throw new Error("Missing BETTER_AUTH_URL environment variable");
+			if (!env.BETTER_AUTH_SECRET) {
+				throw new Error("Missing BETTER_AUTH_SECRET environment variable");
 			}
 		});
 	});

@@ -3,9 +3,7 @@
  * - Passwordless email OTP login
  * - Stateless JWE session cookies with relaxed caching (30-day cookie cache, 90-day session lifetime)
  * - User whitelist enforced via DynamoDB
- *
- * BETTER_AUTH_SECRET is provided via CloudFormation dynamic reference ({{resolve:secretsmanager:...}})
- * which resolves at deploy time — the secret is NOT stored as plaintext in the CloudFormation template.
+ * - Trusted origins limited to vcmuellheim.de and *.vcmuellheim.de
  */
 
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
@@ -20,8 +18,9 @@ const sesClient = new SESClient({
 });
 
 export const auth = betterAuth({
-	baseURL: process.env.BETTER_AUTH_URL || "",
+	// baseURL is intentionally omitted — better-auth infers it from the incoming request
 	secret: process.env.BETTER_AUTH_SECRET || "",
+	trustedOrigins: ["https://vcmuellheim.de", "https://*.vcmuellheim.de"],
 	database: dynamoDBAdapter,
 	session: {
 		cookieCache: {

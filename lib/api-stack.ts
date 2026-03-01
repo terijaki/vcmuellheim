@@ -45,10 +45,15 @@ export class ApiStack extends cdk.Stack {
 		const branch = props.stackProps?.branch || "";
 		const branchSuffix = branch ? `-${branch}` : "";
 		const isProd = environment === "prod";
+		const isCdkDestroy = process.env.CDK_DESTROY === "true";
 		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
 		const baseDomain = isProd ? Club.domain : `new.${Club.domain}`;
 		const apiDomain = `${envPrefix}api.${baseDomain}`;
 		const cmsDomain = `${envPrefix}admin.${baseDomain}`;
+
+		if (!isCdkDestroy && !process.env.BETTER_AUTH_SECRET) {
+			throw new Error("❌ BETTER_AUTH_SECRET environment variable is required");
+		}
 
 		// 1. tRPC Lambda Function
 		const tables = {
@@ -84,11 +89,9 @@ export class ApiStack extends cdk.Stack {
 			environment: {
 				...Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
 				CDK_ENVIRONMENT: environment,
-				BETTER_AUTH_URL: `https://${apiDomain}/api/auth`,
-				// CloudFormation dynamic reference — resolved at deploy time by CloudFormation,
-				// NOT stored as plaintext in the template. The secret must exist in Secrets Manager
-				// before deploying: aws secretsmanager create-secret --name vcm-better-auth-secret-<env> --secret-string "<random-value>"
-				BETTER_AUTH_SECRET: `{{resolve:secretsmanager:vcm-better-auth-secret-${environment}:SecretString}}`,
+				// better-auth infers baseURL from the incoming request (no need to set BETTER_AUTH_URL)
+				// BETTER_AUTH_SECRET is passed from the CDK_BETTER_AUTH_SECRET env var set in CI
+				BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET || "",
 				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
 				...(props.cloudFrontUrl ? { CLOUDFRONT_URL: props.cloudFrontUrl } : {}),
 				...(props.samsApiStack?.samsClubsTable ? { SAMS_CLUBS_TABLE_NAME: props.samsApiStack.samsClubsTable.tableName } : {}),

@@ -33,7 +33,7 @@ jobs:
           bun-version: latest
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: bun install
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -72,6 +72,7 @@ jobs:
           APIFY_API_KEY: ${{ secrets.APIFY_API_KEY }}
           SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
           SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
+          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
         run: bunx cdk diff --all
 
       - name: CDK Deploy
@@ -84,6 +85,7 @@ jobs:
           APIFY_API_KEY: ${{ secrets.APIFY_API_KEY }}
           SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
           SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
+          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
         run: |
           bunx cdk deploy --require-approval never --all --outputs-file cdk-outputs.json
 
