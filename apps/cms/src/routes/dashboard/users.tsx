@@ -5,7 +5,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
-import { useAuth } from "../../auth/AuthContext";
+import { authClient } from "../../lib/auth-client";
 import { useNotification } from "../../hooks/useNotification";
 
 export const Route = createFileRoute("/dashboard/users")({
@@ -16,7 +16,8 @@ function UsersPage() {
 	const isMobile = useMediaQuery("(max-width: 48em)");
 	const trpc = useTRPC();
 	const notification = useNotification();
-	const { user: currentUser } = useAuth();
+	const { data: sessionData } = authClient.useSession();
+	const currentUser = sessionData?.user as { email?: string } | undefined;
 	const [createOpened, { open: openCreate, close: closeCreate }] = useDisclosure(false);
 	const [editOpened, { open: openEdit, close: closeEdit }] = useDisclosure(false);
 	const [deleteTarget, setDeleteTarget] = useState<string | null>(null);

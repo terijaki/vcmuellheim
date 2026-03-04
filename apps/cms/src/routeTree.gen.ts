@@ -22,7 +22,6 @@ import { Route as DashboardMembersRouteImport } from './routes/dashboard/members
 import { Route as DashboardLocationsRouteImport } from './routes/dashboard/locations'
 import { Route as DashboardEventsRouteImport } from './routes/dashboard/events'
 import { Route as DashboardBusRouteImport } from './routes/dashboard/bus'
-import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
@@ -89,17 +88,11 @@ const DashboardBusRoute = DashboardBusRouteImport.update({
   path: '/bus',
   getParentRoute: () => DashboardRoute,
 } as any)
-const AuthCallbackRoute = AuthCallbackRouteImport.update({
-  id: '/auth/callback',
-  path: '/auth/callback',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bye': typeof ByeRoute
   '/dashboard': typeof DashboardRouteWithChildren
-  '/auth/callback': typeof AuthCallbackRoute
   '/dashboard/bus': typeof DashboardBusRoute
   '/dashboard/events': typeof DashboardEventsRoute
   '/dashboard/locations': typeof DashboardLocationsRoute
@@ -114,7 +107,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bye': typeof ByeRoute
-  '/auth/callback': typeof AuthCallbackRoute
   '/dashboard/bus': typeof DashboardBusRoute
   '/dashboard/events': typeof DashboardEventsRoute
   '/dashboard/locations': typeof DashboardLocationsRoute
@@ -131,7 +123,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/bye': typeof ByeRoute
   '/dashboard': typeof DashboardRouteWithChildren
-  '/auth/callback': typeof AuthCallbackRoute
   '/dashboard/bus': typeof DashboardBusRoute
   '/dashboard/events': typeof DashboardEventsRoute
   '/dashboard/locations': typeof DashboardLocationsRoute
@@ -149,7 +140,6 @@ export interface FileRouteTypes {
     | '/'
     | '/bye'
     | '/dashboard'
-    | '/auth/callback'
     | '/dashboard/bus'
     | '/dashboard/events'
     | '/dashboard/locations'
@@ -164,7 +154,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/bye'
-    | '/auth/callback'
     | '/dashboard/bus'
     | '/dashboard/events'
     | '/dashboard/locations'
@@ -180,7 +169,6 @@ export interface FileRouteTypes {
     | '/'
     | '/bye'
     | '/dashboard'
-    | '/auth/callback'
     | '/dashboard/bus'
     | '/dashboard/events'
     | '/dashboard/locations'
@@ -197,7 +185,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ByeRoute: typeof ByeRoute
   DashboardRoute: typeof DashboardRouteWithChildren
-  AuthCallbackRoute: typeof AuthCallbackRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -293,13 +280,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardBusRouteImport
       parentRoute: typeof DashboardRoute
     }
-    '/auth/callback': {
-      id: '/auth/callback'
-      path: '/auth/callback'
-      fullPath: '/auth/callback'
-      preLoaderRoute: typeof AuthCallbackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -337,7 +317,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ByeRoute: ByeRoute,
   DashboardRoute: DashboardRouteWithChildren,
-  AuthCallbackRoute: AuthCallbackRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

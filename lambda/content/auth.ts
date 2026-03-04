@@ -2,12 +2,13 @@
  * better-auth server instance for CMS authentication
  * - Passwordless email OTP login
  * - Stateless JWE session cookies with relaxed caching (30-day cookie cache, 90-day session lifetime)
- * - User whitelist enforced via DynamoDB
+ * - Email whitelist enforced via a before hook (only emails registered in DynamoDB USERS table can request OTP)
  * - Trusted origins limited to vcmuellheim.de and known subdomains (wildcard support requires better-auth ≥ 1.5)
  */
 
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 import { betterAuth } from "better-auth";
+import { APIError, createAuthMiddleware } from "better-auth/api";
 import { emailOTP } from "better-auth/plugins";
 import { dynamoDBAdapter } from "@/lambda/utils/better-auth-dynamodb-adapter";
 import { getCmsUserByEmail } from "@/lib/db/repositories";
@@ -42,21 +43,30 @@ export const auth = betterAuth({
 			},
 		},
 	},
+	hooks: {
+		// Before processing any request, check that the email requesting an OTP is whitelisted
+		before: createAuthMiddleware(async (ctx) => {
+			if (ctx.path === "/email-otp/send-verification-otp") {
+				const email = ctx.body?.email as string | undefined;
+				if (email) {
+					const user = await getCmsUserByEmail(email);
+					if (!user) {
+						throw new APIError("FORBIDDEN", {
+							message: "Diese E-Mail-Adresse ist nicht berechtigt.",
+						});
+					}
+				}
+			}
+		}),
+	},
 	plugins: [
 		emailOTP({
 			// Prevent automatic user sign-up — only pre-registered users can login
 			disableSignUp: true,
 			// OTP expires after 10 minutes
 			expiresIn: 10 * 60,
-			// Send OTP via AWS SES
+			// Send OTP via AWS SES (whitelist check is handled by hooks.before above)
 			async sendVerificationOTP({ email, otp }) {
-				// Check if the user is whitelisted before sending
-				const user = await getCmsUserByEmail(email);
-				if (!user) {
-					// Silently ignore — better-auth will handle the error
-					return;
-				}
-
 				await sesClient.send(
 					new SendEmailCommand({
 						Source: `${Club.shortName} <no-reply@vcmuellheim.de>`,

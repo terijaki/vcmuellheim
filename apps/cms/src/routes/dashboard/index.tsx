@@ -1,6 +1,6 @@
 import { AspectRatio, BackgroundImage, Card, Group, SimpleGrid, Stack, Title, Typography } from "@mantine/core";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useAuth } from "../../auth/AuthContext";
+import { authClient } from "../../lib/auth-client";
 import { getDashboardRoutesWithLabels } from "../../utils/nav-links";
 
 export const Route = createFileRoute("/dashboard/")({
@@ -8,7 +8,8 @@ export const Route = createFileRoute("/dashboard/")({
 });
 
 function DashboardIndexPage() {
-	const { user } = useAuth();
+	const { data: sessionData } = authClient.useSession();
+	const user = sessionData?.user as { role?: string } | undefined;
 
 	return (
 		<SimpleGrid spacing="md" cols={{ base: 1, sm: 2, xl: 3 }}>

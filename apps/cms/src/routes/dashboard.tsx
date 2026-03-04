@@ -3,43 +3,44 @@ import { useDisclosure } from "@mantine/hooks";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { LogOut } from "lucide-react";
 import { useState } from "react";
-import { useAuth } from "../auth/AuthContext";
+import { authClient } from "../lib/auth-client";
 import { getDashboardRoutesWithLabels } from "../utils/nav-links";
 
 function LoginForm() {
-	const { sendOtp, verifyOtp, otpSent, otpEmail, error, isLoading } = useAuth();
 	const [email, setEmail] = useState("");
 	const [otp, setOtp] = useState("");
+	const [otpSent, setOtpSent] = useState(false);
+	const [otpEmail, setOtpEmail] = useState<string | null>(null);
+	const [error, setError] = useState<string | null>(null);
 	const [submitting, setSubmitting] = useState(false);
-	const [localError, setLocalError] = useState<string | null>(null);
 
 	const handleSendOtp = async () => {
 		if (!email.trim()) return;
 		setSubmitting(true);
-		setLocalError(null);
-		try {
-			await sendOtp(email.trim());
-		} catch (err) {
-			setLocalError(err instanceof Error ? err.message : "Fehler beim Senden des Codes");
-		} finally {
-			setSubmitting(false);
+		setError(null);
+		const result = await authClient.emailOtp.sendVerificationOtp({
+			email: email.trim(),
+			type: "sign-in",
+		});
+		if (result.error) {
+			setError(result.error.message || "OTP konnte nicht gesendet werden");
+		} else {
+			setOtpEmail(email.trim());
+			setOtpSent(true);
 		}
+		setSubmitting(false);
 	};
 
 	const handleVerifyOtp = async () => {
 		if (!otpEmail || otp.length < 6) return;
 		setSubmitting(true);
-		setLocalError(null);
-		try {
-			await verifyOtp(otpEmail, otp);
-		} catch (err) {
-			setLocalError(err instanceof Error ? err.message : "Ungültiger Code");
-		} finally {
-			setSubmitting(false);
+		setError(null);
+		const result = await authClient.signIn.emailOtp({ email: otpEmail, otp });
+		if (result.error) {
+			setError(result.error.message || "Ungültiger Code");
 		}
+		setSubmitting(false);
 	};
-
-	const displayError = localError || error;
 
 	return (
 		<Center h="100vh">
@@ -48,9 +49,9 @@ function LoginForm() {
 					CMS Anmeldung
 				</Title>
 
-				{displayError && (
+				{error && (
 					<Alert color="red" variant="light">
-						{displayError}
+						{error}
 					</Alert>
 				)}
 
@@ -66,10 +67,10 @@ function LoginForm() {
 							onChange={(e) => setEmail(e.currentTarget.value)}
 							onKeyDown={(e) => e.key === "Enter" && handleSendOtp()}
 							type="email"
-							disabled={submitting || isLoading}
+							disabled={submitting}
 							autoFocus
 						/>
-						<Button onClick={handleSendOtp} loading={submitting || isLoading} disabled={!email.trim()} fullWidth>
+						<Button onClick={handleSendOtp} loading={submitting} disabled={!email.trim()} fullWidth>
 							Anmeldecode senden
 						</Button>
 					</>
@@ -89,7 +90,13 @@ function LoginForm() {
 							onClick={async () => {
 								if (otpEmail) {
 									setOtp("");
-									await sendOtp(otpEmail);
+									setError(null);
+									setSubmitting(true);
+									const result = await authClient.emailOtp.sendVerificationOtp({ email: otpEmail, type: "sign-in" });
+									if (result.error) {
+										setError(result.error.message || "OTP konnte nicht gesendet werden");
+									}
+									setSubmitting(false);
 								}
 							}}
 							disabled={submitting}
@@ -104,8 +111,25 @@ function LoginForm() {
 }
 
 function DashboardLayout() {
-	const { user, logout } = useAuth();
+	const { data: sessionData } = authClient.useSession();
+	const user = sessionData?.user as { id: string; email: string; name?: string; role?: string } | undefined;
 	const [opened, { toggle }] = useDisclosure();
+	const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+	const logout = async () => {
+		setIsLoggingOut(true);
+		await authClient.signOut();
+		window.location.href = "/bye";
+	};
+
+	if (isLoggingOut) {
+		return (
+			<Center h="100vh">
+				<Loader />
+			</Center>
+		);
+	}
+
 	return (
 		<AppShell header={{ height: 60 }} navbar={{ width: 250, breakpoint: "md", collapsed: { mobile: !opened } }} padding="md">
 			<AppShell.Header>
@@ -127,7 +151,7 @@ function DashboardLayout() {
 							<Menu.Label>{user?.name}</Menu.Label>
 							<Menu.Label>{user?.email}</Menu.Label>
 							<Menu.Divider />
-							<Menu.Item onClick={() => logout()} leftSection={<LogOut size={16} />}>
+							<Menu.Item onClick={logout} leftSection={<LogOut size={16} />}>
 								Abmelden
 							</Menu.Item>
 						</Menu.Dropdown>
@@ -149,19 +173,10 @@ function DashboardLayout() {
 }
 
 function DashboardPage() {
-	const { isLoading, isAuthenticated, isLoggingOut } = useAuth();
+	const { data: sessionData, isPending } = authClient.useSession();
 
 	// Still loading - show loader
-	if (isLoading) {
-		return (
-			<Center h="100vh">
-				<Loader />
-			</Center>
-		);
-	}
-
-	// Logging out
-	if (isLoggingOut) {
+	if (isPending) {
 		return (
 			<Center h="100vh">
 				<Loader />
@@ -170,7 +185,7 @@ function DashboardPage() {
 	}
 
 	// Not authenticated - show inline login form
-	if (!isAuthenticated) {
+	if (!sessionData) {
 		return <LoginForm />;
 	}
 
