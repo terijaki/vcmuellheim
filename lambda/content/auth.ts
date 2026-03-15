@@ -19,10 +19,29 @@ const sesClient = new SESClient({
 });
 
 export const auth = betterAuth({
-	// baseURL is intentionally omitted — better-auth infers it from the incoming request
+	baseURL: {
+		allowedHosts: [Club.domain, `*.${Club.domain}`, `*.new.${Club.domain}`, "localhost:*"],
+		protocol: "https",
+	},
 	secret: process.env.BETTER_AUTH_SECRET || "",
-	trustedOrigins: ["https://vcmuellheim.de", "https://*.vcmuellheim.de"],
+	trustedOrigins: ["https://vcmuellheim.de", "https://*.vcmuellheim.de", "https://*.new.vcmuellheim.de"],
 	database: dynamoDBAdapter,
+	advanced: {
+		// Lambda does not set NODE_ENV=production by default, so better-auth would
+		// otherwise emit non-secure cookies. Force Secure without changing the
+		// cookie names (useSecureCookies would add __Secure- prefix).
+		defaultCookieAttributes: {
+			secure: true,
+		},
+		// Scope cookies to the shared parent domain so both the API
+		// (*.new.vcmuellheim.de) and admin app subdomains share the same cookie.
+		// Without a Domain attribute the cookie is host-only to the API domain,
+		// causing browsers (especially Safari ITP) to drop cross-origin Set-Cookie.
+		crossSubDomainCookies: {
+			enabled: true,
+			domain: "vcmuellheim.de",
+		},
+	},
 	session: {
 		cookieCache: {
 			enabled: true,

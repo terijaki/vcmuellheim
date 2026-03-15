@@ -31,6 +31,7 @@ Subfolder-level `AGENTS.md` files contain additional context for specific areas 
 
 - **Formatting & linting:** Use Biome. Respect the existing `biome.json`/`bunfig.toml` configs.
 - **Strings & style:** double quotes, semicolons, 2-space indentation.
+- **Auth docs:** better-auth LLM documentation is available at https://better-auth.com/llms.txt.
 - **Types:** prefer `import type` where applicable; keep `tsconfig.json` settings in mind when adding exports.
   - **CRITICAL:** Never cast as `unknown` or `any` — instead, find proper type-safe patterns using TypeScript's type system. For Zod schemas, use `z.infer<>` to derive proper types, use object spreading with conditional properties, or build updates incrementally with proper intermediate types.
 - **Dates:** use `dayjs` (project-wide convention — do not introduce other date libraries).

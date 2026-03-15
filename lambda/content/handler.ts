@@ -39,18 +39,25 @@ function buildHeaders(event: APIGatewayProxyEventV2): Headers {
 	for (const [key, value] of Object.entries(event.headers || {})) {
 		if (value) headers.set(key, value);
 	}
+
+	// API Gateway HTTP API can pass cookies in event.cookies instead of headers.cookie.
+	if (event.cookies && event.cookies.length > 0 && !headers.has("cookie")) {
+		headers.set("cookie", event.cookies.join("; "));
+	}
+
 	return headers;
 }
 
 /** Convert API Gateway V2 event to a Fetch API Request for better-auth */
 function toFetchRequest(event: APIGatewayProxyEventV2): Request {
-	const scheme = "https";
-	const host = event.headers?.host || "localhost";
+	const headers = buildHeaders(event);
+	const scheme = headers.get("x-forwarded-proto") || "https";
+	const host = headers.get("x-forwarded-host") || headers.get("host") || event.requestContext.domainName || "localhost";
 	const url = `${scheme}://${host}${event.rawPath}${event.rawQueryString ? `?${event.rawQueryString}` : ""}`;
 
 	return new Request(url, {
 		method: event.requestContext.http.method,
-		headers: buildHeaders(event),
+		headers,
 		body: event.body ? (event.isBase64Encoded ? Buffer.from(event.body, "base64") : event.body) : null,
 	});
 }

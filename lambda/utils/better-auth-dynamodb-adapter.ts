@@ -9,6 +9,7 @@ import { docClient } from "@/lib/db/client";
 
 type AdapterWhere = Array<{ field: string; value: unknown; operator?: string; connector?: string }>;
 type AdapterSortBy = { field: string; direction: "asc" | "desc" };
+type AdapterJoin = { user?: boolean };
 type AdapterFindManyArgs = {
 	model: string;
 	where?: AdapterWhere;
@@ -16,8 +17,44 @@ type AdapterFindManyArgs = {
 	select?: string[];
 	sortBy?: AdapterSortBy;
 	offset?: number;
-	join?: unknown;
+	join?: AdapterJoin;
 };
+
+function shouldJoinUser(join: unknown): boolean {
+	if (!join || typeof join !== "object") {
+		return false;
+	}
+
+	return ("user" in join && (join as AdapterJoin).user === true) || false;
+}
+
+async function withSessionUserJoin(item: Record<string, unknown> | null, model: string, join: unknown): Promise<Record<string, unknown> | null> {
+	if (!item) {
+		return null;
+	}
+
+	if (model !== "session" || !shouldJoinUser(join)) {
+		return item;
+	}
+
+	const userId = item.userId;
+	if (typeof userId !== "string" || !userId) {
+		return { ...item, user: null };
+	}
+
+	const userTableName = getTableNameForModel("user");
+	const userResult = await docClient.send(
+		new GetCommand({
+			TableName: userTableName,
+			Key: { id: userId },
+		}),
+	);
+
+	return {
+		...item,
+		user: (userResult.Item as Record<string, unknown> | undefined) || null,
+	};
+}
 
 /** Map better-auth model names to DynamoDB table environment variables */
 function getTableNameForModel(model: string): string {
@@ -234,7 +271,7 @@ export const dynamoDBAdapter = createAdapterFactory({
 				return data as typeof data;
 			},
 
-			async findOne({ model, where, select }) {
+			async findOne({ model, where, select, join }) {
 				const tableName = getTableNameForModel(getModelName(model));
 
 				// Optimize: use GSI for common lookup patterns
@@ -252,9 +289,11 @@ export const dynamoDBAdapter = createAdapterFactory({
 						for (const key of select) {
 							if (key in result.Item) filtered[key] = result.Item[key];
 						}
-						return filtered as ReturnType<typeof Object.assign>;
+						const withJoin = await withSessionUserJoin(filtered, model, join);
+						return withJoin as ReturnType<typeof Object.assign>;
 					}
-					return result.Item as ReturnType<typeof Object.assign>;
+					const withJoin = await withSessionUserJoin(result.Item as Record<string, unknown>, model, join);
+					return withJoin as ReturnType<typeof Object.assign>;
 				}
 
 				// Use GSI for email lookups on user model
@@ -270,7 +309,9 @@ export const dynamoDBAdapter = createAdapterFactory({
 							Limit: 1,
 						}),
 					);
-					return (result.Items?.[0] as ReturnType<typeof Object.assign>) || null;
+					const first = (result.Items?.[0] as Record<string, unknown> | undefined) || null;
+					const withJoin = await withSessionUserJoin(first, model, join);
+					return withJoin as ReturnType<typeof Object.assign>;
 				}
 
 				// For verification records, always use the same deterministic lookup path as findMany.
@@ -290,10 +331,12 @@ export const dynamoDBAdapter = createAdapterFactory({
 						for (const key of select) {
 							if (key in first) filtered[key] = first[key];
 						}
-						return filtered as ReturnType<typeof Object.assign>;
+						const withJoin = await withSessionUserJoin(filtered, model, join);
+						return withJoin as ReturnType<typeof Object.assign>;
 					}
 
-					return first as ReturnType<typeof Object.assign>;
+					const withJoin = await withSessionUserJoin(first, model, join);
+					return withJoin as ReturnType<typeof Object.assign>;
 				}
 
 				// Fall back to scan with filter
@@ -307,7 +350,9 @@ export const dynamoDBAdapter = createAdapterFactory({
 						Limit: 1,
 					}),
 				);
-				return (result.Items?.[0] as ReturnType<typeof Object.assign>) || null;
+				const first = (result.Items?.[0] as Record<string, unknown> | undefined) || null;
+				const withJoin = await withSessionUserJoin(first, model, join);
+				return withJoin as ReturnType<typeof Object.assign>;
 			},
 
 			async findMany<T>({ model, where, limit = 100, sortBy, offset }: AdapterFindManyArgs): Promise<T[]> {

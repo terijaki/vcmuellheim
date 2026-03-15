@@ -46,7 +46,7 @@ function LoginForm() {
 		<Center h="100vh">
 			<Stack gap="md" w={360} p="xl">
 				<Title order={2} ta="center">
-					CMS Anmeldung
+					VC Müllheim Anmeldung
 				</Title>
 
 				{error && (
