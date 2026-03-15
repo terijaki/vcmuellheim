@@ -7,6 +7,18 @@ import { DeleteCommand, GetCommand, PutCommand, QueryCommand, ScanCommand } from
 import { createAdapterFactory } from "better-auth/adapters";
 import { docClient } from "@/lib/db/client";
 
+type AdapterWhere = Array<{ field: string; value: unknown; operator?: string; connector?: string }>;
+type AdapterSortBy = { field: string; direction: "asc" | "desc" };
+type AdapterFindManyArgs = {
+	model: string;
+	where?: AdapterWhere;
+	limit?: number;
+	select?: string[];
+	sortBy?: AdapterSortBy;
+	offset?: number;
+	join?: unknown;
+};
+
 /** Map better-auth model names to DynamoDB table environment variables */
 function getTableNameForModel(model: string): string {
 	const modelTableMap: Record<string, string> = {
@@ -22,7 +34,7 @@ function getTableNameForModel(model: string): string {
 }
 
 /** Convert better-auth CleanedWhere to DynamoDB filter/key expressions */
-function buildWhereExpression(where: Array<{ field: string; value: unknown; operator?: string; connector?: string }>) {
+function buildWhereExpression(where: AdapterWhere) {
 	const expressionParts: string[] = [];
 	const expressionAttributeNames: Record<string, string> = {};
 	const expressionAttributeValues: Record<string, unknown> = {};
@@ -71,6 +83,121 @@ function buildWhereExpression(where: Array<{ field: string; value: unknown; oper
 	};
 }
 
+function parseDateLike(value: unknown): number | null {
+	if (value instanceof Date) {
+		return value.getTime();
+	}
+
+	if (typeof value === "string") {
+		const parsed = Date.parse(value);
+		if (!Number.isNaN(parsed)) {
+			return parsed;
+		}
+	}
+
+	return null;
+}
+
+function compareValues(a: unknown, b: unknown): number {
+	const aDate = parseDateLike(a);
+	const bDate = parseDateLike(b);
+	if (aDate !== null && bDate !== null) {
+		return aDate - bDate;
+	}
+
+	if (typeof a === "number" && typeof b === "number") {
+		return a - b;
+	}
+
+	if (typeof a === "boolean" && typeof b === "boolean") {
+		if (a === b) return 0;
+		return a ? 1 : -1;
+	}
+
+	const aString = String(a ?? "");
+	const bString = String(b ?? "");
+	return aString.localeCompare(bString);
+}
+
+function matchesWhere(item: Record<string, unknown>, where: AdapterWhere): boolean {
+	for (const condition of where) {
+		const operator = condition.operator ?? "eq";
+		const itemValue = item[condition.field];
+		const expected = condition.value;
+
+		switch (operator) {
+			case "eq": {
+				const itemDate = parseDateLike(itemValue);
+				const expectedDate = parseDateLike(expected);
+				if (itemDate !== null && expectedDate !== null) {
+					if (itemDate !== expectedDate) return false;
+					break;
+				}
+				if (itemValue !== expected) return false;
+				break;
+			}
+			case "ne": {
+				const itemDate = parseDateLike(itemValue);
+				const expectedDate = parseDateLike(expected);
+				if (itemDate !== null && expectedDate !== null) {
+					if (itemDate === expectedDate) return false;
+					break;
+				}
+				if (itemValue === expected) return false;
+				break;
+			}
+			case "gt":
+				if (compareValues(itemValue, expected) <= 0) return false;
+				break;
+			case "gte":
+				if (compareValues(itemValue, expected) < 0) return false;
+				break;
+			case "lt":
+				if (compareValues(itemValue, expected) >= 0) return false;
+				break;
+			case "lte":
+				if (compareValues(itemValue, expected) > 0) return false;
+				break;
+			case "contains": {
+				if (typeof itemValue === "string" && typeof expected === "string") {
+					if (!itemValue.includes(expected)) return false;
+					break;
+				}
+
+				if (Array.isArray(itemValue)) {
+					if (!itemValue.includes(expected)) return false;
+					break;
+				}
+
+				return false;
+			}
+			case "starts_with": {
+				if (typeof itemValue !== "string" || typeof expected !== "string") return false;
+				if (!itemValue.startsWith(expected)) return false;
+				break;
+			}
+			default:
+				if (itemValue !== expected) return false;
+		}
+	}
+
+	return true;
+}
+
+function sortItems(items: Record<string, unknown>[], sortBy?: AdapterSortBy) {
+	if (!sortBy) {
+		return items;
+	}
+
+	const sorted = [...items];
+	sorted.sort((a, b) => {
+		const comparison = compareValues(a[sortBy.field], b[sortBy.field]);
+		return sortBy.direction === "asc" ? comparison : -comparison;
+	});
+
+	return sorted;
+}
+
 /** The GSI name for email-based lookups on the user model */
 const USER_EMAIL_GSI = "GSI-UsersByEmail";
 /** The GSI name for identifier-based lookups on the verification model */
@@ -82,6 +209,7 @@ export const dynamoDBAdapter = createAdapterFactory({
 		adapterName: "DynamoDB",
 		supportsNumericIds: false,
 		supportsUUIDs: true,
+		supportsDates: false,
 		usePlural: false,
 		transaction: false,
 	},
@@ -144,20 +272,27 @@ export const dynamoDBAdapter = createAdapterFactory({
 					return (result.Items?.[0] as ReturnType<typeof Object.assign>) || null;
 				}
 
-				// Use GSI for identifier lookups on verification model
-				const identifierWhere = where.find((w) => w.field === "identifier");
-				if (model === "verification" && identifierWhere) {
-					const result = await docClient.send(
-						new QueryCommand({
-							TableName: tableName,
-							IndexName: VERIFICATION_IDENTIFIER_GSI,
-							KeyConditionExpression: "#identifier = :identifier",
-							ExpressionAttributeNames: { "#identifier": "identifier" },
-							ExpressionAttributeValues: { ":identifier": identifierWhere.value },
-							Limit: 1,
-						}),
-					);
-					return (result.Items?.[0] as ReturnType<typeof Object.assign>) || null;
+				// For verification records, always use the same deterministic lookup path as findMany.
+				// better-auth expects the latest OTP by identifier.
+				if (model === "verification") {
+					const items = await this.findMany<Record<string, unknown>>({
+						model,
+						where,
+						limit: 1,
+						sortBy: { field: "createdAt", direction: "desc" },
+					});
+
+					const first = items[0];
+					if (!first) return null;
+					if (select && select.length > 0) {
+						const filtered: Record<string, unknown> = {};
+						for (const key of select) {
+							if (key in first) filtered[key] = first[key];
+						}
+						return filtered as ReturnType<typeof Object.assign>;
+					}
+
+					return first as ReturnType<typeof Object.assign>;
 				}
 
 				// Fall back to scan with filter
@@ -174,54 +309,101 @@ export const dynamoDBAdapter = createAdapterFactory({
 				return (result.Items?.[0] as ReturnType<typeof Object.assign>) || null;
 			},
 
-			async findMany({ model, where, limit = 100, sortBy, offset }) {
+			async findMany<T>({ model, where, limit = 100, sortBy, offset }: AdapterFindManyArgs): Promise<T[]> {
 				const tableName = getTableNameForModel(getModelName(model));
+				const startIndex = offset ?? 0;
+				const targetCount = startIndex + limit;
+
+				if (model === "verification" && where && where.length > 0) {
+					const identifierWhere = where.find((w) => w.field === "identifier" && (w.operator === undefined || w.operator === "eq"));
+
+					if (identifierWhere) {
+						const queriedItems: Record<string, unknown>[] = [];
+						let lastEvaluatedKey: Record<string, unknown> | undefined;
+
+						do {
+							const result = await docClient.send(
+								new QueryCommand({
+									TableName: tableName,
+									IndexName: VERIFICATION_IDENTIFIER_GSI,
+									KeyConditionExpression: "#identifier = :identifier",
+									ExpressionAttributeNames: { "#identifier": "identifier" },
+									ExpressionAttributeValues: { ":identifier": identifierWhere.value },
+									ExclusiveStartKey: lastEvaluatedKey,
+								}),
+							);
+
+							queriedItems.push(...((result.Items || []) as Record<string, unknown>[]));
+							lastEvaluatedKey = result.LastEvaluatedKey as Record<string, unknown> | undefined;
+						} while (lastEvaluatedKey);
+
+						const filteredItems = queriedItems.filter((item) => matchesWhere(item, where));
+						const sortedItems = sortItems(filteredItems, sortBy);
+						return sortedItems.slice(startIndex, startIndex + limit) as T[];
+					}
+				}
 
 				if (!where || where.length === 0) {
-					const result = await docClient.send(
-						new ScanCommand({
-							TableName: tableName,
-							Limit: limit,
-						}),
-					);
-					let items = (result.Items || []) as ReturnType<typeof Object.assign>[];
-					if (sortBy) {
-						items.sort((a, b) => {
-							const aVal = a[sortBy.field];
-							const bVal = b[sortBy.field];
-							if (aVal < bVal) return sortBy.direction === "asc" ? -1 : 1;
-							if (aVal > bVal) return sortBy.direction === "asc" ? 1 : -1;
-							return 0;
-						});
-					}
-					if (offset) items = items.slice(offset);
-					return items;
+					const scannedItems: Record<string, unknown>[] = [];
+					let lastEvaluatedKey: Record<string, unknown> | undefined;
+
+					do {
+						const result = await docClient.send(
+							new ScanCommand({
+								TableName: tableName,
+								ExclusiveStartKey: lastEvaluatedKey,
+								Limit: targetCount,
+							}),
+						);
+
+						scannedItems.push(...((result.Items || []) as Record<string, unknown>[]));
+						lastEvaluatedKey = result.LastEvaluatedKey as Record<string, unknown> | undefined;
+					} while (lastEvaluatedKey && scannedItems.length < targetCount);
+
+					const sortedItems = sortItems(scannedItems, sortBy);
+					return sortedItems.slice(startIndex, startIndex + limit) as T[];
 				}
 
 				const { filterExpression, expressionAttributeNames, expressionAttributeValues } = buildWhereExpression(where);
-				const result = await docClient.send(
-					new ScanCommand({
-						TableName: tableName,
-						FilterExpression: filterExpression,
-						ExpressionAttributeNames: expressionAttributeNames,
-						ExpressionAttributeValues: expressionAttributeValues,
-						Limit: limit,
-					}),
-				);
-				let items = (result.Items || []) as ReturnType<typeof Object.assign>[];
-				if (offset) items = items.slice(offset);
-				return items;
+				const scannedItems: Record<string, unknown>[] = [];
+				let lastEvaluatedKey: Record<string, unknown> | undefined;
+
+				do {
+					const result = await docClient.send(
+						new ScanCommand({
+							TableName: tableName,
+							FilterExpression: filterExpression,
+							ExpressionAttributeNames: expressionAttributeNames,
+							ExpressionAttributeValues: expressionAttributeValues,
+							ExclusiveStartKey: lastEvaluatedKey,
+							Limit: targetCount,
+						}),
+					);
+
+					scannedItems.push(...((result.Items || []) as Record<string, unknown>[]));
+					lastEvaluatedKey = result.LastEvaluatedKey as Record<string, unknown> | undefined;
+				} while (lastEvaluatedKey && scannedItems.length < targetCount);
+
+				const sortedItems = sortItems(scannedItems, sortBy);
+				return sortedItems.slice(startIndex, startIndex + limit) as T[];
 			},
 
 			async update({ model, where, update }) {
 				const tableName = getTableNameForModel(getModelName(model));
 
-				// Find the item first to get its id
-				const existing = await this.findOne<Record<string, unknown>>({ model, where, select: ["id"] });
+				// Find the current item so we preserve all existing fields on upsert-style updates.
+				const existing = await this.findOne<Record<string, unknown>>({ model, where });
 				if (!existing || !("id" in existing)) return null;
 
 				const now = new Date().toISOString();
-				const updatedItem = { ...existing, ...(update as Record<string, unknown>), updatedAt: now };
+				const updatedItem: Record<string, unknown> = { ...existing, ...(update as Record<string, unknown>), updatedAt: now };
+
+				if (model === "verification" && "expiresAt" in updatedItem && updatedItem.expiresAt) {
+					const expiresAt = updatedItem.expiresAt instanceof Date ? updatedItem.expiresAt : new Date(String(updatedItem.expiresAt));
+					if (!Number.isNaN(expiresAt.getTime())) {
+						updatedItem.ttl = Math.floor(expiresAt.getTime() / 1000);
+					}
+				}
 
 				await docClient.send(
 					new PutCommand({
