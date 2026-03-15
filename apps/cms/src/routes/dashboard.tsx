@@ -2,7 +2,7 @@ import { Alert, AppShell, Avatar, Burger, Button, Center, Group, Loader, Menu, N
 import { useDisclosure } from "@mantine/hooks";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { LogOut } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { authClient } from "../lib/auth-client";
 import { getDashboardRoutesWithLabels } from "../utils/nav-links";
 
@@ -62,7 +62,7 @@ function LoginForm() {
 						</Text>
 						<TextInput
 							label="E-Mail-Adresse"
-							placeholder="name@vcmuellheim.de"
+							placeholder="erika@example.com"
 							value={email}
 							onChange={(e) => setEmail(e.currentTarget.value)}
 							onKeyDown={(e) => e.key === "Enter" && handleSendOtp()}
@@ -174,9 +174,16 @@ function DashboardLayout() {
 
 function DashboardPage() {
 	const { data: sessionData, isPending } = authClient.useSession();
+	const [hasResolvedInitialSession, setHasResolvedInitialSession] = useState(false);
 
-	// Still loading - show loader
-	if (isPending) {
+	useEffect(() => {
+		if (!isPending) {
+			setHasResolvedInitialSession(true);
+		}
+	}, [isPending]);
+
+	// Only block the page for the first session check.
+	if (!hasResolvedInitialSession && isPending) {
 		return (
 			<Center h="100vh">
 				<Loader />

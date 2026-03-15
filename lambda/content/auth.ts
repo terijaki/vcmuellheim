@@ -69,7 +69,7 @@ export const auth = betterAuth({
 			async sendVerificationOTP({ email, otp }) {
 				await sesClient.send(
 					new SendEmailCommand({
-						Source: `${Club.shortName} <no-reply@vcmuellheim.de>`,
+						Source: "no-reply@vcmuellheim.de",
 						Destination: { ToAddresses: [email] },
 						Message: {
 							Subject: {
