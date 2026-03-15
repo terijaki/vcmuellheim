@@ -5,8 +5,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useTRPC } from "@/apps/shared/lib/trpc-config";
-import { authClient } from "../../lib/auth-client";
 import { useNotification } from "../../hooks/useNotification";
+import { authClient } from "../../lib/auth-client";
 
 export const Route = createFileRoute("/dashboard/users")({
 	component: UsersPage,

@@ -86,7 +86,7 @@
 		"@mantine/core": "catalog:",
 		"@mantine/dates": "catalog:",
 		"@mantine/hooks": "catalog:",
-		"@middy/core": "^7.0.2",
+		"@middy/core": "^6.4.5",
 		"@sentry/aws-serverless": "^10.38.0",
 		"@sentry/react": "^10.38.0",
 		"@tanstack/react-query": "catalog:",

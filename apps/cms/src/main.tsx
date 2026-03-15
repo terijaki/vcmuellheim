@@ -93,9 +93,9 @@ if (!rootElement) throw new Error("Root element not found");
 createRoot(rootElement).render(
 	<StrictMode>
 		<ThemingProvider>
-				<TrpcProvider>
-					<ProtectedApp />
-				</TrpcProvider>
-			</ThemingProvider>
+			<TrpcProvider>
+				<ProtectedApp />
+			</TrpcProvider>
+		</ThemingProvider>
 	</StrictMode>,
 );
