@@ -24,6 +24,7 @@ function getTableNameForModel(model: string): string {
 	const modelTableMap: Record<string, string> = {
 		user: process.env.USERS_TABLE_NAME || "",
 		verification: process.env.AUTH_VERIFICATIONS_TABLE_NAME || "",
+		session: process.env.AUTH_VERIFICATIONS_TABLE_NAME || "",
 	};
 
 	const tableName = modelTableMap[model];
@@ -218,8 +219,8 @@ export const dynamoDBAdapter = createAdapterFactory({
 			async create({ model, data }) {
 				const tableName = getTableNameForModel(getModelName(model));
 
-				// Add TTL for verification records (OTP codes expire after 10 minutes)
-				if (model === "verification" && data.expiresAt) {
+				// Add TTL for expiring auth records (verification/session).
+				if ((model === "verification" || model === "session") && data.expiresAt) {
 					const expiresAt = data.expiresAt instanceof Date ? data.expiresAt : new Date(data.expiresAt as string);
 					(data as Record<string, unknown>).ttl = Math.floor(expiresAt.getTime() / 1000);
 				}
@@ -398,7 +399,7 @@ export const dynamoDBAdapter = createAdapterFactory({
 				const now = new Date().toISOString();
 				const updatedItem: Record<string, unknown> = { ...existing, ...(update as Record<string, unknown>), updatedAt: now };
 
-				if (model === "verification" && "expiresAt" in updatedItem && updatedItem.expiresAt) {
+				if ((model === "verification" || model === "session") && "expiresAt" in updatedItem && updatedItem.expiresAt) {
 					const expiresAt = updatedItem.expiresAt instanceof Date ? updatedItem.expiresAt : new Date(String(updatedItem.expiresAt));
 					if (!Number.isNaN(expiresAt.getTime())) {
 						updatedItem.ttl = Math.floor(expiresAt.getTime() / 1000);

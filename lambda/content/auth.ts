@@ -34,6 +34,9 @@ export const auth = betterAuth({
 		// Sessions valid for 90 days so users stay logged in longer
 		expiresIn: 90 * 24 * 60 * 60,
 	},
+	account: {
+		storeStateStrategy: "cookie",
+	},
 	user: {
 		additionalFields: {
 			role: {
