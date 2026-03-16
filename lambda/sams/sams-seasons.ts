@@ -6,13 +6,15 @@ import { getAllSeasons } from "@codegen/sams/generated";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import dayjs from "dayjs";
+import { parseLambdaEnv } from "../utils/env";
 import { Sentry } from "../utils/sentry";
-import { SeasonsResponseSchema } from "./types";
+import { SamsSeasonsLambdaEnvironmentSchema, SeasonsResponseSchema } from "./types";
 
 const logger = new Logger({ serviceName: "sams-seasons" });
 const tracer = new Tracer({ serviceName: "sams-seasons" });
 
-const SAMS_API_KEY = process.env.SAMS_API_KEY;
+const env = parseLambdaEnv(SamsSeasonsLambdaEnvironmentSchema);
+const SAMS_API_KEY = env.SAMS_API_KEY;
 
 const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
 	logger.appendKeys({ path: event.path });

@@ -10,8 +10,9 @@ import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import dayjs from "dayjs";
 import { Club } from "@/project.config";
 import { slugify } from "../../utils/slugify";
+import { parseLambdaEnv } from "../utils/env";
 import { Sentry } from "../utils/sentry";
-import { LeagueMatchesResponseSchema, SeasonsResponseSchema } from "./types";
+import { LeagueMatchesResponseSchema, SamsLeagueMatchesLambdaEnvironmentSchema, SeasonsResponseSchema } from "./types";
 
 const logger = new Logger({ serviceName: "sams-league-matches" });
 const tracer = new Tracer({ serviceName: "sams-league-matches" });
@@ -20,8 +21,9 @@ const tracer = new Tracer({ serviceName: "sams-league-matches" });
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(tracer.captureAWSv3Client(client));
 
-const SAMS_API_KEY = process.env.SAMS_API_KEY;
-const CLUBS_TABLE_NAME = process.env.CLUBS_TABLE_NAME || "";
+const env = parseLambdaEnv(SamsLeagueMatchesLambdaEnvironmentSchema);
+const SAMS_API_KEY = env.SAMS_API_KEY;
+const CLUBS_TABLE_NAME = env.CLUBS_TABLE_NAME;
 
 const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
 	logger.appendKeys({ path: event.path });

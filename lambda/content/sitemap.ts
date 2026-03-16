@@ -10,19 +10,23 @@ import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import middy from "@middy/core";
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { getAllTeams, getPublishedNews, getUpcomingEvents } from "../../lib/db/repositories";
+import { parseLambdaEnv } from "../utils/env";
 import { Sentry } from "../utils/sentry";
+import { SitemapLambdaEnvironmentSchema } from "./types";
 
-const BASE_URL = process.env.WEBSITE_URL || "https://vcmuellheim.de";
+const env = parseLambdaEnv(SitemapLambdaEnvironmentSchema);
+
+const BASE_URL = env.WEBSITE_URL;
 
 // Initialize Logger and Tracer outside handler for reuse across invocations
 const logger = new Logger({
 	serviceName: "vcm-sitemap",
-	logLevel: (process.env.LOG_LEVEL || "INFO") as "DEBUG" | "INFO" | "WARN" | "ERROR",
+	logLevel: (env.LOG_LEVEL || "INFO") as "DEBUG" | "INFO" | "WARN" | "ERROR",
 });
 
 const tracer = new Tracer({
 	serviceName: "vcm-sitemap",
-	enabled: process.env.POWERTOOLS_TRACE_ENABLED !== "false",
+	enabled: env.POWERTOOLS_TRACE_ENABLED !== "false",
 });
 
 interface UrlEntry {

@@ -10,8 +10,9 @@ import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import type * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
+import type { IcsCalendarLambdaEnvironment, S3CleanupLambdaEnvironment, SitemapLambdaEnvironment, TrpcLambdaEnvironment } from "@/lambda/content/types";
 import { Club } from "@/project.config";
-import { TABLES, type TableEntity, tableEnvVar } from "./db/env";
+import { type TableEntity, toTableEnvironment } from "./db/env";
 
 interface ApiStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -69,6 +70,29 @@ export class ApiStack extends cdk.Stack {
 			AUTH_VERIFICATIONS: props.contentDbStack.auth_verificationsTable,
 		} satisfies Record<TableEntity, dynamodb.Table>;
 
+		const tableEnvironment = toTableEnvironment({
+			NEWS: tables.NEWS.tableName,
+			EVENTS: tables.EVENTS.tableName,
+			TEAMS: tables.TEAMS.tableName,
+			MEMBERS: tables.MEMBERS.tableName,
+			MEDIA: tables.MEDIA.tableName,
+			SPONSORS: tables.SPONSORS.tableName,
+			LOCATIONS: tables.LOCATIONS.tableName,
+			BUS: tables.BUS.tableName,
+			USERS: tables.USERS.tableName,
+			AUTH_VERIFICATIONS: tables.AUTH_VERIFICATIONS.tableName,
+		} satisfies Record<TableEntity, string>);
+
+		const trpcEnvironment = {
+			...tableEnvironment,
+			CDK_ENVIRONMENT: environment,
+			BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET || "",
+			...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
+			...(props.cloudFrontUrl ? { CLOUDFRONT_URL: props.cloudFrontUrl } : {}),
+			...(props.samsApiStack?.samsClubsTable ? { SAMS_CLUBS_TABLE_NAME: props.samsApiStack.samsClubsTable.tableName } : {}),
+			...(props.samsApiStack?.samsTeamsTable ? { SAMS_TEAMS_TABLE_NAME: props.samsApiStack.samsTeamsTable.tableName } : {}),
+		} satisfies TrpcLambdaEnvironment;
+
 		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
 		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
 
@@ -86,17 +110,7 @@ export class ApiStack extends cdk.Stack {
 			memorySize: 512,
 			layers: [powertoolsLayer],
 			logGroup: trpcLogGroup,
-			environment: {
-				...Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
-				CDK_ENVIRONMENT: environment,
-				// better-auth infers baseURL from the incoming request (no need to set BETTER_AUTH_URL)
-				// BETTER_AUTH_SECRET is passed from the CDK_BETTER_AUTH_SECRET env var set in CI
-				BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET || "",
-				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
-				...(props.cloudFrontUrl ? { CLOUDFRONT_URL: props.cloudFrontUrl } : {}),
-				...(props.samsApiStack?.samsClubsTable ? { SAMS_CLUBS_TABLE_NAME: props.samsApiStack.samsClubsTable.tableName } : {}),
-				...(props.samsApiStack?.samsTeamsTable ? { SAMS_TEAMS_TABLE_NAME: props.samsApiStack.samsTeamsTable.tableName } : {}),
-			},
+			environment: trpcEnvironment,
 			bundling: {
 				minify: true,
 				sourceMap: true,
@@ -159,7 +173,7 @@ export class ApiStack extends cdk.Stack {
 				TEAMS_TABLE_NAME: tables.TEAMS.tableName,
 				EVENTS_TABLE_NAME: tables.EVENTS.tableName,
 				SAMS_API_URL: props.samsApiUrl || "",
-			},
+			} satisfies IcsCalendarLambdaEnvironment,
 			bundling: {
 				minify: true,
 				sourceMap: true,
@@ -186,9 +200,9 @@ export class ApiStack extends cdk.Stack {
 			memorySize: 256,
 			logGroup: sitemapLogGroup,
 			environment: {
-				...Object.fromEntries(TABLES.map((entity) => [tableEnvVar(entity), tables[entity].tableName])),
+				...tableEnvironment,
 				WEBSITE_URL: props.websiteUrl || `https://${Club.domain}`,
-			},
+			} satisfies SitemapLambdaEnvironment,
 			bundling: {
 				minify: true,
 				sourceMap: true,
@@ -217,7 +231,7 @@ export class ApiStack extends cdk.Stack {
 			logGroup: s3CleanupLogGroup,
 			environment: {
 				MEDIA_BUCKET_NAME: props.mediaBucket?.bucketName || "",
-			},
+			} satisfies S3CleanupLambdaEnvironment,
 			bundling: {
 				minify: true,
 				sourceMap: true,

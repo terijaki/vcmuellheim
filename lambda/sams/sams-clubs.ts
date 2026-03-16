@@ -7,8 +7,9 @@ import { DynamoDBDocumentClient, GetCommand, QueryCommand, ScanCommand } from "@
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { slugify } from "@/utils/slugify";
+import { parseLambdaEnv } from "../utils/env";
 import { Sentry } from "../utils/sentry";
-import { ClubResponseSchema, ClubsResponseSchema } from "./types";
+import { ClubResponseSchema, ClubsResponseSchema, SamsClubsLambdaEnvironmentSchema } from "./types";
 
 // Initialize logger and tracer
 const logger = new Logger({ serviceName: "sams-clubs" });
@@ -18,7 +19,8 @@ const tracer = new Tracer({ serviceName: "sams-clubs" });
 const dynamoClient = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(tracer.captureAWSv3Client(dynamoClient));
 
-const TABLE_NAME = process.env.CLUBS_TABLE_NAME;
+const env = parseLambdaEnv(SamsClubsLambdaEnvironmentSchema);
+const TABLE_NAME = env.CLUBS_TABLE_NAME;
 
 const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 	logger.appendKeys({ path: event.path });

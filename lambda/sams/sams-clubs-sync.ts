@@ -9,8 +9,9 @@ import middy from "@middy/core";
 import type { EventBridgeEvent } from "aws-lambda";
 import { SAMS } from "@/project.config";
 import { slugify } from "@/utils/slugify";
+import { parseLambdaEnv } from "../utils/env";
 import { Sentry } from "../utils/sentry";
-import { type ClubItem, ClubItemSchema } from "./types";
+import { type ClubItem, ClubItemSchema, SamsClubsSyncLambdaEnvironmentSchema } from "./types";
 
 const logger = new Logger({ serviceName: "sams-clubs-sync" });
 const tracer = new Tracer({ serviceName: "sams-clubs-sync" });
@@ -19,8 +20,9 @@ const tracer = new Tracer({ serviceName: "sams-clubs-sync" });
 const dynamoClient = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(tracer.captureAWSv3Client(dynamoClient));
 
-const TABLE_NAME = process.env.CLUBS_TABLE_NAME;
-const SAMS_API_KEY = process.env.SAMS_API_KEY;
+const env = parseLambdaEnv(SamsClubsSyncLambdaEnvironmentSchema);
+const TABLE_NAME = env.CLUBS_TABLE_NAME;
+const SAMS_API_KEY = env.SAMS_API_KEY;
 const ASSOCIATION_NAME = SAMS.association.name; // SBVV
 
 const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {

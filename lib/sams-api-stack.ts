@@ -12,6 +12,18 @@ import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import type { Construct } from "constructs";
+import type {
+	SamsAssociationsLambdaEnvironment,
+	SamsClubsLambdaEnvironment,
+	SamsClubsSyncLambdaEnvironment,
+	SamsCommonLambdaEnvironment,
+	SamsLeagueMatchesLambdaEnvironment,
+	SamsLogoProxyLambdaEnvironment,
+	SamsRankingsLambdaEnvironment,
+	SamsSeasonsLambdaEnvironment,
+	SamsTeamsLambdaEnvironment,
+	SamsTeamsSyncLambdaEnvironment,
+} from "@/lambda/sams/types";
 import { Club } from "@/project.config";
 
 interface SamsApiStackProps extends cdk.StackProps {
@@ -91,7 +103,7 @@ export class SamsApiStack extends cdk.Stack {
 		const commonEnvironment = {
 			SAMS_API_KEY: samsApiKey || "",
 			SAMS_SERVER: samsServer || "",
-		};
+		} satisfies SamsCommonLambdaEnvironment;
 
 		// Create DynamoDB table for storing SAMS clubs
 		const clubsTable = new dynamodb.Table(this, "SamsClubsTable", {
@@ -146,7 +158,7 @@ export class SamsApiStack extends cdk.Stack {
 			environment: {
 				...commonEnvironment,
 				CLUBS_TABLE_NAME: clubsTable.tableName,
-			},
+			} satisfies SamsLeagueMatchesLambdaEnvironment,
 			timeout: cdk.Duration.seconds(60),
 			memorySize: 512,
 			layers: [powertoolsLayer],
@@ -170,7 +182,7 @@ export class SamsApiStack extends cdk.Stack {
 			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-seasons.ts"),
-			environment: commonEnvironment,
+			environment: commonEnvironment satisfies SamsSeasonsLambdaEnvironment,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
 			layers: [powertoolsLayer],
@@ -191,7 +203,7 @@ export class SamsApiStack extends cdk.Stack {
 			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-rankings.ts"),
-			environment: commonEnvironment,
+			environment: commonEnvironment satisfies SamsRankingsLambdaEnvironment,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 512,
 			layers: [powertoolsLayer],
@@ -212,7 +224,7 @@ export class SamsApiStack extends cdk.Stack {
 			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/sams/sams-associations.ts"),
-			environment: commonEnvironment,
+			environment: commonEnvironment satisfies SamsAssociationsLambdaEnvironment,
 			timeout: cdk.Duration.seconds(60), // Longer timeout for pagination
 			memorySize: 256,
 			layers: [powertoolsLayer],
@@ -236,7 +248,7 @@ export class SamsApiStack extends cdk.Stack {
 			environment: {
 				...commonEnvironment,
 				CLUBS_TABLE_NAME: clubsTable.tableName,
-			},
+			} satisfies SamsClubsSyncLambdaEnvironment,
 			timeout: cdk.Duration.minutes(10), // Longer timeout for paginated sync
 			memorySize: 512,
 			layers: [powertoolsLayer],
@@ -264,7 +276,7 @@ export class SamsApiStack extends cdk.Stack {
 				...commonEnvironment,
 				CLUBS_TABLE_NAME: clubsTable.tableName,
 				TEAMS_TABLE_NAME: teamsTable.tableName,
-			},
+			} satisfies SamsTeamsSyncLambdaEnvironment,
 			timeout: cdk.Duration.minutes(10),
 			memorySize: 512,
 			layers: [powertoolsLayer],
@@ -292,7 +304,7 @@ export class SamsApiStack extends cdk.Stack {
 			environment: {
 				...commonEnvironment,
 				CLUBS_TABLE_NAME: clubsTable.tableName,
-			},
+			} satisfies SamsClubsLambdaEnvironment,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 512,
 			layers: [powertoolsLayer],
@@ -319,7 +331,7 @@ export class SamsApiStack extends cdk.Stack {
 			environment: {
 				...commonEnvironment,
 				TEAMS_TABLE_NAME: teamsTable.tableName,
-			},
+			} satisfies SamsTeamsLambdaEnvironment,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
 			layers: [powertoolsLayer],
@@ -345,7 +357,7 @@ export class SamsApiStack extends cdk.Stack {
 			entry: path.join(__dirname, "../lambda/sams/sams-logo-proxy.ts"),
 			environment: {
 				CLUBS_TABLE_NAME: clubsTable.tableName,
-			},
+			} satisfies SamsLogoProxyLambdaEnvironment,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
 			layers: [powertoolsLayer],

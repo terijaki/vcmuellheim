@@ -5,13 +5,15 @@ import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { getLeagueByUuid, getRankingsForLeague, getSeasonByUuid } from "@codegen/sams/generated";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
+import { parseLambdaEnv } from "../utils/env";
 import { Sentry } from "../utils/sentry";
-import { RankingResponseSchema } from "./types";
+import { RankingResponseSchema, SamsRankingsLambdaEnvironmentSchema } from "./types";
 
 const logger = new Logger({ serviceName: "sams-rankings" });
 const tracer = new Tracer({ serviceName: "sams-rankings" });
 
-const SAMS_API_KEY = process.env.SAMS_API_KEY;
+const env = parseLambdaEnv(SamsRankingsLambdaEnvironmentSchema);
+const SAMS_API_KEY = env.SAMS_API_KEY;
 
 const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
 	logger.appendKeys({ path: event.path });

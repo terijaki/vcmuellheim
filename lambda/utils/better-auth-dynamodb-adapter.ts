@@ -6,6 +6,8 @@
 import { DeleteCommand, GetCommand, PutCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { createAdapterFactory } from "better-auth/adapters";
 import { docClient } from "@/lib/db/client";
+import { BetterAuthAdapterEnvironmentSchema } from "../content/types";
+import { parseLambdaEnv } from "./env";
 
 type AdapterWhere = Array<{ field: string; value: unknown; operator?: string; connector?: string }>;
 type AdapterSortBy = { field: string; direction: "asc" | "desc" };
@@ -19,6 +21,8 @@ type AdapterFindManyArgs = {
 	offset?: number;
 	join?: AdapterJoin;
 };
+
+const env = parseLambdaEnv(BetterAuthAdapterEnvironmentSchema);
 
 function shouldJoinUser(join: unknown): boolean {
 	if (!join || typeof join !== "object") {
@@ -59,9 +63,9 @@ async function withSessionUserJoin(item: Record<string, unknown> | null, model: 
 /** Map better-auth model names to DynamoDB table environment variables */
 function getTableNameForModel(model: string): string {
 	const modelTableMap: Record<string, string> = {
-		user: process.env.USERS_TABLE_NAME || "",
-		verification: process.env.AUTH_VERIFICATIONS_TABLE_NAME || "",
-		session: process.env.AUTH_VERIFICATIONS_TABLE_NAME || "",
+		user: env.USERS_TABLE_NAME,
+		verification: env.AUTH_VERIFICATIONS_TABLE_NAME,
+		session: env.AUTH_VERIFICATIONS_TABLE_NAME,
 	};
 
 	const tableName = modelTableMap[model];

@@ -6,8 +6,9 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { parseLambdaEnv } from "../utils/env";
 import { Sentry } from "../utils/sentry";
-import { type ClubLogoQueryParams, ClubLogoQueryParamsSchema, type ClubResponse, ClubResponseSchema } from "./types";
+import { type ClubLogoQueryParams, ClubLogoQueryParamsSchema, type ClubResponse, ClubResponseSchema, SamsLogoProxyLambdaEnvironmentSchema } from "./types";
 
 const logger = new Logger({ serviceName: "sams-logo-proxy" });
 const tracer = new Tracer({ serviceName: "sams-logo-proxy" });
@@ -16,7 +17,8 @@ const tracer = new Tracer({ serviceName: "sams-logo-proxy" });
 const dynamoClient = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(tracer.captureAWSv3Client(dynamoClient));
 
-const CLUBS_TABLE_NAME = process.env.CLUBS_TABLE_NAME;
+const env = parseLambdaEnv(SamsLogoProxyLambdaEnvironmentSchema);
+const CLUBS_TABLE_NAME = env.CLUBS_TABLE_NAME;
 
 // 90 days in seconds
 const CACHE_TTL_SECONDS = 90 * 24 * 60 * 60;

@@ -5,12 +5,15 @@ import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { type Association, getAssociationByUuid, getAssociations } from "@codegen/sams/generated/";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from "aws-lambda";
+import { parseLambdaEnv } from "../utils/env";
 import { Sentry } from "../utils/sentry";
+import { SamsAssociationsLambdaEnvironmentSchema } from "./types";
 
 const logger = new Logger({ serviceName: "sams-associations" });
 const tracer = new Tracer({ serviceName: "sams-associations" });
 
-const SAMS_API_KEY = process.env.SAMS_API_KEY;
+const env = parseLambdaEnv(SamsAssociationsLambdaEnvironmentSchema);
+const SAMS_API_KEY = env.SAMS_API_KEY;
 
 const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 	logger.appendKeys({ path: event.path });

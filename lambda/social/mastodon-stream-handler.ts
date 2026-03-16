@@ -11,13 +11,16 @@ import { unmarshall } from "@aws-sdk/util-dynamodb";
 import type { DynamoDBStreamEvent } from "aws-lambda";
 import { docClient } from "@/lib/db/client";
 import type { News } from "@/lib/db/types";
+import { parseLambdaEnv } from "../utils/env";
+import { MastodonStreamHandlerLambdaEnvironmentSchema } from "./types";
 
 const logger = new Logger({ serviceName: "mastodon-stream-handler" });
-const lambdaClient = new LambdaClient({ region: process.env.AWS_REGION || "eu-central-1" });
-const MASTODON_LAMBDA_NAME = process.env.MASTODON_LAMBDA_NAME || "";
-const ENVIRONMENT = process.env.ENVIRONMENT || "dev";
-const WEBSITE_URL = process.env.WEBSITE_URL || "";
-const NEWS_TABLE_NAME = process.env.NEWS_TABLE_NAME || "";
+const env = parseLambdaEnv(MastodonStreamHandlerLambdaEnvironmentSchema);
+const lambdaClient = new LambdaClient({ region: env.AWS_REGION || "eu-central-1" });
+const MASTODON_LAMBDA_NAME = env.MASTODON_LAMBDA_NAME;
+const ENVIRONMENT = env.ENVIRONMENT;
+const WEBSITE_URL = env.WEBSITE_URL;
+const NEWS_TABLE_NAME = env.NEWS_TABLE_NAME;
 
 interface MastodonShareRequest {
 	newsArticle: News;

@@ -1,4 +1,43 @@
 import { z } from "zod";
+import { optionalEnvString, requiredEnvString } from "../utils/env";
+
+// ============================================================================
+// Lambda Environment Contracts
+// ============================================================================
+
+export const InstagramSyncLambdaEnvironmentSchema = z.object({
+	INSTAGRAM_TABLE_NAME: requiredEnvString,
+	APIFY_API_KEY: requiredEnvString,
+	APIFY_SCHEDULE_ID: requiredEnvString,
+	APIFY_ACTOR_ID: requiredEnvString,
+});
+
+export type InstagramSyncLambdaEnvironment = z.infer<typeof InstagramSyncLambdaEnvironmentSchema>;
+
+export const InstagramPostsLambdaEnvironmentSchema = z.object({
+	INSTAGRAM_TABLE_NAME: requiredEnvString,
+});
+
+export type InstagramPostsLambdaEnvironment = z.infer<typeof InstagramPostsLambdaEnvironmentSchema>;
+
+export const MastodonShareLambdaEnvironmentSchema = z.object({
+	MASTODON_ACCESS_TOKEN: requiredEnvString,
+	MEDIA_BUCKET_NAME: optionalEnvString,
+	CLOUDFRONT_URL: optionalEnvString,
+	AWS_REGION: optionalEnvString,
+});
+
+export type MastodonShareLambdaEnvironment = z.infer<typeof MastodonShareLambdaEnvironmentSchema>;
+
+export const MastodonStreamHandlerLambdaEnvironmentSchema = z.object({
+	MASTODON_LAMBDA_NAME: requiredEnvString,
+	ENVIRONMENT: requiredEnvString,
+	WEBSITE_URL: requiredEnvString,
+	NEWS_TABLE_NAME: requiredEnvString,
+	AWS_REGION: optionalEnvString,
+});
+
+export type MastodonStreamHandlerLambdaEnvironment = z.infer<typeof MastodonStreamHandlerLambdaEnvironmentSchema>;
 
 // ============================================================================
 // Instagram Schemas & Types

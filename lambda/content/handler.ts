@@ -12,18 +12,22 @@ import { awsLambdaRequestHandler } from "@trpc/server/adapters/aws-lambda";
 import type { APIGatewayProxyEventV2, APIGatewayProxyResultV2, Context } from "aws-lambda";
 import { appRouter } from "../../lib/trpc";
 import { createContext } from "../../lib/trpc/context";
+import { parseLambdaEnv } from "../utils/env";
 import { Sentry } from "../utils/sentry";
 import { auth } from "./auth";
+import { TrpcLambdaEnvironmentSchema } from "./types";
+
+const env = parseLambdaEnv(TrpcLambdaEnvironmentSchema);
 
 // Initialize Logger and Tracer outside handler for reuse across invocations
 const logger = new Logger({
 	serviceName: "vcm-api",
-	logLevel: (process.env.LOG_LEVEL || "INFO") as "DEBUG" | "INFO" | "WARN" | "ERROR",
+	logLevel: (env.LOG_LEVEL || "INFO") as "DEBUG" | "INFO" | "WARN" | "ERROR",
 });
 
 const tracer = new Tracer({
 	serviceName: "vcm-api",
-	enabled: process.env.POWERTOOLS_TRACE_ENABLED !== "false",
+	enabled: env.POWERTOOLS_TRACE_ENABLED !== "false",
 });
 
 const baseTrpcHandler = awsLambdaRequestHandler({

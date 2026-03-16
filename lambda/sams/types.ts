@@ -1,5 +1,62 @@
 import { zLeagueMatchDto, zLeagueRankingsEntryDto, zSeasonDto } from "@codegen/sams/generated/zod.gen";
 import { z } from "zod";
+import { requiredEnvString } from "../utils/env";
+
+// ============================================================================
+// Lambda Environment Contracts
+// ============================================================================
+
+export const SamsCommonLambdaEnvironmentSchema = z.object({
+	SAMS_API_KEY: requiredEnvString,
+	SAMS_SERVER: requiredEnvString,
+});
+
+export type SamsCommonLambdaEnvironment = z.infer<typeof SamsCommonLambdaEnvironmentSchema>;
+
+export const SamsAssociationsLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema;
+export const SamsSeasonsLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema;
+export const SamsRankingsLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema;
+
+export type SamsAssociationsLambdaEnvironment = z.infer<typeof SamsAssociationsLambdaEnvironmentSchema>;
+export type SamsSeasonsLambdaEnvironment = z.infer<typeof SamsSeasonsLambdaEnvironmentSchema>;
+export type SamsRankingsLambdaEnvironment = z.infer<typeof SamsRankingsLambdaEnvironmentSchema>;
+
+export const SamsLeagueMatchesLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
+	CLUBS_TABLE_NAME: requiredEnvString,
+});
+
+export type SamsLeagueMatchesLambdaEnvironment = z.infer<typeof SamsLeagueMatchesLambdaEnvironmentSchema>;
+
+export const SamsClubsSyncLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
+	CLUBS_TABLE_NAME: requiredEnvString,
+});
+
+export type SamsClubsSyncLambdaEnvironment = z.infer<typeof SamsClubsSyncLambdaEnvironmentSchema>;
+
+export const SamsTeamsSyncLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
+	CLUBS_TABLE_NAME: requiredEnvString,
+	TEAMS_TABLE_NAME: requiredEnvString,
+});
+
+export type SamsTeamsSyncLambdaEnvironment = z.infer<typeof SamsTeamsSyncLambdaEnvironmentSchema>;
+
+export const SamsClubsLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
+	CLUBS_TABLE_NAME: requiredEnvString,
+});
+
+export type SamsClubsLambdaEnvironment = z.infer<typeof SamsClubsLambdaEnvironmentSchema>;
+
+export const SamsTeamsLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
+	TEAMS_TABLE_NAME: requiredEnvString,
+});
+
+export type SamsTeamsLambdaEnvironment = z.infer<typeof SamsTeamsLambdaEnvironmentSchema>;
+
+export const SamsLogoProxyLambdaEnvironmentSchema = z.object({
+	CLUBS_TABLE_NAME: requiredEnvString,
+});
+
+export type SamsLogoProxyLambdaEnvironment = z.infer<typeof SamsLogoProxyLambdaEnvironmentSchema>;
 
 // ============================================================================
 // Club Schemas & Types

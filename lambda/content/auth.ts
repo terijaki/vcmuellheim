@@ -11,9 +11,13 @@ import { betterAuth } from "better-auth";
 import { emailOTP } from "better-auth/plugins";
 import { dynamoDBAdapter } from "@/lambda/utils/better-auth-dynamodb-adapter";
 import { Club } from "@/project.config";
+import { parseLambdaEnv } from "../utils/env";
+import { ContentAuthEnvironmentSchema } from "./types";
+
+const env = parseLambdaEnv(ContentAuthEnvironmentSchema);
 
 const sesClient = new SESClient({
-	region: process.env.AWS_REGION || "eu-central-1",
+	region: env.AWS_REGION || "eu-central-1",
 });
 
 function parseOrigin(value: string | null | undefined): URL | null {
@@ -81,8 +85,8 @@ export const auth = betterAuth({
 		allowedHosts: [Club.domain, `*.${Club.domain}`, `*.new.${Club.domain}`, "localhost:*"],
 		protocol: "https",
 	},
-	secret: process.env.BETTER_AUTH_SECRET || "",
-	trustedOrigins: ["https://vcmuellheim.de", "https://*.vcmuellheim.de", "https://*.new.vcmuellheim.de"],
+	secret: env.BETTER_AUTH_SECRET,
+	trustedOrigins: ["https://vcmuellheim.de", "https://*.vcmuellheim.de", "https://*.new.vcmuellheim.de"], // TODO might not be needed due to dynamic baseUrl
 	database: dynamoDBAdapter,
 	advanced: {
 		// Lambda does not set NODE_ENV=production by default, so better-auth would
