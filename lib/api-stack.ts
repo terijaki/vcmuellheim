@@ -20,12 +20,12 @@ interface ApiStackProps extends cdk.StackProps {
 		branch: string;
 	};
 	contentDbStack: Record<`${Lowercase<TableEntity>}Table`, dynamodb.Table>;
-	samsApiStack?: {
+	samsApiStack: {
 		samsClubsTable: dynamodb.Table;
 		samsTeamsTable: dynamodb.Table;
 	};
 	samsApiUrl?: string;
-	mediaBucket?: s3.Bucket;
+	mediaBucket: s3.Bucket;
 	cloudFrontUrl?: string;
 	cmsUrl?: string;
 	websiteUrl?: string;
@@ -87,11 +87,11 @@ export class ApiStack extends cdk.Stack {
 			...tableEnvironment,
 			CDK_ENVIRONMENT: environment,
 			BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET || "",
-			...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
+			MEDIA_BUCKET_NAME: props.mediaBucket.bucketName,
 			...(props.cloudFrontUrl ? { CLOUDFRONT_URL: props.cloudFrontUrl } : {}),
-			...(props.samsApiStack?.samsClubsTable ? { SAMS_CLUBS_TABLE_NAME: props.samsApiStack.samsClubsTable.tableName } : {}),
-			...(props.samsApiStack?.samsTeamsTable ? { SAMS_TEAMS_TABLE_NAME: props.samsApiStack.samsTeamsTable.tableName } : {}),
-		} satisfies TrpcLambdaEnvironment;
+			SAMS_CLUBS_TABLE_NAME: props.samsApiStack.samsClubsTable.tableName,
+			SAMS_TEAMS_TABLE_NAME: props.samsApiStack.samsTeamsTable.tableName,
+		} satisfies Omit<TrpcLambdaEnvironment, "AWS_REGION">;
 
 		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
 		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
@@ -133,18 +133,12 @@ export class ApiStack extends cdk.Stack {
 		}
 
 		// Grant DynamoDB access to SAMS tables
-		if (props.samsApiStack?.samsTeamsTable) {
-			props.samsApiStack.samsTeamsTable.grantReadWriteData(this.trpcLambda);
-		}
-		if (props.samsApiStack?.samsClubsTable) {
-			props.samsApiStack.samsClubsTable.grantReadWriteData(this.trpcLambda);
-		}
+		props.samsApiStack.samsTeamsTable.grantReadWriteData(this.trpcLambda);
+		props.samsApiStack.samsClubsTable.grantReadWriteData(this.trpcLambda);
 
 		// Grant Lambda access to S3 bucket for uploads
-		if (props.mediaBucket) {
-			props.mediaBucket.grantPut(this.trpcLambda);
-			props.mediaBucket.grantRead(this.trpcLambda);
-		}
+		props.mediaBucket.grantPut(this.trpcLambda);
+		props.mediaBucket.grantRead(this.trpcLambda);
 
 		// Grant Lambda permission to send emails via SES (for OTP emails)
 		this.trpcLambda.addToRolePolicy(
@@ -230,7 +224,7 @@ export class ApiStack extends cdk.Stack {
 			memorySize: 256,
 			logGroup: s3CleanupLogGroup,
 			environment: {
-				MEDIA_BUCKET_NAME: props.mediaBucket?.bucketName || "",
+				MEDIA_BUCKET_NAME: props.mediaBucket.bucketName,
 			} satisfies S3CleanupLambdaEnvironment,
 			bundling: {
 				minify: true,
@@ -238,10 +232,8 @@ export class ApiStack extends cdk.Stack {
 				externalModules: ["@aws-sdk/client-s3", "@aws-sdk/util-dynamodb"],
 			},
 		});
-		if (props.mediaBucket) {
-			props.mediaBucket.grantDelete(s3CleanupLambda);
-			props.mediaBucket.grantRead(s3CleanupLambda); // find related keys from image transformations
-		}
+		props.mediaBucket.grantDelete(s3CleanupLambda);
+		props.mediaBucket.grantRead(s3CleanupLambda); // find related keys from image transformations
 
 		// Attach DynamoDB stream event sources to S3 Cleanup Lambda
 		// Listen to REMOVE and MODIFY events on all content tables

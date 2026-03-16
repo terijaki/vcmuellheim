@@ -101,7 +101,6 @@ new SocialMediaStack(app, socialMediaStackName, {
 	newsTable: contentDbStack.newsTable,
 	websiteUrl: websiteStack.websiteUrl,
 	mediaBucket: mediaStack.bucket,
-	cloudFrontUrl: mediaStack.cloudFrontUrl,
 });
 
 const apiStack = new ApiStack(app, apiStackName, {

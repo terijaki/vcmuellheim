@@ -27,7 +27,7 @@ const logger = new Logger({
 
 const tracer = new Tracer({
 	serviceName: "vcm-api",
-	enabled: env.POWERTOOLS_TRACE_ENABLED !== "false",
+	enabled: true,
 });
 
 const baseTrpcHandler = awsLambdaRequestHandler({

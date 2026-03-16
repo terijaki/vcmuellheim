@@ -16,7 +16,7 @@ import { MastodonStreamHandlerLambdaEnvironmentSchema } from "./types";
 
 const logger = new Logger({ serviceName: "mastodon-stream-handler" });
 const env = parseLambdaEnv(MastodonStreamHandlerLambdaEnvironmentSchema);
-const lambdaClient = new LambdaClient({ region: env.AWS_REGION || "eu-central-1" });
+const lambdaClient = new LambdaClient({ region: env.AWS_REGION });
 const MASTODON_LAMBDA_NAME = env.MASTODON_LAMBDA_NAME;
 const ENVIRONMENT = env.ENVIRONMENT;
 const WEBSITE_URL = env.WEBSITE_URL;
@@ -36,11 +36,6 @@ export async function handler(event: DynamoDBStreamEvent): Promise<void> {
 	// Only process in production
 	if (ENVIRONMENT !== "prod") {
 		logger.info("Skipping Mastodon sharing - not in production environment");
-		return;
-	}
-
-	if (!MASTODON_LAMBDA_NAME || !WEBSITE_URL || !NEWS_TABLE_NAME) {
-		logger.warn("Missing required environment variables for Mastodon sharing");
 		return;
 	}
 

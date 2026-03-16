@@ -4,6 +4,7 @@ import { Match, Template } from "aws-cdk-lib/assertions";
 import * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as route53 from "aws-cdk-lib/aws-route53";
+import * as s3 from "aws-cdk-lib/aws-s3";
 import { ApiStack } from "./api-stack";
 import { createTestApp } from "./test-helpers";
 
@@ -95,6 +96,30 @@ function createMockDnsResources(stack: Stack) {
 	return { hostedZone, regionalCertificate };
 }
 
+function createMockApiDependencies(stack: Stack, env: string) {
+	const mediaBucket = new s3.Bucket(stack, `MockMediaBucket-${env}`, {
+		bucketName: `vcm-media-${env}-test-bucket`,
+	});
+
+	const samsClubsTable = new dynamodb.Table(stack, `MockSamsClubsTable-${env}`, {
+		tableName: `sams-clubs-${env}`,
+		partitionKey: { name: "sportsclubUuid", type: dynamodb.AttributeType.STRING },
+	});
+
+	const samsTeamsTable = new dynamodb.Table(stack, `MockSamsTeamsTable-${env}`, {
+		tableName: `sams-teams-${env}`,
+		partitionKey: { name: "uuid", type: dynamodb.AttributeType.STRING },
+	});
+
+	return {
+		mediaBucket,
+		samsApiStack: {
+			samsClubsTable,
+			samsTeamsTable,
+		},
+	};
+}
+
 describe("ApiStack", () => {
 	describe("Development environment", () => {
 		it("should create stack with correct resources", () => {
@@ -108,6 +133,7 @@ describe("ApiStack", () => {
 
 			const mockTables = createMockTables(stack, "dev");
 			const mockDns = createMockDnsResources(stack);
+			const mockDependencies = createMockApiDependencies(stack, "dev");
 
 			const apiStack = new ApiStack(app, "ApiTestStack", {
 				env: {
@@ -119,6 +145,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDependencies,
 				...mockDns,
 			});
 
@@ -142,6 +169,7 @@ describe("ApiStack", () => {
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev-feature-xyz");
 			const mockDns = createMockDnsResources(mockStack);
+			const mockDependencies = createMockApiDependencies(mockStack, "dev-feature-xyz");
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -149,6 +177,7 @@ describe("ApiStack", () => {
 					branch: "feature-xyz",
 				},
 				contentDbStack: mockTables,
+				...mockDependencies,
 				...mockDns,
 			});
 
@@ -167,6 +196,7 @@ describe("ApiStack", () => {
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "prod");
 			const mockDns = createMockDnsResources(mockStack);
+			const mockDependencies = createMockApiDependencies(mockStack, "prod");
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -174,6 +204,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDependencies,
 				...mockDns,
 			});
 
@@ -191,6 +222,7 @@ describe("ApiStack", () => {
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
+			const mockDependencies = createMockApiDependencies(mockStack, "dev");
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -198,6 +230,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDependencies,
 				...mockDns,
 			});
 
@@ -215,6 +248,7 @@ describe("ApiStack", () => {
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
+			const mockDependencies = createMockApiDependencies(mockStack, "dev");
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -222,6 +256,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDependencies,
 				...mockDns,
 			});
 
@@ -261,6 +296,7 @@ describe("ApiStack", () => {
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
+			const mockDependencies = createMockApiDependencies(mockStack, "dev");
 
 			// Provide BETTER_AUTH_SECRET env var (required by ApiStack)
 			process.env.BETTER_AUTH_SECRET = "test-secret";
@@ -271,6 +307,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDependencies,
 				...mockDns,
 			});
 
@@ -294,6 +331,7 @@ describe("ApiStack", () => {
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
+			const mockDependencies = createMockApiDependencies(mockStack, "dev");
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -301,6 +339,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDependencies,
 				...mockDns,
 			});
 
@@ -321,6 +360,7 @@ describe("ApiStack", () => {
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
+			const mockDependencies = createMockApiDependencies(mockStack, "dev");
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -328,6 +368,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDependencies,
 				...mockDns,
 			});
 

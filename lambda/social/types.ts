@@ -23,8 +23,7 @@ export type InstagramPostsLambdaEnvironment = z.infer<typeof InstagramPostsLambd
 export const MastodonShareLambdaEnvironmentSchema = z.object({
 	MASTODON_ACCESS_TOKEN: requiredEnvString,
 	MEDIA_BUCKET_NAME: optionalEnvString,
-	CLOUDFRONT_URL: optionalEnvString,
-	AWS_REGION: optionalEnvString,
+	AWS_REGION: requiredEnvString,
 });
 
 export type MastodonShareLambdaEnvironment = z.infer<typeof MastodonShareLambdaEnvironmentSchema>;
@@ -34,7 +33,7 @@ export const MastodonStreamHandlerLambdaEnvironmentSchema = z.object({
 	ENVIRONMENT: requiredEnvString,
 	WEBSITE_URL: requiredEnvString,
 	NEWS_TABLE_NAME: requiredEnvString,
-	AWS_REGION: optionalEnvString,
+	AWS_REGION: requiredEnvString,
 });
 
 export type MastodonStreamHandlerLambdaEnvironment = z.infer<typeof MastodonStreamHandlerLambdaEnvironmentSchema>;

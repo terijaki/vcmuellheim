@@ -26,7 +26,6 @@ interface SocialMediaStackProps extends cdk.StackProps {
 	newsTable?: dynamodb.ITable;
 	websiteUrl?: string;
 	mediaBucket?: s3.IBucket;
-	cloudFrontUrl?: string;
 }
 
 export class SocialMediaStack extends cdk.Stack {
@@ -201,9 +200,8 @@ export class SocialMediaStack extends cdk.Stack {
 			entry: path.join(__dirname, "../lambda/social/mastodon-share.ts"),
 			environment: {
 				MASTODON_ACCESS_TOKEN: mastodonAccessToken || "",
-				...(props.cloudFrontUrl ? { CLOUDFRONT_URL: props.cloudFrontUrl } : {}),
 				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
-			} satisfies MastodonShareLambdaEnvironment,
+			} satisfies Omit<MastodonShareLambdaEnvironment, "AWS_REGION">,
 			timeout: cdk.Duration.seconds(60), // Increased timeout for image uploads
 			memorySize: 512, // Increased memory for image processing
 			layers: [powertoolsLayer],
@@ -235,7 +233,7 @@ export class SocialMediaStack extends cdk.Stack {
 					ENVIRONMENT: environment,
 					WEBSITE_URL: props.websiteUrl,
 					NEWS_TABLE_NAME: props.newsTable.tableName,
-				} satisfies MastodonStreamHandlerLambdaEnvironment,
+				} satisfies Omit<MastodonStreamHandlerLambdaEnvironment, "AWS_REGION">,
 				timeout: cdk.Duration.seconds(30),
 				memorySize: 256,
 				layers: [powertoolsLayer],

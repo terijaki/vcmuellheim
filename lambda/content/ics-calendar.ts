@@ -34,7 +34,7 @@ const logger = new Logger({
 
 const tracer = new Tracer({
 	serviceName: "vcm-ics-calendar",
-	enabled: env.POWERTOOLS_TRACE_ENABLED !== "false",
+	enabled: true,
 });
 
 // Create DynamoDB client and trace it

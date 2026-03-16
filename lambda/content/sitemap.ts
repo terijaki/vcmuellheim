@@ -26,7 +26,7 @@ const logger = new Logger({
 
 const tracer = new Tracer({
 	serviceName: "vcm-sitemap",
-	enabled: env.POWERTOOLS_TRACE_ENABLED !== "false",
+	enabled: true,
 });
 
 interface UrlEntry {

@@ -17,7 +17,7 @@ import { ContentAuthEnvironmentSchema } from "./types";
 const env = parseLambdaEnv(ContentAuthEnvironmentSchema);
 
 const sesClient = new SESClient({
-	region: env.AWS_REGION || "eu-central-1",
+	region: env.AWS_REGION,
 });
 
 function parseOrigin(value: string | null | undefined): URL | null {
