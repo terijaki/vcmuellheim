@@ -1,22 +1,17 @@
-import { Logger } from "@aws-lambda-powertools/logger";
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
-import { Tracer } from "@aws-lambda-powertools/tracer";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, GetCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
+import { GetCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { getTeamByUuid } from "@codegen/sams/generated";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { slugify } from "@/utils/slugify";
 import { parseLambdaEnv } from "../utils/env";
+import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
 import { SamsTeamsLambdaEnvironmentSchema, TeamItemSchema, TeamResponseSchema, TeamsResponseSchema } from "./types";
 
-const logger = new Logger({ serviceName: "sams-teams" });
-const tracer = new Tracer({ serviceName: "sams-teams" });
-
-const client = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(tracer.captureAWSv3Client(client));
+const { logger, tracer } = createLambdaResources("sams-teams");
+const docClient = createDynamoDocClient(tracer);
 
 const env = parseLambdaEnv(SamsTeamsLambdaEnvironmentSchema);
 const TEAMS_TABLE_NAME = env.TEAMS_TABLE_NAME;

@@ -3,7 +3,6 @@
  * Triggers Mastodon sharing when a news article is published
  */
 
-import { Logger } from "@aws-lambda-powertools/logger";
 import type { AttributeValue } from "@aws-sdk/client-dynamodb";
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import { UpdateCommand } from "@aws-sdk/lib-dynamodb";
@@ -12,9 +11,10 @@ import type { DynamoDBStreamEvent } from "aws-lambda";
 import { docClient } from "@/lib/db/client";
 import type { News } from "@/lib/db/types";
 import { parseLambdaEnv } from "../utils/env";
+import { createLambdaResources } from "../utils/resources";
 import { MastodonStreamHandlerLambdaEnvironmentSchema } from "./types";
 
-const logger = new Logger({ serviceName: "mastodon-stream-handler" });
+const { logger } = createLambdaResources("mastodon-stream-handler");
 const env = parseLambdaEnv(MastodonStreamHandlerLambdaEnvironmentSchema);
 const lambdaClient = new LambdaClient({ region: env.AWS_REGION });
 const MASTODON_LAMBDA_NAME = env.MASTODON_LAMBDA_NAME;

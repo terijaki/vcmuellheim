@@ -1,21 +1,15 @@
-import { Logger } from "@aws-lambda-powertools/logger";
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
-import { Tracer } from "@aws-lambda-powertools/tracer";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, GetCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
+import { GetCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { parseLambdaEnv } from "../utils/env";
+import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
 import { type ClubLogoQueryParams, ClubLogoQueryParamsSchema, type ClubResponse, ClubResponseSchema, SamsLogoProxyLambdaEnvironmentSchema } from "./types";
 
-const logger = new Logger({ serviceName: "sams-logo-proxy" });
-const tracer = new Tracer({ serviceName: "sams-logo-proxy" });
-
-// Initialize DynamoDB client
-const dynamoClient = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(tracer.captureAWSv3Client(dynamoClient));
+const { logger, tracer } = createLambdaResources("sams-logo-proxy");
+const docClient = createDynamoDocClient(tracer);
 
 const env = parseLambdaEnv(SamsLogoProxyLambdaEnvironmentSchema);
 const CLUBS_TABLE_NAME = env.CLUBS_TABLE_NAME;

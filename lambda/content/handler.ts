@@ -3,9 +3,7 @@
  * This will be deployed as a Lambda function behind API Gateway
  */
 
-import { Logger } from "@aws-lambda-powertools/logger";
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
-import { Tracer } from "@aws-lambda-powertools/tracer";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import middy from "@middy/core";
 import { awsLambdaRequestHandler } from "@trpc/server/adapters/aws-lambda";
@@ -13,22 +11,15 @@ import type { APIGatewayProxyEventV2, APIGatewayProxyResultV2, Context } from "a
 import { appRouter } from "../../lib/trpc";
 import { createContext } from "../../lib/trpc/context";
 import { parseLambdaEnv } from "../utils/env";
+import { createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
 import { auth } from "./auth";
 import { TrpcLambdaEnvironmentSchema } from "./types";
 
-const env = parseLambdaEnv(TrpcLambdaEnvironmentSchema);
+parseLambdaEnv(TrpcLambdaEnvironmentSchema);
 
 // Initialize Logger and Tracer outside handler for reuse across invocations
-const logger = new Logger({
-	serviceName: "vcm-api",
-	logLevel: (env.LOG_LEVEL || "INFO") as "DEBUG" | "INFO" | "WARN" | "ERROR",
-});
-
-const tracer = new Tracer({
-	serviceName: "vcm-api",
-	enabled: true,
-});
+const { logger, tracer } = createLambdaResources("vcm-api");
 
 const baseTrpcHandler = awsLambdaRequestHandler({
 	router: appRouter,

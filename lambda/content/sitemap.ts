@@ -3,14 +3,13 @@
  * Triggered by HTTP GET request to /sitemap.xml
  */
 
-import { Logger } from "@aws-lambda-powertools/logger";
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
-import { Tracer } from "@aws-lambda-powertools/tracer";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import middy from "@middy/core";
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { getAllTeams, getPublishedNews, getUpcomingEvents } from "../../lib/db/repositories";
 import { parseLambdaEnv } from "../utils/env";
+import { createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
 import { SitemapLambdaEnvironmentSchema } from "./types";
 
@@ -19,15 +18,7 @@ const env = parseLambdaEnv(SitemapLambdaEnvironmentSchema);
 const BASE_URL = env.WEBSITE_URL;
 
 // Initialize Logger and Tracer outside handler for reuse across invocations
-const logger = new Logger({
-	serviceName: "vcm-sitemap",
-	logLevel: (env.LOG_LEVEL || "INFO") as "DEBUG" | "INFO" | "WARN" | "ERROR",
-});
-
-const tracer = new Tracer({
-	serviceName: "vcm-sitemap",
-	enabled: true,
-});
+const { logger, tracer } = createLambdaResources("vcm-sitemap");
 
 interface UrlEntry {
 	loc: string;

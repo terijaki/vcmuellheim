@@ -1,9 +1,6 @@
-import { Logger } from "@aws-lambda-powertools/logger";
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
-import { Tracer } from "@aws-lambda-powertools/tracer";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
+import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { getAllLeagueMatches, type LeagueMatchDto } from "@codegen/sams/generated";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
@@ -11,15 +8,12 @@ import dayjs from "dayjs";
 import { Club } from "@/project.config";
 import { slugify } from "../../utils/slugify";
 import { parseLambdaEnv } from "../utils/env";
+import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
 import { LeagueMatchesResponseSchema, SamsLeagueMatchesLambdaEnvironmentSchema, SeasonsResponseSchema } from "./types";
 
-const logger = new Logger({ serviceName: "sams-league-matches" });
-const tracer = new Tracer({ serviceName: "sams-league-matches" });
-
-// DynamoDB client for caching
-const client = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(tracer.captureAWSv3Client(client));
+const { logger, tracer } = createLambdaResources("sams-league-matches");
+const docClient = createDynamoDocClient(tracer);
 
 const env = parseLambdaEnv(SamsLeagueMatchesLambdaEnvironmentSchema);
 const SAMS_API_KEY = env.SAMS_API_KEY;

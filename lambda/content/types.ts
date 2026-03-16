@@ -2,10 +2,7 @@ import { z } from "zod";
 import { tableEnvironmentSchema } from "@/lib/db/env";
 import { optionalEnvString, requiredEnvString } from "../utils/env";
 
-const logLevelSchema = z.enum(["DEBUG", "INFO", "WARN", "ERROR"]);
-
 export const TrpcLambdaEnvironmentSchema = tableEnvironmentSchema.extend({
-	LOG_LEVEL: logLevelSchema.optional(),
 	AWS_REGION: requiredEnvString,
 	CDK_ENVIRONMENT: requiredEnvString,
 	BETTER_AUTH_SECRET: requiredEnvString,
@@ -27,7 +24,6 @@ export type IcsCalendarLambdaEnvironment = z.infer<typeof IcsCalendarLambdaEnvir
 
 export const SitemapLambdaEnvironmentSchema = tableEnvironmentSchema.extend({
 	WEBSITE_URL: requiredEnvString,
-	LOG_LEVEL: logLevelSchema.optional(),
 });
 
 export type SitemapLambdaEnvironment = z.infer<typeof SitemapLambdaEnvironmentSchema>;

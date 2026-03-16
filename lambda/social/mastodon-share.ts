@@ -2,13 +2,13 @@
  * Lambda function for sharing news articles to Mastodon
  */
 
-import { Logger } from "@aws-lambda-powertools/logger";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import type { News } from "@/lib/db/types";
 import { parseLambdaEnv } from "../utils/env";
+import { createLambdaResources } from "../utils/resources";
 import { MastodonShareLambdaEnvironmentSchema } from "./types";
 
-const logger = new Logger({ serviceName: "mastodon-share" });
+const { logger } = createLambdaResources("mastodon-share");
 
 const env = parseLambdaEnv(MastodonShareLambdaEnvironmentSchema);
 

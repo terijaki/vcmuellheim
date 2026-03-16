@@ -1,13 +1,12 @@
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { BatchWriteCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
+import { BatchWriteCommand } from "@aws-sdk/lib-dynamodb";
 import type { EventBridgeEvent } from "aws-lambda";
 import { parseLambdaEnv } from "../utils/env";
+import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
 import { type InstagramPost, InstagramPostItemSchema, InstagramSyncLambdaEnvironmentSchema } from "./types";
 
-// Initialize DynamoDB client
-const dynamoClient = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(dynamoClient);
+const { tracer } = createLambdaResources("instagram-sync");
+const docClient = createDynamoDocClient(tracer);
 
 const env = parseLambdaEnv(InstagramSyncLambdaEnvironmentSchema);
 const TABLE_NAME = env.INSTAGRAM_TABLE_NAME;
