@@ -20,18 +20,14 @@ export default function SharingButton(props: { label: string }) {
 	}, []);
 
 	const handleShare = () => {
-		if (isNativeShare) {
-			navigator
-				.share({
-					title: pageTitle,
-					url: pageURL,
-				})
-				.catch((error) => console.error("Sharing wasn't completed", error));
-		} else {
-			// Fallback for browsers that don't support Web Share API
-			console.info("Native sharing not supported on this browser");
-			// Could implement clipboard copy or other fallback here
-		}
+		navigator
+			.share({
+				title: pageTitle,
+				url: pageURL,
+			})
+			.catch(() => {
+				// Sharing cancellation or interruption is a non-fatal UX event.
+			});
 	};
 
 	if (!isNativeShare) return null;

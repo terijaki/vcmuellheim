@@ -58,18 +58,6 @@ export default function InstagramCard(post: InstagramPost) {
 		}
 	}, [shouldShowVideo]);
 
-	// Debug logging
-	useEffect(() => {
-		if (videoUrl && isHovered) {
-			console.log("Video state on hover:", {
-				id,
-				videoLoaded,
-				shouldShowVideo,
-				isHovered,
-			});
-		}
-	}, [videoUrl, videoLoaded, shouldShowVideo, isHovered, id]);
-
 	// fetch data dynamicallys based on instagram url in our teams
 
 	return (
@@ -101,15 +89,10 @@ export default function InstagramCard(post: InstagramPost) {
 								controls={false}
 								onClick={handleVideoClick}
 								onLoadedData={() => {
-									console.log("Video loaded successfully:", videoUrl);
 									setVideoLoaded(true);
 								}}
-								onError={(e) => {
-									console.error("Video failed to load:", videoUrl, e);
+								onError={() => {
 									setVideoLoaded(false);
-								}}
-								onCanPlay={() => {
-									console.log("Video can play:", videoUrl);
 								}}
 								preload="auto"
 								style={{

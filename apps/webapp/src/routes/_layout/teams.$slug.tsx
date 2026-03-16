@@ -14,6 +14,7 @@ import MapsLink from "../../components/MapsLink";
 import Matches from "../../components/Matches";
 import RankingTable from "../../components/RankingTable";
 import { useFileUrls, useLocations, useMembers, useSamsMatches, useSamsRankingsByLeagueUuid, useSamsTeams, useTeamBySlug } from "../../lib/hooks";
+import { createWebcalLink } from "../../utils/webcal";
 
 dayjs.locale(de);
 dayjs.extend(weekday);
@@ -75,8 +76,7 @@ function TeamCalendar({ slug, team }: { slug: string; team: NonNullable<ReturnTy
 
 	if (!samsTeam) return null;
 
-	const icsOrigin = typeof window !== "undefined" ? window.location.origin : "";
-	const webcalLink = `webcal://${icsOrigin.replace(/^https?:\/\//, "")}/api/ics/${slug}.ics`;
+	const webcalLink = createWebcalLink(`/api/ics/${slug}.ics`);
 
 	return (
 		<Card>

@@ -9,15 +9,14 @@ import EventCard from "../../components/EventCard";
 import PageWithHeading from "../../components/layout/PageWithHeading";
 import Matches from "../../components/Matches";
 import { useEvents, useSamsMatches } from "../../lib/hooks";
+import { createWebcalLink } from "../../utils/webcal";
 
 export const Route = createFileRoute("/_layout/termine/")({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	// Construct webcal link - ICS routes are on the same origin
-	const icsOrigin = typeof window !== "undefined" ? window.location.origin : "";
-	const webcalLink = `webcal://${icsOrigin.replace(/^https?:\/\//, "")}/api/ics/all.ics`;
+	const webcalLink = createWebcalLink("/api/ics/all.ics");
 
 	return (
 		<PageWithHeading title="Termine" description="Alle Termine, Spieltage und Events von Volleyballclub Müllheim im Überblick">
@@ -77,15 +76,11 @@ function MatchesContent() {
 	const currentMonth = dayjs().month() + 1;
 	const isOffSeason = currentMonth >= 5 && currentMonth <= 9;
 
-	// Debug logging
-	console.log("MatchesContent:", { matches, isLoading, error, matchCount: matches?.matches?.length });
-
 	if (isLoading) {
 		return <CenteredLoader text="Lade Ligaspiele..." />;
 	}
 
 	if (error) {
-		console.error("Error loading matches:", error);
 		return (
 			<Card>
 				<CardTitle>Fehler beim Laden der SBVV Ligaspiele</CardTitle>
