@@ -17,7 +17,7 @@ export const Route = createFileRoute("/admin/_layout")({
 		const user = await getCurrentAdminUser();
 
 		if (!user) {
-			throw redirect({ to: "/admin/otp-login" });
+			throw redirect({ to: "/admin" });
 		}
 
 		return { user };
@@ -39,7 +39,7 @@ function AdminShell() {
 	const logout = async () => {
 		setIsLoggingOut(true);
 		await authClient.signOut();
-		await navigate({ to: "/admin/otp-login", replace: true });
+		await navigate({ to: "/admin", replace: true });
 	};
 
 	if (isLoggingOut) {

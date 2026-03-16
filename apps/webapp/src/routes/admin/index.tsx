@@ -1,14 +1,113 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { Alert, Button, Center, Loader, Stack, Text, Title } from "@mantine/core";
+import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { z } from "zod";
+import { LoginForm } from "../../components/admin/LoginForm";
 import { getCurrentAdminUser } from "../../lib/admin-session";
+import { authClient } from "../../lib/auth-client";
+
+const otpSearchSchema = z.union([z.string().regex(/^\d{1,6}$/), z.coerce.number().int().min(0).max(999999)]).transform((value) => String(value).padStart(6, "0"));
 
 export const Route = createFileRoute("/admin/")({
+	validateSearch: z.object({
+		email: z.email().optional(),
+		otp: otpSearchSchema.optional(),
+	}),
 	beforeLoad: async () => {
 		const user = await getCurrentAdminUser();
 
-		throw redirect({
-			to: user ? "/admin/dashboard" : "/admin/otp-login",
-		});
+		if (user) {
+			throw redirect({ to: "/admin/dashboard" });
+		}
 	},
-	pendingComponent: () => null,
-	component: () => null,
+	pendingComponent: () => (
+		<Center h="100vh">
+			<Loader />
+		</Center>
+	),
+	component: AdminLoginPage,
 });
+
+function AdminLoginPage() {
+	const navigate = useNavigate();
+	const { email, otp } = Route.useSearch();
+	const [error, setError] = useState<string | null>(null);
+	const hasOtpLinkParams = Boolean(email || otp);
+	const hasCompleteOtpLink = Boolean(email && otp);
+
+	useEffect(() => {
+		if (!hasCompleteOtpLink) {
+			return;
+		}
+
+		let isCancelled = false;
+
+		const completeLogin = async () => {
+			const result = await authClient.signIn.emailOtp({ email, otp: String(otp) });
+			if (isCancelled) return;
+
+			if (result.error) {
+				setError("Der Anmeldelink ist ungültig oder abgelaufen.");
+				return;
+			}
+
+			await navigate({ to: "/admin/dashboard" });
+		};
+
+		void completeLogin();
+		return () => {
+			isCancelled = true;
+		};
+	}, [email, hasCompleteOtpLink, navigate, otp]);
+
+	if (!hasOtpLinkParams) {
+		return (
+			<Center h="100vh">
+				<LoginForm />
+			</Center>
+		);
+	}
+
+	if (!hasCompleteOtpLink) {
+		return (
+			<Center h="100vh">
+				<Stack gap="md" w={360} p="xl" align="center">
+					<Title order={2} ta="center">
+						Anmeldung
+					</Title>
+					<Alert color="red" variant="light">
+						Der Anmeldelink ist unvollständig.
+					</Alert>
+					<Button component={Link} to="/admin" variant="subtle">
+						Zurück zur Anmeldung
+					</Button>
+				</Stack>
+			</Center>
+		);
+	}
+
+	return (
+		<Center h="100vh">
+			<Stack gap="md" w={360} p="xl" align="center">
+				<Title order={2} ta="center">
+					Anmelden...
+				</Title>
+				{error ? (
+					<>
+						<Alert color="red" variant="light">
+							{error}
+						</Alert>
+						<Button component={Link} to="/admin" variant="subtle">
+							Zurück zur Anmeldung
+						</Button>
+					</>
+				) : (
+					<Loader />
+				)}
+				<Text c="dimmed" size="sm" ta="center">
+					Du wirst nach erfolgreicher Anmeldung weitergeleitet.
+				</Text>
+			</Stack>
+		</Center>
+	);
+}

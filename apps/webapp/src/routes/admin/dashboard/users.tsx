@@ -13,7 +13,7 @@ export const Route = createFileRoute("/admin/dashboard/users")({
 		const currentUser = await getCurrentAdminUser();
 
 		if (!currentUser) {
-			throw redirect({ to: "/admin/otp-login" });
+			throw redirect({ to: "/admin" });
 		}
 
 		if (currentUser.role !== "Admin") {

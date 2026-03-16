@@ -3,7 +3,7 @@
  * Reuses the same configuration as the Lambda auth handler, adapted for TanStack Start.
  * - Passwordless email OTP login
  * - Stateless JWE session cookies shared across vcmuellheim.de subdomains
- * - OTP login link points to /admin/otp-login
+ * - OTP login link points to /admin
  */
 
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
@@ -51,7 +51,7 @@ function resolveAppOrigin(request?: Request): string {
 }
 
 function createOtpLoginLink(email: string, otp: string, request?: Request): string {
-	const loginUrl = new URL("/admin/otp-login", resolveAppOrigin(request));
+	const loginUrl = new URL("/admin", resolveAppOrigin(request));
 	loginUrl.searchParams.set("email", email);
 	loginUrl.searchParams.set("otp", otp);
 	return loginUrl.toString();
