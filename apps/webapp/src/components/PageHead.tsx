@@ -1,6 +1,6 @@
 import { Club } from "@project.config";
 import { useLocation } from "@tanstack/react-router";
-import helmetAsync from "react-helmet-async";
+import * as helmetAsync from "react-helmet-async";
 
 const { Helmet } = helmetAsync;
 

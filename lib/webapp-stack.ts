@@ -12,6 +12,8 @@
  * - Route53 A record pointing to CloudFront
  */
 
+import { execFileSync } from "node:child_process";
+import path from "node:path";
 import * as cdk from "aws-cdk-lib";
 import type * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
@@ -66,7 +68,6 @@ export class WebAppStack extends cdk.Stack {
 			throw new Error("❌ BETTER_AUTH_SECRET environment variable is required");
 		}
 
-		// ── Environment variables for the Lambda ────────────────────────────────
 		const tables = {
 			NEWS: props.contentDbStack.newsTable,
 			EVENTS: props.contentDbStack.eventsTable,
@@ -97,6 +98,13 @@ export class WebAppStack extends cdk.Stack {
 		// The Lambda will be updated post-deployment or via a Cfn custom resource.
 		// For now we derive the URL from the domain name if custom domain is configured.
 		const cloudfrontUrl = props.hostedZone && props.cloudFrontCertificate ? `https://${webappDomain}` : undefined;
+
+		// Build the webapp once upfront so .output/server and .output/public exist
+		execFileSync("bun", ["run", "build"], {
+			env: { ...process.env, VITE_CDK_ENVIRONMENT: environment },
+			cwd: path.join(process.cwd(), "apps/webapp"),
+			stdio: "inherit",
+		});
 
 		const lambdaEnvironment: Record<string, string> = {
 			...tableEnvironment,
@@ -132,7 +140,6 @@ export class WebAppStack extends cdk.Stack {
 		// Nitro's aws-lambda preset outputs a single ESM handler file
 		this.webappLambda = new lambda.Function(this, "WebAppLambda", {
 			functionName: `vcm-webapp-${environment}${branchSuffix}`,
-			// The build artifact produced by `bun run build` in apps/webapp
 			code: lambda.Code.fromAsset("apps/webapp/.output/server"),
 			handler: "index.handler",
 			runtime: lambda.Runtime.NODEJS_22_X,
