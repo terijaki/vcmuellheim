@@ -32,8 +32,8 @@ function DashboardIndexPage() {
 							<Typography>{description}</Typography>
 						</Stack>
 					</Card>
-				)
+				);
 			})}
 		</SimpleGrid>
-	)
+	);
 }

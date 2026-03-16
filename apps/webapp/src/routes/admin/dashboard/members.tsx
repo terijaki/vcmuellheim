@@ -50,7 +50,7 @@ function CurrentAvatarDisplay({
 					</Text>
 				</Card>
 			</Box>
-		)
+		);
 	}
 
 	// Show current avatar with actions if exists
@@ -89,14 +89,14 @@ function CurrentAvatarDisplay({
 						if (file) {
 							if (file.size > MAX_UPLOAD_SIZE) {
 								onFileSizeError(`${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`);
-								return
+								return;
 							}
-							onFileChange(file)
+							onFileChange(file);
 						}
 					}}
 				/>
 			</Box>
-		)
+		);
 	}
 
 	// Show deletion message if avatar was deleted
@@ -117,7 +117,7 @@ function CurrentAvatarDisplay({
 					</Text>
 				</Card>
 			</Box>
-		)
+		);
 	}
 
 	// Show Dropzone for new avatar
@@ -132,7 +132,7 @@ function CurrentAvatarDisplay({
 						const file = files[0];
 						if (file.size > MAX_UPLOAD_SIZE) {
 							onFileSizeError(`${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`);
-							return
+							return;
 						}
 						onFileChange(file);
 					}
@@ -165,7 +165,7 @@ function CurrentAvatarDisplay({
 				</Flex>
 			</Dropzone>
 		</Box>
-	)
+	);
 }
 
 function MembersPage() {
@@ -183,7 +183,7 @@ function MembersPage() {
 		isTrainer: false,
 		roleTitle: "",
 		avatarS3Key: undefined,
-	})
+	});
 
 	const notification = useNotification();
 	const { data: members, isLoading, refetch } = useQuery({ queryKey: ["members", "list"], queryFn: () => listMembersFn() });
@@ -193,15 +193,15 @@ function MembersPage() {
 			setUploading(false);
 			notification.error({
 				message: error instanceof Error ? error.message : "Upload fehlgeschlagen",
-			})
+			});
 		},
-	})
+	});
 
 	const createMutation = useMutation({
 		mutationFn: (data: Parameters<typeof createMemberFn>[0]["data"]) => createMemberFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close()
+			close();
 			resetForm();
 			setUploading(false);
 			notification.success("Mitglied wurde erfolgreich erstellt");
@@ -210,15 +210,15 @@ function MembersPage() {
 			setUploading(false);
 			notification.error({
 				message: error instanceof Error ? error.message : "Mitglied konnte nicht erstellt werden",
-			})
+			});
 		},
-	})
+	});
 
 	const updateMutation = useMutation({
 		mutationFn: (data: Parameters<typeof updateMemberFn>[0]["data"]) => updateMemberFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close()
+			close();
 			resetForm();
 			setUploading(false);
 			notification.success("Mitglied wurde aktualisiert");
@@ -227,15 +227,15 @@ function MembersPage() {
 			setUploading(false);
 			notification.error({
 				message: error instanceof Error ? error.message : "Mitglied konnte nicht aktualisiert werden",
-			})
+			});
 		},
-	})
+	});
 
 	const deleteMutation = useMutation({
 		mutationFn: (data: Parameters<typeof deleteMemberFn>[0]["data"]) => deleteMemberFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close()
+			close();
 			resetForm();
 			setEditingId(null);
 			notification.success("Mitglied wurde erfolgreich gelöscht");
@@ -243,9 +243,9 @@ function MembersPage() {
 		onError: (error: unknown) => {
 			notification.error({
 				message: error instanceof Error ? error.message : "Mitglied konnte nicht gelöscht werden",
-			})
+			});
 		},
-	})
+	});
 
 	const resetForm = () => {
 		setFormData({
@@ -256,9 +256,9 @@ function MembersPage() {
 			isTrainer: false,
 			roleTitle: "",
 			avatarS3Key: undefined,
-		})
+		});
 		setAvatarFile(null);
-	}
+	};
 	const handleSubmit = async () => {
 		if (!formData.name) return;
 
@@ -276,7 +276,7 @@ function MembersPage() {
 					filename: avatarFile.name,
 					contentType: avatarFile.type,
 					folder: "members",
-				})
+				});
 
 				// Upload file to S3
 				const uploadResponse = await fetch(uploadUrl, {
@@ -285,7 +285,7 @@ function MembersPage() {
 					headers: {
 						"Content-Type": avatarFile.type,
 					},
-				})
+				});
 
 				if (!uploadResponse.ok) {
 					throw new Error("Datei-Upload fehlgeschlagen");
@@ -301,17 +301,17 @@ function MembersPage() {
 				updateMutation.mutate({
 					id: editingId,
 					data: cleanedData,
-				})
+				});
 			} else {
 				createMutation.mutate(cleanedData as MemberInput);
 			}
 		} catch (error) {
 			notification.error({
 				message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten",
-			})
+			});
 			setUploading(false);
 		}
-	}
+	};
 
 	const handleEdit = (member: MemberInput & { id: string }) => {
 		setFormData({
@@ -322,23 +322,23 @@ function MembersPage() {
 			isTrainer: member.isTrainer || false,
 			roleTitle: member.roleTitle || "",
 			avatarS3Key: member.avatarS3Key,
-		})
+		});
 		setEditingId(member.id);
 		setDeleteAvatar(false);
 		setAvatarFile(null);
 		open();
-	}
+	};
 
 	const handleDelete = (id: string) => {
 		if (window.confirm("Möchten Sie dieses Mitglied wirklich löschen?")) {
 			deleteMutation.mutate({ id });
 		}
-	}
+	};
 
 	const handleOpenNew = () => {
 		resetForm();
 		open();
-	}
+	};
 
 	return (
 		<Stack gap="md">
@@ -369,7 +369,7 @@ function MembersPage() {
 						onFileChange={setAvatarFile}
 						onDeleteToggle={() => {
 							setDeleteAvatar(!deleteAvatar);
-							setAvatarFile(null)
+							setAvatarFile(null);
 						}}
 						onFileSizeError={(message) => {
 							notification.error({ message });
@@ -412,7 +412,7 @@ function MembersPage() {
 				</Text>
 			)}
 		</Stack>
-	)
+	);
 }
 
 function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; onEdit: (member: MemberInput & { id: string }) => void; onDelete: (id: string) => void; isDeleting: boolean }) {
@@ -420,7 +420,7 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 		queryKey: ["upload", "fileUrl", member.avatarS3Key],
 		queryFn: () => getFileUrlFn({ data: { s3Key: member.avatarS3Key || "" } }),
 		enabled: !!member.avatarS3Key,
-	})
+	});
 
 	return (
 		<Card shadow="sm" p="0" radius="md" withBorder>
@@ -474,7 +474,7 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 				</Grid.Col>
 			</Grid>
 		</Card>
-	)
+	);
 }
 export const Route = createFileRoute("/admin/dashboard/members")({
 	component: MembersPage,

@@ -11,10 +11,10 @@ function RouteComponent() {
 			<Card withBorder>
 				<Text>Du hast dich erfolgreich ausgeloggt.</Text>
 				<SimpleGrid cols={{ base: 1, xs: 2 }} spacing="xs" mt="md">
-					<Button component="a" href="/" variant="light">
+					<Button component={Link} to="/" variant="light">
 						Zur Website
 					</Button>
-					<Button component={Link} to="/admin/login">
+					<Button component={Link} to="/admin/otp-login">
 						Zur Anmeldung
 					</Button>
 				</SimpleGrid>

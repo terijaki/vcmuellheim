@@ -153,7 +153,6 @@ function createAuth() {
 			}),
 		],
 	});
-
 }
 
 // Lazily created to avoid crashing at build time when env vars aren't present

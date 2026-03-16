@@ -1,5 +1,5 @@
 import { Anchor, Card, Text, Typography } from "@mantine/core";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import CardTitle from "../../components/CardTitle";
 import PageWithHeading from "../../components/layout/PageWithHeading";
 
@@ -38,7 +38,11 @@ function RouteComponent() {
 							Berufsausbildung oder einem Studium befindet. Die Bescheinigung ist dem Kassenwart bis zum 31.12. eines Jahres für das folgende Kalenderjahr vorzulegen.
 						</li>
 						<li>
-							Der Vorstand kann in begründeten Einzelfällen Beiträge ganz oder teilweise stunden oder erlassen (siehe §5 (2) der <Anchor href="/satzung">Vereinssatzung</Anchor>).
+							Der Vorstand kann in begründeten Einzelfällen Beiträge ganz oder teilweise stunden oder erlassen (siehe §5 (2) der{" "}
+							<Anchor component={Link} to="/satzung">
+								Vereinssatzung
+							</Anchor>
+							).
 						</li>
 					</ol>
 					<CardTitle>§ 4 Rechte und Pflichten der Mitglieder</CardTitle>
@@ -60,8 +64,12 @@ function RouteComponent() {
 					<CardTitle>§ 5 Beendigung der Mitgliedschaft</CardTitle>
 					<ol>
 						<li>
-							In §6 der <Anchor href="/satzung">Vereinssatzung</Anchor> ist das Procedere bei rückständiger Beitragszahlung geregelt. Dies kann zu einer Streichung von der Mitgliederliste des Vereins
-							führen. Verpflichtungen dem Verein gegenüber sind bis zum Ablauf des laufenden Geschäftsjahres zu erfüllen.
+							In §6 der{" "}
+							<Anchor component={Link} to="/satzung">
+								Vereinssatzung
+							</Anchor>{" "}
+							ist das Procedere bei rückständiger Beitragszahlung geregelt. Dies kann zu einer Streichung von der Mitgliederliste des Vereins führen. Verpflichtungen dem Verein gegenüber sind bis zum
+							Ablauf des laufenden Geschäftsjahres zu erfüllen.
 						</li>
 						<li>
 							Der freiwillige Austritt hat in Textform gegenüber einem Mitglied des Vorstands oder der Vereinsgeschäftsstelle erfolgen. Er ist frühestens zum Ende des dem Eintritt folgenden

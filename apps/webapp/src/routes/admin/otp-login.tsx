@@ -1,30 +1,35 @@
 import { Alert, Button, Center, Loader, Stack, Text, Title } from "@mantine/core";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
+import { LoginForm } from "../../components/admin/LoginForm";
 import { authClient } from "../../lib/auth-client";
+
+const otpSearchSchema = z.union([z.string().regex(/^\d{1,6}$/), z.coerce.number().int().min(0).max(999999)]).transform((value) => String(value).padStart(6, "0"));
 
 export const Route = createFileRoute("/admin/otp-login")({
 	validateSearch: z.object({
-		email: z.email(),
-		otp: z.coerce.number().positive(),
+		email: z.email().optional(),
+		otp: otpSearchSchema.optional(),
 	}),
 	component: OtpLoginPage,
 });
 
 function OtpLoginPage() {
 	const { email, otp } = Route.useSearch();
+	const { data: sessionData, isPending } = authClient.useSession();
 	const [error, setError] = useState<string | null>(null);
+	const hasOtpLinkParams = Boolean(email || otp);
+	const hasCompleteOtpLink = Boolean(email && otp);
 
 	useEffect(() => {
+		if (!hasCompleteOtpLink) {
+			return;
+		}
+
 		let isCancelled = false;
 
 		const completeLogin = async () => {
-			if (!email || !otp) {
-				setError("Der Anmeldelink ist unvollständig.");
-				return;
-			}
-
 			const result = await authClient.signIn.emailOtp({ email, otp: String(otp) });
 			if (isCancelled) return;
 
@@ -40,7 +45,45 @@ function OtpLoginPage() {
 		return () => {
 			isCancelled = true;
 		};
-	}, [email, otp]);
+	}, [email, hasCompleteOtpLink, otp]);
+
+	if (isPending) {
+		return (
+			<Center h="100vh">
+				<Loader />
+			</Center>
+		);
+	}
+
+	if (sessionData) {
+		return <Navigate to="/admin/dashboard" />;
+	}
+
+	if (!hasOtpLinkParams) {
+		return (
+			<Center h="100vh">
+				<LoginForm />
+			</Center>
+		);
+	}
+
+	if (!hasCompleteOtpLink) {
+		return (
+			<Center h="100vh">
+				<Stack gap="md" w={360} p="xl" align="center">
+					<Title order={2} ta="center">
+						Anmeldung
+					</Title>
+					<Alert color="red" variant="light">
+						Der Anmeldelink ist unvollständig.
+					</Alert>
+					<Button component={Link} to="/admin/otp-login" variant="subtle">
+						Zurück zur Anmeldung
+					</Button>
+				</Stack>
+			</Center>
+		);
+	}
 
 	return (
 		<Center h="100vh">
@@ -53,7 +96,7 @@ function OtpLoginPage() {
 						<Alert color="red" variant="light">
 							{error}
 						</Alert>
-						<Button component={Link} to="/admin/login" variant="subtle">
+						<Button component={Link} to="/admin/otp-login" variant="subtle">
 							Zurück zur Anmeldung
 						</Button>
 					</>

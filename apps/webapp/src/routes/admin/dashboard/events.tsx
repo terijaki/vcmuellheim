@@ -25,7 +25,7 @@ function EventsPage() {
 		location: "",
 		variant: "",
 		teamIds: [] as string[] | undefined,
-	})
+	});
 
 	const notification = useNotification();
 	const { data: eventsData, isLoading, refetch } = useQuery({ queryKey: ["events", "list"], queryFn: () => listAllEventsFn({ data: { limit: 100 } }) });
@@ -59,38 +59,38 @@ function EventsPage() {
 		mutationFn: (data: Parameters<typeof createEventFn>[0]["data"]) => createEventFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close()
+			close();
 			resetForm();
 			notification.success("Termin wurde erfolgreich erstellt");
 		},
 		onError: () => {
 			notification.error({ message: "Termin konnte nicht erstellt werden" });
 		},
-	})
+	});
 	const updateMutation = useMutation({
 		mutationFn: (data: Parameters<typeof updateEventFn>[0]["data"]) => updateEventFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close()
+			close();
 			resetForm();
 			notification.success("Termin wurde erfolgreich aktualisiert");
 		},
 		onError: () => {
 			notification.error({ message: "Termin konnte nicht aktualisiert werden" });
 		},
-	})
+	});
 	const deleteMutation = useMutation({
 		mutationFn: (data: Parameters<typeof deleteEventFn>[0]["data"]) => deleteEventFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close()
+			close();
 			resetForm();
 			notification.success("Termin wurde erfolgreich gelöscht");
 		},
 		onError: () => {
 			notification.error({ message: "Termin konnte nicht gelöscht werden" });
 		},
-	})
+	});
 	const resetForm = () => {
 		setFormData({
 			title: "",
@@ -100,15 +100,15 @@ function EventsPage() {
 			location: "",
 			variant: "",
 			teamIds: undefined,
-		})
+		});
 		setEditingId(null);
-	}
+	};
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
 		if (!formData.startDate) {
-			return
+			return;
 		}
 
 		const data: Omit<EventInput, "id" | "createdAt" | "updatedAt"> = {
@@ -120,14 +120,14 @@ function EventsPage() {
 			location: formData.location || undefined,
 			variant: formData.variant || undefined,
 			teamIds: formData.teamIds || undefined,
-		}
+		};
 
 		if (editingId) {
 			updateMutation.mutate({ id: editingId, data });
 		} else {
 			createMutation.mutate(data);
 		}
-	}
+	};
 
 	const handleEdit = (event: EventInput) => {
 		setEditingId(event.id);
@@ -139,15 +139,15 @@ function EventsPage() {
 			location: event.location || "",
 			variant: event.variant || "",
 			teamIds: event.teamIds || [],
-		})
+		});
 		open();
-	}
+	};
 
 	const handleDelete = (id: string) => {
 		if (window.confirm("Möchten Sie diesen Termin wirklich löschen?")) {
 			deleteMutation.mutate({ id });
 		}
-	}
+	};
 
 	return (
 		<Stack>
@@ -155,8 +155,8 @@ function EventsPage() {
 				<Title order={2}>Termine</Title>
 				<Button
 					onClick={() => {
-						resetForm()
-						open()
+						resetForm();
+						open();
 					}}
 					leftSection={<Plus />}
 					visibleFrom="sm"
@@ -165,8 +165,8 @@ function EventsPage() {
 				</Button>
 				<ActionIcon
 					onClick={() => {
-						resetForm()
-						open()
+						resetForm();
+						open();
 					}}
 					hiddenFrom="sm"
 					variant="filled"
@@ -188,9 +188,9 @@ function EventsPage() {
 									border: "1px solid var(--mantine-color-turquoise-6)",
 									color: "var(--mantine-color-white)",
 								},
-							}
+							};
 						}
-						return {}
+						return {};
 					}}
 				/>
 			</Center>
@@ -283,8 +283,8 @@ function EventsPage() {
 			<Modal
 				opened={opened}
 				onClose={() => {
-					close()
-					resetForm()
+					close();
+					resetForm();
 				}}
 				title={editingId ? "Termin bearbeiten" : "Termin hinzufügen"}
 				size={isMobile ? "100%" : "lg"}
@@ -312,9 +312,9 @@ function EventsPage() {
 											border: "1px solid var(--mantine-color-turquoise-6)",
 											color: "var(--mantine-color-white)",
 										},
-									}
+									};
 								}
-								return {}
+								return {};
 							}}
 							required
 							highlightToday
@@ -350,9 +350,9 @@ function EventsPage() {
 											border: "1px solid var(--mantine-color-turquoise-6)",
 											color: "var(--mantine-color-white)",
 										},
-									}
+									};
 								}
-								return {}
+								return {};
 							}}
 							clearable
 							highlightToday
@@ -416,7 +416,7 @@ function EventsPage() {
 				</form>
 			</Modal>
 		</Stack>
-	)
+	);
 }
 
 export const Route = createFileRoute("/admin/dashboard/events")({

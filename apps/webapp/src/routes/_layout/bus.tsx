@@ -1,6 +1,6 @@
 import { Alert, Anchor, Button, Card, Center, Container, Group, Stack, Table } from "@mantine/core";
 import { Calendar, type CalendarProps, type DateStringValue } from "@mantine/dates";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { useState } from "react";
 import { Club } from "@/project.config";
@@ -111,7 +111,7 @@ function RouteComponent() {
 					)}
 
 					<Group justify="right">
-						<Button component="a" href="/admin/dashboard/bus" target="_blank" variant="light">
+						<Button component={Link} to="/admin/dashboard/bus" target="_blank" variant="light">
 							Bearbeiten
 						</Button>
 					</Group>

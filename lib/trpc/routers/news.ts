@@ -3,14 +3,13 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { slugify } from "@utils/slugify";
 import { z } from "zod";
 import { getAllNews, getNewsBySlug, getPublishedNews, newsRepository } from "../../db/repositories";
-import type { PaginationCursor } from "../../db/repository";
 import { newsSchema } from "../../db/schemas";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 const s3Client = new S3Client({ region: process.env.AWS_REGION || "eu-central-1" });
 const BUCKET_NAME = process.env.MEDIA_BUCKET_NAME || "";
 const CLOUDFRONT_URL = process.env.CLOUDFRONT_URL || "";
-const cursorValueSchema = z.custom<{}>((value) => value !== null && value !== undefined);
+const cursorValueSchema = z.union([z.string(), z.number()]);
 const cursorSchema = z.record(z.string(), cursorValueSchema);
 
 export const newsRouter = router({
@@ -25,7 +24,7 @@ export const newsRouter = router({
 				.optional(),
 		)
 		.query(async ({ input }) => {
-			return getAllNews(input?.limit, input?.lastEvaluatedKey as PaginationCursor | undefined);
+			return getAllNews(input?.limit, input?.lastEvaluatedKey);
 		}),
 
 	/** Get published news articles (public, cursor-based for infinite queries) */
@@ -39,7 +38,7 @@ export const newsRouter = router({
 				.optional(),
 		)
 		.query(async ({ input }) => {
-			return getPublishedNews(input?.limit, input?.cursor as PaginationCursor | undefined);
+			return getPublishedNews(input?.limit, input?.cursor);
 		}),
 
 	/** Get news article by ID */
@@ -109,7 +108,7 @@ export const newsRouter = router({
 			const format = input?.format ?? "urls";
 
 			// Fetch published news articles
-			const result = await getPublishedNews(input?.limit, input?.cursor as PaginationCursor | undefined);
+			const result = await getPublishedNews(input?.limit, input?.cursor);
 
 			// Flatten all imageS3Keys from all articles
 			const images: string[] = [];

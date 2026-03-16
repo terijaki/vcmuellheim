@@ -13,7 +13,7 @@ import { getAllNews, getNewsBySlug, getPublishedNews, newsRepository, newsSchema
 const s3Client = new S3Client({ region: process.env.AWS_REGION || "eu-central-1" });
 const BUCKET_NAME = () => process.env.MEDIA_BUCKET_NAME || "";
 const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
-const cursorValueSchema = z.custom<{}>((value) => value !== null && value !== undefined);
+const cursorValueSchema = z.union([z.string(), z.number()]);
 const cursorSchema = z.record(z.string(), cursorValueSchema);
 
 // ── Public ──────────────────────────────────────────────────────────────────

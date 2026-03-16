@@ -52,7 +52,7 @@ function CurrentLogoDisplay({
 					</Text>
 				</Card>
 			</Box>
-		)
+		);
 	}
 
 	// Show current logo with actions if exists
@@ -91,14 +91,14 @@ function CurrentLogoDisplay({
 						if (file) {
 							if (file.size > MAX_UPLOAD_SIZE) {
 								onFileSizeError(`${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`);
-								return
+								return;
 							}
-							onFileChange(file)
+							onFileChange(file);
 						}
 					}}
 				/>
 			</Box>
-		)
+		);
 	}
 
 	// Show deletion message if logo was deleted
@@ -119,7 +119,7 @@ function CurrentLogoDisplay({
 					</Text>
 				</Card>
 			</Box>
-		)
+		);
 	}
 
 	// Show Dropzone for new logo
@@ -134,7 +134,7 @@ function CurrentLogoDisplay({
 						const file = files[0];
 						if (file.size > MAX_UPLOAD_SIZE) {
 							onFileSizeError(`${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`);
-							return
+							return;
 						}
 						onFileChange(file);
 					}
@@ -169,7 +169,7 @@ function CurrentLogoDisplay({
 				</Flex>
 			</Dropzone>
 		</Box>
-	)
+	);
 }
 
 function SponsorsPage() {
@@ -186,18 +186,18 @@ function SponsorsPage() {
 		websiteUrl: "",
 		logoS3Key: undefined,
 		expiryTimestamp: undefined,
-	})
+	});
 
 	const notification = useNotification();
 	const { data: sponsors, isLoading, refetch } = useQuery({ queryKey: ["sponsors", "list"], queryFn: () => listSponsorsFn() });
 	const uploadMutation = useMutation({
 		mutationFn: (data: Parameters<typeof getPresignedUrlFn>[0]["data"]) => getPresignedUrlFn({ data }),
-	})
+	});
 	const createMutation = useMutation({
 		mutationFn: (data: Parameters<typeof createSponsorFn>[0]["data"]) => createSponsorFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close()
+			close();
 			resetForm();
 			setUploading(false);
 			notification.success("Sponsor wurde erfolgreich erstellt");
@@ -206,12 +206,12 @@ function SponsorsPage() {
 			setUploading(false);
 			notification.error({ message: (error as Error).message || "Sponsor konnte nicht erstellt werden" });
 		},
-	})
+	});
 	const updateMutation = useMutation({
 		mutationFn: (data: Parameters<typeof updateSponsorFn>[0]["data"]) => updateSponsorFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close()
+			close();
 			resetForm();
 			setUploading(false);
 			notification.success("Sponsoränderung wurde gespeichert");
@@ -220,12 +220,12 @@ function SponsorsPage() {
 			setUploading(false);
 			notification.error({ message: (error as Error).message || "Sponsor konnte nicht aktualisiert werden" });
 		},
-	})
+	});
 	const deleteMutation = useMutation({
 		mutationFn: (data: Parameters<typeof deleteSponsorFn>[0]["data"]) => deleteSponsorFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close()
+			close();
 			resetForm();
 			setEditingId(null);
 			notification.success("Sponsor wurde erfolgreich gelöscht");
@@ -233,7 +233,7 @@ function SponsorsPage() {
 		onError: (error: unknown) => {
 			notification.error({ message: (error as Error).message || "Sponsor konnte nicht gelöscht werden" });
 		},
-	})
+	});
 
 	const resetForm = () => {
 		setFormData({
@@ -242,12 +242,12 @@ function SponsorsPage() {
 			websiteUrl: "",
 			logoS3Key: undefined,
 			expiryTimestamp: undefined,
-		})
+		});
 		setLogoFile(null);
 		setDeleteLogo(false);
 		setEditingId(null);
 		setExpiryDate(null);
-	}
+	};
 
 	const handleSubmit = async () => {
 		if (!formData.name) return;
@@ -266,7 +266,7 @@ function SponsorsPage() {
 					filename: logoFile.name,
 					contentType: logoFile.type,
 					folder: "sponsors",
-				})
+				});
 
 				// Upload file to S3
 				const uploadResponse = await fetch(uploadUrl, {
@@ -275,7 +275,7 @@ function SponsorsPage() {
 					headers: {
 						"Content-Type": logoFile.type,
 					},
-				})
+				});
 
 				if (!uploadResponse.ok) {
 					throw new Error("Datei-Upload fehlgeschlagen");
@@ -294,7 +294,7 @@ function SponsorsPage() {
 				updateMutation.mutate({
 					id: editingId,
 					data: cleanedData,
-				})
+				});
 			} else {
 				createMutation.mutate(cleanedData as SponsorInput);
 			}
@@ -302,7 +302,7 @@ function SponsorsPage() {
 			notification.error({ message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
 			setUploading(false);
 		}
-	}
+	};
 
 	const handleEdit = (sponsor: SponsorInput & { id: string }) => {
 		setFormData({
@@ -311,25 +311,25 @@ function SponsorsPage() {
 			websiteUrl: sponsor.websiteUrl || "",
 			logoS3Key: sponsor.logoS3Key,
 			expiryTimestamp: sponsor.expiryTimestamp,
-		})
+		});
 		// Convert Unix timestamp back to Date if it exists
 		setExpiryDate(sponsor.expiryTimestamp ? dayjs.unix(sponsor.expiryTimestamp).toDate() : null);
 		setEditingId(sponsor.id);
 		setDeleteLogo(false);
 		setLogoFile(null);
 		open();
-	}
+	};
 
 	const handleDelete = (id: string) => {
 		if (window.confirm("Möchten Sie diesen Sponsor wirklich löschen?")) {
 			deleteMutation.mutate({ id });
 		}
-	}
+	};
 
 	const handleOpenNew = () => {
 		resetForm();
 		open();
-	}
+	};
 
 	return (
 		<Stack gap="md">
@@ -367,7 +367,7 @@ function SponsorsPage() {
 						onFileChange={setLogoFile}
 						onDeleteToggle={() => {
 							setDeleteLogo(!deleteLogo);
-							setLogoFile(null)
+							setLogoFile(null);
 						}}
 						onFileSizeError={(message) => {
 							notification.error({ message });
@@ -410,7 +410,7 @@ function SponsorsPage() {
 				</Text>
 			)}
 		</Stack>
-	)
+	);
 }
 
 function SponsorCard({ sponsor, onEdit }: { sponsor: SponsorInput & { id: string }; onEdit: (sponsor: SponsorInput & { id: string }) => void; onDelete: (id: string) => void; isDeleting: boolean }) {
@@ -424,7 +424,7 @@ function SponsorCard({ sponsor, onEdit }: { sponsor: SponsorInput & { id: string
 		} catch {
 			return url;
 		}
-	}
+	};
 
 	return (
 		<Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -469,7 +469,7 @@ function SponsorCard({ sponsor, onEdit }: { sponsor: SponsorInput & { id: string
 				)}
 			</Stack>
 		</Card>
-	)
+	);
 }
 
 export const Route = createFileRoute("/admin/dashboard/sponsors")({

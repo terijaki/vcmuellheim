@@ -83,7 +83,14 @@ export const Route = createFileRoute("/api/sams/logos")({
 
 				const contentType = imageResponse.headers.get("content-type") || "image/png";
 				const body = await imageResponse.arrayBuffer();
-				const identifier = clubUuid || clubSlug!;
+				const identifier = clubUuid ?? clubSlug;
+
+				if (!identifier) {
+					return new Response(JSON.stringify({ error: "Either 'clubUuid' or 'clubSlug' query parameter is required" }), {
+						status: 400,
+						headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=3600" },
+					});
+				}
 
 				return new Response(body, {
 					status: 200,

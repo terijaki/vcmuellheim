@@ -18,7 +18,7 @@ function LocationsPage() {
 		street: "",
 		postal: "",
 		city: "",
-	})
+	});
 
 	const notification = useNotification();
 	const { data: locations, isLoading, refetch } = useQuery({ queryKey: ["locations", "list"], queryFn: () => listLocationsFn() });
@@ -27,7 +27,7 @@ function LocationsPage() {
 		mutationFn: (data: Parameters<typeof createLocationFn>[0]["data"]) => createLocationFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close()
+			close();
 			resetForm();
 			notification.success("Ort wurde erfolgreich erstellt");
 		},
@@ -35,15 +35,15 @@ function LocationsPage() {
 			const err = error as Error;
 			notification.error({
 				message: err.message || "Ort konnte nicht erstellt werden",
-			})
+			});
 		},
-	})
+	});
 
 	const updateMutation = useMutation({
 		mutationFn: (data: Parameters<typeof updateLocationFn>[0]["data"]) => updateLocationFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close()
+			close();
 			resetForm();
 			notification.success("Ort wurde erfolgreich aktualisiert");
 		},
@@ -51,15 +51,15 @@ function LocationsPage() {
 			const err = error as Error;
 			notification.error({
 				message: err.message || "Ort konnte nicht aktualisiert werden",
-			})
+			});
 		},
-	})
+	});
 
 	const deleteMutation = useMutation({
 		mutationFn: (data: Parameters<typeof deleteLocationFn>[0]["data"]) => deleteLocationFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close()
+			close();
 			resetForm();
 			setEditingId(null);
 			notification.success("Ort wurde erfolgreich gelöscht");
@@ -68,9 +68,9 @@ function LocationsPage() {
 			const err = error as Error;
 			notification.error({
 				message: err.message || "Ort konnte nicht gelöscht werden",
-			})
+			});
 		},
-	})
+	});
 
 	const resetForm = () => {
 		setFormData({
@@ -79,27 +79,27 @@ function LocationsPage() {
 			street: "",
 			postal: "",
 			city: "",
-		})
+		});
 		setEditingId(null);
-	}
+	};
 
 	const handleSubmit = () => {
 		if (!formData.name || !formData.street || !formData.postal || !formData.city) {
 			notification.error({
 				message: "Bitte füllen Sie alle Pflichtfelder aus",
-			})
-			return
+			});
+			return;
 		}
 
 		if (editingId) {
 			updateMutation.mutate({
 				id: editingId,
 				data: formData,
-			})
+			});
 		} else {
 			createMutation.mutate(formData as Omit<LocationInput, "id" | "createdAt" | "updatedAt">);
 		}
-	}
+	};
 
 	const handleEdit = (location: LocationInput) => {
 		setFormData({
@@ -108,21 +108,21 @@ function LocationsPage() {
 			street: location.street,
 			postal: location.postal,
 			city: location.city,
-		})
+		});
 		setEditingId(location.id);
 		open();
-	}
+	};
 
 	const handleDelete = (id: string) => {
 		if (window.confirm("Möchten Sie diesen Ort wirklich löschen?")) {
 			deleteMutation.mutate({ id });
 		}
-	}
+	};
 
 	const handleOpenNew = () => {
 		resetForm();
 		open();
-	}
+	};
 
 	locations?.items.sort((a: LocationInput, b: LocationInput) => a.name.localeCompare(b.name));
 
@@ -256,7 +256,7 @@ function LocationsPage() {
 				<Text>Keine Orte vorhanden</Text>
 			)}
 		</Stack>
-	)
+	);
 }
 
 export const Route = createFileRoute("/admin/dashboard/locations")({

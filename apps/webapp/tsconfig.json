@@ -1,39 +1,18 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "types": [
-            "vite/client"
-        ],
-        "baseUrl": "../..",
-        "paths": {
-            "@/*": [
-                "./*"
-            ],
-            "@lib/*": [
-                "lib/*"
-            ],
-            "@lambda/*": [
-                "lambda/*"
-            ],
-            "@utils/*": [
-                "utils/*"
-            ],
-            "@data/*": [
-                "data/*"
-            ],
-            "@codegen/*": [
-                "codegen/*"
-            ],
-            "@project.config": [
-                "project.config.ts"
-            ]
-        }
-    },
-    "include": [
-        "src",
-        "vite.config.ts"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"types": ["vite/client"],
+		"baseUrl": "../..",
+		"paths": {
+			"@/*": ["./*"],
+			"@lib/*": ["lib/*"],
+			"@lambda/*": ["lambda/*"],
+			"@utils/*": ["utils/*"],
+			"@data/*": ["data/*"],
+			"@codegen/*": ["codegen/*"],
+			"@project.config": ["project.config.ts"]
+		}
+	},
+	"include": ["src", "vite.config.ts"],
+	"exclude": ["node_modules"]
 }

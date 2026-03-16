@@ -6,7 +6,7 @@ import { ColorSchemeScript, colorsTuple, createTheme, MantineProvider } from "@m
 import { DatesProvider } from "@mantine/dates";
 import { Notifications } from "@mantine/notifications";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { createRootRouteWithContext, HeadContent, Outlet, ScrollRestoration, Scripts } from "@tanstack/react-router";
+import { createRootRouteWithContext, HeadContent, Outlet, Scripts, ScrollRestoration } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 import type { RouterContext } from "../router";

@@ -109,7 +109,7 @@ function SamsDashboardPage() {
 				<Text>Keine SAMS Vereine gefunden</Text>
 			)}
 		</Stack>
-	)
+	);
 }
 
 export const Route = createFileRoute("/admin/dashboard/sams")({

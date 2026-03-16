@@ -11,7 +11,7 @@ export interface RepositoryConfig {
 	tableName: string;
 }
 
-export type PaginationCursor = Record<string, {}>;
+export type PaginationCursor = Record<string, string | number>;
 
 export interface QueryOptions {
 	indexName?: string;

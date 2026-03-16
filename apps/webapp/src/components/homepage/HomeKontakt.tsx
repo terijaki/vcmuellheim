@@ -1,4 +1,5 @@
 import { Anchor, Box, Card, Center, Container, Group, SimpleGrid, Stack, Text, Title } from "@mantine/core";
+import { Link } from "@tanstack/react-router";
 import type { HTMLAttributeAnchorTarget } from "react";
 import { FaEnvelope as IconEmail, FaFileExcel as IconExcel, FaArrowUpRightFromSquare as IconExtern } from "react-icons/fa6";
 import { useMembers } from "../../lib/hooks";
@@ -27,7 +28,7 @@ export default function HomeKontakt() {
 					<SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} spacing="lg" verticalSpacing="lg">
 						<ContactItem title="Jugendschutz und Minderjährige">
 							<Text component="div" size="sm">
-								<ContactLink href="/jugendschutz" label="Hier" /> findest du alle Informationen zum Jugendschutz.
+								<ContactRouteLink to="/jugendschutz" label="Hier" /> findest du alle Informationen zum Jugendschutz.
 							</Text>
 						</ContactItem>
 						<ContactItem title="Hast du Interesse an einem Probetrainung?">
@@ -37,7 +38,7 @@ export default function HomeKontakt() {
 						</ContactItem>
 						<ContactItem title="Möchtest du dem Verein beitreten?">
 							<Text component="div" size="sm">
-								Hier gehts zur <ContactLink href="/beitragsordnung/" label="Beitragsordnung" /> und hier zum{" "}
+								Hier gehts zur <ContactRouteLink to="/beitragsordnung" label="Beitragsordnung" /> und hier zum{" "}
 								<ContactLink href="https://vcm.kurabu.com/de/join/" target="_blank" label="Anmeldeformular" icon={<IconExtern />} /> auf unserer Verwaltungssoftware KURABU.
 							</Text>
 						</ContactItem>
@@ -55,7 +56,7 @@ export default function HomeKontakt() {
 						</ContactItem>
 						<ContactItem title="Hast du Fragen zu unserem Branding?">
 							<Text component="div" size="sm">
-								Farben und Logo Dateien findest du im <ContactLink href="/brand" label="Brand Guide" />
+								Farben und Logo Dateien findest du im <ContactRouteLink to="/brand" label="Brand Guide" />
 							</Text>
 						</ContactItem>
 						<ContactItem title="Möchtest du Spesen abrechnen?">
@@ -84,6 +85,16 @@ function ContactItem({ title, children }: { title: string; children: React.React
 				<Box>{children}</Box>
 			</Stack>
 		</Card>
+	);
+}
+
+function ContactRouteLink({ to, label }: { to: "/jugendschutz" | "/beitragsordnung" | "/brand"; label: string }) {
+	return (
+		<Anchor component={Link} to={to} display="inline-block" underline="never">
+			<Group gap={4} align="baseline">
+				<Text>{label}</Text>
+			</Group>
+		</Anchor>
 	);
 }
 

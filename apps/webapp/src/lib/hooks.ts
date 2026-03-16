@@ -166,7 +166,13 @@ export const useMediaByIds = (ids: string[]) => {
 export const useFileUrl = (s3Key?: string) => {
 	return useQuery({
 		queryKey: ["fileUrl", s3Key],
-		queryFn: () => getFileUrlFn({ data: { s3Key: s3Key! } }),
+		queryFn: () => {
+			if (!s3Key) {
+				throw new Error("s3Key is required");
+			}
+
+			return getFileUrlFn({ data: { s3Key } });
+		},
 		enabled: !!s3Key,
 	});
 };
@@ -174,7 +180,13 @@ export const useFileUrl = (s3Key?: string) => {
 export const useFileUrls = (s3Keys?: string[]) => {
 	return useQuery({
 		queryKey: ["fileUrls", s3Keys],
-		queryFn: () => getFileUrlsFn({ data: { s3Keys: s3Keys! } }),
+		queryFn: () => {
+			if (!s3Keys || s3Keys.length === 0) {
+				throw new Error("s3Keys are required");
+			}
+
+			return getFileUrlsFn({ data: { s3Keys } });
+		},
 		enabled: !!s3Keys && s3Keys.length > 0,
 	});
 };
@@ -182,7 +194,13 @@ export const useFileUrls = (s3Keys?: string[]) => {
 export const useFileUrlsMap = (s3Keys?: string[]) => {
 	return useQuery({
 		queryKey: ["fileUrlsMap", s3Keys],
-		queryFn: () => getFileUrlsMapFn({ data: { s3Keys: s3Keys! } }),
+		queryFn: () => {
+			if (!s3Keys || s3Keys.length === 0) {
+				throw new Error("s3Keys are required");
+			}
+
+			return getFileUrlsMapFn({ data: { s3Keys } });
+		},
 		enabled: !!s3Keys && s3Keys.length > 0,
 	});
 };
@@ -253,7 +271,13 @@ export const useSamsClubs = () => {
 export const useSamsClubByUuid = (sportsclubUuid?: string) => {
 	return useQuery({
 		queryKey: ["samsClub", "uuid", sportsclubUuid],
-		queryFn: () => getSamsClubBySportsclubUuidFn({ data: { sportsclubUuid: sportsclubUuid! } }),
+		queryFn: () => {
+			if (!sportsclubUuid) {
+				throw new Error("sportsclubUuid is required");
+			}
+
+			return getSamsClubBySportsclubUuidFn({ data: { sportsclubUuid } });
+		},
 		enabled: !!sportsclubUuid,
 	});
 };
@@ -261,7 +285,13 @@ export const useSamsClubByUuid = (sportsclubUuid?: string) => {
 export const useSamsClubByNameSlug = (nameSlug?: string) => {
 	return useQuery({
 		queryKey: ["samsClub", "slug", nameSlug],
-		queryFn: () => getSamsClubByNameSlugFn({ data: { nameSlug: nameSlug! } }),
+		queryFn: () => {
+			if (!nameSlug) {
+				throw new Error("nameSlug is required");
+			}
+
+			return getSamsClubByNameSlugFn({ data: { nameSlug } });
+		},
 		enabled: !!nameSlug,
 	});
 };
