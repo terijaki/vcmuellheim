@@ -1,26 +1,22 @@
-import { Logger } from "@aws-lambda-powertools/logger";
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
-import { Tracer } from "@aws-lambda-powertools/tracer";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { BatchWriteCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
+import { BatchWriteCommand } from "@aws-sdk/lib-dynamodb";
 import { getAllSportsclubs, getAssociationByUuid, getAssociations } from "@codegen/sams/generated";
 import middy from "@middy/core";
 import type { EventBridgeEvent } from "aws-lambda";
 import { SAMS } from "@/project.config";
 import { slugify } from "@/utils/slugify";
+import { parseLambdaEnv } from "../utils/env";
+import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
-import { type ClubItem, ClubItemSchema } from "./types";
+import { type ClubItem, ClubItemSchema, SamsClubsSyncLambdaEnvironmentSchema } from "./types";
 
-const logger = new Logger({ serviceName: "sams-clubs-sync" });
-const tracer = new Tracer({ serviceName: "sams-clubs-sync" });
+const { logger, tracer } = createLambdaResources("sams-clubs-sync");
+const docClient = createDynamoDocClient(tracer);
 
-// Initialize DynamoDB client
-const dynamoClient = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(tracer.captureAWSv3Client(dynamoClient));
-
-const TABLE_NAME = process.env.CLUBS_TABLE_NAME;
-const SAMS_API_KEY = process.env.SAMS_API_KEY;
+const env = parseLambdaEnv(SamsClubsSyncLambdaEnvironmentSchema);
+const TABLE_NAME = env.CLUBS_TABLE_NAME;
+const SAMS_API_KEY = env.SAMS_API_KEY;
 const ASSOCIATION_NAME = SAMS.association.name; // SBVV
 
 const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {

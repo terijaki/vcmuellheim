@@ -1,24 +1,19 @@
-import { Logger } from "@aws-lambda-powertools/logger";
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
-import { Tracer } from "@aws-lambda-powertools/tracer";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, GetCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
+import { GetCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { slugify } from "@/utils/slugify";
+import { parseLambdaEnv } from "../utils/env";
+import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
-import { ClubResponseSchema, ClubsResponseSchema } from "./types";
+import { ClubResponseSchema, ClubsResponseSchema, SamsClubsLambdaEnvironmentSchema } from "./types";
 
-// Initialize logger and tracer
-const logger = new Logger({ serviceName: "sams-clubs" });
-const tracer = new Tracer({ serviceName: "sams-clubs" });
+const { logger, tracer } = createLambdaResources("sams-clubs");
+const docClient = createDynamoDocClient(tracer);
 
-// Initialize DynamoDB client
-const dynamoClient = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(tracer.captureAWSv3Client(dynamoClient));
-
-const TABLE_NAME = process.env.CLUBS_TABLE_NAME;
+const env = parseLambdaEnv(SamsClubsLambdaEnvironmentSchema);
+const TABLE_NAME = env.CLUBS_TABLE_NAME;
 
 const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 	logger.appendKeys({ path: event.path });
@@ -106,7 +101,18 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 			}
 
 			// Return first match if exact match, otherwise all prefix matches
-			const exactMatch = result.Items.find((item) => item.nameSlug === slugifiedName);
+			const exactMatch = result.Items.find((item: unknown) => {
+				if (!item || typeof item !== "object") {
+					return false;
+				}
+
+				if (!("nameSlug" in item)) {
+					return false;
+				}
+
+				const nameSlug = item.nameSlug;
+				return typeof nameSlug === "string" && nameSlug === slugifiedName;
+			});
 			if (exactMatch) {
 				return {
 					statusCode: 200,
@@ -127,7 +133,7 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 				},
 				body: JSON.stringify(
 					ClubsResponseSchema.parse({
-						clubs: result.Items.map((item) => ClubResponseSchema.parse(item)),
+						clubs: result.Items.map((item: unknown) => ClubResponseSchema.parse(item)),
 						count: result.Items.length,
 					}),
 				),
@@ -151,7 +157,7 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 			},
 			body: JSON.stringify(
 				ClubsResponseSchema.parse({
-					clubs: result.Items?.map((item) => ClubResponseSchema.parse(item)) ?? [],
+					clubs: result.Items?.map((item: unknown) => ClubResponseSchema.parse(item)) ?? [],
 					count: result.Items?.length ?? 0,
 				}),
 			),

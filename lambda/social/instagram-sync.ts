@@ -1,17 +1,18 @@
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { BatchWriteCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
+import { BatchWriteCommand } from "@aws-sdk/lib-dynamodb";
 import type { EventBridgeEvent } from "aws-lambda";
+import { parseLambdaEnv } from "../utils/env";
+import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
-import { type InstagramPost, InstagramPostItemSchema } from "./types";
+import { type InstagramPost, InstagramPostItemSchema, InstagramSyncLambdaEnvironmentSchema } from "./types";
 
-// Initialize DynamoDB client
-const dynamoClient = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(dynamoClient);
+const { tracer } = createLambdaResources("instagram-sync");
+const docClient = createDynamoDocClient(tracer);
 
-const TABLE_NAME = process.env.INSTAGRAM_TABLE_NAME;
-const APIFY_API_KEY = process.env.APIFY_API_KEY;
-const APIFY_SCHEDULE_ID = process.env.APIFY_SCHEDULE_ID;
-const APIFY_ACTOR_ID = process.env.APIFY_ACTOR_ID;
+const env = parseLambdaEnv(InstagramSyncLambdaEnvironmentSchema);
+const TABLE_NAME = env.INSTAGRAM_TABLE_NAME;
+const APIFY_API_KEY = env.APIFY_API_KEY;
+const APIFY_SCHEDULE_ID = env.APIFY_SCHEDULE_ID;
+const APIFY_ACTOR_ID = env.APIFY_ACTOR_ID;
 
 // Hardcoded Instagram handles to scrape
 const INSTAGRAM_HANDLES = ["vcmuellheim", "vcm_damen101"];

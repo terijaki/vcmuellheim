@@ -18,6 +18,7 @@ global.fetch = mockFetch as unknown as typeof global.fetch;
 
 // Set up environment
 process.env.MASTODON_ACCESS_TOKEN = "test-token";
+process.env.AWS_REGION = "eu-central-1";
 
 describe("Mastodon Share Lambda", () => {
 	beforeEach(() => {

@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as OtpLoginRouteImport } from './routes/otp-login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ByeRouteImport } from './routes/bye'
 import { Route as IndexRouteImport } from './routes/index'
@@ -22,8 +23,12 @@ import { Route as DashboardMembersRouteImport } from './routes/dashboard/members
 import { Route as DashboardLocationsRouteImport } from './routes/dashboard/locations'
 import { Route as DashboardEventsRouteImport } from './routes/dashboard/events'
 import { Route as DashboardBusRouteImport } from './routes/dashboard/bus'
-import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 
+const OtpLoginRoute = OtpLoginRouteImport.update({
+  id: '/otp-login',
+  path: '/otp-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -89,17 +94,12 @@ const DashboardBusRoute = DashboardBusRouteImport.update({
   path: '/bus',
   getParentRoute: () => DashboardRoute,
 } as any)
-const AuthCallbackRoute = AuthCallbackRouteImport.update({
-  id: '/auth/callback',
-  path: '/auth/callback',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bye': typeof ByeRoute
   '/dashboard': typeof DashboardRouteWithChildren
-  '/auth/callback': typeof AuthCallbackRoute
+  '/otp-login': typeof OtpLoginRoute
   '/dashboard/bus': typeof DashboardBusRoute
   '/dashboard/events': typeof DashboardEventsRoute
   '/dashboard/locations': typeof DashboardLocationsRoute
@@ -114,7 +114,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bye': typeof ByeRoute
-  '/auth/callback': typeof AuthCallbackRoute
+  '/otp-login': typeof OtpLoginRoute
   '/dashboard/bus': typeof DashboardBusRoute
   '/dashboard/events': typeof DashboardEventsRoute
   '/dashboard/locations': typeof DashboardLocationsRoute
@@ -131,7 +131,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/bye': typeof ByeRoute
   '/dashboard': typeof DashboardRouteWithChildren
-  '/auth/callback': typeof AuthCallbackRoute
+  '/otp-login': typeof OtpLoginRoute
   '/dashboard/bus': typeof DashboardBusRoute
   '/dashboard/events': typeof DashboardEventsRoute
   '/dashboard/locations': typeof DashboardLocationsRoute
@@ -149,7 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/bye'
     | '/dashboard'
-    | '/auth/callback'
+    | '/otp-login'
     | '/dashboard/bus'
     | '/dashboard/events'
     | '/dashboard/locations'
@@ -164,7 +164,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/bye'
-    | '/auth/callback'
+    | '/otp-login'
     | '/dashboard/bus'
     | '/dashboard/events'
     | '/dashboard/locations'
@@ -180,7 +180,7 @@ export interface FileRouteTypes {
     | '/'
     | '/bye'
     | '/dashboard'
-    | '/auth/callback'
+    | '/otp-login'
     | '/dashboard/bus'
     | '/dashboard/events'
     | '/dashboard/locations'
@@ -197,11 +197,18 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ByeRoute: typeof ByeRoute
   DashboardRoute: typeof DashboardRouteWithChildren
-  AuthCallbackRoute: typeof AuthCallbackRoute
+  OtpLoginRoute: typeof OtpLoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/otp-login': {
+      id: '/otp-login'
+      path: '/otp-login'
+      fullPath: '/otp-login'
+      preLoaderRoute: typeof OtpLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -293,13 +300,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardBusRouteImport
       parentRoute: typeof DashboardRoute
     }
-    '/auth/callback': {
-      id: '/auth/callback'
-      path: '/auth/callback'
-      fullPath: '/auth/callback'
-      preLoaderRoute: typeof AuthCallbackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -337,7 +337,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ByeRoute: ByeRoute,
   DashboardRoute: DashboardRouteWithChildren,
-  AuthCallbackRoute: AuthCallbackRoute,
+  OtpLoginRoute: OtpLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

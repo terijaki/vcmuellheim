@@ -13,6 +13,7 @@ import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import type * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
+import type { InstagramPostsLambdaEnvironment, InstagramSyncLambdaEnvironment, MastodonShareLambdaEnvironment, MastodonStreamHandlerLambdaEnvironment } from "@/lambda/social/types";
 import { Club } from "@/project.config";
 
 interface SocialMediaStackProps extends cdk.StackProps {
@@ -25,7 +26,6 @@ interface SocialMediaStackProps extends cdk.StackProps {
 	newsTable?: dynamodb.ITable;
 	websiteUrl?: string;
 	mediaBucket?: s3.IBucket;
-	cloudFrontUrl?: string;
 }
 
 export class SocialMediaStack extends cdk.Stack {
@@ -118,7 +118,7 @@ export class SocialMediaStack extends cdk.Stack {
 				APIFY_API_KEY: apifyApiKey || "",
 				APIFY_SCHEDULE_ID: apifyScheduleId,
 				APIFY_ACTOR_ID: apifyActorId,
-			},
+			} satisfies InstagramSyncLambdaEnvironment,
 			timeout: cdk.Duration.minutes(5),
 			memorySize: 512,
 			layers: [powertoolsLayer],
@@ -144,7 +144,7 @@ export class SocialMediaStack extends cdk.Stack {
 			entry: path.join(__dirname, "../lambda/social/instagram-posts.ts"),
 			environment: {
 				INSTAGRAM_TABLE_NAME: instagramTable.tableName,
-			},
+			} satisfies InstagramPostsLambdaEnvironment,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
 			layers: [powertoolsLayer],
@@ -200,9 +200,8 @@ export class SocialMediaStack extends cdk.Stack {
 			entry: path.join(__dirname, "../lambda/social/mastodon-share.ts"),
 			environment: {
 				MASTODON_ACCESS_TOKEN: mastodonAccessToken || "",
-				...(props.cloudFrontUrl ? { CLOUDFRONT_URL: props.cloudFrontUrl } : {}),
 				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
-			},
+			} satisfies Omit<MastodonShareLambdaEnvironment, "AWS_REGION">,
 			timeout: cdk.Duration.seconds(60), // Increased timeout for image uploads
 			memorySize: 512, // Increased memory for image processing
 			layers: [powertoolsLayer],
@@ -234,7 +233,7 @@ export class SocialMediaStack extends cdk.Stack {
 					ENVIRONMENT: environment,
 					WEBSITE_URL: props.websiteUrl,
 					NEWS_TABLE_NAME: props.newsTable.tableName,
-				},
+				} satisfies Omit<MastodonStreamHandlerLambdaEnvironment, "AWS_REGION">,
 				timeout: cdk.Duration.seconds(30),
 				memorySize: 256,
 				layers: [powertoolsLayer],

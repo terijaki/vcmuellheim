@@ -2,18 +2,22 @@
  * Lambda function for sharing news articles to Mastodon
  */
 
-import { Logger } from "@aws-lambda-powertools/logger";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import type { News } from "@/lib/db/types";
+import { parseLambdaEnv } from "../utils/env";
+import { createLambdaResources } from "../utils/resources";
+import { MastodonShareLambdaEnvironmentSchema } from "./types";
 
-const logger = new Logger({ serviceName: "mastodon-share" });
+const { logger } = createLambdaResources("mastodon-share");
 
-const MASTODON_ACCESS_TOKEN = process.env.MASTODON_ACCESS_TOKEN;
+const env = parseLambdaEnv(MastodonShareLambdaEnvironmentSchema);
+
+const MASTODON_ACCESS_TOKEN = env.MASTODON_ACCESS_TOKEN;
 const MASTODON_INSTANCE = "https://freiburg.social";
 const MASTODON_BASE_URL = `${MASTODON_INSTANCE}/api/v1`;
-const MEDIA_BUCKET_NAME = process.env.MEDIA_BUCKET_NAME || "";
+const MEDIA_BUCKET_NAME = env.MEDIA_BUCKET_NAME;
 
-const s3Client = new S3Client({ region: process.env.AWS_REGION || "eu-central-1" });
+const s3Client = new S3Client({ region: env.AWS_REGION });
 
 interface MastodonShareRequest {
 	newsArticle: News;

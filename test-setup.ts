@@ -6,3 +6,4 @@ process.env.JSII_DEPRECATED = "quiet";
 
 // Prevent CDK stack warnings about missing env vars during synthesis
 process.env.MASTODON_ACCESS_TOKEN = "test-token";
+process.env.BETTER_AUTH_SECRET = "test-secret-for-cdk-synthesis";

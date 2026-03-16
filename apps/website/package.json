@@ -10,7 +10,6 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@aws-sdk/client-cognito-identity-provider": "catalog:",
 		"@mantine/core": "catalog:",
 		"@mantine/dates": "catalog:",
 		"@mantine/hooks": "catalog:",

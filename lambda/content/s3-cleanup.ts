@@ -11,10 +11,13 @@ import { unmarshall } from "@aws-sdk/util-dynamodb";
 import type { DynamoDBRecord, DynamoDBStreamEvent, DynamoDBStreamHandler } from "aws-lambda";
 import type { z } from "zod";
 import { mediaSchema, memberSchema, newsSchema, sponsorSchema, teamSchema } from "../../lib/db/schemas";
+import { parseLambdaEnv } from "../utils/env";
 import { Sentry } from "../utils/sentry";
+import { S3CleanupLambdaEnvironmentSchema } from "./types";
 
 const s3Client = new S3Client({});
-const MEDIA_BUCKET = process.env.MEDIA_BUCKET_NAME || "";
+const env = parseLambdaEnv(S3CleanupLambdaEnvironmentSchema);
+const MEDIA_BUCKET = env.MEDIA_BUCKET_NAME;
 
 /**
  * S3 key extraction schemas - extracted from full entity schemas

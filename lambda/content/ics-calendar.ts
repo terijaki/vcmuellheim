@@ -1,9 +1,6 @@
-import { Logger } from "@aws-lambda-powertools/logger";
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
-import { Tracer } from "@aws-lambda-powertools/tracer";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
+import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import dayjs from "dayjs";
@@ -13,30 +10,24 @@ import utc from "dayjs/plugin/utc";
 import { generateIcsCalendar, type IcsCalendar, type IcsEvent } from "ts-ics";
 import type { Event } from "@/lib/db/types";
 import { Club } from "@/project.config";
+import { parseLambdaEnv } from "../utils/env";
+import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
+import { IcsCalendarLambdaEnvironmentSchema } from "./types";
+
+const env = parseLambdaEnv(IcsCalendarLambdaEnvironmentSchema);
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const SAMS_API_URL = process.env.SAMS_API_URL || "";
-const TEAMS_TABLE_NAME = process.env.TEAMS_TABLE_NAME || "";
-const EVENTS_TABLE_NAME = process.env.EVENTS_TABLE_NAME || "";
+const SAMS_API_URL = env.SAMS_API_URL;
+const TEAMS_TABLE_NAME = env.TEAMS_TABLE_NAME;
+const EVENTS_TABLE_NAME = env.EVENTS_TABLE_NAME;
 
 // Initialize Logger and Tracer outside handler for reuse across invocations
-const logger = new Logger({
-	serviceName: "vcm-ics-calendar",
-});
-
-const tracer = new Tracer({
-	serviceName: "vcm-ics-calendar",
-	enabled: process.env.POWERTOOLS_TRACE_ENABLED !== "false",
-});
-
-// Create DynamoDB client and trace it
-const dynamoClient = new DynamoDBClient({});
-tracer.captureAWSv3Client(dynamoClient);
-const docClient = DynamoDBDocumentClient.from(dynamoClient);
+const { logger, tracer } = createLambdaResources("vcm-ics-calendar");
+const docClient = createDynamoDocClient(tracer);
 
 /**
  * Fetch custom events from DynamoDB

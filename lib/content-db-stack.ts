@@ -18,6 +18,12 @@ export class ContentDbStack extends cdk.Stack {
 	public readonly sponsorsTable: dynamodb.Table;
 	public readonly locationsTable: dynamodb.Table;
 	public readonly busTable: dynamodb.Table;
+	public readonly usersTable: dynamodb.Table;
+	public readonly authVerificationsTable: dynamodb.Table;
+	// Alias for CDK stack type compatibility (Record<`${Lowercase<TableEntity>}Table`, ...>)
+	get auth_verificationsTable(): dynamodb.Table {
+		return this.authVerificationsTable;
+	}
 
 	constructor(scope: Construct, id: string, props?: ContentDbStackProps) {
 		super(scope, id, props);
@@ -142,6 +148,35 @@ export class ContentDbStack extends cdk.Stack {
 			timeToLiveAttribute: "ttl", // TTL attribute for auto-delete
 		});
 
+		// 9. CMS Users Table (admin users allowed to log in via better-auth)
+		this.usersTable = new dynamodb.Table(this, "UsersTable", {
+			...commonTableProps,
+			tableName: `vcm-users-${environment}${branchSuffix}`,
+			partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+		});
+
+		// GSI for looking up users by email
+		this.usersTable.addGlobalSecondaryIndex({
+			indexName: "GSI-UsersByEmail",
+			partitionKey: { name: "email", type: dynamodb.AttributeType.STRING },
+			projectionType: dynamodb.ProjectionType.ALL,
+		});
+
+		// 10. Auth Verifications Table (OTP codes with TTL)
+		this.authVerificationsTable = new dynamodb.Table(this, "AuthVerificationsTable", {
+			...commonTableProps,
+			tableName: `vcm-auth-verifications-${environment}${branchSuffix}`,
+			partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+			timeToLiveAttribute: "ttl", // Auto-delete expired OTP codes
+		});
+
+		// GSI for looking up verifications by identifier (email)
+		this.authVerificationsTable.addGlobalSecondaryIndex({
+			indexName: "GSI-VerificationsByIdentifier",
+			partitionKey: { name: "identifier", type: dynamodb.AttributeType.STRING },
+			projectionType: dynamodb.ProjectionType.ALL,
+		});
+
 		// Outputs for easy reference
 
 		// TODO: DynamoDB Stream on REMOVE event
@@ -187,6 +222,16 @@ export class ContentDbStack extends cdk.Stack {
 		new cdk.CfnOutput(this, "BusTableName", {
 			value: this.busTable.tableName,
 			description: "Bus bookings table name",
+		});
+
+		new cdk.CfnOutput(this, "UsersTableName", {
+			value: this.usersTable.tableName,
+			description: "CMS users table name",
+		});
+
+		new cdk.CfnOutput(this, "AuthVerificationsTableName", {
+			value: this.authVerificationsTable.tableName,
+			description: "Auth verifications (OTP codes) table name",
 		});
 	}
 }

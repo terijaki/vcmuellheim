@@ -1,80 +1,35 @@
 import crypto from "node:crypto";
-import {
-	AdminAddUserToGroupCommand,
-	AdminCreateUserCommand,
-	AdminDeleteUserCommand,
-	AdminGetUserCommand,
-	AdminListGroupsForUserCommand,
-	AdminRemoveUserFromGroupCommand,
-	AdminUpdateUserAttributesCommand,
-	CognitoIdentityProviderClient,
-	ListUsersCommand,
-} from "@aws-sdk/client-cognito-identity-provider";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { cmsUsersRepository, getAllCmsUsers, getCmsUserByEmail } from "@/lib/db/repositories";
 import { adminProcedure, router } from "../trpc";
-
-// Cognito client (singleton)
-const cognitoClient = new CognitoIdentityProviderClient({
-	region: process.env.AWS_REGION || "eu-central-1",
-});
-
-const userPoolId = process.env.COGNITO_USER_POOL_ID;
-
-if (!userPoolId) {
-	throw new Error("COGNITO_USER_POOL_ID environment variable is required");
-}
 
 // Zod schemas
 const UserRole = z.enum(["Admin", "Moderator"]);
 
 export const usersRouter = router({
 	/**
-	 * List all users in the Cognito User Pool
+	 * List all CMS users
 	 */
 	list: adminProcedure.query(async () => {
 		try {
-			const command = new ListUsersCommand({
-				UserPoolId: userPoolId,
-				Limit: 60, // Max users to return
-			});
-
-			const response = await cognitoClient.send(command);
-
-			const users = await Promise.all(
-				(response.Users || []).map(async (user) => {
-					// Extract attributes
-					const attrs = user.Attributes || [];
-					const getAttr = (name: string) => attrs.find((a) => a.Name === name)?.Value;
-					const email = getAttr("email") || "";
-					if (!email) return null;
-
-					// Get user's groups
-					const groupsCommand = new AdminListGroupsForUserCommand({
-						UserPoolId: userPoolId,
-						Username: email,
-					});
-					const groupsResponse = await cognitoClient.send(groupsCommand);
-					const groups = (groupsResponse.Groups || []).map((g) => g.GroupName || "").filter(Boolean);
-
-					return {
-						email,
-						givenName: getAttr("given_name") || "",
-						familyName: getAttr("family_name") || "",
-						status: user.UserStatus || "UNKNOWN",
-						created: user.UserCreateDate?.toISOString() || "",
-						modified: user.UserLastModifiedDate?.toISOString() || "",
-						groups,
-					};
-				}),
-			);
-
-			return users.filter((u): u is NonNullable<typeof u> => u !== null);
+			const users = await getAllCmsUsers();
+			return users.map((user) => ({
+				id: user.id,
+				email: user.email,
+				name: user.name,
+				givenName: user.name.split(" ")[0] || user.name,
+				familyName: user.name.split(" ").slice(1).join(" ") || "",
+				role: user.role,
+				groups: [user.role],
+				created: user.createdAt,
+				modified: user.updatedAt,
+			}));
 		} catch (error) {
 			console.error("Failed to list users:", error);
 			throw new TRPCError({
 				code: "INTERNAL_SERVER_ERROR",
-				message: "Failed to list users from Cognito",
+				message: "Failed to list users",
 			});
 		}
 	}),
@@ -84,45 +39,34 @@ export const usersRouter = router({
 	 */
 	getByEmail: adminProcedure.input(z.object({ email: z.string().email() })).query(async ({ input }) => {
 		try {
-			const command = new AdminGetUserCommand({
-				UserPoolId: userPoolId,
-				Username: input.email,
-			});
-
-			const response = await cognitoClient.send(command);
-
-			// Get user's groups
-			const groupsCommand = new AdminListGroupsForUserCommand({
-				UserPoolId: userPoolId,
-				Username: input.email,
-			});
-			const groupsResponse = await cognitoClient.send(groupsCommand);
-			const groups = (groupsResponse.Groups || []).map((g) => g.GroupName || "").filter(Boolean);
-
-			// Extract attributes
-			const attrs = response.UserAttributes || [];
-			const getAttr = (name: string) => attrs.find((a) => a.Name === name)?.Value;
-
+			const user = await getCmsUserByEmail(input.email);
+			if (!user) {
+				throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
+			}
 			return {
-				email: input.email,
-				givenName: getAttr("given_name") || "",
-				familyName: getAttr("family_name") || "",
-				status: response.UserStatus || "UNKNOWN",
-				created: response.UserCreateDate?.toISOString() || "",
-				modified: response.UserLastModifiedDate?.toISOString() || "",
-				groups,
+				id: user.id,
+				email: user.email,
+				name: user.name,
+				givenName: user.name.split(" ")[0] || user.name,
+				familyName: user.name.split(" ").slice(1).join(" ") || "",
+				role: user.role,
+				groups: [user.role],
+				created: user.createdAt,
+				modified: user.updatedAt,
 			};
 		} catch (error) {
+			if (error instanceof TRPCError) throw error;
 			console.error("Failed to get user:", error);
 			throw new TRPCError({
-				code: "NOT_FOUND",
-				message: "User not found",
+				code: "INTERNAL_SERVER_ERROR",
+				message: "Failed to get user",
 			});
 		}
 	}),
 
 	/**
-	 * Create a new user
+	 * Create a new CMS user (whitelisted email)
+	 * Registers the user in DynamoDB for email OTP whitelist
 	 */
 	create: adminProcedure
 		.input(
@@ -134,55 +78,27 @@ export const usersRouter = router({
 			}),
 		)
 		.mutation(async ({ input }) => {
-			// Generate 4 random digits (0-9)
-			const randomDigits = Array.from({ length: 4 }, () => crypto.randomInt(0, 10));
-			const chars = "ABCDEFGHJKLMPQRSTWXYZabcdefghkpqrstwxyz";
-			// Generate 3 random letters
-			const randomLetters = Array.from({ length: 3 }, () => chars[crypto.randomInt(0, chars.length)]);
-			const symbols = "!@#$%&*-_=+?";
-			// Generate 1 random symbol
-			const randomSymbols = Array.from({ length: 1 }, () => symbols[crypto.randomInt(0, symbols.length)]);
-			const tempParts = ["V", "m", ...randomDigits, ...randomSymbols, ...randomLetters];
-			// Secure shuffle
-			const secureShuffle = (array: unknown[]) => {
-				for (let i = array.length - 1; i > 0; i--) {
-					const j = crypto.randomInt(0, i + 1);
-					[array[i], array[j]] = [array[j], array[i]];
-				}
-				return array;
-			};
-			const temporaryPassword = `${secureShuffle(tempParts).join("")}`;
+			// Check if user already exists
+			const existing = await getCmsUserByEmail(input.email);
+			if (existing) {
+				throw new TRPCError({
+					code: "CONFLICT",
+					message: "A user with this email already exists",
+				});
+			}
+
+			const name = `${input.givenName} ${input.familyName}`.trim();
+			const userId = crypto.randomUUID();
 
 			try {
-				// Create user
-				const command = new AdminCreateUserCommand({
-					UserPoolId: userPoolId,
-					Username: input.email,
-					UserAttributes: [
-						{ Name: "email", Value: input.email },
-						{ Name: "email_verified", Value: "true" },
-						{ Name: "given_name", Value: input.givenName },
-						{ Name: "family_name", Value: input.familyName },
-					],
-					DesiredDeliveryMediums: ["EMAIL"],
-					TemporaryPassword: temporaryPassword,
+				await cmsUsersRepository.create({
+					id: userId,
+					email: input.email,
+					name,
+					emailVerified: false,
+					role: input.role,
 				});
 
-				const createResponse = await cognitoClient.send(command);
-				const cognitoUsername = createResponse.User?.Username;
-
-				if (!cognitoUsername) {
-					throw new Error("User creation succeeded but no username was returned");
-				}
-
-				// Add user to group
-				const groupCommand = new AdminAddUserToGroupCommand({
-					UserPoolId: userPoolId,
-					Username: cognitoUsername,
-					GroupName: input.role,
-				});
-
-				await cognitoClient.send(groupCommand);
 				return {
 					email: input.email,
 					givenName: input.givenName,
@@ -190,15 +106,7 @@ export const usersRouter = router({
 					role: input.role,
 				};
 			} catch (error) {
-				console.error("Failed to create user:", error);
-
-				if (error && typeof error === "object" && "name" in error && error.name === "UsernameExistsException") {
-					throw new TRPCError({
-						code: "CONFLICT",
-						message: "A user with this email already exists",
-					});
-				}
-
+				if (error instanceof TRPCError) throw error;
 				const errorMessage = error instanceof Error ? error.message : "Unknown error";
 				throw new TRPCError({
 					code: "INTERNAL_SERVER_ERROR",
@@ -208,7 +116,7 @@ export const usersRouter = router({
 		}),
 
 	/**
-	 * Update user attributes and role
+	 * Update user name and role
 	 */
 	update: adminProcedure
 		.input(
@@ -220,73 +128,33 @@ export const usersRouter = router({
 			}),
 		)
 		.mutation(async ({ input, ctx }) => {
+			// Prevent users from changing their own role
+			if (ctx.userEmail === input.email && input.role) {
+				throw new TRPCError({
+					code: "FORBIDDEN",
+					message: "You cannot change your own role",
+				});
+			}
+
+			const user = await getCmsUserByEmail(input.email);
+			if (!user) {
+				throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
+			}
+
 			try {
-				const attributes = [];
+				const newName = input.givenName || input.familyName ? `${input.givenName ?? user.name.split(" ")[0]} ${input.familyName ?? user.name.split(" ").slice(1).join(" ")}`.trim() : user.name;
 
-				if (input.givenName) {
-					attributes.push({ Name: "given_name", Value: input.givenName });
-				}
+				const updates: Partial<{ name: string; role: "Admin" | "Moderator" }> = {};
+				if (newName !== user.name) updates.name = newName;
+				if (input.role && input.role !== user.role) updates.role = input.role;
 
-				if (input.familyName) {
-					attributes.push({ Name: "family_name", Value: input.familyName });
-				}
-
-				if (attributes.length > 0) {
-					const command = new AdminUpdateUserAttributesCommand({
-						UserPoolId: userPoolId,
-						Username: input.email,
-						UserAttributes: attributes,
-					});
-
-					await cognitoClient.send(command);
-				}
-
-				// Handle role change if provided
-				if (input.role) {
-					// Prevent users from changing their own role
-					if (ctx.userEmail === input.email) {
-						throw new TRPCError({
-							code: "FORBIDDEN",
-							message: "You cannot change your own role",
-						});
-					}
-
-					// Get user's current groups
-					const groupsCommand = new AdminListGroupsForUserCommand({
-						UserPoolId: userPoolId,
-						Username: input.email,
-					});
-					const groupsResponse = await cognitoClient.send(groupsCommand);
-					const currentGroups = (groupsResponse.Groups || []).map((g) => g.GroupName || "").filter(Boolean);
-
-					// Remove from all current groups
-					for (const group of currentGroups) {
-						const removeCommand = new AdminRemoveUserFromGroupCommand({
-							UserPoolId: userPoolId,
-							Username: input.email,
-							GroupName: group,
-						});
-						await cognitoClient.send(removeCommand);
-					}
-
-					// Add to new group
-					const addCommand = new AdminAddUserToGroupCommand({
-						UserPoolId: userPoolId,
-						Username: input.email,
-						GroupName: input.role,
-					});
-
-					await cognitoClient.send(addCommand);
+				if (Object.keys(updates).length > 0) {
+					await cmsUsersRepository.update(user.id, updates);
 				}
 
 				return { success: true };
 			} catch (error) {
-				console.error("Failed to update user:", error);
-
-				if (error instanceof TRPCError && error.code === "FORBIDDEN") {
-					throw error;
-				}
-
+				if (error instanceof TRPCError) throw error;
 				throw new TRPCError({
 					code: "INTERNAL_SERVER_ERROR",
 					message: "Failed to update user",
@@ -298,30 +166,24 @@ export const usersRouter = router({
 	 * Delete user permanently
 	 */
 	delete: adminProcedure.input(z.object({ email: z.email() })).mutation(async ({ input, ctx }) => {
-		try {
-			// Prevent users from deleting themselves
-			if (ctx.userEmail === input.email) {
-				throw new TRPCError({
-					code: "FORBIDDEN",
-					message: "You cannot delete your own account",
-				});
-			}
-
-			const command = new AdminDeleteUserCommand({
-				UserPoolId: userPoolId,
-				Username: input.email,
+		// Prevent users from deleting themselves
+		if (ctx.userEmail === input.email) {
+			throw new TRPCError({
+				code: "FORBIDDEN",
+				message: "You cannot delete your own account",
 			});
+		}
 
-			await cognitoClient.send(command);
+		const user = await getCmsUserByEmail(input.email);
+		if (!user) {
+			throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
+		}
 
+		try {
+			await cmsUsersRepository.delete(user.id);
 			return { success: true };
 		} catch (error) {
-			console.error("Failed to delete user:", error);
-
-			if (error instanceof TRPCError && error.code === "FORBIDDEN") {
-				throw error;
-			}
-
+			if (error instanceof TRPCError) throw error;
 			throw new TRPCError({
 				code: "INTERNAL_SERVER_ERROR",
 				message: "Failed to delete user",

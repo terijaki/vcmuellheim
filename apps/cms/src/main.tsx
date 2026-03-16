@@ -10,7 +10,6 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "dayjs/locale/de";
 import * as Sentry from "@sentry/react";
-import { AuthProvider, useAuth } from "./auth/AuthContext";
 import { TrpcProvider } from "./lib/TrpcProvider";
 import { router } from "./router";
 
@@ -85,8 +84,7 @@ function ThemingProvider({ children }: { children: React.ReactNode }) {
 }
 
 function ProtectedApp() {
-	const auth = useAuth();
-	return <RouterProvider router={router} context={{ auth }} />;
+	return <RouterProvider router={router} />;
 }
 
 const rootElement = document.getElementById("root");
@@ -95,11 +93,9 @@ if (!rootElement) throw new Error("Root element not found");
 createRoot(rootElement).render(
 	<StrictMode>
 		<ThemingProvider>
-			<AuthProvider>
-				<TrpcProvider>
-					<ProtectedApp />
-				</TrpcProvider>
-			</AuthProvider>
+			<TrpcProvider>
+				<ProtectedApp />
+			</TrpcProvider>
 		</ThemingProvider>
 	</StrictMode>,
 );

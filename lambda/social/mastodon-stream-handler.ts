@@ -3,7 +3,6 @@
  * Triggers Mastodon sharing when a news article is published
  */
 
-import { Logger } from "@aws-lambda-powertools/logger";
 import type { AttributeValue } from "@aws-sdk/client-dynamodb";
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import { UpdateCommand } from "@aws-sdk/lib-dynamodb";
@@ -11,13 +10,17 @@ import { unmarshall } from "@aws-sdk/util-dynamodb";
 import type { DynamoDBStreamEvent } from "aws-lambda";
 import { docClient } from "@/lib/db/client";
 import type { News } from "@/lib/db/types";
+import { parseLambdaEnv } from "../utils/env";
+import { createLambdaResources } from "../utils/resources";
+import { MastodonStreamHandlerLambdaEnvironmentSchema } from "./types";
 
-const logger = new Logger({ serviceName: "mastodon-stream-handler" });
-const lambdaClient = new LambdaClient({ region: process.env.AWS_REGION || "eu-central-1" });
-const MASTODON_LAMBDA_NAME = process.env.MASTODON_LAMBDA_NAME || "";
-const ENVIRONMENT = process.env.ENVIRONMENT || "dev";
-const WEBSITE_URL = process.env.WEBSITE_URL || "";
-const NEWS_TABLE_NAME = process.env.NEWS_TABLE_NAME || "";
+const { logger } = createLambdaResources("mastodon-stream-handler");
+const env = parseLambdaEnv(MastodonStreamHandlerLambdaEnvironmentSchema);
+const lambdaClient = new LambdaClient({ region: env.AWS_REGION });
+const MASTODON_LAMBDA_NAME = env.MASTODON_LAMBDA_NAME;
+const ENVIRONMENT = env.ENVIRONMENT;
+const WEBSITE_URL = env.WEBSITE_URL;
+const NEWS_TABLE_NAME = env.NEWS_TABLE_NAME;
 
 interface MastodonShareRequest {
 	newsArticle: News;
@@ -33,11 +36,6 @@ export async function handler(event: DynamoDBStreamEvent): Promise<void> {
 	// Only process in production
 	if (ENVIRONMENT !== "prod") {
 		logger.info("Skipping Mastodon sharing - not in production environment");
-		return;
-	}
-
-	if (!MASTODON_LAMBDA_NAME || !WEBSITE_URL || !NEWS_TABLE_NAME) {
-		logger.warn("Missing required environment variables for Mastodon sharing");
 		return;
 	}
 

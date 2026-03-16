@@ -1,8 +1,9 @@
-import { afterEach, beforeEach, describe, expect, it } from "bun:test";
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from "bun:test";
 import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import type { APIGatewayProxyEvent, Context } from "aws-lambda";
 import { mockClient } from "aws-sdk-client-mock";
-import { handler } from "./ics-calendar";
+
+let handler: typeof import("./ics-calendar").handler;
 
 const ddbMock = mockClient(DynamoDBDocumentClient);
 
@@ -44,6 +45,15 @@ const defaultMockFetch = async (url: string) => {
 
 // Mock context
 const mockContext = { getRemainingTimeInMillis: () => 30000 } as unknown as Context;
+
+beforeAll(async () => {
+	process.env.TEAMS_TABLE_NAME = "test-teams-table";
+	process.env.EVENTS_TABLE_NAME = "test-events-table";
+	process.env.SAMS_API_URL = "https://api.example.com";
+
+	const module = await import("./ics-calendar");
+	handler = module.handler;
+});
 
 beforeEach(() => {
 	ddbMock.reset();

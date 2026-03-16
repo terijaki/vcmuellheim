@@ -1,15 +1,16 @@
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
+import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import dayjs from "dayjs";
+import { parseLambdaEnv } from "../utils/env";
+import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
-import type { InstagramPost } from "./types";
+import { type InstagramPost, InstagramPostsLambdaEnvironmentSchema } from "./types";
 
-// Initialize DynamoDB client
-const dynamoClient = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(dynamoClient);
+const { tracer } = createLambdaResources("instagram-posts");
+const docClient = createDynamoDocClient(tracer);
 
-const TABLE_NAME = process.env.INSTAGRAM_TABLE_NAME;
+const env = parseLambdaEnv(InstagramPostsLambdaEnvironmentSchema);
+const TABLE_NAME = env.INSTAGRAM_TABLE_NAME;
 
 const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 	console.log("📸 Instagram posts request", { path: event.path, queryParams: event.queryStringParameters });

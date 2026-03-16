@@ -1,12 +1,7 @@
 import { Center, Loader, Stack, Text, Title } from "@mantine/core";
-import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
-import type { AuthContext } from "../auth/AuthContext";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 
-interface CmsRouterContext {
-	auth: AuthContext;
-}
-
-export const Route = createRootRouteWithContext<CmsRouterContext>()({
+export const Route = createRootRoute({
 	component: () => <Outlet />,
 	errorComponent: ({ error }) => {
 		return (

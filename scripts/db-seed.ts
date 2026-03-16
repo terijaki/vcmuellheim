@@ -15,13 +15,11 @@
  *   bun run db:seed --locations        # Seeds only locations
  *   bun run db:seed --sponsors         # Seeds only sponsors
  *   bun run db:seed --bus              # Seeds only bus bookings
- *   bun run db:seed --user email@example.com|password  # Create a Cognito user
- *   bun run db:seed --user email@example.com --password password  # Create a Cognito user (alt format)
+ *   bun run db:seed --user email@example.com  # Create a CMS user (Admin role, passwordless)
  */
 
 import { execSync } from "node:child_process";
 import https from "node:https";
-import { AdminAddUserToGroupCommand, AdminCreateUserCommand, AdminSetUserPasswordCommand, CognitoIdentityProviderClient } from "@aws-sdk/client-cognito-identity-provider";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { BatchWriteCommand, DynamoDBDocumentClient, ScanCommand as ScanDocCommand } from "@aws-sdk/lib-dynamodb";
@@ -64,11 +62,6 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 // Initialize S3 client
 const s3Client = new S3Client({
-	region: process.env.AWS_REGION || "eu-central-1",
-});
-
-// Initialize Cognito client
-const cognitoClient = new CognitoIdentityProviderClient({
 	region: process.env.AWS_REGION || "eu-central-1",
 });
 
@@ -152,46 +145,18 @@ const seedLocations = args.length === 0 || args.includes("--locations");
 const seedSponsors = args.length === 0 || args.includes("--sponsors");
 const seedBus = args.length === 0 || args.includes("--bus");
 
-// Handle --user argument
+// Handle --user argument (email only — passwordless OTP authentication)
 const userArgIndex = args.indexOf("--user");
 const shouldCreateUser = userArgIndex !== -1;
 let userEmail: string | undefined;
-let userPassword: string | undefined;
 
 if (shouldCreateUser) {
-	const userCredentials = args[userArgIndex + 1];
-
-	// Support two formats:
-	// 1. --user "email@example.com|password"
-	// 2. --user email@example.com --password password
-	if (userCredentials?.includes("|")) {
-		// Format: email|password
-		const [email, password] = userCredentials.split("|");
-		if (!email || !password) {
-			console.error("❌ Both email and password must be provided. Use: --user email@example.com|password");
-			process.exit(1);
-		}
-		userEmail = email;
-		userPassword = password;
-	} else if (userCredentials && !userCredentials.startsWith("--")) {
-		// Format: email with separate --password
-		userEmail = userCredentials;
-		const passwordArgIndex = args.indexOf("--password");
-		if (passwordArgIndex !== -1) {
-			userPassword = args[passwordArgIndex + 1];
-		}
-		if (!userEmail || !userPassword) {
-			console.error("❌ Invalid --user format. Use one of:");
-			console.error("   --user email@example.com|password");
-			console.error("   --user email@example.com --password password");
-			process.exit(1);
-		}
-	} else {
-		console.error("❌ Invalid --user format. Use one of:");
-		console.error("   --user email@example.com|password");
-		console.error("   --user email@example.com --password password");
+	const email = args[userArgIndex + 1];
+	if (!email || email.startsWith("--")) {
+		console.error("❌ Email address required. Use: --user email@example.com");
 		process.exit(1);
 	}
+	userEmail = email;
 }
 
 const locationCache: LocationInput[] = [];
@@ -199,92 +164,48 @@ const membersCache: MemberInput[] = [];
 const teamCache: TeamInput[] = [];
 
 /**
- * Get the Cognito User Pool ID from CDK stack outputs
+ * Create a CMS user (whitelisted email) in the USERS DynamoDB table
+ * The user can then sign in via email OTP (passwordless) at the CMS admin panel.
  */
-function getCognitoUserPoolId(): string {
-	const userPoolIdEnv = process.env.COGNITO_USER_POOL_ID;
-	if (userPoolIdEnv) {
-		return userPoolIdEnv;
-	}
+async function createCmsUser(email: string): Promise<void> {
+	const usersTable = `vcm-users-${CDK_ENVIRONMENT}${branchSuffix}`;
 
-	// Try to get from CloudFormation stack outputs
-	// Query all stacks for one with ApiStack in the name
-	try {
-		const stackName = execSync(`aws cloudformation describe-stacks --query "Stacks[?contains(StackName, 'ApiStack')].StackName | [0]" --output text`, { encoding: "utf-8" }).trim();
+	console.log(`\n👤 Creating CMS user: ${email}...`);
 
-		if (!stackName) {
-			throw new Error("No ApiStack found");
-		}
+	// Check if user already exists
+	const { ScanCommand } = await import("@aws-sdk/lib-dynamodb");
+	const existing = await docClient.send(
+		new ScanCommand({
+			TableName: usersTable,
+			FilterExpression: "email = :email",
+			ExpressionAttributeValues: { ":email": email },
+			Limit: 1,
+		}),
+	);
 
-		const output = execSync(`aws cloudformation describe-stacks --stack-name "${stackName}" --query "Stacks[0].Outputs[?OutputKey=='UserPoolId'].OutputValue" --output text`, {
-			encoding: "utf-8",
-		}).trim();
-
-		if (output) {
-			return output;
-		}
-	} catch (_error) {
-		// Stack might not exist or AWS CLI not configured
-	}
-
-	console.error("❌ COGNITO_USER_POOL_ID could not be determined automatically.");
-	console.error("   Set COGNITO_USER_POOL_ID environment variable or run 'bun run cdk:deploy' first.");
-	process.exit(1);
-}
-
-/**
- * Create a Cognito user with email and password
- */
-async function createCognitoUser(email: string, password: string): Promise<void> {
-	const userPoolId = getCognitoUserPoolId();
-
-	console.log(`\n👤 Creating Cognito user: ${email}...`);
-
-	try {
-		// Create user
-		await cognitoClient.send(
-			new AdminCreateUserCommand({
-				UserPoolId: userPoolId,
-				Username: email,
-				MessageAction: "SUPPRESS", // Don't send welcome email
-				TemporaryPassword: password,
-			}),
-		);
-
-		console.log(`  ✓ User created`);
-
-		// Set permanent password
-		await cognitoClient.send(
-			new AdminSetUserPasswordCommand({
-				UserPoolId: userPoolId,
-				Username: email,
-				Password: password,
-				Permanent: true,
-			}),
-		);
-
-		console.log(`  ✓ Password set`);
-
-		// Add user to admin group
-		await cognitoClient.send(
-			new AdminAddUserToGroupCommand({
-				UserPoolId: userPoolId,
-				Username: email,
-				GroupName: "Admin",
-			}),
-		);
-
-		console.log(`  ✓ Added to admin group`);
-		console.log(`✅ User ${email} created successfully`);
-	} catch (error) {
-		const errorMsg = (error as Error).message || "";
-		if (errorMsg.includes("UsernameExistsException")) {
-			console.error(`❌ User ${email} already exists`);
-		} else {
-			console.error(`❌ Failed to create user ${email}:`, error);
-		}
+	if (existing.Items && existing.Items.length > 0) {
+		console.error(`❌ User ${email} already exists`);
 		process.exit(1);
 	}
+
+	const { PutCommand } = await import("@aws-sdk/lib-dynamodb");
+	await docClient.send(
+		new PutCommand({
+			TableName: usersTable,
+			Item: {
+				id: crypto.randomUUID(),
+				email,
+				name: email.split("@")[0],
+				emailVerified: false,
+				role: "Admin",
+				createdAt: new Date().toISOString(),
+				updatedAt: new Date().toISOString(),
+			},
+		}),
+	);
+
+	console.log(`✅ CMS user ${email} created (role: Admin)`);
+	console.log(`   The user can now sign in at the CMS with email OTP (passwordless).`);
 }
 
 /**
@@ -1032,8 +953,8 @@ async function seedBusData() {
 async function main() {
 	try {
 		// Handle user creation
-		if (shouldCreateUser && userEmail && userPassword) {
-			await createCognitoUser(userEmail, userPassword);
+		if (shouldCreateUser && userEmail) {
+			await createCmsUser(userEmail);
 			return;
 		}
 

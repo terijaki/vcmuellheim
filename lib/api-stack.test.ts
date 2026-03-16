@@ -4,6 +4,7 @@ import { Match, Template } from "aws-cdk-lib/assertions";
 import * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as route53 from "aws-cdk-lib/aws-route53";
+import * as s3 from "aws-cdk-lib/aws-s3";
 import { ApiStack } from "./api-stack";
 import { createTestApp } from "./test-helpers";
 
@@ -59,6 +60,16 @@ function createMockTables(stack: Stack, env: string) {
 		...streamConfig,
 	});
 
+	const usersTable = new dynamodb.Table(stack, "MockUsersTable", {
+		tableName: `vcm-users-${env}`,
+		partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+	});
+
+	const authVerificationsTable = new dynamodb.Table(stack, "MockAuthVerificationsTable", {
+		tableName: `vcm-auth-verifications-${env}`,
+		partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+	});
+
 	return {
 		newsTable,
 		eventsTable,
@@ -68,6 +79,8 @@ function createMockTables(stack: Stack, env: string) {
 		sponsorsTable,
 		locationsTable,
 		busTable,
+		usersTable,
+		auth_verificationsTable: authVerificationsTable,
 	};
 }
 
@@ -83,6 +96,30 @@ function createMockDnsResources(stack: Stack) {
 	return { hostedZone, regionalCertificate };
 }
 
+function createMockApiDependencies(stack: Stack, env: string) {
+	const mediaBucket = new s3.Bucket(stack, `MockMediaBucket-${env}`, {
+		bucketName: `vcm-media-${env}-test-bucket`,
+	});
+
+	const samsClubsTable = new dynamodb.Table(stack, `MockSamsClubsTable-${env}`, {
+		tableName: `sams-clubs-${env}`,
+		partitionKey: { name: "sportsclubUuid", type: dynamodb.AttributeType.STRING },
+	});
+
+	const samsTeamsTable = new dynamodb.Table(stack, `MockSamsTeamsTable-${env}`, {
+		tableName: `sams-teams-${env}`,
+		partitionKey: { name: "uuid", type: dynamodb.AttributeType.STRING },
+	});
+
+	return {
+		mediaBucket,
+		samsApiStack: {
+			samsClubsTable,
+			samsTeamsTable,
+		},
+	};
+}
+
 describe("ApiStack", () => {
 	describe("Development environment", () => {
 		it("should create stack with correct resources", () => {
@@ -96,6 +133,7 @@ describe("ApiStack", () => {
 
 			const mockTables = createMockTables(stack, "dev");
 			const mockDns = createMockDnsResources(stack);
+			const mockDependencies = createMockApiDependencies(stack, "dev");
 
 			const apiStack = new ApiStack(app, "ApiTestStack", {
 				env: {
@@ -107,19 +145,17 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDependencies,
 				...mockDns,
 			});
 
 			const template = Template.fromStack(apiStack);
 
-			// Should have Cognito User Pool
-			template.resourceCountIs("AWS::Cognito::UserPool", 1);
+			// Should NOT have Cognito resources
+			template.resourceCountIs("AWS::Cognito::UserPool", 0);
 
-			// Should have User Pool Client
-			template.resourceCountIs("AWS::Cognito::UserPoolClient", 1);
-
-			// Should have 5 Lambda functions (tRPC API + ICS calendar + Sitemap + S3 Cleanup + custom resource for SES)
-			template.resourceCountIs("AWS::Lambda::Function", 5);
+			// Should have 4 Lambda functions (tRPC API + ICS calendar + Sitemap + S3 Cleanup)
+			template.resourceCountIs("AWS::Lambda::Function", 4);
 
 			// Should have HTTP API
 			template.resourceCountIs("AWS::ApiGatewayV2::Api", 1);
@@ -128,34 +164,12 @@ describe("ApiStack", () => {
 			template.resourceCountIs("AWS::ApiGatewayV2::Route", 6); // 2 for /api/{proxy+}, 1 for /ics/{teamSlug}, 1 for /sitemap.xml, 2 for /{proxy+}
 		});
 
-		it("should set correct removal policy for dev", () => {
-			const app = createTestApp();
-			const mockStack = new Stack(app, "MockStack");
-			const mockTables = createMockTables(mockStack, "dev");
-			const mockDns = createMockDnsResources(mockStack);
-
-			const stack = new ApiStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-				contentDbStack: mockTables,
-				...mockDns,
-			});
-
-			const template = Template.fromStack(stack);
-
-			// Dev user pool should have DESTROY removal policy
-			template.hasResourceProperties("AWS::Cognito::UserPool", {
-				UserPoolName: "vcm-admin-dev",
-			});
-		});
-
 		it("should include branch suffix in resource names", () => {
 			const app = createTestApp();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev-feature-xyz");
 			const mockDns = createMockDnsResources(mockStack);
+			const mockDependencies = createMockApiDependencies(mockStack, "dev-feature-xyz");
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -163,6 +177,7 @@ describe("ApiStack", () => {
 					branch: "feature-xyz",
 				},
 				contentDbStack: mockTables,
+				...mockDependencies,
 				...mockDns,
 			});
 
@@ -172,20 +187,16 @@ describe("ApiStack", () => {
 			template.hasResourceProperties("AWS::Lambda::Function", {
 				FunctionName: "vcm-trpc-api-dev-feature-xyz",
 			});
-
-			// Check User Pool name includes branch suffix
-			template.hasResourceProperties("AWS::Cognito::UserPool", {
-				UserPoolName: "vcm-admin-dev-feature-xyz",
-			});
 		});
 	});
 
 	describe("Production environment", () => {
-		it("should set RETAIN removal policy for prod", () => {
+		it("should configure Lambda for prod", () => {
 			const app = createTestApp();
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "prod");
 			const mockDns = createMockDnsResources(mockStack);
+			const mockDependencies = createMockApiDependencies(mockStack, "prod");
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -193,113 +204,14 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDependencies,
 				...mockDns,
 			});
 
 			const template = Template.fromStack(stack);
 
-			// Prod user pool should have RETAIN removal policy
-			template.hasResourceProperties("AWS::Cognito::UserPool", {
-				UserPoolName: "vcm-admin-prod",
-			});
-		});
-
-		it("should disable self sign-up in prod", () => {
-			const app = createTestApp();
-			const mockStack = new Stack(app, "MockStack");
-			const mockTables = createMockTables(mockStack, "prod");
-			const mockDns = createMockDnsResources(mockStack);
-
-			const stack = new ApiStack(app, "TestStack", {
-				stackProps: {
-					environment: "prod",
-					branch: "",
-				},
-				contentDbStack: mockTables,
-				...mockDns,
-			});
-
-			const template = Template.fromStack(stack);
-
-			template.hasResourceProperties("AWS::Cognito::UserPool", {
-				UserPoolName: "vcm-admin-prod",
-			});
-		});
-
-		it("should enforce strong password policy in prod", () => {
-			const app = createTestApp();
-			const mockStack = new Stack(app, "MockStack");
-			const mockTables = createMockTables(mockStack, "prod");
-			const mockDns = createMockDnsResources(mockStack);
-
-			const stack = new ApiStack(app, "TestStack", {
-				stackProps: {
-					environment: "prod",
-					branch: "",
-				},
-				contentDbStack: mockTables,
-				...mockDns,
-			});
-
-			const template = Template.fromStack(stack);
-
-			template.hasResourceProperties("AWS::Cognito::UserPool", {
-				Policies: {
-					PasswordPolicy: {
-						MinimumLength: 8,
-						RequireLowercase: true,
-						RequireUppercase: true,
-						RequireNumbers: true,
-						RequireSymbols: true,
-					},
-				},
-			});
-		});
-	});
-
-	describe("Cognito User Pool", () => {
-		it("should configure email sign-in", () => {
-			const app = createTestApp();
-			const mockStack = new Stack(app, "MockStack");
-			const mockTables = createMockTables(mockStack, "dev");
-			const mockDns = createMockDnsResources(mockStack);
-
-			const stack = new ApiStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-				contentDbStack: mockTables,
-				...mockDns,
-			});
-
-			const template = Template.fromStack(stack);
-
-			template.hasResourceProperties("AWS::Cognito::UserPool", {
-				UsernameAttributes: ["email"],
-				AutoVerifiedAttributes: ["email"],
-			});
-		});
-
-		it("should enable optional MFA", () => {
-			const app = createTestApp();
-			const mockStack = new Stack(app, "MockStack");
-			const mockTables = createMockTables(mockStack, "dev");
-			const mockDns = createMockDnsResources(mockStack);
-
-			const stack = new ApiStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-				contentDbStack: mockTables,
-				...mockDns,
-			});
-
-			const template = Template.fromStack(stack);
-
-			template.hasResourceProperties("AWS::Cognito::UserPool", {
-				MfaConfiguration: "OPTIONAL",
+			template.hasResourceProperties("AWS::Lambda::Function", {
+				FunctionName: "vcm-trpc-api-prod",
 			});
 		});
 	});
@@ -310,6 +222,7 @@ describe("ApiStack", () => {
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
+			const mockDependencies = createMockApiDependencies(mockStack, "dev");
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -317,6 +230,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDependencies,
 				...mockDns,
 			});
 
@@ -334,6 +248,7 @@ describe("ApiStack", () => {
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
+			const mockDependencies = createMockApiDependencies(mockStack, "dev");
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -341,6 +256,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDependencies,
 				...mockDns,
 			});
 
@@ -363,13 +279,48 @@ describe("ApiStack", () => {
 				!env.MEDIA_TABLE_NAME ||
 				!env.SPONSORS_TABLE_NAME ||
 				!env.LOCATIONS_TABLE_NAME ||
-				!env.BUS_TABLE_NAME
+				!env.BUS_TABLE_NAME ||
+				!env.USERS_TABLE_NAME ||
+				!env.AUTH_VERIFICATIONS_TABLE_NAME
 			) {
 				throw new Error("Missing required table environment variables");
 			}
 
 			if (env.CDK_ENVIRONMENT !== "dev") {
 				throw new Error(`Expected CDK_ENVIRONMENT to be dev, got ${env.CDK_ENVIRONMENT}`);
+			}
+		});
+
+		it("should have BETTER_AUTH_SECRET environment variable", () => {
+			const app = createTestApp();
+			const mockStack = new Stack(app, "MockStack");
+			const mockTables = createMockTables(mockStack, "dev");
+			const mockDns = createMockDnsResources(mockStack);
+			const mockDependencies = createMockApiDependencies(mockStack, "dev");
+
+			// Provide BETTER_AUTH_SECRET env var (required by ApiStack)
+			process.env.BETTER_AUTH_SECRET = "test-secret";
+
+			const stack = new ApiStack(app, "TestStack", {
+				stackProps: {
+					environment: "dev",
+					branch: "",
+				},
+				contentDbStack: mockTables,
+				...mockDependencies,
+				...mockDns,
+			});
+
+			const template = Template.fromStack(stack);
+
+			const lambdas = template.findResources("AWS::Lambda::Function");
+			const trpcLambda = Object.values(lambdas).find((lambda) => (lambda as { Properties?: { FunctionName?: string } }).Properties?.FunctionName === "vcm-trpc-api-dev") as {
+				Properties: { Environment: { Variables: Record<string, unknown> } };
+			};
+
+			const env = trpcLambda.Properties.Environment.Variables;
+			if (!env.BETTER_AUTH_SECRET) {
+				throw new Error("Missing BETTER_AUTH_SECRET environment variable");
 			}
 		});
 	});
@@ -380,6 +331,7 @@ describe("ApiStack", () => {
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
+			const mockDependencies = createMockApiDependencies(mockStack, "dev");
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -387,6 +339,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDependencies,
 				...mockDns,
 			});
 
@@ -407,6 +360,7 @@ describe("ApiStack", () => {
 			const mockStack = new Stack(app, "MockStack");
 			const mockTables = createMockTables(mockStack, "dev");
 			const mockDns = createMockDnsResources(mockStack);
+			const mockDependencies = createMockApiDependencies(mockStack, "dev");
 
 			const stack = new ApiStack(app, "TestStack", {
 				stackProps: {
@@ -414,6 +368,7 @@ describe("ApiStack", () => {
 					branch: "",
 				},
 				contentDbStack: mockTables,
+				...mockDependencies,
 				...mockDns,
 			});
 
@@ -430,3 +385,5 @@ describe("ApiStack", () => {
 		});
 	});
 });
+
+// Helper to create mock DynamoDB tables in the same stack
