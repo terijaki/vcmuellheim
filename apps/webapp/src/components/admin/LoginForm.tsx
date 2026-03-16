@@ -1,12 +1,14 @@
 import { Alert, Button, PinInput, Stack, Text, TextInput, Title } from "@mantine/core";
+import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { authClient } from "../../lib/auth-client";
 
 export interface LoginFormProps {
-	redirectTo?: string;
+	redirectTo?: "/admin/dashboard";
 }
 
 export function LoginForm({ redirectTo = "/admin/dashboard" }: LoginFormProps) {
+	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [otp, setOtp] = useState("");
 	const [otpSent, setOtpSent] = useState(false);
@@ -60,7 +62,7 @@ export function LoginForm({ redirectTo = "/admin/dashboard" }: LoginFormProps) {
 			return;
 		}
 
-		window.location.href = redirectTo;
+		await navigate({ to: redirectTo });
 	};
 
 	return (

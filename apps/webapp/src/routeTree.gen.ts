@@ -13,7 +13,6 @@ import { Route as LayoutRouteImport } from './routes/_layout'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
 import { Route as AdminOtpLoginRouteImport } from './routes/admin/otp-login'
-import { Route as AdminByeRouteImport } from './routes/admin/bye'
 import { Route as AdminLayoutRouteImport } from './routes/admin/_layout'
 import { Route as LayoutTermineRouteImport } from './routes/_layout/termine'
 import { Route as LayoutTeamsRouteImport } from './routes/_layout/teams'
@@ -64,11 +63,6 @@ const LayoutIndexRoute = LayoutIndexRouteImport.update({
 const AdminOtpLoginRoute = AdminOtpLoginRouteImport.update({
   id: '/admin/otp-login',
   path: '/admin/otp-login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminByeRoute = AdminByeRouteImport.update({
-  id: '/admin/bye',
-  path: '/admin/bye',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminLayoutRoute = AdminLayoutRouteImport.update({
@@ -247,7 +241,6 @@ export interface FileRoutesByFullPath {
   '/teams': typeof LayoutTeamsRouteWithChildren
   '/termine': typeof LayoutTermineRouteWithChildren
   '/admin': typeof AdminLayoutRoute
-  '/admin/bye': typeof AdminByeRoute
   '/admin/otp-login': typeof AdminOtpLoginRoute
   '/admin/': typeof AdminIndexRoute
   '/news/$id': typeof LayoutNewsIdRoute
@@ -281,7 +274,6 @@ export interface FileRoutesByTo {
   '/satzung': typeof LayoutSatzungRoute
   '/tabelle': typeof LayoutTabelleRoute
   '/admin': typeof AdminIndexRoute
-  '/admin/bye': typeof AdminByeRoute
   '/admin/otp-login': typeof AdminOtpLoginRoute
   '/': typeof LayoutIndexRoute
   '/news/$id': typeof LayoutNewsIdRoute
@@ -320,7 +312,6 @@ export interface FileRoutesById {
   '/_layout/teams': typeof LayoutTeamsRouteWithChildren
   '/_layout/termine': typeof LayoutTermineRouteWithChildren
   '/admin/_layout': typeof AdminLayoutRoute
-  '/admin/bye': typeof AdminByeRoute
   '/admin/otp-login': typeof AdminOtpLoginRoute
   '/_layout/': typeof LayoutIndexRoute
   '/admin/': typeof AdminIndexRoute
@@ -361,7 +352,6 @@ export interface FileRouteTypes {
     | '/teams'
     | '/termine'
     | '/admin'
-    | '/admin/bye'
     | '/admin/otp-login'
     | '/admin/'
     | '/news/$id'
@@ -395,7 +385,6 @@ export interface FileRouteTypes {
     | '/satzung'
     | '/tabelle'
     | '/admin'
-    | '/admin/bye'
     | '/admin/otp-login'
     | '/'
     | '/news/$id'
@@ -433,7 +422,6 @@ export interface FileRouteTypes {
     | '/_layout/teams'
     | '/_layout/termine'
     | '/admin/_layout'
-    | '/admin/bye'
     | '/admin/otp-login'
     | '/_layout/'
     | '/admin/'
@@ -461,7 +449,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
   AdminLayoutRoute: typeof AdminLayoutRoute
-  AdminByeRoute: typeof AdminByeRoute
   AdminOtpLoginRoute: typeof AdminOtpLoginRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminDashboardBusRoute: typeof AdminDashboardBusRoute
@@ -507,13 +494,6 @@ declare module '@tanstack/react-router' {
       path: '/admin/otp-login'
       fullPath: '/admin/otp-login'
       preLoaderRoute: typeof AdminOtpLoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/bye': {
-      id: '/admin/bye'
-      path: '/admin/bye'
-      fullPath: '/admin/bye'
-      preLoaderRoute: typeof AdminByeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/_layout': {
@@ -823,7 +803,6 @@ const LayoutRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
   AdminLayoutRoute: AdminLayoutRoute,
-  AdminByeRoute: AdminByeRoute,
   AdminOtpLoginRoute: AdminOtpLoginRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminDashboardBusRoute: AdminDashboardBusRoute,

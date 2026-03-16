@@ -1,15 +1,15 @@
 import { AspectRatio, BackgroundImage, Card, Group, SimpleGrid, Stack, Title, Typography } from "@mantine/core";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { authClient } from "../../../lib/auth-client";
+import { createFileRoute, getRouteApi, Link } from "@tanstack/react-router";
 import { getAdminRoutesWithLabels } from "../../../utils/adminNavLinks";
 
 export const Route = createFileRoute("/admin/dashboard/")({
 	component: DashboardIndexPage,
 });
 
+const adminLayoutRoute = getRouteApi("/admin/_layout");
+
 function DashboardIndexPage() {
-	const { data: sessionData } = authClient.useSession();
-	const user = sessionData?.user as { role?: string } | undefined;
+	const { user } = adminLayoutRoute.useRouteContext();
 
 	return (
 		<SimpleGrid spacing="md" cols={{ base: 1, sm: 2, xl: 3 }}>

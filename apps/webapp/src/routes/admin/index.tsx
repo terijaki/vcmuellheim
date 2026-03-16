@@ -1,5 +1,14 @@
-import { createFileRoute, Navigate } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { getCurrentAdminUser } from "../../lib/admin-session";
 
 export const Route = createFileRoute("/admin/")({
-	component: () => <Navigate to="/admin/otp-login" />,
+	beforeLoad: async () => {
+		const user = await getCurrentAdminUser();
+
+		throw redirect({
+			to: user ? "/admin/dashboard" : "/admin/otp-login",
+		});
+	},
+	pendingComponent: () => null,
+	component: () => null,
 });

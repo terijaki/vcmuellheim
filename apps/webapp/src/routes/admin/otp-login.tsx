@@ -1,8 +1,9 @@
 import { Alert, Button, Center, Loader, Stack, Text, Title } from "@mantine/core";
-import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { LoginForm } from "../../components/admin/LoginForm";
+import { getCurrentAdminUser } from "../../lib/admin-session";
 import { authClient } from "../../lib/auth-client";
 
 const otpSearchSchema = z.union([z.string().regex(/^\d{1,6}$/), z.coerce.number().int().min(0).max(999999)]).transform((value) => String(value).padStart(6, "0"));
@@ -12,12 +13,24 @@ export const Route = createFileRoute("/admin/otp-login")({
 		email: z.email().optional(),
 		otp: otpSearchSchema.optional(),
 	}),
+	beforeLoad: async () => {
+		const user = await getCurrentAdminUser();
+
+		if (user) {
+			throw redirect({ to: "/admin/dashboard" });
+		}
+	},
+	pendingComponent: () => (
+		<Center h="100vh">
+			<Loader />
+		</Center>
+	),
 	component: OtpLoginPage,
 });
 
 function OtpLoginPage() {
+	const navigate = useNavigate();
 	const { email, otp } = Route.useSearch();
-	const { data: sessionData, isPending } = authClient.useSession();
 	const [error, setError] = useState<string | null>(null);
 	const hasOtpLinkParams = Boolean(email || otp);
 	const hasCompleteOtpLink = Boolean(email && otp);
@@ -38,26 +51,14 @@ function OtpLoginPage() {
 				return;
 			}
 
-			window.location.href = "/admin/dashboard";
+			await navigate({ to: "/admin/dashboard" });
 		};
 
 		void completeLogin();
 		return () => {
 			isCancelled = true;
 		};
-	}, [email, hasCompleteOtpLink, otp]);
-
-	if (isPending) {
-		return (
-			<Center h="100vh">
-				<Loader />
-			</Center>
-		);
-	}
-
-	if (sessionData) {
-		return <Navigate to="/admin/dashboard" />;
-	}
+	}, [email, hasCompleteOtpLink, navigate, otp]);
 
 	if (!hasOtpLinkParams) {
 		return (

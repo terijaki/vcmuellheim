@@ -5,7 +5,7 @@
 
 import { AppShell, Avatar, Burger, Center, Group, Loader, Menu, NavLink, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { createFileRoute, Link, Outlet, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, redirect, useNavigate } from "@tanstack/react-router";
 import { LogOut } from "lucide-react";
 import { useState } from "react";
 import { getCurrentAdminUser } from "../../lib/admin-session";
@@ -32,13 +32,14 @@ export const Route = createFileRoute("/admin/_layout")({
 
 function AdminShell() {
 	const { user } = Route.useRouteContext();
+	const navigate = useNavigate();
 	const [opened, { toggle }] = useDisclosure();
 	const [isLoggingOut, setIsLoggingOut] = useState(false);
 
 	const logout = async () => {
 		setIsLoggingOut(true);
 		await authClient.signOut();
-		window.location.href = "/admin/bye";
+		await navigate({ to: "/admin/otp-login", replace: true });
 	};
 
 	if (isLoggingOut) {
