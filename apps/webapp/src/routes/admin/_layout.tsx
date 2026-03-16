@@ -4,9 +4,9 @@
  * Renders only after the initial session check resolves to avoid a flash.
  */
 
-import { Alert, AppShell, Avatar, Burger, Button, Center, Group, Loader, Menu, NavLink, Outlet, PinInput, Stack, Text, TextInput, Title } from "@mantine/core";
+import { Alert, AppShell, Avatar, Burger, Button, Center, Group, Loader, Menu, NavLink, PinInput, Stack, Text, TextInput, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { LogOut } from "lucide-react";
 import { useEffect, useState } from "react";
 import { authClient } from "../../lib/auth-client";

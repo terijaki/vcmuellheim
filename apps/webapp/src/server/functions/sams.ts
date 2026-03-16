@@ -10,10 +10,48 @@ import { createServerFn } from "@tanstack/react-start";
 import { slugify } from "@utils/slugify";
 import dayjs from "dayjs";
 import { z } from "zod";
-import { LeagueMatchesResponseSchema, RankingResponseSchema } from "@/lambda/sams/types";
+import { LeagueMatchesResponseSchema, type RankingResponse, RankingResponseSchema } from "@/lambda/sams/types";
 import { getAllSamsClubs, getAllSamsTeams, getSamsClubByNameSlug, getSamsClubBySportsclubUuid, getSamsTeamByUuid, samsClubsRepository } from "../db";
 
 const SAMS_API_KEY = () => process.env.SAMS_API_KEY || "";
+
+async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<RankingResponse> {
+	const apiKey = SAMS_API_KEY();
+	if (!apiKey) throw new Error("SAMS API key not configured");
+
+	const { data: rankingsData } = await getRankingsForLeague({
+		path: { uuid: leagueUuid },
+		query: { page: 0, size: 100 },
+		headers: { "X-API-Key": apiKey },
+	});
+
+	if (!rankingsData?.content) throw new Error("No rankings found for this league");
+
+	let leagueName: string | undefined;
+	let seasonName: string | undefined;
+
+	const { data: leagueData } = await getLeagueByUuid({
+		path: { uuid: leagueUuid },
+		headers: { "X-API-Key": apiKey },
+	});
+	if (leagueData?.name) leagueName = leagueData.name;
+
+	if (leagueData?.seasonUuid) {
+		const { data: seasonData } = await getSeasonByUuid({
+			path: { uuid: leagueData.seasonUuid },
+			headers: { "X-API-Key": apiKey },
+		});
+		if (seasonData?.name) seasonName = seasonData.name;
+	}
+
+	return RankingResponseSchema.parse({
+		teams: rankingsData.content,
+		timestamp: new Date().toISOString(),
+		leagueUuid,
+		leagueName,
+		seasonName,
+	});
+}
 
 // ── SAMS API proxy — Matches ─────────────────────────────────────────────────
 
@@ -93,51 +131,22 @@ export const getSamsMatchesFn = createServerFn()
 export const getSamsRankingsFn = createServerFn()
 	.inputValidator(z.object({ leagueUuid: z.string() }))
 	.handler(async ({ data }) => {
-		const apiKey = SAMS_API_KEY();
-		if (!apiKey) throw new Error("SAMS API key not configured");
-
-		const { data: rankingsData } = await getRankingsForLeague({
-			path: { uuid: data.leagueUuid },
-			query: { page: 0, size: 100 },
-			headers: { "X-API-Key": apiKey },
-		});
-
-		if (!rankingsData?.content) throw new Error("No rankings found for this league");
-
-		let leagueName: string | undefined;
-		let seasonName: string | undefined;
-
-		const { data: leagueData } = await getLeagueByUuid({
-			path: { uuid: data.leagueUuid },
-			headers: { "X-API-Key": apiKey },
-		});
-		if (leagueData?.name) leagueName = leagueData.name;
-
-		if (leagueData?.seasonUuid) {
-			const { data: seasonData } = await getSeasonByUuid({
-				path: { uuid: leagueData.seasonUuid },
-				headers: { "X-API-Key": apiKey },
-			});
-			if (seasonData?.name) seasonName = seasonData.name;
-		}
-
-		return RankingResponseSchema.parse({
-			teams: rankingsData.content,
-			timestamp: new Date().toISOString(),
-			leagueUuid: data.leagueUuid,
-			leagueName,
-			seasonName,
-		});
+		return fetchSamsRankingsByLeagueUuid(data.leagueUuid);
 	});
 
 export const getSamsRankingsByLeagueUuidsFn = createServerFn()
 	.inputValidator(z.object({ leagueUuids: z.array(z.string()) }))
 	.handler(async ({ data }) => {
-		return Promise.all(data.leagueUuids.map((leagueUuid) => getSamsRankingsFn({ data: { leagueUuid } })));
+		return Promise.all(data.leagueUuids.map((leagueUuid) => fetchSamsRankingsByLeagueUuid(leagueUuid)));
 	});
 
 export const listSamsClubsFn = createServerFn().handler(async () => {
-	return getAllSamsClubs();
+	const result = await getAllSamsClubs();
+	return {
+		items: result.items,
+		clubs: result.items,
+		lastEvaluatedKey: result.lastEvaluatedKey,
+	};
 });
 
 export const getSamsClubBySportsclubUuidFn = createServerFn()
@@ -157,7 +166,12 @@ export const getSamsClubByNameSlugFn = createServerFn()
 	});
 
 export const listSamsTeamsFn = createServerFn().handler(async () => {
-	return getAllSamsTeams();
+	const result = await getAllSamsTeams();
+	return {
+		items: result.items,
+		teams: result.items,
+		lastEvaluatedKey: result.lastEvaluatedKey,
+	};
 });
 
 export const getSamsTeamByUuidFn = createServerFn()

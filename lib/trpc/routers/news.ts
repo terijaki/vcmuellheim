@@ -3,12 +3,15 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { slugify } from "@utils/slugify";
 import { z } from "zod";
 import { getAllNews, getNewsBySlug, getPublishedNews, newsRepository } from "../../db/repositories";
+import type { PaginationCursor } from "../../db/repository";
 import { newsSchema } from "../../db/schemas";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 const s3Client = new S3Client({ region: process.env.AWS_REGION || "eu-central-1" });
 const BUCKET_NAME = process.env.MEDIA_BUCKET_NAME || "";
 const CLOUDFRONT_URL = process.env.CLOUDFRONT_URL || "";
+const cursorValueSchema = z.custom<{}>((value) => value !== null && value !== undefined);
+const cursorSchema = z.record(z.string(), cursorValueSchema);
 
 export const newsRouter = router({
 	/** Get all news articles (admin only) */
@@ -17,12 +20,12 @@ export const newsRouter = router({
 			z
 				.object({
 					limit: z.number().min(1).max(100).optional().default(30),
-					lastEvaluatedKey: z.record(z.string(), z.unknown()).optional(),
+					lastEvaluatedKey: cursorSchema.optional(),
 				})
 				.optional(),
 		)
 		.query(async ({ input }) => {
-			return getAllNews(input?.limit, input?.lastEvaluatedKey);
+			return getAllNews(input?.limit, input?.lastEvaluatedKey as PaginationCursor | undefined);
 		}),
 
 	/** Get published news articles (public, cursor-based for infinite queries) */
@@ -31,12 +34,12 @@ export const newsRouter = router({
 			z
 				.object({
 					limit: z.number().min(1).max(100).optional().default(10),
-					cursor: z.record(z.string(), z.unknown()).optional(),
+					cursor: cursorSchema.optional(),
 				})
 				.optional(),
 		)
 		.query(async ({ input }) => {
-			return getPublishedNews(input?.limit, input?.cursor);
+			return getPublishedNews(input?.limit, input?.cursor as PaginationCursor | undefined);
 		}),
 
 	/** Get news article by ID */
@@ -91,7 +94,7 @@ export const newsRouter = router({
 				.object({
 					limit: z.number().min(1).max(100).optional().default(20),
 					format: z.enum(["urls", "keys"]).optional().default("urls"),
-					cursor: z.record(z.string(), z.unknown()).optional(),
+					cursor: cursorSchema.optional(),
 					shuffle: z.boolean().optional(),
 				})
 				.optional(),
@@ -99,14 +102,14 @@ export const newsRouter = router({
 		.output(
 			z.object({
 				images: z.array(z.string()),
-				nextCursor: z.record(z.string(), z.unknown()).optional(),
+				nextCursor: cursorSchema.optional(),
 			}),
 		)
 		.query(async ({ input }) => {
 			const format = input?.format ?? "urls";
 
 			// Fetch published news articles
-			const result = await getPublishedNews(input?.limit, input?.cursor);
+			const result = await getPublishedNews(input?.limit, input?.cursor as PaginationCursor | undefined);
 
 			// Flatten all imageS3Keys from all articles
 			const images: string[] = [];

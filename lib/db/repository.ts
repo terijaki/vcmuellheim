@@ -11,6 +11,8 @@ export interface RepositoryConfig {
 	tableName: string;
 }
 
+export type PaginationCursor = Record<string, {}>;
+
 export interface QueryOptions {
 	indexName?: string;
 	keyConditionExpression: string;
@@ -19,7 +21,7 @@ export interface QueryOptions {
 	filterExpression?: string;
 	scanIndexForward?: boolean;
 	limit?: number;
-	exclusiveStartKey?: Record<string, unknown>;
+	exclusiveStartKey?: PaginationCursor;
 }
 
 export interface ScanOptions {
@@ -27,7 +29,7 @@ export interface ScanOptions {
 	expressionAttributeValues?: Record<string, unknown>;
 	expressionAttributeNames?: Record<string, string>;
 	limit?: number;
-	exclusiveStartKey?: Record<string, unknown>;
+	exclusiveStartKey?: PaginationCursor;
 }
 
 /**
@@ -123,7 +125,7 @@ export class Repository<T extends BaseEntity> {
 	/**
 	 * Query items using GSI or primary key
 	 */
-	async query(options: QueryOptions): Promise<{ items: T[]; lastEvaluatedKey?: Record<string, unknown> }> {
+	async query(options: QueryOptions): Promise<{ items: T[]; lastEvaluatedKey?: PaginationCursor }> {
 		const params: QueryCommandInput = {
 			TableName: this.config.tableName,
 			IndexName: options.indexName,
@@ -140,14 +142,14 @@ export class Repository<T extends BaseEntity> {
 
 		return {
 			items: (result.Items as T[]) || [],
-			lastEvaluatedKey: result.LastEvaluatedKey,
+			lastEvaluatedKey: result.LastEvaluatedKey as PaginationCursor | undefined,
 		};
 	}
 
 	/**
 	 * Scan entire table (use sparingly, prefer query)
 	 */
-	async scan(options?: ScanOptions): Promise<{ items: T[]; lastEvaluatedKey?: Record<string, unknown> }> {
+	async scan(options?: ScanOptions): Promise<{ items: T[]; lastEvaluatedKey?: PaginationCursor }> {
 		const params: ScanCommandInput = {
 			TableName: this.config.tableName,
 			FilterExpression: options?.filterExpression,
@@ -161,7 +163,7 @@ export class Repository<T extends BaseEntity> {
 
 		return {
 			items: (result.Items as T[]) || [],
-			lastEvaluatedKey: result.LastEvaluatedKey,
+			lastEvaluatedKey: result.LastEvaluatedKey as PaginationCursor | undefined,
 		};
 	}
 
@@ -271,7 +273,7 @@ export class SamsRepository<T extends Partial<BaseEntity>> {
 	/**
 	 * Query items using GSI or primary key
 	 */
-	async query(options: QueryOptions): Promise<{ items: T[]; lastEvaluatedKey?: Record<string, unknown> }> {
+	async query(options: QueryOptions): Promise<{ items: T[]; lastEvaluatedKey?: PaginationCursor }> {
 		const params: QueryCommandInput = {
 			TableName: this.config.tableName,
 			IndexName: options.indexName,
@@ -288,14 +290,14 @@ export class SamsRepository<T extends Partial<BaseEntity>> {
 
 		return {
 			items: (result.Items as T[]) || [],
-			lastEvaluatedKey: result.LastEvaluatedKey,
+			lastEvaluatedKey: result.LastEvaluatedKey as PaginationCursor | undefined,
 		};
 	}
 
 	/**
 	 * Scan entire table (use sparingly, prefer query)
 	 */
-	async scan(options?: ScanOptions): Promise<{ items: T[]; lastEvaluatedKey?: Record<string, unknown> }> {
+	async scan(options?: ScanOptions): Promise<{ items: T[]; lastEvaluatedKey?: PaginationCursor }> {
 		const params: ScanCommandInput = {
 			TableName: this.config.tableName,
 			FilterExpression: options?.filterExpression,
@@ -309,7 +311,7 @@ export class SamsRepository<T extends Partial<BaseEntity>> {
 
 		return {
 			items: (result.Items as T[]) || [],
-			lastEvaluatedKey: result.LastEvaluatedKey,
+			lastEvaluatedKey: result.LastEvaluatedKey as PaginationCursor | undefined,
 		};
 	}
 

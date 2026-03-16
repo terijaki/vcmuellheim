@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import { PutCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import type { ClubResponse, TeamResponse } from "@/lambda/sams/types";
 import { docClient, getTableName } from "./client";
+import type { PaginationCursor } from "./repository";
 import { Repository, SamsRepository } from "./repository";
 import type { AuthVerification, Bus, CmsUser, Event, Location, Media, Member, News, Sponsor, Team } from "./types";
 
@@ -80,9 +81,9 @@ export const samsTeamsRepository = new SamsRepository<TeamResponse>({
  * Get all news articles (for admin), sorted by date descending, with pagination support.
  * @param {number} limit - Maximum number of items to return
  * @param {object} [startKey] - Optional start key for pagination (DynamoDB LastEvaluatedKey)
- * @returns {Promise<{ items: News[]; lastEvaluatedKey?: Record<string, unknown> }>} Items and pagination key
+ * @returns {Promise<{ items: News[]; lastEvaluatedKey?: PaginationCursor }>} Items and pagination key
  */
-export async function getAllNews(limit = 100, startKey?: Record<string, unknown>) {
+export async function getAllNews(limit = 100, startKey?: PaginationCursor) {
 	const result = await newsRepository.query({
 		indexName: "GSI-NewsByType",
 		keyConditionExpression: "#type = :type AND #updatedAt > :minDate",
@@ -100,14 +101,14 @@ export async function getAllNews(limit = 100, startKey?: Record<string, unknown>
 	});
 	return {
 		items: result.items,
-		lastEvaluatedKey: result.lastEvaluatedKey as Record<string, unknown> | undefined,
+		lastEvaluatedKey: result.lastEvaluatedKey,
 	};
 }
 
 /**
  * Get published news articles, sorted by date descending, with pagination support.
  */
-export async function getPublishedNews(limit = 10, startKey?: Record<string, unknown>) {
+export async function getPublishedNews(limit = 10, startKey?: PaginationCursor) {
 	const result = await newsRepository.query({
 		indexName: "GSI-NewsByStatus",
 		keyConditionExpression: "#status = :status AND #updatedAt > :minDate",
@@ -125,7 +126,7 @@ export async function getPublishedNews(limit = 10, startKey?: Record<string, unk
 	});
 	return {
 		items: result.items,
-		lastEvaluatedKey: result.lastEvaluatedKey as Record<string, unknown> | undefined,
+		lastEvaluatedKey: result.lastEvaluatedKey,
 	};
 }
 

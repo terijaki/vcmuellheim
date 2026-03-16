@@ -31,6 +31,9 @@ import { Route as AdminDashboardIndexRouteImport } from './routes/admin/dashboar
 import { Route as LayoutTermineIndexRouteImport } from './routes/_layout/termine.index'
 import { Route as LayoutTeamsIndexRouteImport } from './routes/_layout/teams.index'
 import { Route as LayoutNewsIndexRouteImport } from './routes/_layout/news.index'
+import { Route as ApiSamsLogosRouteImport } from './routes/api/sams/logos'
+import { Route as ApiIcsTeamSlugRouteImport } from './routes/api/ics/$teamSlug'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as AdminDashboardUsersRouteImport } from './routes/admin/dashboard/users'
 import { Route as AdminDashboardTeamsRouteImport } from './routes/admin/dashboard/teams'
 import { Route as AdminDashboardSponsorsRouteImport } from './routes/admin/dashboard/sponsors'
@@ -153,6 +156,21 @@ const LayoutNewsIndexRoute = LayoutNewsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LayoutNewsRoute,
 } as any)
+const ApiSamsLogosRoute = ApiSamsLogosRouteImport.update({
+  id: '/api/sams/logos',
+  path: '/api/sams/logos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiIcsTeamSlugRoute = ApiIcsTeamSlugRouteImport.update({
+  id: '/api/ics/$teamSlug',
+  path: '/api/ics/$teamSlug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminDashboardUsersRoute = AdminDashboardUsersRouteImport.update({
   id: '/admin/dashboard/users',
   path: '/admin/dashboard/users',
@@ -244,6 +262,9 @@ export interface FileRoutesByFullPath {
   '/admin/dashboard/sponsors': typeof AdminDashboardSponsorsRoute
   '/admin/dashboard/teams': typeof AdminDashboardTeamsRoute
   '/admin/dashboard/users': typeof AdminDashboardUsersRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/ics/$teamSlug': typeof ApiIcsTeamSlugRoute
+  '/api/sams/logos': typeof ApiSamsLogosRoute
   '/news/': typeof LayoutNewsIndexRoute
   '/teams/': typeof LayoutTeamsIndexRoute
   '/termine/': typeof LayoutTermineIndexRoute
@@ -275,6 +296,9 @@ export interface FileRoutesByTo {
   '/admin/dashboard/sponsors': typeof AdminDashboardSponsorsRoute
   '/admin/dashboard/teams': typeof AdminDashboardTeamsRoute
   '/admin/dashboard/users': typeof AdminDashboardUsersRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/ics/$teamSlug': typeof ApiIcsTeamSlugRoute
+  '/api/sams/logos': typeof ApiSamsLogosRoute
   '/news': typeof LayoutNewsIndexRoute
   '/teams': typeof LayoutTeamsIndexRoute
   '/termine': typeof LayoutTermineIndexRoute
@@ -312,6 +336,9 @@ export interface FileRoutesById {
   '/admin/dashboard/sponsors': typeof AdminDashboardSponsorsRoute
   '/admin/dashboard/teams': typeof AdminDashboardTeamsRoute
   '/admin/dashboard/users': typeof AdminDashboardUsersRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/ics/$teamSlug': typeof ApiIcsTeamSlugRoute
+  '/api/sams/logos': typeof ApiSamsLogosRoute
   '/_layout/news/': typeof LayoutNewsIndexRoute
   '/_layout/teams/': typeof LayoutTeamsIndexRoute
   '/_layout/termine/': typeof LayoutTermineIndexRoute
@@ -349,6 +376,9 @@ export interface FileRouteTypes {
     | '/admin/dashboard/sponsors'
     | '/admin/dashboard/teams'
     | '/admin/dashboard/users'
+    | '/api/auth/$'
+    | '/api/ics/$teamSlug'
+    | '/api/sams/logos'
     | '/news/'
     | '/teams/'
     | '/termine/'
@@ -380,6 +410,9 @@ export interface FileRouteTypes {
     | '/admin/dashboard/sponsors'
     | '/admin/dashboard/teams'
     | '/admin/dashboard/users'
+    | '/api/auth/$'
+    | '/api/ics/$teamSlug'
+    | '/api/sams/logos'
     | '/news'
     | '/teams'
     | '/termine'
@@ -416,6 +449,9 @@ export interface FileRouteTypes {
     | '/admin/dashboard/sponsors'
     | '/admin/dashboard/teams'
     | '/admin/dashboard/users'
+    | '/api/auth/$'
+    | '/api/ics/$teamSlug'
+    | '/api/sams/logos'
     | '/_layout/news/'
     | '/_layout/teams/'
     | '/_layout/termine/'
@@ -437,6 +473,9 @@ export interface RootRouteChildren {
   AdminDashboardSponsorsRoute: typeof AdminDashboardSponsorsRoute
   AdminDashboardTeamsRoute: typeof AdminDashboardTeamsRoute
   AdminDashboardUsersRoute: typeof AdminDashboardUsersRoute
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiIcsTeamSlugRoute: typeof ApiIcsTeamSlugRoute
+  ApiSamsLogosRoute: typeof ApiSamsLogosRoute
   AdminDashboardIndexRoute: typeof AdminDashboardIndexRoute
 }
 
@@ -595,6 +634,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/news/'
       preLoaderRoute: typeof LayoutNewsIndexRouteImport
       parentRoute: typeof LayoutNewsRoute
+    }
+    '/api/sams/logos': {
+      id: '/api/sams/logos'
+      path: '/api/sams/logos'
+      fullPath: '/api/sams/logos'
+      preLoaderRoute: typeof ApiSamsLogosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ics/$teamSlug': {
+      id: '/api/ics/$teamSlug'
+      path: '/api/ics/$teamSlug'
+      fullPath: '/api/ics/$teamSlug'
+      preLoaderRoute: typeof ApiIcsTeamSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/admin/dashboard/users': {
       id: '/admin/dashboard/users'
@@ -775,6 +835,9 @@ const rootRouteChildren: RootRouteChildren = {
   AdminDashboardSponsorsRoute: AdminDashboardSponsorsRoute,
   AdminDashboardTeamsRoute: AdminDashboardTeamsRoute,
   AdminDashboardUsersRoute: AdminDashboardUsersRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiIcsTeamSlugRoute: ApiIcsTeamSlugRoute,
+  ApiSamsLogosRoute: ApiSamsLogosRoute,
   AdminDashboardIndexRoute: AdminDashboardIndexRoute,
 }
 export const routeTree = rootRouteImport

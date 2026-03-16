@@ -57,18 +57,13 @@ function createOtpLoginLink(email: string, otp: string, request?: Request): stri
 	return loginUrl.toString();
 }
 
-// Lazily created to avoid crashing at build time when env vars aren't present
-let _auth: ReturnType<typeof betterAuth> | null = null;
-
-export function getAuth(): ReturnType<typeof betterAuth> {
-	if (_auth) return _auth;
-
+function createAuth() {
 	const secret = process.env.BETTER_AUTH_SECRET;
 	if (!secret) {
 		throw new Error("BETTER_AUTH_SECRET environment variable is required");
 	}
 
-	_auth = betterAuth({
+	return betterAuth({
 		baseURL: {
 			allowedHosts: [Club.domain, `*.${Club.domain}`, `*.new.${Club.domain}`, "localhost:*"],
 			protocol: "https",
@@ -158,6 +153,16 @@ export function getAuth(): ReturnType<typeof betterAuth> {
 			}),
 		],
 	});
+
+}
+
+// Lazily created to avoid crashing at build time when env vars aren't present
+let _auth: ReturnType<typeof createAuth> | null = null;
+
+export function getAuth(): ReturnType<typeof createAuth> {
+	if (_auth) return _auth;
+
+	_auth = createAuth();
 
 	return _auth;
 }

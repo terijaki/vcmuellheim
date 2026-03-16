@@ -1,6 +1,8 @@
 import { Club } from "@project.config";
 import { useLocation } from "@tanstack/react-router";
-import { Helmet } from "react-helmet-async";
+import helmetAsync from "react-helmet-async";
+
+const { Helmet } = helmetAsync;
 
 const DEFAULT_DESCRIPTION = "Willkommen beim Volleyballclub Müllheim e.V. - Dein Volleyballverein für alle Altersklassen mit Damen-, Herren- und Jugendteams.";
 const DEFAULT_IMAGE = `${Club.url}/logos/logo-366273-500.png`;

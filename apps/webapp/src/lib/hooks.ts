@@ -4,6 +4,7 @@
  */
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import type { PaginationCursor } from "@/lib/db/repository";
 import { listBusFn } from "../server/functions/bus";
 import { getEventByIdFn, getUpcomingEventsFn } from "../server/functions/events";
 import { listLocationsFn } from "../server/functions/locations";
@@ -27,7 +28,7 @@ export const useNews = ({ limit = 50 }: { limit?: number } = {}) => {
 		queryKey: ["news", limit],
 		queryFn: ({ pageParam }) => getPublishedNewsFn({ data: { limit, cursor: pageParam } }),
 		getNextPageParam: (lastPage) => lastPage.lastEvaluatedKey,
-		initialPageParam: undefined as string | undefined,
+		initialPageParam: undefined as PaginationCursor | undefined,
 	});
 };
 
@@ -52,7 +53,7 @@ export const useGalleryImages = ({ limit = 20, format = "urls", shuffle }: { lim
 		queryKey: ["galleryImages", limit, format, shuffle],
 		queryFn: ({ pageParam }) => getGalleryImagesFn({ data: { limit, format, shuffle, cursor: pageParam } }),
 		getNextPageParam: (lastPage) => lastPage.nextCursor,
-		initialPageParam: undefined as string | undefined,
+		initialPageParam: undefined as PaginationCursor | undefined,
 	});
 };
 

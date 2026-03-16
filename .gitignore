@@ -3,11 +3,6 @@
 # dependencies
 node_modules
 
-# next.js
-/.next
-/out
-/build
-
 # cache
 .temp/
 
@@ -32,6 +27,7 @@ openapi-ts-error-*.log
 
 # tanstack
 .tanstack
+.output
 
 # vite
 apps/**/dist

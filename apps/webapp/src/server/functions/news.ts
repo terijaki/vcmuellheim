@@ -13,6 +13,8 @@ import { getAllNews, getNewsBySlug, getPublishedNews, newsRepository, newsSchema
 const s3Client = new S3Client({ region: process.env.AWS_REGION || "eu-central-1" });
 const BUCKET_NAME = () => process.env.MEDIA_BUCKET_NAME || "";
 const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
+const cursorValueSchema = z.custom<{}>((value) => value !== null && value !== undefined);
+const cursorSchema = z.record(z.string(), cursorValueSchema);
 
 // ── Public ──────────────────────────────────────────────────────────────────
 
@@ -21,7 +23,7 @@ export const getPublishedNewsFn = createServerFn()
 		z
 			.object({
 				limit: z.number().min(1).max(100).optional().default(10),
-				cursor: z.record(z.string(), z.unknown()).optional(),
+				cursor: cursorSchema.optional(),
 			})
 			.optional(),
 	)
@@ -51,7 +53,7 @@ export const getGalleryImagesFn = createServerFn()
 			.object({
 				limit: z.number().min(1).max(100).optional().default(20),
 				format: z.enum(["urls", "keys"]).optional().default("urls"),
-				cursor: z.record(z.string(), z.unknown()).optional(),
+				cursor: cursorSchema.optional(),
 				shuffle: z.boolean().optional(),
 			})
 			.optional(),
@@ -59,19 +61,12 @@ export const getGalleryImagesFn = createServerFn()
 	.handler(async ({ data }) => {
 		const { items, lastEvaluatedKey } = await getPublishedNews(data?.limit ?? 20, data?.cursor);
 
-		const imageKeys: string[] = items
-			.flatMap((article) => {
-				const keys: string[] = [];
-				if (article.imageKey) keys.push(article.imageKey);
-				if (article.galleryKeys) keys.push(...article.galleryKeys);
-				return keys;
-			})
-			.filter(Boolean);
+		const imageKeys: string[] = items.flatMap((article) => article.imageS3Keys ?? []).filter(Boolean);
 
 		const shuffled = data?.shuffle ? [...imageKeys].sort(() => Math.random() - 0.5) : imageKeys;
 
 		if (data?.format === "keys") {
-			return { keys: shuffled, lastEvaluatedKey };
+			return { images: shuffled, nextCursor: lastEvaluatedKey };
 		}
 
 		const cloudfrontUrl = CLOUDFRONT_URL();
@@ -83,7 +78,7 @@ export const getGalleryImagesFn = createServerFn()
 			}),
 		);
 
-		return { urls, lastEvaluatedKey };
+		return { images: urls, nextCursor: lastEvaluatedKey };
 	});
 
 // ── Protected (auth required) ────────────────────────────────────────────────
@@ -94,7 +89,7 @@ export const listAllNewsFn = createServerFn()
 		z
 			.object({
 				limit: z.number().min(1).max(100).optional().default(30),
-				lastEvaluatedKey: z.record(z.string(), z.unknown()).optional(),
+				lastEvaluatedKey: cursorSchema.optional(),
 			})
 			.optional(),
 	)

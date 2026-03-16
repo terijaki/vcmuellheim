@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { optionalEnvString, requiredEnvString } from "../utils/env";
 
+const serializableValueSchema = z.custom<{}>((value) => value !== null && value !== undefined);
+
 // ============================================================================
 // Lambda Environment Contracts
 // ============================================================================
@@ -58,7 +60,7 @@ export const InstagramPostSchema = z.object({
 	videoUrl: z.string().optional(),
 	dimensionsHeight: z.number(),
 	dimensionsWidth: z.number(),
-	images: z.array(z.unknown()).optional(),
+	images: z.array(z.record(z.string(), serializableValueSchema)).optional(),
 	likesCount: z.number(),
 	commentsCount: z.number(),
 	hashtags: z.array(z.string()).optional(),
@@ -90,7 +92,7 @@ export const InstagramPostItemSchema = z
 		caption: z.string().optional(),
 		displayUrl: z.string().optional(),
 		videoUrl: z.string().optional(),
-		images: z.array(z.unknown()).optional(),
+		images: z.array(z.record(z.string(), serializableValueSchema)).optional(),
 		hashtags: z.array(z.string()).optional(),
 	})
 	.transform((data) => {
@@ -116,7 +118,7 @@ export type InstagramPostItem = {
 	caption?: string;
 	displayUrl?: string;
 	videoUrl?: string;
-	images?: unknown[];
+	images?: Record<string, {}>[];
 	hashtags?: string[];
 };
 
