@@ -141,7 +141,7 @@ export class WebAppStack extends cdk.Stack {
 			functionName: `vcm-webapp-${environment}${branchSuffix}`,
 			code: lambda.Code.fromAsset("apps/webapp/.output/server"),
 			handler: "index.handler",
-			runtime: lambda.Runtime.NODEJS_22_X,
+			runtime: lambda.Runtime.NODEJS_24_X,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 1024,
 			layers: [powertoolsLayer],
