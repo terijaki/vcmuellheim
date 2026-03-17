@@ -107,6 +107,7 @@ const webappStack = new WebAppStack(app, webappStackName, {
 	},
 	instagramTable: socialMediaStack.instagramTable,
 	mediaBucket: mediaStack.bucket,
+	mediaCloudFrontUrl: mediaStack.cloudFrontUrl,
 	hostedZone: dnsStack.hostedZone,
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
 });

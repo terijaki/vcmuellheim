@@ -40,6 +40,8 @@ export interface WebAppStackProps extends cdk.StackProps {
 	};
 	instagramTable: dynamodb.ITable;
 	mediaBucket: s3Bucket.Bucket;
+	/** CloudFront URL of the media stack — used for serving uploaded images */
+	mediaCloudFrontUrl?: string;
 	hostedZone?: route53.IHostedZone;
 	/** CloudFront certificate (must be in us-east-1) */
 	cloudFrontCertificate?: acm.ICertificate;
@@ -93,11 +95,6 @@ export class WebAppStack extends cdk.Stack {
 			AUTH_VERIFICATIONS: tables.AUTH_VERIFICATIONS.tableName,
 		} satisfies Record<TableEntity, string>);
 
-		// CloudFront URL is set after distribution creation, so we use a placeholder
-		// The Lambda will be updated post-deployment or via a Cfn custom resource.
-		// For now we derive the URL from the domain name if custom domain is configured.
-		const cloudfrontUrl = props.hostedZone && props.cloudFrontCertificate ? `https://${webappDomain}` : undefined;
-
 		// Build the webapp once upfront so .output/server and .output/public exist
 		execFileSync("bun", ["run", "build:webapp"], {
 			env: { ...process.env, VITE_CDK_ENVIRONMENT: environment },
@@ -114,7 +111,7 @@ export class WebAppStack extends cdk.Stack {
 			SAMS_TEAMS_TABLE_NAME: props.samsApiStack.samsTeamsTable.tableName,
 			INSTAGRAM_TABLE_NAME: props.instagramTable.tableName,
 			...(process.env.SAMS_API_KEY ? { SAMS_API_KEY: process.env.SAMS_API_KEY } : {}),
-			...(cloudfrontUrl ? { CLOUDFRONT_URL: cloudfrontUrl } : {}),
+			...(props.mediaCloudFrontUrl ? { CLOUDFRONT_URL: props.mediaCloudFrontUrl } : {}),
 			NODE_ENV: "production",
 		};
 
