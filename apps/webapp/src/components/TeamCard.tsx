@@ -1,11 +1,11 @@
 import { ActionIcon, Anchor, Box, Button, Card, Collapse, Group, Stack, Text, Title } from "@mantine/core";
+import { Club } from "@project.config";
 import dayjs from "dayjs";
 import de from "dayjs/locale/de";
 import weekday from "dayjs/plugin/weekday";
 import { Fragment, useEffect, useState } from "react";
 import { FaCalendarDays as IconCalendar, FaClock as IconClock, FaChevronUp as IconCollapse, FaEnvelope as IconMail, FaUser as IconPerson, FaUserGroup as IconPersons } from "react-icons/fa6";
 import type { Team } from "@/lib/db";
-import { Club } from "@/project.config";
 import { useLocations, useMembers } from "../lib/hooks";
 import { ButtonLink } from "./CustomLink";
 import { useTeamContext } from "./context/HomeTeamContext";

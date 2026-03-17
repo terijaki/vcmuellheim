@@ -1,4 +1,4 @@
-import { Club } from "@/project.config";
+import { Club } from "@project.config";
 
 const HTTP_PROTOCOL_PREFIX_RE = /^https?:\/\//i;
 

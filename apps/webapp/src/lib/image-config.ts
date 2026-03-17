@@ -1,9 +1,9 @@
 /**
  * Responsive image variant configuration
- * Re-exported from shared for use in webapp components and hooks
+ * Re-exported from shared utils for use in webapp components and hooks
  */
 
-export type { ImageSize, ImageVariantKey } from "@/apps/shared/lib/image-config";
+export type { ImageSize, ImageVariantKey } from "@utils/image-config";
 export {
 	buildSizesAttribute,
 	buildSrcSet,
@@ -12,4 +12,4 @@ export {
 	IMAGE_VARIANTS,
 	MAX_ORIGINAL_SIZE,
 	MAX_UPLOAD_SIZE,
-} from "@/apps/shared/lib/image-config";
+} from "@utils/image-config";

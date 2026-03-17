@@ -7,10 +7,10 @@
  */
 
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import { Club } from "@project.config";
 import { betterAuth } from "better-auth";
 import { emailOTP } from "better-auth/plugins";
 import { dynamoDBAdapter } from "@/lambda/utils/better-auth-dynamodb-adapter";
-import { Club } from "@/project.config";
 
 function getSesClient() {
 	return new SESClient({

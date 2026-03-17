@@ -7,10 +7,33 @@ import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { createServerFn } from "@tanstack/react-start";
 import dayjs from "dayjs";
 import { z } from "zod";
-import { InstagramPostSchema } from "@/lambda/social/types";
+import { type InstagramPost, InstagramPostSchema } from "@/lambda/social/types";
 import { docClient } from "../db";
 
 const INSTAGRAM_TABLE_NAME = () => process.env.INSTAGRAM_TABLE_NAME || "";
+type SerializableValue = string | number | boolean | bigint | symbol | object;
+type SerializableInstagramImage = Record<string, SerializableValue>;
+type InstagramPostForServerFn = Omit<InstagramPost, "images"> & {
+	images?: SerializableInstagramImage[];
+};
+
+function normalizeInstagramImages(images: InstagramPost["images"]): SerializableInstagramImage[] | undefined {
+	if (!images) {
+		return undefined;
+	}
+
+	return images.map((image) => {
+		const normalizedImage: SerializableInstagramImage = {};
+
+		for (const [key, value] of Object.entries(image)) {
+			if (value !== null && value !== undefined) {
+				normalizedImage[key] = value;
+			}
+		}
+
+		return normalizedImage;
+	});
+}
 
 export const getRecentInstagramPostsFn = createServerFn({ method: "GET" })
 	.inputValidator(z.object({ days: z.number().int().min(1).max(90).optional() }))
@@ -38,5 +61,10 @@ export const getRecentInstagramPostsFn = createServerFn({ method: "GET" })
 
 		const result = await docClient.send(command);
 		const items = result.Items || [];
-		return items.map((item) => InstagramPostSchema.parse(item));
+		const posts = items.map((item) => InstagramPostSchema.parse(item));
+
+		return posts.map<InstagramPostForServerFn>((post) => ({
+			...post,
+			images: normalizeInstagramImages(post.images),
+		}));
 	});

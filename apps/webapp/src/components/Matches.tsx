@@ -1,6 +1,6 @@
 import { Box, Flex, Grid, GridCol, Group, Stack, Text } from "@mantine/core";
+import { SAMS } from "@project.config";
 import dayjs from "dayjs";
-import { SAMS } from "@/project.config";
 import "dayjs/locale/de";
 import { FaSquarePollVertical as IconResult } from "react-icons/fa6";
 import type { LeagueMatchesResponse } from "@/lambda/sams/types";

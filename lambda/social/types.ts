@@ -1,7 +1,9 @@
 import { z } from "zod";
 import { optionalEnvString, requiredEnvString } from "../utils/env";
 
-const serializableValueSchema = z.custom<unknown>((value) => value !== null && value !== undefined);
+type SerializableValue = string | number | boolean | bigint | symbol | object;
+
+const serializableValueSchema = z.custom<SerializableValue>((value) => value !== null && value !== undefined);
 
 // ============================================================================
 // Lambda Environment Contracts
@@ -118,7 +120,7 @@ export type InstagramPostItem = {
 	caption?: string;
 	displayUrl?: string;
 	videoUrl?: string;
-	images?: Record<string, unknown>[];
+	images?: Record<string, SerializableValue>[];
 	hashtags?: string[];
 };
 

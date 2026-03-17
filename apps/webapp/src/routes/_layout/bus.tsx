@@ -1,9 +1,9 @@
 import { Alert, Anchor, Button, Card, Center, Container, Group, Stack, Table } from "@mantine/core";
 import { Calendar, type CalendarProps, type DateStringValue } from "@mantine/dates";
+import { Club } from "@project.config";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { useState } from "react";
-import { Club } from "@/project.config";
 import CardTitle from "../../components/CardTitle";
 import PageWithHeading from "../../components/layout/PageWithHeading";
 import { useBusBookings } from "../../lib/hooks";
