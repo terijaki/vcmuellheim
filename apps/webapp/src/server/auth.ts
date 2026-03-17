@@ -65,11 +65,11 @@ function createAuth() {
 
 	return betterAuth({
 		baseURL: {
-			allowedHosts: [Club.domain, `*.${Club.domain}`, `*.new.${Club.domain}`, "localhost:*"],
+			allowedHosts: [Club.domain, `*.${Club.domain}`, `*.new.${Club.domain}`, "localhost:*", "*.lambda-url.eu-central-1.on.aws"],
 			protocol: "https",
 		},
 		secret,
-		trustedOrigins: [`https://${Club.domain}`, `https://*.${Club.domain}`, `https://*.new.${Club.domain}`],
+		trustedOrigins: [`https://${Club.domain}`, `https://*.${Club.domain}`, `https://*.new.${Club.domain}`, "https://*.lambda-url.eu-central-1.on.aws"],
 		database: dynamoDBAdapter,
 		advanced: {
 			// Force Secure cookies — the server doesn't set NODE_ENV=production, so
@@ -85,6 +85,7 @@ function createAuth() {
 			},
 		},
 		session: {
+			storeSessionInDatabase: false,
 			cookieCache: {
 				enabled: true,
 				maxAge: 30 * 24 * 60 * 60,

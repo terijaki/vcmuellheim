@@ -54,11 +54,11 @@ function RouteComponent() {
 							<Text>Vektorgrafiken skalieren dynamisch und eigenen sich daher perfekt für den Druck oder die Beflockung von Trikots.</Text>
 							<Stack align="center">
 								<Box pos="relative" w="100%" maw={505} style={{ aspectRatio: "505 / 288" }}>
-									<Image src="/logos/logo.svg" alt="Logo" />
+									<Image src="/assets/logos/logo.svg" alt="Logo" />
 								</Box>
 								<Group>
-									<DownloadButton href="/logos/logo.svg">Download SVG</DownloadButton>
-									<DownloadButton href="/logos/logo.pdf">Download PDF</DownloadButton>
+									<DownloadButton href="/assets/logos/logo.svg">Download SVG</DownloadButton>
+									<DownloadButton href="/assets/logos/logo.pdf">Download PDF</DownloadButton>
 								</Group>
 							</Stack>
 						</Stack>
@@ -71,27 +71,27 @@ function RouteComponent() {
 							<SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="lg">
 								<Stack>
 									<Box pos="relative" w="100%" style={{ aspectRatio: "505 / 288" }}>
-										<Image src="/logos/logo-schwarz.png" alt="Logo Schwarz" />
+										<Image src="/assets/logos/logo-schwarz.png" alt="Logo Schwarz" />
 									</Box>
-									<DownloadButton href="/logos/logo-schwarz.png">Download (Schwarz)</DownloadButton>
+									<DownloadButton href="/assets/logos/logo-schwarz.png">Download (Schwarz)</DownloadButton>
 								</Stack>
 								<Stack>
 									<Box pos="relative" w="100%" bg="gray" style={{ aspectRatio: "505 / 288" }}>
-										<Image src="/logos/logo-weiss.png" alt="Logo Weiß" />
+										<Image src="/assets/logos/logo-weiss.png" alt="Logo Weiß" />
 									</Box>
-									<DownloadButton href="/logos/logo-weiss.png">Download (Weiß)</DownloadButton>
+									<DownloadButton href="/assets/logos/logo-weiss.png">Download (Weiß)</DownloadButton>
 								</Stack>
 								<Stack>
 									<Box pos="relative" w="100%" style={{ aspectRatio: "505 / 288" }}>
-										<Image src="/logos/logo-363B40-01A29A.png" alt="Logo Türkis" />
+										<Image src="/assets/logos/logo-363B40-01A29A.png" alt="Logo Türkis" />
 									</Box>
-									<DownloadButton href="/logos/logo-363B40-01A29A.png">Download (Türkis)</DownloadButton>
+									<DownloadButton href="/assets/logos/logo-363B40-01A29A.png">Download (Türkis)</DownloadButton>
 								</Stack>
 								<Stack>
 									<Box pos="relative" w="100%" style={{ aspectRatio: "505 / 288" }}>
-										<Image src="/logos/logo-363B40-366273.png" alt="Logo Blumine" />
+										<Image src="/assets/logos/logo-363B40-366273.png" alt="Logo Blumine" />
 									</Box>
-									<DownloadButton href="/logos/logo-363B40-366273.png">Download (Blumine)</DownloadButton>
+									<DownloadButton href="/assets/logos/logo-363B40-366273.png">Download (Blumine)</DownloadButton>
 								</Stack>
 							</SimpleGrid>
 						</Stack>
@@ -101,21 +101,21 @@ function RouteComponent() {
 							<SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg">
 								<Stack>
 									<Box pos="relative" w="100%" style={{ aspectRatio: "1 / 1" }}>
-										<Image src="/logos/logo-366273.png" alt="Logo Blumine" />
+										<Image src="/assets/logos/logo-366273.png" alt="Logo Blumine" />
 									</Box>
-									<DownloadButton href="/logos/logo-366273.png">Download (Blumine)</DownloadButton>
+									<DownloadButton href="/assets/logos/logo-366273.png">Download (Blumine)</DownloadButton>
 								</Stack>
 								<Stack>
 									<Box pos="relative" w="100%" style={{ aspectRatio: "1 / 1" }}>
-										<Image src="/logos/logo-363B40.png" alt="Logo Onyx" />
+										<Image src="/assets/logos/logo-363B40.png" alt="Logo Onyx" />
 									</Box>
-									<DownloadButton href="/logos/logo-363B40.png">Download (Onyx)</DownloadButton>
+									<DownloadButton href="/assets/logos/logo-363B40.png">Download (Onyx)</DownloadButton>
 								</Stack>
 								<Stack>
 									<Box pos="relative" w="100%" style={{ aspectRatio: "1 / 1" }}>
-										<Image src="/logos/logo-01A29A.png" alt="Logo Türkis" />
+										<Image src="/assets/logos/logo-01A29A.png" alt="Logo Türkis" />
 									</Box>
-									<DownloadButton href="/logos/logo-01A29A.png">Download (Türkis)</DownloadButton>
+									<DownloadButton href="/assets/logos/logo-01A29A.png">Download (Türkis)</DownloadButton>
 								</Stack>
 							</SimpleGrid>
 						</Stack>

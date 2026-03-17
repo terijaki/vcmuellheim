@@ -5,6 +5,7 @@ import "../globals.css";
 import { ColorSchemeScript, colorsTuple, createTheme, MantineProvider } from "@mantine/core";
 import { DatesProvider } from "@mantine/dates";
 import { Notifications } from "@mantine/notifications";
+import { Club } from "@project.config";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { createRootRouteWithContext, HeadContent, Outlet, Scripts, ScrollRestoration } from "@tanstack/react-router";
 import dayjs from "dayjs";
@@ -12,6 +13,9 @@ import "dayjs/locale/de";
 import type { RouterContext } from "../router";
 
 dayjs.locale("de");
+
+const DEFAULT_DESCRIPTION = "Willkommen beim Volleyballclub Müllheim e.V. - Dein Volleyballverein für alle Altersklassen mit Damen-, Herren- und Jugendteams.";
+const DEFAULT_IMAGE = `${Club.url}/assets/logos/logo-366273-500.png`;
 
 const theme = createTheme({
 	colors: {
@@ -46,8 +50,28 @@ const theme = createTheme({
 
 export const Route = createRootRouteWithContext<RouterContext>()({
 	head: () => ({
-		meta: [{ charSet: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1" }, { name: "theme-color", content: "#366273" }],
-		links: [{ rel: "icon", href: "/favicon.ico" }],
+		title: Club.name,
+		meta: [
+			{ charSet: "utf-8" },
+			{ name: "viewport", content: "width=device-width, initial-scale=1" },
+			{ name: "theme-color", content: "#366273" },
+			{ name: "description", content: DEFAULT_DESCRIPTION },
+			{ name: "robots", content: "index, follow" },
+			{ property: "og:type", content: "website" },
+			{ property: "og:title", content: Club.name },
+			{ property: "og:description", content: DEFAULT_DESCRIPTION },
+			{ property: "og:image", content: DEFAULT_IMAGE },
+			{ property: "og:url", content: Club.url },
+			{ property: "og:site_name", content: Club.name },
+			{ name: "twitter:card", content: "summary_large_image" },
+			{ name: "twitter:title", content: Club.name },
+			{ name: "twitter:description", content: DEFAULT_DESCRIPTION },
+			{ name: "twitter:image", content: DEFAULT_IMAGE },
+		],
+		links: [
+			{ rel: "icon", href: "/favicon.ico" },
+			{ rel: "canonical", href: Club.url },
+		],
 	}),
 	component: RootDocument,
 	errorComponent: ({ error }) => (
