@@ -1,9 +1,9 @@
+import babel from "@rolldown/plugin-babel";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import react from "@vitejs/plugin-react";
+import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 import { getSanitizedBranch } from "../../utils/git";
 
 const sanitizedBranch = getSanitizedBranch();
@@ -19,8 +19,8 @@ export default defineConfig({
 			},
 		}),
 		tanstackStart(),
-		tsconfigPaths(),
-		react({ babel: { plugins: ["babel-plugin-react-compiler"] } }),
+		react(),
+		babel({ presets: [reactCompilerPreset()] }),
 		sentryVitePlugin({
 			org: "volleyballclub-mullheim-ev",
 			project: "volleyball-webapp",
@@ -29,14 +29,17 @@ export default defineConfig({
 			silent: !isProd,
 		}),
 	],
-	define: {
-		// Inject Git branch at build time for service URL resolution
-		"import.meta.env.VITE_GIT_BRANCH": JSON.stringify(sanitizedBranch),
+	resolve: {
+		tsconfigPaths: true,
 	},
 	build: {
 		sourcemap: true,
 	},
 	server: {
 		port: 3080,
+	},
+	define: {
+		// Inject Git branch at build time for service URL resolution
+		"import.meta.env.VITE_GIT_BRANCH": JSON.stringify(sanitizedBranch),
 	},
 });

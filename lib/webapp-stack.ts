@@ -13,7 +13,6 @@
  */
 
 import { execFileSync } from "node:child_process";
-import path from "node:path";
 import * as cdk from "aws-cdk-lib";
 import type * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
@@ -100,9 +99,9 @@ export class WebAppStack extends cdk.Stack {
 		const cloudfrontUrl = props.hostedZone && props.cloudFrontCertificate ? `https://${webappDomain}` : undefined;
 
 		// Build the webapp once upfront so .output/server and .output/public exist
-		execFileSync("bun", ["run", "build"], {
+		execFileSync("bun", ["run", "build:webapp"], {
 			env: { ...process.env, VITE_CDK_ENVIRONMENT: environment },
-			cwd: path.join(process.cwd(), "apps/webapp"),
+			cwd: process.cwd(),
 			stdio: "inherit",
 		});
 

@@ -53,6 +53,7 @@
 		"@mantine/notifications": "^8.3.9",
 		"@mantine/tiptap": "^8.3.9",
 		"@middy/core": "^6.4.5",
+		"@rolldown/plugin-babel": "^0.2.1",
 		"@sentry/aws-serverless": "^10.43.0",
 		"@sentry/react": "^10.43.0",
 		"@tanstack/react-query": "^5.90.21",
@@ -86,10 +87,11 @@
 		"@sentry/vite-plugin": "^5.1.1",
 		"@tanstack/router-plugin": "^1.160.0",
 		"@types/aws-lambda": "^8.10.161",
+		"@types/babel__core": "^7.20.5",
 		"@types/node": "^25.5.0",
 		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.3",
-		"@vitejs/plugin-react": "^5.2.0",
+		"@vitejs/plugin-react": "^6",
 		"aws-cdk-lib": "^2.243.0",
 		"aws-sdk-client-mock": "^4.1.0",
 		"aws-xray-sdk-core": "^3.12.0",
@@ -100,7 +102,6 @@
 		"postcss-preset-mantine": "^1.17.0",
 		"postcss-simple-vars": "^7.0.1",
 		"typescript": "^5.9.3",
-		"vite": "^7.3.1",
-		"vite-tsconfig-paths": "^6.1.1"
+		"vite": "^8"
 	}
 }
