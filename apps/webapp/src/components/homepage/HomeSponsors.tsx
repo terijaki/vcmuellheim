@@ -7,9 +7,8 @@ import SectionHeading from "../layout/SectionHeading";
 import ScrollAnchor from "./ScrollAnchor";
 
 export default function HomeSponsors() {
-	const { data, isLoading } = useSponsors();
+	const { data } = useSponsors();
 	const sponsors = data?.items || [];
-	if (isLoading) return null;
 	if (sponsors.length === 0) return null;
 
 	return (

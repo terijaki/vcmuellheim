@@ -182,56 +182,5 @@ export class ContentDbStack extends cdk.Stack {
 		// TODO: DynamoDB Stream on REMOVE event
 		// When sponsor expires (TTL deletion), trigger Lambda to delete logoId from Media table
 		// Media table stream will then handle S3 object deletion
-
-		// Outputs for easy reference
-		new cdk.CfnOutput(this, "NewsTableName", {
-			value: this.newsTable.tableName,
-			description: "News table name",
-		});
-
-		new cdk.CfnOutput(this, "EventsTableName", {
-			value: this.eventsTable.tableName,
-			description: "Events table name",
-		});
-
-		new cdk.CfnOutput(this, "TeamsTableName", {
-			value: this.teamsTable.tableName,
-			description: "Teams table name",
-		});
-
-		new cdk.CfnOutput(this, "MembersTableName", {
-			value: this.membersTable.tableName,
-			description: "Members table name",
-		});
-
-		new cdk.CfnOutput(this, "MediaTableName", {
-			value: this.mediaTable.tableName,
-			description: "Media table name",
-		});
-
-		new cdk.CfnOutput(this, "SponsorsTableName", {
-			value: this.sponsorsTable.tableName,
-			description: "Sponsors table name",
-		});
-
-		new cdk.CfnOutput(this, "LocationsTableName", {
-			value: this.locationsTable.tableName,
-			description: "Locations table name",
-		});
-
-		new cdk.CfnOutput(this, "BusTableName", {
-			value: this.busTable.tableName,
-			description: "Bus bookings table name",
-		});
-
-		new cdk.CfnOutput(this, "UsersTableName", {
-			value: this.usersTable.tableName,
-			description: "CMS users table name",
-		});
-
-		new cdk.CfnOutput(this, "AuthVerificationsTableName", {
-			value: this.authVerificationsTable.tableName,
-			description: "Auth verifications (OTP codes) table name",
-		});
 	}
 }
