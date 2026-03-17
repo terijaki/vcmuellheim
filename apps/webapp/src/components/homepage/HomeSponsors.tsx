@@ -11,6 +11,8 @@ export default function HomeSponsors() {
 	const sponsors = data?.items || [];
 	if (sponsors.length === 0) return null;
 
+	return null; // TODO temporarily disabled
+
 	return (
 		<Box bg="blumine">
 			<ScrollAnchor name="sponsors" />
