@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/correctness/noUnreachable: TEMPORARILY DISABLED DUE TO UNKNOWN CRASH CAUSED */
 import type { Sponsor } from "@lib/db/types";
 import { BackgroundImage, Box, Button, Container, Flex, Group, Image, Loader, Overlay, Stack, Text } from "@mantine/core";
 import { Club } from "@project.config";

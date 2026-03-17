@@ -3,14 +3,20 @@
  * All functions require Admin role.
  */
 
+import { DeleteCommand, PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { docClient, getTableName } from "@/lib/db/client";
+import type { CmsUser } from "@/lib/db/types";
 import { requireAdminMiddleware } from "../../middleware";
-import { cmsUsersRepository, getAllCmsUsers, getCmsUserByEmail } from "../db";
+import { buildUpdateExpression, withTimestamps } from "../dynamo";
+import { getAllCmsUsers, getCmsUserByEmail } from "../queries";
+
+const TABLE_NAME = () => getTableName("USERS");
 
 const UserRole = z.enum(["Admin", "Moderator"]);
 
-function formatUser(user: { id: string; email: string; name: string; role: string; createdAt: string; updatedAt: string }) {
+function formatUser(user: CmsUser) {
 	return {
 		id: user.id,
 		email: user.email,
@@ -33,7 +39,7 @@ export const listUsersFn = createServerFn()
 
 export const getUserByEmailFn = createServerFn()
 	.middleware([requireAdminMiddleware])
-	.inputValidator(z.object({ email: z.string().email() }))
+	.inputValidator(z.object({ email: z.email() }))
 	.handler(async ({ data }) => {
 		const user = await getCmsUserByEmail(data.email);
 		if (!user) throw new Error("User not found");
@@ -44,7 +50,7 @@ export const createUserFn = createServerFn()
 	.middleware([requireAdminMiddleware])
 	.inputValidator(
 		z.object({
-			email: z.string().email(),
+			email: z.email(),
 			givenName: z.string().min(1),
 			familyName: z.string().min(1),
 			role: UserRole,
@@ -56,14 +62,21 @@ export const createUserFn = createServerFn()
 
 		const name = `${data.givenName} ${data.familyName}`.trim();
 		const userId = crypto.randomUUID();
-
-		await cmsUsersRepository.create({
+		const user = withTimestamps({
 			id: userId,
 			email: data.email,
 			name,
 			emailVerified: false,
 			role: data.role,
 		});
+
+		await docClient.send(
+			new PutCommand({
+				TableName: TABLE_NAME(),
+				Item: user,
+				ConditionExpression: "attribute_not_exists(id)",
+			}),
+		);
 
 		return { email: data.email, givenName: data.givenName, familyName: data.familyName, role: data.role };
 	});
@@ -72,7 +85,7 @@ export const updateUserFn = createServerFn()
 	.middleware([requireAdminMiddleware])
 	.inputValidator(
 		z.object({
-			email: z.string().email(),
+			email: z.email(),
 			givenName: z.string().min(1).optional(),
 			familyName: z.string().min(1).optional(),
 			role: UserRole.optional(),
@@ -92,7 +105,19 @@ export const updateUserFn = createServerFn()
 		if (data.role && data.role !== user.role) updates.role = data.role;
 
 		if (Object.keys(updates).length > 0) {
-			await cmsUsersRepository.update(user.id, updates);
+			const { updateExpression, expressionAttributeNames, expressionAttributeValues } = buildUpdateExpression(updates);
+
+			await docClient.send(
+				new UpdateCommand({
+					TableName: TABLE_NAME(),
+					Key: { id: user.id },
+					UpdateExpression: updateExpression,
+					ExpressionAttributeNames: expressionAttributeNames,
+					ExpressionAttributeValues: expressionAttributeValues,
+					ConditionExpression: "attribute_exists(id)",
+					ReturnValues: "ALL_NEW",
+				}),
+			);
 		}
 
 		return { success: true };
@@ -100,13 +125,18 @@ export const updateUserFn = createServerFn()
 
 export const deleteUserFn = createServerFn()
 	.middleware([requireAdminMiddleware])
-	.inputValidator(z.object({ email: z.string().email() }))
+	.inputValidator(z.object({ email: z.email() }))
 	.handler(async ({ data, context }) => {
 		if (context.userEmail === data.email) {
 			throw new Error("You cannot delete your own account");
 		}
 		const user = await getCmsUserByEmail(data.email);
 		if (!user) throw new Error("User not found");
-		await cmsUsersRepository.delete(user.id);
+		await docClient.send(
+			new DeleteCommand({
+				TableName: TABLE_NAME(),
+				Key: { id: user.id },
+			}),
+		);
 		return { success: true };
 	});

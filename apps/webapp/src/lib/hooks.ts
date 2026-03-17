@@ -4,7 +4,7 @@
  */
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import type { PaginationCursor } from "@/lib/db/repository";
+import type { PaginationCursor } from "@/lib/db/types";
 import { listBusFn } from "../server/functions/bus";
 import { getEventByIdFn, getUpcomingEventsFn } from "../server/functions/events";
 import { listLocationsFn } from "../server/functions/locations";

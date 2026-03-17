@@ -11,7 +11,7 @@ import { slugify } from "@utils/slugify";
 import dayjs from "dayjs";
 import { z } from "zod";
 import { LeagueMatchesResponseSchema, type RankingResponse, RankingResponseSchema } from "@/lambda/sams/types";
-import { getAllSamsClubs, getAllSamsTeams, getSamsClubByNameSlug, getSamsClubBySportsclubUuid, getSamsTeamByUuid, samsClubsRepository } from "../db";
+import { getAllSamsClubs, getAllSamsTeams, getSamsClubByExactSlug, getSamsClubByNameSlug, getSamsClubBySportsclubUuid, getSamsTeamByUuid } from "../queries";
 
 const SAMS_API_KEY = () => process.env.SAMS_API_KEY || "";
 
@@ -78,12 +78,7 @@ export const getSamsMatchesFn = createServerFn()
 		if (!sportsclub && !team && !league) {
 			try {
 				const clubSlug = slugify(Club.shortName);
-				const clubs = await samsClubsRepository.scan({
-					filterExpression: "nameSlug = :slug",
-					expressionAttributeValues: { ":slug": clubSlug },
-					limit: 1,
-				});
-				const club = clubs.items?.[0];
+				const club = await getSamsClubByExactSlug(clubSlug);
 				if (club?.sportsclubUuid) sportsclub = club.sportsclubUuid as string;
 			} catch {
 				// proceed without filter

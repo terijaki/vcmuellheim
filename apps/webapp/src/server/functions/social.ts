@@ -8,7 +8,7 @@ import { createServerFn } from "@tanstack/react-start";
 import dayjs from "dayjs";
 import { z } from "zod";
 import { type InstagramPost, InstagramPostSchema } from "@/lambda/social/types";
-import { docClient } from "../db";
+import { docClient } from "@/lib/db/client";
 
 const INSTAGRAM_TABLE_NAME = () => process.env.INSTAGRAM_TABLE_NAME || "";
 type SerializableValue = string | number | boolean | bigint | symbol | object;

@@ -3,16 +3,22 @@
  */
 
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { DeleteCommand, GetCommand, PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { createServerFn } from "@tanstack/react-start";
 import { slugify } from "@utils/slugify";
 import { z } from "zod";
+import { docClient, getTableName } from "@/lib/db/client";
+import { newsSchema } from "@/lib/db/schemas";
+import type { News } from "@/lib/db/types";
 import { requireAuthMiddleware } from "../../middleware";
-import { getAllNews, getNewsBySlug, getPublishedNews, newsRepository, newsSchema } from "../db";
+import { buildUpdateExpression, withTimestamps } from "../dynamo";
+import { getAllNews, getNewsBySlug, getPublishedNews } from "../queries";
 
 const s3Client = new S3Client({ region: process.env.AWS_REGION || "eu-central-1" });
 const BUCKET_NAME = () => process.env.MEDIA_BUCKET_NAME || "";
 const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
+const TABLE_NAME = () => getTableName("NEWS");
 const cursorValueSchema = z.union([z.string(), z.number()]);
 const cursorSchema = z.record(z.string(), cursorValueSchema);
 
@@ -32,9 +38,16 @@ export const getPublishedNewsFn = createServerFn()
 	});
 
 export const getNewsByIdFn = createServerFn()
-	.inputValidator(z.object({ id: z.string().uuid() }))
+	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
-		const news = await newsRepository.get(data.id);
+		const result = await docClient.send(
+			new GetCommand({
+				TableName: TABLE_NAME(),
+				Key: { id: data.id },
+			}),
+		);
+
+		const news = result.Item as News | undefined;
 		if (!news) throw new Error("News article not found");
 		return news;
 	});
@@ -103,27 +116,57 @@ export const createNewsFn = createServerFn()
 	.handler(async ({ data }) => {
 		const id = crypto.randomUUID();
 		const slug = slugify(data.title);
-		return newsRepository.create({ ...data, id, slug, type: "article" });
+		const news = withTimestamps({ ...data, id, slug, type: "article" as const });
+
+		await docClient.send(
+			new PutCommand({
+				TableName: TABLE_NAME(),
+				Item: news,
+				ConditionExpression: "attribute_not_exists(id)",
+			}),
+		);
+
+		return news;
 	});
 
 export const updateNewsFn = createServerFn()
 	.middleware([requireAuthMiddleware])
 	.inputValidator(
 		z.object({
-			id: z.string().uuid(),
+			id: z.uuid(),
 			data: newsSchema.omit({ id: true, createdAt: true, updatedAt: true, type: true, slug: true }).partial(),
 		}),
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
 		const baseUpdates = { ...updates, type: "article" as const };
 		const finalUpdates = updates.title ? { ...baseUpdates, slug: slugify(updates.title) } : baseUpdates;
-		return newsRepository.update(id, finalUpdates);
+
+		const { updateExpression, expressionAttributeNames, expressionAttributeValues } = buildUpdateExpression(finalUpdates);
+
+		const result = await docClient.send(
+			new UpdateCommand({
+				TableName: TABLE_NAME(),
+				Key: { id },
+				UpdateExpression: updateExpression,
+				ExpressionAttributeNames: expressionAttributeNames,
+				ExpressionAttributeValues: expressionAttributeValues,
+				ConditionExpression: "attribute_exists(id)",
+				ReturnValues: "ALL_NEW",
+			}),
+		);
+
+		return result.Attributes as News;
 	});
 
 export const deleteNewsFn = createServerFn()
 	.middleware([requireAuthMiddleware])
-	.inputValidator(z.object({ id: z.string().uuid() }))
+	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
-		await newsRepository.delete(data.id);
+		await docClient.send(
+			new DeleteCommand({
+				TableName: TABLE_NAME(),
+				Key: { id: data.id },
+			}),
+		);
 		return { success: true };
 	});

@@ -6,7 +6,7 @@
 
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { getSamsClubByNameSlug, getSamsClubBySportsclubUuid } from "../../../server/db";
+import { getSamsClubByNameSlug, getSamsClubBySportsclubUuid } from "../../../server/queries";
 
 const CACHE_TTL = 90 * 24 * 60 * 60; // 90 days in seconds
 
