@@ -1,6 +1,6 @@
 /**
  * CDK Stack for Comprehensive Monitoring
- * Includes CloudWatch dashboards, alarms, and SNS notifications
+ * Includes CloudWatch alarms and SNS notifications
  * Native Lambda and API Gateway logs are created automatically by AWS
  */
 
@@ -23,7 +23,7 @@ export interface MonitoringStackProps extends cdk.StackProps {
 	};
 	alertEmail: string;
 	// Lambda functions to monitor
-	trpcLambda?: lambda.IFunction;
+	webappLambda?: lambda.IFunction;
 	samsLambdas?: {
 		clubsSync?: lambda.IFunction;
 		teamsSync?: lambda.IFunction;
@@ -58,7 +58,6 @@ export interface MonitoringStackProps extends cdk.StackProps {
 export class MonitoringStack extends cdk.Stack {
 	public readonly alertTopic: sns.Topic;
 	public readonly warningTopic: sns.Topic;
-	public readonly dashboard: cloudwatch.Dashboard;
 
 	constructor(scope: Construct, id: string, props: MonitoringStackProps) {
 		super(scope, id, props);
@@ -92,154 +91,51 @@ export class MonitoringStack extends cdk.Stack {
 			}),
 		);
 
-		// ==================== CloudWatch Dashboard ====================
-		this.dashboard = new cloudwatch.Dashboard(this, "MainDashboard", {
-			dashboardName: `vcm-main-${environment}${branchSuffix}`,
-			defaultInterval: cdk.Duration.hours(1),
-		});
-
-		// === Lambda Metrics ===
-		if (props.trpcLambda) {
-			this.dashboard.addWidgets(
-				new cloudwatch.GraphWidget({
-					title: "tRPC Lambda - Invocations & Errors",
-					left: [
-						props.trpcLambda.metricInvocations({
-							statistic: "Sum",
-							label: "Invocations",
-						}),
-						props.trpcLambda.metricErrors({
-							statistic: "Sum",
-							label: "Errors",
-							color: cloudwatch.Color.RED,
-						}),
-					],
-					width: 12,
-				}),
-				new cloudwatch.GraphWidget({
-					title: "tRPC Lambda - Duration",
-					left: [
-						props.trpcLambda.metricDuration({
-							statistic: "Average",
-							label: "Avg Duration (ms)",
-						}),
-						props.trpcLambda.metricDuration({
-							statistic: "Maximum",
-							label: "Max Duration (ms)",
-							color: cloudwatch.Color.ORANGE,
-						}),
-					],
-					width: 12,
-				}),
-				new cloudwatch.GraphWidget({
-					title: "tRPC Lambda - Throttles",
-					left: [
-						props.trpcLambda.metricThrottles({
-							statistic: "Sum",
-							label: "Throttles",
-							color: cloudwatch.Color.ORANGE,
-						}),
-					],
-					width: 12,
-				}),
-			);
-
-			// tRPC Lambda Alarms
-			const trpcErrorAlarm = new cloudwatch.Alarm(this, "TrpcErrorRateAlarm", {
-				metric: props.trpcLambda.metricErrors({
+		// === Lambda ===
+		if (props.webappLambda) {
+			// WebApp Lambda Alarms
+			const webappErrorAlarm = new cloudwatch.Alarm(this, "WebappErrorRateAlarm", {
+				metric: props.webappLambda.metricErrors({
 					statistic: "Sum",
 					period: cdk.Duration.minutes(5),
 				}),
 				threshold: 10,
 				evaluationPeriods: 2,
-				alarmName: `vcm-trpc-errors-${environment}${branchSuffix}`,
-				alarmDescription: "Alert when tRPC Lambda error rate exceeds threshold",
+				alarmName: `vcm-webapp-errors-${environment}${branchSuffix}`,
+				alarmDescription: "Alert when WebApp Lambda error rate exceeds threshold",
 				treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
 			});
-			trpcErrorAlarm.addAlarmAction(new cw_actions.SnsAction(this.alertTopic));
+			webappErrorAlarm.addAlarmAction(new cw_actions.SnsAction(this.alertTopic));
 
-			const trpcDurationAlarm = new cloudwatch.Alarm(this, "TrpcDurationAlarm", {
-				metric: props.trpcLambda.metricDuration({
+			const webappDurationAlarm = new cloudwatch.Alarm(this, "WebappDurationAlarm", {
+				metric: props.webappLambda.metricDuration({
 					statistic: "Average",
 					period: cdk.Duration.minutes(5),
 				}),
 				threshold: isProd ? 3000 : 5000,
 				evaluationPeriods: 2,
-				alarmName: `vcm-trpc-duration-${environment}${branchSuffix}`,
-				alarmDescription: "Alert when tRPC Lambda execution time is high",
+				alarmName: `vcm-webapp-duration-${environment}${branchSuffix}`,
+				alarmDescription: "Alert when WebApp Lambda execution time is high",
 				treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
 			});
-			trpcDurationAlarm.addAlarmAction(new cw_actions.SnsAction(this.warningTopic));
+			webappDurationAlarm.addAlarmAction(new cw_actions.SnsAction(this.warningTopic));
 
-			const trpcThrottlesAlarm = new cloudwatch.Alarm(this, "TrpcThrottlesAlarm", {
-				metric: props.trpcLambda.metricThrottles({
+			const webappThrottlesAlarm = new cloudwatch.Alarm(this, "WebappThrottlesAlarm", {
+				metric: props.webappLambda.metricThrottles({
 					statistic: "Sum",
 					period: cdk.Duration.minutes(5),
 				}),
 				threshold: 1,
 				evaluationPeriods: 1,
-				alarmName: `vcm-trpc-throttles-${environment}${branchSuffix}`,
-				alarmDescription: "Alert when tRPC Lambda is throttled",
+				alarmName: `vcm-webapp-throttles-${environment}${branchSuffix}`,
+				alarmDescription: "Alert when WebApp Lambda is throttled",
 				treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
 			});
-			trpcThrottlesAlarm.addAlarmAction(new cw_actions.SnsAction(this.alertTopic));
+			webappThrottlesAlarm.addAlarmAction(new cw_actions.SnsAction(this.alertTopic));
 		}
 
-		// === SAMS Lambda Metrics ===
-		if (props.samsLambdas) {
-			const samsMetrics: cloudwatch.IMetric[] = [];
-
-			if (props.samsLambdas.clubsSync) {
-				samsMetrics.push(props.samsLambdas.clubsSync.metricInvocations({ label: "Clubs Sync", statistic: "Sum" }));
-			}
-			if (props.samsLambdas.teamsSync) {
-				samsMetrics.push(props.samsLambdas.teamsSync.metricInvocations({ label: "Teams Sync", statistic: "Sum" }));
-			}
-
-			if (samsMetrics.length > 0) {
-				this.dashboard.addWidgets(
-					new cloudwatch.GraphWidget({
-						title: "SAMS Lambda - Sync Invocations",
-						left: samsMetrics,
-						width: 12,
-					}),
-				);
-			}
-		}
-
-		// === DynamoDB Metrics ===
+		// === DynamoDB ===
 		if (props.contentTables) {
-			const tables = Object.entries(props.contentTables).slice(0, 4);
-
-			this.dashboard.addWidgets(
-				new cloudwatch.GraphWidget({
-					title: "DynamoDB - User Errors",
-					left: tables.map(([, table]) =>
-						table.metricUserErrors({
-							statistic: "Sum",
-							label: "User Errors",
-						}),
-					),
-					width: 12,
-				}),
-				new cloudwatch.GraphWidget({
-					title: "DynamoDB - Consumed Capacity Units",
-					left: tables.map(([, table]) =>
-						table.metricConsumedReadCapacityUnits({
-							statistic: "Sum",
-							label: "Read CUs",
-						}),
-					),
-					right: tables.map(([, table]) =>
-						table.metricConsumedWriteCapacityUnits({
-							statistic: "Sum",
-							label: "Write CUs",
-						}),
-					),
-					width: 12,
-				}),
-			);
-
 			// DynamoDB Alarms
 			for (const [tableName, table] of Object.entries(props.contentTables)) {
 				const alarm = new cloudwatch.Alarm(this, `DynamoUserErrorsAlarm-${tableName}`, {
@@ -257,150 +153,8 @@ export class MonitoringStack extends cdk.Stack {
 			}
 		}
 
-		// === S3 Metrics ===
-		if (props.mediaBucket) {
-			this.dashboard.addWidgets(
-				new cloudwatch.GraphWidget({
-					title: "S3 Media Bucket",
-					left: [
-						new cloudwatch.Metric({
-							namespace: "AWS/S3",
-							metricName: "BucketSizeBytes",
-							dimensionsMap: {
-								BucketName: props.mediaBucket.bucketName,
-								StorageType: "StandardStorage",
-							},
-							statistic: "Average",
-							label: "Bucket Size (bytes)",
-						}),
-					],
-					width: 12,
-				}),
-			);
-		}
-
-		// === CloudFront Metrics ===
-		const cfMetrics: cloudwatch.IMetric[] = [];
-		const cfRequestMetrics: cloudwatch.IMetric[] = [];
-
-		if (props.mediaDistribution) {
-			const distId = props.mediaDistribution.distributionId;
-			cfMetrics.push(
-				new cloudwatch.Metric({
-					namespace: "AWS/CloudFront",
-					metricName: "CacheHitRate",
-					dimensionsMap: { DistributionId: distId },
-					statistic: "Average",
-					label: "Media Cache Hit Rate (%)",
-				}),
-			);
-			cfRequestMetrics.push(
-				new cloudwatch.Metric({
-					namespace: "AWS/CloudFront",
-					metricName: "Requests",
-					dimensionsMap: { DistributionId: distId },
-					statistic: "Sum",
-					label: "Media Requests",
-				}),
-			);
-		}
-
-		if (props.cmsDistribution) {
-			const distId = props.cmsDistribution.distributionId;
-			cfMetrics.push(
-				new cloudwatch.Metric({
-					namespace: "AWS/CloudFront",
-					metricName: "CacheHitRate",
-					dimensionsMap: { DistributionId: distId },
-					statistic: "Average",
-					label: "CMS Cache Hit Rate (%)",
-				}),
-			);
-			cfRequestMetrics.push(
-				new cloudwatch.Metric({
-					namespace: "AWS/CloudFront",
-					metricName: "Requests",
-					dimensionsMap: { DistributionId: distId },
-					statistic: "Sum",
-					label: "CMS Requests",
-				}),
-			);
-		}
-
-		if (props.websiteDistribution) {
-			const distId = props.websiteDistribution.distributionId;
-			cfMetrics.push(
-				new cloudwatch.Metric({
-					namespace: "AWS/CloudFront",
-					metricName: "CacheHitRate",
-					dimensionsMap: { DistributionId: distId },
-					statistic: "Average",
-					label: "Website Cache Hit Rate (%)",
-				}),
-			);
-			cfRequestMetrics.push(
-				new cloudwatch.Metric({
-					namespace: "AWS/CloudFront",
-					metricName: "Requests",
-					dimensionsMap: { DistributionId: distId },
-					statistic: "Sum",
-					label: "Website Requests",
-				}),
-			);
-		}
-
-		if (cfMetrics.length > 0) {
-			this.dashboard.addWidgets(
-				new cloudwatch.GraphWidget({
-					title: "CloudFront - Cache Hit Rate (%)",
-					left: cfMetrics,
-					width: 12,
-				}),
-				new cloudwatch.GraphWidget({
-					title: "CloudFront - Requests",
-					left: cfRequestMetrics,
-					width: 12,
-				}),
-			);
-		}
-
-		// === API Gateway Metrics ===
+		// === API Gateway ===
 		if (props.api) {
-			this.dashboard.addWidgets(
-				new cloudwatch.GraphWidget({
-					title: "API Gateway - Requests & Latency",
-					left: [
-						props.api.metricCount({
-							statistic: "Sum",
-							label: "Requests",
-						}),
-					],
-					right: [
-						props.api.metricLatency({
-							statistic: "Average",
-							label: "Avg Latency (ms)",
-						}),
-					],
-					width: 12,
-				}),
-				new cloudwatch.GraphWidget({
-					title: "API Gateway - Client & Server Errors",
-					left: [
-						props.api.metricClientError({
-							statistic: "Sum",
-							label: "4xx Errors",
-							color: cloudwatch.Color.ORANGE,
-						}),
-						props.api.metricServerError({
-							statistic: "Sum",
-							label: "5xx Errors",
-							color: cloudwatch.Color.RED,
-						}),
-					],
-					width: 12,
-				}),
-			);
-
 			// API Gateway Alarms
 			const apiServerErrorAlarm = new cloudwatch.Alarm(this, "ApiServerErrorsAlarm", {
 				metric: props.api.metricServerError({
@@ -440,12 +194,6 @@ export class MonitoringStack extends cdk.Stack {
 			value: this.warningTopic.topicArn,
 			description: "SNS Warning Topic ARN",
 			exportName: `vcm-warning-topic-${environment}${branchSuffix}`,
-		});
-
-		new cdk.CfnOutput(this, "DashboardName", {
-			value: `vcm-main-${environment}${branchSuffix}`,
-			description: "CloudWatch Dashboard Name",
-			exportName: `vcm-dashboard-${environment}${branchSuffix}`,
 		});
 	}
 }

@@ -137,7 +137,7 @@ if (monitoringEmail || isDestroy) {
 		...commonStackProps,
 		description: `Monitoring & Alerting (${environment}${branchSuffix})`,
 		alertEmail: monitoringEmail || "cleanup@example.com",
-		trpcLambda: webappStack.webappLambda,
+		webappLambda: webappStack.webappLambda,
 		contentTables: {
 			news: contentDbStack.newsTable,
 			events: contentDbStack.eventsTable,
