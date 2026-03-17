@@ -37,6 +37,10 @@ export default defineConfig({
 	},
 	server: {
 		port: 3080,
+		forwardConsole: {
+			unhandledErrors: true,
+			logLevels: ["warn", "error"],
+		},
 	},
 	define: {
 		// Inject Git branch at build time for service URL resolution

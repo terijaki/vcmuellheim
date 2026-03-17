@@ -197,22 +197,6 @@ export class WebAppStack extends cdk.Stack {
 					comment: "Dev: passthrough (no cache) for SSR + API",
 				});
 
-		// Forward cookies and auth headers so SSR + API routes work correctly
-		const ssrOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "SsrOriginRequestPolicy", {
-			originRequestPolicyName: `vcm-webapp-ssr-req-${environment}${branchSuffix}`,
-			comment: "Forward all headers/cookies/query strings to SSR Lambda",
-			cookieBehavior: cloudfront.OriginRequestCookieBehavior.all(),
-			headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
-				"Accept",
-				"Accept-Language",
-				"CloudFront-Forwarded-Proto",
-				"CloudFront-Is-Desktop-Viewer",
-				"CloudFront-Is-Mobile-Viewer",
-				"X-Forwarded-For",
-			),
-			queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
-		});
-
 		// ── CloudFront distribution ────────────────────────────────────────────
 		const lambdaOrigin = new origins.FunctionUrlOrigin(fnUrl);
 		const s3Origin = origins.S3BucketOrigin.withOriginAccessControl(assetsBucket);
@@ -223,7 +207,7 @@ export class WebAppStack extends cdk.Stack {
 				viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
 				allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
 				cachePolicy: ssrCachePolicy,
-				originRequestPolicy: ssrOriginRequestPolicy,
+				originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
 				responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
 				compress: true,
 			},
