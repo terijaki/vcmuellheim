@@ -5,12 +5,14 @@ import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import { getSanitizedBranch } from "../../utils/git";
+import { getAppEnvironment, localAwsResourceEnvPlugin } from "./vite/localAwsResourceEnv";
 
 const sanitizedBranch = getSanitizedBranch();
-const isProd = process.env.VITE_CDK_ENVIRONMENT === "prod";
+const isProd = getAppEnvironment() === "prod";
 
 export default defineConfig({
 	plugins: [
+		localAwsResourceEnvPlugin(),
 		nitro({
 			preset: "aws-lambda",
 			output: {
