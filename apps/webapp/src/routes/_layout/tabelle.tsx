@@ -5,9 +5,9 @@ import CenteredLoader from "@webapp/components/CenteredLoader";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
 import RankingTable from "@webapp/components/RankingTable";
-import { useSamsMatches, useSamsRankingsByLeagueUuid, useSamsTeams, useTeams } from "@webapp/lib/hooks";
 import { numToWord } from "num-words-de";
 import { Suspense } from "react";
+import { useSamsMatches, useSamsRankingsByLeagueUuid, useSamsTeams, useTeams } from "@/apps/webapp/src/hooks/dataQueries";
 
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
 

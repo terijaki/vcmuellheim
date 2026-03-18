@@ -4,9 +4,9 @@ import CenteredLoader from "@webapp/components/CenteredLoader";
 import EntityNotFound from "@webapp/components/EntityNotFound";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import SharingButton from "@webapp/components/SharingButton";
-import { useEventById, useTeams } from "@webapp/lib/hooks";
 import dayjs from "dayjs";
 import { Calendar, Clock, Info, MapPin } from "lucide-react";
+import { useEventById, useTeams } from "@/apps/webapp/src/hooks/dataQueries";
 
 export const Route = createFileRoute("/_layout/termine/$id")({
 	component: RouteComponent,

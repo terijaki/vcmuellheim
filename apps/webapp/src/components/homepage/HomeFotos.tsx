@@ -1,6 +1,6 @@
 import { BackgroundImage, Box, Button, Center, Container, Overlay, Stack, Text } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
-import { useGalleryImages } from "../../lib/hooks";
+import { useGalleryImages } from "../../hooks/dataQueries";
 import ScrollAnchor from "./ScrollAnchor";
 
 export default function HomeFotos() {

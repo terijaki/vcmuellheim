@@ -3,7 +3,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import ImageGallery from "@webapp/components/ImageGallery";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import SharingButton from "@webapp/components/SharingButton";
-import { useFileUrls, useNewsById } from "@webapp/lib/hooks";
+import { useFileUrls, useNewsById } from "@/apps/webapp/src/hooks/dataQueries";
 
 export const Route = createFileRoute("/_layout/news/$id")({
 	component: RouteComponent,

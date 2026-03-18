@@ -4,7 +4,7 @@ import "dayjs/locale/de";
 import { useMemo } from "react";
 import type { LeagueMatchesResponse } from "@/lambda/sams/types";
 import type { Event } from "@/lib/db/types";
-import { useEvents, useSamsMatches, useSamsTeams } from "../../lib/hooks";
+import { useEvents, useSamsMatches, useSamsTeams } from "../../hooks/dataQueries";
 import EventCard from "../EventCard";
 import MapsLink from "../MapsLink";
 import ScrollAnchor from "./ScrollAnchor";

@@ -1,7 +1,7 @@
 import { Card, Center, Group, Image, Stack, Text } from "@mantine/core";
 import { FaUser as IconAvatar } from "react-icons/fa6";
 import type { Member } from "../../../../lib/db/types";
-import { useFileUrl } from "../lib/hooks";
+import { useFileUrl } from "../hooks/dataQueries";
 
 export default function MemberCard({ member, show, dark }: { member: Member; show?: "roles" | "email" | "phone"; dark?: boolean }) {
 	const { id, name, email, phone, avatarS3Key, roleTitle } = member;

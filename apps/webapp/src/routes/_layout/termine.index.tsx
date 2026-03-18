@@ -5,11 +5,11 @@ import CenteredLoader from "@webapp/components/CenteredLoader";
 import EventCard from "@webapp/components/EventCard";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
-import { useEvents, useSamsMatches } from "@webapp/lib/hooks";
 import { createWebcalLink } from "@webapp/utils/webcal";
 import dayjs from "dayjs";
 import { Fragment, Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
+import { useEvents, useSamsMatches } from "@/apps/webapp/src/hooks/dataQueries";
 
 export const Route = createFileRoute("/_layout/termine/")({
 	component: RouteComponent,

@@ -1,7 +1,7 @@
 import { Box, CardSection, Stack, Text, Title } from "@mantine/core";
 import { forwardRef, useState } from "react";
 import type { News } from "@/lib/db/types";
-import { useFileUrl } from "../lib/hooks";
+import { useFileUrl } from "../hooks/dataQueries";
 import { CardLink } from "./CustomLink";
 import ResponsiveImage from "./ResponsiveImage";
 

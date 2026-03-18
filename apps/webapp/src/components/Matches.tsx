@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/de";
 import { FaSquarePollVertical as IconResult } from "react-icons/fa6";
 import type { LeagueMatchesResponse } from "@/lambda/sams/types";
-import { useSamsTeams } from "../lib/hooks";
+import { useSamsTeams } from "../hooks/dataQueries";
 import MapsLink from "./MapsLink";
 
 dayjs.locale("de");

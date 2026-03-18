@@ -1,7 +1,7 @@
 import { Button, Center, Container, SimpleGrid, Skeleton, Stack, Text } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
-import { useNews } from "../../lib/hooks";
+import { useNews } from "../../hooks/dataQueries";
 import SectionHeading from "../layout/SectionHeading";
 import NewsCard from "../NewsCard";
 import ScrollAnchor from "./ScrollAnchor";

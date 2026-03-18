@@ -1,7 +1,7 @@
 import type { Member } from "@lib/db/types";
 import { Container, Group, Stack } from "@mantine/core";
 import { shuffleArray } from "@utils/shuffleArray";
-import { useMembers } from "../../lib/hooks";
+import { useMembers } from "../../hooks/dataQueries";
 import SectionHeading from "../layout/SectionHeading";
 import MemberCard from "../MemberCard";
 import ScrollAnchor from "./ScrollAnchor";

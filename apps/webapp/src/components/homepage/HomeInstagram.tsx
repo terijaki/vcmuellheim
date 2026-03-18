@@ -1,5 +1,5 @@
 import { BackgroundImage, Box, Container, Overlay, SimpleGrid, Stack } from "@mantine/core";
-import { useRecentInstagramPosts } from "../../lib/hooks";
+import { useRecentInstagramPosts } from "../../hooks/dataQueries";
 import InstagramCard from "../InstagramCard";
 import SectionHeading from "../layout/SectionHeading";
 import ScrollAnchor from "./ScrollAnchor";

@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { CalendarDays } from "lucide-react";
 import { useState } from "react";
 import type { Event } from "@/lib/db/types";
-import { useTeams } from "../lib/hooks";
+import { useTeams } from "../hooks/dataQueries";
 import { CardLink } from "./CustomLink";
 
 export default function EventCard(props: Event & { dark?: boolean }) {

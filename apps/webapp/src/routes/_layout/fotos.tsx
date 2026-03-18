@@ -3,8 +3,8 @@ import { useInViewport } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import ResponsiveImage from "@webapp/components/ResponsiveImage";
-import { useGalleryImages } from "@webapp/lib/hooks";
 import { useEffect, useMemo } from "react";
+import { useGalleryImages } from "@/apps/webapp/src/hooks/dataQueries";
 
 export const Route = createFileRoute("/_layout/fotos")({
 	component: RouteComponent,

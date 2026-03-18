@@ -1,6 +1,6 @@
 import { Box, Center, Container, Group, Skeleton, Stack, Text } from "@mantine/core";
 import * as numToWordsDe from "num-words-de";
-import { useTeams } from "../../lib/hooks";
+import { useTeams } from "../../hooks/dataQueries";
 import SectionHeading from "../layout/SectionHeading";
 import HomeTeamGrid from "./HomeTeamGrid";
 import ScrollAnchor from "./ScrollAnchor";

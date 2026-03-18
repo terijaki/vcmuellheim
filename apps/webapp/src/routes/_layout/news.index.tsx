@@ -4,9 +4,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import EntityNotFound from "@webapp/components/EntityNotFound";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import NewsCard from "@webapp/components/NewsCard";
-import { useNews } from "@webapp/lib/hooks";
 import { ServerCrash } from "lucide-react";
 import { useEffect } from "react";
+import { useNews } from "@/apps/webapp/src/hooks/dataQueries";
 
 export const Route = createFileRoute("/_layout/news/")({
 	component: RouteComponent,

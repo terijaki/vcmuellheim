@@ -5,6 +5,7 @@
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import type { PaginationCursor } from "@/lib/db/types";
+import { IMAGE_VARIANTS } from "../lib/image-config";
 import { listBusFn } from "../server/functions/bus";
 import { getEventByIdFn, getUpcomingEventsFn } from "../server/functions/events";
 import { listLocationsFn } from "../server/functions/locations";
@@ -17,7 +18,6 @@ import { getRecentInstagramPostsFn } from "../server/functions/social";
 import { listSponsorsFn } from "../server/functions/sponsors";
 import { getTeamByIdFn, getTeamBySlugFn, listTeamsFn } from "../server/functions/teams";
 import { getFileUrlFn, getFileUrlsFn, getFileUrlsMapFn } from "../server/functions/upload";
-import { IMAGE_VARIANTS } from "./image-config";
 
 // ============================================================================
 // News

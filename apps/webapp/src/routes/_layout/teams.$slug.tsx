@@ -8,13 +8,13 @@ import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import MapsLink from "@webapp/components/MapsLink";
 import Matches from "@webapp/components/Matches";
 import RankingTable from "@webapp/components/RankingTable";
-import { useFileUrls, useLocations, useMembers, useSamsMatches, useSamsRankingsByLeagueUuid, useSamsTeams, useTeamBySlug } from "@webapp/lib/hooks";
 import { createWebcalLink } from "@webapp/utils/webcal";
 import dayjs from "dayjs";
 import de from "dayjs/locale/de";
 import weekday from "dayjs/plugin/weekday";
 import { Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
+import { useFileUrls, useLocations, useMembers, useSamsMatches, useSamsRankingsByLeagueUuid, useSamsTeams, useTeamBySlug } from "@/apps/webapp/src/hooks/dataQueries";
 
 dayjs.locale(de);
 dayjs.extend(weekday);

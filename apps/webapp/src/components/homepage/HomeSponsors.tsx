@@ -3,7 +3,7 @@ import type { Sponsor } from "@lib/db/types";
 import { BackgroundImage, Box, Button, Container, Flex, Group, Image, Loader, Overlay, Stack, Text } from "@mantine/core";
 import { Club } from "@project.config";
 import Marquee from "react-fast-marquee";
-import { useFileUrl, useSponsors } from "../../lib/hooks";
+import { useFileUrl, useSponsors } from "../../hooks/dataQueries";
 import SectionHeading from "../layout/SectionHeading";
 import ScrollAnchor from "./ScrollAnchor";
 

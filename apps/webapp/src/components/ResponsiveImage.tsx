@@ -5,7 +5,7 @@
  */
 
 import { Image, type ImageProps } from "@mantine/core";
-import { useFileUrl } from "../lib/hooks";
+import { useFileUrl } from "../hooks/dataQueries";
 import { buildSizesAttribute, buildSrcSet } from "../lib/image-config";
 
 interface ResponsiveImageProps extends Omit<ImageProps, "src" | "srcSet"> {

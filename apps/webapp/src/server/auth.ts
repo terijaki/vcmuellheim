@@ -63,26 +63,31 @@ function createAuth() {
 		throw new Error("BETTER_AUTH_SECRET environment variable is required");
 	}
 
+	const isLocalDev = process.env.NODE_ENV === "development";
+
 	return betterAuth({
 		baseURL: {
 			allowedHosts: [Club.domain, `*.${Club.domain}`, `*.new.${Club.domain}`, "localhost:*", "*.lambda-url.eu-central-1.on.aws"],
-			protocol: "https",
+			protocol: isLocalDev ? "http" : "https",
 		},
 		secret,
-		trustedOrigins: [`https://${Club.domain}`, `https://*.${Club.domain}`, `https://*.new.${Club.domain}`, "https://*.lambda-url.eu-central-1.on.aws"],
+		trustedOrigins: [
+			...(isLocalDev ? ["http://localhost:*", "http://127.0.0.1:*"] : []),
+			`https://${Club.domain}`,
+			`https://*.${Club.domain}`,
+			`https://*.new.${Club.domain}`,
+			"https://*.lambda-url.eu-central-1.on.aws",
+		],
 		database: dynamoDBAdapter,
 		advanced: {
-			// Force Secure cookies — the server doesn't set NODE_ENV=production, so
-			// better-auth would otherwise emit non-secure cookies even on HTTPS.
+			// In production: force Secure cookies since the server doesn't set NODE_ENV=production.
+			// In local dev: allow non-secure cookies so they can be set over http://localhost.
 			defaultCookieAttributes: {
-				secure: true,
+				secure: !isLocalDev,
 			},
-			// Scope cookies to the parent domain so auth state is shared across
-			// the single-domain app and any subdomains.
-			crossSubDomainCookies: {
-				enabled: true,
-				domain: "vcmuellheim.de",
-			},
+			// Scope cookies to the parent domain in production so auth state is shared across subdomains.
+			// Disabled in local dev since vcmuellheim.de doesn't match localhost.
+			crossSubDomainCookies: isLocalDev ? { enabled: false } : { enabled: true, domain: "vcmuellheim.de" },
 		},
 		session: {
 			storeSessionInDatabase: false,

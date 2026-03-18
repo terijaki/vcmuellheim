@@ -2,7 +2,7 @@ import { Anchor, Box, Card, Center, Container, Group, SimpleGrid, Stack, Text, T
 import { Link } from "@tanstack/react-router";
 import type { HTMLAttributeAnchorTarget } from "react";
 import { FaEnvelope as IconEmail, FaFileExcel as IconExcel, FaArrowUpRightFromSquare as IconExtern } from "react-icons/fa6";
-import { useMembers } from "../../lib/hooks";
+import { useMembers } from "../../hooks/dataQueries";
 import SectionHeading from "../layout/SectionHeading";
 import ScrollAnchor from "./ScrollAnchor";
 

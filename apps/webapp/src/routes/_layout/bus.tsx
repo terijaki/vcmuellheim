@@ -4,9 +4,9 @@ import { Club } from "@project.config";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import CardTitle from "@webapp/components/CardTitle";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
-import { useBusBookings } from "@webapp/lib/hooks";
 import dayjs from "dayjs";
 import { useState } from "react";
+import { useBusBookings } from "@/apps/webapp/src/hooks/dataQueries";
 
 export const Route = createFileRoute("/_layout/bus")({
 	component: RouteComponent,

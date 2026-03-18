@@ -3,8 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import CardTitle from "@webapp/components/CardTitle";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import MemberCard from "@webapp/components/MemberCard";
-import { useMembers } from "@webapp/lib/hooks";
 import { FaFilePdf as IconPdf } from "react-icons/fa6";
+import { useMembers } from "@/apps/webapp/src/hooks/dataQueries";
 
 export const Route = createFileRoute("/_layout/jugendschutz")({
 	component: RouteComponent,
