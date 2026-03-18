@@ -11,7 +11,7 @@ import { slugify } from "@utils/slugify";
 import dayjs from "dayjs";
 import { z } from "zod";
 import { LeagueMatchesResponseSchema, type RankingResponse, RankingResponseSchema } from "@/lambda/sams/types";
-import { getAllSamsClubs, getAllSamsTeams, getSamsClubByNameSlug, getSamsClubBySportsclubUuid, getSamsTeamByUuid } from "../queries";
+import { getAllSamsClubs, getAllSamsTeams, getSamsClubByNameSlug, getSamsClubByNameSlugPrefix, getSamsClubBySportsclubUuid, getSamsTeamByUuid } from "../queries";
 
 const SAMS_API_KEY = () => process.env.SAMS_API_KEY || "";
 const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
@@ -199,7 +199,7 @@ export const getClubLogoUrlsBatchFn = createServerFn()
 		const cfUrl = CLOUDFRONT_URL();
 		const entries = await Promise.all(
 			data.clubSlugs.map(async (slug) => {
-				const club = await getSamsClubByNameSlug(slug);
+				const club = (await getSamsClubByNameSlug(slug)) ?? (await getSamsClubByNameSlugPrefix(slug));
 				return [slug, resolveClubLogoUrl(club, cfUrl)] as const;
 			}),
 		);

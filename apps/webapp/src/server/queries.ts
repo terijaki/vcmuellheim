@@ -152,6 +152,27 @@ export async function getSamsClubByNameSlug(nameSlug: string): Promise<ClubRespo
 	return (result.Items?.[0] as ClubResponse | undefined) ?? null;
 }
 
+export async function getSamsClubByNameSlugPrefix(prefix: string): Promise<ClubResponse | null> {
+	const result = await docClient.send(
+		new QueryCommand({
+			TableName: SAMS_CLUBS_TABLE_NAME(),
+			IndexName: "GSI-SamsClubQueries",
+			KeyConditionExpression: "#type = :type AND begins_with(#nameSlug, :prefix)",
+			ExpressionAttributeNames: {
+				"#type": "type",
+				"#nameSlug": "nameSlug",
+			},
+			ExpressionAttributeValues: {
+				":type": "club",
+				":prefix": prefix,
+			},
+			Limit: 1,
+		}),
+	);
+
+	return (result.Items?.[0] as ClubResponse | undefined) ?? null;
+}
+
 export async function getAllSamsTeams(): Promise<PaginatedResult<TeamResponse>> {
 	const result = await docClient.send(
 		new ScanCommand({
