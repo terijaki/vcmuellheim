@@ -1,8 +1,8 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { loadEnv, type PluginOption } from "vite";
 import { TABLES, type TableEntity, tableEnvVar } from "../../../lib/db/env";
 import { getSanitizedBranch } from "../../../utils/git";
-import { loadEnv, type PluginOption } from "vite";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 
