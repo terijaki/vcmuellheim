@@ -7,6 +7,8 @@ type ClubLogoProps = ({ clubUuid: string; clubSlug?: never } | { clubSlug: strin
 	light?: boolean;
 };
 
+const LOGO_PROXY_VERSION = 2;
+
 export default function ClubLogo({ clubUuid, clubSlug, label, light }: ClubLogoProps) {
 	const [failed, setFailed] = useState(false);
 	const identifier = clubUuid || clubSlug;
@@ -21,7 +23,7 @@ export default function ClubLogo({ clubUuid, clubSlug, label, light }: ClubLogoP
 	// Using <img> instead of fetch()+base64 also avoids the call stack overflow
 	// that occurs with String.fromCharCode.apply() on large images (Safari bug).
 	// A non-image response (204 no logo / 404) triggers onError → fallback.
-	const src = `/api/sams/logos?${paramName}=${identifier}`;
+	const src = `/api/sams/logos?${paramName}=${identifier}&v=${LOGO_PROXY_VERSION}`;
 
 	return (
 		<Flex justify="center" align="center" w={24} h={24} style={{ flexShrink: 0 }}>

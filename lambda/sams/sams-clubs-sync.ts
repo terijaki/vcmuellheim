@@ -1,7 +1,7 @@
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { BatchWriteCommand } from "@aws-sdk/lib-dynamodb";
+import { BatchWriteCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { getAllSportsclubs, getAssociationByUuid, getAssociations } from "@codegen/sams/generated";
 import middy from "@middy/core";
 import type { EventBridgeEvent } from "aws-lambda";
@@ -124,7 +124,36 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 			throw new Error(`Association "${ASSOCIATION_NAME}" not found`);
 		}
 
-		// Step 2: Fetch all clubs from SAMS API
+		// Step 2: Pre-load existing club logo data to avoid overwriting with nulls from the API
+		// The paginated SAMS API returns logoImageLink: null for ~245/313 clubs, but we may have
+		// previously stored valid values that must be preserved.
+		console.log("🔄 Pre-loading existing club logo data from DynamoDB...");
+		const existingLogoMap = new Map<string, { logoImageLink?: string; logoS3Key?: string }>();
+		let scanLastKey: Record<string, unknown> | undefined;
+		do {
+			const scanResult = await docClient.send(
+				new ScanCommand({
+					TableName: TABLE_NAME,
+					FilterExpression: "#t = :type",
+					ExpressionAttributeNames: { "#t": "type" },
+					ExpressionAttributeValues: { ":type": "club" },
+					ProjectionExpression: "sportsclubUuid, logoImageLink, logoS3Key",
+					ExclusiveStartKey: scanLastKey,
+				}),
+			);
+			for (const item of scanResult.Items ?? []) {
+				if (item.sportsclubUuid) {
+					existingLogoMap.set(item.sportsclubUuid as string, {
+						logoImageLink: item.logoImageLink as string | undefined,
+						logoS3Key: item.logoS3Key as string | undefined,
+					});
+				}
+			}
+			scanLastKey = scanResult.LastEvaluatedKey as Record<string, unknown> | undefined;
+		} while (scanLastKey);
+		console.log(`📋 Pre-loaded logo data for ${existingLogoMap.size} existing clubs`);
+
+		// Step 3: Fetch all clubs from SAMS API
 		console.log(`🔁 Fetching all clubs for association ${associationUuid}`);
 		const allClubs: ClubItem[] = [];
 		currentPage = 0;
@@ -154,9 +183,15 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 				const validEntries = data.content.filter((c) => c.uuid && c.name);
 				const clubs: ClubItem[] = [];
 				for (const c of validEntries) {
-					let logoS3Key: string | undefined;
+					const existing = existingLogoMap.get(c.uuid as string);
+					// Use API value if present, otherwise fall back to what was previously stored.
+					// The paginated list API returns null for most clubs that do have logos.
+					const effectiveLogoUrl = c.logoImageLink || existing?.logoImageLink;
+					let logoS3Key = existing?.logoS3Key;
 					if (c.logoImageLink) {
-						logoS3Key = await uploadLogoToS3(c.uuid as string, c.logoImageLink);
+						// Fresh URL from API — re-upload to S3 (may overwrite stale cached version)
+						const uploaded = await uploadLogoToS3(c.uuid as string, c.logoImageLink);
+						if (uploaded) logoS3Key = uploaded;
 					}
 					clubs.push(
 						ClubItemSchema.parse({
@@ -166,8 +201,8 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 							nameSlug: slugify(c.name),
 							associationUuid: c.associationUuid,
 							associationName: ASSOCIATION_NAME,
-							logoImageLink: c.logoImageLink,
-							logoS3Key,
+							...(effectiveLogoUrl ? { logoImageLink: effectiveLogoUrl } : {}),
+							...(logoS3Key ? { logoS3Key } : {}),
 							updatedAt: now,
 							ttl,
 						}),
@@ -190,7 +225,7 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 		Sentry.addBreadcrumb({ category: "sync", message: `Total clubs fetched: ${allClubs.length}`, level: "info", data: { clubsFetched: allClubs.length } });
 		Sentry.setMeasurement("sams_clubs_sync.clubs_fetched", allClubs.length, "none");
 
-		// Step 3: Batch write to DynamoDB (max 25 items per batch)
+		// Step 4: Batch write to DynamoDB (max 25 items per batch)
 		console.log("💾 Writing clubs to DynamoDB...");
 		const batchSize = 25;
 		let totalWritten = 0;

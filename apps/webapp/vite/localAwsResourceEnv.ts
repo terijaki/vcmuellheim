@@ -51,6 +51,8 @@ function applyLocalAwsResourceEnv(environment: string) {
 	setDefaultEnv("SAMS_TEAMS_TABLE_NAME", `sams-teams-${environment}${branchSuffix}`);
 	setDefaultEnv("INSTAGRAM_TABLE_NAME", `instagram-posts-${environment}${branchSuffix}`);
 	setDefaultEnv("MEDIA_BUCKET_NAME", `vcmuellheim-media-${environment}${branchSuffix}`);
+	setDefaultEnv("SAMS_SERVER", "https://www.volleyball-baden.de");
+	setDefaultEnv("CLOUDFRONT_URL", `https://${environment}-tanstack-start-media.new.vcmuellheim.de`);
 }
 
 export function localAwsResourceEnvPlugin(): PluginOption {

@@ -1,6 +1,6 @@
 /**
- * SAMS club logo redirect — serves logos cached in S3 by the clubs sync Lambda.
- * Returns a 302 redirect to the media CloudFront URL for the club's S3 logo key.
+ * SAMS club logo endpoint — redirects to S3/CloudFront for clubs with cached logos,
+ * falls back to proxying from the SAMS CDN for clubs that haven't been synced yet.
  */
 
 import { createFileRoute } from "@tanstack/react-router";
@@ -27,40 +27,64 @@ export const Route = createFileRoute("/api/sams/logos")({
 					});
 				}
 
-				let logoS3Key: string | undefined;
+				let logoS3Key: string | undefined | null;
+				let logoImageLink: string | undefined | null;
 
 				try {
 					if (clubUuid) {
 						const club = await getSamsClubBySportsclubUuid(clubUuid);
-						logoS3Key = club?.logoS3Key ?? undefined;
+						logoS3Key = club?.logoS3Key;
+						logoImageLink = club?.logoImageLink;
 					} else if (clubSlug) {
 						const club = await getSamsClubByNameSlug(clubSlug);
-						logoS3Key = club?.logoS3Key ?? undefined;
+						logoS3Key = club?.logoS3Key;
+						logoImageLink = club?.logoImageLink;
 					}
 				} catch (err) {
-					console.error("Logo redirect: DB lookup failed", err);
+					console.error("Logo lookup: DB lookup failed", err);
 					return new Response(JSON.stringify({ error: "Internal server error" }), {
 						status: 500,
 						headers: { "Content-Type": "application/json" },
 					});
 				}
 
-				if (!logoS3Key) {
-					return new Response(JSON.stringify({ message: "No logo available for this club" }), {
-						status: 404,
-						headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=86400" },
+				// Prefer S3-cached logo (fast, no rate-limit risk)
+				if (logoS3Key) {
+					const mediaCloudFrontUrl = process.env.CLOUDFRONT_URL ?? "";
+					return new Response(null, {
+						status: 302,
+						headers: {
+							Location: `${mediaCloudFrontUrl}/${logoS3Key}`,
+							"Cache-Control": `public, max-age=${CACHE_TTL}`,
+						},
 					});
 				}
 
-				const mediaCloudFrontUrl = process.env.CLOUDFRONT_URL ?? "";
-				const logoUrl = `${mediaCloudFrontUrl}/${logoS3Key}`;
+				// Fallback: proxy from SAMS CDN for clubs not yet in S3
+				if (logoImageLink) {
+					let imageResponse: Response;
+					try {
+						imageResponse = await fetch(logoImageLink, {
+							signal: AbortSignal.timeout(10_000),
+							headers: { "User-Agent": "VCM Logo Proxy/1.0" },
+						});
+					} catch {
+						return new Response(null, { status: 404 });
+					}
+					if (!imageResponse.ok) return new Response(null, { status: 404 });
+					const contentType = imageResponse.headers.get("content-type") ?? "image/png";
+					return new Response(imageResponse.body, {
+						status: 200,
+						headers: {
+							"Content-Type": contentType,
+							"Cache-Control": `public, max-age=${CACHE_TTL}`,
+						},
+					});
+				}
 
-				return new Response(null, {
-					status: 302,
-					headers: {
-						Location: logoUrl,
-						"Cache-Control": `public, max-age=${CACHE_TTL}`,
-					},
+				return new Response(JSON.stringify({ message: "No logo available for this club" }), {
+					status: 404,
+					headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=3600" },
 				});
 			},
 		},
