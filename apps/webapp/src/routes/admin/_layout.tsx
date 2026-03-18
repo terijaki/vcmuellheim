@@ -3,9 +3,7 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import AdminHeader, { ADMIN_HEADER_HEIGHT } from "@webapp/components/layout/AdminHeader";
 import { getCurrentAdminUser } from "@webapp/lib/admin-session";
 
-const adminLayoutRoute = createFileRoute("/admin/_layout");
-
-export const Route = adminLayoutRoute("/admin/_layout")({
+export const Route = createFileRoute("/admin/_layout")({
 	beforeLoad: async ({ location }) => {
 		const user = await getCurrentAdminUser();
 		if (!user) {
