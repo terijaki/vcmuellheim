@@ -1,9 +1,9 @@
 import { Card, Center, Loader, Stack, Typography } from "@mantine/core";
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import ImageGallery from "../../components/ImageGallery";
-import PageWithHeading from "../../components/layout/PageWithHeading";
-import SharingButton from "../../components/SharingButton";
-import { useFileUrls, useNewsById } from "../../lib/hooks";
+import ImageGallery from "@webapp/components/ImageGallery";
+import PageWithHeading from "@webapp/components/layout/PageWithHeading";
+import SharingButton from "@webapp/components/SharingButton";
+import { useFileUrls, useNewsById } from "@webapp/lib/hooks";
 
 export const Route = createFileRoute("/_layout/news/$id")({
 	component: RouteComponent,

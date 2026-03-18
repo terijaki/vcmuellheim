@@ -1,10 +1,10 @@
 import { Box, Button, Card, Group, Stack, Text } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
+import CardTitle from "@webapp/components/CardTitle";
+import PageWithHeading from "@webapp/components/layout/PageWithHeading";
+import MemberCard from "@webapp/components/MemberCard";
+import { useMembers } from "@webapp/lib/hooks";
 import { FaFilePdf as IconPdf } from "react-icons/fa6";
-import CardTitle from "../../components/CardTitle";
-import PageWithHeading from "../../components/layout/PageWithHeading";
-import MemberCard from "../../components/MemberCard";
-import { useMembers } from "../../lib/hooks";
 
 export const Route = createFileRoute("/_layout/jugendschutz")({
 	component: RouteComponent,

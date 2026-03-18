@@ -1,7 +1,7 @@
 import { Anchor, AspectRatio, Box, Button, Card, Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
-import CardTitle from "../../components/CardTitle";
-import PageWithHeading from "../../components/layout/PageWithHeading";
+import CardTitle from "@webapp/components/CardTitle";
+import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 
 export const Route = createFileRoute("/_layout/brand")({
 	component: RouteComponent,

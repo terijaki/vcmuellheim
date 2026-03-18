@@ -1,8 +1,8 @@
 import { Center, Loader, Stack, Text } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
-import HomeTeamGrid from "../../components/homepage/HomeTeamGrid";
-import PageWithHeading from "../../components/layout/PageWithHeading";
-import { useTeams } from "../../lib/hooks";
+import HomeTeamGrid from "@webapp/components/homepage/HomeTeamGrid";
+import PageWithHeading from "@webapp/components/layout/PageWithHeading";
+import { useTeams } from "@webapp/lib/hooks";
 
 export const Route = createFileRoute("/_layout/teams/")({
 	component: RouteComponent,

@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { getCurrentAdminUser } from "../../lib/admin-session";
+import { getCurrentAdminUser } from "@webapp/lib/admin-session";
 
 export const Route = createFileRoute("/admin/")({
 	beforeLoad: async () => {

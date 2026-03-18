@@ -1,12 +1,12 @@
 import { Alert, Center, Container, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
 import { useInViewport } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
+import EntityNotFound from "@webapp/components/EntityNotFound";
+import PageWithHeading from "@webapp/components/layout/PageWithHeading";
+import NewsCard from "@webapp/components/NewsCard";
+import { useNews } from "@webapp/lib/hooks";
 import { ServerCrash } from "lucide-react";
 import { useEffect } from "react";
-import EntityNotFound from "../../components/EntityNotFound";
-import PageWithHeading from "../../components/layout/PageWithHeading";
-import NewsCard from "../../components/NewsCard";
-import { useNews } from "../../lib/hooks";
 
 export const Route = createFileRoute("/_layout/news/")({
 	component: RouteComponent,

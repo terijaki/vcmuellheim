@@ -2,11 +2,11 @@ import { Alert, Anchor, Button, Card, Center, Container, Group, Stack, Table } f
 import { Calendar, type CalendarProps, type DateStringValue } from "@mantine/dates";
 import { Club } from "@project.config";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import CardTitle from "@webapp/components/CardTitle";
+import PageWithHeading from "@webapp/components/layout/PageWithHeading";
+import { useBusBookings } from "@webapp/lib/hooks";
 import dayjs from "dayjs";
 import { useState } from "react";
-import CardTitle from "../../components/CardTitle";
-import PageWithHeading from "../../components/layout/PageWithHeading";
-import { useBusBookings } from "../../lib/hooks";
 
 export const Route = createFileRoute("/_layout/bus")({
 	component: RouteComponent,

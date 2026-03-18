@@ -1,13 +1,13 @@
 import { Card, CardSection, SimpleGrid, Stack, Text } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
+import CardTitle from "@webapp/components/CardTitle";
+import CenteredLoader from "@webapp/components/CenteredLoader";
+import PageWithHeading from "@webapp/components/layout/PageWithHeading";
+import Matches from "@webapp/components/Matches";
+import RankingTable from "@webapp/components/RankingTable";
+import { useSamsMatches, useSamsRankingsByLeagueUuid, useSamsTeams, useTeams } from "@webapp/lib/hooks";
 import { numToWord } from "num-words-de";
 import { Suspense } from "react";
-import CardTitle from "../../components/CardTitle";
-import CenteredLoader from "../../components/CenteredLoader";
-import PageWithHeading from "../../components/layout/PageWithHeading";
-import Matches from "../../components/Matches";
-import RankingTable from "../../components/RankingTable";
-import { useSamsMatches, useSamsRankingsByLeagueUuid, useSamsTeams, useTeams } from "../../lib/hooks";
 
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
 

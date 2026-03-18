@@ -4,7 +4,7 @@
  */
 
 import { createFileRoute } from "@tanstack/react-router";
-import { getAuth } from "../../../server/auth";
+import { getAuth } from "@webapp/server/auth";
 
 export const Route = createFileRoute("/api/auth/$")({
 	server: {

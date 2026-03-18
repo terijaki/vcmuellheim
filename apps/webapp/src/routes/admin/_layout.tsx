@@ -1,7 +1,11 @@
+import { AppShell, AppShellMain, Container } from "@mantine/core";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { getCurrentAdminUser } from "../../lib/admin-session";
+import AdminHeader, { ADMIN_HEADER_HEIGHT } from "@webapp/components/layout/AdminHeader";
+import { getCurrentAdminUser } from "@webapp/lib/admin-session";
 
-export const Route = createFileRoute("/admin/_layout")({
+const adminLayoutRoute = createFileRoute("/admin/_layout");
+
+export const Route = adminLayoutRoute("/admin/_layout")({
 	beforeLoad: async ({ location }) => {
 		const user = await getCurrentAdminUser();
 		if (!user) {
@@ -13,5 +17,19 @@ export const Route = createFileRoute("/admin/_layout")({
 		}
 		return { user };
 	},
-	component: () => <Outlet />,
+	component: AdminLayout,
 });
+
+function AdminLayout() {
+	const { user } = Route.useRouteContext();
+	return (
+		<AppShell header={{ height: ADMIN_HEADER_HEIGHT, offset: true }} withBorder={false} bg="aquahaze">
+			<AdminHeader isAdmin={user?.role === "Admin"} />
+			<AppShellMain>
+				<Container size="xl" py="md" px={{ base: "lg", md: "xl" }}>
+					<Outlet />
+				</Container>
+			</AppShellMain>
+		</AppShell>
+	);
+}

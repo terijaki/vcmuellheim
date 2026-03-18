@@ -1,10 +1,10 @@
 import { AspectRatio, Box, Card, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
 import { useInViewport } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
+import PageWithHeading from "@webapp/components/layout/PageWithHeading";
+import ResponsiveImage from "@webapp/components/ResponsiveImage";
+import { useGalleryImages } from "@webapp/lib/hooks";
 import { useEffect, useMemo } from "react";
-import PageWithHeading from "../../components/layout/PageWithHeading";
-import ResponsiveImage from "../../components/ResponsiveImage";
-import { useGalleryImages } from "../../lib/hooks";
 
 export const Route = createFileRoute("/_layout/fotos")({
 	component: RouteComponent,
