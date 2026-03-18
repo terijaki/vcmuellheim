@@ -215,7 +215,7 @@ describe("server/queries", () => {
 	});
 
 	describe("getSamsClubByNameSlug", () => {
-		it("queries GSI-SamsClubQueries with begins_with", async () => {
+		it("queries GSI-SamsClubQueries with exact equality match", async () => {
 			const mockClub: ClubResponse = { sportsclubUuid: "c1", type: "club", name: "VC Müllheim", updatedAt: "2024-01-01T00:00:00Z" };
 			ddbMock.on(QueryCommand).resolves({ Items: [mockClub] });
 
@@ -225,6 +225,7 @@ describe("server/queries", () => {
 			const calls = ddbMock.commandCalls(QueryCommand);
 			expect(calls[0].args[0].input).toMatchObject({
 				IndexName: "GSI-SamsClubQueries",
+				KeyConditionExpression: "#type = :type AND #nameSlug = :nameSlug",
 				ExpressionAttributeValues: { ":type": "club", ":nameSlug": "vc-muellheim" },
 				Limit: 1,
 			});

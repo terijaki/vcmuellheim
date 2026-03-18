@@ -136,7 +136,7 @@ export async function getSamsClubByNameSlug(nameSlug: string): Promise<ClubRespo
 		new QueryCommand({
 			TableName: SAMS_CLUBS_TABLE_NAME(),
 			IndexName: "GSI-SamsClubQueries",
-			KeyConditionExpression: "#type = :type AND begins_with(#nameSlug, :nameSlug)",
+			KeyConditionExpression: "#type = :type AND #nameSlug = :nameSlug",
 			ExpressionAttributeNames: {
 				"#type": "type",
 				"#nameSlug": "nameSlug",
@@ -144,21 +144,6 @@ export async function getSamsClubByNameSlug(nameSlug: string): Promise<ClubRespo
 			ExpressionAttributeValues: {
 				":type": "club",
 				":nameSlug": nameSlug,
-			},
-			Limit: 1,
-		}),
-	);
-
-	return (result.Items?.[0] as ClubResponse | undefined) ?? null;
-}
-
-export async function getSamsClubByExactSlug(nameSlug: string): Promise<ClubResponse | null> {
-	const result = await docClient.send(
-		new ScanCommand({
-			TableName: SAMS_CLUBS_TABLE_NAME(),
-			FilterExpression: "nameSlug = :slug",
-			ExpressionAttributeValues: {
-				":slug": nameSlug,
 			},
 			Limit: 1,
 		}),

@@ -1,36 +1,30 @@
 import { Flex, Image } from "@mantine/core";
-import { useState } from "react";
 import { FaVolleyball as Ball } from "react-icons/fa6";
+import { useClubLogoUrl } from "../hooks/dataQueries";
 
-type ClubLogoProps = ({ clubUuid: string; clubSlug?: never } | { clubSlug: string; clubUuid?: never }) & {
+type ClubLogoProps = (
+	| { clubUuid: string; clubSlug?: never; logoUrl?: never }
+	| { clubSlug: string; clubUuid?: never; logoUrl?: never }
+	| { logoUrl: string | null | undefined; clubUuid?: never; clubSlug?: never }
+) & {
 	label?: string;
 	light?: boolean;
 };
 
-const LOGO_PROXY_VERSION = 2;
+export default function ClubLogo({ clubUuid, clubSlug, logoUrl: proppedLogoUrl, label, light }: ClubLogoProps) {
+	const useHook = !!(clubUuid || clubSlug);
+	const { data: fetchedLogoUrl } = useClubLogoUrl({ clubUuid, clubSlug });
+	const logoUrl = useHook ? fetchedLogoUrl : proppedLogoUrl;
 
-export default function ClubLogo({ clubUuid, clubSlug, label, light }: ClubLogoProps) {
-	const [failed, setFailed] = useState(false);
-	const identifier = clubUuid || clubSlug;
-	const paramName = clubUuid ? "clubUuid" : "clubSlug";
-
-	if (!identifier || failed) {
+	if (!logoUrl) {
 		return <ClubLogoFallback />;
 	}
-
-	// Point directly at the CDN URL so the browser handles HTTP caching
-	// (Cache-Control: public, max-age=90d, immutable is set by the logo proxy).
-	// Using <img> instead of fetch()+base64 also avoids the call stack overflow
-	// that occurs with String.fromCharCode.apply() on large images (Safari bug).
-	// A non-image response (204 no logo / 404) triggers onError → fallback.
-	const src = `/api/sams/logos?${paramName}=${identifier}&v=${LOGO_PROXY_VERSION}`;
 
 	return (
 		<Flex justify="center" align="center" w={24} h={24} style={{ flexShrink: 0 }}>
 			<Image
-				src={src}
+				src={logoUrl}
 				alt={`Logo: ${label || "Vereinlogo"}`}
-				onError={() => setFailed(true)}
 				style={{
 					width: "100%",
 					height: "100%",

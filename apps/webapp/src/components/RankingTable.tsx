@@ -1,4 +1,5 @@
 import { Card, Group, Table, TableTbody, TableTh, TableThead, TableTr, Text } from "@mantine/core";
+import { useClubLogoUrlsBatch } from "@webapp/hooks/dataQueries";
 import dayjs from "dayjs";
 import type { RankingResponse } from "@/lambda/sams/types";
 import type { Team } from "@/lib/db/types";
@@ -16,6 +17,10 @@ type RankingTable = {
 
 export default function RankingTable(props: RankingTable) {
 	const ranking = props.ranking;
+
+	// Batch-fetch all logo URLs in a single server function call instead of one per row
+	const teamSlugs = (ranking?.teams ?? []).map((t) => slugify((t.teamName ?? "").replace(/\s+\d+$/, "")));
+	const { data: logoUrlMap } = useClubLogoUrlsBatch(teamSlugs);
 
 	if (!ranking) return null;
 
@@ -69,13 +74,14 @@ export default function RankingTable(props: RankingTable) {
 
 						// Enable links only when linkToTeamPage is true (tabelle page) and team has a slug
 						const teamLink = props.linkToTeamPage && isClubsTeam?.slug ? `/teams/${isClubsTeam.slug}` : null;
+						const clubSlug = slugify((team.teamName ?? "").replace(/\s+\d+$/, ""));
 						return (
 							<RankingTableItem
 								key={team.uuid}
 								team={team}
 								isHighlighted={shouldHighlight}
 								teamLink={teamLink}
-								clubLogo={<ClubLogo clubSlug={slugify((team.teamName ?? "").replace(/\s+\d+$/, ""))} label={team.teamName ?? undefined} light={shouldHighlight} />}
+								clubLogo={<ClubLogo logoUrl={logoUrlMap?.[clubSlug]} label={team.teamName ?? undefined} light={shouldHighlight} />}
 							/>
 						);
 					})}

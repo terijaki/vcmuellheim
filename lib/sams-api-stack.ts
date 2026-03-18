@@ -19,7 +19,6 @@ import type {
 	SamsClubsSyncLambdaEnvironment,
 	SamsCommonLambdaEnvironment,
 	SamsLeagueMatchesLambdaEnvironment,
-	SamsLogoProxyLambdaEnvironment,
 	SamsRankingsLambdaEnvironment,
 	SamsSeasonsLambdaEnvironment,
 	SamsTeamsLambdaEnvironment,
@@ -355,33 +354,6 @@ export class SamsApiStack extends cdk.Stack {
 		// Grant DynamoDB read permissions to teams query Lambda
 		teamsTable.grantReadData(samsTeams);
 
-		// Create Lambda function for logo proxy (download and cache external images)
-		const samsLogoProxy = new NodejsFunction(this, "SamsLogoProxy", {
-			functionName: `sams-logo-proxy-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_24_X,
-			handler: "handler",
-			entry: path.join(__dirname, "../lambda/sams/sams-logo-proxy.ts"),
-			environment: {
-				CLUBS_TABLE_NAME: clubsTable.tableName,
-			} satisfies SamsLogoProxyLambdaEnvironment,
-			timeout: cdk.Duration.seconds(30),
-			memorySize: 256,
-			layers: [powertoolsLayer],
-			logGroup: new cdk.aws_logs.LogGroup(this, "SamsLogoProxyLogGroup", {
-				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
-				removalPolicy: cdk.RemovalPolicy.DESTROY,
-			}),
-			bundling: {
-				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
-				minify: true,
-				sourceMap: true,
-			},
-		});
-
-		// Grant DynamoDB read permissions to logo proxy Lambda
-		teamsTable.grantReadData(samsLogoProxy);
-		clubsTable.grantReadData(samsLogoProxy);
-
 		// Create EventBridge rule to trigger sync Lambda weekly on Wednesday at 2 AM UTC
 		const syncRule = new events.Rule(this, "SamsClubsSyncRule", {
 			ruleName: `sams-clubs-weekly-sync-${environment}${branchSuffix}`,
@@ -510,13 +482,6 @@ export class SamsApiStack extends cdk.Stack {
 			integration: new HttpLambdaIntegration("TeamsDetailIntegration", samsTeams),
 		});
 
-		// GET /logos - Download and proxy external logo images (accepts ?team={uuid} or ?club={uuid})
-		api.addRoutes({
-			path: "/logos",
-			methods: [apigatewayv2.HttpMethod.GET],
-			integration: new HttpLambdaIntegration("LogoProxyIntegration", samsLogoProxy),
-		});
-
 		// Create CloudFront distribution for caching
 		const distribution = new cloudfront.Distribution(this, "SamsApiDistribution", {
 			defaultBehavior: sharedBehavior,
@@ -529,7 +494,6 @@ export class SamsApiStack extends cdk.Stack {
 				"/teams/*": sharedBehavior,
 				"/associations": sharedBehavior,
 				"/associations/*": sharedBehavior,
-				"/logos*": sharedBehavior,
 			},
 			priceClass: cloudfront.PriceClass.PRICE_CLASS_100, // Only US, Canada, Europe
 			comment: `SAMS API CloudFront Distribution (${environment}${branchSuffix})`,

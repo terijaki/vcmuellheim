@@ -4,8 +4,8 @@
  */
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import type { PaginationCursor } from "@/lib/db/types";
 import { IMAGE_VARIANTS } from "@utils/image-config";
+import type { PaginationCursor } from "@/lib/db/types";
 import { listBusFn } from "../server/functions/bus";
 import { getEventByIdFn, getUpcomingEventsFn } from "../server/functions/events";
 import { listLocationsFn } from "../server/functions/locations";
@@ -13,7 +13,16 @@ import { getManyMediaFn } from "../server/functions/media";
 import { listMembersFn } from "../server/functions/members";
 // Server functions
 import { getGalleryImagesFn, getNewsByIdFn, getNewsBySlugFn, getPublishedNewsFn } from "../server/functions/news";
-import { getSamsClubByNameSlugFn, getSamsClubBySportsclubUuidFn, getSamsMatchesFn, getSamsRankingsByLeagueUuidsFn, listSamsClubsFn, listSamsTeamsFn } from "../server/functions/sams";
+import {
+	getClubLogoUrlFn,
+	getClubLogoUrlsBatchFn,
+	getSamsClubByNameSlugFn,
+	getSamsClubBySportsclubUuidFn,
+	getSamsMatchesFn,
+	getSamsRankingsByLeagueUuidsFn,
+	listSamsClubsFn,
+	listSamsTeamsFn,
+} from "../server/functions/sams";
 import { getRecentInstagramPostsFn } from "../server/functions/social";
 import { listSponsorsFn } from "../server/functions/sponsors";
 import { getTeamByIdFn, getTeamBySlugFn, listTeamsFn } from "../server/functions/teams";
@@ -293,6 +302,27 @@ export const useSamsClubByNameSlug = (nameSlug?: string) => {
 			return getSamsClubByNameSlugFn({ data: { nameSlug } });
 		},
 		enabled: !!nameSlug,
+	});
+};
+
+export const useClubLogoUrl = ({ clubUuid, clubSlug }: { clubUuid?: string; clubSlug?: string }) => {
+	const identifier = clubUuid || clubSlug;
+	return useQuery({
+		queryKey: ["clubLogoUrl", clubUuid ?? clubSlug],
+		queryFn: () => {
+			if (clubUuid) return getClubLogoUrlFn({ data: { clubUuid } });
+			if (clubSlug) return getClubLogoUrlFn({ data: { clubSlug } });
+			throw new Error("Either clubUuid or clubSlug is required");
+		},
+		enabled: !!identifier,
+	});
+};
+
+export const useClubLogoUrlsBatch = (clubSlugs: string[]) => {
+	return useQuery({
+		queryKey: ["clubLogoUrls", clubSlugs],
+		queryFn: () => getClubLogoUrlsBatchFn({ data: { clubSlugs } }),
+		enabled: clubSlugs.length > 0,
 	});
 };
 

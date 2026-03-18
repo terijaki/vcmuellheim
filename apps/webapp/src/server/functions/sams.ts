@@ -11,9 +11,10 @@ import { slugify } from "@utils/slugify";
 import dayjs from "dayjs";
 import { z } from "zod";
 import { LeagueMatchesResponseSchema, type RankingResponse, RankingResponseSchema } from "@/lambda/sams/types";
-import { getAllSamsClubs, getAllSamsTeams, getSamsClubByExactSlug, getSamsClubByNameSlug, getSamsClubBySportsclubUuid, getSamsTeamByUuid } from "../queries";
+import { getAllSamsClubs, getAllSamsTeams, getSamsClubByNameSlug, getSamsClubBySportsclubUuid, getSamsTeamByUuid } from "../queries";
 
 const SAMS_API_KEY = () => process.env.SAMS_API_KEY || "";
+const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
 
 const SAMS_API_TIMEOUT_MS = 10_000;
 
@@ -85,7 +86,7 @@ export const getSamsMatchesFn = createServerFn()
 		if (!sportsclub && !team && !league) {
 			try {
 				const clubSlug = slugify(Club.shortName);
-				const club = await getSamsClubByExactSlug(clubSlug);
+				const club = await getSamsClubByNameSlug(clubSlug);
 				if (club?.sportsclubUuid) sportsclub = club.sportsclubUuid as string;
 			} catch {
 				// proceed without filter
@@ -184,3 +185,31 @@ export const getSamsTeamByUuidFn = createServerFn()
 		if (!team) throw new Error("SAMS Team not found");
 		return team;
 	});
+
+export const getClubLogoUrlFn = createServerFn()
+	.inputValidator(z.union([z.object({ clubUuid: z.string().min(1), clubSlug: z.undefined().optional() }), z.object({ clubSlug: z.string().min(1), clubUuid: z.undefined().optional() })]))
+	.handler(async ({ data }) => {
+		const club = data.clubUuid ? await getSamsClubBySportsclubUuid(data.clubUuid) : data.clubSlug ? await getSamsClubByNameSlug(data.clubSlug) : null;
+		return resolveClubLogoUrl(club, CLOUDFRONT_URL());
+	});
+
+export const getClubLogoUrlsBatchFn = createServerFn()
+	.inputValidator(z.object({ clubSlugs: z.array(z.string().min(1)) }))
+	.handler(async ({ data }) => {
+		const cfUrl = CLOUDFRONT_URL();
+		const entries = await Promise.all(
+			data.clubSlugs.map(async (slug) => {
+				const club = await getSamsClubByNameSlug(slug);
+				return [slug, resolveClubLogoUrl(club, cfUrl)] as const;
+			}),
+		);
+		return Object.fromEntries(entries) as Record<string, string | null>;
+	});
+
+/** Pure helper — resolves a club's effective logo URL from a club record.
+ * Exported for unit testing. */
+export function resolveClubLogoUrl(club: { logoS3Key?: string | null; logoImageLink?: string | null } | null, cloudfrontUrl: string): string | null {
+	if (!club) return null;
+	if (club.logoS3Key && cloudfrontUrl) return `${cloudfrontUrl}/${club.logoS3Key}`;
+	return club.logoImageLink ?? null;
+}
