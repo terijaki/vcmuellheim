@@ -1,7 +1,6 @@
 /**
- * SAMS club logo proxy — replaces lambda/sams/sams-logo-proxy.ts
- * Fetches club logo URL from DynamoDB then proxies the image to the browser.
- * Uses long-lived cache headers since logos rarely change.
+ * SAMS club logo redirect — serves logos cached in S3 by the clubs sync Lambda.
+ * Returns a 302 redirect to the media CloudFront URL for the club's S3 logo key.
  */
 
 import { createFileRoute } from "@tanstack/react-router";
@@ -28,77 +27,39 @@ export const Route = createFileRoute("/api/sams/logos")({
 					});
 				}
 
-				let logoUrl: string | undefined;
+				let logoS3Key: string | undefined;
 
 				try {
 					if (clubUuid) {
 						const club = await getSamsClubBySportsclubUuid(clubUuid);
-						logoUrl = club?.logoImageLink ?? undefined;
+						logoS3Key = club?.logoS3Key ?? undefined;
 					} else if (clubSlug) {
 						const club = await getSamsClubByNameSlug(clubSlug);
-						logoUrl = club?.logoImageLink ?? undefined;
+						logoS3Key = club?.logoS3Key ?? undefined;
 					}
 				} catch (err) {
-					console.error("Logo proxy: DB lookup failed", err);
+					console.error("Logo redirect: DB lookup failed", err);
 					return new Response(JSON.stringify({ error: "Internal server error" }), {
 						status: 500,
 						headers: { "Content-Type": "application/json" },
 					});
 				}
 
-				if (!logoUrl) {
+				if (!logoS3Key) {
 					return new Response(JSON.stringify({ message: "No logo available for this club" }), {
 						status: 404,
 						headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=86400" },
 					});
 				}
 
-				// Proxy the image from the upstream SAMS CDN
-				const controller = new AbortController();
-				const timeoutId = setTimeout(() => controller.abort(), 10000);
+				const mediaCloudFrontUrl = process.env.CLOUDFRONT_URL ?? "";
+				const logoUrl = `${mediaCloudFrontUrl}/${logoS3Key}`;
 
-				let imageResponse: Response;
-				try {
-					imageResponse = await fetch(logoUrl, {
-						signal: controller.signal,
-						headers: { "User-Agent": "VCM Logo Proxy/1.0" },
-					});
-				} catch (err) {
-					clearTimeout(timeoutId);
-					console.error("Logo proxy: upstream fetch failed", err);
-					return new Response(JSON.stringify({ error: "Failed to fetch logo from upstream" }), {
-						status: 502,
-						headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=3600" },
-					});
-				}
-
-				clearTimeout(timeoutId);
-
-				if (!imageResponse.ok) {
-					return new Response(JSON.stringify({ error: "Failed to fetch logo from upstream" }), {
-						status: 502,
-						headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=3600" },
-					});
-				}
-
-				const contentType = imageResponse.headers.get("content-type") || "image/png";
-				const body = await imageResponse.arrayBuffer();
-				const identifier = clubUuid ?? clubSlug;
-
-				if (!identifier) {
-					return new Response(JSON.stringify({ error: "Either 'clubUuid' or 'clubSlug' query parameter is required" }), {
-						status: 400,
-						headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=3600" },
-					});
-				}
-
-				return new Response(body, {
-					status: 200,
+				return new Response(null, {
+					status: 302,
 					headers: {
-						"Content-Type": contentType,
-						"Cache-Control": `public, max-age=${CACHE_TTL}, immutable`,
-						ETag: `"${identifier}-${body.byteLength}"`,
-						"Access-Control-Allow-Origin": "*",
+						Location: logoUrl,
+						"Cache-Control": `public, max-age=${CACHE_TTL}`,
 					},
 				});
 			},

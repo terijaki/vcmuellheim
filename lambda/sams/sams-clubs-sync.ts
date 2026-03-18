@@ -1,5 +1,6 @@
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { BatchWriteCommand } from "@aws-sdk/lib-dynamodb";
 import { getAllSportsclubs, getAssociationByUuid, getAssociations } from "@codegen/sams/generated";
 import middy from "@middy/core";
@@ -17,7 +18,44 @@ const docClient = createDynamoDocClient(tracer);
 const env = parseLambdaEnv(SamsClubsSyncLambdaEnvironmentSchema);
 const TABLE_NAME = env.CLUBS_TABLE_NAME;
 const SAMS_API_KEY = env.SAMS_API_KEY;
+const MEDIA_BUCKET_NAME = env.MEDIA_BUCKET_NAME;
 const ASSOCIATION_NAME = SAMS.association.name; // SBVV
+
+const s3Client = new S3Client({});
+
+/**
+ * Downloads a logo from a URL and uploads it to S3.
+ * Returns the S3 key on success, or undefined on failure (non-blocking).
+ */
+async function uploadLogoToS3(sportsclubUuid: string, logoUrl: string): Promise<string | undefined> {
+	try {
+		const response = await fetch(logoUrl, {
+			signal: AbortSignal.timeout(15_000),
+			headers: { "User-Agent": "VCM ClubSync/1.0" },
+		});
+		if (!response.ok) {
+			console.warn(`⚠️ Logo fetch failed for ${sportsclubUuid}: HTTP ${response.status}`);
+			return undefined;
+		}
+		const contentType = response.headers.get("content-type") ?? "image/png";
+		const ext = contentType.includes("jpeg") ? "jpg" : contentType.includes("gif") ? "gif" : contentType.includes("webp") ? "webp" : "png";
+		const s3Key = `sams-logos/${sportsclubUuid}.${ext}`;
+		const body = Buffer.from(await response.arrayBuffer());
+		await s3Client.send(
+			new PutObjectCommand({
+				Bucket: MEDIA_BUCKET_NAME,
+				Key: s3Key,
+				Body: body,
+				ContentType: contentType,
+				CacheControl: "public, max-age=604800",
+			}),
+		);
+		return s3Key;
+	} catch (err) {
+		console.warn(`⚠️ Logo upload skipped for ${sportsclubUuid}:`, err);
+		return undefined;
+	}
+}
 
 const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 	logger.info("🚀 Starting SAMS clubs sync job", { event });
@@ -113,9 +151,14 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 				const ttl = Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60; // 30 days from now
 
 				// Transform clubs using Zod schema to strip undefined values
-				const clubs = data.content
-					.filter((c) => c.uuid && c.name) // Only clubs with uuid and name
-					.map((c) =>
+				const validEntries = data.content.filter((c) => c.uuid && c.name);
+				const clubs: ClubItem[] = [];
+				for (const c of validEntries) {
+					let logoS3Key: string | undefined;
+					if (c.logoImageLink) {
+						logoS3Key = await uploadLogoToS3(c.uuid as string, c.logoImageLink);
+					}
+					clubs.push(
 						ClubItemSchema.parse({
 							type: "club",
 							sportsclubUuid: c.uuid,
@@ -124,10 +167,12 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 							associationUuid: c.associationUuid,
 							associationName: ASSOCIATION_NAME,
 							logoImageLink: c.logoImageLink,
+							logoS3Key,
 							updatedAt: now,
 							ttl,
 						}),
 					);
+				}
 				allClubs.push(...clubs);
 				console.log(`📄 Fetched page ${currentPage + 1}/${data.totalPages} (${clubs.length} clubs)`);
 				currentPage++;

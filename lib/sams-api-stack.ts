@@ -11,6 +11,7 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
+import type * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import type {
 	SamsAssociationsLambdaEnvironment,
@@ -34,6 +35,8 @@ interface SamsApiStackProps extends cdk.StackProps {
 	hostedZone?: route53.IHostedZone;
 	regionalCertificate?: acm.ICertificate;
 	cloudFrontCertificate?: acm.ICertificate;
+	mediaBucket?: s3.IBucket;
+	mediaCloudFrontUrl?: string;
 }
 
 export class SamsApiStack extends cdk.Stack {
@@ -248,6 +251,8 @@ export class SamsApiStack extends cdk.Stack {
 			environment: {
 				...commonEnvironment,
 				CLUBS_TABLE_NAME: clubsTable.tableName,
+				MEDIA_BUCKET_NAME: props?.mediaBucket?.bucketName ?? "",
+				MEDIA_CLOUDFRONT_URL: props?.mediaCloudFrontUrl ?? "",
 			} satisfies SamsClubsSyncLambdaEnvironment,
 			timeout: cdk.Duration.minutes(10), // Longer timeout for paginated sync
 			memorySize: 512,
@@ -265,6 +270,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Grant DynamoDB permissions to sync Lambda
 		clubsTable.grantReadWriteData(samsClubsSync);
+		props?.mediaBucket?.grantWrite(samsClubsSync);
 
 		// Create Lambda function for nightly teams sync
 		const samsTeamsSync = new NodejsFunction(this, "SamsTeamsSync", {

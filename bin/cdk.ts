@@ -72,6 +72,8 @@ const samsApiStack = new SamsApiStack(app, samsStackName, {
 	hostedZone: dnsStack.hostedZone,
 	regionalCertificate: dnsStack.regionalCertificate,
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
+	mediaBucket: mediaStack.bucket,
+	mediaCloudFrontUrl: mediaStack.cloudFrontUrl,
 });
 
 // Social Media Stack with Instagram and Mastodon integration

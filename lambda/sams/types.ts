@@ -29,6 +29,8 @@ export type SamsLeagueMatchesLambdaEnvironment = z.infer<typeof SamsLeagueMatche
 
 export const SamsClubsSyncLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
 	CLUBS_TABLE_NAME: requiredEnvString,
+	MEDIA_BUCKET_NAME: requiredEnvString,
+	MEDIA_CLOUDFRONT_URL: requiredEnvString,
 });
 
 export type SamsClubsSyncLambdaEnvironment = z.infer<typeof SamsClubsSyncLambdaEnvironmentSchema>;
@@ -73,6 +75,7 @@ const BaseClubItemSchema = z.object({
 	associationUuid: z.string().nullish(),
 	associationName: z.string().nullish(),
 	logoImageLink: z.string().nullish(),
+	logoS3Key: z.string().nullish(),
 	updatedAt: z.string(),
 	ttl: z.number(), // DynamoDB TTL field
 });
