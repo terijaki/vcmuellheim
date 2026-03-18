@@ -3,21 +3,20 @@ import { useDisclosure } from "@mantine/hooks";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { LayoutDashboard, LogOut } from "lucide-react";
 import { useState } from "react";
+import type { AdminSessionUser } from "../../lib/admin-session";
 import { authClient } from "../../lib/auth-client";
 import { getAdminRoutesWithLabels } from "../../utils/adminNavLinks";
 
 export const ADMIN_HEADER_HEIGHT = 60;
 
 interface AdminHeaderProps {
-	isAdmin: boolean;
-	userName?: string;
-	userEmail?: string;
+	user?: AdminSessionUser;
 }
 
-export default function AdminHeader({ isAdmin, userName, userEmail }: AdminHeaderProps) {
+export default function AdminHeader({ user }: AdminHeaderProps) {
 	const [opened, { toggle, close }] = useDisclosure();
 	const { location } = useRouterState();
-	const navLinks = getAdminRoutesWithLabels(isAdmin);
+	const navLinks = getAdminRoutesWithLabels(user?.role === "Admin");
 	const navigate = useNavigate();
 	const [loggingOut, setLoggingOut] = useState(false);
 
@@ -52,11 +51,11 @@ export default function AdminHeader({ isAdmin, userName, userEmail }: AdminHeade
 					<Group gap="xs">
 						<Menu position="bottom-end">
 							<Menu.Target>
-								<Avatar name={userName} color="turquoise" variant="filled" style={{ cursor: "pointer" }} />
+								<Avatar name={user?.name} color="turquoise" variant="filled" style={{ cursor: "pointer" }} />
 							</Menu.Target>
 							<Menu.Dropdown>
-								{userName && <Menu.Label>{userName}</Menu.Label>}
-								{userEmail && <Menu.Label>{userEmail}</Menu.Label>}
+								{user?.email && <Menu.Label>{user.email}</Menu.Label>}
+								{user?.role && <Menu.Label>{user.role}</Menu.Label>}
 								<Menu.Divider />
 								<Menu.Item leftSection={<LogOut size={16} />} onClick={logout} disabled={loggingOut}>
 									Abmelden
