@@ -591,7 +591,7 @@ export type CompetitionMatchDto = {
     spectators?: number | null;
     netDuration?: number | null;
     verified?: boolean | null;
-    location?: Location;
+    location?: Location | null;
     seasonUuid?: string | null;
     associationUuid?: string | null;
     team1Description?: string | null;
@@ -730,7 +730,7 @@ export type LeagueMatchDto = {
     spectators?: number | null;
     netDuration?: number | null;
     verified?: boolean | null;
-    location?: Location;
+    location?: Location | null;
     seasonUuid?: string | null;
     associationUuid?: string | null;
     team1Description?: string | null;
