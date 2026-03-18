@@ -1,55 +1,54 @@
 import { Card, CardSection, SimpleGrid, Stack, Text } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import CardTitle from "@webapp/components/CardTitle";
-import CenteredLoader from "@webapp/components/CenteredLoader";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
 import RankingTable from "@webapp/components/RankingTable";
+import { getSamsMatchesFn, getSamsRankingsByLeagueUuidsFn, listSamsTeamsFn } from "@webapp/server/functions/sams";
+import { listTeamsFn } from "@webapp/server/functions/teams";
 import { numToWord } from "num-words-de";
 import { Suspense } from "react";
-import { useSamsMatches, useSamsRankingsByLeagueUuid, useSamsTeams, useTeams } from "@/apps/webapp/src/hooks/dataQueries";
 
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
 
 export const Route = createFileRoute("/_layout/tabelle")({
+	loader: async () => {
+		const samsTeams = await listSamsTeamsFn();
+		const leagueUuids = [...new Set(samsTeams.teams.map((t) => t.leagueUuid).filter(Boolean))];
+		const lastResultCap = Math.max(6, Math.min(20, Math.floor(samsTeams.teams.length * GAMES_PER_TEAM)));
+
+		const [rankings, teams, matches] = await Promise.all([
+			leagueUuids.length > 0 ? getSamsRankingsByLeagueUuidsFn({ data: { leagueUuids } }) : Promise.resolve([]),
+			listTeamsFn(),
+			getSamsMatchesFn({ data: { range: "past", limit: lastResultCap } }),
+		]);
+
+		return {
+			rankings,
+			teams: teams.items,
+			recentMatches: matches.matches,
+		};
+	},
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	const { data: samsTeams } = useSamsTeams();
-	const { data: teams } = useTeams();
-
-	const lastResultCap = Math.max(6, Math.min(20, Number(((samsTeams?.teams.length || 0) * GAMES_PER_TEAM).toFixed(0)))); // calculate the total number of games to display based on the number of teams
-	const { data: matches } = useSamsMatches({ range: "past", limit: lastResultCap });
-	const recentMatches = matches?.matches || [];
-
-	const sbvvTeamIds = new Set<string>();
-	samsTeams?.teams.forEach((team) => {
-		sbvvTeamIds.add(team.leagueUuid);
-	});
-
-	const { data, isLoading, error } = useSamsRankingsByLeagueUuid(Array.from(sbvvTeamIds));
-	if (error) throw error;
-
-	// TODO fetch # recent matches where # is number of recent matches
+	const { rankings, teams, recentMatches } = Route.useLoaderData();
 	const lastResultWord = recentMatches.length > 1 && numToWord(recentMatches.length, { uppercase: false });
 
 	return (
 		<PageWithHeading title={"Tabelle"}>
-			{isLoading && <CenteredLoader text="Lade Tabellendaten..." />}
-			{!isLoading && (!data || data.length === 0) && <NoRankingsData />}
-			{data && data.length > 0 && (
+			{(!rankings || rankings.length === 0) && <NoRankingsData />}
+			{rankings && rankings.length > 0 && (
 				<Stack>
 					<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-						{data?.map((ranking) => {
-							return (
-								<Suspense key={ranking.leagueUuid} fallback={<Card>lade Tabelle..</Card>}>
-									<RankingTable ranking={ranking} linkToTeamPage={true} clubsTeams={teams?.items} />
-								</Suspense>
-							);
-						})}
+						{rankings.map((ranking) => (
+							<Suspense key={ranking.leagueUuid} fallback={<Card>lade Tabelle..</Card>}>
+								<RankingTable ranking={ranking} linkToTeamPage={true} clubsTeams={teams} />
+							</Suspense>
+						))}
 					</SimpleGrid>
-					{recentMatches && recentMatches.length > 0 && (
+					{recentMatches.length > 0 && (
 						<Card>
 							<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
 							<CardSection p={{ base: undefined, sm: "sm" }}>
