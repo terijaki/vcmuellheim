@@ -1,8 +1,8 @@
 import { Stack, Table, Text, Title, Tooltip } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { listSamsClubsFn, listSamsTeamsFn } from "@webapp/server/functions/sams";
 import { Info } from "lucide-react";
-import { listSamsClubsFn, listSamsTeamsFn } from "../../../../server/functions/sams";
 
 function SamsDashboardPage() {
 	const { data: samsTeamsData, isLoading: teamsLoading } = useQuery({ queryKey: ["sams", "teams"], queryFn: () => listSamsTeamsFn() });
@@ -109,7 +109,7 @@ function SamsDashboardPage() {
 				<Text>Keine SAMS Vereine gefunden</Text>
 			)}
 		</Stack>
-	)
+	);
 }
 
 export const Route = createFileRoute("/admin/_layout/sams")({

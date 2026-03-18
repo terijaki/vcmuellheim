@@ -2,10 +2,10 @@ import { ActionIcon, Badge, Box, Button, Card, Group, Modal, Radio, SimpleGrid, 
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { useNotification } from "@webapp/hooks/useNotification";
+import { createUserFn, deleteUserFn, listUsersFn, updateUserFn } from "@webapp/server/functions/users";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
-import { useNotification } from "../../../../hooks/useNotification";
-import { createUserFn, deleteUserFn, listUsersFn, updateUserFn } from "../../../../server/functions/users";
 
 export const Route = createFileRoute("/admin/_layout/users")({
 	beforeLoad: async ({ context }) => {
@@ -36,15 +36,15 @@ function UsersPage() {
 	const createMutation = useMutation({
 		mutationFn: (data: Parameters<typeof createUserFn>[0]["data"]) => createUserFn({ data }),
 		onSuccess: () => refetch(),
-	})
+	});
 	const updateMutation = useMutation({
 		mutationFn: (data: Parameters<typeof updateUserFn>[0]["data"]) => updateUserFn({ data }),
 		onSuccess: () => refetch(),
-	})
+	});
 	const deleteMutation = useMutation({
 		mutationFn: (data: Parameters<typeof deleteUserFn>[0]["data"]) => deleteUserFn({ data }),
 		onSuccess: () => refetch(),
-	})
+	});
 
 	const handleCreate = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -56,7 +56,7 @@ function UsersPage() {
 				givenName,
 				familyName,
 				role,
-			})
+			});
 			notification.success(`${givenName} ${familyName} wurde eingeladen`);
 			setEmail("");
 			setGivenName("");
@@ -66,7 +66,7 @@ function UsersPage() {
 		} catch (error) {
 			notification.error({ title: "Fehler beim Erstellen", message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
 		}
-	}
+	};
 
 	const handleOpenEdit = (user: { email: string; givenName: string; familyName: string; groups: string[] }) => {
 		setEditingEmail(user.email);
@@ -74,7 +74,7 @@ function UsersPage() {
 		setFamilyName(user.familyName);
 		setRole((user.groups[0] || "Moderator") as "Admin" | "Moderator");
 		openEdit();
-	}
+	};
 
 	const handleUpdate = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -86,7 +86,7 @@ function UsersPage() {
 				givenName,
 				familyName,
 				role,
-			})
+			});
 			notification.success("Benutzerdaten aktualisiert");
 			setEditingEmail("");
 			setGivenName("");
@@ -96,7 +96,7 @@ function UsersPage() {
 		} catch (error) {
 			notification.error({ title: "Fehler beim Aktualisieren", message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
 		}
-	}
+	};
 
 	const handleDelete = async (email: string) => {
 		try {
@@ -107,7 +107,7 @@ function UsersPage() {
 		} catch (error) {
 			notification.error({ title: "Fehler beim Löschen", message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
 		}
-	}
+	};
 
 	return (
 		<Stack gap="md">
@@ -153,7 +153,7 @@ function UsersPage() {
 									</Button>
 								</Table.Td>
 							</Table.Tr>
-						)
+						);
 					})}
 				</Table.Tbody>
 			</Table>
@@ -183,7 +183,7 @@ function UsersPage() {
 								</Badge>
 							</Stack>
 						</Card>
-					)
+					);
 				})}
 			</SimpleGrid>
 
@@ -263,5 +263,5 @@ function UsersPage() {
 				</Stack>
 			</Modal>
 		</Stack>
-	)
+	);
 }
