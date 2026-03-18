@@ -459,7 +459,7 @@ function NewsPage() {
 			) : filteredNews.length > 0 ? (
 				<>
 					<Card withBorder bg="white" p={0} radius="md" visibleFrom="sm">
-						<Table striped highlightOnHover>
+						<Table striped highlightOnHover horizontalSpacing="md">
 							<Table.Thead>
 								<Table.Tr>
 									<Table.Th style={{ width: "100%" }}>Titel</Table.Th>

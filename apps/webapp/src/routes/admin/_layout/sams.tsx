@@ -17,7 +17,7 @@ function SamsDashboardPage() {
 				<Text>Laden...</Text>
 			) : teams && teams.length > 0 ? (
 				<Card withBorder bg="white" p={0} radius="md">
-					<Table striped highlightOnHover>
+					<Table striped highlightOnHover horizontalSpacing="md">
 						<Table.Thead>
 							<Table.Tr>
 								<Table.Th>Name</Table.Th>
@@ -68,7 +68,7 @@ function SamsDashboardPage() {
 				<Text>Laden...</Text>
 			) : clubs && clubs.length > 0 ? (
 				<Card withBorder bg="white" p={0} radius="md">
-					<Table striped highlightOnHover>
+					<Table striped highlightOnHover horizontalSpacing="md">
 						<Table.Thead>
 							<Table.Tr>
 								<Table.Th>Name</Table.Th>

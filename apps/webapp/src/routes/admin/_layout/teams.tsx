@@ -611,7 +611,7 @@ function TeamsPage() {
 			) : teams && teams.items.length > 0 ? (
 				<>
 					<Card withBorder bg="white" p={0} radius="md" visibleFrom="sm">
-						<Table striped highlightOnHover>
+						<Table striped highlightOnHover horizontalSpacing="md">
 							<Table.Thead>
 								<Table.Tr>
 									<Table.Th>Name</Table.Th>
