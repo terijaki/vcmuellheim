@@ -1,5 +1,5 @@
 import type { MemberInput } from "@lib/db/schemas";
-import { ActionIcon, Badge, Box, Button, Card, Checkbox, Flex, Grid, Group, Image, Modal, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Badge, Box, Button, Card, Checkbox, Flex, Group, Image, Modal, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -421,23 +421,85 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 		queryFn: () => getFileUrlFn({ data: { s3Key: member.avatarS3Key || "" } }),
 		enabled: !!member.avatarS3Key,
 	});
+	const hasDetails = Boolean(member.roleTitle || member.email || member.phone);
+	const hasBadges = member.isBoardMember || member.isTrainer;
 
 	return (
-		<Card shadow="sm" p="0" radius="md" withBorder>
-			<Grid align="stretch" justify="stretch" gutter={0} style={{ display: "flex", height: "100%" }}>
-				<Grid.Col span={4} bg="blue">
-					{avatarUrl ? (
-						<Image src={avatarUrl} alt={member.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-					) : (
-						<Flex justify="center" align="center" bg="gray" h="100%">
-							<User size={60} style={{ color: "var(--mantine-color-gray-5)" }} />
-						</Flex>
-					)}
-				</Grid.Col>
-				<Grid.Col span="auto" style={{ display: "flex", height: "100%" }}>
-					<Stack gap="xs" p="lg" justify="space-between" style={{ flex: 1 }}>
-						<Group justify="space-between" align="flex-start">
-							<Title order={4} lineClamp={2} style={{ flex: 1 }}>
+		<Card shadow="sm" p="0" radius="md" withBorder h={{ base: "auto", sm: 188 }} style={{ overflow: "hidden" }}>
+			<Box hiddenFrom="sm">
+				<Flex align="flex-start" gap="sm" p="sm">
+					<Box bg="gray.2" w={72} h={72} style={{ flexShrink: 0, overflow: "hidden", borderRadius: "var(--mantine-radius-sm)" }}>
+						{avatarUrl ? (
+							<Box component="img" src={avatarUrl} alt={member.name} h="100%" w="100%" style={{ display: "block", objectFit: "cover" }} />
+						) : (
+							<Flex justify="center" align="center" bg="gray.2" h="100%">
+								<User size={36} style={{ color: "var(--mantine-color-gray-5)" }} />
+							</Flex>
+						)}
+					</Box>
+					<Flex direction="column" gap="xs" style={{ flex: 1, minWidth: 0 }}>
+						<Group justify="space-between" align="flex-start" wrap="nowrap" gap="xs">
+							<Title order={4} lineClamp={2} style={{ flex: 1, minWidth: 0 }}>
+								{member.name}
+							</Title>
+
+							<ActionIcon variant="filled" radius="xl" size="lg" onClick={() => onEdit(member)} aria-label="Bearbeiten" style={{ flexShrink: 0 }}>
+								<Pencil size={16} />
+							</ActionIcon>
+						</Group>
+
+						{hasDetails && (
+							<Stack gap={3}>
+								{member.roleTitle && (
+									<Text size="sm" fw={500} c="dimmed">
+										{member.roleTitle}
+									</Text>
+								)}
+								{member.email && (
+									<Text size="sm" c="dimmed" style={{ overflowWrap: "anywhere" }}>
+										{member.email}
+									</Text>
+								)}
+								{member.phone && (
+									<Text size="sm" c="dimmed">
+										{member.phone}
+									</Text>
+								)}
+							</Stack>
+						)}
+
+						{hasBadges && (
+							<Group gap="xs" wrap="wrap" mt={4}>
+								{member.isBoardMember && (
+									<Badge size="sm" variant="light" color="blue">
+										Board
+									</Badge>
+								)}
+								{member.isTrainer && (
+									<Badge size="sm" variant="light" color="green">
+										Trainer
+									</Badge>
+								)}
+							</Group>
+						)}
+					</Flex>
+				</Flex>
+			</Box>
+
+			<Box visibleFrom="sm" h="100%">
+				<Flex wrap="nowrap" align="stretch" h="100%">
+					<Box bg="gray.2" h="100%" style={{ flex: "0 0 34%", minWidth: 96, maxWidth: 136, overflow: "hidden" }}>
+						{avatarUrl ? (
+							<Box component="img" src={avatarUrl} alt={member.name} h="100%" w="100%" style={{ display: "block", objectFit: "cover" }} />
+						) : (
+							<Flex justify="center" align="center" bg="gray.2" h="100%">
+								<User size={60} style={{ color: "var(--mantine-color-gray-5)" }} />
+							</Flex>
+						)}
+					</Box>
+					<Flex direction="column" gap="sm" p="md" h="100%" style={{ flex: 1, minWidth: 0 }}>
+						<Group justify="space-between" align="flex-start" wrap="nowrap">
+							<Title order={4} lineClamp={2} style={{ flex: 1, minWidth: 0 }}>
 								{member.name}
 							</Title>
 
@@ -446,33 +508,43 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 							</ActionIcon>
 						</Group>
 
-						<Stack justify="flex-end" style={{ flex: 1 }}>
-							<Text size="sm" fw={500} c="dimmed" lineClamp={1}>
-								{member.roleTitle}
-							</Text>
-							<Text size="sm" c="dimmed" lineClamp={1}>
-								{member.email}
-							</Text>
-							<Text size="sm" c="dimmed" lineClamp={1}>
-								{member.phone}
-							</Text>
-						</Stack>
+						{hasDetails && (
+							<Stack gap={4}>
+								{member.roleTitle && (
+									<Text size="sm" fw={500} c="dimmed" lineClamp={1}>
+										{member.roleTitle}
+									</Text>
+								)}
+								{member.email && (
+									<Text size="sm" c="dimmed" lineClamp={1} style={{ overflowWrap: "anywhere" }}>
+										{member.email}
+									</Text>
+								)}
+								{member.phone && (
+									<Text size="sm" c="dimmed" lineClamp={1}>
+										{member.phone}
+									</Text>
+								)}
+							</Stack>
+						)}
 
-						<Group gap="xs" mt="xs">
-							{member.isBoardMember && (
-								<Badge size="sm" variant="light" color="blue">
-									Board
-								</Badge>
-							)}
-							{member.isTrainer && (
-								<Badge size="sm" variant="light" color="green">
-									Trainer
-								</Badge>
-							)}
-						</Group>
-					</Stack>
-				</Grid.Col>
-			</Grid>
+						{hasBadges && (
+							<Group gap="xs" wrap="wrap" mt="auto">
+								{member.isBoardMember && (
+									<Badge size="sm" variant="light" color="blue">
+										Board
+									</Badge>
+								)}
+								{member.isTrainer && (
+									<Badge size="sm" variant="light" color="green">
+										Trainer
+									</Badge>
+								)}
+							</Group>
+						)}
+					</Flex>
+				</Flex>
+			</Box>
 		</Card>
 	);
 }
