@@ -1,40 +1,43 @@
-import { Card, CardSection, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Card, CardSection, Center, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import CardTitle from "@webapp/components/CardTitle";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
 import RankingTable from "@webapp/components/RankingTable";
-import { getSamsMatchesFn, getSamsRankingsByLeagueUuidsFn, listSamsTeamsFn } from "@webapp/server/functions/sams";
+import { useSamsMatches, useSamsRankingsByLeagueUuid } from "@webapp/hooks/dataQueries";
+import { listSamsTeamsFn } from "@webapp/server/functions/sams";
 import { listTeamsFn } from "@webapp/server/functions/teams";
 import { numToWord } from "num-words-de";
-import { Suspense } from "react";
 
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
 
 export const Route = createFileRoute("/_layout/tabelle")({
 	loader: async () => {
-		const samsTeams = await listSamsTeamsFn();
+		// Only DynamoDB reads here — fast, same-region. SAMS API calls happen client-side.
+		const [samsTeams, teams] = await Promise.all([listSamsTeamsFn(), listTeamsFn()]);
 		const leagueUuids = [...new Set(samsTeams.teams.map((t) => t.leagueUuid).filter(Boolean))];
 		const lastResultCap = Math.max(6, Math.min(20, Math.floor(samsTeams.teams.length * GAMES_PER_TEAM)));
-
-		const [rankings, teams, matches] = await Promise.all([
-			leagueUuids.length > 0 ? getSamsRankingsByLeagueUuidsFn({ data: { leagueUuids } }) : Promise.resolve([]),
-			listTeamsFn(),
-			getSamsMatchesFn({ data: { range: "past", limit: lastResultCap } }),
-		]);
-
-		return {
-			rankings,
-			teams: teams.items,
-			recentMatches: matches.matches,
-		};
+		return { leagueUuids, teams: teams.items, lastResultCap };
 	},
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	const { rankings, teams, recentMatches } = Route.useLoaderData();
+	const { leagueUuids, teams, lastResultCap } = Route.useLoaderData();
+	const { data: rankings, isLoading: isLoadingRankings } = useSamsRankingsByLeagueUuid(leagueUuids);
+	const { data: matchesData, isLoading: isLoadingMatches } = useSamsMatches({ range: "past", limit: lastResultCap });
+	const recentMatches = matchesData?.matches ?? [];
 	const lastResultWord = recentMatches.length > 1 && numToWord(recentMatches.length, { uppercase: false });
+
+	if (isLoadingRankings) {
+		return (
+			<PageWithHeading title={"Tabelle"}>
+				<Center p="xl">
+					<Loader />
+				</Center>
+			</PageWithHeading>
+		);
+	}
 
 	return (
 		<PageWithHeading title={"Tabelle"}>
@@ -43,12 +46,10 @@ function RouteComponent() {
 				<Stack>
 					<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
 						{rankings.map((ranking) => (
-							<Suspense key={ranking.leagueUuid} fallback={<Card>lade Tabelle..</Card>}>
-								<RankingTable ranking={ranking} linkToTeamPage={true} clubsTeams={teams} />
-							</Suspense>
+							<RankingTable key={ranking.leagueUuid} ranking={ranking} linkToTeamPage={true} clubsTeams={teams} />
 						))}
 					</SimpleGrid>
-					{recentMatches.length > 0 && (
+					{!isLoadingMatches && recentMatches.length > 0 && (
 						<Card>
 							<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
 							<CardSection p={{ base: undefined, sm: "sm" }}>

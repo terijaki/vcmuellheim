@@ -48,7 +48,7 @@ export const Route = createFileRoute("/api/sams/logos")({
 
 				if (!logoUrl) {
 					return new Response(JSON.stringify({ message: "No logo available for this club" }), {
-						status: 204,
+						status: 404,
 						headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=86400" },
 					});
 				}

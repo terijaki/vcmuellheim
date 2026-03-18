@@ -15,31 +15,38 @@ import { getAllSamsClubs, getAllSamsTeams, getSamsClubByExactSlug, getSamsClubBy
 
 const SAMS_API_KEY = () => process.env.SAMS_API_KEY || "";
 
+const SAMS_API_TIMEOUT_MS = 10_000;
+
 async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<RankingResponse> {
 	const apiKey = SAMS_API_KEY();
 	if (!apiKey) throw new Error("SAMS API key not configured");
 
-	const { data: rankingsData } = await getRankingsForLeague({
-		path: { uuid: leagueUuid },
-		query: { page: 0, size: 100 },
-		headers: { "X-API-Key": apiKey },
-	});
+	const [{ data: rankingsData }, { data: leagueData }] = await Promise.all([
+		getRankingsForLeague({
+			path: { uuid: leagueUuid },
+			query: { page: 0, size: 100 },
+			headers: { "X-API-Key": apiKey },
+			signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
+		}),
+		getLeagueByUuid({
+			path: { uuid: leagueUuid },
+			headers: { "X-API-Key": apiKey },
+			signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
+		}),
+	]);
 
 	if (!rankingsData?.content) throw new Error("No rankings found for this league");
 
 	let leagueName: string | undefined;
 	let seasonName: string | undefined;
 
-	const { data: leagueData } = await getLeagueByUuid({
-		path: { uuid: leagueUuid },
-		headers: { "X-API-Key": apiKey },
-	});
 	if (leagueData?.name) leagueName = leagueData.name;
 
 	if (leagueData?.seasonUuid) {
 		const { data: seasonData } = await getSeasonByUuid({
 			path: { uuid: leagueData.seasonUuid },
 			headers: { "X-API-Key": apiKey },
+			signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
 		});
 		if (seasonData?.name) seasonName = seasonData.name;
 	}
@@ -98,6 +105,7 @@ export const getSamsMatchesFn = createServerFn()
 			const { data: pageData } = await getAllLeagueMatches({
 				query: { ...defaultQueryParams, page: currentPage },
 				headers: { "X-API-Key": apiKey },
+				signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
 			});
 			if (!pageData) throw new Error(`SAMS API returned no data on page ${currentPage}`);
 			if (pageData.content) {

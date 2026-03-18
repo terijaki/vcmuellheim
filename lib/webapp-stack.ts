@@ -185,6 +185,8 @@ export class WebAppStack extends cdk.Stack {
 		});
 
 		// SSR/API: no cache by default — let the app set Cache-Control headers
+		// Query strings must be in the cache key so /api/sams/logos?clubSlug=X
+		// is cached separately from /api/sams/logos?clubSlug=Y.
 		const ssrCachePolicy = isProd
 			? cloudfront.CachePolicy.CACHING_DISABLED
 			: new cloudfront.CachePolicy(this, "SsrCachePolicy", {
@@ -193,6 +195,7 @@ export class WebAppStack extends cdk.Stack {
 					minTtl: cdk.Duration.seconds(0),
 					maxTtl: cdk.Duration.seconds(60),
 					comment: "Dev: passthrough (no cache) for SSR + API",
+					queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
 				});
 
 		// ── CloudFront distribution ────────────────────────────────────────────
