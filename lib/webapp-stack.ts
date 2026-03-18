@@ -111,6 +111,7 @@ export class WebAppStack extends cdk.Stack {
 			SAMS_TEAMS_TABLE_NAME: props.samsApiStack.samsTeamsTable.tableName,
 			INSTAGRAM_TABLE_NAME: props.instagramTable.tableName,
 			...(process.env.SAMS_API_KEY ? { SAMS_API_KEY: process.env.SAMS_API_KEY } : {}),
+			...(process.env.SAMS_SERVER ? { SAMS_SERVER: process.env.SAMS_SERVER } : {}),
 			...(props.mediaCloudFrontUrl ? { CLOUDFRONT_URL: props.mediaCloudFrontUrl } : {}),
 			NODE_ENV: "production",
 		};
