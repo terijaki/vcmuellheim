@@ -15,7 +15,7 @@ export const Route = createFileRoute("/admin/otp-login")({
 	beforeLoad: async () => {
 		const user = await getCurrentAdminUser();
 		if (user) {
-			throw redirect({ to: "/admin/dashboard", replace: true });
+			throw redirect({ to: "/admin", replace: true });
 		}
 	},
 	component: OtpLoginPage,
@@ -43,7 +43,7 @@ function OtpLoginPage() {
 				return;
 			}
 
-			await navigate({ to: "/admin/dashboard" });
+			await navigate({ to: "/admin" });
 		};
 
 		void completeLogin();

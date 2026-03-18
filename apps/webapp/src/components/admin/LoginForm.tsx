@@ -4,10 +4,10 @@ import { useState } from "react";
 import { authClient } from "../../lib/auth-client";
 
 export interface LoginFormProps {
-	redirectTo?: "/admin/dashboard";
+	redirectTo?: "/admin";
 }
 
-export function LoginForm({ redirectTo = "/admin/dashboard" }: LoginFormProps) {
+export function LoginForm({ redirectTo = "/admin" }: LoginFormProps) {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [otp, setOtp] = useState("");

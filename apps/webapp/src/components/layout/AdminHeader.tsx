@@ -15,7 +15,7 @@ export default function AdminHeader({ isAdmin }: { isAdmin: boolean }) {
 		<AppShell.Header c="white" bg="blumine">
 			<Container size="xl" p="sm">
 				<Group justify="space-between" h="100%">
-					<UnstyledButton component={Link} to="/admin/dashboard" onClick={close}>
+					<UnstyledButton component={Link} to="/admin" onClick={close}>
 						<Group gap="xs">
 							<LayoutDashboard size={22} />
 							<Title order={1} size="h2" fw={500} tt="uppercase" style={{ letterSpacing: "0.1em" }}>

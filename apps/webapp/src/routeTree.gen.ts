@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteImport } from './routes/_layout'
-import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
 import { Route as AdminOtpLoginRouteImport } from './routes/admin/otp-login'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
@@ -27,6 +26,7 @@ import { Route as LayoutDatenschutzRouteImport } from './routes/_layout/datensch
 import { Route as LayoutBusRouteImport } from './routes/_layout/bus'
 import { Route as LayoutBrandRouteImport } from './routes/_layout/brand'
 import { Route as LayoutBeitragsordnungRouteImport } from './routes/_layout/beitragsordnung'
+import { Route as AdminLayoutIndexRouteImport } from './routes/admin/_layout/index'
 import { Route as LayoutTermineIndexRouteImport } from './routes/_layout/termine.index'
 import { Route as LayoutTeamsIndexRouteImport } from './routes/_layout/teams.index'
 import { Route as LayoutNewsIndexRouteImport } from './routes/_layout/news.index'
@@ -41,7 +41,6 @@ import { Route as AdminLayoutNewsRouteImport } from './routes/admin/_layout/news
 import { Route as AdminLayoutMembersRouteImport } from './routes/admin/_layout/members'
 import { Route as AdminLayoutLocationsRouteImport } from './routes/admin/_layout/locations'
 import { Route as AdminLayoutEventsRouteImport } from './routes/admin/_layout/events'
-import { Route as AdminLayoutDashboardRouteImport } from './routes/admin/_layout/dashboard'
 import { Route as AdminLayoutBusRouteImport } from './routes/admin/_layout/bus'
 import { Route as LayoutTermineIdRouteImport } from './routes/_layout/termine.$id'
 import { Route as LayoutTeamsSlugRouteImport } from './routes/_layout/teams.$slug'
@@ -49,11 +48,6 @@ import { Route as LayoutNewsIdRouteImport } from './routes/_layout/news.$id'
 
 const LayoutRoute = LayoutRouteImport.update({
   id: '/_layout',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: '/admin/',
-  path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LayoutIndexRoute = LayoutIndexRouteImport.update({
@@ -136,6 +130,11 @@ const LayoutBeitragsordnungRoute = LayoutBeitragsordnungRouteImport.update({
   path: '/beitragsordnung',
   getParentRoute: () => LayoutRoute,
 } as any)
+const AdminLayoutIndexRoute = AdminLayoutIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
 const LayoutTermineIndexRoute = LayoutTermineIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -206,11 +205,6 @@ const AdminLayoutEventsRoute = AdminLayoutEventsRouteImport.update({
   path: '/events',
   getParentRoute: () => AdminLayoutRoute,
 } as any)
-const AdminLayoutDashboardRoute = AdminLayoutDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => AdminLayoutRoute,
-} as any)
 const AdminLayoutBusRoute = AdminLayoutBusRouteImport.update({
   id: '/bus',
   path: '/bus',
@@ -249,12 +243,10 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminLayoutRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
   '/admin/otp-login': typeof AdminOtpLoginRoute
-  '/admin/': typeof AdminIndexRoute
   '/news/$id': typeof LayoutNewsIdRoute
   '/teams/$slug': typeof LayoutTeamsSlugRoute
   '/termine/$id': typeof LayoutTermineIdRoute
   '/admin/bus': typeof AdminLayoutBusRoute
-  '/admin/dashboard': typeof AdminLayoutDashboardRoute
   '/admin/events': typeof AdminLayoutEventsRoute
   '/admin/locations': typeof AdminLayoutLocationsRoute
   '/admin/members': typeof AdminLayoutMembersRoute
@@ -269,6 +261,7 @@ export interface FileRoutesByFullPath {
   '/news/': typeof LayoutNewsIndexRoute
   '/teams/': typeof LayoutTeamsIndexRoute
   '/termine/': typeof LayoutTermineIndexRoute
+  '/admin/': typeof AdminLayoutIndexRoute
 }
 export interface FileRoutesByTo {
   '/beitragsordnung': typeof LayoutBeitragsordnungRoute
@@ -280,7 +273,6 @@ export interface FileRoutesByTo {
   '/jugendschutz': typeof LayoutJugendschutzRoute
   '/satzung': typeof LayoutSatzungRoute
   '/tabelle': typeof LayoutTabelleRoute
-  '/admin': typeof AdminIndexRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/otp-login': typeof AdminOtpLoginRoute
   '/': typeof LayoutIndexRoute
@@ -288,7 +280,6 @@ export interface FileRoutesByTo {
   '/teams/$slug': typeof LayoutTeamsSlugRoute
   '/termine/$id': typeof LayoutTermineIdRoute
   '/admin/bus': typeof AdminLayoutBusRoute
-  '/admin/dashboard': typeof AdminLayoutDashboardRoute
   '/admin/events': typeof AdminLayoutEventsRoute
   '/admin/locations': typeof AdminLayoutLocationsRoute
   '/admin/members': typeof AdminLayoutMembersRoute
@@ -303,6 +294,7 @@ export interface FileRoutesByTo {
   '/news': typeof LayoutNewsIndexRoute
   '/teams': typeof LayoutTeamsIndexRoute
   '/termine': typeof LayoutTermineIndexRoute
+  '/admin': typeof AdminLayoutIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -323,12 +315,10 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/admin/otp-login': typeof AdminOtpLoginRoute
   '/_layout/': typeof LayoutIndexRoute
-  '/admin/': typeof AdminIndexRoute
   '/_layout/news/$id': typeof LayoutNewsIdRoute
   '/_layout/teams/$slug': typeof LayoutTeamsSlugRoute
   '/_layout/termine/$id': typeof LayoutTermineIdRoute
   '/admin/_layout/bus': typeof AdminLayoutBusRoute
-  '/admin/_layout/dashboard': typeof AdminLayoutDashboardRoute
   '/admin/_layout/events': typeof AdminLayoutEventsRoute
   '/admin/_layout/locations': typeof AdminLayoutLocationsRoute
   '/admin/_layout/members': typeof AdminLayoutMembersRoute
@@ -343,6 +333,7 @@ export interface FileRoutesById {
   '/_layout/news/': typeof LayoutNewsIndexRoute
   '/_layout/teams/': typeof LayoutTeamsIndexRoute
   '/_layout/termine/': typeof LayoutTermineIndexRoute
+  '/admin/_layout/': typeof AdminLayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -363,12 +354,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/login'
     | '/admin/otp-login'
-    | '/admin/'
     | '/news/$id'
     | '/teams/$slug'
     | '/termine/$id'
     | '/admin/bus'
-    | '/admin/dashboard'
     | '/admin/events'
     | '/admin/locations'
     | '/admin/members'
@@ -383,6 +372,7 @@ export interface FileRouteTypes {
     | '/news/'
     | '/teams/'
     | '/termine/'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/beitragsordnung'
@@ -394,7 +384,6 @@ export interface FileRouteTypes {
     | '/jugendschutz'
     | '/satzung'
     | '/tabelle'
-    | '/admin'
     | '/admin/login'
     | '/admin/otp-login'
     | '/'
@@ -402,7 +391,6 @@ export interface FileRouteTypes {
     | '/teams/$slug'
     | '/termine/$id'
     | '/admin/bus'
-    | '/admin/dashboard'
     | '/admin/events'
     | '/admin/locations'
     | '/admin/members'
@@ -417,6 +405,7 @@ export interface FileRouteTypes {
     | '/news'
     | '/teams'
     | '/termine'
+    | '/admin'
   id:
     | '__root__'
     | '/_layout'
@@ -436,12 +425,10 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/otp-login'
     | '/_layout/'
-    | '/admin/'
     | '/_layout/news/$id'
     | '/_layout/teams/$slug'
     | '/_layout/termine/$id'
     | '/admin/_layout/bus'
-    | '/admin/_layout/dashboard'
     | '/admin/_layout/events'
     | '/admin/_layout/locations'
     | '/admin/_layout/members'
@@ -456,6 +443,7 @@ export interface FileRouteTypes {
     | '/_layout/news/'
     | '/_layout/teams/'
     | '/_layout/termine/'
+    | '/admin/_layout/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -463,7 +451,6 @@ export interface RootRouteChildren {
   AdminLayoutRoute: typeof AdminLayoutRouteWithChildren
   AdminLoginRoute: typeof AdminLoginRoute
   AdminOtpLoginRoute: typeof AdminOtpLoginRoute
-  AdminIndexRoute: typeof AdminIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiIcsTeamSlugRoute: typeof ApiIcsTeamSlugRoute
   ApiSamsLogosRoute: typeof ApiSamsLogosRoute
@@ -476,13 +463,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof LayoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/': {
-      id: '/admin/'
-      path: '/admin'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_layout/': {
@@ -597,6 +577,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutBeitragsordnungRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/admin/_layout/': {
+      id: '/admin/_layout/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminLayoutIndexRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
     '/_layout/termine/': {
       id: '/_layout/termine/'
       path: '/'
@@ -693,13 +680,6 @@ declare module '@tanstack/react-router' {
       path: '/events'
       fullPath: '/admin/events'
       preLoaderRoute: typeof AdminLayoutEventsRouteImport
-      parentRoute: typeof AdminLayoutRoute
-    }
-    '/admin/_layout/dashboard': {
-      id: '/admin/_layout/dashboard'
-      path: '/dashboard'
-      fullPath: '/admin/dashboard'
-      preLoaderRoute: typeof AdminLayoutDashboardRouteImport
       parentRoute: typeof AdminLayoutRoute
     }
     '/admin/_layout/bus': {
@@ -812,7 +792,6 @@ const LayoutRouteWithChildren =
 
 interface AdminLayoutRouteChildren {
   AdminLayoutBusRoute: typeof AdminLayoutBusRoute
-  AdminLayoutDashboardRoute: typeof AdminLayoutDashboardRoute
   AdminLayoutEventsRoute: typeof AdminLayoutEventsRoute
   AdminLayoutLocationsRoute: typeof AdminLayoutLocationsRoute
   AdminLayoutMembersRoute: typeof AdminLayoutMembersRoute
@@ -821,11 +800,11 @@ interface AdminLayoutRouteChildren {
   AdminLayoutSponsorsRoute: typeof AdminLayoutSponsorsRoute
   AdminLayoutTeamsRoute: typeof AdminLayoutTeamsRoute
   AdminLayoutUsersRoute: typeof AdminLayoutUsersRoute
+  AdminLayoutIndexRoute: typeof AdminLayoutIndexRoute
 }
 
 const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
   AdminLayoutBusRoute: AdminLayoutBusRoute,
-  AdminLayoutDashboardRoute: AdminLayoutDashboardRoute,
   AdminLayoutEventsRoute: AdminLayoutEventsRoute,
   AdminLayoutLocationsRoute: AdminLayoutLocationsRoute,
   AdminLayoutMembersRoute: AdminLayoutMembersRoute,
@@ -834,6 +813,7 @@ const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
   AdminLayoutSponsorsRoute: AdminLayoutSponsorsRoute,
   AdminLayoutTeamsRoute: AdminLayoutTeamsRoute,
   AdminLayoutUsersRoute: AdminLayoutUsersRoute,
+  AdminLayoutIndexRoute: AdminLayoutIndexRoute,
 }
 
 const AdminLayoutRouteWithChildren = AdminLayoutRoute._addFileChildren(
@@ -845,7 +825,6 @@ const rootRouteChildren: RootRouteChildren = {
   AdminLayoutRoute: AdminLayoutRouteWithChildren,
   AdminLoginRoute: AdminLoginRoute,
   AdminOtpLoginRoute: AdminOtpLoginRoute,
-  AdminIndexRoute: AdminIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiIcsTeamSlugRoute: ApiIcsTeamSlugRoute,
   ApiSamsLogosRoute: ApiSamsLogosRoute,

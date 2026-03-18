@@ -12,7 +12,7 @@ export const Route = createFileRoute("/admin/_layout/users")({
 		// Auth is guaranteed by the /admin/_layout parent route.
 		// Only an additional role check is needed here.
 		if (context.user.role !== "Admin") {
-			throw redirect({ to: "/admin/dashboard", replace: true });
+			throw redirect({ to: "/admin", replace: true });
 		}
 		return { currentUser: context.user };
 	},

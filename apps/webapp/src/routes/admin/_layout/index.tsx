@@ -2,14 +2,14 @@ import { AspectRatio, BackgroundImage, Card, Group, SimpleGrid, Stack, Title, Ty
 import { createFileRoute, getRouteApi, Link } from "@tanstack/react-router";
 import { getAdminRoutesWithLabels } from "@webapp/utils/adminNavLinks";
 
-export const Route = createFileRoute("/admin/_layout/dashboard")({
+export const Route = createFileRoute("/admin/_layout/")({
 	component: DashboardIndexPage,
 });
 
-const adminDashboardRoute = getRouteApi("/admin/_layout");
+const adminLayoutRoute = getRouteApi("/admin/_layout");
 
 function DashboardIndexPage() {
-	const { user } = adminDashboardRoute.useRouteContext();
+	const { user } = adminLayoutRoute.useRouteContext();
 
 	return (
 		<SimpleGrid spacing="md" cols={{ base: 1, sm: 2, xl: 3 }}>
