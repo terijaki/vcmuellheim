@@ -2,12 +2,12 @@ import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import "@mantine/notifications/styles.css";
 import "../globals.css";
-import { ColorSchemeScript, colorsTuple, createTheme, MantineProvider } from "@mantine/core";
+import { ColorSchemeScript, colorsTuple, createTheme, MantineProvider, mantineHtmlProps } from "@mantine/core";
 import { DatesProvider } from "@mantine/dates";
 import { Notifications } from "@mantine/notifications";
 import { Club } from "@project.config";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { createRootRouteWithContext, HeadContent, Outlet, Scripts, ScrollRestoration } from "@tanstack/react-router";
+import { createRootRouteWithContext, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 import type { RouterContext } from "../router";
@@ -75,7 +75,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 	}),
 	component: RootDocument,
 	errorComponent: ({ error }) => (
-		<html lang="de">
+		<html lang="de" {...mantineHtmlProps}>
 			<head>
 				<HeadContent />
 			</head>
@@ -89,7 +89,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 		</html>
 	),
 	notFoundComponent: () => (
-		<html lang="de">
+		<html lang="de" {...mantineHtmlProps}>
 			<head>
 				<HeadContent />
 			</head>
@@ -107,7 +107,7 @@ function RootDocument() {
 	const { queryClient } = Route.useRouteContext();
 
 	return (
-		<html lang="de">
+		<html lang="de" {...mantineHtmlProps}>
 			<head>
 				<ColorSchemeScript />
 				<HeadContent />
@@ -121,7 +121,6 @@ function RootDocument() {
 						</DatesProvider>
 					</MantineProvider>
 				</QueryClientProvider>
-				<ScrollRestoration />
 				<Scripts />
 			</body>
 		</html>

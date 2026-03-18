@@ -1,5 +1,5 @@
 import { Box, CardSection, Stack, Text, Title } from "@mantine/core";
-import { forwardRef, useState } from "react";
+import { forwardRef, useMemo, useState } from "react";
 import type { News } from "@/lib/db/types";
 import { useFileUrl } from "../hooks/dataQueries";
 import { CardLink } from "./CustomLink";
@@ -7,20 +7,28 @@ import ResponsiveImage from "./ResponsiveImage";
 
 const CARD_HEIGHT = 140;
 
+/** To ensure that the same image is shown for the same news item across different renders, we use a stable hashing function to select an image from the available ones based on the news item's ID. This way, even if there are multiple images, the same one will be consistently chosen for each news item. */
+const stableIndexFromId = (id: string, length: number) => {
+	let hash = 0;
+	for (let i = 0; i < id.length; i += 1) {
+		hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
+	}
+	return hash % length;
+};
+
 const NewsCard = forwardRef<HTMLAnchorElement, News>((props, ref) => {
 	const hasImage = props.imageS3Keys && props.imageS3Keys.length > 0;
 
-	// Lock in the thumbnailKey for the lifetime of the component instance
-	const [thumbnailKey] = useState(() => {
+	const thumbnailKey = useMemo(() => {
 		if (!props.imageS3Keys || props.imageS3Keys.length === 0) {
 			return undefined;
 		}
 		if (props.imageS3Keys.length === 1) {
 			return props.imageS3Keys[0];
 		}
-		const randomIndex = Math.floor(Math.random() * props.imageS3Keys.length);
-		return props.imageS3Keys[randomIndex];
-	});
+		const deterministicIndex = stableIndexFromId(props.id, props.imageS3Keys.length);
+		return props.imageS3Keys[deterministicIndex];
+	}, [props.id, props.imageS3Keys]);
 
 	const { data: thumbnail } = useFileUrl(thumbnailKey);
 

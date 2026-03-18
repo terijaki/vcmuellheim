@@ -9,15 +9,22 @@ import HomeMembers from "@webapp/components/homepage/HomeMembers";
 import HomeNews from "@webapp/components/homepage/HomeNews";
 import HomeSponsors from "@webapp/components/homepage/HomeSponsors";
 import HomeTeams from "@webapp/components/homepage/HomeTeams";
+import { getHomeIntroBackgroundImageFn } from "@webapp/server/functions/home";
 
 export const Route = createFileRoute("/_layout/")({
+	loader: async () => {
+		const introBackgroundImage = await getHomeIntroBackgroundImageFn();
+		return { introBackgroundImage };
+	},
 	component: HomePage,
 });
 
 function HomePage() {
+	const { introBackgroundImage } = Route.useLoaderData();
+
 	return (
 		<Stack gap={0} align="stretch">
-			<HomeIntro />
+			<HomeIntro backgroundImage={introBackgroundImage} />
 			<HomeInstagram />
 			<HomeNews />
 			<HomeHeimspiele />

@@ -13,6 +13,11 @@ import { useState } from "react";
 
 const bytesToMB = (bytes: number, decimals = 1) => (bytes / (1024 * 1024)).toFixed(decimals);
 
+const resolveFileUrl = async (s3Key?: string) => {
+	if (!s3Key) return null;
+	return (await getFileUrlFn({ data: { s3Key } })) ?? null;
+};
+
 function CurrentAvatarDisplay({
 	avatarS3Key,
 	avatarFile,
@@ -28,7 +33,11 @@ function CurrentAvatarDisplay({
 	onDeleteToggle: () => void;
 	onFileSizeError: (message: string) => void;
 }) {
-	const { data: avatarUrl } = useQuery({ queryKey: ["upload", "fileUrl", avatarS3Key], queryFn: () => getFileUrlFn({ data: { s3Key: avatarS3Key || "" } }), enabled: !!avatarS3Key && !deleteAvatar });
+	const { data: avatarUrl } = useQuery({
+		queryKey: ["upload", "fileUrl", avatarS3Key],
+		queryFn: () => resolveFileUrl(avatarS3Key),
+		enabled: !!avatarS3Key && !deleteAvatar,
+	});
 
 	// Show new file preview if selected
 	if (avatarFile) {
@@ -418,7 +427,7 @@ function MembersPage() {
 function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; onEdit: (member: MemberInput & { id: string }) => void; onDelete: (id: string) => void; isDeleting: boolean }) {
 	const { data: avatarUrl } = useQuery({
 		queryKey: ["upload", "fileUrl", member.avatarS3Key],
-		queryFn: () => getFileUrlFn({ data: { s3Key: member.avatarS3Key || "" } }),
+		queryFn: () => resolveFileUrl(member.avatarS3Key),
 		enabled: !!member.avatarS3Key,
 	});
 	const hasDetails = Boolean(member.roleTitle || member.email || member.phone);

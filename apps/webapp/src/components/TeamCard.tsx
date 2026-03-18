@@ -90,7 +90,7 @@ export default function TeamCard(props: Team) {
 										<Text>
 											{weekdayNames} {schedule.startTime} - {schedule.endTime} Uhr
 										</Text>
-										{location && <MapsLink {...location} />}
+										{location && <MapsLink name={location.name} street={location.street} postal={location.postal} city={location.city} />}
 									</Fragment>
 								);
 							})}

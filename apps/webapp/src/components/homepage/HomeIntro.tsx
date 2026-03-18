@@ -1,24 +1,22 @@
 import { BackgroundImage, Button, Container, Group, Overlay, Stack, Text } from "@mantine/core";
 import { useViewportSize } from "@mantine/hooks";
 import { Link } from "@tanstack/react-router";
-import { useMemo } from "react";
 import { FaAnglesDown as IconDown } from "react-icons/fa6";
 import { navbarLinks } from "../../utils/navbarLinks";
 import { HEADER_HEIGHT } from "../layout/Header";
 import HomeIntroLogo from "./HomeIntroLogo";
 
-const backgroundImages = ["/assets/backgrounds/intro1.jpg", "/assets/backgrounds/intro2.jpg", "/assets/backgrounds/intro3.jpg", "/assets/backgrounds/intro4.jpg"];
+interface HomeIntroProps {
+	backgroundImage: string;
+}
 
-export default function HomeIntro() {
-	const backgroundImageRandom = useMemo(() => {
-		return backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
-	}, []);
+export default function HomeIntro({ backgroundImage }: HomeIntroProps) {
 	const { height, width } = useViewportSize();
 	const isPortrait = height > width;
 	const isMobile = width < 768;
 	const HEIGHT = `calc(90vh - ${HEADER_HEIGHT}px)`;
 	return (
-		<BackgroundImage src={backgroundImageRandom} component={Stack} gap="xl" align="stretch" justify="space-between" mih={HEIGHT} p="xl" c="white" pos="relative">
+		<BackgroundImage src={backgroundImage} component={Stack} gap="xl" align="stretch" justify="space-between" mih={HEIGHT} p="xl" c="white" pos="relative">
 			<Stack gap={0} align="center" style={{ position: "relative", zIndex: 2 }}>
 				<Text fw="bolder" size="xl" mt="xl">
 					Willkommen beim
