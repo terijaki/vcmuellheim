@@ -185,37 +185,39 @@ function LocationsPage() {
 				<Text>Laden...</Text>
 			) : locations && locations.items.length > 0 ? (
 				<>
-					<Table striped highlightOnHover visibleFrom="sm">
-						<Table.Thead>
-							<Table.Tr>
-								<Table.Th>Name</Table.Th>
-								<Table.Th>Adresse</Table.Th>
-								<Table.Th>Beschreibung</Table.Th>
-								<Table.Th>Aktionen</Table.Th>
-							</Table.Tr>
-						</Table.Thead>
-						<Table.Tbody>
-							{locations.items.map((location: LocationInput) => (
-								<Table.Tr key={location.id}>
-									<Table.Td>{location.name}</Table.Td>
-									<Table.Td>
-										{location.street}
-										<br />
-										{location.postal} {location.city}
-									</Table.Td>
-									<Table.Td>{location.description || "-"}</Table.Td>
-									<Table.Td>
-										<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(location)}>
-											Bearbeiten
-										</Button>
-										<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(location)}>
-											<SquarePen size={16} />
-										</ActionIcon>
-									</Table.Td>
+					<Card withBorder bg="white" p={0} radius="md" visibleFrom="sm">
+						<Table striped highlightOnHover>
+							<Table.Thead>
+								<Table.Tr>
+									<Table.Th>Name</Table.Th>
+									<Table.Th>Adresse</Table.Th>
+									<Table.Th>Beschreibung</Table.Th>
+									<Table.Th>Aktionen</Table.Th>
 								</Table.Tr>
-							))}
-						</Table.Tbody>
-					</Table>
+							</Table.Thead>
+							<Table.Tbody>
+								{locations.items.map((location: LocationInput) => (
+									<Table.Tr key={location.id}>
+										<Table.Td>{location.name}</Table.Td>
+										<Table.Td>
+											{location.street}
+											<br />
+											{location.postal} {location.city}
+										</Table.Td>
+										<Table.Td>{location.description || "-"}</Table.Td>
+										<Table.Td>
+											<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(location)}>
+												Bearbeiten
+											</Button>
+											<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(location)}>
+												<SquarePen size={16} />
+											</ActionIcon>
+										</Table.Td>
+									</Table.Tr>
+								))}
+							</Table.Tbody>
+						</Table>
+					</Card>
 
 					<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
 						{locations.items.map((location: LocationInput) => (

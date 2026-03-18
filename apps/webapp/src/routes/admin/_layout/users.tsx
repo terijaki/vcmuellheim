@@ -121,42 +121,44 @@ function UsersPage() {
 				</ActionIcon>
 			</Group>
 
-			<Table striped highlightOnHover visibleFrom="sm">
-				<Table.Thead>
-					<Table.Tr>
-						<Table.Th>E-Mail</Table.Th>
-						<Table.Th>Name</Table.Th>
-						<Table.Th>Rolle</Table.Th>
-						<Table.Th>Erstellt</Table.Th>
-						<Table.Th>Aktionen</Table.Th>
-					</Table.Tr>
-				</Table.Thead>
-				<Table.Tbody>
-					{users.map((user) => {
-						const role = user.groups[0] || "Moderator";
+			<Card withBorder bg="white" p={0} radius="md" visibleFrom="sm">
+				<Table striped highlightOnHover>
+					<Table.Thead>
+						<Table.Tr>
+							<Table.Th>E-Mail</Table.Th>
+							<Table.Th>Name</Table.Th>
+							<Table.Th>Rolle</Table.Th>
+							<Table.Th>Erstellt</Table.Th>
+							<Table.Th>Aktionen</Table.Th>
+						</Table.Tr>
+					</Table.Thead>
+					<Table.Tbody>
+						{users.map((user) => {
+							const role = user.groups[0] || "Moderator";
 
-						return (
-							<Table.Tr key={user.email}>
-								<Table.Td>{user.email}</Table.Td>
-								<Table.Td>
-									{user.givenName} {user.familyName}
-								</Table.Td>
-								<Table.Td>
-									<Badge size="md" variant="light" color={role === "Admin" ? "red" : "blumine"}>
-										{role}
-									</Badge>
-								</Table.Td>
-								<Table.Td>{new Date(user.created).toLocaleDateString("de-DE")}</Table.Td>
-								<Table.Td>
-									<Button visibleFrom="sm" size="xs" onClick={() => handleOpenEdit(user)}>
-										Bearbeiten
-									</Button>
-								</Table.Td>
-							</Table.Tr>
-						);
-					})}
-				</Table.Tbody>
-			</Table>
+							return (
+								<Table.Tr key={user.email}>
+									<Table.Td>{user.email}</Table.Td>
+									<Table.Td>
+										{user.givenName} {user.familyName}
+									</Table.Td>
+									<Table.Td>
+										<Badge size="md" variant="light" color={role === "Admin" ? "red" : "blumine"}>
+											{role}
+										</Badge>
+									</Table.Td>
+									<Table.Td>{new Date(user.created).toLocaleDateString("de-DE")}</Table.Td>
+									<Table.Td>
+										<Button visibleFrom="sm" size="xs" onClick={() => handleOpenEdit(user)}>
+											Bearbeiten
+										</Button>
+									</Table.Td>
+								</Table.Tr>
+							);
+						})}
+					</Table.Tbody>
+				</Table>
+			</Card>
 
 			<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
 				{users.map((user) => {

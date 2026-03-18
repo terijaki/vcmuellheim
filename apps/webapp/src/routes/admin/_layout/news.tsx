@@ -458,50 +458,52 @@ function NewsPage() {
 				<Text>Laden...</Text>
 			) : filteredNews.length > 0 ? (
 				<>
-					<Table striped highlightOnHover visibleFrom="sm">
-						<Table.Thead>
-							<Table.Tr>
-								<Table.Th style={{ width: "100%" }}>Titel</Table.Th>
-								<Table.Th style={{ whiteSpace: "nowrap" }}>Status</Table.Th>
-								<Table.Th style={{ whiteSpace: "nowrap" }}>Aktualisiert</Table.Th>
-								<Table.Th style={{ whiteSpace: "nowrap" }}>Bilder</Table.Th>
-								<Table.Th style={{ whiteSpace: "nowrap" }}>Aktionen</Table.Th>
-							</Table.Tr>
-						</Table.Thead>
-						<Table.Tbody>
-							{filteredNews.map((article) => (
-								<Table.Tr key={article.id} data-news-id={article.id}>
-									<Table.Td style={{ width: "100%" }}>
-										<Text fw={500}>{article.title}</Text>
-										{article.excerpt && (
-											<Text size="sm" c="dimmed" lineClamp={1}>
-												{article.excerpt}
-											</Text>
-										)}
-									</Table.Td>
-									<Table.Td style={{ whiteSpace: "nowrap" }}>
-										<Pill color={article.status === "published" ? "green" : article.status === "draft" ? "yellow" : "gray"}>
-											{article.status === "published" ? "Veröffentlicht" : article.status === "draft" ? "Entwurf" : "Archiviert"}
-										</Pill>
-									</Table.Td>
-									<Table.Td style={{ whiteSpace: "nowrap" }}>{dayjs(article.updatedAt).format("DD.MM.YYYY")}</Table.Td>
-									<Table.Td align="center" style={{ whiteSpace: "nowrap" }}>
-										<Badge size="md" variant="light">
-											{article.imageS3Keys?.length || 0}
-										</Badge>
-									</Table.Td>
-									<Table.Td style={{ whiteSpace: "nowrap" }}>
-										<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(article)}>
-											Bearbeiten
-										</Button>
-										<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(article)}>
-											<SquarePen size={16} />
-										</ActionIcon>
-									</Table.Td>
+					<Card withBorder bg="white" p={0} radius="md" visibleFrom="sm">
+						<Table striped highlightOnHover>
+							<Table.Thead>
+								<Table.Tr>
+									<Table.Th style={{ width: "100%" }}>Titel</Table.Th>
+									<Table.Th style={{ whiteSpace: "nowrap" }}>Status</Table.Th>
+									<Table.Th style={{ whiteSpace: "nowrap" }}>Aktualisiert</Table.Th>
+									<Table.Th style={{ whiteSpace: "nowrap" }}>Bilder</Table.Th>
+									<Table.Th style={{ whiteSpace: "nowrap" }}>Aktionen</Table.Th>
 								</Table.Tr>
-							))}
-						</Table.Tbody>
-					</Table>
+							</Table.Thead>
+							<Table.Tbody>
+								{filteredNews.map((article) => (
+									<Table.Tr key={article.id} data-news-id={article.id}>
+										<Table.Td style={{ width: "100%" }}>
+											<Text fw={500}>{article.title}</Text>
+											{article.excerpt && (
+												<Text size="sm" c="dimmed" lineClamp={1}>
+													{article.excerpt}
+												</Text>
+											)}
+										</Table.Td>
+										<Table.Td style={{ whiteSpace: "nowrap" }}>
+											<Pill color={article.status === "published" ? "green" : article.status === "draft" ? "yellow" : "gray"}>
+												{article.status === "published" ? "Veröffentlicht" : article.status === "draft" ? "Entwurf" : "Archiviert"}
+											</Pill>
+										</Table.Td>
+										<Table.Td style={{ whiteSpace: "nowrap" }}>{dayjs(article.updatedAt).format("DD.MM.YYYY")}</Table.Td>
+										<Table.Td align="center" style={{ whiteSpace: "nowrap" }}>
+											<Badge size="md" variant="light">
+												{article.imageS3Keys?.length || 0}
+											</Badge>
+										</Table.Td>
+										<Table.Td style={{ whiteSpace: "nowrap" }}>
+											<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(article)}>
+												Bearbeiten
+											</Button>
+											<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(article)}>
+												<SquarePen size={16} />
+											</ActionIcon>
+										</Table.Td>
+									</Table.Tr>
+								))}
+							</Table.Tbody>
+						</Table>
+					</Card>
 
 					<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
 						{filteredNews.map((article) => (

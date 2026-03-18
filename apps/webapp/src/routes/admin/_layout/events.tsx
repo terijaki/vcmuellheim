@@ -199,37 +199,39 @@ function EventsPage() {
 				<Text>Laden...</Text>
 			) : events.length > 0 ? (
 				<>
-					<Table striped highlightOnHover visibleFrom="sm">
-						<Table.Thead>
-							<Table.Tr>
-								<Table.Th>Titel</Table.Th>
-								<Table.Th>Terminart</Table.Th>
-								<Table.Th>Start</Table.Th>
-								<Table.Th>Ende</Table.Th>
-								<Table.Th>Ort</Table.Th>
-								<Table.Th>Aktionen</Table.Th>
-							</Table.Tr>
-						</Table.Thead>
-						<Table.Tbody>
-							{events.map((event) => (
-								<Table.Tr key={event.id}>
-									<Table.Td>{event.title}</Table.Td>
-									<Table.Td>{event.variant || "-"}</Table.Td>
-									<Table.Td>{dayjs(event.startDate).format("DD.MM.YYYY HH:mm")}</Table.Td>
-									<Table.Td>{event.endDate ? dayjs(event.endDate).format("DD.MM.YYYY HH:mm") : "-"}</Table.Td>
-									<Table.Td>{event.location || "-"}</Table.Td>
-									<Table.Td>
-										<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(event)}>
-											Bearbeiten
-										</Button>
-										<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(event)}>
-											<SquarePen size={16} />
-										</ActionIcon>
-									</Table.Td>
+					<Card withBorder bg="white" p={0} radius="md" visibleFrom="sm">
+						<Table striped highlightOnHover>
+							<Table.Thead>
+								<Table.Tr>
+									<Table.Th>Titel</Table.Th>
+									<Table.Th>Terminart</Table.Th>
+									<Table.Th>Start</Table.Th>
+									<Table.Th>Ende</Table.Th>
+									<Table.Th>Ort</Table.Th>
+									<Table.Th>Aktionen</Table.Th>
 								</Table.Tr>
-							))}
-						</Table.Tbody>
-					</Table>
+							</Table.Thead>
+							<Table.Tbody>
+								{events.map((event) => (
+									<Table.Tr key={event.id}>
+										<Table.Td>{event.title}</Table.Td>
+										<Table.Td>{event.variant || "-"}</Table.Td>
+										<Table.Td>{dayjs(event.startDate).format("DD.MM.YYYY HH:mm")}</Table.Td>
+										<Table.Td>{event.endDate ? dayjs(event.endDate).format("DD.MM.YYYY HH:mm") : "-"}</Table.Td>
+										<Table.Td>{event.location || "-"}</Table.Td>
+										<Table.Td>
+											<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(event)}>
+												Bearbeiten
+											</Button>
+											<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(event)}>
+												<SquarePen size={16} />
+											</ActionIcon>
+										</Table.Td>
+									</Table.Tr>
+								))}
+							</Table.Tbody>
+						</Table>
+					</Card>
 
 					<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
 						{events.map((event) => (

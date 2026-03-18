@@ -220,35 +220,37 @@ function BusSchedulesPage() {
 				<Text>Laden...</Text>
 			) : filteredSchedules.length > 0 ? (
 				<>
-					<Table striped highlightOnHover visibleFrom="sm">
-						<Table.Thead>
-							<Table.Tr>
-								<Table.Th>Fahrer</Table.Th>
-								<Table.Th>Von</Table.Th>
-								<Table.Th>Bis</Table.Th>
-								<Table.Th>Kommentar</Table.Th>
-								<Table.Th>Aktionen</Table.Th>
-							</Table.Tr>
-						</Table.Thead>
-						<Table.Tbody>
-							{filteredSchedules.map((schedule) => (
-								<Table.Tr key={schedule.id}>
-									<Table.Td>{schedule.driver}</Table.Td>
-									<Table.Td>{dayjs(schedule.from).format("DD.MM.YYYY")}</Table.Td>
-									<Table.Td>{dayjs(schedule.to).format("DD.MM.YYYY")}</Table.Td>
-									<Table.Td>{schedule.comment || "-"}</Table.Td>
-									<Table.Td>
-										<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(schedule)}>
-											Bearbeiten
-										</Button>
-										<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(schedule)}>
-											<SquarePen size={16} />
-										</ActionIcon>
-									</Table.Td>
+					<Card withBorder bg="white" p={0} radius="md" visibleFrom="sm">
+						<Table striped highlightOnHover>
+							<Table.Thead>
+								<Table.Tr>
+									<Table.Th>Fahrer</Table.Th>
+									<Table.Th>Von</Table.Th>
+									<Table.Th>Bis</Table.Th>
+									<Table.Th>Kommentar</Table.Th>
+									<Table.Th>Aktionen</Table.Th>
 								</Table.Tr>
-							))}
-						</Table.Tbody>
-					</Table>
+							</Table.Thead>
+							<Table.Tbody>
+								{filteredSchedules.map((schedule) => (
+									<Table.Tr key={schedule.id}>
+										<Table.Td>{schedule.driver}</Table.Td>
+										<Table.Td>{dayjs(schedule.from).format("DD.MM.YYYY")}</Table.Td>
+										<Table.Td>{dayjs(schedule.to).format("DD.MM.YYYY")}</Table.Td>
+										<Table.Td>{schedule.comment || "-"}</Table.Td>
+										<Table.Td>
+											<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(schedule)}>
+												Bearbeiten
+											</Button>
+											<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(schedule)}>
+												<SquarePen size={16} />
+											</ActionIcon>
+										</Table.Td>
+									</Table.Tr>
+								))}
+							</Table.Tbody>
+						</Table>
+					</Card>
 
 					<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
 						{filteredSchedules.map((schedule) => (

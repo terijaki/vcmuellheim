@@ -50,6 +50,9 @@ const buildUrlVariants = (baseUrl: string) => {
 		sm: `${folder}/${baseFilename}-480w.jpg`,
 		md: `${folder}/${baseFilename}-800w.jpg`,
 		lg: `${folder}/${baseFilename}-1200w.jpg`,
+		smWebp: `${folder}/${baseFilename}-480w.webp`,
+		mdWebp: `${folder}/${baseFilename}-800w.webp`,
+		lgWebp: `${folder}/${baseFilename}-1200w.webp`,
 	};
 };
 
@@ -76,9 +79,15 @@ export const ResponsiveImage = ({ source, alt, lazy = true, ...props }: Responsi
 	}
 
 	const jpegSrcSet = urlVariants ? buildSrcSet({ sm: urlVariants.sm, md: urlVariants.md, lg: urlVariants.lg }) : undefined;
+	const webpSrcSet = urlVariants ? buildSrcSet({ sm: urlVariants.smWebp, md: urlVariants.mdWebp, lg: urlVariants.lgWebp }) : undefined;
 	const sizes = jpegSrcSet ? buildSizesAttribute("quarter") : undefined;
 
-	return <Image src={finalUrl} srcSet={jpegSrcSet} sizes={sizes} alt={alt} loading={lazy ? "lazy" : "eager"} style={{ width: "100%", height: "100%", objectFit: "cover" }} {...props} />;
+	return (
+		<picture>
+			{webpSrcSet && <source type="image/webp" srcSet={webpSrcSet} sizes={sizes} />}
+			<Image src={finalUrl} srcSet={jpegSrcSet} sizes={sizes} alt={alt} loading={lazy ? "lazy" : "eager"} style={{ width: "100%", height: "100%", objectFit: "cover" }} {...props} />
+		</picture>
+	);
 };
 
 export default ResponsiveImage;
