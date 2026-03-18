@@ -5,7 +5,7 @@ import de from "dayjs/locale/de";
 import weekday from "dayjs/plugin/weekday";
 import { Fragment, useEffect, useState } from "react";
 import { FaCalendarDays as IconCalendar, FaClock as IconClock, FaChevronUp as IconCollapse, FaEnvelope as IconMail, FaUser as IconPerson, FaUserGroup as IconPersons } from "react-icons/fa6";
-import type { Team } from "@/lib/db";
+import type { Team } from "@/lib/db/types";
 import { useLocations, useMembers } from "../lib/hooks";
 import { ButtonLink } from "./CustomLink";
 import { useTeamContext } from "./context/HomeTeamContext";

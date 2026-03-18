@@ -1,6 +1,6 @@
 import { Checkbox, Divider, Flex, Grid, Group, SegmentedControl, Stack, Text } from "@mantine/core";
 import { Fragment, useState } from "react";
-import type { Team } from "@/lib/db";
+import type { Team } from "@/lib/db/types";
 import { TeamContext } from "../context/HomeTeamContext";
 import TeamCard from "../TeamCard";
 

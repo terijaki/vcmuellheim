@@ -34,7 +34,7 @@ import de from "dayjs/locale/de";
 import weekday from "dayjs/plugin/weekday";
 import { Check, Mars, Plus, SquarePen, Trash2, Upload, Venus, VenusAndMars, X } from "lucide-react";
 import { useState } from "react";
-import type { Member } from "@/lib/db";
+import type { Member } from "@/lib/db/types";
 import { useNotification } from "../../../hooks/useNotification";
 import { MAX_UPLOAD_SIZE } from "../../../lib/image-config";
 import { listLocationsFn } from "../../../server/functions/locations";

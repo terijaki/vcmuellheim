@@ -1,7 +1,7 @@
 import { Card, Group, Table, TableTbody, TableTh, TableThead, TableTr, Text } from "@mantine/core";
 import dayjs from "dayjs";
 import type { RankingResponse } from "@/lambda/sams/types";
-import type { Team } from "@/lib/db";
+import type { Team } from "@/lib/db/types";
 import { slugify } from "@/utils/slugify";
 import CardTitle from "./CardTitle";
 import ClubLogo from "./ClubLogo";
