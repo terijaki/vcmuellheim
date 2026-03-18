@@ -8,8 +8,8 @@ import "dayjs/locale/de";
 import type { BusInput } from "@lib/db/schemas";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Plus, SquarePen, Trash2 } from "lucide-react";
-import { useNotification } from "../../../hooks/useNotification";
-import { createBusFn, deleteBusFn, listBusFn, updateBusFn } from "../../../server/functions/bus";
+import { useNotification } from "../../../../hooks/useNotification";
+import { createBusFn, deleteBusFn, listBusFn, updateBusFn } from "../../../../server/functions/bus";
 
 dayjs.locale("de");
 
@@ -22,7 +22,7 @@ function BusSchedulesPage() {
 		driver: "",
 		dateRange: [null, null] as [Date | null, Date | null],
 		comment: "",
-	});
+	})
 
 	const { data: schedules, isLoading, refetch } = useQuery({ queryKey: ["bus", "list"], queryFn: () => listBusFn() });
 	const isMobile = useMediaQuery("(max-width: 768px)");
@@ -53,33 +53,33 @@ function BusSchedulesPage() {
 		mutationFn: (data: Parameters<typeof createBusFn>[0]["data"]) => createBusFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close();
+			close()
 			resetForm();
 			notification.success("Fahrt wurde erfolgreich erstellt");
 		},
 		onError: () => {
 			notification.error({ message: "Fahrt konnte nicht erstellt werden" });
 		},
-	});
+	})
 
 	const updateMutation = useMutation({
 		mutationFn: (data: Parameters<typeof updateBusFn>[0]["data"]) => updateBusFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close();
+			close()
 			resetForm();
 			notification.success("Fahrt wurde erfolgreich aktualisiert");
 		},
 		onError: () => {
 			notification.error({ message: "Fahrt konnte nicht aktualisiert werden" });
 		},
-	});
+	})
 
 	const deleteMutation = useMutation({
 		mutationFn: (data: Parameters<typeof deleteBusFn>[0]["data"]) => deleteBusFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close();
+			close()
 			resetForm();
 			setEditingId(null);
 			notification.success("Fahrt wurde erfolgreich gelöscht");
@@ -87,19 +87,19 @@ function BusSchedulesPage() {
 		onError: () => {
 			notification.error({ message: "Fahrt konnte nicht gelöscht werden" });
 		},
-	});
+	})
 
 	const resetForm = () => {
 		setFormData({ driver: "", dateRange: [null, null], comment: "" });
 		setEditingId(null);
-	};
+	}
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
 		const [from, to] = formData.dateRange;
 		if (!from || !to) {
-			return;
+			return
 		}
 
 		const fromISO = from.toISOString();
@@ -114,16 +114,16 @@ function BusSchedulesPage() {
 					to: toISO,
 					comment: formData.comment || undefined,
 				},
-			});
+			})
 		} else {
 			createMutation.mutate({
 				driver: formData.driver,
 				from: fromISO,
 				to: toISO,
 				comment: formData.comment || undefined,
-			});
+			})
 		}
-	};
+	}
 
 	const handleEdit = (schedule: BusInput) => {
 		setEditingId(schedule.id);
@@ -131,15 +131,15 @@ function BusSchedulesPage() {
 			driver: schedule.driver,
 			dateRange: [new Date(schedule.from), new Date(schedule.to)],
 			comment: schedule.comment || "",
-		});
+		})
 		open();
-	};
+	}
 
 	const handleDelete = (id: string) => {
 		if (confirm("Möchten Sie diese Bus Buchung wirklich löschen?")) {
 			deleteMutation.mutate({ id });
 		}
-	};
+	}
 
 	// Filter bookings based on time filter
 	const filteredSchedules = useMemo(() => {
@@ -152,13 +152,13 @@ function BusSchedulesPage() {
 				return scheduleEnd.isAfter(now) || scheduleEnd.isSame(now, "day");
 			}
 			return scheduleEnd.isBefore(now);
-		});
+		})
 
 		// Sort: upcoming by start date ascending, past by start date descending
 		return filtered.sort((a, b) => {
 			const comparison = dayjs(a.from).unix() - dayjs(b.from).unix();
 			return timeFilter === "upcoming" ? comparison : -comparison;
-		});
+		})
 	}, [schedules?.items, timeFilter]);
 
 	return (
@@ -167,8 +167,8 @@ function BusSchedulesPage() {
 				<Title order={2}>Bus Buchungen</Title>
 				<Button
 					onClick={() => {
-						resetForm();
-						open();
+						resetForm()
+						open()
 					}}
 					leftSection={<Plus />}
 					visibleFrom="sm"
@@ -177,8 +177,8 @@ function BusSchedulesPage() {
 				</Button>
 				<ActionIcon
 					onClick={() => {
-						resetForm();
-						open();
+						resetForm()
+						open()
 					}}
 					hiddenFrom="sm"
 					variant="filled"
@@ -200,9 +200,9 @@ function BusSchedulesPage() {
 									border: "1px solid var(--mantine-color-turquoise-6)",
 									color: "var(--mantine-color-white)",
 								},
-							};
+							}
 						}
-						return {};
+						return {}
 					}}
 				/>
 			</Center>
@@ -294,8 +294,8 @@ function BusSchedulesPage() {
 			<Modal
 				opened={opened}
 				onClose={() => {
-					close();
-					resetForm();
+					close()
+					resetForm()
 				}}
 				title={editingId ? "Bus Buchung bearbeiten" : "Bus Buchung hinzufügen"}
 				size={isMobile ? "100%" : "lg"}
@@ -316,7 +316,7 @@ function BusSchedulesPage() {
 								setFormData({
 									...formData,
 									dateRange: [start ? new Date(start) : null, end ? new Date(end) : null],
-								});
+								})
 							}}
 							getDayProps={(date) => {
 								const dateStr = dayjs(date).format("YYYY-MM-DD");
@@ -327,9 +327,9 @@ function BusSchedulesPage() {
 											border: "1px solid var(--mantine-color-turquoise-6)",
 											color: "var(--mantine-color-white)",
 										},
-									};
+									}
 								}
-								return {};
+								return {}
 							}}
 							valueFormat="D MMM YYYY"
 							required
@@ -375,9 +375,9 @@ function BusSchedulesPage() {
 				</form>
 			</Modal>
 		</Stack>
-	);
+	)
 }
 
-export const Route = createFileRoute("/admin/dashboard/bus")({
+export const Route = createFileRoute("/admin/_layout/dashboard/bus")({
 	component: BusSchedulesPage,
 });

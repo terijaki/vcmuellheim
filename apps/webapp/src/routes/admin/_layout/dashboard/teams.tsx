@@ -35,13 +35,13 @@ import weekday from "dayjs/plugin/weekday";
 import { Check, Mars, Plus, SquarePen, Trash2, Upload, Venus, VenusAndMars, X } from "lucide-react";
 import { useState } from "react";
 import type { Member } from "@/lib/db/types";
-import { useNotification } from "../../../hooks/useNotification";
-import { MAX_UPLOAD_SIZE } from "../../../lib/image-config";
-import { listLocationsFn } from "../../../server/functions/locations";
-import { getTrainersFn, listMembersFn } from "../../../server/functions/members";
-import { listSamsTeamsFn } from "../../../server/functions/sams";
-import { createTeamFn, deleteTeamFn, listTeamsFn, updateTeamFn } from "../../../server/functions/teams";
-import { getFileUrlFn, getPresignedUrlFn } from "../../../server/functions/upload";
+import { useNotification } from "../../../../hooks/useNotification";
+import { MAX_UPLOAD_SIZE } from "../../../../lib/image-config";
+import { listLocationsFn } from "../../../../server/functions/locations";
+import { getTrainersFn, listMembersFn } from "../../../../server/functions/members";
+import { listSamsTeamsFn } from "../../../../server/functions/sams";
+import { createTeamFn, deleteTeamFn, listTeamsFn, updateTeamFn } from "../../../../server/functions/teams";
+import { getFileUrlFn, getPresignedUrlFn } from "../../../../server/functions/upload";
 
 const bytesToMB = (bytes: number, decimals = 1) => (bytes / (1024 * 1024)).toFixed(decimals);
 
@@ -55,7 +55,7 @@ function PersonAvatar({ avatarS3Key, name }: { avatarS3Key?: string; name: strin
 		<Tooltip label={name} withArrow>
 			<Avatar src={avatarUrl || null} alt={name} radius="xl" />
 		</Tooltip>
-	);
+	)
 }
 
 function TeamPicturesManager({
@@ -105,7 +105,7 @@ function TeamPicturesManager({
 									{file.name}
 								</Text>
 							</Card>
-						);
+						)
 					})}
 				</SimpleGrid>
 			)}
@@ -116,10 +116,10 @@ function TeamPicturesManager({
 					const validFiles = files.filter((file) => {
 						if (file.size > MAX_UPLOAD_SIZE) {
 							onFileSizeError(`${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`);
-							return false;
+							return false
 						}
-						return true;
-					});
+						return true
+					})
 					onFilesAdd(validFiles);
 				}}
 				accept={IMAGE_MIME_TYPE}
@@ -149,7 +149,7 @@ function TeamPicturesManager({
 				</Flex>
 			</Dropzone>
 		</Box>
-	);
+	)
 }
 
 function TeamPictureCard({ s3Key, isDeleted, onDeleteToggle }: { s3Key: string; isDeleted: boolean; onDeleteToggle: () => void }) {
@@ -170,7 +170,7 @@ function TeamPictureCard({ s3Key, isDeleted, onDeleteToggle }: { s3Key: string; 
 					Rückgängig
 				</Button>
 			</Card>
-		);
+		)
 	}
 
 	return (
@@ -184,7 +184,7 @@ function TeamPictureCard({ s3Key, isDeleted, onDeleteToggle }: { s3Key: string; 
 				<Box h={100} bg="gray.1" style={{ display: "flex", alignItems: "center", justifyContent: "center" }} />
 			)}
 		</Card>
-	);
+	)
 }
 
 const weekdays = Array.from({ length: 7 }, (_, i) => ({
@@ -210,18 +210,18 @@ function TrainingScheduleManager({
 				endTime: "20:00",
 				locationId: "",
 			},
-		]);
-	};
+		])
+	}
 
 	const removeSchedule = (index: number) => {
 		onSchedulesChange(schedules.filter((_, i) => i !== index));
-	};
+	}
 
 	const updateSchedule = (index: number, updates: Partial<TrainingScheduleInput>) => {
 		const updated = [...schedules];
 		updated[index] = { ...updated[index], ...updates };
 		onSchedulesChange(updated);
-	};
+	}
 
 	return (
 		<Box>
@@ -273,7 +273,7 @@ function TrainingScheduleManager({
 				))}
 			</Stack>
 		</Box>
-	);
+	)
 }
 
 function TeamsPage() {
@@ -294,7 +294,7 @@ function TeamsPage() {
 		trainerIds: [],
 		pictureS3Keys: [],
 		trainingSchedules: [],
-	});
+	})
 
 	const notification = useNotification();
 	const { data: teams, isLoading, refetch } = useQuery({ queryKey: ["teams", "list"], queryFn: () => listTeamsFn() });
@@ -309,13 +309,13 @@ function TeamsPage() {
 			notification.error({ message: error instanceof Error ? error.message : "Upload des Fotos fehlgeschlagen" });
 			setUploading(false);
 		},
-	});
+	})
 
 	const createMutation = useMutation({
 		mutationFn: (data: Parameters<typeof createTeamFn>[0]["data"]) => createTeamFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close();
+			close()
 			resetForm();
 			setUploading(false);
 			notification.success("Mannschaft wurde erfolgreich erstellt");
@@ -323,13 +323,13 @@ function TeamsPage() {
 		onError: (error: unknown) => {
 			notification.error({ message: error instanceof Error ? error.message : "Mannschaft konnte nicht erstellt werden" });
 		},
-	});
+	})
 
 	const updateMutation = useMutation({
 		mutationFn: (data: Parameters<typeof updateTeamFn>[0]["data"]) => updateTeamFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close();
+			close()
 			resetForm();
 			setUploading(false);
 			notification.success("Mannschaftsänderung wurde gespeichert");
@@ -337,13 +337,13 @@ function TeamsPage() {
 		onError: (error: unknown) => {
 			notification.error({ message: error instanceof Error ? error.message : "Mannschaft konnte nicht aktualisiert werden" });
 		},
-	});
+	})
 
 	const deleteMutation = useMutation({
 		mutationFn: (data: Parameters<typeof deleteTeamFn>[0]["data"]) => deleteTeamFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close();
+			close()
 			resetForm();
 			setEditingId(null);
 			notification.success("Mannschaft wurde erfolgreich gelöscht");
@@ -351,7 +351,7 @@ function TeamsPage() {
 		onError: (error: unknown) => {
 			notification.error({ message: error instanceof Error ? error.message : "Mannschaft konnte nicht gelöscht werden" });
 		},
-	});
+	})
 	const resetForm = () => {
 		setFormData({
 			type: "team",
@@ -364,11 +364,11 @@ function TeamsPage() {
 			trainerIds: [],
 			pictureS3Keys: [],
 			trainingSchedules: [],
-		});
+		})
 		setPictureFiles([]);
 		setDeletePictureKeys([]);
 		setEditingId(null);
-	};
+	}
 
 	const handleSubmit = async () => {
 		if (!formData.name || !formData.gender) return;
@@ -386,14 +386,14 @@ function TeamsPage() {
 					filename: file.name,
 					contentType: file.type,
 					folder: "teams",
-				});
+				})
 				const uploadResponse = await fetch(uploadUrl, {
 					method: "PUT",
 					body: file,
 					headers: {
 						"Content-Type": file.type,
 					},
-				});
+				})
 
 				if (!uploadResponse.ok) {
 					throw new Error(`Upload fehlgeschlagen: ${file.name}`);
@@ -404,13 +404,13 @@ function TeamsPage() {
 
 			const cleanedData = Object.fromEntries(
 				Object.entries({ ...formData, pictureS3Keys: pictureS3Keys.length > 0 ? pictureS3Keys : undefined }).filter(([_, value]) => value !== "" && value !== undefined),
-			);
+			)
 
 			if (editingId) {
 				updateMutation.mutate({
 					id: editingId,
 					data: cleanedData,
-				});
+				})
 			} else {
 				createMutation.mutate(cleanedData as TeamInput);
 			}
@@ -418,7 +418,7 @@ function TeamsPage() {
 			notification.error({ message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
 			setUploading(false);
 		}
-	};
+	}
 
 	const handleEdit = (team: TeamInput & { id: string }) => {
 		setFormData({
@@ -432,22 +432,22 @@ function TeamsPage() {
 			pointOfContactIds: team.pointOfContactIds || [],
 			pictureS3Keys: team.pictureS3Keys || [],
 			trainingSchedules: team.trainingSchedules || [],
-		});
+		})
 		setPictureFiles([]);
 		setDeletePictureKeys([]);
 		setEditingId(team.id);
 		open();
-	};
+	}
 	const handleDelete = (id: string) => {
 		if (window.confirm("Möchten Sie diese Mannschaft wirklich löschen?")) {
 			deleteMutation.mutate({ id });
 		}
-	};
+	}
 
 	const handleOpenNew = () => {
 		resetForm();
 		open();
-	};
+	}
 
 	teams?.items.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -635,9 +635,9 @@ function TeamsPage() {
 								const teamPeople = new Set<Member>();
 								members?.items.forEach((member) => {
 									if (team.trainerIds?.includes(member.id) || team.pointOfContactIds?.includes(member.id)) {
-										teamPeople.add(member);
+										teamPeople.add(member)
 									}
-								});
+								})
 								const trainingCount = team.trainingSchedules?.length || 0;
 								return (
 									<Table.Tr key={team.id}>
@@ -675,7 +675,7 @@ function TeamsPage() {
 																	<Text key={`${schedule.locationId}-${schedule.startTime}-${idx}`} size="xs">
 																		{dayLabels}: {schedule.startTime}-{schedule.endTime} ({location?.name || "Unbekannt"})
 																	</Text>
-																);
+																)
 															})}
 														</Stack>
 													}
@@ -719,7 +719,7 @@ function TeamsPage() {
 											</ActionIcon>
 										</Table.Td>
 									</Table.Tr>
-								);
+								)
 							})}
 						</Table.Tbody>
 					</Table>
@@ -730,9 +730,9 @@ function TeamsPage() {
 							const teamPeople = new Set<Member>();
 							members?.items.forEach((member) => {
 								if (team.trainerIds?.includes(member.id) || team.pointOfContactIds?.includes(member.id)) {
-									teamPeople.add(member);
+									teamPeople.add(member)
 								}
-							});
+							})
 							const trainingCount = team.trainingSchedules?.length || 0;
 
 							return (
@@ -797,7 +797,7 @@ function TeamsPage() {
 																	{location?.name || "Unbekannt"}
 																</Text>
 															</Text>
-														);
+														)
 													})}
 												</Stack>
 											</Stack>
@@ -815,7 +815,7 @@ function TeamsPage() {
 										)}
 									</Stack>
 								</Card>
-							);
+							)
 						})}
 					</SimpleGrid>
 				</>
@@ -823,9 +823,9 @@ function TeamsPage() {
 				<Text>Keine Mannschaften vorhanden</Text>
 			)}
 		</Stack>
-	);
+	)
 }
 
-export const Route = createFileRoute("/admin/dashboard/teams")({
+export const Route = createFileRoute("/admin/_layout/dashboard/teams")({
 	component: TeamsPage,
 });

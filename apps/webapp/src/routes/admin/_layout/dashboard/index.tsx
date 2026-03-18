@@ -1,12 +1,12 @@
 import { AspectRatio, BackgroundImage, Card, Group, SimpleGrid, Stack, Title, Typography } from "@mantine/core";
 import { createFileRoute, getRouteApi, Link } from "@tanstack/react-router";
-import { getAdminRoutesWithLabels } from "../../../utils/adminNavLinks";
+import { getAdminRoutesWithLabels } from "../../../../utils/adminNavLinks";
 
-export const Route = createFileRoute("/admin/dashboard/")({
+export const Route = createFileRoute("/admin/_layout/dashboard/")({
 	component: DashboardIndexPage,
 });
 
-const adminDashboardRoute = getRouteApi("/admin/dashboard");
+const adminDashboardRoute = getRouteApi("/admin/_layout");
 
 function DashboardIndexPage() {
 	const { user } = adminDashboardRoute.useRouteContext();
@@ -32,8 +32,8 @@ function DashboardIndexPage() {
 							<Typography>{description}</Typography>
 						</Stack>
 					</Card>
-				);
+				)
 			})}
 		</SimpleGrid>
-	);
+	)
 }

@@ -12,10 +12,10 @@ import StarterKit from "@tiptap/starter-kit";
 import dayjs from "dayjs";
 import { Plus, Search, SquarePen, Trash2, Upload, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { useNotification } from "../../../hooks/useNotification";
-import { MAX_UPLOAD_SIZE } from "../../../lib/image-config";
-import { createNewsFn, deleteNewsFn, listAllNewsFn, updateNewsFn } from "../../../server/functions/news";
-import { getFileUrlFn, getPresignedUrlFn } from "../../../server/functions/upload";
+import { useNotification } from "../../../../hooks/useNotification";
+import { MAX_UPLOAD_SIZE } from "../../../../lib/image-config";
+import { createNewsFn, deleteNewsFn, listAllNewsFn, updateNewsFn } from "../../../../server/functions/news";
+import { getFileUrlFn, getPresignedUrlFn } from "../../../../server/functions/upload";
 
 const bytesToMB = (bytes: number, decimals = 1) => (bytes / (1024 * 1024)).toFixed(decimals);
 
@@ -37,7 +37,7 @@ function NewsPage() {
 		status: undefined,
 		imageS3Keys: [],
 		tags: [],
-	});
+	})
 
 	const editor = useEditor({
 		extensions: [StarterKit, LinkExtension, ImageExtension],
@@ -48,7 +48,7 @@ function NewsPage() {
 			const excerpt = text.slice(0, 500);
 			setFormData({ ...formData, content: html, excerpt });
 		},
-	});
+	})
 
 	useEffect(() => {
 		if (editor && formData.content !== editor.getHTML()) {
@@ -62,7 +62,7 @@ function NewsPage() {
 		mutationFn: (data: Parameters<typeof createNewsFn>[0]["data"]) => createNewsFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close();
+			close()
 			resetForm();
 			setUploading(false);
 			notification.success("News-Artikel wurde erfolgreich erstellt");
@@ -71,12 +71,12 @@ function NewsPage() {
 			setUploading(false);
 			notification.error({ message: (error as Error).message || "News-Artikel konnte nicht erstellt werden" });
 		},
-	});
+	})
 	const updateMutation = useMutation({
 		mutationFn: (data: Parameters<typeof updateNewsFn>[0]["data"]) => updateNewsFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close();
+			close()
 			resetForm();
 			setUploading(false);
 			notification.success("News-Artikel wurde aktualisiert");
@@ -85,12 +85,12 @@ function NewsPage() {
 			setUploading(false);
 			notification.error({ message: (error as Error).message || "News-Artikel konnte nicht aktualisiert werden" });
 		},
-	});
+	})
 	const deleteMutation = useMutation({
 		mutationFn: (data: Parameters<typeof deleteNewsFn>[0]["data"]) => deleteNewsFn({ data }),
 		onSuccess: () => {
 			refetch();
-			close();
+			close()
 			resetForm();
 			setEditingId(null);
 			notification.success("News wurde erfolgreich gelöscht");
@@ -98,7 +98,7 @@ function NewsPage() {
 		onError: (error) => {
 			notification.error({ message: (error as Error).message || "News-Artikel konnte nicht gelöscht werden" });
 		},
-	});
+	})
 
 	const resetForm = () => {
 		setFormData({
@@ -108,12 +108,12 @@ function NewsPage() {
 			status: undefined,
 			imageS3Keys: [],
 			tags: [],
-		});
+		})
 		editor?.commands.clearContent();
 		setImageFiles([]);
 		setImagesToDelete([]);
 		setEditingId(null);
-	};
+	}
 
 	const handleSubmit = async (newStatus: "draft" | "published" | "archived") => {
 		const { title, content } = formData;
@@ -131,21 +131,21 @@ function NewsPage() {
 						filename: file.name,
 						contentType: file.type,
 						folder: "news",
-					});
+					})
 					const uploadResponse = await fetch(uploadUrl, {
 						method: "PUT",
 						body: file,
 						headers: {
 							"Content-Type": file.type,
 						},
-					});
+					})
 
 					if (!uploadResponse.ok) {
 						throw new Error(`Bild-Upload fehlgeschlagen: ${file.name}`);
 					}
 
-					return key;
-				});
+					return key
+				})
 
 				const newKeys = await Promise.all(uploadPromises);
 				imageS3Keys = [...imageS3Keys, ...newKeys];
@@ -158,13 +158,13 @@ function NewsPage() {
 				excerpt: formData.excerpt || undefined,
 				imageS3Keys: imageS3Keys.length > 0 ? imageS3Keys : undefined,
 				tags: formData.tags && formData.tags.length > 0 ? formData.tags : undefined,
-			};
+			}
 
 			if (editingId) {
 				updateMutation.mutate({
 					id: editingId,
 					data: submitData,
-				});
+				})
 			} else {
 				createMutation.mutate(submitData);
 			}
@@ -172,7 +172,7 @@ function NewsPage() {
 			notification.error({ message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
 			setUploading(false);
 		}
-	};
+	}
 
 	const handleEdit = (article: NewsInput & { id: string }) => {
 		setFormData({
@@ -182,23 +182,23 @@ function NewsPage() {
 			status: article.status,
 			imageS3Keys: article.imageS3Keys || [],
 			tags: article.tags || [],
-		});
+		})
 		setImageFiles([]);
 		setImagesToDelete([]);
 		setEditingId(article.id);
 		open();
-	};
+	}
 
 	const handleDelete = (id: string) => {
 		if (window.confirm("Möchten Sie diesen News-Artikel wirklich löschen?")) {
 			deleteMutation.mutate({ id });
 		}
-	};
+	}
 
 	const handleOpenNew = () => {
 		resetForm();
 		open();
-	};
+	}
 
 	// Filter news based on search and status
 	const filteredNews = useMemo(() => {
@@ -217,7 +217,7 @@ function NewsPage() {
 			}
 
 			return true;
-		});
+		})
 	}, [news?.items, searchQuery, statusFilter]);
 
 	return (
@@ -356,7 +356,7 @@ function NewsPage() {
 												{file.name}
 											</Text>
 										</Card>
-									);
+									)
 								})}
 							</Group>
 						)}
@@ -368,11 +368,11 @@ function NewsPage() {
 									if (file.size > MAX_UPLOAD_SIZE) {
 										notification.error({
 											message: `${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`,
-										});
-										return false;
+										})
+										return false
 									}
-									return true;
-								});
+									return true
+								})
 								setImageFiles([...imageFiles, ...validFiles]);
 							}}
 							accept={IMAGE_MIME_TYPE}
@@ -547,7 +547,7 @@ function NewsPage() {
 				</Text>
 			)}
 		</Stack>
-	);
+	)
 }
 
 function ExistingImage({ s3Key, isDeleted, onDelete, onRestore }: { s3Key: string; isDeleted: boolean; onDelete: () => void; onRestore: () => void }) {
@@ -568,7 +568,7 @@ function ExistingImage({ s3Key, isDeleted, onDelete, onRestore }: { s3Key: strin
 					Rückgängig
 				</Button>
 			</Card>
-		);
+		)
 	}
 
 	return (
@@ -578,9 +578,9 @@ function ExistingImage({ s3Key, isDeleted, onDelete, onRestore }: { s3Key: strin
 			</ActionIcon>
 			{imageUrl ? <Image src={imageUrl} height={100} fit="cover" alt="Bild" radius="sm" /> : <Box h={100} bg="gray.1" style={{ display: "flex", alignItems: "center", justifyContent: "center" }} />}
 		</Card>
-	);
+	)
 }
 
-export const Route = createFileRoute("/admin/dashboard/news")({
+export const Route = createFileRoute("/admin/_layout/dashboard/news")({
 	component: NewsPage,
 });

@@ -1,6 +1,8 @@
 import { beforeAll, beforeEach, describe, expect, it } from "bun:test";
 import { DynamoDBDocumentClient, GetCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { mockClient } from "aws-sdk-client-mock";
+import type { ClubResponse, TeamResponse } from "@/lambda/sams/types";
+import type { CmsUser, News } from "@/lib/db/types";
 
 const ddbMock = mockClient(DynamoDBDocumentClient);
 
@@ -113,7 +115,7 @@ describe("server/queries", () => {
 
 	describe("getNewsBySlug", () => {
 		it("returns first match from GSI-NewsBySlug", async () => {
-			const mockArticle = { id: "1", type: "article", title: "Hello", slug: "hello", content: "c", status: "published", createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z" };
+			const mockArticle: News = { id: "1", type: "article", title: "Hello", slug: "hello", content: "c", status: "published", createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z" };
 			ddbMock.on(QueryCommand).resolves({ Items: [mockArticle] });
 
 			const result = await getNewsBySlug("hello");
@@ -137,7 +139,7 @@ describe("server/queries", () => {
 
 	describe("getCmsUserByEmail", () => {
 		it("queries GSI-UsersByEmail and returns first match", async () => {
-			const mockUser = { id: "u1", email: "admin@test.com", name: "Admin", role: "admin", createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z" };
+			const mockUser: CmsUser = { id: "u1", email: "admin@test.com", name: "Admin", emailVerified: true, role: "Admin", createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z" };
 			ddbMock.on(QueryCommand).resolves({ Items: [mockUser] });
 
 			const result = await getCmsUserByEmail("admin@test.com");
@@ -192,7 +194,7 @@ describe("server/queries", () => {
 
 	describe("getSamsClubBySportsclubUuid", () => {
 		it("gets club by primary key sportsclubUuid", async () => {
-			const mockClub = { sportsclubUuid: "c1", type: "club", nameSlug: "vc-muel" };
+			const mockClub: ClubResponse = { sportsclubUuid: "c1", type: "club", name: "VC Müllheim", updatedAt: "2024-01-01T00:00:00Z" };
 			ddbMock.on(GetCommand).resolves({ Item: mockClub });
 
 			const result = await getSamsClubBySportsclubUuid("c1");
@@ -214,7 +216,7 @@ describe("server/queries", () => {
 
 	describe("getSamsClubByNameSlug", () => {
 		it("queries GSI-SamsClubQueries with begins_with", async () => {
-			const mockClub = { sportsclubUuid: "c1", type: "club", nameSlug: "vc-muellheim" };
+			const mockClub: ClubResponse = { sportsclubUuid: "c1", type: "club", name: "VC Müllheim", updatedAt: "2024-01-01T00:00:00Z" };
 			ddbMock.on(QueryCommand).resolves({ Items: [mockClub] });
 
 			const result = await getSamsClubByNameSlug("vc-muellheim");
@@ -250,7 +252,18 @@ describe("server/queries", () => {
 
 	describe("getSamsTeamByUuid", () => {
 		it("gets team by uuid primary key", async () => {
-			const mockTeam = { uuid: "t1", type: "team", name: "Damen 1" };
+			const mockTeam: TeamResponse = {
+				uuid: "t1",
+				type: "team",
+				name: "Damen 1",
+				sportsclubUuid: "c1",
+				associationUuid: "a1",
+				leagueUuid: "l1",
+				leagueName: "Liga A",
+				seasonUuid: "s1",
+				seasonName: "2024",
+				updatedAt: "2024-01-01T00:00:00Z",
+			};
 			ddbMock.on(GetCommand).resolves({ Item: mockTeam });
 
 			const result = await getSamsTeamByUuid("t1");
