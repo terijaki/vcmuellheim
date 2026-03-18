@@ -1,6 +1,10 @@
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { TABLES, type TableEntity, tableEnvVar } from "../../../lib/db/env";
 import { getSanitizedBranch } from "../../../utils/git";
-import type { PluginOption } from "vite";
+import { loadEnv, type PluginOption } from "vite";
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 
 const contentTableNamesByEntity: Record<TableEntity, string> = {
 	NEWS: "news",
@@ -15,7 +19,13 @@ const contentTableNamesByEntity: Record<TableEntity, string> = {
 	AUTH_VERIFICATIONS: "auth-verifications",
 };
 
-export function getAppEnvironment(): string {
+export function getAppEnvironment(mode = process.env.NODE_ENV === "production" ? "production" : "development"): string {
+	const rootEnv = loadEnv(mode, repoRoot, "");
+
+	for (const [name, value] of Object.entries(rootEnv)) {
+		setDefaultEnv(name, value);
+	}
+
 	return process.env.VITE_CDK_ENVIRONMENT || process.env.CDK_ENVIRONMENT || "dev";
 }
 
@@ -47,8 +57,8 @@ export function localAwsResourceEnvPlugin(): PluginOption {
 	return {
 		name: "local-aws-resource-env",
 		apply: "serve",
-		config() {
-			applyLocalAwsResourceEnv(getAppEnvironment());
+		config(_, configEnv) {
+			applyLocalAwsResourceEnv(getAppEnvironment(configEnv.mode));
 		},
 	};
 }
