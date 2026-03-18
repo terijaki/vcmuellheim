@@ -3,7 +3,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { LayoutDashboard, LogOut } from "lucide-react";
 import { useState } from "react";
-import type { AdminSessionUser } from "../../lib/admin-session";
+import type { AdminSessionUser } from "../../server/functions/session-utils";
 import { authClient } from "../../lib/auth-client";
 import { getAdminRoutesWithLabels } from "../../utils/adminNavLinks";
 

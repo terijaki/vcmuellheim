@@ -5,8 +5,8 @@
  */
 
 import { Image, type ImageProps } from "@mantine/core";
+import { buildSizesAttribute, buildSrcSet } from "@utils/image-config";
 import { useFileUrl } from "../hooks/dataQueries";
-import { buildSizesAttribute, buildSrcSet } from "../lib/image-config";
 
 interface ResponsiveImageProps extends Omit<ImageProps, "src" | "srcSet"> {
 	/** S3 key of the original image OR CloudFront URL */

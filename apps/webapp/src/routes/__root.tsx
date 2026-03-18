@@ -11,6 +11,7 @@ import { createRootRouteWithContext, HeadContent, Outlet, Scripts } from "@tanst
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 import type { RouterContext } from "../router";
+import { getSessionFn } from "../server/functions/session";
 
 dayjs.locale("de");
 
@@ -49,6 +50,10 @@ const theme = createTheme({
 });
 
 export const Route = createRootRouteWithContext<RouterContext>()({
+	beforeLoad: async () => {
+		const session = await getSessionFn();
+		return { session };
+	},
 	head: () => ({
 		title: Club.name,
 		meta: [

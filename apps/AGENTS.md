@@ -24,4 +24,4 @@ This file provides instructions specific to `apps/webapp/`, which is the unified
 - **Styling:** PostCSS is configured via `postcss.config.cjs`. Global styles live in `apps/webapp/src/index.css`.
 - **Auth:** Better-auth OTP flow configured in `apps/webapp/src/server/auth.ts`. Admin routes require session via `beforeLoad` guards.
 - **Server functions (data fetching):** Use `createServerFn()` from TanStack React Start in `apps/webapp/src/server/functions/`. Access them via React Query hooks in `apps/webapp/src/lib/hooks.ts`.
-- **Images:** Image configuration is in `apps/shared/lib/image-config.ts` (shared library).
+- **Images:** Image configuration is in `utils/image-config.ts`

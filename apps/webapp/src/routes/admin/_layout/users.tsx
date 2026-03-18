@@ -1,20 +1,18 @@
 import { ActionIcon, Badge, Box, Button, Card, Group, Modal, Radio, SimpleGrid, Stack, Table, Text, TextInput, Title } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useNotification } from "@webapp/hooks/useNotification";
 import { createUserFn, deleteUserFn, listUsersFn, updateUserFn } from "@webapp/server/functions/users";
+import { adminUsersGuard } from "@webapp/lib/auth-guards";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/admin/_layout/users")({
-	beforeLoad: async ({ context }) => {
+	beforeLoad: ({ context }) => {
 		// Auth is guaranteed by the /admin/_layout parent route.
 		// Only an additional role check is needed here.
-		if (context.user.role !== "Admin") {
-			throw redirect({ to: "/admin", replace: true });
-		}
-		return { currentUser: context.user };
+		return adminUsersGuard(context.user);
 	},
 	component: UsersPage,
 });

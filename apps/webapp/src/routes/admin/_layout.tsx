@@ -1,19 +1,11 @@
 import { AppShell, AppShellMain, Container } from "@mantine/core";
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import AdminHeader, { ADMIN_HEADER_HEIGHT } from "@webapp/components/layout/AdminHeader";
-import { getCurrentAdminUser } from "@webapp/lib/admin-session";
+import { adminLayoutGuard } from "@webapp/lib/auth-guards";
 
 export const Route = createFileRoute("/admin/_layout")({
-	beforeLoad: async ({ location }) => {
-		const user = await getCurrentAdminUser();
-		if (!user) {
-			throw redirect({
-				to: "/admin/login",
-				search: { redirect: location.href },
-				replace: true,
-			});
-		}
-		return { user };
+	beforeLoad: ({ context, location }) => {
+		return adminLayoutGuard(context.session, location.href);
 	},
 	component: AdminLayout,
 });

@@ -1,9 +1,12 @@
 import { QueryClient } from "@tanstack/react-query";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
+import type { AdminSessionUser } from "./server/functions/session-utils";
 
 export interface RouterContext {
 	queryClient: QueryClient;
+	/** Session resolved by the root beforeLoad; null when unauthenticated. */
+	session: AdminSessionUser | null;
 }
 
 export function getRouter() {
@@ -19,7 +22,7 @@ export function getRouter() {
 
 	return createTanStackRouter({
 		routeTree,
-		context: { queryClient },
+		context: { queryClient, session: null },
 		defaultPreload: "intent",
 		scrollRestoration: true,
 	});

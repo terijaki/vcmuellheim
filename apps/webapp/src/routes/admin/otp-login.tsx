@@ -1,9 +1,9 @@
 import { Alert, Button, Center, Loader, Stack, Text, Title } from "@mantine/core";
-import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
-import { getCurrentAdminUser } from "@webapp/lib/admin-session";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { authClient } from "@webapp/lib/auth-client";
 import { useEffect, useState } from "react";
 import { z } from "zod";
+import { loginPageGuard } from "@webapp/lib/auth-guards";
 
 const otpSearchSchema = z.union([z.string().regex(/^\d{1,6}$/), z.coerce.number().int().min(0).max(999999)]).transform((value) => String(value).padStart(6, "0"));
 
@@ -12,11 +12,8 @@ export const Route = createFileRoute("/admin/otp-login")({
 		email: z.email().optional(),
 		otp: otpSearchSchema.optional(),
 	}),
-	beforeLoad: async () => {
-		const user = await getCurrentAdminUser();
-		if (user) {
-			throw redirect({ to: "/admin", replace: true });
-		}
+	beforeLoad: ({ context }) => {
+		loginPageGuard(context.session);
 	},
 	component: OtpLoginPage,
 });

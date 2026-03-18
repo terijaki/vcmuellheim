@@ -1,22 +1,19 @@
 import { Center } from "@mantine/core";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { LoginForm } from "@webapp/components/admin/LoginForm";
-import { getCurrentAdminUser } from "@webapp/lib/admin-session";
+import { loginPageGuard } from "@webapp/lib/auth-guards";
 
 export const Route = createFileRoute("/admin/login")({
-  beforeLoad: async () => {
-    const user = await getCurrentAdminUser();
-    if (user) {
-      throw redirect({ to: "/admin", replace: true });
-    }
-  },
-  component: AdminLoginPage,
+	beforeLoad: ({ context }) => {
+		loginPageGuard(context.session);
+	},
+	component: AdminLoginPage,
 });
 
 function AdminLoginPage() {
-  return (
-    <Center h="100vh">
-      <LoginForm />
-    </Center>
-  );
+	return (
+		<Center h="100vh">
+			<LoginForm />
+		</Center>
+	);
 }
