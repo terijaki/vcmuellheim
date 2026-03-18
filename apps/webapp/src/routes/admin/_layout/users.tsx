@@ -5,22 +5,16 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useNotification } from "../../../../hooks/useNotification";
-import { getCurrentAdminUser } from "../../../../lib/admin-session";
 import { createUserFn, deleteUserFn, listUsersFn, updateUserFn } from "../../../../server/functions/users";
 
-export const Route = createFileRoute("/admin/_layout/dashboard/users")({
-	beforeLoad: async () => {
-		const currentUser = await getCurrentAdminUser();
-
-		if (!currentUser) {
-			throw redirect({ to: "/admin" });
+export const Route = createFileRoute("/admin/_layout/users")({
+	beforeLoad: async ({ context }) => {
+		// Auth is guaranteed by the /admin/_layout parent route.
+		// Only an additional role check is needed here.
+		if (context.user.role !== "Admin") {
+			throw redirect({ to: "/admin/dashboard", replace: true });
 		}
-
-		if (currentUser.role !== "Admin") {
-			throw redirect({ to: "/admin/dashboard" });
-		}
-
-		return { currentUser };
+		return { currentUser: context.user };
 	},
 	component: UsersPage,
 });

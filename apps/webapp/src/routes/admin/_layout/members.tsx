@@ -476,6 +476,6 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 		</Card>
 	)
 }
-export const Route = createFileRoute("/admin/_layout/dashboard/members")({
+export const Route = createFileRoute("/admin/_layout/members")({
 	component: MembersPage,
 });

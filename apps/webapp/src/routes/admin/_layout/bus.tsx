@@ -378,6 +378,6 @@ function BusSchedulesPage() {
 	)
 }
 
-export const Route = createFileRoute("/admin/_layout/dashboard/bus")({
+export const Route = createFileRoute("/admin/_layout/bus")({
 	component: BusSchedulesPage,
 });

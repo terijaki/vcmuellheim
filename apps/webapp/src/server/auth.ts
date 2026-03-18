@@ -51,7 +51,7 @@ function resolveAppOrigin(request?: Request): string {
 }
 
 function createOtpLoginLink(email: string, otp: string, request?: Request): string {
-	const loginUrl = new URL("/admin", resolveAppOrigin(request));
+	const loginUrl = new URL("/admin/otp-login", resolveAppOrigin(request));
 	loginUrl.searchParams.set("email", email);
 	loginUrl.searchParams.set("otp", otp);
 	return loginUrl.toString();

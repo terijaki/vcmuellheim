@@ -13,6 +13,7 @@ import { Route as LayoutRouteImport } from './routes/_layout'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
 import { Route as AdminOtpLoginRouteImport } from './routes/admin/otp-login'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminLayoutRouteImport } from './routes/admin/_layout'
 import { Route as LayoutTermineRouteImport } from './routes/_layout/termine'
 import { Route as LayoutTeamsRouteImport } from './routes/_layout/teams'
@@ -32,19 +33,19 @@ import { Route as LayoutNewsIndexRouteImport } from './routes/_layout/news.index
 import { Route as ApiSamsLogosRouteImport } from './routes/api/sams/logos'
 import { Route as ApiIcsTeamSlugRouteImport } from './routes/api/ics/$teamSlug'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as AdminLayoutUsersRouteImport } from './routes/admin/_layout/users'
+import { Route as AdminLayoutTeamsRouteImport } from './routes/admin/_layout/teams'
+import { Route as AdminLayoutSponsorsRouteImport } from './routes/admin/_layout/sponsors'
+import { Route as AdminLayoutSamsRouteImport } from './routes/admin/_layout/sams'
+import { Route as AdminLayoutNewsRouteImport } from './routes/admin/_layout/news'
+import { Route as AdminLayoutMembersRouteImport } from './routes/admin/_layout/members'
+import { Route as AdminLayoutLocationsRouteImport } from './routes/admin/_layout/locations'
+import { Route as AdminLayoutEventsRouteImport } from './routes/admin/_layout/events'
+import { Route as AdminLayoutDashboardRouteImport } from './routes/admin/_layout/dashboard'
+import { Route as AdminLayoutBusRouteImport } from './routes/admin/_layout/bus'
 import { Route as LayoutTermineIdRouteImport } from './routes/_layout/termine.$id'
 import { Route as LayoutTeamsSlugRouteImport } from './routes/_layout/teams.$slug'
 import { Route as LayoutNewsIdRouteImport } from './routes/_layout/news.$id'
-import { Route as AdminLayoutDashboardIndexRouteImport } from './routes/admin/_layout/dashboard/index'
-import { Route as AdminLayoutDashboardUsersRouteImport } from './routes/admin/_layout/dashboard/users'
-import { Route as AdminLayoutDashboardTeamsRouteImport } from './routes/admin/_layout/dashboard/teams'
-import { Route as AdminLayoutDashboardSponsorsRouteImport } from './routes/admin/_layout/dashboard/sponsors'
-import { Route as AdminLayoutDashboardSamsRouteImport } from './routes/admin/_layout/dashboard/sams'
-import { Route as AdminLayoutDashboardNewsRouteImport } from './routes/admin/_layout/dashboard/news'
-import { Route as AdminLayoutDashboardMembersRouteImport } from './routes/admin/_layout/dashboard/members'
-import { Route as AdminLayoutDashboardLocationsRouteImport } from './routes/admin/_layout/dashboard/locations'
-import { Route as AdminLayoutDashboardEventsRouteImport } from './routes/admin/_layout/dashboard/events'
-import { Route as AdminLayoutDashboardBusRouteImport } from './routes/admin/_layout/dashboard/bus'
 
 const LayoutRoute = LayoutRouteImport.update({
   id: '/_layout',
@@ -63,6 +64,11 @@ const LayoutIndexRoute = LayoutIndexRouteImport.update({
 const AdminOtpLoginRoute = AdminOtpLoginRouteImport.update({
   id: '/admin/otp-login',
   path: '/admin/otp-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminLayoutRoute = AdminLayoutRouteImport.update({
@@ -160,6 +166,56 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminLayoutUsersRoute = AdminLayoutUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
+const AdminLayoutTeamsRoute = AdminLayoutTeamsRouteImport.update({
+  id: '/teams',
+  path: '/teams',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
+const AdminLayoutSponsorsRoute = AdminLayoutSponsorsRouteImport.update({
+  id: '/sponsors',
+  path: '/sponsors',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
+const AdminLayoutSamsRoute = AdminLayoutSamsRouteImport.update({
+  id: '/sams',
+  path: '/sams',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
+const AdminLayoutNewsRoute = AdminLayoutNewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
+const AdminLayoutMembersRoute = AdminLayoutMembersRouteImport.update({
+  id: '/members',
+  path: '/members',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
+const AdminLayoutLocationsRoute = AdminLayoutLocationsRouteImport.update({
+  id: '/locations',
+  path: '/locations',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
+const AdminLayoutEventsRoute = AdminLayoutEventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
+const AdminLayoutDashboardRoute = AdminLayoutDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
+const AdminLayoutBusRoute = AdminLayoutBusRouteImport.update({
+  id: '/bus',
+  path: '/bus',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
 const LayoutTermineIdRoute = LayoutTermineIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -174,65 +230,6 @@ const LayoutNewsIdRoute = LayoutNewsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => LayoutNewsRoute,
-} as any)
-const AdminLayoutDashboardIndexRoute =
-  AdminLayoutDashboardIndexRouteImport.update({
-    id: '/dashboard/',
-    path: '/dashboard/',
-    getParentRoute: () => AdminLayoutRoute,
-  } as any)
-const AdminLayoutDashboardUsersRoute =
-  AdminLayoutDashboardUsersRouteImport.update({
-    id: '/dashboard/users',
-    path: '/dashboard/users',
-    getParentRoute: () => AdminLayoutRoute,
-  } as any)
-const AdminLayoutDashboardTeamsRoute =
-  AdminLayoutDashboardTeamsRouteImport.update({
-    id: '/dashboard/teams',
-    path: '/dashboard/teams',
-    getParentRoute: () => AdminLayoutRoute,
-  } as any)
-const AdminLayoutDashboardSponsorsRoute =
-  AdminLayoutDashboardSponsorsRouteImport.update({
-    id: '/dashboard/sponsors',
-    path: '/dashboard/sponsors',
-    getParentRoute: () => AdminLayoutRoute,
-  } as any)
-const AdminLayoutDashboardSamsRoute =
-  AdminLayoutDashboardSamsRouteImport.update({
-    id: '/dashboard/sams',
-    path: '/dashboard/sams',
-    getParentRoute: () => AdminLayoutRoute,
-  } as any)
-const AdminLayoutDashboardNewsRoute =
-  AdminLayoutDashboardNewsRouteImport.update({
-    id: '/dashboard/news',
-    path: '/dashboard/news',
-    getParentRoute: () => AdminLayoutRoute,
-  } as any)
-const AdminLayoutDashboardMembersRoute =
-  AdminLayoutDashboardMembersRouteImport.update({
-    id: '/dashboard/members',
-    path: '/dashboard/members',
-    getParentRoute: () => AdminLayoutRoute,
-  } as any)
-const AdminLayoutDashboardLocationsRoute =
-  AdminLayoutDashboardLocationsRouteImport.update({
-    id: '/dashboard/locations',
-    path: '/dashboard/locations',
-    getParentRoute: () => AdminLayoutRoute,
-  } as any)
-const AdminLayoutDashboardEventsRoute =
-  AdminLayoutDashboardEventsRouteImport.update({
-    id: '/dashboard/events',
-    path: '/dashboard/events',
-    getParentRoute: () => AdminLayoutRoute,
-  } as any)
-const AdminLayoutDashboardBusRoute = AdminLayoutDashboardBusRouteImport.update({
-  id: '/dashboard/bus',
-  path: '/dashboard/bus',
-  getParentRoute: () => AdminLayoutRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -250,27 +247,28 @@ export interface FileRoutesByFullPath {
   '/teams': typeof LayoutTeamsRouteWithChildren
   '/termine': typeof LayoutTermineRouteWithChildren
   '/admin': typeof AdminLayoutRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
   '/admin/otp-login': typeof AdminOtpLoginRoute
   '/admin/': typeof AdminIndexRoute
   '/news/$id': typeof LayoutNewsIdRoute
   '/teams/$slug': typeof LayoutTeamsSlugRoute
   '/termine/$id': typeof LayoutTermineIdRoute
+  '/admin/bus': typeof AdminLayoutBusRoute
+  '/admin/dashboard': typeof AdminLayoutDashboardRoute
+  '/admin/events': typeof AdminLayoutEventsRoute
+  '/admin/locations': typeof AdminLayoutLocationsRoute
+  '/admin/members': typeof AdminLayoutMembersRoute
+  '/admin/news': typeof AdminLayoutNewsRoute
+  '/admin/sams': typeof AdminLayoutSamsRoute
+  '/admin/sponsors': typeof AdminLayoutSponsorsRoute
+  '/admin/teams': typeof AdminLayoutTeamsRoute
+  '/admin/users': typeof AdminLayoutUsersRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/ics/$teamSlug': typeof ApiIcsTeamSlugRoute
   '/api/sams/logos': typeof ApiSamsLogosRoute
   '/news/': typeof LayoutNewsIndexRoute
   '/teams/': typeof LayoutTeamsIndexRoute
   '/termine/': typeof LayoutTermineIndexRoute
-  '/admin/dashboard/bus': typeof AdminLayoutDashboardBusRoute
-  '/admin/dashboard/events': typeof AdminLayoutDashboardEventsRoute
-  '/admin/dashboard/locations': typeof AdminLayoutDashboardLocationsRoute
-  '/admin/dashboard/members': typeof AdminLayoutDashboardMembersRoute
-  '/admin/dashboard/news': typeof AdminLayoutDashboardNewsRoute
-  '/admin/dashboard/sams': typeof AdminLayoutDashboardSamsRoute
-  '/admin/dashboard/sponsors': typeof AdminLayoutDashboardSponsorsRoute
-  '/admin/dashboard/teams': typeof AdminLayoutDashboardTeamsRoute
-  '/admin/dashboard/users': typeof AdminLayoutDashboardUsersRoute
-  '/admin/dashboard/': typeof AdminLayoutDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/beitragsordnung': typeof LayoutBeitragsordnungRoute
@@ -283,27 +281,28 @@ export interface FileRoutesByTo {
   '/satzung': typeof LayoutSatzungRoute
   '/tabelle': typeof LayoutTabelleRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/login': typeof AdminLoginRoute
   '/admin/otp-login': typeof AdminOtpLoginRoute
   '/': typeof LayoutIndexRoute
   '/news/$id': typeof LayoutNewsIdRoute
   '/teams/$slug': typeof LayoutTeamsSlugRoute
   '/termine/$id': typeof LayoutTermineIdRoute
+  '/admin/bus': typeof AdminLayoutBusRoute
+  '/admin/dashboard': typeof AdminLayoutDashboardRoute
+  '/admin/events': typeof AdminLayoutEventsRoute
+  '/admin/locations': typeof AdminLayoutLocationsRoute
+  '/admin/members': typeof AdminLayoutMembersRoute
+  '/admin/news': typeof AdminLayoutNewsRoute
+  '/admin/sams': typeof AdminLayoutSamsRoute
+  '/admin/sponsors': typeof AdminLayoutSponsorsRoute
+  '/admin/teams': typeof AdminLayoutTeamsRoute
+  '/admin/users': typeof AdminLayoutUsersRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/ics/$teamSlug': typeof ApiIcsTeamSlugRoute
   '/api/sams/logos': typeof ApiSamsLogosRoute
   '/news': typeof LayoutNewsIndexRoute
   '/teams': typeof LayoutTeamsIndexRoute
   '/termine': typeof LayoutTermineIndexRoute
-  '/admin/dashboard/bus': typeof AdminLayoutDashboardBusRoute
-  '/admin/dashboard/events': typeof AdminLayoutDashboardEventsRoute
-  '/admin/dashboard/locations': typeof AdminLayoutDashboardLocationsRoute
-  '/admin/dashboard/members': typeof AdminLayoutDashboardMembersRoute
-  '/admin/dashboard/news': typeof AdminLayoutDashboardNewsRoute
-  '/admin/dashboard/sams': typeof AdminLayoutDashboardSamsRoute
-  '/admin/dashboard/sponsors': typeof AdminLayoutDashboardSponsorsRoute
-  '/admin/dashboard/teams': typeof AdminLayoutDashboardTeamsRoute
-  '/admin/dashboard/users': typeof AdminLayoutDashboardUsersRoute
-  '/admin/dashboard': typeof AdminLayoutDashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -321,28 +320,29 @@ export interface FileRoutesById {
   '/_layout/teams': typeof LayoutTeamsRouteWithChildren
   '/_layout/termine': typeof LayoutTermineRouteWithChildren
   '/admin/_layout': typeof AdminLayoutRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
   '/admin/otp-login': typeof AdminOtpLoginRoute
   '/_layout/': typeof LayoutIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/_layout/news/$id': typeof LayoutNewsIdRoute
   '/_layout/teams/$slug': typeof LayoutTeamsSlugRoute
   '/_layout/termine/$id': typeof LayoutTermineIdRoute
+  '/admin/_layout/bus': typeof AdminLayoutBusRoute
+  '/admin/_layout/dashboard': typeof AdminLayoutDashboardRoute
+  '/admin/_layout/events': typeof AdminLayoutEventsRoute
+  '/admin/_layout/locations': typeof AdminLayoutLocationsRoute
+  '/admin/_layout/members': typeof AdminLayoutMembersRoute
+  '/admin/_layout/news': typeof AdminLayoutNewsRoute
+  '/admin/_layout/sams': typeof AdminLayoutSamsRoute
+  '/admin/_layout/sponsors': typeof AdminLayoutSponsorsRoute
+  '/admin/_layout/teams': typeof AdminLayoutTeamsRoute
+  '/admin/_layout/users': typeof AdminLayoutUsersRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/ics/$teamSlug': typeof ApiIcsTeamSlugRoute
   '/api/sams/logos': typeof ApiSamsLogosRoute
   '/_layout/news/': typeof LayoutNewsIndexRoute
   '/_layout/teams/': typeof LayoutTeamsIndexRoute
   '/_layout/termine/': typeof LayoutTermineIndexRoute
-  '/admin/_layout/dashboard/bus': typeof AdminLayoutDashboardBusRoute
-  '/admin/_layout/dashboard/events': typeof AdminLayoutDashboardEventsRoute
-  '/admin/_layout/dashboard/locations': typeof AdminLayoutDashboardLocationsRoute
-  '/admin/_layout/dashboard/members': typeof AdminLayoutDashboardMembersRoute
-  '/admin/_layout/dashboard/news': typeof AdminLayoutDashboardNewsRoute
-  '/admin/_layout/dashboard/sams': typeof AdminLayoutDashboardSamsRoute
-  '/admin/_layout/dashboard/sponsors': typeof AdminLayoutDashboardSponsorsRoute
-  '/admin/_layout/dashboard/teams': typeof AdminLayoutDashboardTeamsRoute
-  '/admin/_layout/dashboard/users': typeof AdminLayoutDashboardUsersRoute
-  '/admin/_layout/dashboard/': typeof AdminLayoutDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -361,27 +361,28 @@ export interface FileRouteTypes {
     | '/teams'
     | '/termine'
     | '/admin'
+    | '/admin/login'
     | '/admin/otp-login'
     | '/admin/'
     | '/news/$id'
     | '/teams/$slug'
     | '/termine/$id'
+    | '/admin/bus'
+    | '/admin/dashboard'
+    | '/admin/events'
+    | '/admin/locations'
+    | '/admin/members'
+    | '/admin/news'
+    | '/admin/sams'
+    | '/admin/sponsors'
+    | '/admin/teams'
+    | '/admin/users'
     | '/api/auth/$'
     | '/api/ics/$teamSlug'
     | '/api/sams/logos'
     | '/news/'
     | '/teams/'
     | '/termine/'
-    | '/admin/dashboard/bus'
-    | '/admin/dashboard/events'
-    | '/admin/dashboard/locations'
-    | '/admin/dashboard/members'
-    | '/admin/dashboard/news'
-    | '/admin/dashboard/sams'
-    | '/admin/dashboard/sponsors'
-    | '/admin/dashboard/teams'
-    | '/admin/dashboard/users'
-    | '/admin/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/beitragsordnung'
@@ -394,27 +395,28 @@ export interface FileRouteTypes {
     | '/satzung'
     | '/tabelle'
     | '/admin'
+    | '/admin/login'
     | '/admin/otp-login'
     | '/'
     | '/news/$id'
     | '/teams/$slug'
     | '/termine/$id'
+    | '/admin/bus'
+    | '/admin/dashboard'
+    | '/admin/events'
+    | '/admin/locations'
+    | '/admin/members'
+    | '/admin/news'
+    | '/admin/sams'
+    | '/admin/sponsors'
+    | '/admin/teams'
+    | '/admin/users'
     | '/api/auth/$'
     | '/api/ics/$teamSlug'
     | '/api/sams/logos'
     | '/news'
     | '/teams'
     | '/termine'
-    | '/admin/dashboard/bus'
-    | '/admin/dashboard/events'
-    | '/admin/dashboard/locations'
-    | '/admin/dashboard/members'
-    | '/admin/dashboard/news'
-    | '/admin/dashboard/sams'
-    | '/admin/dashboard/sponsors'
-    | '/admin/dashboard/teams'
-    | '/admin/dashboard/users'
-    | '/admin/dashboard'
   id:
     | '__root__'
     | '/_layout'
@@ -431,33 +433,35 @@ export interface FileRouteTypes {
     | '/_layout/teams'
     | '/_layout/termine'
     | '/admin/_layout'
+    | '/admin/login'
     | '/admin/otp-login'
     | '/_layout/'
     | '/admin/'
     | '/_layout/news/$id'
     | '/_layout/teams/$slug'
     | '/_layout/termine/$id'
+    | '/admin/_layout/bus'
+    | '/admin/_layout/dashboard'
+    | '/admin/_layout/events'
+    | '/admin/_layout/locations'
+    | '/admin/_layout/members'
+    | '/admin/_layout/news'
+    | '/admin/_layout/sams'
+    | '/admin/_layout/sponsors'
+    | '/admin/_layout/teams'
+    | '/admin/_layout/users'
     | '/api/auth/$'
     | '/api/ics/$teamSlug'
     | '/api/sams/logos'
     | '/_layout/news/'
     | '/_layout/teams/'
     | '/_layout/termine/'
-    | '/admin/_layout/dashboard/bus'
-    | '/admin/_layout/dashboard/events'
-    | '/admin/_layout/dashboard/locations'
-    | '/admin/_layout/dashboard/members'
-    | '/admin/_layout/dashboard/news'
-    | '/admin/_layout/dashboard/sams'
-    | '/admin/_layout/dashboard/sponsors'
-    | '/admin/_layout/dashboard/teams'
-    | '/admin/_layout/dashboard/users'
-    | '/admin/_layout/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
   AdminLayoutRoute: typeof AdminLayoutRouteWithChildren
+  AdminLoginRoute: typeof AdminLoginRoute
   AdminOtpLoginRoute: typeof AdminOtpLoginRoute
   AdminIndexRoute: typeof AdminIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -493,6 +497,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/otp-login'
       fullPath: '/admin/otp-login'
       preLoaderRoute: typeof AdminOtpLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/_layout': {
@@ -628,6 +639,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/_layout/users': {
+      id: '/admin/_layout/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminLayoutUsersRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
+    '/admin/_layout/teams': {
+      id: '/admin/_layout/teams'
+      path: '/teams'
+      fullPath: '/admin/teams'
+      preLoaderRoute: typeof AdminLayoutTeamsRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
+    '/admin/_layout/sponsors': {
+      id: '/admin/_layout/sponsors'
+      path: '/sponsors'
+      fullPath: '/admin/sponsors'
+      preLoaderRoute: typeof AdminLayoutSponsorsRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
+    '/admin/_layout/sams': {
+      id: '/admin/_layout/sams'
+      path: '/sams'
+      fullPath: '/admin/sams'
+      preLoaderRoute: typeof AdminLayoutSamsRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
+    '/admin/_layout/news': {
+      id: '/admin/_layout/news'
+      path: '/news'
+      fullPath: '/admin/news'
+      preLoaderRoute: typeof AdminLayoutNewsRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
+    '/admin/_layout/members': {
+      id: '/admin/_layout/members'
+      path: '/members'
+      fullPath: '/admin/members'
+      preLoaderRoute: typeof AdminLayoutMembersRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
+    '/admin/_layout/locations': {
+      id: '/admin/_layout/locations'
+      path: '/locations'
+      fullPath: '/admin/locations'
+      preLoaderRoute: typeof AdminLayoutLocationsRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
+    '/admin/_layout/events': {
+      id: '/admin/_layout/events'
+      path: '/events'
+      fullPath: '/admin/events'
+      preLoaderRoute: typeof AdminLayoutEventsRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
+    '/admin/_layout/dashboard': {
+      id: '/admin/_layout/dashboard'
+      path: '/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminLayoutDashboardRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
+    '/admin/_layout/bus': {
+      id: '/admin/_layout/bus'
+      path: '/bus'
+      fullPath: '/admin/bus'
+      preLoaderRoute: typeof AdminLayoutBusRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
     '/_layout/termine/$id': {
       id: '/_layout/termine/$id'
       path: '/$id'
@@ -648,76 +729,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/news/$id'
       preLoaderRoute: typeof LayoutNewsIdRouteImport
       parentRoute: typeof LayoutNewsRoute
-    }
-    '/admin/_layout/dashboard/': {
-      id: '/admin/_layout/dashboard/'
-      path: '/dashboard'
-      fullPath: '/admin/dashboard/'
-      preLoaderRoute: typeof AdminLayoutDashboardIndexRouteImport
-      parentRoute: typeof AdminLayoutRoute
-    }
-    '/admin/_layout/dashboard/users': {
-      id: '/admin/_layout/dashboard/users'
-      path: '/dashboard/users'
-      fullPath: '/admin/dashboard/users'
-      preLoaderRoute: typeof AdminLayoutDashboardUsersRouteImport
-      parentRoute: typeof AdminLayoutRoute
-    }
-    '/admin/_layout/dashboard/teams': {
-      id: '/admin/_layout/dashboard/teams'
-      path: '/dashboard/teams'
-      fullPath: '/admin/dashboard/teams'
-      preLoaderRoute: typeof AdminLayoutDashboardTeamsRouteImport
-      parentRoute: typeof AdminLayoutRoute
-    }
-    '/admin/_layout/dashboard/sponsors': {
-      id: '/admin/_layout/dashboard/sponsors'
-      path: '/dashboard/sponsors'
-      fullPath: '/admin/dashboard/sponsors'
-      preLoaderRoute: typeof AdminLayoutDashboardSponsorsRouteImport
-      parentRoute: typeof AdminLayoutRoute
-    }
-    '/admin/_layout/dashboard/sams': {
-      id: '/admin/_layout/dashboard/sams'
-      path: '/dashboard/sams'
-      fullPath: '/admin/dashboard/sams'
-      preLoaderRoute: typeof AdminLayoutDashboardSamsRouteImport
-      parentRoute: typeof AdminLayoutRoute
-    }
-    '/admin/_layout/dashboard/news': {
-      id: '/admin/_layout/dashboard/news'
-      path: '/dashboard/news'
-      fullPath: '/admin/dashboard/news'
-      preLoaderRoute: typeof AdminLayoutDashboardNewsRouteImport
-      parentRoute: typeof AdminLayoutRoute
-    }
-    '/admin/_layout/dashboard/members': {
-      id: '/admin/_layout/dashboard/members'
-      path: '/dashboard/members'
-      fullPath: '/admin/dashboard/members'
-      preLoaderRoute: typeof AdminLayoutDashboardMembersRouteImport
-      parentRoute: typeof AdminLayoutRoute
-    }
-    '/admin/_layout/dashboard/locations': {
-      id: '/admin/_layout/dashboard/locations'
-      path: '/dashboard/locations'
-      fullPath: '/admin/dashboard/locations'
-      preLoaderRoute: typeof AdminLayoutDashboardLocationsRouteImport
-      parentRoute: typeof AdminLayoutRoute
-    }
-    '/admin/_layout/dashboard/events': {
-      id: '/admin/_layout/dashboard/events'
-      path: '/dashboard/events'
-      fullPath: '/admin/dashboard/events'
-      preLoaderRoute: typeof AdminLayoutDashboardEventsRouteImport
-      parentRoute: typeof AdminLayoutRoute
-    }
-    '/admin/_layout/dashboard/bus': {
-      id: '/admin/_layout/dashboard/bus'
-      path: '/dashboard/bus'
-      fullPath: '/admin/dashboard/bus'
-      preLoaderRoute: typeof AdminLayoutDashboardBusRouteImport
-      parentRoute: typeof AdminLayoutRoute
     }
   }
 }
@@ -800,29 +811,29 @@ const LayoutRouteWithChildren =
   LayoutRoute._addFileChildren(LayoutRouteChildren)
 
 interface AdminLayoutRouteChildren {
-  AdminLayoutDashboardBusRoute: typeof AdminLayoutDashboardBusRoute
-  AdminLayoutDashboardEventsRoute: typeof AdminLayoutDashboardEventsRoute
-  AdminLayoutDashboardLocationsRoute: typeof AdminLayoutDashboardLocationsRoute
-  AdminLayoutDashboardMembersRoute: typeof AdminLayoutDashboardMembersRoute
-  AdminLayoutDashboardNewsRoute: typeof AdminLayoutDashboardNewsRoute
-  AdminLayoutDashboardSamsRoute: typeof AdminLayoutDashboardSamsRoute
-  AdminLayoutDashboardSponsorsRoute: typeof AdminLayoutDashboardSponsorsRoute
-  AdminLayoutDashboardTeamsRoute: typeof AdminLayoutDashboardTeamsRoute
-  AdminLayoutDashboardUsersRoute: typeof AdminLayoutDashboardUsersRoute
-  AdminLayoutDashboardIndexRoute: typeof AdminLayoutDashboardIndexRoute
+  AdminLayoutBusRoute: typeof AdminLayoutBusRoute
+  AdminLayoutDashboardRoute: typeof AdminLayoutDashboardRoute
+  AdminLayoutEventsRoute: typeof AdminLayoutEventsRoute
+  AdminLayoutLocationsRoute: typeof AdminLayoutLocationsRoute
+  AdminLayoutMembersRoute: typeof AdminLayoutMembersRoute
+  AdminLayoutNewsRoute: typeof AdminLayoutNewsRoute
+  AdminLayoutSamsRoute: typeof AdminLayoutSamsRoute
+  AdminLayoutSponsorsRoute: typeof AdminLayoutSponsorsRoute
+  AdminLayoutTeamsRoute: typeof AdminLayoutTeamsRoute
+  AdminLayoutUsersRoute: typeof AdminLayoutUsersRoute
 }
 
 const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
-  AdminLayoutDashboardBusRoute: AdminLayoutDashboardBusRoute,
-  AdminLayoutDashboardEventsRoute: AdminLayoutDashboardEventsRoute,
-  AdminLayoutDashboardLocationsRoute: AdminLayoutDashboardLocationsRoute,
-  AdminLayoutDashboardMembersRoute: AdminLayoutDashboardMembersRoute,
-  AdminLayoutDashboardNewsRoute: AdminLayoutDashboardNewsRoute,
-  AdminLayoutDashboardSamsRoute: AdminLayoutDashboardSamsRoute,
-  AdminLayoutDashboardSponsorsRoute: AdminLayoutDashboardSponsorsRoute,
-  AdminLayoutDashboardTeamsRoute: AdminLayoutDashboardTeamsRoute,
-  AdminLayoutDashboardUsersRoute: AdminLayoutDashboardUsersRoute,
-  AdminLayoutDashboardIndexRoute: AdminLayoutDashboardIndexRoute,
+  AdminLayoutBusRoute: AdminLayoutBusRoute,
+  AdminLayoutDashboardRoute: AdminLayoutDashboardRoute,
+  AdminLayoutEventsRoute: AdminLayoutEventsRoute,
+  AdminLayoutLocationsRoute: AdminLayoutLocationsRoute,
+  AdminLayoutMembersRoute: AdminLayoutMembersRoute,
+  AdminLayoutNewsRoute: AdminLayoutNewsRoute,
+  AdminLayoutSamsRoute: AdminLayoutSamsRoute,
+  AdminLayoutSponsorsRoute: AdminLayoutSponsorsRoute,
+  AdminLayoutTeamsRoute: AdminLayoutTeamsRoute,
+  AdminLayoutUsersRoute: AdminLayoutUsersRoute,
 }
 
 const AdminLayoutRouteWithChildren = AdminLayoutRoute._addFileChildren(
@@ -832,6 +843,7 @@ const AdminLayoutRouteWithChildren = AdminLayoutRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
   AdminLayoutRoute: AdminLayoutRouteWithChildren,
+  AdminLoginRoute: AdminLoginRoute,
   AdminOtpLoginRoute: AdminOtpLoginRoute,
   AdminIndexRoute: AdminIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,

@@ -472,6 +472,6 @@ function SponsorCard({ sponsor, onEdit }: { sponsor: SponsorInput & { id: string
 	)
 }
 
-export const Route = createFileRoute("/admin/_layout/dashboard/sponsors")({
+export const Route = createFileRoute("/admin/_layout/sponsors")({
 	component: SponsorsPage,
 });

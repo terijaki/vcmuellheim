@@ -2,7 +2,7 @@ import { AspectRatio, BackgroundImage, Card, Group, SimpleGrid, Stack, Title, Ty
 import { createFileRoute, getRouteApi, Link } from "@tanstack/react-router";
 import { getAdminRoutesWithLabels } from "../../../../utils/adminNavLinks";
 
-export const Route = createFileRoute("/admin/_layout/dashboard/")({
+export const Route = createFileRoute("/admin/_layout/dashboard")({
 	component: DashboardIndexPage,
 });
 

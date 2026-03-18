@@ -419,6 +419,6 @@ function EventsPage() {
 	)
 }
 
-export const Route = createFileRoute("/admin/_layout/dashboard/events")({
+export const Route = createFileRoute("/admin/_layout/events")({
 	component: EventsPage,
 });

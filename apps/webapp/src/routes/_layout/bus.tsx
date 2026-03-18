@@ -111,7 +111,7 @@ function RouteComponent() {
 					)}
 
 					<Group justify="right">
-						<Button component={Link} to="/admin/dashboard/bus" target="_blank" variant="light">
+						<Button component={Link} to="/admin/bus" target="_blank" variant="light">
 							Bearbeiten
 						</Button>
 					</Group>

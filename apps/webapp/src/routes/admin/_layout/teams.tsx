@@ -826,6 +826,6 @@ function TeamsPage() {
 	)
 }
 
-export const Route = createFileRoute("/admin/_layout/dashboard/teams")({
+export const Route = createFileRoute("/admin/_layout/teams")({
 	component: TeamsPage,
 });

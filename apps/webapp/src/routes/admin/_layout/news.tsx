@@ -581,6 +581,6 @@ function ExistingImage({ s3Key, isDeleted, onDelete, onRestore }: { s3Key: strin
 	)
 }
 
-export const Route = createFileRoute("/admin/_layout/dashboard/news")({
+export const Route = createFileRoute("/admin/_layout/news")({
 	component: NewsPage,
 });

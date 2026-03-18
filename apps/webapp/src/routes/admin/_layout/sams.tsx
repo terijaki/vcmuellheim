@@ -112,6 +112,6 @@ function SamsDashboardPage() {
 	)
 }
 
-export const Route = createFileRoute("/admin/_layout/dashboard/sams")({
+export const Route = createFileRoute("/admin/_layout/sams")({
 	component: SamsDashboardPage,
 });

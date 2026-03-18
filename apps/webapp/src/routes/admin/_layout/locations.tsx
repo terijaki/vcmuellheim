@@ -259,6 +259,6 @@ function LocationsPage() {
 	)
 }
 
-export const Route = createFileRoute("/admin/_layout/dashboard/locations")({
+export const Route = createFileRoute("/admin/_layout/locations")({
 	component: LocationsPage,
 });
