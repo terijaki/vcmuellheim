@@ -1,18 +1,34 @@
-import { AppShell, Burger, Collapse, Container, Group, Stack, Title, UnstyledButton } from "@mantine/core";
+import { AppShell, Avatar, Burger, Collapse, Container, Group, Menu, Stack, Title, UnstyledButton } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard } from "lucide-react";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
+import { LayoutDashboard, LogOut } from "lucide-react";
+import { useState } from "react";
+import { authClient } from "../../lib/auth-client";
 import { getAdminRoutesWithLabels } from "../../utils/adminNavLinks";
 
 export const ADMIN_HEADER_HEIGHT = 60;
 
-export default function AdminHeader({ isAdmin }: { isAdmin: boolean }) {
+interface AdminHeaderProps {
+	isAdmin: boolean;
+	userName?: string;
+	userEmail?: string;
+}
+
+export default function AdminHeader({ isAdmin, userName, userEmail }: AdminHeaderProps) {
 	const [opened, { toggle, close }] = useDisclosure();
 	const { location } = useRouterState();
 	const navLinks = getAdminRoutesWithLabels(isAdmin);
+	const navigate = useNavigate();
+	const [loggingOut, setLoggingOut] = useState(false);
+
+	const logout = async () => {
+		setLoggingOut(true);
+		await authClient.signOut();
+		await navigate({ to: "/admin/login" });
+	};
 
 	return (
-		<AppShell.Header c="white" bg="blumine">
+		<AppShell.Header c="white" bg="onyx">
 			<Container size="xl" p="sm">
 				<Group justify="space-between" h="100%">
 					<UnstyledButton component={Link} to="/admin" onClick={close}>
@@ -33,10 +49,25 @@ export default function AdminHeader({ isAdmin }: { isAdmin: boolean }) {
 							);
 						})}
 					</Group>
-					<Burger opened={opened} onClick={toggle} hiddenFrom="sm" color="white" />
+					<Group gap="xs">
+						<Menu position="bottom-end">
+							<Menu.Target>
+								<Avatar name={userName} color="turquoise" variant="filled" style={{ cursor: "pointer" }} />
+							</Menu.Target>
+							<Menu.Dropdown>
+								{userName && <Menu.Label>{userName}</Menu.Label>}
+								{userEmail && <Menu.Label>{userEmail}</Menu.Label>}
+								<Menu.Divider />
+								<Menu.Item leftSection={<LogOut size={16} />} onClick={logout} disabled={loggingOut}>
+									Abmelden
+								</Menu.Item>
+							</Menu.Dropdown>
+						</Menu>
+						<Burger opened={opened} onClick={toggle} hiddenFrom="sm" color="white" />
+					</Group>
 				</Group>
 			</Container>
-			<Collapse in={opened} hiddenFrom="sm" bg="blumine" p="md">
+			<Collapse in={opened} hiddenFrom="sm" bg="onyx" p="md">
 				<Stack gap="xs">
 					{navLinks.map(({ to, label, icon }) => {
 						const isActive = location.pathname.startsWith(to);

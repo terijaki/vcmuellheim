@@ -22,7 +22,7 @@ function AdminLayout() {
 	const { user } = Route.useRouteContext();
 	return (
 		<AppShell header={{ height: ADMIN_HEADER_HEIGHT, offset: true }} withBorder={false} bg="aquahaze">
-			<AdminHeader isAdmin={user?.role === "Admin"} />
+			<AdminHeader isAdmin={user?.role === "Admin"} userName={user?.name} userEmail={user?.email} />
 			<AppShellMain>
 				<Container size="xl" py="md" px={{ base: "lg", md: "xl" }}>
 					<Outlet />
