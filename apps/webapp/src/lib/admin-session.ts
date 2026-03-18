@@ -1,3 +1,4 @@
+import { getCurrentAdminUserFn } from "../server/functions/session";
 import { authClient } from "./auth-client";
 
 export interface AdminSessionUser {
@@ -9,15 +10,7 @@ export interface AdminSessionUser {
 
 export async function getCurrentAdminUser(): Promise<AdminSessionUser | null> {
 	if (import.meta.env.SSR) {
-		const [{ getRequest }, { getAuth }] = await Promise.all([import("@tanstack/react-start/server"), import("../server/auth")]);
-		const request = getRequest();
-		const session = await getAuth().api.getSession({ headers: request.headers });
-
-		if (!session?.user) {
-			return null;
-		}
-
-		return toAdminSessionUser(session.user);
+		return getCurrentAdminUserFn();
 	}
 
 	const session = await authClient.getSession();
@@ -25,10 +18,7 @@ export async function getCurrentAdminUser(): Promise<AdminSessionUser | null> {
 		return null;
 	}
 
-	return toAdminSessionUser(session.data.user);
-}
-
-function toAdminSessionUser(user: { id: string; email: string; name?: string | null } & Record<string, unknown>): AdminSessionUser {
+	const user = session.data.user as { id: string; email: string; name?: string | null } & Record<string, unknown>;
 	const role = typeof user.role === "string" ? user.role : undefined;
 
 	return {
