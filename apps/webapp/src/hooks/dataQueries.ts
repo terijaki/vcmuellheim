@@ -16,6 +16,7 @@ import { getGalleryImagesFn, getNewsByIdFn, getNewsBySlugFn, getPublishedNewsFn 
 import {
 	getClubLogoUrlFn,
 	getClubLogoUrlsBatchFn,
+	getClubLogoUrlsByClubUuidBatchFn,
 	getSamsClubByNameSlugFn,
 	getSamsClubBySportsclubUuidFn,
 	getSamsMatchesFn,
@@ -323,6 +324,14 @@ export const useClubLogoUrlsBatch = (clubSlugs: string[]) => {
 		queryKey: ["clubLogoUrls", clubSlugs],
 		queryFn: () => getClubLogoUrlsBatchFn({ data: { clubSlugs } }),
 		enabled: clubSlugs.length > 0,
+	});
+};
+
+export const useClubLogoUrlsByClubUuidBatch = (clubUuids: string[]) => {
+	return useQuery({
+		queryKey: ["clubLogoUrlsByClubUuid", clubUuids],
+		queryFn: () => getClubLogoUrlsByClubUuidBatchFn({ data: { clubUuids } }),
+		enabled: clubUuids.length > 0,
 	});
 };
 

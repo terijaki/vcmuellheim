@@ -14,9 +14,7 @@ export interface AdminSessionUser {
  * Maps a raw better-auth user object to AdminSessionUser.
  * Exported for unit testing.
  */
-export function mapSessionUser(
-	user: { id: string; email: string; name?: string | null } & Record<string, unknown>,
-): AdminSessionUser {
+export function mapSessionUser(user: { id: string; email: string; name?: string | null } & Record<string, unknown>): AdminSessionUser {
 	return {
 		id: user.id,
 		email: user.email,

@@ -1,9 +1,9 @@
 import { Alert, Button, Center, Loader, Stack, Text, Title } from "@mantine/core";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { authClient } from "@webapp/lib/auth-client";
+import { loginPageGuard } from "@webapp/lib/auth-guards";
 import { useEffect, useState } from "react";
 import { z } from "zod";
-import { loginPageGuard } from "@webapp/lib/auth-guards";
 
 const otpSearchSchema = z.union([z.string().regex(/^\d{1,6}$/), z.coerce.number().int().min(0).max(999999)]).transform((value) => String(value).padStart(6, "0"));
 

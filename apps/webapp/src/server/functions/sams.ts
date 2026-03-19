@@ -206,6 +206,20 @@ export const getClubLogoUrlsBatchFn = createServerFn()
 		return Object.fromEntries(entries) as Record<string, string | null>;
 	});
 
+export const getClubLogoUrlsByClubUuidBatchFn = createServerFn()
+	.inputValidator(z.object({ clubUuids: z.array(z.string().min(1)) }))
+	.handler(async ({ data }) => {
+		const cfUrl = CLOUDFRONT_URL();
+		const uniqueClubUuids = [...new Set(data.clubUuids)];
+		const entries = await Promise.all(
+			uniqueClubUuids.map(async (clubUuid) => {
+				const club = await getSamsClubBySportsclubUuid(clubUuid);
+				return [clubUuid, resolveClubLogoUrl(club, cfUrl)] as const;
+			}),
+		);
+		return Object.fromEntries(entries) as Record<string, string | null>;
+	});
+
 /** Pure helper — resolves a club's effective logo URL from a club record.
  * Exported for unit testing. */
 export function resolveClubLogoUrl(club: { logoS3Key?: string | null; logoImageLink?: string | null } | null, cloudfrontUrl: string): string | null {
