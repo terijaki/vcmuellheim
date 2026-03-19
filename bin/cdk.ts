@@ -1,16 +1,14 @@
 import { getSanitizedBranch } from "@utils/git";
 import * as cdk from "aws-cdk-lib";
 import { DNS } from "@/project.config";
-import { ApiStack } from "../lib/api-stack";
 import { BudgetStack } from "../lib/budget-stack";
-import { CmsStack } from "../lib/cms-stack";
 import { ContentDbStack } from "../lib/content-db-stack";
 import { DnsStack } from "../lib/dns-stack";
 import { MediaStack } from "../lib/media-stack";
 import { MonitoringStack } from "../lib/monitoring-stack";
 import { SamsApiStack } from "../lib/sams-api-stack";
 import { SocialMediaStack } from "../lib/social-media-stack";
-import { WebsiteStack } from "../lib/website-stack";
+import { WebAppStack } from "../lib/webapp-stack";
 
 const app = new cdk.App();
 
@@ -24,9 +22,7 @@ const branchSuffix = branch ? `-${branch}` : "";
 // Environment-specific configuration
 const contentDbStackName = isProd ? `ContentDbStack-Prod${branchSuffix}` : `ContentDbStack-Dev${branchSuffix}`;
 const mediaStackName = isProd ? `MediaStack-Prod${branchSuffix}` : `MediaStack-Dev${branchSuffix}`;
-const websiteStackName = isProd ? `WebsiteStack-Prod${branchSuffix}` : `WebsiteStack-Dev${branchSuffix}`;
-const cmsStackName = isProd ? `CmsStack-Prod${branchSuffix}` : `CmsStack-Dev${branchSuffix}`;
-const apiStackName = isProd ? `ApiStack-Prod${branchSuffix}` : `ApiStack-Dev${branchSuffix}`;
+const webappStackName = isProd ? `WebAppStack-Prod${branchSuffix}` : `WebAppStack-Dev${branchSuffix}`;
 const samsStackName = isProd ? `SamsApiStack-Prod${branchSuffix}` : `SamsApiStack-Dev${branchSuffix}`;
 const socialMediaStackName = isProd ? `SocialMediaStack-Prod${branchSuffix}` : `SocialMediaStack-Dev${branchSuffix}`;
 const dnsStackName = isProd ? `DnsStack-Prod${branchSuffix}` : `DnsStack-Dev${branchSuffix}`;
@@ -70,42 +66,31 @@ const mediaStack = new MediaStack(app, mediaStackName, {
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
 });
 
-const cmsStack = new CmsStack(app, cmsStackName, {
-	...commonStackProps,
-	description: `Admin CMS (S3 + CloudFront) (${environment}${branchSuffix})`,
-	hostedZone: dnsStack.hostedZone,
-	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
-});
-
-const websiteStack = new WebsiteStack(app, websiteStackName, {
-	...commonStackProps,
-	description: `Public Website (S3 + CloudFront) (${environment}${branchSuffix})`,
-	hostedZone: dnsStack.hostedZone,
-	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
-});
-
 const samsApiStack = new SamsApiStack(app, samsStackName, {
 	...commonStackProps,
 	description: `SAMS API Services (${environment}${branchSuffix})`,
 	hostedZone: dnsStack.hostedZone,
-	regionalCertificate: dnsStack.regionalCertificate, // API Gateway cert (eu-central-1)
-	cloudFrontCertificate: dnsStack.cloudFrontCertificate, // CloudFront cert (us-east-1)
+	regionalCertificate: dnsStack.regionalCertificate,
+	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
+	mediaBucket: mediaStack.bucket,
+	mediaCloudFrontUrl: mediaStack.cloudFrontUrl,
 });
 
 // Social Media Stack with Instagram and Mastodon integration
-new SocialMediaStack(app, socialMediaStackName, {
+const socialMediaStack = new SocialMediaStack(app, socialMediaStackName, {
 	...commonStackProps,
 	description: `Social Media API Services (${environment}${branchSuffix})`,
 	hostedZone: dnsStack.hostedZone,
 	regionalCertificate: dnsStack.regionalCertificate,
 	newsTable: contentDbStack.newsTable,
-	websiteUrl: websiteStack.websiteUrl,
+	// Pass the webapp URL for Mastodon news-sharing links
+	websiteUrl: isProd ? `https://${DNS.prod.hostedZoneName}` : `https://${environment}${branchSuffix}.${DNS.dev.hostedZoneName}`,
 	mediaBucket: mediaStack.bucket,
 });
 
-const apiStack = new ApiStack(app, apiStackName, {
+const webappStack = new WebAppStack(app, webappStackName, {
 	...commonStackProps,
-	description: `tRPC API & Auth (${environment}${branchSuffix})`,
+	description: `VCM WebApp + Admin (${environment}${branchSuffix})`,
 	contentDbStack: {
 		newsTable: contentDbStack.newsTable,
 		eventsTable: contentDbStack.eventsTable,
@@ -122,13 +107,11 @@ const apiStack = new ApiStack(app, apiStackName, {
 		samsClubsTable: samsApiStack.samsClubsTable,
 		samsTeamsTable: samsApiStack.samsTeamsTable,
 	},
-	samsApiUrl: samsApiStack.cloudFrontUrl,
+	instagramTable: socialMediaStack.instagramTable,
 	mediaBucket: mediaStack.bucket,
-	cloudFrontUrl: mediaStack.cloudFrontUrl,
-	cmsUrl: cmsStack.cmsUrl,
-	websiteUrl: websiteStack.websiteUrl,
+	mediaCloudFrontUrl: mediaStack.cloudFrontUrl,
 	hostedZone: dnsStack.hostedZone,
-	regionalCertificate: dnsStack.regionalCertificate,
+	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
 });
 
 // Budget monitoring - requires email for alerts
@@ -157,7 +140,7 @@ if (monitoringEmail || isDestroy) {
 		...commonStackProps,
 		description: `Monitoring & Alerting (${environment}${branchSuffix})`,
 		alertEmail: monitoringEmail || "cleanup@example.com",
-		trpcLambda: apiStack.trpcLambda,
+		webappLambda: webappStack.webappLambda,
 		contentTables: {
 			news: contentDbStack.newsTable,
 			events: contentDbStack.eventsTable,
@@ -168,11 +151,9 @@ if (monitoringEmail || isDestroy) {
 			bus: contentDbStack.busTable,
 			locations: contentDbStack.locationsTable,
 		},
-		api: apiStack.api,
 		mediaBucket: mediaStack.bucket,
 		mediaDistribution: mediaStack.distribution,
-		cmsDistribution: cmsStack.distribution,
-		websiteDistribution: websiteStack.distribution,
+		websiteDistribution: webappStack.distribution,
 	});
 } else {
 	const message = "❌ CDK_MONITORING_ALERT_EMAIL not set";

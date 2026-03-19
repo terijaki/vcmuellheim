@@ -31,6 +31,7 @@ interface SocialMediaStackProps extends cdk.StackProps {
 export class SocialMediaStack extends cdk.Stack {
 	public readonly cloudFrontUrl: string;
 	public readonly mastodonLambda: lambda.IFunction;
+	public readonly instagramTable: dynamodb.Table;
 
 	constructor(scope: Construct, id: string, props: SocialMediaStackProps) {
 		super(scope, id, props);
@@ -92,7 +93,7 @@ export class SocialMediaStack extends cdk.Stack {
 
 		// Create DynamoDB table for storing Instagram posts
 		// Uses a constant partition key for all posts to enable simple time-based queries
-		const instagramTable = new dynamodb.Table(this, "InstagramPostsTable", {
+		this.instagramTable = new dynamodb.Table(this, "InstagramPostsTable", {
 			tableName: `instagram-posts-${environment}${branchSuffix}`,
 			partitionKey: {
 				name: "entityType",
@@ -114,7 +115,7 @@ export class SocialMediaStack extends cdk.Stack {
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/social/instagram-sync.ts"),
 			environment: {
-				INSTAGRAM_TABLE_NAME: instagramTable.tableName,
+				INSTAGRAM_TABLE_NAME: this.instagramTable.tableName,
 				APIFY_API_KEY: apifyApiKey || "",
 				APIFY_SCHEDULE_ID: apifyScheduleId,
 				APIFY_ACTOR_ID: apifyActorId,
@@ -134,7 +135,7 @@ export class SocialMediaStack extends cdk.Stack {
 		});
 
 		// Grant DynamoDB permissions to sync Lambda
-		instagramTable.grantReadWriteData(instagramSync);
+		this.instagramTable.grantReadWriteData(instagramSync);
 
 		// Create Lambda function for Instagram posts API
 		const instagramPosts = new NodejsFunction(this, "InstagramPosts", {
@@ -143,7 +144,7 @@ export class SocialMediaStack extends cdk.Stack {
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/social/instagram-posts.ts"),
 			environment: {
-				INSTAGRAM_TABLE_NAME: instagramTable.tableName,
+				INSTAGRAM_TABLE_NAME: this.instagramTable.tableName,
 			} satisfies InstagramPostsLambdaEnvironment,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
@@ -160,7 +161,7 @@ export class SocialMediaStack extends cdk.Stack {
 		});
 
 		// Grant DynamoDB read permissions to posts Lambda
-		instagramTable.grantReadData(instagramPosts);
+		this.instagramTable.grantReadData(instagramPosts);
 
 		// Create EventBridge rule to trigger sync daily at 4 AM UTC
 		const syncRule = new events.Rule(this, "InstagramSyncRule", {

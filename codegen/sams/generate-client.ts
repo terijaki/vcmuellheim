@@ -70,6 +70,7 @@ createClient({
 										break;
 									case "results":
 									case "referees":
+									case "location":
 										// hey-api silently drops nullable:true when paired with $ref — wrap in allOf
 										// so nullable:true is on a schema object (not a $ref), which the generator
 										// correctly converts to z.union([zType, z.null()]).
@@ -119,6 +120,7 @@ createClient({
 										break;
 									case "results":
 									case "referees":
+									case "location":
 										// hey-api silently drops nullable:true when paired with $ref — wrap in allOf
 										// so nullable:true is on a schema object (not a $ref), which the generator
 										// correctly converts to z.union([zType, z.null()]).

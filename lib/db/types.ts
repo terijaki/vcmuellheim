@@ -26,3 +26,6 @@ export type BaseEntity = {
 	createdAt: string;
 	updatedAt: string;
 };
+
+/** Pagination cursor type used by DynamoDB query/scan pagination */
+export type PaginationCursor = Record<string, string | number>;

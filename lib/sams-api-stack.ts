@@ -11,6 +11,7 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
+import type * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import type {
 	SamsAssociationsLambdaEnvironment,
@@ -18,7 +19,6 @@ import type {
 	SamsClubsSyncLambdaEnvironment,
 	SamsCommonLambdaEnvironment,
 	SamsLeagueMatchesLambdaEnvironment,
-	SamsLogoProxyLambdaEnvironment,
 	SamsRankingsLambdaEnvironment,
 	SamsSeasonsLambdaEnvironment,
 	SamsTeamsLambdaEnvironment,
@@ -34,6 +34,8 @@ interface SamsApiStackProps extends cdk.StackProps {
 	hostedZone?: route53.IHostedZone;
 	regionalCertificate?: acm.ICertificate;
 	cloudFrontCertificate?: acm.ICertificate;
+	mediaBucket?: s3.IBucket;
+	mediaCloudFrontUrl?: string;
 }
 
 export class SamsApiStack extends cdk.Stack {
@@ -248,6 +250,8 @@ export class SamsApiStack extends cdk.Stack {
 			environment: {
 				...commonEnvironment,
 				CLUBS_TABLE_NAME: clubsTable.tableName,
+				MEDIA_BUCKET_NAME: props?.mediaBucket?.bucketName ?? "",
+				MEDIA_CLOUDFRONT_URL: props?.mediaCloudFrontUrl ?? "",
 			} satisfies SamsClubsSyncLambdaEnvironment,
 			timeout: cdk.Duration.minutes(10), // Longer timeout for paginated sync
 			memorySize: 512,
@@ -265,6 +269,7 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Grant DynamoDB permissions to sync Lambda
 		clubsTable.grantReadWriteData(samsClubsSync);
+		props?.mediaBucket?.grantWrite(samsClubsSync);
 
 		// Create Lambda function for nightly teams sync
 		const samsTeamsSync = new NodejsFunction(this, "SamsTeamsSync", {
@@ -348,33 +353,6 @@ export class SamsApiStack extends cdk.Stack {
 
 		// Grant DynamoDB read permissions to teams query Lambda
 		teamsTable.grantReadData(samsTeams);
-
-		// Create Lambda function for logo proxy (download and cache external images)
-		const samsLogoProxy = new NodejsFunction(this, "SamsLogoProxy", {
-			functionName: `sams-logo-proxy-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_24_X,
-			handler: "handler",
-			entry: path.join(__dirname, "../lambda/sams/sams-logo-proxy.ts"),
-			environment: {
-				CLUBS_TABLE_NAME: clubsTable.tableName,
-			} satisfies SamsLogoProxyLambdaEnvironment,
-			timeout: cdk.Duration.seconds(30),
-			memorySize: 256,
-			layers: [powertoolsLayer],
-			logGroup: new cdk.aws_logs.LogGroup(this, "SamsLogoProxyLogGroup", {
-				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
-				removalPolicy: cdk.RemovalPolicy.DESTROY,
-			}),
-			bundling: {
-				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
-				minify: true,
-				sourceMap: true,
-			},
-		});
-
-		// Grant DynamoDB read permissions to logo proxy Lambda
-		teamsTable.grantReadData(samsLogoProxy);
-		clubsTable.grantReadData(samsLogoProxy);
 
 		// Create EventBridge rule to trigger sync Lambda weekly on Wednesday at 2 AM UTC
 		const syncRule = new events.Rule(this, "SamsClubsSyncRule", {
@@ -504,13 +482,6 @@ export class SamsApiStack extends cdk.Stack {
 			integration: new HttpLambdaIntegration("TeamsDetailIntegration", samsTeams),
 		});
 
-		// GET /logos - Download and proxy external logo images (accepts ?team={uuid} or ?club={uuid})
-		api.addRoutes({
-			path: "/logos",
-			methods: [apigatewayv2.HttpMethod.GET],
-			integration: new HttpLambdaIntegration("LogoProxyIntegration", samsLogoProxy),
-		});
-
 		// Create CloudFront distribution for caching
 		const distribution = new cloudfront.Distribution(this, "SamsApiDistribution", {
 			defaultBehavior: sharedBehavior,
@@ -523,7 +494,6 @@ export class SamsApiStack extends cdk.Stack {
 				"/teams/*": sharedBehavior,
 				"/associations": sharedBehavior,
 				"/associations/*": sharedBehavior,
-				"/logos*": sharedBehavior,
 			},
 			priceClass: cloudfront.PriceClass.PRICE_CLASS_100, // Only US, Canada, Europe
 			comment: `SAMS API CloudFront Distribution (${environment}${branchSuffix})`,

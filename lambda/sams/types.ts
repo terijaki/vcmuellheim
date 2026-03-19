@@ -1,4 +1,4 @@
-import { zLeagueMatchDto, zLeagueRankingsEntryDto, zSeasonDto } from "@codegen/sams/generated/zod.gen";
+import { zLeagueMatchDto, zLeagueRankingsEntryDto, zLocation, zSeasonDto, zVolleyballMatchResultsDto } from "@codegen/sams/generated/zod.gen";
 import { z } from "zod";
 import { requiredEnvString } from "../utils/env";
 
@@ -29,6 +29,8 @@ export type SamsLeagueMatchesLambdaEnvironment = z.infer<typeof SamsLeagueMatche
 
 export const SamsClubsSyncLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
 	CLUBS_TABLE_NAME: requiredEnvString,
+	MEDIA_BUCKET_NAME: requiredEnvString,
+	MEDIA_CLOUDFRONT_URL: requiredEnvString,
 });
 
 export type SamsClubsSyncLambdaEnvironment = z.infer<typeof SamsClubsSyncLambdaEnvironmentSchema>;
@@ -73,6 +75,7 @@ const BaseClubItemSchema = z.object({
 	associationUuid: z.string().nullish(),
 	associationName: z.string().nullish(),
 	logoImageLink: z.string().nullish(),
+	logoS3Key: z.string().nullish(),
 	updatedAt: z.string(),
 	ttl: z.number(), // DynamoDB TTL field
 });
@@ -191,9 +194,19 @@ export type SeasonsResponse = z.infer<typeof SeasonsResponseSchema>;
 /**
  * League rankings response
  */
+const RankingEntryResponseSchema = zLeagueRankingsEntryDto.pick({
+	uuid: true,
+	teamName: true,
+	rank: true,
+	matchesPlayed: true,
+	points: true,
+	wins: true,
+	setWins: true,
+	setLosses: true,
+});
+
 export const RankingResponseSchema = z.object({
-	// reuse generated entry schema for ranking items
-	teams: z.optional(z.array(zLeagueRankingsEntryDto)),
+	teams: z.optional(z.array(RankingEntryResponseSchema)),
 	timestamp: z.iso.datetime(),
 	leagueUuid: z.string(),
 	leagueName: z.string().nullish(),
@@ -210,8 +223,49 @@ export type RankingResponse = z.infer<typeof RankingResponseSchema>;
  * League matches response (without HAL links)
  * Using generated schema - results field is properly typed as nullable
  */
+const LeagueMatchTeamSchema = z.object({
+	uuid: z.string(),
+	name: z.string(),
+	sportsclubUuid: z.string(),
+});
+
+const LeagueMatchEmbeddedSchema = z
+	.object({
+		team1: LeagueMatchTeamSchema.optional(),
+		team2: LeagueMatchTeamSchema.optional(),
+	})
+	.nullish();
+
+const LeagueMatchLocationSchema = zLocation
+	.pick({
+		uuid: true,
+		name: true,
+		longitude: true,
+		latitude: true,
+		address: true,
+	})
+	.nullish();
+
+const LeagueMatchResponseItemSchema = zLeagueMatchDto
+	.pick({
+		uuid: true,
+		date: true,
+		time: true,
+		matchNumber: true,
+		host: true,
+		leagueUuid: true,
+		results: true,
+		location: true,
+		_embedded: true,
+	})
+	.extend({
+		results: zVolleyballMatchResultsDto.nullish(),
+		location: LeagueMatchLocationSchema,
+		_embedded: LeagueMatchEmbeddedSchema,
+	});
+
 export const LeagueMatchesResponseSchema = z.object({
-	matches: z.array(zLeagueMatchDto.omit({ _links: true })),
+	matches: z.array(LeagueMatchResponseItemSchema),
 	timestamp: z.iso.datetime(),
 });
 

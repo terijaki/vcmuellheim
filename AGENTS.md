@@ -5,27 +5,28 @@ Subfolder-level `AGENTS.md` files contain additional context for specific areas 
 
 ## Quick Overview
 
-- **Monorepo** with Bun workspaces: `apps/cms`, `apps/website`, and `apps/shared`.
-- **Frontend:** Vite + React (Mantine for UI, TanStack Router) — see [`apps/AGENTS.md`](apps/AGENTS.md).
-- **Backend/Infra:** AWS CDK (in `lib/`, `bin/cdk.ts`) producing Lambdas, API Gateway, DynamoDB, S3 — see [`lib/AGENTS.md`](lib/AGENTS.md).
-- **Server code / Lambdas:** under `lambda/` — see [`lambda/AGENTS.md`](lambda/AGENTS.md).
-- **Shared runtime code:** `lib/trpc`, `lib/db`, `lib/*-stack.ts` (CDK stacks).
+- **Unified monorepo** with Bun workspaces: `apps/webapp` (single TanStack Start app + Nitro backend).
+- **Frontend & SSR:** TanStack Start with file-based routes, Mantine UI components — see [`apps/AGENTS.md`](apps/AGENTS.md).
+- **Server functions:** Nitro-backed server functions under `apps/webapp/src/server/functions/`.
+- **Backend/Infra:** AWS CDK (in `lib/`, `bin/cdk.ts`) producing WebApp Lambda, API Gateway, DynamoDB, S3 — see [`lib/AGENTS.md`](lib/AGENTS.md).
+- **Background Lambdas:** Sync tasks, ICS/Sitemap/Social handlers under `lambda/` — see [`lambda/AGENTS.md`](lambda/AGENTS.md).
+- **Shared runtime code:** `lib/db/` (repository layer), `lib/*-stack.ts` (CDK stacks), `lib/db/schemas.ts` (DB schemas).
 
 ## Commands you will use often
 
 - **Install deps:** `bun install` at repo root.
-- **Run frontend locally:**
-  - `bun run dev:website` — start website dev server.
-  - `bun run dev:cms` — start CMS dev server.
-- **Build:** `bun run build:website` or `bun run build:cms`.
+- **Run webapp locally:**
+  - `bun run dev` — start unified webapp dev server (includes website public routes + admin auth).
+- **Build:** `bun run build`.
 - **Lint / format / typecheck:**
   - `bun run lint` (Biome lint)
   - `bun run typecheck` (tsc --noEmit)
   - `bun run check` / `bun run check:fix` (biome check)
+  - `bun run verify:all` (combined check + typecheck + tests)
 - **Tests:** `bun run test` (or `bun test <path/to/test>` for a single file).
-- **DB / scripts:** `bun run db:seed`
-- **CDK:** `bun run cdk:deploy`, `bun run cdk:deploy {StackName}`, `bun run cdk:deploy:all` (scripts use AWS profile `vcmuellheim`).
-- **jq:** when fetching data or using the AWS CLI, prefer including `jq`. e.g. `aws route53 list-hosted-zones ... | jq`
+- **DB / scripts:** `bun run db:seed`, `bun run db:seed:sams`
+- **CDK:** `bun run cdk:synth`, `bun run cdk:deploy`, `bun run cdk:deploy:all` (scripts use AWS profile `vcmuellheim`).
+- **WebApp build prep:** `bun run build` (outputs `.output/` with Nitro server + static assets).
 
 ## Global codebase conventions
 

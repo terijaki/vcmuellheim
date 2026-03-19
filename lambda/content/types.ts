@@ -22,12 +22,6 @@ export const IcsCalendarLambdaEnvironmentSchema = z.object({
 
 export type IcsCalendarLambdaEnvironment = z.infer<typeof IcsCalendarLambdaEnvironmentSchema>;
 
-export const SitemapLambdaEnvironmentSchema = tableEnvironmentSchema.extend({
-	WEBSITE_URL: requiredEnvString,
-});
-
-export type SitemapLambdaEnvironment = z.infer<typeof SitemapLambdaEnvironmentSchema>;
-
 export const S3CleanupLambdaEnvironmentSchema = z.object({
 	MEDIA_BUCKET_NAME: requiredEnvString,
 });

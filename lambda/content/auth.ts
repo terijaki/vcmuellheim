@@ -86,7 +86,6 @@ export const auth = betterAuth({
 		protocol: "https",
 	},
 	secret: env.BETTER_AUTH_SECRET,
-	trustedOrigins: ["https://vcmuellheim.de", "https://*.vcmuellheim.de", "https://*.new.vcmuellheim.de"], // TODO might not be needed due to dynamic baseUrl
 	database: dynamoDBAdapter,
 	advanced: {
 		// Lambda does not set NODE_ENV=production by default, so better-auth would

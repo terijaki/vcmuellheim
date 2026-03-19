@@ -5873,7 +5873,11 @@
             "nullable": true
           },
           "location": {
-            "$ref": "#/components/schemas/Location",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Location"
+              }
+            ],
             "nullable": true
           },
           "seasonUuid": {
@@ -6269,7 +6273,11 @@
             "nullable": true
           },
           "location": {
-            "$ref": "#/components/schemas/Location",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Location"
+              }
+            ],
             "nullable": true
           },
           "seasonUuid": {

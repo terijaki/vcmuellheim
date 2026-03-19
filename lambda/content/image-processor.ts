@@ -11,8 +11,8 @@ import { tmpdir } from "node:os";
 import type { Readable } from "node:stream";
 import { promisify } from "node:util";
 import { GetObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { bytesToMB, IMAGE_QUALITY, IMAGE_SIZES, MAX_ORIGINAL_SIZE } from "@utils/image-config";
 import type { S3Event } from "aws-lambda";
-import { bytesToMB, IMAGE_QUALITY, IMAGE_SIZES, MAX_ORIGINAL_SIZE } from "@/apps/shared/lib/image-config";
 import { Sentry } from "../utils/sentry";
 
 const s3Client = new S3Client();

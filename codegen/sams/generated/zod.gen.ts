@@ -690,7 +690,10 @@ export const zCompetitionMatchDto = z.object({
         z.boolean(),
         z.null()
     ])),
-    location: z.optional(zLocation),
+    location: z.optional(z.union([
+        zLocation,
+        z.null()
+    ])),
     seasonUuid: z.optional(z.union([
         z.string(),
         z.null()
@@ -841,7 +844,10 @@ export const zLeagueMatchDto = z.object({
         z.boolean(),
         z.null()
     ])),
-    location: z.optional(zLocation),
+    location: z.optional(z.union([
+        zLocation,
+        z.null()
+    ])),
     seasonUuid: z.optional(z.union([
         z.string(),
         z.null()
