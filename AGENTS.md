@@ -16,8 +16,8 @@ Subfolder-level `AGENTS.md` files contain additional context for specific areas 
 
 - **Install deps:** `bun install` at repo root.
 - **Run webapp locally:**
-  - `bun run dev:webapp` — start unified webapp dev server (includes website public routes + admin auth).
-- **Build:** `bun run build:webapp`.
+  - `bun run dev` — start unified webapp dev server (includes website public routes + admin auth).
+- **Build:** `bun run build`.
 - **Lint / format / typecheck:**
   - `bun run lint` (Biome lint)
   - `bun run typecheck` (tsc --noEmit)
@@ -26,7 +26,7 @@ Subfolder-level `AGENTS.md` files contain additional context for specific areas 
 - **Tests:** `bun run test` (or `bun test <path/to/test>` for a single file).
 - **DB / scripts:** `bun run db:seed`, `bun run db:seed:sams`
 - **CDK:** `bun run cdk:synth`, `bun run cdk:deploy`, `bun run cdk:deploy:all` (scripts use AWS profile `vcmuellheim`).
-- **WebApp build prep:** `bun run build:webapp` (outputs `.output/` with Nitro server + static assets).
+- **WebApp build prep:** `bun run build` (outputs `.output/` with Nitro server + static assets).
 
 ## Global codebase conventions
 

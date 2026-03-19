@@ -12,9 +12,9 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"dev:webapp": "bun --cwd apps/webapp vite dev --port 3080",
-		"build:webapp": "bun --cwd apps/webapp vite build",
-		"start:webapp": "node apps/webapp/.output/server/index.mjs",
+		"dev": "bun --cwd apps/webapp vite dev --port 3080",
+		"build": "bun --cwd apps/webapp vite build",
+		"start": "node apps/webapp/.output/server/index.mjs",
 		"lint": "biome lint",
 		"check": "biome check",
 		"check:fix": "biome check --fix",

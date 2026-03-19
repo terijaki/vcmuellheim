@@ -96,7 +96,7 @@ export class WebAppStack extends cdk.Stack {
 		} satisfies Record<TableEntity, string>);
 
 		// Build the webapp once upfront so .output/server and .output/public exist
-		execFileSync("bun", ["run", "build:webapp"], {
+		execFileSync("bun", ["run", "build"], {
 			env: { ...process.env, VITE_CDK_ENVIRONMENT: environment },
 			cwd: process.cwd(),
 			stdio: "inherit",
