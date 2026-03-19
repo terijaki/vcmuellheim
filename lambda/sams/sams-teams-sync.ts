@@ -77,6 +77,7 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 				query: {
 					association: associationUuid,
 					page: leaguePage,
+					size: 100,
 				},
 				headers: {
 					"X-API-Key": SAMS_API_KEY,

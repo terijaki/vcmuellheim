@@ -42,9 +42,10 @@ const bugDescriptions: Record<number, string> = {
 	4: "`Accept: application/json` returns HTTP 406 instead of 200",
 	5: '`shortName`/`clubCode` return `""` instead of `null` on `GET /teams/{uuid}`',
 	6: "`date` field declared as `date-time` but API returns a date-only string (`YYYY-MM-DD`)",
+	7: "`referees`/`results` use `$ref + nullable: true` and break code generators",
 };
 
-const allBugIds = [1, 2, 3, 4, 5, 6];
+const allBugIds = [1, 2, 3, 4, 5, 6, 7];
 const fixedSet = new Set(fixedBugIds);
 const failedSet = new Set(checkFailedIds);
 const rows = allBugIds.map((id) => {
@@ -62,9 +63,9 @@ if (hasDrift) {
 	titleParts.push("⚠️ swagger drift");
 	sections.push(`## ⚠️ Swagger Drift Detected
 
-The upstream spec at \`https://www.volleyball-baden.de/api/v2/swagger.json\` has changed since the last committed snapshot in \`codegen/sams/generated/source.json\`.
+The upstream spec at \`https://www.volleyball-baden.de/api/v2/swagger.json\` has changed since the last committed raw snapshot in \`codegen/sams/generated/input.json\`.
 
-Run \`bun run sams:update\` locally, review \`codegen/sams/generated/source.json\` for what changed, and commit the updated generated files once verified.
+Run \`bun run sams:update\` locally, review \`codegen/sams/generated/input.json\` for the upstream change and \`codegen/sams/generated/source.json\` plus the generated client files for downstream impact, then commit the updated files once verified.
 
 [Full diff in workflow run](${runUrl})`);
 }
