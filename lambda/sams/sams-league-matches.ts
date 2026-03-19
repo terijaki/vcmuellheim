@@ -104,6 +104,7 @@ const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent
 				query: {
 					...defaultQueryParams,
 					page: currentPage,
+					size: 100,
 				},
 				headers: {
 					"X-API-Key": SAMS_API_KEY,

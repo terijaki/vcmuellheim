@@ -104,7 +104,7 @@ export const getSamsMatchesFn = createServerFn()
 		let hasMorePages = true;
 		while (hasMorePages) {
 			const { data: pageData } = await getAllLeagueMatches({
-				query: { ...defaultQueryParams, page: currentPage },
+				query: { ...defaultQueryParams, page: currentPage, size: 100 },
 				headers: { "X-API-Key": apiKey },
 				signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
 			});
