@@ -34,13 +34,19 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
 					<UnstyledButton component={Link} to="/admin" onClick={close}>
 						<Group gap="xs">
 							<FaVolleyball size={24} />
-							<Title order={1} size="h2" fw={500} tt="uppercase" style={{ letterSpacing: "0.1em" }}>
+							<Title hiddenFrom="md" order={1} size="h2" fw={500} tt="uppercase" style={{ letterSpacing: "0.1em" }}>
+								VCM Admin
+							</Title>
+							<Title visibleFrom="md" hiddenFrom="lg" order={1} size="h2" fw={500} tt="uppercase" style={{ letterSpacing: "0.1em" }}>
+								VCM
+							</Title>
+							<Title visibleFrom="lg" order={1} size="h2" fw={500} tt="uppercase" style={{ letterSpacing: "0.1em" }}>
 								VCM Admin
 							</Title>
 						</Group>
 					</UnstyledButton>
 					<Group>
-						<Group gap="sm" visibleFrom="sm" wrap="nowrap">
+						<Group gap="sm" visibleFrom="md" wrap="nowrap">
 							{navLinks.map(({ to, label }) => {
 								const isActive = location.pathname.startsWith(to);
 								return (
@@ -64,12 +70,12 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
 									</Menu.Item>
 								</Menu.Dropdown>
 							</Menu>
-							<Burger opened={opened} onClick={toggle} hiddenFrom="sm" color="white" />
+							<Burger opened={opened} onClick={toggle} hiddenFrom="md" color="white" />
 						</Group>
 					</Group>
 				</Group>
 			</Container>
-			<Collapse in={opened} hiddenFrom="sm" bg="onyx" p="md">
+			<Collapse in={opened} hiddenFrom="md" bg="onyx" p="md">
 				<Stack gap="xs">
 					{navLinks.map(({ to, label, icon }) => {
 						const isActive = location.pathname.startsWith(to);
