@@ -282,7 +282,16 @@ function NewsPage() {
 								*
 							</Text>
 						</Text>
-						<RichTextEditor editor={editor}>
+						<RichTextEditor
+							editor={editor}
+							styles={{
+								content: {
+									"& .ProseMirror": {
+										minHeight: 300,
+									},
+								},
+							}}
+						>
 							<RichTextEditor.Toolbar sticky stickyOffset={60}>
 								<RichTextEditor.ControlsGroup>
 									<RichTextEditor.Bold />
@@ -310,7 +319,7 @@ function NewsPage() {
 								</RichTextEditor.ControlsGroup>
 							</RichTextEditor.Toolbar>
 
-							<RichTextEditor.Content style={{ minHeight: 300 }} />
+							<RichTextEditor.Content />
 						</RichTextEditor>
 					</Box>
 
