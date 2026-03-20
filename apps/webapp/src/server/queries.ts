@@ -25,6 +25,7 @@ export async function getAllNews(limit = 100, startKey?: PaginationCursor): Prom
 		new QueryCommand({
 			TableName: NEWS_TABLE_NAME(),
 			IndexName: "GSI-NewsByType",
+			// Keep CMS news list on updatedAt until GSI-NewsByType is migrated in a later deployment. Then switch to createdAt for better consistency.
 			KeyConditionExpression: "#type = :type AND #updatedAt > :minDate",
 			ExpressionAttributeNames: {
 				"#type": "type",
@@ -48,10 +49,10 @@ export async function getPublishedNews(limit = 10, startKey?: PaginationCursor):
 		new QueryCommand({
 			TableName: NEWS_TABLE_NAME(),
 			IndexName: "GSI-NewsByStatus",
-			KeyConditionExpression: "#status = :status AND #updatedAt > :minDate",
+			KeyConditionExpression: "#status = :status AND #createdAt > :minDate",
 			ExpressionAttributeNames: {
 				"#status": "status",
-				"#updatedAt": "updatedAt",
+				"#createdAt": "createdAt",
 			},
 			ExpressionAttributeValues: {
 				":status": "published",

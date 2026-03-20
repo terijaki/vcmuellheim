@@ -21,7 +21,7 @@ function RouteComponent() {
 	return (
 		<PageWithHeading
 			title={data.title}
-			date={new Date(data.updatedAt)}
+			date={new Date(data.createdAt)}
 			description={data.excerpt || data.content?.substring(0, 160)}
 			image={thumbnails?.[0]}
 			type="article"

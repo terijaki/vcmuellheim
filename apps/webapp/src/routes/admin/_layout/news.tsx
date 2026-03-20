@@ -42,11 +42,12 @@ function NewsPage() {
 	const editor = useEditor({
 		extensions: [StarterKit, LinkExtension, ImageExtension],
 		content: formData.content || "",
+		immediatelyRender: false,
 		onUpdate: ({ editor }) => {
 			const html = editor.getHTML();
 			const text = editor.getText();
 			const excerpt = text.slice(0, 500);
-			setFormData({ ...formData, content: html, excerpt });
+			setFormData((currentFormData) => ({ ...currentFormData, content: html, excerpt }));
 		},
 	});
 
@@ -380,7 +381,7 @@ function NewsPage() {
 							bd="1px dashed var(--mantine-color-dimmed)"
 							p="xs"
 						>
-							<Flex direction={{ base: "row", md: "column" }} justify="center" rowGap="md" columnGap="md" mih={{ base: 80, md: 120 }} style={{ pointerEvents: "none" }}>
+							<Flex direction={{ base: "row", md: "column" }} justify="center" align="center" rowGap="md" columnGap="md" mih={{ base: 80, md: 120 }} style={{ pointerEvents: "none" }}>
 								<Dropzone.Accept>
 									<Upload size={50} style={{ color: "var(--mantine-color-blue-6)" }} />
 								</Dropzone.Accept>
