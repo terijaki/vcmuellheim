@@ -136,17 +136,22 @@ export class MonitoringStack extends cdk.Stack {
 
 		// === DynamoDB ===
 		if (props.contentTables) {
-			// DynamoDB Alarms
+			// DynamoDB Alarms - SystemErrors are AWS-side 5xx failures and support per-table TableName dimension.
+			// UserErrors (4xx) is only emitted as an account-level metric with no TableName dimension,
+			// so per-table UserErrors alarms all silently monitor the same account-wide metric.
 			for (const [tableName, table] of Object.entries(props.contentTables)) {
-				const alarm = new cloudwatch.Alarm(this, `DynamoUserErrorsAlarm-${tableName}`, {
-					metric: table.metricUserErrors({
+				const alarm = new cloudwatch.Alarm(this, `DynamoSystemErrorsAlarm-${tableName}`, {
+					metric: new cloudwatch.Metric({
+						namespace: "AWS/DynamoDB",
+						metricName: "SystemErrors",
+						dimensionsMap: { TableName: table.tableName },
 						statistic: "Sum",
 						period: cdk.Duration.minutes(5),
 					}),
-					threshold: 5,
+					threshold: 1,
 					evaluationPeriods: 1,
 					alarmName: `vcm-dynamodb-errors-${tableName}-${environment}${branchSuffix}`,
-					alarmDescription: `Alert when ${tableName} DynamoDB errors exceed threshold`,
+					alarmDescription: `Alert when ${tableName} DynamoDB system errors occur`,
 					treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
 				});
 				alarm.addAlarmAction(new cw_actions.SnsAction(this.alertTopic));
