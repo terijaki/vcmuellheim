@@ -27,6 +27,7 @@ const samsStackName = isProd ? `SamsApiStack-Prod${branchSuffix}` : `SamsApiStac
 const socialMediaStackName = isProd ? `SocialMediaStack-Prod${branchSuffix}` : `SocialMediaStack-Dev${branchSuffix}`;
 const dnsStackName = isProd ? `DnsStack-Prod${branchSuffix}` : `DnsStack-Dev${branchSuffix}`;
 const budgetStackName = isProd ? `BudgetStack-Prod${branchSuffix}` : `BudgetStack-Dev${branchSuffix}`;
+const monitoringStackName = isProd ? `MonitoringStack-Prod${branchSuffix}` : `MonitoringStack-Dev${branchSuffix}`;
 const awsRegion = process.env.CDK_REGION || "eu-central-1";
 
 const commonStackProps = {
@@ -136,7 +137,7 @@ if (budgetEmail || isDestroy) {
 // Monitoring stack - setup alerts and dashboards
 const monitoringEmail = process.env.CDK_MONITORING_ALERT_EMAIL || budgetEmail;
 if (monitoringEmail || isDestroy) {
-	new MonitoringStack(app, `MonitoringStack${branchSuffix}`, {
+	new MonitoringStack(app, monitoringStackName, {
 		...commonStackProps,
 		description: `Monitoring & Alerting (${environment}${branchSuffix})`,
 		alertEmail: monitoringEmail || "cleanup@example.com",
