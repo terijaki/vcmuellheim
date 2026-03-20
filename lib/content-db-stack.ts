@@ -50,7 +50,8 @@ export class ContentDbStack extends cdk.Stack {
 			// No sort key - use GSIs for queries
 		});
 
-		// GSI for querying all news and sorting by updatedAt (supports getAllNews)
+		// TODO: Keep this on updatedAt for now because we can only update one GSI per deployment.
+		// Migrate GSI-NewsByType to createdAt in a follow-up deployment (CMS list query).
 		this.newsTable.addGlobalSecondaryIndex({
 			indexName: "GSI-NewsByType",
 			partitionKey: { name: "type", type: dynamodb.AttributeType.STRING },
@@ -58,11 +59,11 @@ export class ContentDbStack extends cdk.Stack {
 			projectionType: dynamodb.ProjectionType.ALL,
 		});
 
-		// GSI for querying news by status and sorting by updatedAt (supports getPublishedNews)
+		// GSI for querying news by status and sorting by createdAt (supports getPublishedNews)
 		this.newsTable.addGlobalSecondaryIndex({
 			indexName: "GSI-NewsByStatus",
 			partitionKey: { name: "status", type: dynamodb.AttributeType.STRING },
-			sortKey: { name: "updatedAt", type: dynamodb.AttributeType.STRING },
+			sortKey: { name: "createdAt", type: dynamodb.AttributeType.STRING },
 			projectionType: dynamodb.ProjectionType.ALL,
 		});
 

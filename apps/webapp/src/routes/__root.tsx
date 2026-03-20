@@ -1,6 +1,8 @@
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
+import "@mantine/dropzone/styles.css";
 import "@mantine/notifications/styles.css";
+import "@mantine/tiptap/styles.css";
 import "../globals.css";
 import { ColorSchemeScript, colorsTuple, createTheme, MantineProvider, mantineHtmlProps } from "@mantine/core";
 import { DatesProvider } from "@mantine/dates";

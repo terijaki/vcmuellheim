@@ -105,7 +105,7 @@ describe("server/queries", () => {
 			expect(calls[0].args[0].input).toMatchObject({
 				TableName: "test-news-table",
 				IndexName: "GSI-NewsByStatus",
-				KeyConditionExpression: "#status = :status AND #updatedAt > :minDate",
+				KeyConditionExpression: "#status = :status AND #createdAt > :minDate",
 				ExpressionAttributeValues: { ":status": "published", ":minDate": "2000-01-01T00:00:00.000Z" },
 				ScanIndexForward: false,
 				Limit: 5,

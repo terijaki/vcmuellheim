@@ -212,7 +212,7 @@ describe("ContentDbStack", () => {
 								KeyType: "HASH",
 							},
 							{
-								AttributeName: "updatedAt",
+								AttributeName: "createdAt",
 								KeyType: "RANGE",
 							},
 						],
