@@ -372,6 +372,50 @@ export const AuthVerificationEntity = new Entity({
   },
 } as const);
 
+// ---------------------------------------------------------------------------
+// Session entity (better-auth session model)
+//
+// Not included in ContentEntities / drift tests because the schema
+// is owned by better-auth, not by our Zod schemas.
+// ---------------------------------------------------------------------------
+
+export const SessionEntity = new Entity({
+  model: {
+    entity: "session",
+    service: "vcm",
+    version: "1",
+  },
+  attributes: {
+    id: { type: "string", required: true },
+    userId: { type: "string", required: true },
+    token: { type: "string", required: true },
+    expiresAt: { type: "string", required: true },
+    ipAddress: { type: "string" },
+    userAgent: { type: "string" },
+    ttl: { type: "number", required: true },
+    createdAt: { type: "string", required: true },
+    updatedAt: { type: "string", required: true },
+  },
+  indexes: {
+    byId: {
+      pk: { field: "pk", composite: ["id"] },
+      sk: { field: "sk", composite: [] },
+    },
+    /** GSI1 — look up all sessions for a given user */
+    byUserId: {
+      index: ContentTableIndexes.gsi1,
+      pk: { field: "gsi1pk", composite: ["userId"] },
+      sk: { field: "gsi1sk", composite: ["createdAt"] },
+    },
+    /** GSI3 — look up a session by its token (used during session validation) */
+    byToken: {
+      index: ContentTableIndexes.gsi3,
+      pk: { field: "gsi3pk", composite: ["token"] },
+      sk: { field: "gsi3sk", composite: [] },
+    },
+  },
+} as const);
+
 /** All content entities — useful for iteration (e.g. in tests) */
 export const ContentEntities = {
   news: NewsEntity,

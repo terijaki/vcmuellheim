@@ -40,7 +40,6 @@ export const getEventByIdFn = createServerFn()
 
 export const listAllEventsFn = createServerFn()
 	.middleware([requireAuthMiddleware])
-	.inputValidator(z.object({ limit: z.number().min(1).max(100).optional().default(50) }).optional())
 	.handler(async () => {
 		const result = await db().event.scan.go({ pages: "all" });
 
