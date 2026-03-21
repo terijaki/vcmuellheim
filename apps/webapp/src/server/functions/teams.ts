@@ -2,43 +2,31 @@
  * Teams server functions — replaces lib/trpc/routers/teams.ts
  */
 
-import { DeleteCommand, GetCommand, PutCommand, QueryCommand, ScanCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { createServerFn } from "@tanstack/react-start";
 import { slugify } from "@utils/slugify";
 import { z } from "zod";
-import { docClient, getTableName } from "@/lib/db/client";
+import { db } from "@/lib/db/electrodb-client";
 import { teamSchema } from "@/lib/db/schemas";
 import type { Team } from "@/lib/db/types";
 import { requireAuthMiddleware } from "../../middleware";
-import { buildUpdateExpression, withTimestamps } from "../dynamo";
-
-const TABLE_NAME = () => getTableName("TEAMS");
+import { withTimestamps } from "../dynamo";
 
 // ── Public ──────────────────────────────────────────────────────────────────
 
 export const listTeamsFn = createServerFn().handler(async () => {
-	const result = await docClient.send(
-		new ScanCommand({
-			TableName: TABLE_NAME(),
-		}),
-	);
+	const result = await db().team.scan.go({ pages: "all" });
 
 	return {
-		items: (result.Items as Team[]) || [],
-		lastEvaluatedKey: result.LastEvaluatedKey,
+		items: result.data as Team[],
+		lastEvaluatedKey: result.cursor ?? undefined,
 	};
 });
 
 export const getTeamByIdFn = createServerFn()
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
-		const result = await docClient.send(
-			new GetCommand({
-				TableName: TABLE_NAME(),
-				Key: { id: data.id },
-			}),
-		);
-		const team = result.Item as Team | undefined;
+		const result = await db().team.get({ id: data.id }).go();
+		const team = result.data as Team | null;
 		if (!team) throw new Error("Team not found");
 		return team;
 	});
@@ -46,23 +34,8 @@ export const getTeamByIdFn = createServerFn()
 export const getTeamBySlugFn = createServerFn()
 	.inputValidator(z.object({ slug: z.string() }))
 	.handler(async ({ data }) => {
-		const result = await docClient.send(
-			new QueryCommand({
-				TableName: TABLE_NAME(),
-				IndexName: "GSI-TeamQueries",
-				KeyConditionExpression: "#type = :type AND #slug = :slug",
-				ExpressionAttributeNames: {
-					"#type": "type",
-					"#slug": "slug",
-				},
-				ExpressionAttributeValues: {
-					":type": "team",
-					":slug": data.slug,
-				},
-				Limit: 1,
-			}),
-		);
-		const team = (result.Items?.[0] as Team | undefined) ?? null;
+		const result = await db().team.query.bySlug({ slug: data.slug }).go({ limit: 1 });
+		const team = (result.data[0] as Team | undefined) ?? null;
 		if (!team) throw new Error("Team not found");
 		return team;
 	});
@@ -81,13 +54,7 @@ export const createTeamFn = createServerFn()
 			slug,
 		});
 
-		await docClient.send(
-			new PutCommand({
-				TableName: TABLE_NAME(),
-				Item: team,
-				ConditionExpression: "attribute_not_exists(id)",
-			}),
-		);
+		await db().team.create(team).go();
 
 		return team;
 	});
@@ -102,31 +69,18 @@ export const updateTeamFn = createServerFn()
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
 		const finalUpdates = updates.name ? { ...updates, slug: slugify(updates.name, true) } : updates;
-		const { updateExpression, expressionAttributeNames, expressionAttributeValues } = buildUpdateExpression(finalUpdates);
-		const result = await docClient.send(
-			new UpdateCommand({
-				TableName: TABLE_NAME(),
-				Key: { id },
-				UpdateExpression: updateExpression,
-				ExpressionAttributeNames: expressionAttributeNames,
-				ExpressionAttributeValues: expressionAttributeValues,
-				ConditionExpression: "attribute_exists(id)",
-				ReturnValues: "ALL_NEW",
-			}),
-		);
+		const result = await db()
+			.team.patch({ id })
+			.set({ ...finalUpdates, updatedAt: new Date().toISOString() })
+			.go();
 
-		return result.Attributes as Team;
+		return result.data as Team;
 	});
 
 export const deleteTeamFn = createServerFn()
 	.middleware([requireAuthMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
-		await docClient.send(
-			new DeleteCommand({
-				TableName: TABLE_NAME(),
-				Key: { id: data.id },
-			}),
-		);
+		await db().team.delete({ id: data.id }).go();
 		return { success: true };
 	});

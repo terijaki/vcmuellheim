@@ -2,43 +2,31 @@
  * Bus server functions — replaces lib/trpc/routers/bus.ts
  */
 
-import { DeleteCommand, GetCommand, PutCommand, ScanCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { createServerFn } from "@tanstack/react-start";
 import dayjs from "dayjs";
 import { z } from "zod";
-import { docClient, getTableName } from "@/lib/db/client";
+import { db } from "@/lib/db/electrodb-client";
 import { busSchema } from "@/lib/db/schemas";
 import type { Bus } from "@/lib/db/types";
 import { requireAuthMiddleware } from "../../middleware";
-import { buildUpdateExpression, withTimestamps } from "../dynamo";
-
-const TABLE_NAME = () => getTableName("BUS");
+import { withTimestamps } from "../dynamo";
 
 // ── Public ──────────────────────────────────────────────────────────────────
 
 export const listBusFn = createServerFn().handler(async () => {
-	const result = await docClient.send(
-		new ScanCommand({
-			TableName: TABLE_NAME(),
-		}),
-	);
+	const result = await db().bus.scan.go({ pages: "all" });
 
 	return {
-		items: (result.Items as Bus[]) || [],
-		lastEvaluatedKey: result.LastEvaluatedKey,
+		items: result.data as Bus[],
+		lastEvaluatedKey: result.cursor ?? undefined,
 	};
 });
 
 export const getBusByIdFn = createServerFn()
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
-		const result = await docClient.send(
-			new GetCommand({
-				TableName: TABLE_NAME(),
-				Key: { id: data.id },
-			}),
-		);
-		const booking = result.Item as Bus | undefined;
+		const result = await db().bus.get({ id: data.id }).go();
+		const booking = result.data as Bus | null;
 		if (!booking) throw new Error("Bus booking not found");
 		return booking;
 	});
@@ -55,13 +43,7 @@ export const createBusFn = createServerFn()
 			ttl: dayjs(data.to).add(30, "day").unix(),
 		});
 
-		await docClient.send(
-			new PutCommand({
-				TableName: TABLE_NAME(),
-				Item: booking,
-				ConditionExpression: "attribute_not_exists(id)",
-			}),
-		);
+		await db().bus.create(booking).go();
 
 		return booking;
 	});
@@ -76,35 +58,22 @@ export const updateBusFn = createServerFn()
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
 		const ttl = updates.to ? dayjs(updates.to).add(30, "day").unix() : undefined;
-		const { updateExpression, expressionAttributeNames, expressionAttributeValues } = buildUpdateExpression({
-			...updates,
-			...(ttl ? { ttl } : {}),
-		});
+		const result = await db()
+			.bus.patch({ id })
+			.set({
+				...updates,
+				...(ttl ? { ttl } : {}),
+				updatedAt: new Date().toISOString(),
+			})
+			.go();
 
-		const result = await docClient.send(
-			new UpdateCommand({
-				TableName: TABLE_NAME(),
-				Key: { id },
-				UpdateExpression: updateExpression,
-				ExpressionAttributeNames: expressionAttributeNames,
-				ExpressionAttributeValues: expressionAttributeValues,
-				ConditionExpression: "attribute_exists(id)",
-				ReturnValues: "ALL_NEW",
-			}),
-		);
-
-		return result.Attributes as Bus;
+		return result.data as Bus;
 	});
 
 export const deleteBusFn = createServerFn()
 	.middleware([requireAuthMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
-		await docClient.send(
-			new DeleteCommand({
-				TableName: TABLE_NAME(),
-				Key: { id: data.id },
-			}),
-		);
+		await db().bus.delete({ id: data.id }).go();
 		return { success: true };
 	});

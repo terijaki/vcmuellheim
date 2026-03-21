@@ -3,24 +3,21 @@
  */
 
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { DeleteCommand, GetCommand, PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { createServerFn } from "@tanstack/react-start";
 import { slugify } from "@utils/slugify";
 import { z } from "zod";
-import { docClient, getTableName } from "@/lib/db/client";
+import { db } from "@/lib/db/electrodb-client";
 import { newsSchema } from "@/lib/db/schemas";
 import type { News } from "@/lib/db/types";
 import { requireAuthMiddleware } from "../../middleware";
-import { buildUpdateExpression, withTimestamps } from "../dynamo";
+import { withTimestamps } from "../dynamo";
 import { getAllNews, getNewsBySlug, getPublishedNews } from "../queries";
 
 const s3Client = new S3Client({ region: process.env.AWS_REGION || "eu-central-1" });
 const BUCKET_NAME = () => process.env.MEDIA_BUCKET_NAME || "";
 const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
-const TABLE_NAME = () => getTableName("NEWS");
-const cursorValueSchema = z.union([z.string(), z.number()]);
-const cursorSchema = z.record(z.string(), cursorValueSchema);
+const cursorSchema = z.string();
 
 // ── Public ──────────────────────────────────────────────────────────────────
 
@@ -40,14 +37,8 @@ export const getPublishedNewsFn = createServerFn()
 export const getNewsByIdFn = createServerFn()
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
-		const result = await docClient.send(
-			new GetCommand({
-				TableName: TABLE_NAME(),
-				Key: { id: data.id },
-			}),
-		);
-
-		const news = result.Item as News | undefined;
+		const result = await db().news.get({ id: data.id }).go();
+		const news = result.data as News | null;
 		if (!news) throw new Error("News article not found");
 		return news;
 	});
@@ -118,13 +109,7 @@ export const createNewsFn = createServerFn()
 		const slug = slugify(data.title);
 		const news = withTimestamps({ ...data, id, slug, type: "article" as const });
 
-		await docClient.send(
-			new PutCommand({
-				TableName: TABLE_NAME(),
-				Item: news,
-				ConditionExpression: "attribute_not_exists(id)",
-			}),
-		);
+		await db().news.create(news).go();
 
 		return news;
 	});
@@ -138,35 +123,17 @@ export const updateNewsFn = createServerFn()
 		}),
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
-		const baseUpdates = { ...updates, type: "article" as const };
+		const baseUpdates = { ...updates, type: "article" as const, updatedAt: new Date().toISOString() };
 		const finalUpdates = updates.title ? { ...baseUpdates, slug: slugify(updates.title) } : baseUpdates;
 
-		const { updateExpression, expressionAttributeNames, expressionAttributeValues } = buildUpdateExpression(finalUpdates);
-
-		const result = await docClient.send(
-			new UpdateCommand({
-				TableName: TABLE_NAME(),
-				Key: { id },
-				UpdateExpression: updateExpression,
-				ExpressionAttributeNames: expressionAttributeNames,
-				ExpressionAttributeValues: expressionAttributeValues,
-				ConditionExpression: "attribute_exists(id)",
-				ReturnValues: "ALL_NEW",
-			}),
-		);
-
-		return result.Attributes as News;
+		const result = await db().news.patch({ id }).set(finalUpdates).go();
+		return result.data as News;
 	});
 
 export const deleteNewsFn = createServerFn()
 	.middleware([requireAuthMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
-		await docClient.send(
-			new DeleteCommand({
-				TableName: TABLE_NAME(),
-				Key: { id: data.id },
-			}),
-		);
+		await db().news.delete({ id: data.id }).go();
 		return { success: true };
 	});
