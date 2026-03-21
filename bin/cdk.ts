@@ -83,7 +83,7 @@ const socialMediaStack = new SocialMediaStack(app, socialMediaStackName, {
 	description: `Social Media API Services (${environment}${branchSuffix})`,
 	hostedZone: dnsStack.hostedZone,
 	regionalCertificate: dnsStack.regionalCertificate,
-	newsTable: contentDbStack.contentTable,
+	contentTable: contentDbStack.contentTable,
 	// Pass the webapp URL for Mastodon news-sharing links
 	websiteUrl: isProd ? `https://${DNS.prod.hostedZoneName}` : `https://${environment}${branchSuffix}.${DNS.dev.hostedZoneName}`,
 	mediaBucket: mediaStack.bucket,

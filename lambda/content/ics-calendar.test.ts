@@ -47,8 +47,7 @@ const defaultMockFetch = async (url: string) => {
 const mockContext = { getRemainingTimeInMillis: () => 30000 } as unknown as Context;
 
 beforeAll(async () => {
-	process.env.TEAMS_TABLE_NAME = "test-teams-table";
-	process.env.EVENTS_TABLE_NAME = "test-events-table";
+	process.env.CONTENT_TABLE_NAME = "test-content-table";
 	process.env.SAMS_API_URL = "https://api.example.com";
 
 	const module = await import("./ics-calendar");
@@ -59,8 +58,7 @@ beforeEach(() => {
 	ddbMock.reset();
 	// Reset fetch to default
 	(global as unknown as { fetch: unknown }).fetch = defaultMockFetch;
-	process.env.TEAMS_TABLE_NAME = "test-teams-table";
-	process.env.EVENTS_TABLE_NAME = "test-events-table";
+	process.env.CONTENT_TABLE_NAME = "test-content-table";
 	process.env.SAMS_API_URL = "https://api.example.com";
 });
 
@@ -92,7 +90,7 @@ describe("ICS Calendar Lambda", () => {
 	});
 
 	it("should include custom events from DynamoDB in 'all' calendar", async () => {
-		// Mock custom events query
+		// Mock custom events query - include ElectroDB internal fields for correct parsing
 		ddbMock.on(QueryCommand).resolves({
 			Items: [
 				{
@@ -103,6 +101,10 @@ describe("ICS Calendar Lambda", () => {
 					startDate: "2025-12-20T18:00:00Z",
 					endDate: "2025-12-20T22:00:00Z",
 					location: "Vereinsheim",
+					createdAt: "2024-01-01T00:00:00Z",
+					updatedAt: "2024-01-01T00:00:00Z",
+					__edb_e__: "event",
+					__edb_v__: "1",
 				},
 			],
 		});
@@ -146,7 +148,7 @@ describe("ICS Calendar Lambda", () => {
 		ddbMock.on(QueryCommand).callsFake((_input) => {
 			callCount++;
 			if (callCount === 1) {
-				// First call: team lookup
+				// First call: team lookup by slug (GSI3-BySlug)
 				return {
 					Items: [
 						{
@@ -154,11 +156,17 @@ describe("ICS Calendar Lambda", () => {
 							slug: "damen-1",
 							name: "Damen 1",
 							sbvvTeamId: "sams-team-uuid",
+							gender: "female",
+							type: "team",
+							createdAt: "2024-01-01T00:00:00Z",
+							updatedAt: "2024-01-01T00:00:00Z",
+							__edb_e__: "team",
+							__edb_v__: "1",
 						},
 					],
 				};
 			}
-			// Second call: custom events
+			// Second call: custom events (GSI1-ByTypeAndDate with .gte)
 			return {
 				Items: [
 					{
@@ -168,6 +176,10 @@ describe("ICS Calendar Lambda", () => {
 						startDate: "2025-12-18T19:00:00Z",
 						teamIds: ["team-123"],
 						location: "Sporthalle",
+						createdAt: "2024-01-01T00:00:00Z",
+						updatedAt: "2024-01-01T00:00:00Z",
+						__edb_e__: "event",
+						__edb_v__: "1",
 					},
 				],
 			};

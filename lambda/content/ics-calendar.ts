@@ -1,6 +1,5 @@
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import dayjs from "dayjs";
@@ -8,8 +7,9 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import { generateIcsCalendar, type IcsCalendar, type IcsEvent } from "ts-ics";
-import type { Event } from "@/lib/db/types";
+import type { Event, Team } from "@/lib/db/types";
 import { Club } from "@/project.config";
+import { createDb } from "@/lib/db/electrodb-client";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
@@ -22,11 +22,13 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const SAMS_API_URL = env.SAMS_API_URL;
-const CONTENT_TABLE_NAME = env.CONTENT_TABLE_NAME;
 
 // Initialize Logger and Tracer outside handler for reuse across invocations
 const { logger, tracer } = createLambdaResources("vcm-ics-calendar");
 const docClient = createDynamoDocClient(tracer);
+
+// Lazily initialized DB — depends on CONTENT_TABLE_NAME env var
+const db = () => createDb(docClient, env.CONTENT_TABLE_NAME);
 
 /**
  * Fetch custom events from DynamoDB
@@ -34,275 +36,204 @@ const docClient = createDynamoDocClient(tracer);
  * Optionally filter by teamId if provided
  */
 async function fetchCustomEvents(teamId?: string): Promise<Event[]> {
-	// Include events from the past 14 days
-	const fourteenDaysAgo = dayjs().subtract(14, "day").toISOString();
-
-	// Build filter expression for team-specific events if needed
-	let filterExpression: string | undefined;
-	const expressionAttributeValues: Record<string, unknown> = {
-		":type": "event",
-		":fourteenDaysAgo": fourteenDaysAgo,
-	};
-
-	if (teamId) {
-		filterExpression = "contains(teamIds, :teamId)";
-		expressionAttributeValues[":teamId"] = teamId;
-	}
-
-	const result = await docClient.send(
-		new QueryCommand({
-			TableName: CONTENT_TABLE_NAME,
-			IndexName: "GSI-EventQueries",
-			KeyConditionExpression: "#type = :type AND #startDate >= :fourteenDaysAgo",
-			ExpressionAttributeNames: {
-				"#type": "type",
-				"#startDate": "startDate",
-			},
-			ExpressionAttributeValues: expressionAttributeValues,
-			FilterExpression: filterExpression,
-			ScanIndexForward: true, // Ascending order
-		}),
-	);
-
-	return (result.Items as Event[]) || [];
+const fourteenDaysAgo = dayjs().subtract(14, "day").toISOString();
+const query = db().event.query.byType({ type: "event" }).gte({ startDate: fourteenDaysAgo });
+const result = await (teamId
+? query.where((attr, op) => op.contains(attr.teamIds, teamId)).go({ pages: "all" })
+: query.go({ pages: "all" }));
+return result.data as Event[];
 }
 
 /**
  * Convert a custom event to ICS format
  */
 function convertEventToIcs(event: Event, timestamp: Date): IcsEvent {
-	const startTime = dayjs(event.startDate);
-	const endTime = event.endDate ? dayjs(event.endDate) : undefined;
+const startTime = dayjs(event.startDate);
+const endTime = event.endDate ? dayjs(event.endDate) : undefined;
 
-	// Calculate duration if endDate is provided, otherwise default to 2 hours
-	let duration: { hours: number; minutes?: number } | { minutes: number } | undefined;
-	if (endTime?.isValid()) {
-		const durationMinutes = endTime.diff(startTime, "minute");
-		// Ensure duration is positive
-		if (durationMinutes > 0) {
-			if (durationMinutes >= 60) {
-				const hours = Math.floor(durationMinutes / 60);
-				const remainingMinutes = durationMinutes % 60;
-				duration = remainingMinutes > 0 ? { hours, minutes: remainingMinutes } : { hours };
-			} else {
-				duration = { minutes: durationMinutes };
-			}
-		} else {
-			// If endDate is before startDate, default to 2 hours
-			duration = { hours: 2 };
-		}
-	} else {
-		duration = { hours: 2 };
-	}
+let duration: { hours: number; minutes?: number } | { minutes: number } | undefined;
+if (endTime?.isValid()) {
+const durationMinutes = endTime.diff(startTime, "minute");
+if (durationMinutes > 0) {
+if (durationMinutes >= 60) {
+const hours = Math.floor(durationMinutes / 60);
+const remainingMinutes = durationMinutes % 60;
+duration = remainingMinutes > 0 ? { hours, minutes: remainingMinutes } : { hours };
+} else {
+duration = { minutes: durationMinutes };
+}
+} else {
+duration = { hours: 2 };
+}
+} else {
+duration = { hours: 2 };
+}
 
-	return {
-		start: { date: startTime.toDate(), type: "DATE-TIME" },
-		duration,
-		stamp: { date: timestamp, type: "DATE-TIME" },
-		uid: event.id,
-		summary: event.title,
-		description: event.description || "",
-		location: event.location || "",
-	};
+return {
+start: { date: startTime.toDate(), type: "DATE-TIME" },
+duration,
+stamp: { date: timestamp, type: "DATE-TIME" },
+uid: event.id,
+summary: event.title,
+description: event.description || "",
+location: event.location || "",
+};
 }
 
 const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-	logger.appendKeys({
-		path: event.path || "unknown",
-		pathParameters: event.pathParameters,
-		headers: {
-			host: event.headers?.host,
-			origin: event.headers?.origin,
-			"cloudfront-viewer-country": event.headers?.["cloudfront-viewer-country"],
-		},
-	});
+logger.appendKeys({
+path: event.path || "unknown",
+pathParameters: event.pathParameters,
+headers: {
+host: event.headers?.host,
+origin: event.headers?.origin,
+"cloudfront-viewer-country": event.headers?.["cloudfront-viewer-country"],
+},
+});
 
-	try {
-		// Get team slug from path parameters
-		// Handle both /ics/{teamSlug} route and fallback from /{proxy+} route
-		let rawTeamSlug = event.pathParameters?.teamSlug;
+try {
+let rawTeamSlug = event.pathParameters?.teamSlug;
 
-		// Fallback: if teamSlug is not set, check if this came through the /{proxy+} route
-		if (!rawTeamSlug && event.pathParameters?.proxy) {
-			const proxyPath = event.pathParameters.proxy;
-			// Extract team slug from paths like "ics/herren1.ics"
-			const match = proxyPath.match(/^ics\/(.+)$/);
-			if (match) {
-				rawTeamSlug = match[1];
-			}
-		}
+if (!rawTeamSlug && event.pathParameters?.proxy) {
+const proxyPath = event.pathParameters.proxy;
+const match = proxyPath.match(/^ics\/(.+)$/);
+if (match) {
+rawTeamSlug = match[1];
+}
+}
 
-		const teamSlug = rawTeamSlug?.replace(".ics", "").toLowerCase();
+const teamSlug = rawTeamSlug?.replace(".ics", "").toLowerCase();
 
-		logger.info("Processing ICS calendar request", {
-			teamSlug,
-			rawTeamSlug,
-			fullPath: event.path,
-			proxyParam: event.pathParameters?.proxy,
-		});
+logger.info("Processing ICS calendar request", {
+teamSlug,
+rawTeamSlug,
+fullPath: event.path,
+proxyParam: event.pathParameters?.proxy,
+});
 
-		let teamSamsUuid: string | undefined;
-		let teamId: string | undefined;
-		let teamLeagueName: string | undefined;
-		let calendarTitle: string = Club.shortName;
+let teamSamsUuid: string | undefined;
+let teamId: string | undefined;
+let teamLeagueName: string | undefined;
+let calendarTitle: string = Club.shortName;
 
-		if (!teamSlug || teamSlug === "all") {
-			// Get all club matches
-			calendarTitle = `${calendarTitle} - Vereinskalender`;
-		} else {
-			// Find team by slug
-			const result = await docClient.send(
-				new QueryCommand({
-					TableName: CONTENT_TABLE_NAME,
-					IndexName: "GSI-TeamQueries",
-					KeyConditionExpression: "#type = :type AND #slug = :slug",
-					ExpressionAttributeNames: {
-						"#type": "type",
-						"#slug": "slug",
-					},
-					ExpressionAttributeValues: {
-						":type": "team",
-						":slug": teamSlug,
-					},
-					Limit: 1,
-				}),
-			);
+if (!teamSlug || teamSlug === "all") {
+calendarTitle = `${calendarTitle} - Vereinskalender`;
+} else {
+const teamResult = await db().team.query.bySlug({ slug: teamSlug }).go({ limit: 1 });
+const foundTeam = teamResult.data[0] as Team | undefined;
+if (!foundTeam) {
+return {
+statusCode: 404,
+headers: { "Content-Type": "text/plain", "Cache-Control": "public, max-age=3600" },
+body: "Team nicht gefunden",
+};
+}
 
-			const foundTeam = result.Items?.[0];
-			if (!foundTeam) {
-				return {
-					statusCode: 404,
-					headers: {
-						"Content-Type": "text/plain",
-						"Cache-Control": "public, max-age=3600",
-					},
-					body: "Team nicht gefunden",
-				};
-			}
+if (foundTeam.name) calendarTitle = `${calendarTitle} - ${foundTeam.name}`;
+if (foundTeam.league) teamLeagueName = foundTeam.league;
+teamSamsUuid = foundTeam.sbvvTeamId;
+teamId = foundTeam.id;
+}
 
-			if (foundTeam.name) calendarTitle = `${calendarTitle} - ${foundTeam.name}`;
-			if (foundTeam.league) teamLeagueName = foundTeam.league;
-			teamSamsUuid = foundTeam.sbvvTeamId;
-			teamId = foundTeam.id;
-		}
+const queryString = teamSamsUuid ? `?team=${teamSamsUuid}` : "";
+const response = await fetch(`${SAMS_API_URL}/matches${queryString}`);
+if (!response.ok) {
+throw new Error(`Failed to fetch matches: ${response.statusText}`);
+}
 
-		// Fetch matches from SAMS API
-		const queryParams: string[] = [];
-		if (teamSamsUuid) queryParams.push(`team=${teamSamsUuid}`);
-		const queryString = queryParams.length > 0 ? `?${queryParams.join("&")}` : "";
+const data = await response.json();
+const matches = data.matches || [];
+const timestamp = new Date(data.timestamp || new Date());
 
-		const response = await fetch(`${SAMS_API_URL}/matches${queryString}`);
-		if (!response.ok) {
-			throw new Error(`Failed to fetch matches: ${response.statusText}`);
-		}
+const matchEvents: IcsEvent[] = matches
+.map(
+(match: {
+uuid: string;
+date: string;
+time: string;
+_embedded?: { team1?: { uuid: string; name: string }; team2?: { uuid: string; name: string } };
+host?: string;
+location?: { name?: string; address?: { street?: string; postcode?: string; city?: string } };
+results?: { setPoints?: string };
+}) => {
+const startTime = dayjs.tz(`${match.date} ${match.time}`, "YYYY-MM-DD HH:mm", "Europe/Berlin").utc();
+if (!startTime.isValid()) {
+console.warn(`Invalid date for match ${match.uuid}: ${match.date} ${match.time}`);
+return null;
+}
 
-		const data = await response.json();
-		const matches = data.matches || [];
-		const timestamp = new Date(data.timestamp || new Date());
+const team1 = match._embedded?.team1;
+const team2 = match._embedded?.team2;
+const homeTeam = [team1, team2].find((t) => t?.uuid === match.host)?.name;
+const guestTeam = [team1, team2].find((t) => t?.uuid !== match.host)?.name;
 
-		// Convert matches to iCalendar events
-		const matchEvents: IcsEvent[] = matches
-			.map(
-				(match: {
-					uuid: string;
-					date: string;
-					time: string;
-					_embedded?: { team1?: { uuid: string; name: string }; team2?: { uuid: string; name: string } };
-					host?: string;
-					location?: { name?: string; address?: { street?: string; postcode?: string; city?: string } };
-					results?: { setPoints?: string };
-				}) => {
-					const startTime = dayjs.tz(`${match.date} ${match.time}`, "YYYY-MM-DD HH:mm", "Europe/Berlin").utc();
-					if (!startTime.isValid()) {
-						console.warn(`Invalid date for match ${match.uuid}: ${match.date} ${match.time}`);
-						return null;
-					}
+const locationParts: string[] = [];
+if (match.location?.name) locationParts.push(match.location.name);
+if (match.location?.address?.street) locationParts.push(match.location.address.street);
+const postalCity = [match.location?.address?.postcode, match.location?.address?.city].filter(Boolean).join(" ");
+if (postalCity) locationParts.push(postalCity);
 
-					const teams = [];
-					const team1 = match._embedded?.team1;
-					const team2 = match._embedded?.team2;
-					if (team1) teams.push(team1);
-					if (team2) teams.push(team2);
+const baseDesc = [teamLeagueName, homeTeam ? `Heim: ${homeTeam}` : null, guestTeam ? `Gast: ${guestTeam}` : null].filter(Boolean).join(", ");
+const score = match.results?.setPoints;
+const description = score ? `Ergebnis: ${score}, ${baseDesc}` : baseDesc;
 
-					const homeTeam = teams.find((t) => t.uuid === match.host)?.name;
-					const guestTeam = teams.find((t) => t.uuid !== match.host)?.name;
-					const league = teamLeagueName;
+const eventData: IcsEvent = {
+start: { date: startTime.toDate(), type: "DATE-TIME" },
+duration: { hours: 3 },
+stamp: { date: timestamp, type: "DATE-TIME" },
+uid: match.uuid,
+summary: `${team1?.name} vs ${team2?.name}`,
+description,
+location: locationParts.join(", "),
+};
 
-					const location: string[] = [];
-					if (match.location?.name) location.push(match.location.name);
-					if (match.location?.address?.street) location.push(match.location.address.street);
-					if (match.location?.address?.postcode || match.location?.address?.city) {
-						const postalAndCity: string[] = [];
-						if (match.location?.address?.postcode) postalAndCity.push(match.location.address.postcode);
-						if (match.location?.address?.city) postalAndCity.push(match.location.address.city);
-						location.push(postalAndCity.join(" "));
-					}
+return eventData;
+},
+)
+.filter(Boolean);
 
-					const baseDescription = [league, homeTeam ? `Heim: ${homeTeam}` : null, guestTeam ? `Gast: ${guestTeam}` : null].filter(Boolean).join(", ");
-					let description = baseDescription;
-					const score = match.results?.setPoints;
-					if (score) description = `Ergebnis: ${score}, ${baseDescription}`;
+const customEvents = await fetchCustomEvents(teamId);
+const customIcsEvents = customEvents.map((evt) => convertEventToIcs(evt, timestamp));
 
-					const eventData: IcsEvent = {
-						start: { date: startTime.toDate(), type: "DATE-TIME" },
-						duration: { hours: 3 },
-						stamp: { date: timestamp, type: "DATE-TIME" },
-						uid: match.uuid,
-						summary: `${team1?.name} vs ${team2?.name}`,
-						description: description,
-						location: location.join(", "),
-					};
+const events: IcsEvent[] = [...matchEvents, ...customIcsEvents];
 
-					return eventData;
-				},
-			)
-			.filter(Boolean);
+const icsCalendar: IcsCalendar = {
+prodId: Club.shortName,
+version: "2.0",
+events,
+name: calendarTitle,
+};
 
-		// Fetch custom events from DynamoDB (filtered by teamId if team-specific calendar)
-		const customEvents = await fetchCustomEvents(teamId);
-		const customIcsEvents = customEvents.map((evt) => convertEventToIcs(evt, timestamp));
+const icsContent = generateIcsCalendar(icsCalendar);
 
-		// Merge match events and custom events
-		const events: IcsEvent[] = [...matchEvents, ...customIcsEvents];
-
-		const icsCalendar: IcsCalendar = {
-			prodId: Club.shortName,
-			version: "2.0",
-			events,
-			name: calendarTitle,
-		};
-
-		// Generate ICS content
-		const icsContent = generateIcsCalendar(icsCalendar);
-
-		return {
-			statusCode: 200,
-			headers: {
-				"Content-Type": "text/calendar; charset=utf-8",
-				"Content-Disposition": `attachment; filename="${teamSlug || "all"}.ics"`,
-				"Cache-Control": "public, max-age=1800, s-maxage=1800",
-			},
-			body: icsContent,
-		};
-	} catch (error) {
-		logger.error("Error generating calendar", {
-			error: { message: error instanceof Error ? error.message : String(error) },
-		});
-		return {
-			statusCode: 500,
-			headers: {
-				"Content-Type": "text/plain",
-				"Cache-Control": "public, max-age=3600, s-maxage=3600",
-			},
-			body: "Es gab ein Problem beim Erzeugen des Kalenders",
-		};
-	} finally {
-		logger.resetKeys();
-	}
+return {
+statusCode: 200,
+headers: {
+"Content-Type": "text/calendar; charset=utf-8",
+"Content-Disposition": `attachment; filename="${teamSlug || "all"}.ics"`,
+"Cache-Control": "public, max-age=1800, s-maxage=1800",
+},
+body: icsContent,
+};
+} catch (error) {
+logger.error("Error generating calendar", {
+error: { message: error instanceof Error ? error.message : String(error) },
+});
+return {
+statusCode: 500,
+headers: {
+"Content-Type": "text/plain",
+"Cache-Control": "public, max-age=3600, s-maxage=3600",
+},
+body: "Es gab ein Problem beim Erzeugen des Kalenders",
+};
+} finally {
+logger.resetKeys();
+}
 };
 
 export const handler = Sentry.wrapHandler(
-	middy(lambdaHandler)
-		.use(captureLambdaHandler(tracer, { captureResponse: false }))
-		.use(injectLambdaContext(logger)),
+middy(lambdaHandler)
+.use(captureLambdaHandler(tracer, { captureResponse: false }))
+.use(injectLambdaContext(logger)),
 );
