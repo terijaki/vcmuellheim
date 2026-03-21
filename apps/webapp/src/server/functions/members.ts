@@ -96,10 +96,7 @@ export const deleteMemberFn = createServerFn()
 		const teamsToUpdate = teams.filter((team) => team.trainerIds?.includes(data.id));
 		for (const team of teamsToUpdate) {
 			const updatedTrainerIds = team.trainerIds?.filter((id) => id !== data.id);
-			await db()
-				.team.patch({ id: team.id })
-				.set({ trainerIds: updatedTrainerIds, updatedAt: new Date().toISOString() })
-				.go();
+			await db().team.patch({ id: team.id }).set({ trainerIds: updatedTrainerIds, updatedAt: new Date().toISOString() }).go();
 		}
 
 		await db().member.delete({ id: data.id }).go();

@@ -15,8 +15,8 @@ type PaginatedResult<T> = {
 // ── Content entity queries (ElectroDB) ────────────────────────────────────────
 
 export async function getAllNews(limit = 100, cursor?: PaginationCursor): Promise<PaginatedResult<News>> {
-	const result = await db().news.query
-		.byType({ type: "article" })
+	const result = await db()
+		.news.query.byType({ type: "article" })
 		.gt({ updatedAt: "2000-01-01T00:00:00.000Z" })
 		.go({ order: "desc", limit, cursor: cursor ?? undefined });
 
@@ -24,8 +24,8 @@ export async function getAllNews(limit = 100, cursor?: PaginationCursor): Promis
 }
 
 export async function getPublishedNews(limit = 10, cursor?: PaginationCursor): Promise<PaginatedResult<News>> {
-	const result = await db().news.query
-		.byStatus({ status: "published" })
+	const result = await db()
+		.news.query.byStatus({ status: "published" })
 		.gt({ createdAt: "2000-01-01T00:00:00.000Z" })
 		.go({ order: "desc", limit, cursor: cursor ?? undefined });
 
@@ -132,4 +132,3 @@ export async function getSamsTeamByUuid(uuid: string): Promise<TeamResponse | nu
 
 	return (result.Item as TeamResponse | undefined) ?? null;
 }
-

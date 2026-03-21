@@ -11,37 +11,25 @@
  *   const { data } = await entities.event.query.byType({ type: "event" }).go();
  */
 
-import { Service } from "electrodb";
 import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
+import { Service } from "electrodb";
 import { docClient } from "./client";
+import { AuthVerificationEntity, BusEntity, CmsUserEntity, EventEntity, LocationEntity, MediaEntity, MemberEntity, NewsEntity, SessionEntity, SponsorEntity, TeamEntity } from "./electrodb-entities";
 import { getContentTableName } from "./env";
-import {
-  AuthVerificationEntity,
-  BusEntity,
-  CmsUserEntity,
-  EventEntity,
-  LocationEntity,
-  MediaEntity,
-  MemberEntity,
-  NewsEntity,
-  SessionEntity,
-  SponsorEntity,
-  TeamEntity,
-} from "./electrodb-entities";
 
 /** All entities registered in the service */
 const entityMap = {
-  news: NewsEntity,
-  event: EventEntity,
-  team: TeamEntity,
-  member: MemberEntity,
-  media: MediaEntity,
-  sponsor: SponsorEntity,
-  location: LocationEntity,
-  bus: BusEntity,
-  user: CmsUserEntity,
-  verification: AuthVerificationEntity,
-  session: SessionEntity,
+	news: NewsEntity,
+	event: EventEntity,
+	team: TeamEntity,
+	member: MemberEntity,
+	media: MediaEntity,
+	sponsor: SponsorEntity,
+	location: LocationEntity,
+	bus: BusEntity,
+	user: CmsUserEntity,
+	verification: AuthVerificationEntity,
+	session: SessionEntity,
 } as const;
 
 /**
@@ -49,7 +37,7 @@ const entityMap = {
  * Returns the `entities` object so individual entities can be used directly.
  */
 export function createDb(client: DynamoDBDocumentClient, tableName: string) {
-  return new Service(entityMap, { client, table: tableName }).entities;
+	return new Service(entityMap, { client, table: tableName }).entities;
 }
 
 // Singleton for webapp (uses the shared docClient and CONTENT_TABLE_NAME env var)
@@ -61,8 +49,8 @@ let _db: ReturnType<typeof createDb> | null = null;
  * can be set by tests before the module is first evaluated.
  */
 export function db(): ReturnType<typeof createDb> {
-  if (!_db) {
-    _db = createDb(docClient, getContentTableName());
-  }
-  return _db;
+	if (!_db) {
+		_db = createDb(docClient, getContentTableName());
+	}
+	return _db;
 }

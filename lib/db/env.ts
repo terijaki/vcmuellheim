@@ -33,18 +33,7 @@ export function getContentTableName(): string {
 // ---------------------------------------------------------------------------
 
 /** All content entity keys (kept for legacy compatibility) */
-export const TABLES = [
-	"NEWS",
-	"EVENTS",
-	"TEAMS",
-	"MEMBERS",
-	"MEDIA",
-	"SPONSORS",
-	"LOCATIONS",
-	"BUS",
-	"USERS",
-	"AUTH_VERIFICATIONS",
-] as const;
+export const TABLES = ["NEWS", "EVENTS", "TEAMS", "MEMBERS", "MEDIA", "SPONSORS", "LOCATIONS", "BUS", "USERS", "AUTH_VERIFICATIONS"] as const;
 
 export type TableEntity = (typeof TABLES)[number];
 

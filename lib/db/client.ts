@@ -5,7 +5,7 @@
 import { Tracer } from "@aws-lambda-powertools/tracer";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import { type TableEntity, getContentTableName } from "./env";
+import { getContentTableName, type TableEntity } from "./env";
 
 /**
  * Get the content table name for any entity.
