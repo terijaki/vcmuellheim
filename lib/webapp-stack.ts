@@ -26,14 +26,14 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
 import type { Construct } from "constructs";
 import { Club } from "@/project.config";
-import { type TableEntity, toTableEnvironment } from "./db/env";
+import { CONTENT_TABLE_ENV_VAR } from "./db/env";
 
 export interface WebAppStackProps extends cdk.StackProps {
 	stackProps?: {
 		environment: string;
 		branch: string;
 	};
-	contentDbStack: Record<`${Lowercase<TableEntity>}Table`, dynamodb.Table>;
+	contentTable: dynamodb.Table;
 	samsApiStack: {
 		samsClubsTable: dynamodb.Table;
 		samsTeamsTable: dynamodb.Table;
@@ -69,32 +69,6 @@ export class WebAppStack extends cdk.Stack {
 			throw new Error("❌ BETTER_AUTH_SECRET environment variable is required");
 		}
 
-		const tables = {
-			NEWS: props.contentDbStack.newsTable,
-			EVENTS: props.contentDbStack.eventsTable,
-			TEAMS: props.contentDbStack.teamsTable,
-			MEMBERS: props.contentDbStack.membersTable,
-			MEDIA: props.contentDbStack.mediaTable,
-			SPONSORS: props.contentDbStack.sponsorsTable,
-			LOCATIONS: props.contentDbStack.locationsTable,
-			BUS: props.contentDbStack.busTable,
-			USERS: props.contentDbStack.usersTable,
-			AUTH_VERIFICATIONS: props.contentDbStack.auth_verificationsTable,
-		} satisfies Record<TableEntity, dynamodb.Table>;
-
-		const tableEnvironment = toTableEnvironment({
-			NEWS: tables.NEWS.tableName,
-			EVENTS: tables.EVENTS.tableName,
-			TEAMS: tables.TEAMS.tableName,
-			MEMBERS: tables.MEMBERS.tableName,
-			MEDIA: tables.MEDIA.tableName,
-			SPONSORS: tables.SPONSORS.tableName,
-			LOCATIONS: tables.LOCATIONS.tableName,
-			BUS: tables.BUS.tableName,
-			USERS: tables.USERS.tableName,
-			AUTH_VERIFICATIONS: tables.AUTH_VERIFICATIONS.tableName,
-		} satisfies Record<TableEntity, string>);
-
 		// Build the webapp once upfront so .output/server and .output/public exist
 		execFileSync("bun", ["run", "build"], {
 			env: { ...process.env, VITE_CDK_ENVIRONMENT: environment },
@@ -103,7 +77,7 @@ export class WebAppStack extends cdk.Stack {
 		});
 
 		const lambdaEnvironment: Record<string, string> = {
-			...tableEnvironment,
+			[CONTENT_TABLE_ENV_VAR]: props.contentTable.tableName,
 			CDK_ENVIRONMENT: environment,
 			BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET || "",
 			MEDIA_BUCKET_NAME: props.mediaBucket.bucketName,
@@ -148,10 +122,8 @@ export class WebAppStack extends cdk.Stack {
 			tracing: lambda.Tracing.ACTIVE,
 		});
 
-		// Grant Lambda access to all content tables
-		for (const table of Object.values(tables)) {
-			table.grantReadWriteData(this.webappLambda);
-		}
+		// Grant Lambda access to the single content table
+		props.contentTable.grantReadWriteData(this.webappLambda);
 		props.samsApiStack.samsClubsTable.grantReadWriteData(this.webappLambda);
 		props.samsApiStack.samsTeamsTable.grantReadWriteData(this.webappLambda);
 		props.instagramTable.grantReadData(this.webappLambda);

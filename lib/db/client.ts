@@ -5,16 +5,15 @@
 import { Tracer } from "@aws-lambda-powertools/tracer";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import { type TableEntity, tableEnvVar } from "./env";
+import { type TableEntity, getContentTableName } from "./env";
 
-/** Get table name for an entity, throwing if not configured */
-export function getTableName(entity: TableEntity): string {
-	const envVar = tableEnvVar(entity);
-	const tableName = process.env[envVar];
-	if (!tableName) {
-		throw new Error(`Table ${entity} not configured. Missing environment variable: ${envVar}`);
-	}
-	return tableName;
+/**
+ * Get the content table name for any entity.
+ * All content entities share a single DynamoDB table (single-table design).
+ * @deprecated Prefer `getContentTableName()` directly. Kept for backward compatibility.
+ */
+export function getTableName(_entity: TableEntity): string {
+	return getContentTableName();
 }
 
 /** DynamoDB client instance with X-Ray tracing */

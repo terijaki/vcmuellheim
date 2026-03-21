@@ -6,7 +6,7 @@
 		"url": "https://github.com/terijaki/vcmuellheim/issues"
 	},
 	"author": {
-		"name": "Björn Kohnen",
+		"name": "Bj\u00f6rn Kohnen",
 		"email": "bjoern@vcmuellheim.de"
 	},
 	"private": true,
@@ -75,7 +75,8 @@
 		"react-world-flags": "^1.6.0",
 		"superjson": "^2.2.6",
 		"ts-ics": "^2.4.3",
-		"zod": "^4.3.6"
+		"zod": "^4.3.6",
+		"electrodb": "^3.7.2"
 	},
 	"devDependencies": {
 		"@aws-cdk/aws-lambda-nodejs": "^1.204.0",

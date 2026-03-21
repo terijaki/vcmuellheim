@@ -22,8 +22,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const SAMS_API_URL = env.SAMS_API_URL;
-const TEAMS_TABLE_NAME = env.TEAMS_TABLE_NAME;
-const EVENTS_TABLE_NAME = env.EVENTS_TABLE_NAME;
+const CONTENT_TABLE_NAME = env.CONTENT_TABLE_NAME;
 
 // Initialize Logger and Tracer outside handler for reuse across invocations
 const { logger, tracer } = createLambdaResources("vcm-ics-calendar");
@@ -52,7 +51,7 @@ async function fetchCustomEvents(teamId?: string): Promise<Event[]> {
 
 	const result = await docClient.send(
 		new QueryCommand({
-			TableName: EVENTS_TABLE_NAME,
+			TableName: CONTENT_TABLE_NAME,
 			IndexName: "GSI-EventQueries",
 			KeyConditionExpression: "#type = :type AND #startDate >= :fourteenDaysAgo",
 			ExpressionAttributeNames: {
@@ -154,7 +153,7 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 			// Find team by slug
 			const result = await docClient.send(
 				new QueryCommand({
-					TableName: TEAMS_TABLE_NAME,
+					TableName: CONTENT_TABLE_NAME,
 					IndexName: "GSI-TeamQueries",
 					KeyConditionExpression: "#type = :type AND #slug = :slug",
 					ExpressionAttributeNames: {

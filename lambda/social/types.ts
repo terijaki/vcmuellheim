@@ -36,7 +36,7 @@ export const MastodonStreamHandlerLambdaEnvironmentSchema = z.object({
 	MASTODON_LAMBDA_NAME: requiredEnvString,
 	ENVIRONMENT: requiredEnvString,
 	WEBSITE_URL: requiredEnvString,
-	NEWS_TABLE_NAME: requiredEnvString,
+	CONTENT_TABLE_NAME: requiredEnvString,
 	AWS_REGION: requiredEnvString,
 });
 

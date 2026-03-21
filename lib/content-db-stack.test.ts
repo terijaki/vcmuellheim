@@ -1,11 +1,12 @@
 import { describe, it } from "bun:test";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import { ContentDbStack } from "./content-db-stack";
+import { ContentTableIndexes } from "./db/electrodb-entities";
 import { createTestApp } from "./test-helpers";
 
 describe("ContentDbStack", () => {
 	describe("Development environment", () => {
-		it("should create stack with all tables", () => {
+		it("should create a single content table", () => {
 			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				env: {
@@ -20,8 +21,8 @@ describe("ContentDbStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Should have 10 DynamoDB tables (8 content + users + auth_verifications)
-			template.resourceCountIs("AWS::DynamoDB::Table", 10);
+			// Should have exactly 1 DynamoDB table (single-table design)
+			template.resourceCountIs("AWS::DynamoDB::Table", 1);
 		});
 
 		it("should set DESTROY removal policy for dev", () => {
@@ -35,13 +36,12 @@ describe("ContentDbStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Dev tables should have DESTROY removal policy
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "vcm-news-dev",
+				TableName: "vcm-content-dev",
 			});
 		});
 
-		it("should include branch suffix in table names", () => {
+		it("should include branch suffix in table name", () => {
 			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: {
@@ -52,15 +52,14 @@ describe("ContentDbStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Check table names include branch suffix
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "vcm-news-dev-feature-xyz",
+				TableName: "vcm-content-dev-feature-xyz",
 			});
 		});
 	});
 
 	describe("Production environment", () => {
-		it("should set RETAIN removal policy for prod tables", () => {
+		it("should set RETAIN removal policy for prod", () => {
 			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: {
@@ -71,270 +70,140 @@ describe("ContentDbStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Prod tables should have RETAIN removal policy
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "vcm-news-prod",
+				TableName: "vcm-content-prod",
 			});
 		});
 	});
 
 	describe("Table configuration", () => {
-		it("should use PAY_PER_REQUEST billing for all tables", () => {
+		it("should use PAY_PER_REQUEST billing", () => {
 			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
+				stackProps: { environment: "dev", branch: "" },
 			});
 
 			const template = Template.fromStack(stack);
 
-			// All tables should use on-demand billing
-			const tables = template.findResources("AWS::DynamoDB::Table");
-			const tableCount = Object.keys(tables).length;
-
-			// Count how many tables have PAY_PER_REQUEST
-			const payPerRequestCount = Object.values(tables).filter((table) => (table as { Properties: { BillingMode: string } }).Properties.BillingMode === "PAY_PER_REQUEST").length;
-
-			// All 10 tables should have PAY_PER_REQUEST
-			if (tableCount !== 10 || payPerRequestCount !== 10) {
-				throw new Error(`Expected 10 tables with PAY_PER_REQUEST, got ${payPerRequestCount} out of ${tableCount}`);
-			}
+			template.hasResourceProperties("AWS::DynamoDB::Table", {
+				BillingMode: "PAY_PER_REQUEST",
+			});
 		});
 
-		it("should enable streams on all tables", () => {
+		it("should enable DynamoDB stream", () => {
 			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
+				stackProps: { environment: "dev", branch: "" },
 			});
 
 			const template = Template.fromStack(stack);
 
-			// All tables should have streams enabled
-			const tables = template.findResources("AWS::DynamoDB::Table");
-			const streamCount = Object.values(tables).filter(
-				(table) => (table as { Properties: { StreamSpecification?: { StreamViewType: string } } }).Properties.StreamSpecification?.StreamViewType === "NEW_AND_OLD_IMAGES",
-			).length;
-
-			// All 10 tables should have streams
-			if (streamCount !== 10) {
-				throw new Error(`Expected 10 tables with streams, got ${streamCount}`);
-			}
+			template.hasResourceProperties("AWS::DynamoDB::Table", {
+				StreamSpecification: { StreamViewType: "NEW_AND_OLD_IMAGES" },
+			});
 		});
 
 		it("should enable point-in-time recovery", () => {
 			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			// All tables should have PITR enabled
-			const tables = template.findResources("AWS::DynamoDB::Table");
-			const pitrCount = Object.values(tables).filter(
-				(table) =>
-					(table as { Properties: { PointInTimeRecoverySpecification?: { PointInTimeRecoveryEnabled: boolean } } }).Properties.PointInTimeRecoverySpecification?.PointInTimeRecoveryEnabled === true,
-			).length;
-
-			if (pitrCount !== 10) {
-				throw new Error(`Expected 10 tables with PITR, got ${pitrCount}`);
-			}
-		});
-	});
-
-	describe("News table", () => {
-		it("should have correct schema", () => {
-			const app = createTestApp();
-			const stack = new ContentDbStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
+				stackProps: { environment: "dev", branch: "" },
 			});
 
 			const template = Template.fromStack(stack);
 
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "vcm-news-dev",
+				PointInTimeRecoverySpecification: { PointInTimeRecoveryEnabled: true },
+			});
+		});
+
+		it("should enable TTL on the content table", () => {
+			const app = createTestApp();
+			const stack = new ContentDbStack(app, "TestStack", {
+				stackProps: { environment: "dev", branch: "" },
+			});
+
+			const template = Template.fromStack(stack);
+
+			template.hasResourceProperties("AWS::DynamoDB::Table", {
+				TimeToLiveSpecification: { AttributeName: "ttl", Enabled: true },
+			});
+		});
+
+		it("should use pk/sk composite primary key", () => {
+			const app = createTestApp();
+			const stack = new ContentDbStack(app, "TestStack", {
+				stackProps: { environment: "dev", branch: "" },
+			});
+
+			const template = Template.fromStack(stack);
+
+			template.hasResourceProperties("AWS::DynamoDB::Table", {
 				KeySchema: [
-					{
-						AttributeName: "id",
-						KeyType: "HASH",
-					},
+					{ AttributeName: "pk", KeyType: "HASH" },
+					{ AttributeName: "sk", KeyType: "RANGE" },
 				],
 			});
 		});
+	});
 
-		it("should have GSI for queries", () => {
+	describe("GSI configuration", () => {
+		it("should create all four required GSIs", () => {
 			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
+				stackProps: { environment: "dev", branch: "" },
 			});
 
 			const template = Template.fromStack(stack);
 
-			// News table should have three GSIs
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "vcm-news-dev",
 				GlobalSecondaryIndexes: Match.arrayWith([
-					{
-						IndexName: "GSI-NewsByType",
-						KeySchema: [
-							{
-								AttributeName: "type",
-								KeyType: "HASH",
-							},
-							{
-								AttributeName: "updatedAt",
-								KeyType: "RANGE",
-							},
-						],
-						Projection: {
-							ProjectionType: "ALL",
-						},
-					},
-					{
-						IndexName: "GSI-NewsByStatus",
-						KeySchema: [
-							{
-								AttributeName: "status",
-								KeyType: "HASH",
-							},
-							{
-								AttributeName: "createdAt",
-								KeyType: "RANGE",
-							},
-						],
-						Projection: {
-							ProjectionType: "ALL",
-						},
-					},
-					{
-						IndexName: "GSI-NewsBySlug",
-						KeySchema: [
-							{
-								AttributeName: "slug",
-								KeyType: "HASH",
-							},
-						],
-						Projection: {
-							ProjectionType: "ALL",
-						},
-					},
+					Match.objectLike({ IndexName: ContentTableIndexes.gsi1 }),
+					Match.objectLike({ IndexName: ContentTableIndexes.gsi2 }),
+					Match.objectLike({ IndexName: ContentTableIndexes.gsi3 }),
+					Match.objectLike({ IndexName: ContentTableIndexes.gsi4 }),
 				]),
 			});
 		});
-	});
 
-	describe("Events table", () => {
-		it("should have GSI for startDate queries", () => {
+		it("should have correct key schema for GSI1 (type+date)", () => {
 			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
+				stackProps: { environment: "dev", branch: "" },
 			});
 
 			const template = Template.fromStack(stack);
 
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "vcm-events-dev",
-				GlobalSecondaryIndexes: [
-					{
-						IndexName: "GSI-EventQueries",
+				GlobalSecondaryIndexes: Match.arrayWith([
+					Match.objectLike({
+						IndexName: ContentTableIndexes.gsi1,
 						KeySchema: [
-							{
-								AttributeName: "type",
-								KeyType: "HASH",
-							},
-							{
-								AttributeName: "startDate",
-								KeyType: "RANGE",
-							},
+							{ AttributeName: "gsi1pk", KeyType: "HASH" },
+							{ AttributeName: "gsi1sk", KeyType: "RANGE" },
 						],
-					},
-				],
+					}),
+				]),
 			});
 		});
-	});
 
-	describe("Teams table", () => {
-		it("should have GSI for team queries", () => {
+		it("should have correct key schema for GSI4 (email/identifier)", () => {
 			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			// Teams table should have GSI-TeamQueries with composite sort keys
-			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "vcm-teams-dev",
-				GlobalSecondaryIndexes: [
-					{
-						IndexName: "GSI-TeamQueries",
-						KeySchema: Match.arrayWith([{ AttributeName: "type", KeyType: "HASH" }]),
-					},
-				],
-			});
-		});
-	});
-
-	describe("Sponsors table", () => {
-		it("should enable TTL", () => {
-			const app = createTestApp();
-			const stack = new ContentDbStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
+				stackProps: { environment: "dev", branch: "" },
 			});
 
 			const template = Template.fromStack(stack);
 
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "vcm-sponsors-dev",
-				TimeToLiveSpecification: {
-					AttributeName: "expiryTimestamp",
-					Enabled: true,
-				},
-			});
-		});
-	});
-
-	describe("Bus table", () => {
-		it("should enable TTL", () => {
-			const app = createTestApp();
-			const stack = new ContentDbStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "vcm-bus-dev",
-				TimeToLiveSpecification: {
-					AttributeName: "ttl",
-					Enabled: true,
-				},
+				GlobalSecondaryIndexes: Match.arrayWith([
+					Match.objectLike({
+						IndexName: ContentTableIndexes.gsi4,
+						KeySchema: [
+							{ AttributeName: "gsi4pk", KeyType: "HASH" },
+							{ AttributeName: "gsi4sk", KeyType: "RANGE" },
+						],
+					}),
+				]),
 			});
 		});
 	});

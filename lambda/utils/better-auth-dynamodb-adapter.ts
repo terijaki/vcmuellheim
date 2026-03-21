@@ -61,16 +61,11 @@ async function withSessionUserJoin(item: Record<string, unknown> | null, model: 
 }
 
 /** Map better-auth model names to DynamoDB table environment variables */
-function getTableNameForModel(model: string): string {
-	const modelTableMap: Record<string, string> = {
-		user: env.USERS_TABLE_NAME,
-		verification: env.AUTH_VERIFICATIONS_TABLE_NAME,
-		session: env.AUTH_VERIFICATIONS_TABLE_NAME,
-	};
-
-	const tableName = modelTableMap[model];
+function getTableNameForModel(_model: string): string {
+	// All content entities live in the single content table
+	const tableName = env.CONTENT_TABLE_NAME;
 	if (!tableName) {
-		throw new Error(`Unknown model: ${model}. Supported models: ${Object.keys(modelTableMap).join(", ")}`);
+		throw new Error("CONTENT_TABLE_NAME is not configured");
 	}
 	return tableName;
 }

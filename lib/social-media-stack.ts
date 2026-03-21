@@ -233,7 +233,7 @@ export class SocialMediaStack extends cdk.Stack {
 					MASTODON_LAMBDA_NAME: mastodonShare.functionName,
 					ENVIRONMENT: environment,
 					WEBSITE_URL: props.websiteUrl,
-					NEWS_TABLE_NAME: props.newsTable.tableName,
+					CONTENT_TABLE_NAME: props.newsTable.tableName,
 				} satisfies Omit<MastodonStreamHandlerLambdaEnvironment, "AWS_REGION">,
 				timeout: cdk.Duration.seconds(30),
 				memorySize: 256,

@@ -19,19 +19,9 @@ let getSamsTeamByUuid: typeof import("./queries").getSamsTeamByUuid;
 
 describe("server/queries", () => {
 	beforeAll(async () => {
-		process.env.NEWS_TABLE_NAME = "test-news-table";
-		process.env.USERS_TABLE_NAME = "test-users-table";
+		process.env.CONTENT_TABLE_NAME = "test-content-table";
 		process.env.SAMS_CLUBS_TABLE_NAME = "test-sams-clubs-table";
 		process.env.SAMS_TEAMS_TABLE_NAME = "test-sams-teams-table";
-		// Also set the other table names required by lib/db/env tableEnvironmentSchema
-		process.env.EVENTS_TABLE_NAME = "test-events-table";
-		process.env.TEAMS_TABLE_NAME = "test-teams-table";
-		process.env.MEMBERS_TABLE_NAME = "test-members-table";
-		process.env.MEDIA_TABLE_NAME = "test-media-table";
-		process.env.SPONSORS_TABLE_NAME = "test-sponsors-table";
-		process.env.LOCATIONS_TABLE_NAME = "test-locations-table";
-		process.env.BUS_TABLE_NAME = "test-bus-table";
-		process.env.AUTH_VERIFICATIONS_TABLE_NAME = "test-auth-verifications-table";
 
 		const q = await import("./queries");
 		getAllNews = q.getAllNews;
@@ -66,7 +56,7 @@ describe("server/queries", () => {
 			const calls = ddbMock.commandCalls(QueryCommand);
 			expect(calls).toHaveLength(1);
 			expect(calls[0].args[0].input).toMatchObject({
-				TableName: "test-news-table",
+				TableName: "test-content-table",
 				IndexName: "GSI-NewsByType",
 				KeyConditionExpression: "#type = :type AND #updatedAt > :minDate",
 				ExpressionAttributeValues: { ":type": "article", ":minDate": "2000-01-01T00:00:00.000Z" },
@@ -103,7 +93,7 @@ describe("server/queries", () => {
 
 			const calls = ddbMock.commandCalls(QueryCommand);
 			expect(calls[0].args[0].input).toMatchObject({
-				TableName: "test-news-table",
+				TableName: "test-content-table",
 				IndexName: "GSI-NewsByStatus",
 				KeyConditionExpression: "#status = :status AND #createdAt > :minDate",
 				ExpressionAttributeValues: { ":status": "published", ":minDate": "2000-01-01T00:00:00.000Z" },
@@ -147,7 +137,7 @@ describe("server/queries", () => {
 			expect(result).toEqual(mockUser);
 			const calls = ddbMock.commandCalls(QueryCommand);
 			expect(calls[0].args[0].input).toMatchObject({
-				TableName: "test-users-table",
+				TableName: "test-content-table",
 				IndexName: "GSI-UsersByEmail",
 				KeyConditionExpression: "#email = :email",
 				ExpressionAttributeValues: { ":email": "admin@test.com" },
@@ -175,7 +165,7 @@ describe("server/queries", () => {
 			expect(result).toHaveLength(2);
 			expect(result[0].id).toBe("u1");
 			const calls = ddbMock.commandCalls(ScanCommand);
-			expect(calls[0].args[0].input.TableName).toBe("test-users-table");
+			expect(calls[0].args[0].input.TableName).toBe("test-content-table");
 		});
 	});
 

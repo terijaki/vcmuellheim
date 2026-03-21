@@ -40,6 +40,7 @@
         "superjson": "^2.2.6",
         "ts-ics": "^2.4.3",
         "zod": "^4.3.6",
+        "electrodb": "^3.7.2",
       },
       "devDependencies": {
         "@aws-cdk/aws-lambda-nodejs": "^1.204.0",
@@ -1720,6 +1721,10 @@
     "zeptomatch": ["zeptomatch@2.1.0", "", { "dependencies": { "grammex": "^3.1.11", "graphmatch": "^1.1.0" } }, "sha512-KiGErG2J0G82LSpniV0CtIzjlJ10E04j02VOudJsPyPwNZgGnRKQy7I1R7GMyg/QswnE4l7ohSGrQbQbjXPPDA=="],
 
     "zod": ["zod@4.3.6", "", {}, "sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg=="],
+
+    "electrodb": ["electrodb@3.7.2", "", { "dependencies": { "@aws-sdk/lib-dynamodb": "^3.654.0", "@aws-sdk/util-dynamodb": "^3.654.0", "jsonschema": "1.2.7" } }, "sha512-hXbT0+20e0gdNK/7rxZ1TXY6QFTdYvkqS9PWo7puUwOCqdvckTtW+CnzGz5PEUqy0QTfZYshCQYlOjbvjkrxKw=="],
+
+    "electrodb/jsonschema": ["jsonschema@1.2.7", "", {}, "sha512-3dFMg9hmI9LdHag/BRIhMefCfbq1hicvYMy8YhZQorAdzOzWz7NjniSpn39yjpzUAMIWtGyyZuH2KNBloH7ZLw=="],
 
     "@aws-cdk/assets/constructs": ["constructs@3.4.344", "", {}, "sha512-Qq3upn44oGdvgasHUKWVFsrynyYrtVRd9fd8ko9cJOrFzx9eCm3iI4bhBryQqaISdausbTYUOXmoEe/YSJ16Nw=="],
 
