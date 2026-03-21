@@ -70,6 +70,8 @@ export class ContentDbStack extends cdk.Stack {
 
 		// GSI4 — email / identifier lookups
 		// Used by: users (by email), auth verifications (by identifier)
+		// The SK (gsi4sk) is populated by ElectroDB with a constant entity-type prefix,
+		// enabling safe co-existence of user and verification items under the same GSI partition.
 		this.contentTable.addGlobalSecondaryIndex({
 			indexName: ContentTableIndexes.gsi4,
 			partitionKey: { name: "gsi4pk", type: dynamodb.AttributeType.STRING },

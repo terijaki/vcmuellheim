@@ -38,12 +38,19 @@ import type {
 // ---------------------------------------------------------------------------
 // Compile-time drift detection via type compatibility assertions.
 //
-// If an attribute exists in the Zod schema (and therefore in the DB type) but
-// is missing from the ElectroDB entity, TypeScript will surface an error here
-// because `EntityItem<…>` won't have that property.
+// Strategy: we assert that `EntityItem<ElectroEntity>` is assignable to a
+// Required<Pick<ZodType, requiredFields>> type.  If an attribute listed in the
+// Pick does not exist on the ElectroDB entity (or has an incompatible type),
+// TypeScript raises a compile error — surfacing drift immediately in the IDE.
+//
+// Limitation: fields must be explicitly listed in the Pick<> call.  If a new
+// required field is added to a Zod schema but not to the corresponding Pick
+// here, the compile-time check will miss it.  For full coverage, rely on the
+// runtime drift tests in `lib/db/electrodb-entities.test.ts` which compare
+// all field names automatically.
 //
 // Conversely, if an attribute is added to the ElectroDB entity but not to the
-// Zod schema, the `satisfies` check below will catch the surplus property.
+// Zod schema, the runtime tests catch the surplus attribute.
 // ---------------------------------------------------------------------------
 
 type AssertAssignable<TZod, TElectro extends TZod> = TElectro;

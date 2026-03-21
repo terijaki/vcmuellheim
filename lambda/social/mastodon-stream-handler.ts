@@ -49,14 +49,16 @@ export async function handler(event: DynamoDBStreamEvent): Promise<void> {
 			}
 
 			// Unmarshall new DynamoDB record
-			const newNews = unmarshall(newImage as Record<string, AttributeValue>) as News;
+			const newItem = unmarshall(newImage as Record<string, AttributeValue>);
 
 			// In the single content table, stream events cover all entity types.
 			// Only process news articles (type === "article").
-			if (newNews.type !== "article") {
+			if (newItem.type !== "article") {
 				continue;
 			}
 
+			// Now we know this is a news article
+			const newNews = newItem as News;
 			const notYetShared = !newNews.sharedToMastodon;
 
 			// Check if this is a news article being published
