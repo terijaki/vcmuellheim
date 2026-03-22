@@ -349,7 +349,7 @@ async function seedMembersData() {
 			email: "thomas.weber@example.com",
 			phone: "+49 7622 345678",
 			isBoardMember: true,
-			roleTitle: "Vereinsvorsitzender",
+			roleTitle: "Kassier",
 			createdAt: dayjs().subtract(2, "years").toISOString(),
 		},
 		{
@@ -380,6 +380,7 @@ async function seedMembersData() {
 			email: "peter.lustig@example.com",
 			isBoardMember: false,
 			isTrainer: true,
+			roleTitle: "Mitgliederverwaltung",
 		},
 	];
 
