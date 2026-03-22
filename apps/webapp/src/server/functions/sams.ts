@@ -379,7 +379,7 @@ const RawTickerResponseSchema = z
 
 export const getSamsTickerFn = createServerFn().handler(async () => {
 	const response = await fetch(TICKER_URL, {
-		signal: AbortSignal.timeout(10_000),
+		signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
 		headers: { Accept: "application/json" },
 	});
 
