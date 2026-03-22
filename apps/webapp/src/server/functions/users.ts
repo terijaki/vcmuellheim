@@ -3,16 +3,13 @@
  * All functions require Admin role.
  */
 
-import { DeleteCommand, PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { docClient, getTableName } from "@/lib/db/client";
+import { db } from "@/lib/db/electrodb-client";
 import type { CmsUser } from "@/lib/db/types";
 import { requireAdminMiddleware } from "../../middleware";
-import { buildUpdateExpression, withTimestamps } from "../dynamo";
+import { withTimestamps } from "../dynamo";
 import { getAllCmsUsers, getCmsUserByEmail } from "../queries";
-
-const TABLE_NAME = () => getTableName("USERS");
 
 const UserRole = z.enum(["Admin", "Moderator"]);
 
@@ -70,13 +67,7 @@ export const createUserFn = createServerFn()
 			role: data.role,
 		});
 
-		await docClient.send(
-			new PutCommand({
-				TableName: TABLE_NAME(),
-				Item: user,
-				ConditionExpression: "attribute_not_exists(id)",
-			}),
-		);
+		await db().user.create(user).go();
 
 		return { email: data.email, givenName: data.givenName, familyName: data.familyName, role: data.role };
 	});
@@ -105,19 +96,10 @@ export const updateUserFn = createServerFn()
 		if (data.role && data.role !== user.role) updates.role = data.role;
 
 		if (Object.keys(updates).length > 0) {
-			const { updateExpression, expressionAttributeNames, expressionAttributeValues } = buildUpdateExpression(updates);
-
-			await docClient.send(
-				new UpdateCommand({
-					TableName: TABLE_NAME(),
-					Key: { id: user.id },
-					UpdateExpression: updateExpression,
-					ExpressionAttributeNames: expressionAttributeNames,
-					ExpressionAttributeValues: expressionAttributeValues,
-					ConditionExpression: "attribute_exists(id)",
-					ReturnValues: "ALL_NEW",
-				}),
-			);
+			await db()
+				.user.patch({ id: user.id })
+				.set({ ...updates, updatedAt: new Date().toISOString() })
+				.go();
 		}
 
 		return { success: true };
@@ -132,11 +114,6 @@ export const deleteUserFn = createServerFn()
 		}
 		const user = await getCmsUserByEmail(data.email);
 		if (!user) throw new Error("User not found");
-		await docClient.send(
-			new DeleteCommand({
-				TableName: TABLE_NAME(),
-				Key: { id: user.id },
-			}),
-		);
+		await db().user.delete({ id: user.id }).go();
 		return { success: true };
 	});

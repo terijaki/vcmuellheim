@@ -27,5 +27,5 @@ export type BaseEntity = {
 	updatedAt: string;
 };
 
-/** Pagination cursor type used by DynamoDB query/scan pagination */
-export type PaginationCursor = Record<string, string | number>;
+/** Pagination cursor — ElectroDB base64-encoded last-evaluated-key string */
+export type PaginationCursor = string;

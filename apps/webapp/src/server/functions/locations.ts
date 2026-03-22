@@ -2,42 +2,30 @@
  * Locations server functions — replaces lib/trpc/routers/locations.ts
  */
 
-import { DeleteCommand, GetCommand, PutCommand, ScanCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { docClient, getTableName } from "@/lib/db/client";
+import { db } from "@/lib/db/electrodb-client";
 import { locationSchema } from "@/lib/db/schemas";
 import type { Location } from "@/lib/db/types";
 import { requireAuthMiddleware } from "../../middleware";
-import { buildUpdateExpression, withTimestamps } from "../dynamo";
-
-const TABLE_NAME = () => getTableName("LOCATIONS");
+import { withTimestamps } from "../dynamo";
 
 // ── Public ──────────────────────────────────────────────────────────────────
 
 export const listLocationsFn = createServerFn().handler(async () => {
-	const result = await docClient.send(
-		new ScanCommand({
-			TableName: TABLE_NAME(),
-		}),
-	);
+	const result = await db().location.scan.go({ pages: "all" });
 
 	return {
-		items: (result.Items as Location[]) || [],
-		lastEvaluatedKey: result.LastEvaluatedKey,
+		items: result.data as Location[],
+		lastEvaluatedKey: result.cursor ?? undefined,
 	};
 });
 
 export const getLocationByIdFn = createServerFn()
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
-		const result = await docClient.send(
-			new GetCommand({
-				TableName: TABLE_NAME(),
-				Key: { id: data.id },
-			}),
-		);
-		const location = result.Item as Location | undefined;
+		const result = await db().location.get({ id: data.id }).go();
+		const location = result.data as Location | null;
 		if (!location) throw new Error("Location not found");
 		return location;
 	});
@@ -53,13 +41,7 @@ export const createLocationFn = createServerFn()
 			id: crypto.randomUUID(),
 		});
 
-		await docClient.send(
-			new PutCommand({
-				TableName: TABLE_NAME(),
-				Item: location,
-				ConditionExpression: "attribute_not_exists(id)",
-			}),
-		);
+		await db().location.create(location).go();
 
 		return location;
 	});
@@ -73,31 +55,18 @@ export const updateLocationFn = createServerFn()
 		}),
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
-		const { updateExpression, expressionAttributeNames, expressionAttributeValues } = buildUpdateExpression(updates);
-		const result = await docClient.send(
-			new UpdateCommand({
-				TableName: TABLE_NAME(),
-				Key: { id },
-				UpdateExpression: updateExpression,
-				ExpressionAttributeNames: expressionAttributeNames,
-				ExpressionAttributeValues: expressionAttributeValues,
-				ConditionExpression: "attribute_exists(id)",
-				ReturnValues: "ALL_NEW",
-			}),
-		);
+		const result = await db()
+			.location.patch({ id })
+			.set({ ...updates, updatedAt: new Date().toISOString() })
+			.go();
 
-		return result.Attributes as Location;
+		return result.data as Location;
 	});
 
 export const deleteLocationFn = createServerFn()
 	.middleware([requireAuthMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
-		await docClient.send(
-			new DeleteCommand({
-				TableName: TABLE_NAME(),
-				Key: { id: data.id },
-			}),
-		);
+		await db().location.delete({ id: data.id }).go();
 		return { success: true };
 	});

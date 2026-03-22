@@ -20,7 +20,7 @@ const lambdaClient = new LambdaClient({ region: env.AWS_REGION });
 const MASTODON_LAMBDA_NAME = env.MASTODON_LAMBDA_NAME;
 const ENVIRONMENT = env.ENVIRONMENT;
 const WEBSITE_URL = env.WEBSITE_URL;
-const NEWS_TABLE_NAME = env.NEWS_TABLE_NAME;
+const CONTENT_TABLE_NAME = env.CONTENT_TABLE_NAME;
 
 interface MastodonShareRequest {
 	newsArticle: News;
@@ -49,7 +49,16 @@ export async function handler(event: DynamoDBStreamEvent): Promise<void> {
 			}
 
 			// Unmarshall new DynamoDB record
-			const newNews = unmarshall(newImage as Record<string, AttributeValue>) as News;
+			const newItem = unmarshall(newImage as Record<string, AttributeValue>);
+
+			// In the single content table, stream events cover all entity types.
+			// Only process news articles (type === "article").
+			if (newItem.type !== "article") {
+				continue;
+			}
+
+			// Now we know this is a news article
+			const newNews = newItem as News;
 			const notYetShared = !newNews.sharedToMastodon;
 
 			// Check if this is a news article being published
@@ -94,7 +103,7 @@ export async function handler(event: DynamoDBStreamEvent): Promise<void> {
 				// Update the news article to mark it as shared
 				await docClient.send(
 					new UpdateCommand({
-						TableName: NEWS_TABLE_NAME,
+						TableName: CONTENT_TABLE_NAME,
 						Key: { id: newNews.id },
 						UpdateExpression: "SET #sharedToMastodon = :true, #updatedAt = :updatedAt",
 						ExpressionAttributeNames: {

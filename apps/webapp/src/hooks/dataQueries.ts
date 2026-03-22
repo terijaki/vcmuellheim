@@ -340,6 +340,7 @@ export const useSamsRankingsByLeagueUuid = (leagueUuids: string[]) => {
 		queryKey: ["samsRankings", leagueUuids],
 		queryFn: () => getSamsRankingsByLeagueUuidsFn({ data: { leagueUuids } }),
 		enabled: leagueUuids.length > 0,
+		staleTime: 1000 * 60 * 10,
 	});
 };
 

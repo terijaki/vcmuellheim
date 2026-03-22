@@ -143,7 +143,7 @@ function TeamPicturesManager({
 							Bilder hierher ziehen oder klicken zum Auswählen
 						</Text>
 						<Text size="sm" c="dimmed" inline mt={7}>
-							Mehrere Bilder möglich, max. ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB pro Bild
+							Mehrere Bilder möglich, max. {bytesToMB(MAX_UPLOAD_SIZE, 0)}MB pro Bild
 						</Text>
 					</Stack>
 				</Flex>

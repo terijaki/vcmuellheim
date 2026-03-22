@@ -1,23 +1,11 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadEnv, type PluginOption } from "vite";
-import { TABLES, type TableEntity, tableEnvVar } from "../../../lib/db/env";
+import { CONTENT_TABLE_ENV_VAR } from "../../../lib/db/env";
+import { Club } from "../../../project.config";
 import { getSanitizedBranch } from "../../../utils/git";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-
-const contentTableNamesByEntity: Record<TableEntity, string> = {
-	NEWS: "news",
-	EVENTS: "events",
-	TEAMS: "teams",
-	MEMBERS: "members",
-	MEDIA: "media",
-	SPONSORS: "sponsors",
-	LOCATIONS: "locations",
-	BUS: "bus",
-	USERS: "users",
-	AUTH_VERIFICATIONS: "auth-verifications",
-};
 
 export function getAppEnvironment(mode = process.env.NODE_ENV === "production" ? "production" : "development"): string {
 	const rootEnv = loadEnv(mode, repoRoot, "");
@@ -43,16 +31,19 @@ function applyLocalAwsResourceEnv(environment: string) {
 	const sanitizedBranch = getSanitizedBranch();
 	const branchSuffix = sanitizedBranch ? `-${sanitizedBranch}` : "";
 
-	for (const entity of TABLES) {
-		setDefaultEnv(tableEnvVar(entity), `vcm-${contentTableNamesByEntity[entity]}-${environment}${branchSuffix}`);
-	}
+	// Single content table for all entities
+	setDefaultEnv(CONTENT_TABLE_ENV_VAR, `vcm-content-${environment}${branchSuffix}`);
 
 	setDefaultEnv("SAMS_CLUBS_TABLE_NAME", `sams-clubs-${environment}${branchSuffix}`);
 	setDefaultEnv("SAMS_TEAMS_TABLE_NAME", `sams-teams-${environment}${branchSuffix}`);
 	setDefaultEnv("INSTAGRAM_TABLE_NAME", `instagram-posts-${environment}${branchSuffix}`);
 	setDefaultEnv("MEDIA_BUCKET_NAME", `vcmuellheim-media-${environment}${branchSuffix}`);
 	setDefaultEnv("SAMS_SERVER", "https://www.volleyball-baden.de");
-	setDefaultEnv("CLOUDFRONT_URL", `https://${environment}-tanstack-start-media.new.vcmuellheim.de`);
+
+	const isProd = environment === "prod";
+	const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
+	const baseDomain = isProd ? Club.domain : `new.${Club.domain}`;
+	setDefaultEnv("CLOUDFRONT_URL", `https://${envPrefix}media.${baseDomain}`);
 }
 
 export function localAwsResourceEnvPlugin(): PluginOption {

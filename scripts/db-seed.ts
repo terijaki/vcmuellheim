@@ -24,6 +24,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { BatchWriteCommand, DynamoDBDocumentClient, ScanCommand as ScanDocCommand } from "@aws-sdk/lib-dynamodb";
 import dayjs from "dayjs";
+import { createDb } from "@/lib/db/electrodb-client";
 import { busSchema, eventSchema, type LocationInput, locationSchema, type MemberInput, memberSchema, newsSchema, sponsorSchema, type TeamInput, teamSchema } from "@/lib/db/schemas";
 import { Club } from "@/project.config";
 import { getSanitizedBranch } from "@/utils/git";
@@ -123,14 +124,11 @@ async function uploadImageToS3(imageUrl: string, s3Key: string): Promise<string>
 	});
 }
 
-// Table names
-const EVENTS_TABLE = `vcm-events-${CDK_ENVIRONMENT}${branchSuffix}`;
-const NEWS_TABLE = `vcm-news-${CDK_ENVIRONMENT}${branchSuffix}`;
-const MEMBERS_TABLE = `vcm-members-${CDK_ENVIRONMENT}${branchSuffix}`;
-const TEAMS_TABLE = `vcm-teams-${CDK_ENVIRONMENT}${branchSuffix}`;
-const LOCATIONS_TABLE = `vcm-locations-${CDK_ENVIRONMENT}${branchSuffix}`;
-const SPONSORS_TABLE = `vcm-sponsors-${CDK_ENVIRONMENT}${branchSuffix}`;
-const BUS_TABLE = `vcm-bus-${CDK_ENVIRONMENT}${branchSuffix}`;
+// Table name — single content table (mirrors the CDK stack)
+const CONTENT_TABLE_NAME = `vcm-content-${CDK_ENVIRONMENT}${branchSuffix}`;
+
+// ElectroDB entity map wired to the single content table
+const entities = createDb(docClient, CONTENT_TABLE_NAME);
 
 // Parse CLI arguments
 const args = process.argv.slice(2);
@@ -164,52 +162,37 @@ const membersCache: MemberInput[] = [];
 const teamCache: TeamInput[] = [];
 
 /**
- * Create a CMS user (whitelisted email) in the USERS DynamoDB table
+ * Create a CMS user (whitelisted email) in the content table via ElectroDB.
  * The user can then sign in via email OTP (passwordless) at the CMS admin panel.
  */
 async function createCmsUser(email: string): Promise<void> {
-	const usersTable = `vcm-users-${CDK_ENVIRONMENT}${branchSuffix}`;
-
 	console.log(`\n👤 Creating CMS user: ${email}...`);
 
-	// Check if user already exists
-	const { ScanCommand } = await import("@aws-sdk/lib-dynamodb");
-	const existing = await docClient.send(
-		new ScanCommand({
-			TableName: usersTable,
-			FilterExpression: "email = :email",
-			ExpressionAttributeValues: { ":email": email },
-			Limit: 1,
-		}),
-	);
-
-	if (existing.Items && existing.Items.length > 0) {
+	// Check if user already exists (by email via GSI4)
+	const existing = await entities.user.query.byEmail({ email }).go();
+	if (existing.data && existing.data.length > 0) {
 		console.error(`❌ User ${email} already exists`);
 		process.exit(1);
 	}
 
-	const { PutCommand } = await import("@aws-sdk/lib-dynamodb");
-	await docClient.send(
-		new PutCommand({
-			TableName: usersTable,
-			Item: {
-				id: crypto.randomUUID(),
-				email,
-				name: email.split("@")[0],
-				emailVerified: false,
-				role: "Admin",
-				createdAt: new Date().toISOString(),
-				updatedAt: new Date().toISOString(),
-			},
-		}),
-	);
+	await entities.user
+		.create({
+			id: crypto.randomUUID(),
+			email,
+			name: email.split("@")[0],
+			emailVerified: false,
+			role: "Admin",
+			createdAt: new Date().toISOString(),
+			updatedAt: new Date().toISOString(),
+		})
+		.go();
 
 	console.log(`✅ CMS user ${email} created (role: Admin)`);
 	console.log(`   The user can now sign in at the CMS with email OTP (passwordless).`);
 }
 
 /**
- * Cleanup function - deletes all items from seeded tables
+ * Cleanup function - deletes all items from the single content table
  */
 async function cleanupDatabase() {
 	if (CDK_ENVIRONMENT === "prod") {
@@ -217,71 +200,60 @@ async function cleanupDatabase() {
 		process.exit(1);
 	}
 
-	console.log("\n🧹 Cleaning up database tables...");
+	console.log("\n🧹 Cleaning up database...");
 
-	const tables = [EVENTS_TABLE, NEWS_TABLE, MEMBERS_TABLE, TEAMS_TABLE, LOCATIONS_TABLE, SPONSORS_TABLE, BUS_TABLE];
+	try {
+		let scannedItems = 0;
+		let lastEvaluatedKey: Record<string, unknown> | undefined;
 
-	for (const tableName of tables) {
-		try {
-			let scannedItems = 0;
-			let lastEvaluatedKey: Record<string, unknown> | undefined;
+		while (true) {
+			const result = await docClient.send(
+				new ScanDocCommand({
+					TableName: CONTENT_TABLE_NAME,
+					ExclusiveStartKey: lastEvaluatedKey,
+				}),
+			);
 
-			while (true) {
-				const result = await docClient.send(
-					new ScanDocCommand({
-						TableName: tableName,
-						ExclusiveStartKey: lastEvaluatedKey,
-					}),
-				);
+			if (!result.Items || result.Items.length === 0) {
+				break;
+			}
 
-				if (!result.Items || result.Items.length === 0) {
-					break;
-				}
+			// Delete items in batches using the composite pk/sk keys
+			const deleteRequests = result.Items.map((item: Record<string, unknown>) => ({
+				DeleteRequest: {
+					Key: { pk: item.pk, sk: item.sk },
+				},
+			}));
 
-				// Delete items in batches - extract all key attributes from scanned items
-				const deleteRequests = result.Items.map((item: Record<string, unknown>) => {
-					const key: Record<string, unknown> = {};
-					key.id = item.id;
-
-					return {
-						DeleteRequest: {
-							Key: key,
-						},
-					};
+			// DynamoDB BatchWrite has a limit of 25 items per request
+			const batchSize = 25;
+			for (let i = 0; i < deleteRequests.length; i += batchSize) {
+				const batch = deleteRequests.slice(i, i + batchSize);
+				const command = new BatchWriteCommand({
+					RequestItems: {
+						[CONTENT_TABLE_NAME]: batch,
+					},
 				});
-
-				// DynamoDB BatchWrite has a limit of 25 items per request
-				const batchSize = 25;
-				for (let i = 0; i < deleteRequests.length; i += batchSize) {
-					const batch = deleteRequests.slice(i, i + batchSize);
-
-					const command = new BatchWriteCommand({
-						RequestItems: {
-							[tableName]: batch,
-						},
-					});
-
-					await docClient.send(command);
-					scannedItems += batch.length;
-				}
-
-				lastEvaluatedKey = result.LastEvaluatedKey;
-				if (!lastEvaluatedKey) {
-					break;
-				}
+				await docClient.send(command);
+				scannedItems += batch.length;
 			}
 
-			if (scannedItems > 0) {
-				console.log(`  ✓ Deleted ${scannedItems} items from ${tableName}`);
-			} else {
-				console.log(`  • ${tableName}: empty`);
+			lastEvaluatedKey = result.LastEvaluatedKey;
+			if (!lastEvaluatedKey) {
+				break;
 			}
-		} catch (error) {
-			// Table might not exist yet, which is fine
-			const errorMsg = (error as Error).message || "";
-			if (!errorMsg.includes("ResourceNotFoundException")) {
-				console.warn(`  ⚠️  Error cleaning ${tableName}:`, error);
-			}
+		}
+
+		if (scannedItems > 0) {
+			console.log(`  ✓ Deleted ${scannedItems} items from ${CONTENT_TABLE_NAME}`);
+		} else {
+			console.log(`  • ${CONTENT_TABLE_NAME}: empty`);
+		}
+	} catch (error) {
+		// Table might not exist yet, which is fine
+		const errorMsg = (error as Error).message || "";
+		if (!errorMsg.includes("ResourceNotFoundException")) {
+			console.warn(`  ⚠️  Error cleaning ${CONTENT_TABLE_NAME}:`, error);
 		}
 	}
 
@@ -289,27 +261,11 @@ async function cleanupDatabase() {
 }
 
 /**
- * Helper function to batch write items with proper typing
+ * Helper: write an array of items via ElectroDB entity.create().
+ * Uses Promise.all so writes are concurrent (no DynamoDB batch size limit to worry about).
  */
-async function batchWriteItems<T extends Record<string, unknown>>(tableName: string, items: T[]): Promise<void> {
-	const batchSize = 25; // DynamoDB batch write limit
-	for (let i = 0; i < items.length; i += batchSize) {
-		const batch = items.slice(i, i + batchSize);
-		const command = new BatchWriteCommand({
-			RequestItems: {
-				[tableName]: batch.map((item) => ({
-					PutRequest: { Item: item },
-				})),
-			},
-		});
-
-		try {
-			await docClient.send(command);
-		} catch (error) {
-			console.error(`  ✗ Error writing batch to ${tableName}:`, error);
-			throw error;
-		}
-	}
+async function putItems<T>(entity: { create(item: T): { go(): Promise<unknown> } }, items: T[]): Promise<void> {
+	await Promise.all(items.map((item) => entity.create(item).go()));
 }
 
 /**
@@ -358,8 +314,8 @@ async function seedLocationsData() {
 	// Validate against schema
 	const validatedLocations = locationsWithBaseMeta.map((loc) => locationSchema.parse(loc));
 
-	await batchWriteItems(LOCATIONS_TABLE, validatedLocations);
-	console.log(`✅ Seeded ${validatedLocations.length} locations to ${LOCATIONS_TABLE}`);
+	await putItems(entities.location, validatedLocations);
+	console.log(`✅ Seeded ${validatedLocations.length} locations`);
 	locationCache.push(...validatedLocations);
 }
 
@@ -470,8 +426,8 @@ async function seedMembersData() {
 		}
 	}
 
-	await batchWriteItems(MEMBERS_TABLE, validatedMembers);
-	console.log(`✅ Seeded ${validatedMembers.length} members to ${MEMBERS_TABLE}`);
+	await putItems(entities.member, validatedMembers);
+	console.log(`✅ Seeded ${validatedMembers.length} members`);
 
 	membersCache.push(...validatedMembers);
 }
@@ -593,8 +549,8 @@ async function seedTeamsData() {
 		}
 	}
 
-	await batchWriteItems(TEAMS_TABLE, validatedTeams);
-	console.log(`✅ Seeded ${validatedTeams.length} teams to ${TEAMS_TABLE}`);
+	await putItems(entities.team, validatedTeams);
+	console.log(`✅ Seeded ${validatedTeams.length} teams`);
 	teamCache.push(...validatedTeams);
 }
 
@@ -720,8 +676,8 @@ async function seedNewsData() {
 		}
 	}
 
-	await batchWriteItems(NEWS_TABLE, validatedArticles);
-	console.log(`✅ Seeded ${validatedArticles.length} news articles to ${NEWS_TABLE}`);
+	await putItems(entities.news, validatedArticles);
+	console.log(`✅ Seeded ${validatedArticles.length} news articles`);
 }
 
 /**
@@ -737,7 +693,7 @@ async function seedSponsorsData() {
 			description: "Hauptsponsor des VC Müllheim seit 2020",
 			websiteUrl: "https://www.muellheimbank.de",
 			logoS3Key: "",
-			expiryTimestamp: Math.floor(dayjs().add(1, "year").valueOf() / 1000),
+			ttl: Math.floor(dayjs().add(1, "year").valueOf() / 1000),
 			createdAt: dayjs().subtract(2, "years").toISOString(),
 			updatedAt: dayjs().toISOString(),
 		},
@@ -747,7 +703,7 @@ async function seedSponsorsData() {
 			description: "Ausrüster für Sportbekleidung und Equipment",
 			websiteUrl: "https://www.sporthaus-schmidt.de",
 			logoS3Key: "",
-			expiryTimestamp: Math.floor(dayjs().add(6, "months").valueOf() / 1000),
+			ttl: Math.floor(dayjs().add(6, "months").valueOf() / 1000),
 			createdAt: dayjs().subtract(1, "year").toISOString(),
 			updatedAt: dayjs().toISOString(),
 		},
@@ -756,7 +712,7 @@ async function seedSponsorsData() {
 			name: "Bäckerei Hoffmann",
 			description: "Versorger von Verpflegung bei Heimspielen",
 			logoS3Key: "",
-			expiryTimestamp: Math.floor(dayjs().add(8, "months").valueOf() / 1000),
+			ttl: Math.floor(dayjs().add(8, "months").valueOf() / 1000),
 			createdAt: dayjs().toISOString(),
 			updatedAt: dayjs().toISOString(),
 		},
@@ -766,7 +722,7 @@ async function seedSponsorsData() {
 			description: "Partner für Krafttraining und Sportwissenschaft",
 			websiteUrl: "https://www.fitnessplus-muellheim.de",
 			logoS3Key: "",
-			expiryTimestamp: Math.floor(dayjs().add(10, "months").valueOf() / 1000),
+			ttl: Math.floor(dayjs().add(10, "months").valueOf() / 1000),
 			createdAt: dayjs().toISOString(),
 			updatedAt: dayjs().toISOString(),
 		},
@@ -794,14 +750,9 @@ async function seedSponsorsData() {
 		}
 	}
 
-	// Add TTL field and write to database
-	const sponsorsWithTTL = validatedSponsors.map((sponsor) => ({
-		...sponsor,
-		TTL: sponsor.expiryTimestamp,
-	}));
-
-	await batchWriteItems(SPONSORS_TABLE, sponsorsWithTTL);
-	console.log(`✅ Seeded ${sponsorsWithTTL.length} sponsors to ${SPONSORS_TABLE}`);
+	// SponsorEntity uses ttl for DynamoDB-based automatic expiry.
+	await putItems(entities.sponsor, validatedSponsors);
+	console.log(`✅ Seeded ${validatedSponsors.length} sponsors`);
 }
 
 /**
@@ -890,8 +841,8 @@ async function seedEventsData() {
 	// Validate against schema
 	const validatedEvents = events.map((event) => eventSchema.parse(event));
 
-	await batchWriteItems(EVENTS_TABLE, validatedEvents);
-	console.log(`✅ Seeded ${validatedEvents.length} events to ${EVENTS_TABLE}`);
+	await putItems(entities.event, validatedEvents);
+	console.log(`✅ Seeded ${validatedEvents.length} events`);
 }
 
 /**
@@ -946,8 +897,8 @@ async function seedBusData() {
 	// Validate against schema
 	const validatedBusBookings = busBookings.map((booking) => busSchema.parse(booking));
 
-	await batchWriteItems(BUS_TABLE, validatedBusBookings);
-	console.log(`✅ Seeded ${validatedBusBookings.length} bus bookings to ${BUS_TABLE}`);
+	await putItems(entities.bus, validatedBusBookings);
+	console.log(`✅ Seeded ${validatedBusBookings.length} bus bookings`);
 }
 
 async function main() {

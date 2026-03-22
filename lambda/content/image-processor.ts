@@ -25,6 +25,39 @@ interface ProcessingJobResult {
 	error?: string;
 }
 
+const getImageExtension = (filename: string): "jpg" | "png" | "gif" | "webp" => {
+	const extension = filename.match(/\.([^.]+)$/)?.[1]?.toLowerCase();
+	if (extension === "png" || extension === "gif" || extension === "webp") {
+		return extension;
+	}
+	return "jpg";
+};
+
+const getContentTypeForExtension = (extension: "jpg" | "png" | "gif" | "webp"): string => {
+	switch (extension) {
+		case "png":
+			return "image/png";
+		case "gif":
+			return "image/gif";
+		case "webp":
+			return "image/webp";
+		default:
+			return "image/jpeg";
+	}
+};
+
+const buildCompressedOriginalCommand = (inputPath: string, outputPath: string, extension: "jpg" | "png" | "webp", quality: number): string => {
+	if (extension === "png") {
+		return `convert "${inputPath}" -auto-orient -resize 2400 -strip -quality ${quality} -define png:compression-level=9 -define png:compression-filter=5 -define png:compression-strategy=1 "${outputPath}"`;
+	}
+
+	if (extension === "webp") {
+		return `convert "${inputPath}" -auto-orient -resize 2400 -quality ${quality} -strip -format webp "${outputPath}"`;
+	}
+
+	return `convert "${inputPath}" -auto-orient -resize 2400 -quality ${quality} -strip -interlace Plane "${outputPath}"`;
+};
+
 const downloadImageFromS3 = async (bucket: string, key: string): Promise<{ buffer: Buffer; metadata?: Record<string, string> }> => {
 	const command = new GetObjectCommand({ Bucket: bucket, Key: key });
 	const response = await s3Client.send(command);
@@ -67,6 +100,8 @@ const processImage = async (bucket: string, uploadKey: string): Promise<Record<s
 		const keyParts = finalKey.split("/");
 		const filename = keyParts[keyParts.length - 1];
 		const baseFilename = filename.replace(/\.[^.]+$/, "");
+		const sourceExtension = getImageExtension(filename);
+		const originalContentType = getContentTypeForExtension(sourceExtension);
 
 		// Reconstruct output folder: preserve folder structure
 		// Path format: {entityType}/{imageId}.{ext}
@@ -80,40 +115,40 @@ const processImage = async (bucket: string, uploadKey: string): Promise<Record<s
 
 		// Compress and overwrite original (capped at 5MB)
 		try {
-			const compressedOriginalPath = `${tmpdir()}/original-compressed-${Date.now()}.jpg`;
-			tempFiles.push(compressedOriginalPath);
+			if (sourceExtension === "gif") {
+				await uploadImageToS3(bucket, finalKey, imageBuffer, originalContentType);
+				console.log(`Uploaded original GIF to ${finalKey} without recompression`);
+			} else {
+				const compressedOriginalPath = `${tmpdir()}/original-compressed-${Date.now()}.${sourceExtension}`;
+				tempFiles.push(compressedOriginalPath);
 
-			// Convert to JPEG with progressive encoding and quality adjusted to keep file size under 5MB
-			// Start with quality 85, and dynamically adjust if needed
-			let quality = 85;
-			let compressed = false;
+				// Keep the original format so PNG/WebP uploads preserve transparency.
+				let quality = 85;
+				let compressed = false;
 
-			while (quality >= 50 && !compressed) {
-				try {
-					await execAsync(`convert "${inputImagePath}" -auto-orient -resize 2400 -quality ${quality} -strip -interlace Plane "${compressedOriginalPath}"`);
+				while (quality >= 50 && !compressed) {
+					try {
+						await execAsync(buildCompressedOriginalCommand(inputImagePath, compressedOriginalPath, sourceExtension, quality));
 
-					const compressedSize = readFileSync(compressedOriginalPath).length;
-					if (compressedSize <= MAX_ORIGINAL_SIZE) {
-						// Successfully under limit
-						compressed = true;
-					} else if (quality > 50) {
-						// Try lower quality
+						const compressedSize = readFileSync(compressedOriginalPath).length;
+						if (compressedSize <= MAX_ORIGINAL_SIZE) {
+							compressed = true;
+						} else if (quality > 50) {
+							quality -= 5;
+						} else {
+							console.warn(`Original image still exceeds limit of ${bytesToMB(MAX_ORIGINAL_SIZE, 0)}MB at quality 50 (${compressedSize} bytes)`);
+							compressed = true;
+						}
+					} catch (error) {
+						console.error(`Error compressing at quality ${quality}:`, error);
 						quality -= 5;
-					} else {
-						// Even at quality 50, still too large - use it anyway but log warning
-						console.warn(`Original image still exceeds limit of ${bytesToMB(MAX_ORIGINAL_SIZE, 0)}MB at quality 50 (${compressedSize} bytes)`);
-						compressed = true;
 					}
-				} catch (error) {
-					console.error(`Error compressing at quality ${quality}:`, error);
-					quality -= 5;
 				}
-			}
 
-			// Upload compressed original to final location (not uploads/)
-			const compressedBuffer = readFileSync(compressedOriginalPath);
-			await uploadImageToS3(bucket, finalKey, compressedBuffer, "image/jpeg");
-			console.log(`Uploaded compressed original to ${finalKey}`);
+				const compressedBuffer = readFileSync(compressedOriginalPath);
+				await uploadImageToS3(bucket, finalKey, compressedBuffer, originalContentType);
+				console.log(`Uploaded compressed original to ${finalKey}`);
+			}
 		} catch (error) {
 			console.error("Failed to compress and overwrite original:", error);
 			throw error;
@@ -125,7 +160,7 @@ const processImage = async (bucket: string, uploadKey: string): Promise<Record<s
 			try {
 				const jpegPath = `${tmpdir()}/output-${size}w-jpeg-${Date.now()}.jpg`;
 				tempFiles.push(jpegPath);
-				await execAsync(`convert "${inputImagePath}" -auto-orient -resize ${size} -quality ${IMAGE_QUALITY} -strip "${jpegPath}"`);
+				await execAsync(`convert "${inputImagePath}" -auto-orient -resize ${size} -background white -alpha remove -alpha off -quality ${IMAGE_QUALITY} -strip "${jpegPath}"`);
 
 				const jpegBuffer = readFileSync(jpegPath);
 				const jpegKey = `${outputFolder}/${baseFilename}-${size}w.jpg`;

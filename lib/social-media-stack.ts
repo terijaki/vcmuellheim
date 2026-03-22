@@ -23,7 +23,7 @@ interface SocialMediaStackProps extends cdk.StackProps {
 	};
 	hostedZone?: route53.IHostedZone;
 	regionalCertificate?: acm.ICertificate;
-	newsTable?: dynamodb.ITable;
+	contentTable?: dynamodb.ITable;
 	websiteUrl?: string;
 	mediaBucket?: s3.IBucket;
 }
@@ -223,7 +223,7 @@ export class SocialMediaStack extends cdk.Stack {
 		}
 
 		// Create Lambda function for Mastodon stream handler (DynamoDB streams)
-		if (props.newsTable && props.websiteUrl) {
+		if (props.contentTable && props.websiteUrl) {
 			const mastodonStreamHandler = new NodejsFunction(this, "MastodonStreamHandler", {
 				functionName: `mastodon-stream-handler-${environment}${branchSuffix}`,
 				runtime: lambda.Runtime.NODEJS_24_X,
@@ -233,7 +233,7 @@ export class SocialMediaStack extends cdk.Stack {
 					MASTODON_LAMBDA_NAME: mastodonShare.functionName,
 					ENVIRONMENT: environment,
 					WEBSITE_URL: props.websiteUrl,
-					NEWS_TABLE_NAME: props.newsTable.tableName,
+					CONTENT_TABLE_NAME: props.contentTable.tableName,
 				} satisfies Omit<MastodonStreamHandlerLambdaEnvironment, "AWS_REGION">,
 				timeout: cdk.Duration.seconds(30),
 				memorySize: 256,
@@ -250,13 +250,13 @@ export class SocialMediaStack extends cdk.Stack {
 			});
 
 			// Grant permissions
-			props.newsTable.grantStreamRead(mastodonStreamHandler);
-			props.newsTable.grantReadWriteData(mastodonStreamHandler);
+			props.contentTable.grantStreamRead(mastodonStreamHandler);
+			props.contentTable.grantReadWriteData(mastodonStreamHandler);
 			mastodonShare.grantInvoke(mastodonStreamHandler);
 
 			// Attach DynamoDB stream event source
 			mastodonStreamHandler.addEventSource(
-				new DynamoEventSource(props.newsTable, {
+				new DynamoEventSource(props.contentTable, {
 					startingPosition: lambda.StartingPosition.LATEST,
 					bisectBatchOnError: true,
 					retryAttempts: 2,

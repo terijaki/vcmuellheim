@@ -215,7 +215,7 @@ export type LeagueHierarchyDto = {
     seasonUuid?: string;
     associationUuid?: string;
     level?: number;
-    parentLeagueHierarchyUuid?: string;
+    parentLeagueHierarchyUuid?: string | null;
 };
 
 export type LeagueHierarchyPage = {

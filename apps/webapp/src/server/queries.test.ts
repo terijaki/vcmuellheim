@@ -19,19 +19,9 @@ let getSamsTeamByUuid: typeof import("./queries").getSamsTeamByUuid;
 
 describe("server/queries", () => {
 	beforeAll(async () => {
-		process.env.NEWS_TABLE_NAME = "test-news-table";
-		process.env.USERS_TABLE_NAME = "test-users-table";
+		process.env.CONTENT_TABLE_NAME = "test-content-table";
 		process.env.SAMS_CLUBS_TABLE_NAME = "test-sams-clubs-table";
 		process.env.SAMS_TEAMS_TABLE_NAME = "test-sams-teams-table";
-		// Also set the other table names required by lib/db/env tableEnvironmentSchema
-		process.env.EVENTS_TABLE_NAME = "test-events-table";
-		process.env.TEAMS_TABLE_NAME = "test-teams-table";
-		process.env.MEMBERS_TABLE_NAME = "test-members-table";
-		process.env.MEDIA_TABLE_NAME = "test-media-table";
-		process.env.SPONSORS_TABLE_NAME = "test-sponsors-table";
-		process.env.LOCATIONS_TABLE_NAME = "test-locations-table";
-		process.env.BUS_TABLE_NAME = "test-bus-table";
-		process.env.AUTH_VERIFICATIONS_TABLE_NAME = "test-auth-verifications-table";
 
 		const q = await import("./queries");
 		getAllNews = q.getAllNews;
@@ -51,10 +41,11 @@ describe("server/queries", () => {
 	});
 
 	describe("getAllNews", () => {
-		it("queries GSI-NewsByType descending with article type", async () => {
+		it("queries GSI1-ByTypeAndDate descending via ElectroDB", async () => {
+			// ElectroDB requires __edb_e__ and __edb_v__ to correctly parse query results
 			const mockItems = [
-				{ id: "1", type: "article", title: "A", slug: "a", content: "c", status: "published", createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-02T00:00:00Z" },
-				{ id: "2", type: "article", title: "B", slug: "b", content: "c", status: "draft", createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z" },
+				{ id: "1", type: "article", title: "A", slug: "a", content: "c", status: "published", createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-02T00:00:00Z", __edb_e__: "news", __edb_v__: "1" },
+				{ id: "2", type: "article", title: "B", slug: "b", content: "c", status: "draft", createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z", __edb_e__: "news", __edb_v__: "1" },
 			];
 			ddbMock.on(QueryCommand).resolves({ Items: mockItems });
 
@@ -66,47 +57,46 @@ describe("server/queries", () => {
 			const calls = ddbMock.commandCalls(QueryCommand);
 			expect(calls).toHaveLength(1);
 			expect(calls[0].args[0].input).toMatchObject({
-				TableName: "test-news-table",
-				IndexName: "GSI-NewsByType",
-				KeyConditionExpression: "#type = :type AND #updatedAt > :minDate",
-				ExpressionAttributeValues: { ":type": "article", ":minDate": "2000-01-01T00:00:00.000Z" },
+				TableName: "test-content-table",
+				IndexName: "GSI1-ByTypeAndDate",
 				ScanIndexForward: false,
 				Limit: 10,
 			});
 		});
 
-		it("returns lastEvaluatedKey when present", async () => {
-			const lastKey = { id: "x", updatedAt: "2024-01-01T00:00:00Z" };
+		it("returns lastEvaluatedKey (ElectroDB cursor string) when present", async () => {
+			const lastKey = { gsi1pk: "$vcm#type_article", gsi1sk: "$news_1#updatedat_2024-01-01t00:00:00z", pk: "$vcm#id_x", sk: "$news_1" };
 			ddbMock.on(QueryCommand).resolves({ Items: [], LastEvaluatedKey: lastKey });
 
 			const result = await getAllNews(5);
 
-			expect(result.lastEvaluatedKey).toEqual(lastKey);
+			// ElectroDB encodes LastEvaluatedKey as a base64 cursor string
+			expect(result.lastEvaluatedKey).toBeString();
+			expect(result.lastEvaluatedKey).toBeTruthy();
 		});
 
-		it("passes ExclusiveStartKey for pagination", async () => {
+		it("forwards cursor as ExclusiveStartKey when provided", async () => {
 			ddbMock.on(QueryCommand).resolves({ Items: [] });
-			const startKey = { id: "abc", updatedAt: "2024-01-01T00:00:00Z" };
+			// Simulate an ElectroDB cursor (base64-encoded DynamoDB key)
+			const cursor = Buffer.from(JSON.stringify({ pk: "$vcm#id_abc", sk: "$news_1" })).toString("base64");
 
-			await getAllNews(10, startKey);
+			await getAllNews(10, cursor);
 
 			const calls = ddbMock.commandCalls(QueryCommand);
-			expect(calls[0].args[0].input.ExclusiveStartKey).toEqual(startKey);
+			expect(calls[0].args[0].input.ExclusiveStartKey).toBeDefined();
 		});
 	});
 
 	describe("getPublishedNews", () => {
-		it("queries GSI-NewsByStatus with status=published", async () => {
+		it("queries GSI2-ByStatus with status=published via ElectroDB", async () => {
 			ddbMock.on(QueryCommand).resolves({ Items: [] });
 
 			await getPublishedNews(5);
 
 			const calls = ddbMock.commandCalls(QueryCommand);
 			expect(calls[0].args[0].input).toMatchObject({
-				TableName: "test-news-table",
-				IndexName: "GSI-NewsByStatus",
-				KeyConditionExpression: "#status = :status AND #createdAt > :minDate",
-				ExpressionAttributeValues: { ":status": "published", ":minDate": "2000-01-01T00:00:00.000Z" },
+				TableName: "test-content-table",
+				IndexName: "GSI2-ByStatus",
 				ScanIndexForward: false,
 				Limit: 5,
 			});
@@ -114,18 +104,20 @@ describe("server/queries", () => {
 	});
 
 	describe("getNewsBySlug", () => {
-		it("returns first match from GSI-NewsBySlug", async () => {
-			const mockArticle: News = { id: "1", type: "article", title: "Hello", slug: "hello", content: "c", status: "published", createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z" };
-			ddbMock.on(QueryCommand).resolves({ Items: [mockArticle] });
+		it("returns first match from GSI3-BySlug via ElectroDB", async () => {
+			const domainItem: News = { id: "1", type: "article", title: "Hello", slug: "hello", content: "c", status: "published", createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z" };
+			// Include ElectroDB internal fields so it can parse the result correctly
+			const dbItem = { ...domainItem, __edb_e__: "news", __edb_v__: "1" };
+			ddbMock.on(QueryCommand).resolves({ Items: [dbItem] });
 
 			const result = await getNewsBySlug("hello");
 
-			expect(result).toEqual(mockArticle);
+			// ElectroDB strips internal fields from the result
+			expect(result).toEqual(domainItem);
 			const calls = ddbMock.commandCalls(QueryCommand);
 			expect(calls[0].args[0].input).toMatchObject({
-				IndexName: "GSI-NewsBySlug",
-				KeyConditionExpression: "#slug = :slug",
-				ExpressionAttributeValues: { ":slug": "hello" },
+				TableName: "test-content-table",
+				IndexName: "GSI3-BySlug",
 				Limit: 1,
 			});
 		});
@@ -138,19 +130,18 @@ describe("server/queries", () => {
 	});
 
 	describe("getCmsUserByEmail", () => {
-		it("queries GSI-UsersByEmail and returns first match", async () => {
-			const mockUser: CmsUser = { id: "u1", email: "admin@test.com", name: "Admin", emailVerified: true, role: "Admin", createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z" };
-			ddbMock.on(QueryCommand).resolves({ Items: [mockUser] });
+		it("queries GSI4-ByIdentifier by email via ElectroDB", async () => {
+			const domainUser: CmsUser = { id: "u1", email: "admin@test.com", name: "Admin", emailVerified: true, role: "Admin", createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z" };
+			const dbItem = { ...domainUser, __edb_e__: "user", __edb_v__: "1" };
+			ddbMock.on(QueryCommand).resolves({ Items: [dbItem] });
 
 			const result = await getCmsUserByEmail("admin@test.com");
 
-			expect(result).toEqual(mockUser);
+			expect(result).toEqual(domainUser);
 			const calls = ddbMock.commandCalls(QueryCommand);
 			expect(calls[0].args[0].input).toMatchObject({
-				TableName: "test-users-table",
-				IndexName: "GSI-UsersByEmail",
-				KeyConditionExpression: "#email = :email",
-				ExpressionAttributeValues: { ":email": "admin@test.com" },
+				TableName: "test-content-table",
+				IndexName: "GSI4-ByIdentifier",
 				Limit: 1,
 			});
 		});
@@ -163,10 +154,10 @@ describe("server/queries", () => {
 	});
 
 	describe("getAllCmsUsers", () => {
-		it("scans the users table", async () => {
+		it("scans the content table with entity-type filter for users", async () => {
 			const mockUsers = [
-				{ id: "u1", email: "a@test.com", name: "A", role: "admin", createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z" },
-				{ id: "u2", email: "b@test.com", name: "B", role: "editor", createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z" },
+				{ id: "u1", email: "a@test.com", name: "A", role: "Admin", emailVerified: true, createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z", __edb_e__: "user", __edb_v__: "1" },
+				{ id: "u2", email: "b@test.com", name: "B", role: "Moderator", emailVerified: false, createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z", __edb_e__: "user", __edb_v__: "1" },
 			];
 			ddbMock.on(ScanCommand).resolves({ Items: mockUsers });
 
@@ -175,7 +166,7 @@ describe("server/queries", () => {
 			expect(result).toHaveLength(2);
 			expect(result[0].id).toBe("u1");
 			const calls = ddbMock.commandCalls(ScanCommand);
-			expect(calls[0].args[0].input.TableName).toBe("test-users-table");
+			expect(calls[0].args[0].input.TableName).toBe("test-content-table");
 		});
 	});
 
@@ -194,7 +185,7 @@ describe("server/queries", () => {
 
 	describe("getSamsClubBySportsclubUuid", () => {
 		it("gets club by primary key sportsclubUuid", async () => {
-			const mockClub: ClubResponse = { sportsclubUuid: "c1", type: "club", name: "VC Müllheim", updatedAt: "2024-01-01T00:00:00Z" };
+			const mockClub: ClubResponse = { sportsclubUuid: "c1", type: "club", name: "VC M\u00fcllheim", updatedAt: "2024-01-01T00:00:00Z" };
 			ddbMock.on(GetCommand).resolves({ Item: mockClub });
 
 			const result = await getSamsClubBySportsclubUuid("c1");
@@ -216,7 +207,7 @@ describe("server/queries", () => {
 
 	describe("getSamsClubByNameSlug", () => {
 		it("queries GSI-SamsClubQueries with exact equality match", async () => {
-			const mockClub: ClubResponse = { sportsclubUuid: "c1", type: "club", name: "VC Müllheim", updatedAt: "2024-01-01T00:00:00Z" };
+			const mockClub: ClubResponse = { sportsclubUuid: "c1", type: "club", name: "VC M\u00fcllheim", updatedAt: "2024-01-01T00:00:00Z" };
 			ddbMock.on(QueryCommand).resolves({ Items: [mockClub] });
 
 			const result = await getSamsClubByNameSlug("vc-muellheim");

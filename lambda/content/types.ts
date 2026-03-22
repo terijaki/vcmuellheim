@@ -16,8 +16,7 @@ export type TrpcLambdaEnvironment = z.infer<typeof TrpcLambdaEnvironmentSchema>;
 
 export const IcsCalendarLambdaEnvironmentSchema = z.object({
 	SAMS_API_URL: requiredEnvString,
-	TEAMS_TABLE_NAME: requiredEnvString,
-	EVENTS_TABLE_NAME: requiredEnvString,
+	CONTENT_TABLE_NAME: requiredEnvString,
 });
 
 export type IcsCalendarLambdaEnvironment = z.infer<typeof IcsCalendarLambdaEnvironmentSchema>;
@@ -36,8 +35,7 @@ export const ContentAuthEnvironmentSchema = z.object({
 export type ContentAuthEnvironment = z.infer<typeof ContentAuthEnvironmentSchema>;
 
 export const BetterAuthAdapterEnvironmentSchema = z.object({
-	USERS_TABLE_NAME: requiredEnvString,
-	AUTH_VERIFICATIONS_TABLE_NAME: requiredEnvString,
+	CONTENT_TABLE_NAME: requiredEnvString,
 });
 
 export type BetterAuthAdapterEnvironment = z.infer<typeof BetterAuthAdapterEnvironmentSchema>;

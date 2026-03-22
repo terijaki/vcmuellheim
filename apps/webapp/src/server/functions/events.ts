@@ -2,57 +2,36 @@
  * Events server functions — replaces lib/trpc/routers/events.ts
  */
 
-import { DeleteCommand, GetCommand, PutCommand, QueryCommand, ScanCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { createServerFn } from "@tanstack/react-start";
 import dayjs from "dayjs";
 import { z } from "zod";
-import { docClient, getTableName } from "@/lib/db/client";
+import { db } from "@/lib/db/electrodb-client";
 import { eventSchema } from "@/lib/db/schemas";
 import type { Event } from "@/lib/db/types";
 import { requireAuthMiddleware } from "../../middleware";
-import { buildUpdateExpression, withTimestamps } from "../dynamo";
-
-const TABLE_NAME = () => getTableName("EVENTS");
+import { withTimestamps } from "../dynamo";
 
 // ── Public ──────────────────────────────────────────────────────────────────
 
 export const getUpcomingEventsFn = createServerFn()
 	.inputValidator(z.object({ limit: z.number().min(1).max(100).optional().default(20) }).optional())
 	.handler(async ({ data }) => {
-		const result = await docClient.send(
-			new QueryCommand({
-				TableName: TABLE_NAME(),
-				IndexName: "GSI-EventQueries",
-				KeyConditionExpression: "#type = :type AND #startDate >= :now",
-				ExpressionAttributeNames: {
-					"#type": "type",
-					"#startDate": "startDate",
-				},
-				ExpressionAttributeValues: {
-					":type": "event",
-					":now": dayjs().toISOString(),
-				},
-				ScanIndexForward: true,
-				Limit: data?.limit ?? 20,
-			}),
-		);
+		const result = await db()
+			.event.query.byType({ type: "event" })
+			.gte({ startDate: dayjs().toISOString() })
+			.go({ limit: data?.limit ?? 20 });
 
 		return {
-			items: (result.Items as Event[]) || [],
-			lastEvaluatedKey: result.LastEvaluatedKey,
+			items: result.data as Event[],
+			lastEvaluatedKey: result.cursor ?? undefined,
 		};
 	});
 
 export const getEventByIdFn = createServerFn()
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
-		const result = await docClient.send(
-			new GetCommand({
-				TableName: TABLE_NAME(),
-				Key: { id: data.id },
-			}),
-		);
-		const event = result.Item as Event | undefined;
+		const result = await db().event.get({ id: data.id }).go();
+		const event = result.data as Event | null;
 		if (!event) throw new Error("Event not found");
 		return event;
 	});
@@ -61,18 +40,12 @@ export const getEventByIdFn = createServerFn()
 
 export const listAllEventsFn = createServerFn()
 	.middleware([requireAuthMiddleware])
-	.inputValidator(z.object({ limit: z.number().min(1).max(100).optional().default(50) }).optional())
-	.handler(async ({ data }) => {
-		const result = await docClient.send(
-			new ScanCommand({
-				TableName: TABLE_NAME(),
-				Limit: data?.limit,
-			}),
-		);
+	.handler(async () => {
+		const result = await db().event.scan.go({ pages: "all" });
 
 		return {
-			items: (result.Items as Event[]) || [],
-			lastEvaluatedKey: result.LastEvaluatedKey,
+			items: result.data as Event[],
+			lastEvaluatedKey: result.cursor ?? undefined,
 		};
 	});
 
@@ -88,13 +61,7 @@ export const createEventFn = createServerFn()
 				.unix(),
 		});
 
-		await docClient.send(
-			new PutCommand({
-				TableName: TABLE_NAME(),
-				Item: event,
-				ConditionExpression: "attribute_not_exists(id)",
-			}),
-		);
+		await db().event.create(event).go();
 
 		return event;
 	});
@@ -115,35 +82,22 @@ export const updateEventFn = createServerFn()
 				.unix();
 		}
 
-		const { updateExpression, expressionAttributeNames, expressionAttributeValues } = buildUpdateExpression({
-			...updates,
-			...(ttl ? { ttl } : {}),
-		});
+		const result = await db()
+			.event.patch({ id })
+			.set({
+				...updates,
+				...(ttl ? { ttl } : {}),
+				updatedAt: new Date().toISOString(),
+			})
+			.go();
 
-		const result = await docClient.send(
-			new UpdateCommand({
-				TableName: TABLE_NAME(),
-				Key: { id },
-				UpdateExpression: updateExpression,
-				ExpressionAttributeNames: expressionAttributeNames,
-				ExpressionAttributeValues: expressionAttributeValues,
-				ConditionExpression: "attribute_exists(id)",
-				ReturnValues: "ALL_NEW",
-			}),
-		);
-
-		return result.Attributes as Event;
+		return result.data as Event;
 	});
 
 export const deleteEventFn = createServerFn()
 	.middleware([requireAuthMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
-		await docClient.send(
-			new DeleteCommand({
-				TableName: TABLE_NAME(),
-				Key: { id: data.id },
-			}),
-		);
+		await db().event.delete({ id: data.id }).go();
 		return { success: true };
 	});

@@ -5,7 +5,7 @@ import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
 import RankingTable from "@webapp/components/RankingTable";
 import { useSamsMatches, useSamsRankingsByLeagueUuid } from "@webapp/hooks/dataQueries";
-import { listSamsTeamsFn } from "@webapp/server/functions/sams";
+import { getSamsLeagueLevelsByLeagueUuidsFn, listSamsTeamsFn } from "@webapp/server/functions/sams";
 import { listTeamsFn } from "@webapp/server/functions/teams";
 import { numToWord } from "num-words-de";
 
@@ -13,11 +13,33 @@ const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown
 
 export const Route = createFileRoute("/_layout/tabelle")({
 	loader: async () => {
-		// Only DynamoDB reads here — fast, same-region. SAMS API calls happen client-side.
+		// Main data comes from DynamoDB; only a batched SAMS metadata lookup is used for league ordering.
 		const [samsTeams, teams] = await Promise.all([listSamsTeamsFn(), listTeamsFn()]);
 		const leagueUuids = [...new Set(samsTeams.teams.map((t) => t.leagueUuid).filter(Boolean))];
+		const leagueOrderByUuid = new Map(leagueUuids.map((leagueUuid, index) => [leagueUuid, index]));
+		const leagueNameByUuid = new Map(samsTeams.teams.filter((t) => t.leagueUuid).map((t) => [t.leagueUuid as string, t.leagueName ?? ""]));
+		const seasonUuid = samsTeams.teams.find((t) => t.seasonUuid)?.seasonUuid;
+		const associationUuid = samsTeams.teams.find((t) => t.associationUuid)?.associationUuid;
+		const leagueLevels = await getSamsLeagueLevelsByLeagueUuidsFn({
+			data: { leagueUuids, seasonUuid, associationUuid },
+		});
+		const sortedLeagueUuids = [...leagueUuids].sort((a, b) => {
+			const levelA = leagueLevels[a] ?? Number.POSITIVE_INFINITY;
+			const levelB = leagueLevels[b] ?? Number.POSITIVE_INFINITY;
+
+			if (levelA !== levelB) {
+				return levelA - levelB;
+			}
+
+			const nameCompare = (leagueNameByUuid.get(a) ?? "").localeCompare(leagueNameByUuid.get(b) ?? "");
+			if (nameCompare !== 0) {
+				return nameCompare;
+			}
+
+			return (leagueOrderByUuid.get(a) ?? 0) - (leagueOrderByUuid.get(b) ?? 0);
+		});
 		const lastResultCap = Math.max(6, Math.min(20, Math.floor(samsTeams.teams.length * GAMES_PER_TEAM)));
-		return { leagueUuids, teams: teams.items, lastResultCap };
+		return { leagueUuids: sortedLeagueUuids, teams: teams.items, lastResultCap };
 	},
 	component: RouteComponent,
 });

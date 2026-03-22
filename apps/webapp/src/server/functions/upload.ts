@@ -76,8 +76,9 @@ export const getPresignedUrlFn = createServerFn()
 		const fileExtension = data.filename.split(".").pop() || "";
 		const sanitizedExtension = fileExtension.toLowerCase().replace(/[^a-z0-9]/g, "");
 		const uuid = randomUUID();
-		const uploadKey = sanitizedExtension ? `uploads/${data.folder}/${uuid}.${sanitizedExtension}` : `uploads/${data.folder}/${uuid}`;
 		const finalKey = sanitizedExtension ? `${data.folder}/${uuid}.${sanitizedExtension}` : `${data.folder}/${uuid}`;
+		const isSvg = sanitizedExtension === "svg";
+		const uploadKey = isSvg ? finalKey : sanitizedExtension ? `uploads/${data.folder}/${uuid}.${sanitizedExtension}` : `uploads/${data.folder}/${uuid}`;
 
 		const command = new PutObjectCommand({
 			Bucket: BUCKET_NAME(),

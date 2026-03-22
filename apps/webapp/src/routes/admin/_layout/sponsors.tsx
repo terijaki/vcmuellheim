@@ -185,7 +185,7 @@ function SponsorsPage() {
 		description: "",
 		websiteUrl: "",
 		logoS3Key: undefined,
-		expiryTimestamp: undefined,
+		ttl: undefined,
 	});
 
 	const notification = useNotification();
@@ -241,7 +241,7 @@ function SponsorsPage() {
 			description: "",
 			websiteUrl: "",
 			logoS3Key: undefined,
-			expiryTimestamp: undefined,
+			ttl: undefined,
 		});
 		setLogoFile(null);
 		setDeleteLogo(false);
@@ -284,19 +284,26 @@ function SponsorsPage() {
 				logoS3Key = key;
 			}
 
-			// Convert expiryDate to Unix timestamp (in seconds)
-			const expiryTimestamp = expiryDate ? Math.floor(dayjs(expiryDate).unix()) : undefined;
+			const ttl = expiryDate ? Math.floor(dayjs(expiryDate).unix()) : undefined;
 
-			// Filter out empty strings to avoid DynamoDB GSI errors
-			const cleanedData = Object.fromEntries(Object.entries({ ...formData, logoS3Key, expiryTimestamp }).filter(([_, value]) => value !== "" && value !== undefined));
+			const cleanedData = Object.fromEntries(
+				Object.entries({ ...formData, logoS3Key, ttl }).filter(([key, value]) => {
+					if (key === "logoS3Key" || key === "ttl") return true;
+					return value !== "" && value !== undefined;
+				}),
+			);
 
 			if (editingId) {
 				updateMutation.mutate({
 					id: editingId,
-					data: cleanedData,
+					data: {
+						...cleanedData,
+						logoS3Key: deleteLogo ? null : logoS3Key,
+						ttl: ttl ?? null,
+					},
 				});
 			} else {
-				createMutation.mutate(cleanedData as SponsorInput);
+				createMutation.mutate(Object.fromEntries(Object.entries(cleanedData).filter(([_, value]) => value !== null && value !== undefined)) as SponsorInput);
 			}
 		} catch (error) {
 			notification.error({ message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
@@ -310,10 +317,10 @@ function SponsorsPage() {
 			description: sponsor.description || "",
 			websiteUrl: sponsor.websiteUrl || "",
 			logoS3Key: sponsor.logoS3Key,
-			expiryTimestamp: sponsor.expiryTimestamp,
+			ttl: sponsor.ttl,
 		});
 		// Convert Unix timestamp back to Date if it exists
-		setExpiryDate(sponsor.expiryTimestamp ? dayjs.unix(sponsor.expiryTimestamp).toDate() : null);
+		setExpiryDate(sponsor.ttl ? dayjs.unix(sponsor.ttl).toDate() : null);
 		setEditingId(sponsor.id);
 		setDeleteLogo(false);
 		setLogoFile(null);

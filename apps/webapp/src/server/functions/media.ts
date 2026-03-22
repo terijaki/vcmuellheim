@@ -2,30 +2,22 @@
  * Media server functions — replaces lib/trpc/routers/media.ts
  */
 
-import { DeleteCommand, GetCommand, PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { docClient, getTableName } from "@/lib/db/client";
+import { db } from "@/lib/db/electrodb-client";
 import { mediaSchema } from "@/lib/db/schemas";
 import type { Media } from "@/lib/db/types";
 import { requireAuthMiddleware } from "../../middleware";
-import { buildUpdateExpression, withTimestamps } from "../dynamo";
-
-const TABLE_NAME = () => getTableName("MEDIA");
+import { withTimestamps } from "../dynamo";
 
 // ── Public ──────────────────────────────────────────────────────────────────
 
 export const getMediaByIdFn = createServerFn()
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
-		const result = await docClient.send(
-			new GetCommand({
-				TableName: TABLE_NAME(),
-				Key: { id: data.id },
-			}),
-		);
+		const result = await db().media.get({ id: data.id }).go();
 
-		const media = result.Item as Media | undefined;
+		const media = result.data as Media | null;
 		if (!media) throw new Error("Media not found");
 		return media;
 	});
@@ -43,18 +35,12 @@ export const getManyMediaFn = createServerFn()
 
 		const results = await Promise.all(
 			data.ids.map(async (id) => {
-				const getResult = await docClient.send(
-					new GetCommand({
-						TableName: TABLE_NAME(),
-						Key: { id },
-					}),
-				);
-
-				return getResult.Item as Media | undefined;
+				const getResult = await db().media.get({ id }).go();
+				return getResult.data as Media | null;
 			}),
 		);
 
-		return results.filter((media): media is Media => media !== undefined);
+		return results.filter((media): media is Media => media !== null);
 	});
 
 // ── Protected ────────────────────────────────────────────────────────────────
@@ -68,13 +54,7 @@ export const createMediaFn = createServerFn()
 			id: crypto.randomUUID(),
 		});
 
-		await docClient.send(
-			new PutCommand({
-				TableName: TABLE_NAME(),
-				Item: media,
-				ConditionExpression: "attribute_not_exists(id)",
-			}),
-		);
+		await db().media.create(media).go();
 
 		return media;
 	});
@@ -88,31 +68,18 @@ export const updateMediaFn = createServerFn()
 		}),
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
-		const { updateExpression, expressionAttributeNames, expressionAttributeValues } = buildUpdateExpression(updates);
-		const result = await docClient.send(
-			new UpdateCommand({
-				TableName: TABLE_NAME(),
-				Key: { id },
-				UpdateExpression: updateExpression,
-				ExpressionAttributeNames: expressionAttributeNames,
-				ExpressionAttributeValues: expressionAttributeValues,
-				ConditionExpression: "attribute_exists(id)",
-				ReturnValues: "ALL_NEW",
-			}),
-		);
+		const result = await db()
+			.media.patch({ id })
+			.set({ ...updates, updatedAt: new Date().toISOString() })
+			.go();
 
-		return result.Attributes as Media;
+		return result.data as Media;
 	});
 
 export const deleteMediaFn = createServerFn()
 	.middleware([requireAuthMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
-		await docClient.send(
-			new DeleteCommand({
-				TableName: TABLE_NAME(),
-				Key: { id: data.id },
-			}),
-		);
+		await db().media.delete({ id: data.id }).go();
 		return { success: true };
 	});

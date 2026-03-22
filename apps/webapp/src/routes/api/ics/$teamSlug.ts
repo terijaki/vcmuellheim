@@ -6,7 +6,6 @@
  * The .ics file extension is stripped automatically.
  */
 
-import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { Club } from "@project.config";
 import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
@@ -14,8 +13,8 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import { generateIcsCalendar, type IcsCalendar, type IcsEvent } from "ts-ics";
-import { docClient, getTableName } from "@/lib/db/client";
-import type { Event } from "@/lib/db/types";
+import { db } from "@/lib/db/electrodb-client";
+import type { Event, Team } from "@/lib/db/types";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
@@ -25,27 +24,9 @@ const SAMS_API_URL = process.env.SAMS_API_URL || "https://www.volleyball-baden.d
 
 async function fetchCustomEvents(teamId?: string): Promise<Event[]> {
 	const fourteenDaysAgo = dayjs().subtract(14, "day").toISOString();
-	const expressionAttributeValues: Record<string, unknown> = {
-		":type": "event",
-		":fourteenDaysAgo": fourteenDaysAgo,
-	};
-	let filterExpression: string | undefined;
-	if (teamId) {
-		filterExpression = "contains(teamIds, :teamId)";
-		expressionAttributeValues[":teamId"] = teamId;
-	}
-	const result = await docClient.send(
-		new QueryCommand({
-			TableName: getTableName("EVENTS"),
-			IndexName: "GSI-EventQueries",
-			KeyConditionExpression: "#type = :type AND #startDate >= :fourteenDaysAgo",
-			ExpressionAttributeNames: { "#type": "type", "#startDate": "startDate" },
-			ExpressionAttributeValues: expressionAttributeValues,
-			FilterExpression: filterExpression,
-			ScanIndexForward: true,
-		}),
-	);
-	return (result.Items as Event[]) || [];
+	const query = db().event.query.byType({ type: "event" }).gte({ startDate: fourteenDaysAgo });
+	const result = await (teamId ? query.where((attr, op) => op.contains(attr.teamIds, teamId)).go({ pages: "all" }) : query.go({ pages: "all" }));
+	return result.data as Event[];
 }
 
 function convertEventToIcs(event: Event, timestamp: Date): IcsEvent {
@@ -90,17 +71,8 @@ export const Route = createFileRoute("/api/ics/$teamSlug")({
 					if (!teamSlug || teamSlug === "all") {
 						calendarTitle = `${calendarTitle} - Vereinskalender`;
 					} else {
-						const result = await docClient.send(
-							new QueryCommand({
-								TableName: getTableName("TEAMS"),
-								IndexName: "GSI-TeamQueries",
-								KeyConditionExpression: "#type = :type AND #slug = :slug",
-								ExpressionAttributeNames: { "#type": "type", "#slug": "slug" },
-								ExpressionAttributeValues: { ":type": "team", ":slug": teamSlug },
-								Limit: 1,
-							}),
-						);
-						const foundTeam = result.Items?.[0];
+						const teamResult = await db().team.query.bySlug({ slug: teamSlug }).go({ limit: 1 });
+						const foundTeam = teamResult.data[0] as Team | undefined;
 						if (!foundTeam) {
 							return new Response("Team nicht gefunden", {
 								status: 404,
@@ -108,9 +80,9 @@ export const Route = createFileRoute("/api/ics/$teamSlug")({
 							});
 						}
 						if (foundTeam.name) calendarTitle = `${calendarTitle} - ${foundTeam.name}`;
-						if (foundTeam.league) teamLeagueName = foundTeam.league as string;
-						teamSamsUuid = foundTeam.sbvvTeamId as string | undefined;
-						teamId = foundTeam.id as string;
+						if (foundTeam.league) teamLeagueName = foundTeam.league;
+						teamSamsUuid = foundTeam.sbvvTeamId;
+						teamId = foundTeam.id;
 					}
 
 					const queryString = teamSamsUuid ? `?team=${teamSamsUuid}` : "";

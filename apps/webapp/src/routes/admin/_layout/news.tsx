@@ -406,7 +406,7 @@ function NewsPage() {
 										Bilder hierher ziehen oder klicken zum Auswählen
 									</Text>
 									<Text size="sm" c="dimmed" inline mt={7}>
-										Mehrere Bilder möglich, max. ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB pro Bild
+										Mehrere Bilder möglich, max. {bytesToMB(MAX_UPLOAD_SIZE, 0)}MB pro Bild
 									</Text>
 									<Text size="xs" c="dimmed" mt="xs">
 										{(formData.imageS3Keys?.length || 0) - imagesToDelete.length + imageFiles.length} Bild
@@ -418,7 +418,7 @@ function NewsPage() {
 					</Box>
 
 					<Group justify="space-between" align="flex-end" wrap="nowrap">
-						{editingId && (
+						{editingId ? (
 							<>
 								<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
 									<Trash2 />
@@ -427,6 +427,8 @@ function NewsPage() {
 									Löschen
 								</Button>
 							</>
+						) : (
+							<div aria-hidden="true" />
 						)}
 						<Group gap="xs" justify="flex-end" align="flex-end" wrap="nowrap">
 							{(formData.status === "draft" || !formData.status) && (

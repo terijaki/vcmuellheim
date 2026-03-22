@@ -279,7 +279,10 @@ export const zLeagueHierarchyDto = z.object({
     seasonUuid: z.optional(z.string()),
     associationUuid: z.optional(z.string()),
     level: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    parentLeagueHierarchyUuid: z.optional(z.string())
+    parentLeagueHierarchyUuid: z.optional(z.union([
+        z.string(),
+        z.null()
+    ]))
 });
 
 export const zLeagueHierarchyPage = z.object({
