@@ -10,7 +10,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { slugify } from "@utils/slugify";
 import dayjs from "dayjs";
 import { z } from "zod";
-import { LeagueMatchesResponseSchema, type RankingResponse, RankingResponseSchema } from "@/lambda/sams/types";
+import { LeagueMatchesResponseSchema, type LiveMatch, type LiveTickerResponse, LiveTickerResponseSchema, type RankingResponse, RankingResponseSchema } from "@/lambda/sams/types";
 import { getAllSamsClubs, getAllSamsTeams, getSamsClubByNameSlug, getSamsClubByNameSlugPrefix, getSamsClubBySportsclubUuid, getSamsTeamByUuid } from "../queries";
 
 const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
@@ -332,3 +332,116 @@ export function resolveClubLogoUrl(club: { logoS3Key?: string | null; logoImageL
 	if (club.logoS3Key && cloudfrontUrl) return `${cloudfrontUrl}/${club.logoS3Key}`;
 	return club.logoImageLink ?? null;
 }
+
+// ── SAMS Live Ticker proxy ────────────────────────────────────────────────────
+
+const TICKER_URL = "https://backend.sams-ticker.de/live/indoor/tickers/baden";
+const TICKER_CACHE_TTL_MS = 10_000;
+
+type TickerCacheValue = {
+	data: LiveTickerResponse;
+	expiresAt: number;
+};
+
+let tickerCache: TickerCacheValue | null = null;
+
+const RawTickerMatchSchema = z
+	.object({
+		id: z.string(),
+		teamDescription1: z.string().optional(),
+		team1: z.string(),
+		teamDescription2: z.string().optional(),
+		team2: z.string(),
+	})
+	.loose();
+
+const RawTickerMatchDaySchema = z
+	.object({
+		matches: z.array(RawTickerMatchSchema).optional().default([]),
+	})
+	.loose();
+
+const RawTickerMatchStateSchema = z
+	.object({
+		started: z.boolean().optional().default(false),
+		finished: z.boolean().optional().default(false),
+		setPoints: z.object({ team1: z.number(), team2: z.number() }).optional(),
+		matchSets: z
+			.array(
+				z.object({
+					setNumber: z.number(),
+					setScore: z.object({ team1: z.number(), team2: z.number() }),
+				}),
+			)
+			.optional()
+			.default([]),
+	})
+	.loose();
+
+const RawTickerResponseSchema = z
+	.object({
+		matchDays: z.array(RawTickerMatchDaySchema).optional().default([]),
+		matchStates: z.record(z.string(), RawTickerMatchStateSchema).optional().default({}),
+	})
+	.loose();
+
+export function buildLiveMatchesFromRaw(raw: z.infer<typeof RawTickerResponseSchema>): LiveMatch[] {
+	// Build matchUuid → team metadata map from matchDays
+	const matchTeamMap = new Map<string, { team1Uuid: string; team2Uuid: string; team1Name: string; team2Name: string }>();
+	for (const day of raw.matchDays) {
+		for (const match of day.matches) {
+			matchTeamMap.set(match.id, {
+				team1Uuid: match.team1,
+				team2Uuid: match.team2,
+				team1Name: match.teamDescription1 ?? match.team1,
+				team2Name: match.teamDescription2 ?? match.team2,
+			});
+		}
+	}
+
+	// Only include started matches that have team metadata
+	const liveMatches: LiveMatch[] = [];
+	for (const [matchUuid, state] of Object.entries(raw.matchStates)) {
+		if (!state.started) continue;
+		const teams = matchTeamMap.get(matchUuid);
+		if (!teams) continue;
+		liveMatches.push({
+			matchUuid,
+			team1Uuid: teams.team1Uuid,
+			team2Uuid: teams.team2Uuid,
+			team1Name: teams.team1Name,
+			team2Name: teams.team2Name,
+			state: {
+				started: state.started,
+				finished: state.finished,
+				setPoints: state.setPoints ?? { team1: 0, team2: 0 },
+				matchSets: state.matchSets,
+			},
+		});
+	}
+	return liveMatches;
+}
+
+export const getSamsTickerFn = createServerFn().handler(async () => {
+	const now = Date.now();
+	if (tickerCache && tickerCache.expiresAt > now) {
+		return tickerCache.data;
+	}
+
+	const response = await fetch(TICKER_URL, {
+		signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
+		headers: { Accept: "application/json" },
+	});
+
+	if (!response.ok) throw new Error(`SAMS ticker returned ${response.status}`);
+
+	const raw = RawTickerResponseSchema.parse(await response.json());
+	const liveMatches = buildLiveMatchesFromRaw(raw);
+
+	const result = LiveTickerResponseSchema.parse({
+		liveMatches,
+		timestamp: new Date().toISOString(),
+	});
+	tickerCache = { data: result, expiresAt: now + TICKER_CACHE_TTL_MS };
+	return result;
+});

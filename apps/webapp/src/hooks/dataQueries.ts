@@ -21,6 +21,7 @@ import {
 	getSamsClubBySportsclubUuidFn,
 	getSamsMatchesFn,
 	getSamsRankingsByLeagueUuidsFn,
+	getSamsTickerFn,
 	listSamsClubsFn,
 	listSamsTeamsFn,
 } from "../server/functions/sams";
@@ -362,5 +363,14 @@ export const useSamsMatches = ({
 	return useQuery({
 		queryKey: ["samsMatches", league, season, sportsclub, team, limit, range],
 		queryFn: () => getSamsMatchesFn({ data: { league, season, sportsclub, team, limit, range } }),
+	});
+};
+
+export const useLiveTicker = () => {
+	return useQuery({
+		queryKey: ["samsLiveTicker"],
+		queryFn: () => getSamsTickerFn(),
+		refetchInterval: 10_000,
+		staleTime: 9_000,
 	});
 };

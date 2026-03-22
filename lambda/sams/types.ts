@@ -270,3 +270,43 @@ export const LeagueMatchesResponseSchema = z.object({
 });
 
 export type LeagueMatchesResponse = z.infer<typeof LeagueMatchesResponseSchema>;
+
+// ============================================================================
+// Live Ticker Schemas & Types
+// ============================================================================
+
+const TickerSetSchema = z.object({
+	setNumber: z.number(),
+	setScore: z.object({
+		team1: z.number(),
+		team2: z.number(),
+	}),
+});
+
+const TickerMatchStateSchema = z.object({
+	started: z.boolean(),
+	finished: z.boolean(),
+	setPoints: z.object({
+		team1: z.number(),
+		team2: z.number(),
+	}),
+	matchSets: z.array(TickerSetSchema),
+});
+
+export const LiveMatchSchema = z.object({
+	matchUuid: z.string(),
+	team1Uuid: z.string(),
+	team2Uuid: z.string(),
+	team1Name: z.string(),
+	team2Name: z.string(),
+	state: TickerMatchStateSchema,
+});
+
+export type LiveMatch = z.infer<typeof LiveMatchSchema>;
+
+export const LiveTickerResponseSchema = z.object({
+	liveMatches: z.array(LiveMatchSchema),
+	timestamp: z.iso.datetime(),
+});
+
+export type LiveTickerResponse = z.infer<typeof LiveTickerResponseSchema>;

@@ -28,7 +28,7 @@ function EventsPage() {
 	});
 
 	const notification = useNotification();
-	const { data: eventsData, isLoading, refetch } = useQuery({ queryKey: ["events", "list"], queryFn: () => listAllEventsFn({ data: { limit: 100 } }) });
+	const { data: eventsData, isLoading, refetch } = useQuery({ queryKey: ["events", "list"], queryFn: () => listAllEventsFn() });
 	const { data: teams } = useQuery({ queryKey: ["teams", "list"], queryFn: () => listTeamsFn() });
 
 	const events = eventsData?.items || [];

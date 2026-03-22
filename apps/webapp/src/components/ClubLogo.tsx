@@ -9,19 +9,20 @@ type ClubLogoProps = (
 ) & {
 	label?: string;
 	light?: boolean;
+	size?: number;
 };
 
-export default function ClubLogo({ clubUuid, clubSlug, logoUrl: proppedLogoUrl, label, light }: ClubLogoProps) {
+export default function ClubLogo({ clubUuid, clubSlug, logoUrl: proppedLogoUrl, label, light, size = 24 }: ClubLogoProps) {
 	const useHook = !!(clubUuid || clubSlug);
 	const { data: fetchedLogoUrl } = useClubLogoUrl({ clubUuid, clubSlug });
 	const logoUrl = useHook ? fetchedLogoUrl : proppedLogoUrl;
 
 	if (!logoUrl) {
-		return <ClubLogoFallback />;
+		return <ClubLogoFallback size={size} />;
 	}
 
 	return (
-		<Flex justify="center" align="center" w={24} h={24} style={{ flexShrink: 0 }}>
+		<Flex justify="center" align="center" w={size} h={size} style={{ flexShrink: 0 }}>
 			<Image
 				src={logoUrl}
 				alt={`Logo: ${label || "Vereinlogo"}`}
@@ -38,9 +39,9 @@ export default function ClubLogo({ clubUuid, clubSlug, logoUrl: proppedLogoUrl, 
 	);
 }
 
-export function ClubLogoFallback() {
+export function ClubLogoFallback({ size = 24 }: { size?: number }) {
 	return (
-		<Flex pos="relative" justify="center" align="center" w={24} h={24} c="lion">
+		<Flex pos="relative" justify="center" align="center" w={size} h={size} c="lion">
 			<Ball />
 		</Flex>
 	);

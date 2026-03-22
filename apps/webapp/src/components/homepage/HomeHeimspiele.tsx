@@ -1,10 +1,10 @@
-import { Anchor, BackgroundImage, Box, Card, Center, Container, Flex, Group, List, ListItem, Overlay, SimpleGrid, Stack, Text, Title } from "@mantine/core";
+import { Anchor, BackgroundImage, Badge, Box, Card, Center, Container, Flex, Group, List, ListItem, Overlay, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 import { useMemo } from "react";
 import type { LeagueMatchesResponse } from "@/lambda/sams/types";
 import type { Event } from "@/lib/db/types";
-import { useEvents, useSamsMatches, useSamsTeams } from "../../hooks/dataQueries";
+import { useEvents, useLiveTicker, useSamsMatches, useSamsTeams } from "../../hooks/dataQueries";
 import EventCard from "../EventCard";
 import MapsLink from "../MapsLink";
 import ScrollAnchor from "./ScrollAnchor";
@@ -107,6 +107,7 @@ function EventsList({ events }: { events: Event[] }) {
 
 function HomeMatchesList({ homeMatches }: { homeMatches: LeagueMatchesResponse["matches"] }) {
 	const { data: samsTeamsData } = useSamsTeams();
+	const { data: tickerData } = useLiveTicker();
 
 	if (!homeMatches || homeMatches.length === 0) return null;
 
@@ -148,16 +149,31 @@ function HomeMatchesList({ homeMatches }: { homeMatches: LeagueMatchesResponse["
 					const firstLeagueMatches = Object.values(leagueGroups)[0];
 					const location = firstLeagueMatches?.[0]?.location;
 
+					// Check if any match in this card group is currently live
+					const allMatchesInCard = Object.values(leagueGroups).flat() as MatchesArray;
+					const isCardLive = allMatchesInCard.some((match) => {
+						const t1 = match._embedded?.team1?.uuid;
+						const t2 = match._embedded?.team2?.uuid;
+						return tickerData?.liveMatches.some((lm) => lm.state.started && !lm.state.finished && ((lm.team1Uuid === t1 && lm.team2Uuid === t2) || (lm.team1Uuid === t2 && lm.team2Uuid === t1)));
+					});
+
 					// NEW CARD PER DATE AND LOCATION COMBO
 					return (
 						<Card bg="onyx" c="white" key={dateLocationKey}>
 							<Stack>
 								<Flex direction={{ base: "column", sm: "row" }} justify="space-between" align={{ base: "flex-start", sm: "center" }} columnGap="sm">
-									<time dateTime={date}>
-										<Text c="lion" fw="bold">
-											{dayjs(date).format("dddd, D MMMM YY")}
-										</Text>
-									</time>
+									<Group gap="xs">
+										<time dateTime={date}>
+											<Text c="lion" fw="bold">
+												{dayjs(date).format("dddd, D MMMM YY")}
+											</Text>
+										</time>
+										{isCardLive && (
+											<Badge color="red" variant="filled" size="sm">
+												LIVE
+											</Badge>
+										)}
+									</Group>
 									<MapsLink name={location?.name} street={location?.address?.street} postal={location?.address?.postcode} city={location?.address?.city} />
 								</Flex>
 								{Object.entries(leagueGroups).map(([leagueUuid, matches]) => {
