@@ -1,10 +1,11 @@
 import type { Sponsor } from "@lib/db/types";
 import { Anchor, BackgroundImage, Box, Button, Container, Flex, Group, Image, Loader, Overlay, Stack, Text } from "@mantine/core";
 import { Club } from "@project.config";
-import Marquee from "react-fast-marquee";
 import { useFileUrl, useSponsors } from "../../hooks/dataQueries";
 import SectionHeading from "../layout/SectionHeading";
 import ScrollAnchor from "./ScrollAnchor";
+
+//TODO when there are more sponsors (>2) use a Marquee (available in Mantine V9)
 
 export default function HomeSponsors() {
 	const { data } = useSponsors();
@@ -44,22 +45,10 @@ function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
 			</Container>
 		);
 
-	if (sponsors.length > 3) {
-		return (
-			<Stack align="center">
-				<Text>Wir bedanken uns herzlich bei unseren Sponsoren!</Text>
-				<Marquee pauseOnHover={true} speed={5}>
-					{sponsors.map((sponsor) => (
-						<SponsorCard sponsor={sponsor} key={sponsor.id} />
-					))}
-				</Marquee>
-			</Stack>
-		);
-	}
 	return (
 		<Stack align="center">
 			<Text>Wir bedanken uns herzlich bei {sponsors.length === 1 ? "unserem Sponsor" : "unseren Sponsoren"}!</Text>
-			<Group gap="xl" align="flex-start">
+			<Group gap="xl" align="flex-start" justify="center">
 				{sponsors.map((sponsor) => {
 					return <SponsorCard sponsor={sponsor} key={sponsor.id} />;
 				})}
