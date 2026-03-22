@@ -115,7 +115,7 @@ function ContactRouteLink({ to, label }: { to: "/jugendschutz" | "/beitragsordnu
 
 function ContactLink({ href, target, label, icon }: { href: string; target?: HTMLAttributeAnchorTarget; label: string; icon?: React.ReactNode }) {
 	return (
-		<Anchor href={href} target={target} display="inline-block" underline="never">
+		<Anchor href={href} target={target} display="inline-block" underline="never" rel={target ? "noopener noreferrer" : undefined}>
 			<Group gap={4} align="baseline">
 				{icon}
 				<Text>{label}</Text>
