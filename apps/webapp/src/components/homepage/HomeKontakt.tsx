@@ -1,7 +1,7 @@
 import { Anchor, Box, Card, Center, Container, Group, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
 import type { HTMLAttributeAnchorTarget } from "react";
-import { FaEnvelope as IconEmail, FaFileExcel as IconExcel, FaArrowUpRightFromSquare as IconExtern } from "react-icons/fa6";
+import { FaArrowUpRightFromSquare, FaBus, FaEnvelope, FaFileExcel } from "react-icons/fa6";
 import { useMembers } from "../../hooks/dataQueries";
 import SectionHeading from "../layout/SectionHeading";
 import ScrollAnchor from "./ScrollAnchor";
@@ -14,63 +14,78 @@ export default function HomeKontakt() {
 
 	return (
 		<Center>
+			<ScrollAnchor name="kontakt" />
 			<Container size="xl" px={{ base: "lg", md: "xl" }} py="xl">
-				<ScrollAnchor name="kontakt" />
 				<Stack gap="xl">
-					<Stack gap={0}>
-						<SectionHeading text="Kontakt" color="onyx" />
-						<Center>
-							<Text component="div" size="sm" c="dimmed">
-								Zögere bitte nicht. Solltest du Fragen an uns haben, oder Interesse mit uns zu trainieren, dann melde dich bei uns!
-							</Text>
-						</Center>
+					<Stack gap="xl">
+						<Stack gap={0}>
+							<SectionHeading text="Kontakt" color="onyx" />
+							<Center>
+								<Text component="div" size="sm" c="dimmed">
+									Zögere bitte nicht. Solltest du Fragen an uns haben, oder Interesse mit uns zu trainieren, dann melde dich bei uns!
+								</Text>
+							</Center>
+						</Stack>
+						<SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} spacing="lg" verticalSpacing="lg">
+							<ContactItem title="Jugendschutz">
+								<Text component="div" size="sm">
+									<ContactRouteLink to="/jugendschutz" label="Hier" /> findest du alle Informationen zum Jugendschutz.
+								</Text>
+							</ContactItem>
+							<ContactItem title="Probetraining">
+								<Text component="div" size="sm">
+									Melde dich bitte beim jeweiligen Trainer oder Ansprechperson der Mannschaft <ContactLink href="#mannschaften" label="siehe oben" />
+								</Text>
+							</ContactItem>
+							<ContactItem title="Vereinsbeitritt">
+								<Text component="div" size="sm">
+									Hier gehts zur <ContactRouteLink to="/beitragsordnung" label="Beitragsordnung" /> und hier zum{" "}
+									<ContactLink href="https://vcm.kurabu.com/de/join/" target="_blank" label="Anmeldeformular" icon={<FaArrowUpRightFromSquare />} /> auf unserer Verwaltungssoftware KURABU.
+								</Text>
+							</ContactItem>
+
+							<ContactItem title="Branding">
+								<Text component="div" size="sm">
+									Farben und Logo Dateien findest du im <ContactRouteLink to="/brand" label="Brand Guide" />
+								</Text>
+							</ContactItem>
+
+							<ContactItem title="Allgemeine Anfragen">
+								<Text component="div" size="sm">
+									Nutze gerne unseren Mailverteiler <ContactLink href={"mailto:info@vcmuellheim.de"} target={"_blank"} label="info@vcmuellheim.de" icon={<FaEnvelope />} />
+								</Text>
+							</ContactItem>
+						</SimpleGrid>
 					</Stack>
-					<SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} spacing="lg" verticalSpacing="lg">
-						<ContactItem title="Jugendschutz und Minderjährige">
-							<Text component="div" size="sm">
-								<ContactRouteLink to="/jugendschutz" label="Hier" /> findest du alle Informationen zum Jugendschutz.
-							</Text>
-						</ContactItem>
-						<ContactItem title="Hast du Interesse an einem Probetrainung?">
-							<Text component="div" size="sm">
-								Melde dich bitte beim jeweiligen Trainer oder Ansprechperson der Mannschaft <ContactLink href="#mannschaften" label="siehe oben" />
-							</Text>
-						</ContactItem>
-						<ContactItem title="Möchtest du dem Verein beitreten?">
-							<Text component="div" size="sm">
-								Hier gehts zur <ContactRouteLink to="/beitragsordnung" label="Beitragsordnung" /> und hier zum{" "}
-								<ContactLink href="https://vcm.kurabu.com/de/join/" target="_blank" label="Anmeldeformular" icon={<IconExtern />} /> auf unserer Verwaltungssoftware KURABU.
-							</Text>
-						</ContactItem>
-						<ContactItem title="Hast du Fragen zu deiner Mitgliedschaft?">
-							<Text component="div" size="sm">
-								Melde dich bitte direkt bei {membershipManager?.name}{" "}
-								<ContactLink href="mailto:mitgliedschaft@vcmuellheim.de?subject=Volleyball Club Müllheim" target="_blank" label="mitgliedschaft@vcmuellheim.de" icon={<IconEmail />} />
-							</Text>
-						</ContactItem>
-						<ContactItem title="Hast du Fragen zu deiner Beitragszahlung?">
-							<Text component="div" size="sm">
-								Melde dich bitte direkt bei {treasurer?.name ? `${treasurer.name} ` : " "}
-								<ContactLink href="mailto:kassier@vcmuellheim.de?subject=Volleyball Club Müllheim" target="_blank" label="kassier@vcmuellheim.de" icon={<IconEmail />} />
-							</Text>
-						</ContactItem>
-						<ContactItem title="Hast du Fragen zu unserem Branding?">
-							<Text component="div" size="sm">
-								Farben und Logo Dateien findest du im <ContactRouteLink to="/brand" label="Brand Guide" />
-							</Text>
-						</ContactItem>
-						<ContactItem title="Möchtest du Spesen abrechnen?">
-							<Text component="div" size="sm">
-								Hier findest du die <ContactLink href="/docs/spesenabrechnung.xlsx" label="Spesenabrechnung" icon={<IconExcel />} /> und{" "}
-								<ContactLink href="/docs/trainerverguetung.xlsx" label="Trainervergütung" icon={<IconExcel />} />
-							</Text>
-						</ContactItem>
-						<ContactItem title="Für alle weiteren Anliegen:">
-							<Text component="div" size="sm">
-								Nutze gerne unseren Mailverteiler <ContactLink href={"mailto:info@vcmuellheim.de"} target={"_blank"} label="info@vcmuellheim.de" icon={<IconEmail />} />
-							</Text>
-						</ContactItem>
-					</SimpleGrid>
+					<Stack gap="md">
+						<SectionHeading text="Für Mitglieder" color="onyx" />
+						<SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} spacing="lg" verticalSpacing="lg">
+							<ContactItem title="Mitgliedschaft">
+								<Text component="div" size="sm">
+									Deine Mitgliedschaft verwaltest du selbst in <ContactLink href="https://vcm.kurabu.com/de/login" target="_blank" label="KURABU" icon={<FaArrowUpRightFromSquare />} />. Bei Fragen
+									melde dich bei {membershipManager?.name ? `${membershipManager.name} ` : ""}
+									<ContactLink href="mailto:mitgliedschaft@vcmuellheim.de?subject=Volleyball Club Müllheim" target="_blank" label="mitgliedschaft@vcmuellheim.de" icon={<FaEnvelope />} />.
+								</Text>
+							</ContactItem>
+							<ContactItem title="Beitragszahlung">
+								<Text component="div" size="sm">
+									Bei Fragen zu deinen Beiträgen melde dich bitte bei {treasurer?.name ? `${treasurer.name} ` : ""}
+									<ContactLink href="mailto:kassier@vcmuellheim.de?subject=Volleyball Club Müllheim" target="_blank" label="kassier@vcmuellheim.de" icon={<FaEnvelope />} />
+								</Text>
+							</ContactItem>
+							<ContactItem title="Spesenabrechnung">
+								<Text component="div" size="sm">
+									Hier findest du die <ContactLink href="/docs/spesenabrechnung.xlsx" label="Spesenabrechnung" icon={<FaFileExcel />} /> und{" "}
+									<ContactLink href="/docs/trainerverguetung.xlsx" label="Trainervergütung" icon={<FaFileExcel />} />
+								</Text>
+							</ContactItem>
+							<ContactItem title="Vereinsbus">
+								<Text component="div" size="sm">
+									Hier findest du die <ContactLink href="/bus" label="Busverfügbarkeit" icon={<FaBus />} />
+								</Text>
+							</ContactItem>
+						</SimpleGrid>
+					</Stack>
 				</Stack>
 			</Container>
 		</Center>
