@@ -141,6 +141,7 @@ export default function Matches({
 					const team1 = match._embedded?.team1;
 					const team2 = match._embedded?.team2;
 					const leagueName = match.leagueUuid && leagues.get(match.leagueUuid);
+
 					return (
 						<Grid key={match.uuid} data-match-number={match.matchNumber} data-match-uuid={match.uuid} bg={oddIndex ? "gray.1" : undefined} p="xs" gutter={{ base: 0, sm: "xs" }} align="center">
 							<GridCol span={{ base: 12, sm: 3 }}>
