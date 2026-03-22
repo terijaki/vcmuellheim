@@ -36,6 +36,7 @@ export class ContentDbStack extends cdk.Stack {
 			pointInTimeRecoverySpecification: {
 				pointInTimeRecoveryEnabled: true,
 			},
+			deletionProtection: isProd,
 			removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
 			stream: dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
 			timeToLiveAttribute: "ttl",
