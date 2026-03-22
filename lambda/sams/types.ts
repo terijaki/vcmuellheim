@@ -306,7 +306,7 @@ export type LiveMatch = z.infer<typeof LiveMatchSchema>;
 
 export const LiveTickerResponseSchema = z.object({
 	liveMatches: z.array(LiveMatchSchema),
-	timestamp: z.string(),
+	timestamp: z.iso.datetime(),
 });
 
 export type LiveTickerResponse = z.infer<typeof LiveTickerResponseSchema>;

@@ -24,13 +24,8 @@ export type LiveTickerDisplayMatch = {
 	weAreWinning: boolean;
 };
 
-export function toLiveTickerDisplayMatches(args: {
-	liveMatches: LiveMatch[];
-	ourTeamUuids: Set<string>;
-	teamNameByUuid: Map<string, string>;
-	teamClubByUuid: Map<string, string>;
-}): LiveTickerDisplayMatch[] {
-	const { liveMatches, ourTeamUuids, teamNameByUuid, teamClubByUuid } = args;
+export function toLiveTickerDisplayMatches(args: { liveMatches: LiveMatch[]; ourTeamUuids: Set<string>; teamClubByUuid: Map<string, string> }): LiveTickerDisplayMatch[] {
+	const { liveMatches, ourTeamUuids, teamClubByUuid } = args;
 
 	const result: LiveTickerDisplayMatch[] = [];
 
@@ -51,8 +46,8 @@ export function toLiveTickerDisplayMatches(args: {
 			}));
 		const activeSetNumber = !match.state.finished && setScores.length > 0 ? (setScores[setScores.length - 1]?.setNumber ?? null) : null;
 
-		const team1Name = match.team1Name || teamNameByUuid.get(match.team1Uuid) || match.team1Uuid;
-		const team2Name = match.team2Name || teamNameByUuid.get(match.team2Uuid) || match.team2Uuid;
+		const team1Name = match.team1Name;
+		const team2Name = match.team2Name;
 		result.push({
 			matchUuid: match.matchUuid,
 			team1Name,

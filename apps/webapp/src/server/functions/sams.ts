@@ -10,7 +10,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { slugify } from "@utils/slugify";
 import dayjs from "dayjs";
 import { z } from "zod";
-import { LeagueMatchesResponseSchema, LiveTickerResponseSchema, type RankingResponse, RankingResponseSchema } from "@/lambda/sams/types";
+import { LeagueMatchesResponseSchema, type LiveMatch, type LiveTickerResponse, LiveTickerResponseSchema, type RankingResponse, RankingResponseSchema } from "@/lambda/sams/types";
 import { getAllSamsClubs, getAllSamsTeams, getSamsClubByNameSlug, getSamsClubByNameSlugPrefix, getSamsClubBySportsclubUuid, getSamsTeamByUuid } from "../queries";
 
 const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
@@ -336,6 +336,14 @@ export function resolveClubLogoUrl(club: { logoS3Key?: string | null; logoImageL
 // ── SAMS Live Ticker proxy ────────────────────────────────────────────────────
 
 const TICKER_URL = "https://backend.sams-ticker.de/live/indoor/tickers/baden";
+const TICKER_CACHE_TTL_MS = 10_000;
+
+type TickerCacheValue = {
+	data: LiveTickerResponse;
+	expiresAt: number;
+};
+
+let tickerCache: TickerCacheValue | null = null;
 
 const RawTickerMatchSchema = z
 	.object({
@@ -345,13 +353,13 @@ const RawTickerMatchSchema = z
 		teamDescription2: z.string().optional(),
 		team2: z.string(),
 	})
-	.passthrough();
+	.loose();
 
 const RawTickerMatchDaySchema = z
 	.object({
 		matches: z.array(RawTickerMatchSchema).optional().default([]),
 	})
-	.passthrough();
+	.loose();
 
 const RawTickerMatchStateSchema = z
 	.object({
@@ -368,25 +376,16 @@ const RawTickerMatchStateSchema = z
 			.optional()
 			.default([]),
 	})
-	.passthrough();
+	.loose();
 
 const RawTickerResponseSchema = z
 	.object({
 		matchDays: z.array(RawTickerMatchDaySchema).optional().default([]),
 		matchStates: z.record(z.string(), RawTickerMatchStateSchema).optional().default({}),
 	})
-	.passthrough();
+	.loose();
 
-export const getSamsTickerFn = createServerFn().handler(async () => {
-	const response = await fetch(TICKER_URL, {
-		signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
-		headers: { Accept: "application/json" },
-	});
-
-	if (!response.ok) throw new Error(`SAMS ticker returned ${response.status}`);
-
-	const raw = RawTickerResponseSchema.parse(await response.json());
-
+export function buildLiveMatchesFromRaw(raw: z.infer<typeof RawTickerResponseSchema>): LiveMatch[] {
 	// Build matchUuid → team metadata map from matchDays
 	const matchTeamMap = new Map<string, { team1Uuid: string; team2Uuid: string; team1Name: string; team2Name: string }>();
 	for (const day of raw.matchDays) {
@@ -400,8 +399,8 @@ export const getSamsTickerFn = createServerFn().handler(async () => {
 		}
 	}
 
-	// Only return started matches
-	const liveMatches = [];
+	// Only include started matches that have team metadata
+	const liveMatches: LiveMatch[] = [];
 	for (const [matchUuid, state] of Object.entries(raw.matchStates)) {
 		if (!state.started) continue;
 		const teams = matchTeamMap.get(matchUuid);
@@ -420,9 +419,29 @@ export const getSamsTickerFn = createServerFn().handler(async () => {
 			},
 		});
 	}
+	return liveMatches;
+}
 
-	return LiveTickerResponseSchema.parse({
+export const getSamsTickerFn = createServerFn().handler(async () => {
+	const now = Date.now();
+	if (tickerCache && tickerCache.expiresAt > now) {
+		return tickerCache.data;
+	}
+
+	const response = await fetch(TICKER_URL, {
+		signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
+		headers: { Accept: "application/json" },
+	});
+
+	if (!response.ok) throw new Error(`SAMS ticker returned ${response.status}`);
+
+	const raw = RawTickerResponseSchema.parse(await response.json());
+	const liveMatches = buildLiveMatchesFromRaw(raw);
+
+	const result = LiveTickerResponseSchema.parse({
 		liveMatches,
 		timestamp: new Date().toISOString(),
 	});
+	tickerCache = { data: result, expiresAt: now + TICKER_CACHE_TTL_MS };
+	return result;
 });
