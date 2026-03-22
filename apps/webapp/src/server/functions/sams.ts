@@ -13,7 +13,6 @@ import { z } from "zod";
 import { LeagueMatchesResponseSchema, type RankingResponse, RankingResponseSchema } from "@/lambda/sams/types";
 import { getAllSamsClubs, getAllSamsTeams, getSamsClubByNameSlug, getSamsClubByNameSlugPrefix, getSamsClubBySportsclubUuid, getSamsTeamByUuid } from "../queries";
 
-const SAMS_API_KEY = () => process.env.SAMS_API_KEY || "";
 const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
 
 const SAMS_API_TIMEOUT_MS = 10_000;
@@ -33,7 +32,7 @@ function toCacheKey(input: { leagueUuids: string[]; seasonUuid?: string; associa
 	return `${season}::${association}::${sortedLeagueUuids.join(",")}`;
 }
 
-async function listAllLeaguesForSeason(options: { apiKey: string; seasonUuid?: string; associationUuid?: string }) {
+async function listAllLeaguesForSeason(options: { seasonUuid?: string; associationUuid?: string }) {
 	const leaguesByUuid = new Map<string, { leagueHierarchyUuid?: string }>();
 	let page = 0;
 	let hasMorePages = true;
@@ -46,7 +45,6 @@ async function listAllLeaguesForSeason(options: { apiKey: string; seasonUuid?: s
 				association: options.associationUuid,
 				season: options.seasonUuid,
 			},
-			headers: { "X-API-Key": options.apiKey },
 			signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
 		});
 
@@ -62,7 +60,7 @@ async function listAllLeaguesForSeason(options: { apiKey: string; seasonUuid?: s
 	return leaguesByUuid;
 }
 
-async function listAllLeagueHierarchyLevels(options: { apiKey: string; seasonUuid?: string; associationUuid?: string }) {
+async function listAllLeagueHierarchyLevels(options: { seasonUuid?: string; associationUuid?: string }) {
 	const hierarchyLevelByUuid = new Map<string, number>();
 	let page = 0;
 	let hasMorePages = true;
@@ -75,7 +73,6 @@ async function listAllLeagueHierarchyLevels(options: { apiKey: string; seasonUui
 				association: options.associationUuid,
 				"for-season": options.seasonUuid,
 			},
-			headers: { "X-API-Key": options.apiKey },
 			signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
 		});
 
@@ -92,9 +89,6 @@ async function listAllLeagueHierarchyLevels(options: { apiKey: string; seasonUui
 }
 
 async function fetchLeagueLevelsByLeagueUuid(options: { leagueUuids: string[]; seasonUuid?: string; associationUuid?: string }) {
-	const apiKey = SAMS_API_KEY();
-	if (!apiKey) throw new Error("SAMS API key not configured");
-
 	const cacheKey = toCacheKey(options);
 	const now = Date.now();
 	const cached = leagueHierarchyLevelsCache.get(cacheKey);
@@ -103,8 +97,8 @@ async function fetchLeagueLevelsByLeagueUuid(options: { leagueUuids: string[]; s
 	}
 
 	const [leaguesByUuid, hierarchyLevelByUuid] = await Promise.all([
-		listAllLeaguesForSeason({ apiKey, seasonUuid: options.seasonUuid, associationUuid: options.associationUuid }),
-		listAllLeagueHierarchyLevels({ apiKey, seasonUuid: options.seasonUuid, associationUuid: options.associationUuid }),
+		listAllLeaguesForSeason({ seasonUuid: options.seasonUuid, associationUuid: options.associationUuid }),
+		listAllLeagueHierarchyLevels({ seasonUuid: options.seasonUuid, associationUuid: options.associationUuid }),
 	]);
 
 	const leagueLevelsByLeagueUuid = Object.fromEntries(
@@ -124,19 +118,14 @@ async function fetchLeagueLevelsByLeagueUuid(options: { leagueUuids: string[]; s
 }
 
 async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<RankingResponse> {
-	const apiKey = SAMS_API_KEY();
-	if (!apiKey) throw new Error("SAMS API key not configured");
-
 	const [{ data: rankingsData }, { data: leagueData }] = await Promise.all([
 		getRankingsForLeague({
 			path: { uuid: leagueUuid },
 			query: { page: 0, size: 100 },
-			headers: { "X-API-Key": apiKey },
 			signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
 		}),
 		getLeagueByUuid({
 			path: { uuid: leagueUuid },
-			headers: { "X-API-Key": apiKey },
 			signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
 		}),
 	]);
@@ -151,7 +140,6 @@ async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<Rankin
 	if (leagueData?.seasonUuid) {
 		const { data: seasonData } = await getSeasonByUuid({
 			path: { uuid: leagueData.seasonUuid },
-			headers: { "X-API-Key": apiKey },
 			signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
 		});
 		if (seasonData?.name) seasonName = seasonData.name;
@@ -182,9 +170,6 @@ export const getSamsMatchesFn = createServerFn()
 			.optional(),
 	)
 	.handler(async ({ data }) => {
-		const apiKey = SAMS_API_KEY();
-		if (!apiKey) throw new Error("SAMS API key not configured");
-
 		let { league, season, sportsclub, team } = data || {};
 
 		// Default to own club if no filter provided
@@ -210,7 +195,6 @@ export const getSamsMatchesFn = createServerFn()
 		while (hasMorePages) {
 			const { data: pageData } = await getAllLeagueMatches({
 				query: { ...defaultQueryParams, page: currentPage, size: 100 },
-				headers: { "X-API-Key": apiKey },
 				signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
 			});
 			if (!pageData) throw new Error(`SAMS API returned no data on page ${currentPage}`);
