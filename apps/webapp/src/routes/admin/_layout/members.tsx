@@ -304,7 +304,13 @@ function MembersPage() {
 			}
 
 			// Filter out empty strings to avoid DynamoDB GSI errors
-			const cleanedData = Object.fromEntries(Object.entries({ ...formData, avatarS3Key }).filter(([_, value]) => value !== "" && value !== undefined));
+			// Keep undefined for avatarS3Key to support clearing the avatar
+			const cleanedData = Object.fromEntries(
+				Object.entries({ ...formData, avatarS3Key }).filter(([key, value]) => {
+					if (key === "avatarS3Key") return true; // Always include avatarS3Key (even if undefined)
+					return value !== "" && value !== undefined;
+				}),
+			);
 
 			if (editingId) {
 				updateMutation.mutate({
