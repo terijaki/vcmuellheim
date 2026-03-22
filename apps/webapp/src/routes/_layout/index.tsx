@@ -5,6 +5,7 @@ import HomeHeimspiele from "@webapp/components/homepage/HomeHeimspiele";
 import HomeInstagram from "@webapp/components/homepage/HomeInstagram";
 import HomeIntro from "@webapp/components/homepage/HomeIntro";
 import HomeKontakt from "@webapp/components/homepage/HomeKontakt";
+import HomeLiveTicker from "@webapp/components/homepage/HomeLiveTicker";
 import HomeMembers from "@webapp/components/homepage/HomeMembers";
 import HomeNews from "@webapp/components/homepage/HomeNews";
 import HomeSponsors from "@webapp/components/homepage/HomeSponsors";
@@ -25,6 +26,7 @@ function HomePage() {
 	return (
 		<Stack gap={0} align="stretch">
 			<HomeIntro backgroundImage={introBackgroundImage} />
+			<HomeLiveTicker />
 			<HomeInstagram />
 			<HomeNews />
 			<HomeHeimspiele />

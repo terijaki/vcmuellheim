@@ -270,3 +270,69 @@ export const LeagueMatchesResponseSchema = z.object({
 });
 
 export type LeagueMatchesResponse = z.infer<typeof LeagueMatchesResponseSchema>;
+
+// ============================================================================
+// SAMS Live Ticker Schemas & Types
+// ============================================================================
+
+/**
+ * Set score with team1/team2 positions as returned by the SAMS ticker.
+ */
+const SamsTickerSetScoreSchema = z.object({
+	team1: z.number(),
+	team2: z.number(),
+});
+
+/**
+ * A single played set with its ball points.
+ */
+const SamsTickerMatchSetSchema = z.object({
+	setNumber: z.number(),
+	setScore: SamsTickerSetScoreSchema,
+});
+
+/**
+ * A single active or recently finished match as returned by getSamsLiveTickerFn.
+ */
+export const SamsLiveMatchSchema = z.object({
+	matchId: z.string(),
+	homeTeamId: z.string(),
+	homeTeamName: z.string(),
+	guestTeamId: z.string(),
+	guestTeamName: z.string(),
+	leagueName: z.string(),
+	started: z.boolean(),
+	finished: z.boolean(),
+	setPoints: SamsTickerSetScoreSchema,
+	matchSets: z.array(SamsTickerMatchSetSchema),
+	/** epoch milliseconds */
+	date: z.number(),
+});
+
+export type SamsLiveMatch = z.infer<typeof SamsLiveMatchSchema>;
+
+/**
+ * Response from getSamsLiveTickerFn.
+ */
+export const SamsLiveTickerResponseSchema = z.object({
+	matches: z.array(SamsLiveMatchSchema),
+	timestamp: z.iso.datetime(),
+});
+
+export type SamsLiveTickerResponse = z.infer<typeof SamsLiveTickerResponseSchema>;
+
+/**
+ * Partial update pushed over the WebSocket (type === "MATCH_UPDATE").
+ */
+export const SamsTickerWsMatchUpdateSchema = z.object({
+	type: z.literal("MATCH_UPDATE"),
+	payload: z.object({
+		matchUuid: z.string(),
+		started: z.boolean(),
+		finished: z.boolean(),
+		setPoints: SamsTickerSetScoreSchema,
+		matchSets: z.array(SamsTickerMatchSetSchema),
+	}),
+});
+
+export type SamsTickerWsMatchUpdate = z.infer<typeof SamsTickerWsMatchUpdateSchema>;

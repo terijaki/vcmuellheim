@@ -5,12 +5,12 @@
  */
 
 import { getAllLeagueHierarchies, getAllLeagueMatches, getAllLeagues, getLeagueByUuid, getRankingsForLeague, getSeasonByUuid, type LeagueMatchDto } from "@codegen/sams/generated";
-import { Club } from "@project.config";
+import { Club, SAMS } from "@project.config";
 import { createServerFn } from "@tanstack/react-start";
 import { slugify } from "@utils/slugify";
 import dayjs from "dayjs";
 import { z } from "zod";
-import { LeagueMatchesResponseSchema, type RankingResponse, RankingResponseSchema } from "@/lambda/sams/types";
+import { LeagueMatchesResponseSchema, type RankingResponse, RankingResponseSchema, SamsLiveMatchSchema, SamsLiveTickerResponseSchema } from "@/lambda/sams/types";
 import { getAllSamsClubs, getAllSamsTeams, getSamsClubByNameSlug, getSamsClubByNameSlugPrefix, getSamsClubBySportsclubUuid, getSamsTeamByUuid } from "../queries";
 
 const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
@@ -332,3 +332,107 @@ export function resolveClubLogoUrl(club: { logoS3Key?: string | null; logoImageL
 	if (club.logoS3Key && cloudfrontUrl) return `${cloudfrontUrl}/${club.logoS3Key}`;
 	return club.logoImageLink ?? null;
 }
+
+// ── SAMS Live Ticker ─────────────────────────────────────────────────────────
+
+const SAMS_LIVE_TICKER_URL = "https://backend.sams-ticker.de/live/indoor/tickers/baden";
+
+/**
+ * Raw shapes of the SAMS ticker HTTP payload (not exported — only used internally).
+ */
+interface TickerTeam {
+	id: string;
+	name: string;
+}
+
+interface TickerSeries {
+	name: string;
+	teams: TickerTeam[];
+}
+
+interface TickerMatch {
+	id: string;
+	team1: string;
+	team2: string;
+	date: number;
+}
+
+interface TickerMatchDay {
+	matches: TickerMatch[];
+}
+
+interface TickerMatchState {
+	started: boolean;
+	finished: boolean;
+	setPoints: { team1: number; team2: number };
+	matchSets: Array<{ setNumber: number; setScore: { team1: number; team2: number } }>;
+}
+
+interface TickerData {
+	matchDays: TickerMatchDay[];
+	matchSeries: Record<string, TickerSeries>;
+	matchStates: Record<string, TickerMatchState>;
+}
+
+const DEFAULT_MATCH_STATE: TickerMatchState = {
+	started: false,
+	finished: false,
+	setPoints: { team1: 0, team2: 0 },
+	matchSets: [],
+};
+
+/**
+ * Fetches the SAMS live ticker for Baden and returns the currently active
+ * matches that involve a VC Müllheim team. Returns an empty list when no
+ * game is in progress.
+ */
+export const getSamsLiveTickerFn = createServerFn().handler(async () => {
+	const response = await fetch(SAMS_LIVE_TICKER_URL, {
+		signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
+	});
+	if (!response.ok) throw new Error(`SAMS Live Ticker returned HTTP ${response.status}`);
+
+	const data = (await response.json()) as TickerData;
+
+	// Build a lookup: teamId → { teamName, leagueName }
+	const teamMeta = new Map<string, { name: string; leagueName: string }>();
+	for (const series of Object.values(data.matchSeries ?? {})) {
+		for (const team of series.teams ?? []) {
+			teamMeta.set(team.id, { name: team.name, leagueName: series.name });
+		}
+	}
+
+	// Collect IDs of teams whose name includes "Müllheim"
+	const ourTeamIds = new Set<string>();
+	for (const [id, meta] of teamMeta) {
+		if (meta.name.includes(SAMS.name)) ourTeamIds.add(id);
+	}
+
+	// Gather all matches (across all match days)
+	const allMatches: TickerMatch[] = (data.matchDays ?? []).flatMap((md) => md.matches ?? []);
+
+	// Filter to matches involving one of our teams
+	const ourMatches = allMatches.filter((m) => ourTeamIds.has(m.team1) || ourTeamIds.has(m.team2));
+
+	// Map to the public response shape
+	const matches = ourMatches.map((m) => {
+		const state: TickerMatchState = data.matchStates?.[m.id] ?? DEFAULT_MATCH_STATE;
+		const home = teamMeta.get(m.team1);
+		const guest = teamMeta.get(m.team2);
+		return SamsLiveMatchSchema.parse({
+			matchId: m.id,
+			homeTeamId: m.team1,
+			homeTeamName: home?.name ?? m.team1,
+			guestTeamId: m.team2,
+			guestTeamName: guest?.name ?? m.team2,
+			leagueName: home?.leagueName ?? guest?.leagueName ?? "",
+			started: state.started,
+			finished: state.finished,
+			setPoints: state.setPoints,
+			matchSets: state.matchSets,
+			date: m.date,
+		});
+	});
+
+	return SamsLiveTickerResponseSchema.parse({ matches, timestamp: new Date().toISOString() });
+});
