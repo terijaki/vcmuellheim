@@ -1,5 +1,5 @@
 import type { Sponsor } from "@lib/db/types";
-import { BackgroundImage, Box, Button, Container, Flex, Group, Image, Loader, Overlay, Stack, Text } from "@mantine/core";
+import { Anchor, BackgroundImage, Box, Button, Container, Flex, Group, Image, Loader, Overlay, Stack, Text } from "@mantine/core";
 import { Club } from "@project.config";
 import Marquee from "react-fast-marquee";
 import { useFileUrl, useSponsors } from "../../hooks/dataQueries";
@@ -59,7 +59,7 @@ function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
 	return (
 		<Stack align="center">
 			<Text>Wir bedanken uns herzlich bei {sponsors.length === 1 ? "unserem Sponsor" : "unseren Sponsoren"}!</Text>
-			<Group gap="xl">
+			<Group gap="xl" align="flex-start">
 				{sponsors.map((sponsor) => {
 					return <SponsorCard sponsor={sponsor} key={sponsor.id} />;
 				})}
@@ -69,39 +69,51 @@ function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
 }
 
 function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
-	const { name, logoS3Key, websiteUrl } = sponsor;
+	const { name, description, logoS3Key, websiteUrl } = sponsor;
 	const { data: logoUrl, isLoading } = useFileUrl(logoS3Key);
 
 	if (!name) return null;
 
 	if (isLoading) {
 		return (
-			<Flex w={180} h={80} maw={"50vw"} align="center" justify="center">
-				<Loader color="white" />
-			</Flex>
+			<Stack w={220} maw={"50vw"} gap={6} align="center">
+				<Flex w={180} h={80} align="center" justify="center">
+					<Loader color="white" />
+				</Flex>
+			</Stack>
 		);
 	}
 
-	if (logoUrl && !websiteUrl) {
-		return (
-			<Flex w={180} h={80} maw={"50vw"} align="center" justify="center">
+	const visual = (
+		<Flex w={180} h={80} maw={"50vw"} align="center" justify="center">
+			{logoUrl ? (
 				<Image src={logoUrl} alt={`${name}`} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-			</Flex>
-		);
-	}
-	if (websiteUrl && name) {
+			) : (
+				<Text size="xl" c="white" fw="bolder" ta="center">
+					{name}
+				</Text>
+			)}
+		</Flex>
+	);
+
+	const content = (
+		<Stack w={220} maw={"50vw"} gap={6} align="center" justify="flex-start">
+			{visual}
+			{description ? (
+				<Text size="sm" c="white" maw={220} ta="center" style={{ textWrap: "balance" }} lineClamp={2}>
+					{description}
+				</Text>
+			) : null}
+		</Stack>
+	);
+
+	if (websiteUrl) {
 		return (
-			<Flex component="a" href={websiteUrl} target="_blank" rel="noopener noreferrer" w={180} h={80} maw={"50vw"} align="center" justify="center">
-				{logoUrl ? (
-					<Image src={logoUrl} alt={`${name}`} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-				) : (
-					<Text size="xl" c="white" fw="bolder">
-						{name}
-					</Text>
-				)}
-			</Flex>
+			<Anchor href={websiteUrl} target="_blank" rel="noopener noreferrer" c="inherit" underline="never" display="block">
+				{content}
+			</Anchor>
 		);
 	}
 
-	return null;
+	return content;
 }
