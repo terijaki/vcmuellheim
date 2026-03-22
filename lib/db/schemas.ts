@@ -105,7 +105,7 @@ export const sponsorSchema = z.object({
 	description: z.string().optional(),
 	websiteUrl: z.url().optional(),
 	logoS3Key: z.string().optional(),
-	expiryTimestamp: z.number().int().positive().optional(),
+	ttl: z.number().int().positive().optional().describe("Unix timestamp for DynamoDB TTL"),
 });
 
 /** Location schema */

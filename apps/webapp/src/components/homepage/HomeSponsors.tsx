@@ -1,4 +1,3 @@
-/** biome-ignore-all lint/correctness/noUnreachable: TEMPORARILY DISABLED DUE TO UNKNOWN CRASH CAUSED */
 import type { Sponsor } from "@lib/db/types";
 import { BackgroundImage, Box, Button, Container, Flex, Group, Image, Loader, Overlay, Stack, Text } from "@mantine/core";
 import { Club } from "@project.config";
@@ -51,7 +50,7 @@ function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
 				<Text>Wir bedanken uns herzlich bei unseren Sponsoren!</Text>
 				<Marquee pauseOnHover={true} speed={5}>
 					{sponsors.map((sponsor) => (
-						<SponsorCard {...sponsor} key={sponsor.name} />
+						<SponsorCard sponsor={sponsor} key={sponsor.id} />
 					))}
 				</Marquee>
 			</Stack>
@@ -62,15 +61,18 @@ function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
 			<Text>Wir bedanken uns herzlich bei {sponsors.length === 1 ? "unserem Sponsor" : "unseren Sponsoren"}!</Text>
 			<Group gap="xl">
 				{sponsors.map((sponsor) => {
-					return <SponsorCard {...sponsor} key={sponsor.name} />;
+					return <SponsorCard sponsor={sponsor} key={sponsor.id} />;
 				})}
 			</Group>
 		</Stack>
 	);
 }
 
-function SponsorCard({ name, logoS3Key, websiteUrl }: Sponsor) {
+function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
+	const { name, logoS3Key, websiteUrl } = sponsor;
 	const { data: logoUrl, isLoading } = useFileUrl(logoS3Key);
+
+	if (!name) return null;
 
 	if (isLoading) {
 		return (

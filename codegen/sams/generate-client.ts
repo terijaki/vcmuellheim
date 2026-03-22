@@ -247,6 +247,27 @@ createClient({
 						}
 					}
 				},
+				LeagueHierarchyDto: (schema) => {
+					if (schema.properties) {
+						for (const [key, property] of Object.entries(schema.properties)) {
+							if (typeof property !== "object" || property === null) {
+								continue;
+							}
+
+							switch (key) {
+								case "uuid":
+									property.nullable = false;
+									break;
+								case "parentLeagueHierarchyUuid":
+									// Upstream may return null for root hierarchy nodes.
+									property.nullable = true;
+									break;
+								default:
+									break;
+							}
+						}
+					}
+				},
 			},
 		},
 	},

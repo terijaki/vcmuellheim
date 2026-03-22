@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * Checks the 5 known upstream SAMS API bugs against the live API.
+ * Checks known upstream SAMS API bugs against the live API.
  *
  * Outputs JSON: { bugs: BugResult[], checkedAt: string }
  * Exits 0 always — a "fixed" bug is good news, not a failure.
@@ -221,6 +221,67 @@ async function checkBug7(apiKey: string): Promise<BugResult> {
 	}
 }
 
+// Bug #8 — LeagueHierarchyDto.parentLeagueHierarchyUuid declared as non-null string but API returns null
+// Root hierarchy nodes have no parent and return parentLeagueHierarchyUuid: null.
+// The live spec still marks this field as a non-null string, which causes generated validators
+// to reject valid API responses.
+async function checkBug8(apiKey: string): Promise<BugResult> {
+	const id = 8;
+	const summary = "LeagueHierarchyDto.parentLeagueHierarchyUuid declared non-null but API returns null for root nodes";
+	try {
+		const specRes = await fetch(`${BASE_URL}/swagger.json`, { headers: { Accept: "*/*" } });
+		if (!specRes.ok) {
+			return { id, summary, status: "check_failed", detail: `HTTP ${specRes.status} fetching swagger.json` };
+		}
+
+		const spec = (await specRes.json()) as {
+			components?: {
+				schemas?: {
+					LeagueHierarchyDto?: {
+						properties?: {
+							parentLeagueHierarchyUuid?: {
+								type?: string;
+								nullable?: boolean;
+								oneOf?: unknown;
+								anyOf?: unknown;
+							};
+						};
+					};
+				};
+			};
+		};
+
+		const parentField = spec.components?.schemas?.LeagueHierarchyDto?.properties?.parentLeagueHierarchyUuid;
+		const specDeclaresNullable = parentField?.nullable === true || Array.isArray(parentField?.oneOf) || Array.isArray(parentField?.anyOf);
+
+		const seasonRes = await samsGet("/seasons", apiKey);
+		if (!seasonRes.ok) {
+			return { id, summary, status: "check_failed", detail: `HTTP ${seasonRes.status} fetching seasons` };
+		}
+		const seasons = (await seasonRes.json()) as Array<{ uuid?: string; currentSeason?: boolean }>;
+		const currentSeasonUuid = seasons.find((season) => season.currentSeason)?.uuid;
+		if (!currentSeasonUuid) {
+			return { id, summary, status: "check_failed", detail: "Current season not found" };
+		}
+
+		const hierarchyRes = await samsGet(`/league-hierarchies?for-season=${currentSeasonUuid}&size=100`, apiKey);
+		if (!hierarchyRes.ok) {
+			return { id, summary, status: "check_failed", detail: `HTTP ${hierarchyRes.status} fetching league-hierarchies` };
+		}
+
+		const hierarchyData = (await hierarchyRes.json()) as {
+			content?: Array<{ parentLeagueHierarchyUuid?: string | null }>;
+		};
+		const apiReturnsNullParent = hierarchyData.content?.some((entry) => entry.parentLeagueHierarchyUuid === null) ?? false;
+
+		const bugPresent = !specDeclaresNullable && apiReturnsNullParent;
+		const detail = [!specDeclaresNullable ? "spec still declares non-null string" : null, apiReturnsNullParent ? "API returns null parentLeagueHierarchyUuid" : null].filter(Boolean).join("; ");
+		return { id, summary, status: bugPresent ? "still_present" : "fixed", detail: detail || undefined };
+	} catch (e) {
+		return { id, summary, status: "check_failed", detail: String(e) };
+	}
+}
+
 async function main(): Promise<void> {
 	const apiKey = process.env.SAMS_API_KEY;
 	if (!apiKey) {
@@ -228,10 +289,19 @@ async function main(): Promise<void> {
 		process.exit(1);
 	}
 
-	const [bug1, bug2, bug3, bug4, bug5, bug6, bug7] = await Promise.all([checkBug1(apiKey), checkBug2(apiKey), checkBug3(apiKey), checkBug4(), checkBug5(apiKey), checkBug6(apiKey), checkBug7(apiKey)]);
+	const [bug1, bug2, bug3, bug4, bug5, bug6, bug7, bug8] = await Promise.all([
+		checkBug1(apiKey),
+		checkBug2(apiKey),
+		checkBug3(apiKey),
+		checkBug4(),
+		checkBug5(apiKey),
+		checkBug6(apiKey),
+		checkBug7(apiKey),
+		checkBug8(apiKey),
+	]);
 
 	const result: CheckResult = {
-		bugs: [bug1, bug2, bug3, bug4, bug5, bug6, bug7],
+		bugs: [bug1, bug2, bug3, bug4, bug5, bug6, bug7, bug8],
 		checkedAt: new Date().toISOString(),
 	};
 

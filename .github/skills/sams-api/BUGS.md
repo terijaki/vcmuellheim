@@ -17,6 +17,7 @@ All issues are upstream API defects, unless noted otherwise.
 | 5 | `GET /teams/{uuid}` | Low | `shortName` and `clubCode` return `""` for unset values instead of `null` |
 | 6 | `GET /match-days/{uuid}/league-matches`, `GET /league-matches` | Low | `date` field declared as `format: date-time` but API returns a date-only string (`YYYY-MM-DD`) |
 | 7 | `GET /match-days/{uuid}/league-matches`, `GET /league-matches` | High | `referees` and `results` fields use `$ref + nullable: true` — invalid per OpenAPI 3.0; breaks code generators |
+| 8 | `GET /league-hierarchies` | Medium | `parentLeagueHierarchyUuid` is documented as non-null string but API returns `null` for root hierarchy nodes |
 
 ---
 
@@ -117,4 +118,23 @@ Note that the `time` is a separate string field (`HH:mm`), confirming the intent
 
 **Impact:** After updating `@hey-api/openapi-ts` (≥ v0.92.x), the generated Zod validator for `getAllLeagueMatches` started rejecting responses where `referees` or `results` is `null`. The SDK `responseValidator` threw synchronously, bypassing the lambda's error handling and causing a silent 500 with no Sentry report.  
 **Workaround:** In `parser.patch.schemas` (`codegen/sams/generate-client.ts`) replace both properties with `{ allOf: [property], nullable: true }` — wrapping the `$ref` in an `allOf` moves `nullable: true` to a non-`$ref` schema object, which the generator correctly converts to `z.union([zType, z.null()])` and TypeScript `Type | null`.
+
+---
+
+### Bug 8 — `parentLeagueHierarchyUuid` declared non-null but API returns `null`
+
+**Endpoint:** `GET /league-hierarchies`  
+**Spec (`LeagueHierarchyDto`):** `parentLeagueHierarchyUuid` is defined as `type: string` (no null union).  
+**Actual:** Root hierarchy elements return `parentLeagueHierarchyUuid: null`.
+
+```json
+{
+  "uuid": "...",
+  "name": "Verbandsliga",
+  "parentLeagueHierarchyUuid": null
+}
+```
+
+**Impact:** The generated SDK/Zod response validator rejects valid hierarchy responses with `Invalid input: expected string, received null`. This broke `/tabelle` sorting when reading hierarchy levels through `getAllLeagueHierarchies`.  
+**Workaround:** Patch `LeagueHierarchyDto` in `parser.patch.schemas` (`codegen/sams/generate-client.ts`) to make `parentLeagueHierarchyUuid` nullable before regenerating the client.
 

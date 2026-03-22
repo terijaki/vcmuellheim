@@ -240,7 +240,7 @@ export const SponsorEntity = new Entity({
 		description: { type: "string" },
 		websiteUrl: { type: "string" },
 		logoS3Key: { type: "string" },
-		expiryTimestamp: { type: "number" },
+		ttl: { type: "number" },
 		createdAt: { type: "string", required: true },
 		updatedAt: { type: "string", required: true },
 	},

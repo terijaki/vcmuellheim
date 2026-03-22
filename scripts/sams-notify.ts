@@ -43,9 +43,10 @@ const bugDescriptions: Record<number, string> = {
 	5: '`shortName`/`clubCode` return `""` instead of `null` on `GET /teams/{uuid}`',
 	6: "`date` field declared as `date-time` but API returns a date-only string (`YYYY-MM-DD`)",
 	7: "`referees`/`results` use `$ref + nullable: true` and break code generators",
+	8: "`LeagueHierarchyDto.parentLeagueHierarchyUuid` declared non-null but API returns `null`",
 };
 
-const allBugIds = [1, 2, 3, 4, 5, 6, 7];
+const allBugIds = [1, 2, 3, 4, 5, 6, 7, 8];
 const fixedSet = new Set(fixedBugIds);
 const failedSet = new Set(checkFailedIds);
 const rows = allBugIds.map((id) => {

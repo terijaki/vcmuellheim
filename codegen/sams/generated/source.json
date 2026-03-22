@@ -4898,7 +4898,8 @@
         "properties": {
           "uuid": {
             "type": "string",
-            "description": "Entity unique identifier"
+            "description": "Entity unique identifier",
+            "nullable": false
           },
           "_links": {
             "type": "object",
@@ -4929,7 +4930,8 @@
             "format": "int32"
           },
           "parentLeagueHierarchyUuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         }
       },

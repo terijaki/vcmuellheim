@@ -51,16 +51,45 @@ export const updateSponsorFn = createServerFn()
 	.inputValidator(
 		z.object({
 			id: z.uuid(),
-			data: sponsorSchema.omit({ id: true, createdAt: true, updatedAt: true }).partial(),
+			data: sponsorSchema.omit({ id: true, createdAt: true, updatedAt: true }).partial().extend({
+				logoS3Key: z.string().nullable().optional(),
+				ttl: z.number().int().positive().nullable().optional(),
+			}),
 		}),
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
-		const result = await db()
-			.sponsor.patch({ id })
-			.set({ ...updates, updatedAt: new Date().toISOString() })
-			.go();
+		const existingResult = await db().sponsor.get({ id }).go();
+		const existingSponsor = existingResult.data as Sponsor | null;
+		const { logoS3Key, ttl, ...otherUpdates } = updates;
 
-		return result.data as Sponsor;
+		if (!existingSponsor) throw new Error("Sponsor not found");
+
+		const nextSponsor: Sponsor = {
+			...existingSponsor,
+			...otherUpdates,
+			updatedAt: new Date().toISOString(),
+		};
+
+		if (logoS3Key !== undefined && logoS3Key !== null) {
+			nextSponsor.logoS3Key = logoS3Key;
+		}
+
+		if (ttl !== undefined && ttl !== null) {
+			nextSponsor.ttl = ttl;
+		}
+
+		if (logoS3Key === null) {
+			delete nextSponsor.logoS3Key;
+		}
+
+		if (ttl === null) {
+			delete nextSponsor.ttl;
+		}
+
+		const parsedSponsor = sponsorSchema.parse(nextSponsor);
+		await db().sponsor.put(parsedSponsor).go();
+
+		return parsedSponsor;
 	});
 
 export const deleteSponsorFn = createServerFn()

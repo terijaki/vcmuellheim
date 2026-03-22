@@ -693,7 +693,7 @@ async function seedSponsorsData() {
 			description: "Hauptsponsor des VC Müllheim seit 2020",
 			websiteUrl: "https://www.muellheimbank.de",
 			logoS3Key: "",
-			expiryTimestamp: Math.floor(dayjs().add(1, "year").valueOf() / 1000),
+			ttl: Math.floor(dayjs().add(1, "year").valueOf() / 1000),
 			createdAt: dayjs().subtract(2, "years").toISOString(),
 			updatedAt: dayjs().toISOString(),
 		},
@@ -703,7 +703,7 @@ async function seedSponsorsData() {
 			description: "Ausrüster für Sportbekleidung und Equipment",
 			websiteUrl: "https://www.sporthaus-schmidt.de",
 			logoS3Key: "",
-			expiryTimestamp: Math.floor(dayjs().add(6, "months").valueOf() / 1000),
+			ttl: Math.floor(dayjs().add(6, "months").valueOf() / 1000),
 			createdAt: dayjs().subtract(1, "year").toISOString(),
 			updatedAt: dayjs().toISOString(),
 		},
@@ -712,7 +712,7 @@ async function seedSponsorsData() {
 			name: "Bäckerei Hoffmann",
 			description: "Versorger von Verpflegung bei Heimspielen",
 			logoS3Key: "",
-			expiryTimestamp: Math.floor(dayjs().add(8, "months").valueOf() / 1000),
+			ttl: Math.floor(dayjs().add(8, "months").valueOf() / 1000),
 			createdAt: dayjs().toISOString(),
 			updatedAt: dayjs().toISOString(),
 		},
@@ -722,7 +722,7 @@ async function seedSponsorsData() {
 			description: "Partner für Krafttraining und Sportwissenschaft",
 			websiteUrl: "https://www.fitnessplus-muellheim.de",
 			logoS3Key: "",
-			expiryTimestamp: Math.floor(dayjs().add(10, "months").valueOf() / 1000),
+			ttl: Math.floor(dayjs().add(10, "months").valueOf() / 1000),
 			createdAt: dayjs().toISOString(),
 			updatedAt: dayjs().toISOString(),
 		},
@@ -750,7 +750,7 @@ async function seedSponsorsData() {
 		}
 	}
 
-	// SponsorEntity uses expiryTimestamp for app-level expiry (no raw TTL needed)
+	// SponsorEntity uses ttl for DynamoDB-based automatic expiry.
 	await putItems(entities.sponsor, validatedSponsors);
 	console.log(`✅ Seeded ${validatedSponsors.length} sponsors`);
 }
