@@ -17,7 +17,7 @@ export const Route = createFileRoute("/_layout/tabelle")({
 		const [samsTeams, teams] = await Promise.all([listSamsTeamsFn(), listTeamsFn()]);
 
 		if (samsTeams.teams.length === 0) {
-			return { leagueUuids: [], teams: teams.items, lastResultCap: undefined };
+			return { leagueUuids: [], teams: teams.items, lastResultCap: 6 };
 		}
 
 		const leagueUuids = [...new Set(samsTeams.teams.map((t) => t.leagueUuid).filter(Boolean))];
