@@ -31,7 +31,13 @@ export const Route = createFileRoute("/_layout/tabelle")({
 				leagueLevels = await getSamsLeagueLevelsByLeagueUuidsFn({
 					data: { leagueUuids, seasonUuid, associationUuid },
 				});
-			} catch {
+			} catch (error) {
+				console.error("Failed to fetch SAMS league levels for league UUIDs", {
+					error,
+					leagueUuids,
+					seasonUuid,
+					associationUuid,
+				});
 				leagueLevels = {};
 			}
 		}
