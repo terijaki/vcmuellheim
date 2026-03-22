@@ -15,14 +15,26 @@ export const Route = createFileRoute("/_layout/tabelle")({
 	loader: async () => {
 		// Main data comes from DynamoDB; only a batched SAMS metadata lookup is used for league ordering.
 		const [samsTeams, teams] = await Promise.all([listSamsTeamsFn(), listTeamsFn()]);
+
+		if (samsTeams.teams.length === 0) {
+			return { leagueUuids: [], teams: teams.items, lastResultCap: undefined };
+		}
+
 		const leagueUuids = [...new Set(samsTeams.teams.map((t) => t.leagueUuid).filter(Boolean))];
 		const leagueOrderByUuid = new Map(leagueUuids.map((leagueUuid, index) => [leagueUuid, index]));
 		const leagueNameByUuid = new Map(samsTeams.teams.filter((t) => t.leagueUuid).map((t) => [t.leagueUuid as string, t.leagueName ?? ""]));
 		const seasonUuid = samsTeams.teams.find((t) => t.seasonUuid)?.seasonUuid;
 		const associationUuid = samsTeams.teams.find((t) => t.associationUuid)?.associationUuid;
-		const leagueLevels = await getSamsLeagueLevelsByLeagueUuidsFn({
-			data: { leagueUuids, seasonUuid, associationUuid },
-		});
+		let leagueLevels: Record<string, number | null> = {};
+		if (leagueUuids.length > 0) {
+			try {
+				leagueLevels = await getSamsLeagueLevelsByLeagueUuidsFn({
+					data: { leagueUuids, seasonUuid, associationUuid },
+				});
+			} catch {
+				leagueLevels = {};
+			}
+		}
 		const sortedLeagueUuids = [...leagueUuids].sort((a, b) => {
 			const levelA = leagueLevels[a] ?? Number.POSITIVE_INFINITY;
 			const levelB = leagueLevels[b] ?? Number.POSITIVE_INFINITY;

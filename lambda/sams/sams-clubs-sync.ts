@@ -17,7 +17,6 @@ const docClient = createDynamoDocClient(tracer);
 
 const env = parseLambdaEnv(SamsClubsSyncLambdaEnvironmentSchema);
 const TABLE_NAME = env.CLUBS_TABLE_NAME;
-const SAMS_API_KEY = env.SAMS_API_KEY;
 const MEDIA_BUCKET_NAME = env.MEDIA_BUCKET_NAME;
 const ASSOCIATION_NAME = SAMS.association.name; // SBVV
 
@@ -61,9 +60,6 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 	logger.info("🚀 Starting SAMS clubs sync job", { event });
 	Sentry.addBreadcrumb({ category: "sync", message: "Starting SAMS clubs sync", level: "info" });
 
-	if (!SAMS_API_KEY) {
-		throw new Error("SAMS_API_KEY environment variable is required");
-	}
 	if (!TABLE_NAME) {
 		throw new Error("CLUBS_TABLE_NAME environment variable is not set");
 	}
@@ -78,9 +74,6 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 		while (hasMorePages) {
 			const { data, error, response } = await getAssociations({
 				query: { page: currentPage, size: 100 },
-				headers: {
-					"X-API-Key": SAMS_API_KEY,
-				},
 			});
 
 			if (error) {
@@ -106,9 +99,6 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 		if (!associationUuid) {
 			const { data, error, response } = await getAssociationByUuid({
 				path: { uuid: "2b7571b5-f985-c552-ea1c-f819ed3811c1" },
-				headers: {
-					"X-API-Key": SAMS_API_KEY,
-				},
 			});
 			if (error) {
 				throw new Error(`Error ${response.status} fetching association by UUID workaround`);
@@ -165,9 +155,6 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 					association: associationUuid,
 					page: currentPage,
 					size: 100,
-				},
-				headers: {
-					"X-API-Key": SAMS_API_KEY,
 				},
 			});
 
