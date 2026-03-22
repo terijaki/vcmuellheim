@@ -21,6 +21,7 @@
 		"typecheck": "tsc --noEmit",
 		"test": "AGENT=1 bun test",
 		"db:seed": "bun run scripts/db-seed.ts",
+		"db:migrate": "bun run scripts/db-migrate.ts",
 		"db:seed:sams": "bun run scripts/data-trigger-syncs.ts",
 		"sams:update": "bun run codegen/sams/generate-client.ts",
 		"verify:all": "bun biome check --fix && bun typecheck && AGENT=1 bun test",

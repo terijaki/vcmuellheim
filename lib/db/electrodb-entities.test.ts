@@ -33,7 +33,7 @@ function assertNoMissingAttributes(entityName: string, zodFields: string[], elec
 	const electroSet = new Set(electroFields);
 	const missing = zodFields.filter((f) => !electroSet.has(f));
 	if (missing.length > 0) {
-		throw new Error(`[${entityName}] Zod fields missing from ElectroDB entity: ${missing.join(", ")}.\n` + "Add the attribute(s) to the ElectroDB entity in lib/db/electrodb-entities.ts.");
+		throw new Error(`[${entityName}] Zod fields missing from ElectroDB entity: ${missing.join(", ")}.\nAdd the attribute(s) to the ElectroDB entity in lib/db/electrodb-entities.ts.`);
 	}
 }
 

@@ -261,11 +261,11 @@ async function cleanupDatabase() {
 }
 
 /**
- * Helper: write an array of items via ElectroDB entity.put().
+ * Helper: write an array of items via ElectroDB entity.create().
  * Uses Promise.all so writes are concurrent (no DynamoDB batch size limit to worry about).
  */
-async function putItems<T>(entity: { put(item: T): { go(): Promise<unknown> } }, items: T[]): Promise<void> {
-	await Promise.all(items.map((item) => entity.put(item).go()));
+async function putItems<T>(entity: { create(item: T): { go(): Promise<unknown> } }, items: T[]): Promise<void> {
+	await Promise.all(items.map((item) => entity.create(item).go()));
 }
 
 /**
