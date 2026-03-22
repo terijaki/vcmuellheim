@@ -16,20 +16,11 @@ const docClient = createDynamoDocClient(tracer);
 const env = parseLambdaEnv(SamsTeamsSyncLambdaEnvironmentSchema);
 const CLUBS_TABLE_NAME = env.CLUBS_TABLE_NAME;
 const TEAMS_TABLE_NAME = env.TEAMS_TABLE_NAME;
-const SAMS_API_KEY = env.SAMS_API_KEY;
-const SAMS_SERVER = env.SAMS_SERVER;
 
 const lambdaHandler: APIGatewayProxyHandler = async () => {
 	logger.info("Starting SAMS teams sync...");
 	Sentry.addBreadcrumb({ category: "sync", message: "Starting SAMS teams sync", level: "info" });
 	try {
-		if (!SAMS_API_KEY) {
-			throw new Error("SAMS_API_KEY environment variable is required");
-		}
-		if (!SAMS_SERVER) {
-			throw new Error("SAMS_SERVER environment variable is required");
-		}
-
 		// Step 1: Get VC Müllheim club from DynamoDB
 		console.log("Fetching VC Müllheim club data...");
 		const clubSlug = slugify("VC Müllheim");
@@ -54,11 +45,7 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 
 		// Step 2: Get current season
 		console.log("Fetching current season...");
-		const { data: seasons } = await getAllSeasons({
-			headers: {
-				"X-API-Key": SAMS_API_KEY,
-			},
-		});
+		const { data: seasons } = await getAllSeasons({});
 
 		const currentSeason = seasons?.find((s) => s.currentSeason);
 		if (!currentSeason) {
@@ -78,9 +65,6 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 					association: associationUuid,
 					page: leaguePage,
 					size: 100,
-				},
-				headers: {
-					"X-API-Key": SAMS_API_KEY,
 				},
 			});
 
@@ -115,9 +99,6 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 				const { data: teamData } = await getTeamsForLeague({
 					path: { uuid: league.uuid },
 					query: { page: teamPage, size: 100 },
-					headers: {
-						"X-API-Key": SAMS_API_KEY,
-					},
 				});
 
 				if (teamData?.content) {
