@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, mock } from "bun:test";
+import * as childProcessActual from "node:child_process";
 import { readdirSync } from "node:fs";
 import * as cdk from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
@@ -13,9 +14,12 @@ const testEnv = {
 	region: "eu-central-1",
 };
 
-mock.module("node:child_process", () => ({
-	execFileSync: buildMock,
-}));
+mock.module("node:child_process", () => {
+	return {
+		...childProcessActual,
+		execFileSync: buildMock,
+	};
+});
 
 const { WebAppStack } = await import("./webapp-stack");
 
@@ -111,25 +115,15 @@ describe("WebAppStack", () => {
 			MemorySize: 1024,
 			Environment: {
 				Variables: {
-					[CONTENT_TABLE_ENV_VAR]: {
-						Ref: Match.anyValue(),
-					},
+					[CONTENT_TABLE_ENV_VAR]: Match.anyValue(),
 					BETTER_AUTH_SECRET: "test-auth-secret",
 					CDK_ENVIRONMENT: "dev",
 					CLOUDFRONT_URL: "https://media.example.com",
-					INSTAGRAM_TABLE_NAME: {
-						Ref: Match.anyValue(),
-					},
-					MEDIA_BUCKET_NAME: {
-						Ref: Match.anyValue(),
-					},
+					INSTAGRAM_TABLE_NAME: Match.anyValue(),
+					MEDIA_BUCKET_NAME: Match.anyValue(),
 					NODE_ENV: "production",
-					SAMS_CLUBS_TABLE_NAME: {
-						Ref: Match.anyValue(),
-					},
-					SAMS_TEAMS_TABLE_NAME: {
-						Ref: Match.anyValue(),
-					},
+					SAMS_CLUBS_TABLE_NAME: Match.anyValue(),
+					SAMS_TEAMS_TABLE_NAME: Match.anyValue(),
 				},
 			},
 		});
@@ -161,7 +155,9 @@ describe("WebAppStack", () => {
 		});
 
 		template.hasOutput("WebAppUrl", {
-			ExportName: "vcm-webapp-url-dev",
+			Export: {
+				Name: "vcm-webapp-url-dev",
+			},
 		});
 	});
 
