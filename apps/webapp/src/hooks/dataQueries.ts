@@ -41,7 +41,7 @@ export const useGalleryImages = ({ limit = 20, format = "urls", shuffle }: { lim
 	return useInfiniteQuery({
 		queryKey: ["galleryImages", limit, format, shuffle],
 		queryFn: ({ pageParam }) => getGalleryImagesFn({ data: { limit, format, shuffle, cursor: pageParam } }),
-		getNextPageParam: (lastPage) => lastPage?.nextCursor,
+		getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
 		initialPageParam: undefined as PaginationCursor | undefined,
 	});
 };
