@@ -24,7 +24,7 @@ export const useNews = ({ limit = 50 }: { limit?: number } = {}) => {
 	return useInfiniteQuery({
 		queryKey: ["news", limit],
 		queryFn: ({ pageParam }) => getPublishedNewsFn({ data: { limit, cursor: pageParam } }),
-		getNextPageParam: (lastPage) => lastPage?.lastEvaluatedKey,
+		getNextPageParam: (lastPage) => lastPage.lastEvaluatedKey,
 		initialPageParam: undefined as PaginationCursor | undefined,
 	});
 };
