@@ -3,17 +3,21 @@ import { createFileRoute } from "@tanstack/react-router";
 import CardTitle from "@webapp/components/CardTitle";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import MemberCard from "@webapp/components/MemberCard";
+import { listMembersFn } from "@webapp/server/functions/members";
 import { FaFilePdf as IconPdf } from "react-icons/fa6";
-import { useMembers } from "@/apps/webapp/src/hooks/dataQueries";
 
 export const Route = createFileRoute("/_layout/jugendschutz")({
+	loader: async () => {
+		const data = await listMembersFn();
+		return { members: data.items };
+	},
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	const { data } = useMembers();
+	const { members } = Route.useLoaderData();
 	// Filter for members with roleTitle including 'Jugendschutz' (case-insensitive)
-	const jugendschutzMembers = (data?.items || []).filter((member) => typeof member.roleTitle === "string" && member.roleTitle.toLowerCase().includes("jugendschutz"));
+	const jugendschutzMembers = members.filter((member) => typeof member.roleTitle === "string" && member.roleTitle.toLowerCase().includes("jugendschutz"));
 
 	return (
 		<PageWithHeading title="Jugenschutz">
