@@ -7,11 +7,12 @@
 import { getAllLeagueHierarchies, getAllLeagueMatches, getAllLeagues, getLeagueByUuid, getRankingsForLeague, getSeasonByUuid, type LeagueMatchDto } from "@codegen/sams/generated";
 import { Club } from "@project.config";
 import { createServerFn } from "@tanstack/react-start";
+import { createExpiringCache, getOrSetExpiringCacheValue } from "@utils/cache";
 import { slugify } from "@utils/slugify";
 import dayjs from "dayjs";
 import { z } from "zod";
 import { LeagueMatchesResponseSchema, type LiveMatch, type LiveTickerResponse, LiveTickerResponseSchema, type RankingResponse, RankingResponseSchema } from "@/lambda/sams/types";
-import { getAllSamsClubs, getAllSamsTeams, getSamsClubByNameSlug, getSamsClubByNameSlugPrefix, getSamsClubBySportsclubUuid, getSamsTeamByUuid } from "../queries";
+import { getAllSamsClubs, getAllSamsTeams, getSamsClubByNameSlug, getSamsClubByNameSlugPrefix, getSamsClubBySportsclubUuid } from "../queries";
 import { parseServerData } from "../schema-parse";
 
 const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
@@ -19,19 +20,9 @@ const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
 const SAMS_API_TIMEOUT_MS = 10_000;
 const LEAGUE_METADATA_CACHE_TTL_MS = 1000 * 60 * 60 * 24;
 
-type LeagueHierarchyLevelsCacheValue = {
-	leagueLevelsByLeagueUuid: Record<string, number | null>;
-	expiresAt: number;
-};
+type LeagueHierarchyLevelsCacheValue = Record<string, number | null>;
 
-const leagueHierarchyLevelsCache = new Map<string, LeagueHierarchyLevelsCacheValue>();
-
-function toCacheKey(input: { leagueUuids: string[]; seasonUuid?: string; associationUuid?: string }) {
-	const sortedLeagueUuids = [...new Set(input.leagueUuids)].sort();
-	const season = input.seasonUuid ?? "";
-	const association = input.associationUuid ?? "";
-	return `${season}::${association}::${sortedLeagueUuids.join(",")}`;
-}
+const leagueHierarchyLevelsCache = createExpiringCache<LeagueHierarchyLevelsCacheValue>();
 
 async function listAllLeaguesForSeason(options: { seasonUuid?: string; associationUuid?: string }) {
 	const leaguesByUuid = new Map<string, { leagueHierarchyUuid?: string }>();
@@ -90,32 +81,25 @@ async function listAllLeagueHierarchyLevels(options: { seasonUuid?: string; asso
 }
 
 async function fetchLeagueLevelsByLeagueUuid(options: { leagueUuids: string[]; seasonUuid?: string; associationUuid?: string }) {
-	const cacheKey = toCacheKey(options);
-	const now = Date.now();
-	const cached = leagueHierarchyLevelsCache.get(cacheKey);
-	if (cached && cached.expiresAt > now) {
-		return cached.leagueLevelsByLeagueUuid;
-	}
+	return getOrSetExpiringCacheValue({
+		cache: leagueHierarchyLevelsCache,
+		keyParts: options,
+		ttlMs: LEAGUE_METADATA_CACHE_TTL_MS,
+		load: async () => {
+			const [leaguesByUuid, hierarchyLevelByUuid] = await Promise.all([
+				listAllLeaguesForSeason({ seasonUuid: options.seasonUuid, associationUuid: options.associationUuid }),
+				listAllLeagueHierarchyLevels({ seasonUuid: options.seasonUuid, associationUuid: options.associationUuid }),
+			]);
 
-	const [leaguesByUuid, hierarchyLevelByUuid] = await Promise.all([
-		listAllLeaguesForSeason({ seasonUuid: options.seasonUuid, associationUuid: options.associationUuid }),
-		listAllLeagueHierarchyLevels({ seasonUuid: options.seasonUuid, associationUuid: options.associationUuid }),
-	]);
-
-	const leagueLevelsByLeagueUuid = Object.fromEntries(
-		options.leagueUuids.map((leagueUuid) => {
-			const leagueHierarchyUuid = leaguesByUuid.get(leagueUuid)?.leagueHierarchyUuid;
-			const level = leagueHierarchyUuid ? hierarchyLevelByUuid.get(leagueHierarchyUuid) : undefined;
-			return [leagueUuid, level ?? null] as const;
-		}),
-	);
-
-	leagueHierarchyLevelsCache.set(cacheKey, {
-		leagueLevelsByLeagueUuid,
-		expiresAt: now + LEAGUE_METADATA_CACHE_TTL_MS,
+			return Object.fromEntries(
+				options.leagueUuids.map((leagueUuid) => {
+					const leagueHierarchyUuid = leaguesByUuid.get(leagueUuid)?.leagueHierarchyUuid;
+					const level = leagueHierarchyUuid ? hierarchyLevelByUuid.get(leagueHierarchyUuid) : undefined;
+					return [leagueUuid, level ?? null] as const;
+				}),
+			);
+		},
 	});
-
-	return leagueLevelsByLeagueUuid;
 }
 
 async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<RankingResponse> {
@@ -226,12 +210,6 @@ export const getSamsMatchesFn = createServerFn()
 
 // ── SAMS API proxy — Rankings ────────────────────────────────────────────────
 
-export const getSamsRankingsFn = createServerFn()
-	.inputValidator(z.object({ leagueUuid: z.string() }))
-	.handler(async ({ data }) => {
-		return fetchSamsRankingsByLeagueUuid(data.leagueUuid);
-	});
-
 export const getSamsRankingsByLeagueUuidsFn = createServerFn()
 	.inputValidator(z.object({ leagueUuids: z.array(z.string()) }))
 	.handler(async ({ data }) => {
@@ -263,22 +241,6 @@ export const listSamsClubsFn = createServerFn().handler(async () => {
 	};
 });
 
-export const getSamsClubBySportsclubUuidFn = createServerFn()
-	.inputValidator(z.object({ sportsclubUuid: z.string() }))
-	.handler(async ({ data }) => {
-		const club = await getSamsClubBySportsclubUuid(data.sportsclubUuid);
-		if (!club) throw new Error("SAMS Club not found");
-		return club;
-	});
-
-export const getSamsClubByNameSlugFn = createServerFn()
-	.inputValidator(z.object({ nameSlug: z.string() }))
-	.handler(async ({ data }) => {
-		const club = await getSamsClubByNameSlug(data.nameSlug);
-		if (!club) throw new Error("SAMS Club not found");
-		return club;
-	});
-
 export const listSamsTeamsFn = createServerFn().handler(async () => {
 	const result = await getAllSamsTeams();
 	return {
@@ -287,14 +249,6 @@ export const listSamsTeamsFn = createServerFn().handler(async () => {
 		lastEvaluatedKey: result.lastEvaluatedKey,
 	};
 });
-
-export const getSamsTeamByUuidFn = createServerFn()
-	.inputValidator(z.object({ uuid: z.string() }))
-	.handler(async ({ data }) => {
-		const team = await getSamsTeamByUuid(data.uuid);
-		if (!team) throw new Error("SAMS Team not found");
-		return team;
-	});
 
 export const getClubLogoUrlFn = createServerFn()
 	.inputValidator(z.union([z.object({ clubUuid: z.string().min(1), clubSlug: z.undefined().optional() }), z.object({ clubSlug: z.string().min(1), clubUuid: z.undefined().optional() })]))
@@ -316,20 +270,6 @@ export const getClubLogoUrlsBatchFn = createServerFn()
 		return Object.fromEntries(entries) as Record<string, string | null>;
 	});
 
-export const getClubLogoUrlsByClubUuidBatchFn = createServerFn()
-	.inputValidator(z.object({ clubUuids: z.array(z.string().min(1)) }))
-	.handler(async ({ data }) => {
-		const cfUrl = CLOUDFRONT_URL();
-		const uniqueClubUuids = [...new Set(data.clubUuids)];
-		const entries = await Promise.all(
-			uniqueClubUuids.map(async (clubUuid) => {
-				const club = await getSamsClubBySportsclubUuid(clubUuid);
-				return [clubUuid, resolveClubLogoUrl(club, cfUrl)] as const;
-			}),
-		);
-		return Object.fromEntries(entries) as Record<string, string | null>;
-	});
-
 /** Pure helper — resolves a club's effective logo URL from a club record.
  * Exported for unit testing. */
 export function resolveClubLogoUrl(club: { logoS3Key?: string | null; logoImageLink?: string | null } | null, cloudfrontUrl: string): string | null {
@@ -345,10 +285,9 @@ const TICKER_CACHE_TTL_MS = 10_000;
 
 type TickerCacheValue = {
 	data: LiveTickerResponse;
-	expiresAt: number;
 };
 
-let tickerCache: TickerCacheValue | null = null;
+const tickerCache = createExpiringCache<TickerCacheValue>();
 
 const RawTickerMatchSchema = z
 	.object({
@@ -434,29 +373,33 @@ export function buildLiveMatchesFromRaw(raw: z.infer<typeof RawTickerResponseSch
 }
 
 export const getSamsTickerFn = createServerFn().handler(async () => {
-	const now = Date.now();
-	if (tickerCache && tickerCache.expiresAt > now) {
-		return tickerCache.data;
-	}
+	const result = await getOrSetExpiringCacheValue({
+		cache: tickerCache,
+		keyParts: { resource: "sams-live-ticker" },
+		ttlMs: TICKER_CACHE_TTL_MS,
+		load: async () => {
+			const response = await fetch(TICKER_URL, {
+				signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
+				headers: { Accept: "application/json" },
+			});
 
-	const response = await fetch(TICKER_URL, {
-		signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
-		headers: { Accept: "application/json" },
+			if (!response.ok) throw new Error(`SAMS ticker returned ${response.status}`);
+
+			const raw = parseServerData(RawTickerResponseSchema, await response.json(), "Failed to parse SAMS ticker response");
+			const liveMatches = buildLiveMatchesFromRaw(raw);
+
+			return {
+				data: parseServerData(
+					LiveTickerResponseSchema,
+					{
+						liveMatches,
+						timestamp: new Date().toISOString(),
+					},
+					"Failed to parse SAMS live ticker response",
+				),
+			};
+		},
 	});
 
-	if (!response.ok) throw new Error(`SAMS ticker returned ${response.status}`);
-
-	const raw = parseServerData(RawTickerResponseSchema, await response.json(), "Failed to parse SAMS ticker response");
-	const liveMatches = buildLiveMatchesFromRaw(raw);
-
-	const result = parseServerData(
-		LiveTickerResponseSchema,
-		{
-			liveMatches,
-			timestamp: new Date().toISOString(),
-		},
-		"Failed to parse SAMS live ticker response",
-	);
-	tickerCache = { data: result, expiresAt: now + TICKER_CACHE_TTL_MS };
-	return result;
+	return result.data;
 });

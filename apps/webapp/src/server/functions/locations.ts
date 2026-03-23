@@ -22,15 +22,6 @@ export const listLocationsFn = createServerFn().handler(async () => {
 	};
 });
 
-export const getLocationByIdFn = createServerFn()
-	.inputValidator(z.object({ id: z.uuid() }))
-	.handler(async ({ data }) => {
-		const result = await db().location.get({ id: data.id }).go();
-		const location = result.data ? parseServerData(locationSchema, result.data, "Failed to parse location data") : null;
-		if (!location) throw new Error("Location not found");
-		return location;
-	});
-
 // ── Protected ────────────────────────────────────────────────────────────────
 
 export const createLocationFn = createServerFn()

@@ -23,15 +23,6 @@ export const listBusFn = createServerFn().handler(async () => {
 	};
 });
 
-export const getBusByIdFn = createServerFn()
-	.inputValidator(z.object({ id: z.uuid() }))
-	.handler(async ({ data }) => {
-		const result = await db().bus.get({ id: data.id }).go();
-		const booking = result.data ? parseServerData(busSchema, result.data, "Failed to parse bus booking") : null;
-		if (!booking) throw new Error("Bus booking not found");
-		return booking;
-	});
-
 // ── Protected ────────────────────────────────────────────────────────────────
 
 export const createBusFn = createServerFn()

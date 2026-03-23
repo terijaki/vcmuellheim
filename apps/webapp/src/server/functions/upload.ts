@@ -41,26 +41,6 @@ export const getFileUrlsFn = createServerFn()
 		return result;
 	});
 
-export const getFileUrlsMapFn = createServerFn()
-	.inputValidator(z.object({ s3Keys: z.array(z.string()).optional().default([]) }))
-	.handler(async ({ data }): Promise<Record<string, string>> => {
-		const result: Record<string, string> = {};
-		const cfUrl = CLOUDFRONT_URL();
-		for (const s3Key of data.s3Keys) {
-			if (!s3Key) {
-				result[s3Key] = "";
-				continue;
-			}
-			if (cfUrl) {
-				result[s3Key] = `${cfUrl}/${s3Key}`;
-			} else {
-				const command = new GetObjectCommand({ Bucket: BUCKET_NAME(), Key: s3Key });
-				result[s3Key] = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
-			}
-		}
-		return result;
-	});
-
 // ── Protected ────────────────────────────────────────────────────────────────
 
 export const getPresignedUrlFn = createServerFn()

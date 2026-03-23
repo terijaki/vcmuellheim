@@ -22,19 +22,6 @@ export const listMembersFn = createServerFn().handler(async () => {
 	};
 });
 
-export const getBoardMembersFn = createServerFn().handler(async () => {
-	const result = await db()
-		.member.query.byType({ type: "member" })
-		.where((attr, op) => op.eq(attr.isBoardMember, true))
-		.go({ pages: "all" });
-	const items = parseServerArray(memberSchema, result.data, "Failed to parse board member list");
-
-	return {
-		items,
-		lastEvaluatedKey: result.cursor ?? undefined,
-	};
-});
-
 export const getTrainersFn = createServerFn().handler(async () => {
 	const result = await db()
 		.member.query.byType({ type: "member" })
@@ -47,16 +34,6 @@ export const getTrainersFn = createServerFn().handler(async () => {
 		lastEvaluatedKey: result.cursor ?? undefined,
 	};
 });
-
-export const getMemberByIdFn = createServerFn()
-	.inputValidator(z.object({ id: z.uuid() }))
-	.handler(async ({ data }) => {
-		const result = await db().member.get({ id: data.id }).go();
-
-		const member = result.data ? parseServerData(memberSchema, result.data, "Failed to parse member data") : null;
-		if (!member) throw new Error("Member not found");
-		return member;
-	});
 
 // ── Protected ────────────────────────────────────────────────────────────────
 

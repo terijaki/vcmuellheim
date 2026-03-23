@@ -34,15 +34,6 @@ export const listUsersFn = createServerFn()
 		return users.map(formatUser);
 	});
 
-export const getUserByEmailFn = createServerFn()
-	.middleware([requireAdminMiddleware])
-	.inputValidator(z.object({ email: z.email() }))
-	.handler(async ({ data }) => {
-		const user = await getCmsUserByEmail(data.email);
-		if (!user) throw new Error("User not found");
-		return formatUser(user);
-	});
-
 export const createUserFn = createServerFn()
 	.middleware([requireAdminMiddleware])
 	.inputValidator(

@@ -23,21 +23,11 @@ export const listTeamsFn = createServerFn().handler(async () => {
 	};
 });
 
-export const getTeamByIdFn = createServerFn()
-	.inputValidator(z.object({ id: z.uuid() }))
-	.handler(async ({ data }) => {
-		const result = await db().team.get({ id: data.id }).go();
-		const team = result.data ? parseServerData(teamSchema, result.data, "Failed to parse team data") : null;
-		if (!team) throw new Error("Team not found");
-		return team;
-	});
-
 export const getTeamBySlugFn = createServerFn()
 	.inputValidator(z.object({ slug: z.string() }))
 	.handler(async ({ data }) => {
 		const result = await db().team.query.bySlug({ slug: data.slug }).go({ limit: 1 });
 		const team = result.data[0] ? parseServerData(teamSchema, result.data[0], "Failed to parse team data") : null;
-		if (!team) throw new Error("Team not found");
 		return team;
 	});
 

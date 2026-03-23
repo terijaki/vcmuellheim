@@ -33,7 +33,6 @@ export const getEventByIdFn = createServerFn()
 	.handler(async ({ data }) => {
 		const result = await db().event.get({ id: data.id }).go();
 		const event = result.data ? parseServerData(eventSchema, result.data, "Failed to parse event data") : null;
-		if (!event) throw new Error("Event not found");
 		return event;
 	});
 
