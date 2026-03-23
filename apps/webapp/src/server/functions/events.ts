@@ -7,9 +7,9 @@ import dayjs from "dayjs";
 import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { eventSchema } from "@/lib/db/schemas";
-import type { Event } from "@/lib/db/types";
 import { requireAuthMiddleware } from "../../middleware";
 import { withTimestamps } from "../dynamo";
+import { parseServerArray, parseServerData } from "../schema-parse";
 
 // ── Public ──────────────────────────────────────────────────────────────────
 
@@ -20,9 +20,10 @@ export const getUpcomingEventsFn = createServerFn()
 			.event.query.byType({ type: "event" })
 			.gte({ startDate: dayjs().toISOString() })
 			.go({ limit: data?.limit ?? 20 });
+		const items = parseServerArray(eventSchema, result.data, "Failed to parse upcoming events");
 
 		return {
-			items: result.data as Event[],
+			items,
 			lastEvaluatedKey: result.cursor ?? undefined,
 		};
 	});
@@ -31,7 +32,7 @@ export const getEventByIdFn = createServerFn()
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
 		const result = await db().event.get({ id: data.id }).go();
-		const event = result.data as Event | null;
+		const event = result.data ? parseServerData(eventSchema, result.data, "Failed to parse event data") : null;
 		if (!event) throw new Error("Event not found");
 		return event;
 	});
@@ -42,9 +43,10 @@ export const listAllEventsFn = createServerFn()
 	.middleware([requireAuthMiddleware])
 	.handler(async () => {
 		const result = await db().event.query.byType({ type: "event" }).go({ pages: "all" });
+		const items = parseServerArray(eventSchema, result.data, "Failed to parse event list");
 
 		return {
-			items: result.data as Event[],
+			items,
 			lastEvaluatedKey: result.cursor ?? undefined,
 		};
 	});
@@ -91,7 +93,13 @@ export const updateEventFn = createServerFn()
 			})
 			.go();
 
-		return result.data as Event;
+		if (!result.data) throw new Error("Event not found");
+
+		const refreshedResult = await db().event.get({ id }).go();
+		const event = refreshedResult.data ? parseServerData(eventSchema, refreshedResult.data, "Failed to parse event data") : null;
+
+		if (!event) throw new Error("Event not found");
+		return event;
 	});
 
 export const deleteEventFn = createServerFn()

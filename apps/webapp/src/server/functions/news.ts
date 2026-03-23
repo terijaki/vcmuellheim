@@ -9,10 +9,10 @@ import { slugify } from "@utils/slugify";
 import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { newsSchema } from "@/lib/db/schemas";
-import type { News } from "@/lib/db/types";
 import { requireAuthMiddleware } from "../../middleware";
 import { withTimestamps } from "../dynamo";
 import { getAllNews, getNewsBySlug, getPublishedNews } from "../queries";
+import { parseServerData } from "../schema-parse";
 
 const s3Client = new S3Client({ region: process.env.AWS_REGION || "eu-central-1" });
 const BUCKET_NAME = () => process.env.MEDIA_BUCKET_NAME || "";
@@ -38,7 +38,7 @@ export const getNewsByIdFn = createServerFn()
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
 		const result = await db().news.get({ id: data.id }).go();
-		const news = result.data as News | null;
+		const news = result.data ? parseServerData(newsSchema, result.data, "Failed to parse news article") : null;
 		if (!news) throw new Error("News article not found");
 		return news;
 	});
@@ -127,7 +127,12 @@ export const updateNewsFn = createServerFn()
 		const finalUpdates = updates.title ? { ...baseUpdates, slug: slugify(updates.title) } : baseUpdates;
 
 		const result = await db().news.patch({ id }).set(finalUpdates).go();
-		return result.data as News;
+		if (!result.data) throw new Error("News article not found");
+
+		const refreshedResult = await db().news.get({ id }).go();
+		const news = refreshedResult.data ? parseServerData(newsSchema, refreshedResult.data, "Failed to parse news article") : null;
+		if (!news) throw new Error("News article not found");
+		return news;
 	});
 
 export const deleteNewsFn = createServerFn()

@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import { z } from "zod";
 import { LeagueMatchesResponseSchema, type LiveMatch, type LiveTickerResponse, LiveTickerResponseSchema, type RankingResponse, RankingResponseSchema } from "@/lambda/sams/types";
 import { getAllSamsClubs, getAllSamsTeams, getSamsClubByNameSlug, getSamsClubByNameSlugPrefix, getSamsClubBySportsclubUuid, getSamsTeamByUuid } from "../queries";
+import { parseServerData } from "../schema-parse";
 
 const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
 
@@ -145,13 +146,17 @@ async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<Rankin
 		if (seasonData?.name) seasonName = seasonData.name;
 	}
 
-	return RankingResponseSchema.parse({
-		teams: rankingsData.content,
-		timestamp: new Date().toISOString(),
-		leagueUuid,
-		leagueName,
-		seasonName,
-	});
+	return parseServerData(
+		RankingResponseSchema,
+		{
+			teams: rankingsData.content,
+			timestamp: new Date().toISOString(),
+			leagueUuid,
+			leagueName,
+			seasonName,
+		},
+		"Failed to parse SAMS rankings response",
+	);
 }
 
 // ── SAMS API proxy — Matches ─────────────────────────────────────────────────
@@ -216,7 +221,7 @@ export const getSamsMatchesFn = createServerFn()
 
 		if (data?.limit) filteredMatches = filteredMatches.slice(0, data.limit);
 
-		return LeagueMatchesResponseSchema.parse({ matches: filteredMatches, timestamp: new Date().toISOString() });
+		return parseServerData(LeagueMatchesResponseSchema, { matches: filteredMatches, timestamp: new Date().toISOString() }, "Failed to parse SAMS matches response");
 	});
 
 // ── SAMS API proxy — Rankings ────────────────────────────────────────────────
@@ -441,13 +446,17 @@ export const getSamsTickerFn = createServerFn().handler(async () => {
 
 	if (!response.ok) throw new Error(`SAMS ticker returned ${response.status}`);
 
-	const raw = RawTickerResponseSchema.parse(await response.json());
+	const raw = parseServerData(RawTickerResponseSchema, await response.json(), "Failed to parse SAMS ticker response");
 	const liveMatches = buildLiveMatchesFromRaw(raw);
 
-	const result = LiveTickerResponseSchema.parse({
-		liveMatches,
-		timestamp: new Date().toISOString(),
-	});
+	const result = parseServerData(
+		LiveTickerResponseSchema,
+		{
+			liveMatches,
+			timestamp: new Date().toISOString(),
+		},
+		"Failed to parse SAMS live ticker response",
+	);
 	tickerCache = { data: result, expiresAt: now + TICKER_CACHE_TTL_MS };
 	return result;
 });

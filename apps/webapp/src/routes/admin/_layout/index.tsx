@@ -1,6 +1,7 @@
-import { AspectRatio, BackgroundImage, Card, Group, SimpleGrid, Stack, Title, Typography } from "@mantine/core";
+import { ActionIcon, Card, Flex, Group, SimpleGrid, Stack, Text, ThemeIcon } from "@mantine/core";
 import { createFileRoute, getRouteApi, Link } from "@tanstack/react-router";
 import { getAdminRoutesWithLabels } from "@webapp/utils/adminNavLinks";
+import { ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/admin/_layout/")({
 	component: DashboardIndexPage,
@@ -12,28 +13,38 @@ function DashboardIndexPage() {
 	const { user } = adminLayoutRoute.useRouteContext();
 
 	return (
-		<SimpleGrid spacing="md" cols={{ base: 1, sm: 2, xl: 3 }}>
-			{getAdminRoutesWithLabels(user?.role === "Admin").map(({ to, label, icon, description, image }) => {
-				return (
-					<Card key={to} component={Link} to={to} withBorder radius="md" bg="blumine" c="white">
-						<Card.Section bg="turquoise" mb="md">
-							<AspectRatio ratio={6 / 1}>
-								<BackgroundImage src={image} opacity={0.9}>
-									<Group gap="sm" p="md">
+		<Stack gap="lg">
+			<Text c="dimmed" size="sm">
+				Die folgenden Bereiche stehen zur Verwaltung der Inhalte auf der Webseite zur Verfügung:
+			</Text>
+
+			<SimpleGrid spacing="md" cols={{ base: 1, sm: 2, xl: 3 }}>
+				{getAdminRoutesWithLabels(user?.role === "Admin").map(({ to, label, icon, description }) => {
+					return (
+						<Card key={to} component={Link} to={to} withBorder radius="md" p="lg" shadow="xs" style={{ height: "100%", textDecoration: "none" }}>
+							<Card.Section withBorder inheritPadding py="sm" mb="md">
+								<Group gap="sm" wrap="nowrap">
+									<ThemeIcon size="lg" color="blumine" variant="light">
 										{icon}
-										<Title fw="bold" size="h2" c="white" style={{ textShadow: "1px 1px 2px black" }}>
-											{label}
-										</Title>
-									</Group>
-								</BackgroundImage>
-							</AspectRatio>
-						</Card.Section>
-						<Stack align="stretch" justify="space-between" flex={1}>
-							<Typography>{description}</Typography>
-						</Stack>
-					</Card>
-				);
-			})}
-		</SimpleGrid>
+									</ThemeIcon>
+									<Text c="blumine" fw="bold" size="sm" truncate>
+										{label}
+									</Text>
+								</Group>
+							</Card.Section>
+
+							<Flex justify="space-between" gap="xs">
+								<Text size="sm" style={{ textWrap: "balance" }}>
+									{description}
+								</Text>
+								<ActionIcon variant="transparent" color="blumine" display="inline-block">
+									<ArrowRight size={16} />
+								</ActionIcon>
+							</Flex>
+						</Card>
+					);
+				})}
+			</SimpleGrid>
+		</Stack>
 	);
 }
