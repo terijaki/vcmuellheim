@@ -41,7 +41,7 @@ export const getEventByIdFn = createServerFn()
 export const listAllEventsFn = createServerFn()
 	.middleware([requireAuthMiddleware])
 	.handler(async () => {
-		const result = await db().event.scan.go({ pages: "all" });
+		const result = await db().event.query.byType({ type: "event" }).go({ pages: "all" });
 
 		return {
 			items: result.data as Event[],

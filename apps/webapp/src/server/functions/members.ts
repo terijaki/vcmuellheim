@@ -91,7 +91,7 @@ export const deleteMemberFn = createServerFn()
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
 		// Remove this member from all teams that reference them as a trainer
-		const teamsResult = await db().team.scan.go({ pages: "all" });
+		const teamsResult = await db().team.query.byType({ type: "team" }).go({ pages: "all" });
 		const teams = teamsResult.data;
 		const teamsToUpdate = teams.filter((team) => team.trainerIds?.includes(data.id));
 		for (const team of teamsToUpdate) {

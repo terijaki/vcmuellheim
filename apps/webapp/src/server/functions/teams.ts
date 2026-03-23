@@ -14,7 +14,7 @@ import { withTimestamps } from "../dynamo";
 // ── Public ──────────────────────────────────────────────────────────────────
 
 export const listTeamsFn = createServerFn().handler(async () => {
-	const result = await db().team.scan.go({ pages: "all" });
+	const result = await db().team.query.byType({ type: "team" }).go({ pages: "all" });
 
 	return {
 		items: result.data as Team[],
