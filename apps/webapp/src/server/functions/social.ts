@@ -44,7 +44,6 @@ export const getRecentInstagramPostsFn = createServerFn({ method: "GET" })
 
 		const command = new QueryCommand({
 			TableName: INSTAGRAM_TABLE_NAME(),
-			IndexName: "entityType-timestamp-index",
 			KeyConditionExpression: "entityType = :entityType AND #ts >= :cutoffDate",
 			ExpressionAttributeValues: {
 				":entityType": "POST",
