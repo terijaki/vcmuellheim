@@ -4,31 +4,17 @@
  */
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { IMAGE_VARIANTS } from "@utils/image-config";
 import type { PaginationCursor } from "@/lib/db/types";
-import { listBusFn } from "../server/functions/bus";
 import { getEventByIdFn, getUpcomingEventsFn } from "../server/functions/events";
 import { listLocationsFn } from "../server/functions/locations";
-import { getManyMediaFn } from "../server/functions/media";
 import { listMembersFn } from "../server/functions/members";
 // Server functions
-import { getGalleryImagesFn, getNewsByIdFn, getNewsBySlugFn, getPublishedNewsFn } from "../server/functions/news";
-import {
-	getClubLogoUrlFn,
-	getClubLogoUrlsBatchFn,
-	getClubLogoUrlsByClubUuidBatchFn,
-	getSamsClubByNameSlugFn,
-	getSamsClubBySportsclubUuidFn,
-	getSamsMatchesFn,
-	getSamsRankingsByLeagueUuidsFn,
-	getSamsTickerFn,
-	listSamsClubsFn,
-	listSamsTeamsFn,
-} from "../server/functions/sams";
+import { getGalleryImagesFn, getNewsByIdFn, getPublishedNewsFn } from "../server/functions/news";
+import { getClubLogoUrlFn, getClubLogoUrlsBatchFn, getSamsMatchesFn, getSamsRankingsByLeagueUuidsFn, getSamsTickerFn, listSamsTeamsFn } from "../server/functions/sams";
 import { getRecentInstagramPostsFn } from "../server/functions/social";
 import { listSponsorsFn } from "../server/functions/sponsors";
-import { getTeamByIdFn, getTeamBySlugFn, listTeamsFn } from "../server/functions/teams";
-import { getFileUrlFn, getFileUrlsFn, getFileUrlsMapFn } from "../server/functions/upload";
+import { getTeamBySlugFn, listTeamsFn } from "../server/functions/teams";
+import { getFileUrlFn, getFileUrlsFn } from "../server/functions/upload";
 
 // ============================================================================
 // News
@@ -48,14 +34,6 @@ export const useNewsById = (id: string) => {
 		queryKey: ["news", "id", id],
 		queryFn: () => getNewsByIdFn({ data: { id } }),
 		enabled: !!id,
-	});
-};
-
-export const useNewsBySlug = (slug: string) => {
-	return useQuery({
-		queryKey: ["news", "slug", slug],
-		queryFn: () => getNewsBySlugFn({ data: { slug } }),
-		enabled: !!slug,
 	});
 };
 
@@ -95,14 +73,6 @@ export const useTeams = () => {
 	return useQuery({
 		queryKey: ["teams"],
 		queryFn: () => listTeamsFn(),
-	});
-};
-
-export const useTeamById = (id: string) => {
-	return useQuery({
-		queryKey: ["teams", "id", id],
-		queryFn: () => getTeamByIdFn({ data: { id } }),
-		enabled: !!id,
 	});
 };
 
@@ -148,29 +118,6 @@ export const useLocations = () => {
 };
 
 // ============================================================================
-// Bus bookings
-// ============================================================================
-
-export const useBusBookings = () => {
-	return useQuery({
-		queryKey: ["bus"],
-		queryFn: () => listBusFn(),
-	});
-};
-
-// ============================================================================
-// Media
-// ============================================================================
-
-export const useMediaByIds = (ids: string[]) => {
-	return useQuery({
-		queryKey: ["media", ids],
-		queryFn: () => getManyMediaFn({ data: { ids } }),
-		enabled: ids.length > 0,
-	});
-};
-
-// ============================================================================
 // File / Upload URLs
 // ============================================================================
 
@@ -202,53 +149,6 @@ export const useFileUrls = (s3Keys?: string[]) => {
 	});
 };
 
-export const useFileUrlsMap = (s3Keys?: string[]) => {
-	return useQuery({
-		queryKey: ["fileUrlsMap", s3Keys],
-		queryFn: () => {
-			if (!s3Keys || s3Keys.length === 0) {
-				throw new Error("s3Keys are required");
-			}
-
-			return getFileUrlsMapFn({ data: { s3Keys } });
-		},
-		enabled: !!s3Keys && s3Keys.length > 0,
-	});
-};
-
-// ============================================================================
-// Image variants (pure computation, no API call)
-// ============================================================================
-
-export const useImageVariants = (baseS3Key?: string) => {
-	if (!baseS3Key || baseS3Key.startsWith("http")) {
-		return {
-			original: undefined,
-			sm: undefined,
-			md: undefined,
-			lg: undefined,
-			webp: { sm: undefined, md: undefined, lg: undefined },
-		};
-	}
-
-	const withoutSuffix = baseS3Key.replace(/-(480w|800w|1200w)(\.[^.]+)?$/i, "");
-	const fileExtension = baseS3Key.match(/\.[^.]+$/)?.[0] || ".jpg";
-	const folder = baseS3Key.substring(0, baseS3Key.lastIndexOf("/"));
-	const filename = withoutSuffix.split("/").pop();
-
-	return {
-		original: baseS3Key,
-		sm: `${folder}/${filename}-${IMAGE_VARIANTS.sm}w${fileExtension}`,
-		md: `${folder}/${filename}-${IMAGE_VARIANTS.md}w${fileExtension}`,
-		lg: `${folder}/${filename}-${IMAGE_VARIANTS.lg}w${fileExtension}`,
-		webp: {
-			sm: `${folder}/${filename}-${IMAGE_VARIANTS.sm}w.webp`,
-			md: `${folder}/${filename}-${IMAGE_VARIANTS.md}w.webp`,
-			lg: `${folder}/${filename}-${IMAGE_VARIANTS.lg}w.webp`,
-		},
-	};
-};
-
 // ============================================================================
 // Instagram / Social
 // ============================================================================
@@ -272,41 +172,6 @@ export const useSamsTeams = () => {
 	});
 };
 
-export const useSamsClubs = () => {
-	return useQuery({
-		queryKey: ["samsClubs"],
-		queryFn: () => listSamsClubsFn(),
-	});
-};
-
-export const useSamsClubByUuid = (sportsclubUuid?: string) => {
-	return useQuery({
-		queryKey: ["samsClub", "uuid", sportsclubUuid],
-		queryFn: () => {
-			if (!sportsclubUuid) {
-				throw new Error("sportsclubUuid is required");
-			}
-
-			return getSamsClubBySportsclubUuidFn({ data: { sportsclubUuid } });
-		},
-		enabled: !!sportsclubUuid,
-	});
-};
-
-export const useSamsClubByNameSlug = (nameSlug?: string) => {
-	return useQuery({
-		queryKey: ["samsClub", "slug", nameSlug],
-		queryFn: () => {
-			if (!nameSlug) {
-				throw new Error("nameSlug is required");
-			}
-
-			return getSamsClubByNameSlugFn({ data: { nameSlug } });
-		},
-		enabled: !!nameSlug,
-	});
-};
-
 export const useClubLogoUrl = ({ clubUuid, clubSlug }: { clubUuid?: string; clubSlug?: string }) => {
 	const identifier = clubUuid || clubSlug;
 	return useQuery({
@@ -325,14 +190,6 @@ export const useClubLogoUrlsBatch = (clubSlugs: string[]) => {
 		queryKey: ["clubLogoUrls", clubSlugs],
 		queryFn: () => getClubLogoUrlsBatchFn({ data: { clubSlugs } }),
 		enabled: clubSlugs.length > 0,
-	});
-};
-
-export const useClubLogoUrlsByClubUuidBatch = (clubUuids: string[]) => {
-	return useQuery({
-		queryKey: ["clubLogoUrlsByClubUuid", clubUuids],
-		queryFn: () => getClubLogoUrlsByClubUuidBatchFn({ data: { clubUuids } }),
-		enabled: clubUuids.length > 0,
 	});
 };
 
