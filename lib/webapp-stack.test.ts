@@ -1,6 +1,7 @@
-import { beforeEach, describe, expect, it, mock } from "bun:test";
+import { afterEach, beforeEach, describe, expect, it, mock } from "bun:test";
 import * as childProcessActual from "node:child_process";
-import { readdirSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
 import * as cdk from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
@@ -13,6 +14,7 @@ const testEnv = {
 	account: "123456789012",
 	region: "eu-central-1",
 };
+let cleanupOutputFixtures = () => {};
 
 mock.module("node:child_process", () => {
 	return {
@@ -22,6 +24,41 @@ mock.module("node:child_process", () => {
 });
 
 const { WebAppStack } = await import("./webapp-stack");
+
+function ensureNitroOutputFixtures() {
+	const serverDir = join("apps", "webapp", ".output", "server");
+	const publicDir = join("apps", "webapp", ".output", "public");
+	const serverEntryFile = join(serverDir, "index.mjs");
+	const publicMarkerFile = join(publicDir, ".test-placeholder");
+
+	const createdPaths: string[] = [];
+
+	if (!existsSync(serverDir)) {
+		mkdirSync(serverDir, { recursive: true });
+		createdPaths.push(serverDir);
+	}
+
+	if (!existsSync(publicDir)) {
+		mkdirSync(publicDir, { recursive: true });
+		createdPaths.push(publicDir);
+	}
+
+	if (!existsSync(serverEntryFile)) {
+		writeFileSync(serverEntryFile, 'export const handler = () => ({ statusCode: 200, body: "ok" });\n');
+		createdPaths.push(serverEntryFile);
+	}
+
+	if (!existsSync(publicMarkerFile)) {
+		writeFileSync(publicMarkerFile, "fixture\n");
+		createdPaths.push(publicMarkerFile);
+	}
+
+	return () => {
+		for (const path of [...createdPaths].reverse()) {
+			rmSync(path, { recursive: true, force: true });
+		}
+	};
+}
 
 function createDependencies(app: cdk.App) {
 	const dependencyStack = new cdk.Stack(app, "Dependencies", {
@@ -49,10 +86,16 @@ function createDependencies(app: cdk.App) {
 describe("WebAppStack", () => {
 	beforeEach(() => {
 		buildMock.mockClear();
+		cleanupOutputFixtures = ensureNitroOutputFixtures();
 		process.env.BETTER_AUTH_SECRET = "test-auth-secret";
 		delete process.env.CDK_DESTROY;
 		delete process.env.SAMS_API_KEY;
 		delete process.env.SAMS_SERVER;
+	});
+
+	afterEach(() => {
+		cleanupOutputFixtures();
+		cleanupOutputFixtures = () => {};
 	});
 
 	it("builds the webapp once and creates the core dev resources", () => {
