@@ -24,7 +24,7 @@ export const useNews = ({ limit = 50 }: { limit?: number } = {}) => {
 	return useInfiniteQuery({
 		queryKey: ["news", limit],
 		queryFn: ({ pageParam }) => getPublishedNewsFn({ data: { limit, cursor: pageParam } }),
-		getNextPageParam: (lastPage) => lastPage.lastEvaluatedKey,
+		getNextPageParam: (lastPage) => lastPage?.lastEvaluatedKey,
 		initialPageParam: undefined as PaginationCursor | undefined,
 	});
 };
@@ -41,7 +41,7 @@ export const useGalleryImages = ({ limit = 20, format = "urls", shuffle }: { lim
 	return useInfiniteQuery({
 		queryKey: ["galleryImages", limit, format, shuffle],
 		queryFn: ({ pageParam }) => getGalleryImagesFn({ data: { limit, format, shuffle, cursor: pageParam } }),
-		getNextPageParam: (lastPage) => lastPage.nextCursor,
+		getNextPageParam: (lastPage) => lastPage?.nextCursor,
 		initialPageParam: undefined as PaginationCursor | undefined,
 	});
 };
