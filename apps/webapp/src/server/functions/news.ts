@@ -39,7 +39,6 @@ export const getNewsByIdFn = createServerFn()
 	.handler(async ({ data }) => {
 		const result = await db().news.get({ id: data.id }).go();
 		const news = result.data ? parseServerData(newsSchema, result.data, "Failed to parse news article") : null;
-		if (!news) throw new Error("News article not found");
 		return news;
 	});
 
