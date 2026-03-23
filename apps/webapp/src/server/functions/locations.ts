@@ -13,7 +13,7 @@ import { withTimestamps } from "../dynamo";
 // ── Public ──────────────────────────────────────────────────────────────────
 
 export const listLocationsFn = createServerFn().handler(async () => {
-	const result = await db().location.scan.go({ pages: "all" });
+	const result = await db().location.query.byType({ type: "location" }).go({ pages: "all" });
 
 	return {
 		items: result.data as Location[],

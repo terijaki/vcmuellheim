@@ -172,6 +172,7 @@ export const MemberEntity = new Entity({
 	},
 	attributes: {
 		id: { type: "string", required: true },
+		type: { type: "string", required: true, default: () => "member" as const },
 		name: { type: "string", required: true },
 		email: { type: "string" },
 		phone: { type: "string" },
@@ -186,6 +187,11 @@ export const MemberEntity = new Entity({
 		byId: {
 			pk: { field: "pk", composite: ["id"] },
 			sk: { field: "sk", composite: [] },
+		},
+		byType: {
+			index: ContentTableIndexes.gsi1,
+			pk: { field: "gsi1pk", composite: ["type"] },
+			sk: { field: "gsi1sk", composite: ["updatedAt"] },
 		},
 	},
 } as const);
@@ -236,6 +242,7 @@ export const SponsorEntity = new Entity({
 	},
 	attributes: {
 		id: { type: "string", required: true },
+		type: { type: "string", required: true, default: () => "sponsor" as const },
 		name: { type: "string", required: true },
 		description: { type: "string" },
 		websiteUrl: { type: "string" },
@@ -248,6 +255,11 @@ export const SponsorEntity = new Entity({
 		byId: {
 			pk: { field: "pk", composite: ["id"] },
 			sk: { field: "sk", composite: [] },
+		},
+		byType: {
+			index: ContentTableIndexes.gsi1,
+			pk: { field: "gsi1pk", composite: ["type"] },
+			sk: { field: "gsi1sk", composite: ["updatedAt"] },
 		},
 	},
 } as const);
@@ -264,6 +276,7 @@ export const LocationEntity = new Entity({
 	},
 	attributes: {
 		id: { type: "string", required: true },
+		type: { type: "string", required: true, default: () => "location" as const },
 		name: { type: "string", required: true },
 		description: { type: "string" },
 		street: { type: "string", required: true },
@@ -276,6 +289,11 @@ export const LocationEntity = new Entity({
 		byId: {
 			pk: { field: "pk", composite: ["id"] },
 			sk: { field: "sk", composite: [] },
+		},
+		byType: {
+			index: ContentTableIndexes.gsi1,
+			pk: { field: "gsi1pk", composite: ["type"] },
+			sk: { field: "gsi1sk", composite: ["updatedAt"] },
 		},
 	},
 } as const);
@@ -292,6 +310,7 @@ export const BusEntity = new Entity({
 	},
 	attributes: {
 		id: { type: "string", required: true },
+		type: { type: "string", required: true, default: () => "bus" as const },
 		driver: { type: "string", required: true },
 		comment: { type: "string" },
 		from: { type: "string", required: true },
@@ -304,6 +323,11 @@ export const BusEntity = new Entity({
 		byId: {
 			pk: { field: "pk", composite: ["id"] },
 			sk: { field: "sk", composite: [] },
+		},
+		byType: {
+			index: ContentTableIndexes.gsi1,
+			pk: { field: "gsi1pk", composite: ["type"] },
+			sk: { field: "gsi1sk", composite: ["updatedAt"] },
 		},
 	},
 } as const);
@@ -320,6 +344,7 @@ export const CmsUserEntity = new Entity({
 	},
 	attributes: {
 		id: { type: "string", required: true },
+		type: { type: "string", required: true, default: () => "user" as const },
 		email: { type: "string", required: true },
 		name: { type: "string", required: true },
 		emailVerified: { type: "boolean", required: true, default: () => false },
@@ -331,6 +356,11 @@ export const CmsUserEntity = new Entity({
 		byId: {
 			pk: { field: "pk", composite: ["id"] },
 			sk: { field: "sk", composite: [] },
+		},
+		byType: {
+			index: ContentTableIndexes.gsi1,
+			pk: { field: "gsi1pk", composite: ["type"] },
+			sk: { field: "gsi1sk", composite: ["updatedAt"] },
 		},
 		byEmail: {
 			index: ContentTableIndexes.gsi4,

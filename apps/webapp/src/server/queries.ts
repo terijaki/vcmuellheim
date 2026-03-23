@@ -43,7 +43,7 @@ export async function getCmsUserByEmail(email: string): Promise<CmsUser | null> 
 }
 
 export async function getAllCmsUsers(): Promise<CmsUser[]> {
-	const result = await db().user.scan.go({ pages: "all" });
+	const result = await db().user.query.byType({ type: "user" }).go({ pages: "all" });
 	return result.data as CmsUser[];
 }
 

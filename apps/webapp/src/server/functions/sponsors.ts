@@ -13,7 +13,7 @@ import { withTimestamps } from "../dynamo";
 // ── Public ──────────────────────────────────────────────────────────────────
 
 export const listSponsorsFn = createServerFn().handler(async () => {
-	const result = await db().sponsor.scan.go({ pages: "all" });
+	const result = await db().sponsor.query.byType({ type: "sponsor" }).go({ pages: "all" });
 
 	return {
 		items: result.data as Sponsor[],

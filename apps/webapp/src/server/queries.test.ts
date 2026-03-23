@@ -154,19 +154,43 @@ describe("server/queries", () => {
 	});
 
 	describe("getAllCmsUsers", () => {
-		it("scans the content table with entity-type filter for users", async () => {
+		it("queries the content table by type index for users", async () => {
 			const mockUsers = [
-				{ id: "u1", email: "a@test.com", name: "A", role: "Admin", emailVerified: true, createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z", __edb_e__: "user", __edb_v__: "1" },
-				{ id: "u2", email: "b@test.com", name: "B", role: "Moderator", emailVerified: false, createdAt: "2024-01-01T00:00:00Z", updatedAt: "2024-01-01T00:00:00Z", __edb_e__: "user", __edb_v__: "1" },
+				{
+					id: "u1",
+					email: "a@test.com",
+					name: "A",
+					role: "Admin",
+					emailVerified: true,
+					createdAt: "2024-01-01T00:00:00Z",
+					updatedAt: "2024-01-01T00:00:00Z",
+					type: "user",
+					__edb_e__: "user",
+					__edb_v__: "1",
+				},
+				{
+					id: "u2",
+					email: "b@test.com",
+					name: "B",
+					role: "Moderator",
+					emailVerified: false,
+					createdAt: "2024-01-01T00:00:00Z",
+					updatedAt: "2024-01-01T00:00:00Z",
+					type: "user",
+					__edb_e__: "user",
+					__edb_v__: "1",
+				},
 			];
-			ddbMock.on(ScanCommand).resolves({ Items: mockUsers });
+			ddbMock.on(QueryCommand).resolves({ Items: mockUsers });
 
 			const result = await getAllCmsUsers();
 
 			expect(result).toHaveLength(2);
 			expect(result[0].id).toBe("u1");
-			const calls = ddbMock.commandCalls(ScanCommand);
-			expect(calls[0].args[0].input.TableName).toBe("test-content-table");
+			const calls = ddbMock.commandCalls(QueryCommand);
+			const userQueryCall = calls.find((c) => c.args[0].input.IndexName === "GSI1-ByTypeAndDate");
+			expect(userQueryCall).toBeDefined();
+			expect(userQueryCall?.args[0].input.TableName).toBe("test-content-table");
 		});
 	});
 

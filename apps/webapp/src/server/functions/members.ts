@@ -13,7 +13,7 @@ import { withTimestamps } from "../dynamo";
 // ── Public ──────────────────────────────────────────────────────────────────
 
 export const listMembersFn = createServerFn().handler(async () => {
-	const result = await db().member.scan.go({ pages: "all" });
+	const result = await db().member.query.byType({ type: "member" }).go({ pages: "all" });
 
 	return {
 		items: result.data as Member[],
@@ -23,7 +23,8 @@ export const listMembersFn = createServerFn().handler(async () => {
 
 export const getBoardMembersFn = createServerFn().handler(async () => {
 	const result = await db()
-		.member.scan.where((attr, op) => op.eq(attr.isBoardMember, true))
+		.member.query.byType({ type: "member" })
+		.where((attr, op) => op.eq(attr.isBoardMember, true))
 		.go({ pages: "all" });
 
 	return {
@@ -34,7 +35,8 @@ export const getBoardMembersFn = createServerFn().handler(async () => {
 
 export const getTrainersFn = createServerFn().handler(async () => {
 	const result = await db()
-		.member.scan.where((attr, op) => op.eq(attr.isTrainer, true))
+		.member.query.byType({ type: "member" })
+		.where((attr, op) => op.eq(attr.isTrainer, true))
 		.go({ pages: "all" });
 
 	return {

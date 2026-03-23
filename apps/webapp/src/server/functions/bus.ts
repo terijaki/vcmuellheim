@@ -14,7 +14,7 @@ import { withTimestamps } from "../dynamo";
 // ── Public ──────────────────────────────────────────────────────────────────
 
 export const listBusFn = createServerFn().handler(async () => {
-	const result = await db().bus.scan.go({ pages: "all" });
+	const result = await db().bus.query.byType({ type: "bus" }).go({ pages: "all" });
 
 	return {
 		items: result.data as Bus[],
