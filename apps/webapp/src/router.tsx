@@ -1,3 +1,5 @@
+import { Sentry as SentryConfig } from "@project.config";
+import * as Sentry from "@sentry/tanstackstart-react";
 import { QueryClient } from "@tanstack/react-query";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
@@ -19,13 +21,23 @@ export function getRouter() {
 			},
 		},
 	});
-
-	return createTanStackRouter({
+	const router = createTanStackRouter({
 		routeTree,
 		context: { queryClient, session: null },
 		defaultPreload: "intent",
 		scrollRestoration: true,
 	});
+
+	if (!router.isServer && !Sentry.getClient()) {
+		Sentry.init({
+			dsn: SentryConfig.dsn,
+			enabled: Boolean(SentryConfig.dsn),
+			environment: import.meta.env.VITE_CDK_ENVIRONMENT || import.meta.env.MODE || "development",
+			sendDefaultPii: true,
+		});
+	}
+
+	return router;
 }
 
 export const createRouter = getRouter;

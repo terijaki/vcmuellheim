@@ -10,6 +10,7 @@ const serializableValueSchema = z.custom<SerializableValue>((value) => value !==
 // ============================================================================
 
 export const InstagramSyncLambdaEnvironmentSchema = z.object({
+	CDK_ENVIRONMENT: optionalEnvString,
 	INSTAGRAM_TABLE_NAME: requiredEnvString,
 	APIFY_API_KEY: requiredEnvString,
 	APIFY_SCHEDULE_ID: requiredEnvString,
@@ -19,12 +20,14 @@ export const InstagramSyncLambdaEnvironmentSchema = z.object({
 export type InstagramSyncLambdaEnvironment = z.infer<typeof InstagramSyncLambdaEnvironmentSchema>;
 
 export const InstagramPostsLambdaEnvironmentSchema = z.object({
+	CDK_ENVIRONMENT: optionalEnvString,
 	INSTAGRAM_TABLE_NAME: requiredEnvString,
 });
 
 export type InstagramPostsLambdaEnvironment = z.infer<typeof InstagramPostsLambdaEnvironmentSchema>;
 
 export const MastodonShareLambdaEnvironmentSchema = z.object({
+	CDK_ENVIRONMENT: optionalEnvString,
 	MASTODON_ACCESS_TOKEN: requiredEnvString,
 	MEDIA_BUCKET_NAME: optionalEnvString,
 	AWS_REGION: requiredEnvString,
@@ -33,6 +36,7 @@ export const MastodonShareLambdaEnvironmentSchema = z.object({
 export type MastodonShareLambdaEnvironment = z.infer<typeof MastodonShareLambdaEnvironmentSchema>;
 
 export const MastodonStreamHandlerLambdaEnvironmentSchema = z.object({
+	CDK_ENVIRONMENT: optionalEnvString,
 	MASTODON_LAMBDA_NAME: requiredEnvString,
 	ENVIRONMENT: requiredEnvString,
 	WEBSITE_URL: requiredEnvString,

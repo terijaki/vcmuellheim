@@ -1,6 +1,6 @@
 import { zLeagueMatchDto, zLeagueRankingsEntryDto, zLocation, zSeasonDto, zVolleyballMatchResultsDto } from "@codegen/sams/generated/zod.gen";
 import { z } from "zod";
-import { requiredEnvString } from "../utils/env";
+import { optionalEnvString, requiredEnvString } from "../utils/env";
 
 // ============================================================================
 // Lambda Environment Contracts
@@ -9,6 +9,7 @@ import { requiredEnvString } from "../utils/env";
 export const SamsCommonLambdaEnvironmentSchema = z.object({
 	SAMS_API_KEY: requiredEnvString,
 	SAMS_SERVER: requiredEnvString,
+	CDK_ENVIRONMENT: optionalEnvString,
 });
 
 export type SamsCommonLambdaEnvironment = z.infer<typeof SamsCommonLambdaEnvironmentSchema>;

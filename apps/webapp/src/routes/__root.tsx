@@ -8,10 +8,12 @@ import { ColorSchemeScript, colorsTuple, createTheme, MantineProvider, mantineHt
 import { DatesProvider } from "@mantine/dates";
 import { Notifications } from "@mantine/notifications";
 import { Club } from "@project.config";
+import * as Sentry from "@sentry/tanstackstart-react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { createRootRouteWithContext, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
+import { useEffect } from "react";
 import type { RouterContext } from "../router";
 import { getSessionFn } from "../server/functions/session";
 
@@ -81,20 +83,26 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 		],
 	}),
 	component: RootDocument,
-	errorComponent: ({ error }) => (
-		<html lang="de" {...mantineHtmlProps}>
-			<head>
-				<HeadContent />
-			</head>
-			<body>
-				<div style={{ padding: "2rem", fontFamily: "system-ui" }}>
-					<h1>Fehler</h1>
-					<p>{(error as Error).message}</p>
-				</div>
-				<Scripts />
-			</body>
-		</html>
-	),
+	errorComponent: ({ error }) => {
+		useEffect(() => {
+			Sentry.captureException(error);
+		}, [error]);
+
+		return (
+			<html lang="de" {...mantineHtmlProps}>
+				<head>
+					<HeadContent />
+				</head>
+				<body>
+					<div style={{ padding: "2rem", fontFamily: "system-ui" }}>
+						<h1>Fehler</h1>
+						<p>{(error as Error).message}</p>
+					</div>
+					<Scripts />
+				</body>
+			</html>
+		);
+	},
 	notFoundComponent: () => (
 		<html lang="de" {...mantineHtmlProps}>
 			<head>

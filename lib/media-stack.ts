@@ -122,6 +122,9 @@ export class MediaStack extends cdk.Stack {
 			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
 			entry: "lambda/content/image-processor.ts",
+			environment: {
+				CDK_ENVIRONMENT: environment,
+			},
 			timeout: cdk.Duration.minutes(5),
 			memorySize: 512, // Need more memory for image processing
 			layers: [imageMagickLayer, powertoolsLayer],

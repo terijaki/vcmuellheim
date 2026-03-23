@@ -29,6 +29,10 @@ export const Instagram = {
 	recentPostTimeframe: 30 as const, // days
 	mainAccount: "vcmuellheim" as const,
 };
+/** Shared Sentry configuration for the webapp runtime. */
+export const Sentry = {
+	dsn: "https://fa39728bab836eac8258598505b891fe@o4509428230979584.ingest.de.sentry.io/4509428234322000" as const,
+};
 /** AWS DNS resources (manually created in AWS Console, environment-specific). */
 export const DNS = {
 	// Production DNS (root domain vcmuellheim.de)

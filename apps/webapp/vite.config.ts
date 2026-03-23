@@ -1,5 +1,5 @@
 import babel from "@rolldown/plugin-babel";
-import { sentryVitePlugin } from "@sentry/vite-plugin";
+import { sentryTanstackStart } from "@sentry/tanstackstart-react/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
@@ -25,13 +25,14 @@ export default defineConfig(({ mode }) => {
 			tanstackStart(),
 			react(),
 			babel({ presets: [reactCompilerPreset()] }),
-			sentryVitePlugin({
-				org: "volleyballclub-mullheim-ev",
-				project: "volleyball-webapp",
-				disable: !process.env.SENTRY_AUTH_TOKEN,
-				authToken: process.env.SENTRY_AUTH_TOKEN,
-				silent: !isProd,
-			}),
+			...(process.env.SENTRY_AUTH_TOKEN
+				? sentryTanstackStart({
+						org: "volleyballclub-mullheim-ev",
+						project: "volleyball-webapp",
+						authToken: process.env.SENTRY_AUTH_TOKEN,
+						silent: !isProd,
+					})
+				: []),
 		],
 		resolve: {
 			tsconfigPaths: true,

@@ -1,7 +1,7 @@
-import { ActionIcon, Card, Flex, Group, SimpleGrid, Stack, Text, ThemeIcon } from "@mantine/core";
+import { ActionIcon, Button, Card, Flex, Group, SimpleGrid, Stack, Text, ThemeIcon } from "@mantine/core";
 import { createFileRoute, getRouteApi, Link } from "@tanstack/react-router";
 import { getAdminRoutesWithLabels } from "@webapp/utils/adminNavLinks";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/admin/_layout/")({
 	component: DashboardIndexPage,
@@ -45,6 +45,11 @@ function DashboardIndexPage() {
 					);
 				})}
 			</SimpleGrid>
+			<Group justify="center" m="xl">
+				<Button rightSection={<ExternalLink size={16} />} component={Link} to="/" target="_blank">
+					Zur Homepage
+				</Button>
+			</Group>
 		</Stack>
 	);
 }
