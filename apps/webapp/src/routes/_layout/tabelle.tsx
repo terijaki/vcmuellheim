@@ -1,4 +1,4 @@
-import { Card, CardSection, Center, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Card, CardSection, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import CardTitle from "@webapp/components/CardTitle";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
@@ -64,42 +64,101 @@ export const Route = createFileRoute("/_layout/tabelle")({
 
 function RouteComponent() {
 	const { leagueUuids, teams, lastResultCap } = Route.useLoaderData();
-	const { data: rankings, isLoading: isLoadingRankings } = useSamsRankingsByLeagueUuid(leagueUuids);
-	const { data: matchesData, isLoading: isLoadingMatches } = useSamsMatches({ range: "past", limit: lastResultCap });
+	const { data: rankings, isLoading: isLoadingRankings, isFetching: isFetchingRankings, isError: isRankingsError } = useSamsRankingsByLeagueUuid(leagueUuids);
+	const { data: matchesData, isLoading: isLoadingMatches, isError: isMatchesError } = useSamsMatches({ range: "past", limit: lastResultCap });
 	const recentMatches = matchesData?.matches ?? [];
 	const lastResultWord = recentMatches.length > 1 && numToWord(recentMatches.length, { uppercase: false });
-
-	if (isLoadingRankings) {
-		return (
-			<PageWithHeading title={"Tabelle"}>
-				<Center p="xl">
-					<Loader />
-				</Center>
-			</PageWithHeading>
-		);
-	}
+	const hasRankings = !!rankings && rankings.length > 0;
 
 	return (
 		<PageWithHeading title={"Tabelle"}>
-			{(!rankings || rankings.length === 0) && <NoRankingsData />}
-			{rankings && rankings.length > 0 && (
-				<Stack>
-					<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-						{rankings.map((ranking) => (
-							<RankingTable key={ranking.leagueUuid} ranking={ranking} linkToTeamPage={true} clubsTeams={teams} />
-						))}
-					</SimpleGrid>
-					{!isLoadingMatches && recentMatches.length > 0 && (
-						<Card>
-							<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
-							<CardSection p={{ base: undefined, sm: "sm" }}>
-								<Matches matches={recentMatches} type="past" />
-							</CardSection>
-						</Card>
-					)}
-				</Stack>
-			)}
+			<Stack>
+				{isLoadingRankings && <RankingsLoadingState leagueCount={leagueUuids.length} />}
+				{!isLoadingRankings && isRankingsError && <RankingsErrorState />}
+				{!isLoadingRankings && !isRankingsError && !hasRankings && <NoRankingsData />}
+				{hasRankings && (
+					<>
+						{isFetchingRankings && (
+							<Text c="dimmed" size="sm">
+								Tabellen werden aktualisiert...
+							</Text>
+						)}
+						<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
+							{rankings.map((ranking) => (
+								<RankingTable key={ranking.leagueUuid} ranking={ranking} linkToTeamPage={true} clubsTeams={teams} />
+							))}
+						</SimpleGrid>
+					</>
+				)}
+				{isLoadingMatches && <MatchesLoadingState />}
+				{!isLoadingMatches && isMatchesError && <MatchesErrorState />}
+				{!isLoadingMatches && !isMatchesError && recentMatches.length > 0 && (
+					<Card>
+						<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
+						<CardSection p={{ base: undefined, sm: "sm" }}>
+							<Matches matches={recentMatches} type="past" />
+						</CardSection>
+					</Card>
+				)}
+			</Stack>
 		</PageWithHeading>
+	);
+}
+
+function RankingsLoadingState({ leagueCount }: { leagueCount: number }) {
+	const placeholderCount = Math.max(2, Math.min(6, leagueCount || 2));
+	const placeholderSlots = Array.from({ length: placeholderCount }, (_, slot) => slot + 1);
+
+	return (
+		<>
+			<Text c="dimmed" size="sm">
+				Tabellen werden geladen...
+			</Text>
+			<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
+				{placeholderSlots.map((slot) => (
+					<Card key={`ranking-loading-${slot}`} p="md">
+						<Stack align="center" py="xl" gap="xs">
+							<Loader size="sm" />
+							<Text c="dimmed" size="sm">
+								Lade Tabelle...
+							</Text>
+						</Stack>
+					</Card>
+				))}
+			</SimpleGrid>
+		</>
+	);
+}
+
+function RankingsErrorState() {
+	return (
+		<Card>
+			<CardTitle>Fehler beim Laden der Tabellen</CardTitle>
+			<Text>Die Tabellen konnten derzeit nicht geladen werden. Bitte versuche es in wenigen Minuten erneut.</Text>
+		</Card>
+	);
+}
+
+function MatchesLoadingState() {
+	return (
+		<Card>
+			<CardTitle>Letzte Spiele</CardTitle>
+			<Stack align="center" py="md" gap="xs">
+				<Loader size="sm" />
+				<Text c="dimmed" size="sm">
+					Lade letzte Spiele...
+				</Text>
+			</Stack>
+		</Card>
+	);
+}
+
+function MatchesErrorState() {
+	return (
+		<Card>
+			<CardTitle>Fehler beim Laden der letzten Spiele</CardTitle>
+			<Text>Die letzten Spielresultate konnten derzeit nicht geladen werden. Bitte versuche es später erneut.</Text>
+		</Card>
 	);
 }
 

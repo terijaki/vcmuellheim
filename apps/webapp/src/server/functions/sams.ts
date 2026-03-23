@@ -348,6 +348,7 @@ let tickerCache: TickerCacheValue | null = null;
 const RawTickerMatchSchema = z
 	.object({
 		id: z.string(),
+		date: z.union([z.string(), z.number()]).optional(),
 		teamDescription1: z.string().optional(),
 		team1: z.string(),
 		teamDescription2: z.string().optional(),
@@ -357,6 +358,7 @@ const RawTickerMatchSchema = z
 
 const RawTickerMatchDaySchema = z
 	.object({
+		date: z.string().optional(),
 		matches: z.array(RawTickerMatchSchema).optional().default([]),
 	})
 	.loose();
@@ -387,7 +389,7 @@ const RawTickerResponseSchema = z
 
 export function buildLiveMatchesFromRaw(raw: z.infer<typeof RawTickerResponseSchema>): LiveMatch[] {
 	// Build matchUuid → team metadata map from matchDays
-	const matchTeamMap = new Map<string, { team1Uuid: string; team2Uuid: string; team1Name: string; team2Name: string }>();
+	const matchTeamMap = new Map<string, { team1Uuid: string; team2Uuid: string; team1Name: string; team2Name: string; matchDate?: string | number }>();
 	for (const day of raw.matchDays) {
 		for (const match of day.matches) {
 			matchTeamMap.set(match.id, {
@@ -395,16 +397,20 @@ export function buildLiveMatchesFromRaw(raw: z.infer<typeof RawTickerResponseSch
 				team2Uuid: match.team2,
 				team1Name: match.teamDescription1 ?? match.team1,
 				team2Name: match.teamDescription2 ?? match.team2,
+				matchDate: match.date ?? day.date,
 			});
 		}
 	}
 
-	// Only include started matches that have team metadata
+	const today = dayjs();
+
+	// Only include started matches from today that have team metadata
 	const liveMatches: LiveMatch[] = [];
 	for (const [matchUuid, state] of Object.entries(raw.matchStates)) {
 		if (!state.started) continue;
 		const teams = matchTeamMap.get(matchUuid);
 		if (!teams) continue;
+		if (!teams.matchDate || !dayjs(teams.matchDate).isValid() || !dayjs(teams.matchDate).isSame(today, "day")) continue;
 		liveMatches.push({
 			matchUuid,
 			team1Uuid: teams.team1Uuid,

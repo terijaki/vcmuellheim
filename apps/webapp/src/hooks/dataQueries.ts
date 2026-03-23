@@ -342,6 +342,9 @@ export const useSamsRankingsByLeagueUuid = (leagueUuids: string[]) => {
 		queryFn: () => getSamsRankingsByLeagueUuidsFn({ data: { leagueUuids } }),
 		enabled: leagueUuids.length > 0,
 		staleTime: 1000 * 60 * 10,
+		retry: 1,
+		placeholderData: (previousData) => previousData,
+		refetchOnWindowFocus: false,
 	});
 };
 
@@ -363,6 +366,10 @@ export const useSamsMatches = ({
 	return useQuery({
 		queryKey: ["samsMatches", league, season, sportsclub, team, limit, range],
 		queryFn: () => getSamsMatchesFn({ data: { league, season, sportsclub, team, limit, range } }),
+		retry: 1,
+		staleTime: 1000 * 60 * 2,
+		placeholderData: (previousData) => previousData,
+		refetchOnWindowFocus: false,
 	});
 };
 
