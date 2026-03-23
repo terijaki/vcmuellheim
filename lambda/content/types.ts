@@ -15,6 +15,7 @@ export const TrpcLambdaEnvironmentSchema = tableEnvironmentSchema.extend({
 export type TrpcLambdaEnvironment = z.infer<typeof TrpcLambdaEnvironmentSchema>;
 
 export const IcsCalendarLambdaEnvironmentSchema = z.object({
+	CDK_ENVIRONMENT: optionalEnvString,
 	SAMS_API_URL: requiredEnvString,
 	CONTENT_TABLE_NAME: requiredEnvString,
 });
@@ -22,6 +23,7 @@ export const IcsCalendarLambdaEnvironmentSchema = z.object({
 export type IcsCalendarLambdaEnvironment = z.infer<typeof IcsCalendarLambdaEnvironmentSchema>;
 
 export const S3CleanupLambdaEnvironmentSchema = z.object({
+	CDK_ENVIRONMENT: optionalEnvString,
 	MEDIA_BUCKET_NAME: requiredEnvString,
 });
 
