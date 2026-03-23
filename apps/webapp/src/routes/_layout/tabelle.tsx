@@ -7,6 +7,7 @@ import RankingTable from "@webapp/components/RankingTable";
 import { useSamsMatches, useSamsRankingsByLeagueUuid } from "@webapp/hooks/dataQueries";
 import { getSamsLeagueLevelsByLeagueUuidsFn, listSamsTeamsFn } from "@webapp/server/functions/sams";
 import { listTeamsFn } from "@webapp/server/functions/teams";
+import { buildLeagueOrderingContext, calculateLastResultCap, sortLeagueUuidsByLevels } from "@webapp/utils/ranking";
 import { numToWord } from "num-words-de";
 
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
@@ -15,48 +16,40 @@ export const Route = createFileRoute("/_layout/tabelle")({
 	loader: async () => {
 		// Main data comes from DynamoDB; only a batched SAMS metadata lookup is used for league ordering.
 		const [samsTeams, teams] = await Promise.all([listSamsTeamsFn(), listTeamsFn()]);
+		const orderingContext = buildLeagueOrderingContext(samsTeams.teams);
 
 		if (samsTeams.teams.length === 0) {
 			return { leagueUuids: [], teams: teams.items, lastResultCap: 6 };
 		}
 
-		const leagueUuids = [...new Set(samsTeams.teams.map((t) => t.leagueUuid).filter(Boolean))];
-		const leagueOrderByUuid = new Map(leagueUuids.map((leagueUuid, index) => [leagueUuid, index]));
-		const leagueNameByUuid = new Map(samsTeams.teams.filter((t) => t.leagueUuid).map((t) => [t.leagueUuid as string, t.leagueName ?? ""]));
-		const seasonUuid = samsTeams.teams.find((t) => t.seasonUuid)?.seasonUuid;
-		const associationUuid = samsTeams.teams.find((t) => t.associationUuid)?.associationUuid;
 		let leagueLevels: Record<string, number | null> = {};
-		if (leagueUuids.length > 0) {
+		if (orderingContext.leagueUuids.length > 0) {
 			try {
 				leagueLevels = await getSamsLeagueLevelsByLeagueUuidsFn({
-					data: { leagueUuids, seasonUuid, associationUuid },
+					data: {
+						leagueUuids: orderingContext.leagueUuids,
+						seasonUuid: orderingContext.seasonUuid,
+						associationUuid: orderingContext.associationUuid,
+					},
 				});
 			} catch (error) {
 				console.error("Failed to fetch SAMS league levels for league UUIDs", {
 					error,
-					leagueUuids,
-					seasonUuid,
-					associationUuid,
+					leagueUuids: orderingContext.leagueUuids,
+					seasonUuid: orderingContext.seasonUuid,
+					associationUuid: orderingContext.associationUuid,
 				});
 				leagueLevels = {};
 			}
 		}
-		const sortedLeagueUuids = [...leagueUuids].sort((a, b) => {
-			const levelA = leagueLevels[a] ?? Number.POSITIVE_INFINITY;
-			const levelB = leagueLevels[b] ?? Number.POSITIVE_INFINITY;
 
-			if (levelA !== levelB) {
-				return levelA - levelB;
-			}
-
-			const nameCompare = (leagueNameByUuid.get(a) ?? "").localeCompare(leagueNameByUuid.get(b) ?? "");
-			if (nameCompare !== 0) {
-				return nameCompare;
-			}
-
-			return (leagueOrderByUuid.get(a) ?? 0) - (leagueOrderByUuid.get(b) ?? 0);
+		const sortedLeagueUuids = sortLeagueUuidsByLevels({
+			leagueUuids: orderingContext.leagueUuids,
+			leagueLevels,
+			leagueNameByUuid: orderingContext.leagueNameByUuid,
+			leagueOrderByUuid: orderingContext.leagueOrderByUuid,
 		});
-		const lastResultCap = Math.max(6, Math.min(20, Math.floor(samsTeams.teams.length * GAMES_PER_TEAM)));
+		const lastResultCap = calculateLastResultCap(samsTeams.teams.length, GAMES_PER_TEAM);
 		return { leagueUuids: sortedLeagueUuids, teams: teams.items, lastResultCap };
 	},
 	component: RouteComponent,
