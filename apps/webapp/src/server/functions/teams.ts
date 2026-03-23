@@ -37,7 +37,6 @@ export const getTeamBySlugFn = createServerFn()
 	.handler(async ({ data }) => {
 		const result = await db().team.query.bySlug({ slug: data.slug }).go({ limit: 1 });
 		const team = result.data[0] ? parseServerData(teamSchema, result.data[0], "Failed to parse team data") : null;
-		if (!team) throw new Error("Team not found");
 		return team;
 	});
 
