@@ -1,21 +1,30 @@
 import { Anchor, Card, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import CardTitle from "@webapp/components/CardTitle";
-import CenteredLoader from "@webapp/components/CenteredLoader";
 import EventCard from "@webapp/components/EventCard";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
+import { getUpcomingEventsFn } from "@webapp/server/functions/events";
+import { getSamsMatchesFn } from "@webapp/server/functions/sams";
 import { createWebcalLink } from "@webapp/utils/webcal";
 import dayjs from "dayjs";
-import { Fragment, Suspense } from "react";
+import { Fragment } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
-import { useEvents, useSamsMatches } from "@/apps/webapp/src/hooks/dataQueries";
 
 export const Route = createFileRoute("/_layout/termine/")({
+	loader: async () => {
+		const [eventsResult, matchesResult] = await Promise.allSettled([getUpcomingEventsFn(), getSamsMatchesFn({ data: { range: "future" } })]);
+
+		const events = eventsResult.status === "fulfilled" ? eventsResult.value.items : [];
+		const matches = matchesResult.status === "fulfilled" ? matchesResult.value : null;
+
+		return { events, matches, matchesError: matchesResult.status === "rejected" };
+	},
 	component: RouteComponent,
 });
 
 function RouteComponent() {
+	const { events, matches, matchesError } = Route.useLoaderData();
 	const webcalLink = createWebcalLink("/api/ics/all.ics");
 
 	return (
@@ -36,23 +45,15 @@ function RouteComponent() {
 						</Text>
 					</Stack>
 				</Card>
-				<Suspense fallback={<CenteredLoader text="Lade Termine..." />}>
-					<EventsContent />
-					<MatchesContent />
-				</Suspense>
+				<EventsContent events={events} />
+				<MatchesContent matches={matches} error={matchesError} />
 			</Stack>
 		</PageWithHeading>
 	);
 }
 
-function EventsContent() {
-	const { data: events, isLoading } = useEvents();
-
-	if (isLoading) {
-		return <CenteredLoader text="Lade Veranstaltungen..." />;
-	}
-
-	if (!events?.items || events.items.length === 0) {
+function EventsContent({ events }: { events: Awaited<ReturnType<typeof getUpcomingEventsFn>>["items"] }) {
+	if (!events || events.length === 0) {
 		return null;
 	}
 
@@ -62,7 +63,7 @@ function EventsContent() {
 				Veranstaltungen
 			</Title>
 			<SimpleGrid cols={{ base: 1, md: 2 }}>
-				{events.items.map((event) => {
+				{events.map((event) => {
 					return <EventCard {...event} key={event.id} />;
 				})}
 			</SimpleGrid>
@@ -70,15 +71,9 @@ function EventsContent() {
 	);
 }
 
-function MatchesContent() {
-	const { data: matches, isLoading, error } = useSamsMatches({ range: "future" });
-
+function MatchesContent({ matches, error }: { matches: Awaited<ReturnType<typeof getSamsMatchesFn>> | null; error: boolean }) {
 	const currentMonth = dayjs().month() + 1;
 	const isOffSeason = currentMonth >= 5 && currentMonth <= 9;
-
-	if (isLoading) {
-		return <CenteredLoader text="Lade Ligaspiele..." />;
-	}
 
 	if (error) {
 		return (
