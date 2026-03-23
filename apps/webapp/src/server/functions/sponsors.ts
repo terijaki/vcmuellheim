@@ -23,15 +23,6 @@ export const listSponsorsFn = createServerFn().handler(async () => {
 	};
 });
 
-export const getSponsorByIdFn = createServerFn()
-	.inputValidator(z.object({ id: z.uuid() }))
-	.handler(async ({ data }) => {
-		const result = await db().sponsor.get({ id: data.id }).go();
-		const sponsor = result.data ? parseServerData(sponsorSchema, result.data, "Failed to parse sponsor data") : null;
-		if (!sponsor) throw new Error("Sponsor not found");
-		return sponsor;
-	});
-
 // ── Protected ────────────────────────────────────────────────────────────────
 
 export const createSponsorFn = createServerFn()

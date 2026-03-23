@@ -11,7 +11,7 @@ import { db } from "@/lib/db/electrodb-client";
 import { newsSchema } from "@/lib/db/schemas";
 import { requireAuthMiddleware } from "../../middleware";
 import { withTimestamps } from "../dynamo";
-import { getAllNews, getNewsBySlug, getPublishedNews } from "../queries";
+import { getAllNews, getPublishedNews } from "../queries";
 import { parseServerData } from "../schema-parse";
 
 const s3Client = new S3Client({ region: process.env.AWS_REGION || "eu-central-1" });
@@ -39,14 +39,6 @@ export const getNewsByIdFn = createServerFn()
 	.handler(async ({ data }) => {
 		const result = await db().news.get({ id: data.id }).go();
 		const news = result.data ? parseServerData(newsSchema, result.data, "Failed to parse news article") : null;
-		return news;
-	});
-
-export const getNewsBySlugFn = createServerFn()
-	.inputValidator(z.object({ slug: z.string() }))
-	.handler(async ({ data }) => {
-		const news = await getNewsBySlug(data.slug);
-		if (!news) throw new Error("News article not found");
 		return news;
 	});
 
