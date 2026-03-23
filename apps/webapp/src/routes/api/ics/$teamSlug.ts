@@ -14,7 +14,8 @@ import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import { generateIcsCalendar, type IcsCalendar, type IcsEvent } from "ts-ics";
 import { db } from "@/lib/db/electrodb-client";
-import type { Event, Team } from "@/lib/db/types";
+import { eventSchema, teamSchema } from "@/lib/db/schemas";
+import type { Event } from "@/lib/db/types";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
@@ -26,7 +27,7 @@ async function fetchCustomEvents(teamId?: string): Promise<Event[]> {
 	const fourteenDaysAgo = dayjs().subtract(14, "day").toISOString();
 	const query = db().event.query.byType({ type: "event" }).gte({ startDate: fourteenDaysAgo });
 	const result = await (teamId ? query.where((attr, op) => op.contains(attr.teamIds, teamId)).go({ pages: "all" }) : query.go({ pages: "all" }));
-	return result.data as Event[];
+	return result.data.map((item) => eventSchema.parse(item));
 }
 
 function convertEventToIcs(event: Event, timestamp: Date): IcsEvent {
@@ -72,7 +73,7 @@ export const Route = createFileRoute("/api/ics/$teamSlug")({
 						calendarTitle = `${calendarTitle} - Vereinskalender`;
 					} else {
 						const teamResult = await db().team.query.bySlug({ slug: teamSlug }).go({ limit: 1 });
-						const foundTeam = teamResult.data[0] as Team | undefined;
+						const foundTeam = teamResult.data[0] ? teamSchema.parse(teamResult.data[0]) : null;
 						if (!foundTeam) {
 							return new Response("Team nicht gefunden", {
 								status: 404,

@@ -7,17 +7,18 @@ import dayjs from "dayjs";
 import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { busSchema } from "@/lib/db/schemas";
-import type { Bus } from "@/lib/db/types";
 import { requireAuthMiddleware } from "../../middleware";
 import { withTimestamps } from "../dynamo";
+import { parseServerArray, parseServerData } from "../schema-parse";
 
 // ── Public ──────────────────────────────────────────────────────────────────
 
 export const listBusFn = createServerFn().handler(async () => {
-	const result = await db().bus.scan.go({ pages: "all" });
+	const result = await db().bus.query.byType({ type: "bus" }).go({ pages: "all" });
+	const items = parseServerArray(busSchema, result.data, "Failed to parse bus bookings");
 
 	return {
-		items: result.data as Bus[],
+		items,
 		lastEvaluatedKey: result.cursor ?? undefined,
 	};
 });
@@ -26,7 +27,7 @@ export const getBusByIdFn = createServerFn()
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
 		const result = await db().bus.get({ id: data.id }).go();
-		const booking = result.data as Bus | null;
+		const booking = result.data ? parseServerData(busSchema, result.data, "Failed to parse bus booking") : null;
 		if (!booking) throw new Error("Bus booking not found");
 		return booking;
 	});
@@ -67,7 +68,13 @@ export const updateBusFn = createServerFn()
 			})
 			.go();
 
-		return result.data as Bus;
+		if (!result.data) throw new Error("Bus booking not found");
+
+		const refreshedResult = await db().bus.get({ id }).go();
+		const booking = refreshedResult.data ? parseServerData(busSchema, refreshedResult.data, "Failed to parse bus booking") : null;
+
+		if (!booking) throw new Error("Bus booking not found");
+		return booking;
 	});
 
 export const deleteBusFn = createServerFn()

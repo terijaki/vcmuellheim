@@ -1,4 +1,4 @@
-import { Card, CardSection, Center, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Card, CardSection, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import CardTitle from "@webapp/components/CardTitle";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
@@ -7,6 +7,7 @@ import RankingTable from "@webapp/components/RankingTable";
 import { useSamsMatches, useSamsRankingsByLeagueUuid } from "@webapp/hooks/dataQueries";
 import { getSamsLeagueLevelsByLeagueUuidsFn, listSamsTeamsFn } from "@webapp/server/functions/sams";
 import { listTeamsFn } from "@webapp/server/functions/teams";
+import { buildLeagueOrderingContext, calculateLastResultCap, sortLeagueUuidsByLevels } from "@webapp/utils/ranking";
 import { numToWord } from "num-words-de";
 
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
@@ -15,48 +16,40 @@ export const Route = createFileRoute("/_layout/tabelle")({
 	loader: async () => {
 		// Main data comes from DynamoDB; only a batched SAMS metadata lookup is used for league ordering.
 		const [samsTeams, teams] = await Promise.all([listSamsTeamsFn(), listTeamsFn()]);
+		const orderingContext = buildLeagueOrderingContext(samsTeams.teams);
 
 		if (samsTeams.teams.length === 0) {
 			return { leagueUuids: [], teams: teams.items, lastResultCap: 6 };
 		}
 
-		const leagueUuids = [...new Set(samsTeams.teams.map((t) => t.leagueUuid).filter(Boolean))];
-		const leagueOrderByUuid = new Map(leagueUuids.map((leagueUuid, index) => [leagueUuid, index]));
-		const leagueNameByUuid = new Map(samsTeams.teams.filter((t) => t.leagueUuid).map((t) => [t.leagueUuid as string, t.leagueName ?? ""]));
-		const seasonUuid = samsTeams.teams.find((t) => t.seasonUuid)?.seasonUuid;
-		const associationUuid = samsTeams.teams.find((t) => t.associationUuid)?.associationUuid;
 		let leagueLevels: Record<string, number | null> = {};
-		if (leagueUuids.length > 0) {
+		if (orderingContext.leagueUuids.length > 0) {
 			try {
 				leagueLevels = await getSamsLeagueLevelsByLeagueUuidsFn({
-					data: { leagueUuids, seasonUuid, associationUuid },
+					data: {
+						leagueUuids: orderingContext.leagueUuids,
+						seasonUuid: orderingContext.seasonUuid,
+						associationUuid: orderingContext.associationUuid,
+					},
 				});
 			} catch (error) {
 				console.error("Failed to fetch SAMS league levels for league UUIDs", {
 					error,
-					leagueUuids,
-					seasonUuid,
-					associationUuid,
+					leagueUuids: orderingContext.leagueUuids,
+					seasonUuid: orderingContext.seasonUuid,
+					associationUuid: orderingContext.associationUuid,
 				});
 				leagueLevels = {};
 			}
 		}
-		const sortedLeagueUuids = [...leagueUuids].sort((a, b) => {
-			const levelA = leagueLevels[a] ?? Number.POSITIVE_INFINITY;
-			const levelB = leagueLevels[b] ?? Number.POSITIVE_INFINITY;
 
-			if (levelA !== levelB) {
-				return levelA - levelB;
-			}
-
-			const nameCompare = (leagueNameByUuid.get(a) ?? "").localeCompare(leagueNameByUuid.get(b) ?? "");
-			if (nameCompare !== 0) {
-				return nameCompare;
-			}
-
-			return (leagueOrderByUuid.get(a) ?? 0) - (leagueOrderByUuid.get(b) ?? 0);
+		const sortedLeagueUuids = sortLeagueUuidsByLevels({
+			leagueUuids: orderingContext.leagueUuids,
+			leagueLevels,
+			leagueNameByUuid: orderingContext.leagueNameByUuid,
+			leagueOrderByUuid: orderingContext.leagueOrderByUuid,
 		});
-		const lastResultCap = Math.max(6, Math.min(20, Math.floor(samsTeams.teams.length * GAMES_PER_TEAM)));
+		const lastResultCap = calculateLastResultCap(samsTeams.teams.length, GAMES_PER_TEAM);
 		return { leagueUuids: sortedLeagueUuids, teams: teams.items, lastResultCap };
 	},
 	component: RouteComponent,
@@ -64,42 +57,101 @@ export const Route = createFileRoute("/_layout/tabelle")({
 
 function RouteComponent() {
 	const { leagueUuids, teams, lastResultCap } = Route.useLoaderData();
-	const { data: rankings, isLoading: isLoadingRankings } = useSamsRankingsByLeagueUuid(leagueUuids);
-	const { data: matchesData, isLoading: isLoadingMatches } = useSamsMatches({ range: "past", limit: lastResultCap });
+	const { data: rankings, isLoading: isLoadingRankings, isFetching: isFetchingRankings, isError: isRankingsError } = useSamsRankingsByLeagueUuid(leagueUuids);
+	const { data: matchesData, isLoading: isLoadingMatches, isError: isMatchesError } = useSamsMatches({ range: "past", limit: lastResultCap });
 	const recentMatches = matchesData?.matches ?? [];
 	const lastResultWord = recentMatches.length > 1 && numToWord(recentMatches.length, { uppercase: false });
-
-	if (isLoadingRankings) {
-		return (
-			<PageWithHeading title={"Tabelle"}>
-				<Center p="xl">
-					<Loader />
-				</Center>
-			</PageWithHeading>
-		);
-	}
+	const hasRankings = !!rankings && rankings.length > 0;
 
 	return (
 		<PageWithHeading title={"Tabelle"}>
-			{(!rankings || rankings.length === 0) && <NoRankingsData />}
-			{rankings && rankings.length > 0 && (
-				<Stack>
-					<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-						{rankings.map((ranking) => (
-							<RankingTable key={ranking.leagueUuid} ranking={ranking} linkToTeamPage={true} clubsTeams={teams} />
-						))}
-					</SimpleGrid>
-					{!isLoadingMatches && recentMatches.length > 0 && (
-						<Card>
-							<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
-							<CardSection p={{ base: undefined, sm: "sm" }}>
-								<Matches matches={recentMatches} type="past" />
-							</CardSection>
-						</Card>
-					)}
-				</Stack>
-			)}
+			<Stack>
+				{isLoadingRankings && <RankingsLoadingState leagueCount={leagueUuids.length} />}
+				{!isLoadingRankings && isRankingsError && <RankingsErrorState />}
+				{!isLoadingRankings && !isRankingsError && !hasRankings && <NoRankingsData />}
+				{hasRankings && (
+					<>
+						{isFetchingRankings && (
+							<Text c="dimmed" size="sm">
+								Tabellen werden aktualisiert...
+							</Text>
+						)}
+						<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
+							{rankings.map((ranking) => (
+								<RankingTable key={ranking.leagueUuid} ranking={ranking} linkToTeamPage={true} clubsTeams={teams} />
+							))}
+						</SimpleGrid>
+					</>
+				)}
+				{isLoadingMatches && <MatchesLoadingState />}
+				{!isLoadingMatches && isMatchesError && <MatchesErrorState />}
+				{!isLoadingMatches && !isMatchesError && recentMatches.length > 0 && (
+					<Card>
+						<CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
+						<CardSection p={{ base: undefined, sm: "sm" }}>
+							<Matches matches={recentMatches} type="past" />
+						</CardSection>
+					</Card>
+				)}
+			</Stack>
 		</PageWithHeading>
+	);
+}
+
+function RankingsLoadingState({ leagueCount }: { leagueCount: number }) {
+	const placeholderCount = Math.max(2, Math.min(6, leagueCount || 2));
+	const placeholderSlots = Array.from({ length: placeholderCount }, (_, slot) => slot + 1);
+
+	return (
+		<>
+			<Text c="dimmed" size="sm">
+				Tabellen werden geladen...
+			</Text>
+			<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
+				{placeholderSlots.map((slot) => (
+					<Card key={`ranking-loading-${slot}`} p="md">
+						<Stack align="center" py="xl" gap="xs">
+							<Loader size="sm" />
+							<Text c="dimmed" size="sm">
+								Lade Tabelle...
+							</Text>
+						</Stack>
+					</Card>
+				))}
+			</SimpleGrid>
+		</>
+	);
+}
+
+function RankingsErrorState() {
+	return (
+		<Card>
+			<CardTitle>Fehler beim Laden der Tabellen</CardTitle>
+			<Text>Die Tabellen konnten derzeit nicht geladen werden. Bitte versuche es in wenigen Minuten erneut.</Text>
+		</Card>
+	);
+}
+
+function MatchesLoadingState() {
+	return (
+		<Card>
+			<CardTitle>Letzte Spiele</CardTitle>
+			<Stack align="center" py="md" gap="xs">
+				<Loader size="sm" />
+				<Text c="dimmed" size="sm">
+					Lade letzte Spiele...
+				</Text>
+			</Stack>
+		</Card>
+	);
+}
+
+function MatchesErrorState() {
+	return (
+		<Card>
+			<CardTitle>Fehler beim Laden der letzten Spiele</CardTitle>
+			<Text>Die letzten Spielresultate konnten derzeit nicht geladen werden. Bitte versuche es später erneut.</Text>
+		</Card>
 	);
 }
 

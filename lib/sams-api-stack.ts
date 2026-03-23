@@ -105,6 +105,7 @@ export class SamsApiStack extends cdk.Stack {
 		const commonEnvironment = {
 			SAMS_API_KEY: samsApiKey || "",
 			SAMS_SERVER: samsServer || "",
+			CDK_ENVIRONMENT: environment,
 		} satisfies SamsCommonLambdaEnvironment;
 
 		// Create DynamoDB table for storing SAMS clubs

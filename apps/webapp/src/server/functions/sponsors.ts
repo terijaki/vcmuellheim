@@ -9,14 +9,16 @@ import { sponsorSchema } from "@/lib/db/schemas";
 import type { Sponsor } from "@/lib/db/types";
 import { requireAuthMiddleware } from "../../middleware";
 import { withTimestamps } from "../dynamo";
+import { parseServerArray, parseServerData } from "../schema-parse";
 
 // ── Public ──────────────────────────────────────────────────────────────────
 
 export const listSponsorsFn = createServerFn().handler(async () => {
-	const result = await db().sponsor.scan.go({ pages: "all" });
+	const result = await db().sponsor.query.byType({ type: "sponsor" }).go({ pages: "all" });
+	const items = parseServerArray(sponsorSchema, result.data, "Failed to parse sponsor list");
 
 	return {
-		items: result.data as Sponsor[],
+		items,
 		lastEvaluatedKey: result.cursor ?? undefined,
 	};
 });
@@ -25,7 +27,7 @@ export const getSponsorByIdFn = createServerFn()
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
 		const result = await db().sponsor.get({ id: data.id }).go();
-		const sponsor = result.data as Sponsor | null;
+		const sponsor = result.data ? parseServerData(sponsorSchema, result.data, "Failed to parse sponsor data") : null;
 		if (!sponsor) throw new Error("Sponsor not found");
 		return sponsor;
 	});
@@ -59,7 +61,7 @@ export const updateSponsorFn = createServerFn()
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
 		const existingResult = await db().sponsor.get({ id }).go();
-		const existingSponsor = existingResult.data as Sponsor | null;
+		const existingSponsor = existingResult.data ? parseServerData(sponsorSchema, existingResult.data, "Failed to parse sponsor data") : null;
 		const { logoS3Key, ttl, ...otherUpdates } = updates;
 
 		if (!existingSponsor) throw new Error("Sponsor not found");
@@ -86,7 +88,7 @@ export const updateSponsorFn = createServerFn()
 			delete nextSponsor.ttl;
 		}
 
-		const parsedSponsor = sponsorSchema.parse(nextSponsor);
+		const parsedSponsor = parseServerData(sponsorSchema, nextSponsor, "Failed to parse sponsor data");
 		await db().sponsor.put(parsedSponsor).go();
 
 		return parsedSponsor;

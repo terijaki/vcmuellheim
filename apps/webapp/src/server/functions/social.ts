@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 import { z } from "zod";
 import { type InstagramPost, InstagramPostSchema } from "@/lambda/social/types";
 import { docClient } from "@/lib/db/client";
+import { parseServerArray } from "../schema-parse";
 
 const INSTAGRAM_TABLE_NAME = () => process.env.INSTAGRAM_TABLE_NAME || "";
 type SerializableValue = string | number | boolean | bigint | symbol | object;
@@ -61,7 +62,7 @@ export const getRecentInstagramPostsFn = createServerFn({ method: "GET" })
 
 		const result = await docClient.send(command);
 		const items = result.Items || [];
-		const posts = items.map((item) => InstagramPostSchema.parse(item));
+		const posts = parseServerArray(InstagramPostSchema, items, "Failed to parse Instagram posts");
 
 		return posts.map<InstagramPostForServerFn>((post) => ({
 			...post,

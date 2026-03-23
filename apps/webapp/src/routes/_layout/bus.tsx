@@ -4,20 +4,22 @@ import { Club } from "@project.config";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import CardTitle from "@webapp/components/CardTitle";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
+import { listBusFn } from "@webapp/server/functions/bus";
 import dayjs from "dayjs";
 import { useState } from "react";
-import { useBusBookings } from "@/apps/webapp/src/hooks/dataQueries";
 
 export const Route = createFileRoute("/_layout/bus")({
+	loader: async () => {
+		const data = await listBusFn();
+		const bookings = (data.items || [])?.sort((a, b) => dayjs(a.from).unix() - dayjs(b.from).unix());
+		return { bookings };
+	},
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	const { data, isLoading, error } = useBusBookings();
+	const { bookings } = Route.useLoaderData();
 
-	if (error) throw error;
-
-	const bookings = (data?.items || [])?.sort((a, b) => dayjs(a.from).unix() - dayjs(b.from).unix());
 	const bookingsFuture = bookings.filter((b) => dayjs(b.to).isAfter(dayjs()));
 
 	const [selectedDates, setSelectedDates] = useState<DateStringValue[]>([]);
@@ -60,7 +62,7 @@ function RouteComponent() {
 	};
 
 	return (
-		<PageWithHeading title="Vereinsbus" isLoading={isLoading}>
+		<PageWithHeading title="Vereinsbus">
 			<Container size="md">
 				<Stack>
 					<Alert variant="white">

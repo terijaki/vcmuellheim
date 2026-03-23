@@ -1,7 +1,8 @@
 import { GetCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
-import type { ClubResponse, TeamResponse } from "@/lambda/sams/types";
+import { type ClubResponse, ClubResponseSchema, type TeamResponse, TeamResponseSchema } from "@/lambda/sams/types";
 import { docClient } from "@/lib/db/client";
 import { db } from "@/lib/db/electrodb-client";
+import { cmsUserSchema, newsSchema } from "@/lib/db/schemas";
 import type { CmsUser, News, PaginationCursor } from "@/lib/db/types";
 
 const SAMS_CLUBS_TABLE_NAME = () => process.env.SAMS_CLUBS_TABLE_NAME || "";
@@ -19,8 +20,9 @@ export async function getAllNews(limit = 100, cursor?: PaginationCursor): Promis
 		.news.query.byType({ type: "article" })
 		.gt({ updatedAt: "2000-01-01T00:00:00.000Z" })
 		.go({ order: "desc", limit, cursor: cursor ?? undefined });
+	const items = result.data.map((item) => newsSchema.parse(item));
 
-	return { items: result.data as News[], lastEvaluatedKey: result.cursor ?? undefined };
+	return { items, lastEvaluatedKey: result.cursor ?? undefined };
 }
 
 export async function getPublishedNews(limit = 10, cursor?: PaginationCursor): Promise<PaginatedResult<News>> {
@@ -28,23 +30,26 @@ export async function getPublishedNews(limit = 10, cursor?: PaginationCursor): P
 		.news.query.byStatus({ status: "published" })
 		.gt({ createdAt: "2000-01-01T00:00:00.000Z" })
 		.go({ order: "desc", limit, cursor: cursor ?? undefined });
+	const items = result.data.map((item) => newsSchema.parse(item));
 
-	return { items: result.data as News[], lastEvaluatedKey: result.cursor ?? undefined };
+	return { items, lastEvaluatedKey: result.cursor ?? undefined };
 }
 
 export async function getNewsBySlug(slug: string): Promise<News | null> {
 	const result = await db().news.query.bySlug({ slug }).go({ limit: 1 });
-	return (result.data[0] as News | undefined) ?? null;
+	const item = result.data[0] ? newsSchema.parse(result.data[0]) : null;
+	return item ?? null;
 }
 
 export async function getCmsUserByEmail(email: string): Promise<CmsUser | null> {
 	const result = await db().user.query.byEmail({ email }).go({ limit: 1 });
-	return (result.data[0] as CmsUser | undefined) ?? null;
+	const item = result.data[0] ? cmsUserSchema.parse(result.data[0]) : null;
+	return item ?? null;
 }
 
 export async function getAllCmsUsers(): Promise<CmsUser[]> {
-	const result = await db().user.scan.go({ pages: "all" });
-	return result.data as CmsUser[];
+	const result = await db().user.query.byType({ type: "user" }).go({ pages: "all" });
+	return result.data.map((item) => cmsUserSchema.parse(item));
 }
 
 // ── SAMS entity queries (raw DynamoDB — separate SAMS tables) ────────────────
@@ -56,7 +61,7 @@ export async function getAllSamsClubs(): Promise<PaginatedResult<ClubResponse>> 
 		}),
 	);
 
-	return { items: (result.Items as ClubResponse[] | undefined) || [] };
+	return { items: (result.Items ?? []).map((item) => ClubResponseSchema.parse(item)) };
 }
 
 export async function getSamsClubBySportsclubUuid(sportsclubUuid: string): Promise<ClubResponse | null> {
@@ -67,7 +72,7 @@ export async function getSamsClubBySportsclubUuid(sportsclubUuid: string): Promi
 		}),
 	);
 
-	return (result.Item as ClubResponse | undefined) ?? null;
+	return result.Item ? ClubResponseSchema.parse(result.Item) : null;
 }
 
 export async function getSamsClubByNameSlug(nameSlug: string): Promise<ClubResponse | null> {
@@ -88,7 +93,7 @@ export async function getSamsClubByNameSlug(nameSlug: string): Promise<ClubRespo
 		}),
 	);
 
-	return (result.Items?.[0] as ClubResponse | undefined) ?? null;
+	return result.Items?.[0] ? ClubResponseSchema.parse(result.Items[0]) : null;
 }
 
 export async function getSamsClubByNameSlugPrefix(prefix: string): Promise<ClubResponse | null> {
@@ -109,7 +114,7 @@ export async function getSamsClubByNameSlugPrefix(prefix: string): Promise<ClubR
 		}),
 	);
 
-	return (result.Items?.[0] as ClubResponse | undefined) ?? null;
+	return result.Items?.[0] ? ClubResponseSchema.parse(result.Items[0]) : null;
 }
 
 export async function getAllSamsTeams(): Promise<PaginatedResult<TeamResponse>> {
@@ -119,7 +124,7 @@ export async function getAllSamsTeams(): Promise<PaginatedResult<TeamResponse>> 
 		}),
 	);
 
-	return { items: (result.Items as TeamResponse[] | undefined) || [] };
+	return { items: (result.Items ?? []).map((item) => TeamResponseSchema.parse(item)) };
 }
 
 export async function getSamsTeamByUuid(uuid: string): Promise<TeamResponse | null> {
@@ -130,5 +135,5 @@ export async function getSamsTeamByUuid(uuid: string): Promise<TeamResponse | nu
 		}),
 	);
 
-	return (result.Item as TeamResponse | undefined) ?? null;
+	return result.Item ? TeamResponseSchema.parse(result.Item) : null;
 }

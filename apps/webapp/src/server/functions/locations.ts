@@ -6,17 +6,18 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { locationSchema } from "@/lib/db/schemas";
-import type { Location } from "@/lib/db/types";
 import { requireAuthMiddleware } from "../../middleware";
 import { withTimestamps } from "../dynamo";
+import { parseServerArray, parseServerData } from "../schema-parse";
 
 // ── Public ──────────────────────────────────────────────────────────────────
 
 export const listLocationsFn = createServerFn().handler(async () => {
-	const result = await db().location.scan.go({ pages: "all" });
+	const result = await db().location.query.byType({ type: "location" }).go({ pages: "all" });
+	const items = parseServerArray(locationSchema, result.data, "Failed to parse location list");
 
 	return {
-		items: result.data as Location[],
+		items,
 		lastEvaluatedKey: result.cursor ?? undefined,
 	};
 });
@@ -25,7 +26,7 @@ export const getLocationByIdFn = createServerFn()
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
 		const result = await db().location.get({ id: data.id }).go();
-		const location = result.data as Location | null;
+		const location = result.data ? parseServerData(locationSchema, result.data, "Failed to parse location data") : null;
 		if (!location) throw new Error("Location not found");
 		return location;
 	});
@@ -60,7 +61,13 @@ export const updateLocationFn = createServerFn()
 			.set({ ...updates, updatedAt: new Date().toISOString() })
 			.go();
 
-		return result.data as Location;
+		if (!result.data) throw new Error("Location not found");
+
+		const refreshedResult = await db().location.get({ id }).go();
+		const location = refreshedResult.data ? parseServerData(locationSchema, refreshedResult.data, "Failed to parse location data") : null;
+
+		if (!location) throw new Error("Location not found");
+		return location;
 	});
 
 export const deleteLocationFn = createServerFn()

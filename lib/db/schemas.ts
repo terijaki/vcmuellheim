@@ -73,6 +73,7 @@ export const teamSchema = z.object({
 /** Member schema */
 export const memberSchema = z.object({
 	...baseEntityFields,
+	type: z.literal("member").default("member").describe("Entity type, primary key for GSI queries"),
 	name: z.string().min(1).max(200),
 	email: z.email().optional(),
 	phone: z.string().optional(),
@@ -101,6 +102,7 @@ export const mediaSchema = z.object({
 /** Sponsor schema */
 export const sponsorSchema = z.object({
 	...baseEntityFields,
+	type: z.literal("sponsor").default("sponsor").describe("Entity type, primary key for GSI queries"),
 	name: z.string().min(1).max(200),
 	description: z.string().optional(),
 	websiteUrl: z.url().optional(),
@@ -111,6 +113,7 @@ export const sponsorSchema = z.object({
 /** Location schema */
 export const locationSchema = z.object({
 	...baseEntityFields,
+	type: z.literal("location").default("location").describe("Entity type, primary key for GSI queries"),
 	name: z.string().min(1).max(200),
 	description: z.string().optional(),
 	street: z.string().min(1).max(200),
@@ -121,6 +124,7 @@ export const locationSchema = z.object({
 /** Bus Booking schema */
 export const busSchema = z.object({
 	id: z.uuid(),
+	type: z.literal("bus").default("bus").describe("Entity type, primary key for GSI queries"),
 	driver: z.string().min(1),
 	comment: z.string().optional(),
 	from: z.iso.datetime(),
@@ -133,6 +137,7 @@ export const busSchema = z.object({
 /** CMS User schema (admin users allowed to log in) */
 export const cmsUserSchema = z.object({
 	id: z.uuid(),
+	type: z.literal("user").default("user").describe("Entity type, primary key for GSI queries"),
 	email: z.email(),
 	name: z.string().min(1).max(200),
 	emailVerified: z.boolean().default(false),

@@ -33,13 +33,19 @@ describe("resolveClubLogoUrl", () => {
 // Minimal raw ticker shape (post-parse defaults applied)
 const makeRaw = (
 	overrides: {
-		matchDays?: { matches: { id: string; team1: string; team2: string; teamDescription1?: string; teamDescription2?: string }[] }[];
+		matchDays?: { date?: string; matches: { id: string; date?: string | number; team1: string; team2: string; teamDescription1?: string; teamDescription2?: string }[] }[];
 		matchStates?: Record<string, { started: boolean; finished: boolean; setPoints?: { team1: number; team2: number }; matchSets: { setNumber: number; setScore: { team1: number; team2: number } }[] }>;
 	} = {},
 ) => ({
 	matchDays: overrides.matchDays ?? [],
 	matchStates: overrides.matchStates ?? {},
 });
+
+const today = new Date();
+const yesterday = new Date(today);
+yesterday.setDate(yesterday.getDate() - 1);
+const todayIso = today.toISOString();
+const yesterdayIso = yesterday.toISOString();
 
 describe("buildLiveMatchesFromRaw", () => {
 	it("returns empty array when there are no matchStates", () => {
@@ -69,7 +75,7 @@ describe("buildLiveMatchesFromRaw", () => {
 	it("includes started matches that have team metadata", () => {
 		const result = buildLiveMatchesFromRaw(
 			makeRaw({
-				matchDays: [{ matches: [{ id: "m1", team1: "t1", team2: "t2" }] }],
+				matchDays: [{ matches: [{ id: "m1", date: todayIso, team1: "t1", team2: "t2" }] }],
 				matchStates: { m1: { started: true, finished: false, matchSets: [] } },
 			}),
 		);
@@ -80,7 +86,7 @@ describe("buildLiveMatchesFromRaw", () => {
 	it("defaults setPoints to 0:0 when absent", () => {
 		const result = buildLiveMatchesFromRaw(
 			makeRaw({
-				matchDays: [{ matches: [{ id: "m1", team1: "t1", team2: "t2" }] }],
+				matchDays: [{ matches: [{ id: "m1", date: todayIso, team1: "t1", team2: "t2" }] }],
 				matchStates: { m1: { started: true, finished: false, matchSets: [] } },
 			}),
 		);
@@ -90,7 +96,7 @@ describe("buildLiveMatchesFromRaw", () => {
 	it("uses setPoints from state when present", () => {
 		const result = buildLiveMatchesFromRaw(
 			makeRaw({
-				matchDays: [{ matches: [{ id: "m1", team1: "t1", team2: "t2" }] }],
+				matchDays: [{ matches: [{ id: "m1", date: todayIso, team1: "t1", team2: "t2" }] }],
 				matchStates: { m1: { started: true, finished: false, setPoints: { team1: 2, team2: 1 }, matchSets: [] } },
 			}),
 		);
@@ -100,7 +106,7 @@ describe("buildLiveMatchesFromRaw", () => {
 	it("uses teamDescription1/2 as names when provided", () => {
 		const result = buildLiveMatchesFromRaw(
 			makeRaw({
-				matchDays: [{ matches: [{ id: "m1", team1: "uuid-1", team2: "uuid-2", teamDescription1: "VC Müllheim", teamDescription2: "Other Club" }] }],
+				matchDays: [{ matches: [{ id: "m1", date: todayIso, team1: "uuid-1", team2: "uuid-2", teamDescription1: "VC Müllheim", teamDescription2: "Other Club" }] }],
 				matchStates: { m1: { started: true, finished: false, matchSets: [] } },
 			}),
 		);
@@ -111,7 +117,7 @@ describe("buildLiveMatchesFromRaw", () => {
 	it("falls back to team UUID as name when teamDescription is absent", () => {
 		const result = buildLiveMatchesFromRaw(
 			makeRaw({
-				matchDays: [{ matches: [{ id: "m1", team1: "uuid-1", team2: "uuid-2" }] }],
+				matchDays: [{ matches: [{ id: "m1", date: todayIso, team1: "uuid-1", team2: "uuid-2" }] }],
 				matchStates: { m1: { started: true, finished: false, matchSets: [] } },
 			}),
 		);
@@ -122,10 +128,30 @@ describe("buildLiveMatchesFromRaw", () => {
 	it("maps finished state correctly", () => {
 		const result = buildLiveMatchesFromRaw(
 			makeRaw({
-				matchDays: [{ matches: [{ id: "m1", team1: "t1", team2: "t2" }] }],
+				matchDays: [{ matches: [{ id: "m1", date: todayIso, team1: "t1", team2: "t2" }] }],
 				matchStates: { m1: { started: true, finished: true, setPoints: { team1: 3, team2: 1 }, matchSets: [] } },
 			}),
 		);
 		expect(result[0]?.state.finished).toBe(true);
+	});
+
+	it("filters out started matches from previous days", () => {
+		const result = buildLiveMatchesFromRaw(
+			makeRaw({
+				matchDays: [{ matches: [{ id: "m1", date: yesterdayIso, team1: "t1", team2: "t2" }] }],
+				matchStates: { m1: { started: true, finished: true, matchSets: [] } },
+			}),
+		);
+		expect(result).toHaveLength(0);
+	});
+
+	it("uses matchDay date fallback when match date is missing", () => {
+		const result = buildLiveMatchesFromRaw(
+			makeRaw({
+				matchDays: [{ date: todayIso, matches: [{ id: "m1", team1: "t1", team2: "t2" }] }],
+				matchStates: { m1: { started: true, finished: false, matchSets: [] } },
+			}),
+		);
+		expect(result).toHaveLength(1);
 	});
 });

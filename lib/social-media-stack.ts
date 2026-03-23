@@ -86,6 +86,9 @@ export class SocialMediaStack extends cdk.Stack {
 		const apifyScheduleId = process.env.APIFY_SCHEDULE_ID || "2QNPqeA1rum2087Xs";
 		const apifyActorId = process.env.APIFY_ACTOR_ID || "nH2AHrwxeTRJoN5hX";
 		const isCdkDestroy = process.env.CDK_DESTROY === "true";
+		const commonEnvironment = {
+			CDK_ENVIRONMENT: environment,
+		};
 
 		if (!apifyApiKey && !isCdkDestroy) {
 			throw new Error("❌ APIFY_API_KEY environment variable is required");
@@ -115,6 +118,7 @@ export class SocialMediaStack extends cdk.Stack {
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/social/instagram-sync.ts"),
 			environment: {
+				...commonEnvironment,
 				INSTAGRAM_TABLE_NAME: this.instagramTable.tableName,
 				APIFY_API_KEY: apifyApiKey || "",
 				APIFY_SCHEDULE_ID: apifyScheduleId,
@@ -144,6 +148,7 @@ export class SocialMediaStack extends cdk.Stack {
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/social/instagram-posts.ts"),
 			environment: {
+				...commonEnvironment,
 				INSTAGRAM_TABLE_NAME: this.instagramTable.tableName,
 			} satisfies InstagramPostsLambdaEnvironment,
 			timeout: cdk.Duration.seconds(30),
@@ -200,6 +205,7 @@ export class SocialMediaStack extends cdk.Stack {
 			handler: "handler",
 			entry: path.join(__dirname, "../lambda/social/mastodon-share.ts"),
 			environment: {
+				...commonEnvironment,
 				MASTODON_ACCESS_TOKEN: mastodonAccessToken || "",
 				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
 			} satisfies Omit<MastodonShareLambdaEnvironment, "AWS_REGION">,
@@ -230,6 +236,7 @@ export class SocialMediaStack extends cdk.Stack {
 				handler: "handler",
 				entry: path.join(__dirname, "../lambda/social/mastodon-stream-handler.ts"),
 				environment: {
+					...commonEnvironment,
 					MASTODON_LAMBDA_NAME: mastodonShare.functionName,
 					ENVIRONMENT: environment,
 					WEBSITE_URL: props.websiteUrl,

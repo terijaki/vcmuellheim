@@ -9,6 +9,7 @@ import { mediaSchema } from "@/lib/db/schemas";
 import type { Media } from "@/lib/db/types";
 import { requireAuthMiddleware } from "../../middleware";
 import { withTimestamps } from "../dynamo";
+import { parseServerData } from "../schema-parse";
 
 // ── Public ──────────────────────────────────────────────────────────────────
 
@@ -17,7 +18,7 @@ export const getMediaByIdFn = createServerFn()
 	.handler(async ({ data }) => {
 		const result = await db().media.get({ id: data.id }).go();
 
-		const media = result.data as Media | null;
+		const media = result.data ? parseServerData(mediaSchema, result.data, "Failed to parse media data") : null;
 		if (!media) throw new Error("Media not found");
 		return media;
 	});
@@ -36,7 +37,7 @@ export const getManyMediaFn = createServerFn()
 		const results = await Promise.all(
 			data.ids.map(async (id) => {
 				const getResult = await db().media.get({ id }).go();
-				return getResult.data as Media | null;
+				return getResult.data ? parseServerData(mediaSchema, getResult.data, "Failed to parse media data") : null;
 			}),
 		);
 
@@ -73,7 +74,13 @@ export const updateMediaFn = createServerFn()
 			.set({ ...updates, updatedAt: new Date().toISOString() })
 			.go();
 
-		return result.data as Media;
+		if (!result.data) throw new Error("Media not found");
+
+		const refreshedResult = await db().media.get({ id }).go();
+		const media = refreshedResult.data ? parseServerData(mediaSchema, refreshedResult.data, "Failed to parse media data") : null;
+
+		if (!media) throw new Error("Media not found");
+		return media;
 	});
 
 export const deleteMediaFn = createServerFn()

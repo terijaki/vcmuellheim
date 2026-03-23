@@ -4,7 +4,9 @@
  */
 
 import { AppShell, AppShellMain, Button, Card, Center, Container, Group, Stack, Text } from "@mantine/core";
+import * as Sentry from "@sentry/tanstackstart-react";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
+import { useEffect } from "react";
 import CenteredLoader from "../components/CenteredLoader";
 import Footer from "../components/layout/Footer";
 import Header, { HEADER_HEIGHT } from "../components/layout/Header";
@@ -35,6 +37,10 @@ export const Route = createFileRoute("/_layout")({
 		</PageWithHeading>
 	),
 	errorComponent: ({ error }) => {
+		useEffect(() => {
+			Sentry.captureException(error);
+		}, [error]);
+
 		console.error(error);
 		return (
 			<MainLayout>
