@@ -33,7 +33,6 @@ export function getRouter() {
 			dsn: SentryConfig.dsn,
 			enabled: Boolean(SentryConfig.dsn),
 			environment: import.meta.env.VITE_CDK_ENVIRONMENT || import.meta.env.MODE || "development",
-			sendDefaultPii: true,
 		});
 	}
 

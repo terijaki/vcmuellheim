@@ -37,7 +37,7 @@ function DashboardIndexPage() {
 								<Text size="sm" style={{ textWrap: "balance" }}>
 									{description}
 								</Text>
-								<ActionIcon variant="transparent" color="blumine" display="inline-block">
+								<ActionIcon component="span" tabIndex={-1} aria-hidden="true" variant="transparent" color="blumine" display="inline-block">
 									<ArrowRight size={16} />
 								</ActionIcon>
 							</Flex>
