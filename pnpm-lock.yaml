@@ -156,6 +156,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^6
         version: 6.0.1(@rolldown/plugin-babel@0.2.2(@babel/core@7.29.0)(@babel/runtime@7.29.2)(@voidzero-dev/vite-plus-core@0.1.14(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.8))(tsx@4.21.0)(typescript@6.0.2))(rolldown@1.0.0-rc.12))(@voidzero-dev/vite-plus-core@0.1.14(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.8))(tsx@4.21.0)(typescript@6.0.2))(babel-plugin-react-compiler@1.0.0)
+      aws-cdk:
+        specifier: ^2.1114.0
+        version: 2.1114.0
       aws-cdk-lib:
         specifier: ^2.243.0
         version: 2.244.0(constructs@10.6.0)
@@ -2637,6 +2640,11 @@ packages:
       - table
       - yaml
       - mime-types
+
+  aws-cdk@2.1114.0:
+    resolution: {integrity: sha512-qaEIVjlDb7nFb6pjZQezMaRgex7qixUU9WM1FYVlBs8Ishp5yzYkTVABGi6MNy2B0PN82gliI26vBYIdKslYUw==}
+    engines: {node: '>= 18.0.0'}
+    hasBin: true
 
   aws-sdk-client-mock@4.1.0:
     resolution: {integrity: sha512-h/tOYTkXEsAcV3//6C1/7U4ifSpKyJvb6auveAepqqNJl6TdZaPFEtKjBQNf8UxQdDP850knB2i/whq4zlsxJw==}
@@ -7110,6 +7118,8 @@ snapshots:
       '@aws-cdk/asset-node-proxy-agent-v6': 2.1.1
       '@aws-cdk/cloud-assembly-schema': 52.2.0
       constructs: 10.6.0
+
+  aws-cdk@2.1114.0: {}
 
   aws-sdk-client-mock@4.1.0:
     dependencies:
