@@ -12,7 +12,6 @@ on:
       - "**.md" # Ignore markdown files
       - ".github/copilot**" # Ignore copilot files
       - ".vscode/**" # Ignore VSCode settings
-      - "bruno/**" # Ignore Bruno files
 
 permissions:
   id-token: write # Required for AWS OIDC
