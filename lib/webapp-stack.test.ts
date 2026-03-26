@@ -118,7 +118,7 @@ describe("WebAppStack", () => {
 		expect(buildMock).toHaveBeenCalledTimes(1);
 		expect(buildMock).toHaveBeenCalledWith(
 			"vp",
-			["build", "apps/webapp", "--config", "apps/webapp/vite.config.ts"],
+			["build"],
 			expect.objectContaining({
 				cwd: process.cwd(),
 				env: expect.objectContaining({
