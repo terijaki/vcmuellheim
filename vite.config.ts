@@ -5,15 +5,7 @@ export default defineConfig({
 		"*": "vp check --fix",
 	},
 	fmt: {
-		ignorePatterns: [
-			".vscode/**",
-			"apps/webapp/src/routeTree.gen.ts",
-			"codegen/sams/generated/**",
-			".github/skills/sams-api/API-OVERVIEW.md",
-			".github/skills/sams-api/BUGS.md",
-			".github/skills/sams-api/SKILL.md",
-			".github/workflows/sams-health-check.yml",
-		],
+		ignorePatterns: [".vscode/**", "apps/webapp/src/routeTree.gen.ts", "codegen/sams/generated/**"],
 		useTabs: true,
 		tabWidth: 2,
 		printWidth: 200,
