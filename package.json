@@ -1,6 +1,7 @@
 {
 	"name": "vcmuellheim.de",
 	"version": "2.0.0",
+	"private": true,
 	"homepage": "https://vcmuellheim.de",
 	"bugs": {
 		"url": "https://github.com/terijaki/vcmuellheim/issues"
@@ -9,21 +10,19 @@
 		"name": "Björn Kohnen",
 		"email": "bjoern@vcmuellheim.de"
 	},
-	"private": true,
 	"type": "module",
 	"scripts": {
-		"dev": "bun --cwd apps/webapp vite dev --port 3080",
-		"build": "bun --cwd apps/webapp vite build",
+		"dev": "vp dev apps/webapp --config apps/webapp/vite.config.ts --port 3080",
+		"build": "vp build apps/webapp --config apps/webapp/vite.config.ts",
 		"start": "node apps/webapp/.output/server/index.mjs",
-		"lint": "biome lint",
-		"check": "biome check",
-		"check:fix": "biome check --fix",
-		"typecheck": "tsc --noEmit",
-		"test": "AGENT=1 bun test",
-		"db:seed": "bun run scripts/db-seed.ts",
-		"db:seed:sams": "bun run scripts/data-trigger-syncs.ts",
-		"sams:update": "bun run codegen/sams/generate-client.ts",
-		"verify:all": "bun biome check --fix && bun typecheck && AGENT=1 bun test",
+		"lint": "vp lint",
+		"check": "vp check",
+		"check:fix": "vp check --fix",
+		"test": "vp test",
+		"db:seed": "vp exec tsx scripts/db-seed.ts",
+		"db:seed:sams": "vp exec tsx scripts/data-trigger-syncs.ts",
+		"sams:update": "vp exec tsx codegen/sams/generate-client.ts",
+		"verify:all": "vp check --fix && vp test",
 		"cdk": "cdk --profile vcmuellheim",
 		"cdk:deploy": "cdk deploy --profile vcmuellheim --require-approval=never",
 		"cdk:deploy:all": "cdk deploy --all --profile vcmuellheim --require-approval=never",
@@ -38,7 +37,7 @@
 		"cdk:destroy:all": "cdk destroy --all --profile vcmuellheim --require-approval=never",
 		"cdk:destroy:prod": "CDK_ENVIRONMENT=prod cdk destroy --all --profile vcmuellheim",
 		"cdk:bootstrap": "cdk bootstrap --profile vcmuellheim",
-		"deps-check": "bun outdated --recursive"
+		"deps-check": "vp outdated"
 	},
 	"dependencies": {
 		"@aws-sdk/client-dynamodb": "^3.1009.0",
@@ -58,8 +57,8 @@
 		"@sentry/react": "^10.43.0",
 		"@sentry/tanstackstart-react": "^10.45.0",
 		"@tanstack/react-query": "^5.90.21",
-		"@tanstack/react-router": "^1.160.0",
-		"@tanstack/react-start": "^1.166.8",
+		"@tanstack/react-router": "^1.168.4",
+		"@tanstack/react-start": "^1.167.8",
 		"@tiptap/extension-image": "^2.10.4",
 		"@tiptap/extension-link": "^2.10.4",
 		"@tiptap/react": "^2.10.4",
@@ -83,10 +82,9 @@
 		"@aws-lambda-powertools/logger": "^2.31.0",
 		"@aws-lambda-powertools/tracer": "^2.31.0",
 		"@aws-sdk/client-lambda": "^3.1009.0",
-		"@biomejs/biome": "2.3.8",
 		"@hey-api/openapi-ts": "^0.92.4",
 		"@sentry/vite-plugin": "^5.1.1",
-		"@tanstack/router-plugin": "^1.160.0",
+		"@tanstack/router-plugin": "^1.167.5",
 		"@types/aws-lambda": "^8.10.161",
 		"@types/babel__core": "^7.20.5",
 		"@types/node": "^25.5.0",
@@ -97,12 +95,15 @@
 		"aws-sdk-client-mock": "^4.1.0",
 		"aws-xray-sdk-core": "^3.12.0",
 		"babel-plugin-react-compiler": "^1.0.0",
-		"bun-types": "^1.3.9",
 		"constructs": "^10.5.1",
 		"postcss": "^8.4.49",
 		"postcss-preset-mantine": "^1.17.0",
 		"postcss-simple-vars": "^7.0.1",
-		"typescript": "^5.9.3",
-		"vite": "^8"
-	}
+		"tsx": "^4.20.6",
+		"typescript": "^6.0.2",
+		"vite": "npm:@voidzero-dev/vite-plus-core@latest",
+		"vite-plus": "latest",
+		"vitest": "npm:@voidzero-dev/vite-plus-test@latest"
+	},
+	"packageManager": "pnpm@10.33.0"
 }

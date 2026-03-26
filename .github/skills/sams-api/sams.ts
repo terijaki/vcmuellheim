@@ -1,17 +1,17 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 /**
  * SAMS REST API testing/exploration tool.
  *
- * Usage: bun run .github/skills/sams-api/sams.ts <resource> [uuid] [subresource] [--query key=value ...]
+ * Usage: vp exec tsx --env-file=.env.local .github/skills/sams-api/sams.ts <resource> [uuid] [subresource] [--query key=value ...]
  *
- * Requires SAMS_API_KEY in .env.local (Bun loads it automatically).
+ * Requires SAMS_API_KEY in .env.local.
  */
 
 const BASE_URL = "https://www.volleyball-baden.de/api/v2";
 
 function printHelp(): void {
 	const script = "sams.ts";
-	console.log(`Usage: bun run .github/skills/sams-api/${script} <resource> [uuid] [subresource] [--query key=value ...]\n`);
+	console.log(`Usage: vp exec tsx --env-file=.env.local .github/skills/sams-api/${script} <resource> [uuid] [subresource] [--query key=value ...]\n`);
 	console.log("Requires SAMS_API_KEY in .env.local");
 	console.log("Swagger: https://www.volleyball-baden.de/api/v2/swagger.json\n");
 	console.log("Examples:");

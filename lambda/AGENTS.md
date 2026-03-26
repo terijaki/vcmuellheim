@@ -14,7 +14,7 @@ This file provides instructions specific to the `lambda/` directory, which conta
 - `lambda/sams/sams-clubs.ts` — example of a typical SAMS sync Lambda
 - `lambda/content/handler.ts` — content Lambda handler
 - `lambda/social/mastodon-share.ts` — social media Lambda example
-- Generated SAMS API client: `codegen/sams/generated/` (do not edit generated files manually; run `bun run sams:update` to regenerate)
+- Generated SAMS API client: `codegen/sams/generated/` (do not edit generated files manually; run `vp run sams:update` to regenerate)
 
 ## Lambda conventions
 
@@ -26,8 +26,8 @@ This file provides instructions specific to the `lambda/` directory, which conta
 
 ## Testing
 
-- Run all Lambda tests: `bun run test`
-- Run a single test file: `bun test lambda/sams/sams-clubs.test.ts`
+- Run all Lambda tests: `vp test`
+- Run a single test file: `vp test lambda/sams/sams-clubs.test.ts`
 - Mock AWS SDK calls with `aws-sdk-client-mock` (see existing tests for patterns).
 
 ## CDK wiring

@@ -3,7 +3,7 @@ import { Calendar, DateTimePicker, getTimeRange } from "@mantine/dates";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import "dayjs/locale/de";
 import type { EventInput } from "@lib/db/schemas";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -35,26 +35,21 @@ function EventsPage() {
 	const isMobile = useMediaQuery("(max-width: 768px)");
 
 	// Create a set of all dates with events (excluding the one being edited)
-	const eventDates = useMemo(() => {
-		if (!events) return new Set<string>();
+	const eventDates = new Set<string>();
+	for (const event of events) {
+		// Skip the event being edited
+		if (editingId && event.id === editingId) continue;
 
-		const dates = new Set<string>();
-		for (const event of events) {
-			// Skip the event being edited
-			if (editingId && event.id === editingId) continue;
+		const start = dayjs(event.startDate);
+		const end = event.endDate ? dayjs(event.endDate) : start;
 
-			const start = dayjs(event.startDate);
-			const end = event.endDate ? dayjs(event.endDate) : start;
-
-			// Add all dates in the range
-			let current = start;
-			while (current.isBefore(end, "day") || current.isSame(end, "day")) {
-				dates.add(current.format("YYYY-MM-DD"));
-				current = current.add(1, "day");
-			}
+		// Add all dates in the range
+		let current = start;
+		while (current.isBefore(end, "day") || current.isSame(end, "day")) {
+			eventDates.add(current.format("YYYY-MM-DD"));
+			current = current.add(1, "day");
 		}
-		return dates;
-	}, [events, editingId]);
+	}
 	const createMutation = useMutation({
 		mutationFn: (data: Parameters<typeof createEventFn>[0]["data"]) => createEventFn({ data }),
 		onSuccess: () => {

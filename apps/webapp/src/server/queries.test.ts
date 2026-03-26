@@ -1,6 +1,6 @@
-import { beforeAll, beforeEach, describe, expect, it } from "bun:test";
 import { DynamoDBDocumentClient, GetCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { mockClient } from "aws-sdk-client-mock";
+import { beforeAll, beforeEach, describe, expect, it } from "vite-plus/test";
 import type { ClubResponse, TeamResponse } from "@/lambda/sams/types";
 import type { CmsUser, News } from "@/lib/db/types";
 
@@ -93,7 +93,7 @@ describe("server/queries", () => {
 			const result = await getAllNews(5);
 
 			// ElectroDB encodes LastEvaluatedKey as a base64 cursor string
-			expect(result.lastEvaluatedKey).toBeString();
+			expect(typeof result.lastEvaluatedKey).toBe("string");
 			expect(result.lastEvaluatedKey).toBeTruthy();
 		});
 

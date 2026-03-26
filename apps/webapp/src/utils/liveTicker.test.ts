@@ -1,4 +1,4 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it } from "vite-plus/test";
 import type { LiveMatch } from "@/lambda/sams/types";
 import { toLiveTickerDisplayMatches } from "./liveTicker";
 

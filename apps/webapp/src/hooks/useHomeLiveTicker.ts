@@ -1,5 +1,4 @@
 import { SAMS } from "@project.config";
-import { useMemo } from "react";
 import { toLiveTickerDisplayMatches } from "../utils/liveTicker";
 import { useLiveTicker, useSamsTeams } from "./dataQueries";
 
@@ -9,10 +8,10 @@ export function useHomeLiveTickerData() {
 	const liveMatches = tickerData?.liveMatches ?? [];
 	const teams = samsTeamsData?.teams ?? [];
 
-	const ourTeamUuids = useMemo(() => new Set(teams.filter((team) => team.name.includes(SAMS.name)).map((team) => team.uuid)), [teams]);
-	const teamClubByUuid = useMemo(() => new Map(teams.map((team) => [team.uuid, team.sportsclubUuid])), [teams]);
+	const ourTeamUuids = new Set(teams.filter((team) => team.name.includes(SAMS.name)).map((team) => team.uuid));
+	const teamClubByUuid = new Map(teams.map((team) => [team.uuid, team.sportsclubUuid]));
 
-	const ourMatches = useMemo(() => toLiveTickerDisplayMatches({ liveMatches, ourTeamUuids, teamClubByUuid }), [liveMatches, ourTeamUuids, teamClubByUuid]);
+	const ourMatches = toLiveTickerDisplayMatches({ liveMatches, ourTeamUuids, teamClubByUuid });
 	const hasMatchesToday = ourMatches.length > 0;
 	const hasOpenMatches = ourMatches.some((match) => !match.isFinished);
 

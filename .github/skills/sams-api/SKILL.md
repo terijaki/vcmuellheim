@@ -6,18 +6,18 @@ argument-hint: "resource [uuid] [subresource] [--query key=value]"
 
 # SAMS API Skill
 
-Run [sams.ts](./sams.ts) with Bun to make calls against the SAMS REST API. See [API-OVERVIEW.md](./API-OVERVIEW.md) for the full data model, resource relationships, pagination patterns, and known quirks.
+Run [sams.ts](./sams.ts) with `tsx` to make calls against the SAMS REST API. See [API-OVERVIEW.md](./API-OVERVIEW.md) for the full data model, resource relationships, pagination patterns, and known quirks.
 
 ## Setup
 
-- `SAMS_API_KEY` in `.env.local` (Bun loads it automatically) — sent as `X-Api-Key`
+- `SAMS_API_KEY` in `.env.local` — sent as `X-Api-Key`
 - Base URL: `https://www.volleyball-baden.de/api/v2`
 - Use `Accept: */*` — the API returns `application/hal+json` (`application/json` causes HTTP 406)
 
 ## Usage
 
 ```
-bun run .github/skills/sams-api/sams.ts <resource> [uuid] [subresource] [--query key=value ...]
+vp exec tsx --env-file=.env.local .github/skills/sams-api/sams.ts <resource> [uuid] [subresource] [--query key=value ...]
 ```
 
 Run without arguments or with `--help` for examples. Full endpoint reference: `https://www.volleyball-baden.de/api/v2/swagger.json`.
@@ -25,12 +25,12 @@ Run without arguments or with `--help` for examples. Full endpoint reference: `h
 Verify the API key is working:
 
 ```bash
-bun run .github/skills/sams-api/sams.ts seasons --query size=1
+vp exec tsx --env-file=.env.local .github/skills/sams-api/sams.ts seasons --query size=1
 ```
 
 ## Investigation workflow
 
-1. **Current season** → `seasons | jq '.[] | select(.currentSeason == true)'` *(bare array — no `.content[]`)*
+1. **Current season** → `seasons | jq '.[] | select(.currentSeason == true)'` _(bare array — no `.content[]`)_
 2. **SBVV leagues** → `leagues --query association=2b7571b5-f985-c552-ea1c-f819ed3811c1 --query size=100`
    - SBVV UUID `2b7571b5-f985-c552-ea1c-f819ed3811c1` does **not** appear in the paginated `/associations` list (known upstream bug) but is accessible directly via `associations <uuid>`.
 3. **Teams in a league** → `leagues <uuid> teams | jq '.content[] | select(.masterTeamUuid == null)'`
@@ -41,4 +41,7 @@ bun run .github/skills/sams-api/sams.ts seasons --query size=1
 
 - Max 5 req/s (200 ms between calls); daily quota per key — only fetch what is needed.
 - **401** key missing/invalid · **404** UUID not found · **429** rate limit exceeded
-````
+
+```
+
+```

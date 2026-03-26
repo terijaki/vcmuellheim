@@ -22,13 +22,15 @@ jobs:
         with:
           ref: main # Checkout main to get CDK code
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: "22"
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: vp install
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -101,7 +103,7 @@ jobs:
           CDK_DESTROY: "true"
         run: |
           echo "Destroying all stacks for branch: ${{ steps.branch.outputs.branch }}"
-          bunx cdk destroy --all --force
+          vp exec cdk destroy --all --force
 
       - name: Add destroy summary
         run: |
@@ -121,11 +123,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
 
       - name: Get workflow logs
         id: logs

@@ -1,6 +1,6 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { loadEnv, type PluginOption } from "vite";
+import { loadEnv, type PluginOption } from "vite-plus";
 import { CONTENT_TABLE_ENV_VAR } from "../../../lib/db/env";
 import { Club } from "../../../project.config";
 import { getSanitizedBranch } from "../../../utils/git";

@@ -32,7 +32,6 @@ function RouteComponent() {
 				<Card>
 					<Stack>
 						<Typography>
-							{/** biome-ignore lint/security/noDangerouslySetInnerHtml: Data coming from our server */}
 							<div dangerouslySetInnerHTML={{ __html: data.content }} />
 						</Typography>
 						<ImageGallery images={thumbnails} />

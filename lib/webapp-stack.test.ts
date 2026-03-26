@@ -1,24 +1,26 @@
-import { afterEach, beforeEach, describe, expect, it, mock } from "bun:test";
-import * as childProcessActual from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import * as cdk from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as s3 from "aws-cdk-lib/aws-s3";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { CONTENT_TABLE_ENV_VAR } from "./db/env";
 import { createTestApp } from "./test-helpers";
 
-const buildMock = mock(() => Buffer.from(""));
+const { buildMock } = vi.hoisted(() => ({
+	buildMock: vi.fn(() => Buffer.from("")),
+}));
 const testEnv = {
 	account: "123456789012",
 	region: "eu-central-1",
 };
 let cleanupOutputFixtures = () => {};
 
-mock.module("node:child_process", () => {
+vi.mock("node:child_process", async () => {
+	const actual = await vi.importActual<typeof import("node:child_process")>("node:child_process");
 	return {
-		...childProcessActual,
+		...actual,
 		execFileSync: buildMock,
 	};
 });
@@ -115,8 +117,8 @@ describe("WebAppStack", () => {
 
 		expect(buildMock).toHaveBeenCalledTimes(1);
 		expect(buildMock).toHaveBeenCalledWith(
-			"bun",
-			["run", "build"],
+			"vp",
+			["build", "apps/webapp", "--config", "apps/webapp/vite.config.ts"],
 			expect.objectContaining({
 				cwd: process.cwd(),
 				env: expect.objectContaining({

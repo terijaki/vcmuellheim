@@ -1,4 +1,4 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it } from "vite-plus/test";
 import type { AdminSessionUser } from "../server/functions/session-utils";
 import { adminLayoutGuard, adminUsersGuard, loginPageGuard } from "./auth-guards";
 

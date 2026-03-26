@@ -1,202 +1,214 @@
 name: SAMS API Health Check
 
 on:
-    schedule:
-        - cron: "0 4 * * 6" # Every Saturday at 4am UTC
-    workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * 6" # Every Saturday at 4am UTC
+  workflow_dispatch:
 
 permissions:
-    contents: read
-    issues: write
+  contents: read
+  issues: write
 
 jobs:
-    # ── Job 1: Check whether the live swagger spec has changed ──────────────────
-    swagger-drift:
-        name: Check Swagger Drift
-        runs-on: ubuntu-latest
-        outputs:
-            has_drift: ${{ steps.diff.outputs.has_drift }}
-        steps:
-            - uses: actions/checkout@v4
+  # ── Job 1: Check whether the live swagger spec has changed ──────────────────
+  swagger-drift:
+    name: Check Swagger Drift
+    runs-on: ubuntu-latest
+    outputs:
+      has_drift: ${{ steps.diff.outputs.has_drift }}
+    steps:
+      - uses: actions/checkout@v4
 
-            - uses: oven-sh/setup-bun@v2
-              with:
-                  bun-version: latest
+      - uses: pnpm/action-setup@v4
 
-            - name: Install dependencies
-              run: bun install --frozen-lockfile
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
 
-            - name: Regenerate from live spec
-              run: bun run sams:update
+      - name: Install dependencies
+        run: vp install
 
-            - name: Detect drift in source.json
-              id: diff
-              run: |
-                  if git diff --quiet codegen/sams/generated/source.json; then
-                    echo "has_drift=false" >> "$GITHUB_OUTPUT"
-                    echo "✅ source.json unchanged — no upstream spec changes." >> "$GITHUB_STEP_SUMMARY"
-                  else
-                    echo "has_drift=true" >> "$GITHUB_OUTPUT"
-                    {
-                      echo "## ⚠️ Swagger drift detected"
-                      echo ""
-                      echo '```'
-                      git diff --stat codegen/sams/generated/source.json
-                      echo '```'
-                      echo ""
-                      echo "### Changed paths (sample)"
-                      echo '```'
-                      git diff codegen/sams/generated/source.json | grep '^[+-]' | grep -v '^[+-][+-][+-]' | head -40
-                      echo '```'
-                    } >> "$GITHUB_STEP_SUMMARY"
-                  fi
+      - name: Regenerate from live spec
+        run: vp run sams:update
 
-    # ── Job 2: Verify the 5 known upstream API bugs are still present ────────────
-    bug-check:
-        name: Check Known API Bugs
-        runs-on: ubuntu-latest
-        outputs:
-            has_fixed: ${{ steps.parse.outputs.has_fixed }}
-            fixed_bug_ids: ${{ steps.parse.outputs.fixed_bug_ids }}
-            check_failed_ids: ${{ steps.parse.outputs.check_failed_ids }}
-        steps:
-            - uses: actions/checkout@v4
+      - name: Detect drift in source.json
+        id: diff
+        run: |
+          if git diff --quiet codegen/sams/generated/source.json; then
+            echo "has_drift=false" >> "$GITHUB_OUTPUT"
+            echo "✅ source.json unchanged — no upstream spec changes." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "has_drift=true" >> "$GITHUB_OUTPUT"
+            {
+              echo "## ⚠️ Swagger drift detected"
+              echo ""
+              echo '```'
+              git diff --stat codegen/sams/generated/source.json
+              echo '```'
+              echo ""
+              echo "### Changed paths (sample)"
+              echo '```'
+              git diff codegen/sams/generated/source.json | grep '^[+-]' | grep -v '^[+-][+-][+-]' | head -40
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
 
-            - uses: oven-sh/setup-bun@v2
-              with:
-                  bun-version: latest
+  # ── Job 2: Verify the 5 known upstream API bugs are still present ────────────
+  bug-check:
+    name: Check Known API Bugs
+    runs-on: ubuntu-latest
+    outputs:
+      has_fixed: ${{ steps.parse.outputs.has_fixed }}
+      fixed_bug_ids: ${{ steps.parse.outputs.fixed_bug_ids }}
+      check_failed_ids: ${{ steps.parse.outputs.check_failed_ids }}
+    steps:
+      - uses: actions/checkout@v4
 
-            - name: Install dependencies
-              run: bun install --frozen-lockfile
+      - uses: pnpm/action-setup@v4
 
-            - name: Run bug checks
-              env:
-                  SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
-              run: bun run scripts/check-sams-bugs.ts > bug-results.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
 
-            - name: Parse results and set outputs
-              id: parse
-              run: |
-                  bun -e "
-                    const fs = require('fs');
-                    const data = JSON.parse(fs.readFileSync('bug-results.json', 'utf8'));
+      - name: Install dependencies
+        run: vp install
 
-                    const fixedIds = data.bugs.filter(b => b.status === 'fixed').map(b => String(b.id));
-                    const failedIds = data.bugs.filter(b => b.status === 'check_failed').map(b => String(b.id));
+      - name: Run bug checks
+        env:
+          SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
+        run: vp run scripts/check-sams-bugs.ts > bug-results.json
 
-                    const lines = [
-                      'has_fixed=' + (fixedIds.length > 0 ? 'true' : 'false'),
-                      'fixed_bug_ids=' + fixedIds.join(','),
-                      'check_failed_ids=' + failedIds.join(','),
-                    ];
-                    fs.appendFileSync(process.env.GITHUB_OUTPUT, lines.join('\n') + '\n');
-                  "
+      - name: Parse results and set outputs
+        id: parse
+        run: |
+          node -e "
+            const fs = require('fs');
+            const data = JSON.parse(fs.readFileSync('bug-results.json', 'utf8'));
 
-            - name: Write step summary
-              run: |
-                  bun -e "
-                    const fs = require('fs');
-                    const data = JSON.parse(fs.readFileSync('bug-results.json', 'utf8'));
-                    const icon = { fixed: '✅', still_present: '⚠️', check_failed: '❌' };
-                    const label = { fixed: 'Fixed', still_present: 'Still present', check_failed: 'Check failed' };
-                    const rows = data.bugs.map(b =>
-                      '| ' + [b.id, b.summary, icon[b.status] + ' ' + label[b.status]].join(' | ') + ' |'
-                    );
-                    const lines = [
-                      '## Bug check results',
-                      '',
-                      '| # | Bug | Status |',
-                      '|---|---|---|',
-                      ...rows,
-                      '',
-                      '_Checked at: ' + data.checkedAt + '_',
-                    ];
-                    fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join('\n') + '\n');
-                  "
+            const fixedIds = data.bugs.filter(b => b.status === 'fixed').map(b => String(b.id));
+            const failedIds = data.bugs.filter(b => b.status === 'check_failed').map(b => String(b.id));
 
-    # ── Job 3: Regenerate the client from the live spec and run checks ───────────
-    # Runs independently to catch type or test failures caused by spec drift.
-    regenerate:
-        name: Regenerate & Verify
-        runs-on: ubuntu-latest
-        outputs:
-            failed: ${{ steps.result.outputs.failed }}
-            failure_step: ${{ steps.result.outputs.failure_step }}
-        steps:
-            - uses: actions/checkout@v4
+            const lines = [
+              'has_fixed=' + (fixedIds.length > 0 ? 'true' : 'false'),
+              'fixed_bug_ids=' + fixedIds.join(','),
+              'check_failed_ids=' + failedIds.join(','),
+            ];
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, lines.join('\\n') + '\\n');
+          "
 
-            - uses: oven-sh/setup-bun@v2
-              with:
-                  bun-version: latest
+      - name: Write step summary
+        run: |
+          node -e "
+            const fs = require('fs');
+            const data = JSON.parse(fs.readFileSync('bug-results.json', 'utf8'));
+            const icon = { fixed: '✅', still_present: '⚠️', check_failed: '❌' };
+            const label = { fixed: 'Fixed', still_present: 'Still present', check_failed: 'Check failed' };
+            const rows = data.bugs.map(b =>
+              '| ' + [b.id, b.summary, icon[b.status] + ' ' + label[b.status]].join(' | ') + ' |'
+            );
+            const lines = [
+              '## Bug check results',
+              '',
+              '| # | Bug | Status |',
+              '|---|---|---|',
+              ...rows,
+              '',
+              '_Checked at: ' + data.checkedAt + '_',
+            ];
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join('\\n') + '\\n');
+          "
 
-            - name: Install dependencies
-              run: bun install --frozen-lockfile
+  # ── Job 3: Regenerate the client from the live spec and run checks ───────────
+  # Runs independently to catch type or test failures caused by spec drift.
+  regenerate:
+    name: Regenerate & Verify
+    runs-on: ubuntu-latest
+    outputs:
+      failed: ${{ steps.result.outputs.failed }}
+      failure_step: ${{ steps.result.outputs.failure_step }}
+    steps:
+      - uses: actions/checkout@v4
 
-            - name: Regenerate client from live spec
-              id: regen
-              run: bun run sams:update
+      - uses: pnpm/action-setup@v4
 
-            - name: Typecheck
-              id: typecheck
-              continue-on-error: true
-              run: bun run typecheck
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
 
-            - name: Test
-              id: test
-              continue-on-error: true
-              run: bun run test
+      - name: Install dependencies
+        run: vp install
 
-            - name: Set result outputs
-              id: result
-              run: |
-                  if [ "${{ steps.regen.outcome }}" = "failure" ]; then
-                    echo "failed=true" >> "$GITHUB_OUTPUT"
-                    echo "failure_step=regeneration" >> "$GITHUB_OUTPUT"
-                  elif [ "${{ steps.typecheck.outcome }}" = "failure" ]; then
-                    echo "failed=true" >> "$GITHUB_OUTPUT"
-                    echo "failure_step=typecheck" >> "$GITHUB_OUTPUT"
-                  elif [ "${{ steps.test.outcome }}" = "failure" ]; then
-                    echo "failed=true" >> "$GITHUB_OUTPUT"
-                    echo "failure_step=tests" >> "$GITHUB_OUTPUT"
-                  else
-                    echo "failed=false" >> "$GITHUB_OUTPUT"
-                    echo "failure_step=" >> "$GITHUB_OUTPUT"
-                  fi
+      - name: Regenerate client from live spec
+        id: regen
+        run: vp run sams:update
 
-    # ── Job 4: Open a single GitHub issue summarising anything actionable ────────
-    notify:
-        name: Create Issue if Actionable
-        needs: [swagger-drift, bug-check, regenerate]
-        if: always()
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
+      - name: Check
+        id: typecheck
+        continue-on-error: true
+        run: vp check
 
-            - uses: oven-sh/setup-bun@v2
-              with:
-                  bun-version: latest
+      - name: Test
+        id: test
+        continue-on-error: true
+        run: vp test
 
-            - name: Install dependencies
-              run: bun install --frozen-lockfile
+      - name: Set result outputs
+        id: result
+        run: |
+          if [ "${{ steps.regen.outcome }}" = "failure" ]; then
+            echo "failed=true" >> "$GITHUB_OUTPUT"
+            echo "failure_step=regeneration" >> "$GITHUB_OUTPUT"
+          elif [ "${{ steps.typecheck.outcome }}" = "failure" ]; then
+            echo "failed=true" >> "$GITHUB_OUTPUT"
+            echo "failure_step=typecheck" >> "$GITHUB_OUTPUT"
+          elif [ "${{ steps.test.outcome }}" = "failure" ]; then
+            echo "failed=true" >> "$GITHUB_OUTPUT"
+            echo "failure_step=tests" >> "$GITHUB_OUTPUT"
+          else
+            echo "failed=false" >> "$GITHUB_OUTPUT"
+            echo "failure_step=" >> "$GITHUB_OUTPUT"
+          fi
 
-            - name: Create GitHub issue
-              # Only fire when there is something worth a developer looking at.
-              if: |
-                  needs.swagger-drift.outputs.has_drift == 'true' ||
-                  needs.bug-check.outputs.has_fixed == 'true' ||
-                  needs.regenerate.outputs.failed == 'true' ||
-                  needs.swagger-drift.result == 'failure' ||
-                  needs.bug-check.result == 'failure' ||
-                  needs.regenerate.result == 'failure'
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  HAS_DRIFT: ${{ needs.swagger-drift.outputs.has_drift }}
-                  HAS_FIXED: ${{ needs.bug-check.outputs.has_fixed }}
-                  FIXED_BUG_IDS: ${{ needs.bug-check.outputs.fixed_bug_ids }}
-                  CHECK_FAILED_IDS: ${{ needs.bug-check.outputs.check_failed_ids }}
-                  REGEN_FAILED: ${{ needs.regenerate.outputs.failed }}
-                  FAILURE_STEP: ${{ needs.regenerate.outputs.failure_step }}
-                  SWAGGER_DRIFT_RESULT: ${{ needs.swagger-drift.result }}
-                  BUG_CHECK_RESULT: ${{ needs.bug-check.result }}
-                  REGENERATE_RESULT: ${{ needs.regenerate.result }}
-              run: bun run scripts/sams-notify.ts
+  # ── Job 4: Open a single GitHub issue summarising anything actionable ────────
+  notify:
+    name: Create Issue if Actionable
+    needs: [swagger-drift, bug-check, regenerate]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: vp install
+
+      - name: Create GitHub issue
+        # Only fire when there is something worth a developer looking at.
+        if: |
+          needs.swagger-drift.outputs.has_drift == 'true' ||
+          needs.bug-check.outputs.has_fixed == 'true' ||
+          needs.regenerate.outputs.failed == 'true' ||
+          needs.swagger-drift.result == 'failure' ||
+          needs.bug-check.result == 'failure' ||
+          needs.regenerate.result == 'failure'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HAS_DRIFT: ${{ needs.swagger-drift.outputs.has_drift }}
+          HAS_FIXED: ${{ needs.bug-check.outputs.has_fixed }}
+          FIXED_BUG_IDS: ${{ needs.bug-check.outputs.fixed_bug_ids }}
+          CHECK_FAILED_IDS: ${{ needs.bug-check.outputs.check_failed_ids }}
+          REGEN_FAILED: ${{ needs.regenerate.outputs.failed }}
+          FAILURE_STEP: ${{ needs.regenerate.outputs.failure_step }}
+          SWAGGER_DRIFT_RESULT: ${{ needs.swagger-drift.result }}
+          BUG_CHECK_RESULT: ${{ needs.bug-check.result }}
+          REGENERATE_RESULT: ${{ needs.regenerate.result }}
+        run: vp run scripts/sams-notify.ts

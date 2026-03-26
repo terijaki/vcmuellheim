@@ -28,15 +28,15 @@ This file provides instructions specific to the `lib/` directory, which contains
 ## CDK conventions
 
 - Use the `vcmuellheim` AWS profile for all CDK CLI operations.
-- Before deploying, always run `bun run cdk:synth` and `bun run cdk:diff` to verify changes.
-- Deploy a single stack: `bun run cdk:deploy {StackName}`
-- Deploy all stacks: `bun run cdk:deploy:all`
+- Before deploying, always run `vp run cdk:synth` and `vp run cdk:diff` to verify changes.
+- Deploy a single stack: `vp run cdk:deploy {StackName}`
+- Deploy all stacks: `vp run cdk:deploy:all`
 - Scheduled tasks use EventBridge constructs — see existing stacks for patterns.
 
 ## Integration points / external services
 
 - **AWS:** CDK stacks create Lambdas, DynamoDB tables, S3 buckets, and Cognito resources. Use the `vcmuellheim` AWS profile.
-- **SAMS API:** `codegen/sams/` contains the Swagger spec and client generation for the external SAMS sports data API used by sync Lambdas. Regenerate the client with `bun run sams:update`.
+- **SAMS API:** `codegen/sams/` contains the Swagger spec and client generation for the external SAMS sports data API used by sync Lambdas. Regenerate the client with `vp run sams:update`.
 - **Background/schedulers:** EventBridge rules are defined in CDK constructs.
 
 ## DB conventions
@@ -57,4 +57,4 @@ The webapp uses **TanStack React Start server functions** instead of tRPC. All d
 
 - Stack unit tests live alongside stack files (e.g., `lib/sams-api-stack.test.ts`).
 - Use `aws-sdk-client-mock` for AWS SDK calls in tests.
-- Run tests: `bun run test`
+- Run tests: `vp test`

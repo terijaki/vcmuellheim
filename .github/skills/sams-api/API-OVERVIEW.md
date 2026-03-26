@@ -88,10 +88,10 @@ A Team object has:
 
 ```json
 {
-  "uuid": "...",
-  "name": "VC Müllheim 1",
-  "sportsclubUuid": "9c8b0252-c19b-4e83-a564-202e90d75c01",
-  "masterTeamUuid": null   // null = primary team; non-null = sub-team
+	"uuid": "...",
+	"name": "VC Müllheim 1",
+	"sportsclubUuid": "9c8b0252-c19b-4e83-a564-202e90d75c01",
+	"masterTeamUuid": null // null = primary team; non-null = sub-team
 }
 ```
 
@@ -109,17 +109,17 @@ Returns a ranked list of teams in the league. Useful fields:
 
 ```json
 {
-  "uuid": "c2ddea7c-b7ec-4172-aa85-4d9c47aba362",
-  "rank": 5,
-  "teamName": "VC Müllheim 1",
-  "points": 21,
-  "wins": 6,
-  "losses": 9,
-  "setWins": 27,
-  "setLosses": 31,
-  "matchesPlayed": 15,
-  "ballWins": 100,
-  "ballLosses": 92
+	"uuid": "c2ddea7c-b7ec-4172-aa85-4d9c47aba362",
+	"rank": 5,
+	"teamName": "VC Müllheim 1",
+	"points": 21,
+	"wins": 6,
+	"losses": 9,
+	"setWins": 27,
+	"setLosses": 31,
+	"matchesPlayed": 15,
+	"ballWins": 100,
+	"ballLosses": 92
 }
 ```
 
@@ -138,15 +138,15 @@ GET /match-days/{uuid}/league-matches
 
 ```json
 {
-  "date": "2026-03-07",
-  "time": "14:00",
-  "team1Description": "TV Merdingen 2",
-  "team2Description": "VC Müllheim 1",
-  "results": null,
-  "_embedded": {
-    "team1": { "uuid": "..." },
-    "team2": { "uuid": "f41dd752-07b0-42e8-afe2-4662a81eadf9" }
-  }
+	"date": "2026-03-07",
+	"time": "14:00",
+	"team1Description": "TV Merdingen 2",
+	"team2Description": "VC Müllheim 1",
+	"results": null,
+	"_embedded": {
+		"team1": { "uuid": "..." },
+		"team2": { "uuid": "f41dd752-07b0-42e8-afe2-4662a81eadf9" }
+	}
 }
 ```
 
@@ -208,30 +208,30 @@ Use `Accept: */*` when making requests — `Accept: application/json` causes HTT
 
 ## Known UUIDs (season 2025/26)
 
-| Resource | Name | UUID |
-|---|---|---|
-| Season | 2025/26 (current) | `fde078d8-b9d5-4202-be3d-5c2614cc8d95` |
-| Association | Südbadischer Volleyball-Verband (SBVV) | `2b7571b5-f985-c552-ea1c-f819ed3811c1` |
-| Sportsclub | VC Müllheim | `9c8b0252-c19b-4e83-a564-202e90d75c01` |
-| League | Verbandsliga Herren | `2000b48f-eec8-4927-beb1-c4568069ebec` |
-| League | Bezirksklasse Damen Süd | `a35b26d6-e212-4903-a529-2315642c7723` |
-| League | Bezirksklasse Damen Mitte | `235406bb-0f96-4a1c-b631-e5abd8261808` |
-| Team | VC Müllheim 1 (Herren / Verbandsliga) | `c2ddea7c-b7ec-4172-aa85-4d9c47aba362` |
-| Team | VC Müllheim 1 (Damen / Bezirksklasse Süd) | `f41dd752-07b0-42e8-afe2-4662a81eadf9` |
-| Team | VC Müllheim 2 (Damen / Bezirksklasse Mitte) | `88a52416-15f6-4dbc-b5d6-8d38a2bef737` |
+| Resource    | Name                                        | UUID                                   |
+| ----------- | ------------------------------------------- | -------------------------------------- |
+| Season      | 2025/26 (current)                           | `fde078d8-b9d5-4202-be3d-5c2614cc8d95` |
+| Association | Südbadischer Volleyball-Verband (SBVV)      | `2b7571b5-f985-c552-ea1c-f819ed3811c1` |
+| Sportsclub  | VC Müllheim                                 | `9c8b0252-c19b-4e83-a564-202e90d75c01` |
+| League      | Verbandsliga Herren                         | `2000b48f-eec8-4927-beb1-c4568069ebec` |
+| League      | Bezirksklasse Damen Süd                     | `a35b26d6-e212-4903-a529-2315642c7723` |
+| League      | Bezirksklasse Damen Mitte                   | `235406bb-0f96-4a1c-b631-e5abd8261808` |
+| Team        | VC Müllheim 1 (Herren / Verbandsliga)       | `c2ddea7c-b7ec-4172-aa85-4d9c47aba362` |
+| Team        | VC Müllheim 1 (Damen / Bezirksklasse Süd)   | `f41dd752-07b0-42e8-afe2-4662a81eadf9` |
+| Team        | VC Müllheim 2 (Damen / Bezirksklasse Mitte) | `88a52416-15f6-4dbc-b5d6-8d38a2bef737` |
 
 ---
 
 ## Quirks & Gotchas
 
-| Issue | Detail |
-|---|---|
-| SBVV missing from `/associations` list | Confirmed upstream API bug. Use UUID directly. |
-| Match-day date field is `matchdate` | Named `matchdate` (not `date`) per `LeagueMatchDayDto`. |
-| `/league-matches` filter params | Use `for-league`, `for-season`, `for-sportsclub`, `for-team` — not `leagueUuid`. |
-| `GET /seasons` returns a bare array | Use `.[]` not `.content[]` — no pagination envelope. |
-| Rankings team identifier is `uuid` | Not `teamUuid` — stat fields are `wins`/`losses`/`setWins`/`setLosses`. |
-| Match results field is `results` | Plural — `results` is an object for played matches, `null` for future ones. |
-| `Accept: application/json` → HTTP 406 | API returns `hal+json`. Use `Accept: */*`. |
-| Sub-teams have `masterTeamUuid` set | Filter with `select(.masterTeamUuid == null)` for primary teams only. |
-| Current season field is `currentSeason` | Not `isCurrent` or `isActive`. |
+| Issue                                   | Detail                                                                           |
+| --------------------------------------- | -------------------------------------------------------------------------------- |
+| SBVV missing from `/associations` list  | Confirmed upstream API bug. Use UUID directly.                                   |
+| Match-day date field is `matchdate`     | Named `matchdate` (not `date`) per `LeagueMatchDayDto`.                          |
+| `/league-matches` filter params         | Use `for-league`, `for-season`, `for-sportsclub`, `for-team` — not `leagueUuid`. |
+| `GET /seasons` returns a bare array     | Use `.[]` not `.content[]` — no pagination envelope.                             |
+| Rankings team identifier is `uuid`      | Not `teamUuid` — stat fields are `wins`/`losses`/`setWins`/`setLosses`.          |
+| Match results field is `results`        | Plural — `results` is an object for played matches, `null` for future ones.      |
+| `Accept: application/json` → HTTP 406   | API returns `hal+json`. Use `Accept: */*`.                                       |
+| Sub-teams have `masterTeamUuid` set     | Filter with `select(.masterTeamUuid == null)` for primary teams only.            |
+| Current season field is `currentSeason` | Not `isCurrent` or `isActive`.                                                   |

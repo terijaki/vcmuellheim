@@ -27,13 +27,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: "22"
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: bun install
+        run: vp install
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -57,10 +59,10 @@ jobs:
           fi
 
       - name: Lint check
-        run: bun run lint
+        run: vp check
 
       - name: Run tests
-        run: bun run test
+        run: vp test
 
       - name: CDK Diff
         env:
@@ -73,7 +75,7 @@ jobs:
           SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
           SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
-        run: bunx cdk diff --all
+        run: vp exec cdk diff --all
 
       - name: CDK Deploy
         env:
@@ -87,7 +89,7 @@ jobs:
           SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
         run: |
-          bunx cdk deploy --require-approval never --all --outputs-file cdk-outputs.json
+          vp exec cdk deploy --require-approval never --all --outputs-file cdk-outputs.json
 
       - name: Add deployment summary
         run: |
@@ -121,7 +123,7 @@ jobs:
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "To manually destroy these stacks:" >> $GITHUB_STEP_SUMMARY
             echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-            echo "bunx cdk destroy --all" >> $GITHUB_STEP_SUMMARY
+            echo "vp exec cdk destroy --all" >> $GITHUB_STEP_SUMMARY
             echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           fi
 
@@ -132,11 +134,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
 
       - name: Get workflow logs
         id: logs

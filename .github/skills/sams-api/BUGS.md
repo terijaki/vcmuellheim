@@ -8,16 +8,16 @@ All issues are upstream API defects, unless noted otherwise.
 
 ## Bug Index
 
-| # | Endpoint | Severity | Summary |
-|---|---|---|---|
-| 1 | `GET /associations` | High | SBVV (`2b7571b5-…`) absent from paginated list despite existing as a direct resource |
-| 2 | `GET /teams/{uuid}` | Medium | `logoImageForScreenOutputLink` always `null` despite being documented as a `url`-format field |
-| 3 | `GET /leagues/{uuid}/rankings` | Low | `scoreIncludingLosses` always `null` |
-| 4 | Any endpoint | Low | `Accept: application/json` returns HTTP 406 — only `application/hal+json` is served |
-| 5 | `GET /teams/{uuid}` | Low | `shortName` and `clubCode` return `""` for unset values instead of `null` |
-| 6 | `GET /match-days/{uuid}/league-matches`, `GET /league-matches` | Low | `date` field declared as `format: date-time` but API returns a date-only string (`YYYY-MM-DD`) |
-| 7 | `GET /match-days/{uuid}/league-matches`, `GET /league-matches` | High | `referees` and `results` fields use `$ref + nullable: true` — invalid per OpenAPI 3.0; breaks code generators |
-| 8 | `GET /league-hierarchies` | Medium | `parentLeagueHierarchyUuid` is documented as non-null string but API returns `null` for root hierarchy nodes |
+| #   | Endpoint                                                       | Severity | Summary                                                                                                       |
+| --- | -------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------- |
+| 1   | `GET /associations`                                            | High     | SBVV (`2b7571b5-…`) absent from paginated list despite existing as a direct resource                          |
+| 2   | `GET /teams/{uuid}`                                            | Medium   | `logoImageForScreenOutputLink` always `null` despite being documented as a `url`-format field                 |
+| 3   | `GET /leagues/{uuid}/rankings`                                 | Low      | `scoreIncludingLosses` always `null`                                                                          |
+| 4   | Any endpoint                                                   | Low      | `Accept: application/json` returns HTTP 406 — only `application/hal+json` is served                           |
+| 5   | `GET /teams/{uuid}`                                            | Low      | `shortName` and `clubCode` return `""` for unset values instead of `null`                                     |
+| 6   | `GET /match-days/{uuid}/league-matches`, `GET /league-matches` | Low      | `date` field declared as `format: date-time` but API returns a date-only string (`YYYY-MM-DD`)                |
+| 7   | `GET /match-days/{uuid}/league-matches`, `GET /league-matches` | High     | `referees` and `results` fields use `$ref + nullable: true` — invalid per OpenAPI 3.0; breaks code generators |
+| 8   | `GET /league-hierarchies`                                      | Medium   | `parentLeagueHierarchyUuid` is documented as non-null string but API returns `null` for root hierarchy nodes  |
 
 ---
 
@@ -26,7 +26,7 @@ All issues are upstream API defects, unless noted otherwise.
 ### Bug 1 — SBVV missing from `GET /associations` list
 
 **Endpoint:** `GET /associations`  
-**Spec:** No filter parameter is documented that would exclude any association. The `association` query param filters *by parent*, not *against* a result — `GET /associations` is documented as returning all accessible associations.  
+**Spec:** No filter parameter is documented that would exclude any association. The `association` query param filters _by parent_, not _against_ a result — `GET /associations` is documented as returning all accessible associations.  
 **Actual:** 210 associations across 3 pages. SBVV (`Südbadischer Volleyball-Verband`, UUID `2b7571b5-f985-c552-ea1c-f819ed3811c1`) is absent from all pages. Its sub-associations (`SBVV Bezirk West`, `SBVV Bezirk Schwarzwald-Bodensee`) appear, but the parent does not.  
 **Confirmed:** `GET /associations/2b7571b5-f985-c552-ea1c-f819ed3811c1` returns the resource successfully — it exists but is not enumerated.  
 **Workaround:** Always access SBVV directly by UUID.
@@ -41,8 +41,8 @@ All issues are upstream API defects, unless noted otherwise.
 
 ```json
 {
-  "logoImageLink": "https://dvv.sams-server.de/uploads/…/USV-pink.png",
-  "logoImageForScreenOutputLink": null
+	"logoImageLink": "https://dvv.sams-server.de/uploads/…/USV-pink.png",
+	"logoImageForScreenOutputLink": null
 }
 ```
 
@@ -103,8 +103,8 @@ Note that the `time` is a separate string field (`HH:mm`), confirming the intent
 
 ```json
 {
-  "referees": { "$ref": "#/components/schemas/RefereeTeamDto", "nullable": true },
-  "results":  { "$ref": "#/components/schemas/VolleyballMatchResultsDto", "nullable": true }
+	"referees": { "$ref": "#/components/schemas/RefereeTeamDto", "nullable": true },
+	"results": { "$ref": "#/components/schemas/VolleyballMatchResultsDto", "nullable": true }
 }
 ```
 
@@ -129,12 +129,11 @@ Note that the `time` is a separate string field (`HH:mm`), confirming the intent
 
 ```json
 {
-  "uuid": "...",
-  "name": "Verbandsliga",
-  "parentLeagueHierarchyUuid": null
+	"uuid": "...",
+	"name": "Verbandsliga",
+	"parentLeagueHierarchyUuid": null
 }
 ```
 
 **Impact:** The generated SDK/Zod response validator rejects valid hierarchy responses with `Invalid input: expected string, received null`. This broke `/tabelle` sorting when reading hierarchy levels through `getAllLeagueHierarchies`.  
 **Workaround:** Patch `LeagueHierarchyDto` in `parser.patch.schemas` (`codegen/sams/generate-client.ts`) to make `parentLeagueHierarchyUuid` nullable before regenerating the client.
-

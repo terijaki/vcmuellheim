@@ -1,4 +1,4 @@
-import { beforeAll, describe, it } from "bun:test";
+import { beforeAll, describe, it } from "vite-plus/test";
 import { Template } from "aws-cdk-lib/assertions";
 import { SamsApiStack } from "./sams-api-stack";
 import { createTestApp } from "./test-helpers";

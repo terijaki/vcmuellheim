@@ -1,4 +1,4 @@
-import { describe, it } from "bun:test";
+import { describe, it } from "vite-plus/test";
 import { Template } from "aws-cdk-lib/assertions";
 import { DnsStack } from "./dns-stack";
 import { createTestApp } from "./test-helpers";

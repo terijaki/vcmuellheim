@@ -7,7 +7,7 @@
  * corresponding compile-time (IDE) safety.
  */
 
-import { describe, it } from "bun:test";
+import { describe, it } from "vite-plus/test";
 import { AuthVerificationEntity, BusEntity, CmsUserEntity, EventEntity, LocationEntity, MediaEntity, MemberEntity, NewsEntity, SponsorEntity, TeamEntity } from "./electrodb-entities";
 import { authVerificationSchema, busSchema, cmsUserSchema, eventSchema, locationSchema, mediaSchema, memberSchema, newsSchema, sponsorSchema, teamSchema } from "./schemas";
 

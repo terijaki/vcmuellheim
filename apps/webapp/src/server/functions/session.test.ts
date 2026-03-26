@@ -1,4 +1,4 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it } from "vite-plus/test";
 import { mapSessionUser } from "./session-utils";
 
 describe("mapSessionUser", () => {
