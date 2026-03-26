@@ -33,8 +33,8 @@ export default defineConfig({
 		nitro({
 			preset: "aws-lambda",
 			output: {
-				publicDir: ".output/public",
-				serverDir: ".output/server",
+				publicDir: "apps/webapp/.output/public",
+				serverDir: "apps/webapp/.output/server",
 			},
 		}),
 		tanstackStart({ srcDirectory: "apps/webapp/src" }),
