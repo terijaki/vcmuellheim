@@ -71,7 +71,7 @@ export class WebAppStack extends cdk.Stack {
 		}
 
 		// Build the webapp once upfront so .output/server and .output/public exist
-		execFileSync("vp", ["build", "apps/webapp", "--config", "apps/webapp/vite.config.ts"], {
+		execFileSync("vp", ["build"], {
 			env: { ...process.env, VITE_CDK_ENVIRONMENT: environment },
 			cwd: process.cwd(),
 			stdio: "inherit",
