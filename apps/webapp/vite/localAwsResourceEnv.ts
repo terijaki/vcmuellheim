@@ -1,9 +1,9 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadEnv, type PluginOption } from "vite-plus";
-import { CONTENT_TABLE_ENV_VAR } from "../../../lib/db/env";
-import { Club } from "../../../project.config";
-import { getSanitizedBranch } from "../../../utils/git";
+import { CONTENT_TABLE_ENV_VAR } from "../../../lib/db/env.ts";
+import { Club } from "../../../project.config.ts";
+import { getSanitizedBranch } from "../../../utils/git.ts";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 

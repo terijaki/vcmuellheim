@@ -12,8 +12,8 @@
 	},
 	"type": "module",
 	"scripts": {
-		"dev": "vp dev apps/webapp --config apps/webapp/vite.config.ts --port 3080",
-		"build": "vp build apps/webapp --config apps/webapp/vite.config.ts",
+		"dev": "vp dev",
+		"build": "vp build",
 		"start": "node apps/webapp/.output/server/index.mjs",
 		"lint": "vp lint",
 		"check": "vp check",

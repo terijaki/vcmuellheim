@@ -1,21 +1,20 @@
 {
 	"window.title": "VC Müllheim - ${activeEditorShort}",
 	"editor.defaultFormatter": "oxc.oxc-vscode",
+	"[json]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
 	"[css]": {
 		"editor.defaultFormatter": "vscode.css-language-features"
 	},
 	"[html]": {
 		"editor.defaultFormatter": "vscode.html-language-features"
 	},
-	"[json]": {
-		"editor.defaultFormatter": "vscode.json-language-features"
-	},
-	"[jsonc]": {
-		"editor.defaultFormatter": "oxc.oxc-vscode"
-	},
 	"editor.codeActionsOnSave": {
-		"source.organizeImports.biome": "explicit",
-		"source.fixAll.biome": "explicit"
+		"source.removeUnusedImports": "explicit"
 	},
 	"files.insertFinalNewline": true,
 	"files.trimFinalNewlines": false,
@@ -28,14 +27,12 @@
 	"files.readonlyInclude": {
 		"**/routeTree.gen.ts": true
 	},
-	"typescript.tsdk": "node_modules/typescript/lib",
+	"js/ts.tsdk.path": "node_modules/typescript/lib",
 	"chat.useNestedAgentsMdFiles": true,
 	"chat.tools.terminal.autoApprove": {
 		"/^vp (run )?(test|check(--fix)?|lint|verify(:all)?|cdk:synth(:all)?|deps-check)(\\s+[\\w./\\-:*=]+)*(\\s+2>&1)?(\\s*\\|\\s*(head|tail|cat|grep|wc)(\\s+[\\w./\\-*=]+)*)?$/": true,
 		"/^bun (run )?(testcheck(:fix)?|verify(:all)?|cdk:synth(:all)?|deps-check)(\\s+[\\w./\\-:*=]+)*(\\s+2>&1)?(\\s*\\|\\s*(head|tail|cat|grep|wc)(\\s+[\\w./\\-*=]+)*)?$/": true,
 		"/\\.github\\/skills\\/sams-api\\/sams\\.ts/": true
 	},
-	"github-actions.workflows.pinned.workflows": [
-		".github/workflows/cdk-deploy.yml"
-	]
+	"github-actions.workflows.pinned.workflows": [".github/workflows/cdk-deploy.yml"]
 }
