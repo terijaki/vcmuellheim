@@ -1,7 +1,4 @@
-import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite-plus";
-
-const repoRoot = fileURLToPath(new URL("./", import.meta.url));
 
 export default defineConfig({
 	staged: {
@@ -31,16 +28,7 @@ export default defineConfig({
 		},
 	},
 	resolve: {
-		alias: {
-			"@": repoRoot,
-			"@codegen": `${repoRoot}codegen`,
-			"@project.config": `${repoRoot}project.config.ts`,
-			"@webapp": `${repoRoot}apps/webapp/src`,
-			"@lib": `${repoRoot}lib`,
-			"@lambda": `${repoRoot}lambda`,
-			"@utils": `${repoRoot}utils`,
-			"@data": `${repoRoot}data`,
-		},
+		tsconfigPaths: true,
 	},
 	test: {
 		setupFiles: ["./test-setup.ts"],
