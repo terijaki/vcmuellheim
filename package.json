@@ -44,6 +44,7 @@
 		"@aws-sdk/client-ses": "^3.1009.0",
 		"@aws-sdk/lib-dynamodb": "^3.1009.0",
 		"@aws-sdk/s3-request-presigner": "^3.1009.0",
+		"@aws-sdk/util-dynamodb": "^3.996.2",
 		"@mantine/core": "^8.3.17",
 		"@mantine/dates": "^8.3.17",
 		"@mantine/dropzone": "^8.3.9",
