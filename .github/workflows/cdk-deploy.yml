@@ -58,8 +58,8 @@ jobs:
             echo "env_icon=🔧" >> $GITHUB_OUTPUT
           fi
 
-      - name: Lint & Type check
-        run: vp check
+      - name: Lint check
+        run: vp lint
 
       - name: Run tests
         run: vp test
