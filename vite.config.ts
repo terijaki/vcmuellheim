@@ -59,10 +59,6 @@ export default defineConfig({
 			logLevels: ["warn", "error"],
 		},
 	},
-	define: {
-		// Inject Git branch at build time for service URL resolution
-		"import.meta.env.VITE_GIT_BRANCH": JSON.stringify(sanitizedBranch),
-	},
 	publicDir: "apps/webapp/public",
 	resolve: {
 		tsconfigPaths: true,
