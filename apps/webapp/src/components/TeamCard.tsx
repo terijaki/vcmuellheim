@@ -21,8 +21,8 @@ export default function TeamCard(props: Team) {
 	const { data: members } = useMembers();
 	const { data: locations } = useLocations();
 
-	const coaches = members?.items.filter((member) => trainerIds?.includes(member.id));
-	const contactPeople = members?.items.filter((member) => pointOfContactIds?.includes(member.id));
+	const coaches = trainerIds?.map((id) => members?.items.find((member) => member.id === id)).filter(Boolean);
+	const contactPeople = pointOfContactIds?.map((id) => members?.items.find((member) => member.id === id)).filter(Boolean);
 
 	const isEmptyLeague = !teamContext.leagueParticipation;
 	const isMatchingLeague = Boolean(isEmptyLeague || Boolean(league));

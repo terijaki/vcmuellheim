@@ -236,7 +236,8 @@ function TrainingScheduleManager({
 
 			<Stack gap="md">
 				{schedules.map((schedule, index) => (
-					<Card key={`${schedule.locationId}-${schedule.startTime}-${index}`} withBorder p="md">
+					// biome-ignore lint/suspicious/noArrayIndexKey: schedules have no stable ID and cannot be reordered; content-based keys caused Safari crashes on TimeInput remount
+					<Card key={index} withBorder p="md">
 						<Group justify="space-between" mb="md">
 							<Text size="sm" fw={500}>
 								Training {index + 1}
