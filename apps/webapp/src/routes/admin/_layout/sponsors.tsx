@@ -288,7 +288,7 @@ function SponsorsPage() {
 
 			const cleanedData = Object.fromEntries(
 				Object.entries({ ...formData, logoS3Key, ttl }).filter(([key, value]) => {
-					if (key === "logoS3Key" || key === "ttl") return true;
+					if (key === "logoS3Key" || key === "ttl" || key === "description" || key === "websiteUrl") return true;
 					return value !== "" && value !== undefined;
 				}),
 			);
@@ -298,6 +298,8 @@ function SponsorsPage() {
 					id: editingId,
 					data: {
 						...cleanedData,
+						description: formData.description || null, // null = clear existing value
+						websiteUrl: formData.websiteUrl || null, // null = clear existing value
 						logoS3Key: deleteLogo ? null : logoS3Key,
 						ttl: ttl ?? null,
 					},

@@ -6,7 +6,6 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { sponsorSchema } from "@/lib/db/schemas";
-import type { Sponsor } from "@/lib/db/types";
 import { requireAuthMiddleware } from "../../middleware";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
@@ -45,44 +44,41 @@ export const updateSponsorFn = createServerFn()
 		z.object({
 			id: z.uuid(),
 			data: sponsorSchema.omit({ id: true, createdAt: true, updatedAt: true }).partial().extend({
+				description: z.string().nullable().optional(),
+				websiteUrl: z.url().nullable().optional(),
 				logoS3Key: z.string().nullable().optional(),
 				ttl: z.number().int().positive().nullable().optional(),
 			}),
 		}),
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
-		const existingResult = await db().sponsor.get({ id }).go();
-		const existingSponsor = existingResult.data ? parseServerData(sponsorSchema, existingResult.data, "Failed to parse sponsor data") : null;
-		const { logoS3Key, ttl, ...otherUpdates } = updates;
+		const { description, websiteUrl, logoS3Key, ttl, ...restUpdates } = updates;
 
-		if (!existingSponsor) throw new Error("Sponsor not found");
-
-		const nextSponsor: Sponsor = {
-			...existingSponsor,
-			...otherUpdates,
+		const setFields = {
+			...restUpdates,
+			...(description !== null && description !== undefined ? { description } : {}),
+			...(websiteUrl !== null && websiteUrl !== undefined ? { websiteUrl } : {}),
+			...(logoS3Key !== null && logoS3Key !== undefined ? { logoS3Key } : {}),
+			...(ttl !== null && ttl !== undefined ? { ttl } : {}),
 			updatedAt: new Date().toISOString(),
 		};
+		const removeKeys = [
+			...(description === null ? ["description"] : []),
+			...(websiteUrl === null ? ["websiteUrl"] : []),
+			...(logoS3Key === null ? ["logoS3Key"] : []),
+			...(ttl === null ? ["ttl"] : []),
+		];
 
-		if (logoS3Key !== undefined && logoS3Key !== null) {
-			nextSponsor.logoS3Key = logoS3Key;
-		}
+		const patchOp = db().sponsor.patch({ id }).set(setFields);
+		const result = await (removeKeys.length > 0 ? patchOp.remove(removeKeys) : patchOp).go();
 
-		if (ttl !== undefined && ttl !== null) {
-			nextSponsor.ttl = ttl;
-		}
+		if (!result.data) throw new Error("Sponsor not found");
 
-		if (logoS3Key === null) {
-			delete nextSponsor.logoS3Key;
-		}
+		const refreshedResult = await db().sponsor.get({ id }).go();
+		const sponsor = refreshedResult.data ? parseServerData(sponsorSchema, refreshedResult.data, "Failed to parse sponsor data") : null;
 
-		if (ttl === null) {
-			delete nextSponsor.ttl;
-		}
-
-		const parsedSponsor = parseServerData(sponsorSchema, nextSponsor, "Failed to parse sponsor data");
-		await db().sponsor.put(parsedSponsor).go();
-
-		return parsedSponsor;
+		if (!sponsor) throw new Error("Sponsor not found");
+		return sponsor;
 	});
 
 export const deleteSponsorFn = createServerFn()

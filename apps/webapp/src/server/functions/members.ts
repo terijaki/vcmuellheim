@@ -56,14 +56,37 @@ export const updateMemberFn = createServerFn()
 	.inputValidator(
 		z.object({
 			id: z.uuid(),
-			data: memberSchema.omit({ id: true, createdAt: true, updatedAt: true }).partial(),
+			data: memberSchema
+				.omit({ id: true, createdAt: true, updatedAt: true })
+				.partial()
+				.extend({
+					email: z.email().nullable().optional(),
+					phone: z.string().nullable().optional(),
+					roleTitle: z.string().max(100).nullable().optional(),
+					avatarS3Key: z.string().nullable().optional(),
+				}),
 		}),
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
-		const result = await db()
-			.member.patch({ id })
-			.set({ ...updates, updatedAt: new Date().toISOString() })
-			.go();
+		const { email, phone, roleTitle, avatarS3Key, ...restUpdates } = updates;
+
+		const setFields = {
+			...restUpdates,
+			...(email !== null && email !== undefined ? { email } : {}),
+			...(phone !== null && phone !== undefined ? { phone } : {}),
+			...(roleTitle !== null && roleTitle !== undefined ? { roleTitle } : {}),
+			...(avatarS3Key !== null && avatarS3Key !== undefined ? { avatarS3Key } : {}),
+			updatedAt: new Date().toISOString(),
+		};
+		const removeKeys = [
+			...(email === null ? ["email"] : []),
+			...(phone === null ? ["phone"] : []),
+			...(roleTitle === null ? ["roleTitle"] : []),
+			...(avatarS3Key === null ? ["avatarS3Key"] : []),
+		];
+
+		const patchOp = db().member.patch({ id }).set(setFields);
+		const result = await (removeKeys.length > 0 ? patchOp.remove(removeKeys) : patchOp).go();
 
 		if (!result.data) throw new Error("Member not found");
 

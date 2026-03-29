@@ -111,21 +111,31 @@ function EventsPage() {
 			return;
 		}
 
-		const data: Omit<EventInput, "id" | "createdAt" | "updatedAt"> = {
-			type: "event" as const,
-			title: formData.title,
-			description: formData.description || undefined,
-			startDate: formData.startDate.toISOString(),
-			endDate: formData.endDate ? formData.endDate.toISOString() : undefined,
-			location: formData.location || undefined,
-			variant: formData.variant || undefined,
-			teamIds: formData.teamIds || undefined,
-		};
-
 		if (editingId) {
-			updateMutation.mutate({ id: editingId, data });
+			updateMutation.mutate({
+				id: editingId,
+				data: {
+					type: "event" as const,
+					title: formData.title,
+					description: formData.description || null, // null = clear existing value
+					startDate: formData.startDate.toISOString(),
+					endDate: formData.endDate ? formData.endDate.toISOString() : undefined,
+					location: formData.location || null, // null = clear existing value
+					variant: formData.variant || null, // null = clear existing value
+					teamIds: formData.teamIds || undefined,
+				},
+			});
 		} else {
-			createMutation.mutate(data);
+			createMutation.mutate({
+				type: "event" as const,
+				title: formData.title,
+				description: formData.description || undefined,
+				startDate: formData.startDate.toISOString(),
+				endDate: formData.endDate ? formData.endDate.toISOString() : undefined,
+				location: formData.location || undefined,
+				variant: formData.variant || undefined,
+				teamIds: formData.teamIds || undefined,
+			});
 		}
 	};
 
