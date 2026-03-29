@@ -7,6 +7,7 @@ import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { memberSchema } from "@/lib/db/schemas";
 import { requireAuthMiddleware } from "../../middleware";
+import { resolveNullableUpdates } from "./patch-helpers";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
 
@@ -69,22 +70,18 @@ export const updateMemberFn = createServerFn()
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
 		const { email, phone, roleTitle, avatarS3Key, ...restUpdates } = updates;
+		const { setFields: nullableFields, removeKeys } = resolveNullableUpdates({
+			email,
+			phone,
+			roleTitle,
+			avatarS3Key,
+		});
 
 		const setFields = {
 			...restUpdates,
-			...(email !== null && email !== undefined ? { email } : {}),
-			...(phone !== null && phone !== undefined ? { phone } : {}),
-			...(roleTitle !== null && roleTitle !== undefined ? { roleTitle } : {}),
-			...(avatarS3Key !== null && avatarS3Key !== undefined ? { avatarS3Key } : {}),
+			...nullableFields,
 			updatedAt: new Date().toISOString(),
 		};
-		const removeKeys = [
-			...(email === null ? ["email"] : []),
-			...(phone === null ? ["phone"] : []),
-			...(roleTitle === null ? ["roleTitle"] : []),
-			...(avatarS3Key === null ? ["avatarS3Key"] : []),
-		];
-
 		const patchOp = db().member.patch({ id }).set(setFields);
 		const result = await (removeKeys.length > 0 ? patchOp.remove(removeKeys) : patchOp).go();
 

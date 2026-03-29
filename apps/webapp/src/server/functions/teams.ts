@@ -8,6 +8,7 @@ import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { teamSchema } from "@/lib/db/schemas";
 import { requireAuthMiddleware } from "../../middleware";
+import { resolveNullableUpdates } from "./patch-helpers";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
 
@@ -68,22 +69,19 @@ export const updateTeamFn = createServerFn()
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
 		const { description, sbvvTeamId, ageGroup, league, name, ...restUpdates } = updates;
+		const { setFields: nullableFields, removeKeys } = resolveNullableUpdates({
+			description,
+			sbvvTeamId,
+			ageGroup,
+			league,
+		});
 
 		const setFields = {
 			...restUpdates,
+			...nullableFields,
 			...(name !== undefined ? { name, slug: slugify(name, true) } : {}),
-			...(description !== null && description !== undefined ? { description } : {}),
-			...(sbvvTeamId !== null && sbvvTeamId !== undefined ? { sbvvTeamId } : {}),
-			...(ageGroup !== null && ageGroup !== undefined ? { ageGroup } : {}),
-			...(league !== null && league !== undefined ? { league } : {}),
 			updatedAt: new Date().toISOString(),
 		};
-		const removeKeys = [
-			...(description === null ? ["description"] : []),
-			...(sbvvTeamId === null ? ["sbvvTeamId"] : []),
-			...(ageGroup === null ? ["ageGroup"] : []),
-			...(league === null ? ["league"] : []),
-		];
 
 		const patchOp = db().team.patch({ id }).set(setFields);
 		const result = await (removeKeys.length > 0 ? patchOp.remove(removeKeys) : patchOp).go();

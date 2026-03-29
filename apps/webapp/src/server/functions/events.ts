@@ -8,6 +8,7 @@ import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { eventSchema } from "@/lib/db/schemas";
 import { requireAuthMiddleware } from "../../middleware";
+import { resolveNullableUpdates } from "./patch-helpers";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
 
@@ -84,22 +85,20 @@ export const updateEventFn = createServerFn()
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
 		const { description, location, variant, ...restUpdates } = updates;
+		const { setFields: nullableFields, removeKeys } = resolveNullableUpdates({
+			description,
+			location,
+			variant,
+		});
 
 		const setFields = {
 			...restUpdates,
-			...(description !== null && description !== undefined ? { description } : {}),
-			...(location !== null && location !== undefined ? { location } : {}),
-			...(variant !== null && variant !== undefined ? { variant } : {}),
+			...nullableFields,
 			...(updates.endDate || updates.startDate
 				? { ttl: dayjs(updates.endDate || updates.startDate).add(90, "day").unix() }
 				: {}),
 			updatedAt: new Date().toISOString(),
 		};
-		const removeKeys = [
-			...(description === null ? ["description"] : []),
-			...(location === null ? ["location"] : []),
-			...(variant === null ? ["variant"] : []),
-		];
 
 		const patchOp = db().event.patch({ id }).set(setFields);
 		const result = await (removeKeys.length > 0 ? patchOp.remove(removeKeys) : patchOp).go();

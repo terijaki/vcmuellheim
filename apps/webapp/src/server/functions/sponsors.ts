@@ -7,6 +7,7 @@ import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { sponsorSchema } from "@/lib/db/schemas";
 import { requireAuthMiddleware } from "../../middleware";
+import { resolveNullableUpdates } from "./patch-helpers";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
 
@@ -53,22 +54,18 @@ export const updateSponsorFn = createServerFn()
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
 		const { description, websiteUrl, logoS3Key, ttl, ...restUpdates } = updates;
+		const { setFields: nullableFields, removeKeys } = resolveNullableUpdates({
+			description,
+			websiteUrl,
+			logoS3Key,
+			ttl,
+		});
 
 		const setFields = {
 			...restUpdates,
-			...(description !== null && description !== undefined ? { description } : {}),
-			...(websiteUrl !== null && websiteUrl !== undefined ? { websiteUrl } : {}),
-			...(logoS3Key !== null && logoS3Key !== undefined ? { logoS3Key } : {}),
-			...(ttl !== null && ttl !== undefined ? { ttl } : {}),
+			...nullableFields,
 			updatedAt: new Date().toISOString(),
 		};
-		const removeKeys = [
-			...(description === null ? ["description"] : []),
-			...(websiteUrl === null ? ["websiteUrl"] : []),
-			...(logoS3Key === null ? ["logoS3Key"] : []),
-			...(ttl === null ? ["ttl"] : []),
-		];
-
 		const patchOp = db().sponsor.patch({ id }).set(setFields);
 		const result = await (removeKeys.length > 0 ? patchOp.remove(removeKeys) : patchOp).go();
 
