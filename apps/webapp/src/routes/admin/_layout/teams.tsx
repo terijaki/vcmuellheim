@@ -510,7 +510,7 @@ function TeamsPage() {
 								onChange={(value: string) => setFormData({ ...formData, gender: value as "male" | "female" | "mixed" })}
 								aria-label="Geschlecht"
 							/>
-							<TextInput label="Mindestalter" placeholder="z.B. U19" value={formData.ageGroup} onChange={(e) => setFormData({ ...formData, ageGroup: e.target.value })} />
+							<TextInput label="Alter" placeholder="z.B. U16, ab 18 Jahren" value={formData.ageGroup} onChange={(e) => setFormData({ ...formData, ageGroup: e.target.value })} />
 						</Stack>
 						<Stack>
 							<TextInput label="Liga" placeholder="z.B. Landesliga" value={formData.league} onChange={(e) => setFormData({ ...formData, league: e.target.value })} />
