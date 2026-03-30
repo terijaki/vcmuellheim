@@ -1,4 +1,4 @@
-import { beforeAll, beforeEach, describe, expect, it } from "bun:test";
+import { beforeAll, beforeEach, describe, expect, it } from "vite-plus/test";
 import { DynamoDBDocumentClient, GetCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { mockClient } from "aws-sdk-client-mock";
 
