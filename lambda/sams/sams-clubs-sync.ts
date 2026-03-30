@@ -1,26 +1,27 @@
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { BatchWriteCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { getAllSportsclubs, getAssociationByUuid, getAssociations } from "@codegen/sams/generated";
 import middy from "@middy/core";
 import type { EventBridgeEvent } from "aws-lambda";
+import { createSamsDb } from "@/lib/db/electrodb-client";
 import { SAMS } from "@/project.config";
 import { slugify } from "@/utils/slugify";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
-import { type ClubItem, ClubItemSchema, SamsClubsSyncLambdaEnvironmentSchema } from "./types";
+import { SamsClubsSyncLambdaEnvironmentSchema } from "./types";
 
 const { logger, tracer } = createLambdaResources("sams-clubs-sync");
 const docClient = createDynamoDocClient(tracer);
 
 const env = parseLambdaEnv(SamsClubsSyncLambdaEnvironmentSchema);
-const TABLE_NAME = env.CLUBS_TABLE_NAME;
+const TABLE_NAME = env.SAMS_TABLE_NAME;
 const MEDIA_BUCKET_NAME = env.MEDIA_BUCKET_NAME;
 const ASSOCIATION_NAME = SAMS.association.name; // SBVV
 
 const s3Client = new S3Client({});
+const samsEntities = createSamsDb(docClient, TABLE_NAME);
 
 /**
  * Downloads a logo from a URL and uploads it to S3.
@@ -61,7 +62,7 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 	Sentry.addBreadcrumb({ category: "sync", message: "Starting SAMS clubs sync", level: "info" });
 
 	if (!TABLE_NAME) {
-		throw new Error("CLUBS_TABLE_NAME environment variable is not set");
+		throw new Error("SAMS_TABLE_NAME environment variable is not set");
 	}
 
 	try {
@@ -119,33 +120,18 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 		// previously stored valid values that must be preserved.
 		console.log("🔄 Pre-loading existing club logo data from DynamoDB...");
 		const existingLogoMap = new Map<string, { logoImageLink?: string; logoS3Key?: string }>();
-		let scanLastKey: Record<string, unknown> | undefined;
-		do {
-			const scanResult = await docClient.send(
-				new ScanCommand({
-					TableName: TABLE_NAME,
-					FilterExpression: "#t = :type",
-					ExpressionAttributeNames: { "#t": "type" },
-					ExpressionAttributeValues: { ":type": "club" },
-					ProjectionExpression: "sportsclubUuid, logoImageLink, logoS3Key",
-					ExclusiveStartKey: scanLastKey,
-				}),
-			);
-			for (const item of scanResult.Items ?? []) {
-				if (item.sportsclubUuid) {
-					existingLogoMap.set(item.sportsclubUuid as string, {
-						logoImageLink: item.logoImageLink as string | undefined,
-						logoS3Key: item.logoS3Key as string | undefined,
-					});
-				}
-			}
-			scanLastKey = scanResult.LastEvaluatedKey as Record<string, unknown> | undefined;
-		} while (scanLastKey);
+		const existingResponse = await samsEntities.club.query.byType({ type: "club" }).go({ pages: "all" });
+		for (const item of existingResponse.data) {
+			existingLogoMap.set(item.sportsclubUuid, {
+				logoImageLink: item.logoImageLink ?? undefined,
+				logoS3Key: item.logoS3Key ?? undefined,
+			});
+		}
 		console.log(`📋 Pre-loaded logo data for ${existingLogoMap.size} existing clubs`);
 
-		// Step 3: Fetch all clubs from SAMS API
+		// Step 3: Fetch all clubs from SAMS API and upsert directly
 		console.log(`🔁 Fetching all clubs for association ${associationUuid}`);
-		const allClubs: ClubItem[] = [];
+		let totalWritten = 0;
 		currentPage = 0;
 		hasMorePages = true;
 
@@ -166,9 +152,8 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 				const now = new Date().toISOString();
 				const ttl = Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60; // 30 days from now
 
-				// Transform clubs using Zod schema to strip undefined values
 				const validEntries = data.content.filter((c) => c.uuid && c.name);
-				const clubs: ClubItem[] = [];
+				let pageWritten = 0;
 				for (const c of validEntries) {
 					const existing = existingLogoMap.get(c.uuid as string);
 					// Use API value if present, otherwise fall back to what was previously stored.
@@ -180,23 +165,24 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 						const uploaded = await uploadLogoToS3(c.uuid as string, c.logoImageLink);
 						if (uploaded) logoS3Key = uploaded;
 					}
-					clubs.push(
-						ClubItemSchema.parse({
+					await samsEntities.club
+						.upsert({
 							type: "club",
-							sportsclubUuid: c.uuid,
-							name: c.name,
-							nameSlug: slugify(c.name),
-							associationUuid: c.associationUuid,
+							sportsclubUuid: c.uuid as string,
+							name: c.name as string,
+							nameSlug: slugify(c.name as string),
+							...(c.associationUuid ? { associationUuid: c.associationUuid as string } : {}),
 							associationName: ASSOCIATION_NAME,
 							...(effectiveLogoUrl ? { logoImageLink: effectiveLogoUrl } : {}),
 							...(logoS3Key ? { logoS3Key } : {}),
 							updatedAt: now,
 							ttl,
-						}),
-					);
+						})
+						.go();
+					totalWritten++;
+					pageWritten++;
 				}
-				allClubs.push(...clubs);
-				console.log(`📄 Fetched page ${currentPage + 1}/${data.totalPages} (${clubs.length} clubs)`);
+				console.log(`📄 Fetched page ${currentPage + 1}/${data.totalPages} (${pageWritten} clubs)`);
 				currentPage++;
 			}
 
@@ -208,40 +194,9 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 			}
 		}
 
-		console.log(`✅ Total clubs fetched: ${allClubs.length}`);
-		Sentry.addBreadcrumb({ category: "sync", message: `Total clubs fetched: ${allClubs.length}`, level: "info", data: { clubsFetched: allClubs.length } });
-		Sentry.setMeasurement("sams_clubs_sync.clubs_fetched", allClubs.length, "none");
-
-		// Step 4: Batch write to DynamoDB (max 25 items per batch)
-		console.log("💾 Writing clubs to DynamoDB...");
-		const batchSize = 25;
-		let totalWritten = 0;
-
-		for (let i = 0; i < allClubs.length; i += batchSize) {
-			const batch = allClubs.slice(i, i + batchSize);
-
-			const putRequests = batch.map((club) => ({
-				PutRequest: {
-					Item: club,
-				},
-			}));
-
-			await docClient.send(
-				new BatchWriteCommand({
-					RequestItems: {
-						[TABLE_NAME]: putRequests,
-					},
-				}),
-			);
-
-			totalWritten += batch.length;
-			console.log(`📝 Wrote batch ${Math.floor(i / batchSize) + 1} (${totalWritten}/${allClubs.length} clubs)`);
-
-			// Rate limiting between batches
-			if (i + batchSize < allClubs.length) {
-				await new Promise((resolve) => setTimeout(resolve, 100));
-			}
-		}
+		console.log(`✅ Total clubs upserted: ${totalWritten}`);
+		Sentry.addBreadcrumb({ category: "sync", message: `Total clubs fetched: ${totalWritten}`, level: "info", data: { clubsFetched: totalWritten } });
+		Sentry.setMeasurement("sams_clubs_sync.clubs_fetched", totalWritten, "none");
 
 		console.log(`✅ Successfully synced ${totalWritten} clubs to DynamoDB`);
 		Sentry.setMeasurement("sams_clubs_sync.clubs_written", totalWritten, "none");

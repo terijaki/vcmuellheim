@@ -18,7 +18,7 @@ import * as cdk from "aws-cdk-lib";
 import type * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
-import type * as dynamodb from "aws-cdk-lib/aws-dynamodb";
+import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
@@ -27,7 +27,7 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
 import type { Construct } from "constructs";
 import { Club } from "@/project.config";
-import { CONTENT_TABLE_ENV_VAR } from "./db/env";
+import { CONTENT_TABLE_ENV_VAR, getSamsDataTableName } from "./db/env";
 
 export interface WebAppStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -35,10 +35,6 @@ export interface WebAppStackProps extends cdk.StackProps {
 		branch: string;
 	};
 	contentTable: dynamodb.Table;
-	samsApiStack: {
-		samsClubsTable: dynamodb.Table;
-		samsTeamsTable: dynamodb.Table;
-	};
 	instagramTable: dynamodb.ITable;
 	mediaBucket: s3Bucket.Bucket;
 	/** CloudFront URL of the media stack — used for serving uploaded images */
@@ -77,13 +73,16 @@ export class WebAppStack extends cdk.Stack {
 			stdio: "inherit",
 		});
 
+		// Reference the SAMS table by computed ARN rather than a CDK cross-stack reference, so SamsApiStack can be updated independently without CF blocking the deletion of its exports.
+		const samsTableName = getSamsDataTableName(environment, branch);
+		const samsTableArn = `arn:aws:dynamodb:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:table/${samsTableName}`;
+
 		const lambdaEnvironment: Record<string, string> = {
 			[CONTENT_TABLE_ENV_VAR]: props.contentTable.tableName,
 			CDK_ENVIRONMENT: environment,
 			BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET || "",
 			MEDIA_BUCKET_NAME: props.mediaBucket.bucketName,
-			SAMS_CLUBS_TABLE_NAME: props.samsApiStack.samsClubsTable.tableName,
-			SAMS_TEAMS_TABLE_NAME: props.samsApiStack.samsTeamsTable.tableName,
+			SAMS_TABLE_NAME: samsTableName,
 			INSTAGRAM_TABLE_NAME: props.instagramTable.tableName,
 			...(process.env.SAMS_API_KEY ? { SAMS_API_KEY: process.env.SAMS_API_KEY } : {}),
 			...(process.env.SAMS_SERVER ? { SAMS_SERVER: process.env.SAMS_SERVER } : {}),
@@ -125,8 +124,7 @@ export class WebAppStack extends cdk.Stack {
 
 		// Grant Lambda access to the single content table
 		props.contentTable.grantReadWriteData(this.webappLambda);
-		props.samsApiStack.samsClubsTable.grantReadWriteData(this.webappLambda);
-		props.samsApiStack.samsTeamsTable.grantReadWriteData(this.webappLambda);
+		dynamodb.Table.fromTableArn(this, "SamsDataTableRef", samsTableArn).grantReadWriteData(this.webappLambda);
 		props.instagramTable.grantReadData(this.webappLambda);
 
 		// Grant S3 access for media uploads and reads

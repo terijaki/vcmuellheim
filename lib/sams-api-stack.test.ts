@@ -30,8 +30,8 @@ describe("SamsApiStack", () => {
 			template.resourceCountIs("AWS::ApiGatewayV2::Api", 1);
 
 			// Should have 8 Lambda functions after removing the legacy SAMS logo proxy Lambda.
-			template.resourceCountIs("AWS::Lambda::Function", 8); // Should have 2 DynamoDB tables
-			template.resourceCountIs("AWS::DynamoDB::Table", 2);
+			template.resourceCountIs("AWS::Lambda::Function", 8); // Should have 1 DynamoDB table
+			template.resourceCountIs("AWS::DynamoDB::Table", 1);
 
 			// Should have 2 EventBridge rules (for nightly syncs)
 			template.resourceCountIs("AWS::Events::Rule", 2);
@@ -48,9 +48,8 @@ describe("SamsApiStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Dev tables should have DESTROY removal policy
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "sams-clubs-dev",
+				TableName: "sams-data-dev",
 			});
 		});
 
@@ -72,7 +71,7 @@ describe("SamsApiStack", () => {
 
 			// Check DynamoDB table names include branch suffix
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "sams-clubs-dev-feature-xyz",
+				TableName: "sams-data-dev-feature-xyz",
 			});
 		});
 	});
@@ -91,7 +90,7 @@ describe("SamsApiStack", () => {
 
 			// Prod tables should have RETAIN removal policy
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "sams-clubs-prod",
+				TableName: "sams-data-prod",
 			});
 		});
 
@@ -162,7 +161,7 @@ describe("SamsApiStack", () => {
 	});
 
 	describe("DynamoDB tables", () => {
-		it("should create clubs table with correct GSI", () => {
+		it("should create sams data table with correct GSIs", () => {
 			const app = createTestApp();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {
@@ -173,31 +172,14 @@ describe("SamsApiStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Clubs table should have GSI-SamsClubQueries
+			// Sams data table should have GSI1-BySamsType and GSI2-BySamsSeasonUuid
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "sams-clubs-dev",
-				GlobalSecondaryIndexes: [{ IndexName: "GSI-SamsClubQueries" }],
+				TableName: "sams-data-dev",
+				GlobalSecondaryIndexes: [{ IndexName: "GSI1-BySamsType" }, { IndexName: "GSI2-BySamsSeasonUuid" }],
 			});
 		});
 
-		it("should create teams table with correct GSI", () => {
-			const app = createTestApp();
-			const stack = new SamsApiStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			// Teams table should have GSI-SamsTeamQueries
-			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "sams-teams-dev",
-				GlobalSecondaryIndexes: [{ IndexName: "GSI-SamsTeamQueries" }],
-			});
-		});
-		it("should enable TTL on both tables", () => {
+		it("should enable TTL on the sams data table", () => {
 			const app = createTestApp();
 			const stack = new SamsApiStack(app, "TestStack", {
 				stackProps: {

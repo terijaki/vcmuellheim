@@ -1,21 +1,21 @@
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import { DeleteCommand, PutCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { getAllLeagues, getAllSeasons, getTeamsForLeague } from "@codegen/sams/generated";
 import middy from "@middy/core";
 import type { APIGatewayProxyHandler } from "aws-lambda";
+import { createSamsDb } from "@/lib/db/electrodb-client";
 import { slugify } from "../../utils/slugify";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
-import { SamsTeamsSyncLambdaEnvironmentSchema, TeamItemSchema } from "./types";
+import { SamsTeamsSyncLambdaEnvironmentSchema } from "./types";
 
 const { logger, tracer } = createLambdaResources("sams-teams-sync");
 const docClient = createDynamoDocClient(tracer);
 
 const env = parseLambdaEnv(SamsTeamsSyncLambdaEnvironmentSchema);
-const CLUBS_TABLE_NAME = env.CLUBS_TABLE_NAME;
-const TEAMS_TABLE_NAME = env.TEAMS_TABLE_NAME;
+const TABLE_NAME = env.SAMS_TABLE_NAME;
+const samsEntities = createSamsDb(docClient, TABLE_NAME);
 
 const lambdaHandler: APIGatewayProxyHandler = async () => {
 	logger.info("Starting SAMS teams sync...");
@@ -24,17 +24,8 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 		// Step 1: Get VC Müllheim club from DynamoDB
 		console.log("Fetching VC Müllheim club data...");
 		const clubSlug = slugify("VC Müllheim");
-		const clubScan = await docClient.send(
-			new ScanCommand({
-				TableName: CLUBS_TABLE_NAME,
-				FilterExpression: "nameSlug = :slug",
-				ExpressionAttributeValues: {
-					":slug": clubSlug,
-				},
-			}),
-		);
-
-		const club = clubScan.Items?.[0];
+		const clubResponse = await samsEntities.club.query.byType({ type: "club" }).begins({ nameSlug: clubSlug }).go({ limit: 1 });
+		const club = clubResponse.data[0];
 		if (!club) {
 			throw new Error("VC Müllheim club not found in DynamoDB");
 		}
@@ -103,26 +94,23 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 
 				if (teamData?.content) {
 					// Filter: only our club's teams, no sub-teams (masterTeamUuid)
-					// Transform using Zod schema to strip undefined values
 					const ourTeams = teamData.content
 						.filter((t) => !t.masterTeamUuid)
 						.filter((t) => t.sportsclubUuid === sportsclubUuid)
-						.map((t) =>
-							TeamItemSchema.parse({
-								type: "team",
-								uuid: t.uuid,
-								name: t.name,
-								nameSlug: slugify(t.name || ""),
-								sportsclubUuid: t.sportsclubUuid,
-								associationUuid: t.associationUuid,
-								leagueUuid: league.uuid,
-								leagueName: league.name,
-								seasonUuid: currentSeason.uuid,
-								seasonName: currentSeason.name,
-								updatedAt: new Date().toISOString(),
-								ttl: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 365, // 1 year TTL
-							}),
-						);
+						.map((t) => ({
+							uuid: t.uuid as string,
+							type: "team" as const,
+							name: t.name as string,
+							nameSlug: slugify(t.name || ""),
+							sportsclubUuid: t.sportsclubUuid as string,
+							associationUuid: t.associationUuid as string,
+							leagueUuid: league.uuid as string,
+							leagueName: league.name as string,
+							seasonUuid: currentSeason.uuid as string,
+							seasonName: currentSeason.name as string,
+							updatedAt: new Date().toISOString(),
+							ttl: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 365,
+						}));
 
 					allTeams.push(...ourTeams);
 					teamPage++;
@@ -143,35 +131,20 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 		let teamsProcessed = 0;
 
 		for (const team of allTeams) {
-			await docClient.send(
-				new PutCommand({
-					TableName: TEAMS_TABLE_NAME,
-					Item: team,
-				}),
-			);
+			await samsEntities.team.upsert(team).go();
 			teamsProcessed++;
-		} // Step 6: Delete stale teams (not updated in this sync)
-		const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
-		const staleScan = await docClient.send(
-			new ScanCommand({
-				TableName: TEAMS_TABLE_NAME,
-				FilterExpression: "updatedAt < :threshold",
-				ExpressionAttributeValues: {
-					":threshold": oneHourAgo,
-				},
-			}),
-		);
+		}
 
+		// Step 6: Delete stale teams (not updated in this sync)
+		const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+		const existingResponse = await samsEntities.team.query.byType({ type: "team" }).go({ pages: "all" });
 		let teamsDeleted = 0;
-		for (const staleTeam of staleScan.Items || []) {
-			await docClient.send(
-				new DeleteCommand({
-					TableName: TEAMS_TABLE_NAME,
-					Key: { uuid: staleTeam.uuid },
-				}),
-			);
-			console.log(`Deleted stale team: ${staleTeam.name}`);
-			teamsDeleted++;
+		for (const existingTeam of existingResponse.data) {
+			if (existingTeam.updatedAt < oneHourAgo) {
+				await samsEntities.team.delete({ uuid: existingTeam.uuid }).go();
+				console.log(`Deleted stale team: ${existingTeam.name}`);
+				teamsDeleted++;
+			}
 		}
 
 		const result = {
