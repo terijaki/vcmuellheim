@@ -403,9 +403,18 @@ function TeamsPage() {
 				pictureS3Keys.push(key);
 			}
 
-			const cleanedData = Object.fromEntries(
-				Object.entries({ ...formData, pictureS3Keys: pictureS3Keys.length > 0 ? pictureS3Keys : undefined }).filter(([_, value]) => value !== "" && value !== undefined),
-			);
+			const clearableOptionalFields = new Set(["league", "description", "sbvvTeamId", "ageGroup"]);
+			const cleanedData: Record<string, unknown> = {};
+			for (const [key, value] of Object.entries({
+				...formData,
+				pictureS3Keys: editingId ? pictureS3Keys : pictureS3Keys.length > 0 ? pictureS3Keys : undefined,
+			})) {
+				if (editingId && clearableOptionalFields.has(key) && value === "") {
+					cleanedData[key] = null; // null signals the server to remove this attribute
+				} else if (value !== "" && value !== undefined) {
+					cleanedData[key] = value;
+				}
+			}
 
 			if (editingId) {
 				updateMutation.mutate({
@@ -510,7 +519,7 @@ function TeamsPage() {
 								onChange={(value: string) => setFormData({ ...formData, gender: value as "male" | "female" | "mixed" })}
 								aria-label="Geschlecht"
 							/>
-							<TextInput label="Mindestalter" placeholder="z.B. U19" value={formData.ageGroup} onChange={(e) => setFormData({ ...formData, ageGroup: e.target.value })} />
+							<TextInput label="Alter" placeholder="z.B. U16, ab 18 Jahren" value={formData.ageGroup} onChange={(e) => setFormData({ ...formData, ageGroup: e.target.value })} />
 						</Stack>
 						<Stack>
 							<TextInput label="Liga" placeholder="z.B. Landesliga" value={formData.league} onChange={(e) => setFormData({ ...formData, league: e.target.value })} />

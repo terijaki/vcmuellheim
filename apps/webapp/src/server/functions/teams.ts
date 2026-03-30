@@ -8,6 +8,7 @@ import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { teamSchema } from "@/lib/db/schemas";
 import { requireAuthMiddleware } from "../../middleware";
+import { resolveNullableUpdates } from "./patch-helpers";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
 
@@ -55,15 +56,35 @@ export const updateTeamFn = createServerFn()
 	.inputValidator(
 		z.object({
 			id: z.uuid(),
-			data: teamSchema.omit({ id: true, createdAt: true, updatedAt: true, slug: true }).partial(),
+			data: teamSchema
+				.omit({ id: true, createdAt: true, updatedAt: true, slug: true })
+				.partial()
+				.extend({
+					description: z.string().nullable().optional(),
+					sbvvTeamId: z.string().nullable().optional(),
+					ageGroup: z.string().nullable().optional(),
+					league: z.string().nullable().optional(),
+				}),
 		}),
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
-		const finalUpdates = updates.name ? { ...updates, slug: slugify(updates.name, true) } : updates;
-		const result = await db()
-			.team.patch({ id })
-			.set({ ...finalUpdates, updatedAt: new Date().toISOString() })
-			.go();
+		const { description, sbvvTeamId, ageGroup, league, name, ...restUpdates } = updates;
+		const { setFields: nullableFields, removeKeys } = resolveNullableUpdates({
+			description,
+			sbvvTeamId,
+			ageGroup,
+			league,
+		});
+
+		const setFields = {
+			...restUpdates,
+			...nullableFields,
+			...(name !== undefined ? { name, slug: slugify(name, true) } : {}),
+			updatedAt: new Date().toISOString(),
+		};
+
+		const patchOp = db().team.patch({ id }).set(setFields);
+		const result = await (removeKeys.length > 0 ? patchOp.remove(removeKeys) : patchOp).go();
 
 		if (!result.data) throw new Error("Team not found");
 
