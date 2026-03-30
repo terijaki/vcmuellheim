@@ -51,7 +51,7 @@ Iterate until the user approves the breakdown.
 
 ### 5. Create the GitHub issues
 
-For each approved slice, create a GitHub issue using `gh issue create`. Use the issue body template below.
+For each approved slice, create a GitHub issue using the `mcp_github_issue_write` tool with `method: "create"`. Use the issue body template below.
 
 Create issues in dependency order (blockers first) so you can reference real issue numbers in the "Blocked by" field.
 
@@ -84,5 +84,13 @@ Reference by number from the parent PRD:
 - User story 7
 
 </issue-template>
+
+### 6. Link slices as sub-issues on the PRD
+
+After all slice issues are created, add each one as a sub-issue of the parent PRD issue using the `mcp_github_sub_issue_write` tool (`method: "add"`). This lets GitHub track the PRD's completion progress automatically.
+
+Note: `sub_issue_id` is the **node ID** (numeric database ID) of the slice issue, not its issue number. Retrieve it from the `id` field returned when creating the issue.
+
+Add sub-issues in the same dependency order they were created (blockers first) so the list reads top-to-bottom as a natural execution sequence.
 
 Do NOT close or modify the parent PRD issue.
