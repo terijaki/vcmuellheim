@@ -1,5 +1,5 @@
 import { beforeAll, describe, it } from "bun:test";
-import { Template } from "aws-cdk-lib/assertions";
+import { Match, Template } from "aws-cdk-lib/assertions";
 import { SamsApiStack } from "./sams-api-stack";
 import { createTestApp } from "./test-helpers";
 
@@ -175,7 +175,10 @@ describe("SamsApiStack", () => {
 			// Sams data table should have GSI1-BySamsType and GSI2-BySamsSeasonUuid
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
 				TableName: "sams-data-dev",
-				GlobalSecondaryIndexes: [{ IndexName: "GSI1-BySamsType" }, { IndexName: "GSI2-BySamsSeasonUuid" }],
+				GlobalSecondaryIndexes: Match.arrayWith([
+					Match.objectLike({ IndexName: "GSI1-BySamsType" }),
+					Match.objectLike({ IndexName: "GSI2-BySamsSeasonUuid" }),
+				]),
 			});
 		});
 

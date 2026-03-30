@@ -31,6 +31,9 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 		}
 
 		const { sportsclubUuid, associationUuid } = club;
+		if (!associationUuid) {
+			throw new Error(`Club ${club.name} (${sportsclubUuid}) has no associationUuid — cannot fetch leagues`);
+		}
 		console.log(`Found club: ${club.name} (${sportsclubUuid})`);
 		Sentry.addBreadcrumb({ category: "sync", message: `Found club: ${club.name} (${sportsclubUuid})`, level: "info" });
 
@@ -41,6 +44,9 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 		const currentSeason = seasons?.find((s) => s.currentSeason);
 		if (!currentSeason) {
 			throw new Error("Current season not found");
+		}
+		if (!currentSeason.uuid || !currentSeason.name) {
+			throw new Error("Current season is missing uuid or name");
 		}
 		console.log(`Current season: ${currentSeason.name} (${currentSeason.uuid})`);
 
@@ -80,7 +86,7 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 		// Step 4: Get teams from each league
 		const allTeams = [];
 		for (const league of allLeagues) {
-			if (!league.uuid) continue;
+			if (!league.uuid || !league.name) continue;
 
 			console.log(`Fetching teams for league: ${league.name}...`);
 			let teamPage = 0;
