@@ -68,7 +68,7 @@ describe("readSamsCacheEntry", () => {
 		expect(result).toEqual(SAMPLE_PAYLOAD);
 	});
 
-	it("returns null when cachedAt is exactly at the TTL boundary (expired)", async () => {
+	it("returns the deserialized value when cachedAt is exactly at the TTL boundary (still fresh)", async () => {
 		const fixedNow = 1_000_000;
 		const staleTime = new Date(fixedNow - TTL_MS).toISOString();
 		ddbMock.on(GetCommand).resolves({

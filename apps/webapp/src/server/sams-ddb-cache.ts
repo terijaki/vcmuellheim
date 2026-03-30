@@ -55,7 +55,11 @@ export async function readSamsCacheEntry<T>(cacheKey: string, ttlMs: number, now
 
 	if (Number.isNaN(cachedAtMs) || now() - cachedAtMs > ttlMs) return null;
 
-	return JSON.parse(entry.data) as T;
+	try {
+		return JSON.parse(entry.data) as T;
+	} catch {
+		return null;
+	}
 }
 
 /**

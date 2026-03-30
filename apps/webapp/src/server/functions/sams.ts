@@ -170,10 +170,6 @@ export const getSamsMatchesFn = createServerFn()
 			.optional(),
 	)
 	.handler(async ({ data }) => {
-		const cacheKey = createCacheKey({ type: "sams_matches", league: data?.league, season: data?.season, sportsclub: data?.sportsclub, team: data?.team, limit: data?.limit, range: data?.range });
-		const cachedMatches = await readSamsCacheEntry<LeagueMatchesResponse>(cacheKey, 5 * 60 * 1000);
-		if (cachedMatches) return cachedMatches;
-
 		let { league, season, sportsclub, team } = data || {};
 
 		// Default to own club if no filter provided
@@ -186,6 +182,12 @@ export const getSamsMatchesFn = createServerFn()
 				// proceed without filter
 			}
 		}
+
+		// Build cache key from the resolved (effective) params so callers that rely on
+		// the default sportsclub filter get the same cache entry as explicit callers.
+		const cacheKey = createCacheKey({ type: "sams_matches", league, season, sportsclub, team, limit: data?.limit, range: data?.range });
+		const cachedMatches = await readSamsCacheEntry<LeagueMatchesResponse>(cacheKey, 5 * 60 * 1000);
+		if (cachedMatches) return cachedMatches;
 
 		const defaultQueryParams: Record<string, string> = {};
 		if (league) defaultQueryParams["for-league"] = league;
