@@ -175,10 +175,7 @@ describe("SamsApiStack", () => {
 			// Sams data table should have GSI1-BySamsType and GSI2-BySamsSeasonUuid
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
 				TableName: "sams-data-dev",
-				GlobalSecondaryIndexes: Match.arrayWith([
-					Match.objectLike({ IndexName: "GSI1-BySamsType" }),
-					Match.objectLike({ IndexName: "GSI2-BySamsSeasonUuid" }),
-				]),
+				GlobalSecondaryIndexes: Match.arrayWith([Match.objectLike({ IndexName: "GSI1-BySamsType" }), Match.objectLike({ IndexName: "GSI2-BySamsSeasonUuid" })]),
 			});
 		});
 
