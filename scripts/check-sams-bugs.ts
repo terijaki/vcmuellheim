@@ -7,12 +7,12 @@
  * Exits 1 only when SAMS_API_KEY is missing or an unexpected error occurs.
  *
  * Used by the sams-health-check GitHub Actions workflow.
- * Bug reference: .github/skills/sams-api/BUGS.md
+ * Bug reference: .agents/skills/sams-api/BUGS.md
  */
 
 const BASE_URL = "https://www.volleyball-baden.de/api/v2";
 
-// Known UUIDs (season 2025/26) — see .github/skills/sams-api/API-OVERVIEW.md
+// Known UUIDs (season 2025/26) — see .agents/skills/sams-api/API-OVERVIEW.md
 const SBVV_UUID = "2b7571b5-f985-c552-ea1c-f819ed3811c1";
 const VERBANDSLIGA_HERREN_UUID = "2000b48f-eec8-4927-beb1-c4568069ebec";
 // VC Müllheim 1 (Herren) — used for team-level bug checks
