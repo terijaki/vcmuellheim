@@ -203,7 +203,11 @@ export const getSamsMatchesFn = createServerFn()
 				query: { ...defaultQueryParams, page: currentPage, size: 100 },
 				signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
 			});
-			if (!pageData) throw new Error(`SAMS API returned no data on page ${currentPage}`);
+			if (!pageData) {
+				if (currentPage === 0) throw new Error(`SAMS API returned no data on page ${currentPage}`);
+				// Subsequent page returned nothing — return what we have so far
+				break;
+			}
 			if (pageData.content) {
 				allMatches.push(...pageData.content.map(({ _links: _, ...m }) => m));
 				currentPage++;

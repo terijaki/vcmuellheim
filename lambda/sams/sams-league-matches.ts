@@ -99,7 +99,9 @@ const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent
 			});
 
 			if (!data) {
-				throw new Error(`SAMS API returned no data on page ${currentPage}`);
+				if (currentPage === 0) throw new Error(`SAMS API returned no data on page ${currentPage}`);
+				// Subsequent page returned nothing — return what we have so far
+				break;
 			}
 
 			if (data.content) {
