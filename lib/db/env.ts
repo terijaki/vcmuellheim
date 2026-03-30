@@ -11,6 +11,9 @@ import { z } from "zod";
 /** Environment variable name for the single content table */
 export const CONTENT_TABLE_ENV_VAR = "CONTENT_TABLE_NAME" as const;
 
+/** Environment variable name for the single SAMS data table */
+export const SAMS_TABLE_ENV_VAR = "SAMS_TABLE_NAME" as const;
+
 export const tableEnvironmentSchema = z.object({
 	CONTENT_TABLE_NAME: z.string().trim().min(1),
 });
@@ -22,6 +25,25 @@ export function getContentTableName(): string {
 	const tableName = process.env[CONTENT_TABLE_ENV_VAR];
 	if (!tableName) {
 		throw new Error(`Content table not configured. Missing environment variable: ${CONTENT_TABLE_ENV_VAR}`);
+	}
+	return tableName;
+}
+
+/**
+ * Compute the canonical SAMS data table name for a given environment and branch.
+ * Single source of truth used by SamsApiStack, WebAppStack, and the local dev
+ * vite plugin — keeping them in sync without a CloudFormation cross-stack reference.
+ */
+export function getSamsDataTableName(environment: string, branch: string): string {
+	const branchSuffix = branch ? `-${branch}` : "";
+	return `sams-data-${environment}${branchSuffix}`;
+}
+
+/** Get the SAMS data table name from the environment, throwing if not configured */
+export function getSamsTableName(): string {
+	const tableName = process.env[SAMS_TABLE_ENV_VAR];
+	if (!tableName) {
+		throw new Error(`SAMS table not configured. Missing environment variable: ${SAMS_TABLE_ENV_VAR}`);
 	}
 	return tableName;
 }

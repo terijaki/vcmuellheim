@@ -25,6 +25,7 @@ import type {
 	SamsTeamsSyncLambdaEnvironment,
 } from "@/lambda/sams/types";
 import { Club } from "@/project.config";
+import { getSamsDataTableName } from "./db/env";
 
 interface SamsApiStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -40,8 +41,7 @@ interface SamsApiStackProps extends cdk.StackProps {
 
 export class SamsApiStack extends cdk.Stack {
 	public readonly cloudFrontUrl: string;
-	public readonly samsClubsTable: dynamodb.Table;
-	public readonly samsTeamsTable: dynamodb.Table;
+	public readonly samsDataTable: dynamodb.Table;
 
 	constructor(scope: Construct, id: string, props?: SamsApiStackProps) {
 		super(scope, id, props);
@@ -108,49 +108,34 @@ export class SamsApiStack extends cdk.Stack {
 			CDK_ENVIRONMENT: environment,
 		} satisfies SamsCommonLambdaEnvironment;
 
-		// Create DynamoDB table for storing SAMS clubs
-		const clubsTable = new dynamodb.Table(this, "SamsClubsTable", {
-			tableName: `sams-clubs-${environment}${branchSuffix}`,
-			partitionKey: {
-				name: "sportsclubUuid",
-				type: dynamodb.AttributeType.STRING,
-			},
-			billingMode: dynamodb.BillingMode.PAY_PER_REQUEST, // On-demand pricing
-			removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
-			timeToLiveAttribute: "ttl", // Auto-delete stale records
-		});
-
-		// GSI for querying by slug
-		clubsTable.addGlobalSecondaryIndex({
-			indexName: "GSI-SamsClubQueries",
-			partitionKey: { name: "type", type: dynamodb.AttributeType.STRING },
-			sortKeys: [{ name: "nameSlug", type: dynamodb.AttributeType.STRING }],
-			projectionType: dynamodb.ProjectionType.ALL,
-		});
-
-		// Create DynamoDB table for storing SAMS teams
-		const teamsTable = new dynamodb.Table(this, "SamsTeamsTable", {
-			tableName: `sams-teams-${environment}${branchSuffix}`,
-			partitionKey: {
-				name: "uuid",
-				type: dynamodb.AttributeType.STRING,
-			},
+		// Create single DynamoDB table for all SAMS data
+		const samsDataTable = new dynamodb.Table(this, "SamsDataTable", {
+			tableName: getSamsDataTableName(environment, branch),
+			partitionKey: { name: "pk", type: dynamodb.AttributeType.STRING },
+			sortKey: { name: "sk", type: dynamodb.AttributeType.STRING },
 			billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
 			removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
 			timeToLiveAttribute: "ttl",
 		});
 
-		// GSI for querying by slug (case-insensitive)
-		teamsTable.addGlobalSecondaryIndex({
-			indexName: "GSI-SamsTeamQueries",
-			partitionKey: { name: "type", type: dynamodb.AttributeType.STRING },
-			sortKeys: [{ name: "nameSlug", type: dynamodb.AttributeType.STRING }],
+		// GSI1 — type-based list queries for clubs and teams
+		samsDataTable.addGlobalSecondaryIndex({
+			indexName: "GSI1-BySamsType",
+			partitionKey: { name: "gsi1pk", type: dynamodb.AttributeType.STRING },
+			sortKey: { name: "gsi1sk", type: dynamodb.AttributeType.STRING },
 			projectionType: dynamodb.ProjectionType.ALL,
 		});
 
-		// Expose tables for cross-stack reference
-		this.samsClubsTable = clubsTable;
-		this.samsTeamsTable = teamsTable;
+		// GSI2 — season-scoped team queries
+		samsDataTable.addGlobalSecondaryIndex({
+			indexName: "GSI2-BySamsSeasonUuid",
+			partitionKey: { name: "gsi2pk", type: dynamodb.AttributeType.STRING },
+			sortKey: { name: "gsi2sk", type: dynamodb.AttributeType.STRING },
+			projectionType: dynamodb.ProjectionType.ALL,
+		});
+
+		// Expose table for cross-stack reference
+		this.samsDataTable = samsDataTable;
 
 		// Create Lambda function for league matches (main endpoint you use)
 		const samsLeagueMatches = new NodejsFunction(this, "SamsLeagueMatches", {
@@ -160,7 +145,7 @@ export class SamsApiStack extends cdk.Stack {
 			entry: path.join(__dirname, "../lambda/sams/sams-league-matches.ts"),
 			environment: {
 				...commonEnvironment,
-				CLUBS_TABLE_NAME: clubsTable.tableName,
+				SAMS_TABLE_NAME: samsDataTable.tableName,
 			} satisfies SamsLeagueMatchesLambdaEnvironment,
 			timeout: cdk.Duration.seconds(60),
 			memorySize: 512,
@@ -176,8 +161,8 @@ export class SamsApiStack extends cdk.Stack {
 			},
 		});
 
-		// Grant league matches Lambda read access to clubs table
-		clubsTable.grantReadData(samsLeagueMatches);
+		// Grant league matches Lambda read access to sams data table
+		samsDataTable.grantReadData(samsLeagueMatches);
 
 		// Create Lambda function for seasons
 		const samsSeasons = new NodejsFunction(this, "SamsSeasons", {
@@ -250,7 +235,7 @@ export class SamsApiStack extends cdk.Stack {
 			entry: path.join(__dirname, "../lambda/sams/sams-clubs-sync.ts"),
 			environment: {
 				...commonEnvironment,
-				CLUBS_TABLE_NAME: clubsTable.tableName,
+				SAMS_TABLE_NAME: samsDataTable.tableName,
 				MEDIA_BUCKET_NAME: props?.mediaBucket?.bucketName ?? "",
 				MEDIA_CLOUDFRONT_URL: props?.mediaCloudFrontUrl ?? "",
 			} satisfies SamsClubsSyncLambdaEnvironment,
@@ -268,8 +253,8 @@ export class SamsApiStack extends cdk.Stack {
 			},
 		});
 
-		// Grant DynamoDB permissions to sync Lambda
-		clubsTable.grantReadWriteData(samsClubsSync);
+		// Grant DynamoDB permissions to clubs sync Lambda
+		samsDataTable.grantReadWriteData(samsClubsSync);
 		props?.mediaBucket?.grantWrite(samsClubsSync);
 
 		// Create Lambda function for nightly teams sync
@@ -280,8 +265,7 @@ export class SamsApiStack extends cdk.Stack {
 			entry: path.join(__dirname, "../lambda/sams/sams-teams-sync.ts"),
 			environment: {
 				...commonEnvironment,
-				CLUBS_TABLE_NAME: clubsTable.tableName,
-				TEAMS_TABLE_NAME: teamsTable.tableName,
+				SAMS_TABLE_NAME: samsDataTable.tableName,
 			} satisfies SamsTeamsSyncLambdaEnvironment,
 			timeout: cdk.Duration.minutes(10),
 			memorySize: 512,
@@ -298,8 +282,7 @@ export class SamsApiStack extends cdk.Stack {
 		});
 
 		// Grant DynamoDB permissions to teams sync Lambda
-		clubsTable.grantReadData(samsTeamsSync);
-		teamsTable.grantReadWriteData(samsTeamsSync);
+		samsDataTable.grantReadWriteData(samsTeamsSync);
 
 		// Create Lambda function for clubs query (read from DynamoDB)
 		const samsClubs = new NodejsFunction(this, "SamsClubs", {
@@ -309,7 +292,7 @@ export class SamsApiStack extends cdk.Stack {
 			entry: path.join(__dirname, "../lambda/sams/sams-clubs.ts"),
 			environment: {
 				...commonEnvironment,
-				CLUBS_TABLE_NAME: clubsTable.tableName,
+				SAMS_TABLE_NAME: samsDataTable.tableName,
 			} satisfies SamsClubsLambdaEnvironment,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 512,
@@ -326,7 +309,7 @@ export class SamsApiStack extends cdk.Stack {
 		});
 
 		// Grant DynamoDB read permissions to clubs query Lambda
-		clubsTable.grantReadData(samsClubs);
+		samsDataTable.grantReadData(samsClubs);
 
 		// Create Lambda function for teams query (read from DynamoDB)
 		const samsTeams = new NodejsFunction(this, "SamsTeams", {
@@ -336,7 +319,7 @@ export class SamsApiStack extends cdk.Stack {
 			entry: path.join(__dirname, "../lambda/sams/sams-teams.ts"),
 			environment: {
 				...commonEnvironment,
-				TEAMS_TABLE_NAME: teamsTable.tableName,
+				SAMS_TABLE_NAME: samsDataTable.tableName,
 			} satisfies SamsTeamsLambdaEnvironment,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 256,
@@ -353,7 +336,7 @@ export class SamsApiStack extends cdk.Stack {
 		});
 
 		// Grant DynamoDB read permissions to teams query Lambda
-		teamsTable.grantReadData(samsTeams);
+		samsDataTable.grantReadData(samsTeams);
 
 		// Create EventBridge rule to trigger sync Lambda weekly on Wednesday at 2 AM UTC
 		const syncRule = new events.Rule(this, "SamsClubsSyncRule", {

@@ -1,7 +1,7 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadEnv, type PluginOption } from "vite";
-import { CONTENT_TABLE_ENV_VAR } from "../../../lib/db/env";
+import { CONTENT_TABLE_ENV_VAR, getSamsDataTableName } from "../../../lib/db/env";
 import { Club } from "../../../project.config";
 import { getSanitizedBranch } from "../../../utils/git";
 
@@ -34,8 +34,7 @@ function applyLocalAwsResourceEnv(environment: string) {
 	// Single content table for all entities
 	setDefaultEnv(CONTENT_TABLE_ENV_VAR, `vcm-content-${environment}${branchSuffix}`);
 
-	setDefaultEnv("SAMS_CLUBS_TABLE_NAME", `sams-clubs-${environment}${branchSuffix}`);
-	setDefaultEnv("SAMS_TEAMS_TABLE_NAME", `sams-teams-${environment}${branchSuffix}`);
+	setDefaultEnv("SAMS_TABLE_NAME", getSamsDataTableName(environment, sanitizedBranch));
 	setDefaultEnv("INSTAGRAM_TABLE_NAME", `instagram-posts-${environment}${branchSuffix}`);
 	setDefaultEnv("MEDIA_BUCKET_NAME", `vcmuellheim-media-${environment}${branchSuffix}`);
 	setDefaultEnv("SAMS_SERVER", "https://www.volleyball-baden.de");

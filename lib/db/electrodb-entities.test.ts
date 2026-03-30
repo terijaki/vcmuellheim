@@ -9,7 +9,21 @@
 
 import { describe, it } from "bun:test";
 import { AuthVerificationEntity, BusEntity, CmsUserEntity, EventEntity, LocationEntity, MediaEntity, MemberEntity, NewsEntity, SponsorEntity, TeamEntity } from "./electrodb-entities";
-import { authVerificationSchema, busSchema, cmsUserSchema, eventSchema, locationSchema, mediaSchema, memberSchema, newsSchema, sponsorSchema, teamSchema } from "./schemas";
+import { SamsClubEntity, SamsTeamEntity } from "./sams-electrodb-entities";
+import {
+	authVerificationSchema,
+	busSchema,
+	cmsUserSchema,
+	eventSchema,
+	locationSchema,
+	mediaSchema,
+	memberSchema,
+	newsSchema,
+	samsClubSchema,
+	samsTeamSchema,
+	sponsorSchema,
+	teamSchema,
+} from "./schemas";
 
 /** Extract sorted top-level attribute names from an ElectroDB entity schema */
 function getEntityAttributeNames(entity: { schema: { attributes: Record<string, unknown> } }): string[] {
@@ -112,5 +126,15 @@ describe("ElectroDB ↔ Zod drift detection", () => {
 
 	it("AuthVerification entity attributes match authVerificationSchema", () => {
 		checkDrift("AuthVerification", authVerificationSchema, AuthVerificationEntity);
+	});
+});
+
+describe("SAMS ElectroDB ↔ Zod drift detection", () => {
+	it("SamsClub entity attributes match samsClubSchema", () => {
+		checkDrift("SamsClub", samsClubSchema, SamsClubEntity);
+	});
+
+	it("SamsTeam entity attributes match samsTeamSchema", () => {
+		checkDrift("SamsTeam", samsTeamSchema, SamsTeamEntity);
 	});
 });

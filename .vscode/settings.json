@@ -28,15 +28,18 @@
 	"files.readonlyInclude": {
 		"**/routeTree.gen.ts": true
 	},
-	"typescript.tsdk": "node_modules/typescript/lib",
-	"vs-browser.favourites.list": {
-		"localhost (website)": "http://localhost:3080",
-		"localhost (cms)": "http://localhost:3081"
-	},
 	"chat.useNestedAgentsMdFiles": true,
 	"chat.tools.terminal.autoApprove": {
 		"/^bun (run )(test|typecheck|lint|check(:fix)|verify(:all)|cdk:synth(:all)|tsc(--noEmit)|deps-check)(\\s+[\\w./\\-:*=]+)*(\\s+2>&1)?(\\s*\\|\\s*(head|tail|cat|grep|wc)(\\s+[\\w./\\-*=]+)*)?$/": true,
 		"/\\.agents\\/skills\\/sams-api\\/sams\\.ts/": true,
+		"/^bun \\.agents\\/skills\\/lambda-logs\\/check-logs\\.ts .*$/": {
+			"approve": true,
+			"matchCommandLine": true
+		},
+		"/^aws dynamodb (scan|query|get-item|describe-table|list-tables) .*$/": {
+			"approve": true,
+			"matchCommandLine": true
+		},
 	},
 	"github-actions.workflows.pinned.workflows": [
 		".github/workflows/cdk-deploy.yml"
