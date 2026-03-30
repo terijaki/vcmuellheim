@@ -4,10 +4,8 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite-plus";
-import { getSanitizedBranch } from "./utils/git.ts";
 import { getAppEnvironment, localAwsResourceEnvPlugin } from "./apps/webapp/vite/localAwsResourceEnv.ts";
 
-const sanitizedBranch = getSanitizedBranch();
 const isProd = getAppEnvironment() === "prod";
 
 export default defineConfig({

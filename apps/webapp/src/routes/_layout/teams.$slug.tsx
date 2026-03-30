@@ -221,8 +221,8 @@ function TeamSchedule({ team }: { team: NonNullable<ReturnType<typeof useTeamByS
 function TeamTrainers({ team }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]> }) {
 	const { data: members } = useMembers();
 
-	const trainers = team.trainerIds?.map((id) => members?.items.find((m) => m.id === id)).filter(Boolean);
-	const contacts = team.pointOfContactIds?.map((id) => members?.items.find((m) => m.id === id)).filter(Boolean);
+	const trainers = team.trainerIds?.map((id) => members?.items.find((m) => m.id === id)).filter((x): x is NonNullable<typeof x> => x != null);
+	const contacts = team.pointOfContactIds?.map((id) => members?.items.find((m) => m.id === id)).filter((x): x is NonNullable<typeof x> => x != null);
 
 	const { data: avatarUrls } = useFileUrls([...(trainers?.map((t) => t.avatarS3Key).filter(Boolean) || []), ...(contacts?.map((c) => c.avatarS3Key).filter(Boolean) || [])] as string[]);
 

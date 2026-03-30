@@ -10,16 +10,18 @@
  *   setFields  — object to spread into `.set({ ...setFields })`
  *   removeKeys — array to pass to `.remove(removeKeys)`
  */
-export function resolveNullableUpdates(fields: Record<string, string | number | boolean | null | undefined>): {
+export function resolveNullableUpdates<K extends string>(
+	fields: Record<K, string | number | boolean | null | undefined>,
+): {
 	setFields: Record<string, string | number | boolean>;
-	removeKeys: string[];
+	removeKeys: K[];
 } {
 	const setFields: Record<string, string | number | boolean> = {};
-	const removeKeys: string[] = [];
+	const removeKeys: K[] = [];
 
-	for (const [key, value] of Object.entries(fields)) {
+	for (const [key, value] of Object.entries<string | number | boolean | null | undefined>(fields)) {
 		if (value === null) {
-			removeKeys.push(key);
+			removeKeys.push(key as K);
 		} else if (value !== undefined) {
 			setFields[key] = value;
 		}
