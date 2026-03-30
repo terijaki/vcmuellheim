@@ -67,11 +67,13 @@ export class WebAppStack extends cdk.Stack {
 		}
 
 		// Build the webapp once upfront so .output/server and .output/public exist
-		execFileSync("vp", ["build"], {
-			env: { ...process.env, VITE_CDK_ENVIRONMENT: environment },
-			cwd: process.cwd(),
-			stdio: "inherit",
-		});
+		if (!isCdkDestroy) {
+			execFileSync("vp", ["build"], {
+				env: { ...process.env, VITE_CDK_ENVIRONMENT: environment },
+				cwd: process.cwd(),
+				stdio: "inherit",
+			});
+		}
 
 		// Reference the SAMS table by computed ARN rather than a CDK cross-stack reference, so SamsApiStack can be updated independently without CF blocking the deletion of its exports.
 		const samsTableName = getSamsDataTableName(environment, branch);
