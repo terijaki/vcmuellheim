@@ -7,22 +7,26 @@
 import { getAllLeagueHierarchies, getAllLeagueMatches, getAllLeagues, getLeagueByUuid, getRankingsForLeague, getSeasonByUuid, type LeagueMatchDto } from "@codegen/sams/generated";
 import { Club } from "@project.config";
 import { createServerFn } from "@tanstack/react-start";
-import { createExpiringCache, getOrSetExpiringCacheValue } from "@utils/cache";
+import { createCacheKey, createExpiringCache, getOrSetExpiringCacheValue } from "@utils/cache";
 import { slugify } from "@utils/slugify";
 import dayjs from "dayjs";
 import { z } from "zod";
-import { LeagueMatchesResponseSchema, type LiveMatch, type LiveTickerResponse, LiveTickerResponseSchema, type RankingResponse, RankingResponseSchema } from "@/lambda/sams/types";
+import {
+	type LeagueMatchesResponse,
+	LeagueMatchesResponseSchema,
+	type LiveMatch,
+	type LiveTickerResponse,
+	LiveTickerResponseSchema,
+	type RankingResponse,
+	RankingResponseSchema,
+} from "@/lambda/sams/types";
 import { getAllSamsClubs, getAllSamsTeams, getSamsClubByNameSlug, getSamsClubByNameSlugPrefix, getSamsClubBySportsclubUuid } from "../queries";
+import { readSamsCacheEntry, writeSamsCacheEntry } from "../sams-ddb-cache";
 import { parseServerData } from "../schema-parse";
 
 const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
 
 const SAMS_API_TIMEOUT_MS = 10_000;
-const LEAGUE_METADATA_CACHE_TTL_MS = 1000 * 60 * 60 * 24;
-
-type LeagueHierarchyLevelsCacheValue = Record<string, number | null>;
-
-const leagueHierarchyLevelsCache = createExpiringCache<LeagueHierarchyLevelsCacheValue>();
 
 async function listAllLeaguesForSeason(options: { seasonUuid?: string; associationUuid?: string }) {
 	const leaguesByUuid = new Map<string, { leagueHierarchyUuid?: string }>();
@@ -81,28 +85,32 @@ async function listAllLeagueHierarchyLevels(options: { seasonUuid?: string; asso
 }
 
 async function fetchLeagueLevelsByLeagueUuid(options: { leagueUuids: string[]; seasonUuid?: string; associationUuid?: string }) {
-	return getOrSetExpiringCacheValue({
-		cache: leagueHierarchyLevelsCache,
-		keyParts: options,
-		ttlMs: LEAGUE_METADATA_CACHE_TTL_MS,
-		load: async () => {
-			const [leaguesByUuid, hierarchyLevelByUuid] = await Promise.all([
-				listAllLeaguesForSeason({ seasonUuid: options.seasonUuid, associationUuid: options.associationUuid }),
-				listAllLeagueHierarchyLevels({ seasonUuid: options.seasonUuid, associationUuid: options.associationUuid }),
-			]);
+	const cacheKey = createCacheKey({ type: "sams_league_levels", leagueUuids: options.leagueUuids, seasonUuid: options.seasonUuid, associationUuid: options.associationUuid });
+	const cached = await readSamsCacheEntry<Record<string, number | null>>(cacheKey, 24 * 60 * 60 * 1000);
+	if (cached) return cached;
 
-			return Object.fromEntries(
-				options.leagueUuids.map((leagueUuid) => {
-					const leagueHierarchyUuid = leaguesByUuid.get(leagueUuid)?.leagueHierarchyUuid;
-					const level = leagueHierarchyUuid ? hierarchyLevelByUuid.get(leagueHierarchyUuid) : undefined;
-					return [leagueUuid, level ?? null] as const;
-				}),
-			);
-		},
-	});
+	const [leaguesByUuid, hierarchyLevelByUuid] = await Promise.all([
+		listAllLeaguesForSeason({ seasonUuid: options.seasonUuid, associationUuid: options.associationUuid }),
+		listAllLeagueHierarchyLevels({ seasonUuid: options.seasonUuid, associationUuid: options.associationUuid }),
+	]);
+
+	const result = Object.fromEntries(
+		options.leagueUuids.map((leagueUuid) => {
+			const leagueHierarchyUuid = leaguesByUuid.get(leagueUuid)?.leagueHierarchyUuid;
+			const level = leagueHierarchyUuid ? hierarchyLevelByUuid.get(leagueHierarchyUuid) : undefined;
+			return [leagueUuid, level ?? null] as const;
+		}),
+	);
+
+	await writeSamsCacheEntry(cacheKey, result);
+	return result;
 }
 
 async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<RankingResponse> {
+	const cacheKey = createCacheKey({ type: "sams_rankings", leagueUuid });
+	const cached = await readSamsCacheEntry<RankingResponse>(cacheKey, 5 * 60 * 1000);
+	if (cached) return cached;
+
 	const [{ data: rankingsData }, { data: leagueData }] = await Promise.all([
 		getRankingsForLeague({
 			path: { uuid: leagueUuid },
@@ -130,7 +138,7 @@ async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<Rankin
 		if (seasonData?.name) seasonName = seasonData.name;
 	}
 
-	return parseServerData(
+	const result = parseServerData(
 		RankingResponseSchema,
 		{
 			teams: rankingsData.content,
@@ -141,6 +149,9 @@ async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<Rankin
 		},
 		"Failed to parse SAMS rankings response",
 	);
+
+	await writeSamsCacheEntry(cacheKey, result);
+	return result;
 }
 
 // ── SAMS API proxy — Matches ─────────────────────────────────────────────────
@@ -171,6 +182,12 @@ export const getSamsMatchesFn = createServerFn()
 				// proceed without filter
 			}
 		}
+
+		// Build cache key from the resolved (effective) params so callers that rely on
+		// the default sportsclub filter get the same cache entry as explicit callers.
+		const cacheKey = createCacheKey({ type: "sams_matches", league, season, sportsclub, team, limit: data?.limit, range: data?.range });
+		const cachedMatches = await readSamsCacheEntry<LeagueMatchesResponse>(cacheKey, 5 * 60 * 1000);
+		if (cachedMatches) return cachedMatches;
 
 		const defaultQueryParams: Record<string, string> = {};
 		if (league) defaultQueryParams["for-league"] = league;
@@ -205,7 +222,9 @@ export const getSamsMatchesFn = createServerFn()
 
 		if (data?.limit) filteredMatches = filteredMatches.slice(0, data.limit);
 
-		return parseServerData(LeagueMatchesResponseSchema, { matches: filteredMatches, timestamp: new Date().toISOString() }, "Failed to parse SAMS matches response");
+		const result = parseServerData(LeagueMatchesResponseSchema, { matches: filteredMatches, timestamp: new Date().toISOString() }, "Failed to parse SAMS matches response");
+		await writeSamsCacheEntry(cacheKey, result);
+		return result;
 	});
 
 // ── SAMS API proxy — Rankings ────────────────────────────────────────────────

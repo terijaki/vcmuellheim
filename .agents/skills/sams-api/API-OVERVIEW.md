@@ -158,7 +158,7 @@ Pattern for upcoming matches for a specific team:
 
 ```bash
 for md in <match-day-uuid-1> <match-day-uuid-2>; do
-  bun run .github/skills/sams-api/sams.ts match-days $md league-matches | \
+  bun run .agents/skills/sams-api/sams.ts match-days $md league-matches | \
     jq '[.content[] | select(.date >= "2026-02-22") |
          select(._embedded.team1.uuid == "<team-uuid>" or
                 ._embedded.team2.uuid == "<team-uuid>") |

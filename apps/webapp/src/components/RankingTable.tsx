@@ -1,4 +1,4 @@
-import { Card, Group, Table, TableTbody, TableTh, TableThead, TableTr, Text } from "@mantine/core";
+import { Card, Group, Loader, Table, TableTbody, TableTh, TableThead, TableTr, Text } from "@mantine/core";
 import { useClubLogoUrlsBatch } from "@webapp/hooks/dataQueries";
 import dayjs from "dayjs";
 import type { RankingResponse } from "@/lambda/sams/types";
@@ -13,6 +13,7 @@ type RankingTable = {
 	linkToTeamPage?: boolean;
 	clubsTeams?: Team[];
 	currentTeamId?: string; // When set, only highlight this specific team and disable links
+	isFetching?: boolean;
 };
 
 export default function RankingTable(props: RankingTable) {
@@ -30,9 +31,12 @@ export default function RankingTable(props: RankingTable) {
 			<Group c="dimmed" justify="space-between">
 				{props.ranking.seasonName && <Text size="xs">Saison {props.ranking.seasonName}</Text>}
 				{ranking.timestamp && (
-					<Text size="xs">
-						<LastUpdate date={ranking.timestamp} />
-					</Text>
+					<Group gap={4} align="center">
+						{props.isFetching && <Loader size="xs" />}
+						<Text size="xs">
+							<LastUpdate date={ranking.timestamp} />
+						</Text>
+					</Group>
 				)}
 			</Group>
 			<Table striped highlightOnHover withRowBorders={false} horizontalSpacing="xs" verticalSpacing={0}>

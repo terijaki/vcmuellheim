@@ -14,17 +14,48 @@ import de from "dayjs/locale/de";
 import weekday from "dayjs/plugin/weekday";
 import { Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
-import { useFileUrls, useLocations, useMembers, useSamsMatches, useSamsRankingsByLeagueUuid, useSamsTeams, useTeamBySlug } from "@/apps/webapp/src/hooks/dataQueries";
+import { useFileUrls, useLocations, useMembers, useSamsMatches, useSamsRankingsByLeagueUuid, useTeamBySlug } from "@/apps/webapp/src/hooks/dataQueries";
+import { getSamsMatchesFn, getSamsRankingsByLeagueUuidsFn, listSamsTeamsFn } from "@/apps/webapp/src/server/functions/sams";
+import { getTeamBySlugFn } from "@/apps/webapp/src/server/functions/teams";
+import type { LeagueMatchesResponse, RankingResponse } from "@/lambda/sams/types";
 
 dayjs.locale(de);
 dayjs.extend(weekday);
 
 export const Route = createFileRoute("/_layout/teams/$slug")({
+	loader: async ({ params }) => {
+		const { slug } = params;
+		const [team, samsTeamsResult] = await Promise.all([getTeamBySlugFn({ data: { slug } }), listSamsTeamsFn()]);
+
+		if (!team) {
+			return { team: null, rankings: undefined, matches: undefined };
+		}
+
+		const samsTeam = samsTeamsResult.teams.find((t) => t.uuid === team.sbvvTeamId);
+
+		if (!samsTeam) {
+			return { team, samsTeam: undefined, rankings: undefined, matches: undefined };
+		}
+
+		let rankings: RankingResponse[] | undefined;
+		let matches: LeagueMatchesResponse | undefined;
+		try {
+			[rankings, matches] = await Promise.all([
+				samsTeam.leagueUuid ? getSamsRankingsByLeagueUuidsFn({ data: { leagueUuids: [samsTeam.leagueUuid] } }) : Promise.resolve(undefined),
+				getSamsMatchesFn({ data: { team: samsTeam.uuid } }),
+			]);
+		} catch (error) {
+			console.error("Failed to prefetch SAMS data in team detail loader", { error });
+		}
+
+		return { team, samsTeam, rankings, matches };
+	},
 	component: RouteComponent,
 });
 
 function RouteComponent() {
 	const { slug } = Route.useParams();
+	const loaderData = Route.useLoaderData();
 	const { data: team, isLoading, error } = useTeamBySlug(slug);
 
 	if (isLoading) {
@@ -52,13 +83,13 @@ function RouteComponent() {
 					<TeamPictures team={team} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader text="Lade Tabelle..." />}>
-					<TeamRanking team={team} />
+					<TeamRanking loaderSamsTeam={loaderData.samsTeam} loaderRankings={loaderData.rankings} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader text="Lade Spielplan..." />}>
-					<TeamCalendar slug={slug} team={team} />
+					<TeamCalendar slug={slug} loaderSamsTeam={loaderData.samsTeam} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader text="Lade Spielplan..." />}>
-					<TeamMatches team={team} />
+					<TeamMatches loaderSamsTeam={loaderData.samsTeam} loaderMatches={loaderData.matches} />
 				</Suspense>
 				<Center>
 					<Button component={Link} to="/#mannschaften">
@@ -70,11 +101,8 @@ function RouteComponent() {
 	);
 }
 
-function TeamCalendar({ slug, team }: { slug: string; team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]> }) {
-	const { data: samsTeams } = useSamsTeams();
-	const samsTeam = samsTeams?.teams.find((t) => t.uuid === team.sbvvTeamId);
-
-	if (!samsTeam) return null;
+function TeamCalendar({ slug, loaderSamsTeam }: { slug: string; loaderSamsTeam: ReturnType<typeof Route.useLoaderData>["samsTeam"] }) {
+	if (!loaderSamsTeam) return null;
 
 	const webcalLink = createWebcalLink(`/api/ics/${slug}.ics`);
 
@@ -91,12 +119,13 @@ function TeamCalendar({ slug, team }: { slug: string; team: NonNullable<ReturnTy
 	);
 }
 
-function TeamMatches({ team }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]> }) {
-	const { data: samsTeams } = useSamsTeams();
-	const samsTeam = samsTeams?.teams.find((t) => t.uuid === team.sbvvTeamId);
+function TeamMatches({ loaderSamsTeam, loaderMatches }: { loaderSamsTeam: ReturnType<typeof Route.useLoaderData>["samsTeam"]; loaderMatches?: LeagueMatchesResponse }) {
+	const matchesInitialDataUpdatedAt = loaderMatches?.timestamp ? new Date(loaderMatches.timestamp).getTime() : undefined;
 
 	const { data: matches, isLoading: isLoadingMatches } = useSamsMatches({
-		team: samsTeam?.uuid,
+		team: loaderSamsTeam?.uuid,
+		initialData: loaderMatches,
+		initialDataUpdatedAt: matchesInitialDataUpdatedAt,
 	});
 
 	const currentMonth = dayjs().month() + 1;
@@ -106,7 +135,7 @@ function TeamMatches({ team }: { team: NonNullable<ReturnType<typeof useTeamBySl
 		return <CenteredLoader text="Lade Spieltermine..." />;
 	}
 
-	if (!isLoadingMatches && (!samsTeam || !matches)) {
+	if (!isLoadingMatches && (!loaderSamsTeam || !matches)) {
 		return (
 			<Card>
 				<CardTitle>Keine Spieltermine gefunden</CardTitle>
@@ -127,7 +156,7 @@ function TeamMatches({ team }: { team: NonNullable<ReturnType<typeof useTeamBySl
 				<Card>
 					<CardTitle>Ergebnisse</CardTitle>
 					<CardSection p={{ base: undefined, sm: "sm" }}>
-						<Matches type="past" matches={pastMatches} timestamp={matches?.timestamp ? new Date(matches.timestamp) : undefined} highlightTeamUuid={samsTeam?.uuid} uniqueLeague />
+						<Matches type="past" matches={pastMatches} timestamp={matches?.timestamp ? new Date(matches.timestamp) : undefined} highlightTeamUuid={loaderSamsTeam?.uuid} uniqueLeague />
 					</CardSection>
 				</Card>
 			)}
@@ -135,7 +164,7 @@ function TeamMatches({ team }: { team: NonNullable<ReturnType<typeof useTeamBySl
 				<Card>
 					<CardTitle>Spielplan</CardTitle>
 					<CardSection p={{ base: undefined, sm: "sm" }}>
-						<Matches type="future" matches={futureMatches} timestamp={matches?.timestamp ? new Date(matches.timestamp) : undefined} highlightTeamUuid={samsTeam?.uuid} />
+						<Matches type="future" matches={futureMatches} timestamp={matches?.timestamp ? new Date(matches.timestamp) : undefined} highlightTeamUuid={loaderSamsTeam?.uuid} />
 					</CardSection>
 				</Card>
 			) : (
@@ -149,17 +178,19 @@ function TeamMatches({ team }: { team: NonNullable<ReturnType<typeof useTeamBySl
 	);
 }
 
-function TeamRanking({ team }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]> }) {
-	const { data: samsTeams } = useSamsTeams();
-	const samsTeam = samsTeams?.teams.find((t) => t.uuid === team.sbvvTeamId);
+function TeamRanking({ loaderSamsTeam, loaderRankings }: { loaderSamsTeam: ReturnType<typeof Route.useLoaderData>["samsTeam"]; loaderRankings?: RankingResponse[] }) {
+	const rankingsInitialDataUpdatedAt = loaderRankings?.[0]?.timestamp ? new Date(loaderRankings[0].timestamp).getTime() : undefined;
 
-	const { data: rankings } = useSamsRankingsByLeagueUuid(samsTeam?.leagueUuid ? [samsTeam.leagueUuid] : []);
+	const { data: rankings, isFetching: isFetchingRanking } = useSamsRankingsByLeagueUuid(loaderSamsTeam?.leagueUuid ? [loaderSamsTeam.leagueUuid] : [], {
+		initialData: loaderRankings,
+		initialDataUpdatedAt: rankingsInitialDataUpdatedAt,
+	});
 
-	if (!samsTeam || !rankings || rankings.length === 0) return null;
+	if (!loaderSamsTeam || !rankings || rankings.length === 0) return null;
 
 	const ranking = rankings[0];
 
-	return <RankingTable ranking={ranking} currentTeamId={samsTeam.uuid} />;
+	return <RankingTable ranking={ranking} currentTeamId={loaderSamsTeam.uuid} isFetching={isFetchingRanking} />;
 }
 
 function TeamSchedule({ team }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]> }) {

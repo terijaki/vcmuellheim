@@ -8,9 +8,9 @@ import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { eventSchema } from "@/lib/db/schemas";
 import { requireAuthMiddleware } from "../../middleware";
-import { resolveNullableUpdates } from "./patch-helpers";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
+import { resolveNullableUpdates } from "./patch-helpers";
 
 // ── Public ──────────────────────────────────────────────────────────────────
 
@@ -73,14 +73,11 @@ export const updateEventFn = createServerFn()
 	.inputValidator(
 		z.object({
 			id: z.uuid(),
-			data: eventSchema
-				.omit({ id: true, createdAt: true, updatedAt: true, ttl: true })
-				.partial()
-				.extend({
-					description: z.string().nullable().optional(),
-					location: z.string().nullable().optional(),
-					variant: z.string().nullable().optional(),
-				}),
+			data: eventSchema.omit({ id: true, createdAt: true, updatedAt: true, ttl: true }).partial().extend({
+				description: z.string().nullable().optional(),
+				location: z.string().nullable().optional(),
+				variant: z.string().nullable().optional(),
+			}),
 		}),
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
@@ -95,7 +92,11 @@ export const updateEventFn = createServerFn()
 			...restUpdates,
 			...nullableFields,
 			...(updates.endDate || updates.startDate
-				? { ttl: dayjs(updates.endDate || updates.startDate).add(90, "day").unix() }
+				? {
+						ttl: dayjs(updates.endDate || updates.startDate)
+							.add(90, "day")
+							.unix(),
+					}
 				: {}),
 			updatedAt: new Date().toISOString(),
 		};
