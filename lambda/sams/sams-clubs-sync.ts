@@ -153,7 +153,9 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 				const ttl = Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60; // 30 days from now
 
 				const validEntries = data.content.filter((c) => c.uuid && c.name);
-				let pageWritten = 0;
+				// Phase 1: resolve logos sequentially (rate-limited S3 uploads)
+				type ClubUpsertItem = Parameters<typeof samsEntities.club.upsert>[0];
+				const pageItems: ClubUpsertItem[] = [];
 				for (const c of validEntries) {
 					const existing = existingLogoMap.get(c.uuid as string);
 					// Use API value if present, otherwise fall back to what was previously stored.
@@ -165,24 +167,26 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 						const uploaded = await uploadLogoToS3(c.uuid as string, c.logoImageLink);
 						if (uploaded) logoS3Key = uploaded;
 					}
-					await samsEntities.club
-						.upsert({
-							type: "club",
-							sportsclubUuid: c.uuid as string,
-							name: c.name as string,
-							nameSlug: slugify(c.name as string),
-							...(c.associationUuid ? { associationUuid: c.associationUuid as string } : {}),
-							associationName: ASSOCIATION_NAME,
-							...(effectiveLogoUrl ? { logoImageLink: effectiveLogoUrl } : {}),
-							...(logoS3Key ? { logoS3Key } : {}),
-							updatedAt: now,
-							ttl,
-						})
-						.go();
-					totalWritten++;
-					pageWritten++;
+					pageItems.push({
+						type: "club",
+						sportsclubUuid: c.uuid as string,
+						name: c.name as string,
+						nameSlug: slugify(c.name as string),
+						...(c.associationUuid ? { associationUuid: c.associationUuid as string } : {}),
+						associationName: ASSOCIATION_NAME,
+						...(effectiveLogoUrl ? { logoImageLink: effectiveLogoUrl } : {}),
+						...(logoS3Key ? { logoS3Key } : {}),
+						updatedAt: now,
+						ttl,
+					});
 				}
-				console.log(`📄 Fetched page ${currentPage + 1}/${data.totalPages} (${pageWritten} clubs)`);
+				// Phase 2: write to DynamoDB in parallel chunks of 25
+				const CHUNK_SIZE = 25;
+				for (let i = 0; i < pageItems.length; i += CHUNK_SIZE) {
+					await Promise.all(pageItems.slice(i, i + CHUNK_SIZE).map((item) => samsEntities.club.upsert(item).go()));
+				}
+				totalWritten += pageItems.length;
+				console.log(`📄 Fetched page ${currentPage + 1}/${data.totalPages} (${pageItems.length} clubs)`);
 				currentPage++;
 			}
 

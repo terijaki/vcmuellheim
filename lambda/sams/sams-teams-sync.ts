@@ -97,6 +97,7 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 					const ourTeams = teamData.content
 						.filter((t) => !t.masterTeamUuid)
 						.filter((t) => t.sportsclubUuid === sportsclubUuid)
+						.filter((t) => !!t.uuid && !!t.name && !!t.sportsclubUuid && !!t.associationUuid)
 						.map((t) => ({
 							uuid: t.uuid as string,
 							type: "team" as const,

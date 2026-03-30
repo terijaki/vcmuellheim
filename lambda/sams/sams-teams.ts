@@ -92,7 +92,9 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 			const slugifiedName = slugify(name);
 			console.log(`🔍 Querying team by nameSlug: ${name} (slug: ${slugifiedName})`);
 			const result = await samsEntities.team.query.byType({ type: "team" }).begins({ nameSlug: slugifiedName }).go({ pages: "all" });
-			teams = result.data;
+			// Prefer exact nameSlug matches; fall back to all prefix matches if none are exact
+			const exactMatches = result.data.filter((t) => t.nameSlug === slugifiedName);
+			teams = exactMatches.length > 0 ? exactMatches : result.data;
 		} else {
 			// No filters provided - return all teams (since we only store our club's teams)
 			const result = await samsEntities.team.query.byType({ type: "team" }).go({ pages: "all" });

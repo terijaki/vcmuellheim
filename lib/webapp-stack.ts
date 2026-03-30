@@ -75,7 +75,12 @@ export class WebAppStack extends cdk.Stack {
 
 		// Reference the SAMS table by computed ARN rather than a CDK cross-stack reference, so SamsApiStack can be updated independently without CF blocking the deletion of its exports.
 		const samsTableName = getSamsDataTableName(environment, branch);
-		const samsTableArn = `arn:aws:dynamodb:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:table/${samsTableName}`;
+		const stack = cdk.Stack.of(this);
+		const samsTableArn = stack.formatArn({
+			service: "dynamodb",
+			resource: "table",
+			resourceName: samsTableName,
+		});
 
 		const lambdaEnvironment: Record<string, string> = {
 			[CONTENT_TABLE_ENV_VAR]: props.contentTable.tableName,
