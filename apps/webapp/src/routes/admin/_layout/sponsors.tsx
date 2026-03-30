@@ -288,7 +288,7 @@ function SponsorsPage() {
 
 			const cleanedData = Object.fromEntries(
 				Object.entries({ ...formData, logoS3Key, ttl }).filter(([key, value]) => {
-					if (key === "logoS3Key" || key === "ttl" || key === "description" || key === "websiteUrl") return true;
+					if (key === "logoS3Key" || key === "ttl") return true;
 					return value !== "" && value !== undefined;
 				}),
 			);
@@ -305,7 +305,7 @@ function SponsorsPage() {
 					},
 				});
 			} else {
-				createMutation.mutate(Object.fromEntries(Object.entries(cleanedData).filter(([_, value]) => value !== null && value !== undefined)) as SponsorInput);
+				createMutation.mutate(Object.fromEntries(Object.entries(cleanedData).filter(([_, value]) => value !== null && value !== undefined && value !== "")) as SponsorInput);
 			}
 		} catch (error) {
 			notification.error({ message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
