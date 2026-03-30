@@ -298,12 +298,14 @@ function SponsorsPage() {
 					id: editingId,
 					data: {
 						...cleanedData,
+						description: formData.description || null, // null = clear existing value
+						websiteUrl: formData.websiteUrl || null, // null = clear existing value
 						logoS3Key: deleteLogo ? null : logoS3Key,
 						ttl: ttl ?? null,
 					},
 				});
 			} else {
-				createMutation.mutate(Object.fromEntries(Object.entries(cleanedData).filter(([_, value]) => value !== null && value !== undefined)) as SponsorInput);
+				createMutation.mutate(Object.fromEntries(Object.entries(cleanedData).filter(([_, value]) => value !== null && value !== undefined && value !== "")) as SponsorInput);
 			}
 		} catch (error) {
 			notification.error({ message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });

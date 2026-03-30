@@ -8,6 +8,7 @@ import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { eventSchema } from "@/lib/db/schemas";
 import { requireAuthMiddleware } from "../../middleware";
+import { resolveNullableUpdates } from "./patch-helpers";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
 
@@ -52,7 +53,7 @@ export const listAllEventsFn = createServerFn()
 
 export const createEventFn = createServerFn()
 	.middleware([requireAuthMiddleware])
-	.inputValidator(eventSchema.omit({ id: true, createdAt: true, updatedAt: true }))
+	.inputValidator(eventSchema.omit({ id: true, createdAt: true, updatedAt: true, ttl: true }))
 	.handler(async ({ data }) => {
 		const event = withTimestamps({
 			...data,
@@ -72,25 +73,35 @@ export const updateEventFn = createServerFn()
 	.inputValidator(
 		z.object({
 			id: z.uuid(),
-			data: eventSchema.omit({ id: true, createdAt: true, updatedAt: true }).partial(),
+			data: eventSchema
+				.omit({ id: true, createdAt: true, updatedAt: true, ttl: true })
+				.partial()
+				.extend({
+					description: z.string().nullable().optional(),
+					location: z.string().nullable().optional(),
+					variant: z.string().nullable().optional(),
+				}),
 		}),
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
-		let ttl: number | undefined;
-		if (updates.endDate || updates.startDate) {
-			ttl = dayjs(updates.endDate || updates.startDate)
-				.add(90, "day")
-				.unix();
-		}
+		const { description, location, variant, ...restUpdates } = updates;
+		const { setFields: nullableFields, removeKeys } = resolveNullableUpdates({
+			description,
+			location,
+			variant,
+		});
 
-		const result = await db()
-			.event.patch({ id })
-			.set({
-				...updates,
-				...(ttl ? { ttl } : {}),
-				updatedAt: new Date().toISOString(),
-			})
-			.go();
+		const setFields = {
+			...restUpdates,
+			...nullableFields,
+			...(updates.endDate || updates.startDate
+				? { ttl: dayjs(updates.endDate || updates.startDate).add(90, "day").unix() }
+				: {}),
+			updatedAt: new Date().toISOString(),
+		};
+
+		const patchOp = db().event.patch({ id }).set(setFields);
+		const result = await (removeKeys.length > 0 ? patchOp.remove(removeKeys) : patchOp).go();
 
 		if (!result.data) throw new Error("Event not found");
 

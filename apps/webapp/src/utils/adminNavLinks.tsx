@@ -26,7 +26,7 @@ export function getAdminRoutesWithLabels(admin = false): AdminRoute[] {
 			to: "/admin/teams",
 			label: "Mannschaften",
 			icon: <Users />,
-			description: "Informationen zu den Mannschaften, wie Trainingszeiten, Trainer, Mindestalter, Fotos.",
+			description: "Informationen zu den Mannschaften, wie Trainingszeiten, Trainer, Alter, Fotos.",
 		},
 		{
 			to: "/admin/members",

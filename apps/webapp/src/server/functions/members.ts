@@ -7,6 +7,7 @@ import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { memberSchema } from "@/lib/db/schemas";
 import { requireAuthMiddleware } from "../../middleware";
+import { resolveNullableUpdates } from "./patch-helpers";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
 
@@ -56,14 +57,33 @@ export const updateMemberFn = createServerFn()
 	.inputValidator(
 		z.object({
 			id: z.uuid(),
-			data: memberSchema.omit({ id: true, createdAt: true, updatedAt: true }).partial(),
+			data: memberSchema
+				.omit({ id: true, createdAt: true, updatedAt: true })
+				.partial()
+				.extend({
+					email: z.email().nullable().optional(),
+					phone: z.string().nullable().optional(),
+					roleTitle: z.string().max(100).nullable().optional(),
+					avatarS3Key: z.string().nullable().optional(),
+				}),
 		}),
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
-		const result = await db()
-			.member.patch({ id })
-			.set({ ...updates, updatedAt: new Date().toISOString() })
-			.go();
+		const { email, phone, roleTitle, avatarS3Key, ...restUpdates } = updates;
+		const { setFields: nullableFields, removeKeys } = resolveNullableUpdates({
+			email,
+			phone,
+			roleTitle,
+			avatarS3Key,
+		});
+
+		const setFields = {
+			...restUpdates,
+			...nullableFields,
+			updatedAt: new Date().toISOString(),
+		};
+		const patchOp = db().member.patch({ id }).set(setFields);
+		const result = await (removeKeys.length > 0 ? patchOp.remove(removeKeys) : patchOp).go();
 
 		if (!result.data) throw new Error("Member not found");
 

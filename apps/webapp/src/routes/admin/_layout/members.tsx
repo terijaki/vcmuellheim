@@ -273,11 +273,11 @@ function MembersPage() {
 
 		setUploading(true);
 		try {
-			let avatarS3Key = formData.avatarS3Key;
+			let avatarS3Key: string | null | undefined = formData.avatarS3Key;
 
 			// Handle avatar deletion
 			if (deleteAvatar) {
-				avatarS3Key = undefined;
+				avatarS3Key = null; // null tells the server to remove this attribute
 			}
 			// Upload new avatar if a file was selected
 			else if (avatarFile) {
@@ -304,13 +304,18 @@ function MembersPage() {
 			}
 
 			// Filter out empty strings to avoid DynamoDB GSI errors
-			// Keep undefined for avatarS3Key to support clearing the avatar
-			const cleanedData = Object.fromEntries(
-				Object.entries({ ...formData, avatarS3Key }).filter(([key, value]) => {
-					if (key === "avatarS3Key") return true; // Always include avatarS3Key (even if undefined)
-					return value !== "" && value !== undefined;
-				}),
-			);
+			// When editing, convert empty optional string fields to null so they can be cleared
+			const clearableOptionalFields = new Set(["email", "phone", "roleTitle"]);
+			const cleanedData: Record<string, unknown> = {};
+			for (const [key, value] of Object.entries({ ...formData, avatarS3Key })) {
+				if (key === "avatarS3Key") {
+					cleanedData[key] = avatarS3Key; // always include (null for deletion, string for set, undefined for no change)
+				} else if (editingId && clearableOptionalFields.has(key) && value === "") {
+					cleanedData[key] = null; // null signals the server to remove this attribute
+				} else if (value !== "" && value !== undefined) {
+					cleanedData[key] = value;
+				}
+			}
 
 			if (editingId) {
 				updateMutation.mutate({

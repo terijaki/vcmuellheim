@@ -37,6 +37,7 @@ export const eventSchema = z.object({
 	location: z.string().optional(),
 	variant: z.string().optional(),
 	teamIds: z.array(z.uuid()).optional().describe("Associated team IDs, to filter events by teams"),
+	ttl: z.number().int().positive().optional().describe("Unix timestamp for DynamoDB TTL"),
 });
 
 /** Training schedule schema */

@@ -99,6 +99,7 @@ export const EventEntity = new Entity({
 		location: { type: "string" },
 		variant: { type: "string" },
 		teamIds: { type: "list", items: { type: "string" } },
+		ttl: { type: "number" },
 		createdAt: { type: "string", required: true },
 		updatedAt: { type: "string", required: true },
 	},
