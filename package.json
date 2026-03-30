@@ -33,9 +33,8 @@
 		"cdk:diff": "cdk diff --profile vcmuellheim",
 		"cdk:diff:all": "cdk diff --all --profile vcmuellheim",
 		"cdk:diff:prod": "CDK_ENVIRONMENT=prod cdk diff --all --profile vcmuellheim",
-		"cdk:destroy": "cdk destroy --profile vcmuellheim --require-approval=never",
-		"cdk:destroy:all": "cdk destroy --all --profile vcmuellheim --require-approval=never",
-		"cdk:destroy:prod": "CDK_ENVIRONMENT=prod cdk destroy --all --profile vcmuellheim",
+		"cdk:destroy": "CDK_DESTROY=true cdk destroy --profile vcmuellheim --require-approval=never",
+		"cdk:destroy:all": "CDK_DESTROY=true cdk destroy --all --profile vcmuellheim --require-approval=never",
 		"cdk:bootstrap": "cdk bootstrap --profile vcmuellheim"
 	},
 	"dependencies": {
